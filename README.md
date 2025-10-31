@@ -8,7 +8,7 @@
 
 [![Latest Release](https://img.shields.io/github/release/itsfatduck/optimizerDuck?color=f27c13&label=Latest%20Release)](https://github.com/itsfatduck/optimizerDuck/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/itsfatduck/optimizerDuck/total?color=fed114&label=Downloads)](https://github.com/itsfatduck/optimizerDuck/releases)
-[![License](https://img.shields.io/github/license/itsfatduck/optimizerDuck?color=5cb85c&label=License)](./LICENSE)
+[![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-white)](./LICENSE)
 [![Discord](https://img.shields.io/discord/1091675679994675240?color=5865f2&label=Discord)](https://discord.gg/tDUBDCYw9Q)
 <br>
 [![.NET 10.0 RC2](https://img.shields.io/badge/.NET-10.0_RC2-512BD4?logoColor=white)](https://docs.microsoft.com/en-us/dotnet/core/install/windows)
