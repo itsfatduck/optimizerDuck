@@ -24,7 +24,7 @@ public static class SystemProtectionHelper
                  We were [{Theme.Error}]unable[/] to enable System Protection.
                  [{Theme.Muted}]For more information, check the log file.[/]
                  """,
-                new PromptOption("Try again", Theme.Warning, Enable), // Enable() trả bool
+                new PromptOption("Try again", Theme.Warning, Enable),
                 new PromptOption("Skip", Theme.Error, () => false)
             );
         }

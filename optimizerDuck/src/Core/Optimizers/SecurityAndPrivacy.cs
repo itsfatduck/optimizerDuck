@@ -151,7 +151,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
                 if (ShellService.CMD($"schtasks /Change /TN \"{task}\" /Disable").ExitCode != 0)
                     Log.LogError("Failed to disable task {Task}.", task);
 
-            Log.LogInformation("Disabled almost all telemetry.");
+            Log.LogInformation("Disabled telemetry.");
             // @formatter:on
             return Task.CompletedTask;
         }
@@ -185,7 +185,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
             return Task.CompletedTask;
         }
     }
-    
+
     public class DisableCopilotTweak : IOptimizationTweak
     {
         public string Name { get; } = "Disable Windows Copilot";
@@ -200,8 +200,14 @@ public class SecurityAndPrivacy : IOptimizationGroup
             using var tracker = ServiceTracker.Begin();
 
             RegistryService.Write(
-                new RegistryItem(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
-                    "TurnOffWindowsCopilot", 1)
+                 new RegistryItem(@"HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot", "TurnOffWindowsCopilot", 1),
+                 new RegistryItem(@"HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\WindowsCopilot", "TurnOffWindowsCopilot", 1),
+                 new RegistryItem(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "ShowCopilotButton", 0),
+                 new RegistryItem(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Shell\Copilot", "IsCopilotAvailable", 0),
+                 new RegistryItem(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Shell\Copilot", "CopilotDisabledReason", "IsEnabledForGeographicRegionFailed"),
+                 new RegistryItem(@"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsCopilot", "AllowCopilotRuntime", 0),
+                 new RegistryItem(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked", "{CB3B0003-8088-4EDE-8769-8B354AB2FF8C}", ""),
+                 new RegistryItem(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Shell\Copilot\BingChat", "IsUserEligible", 0)
             );
 
             Log.LogInformation("Windows Copilot disabled.");
