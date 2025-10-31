@@ -7,9 +7,9 @@ public class PromptPanel
 {
     private readonly BoxBorder _border = BoxBorder.Rounded;
     private readonly string _color = "white";
-    private readonly string _description = "";
-    private readonly char _index = ' ';
-    private readonly string _title = "";
+    private readonly string _description;
+    private readonly char _index;
+    private readonly string _title;
     private readonly int? _width;
 
     public PromptPanel(char index, string title, string description, string color, BoxBorder? border = null,
