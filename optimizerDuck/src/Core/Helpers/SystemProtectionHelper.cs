@@ -12,7 +12,9 @@ public static class SystemProtectionHelper
 
     public static bool Enable()
     {
+        using var tracker = ServiceTracker.Begin();
         Log.LogInformation("Enabling System Protection...");
+
         var result = ShellService.PowerShell("Enable-ComputerRestore -Drive \"$env:SystemDrive\"");
         if (result.ExitCode != 0)
         {
@@ -33,7 +35,9 @@ public static class SystemProtectionHelper
 
     public static void Create()
     {
+        using var tracker = ServiceTracker.Begin();
         Log.LogInformation("Creating a restore point...");
+
         var result =
             ShellService.PowerShell(
                 $"Checkpoint-Computer -Description \"{Defaults.RestorePointName}\" -RestorePointType MODIFY_SETTINGS");
@@ -49,9 +53,8 @@ public static class SystemProtectionHelper
                 new PromptOption("Skip", Theme.Error));
         }
         else
-        {
             Log.LogInformation(
                 $"[{Theme.Success}]A restore point [{Theme.Primary}]{Defaults.RestorePointName}[/] created successfully.[/]");
-        }
+
     }
 }

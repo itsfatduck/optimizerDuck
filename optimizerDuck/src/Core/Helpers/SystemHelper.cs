@@ -72,8 +72,6 @@ public static class SystemHelper
             Log.LogWarning("Path not excluded: {RootPath}", Defaults.RootPath);
             missingPaths.Add(Defaults.RootPath);
         }
-
-        // return missing path
         return missingPaths;
     }
 
