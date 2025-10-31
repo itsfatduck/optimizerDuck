@@ -80,10 +80,10 @@ public class PromptDialog
         var buttonList = new List<string>();
         var keyMap = new Dictionary<char, string>(); // "Yes" => Y: Yes
         foreach (var (option, key, rest, color) in from option in _options
-                 let key = char.ToUpper(option.Key[0])
-                 let rest = option.Key.Substring(1)
-                 let color = option.Color
-                 select (option, key, rest, color))
+                                                   let key = char.ToUpper(option.Key[0])
+                                                   let rest = option.Key.Substring(1)
+                                                   let color = option.Color
+                                                   select (option, key, rest, color))
         {
             buttonList.Add($"[{color}][underline]{key}[/]{rest}[/]");
             keyMap[key] = option.Key;
@@ -147,7 +147,7 @@ public class PromptDialog
             ? options
             :
             [
-                new PromptOption("Continue anyways", Theme.Success),
+                new PromptOption("Continue anyway", Theme.Success),
                 new PromptOption("Exit", Theme.Error, () => Environment.Exit(1))
             ];
 

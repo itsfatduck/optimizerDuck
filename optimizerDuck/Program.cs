@@ -56,7 +56,7 @@ internal class Program
                  [{Theme.Muted}]You can continue if you have already confirmed your administrator status.[/]
                  """,
                 new PromptOption("Restart", Theme.Warning, () => RequirementChecker.Restart(true)),
-                new PromptOption("Continue anyways", Theme.Success)
+                new PromptOption("Continue anyway", Theme.Success)
             );
         }
 
