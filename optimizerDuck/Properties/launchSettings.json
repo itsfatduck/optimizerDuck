@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "optimizerDuck": {
+      "commandName": "Project"
+    },
+    "WithRestartArgument": {
+      "commandName": "Project",
+      "commandLineArgs": "--restart"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+﻿[*.cs]
+
+
+# bro ts solve so many warnings!!
+# CA1416: Validate platform compatibility
+dotnet_diagnostic.CA1416.severity = silent
