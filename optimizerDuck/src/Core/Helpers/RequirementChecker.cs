@@ -38,12 +38,12 @@ public static class RequirementChecker
 
         if (int.TryParse(s.Os.Version, out var version) && version < 10) // only >= Windows 10 supported
         {
-            Log.LogWarning("Unsupported operating system.");
+            Log.LogWarning("Unsupported Windows version.");
 
             PromptDialog.Warning(
-                "Unsupported Operating System",
+                "Unsupported Windows Version",
                 $"""
-                 Your operating system version [{Theme.Error}]{s.Os.Version}[/] is not supported.
+                 Your Windows version [{Theme.Error}]{s.Os.Version}[/] is not supported.
                  Please upgrade to Windows 10 or later to use this application.
                  [{Theme.WarningMuted}]If you still want to continue, you can choose to do so, but keep in mind that some features may not work as expected.[/]
                  """,
