@@ -71,7 +71,6 @@ public class PerformanceAndPower : IOptimizationGroup
                 new RegistryItem(
                     @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games",
                     "GPU Priority", 8),
-                new RegistryItem(@"HKCU\Control Panel\Desktop", "AutoEndTasks", 1),
                 new RegistryItem(
                     @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile",
                     "NetworkThrottlingIndex", unchecked((int)0xFFFFFFFF), RegistryValueKind.DWord),
@@ -119,9 +118,9 @@ public class PerformanceAndPower : IOptimizationGroup
                 await StreamHelper.TryDownloadAsync(Defaults.PowerPlanUrl, "optimizerDuck.pow");
             if (success && !string.IsNullOrEmpty(powerPlanPath))
             {
-                // set other power plan to delete old one (if exists)
-                ShellService.CMD("powercfg /duplicatescheme 381b4222-f694-41f0-9685-ff5bb260df2e"); // Balanced
-                ShellService.CMD("powercfg /setactive 381b4222-f694-41f0-9685-ff5bb260df2e"); // Balanced
+                // set other power plan to delete old one (to avoid import errors)
+                ShellService.CMD("powercfg /duplicatescheme 381b4222-f694-41f0-9685-ff5bb260df2e"); // restore Balanced
+                ShellService.CMD("powercfg /setactive 381b4222-f694-41f0-9685-ff5bb260df2e"); // set Balanced
                 ShellService.CMD($"powercfg /delete {Defaults.PowerPlanGUID}");
                 Log.LogInformation("Deleted old power plan.");
 
@@ -162,7 +161,7 @@ public class PerformanceAndPower : IOptimizationGroup
             return Task.CompletedTask;
         }
     }
-    
+
     public class DisableHibernateTweak : IOptimizationTweak
     {
         public string Name { get; } = "Disable Hibernate";
