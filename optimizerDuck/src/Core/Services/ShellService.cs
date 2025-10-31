@@ -1,9 +1,9 @@
-﻿using System.Diagnostics;
-using System.Text;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using optimizerDuck.Core.Extensions;
 using optimizerDuck.UI.Logger;
 using Spectre.Console;
+using System.Diagnostics;
+using System.Text;
 
 namespace optimizerDuck.Core.Services;
 
@@ -19,7 +19,7 @@ public static class ShellService
     private static ShellResult Run(string fileName, string arguments, string command, string serviceName)
     {
         var fullCommand =
-            $"{fileName} {arguments.Replace("-EncodedCommand", "-Command")} {command.DecodeBase64()}"; // let user see the real command
+            $"{fileName} {arguments.Replace("-EncodedCommand", "-Command")} {DecodeBase64(command)}"; // let user see the real command
 
         var psi = new ProcessStartInfo
         {
@@ -107,5 +107,18 @@ public static class ShellService
     {
         var bytes = Encoding.Unicode.GetBytes(command);
         return Convert.ToBase64String(bytes);
+    }
+
+    private static string DecodeBase64(string value)
+    {
+        try
+        {
+            var bytes = Convert.FromBase64String(value);
+            return Encoding.Unicode.GetString(bytes);
+        }
+        catch
+        {
+            return string.Empty;
+        }
     }
 }

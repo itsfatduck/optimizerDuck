@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using optimizerDuck.Core;
 using optimizerDuck.Core.Extensions;
 using optimizerDuck.Core.Helpers;
@@ -9,6 +8,7 @@ using optimizerDuck.UI;
 using optimizerDuck.UI.Components;
 using optimizerDuck.UI.Logger;
 using Spectre.Console;
+using System.Text;
 
 namespace optimizerDuck;
 
@@ -151,7 +151,7 @@ internal class Program
                             Theme.Accent,
                             CustomBoxBorder.UnderlineBorder).Build()
                     )
-                    { Expand = false }
+                { Expand = false }
             );
             AnsiConsole.Write(start);
             AnsiConsole.Write(middlePanels);

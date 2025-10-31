@@ -39,17 +39,6 @@ public static class TextExtensions
         return sb.ToString();
     }
 
-    public static string DecodeBase64(this string value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-            return value;
-
-        Span<byte> buffer = new byte[value.Length];
-        return Convert.TryFromBase64String(value, buffer, out var bytesWritten)
-            ? Encoding.Unicode.GetString(buffer[..bytesWritten])
-            : string.Empty;
-    }
-
     public static string ParseCliXml(this string? cliXml)
     {
         if (string.IsNullOrWhiteSpace(cliXml))
