@@ -24,46 +24,48 @@ public static class RequirementChecker
     {
         if (!OperatingSystem.IsWindows())
         {
-            Log.LogWarning("Unsupported operating system.");
+            Log.LogWarning("Untested operating system.");
 
             PromptDialog.Warning(
-                "Unsupported Operating System",
+                "Untested Operating System",
                 """
-                Currently, this optimizer doesn't support non-Windows operating systems.
-                Please use a supported version of Windows to continue.
-                """,
-                new PromptOption("Exit", Theme.Error, () => Environment.Exit(1))
+        This optimizer has not been tested on non-Windows operating systems.
+        You may continue at your own risk, but some features may not work as expected.
+        """,
+                new PromptOption("Exit", Theme.Error, () => Environment.Exit(1)),
+                new PromptOption("Continue anyway", Theme.Warning)
             );
         }
 
-        if (int.TryParse(s.Os.Version, out var version) && version < 10) // only >= Windows 10 supported
+        if (int.TryParse(s.Os.Version, out var version) && version < 10)
         {
-            Log.LogWarning("Unsupported Windows version.");
+            Log.LogWarning("Untested Windows version.");
 
             PromptDialog.Warning(
-                "Unsupported Windows Version",
+                "Untested Windows Version",
                 $"""
-                 Your Windows version [{Theme.Error}]{s.Os.Version}[/] is not supported.
-                 Please upgrade to Windows 10 or later to use this application.
-                 [{Theme.WarningMuted}]If you still want to continue, you can choose to do so, but keep in mind that some features may not work as expected.[/]
-                 """,
+        Your Windows version [{Theme.Error}]{s.Os.Version}[/] has not been tested with this optimizer.
+        It is recommended to use Windows 10 or later.
+        [{Theme.WarningMuted}]You may continue anyway, but some features may not behave as expected.[/]
+        """,
                 new PromptOption("Exit", Theme.Error, () => Environment.Exit(1)),
-                new PromptOption("Continue anyways", Theme.Warning)
+                new PromptOption("Continue anyway", Theme.Warning)
             );
         }
 
-        if (!Environment.Is64BitOperatingSystem) // only 64-bit supported
+        if (!Environment.Is64BitOperatingSystem)
         {
-            Log.LogWarning("Unsupported operating system architecture.");
+            Log.LogWarning("Untested operating system architecture.");
+
             PromptDialog.Warning(
-                "Unsupported Operating System Architecture",
+                "Untested Operating System Architecture",
                 $"""
-                 Your operating system architecture [{Theme.Error}]{s.Os.Architecture}[/] is not supported.
-                 Please upgrade to a 64-bit version of Windows to use this application.
-                 [{Theme.WarningMuted}]If you still want to continue, you can choose to do so, but keep in mind that some features may not work as expected.[/]
-                 """,
+        Your system architecture [{Theme.Error}]{s.Os.Architecture}[/] has not been tested.
+        This optimizer is designed for 64-bit Windows systems.
+        [{Theme.WarningMuted}]You may continue anyway, but some features may not work properly.[/]
+        """,
                 new PromptOption("Exit", Theme.Error, () => Environment.Exit(1)),
-                new PromptOption("Continue anyways", Theme.Warning)
+                new PromptOption("Continue anyway", Theme.Warning)
             );
         }
     }
