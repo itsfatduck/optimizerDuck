@@ -1,7 +1,7 @@
-﻿using System.Diagnostics;
-using optimizerDuck.UI;
+﻿using optimizerDuck.UI;
 using optimizerDuck.UI.Components;
 using Spectre.Console;
+using System.Diagnostics;
 
 namespace optimizerDuck.Core;
 
@@ -54,9 +54,9 @@ public static class Defaults
                 // @formatter:on
                 HorizontalAlignment.Center
             ))
-        { Border = CustomBoxBorder.UnderlineBorder, Padding = new Padding(0, 1, 0, 1) };
+    { Border = CustomBoxBorder.UnderlineBorder, Padding = new Padding(0, 1, 0, 1) };
 
-    private static readonly string ExePath = Environment.ProcessPath!;
+    public static readonly string ExePath = Environment.ProcessPath!;
     public static readonly string ExeDir = Path.GetDirectoryName(ExePath)!;
     public static readonly string FileVersion = FileVersionInfo.GetVersionInfo(ExePath).FileVersion!;
 

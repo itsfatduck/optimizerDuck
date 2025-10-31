@@ -1,9 +1,9 @@
-﻿using System.Diagnostics;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using optimizerDuck.Core.Services;
 using optimizerDuck.UI;
 using optimizerDuck.UI.Logger;
+using System.Diagnostics;
 
 namespace optimizerDuck.Core.Helpers;
 
@@ -55,7 +55,7 @@ public static class SystemHelper
     {
         var result = ShellService.PowerShell($$"""
                                                @{ 
-                                                   SelfPath = (Get-MpPreference).ExclusionPath -contains "{{Defaults.ExeDir}}";
+                                                   SelfPath = (Get-MpPreference).ExclusionPath -contains "{{Defaults.ExePath}}";
                                                    RootPath = (Get-MpPreference).ExclusionPath -contains "{{Defaults.RootPath}}"
                                                } | ConvertTo-Json
                                                """);
@@ -63,7 +63,7 @@ public static class SystemHelper
         var missingPaths = new List<string>();
         if (exclusions != null && exclusions.TryGetValue("SelfPath", out var selfPathExcluded) && !selfPathExcluded)
         {
-            Log.LogWarning("Path not excluded: {SelfPath}", Defaults.ExeDir);
+            Log.LogWarning("Path not excluded: {SelfPath}", Defaults.ExePath);
             missingPaths.Add(Defaults.ExeDir);
         }
 
