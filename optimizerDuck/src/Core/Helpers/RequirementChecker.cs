@@ -1,11 +1,11 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using System.Security.Principal;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using optimizerDuck.Core.Services;
 using optimizerDuck.UI;
 using optimizerDuck.UI.Components;
 using optimizerDuck.UI.Logger;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Security.Principal;
 
 namespace optimizerDuck.Core.Helpers;
 
@@ -88,7 +88,7 @@ public static class RequirementChecker
                     }
                 };
                 Log.LogInformation("Restarting application with administrator privileges and maximized window.");
-                Log.LogWarning(
+                Log.LogInformation(
                     $"Please press [{Theme.Success}]Yes[/] if [{Theme.Primary}]User Account Control[/] (UAC) prompt appears.");
 
                 process.Start();

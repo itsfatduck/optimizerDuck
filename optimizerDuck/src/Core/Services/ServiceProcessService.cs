@@ -1,7 +1,7 @@
-﻿using System.Management;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using optimizerDuck.Models;
 using optimizerDuck.UI.Logger;
+using System.Management;
 
 namespace optimizerDuck.Core.Services;
 
@@ -22,7 +22,7 @@ public static class ServiceProcessService
 
             if (service == null)
             {
-                ServiceTracker.Current?.Log.LogWarning("Service '{ServiceName}' not found.", item.ServiceName);
+                ServiceTracker.Current?.Log.LogError("Service '{ServiceName}' not found.", item.ServiceName);
                 ServiceTracker.Current?.Track(nameof(ChangeServiceStartupType), false);
                 return false;
             }
@@ -50,7 +50,7 @@ public static class ServiceProcessService
                 return result;
             }
 
-            ServiceTracker.Current?.Log.LogWarning(
+            ServiceTracker.Current?.Log.LogError(
                 "Failed to change startup type for '{ServiceName}'. ReturnValue: {Result}", item.ServiceName,
                 resultCode);
             ServiceTracker.Current?.Track(nameof(ChangeServiceStartupType), false);

@@ -81,7 +81,7 @@ public static class SystemHelper
         foreach (var path in paths)
         {
             var result = ShellService.PowerShell($"Add-MpPreference -ExclusionPath \"{path}\"");
-            if (result.ExitCode != 0) Log.LogWarning($"[{Theme.Error}]Failed to add path to exclusions: {path}[/]");
+            if (result.ExitCode != 0) Log.LogError($"[{Theme.Error}]Failed to add path to exclusions: {path}[/]");
         }
     }
 }

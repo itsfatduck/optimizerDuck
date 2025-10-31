@@ -82,14 +82,14 @@ public class GamingOptimizations : IOptimizationGroup
             {
                 if (string.IsNullOrWhiteSpace(gpu.DeviceId))
                 {
-                    Log.LogWarning("Skipping GPU with no Device ID: {GpuName} (Device ID: {DeviceId})", gpu.Name,
+                    Log.LogError("Skipping GPU with no Device ID: {GpuName} (Device ID: {DeviceId})", gpu.Name,
                         gpu.DeviceId ?? "null");
                     continue;
                 }
 
                 if (!TryParseDeviceIdToIndex(gpu.DeviceId, out var index))
                 {
-                    Log.LogWarning("Skipping GPU with invalid Device ID: {GpuName} (Device ID: {DeviceId})", gpu.Name,
+                    Log.LogError("Skipping GPU with invalid Device ID: {GpuName} (Device ID: {DeviceId})", gpu.Name,
                         gpu.DeviceId ?? "null");
                     continue;
                 }
@@ -137,7 +137,7 @@ public class GamingOptimizations : IOptimizationGroup
                         break;
                     case GpuVendor.Unknown:
                     default:
-                        Log.LogWarning("Unsupported GPU vendor: {GpuVendor} for {GpuName} at index {GpuIndex:D4}.",
+                        Log.LogError("Unsupported GPU vendor: {GpuVendor} for {GpuName} at index {GpuIndex:D4}.",
                             gpu.Vendor, gpu.Name, index);
                         break;
                 }

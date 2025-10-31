@@ -18,7 +18,7 @@ public static class SystemProtectionHelper
         var result = ShellService.PowerShell("Enable-ComputerRestore -Drive \"$env:SystemDrive\"");
         if (result.ExitCode != 0)
         {
-            Log.LogWarning($"[{Theme.Error}]Failed to enable System Protection.[/]");
+            Log.LogError($"[{Theme.Error}]Failed to enable System Protection.[/]");
             return PromptDialog.Warning("Failed to enable System Protection",
                 $"""
                  We were [{Theme.Error}]unable[/] to enable System Protection.
@@ -43,7 +43,7 @@ public static class SystemProtectionHelper
                 $"Checkpoint-Computer -Description \"{Defaults.RestorePointName}\" -RestorePointType MODIFY_SETTINGS");
         if (result.ExitCode != 0)
         {
-            Log.LogWarning($"[{Theme.Error}]Failed to create restore point.[/]");
+            Log.LogError($"[{Theme.Error}]Failed to create restore point.[/]");
             PromptDialog.Warning("Failed to create Restore Point",
                 $"""
                  We were [{Theme.Error}]unable[/] to create a restore point.

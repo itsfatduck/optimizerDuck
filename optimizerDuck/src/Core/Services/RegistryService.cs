@@ -1,8 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using optimizerDuck.Models;
 using optimizerDuck.UI.Logger;
+using System.Diagnostics.CodeAnalysis;
 
 namespace optimizerDuck.Core.Services;
 
@@ -42,7 +42,7 @@ public static class RegistryService
 
         if (string.IsNullOrWhiteSpace(fullPath))
         {
-            ServiceTracker.Current?.Log.LogWarning("Registry path is null or empty");
+            ServiceTracker.Current?.Log.LogError("Registry path is null or empty");
             ServiceTracker.Current?.Track(nameof(RegistryService), false);
             return false;
         }
@@ -53,7 +53,7 @@ public static class RegistryService
 
         if (!RootKeysMap.TryGetValue(rootToken, out rootKey))
         {
-            ServiceTracker.Current?.Log.LogWarning("Unknown root key: {RootToken}", rootToken);
+            ServiceTracker.Current?.Log.LogError("Unknown root key: {RootToken}", rootToken);
             ServiceTracker.Current?.Track(nameof(RegistryService), false);
             return false;
         }
@@ -95,7 +95,7 @@ public static class RegistryService
                 return true;
             }
 
-            ServiceTracker.Current?.Log.LogWarning("SubKey not found: {Root}\\{SubPath}", rootKey.Name, subPath);
+            ServiceTracker.Current?.Log.LogError("SubKey not found: {Root}\\{SubPath}", rootKey.Name, subPath);
             ServiceTracker.Current?.Track(nameof(RegistryService), false);
             return false;
         }
