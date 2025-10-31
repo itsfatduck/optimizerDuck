@@ -53,24 +53,27 @@ public static class SystemHelper
 
     public static List<string> CheckForExclusions()
     {
+        var exePath = Defaults.ExePath;
+        var rootPath = Defaults.RootPath;
+
         var result = ShellService.PowerShell($$"""
                                                @{ 
-                                                   SelfPath = (Get-MpPreference).ExclusionPath -contains "{{Defaults.ExePath}}";
-                                                   RootPath = (Get-MpPreference).ExclusionPath -contains "{{Defaults.RootPath}}"
+                                                   SelfPath = (Get-MpPreference).ExclusionPath -contains "{{exePath}}";
+                                                   RootPath = (Get-MpPreference).ExclusionPath -contains "{{rootPath}}"
                                                } | ConvertTo-Json
                                                """);
         var exclusions = JsonConvert.DeserializeObject<Dictionary<string, bool>>(result.Stdout);
         var missingPaths = new List<string>();
         if (exclusions != null && exclusions.TryGetValue("SelfPath", out var selfPathExcluded) && !selfPathExcluded)
         {
-            Log.LogWarning("Path not excluded: {SelfPath}", Defaults.ExePath);
-            missingPaths.Add(Defaults.ExeDir);
+            Log.LogWarning("Path not excluded: {SelfPath}", exePath);
+            missingPaths.Add(exePath);
         }
 
         if (exclusions != null && exclusions.TryGetValue("RootPath", out var rootPathExcluded) && !rootPathExcluded)
         {
-            Log.LogWarning("Path not excluded: {RootPath}", Defaults.RootPath);
-            missingPaths.Add(Defaults.RootPath);
+            Log.LogWarning("Path not excluded: {RootPath}", rootPath);
+            missingPaths.Add(rootPath);
         }
         return missingPaths;
     }
