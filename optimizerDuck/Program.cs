@@ -4,6 +4,7 @@ using optimizerDuck.Core.Extensions;
 using optimizerDuck.Core.Helpers;
 using optimizerDuck.Core.Managers;
 using optimizerDuck.Core.Services;
+using optimizerDuck.src.Core.Services;
 using optimizerDuck.UI;
 using optimizerDuck.UI.Components;
 using optimizerDuck.UI.Logger;
@@ -212,6 +213,9 @@ internal class Program
         {
             Console.OutputEncoding =
                 Encoding.UTF8; // idk why, but it will fix some ansi issues of spectre console
+
+            var updateService = new UpdateService();
+            await updateService.CheckForUpdatesAsync();
 
             AnsiConsole.Clear();
             AnsiConsole.Write(Defaults.Logo);
