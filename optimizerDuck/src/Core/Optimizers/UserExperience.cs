@@ -14,20 +14,15 @@ public class UserExperience : IOptimizationGroup
     public int Priority { get; } = (int)OptimizationGroupPriority.UserExperience;
     public static ILogger Log { get; } = Logger.CreateLogger<UserExperience>();
 
-    public class OptimizeVisuals : IOptimizationTweak
+    public class TaskbarTweak : IOptimizationTweak
     {
-        public string Name { get; } = "Optimize Visuals";
-
-        public string Description { get; } =
-            "Adjusts visual effects and animations for better performance, prioritizing speed over visual appeal";
-
+        public string Name { get; } = "Taskbar Optimization";
+        public string Description { get; } = "Simplifies and cleans up the Windows taskbar for better performance.";
         public bool EnabledByDefault { get; } = true;
 
         public Task Apply(SystemSnapshot s)
         {
             using var tracker = ServiceTracker.Begin();
-            // @formatter:off
-            // taskbar
             RegistryService.Write(
                 new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Dsh", "AllowNewsAndInterests", 0),
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "TaskbarDa", 0),
@@ -47,15 +42,37 @@ public class UserExperience : IOptimizationGroup
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "TaskbarAnimations", 0)
             );
             Log.LogInformation("Taskbar cleaned up and simplified.");
+            return Task.CompletedTask;
+        }
+    }
 
-            // dark mode
+    public class DarkModeTweak : IOptimizationTweak
+    {
+        public string Name { get; } = "Dark Mode";
+        public string Description { get; } = "Forces Windows to use dark mode for apps and system.";
+        public bool EnabledByDefault { get; } = true;
+
+        public Task Apply(SystemSnapshot s)
+        {
+            using var tracker = ServiceTracker.Begin();
             RegistryService.Write(
                 new RegistryItem(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", 0),
                 new RegistryItem(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "SystemUsesLightTheme", 0)
             );
             Log.LogInformation("Switched to dark mode.");
+            return Task.CompletedTask;
+        }
+    }
 
-            // explorer
+    public class ExplorerTweak : IOptimizationTweak
+    {
+        public string Name { get; } = "Explorer Optimization";
+        public string Description { get; } = "Optimizes Windows Explorer visuals and usability.";
+        public bool EnabledByDefault { get; } = true;
+
+        public Task Apply(SystemSnapshot s)
+        {
+            using var tracker = ServiceTracker.Begin();
             RegistryService.Write(
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "ShowSyncProviderNotifications", 0),
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SystemPaneSuggestionsEnabled", 0),
@@ -67,22 +84,34 @@ public class UserExperience : IOptimizationGroup
                 new RegistryItem(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Serialize", "StartupDelayInMSec", 0),
                 new RegistryItem(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "ShowSecondsInSystemClock", 1),
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "ShowInfoTip", 0),
-                new RegistryItem(@"HKCU\SOFTWARE\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32", ""), // to use old Windows 10 context menu
+                new RegistryItem(@"HKCU\SOFTWARE\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32", ""), // old Win10 context menu
                 new RegistryItem(@"HKCU\Control Panel\Desktop", "MenuShowDelay", "0")
             );
             Log.LogInformation("Explorer visuals optimized.");
+            return Task.CompletedTask;
+        }
+    }
 
-            // visual performance
+
+    public class VisualPerformanceTweak : IOptimizationTweak
+    {
+        public string Name { get; } = "Visual Performance";
+        public string Description { get; } = "Sets Windows visual effects for best performance.";
+        public bool EnabledByDefault { get; } = true;
+
+        public Task Apply(SystemSnapshot s)
+        {
+            using var tracker = ServiceTracker.Begin();
             RegistryService.Write(
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects", "VisualFXSetting", 3),
                 new RegistryItem(@"HKCU\Control Panel\Desktop", "DragFullWindows", "0"),
                 new RegistryItem(@"HKCU\Control Panel\Desktop", "UserPreferencesMask", new byte[] { 144, 18, 3, 128, 16, 0, 0, 0 }, RegistryValueKind.Binary)
             );
             Log.LogInformation("Visual performance set to best.");
-            // @formatter:on
             return Task.CompletedTask;
         }
     }
+
 
 
     public class DisableNotifications : IOptimizationTweak

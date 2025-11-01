@@ -9,7 +9,7 @@
         <ApplicationIcon>Logo.ico</ApplicationIcon>
         <Configurations>Debug;Release</Configurations>
         <ApplicationManifest>app.manifest</ApplicationManifest>
-        <FileVersion>1.0.0</FileVersion>
+        <FileVersion>1.1.0</FileVersion>
         <NeutralLanguage>en</NeutralLanguage>
         <PlatformTarget>x64</PlatformTarget>
     </PropertyGroup>

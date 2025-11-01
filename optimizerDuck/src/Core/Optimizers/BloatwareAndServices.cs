@@ -67,7 +67,7 @@ public class BloatwareAndServices : IOptimizationGroup
         {
             using var tracker = ServiceTracker.Begin();
             RegistryService.Write(
-                // thank you again, WinUtil (CTT)
+                // thank you again, WinUtil
                 new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\EdgeUpdate", "CreateDesktopShortcutDefault", 0),
                 new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Edge", "PersonalizationReportingEnabled", 0),
                 new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Edge", "ShowRecommendationsEnabled", 0),
