@@ -18,6 +18,22 @@
 
 ---
 
+# Table of Contents
+
+1. [Download](#download)
+2. [What It Actually Does](#what-it-actually-does)
+3. [Safety First](#safety-first)
+4. [Mindset Matters](#mindset-matters)
+5. [Why I Built optimizerDuck](#why-i-built-optimizerduck)
+6. [Community & Support](#community--support)
+7. [Contributing](#contributing)
+8. [Acknowledgments](#acknowledgments)
+9. [Disclaimer](#disclaimer)
+10. [License](#license)
+11. [Star History](#star-history)
+
+---
+
 ## Download
 
 <img src="./.github/assets/app_screenshot.png" alt="optimizerDuck App Screenshot" title="optimizerDuck App Screenshot" width="1000" />
@@ -72,6 +88,14 @@
 - Keep your OS lean: avoid unnecessary VPNs, multiple antiviruses, or background apps.
 - When gaming, close what you don't need (browsers, IDEs, chat apps, etc.).
 - Fewer distractions = more resources for what really matters.
+
+---
+
+## Why I Built optimizerDuck
+
+I run games on a **low-spec PC**, so smooth play is always a struggle. I spent hours digging through forums and community threads, trying everything I could find: **editing configs**, **applying `.reg` tweaks**, **running shell commands**, and **using third-party tools**. Those tweaks helped, but I never found a "**tweaker**" that felt right. Some **cost money**, some **looked fake**, and many **didn't** let me choose the exact changes I wanted.
+
+I made this tool because I enjoy tweaking my system and wanted something simple and honest I could control. **Every tweak** here has been **tested** by me and carefully chosen to improve gameplay without surprises.
 
 ---
 

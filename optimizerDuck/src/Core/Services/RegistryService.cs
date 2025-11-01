@@ -136,24 +136,33 @@ public static class RegistryService
             {
                 var value = key.GetValue(item.Name);
                 if (value is null) return default;
+
                 if (value is T tValue) return tValue;
 
-                if (typeof(T) == typeof(byte[]) && value is byte[] bytes) return (T)(object)bytes;
-                if (typeof(T) == typeof(string[]) && value is string[] arr) return (T)(object)arr;
+                var targetType = typeof(T);
 
-                if (typeof(T) == typeof(int) && value is int i) return (T)(object)i;
-                if (typeof(T) == typeof(bool) && value is int i2) return (T)(object)(i2 != 0);
+                if (targetType == typeof(byte[]) && value is byte[] bytes) return (T)(object)bytes;
+                if (targetType == typeof(string[]) && value is string[] arr) return (T)(object)arr;
 
-                return (T)Convert.ChangeType(value, typeof(T));
+                if (targetType == typeof(int) && value is int i) return (T)(object)i;
+                if (targetType == typeof(bool))
+                {
+                    if (value is int i2) return (T)(object)(i2 != 0);
+                    if (value is string s && bool.TryParse(s, out var b)) return (T)(object)b;
+                }
+
+                return (T)Convert.ChangeType(value, targetType);
             }
             catch (Exception ex)
             {
-                ServiceTracker.Current?.Log.LogError(ex, "Failed to read or convert registry value {Path}:{Name}",
-                    item.Path, item.Name);
+                ServiceTracker.Current?.Log.LogError(ex,
+                    "Failed to read registry value {Path}:{Name} as {TargetType}",
+                    item.Path, item.Name, typeof(T).FullName);
                 return default;
             }
         });
     }
+
 
     public static bool Write(RegistryItem registryItem)
     {
