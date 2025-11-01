@@ -1,8 +1,8 @@
-﻿using System.Management;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using optimizerDuck.UI;
 using Spectre.Console;
 using Spectre.Console.Rendering;
+using System.Management;
 
 namespace optimizerDuck.Core.Services;
 
@@ -28,6 +28,9 @@ public sealed record GpuInfo(
 )
 {
     public static readonly GpuInfo Unknown = new("Unknown", "Unknown", GpuVendor.Unknown, null, null, null);
+
+    public override string ToString() =>
+        $"GPU: {Name}, Driver: {DriverVersion}, Vendor: {Vendor}, Memory: {MemoryMB} MB, DeviceId: {DeviceId}, PnpDeviceId: {PnpDeviceId}";
 }
 
 public sealed record CpuInfo(

@@ -80,6 +80,7 @@ public class GamingOptimizations : IOptimizationGroup
 
             foreach (var gpu in s.Gpus)
             {
+                Log.LogDebug("GPU Info: {GPUInfo}", gpu);
                 if (string.IsNullOrWhiteSpace(gpu.DeviceId))
                 {
                     Log.LogError("Skipping GPU with no Device ID: {GpuName} (Device ID: {DeviceId})", gpu.Name,
