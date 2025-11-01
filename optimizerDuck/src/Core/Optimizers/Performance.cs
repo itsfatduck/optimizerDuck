@@ -183,12 +183,11 @@ public class Performance : IOptimizationGroup
         }
     }
 
-    public class GPUTweaks : IOptimizationTweak
+    public class GpuOptimizationTweak : IOptimizationTweak
     {
-        public string Name { get; } = "GPU Tweaks";
+        public string Name { get; } = "GPU Optimization";
 
-        public string Description { get; } =
-            "Applies GPU tweaks to disable extras and boost stability & performance";
+        public string Description { get; } = "Optimizes GPU driver settings to disable unnecessary features and improve stability & performance";
 
         public bool EnabledByDefault { get; } = true;
 
