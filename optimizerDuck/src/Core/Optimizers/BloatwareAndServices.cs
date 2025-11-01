@@ -10,7 +10,7 @@ namespace optimizerDuck.Core.Optimizers;
 public class BloatwareAndServices : IOptimizationGroup
 {
     public string Name { get; } = "Bloatware & Services";
-    public int Priority { get; } = (int)OptimizationGroupPriority.BloatwareAndServices;
+    public int Order { get; } = (int)OptimizationGroupOrder.BloatwareAndServices;
     public static ILogger Log { get; } = Logger.CreateLogger<BloatwareAndServices>();
 
     public class RemoveBloatwareApps : IOptimizationTweak

@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microsoft.Win32;
+using optimizerDuck.Core.Helpers;
 using optimizerDuck.Core.Services;
 using optimizerDuck.Interfaces;
 using optimizerDuck.Models;
@@ -6,11 +8,108 @@ using optimizerDuck.UI.Logger;
 
 namespace optimizerDuck.Core.Optimizers;
 
-public class GamingOptimizations : IOptimizationGroup
+public class Performance : IOptimizationGroup
 {
-    public string Name { get; } = "Gaming Optimizations";
-    public int Priority { get; } = (int)OptimizationGroupPriority.GamingOptimizations;
-    public static ILogger Log { get; } = Logger.CreateLogger<GamingOptimizations>();
+    public string Name => "Performance";
+    public int Order => (int)OptimizationGroupOrder.PerformanceAndPower;
+    public static ILogger Log { get; } = Logger.CreateLogger<Performance>();
+
+    public class BackgroundAppsTweak : IOptimizationTweak
+    {
+        public string Name { get; } = "Disable Background Apps";
+        public string Description { get; } = "Disables background applications to free up resources.";
+        public bool EnabledByDefault { get; } = true;
+
+        public Task Apply(SystemSnapshot s)
+        {
+            RegistryService.Write(
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications", "GlobalUserDisabled", 1),
+                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search", "BackgroundAppGlobalToggle", 0)
+            );
+            Log.LogInformation("Disabled background applications.");
+            return Task.CompletedTask;
+        }
+    }
+
+    public class ProcessPriorityTweak : IOptimizationTweak
+    {
+        public string Name { get; } = "Process Priority Optimization";
+        public string Description { get; } = "Adjusts Win32PrioritySeparation for better foreground responsiveness.";
+        public bool EnabledByDefault { get; } = true;
+
+        public Task Apply(SystemSnapshot s)
+        {
+            /*
+             ref: https://forums.blurbusters.com/viewtopic.php?t=8535
+            42 Dec, 2A Hex = Short, Fixed , High foreground boost.
+            41 Dec, 29 Hex = Short, Fixed , Medium foreground boost.
+            40 Dec, 28 Hex = Short, Fixed , No foreground boost.
+
+            38 Dec, 26 Hex = Short, Variable , High foreground boost.
+            37 Dec, 25 Hex = Short, Variable , Medium foreground boost.
+            36 Dec, 24 Hex = Short, Variable , No foreground boost.
+
+            26 Dec, 1A Hex = Long, Fixed, High foreground boost.
+            25 Dec, 19 Hex = Long, Fixed, Medium foreground boost.
+            24 Dec, 18 Hex = Long, Fixed, No foreground boost.
+
+            22 Dec, 16 Hex = Long, Variable, High foreground boost.
+            21 Dec, 15 Hex = Long, Variable, Medium foreground boost.
+            20 Dec, 14 Hex = Long, Variable, No foreground boost.
+             */
+
+            const int win32Priority = 38; // Short, Variable, High foreground boost
+            RegistryService.Write(
+                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl", "Win32PrioritySeparation", win32Priority)
+            );
+            Log.LogInformation("Applied process priority tweak (Win32PrioritySeparation = {Value}).", win32Priority);
+            return Task.CompletedTask;
+        }
+    }
+
+    public class GameSchedulingTweak : IOptimizationTweak
+    {
+        public string Name { get; } = "Game Scheduling & Priority";
+        public string Description { get; } = "Optimizes system profile and GPU scheduling for gaming performance.";
+        public bool EnabledByDefault { get; } = true;
+
+        public Task Apply(SystemSnapshot s)
+        {
+            RegistryService.Write(
+                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games", "Priority", 2),
+                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games", "Scheduling Category", "High"),
+                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games", "SFIO Priority", "High"),
+                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games", "GPU Priority", 8),
+                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile", "NetworkThrottlingIndex", unchecked((int)0xFFFFFFFF), RegistryValueKind.DWord),
+                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile", "SystemResponsiveness", 10),
+                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers", "HwSchMode", 2)
+            );
+            Log.LogInformation("Applied gaming optimizations.");
+            return Task.CompletedTask;
+        }
+    }
+
+    public class SvcHostSplitTweak : IOptimizationTweak
+    {
+        public string Name { get; } = "SvcHost Split Threshold";
+        public string Description { get; } = "Adjusts SvcHostSplitThresholdInKB based on total system RAM.";
+        public bool EnabledByDefault { get; } = true;
+
+        public Task Apply(SystemSnapshot s)
+        {
+            if (s.Ram.TotalKB > 0)
+            {
+                RegistryService.Write(
+                    new RegistryItem(@"HKLM\SYSTEM\ControlSet001\Control", "SvcHostSplitThresholdInKB", s.Ram.TotalKB, RegistryValueKind.DWord)
+                );
+                Log.LogInformation("Set SvcHostSplitThresholdInKB to {Value}.", s.Ram.TotalKB);
+            }
+            return Task.CompletedTask;
+        }
+    }
+
+
+
 
     public class DisableGameBar : IOptimizationTweak
     {
@@ -32,6 +131,29 @@ public class GamingOptimizations : IOptimizationGroup
                 new RegistryItem(@"HKCU\Software\Microsoft\GameBar", "GamePanelStartupTipIndex", 0)
             );
             Log.LogInformation("Game Bar has been disabled.");
+            return Task.CompletedTask;
+        }
+    }
+
+    public class GameModeTweak : IOptimizationTweak
+    {
+        public string Name { get; } = "Enable Game Mode";
+        public string Description { get; } = "Enables Windows Game Mode (RECOMMENDED for Windows 11+).";
+        public bool EnabledByDefault { get; }
+
+        public GameModeTweak()
+        {
+            EnabledByDefault = SystemHelper.IsWindows11OrGreater();
+        }
+
+        public Task Apply(SystemSnapshot s)
+        {
+            RegistryService.Write(
+                new RegistryItem(@"HKCU\Software\Microsoft\GameBar", "AllowAutoGameMode", 1),
+                new RegistryItem(@"HKCU\Software\Microsoft\GameBar", "AutoGameModeEnabled", 1)
+            );
+            Log.LogInformation("Enabled Game Mode.");
+
             return Task.CompletedTask;
         }
     }

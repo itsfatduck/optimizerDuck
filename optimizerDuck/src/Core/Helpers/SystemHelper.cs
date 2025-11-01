@@ -46,6 +46,11 @@ public static class SystemHelper
         });
     }
 
+    public static bool IsWindows11OrGreater()
+    {
+        return int.TryParse(SystemInfoService.Snapshot.Os.Version, out var v) && v >= 11;
+    }
+
     public static void Title(string title)
     {
         Console.Title = $"optimizerDuck [{Defaults.FileVersion}] - {title}";

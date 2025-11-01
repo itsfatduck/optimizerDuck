@@ -11,7 +11,7 @@ namespace optimizerDuck.Core.Optimizers;
 public class UserExperience : IOptimizationGroup
 {
     public string Name { get; } = "User Experience";
-    public int Priority { get; } = (int)OptimizationGroupPriority.UserExperience;
+    public int Order { get; } = (int)OptimizationGroupOrder.UserExperience;
     public static ILogger Log { get; } = Logger.CreateLogger<UserExperience>();
 
     public class TaskbarTweak : IOptimizationTweak
@@ -212,8 +212,7 @@ public class UserExperience : IOptimizationGroup
                  If you have Windows Server 2022/Windows 11 you must have in your registry:
                  [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\kernel] "GlobalTimerResolutionRequests"=dword:00000001
                 */
-                if (int.TryParse(s.Os.Version, out var version) &&
-                    version >= 11) // i dont check for server versions..................
+                if (SystemHelper.IsWindows11OrGreater()) // i dont check for server versions..................
                     RegistryService.Write(new RegistryItem(
                         @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\kernel",
                         "GlobalTimerResolutionRequests", 1));

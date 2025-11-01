@@ -86,7 +86,7 @@ internal class Program
                 _systemSnapshot = await SystemInfoService.RefreshAsync().ConfigureAwait(false);
 
                 Log.LogDebug("=== System Information ===");
-                SystemInfoService.GetSummary(_systemSnapshot, Log);
+                SystemInfoService.GetSummary(Log);
                 Log.LogDebug("==========================");
 
                 ctx.Status("Checking and creating necessary paths...");

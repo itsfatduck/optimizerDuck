@@ -1,6 +1,6 @@
 ﻿namespace optimizerDuck.Models;
 
-public enum OptimizationGroupPriority
+public enum OptimizationGroupOrder
 {
     SecurityAndPrivacy,
     PerformanceAndPower,

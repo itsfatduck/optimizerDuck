@@ -72,7 +72,7 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                     })
                     .ToList();
 
-                groups.Add(new OptimizationGroupChoice(groupInstance.Name, groupInstance.Priority, tweakChoices));
+                groups.Add(new OptimizationGroupChoice(groupInstance.Name, groupInstance.Order, tweakChoices));
             }
 
             var orderedGroups = groups.OrderBy(g => g.Priority).ToList();

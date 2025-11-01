@@ -9,7 +9,7 @@ namespace optimizerDuck.Core.Optimizers;
 public class SecurityAndPrivacy : IOptimizationGroup
 {
     public string Name => "Security & Privacy";
-    public int Priority => (int)OptimizationGroupPriority.SecurityAndPrivacy;
+    public int Order => (int)OptimizationGroupOrder.SecurityAndPrivacy;
     public static ILogger Log { get; } = Logger.CreateLogger<SecurityAndPrivacy>();
 
     public class DisableUAC : IOptimizationTweak
