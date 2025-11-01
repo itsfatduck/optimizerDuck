@@ -29,7 +29,7 @@ public class BloatwareAndServices : IOptimizationGroup
             while (OptimizationManager.SelectedBloatware.TryDequeue(out var bloatware))
             {
                 Log.LogInformation("Removing bloatware app: {Bloatware}", bloatware);
-                ShellService.PowerShell($"Get-AppxPackage -AllUsers -Name \"*{bloatware}*\" | Remove-AppxPackage");
+                ShellService.PowerShell($"""Get-AppxPackage -AllUsers -Name "*{bloatware}*" | Remove-AppxPackage""");
             }
 
             Log.LogInformation("Bloatware apps have been removed.");
@@ -104,7 +104,6 @@ public class BloatwareAndServices : IOptimizationGroup
             using var tracker = ServiceTracker.Begin();
 
             ServiceProcessService.ChangeServiceStartupType(
-                // based on WinUtil (CTT) configuration
                 new ServiceItem("AJRouter", ServiceStartupType.Disabled),
                 new ServiceItem("ALG", ServiceStartupType.Manual),
                 new ServiceItem("AppIDSvc", ServiceStartupType.Manual),
@@ -236,7 +235,7 @@ public class BloatwareAndServices : IOptimizationGroup
                 new ServiceItem("SstpSvc", ServiceStartupType.Manual),
                 new ServiceItem("StiSvc", ServiceStartupType.Manual),
                 new ServiceItem("StorSvc", ServiceStartupType.Manual),
-                new ServiceItem("SysMain", ServiceStartupType.Disabled),
+                new ServiceItem("SysMain", ServiceStartupType.Manual),
                 new ServiceItem("SystemEventsBroker", ServiceStartupType.Automatic),
                 new ServiceItem("TabletInputService", ServiceStartupType.Manual),
                 new ServiceItem("TapiSrv", ServiceStartupType.Manual),

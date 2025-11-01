@@ -61,7 +61,7 @@ public class PerformanceAndPower : IOptimizationGroup
                     win32Priority),
                 new RegistryItem(
                     @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games",
-                    "Priority", 6),
+                    "Priority", 2),
                 new RegistryItem(
                     @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games",
                     "Scheduling Category", "High"),
@@ -76,7 +76,7 @@ public class PerformanceAndPower : IOptimizationGroup
                     "NetworkThrottlingIndex", unchecked((int)0xFFFFFFFF), RegistryValueKind.DWord),
                 new RegistryItem(
                     @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile",
-                    "SystemResponsiveness", 0),
+                    "SystemResponsiveness", 10),
                 new RegistryItem(@"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers", "HwSchMode",
                     2) // idk
             );
