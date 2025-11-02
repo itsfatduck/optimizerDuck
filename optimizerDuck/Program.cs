@@ -214,11 +214,11 @@ internal class Program
             Console.OutputEncoding =
                 Encoding.UTF8; // idk why, but it will fix some ansi issues of spectre console
 
-            var updateService = new UpdateService();
-            await updateService.CheckForUpdatesAsync();
-
             AnsiConsole.Clear();
             AnsiConsole.Write(Defaults.Logo);
+
+            var updateService = new UpdateService();
+            await updateService.CheckForUpdatesAsync();
 
             var app = new Program();
             await app.Init().ConfigureAwait(false);

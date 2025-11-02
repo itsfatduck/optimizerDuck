@@ -1,5 +1,7 @@
+using ConsoleInk;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using optimizerDuck.Core;
 using optimizerDuck.Core.Services;
 using optimizerDuck.UI;
 using optimizerDuck.UI.Components;
@@ -39,19 +41,30 @@ public class UpdateService
                 return;
             }
 
+            // "v1.1.0" -> "1.1.0"
             var latestVersionStr = latestRelease.TagName.TrimStart('v');
-            if (Version.TryParse(latestVersionStr, out var latestVersion))
+
+            // "1.1.0-fix" -> "1.1.0"
+            var dashIndex = latestVersionStr.IndexOf('-');
+            if (dashIndex != -1)
+                latestVersionStr = latestVersionStr[..dashIndex];
+
+            // Parse version
+            if (!Version.TryParse(latestVersionStr, out var latestVersion))
             {
                 Log.LogWarning($"Could not parse latest release version: {latestRelease.TagName}");
                 return;
             }
 
-            var currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+            var currentVersion = Assembly.GetExecutingAssembly().GetName().Version
+                                 ?? new Version(0, 0, 0);
 
-            if (true)
+            if (latestVersion > currentVersion)
             {
-                Log.LogInformation($"[green]A new version ({latestVersion}) is available![/]");
-                var asset = latestRelease.Assets?.FirstOrDefault(a => a.Name.StartsWith("optimizerDuck", StringComparison.OrdinalIgnoreCase) && a.Name.EndsWith(".exe"));
+                var asset = latestRelease.Assets?
+                    .FirstOrDefault(a =>
+                        a.Name.StartsWith("optimizerDuck", StringComparison.OrdinalIgnoreCase)
+                        && a.Name.EndsWith(".exe", StringComparison.OrdinalIgnoreCase));
 
                 if (asset == null)
                 {
@@ -59,24 +72,44 @@ public class UpdateService
                     return;
                 }
 
-                if (PromptDialog.Warning("Found New Update",
-                        $"""
-                        Found new update version: [{Theme.Primary}]{latestVersionStr}[/].
-                        Do you want to download and install it now?
-                        """,
-                        new PromptOption("Yes", Theme.Success),
-                        new PromptOption("Not now", Theme.Warning, () => false)))
-                    await DownloadAndApplyUpdate(asset);
 
+                Log.LogInformation($"A new version ({latestVersion}) is available!");
+
+                if (!string.IsNullOrWhiteSpace(latestRelease.Body))
+                {
+                    Log.LogDebug($"Release notes: {latestRelease.Body}");
+
+                    var options = new MarkdownRenderOptions
+                    {
+                        UseHyperlinks = true,
+                        EnableColors = true,
+                        Theme = ConsoleTheme.Default
+                    };
+                    MarkdownConsole.Render(latestRelease.Body, Console.Out, options);
+                }
+
+                if (PromptDialog.Warning(
+                    "Update Available",
+                    $"""
+                    A new version [{Theme.Primary}]{latestVersionStr}[/] is ready to install.
+                    Updating ensures you get the latest features and fixes.
+        
+                    Would you like to download and install it now?
+                    """,
+                    new PromptOption("Yes, update now", Theme.Success),
+                    new PromptOption("Not now", Theme.Warning, () => false)))
+                {
+                    await DownloadAndApplyUpdate(asset);
+                }
             }
             else
             {
-                AnsiConsole.MarkupLine("[green]You are running the latest version.[/]");
+                Log.LogInformation("You are running the latest version.");
             }
         }
         catch (Exception ex)
         {
-            AnsiConsole.MarkupLine($"[red]Error checking for updates: {ex.Message}[/]");
+            Log.LogError(ex, $"Error checking for updates: [{Theme.Error}]{ex.Message}[/]");
         }
     }
 
@@ -84,90 +117,97 @@ public class UpdateService
     {
         var tempPath = Path.Combine(Path.GetTempPath(), asset.Name);
 
-        await AnsiConsole.Progress()
-            .StartAsync(async ctx =>
+        await AnsiConsole.Progress().StartAsync(async ctx =>
+        {
+            Log.LogInformation("Downloading update from {DownloadUrl} to {TempPath}", asset.BrowserDownloadUrl, tempPath);
+            var task = ctx.AddTask($"Downloading [{Theme.Primary}]{asset.Name}[/]");
+
+            using var response = await HttpClient.GetAsync(asset.BrowserDownloadUrl, HttpCompletionOption.ResponseHeadersRead);
+            response.EnsureSuccessStatusCode();
+
+            var totalBytes = response.Content.Headers.ContentLength ?? -1L;
+            task.MaxValue = totalBytes;
+
+            await using var contentStream = await response.Content.ReadAsStreamAsync();
+            await using var fileStream = new FileStream(tempPath, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true);
+
+            var buffer = new byte[8192];
+            long downloadedBytes = 0;
+            int bytesRead;
+
+            while ((bytesRead = await contentStream.ReadAsync(buffer.AsMemory(0, buffer.Length))) > 0)
             {
-                var task = ctx.AddTask($"[cyan]Downloading {asset.Name}[/]");
-                using var response = await HttpClient.GetAsync(asset.BrowserDownloadUrl, HttpCompletionOption.ResponseHeadersRead);
-                response.EnsureSuccessStatusCode();
+                await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead));
+                downloadedBytes += bytesRead;
+                task.Value = downloadedBytes;
+            }
+        });
 
-                var totalBytes = response.Content.Headers.ContentLength ?? -1L;
-                task.MaxValue = totalBytes;
-
-                using var contentStream = await response.Content.ReadAsStreamAsync();
-                using var fileStream = new FileStream(tempPath, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true);
-
-                var buffer = new byte[8192];
-                long downloadedBytes = 0;
-                int bytesRead;
-
-                while ((bytesRead = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
-                {
-                    await fileStream.WriteAsync(buffer, 0, bytesRead);
-                    downloadedBytes += bytesRead;
-                    task.Value = downloadedBytes;
-                }
-            });
-
-        AnsiConsole.MarkupLine("[green]Download complete.[/] [grey]Starting update...[/]");
+        Log.LogInformation("Download complete.");
         LaunchUpdater(tempPath);
     }
 
-    private void LaunchUpdater(string zipPath)
+    private void LaunchUpdater(string exePath)
     {
+        Log.LogInformation("Starting update...");
         var currentProcess = Process.GetCurrentProcess();
-        var exePath = currentProcess.MainModule!.FileName;
-        var appDirectory = AppContext.BaseDirectory;
-        var exeName = Path.GetFileName(exePath);
+        Log.LogDebug("Current process ID: {Pid}", currentProcess.Id);
+        Log.LogDebug("New executable path: {ExePath}", exePath);
+        Log.LogDebug("Current (old) executable path: {OldExePath}", Defaults.ExePath);
 
         string script = $"""
-                         param (
-                             [string]$Pid,
-                             [string]$ZipPath,
-                             [string]$ExtractPath,
-                             [string]$ExeName
-                         )
-                         
-                         Write-Host "Updater script started."
-                         Write-Host "Waiting for main process ($Pid) to exit..."
-                         Wait-Process -Id $Pid
-                         Write-Host "Main process exited."
-                         
-                         Write-Host "Extracting update from '$ZipPath' to '$ExtractPath'..."
-                         Expand-Archive -Path $ZipPath -DestinationPath $ExtractPath -Force
-                         Write-Host "Extraction complete."
-                         
-                         Write-Host "Cleaning up..."
-                         Remove-Item -Path $ZipPath
-                         Write-Host "Update package removed."
-                         
-                         $exePath = Join-Path -Path $ExtractPath -ChildPath $ExeName
-                         Write-Host "Restarting application: '$exePath'..."
-                         Start-Process -FilePath $exePath
-                         Write-Host "Updater script finished."
-                         """;
+                     Write-Host "Updater script started."
+                     Write-Host "Waiting for main process ({currentProcess.Id}) to exit..."
+                     Wait-Process -Id {currentProcess.Id}
+                     Write-Host "Main process exited."
 
-        ShellService.PowerShell($"{script} -Pid {currentProcess.Id} -ZipPath \"{zipPath}\" -ExtractPath \"{appDirectory}\" -ExeName \"{exeName}\"");
+                     Write-Host "Replacing old executable..."
+                     Copy-Item -Path {exePath} -Destination {Defaults.ExePath} -Force
+                     Write-Host "Replacement complete."
 
+                     Write-Host "Starting updated application..."
+                     Start-Process -FilePath {Defaults.ExePath}
+
+                     Write-Host "Cleaning up..."
+                     Remove-Item -Path {exePath} -Force
+                     Write-Host "Updater script finished."
+                     """;
+
+        var psi = new Process
+        {
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = "powershell.exe",
+                Arguments = $"-NonInteractive -NoLogo -NoProfile -ExecutionPolicy Bypass -EncodedCommand {ShellService.EncodePowerShellCommand(script)}",
+                UseShellExecute = true, // start as a separate process via the shell so it doesn't inherit debugger/std handles
+                CreateNoWindow = true
+            }
+        };
+
+        psi.Start();
         Environment.Exit(0);
     }
+
 }
 
 // Helper classes for deserializing GitHub API response
 public class GitHubRelease
 {
     [JsonProperty("tag_name")]
-    public string TagName { get; set; }
+    public required string TagName { get; set; }
 
     [JsonProperty("assets")]
-    public List<GitHubAsset> Assets { get; set; }
+    public required List<GitHubAsset> Assets { get; set; }
+
+    [JsonProperty("body")]
+    public required string Body { get; set; }
 }
 
 public class GitHubAsset
 {
     [JsonProperty("name")]
-    public string Name { get; set; }
+    public required string Name { get; set; }
 
     [JsonProperty("browser_download_url")]
-    public string BrowserDownloadUrl { get; set; }
+    public required string BrowserDownloadUrl { get; set; }
 }

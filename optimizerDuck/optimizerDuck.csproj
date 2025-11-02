@@ -16,6 +16,7 @@
     </PropertyGroup>
     
     <ItemGroup>
+        <PackageReference Include="ConsoleInk.Net" Version="0.1.6" />
         <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.10" />
         <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.10" />
         <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.5.4" />

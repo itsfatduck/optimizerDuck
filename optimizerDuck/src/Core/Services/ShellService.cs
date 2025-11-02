@@ -103,7 +103,7 @@ public static class ShellService
     /// </summary>
     /// <param name="command"></param>
     /// <returns></returns>
-    private static string EncodePowerShellCommand(string command)
+    public static string EncodePowerShellCommand(string command)
     {
         var bytes = Encoding.Unicode.GetBytes(command);
         return Convert.ToBase64String(bytes);
