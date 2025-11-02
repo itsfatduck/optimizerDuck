@@ -1,5 +1,5 @@
-﻿using System.Diagnostics;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 
 namespace optimizerDuck.UI.Logger;
 
@@ -32,7 +32,6 @@ public class ServiceTracker : IDisposable
         Log.LogInformation($"[{Theme.Muted}]Time: {time}[/] [dim]|[/] {stats}");
 
         _current.Value = null;
-        GC.SuppressFinalize(this); // https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca1816
     }
 
 
