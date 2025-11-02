@@ -13,6 +13,7 @@
 		<Version>1.2.0</Version>
         <NeutralLanguage>en</NeutralLanguage>
         <PlatformTarget>x64</PlatformTarget>
+        <Platforms>AnyCPU;x64</Platforms>
     </PropertyGroup>
     
     <ItemGroup>
