@@ -122,6 +122,9 @@ public class PromptDialog
                 var keyInfo = Console.ReadKey(true);
                 Console.CursorVisible = true;
 
+                if (!char.IsLetter(keyInfo.KeyChar)) continue;
+
+
                 var pressed = char.ToUpper(keyInfo.KeyChar);
 
                 if (keyMap.TryGetValue(pressed, out var value))
