@@ -72,7 +72,7 @@ public class UpdateService
                     return;
                 }
 
-                Log.LogInformation($"A new version ({latestVersion}) is available!");
+                Log.LogInformation("A new version ({LatestVersion}) is available!", latestVersionStr);
 
                 if (!string.IsNullOrWhiteSpace(latestRelease.Body))
                 {
@@ -152,6 +152,8 @@ public class UpdateService
         Log.LogDebug("New executable path: {ExePath}", exePath);
         Log.LogDebug("Current (old) executable path: {OldExePath}", Defaults.ExePath);
 
+        var newPath = Path.Combine(Defaults.ExeDir, Path.GetFileName(exePath));
+
         string script = $"""
                      Write-Host "Updater script started."
                      Write-Host "Waiting for main process ({currentProcess.Id}) to exit..."
@@ -159,11 +161,11 @@ public class UpdateService
                      Write-Host "Main process exited."
 
                      Write-Host "Replacing old executable..."
-                     Copy-Item -Path {exePath} -Destination {Defaults.ExePath} -Force
+                     Copy-Item -Path {exePath} -Destination {newPath} -Force
                      Write-Host "Replacement complete."
 
                      Write-Host "Starting updated application..."
-                     Start-Process -FilePath {Defaults.ExePath}
+                     Start-Process -FilePath {newPath}
 
                      Write-Host "Cleaning up..."
                      Remove-Item -Path {exePath} -Force
