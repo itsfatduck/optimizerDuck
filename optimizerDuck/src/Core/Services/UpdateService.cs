@@ -72,13 +72,10 @@ public class UpdateService
                     return;
                 }
 
-
                 Log.LogInformation($"A new version ({latestVersion}) is available!");
 
                 if (!string.IsNullOrWhiteSpace(latestRelease.Body))
                 {
-                    Log.LogDebug($"Release notes: {latestRelease.Body}");
-
                     var options = new MarkdownRenderOptions
                     {
                         UseHyperlinks = true,
