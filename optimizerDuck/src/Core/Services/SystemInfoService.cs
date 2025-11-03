@@ -777,5 +777,5 @@ public static class SystemInfoService
         return panel;
     }
 
-    private static string Safe(string s) => Markup.Escape(s);
+    private static string Safe(string? s) => Markup.Escape(s ?? "");
 }
