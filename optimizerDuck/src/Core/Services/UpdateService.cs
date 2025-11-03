@@ -5,6 +5,7 @@ using ConsoleInk;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using optimizerDuck.Core.Extensions;
+using optimizerDuck.Core.Helpers;
 using optimizerDuck.UI;
 using optimizerDuck.UI.Components;
 using optimizerDuck.UI.Logger;
@@ -27,6 +28,7 @@ public class UpdateService
 
     public static async Task CheckForUpdatesAsync()
     {
+        SystemHelper.Title("Checking for Updates");
         Log.LogInformation("Checking for updates...");
 
         try
@@ -111,6 +113,7 @@ public class UpdateService
 
     private static async Task DownloadAndApplyUpdate(GitHubAsset asset)
     {
+        SystemHelper.Title("Downloading Update");
         var tempDownloadPath = Path.Combine(Path.GetTempPath(), asset.Name);
 
         await AnsiConsole.Progress().StartAsync(async ctx =>
@@ -145,6 +148,7 @@ public class UpdateService
 
     private static void LaunchUpdater(string newExePath)
     {
+        SystemHelper.Title("Updating Application"); 
         Log.LogInformation("Starting update...");
         var currentProcess = Process.GetCurrentProcess();
         Log.LogDebug("Current process ID: {Pid}", currentProcess.Id);
