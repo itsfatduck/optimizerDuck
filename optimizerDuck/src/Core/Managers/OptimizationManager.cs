@@ -176,14 +176,14 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
 
         SystemHelper.Title("Setting up");
 
-        return Task.FromResult(PromptDialog.Warning("Restore Point Before Continuing",
+        return Task.FromResult(PromptDialog.Warning("Create Restore Point",
             $"""
-             We [{Theme.Success}]RECOMMEND[/] you to create a Restore Point before continuing.
-             This way, you will be [{Theme.Success}]protected[/] against system-level changes and can always revert them if needed.
+             For your safety, we [{Theme.Success}]highly recommend[/] creating a system Restore Point now.
+             It acts as a safeguard, allowing you to [{Theme.Success}]roll back[/] any unwanted system changes later.
              """,
             new PromptOption("Yes", Theme.Success, () =>
             {
-                if (SystemProtectionHelper.Enable()) // if we can enable, create
+                if (SystemProtectionHelper.Enable())
                     SystemProtectionHelper.Create();
             }),
             new PromptOption("Skip", Theme.Error, () => true),

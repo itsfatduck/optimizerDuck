@@ -3,6 +3,8 @@ using optimizerDuck.UI;
 using Spectre.Console;
 using Spectre.Console.Rendering;
 using System.Management;
+using System.Runtime.InteropServices;
+using Microsoft.Win32.SafeHandles;
 
 namespace optimizerDuck.Core.Services;
 
@@ -49,6 +51,24 @@ public sealed record CpuInfo(
     public static readonly CpuInfo Unknown = new("Unknown", "Unknown", "Unknown", "Unknown", 0, 0, 0, 0, 0, 0);
 }
 
+public sealed record DiskVolume(
+    string Name,
+    string FileSystem,
+    string DriveType,
+    string Label,
+    double TotalSizeGB,
+    double FreeSpaceGB,
+    double UsedSpaceGB,
+    double UsedPercent,
+    string DriveTypeDescription
+);
+
+public sealed record DiskInfo(
+    IReadOnlyList<DiskVolume> Volumes
+)
+{
+    public static readonly DiskInfo Unknown = new([]);
+}
 public sealed record RamModule(
     double CapacityGB,
     string SpeedMHz,
@@ -101,7 +121,8 @@ public sealed record SystemSnapshot(
     OsInfo Os,
     BiosInfo Bios,
     IReadOnlyList<GpuInfo> Gpus,
-    GpuInfo? PrimaryGpu
+    GpuInfo? PrimaryGpu,
+    DiskInfo Disk
 )
 {
     public static readonly SystemSnapshot Unknown = new(
@@ -110,7 +131,8 @@ public sealed record SystemSnapshot(
         OsInfo.Unknown,
         BiosInfo.Unknown,
         [],
-        null
+        null,
+        DiskInfo.Unknown
     );
 }
 
@@ -303,6 +325,142 @@ internal static class RamProvider
         var usedPercent = Math.Round(usedKB * 100.0 / totalKB, 1);
 
         return (Math.Round(availableGB, 2), usedPercent);
+    }
+}
+
+public static class DiskHelper
+{
+    [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
+    static extern SafeFileHandle CreateFile(
+        string lpFileName, uint dwDesiredAccess, uint dwShareMode,
+        IntPtr lpSecurityAttributes, uint dwCreationDisposition,
+        uint dwFlagsAndAttributes, IntPtr hTemplateFile);
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    private static extern bool DeviceIoControl(
+        SafeFileHandle hDevice, uint dwIoControlCode,
+        IntPtr lpInBuffer, uint nInBufferSize,
+        IntPtr lpOutBuffer, uint nOutBufferSize,
+        out uint lpBytesReturned, IntPtr lpOverlapped);
+
+    const uint FILE_SHARE_READ = 0x00000001;
+    const uint FILE_SHARE_WRITE = 0x00000002;
+    const uint OPEN_EXISTING = 3;
+    const uint FILE_ATTRIBUTE_NORMAL = 0x80;
+    const uint GENERIC_READ = 0x80000000;
+    const uint IOCTL_STORAGE_QUERY_PROPERTY = 0x2D1400;
+
+    enum STORAGE_PROPERTY_ID
+    {
+        StorageDeviceSeekPenaltyProperty = 7
+    }
+
+    enum STORAGE_QUERY_TYPE
+    {
+        PropertyStandardQuery = 0
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    struct STORAGE_PROPERTY_QUERY
+    {
+        public STORAGE_PROPERTY_ID PropertyId;
+        public STORAGE_QUERY_TYPE QueryType;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1)]
+        public byte[] AdditionalParameters;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    struct DEVICE_SEEK_PENALTY_DESCRIPTOR
+    {
+        public uint Version;
+        public uint Size;
+        [MarshalAs(UnmanagedType.U1)]
+        public bool IncursSeekPenalty;
+    }
+
+    public static bool IsSSD(string driveLetter)
+    {
+        var path = @"\\.\" + driveLetter.TrimEnd('\\');
+        var handle = CreateFile(path, GENERIC_READ,
+            FILE_SHARE_READ | FILE_SHARE_WRITE, IntPtr.Zero,
+            OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, IntPtr.Zero);
+
+        if (handle.IsInvalid)
+            return false;
+
+        var query = new STORAGE_PROPERTY_QUERY
+        {
+            PropertyId = STORAGE_PROPERTY_ID.StorageDeviceSeekPenaltyProperty,
+            QueryType = STORAGE_QUERY_TYPE.PropertyStandardQuery,
+            AdditionalParameters = new byte[1]
+        };
+
+        var querySize = Marshal.SizeOf(query);
+        var queryPtr = Marshal.AllocHGlobal(querySize);
+        Marshal.StructureToPtr(query, queryPtr, false);
+
+        var result = new DEVICE_SEEK_PENALTY_DESCRIPTOR();
+        var resultSize = Marshal.SizeOf(result);
+        var resultPtr = Marshal.AllocHGlobal(resultSize);
+
+        var success = DeviceIoControl(handle, IOCTL_STORAGE_QUERY_PROPERTY,
+            queryPtr, (uint)querySize,
+            resultPtr, (uint)resultSize,
+            out _, IntPtr.Zero);
+
+        Marshal.FreeHGlobal(queryPtr);
+
+        if (!success)
+        {
+            Marshal.FreeHGlobal(resultPtr);
+            return false;
+        }
+
+        result = Marshal.PtrToStructure<DEVICE_SEEK_PENALTY_DESCRIPTOR>(resultPtr);
+        Marshal.FreeHGlobal(resultPtr);
+
+        return !result.IncursSeekPenalty; // false = HDD, true = SSD
+    }
+}
+
+internal static class DiskProvider
+{
+    
+    
+    public static DiskInfo Get()
+    {
+        try
+        {
+            var volumes = new List<DiskVolume>();
+            var drives = DriveInfo.GetDrives().Where(d => d.IsReady);
+
+            foreach (var drive in drives)
+            {
+                var totalBytes = drive.TotalSize;
+                var freeBytes = drive.AvailableFreeSpace;
+                var usedBytes = totalBytes - freeBytes;
+
+                double toGb(long bytes) => Math.Round(bytes / Math.Pow(1024, 3), 2);
+
+                volumes.Add(new DiskVolume(
+                    Name: drive.Name.TrimEnd('\\'),
+                    FileSystem: drive.DriveFormat,
+                    DriveType: drive.DriveType.ToString(),
+                    Label: drive.VolumeLabel,
+                    TotalSizeGB: toGb(totalBytes),
+                    FreeSpaceGB: toGb(freeBytes),
+                    UsedSpaceGB: toGb(usedBytes),
+                    UsedPercent: totalBytes > 0 ? Math.Round(usedBytes * 100.0 / totalBytes, 1) : 0,
+                    DriveTypeDescription: DiskHelper.IsSSD(drive.Name) ? "SSD" : "HDD"
+                ));
+            }
+
+            return new DiskInfo(volumes);
+        }
+        catch
+        {
+            return DiskInfo.Unknown;
+        }
     }
 }
 
@@ -517,13 +675,13 @@ internal static class BiosProvider
 
 public static class SystemInfoService
 {
-    private static readonly SemaphoreSlim _semaphore = new(1, 1);
+    private static readonly SemaphoreSlim Semaphore = new(1, 1);
 
     public static SystemSnapshot Snapshot { get; private set; } = SystemSnapshot.Unknown;
 
     public static async Task<SystemSnapshot> RefreshAsync(CancellationToken ct = default)
     {
-        await _semaphore.WaitAsync(ct).ConfigureAwait(false);
+        await Semaphore.WaitAsync(ct).ConfigureAwait(false);
         try
         {
             var tasks = new Task[]
@@ -543,15 +701,16 @@ public static class SystemInfoService
             var bios = ((Task<BiosInfo>)tasks[3]).Result;
             var gpus = ((Task<IReadOnlyList<GpuInfo>>)tasks[4]).Result;
             var primaryGpu = GpuProvider.GetPrimary(gpus);
+            var disk =  DiskProvider.Get();
 
-            var snapshot = new SystemSnapshot(cpu, ram, os, bios, gpus, primaryGpu);
+            var snapshot = new SystemSnapshot(cpu, ram, os, bios, gpus, primaryGpu, disk);
             Snapshot = snapshot;
 
             return snapshot;
         }
         finally
         {
-            _semaphore.Release();
+            Semaphore.Release();
         }
     }
 
@@ -567,6 +726,12 @@ public static class SystemInfoService
 
         log.LogDebug("RAM: {RamTotalGb:F1} GB (Used: {RamUsedPercent:F1}%)",
             Snapshot.Ram.TotalGB, Snapshot.Ram.UsedPercent);
+
+        foreach (var volume in Snapshot.Disk.Volumes)
+        {
+            log.LogDebug("Disk: {VolumeName} ({VolumeDriveType}) [{VolumeTotalSizeGb:F1} GB] (Free: {VolumeFreeSpaceGb:F1} GB)",
+                volume.Name, volume.DriveTypeDescription, volume.TotalSizeGB, volume.FreeSpaceGB);
+        }
     }
 
     private static void LogGpuSummary(ILogger log)
