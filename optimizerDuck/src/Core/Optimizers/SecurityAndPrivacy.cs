@@ -191,7 +191,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
         public string Name { get; } = "Disable Windows Copilot";
 
         public string Description { get; } =
-            "Disables Windows Copilot integration in Explorer and system UI.";
+            "Disables Windows Copilot integration in Explorer and system UI";
 
         public bool EnabledByDefault { get; } = true;
 

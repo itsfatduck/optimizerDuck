@@ -17,7 +17,7 @@ public class UserExperience : IOptimizationGroup
     public class TaskbarTweak : IOptimizationTweak
     {
         public string Name { get; } = "Taskbar Optimization";
-        public string Description { get; } = "Simplifies and cleans up the Windows taskbar for better performance.";
+        public string Description { get; } = "Simplifies and cleans up the Windows taskbar for better performance";
         public bool EnabledByDefault { get; } = true;
 
         public Task Apply(SystemSnapshot s)
@@ -145,7 +145,7 @@ public class UserExperience : IOptimizationGroup
         public string Name { get; } = "Optimize Mouse";
 
         public string Description { get; } =
-            "Reduces mouse input lag and improves accuracy by disabling mouse acceleration and adjusting sensitivity.";
+            "Reduces mouse input lag and improves accuracy by disabling mouse acceleration and adjusting sensitivity";
 
         public bool EnabledByDefault { get; } = true;
 
@@ -169,7 +169,7 @@ public class UserExperience : IOptimizationGroup
         public string Name { get; } = "Optimize Keyboard";
 
         public string Description { get; } =
-            "Improves keyboard responsiveness and disables unwanted accessibility features.";
+            "Improves keyboard responsiveness and disables unwanted accessibility features";
 
         public bool EnabledByDefault { get; } = true;
 
