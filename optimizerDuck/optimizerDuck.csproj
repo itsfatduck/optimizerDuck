@@ -10,24 +10,24 @@
         <Configurations>Debug;Release</Configurations>
         <ApplicationManifest>app.manifest</ApplicationManifest>
         <FileVersion>1.2.4</FileVersion>
-		<Version>1.2.4</Version>
+        <Version>1.2.4</Version>
         <NeutralLanguage>en</NeutralLanguage>
         <PlatformTarget>x64</PlatformTarget>
         <Platforms>AnyCPU;x64</Platforms>
     </PropertyGroup>
-    
+
     <ItemGroup>
-        <PackageReference Include="ConsoleInk.Net" Version="0.1.6" />
-        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.10" />
-        <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.10" />
-        <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.5.4" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-        <PackageReference Include="Serilog" Version="4.3.1-dev-02387" />
-        <PackageReference Include="Serilog.Extensions.Logging" Version="9.0.2" />
-        <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
-        <PackageReference Include="Spectre.Console" Version="0.53.0" />
-        <PackageReference Include="System.Management" Version="9.0.10" />
-        <PackageReference Include="System.ServiceProcess.ServiceController" Version="9.0.10" />
-        <PackageReference Include="vertical-spectreconsolelogger" Version="0.10.1-dev.20241201.35" />
+        <PackageReference Include="ConsoleInk.Net" Version="0.1.6"/>
+        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.10"/>
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.10"/>
+        <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.5.4"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.4"/>
+        <PackageReference Include="Serilog" Version="4.3.1-dev-02387"/>
+        <PackageReference Include="Serilog.Extensions.Logging" Version="9.0.2"/>
+        <PackageReference Include="Serilog.Sinks.File" Version="7.0.0"/>
+        <PackageReference Include="Spectre.Console" Version="0.53.0"/>
+        <PackageReference Include="System.Management" Version="9.0.10"/>
+        <PackageReference Include="System.ServiceProcess.ServiceController" Version="9.0.10"/>
+        <PackageReference Include="vertical-spectreconsolelogger" Version="0.10.1-dev.20241201.35"/>
     </ItemGroup>
 </Project>
