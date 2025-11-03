@@ -159,4 +159,6 @@ This project is licensed under the [CC BY-NC-SA 4.0 License](https://creativecom
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=itsfatduck/optimizerduck&type=date&legend=top-left)](https://www.star-history.com/#itsfatduck/optimizerduck&type=date&legend=top-left)
+<a href="https://www.star-history.com/#itsfatduck/optimizerDuck&type=Date">
+  <img src="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&type=Date" alt="Star History Chart">
+</a>
