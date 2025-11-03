@@ -29,7 +29,7 @@ public class BloatwareAndServices : IOptimizationGroup
             while (OptimizationManager.SelectedBloatware.TryDequeue(out var bloatware))
             {
                 Log.LogInformation("Removing bloatware app: {Bloatware}", bloatware);
-                ShellService.PowerShell($"""Get-AppxPackage -AllUsers -Name "*{bloatware}*" | Remove-AppxPackage""");
+                ShellService.PowerShell($"Get-AppxPackage -AllUsers -Name \"*{bloatware}*\" | Remove-AppxPackage");
             }
 
             Log.LogInformation("Bloatware apps have been removed.");

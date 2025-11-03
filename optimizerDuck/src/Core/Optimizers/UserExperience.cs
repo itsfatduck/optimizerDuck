@@ -49,7 +49,7 @@ public class UserExperience : IOptimizationGroup
     public class DarkModeTweak : IOptimizationTweak
     {
         public string Name { get; } = "Dark Mode";
-        public string Description { get; } = "Forces Windows to use dark mode for apps and system.";
+        public string Description { get; } = "Forces Windows to use dark mode for apps and system";
         public bool EnabledByDefault { get; } = true;
 
         public Task Apply(SystemSnapshot s)
@@ -67,7 +67,7 @@ public class UserExperience : IOptimizationGroup
     public class ExplorerTweak : IOptimizationTweak
     {
         public string Name { get; } = "Explorer Optimization";
-        public string Description { get; } = "Optimizes Windows Explorer visuals and usability.";
+        public string Description { get; } = "Optimizes Windows Explorer visuals and usability";
         public bool EnabledByDefault { get; } = true;
 
         public Task Apply(SystemSnapshot s)
@@ -96,7 +96,7 @@ public class UserExperience : IOptimizationGroup
     public class VisualPerformanceTweak : IOptimizationTweak
     {
         public string Name { get; } = "Visual Performance";
-        public string Description { get; } = "Sets Windows visual effects for best performance.";
+        public string Description { get; } = "Sets Windows visual effects for best performance";
         public bool EnabledByDefault { get; } = true;
 
         public Task Apply(SystemSnapshot s)

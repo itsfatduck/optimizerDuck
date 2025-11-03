@@ -60,7 +60,7 @@ public static class TextExtensions
             return deserialized switch
             {
                 IEnumerable<object> list => string.Join(Environment.NewLine,
-                    list.Where(o => o != null).Select(o => o.ToString()?.Trim() ?? string.Empty)),
+                    list.Where(_ => true).Select(o => o.ToString()?.Trim() ?? string.Empty)),
                 _ => deserialized?.ToString()?.Trim() ?? string.Empty
             };
         }

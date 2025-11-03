@@ -165,8 +165,6 @@ public class UpdateService
 
                             Write-Host "Moving new version executable..."
                             Move-Item -Path {newExePath} -Destination {finalExePath} -Force
-                            Write-Host "Replacement complete."
-
 
                             Write-Host "Starting updated application..."
                             Start-Process -FilePath {finalExePath}

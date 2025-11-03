@@ -2,9 +2,9 @@
 
 public enum OptimizationGroupOrder
 {
+    Performance,
     SecurityAndPrivacy,
-    PerformanceAndPower,
-    GamingOptimizations,
+    Power,
     UserExperience,
     BloatwareAndServices
 }

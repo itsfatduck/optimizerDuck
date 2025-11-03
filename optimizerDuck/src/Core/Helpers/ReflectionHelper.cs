@@ -32,7 +32,7 @@ public static class ReflectionHelper
             entry.SlidingExpiration = TimeSpan.FromMinutes(5);
             return AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(SafeGetTypes)
-                .Where(t => t != interfaceType && t.IsClass && !t.IsAbstract && interfaceType.IsAssignableFrom(t))
+                .Where(t => t != interfaceType && t is { IsClass: true, IsAbstract: false } && interfaceType.IsAssignableFrom(t))
                 .ToList();
         });
     }

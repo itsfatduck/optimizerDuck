@@ -11,7 +11,7 @@ namespace optimizerDuck.Core.Optimizers;
 public class Power : IOptimizationGroup
 {
     public string Name { get; } = "Power";
-    public int Order { get; } = (int)OptimizationGroupOrder.GamingOptimizations;
+    public int Order { get; } = (int)OptimizationGroupOrder.Power;
     public static ILogger Log { get; } = Logger.CreateLogger<Power>();
 
 
@@ -20,7 +20,7 @@ public class Power : IOptimizationGroup
         public string Name { get; } = "Disable Hibernate";
 
         public string Description { get; } =
-            "Disables hibernate, fast startup, and removes hibernate option from power menu.";
+            "Disables hibernate, fast startup, and removes hibernate option from power menu";
 
         public bool EnabledByDefault { get; } = true;
 
@@ -108,7 +108,7 @@ public class Power : IOptimizationGroup
         public string Name { get; } = "Disable Power Saving";
 
         public string Description { get; } =
-            "Disables power throttling and enables AlwaysOn multimedia mode for maximum responsiveness.";
+            "Disables power throttling and enables AlwaysOn multimedia mode for maximum responsiveness";
 
         public bool EnabledByDefault { get; } = true;
 

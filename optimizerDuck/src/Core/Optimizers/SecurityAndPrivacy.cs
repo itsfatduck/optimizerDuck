@@ -162,7 +162,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
         public string Name { get; } = "Disable Cortana & Search AI";
 
         public string Description { get; } =
-            "Disables Cortana, cloud search, web search integration, and related AI-powered search features.";
+            "Disables Cortana, cloud search, web search integration, and related AI-powered search features";
 
         public bool EnabledByDefault { get; } = true;
 

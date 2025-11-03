@@ -117,11 +117,11 @@ internal class Program
                 new PromptPanel('E', "Start Optimization",
                     $"""
                      [bold]Customize your optimization process.[/]
-                     Review available tweaks, select what fits your needs,
-                     and apply them to fine-tune the system.
+                     Browse the available options, pick the ones that suit you best,
+                     and apply them to improve your system.
 
                      [bold {Theme.Warning}]Some changes may require a restart.[/]
-                     [dim white]Network connectivity might be needed for certain tweaks.[/]
+                     [dim white]Certain options may also need an internet connection.[/]
                      """,
                     Theme.Primary,
                     CustomBoxBorder.LeftBorder).Build()

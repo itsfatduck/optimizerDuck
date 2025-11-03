@@ -6,7 +6,7 @@ namespace optimizerDuck.UI.Components;
 public class PromptPanel
 {
     private readonly BoxBorder _border = BoxBorder.Rounded;
-    private readonly string _color = "white";
+    private readonly string _color;
     private readonly string _description;
     private readonly char _index;
     private readonly string _title;

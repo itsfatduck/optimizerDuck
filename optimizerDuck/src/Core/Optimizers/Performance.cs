@@ -11,13 +11,13 @@ namespace optimizerDuck.Core.Optimizers;
 public class Performance : IOptimizationGroup
 {
     public string Name => "Performance";
-    public int Order => (int)OptimizationGroupOrder.PerformanceAndPower;
+    public int Order => (int)OptimizationGroupOrder.Performance;
     public static ILogger Log { get; } = Logger.CreateLogger<Performance>();
 
     public class BackgroundAppsTweak : IOptimizationTweak
     {
         public string Name { get; } = "Disable Background Apps";
-        public string Description { get; } = "Disables background applications to free up resources.";
+        public string Description { get; } = "Disables background applications to free up resources";
         public bool EnabledByDefault { get; } = true;
 
         public Task Apply(SystemSnapshot s)
@@ -34,7 +34,7 @@ public class Performance : IOptimizationGroup
     public class ProcessPriorityTweak : IOptimizationTweak
     {
         public string Name { get; } = "Process Priority Optimization";
-        public string Description { get; } = "Adjusts Win32PrioritySeparation for better foreground responsiveness.";
+        public string Description { get; } = "Adjusts Win32PrioritySeparation for better foreground responsiveness";
         public bool EnabledByDefault { get; } = true;
 
         public Task Apply(SystemSnapshot s)
@@ -70,7 +70,7 @@ public class Performance : IOptimizationGroup
     public class GameSchedulingTweak : IOptimizationTweak
     {
         public string Name { get; } = "Game Scheduling & Priority";
-        public string Description { get; } = "Optimizes system profile and GPU scheduling for gaming performance.";
+        public string Description { get; } = "Optimizes system profile and GPU scheduling for gaming performance";
         public bool EnabledByDefault { get; } = true;
 
         public Task Apply(SystemSnapshot s)
@@ -92,7 +92,7 @@ public class Performance : IOptimizationGroup
     public class SvcHostSplitTweak : IOptimizationTweak
     {
         public string Name { get; } = "SvcHost Split Threshold";
-        public string Description { get; } = "Adjusts SvcHostSplitThresholdInKB based on total system RAM.";
+        public string Description { get; } = "Adjusts SvcHostSplitThresholdInKB based on total system RAM";
         public bool EnabledByDefault { get; } = true;
 
         public Task Apply(SystemSnapshot s)
@@ -116,7 +116,7 @@ public class Performance : IOptimizationGroup
         public string Name { get; } = "Disable Game Bar";
 
         public string Description { get; } =
-            "Disables the Xbox Game Bar overlay and background services to prevent performance drops and improve in-game responsiveness.";
+            "Disables the Xbox Game Bar overlay and background services to prevent performance drops and improve in-game responsiveness";
 
         public bool EnabledByDefault { get; } = true;
 
@@ -138,7 +138,7 @@ public class Performance : IOptimizationGroup
     public class GameModeTweak : IOptimizationTweak
     {
         public string Name { get; } = "Enable Game Mode";
-        public string Description { get; } = "Enables Windows Game Mode (RECOMMENDED for Windows 11+).";
+        public string Description { get; } = "Enables Windows Game Mode (RECOMMENDED for Windows 11)";
         public bool EnabledByDefault { get; }
 
         public GameModeTweak()
@@ -163,7 +163,7 @@ public class Performance : IOptimizationGroup
         public string Name { get; } = "Disable Game DVR";
 
         public string Description { get; } =
-            "Turns off Game DVR recording features to eliminate background video capture and reduce latency during gameplay.";
+            "Turns off Game DVR recording features to eliminate background video capture and reduce latency during gameplay";
 
         public bool EnabledByDefault { get; } = true;
 
