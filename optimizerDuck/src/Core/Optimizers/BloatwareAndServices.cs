@@ -361,11 +361,14 @@ public class BloatwareAndServices : IOptimizationGroup
             Log.LogInformation("Services have been configured.");
             
             var hasSystemSSD = s.Disk.Volumes.Any(volume => volume is { SystemDrive: true, DriveTypeDescription: "SSD" });
-            
-            if (!hasSystemSSD) // Disable SysMain on HDD
-                ServiceProcessService.ChangeServiceStartupType(
-                    new ServiceItem("SysMain", ServiceStartupType.Disabled)
-                );
+
+            ServiceProcessService.ChangeServiceStartupType(
+                hasSystemSSD // Enable SysMain on SSD
+                    ? new ServiceItem("SysMain", ServiceStartupType.Automatic)
+                    : new ServiceItem("SysMain", ServiceStartupType.Disabled)
+            );
+            Log.LogDebug("System drive is {Type}, SysMain will be {Status}.", hasSystemSSD ? "SSD" : "HDD", hasSystemSSD ? "enabled" : "disabled");
+
             return Task.CompletedTask;
         }
     }
