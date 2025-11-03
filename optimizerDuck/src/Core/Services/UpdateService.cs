@@ -52,7 +52,7 @@ public class UpdateService
             // Parse version
             if (!Version.TryParse(latestVersionStr, out var latestVersion))
             {
-                Log.LogWarning($"Could not parse latest release version: {latestRelease.TagName}");
+                Log.LogWarning("Could not parse latest release version: {LatestReleaseTagName}", latestRelease.TagName);
                 return;
             }
 
@@ -93,7 +93,7 @@ public class UpdateService
         
                     Would you like to download and install it now?
                     """,
-                    new PromptOption("Yes, update now", Theme.Success),
+                    new PromptOption("Yes", Theme.Success),
                     new PromptOption("Not now", Theme.Warning, () => false)))
                 {
                     await DownloadAndApplyUpdate(asset);
@@ -154,23 +154,23 @@ public class UpdateService
 
         var newPath = Path.Combine(Defaults.ExeDir, Path.GetFileName(exePath));
 
-        string script = $"""
-                     Write-Host "Updater script started."
-                     Write-Host "Waiting for main process ({currentProcess.Id}) to exit..."
-                     Wait-Process -Id {currentProcess.Id}
-                     Write-Host "Main process exited."
+        var script = $"""
+                      Write-Host "Updater script started."
+                      Write-Host "Waiting for main process ({currentProcess.Id}) to exit..."
+                      Wait-Process -Id {currentProcess.Id}
+                      Write-Host "Main process exited."
 
-                     Write-Host "Replacing old executable..."
-                     Copy-Item -Path {exePath} -Destination {newPath} -Force
-                     Write-Host "Replacement complete."
+                      Write-Host "Replacing old executable..."
+                      Copy-Item -Path {exePath} -Destination {newPath} -Force
+                      Write-Host "Replacement complete."
 
-                     Write-Host "Starting updated application..."
-                     Start-Process -FilePath {newPath}
+                      Write-Host "Starting updated application..."
+                      Start-Process -FilePath {newPath}
 
-                     Write-Host "Cleaning up..."
-                     Remove-Item -Path {exePath} -Force
-                     Write-Host "Updater script finished."
-                     """;
+                      Write-Host "Cleaning up..."
+                      Remove-Item -Path {exePath} -Force
+                      Write-Host "Updater script finished."
+                      """;
 
         var psi = new Process
         {
