@@ -9,8 +9,8 @@
         <ApplicationIcon>Logo.ico</ApplicationIcon>
         <Configurations>Debug;Release</Configurations>
         <ApplicationManifest>app.manifest</ApplicationManifest>
-        <FileVersion>1.2.2</FileVersion>
-		<Version>1.2.2</Version>
+        <FileVersion>1.2.3</FileVersion>
+		<Version>1.2.3</Version>
         <NeutralLanguage>en</NeutralLanguage>
         <PlatformTarget>x64</PlatformTarget>
         <Platforms>AnyCPU;x64</Platforms>
