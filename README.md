@@ -82,7 +82,7 @@
 ## Mindset Matters
 
 * A powerful PC means little if it's not used efficiently.
-* Real performance isn't just about tweaks or tools — it's about **how you manage your system**.
+* Real performance isn't just about tweaks or tools. It's about **how you manage your system**.
 
 **Best practices:**
 - Keep your OS lean: avoid unnecessary VPNs, multiple antiviruses, or background apps.
