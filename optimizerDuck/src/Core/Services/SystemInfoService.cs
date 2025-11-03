@@ -632,20 +632,25 @@ public static class SystemInfoService
         var biosGroup = new List<IRenderable>
         {
             new Rule("BIOS Information") { Style = Theme.Success },
-            new Markup($"[{Theme.Info}]Manufacturer   :[/] [bold]{s.Bios.Manufacturer}[/]"),
-            new Markup($"[{Theme.Info}]Version        :[/] [{Theme.Success}]{s.Bios.Version}[/]"),
-            new Markup($"[{Theme.Info}]Release Date   :[/] [{Theme.Success}]{s.Bios.ReleaseDate}[/]"),
-            new Markup($"[{Theme.Info}]SMBIOS Version :[/] [{Theme.Success}]{s.Bios.SmbiosVersion}[/]")
+            new Markup($"[{Theme.Info}]Manufacturer   :[/] [bold]{Safe(s.Bios.Manufacturer)}[/]"),
+            new Markup($"[{Theme.Info}]Version        :[/] [{Theme.Success}]{Safe(s.Bios.Version)}[/]"),
+            new Markup($"[{Theme.Info}]Release Date   :[/] [{Theme.Success}]{Safe(s.Bios.ReleaseDate)}[/]"),
+            new Markup($"[{Theme.Info}]SMBIOS Version :[/] [{Theme.Success}]{Safe(s.Bios.SmbiosVersion)}[/]")
         };
 
         // CPU Information
-        var cpuVendorColor = s.Cpu.Vendor == "AMD" ? Theme.Error : s.Cpu.Vendor == "Intel" ? Theme.Info : Theme.Muted;
+        var cpuVendorColor = s.Cpu.Vendor switch
+        {
+            "AMD" => Theme.Error,
+            "Intel" => Theme.Info,
+            _ => Theme.Muted
+        };
         var cpuGroup = new List<IRenderable>
         {
             new Rule("CPU Information") { Style = Theme.Info },
-            new Markup($"[{Theme.Info}]Name           :[/] [bold]{s.Cpu.Name}[/]"),
-            new Markup($"[{Theme.Info}]Vendor         :[/] [{cpuVendorColor}]{s.Cpu.Vendor}[/]"),
-            new Markup($"[{Theme.Info}]Manufacturer   :[/] [bold]{s.Cpu.Manufacturer}[/]"),
+            new Markup($"[{Theme.Info}]Name           :[/] [bold]{Safe(s.Cpu.Name)}[/]"),
+            new Markup($"[{Theme.Info}]Vendor         :[/] [{cpuVendorColor}]{Safe(s.Cpu.Vendor)}[/]"),
+            new Markup($"[{Theme.Info}]Manufacturer   :[/] [bold]{Safe(s.Cpu.Manufacturer)}[/]"),
             new Markup($"[{Theme.Info}]Cores          :[/] [{Theme.Success}]{s.Cpu.Cores}[/]"),
             new Markup($"[{Theme.Info}]Threads        :[/] [{Theme.Success}]{s.Cpu.Threads}[/]"),
             new Markup($"[{Theme.Info}]Architecture   :[/] [bold]{s.Cpu.Architecture}[/]"),
@@ -675,9 +680,9 @@ public static class SystemInfoService
                 var module = s.Ram.Modules[i];
                 ramGroup.Add(new Markup(
                     $"  [{Theme.Info}]Module {i + 1}     :[/] [{Theme.Warning}]{module.CapacityGB:F2}[/] [dim]GB @[/] [{Theme.Success}]{module.SpeedMHz}[/] [dim]MHz[/]"));
-                ramGroup.Add(new Markup($"    [dim]Manufacturer:[/] [{Theme.Info}]{module.Manufacturer}[/]"));
-                ramGroup.Add(new Markup($"    [dim]Part Number :[/] [bold]{module.PartNumber}[/]"));
-                ramGroup.Add(new Markup($"    [dim]Location    :[/] [bold]{module.DeviceLocator}[/]"));
+                ramGroup.Add(new Markup($"    [dim]Manufacturer:[/] [{Theme.Info}]{Safe(module.Manufacturer)}[/]"));
+                ramGroup.Add(new Markup($"    [dim]Part Number :[/] [bold]{Safe(module.PartNumber)}[/]"));
+                ramGroup.Add(new Markup($"    [dim]Location    :[/] [bold]{Safe(module.DeviceLocator)}[/]"));
             }
         }
 
@@ -702,19 +707,19 @@ public static class SystemInfoService
                 _ => Theme.Muted
             };
 
-            gpuGroup.Add(new Markup($"[{Theme.Info}]Name           :[/] [bold]{gpu.Name}[/]"));
+            gpuGroup.Add(new Markup($"[{Theme.Info}]Name           :[/] [bold]{Safe(gpu.Name)}[/]"));
             gpuGroup.Add(new Markup($"[{Theme.Info}]Vendor         :[/] [{vendorColor}]{gpu.Vendor}[/]"));
-            gpuGroup.Add(new Markup($"[{Theme.Info}]Driver Version :[/] [{Theme.Warning}]{gpu.DriverVersion}[/]"));
+            gpuGroup.Add(new Markup($"[{Theme.Info}]Driver Version :[/] [{Theme.Warning}]{Safe(gpu.DriverVersion)}[/]"));
 
             if (gpu.MemoryMB.HasValue)
                 gpuGroup.Add(new Markup(
                     $"[{Theme.Info}]Memory         :[/] [{Theme.Success}]{gpu.MemoryMB.Value}[/] [dim]MB[/] [dim]([/][{Theme.Success}]{gpu.MemoryMB.Value / 1024.0:F2}[/] [dim]GB)[/]"));
 
             if (!string.IsNullOrEmpty(gpu.DeviceId))
-                gpuGroup.Add(new Markup($"[{Theme.Info}]Device ID      :[/] [dim]{gpu.DeviceId}[/]"));
+                gpuGroup.Add(new Markup($"[{Theme.Info}]Device ID      :[/] [dim]{Safe(gpu.DeviceId)}[/]"));
 
             if (!string.IsNullOrEmpty(gpu.PnpDeviceId))
-                gpuGroup.Add(new Markup($"[{Theme.Info}]PCI Device ID  :[/] [dim]{gpu.PnpDeviceId}[/]"));
+                gpuGroup.Add(new Markup($"[{Theme.Info}]PCI Device ID  :[/] [dim]{Safe(gpu.PnpDeviceId)}[/]"));
         }
         else
         {
@@ -770,4 +775,6 @@ public static class SystemInfoService
 
         return panel;
     }
+
+    private static string Safe(string s) => Markup.Escape(s);
 }
