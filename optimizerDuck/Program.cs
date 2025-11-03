@@ -215,8 +215,7 @@ internal class Program
 
             AnsiConsole.Clear();
             AnsiConsole.Write(Defaults.Logo);
-
-            var updateService = new UpdateService();
+            
             await UpdateService.CheckForUpdatesAsync();
 
             var app = new Program();
