@@ -83,7 +83,7 @@ public static class TextExtensions
                 .ToList();
 
             if (values.Count == 0)
-                values.Add(doc.Root?.Value?.Trim() ?? string.Empty);
+                values.Add(doc.Root?.Value.Trim() ?? string.Empty);
 
             return string.Join(Environment.NewLine, values)
                 .Replace("_x000D__x000A_", "\n")

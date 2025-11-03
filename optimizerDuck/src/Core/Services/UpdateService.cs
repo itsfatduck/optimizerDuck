@@ -173,7 +173,7 @@ public class UpdateService
                       Write-Host "Updater script finished."
                       """;
 
-        var psi = new Process
+        var process = new Process
         {
             StartInfo = new ProcessStartInfo
             {
@@ -184,7 +184,7 @@ public class UpdateService
             }
         };
 
-        psi.Start();
+        process.Start();
         Environment.Exit(0);
     }
 

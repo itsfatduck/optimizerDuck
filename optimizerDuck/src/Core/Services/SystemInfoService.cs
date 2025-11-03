@@ -608,7 +608,7 @@ public static class SystemInfoService
                 var memoryInfo = gpu.MemoryMB.HasValue
                     ? $" [{gpu.MemoryMB.Value / 1024.0:F0} GB]"
                     : "";
-                log.LogDebug("GPU ({GpuIndex:D4}): {GpuName} ({GpuVendor}){MemoryInfo}",
+                log.LogDebug("GPU ({GpuIndex}): {GpuName} ({GpuVendor}){MemoryInfo}",
                     index + 1, gpu.Name, gpu.Vendor, memoryInfo);
             }
             log.LogDebug("Total GPUs : {GpuCount}", gpuCount);
@@ -693,44 +693,17 @@ public static class SystemInfoService
         var gpuCount = s.Gpus.Count;
         var gpuGroup = new List<IRenderable>();
 
-        if (gpuCount == 0 || (gpuCount == 1 && s.Gpus[0] == GpuInfo.Unknown))
+        switch (gpuCount)
         {
-            gpuGroup.Add(new Rule("GPU Information") { Style = new Style(Color.Red) });
-            gpuGroup.Add(new Markup($"[{Theme.Error}]No GPUs detected[/]"));
-        }
-        else if (gpuCount == 1)
-        {
-            gpuGroup.Add(new Rule("GPU Information") { Style = new Style(Color.Green) });
-            var gpu = s.Gpus[0];
-            var vendorColor = gpu.Vendor switch
+            case 0:
+            case 1 when s.Gpus[0] == GpuInfo.Unknown:
+                gpuGroup.Add(new Rule("GPU Information") { Style = new Style(Color.Red) });
+                gpuGroup.Add(new Markup($"[{Theme.Error}]No GPUs detected[/]"));
+                break;
+            case 1:
             {
-                GpuVendor.NVIDIA => Theme.Success,
-                GpuVendor.AMD => Theme.Error,
-                GpuVendor.Intel => Theme.Accent,
-                _ => Theme.Muted
-            };
-
-            gpuGroup.Add(new Markup($"[{Theme.Info}]Name           :[/] [bold]{Safe(gpu.Name)}[/]"));
-            gpuGroup.Add(new Markup($"[{Theme.Info}]Vendor         :[/] [{vendorColor}]{gpu.Vendor}[/]"));
-            gpuGroup.Add(new Markup($"[{Theme.Info}]Driver Version :[/] [{Theme.Warning}]{Safe(gpu.DriverVersion)}[/]"));
-
-            if (gpu.MemoryMB.HasValue)
-                gpuGroup.Add(new Markup(
-                    $"[{Theme.Info}]Memory         :[/] [{Theme.Success}]{gpu.MemoryMB.Value}[/] [dim]MB[/] [dim]([/][{Theme.Success}]{gpu.MemoryMB.Value / 1024.0:F2}[/] [dim]GB)[/]"));
-
-            if (!string.IsNullOrEmpty(gpu.DeviceId))
-                gpuGroup.Add(new Markup($"[{Theme.Info}]Device ID      :[/] [dim]{Safe(gpu.DeviceId)}[/]"));
-
-            if (!string.IsNullOrEmpty(gpu.PnpDeviceId))
-                gpuGroup.Add(new Markup($"[{Theme.Info}]PCI Device ID  :[/] [dim]{Safe(gpu.PnpDeviceId)}[/]"));
-        }
-        else
-        {
-            gpuGroup.Add(new Rule($"GPU Information ({gpuCount} detected)") { Style = new Style(Color.Green) });
-            for (var i = 0; i < s.Gpus.Count; i++)
-            {
-                var gpu = s.Gpus[i];
-                var isPrimary = s.PrimaryGpu != null && gpu.Name == s.PrimaryGpu.Name ? " (Primary)" : "";
+                gpuGroup.Add(new Rule("GPU Information") { Style = new Style(Color.Green) });
+                var gpu = s.Gpus[0];
                 var vendorColor = gpu.Vendor switch
                 {
                     GpuVendor.NVIDIA => Theme.Success,
@@ -739,21 +712,54 @@ public static class SystemInfoService
                     _ => Theme.Muted
                 };
 
-                gpuGroup.Add(new Markup($"[{Theme.Info}]GPU {i + 1}{isPrimary}:[/]"));
-                gpuGroup.Add(new Markup($"  [{Theme.Info}]Name         :[/] [bold]{gpu.Name}[/]"));
-                gpuGroup.Add(
-                    new Markup($"  [{Theme.Info}]Vendor       :[/] [{vendorColor}]{gpu.Vendor}[/{vendorColor}]"));
-                gpuGroup.Add(new Markup($"  [{Theme.Info}]Driver       :[/] [{Theme.Warning}]{gpu.DriverVersion}[/]"));
+                gpuGroup.Add(new Markup($"[{Theme.Info}]Name           :[/] [bold]{Safe(gpu.Name)}[/]"));
+                gpuGroup.Add(new Markup($"[{Theme.Info}]Vendor         :[/] [{vendorColor}]{gpu.Vendor}[/]"));
+                gpuGroup.Add(new Markup($"[{Theme.Info}]Driver Version :[/] [{Theme.Warning}]{Safe(gpu.DriverVersion)}[/]"));
 
                 if (gpu.MemoryMB.HasValue)
                     gpuGroup.Add(new Markup(
-                        $"  [{Theme.Info}]Memory       :[/] [{Theme.Success}]{gpu.MemoryMB.Value}[/] [dim]MB[/] [dim]([/][{Theme.Success}]{gpu.MemoryMB.Value / 1024.0:F2}[/] [dim]GB)[/]"));
+                        $"[{Theme.Info}]Memory         :[/] [{Theme.Success}]{gpu.MemoryMB.Value}[/] [dim]MB[/] [dim]([/][{Theme.Success}]{gpu.MemoryMB.Value / 1024.0:F2}[/] [dim]GB)[/]"));
 
                 if (!string.IsNullOrEmpty(gpu.DeviceId))
-                    gpuGroup.Add(new Markup($"  [{Theme.Info}]Device ID    :[/] [dim]{gpu.DeviceId}[/]"));
+                    gpuGroup.Add(new Markup($"[{Theme.Info}]Device ID      :[/] [dim]{Safe(gpu.DeviceId)}[/]"));
 
                 if (!string.IsNullOrEmpty(gpu.PnpDeviceId))
-                    gpuGroup.Add(new Markup($"  [{Theme.Info}]PCI Device ID:[/] [dim]{gpu.PnpDeviceId}[/]"));
+                    gpuGroup.Add(new Markup($"[{Theme.Info}]PCI Device ID  :[/] [dim]{Safe(gpu.PnpDeviceId)}[/]"));
+                break;
+            }
+            default:
+            {
+                gpuGroup.Add(new Rule($"GPU Information ({gpuCount} detected)") { Style = new Style(Color.Green) });
+                for (var i = 0; i < s.Gpus.Count; i++)
+                {
+                    var gpu = s.Gpus[i];
+                    var isPrimary = s.PrimaryGpu != null && gpu.Name == s.PrimaryGpu.Name ? " (Primary)" : "";
+                    var vendorColor = gpu.Vendor switch
+                    {
+                        GpuVendor.NVIDIA => Theme.Success,
+                        GpuVendor.AMD => Theme.Error,
+                        GpuVendor.Intel => Theme.Accent,
+                        _ => Theme.Muted
+                    };
+
+                    gpuGroup.Add(new Markup($"[{Theme.Info}]GPU {i + 1}{isPrimary}:[/]"));
+                    gpuGroup.Add(new Markup($"  [{Theme.Info}]Name         :[/] [bold]{gpu.Name}[/]"));
+                    gpuGroup.Add(
+                        new Markup($"  [{Theme.Info}]Vendor       :[/] [{vendorColor}]{gpu.Vendor}[/]"));
+                    gpuGroup.Add(new Markup($"  [{Theme.Info}]Driver       :[/] [{Theme.Warning}]{gpu.DriverVersion}[/]"));
+
+                    if (gpu.MemoryMB.HasValue)
+                        gpuGroup.Add(new Markup(
+                            $"  [{Theme.Info}]Memory       :[/] [{Theme.Success}]{gpu.MemoryMB.Value}[/] [dim]MB[/] [dim]([/][{Theme.Success}]{gpu.MemoryMB.Value / 1024.0:F2}[/] [dim]GB)[/]"));
+
+                    if (!string.IsNullOrEmpty(gpu.DeviceId))
+                        gpuGroup.Add(new Markup($"  [{Theme.Info}]Device ID    :[/] [dim]{gpu.DeviceId}[/]"));
+
+                    if (!string.IsNullOrEmpty(gpu.PnpDeviceId))
+                        gpuGroup.Add(new Markup($"  [{Theme.Info}]PCI Device ID:[/] [dim]{gpu.PnpDeviceId}[/]"));
+                }
+
+                break;
             }
         }
 
