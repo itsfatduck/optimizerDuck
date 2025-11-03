@@ -4,7 +4,6 @@ using optimizerDuck.Core.Extensions;
 using optimizerDuck.Core.Helpers;
 using optimizerDuck.Core.Managers;
 using optimizerDuck.Core.Services;
-using optimizerDuck.src.Core.Services;
 using optimizerDuck.UI;
 using optimizerDuck.UI.Components;
 using optimizerDuck.UI.Logger;
@@ -218,7 +217,7 @@ internal class Program
             AnsiConsole.Write(Defaults.Logo);
 
             var updateService = new UpdateService();
-            await updateService.CheckForUpdatesAsync();
+            await UpdateService.CheckForUpdatesAsync();
 
             var app = new Program();
             await app.Init().ConfigureAwait(false);

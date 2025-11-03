@@ -1,18 +1,16 @@
+using System.Diagnostics;
+using System.Net.Http.Headers;
+using System.Reflection;
 using ConsoleInk;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using optimizerDuck.Core;
-using optimizerDuck.Core.Services;
+using optimizerDuck.Core.Extensions;
 using optimizerDuck.UI;
 using optimizerDuck.UI.Components;
 using optimizerDuck.UI.Logger;
 using Spectre.Console;
-using System.Diagnostics;
-using System.Net.Http.Headers;
-using System.Reflection;
-using optimizerDuck.Core.Extensions;
 
-namespace optimizerDuck.src.Core.Services;
+namespace optimizerDuck.Core.Services;
 
 public class UpdateService
 {
@@ -27,7 +25,7 @@ public class UpdateService
         HttpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("optimizerDuck", "1.0"));
     }
 
-    public async Task CheckForUpdatesAsync()
+    public static async Task CheckForUpdatesAsync()
     {
         Log.LogInformation("Checking for updates...");
 
@@ -46,9 +44,9 @@ public class UpdateService
             var latestVersionStr = latestRelease.TagName.TrimStart('v');
 
             // "1.1.0-fix" -> "1.1.0"
-            var dashIndex = latestVersionStr.IndexOf('-');
-            if (dashIndex != -1)
-                latestVersionStr = latestVersionStr[..dashIndex];
+            var preReleaseSeparatorIndex = latestVersionStr.IndexOf('-');
+            if (preReleaseSeparatorIndex != -1)
+                latestVersionStr = latestVersionStr[..preReleaseSeparatorIndex];
 
             // Parse version
             if (!Version.TryParse(latestVersionStr, out var latestVersion))
@@ -62,12 +60,12 @@ public class UpdateService
 
             if (latestVersion > currentVersion)
             {
-                var asset = latestRelease.Assets
+                var updateExecutableAsset = latestRelease.Assets
                     .FirstOrDefault(a =>
                         a.Name.StartsWith("optimizerDuck", StringComparison.OrdinalIgnoreCase)
                         && a.Name.EndsWith(".exe", StringComparison.OrdinalIgnoreCase));
 
-                if (asset == null)
+                if (updateExecutableAsset == null)
                 {
                     Log.LogWarning("No update executable (.exe) found in the latest release.");
                     return;
@@ -97,7 +95,7 @@ public class UpdateService
                     new PromptOption("Yes", Theme.Success),
                     new PromptOption("Not now", Theme.Warning, () => false)))
                 {
-                    await DownloadAndApplyUpdate(asset);
+                    await DownloadAndApplyUpdate(updateExecutableAsset);
                 }
             }
             else
@@ -111,13 +109,13 @@ public class UpdateService
         }
     }
 
-    private async Task DownloadAndApplyUpdate(GitHubAsset asset)
+    private static async Task DownloadAndApplyUpdate(GitHubAsset asset)
     {
-        var tempPath = Path.Combine(Path.GetTempPath(), asset.Name);
+        var tempDownloadPath = Path.Combine(Path.GetTempPath(), asset.Name);
 
         await AnsiConsole.Progress().StartAsync(async ctx =>
         {
-            Log.LogInformation("Downloading update from {DownloadUrl} to {TempPath}", asset.BrowserDownloadUrl, tempPath);
+            Log.LogInformation("Downloading update from {DownloadUrl} to {TempPath}", asset.BrowserDownloadUrl, tempDownloadPath);
             var task = ctx.AddTask($"Downloading [{Theme.Primary}]{asset.Name}[/]");
 
             using var response = await HttpClient.GetAsync(asset.BrowserDownloadUrl, HttpCompletionOption.ResponseHeadersRead);
@@ -127,7 +125,7 @@ public class UpdateService
             task.MaxValue = totalBytes;
 
             await using var contentStream = await response.Content.ReadAsStreamAsync();
-            await using var fileStream = new FileStream(tempPath, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true);
+            await using var fileStream = new FileStream(tempDownloadPath, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true);
 
             var buffer = new byte[8192];
             long downloadedBytes = 0;
@@ -142,43 +140,44 @@ public class UpdateService
         });
 
         Log.LogInformation("Download complete.");
-        LaunchUpdater(tempPath);
+        LaunchUpdater(tempDownloadPath);
     }
 
-    private void LaunchUpdater(string exePath)
+    private static void LaunchUpdater(string newExePath)
     {
         Log.LogInformation("Starting update...");
         var currentProcess = Process.GetCurrentProcess();
         Log.LogDebug("Current process ID: {Pid}", currentProcess.Id);
-        Log.LogDebug("New executable path: {ExePath}", exePath);
+        Log.LogDebug("New executable path: {ExePath}", newExePath);
         Log.LogDebug("Current (old) executable path: {OldExePath}", Defaults.ExePath);
 
-        var newPath = Path.Combine(Defaults.ExeDir, Path.GetFileName(exePath));
+        var finalExePath = Path.Combine(Defaults.ExeDir, Path.GetFileName(newExePath));
 
-        var script = $"""
-                      Write-Host "Updater script started."
-                      Write-Host "Waiting for main process ({currentProcess.Id}) to exit..."
-                      Wait-Process -Id {currentProcess.Id}
-                      Write-Host "Main process exited."
+        var updateScript = $"""
+                            Write-Host "Updater script started."
+                            Write-Host "Waiting for main process ({currentProcess.Id}) to exit..."
+                            Wait-Process -Id {currentProcess.Id}
+                            Write-Host "Main process exited."
 
-                      Write-Host "Replacing old executable..."
-                      Copy-Item -Path {exePath} -Destination {newPath} -Force
-                      Write-Host "Replacement complete."
+                            Write-Host "Moving new version executable..."
+                            Move-Item -Path {newExePath} -Destination {finalExePath} -Force
+                            Write-Host "Replacement complete."
 
-                      Write-Host "Starting updated application..."
-                      Start-Process -FilePath {newPath}
 
-                      Write-Host "Cleaning up..."
-                      Remove-Item -Path {exePath} -Force
-                      Write-Host "Updater script finished."
-                      """;
+                            Write-Host "Starting updated application..."
+                            Start-Process -FilePath {finalExePath}
+
+                            Write-Host "Cleaning up..."
+                            Remove-Item -Path {Defaults.ExePath} -Force
+                            Write-Host "Updater script finished."
+                            """;
 
         var process = new Process
         {
             StartInfo = new ProcessStartInfo
             {
                 FileName = "powershell.exe",
-                Arguments = $"-NonInteractive -NoLogo -NoProfile -ExecutionPolicy Bypass -EncodedCommand {script.EncodeBase64()}",
+                Arguments = $"-NonInteractive -NoLogo -NoProfile -ExecutionPolicy Bypass -EncodedCommand {updateScript.EncodeBase64()}",
                 UseShellExecute = true, // start as a separate process via the shell so it doesn't inherit debugger/std handles
                 CreateNoWindow = true
             }
