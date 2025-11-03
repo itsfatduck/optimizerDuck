@@ -570,7 +570,7 @@ public static class SystemInfoService
     private static void LogGpuSummary(ILogger log)
     {
         var gpuCount = Snapshot.Gpus.Count;
-        log.LogDebug("Total GPUs : {GpuCount}", gpuCount);
+        
 
         if (gpuCount == 0 || (gpuCount == 1 && Snapshot.Gpus[0] == GpuInfo.Unknown))
         {
@@ -609,6 +609,7 @@ public static class SystemInfoService
                 log.LogDebug("GPU ({GpuIndex:D4}): {GpuName} ({GpuVendor}){MemoryInfo}",
                     index + 1, gpu.Name, gpu.Vendor, memoryInfo);
             }
+            log.LogDebug("Total GPUs : {GpuCount}", gpuCount);
         }
     }
 
