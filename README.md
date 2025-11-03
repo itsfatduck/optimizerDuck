@@ -157,8 +157,6 @@ This project is licensed under the [CC BY-NC-SA 4.0 License](https://creativecom
 
 **If optimizerDuck made your PC faster, give it a star! ⭐**<br>It helps more people discover the project and keeps development going.
 
-## Star History
-
 <a href="https://www.star-history.com/#itsfatduck/optimizerDuck&type=Date">
   <img src="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&type=Date" alt="Star History Chart">
 </a>
