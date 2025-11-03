@@ -570,6 +570,7 @@ public static class SystemInfoService
     private static void LogGpuSummary(ILogger log)
     {
         var gpuCount = Snapshot.Gpus.Count;
+        log.LogDebug("Total GPUs : {GpuCount}", gpuCount);
 
         if (gpuCount == 0 || (gpuCount == 1 && Snapshot.Gpus[0] == GpuInfo.Unknown))
         {
@@ -588,14 +589,27 @@ public static class SystemInfoService
         // Multiple GPUs
         if (Snapshot.PrimaryGpu != null)
         {
-            var memoryInfo = Snapshot.PrimaryGpu.MemoryMB.HasValue
+            var memoryInfoPrimary = Snapshot.PrimaryGpu.MemoryMB.HasValue
                 ? $" [{Snapshot.PrimaryGpu.MemoryMB.Value / 1024.0:F0} GB]"
                 : "";
             log.LogDebug("GPU (Primary): {PrimaryGpuName} ({PrimaryGpuVendor}){MemoryInfo}",
-                Snapshot.PrimaryGpu.Name, Snapshot.PrimaryGpu.Vendor, memoryInfo);
-        }
+                Snapshot.PrimaryGpu.Name, Snapshot.PrimaryGpu.Vendor, memoryInfoPrimary);
 
-        log.LogDebug("Total GPUs : {GpuCount}", gpuCount);
+            for (var index = 0; index < Snapshot.Gpus.Count; index++)
+            {
+                if (Snapshot.Gpus[index].Name == Snapshot.PrimaryGpu.Name
+                    && Snapshot.Gpus[index].Vendor == Snapshot.PrimaryGpu.Vendor)
+                    continue;
+ 
+
+               var gpu = Snapshot.Gpus[index];
+                var memoryInfo = gpu.MemoryMB.HasValue
+                    ? $" [{gpu.MemoryMB.Value / 1024.0:F0} GB]"
+                    : "";
+                log.LogDebug("GPU ({GpuIndex:D4}): {GpuName} ({GpuVendor}){MemoryInfo}",
+                    index + 1, gpu.Name, gpu.Vendor, memoryInfo);
+            }
+        }
     }
 
     public static Panel GetDetailedPanel(SystemSnapshot s)
