@@ -455,11 +455,13 @@ internal static class OsProvider
     {
         foreach (var type in types)
         {
-            if (type is 8 or 9 or 10 or 11 or 14 or 30 or 31 or 32)
-                return "Laptop";
-
-            if (type is >= 1 and <= 7 or 12 or 13 or >= 15 and <= 29 or >= 33 and <= 36)
-                return "Desktop";
+            switch (type)
+            {
+                case 8 or 9 or 10 or 11 or 14 or 30 or 31 or 32:
+                    return "Laptop";
+                case >= 1 and <= 7 or 12 or 13 or >= 15 and <= 29 or >= 33 and <= 36:
+                    return "Desktop";
+            }
         }
 
         return "Unknown";
@@ -602,7 +604,7 @@ public static class SystemInfoService
                     continue;
  
 
-               var gpu = Snapshot.Gpus[index];
+                var gpu = Snapshot.Gpus[index];
                 var memoryInfo = gpu.MemoryMB.HasValue
                     ? $" [{gpu.MemoryMB.Value / 1024.0:F0} GB]"
                     : "";
