@@ -58,7 +58,7 @@ public static class Defaults
 
     public static readonly string ExePath = Environment.ProcessPath!;
     public static readonly string ExeDir = Path.GetDirectoryName(ExePath)!;
-    public static readonly string ExeName = Path.GetFileName(ExePath)!;
+    public static readonly string ExeName = Path.GetFileName(ExePath);
     public static readonly string FileVersion = FileVersionInfo.GetVersionInfo(ExePath).FileVersion!;
 
     public static readonly string RootPath =

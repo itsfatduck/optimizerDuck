@@ -10,6 +10,7 @@ using Spectre.Console;
 using System.Diagnostics;
 using System.Net.Http.Headers;
 using System.Reflection;
+using optimizerDuck.Core.Extensions;
 
 namespace optimizerDuck.src.Core.Services;
 
@@ -61,7 +62,7 @@ public class UpdateService
 
             if (latestVersion > currentVersion)
             {
-                var asset = latestRelease.Assets?
+                var asset = latestRelease.Assets
                     .FirstOrDefault(a =>
                         a.Name.StartsWith("optimizerDuck", StringComparison.OrdinalIgnoreCase)
                         && a.Name.EndsWith(".exe", StringComparison.OrdinalIgnoreCase));
@@ -177,7 +178,7 @@ public class UpdateService
             StartInfo = new ProcessStartInfo
             {
                 FileName = "powershell.exe",
-                Arguments = $"-NonInteractive -NoLogo -NoProfile -ExecutionPolicy Bypass -EncodedCommand {ShellService.EncodePowerShellCommand(script)}",
+                Arguments = $"-NonInteractive -NoLogo -NoProfile -ExecutionPolicy Bypass -EncodedCommand {script.EncodeBase64()}",
                 UseShellExecute = true, // start as a separate process via the shell so it doesn't inherit debugger/std handles
                 CreateNoWindow = true
             }

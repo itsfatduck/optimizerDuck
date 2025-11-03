@@ -94,4 +94,35 @@ public static class TextExtensions
             return xml;
         }
     }
+    
+    public static string EncodeBase64(this string value)
+    {
+        if (string.IsNullOrEmpty(value))
+            return string.Empty;
+        try
+        {
+            var bytes = Encoding.Unicode.GetBytes(value);
+            return Convert.ToBase64String(bytes);
+        }
+        catch
+        {
+            return value;
+        }
+    }
+
+    public static string DecodeBase64(this string value)
+    {
+        if (string.IsNullOrEmpty(value))
+            return string.Empty;
+        
+        try
+        {
+            var bytes = Convert.FromBase64String(value);
+            return Encoding.Unicode.GetString(bytes);
+        }
+        catch
+        {
+            return value;
+        }
+    }
 }

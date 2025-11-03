@@ -19,7 +19,7 @@ public static class ShellService
     private static ShellResult Run(string fileName, string arguments, string command, string serviceName)
     {
         var fullCommand =
-            $"{fileName} {arguments.Replace("-EncodedCommand", "-Command")} {DecodeBase64(command)}"; // let user see the real command
+            $"{fileName} {arguments.Replace("-EncodedCommand", "-Command")} {command.DecodeBase64()}"; // let user see the real command
 
         var psi = new ProcessStartInfo
         {
@@ -94,31 +94,7 @@ public static class ShellService
         command = "$ProgressPreference='SilentlyContinue'; " + command; // to hide progress bar clixml
         return Run("powershell.exe",
             "-NonInteractive -NoLogo -NoProfile -ExecutionPolicy Bypass -EncodedCommand",
-            EncodePowerShellCommand(command),
+            command.EncodeBase64(),
             nameof(PowerShell));
-    }
-
-    /// <summary>
-    ///     encode command to base64 for better script handling
-    /// </summary>
-    /// <param name="command"></param>
-    /// <returns></returns>
-    public static string EncodePowerShellCommand(string command)
-    {
-        var bytes = Encoding.Unicode.GetBytes(command);
-        return Convert.ToBase64String(bytes);
-    }
-
-    private static string DecodeBase64(string value)
-    {
-        try
-        {
-            var bytes = Convert.FromBase64String(value);
-            return Encoding.Unicode.GetString(bytes);
-        }
-        catch
-        {
-            return string.Empty;
-        }
     }
 }
