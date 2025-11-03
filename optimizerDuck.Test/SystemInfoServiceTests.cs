@@ -152,7 +152,7 @@ public class SystemInfoServiceTests
         );
         
         var disk = new DiskInfo([
-            new DiskVolume("C:", "NTFS", "Fixed", "System", 500.0, 250.0, 250.0, 50.0, "SSD")
+        new DiskVolume("C:", false, "NTFS", "Fixed", "New Volume", 250.0, 250.0, 50.0, 25.0, "SSD")
         ]);
 
         return new SystemSnapshot(cpu, ram, os, bios, [gpu], gpu, disk);

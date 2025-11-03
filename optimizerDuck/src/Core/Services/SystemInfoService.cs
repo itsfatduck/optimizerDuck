@@ -53,6 +53,7 @@ public sealed record CpuInfo(
 
 public sealed record DiskVolume(
     string Name,
+    bool SystemDrive,
     string FileSystem,
     string DriveType,
     string Label,
@@ -328,7 +329,7 @@ internal static class RamProvider
     }
 }
 
-public static class DiskHelper
+public static partial class DiskHelper
 {
     [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
     static extern SafeFileHandle CreateFile(
@@ -336,8 +337,9 @@ public static class DiskHelper
         IntPtr lpSecurityAttributes, uint dwCreationDisposition,
         uint dwFlagsAndAttributes, IntPtr hTemplateFile);
 
-    [DllImport("kernel32.dll", SetLastError = true)]
-    private static extern bool DeviceIoControl(
+    [LibraryImport("kernel32.dll", EntryPoint = "DeviceIoControlA", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static partial bool DeviceIoControl(
         SafeFileHandle hDevice, uint dwIoControlCode,
         IntPtr lpInBuffer, uint nInBufferSize,
         IntPtr lpOutBuffer, uint nOutBufferSize,
@@ -350,18 +352,18 @@ public static class DiskHelper
     const uint GENERIC_READ = 0x80000000;
     const uint IOCTL_STORAGE_QUERY_PROPERTY = 0x2D1400;
 
-    enum STORAGE_PROPERTY_ID
+    private enum STORAGE_PROPERTY_ID
     {
         StorageDeviceSeekPenaltyProperty = 7
     }
 
-    enum STORAGE_QUERY_TYPE
+    private enum STORAGE_QUERY_TYPE
     {
         PropertyStandardQuery = 0
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    struct STORAGE_PROPERTY_QUERY
+    private struct STORAGE_PROPERTY_QUERY
     {
         public STORAGE_PROPERTY_ID PropertyId;
         public STORAGE_QUERY_TYPE QueryType;
@@ -370,7 +372,7 @@ public static class DiskHelper
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    struct DEVICE_SEEK_PENALTY_DESCRIPTOR
+    private struct DEVICE_SEEK_PENALTY_DESCRIPTOR
     {
         public uint Version;
         public uint Size;
@@ -380,7 +382,7 @@ public static class DiskHelper
 
     public static bool IsSSD(string driveLetter)
     {
-        var path = @"\\.\" + driveLetter.TrimEnd('\\');
+        var path = @"\\.\" + driveLetter;
         var handle = CreateFile(path, GENERIC_READ,
             FILE_SHARE_READ | FILE_SHARE_WRITE, IntPtr.Zero,
             OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, IntPtr.Zero);
@@ -421,6 +423,13 @@ public static class DiskHelper
 
         return !result.IncursSeekPenalty; // false = HDD, true = SSD
     }
+    
+    public static bool IsSystemDrive(string driveLetter)
+    {
+        var systemDrive = Path.GetPathRoot(Environment.SystemDirectory)?.TrimEnd('\\') ?? "C:";
+
+        return string.Equals(systemDrive, driveLetter, StringComparison.OrdinalIgnoreCase);
+    }
 }
 
 internal static class DiskProvider
@@ -444,6 +453,7 @@ internal static class DiskProvider
 
                 volumes.Add(new DiskVolume(
                     Name: drive.Name.TrimEnd('\\'),
+                    SystemDrive: DiskHelper.IsSystemDrive(drive.Name.TrimEnd('\\')),
                     FileSystem: drive.DriveFormat,
                     DriveType: drive.DriveType.ToString(),
                     Label: drive.VolumeLabel,
@@ -729,8 +739,9 @@ public static class SystemInfoService
 
         foreach (var volume in Snapshot.Disk.Volumes)
         {
-            log.LogDebug("Disk: {VolumeName} ({VolumeDriveType}) [{VolumeTotalSizeGb:F1} GB] (Free: {VolumeFreeSpaceGb:F1} GB)",
-                volume.Name, volume.DriveTypeDescription, volume.TotalSizeGB, volume.FreeSpaceGB);
+            var systemDrive = volume.SystemDrive ? " [System Drive]" : "";
+            log.LogDebug("Disk {VolumeName}{SystemDrive} ({VolumeDriveType}) [{VolumeTotalSizeGb:F1} GB] (Free: {VolumeFreeSpaceGb:F1} GB)",
+                volume.Name, systemDrive, volume.DriveTypeDescription, volume.TotalSizeGB, volume.FreeSpaceGB);
         }
     }
 

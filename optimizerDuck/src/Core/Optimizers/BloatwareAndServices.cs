@@ -235,7 +235,6 @@ public class BloatwareAndServices : IOptimizationGroup
                 new ServiceItem("SstpSvc", ServiceStartupType.Manual),
                 new ServiceItem("StiSvc", ServiceStartupType.Manual),
                 new ServiceItem("StorSvc", ServiceStartupType.Manual),
-                new ServiceItem("SysMain", ServiceStartupType.Manual),
                 new ServiceItem("SystemEventsBroker", ServiceStartupType.Automatic),
                 new ServiceItem("TabletInputService", ServiceStartupType.Manual),
                 new ServiceItem("TapiSrv", ServiceStartupType.Manual),
@@ -360,6 +359,13 @@ public class BloatwareAndServices : IOptimizationGroup
                 new ServiceItem("wudfsvc", ServiceStartupType.Manual)
             );
             Log.LogInformation("Services have been configured.");
+            
+            var hasSystemSSD = s.Disk.Volumes.Any(volume => volume is { SystemDrive: true, DriveTypeDescription: "SSD" });
+            
+            if (!hasSystemSSD) // Disable SysMain on HDD
+                ServiceProcessService.ChangeServiceStartupType(
+                    new ServiceItem("SysMain", ServiceStartupType.Disabled)
+                );
             return Task.CompletedTask;
         }
     }
