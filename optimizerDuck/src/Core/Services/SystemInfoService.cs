@@ -337,9 +337,8 @@ public static partial class DiskHelper
         IntPtr lpSecurityAttributes, uint dwCreationDisposition,
         uint dwFlagsAndAttributes, IntPtr hTemplateFile);
 
-    [LibraryImport("kernel32.dll", EntryPoint = "DeviceIoControlA", SetLastError = true)]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    private static partial bool DeviceIoControl(
+    [DllImport("kernel32.dll", SetLastError = true)]
+    private static extern bool DeviceIoControl(
         SafeFileHandle hDevice, uint dwIoControlCode,
         IntPtr lpInBuffer, uint nInBufferSize,
         IntPtr lpOutBuffer, uint nOutBufferSize,
@@ -382,7 +381,7 @@ public static partial class DiskHelper
 
     public static bool IsSSD(string driveLetter)
     {
-        var path = @"\\.\" + driveLetter;
+        var path = @"\\.\" + driveLetter.TrimEnd('\\');
         var handle = CreateFile(path, GENERIC_READ,
             FILE_SHARE_READ | FILE_SHARE_WRITE, IntPtr.Zero,
             OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, IntPtr.Zero);
@@ -428,7 +427,7 @@ public static partial class DiskHelper
     {
         var systemDrive = Path.GetPathRoot(Environment.SystemDirectory)?.TrimEnd('\\') ?? "C:";
 
-        return string.Equals(systemDrive, driveLetter, StringComparison.OrdinalIgnoreCase);
+        return string.Equals(systemDrive, driveLetter.TrimEnd('\\'), StringComparison.OrdinalIgnoreCase);
     }
 }
 
@@ -453,7 +452,7 @@ internal static class DiskProvider
 
                 volumes.Add(new DiskVolume(
                     Name: drive.Name.TrimEnd('\\'),
-                    SystemDrive: DiskHelper.IsSystemDrive(drive.Name.TrimEnd('\\')),
+                    SystemDrive: DiskHelper.IsSystemDrive(drive.Name),
                     FileSystem: drive.DriveFormat,
                     DriveType: drive.DriveType.ToString(),
                     Label: drive.VolumeLabel,
@@ -939,6 +938,24 @@ public static class SystemInfoService
             }
         }
 
+        // Disk Information
+        var diskGroup = new List<IRenderable>
+        {
+            new Rule("Disk Information") { Style = Theme.Info }
+        };
+
+        foreach (var volume in s.Disk.Volumes)
+        {
+            var usedDiskColor = volume.UsedPercent > 80 ? Theme.Error : volume.UsedPercent > 60 ? Theme.Warning : Theme.Success;
+            var systemDrive = volume.SystemDrive ? $" [{Theme.Success}][[System Drive]][/]" : "";
+    
+            diskGroup.Add(new Markup($"[{Theme.Info}]{volume.Name}{systemDrive}[/]"));
+            diskGroup.Add(new Markup($"  [{Theme.Info}]Type           :[/] [bold]{volume.DriveTypeDescription}[/]"));
+            diskGroup.Add(new Markup($"  [{Theme.Info}]Total Size     :[/] [{Theme.Success}]{volume.TotalSizeGB:F2}[/] [dim]GB[/]"));
+            diskGroup.Add(new Markup($"  [{Theme.Info}]Free Space     :[/] [{Theme.Success}]{volume.FreeSpaceGB:F2}[/] [dim]GB[/]"));
+            diskGroup.Add(new Markup($"  [{Theme.Info}]Used           :[/] [{usedDiskColor}]{volume.UsedPercent:F1}%[/]"));
+        }
+
         // Combine all groups
         var allGroups = new List<IRenderable>();
         allGroups.AddRange(osGroup);
@@ -948,6 +965,8 @@ public static class SystemInfoService
         allGroups.AddRange(cpuGroup);
         allGroups.Add(Text.Empty);
         allGroups.AddRange(ramGroup);
+        allGroups.Add(Text.Empty);
+        allGroups.AddRange(diskGroup);
         allGroups.Add(Text.Empty);
         allGroups.AddRange(gpuGroup);
 
