@@ -35,7 +35,9 @@ public class BloatwareAndServices : IOptimizationGroup
                 Log.LogDebug("Raw AppxPackage name: {AppxPackage}", appxPackage.Name);
                 ShellService.PowerShell($$"""
                                                $packages = Get-AppxPackage -AllUsers | Where-Object { $_.Name -eq "{{appxPackage.Name}}" }
+                                               Write-Output "Found $($packages.Count) packages for {{appxPackage.Name}}"
                                                foreach ($pkg in $packages) {
+                                                   Write-Output "Removing $($pkg.PackageFullName)"
                                                    Remove-AppxPackage -Package $pkg.PackageFullName -AllUsers
                                                }
                                                """);

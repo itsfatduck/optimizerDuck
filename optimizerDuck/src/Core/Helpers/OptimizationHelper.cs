@@ -5,6 +5,7 @@ using optimizerDuck.Core.Managers;
 using optimizerDuck.Core.Services;
 using optimizerDuck.Interfaces;
 using optimizerDuck.Models;
+using optimizerDuck.UI;
 using optimizerDuck.UI.Logger;
 using Spectre.Console;
 using System.Reflection;
@@ -55,7 +56,7 @@ public static class OptimizationHelper
                     .Select(t =>
                     {
                         var paddedName = t.Name.PadRight(globalMaxNameLength);
-                        var description = $"[dim]| {t.Description}[/]";
+                        var description = $"[dim]{t.Description}[/]";
 
                         return new OptimizationTweakChoice(t, paddedName, description, t.EnabledByDefault);
                     })
@@ -172,17 +173,17 @@ public static class OptimizationHelper
 
             if (classification.SafeApps.Count > 0)
             {
-                parts.Add($"{classification.SafeApps.Count} safe apps");
+                parts.Add($"[{Theme.Primary}]{classification.SafeApps.Count}[/] safe apps");
                 Log.LogDebug("Found {TotalSafeApps} safe apps: {SafeApps}", classification.SafeApps.Count, string.Join(", ", classification.SafeApps.Select(x => x.Name).ToList()));
             }
             if (classification.CautionApps.Count > 0)
             {
-                parts.Add($"{classification.CautionApps.Count} caution apps");
+                parts.Add($"[{Theme.Primary}]{classification.CautionApps.Count}[/] caution apps");
                 Log.LogDebug("Found {TotalCautionApps} caution apps: {CautionApps}", classification.CautionApps.Count, string.Join(", ", classification.CautionApps.Select(x => x.Name).ToList()));
             }
 
             if (parts.Any())
-                Log.LogInformation("Found {Apps}.", string.Join(" and ", parts));
+                Log.LogInformation($"Found {string.Join(" and ", parts)}.");
             else
                 Log.LogWarning("No apps found.");
 

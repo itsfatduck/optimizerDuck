@@ -193,13 +193,18 @@ internal class Program
 
                     AnsiConsole.Clear();
                     AnsiConsole.Write(Defaults.Logo);
-                    AnsiConsole.Write(SystemInfoService.GetDetailedPanel(_systemSnapshot));
-                    AnsiConsole.Write(
-                        Align.Center(
-                            new Markup("[dim]Press any key to go back to the main menu.[/]"),
-                            VerticalAlignment.Middle)
-                    );
-                    Console.ReadKey();
+
+                    var detailedPanel = SystemInfoService.GetDetailedPanel(_systemSnapshot, Log);
+                    if (detailedPanel is not null)
+                    {
+                        AnsiConsole.Write(detailedPanel);
+                        AnsiConsole.Write(
+                            Align.Center(
+                                new Markup("[dim]Press any key to go back to the main menu.[/]"),
+                                VerticalAlignment.Middle)
+                        );
+                        Console.ReadKey();
+                    }
                     break;
                 }
             }
@@ -215,7 +220,7 @@ internal class Program
 
             AnsiConsole.Clear();
             AnsiConsole.Write(Defaults.Logo);
-            
+
             await UpdateService.CheckForUpdatesAsync();
 
             var app = new Program();

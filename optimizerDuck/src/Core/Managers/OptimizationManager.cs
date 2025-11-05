@@ -125,11 +125,11 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
 
 
 
-                if (SelectedBloatware is { Count: > 0 })
-                    foreach (var app in SelectedBloatware)
+                if (SelectedBloatware.Count == 0) // default selected safe apps first time only
+                    foreach (var app in appxClassification.SafeApps)
                         promptBloatware.Select(app);
                 else
-                    foreach (var app in appxClassification.SafeApps)
+                    foreach (var app in SelectedBloatware)
                         promptBloatware.Select(app);
 
                 var bloatwareSelection = await escapeCancellableConsole.PromptAsync(promptBloatware).ConfigureAwait(false);
@@ -151,7 +151,7 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
         AnsiConsole.Clear();
         AnsiConsole.Write(Defaults.Logo);
 
-        SystemHelper.Title("Setting up");
+        SystemHelper.Title("Create Restore Point");
 
         return Task.FromResult(PromptDialog.Warning("Create Restore Point",
             $"""
