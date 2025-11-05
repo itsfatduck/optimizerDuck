@@ -153,7 +153,7 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
         _systemSnapshot = await SystemInfoService.RefreshAsync().ConfigureAwait(false);
 
         Log.LogDebug("Selected tweaks ({TweakAmount}): {Tweaks}", _selectedTweaks.Count,
-            string.Join(", ", _selectedTweaks.Select(t => t.Name.Trim())));
+            string.Join(", ", _selectedTweaks.Select(t => t.Name)));
         if (SelectedBloatware.Count != 0)
             Log.LogDebug("Selected bloatware apps ({BloatwareAmount}): {Bloatware}", SelectedBloatware.Count,
                 string.Join(", ", SelectedBloatware.Select(app => $"{app.DisplayName} ({app.Version})")));
@@ -163,7 +163,7 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
             await AnsiConsole.Status()
                 .Spinner(Spinner.Known.Dots2)
                 .SpinnerStyle($"bold {Theme.Primary}")
-                .StartAsyncGlobal($"Applying [{Theme.Primary}]{selectedTweak.Name.Trim()}[/]...", async ctx =>
+                .StartAsyncGlobal($"Applying [{Theme.Primary}]{selectedTweak.Name}[/]...", async ctx =>
                 {
                     try
                     {
