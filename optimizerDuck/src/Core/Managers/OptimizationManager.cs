@@ -107,10 +107,12 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                     foreach (var app in appxClassification.SafeApps)
                         promptBloatware.Select(app);
 
-
-                SelectedBloatware =
-                    new Queue<AppxPackage>(await escapeCancellableConsole.PromptAsync(promptBloatware)
-                        .ConfigureAwait(false));
+                var bloatwareSelection = new Queue<AppxPackage>(await escapeCancellableConsole.PromptAsync(promptBloatware).ConfigureAwait(false));
+                
+                SelectedBloatware = new Queue<AppxPackage>(bloatwareSelection.Select(app => new AppxPackage(
+                    app.DisplayName.TrimEnd(), app.Name.TrimEnd(), app.Version.TrimEnd(), app.InstallLocation.TrimEnd()))
+                    .ToList());
+                    
             }
         }
         catch (OperationCanceledException)
