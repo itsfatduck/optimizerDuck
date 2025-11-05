@@ -1,10 +1,13 @@
-﻿using Spectre.Console;
+﻿using Microsoft.Extensions.Logging;
 using optimizerDuck.Core.Services;
+using optimizerDuck.UI.Logger;
+using Spectre.Console;
 
 namespace optimizerDuck.Test.Core.Services;
 
 public class SystemInfoServiceTests
 {
+    private static readonly ILogger Log = Logger.CreateLogger<SystemInfoServiceTests>();
     [Fact]
     public void GetDetailedPanel_WithValidSnapshot_ReturnsPanel()
     {
@@ -12,7 +15,7 @@ public class SystemInfoServiceTests
         var snapshot = CreateValidSystemSnapshot();
 
         // Act
-        var panel = SystemInfoService.GetDetailedPanel(snapshot);
+        var panel = SystemInfoService.GetDetailedPanel(snapshot, Log);
 
         // Assert
         Assert.NotNull(panel);
@@ -29,7 +32,7 @@ public class SystemInfoServiceTests
         var snapshot = CreateValidSystemSnapshot() with { Gpus = [gpu], PrimaryGpu = gpu };
 
         // Act
-        var panel = SystemInfoService.GetDetailedPanel(snapshot);
+        var panel = SystemInfoService.GetDetailedPanel(snapshot, Log);
 
         // Assert
         Assert.NotNull(panel);
@@ -44,7 +47,7 @@ public class SystemInfoServiceTests
         var snapshot = CreateValidSystemSnapshot() with { Gpus = [gpu1, gpu2], PrimaryGpu = gpu1 };
 
         // Act
-        var panel = SystemInfoService.GetDetailedPanel(snapshot);
+        var panel = SystemInfoService.GetDetailedPanel(snapshot, Log);
 
         // Assert
         Assert.NotNull(panel);
@@ -57,7 +60,7 @@ public class SystemInfoServiceTests
         var snapshot = CreateValidSystemSnapshot() with { Gpus = [], PrimaryGpu = null };
 
         // Act
-        var panel = SystemInfoService.GetDetailedPanel(snapshot);
+        var panel = SystemInfoService.GetDetailedPanel(snapshot, Log);
 
         // Assert
         Assert.NotNull(panel);
@@ -70,7 +73,7 @@ public class SystemInfoServiceTests
         var snapshot = CreateValidSystemSnapshot() with { Gpus = [GpuInfo.Unknown], PrimaryGpu = null };
 
         // Act
-        var panel = SystemInfoService.GetDetailedPanel(snapshot);
+        var panel = SystemInfoService.GetDetailedPanel(snapshot, Log);
 
         // Assert
         Assert.NotNull(panel);
@@ -84,7 +87,7 @@ public class SystemInfoServiceTests
         var snapshot = CreateValidSystemSnapshot() with { Ram = ram };
 
         // Act
-        var panel = SystemInfoService.GetDetailedPanel(snapshot);
+        var panel = SystemInfoService.GetDetailedPanel(snapshot, Log);
 
         // Assert
         Assert.NotNull(panel);
@@ -100,7 +103,7 @@ public class SystemInfoServiceTests
         var snapshot = CreateValidSystemSnapshot() with { Ram = ram };
 
         // Act
-        var panel = SystemInfoService.GetDetailedPanel(snapshot);
+        var panel = SystemInfoService.GetDetailedPanel(snapshot, Log);
 
         // Assert
         Assert.NotNull(panel);
@@ -150,7 +153,7 @@ public class SystemInfoServiceTests
             "PCI\\VEN_10DE",
             "PCI_VEN_10DE"
         );
-        
+
         var disk = new DiskInfo([
         new DiskVolume("C:", false, "NTFS", "Fixed", "New Volume", 250.0, 250.0, 50.0, 25.0, "SSD")
         ]);
