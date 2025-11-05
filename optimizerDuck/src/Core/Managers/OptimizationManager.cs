@@ -66,7 +66,7 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
             var optimizationTweakChoices =
                 await escapeCancellableConsole.PromptAsync(promptTweakChoice).ConfigureAwait(false);
 
-            _selectedTweaks = new Queue<OptimizationTweakChoice>(optimizationTweakChoices);
+            _selectedTweaks = new Queue<OptimizationTweakChoice>(optimizationTweakChoices.Select(t => t with { Name = t.Name.Trim(), Description = t.Description.Trim() }));
 
             if (_selectedTweaks.Any(t =>
                     t.Instance?.GetType() ==
@@ -107,10 +107,9 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                     foreach (var app in appxClassification.SafeApps)
                         promptBloatware.Select(app);
 
-                var bloatwareSelection = new Queue<AppxPackage>(await escapeCancellableConsole.PromptAsync(promptBloatware).ConfigureAwait(false));
+                var bloatwareSelection = await escapeCancellableConsole.PromptAsync(promptBloatware).ConfigureAwait(false);
                 
-                SelectedBloatware = new Queue<AppxPackage>(bloatwareSelection.Select(app => new AppxPackage(
-                    app.DisplayName.TrimEnd(), app.Name.TrimEnd(), app.Version.TrimEnd(), app.InstallLocation.TrimEnd()))
+                SelectedBloatware = new Queue<AppxPackage>(bloatwareSelection.Select(app => app with { DisplayName = app.DisplayName.TrimEnd(), Version = app.Version.TrimEnd() })
                     .ToList());
                     
             }
@@ -157,7 +156,7 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
             string.Join(", ", _selectedTweaks.Select(t => t.Name.Trim())));
         if (SelectedBloatware.Count != 0)
             Log.LogDebug("Selected bloatware apps ({BloatwareAmount}): {Bloatware}", SelectedBloatware.Count,
-                string.Join(", ", SelectedBloatware));
+                string.Join(", ", SelectedBloatware.Select(app => $"{app.DisplayName} ({app.Version})")));
 
         Log.LogDebug(new string('=', 60));
         while (_selectedTweaks.TryDequeue(out var selectedTweak))
