@@ -22,71 +22,8 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
     private Queue<OptimizationTweakChoice> _selectedTweaks = new();
     private SystemSnapshot _systemSnapshot = systemSnapshot;
 
-    public static Queue<string> SelectedBloatware { get; private set; } =
+    public static Queue<AppxPackage> SelectedBloatware { get; private set; } =
         new(); // public and static for Remove Bloatware Apps tweak
-
-
-    private static List<OptimizationGroupChoice> GetTweakChoices()
-    {
-        return CacheManager.GetOrCreate("optimization_choices", entry =>
-        {
-            entry.Priority = CacheItemPriority.NeverRemove;
-
-            var groups = new List<OptimizationGroupChoice>();
-            var optimizationGroups = ReflectionHelper.FindImplementationsInLoadedAssemblies(typeof(IOptimizationGroup));
-
-            var enumerable = optimizationGroups as Type[] ?? optimizationGroups.ToArray();
-            var allTweaks = enumerable
-                .SelectMany(og => og.GetNestedTypes(BindingFlags.Public)
-                    .Where(t => typeof(IOptimizationTweak).IsAssignableFrom(t))
-                    .Select(t => (IOptimizationTweak?)Activator.CreateInstance(t)!))
-                .Where(_ => true)
-                .ToList();
-
-            var globalMaxNameLength = allTweaks.Count != 0
-                ? allTweaks.Max(t => t.Name.Length) + 1
-                : 0;
-
-
-            foreach (var optimizationGroup in enumerable)
-            {
-                var groupInstance = (IOptimizationGroup)Activator.CreateInstance(optimizationGroup)!;
-
-                var tweaks = optimizationGroup
-                    .GetNestedTypes(BindingFlags.Public)
-                    .Where(t => typeof(IOptimizationTweak).IsAssignableFrom(t))
-                    .Select(t => (IOptimizationTweak)Activator.CreateInstance(t)!)
-                    .OrderByDescending(t => t.EnabledByDefault)
-                    .ToList();
-
-                if (tweaks.Count == 0) // skip groups with no tweaks
-                    continue;
-
-                var tweakChoices = tweaks
-                    .Select(t =>
-                    {
-                        var paddedName = t.Name.PadRight(globalMaxNameLength);
-                        var description = $"[dim]| {t.Description}[/]";
-
-                        return new OptimizationTweakChoice(t, paddedName, description, t.EnabledByDefault);
-                    })
-                    .ToList();
-
-                groups.Add(new OptimizationGroupChoice(groupInstance.Name, groupInstance.Order, tweakChoices));
-            }
-
-            var orderedGroups = groups.OrderBy(g => g.Priority).ToList();
-            foreach (var g in orderedGroups)
-            {
-                Log.LogDebug("Loaded group {Group}:", g.Name);
-                foreach (var t in g.Tweaks)
-                    if (t.Description != null)
-                        Log.LogDebug("  - {TweakName} {TweakDescription}", t.Name, Markup.Remove(t.Description));
-            }
-
-            return orderedGroups;
-        });
-    }
 
 
     public async Task<bool> Begin()
@@ -97,7 +34,7 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
 
         Log.LogInformation("Loading optimizations...");
 
-        var optimizationGroups = GetTweakChoices();
+        var optimizationGroups = OptimizationHelper.GetTweakChoices();
         Log.LogInformation("Loaded {GroupAmount} groups with {TweakAmount} tweaks.", optimizationGroups.Count,
             optimizationGroups.Sum(g => g.Tweaks.Count));
 
@@ -135,29 +72,44 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                     t.Instance?.GetType() ==
                     typeof(BloatwareAndServices.RemoveBloatwareApps))) // if Bloatware selection is selected
             {
-                var promptBloatware = new MultiSelectionPrompt<string>()
+                Log.LogDebug("Bloatware selection detected, prompting for bloatware apps...");
+                Log.LogInformation("Loading installed bloatware apps...");
+
+                var appxClassification = OptimizationHelper.GetBloatwareChoices();
+
+                Log.LogInformation("Found {TotalSafeApps} safe apps and {TotalCautionApps} caution apps.",
+                    appxClassification.SafeApps.Count, appxClassification.CautionApps.Count);
+
+                var promptBloatware = new MultiSelectionPrompt<AppxPackage>()
                     .Title("Select the bloatware you want to remove")
                     .InstructionsText(Defaults.EscapeCancellableConsoleMultiSelectionPromptInstructionsText)
                     .Required(true)
                     .HighlightStyle(Theme.Primary)
-                    .UseConverter(key =>
-                        $"{(key.Contains("Safe") || key.Contains("Caution") ? key + " " : "")}{Defaults.SAFE_APPS.GetValueOrDefault(key) ?? Defaults.CAUTION_APPS.GetValueOrDefault(key)}")
-                    .AddChoiceGroup("[bold underline lightgreen]Safe Apps[/] - [lightgreen]Recommended[/]",
-                        Defaults.SAFE_APPS.Keys)
-                    .AddChoiceGroup("[bold underline red]Caution Apps[/] - [red]May cause issues[/]",
-                        Defaults.CAUTION_APPS.Keys)
+                    .UseConverter(app =>
+                        $"{(app.DisplayName.Contains("Safe Apps") || app.DisplayName.Contains("Caution Apps") ?
+                                app.DisplayName :
+                                $"[bold]{app.DisplayName}[/] [dim]{app.Version} {app.InstallLocation}[/]")
+                        }")
+                    .AddChoiceGroup(
+                        new AppxPackage("[bold underline lightgreen]Safe Apps[/] - [lightgreen]Recommended[/]",
+                            string.Empty, string.Empty, string.Empty),
+                        appxClassification.SafeApps)
+                    .AddChoiceGroup(
+                        new AppxPackage("[bold underline red]Caution Apps[/] - [red]May cause issues[/]", string.Empty,
+                            string.Empty, string.Empty),
+                        appxClassification.CautionApps)
                     .PageSize(24);
 
                 if (SelectedBloatware is { Count: > 0 })
                     foreach (var app in SelectedBloatware)
                         promptBloatware.Select(app);
                 else
-                    foreach (var app in Defaults.SAFE_APPS.Keys)
+                    foreach (var app in appxClassification.SafeApps)
                         promptBloatware.Select(app);
 
 
                 SelectedBloatware =
-                    new Queue<string>(await escapeCancellableConsole.PromptAsync(promptBloatware)
+                    new Queue<AppxPackage>(await escapeCancellableConsole.PromptAsync(promptBloatware)
                         .ConfigureAwait(false));
             }
         }

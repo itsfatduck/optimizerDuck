@@ -174,7 +174,7 @@ public class PromptDialog
 
                           [bold {Theme.Error}]Exception:[/]
                             [italic]{exception.GetType().Name}[/]
-                            [bold {Theme.Error}]{exception.Message}[/]
+                            [bold {Theme.Error}]{Markup.Escape(exception.Message)}[/]
 
                           [dim]──────────────────────────────[/]
                           [grey]Please check the log file for more details.[/]
