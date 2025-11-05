@@ -26,10 +26,15 @@ public class BloatwareAndServices : IOptimizationGroup
         {
             using var tracker = ServiceTracker.Begin();
 
-            while (OptimizationManager.SelectedBloatware.TryDequeue(out var bloatware))
+            while (OptimizationManager.SelectedBloatware.TryDequeue(out var appxPackage))
             {
-                Log.LogInformation("Removing bloatware app: {Bloatware}", bloatware);
-                ShellService.PowerShell($"""Get-AppxPackage -AllUsers -Name "*{bloatware}*" | Remove-AppxPackage""");
+                Log.LogInformation("Removing bloatware app: {Bloatware}", appxPackage.DisplayName);
+                ShellService.PowerShell($$"""
+                                               $packages = Get-AppxPackage -AllUsers | Where-Object { $_.Name -eq "{{appxPackage.Name}}" }
+                                               foreach ($pkg in $packages) {
+                                                   Remove-AppxPackage -Package $pkg.PackageFullName -AllUsers
+                                               }
+                                               """);
             }
 
             Log.LogInformation("Bloatware apps have been removed.");
