@@ -165,16 +165,15 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                 .SpinnerStyle($"bold {Theme.Primary}")
                 .StartAsyncGlobal($"Applying [{Theme.Primary}]{selectedTweak.Name.Trim()}[/]...", async ctx =>
                 {
-                    var tweakName = selectedTweak.Name.Trim();
                     try
                     {
-                        SystemHelper.Title(tweakName);
-                        ctx.Status($"Applying [{Theme.Primary}]{tweakName}[/]...");
+                        SystemHelper.Title(selectedTweak.Name);
+                        ctx.Status($"Applying [{Theme.Primary}]{selectedTweak.Name}[/]...");
 
-                        using var scope = Log.BeginScope("Tweak: {TweakName}", tweakName);
+                        using var scope = Log.BeginScope("Tweak: {TweakName}", selectedTweak.Name);
 
-                        Rule($"[bold white] {tweakName} [/]", Theme.Success);
-                        Log.LogInformation("Applying {TweakName}...", tweakName);
+                        Rule($"[bold white] {selectedTweak.Name} [/]", Theme.Success);
+                        Log.LogInformation("Applying {TweakName}...", selectedTweak.Name);
 
                         var stopwatch = Stopwatch.StartNew();
 
@@ -187,7 +186,7 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                     catch (Exception e)
                     {
                         Log.LogError(e, "[{Error}]Failed to apply tweak {TweakName}[/], skipped.", Theme.Error,
-                            tweakName);
+                            selectedTweak.Name);
                     }
                     finally
                     {
