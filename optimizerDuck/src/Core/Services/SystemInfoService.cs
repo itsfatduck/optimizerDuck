@@ -84,10 +84,11 @@ public sealed record RamInfo(
     long TotalKB,
     double AvailableGB,
     double UsedPercent,
+    double UsedGB,
     IReadOnlyList<RamModule> Modules
 )
 {
-    public static readonly RamInfo Unknown = new(0, 0, 0, 0, 0, []);
+    public static readonly RamInfo Unknown = new(0, 0, 0, 0, 0, 0, []);
 }
 
 public sealed record OsInfo(
@@ -256,9 +257,9 @@ internal static class RamProvider
         try
         {
             var modules = GetPhysicalModules();
-            var (totalGB, totalMB, totalKB, availableGB, usedPercent) = GetMemoryStats(modules);
+            var (totalGB, totalMB, totalKB, availableGB, usedPercent, usedGB) = GetMemoryStats(modules);
 
-            return new RamInfo(totalGB, totalMB, totalKB, availableGB, usedPercent, modules);
+            return new RamInfo(totalGB, totalMB, totalKB, availableGB, usedPercent, usedGB, modules);
         }
         catch
         {
@@ -286,7 +287,7 @@ internal static class RamProvider
         return modules;
     }
 
-    private static (double totalGB, long totalMB, long totalKB, double availableGB, double usedPercent) GetMemoryStats(
+    private static (double totalGB, long totalMB, long totalKB, double availableGB, double usedPercent, double usedGB) GetMemoryStats(
         List<RamModule> modules)
     {
         var totalGB = modules.Sum(m => m.CapacityGB);
@@ -306,26 +307,26 @@ internal static class RamProvider
         var totalKB = totalMB * 1024;
 
         // Get available memory and usage
-        var (availableGB, usedPercent) = GetMemoryUsage();
+        var (availableGB, usedGB, usedPercent) = GetMemoryUsage();
 
-        return (Math.Round(totalGB, 2), totalMB, totalKB, availableGB, usedPercent);
+        return (Math.Round(totalGB, 2), totalMB, totalKB, availableGB, usedPercent, usedGB);
     }
 
-    private static (double availableGB, double usedPercent) GetMemoryUsage()
+    private static (double availableGB, double usedGB, double usedPercent) GetMemoryUsage()
     {
         var os = WmiHelper.GetFirst("SELECT FreePhysicalMemory, TotalVisibleMemorySize FROM Win32_OperatingSystem");
-        if (os == null) return (0, 0);
+        if (os == null) return (0, 0, 0);
 
         var freeKB = WmiHelper.GetLong(os, "FreePhysicalMemory");
         var totalKB = WmiHelper.GetLong(os, "TotalVisibleMemorySize");
 
-        if (totalKB == 0) return (0, 0);
+        if (totalKB == 0) return (0, 0, 0);
 
         var availableGB = freeKB / 1024.0 / 1024.0;
         var usedKB = totalKB - freeKB;
         var usedPercent = Math.Round(usedKB * 100.0 / totalKB, 1);
 
-        return (Math.Round(availableGB, 2), usedPercent);
+        return (Math.Round(availableGB, 2), Math.Round(usedKB / 1024.0 / 1024.0, 2), usedPercent);
     }
 }
 
@@ -839,14 +840,26 @@ public static class SystemInfoService
         };
 
         // RAM Information
-        var usedColor = s.Ram.UsedPercent > 80 ? Theme.Error : s.Ram.UsedPercent > 60 ? Theme.Warning : Theme.Success;
+        var usedColor = s.Ram.UsedPercent > 80 ? Theme.Error : Theme.Warning;
         var ramGroup = new List<IRenderable>
         {
             new Rule("Memory Information") { Style = new Style(Color.Yellow) },
+            
             new Markup(
                 $"[{Theme.Info}]Total          :[/] [{Theme.Success}]{s.Ram.TotalGB:F2}[/] [dim]GB[/] [dim]([/][{Theme.Success}]{s.Ram.TotalMB}[/] [dim]MB)[/]"),
             new Markup($"[{Theme.Info}]Available      :[/] [{Theme.Success}]{s.Ram.AvailableGB:F2}[/] [dim]GB[/]"),
-            new Markup($"[{Theme.Info}]Used           :[/] [{usedColor}]{s.Ram.UsedPercent:F1}%[/]")
+            new Markup($"[{Theme.Info}]Used           :[/] [{usedColor}]{s.Ram.UsedPercent:F1}%[/]"),
+            new BreakdownChart()
+                .Width(50)
+                .UseValueFormatter(v => $"{v:F2} GB")
+                .AddItem(
+                    "Used GB",
+                    s.Ram.UsedGB,
+                    Color.FromHex(Theme.Warning))
+                .AddItem(
+                    "Available GB",
+                    s.Ram.AvailableGB,
+                    Color.FromHex(Theme.Success)),
         };
 
         if (s.Ram.Modules.Count > 0)
@@ -872,7 +885,7 @@ public static class SystemInfoService
 
         foreach (var volume in s.Disk.Volumes)
         {
-            var usedDiskColor = volume.UsedPercent > 90 ? Theme.Error : volume.UsedPercent > 60 ? Theme.Warning : Theme.Success;
+            var usedDiskColor = volume.UsedPercent > 90 ? Theme.Error : Theme.Warning;
             var systemDrive = volume.SystemDrive ? $" [{Theme.Success}][[System Drive]][/]" : "";
     
             diskGroup.Add(new Markup($"[{Theme.Info}]{volume.Name} [bold white]{volume.Label}[/]{systemDrive}[/]"));
@@ -880,7 +893,17 @@ public static class SystemInfoService
             diskGroup.Add(new Markup($"  [{Theme.Info}]Total Size     :[/] [{Theme.Success}]{volume.TotalSizeGB:F2}[/] [dim]GB[/]"));
             diskGroup.Add(new Markup($"  [{Theme.Info}]Used Size      :[/] [{Theme.Warning}]{volume.UsedSpaceGB:F2}[/] [dim]GB[/]"));
             diskGroup.Add(new Markup($"  [{Theme.Info}]Free Space     :[/] [{usedDiskColor}]{volume.FreeSpaceGB:F2}[/] [dim]GB[/]"));
-            diskGroup.Add(new Markup($"  [{Theme.Info}]Used           :[/] [{usedDiskColor}]{volume.UsedPercent:F1}%[/]"));
+            diskGroup.Add(new BreakdownChart()
+                .Width(50)
+                .UseValueFormatter(v => $"{v:F2} GB")
+                .AddItem(
+                    "Used GB",
+                    volume.UsedSpaceGB,
+                    Color.FromHex(usedDiskColor))
+                .AddItem(
+                    "Available GB",
+                    volume.FreeSpaceGB,
+                    Color.FromHex(Theme.Success)));
         }
 
         // GPU Information

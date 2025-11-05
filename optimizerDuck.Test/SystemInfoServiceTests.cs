@@ -80,7 +80,7 @@ public class SystemInfoServiceTests
     public void GetDetailedPanel_WithHighMemoryUsage_ReturnsPanel()
     {
         // Arrange
-        var ram = new RamInfo(32, 32768, 33554432, 5.5, 85.0, []);
+        var ram = new RamInfo(32, 32768, 33554432, 5.5, 85.0, 16384, []);
         var snapshot = CreateValidSystemSnapshot() with { Ram = ram };
 
         // Act
@@ -96,7 +96,7 @@ public class SystemInfoServiceTests
         // Arrange
         var module1 = new RamModule(16.0, "3200", "Corsair", "CMK16GX4M2B3200C16", "DIMM 1");
         var module2 = new RamModule(16.0, "3200", "Kingston", "KF432C16BB2K2/32", "DIMM 2");
-        var ram = new RamInfo(32, 32768, 33554432, 16.0, 50.0, [module1, module2]);
+        var ram = new RamInfo(32, 32768, 33554432, 16.0, 50.0, 16384, [module1, module2]);
         var snapshot = CreateValidSystemSnapshot() with { Ram = ram };
 
         // Act
@@ -121,7 +121,7 @@ public class SystemInfoServiceTests
             30720
         );
 
-        var ram = new RamInfo(32, 32768, 33554432, 20.0, 50.0, []);
+        var ram = new RamInfo(32, 32768, 33554432, 20.0, 50.0, 16384, []);
 
         var os = new OsInfo(
             "Windows 11",
