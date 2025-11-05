@@ -1,6 +1,3 @@
-using System.Diagnostics;
-using System.Net.Http.Headers;
-using System.Reflection;
 using ConsoleInk;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -10,6 +7,9 @@ using optimizerDuck.UI;
 using optimizerDuck.UI.Components;
 using optimizerDuck.UI.Logger;
 using Spectre.Console;
+using System.Diagnostics;
+using System.Net.Http.Headers;
+using System.Reflection;
 
 namespace optimizerDuck.Core.Services;
 
@@ -49,6 +49,8 @@ public class UpdateService
             var preReleaseSeparatorIndex = latestVersionStr.IndexOf('-');
             if (preReleaseSeparatorIndex != -1)
                 latestVersionStr = latestVersionStr[..preReleaseSeparatorIndex];
+
+            Log.LogDebug("Latest release version: {LatestReleaseTagName}", latestRelease.TagName);
 
             // Parse version
             if (!Version.TryParse(latestVersionStr, out var latestVersion))
@@ -148,7 +150,7 @@ public class UpdateService
 
     private static void LaunchUpdater(string newExePath)
     {
-        SystemHelper.Title("Updating Application"); 
+        SystemHelper.Title("Updating Application");
         Log.LogInformation("Starting update...");
         var currentProcess = Process.GetCurrentProcess();
         Log.LogDebug("Current process ID: {Pid}", currentProcess.Id);

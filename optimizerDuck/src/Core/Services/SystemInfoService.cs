@@ -743,7 +743,7 @@ public static class SystemInfoService
             foreach (var volume in Snapshot.Disk.Volumes)
             {
                 var systemDrive = volume.SystemDrive ? " [System Drive]" : "";
-                log.LogDebug("Disk {VolumeName}{SystemDrive} ({VolumeDriveType}) [{VolumeTotalSizeGb:F1} GB] (Free: {VolumeFreeSpaceGb:F1} GB)",
+                log.LogDebug("Disk {VolumeName}{SystemDrive} [{VolumeDriveType}] {VolumeTotalSizeGb:F1} GB (Free: {VolumeFreeSpaceGb:F1} GB)",
                     volume.Name, systemDrive, volume.DriveTypeDescription, volume.TotalSizeGB, volume.FreeSpaceGB);
             }
         }
