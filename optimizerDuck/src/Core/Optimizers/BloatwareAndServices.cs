@@ -28,7 +28,9 @@ public class BloatwareAndServices : IOptimizationGroup
 
             while (OptimizationManager.SelectedBloatware.TryDequeue(out var appxPackage))
             {
-                Log.LogInformation("Removing bloatware app: {Bloatware}", appxPackage.DisplayName);
+                Log.LogInformation("Removing bloatware app: {Bloatware} ({Version})",
+                    appxPackage.DisplayName.TrimEnd(), appxPackage.Version.TrimEnd());
+                Log.LogDebug("Raw AppxPackage name: {AppxPackage}", appxPackage.Name);
                 ShellService.PowerShell($$"""
                                                $packages = Get-AppxPackage -AllUsers | Where-Object { $_.Name -eq "{{appxPackage.Name}}" }
                                                foreach ($pkg in $packages) {
