@@ -82,7 +82,7 @@
 ## Mindset Matters
 
 * A powerful PC means little if it's not used efficiently.
-* Real performance isn't just about tweaks or tools — it's about **how you manage your system**.
+* Real performance isn't just about tweaks or tools. It's about **how you manage your system**.
 
 **Best practices:**
 - Keep your OS lean: avoid unnecessary VPNs, multiple antiviruses, or background apps.
@@ -156,8 +156,6 @@ This project is licensed under the [CC BY-NC-SA 4.0 License](https://creativecom
 ## Star History
 
 **If optimizerDuck made your PC faster, give it a star! ⭐**<br>It helps more people discover the project and keeps development going.
-
-## Star History
 
 <a href="https://www.star-history.com/#itsfatduck/optimizerDuck&type=Date">
   <img src="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&type=Date" alt="Star History Chart">
