@@ -1,17 +1,14 @@
-﻿using System.Diagnostics;
-using System.Reflection;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using optimizerDuck.Core.Extensions;
 using optimizerDuck.Core.Helpers;
 using optimizerDuck.Core.Optimizers;
 using optimizerDuck.Core.Services;
-using optimizerDuck.Interfaces;
 using optimizerDuck.Models;
 using optimizerDuck.UI;
 using optimizerDuck.UI.Components;
 using optimizerDuck.UI.Logger;
 using Spectre.Console;
+using System.Diagnostics;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace optimizerDuck.Core.Managers;
@@ -51,7 +48,7 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
 
             foreach (var g in optimizationGroups)
                 promptTweakChoice.AddChoiceGroup(
-                    new OptimizationTweakChoice(null, $"[bold underline]{g.Name}[/]", null,
+                    new OptimizationTweakChoice(null, $"[bold underline]{g.Name}[/]", string.Empty,
                         false), // hack to add group title ok vjp pro, and this cant be selected btw
                     g.Tweaks
                 );
@@ -66,19 +63,31 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
             var optimizationTweakChoices =
                 await escapeCancellableConsole.PromptAsync(promptTweakChoice).ConfigureAwait(false);
 
-            _selectedTweaks = new Queue<OptimizationTweakChoice>(optimizationTweakChoices.Select(t => t with { Name = t.Name.Trim(), Description = t.Description.Trim() }));
+            _selectedTweaks = new Queue<OptimizationTweakChoice>(optimizationTweakChoices);
 
             if (_selectedTweaks.Any(t =>
                     t.Instance?.GetType() ==
                     typeof(BloatwareAndServices.RemoveBloatwareApps))) // if Bloatware selection is selected
             {
+                SystemHelper.Title("Select the bloatware you want to remove");
                 Log.LogDebug("Bloatware selection detected, prompting for bloatware apps...");
                 Log.LogInformation("Loading installed bloatware apps...");
 
                 var appxClassification = OptimizationHelper.GetBloatwareChoices();
 
-                Log.LogInformation("Found {TotalSafeApps} safe apps and {TotalCautionApps} caution apps.",
-                    appxClassification.SafeApps.Count, appxClassification.CautionApps.Count);
+                if (appxClassification.SafeApps.Count == 0 && appxClassification.CautionApps.Count == 0)
+                {
+                    return PromptDialog.Warning(
+                        "No Bloatware Detected",
+                        $"""
+                        [{Theme.Success}]Great news![/]  
+                        We [{Theme.Warning}]couldn't[/] find any bloatware installed on your system.  
+                        There's nothing you need to remove, so you can [{Theme.Success}]safely continue[/].
+                        """,
+                        new PromptOption("Continue", Theme.Success),
+                        new PromptOption("Back", Theme.Warning, () => false)
+                    );
+                }
 
                 var promptBloatware = new MultiSelectionPrompt<AppxPackage>()
                     .Title("Select the bloatware you want to remove")
@@ -88,17 +97,33 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                     .UseConverter(app =>
                         $"{(app.DisplayName.Contains("Safe Apps") || app.DisplayName.Contains("Caution Apps") ?
                                 app.DisplayName :
-                                $"[bold]{app.DisplayName}[/] [dim]{app.Version} {app.InstallLocation}[/]")
-                        }")
-                    .AddChoiceGroup(
-                        new AppxPackage("[bold underline lightgreen]Safe Apps[/] - [lightgreen]Recommended[/]",
-                            string.Empty, string.Empty, string.Empty),
-                        appxClassification.SafeApps)
-                    .AddChoiceGroup(
-                        new AppxPackage("[bold underline red]Caution Apps[/] - [red]May cause issues[/]", string.Empty,
-                            string.Empty, string.Empty),
-                        appxClassification.CautionApps)
+                                $"[bold]{app.DisplayName}[/] [dim]{app.Version} {app.InstallLocation}[/]")}")
+
                     .PageSize(24);
+
+                if (appxClassification.SafeApps.Count > 0)
+                    promptBloatware.AddChoiceGroup(
+                        new AppxPackage
+                        {
+                            DisplayName = "[bold underline lightgreen]Safe Apps[/] - [lightgreen]Safe to remove[/]",
+                            Name = "",
+                            Version = "",
+                            InstallLocation = ""
+                        },
+                        appxClassification.SafeApps);
+
+                if (appxClassification.CautionApps.Count > 0)
+                    promptBloatware.AddChoiceGroup(
+                        new AppxPackage
+                        {
+                            DisplayName = "[bold underline red]Caution Apps[/] - [red]May cause issues[/]",
+                            Name = "",
+                            Version = "",
+                            InstallLocation = ""
+                        },
+                        appxClassification.CautionApps);
+
+
 
                 if (SelectedBloatware is { Count: > 0 })
                     foreach (var app in SelectedBloatware)
@@ -108,10 +133,9 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                         promptBloatware.Select(app);
 
                 var bloatwareSelection = await escapeCancellableConsole.PromptAsync(promptBloatware).ConfigureAwait(false);
-                
-                SelectedBloatware = new Queue<AppxPackage>(bloatwareSelection.Select(app => app with { DisplayName = app.DisplayName.TrimEnd(), Version = app.Version.TrimEnd() })
-                    .ToList());
-                    
+
+                SelectedBloatware = new Queue<AppxPackage>(bloatwareSelection);
+
             }
         }
         catch (OperationCanceledException)
@@ -167,10 +191,12 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                 {
                     try
                     {
+                        selectedTweak = selectedTweak with { Name = selectedTweak.Name.Trim(), Description = selectedTweak.Description.Trim() };
                         SystemHelper.Title(selectedTweak.Name);
                         ctx.Status($"Applying [{Theme.Primary}]{selectedTweak.Name}[/]...");
 
                         using var scope = Log.BeginScope("Tweak: {TweakName}", selectedTweak.Name);
+
 
                         Rule($"[bold white] {selectedTweak.Name} [/]", Theme.Success);
                         Log.LogInformation("Applying {TweakName}...", selectedTweak.Name);

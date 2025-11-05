@@ -28,8 +28,10 @@ public class BloatwareAndServices : IOptimizationGroup
 
             while (OptimizationManager.SelectedBloatware.TryDequeue(out var appxPackage))
             {
+                appxPackage = appxPackage with { DisplayName = appxPackage.DisplayName.TrimEnd(), Version = appxPackage.Version.TrimEnd() };
                 Log.LogInformation("Removing bloatware app: {Bloatware} ({Version})",
-                    appxPackage.DisplayName.TrimEnd(), appxPackage.Version.TrimEnd());
+                    appxPackage.DisplayName, appxPackage.Version);
+
                 Log.LogDebug("Raw AppxPackage name: {AppxPackage}", appxPackage.Name);
                 ShellService.PowerShell($$"""
                                                $packages = Get-AppxPackage -AllUsers | Where-Object { $_.Name -eq "{{appxPackage.Name}}" }
@@ -366,7 +368,7 @@ public class BloatwareAndServices : IOptimizationGroup
                 new ServiceItem("wudfsvc", ServiceStartupType.Manual)
             );
             Log.LogInformation("Services have been configured.");
-            
+
             var hasSystemSSD = s.Disk.Volumes.Any(volume => volume is { SystemDrive: true, DriveTypeDescription: "SSD" });
 
             ServiceProcessService.ChangeServiceStartupType(

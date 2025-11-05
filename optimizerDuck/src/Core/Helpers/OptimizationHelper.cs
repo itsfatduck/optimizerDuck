@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using optimizerDuck.Core.Managers;
@@ -8,6 +7,7 @@ using optimizerDuck.Interfaces;
 using optimizerDuck.Models;
 using optimizerDuck.UI.Logger;
 using Spectre.Console;
+using System.Reflection;
 
 namespace optimizerDuck.Core.Helpers;
 
@@ -121,19 +121,31 @@ public static class OptimizationHelper
 
 
             var raw = JsonConvert.DeserializeObject<AppxClassificationRaw>(result.Stdout);
-            
+
             var allSafe = raw.SafeApps.SelectMany(x => x).ToList();
             var allCaution = raw.CautionApps.SelectMany(x => x).ToList();
 
-            var maxDisplayNameLength = new[] {
-                allSafe.Max(x => Defaults.SAFE_APPS.TryGetValue(x.Name, out var dn) ? dn.Length : x.Name.Length),
-                allCaution.Max(x => Defaults.CAUTION_APPS.TryGetValue(x.Name, out var dn) ? dn.Length : x.Name.Length)
-            }.Max() + 1;
 
-            var maxVersionLength = new[] {
-                allSafe.Max(x => x.Version?.Length ?? 0),
-                allCaution.Max(x => x.Version?.Length ?? 0)
-            }.Max() + 1;
+            int safeDisplayLength = allSafe.Any()
+                ? allSafe.Max(x => Defaults.SAFE_APPS.TryGetValue(x.Name, out var dn) ? dn.Length : x.Name.Length)
+                : 0;
+
+            int cautionDisplayLength = allCaution.Any()
+                ? allCaution.Max(x => Defaults.CAUTION_APPS.TryGetValue(x.Name, out var dn) ? dn.Length : x.Name.Length)
+                : 0;
+
+            var maxDisplayNameLength = Math.Max(safeDisplayLength, cautionDisplayLength) + 1;
+
+            int safeVersionLength = allSafe.Any()
+                ? allSafe.Max(x => x.Version?.Length ?? 0)
+                : 0;
+
+            int cautionVersionLength = allCaution.Any()
+                ? allCaution.Max(x => x.Version?.Length ?? 0)
+                : 0;
+
+            var maxVersionLength = Math.Max(safeVersionLength, cautionVersionLength) + 1;
+
 
             var classification = new AppxClassification(
                 allSafe.Select(app =>
@@ -155,15 +167,30 @@ public static class OptimizationHelper
                     };
                 }).ToList()
             );
-            
-            Log.LogDebug("Found {TotalSafeApps} safe apps: {SafeApps}", classification.SafeApps.Count, string.Join(", ", classification.SafeApps.Select(x => x.Name).ToList()));
-            Log.LogDebug("Found {TotalCautionApps} caution apps: {CautionApps}", classification.CautionApps.Count, string.Join(", ", classification.CautionApps.Select(x => x.Name).ToList()));
+
+            var parts = new List<string>();
+
+            if (classification.SafeApps.Count > 0)
+            {
+                parts.Add($"{classification.SafeApps.Count} safe apps");
+                Log.LogDebug("Found {TotalSafeApps} safe apps: {SafeApps}", classification.SafeApps.Count, string.Join(", ", classification.SafeApps.Select(x => x.Name).ToList()));
+            }
+            if (classification.CautionApps.Count > 0)
+            {
+                parts.Add($"{classification.CautionApps.Count} caution apps");
+                Log.LogDebug("Found {TotalCautionApps} caution apps: {CautionApps}", classification.CautionApps.Count, string.Join(", ", classification.CautionApps.Select(x => x.Name).ToList()));
+            }
+
+            if (parts.Any())
+                Log.LogInformation("Found {Apps}.", string.Join(" and ", parts));
+            else
+                Log.LogWarning("No apps found.");
 
             return classification;
         });
     }
-    
-    private static string ResolveDisplayName(string name, Dictionary<string,string> dict)
+
+    private static string ResolveDisplayName(string name, Dictionary<string, string> dict)
     {
         var lower = name.ToLowerInvariant();
         if (dict.TryGetValue(lower, out var exact))

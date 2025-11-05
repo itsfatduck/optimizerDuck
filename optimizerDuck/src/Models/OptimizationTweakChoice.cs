@@ -5,5 +5,5 @@ namespace optimizerDuck.Models;
 public record struct OptimizationTweakChoice(
     IOptimizationTweak? Instance,
     string Name,
-    string? Description,
+    string Description,
     bool EnabledByDefault);
