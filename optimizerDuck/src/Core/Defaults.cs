@@ -70,7 +70,11 @@ public static class Defaults
 
     public static readonly Dictionary<string, string> SAFE_APPS = new()
     {
+        // bing
         ["Microsoft.BingWeather"] = "Weather",
+        ["Microsoft.BingNews"] = "Bing News",
+        ["Microsoft.BingSearch"] = "Bing Search",
+        
         ["Microsoft.GetHelp"] = "Get Help",
         ["Microsoft.GetStarted"] = "Get Started / Tips",
         ["Microsoft.Messaging"] = "Messaging",
