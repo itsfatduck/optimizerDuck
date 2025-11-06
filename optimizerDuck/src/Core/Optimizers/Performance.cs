@@ -92,7 +92,7 @@ public class Performance : IOptimizationGroup
     public class SvcHostSplitTweak : IOptimizationTweak
     {
         public string Name { get; } = "SvcHost Split Threshold";
-        public string Description { get; } = "Adjusts SvcHostSplitThresholdInKB based on total system RAM";
+        public string Description { get; } = "Adjusts SvcHostSplitThresholdInKB based on total system RAM to control service isolation and improve system stability.";
         public bool EnabledByDefault { get; } = true;
 
         public Task Apply(SystemSnapshot s)
