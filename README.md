@@ -50,19 +50,45 @@
 
 <img src="./.github/assets/app_tweaks.png" alt="optimizerDuck Tweaks" title="optimizerDuck Tweaks (1.0.0)" width="1000" />
 
-* Custom **High Performance** power plan to maintain consistent FPS
-* **GPU process prioritization** and network throttling disabled for real-time apps
-* Disables **USB power saving** to reduce input lag on keyboards and mice
-* Removes **bloatware and background services** you may safely remove
-* Optimizes **visual effects, memory management, and system responsiveness**
-* Disables **telemetry, diagnostics, and advertising data collection**
-* Restores the **classic Windows 10 context menu** for faster access
-* Enables **fast startup, mouse precision, and keyboard response tuning**
-* Disables **annoying pop-ups and notifications** for a distraction-free desktop experience
-* Blocks **Microsoft telemetry and Bing/Cortana integration**
-* Cleans up **Start Menu ads** and configures **Edge browser privacy settings**
-* Provides a **dark, clean, modern terminal interface** built with Spectre.Console
-* Detailed **logging** to track changes and monitor system state
+Here's a breakdown of the tweaks available in optimizerDuck, organized by category:
+
+### Performance
+- **Disable Background Apps:** Stops background apps from running to free up RAM and CPU.
+- **Optimize Process Priority:** Adjusts foreground app priority for better responsiveness and reduced input lag.
+- **Optimize Gaming Scheduling:** Prioritizes GPU and system resources for gaming.
+- **SvcHost Split Threshold:** Optimizes service isolation based on system RAM to improve stability.
+- **Disable Game Bar:** Disables the Xbox Game Bar overlay and background services to improve in-game performance.
+- **Enable Game Mode:** Enables Windows Game Mode for a better gaming experience (Recommended on Windows 11).
+- **Disable Game DVR:** Turns off background video recording to reduce latency.
+- **GPU Optimization:** Optimizes AMD, NVIDIA, and Intel GPU driver settings for better stability and performance.
+
+### Bloatware & Services
+- **Remove Bloatware Apps:** Removes pre-installed bloatware to free up storage and system resources.
+- **Debloat Microsoft Edge:** Reduces Edge's system integration and disables unnecessary features.
+- **Configure Services:** Disables unnecessary background services to reduce resource consumption.
+
+### Power
+- **Disable Hibernate:** Disables hibernation and Fast Startup to save disk space and prevent issues.
+- **Disable USB Power Saving:** Prevents USB selective suspend to reduce input lag on peripherals.
+- **Install optimizerDuck Power Plan:** Installs a custom high-performance power plan for maximum CPU performance.
+- **Disable Power Saving:** Disables system-wide power throttling for maximum responsiveness.
+
+### Security & Privacy
+- **Disable User Account Control (UAC):** Disables UAC prompts for fewer interruptions (use with caution).
+- **Disable Telemetry:** Disables Windows data collection services, scheduled tasks, and error reporting.
+- **Disable WMI AutoLogger:** Disables diagnostic event tracing services.
+- **Disable Content Delivery Manager:** Disables ads, suggested apps, and content recommendations.
+- **Disable Cortana & Search AI:** Disables Cortana, cloud search, and web search integration.
+- **Disable Windows Copilot:** Disables AI Copilot integration in the taskbar and Explorer.
+
+### User Experience
+- **Taskbar Optimization:** Cleans up the taskbar by hiding the search bar, Task View, and other clutter.
+- **Enable Dark Mode:** Forces dark mode for both applications and the system UI.
+- **Explorer Optimization:** Restores the classic context menu, improves folder navigation, and enhances usability.
+- **Optimize Visual Performance:** Adjusts visual effects for best performance over appearance.
+- **Disable Notifications:** Disables all notifications to minimize distractions.
+- **Optimize Mouse & Keyboard:** Disables mouse acceleration and improves keyboard responsiveness.
+- **Install ZwTimerResolution:** Installs a service to reduce input lag and improve system responsiveness.
 
 ---
 
