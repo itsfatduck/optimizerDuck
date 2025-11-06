@@ -3,6 +3,7 @@ using optimizerDuck.Core.Managers;
 using optimizerDuck.Core.Services;
 using optimizerDuck.Interfaces;
 using optimizerDuck.Models;
+using optimizerDuck.UI;
 using optimizerDuck.UI.Logger;
 
 namespace optimizerDuck.Core.Optimizers;
@@ -29,10 +30,8 @@ public class BloatwareAndServices : IOptimizationGroup
             while (OptimizationManager.SelectedBloatware.TryDequeue(out var appxPackage))
             {
                 appxPackage = appxPackage with { DisplayName = appxPackage.DisplayName.TrimEnd(), Version = appxPackage.Version.TrimEnd() };
-                Log.LogInformation("Removing bloatware app: {Bloatware} ({Version})",
-                    appxPackage.DisplayName, appxPackage.Version);
+                Log.LogInformation($"Removing bloatware app: [{Theme.Primary}]{appxPackage.DisplayName}[/] [{Theme.Success}]{appxPackage.Version}[/] ([dim]{appxPackage.Name}[/])");
 
-                Log.LogDebug("Raw AppxPackage name: {AppxPackage}", appxPackage.Name);
                 ShellService.PowerShell($$"""
                                                $packages = Get-AppxPackage -AllUsers | Where-Object { $_.Name -eq "{{appxPackage.Name}}" }
                                                Write-Output "Found $($packages.Count) packages for {{appxPackage.Name}}"
