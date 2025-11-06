@@ -155,7 +155,7 @@ public static class OptimizationHelper
 
 
             var maxDisplayNameLength = Math.Max(safeDisplayLength, cautionDisplayLength) + 1;
-            
+
             var maxVersionLength = Math.Max(safeVersionLength, cautionVersionLength) + 1;
 
 
@@ -163,7 +163,7 @@ public static class OptimizationHelper
                 allSafe.Select(app =>
                 {
                     var key = app.Name;
-                    
+
                     var display = Defaults.SAFE_APPS.TryGetValue(key, out var dn) ? dn : app.Name;
                     return app with
                     {
@@ -188,14 +188,14 @@ public static class OptimizationHelper
 
             if (classification.SafeApps.Count > 0)
             {
-                parts.Add($"[{Theme.Primary}]{classification.SafeApps.Count}[/] safe apps");
+                parts.Add($"[{Theme.Success}]{classification.SafeApps.Count}[/] safe apps");
                 Log.LogDebug("Found {TotalSafeApps} safe apps: {SafeApps}", classification.SafeApps.Count,
                     string.Join(", ", classification.SafeApps.Select(x => x.Name).ToList()));
             }
 
             if (classification.CautionApps.Count > 0)
             {
-                parts.Add($"[{Theme.Primary}]{classification.CautionApps.Count}[/] caution apps");
+                parts.Add($"[{Theme.Error}]{classification.CautionApps.Count}[/] caution apps");
                 Log.LogDebug("Found {TotalCautionApps} caution apps: {CautionApps}", classification.CautionApps.Count,
                     string.Join(", ", classification.CautionApps.Select(x => x.Name).ToList()));
             }

@@ -65,9 +65,7 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
 
             _selectedTweaks = new Queue<OptimizationTweakChoice>(optimizationTweakChoices);
 
-            var hasBloatwareSelection = _selectedTweaks.Any(t => t.Instance?.GetType() == typeof(BloatwareAndServices.RemoveBloatwareApps));
-
-            if (hasBloatwareSelection) // if Bloatware selection is selected
+            if (_selectedTweaks.Any(t => t.Instance is BloatwareAndServices.RemoveBloatwareApps)) // if Bloatware selection is selected
             {
                 SystemHelper.Title("Select the bloatware you want to remove");
                 Log.LogDebug("Bloatware selection detected, prompting for bloatware apps...");
@@ -176,8 +174,7 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
 
         Log.LogDebug("Selected tweaks ({TweakAmount}): {Tweaks}", _selectedTweaks.Count,
             string.Join(", ", _selectedTweaks.Select(t => t.Name)));
-        var hasBloatwareSelection = _selectedTweaks.Any(t => t.Instance?.GetType() == typeof(BloatwareAndServices.RemoveBloatwareApps));
-        if (hasBloatwareSelection) // if Bloatware selection is selected
+        if (_selectedTweaks.Any(t => t.Instance is BloatwareAndServices.RemoveBloatwareApps)) // if Bloatware selection is selected
             Log.LogDebug("Selected bloatware apps ({BloatwareAmount}): {Bloatware}", SelectedBloatware.Count,
                 string.Join(", ", SelectedBloatware.Select(app => $"{app.DisplayName} ({app.Version})")));
 
