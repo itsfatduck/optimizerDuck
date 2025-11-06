@@ -9,6 +9,7 @@ using optimizerDuck.UI.Components;
 using optimizerDuck.UI.Logger;
 using Spectre.Console;
 using System.Diagnostics;
+using Spectre.Console.Rendering;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace optimizerDuck.Core.Managers;
@@ -80,10 +81,10 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                     return PromptDialog.Warning(
                         "No Bloatware Detected",
                         $"""
-                        [{Theme.Success}]Great news![/]  
-                        We [{Theme.Warning}]couldn't[/] find any bloatware installed on your system.  
-                        There's nothing you need to remove, so you can [{Theme.Success}]safely continue[/].
-                        """,
+                         [{Theme.Success}]Great news![/]  
+                         We [{Theme.Warning}]couldn't[/] find any bloatware installed on your system.  
+                         There's nothing you need to remove, so you can [{Theme.Success}]safely continue[/].
+                         """,
                         new PromptOption("Continue", Theme.Success),
                         new PromptOption("Back", Theme.Warning, () => false)
                     );
@@ -96,9 +97,9 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                     .HighlightStyle(Theme.Primary)
                     .UseConverter(app =>
                         $"{(app.DisplayName.Contains("Safe Apps") || app.DisplayName.Contains("Caution Apps") ?
-                                app.DisplayName :
-                                $"[bold]{app.DisplayName}[/] [dim]{app.Version} {app.InstallLocation}[/]")}")
-
+                            app.DisplayName :
+                            $"[bold]{app.DisplayName}[/] [dim]{app.Version} {app.InstallLocation}[/]")
+                        }")
                     .PageSize(24);
 
                 if (appxClassification.SafeApps.Count > 0)
@@ -124,7 +125,6 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                         appxClassification.CautionApps);
 
 
-
                 if (SelectedBloatware.Count == 0) // default selected safe apps first time only
                     foreach (var app in appxClassification.SafeApps)
                         promptBloatware.Select(app);
@@ -132,10 +132,10 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                     foreach (var app in SelectedBloatware)
                         promptBloatware.Select(app);
 
-                var bloatwareSelection = await escapeCancellableConsole.PromptAsync(promptBloatware).ConfigureAwait(false);
+                var bloatwareSelection =
+                    await escapeCancellableConsole.PromptAsync(promptBloatware).ConfigureAwait(false);
 
                 SelectedBloatware = new Queue<AppxPackage>(bloatwareSelection);
-
             }
         }
         catch (OperationCanceledException)
@@ -191,7 +191,10 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                 {
                     try
                     {
-                        selectedTweak = selectedTweak with { Name = selectedTweak.Name.Trim(), Description = selectedTweak.Description.Trim() };
+                        selectedTweak = selectedTweak with
+                        {
+                            Name = selectedTweak.Name.Trim(), Description = selectedTweak.Description.Trim()
+                        };
                         SystemHelper.Title(selectedTweak.Name);
                         ctx.Status($"Applying [{Theme.Primary}]{selectedTweak.Name}[/]...");
 
