@@ -38,9 +38,10 @@
 
 <img src="./.github/assets/app_screenshot.png" alt="optimizerDuck App Screenshot" title="optimizerDuck App Screenshot" width="1000" />
 
-1. Download the latest release: [Latest Release](https://github.com/itsfatduck/optimizerDuck/releases/latest)
-2. Run the `.exe` file and follow the instructions.
-> **Note:** You may need to restart your PC for some tweaks to take effect.
+1. [Download the latest release](https://github.com/itsfatduck/optimizerDuck/releases/latest)  
+2. Run the `.exe` file  
+3. Restart your PC for some tweaks to take effect
+
 ---
 
 ## Features
@@ -127,11 +128,9 @@ I made this tool because I enjoy tweaking my system and wanted something simple 
 
 ## Community & Support
 
-- Got questions? Found a bug? Want to suggest a feature?
-
-  - **[Discord Server](https://discord.gg/tDUBDCYw9Q)** - Chat with me and other users
-  - **[GitHub Issues](https://github.com/itsfatduck/optimizerDuck/issues)** - Report bugs or request features
-  - **[GitHub Discussions](https://github.com/itsfatduck/optimizerDuck/discussions)** - Share your optimization results
+- [Discord](https://discord.gg/tDUBDCYw9Q) → chat & support  
+- [Issues](https://github.com/itsfatduck/optimizerDuck/issues) → bug reports  
+- [Discussions](https://github.com/itsfatduck/optimizerDuck/discussions) → share tips  
 
 ---
 
