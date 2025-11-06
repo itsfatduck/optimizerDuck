@@ -69,9 +69,7 @@ public static class OptimizationHelper
             foreach (var g in orderedGroups)
             {
                 Log.LogDebug("Loaded group {Group}:", g.Name);
-                foreach (var t in g.Tweaks)
-                    if (t.Description != null)
-                        Log.LogDebug("  - {TweakName} {TweakDescription}", t.Name, Markup.Remove(t.Description));
+                foreach (var t in g.Tweaks) Log.LogDebug("  - {TweakName} {TweakDescription}", t.Name, Markup.Remove(t.Description));
             }
 
             return orderedGroups;
@@ -95,9 +93,15 @@ public static class OptimizationHelper
                                                    $installedApps = Get-AppxPackage -AllUsers
 
                                                    # categorize the installed apps
-                                                   $safeInstalled = $installedApps | Where-Object { $safeApps -contains $_.Name.ToLower() } | Select-Object Name, Version, InstallLocation
-                                                   $cautionInstalled = $installedApps | Where-Object { $cautionApps -contains $_.Name.ToLower() } | Select-Object Name, Version, InstallLocation
-
+                                                   $safeInstalled = $installedApps | Where-Object {
+                                                       foreach ($s in $safeApps) { if ($_.Name.ToLower() -like "$s*") { return $true } }
+                                                       return $false
+                                                   } | Select-Object Name, Version, InstallLocation
+                                                   $cautionInstalled = $installedApps | Where-Object {
+                                                       foreach ($s in $cautionApps) { if ($_.Name.ToLower() -like "$s*") { return $true } }
+                                                       return $false
+                                                   } | Select-Object Name, Version, InstallLocation
+                                                   
                                                    # create the JSON object
                                                    $result = [PSCustomObject]@{
                                                        SafeApps    = @($safeInstalled | ForEach-Object {
