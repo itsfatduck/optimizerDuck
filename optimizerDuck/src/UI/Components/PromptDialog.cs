@@ -185,8 +185,8 @@ public class PromptDialog
             :
             [
                 new PromptOption("Exit", Theme.Error, () => Environment.Exit(1)),
-                new PromptOption("Restart Application", Theme.Success, () => RequirementChecker.Restart(true)),
-                new PromptOption("Create new issue on GitHub", Theme.Bright, () => SystemHelper.OpenWebsite("https://github.com/itsfatduck/optimizerDuck/issues/new")),
+                new PromptOption("Restart", Theme.Success, () => RequirementChecker.Restart(true)),
+                new PromptOption("Create a new issue on GitHub", Theme.Bright, () => SystemHelper.OpenWebsite("https://github.com/itsfatduck/optimizerDuck/issues/new")),
                 new PromptOption("Open log", Theme.Warning, SystemHelper.OpenLogFile)
             ];
 
