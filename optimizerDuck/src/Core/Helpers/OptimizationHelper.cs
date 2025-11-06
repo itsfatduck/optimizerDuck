@@ -90,15 +90,20 @@ public static class OptimizationHelper
                                                    $cautionApps = @({{string.Join(", ", Defaults.CAUTION_APPS.Keys.Select(x => $"\"{x}\""))}})
 
                                                    # get the installed apps
-                                                   $installedApps = Get-AppxPackage -AllUsers
+                                                   $installedApps = Get-AppxPackage -AllUsers | Where-Object { $_.NonRemovable -eq 0 } # NonRemovable = 0 means the app can be removed
 
                                                    # categorize the installed apps
                                                    $safeInstalled = $installedApps | Where-Object {
-                                                       foreach ($s in $safeApps) { if ($_.Name.ToLower() -like "$s*") { return $true } }
+                                                       foreach ($s in $safeApps) {
+                                                           if ($_.Name.ToLower() -like "*$($s.ToLower())*") { return $true }
+                                                       }
                                                        return $false
                                                    } | Select-Object Name, Version, InstallLocation
+                                                   
                                                    $cautionInstalled = $installedApps | Where-Object {
-                                                       foreach ($s in $cautionApps) { if ($_.Name.ToLower() -like "$s*") { return $true } }
+                                                       foreach ($s in $cautionApps) {
+                                                           if ($_.Name.ToLower() -like "*$($s.ToLower())*") { return $true }
+                                                       }
                                                        return $false
                                                    } | Select-Object Name, Version, InstallLocation
                                                    
