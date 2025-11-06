@@ -162,7 +162,11 @@ public static class OptimizationHelper
             var classification = new AppxClassification(
                 allSafe.Select(app =>
                 {
-                    var display = Defaults.SAFE_APPS.TryGetValue(app.Name, out var dn) ? dn : app.Name;
+                    var key = app.Name;
+                    if (key.StartsWith("Microsoft.", StringComparison.OrdinalIgnoreCase))
+                        key = key["Microsoft.".Length..];
+
+                    var display = Defaults.SAFE_APPS.TryGetValue(key, out var dn) ? dn : app.Name;
                     return app with
                     {
                         DisplayName = display.PadRight(maxDisplayNameLength),
@@ -171,7 +175,11 @@ public static class OptimizationHelper
                 }).ToList(),
                 allCaution.Select(app =>
                 {
-                    var display = Defaults.CAUTION_APPS.TryGetValue(app.Name, out var dn) ? dn : app.Name;
+                    var key = app.Name;
+                    if (key.StartsWith("Microsoft.", StringComparison.OrdinalIgnoreCase))
+                        key = key["Microsoft.".Length..];
+
+                    var display = Defaults.CAUTION_APPS.TryGetValue(key, out var dn) ? dn : app.Name;
                     return app with
                     {
                         DisplayName = display.PadRight(maxDisplayNameLength),
