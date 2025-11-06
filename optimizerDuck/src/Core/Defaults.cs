@@ -55,7 +55,7 @@ public static class Defaults
                 // @formatter:on
                 HorizontalAlignment.Center
             ))
-        { Border = CustomBoxBorder.UnderlineBorder, Padding = new Padding(0, 1, 0, 1) };
+    { Border = CustomBoxBorder.UnderlineBorder, Padding = new Padding(0, 1, 0, 1) };
 
     public static readonly string ExePath = Environment.ProcessPath!;
     public static readonly string ExeDir = Path.GetDirectoryName(ExePath)!;
@@ -74,7 +74,7 @@ public static class Defaults
         ["Microsoft.BingWeather"] = "Weather",
         ["Microsoft.BingNews"] = "Bing News",
         ["Microsoft.BingSearch"] = "Bing Search",
-        
+
         ["Microsoft.GetHelp"] = "Get Help",
         ["Microsoft.GetStarted"] = "Get Started / Tips",
         ["Microsoft.Messaging"] = "Messaging",
@@ -117,6 +117,7 @@ public static class Defaults
         ["Microsoft.WindowsStore"] = "Microsoft Store",
         ["Microsoft.XboxIdentityProvider"] = "Xbox Identity Provider",
         ["Microsoft.WindowsTerminal"] = "Windows Terminal",
+        ["Microsoft.WindowsTerminalPreview"] = "Windows Terminal (Preview)",
         ["Clipchamp.Clipchamp"] = "Clipchamp (Video Editor)",
         ["Microsoft.WindowsNotepad"] = "Notepad",
         ["Microsoft.PowerAutomateDesktop"] = "Power Automate",

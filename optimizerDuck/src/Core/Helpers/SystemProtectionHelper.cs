@@ -12,7 +12,7 @@ public static class SystemProtectionHelper
 
     public static bool Enable()
     {
-        using var tracker = ServiceTracker.Begin();
+        using var tracker = ServiceTracker.Begin(Log);
         Log.LogInformation("Enabling System Protection...");
 
         var result = ShellService.PowerShell("Enable-ComputerRestore -Drive \"$env:SystemDrive\"");
@@ -35,7 +35,7 @@ public static class SystemProtectionHelper
 
     public static void Create()
     {
-        using var tracker = ServiceTracker.Begin();
+        using var tracker = ServiceTracker.Begin(Log);
         Log.LogInformation("Creating a restore point...");
 
         var result =

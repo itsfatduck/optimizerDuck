@@ -22,7 +22,7 @@ public class UserExperience : IOptimizationGroup
 
         public Task Apply(SystemSnapshot s)
         {
-            using var tracker = ServiceTracker.Begin();
+            using var tracker = ServiceTracker.Begin(Log);
             RegistryService.Write(
                 new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Dsh", "AllowNewsAndInterests", 0),
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "TaskbarDa", 0),
@@ -54,7 +54,7 @@ public class UserExperience : IOptimizationGroup
 
         public Task Apply(SystemSnapshot s)
         {
-            using var tracker = ServiceTracker.Begin();
+            using var tracker = ServiceTracker.Begin(Log);
             RegistryService.Write(
                 new RegistryItem(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", 0),
                 new RegistryItem(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "SystemUsesLightTheme", 0)
@@ -72,7 +72,7 @@ public class UserExperience : IOptimizationGroup
 
         public Task Apply(SystemSnapshot s)
         {
-            using var tracker = ServiceTracker.Begin();
+            using var tracker = ServiceTracker.Begin(Log);
             RegistryService.Write(
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "ShowSyncProviderNotifications", 0),
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SystemPaneSuggestionsEnabled", 0),
@@ -101,7 +101,7 @@ public class UserExperience : IOptimizationGroup
 
         public Task Apply(SystemSnapshot s)
         {
-            using var tracker = ServiceTracker.Begin();
+            using var tracker = ServiceTracker.Begin(Log);
             RegistryService.Write(
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects", "VisualFXSetting", 3),
                 new RegistryItem(@"HKCU\Control Panel\Desktop", "DragFullWindows", "0"),
@@ -125,7 +125,7 @@ public class UserExperience : IOptimizationGroup
 
         public Task Apply(SystemSnapshot s)
         {
-            using var tracker = ServiceTracker.Begin();
+            using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(
                 new RegistryItem(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\PushNotifications",
@@ -151,7 +151,7 @@ public class UserExperience : IOptimizationGroup
 
         public Task Apply(SystemSnapshot s)
         {
-            using var tracker = ServiceTracker.Begin();
+            using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(
                 new RegistryItem(@"HKCU\Control Panel\Mouse", "MouseSpeed", "0"),
@@ -175,7 +175,7 @@ public class UserExperience : IOptimizationGroup
 
         public Task Apply(SystemSnapshot s)
         {
-            using var tracker = ServiceTracker.Begin();
+            using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(
                 new RegistryItem(@"HKEY_CURRENT_USER\Control Panel\Keyboard", "KeyboardDelay", "0"),
@@ -200,7 +200,7 @@ public class UserExperience : IOptimizationGroup
 
         public async Task Apply(SystemSnapshot s)
         {
-            using var tracker = ServiceTracker.Begin();
+            using var tracker = ServiceTracker.Begin(Log);
 
             var (success, zwtPath) = await StreamHelper.TryDownloadAsync(Defaults.ZwtDownloadUrl, "zwtimer.exe")
                 .ConfigureAwait(false);

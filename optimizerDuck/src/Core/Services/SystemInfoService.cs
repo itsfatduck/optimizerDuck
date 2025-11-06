@@ -729,16 +729,16 @@ public static class SystemInfoService
     {
         try
         {
-            log.LogDebug("OS : {OsName} {OsEdition} {OsArchitecture} ({OsDeviceType})",
+            log.LogDebug("OS : {OsName} {OsEdition} [{OsArchitecture}] ({OsDeviceType})",
                 Snapshot.Os.Name, Snapshot.Os.Edition, Snapshot.Os.Architecture, Snapshot.Os.DeviceType);
 
             LogGpuSummary(log);
 
-            log.LogDebug("CPU: {CpuName} ({CpuVendor}) [{CpuCores} Cores/{CpuThreads} Threads]",
+            log.LogDebug("CPU: {CpuName} [{CpuVendor}] ({CpuCores} Cores/{CpuThreads} Threads)",
                 Snapshot.Cpu.Name, Snapshot.Cpu.Vendor, Snapshot.Cpu.Cores, Snapshot.Cpu.Threads);
 
-            log.LogDebug("RAM: {RamTotalGb:F1} GB (Used: {RamUsedPercent:F1}%)",
-                Snapshot.Ram.TotalGB, Snapshot.Ram.UsedPercent);
+            log.LogDebug("RAM: {RamTotalGb:F1} GB [{RamModules} Module(s)] (Used: {RamUsedGB:F1} GB)",
+                Snapshot.Ram.TotalGB, Snapshot.Ram.Modules.Count, Snapshot.Ram.UsedGB);
 
             foreach (var volume in Snapshot.Disk.Volumes)
             {
@@ -767,8 +767,8 @@ public static class SystemInfoService
         if (gpuCount == 1)
         {
             var gpu = Snapshot.Gpus[0];
-            var memoryInfo = gpu.MemoryMB.HasValue ? $" [{gpu.MemoryMB.Value / 1024.0:F0} GB]" : "";
-            log.LogDebug("GPU: {GpuName} ({GpuVendor}){MemoryInfo}", gpu.Name, gpu.Vendor, memoryInfo);
+            var memoryInfo = gpu.MemoryMB.HasValue ? $" ({gpu.MemoryMB.Value / 1024.0:F0} GB)" : "";
+            log.LogDebug("GPU: {GpuName} [{GpuVendor}]{MemoryInfo}", gpu.Name, gpu.Vendor, memoryInfo);
             return;
         }
 
@@ -776,9 +776,9 @@ public static class SystemInfoService
         if (Snapshot.PrimaryGpu != null)
         {
             var memoryInfoPrimary = Snapshot.PrimaryGpu.MemoryMB.HasValue
-                ? $" [{Snapshot.PrimaryGpu.MemoryMB.Value / 1024.0:F0} GB]"
+                ? $" ({Snapshot.PrimaryGpu.MemoryMB.Value / 1024.0:F0} GB)"
                 : "";
-            log.LogDebug("GPU (Primary): {PrimaryGpuName} ({PrimaryGpuVendor}){MemoryInfo}",
+            log.LogDebug("GPU (Primary): {PrimaryGpuName} [{PrimaryGpuVendor}]{MemoryInfo}",
                 Snapshot.PrimaryGpu.Name, Snapshot.PrimaryGpu.Vendor, memoryInfoPrimary);
 
             for (var index = 0; index < Snapshot.Gpus.Count; index++)

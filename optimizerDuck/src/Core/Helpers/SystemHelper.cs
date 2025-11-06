@@ -85,7 +85,7 @@ public static class SystemHelper
 
     public static void AddToExclusions(List<string> paths)
     {
-        using var tracker = ServiceTracker.Begin();
+        using var tracker = ServiceTracker.Begin(Log);
         foreach (var path in paths)
         {
             var result = ShellService.PowerShell($"Add-MpPreference -ExclusionPath \"{path}\"");

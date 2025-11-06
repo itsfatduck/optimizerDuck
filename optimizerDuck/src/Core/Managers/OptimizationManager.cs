@@ -9,7 +9,6 @@ using optimizerDuck.UI.Components;
 using optimizerDuck.UI.Logger;
 using Spectre.Console;
 using System.Diagnostics;
-using Spectre.Console.Rendering;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace optimizerDuck.Core.Managers;
@@ -50,7 +49,7 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
             foreach (var g in optimizationGroups)
                 promptTweakChoice.AddChoiceGroup(
                     new OptimizationTweakChoice(null, $"[bold underline]{g.Name}[/]", string.Empty,
-                        false), // hack to add group title ok vjp pro, and this cant be selected btw
+                        false),
                     g.Tweaks
                 );
 
@@ -66,9 +65,9 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
 
             _selectedTweaks = new Queue<OptimizationTweakChoice>(optimizationTweakChoices);
 
-            if (_selectedTweaks.Any(t =>
-                    t.Instance?.GetType() ==
-                    typeof(BloatwareAndServices.RemoveBloatwareApps))) // if Bloatware selection is selected
+            var hasBloatwareSelection = _selectedTweaks.Any(t => t.Instance?.GetType() == typeof(BloatwareAndServices.RemoveBloatwareApps));
+
+            if (hasBloatwareSelection) // if Bloatware selection is selected
             {
                 SystemHelper.Title("Select the bloatware you want to remove");
                 Log.LogDebug("Bloatware selection detected, prompting for bloatware apps...");
@@ -85,7 +84,7 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                          We [{Theme.Warning}]couldn't[/] find any bloatware installed on your system.  
                          There's nothing you need to remove, so you can [{Theme.Success}]safely continue[/].
                          """,
-                        new PromptOption("Continue", Theme.Success),
+                        new PromptOption("Continue", Theme.Success, () => true),
                         new PromptOption("Back", Theme.Warning, () => false)
                     );
                 }
@@ -98,8 +97,7 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                     .UseConverter(app =>
                         $"{(app.DisplayName.Contains("Safe Apps") || app.DisplayName.Contains("Caution Apps") ?
                             app.DisplayName :
-                            $"[bold]{app.DisplayName}[/] [dim]{app.Version} {app.InstallLocation}[/]")
-                        }")
+                            $"[bold]{app.DisplayName}[/] [dim]{app.Version} {app.InstallLocation}[/]")}")
                     .PageSize(24);
 
                 if (appxClassification.SafeApps.Count > 0)
@@ -178,7 +176,8 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
 
         Log.LogDebug("Selected tweaks ({TweakAmount}): {Tweaks}", _selectedTweaks.Count,
             string.Join(", ", _selectedTweaks.Select(t => t.Name)));
-        if (SelectedBloatware.Count != 0)
+        var hasBloatwareSelection = _selectedTweaks.Any(t => t.Instance?.GetType() == typeof(BloatwareAndServices.RemoveBloatwareApps));
+        if (hasBloatwareSelection) // if Bloatware selection is selected
             Log.LogDebug("Selected bloatware apps ({BloatwareAmount}): {Bloatware}", SelectedBloatware.Count,
                 string.Join(", ", SelectedBloatware.Select(app => $"{app.DisplayName} ({app.Version})")));
 
@@ -193,7 +192,8 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                     {
                         selectedTweak = selectedTweak with
                         {
-                            Name = selectedTweak.Name.Trim(), Description = selectedTweak.Description.Trim()
+                            Name = selectedTweak.Name.Trim(),
+                            Description = selectedTweak.Description.Trim()
                         };
                         SystemHelper.Title(selectedTweak.Name);
                         ctx.Status($"Applying [{Theme.Primary}]{selectedTweak.Name}[/]...");

@@ -51,7 +51,7 @@ public class Power : IOptimizationGroup
 
         public Task Apply(SystemSnapshot s)
         {
-            using var tracker = ServiceTracker.Begin();
+            using var tracker = ServiceTracker.Begin(Log);
             //https://discord.com/channels/1298592513816530994/1359513721738629140/1359524213047824517
             //from FrameSync Labs
             ShellService.PowerShell("""
@@ -81,7 +81,7 @@ public class Power : IOptimizationGroup
 
         public async Task Apply(SystemSnapshot s)
         {
-            using var tracker = ServiceTracker.Begin();
+            using var tracker = ServiceTracker.Begin(Log);
             var (success, powerPlanPath) =
                 await StreamHelper.TryDownloadAsync(Defaults.PowerPlanUrl, "optimizerDuck.pow");
             if (success && !string.IsNullOrEmpty(powerPlanPath))

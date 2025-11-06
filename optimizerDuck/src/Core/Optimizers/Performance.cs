@@ -97,6 +97,8 @@ public class Performance : IOptimizationGroup
 
         public Task Apply(SystemSnapshot s)
         {
+            using var tracker = ServiceTracker.Begin(Log);
+
             if (s.Ram.TotalKB <= 0)
             {
                 Log.LogInformation("Invalid RAM value: {RamTotalKB}. Skipping...", s.Ram.TotalKB);
@@ -124,7 +126,7 @@ public class Performance : IOptimizationGroup
 
         public Task Apply(SystemSnapshot s)
         {
-            using var tracker = ServiceTracker.Begin();
+            using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(
                 new RegistryItem(@"HKCU\System\GameConfigStore", "GameBarEnabled", 0),
@@ -166,7 +168,7 @@ public class Performance : IOptimizationGroup
 
         public Task Apply(SystemSnapshot s)
         {
-            using var tracker = ServiceTracker.Begin();
+            using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\GameDVR", "AppCaptureEnabled", 0),
@@ -190,7 +192,7 @@ public class Performance : IOptimizationGroup
 
         public Task Apply(SystemSnapshot s)
         {
-            using var tracker = ServiceTracker.Begin();
+            using var tracker = ServiceTracker.Begin(Log);
             Log.LogInformation("Applying GPU tweaks for {GpuCount} GPUs...", s.Gpus.Count);
 
             const string basePath =

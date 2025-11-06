@@ -25,7 +25,7 @@ public class BloatwareAndServices : IOptimizationGroup
 
         public Task Apply(SystemSnapshot s)
         {
-            using var tracker = ServiceTracker.Begin();
+            using var tracker = ServiceTracker.Begin(Log);
 
             while (OptimizationManager.SelectedBloatware.TryDequeue(out var appxPackage))
             {
@@ -75,7 +75,7 @@ public class BloatwareAndServices : IOptimizationGroup
 
         public Task Apply(SystemSnapshot s)
         {
-            using var tracker = ServiceTracker.Begin();
+            using var tracker = ServiceTracker.Begin(Log);
             RegistryService.Write(
                 // thank you again, WinUtil
                 new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\EdgeUpdate", "CreateDesktopShortcutDefault", 0),
@@ -111,7 +111,7 @@ public class BloatwareAndServices : IOptimizationGroup
 
         public Task Apply(SystemSnapshot s)
         {
-            using var tracker = ServiceTracker.Begin();
+            using var tracker = ServiceTracker.Begin(Log);
 
             ServiceProcessService.ChangeServiceStartupType(
                 new ServiceItem("AJRouter", ServiceStartupType.Disabled),

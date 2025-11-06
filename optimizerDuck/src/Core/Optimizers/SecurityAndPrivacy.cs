@@ -23,7 +23,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
 
         public Task Apply(SystemSnapshot s)
         {
-            using var tracker = ServiceTracker.Begin();
+            using var tracker = ServiceTracker.Begin(Log);
             RegistryService.Write(new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
                 "EnableLUA", 0));
             Log.LogInformation("Disabled UAC");
@@ -45,7 +45,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
         /// </summary>
         public Task Apply(SystemSnapshot s)
         {
-            using var tracker = ServiceTracker.Begin();
+            using var tracker = ServiceTracker.Begin(Log);
             // @formatter:off
             RegistryService.Write(
                 new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection", "AllowTelemetry", 0),
@@ -134,7 +134,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
             return Task.CompletedTask;
         }
     }
-    
+
     public class DisableAutologger : IOptimizationTweak
     {
         public string Name { get; } = "Disable WMI AutoLogger";
@@ -146,7 +146,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
 
         public Task Apply(SystemSnapshot s)
         {
-            using var tracker = ServiceTracker.Begin();
+            using var tracker = ServiceTracker.Begin(Log);
             RegistryService.Write(
                 new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AppModel", "Start", 0),
                 new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Cellcore", "Start", 0),
@@ -176,7 +176,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
 
         public Task Apply(SystemSnapshot s)
         {
-            using var tracker = ServiceTracker.Begin();
+            using var tracker = ServiceTracker.Begin(Log);
             RegistryService.Write(
                 new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "ContentDeliveryAllowed", 0),
                 new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "OemPreInstalledAppsEnabled", 0),
@@ -193,7 +193,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
             return Task.CompletedTask;
         }
     }
-  
+
     public class DisableCortanaTweak : IOptimizationTweak
     {
         public string Name { get; } = "Disable Cortana & Search AI";
@@ -205,7 +205,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
 
         public Task Apply(SystemSnapshot s)
         {
-            using var tracker = ServiceTracker.Begin();
+            using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(
                 new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search", "AllowCortana", 0),
@@ -234,7 +234,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
 
         public Task Apply(SystemSnapshot s)
         {
-            using var tracker = ServiceTracker.Begin();
+            using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(
                  new RegistryItem(@"HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot", "TurnOffWindowsCopilot", 1),

@@ -2,8 +2,8 @@
 using optimizerDuck.Core;
 using optimizerDuck.Core.Extensions;
 using optimizerDuck.Core.Helpers;
-using optimizerDuck.Core.Managers;
 using optimizerDuck.Core.Services;
+using optimizerDuck.src.UI;
 using optimizerDuck.UI;
 using optimizerDuck.UI.Components;
 using optimizerDuck.UI.Logger;
@@ -37,7 +37,6 @@ namespace optimizerDuck;
 internal class Program
 {
     private static readonly ILogger Log = Logger.CreateLogger<Program>();
-    private OptimizationManager? _optimizer;
     private SystemSnapshot _systemSnapshot = null!;
 
     private async Task Init()
@@ -104,110 +103,17 @@ internal class Program
 
     private async Task Start()
     {
+        var menuHandler = new MenuHandler(_systemSnapshot);
+
         while (true)
         {
-            SystemHelper.Title(
-                $"{_systemSnapshot.Os.Name} {_systemSnapshot.Os.Edition} ({_systemSnapshot.Os.Architecture})");
-            AnsiConsole.Clear();
-            AnsiConsole.Write(Defaults.Logo);
+            MainMenu.Display(_systemSnapshot);
 
-            AnsiConsole.WriteLine();
+            Console.CursorVisible = false;
+            var option = Console.ReadKey(true).KeyChar;
+            Console.CursorVisible = true;
 
-            var start = Align.Center(
-                new PromptPanel('E', "Start Optimization",
-                    $"""
-                     [bold]Customize your optimization process.[/]
-                     Browse the available options, pick the ones that suit you best,
-                     and apply them to improve your system.
-
-                     [bold {Theme.Warning}]Some changes may require a restart.[/]
-                     [dim white]Certain options may also need an internet connection.[/]
-                     """,
-                    Theme.Primary,
-                    CustomBoxBorder.LeftBorder).Build()
-            );
-
-            var middlePanels = Align.Center(
-                new Columns(
-                        new PromptPanel('D', "Join our Discord",
-                            $"""
-                             [bold]{Emoji.Known.SpeechBalloon} Get help, share ideas, and stay updated.[/]
-                             Connect with the community and the dev team directly.
-                             """,
-                            Theme.Info,
-                            CustomBoxBorder.UnderlineBorder).Build(),
-                        new PromptPanel('G', "GitHub",
-                            $"""
-                             [bold]{Emoji.Known.Laptop} Explore the source code and releases.[/]
-                             Contribute, report issues, or check for the latest updates.
-                             """,
-                            "white",
-                            CustomBoxBorder.UnderlineBorder).Build(),
-                        new PromptPanel('I', "System Information",
-                            $"""
-                             [bold]{Emoji.Known.Gear}  View system information.[/]
-                             Review detailed system information and diagnostics.
-                             """,
-                            Theme.Accent,
-                            CustomBoxBorder.UnderlineBorder).Build()
-                    )
-                { Expand = false }
-            );
-            AnsiConsole.Write(start);
-            AnsiConsole.Write(middlePanels);
-
-            AnsiConsole.WriteLine();
-
-            while (true)
-            {
-                Console.CursorVisible = false;
-                var option = Console.ReadKey(true).KeyChar;
-                Console.CursorVisible = true;
-
-                if (option == 'e')
-                {
-                    _optimizer ??= new OptimizationManager(_systemSnapshot);
-                    if (await _optimizer.Begin().ConfigureAwait(false))
-                        if (await OptimizationManager.RestorePoint().ConfigureAwait(false))
-                            await _optimizer.Run().ConfigureAwait(false);
-
-                    break;
-                }
-
-                if (option == 'd')
-                {
-                    SystemHelper.OpenWebsite(Defaults.DiscordInvite);
-                    break;
-                }
-
-                if (option == 'g')
-                {
-                    SystemHelper.OpenWebsite(Defaults.GitHubRepo);
-                    break;
-                }
-
-                if (option == 'i')
-                {
-                    Log.LogInformation("Refreshing System Information...");
-                    _systemSnapshot = await SystemInfoService.RefreshAsync().ConfigureAwait(false);
-
-                    AnsiConsole.Clear();
-                    AnsiConsole.Write(Defaults.Logo);
-
-                    var detailedPanel = SystemInfoService.GetDetailedPanel(_systemSnapshot, Log);
-                    if (detailedPanel is not null)
-                    {
-                        AnsiConsole.Write(detailedPanel);
-                        AnsiConsole.Write(
-                            Align.Center(
-                                new Markup("[dim]Press any key to go back to the main menu.[/]"),
-                                VerticalAlignment.Middle)
-                        );
-                        Console.ReadKey();
-                    }
-                    break;
-                }
-            }
+            _systemSnapshot = await menuHandler.HandleInputAsync(option).ConfigureAwait(false);
         }
     }
 
