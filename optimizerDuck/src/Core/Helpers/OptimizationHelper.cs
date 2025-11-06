@@ -163,9 +163,7 @@ public static class OptimizationHelper
                 allSafe.Select(app =>
                 {
                     var key = app.Name;
-                    if (key.StartsWith("Microsoft.", StringComparison.OrdinalIgnoreCase))
-                        key = key["Microsoft.".Length..];
-
+                    
                     var display = Defaults.SAFE_APPS.TryGetValue(key, out var dn) ? dn : app.Name;
                     return app with
                     {
@@ -176,8 +174,6 @@ public static class OptimizationHelper
                 allCaution.Select(app =>
                 {
                     var key = app.Name;
-                    if (key.StartsWith("Microsoft.", StringComparison.OrdinalIgnoreCase))
-                        key = key["Microsoft.".Length..];
 
                     var display = Defaults.CAUTION_APPS.TryGetValue(key, out var dn) ? dn : app.Name;
                     return app with
