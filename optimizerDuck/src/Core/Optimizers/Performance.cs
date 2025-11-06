@@ -17,7 +17,7 @@ public class Performance : IOptimizationGroup
     public class BackgroundAppsTweak : IOptimizationTweak
     {
         public string Name { get; } = "Disable Background Apps";
-        public string Description { get; } = "Disables background applications to free up resources";
+        public string Description { get; } = "Stops background applications from running to free up RAM and CPU resources";
         public bool EnabledByDefault { get; } = true;
 
         public Task Apply(SystemSnapshot s)
@@ -33,8 +33,8 @@ public class Performance : IOptimizationGroup
 
     public class ProcessPriorityTweak : IOptimizationTweak
     {
-        public string Name { get; } = "Process Priority Optimization";
-        public string Description { get; } = "Adjusts Win32PrioritySeparation for better foreground responsiveness";
+        public string Name { get; } = "Optimize Process Priority";
+        public string Description { get; } = "Adjusts foreground app priority for better responsiveness and reduced input lag";
         public bool EnabledByDefault { get; } = true;
 
         public Task Apply(SystemSnapshot s)
@@ -69,8 +69,8 @@ public class Performance : IOptimizationGroup
 
     public class GameSchedulingTweak : IOptimizationTweak
     {
-        public string Name { get; } = "Game Scheduling & Priority";
-        public string Description { get; } = "Optimizes system profile and GPU scheduling for gaming performance";
+        public string Name { get; } = "Optimize Gaming Scheduling";
+        public string Description { get; } = "Prioritizes GPU scheduling and system resources for gaming workloads";
         public bool EnabledByDefault { get; } = true;
 
         public Task Apply(SystemSnapshot s)
@@ -84,7 +84,7 @@ public class Performance : IOptimizationGroup
                 new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile", "SystemResponsiveness", 10),
                 new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers", "HwSchMode", 2)
             );
-            Log.LogInformation("Applied gaming optimizations.");
+            Log.LogInformation("Optimized gaming scheduling and priority.");
             return Task.CompletedTask;
         }
     }
@@ -97,13 +97,15 @@ public class Performance : IOptimizationGroup
 
         public Task Apply(SystemSnapshot s)
         {
-            if (s.Ram.TotalKB > 0)
+            if (s.Ram.TotalKB <= 0)
             {
-                RegistryService.Write(
-                    new RegistryItem(@"HKLM\SYSTEM\ControlSet001\Control", "SvcHostSplitThresholdInKB", s.Ram.TotalKB, RegistryValueKind.DWord)
-                );
-                Log.LogInformation("Set SvcHostSplitThresholdInKB to {Value}.", s.Ram.TotalKB);
+                Log.LogInformation("Invalid RAM value: {RamTotalKB}. Skipping...", s.Ram.TotalKB);
+                return Task.CompletedTask;
             }
+            RegistryService.Write(
+                new RegistryItem(@"HKLM\SYSTEM\ControlSet001\Control", "SvcHostSplitThresholdInKB", s.Ram.TotalKB, RegistryValueKind.DWord)
+            );
+            Log.LogInformation("Set SvcHostSplitThresholdInKB to {Value}.", s.Ram.TotalKB);
             return Task.CompletedTask;
         }
     }
@@ -139,12 +141,7 @@ public class Performance : IOptimizationGroup
     {
         public string Name { get; } = "Enable Game Mode";
         public string Description { get; } = "Enables Windows Game Mode (RECOMMENDED for Windows 11)";
-        public bool EnabledByDefault { get; }
-
-        public GameModeTweak()
-        {
-            EnabledByDefault = SystemHelper.IsWindows11OrGreater();
-        }
+        public bool EnabledByDefault { get; } = SystemHelper.IsWindows11OrGreater();
 
         public Task Apply(SystemSnapshot s)
         {

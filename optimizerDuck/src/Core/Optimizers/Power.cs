@@ -98,7 +98,7 @@ public class Power : IOptimizationGroup
             }
             else
             {
-                Log.LogError("Failed to download optimizerDuck power plan! Skipping...");
+                Log.LogError($"Failed to download [{Theme.Primary}]optimizerDuck[/] power plan! Skipping...");
             }
         }
     }

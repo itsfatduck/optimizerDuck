@@ -14,10 +14,10 @@ public class SecurityAndPrivacy : IOptimizationGroup
 
     public class DisableUAC : IOptimizationTweak
     {
-        public string Name { get; } = "Disable UAC";
+        public string Name { get; } = "Disable User Account Control (UAC)";
 
         public string Description { get; } =
-            "Disables User Account Control to reduce interruptions and improve system responsiveness (dangerous)";
+            "Disables UAC prompts to reduce interruptions (reduces security - use with caution)";
 
         public bool EnabledByDefault { get; } = false;
 
@@ -33,10 +33,10 @@ public class SecurityAndPrivacy : IOptimizationGroup
 
     public class DisableTelemetry : IOptimizationTweak
     {
-        public string Name { get; } = "Disable Telemetry";
+        public string Name { get; } = "Disable Telemetry Services & Tasks";
 
         public string Description { get; } =
-            "Disables Windows telemetry and data collection to improve privacy and reduce background network usage";
+            "Disables telemetry services, scheduled tasks, and Windows data collection";
 
         public bool EnabledByDefault { get; } = true;
 
@@ -66,16 +66,6 @@ public class SecurityAndPrivacy : IOptimizationGroup
                 new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent", "DisableWindowsConsumerFeatures", 1),
                 new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent", "DisableSoftLanding", 1),
                 new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent", "DisableThirdPartySuggestions", 1),
-                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "ContentDeliveryAllowed", 0),
-                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "OemPreInstalledAppsEnabled", 0),
-                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "PreInstalledAppsEnabled", 0),
-                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "PreInstalledAppsEverEnabled", 0),
-                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SilentInstalledAppsEnabled", 0),
-                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SubscribedContent-338387Enabled", 0),
-                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SubscribedContent-338388Enabled", 0),
-                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SubscribedContent-338389Enabled", 0),
-                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SubscribedContent-353698Enabled", 0),
-                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SystemPaneSuggestionsEnabled", 0),
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Feeds", "ShellFeedsTaskbarViewMode", 2),
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer", "HideSCAMeetNow", 1),
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\UserProfileEngagement", "ScoobeSystemSettingEnabled", 0),
@@ -94,18 +84,6 @@ public class SecurityAndPrivacy : IOptimizationGroup
                 new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Assistance\Client\1.0", "NoActiveHelp", 1),
                 new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\HandwritingErrorReports", "PreventHandwritingErrorReports", 1),
                 new RegistryItem(@"HKCU\Control Panel\International\User Profile", "HttpAcceptLanguageOptOut", 1),
-                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AppModel", "Start", 0),
-                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Cellcore", "Start", 0),
-                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\CloudExperienceHostOobe", "Start", 0),
-                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DataMarket", "Start", 0),
-                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger", "Start", 0),
-                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderAuditLogger", "Start", 0),
-                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DiagLog", "Start", 0),
-                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener", "Start", 0),
-                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\LwtNetLog", "Start", 0),
-                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SQMLogger", "Start", 0),
-                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WdiContextLog", "Start", 0),
-                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiSession", "Start", 0),
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location", "Value", "Deny"),
                 new RegistryItem(@"HKLM\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location", "Value", "Deny"),
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Geolocation", "Status", 0),
@@ -156,7 +134,66 @@ public class SecurityAndPrivacy : IOptimizationGroup
             return Task.CompletedTask;
         }
     }
+    
+    public class DisableAutologger : IOptimizationTweak
+    {
+        public string Name { get; } = "Disable WMI AutoLogger";
 
+        public string Description { get; } =
+            "Disables WMI AutoLogger services used for diagnostic event tracing";
+
+        public bool EnabledByDefault { get; } = true;
+
+        public Task Apply(SystemSnapshot s)
+        {
+            using var tracker = ServiceTracker.Begin();
+            RegistryService.Write(
+                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AppModel", "Start", 0),
+                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Cellcore", "Start", 0),
+                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\CloudExperienceHostOobe", "Start", 0),
+                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DataMarket", "Start", 0),
+                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger", "Start", 0),
+                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderAuditLogger", "Start", 0),
+                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DiagLog", "Start", 0),
+                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener", "Start", 0),
+                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\LwtNetLog", "Start", 0),
+                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SQMLogger", "Start", 0),
+                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WdiContextLog", "Start", 0),
+                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiSession", "Start", 0)
+                );
+            Log.LogInformation("Disabled Autologger services.");
+            return Task.CompletedTask;
+        }
+    }
+    public class DisableContentDeliveryManager : IOptimizationTweak
+    {
+        public string Name { get; } = "Disable Content Delivery Manager";
+
+        public string Description { get; } =
+            "Disables suggested apps, consumer features, and content recommendations";
+
+        public bool EnabledByDefault { get; } = true;
+
+        public Task Apply(SystemSnapshot s)
+        {
+            using var tracker = ServiceTracker.Begin();
+            RegistryService.Write(
+                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "ContentDeliveryAllowed", 0),
+                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "OemPreInstalledAppsEnabled", 0),
+                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "PreInstalledAppsEnabled", 0),
+                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "PreInstalledAppsEverEnabled", 0),
+                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SilentInstalledAppsEnabled", 0),
+                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SubscribedContent-338387Enabled", 0),
+                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SubscribedContent-338388Enabled", 0),
+                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SubscribedContent-338389Enabled", 0),
+                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SubscribedContent-353698Enabled", 0),
+                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SystemPaneSuggestionsEnabled", 0)
+                );
+            Log.LogInformation("Disabled Content Delivery Manager.");
+            return Task.CompletedTask;
+        }
+    }
+  
     public class DisableCortanaTweak : IOptimizationTweak
     {
         public string Name { get; } = "Disable Cortana & Search AI";
@@ -191,7 +228,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
         public string Name { get; } = "Disable Windows Copilot";
 
         public string Description { get; } =
-            "Disables Windows Copilot integration in Explorer and system UI";
+            "Disables AI Copilot integration from Explorer and system taskbar";
 
         public bool EnabledByDefault { get; } = true;
 

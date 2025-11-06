@@ -29,7 +29,7 @@ public class BloatwareAndServices : IOptimizationGroup
 
             while (OptimizationManager.SelectedBloatware.TryDequeue(out var appxPackage))
             {
-                appxPackage = appxPackage with { DisplayName = appxPackage.DisplayName.TrimEnd(), Version = appxPackage.Version.TrimEnd() };
+                appxPackage = appxPackage with { DisplayName = appxPackage.DisplayName.Trim(), Version = appxPackage.Version.Trim() };
                 Log.LogInformation($"Removing bloatware app: [{Theme.Primary}]{appxPackage.DisplayName}[/] [{Theme.Success}]{appxPackage.Version}[/] ([dim]{appxPackage.Name}[/])");
 
                 ShellService.PowerShell($$"""
