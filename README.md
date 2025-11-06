@@ -34,7 +34,7 @@
 
 ---
 
-## Download
+## Quick Start
 
 <img src="./.github/assets/app_screenshot.png" alt="optimizerDuck App Screenshot" title="optimizerDuck App Screenshot" width="1000" />
 
@@ -43,7 +43,7 @@
 > **Note:** You may need to restart your PC for some tweaks to take effect.
 ---
 
-## What It Actually Does
+## Features
 
 > **Note:** The list below is a *preview* of what optimizerDuck can do.  
 > Features may change, be renamed, or expand over time. 
@@ -137,11 +137,10 @@ I made this tool because I enjoy tweaking my system and wanted something simple 
 
 ## Contributing
 
-- Found a tweak that should be added? Want to improve the tool?
-
-  - **Fork the repo** and submit a pull request  
-  - **Share new optimization ideas** or bug fixes  
-  - **Update docs or UI/UX improvements** are always welcome
+We welcome contributions from the community!  
+- Read the [CONTRIBUTING.md](./CONTRIBUTING.md) for step‑by‑step guidelines.  
+- Please follow our [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) to keep the community respectful and inclusive.  
+- Open a [GitHub Issue](https://github.com/itsfatduck/optimizerDuck/issues) or start a [Discussion](https://github.com/itsfatduck/optimizerDuck/discussions) if you have ideas or feedback.  
 
 ---
 
