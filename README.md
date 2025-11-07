@@ -20,8 +20,8 @@
 
 # Table of Contents
 
-1. [Download](#download)
-2. [What It Actually Does](#what-it-actually-does)
+1. [Quick Start](#quick-start)
+2. [Features](#features)
 3. [Safety First](#safety-first)
 4. [Mindset Matters](#mindset-matters)
 5. [Why I Built optimizerDuck](#why-i-built-optimizerduck)
