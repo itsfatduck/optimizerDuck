@@ -160,28 +160,42 @@ public static class OptimizationHelper
 
 
             var classification = new AppxClassification(
-                allSafe.Select(app =>
-                {
-                    var key = app.Name;
-
-                    var display = Defaults.SAFE_APPS.TryGetValue(key, out var dn) ? dn : app.Name;
-                    return app with
+                allSafe
+                    .Select(app =>
                     {
-                        DisplayName = display.PadRight(maxDisplayNameLength),
-                        Version = app.Version.PadRight(maxVersionLength)
-                    };
-                }).ToList(),
-                allCaution.Select(app =>
-                {
-                    var key = app.Name;
-
-                    var display = Defaults.CAUTION_APPS.TryGetValue(key, out var dn) ? dn : app.Name;
-                    return app with
+                        var key = app.Name;
+                        var display = Defaults.SAFE_APPS.TryGetValue(key, out var dn) ? dn : app.Name;
+                        return app with
+                        {
+                            DisplayName = display,
+                            Version = app.Version
+                        };
+                    })
+                    .OrderBy(x => x.DisplayName)
+                    .Select(app => app with
                     {
-                        DisplayName = display.PadRight(maxDisplayNameLength),
+                        DisplayName = app.DisplayName.PadRight(maxDisplayNameLength),
                         Version = app.Version.PadRight(maxVersionLength)
-                    };
-                }).ToList()
+                    })
+                    .ToList(),
+                allCaution
+                    .Select(app =>
+                    {
+                        var key = app.Name;
+                        var display = Defaults.CAUTION_APPS.TryGetValue(key, out var dn) ? dn : app.Name;
+                        return app with
+                        {
+                            DisplayName = display,
+                            Version = app.Version
+                        };
+                    })
+                    .OrderBy(x => x.DisplayName)
+                    .Select(app => app with
+                    {
+                        DisplayName = app.DisplayName.PadRight(maxDisplayNameLength),
+                        Version = app.Version.PadRight(maxVersionLength)
+                    })
+                    .ToList()
             );
 
             var parts = new List<string>();

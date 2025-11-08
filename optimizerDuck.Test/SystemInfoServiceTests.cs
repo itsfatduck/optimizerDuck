@@ -3,7 +3,7 @@ using optimizerDuck.Core.Services;
 using optimizerDuck.UI.Logger;
 using Spectre.Console;
 
-namespace optimizerDuck.Test.Core.Services;
+namespace optimizerDuck.Test;
 
 public class SystemInfoServiceTests
 {
