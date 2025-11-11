@@ -43,7 +43,7 @@
 
 ### Documentation
 
-For more detailed guides, check out the [docs](./docs/index.md).
+For more detailed guides, check out the [docs](./Docs/index.md).
 
 
 ---
