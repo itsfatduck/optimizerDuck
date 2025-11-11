@@ -4,6 +4,8 @@
 
 # Getting Started
 
+This is a step-by-step guide to help you get started with optimizerDuck.
+
 </div>
 
 ## Requirements
