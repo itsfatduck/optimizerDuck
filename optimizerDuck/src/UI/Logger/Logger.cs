@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using optimizerDuck.Core;
 using Serilog;
 using Serilog.Core;
@@ -24,7 +23,7 @@ public class PlainTextFormatter : ITextFormatter
         // [SourceContext]
         if (logEvent.Properties.TryGetValue("SourceContext", out var ctx) && ctx is ScalarValue sv)
             output.Write($" [{sv.Value,-25}]");
-        
+
 
 
         // [INFO   ]
@@ -126,7 +125,7 @@ public class ShortSourceContextEnricher : ILogEventEnricher
 
 public static class Logger
 {
-    public static readonly string LogFilePath = Path.Combine(Defaults.RootPath, "debug.log");
+    public static readonly string LogFilePath = Path.Combine(Defaults.RootPath, "optimizerDuck.log");
     private static readonly ILoggerFactory _loggerFactory;
 
     static Logger()
@@ -134,12 +133,12 @@ public static class Logger
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Debug()
             .Enrich.With<ShortSourceContextEnricher>()
-            .WriteTo.File(new PlainTextFormatter(), LogFilePath, shared:true)
+            .WriteTo.File(new PlainTextFormatter(), LogFilePath, shared: true)
             .CreateLogger();
-        
+
         // add a header to the log file
         Log.Logger.Information("\n\n{Logo}\nVersion: {Version}\n\n", Defaults.RawLogo, Defaults.FileVersion);
-        
+
         _loggerFactory = LoggerFactory.Create(builder =>
         {
             builder.AddSpectreConsole(config =>

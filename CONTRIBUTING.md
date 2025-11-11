@@ -65,7 +65,7 @@ Add any other context or screenshots about the feature request here.
 
 Pull requests are the best way to propose changes to the codebase. We actively welcome your pull requests.
 
-1.  Fork the repo and create your branch from `main`.
+1.  Fork the repo and create your branch from `master`.
 2.  If you've added code that should be tested, add tests.
 3.  If you've changed APIs, update the documentation.
 4.  Ensure the test suite passes.
@@ -105,6 +105,7 @@ dotnet run --project optimizerDuck
 #### Branch Naming
 
 To keep our branch structure organized, please follow this convention:
+> **Note:** Current repo doesn't follow this convention fully, but this is the direction for organizing branches in the future.
 
 *   `feature/<description>` for new features (e.g., `feature/add-new-tweak`)
 *   `fix/<description>` for bug fixes (e.g., `fix/resolve-crash-on-start`)
@@ -187,7 +188,7 @@ dotnet watch test
 #### README Updates
 
 *   If you add or change a feature, please update the `README.md` to reflect the changes.
-*   Ensure any new tweaks are listed in the "What It Actually Does" section.
+*   Ensure any new tweaks are listed in the "Features" section.
 
 ## Pull Request Process
 
@@ -230,7 +231,7 @@ dotnet watch test
 3.  **Review Process**
     *   One or more maintainers will review your pull request.
     *   Please be responsive to feedback and questions.
-    *   Once your PR is approved, it will be merged into the `main` branch.
+    *   Once your PR is approved, it will be merged into the `master` branch.
 
 ## Community
 

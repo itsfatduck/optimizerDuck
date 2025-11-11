@@ -21,16 +21,15 @@
 # Table of Contents
 
 1. [Quick Start](#quick-start)
-2. [Features](#features)
-3. [Safety First](#safety-first)
+2. [Documentation](#documentation)
+3. [Features](#features)
 4. [Mindset Matters](#mindset-matters)
 5. [Why I Built optimizerDuck](#why-i-built-optimizerduck)
 6. [Community & Support](#community--support)
 7. [Contributing](#contributing)
-8. [Acknowledgments](#acknowledgments)
-9. [Disclaimer](#disclaimer)
-10. [License](#license)
-11. [Star History](#star-history)
+8. [Disclaimer](#disclaimer)
+9. [License](#license)
+10. [Star History](#star-history)
 
 ---
 
@@ -41,6 +40,11 @@
 1. [Download the latest release](https://github.com/itsfatduck/optimizerDuck/releases/latest)  
 2. Run the `.exe` file  
 3. Restart your PC for some tweaks to take effect
+
+### Documentation
+
+For more detailed guides, check out the [docs](./docs/index.md).
+
 
 ---
 
@@ -93,19 +97,6 @@ Here's a breakdown of the tweaks available in optimizerDuck, organized by catego
 
 ---
 
-## Safety First
-
-<img src="./.github/assets/app_restorepoint.png" alt="optimizerDuck Restore Point" title="optimizerDuck Restore Point" width="1000" />
-
-- **Ask for restore points** before making changes
-- **Modular design** - apply only what you want
-- **Extensive testing** on various hardware configurations
-- **Open source** - you can check every line of code
-- **Manual testing** - All tweaks have been manually tested across multiple hardware configurations
-- **Logging** - Detailed logging file can be found in `%APPDATA%/optimizerDuck/` directory
-
----
-
 ## Mindset Matters
 
 * A powerful PC means little if it's not used efficiently.
@@ -140,17 +131,6 @@ We welcome contributions from the community!
 - Read the [CONTRIBUTING.md](./CONTRIBUTING.md) for step‑by‑step guidelines.  
 - Please follow our [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) to keep the community respectful and inclusive.  
 - Open a [GitHub Issue](https://github.com/itsfatduck/optimizerDuck/issues) or start a [Discussion](https://github.com/itsfatduck/optimizerDuck/discussions) if you have ideas or feedback.  
-
----
-
-## Acknowledgments
-
-- **[Spectre.Console](https://spectreconsole.net/)** - A modern, cross-platform, and highly customizable terminal interface library for .NET.
-- **[Serilog](https://serilog.net/)** - A flexible logging framework for .NET applications.
-- **[vertical-spectreconsolelogger](https://github.com/verticalsoftware/vertical-spectreconsolelogger/)** - A seriously customizable [Spectre Console](https://spectreconsole.net/) provider for Microsoft.Extensions.Logging.
-- **[WinUtil](https://github.com/ChrisTitusTech/winutil)** - A collection of Windows optimization scripts and tools by Chris Titus Tech.
-- **[Microsoft Docs](https://docs.microsoft.com/en-us/)** - Official documentation for Windows and .NET.
-- And many more open-source contributors who helped make this project possible.
 
 ---
 
