@@ -17,8 +17,8 @@ These are steps users should follow to ensure safe usage:
 ## Safety Features
 optimizerDuck is built with safety in mind. Key features include:
 - **Ask for restore points** before making changes.
-- **Modular design** — apply only the tweaks you want.
 - **Extensive testing** on various hardware configurations.
 - **Open source** — you can inspect every line of code.
+- **Modular design** — apply only the tweaks you want.
 - **Manual testing** — all tweaks have been manually tested.
 - **Logging** — detailed log at `%APPDATA%\optimizerDuck\optimizerDuck.log`.
