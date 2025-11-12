@@ -160,7 +160,6 @@ public class UpdateService
         var finalExePath = Path.Combine(Defaults.ExeDir, Path.GetFileName(newExePath));
 
         var updateScript = $"""
-                            Write-Host "Updater script started."
                             Write-Host "Waiting for main process ({currentProcess.Id}) to exit..."
                             Wait-Process -Id {currentProcess.Id}
                             Write-Host "Main process exited."
@@ -173,7 +172,6 @@ public class UpdateService
 
                             Write-Host "Cleaning up..."
                             Remove-Item -Path {Defaults.ExePath} -Force
-                            Write-Host "Updater script finished."
                             """;
 
         var process = new Process
