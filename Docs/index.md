@@ -16,3 +16,4 @@ Here you will find information about how to use **optimizerDuck**, as well as in
 - [Safety](safety.md)
 - [FAQ: Safety & Usage](faq.md)
 - [Acknowledgments](acknowledgments.md)
+- [Features](features.md)
