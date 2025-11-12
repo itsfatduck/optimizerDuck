@@ -8,10 +8,11 @@ View answers to common questions about optimizerDuck and its safety.
 
 </div>
 
-## Is optimizerDuck a virus?
+## Is optimizerDuck safe to use?
 
-Absolutely not. **optimizerDuck** is **open-source** and you can inspect every line of code yourself.  
-It does not contain malware, spyware, or hidden installers.  
+Yes, optimizerDuck is safe to use.
+It is **open-source** and you can inspect every line of code yourself.
+It **does not contain** malware, spyware, or hidden installers.
 All tweaks are transparent and documented in this repository.
 
 For peace of mind:
@@ -19,6 +20,8 @@ For peace of mind:
 - Review the source code in [GitHub](../).
 - Build the project yourself from source.
 - Check the [Safety Guidelines](safety.md).
+
+> By using this tool, you agree that the authors are **not responsible** for any damage, data loss, or issues that may occur.
 
 ## Why does optimizerDuck restart the app every time I open it?
 

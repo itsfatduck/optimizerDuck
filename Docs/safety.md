@@ -4,7 +4,7 @@
 
 # Safety
 
-Follow these safety guidelines to ensure a secure and smooth experience.
+Follow these safety guidelines to ensure a safe and smooth experience.
 
 </div>
 

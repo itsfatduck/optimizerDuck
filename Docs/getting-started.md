@@ -15,12 +15,12 @@ This is a step-by-step guide to help you get started with optimizerDuck.
 
 ## Update
 
-1. Auto update is enabled by default - you'll be notified when a new version is available.
+1. Auto update is **enabled by default** - you'll be notified when a new version is available.
 2. You can also update manually by downloading the latest release from [GitHub](https://github.com/itsfatduck/optimizerDuck/releases/latest).
 
 ## Restart required
 
-1. optimizerDuck will ask for a restart after applying tweaks.
+1. optimizerDuck will ask for a restart after **applying tweaks**.
 2. Restart your PC for tweaks to take effect.
 
 ## Uninstall
@@ -30,4 +30,16 @@ To uninstall, simply delete the `.exe` file and related config/logs in `%APPDATA
 
 ## Safety
 
-See [Safety Guidelines](safety.md) before applying changes.
+See [Safety Guidelines](safety.md) before **applying changes**.
+
+## FAQ
+
+See [FAQ](faq.md) for answers to **common questions**.
+
+## Features
+
+See [Features](features.md) for a list of optimizerDuck's **available tweaks** (These features are not exhaustive and may change over time).
+
+## Acknowledgments
+
+See [Acknowledgments](acknowledgments.md) for **credits and acknowledgments**.
