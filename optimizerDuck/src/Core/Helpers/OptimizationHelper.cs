@@ -78,11 +78,7 @@ public static class OptimizationHelper
 
     public static AppxClassification GetBloatwareChoices()
     {
-        return CacheManager.GetOrCreate("bloatware_choices", entry =>
-        {
-            entry.SlidingExpiration = TimeSpan.FromMinutes(5);
-
-            var result = ShellService.PowerShell($$"""
+        var result = ShellService.PowerShell($$"""
                                                    # list the SAFE_APPS
                                                    $safeApps = @({{string.Join(", ", Defaults.SAFE_APPS.Keys.Select(x => $"\"{x}\""))}})
 
@@ -130,96 +126,89 @@ public static class OptimizationHelper
                                                    """);
 
 
-            var raw = JsonConvert.DeserializeObject<AppxClassificationRaw>(result.Stdout);
+        var raw = JsonConvert.DeserializeObject<AppxClassificationRaw>(result.Stdout);
 
-            var allSafe = raw.SafeApps.SelectMany(x => x).ToList();
-            var allCaution = raw.CautionApps.SelectMany(x => x).ToList();
+        var allSafe = raw.SafeApps.SelectMany(x => x).ToList();
+        var allCaution = raw.CautionApps.SelectMany(x => x).ToList();
 
-            // Display Length
-            var safeDisplayLength = allSafe.Count != 0
-                ? allSafe.Max(x => Defaults.SAFE_APPS.TryGetValue(x.Name, out var dn) ? dn.Length : x.Name.Length)
-                : 0;
+        // Display Length
+        var safeDisplayLength = allSafe.Count != 0
+            ? allSafe.Max(x => Defaults.SAFE_APPS.TryGetValue(x.Name, out var dn) ? dn.Length : x.Name.Length)
+            : 0;
 
-            var cautionDisplayLength = allCaution.Count != 0
-                ? allCaution.Max(x => Defaults.CAUTION_APPS.TryGetValue(x.Name, out var dn) ? dn.Length : x.Name.Length)
-                : 0;
+        var cautionDisplayLength = allCaution.Count != 0
+            ? allCaution.Max(x => Defaults.CAUTION_APPS.TryGetValue(x.Name, out var dn) ? dn.Length : x.Name.Length)
+            : 0;
 
-            // Version Length
-            var safeVersionLength = allSafe.Count != 0
-                ? allSafe.Max(x => x.Version.Length)
-                : 0;
+        // Version Length
+        var safeVersionLength = allSafe.Count != 0
+            ? allSafe.Max(x => x.Version.Length)
+            : 0;
 
-            var cautionVersionLength = allCaution.Count != 0
-                ? allCaution.Max(x => x.Version.Length)
-                : 0;
-
-
-            var maxDisplayNameLength = Math.Max(safeDisplayLength, cautionDisplayLength) + 1;
-
-            var maxVersionLength = Math.Max(safeVersionLength, cautionVersionLength) + 1;
+        var cautionVersionLength = allCaution.Count != 0
+            ? allCaution.Max(x => x.Version.Length)
+            : 0;
 
 
-            var classification = new AppxClassification(
-                allSafe
-                    .Select(app =>
+        var maxDisplayNameLength = Math.Max(safeDisplayLength, cautionDisplayLength) + 1;
+
+        var maxVersionLength = Math.Max(safeVersionLength, cautionVersionLength) + 1;
+
+
+        var classification = new AppxClassification(
+            allSafe
+                .Select(app =>
+                {
+                    return app with
                     {
-                        var key = app.Name;
-                        var display = Defaults.SAFE_APPS.TryGetValue(key, out var dn) ? dn : app.Name;
-                        return app with
-                        {
-                            DisplayName = display,
-                            Version = app.Version
-                        };
-                    })
-                    .OrderBy(x => x.DisplayName)
-                    .Select(app => app with
+                        DisplayName = Defaults.SAFE_APPS.TryGetValue(app.Name, out var dn) ? dn : app.Name // get display name or fallback to app name
+                    };
+                })
+                .OrderBy(x => x.DisplayName)
+                .Select(app => app with
+                {
+                    DisplayName = app.DisplayName.PadRight(maxDisplayNameLength),
+                    Version = app.Version.PadRight(maxVersionLength)
+                })
+                .ToList(),
+            allCaution
+                .Select(app =>
+                {
+                    return app with
                     {
-                        DisplayName = app.DisplayName.PadRight(maxDisplayNameLength),
-                        Version = app.Version.PadRight(maxVersionLength)
-                    })
-                    .ToList(),
-                allCaution
-                    .Select(app =>
-                    {
-                        var key = app.Name;
-                        var display = Defaults.CAUTION_APPS.TryGetValue(key, out var dn) ? dn : app.Name;
-                        return app with
-                        {
-                            DisplayName = display,
-                            Version = app.Version
-                        };
-                    })
-                    .OrderBy(x => x.DisplayName)
-                    .Select(app => app with
-                    {
-                        DisplayName = app.DisplayName.PadRight(maxDisplayNameLength),
-                        Version = app.Version.PadRight(maxVersionLength)
-                    })
-                    .ToList()
-            );
+                        DisplayName = Defaults.CAUTION_APPS.TryGetValue(app.Name, out var dn) ? dn : app.Name
+                    };
+                })
+                .OrderBy(x => x.DisplayName)
+                .Select(app => app with
+                {
+                    DisplayName = app.DisplayName.PadRight(maxDisplayNameLength),
+                    Version = app.Version.PadRight(maxVersionLength)
+                })
+                .ToList()
+        );
 
-            var parts = new List<string>();
+        var parts = new List<string>();
 
-            if (classification.SafeApps.Count > 0)
-            {
-                parts.Add($"[{Theme.Success}]{classification.SafeApps.Count}[/] safe apps");
-                Log.LogDebug("Found {TotalSafeApps} safe apps: {SafeApps}", classification.SafeApps.Count,
-                    string.Join(", ", classification.SafeApps.Select(x => x.Name).ToList()));
-            }
+        if (classification.SafeApps.Count > 0)
+        {
+            parts.Add($"[{Theme.Success}]{classification.SafeApps.Count}[/] safe apps");
+            Log.LogDebug("Found {TotalSafeApps} safe apps: {SafeApps}", classification.SafeApps.Count,
+                string.Join(", ", classification.SafeApps.Select(x => x.Name).ToList()));
+        }
 
-            if (classification.CautionApps.Count > 0)
-            {
-                parts.Add($"[{Theme.Error}]{classification.CautionApps.Count}[/] caution apps");
-                Log.LogDebug("Found {TotalCautionApps} caution apps: {CautionApps}", classification.CautionApps.Count,
-                    string.Join(", ", classification.CautionApps.Select(x => x.Name).ToList()));
-            }
+        if (classification.CautionApps.Count > 0)
+        {
+            parts.Add($"[{Theme.Error}]{classification.CautionApps.Count}[/] caution apps");
+            Log.LogDebug("Found {TotalCautionApps} caution apps: {CautionApps}", classification.CautionApps.Count,
+                string.Join(", ", classification.CautionApps.Select(x => x.Name).ToList()));
+        }
 
-            if (parts.Count != 0)
-                Log.LogInformation($"Found {string.Join(" and ", parts)}.");
-            else
-                Log.LogWarning("No apps found.");
+        if (parts.Count != 0)
+            Log.LogInformation($"Found {string.Join(" and ", parts)}.");
+        else
+            Log.LogWarning("No apps found.");
 
-            return classification;
-        });
+        return classification;
     }
 }

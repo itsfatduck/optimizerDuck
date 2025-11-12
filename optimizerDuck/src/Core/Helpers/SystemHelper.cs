@@ -11,23 +11,6 @@ public static class SystemHelper
 {
     private static readonly ILogger Log = Logger.CreateLogger(typeof(SystemHelper));
 
-    public static void EnsureDirectoriesExists()
-    {
-        if (!Directory.Exists(Defaults.RootPath))
-        {
-            Log.LogInformation(@"AppData\optimizerDuck directory does not exist. Creating directory at: {Path}",
-                Defaults.RootPath);
-            Directory.CreateDirectory(Defaults.RootPath);
-        }
-
-        if (!Directory.Exists(Defaults.ResourcesPath))
-        {
-            Log.LogInformation("Resources directory does not exist. Creating directory at: {Path}",
-                Defaults.ResourcesPath);
-            Directory.CreateDirectory(Defaults.ResourcesPath);
-        }
-    }
-
     public static void OpenLogFile()
     {
         Process.Start(new ProcessStartInfo

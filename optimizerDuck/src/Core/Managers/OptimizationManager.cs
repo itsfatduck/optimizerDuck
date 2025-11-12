@@ -53,7 +53,7 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                     g.Tweaks
                 );
 
-            if (_selectedTweaks.Count == 0) // only select enabled by default if no tweaks are selected (first time)
+            if (_selectedTweaks.Count == 0)
                 foreach (var tweak in optimizationGroups.SelectMany(g => g.Tweaks).Where(t => t.EnabledByDefault))
                     promptTweakChoice.Select(tweak);
             else
@@ -68,7 +68,6 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
             if (_selectedTweaks.Any(t => t.Instance is BloatwareAndServices.RemoveBloatwareApps)) // if Bloatware selection is selected
             {
                 SystemHelper.Title("Select the bloatware you want to remove");
-                Log.LogDebug("Bloatware selection detected, prompting for bloatware apps...");
                 Log.LogInformation("Loading installed bloatware apps...");
 
                 var appxClassification = OptimizationHelper.GetBloatwareChoices();
@@ -121,7 +120,7 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                         appxClassification.CautionApps);
 
 
-                if (SelectedBloatware.Count == 0) // default selected safe apps first time only
+                if (SelectedBloatware.Count == 0)
                     foreach (var app in appxClassification.SafeApps)
                         promptBloatware.Select(app);
                 else
@@ -167,13 +166,14 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
     {
         AnsiConsole.Clear();
         AnsiConsole.Write(Defaults.Logo);
-        SystemHelper.Title("Initializing Optimizer");
+        SystemHelper.Title("Starting Optimization");
 
         Log.LogInformation("Refreshing system information...");
         _systemSnapshot = await SystemInfoService.RefreshAsync().ConfigureAwait(false);
 
         Log.LogDebug("Selected tweaks ({TweakAmount}): {Tweaks}", _selectedTweaks.Count,
             string.Join(", ", _selectedTweaks.Select(t => t.Name)));
+
         if (_selectedTweaks.Any(t => t.Instance is BloatwareAndServices.RemoveBloatwareApps)) // if Bloatware selection is selected
             Log.LogDebug("Selected bloatware apps ({BloatwareAmount}): {Bloatware}", SelectedBloatware.Count,
                 string.Join(", ", SelectedBloatware.Select(app => $"{app.DisplayName} ({app.Version})")));
@@ -221,6 +221,7 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                 });
 
         Rule("Optimization completed!", Theme.Success);
+        SystemHelper.Title("Optimization completed!");
 
         Log.LogInformation($"[{Theme.Success}]Optimization completed![/]");
 

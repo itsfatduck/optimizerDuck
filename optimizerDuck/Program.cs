@@ -90,7 +90,7 @@ internal class Program
 
                 ctx.Status("Checking and creating necessary paths...");
                 Log.LogInformation("Checking and creating necessary paths...");
-                SystemHelper.EnsureDirectoriesExists();
+                RequirementChecker.EnsureDirectoriesExists();
 
                 ctx.Status("Checking system requirements...");
                 Log.LogInformation("Checking system requirements...");
