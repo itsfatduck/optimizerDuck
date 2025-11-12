@@ -12,7 +12,7 @@
 [![Discord](https://img.shields.io/discord/1091675679994675240?color=5865f2&label=Discord)](https://discord.gg/tDUBDCYw9Q)
 <br>
 [![.NET 10.0](https://img.shields.io/badge/.NET_Runtime-10.0_Latest-ef99dd)](https://dotnet.microsoft.com/en-us/download)
-[![Tested OS](https://img.shields.io/badge/Tested_OS-Windows_10_or_11_x64-0078d4)](https://www.microsoft.com/en-us/software-download/)
+[![Tested OS](https://img.shields.io/badge/Tested_OS-Windows_10_and_11_x64-0078d4)](https://www.microsoft.com/en-us/software-download/)
 
 </div>
 
