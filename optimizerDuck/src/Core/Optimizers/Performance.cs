@@ -111,7 +111,7 @@ public class Performance : IOptimizationGroup
                 return Task.CompletedTask;
             }
             RegistryService.Write(
-                new RegistryItem(@"HKLM\SYSTEM\ControlSet001\Control", "SvcHostSplitThresholdInKB", s.Ram.TotalKB, RegistryValueKind.DWord)
+                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control", "SvcHostSplitThresholdInKB", s.Ram.TotalKB, RegistryValueKind.DWord)
             );
             Log.LogInformation("Set SvcHostSplitThresholdInKB to {Value}.", s.Ram.TotalKB);
             return Task.CompletedTask;
