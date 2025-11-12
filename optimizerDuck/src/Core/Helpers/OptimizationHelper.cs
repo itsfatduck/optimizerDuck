@@ -5,7 +5,6 @@ using optimizerDuck.Core.Managers;
 using optimizerDuck.Core.Services;
 using optimizerDuck.Interfaces;
 using optimizerDuck.Models;
-using optimizerDuck.src.Core;
 using optimizerDuck.UI;
 using optimizerDuck.UI.Logger;
 using Spectre.Console;

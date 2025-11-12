@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
 using optimizerDuck.Core.Services;
-using optimizerDuck.src.Core;
 using optimizerDuck.UI;
 using optimizerDuck.UI.Components;
 using optimizerDuck.UI.Logger;

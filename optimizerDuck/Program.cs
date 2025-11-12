@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
+using optimizerDuck.Core;
 using optimizerDuck.Core.Extensions;
 using optimizerDuck.Core.Helpers;
 using optimizerDuck.Core.Services;
-using optimizerDuck.src.Core;
 using optimizerDuck.src.UI;
 using optimizerDuck.UI;
 using optimizerDuck.UI.Components;

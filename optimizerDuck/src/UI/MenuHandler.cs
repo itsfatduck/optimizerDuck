@@ -1,8 +1,8 @@
 using Microsoft.Extensions.Logging;
+using optimizerDuck.Core;
 using optimizerDuck.Core.Helpers;
 using optimizerDuck.Core.Managers;
 using optimizerDuck.Core.Services;
-using optimizerDuck.src.Core;
 using optimizerDuck.UI.Logger;
 using Spectre.Console;
 

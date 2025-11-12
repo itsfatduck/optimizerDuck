@@ -3,7 +3,7 @@ using optimizerDuck.UI.Components;
 using Spectre.Console;
 using System.Diagnostics;
 
-namespace optimizerDuck.src.Core;
+namespace optimizerDuck.Core;
 
 public static class Defaults
 {
