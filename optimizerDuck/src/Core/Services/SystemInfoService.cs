@@ -331,7 +331,7 @@ internal static class RamProvider
     }
 }
 
-public static partial class DiskHelper
+public static class DiskHelper
 {
     [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
     static extern SafeFileHandle CreateFile(
@@ -537,7 +537,7 @@ internal static class GpuProvider
 
     public static GpuInfo? GetPrimary(IReadOnlyList<GpuInfo> gpus)
     {
-        if (gpus == null || gpus.Count == 0) return null;
+        if (gpus.Count == 0) return null;
 
         return gpus
             .OrderByDescending(CalculateGpuScore)
