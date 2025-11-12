@@ -43,36 +43,51 @@ public static class SystemHelper
     {
         var exePath = Defaults.ExePath;
         var rootPath = Defaults.RootPath;
-
-        var result = ShellService.PowerShell($$"""
+        try
+        {
+            var result = ShellService.PowerShell($$"""
                                                @{ 
                                                    SelfPath = (Get-MpPreference).ExclusionPath -contains "{{exePath}}";
                                                    RootPath = (Get-MpPreference).ExclusionPath -contains "{{rootPath}}"
                                                } | ConvertTo-Json
                                                """);
-        var exclusions = JsonConvert.DeserializeObject<Dictionary<string, bool>>(result.Stdout);
-        var missingPaths = new List<string>();
-        if (exclusions != null && exclusions.TryGetValue("SelfPath", out var selfPathExcluded) && !selfPathExcluded)
+            var exclusions = JsonConvert.DeserializeObject<Dictionary<string, bool>>(result.Stdout);
+            var missingPaths = new List<string>();
+            if (exclusions != null && exclusions.TryGetValue("SelfPath", out var selfPathExcluded) && !selfPathExcluded)
+            {
+                Log.LogWarning("Path not excluded: {SelfPath}", exePath);
+                missingPaths.Add(exePath);
+            }
+
+            if (exclusions != null && exclusions.TryGetValue("RootPath", out var rootPathExcluded) && !rootPathExcluded)
+            {
+                Log.LogWarning("Path not excluded: {RootPath}", rootPath);
+                missingPaths.Add(rootPath);
+            }
+            return missingPaths;
+        }
+        catch (Exception ex)
         {
-            Log.LogWarning("Path not excluded: {SelfPath}", exePath);
-            missingPaths.Add(exePath);
+            Log.LogError(ex, "Failed to check for exclusions.");
         }
 
-        if (exclusions != null && exclusions.TryGetValue("RootPath", out var rootPathExcluded) && !rootPathExcluded)
-        {
-            Log.LogWarning("Path not excluded: {RootPath}", rootPath);
-            missingPaths.Add(rootPath);
-        }
-        return missingPaths;
+        return [];
     }
 
     public static void AddToExclusions(List<string> paths)
     {
-        using var tracker = ServiceTracker.Begin(Log);
-        foreach (var path in paths)
+        try
         {
-            var result = ShellService.PowerShell($"Add-MpPreference -ExclusionPath \"{path}\"");
-            if (result.ExitCode != 0) Log.LogError($"[{Theme.Error}]Failed to add path to exclusions: {path}[/]");
+            using var tracker = ServiceTracker.Begin(Log);
+            foreach (var path in paths)
+            {
+                var result = ShellService.PowerShell($"Add-MpPreference -ExclusionPath \"{path}\"");
+                if (result.ExitCode != 0) Log.LogError($"[{Theme.Error}]Failed to add path to exclusions: {path}[/]");
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.LogError(ex, "Failed to add paths to exclusions.");
         }
     }
 }
