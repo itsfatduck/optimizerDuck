@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using optimizerDuck.Core.Extensions;
 using optimizerDuck.Core.Managers;
 using optimizerDuck.Core.Services;
 using optimizerDuck.Interfaces;
@@ -36,6 +37,9 @@ public static class OptimizationHelper
             var globalMaxNameLength = allTweaks.Count != 0
                 ? allTweaks.Max(t => t.Name.Length) + 1
                 : 0;
+            var maxImpactLength = allTweaks.Count != 0
+                ? allTweaks.Max(t => t.Impact.GetDescription().Length) + 1
+                : 0;
 
 
             foreach (var optimizationGroup in enumerable)
@@ -56,7 +60,7 @@ public static class OptimizationHelper
                     .Select(t =>
                     {
                         var paddedName = t.Name.PadRight(globalMaxNameLength);
-                        var description = $"[dim]{t.Description}[/]";
+                        var description = $"{t.Impact.GetDescription().PadRight(maxImpactLength)}[dim]{t.Description}[/]";
 
                         return new OptimizationTweakChoice(t, paddedName, description, t.EnabledByDefault);
                     })

@@ -19,6 +19,8 @@ public class Performance : IOptimizationGroup
         public string Name { get; } = "Disable Background Apps";
         public string Description { get; } = "Stops background applications from running to free up RAM and CPU resources";
         public bool EnabledByDefault { get; } = true;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Low;
+
 
         public Task Apply(SystemSnapshot s)
         {
@@ -36,6 +38,8 @@ public class Performance : IOptimizationGroup
         public string Name { get; } = "Optimize Process Priority";
         public string Description { get; } = "Adjusts foreground app priority for better responsiveness and reduced input lag";
         public bool EnabledByDefault { get; } = true;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.High;
+
 
         public Task Apply(SystemSnapshot s)
         {
@@ -72,6 +76,7 @@ public class Performance : IOptimizationGroup
         public string Name { get; } = "Optimize Gaming Scheduling";
         public string Description { get; } = "Prioritizes GPU scheduling and system resources for gaming workloads";
         public bool EnabledByDefault { get; } = true;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Medium;
 
         public Task Apply(SystemSnapshot s)
         {
@@ -94,6 +99,7 @@ public class Performance : IOptimizationGroup
         public string Name { get; } = "SvcHost Split Threshold";
         public string Description { get; } = "Adjusts SvcHostSplitThresholdInKB based on total system RAM to control service isolation and improve system stability.";
         public bool EnabledByDefault { get; } = true;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.High;
 
         public Task Apply(SystemSnapshot s)
         {
@@ -123,6 +129,7 @@ public class Performance : IOptimizationGroup
             "Disables the Xbox Game Bar overlay and background services to prevent performance drops and improve in-game responsiveness";
 
         public bool EnabledByDefault { get; } = true;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Low;
 
         public Task Apply(SystemSnapshot s)
         {
@@ -142,8 +149,9 @@ public class Performance : IOptimizationGroup
     public class GameModeTweak : IOptimizationTweak
     {
         public string Name { get; } = "Enable Game Mode";
-        public string Description { get; } = "Enables Windows Game Mode (RECOMMENDED for Windows 11)";
+        public string Description { get; } = "Enables Windows Game Mode (Recommended on Windows 11)";
         public bool EnabledByDefault { get; } = SystemHelper.IsWindows11OrGreater();
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Low;
 
         public Task Apply(SystemSnapshot s)
         {
@@ -165,6 +173,7 @@ public class Performance : IOptimizationGroup
             "Turns off Game DVR recording features to eliminate background video capture and reduce latency during gameplay";
 
         public bool EnabledByDefault { get; } = true;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Low;
 
         public Task Apply(SystemSnapshot s)
         {
@@ -189,6 +198,7 @@ public class Performance : IOptimizationGroup
         public string Description { get; } = "Optimizes GPU driver settings to disable unnecessary features and improve stability & performance";
 
         public bool EnabledByDefault { get; } = true;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.High;
 
         public Task Apply(SystemSnapshot s)
         {

@@ -19,6 +19,7 @@ public class UserExperience : IOptimizationGroup
         public string Name { get; } = "Taskbar Optimization";
         public string Description { get; } = "Simplifies and cleans up the Windows taskbar for better performance";
         public bool EnabledByDefault { get; } = true;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Low;
 
         public Task Apply(SystemSnapshot s)
         {
@@ -51,6 +52,7 @@ public class UserExperience : IOptimizationGroup
         public string Name { get; } = "Dark Mode";
         public string Description { get; } = "Forces Windows to use dark mode for apps and system";
         public bool EnabledByDefault { get; } = true;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Low;
 
         public Task Apply(SystemSnapshot s)
         {
@@ -69,6 +71,7 @@ public class UserExperience : IOptimizationGroup
         public string Name { get; } = "Explorer Optimization";
         public string Description { get; } = "Optimizes Windows Explorer visuals and usability";
         public bool EnabledByDefault { get; } = true;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Low;
 
         public Task Apply(SystemSnapshot s)
         {
@@ -98,6 +101,7 @@ public class UserExperience : IOptimizationGroup
         public string Name { get; } = "Visual Performance";
         public string Description { get; } = "Sets Windows visual effects for best performance";
         public bool EnabledByDefault { get; } = true;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Low;
 
         public Task Apply(SystemSnapshot s)
         {
@@ -122,6 +126,7 @@ public class UserExperience : IOptimizationGroup
             "Disables Windows notifications and action center to minimize distractions during gaming";
 
         public bool EnabledByDefault { get; } = true;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Low;
 
         public Task Apply(SystemSnapshot s)
         {
@@ -148,6 +153,7 @@ public class UserExperience : IOptimizationGroup
             "Reduces mouse input lag and improves accuracy by disabling mouse acceleration and adjusting sensitivity";
 
         public bool EnabledByDefault { get; } = true;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Low;
 
         public Task Apply(SystemSnapshot s)
         {
@@ -172,6 +178,7 @@ public class UserExperience : IOptimizationGroup
             "Improves keyboard responsiveness and disables unwanted accessibility features";
 
         public bool EnabledByDefault { get; } = true;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Low;
 
         public Task Apply(SystemSnapshot s)
         {
@@ -197,6 +204,7 @@ public class UserExperience : IOptimizationGroup
             "Installs and configures ZwTimerResolution to reduce input lag and improve system responsiveness";
 
         public bool EnabledByDefault => true;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Medium;
 
         public async Task Apply(SystemSnapshot s)
         {

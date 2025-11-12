@@ -23,6 +23,8 @@ public class BloatwareAndServices : IOptimizationGroup
 
         public bool EnabledByDefault { get; } = true;
 
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Critical;
+
         public Task Apply(SystemSnapshot s)
         {
             using var tracker = ServiceTracker.Begin(Log);
@@ -73,6 +75,8 @@ public class BloatwareAndServices : IOptimizationGroup
 
         public bool EnabledByDefault { get; } = false;
 
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Low;
+
         public Task Apply(SystemSnapshot s)
         {
             using var tracker = ServiceTracker.Begin(Log);
@@ -108,6 +112,8 @@ public class BloatwareAndServices : IOptimizationGroup
             "Optimizes Windows services by disabling unnecessary background services that consume system resources";
 
         public bool EnabledByDefault { get; } = true;
+
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Critical;
 
         public Task Apply(SystemSnapshot s)
         {
