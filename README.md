@@ -22,7 +22,7 @@
 
 1. [Quick Start](#quick-start)
 2. [Documentation](#documentation)
-3. [Features](#features)
+3. [Key Optimizations](#key-optimizations)
 4. [Mindset Matters](#mindset-matters)
 5. [Why I Built optimizerDuck](#why-i-built-optimizerduck)
 6. [Community & Support](#community--support)
@@ -39,14 +39,8 @@
 
 1. [Download the latest release](https://github.com/itsfatduck/optimizerDuck/releases/latest)  
 2. Run the `.exe` file  
-3. Restart your PC for some tweaks to take effect
 
-### Requirements
-
-This is which optimizerDuck has been tested on:
-
-- [![OS](https://img.shields.io/badge/OS-Windows_10_or_11_x64-0078d4)](https://www.microsoft.com/en-us/software-download/)
-- [![.NET](https://img.shields.io/badge/.NET_Runtime-10.0_Latest-ef99dd)](https://dotnet.microsoft.com/en-us/download)
+> **Note:** Restart your PC for some tweaks to take effect
 
 ### Documentation
 

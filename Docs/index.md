@@ -6,7 +6,7 @@
 
 </div>
 
-Welcome to the **optimizerDuck** documentation! 
+Welcome to the **optimizerDuck** documentation!
 
 Here you will find information about how to use **optimizerDuck**, as well as information about the project and its features.
 
@@ -14,6 +14,6 @@ Here you will find information about how to use **optimizerDuck**, as well as in
 
 - [Getting Started](getting-started.md)
 - [Safety](safety.md)
-- [FAQ: Safety & Usage](faq.md)
+- [FAQ](faq.md)
 - [Acknowledgments](acknowledgments.md)
 - [Features](features.md)

@@ -8,10 +8,6 @@ This is a step-by-step guide to help you get started with optimizerDuck.
 
 </div>
 
-## Requirements
-- Windows 10 or 11 (x64)
-- Administrator privileges
-
 ## Download
 
 1. [Download the latest release](https://github.com/itsfatduck/optimizerDuck/releases/latest).
@@ -28,6 +24,7 @@ This is a step-by-step guide to help you get started with optimizerDuck.
 2. Restart your PC for tweaks to take effect.
 
 ## Uninstall
+
 optimizerDuck is portable.  
 To uninstall, simply delete the `.exe` file and related config/logs in `%APPDATA%/optimizerDuck/`.
 
