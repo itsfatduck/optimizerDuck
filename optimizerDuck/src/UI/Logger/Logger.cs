@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using optimizerDuck.Core;
+using optimizerDuck.src.Core;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
