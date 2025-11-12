@@ -11,8 +11,8 @@
 [![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-white)](./LICENSE)
 [![Discord](https://img.shields.io/discord/1091675679994675240?color=5865f2&label=Discord)](https://discord.gg/tDUBDCYw9Q)
 <br>
-[![.NET 10.0 RC2](https://img.shields.io/badge/.NET-10.0_RC2-512BD4?logoColor=white)](https://docs.microsoft.com/en-us/dotnet/core/install/windows)
-[![Tested OS](https://img.shields.io/badge/Tested_OS-Windows_10_/_11_x64-0078D6?logoColor=white)](https://www.microsoft.com/en-us/software-download/)
+[![.NET 10.0](https://img.shields.io/badge/.NET_Runtime-10.0_Latest-ef99dd)](https://dotnet.microsoft.com/en-us/download)
+[![Tested OS](https://img.shields.io/badge/Tested_OS-Windows_10_or_11_x64-0078d4)](https://www.microsoft.com/en-us/software-download/)
 
 </div>
 
@@ -35,72 +35,46 @@
 
 ## Quick Start
 
-<img src="./.github/assets/app_screenshot.png" alt="optimizerDuck App Screenshot" title="optimizerDuck App Screenshot" width="1000" />
+<img src="./.github/assets/app_screenshot.png" alt="optimizerDuck App Screenshot" title="optimizerDuck App Screenshot" width="800" />
 
 1. [Download the latest release](https://github.com/itsfatduck/optimizerDuck/releases/latest)  
 2. Run the `.exe` file  
 3. Restart your PC for some tweaks to take effect
 
+### Requirements
+
+This is which optimizerDuck has been tested on:
+
+- [![OS](https://img.shields.io/badge/OS-Windows_10_or_11_x64-0078d4)](https://www.microsoft.com/en-us/software-download/)
+- [![.NET](https://img.shields.io/badge/.NET_Runtime-10.0_Latest-ef99dd)](https://dotnet.microsoft.com/en-us/download)
+
 ### Documentation
 
 For more detailed guides, check out the [docs](./Docs/index.md).
 
-
 ---
 
-## Features
+## Key Optimizations
 
-> **Note:** The list below is a *preview* of what optimizerDuck can do.  
-> Features may change, be renamed, or expand over time. 
+<img src="./.github/assets/app_tweaks.png" alt="optimizerDuck Tweaks" title="optimizerDuck Tweaks (1.0.0)" width="800" />
 
-<img src="./.github/assets/app_tweaks.png" alt="optimizerDuck Tweaks" title="optimizerDuck Tweaks (1.0.0)" width="1000" />
+optimizerDuck helps you fine‑tune Windows in five main areas:
 
-Here's a breakdown of the tweaks available in optimizerDuck, organized by category:
+- **Performance** → Improve CPU/GPU responsiveness and reduce input lag for gaming
+- **Debloat & Services** → Remove unnecessary apps and disable background services
+- **Power** → Optimize power plans for maximum performance
+- **Privacy & Security** → Limit telemetry, disable Cortana, Copilot, and system ads
+- **User Experience** → Clean up the taskbar, improve Explorer, enable Dark Mode, and enhance input devices
 
-### Performance
-- **Disable Background Apps:** Stops background apps from running to free up RAM and CPU.
-- **Optimize Process Priority:** Adjusts foreground app priority for better responsiveness and reduced input lag.
-- **Optimize Gaming Scheduling:** Prioritizes GPU and system resources for gaming.
-- **SvcHost Split Threshold:** Optimizes service isolation based on system RAM to improve stability.
-- **Disable Game Bar:** Disables the Xbox Game Bar overlay and background services to improve in-game performance.
-- **Enable Game Mode:** Enables Windows Game Mode for a better gaming experience (Recommended on Windows 11).
-- **Disable Game DVR:** Turns off background video recording to reduce latency.
-- **GPU Optimization:** Optimizes AMD, NVIDIA, and Intel GPU driver settings for better stability and performance.
-
-### Bloatware & Services
-- **Remove Bloatware Apps:** Removes pre-installed bloatware to free up storage and system resources.
-- **Debloat Microsoft Edge:** Reduces Edge's system integration and disables unnecessary features.
-- **Configure Services:** Disables unnecessary background services to reduce resource consumption.
-
-### Power
-- **Disable Hibernate:** Disables hibernation and Fast Startup to save disk space and prevent issues.
-- **Disable USB Power Saving:** Prevents USB selective suspend to reduce input lag on peripherals.
-- **Install optimizerDuck Power Plan:** Installs a custom high-performance power plan for maximum CPU performance.
-- **Disable Power Saving:** Disables system-wide power throttling for maximum responsiveness.
-
-### Security & Privacy
-- **Disable User Account Control (UAC):** Disables UAC prompts for fewer interruptions (use with caution).
-- **Disable Telemetry:** Disables Windows data collection services, scheduled tasks, and error reporting.
-- **Disable WMI AutoLogger:** Disables diagnostic event tracing services.
-- **Disable Content Delivery Manager:** Disables ads, suggested apps, and content recommendations.
-- **Disable Cortana & Search AI:** Disables Cortana, cloud search, and web search integration.
-- **Disable Windows Copilot:** Disables AI Copilot integration in the taskbar and Explorer.
-
-### User Experience
-- **Taskbar Optimization:** Cleans up the taskbar by hiding the search bar, Task View, and other clutter.
-- **Enable Dark Mode:** Forces dark mode for both applications and the system UI.
-- **Explorer Optimization:** Restores the classic context menu, improves folder navigation, and enhances usability.
-- **Optimize Visual Performance:** Adjusts visual effects for best performance over appearance.
-- **Disable Notifications:** Disables all notifications to minimize distractions.
-- **Optimize Mouse & Keyboard:** Disables mouse acceleration and improves keyboard responsiveness.
-- **Install ZwTimerResolution:** Installs a service to reduce input lag and improve system responsiveness.
+👉 See the full list in [Docs/Features](./Docs/features.md)
 
 ---
 
 ## Mindset Matters
 
-* A powerful PC means little if it's not used efficiently.
-* Real performance isn't just about tweaks or tools. It's about **how you manage your system**.
+> A powerful PC means little if it's not used efficiently.
+> 
+> Real performance isn't just about tweaks or tools. It's about **how you manage your system**.
 
 **Best practices:**
 - Keep your OS lean: avoid unnecessary VPNs, multiple antiviruses, or background apps.
@@ -159,7 +133,8 @@ This project is licensed under the [CC BY-NC-SA 4.0 License](https://creativecom
 
 ## Star History
 
-**If optimizerDuck made your PC faster, give it a star! ⭐**<br>It helps more people discover the project and keeps development going.
+If optimizerDuck made your PC faster, **star this repo** and share it with friends.<br>
+Every ⭐ motivates new tweaks and updates!
 
 <a href="https://www.star-history.com/#itsfatduck/optimizerDuck&type=Date">
   <img src="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&type=Date" alt="Star History Chart">
