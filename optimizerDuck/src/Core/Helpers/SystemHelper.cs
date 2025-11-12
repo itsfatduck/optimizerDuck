@@ -76,18 +76,11 @@ public static class SystemHelper
 
     public static void AddToExclusions(List<string> paths)
     {
-        try
+        using var tracker = ServiceTracker.Begin(Log);
+        foreach (var path in paths)
         {
-            using var tracker = ServiceTracker.Begin(Log);
-            foreach (var path in paths)
-            {
-                var result = ShellService.PowerShell($"Add-MpPreference -ExclusionPath \"{path}\"");
-                if (result.ExitCode != 0) Log.LogError($"[{Theme.Error}]Failed to add path to exclusions: {path}[/]");
-            }
-        }
-        catch (Exception ex)
-        {
-            Log.LogError(ex, "Failed to add paths to exclusions.");
+            var result = ShellService.PowerShell($"Add-MpPreference -ExclusionPath \"{path}\"");
+            if (result.ExitCode != 0) Log.LogError($"[{Theme.Error}]Failed to add path to exclusions: {path}[/]");
         }
     }
 }
