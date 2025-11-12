@@ -10,9 +10,9 @@ View answers to common questions about optimizerDuck and its safety.
 
 ## Is optimizerDuck safe to use?
 
-Yes, optimizerDuck is safe to use.
-It is **open-source** and you can inspect every line of code yourself.
-It **does not contain** malware, spyware, or hidden installers.
+**Yes**, optimizerDuck is safe to use.<br>
+It is **open-source** and you can inspect every line of code yourself.<br>
+It **does not contain** malware, spyware, or hidden installers.<br>
 All tweaks are transparent and documented in this repository.
 
 For peace of mind:
