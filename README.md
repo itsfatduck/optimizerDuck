@@ -107,6 +107,10 @@ This project is licensed under the [CC BY-NC-SA 4.0 License](https://creativecom
 
 If optimizerDuck made your PC faster, **star this repo** and share it with friends.<br>Every ⭐ motivates new tweaks and updates!
 
-<a href="https://www.star-history.com/#itsfatduck/optimizerDuck&type=Date">
-  <img src="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&type=Date" alt="Star History Chart">
+<a href="https://www.star-history.com/#itsfatduck/optimizerDuck&type=timeline&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&type=timeline&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&type=timeline&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&type=timeline&legend=top-left" />
+ </picture>
 </a>
