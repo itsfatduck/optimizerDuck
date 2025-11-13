@@ -1,0 +1,19 @@
+on:
+  release:
+    types: [published]
+
+jobs:
+  github-releases-to-discord:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: GitHub Releases to Discord
+        uses: SethCohen/github-releases-to-discord@v1
+        with:
+          webhook_url: ${{ secrets.WEBHOOK_URL }}
+          color: "16697348"
+          username: "optimizerDuck | Release Changelog"
+          avatar_url: "https://media.discordapp.net/attachments/1124562179635556362/1433390991041105940/file_00000000a55c61faa5eacf81d0493ce0_3_2.png?ex=6916f9e3&is=6915a863&hm=6ddc21d9dbb0a0d7b7df0083d869fca579ab619d86e1a34943493c1721e3cb43&=&format=webp&quality=lossless&width=810&height=810"
+          content: "<@1438487735903191181>, new release is out!"
+          reduce_headings: true
