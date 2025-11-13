@@ -4,7 +4,7 @@
 
 # Features
 
-View the list of optimizerDuck's key optimizations.
+View the list of optimizerDuck's optimizations.
 
 </div>
 
@@ -52,6 +52,7 @@ View the list of optimizerDuck's key optimizations.
 - **Configure Services** — Optimizes Windows services by disabling unnecessary background services
 - **Debloat Microsoft Edge** — Removes unnecessary Edge features and reduces its system integration for better performance  
 
-> **Note:** These features are not exhaustive and may change over time.
+> [!NOTE]
+> These features are not exhaustive and may change over time.
 >
-> **Last updated:** 12/11/2025
+> Last updated: 12/11/2025

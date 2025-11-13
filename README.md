@@ -58,7 +58,7 @@ With **optimizerDuck**, you can optimize Windows performance, privacy, and more-
   - It refines the Windows interface by cleaning up visual clutter, enabling dark mode, and improving input device responsiveness for a smoother experience.
 
 > [!NOTE]
-> See the full list in [Docs/Features](./Docs/features.md)
+> See the full list in [Docs/Optimizations](./Docs/optimizations.md)
 
 ## 🦆 Why optimizerDuck Exists
 
