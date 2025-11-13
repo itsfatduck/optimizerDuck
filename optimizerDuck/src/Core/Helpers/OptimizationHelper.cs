@@ -23,58 +23,52 @@ public static class OptimizationHelper
         {
             entry.Priority = CacheItemPriority.NeverRemove;
 
-            var groups = new List<OptimizationGroupChoice>();
-            var optimizationGroups = ReflectionHelper.FindImplementationsInLoadedAssemblies(typeof(IOptimizationGroup));
+            var optimizationGroups = ReflectionHelper.FindImplementationsInLoadedAssemblies(typeof(IOptimizationGroup))
+                .ToArray();
 
-            var enumerable = optimizationGroups as Type[] ?? optimizationGroups.ToArray();
-            var allTweaks = enumerable
-                .SelectMany(og => og.GetNestedTypes(BindingFlags.Public)
-                    .Where(t => typeof(IOptimizationTweak).IsAssignableFrom(t))
-                    .Select(t => (IOptimizationTweak?)Activator.CreateInstance(t)!))
-                .Where(_ => true)
+            var allTweaksByGroup = optimizationGroups
+                .Select(g => new
+                {
+                    Group = (IOptimizationGroup)Activator.CreateInstance(g)!,
+                    Tweaks = g.GetNestedTypes(BindingFlags.Public)
+                        .Where(t => typeof(IOptimizationTweak).IsAssignableFrom(t))
+                        .Select(t => (IOptimizationTweak)Activator.CreateInstance(t)!)
+                        .ToList()
+                })
                 .ToList();
 
-            var globalMaxNameLength = allTweaks.Count != 0
-                ? allTweaks.Max(t => t.Name.Length) + 1
-                : 0;
-            var maxImpactLength = allTweaks.Count != 0
-                ? allTweaks.Max(t => t.Impact.GetDescription().Length) + 1
-                : 0;
+            var allTweaks = allTweaksByGroup.SelectMany(x => x.Tweaks).ToList();
+            var globalMaxNameLength = allTweaks.DefaultIfEmpty().Max(t => t?.Name?.Length ?? 0) + 1;
+            var maxImpactLength = allTweaks.DefaultIfEmpty().Max(t => t?.Impact.GetDescription().Length ?? 0) + 1;
 
+            var groups = new List<OptimizationGroupChoice>();
 
-            foreach (var optimizationGroup in enumerable)
+            foreach (var g in allTweaksByGroup)
             {
-                var groupInstance = (IOptimizationGroup)Activator.CreateInstance(optimizationGroup)!;
-
-                var tweaks = optimizationGroup
-                    .GetNestedTypes(BindingFlags.Public)
-                    .Where(t => typeof(IOptimizationTweak).IsAssignableFrom(t))
-                    .Select(t => (IOptimizationTweak)Activator.CreateInstance(t)!)
+                var tweaks = g.Tweaks
                     .OrderByDescending(t => t.EnabledByDefault)
                     .ThenBy(t => (int)t.Impact)
                     .ToList();
 
-                if (tweaks.Count == 0) // skip groups with no tweaks
-                    continue;
+                if (tweaks.Count == 0) continue; // Skip empty groups
 
-                var tweakChoices = tweaks
-                    .Select(t =>
-                    {
-                        var paddedName = t.Name.PadRight(globalMaxNameLength);
-                        var description = $"{t.Impact.GetDescription().PadRight(maxImpactLength)}[dim]{t.Description}[/]";
+                var tweakChoices = tweaks.Select(t =>
+                {
+                    var paddedName = t.Name.PadRight(globalMaxNameLength);
+                    var description = $"{t.Impact.GetDescription().PadRight(maxImpactLength)}[dim]{t.Description}[/]";
+                    return new OptimizationTweakChoice(t, paddedName, description, t.EnabledByDefault);
+                }).ToList();
 
-                        return new OptimizationTweakChoice(t, paddedName, description, t.EnabledByDefault);
-                    })
-                    .ToList();
-
-                groups.Add(new OptimizationGroupChoice(groupInstance.Name, groupInstance.Order, tweakChoices));
+                groups.Add(new OptimizationGroupChoice(g.Group.Name, g.Group.Order, tweakChoices));
             }
 
             var orderedGroups = groups.OrderBy(g => g.Priority).ToList();
+
             foreach (var g in orderedGroups)
             {
                 Log.LogDebug("Loaded group {Group}:", g.Name);
-                foreach (var t in g.Tweaks) Log.LogDebug("  - {TweakName} {TweakDescription}", t.Name, Markup.Remove(t.Description));
+                foreach (var t in g.Tweaks)
+                    Log.LogDebug("  - {TweakName} {TweakDescription}", t.Name, Markup.Remove(t.Description));
             }
 
             return orderedGroups;
