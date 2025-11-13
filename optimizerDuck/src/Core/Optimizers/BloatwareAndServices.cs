@@ -23,7 +23,7 @@ public class BloatwareAndServices : IOptimizationGroup
 
         public bool EnabledByDefault { get; } = true;
 
-        public OptimizationImpact Impact { get; } = OptimizationImpact.Critical;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Aggressive;
 
         public Task Apply(SystemSnapshot s)
         {
@@ -75,7 +75,7 @@ public class BloatwareAndServices : IOptimizationGroup
 
         public bool EnabledByDefault { get; } = false;
 
-        public OptimizationImpact Impact { get; } = OptimizationImpact.Low;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Minimal;
 
         public Task Apply(SystemSnapshot s)
         {
@@ -113,7 +113,7 @@ public class BloatwareAndServices : IOptimizationGroup
 
         public bool EnabledByDefault { get; } = true;
 
-        public OptimizationImpact Impact { get; } = OptimizationImpact.Critical;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Aggressive;
 
         public Task Apply(SystemSnapshot s)
         {

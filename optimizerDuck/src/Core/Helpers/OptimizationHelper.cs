@@ -51,6 +51,7 @@ public static class OptimizationHelper
                     .Where(t => typeof(IOptimizationTweak).IsAssignableFrom(t))
                     .Select(t => (IOptimizationTweak)Activator.CreateInstance(t)!)
                     .OrderByDescending(t => t.EnabledByDefault)
+                    .ThenBy(t => (int)t.Impact)
                     .ToList();
 
                 if (tweaks.Count == 0) // skip groups with no tweaks

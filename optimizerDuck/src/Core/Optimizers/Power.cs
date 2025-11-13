@@ -23,7 +23,7 @@ public class Power : IOptimizationGroup
             "Disables hibernate, fast startup, and removes hibernate option from power menu";
 
         public bool EnabledByDefault { get; } = true;
-        public OptimizationImpact Impact { get; } = OptimizationImpact.Medium;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Moderate;
 
         public Task Apply(SystemSnapshot s)
         {
@@ -49,7 +49,7 @@ public class Power : IOptimizationGroup
             "Disables USB selective suspend and other power management features that can cause input lag and performance drops";
 
         public bool EnabledByDefault { get; } = true;
-        public OptimizationImpact Impact { get; } = OptimizationImpact.Medium;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Moderate;
 
         public Task Apply(SystemSnapshot s)
         {
@@ -80,7 +80,7 @@ public class Power : IOptimizationGroup
             "Installs a custom high-performance power plan optimized for gaming and maximum CPU performance";
 
         public bool EnabledByDefault { get; } = true;
-        public OptimizationImpact Impact { get; } = OptimizationImpact.High;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Significant;
 
         public async Task Apply(SystemSnapshot s)
         {
@@ -114,7 +114,7 @@ public class Power : IOptimizationGroup
             "Disables power throttling and enables AlwaysOn multimedia mode for maximum responsiveness";
 
         public bool EnabledByDefault { get; } = true;
-        public OptimizationImpact Impact { get; } = OptimizationImpact.Medium;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Moderate;
 
         public Task Apply(SystemSnapshot s)
         {

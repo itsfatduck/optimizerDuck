@@ -20,7 +20,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
             "Disables UAC prompts to reduce interruptions (reduces security - use with caution)";
 
         public bool EnabledByDefault { get; } = false;
-        public OptimizationImpact Impact { get; } = OptimizationImpact.Critical;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Aggressive;
 
         public Task Apply(SystemSnapshot s)
         {
@@ -40,7 +40,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
             "Disables telemetry services, scheduled tasks, and Windows data collection";
 
         public bool EnabledByDefault { get; } = true;
-        public OptimizationImpact Impact { get; } = OptimizationImpact.High;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Significant;
 
         /// <summary>
         ///     thank you https://github.com/ChrisTitusTech/winutil
@@ -145,7 +145,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
             "Disables WMI AutoLogger services used for diagnostic event tracing";
 
         public bool EnabledByDefault { get; } = true;
-        public OptimizationImpact Impact { get; } = OptimizationImpact.Medium;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Moderate;
 
         public Task Apply(SystemSnapshot s)
         {
@@ -176,7 +176,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
             "Disables suggested apps, consumer features, and content recommendations";
 
         public bool EnabledByDefault { get; } = true;
-        public OptimizationImpact Impact { get; } = OptimizationImpact.Medium;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Moderate;
 
         public Task Apply(SystemSnapshot s)
         {
@@ -206,7 +206,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
             "Disables Cortana, cloud search, web search integration, and related AI-powered search features";
 
         public bool EnabledByDefault { get; } = true;
-        public OptimizationImpact Impact { get; } = OptimizationImpact.Medium;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Moderate;
 
         public Task Apply(SystemSnapshot s)
         {
@@ -236,7 +236,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
             "Disables AI Copilot integration from Explorer and system taskbar";
 
         public bool EnabledByDefault { get; } = true;
-        public OptimizationImpact Impact { get; } = OptimizationImpact.Medium;
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Moderate;
 
         public Task Apply(SystemSnapshot s)
         {
