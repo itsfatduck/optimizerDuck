@@ -6,9 +6,10 @@
 
 View the list of optimizerDuck's key optimizations.
 
-</div>    
+</div>
 
 ## Performance
+
 - **Disable Background Apps** — Stops background applications from running to free up RAM and CPU resources
 - **Optimize Process Priority** — Adjusts foreground app priority for better responsiveness and reduced input lag
 - **Optimize Gaming Scheduling** — Prioritizes GPU scheduling and system resources for gaming workloads
@@ -19,6 +20,7 @@ View the list of optimizerDuck's key optimizations.
 - **GPU Optimization** — Optimizes GPU driver settings to disable unnecessary features and improve stability & performance
 
 ## Security & Privacy
+
 - **Disable Telemetry Services & Tasks** — Disables telemetry services, scheduled tasks, and Windows data collection
 - **Disable WMI AutoLogger** — Disables WMI AutoLogger services used for diagnostic event tracing
 - **Disable Content Delivery Manager** — Disables suggested apps, consumer features, and content recommendations
@@ -27,12 +29,14 @@ View the list of optimizerDuck's key optimizations.
 - **Disable User Account Control (UAC)** — Disables UAC prompts to reduce interruptions (use with caution)
 
 ## Power
+
 - **Disable Hibernate** — Disables hibernate, fast startup, and removes the hibernate option from the power menu
 - **Disable USB Power Saving** — Disables USB selective suspend and other power features that can cause input lag
 - **Install optimizerDuck Power Plan** — Installs a custom high-performance power plan optimized for gaming and CPU performance
 - **Disable Power Saving** — Disables power throttling and enables AlwaysOn multimedia mode for maximum responsiveness
 
 ## User Experience
+
 - **Taskbar Optimization** — Simplifies and cleans up the Windows taskbar
 - **Dark Mode** — Forces Windows to use dark mode for apps and system UI
 - **Explorer Optimization** — Optimizes Windows Explorer visuals and usability
@@ -43,11 +47,11 @@ View the list of optimizerDuck's key optimizations.
 - **Install ZwTimerResolution** — Installs and configures ZwTimerResolution to reduce input lag and improve responsiveness
 
 ## Bloatware & Services
+
 - **Remove Bloatware Apps** — Removes selected preinstalled apps that consume storage and resources
 - **Configure Services** — Optimizes Windows services by disabling unnecessary background services
 - **Debloat Microsoft Edge** — Removes unnecessary Edge features and reduces its system integration for better performance  
 
-
-> **Note:** Some features require **administrator permissions** to apply.
-> 
+> **Note:** These features are not exhaustive and may change over time.
+>
 > **Last updated:** 12/11/2025
