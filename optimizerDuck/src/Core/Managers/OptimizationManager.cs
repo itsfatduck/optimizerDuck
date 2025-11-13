@@ -68,7 +68,7 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
             if (_selectedTweaks.Any(t => t.Instance is BloatwareAndServices.RemoveBloatwareApps)) // if Bloatware selection is selected
             {
                 SystemHelper.Title("Select the bloatware you want to remove");
-                Log.LogInformation("Loading installed bloatware apps...");
+                Log.LogInformation("Getting installed bloatware apps...");
 
                 var appxClassification = OptimizationHelper.GetBloatwareChoices();
 
