@@ -19,9 +19,9 @@
 
 </div>
 
-## 📥 Quick Start
+## 🚀 Quick Start
 
-### 📦 Download
+### Download
 
 1. [Download the latest release](https://github.com/itsfatduck/optimizerDuck/releases/latest)  
 2. Run the `.exe` file  
@@ -29,11 +29,11 @@
 > [!TIP]
 > Remember to restart your PC after applying tweaks to **take effect**
 
-### 📓 Documentation
+### Documentation
 
 - For more detailed guides, check out the [docs](./Docs/index.md).
 
-## 📊 Key Optimizations
+## 🔥 Key Optimizations
 
 With **optimizerDuck**, you can optimize Windows performance, privacy, and more-across five focused areas:
 
@@ -77,7 +77,7 @@ optimizerDuck is a simple, honest tool built on that idea. Every setting is **te
 - [Issues](https://github.com/itsfatduck/optimizerDuck/issues) → bug reports  
 - [Discussions](https://github.com/itsfatduck/optimizerDuck/discussions) → share tips  
 
-### 🤝 Contributing
+### Contributing
 
 We welcome contributions from the community!  
 - Read the [CONTRIBUTING.md](./CONTRIBUTING.md) for step‑by‑step guidelines.  
@@ -107,6 +107,10 @@ This project is licensed under the [CC BY-NC-SA 4.0 License](https://creativecom
 
 If optimizerDuck made your PC faster, **star this repo** and share it with friends.<br>Every ⭐ motivates new tweaks and updates!
 
-<a href="https://www.star-history.com/#itsfatduck/optimizerDuck&type=Date">
-  <img src="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&type=Date" alt="Star History Chart">
+<a href="https://www.star-history.com/#itsfatduck/optimizerDuck&type=timeline&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&type=timeline&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&type=timeline&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&type=timeline&legend=top-left" />
+ </picture>
 </a>
