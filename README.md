@@ -19,7 +19,7 @@
 
 </div>
 
-## 📥 Quick Start
+## 🚀 Quick Start
 
 ### 📦 Download
 
@@ -33,7 +33,42 @@
 
 - For more detailed guides, check out the [docs](./Docs/index.md).
 
-## 📊 Key Optimizations
+## <div align="center">
+
+<img src="./.github/assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck" height="300"/>
+
+# optimizerDuck
+
+**optimizerDuck is a free, open-source Windows optimization tool built for performance, privacy, and simplicity.**
+
+[![Latest Release](https://img.shields.io/github/release/itsfatduck/optimizerDuck?color=fed114&label=Latest%20Release)](https://github.com/itsfatduck/optimizerDuck/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/itsfatduck/optimizerDuck/total?label=Downloads)](https://github.com/itsfatduck/optimizerDuck/releases)
+[![Stars](https://img.shields.io/endpoint?url=https://api.pinstudios.net/api/badges/stars/itsfatduck/optimizerDuck)](https://github.com/itsfatduck/optimizerDuck/stargazers)
+[![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-white)](./LICENSE)
+[![Discord](https://img.shields.io/discord/1091675679994675240?color=5865f2&label=Discord%20Community)](https://discord.gg/tDUBDCYw9Q)
+<br>
+[![.NET 10.0](https://img.shields.io/badge/.NET_Runtime-10.0_Latest-ef99dd)](https://dotnet.microsoft.com/en-us/download)
+[![Tested OS](https://img.shields.io/badge/Tested_OS-Windows_10_and_11_x64-0078d4)](https://www.microsoft.com/en-us/software-download/)
+
+<img src="./.github/assets/app_screenshot.png" alt="optimizerDuck App Screenshot" title="optimizerDuck App Screenshot" width="800" />
+
+</div>
+
+## 🚀 Quick Start
+
+### Download
+
+1. [Download the latest release](https://github.com/itsfatduck/optimizerDuck/releases/latest)  
+2. Run the `.exe` file  
+
+> [!TIP]
+> Remember to restart your PC after applying tweaks to **take effect**
+
+### Documentation
+
+- For more detailed guides, check out the [docs](./Docs/index.md).
+
+## 🔥 Key Optimizations
 
 With **optimizerDuck**, you can optimize Windows performance, privacy, and more-across five focused areas:
 
@@ -77,7 +112,7 @@ optimizerDuck is a simple, honest tool built on that idea. Every setting is **te
 - [Issues](https://github.com/itsfatduck/optimizerDuck/issues) → bug reports  
 - [Discussions](https://github.com/itsfatduck/optimizerDuck/discussions) → share tips  
 
-### 🤝 Contributing
+### Contributing
 
 We welcome contributions from the community!  
 - Read the [CONTRIBUTING.md](./CONTRIBUTING.md) for step‑by‑step guidelines.  
