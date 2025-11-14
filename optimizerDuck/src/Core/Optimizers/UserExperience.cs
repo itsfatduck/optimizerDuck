@@ -11,10 +11,10 @@ namespace optimizerDuck.Core.Optimizers;
 public class UserExperience : IOptimizationGroup
 {
     public string Name { get; } = "User Experience";
-    public int Order { get; } = (int)OptimizationGroupOrder.UserExperience;
+    public OptimizationGroupOrder Order { get; } = OptimizationGroupOrder.UserExperience;
     public static ILogger Log { get; } = Logger.CreateLogger<UserExperience>();
 
-    public class TaskbarTweak : IOptimizationTweak
+    public class TaskbarOptimization : IOptimization
     {
         public string Name { get; } = "Taskbar Optimization";
         public string Description { get; } = "Simplifies and cleans up the Windows taskbar for better performance";
@@ -24,6 +24,7 @@ public class UserExperience : IOptimizationGroup
         public Task Apply(SystemSnapshot s)
         {
             using var tracker = ServiceTracker.Begin(Log);
+
             RegistryService.Write(
                 new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Dsh", "AllowNewsAndInterests", 0),
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "TaskbarDa", 0),
@@ -47,7 +48,7 @@ public class UserExperience : IOptimizationGroup
         }
     }
 
-    public class DarkModeTweak : IOptimizationTweak
+    public class DarkMode : IOptimization
     {
         public string Name { get; } = "Dark Mode";
         public string Description { get; } = "Forces Windows to use dark mode for apps and system";
@@ -57,6 +58,7 @@ public class UserExperience : IOptimizationGroup
         public Task Apply(SystemSnapshot s)
         {
             using var tracker = ServiceTracker.Begin(Log);
+
             RegistryService.Write(
                 new RegistryItem(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", 0),
                 new RegistryItem(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "SystemUsesLightTheme", 0)
@@ -66,7 +68,7 @@ public class UserExperience : IOptimizationGroup
         }
     }
 
-    public class ExplorerTweak : IOptimizationTweak
+    public class ExplorerOptimization : IOptimization
     {
         public string Name { get; } = "Explorer Optimization";
         public string Description { get; } = "Optimizes Windows Explorer visuals and usability";
@@ -76,6 +78,7 @@ public class UserExperience : IOptimizationGroup
         public Task Apply(SystemSnapshot s)
         {
             using var tracker = ServiceTracker.Begin(Log);
+
             RegistryService.Write(
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "ShowSyncProviderNotifications", 0),
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SystemPaneSuggestionsEnabled", 0),
@@ -96,7 +99,7 @@ public class UserExperience : IOptimizationGroup
     }
 
 
-    public class VisualPerformanceTweak : IOptimizationTweak
+    public class VisualPerformanceOptimization : IOptimization
     {
         public string Name { get; } = "Visual Performance";
         public string Description { get; } = "Sets Windows visual effects for best performance";
@@ -106,6 +109,7 @@ public class UserExperience : IOptimizationGroup
         public Task Apply(SystemSnapshot s)
         {
             using var tracker = ServiceTracker.Begin(Log);
+
             RegistryService.Write(
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects", "VisualFXSetting", 3),
                 new RegistryItem(@"HKCU\Control Panel\Desktop", "DragFullWindows", "0"),
@@ -118,7 +122,7 @@ public class UserExperience : IOptimizationGroup
 
 
 
-    public class DisableNotifications : IOptimizationTweak
+    public class DisableNotifications : IOptimization
     {
         public string Name { get; } = "Disable Notifications";
 
@@ -145,7 +149,7 @@ public class UserExperience : IOptimizationGroup
         }
     }
 
-    public class OptimizeMouse : IOptimizationTweak
+    public class OptimizeMouse : IOptimization
     {
         public string Name { get; } = "Optimize Mouse";
 
@@ -170,7 +174,7 @@ public class UserExperience : IOptimizationGroup
         }
     }
 
-    public class OptimizeKeyboard : IOptimizationTweak
+    public class OptimizeKeyboard : IOptimization
     {
         public string Name { get; } = "Optimize Keyboard";
 
@@ -196,7 +200,7 @@ public class UserExperience : IOptimizationGroup
         }
     }
 
-    public class InstallZwTimerResolution : IOptimizationTweak
+    public class InstallZwTimerResolution : IOptimization
     {
         public string Name => "Install ZwTimerResolution";
 
@@ -212,7 +216,7 @@ public class UserExperience : IOptimizationGroup
 
             var (success, zwtPath) = await StreamHelper.TryDownloadAsync(Defaults.ZwtDownloadUrl, "zwtimer.exe")
                 .ConfigureAwait(false);
-            if (success && !string.IsNullOrEmpty(zwtPath))
+            if (success)
             {
                 Log.LogInformation("ZwTimerResolution downloaded successfully!");
                 /*

@@ -2,7 +2,7 @@
 
 <img src="../.github/assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck" height="300"/>
 
-# Features
+# Optimizations
 
 View the list of optimizerDuck's optimizations.
 
@@ -53,6 +53,6 @@ View the list of optimizerDuck's optimizations.
 - **Debloat Microsoft Edge** — Removes unnecessary Edge features and reduces its system integration for better performance  
 
 > [!NOTE]
-> These features are not exhaustive and may change over time.
+> These optimizations are not exhaustive and may change over time.
 >
 > Last updated: 12/11/2025

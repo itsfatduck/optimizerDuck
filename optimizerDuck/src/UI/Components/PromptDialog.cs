@@ -85,7 +85,7 @@ public class PromptDialog
                                                    let color = option.Color
                                                    select (option, key, rest, color))
         {
-            buttonList.Add($"[{color}][underline]{key}[/]{rest}[/]");
+            buttonList.Add($"[{color}][underline bold]{key}[/]{rest}[/]");
             keyMap[key] = option.Key;
         }
 
@@ -114,7 +114,7 @@ public class PromptDialog
                    GlobalStatus.Current,
                    Spinner.Known.SimpleDotsScrolling,
                    _borderColor,
-                   "Select an option to continue"))
+                   "Select an option (press its first character)"))
         {
             while (true)
             {

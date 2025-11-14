@@ -383,8 +383,11 @@ public static class DiskHelper
 
     public static bool IsSSD(string driveLetter)
     {
-        var path = @"\\.\" + driveLetter.TrimEnd('\\');
-        var handle = CreateFile(path, GENERIC_READ,
+        var trimmedDrive = driveLetter.TrimEnd('\\');
+        if (string.IsNullOrWhiteSpace(trimmedDrive))
+            return false;
+
+        using var handle = CreateFile(@"\\.\" + trimmedDrive, GENERIC_READ,
             FILE_SHARE_READ | FILE_SHARE_WRITE, IntPtr.Zero,
             OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, IntPtr.Zero);
 
@@ -399,30 +402,41 @@ public static class DiskHelper
         };
 
         var querySize = Marshal.SizeOf(query);
-        var queryPtr = Marshal.AllocHGlobal(querySize);
-        Marshal.StructureToPtr(query, queryPtr, false);
+        var resultSize = Marshal.SizeOf<DEVICE_SEEK_PENALTY_DESCRIPTOR>();
 
-        var result = new DEVICE_SEEK_PENALTY_DESCRIPTOR();
-        var resultSize = Marshal.SizeOf(result);
-        var resultPtr = Marshal.AllocHGlobal(resultSize);
+        IntPtr queryPtr = IntPtr.Zero;
+        IntPtr resultPtr = IntPtr.Zero;
 
-        var success = DeviceIoControl(handle, IOCTL_STORAGE_QUERY_PROPERTY,
-            queryPtr, (uint)querySize,
-            resultPtr, (uint)resultSize,
-            out _, IntPtr.Zero);
-
-        Marshal.FreeHGlobal(queryPtr);
-
-        if (!success)
+        try
         {
-            Marshal.FreeHGlobal(resultPtr);
+            queryPtr = Marshal.AllocHGlobal(querySize);
+            Marshal.StructureToPtr(query, queryPtr, false);
+
+            resultPtr = Marshal.AllocHGlobal(resultSize);
+
+            var success = DeviceIoControl(handle, IOCTL_STORAGE_QUERY_PROPERTY,
+                queryPtr, (uint)querySize,
+                resultPtr, (uint)resultSize,
+                out _, IntPtr.Zero);
+
+            if (!success)
+                return false;
+
+            var descriptor = Marshal.PtrToStructure<DEVICE_SEEK_PENALTY_DESCRIPTOR>(resultPtr);
+            return !descriptor.IncursSeekPenalty;
+        }
+        catch
+        {
             return false;
         }
+        finally
+        {
+            if (queryPtr != IntPtr.Zero)
+                Marshal.FreeHGlobal(queryPtr);
 
-        result = Marshal.PtrToStructure<DEVICE_SEEK_PENALTY_DESCRIPTOR>(resultPtr);
-        Marshal.FreeHGlobal(resultPtr);
-
-        return !result.IncursSeekPenalty; // false = HDD, true = SSD
+            if (resultPtr != IntPtr.Zero)
+                Marshal.FreeHGlobal(resultPtr);
+        }
     }
 
     public static bool IsSystemDrive(string driveLetter)
@@ -435,36 +449,37 @@ public static class DiskHelper
 
 internal static class DiskProvider
 {
-
-
     public static DiskInfo Get()
     {
         try
         {
-            var volumes = new List<DiskVolume>();
-            var drives = DriveInfo.GetDrives().Where(d => d.IsReady);
+            static double ToGb(long bytes) => Math.Round(bytes / Math.Pow(1024, 3), 2);
 
-            foreach (var drive in drives)
-            {
-                var totalBytes = drive.TotalSize;
-                var freeBytes = drive.AvailableFreeSpace;
-                var usedBytes = totalBytes - freeBytes;
+            var volumes = DriveInfo.GetDrives()
+                .Where(d => d.IsReady)
+                .Select(drive =>
+                {
+                    var totalBytes = drive.TotalSize;
+                    var freeBytes = drive.AvailableFreeSpace;
+                    var usedBytes = totalBytes - freeBytes;
 
-                double toGb(long bytes) => Math.Round(bytes / Math.Pow(1024, 3), 2);
+                    var isSystemDrive = DiskHelper.IsSystemDrive(drive.Name);
+                    var isSsd = DiskHelper.IsSSD(drive.Name);
 
-                volumes.Add(new DiskVolume(
-                    Name: drive.Name.TrimEnd('\\'),
-                    SystemDrive: DiskHelper.IsSystemDrive(drive.Name),
-                    FileSystem: drive.DriveFormat,
-                    DriveType: drive.DriveType.ToString(),
-                    Label: drive.VolumeLabel,
-                    TotalSizeGB: toGb(totalBytes),
-                    FreeSpaceGB: toGb(freeBytes),
-                    UsedSpaceGB: toGb(usedBytes),
-                    UsedPercent: totalBytes > 0 ? Math.Round(usedBytes * 100.0 / totalBytes, 1) : 0,
-                    DriveTypeDescription: DiskHelper.IsSSD(drive.Name) ? "SSD" : "HDD"
-                ));
-            }
+                    return new DiskVolume(
+                        Name: drive.Name.TrimEnd('\\'),
+                        SystemDrive: isSystemDrive,
+                        FileSystem: drive.DriveFormat,
+                        DriveType: drive.DriveType.ToString(),
+                        Label: drive.VolumeLabel,
+                        TotalSizeGB: ToGb(totalBytes),
+                        FreeSpaceGB: ToGb(freeBytes),
+                        UsedSpaceGB: ToGb(usedBytes),
+                        UsedPercent: totalBytes > 0 ? Math.Round(usedBytes * 100.0 / totalBytes, 1) : 0,
+                        DriveTypeDescription: isSsd ? "SSD" : "HDD"
+                    );
+                })
+                .ToList();
 
             return new DiskInfo(volumes);
         }
@@ -806,25 +821,25 @@ public static class SystemInfoService
             // Operating System Information
             var osGroup = new List<IRenderable>
         {
-            new Rule("Operating System Information") { Style = Theme.Primary },
-            new Markup($"[{Theme.Info}]Name           :[/] [bold]{s.Os.Name}[/]"),
-            new Markup($"[{Theme.Info}]Version        :[/] [{Theme.Success}]{s.Os.Version}[/]"),
-            new Markup($"[{Theme.Info}]Build Number   :[/] [{Theme.Success}]{s.Os.BuildNumber}[/]"),
-            new Markup($"[{Theme.Info}]Edition        :[/] [{Theme.Warning}]{s.Os.Edition}[/]"),
-            new Markup($"[{Theme.Info}]Architecture   :[/] [bold]{s.Os.Architecture}[/]"),
-            new Markup($"[{Theme.Info}]Device Type    :[/] [bold]{s.Os.DeviceType}[/]"),
-            new Markup($"[{Theme.Info}]Install Date   :[/] [{Theme.Success}]{s.Os.InstallDate}[/]"),
-            new Markup($"[{Theme.Info}]Last Boot      :[/] [{Theme.Success}]{s.Os.LastBoot}[/]")
+            new Rule("Operating System Overview") { Style = Theme.Primary },
+            new Markup($"[{Theme.Info}]Name             :[/] [bold]{s.Os.Name}[/]"),
+            new Markup($"[{Theme.Info}]Version          :[/] [{Theme.Success}]{s.Os.Version}[/]"),
+            new Markup($"[{Theme.Info}]Build            :[/] [{Theme.Success}]{s.Os.BuildNumber}[/]"),
+            new Markup($"[{Theme.Info}]Edition          :[/] [{Theme.Warning}]{s.Os.Edition}[/]"),
+            new Markup($"[{Theme.Info}]Architecture     :[/] [bold]{s.Os.Architecture}[/]"),
+            new Markup($"[{Theme.Info}]Device Type      :[/] [bold]{s.Os.DeviceType}[/]"),
+            new Markup($"[{Theme.Info}]Installed On     :[/] [{Theme.Success}]{s.Os.InstallDate}[/]"),
+            new Markup($"[{Theme.Info}]Last Boot        :[/] [{Theme.Success}]{s.Os.LastBoot}[/]")
         };
 
             // BIOS Information
             var biosGroup = new List<IRenderable>
         {
-            new Rule("BIOS Information") { Style = Theme.Success },
-            new Markup($"[{Theme.Info}]Manufacturer   :[/] [bold]{Safe(s.Bios.Manufacturer)}[/]"),
-            new Markup($"[{Theme.Info}]Version        :[/] [{Theme.Success}]{Safe(s.Bios.Version)}[/]"),
-            new Markup($"[{Theme.Info}]Release Date   :[/] [{Theme.Success}]{Safe(s.Bios.ReleaseDate)}[/]"),
-            new Markup($"[{Theme.Info}]SMBIOS Version :[/] [{Theme.Success}]{Safe(s.Bios.SmbiosVersion)}[/]")
+            new Rule("BIOS Details") { Style = Theme.Success },
+            new Markup($"[{Theme.Info}]Manufacturer     :[/] [bold]{Safe(s.Bios.Manufacturer)}[/]"),
+            new Markup($"[{Theme.Info}]Version          :[/] [{Theme.Success}]{Safe(s.Bios.Version)}[/]"),
+            new Markup($"[{Theme.Info}]Release Date     :[/] [{Theme.Success}]{Safe(s.Bios.ReleaseDate)}[/]"),
+            new Markup($"[{Theme.Info}]SMBIOS Revision  :[/] [{Theme.Success}]{Safe(s.Bios.SmbiosVersion)}[/]")
         };
 
             // CPU Information
@@ -836,38 +851,39 @@ public static class SystemInfoService
             };
             var cpuGroup = new List<IRenderable>
         {
-            new Rule("CPU Information") { Style = Theme.Info },
-            new Markup($"[{Theme.Info}]Name           :[/] [bold]{Safe(s.Cpu.Name)}[/]"),
-            new Markup($"[{Theme.Info}]Vendor         :[/] [{cpuVendorColor}]{Safe(s.Cpu.Vendor)}[/]"),
-            new Markup($"[{Theme.Info}]Manufacturer   :[/] [bold]{Safe(s.Cpu.Manufacturer)}[/]"),
-            new Markup($"[{Theme.Info}]Cores          :[/] [{Theme.Success}]{s.Cpu.Cores}[/]"),
-            new Markup($"[{Theme.Info}]Threads        :[/] [{Theme.Success}]{s.Cpu.Threads}[/]"),
-            new Markup($"[{Theme.Info}]Architecture   :[/] [bold]{s.Cpu.Architecture}[/]"),
-            new Markup($"[{Theme.Info}]Max Clock Speed:[/] [{Theme.Warning}]{s.Cpu.MaxClockMHz}[/] [dim]MHz[/]"),
-            new Markup($"[{Theme.Info}]Current Speed  :[/] [{Theme.Warning}]{s.Cpu.CurrentClockMHz}[/] [dim]MHz[/]"),
-            new Markup($"[{Theme.Info}]L2 Cache       :[/] [{Theme.Success}]{s.Cpu.L2CacheKB}[/] [dim]KB[/]"),
-            new Markup($"[{Theme.Info}]L3 Cache       :[/] [{Theme.Success}]{s.Cpu.L3CacheKB}[/] [dim]KB[/]")
+            new Rule("CPU Details") { Style = Theme.Info },
+            new Markup($"[{Theme.Info}]Name             :[/] [bold]{Safe(s.Cpu.Name)}[/]"),
+            new Markup($"[{Theme.Info}]Vendor           :[/] [{cpuVendorColor}]{Safe(s.Cpu.Vendor)}[/]"),
+            new Markup($"[{Theme.Info}]Manufacturer     :[/] [bold]{Safe(s.Cpu.Manufacturer)}[/]"),
+            new Markup($"[{Theme.Info}]Physical Cores   :[/] [{Theme.Success}]{s.Cpu.Cores}[/]"),
+            new Markup($"[{Theme.Info}]Logical Threads  :[/] [{Theme.Success}]{s.Cpu.Threads}[/]"),
+            new Markup($"[{Theme.Info}]Architecture     :[/] [bold]{s.Cpu.Architecture}[/]"),
+            new Markup($"[{Theme.Info}]Max Clock        :[/] [{Theme.Warning}]{s.Cpu.MaxClockMHz}[/] [dim]MHz[/]"),
+            new Markup($"[{Theme.Info}]Current Clock    :[/] [{Theme.Warning}]{s.Cpu.CurrentClockMHz}[/] [dim]MHz[/]"),
+            new Markup($"[{Theme.Info}]L2 Cache         :[/] [{Theme.Success}]{s.Cpu.L2CacheKB}[/] [dim]KB[/]"),
+            new Markup($"[{Theme.Info}]L3 Cache         :[/] [{Theme.Success}]{s.Cpu.L3CacheKB}[/] [dim]KB[/]")
         };
 
             // RAM Information
             var usedColor = s.Ram.UsedPercent > 80 ? Theme.Error : Theme.Warning;
             var ramGroup = new List<IRenderable>
         {
-            new Rule("Memory Information") { Style = new Style(Color.Yellow) },
+            new Rule("Memory Overview") { Style = new Style(Color.Yellow) },
 
             new Markup(
-                $"[{Theme.Info}]Total          :[/] [{Theme.Success}]{s.Ram.TotalGB:F2}[/] [dim]GB[/] [dim]([/][{Theme.Success}]{s.Ram.TotalMB}[/] [dim]MB)[/]"),
-            new Markup($"[{Theme.Info}]Available      :[/] [{Theme.Success}]{s.Ram.AvailableGB:F2}[/] [dim]GB[/]"),
-            new Markup($"[{Theme.Info}]Used           :[/] [{usedColor}]{s.Ram.UsedPercent:F1}%[/]"),
+                $"[{Theme.Info}]Total Installed :[/] [{Theme.Success}]{s.Ram.TotalGB:F2}[/] [dim]GB[/] [dim]([/][{Theme.Success}]{s.Ram.TotalMB}[/] [dim]MB)[/]")
+            ,
+            new Markup($"[{Theme.Info}]Available       :[/] [{Theme.Success}]{s.Ram.AvailableGB:F2}[/] [dim]GB[/]"),
+            new Markup($"[{Theme.Info}]Current Usage   :[/] [{usedColor}]{s.Ram.UsedPercent:F1}%[/]"),
             new BreakdownChart()
                 .Width(50)
                 .UseValueFormatter(v => $"{v:F2} GB")
                 .AddItem(
-                    "Used GB",
+                    "Used",
                     s.Ram.UsedGB,
                     Color.FromHex(Theme.Warning))
                 .AddItem(
-                    "Available GB",
+                    "Available",
                     s.Ram.AvailableGB,
                     Color.FromHex(Theme.Success)),
         };
@@ -875,43 +891,43 @@ public static class SystemInfoService
             if (s.Ram.Modules.Count > 0)
             {
                 ramGroup.Add(new Markup(
-                    $"[{Theme.Info}]Modules        :[/] [{Theme.Success}]{s.Ram.Modules.Count}[/] [dim]detected[/]"));
+                    $"[{Theme.Info}]Detected Modules:[/] [{Theme.Success}]{s.Ram.Modules.Count}[/]"));
                 for (var i = 0; i < s.Ram.Modules.Count; i++)
                 {
                     var module = s.Ram.Modules[i];
                     ramGroup.Add(new Markup(
-                        $"  [{Theme.Info}]Module {i + 1}     :[/] [{Theme.Success}]{module.CapacityGB:F2}[/] [dim]GB @[/] [{Theme.Warning}]{module.SpeedMHz}[/] [dim]MHz[/]"));
-                    ramGroup.Add(new Markup($"    [dim]Manufacturer:[/] [{Theme.Info}]{Safe(module.Manufacturer)}[/]"));
-                    ramGroup.Add(new Markup($"    [dim]Part Number :[/] [bold]{Safe(module.PartNumber)}[/]"));
-                    ramGroup.Add(new Markup($"    [dim]Location    :[/] [bold]{Safe(module.DeviceLocator)}[/]"));
+                        $"  [{Theme.Info}]Module {i + 1}       :[/] [{Theme.Success}]{module.CapacityGB:F2}[/] [dim]GB @[/] [{Theme.Warning}]{module.SpeedMHz}[/] [dim]MHz[/]"));
+                    ramGroup.Add(new Markup($"    [dim]Manufacturer :[/] [{Theme.Info}]{Safe(module.Manufacturer)}[/]"));
+                    ramGroup.Add(new Markup($"    [dim]Part Number  :[/] [bold]{Safe(module.PartNumber)}[/]"));
+                    ramGroup.Add(new Markup($"    [dim]Slot         :[/] [bold]{Safe(module.DeviceLocator)}[/]"));
                 }
             }
 
             // Disk Information
             var diskGroup = new List<IRenderable>
         {
-            new Rule("Disk Information") { Style = Theme.Info }
+            new Rule("Storage Overview") { Style = Theme.Info }
         };
 
             foreach (var volume in s.Disk.Volumes)
             {
                 var usedDiskColor = volume.UsedPercent > 90 ? Theme.Error : Theme.Warning;
-                var systemDrive = volume.SystemDrive ? $" [{Theme.Success}][[System Drive]][/]" : "";
+                var systemDrive = volume.SystemDrive ? $" [{Theme.Success}][[System Volume]][/]" : "";
 
                 diskGroup.Add(new Markup($"[{Theme.Info}]{volume.Name} [bold white]{volume.Label}[/]{systemDrive}[/]"));
-                diskGroup.Add(new Markup($"  [{Theme.Info}]Type           :[/] [bold]{volume.DriveTypeDescription}[/]"));
-                diskGroup.Add(new Markup($"  [{Theme.Info}]Total Size     :[/] [{Theme.Success}]{volume.TotalSizeGB:F2}[/] [dim]GB[/]"));
-                diskGroup.Add(new Markup($"  [{Theme.Info}]Used Size      :[/] [{Theme.Warning}]{volume.UsedSpaceGB:F2}[/] [dim]GB[/]"));
-                diskGroup.Add(new Markup($"  [{Theme.Info}]Free Space     :[/] [{usedDiskColor}]{volume.FreeSpaceGB:F2}[/] [dim]GB[/]"));
+                diskGroup.Add(new Markup($"  [{Theme.Info}]Media Type      :[/] [bold]{volume.DriveTypeDescription}[/]"));
+                diskGroup.Add(new Markup($"  [{Theme.Info}]Total Capacity  :[/] [{Theme.Success}]{volume.TotalSizeGB:F2}[/] [dim]GB[/]"));
+                diskGroup.Add(new Markup($"  [{Theme.Info}]Used Capacity   :[/] [{Theme.Warning}]{volume.UsedSpaceGB:F2}[/] [dim]GB[/]"));
+                diskGroup.Add(new Markup($"  [{Theme.Info}]Free Capacity   :[/] [{usedDiskColor}]{volume.FreeSpaceGB:F2}[/] [dim]GB[/]"));
                 diskGroup.Add(new BreakdownChart()
                     .Width(50)
                     .UseValueFormatter(v => $"{v:F2} GB")
                     .AddItem(
-                        "Used GB",
+                        "Used",
                         volume.UsedSpaceGB,
                         Color.FromHex(usedDiskColor))
                     .AddItem(
-                        "Available GB",
+                        "Available",
                         volume.FreeSpaceGB,
                         Color.FromHex(Theme.Success)));
             }
@@ -924,13 +940,14 @@ public static class SystemInfoService
             {
                 case 0:
                 case 1 when s.Gpus[0] == GpuInfo.Unknown:
-                    gpuGroup.Add(new Rule("GPU Information") { Style = new Style(Color.Red) });
-                    gpuGroup.Add(new Markup($"[{Theme.Error}]No GPUs detected[/]"));
+                    gpuGroup.Add(new Rule("GPU Status") { Style = new Style(Color.Red) });
+                    gpuGroup.Add(new Markup($"[{Theme.Error}]No discrete GPUs were detected.[/]"));
                     break;
                 case 1:
                     {
-                        gpuGroup.Add(new Rule("GPU Information") { Style = new Style(Color.Green) });
+                        gpuGroup.Add(new Rule("Graphics Adapter") { Style = new Style(Color.Green) });
                         var gpu = s.Gpus[0];
+
                         var vendorColor = gpu.Vendor switch
                         {
                             GpuVendor.NVIDIA => Theme.Success,
@@ -939,28 +956,29 @@ public static class SystemInfoService
                             _ => Theme.Muted
                         };
 
-                        gpuGroup.Add(new Markup($"[{Theme.Info}]Name           :[/] [bold]{Safe(gpu.Name)}[/]"));
-                        gpuGroup.Add(new Markup($"[{Theme.Info}]Vendor         :[/] [{vendorColor}]{gpu.Vendor}[/]"));
-                        gpuGroup.Add(new Markup($"[{Theme.Info}]Driver Version :[/] [{Theme.Warning}]{Safe(gpu.DriverVersion)}[/]"));
+                        gpuGroup.Add(new Markup($"[{Theme.Info}]Name             :[/] [bold]{Safe(gpu.Name)}[/]"));
+                        gpuGroup.Add(new Markup($"[{Theme.Info}]Vendor           :[/] [{vendorColor}]{gpu.Vendor}[/]"));
+                        gpuGroup.Add(new Markup($"[{Theme.Info}]Driver Version   :[/] [{Theme.Warning}]{Safe(gpu.DriverVersion)}[/]"));
 
                         if (gpu.MemoryMB.HasValue)
                             gpuGroup.Add(new Markup(
-                                $"[{Theme.Info}]Memory         :[/] [{Theme.Success}]{gpu.MemoryMB.Value / 1024.0:F2}[/] [dim]GB[/] [dim]([/][{Theme.Success}]{gpu.MemoryMB.Value}[/] [dim]MB)[/]"));
+                                $"[{Theme.Info}]Frame Buffer     :[/] [{Theme.Success}]{gpu.MemoryMB.Value / 1024.0:F2}[/] [dim]GB[/] [dim]([/][{Theme.Success}]{gpu.MemoryMB.Value}[/] [dim]MB)[/]")
+                            );
 
                         if (!string.IsNullOrEmpty(gpu.DeviceId))
-                            gpuGroup.Add(new Markup($"[{Theme.Info}]Device ID      :[/] [dim]{Safe(gpu.DeviceId)}[/]"));
+                            gpuGroup.Add(new Markup($"[{Theme.Info}]Device ID        :[/] [dim]{Safe(gpu.DeviceId)}[/]"));
 
                         if (!string.IsNullOrEmpty(gpu.PnpDeviceId))
-                            gpuGroup.Add(new Markup($"[{Theme.Info}]PCI Device ID  :[/] [dim]{Safe(gpu.PnpDeviceId)}[/]"));
+                            gpuGroup.Add(new Markup($"[{Theme.Info}]PCI Identifier   :[/] [dim]{Safe(gpu.PnpDeviceId)}[/]"));
                         break;
                     }
                 default:
                     {
-                        gpuGroup.Add(new Rule($"GPU Information ({gpuCount} detected)") { Style = new Style(Color.Green) });
+                        gpuGroup.Add(new Rule($"GPU Inventory ({gpuCount} adapters)") { Style = new Style(Color.Green) });
                         for (var i = 0; i < s.Gpus.Count; i++)
                         {
                             var gpu = s.Gpus[i];
-                            var isPrimary = s.PrimaryGpu != null && gpu.Name == s.PrimaryGpu.Name ? $" [{Theme.Primary}][[Primary]][/]" : "";
+                            var isPrimary = s.PrimaryGpu != null && gpu.Name == s.PrimaryGpu.Name ? $" [{Theme.Primary}][[Primary Adapter]][/]" : "";
                             var vendorColor = gpu.Vendor switch
                             {
                                 GpuVendor.NVIDIA => Theme.Success,
@@ -970,20 +988,19 @@ public static class SystemInfoService
                             };
 
                             gpuGroup.Add(new Markup($"[{Theme.Info}]GPU {i + 1}{isPrimary}:[/]"));
-                            gpuGroup.Add(new Markup($"  [{Theme.Info}]Name         :[/] [bold]{Safe(gpu.Name)}[/]"));
-                            gpuGroup.Add(
-                                new Markup($"  [{Theme.Info}]Vendor       :[/] [{vendorColor}]{gpu.Vendor}[/]"));
-                            gpuGroup.Add(new Markup($"  [{Theme.Info}]Driver       :[/] [{Theme.Warning}]{Safe(gpu.DriverVersion)}[/]"));
+                            gpuGroup.Add(new Markup($"  [{Theme.Info}]Name             :[/] [bold]{Safe(gpu.Name)}[/]"));
+                            gpuGroup.Add(new Markup($"  [{Theme.Info}]Vendor           :[/] [{vendorColor}]{gpu.Vendor}[/]"));
+                            gpuGroup.Add(new Markup($"  [{Theme.Info}]Driver           :[/] [{Theme.Warning}]{Safe(gpu.DriverVersion)}[/]"));
 
                             if (gpu.MemoryMB.HasValue)
                                 gpuGroup.Add(new Markup(
-                                    $"  [{Theme.Info}]Memory         :[/] [{Theme.Success}]{gpu.MemoryMB.Value / 1024.0:F2}[/] [dim]GB[/] [dim]([/][{Theme.Success}]{gpu.MemoryMB.Value}[/] [dim]MB)[/]"));
+                                    $"  [{Theme.Info}]Frame Buffer     :[/] [{Theme.Success}]{gpu.MemoryMB.Value / 1024.0:F2}[/] [dim]GB[/] [dim]([/][{Theme.Success}]{gpu.MemoryMB.Value}[/] [dim]MB)[/]"));
 
                             if (!string.IsNullOrEmpty(gpu.DeviceId))
-                                gpuGroup.Add(new Markup($"  [{Theme.Info}]Device ID    :[/] [dim]{Safe(gpu.DeviceId)}[/]"));
+                                gpuGroup.Add(new Markup($"  [{Theme.Info}]Device ID        :[/] [dim]{Safe(gpu.DeviceId)}[/]"));
 
                             if (!string.IsNullOrEmpty(gpu.PnpDeviceId))
-                                gpuGroup.Add(new Markup($"  [{Theme.Info}]PCI Device ID:[/] [dim]{Safe(gpu.PnpDeviceId)}[/]"));
+                                gpuGroup.Add(new Markup($"  [{Theme.Info}]PCI Identifier   :[/] [dim]{Safe(gpu.PnpDeviceId)}[/]"));
                         }
 
                         break;
@@ -1018,11 +1035,8 @@ public static class SystemInfoService
         catch (Exception ex)
         {
             log.LogError(ex, "Failed to generate detailed system info panel.");
-            PromptDialog.Exception(ex, "An error occurred while displaying system information.",
-               $"""
-                This is an [{Theme.Error}]unhandled exception[/] that occurred while generating the detailed system information panel.
-                """
-                );
+            var details = $"This is an [{Theme.Error}]unhandled exception[/] that occurred while generating the detailed system information panel.";
+            PromptDialog.Exception(ex, "An error occurred while displaying system information.", details);
             return null;
         }
     }

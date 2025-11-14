@@ -8,11 +8,11 @@ namespace optimizerDuck.Core.Optimizers;
 
 public class SecurityAndPrivacy : IOptimizationGroup
 {
-    public string Name => "Security & Privacy";
-    public int Order => (int)OptimizationGroupOrder.SecurityAndPrivacy;
+    public string Name { get; } = "Security & Privacy";
+    public OptimizationGroupOrder Order { get; } = OptimizationGroupOrder.SecurityAndPrivacy;
     public static ILogger Log { get; } = Logger.CreateLogger<SecurityAndPrivacy>();
 
-    public class DisableUAC : IOptimizationTweak
+    public class DisableUAC : IOptimization
     {
         public string Name { get; } = "Disable User Account Control (UAC)";
 
@@ -25,6 +25,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
         public Task Apply(SystemSnapshot s)
         {
             using var tracker = ServiceTracker.Begin(Log);
+
             RegistryService.Write(new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
                 "EnableLUA", 0));
             Log.LogInformation("Disabled UAC");
@@ -32,7 +33,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
         }
     }
 
-    public class DisableTelemetry : IOptimizationTweak
+    public class DisableTelemetry : IOptimization
     {
         public string Name { get; } = "Disable Telemetry Services & Tasks";
 
@@ -137,7 +138,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
         }
     }
 
-    public class DisableAutologger : IOptimizationTweak
+    public class DisableAutologger : IOptimization
     {
         public string Name { get; } = "Disable WMI AutoLogger";
 
@@ -150,6 +151,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
         public Task Apply(SystemSnapshot s)
         {
             using var tracker = ServiceTracker.Begin(Log);
+
             RegistryService.Write(
                 new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AppModel", "Start", 0),
                 new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Cellcore", "Start", 0),
@@ -168,7 +170,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
             return Task.CompletedTask;
         }
     }
-    public class DisableContentDeliveryManager : IOptimizationTweak
+    public class DisableContentDeliveryManager : IOptimization
     {
         public string Name { get; } = "Disable Content Delivery Manager";
 
@@ -181,6 +183,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
         public Task Apply(SystemSnapshot s)
         {
             using var tracker = ServiceTracker.Begin(Log);
+
             RegistryService.Write(
                 new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "ContentDeliveryAllowed", 0),
                 new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "OemPreInstalledAppsEnabled", 0),
@@ -198,7 +201,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
         }
     }
 
-    public class DisableCortanaTweak : IOptimizationTweak
+    public class DisableCortana : IOptimization
     {
         public string Name { get; } = "Disable Cortana & Search AI";
 
@@ -228,7 +231,7 @@ public class SecurityAndPrivacy : IOptimizationGroup
         }
     }
 
-    public class DisableCopilotTweak : IOptimizationTweak
+    public class DisableCopilot : IOptimization
     {
         public string Name { get; } = "Disable Windows Copilot";
 

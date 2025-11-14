@@ -2,8 +2,8 @@
 
 namespace optimizerDuck.Models;
 
-public record struct OptimizationTweakChoice(
-    IOptimizationTweak? Instance,
+public record struct OptimizationChoice(
+    IOptimization? Instance,
     string Name,
     string Description,
     bool EnabledByDefault);

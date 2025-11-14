@@ -10,11 +10,11 @@ namespace optimizerDuck.Core.Optimizers;
 
 public class Performance : IOptimizationGroup
 {
-    public string Name => "Performance";
-    public int Order => (int)OptimizationGroupOrder.Performance;
+    public string Name { get; } = "Performance";
+    public OptimizationGroupOrder Order { get; } = OptimizationGroupOrder.Performance;
     public static ILogger Log { get; } = Logger.CreateLogger<Performance>();
 
-    public class BackgroundAppsTweak : IOptimizationTweak
+    public class BackgroundAppsOptimization : IOptimization
     {
         public string Name { get; } = "Disable Background Apps";
         public string Description { get; } = "Stops background applications from running to free up RAM and CPU resources";
@@ -24,6 +24,7 @@ public class Performance : IOptimizationGroup
 
         public Task Apply(SystemSnapshot s)
         {
+            using var tracker = ServiceTracker.Begin(Log);
             RegistryService.Write(
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications", "GlobalUserDisabled", 1),
                 new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search", "BackgroundAppGlobalToggle", 0)
@@ -33,7 +34,7 @@ public class Performance : IOptimizationGroup
         }
     }
 
-    public class ProcessPriorityTweak : IOptimizationTweak
+    public class ProcessPriorityOptimization : IOptimization
     {
         public string Name { get; } = "Optimize Process Priority";
         public string Description { get; } = "Adjusts foreground app priority for better responsiveness and reduced input lag";
@@ -66,12 +67,12 @@ public class Performance : IOptimizationGroup
             RegistryService.Write(
                 new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl", "Win32PrioritySeparation", win32Priority)
             );
-            Log.LogInformation("Applied process priority tweak (Win32PrioritySeparation = {Value}).", win32Priority);
+            Log.LogInformation("Applied process priority optimization (Win32PrioritySeparation = {Value}).", win32Priority);
             return Task.CompletedTask;
         }
     }
 
-    public class GameSchedulingTweak : IOptimizationTweak
+    public class GameSchedulingOptimization : IOptimization
     {
         public string Name { get; } = "Optimize Gaming Scheduling";
         public string Description { get; } = "Prioritizes GPU scheduling and system resources for gaming workloads";
@@ -94,7 +95,7 @@ public class Performance : IOptimizationGroup
         }
     }
 
-    public class SvcHostSplitTweak : IOptimizationTweak
+    public class SvcHostSplitOptimization : IOptimization
     {
         public string Name { get; } = "SvcHost Split Threshold";
         public string Description { get; } = "Adjusts SvcHostSplitThresholdInKB based on total system RAM to control service isolation and improve system stability.";
@@ -121,7 +122,7 @@ public class Performance : IOptimizationGroup
 
 
 
-    public class DisableGameBar : IOptimizationTweak
+    public class DisableGameBar : IOptimization
     {
         public string Name { get; } = "Disable Game Bar";
 
@@ -146,7 +147,7 @@ public class Performance : IOptimizationGroup
         }
     }
 
-    public class GameModeTweak : IOptimizationTweak
+    public class EnableGameMode : IOptimization
     {
         public string Name { get; } = "Enable Game Mode";
         public string Description { get; } = "Enables Windows Game Mode (Recommended on Windows 11)";
@@ -165,7 +166,7 @@ public class Performance : IOptimizationGroup
         }
     }
 
-    public class DisableGameDVR : IOptimizationTweak
+    public class DisableGameDVR : IOptimization
     {
         public string Name { get; } = "Disable Game DVR";
 
@@ -191,7 +192,7 @@ public class Performance : IOptimizationGroup
         }
     }
 
-    public class GpuOptimizationTweak : IOptimizationTweak
+    public class GpuOptimization : IOptimization
     {
         public string Name { get; } = "GPU Optimization";
 
@@ -203,7 +204,7 @@ public class Performance : IOptimizationGroup
         public Task Apply(SystemSnapshot s)
         {
             using var tracker = ServiceTracker.Begin(Log);
-            Log.LogInformation("Applying GPU tweaks for {GpuCount} GPUs...", s.Gpus.Count);
+            Log.LogInformation("Applying GPU optimizations for {GpuCount} GPUs...", s.Gpus.Count);
 
             const string basePath =
                 @"HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}";
@@ -243,7 +244,7 @@ public class Performance : IOptimizationGroup
                             new RegistryItem(path, "DisablePowerGating", 1),
                             new RegistryItem(path, "DisableVceClockGating", 1)
                         );
-                        Log.LogInformation("Applied AMD GPU tweaks for {GpuName} at index {GpuIndex:D4}.", gpu.Name,
+                        Log.LogInformation("Applied AMD GPU optimizations for {GpuName} at index {GpuIndex:D4}.", gpu.Name,
                             index);
                         break;
                     case GpuVendor.NVIDIA:
@@ -251,7 +252,7 @@ public class Performance : IOptimizationGroup
                             new RegistryItem(path, "DisableDynamicPstate", 1),
                             new RegistryItem(path, "DisableASyncPstates", 1)
                         );
-                        Log.LogInformation("Applied NVIDIA GPU tweaks for {GpuName} at index {GpuIndex:D4}.", gpu.Name,
+                        Log.LogInformation("Applied NVIDIA GPU optimizations for {GpuName} at index {GpuIndex:D4}.", gpu.Name,
                             index);
                         break;
                     case GpuVendor.Intel:
@@ -263,7 +264,7 @@ public class Performance : IOptimizationGroup
                             new RegistryItem(path, "EnableCompensationForDVI", 1),
                             new RegistryItem(path, "Display1_DisableAsyncFlips", 1)
                         );
-                        Log.LogInformation("Applied Intel GPU tweaks for {GpuName} at index {GpuIndex:D4}.", gpu.Name,
+                        Log.LogInformation("Applied Intel GPU optimizations for {GpuName} at index {GpuIndex:D4}.", gpu.Name,
                             index);
                         break;
                     case GpuVendor.Unknown:

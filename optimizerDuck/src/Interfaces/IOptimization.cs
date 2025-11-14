@@ -3,7 +3,7 @@ using optimizerDuck.Models;
 
 namespace optimizerDuck.Interfaces;
 
-public interface IOptimizationTweak
+public interface IOptimization
 {
     public string Name { get; }
     public string Description { get; }

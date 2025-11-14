@@ -11,10 +11,10 @@ namespace optimizerDuck.Core.Optimizers;
 public class BloatwareAndServices : IOptimizationGroup
 {
     public string Name { get; } = "Bloatware & Services";
-    public int Order { get; } = (int)OptimizationGroupOrder.BloatwareAndServices;
+    public OptimizationGroupOrder Order { get; } = OptimizationGroupOrder.BloatwareAndServices;
     public static ILogger Log { get; } = Logger.CreateLogger<BloatwareAndServices>();
 
-    public class RemoveBloatwareApps : IOptimizationTweak
+    public class RemoveBloatwareApps : IOptimization
     {
         public string Name { get; } = "Remove Bloatware Apps";
 
@@ -28,6 +28,7 @@ public class BloatwareAndServices : IOptimizationGroup
         public Task Apply(SystemSnapshot s)
         {
             using var tracker = ServiceTracker.Begin(Log);
+
 
             while (OptimizationManager.SelectedBloatware.TryDequeue(out var appxPackage))
             {
@@ -66,7 +67,7 @@ public class BloatwareAndServices : IOptimizationGroup
         }
     }
 
-    public class RemoveMicrosoftEdge : IOptimizationTweak
+    public class RemoveMicrosoftEdge : IOptimization
     {
         public string Name { get; } = "Debloat Microsoft Edge";
 
@@ -80,6 +81,7 @@ public class BloatwareAndServices : IOptimizationGroup
         public Task Apply(SystemSnapshot s)
         {
             using var tracker = ServiceTracker.Begin(Log);
+
             RegistryService.Write(
                 // thank you again, WinUtil
                 new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\EdgeUpdate", "CreateDesktopShortcutDefault", 0),
@@ -104,7 +106,7 @@ public class BloatwareAndServices : IOptimizationGroup
         }
     }
 
-    public class ConfigureServices : IOptimizationTweak
+    public class ConfigureServices : IOptimization
     {
         public string Name { get; } = "Configure Services";
 

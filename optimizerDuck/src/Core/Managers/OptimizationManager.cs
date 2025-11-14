@@ -16,30 +16,31 @@ namespace optimizerDuck.Core.Managers;
 public class OptimizationManager(SystemSnapshot systemSnapshot)
 {
     private static readonly ILogger Log = Logger.CreateLogger<OptimizationManager>();
-    private Queue<OptimizationTweakChoice> _selectedTweaks = new();
+    private Queue<OptimizationChoice> _selectedOptimizations = new();
     private SystemSnapshot _systemSnapshot = systemSnapshot;
 
     public static Queue<AppxPackage> SelectedBloatware { get; private set; } =
-        new(); // public and static for Remove Bloatware Apps tweak
+        new(); // public and static for Remove Bloatware Apps optimization
 
 
     public async Task<bool> Begin()
     {
-        SystemHelper.Title("Select the tweaks you want to apply");
+
         AnsiConsole.Clear();
         AnsiConsole.Write(Defaults.Logo);
 
         Log.LogInformation("Loading optimizations...");
 
-        var optimizationGroups = OptimizationHelper.GetTweakChoices();
-        Log.LogInformation("Loaded {GroupAmount} groups with {TweakAmount} tweaks.", optimizationGroups.Count,
-            optimizationGroups.Sum(g => g.Tweaks.Count));
+        var optimizationGroups = OptimizationHelper.LoadOptimizationChoices();
+        Log.LogInformation("Loaded {GroupAmount} groups with {OptimizationAmount} optimizations.", optimizationGroups.Count,
+            optimizationGroups.Sum(g => g.Optimizations.Count));
 
+        SystemHelper.Title("Select the optimizations you want to apply");
         try
         {
             using var escapeCancellableConsole = new EscapeCancellableConsole(AnsiConsole.Console);
-            var promptTweakChoice = new MultiSelectionPrompt<OptimizationTweakChoice>()
-                .Title("Select the tweaks you want to apply")
+            var promptOptimizationChoice = new MultiSelectionPrompt<OptimizationChoice>()
+                .Title("Select the optimizations you want to apply")
                 .InstructionsText(Defaults.EscapeCancellableConsoleMultiSelectionPromptInstructionsText)
                 .Required(true)
                 .HighlightStyle(Theme.Primary)
@@ -47,27 +48,28 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                 .PageSize(24);
 
             foreach (var g in optimizationGroups)
-                promptTweakChoice.AddChoiceGroup(
-                    new OptimizationTweakChoice(null, $"[bold underline]{g.Name}[/]", string.Empty,
+                promptOptimizationChoice.AddChoiceGroup(
+                    new OptimizationChoice(null, $"[bold underline]{g.Name}[/]", string.Empty,
                         false),
-                    g.Tweaks
+                    g.Optimizations
                 );
 
-            if (_selectedTweaks.Count == 0)
-                foreach (var tweak in optimizationGroups.SelectMany(g => g.Tweaks).Where(t => t.EnabledByDefault))
-                    promptTweakChoice.Select(tweak);
-            else
-                foreach (var selectedTweak in _selectedTweaks.ToList())
-                    promptTweakChoice.Select(selectedTweak);
+            var optimizationsToSelect = _selectedOptimizations.Count == 0
+                                        ? optimizationGroups.SelectMany(g => g.Optimizations).Where(t => t.EnabledByDefault)
+                                        : _selectedOptimizations;
 
-            var optimizationTweakChoices =
-                await escapeCancellableConsole.PromptAsync(promptTweakChoice).ConfigureAwait(false);
-
-            _selectedTweaks = new Queue<OptimizationTweakChoice>(optimizationTweakChoices);
-
-            if (_selectedTweaks.Any(t => t.Instance is BloatwareAndServices.RemoveBloatwareApps)) // if Bloatware selection is selected
+            foreach (var optimization in optimizationsToSelect)
             {
-                SystemHelper.Title("Select the bloatware you want to remove");
+                promptOptimizationChoice.Select(optimization);
+            }
+
+            var optimizationChoices =
+                await escapeCancellableConsole.PromptAsync(promptOptimizationChoice).ConfigureAwait(false);
+
+            _selectedOptimizations = new Queue<OptimizationChoice>(optimizationChoices);
+
+            if (_selectedOptimizations.Any(t => t.Instance is BloatwareAndServices.RemoveBloatwareApps)) // if Bloatware selection is selected
+            {
                 Log.LogInformation("Getting installed bloatware apps...");
 
                 var appxClassification = OptimizationHelper.GetBloatwareChoices();
@@ -86,8 +88,9 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                     );
                 }
 
+                SystemHelper.Title("Select the bloatware apps you want to remove");
                 var promptBloatware = new MultiSelectionPrompt<AppxPackage>()
-                    .Title("Select the bloatware you want to remove")
+                    .Title("Select the bloatware apps you want to remove")
                     .InstructionsText(Defaults.EscapeCancellableConsoleMultiSelectionPromptInstructionsText)
                     .Required(true)
                     .HighlightStyle(Theme.Primary)
@@ -101,7 +104,7 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                     promptBloatware.AddChoiceGroup(
                         new AppxPackage
                         {
-                            DisplayName = "[bold underline lightgreen]Safe Apps[/] - [lightgreen]Safe to remove[/]",
+                            DisplayName = $"[bold underline {Theme.Success}]Safe Apps[/] - [{Theme.Success}]Safe to remove[/]",
                             Name = "",
                             Version = "",
                             InstallLocation = ""
@@ -112,7 +115,7 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                     promptBloatware.AddChoiceGroup(
                         new AppxPackage
                         {
-                            DisplayName = "[bold underline red]Caution Apps[/] - [red]May cause issues[/]",
+                            DisplayName = $"[bold underline {Theme.Error}]Caution Apps[/] - [{Theme.Error}]May cause issues[/]",
                             Name = "",
                             Version = "",
                             InstallLocation = ""
@@ -171,48 +174,48 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
         Log.LogInformation("Refreshing system information...");
         _systemSnapshot = await SystemInfoService.RefreshAsync().ConfigureAwait(false);
 
-        Log.LogDebug("Selected tweaks ({TweakAmount}): {Tweaks}", _selectedTweaks.Count,
-            string.Join(", ", _selectedTweaks.Select(t => t.Name)));
+        Log.LogDebug("Selected {OptimizationAmount} optimizations: {Optimizations}",
+                     _selectedOptimizations.Count,
+                     string.Join(", ", _selectedOptimizations.Select(t => t.Name)));
 
-        if (_selectedTweaks.Any(t => t.Instance is BloatwareAndServices.RemoveBloatwareApps)) // if Bloatware selection is selected
-            Log.LogDebug("Selected bloatware apps ({BloatwareAmount}): {Bloatware}", SelectedBloatware.Count,
-                string.Join(", ", SelectedBloatware.Select(app => $"{app.DisplayName} ({app.Version})")));
+        if (_selectedOptimizations.Any(t => t.Instance is BloatwareAndServices.RemoveBloatwareApps)) // if Bloatware selection is selected
+            Log.LogDebug("Selected {BloatwareAmount} bloatware apps: {BloatwareApps}", SelectedBloatware.Count,
+                string.Join(", ", SelectedBloatware.Select(app => $"{app.DisplayName.Trim()} ({app.Version.Trim()})")));
 
         Log.LogDebug(new string('=', 60));
-        while (_selectedTweaks.TryDequeue(out var selectedTweak))
+        while (_selectedOptimizations.TryDequeue(out var selectedOptimization))
             await AnsiConsole.Status()
                 .Spinner(Spinner.Known.Dots2)
                 .SpinnerStyle($"bold {Theme.Primary}")
-                .StartAsyncGlobal($"Applying [{Theme.Primary}]{selectedTweak.Name}[/]...", async ctx =>
+                .StartAsyncGlobal($"Applying [{Theme.Primary}]{selectedOptimization.Name}[/]...", async ctx =>
                 {
                     try
                     {
-                        selectedTweak = selectedTweak with
+                        selectedOptimization = selectedOptimization with
                         {
-                            Name = selectedTweak.Name.Trim(),
-                            Description = selectedTweak.Description.Trim()
+                            Name = selectedOptimization.Name.Trim(),
+                            Description = selectedOptimization.Description.Trim()
                         };
-                        SystemHelper.Title(selectedTweak.Name);
-                        ctx.Status($"Applying [{Theme.Primary}]{selectedTweak.Name}[/]...");
+                        SystemHelper.Title(selectedOptimization.Name);
+                        ctx.Status($"Applying [{Theme.Primary}]{selectedOptimization.Name}[/]...");
 
-                        using var scope = Log.BeginScope("Tweak: {TweakName}", selectedTweak.Name);
+                        using var scope = Log.BeginScope("Optimization: {OptimizationName}", selectedOptimization.Name);
 
 
-                        Rule($"[bold white] {selectedTweak.Name} [/]", Theme.Success);
-                        Log.LogInformation("Applying {TweakName}...", selectedTweak.Name);
+                        Rule($"[bold white] {selectedOptimization.Name} [/]", Theme.Success);
+                        Log.LogInformation("Applying {OptimizationName}...", selectedOptimization.Name);
 
                         var stopwatch = Stopwatch.StartNew();
 
-                        await selectedTweak.Instance!.Apply(_systemSnapshot).ConfigureAwait(false);
+                        await selectedOptimization.Instance!.Apply(_systemSnapshot).ConfigureAwait(false);
 
                         stopwatch.Stop();
 
-                        Log.LogDebug("Finished tweak in {Elapsed}ms", stopwatch.ElapsedMilliseconds);
+                        Log.LogDebug("Applied in {Elapsed} ms", stopwatch.ElapsedMilliseconds);
                     }
                     catch (Exception e)
                     {
-                        Log.LogError(e, "[{Error}]Failed to apply tweak {TweakName}[/], skipped.", Theme.Error,
-                            selectedTweak.Name);
+                        Log.LogError(e, "Failed to apply optimization {OptimizationName}. Skipped.", selectedOptimization.Name);
                     }
                     finally
                     {
@@ -225,11 +228,11 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
 
         Log.LogInformation($"[{Theme.Success}]Optimization completed![/]");
 
-        PromptDialog.Warning("Restart To Apply Changes",
+        PromptDialog.Warning("Restart to Apply Changes",
             $"""
-             The tweaks have been applied successfully.  
-             Please [{Theme.Success}]restart[/] your PC so the changes can work properly.
-             """,
+            The optimizations have been applied successfully.
+            Please [{Theme.Success}]restart[/] your PC for the changes to take effect.
+            """,
             new PromptOption("Restart now", Theme.Success, () =>
             {
                 Log.LogInformation("Restarting...");

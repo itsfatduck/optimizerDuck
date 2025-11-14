@@ -22,7 +22,7 @@ public static class ServiceProcessService
 
             if (service == null)
             {
-                ServiceTracker.Current?.Log.LogError("Service '{ServiceName}' not found.", item.ServiceName);
+                ServiceTracker.Current?.Log.LogError("Service {ServiceName} not found.", item.ServiceName);
                 ServiceTracker.Current?.Track(nameof(ChangeServiceStartupType), false);
                 return false;
             }
@@ -51,14 +51,14 @@ public static class ServiceProcessService
             }
 
             ServiceTracker.Current?.Log.LogError(
-                "Failed to change startup type for '{ServiceName}'. ReturnValue: {Result}", item.ServiceName,
+                "Failed to change startup type for {ServiceName}. ReturnValue: {Result}", item.ServiceName,
                 resultCode);
             ServiceTracker.Current?.Track(nameof(ChangeServiceStartupType), false);
             return false;
         }
         catch (Exception ex)
         {
-            ServiceTracker.Current?.Log.LogError(ex, "Failed to change startup type for '{ServiceName}'.",
+            ServiceTracker.Current?.Log.LogError(ex, "Failed to change startup type for {ServiceName}",
                 item.ServiceName);
             ServiceTracker.Current?.Track(nameof(ChangeServiceStartupType), false);
             return false;

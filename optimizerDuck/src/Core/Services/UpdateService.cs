@@ -97,7 +97,8 @@ public class UpdateService
                     Would you like to download and install it now?
                     """,
                     new PromptOption("Yes", Theme.Success),
-                    new PromptOption("Not now", Theme.Warning, () => false)))
+                    new PromptOption("Not now", Theme.Warning, () => Task.FromResult(false))
+                ))
                 {
                     await DownloadAndApplyUpdate(updateExecutableAsset);
                 }
@@ -117,35 +118,51 @@ public class UpdateService
     {
         SystemHelper.Title("Downloading Update");
         var tempDownloadPath = Path.Combine(Path.GetTempPath(), asset.Name);
-
-        await AnsiConsole.Progress().StartAsync(async ctx =>
+        try
         {
-            Log.LogInformation("Downloading update from {DownloadUrl} to {TempPath}", asset.BrowserDownloadUrl, tempDownloadPath);
-            var task = ctx.AddTask($"Downloading [{Theme.Primary}]{asset.Name}[/]");
-
-            using var response = await HttpClient.GetAsync(asset.BrowserDownloadUrl, HttpCompletionOption.ResponseHeadersRead);
-            response.EnsureSuccessStatusCode();
-
-            var totalBytes = response.Content.Headers.ContentLength ?? -1L;
-            task.MaxValue = totalBytes;
-
-            await using var contentStream = await response.Content.ReadAsStreamAsync();
-            await using var fileStream = new FileStream(tempDownloadPath, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true);
-
-            var buffer = new byte[8192];
-            long downloadedBytes = 0;
-            int bytesRead;
-
-            while ((bytesRead = await contentStream.ReadAsync(buffer.AsMemory(0, buffer.Length))) > 0)
+            await AnsiConsole.Progress().StartAsync(async ctx =>
             {
-                await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead));
-                downloadedBytes += bytesRead;
-                task.Value = downloadedBytes;
-            }
-        });
+                Log.LogInformation("Downloading update from {DownloadUrl} to {TempPath}", asset.BrowserDownloadUrl, tempDownloadPath);
+                var task = ctx.AddTask($"Downloading [{Theme.Primary}]{asset.Name}[/]");
 
-        Log.LogInformation("Download complete.");
-        LaunchUpdater(tempDownloadPath);
+                using var response = await HttpClient.GetAsync(asset.BrowserDownloadUrl, HttpCompletionOption.ResponseHeadersRead);
+                response.EnsureSuccessStatusCode();
+
+                var totalBytes = response.Content.Headers.ContentLength ?? -1L;
+                task.MaxValue = totalBytes;
+
+                await using var contentStream = await response.Content.ReadAsStreamAsync();
+                await using var fileStream = new FileStream(tempDownloadPath, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true);
+
+                var buffer = new byte[8192];
+                long downloadedBytes = 0;
+                int bytesRead;
+
+                while ((bytesRead = await contentStream.ReadAsync(buffer.AsMemory(0, buffer.Length))) > 0)
+                {
+                    await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead));
+                    downloadedBytes += bytesRead;
+                    task.Value = downloadedBytes;
+                }
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.LogError(ex, "Error downloading update: {Message}", ex.Message);
+            PromptDialog.Warning("Download Failed", $"Failed to download the update: [{Theme.Error}]{ex.Message}[/]",
+                new PromptOption("Continue anyway", Theme.Success),
+                new PromptOption("Retry", Theme.Warning, async () =>
+                {
+                    await DownloadAndApplyUpdate(asset);
+                })
+            );
+            return;
+        }
+        finally
+        {
+            Log.LogInformation("Download complete.");
+            LaunchUpdater(tempDownloadPath);
+        }
     }
 
     private static void LaunchUpdater(string newExePath)

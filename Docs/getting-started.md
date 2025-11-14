@@ -36,9 +36,9 @@ See [Safety Guidelines](safety.md) before **applying changes**.
 
 See [FAQ](faq.md) for answers to **common questions**.
 
-## Features
+## Optimizations
 
-See [Features](features.md) for a list of optimizerDuck's **available tweaks** (These features are not exhaustive and may change over time).
+See [Optimizations](optimizations.md) for a list of optimizerDuck's **available optimizations** (These features are not exhaustive and may change over time).
 
 ## Acknowledgments
 

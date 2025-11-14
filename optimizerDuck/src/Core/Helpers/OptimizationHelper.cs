@@ -17,7 +17,7 @@ public static class OptimizationHelper
 {
     private static readonly ILogger Log = Logger.CreateLogger(typeof(OptimizationHelper));
 
-    public static List<OptimizationGroupChoice> GetTweakChoices()
+    public static List<OptimizationGroupChoice> LoadOptimizationChoices()
     {
         return CacheManager.GetOrCreate("optimization_choices", entry =>
         {
@@ -26,49 +26,49 @@ public static class OptimizationHelper
             var optimizationGroups = ReflectionHelper.FindImplementationsInLoadedAssemblies(typeof(IOptimizationGroup))
                 .ToArray();
 
-            var allTweaksByGroup = optimizationGroups
+            var allOptimizationsByGroup = optimizationGroups
                 .Select(g => new
                 {
                     Group = (IOptimizationGroup)Activator.CreateInstance(g)!,
-                    Tweaks = g.GetNestedTypes(BindingFlags.Public)
-                        .Where(t => typeof(IOptimizationTweak).IsAssignableFrom(t))
-                        .Select(t => (IOptimizationTweak)Activator.CreateInstance(t)!)
+                    Optimizations = g.GetNestedTypes(BindingFlags.Public)
+                        .Where(t => typeof(IOptimization).IsAssignableFrom(t))
+                        .Select(t => (IOptimization)Activator.CreateInstance(t)!)
                         .ToList()
                 })
                 .ToList();
 
-            var allTweaks = allTweaksByGroup.SelectMany(x => x.Tweaks).ToList();
-            var globalMaxNameLength = allTweaks.DefaultIfEmpty().Max(t => t?.Name?.Length ?? 0) + 1;
-            var maxImpactLength = allTweaks.DefaultIfEmpty().Max(t => t?.Impact.GetDescription().Length ?? 0) + 1;
+            var allOptimizations = allOptimizationsByGroup.SelectMany(x => x.Optimizations).ToList();
+            var globalMaxNameLength = allOptimizations.DefaultIfEmpty().Max(t => t?.Name?.Length ?? 0) + 1;
+            var maxImpactLength = allOptimizations.DefaultIfEmpty().Max(t => t?.Impact.GetDescription().Length ?? 0) + 1;
 
             var groups = new List<OptimizationGroupChoice>();
 
-            foreach (var g in allTweaksByGroup)
+            foreach (var g in allOptimizationsByGroup)
             {
-                var tweaks = g.Tweaks
+                var optimizations = g.Optimizations
                     .OrderByDescending(t => t.EnabledByDefault)
                     .ThenBy(t => (int)t.Impact)
                     .ToList();
 
-                if (tweaks.Count == 0) continue; // Skip empty groups
+                if (optimizations.Count == 0) continue; // Skip empty groups
 
-                var tweakChoices = tweaks.Select(t =>
+                var optimizationChoices = optimizations.Select(t =>
                 {
                     var paddedName = t.Name.PadRight(globalMaxNameLength);
                     var description = $"{t.Impact.GetDescription().PadRight(maxImpactLength)}[dim]{t.Description}[/]";
-                    return new OptimizationTweakChoice(t, paddedName, description, t.EnabledByDefault);
+                    return new OptimizationChoice(t, paddedName, description, t.EnabledByDefault);
                 }).ToList();
 
-                groups.Add(new OptimizationGroupChoice(g.Group.Name, g.Group.Order, tweakChoices));
+                groups.Add(new OptimizationGroupChoice(g.Group.Name, g.Group.Order, optimizationChoices));
             }
 
-            var orderedGroups = groups.OrderBy(g => g.Priority).ToList();
+            var orderedGroups = groups.OrderBy(g => g.Order).ToList();
 
             foreach (var g in orderedGroups)
             {
-                Log.LogDebug("Loaded group {Group}:", g.Name);
-                foreach (var t in g.Tweaks)
-                    Log.LogDebug("  - {TweakName} {TweakDescription}", t.Name, Markup.Remove(t.Description));
+                Log.LogDebug("Loaded group [{Group}]:", g.Name);
+                foreach (var t in g.Optimizations)
+                    Log.LogDebug("  - {OptimizationName} {OptimizationDescription}", t.Name, Markup.Remove(t.Description));
             }
 
             return orderedGroups;

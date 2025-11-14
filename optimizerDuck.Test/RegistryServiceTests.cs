@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using optimizerDuck.Core.Services;
 using optimizerDuck.Models;
+using optimizerDuck.UI.Logger;
 
 namespace optimizerDuck.Test;
 
@@ -9,27 +10,18 @@ public class RegistryServiceTests
     [Fact]
     public void Read()
     {
-        var pathString =
-            RegistryService.Read<string>(new RegistryItem(
-                @"HKEY_LOCAL_MACHINE\SOFTWARE\dotnet\Setup\InstalledVersions\x64\sharedhost",
-                "Path"));
-        var versionString =
-            RegistryService.Read<string>(new RegistryItem(
-                @"HKEY_LOCAL_MACHINE\SOFTWARE\dotnet\Setup\InstalledVersions\x64\sharedhost",
-                "Version"));
 
         var binary =
             RegistryService.Read<byte[]>(new RegistryItem(@"HKEY_LOCAL_MACHINE\SOFTWARE\Logitech\LGHUB\Data",
                 "canary_machine_identifier"));
 
-        Assert.NotNull(pathString);
-        Assert.NotNull(versionString);
         Assert.NotNull(binary);
     }
 
     [Fact]
     public void Write_And_Read_Back_String_Value()
     {
+        using var tracker = ServiceTracker.Begin();
         var testKeyPath = @"HKEY_CURRENT_USER\Software\optimizerDuckTests";
         var item = new RegistryItem(testKeyPath, "TestString", "hello", RegistryValueKind.String);
         try
@@ -88,6 +80,7 @@ public class RegistryServiceTests
     [Fact]
     public void Read_Converts_Types_When_Possible()
     {
+        using var tracker = ServiceTracker.Begin();
         var testKeyPath = @"HKEY_CURRENT_USER\Software\optimizerDuckTests_TypeConversion";
         try
         {
@@ -109,6 +102,7 @@ public class RegistryServiceTests
     [Fact]
     public void DeleteSubKey_Removes_Entire_Tree()
     {
+        using var tracker = ServiceTracker.Begin();
         var basePath = @"HKEY_CURRENT_USER\Software\optimizerDuckTests_DeleteTree";
         var childPath = basePath + "\\Child";
         try

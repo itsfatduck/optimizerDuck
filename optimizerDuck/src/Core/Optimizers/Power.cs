@@ -11,11 +11,11 @@ namespace optimizerDuck.Core.Optimizers;
 public class Power : IOptimizationGroup
 {
     public string Name { get; } = "Power";
-    public int Order { get; } = (int)OptimizationGroupOrder.Power;
+    public OptimizationGroupOrder Order { get; } = OptimizationGroupOrder.Power;
     public static ILogger Log { get; } = Logger.CreateLogger<Power>();
 
 
-    public class DisableHibernateTweak : IOptimizationTweak
+    public class DisableHibernate : IOptimization
     {
         public string Name { get; } = "Disable Hibernate";
 
@@ -27,6 +27,8 @@ public class Power : IOptimizationGroup
 
         public Task Apply(SystemSnapshot s)
         {
+            using var tracker = ServiceTracker.Begin(Log);
+
             RegistryService.Write(
                 new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\Power", "HibernateEnabled", 0),
                 new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling",
@@ -41,7 +43,7 @@ public class Power : IOptimizationGroup
         }
     }
 
-    public class DisableUSBPowerSaving : IOptimizationTweak
+    public class DisableUSBPowerSaving : IOptimization
     {
         public string Name { get; } = "Disable USB Power Saving";
 
@@ -54,6 +56,7 @@ public class Power : IOptimizationGroup
         public Task Apply(SystemSnapshot s)
         {
             using var tracker = ServiceTracker.Begin(Log);
+
             //https://discord.com/channels/1298592513816530994/1359513721738629140/1359524213047824517
             //from FrameSync Labs
             ShellService.PowerShell("""
@@ -72,7 +75,7 @@ public class Power : IOptimizationGroup
     }
 
 
-    public class InstallOptimizerDuckPowerPlan : IOptimizationTweak
+    public class InstallOptimizerDuckPowerPlan : IOptimization
     {
         public string Name { get; } = "Install optimizerDuck Power Plan";
 
@@ -87,8 +90,10 @@ public class Power : IOptimizationGroup
             using var tracker = ServiceTracker.Begin(Log);
             var (success, powerPlanPath) =
                 await StreamHelper.TryDownloadAsync(Defaults.PowerPlanUrl, "optimizerDuck.pow");
-            if (success && !string.IsNullOrEmpty(powerPlanPath))
+            if (success)
             {
+                Log.LogInformation("Downloaded optimizerDuck power plan!");
+
                 // set other power plan to delete old one (to avoid import errors)
                 ShellService.CMD("powercfg /duplicatescheme 381b4222-f694-41f0-9685-ff5bb260df2e"); // restore Balanced
                 ShellService.CMD("powercfg /setactive 381b4222-f694-41f0-9685-ff5bb260df2e"); // set Balanced
@@ -106,7 +111,7 @@ public class Power : IOptimizationGroup
         }
     }
 
-    public class DisablePowerSavingTweak : IOptimizationTweak
+    public class DisablePowerSaving : IOptimization
     {
         public string Name { get; } = "Disable Power Saving";
 
