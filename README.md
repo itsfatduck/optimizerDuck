@@ -14,6 +14,8 @@
 <br>
 [![.NET 10.0](https://img.shields.io/badge/.NET_Runtime-10.0_Latest-ef99dd)](https://dotnet.microsoft.com/en-us/download)
 [![Runs on](https://img.shields.io/badge/Runs_on-Windows_10_and_11_x64-0078d4)](https://www.microsoft.com/en-us/software-download/)
+<br>
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/O4O11OH7NH)
 
 <img src="./.github/assets/app_screenshot.png" alt="optimizerDuck App Screenshot" title="optimizerDuck App Screenshot" width="800" />
 
@@ -59,18 +61,17 @@ I built optimizerDuck because I needed it. Gaming on a **slow PC** taught me tha
 
 optimizerDuck is a simple, honest tool built on that idea. Every setting is **tested** and **clear**. It's not just for speed: it's for giving you control over your PC when you need every bit of power.
 
-## 💬 Community & Contributing
+## 💬 Community, Contributing & Support
 
-- [Discord](https://discord.gg/tDUBDCYw9Q) → chat & support  
-- [Issues](https://github.com/itsfatduck/optimizerDuck/issues) → bug reports  
-- [Discussions](https://github.com/itsfatduck/optimizerDuck/discussions) → share tips  
+- 📖 [Documentation](./Docs/index.md) → detailed guides  
+- 💬 [Discord](https://discord.gg/tDUBDCYw9Q) → chat & live support  
+- 🐞 [Issues](https://github.com/itsfatduck/optimizerDuck/issues) → bug reports & feedback  
+- 💡 [Discussions](https://github.com/itsfatduck/optimizerDuck/discussions) → tips & feature requests  
+- 🤝 [Contributing](./CONTRIBUTING.md) → how to join development (see [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md))  
+- ☕ [Ko-fi](https://ko-fi.com/O4O11OH7NH) → support the project  
 
-### Contributing
-
-We welcome contributions from the community!  
-- Read the [CONTRIBUTING.md](./CONTRIBUTING.md) for step‑by‑step guidelines.  
-- Please follow our [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) to keep the community respectful and inclusive.  
-- Open a [GitHub Issue](https://github.com/itsfatduck/optimizerDuck/issues) or start a [Discussion](https://github.com/itsfatduck/optimizerDuck/discussions) if you have ideas or feedback.  
+> [!TIP]
+> Before asking for help, check the docs and existing issues — your answer may already be there.
 
 ## ⚠️ Disclaimer & DMCA
 
