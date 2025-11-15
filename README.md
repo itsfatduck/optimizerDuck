@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./.github/assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck" height="300"/>
+<img src="./.github/assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/>
 
 # optimizerDuck
 
