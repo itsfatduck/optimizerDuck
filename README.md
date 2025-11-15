@@ -84,7 +84,7 @@ We welcome contributions from the community!
 - Please follow our [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) to keep the community respectful and inclusive.  
 - Open a [GitHub Issue](https://github.com/itsfatduck/optimizerDuck/issues) or start a [Discussion](https://github.com/itsfatduck/optimizerDuck/discussions) if you have ideas or feedback.  
 
-## 📝 Disclaimer & DMCA
+## ⚠️ Disclaimer & DMCA
 
 optimizerDuck is provided "as is", without warranty of any kind.  
 By using this tool, you agree that the authors are **not responsible** for any damage, data loss, or issues that may occur.  
@@ -97,7 +97,7 @@ While many tweaks are inspired by community forums and other open‑source proje
 
 If you believe any part of this project infringes your copyright, please open an issue or submit a DMCA request via GitHub. We respect intellectual property and will review any valid request promptly.
 
-## 🧾 License
+## ⚖️ License
 
 <img src=".github/assets/cc_by_nc_sa_4_0.png" alt="CC BY-NC-SA 4.0 License" title="CC BY-NC-SA 4.0 License" width="400" />
 
