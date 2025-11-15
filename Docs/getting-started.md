@@ -38,7 +38,7 @@ See [FAQ](faq.md) for answers to **common questions**.
 
 ## Optimizations
 
-See [Optimizations](optimizations.md) for a list of optimizerDuck's **available optimizations** (These features are not exhaustive and may change over time).
+See [Optimizations](optimizations.md) for a list of optimizerDuck's **available optimizations** (These optimizations are not exhaustive and may change over time).
 
 ## Acknowledgments
 
