@@ -14,8 +14,6 @@
 <br>
 [![.NET 10.0](https://img.shields.io/badge/.NET_Runtime-10.0_Latest-ef99dd)](https://dotnet.microsoft.com/en-us/download)
 [![Runs on](https://img.shields.io/badge/Runs_on-Windows_10_and_11_x64-0078d4)](https://www.microsoft.com/en-us/software-download/)
-<br>
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/O4O11OH7NH)
 
 <img src="./.github/assets/app_screenshot.png" alt="optimizerDuck App Screenshot" title="optimizerDuck App Screenshot" width="800" />
 
@@ -39,25 +37,13 @@
 
 With **optimizerDuck**, you can optimize Windows performance, privacy, and more-across five focused areas:
 
-- ⚡ **Performance**
-
-  - optimizerDuck improves system responsiveness and gaming performance by tuning process priorities, reducing background load, and optimizing GPU behavior.
-
-- 🧹 **Bloatware & Services**
-
-  - It removes unnecessary apps and disables non-essential services to streamline your system and reduce resource usage.
-
-- 🔋 **Power**
-
-  - It installs a custom high-performance power plan and disables power-saving features that can interfere with speed and input responsiveness.
-
-- 🔐 **Security & Privacy**
-
-  - optimizerDuck enhances privacy by disabling telemetry, system tracking features, and AI integrations that collect or process user data.
-
-- 🖥️ **User Experience**
-
-  - It refines the Windows interface by cleaning up visual clutter, enabling dark mode, and improving input device responsiveness for a smoother experience.
+| Area | What optimizerDuck does |
+|------|--------------------------|
+| ⚡ Performance | Boosts responsiveness, gaming speed, and GPU efficiency |
+| 🧹 Bloatware & Services | Removes unnecessary apps and disables non-essential services |
+| 🔋 Power | Applies a high-performance power plan and disables limiting power-saving features |
+| 🔐 Security & Privacy | Blocks telemetry, tracking, and unwanted AI integrations |
+| 🖥️ User Experience | Cleans up interface clutter, enables dark mode, improves input responsiveness |
 
 > [!NOTE]
 > See the full list in [Docs/Optimizations](./Docs/optimizations.md)
