@@ -21,7 +21,7 @@
 
 </div>
 
-## 🚀 Quick Start
+## 🚀 Quickstart
 
 ### Download
 
