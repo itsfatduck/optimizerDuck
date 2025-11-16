@@ -6,10 +6,10 @@ using optimizerDuck.UI.Logger;
 
 namespace optimizerDuck.Core.Optimizers;
 
-public class SecurityAndPrivacy : IOptimizationGroup
+public class SecurityAndPrivacy : IOptimizationCategory
 {
     public string Name { get; } = "Security & Privacy";
-    public OptimizationGroupOrder Order { get; } = OptimizationGroupOrder.SecurityAndPrivacy;
+    public OptimizationCategoryOrder Order { get; } = OptimizationCategoryOrder.SecurityAndPrivacy;
     public static ILogger Log { get; } = Logger.CreateLogger<SecurityAndPrivacy>();
 
     public class DisableUAC : IOptimization

@@ -8,10 +8,10 @@ using optimizerDuck.UI.Logger;
 
 namespace optimizerDuck.Core.Optimizers;
 
-public class Power : IOptimizationGroup
+public class Power : IOptimizationCategory
 {
     public string Name { get; } = "Power";
-    public OptimizationGroupOrder Order { get; } = OptimizationGroupOrder.Power;
+    public OptimizationCategoryOrder Order { get; } = OptimizationCategoryOrder.Power;
     public static ILogger Log { get; } = Logger.CreateLogger<Power>();
 
 

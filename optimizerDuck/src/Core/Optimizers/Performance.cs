@@ -8,10 +8,10 @@ using optimizerDuck.UI.Logger;
 
 namespace optimizerDuck.Core.Optimizers;
 
-public class Performance : IOptimizationGroup
+public class Performance : IOptimizationCategory
 {
     public string Name { get; } = "Performance";
-    public OptimizationGroupOrder Order { get; } = OptimizationGroupOrder.Performance;
+    public OptimizationCategoryOrder Order { get; } = OptimizationCategoryOrder.Performance;
     public static ILogger Log { get; } = Logger.CreateLogger<Performance>();
 
     public class BackgroundAppsOptimization : IOptimization

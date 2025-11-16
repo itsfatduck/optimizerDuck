@@ -17,19 +17,19 @@ public static class OptimizationHelper
 {
     private static readonly ILogger Log = Logger.CreateLogger(typeof(OptimizationHelper));
 
-    public static List<OptimizationGroupChoice> LoadOptimizationChoices()
+    public static List<OptimizationCategoryChoice> LoadOptimizationChoices()
     {
         return CacheManager.GetOrCreate("optimization_choices", entry =>
         {
             entry.Priority = CacheItemPriority.NeverRemove;
 
-            var optimizationGroups = ReflectionHelper.FindImplementationsInLoadedAssemblies(typeof(IOptimizationGroup))
+            var optimizationCategories = ReflectionHelper.FindImplementationsInLoadedAssemblies(typeof(IOptimizationCategory))
                 .ToArray();
 
-            var allOptimizationsByGroup = optimizationGroups
+            var allOptimizationsByCategory = optimizationCategories
                 .Select(g => new
                 {
-                    Group = (IOptimizationGroup)Activator.CreateInstance(g)!,
+                    Category = (IOptimizationCategory)Activator.CreateInstance(g)!,
                     Optimizations = g.GetNestedTypes(BindingFlags.Public)
                         .Where(t => typeof(IOptimization).IsAssignableFrom(t))
                         .Select(t => (IOptimization)Activator.CreateInstance(t)!)
@@ -37,20 +37,20 @@ public static class OptimizationHelper
                 })
                 .ToList();
 
-            var allOptimizations = allOptimizationsByGroup.SelectMany(x => x.Optimizations).ToList();
+            var allOptimizations = allOptimizationsByCategory.SelectMany(x => x.Optimizations).ToList();
             var globalMaxNameLength = allOptimizations.DefaultIfEmpty().Max(t => t?.Name?.Length ?? 0) + 1;
             var maxImpactLength = allOptimizations.DefaultIfEmpty().Max(t => t?.Impact.GetDescription().Length ?? 0) + 1;
 
-            var groups = new List<OptimizationGroupChoice>();
+            var categories = new List<OptimizationCategoryChoice>();
 
-            foreach (var g in allOptimizationsByGroup)
+            foreach (var g in allOptimizationsByCategory)
             {
                 var optimizations = g.Optimizations
                     .OrderByDescending(t => t.EnabledByDefault)
                     .ThenBy(t => (int)t.Impact)
                     .ToList();
 
-                if (optimizations.Count == 0) continue; // Skip empty groups
+                if (optimizations.Count == 0) continue; // Skip empty categories
 
                 var optimizationChoices = optimizations.Select(t =>
                 {
@@ -59,19 +59,19 @@ public static class OptimizationHelper
                     return new OptimizationChoice(t, paddedName, description, t.EnabledByDefault);
                 }).ToList();
 
-                groups.Add(new OptimizationGroupChoice(g.Group.Name, g.Group.Order, optimizationChoices));
+                categories.Add(new OptimizationCategoryChoice(g.Category.Name, g.Category.Order, optimizationChoices));
             }
 
-            var orderedGroups = groups.OrderBy(g => g.Order).ToList();
+            var orderedCategories = categories.OrderBy(g => g.Order).ToList();
 
-            foreach (var g in orderedGroups)
+            foreach (var g in orderedCategories)
             {
-                Log.LogDebug("Loaded group [{Group}]:", g.Name);
+                Log.LogDebug("Loaded category [{Category}]:", g.Name);
                 foreach (var t in g.Optimizations)
                     Log.LogDebug("  - {OptimizationName} {OptimizationDescription}", t.Name, Markup.Remove(t.Description));
             }
 
-            return orderedGroups;
+            return orderedCategories;
         });
     }
 

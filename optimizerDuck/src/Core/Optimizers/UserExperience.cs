@@ -8,10 +8,10 @@ using optimizerDuck.UI.Logger;
 
 namespace optimizerDuck.Core.Optimizers;
 
-public class UserExperience : IOptimizationGroup
+public class UserExperience : IOptimizationCategory
 {
     public string Name { get; } = "User Experience";
-    public OptimizationGroupOrder Order { get; } = OptimizationGroupOrder.UserExperience;
+    public OptimizationCategoryOrder Order { get; } = OptimizationCategoryOrder.UserExperience;
     public static ILogger Log { get; } = Logger.CreateLogger<UserExperience>();
 
     public class TaskbarOptimization : IOptimization

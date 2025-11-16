@@ -31,9 +31,9 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
 
         Log.LogInformation("Loading optimizations...");
 
-        var optimizationGroups = OptimizationHelper.LoadOptimizationChoices();
-        Log.LogInformation("Loaded {GroupAmount} groups with {OptimizationAmount} optimizations.", optimizationGroups.Count,
-            optimizationGroups.Sum(g => g.Optimizations.Count));
+        var optimizationCategories = OptimizationHelper.LoadOptimizationChoices();
+        Log.LogInformation("Loaded {CategoriesAmount} categories with {OptimizationAmount} optimizations.", optimizationCategories.Count,
+            optimizationCategories.Sum(g => g.Optimizations.Count));
 
         SystemHelper.Title("Select the optimizations you want to apply");
         try
@@ -47,7 +47,7 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                 .UseConverter(t => $"{t.Name} {t.Description}")
                 .PageSize(24);
 
-            foreach (var g in optimizationGroups)
+            foreach (var g in optimizationCategories)
                 promptOptimizationChoice.AddChoiceGroup(
                     new OptimizationChoice(null, $"[bold underline]{g.Name}[/]", string.Empty,
                         false),
@@ -55,7 +55,7 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                 );
 
             var optimizationsToSelect = _selectedOptimizations.Count == 0
-                                        ? optimizationGroups.SelectMany(g => g.Optimizations).Where(t => t.EnabledByDefault)
+                                        ? optimizationCategories.SelectMany(g => g.Optimizations).Where(t => t.EnabledByDefault)
                                         : _selectedOptimizations;
 
             foreach (var optimization in optimizationsToSelect)

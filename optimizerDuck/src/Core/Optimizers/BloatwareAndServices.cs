@@ -8,10 +8,10 @@ using optimizerDuck.UI.Logger;
 
 namespace optimizerDuck.Core.Optimizers;
 
-public class BloatwareAndServices : IOptimizationGroup
+public class BloatwareAndServices : IOptimizationCategory
 {
     public string Name { get; } = "Bloatware & Services";
-    public OptimizationGroupOrder Order { get; } = OptimizationGroupOrder.BloatwareAndServices;
+    public OptimizationCategoryOrder Order { get; } = OptimizationCategoryOrder.BloatwareAndServices;
     public static ILogger Log { get; } = Logger.CreateLogger<BloatwareAndServices>();
 
     public class RemoveBloatwareApps : IOptimization

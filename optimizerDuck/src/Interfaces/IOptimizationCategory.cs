@@ -3,9 +3,9 @@ using optimizerDuck.Models;
 
 namespace optimizerDuck.Interfaces;
 
-public interface IOptimizationGroup
+public interface IOptimizationCategory
 {
     public string Name { get; }
-    public OptimizationGroupOrder Order { get; }
+    public OptimizationCategoryOrder Order { get; }
     public static abstract ILogger Log { get; }
 }

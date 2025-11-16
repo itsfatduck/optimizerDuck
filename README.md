@@ -39,7 +39,7 @@
 
 With **optimizerDuck**, you can optimize Windows performance, privacy, and more-across five focused areas:
 
-| Area | What optimizerDuck does |
+| Optimization Category | Summary |
 |------|--------------------------|
 | ⚡ Performance | Boosts responsiveness, gaming speed, and GPU efficiency |
 | 🧹 Bloatware & Services | Removes unnecessary apps and disables non-essential services |
