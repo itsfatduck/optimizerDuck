@@ -8,7 +8,7 @@ View the list of optimizerDuck's optimizations.
 
 </div>
 
-## Performance
+## ⚡ Performance
 
 | Optimization | Description |
 | --- | --- |
@@ -21,7 +21,7 @@ View the list of optimizerDuck's optimizations.
 | **Disable Game DVR** | Turns off Game DVR recording features to reduce latency during gameplay |
 | **GPU Optimization** | Optimizes GPU driver settings to disable unnecessary features and improve stability & performance |
 
-## Security & Privacy
+## 🔐 Security & Privacy
 
 | Optimization | Description |
 | --- | --- |
@@ -32,7 +32,7 @@ View the list of optimizerDuck's optimizations.
 | **Disable Windows Copilot** | Disables AI Copilot integration from Explorer and the system taskbar |
 | **Disable User Account Control (UAC)** | Disables UAC prompts to reduce interruptions (use with caution) |
 
-## Power
+## 🔋 Power
 
 | Optimization | Description |
 | --- | --- |
@@ -41,7 +41,7 @@ View the list of optimizerDuck's optimizations.
 | **Install optimizerDuck Power Plan** | Installs a custom high-performance power plan optimized for gaming and CPU performance |
 | **Disable Power Saving** | Disables power throttling and enables AlwaysOn multimedia mode for maximum responsiveness |
 
-## User Experience
+## 🖥️ User Experience
 
 | Optimization | Description |
 | --- | --- |
@@ -54,7 +54,7 @@ View the list of optimizerDuck's optimizations.
 | **Optimize Keyboard** | Improves keyboard responsiveness and disables unwanted accessibility features |
 | **Install ZwTimerResolution** | Installs and configures ZwTimerResolution to reduce input lag and improve responsiveness |
 
-## Bloatware & Services
+## 🧹 Bloatware & Services
 
 | Optimization | Description |
 | --- | --- |
