@@ -47,8 +47,6 @@ public class BloatwareAndServices : IOptimizationCategory
 
             Log.LogInformation("Bloatware apps have been removed.");
 
-
-
             return Task.CompletedTask;
         }
     }

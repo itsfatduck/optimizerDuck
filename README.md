@@ -12,8 +12,8 @@
 [![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-white)](./LICENSE)
 [![Discord](https://img.shields.io/discord/1091675679994675240?color=5865f2&label=Discord)](https://discord.gg/tDUBDCYw9Q)
 <br>
-[![.NET 10.0](https://img.shields.io/badge/.NET_Runtime-10.0_Latest-ef99dd)](https://dotnet.microsoft.com/en-us/download)
-[![Runs on](https://img.shields.io/badge/Runs_on-Windows_10_and_11_x64-0078d4)](https://www.microsoft.com/en-us/software-download/)
+[![.NET Latest](https://img.shields.io/badge/.NET_Runtime-Latest-ef99dd)](https://dotnet.microsoft.com/en-us/download)
+[![Supported OS](https://img.shields.io/badge/Supported-Windows_10+_x64-0078d4)](https://www.microsoft.com/en-us/software-download/)
 <br>
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/O4O11OH7NH)
 
