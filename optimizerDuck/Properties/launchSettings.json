@@ -6,6 +6,10 @@
     "WithRestartArgument": {
       "commandName": "Project",
       "commandLineArgs": "--restart"
+    },
+    "RestartAndDebug": {
+      "commandName": "Project",
+      "commandLineArgs": "--restart --debug"
     }
   }
 }

@@ -33,6 +33,7 @@ public class BloatwareAndServices : IOptimizationCategory
 
             while (OptimizationManager.SelectedBloatware.TryDequeue(out var appxPackage))
             {
+                t.ThrowIfCancellationRequested();
                 appxPackage = appxPackage with { DisplayName = appxPackage.DisplayName.Trim(), Version = appxPackage.Version.Trim() };
                 Log.LogInformation($"Removing bloatware app: [{Theme.Primary}]{appxPackage.DisplayName}[/] [{Theme.Success}]{appxPackage.Version}[/] ([dim]{appxPackage.Name}[/])");
 

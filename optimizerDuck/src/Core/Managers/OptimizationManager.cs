@@ -184,11 +184,6 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
 
 
         Log.LogDebug(new string('=', 60));
-        cancellationToken.Register(() =>
-        {
-
-        });
-
         await AnsiConsole.Status()
             .Spinner(Spinner.Known.Dots2)
             .SpinnerStyle($"bold {Theme.Primary}")
@@ -198,7 +193,7 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                 {
                     try
                     {
-                        if (cancellationToken.IsCancellationRequested) break;
+                        cancellationToken.ThrowIfCancellationRequested();
 
                         selectedOptimization = selectedOptimization with
                         {
@@ -217,8 +212,8 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
 
                         var stopwatch = Stopwatch.StartNew();
 
-                        //await selectedOptimization.Instance!.Apply(_systemSnapshot).ConfigureAwait(false);
-                        await Task.Delay(5000, cancellationToken);
+                        await selectedOptimization.Instance!.Apply(_systemSnapshot, cancellationToken).ConfigureAwait(false);
+                        //await Task.Delay(5000, cancellationToken);
                         stopwatch.Stop();
 
                         Log.LogDebug("Applied in {Elapsed} ms", stopwatch.ElapsedMilliseconds);

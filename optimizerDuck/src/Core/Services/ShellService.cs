@@ -18,7 +18,11 @@ public static class ShellService
 {
     private static ShellResult Run(string fileName, string arguments, string command, string serviceName)
     {
-        var fullCommand =
+        var decoded = command.DecodeBase64()
+            .Replace("\"", "\\\"")
+            .Replace("\r", " ")
+            .Replace("\n", " ");
+        var fullCommandForUser =
             $"{fileName} {arguments.Replace("-EncodedCommand", "-Command")} {command.DecodeBase64()}"; // let user see the real command
 
         var psi = new ProcessStartInfo
@@ -74,7 +78,7 @@ public static class ShellService
             | Stderr: {Stderr}
             | ExitCode: {ProcessExitCode}
             | Duration: {TimeSpan}
-            """, fullCommand, stdoutDisplay, stderrDisplay, process.ExitCode, ServiceTracker.FormatTime(duration));
+            """, fullCommandForUser, stdoutDisplay, stderrDisplay, process.ExitCode, ServiceTracker.FormatTime(duration));
 
         return new ShellResult(
             $"{fileName} {arguments} {command}",

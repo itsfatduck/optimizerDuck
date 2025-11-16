@@ -60,7 +60,7 @@ public class PlainTextFormatter : ITextFormatter
 
         // Message
         var message = RenderWithoutQuotes(logEvent);
-        if (logEvent.Level == LogEventLevel.Debug) // i want to keep markup for debug logs
+        if (logEvent.Level == LogEventLevel.Debug && !Defaults.IsDebug) // i want to keep markup for debug logs when not in debug mode to avoid markup exceptions
             output.Write($" {message}");
         else
             output.Write($" {Markup.Remove(message)}");
@@ -143,7 +143,7 @@ public static class Logger
         {
             builder.AddSpectreConsole(config =>
             {
-                config.SetMinimumLevel(Environment.GetCommandLineArgs().Contains("--debug")
+                config.SetMinimumLevel(Defaults.IsDebug
                     ? LogLevel.Debug
                     : LogLevel.Information);
 

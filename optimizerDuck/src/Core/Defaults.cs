@@ -7,6 +7,8 @@ namespace optimizerDuck.Core;
 
 public static class Defaults
 {
+    public static bool IsDebug = Environment.GetCommandLineArgs().Contains("--debug");
+
     public const string RawLogo = """
                                                 _   _           _              _____             _
                                                | | (_)         (_)            |  __ \           | |

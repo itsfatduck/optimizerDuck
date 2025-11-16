@@ -228,6 +228,7 @@ public class Performance : IOptimizationCategory
 
             foreach (var gpu in s.Gpus)
             {
+                t.ThrowIfCancellationRequested();
                 Log.LogDebug("GPU Info: {GPUInfo}", gpu);
                 if (string.IsNullOrWhiteSpace(gpu.DeviceId))
                 {
