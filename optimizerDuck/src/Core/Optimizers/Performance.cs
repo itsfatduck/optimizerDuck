@@ -22,9 +22,11 @@ public class Performance : IOptimizationCategory
         public OptimizationImpact Impact { get; } = OptimizationImpact.Minimal;
 
 
-        public Task Apply(SystemSnapshot s)
+        public Task Apply(SystemSnapshot _, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
             using var tracker = ServiceTracker.Begin(Log);
+
             RegistryService.Write(
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications", "GlobalUserDisabled", 1),
                 new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search", "BackgroundAppGlobalToggle", 0)
@@ -42,8 +44,11 @@ public class Performance : IOptimizationCategory
         public OptimizationImpact Impact { get; } = OptimizationImpact.Significant;
 
 
-        public Task Apply(SystemSnapshot s)
+        public Task Apply(SystemSnapshot _, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
+            using var tracker = ServiceTracker.Begin(Log);
+
             /*
              ref: https://forums.blurbusters.com/viewtopic.php?t=8535
             42 Dec, 2A Hex = Short, Fixed , High foreground boost.
@@ -64,6 +69,8 @@ public class Performance : IOptimizationCategory
              */
 
             const int win32Priority = 38; // Short, Variable, High foreground boost
+
+
             RegistryService.Write(
                 new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl", "Win32PrioritySeparation", win32Priority)
             );
@@ -79,8 +86,11 @@ public class Performance : IOptimizationCategory
         public bool EnabledByDefault { get; } = true;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Moderate;
 
-        public Task Apply(SystemSnapshot s)
+        public Task Apply(SystemSnapshot _, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
+            using var tracker = ServiceTracker.Begin(Log);
+
             RegistryService.Write(
                 new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games", "Priority", 2),
                 new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games", "Scheduling Category", "High"),
@@ -102,8 +112,9 @@ public class Performance : IOptimizationCategory
         public bool EnabledByDefault { get; } = true;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Significant;
 
-        public Task Apply(SystemSnapshot s)
+        public Task Apply(SystemSnapshot s, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
             using var tracker = ServiceTracker.Begin(Log);
 
             if (s.Ram.TotalKB <= 0)
@@ -132,8 +143,9 @@ public class Performance : IOptimizationCategory
         public bool EnabledByDefault { get; } = true;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Minimal;
 
-        public Task Apply(SystemSnapshot s)
+        public Task Apply(SystemSnapshot _, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
             using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(
@@ -154,8 +166,11 @@ public class Performance : IOptimizationCategory
         public bool EnabledByDefault { get; } = SystemHelper.IsWindows11OrGreater();
         public OptimizationImpact Impact { get; } = OptimizationImpact.Minimal;
 
-        public Task Apply(SystemSnapshot s)
+        public Task Apply(SystemSnapshot _, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
+            using var tracker = ServiceTracker.Begin(Log);
+
             RegistryService.Write(
                 new RegistryItem(@"HKCU\Software\Microsoft\GameBar", "AllowAutoGameMode", 1),
                 new RegistryItem(@"HKCU\Software\Microsoft\GameBar", "AutoGameModeEnabled", 1)
@@ -176,8 +191,9 @@ public class Performance : IOptimizationCategory
         public bool EnabledByDefault { get; } = true;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Minimal;
 
-        public Task Apply(SystemSnapshot s)
+        public Task Apply(SystemSnapshot _, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
             using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(
@@ -201,8 +217,9 @@ public class Performance : IOptimizationCategory
         public bool EnabledByDefault { get; } = true;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Significant;
 
-        public Task Apply(SystemSnapshot s)
+        public Task Apply(SystemSnapshot s, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
             using var tracker = ServiceTracker.Begin(Log);
             Log.LogInformation("Applying GPU optimizations for {GpuCount} GPUs...", s.Gpus.Count);
 

@@ -22,8 +22,9 @@ public class SecurityAndPrivacy : IOptimizationCategory
         public bool EnabledByDefault { get; } = false;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Aggressive;
 
-        public Task Apply(SystemSnapshot s)
+        public Task Apply(SystemSnapshot _, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
             using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
@@ -46,9 +47,11 @@ public class SecurityAndPrivacy : IOptimizationCategory
         /// <summary>
         ///     thank you https://github.com/ChrisTitusTech/winutil
         /// </summary>
-        public Task Apply(SystemSnapshot s)
+        public Task Apply(SystemSnapshot _, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
             using var tracker = ServiceTracker.Begin(Log);
+
             // @formatter:off
             RegistryService.Write(
                 new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection", "AllowTelemetry", 0),
@@ -148,8 +151,9 @@ public class SecurityAndPrivacy : IOptimizationCategory
         public bool EnabledByDefault { get; } = true;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Moderate;
 
-        public Task Apply(SystemSnapshot s)
+        public Task Apply(SystemSnapshot _, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
             using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(
@@ -180,8 +184,9 @@ public class SecurityAndPrivacy : IOptimizationCategory
         public bool EnabledByDefault { get; } = true;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Moderate;
 
-        public Task Apply(SystemSnapshot s)
+        public Task Apply(SystemSnapshot _, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
             using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(
@@ -211,8 +216,9 @@ public class SecurityAndPrivacy : IOptimizationCategory
         public bool EnabledByDefault { get; } = true;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Moderate;
 
-        public Task Apply(SystemSnapshot s)
+        public Task Apply(SystemSnapshot _, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
             using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(
@@ -241,8 +247,9 @@ public class SecurityAndPrivacy : IOptimizationCategory
         public bool EnabledByDefault { get; } = true;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Moderate;
 
-        public Task Apply(SystemSnapshot s)
+        public Task Apply(SystemSnapshot _, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
             using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(

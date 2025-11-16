@@ -21,8 +21,9 @@ public class UserExperience : IOptimizationCategory
         public bool EnabledByDefault { get; } = true;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Minimal;
 
-        public Task Apply(SystemSnapshot s)
+        public Task Apply(SystemSnapshot _, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
             using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(
@@ -55,8 +56,9 @@ public class UserExperience : IOptimizationCategory
         public bool EnabledByDefault { get; } = true;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Minimal;
 
-        public Task Apply(SystemSnapshot s)
+        public Task Apply(SystemSnapshot _, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
             using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(
@@ -75,8 +77,9 @@ public class UserExperience : IOptimizationCategory
         public bool EnabledByDefault { get; } = true;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Minimal;
 
-        public Task Apply(SystemSnapshot s)
+        public Task Apply(SystemSnapshot _, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
             using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(
@@ -106,8 +109,9 @@ public class UserExperience : IOptimizationCategory
         public bool EnabledByDefault { get; } = true;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Minimal;
 
-        public Task Apply(SystemSnapshot s)
+        public Task Apply(SystemSnapshot _, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
             using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(
@@ -132,8 +136,9 @@ public class UserExperience : IOptimizationCategory
         public bool EnabledByDefault { get; } = true;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Minimal;
 
-        public Task Apply(SystemSnapshot s)
+        public Task Apply(SystemSnapshot _, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
             using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(
@@ -159,8 +164,9 @@ public class UserExperience : IOptimizationCategory
         public bool EnabledByDefault { get; } = true;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Minimal;
 
-        public Task Apply(SystemSnapshot s)
+        public Task Apply(SystemSnapshot _, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
             using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(
@@ -184,8 +190,9 @@ public class UserExperience : IOptimizationCategory
         public bool EnabledByDefault { get; } = true;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Minimal;
 
-        public Task Apply(SystemSnapshot s)
+        public Task Apply(SystemSnapshot _, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
             using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(
@@ -210,8 +217,9 @@ public class UserExperience : IOptimizationCategory
         public bool EnabledByDefault => true;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Moderate;
 
-        public async Task Apply(SystemSnapshot s)
+        public async Task Apply(SystemSnapshot _, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
             using var tracker = ServiceTracker.Begin(Log);
 
             var (success, zwtPath) = await StreamHelper.TryDownloadAsync(Defaults.ZwtDownloadUrl, "zwtimer.exe")

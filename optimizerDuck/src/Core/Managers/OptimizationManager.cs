@@ -165,7 +165,7 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
             new PromptOption("Back", Theme.Warning, () => false)));
     }
 
-    public async Task Run()
+    public async Task Run(CancellationToken cancellationToken)
     {
         AnsiConsole.Clear();
         AnsiConsole.Write(Defaults.Logo);
@@ -182,22 +182,32 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
             Log.LogDebug("Selected {BloatwareAmount} bloatware apps: {BloatwareApps}", SelectedBloatware.Count,
                 string.Join(", ", SelectedBloatware.Select(app => $"{app.DisplayName.Trim()} ({app.Version.Trim()})")));
 
+
         Log.LogDebug(new string('=', 60));
-        while (_selectedOptimizations.TryDequeue(out var selectedOptimization))
-            await AnsiConsole.Status()
-                .Spinner(Spinner.Known.Dots2)
-                .SpinnerStyle($"bold {Theme.Primary}")
-                .StartAsyncGlobal($"Applying [{Theme.Primary}]{selectedOptimization.Name}[/]...", async ctx =>
+        cancellationToken.Register(() =>
+        {
+
+        });
+
+        await AnsiConsole.Status()
+            .Spinner(Spinner.Known.Dots2)
+            .SpinnerStyle($"bold {Theme.Primary}")
+            .StartAsyncGlobal("Initializing Optimization", async ctx =>
+            {
+                while (_selectedOptimizations.TryDequeue(out var selectedOptimization))
                 {
                     try
                     {
+                        if (cancellationToken.IsCancellationRequested) break;
+
                         selectedOptimization = selectedOptimization with
                         {
                             Name = selectedOptimization.Name.Trim(),
                             Description = selectedOptimization.Description.Trim()
                         };
+
                         SystemHelper.Title(selectedOptimization.Name);
-                        ctx.Status($"Applying [{Theme.Primary}]{selectedOptimization.Name}[/]...");
+                        ctx.Status($"Applying [{Theme.Primary}]{selectedOptimization.Name}[/]... [{Theme.Muted}][[Press [{Theme.Error}]CTRL + C[/] to cancel the optimization]][/]");
 
                         using var scope = Log.BeginScope("Optimization: {OptimizationName}", selectedOptimization.Name);
 
@@ -207,11 +217,15 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
 
                         var stopwatch = Stopwatch.StartNew();
 
-                        await selectedOptimization.Instance!.Apply(_systemSnapshot).ConfigureAwait(false);
-
+                        //await selectedOptimization.Instance!.Apply(_systemSnapshot).ConfigureAwait(false);
+                        await Task.Delay(5000, cancellationToken);
                         stopwatch.Stop();
 
                         Log.LogDebug("Applied in {Elapsed} ms", stopwatch.ElapsedMilliseconds);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        break;
                     }
                     catch (Exception e)
                     {
@@ -221,7 +235,23 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                     {
                         Log.LogDebug(new string('=', 60));
                     }
-                });
+                }
+
+            });
+
+        if (cancellationToken.IsCancellationRequested)
+        {
+            SystemHelper.Title("Optimization Canceled");
+
+            Rule("Optimization Canceled", Theme.Error);
+            Log.LogInformation("Optimization canceled by user.");
+            GlobalStatus.Current?.Status("Optimization canceled by user.");
+
+            PromptDialog.Warning("Optimization Canceled",
+                "You have canceled the optimization.",
+                new PromptOption("Back", Theme.Warning, () => true));
+            return;
+        }
 
         Rule("Optimization completed!", Theme.Success);
         SystemHelper.Title("Optimization completed!");

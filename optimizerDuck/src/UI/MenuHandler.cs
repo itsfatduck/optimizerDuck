@@ -44,7 +44,21 @@ internal class MenuHandler
         _optimizer ??= new OptimizationManager(_systemSnapshot);
         if (await _optimizer.Begin().ConfigureAwait(false))
             if (await OptimizationManager.RestorePoint().ConfigureAwait(false))
-                await _optimizer.Run().ConfigureAwait(false);
+            {
+                using var cancelCancellationTokenSource = new CancellationTokenSource();
+                ConsoleCancelEventHandler cancelHandler = null!;
+                
+                cancelHandler = (sender, e) =>
+                {
+                    cancelCancellationTokenSource.Cancel();
+                    e.Cancel = true;
+
+                    Console.CancelKeyPress -= cancelHandler;
+                };
+                Console.CancelKeyPress += cancelHandler;
+                
+                await _optimizer.Run(cancelCancellationTokenSource.Token).ConfigureAwait(false);
+            }
     }
 
     private Task HandleDiscordLinkAsync()

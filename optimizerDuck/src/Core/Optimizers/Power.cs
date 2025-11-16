@@ -25,8 +25,9 @@ public class Power : IOptimizationCategory
         public bool EnabledByDefault { get; } = true;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Moderate;
 
-        public Task Apply(SystemSnapshot s)
+        public Task Apply(SystemSnapshot _, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
             using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(
@@ -53,8 +54,9 @@ public class Power : IOptimizationCategory
         public bool EnabledByDefault { get; } = true;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Moderate;
 
-        public Task Apply(SystemSnapshot s)
+        public Task Apply(SystemSnapshot _, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
             using var tracker = ServiceTracker.Begin(Log);
 
             //https://discord.com/channels/1298592513816530994/1359513721738629140/1359524213047824517
@@ -85,8 +87,9 @@ public class Power : IOptimizationCategory
         public bool EnabledByDefault { get; } = true;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Significant;
 
-        public async Task Apply(SystemSnapshot s)
+        public async Task Apply(SystemSnapshot _, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
             using var tracker = ServiceTracker.Begin(Log);
             var (success, powerPlanPath) =
                 await StreamHelper.TryDownloadAsync(Defaults.PowerPlanUrl, "optimizerDuck.pow");
@@ -121,8 +124,11 @@ public class Power : IOptimizationCategory
         public bool EnabledByDefault { get; } = true;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Moderate;
 
-        public Task Apply(SystemSnapshot s)
+        public Task Apply(SystemSnapshot _, CancellationToken t)
         {
+            t.ThrowIfCancellationRequested();
+            using var tracker = ServiceTracker.Begin(Log);
+
             RegistryService.Write(
                 new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\USB\AutomaticSurpriseRemoval",
                     "AttemptRecoveryFromUsbPowerDrain", 0),

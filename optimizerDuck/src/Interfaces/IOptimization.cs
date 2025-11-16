@@ -9,5 +9,5 @@ public interface IOptimization
     public string Description { get; }
     public bool EnabledByDefault { get; }
     public OptimizationImpact Impact { get; }
-    public Task Apply(SystemSnapshot s);
+    public Task Apply(SystemSnapshot s, CancellationToken t);
 }
