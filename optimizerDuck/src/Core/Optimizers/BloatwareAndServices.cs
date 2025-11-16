@@ -47,6 +47,27 @@ public class BloatwareAndServices : IOptimizationCategory
 
             Log.LogInformation("Bloatware apps have been removed.");
 
+
+
+            return Task.CompletedTask;
+        }
+    }
+
+    public class DisablePreinstalledApps : IOptimization
+    {
+        public string Name { get; } = "Disable Preinstalled Apps";
+
+        public string Description { get; } =
+            "Disables all preinstalled apps, automatic app installs, and Windows content suggestions or ads";
+
+        public bool EnabledByDefault { get; } = true;
+
+        public OptimizationImpact Impact { get; } = OptimizationImpact.Significant;
+
+        public Task Apply(SystemSnapshot s)
+        {
+            using var tracker = ServiceTracker.Begin(Log);
+
             RegistryService.Write(
                 new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager",
                     "PreInstalledAppsEnabled", 0),
