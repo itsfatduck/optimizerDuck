@@ -68,6 +68,7 @@ optimizerDuck is a simple, honest tool built on that idea. Every setting is **te
 - 🐞 [Issues](https://github.com/itsfatduck/optimizerDuck/issues) → bug reports & feedback  
 - 💡 [Discussions](https://github.com/itsfatduck/optimizerDuck/discussions) → tips & feature requests  
 - 🤝 [Contributing](./CONTRIBUTING.md) → how to join development (see [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md))  
+- ⭐ [Give us a star](https://github.com/itsfatduck/optimizerDuck) → your support keeps us going
 - ☕ [Ko-fi](https://ko-fi.com/O4O11OH7NH) → support the project  
 
 > [!TIP]
