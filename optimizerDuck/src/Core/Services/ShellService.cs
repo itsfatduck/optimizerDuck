@@ -18,10 +18,6 @@ public static class ShellService
 {
     private static ShellResult Run(string fileName, string arguments, string command, string serviceName)
     {
-        var decoded = command.DecodeBase64()
-            .Replace("\"", "\\\"")
-            .Replace("\r", " ")
-            .Replace("\n", " ");
         var fullCommandForUser =
             $"{fileName} {arguments.Replace("-EncodedCommand", "-Command")} {command.DecodeBase64()}"; // let user see the real command
 
