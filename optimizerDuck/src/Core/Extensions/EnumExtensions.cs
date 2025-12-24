@@ -5,7 +5,7 @@ namespace optimizerDuck.Core.Extensions;
 
 public static class EnumExtensions
 {
-    public static string GetDescription(this Enum value)
+    public static string GetDescription(this Enum? value)
     {
         if (value == null) return string.Empty;
 

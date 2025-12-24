@@ -37,7 +37,7 @@ public static class Defaults
 
     public const string RestorePointName = "optimizerDuck Restore Point";
     public const string PowerPlanGUID = "946c0ca5-6ee0-4f2a-9dd7-7addbb8e60f5";
-    public static bool IsDebug = Environment.GetCommandLineArgs().Contains("--debug");
+    public static readonly bool IsDebug = Environment.GetCommandLineArgs().Contains("--debug");
 
     public static readonly Panel Logo = new(
             new Align(
@@ -69,7 +69,7 @@ public static class Defaults
     public static readonly string ResourcesPath =
         Path.Combine(RootPath, "Resources");
 
-    public static readonly Dictionary<string, string> SAFE_APPS = new()
+    public static readonly Dictionary<string, string> SafeApps = new()
     {
         // bing
         ["Microsoft.BingWeather"] = "Weather",
@@ -108,7 +108,7 @@ public static class Defaults
     };
 
 
-    public static readonly Dictionary<string, string> CAUTION_APPS = new()
+    public static readonly Dictionary<string, string> CautionApps = new()
     {
         ["Microsoft.WindowsCalculator"] = "Calculator",
         ["Microsoft.Windows.Photos"] = "Photos",

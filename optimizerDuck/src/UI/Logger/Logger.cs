@@ -41,19 +41,28 @@ public class PlainTextFormatter : ITextFormatter
         // [Scope1] [Scope2] ...
         if (logEvent.Properties.TryGetValue("Scope", out var scopeValue))
         {
-            if (scopeValue is SequenceValue seq)
-                foreach (var scope in seq.Elements)
+            switch (scopeValue)
+            {
+                case SequenceValue seq:
                 {
-                    var text = scope switch
+                    foreach (var scope in seq.Elements)
                     {
-                        ScalarValue s => s.Value?.ToString(),
-                        _ => scope.ToString()
-                    };
+                        var text = scope switch
+                        {
+                            ScalarValue s => s.Value?.ToString(),
+                            _ => scope.ToString()
+                        };
 
-                    if (!string.IsNullOrWhiteSpace(text))
-                        output.Write($" [{text}]");
+                        if (!string.IsNullOrWhiteSpace(text))
+                            output.Write($" [{text}]");
+                    }
+
+                    break;
                 }
-            else if (scopeValue is ScalarValue single) output.Write($" [{single.Value}]");
+                case ScalarValue single:
+                    output.Write($" [{single.Value}]");
+                    break;
+            }
         }
 
 
@@ -126,7 +135,7 @@ public class ShortSourceContextEnricher : ILogEventEnricher
 public static class Logger
 {
     public static readonly string LogFilePath = Path.Combine(Defaults.RootPath, "optimizerDuck.log");
-    private static readonly ILoggerFactory _loggerFactory;
+    private static readonly ILoggerFactory LoggerFactory;
 
     static Logger()
     {
@@ -139,7 +148,7 @@ public static class Logger
         // add a header to the log file
         Log.Logger.Information("\n\n{Logo}\nVersion: {Version}\n\n", Defaults.RawLogo, Defaults.FileVersion);
 
-        _loggerFactory = LoggerFactory.Create(builder =>
+        LoggerFactory = Microsoft.Extensions.Logging.LoggerFactory.Create(builder =>
         {
             builder.AddSpectreConsole(config =>
             {
@@ -189,11 +198,11 @@ public static class Logger
 
     public static ILogger CreateLogger<T>()
     {
-        return _loggerFactory.CreateLogger<T>();
+        return LoggerFactory.CreateLogger<T>();
     }
 
     public static ILogger CreateLogger(Type type)
     {
-        return _loggerFactory.CreateLogger(type);
+        return LoggerFactory.CreateLogger(type);
     }
 }

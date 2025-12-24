@@ -1,11 +1,10 @@
 ﻿using optimizerDuck.Core;
 using optimizerDuck.Core.Helpers;
 using optimizerDuck.Core.Services;
-using optimizerDuck.UI;
 using optimizerDuck.UI.Components;
 using Spectre.Console;
 
-namespace optimizerDuck.src.UI;
+namespace optimizerDuck.UI;
 
 internal static class MainMenu
 {

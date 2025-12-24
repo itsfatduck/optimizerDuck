@@ -84,10 +84,10 @@ public static class OptimizationHelper
         {
             var result = ShellService.PowerShell($$"""
                                                    # list the SAFE_APPS
-                                                   $safeApps = @({{string.Join(", ", Defaults.SAFE_APPS.Keys.Select(x => $"\"{x}\""))}})
+                                                   $safeApps = @({{string.Join(", ", Defaults.SafeApps.Keys.Select(x => $"\"{x}\""))}})
 
                                                    # list the CAUTION_APPS
-                                                   $cautionApps = @({{string.Join(", ", Defaults.CAUTION_APPS.Keys.Select(x => $"\"{x}\""))}})
+                                                   $cautionApps = @({{string.Join(", ", Defaults.CautionApps.Keys.Select(x => $"\"{x}\""))}})
 
                                                    # get the installed apps
                                                    $installedApps = Get-AppxPackage -AllUsers | Where-Object { $_.NonRemovable -eq 0 } # NonRemovable = 0 means the app can be removed
@@ -137,11 +137,11 @@ public static class OptimizationHelper
 
             // Display Length
             var safeDisplayLength = allSafe.Count != 0
-                ? allSafe.Max(x => Defaults.SAFE_APPS.TryGetValue(x.Name, out var dn) ? dn.Length : x.Name.Length)
+                ? allSafe.Max(x => Defaults.SafeApps.TryGetValue(x.Name, out var dn) ? dn.Length : x.Name.Length)
                 : 0;
 
             var cautionDisplayLength = allCaution.Count != 0
-                ? allCaution.Max(x => Defaults.CAUTION_APPS.TryGetValue(x.Name, out var dn) ? dn.Length : x.Name.Length)
+                ? allCaution.Max(x => Defaults.CautionApps.TryGetValue(x.Name, out var dn) ? dn.Length : x.Name.Length)
                 : 0;
 
             // Version Length
@@ -166,7 +166,7 @@ public static class OptimizationHelper
                         return app with
                         {
                             DisplayName =
-                            Defaults.SAFE_APPS.TryGetValue(app.Name, out var dn)
+                            Defaults.SafeApps.TryGetValue(app.Name, out var dn)
                                 ? dn
                                 : app.Name // get display name or fallback to app name
                         };
@@ -183,7 +183,7 @@ public static class OptimizationHelper
                     {
                         return app with
                         {
-                            DisplayName = Defaults.CAUTION_APPS.TryGetValue(app.Name, out var dn) ? dn : app.Name
+                            DisplayName = Defaults.CautionApps.TryGetValue(app.Name, out var dn) ? dn : app.Name
                         };
                     })
                     .OrderBy(x => x.DisplayName)

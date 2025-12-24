@@ -3,14 +3,13 @@ using optimizerDuck.Core;
 using optimizerDuck.Core.Helpers;
 using optimizerDuck.Core.Managers;
 using optimizerDuck.Core.Services;
-using optimizerDuck.UI.Logger;
 using Spectre.Console;
 
-namespace optimizerDuck.src.UI;
+namespace optimizerDuck.UI;
 
 internal class MenuHandler
 {
-    private readonly ILogger _log = Logger.CreateLogger<MenuHandler>();
+    private static readonly ILogger Log = Logger.Logger.CreateLogger<MenuHandler>();
     private readonly Dictionary<char, Func<Task>> _menuActions;
 
     private OptimizationManager? _optimizer;
@@ -58,13 +57,13 @@ internal class MenuHandler
             }
     }
 
-    private Task HandleDiscordLinkAsync()
+    private static Task HandleDiscordLinkAsync()
     {
         SystemHelper.OpenWebsite(Defaults.DiscordInvite);
         return Task.CompletedTask;
     }
 
-    private Task HandleGitHubLinkAsync()
+    private static Task HandleGitHubLinkAsync()
     {
         SystemHelper.OpenWebsite(Defaults.GitHubRepo);
         return Task.CompletedTask;
@@ -72,13 +71,13 @@ internal class MenuHandler
 
     private async Task HandleSystemInfoAsync()
     {
-        _log.LogInformation("Refreshing System Information...");
+        Log.LogInformation("Refreshing System Information...");
         _systemSnapshot = await SystemInfoService.RefreshAsync().ConfigureAwait(false);
 
         AnsiConsole.Clear();
         AnsiConsole.Write(Defaults.Logo);
 
-        var detailedPanel = SystemInfoService.GetDetailedPanel(_systemSnapshot, _log);
+        var detailedPanel = SystemInfoService.GetDetailedPanel(_systemSnapshot, Log);
         if (detailedPanel is not null)
         {
             AnsiConsole.Write(detailedPanel);
