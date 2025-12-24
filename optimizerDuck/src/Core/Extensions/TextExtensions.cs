@@ -94,7 +94,7 @@ public static class TextExtensions
             return xml;
         }
     }
-    
+
     public static string EncodeBase64(this string value)
     {
         if (string.IsNullOrEmpty(value))
@@ -114,7 +114,7 @@ public static class TextExtensions
     {
         if (string.IsNullOrEmpty(value))
             return string.Empty;
-        
+
         try
         {
             var bytes = Convert.FromBase64String(value);

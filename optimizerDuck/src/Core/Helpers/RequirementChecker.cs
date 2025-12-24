@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.ComponentModel;
+using System.Diagnostics;
+using System.Security.Principal;
+using Microsoft.Extensions.Logging;
 using optimizerDuck.Core.Services;
 using optimizerDuck.UI;
 using optimizerDuck.UI.Components;
 using optimizerDuck.UI.Logger;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Security.Principal;
 
 namespace optimizerDuck.Core.Helpers;
 
@@ -29,9 +29,9 @@ public static class RequirementChecker
             PromptDialog.Warning(
                 "Untested Operating System",
                 """
-        This optimizer has not been tested on non-Windows operating systems.
-        You may continue at your own risk, but some features may not work as expected.
-        """,
+                This optimizer has not been tested on non-Windows operating systems.
+                You may continue at your own risk, but some features may not work as expected.
+                """,
                 new PromptOption("Exit", Theme.Error, () => Environment.Exit(1)),
                 new PromptOption("Continue anyway", Theme.Warning)
             );
@@ -44,10 +44,10 @@ public static class RequirementChecker
             PromptDialog.Warning(
                 "Untested Windows Version",
                 $"""
-        Your Windows version [{Theme.Error}]{s.Os.Version}[/] has not been tested with this optimizer.
-        It is recommended to use Windows 10 or later.
-        [{Theme.WarningMuted}]You may continue anyway, but some features may not behave as expected.[/]
-        """,
+                 Your Windows version [{Theme.Error}]{s.Os.Version}[/] has not been tested with this optimizer.
+                 It is recommended to use Windows 10 or later.
+                 [{Theme.WarningMuted}]You may continue anyway, but some features may not behave as expected.[/]
+                 """,
                 new PromptOption("Exit", Theme.Error, () => Environment.Exit(1)),
                 new PromptOption("Continue anyway", Theme.Warning)
             );
@@ -60,10 +60,10 @@ public static class RequirementChecker
             PromptDialog.Warning(
                 "Untested Operating System Architecture",
                 $"""
-        Your system architecture [{Theme.Error}]{s.Os.Architecture}[/] has not been tested.
-        This optimizer is designed for 64-bit Windows systems.
-        [{Theme.WarningMuted}]You may continue anyway, but some features may not work properly.[/]
-        """,
+                 Your system architecture [{Theme.Error}]{s.Os.Architecture}[/] has not been tested.
+                 This optimizer is designed for 64-bit Windows systems.
+                 [{Theme.WarningMuted}]You may continue anyway, but some features may not work properly.[/]
+                 """,
                 new PromptOption("Exit", Theme.Error, () => Environment.Exit(1)),
                 new PromptOption("Continue anyway", Theme.Warning)
             );

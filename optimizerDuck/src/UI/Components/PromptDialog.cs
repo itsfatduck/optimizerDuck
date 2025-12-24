@@ -80,10 +80,10 @@ public class PromptDialog
         var buttonList = new List<string>();
         var keyMap = new Dictionary<char, string>(); // "Yes" => Y: Yes
         foreach (var (option, key, rest, color) in from option in _options
-                                                   let key = char.ToUpper(option.Key[0])
-                                                   let rest = option.Key.Substring(1)
-                                                   let color = option.Color
-                                                   select (option, key, rest, color))
+                 let key = char.ToUpper(option.Key[0])
+                 let rest = option.Key.Substring(1)
+                 let color = option.Color
+                 select (option, key, rest, color))
         {
             buttonList.Add($"[{color}][underline bold]{key}[/]{rest}[/]");
             keyMap[key] = option.Key;
@@ -186,7 +186,8 @@ public class PromptDialog
             [
                 new PromptOption("Exit", Theme.Error, () => Environment.Exit(1)),
                 new PromptOption("Restart", Theme.Success, () => RequirementChecker.Restart(true)),
-                new PromptOption("Create a new issue on GitHub", Theme.Bright, () => SystemHelper.OpenWebsite("https://github.com/itsfatduck/optimizerDuck/issues/new")),
+                new PromptOption("Create a new issue on GitHub", Theme.Bright,
+                    () => SystemHelper.OpenWebsite("https://github.com/itsfatduck/optimizerDuck/issues/new")),
                 new PromptOption("Open log", Theme.Warning, SystemHelper.OpenLogFile)
             ];
 

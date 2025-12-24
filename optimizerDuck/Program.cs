@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Text;
+using Microsoft.Extensions.Logging;
 using optimizerDuck.Core;
 using optimizerDuck.Core.Extensions;
 using optimizerDuck.Core.Helpers;
@@ -8,7 +9,6 @@ using optimizerDuck.UI;
 using optimizerDuck.UI.Components;
 using optimizerDuck.UI.Logger;
 using Spectre.Console;
-using System.Text;
 
 namespace optimizerDuck;
 

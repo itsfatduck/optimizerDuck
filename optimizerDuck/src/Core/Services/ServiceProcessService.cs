@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Management;
+using Microsoft.Extensions.Logging;
 using optimizerDuck.Models;
 using optimizerDuck.UI.Logger;
-using System.Management;
 
 namespace optimizerDuck.Core.Services;
 

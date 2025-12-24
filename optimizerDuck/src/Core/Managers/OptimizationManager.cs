@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Diagnostics;
+using Microsoft.Extensions.Logging;
 using optimizerDuck.Core.Extensions;
 using optimizerDuck.Core.Helpers;
 using optimizerDuck.Core.Optimizers;
@@ -8,7 +9,6 @@ using optimizerDuck.UI;
 using optimizerDuck.UI.Components;
 using optimizerDuck.UI.Logger;
 using Spectre.Console;
-using System.Diagnostics;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace optimizerDuck.Core.Managers;
@@ -25,14 +25,14 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
 
     public async Task<bool> Begin()
     {
-
         AnsiConsole.Clear();
         AnsiConsole.Write(Defaults.Logo);
 
         Log.LogInformation("Loading optimizations...");
 
         var optimizationCategories = OptimizationHelper.LoadOptimizationChoices();
-        Log.LogInformation("Loaded {CategoriesAmount} categories with {OptimizationAmount} optimizations.", optimizationCategories.Count,
+        Log.LogInformation("Loaded {CategoriesAmount} categories with {OptimizationAmount} optimizations.",
+            optimizationCategories.Count,
             optimizationCategories.Sum(g => g.Optimizations.Count));
 
         SystemHelper.Title("Select the optimizations you want to apply");
@@ -55,27 +55,24 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                 );
 
             var optimizationsToSelect = _selectedOptimizations.Count == 0
-                                        ? optimizationCategories.SelectMany(g => g.Optimizations).Where(t => t.EnabledByDefault)
-                                        : _selectedOptimizations;
+                ? optimizationCategories.SelectMany(g => g.Optimizations).Where(t => t.EnabledByDefault)
+                : _selectedOptimizations;
 
-            foreach (var optimization in optimizationsToSelect)
-            {
-                promptOptimizationChoice.Select(optimization);
-            }
+            foreach (var optimization in optimizationsToSelect) promptOptimizationChoice.Select(optimization);
 
             var optimizationChoices =
                 await escapeCancellableConsole.PromptAsync(promptOptimizationChoice).ConfigureAwait(false);
 
             _selectedOptimizations = new Queue<OptimizationChoice>(optimizationChoices);
 
-            if (_selectedOptimizations.Any(t => t.Instance is BloatwareAndServices.RemoveBloatwareApps)) // if Bloatware selection is selected
+            if (_selectedOptimizations.Any(t =>
+                    t.Instance is BloatwareAndServices.RemoveBloatwareApps)) // if Bloatware selection is selected
             {
                 Log.LogInformation("Getting installed bloatware apps...");
 
                 var appxClassification = OptimizationHelper.GetBloatwareChoices();
 
                 if (appxClassification.SafeApps.Count == 0 && appxClassification.CautionApps.Count == 0)
-                {
                     return PromptDialog.Warning(
                         "No Bloatware Detected",
                         $"""
@@ -86,7 +83,6 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                         new PromptOption("Continue", Theme.Success, () => true),
                         new PromptOption("Back", Theme.Warning, () => false)
                     );
-                }
 
                 SystemHelper.Title("Select the bloatware apps you want to remove");
                 var promptBloatware = new MultiSelectionPrompt<AppxPackage>()
@@ -104,7 +100,8 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                     promptBloatware.AddChoiceGroup(
                         new AppxPackage
                         {
-                            DisplayName = $"[bold underline {Theme.Success}]Safe Apps[/] - [{Theme.Success}]Safe to remove[/]",
+                            DisplayName =
+                                $"[bold underline {Theme.Success}]Safe Apps[/] - [{Theme.Success}]Safe to remove[/]",
                             Name = "",
                             Version = "",
                             InstallLocation = ""
@@ -115,7 +112,8 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                     promptBloatware.AddChoiceGroup(
                         new AppxPackage
                         {
-                            DisplayName = $"[bold underline {Theme.Error}]Caution Apps[/] - [{Theme.Error}]May cause issues[/]",
+                            DisplayName =
+                                $"[bold underline {Theme.Error}]Caution Apps[/] - [{Theme.Error}]May cause issues[/]",
                             Name = "",
                             Version = "",
                             InstallLocation = ""
@@ -175,10 +173,11 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
         _systemSnapshot = await SystemInfoService.RefreshAsync().ConfigureAwait(false);
 
         Log.LogDebug("Selected {OptimizationAmount} optimizations: {Optimizations}",
-                     _selectedOptimizations.Count,
-                     string.Join(", ", _selectedOptimizations.Select(t => t.Name)));
+            _selectedOptimizations.Count,
+            string.Join(", ", _selectedOptimizations.Select(t => t.Name)));
 
-        if (_selectedOptimizations.Any(t => t.Instance is BloatwareAndServices.RemoveBloatwareApps)) // if Bloatware selection is selected
+        if (_selectedOptimizations.Any(t =>
+                t.Instance is BloatwareAndServices.RemoveBloatwareApps)) // if Bloatware selection is selected
             Log.LogDebug("Selected {BloatwareAmount} bloatware apps: {BloatwareApps}", SelectedBloatware.Count,
                 string.Join(", ", SelectedBloatware.Select(app => $"{app.DisplayName.Trim()} ({app.Version.Trim()})")));
 
@@ -190,7 +189,6 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
             .StartAsyncGlobal("Initializing Optimization", async ctx =>
             {
                 while (_selectedOptimizations.TryDequeue(out var selectedOptimization))
-                {
                     try
                     {
                         cancellationToken.ThrowIfCancellationRequested();
@@ -202,7 +200,8 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                         };
 
                         SystemHelper.Title(selectedOptimization.Name);
-                        ctx.Status($"Applying [{Theme.Primary}]{selectedOptimization.Name}[/]... [{Theme.Muted}][[Press [{Theme.Error}]CTRL + C[/] to cancel the optimization]][/]");
+                        ctx.Status(
+                            $"Applying [{Theme.Primary}]{selectedOptimization.Name}[/]... [{Theme.Muted}][[Press [{Theme.Error}]CTRL + C[/] to cancel the optimization]][/]");
 
                         using var scope = Log.BeginScope("Optimization: {OptimizationName}", selectedOptimization.Name);
 
@@ -212,7 +211,8 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
 
                         var stopwatch = Stopwatch.StartNew();
 
-                        await selectedOptimization.Instance!.Apply(_systemSnapshot, cancellationToken).ConfigureAwait(false);
+                        await selectedOptimization.Instance!.Apply(_systemSnapshot, cancellationToken)
+                            .ConfigureAwait(false);
                         //await Task.Delay(5000, cancellationToken);
                         stopwatch.Stop();
 
@@ -224,14 +224,13 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
                     }
                     catch (Exception e)
                     {
-                        Log.LogError(e, "Failed to apply optimization {OptimizationName}. Skipped.", selectedOptimization.Name);
+                        Log.LogError(e, "Failed to apply optimization {OptimizationName}. Skipped.",
+                            selectedOptimization.Name);
                     }
                     finally
                     {
                         Log.LogDebug(new string('=', 60));
                     }
-                }
-
             });
 
         if (cancellationToken.IsCancellationRequested)
@@ -255,9 +254,9 @@ public class OptimizationManager(SystemSnapshot systemSnapshot)
 
         PromptDialog.Warning("Restart to Apply Changes",
             $"""
-            The optimizations have been applied successfully.
-            Please [{Theme.Success}]restart[/] your PC for the changes to take effect.
-            """,
+             The optimizations have been applied successfully.
+             Please [{Theme.Success}]restart[/] your PC for the changes to take effect.
+             """,
             new PromptOption("Restart now", Theme.Success, () =>
             {
                 Log.LogInformation("Restarting...");

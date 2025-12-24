@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using System.Reflection;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using optimizerDuck.Core.Extensions;
@@ -9,7 +10,6 @@ using optimizerDuck.Models;
 using optimizerDuck.UI;
 using optimizerDuck.UI.Logger;
 using Spectre.Console;
-using System.Reflection;
 
 namespace optimizerDuck.Core.Helpers;
 
@@ -23,7 +23,8 @@ public static class OptimizationHelper
         {
             entry.Priority = CacheItemPriority.NeverRemove;
 
-            var optimizationCategories = ReflectionHelper.FindImplementationsInLoadedAssemblies(typeof(IOptimizationCategory))
+            var optimizationCategories = ReflectionHelper
+                .FindImplementationsInLoadedAssemblies(typeof(IOptimizationCategory))
                 .ToArray();
 
             var allOptimizationsByCategory = optimizationCategories
@@ -39,7 +40,8 @@ public static class OptimizationHelper
 
             var allOptimizations = allOptimizationsByCategory.SelectMany(x => x.Optimizations).ToList();
             var globalMaxNameLength = allOptimizations.DefaultIfEmpty().Max(t => t?.Name?.Length ?? 0) + 1;
-            var maxImpactLength = allOptimizations.DefaultIfEmpty().Max(t => t?.Impact.GetDescription().Length ?? 0) + 1;
+            var maxImpactLength =
+                allOptimizations.DefaultIfEmpty().Max(t => t?.Impact.GetDescription().Length ?? 0) + 1;
 
             var categories = new List<OptimizationCategoryChoice>();
 
@@ -68,7 +70,8 @@ public static class OptimizationHelper
             {
                 Log.LogDebug("Loaded category [{Category}]:", g.Name);
                 foreach (var t in g.Optimizations)
-                    Log.LogDebug("  - {OptimizationName} {OptimizationDescription}", t.Name, Markup.Remove(t.Description));
+                    Log.LogDebug("  - {OptimizationName} {OptimizationDescription}", t.Name,
+                        Markup.Remove(t.Description));
             }
 
             return orderedCategories;
@@ -96,14 +99,14 @@ public static class OptimizationHelper
                                                        }
                                                        return $false
                                                    } | Select-Object Name, Version, InstallLocation
-                                                   
+
                                                    $cautionInstalled = $installedApps | Where-Object {
                                                        foreach ($s in $cautionApps) {
                                                            if ($_.Name.ToLower() -like "*$($s.ToLower())*") { return $true }
                                                        }
                                                        return $false
                                                    } | Select-Object Name, Version, InstallLocation
-                                                   
+
                                                    # create the JSON object
                                                    $result = [PSCustomObject]@{
                                                        SafeApps    = @($safeInstalled | ForEach-Object {
@@ -162,7 +165,10 @@ public static class OptimizationHelper
                     {
                         return app with
                         {
-                            DisplayName = Defaults.SAFE_APPS.TryGetValue(app.Name, out var dn) ? dn : app.Name // get display name or fallback to app name
+                            DisplayName =
+                            Defaults.SAFE_APPS.TryGetValue(app.Name, out var dn)
+                                ? dn
+                                : app.Name // get display name or fallback to app name
                         };
                     })
                     .OrderBy(x => x.DisplayName)

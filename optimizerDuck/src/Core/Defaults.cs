@@ -1,14 +1,12 @@
-﻿using optimizerDuck.UI;
+﻿using System.Diagnostics;
+using optimizerDuck.UI;
 using optimizerDuck.UI.Components;
 using Spectre.Console;
-using System.Diagnostics;
 
 namespace optimizerDuck.Core;
 
 public static class Defaults
 {
-    public static bool IsDebug = Environment.GetCommandLineArgs().Contains("--debug");
-
     public const string RawLogo = """
                                                 _   _           _              _____             _
                                                | | (_)         (_)            |  __ \           | |
@@ -39,6 +37,7 @@ public static class Defaults
 
     public const string RestorePointName = "optimizerDuck Restore Point";
     public const string PowerPlanGUID = "946c0ca5-6ee0-4f2a-9dd7-7addbb8e60f5";
+    public static bool IsDebug = Environment.GetCommandLineArgs().Contains("--debug");
 
     public static readonly Panel Logo = new(
             new Align(
@@ -57,7 +56,7 @@ public static class Defaults
                 // @formatter:on
                 HorizontalAlignment.Center
             ))
-    { Border = CustomBoxBorder.UnderlineBorder, Padding = new Padding(0, 1, 0, 1) };
+        { Border = CustomBoxBorder.UnderlineBorder, Padding = new Padding(0, 1, 0, 1) };
 
     public static readonly string ExePath = Environment.ProcessPath!;
     public static readonly string ExeDir = Path.GetDirectoryName(ExePath)!;

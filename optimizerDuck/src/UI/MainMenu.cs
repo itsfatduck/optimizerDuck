@@ -56,7 +56,7 @@ internal static class MainMenu
                         Theme.Accent,
                         CustomBoxBorder.UnderlineBorder).Build()
                 )
-            { Expand = false }
+                { Expand = false }
         );
         AnsiConsole.Write(start);
         AnsiConsole.Write(middlePanels);

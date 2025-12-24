@@ -25,7 +25,6 @@ public class PlainTextFormatter : ITextFormatter
             output.Write($" [{sv.Value,-25}]");
 
 
-
         // [INFO   ]
         var levelText = logEvent.Level switch
         {
@@ -60,7 +59,8 @@ public class PlainTextFormatter : ITextFormatter
 
         // Message
         var message = RenderWithoutQuotes(logEvent);
-        if (logEvent.Level == LogEventLevel.Debug && !Defaults.IsDebug) // i want to keep markup for debug logs when not in debug mode to avoid markup exceptions
+        if (logEvent.Level == LogEventLevel.Debug &&
+            !Defaults.IsDebug) // i want to keep markup for debug logs when not in debug mode to avoid markup exceptions
             output.Write($" {message}");
         else
             output.Write($" {Markup.Remove(message)}");

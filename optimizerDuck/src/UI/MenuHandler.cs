@@ -30,10 +30,7 @@ internal class MenuHandler
 
     public async Task<SystemSnapshot> HandleInputAsync(char option)
     {
-        if (_menuActions.TryGetValue(option, out var action))
-        {
-            await action();
-        }
+        if (_menuActions.TryGetValue(option, out var action)) await action();
 
         // If invalid key, do nothing and let the loop re-render the menu.
         return _systemSnapshot;
@@ -47,7 +44,7 @@ internal class MenuHandler
             {
                 using var cancelCancellationTokenSource = new CancellationTokenSource();
                 ConsoleCancelEventHandler cancelHandler = null!;
-                
+
                 cancelHandler = (sender, e) =>
                 {
                     cancelCancellationTokenSource.Cancel();
@@ -56,7 +53,7 @@ internal class MenuHandler
                     Console.CancelKeyPress -= cancelHandler;
                 };
                 Console.CancelKeyPress += cancelHandler;
-                
+
                 await _optimizer.Run(cancelCancellationTokenSource.Token).ConfigureAwait(false);
             }
     }

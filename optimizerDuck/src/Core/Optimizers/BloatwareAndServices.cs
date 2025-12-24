@@ -34,17 +34,21 @@ public class BloatwareAndServices : IOptimizationCategory
             while (OptimizationManager.SelectedBloatware.TryDequeue(out var appxPackage))
             {
                 t.ThrowIfCancellationRequested();
-                appxPackage = appxPackage with { DisplayName = appxPackage.DisplayName.Trim(), Version = appxPackage.Version.Trim() };
-                Log.LogInformation($"Removing bloatware app: [{Theme.Primary}]{appxPackage.DisplayName}[/] [{Theme.Success}]{appxPackage.Version}[/] ([dim]{appxPackage.Name}[/])");
+                appxPackage = appxPackage with
+                {
+                    DisplayName = appxPackage.DisplayName.Trim(), Version = appxPackage.Version.Trim()
+                };
+                Log.LogInformation(
+                    $"Removing bloatware app: [{Theme.Primary}]{appxPackage.DisplayName}[/] [{Theme.Success}]{appxPackage.Version}[/] ([dim]{appxPackage.Name}[/])");
 
                 ShellService.PowerShell($$"""
-                                               $packages = Get-AppxPackage -AllUsers | Where-Object { $_.Name -eq "{{appxPackage.Name}}" }
-                                               Write-Output "Found $($packages.Count) packages for {{appxPackage.Name}}"
-                                               foreach ($pkg in $packages) {
-                                                   Write-Output "Removing $($pkg.PackageFullName)"
-                                                   Remove-AppxPackage -Package $pkg.PackageFullName -AllUsers
-                                               }
-                                               """);
+                                          $packages = Get-AppxPackage -AllUsers | Where-Object { $_.Name -eq "{{appxPackage.Name}}" }
+                                          Write-Output "Found $($packages.Count) packages for {{appxPackage.Name}}"
+                                          foreach ($pkg in $packages) {
+                                              Write-Output "Removing $($pkg.PackageFullName)"
+                                              Remove-AppxPackage -Package $pkg.PackageFullName -AllUsers
+                                          }
+                                          """);
             }
 
             Log.LogInformation("Bloatware apps have been removed.");
@@ -402,14 +406,16 @@ public class BloatwareAndServices : IOptimizationCategory
             );
             Log.LogInformation("Services have been configured.");
 
-            var hasSystemSSD = s.Disk.Volumes.Any(volume => volume is { SystemDrive: true, DriveTypeDescription: "SSD" });
+            var hasSystemSSD =
+                s.Disk.Volumes.Any(volume => volume is { SystemDrive: true, DriveTypeDescription: "SSD" });
 
             ServiceProcessService.ChangeServiceStartupType(
                 hasSystemSSD // Enable SysMain on SSD
                     ? new ServiceItem("SysMain", ServiceStartupType.Automatic)
                     : new ServiceItem("SysMain", ServiceStartupType.Disabled)
             );
-            Log.LogDebug("System drive is {Type}, SysMain will be {Status}.", hasSystemSSD ? "SSD" : "HDD", hasSystemSSD ? "enabled" : "disabled");
+            Log.LogDebug("System drive is {Type}, SysMain will be {Status}.", hasSystemSSD ? "SSD" : "HDD",
+                hasSystemSSD ? "enabled" : "disabled");
 
             return Task.CompletedTask;
         }

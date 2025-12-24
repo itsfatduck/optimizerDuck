@@ -1,3 +1,6 @@
+using System.Diagnostics;
+using System.Net.Http.Headers;
+using System.Reflection;
 using ConsoleInk;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -7,9 +10,6 @@ using optimizerDuck.UI;
 using optimizerDuck.UI.Components;
 using optimizerDuck.UI.Logger;
 using Spectre.Console;
-using System.Diagnostics;
-using System.Net.Http.Headers;
-using System.Reflection;
 
 namespace optimizerDuck.Core.Services;
 
@@ -33,7 +33,8 @@ public class UpdateService
 
         try
         {
-            var response = await HttpClient.GetStringAsync($"https://api.github.com/repos/{Owner}/{Repo}/releases/latest");
+            var response =
+                await HttpClient.GetStringAsync($"https://api.github.com/repos/{Owner}/{Repo}/releases/latest");
             var latestRelease = JsonConvert.DeserializeObject<GitHubRelease>(response);
 
             if (latestRelease == null || string.IsNullOrEmpty(latestRelease.TagName))
@@ -89,19 +90,17 @@ public class UpdateService
                 }
 
                 if (PromptDialog.Warning(
-                    "Update Available",
-                    $"""
-                    A new version [{Theme.Primary}]{latestVersionStr}[/] is ready to install.
-                    Updating ensures you get the latest features and fixes.
-        
-                    Would you like to download and install it now?
-                    """,
-                    new PromptOption("Yes", Theme.Success),
-                    new PromptOption("Not now", Theme.Warning, () => Task.FromResult(false))
-                ))
-                {
+                        "Update Available",
+                        $"""
+                         A new version [{Theme.Primary}]{latestVersionStr}[/] is ready to install.
+                         Updating ensures you get the latest features and fixes.
+
+                         Would you like to download and install it now?
+                         """,
+                        new PromptOption("Yes", Theme.Success),
+                        new PromptOption("Not now", Theme.Warning, () => Task.FromResult(false))
+                    ))
                     await DownloadAndApplyUpdate(updateExecutableAsset);
-                }
             }
             else
             {
@@ -122,17 +121,20 @@ public class UpdateService
         {
             await AnsiConsole.Progress().StartAsync(async ctx =>
             {
-                Log.LogInformation("Downloading update from {DownloadUrl} to {TempPath}", asset.BrowserDownloadUrl, tempDownloadPath);
+                Log.LogInformation("Downloading update from {DownloadUrl} to {TempPath}", asset.BrowserDownloadUrl,
+                    tempDownloadPath);
                 var task = ctx.AddTask($"Downloading [{Theme.Primary}]{asset.Name}[/]");
 
-                using var response = await HttpClient.GetAsync(asset.BrowserDownloadUrl, HttpCompletionOption.ResponseHeadersRead);
+                using var response =
+                    await HttpClient.GetAsync(asset.BrowserDownloadUrl, HttpCompletionOption.ResponseHeadersRead);
                 response.EnsureSuccessStatusCode();
 
                 var totalBytes = response.Content.Headers.ContentLength ?? -1L;
                 task.MaxValue = totalBytes;
 
                 await using var contentStream = await response.Content.ReadAsStreamAsync();
-                await using var fileStream = new FileStream(tempDownloadPath, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true);
+                await using var fileStream = new FileStream(tempDownloadPath, FileMode.Create, FileAccess.Write,
+                    FileShare.None, 8192, true);
 
                 var buffer = new byte[8192];
                 long downloadedBytes = 0;
@@ -151,12 +153,8 @@ public class UpdateService
             Log.LogError(ex, "Error downloading update: {Message}", ex.Message);
             PromptDialog.Warning("Download Failed", $"Failed to download the update: [{Theme.Error}]{ex.Message}[/]",
                 new PromptOption("Continue anyway", Theme.Success),
-                new PromptOption("Retry", Theme.Warning, async () =>
-                {
-                    await DownloadAndApplyUpdate(asset);
-                })
+                new PromptOption("Retry", Theme.Warning, async () => { await DownloadAndApplyUpdate(asset); })
             );
-            return;
         }
         finally
         {
@@ -196,8 +194,10 @@ public class UpdateService
             StartInfo = new ProcessStartInfo
             {
                 FileName = "powershell.exe",
-                Arguments = $"-NonInteractive -NoLogo -NoProfile -ExecutionPolicy Bypass -EncodedCommand {updateScript.EncodeBase64()}",
-                UseShellExecute = true, // start as a separate process via the shell so it doesn't inherit debugger/std handles
+                Arguments =
+                    $"-NonInteractive -NoLogo -NoProfile -ExecutionPolicy Bypass -EncodedCommand {updateScript.EncodeBase64()}",
+                UseShellExecute =
+                    true, // start as a separate process via the shell so it doesn't inherit debugger/std handles
                 CreateNoWindow = true
             }
         };
@@ -205,27 +205,21 @@ public class UpdateService
         process.Start();
         Environment.Exit(0);
     }
-
 }
 
 // Helper classes for deserializing GitHub API response
 public class GitHubRelease
 {
-    [JsonProperty("tag_name")]
-    public required string TagName { get; set; }
+    [JsonProperty("tag_name")] public required string TagName { get; set; }
 
-    [JsonProperty("assets")]
-    public required List<GitHubAsset> Assets { get; set; }
+    [JsonProperty("assets")] public required List<GitHubAsset> Assets { get; set; }
 
-    [JsonProperty("body")]
-    public required string Body { get; set; }
+    [JsonProperty("body")] public required string Body { get; set; }
 }
 
 public class GitHubAsset
 {
-    [JsonProperty("name")]
-    public required string Name { get; set; }
+    [JsonProperty("name")] public required string Name { get; set; }
 
-    [JsonProperty("browser_download_url")]
-    public required string BrowserDownloadUrl { get; set; }
+    [JsonProperty("browser_download_url")] public required string BrowserDownloadUrl { get; set; }
 }

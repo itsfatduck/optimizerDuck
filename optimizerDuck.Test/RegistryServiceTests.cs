@@ -10,7 +10,6 @@ public class RegistryServiceTests
     [Fact]
     public void Read()
     {
-
         var binary =
             RegistryService.Read<byte[]>(new RegistryItem(@"HKEY_LOCAL_MACHINE\SOFTWARE\Logitech\LGHUB\Data",
                 "canary_machine_identifier"));

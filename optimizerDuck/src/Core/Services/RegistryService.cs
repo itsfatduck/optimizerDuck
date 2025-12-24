@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using optimizerDuck.Models;
 using optimizerDuck.UI.Logger;
-using System.Diagnostics.CodeAnalysis;
 
 namespace optimizerDuck.Core.Services;
 

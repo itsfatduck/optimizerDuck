@@ -31,18 +31,27 @@ public class UserExperience : IOptimizationCategory
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "TaskbarDa", 0),
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "TaskbarMn", 0),
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Search", "SearchboxTaskbarMode", 0),
-                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\TaskbarDeveloperSettings", "TaskbarEndTask", 1),
+                new RegistryItem(
+                    @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\TaskbarDeveloperSettings",
+                    "TaskbarEndTask", 1),
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Search", "BingSearchEnabled", 0),
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Search", "CortanaConsent", 0),
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Search", "CortanaConsent2", 0),
-                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Search", "BackgroundAppGlobalToggle", 0),
-                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "ShowTaskViewButton", 0),
-                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People", "PeopleBand", 0),
-                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer", "HideSCAMeetNow", 1),
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Search", "BackgroundAppGlobalToggle",
+                    0),
+                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+                    "ShowTaskViewButton", 0),
+                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People",
+                    "PeopleBand", 0),
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer", "HideSCAMeetNow",
+                    1),
                 new RegistryItem(@"HKCU\SOFTWARE\Policies\Microsoft\Windows\Windows Feeds", "EnableFeeds", 0),
-                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Feeds", "ShellFeedsTaskbarViewMode", 2),
-                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "ListviewShadow", 0),
-                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "TaskbarAnimations", 0)
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Feeds", "ShellFeedsTaskbarViewMode",
+                    2),
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "ListviewShadow",
+                    0),
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+                    "TaskbarAnimations", 0)
             );
             Log.LogInformation("Taskbar cleaned up and simplified.");
             return Task.CompletedTask;
@@ -62,8 +71,10 @@ public class UserExperience : IOptimizationCategory
             using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(
-                new RegistryItem(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", 0),
-                new RegistryItem(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "SystemUsesLightTheme", 0)
+                new RegistryItem(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
+                    "AppsUseLightTheme", 0),
+                new RegistryItem(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
+                    "SystemUsesLightTheme", 0)
             );
             Log.LogInformation("Switched to dark mode.");
             return Task.CompletedTask;
@@ -83,17 +94,24 @@ public class UserExperience : IOptimizationCategory
             using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(
-                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "ShowSyncProviderNotifications", 0),
-                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager", "SystemPaneSuggestionsEnabled", 0),
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+                    "ShowSyncProviderNotifications", 0),
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager",
+                    "SystemPaneSuggestionsEnabled", 0),
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "HideFileExt", 0),
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\DWM", "EnableAeroPeek", 0),
                 new RegistryItem(@"HKCU\Control Panel\Desktop\WindowMetrics", "MinAnimate", "0"),
-                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "EnableTransparency", 0),
-                new RegistryItem(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "Hidden", 1),
-                new RegistryItem(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Serialize", "StartupDelayInMSec", 0),
-                new RegistryItem(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "ShowSecondsInSystemClock", 1),
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
+                    "EnableTransparency", 0),
+                new RegistryItem(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+                    "Hidden", 1),
+                new RegistryItem(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Serialize",
+                    "StartupDelayInMSec", 0),
+                new RegistryItem(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+                    "ShowSecondsInSystemClock", 1),
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "ShowInfoTip", 0),
-                new RegistryItem(@"HKCU\SOFTWARE\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32", ""), // old Win10 context menu
+                new RegistryItem(@"HKCU\SOFTWARE\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32",
+                    ""), // old Win10 context menu
                 new RegistryItem(@"HKCU\Control Panel\Desktop", "MenuShowDelay", "0")
             );
             Log.LogInformation("Explorer visuals optimized.");
@@ -115,15 +133,16 @@ public class UserExperience : IOptimizationCategory
             using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(
-                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects", "VisualFXSetting", 3),
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects",
+                    "VisualFXSetting", 3),
                 new RegistryItem(@"HKCU\Control Panel\Desktop", "DragFullWindows", "0"),
-                new RegistryItem(@"HKCU\Control Panel\Desktop", "UserPreferencesMask", new byte[] { 144, 18, 3, 128, 16, 0, 0, 0 }, RegistryValueKind.Binary)
+                new RegistryItem(@"HKCU\Control Panel\Desktop", "UserPreferencesMask",
+                    new byte[] { 144, 18, 3, 128, 16, 0, 0, 0 }, RegistryValueKind.Binary)
             );
             Log.LogInformation("Visual performance set to best.");
             return Task.CompletedTask;
         }
     }
-
 
 
     public class DisableNotifications : IOptimization

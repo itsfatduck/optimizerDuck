@@ -28,7 +28,8 @@ public static class StreamHelper
             await response.Content.CopyToAsync(fs).ConfigureAwait(false);
 
             var length = fs.Length;
-            Log.LogInformation("Successfully downloaded {Length} bytes from {Url} to {FilePath}", length, url, filePath);
+            Log.LogInformation("Successfully downloaded {Length} bytes from {Url} to {FilePath}", length, url,
+                filePath);
 
             return (true, filePath);
         }

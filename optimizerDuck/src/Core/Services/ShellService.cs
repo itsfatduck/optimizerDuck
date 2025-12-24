@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Diagnostics;
+using System.Text;
+using Microsoft.Extensions.Logging;
 using optimizerDuck.Core.Extensions;
 using optimizerDuck.UI.Logger;
 using Spectre.Console;
-using System.Diagnostics;
-using System.Text;
 
 namespace optimizerDuck.Core.Services;
 
@@ -74,7 +74,8 @@ public static class ShellService
             | Stderr: {Stderr}
             | ExitCode: {ProcessExitCode}
             | Duration: {TimeSpan}
-            """, fullCommandForUser, stdoutDisplay, stderrDisplay, process.ExitCode, ServiceTracker.FormatTime(duration));
+            """, fullCommandForUser, stdoutDisplay, stderrDisplay, process.ExitCode,
+            ServiceTracker.FormatTime(duration));
 
         return new ShellResult(
             $"{fileName} {arguments} {command}",

@@ -53,8 +53,9 @@ public static class SystemProtectionHelper
                 new PromptOption("Skip", Theme.Error));
         }
         else
+        {
             Log.LogInformation(
                 $"[{Theme.Success}]A restore point [{Theme.Primary}]{Defaults.RestorePointName}[/] created successfully.[/]");
-
+        }
     }
 }

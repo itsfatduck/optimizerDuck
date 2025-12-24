@@ -17,7 +17,10 @@ public class Performance : IOptimizationCategory
     public class BackgroundAppsOptimization : IOptimization
     {
         public string Name { get; } = "Disable Background Apps";
-        public string Description { get; } = "Stops background applications from running to free up RAM and CPU resources";
+
+        public string Description { get; } =
+            "Stops background applications from running to free up RAM and CPU resources";
+
         public bool EnabledByDefault { get; } = true;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Minimal;
 
@@ -28,8 +31,10 @@ public class Performance : IOptimizationCategory
             using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(
-                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications", "GlobalUserDisabled", 1),
-                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search", "BackgroundAppGlobalToggle", 0)
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications",
+                    "GlobalUserDisabled", 1),
+                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search", "BackgroundAppGlobalToggle",
+                    0)
             );
             Log.LogInformation("Disabled background applications.");
             return Task.CompletedTask;
@@ -39,7 +44,10 @@ public class Performance : IOptimizationCategory
     public class ProcessPriorityOptimization : IOptimization
     {
         public string Name { get; } = "Optimize Process Priority";
-        public string Description { get; } = "Adjusts foreground app priority for better responsiveness and reduced input lag";
+
+        public string Description { get; } =
+            "Adjusts foreground app priority for better responsiveness and reduced input lag";
+
         public bool EnabledByDefault { get; } = true;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Significant;
 
@@ -72,9 +80,11 @@ public class Performance : IOptimizationCategory
 
 
             RegistryService.Write(
-                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl", "Win32PrioritySeparation", win32Priority)
+                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl", "Win32PrioritySeparation",
+                    win32Priority)
             );
-            Log.LogInformation("Applied process priority optimization (Win32PrioritySeparation = {Value}).", win32Priority);
+            Log.LogInformation("Applied process priority optimization (Win32PrioritySeparation = {Value}).",
+                win32Priority);
             return Task.CompletedTask;
         }
     }
@@ -92,12 +102,22 @@ public class Performance : IOptimizationCategory
             using var tracker = ServiceTracker.Begin(Log);
 
             RegistryService.Write(
-                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games", "Priority", 2),
-                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games", "Scheduling Category", "High"),
-                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games", "SFIO Priority", "High"),
-                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games", "GPU Priority", 8),
-                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile", "NetworkThrottlingIndex", unchecked((int)0xFFFFFFFF), RegistryValueKind.DWord),
-                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile", "SystemResponsiveness", 10),
+                new RegistryItem(
+                    @"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games",
+                    "Priority", 2),
+                new RegistryItem(
+                    @"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games",
+                    "Scheduling Category", "High"),
+                new RegistryItem(
+                    @"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games",
+                    "SFIO Priority", "High"),
+                new RegistryItem(
+                    @"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games",
+                    "GPU Priority", 8),
+                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile",
+                    "NetworkThrottlingIndex", unchecked((int)0xFFFFFFFF), RegistryValueKind.DWord),
+                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile",
+                    "SystemResponsiveness", 10),
                 new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers", "HwSchMode", 2)
             );
             Log.LogInformation("Optimized gaming scheduling and priority.");
@@ -108,7 +128,10 @@ public class Performance : IOptimizationCategory
     public class SvcHostSplitOptimization : IOptimization
     {
         public string Name { get; } = "SvcHost Split Threshold";
-        public string Description { get; } = "Adjusts SvcHostSplitThresholdInKB based on total system RAM to control service isolation and improve system stability.";
+
+        public string Description { get; } =
+            "Adjusts SvcHostSplitThresholdInKB based on total system RAM to control service isolation and improve system stability.";
+
         public bool EnabledByDefault { get; } = true;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Significant;
 
@@ -122,15 +145,15 @@ public class Performance : IOptimizationCategory
                 Log.LogInformation("Invalid RAM value: {RamTotalKB}. Skipping...", s.Ram.TotalKB);
                 return Task.CompletedTask;
             }
+
             RegistryService.Write(
-                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control", "SvcHostSplitThresholdInKB", s.Ram.TotalKB, RegistryValueKind.DWord)
+                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control", "SvcHostSplitThresholdInKB", s.Ram.TotalKB,
+                    RegistryValueKind.DWord)
             );
             Log.LogInformation("Set SvcHostSplitThresholdInKB to {Value}.", s.Ram.TotalKB);
             return Task.CompletedTask;
         }
     }
-
-
 
 
     public class DisableGameBar : IOptimization
@@ -212,7 +235,8 @@ public class Performance : IOptimizationCategory
     {
         public string Name { get; } = "GPU Optimization";
 
-        public string Description { get; } = "Optimizes GPU driver settings to disable unnecessary features and improve stability & performance";
+        public string Description { get; } =
+            "Optimizes GPU driver settings to disable unnecessary features and improve stability & performance";
 
         public bool EnabledByDefault { get; } = true;
         public OptimizationImpact Impact { get; } = OptimizationImpact.Significant;
@@ -262,7 +286,8 @@ public class Performance : IOptimizationCategory
                             new RegistryItem(path, "DisablePowerGating", 1),
                             new RegistryItem(path, "DisableVceClockGating", 1)
                         );
-                        Log.LogInformation("Applied AMD GPU optimizations for {GpuName} at index {GpuIndex:D4}.", gpu.Name,
+                        Log.LogInformation("Applied AMD GPU optimizations for {GpuName} at index {GpuIndex:D4}.",
+                            gpu.Name,
                             index);
                         break;
                     case GpuVendor.NVIDIA:
@@ -270,7 +295,8 @@ public class Performance : IOptimizationCategory
                             new RegistryItem(path, "DisableDynamicPstate", 1),
                             new RegistryItem(path, "DisableASyncPstates", 1)
                         );
-                        Log.LogInformation("Applied NVIDIA GPU optimizations for {GpuName} at index {GpuIndex:D4}.", gpu.Name,
+                        Log.LogInformation("Applied NVIDIA GPU optimizations for {GpuName} at index {GpuIndex:D4}.",
+                            gpu.Name,
                             index);
                         break;
                     case GpuVendor.Intel:
@@ -282,7 +308,8 @@ public class Performance : IOptimizationCategory
                             new RegistryItem(path, "EnableCompensationForDVI", 1),
                             new RegistryItem(path, "Display1_DisableAsyncFlips", 1)
                         );
-                        Log.LogInformation("Applied Intel GPU optimizations for {GpuName} at index {GpuIndex:D4}.", gpu.Name,
+                        Log.LogInformation("Applied Intel GPU optimizations for {GpuName} at index {GpuIndex:D4}.",
+                            gpu.Name,
                             index);
                         break;
                     case GpuVendor.Unknown:
