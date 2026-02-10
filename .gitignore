@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/csharp,rider,visualstudio,windows
-# Edit at https://www.toptal.com/developers/gitignore?templates=csharp,rider,visualstudio,windows
+# Created by https://www.toptal.com/developers/gitignore/api/csharp,windows,rider,visualstudio,visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=csharp,windows,rider,visualstudio,visualstudiocode
 
 ### Csharp ###
 ## Ignore Visual Studio temporary files, build results, and
@@ -8,7 +8,6 @@
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
 # User-specific files
-.vscode/
 *.rsuser
 *.suo
 *.user
@@ -403,7 +402,7 @@ FodyWeavers.xsd
 ### Rider ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
-
+.idea/
 # User-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml
@@ -478,6 +477,19 @@ fabric.properties
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
+
+### VisualStudioCode ###
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
 
 ### Windows ###
 # Windows thumbnail cache files
@@ -681,6 +693,6 @@ $RECYCLE.BIN/
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
 
-# End of https://www.toptal.com/developers/gitignore/api/csharp,rider,visualstudio,windows
-.gemini/
-gha-creds-*.json
+# End of https://www.toptal.com/developers/gitignore/api/csharp,windows,rider,visualstudio,visualstudiocode
+
+

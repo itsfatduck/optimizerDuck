@@ -14,88 +14,71 @@
 <br>
 [![.NET Latest](https://img.shields.io/badge/.NET_Runtime-Latest-ef99dd)](https://dotnet.microsoft.com/en-us/download)
 [![Supported OS](https://img.shields.io/badge/Supported-Windows_10+_x64-0078d4)](https://www.microsoft.com/en-us/software-download/)
-<br>
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/O4O11OH7NH)
 
-<img src="./.github/assets/app_screenshot.png" alt="optimizerDuck App Screenshot" title="optimizerDuck App Screenshot" width="800" />
+<div style="display: flex; justify-content: center; gap: 20px;">
+<img src="./.github/assets/app_dark.png" alt="optimizerDuck Dark Mode" title="optimizerDuck Dark Mode" width="400" />
+<img src="./.github/assets/app_light.png" alt="optimizerDuck Light Mode" title="optimizerDuck Light Mode" width="400" />
+</div>
 
 </div>
 
-## 🚀 Quickstart
+## 🚀 Quick Start
 
-### Download
+### Download & Run
 
-1. [Download the latest release](https://github.com/itsfatduck/optimizerDuck/releases/latest)  
-2. Run the `.exe` file  
+1. Download the latest release from **GitHub**  
+👉 https://github.com/itsfatduck/optimizerDuck/releases/latest 
+2. Run the `.exe` file (no installer required)
 
 > [!TIP]
-> Remember to restart your PC after applying tweaks to **take effect**
+> Remember to restart your PC after applying optimizations to see the changes take effect.
 
 ### Documentation
 
-- For more detailed guides, check out the [docs](./Docs/index.md).
-
-## 🔥 Key Optimizations
-
-With **optimizerDuck**, you can optimize Windows performance, privacy, and more-across five focused areas:
-
-| Optimization Category | Summary |
-|------|--------------------------|
-| ⚡ Performance | Boosts responsiveness, gaming speed, and GPU efficiency |
-| 🧹 Bloatware & Services | Removes unnecessary apps and disables non-essential services |
-| 🔋 Power | Applies a high-performance power plan and disables limiting power-saving features |
-| 🔐 Security & Privacy | Blocks telemetry, tracking, and unwanted AI integrations |
-| 🖥️ User Experience | Cleans up interface clutter, enables dark mode, improves input responsiveness |
-
-> [!NOTE]
-> See the full list in [Docs/Optimizations](./Docs/optimizations.md)
-
-## 🦆 Why optimizerDuck Exists
-
-> [!IMPORTANT]
-> A fast PC needs smart management. **True performance** is about how you use your system: not just the hardware.
-
-I built optimizerDuck because I needed it. Gaming on a **slow PC** taught me that smooth performance isn't free: you have to work for it. I wasted hours trying complex tools and tweaks. I learned that the best fixes are often simple: managing background apps and keeping your system clean.
-
-**Real optimization is about habits: not just tools.**
-
-optimizerDuck is a simple, honest tool built on that idea. Every setting is **tested** and **clear**. It's not just for speed: it's for giving you control over your PC when you need every bit of power.
+- 📖 Full documentation and advanced guides are available in the [Docs](./Docs/index.md).
 
 ## 💬 Community, Contributing & Support
 
-- 📖 [Documentation](./Docs/index.md) → detailed guides  
+- 📖 [Documentation](./Docs/index.md) → detailed guides and tutorials  
 - 💬 [Discord](https://discord.gg/tDUBDCYw9Q) → chat & live support  
-- 🐞 [Issues](https://github.com/itsfatduck/optimizerDuck/issues) → bug reports & feedback  
+- 🐞 [Issues](https://github.com/itsfatduck/optimizerDuck/issues) → bug reports
 - 💡 [Discussions](https://github.com/itsfatduck/optimizerDuck/discussions) → tips & feature requests  
-- 🤝 [Contributing](./CONTRIBUTING.md) → how to join development (see [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md))  
 - ⭐ [Give us a star](https://github.com/itsfatduck/optimizerDuck) → your support keeps us going
-- ☕ [Ko-fi](https://ko-fi.com/O4O11OH7NH) → support the project  
+- ❤️ [Support the project](./SUPPORT.md) → keep us motivated and inspired by your generosity 💖
+- 📚 [Third-Party Notices](./THIRD-PARTY-NOTICES.md) → open source acknowledgments
 
 > [!TIP]
 > Before asking for help, check the docs and existing issues — your answer may already be there.
 
 ## ⚠️ Disclaimer & DMCA
 
-optimizerDuck is provided "as is", without warranty of any kind.  
-By using this tool, you agree that the authors are **not responsible** for any damage, data loss, or issues that may occur.  
-Always create a restore point or backup before applying changes.
+optimizerDuck is provided **"as is"**, without warranty of any kind.
 
-### DMCA & Attribution Disclaimer
+By using this tool, you agree that the authors are **not responsible** for:
+- System instability
+- Data loss
+- Performance issues caused by third-party software or user modifications
 
-optimizerDuck is an independent open‑source project built from scratch.  
-While many tweaks are inspired by community forums and other open‑source projects (such as WinUtil), all code in this repository was written by the author unless otherwise stated.
+Always create a **restore point or backup** before applying system changes.
 
-If you believe any part of this project infringes your copyright, please open an issue or submit a DMCA request via GitHub. We respect intellectual property and will review any valid request promptly.
+## DMCA & Attribution
+
+optimizerDuck is an independent open‑source project built from scratch.
+
+Some ideas and tweaks are inspired by community research and other open‑source tools (for example, WinUtil). Unless explicitly stated, **all code in this repository is original**.
+
+If you believe any part of this project violates your copyright, please open an issue or submit a DMCA request via GitHub. Valid requests will be reviewed promptly and respectfully.
 
 ## ⚖️ License
 
 <img src=".github/assets/cc_by_nc_sa_4_0.png" alt="CC BY-NC-SA 4.0 License" title="CC BY-NC-SA 4.0 License" width="400" />
 
-This project is licensed under the [CC BY-NC-SA 4.0 License](https://creativecommons.org/licenses/by-nc-sa/4.0/).<br>see the [LICENSE](./LICENSE) file for details.
+This project is licensed under the **[CC BY-NC-SA 4.0 License](https://creativecommons.org/licenses/by-nc-sa/4.0/)**.<br>See the [LICENSE](./LICENSE) file for details.
 
 ## ⭐ Star History
 
-If optimizerDuck made your PC faster, **star this repo** and share it with friends.<br>Every ⭐ motivates new tweaks and updates!
+If optimizerDuck helped improve your PC, consider giving the repo a ⭐ and sharing it with others.<br>
+**Every star** helps motivate future improvements and features.
 
 <a href="https://www.star-history.com/#itsfatduck/optimizerDuck&type=timeline&legend=top-left">
  <picture>

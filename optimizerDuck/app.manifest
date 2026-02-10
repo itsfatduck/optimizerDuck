@@ -5,14 +5,14 @@
         <security>
             <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
                 <!-- UAC Manifest Options
-                     If you want to change the Windows User Account Control level replace the
+                     If you want to change the Windows User Account Control level replace the 
                      requestedExecutionLevel node with one of the following.
         
                 <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
                 <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
                 <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
         
-                    Specifying requestedExecutionLevel element will disable file and registry virtualization.
+                    Specifying requestedExecutionLevel element will disable file and registry virtualization. 
                     Remove this element if your application requires this virtualization for backwards
                     compatibility.
                 -->
@@ -46,19 +46,18 @@
     </compatibility>
 
     <!-- Indicates that the application is DPI-aware and will not be automatically scaled by Windows at higher
-         DPIs. Windows Presentation Foundation (WPF) applications are automatically DPI-aware and do not need
-         to opt in. Windows Forms applications targeting .NET Framework 4.6 that opt into this setting, should
-         also set the 'EnableWindowsFormsHighDpiAutoResizing' setting to 'true' in their app.config.
-  
+         DPIs. Windows Presentation Foundation (WPF) applications are automatically DPI-aware and do not need 
+         to opt in. Windows Forms applications targeting .NET Framework 4.6 that opt into this setting, should 
+         also set the 'EnableWindowsFormsHighDpiAutoResizing' setting to 'true' in their app.config. 
+         
          Makes the application long-path aware. See https://docs.microsoft.com/windows/win32/fileio/maximum-file-path-limitation -->
-    <!--
+
     <application xmlns="urn:schemas-microsoft-com:asm.v3">
-      <windowsSettings>
-        <dpiAware xmlns="http://schemas.microsoft.com/SMI/2005/WindowsSettings">true</dpiAware>
-        <longPathAware xmlns="http://schemas.microsoft.com/SMI/2016/WindowsSettings">true</longPathAware>
-      </windowsSettings>
+        <windowsSettings xmlns="http://schemas.microsoft.com/SMI/2005/WindowsSettings">
+            <dpiAwareness>PerMonitorV2, PerMonitor</dpiAwareness>
+        </windowsSettings>
     </application>
-    -->
+
 
     <!-- Enable themes for Windows common controls and dialogs (Windows XP and later) -->
     <!--

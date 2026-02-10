@@ -1,0 +1,4 @@
+<Solution>
+    <Project Path="optimizerDuck.Test/optimizerDuck.Test.csproj"/>
+    <Project Path="optimizerDuck/optimizerDuck.csproj"/>
+</Solution>

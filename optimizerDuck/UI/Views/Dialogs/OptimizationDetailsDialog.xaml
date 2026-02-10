@@ -1,0 +1,167 @@
+﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="optimizerDuck.UI.Views.Dialogs.OptimizationDetailsDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <ui:TextBlock
+                FontTypography="Body"
+                Text="{Binding Optimization.ShortDescription}"
+                TextTrimming="WordEllipsis"
+                TextWrapping="Wrap" />
+
+            <Separator Margin="0,3,0,3" />
+
+            <StackPanel Margin="0,0,0,4" Orientation="Horizontal">
+                <ui:TextBlock
+                    FontTypography="BodyStrong"
+                    Text="{ext:Loc OptimizationDetailsDialog.Tags}"
+                    TextTrimming="WordEllipsis"
+                    TextWrapping="Wrap" />
+                <ui:SymbolIcon
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Margin="5,0,0,0"
+                    Symbol="QuestionCircle24"
+                    ToolTip="{ext:Loc Optimizer.UI.Tags.Help}"
+                    ToolTipService.InitialShowDelay="150"
+                    ToolTipService.Placement="Top"
+                    VerticalAlignment="Center" />
+            </StackPanel>
+            <ui:VirtualizingItemsControl ItemsSource="{Binding Optimization.TagDisplays}" Margin="0,2,0,2">
+                <ui:VirtualizingItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" />
+                    </ItemsPanelTemplate>
+                </ui:VirtualizingItemsControl.ItemsPanel>
+                <ui:VirtualizingItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Margin" Value="0,0,2,2" />
+                        <Setter Property="HorizontalAlignment" Value="Left" />
+                    </Style>
+                </ui:VirtualizingItemsControl.ItemContainerStyle>
+                <ui:VirtualizingItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                            CornerRadius="5"
+                            HorizontalAlignment="Left"
+                            Padding="4,2">
+                            <StackPanel Orientation="Horizontal">
+                                <ui:SymbolIcon
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Margin="0,0,5,0"
+                                    Symbol="{Binding Icon}" />
+
+                                <ui:TextBlock
+                                    Appearance="Secondary"
+                                    FontTypography="Caption"
+                                    Foreground="{DynamicResource TextFillColorInverseBrush}"
+                                    HorizontalAlignment="Center"
+                                    Text="{Binding Display}"
+                                    TextWrapping="Wrap"
+                                    VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ui:VirtualizingItemsControl.ItemTemplate>
+            </ui:VirtualizingItemsControl>
+
+
+            <StackPanel Margin="0,5,0,4" Orientation="Horizontal">
+                <ui:TextBlock
+                    FontTypography="BodyStrong"
+                    Text="{ext:Loc OptimizationDetailsDialog.Risk}"
+                    TextTrimming="WordEllipsis"
+                    TextWrapping="Wrap" />
+                <ui:SymbolIcon
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Margin="5,0,0,0"
+                    Symbol="QuestionCircle24"
+                    ToolTip="{ext:Loc Optimizer.UI.Risk.Help}"
+                    ToolTipService.InitialShowDelay="150"
+                    ToolTipService.Placement="Top"
+                    VerticalAlignment="Center" />
+            </StackPanel>
+            <Border
+                CornerRadius="5"
+                HorizontalAlignment="Left"
+                Padding="4,2">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Optimization.Risk}" Value="Moderate">
+                                <Setter Property="Background" Value="{DynamicResource SystemFillColorCautionBrush}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Optimization.Risk}" Value="Risky">
+                                <Setter Property="Background" Value="{DynamicResource SystemFillColorCriticalBrush}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <StackPanel Orientation="Horizontal">
+                    <ui:SymbolIcon
+                        Foreground="{DynamicResource TextFillColorInverseBrush}"
+                        Margin="0,0,5,0"
+                        Symbol="{Binding Optimization.RiskVisual.Icon}" />
+
+                    <ui:TextBlock
+                        FontTypography="Caption"
+                        Foreground="{DynamicResource TextFillColorInverseBrush}"
+                        HorizontalAlignment="Center"
+                        Text="{Binding Optimization.RiskVisual.Display}"
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Center" />
+                </StackPanel>
+            </Border>
+
+            <ui:TextBlock
+                FontTypography="BodyStrong"
+                Margin="0,5,0,0"
+                Text="{ext:Loc OptimizationDetailsDialog.Other}"
+                TextTrimming="WordEllipsis"
+                TextWrapping="Wrap" />
+            <ui:CardAction
+                Command="{Binding OpenRevertFileCommand}"
+                Icon="{ui:SymbolIcon FolderOpen24}"
+                Visibility="{Binding Optimization.State.AppliedAt, Converter={StaticResource NullToVisibilityConverter}}">
+
+                <StackPanel>
+                    <ui:TextBlock
+                        FontTypography="BodyStrong"
+                        Text="{ext:Loc OptimizationDetailsDialog.Other.OpenRevertFile.Title}"
+                        TextWrapping="Wrap" />
+                    <ui:TextBlock
+                        Appearance="Secondary"
+                        FontTypography="Body"
+                        Text="{ext:Loc OptimizationDetailsDialog.Other.OpenRevertFile.Description}"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+            </ui:CardAction>
+            <Border
+                Background="{DynamicResource CardBackgroundDisabled}"
+                CornerRadius="5"
+                HorizontalAlignment="Left"
+                Margin="0,5,0,0"
+                Padding="4,2"
+                ToolTip="{Binding Optimization.State.AppliedAt}"
+                ToolTipService.InitialShowDelay="150"
+                ToolTipService.Placement="Top"
+                Visibility="{Binding Optimization.State.AppliedAt, Converter={StaticResource NullToVisibilityConverter}}">
+                <ui:TextBlock
+                    FontTypography="Caption"
+                    HorizontalAlignment="Center"
+                    Text="{Binding Optimization.State.RelativeTime}"
+                    TextWrapping="Wrap"
+                    VerticalAlignment="Center" />
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

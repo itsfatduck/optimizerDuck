@@ -1,0 +1,71 @@
+﻿<ui:FluentWindow
+    ExtendsContentIntoTitleBar="True"
+    Height="800"
+    SnapsToDevicePixels="True"
+    TextOptions.TextRenderingMode="ClearType"
+    Title="optimizerDuck"
+    UseLayoutRounding="True"
+    Width="1350"
+    WindowBackdropType="Mica"
+    WindowCornerPreference="Round"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d"
+    ui:Design.Background="Black"
+    ui:Design.Foreground="White"
+    x:Class="optimizerDuck.UI.Views.Windows.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:extensions="clr-namespace:optimizerDuck.Common.Extensions"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:optimizerDuck.UI.Views.Pages"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <ui:NavigationView
+            FrameMargin="0"
+            IsFooterSeparatorVisible="False"
+            IsPaneToggleVisible="True"
+            IsTopSeparatorVisible="False"
+            Margin="0"
+            OpenPaneLength="200"
+            Padding="42,0,42,0"
+            PaneDisplayMode="Left"
+            TitleBar="{Binding ElementName=TitleBar, Mode=OneWay}"
+            x:Name="RootNavigation">
+            <ui:NavigationView.MenuItems>
+                <ui:NavigationViewItem
+                    Content="{extensions:Loc Sidebar.Dashboard}"
+                    Icon="{ui:SymbolIcon Home24}"
+                    TargetPageType="{x:Type pages:DashboardPage}" />
+                <ui:NavigationViewItemSeparator Margin="0,2,0,2" />
+
+                <ui:NavigationViewItem
+                    Content="{extensions:Loc Sidebar.Optimize}"
+                    Icon="{ui:SymbolIcon Rocket24}"
+                    TargetPageType="{x:Type pages:OptimizePage}" />
+            </ui:NavigationView.MenuItems>
+
+            <ui:NavigationView.FooterMenuItems>
+                <ui:NavigationViewItemSeparator Margin="0,2,0,2" />
+                <ui:NavigationViewItem
+                    Content="{extensions:Loc Sidebar.Settings}"
+                    Icon="{ui:SymbolIcon Settings24}"
+                    TargetPageType="{x:Type pages:SettingsPage}" />
+            </ui:NavigationView.FooterMenuItems>
+
+            <ui:NavigationView.ContentOverlay>
+                <Grid>
+                    <ui:SnackbarPresenter x:Name="SnackbarPresenter" />
+                </Grid>
+            </ui:NavigationView.ContentOverlay>
+        </ui:NavigationView>
+
+        <ui:TitleBar Title="optimizerDuck" x:Name="TitleBar">
+            <ui:TitleBar.Icon>
+                <ui:ImageIcon Source="pack://application:,,,/Resources/Images/Duck.png" />
+            </ui:TitleBar.Icon>
+        </ui:TitleBar>
+
+        <ui:ContentDialogHost x:Name="RootContentDialogPresenter" />
+    </Grid>
+</ui:FluentWindow>

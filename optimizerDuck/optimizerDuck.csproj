@@ -1,34 +1,79 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>Exe</OutputType>
-        <TargetFramework>net10.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net10.0-windows</TargetFramework>
+        <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
-        <LangVersion>preview</LangVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UseWPF>true</UseWPF>
+        <Authors>fatDuck</Authors>
         <ApplicationIcon>Logo.ico</ApplicationIcon>
-        <Configurations>Debug;Release</Configurations>
+        <Company>fatDuck</Company>
+        <FileVersion>2.0.0</FileVersion>
+        <Version>2.0.0</Version>
+        <Product>optimizerDuck</Product>
+        <Copyright>Copyright fatDuck 2026</Copyright>
+        <AssemblyTitle>optimizerDuck</AssemblyTitle>
+        <AssemblyDescription>Free, open-source Windows optimization tool for performance, privacy, and simplicity.</AssemblyDescription>
+        <NeutralLanguage>en-US</NeutralLanguage>
         <ApplicationManifest>app.manifest</ApplicationManifest>
-        <FileVersion>1.3.7</FileVersion>
-        <Version>1.3.7</Version>
-        <AssemblyTitle>Free, open-source Windows optimization tool for performance, privacy, and simplicity.</AssemblyTitle>
-        <NeutralLanguage>en</NeutralLanguage>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
         <PlatformTarget>x64</PlatformTarget>
-        <Platforms>AnyCPU;x64</Platforms>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="ConsoleInk.Net" Version="0.1.6"/>
-        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="10.0.0"/>
-        <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.0"/>
-        <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.5.4"/>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.4"/>
-        <PackageReference Include="Serilog" Version="4.3.1-dev-02387"/>
-        <PackageReference Include="Serilog.Extensions.Logging" Version="9.0.2"/>
-        <PackageReference Include="Serilog.Sinks.File" Version="7.0.0"/>
-        <PackageReference Include="Spectre.Console" Version="0.53.0"/>
-        <PackageReference Include="System.Management" Version="10.0.0"/>
-        <PackageReference Include="System.ServiceProcess.ServiceController" Version="10.0.0"/>
-        <PackageReference Include="vertical-spectreconsolelogger" Version="0.10.1-dev.20241201.35"/>
+        <Page Update="Views\Windows\MainWindow.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Views\Pages\Optimizations\OptimizationPage.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
     </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.2"/>
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.2"/>
+        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.2"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.4"/>
+        <PackageReference Include="Serilog" Version="4.3.0"/>
+        <PackageReference Include="Serilog.Extensions.Hosting" Version="10.0.0"/>
+        <PackageReference Include="Serilog.Sinks.File" Version="7.0.0"/>
+        <PackageReference Include="System.Management.Automation" Version="7.5.4"/>
+        <PackageReference Include="WPF-UI" Version="4.2.0"/>
+        <PackageReference Include="WPF-UI.DependencyInjection" Version="4.2.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Update="Resources\Languages\Translations.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>Translations.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="Resources\Languages\Translations.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Translations.resx</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="Resources\Images\Duck.png"/>
+        <None Remove="Resources\Images\GitHubLogoBlack.png"/>
+        <Resource Include="Resources\Images\Duck.png"/>
+        <None Remove="Resources\Images\Windows11.png"/>
+        <Resource Include="Resources\Images\GitHubLogoBlack.png"/>
+        <Resource Include="Resources\Images\GitHubLogoWhite.png"/>
+        <Resource Include="Resources\Images\DiscordLogo.png"/>
+    </ItemGroup>
+
 </Project>
