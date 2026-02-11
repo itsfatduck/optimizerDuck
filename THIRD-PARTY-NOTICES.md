@@ -4,13 +4,13 @@
 
 # Third-Party Software Notices
 
-**optimizerDuck** is built upon the shoulders of the amazing open-source community. To deliver the best experience, we rely on several third-party libraries and resources. Please note that while these components are integrated into our software, they remain the property of their respective owners and are governed by their own specific licenses.
+**optimizerDuck** is built upon the shoulders of the amazing open-source community. To deliver the best experience, I rely on several third-party libraries and resources. Please note that while these components are integrated into the software, they remain the property of their respective owners and are governed by their own specific licenses.
 
 > [!TIP]
-> **Help us stay transparent!**
-> If you notice a missing attribution or an incorrect license credit, please let us know. We'll fix it as soon as possible.
-> 
-> 📬 **Get in touch:** Open an [Issue](https://github.com/itsfatduck/optimizerDuck/issues) or reach us at: [itsfatduck@gmail.com](mailto:itsfatduck@gmail.com)
+> **Help me stay transparent!**
+> If you notice a missing attribution or an incorrect license credit, please let me know. I’ll fix it as soon as possible.
+>
+> 📬 **Get in touch:** Open an [Issue](https://github.com/itsfatduck/optimizerDuck/issues) or reach me at: [itsfatduck@gmail.com](mailto:itsfatduck@gmail.com)
 
 ---
 
