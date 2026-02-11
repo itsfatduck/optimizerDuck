@@ -9,6 +9,7 @@
 > [!TIP]
 > **Help us stay transparent!**
 > If you notice a missing attribution or an incorrect license credit, please let us know. We'll fix it as soon as possible.
+> 
 > 📬 **Get in touch:** Open an [Issue](https://github.com/itsfatduck/optimizerDuck/issues) or reach us at: [itsfatduck@gmail.com](mailto:itsfatduck@gmail.com)
 
 ---
