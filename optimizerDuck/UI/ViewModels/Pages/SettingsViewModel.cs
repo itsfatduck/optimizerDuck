@@ -171,6 +171,7 @@ public partial class SettingsViewModel(
 
     partial void OnSelectedCultureNameChanged(string value)
     {
+        if (!_isInitialized) return;
         if (string.IsNullOrEmpty(value)) return;
         _ = configManager.SetAsync("app:language", value);
 
@@ -182,12 +183,14 @@ public partial class SettingsViewModel(
 
     partial void OnCurrentApplicationThemeChanged(ApplicationTheme oldValue, ApplicationTheme newValue)
     {
+        if (!_isInitialized) return;
         ApplicationThemeManager.Apply(newValue, updateAccent: false);
         _ = configManager.SetAsync("app:theme", newValue.ToString());
     }
 
     partial void OnShellTimeoutMsChanged(int value)
     {
+        if (!_isInitialized) return;
         if (value <= 0) return;
         _ = configManager.SetAsync("optimize:shellTimeoutMs", value.ToString(CultureInfo.InvariantCulture));
     }
