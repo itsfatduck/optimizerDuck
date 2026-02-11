@@ -4,8 +4,6 @@
 
 # 💖 Support optimizerDuck
 
----
-
 Hi 👋
 I'm **fatDuck** ([@itsfatduck](https://github.com/itsfatduck)), the creator of **optimizerDuck**.
 
