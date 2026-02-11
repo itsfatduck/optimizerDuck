@@ -107,7 +107,7 @@ public class PowerManagement : IOptimizationCategory
             if (!match.Success)
             {
                 context.Logger.LogError("Failed to detect current active power plan");
-                return ApplyResult.False("Failed to detect current active power plan");
+                return ApplyResult.False(Loc.Instance[$"{ErrorPrefix}.DetectActivePlanFailed"]);
             }
 
             var previousPlanGuid = match.Groups[1].Value;
@@ -144,14 +144,14 @@ public class PowerManagement : IOptimizationCategory
             if (importResult.ExitCode != 0)
             {
                 context.Logger.LogError("Failed to import optimizerDuck power plan: {Error}", importResult.Stderr);
-                return ApplyResult.False("Failed to import optimizerDuck power plan.");
+                return ApplyResult.False(Loc.Instance[$"{ErrorPrefix}.ImportFailed"]);
             }
 
             var setActiveResult = ShellService.CMD($"powercfg /setactive {Shared.PowerPlanGUID}");
             if (setActiveResult.ExitCode != 0)
             {
                 context.Logger.LogError("Failed to activate optimizerDuck power plan: {Error}", setActiveResult.Stderr);
-                return ApplyResult.False("Failed to activate optimizerDuck power plan.");
+                return ApplyResult.False(Loc.Instance[$"{ErrorPrefix}.ActivateFailed"]);
             }
             context.Logger.LogInformation("Installed optimizerDuck power plan successfully!");
             return ApplyResult.True();

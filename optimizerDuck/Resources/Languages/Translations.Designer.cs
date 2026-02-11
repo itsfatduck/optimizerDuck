@@ -1024,6 +1024,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adjusts Service Host split threshold based on installed RAM to improve process isolation and stability..
+        /// </summary>
+        public static string Optimizer_Performance_SvcHostSplit_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.Performance.SvcHostSplit.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Power Management.
         /// </summary>
         public static string Optimizer_PowerManagement {
@@ -1087,11 +1096,39 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to activate optimizerDuck&apos;s power plan..
+        /// </summary>
+        public static string Optimizer_PowerManagement_InstallOptimizerDuckPowerPlan_Error_ActivateFailed {
+            get {
+                return ResourceManager.GetString("Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ActivateFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to detect the current active power plan..
+        /// </summary>
+        public static string Optimizer_PowerManagement_InstallOptimizerDuckPowerPlan_Error_DetectActivePlanFailed {
+            get {
+                return ResourceManager.GetString(("Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFai" +
+                        "led"), resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to download optimizerDuck&apos;s power plan..
         /// </summary>
         public static string Optimizer_PowerManagement_InstallOptimizerDuckPowerPlan_Error_DownloadFailed {
             get {
                 return ResourceManager.GetString("Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DownloadFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to import optimizerDuck&apos;s power plan..
+        /// </summary>
+        public static string Optimizer_PowerManagement_InstallOptimizerDuckPowerPlan_Error_ImportFailed {
+            get {
+                return ResourceManager.GetString("Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ImportFailed", resourceCulture);
             }
         }
         

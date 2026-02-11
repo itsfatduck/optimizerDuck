@@ -775,4 +775,16 @@
   <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
     <value>Không thể mở thư mục hoặc tệp</value>
   </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ImportFailed" xml:space="preserve">
+    <value>Không thể nhập power plan của optimizerDuck.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
+    <value>Không thể phát hiện power plan đang hoạt động hiện tại.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ActivateFailed" xml:space="preserve">
+    <value>Không thể kích hoạt power plan của optimizerDuck.</value>
+  </data>
+  <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
+    <value>Điều chỉnh ngưỡng tách Service Host dựa trên dung lượng RAM đã cài đặt nhằm cải thiện khả năng cô lập tiến trình và độ ổn định.</value>
+  </data>
 </root>
