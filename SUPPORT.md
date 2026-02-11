@@ -22,8 +22,6 @@ Your support helps with:
 
 ## ☕ Quick & Easy Support
 
-If you prefer traditional payment platforms:
-
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/itsfatduck)
 
 Even small contributions make a big difference.

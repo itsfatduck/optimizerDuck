@@ -9,6 +9,7 @@ using optimizerDuck.Core.Models.Revert.Steps;
 using optimizerDuck.Core.Models.UI;
 using optimizerDuck.Services;
 using optimizerDuck.Services.Managers;
+using Wpf.Ui;
 
 namespace optimizerDuck.Test.Services;
 
@@ -155,7 +156,9 @@ public class OptimizationServiceTests
         var loggerFactory = NullLoggerFactory.Instance;
         var systemInfoService = new SystemInfoService(NullLogger<SystemInfoService>.Instance);
         var streamService = new StreamService(NullLogger<StreamService>.Instance);
-        return new OptimizationService(revertManager, loggerFactory, systemInfoService, streamService);
+        var contentDialogService = new ContentDialogService();
+        var logger = NullLogger<OptimizationService>.Instance;
+        return new OptimizationService(revertManager, loggerFactory, systemInfoService, streamService, contentDialogService, logger);
     }
 
     private static string GetRevertFilePath(Guid id)

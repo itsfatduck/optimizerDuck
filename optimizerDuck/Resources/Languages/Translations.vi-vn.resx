@@ -742,4 +742,25 @@
   <data name="RestorePointDialog.Help" xml:space="preserve">
     <value>Khi bạn tiếp tục, ứng dụng sẽ tự động kích hoạt System Restore (nếu đang tắt) và tạo một điểm khôi phục mới với tên bắt đầu bằng "optimizerDuck...", giúp bảo vệ hệ thống trước mọi thay đổi.</value>
   </data>
+  <data name="RestorePoint.Snackbar.Error.Title" xml:space="preserve">
+    <value>Không thể tạo hoặc bật System Restore</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Error.Message" xml:space="preserve">
+    <value>Lỗi khi tạo hoặc bật System Restore, bạn hãy thử tạo thủ công.</value>
+  </data>
+  <data name="RestorePoint.Progress.Creating" xml:space="preserve">
+    <value>Đang tạo điểm khôi phục...</value>
+  </data>
+  <data name="RestorePoint.Progress.Enabling" xml:space="preserve">
+    <value>Đang mở System Restore...</value>
+  </data>
+  <data name="RestorePoint.Progress.Retrying" xml:space="preserve">
+    <value>Đang thử tạo lại điểm khôi phục...</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Success.Title" xml:space="preserve">
+    <value>Tạo thành công điểm khôi phục</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Success.Message" xml:space="preserve">
+    <value>Điểm khôi phục đã được tạo với tên: {0}.</value>
+  </data>
 </root>

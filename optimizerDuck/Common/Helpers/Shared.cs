@@ -22,10 +22,11 @@ public static class Shared
     public const string SupportMeURL = "https://github.com/itsfatduck/optimizerDuck/SUPPORT.md";
     
     public const string AcknowledgementsURL = "https://github.com/itsfatduck/optimizerDuck/blob/master/THIRD-PARTY-NOTICES.md";
+    
+    public const string RestorePointName = "optimizerDuck Restore Point";
 
     public const string PowerPlanUrl =
         "https://github.com/itsfatduck/optimizerDuck/raw/refs/heads/master/optimizerDuck.Resources/optimizerDuck.pow";
-
     public const string PowerPlanGUID = "8ae61178-2c55-43f2-afb2-f83725823657";
 
     public static readonly string ExePath = Environment.ProcessPath!;
@@ -41,4 +42,5 @@ public static class Shared
 
     public static string RevertDirectory =>
         Path.Combine(RootDirectory, "Revert");
+
 }

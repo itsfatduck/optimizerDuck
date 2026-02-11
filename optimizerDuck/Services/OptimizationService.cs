@@ -1,12 +1,19 @@
 using System.IO;
+using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Optimization;
+using optimizerDuck.Core.Models.Optimization.Services;
 using optimizerDuck.Core.Models.Revert;
 using optimizerDuck.Core.Models.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Managers;
+using optimizerDuck.Services.OptimizationServices;
+using optimizerDuck.UI.ViewModels.Dialogs;
+using optimizerDuck.UI.Views.Dialogs;
+using Wpf.Ui;
+using Wpf.Ui.Controls;
 
 namespace optimizerDuck.Services;
 
@@ -14,10 +21,13 @@ public class OptimizationService(
     RevertManager revertManager,
     ILoggerFactory loggerFactory,
     SystemInfoService systemInfoService,
-    StreamService streamService)
+    StreamService streamService,
+    IContentDialogService contentDialogService,
+    ILogger<OptimizationService> logger)
 {
     private static readonly Dictionary<Guid, (bool IsApplied, DateTime? AppliedAt)> _stateCache = new();
     private static readonly object _cacheLock = new();
+    private readonly ILogger _logger = logger;
 
     #region Main Methods
 
@@ -99,7 +109,8 @@ public class OptimizationService(
                     ? string.Format(Translations.Optimization_Apply_Success, optimization.OptimizationKey)
                     : stepResults.Count == failedSteps.Count // if all steps failed
                         ? string.Format(Translations.Optimization_Apply_Error_Failed, optimization.OptimizationKey)
-                        : string.Format(Translations.Optimization_Apply_Error_FailedWithSteps, optimization.OptimizationKey,
+                        : string.Format(Translations.Optimization_Apply_Error_FailedWithSteps,
+                            optimization.OptimizationKey,
                             failedSteps.Count),
                 FailedSteps = failedSteps
             };
@@ -352,4 +363,94 @@ public class OptimizationService(
     }
 
     #endregion Helpers
+
+    public async Task<bool> CreateRestorePointAsync()
+    {
+        var dialogViewModel = new ProcessingOptimizationViewModel();
+        var dialogContent = new ProcessingOptimizationDialog { DataContext = dialogViewModel };
+
+        var dialog = new ContentDialog
+        {
+            Title = Translations.RestorePoint_Title,
+            Content = dialogContent,
+            IsFooterVisible = false,
+        };
+
+        _ = contentDialogService.ShowAsync(dialog, CancellationToken.None);
+
+        try
+        {
+            async Task<ShellResult> RunPowerShellAsync(string command)
+            {
+                return await Task.Run(() => ShellService.PowerShell(command));
+            }
+
+            dialogViewModel.ProgressReporter.Report(new ProcessingProgress
+            {
+                Message = Translations.RestorePoint_Progress_Creating,
+                IsIndeterminate = true
+            });
+
+            using var tracker = ServiceTracker.Begin(_logger);
+
+            var result = await RunPowerShellAsync(
+                $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS");
+
+            if (result.ExitCode == 0)
+                return true;
+
+            if (!Regex.IsMatch(result.Stderr,
+                    @"\b(is\s+disabled|system\s+restore\s+is\s+disabled|disabled\s+by\s+group\s+policy|disableconfig|disablesr|protection\s+is\s+off)\b",
+                    RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
+            {
+                _logger.LogError("Failed to create restore point (not a 'disabled' case): {Message}", result.Stderr);
+                return false;
+            }
+
+            _logger.LogError("Failed to create restore point due to disabled feature: {Message}", result.Stderr);
+
+            dialogViewModel.ProgressReporter.Report(new ProcessingProgress
+            {
+                Message = Translations.RestorePoint_Progress_Enabling,
+                IsIndeterminate = true
+            });
+
+            // try to enable it
+            _logger.LogInformation("Enabling System Protection on system drive...");
+            var enableResult = await RunPowerShellAsync("Enable-ComputerRestore -Drive \"$env:SystemDrive\"");
+            if (enableResult.ExitCode != 0)
+            {
+                _logger.LogError("Failed to enable System Protection on system drive: {Message}", enableResult.Stderr);
+                return false;
+            }
+
+            dialogViewModel.ProgressReporter.Report(new ProcessingProgress
+            {
+                Message = Translations.RestorePoint_Progress_Retrying,
+                IsIndeterminate = true
+            });
+
+            // retry creating restore point
+            _logger.LogInformation("Retrying to create restore point...");
+            result = await RunPowerShellAsync(
+                $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS");
+            
+            if (result.ExitCode == 0)
+                return true;
+
+            if (result.Stderr.Contains("is disabled", StringComparison.OrdinalIgnoreCase))
+            {
+                _logger.LogError("Failed to create restore point after enabling feature: {Message}", result.Stderr);
+                return false;
+            }
+
+
+            _logger.LogError("Failed to create restore point: {Message}", result.Stderr);
+            return false;
+        }
+        finally
+        {
+            dialog.Hide();
+        }
+    }
 }

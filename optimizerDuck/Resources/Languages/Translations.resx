@@ -745,4 +745,25 @@
   <data name="RestorePointDialog.Help" xml:space="preserve">
     <value>When you proceed, the application will automatically activate System Restore (if it is disabled) and create a new restore point with a name starting with "optimizerDuck...", helping safeguard the system before any changes.</value>
   </data>
+  <data name="RestorePoint.Snackbar.Error.Title" xml:space="preserve">
+    <value>Unable to create or enable System Restore.</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Error.Message" xml:space="preserve">
+    <value>An error occurred while creating or enabling System Restore. Please try creating it manually.</value>
+  </data>
+  <data name="RestorePoint.Progress.Creating" xml:space="preserve">
+    <value>Creating a restore point...</value>
+  </data>
+  <data name="RestorePoint.Progress.Enabling" xml:space="preserve">
+    <value>Enabling System Restore...</value>
+  </data>
+  <data name="RestorePoint.Progress.Retrying" xml:space="preserve">
+    <value>Retrying to create the restore point...</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Success.Title" xml:space="preserve">
+    <value>Restore point created successfully</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Success.Message" xml:space="preserve">
+    <value>A restore point has been created with the name: {0}.</value>
+  </data>
 </root>

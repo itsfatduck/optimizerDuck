@@ -1699,6 +1699,69 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creating a restore point....
+        /// </summary>
+        public static string RestorePoint_Progress_Creating {
+            get {
+                return ResourceManager.GetString("RestorePoint.Progress.Creating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enabling System Restore....
+        /// </summary>
+        public static string RestorePoint_Progress_Enabling {
+            get {
+                return ResourceManager.GetString("RestorePoint.Progress.Enabling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Retrying to create the restore point....
+        /// </summary>
+        public static string RestorePoint_Progress_Retrying {
+            get {
+                return ResourceManager.GetString("RestorePoint.Progress.Retrying", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while creating or enabling System Restore. Please try creating it manually..
+        /// </summary>
+        public static string RestorePoint_Snackbar_Error_Message {
+            get {
+                return ResourceManager.GetString("RestorePoint.Snackbar.Error.Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to create or enable System Restore..
+        /// </summary>
+        public static string RestorePoint_Snackbar_Error_Title {
+            get {
+                return ResourceManager.GetString("RestorePoint.Snackbar.Error.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A restore point has been created with the name: {0}..
+        /// </summary>
+        public static string RestorePoint_Snackbar_Success_Message {
+            get {
+                return ResourceManager.GetString("RestorePoint.Snackbar.Success.Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore point created successfully.
+        /// </summary>
+        public static string RestorePoint_Snackbar_Success_Title {
+            get {
+                return ResourceManager.GetString("RestorePoint.Snackbar.Success.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to System Restore.
         /// </summary>
         public static string RestorePoint_Title {

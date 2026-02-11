@@ -3,9 +3,11 @@ using System.Windows.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
+using optimizerDuck.Common.Helpers;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Optimization;
 using optimizerDuck.Core.Models.UI;
+using optimizerDuck.Resources.Languages;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services;
 using optimizerDuck.UI.ViewModels.Dialogs;
@@ -157,6 +159,26 @@ public partial class OptimizationCategoryViewModel : ViewModel
         };
         
         var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
+        if (result != ContentDialogResult.Primary)
+            return;
+        
+        var success = await _optimizationService.CreateRestorePointAsync();
+        if (!success)
+            _snackbarService.Show(
+                Translations.RestorePoint_Snackbar_Error_Title,
+                Translations.RestorePoint_Snackbar_Error_Message,
+                ControlAppearance.Danger,
+                new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
+                TimeSpan.FromSeconds(5)
+            );
+        else
+            _snackbarService.Show(
+                Translations.RestorePoint_Snackbar_Success_Title,
+                string.Format(Translations.RestorePoint_Snackbar_Success_Message, Shared.RestorePointName),
+                ControlAppearance.Success,
+                new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
+                TimeSpan.FromSeconds(5)
+            );
     }
 
     private static StackPanel BuildDialogTitle(IOptimization optimization)

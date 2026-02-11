@@ -216,7 +216,7 @@
                     </ui:CardControl.Header>
                 </ui:CardControl>
 
-                <ui:CardAction Command="{Binding ViewModel.OpenSourceLicensesCommand}" VerticalAlignment="Stretch">
+                <ui:CardAction Command="{Binding ViewModel.AcknowledgementsCommand}" VerticalAlignment="Stretch">
                     <ui:CardAction.Icon>
                         <ui:SymbolIcon Symbol="DocumentHeart24" />
                     </ui:CardAction.Icon>
@@ -224,11 +224,11 @@
                         <ui:TextBlock
                             Appearance="Primary"
                             FontTypography="BodyStrong"
-                            Text="{ext:Loc Settings.About.OpenSourceLicenses.Title}"
+                            Text="{ext:Loc Settings.About.Acknowledgements.Title}"
                             TextWrapping="Wrap" />
                         <ui:TextBlock
                             Appearance="Secondary"
-                            Text="{ext:Loc Settings.About.OpenSourceLicenses.Description}"
+                            Text="{ext:Loc Settings.About.Acknowledgements.Description}"
                             TextWrapping="Wrap" />
                     </StackPanel>
                 </ui:CardAction>

@@ -96,7 +96,7 @@ Every star and contribution helps keep the project growing.
 - 💬 [Discord](https://discord.gg/tDUBDCYw9Q) → Live chat & support
 - 🐞 [Issues](https://github.com/itsfatduck/optimizerDuck/issues) → Bug reports
 - 💡 [Discussions](https://github.com/itsfatduck/optimizerDuck/discussions) → Feature requests
-- 📚 [Third-Party Notices](./THIRD-PARTY-NOTICES.md) → open source acknowledgments
+- 📚 [Third-Party Notices](./THIRD-PARTY-NOTICES.md) → Open Source acknowledgments
 
 > [!TIP]
 > Before asking for help, check the docs and existing issues — your answer may already be there.
