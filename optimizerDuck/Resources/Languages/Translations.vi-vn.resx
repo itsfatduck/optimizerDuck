@@ -763,4 +763,16 @@
   <data name="RestorePoint.Snackbar.Success.Message" xml:space="preserve">
     <value>Điểm khôi phục đã được tạo với tên: {0}.</value>
   </data>
+  <data name="Snackbar.OpenLinkFailed.Title" xml:space="preserve">
+    <value>Không thể mở đường dẫn</value>
+  </data>
+  <data name="Snackbar.OpenLinkFailed.Message" xml:space="preserve">
+    <value>Lỗi khi mở đường dẫn, bạn hãy kiểm tra log.</value>
+  </data>
+  <data name="Snackbar.OpenFailed.Message" xml:space="preserve">
+    <value>Lỗi khi mở thư mục hoặc tệp, hãy thử kiểm tra log.</value>
+  </data>
+  <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
+    <value>Không thể mở thư mục hoặc tệp</value>
+  </data>
 </root>

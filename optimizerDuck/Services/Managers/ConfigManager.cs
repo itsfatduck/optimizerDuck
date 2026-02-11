@@ -39,20 +39,33 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
         }
     }
 
+    public async Task RemoveAsync(string key)
+    {
+        await _lock.WaitAsync();
+        try
+        {
+            var parts = key.Split(':');
+            var current = _cache;
+
+            for (var i = 0; i < parts.Length - 1; i++)
+            {
+                var next = GetTokenIgnoreCase(current, parts[i]);
+                if (next is not JObject nextObj) return;
+                current = nextObj;
+            }
+
+            RemoveIgnoreCase(current, parts[^1]);
+            await SaveConfigAsync();
+        }
+        finally
+        {
+            _lock.Release();
+        }
+    }
+
     public void Remove(string key)
     {
-        var parts = key.Split(':');
-        var current = _cache;
-
-        for (var i = 0; i < parts.Length - 1; i++)
-        {
-            var next = GetTokenIgnoreCase(current, parts[i]);
-            if (next is not JObject nextObj) return;
-            current = nextObj;
-        }
-
-        RemoveIgnoreCase(current, parts[^1]);
-        _ = SaveConfigAsync();
+        _ = RemoveAsync(key);
     }
 
     private async Task<JObject> LoadConfigAsync()

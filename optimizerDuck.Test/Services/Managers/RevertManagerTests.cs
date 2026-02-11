@@ -74,4 +74,57 @@ public class RevertManagerTests
                 File.Delete(path);
         }
     }
+
+    [Fact]
+    public async Task RevertAsync_WithPartialStepFailures_ReturnsFailure_And_KeepsFile()
+    {
+        var id = Guid.NewGuid();
+        var path = Path.Combine(Shared.RevertDirectory, id + ".json");
+        Directory.CreateDirectory(Shared.RevertDirectory);
+
+        var payload = new RevertData
+        {
+            OptimizationId = id,
+            OptimizationName = "TestOptimization",
+            AppliedAt = DateTime.UtcNow,
+            Steps = new List<RevertStepData>
+            {
+                new()
+                {
+                    Type = "Shell",
+                    Data = new optimizerDuck.Core.Models.Revert.Steps.ShellRevertStep
+                    {
+                        ShellType = optimizerDuck.Core.Models.Revert.Steps.ShellType.CMD,
+                        Command = "exit 0"
+                    }.ToData()
+                },
+                new()
+                {
+                    Type = "Shell",
+                    Data = new optimizerDuck.Core.Models.Revert.Steps.ShellRevertStep
+                    {
+                        ShellType = optimizerDuck.Core.Models.Revert.Steps.ShellType.CMD,
+                        Command = "exit 1"
+                    }.ToData()
+                }
+            }
+        };
+
+        try
+        {
+            var json = JsonConvert.SerializeObject(payload, Formatting.Indented);
+            await File.WriteAllTextAsync(path, json);
+
+            var manager = new RevertManager(NullLogger<RevertManager>.Instance);
+            var result = await manager.RevertAsync(id, "TestOptimization");
+
+            Assert.False(result.Success);
+            Assert.True(File.Exists(path));
+        }
+        finally
+        {
+            if (File.Exists(path))
+                File.Delete(path);
+        }
+    }
 }

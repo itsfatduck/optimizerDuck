@@ -19,7 +19,7 @@ public static class Shared
 
     public const string DiscordInviteURL = "https://discord.gg/GqvJYQsgSm";
     public const string GitHubRepoURL = "https://github.com/itsfatduck/optimizerDuck";
-    public const string SupportMeURL = "https://github.com/itsfatduck/optimizerDuck/SUPPORT.md";
+    public const string SupportMeURL = "https://github.com/itsfatduck/optimizerDuck/blob/master/SUPPORT.md";
     
     public const string AcknowledgementsURL = "https://github.com/itsfatduck/optimizerDuck/blob/master/THIRD-PARTY-NOTICES.md";
     

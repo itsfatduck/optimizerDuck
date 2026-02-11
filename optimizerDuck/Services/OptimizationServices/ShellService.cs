@@ -81,95 +81,118 @@ public static class ShellService
             CreateNoWindow = true
         };
 
-        using var process = new Process();
-        process.StartInfo = psi;
-
-        var stdoutBuilder = new StringBuilder();
-        var stderrBuilder = new StringBuilder();
-
-        process.OutputDataReceived += (_, e) =>
+        try
         {
-            if (e.Data == null) return;
-            stdoutBuilder.AppendLine(e.Data);
-        };
+            using var process = new Process();
+            process.StartInfo = psi;
 
-        process.ErrorDataReceived += (_, e) =>
-        {
-            if (e.Data == null) return;
-            stderrBuilder.AppendLine(e.Data);
-        };
-        var sw = Stopwatch.StartNew();
+            var stdoutBuilder = new StringBuilder();
+            var stderrBuilder = new StringBuilder();
 
-        process.Start();
-        process.BeginOutputReadLine();
-        process.BeginErrorReadLine();
-
-        var exited =
-            process.WaitForExit(_options?.CurrentValue.Optimize.ShellTimeoutMs ?? 120000); // fallback to 2 minutes
-        var timedOut = !exited;
-
-        if (timedOut)
-        {
-            try
+            process.OutputDataReceived += (_, e) =>
             {
-                process.Kill(true);
-            }
-            catch
+                if (e.Data == null) return;
+                stdoutBuilder.AppendLine(e.Data);
+            };
+
+            process.ErrorDataReceived += (_, e) =>
             {
-                ServiceTracker.LogError(null, "Failed to kill process for timeout");
+                if (e.Data == null) return;
+                stderrBuilder.AppendLine(e.Data);
+            };
+            var sw = Stopwatch.StartNew();
+
+            process.Start();
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+
+            var exited =
+                process.WaitForExit(_options?.CurrentValue.Optimize.ShellTimeoutMs ?? 120000); // fallback to 2 minutes
+            var timedOut = !exited;
+
+            if (timedOut)
+            {
+                try
+                {
+                    process.Kill(true);
+                }
+                catch
+                {
+                    ServiceTracker.LogError(null, "Failed to kill process for timeout");
+                }
+
+                process.WaitForExit(2000); // grace drain
             }
 
-            process.WaitForExit(2000); // grace drain
+            sw.Stop();
+            var duration = sw.Elapsed;
+            var stdout = stdoutBuilder.ToString().Trim();
+            var stderr = stderrBuilder.ToString().ParseCliXml().Trim();
+
+            var result = new ShellResult(
+                fullCommandForUser,
+                stdout,
+                stderr,
+                timedOut ? -1 : process.ExitCode, // use -1 error code for timed out
+                duration);
+
+            var success = policy.IsSuccess(result);
+
+            ServiceTracker.Track(serviceName, success);
+
+            ServiceTracker.LogInfo("[{Service}][{Status}][EC={ExitCode}][D={Duration}] {Command}",
+                serviceName,
+                timedOut ? "TIMEOUT" : success ? "OK" : "FAIL",
+                result.ExitCode,
+                duration.FormatTime(),
+                fullCommandForUser);
+
+            ServiceTracker.LogTrace("[{Service}][STDOUT] {Stdout}",
+                serviceName,
+                string.IsNullOrWhiteSpace(stdout) ? "N/A" : stdout
+            );
+            ServiceTracker.LogTrace("[{Service}][STDERR] {Stderr}",
+                serviceName,
+                string.IsNullOrWhiteSpace(stderr) ? "N/A" : stderr
+            );
+
+            var error = success ? null : policy.ErrorFactory(result);
+
+            ServiceTracker.TrackStep(
+                "Shell",
+                fullCommandForUser,
+                success,
+                error,
+                () => Task.Run(() =>
+                    policy.IsSuccess(Run(fileName, arguments, command, serviceName, revertStep, policy))
+                )
+            );
+
+            if (success && revertStep is not null)
+                RevertManager.Record(revertStep);
+
+            return result;
         }
+        catch (Exception ex)
+        {
+            var result = new ShellResult(
+                fullCommandForUser,
+                string.Empty,
+                ex.Message,
+                -2,
+                TimeSpan.Zero);
 
-        sw.Stop();
-        var duration = sw.Elapsed;
-        var stdout = stdoutBuilder.ToString().Trim();
-        var stderr = stderrBuilder.ToString().ParseCliXml().Trim();
+            ServiceTracker.Track(serviceName, false);
+            ServiceTracker.LogError(ex, "[{Service}][FAIL][EXCEPTION] {Command}", serviceName, fullCommandForUser);
+            ServiceTracker.TrackStep(
+                "Shell",
+                fullCommandForUser,
+                false,
+                ex.Message,
+                () => Task.FromResult(false));
 
-        var result = new ShellResult(
-            fullCommandForUser,
-            stdout,
-            stderr,
-            timedOut ? -1 : process.ExitCode, // use -1 error code for timed out
-            duration);
-
-        var success = policy.IsSuccess(result);
-
-        ServiceTracker.Track(serviceName, success);
-
-        ServiceTracker.LogInfo("[{Service}][{Status}][EC={ExitCode}][D={Duration}] {Command}",
-            serviceName,
-            timedOut ? "TIMEOUT" : success ? "OK" : "FAIL",
-            process.ExitCode,
-            duration.FormatTime(),
-            fullCommandForUser);
-
-        ServiceTracker.LogTrace("[{Service}][STDOUT] {Stdout}",
-            serviceName,
-            string.IsNullOrWhiteSpace(stdout) ? "N/A" : stdout
-        );
-        ServiceTracker.LogTrace("[{Service}][STDERR] {Stderr}",
-            serviceName,
-            string.IsNullOrWhiteSpace(stderr) ? "N/A" : stderr
-        );
-
-        var error = success ? null : policy.ErrorFactory(result);
-
-        ServiceTracker.TrackStep(
-            "Shell",
-            fullCommandForUser,
-            success,
-            error,
-            () => Task.Run(() =>
-                policy.IsSuccess(Run(fileName, arguments, command, serviceName, revertStep, policy))
-            )
-        );
-
-        if (success && revertStep is not null)
-            RevertManager.Record(revertStep);
-
-        return result;
+            return result;
+        }
     }
 
     #region Command Prompt methods

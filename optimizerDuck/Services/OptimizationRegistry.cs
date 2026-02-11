@@ -49,17 +49,18 @@ public class OptimizationRegistry(ILoggerFactory loggerFactory)
                 return instance;
             })
             .Where(c => c != null) // skip nulls
-            .OrderBy(c => c!.Order)
+            .Cast<IOptimizationCategory>()
+            .OrderBy(c => c.Order)
             .ToArray();
 
         _logger.LogInformation("Total {CategoryCount} categories and {OptimizationCount} optimizations found",
-            optimizationCategories.Length, optimizationCategories.Sum(c => c!.Optimizations.Count));
+            optimizationCategories.Length, optimizationCategories.Sum(c => c.Optimizations.Count));
 
         await OptimizationService.UpdateOptimizationStateAsync(optimizationCategories.SelectMany(c => c.Optimizations));
 
         foreach (var category in optimizationCategories)
         {
-            var sorted = category!.Optimizations
+            var sorted = category.Optimizations
                 .OrderBy(o => o.Risk)
                 .ThenByDescending(o => o.State.IsApplied ? 1 : 0)
                 .ToList();
@@ -69,7 +70,7 @@ public class OptimizationRegistry(ILoggerFactory loggerFactory)
                 category.Optimizations.Add(opt);
         }
 
-        OptimizationCategories = optimizationCategories!;
+        OptimizationCategories = optimizationCategories;
     }
 
     public IOptimizationCategory GetCategory(Type type)

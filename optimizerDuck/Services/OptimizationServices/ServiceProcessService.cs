@@ -94,6 +94,13 @@ public static class ServiceProcessService
 
             if (resultCode == 0)
             {
+                if (originalStartupType.HasValue && originalStartupType.Value != item.StartupType)
+                    RevertManager.Record(new ServiceRevertStep
+                    {
+                        ServiceName = item.Name,
+                        OriginalStartupType = originalStartupType.Value
+                    });
+
                 // Handle delayed auto start registry key
                 var registrySuccess = item.StartupType == ServiceStartupType.AutomaticDelayedStart
                     ? RegistryService.Write(new RegistryItem(
@@ -103,13 +110,6 @@ public static class ServiceProcessService
                     : RegistryService.DeleteValue(new RegistryItem(
                         $@"HKLM\SYSTEM\CurrentControlSet\Services\{item.Name}",
                         "DelayedAutoStart"));
-
-                if (registrySuccess && originalStartupType.HasValue)
-                    RevertManager.Record(new ServiceRevertStep
-                    {
-                        ServiceName = item.Name,
-                        OriginalStartupType = originalStartupType.Value
-                    });
 
                 sw.Stop();
 

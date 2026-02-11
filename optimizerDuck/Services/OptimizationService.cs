@@ -325,6 +325,12 @@ public class OptimizationService(
                 Total = totalSteps
             });
 
+            if (step.RetryAction == null)
+            {
+                stillFailed.Add(step);
+                continue;
+            }
+
             var success = await step.RetryAction();
             if (!success)
                 stillFailed.Add(step);

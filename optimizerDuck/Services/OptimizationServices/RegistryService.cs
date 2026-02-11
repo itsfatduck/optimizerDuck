@@ -142,6 +142,9 @@ public static class RegistryService
                 createdSubKeys))
             return default;
 
+        if (subKey is null)
+            return default;
+
         try
         {
             return action(subKey);
@@ -149,7 +152,7 @@ public static class RegistryService
         finally
         {
             if (shouldDispose)
-                subKey.Dispose();
+                subKey?.Dispose();
         }
     }
 
@@ -166,7 +169,7 @@ public static class RegistryService
                 var result = ConvertRegistryValue<T>(value);
 
                 ServiceTracker.LogInfo("Read registry {Path}:{Name} = {Value}",
-                    item.Path, item.Name!, result);
+                    item.Path, item.Name!, result?.ToString() ?? "<null>");
 
                 return result;
             }
@@ -176,7 +179,7 @@ public static class RegistryService
                     item.Path, item.Name!);
 
                 ServiceTracker.LogInfo("Read registry {Path}:{Name} = <default> (raw={RawType})",
-                    item.Path, item.Name!, value?.GetType().FullName);
+                    item.Path, item.Name!, value?.GetType().FullName ?? "<null>");
 
                 return default;
             }

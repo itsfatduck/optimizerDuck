@@ -2300,5 +2300,41 @@ namespace optimizerDuck.Resources.Languages {
                 return ResourceManager.GetString("Sidebar.Settings", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while opening the folder or file. Please check the log..
+        /// </summary>
+        public static string Snackbar_OpenFailed_Message {
+            get {
+                return ResourceManager.GetString("Snackbar.OpenFailed.Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to open the folder or file.
+        /// </summary>
+        public static string Snackbar_OpenFailed_Title {
+            get {
+                return ResourceManager.GetString("Snackbar.OpenFailed.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while opening the path. Please check the log..
+        /// </summary>
+        public static string Snackbar_OpenLinkFailed_Message {
+            get {
+                return ResourceManager.GetString("Snackbar.OpenLinkFailed.Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to open the path.
+        /// </summary>
+        public static string Snackbar_OpenLinkFailed_Title {
+            get {
+                return ResourceManager.GetString("Snackbar.OpenLinkFailed.Title", resourceCulture);
+            }
+        }
     }
 }

@@ -766,4 +766,16 @@
   <data name="RestorePoint.Snackbar.Success.Message" xml:space="preserve">
     <value>A restore point has been created with the name: {0}.</value>
   </data>
+  <data name="Snackbar.OpenLinkFailed.Title" xml:space="preserve">
+    <value>Unable to open the path</value>
+  </data>
+  <data name="Snackbar.OpenLinkFailed.Message" xml:space="preserve">
+    <value>An error occurred while opening the path. Please check the log.</value>
+  </data>
+  <data name="Snackbar.OpenFailed.Message" xml:space="preserve">
+    <value>An error occurred while opening the folder or file. Please check the log.</value>
+  </data>
+  <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
+    <value>Unable to open the folder or file</value>
+  </data>
 </root>

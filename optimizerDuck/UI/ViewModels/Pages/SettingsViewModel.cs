@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Core.Models.Config;
@@ -22,7 +23,9 @@ public partial class SettingsViewModel(
     ConfigManager configManager,
     IOptionsMonitor<AppSettings> appOptionsMonitor,
     OptimizationRegistry optimizationRegistry,
-    IContentDialogService contentDialogService) : ViewModel
+    IContentDialogService contentDialogService,
+    ISnackbarService snackbarService, 
+    ILogger<SettingsViewModel> logger) : ViewModel
 {
     [ObservableProperty] private ApplicationTheme _currentApplicationTheme = ApplicationTheme.Unknown;
     private bool _isInitialized;
@@ -94,11 +97,26 @@ public partial class SettingsViewModel(
     [RelayCommand]
     private void OpenRootDir()
     {
-        Process.Start(new ProcessStartInfo
+        try
         {
-            FileName = Shared.RootDirectory,
-            UseShellExecute = true
-        });
+            logger.LogInformation("Opening root directory: {Path}", Shared.RootDirectory);
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = Shared.RootDirectory,
+                UseShellExecute = true
+            });
+        }
+        catch (Exception ex)
+        {
+            snackbarService.Show(
+                Translations.Snackbar_OpenFailed_Title,
+                Translations.Snackbar_OpenFailed_Message,
+                ControlAppearance.Danger,
+                new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
+                TimeSpan.FromSeconds(5)
+            );
+            logger.LogError(ex, "Failed to open root directory: {Path}", Shared.RootDirectory);
+        }
     }
 
     [RelayCommand]
@@ -121,15 +139,30 @@ public partial class SettingsViewModel(
                 optimizationRegistry.OptimizationCategories.SelectMany(c => c.Optimizations));
         }
     }
-    
+
     [RelayCommand]
     private void OpenAcknowledgements()
     {
-        Process.Start(new ProcessStartInfo
+        try
         {
-            FileName = Shared.AcknowledgementsURL,
-            UseShellExecute = true
-        });
+            logger.LogInformation("Opening acknowledgements page: {Url}", Shared.AcknowledgementsURL);
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = Shared.AcknowledgementsURL,
+                UseShellExecute = true
+            });
+        }
+        catch (Exception ex)
+        {
+            snackbarService.Show(
+                Translations.Snackbar_OpenLinkFailed_Title,
+                Translations.Snackbar_OpenLinkFailed_Message,
+                ControlAppearance.Danger,
+                new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
+                TimeSpan.FromSeconds(5)
+            );
+            logger.LogError(ex, "Failed to open acknowledgements page");
+        }
     }
 
     #endregion Commands

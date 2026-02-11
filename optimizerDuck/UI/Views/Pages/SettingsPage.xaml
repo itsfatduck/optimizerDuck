@@ -216,7 +216,7 @@
                     </ui:CardControl.Header>
                 </ui:CardControl>
 
-                <ui:CardAction Command="{Binding ViewModel.AcknowledgementsCommand}" VerticalAlignment="Stretch">
+                <ui:CardAction Command="{Binding ViewModel.OpenAcknowledgementsCommand}" VerticalAlignment="Stretch">
                     <ui:CardAction.Icon>
                         <ui:SymbolIcon Symbol="DocumentHeart24" />
                     </ui:CardAction.Icon>

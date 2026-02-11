@@ -127,17 +127,18 @@ public class RevertManager(ILogger<RevertManager> logger)
                 if (!success) failedSteps++;
             }
 
-            var failed = failedSteps == steps.Count;
+            var allFailed = failedSteps == steps.Count;
+            var hasFailures = failedSteps > 0;
 
-            if (!failed)
+            if (!hasFailures)
                 await RemoveAsync(optimizationId, optimizationKey);
 
             return new RevertResult
             {
-                Success = !failed,
-                Message = failed
+                Success = !hasFailures,
+                Message = allFailed
                     ? string.Format(Translations.Optimization_Revert_Error_Failed, optimizationKey)
-                    : failedSteps > 0
+                    : hasFailures
                         ? string.Format(Translations.Optimization_Revert_Error_FailedWithSteps, optimizationKey,
                             failedSteps)
                         : string.Format(Translations.Optimization_Revert_Success, optimizationKey)

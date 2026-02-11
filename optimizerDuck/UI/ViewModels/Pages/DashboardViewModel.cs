@@ -5,8 +5,11 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Common.Helpers;
+using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services;
+using Wpf.Ui;
 using Wpf.Ui.Appearance;
+using Wpf.Ui.Controls;
 
 namespace optimizerDuck.UI.ViewModels.Pages;
 
@@ -14,6 +17,7 @@ public partial class DashboardViewModel : ViewModel
 {
     private readonly ILogger<DashboardViewModel> _logger;
     private readonly SystemInfoService _systemInfoService;
+    private readonly ISnackbarService _snackbarService;
     private readonly DispatcherTimer _updateTimer;
     [ObservableProperty] private ApplicationTheme _currentApplicationTheme = ApplicationTheme.Unknown;
 
@@ -23,9 +27,10 @@ public partial class DashboardViewModel : ViewModel
     [ObservableProperty] private RamInfo _runtimeRam = RamInfo.Unknown;
     [ObservableProperty] private SystemSnapshot _systemInfo = SystemSnapshot.Unknown;
 
-    public DashboardViewModel(SystemInfoService systemInfoService, ILogger<DashboardViewModel> logger)
+    public DashboardViewModel(SystemInfoService systemInfoService,ISnackbarService snackbarService, ILogger<DashboardViewModel> logger)
     {
         _systemInfoService = systemInfoService;
+        _snackbarService = snackbarService; 
         _logger = logger;
 
         _updateTimer = new DispatcherTimer
@@ -112,6 +117,13 @@ public partial class DashboardViewModel : ViewModel
         }
         catch (Exception ex)
         {
+            _snackbarService.Show(
+                Translations.Snackbar_OpenFailed_Title,
+                Translations.Snackbar_OpenFailed_Message,
+                ControlAppearance.Danger,
+                new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
+                TimeSpan.FromSeconds(5)
+            );
             _logger.LogError(ex, "Failed to open {Action} link", action);
         }
     }
@@ -119,31 +131,45 @@ public partial class DashboardViewModel : ViewModel
     [RelayCommand]
     private void Run(string action)
     {
-        switch (action)
+        try
         {
-            case "Settings":
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = "ms-settings:",
-                    UseShellExecute = true
-                });
-                break;
+            switch (action)
+            {
+                case "Settings":
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = "ms-settings:",
+                        UseShellExecute = true
+                    });
+                    break;
 
-            case "TaskManager":
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = "taskmgr",
-                    UseShellExecute = true
-                });
-                break;
+                case "TaskManager":
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = "taskmgr",
+                        UseShellExecute = true
+                    });
+                    break;
 
-            case "ControlPanel":
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = "control",
-                    UseShellExecute = true
-                });
-                break;
+                case "ControlPanel":
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = "control",
+                        UseShellExecute = true
+                    });
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            _snackbarService.Show(
+                Translations.Snackbar_OpenFailed_Title,
+                Translations.Snackbar_OpenFailed_Message,
+                ControlAppearance.Danger,
+                new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
+                TimeSpan.FromSeconds(5)
+            );
+            _logger.LogError(ex, "Failed to run action {Action}", action);
         }
     }
 

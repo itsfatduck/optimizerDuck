@@ -122,15 +122,12 @@ public class PowerManagement : IOptimizationCategory
             var (success, powerPlanPath) = await context.StreamService.TryDownloadAsync(
                 Shared.PowerPlanUrl,
                 "optimizerDuck.pow");
-            if (!success)
-            {
-                context.Logger.LogInformation("Downloaded optimizerDuck power plan successfully");
-            }
-            else
+            if (!success || string.IsNullOrWhiteSpace(powerPlanPath))
             {
                 context.Logger.LogError("Failed to download optimizerDuck power plan");
                 return ApplyResult.False(Loc.Instance[$"{ErrorPrefix}.DownloadFailed"]);
             }
+            context.Logger.LogInformation("Downloaded optimizerDuck power plan to {Path}", powerPlanPath);
 
             progress?.Report(new ProcessingProgress
             {
@@ -143,8 +140,19 @@ public class PowerManagement : IOptimizationCategory
             if (result.ExitCode == 0)
                 context.Logger.LogInformation("Deleted old power plan");
 
-            ShellService.CMD($"powercfg /import \"{powerPlanPath}\" {Shared.PowerPlanGUID}");
-            ShellService.CMD($"powercfg /setactive {Shared.PowerPlanGUID}");
+            var importResult = ShellService.CMD($"powercfg /import \"{powerPlanPath}\" {Shared.PowerPlanGUID}");
+            if (importResult.ExitCode != 0)
+            {
+                context.Logger.LogError("Failed to import optimizerDuck power plan: {Error}", importResult.Stderr);
+                return ApplyResult.False("Failed to import optimizerDuck power plan.");
+            }
+
+            var setActiveResult = ShellService.CMD($"powercfg /setactive {Shared.PowerPlanGUID}");
+            if (setActiveResult.ExitCode != 0)
+            {
+                context.Logger.LogError("Failed to activate optimizerDuck power plan: {Error}", setActiveResult.Stderr);
+                return ApplyResult.False("Failed to activate optimizerDuck power plan.");
+            }
             context.Logger.LogInformation("Installed optimizerDuck power plan successfully!");
             return ApplyResult.True();
         }

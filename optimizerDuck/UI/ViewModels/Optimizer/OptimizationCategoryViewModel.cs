@@ -8,7 +8,6 @@ using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Optimization;
 using optimizerDuck.Core.Models.UI;
 using optimizerDuck.Resources.Languages;
-using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services;
 using optimizerDuck.UI.ViewModels.Dialogs;
 using optimizerDuck.UI.Views.Dialogs;
@@ -164,6 +163,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
         
         var success = await _optimizationService.CreateRestorePointAsync();
         if (!success)
+        {
             _snackbarService.Show(
                 Translations.RestorePoint_Snackbar_Error_Title,
                 Translations.RestorePoint_Snackbar_Error_Message,
@@ -171,7 +171,9 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
                 TimeSpan.FromSeconds(5)
             );
+        }
         else
+        {
             _snackbarService.Show(
                 Translations.RestorePoint_Snackbar_Success_Title,
                 string.Format(Translations.RestorePoint_Snackbar_Success_Message, Shared.RestorePointName),
@@ -179,6 +181,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
                 TimeSpan.FromSeconds(5)
             );
+        }
     }
 
     private static StackPanel BuildDialogTitle(IOptimization optimization)
@@ -218,6 +221,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
         {
             await HandleRestorePointAsync();
             _isApplied = true;
+
         }
         
         // Keep a stable reference to the previous state in case we need to roll back UI changes.
@@ -309,7 +313,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
                     optimization,
                     progress => _optimizationService.RevertAsync(optimization, progress));
 
-                // Revert removes data regardless of failures, so state should be refreshed immediately.
+                // Refresh state after revert attempt. Failed steps can still be retried in the current session.
                 await OptimizationService.UpdateOptimizationStateAsync(optimization);
 
                 var retryOutcome = await HandleFailedStepsAsync(
@@ -332,7 +336,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 if (partial)
                 {
                     _snackbarService.Show(
-                        Translations.Optimization_Apply_Snackbar_Error_Title,
+                        Translations.Optimization_Revert_Snackbar_Error_Title,
                         revertResult.Message,
                         ControlAppearance.Caution,
                         new SymbolIcon { Symbol = SymbolRegular.Warning24, Filled = true },
@@ -368,7 +372,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
     [RelayCommand]
     private async Task ShowDetailsAsync(IOptimization optimization)
     {
-        var dialogViewModel = new OptimizationDetailsViewModel(optimization);
+        var dialogViewModel = new OptimizationDetailsViewModel(optimization, _snackbarService, _logger);
         var dialogContent = new OptimizationDetailsDialog { DataContext = dialogViewModel };
         var dialog = new ContentDialog
         {

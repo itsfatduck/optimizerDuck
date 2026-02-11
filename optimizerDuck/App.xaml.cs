@@ -110,110 +110,131 @@ public partial class App : Application
     protected override async void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
+        try
+        {
+            // Create the required directories if they don't exist
+            Directory.CreateDirectory(Shared.ResourcesDirectory);
+            Directory.CreateDirectory(Shared.RootDirectory);
+            Directory.CreateDirectory(Shared.RevertDirectory);
 
-        // Create the required directories if they don't exist
-        Directory.CreateDirectory(Shared.ResourcesDirectory);
-        Directory.CreateDirectory(Shared.RootDirectory);
-        Directory.CreateDirectory(Shared.RevertDirectory);
+            var logPath = Path.Combine(Shared.RootDirectory, "optimizerDuck.log");
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Verbose()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                .Enrich.FromLogContext()
+                .WriteTo.File(
+                    new ScopeBlockTextFormatter(),
+                    logPath,
+                    rollingInterval: RollingInterval.Infinite
+                )
+                .CreateLogger();
 
-        var logPath = Path.Combine(Shared.RootDirectory, "optimizerDuck.log");
-        Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Verbose()
-            .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-            .Enrich.FromLogContext()
-            .WriteTo.File(
-                new ScopeBlockTextFormatter(),
-                logPath,
-                rollingInterval: RollingInterval.Infinite
-            )
-            .CreateLogger();
+            _host = Host.CreateDefaultBuilder()
+                .UseSerilog()
+                .ConfigureAppConfiguration((c) =>
+                {
+                    ConfigManager.ValidateConfig();
+                    c.AddJsonFile(Path.Combine(Shared.RootDirectory, "appsettings.json"), false, true);
+                })
+                .ConfigureServices((context, services) =>
+                {
+                    services.Configure<AppSettings>(context.Configuration);
 
-        _host = Host.CreateDefaultBuilder()
-            .UseSerilog()
-            .ConfigureAppConfiguration((c) =>
+                    // WPF UI shi
+                    services.AddNavigationViewPageProvider();
+                    services.AddSingleton<INavigationService, NavigationService>();
+                    services.AddSingleton<IContentDialogService, ContentDialogService>();
+                    services.AddSingleton<ISnackbarService, SnackbarService>();
+
+                    // Windows
+                    services.AddSingleton<MainWindow>();
+
+                    // Pages
+                    services.AddSingleton<DashboardViewModel>();
+                    services.AddSingleton<DashboardPage>();
+
+                    services.AddSingleton<OptimizeViewModel>();
+                    services.AddSingleton<OptimizePage>();
+
+                    services.AddSingleton<SettingsViewModel>();
+                    services.AddSingleton<SettingsPage>();
+
+                    // Optimizations
+                    services.AddAllOptimizationPages();
+
+                    // Managers
+                    services.AddSingleton<ConfigManager>();
+                    services.AddSingleton<RevertManager>();
+
+                    // Services
+                    services.AddSingleton<OptimizationRegistry>();
+                    services.AddSingleton<OptimizationService>();
+                    services.AddSingleton<SystemInfoService>();
+                    services.AddSingleton<StreamService>();
+                })
+                .Build();
+
+            await _host.StartAsync();
+
+            var config = _host.Services.GetRequiredService<ConfigManager>();
+            await config.InitializeAsync();
+
+            var appOptionsMonitor = _host.Services.GetRequiredService<IOptionsMonitor<AppSettings>>();
+            // init shell service with config
+            ShellService.Init(appOptionsMonitor);
+
+            var appSettings = appOptionsMonitor.CurrentValue;
+
+            Loc.Instance.ChangeCulture(new CultureInfo(appSettings.App.Language));
+
+            _logger = _host.Services.GetRequiredService<ILogger<App>>();
+            _logger.LogInformation("\n{Logo}\nVersion: {Version}\n\n", Shared.RawLogo, Shared.FileVersion);
+            _logger.LogInformation("Loaded language: {Language}", appSettings.App.Language);
+
+            var optimizationRegistry = _host.Services.GetRequiredService<OptimizationRegistry>();
+            _logger.LogInformation("Preloading optimizations...");
+            await optimizationRegistry.PreloadOptimizations();
+
+            // Apply custom accent colors
+            ApplicationAccentColorManager.Apply(
+                Color.FromRgb(254, 209, 20),
+                Color.FromRgb(242, 124, 20),
+                Color.FromRgb(254, 209, 20),
+                Color.FromRgb(242, 124, 20)
+            );
+
+            ApplicationThemeManager.Apply(
+                appSettings.App.Theme switch
+                {
+                    "Dark" => ApplicationTheme.Dark,
+                    "HighContrast" => ApplicationTheme.HighContrast,
+                    _ => ApplicationTheme.Light
+                },
+                updateAccent: false
+            );
+
+            var mainWindow = _host.Services.GetRequiredService<MainWindow>();
+            mainWindow.Show();
+        }
+        catch (Exception ex)
+        {
+            try
             {
-                ConfigManager.ValidateConfig();
-                c.AddJsonFile(Path.Combine(Shared.RootDirectory, "appsettings.json"), false, true);
-            })
-            .ConfigureServices((context, services) =>
+                Log.Logger?.Fatal(ex, "Fatal error during startup");
+                await Log.CloseAndFlushAsync();
+            }
+            catch
             {
-                services.Configure<AppSettings>(context.Configuration);
+                // ignore logging failures during fatal startup handling
+            }
 
-                // WPF UI shi
-                services.AddNavigationViewPageProvider();
-                services.AddSingleton<INavigationService, NavigationService>();
-                services.AddSingleton<IContentDialogService, ContentDialogService>();
-                services.AddSingleton<ISnackbarService, SnackbarService>();
-
-                // Windows
-                services.AddSingleton<MainWindow>();
-
-                // Pages
-                services.AddSingleton<DashboardViewModel>();
-                services.AddSingleton<DashboardPage>();
-
-                services.AddSingleton<OptimizeViewModel>();
-                services.AddSingleton<OptimizePage>();
-
-                services.AddSingleton<SettingsViewModel>();
-                services.AddSingleton<SettingsPage>();
-
-                // Optimizations
-                services.AddAllOptimizationPages();
-
-                // Managers
-                services.AddSingleton<ConfigManager>();
-                services.AddScoped<RevertManager>();
-
-                // Services
-                services.AddSingleton<OptimizationRegistry>();
-                services.AddScoped<OptimizationService>();
-                services.AddSingleton<SystemInfoService>();
-                services.AddSingleton<StreamService>();
-            })
-            .Build();
-
-        await _host.StartAsync();
-
-        var config = _host.Services.GetRequiredService<ConfigManager>();
-        await config.InitializeAsync();
-
-        var appOptionsMonitor = _host.Services.GetRequiredService<IOptionsMonitor<AppSettings>>();
-        // init shell service with config
-        ShellService.Init(appOptionsMonitor);
-
-        var appSettings = appOptionsMonitor.CurrentValue;
-
-        Loc.Instance.ChangeCulture(new CultureInfo(appSettings.App.Language));
-
-        _logger = _host.Services.GetRequiredService<ILogger<App>>();
-        _logger.LogInformation("\n{Logo}\nVersion: {Version}\n\n", Shared.RawLogo, Shared.FileVersion);
-        _logger.LogInformation("Loaded language: {Language}", appSettings.App.Language);
-
-        var optimizationRegistry = _host.Services.GetRequiredService<OptimizationRegistry>();
-        _logger.LogInformation("Preloading optimizations...");
-        await optimizationRegistry.PreloadOptimizations();
-
-        // Apply custom accent colors
-        ApplicationAccentColorManager.Apply(
-            Color.FromRgb(254, 209, 20),
-            Color.FromRgb(242, 124, 20),
-            Color.FromRgb(254, 209, 20),
-            Color.FromRgb(242, 124, 20)
-        );
-
-        ApplicationThemeManager.Apply(
-            appSettings.App.Theme switch
-            {
-                "Dark" => ApplicationTheme.Dark,
-                "HighContrast" => ApplicationTheme.HighContrast,
-                _ => ApplicationTheme.Light
-            },
-            updateAccent: false
-        );
-
-        var mainWindow = _host.Services.GetRequiredService<MainWindow>();
-        mainWindow.Show();
+            MessageBox.Show(
+                $"Failed to start optimizerDuck.{Environment.NewLine}{Environment.NewLine}{ex.Message}",
+                "optimizerDuck",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+            Shutdown(-1);
+        }
     }
 
     protected override async void OnExit(ExitEventArgs e)
