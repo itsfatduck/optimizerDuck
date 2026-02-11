@@ -85,7 +85,7 @@ If optimizerDuck improved your PC experience:
 * ⭐ Star the repository
 * 📢 Share it with others
 * 💬 Join the Discord community
-* 🎁 Support me via **[Support Page](./SUPPORT.md)**
+* 🎁 Support me via **[Support](./SUPPORT.md)**
 
 Every star and contribution helps keep the project growing.
 
