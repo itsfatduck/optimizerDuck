@@ -145,7 +145,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
         return RetryOutcome.Succeeded;
     }
 
-    private async Task HandleRestorePointAsync()
+    private async Task<bool> HandleRestorePointAsync()
     {
         var dialogContent = new RestorePointDialog();
         var dialog = new ContentDialog
@@ -154,12 +154,16 @@ public partial class OptimizationCategoryViewModel : ViewModel
             Content = dialogContent,
             
             PrimaryButtonText = Translations.Button_Ok,
+            SecondaryButtonText = Translations.Button_Skip,
             CloseButtonText = Translations.Button_Cancel
         };
         
         var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
-        if (result != ContentDialogResult.Primary)
-            return;
+        if (result == ContentDialogResult.None) // User cancelled
+            return false;
+        
+        if (result == ContentDialogResult.Secondary) // User skipped
+            return true;
         
         var success = await _optimizationService.CreateRestorePointAsync();
         if (!success)
@@ -182,6 +186,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 TimeSpan.FromSeconds(5)
             );
         }
+        
+        return true;
     }
 
     private static StackPanel BuildDialogTitle(IOptimization optimization)
@@ -217,15 +223,19 @@ public partial class OptimizationCategoryViewModel : ViewModel
     [RelayCommand]
     private async Task ToggleOptimizationAsync(IOptimization optimization)
     {
-        if (!_isApplied)
-        {
-            await HandleRestorePointAsync();
-            _isApplied = true;
-
-        }
-        
         // Keep a stable reference to the previous state in case we need to roll back UI changes.
         var wasApplied = await OptimizationService.IsAppliedAsync(optimization.Id);
+        
+        if (!_isApplied)
+        {
+            if (!await HandleRestorePointAsync())
+            {
+                optimization.State.IsApplied = wasApplied;
+                return;
+            }
+            _isApplied = true;
+        }
+        
         try
         {
             // Apply optimization if not already applied
