@@ -87,6 +87,8 @@ If optimizerDuck improved your PC experience:
 * 💬 Join the Discord community
 * 🎁 Support me via **[Support](./SUPPORT.md)**
 
+<img src="./.github/assets/capoo_star.webp" alt="Capoo Star" title="Capoo Star" height="80"/>
+
 Every star and contribution helps keep the project growing.
 
 ---

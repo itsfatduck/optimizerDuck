@@ -18,6 +18,8 @@ Your support helps with:
 * 🌍 Expanding language support
 * 💬 Community support & infrastructure
 
+<img src="./.github/assets/capoo_like.webp" alt="Capoo Like" title="Capoo Like" height="80"/>
+
 ---
 
 ## ☕ Quick & Easy Support
