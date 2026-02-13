@@ -49,12 +49,11 @@
         <!--  Header  -->
         <StackPanel Margin="0,0,0,20">
             <ui:InfoBar
-                IsOpen="True"
+                IsOpen="{Binding ViewModel.IsUpdateInfoOpen, Mode=TwoWay}"
                 Margin="0,0,0,10"
                 Message="A new version of optimizerDuck is available."
                 Severity="Warning"
-                Title="Update Available"
-                Visibility="{Binding ViewModel.HasUpdate, Converter={StaticResource BoolToVisibilityConverter}}" />
+                Title="Update Available" />
             <Grid ColumnDefinitions="*,Auto">
                 <ui:TextBlock
                     FontTypography="Title"

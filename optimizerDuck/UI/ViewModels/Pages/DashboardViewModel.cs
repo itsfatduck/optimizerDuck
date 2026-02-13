@@ -27,7 +27,28 @@ public partial class DashboardViewModel : ViewModel
     private bool _isInitialized;
 
     [ObservableProperty] private bool _isLoading;
-    [ObservableProperty] private bool _hasUpdate;
+    private bool _isUpdateInfoOpen;
+    private bool _updateNotified; // phân biệt close do user
+
+    public bool IsUpdateInfoOpen
+    {
+        get => _isUpdateInfoOpen;
+        set
+        {
+            if (_isUpdateInfoOpen == value)
+                return;
+
+            _isUpdateInfoOpen = value;
+            OnPropertyChanged();
+
+            // User vừa bấm ❌
+            if (!_isUpdateInfoOpen && _updateNotified)
+            {
+                OpenLatestRelease();
+            }
+        }
+    }
+
     [ObservableProperty] private RamInfo _runtimeRam = RamInfo.Unknown;
     [ObservableProperty] private SystemSnapshot _systemInfo = SystemSnapshot.Unknown;
 
@@ -60,7 +81,11 @@ public partial class DashboardViewModel : ViewModel
         if (!_isInitialized)
         {
             _systemInfoService.LogSummary();
-            HasUpdate = await _updaterService.CheckForUpdatesAsync();
+            if (await _updaterService.CheckForUpdatesAsync())
+            {
+                _updateNotified = true;
+                IsUpdateInfoOpen = true;
+            }
             _isInitialized = true;
         }
 
@@ -218,6 +243,31 @@ public partial class DashboardViewModel : ViewModel
             _logger.LogWarning(ex, "Failed to update runtime info");
         }
     }
+    
+    private void OpenLatestRelease()
+    {
+        try
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = UpdaterService.LatestReleaseUrl,
+                UseShellExecute = true
+            });
+        }
+        catch (Exception ex)
+        {
+            _snackbarService.Show(
+                Translations.Snackbar_OpenLinkFailed_Title,
+                Translations.Snackbar_OpenLinkFailed_Message,
+                ControlAppearance.Danger,
+                new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
+                TimeSpan.FromSeconds(5)
+            );
+            _logger.LogError(ex, "Failed to open latest release page");
+        }
+    }
+
 
     #endregion
+    
 }

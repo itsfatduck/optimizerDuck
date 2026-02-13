@@ -13,6 +13,9 @@ public class UpdaterService
 {
     private const string Owner = "itsfatduck";
     private const string Repo = "optimizerDuck";
+    
+    public const string LatestReleaseUrl = $"https://github.com/{Owner}/{Repo}/releases/latest";
+    
     private readonly HttpClient _httpClient;
     private readonly ILogger _logger;
 
