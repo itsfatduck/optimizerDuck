@@ -26,8 +26,6 @@ if "%runTests%"=="y" (
     echo Running tests...
     dotnet test
     pause
-    echo Tests passed!
-    pause
 ) else (
     echo Skipping tests...
     pause
