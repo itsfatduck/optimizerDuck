@@ -163,6 +163,31 @@ public partial class SettingsViewModel(
             logger.LogError(ex, "Failed to open acknowledgements page");
         }
     }
+    
+    [RelayCommand]
+    private void OpenLatestRelease()
+    {
+        try
+        {
+            logger.LogInformation("Opening latest release page: {Url}", UpdaterService.LatestReleaseUrl);
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = UpdaterService.LatestReleaseUrl,
+                UseShellExecute = true
+            });
+        }
+        catch (Exception ex)
+        {
+            snackbarService.Show(
+                Translations.Snackbar_OpenLinkFailed_Title,
+                Translations.Snackbar_OpenLinkFailed_Message,
+                ControlAppearance.Danger,
+                new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
+                TimeSpan.FromSeconds(5)
+            );
+            logger.LogError(ex, "Failed to open latest release page");
+        }
+    }
 
     #endregion Commands
 

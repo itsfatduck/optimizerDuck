@@ -787,4 +787,7 @@
   <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
     <value>Điều chỉnh ngưỡng tách Service Host dựa trên dung lượng RAM đã cài đặt nhằm cải thiện khả năng cô lập tiến trình và độ ổn định.</value>
   </data>
+  <data name="Button.ViewLatestRelease" xml:space="preserve">
+    <value>Xem bản phát hành mới nhất</value>
+  </data>
 </root>

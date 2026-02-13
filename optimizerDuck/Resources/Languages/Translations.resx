@@ -316,7 +316,8 @@
     <value>Retry</value>
   </data>
     <data name="Settings.About.Duck.Description" xml:space="preserve">
-    <value>Thank you for your trust and support &lt;3! Current version: {0}</value>
+    <value><![CDATA[Thank you for your trust and support <3!
+Current version: {0}]]></value>
   </data>
     <data name="Settings.Advanced.Header" xml:space="preserve">
     <value>Advanced</value>
@@ -792,5 +793,8 @@
   </data>
     <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
     <value>Unable to open the folder or file</value>
+  </data>
+  <data name="Button.ViewLatestRelease" xml:space="preserve">
+    <value>View latest release</value>
   </data>
 </root>

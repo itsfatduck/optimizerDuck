@@ -197,7 +197,7 @@
 
                 <ui:CardControl>
                     <ui:CardControl.Icon>
-                        <ui:ImageIcon Height="26" Source="pack://application:,,,/optimizerDuck;component/Resources/Images/Duck.png" />
+                        <ui:ImageIcon Height="25" Source="pack://application:,,,/optimizerDuck;component/Resources/Images/Duck.png" />
                     </ui:CardControl.Icon>
 
                     <ui:CardControl.Header>
@@ -214,6 +214,12 @@
                                 TextWrapping="Wrap" />
                         </StackPanel>
                     </ui:CardControl.Header>
+
+                    <ui:Button
+                        Command="{Binding ViewModel.OpenLatestReleaseCommand}"
+                        Content="{ext:Loc Button.ViewLatestRelease}"
+                        Cursor="Hand"
+                        Icon="{ui:SymbolIcon Open24}" />
                 </ui:CardControl>
 
                 <ui:CardAction Command="{Binding ViewModel.OpenAcknowledgementsCommand}" VerticalAlignment="Stretch">

@@ -123,6 +123,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to View latest release.
+        /// </summary>
+        public static string Button_ViewLatestRelease {
+            get {
+                return ResourceManager.GetString("Button.ViewLatestRelease", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Applied on {0} days ago.
         /// </summary>
         public static string Common_AppliedDaysAgo {
@@ -2024,7 +2033,8 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thank you for your trust and support &lt;3! Current version: {0}.
+        ///   Looks up a localized string similar to Thank you for your trust and support &lt;3!
+        ///Current version: {0}.
         /// </summary>
         public static string Settings_About_Duck_Description {
             get {

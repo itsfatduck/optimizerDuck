@@ -6,6 +6,7 @@ using System.Reflection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using optimizerDuck.Common.Extensions;
+using optimizerDuck.Common.Helpers;
 
 namespace optimizerDuck.Services;
 
@@ -28,7 +29,8 @@ public class UpdaterService
 
     public async Task<bool> CheckForUpdatesAsync()
     {
-        _logger.LogInformation("Checking for updates...");
+        _logger.LogInformation("Checking for updates (Current version: {CurrentVersion})",
+            Shared.FileVersion);
 
         try
         {
@@ -59,8 +61,7 @@ public class UpdaterService
                 return false;
             }
 
-            var currentVersion = Assembly.GetExecutingAssembly().GetName().Version
-                                 ?? new Version(0, 0, 0);
+            var currentVersion = Version.Parse(Shared.FileVersion);
 
             if (latestVersion > currentVersion)
             {
