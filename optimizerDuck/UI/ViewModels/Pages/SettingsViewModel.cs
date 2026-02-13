@@ -35,7 +35,6 @@ public partial class SettingsViewModel(
 
     //Learn more links
     public string DiscordInvite { get; } = Shared.DiscordInviteURL;
-
     public string GitHubRepo { get; } = Shared.GitHubRepoURL;
     public string Documentation { get; } = Shared.GitHubRepoURL + "/wiki";
     public string SupportMe { get; } = Shared.SupportMeURL;

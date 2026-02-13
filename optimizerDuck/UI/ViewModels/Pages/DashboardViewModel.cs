@@ -18,26 +18,34 @@ public partial class DashboardViewModel : ViewModel
     private readonly ILogger<DashboardViewModel> _logger;
     private readonly SystemInfoService _systemInfoService;
     private readonly ISnackbarService _snackbarService;
+    private readonly UpdaterService _updaterService;
+    private readonly IContentDialogService _contentDialogService;
+
     private readonly DispatcherTimer _updateTimer;
     [ObservableProperty] private ApplicationTheme _currentApplicationTheme = ApplicationTheme.Unknown;
 
     private bool _isInitialized;
 
     [ObservableProperty] private bool _isLoading;
+    [ObservableProperty] private bool _hasUpdate;
     [ObservableProperty] private RamInfo _runtimeRam = RamInfo.Unknown;
     [ObservableProperty] private SystemSnapshot _systemInfo = SystemSnapshot.Unknown;
 
-    public DashboardViewModel(SystemInfoService systemInfoService,ISnackbarService snackbarService, ILogger<DashboardViewModel> logger)
+    public DashboardViewModel(SystemInfoService systemInfoService, ISnackbarService snackbarService,
+        ILogger<DashboardViewModel> logger, UpdaterService updaterService, IContentDialogService contentDialogService)
     {
         _systemInfoService = systemInfoService;
-        _snackbarService = snackbarService; 
+        _snackbarService = snackbarService;
         _logger = logger;
-
+        _updaterService = updaterService;
+        _contentDialogService = contentDialogService;
+        
         _updateTimer = new DispatcherTimer
         {
             Interval = TimeSpan.FromSeconds(2)
         };
         _updateTimer.Tick += async (s, e) => await UpdateRuntimeInfoAsync();
+        
         CurrentApplicationTheme = ApplicationThemeManager.GetAppTheme();
         ApplicationThemeManager.Changed += OnThemeChanged;
     }
@@ -52,6 +60,7 @@ public partial class DashboardViewModel : ViewModel
         if (!_isInitialized)
         {
             _systemInfoService.LogSummary();
+            HasUpdate = await _updaterService.CheckForUpdatesAsync();
             _isInitialized = true;
         }
 

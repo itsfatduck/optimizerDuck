@@ -47,36 +47,45 @@
         </Grid>
 
         <!--  Header  -->
-        <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,20">
-            <ui:TextBlock
-                FontTypography="Title"
-                Text="{ext:Loc Dashboard.Header.Title}"
-                TextWrapping="Wrap" />
+        <StackPanel Margin="0,0,0,20">
+            <ui:InfoBar
+                IsOpen="True"
+                Margin="0,0,0,10"
+                Message="A new version of optimizerDuck is available."
+                Severity="Warning"
+                Title="Update Available"
+                Visibility="{Binding ViewModel.HasUpdate, Converter={StaticResource BoolToVisibilityConverter}}" />
+            <Grid ColumnDefinitions="*,Auto">
+                <ui:TextBlock
+                    FontTypography="Title"
+                    Text="{ext:Loc Dashboard.Header.Title}"
+                    TextWrapping="Wrap" />
 
-            <Menu Grid.Column="1">
-                <ui:MenuItem Header="{ext:Loc Dashboard.Header.Menu.Header.Options}">
-                    <ui:MenuItem Header="{ext:Loc Dashboard.Header.Menu.Header.Run}" Icon="{ui:SymbolIcon Apps24}">
+                <Menu Grid.Column="1">
+                    <ui:MenuItem Header="{ext:Loc Dashboard.Header.Menu.Header.Options}">
+                        <ui:MenuItem Header="{ext:Loc Dashboard.Header.Menu.Header.Run}" Icon="{ui:SymbolIcon Apps24}">
+                            <ui:MenuItem
+                                Command="{Binding ViewModel.RunCommand}"
+                                CommandParameter="Settings"
+                                Header="{ext:Loc Dashboard.Header.Menu.RunSettings}" />
+                            <ui:MenuItem
+                                Command="{Binding ViewModel.RunCommand}"
+                                CommandParameter="TaskManager"
+                                Header="{ext:Loc Dashboard.Header.Menu.RunTaskManager}" />
+                            <ui:MenuItem
+                                Command="{Binding ViewModel.RunCommand}"
+                                CommandParameter="ControlPanel"
+                                Header="{ext:Loc Dashboard.Header.Menu.RunControlPanel}" />
+                        </ui:MenuItem>
+                        <Separator />
                         <ui:MenuItem
-                            Command="{Binding ViewModel.RunCommand}"
-                            CommandParameter="Settings"
-                            Header="{ext:Loc Dashboard.Header.Menu.RunSettings}" />
-                        <ui:MenuItem
-                            Command="{Binding ViewModel.RunCommand}"
-                            CommandParameter="TaskManager"
-                            Header="{ext:Loc Dashboard.Header.Menu.RunTaskManager}" />
-                        <ui:MenuItem
-                            Command="{Binding ViewModel.RunCommand}"
-                            CommandParameter="ControlPanel"
-                            Header="{ext:Loc Dashboard.Header.Menu.RunControlPanel}" />
+                            Command="{Binding ViewModel.RefreshCommand}"
+                            Header="{ext:Loc Dashboard.Header.Menu.Refresh}"
+                            Icon="{ui:SymbolIcon ArrowClockwise24}" />
                     </ui:MenuItem>
-                    <Separator />
-                    <ui:MenuItem
-                        Command="{Binding ViewModel.RefreshCommand}"
-                        Header="{ext:Loc Dashboard.Header.Menu.Refresh}"
-                        Icon="{ui:SymbolIcon ArrowClockwise24}" />
-                </ui:MenuItem>
-            </Menu>
-        </Grid>
+                </Menu>
+            </Grid>
+        </StackPanel>
 
         <!--  Action Cards  -->
         <UniformGrid

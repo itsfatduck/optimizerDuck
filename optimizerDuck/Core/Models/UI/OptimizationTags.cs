@@ -105,7 +105,7 @@ public static class OptimizationTagsToDisplay
                     Translations.Optimizer_UI_Tags_Security),
 
                 OptimizationTags.NetworkRequired => new OptimizationTagDisplay(
-                    SymbolRegular.NetworkAdapter16,
+                    SymbolRegular.Wifi120,
                     Translations.Optimizer_UI_Tags_NetworkRequired),
 
                 OptimizationTags.Nvidia => new OptimizationTagDisplay(
