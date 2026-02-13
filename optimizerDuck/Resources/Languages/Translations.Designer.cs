@@ -69,6 +69,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Skip.
+        /// </summary>
+        public static string Button_Skip {
+            get {
+                return ResourceManager.GetString("Button.Skip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clear.
         /// </summary>
         public static string Button_Clear {

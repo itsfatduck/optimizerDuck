@@ -364,6 +364,9 @@
   <data name="Button.Cancel" xml:space="preserve">
     <value>Hủy</value>
   </data>
+  <data name="Button.Skip" xml:space="preserve">
+    <value>Bỏ qua</value>
+  </data>
   <data name="Settings.ClearRevertData.Description" xml:space="preserve">
     <value>Bạn chuẩn bị xóa tất cả dữ liệu hoàn tác được tạo sau quá trình tối ưu. Việc này đồng nghĩa với việc bạn sẽ không thể khôi phục lại trạng thái trước tối ưu, vì vậy hãy cân nhắc thật kỹ trước khi xác nhận.</value>
   </data>
@@ -440,7 +443,7 @@
     <value>Tắt Background Apps</value>
   </data>
   <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
-    <value>Chặn các ứng dụng được hỗ trợ chạy nền, giúp giảm mức sử dụng RAM/CPU và cải thiện độ phản hồi.</value>
+    <value>Ngăn chặn ứng dụng UWP chạy tác vụ nền, giảm áp lực bộ nhớ và mức sử dụng CPU trong thời gian hệ thống không hoạt động.</value>
   </data>
   <data name="Optimizer.Performance.SvcHostSplit.Name" xml:space="preserve">
         <value>Bật Chia Service Host</value>
@@ -452,61 +455,61 @@
      <value>Bật Foreground Boost</value>
     </data>
   <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
-     <value>Tinh chỉnh scheduler để app ở foreground được ưu tiên hơn, giúp phản hồi mượt và giảm input lag khi chơi game/làm việc nặng.</value>
-    </data>
+    <value>Cấu hình Win32PrioritySeparation thành 38 (Short, Variable, High foreground boost), ưu tiên ứng dụng đang hoạt động và giảm độ trễ đầu vào.</value>
+  </data>
   <data name="Optimizer.Performance.GameTaskScheduling.Name" xml:space="preserve">
      <value>Bật Ưu Tiên Game</value>
     </data>
   <data name="Optimizer.Performance.GameTaskScheduling.ShortDescription" xml:space="preserve">
-     <value>Tinh chỉnh MMCSS “Games” để ưu tiên workload game, hướng tới frame pacing ổn định và giảm stutter.</value>
-    </data>
+    <value>Cấu hình hồ sơ tác vụ MMCSS "Games" với danh mục lập lịch High và mức ưu tiên GPU/IO cao để đảm bảo frame pacing ổn định.</value>
+  </data>
   <data name="Optimizer.Performance.MultimediaResponsiveness.Name" xml:space="preserve">
      <value>Tối Ưu MMCSS Responsiveness</value>
     </data>
   <data name="Optimizer.Performance.MultimediaResponsiveness.ShortDescription" xml:space="preserve">
-     <value>Tinh chỉnh SystemProfile responsiveness và tắt Network Throttling để ưu tiên độ trễ thấp cho game và audio/video realtime.</value>
-    </data>
+    <value>Giảm thiểu độ trễ MMCSS bằng cách đặt SystemResponsiveness thành 10 và vô hiệu hóa điều tiết mạng (0xFFFFFFFF) cho các tác vụ thời gian thực.</value>
+  </data>
   <data name="Optimizer.Performance.DisableGameBar.Name" xml:space="preserve">
      <value>Tắt Xbox Game Bar</value>
     </data>
   <data name="Optimizer.Performance.DisableGameBar.ShortDescription" xml:space="preserve">
-    <value>Tắt lớp phủ/mẹo của Xbox Game Bar để giảm gánh nặng xử lý nền và tránh cửa sổ bật lên. Bạn sẽ không dùng được lớp phủ/phím tắt của Game Bar.</value>
+    <value>Vô hiệu hóa lớp phủ Xbox Game Bar, thông báo khởi động và tích hợp phím tắt để loại bỏ chi phí xử lý nền từ tính năng ghi hình.</value>
   </data>
   <data name="Optimizer.Performance.EnableGameMode.Name" xml:space="preserve">
     <value>Bật Chế Độ Trò Chơi</value>
   </data>
   <data name="Optimizer.Performance.EnableGameMode.ShortDescription" xml:space="preserve">
-    <value>Bật Chế độ Trò chơi (Game Mode) để ưu tiên hiệu năng chơi game và hạn chế hoạt động nền. (Khuyến nghị trên Windows 11)</value>
+    <value>Kích hoạt Game Mode qua registry để tự động ưu tiên tiến trình game và chặn thông báo Windows Update trong khi chơi.</value>
   </data>
   <data name="Optimizer.Performance.DisableGameDVR.Name" xml:space="preserve">
     <value>Tắt Game DVR Recording</value>
   </data>
   <data name="Optimizer.Performance.DisableGameDVR.ShortDescription" xml:space="preserve">
-     <value>Tắt Game DVR/Background Capture để giảm tài nguyên và giảm latency. Bạn sẽ không dùng được tính năng ghi hình/ghi clip chạy nền.</value>
-    </data>
+    <value>Vô hiệu hóa hoàn toàn ghi hình nền Game DVR (AppCaptureEnabled, GameDVR_Enabled, chính sách AllowGameDVR) để loại bỏ chi phí xử lý từ tính năng ghi hình.</value>
+  </data>
   <data name="Optimizer.Performance.DisableMouseAcceleration.Name" xml:space="preserve">
     <value>Tắt Gia Tốc Chuột</value>
   </data>
   <data name="Optimizer.Performance.DisableMouseAcceleration.ShortDescription" xml:space="preserve">
-    <value>Tắt tăng tốc chuột để con trỏ di chuyển ổn định và dễ dự đoán.</value>
+    <value>Đặt MouseSpeed thành 0 và xóa ngưỡng gia tốc, cung cấp chuyển động chuột 1:1 từ vật lý đến màn hình cho điều khiển game chính xác.</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
     <value>Tối Ưu Phản Hồi Bàn Phím</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
-     <value>Tinh chỉnh Keyboard Delay/Repeat Rate và một số tuỳ chọn Accessibility để cảm giác gõ/phím phản hồi nhanh hơn.</value>
-    </data>
+    <value>Giảm thiểu độ trễ bàn phím (0) và tối đa hóa tốc độ lặp (31), vô hiệu hóa độ trễ StickyKeys/FilterKeys để nhập liệu nhanh.</value>
+  </data>
   <data name="Optimizer.PowerManagement.DisableHibernate.Name" xml:space="preserve">
-     <value>Tắt Hibernate &amp; Fast Startup</value>
-    </data>
+    <value>Tắt Hibernate &amp; Fast Startup</value>
+  </data>
   <data name="Optimizer.PowerManagement.DisableHibernate.ShortDescription" xml:space="preserve">
-     <value>Tắt Hibernate và Fast Startup để giải phóng dung lượng (hiberfile) và tránh một số lỗi shutdown/boot liên quan Fast Startup.</value>
-    </data>
+    <value>Vô hiệu hóa Hibernate (HibernateEnabled=0) và Fast Startup (HiberbootEnabled=0), xóa hiberfile.sys để giải phóng dung lượng đĩa.</value>
+  </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
-     <value>Tắt Tiết Kiệm Điện USB</value>
-    </data>
+    <value>Tắt Tiết Kiệm Điện USB</value>
+  </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
-    <value>Ngăn USB Root Hub chuyển sang power saving để giảm độ trễ. Có thể tăng tiêu thụ điện (đặc biệt trên laptop).</value>
+    <value>Vô hiệu hóa tính năng tạm dừng có chọn lọc USB trên tất cả root hub qua WMI MSPower_DeviceEnable, ngăn độ trễ thiết bị đầu vào. Tăng mức tiêu thụ điện laptop.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
     <value>Cài Đặt Power Plan của optimizerDuck</value>
@@ -515,22 +518,22 @@
     <value>Tải và import power plan của optimizerDuck, sau đó sử dụng để ưu tiên hiệu năng tối đa. Có thể tăng điện năng, nhiệt độ và tiếng quạt.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Downloading" xml:space="preserve">
-     <value>Đang tải power plan...</value>
-    </data>
+    <value>Đang tải power plan...</value>
+  </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
     <value>Đang import và set active power plan...</value>
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
-     <value>Tắt Power Throttling</value>
-    </data>
+    <value>Tắt Power Throttling</value>
+  </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
-     <value>Tắt Power Throttling và một số thiết lập power saving để giữ hiệu năng ổn định khi tải nặng. Có thể tăng điện năng và nhiệt độ.</value>
-    </data>
+    <value>Vô hiệu hóa điều tiết nguồn CPU (PowerThrottlingOff=1), bắt buộc hồ sơ đa phương tiện AlwaysOn, tắt khôi phục khi USB ngắt kết nối bất ngờ.</value>
+  </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableUAC.Name" xml:space="preserve">
     <value>Tắt Prompt UAC</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableUAC.ShortDescription" xml:space="preserve">
-    <value>Tắt UAC (User Account Control) – cơ chế yêu cầu bạn xác nhận khi chạy ứng dụng cần quyền Admin. Việc tắt có thể giảm sự phiền phức, nhưng đồng thời làm suy yếu các cơ chế bảo vệ bảo mật quan trọng.</value>
+    <value>Tắt UAC (User Account Control) – cơ chế yêu cầu bạn xác nhận khi chạy ứng dụng cần quyền Admin. Việc tắt có thể giảm sự phiền phức, nhưng đồng thầm làm suy yếu các cơ chế bảo vệ bảo mật quan trọng.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
     <value>Giảm Telemetry &amp; Feedback</value>
@@ -608,7 +611,7 @@
         <value>Tắt Power Gating của AMD</value>
     </data>
   <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
-        <value>Tắt các tính năng power gating của AMD để duy trì hiệu suất GPU ổn định dưới tải nặng. Có thể tăng điện năng và nhiệt độ.</value>
+        <value>Tắt các tính năng power gating của AMD để duy trì hiệu suất GPU ổn định dướiTải nặng. Có thể tăng điện năng và nhiệt độ.</value>
     </data>
   <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
         <value>Tắt Video Clock Gating của AMD</value>
@@ -644,7 +647,7 @@
         <value>Tắt Adaptive V-Sync của Intel</value>
     </data>
   <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
-        <value>Tắt vertical sync thích ứng của Intel để cung cấp thời gian khung hình nhất quán hơn.</value>
+        <value>Tắt vertical sync thích ứng của Intel để cung cấp thởi gian khung hình nhất quán hơn.</value>
     </data>
   <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.Name" xml:space="preserve">
         <value>Tắt Tin tức &amp; Sở thích trên Taskbar</value>
@@ -710,7 +713,7 @@
         <value>Hiển thị Giây trên Đồng hồ Hệ thống</value>
     </data>
   <data name="Optimizer.UserExperience.ShowSecondsInSystemClock.ShortDescription" xml:space="preserve">
-        <value>Thêm hiển thị giây vào đồng hồ hệ thống trên taskbar để theo dõi thời gian chính xác hơn.</value>
+        <value>Thêm hiển thị giây vào đồng hồ hệ thống trên taskbar để theo dõi thởi gian chính xác hơn.</value>
     </data>
   <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
         <value>Tắt Hiệu ứng Trực quan</value>
@@ -785,7 +788,7 @@
     <value>Không thể kích hoạt power plan của optimizerDuck.</value>
   </data>
   <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
-    <value>Điều chỉnh ngưỡng tách Service Host dựa trên dung lượng RAM đã cài đặt nhằm cải thiện khả năng cô lập tiến trình và độ ổn định.</value>
+    <value>Thiết lập ngưỡng tách Service Host bằng tổng dung lượng RAM hệ thống, buộc Windows cô lập dịch vụ vào các tiến trình riêng biệt để tăng cường độ ổn định.</value>
   </data>
   <data name="Button.ViewLatestRelease" xml:space="preserve">
     <value>Xem bản phát hành mới nhất</value>

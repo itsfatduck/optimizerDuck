@@ -162,7 +162,7 @@
     <value>Other</value>
   </data>
   <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
-    <value>Adjusts Service Host split threshold based on installed RAM to improve process isolation and stability.</value>
+    <value>Sets the Service Host split threshold to match total system RAM, forcing Windows to isolate services into separate processes for improved stability.</value>
   </data>
     <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed"
           xml:space="preserve">
@@ -382,6 +382,9 @@ Current version: {0}]]></value>
     <data name="Button.Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+    <data name="Button.Skip" xml:space="preserve">
+    <value>Skip</value>
+  </data>
     <data name="Settings.ClearRevertData.Description" xml:space="preserve">
     <value>You are about to delete all rollback data generated after the optimization process. This means you will no longer be able to restore the pre-optimization state, so please think carefully before confirming.</value>
   </data>
@@ -458,7 +461,7 @@ Current version: {0}]]></value>
         <value>Disable Background App Activity</value>
     </data>
     <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
-    <value>Blocks supported apps from running in the background, reducing idle RAM/CPU usage and improving responsiveness.</value>
+    <value>Prevents UWP apps from running background tasks, reducing memory pressure and CPU usage during idle periods.</value>
   </data>
     <data name="Optimizer.Performance.SvcHostSplit.Name" xml:space="preserve">
         <value>Enable Service Host Splitting</value>
@@ -470,61 +473,61 @@ Current version: {0}]]></value>
         <value>Enable Foreground Boost</value>
     </data>
     <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
-    <value>Tunes Windows scheduler foreground boost so active apps feel snappier and input latency is reduced.</value>
+    <value>Configures Win32PrioritySeparation to 38 (Short, Variable, High foreground boost), prioritizing active applications and reducing input latency.</value>
   </data>
     <data name="Optimizer.Performance.GameTaskScheduling.Name" xml:space="preserve">
         <value>Enable Game Task Priority</value>
     </data>
     <data name="Optimizer.Performance.GameTaskScheduling.ShortDescription" xml:space="preserve">
-    <value>Adjusts MMCSS “Games” task settings to prioritize game workloads for more consistent frame pacing.</value>
+    <value>Configures MMCSS "Games" task profile with High scheduling category and elevated GPU/IO priority for consistent frame pacing.</value>
   </data>
     <data name="Optimizer.Performance.MultimediaResponsiveness.Name" xml:space="preserve">
         <value>Optimize MMCSS Responsiveness</value>
     </data>
     <data name="Optimizer.Performance.MultimediaResponsiveness.ShortDescription" xml:space="preserve">
-    <value>Reduces latency by tuning SystemProfile responsiveness and disabling network throttling for gaming and AV workloads.</value>
+    <value>Minimizes MMCSS latency by setting SystemResponsiveness to 10 and disabling network throttling (0xFFFFFFFF) for real-time workloads.</value>
   </data>
     <data name="Optimizer.Performance.DisableGameBar.Name" xml:space="preserve">
         <value>Disable Xbox Game Bar</value>
     </data>
     <data name="Optimizer.Performance.DisableGameBar.ShortDescription" xml:space="preserve">
-    <value>Disables Game Bar UI overlays and tips to reduce background overhead and interruptions.</value>
+    <value>Disables Xbox Game Bar overlays, startup tips, and hotkey integration to eliminate background capture overhead.</value>
   </data>
     <data name="Optimizer.Performance.EnableGameMode.Name" xml:space="preserve">
     <value>Enable Game Mode</value>
   </data>
     <data name="Optimizer.Performance.EnableGameMode.ShortDescription" xml:space="preserve">
-    <value>Enables Game Mode to prioritize gaming performance and limit background activity. (Recommended on Windows 11)</value>
+    <value>Activates Windows Game Mode via registry to automatically prioritize game processes and suppress Windows Update notifications during gameplay.</value>
   </data>
     <data name="Optimizer.Performance.DisableGameDVR.Name" xml:space="preserve">
         <value>Disable Game DVR Recording</value>
     </data>
     <data name="Optimizer.Performance.DisableGameDVR.ShortDescription" xml:space="preserve">
-    <value>Turns off background game capture/recording features to free resources and reduce latency.</value>
+    <value>Completely disables Game DVR background recording (AppCaptureEnabled, GameDVR_Enabled, AllowGameDVR policies) to eliminate capture overhead.</value>
   </data>
     <data name="Optimizer.Performance.DisableMouseAcceleration.Name" xml:space="preserve">
         <value>Disable Mouse Acceleration</value>
     </data>
     <data name="Optimizer.Performance.DisableMouseAcceleration.ShortDescription" xml:space="preserve">
-    <value>Disables mouse acceleration for consistent, predictable cursor movement.</value>
+    <value>Sets MouseSpeed to 0 and clears acceleration thresholds, providing 1:1 physical-to-screen cursor movement for precise gaming.</value>
   </data>
     <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
         <value>Optimize Keyboard Responsiveness</value>
     </data>
     <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
-    <value>Tunes keyboard delay/repeat rate and related accessibility flags to improve typing responsiveness.</value>
+    <value>Minimizes keyboard delay (0) and maximizes repeat rate (31), disables StickyKeys/FilterKeys accessibility delays for rapid input.</value>
   </data>
     <data name="Optimizer.PowerManagement.DisableHibernate.Name" xml:space="preserve">
         <value>Disable Hibernate &amp; Fast Startup</value>
     </data>
     <data name="Optimizer.PowerManagement.DisableHibernate.ShortDescription" xml:space="preserve">
-    <value>Disables Hibernate and Fast Startup to free disk space and avoid using the hiberfile.</value>
+    <value>Disables Hibernate (HibernateEnabled=0) and Fast Startup (HiberbootEnabled=0), removes hiberfile.sys to reclaim disk space.</value>
   </data>
     <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
         <value>Disable USB Power Saving</value>
     </data>
     <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
-    <value>Prevents USB root hubs from entering power-saving mode to reduce latency. May increase power usage on laptops.</value>
+    <value>Disables USB selective suspend on all root hubs via MSPower_DeviceEnable WMI to prevent input device latency. Increases laptop power draw.</value>
   </data>
     <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
     <value>Install optimizerDuck's Power Plan</value>
@@ -542,19 +545,19 @@ Current version: {0}]]></value>
         <value>Disable Power Throttling</value>
     </data>
     <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
-    <value>Disables power throttling and related power-saving behaviors to keep performance stable under load. May increase power use and temperatures.</value>
+    <value>Disables CPU power throttling (PowerThrottlingOff=1), forces multimedia system profile to AlwaysOn, disables USB surprise removal recovery.</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableUAC.Name" xml:space="preserve">
         <value>Disable UAC Prompts</value>
     </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableUAC.ShortDescription" xml:space="preserve">
-    <value>Disables UAC (User Account Control) – the mechanism that asks for confirmation when running applications requiring Admin rights. Turning it off may reduce annoyance, but it also weakens important security protections.</value>
+    <value>Sets EnableLUA=0 to disable User Account Control elevation prompts, allowing silent admin execution. Significantly reduces system security.</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
         <value>Reduce Telemetry &amp; Feedback</value>
     </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
-    <value>Reduces Windows diagnostics/telemetry and feedback by applying policies, registry settings, services, and scheduled tasks. May affect error reporting and some compatibility features.</value>
+    <value>Applies comprehensive anti-telemetry policies: disables DiagTrack, dmwappushservice, WerSvc services; disables 14+ telemetry scheduled tasks; blocks 50+ telemetry registry keys including AllowTelemetry, AdvertisingInfo, Location tracking.</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
     <value>Applying policy and registry changes...</value>
@@ -569,37 +572,37 @@ Current version: {0}]]></value>
     <value>Disable WMI AutoLogger</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
-    <value>Disables multiple WMI AutoLogger sessions to reduce background event logging; can make troubleshooting harder.</value>
+    <value>Stops 12 WMI AutoLogger sessions (Diagtrack-Listener, SQMLogger, WdiContextLog, etc.) by setting Start=0, reducing kernel-level event collection.</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
         <value>Disable Cortana &amp; Web Search</value>
     </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
-    <value>Removes Cortana and web search integration from Windows Search.</value>
+    <value>Blocks Cortana via AllowCortana=0, AllowCloudSearch=0 policies and disables web search integration in Windows Search.</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
         <value>Disable Windows Copilot</value>
     </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
-    <value>Disables Windows Copilot and hides its UI integration in the taskbar and system shell.</value>
+    <value>Applies TurnOffWindowsCopilot=1 policies, hides Copilot button from taskbar, blocks shell extension {CB3B0003-8088-4EDE-8769-8B354AB2FF8C}.</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
         <value>Disable Content Delivery</value>
     </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
-    <value>Stops suggested apps, tips, and Windows content delivery recommendations.</value>
+    <value>Disables Content Delivery Manager (ContentDeliveryAllowed=0, SubscribedContent-*=0), stopping suggested apps, tips, and promotional content in Settings/Start.</value>
   </data>
     <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
         <value>Block Preinstalled Apps</value>
     </data>
     <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
-    <value>Blocks Windows from automatically installing OEM/bundled apps and suggested apps, helping keep the system cleaner from bloatware (especially after a fresh install or reset).</value>
+    <value>Sets PreInstalledAppsEnabled=0, OemPreInstalledAppsEnabled=0, SilentInstalledAppsEnabled=0 to prevent automatic installation of OEM bloatware and promoted apps.</value>
   </data>
     <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
         <value>Optimize Service Startup</value>
     </data>
     <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
-    <value>Switches non-critical system services to manual start, reducing background usage without breaking functionality. Required services will start automatically when needed.</value>
+    <value>Configures 100+ Windows services startup types: disables telemetry services (DiagTrack, DcpSvc), sets non-critical services to Manual, keeps essential services (Audio, Networking, Security) as Automatic. Reduces background RAM/CPU usage.</value>
   </data>
     <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType"
           xml:space="preserve">
@@ -621,121 +624,121 @@ Current version: {0}]]></value>
         <value>Disable AMD ULPS</value>
     </data>
     <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
-        <value>Disables AMD Ultra Low Power State to prevent GPU power-down issues and improve wake-up latency.</value>
+        <value>Sets EnableULPS=0 in AMD GPU registry to prevent Ultra Low Power State wake-up delays and multi-monitor issues. Reduces power saving on idle.</value>
     </data>
     <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
         <value>Disable AMD Power Gating</value>
     </data>
     <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
-        <value>Disables AMD power gating features to maintain consistent GPU performance under load. May increase power draw and temperatures.</value>
+        <value>Sets DisablePowerGating=1, PP_GPUPowerDownEnabled=0, DisableDynamicPstate=1 to prevent AMD GPU power state transitions. Maintains consistent clocks at cost of higher idle power.</value>
     </data>
     <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
         <value>Disable AMD Video Clock Gating</value>
     </data>
     <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-        <value>Disables AMD video engine clock gating to improve video processing performance and stability. May increase power usage.</value>
+        <value>Sets DisableVCEPowerGating=1, DisableVceClockGating=1, EnableUvdClockGating=0 for AMD video engines (VCE/UVD) to improve encode/decode stability. Increases video playback power.</value>
     </data>
     <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
         <value>Disable AMD ASPM</value>
     </data>
     <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
-        <value>Disables AMD Active State Power Management to reduce latency and improve responsiveness. May increase PCIe power draw.</value>
+        <value>Sets EnableAspmL0s=0, EnableAspmL1=0 to disable Active State Power Management on AMD GPUs, reducing PCIe bus latency. Increases slot power consumption.</value>
     </data>
     <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
         <value>Disable NVIDIA Dynamic P-State</value>
     </data>
     <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
-        <value>Disables NVIDIA dynamic power state transitions to maintain consistent performance. May increase idle power usage.</value>
+        <value>Sets DisableDynamicPstate=1 to lock NVIDIA GPU into fixed performance state, preventing clock speed fluctuations. Increases idle power draw.</value>
     </data>
     <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
         <value>Disable NVIDIA Async P-States</value>
     </data>
     <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
-        <value>Disables NVIDIA asynchronous power state management for more predictable performance. May increase power usage.</value>
+        <value>Sets DisableASyncPstates=1 to prevent NVIDIA asynchronous power state switching, providing deterministic performance for VR/real-time apps.</value>
     </data>
     <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
         <value>Disable Intel Async Flips</value>
     </data>
     <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
-        <value>Disables Intel asynchronous flip operations to reduce display latency and improve tearing resistance.</value>
+        <value>Sets Display1_DisableAsyncFlips=1 to force synchronous buffer flips on Intel iGPU, reducing input-to-display latency and screen tearing.</value>
     </data>
     <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
         <value>Disable Intel Adaptive V-Sync</value>
     </data>
     <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
-        <value>Disables Intel adaptive vertical sync to provide more consistent frame timing.</value>
+        <value>Sets AdaptiveVsyncEnable=0 to disable Intel's adaptive V-Sync that dynamically adjusts to frame rate, using fixed V-Sync instead for stable timing.</value>
     </data>
     <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.Name" xml:space="preserve">
         <value>Disable Taskbar News &amp; Interests</value>
     </data>
     <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.ShortDescription" xml:space="preserve">
-        <value>Removes the news and interests widget from the taskbar to reduce distractions and resource usage.</value>
+        <value>Sets AllowNewsAndInterests=0, EnableFeeds=0 to remove the News and Interests widget from taskbar, eliminating MSN feed background updates.</value>
     </data>
     <data name="Optimizer.UserExperience.DisableTaskbarExtraButtons.Name" xml:space="preserve">
         <value>Disable Extra Taskbar Buttons</value>
     </data>
     <data name="Optimizer.UserExperience.DisableTaskbarExtraButtons.ShortDescription" xml:space="preserve">
-        <value>Hides Widgets, Chat, and Task View buttons from the taskbar for a cleaner interface.</value>
+        <value>Sets TaskbarDa=0 (Widgets), TaskbarMn=0 (Chat), ShowTaskViewButton=0 to hide taskbar buttons for a minimal interface.</value>
     </data>
     <data name="Optimizer.UserExperience.DisableTaskbarSearchAndBing.Name" xml:space="preserve">
         <value>Disable Taskbar Search &amp; Bing</value>
     </data>
     <data name="Optimizer.UserExperience.DisableTaskbarSearchAndBing.ShortDescription" xml:space="preserve">
-        <value>Removes the search box from taskbar and disables Bing web search integration.</value>
+        <value>Sets SearchboxTaskbarMode=0, BingSearchEnabled=0 to remove search box from taskbar and disable Bing web search in Start menu.</value>
     </data>
     <data name="Optimizer.UserExperience.RemoveMeetNowAndPeople.Name" xml:space="preserve">
         <value>Remove Meet Now &amp; People</value>
     </data>
     <data name="Optimizer.UserExperience.RemoveMeetNowAndPeople.ShortDescription" xml:space="preserve">
-        <value>Removes Meet Now and People icons from the taskbar to reduce clutter.</value>
+        <value>Sets HideSCAMeetNow=1, PeopleBand=0 to remove Meet Now (Skype) and People icons from taskbar notification area.</value>
     </data>
     <data name="Optimizer.UserExperience.EnableTaskbarEndTask.Name" xml:space="preserve">
         <value>Enable Taskbar End Task</value>
     </data>
     <data name="Optimizer.UserExperience.EnableTaskbarEndTask.ShortDescription" xml:space="preserve">
-        <value>Adds the ability to right-click taskbar applications and select "End task" for quick process termination.</value>
+        <value>Sets TaskbarEndTask=1 to add "End task" option to taskbar right-click menu, allowing quick process termination without Task Manager.</value>
     </data>
     <data name="Optimizer.UserExperience.EnableDarkMode.Name" xml:space="preserve">
         <value>Enable Dark Mode</value>
     </data>
     <data name="Optimizer.UserExperience.EnableDarkMode.ShortDescription" xml:space="preserve">
-        <value>Enables dark mode for system apps and interface elements to reduce eye strain.</value>
+        <value>Sets AppsUseLightTheme=0, SystemUsesLightTheme=0 to enable dark mode for system apps, Settings, and shell elements.</value>
     </data>
     <data name="Optimizer.UserExperience.DisableExplorerAndSystemNotifications.Name" xml:space="preserve">
         <value>Disable Explorer &amp; System Notifications</value>
     </data>
     <data name="Optimizer.UserExperience.DisableExplorerAndSystemNotifications.ShortDescription" xml:space="preserve">
-        <value>Disables various system notifications and sync provider notifications to reduce interruptions.</value>
+        <value>Sets ShowSyncProviderNotifications=0, SystemPaneSuggestionsEnabled=0, ToastEnabled=0 to disable OneDrive sync ads, Windows tips, and toast notifications.</value>
     </data>
     <data name="Optimizer.UserExperience.ShowFileExtensionsAndHiddenFiles.Name" xml:space="preserve">
         <value>Show File Extensions &amp; Hidden Files</value>
     </data>
     <data name="Optimizer.UserExperience.ShowFileExtensionsAndHiddenFiles.ShortDescription" xml:space="preserve">
-        <value>Makes file extensions visible and shows hidden system files for better file management.</value>
+        <value>Sets HideFileExt=0, Hidden=1 in Explorer to display file extensions and reveal hidden/system files for transparency.</value>
     </data>
     <data name="Optimizer.UserExperience.EnableClassicContextMenu.Name" xml:space="preserve">
     <value>Enable Classic Context Menu (for Windows 11)</value>
   </data>
     <data name="Optimizer.UserExperience.EnableClassicContextMenu.ShortDescription" xml:space="preserve">
-        <value>Restores the classic Windows context menu instead of the modern simplified version.</value>
+        <value>Creates InprocServer32 key at CLSID {86ca1aa0-34aa-4e8b-a509-50c905bae2a2} to restore Windows 10-style full context menu on Windows 11.</value>
     </data>
     <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
         <value>Speed Up Explorer &amp; Menus</value>
     </data>
     <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
-        <value>Reduces Explorer startup delay and menu popup delay for faster interface response.</value>
+        <value>Sets StartupDelayInMSec=0, MenuShowDelay=0 to eliminate Explorer startup delay and reduce menu hover delay to minimum.</value>
     </data>
     <data name="Optimizer.UserExperience.ShowSecondsInSystemClock.Name" xml:space="preserve">
         <value>Show Seconds in System Clock</value>
     </data>
     <data name="Optimizer.UserExperience.ShowSecondsInSystemClock.ShortDescription" xml:space="preserve">
-        <value>Adds seconds display to the system clock in the taskbar for more precise time tracking.</value>
+        <value>Sets ShowSecondsInSystemClock=1 to display seconds in taskbar clock for precise time monitoring.</value>
     </data>
     <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
         <value>Disable Visual Effects</value>
     </data>
     <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
-        <value>Disables taskbar animations, shadows, transparency, and Aero Peek for better performance.</value>
+        <value>Sets TaskbarAnimations=0, ListviewShadow=0, EnableTransparency=0, EnableAeroPeek=0 to disable animations, shadows, transparency for improved UI responsiveness.</value>
     </data>
     <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
     <value>Do NOT change unless you know exactly what you are doing</value>
