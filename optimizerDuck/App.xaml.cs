@@ -13,6 +13,8 @@ using optimizerDuck.Services;
 using optimizerDuck.Services.Managers;
 using optimizerDuck.Services.OptimizationServices;
 using optimizerDuck.UI.ViewModels.Pages;
+using optimizerDuck.UI.Views.Pages;
+using optimizerDuck.UI.Views.Windows;
 using Serilog;
 using Serilog.Events;
 using Serilog.Formatting;
@@ -20,12 +22,6 @@ using Serilog.Parsing;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.DependencyInjection;
-using DashboardPage = optimizerDuck.UI.Views.Pages.DashboardPage;
-using DashboardViewModel = optimizerDuck.UI.ViewModels.Pages.DashboardViewModel;
-using MainWindow = optimizerDuck.UI.Views.Windows.MainWindow;
-using OptimizePage = optimizerDuck.UI.Views.Pages.OptimizePage;
-using SettingsPage = optimizerDuck.UI.Views.Pages.SettingsPage;
-using SettingsViewModel = optimizerDuck.UI.ViewModels.Pages.SettingsViewModel;
 
 namespace optimizerDuck;
 
@@ -158,6 +154,9 @@ public partial class App : Application
 
                     services.AddSingleton<SettingsViewModel>();
                     services.AddSingleton<SettingsPage>();
+                    
+                    services.AddSingleton<BloatwareViewModel>();
+                    services.AddSingleton<BloatwarePage>();
 
                     // Optimizations
                     services.AddAllOptimizationPages();

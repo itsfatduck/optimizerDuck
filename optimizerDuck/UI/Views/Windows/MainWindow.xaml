@@ -37,12 +37,18 @@
                     Content="{extensions:Loc Sidebar.Dashboard}"
                     Icon="{ui:SymbolIcon Home24}"
                     TargetPageType="{x:Type pages:DashboardPage}" />
+
                 <ui:NavigationViewItemSeparator Margin="0,2,0,2" />
 
                 <ui:NavigationViewItem
                     Content="{extensions:Loc Sidebar.Optimize}"
                     Icon="{ui:SymbolIcon Rocket24}"
                     TargetPageType="{x:Type pages:OptimizePage}" />
+
+                <ui:NavigationViewItem
+                    Content="{extensions:Loc Sidebar.Bloatware}"
+                    Icon="{ui:SymbolIcon Delete24}"
+                    TargetPageType="{x:Type pages:BloatwarePage}" />
             </ui:NavigationView.MenuItems>
 
             <ui:NavigationView.FooterMenuItems>
