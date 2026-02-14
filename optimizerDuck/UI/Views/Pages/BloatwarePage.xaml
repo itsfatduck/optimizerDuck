@@ -1,5 +1,4 @@
 <Page
-    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     Margin="0,32,0,0"
     ScrollViewer.CanContentScroll="False"
     Title="BloatwarePage"
@@ -167,7 +166,7 @@
                                                 <ui:TextBlock
                                                     Appearance="Tertiary"
                                                     FontTypography="Body"
-                                                    Text="{Binding Version, StringFormat='v{0}'}"
+                                                    Text="{Binding Version}"
                                                     VerticalAlignment="Center" />
                                             </Border>
 
@@ -183,22 +182,43 @@
                                                             <DataTrigger Binding="{Binding Risk}" Value="Caution">
                                                                 <Setter Property="Background" Value="{DynamicResource SystemFillColorCautionBrush}" />
                                                             </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Risk}" Value="Unknown">
+                                                                <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
+                                                            </DataTrigger>
                                                         </Style.Triggers>
                                                     </Style>
                                                 </Border.Style>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <ui:SymbolIcon
-                                                        Foreground="{DynamicResource TextFillColorInverseBrush}"
-                                                        Margin="0,0,5,0"
-                                                        Symbol="{Binding RiskVisual.Icon}" />
+                                                    <ui:SymbolIcon Margin="0,0,5,0" Symbol="{Binding RiskVisual.Icon}">
+                                                        <ui:SymbolIcon.Style>
+                                                            <Style TargetType="ui:SymbolIcon">
+                                                                <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding Risk}" Value="Unknown">
+                                                                        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </ui:SymbolIcon.Style>
+                                                    </ui:SymbolIcon>
 
                                                     <ui:TextBlock
                                                         FontTypography="Caption"
-                                                        Foreground="{DynamicResource TextFillColorInverseBrush}"
                                                         HorizontalAlignment="Center"
                                                         Text="{Binding RiskVisual.Display}"
                                                         TextWrapping="Wrap"
-                                                        VerticalAlignment="Center" />
+                                                        VerticalAlignment="Center">
+                                                        <ui:TextBlock.Style>
+                                                            <Style TargetType="ui:TextBlock">
+                                                                <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding Risk}" Value="Unknown">
+                                                                        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </ui:TextBlock.Style>
+                                                    </ui:TextBlock>
                                                 </StackPanel>
                                             </Border>
 

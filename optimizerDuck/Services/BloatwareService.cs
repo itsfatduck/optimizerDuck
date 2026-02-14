@@ -16,52 +16,43 @@ public class BloatwareService(ILogger<BloatwareService> logger)
         try
         {
             var result = await ShellService.PowerShellAsync($$"""
-                                                              # list the SAFE_APPS
-                                                              $safeApps = @({{string.Join(", ", Shared.SafeApps.Keys.Select(x => $"\"{x}\""))}})
-
-                                                              # list the CAUTION_APPS
-                                                              $cautionApps = @({{string.Join(", ", Shared.CautionApps.Keys.Select(x => $"\"{x}\""))}})
-
-                                                              # get installed removable apps
-                                                              $installedApps = Get-AppxPackage -AllUsers | Where-Object { $_.NonRemovable -eq 0 }
-
-                                                              $result = @()
-
-                                                              foreach ($app in $installedApps) {
-
-                                                                  $nameLower = $app.Name.ToLower()
-                                                                  $risk = "Unknown"
-
-                                                                  foreach ($s in $safeApps) {
-                                                                      if ($nameLower -like "*$($s.ToLower())*") {
-                                                                          $risk = "Safe"
-                                                                          break
-                                                                      }
-                                                                  }
-
-                                                                  if ($risk -eq "Unknown") {
-                                                                      foreach ($s in $cautionApps) {
-                                                                          if ($nameLower -like "*$($s.ToLower())*") {
-                                                                              $risk = "Caution"
-                                                                              break
-                                                                          }
-                                                                      }
-                                                                  }
-
-                                                                  if ($risk -ne "Unknown") {
-                                                                      $result += [PSCustomObject]@{
-                                                                          Name            = $app.Name
-                                                                          PackageFullName = $app.PackageFullName
-                                                                          Publisher       = $app.Publisher
-                                                                          Version         = $app.Version
-                                                                          InstallLocation = $app.InstallLocation
-                                                                          Risk            = $risk
-                                                                      }
-                                                                  }
-                                                              }
-
-                                                              $result | ConvertTo-Json -Depth 4
-                                                              """);
+                                                               # SAFE_APPS
+                                                               $safeApps = "{{string.Join(",", Shared.SafeApps.Keys)}}" -split "," |
+                                                                           ForEach-Object { $_.Trim().ToLower() }
+                                                               
+                                                               # CAUTION_APPS
+                                                               $cautionApps = "{{string.Join(",", Shared.CautionApps.Keys)}}" -split "," |
+                                                                              ForEach-Object { $_.Trim().ToLower() }
+                                                               
+                                                               # Installed removable apps
+                                                               $installedApps = Get-AppxPackage | Where-Object { $_.NonRemovable -eq 0 }
+                                                               
+                                                               # Build result array efficiently
+                                                               $result = foreach ($app in $installedApps) {
+                                                               
+                                                                   $nameLower = $app.Name.ToLower()
+                                                                   $risk = "Unknown"
+                                                               
+                                                                   if ($safeApps | Where-Object { $nameLower -like "*$_*" }) {
+                                                                       $risk = "Safe"
+                                                                   }
+                                                                   elseif ($cautionApps | Where-Object { $nameLower -like "*$_*" }) {
+                                                                       $risk = "Caution"
+                                                                   }
+                                                               
+                                                                   [PSCustomObject]@{
+                                                                       Name            = $app.Name
+                                                                       PackageFullName = $app.PackageFullName
+                                                                       Publisher       = $app.Publisher
+                                                                       Version         = $app.Version.ToString()
+                                                                       InstallLocation = if ($app.InstallLocation) { $app.InstallLocation } else { "" }
+                                                                       Risk            = $risk
+                                                                   }
+                                                               }
+                                                               
+                                                               @($result) | ConvertTo-Json -Depth 4
+                                                               
+                                                               """);
 
 
             var options = new JsonSerializerOptions

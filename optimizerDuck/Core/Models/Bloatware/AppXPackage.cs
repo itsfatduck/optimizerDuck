@@ -8,7 +8,8 @@ namespace optimizerDuck.Core.Models.Bloatware;
 public enum AppRisk
 {
     Safe,
-    Caution
+    Caution,
+    Unknown
 }
 
 public partial class AppXPackage : ObservableObject
@@ -33,6 +34,11 @@ public partial class AppXPackage : ObservableObject
         {
             Display = Translations.Optimizer_UI_Risk_Moderate,
             Icon = SymbolRegular.Warning24
+        },
+        AppRisk.Unknown => new RiskVisual
+        {
+            Display = Translations.Bloatware_UI_Risk_Unknown,
+            Icon = SymbolRegular.ShieldQuestion24
         },
         _ => new RiskVisual
         {

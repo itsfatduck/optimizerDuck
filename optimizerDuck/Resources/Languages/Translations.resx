@@ -824,4 +824,7 @@ Current version: {0}]]></value>
   <data name="Sidebar.Bloatware" xml:space="preserve">
     <value>Bloatware</value>
   </data>
+  <data name="Bloatware.UI.Risk.Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
 </root>

@@ -114,6 +114,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unknown.
+        /// </summary>
+        public static string Bloatware_UI_Risk_Unknown {
+            get {
+                return ResourceManager.GetString("Bloatware.UI.Risk.Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Removing {0} ({1}/{2}).
         /// </summary>
         public static string BloatwareDialog_Removing {
