@@ -296,7 +296,7 @@
     <value>Thử lại</value>
   </data>
     <data name="Settings.About.Duck.Description" xml:space="preserve">
-    <value><![CDATA[Cảm ơn bạn đã tin tưởng và ủng hộ &lt;3!
+    <value><![CDATA[Cảm ơn bạn đã tin tưởng và ủng hộ <3!
 Phiên bản hiện tại: {0}]]> </value>
   </data>
     <data name="Settings.Advanced.Header" xml:space="preserve">
@@ -646,7 +646,7 @@ Phiên bản hiện tại: {0}]]> </value>
         <value>Tắt Adaptive V-Sync của Intel</value>
     </data>
     <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
-        <value>Tắt vertical sync thích ứng của Intel để cung cấp thởi gian khung hình nhất quán hơn.</value>
+        <value>Tắt vertical sync thích ứng của Intel để cung cấp thời gian khung hình nhất quán hơn.</value>
     </data>
     <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.Name" xml:space="preserve">
         <value>Tắt Tin tức &amp; Sở thích trên Taskbar</value>
