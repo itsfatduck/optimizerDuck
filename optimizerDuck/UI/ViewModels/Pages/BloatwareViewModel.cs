@@ -6,6 +6,7 @@ using System.Linq;
 using optimizerDuck.Core.Models.Bloatware;
 using optimizerDuck.Core.Models.UI;
 using optimizerDuck.Services;
+using optimizerDuck.Services.Managers;
 using optimizerDuck.UI.ViewModels;
 using optimizerDuck.UI.ViewModels.Dialogs;
 using optimizerDuck.UI.Views.Dialogs;
@@ -20,6 +21,7 @@ public partial class BloatwareViewModel : ViewModel
 
     private readonly BloatwareService _bloatwareService;
     private readonly IContentDialogService _contentDialogService;
+    private readonly ISnackbarService _snackbarService;
 
 
     public ObservableCollection<AppXPackage> AppxPackages { get; private set; } = [];
@@ -27,10 +29,11 @@ public partial class BloatwareViewModel : ViewModel
     public bool HasSelectedItems => AppxPackages.Any(x => x.IsSelected);
     public int SelectedCount => AppxPackages.Count(x => x.IsSelected);
 
-    public BloatwareViewModel(BloatwareService bloatwareService, IContentDialogService contentDialogService)
+    public BloatwareViewModel(BloatwareService bloatwareService, IContentDialogService contentDialogService, ISnackbarService snackbarService)
     {
         _bloatwareService = bloatwareService;
         _contentDialogService = contentDialogService;
+        _snackbarService = snackbarService;
 
         AppxPackages.CollectionChanged += (_, e) =>
         {
@@ -67,7 +70,7 @@ public partial class BloatwareViewModel : ViewModel
         var viewModel = new ProcessingViewModel();
         var dialog = new ContentDialog
         {
-            Title = "Removing bloatware!",
+            Title = Loc.Instance["BloatwareDialog.Title"],
             Content = new ProcessingDialog { DataContext = viewModel },
             IsFooterVisible = false
         };
@@ -81,12 +84,15 @@ public partial class BloatwareViewModel : ViewModel
             for (var i = 0; i < toRemove.Count; i++)
             {
                 var item = toRemove[i];
+                
                 viewModel.ProgressReporter.Report(new ProcessingProgress
                 {
-                    Message = $"{i + 1} / {toRemove.Count}"
+                    Message = string.Format(Loc.Instance["BloatwareDialog.Removing"], i + 1, toRemove.Count),
+                    IsIndeterminate = false,
+                    Total = toRemove.Count,
+                    Value = i 
                 });
-                //await _bloatwareService.RemoveAppXPackage(item);
-                await Task.Delay(1000);
+                await _bloatwareService.RemoveAppXPackage(item);
             }
         }
         finally
