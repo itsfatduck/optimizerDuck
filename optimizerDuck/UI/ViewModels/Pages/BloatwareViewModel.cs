@@ -95,7 +95,8 @@ public partial class BloatwareViewModel : ViewModel
                     Total = toRemove.Count,
                     Value = i
                 });
-                await _bloatwareService.RemoveAppXPackage(item);
+                //await _bloatwareService.RemoveAppXPackage(item);
+                await Task.Delay(1000);
             }
         }
         finally
