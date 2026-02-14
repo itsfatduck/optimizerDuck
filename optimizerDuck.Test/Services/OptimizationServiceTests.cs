@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json;
 using optimizerDuck.Common.Helpers;
@@ -158,7 +157,8 @@ public class OptimizationServiceTests
         var streamService = new StreamService(NullLogger<StreamService>.Instance);
         var contentDialogService = new ContentDialogService();
         var logger = NullLogger<OptimizationService>.Instance;
-        return new OptimizationService(revertManager, loggerFactory, systemInfoService, streamService, contentDialogService, logger);
+        return new OptimizationService(revertManager, loggerFactory, systemInfoService, streamService,
+            contentDialogService, logger);
     }
 
     private static string GetRevertFilePath(Guid id)
@@ -191,24 +191,28 @@ public class OptimizationServiceTests
 
     private sealed class FakeOptimization : IOptimization
     {
-        public Guid Id { get; } = Guid.NewGuid();
-        public OptimizationRisk Risk { get; } = OptimizationRisk.Safe;
-
         public Type? OwnerType { get; set; }
         public string OwnerKey { get; } = "Test";
-        public string OptimizationKey { get; } = "TestOptimization";
         public OptimizationRiskVisual RiskVisual { get; } = new();
         public IEnumerable<OptimizationTagDisplay> TagDisplays { get; } = [];
 
         public string Prefix { get; } = "Test";
         public string ProgressPrefix { get; } = "Test";
 
+        public Func<(IProgress<ProcessingProgress> progress, OptimizationContext context), Task<ApplyResult>> ApplyImpl
+        {
+            get;
+            init;
+        } =
+            _ => Task.FromResult(ApplyResult.True());
+
+        public Guid Id { get; } = Guid.NewGuid();
+        public OptimizationRisk Risk { get; } = OptimizationRisk.Safe;
+        public string OptimizationKey { get; } = "TestOptimization";
+
         public string Name { get; } = "Test";
         public string ShortDescription { get; } = "Test";
         public OptimizationState State { get; set; } = null!;
-
-        public Func<(IProgress<ProcessingProgress> progress, OptimizationContext context), Task<ApplyResult>> ApplyImpl { get; init; } =
-            _ => Task.FromResult(ApplyResult.True());
 
         public Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
         {

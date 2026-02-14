@@ -161,7 +161,7 @@
     <data name="OptimizationDetailsDialog.Other" xml:space="preserve">
     <value>Other</value>
   </data>
-  <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
+    <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
     <value>Sets the Service Host split threshold to match total system RAM, forcing Windows to isolate services into separate processes for improved stability.</value>
   </data>
     <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed"
@@ -797,7 +797,7 @@ Current version: {0}]]></value>
     <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
     <value>Unable to open the folder or file</value>
   </data>
-  <data name="Button.ViewLatestRelease" xml:space="preserve">
+    <data name="Button.ViewLatestRelease" xml:space="preserve">
     <value>View latest release</value>
   </data>
 </root>

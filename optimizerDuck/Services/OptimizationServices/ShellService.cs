@@ -63,8 +63,8 @@ public static class ShellService
         policy ??= ShellPolicy.Default;
 
         var commandForUser = arguments.Contains("-EncodedCommand", StringComparison.OrdinalIgnoreCase)
-                             ? command.DecodeBase64().Replace("$ProgressPreference='SilentlyContinue'; ", "")
-                             : command;
+            ? command.DecodeBase64().Replace("$ProgressPreference='SilentlyContinue'; ", "")
+            : command;
 
         var fullCommandForUser =
             $"{fileName} {arguments.Replace("-EncodedCommand", "-Command", StringComparison.OrdinalIgnoreCase)} {commandForUser}";

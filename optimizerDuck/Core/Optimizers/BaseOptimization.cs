@@ -19,17 +19,12 @@ public abstract class BaseOptimization : IOptimization
                   ?? throw new InvalidOperationException(
                       $"{GetType().Name} is missing [Optimization] attribute");
 
-    public Guid Id => Guid.Parse(Meta.Id);
-    public OptimizationRisk Risk => Meta.Risk;
-
     public Type? OwnerType { get; set; }
 
     public string OwnerKey =>
         OwnerType?.Name
         ?? throw new InvalidOperationException(
             $"{GetType().Name} has no owner assigned");
-
-    public string OptimizationKey => GetType().Name;
 
     public OptimizationRiskVisual RiskVisual => Risk switch
     {
@@ -58,11 +53,16 @@ public abstract class BaseOptimization : IOptimization
     public IEnumerable<OptimizationTagDisplay> TagDisplays =>
         Meta.Tags.ToDisplays();
 
-    public OptimizationState State { get; set; } = new();
-
     public string Prefix => Loc.Instance[$"Optimizer.{OwnerKey}.{OptimizationKey}"];
     public string ProgressPrefix => Loc.Instance[$"{Prefix}.Progress"];
     public string ErrorPrefix => Loc.Instance[$"{Prefix}.Error"];
+
+    public Guid Id => Guid.Parse(Meta.Id);
+    public OptimizationRisk Risk => Meta.Risk;
+
+    public string OptimizationKey => GetType().Name;
+
+    public OptimizationState State { get; set; } = new();
 
     public string Name => Loc.Instance[$"{Prefix}.Name"];
     public string ShortDescription => Loc.Instance[$"{Prefix}.ShortDescription"];

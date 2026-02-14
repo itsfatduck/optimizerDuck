@@ -2,6 +2,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Core.Models.Revert;
+using optimizerDuck.Core.Models.Revert.Steps;
 using optimizerDuck.Services.Managers;
 
 namespace optimizerDuck.Test.Services.Managers;
@@ -92,18 +93,18 @@ public class RevertManagerTests
                 new()
                 {
                     Type = "Shell",
-                    Data = new optimizerDuck.Core.Models.Revert.Steps.ShellRevertStep
+                    Data = new ShellRevertStep
                     {
-                        ShellType = optimizerDuck.Core.Models.Revert.Steps.ShellType.CMD,
+                        ShellType = ShellType.CMD,
                         Command = "exit 0"
                     }.ToData()
                 },
                 new()
                 {
                     Type = "Shell",
-                    Data = new optimizerDuck.Core.Models.Revert.Steps.ShellRevertStep
+                    Data = new ShellRevertStep
                     {
-                        ShellType = optimizerDuck.Core.Models.Revert.Steps.ShellType.CMD,
+                        ShellType = ShellType.CMD,
                         Command = "exit 1"
                     }.ToData()
                 }

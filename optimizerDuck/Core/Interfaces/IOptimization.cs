@@ -8,7 +8,7 @@ public interface IOptimization
 {
     Guid Id { get; }
     OptimizationRisk Risk { get; }
-    
+
     string OptimizationKey { get; }
 
     string Name { get; }

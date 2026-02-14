@@ -131,7 +131,7 @@ public partial class App : Application
 
             _host = Host.CreateDefaultBuilder()
                 .UseSerilog()
-                .ConfigureAppConfiguration((c) =>
+                .ConfigureAppConfiguration(c =>
                 {
                     ConfigManager.ValidateConfig();
                     c.AddJsonFile(Path.Combine(Shared.RootDirectory, "appsettings.json"), false, true);

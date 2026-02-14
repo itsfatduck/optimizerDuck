@@ -9,36 +9,35 @@ public enum OptimizationTags
     None = 0,
 
     // Hardware
-    Ram       = 1 << 0,
-    Display   = 1 << 1,
-    Disk      = 1 << 2,
+    Ram = 1 << 0,
+    Display = 1 << 1,
+    Disk = 1 << 2,
 
     // Network
-    Network   = 1 << 3,
+    Network = 1 << 3,
     NetworkRequired = 1 << 4,
 
     // System & Security
-    Privacy   = 1 << 5,
-    Security  = 1 << 6,
-    System    = 1 << 7,
+    Privacy = 1 << 5,
+    Security = 1 << 6,
+    System = 1 << 7,
 
     // User Experience
-    Audio     = 1 << 8,
-    Visual    = 1 << 9,
+    Audio = 1 << 8,
+    Visual = 1 << 9,
 
     // GPU Vendors
-    Nvidia    = 1 << 10,
-    Amd       = 1 << 11,
-    Intel     = 1 << 12,
+    Nvidia = 1 << 10,
+    Amd = 1 << 11,
+    Intel = 1 << 12,
 
     // Power
-    Power     = 1 << 13,
+    Power = 1 << 13,
 
     // Performance
     Performance = 1 << 14,
-    Latency     = 1 << 15
+    Latency = 1 << 15
 }
-
 
 public static class OptimizationTagsToDisplay
 {
@@ -71,11 +70,11 @@ public static class OptimizationTagsToDisplay
                 OptimizationTags.Latency => new OptimizationTagDisplay(
                     SymbolRegular.Clock24,
                     Translations.Optimizer_UI_Tags_Latency),
-                
+
                 OptimizationTags.Visual => new OptimizationTagDisplay(
                     SymbolRegular.VideoClip24,
                     Translations.Optimizer_UI_Tags_Visual),
-                
+
                 OptimizationTags.Display => new OptimizationTagDisplay(
                     SymbolRegular.VideoClip24,
                     Translations.Optimizer_UI_Tags_Display),

@@ -90,7 +90,8 @@ public class RevertManager(ILogger<RevertManager> logger)
                 return new RevertResult
                 {
                     Success = false,
-                    Message = string.Format(Translations.Revert_Error_InvalidData, optimizationKey, validation.LocalizedMessage)
+                    Message = string.Format(Translations.Revert_Error_InvalidData, optimizationKey,
+                        validation.LocalizedMessage)
                 };
             }
 
@@ -272,18 +273,21 @@ public class RevertManager(ILogger<RevertManager> logger)
     {
         var filePath = Path.Combine(Shared.RevertDirectory, optimizationId + ".json");
         if (!File.Exists(filePath))
-            return RevertValidationResult.Fail(Translations.Revert_Error_FileNotFound, "Invalid revert data file not found.");
+            return RevertValidationResult.Fail(Translations.Revert_Error_FileNotFound,
+                "Invalid revert data file not found.");
 
         string content;
         try
         {
             content = await File.ReadAllTextAsync(filePath);
             if (string.IsNullOrWhiteSpace(content))
-                return RevertValidationResult.Fail(Translations.Revert_Error_FileEmpty, "Invalid revert data file is empty.");
+                return RevertValidationResult.Fail(Translations.Revert_Error_FileEmpty,
+                    "Invalid revert data file is empty.");
         }
         catch (Exception ex)
         {
-            return RevertValidationResult.Fail(string.Format(Translations.Revert_Error_ReadFailed, ex.Message), ex.Message);
+            return RevertValidationResult.Fail(string.Format(Translations.Revert_Error_ReadFailed, ex.Message),
+                ex.Message);
         }
 
         RevertData? data;
@@ -300,7 +304,8 @@ public class RevertManager(ILogger<RevertManager> logger)
         }
 
         if (data.OptimizationId != optimizationId)
-            return RevertValidationResult.Fail(Translations.Revert_Error_OptimizationIdMismatch, "Invalid optimization ID.");
+            return RevertValidationResult.Fail(Translations.Revert_Error_OptimizationIdMismatch,
+                "Invalid optimization ID.");
 
         if (data.Steps.Count == 0)
             return RevertValidationResult.Fail(Translations.Revert_Error_NoSteps, "No revert steps found.");

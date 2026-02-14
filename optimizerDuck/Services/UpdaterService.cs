@@ -1,11 +1,7 @@
-using System.Diagnostics;
-using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Reflection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using optimizerDuck.Common.Extensions;
 using optimizerDuck.Common.Helpers;
 
 namespace optimizerDuck.Services;
@@ -14,9 +10,9 @@ public class UpdaterService
 {
     private const string Owner = "itsfatduck";
     private const string Repo = "optimizerDuck";
-    
+
     public const string LatestReleaseUrl = $"https://github.com/{Owner}/{Repo}/releases/latest";
-    
+
     private readonly HttpClient _httpClient;
     private readonly ILogger _logger;
 
@@ -57,7 +53,8 @@ public class UpdaterService
             // Parse version
             if (!Version.TryParse(latestVersionStr, out var latestVersion))
             {
-                _logger.LogWarning("Could not parse latest release version: {LatestReleaseTagName}", latestRelease.TagName);
+                _logger.LogWarning("Could not parse latest release version: {LatestReleaseTagName}",
+                    latestRelease.TagName);
                 return false;
             }
 
@@ -80,15 +77,13 @@ public class UpdaterService
 
                 return true;
             }
-            else
-            {
-                _logger.LogInformation("You are running the latest version");
-                return false;
-            }
+
+            _logger.LogInformation("You are running the latest version");
+            return false;
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Error checking for updates");
+            _logger.LogError(ex, "Error checking for updates");
             return false;
         }
     }

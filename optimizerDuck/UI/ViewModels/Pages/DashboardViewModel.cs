@@ -15,11 +15,11 @@ namespace optimizerDuck.UI.ViewModels.Pages;
 
 public partial class DashboardViewModel : ViewModel
 {
-    private readonly ILogger<DashboardViewModel> _logger;
-    private readonly SystemInfoService _systemInfoService;
-    private readonly ISnackbarService _snackbarService;
-    private readonly UpdaterService _updaterService;
     private readonly IContentDialogService _contentDialogService;
+    private readonly ILogger<DashboardViewModel> _logger;
+    private readonly ISnackbarService _snackbarService;
+    private readonly SystemInfoService _systemInfoService;
+    private readonly UpdaterService _updaterService;
 
     private readonly DispatcherTimer _updateTimer;
     [ObservableProperty] private ApplicationTheme _currentApplicationTheme = ApplicationTheme.Unknown;
@@ -28,7 +28,29 @@ public partial class DashboardViewModel : ViewModel
 
     [ObservableProperty] private bool _isLoading;
     private bool _isUpdateInfoOpen;
+
+    [ObservableProperty] private RamInfo _runtimeRam = RamInfo.Unknown;
+    [ObservableProperty] private SystemSnapshot _systemInfo = SystemSnapshot.Unknown;
     private bool _updateNotified; // phân biệt close do user
+
+    public DashboardViewModel(SystemInfoService systemInfoService, ISnackbarService snackbarService,
+        ILogger<DashboardViewModel> logger, UpdaterService updaterService, IContentDialogService contentDialogService)
+    {
+        _systemInfoService = systemInfoService;
+        _snackbarService = snackbarService;
+        _logger = logger;
+        _updaterService = updaterService;
+        _contentDialogService = contentDialogService;
+
+        _updateTimer = new DispatcherTimer
+        {
+            Interval = TimeSpan.FromSeconds(2)
+        };
+        _updateTimer.Tick += async (s, e) => await UpdateRuntimeInfoAsync();
+
+        CurrentApplicationTheme = ApplicationThemeManager.GetAppTheme();
+        ApplicationThemeManager.Changed += OnThemeChanged;
+    }
 
     public bool IsUpdateInfoOpen
     {
@@ -42,33 +64,8 @@ public partial class DashboardViewModel : ViewModel
             OnPropertyChanged();
 
             // User vừa bấm ❌
-            if (!_isUpdateInfoOpen && _updateNotified)
-            {
-                OpenLatestRelease();
-            }
+            if (!_isUpdateInfoOpen && _updateNotified) OpenLatestRelease();
         }
-    }
-
-    [ObservableProperty] private RamInfo _runtimeRam = RamInfo.Unknown;
-    [ObservableProperty] private SystemSnapshot _systemInfo = SystemSnapshot.Unknown;
-
-    public DashboardViewModel(SystemInfoService systemInfoService, ISnackbarService snackbarService,
-        ILogger<DashboardViewModel> logger, UpdaterService updaterService, IContentDialogService contentDialogService)
-    {
-        _systemInfoService = systemInfoService;
-        _snackbarService = snackbarService;
-        _logger = logger;
-        _updaterService = updaterService;
-        _contentDialogService = contentDialogService;
-        
-        _updateTimer = new DispatcherTimer
-        {
-            Interval = TimeSpan.FromSeconds(2)
-        };
-        _updateTimer.Tick += async (s, e) => await UpdateRuntimeInfoAsync();
-        
-        CurrentApplicationTheme = ApplicationThemeManager.GetAppTheme();
-        ApplicationThemeManager.Changed += OnThemeChanged;
     }
 
     public override async Task OnNavigatedToAsync()
@@ -86,6 +83,7 @@ public partial class DashboardViewModel : ViewModel
                 _updateNotified = true;
                 IsUpdateInfoOpen = true;
             }
+
             _isInitialized = true;
         }
 
@@ -243,7 +241,7 @@ public partial class DashboardViewModel : ViewModel
             _logger.LogWarning(ex, "Failed to update runtime info");
         }
     }
-    
+
     private void OpenLatestRelease()
     {
         try
@@ -267,7 +265,5 @@ public partial class DashboardViewModel : ViewModel
         }
     }
 
-
     #endregion
-    
 }

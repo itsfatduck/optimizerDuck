@@ -12,7 +12,10 @@ using Wpf.Ui.Controls;
 
 namespace optimizerDuck.UI.ViewModels.Dialogs;
 
-public partial class OptimizationDetailsViewModel(IOptimization optimization, ISnackbarService snackbarService, ILogger logger) : ObservableObject
+public partial class OptimizationDetailsViewModel(
+    IOptimization optimization,
+    ISnackbarService snackbarService,
+    ILogger logger) : ObservableObject
 {
     public IOptimization Optimization { get; } = optimization;
 

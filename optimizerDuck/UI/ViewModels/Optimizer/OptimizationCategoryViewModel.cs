@@ -19,12 +19,12 @@ namespace optimizerDuck.UI.ViewModels.Optimizer;
 
 public partial class OptimizationCategoryViewModel : ViewModel
 {
+    private readonly IOptimizationCategory _category;
     private readonly IContentDialogService _contentDialogService;
     private readonly ILogger<OptimizationCategoryViewModel> _logger;
     private readonly OptimizationService _optimizationService;
     private readonly ISnackbarService _snackbarService;
-    private readonly IOptimizationCategory _category;
-    
+
     private bool _isApplied;
 
     [ObservableProperty] private ObservableCollection<IOptimization> _optimizations = [];
@@ -152,22 +152,21 @@ public partial class OptimizationCategoryViewModel : ViewModel
         {
             Title = Translations.RestorePoint_Title,
             Content = dialogContent,
-            
+
             PrimaryButtonText = Translations.Button_Ok,
             SecondaryButtonText = Translations.Button_Skip,
             CloseButtonText = Translations.Button_Cancel
         };
-        
+
         var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
         if (result == ContentDialogResult.None) // User cancelled
             return false;
-        
+
         if (result == ContentDialogResult.Secondary) // User skipped
             return true;
-        
+
         var success = await _optimizationService.CreateRestorePointAsync();
         if (!success)
-        {
             _snackbarService.Show(
                 Translations.RestorePoint_Snackbar_Error_Title,
                 Translations.RestorePoint_Snackbar_Error_Message,
@@ -175,9 +174,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
                 TimeSpan.FromSeconds(5)
             );
-        }
         else
-        {
             _snackbarService.Show(
                 Translations.RestorePoint_Snackbar_Success_Title,
                 string.Format(Translations.RestorePoint_Snackbar_Success_Message, Shared.RestorePointName),
@@ -185,8 +182,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
                 TimeSpan.FromSeconds(5)
             );
-        }
-        
+
         return true;
     }
 
@@ -225,7 +221,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
     {
         // Keep a stable reference to the previous state in case we need to roll back UI changes.
         var wasApplied = await OptimizationService.IsAppliedAsync(optimization.Id);
-        
+
         if (!_isApplied)
         {
             if (!await HandleRestorePointAsync())
@@ -233,9 +229,10 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 optimization.State.IsApplied = wasApplied;
                 return;
             }
+
             _isApplied = true;
         }
-        
+
         try
         {
             // Apply optimization if not already applied
@@ -282,24 +279,20 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
                 // If retry skipped or failed, mark as failed
                 if (failed)
-                {
                     _snackbarService.Show(
                         Translations.Optimization_Apply_Snackbar_Error_Title,
                         applyResult.Message,
                         ControlAppearance.Danger,
                         new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
                         TimeSpan.FromSeconds(5));
-                }
 
                 if (partial)
-                {
                     _snackbarService.Show(
                         Translations.Optimization_Apply_Snackbar_Error_Title,
                         applyResult.Message,
                         ControlAppearance.Caution,
                         new SymbolIcon { Symbol = SymbolRegular.Warning24, Filled = true },
                         TimeSpan.FromSeconds(5));
-                }
 
                 if (applyResult.Exception != null)
                     _logger.LogError(applyResult.Exception, "Failed to apply {Name}", optimization.OptimizationKey);
@@ -344,14 +337,12 @@ public partial class OptimizationCategoryViewModel : ViewModel
                         TimeSpan.FromSeconds(5));
 
                 if (partial)
-                {
                     _snackbarService.Show(
                         Translations.Optimization_Revert_Snackbar_Error_Title,
                         revertResult.Message,
                         ControlAppearance.Caution,
                         new SymbolIcon { Symbol = SymbolRegular.Warning24, Filled = true },
                         TimeSpan.FromSeconds(5));
-                }
 
                 if (revertResult.Exception != null)
                     _logger.LogError(revertResult.Exception, "Failed to revert {Name}", optimization.OptimizationKey);

@@ -1,7 +1,5 @@
-
 using optimizerDuck.UI.ViewModels.Pages;
 using Wpf.Ui.Abstractions.Controls;
-using Wpf.Ui.Input;
 
 namespace optimizerDuck.UI.Views.Pages;
 

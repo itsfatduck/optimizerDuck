@@ -24,7 +24,7 @@ public partial class SettingsViewModel(
     IOptionsMonitor<AppSettings> appOptionsMonitor,
     OptimizationRegistry optimizationRegistry,
     IContentDialogService contentDialogService,
-    ISnackbarService snackbarService, 
+    ISnackbarService snackbarService,
     ILogger<SettingsViewModel> logger) : ViewModel
 {
     [ObservableProperty] private ApplicationTheme _currentApplicationTheme = ApplicationTheme.Unknown;
@@ -45,8 +45,7 @@ public partial class SettingsViewModel(
         new("English", new CultureInfo("en-US")),
         new("Tiếng Việt", new CultureInfo("vi-VN")),
         new("简体中文", new CultureInfo("zh-Hans-CN")),
-        new("Русский", new CultureInfo("ru-RU")),
-        
+        new("Русский", new CultureInfo("ru-RU"))
     ];
 
     public override async Task OnNavigatedToAsync()
@@ -166,7 +165,7 @@ public partial class SettingsViewModel(
             logger.LogError(ex, "Failed to open acknowledgements page");
         }
     }
-    
+
     [RelayCommand]
     private void OpenLatestRelease()
     {

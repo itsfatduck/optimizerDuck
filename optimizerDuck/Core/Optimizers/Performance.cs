@@ -6,7 +6,6 @@ using optimizerDuck.Core.Models.Attributes;
 using optimizerDuck.Core.Models.Optimization;
 using optimizerDuck.Core.Models.Optimization.Services;
 using optimizerDuck.Core.Models.UI;
-using optimizerDuck.Services;
 using optimizerDuck.Services.Managers;
 using optimizerDuck.Services.OptimizationServices;
 using optimizerDuck.UI.Views.Pages.Optimizations;
@@ -24,7 +23,8 @@ public class Performance : IOptimizationCategory
         Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Ram)]
     public class DisableBackgroundApps : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications",
@@ -36,24 +36,29 @@ public class Performance : IOptimizationCategory
             return Task.FromResult(ApplyResult.True());
         }
     }
-    
+
     [Optimization(Id = "CD436A05-51F1-46E9-B4DE-5262EE7F812A", Risk = OptimizationRisk.Moderate,
         Tags = OptimizationTags.System | OptimizationTags.Performance)]
     public class SvcHostSplit : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             if (context.Snapshot.Ram.TotalKB <= 0)
             {
-                context.Logger.LogInformation("Invalid RAM value: {RamTotalKB}. Skipping...", context.Snapshot.Ram.TotalKB);
-                return Task.FromResult(ApplyResult.False(string.Format(Loc.Instance[$"{ErrorPrefix}.InvalidRAM"], context.Snapshot.Ram.TotalKB)));
+                context.Logger.LogInformation("Invalid RAM value: {RamTotalKB}. Skipping...",
+                    context.Snapshot.Ram.TotalKB);
+                return Task.FromResult(ApplyResult.False(string.Format(Loc.Instance[$"{ErrorPrefix}.InvalidRAM"],
+                    context.Snapshot.Ram.TotalKB)));
             }
 
             RegistryService.Write(
-                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control", "SvcHostSplitThresholdInKB", context.Snapshot.Ram.TotalKB,
+                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control", "SvcHostSplitThresholdInKB",
+                    context.Snapshot.Ram.TotalKB,
                     RegistryValueKind.DWord)
             );
-            context.Logger.LogInformation("Enabled service host splitting with threshold: {ThresholdKB} KB", context.Snapshot.Ram.TotalKB);
+            context.Logger.LogInformation("Enabled service host splitting with threshold: {ThresholdKB} KB",
+                context.Snapshot.Ram.TotalKB);
             return Task.FromResult(ApplyResult.True());
         }
     }
@@ -62,7 +67,8 @@ public class Performance : IOptimizationCategory
         Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Power)]
     public class ProcessPriority : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             /*
              ref: https://forums.blurbusters.com/viewtopic.php?t=8535
@@ -99,7 +105,8 @@ public class Performance : IOptimizationCategory
         Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Power)]
     public class GameTaskScheduling : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
                 new RegistryItem(
@@ -127,7 +134,8 @@ public class Performance : IOptimizationCategory
         Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Latency)]
     public class MultimediaResponsiveness : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             const string systemProfileKey =
                 @"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile";
@@ -154,11 +162,11 @@ public class Performance : IOptimizationCategory
         Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Latency)]
     public class DisableGameBar : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
                 new RegistryItem(@"HKCU\System\GameConfigStore", "GameBarEnabled", 0),
-
                 new RegistryItem(@"HKCU\Software\Microsoft\GameBar", "ShowStartupPanel", 0),
                 new RegistryItem(@"HKCU\Software\Microsoft\GameBar", "UseNexusForGameBarEnabled", 0),
                 new RegistryItem(@"HKCU\Software\Microsoft\GameBar", "GamePanelStartupTipIndex", 0)
@@ -175,11 +183,11 @@ public class Performance : IOptimizationCategory
                OptimizationTags.Power)]
     public class EnableGameMode : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
                 new RegistryItem(@"HKCU\Software\Microsoft\GameBar", "AllowAutoGameMode", 1),
-
                 new RegistryItem(@"HKCU\Software\Microsoft\GameBar", "AutoGameModeEnabled", 1)
             );
             context.Logger.LogInformation("Enabled Windows Game Mode");
@@ -194,11 +202,11 @@ public class Performance : IOptimizationCategory
                OptimizationTags.Power)]
     public class DisableGameDVR : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\GameDVR", "AppCaptureEnabled", 0),
-
                 new RegistryItem(@"HKCU\System\GameConfigStore", "GameDVR_Enabled", 0),
                 new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\GameDVR", "AllowGameDVR", 0),
                 new RegistryItem(@"HKLM\SOFTWARE\Microsoft\PolicyManager\default\ApplicationManagement\AllowGameDVR",
@@ -215,11 +223,11 @@ public class Performance : IOptimizationCategory
         Tags = OptimizationTags.Latency)]
     public class DisableMouseAcceleration : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
                 new RegistryItem(@"HKCU\Control Panel\Mouse", "MouseSpeed", "0"),
-
                 new RegistryItem(@"HKCU\Control Panel\Mouse", "MouseThreshold1", "0"),
                 new RegistryItem(@"HKCU\Control Panel\Mouse", "MouseThreshold2", "0"),
                 new RegistryItem(@"HKCU\Control Panel\Mouse", "MouseSensitivity", "10")
@@ -235,11 +243,11 @@ public class Performance : IOptimizationCategory
         Tags = OptimizationTags.Latency)]
     public class KeyboardLatencyOptimization : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
                 new RegistryItem(@"HKEY_CURRENT_USER\Control Panel\Keyboard", "KeyboardDelay", "0"),
-
                 new RegistryItem(@"HKEY_CURRENT_USER\Control Panel\Keyboard", "KeyboardSpeed", "31"),
                 new RegistryItem(@"HKEY_CURRENT_USER\Control Panel\Accessibility\StickyKeys", "Flags", "506"),
                 new RegistryItem(@"HKEY_CURRENT_USER\Control Panel\Accessibility\Keyboard Response", "Flags", "122"),

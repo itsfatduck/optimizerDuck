@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Core.Interfaces;
@@ -24,7 +23,8 @@ public class SecurityAndPrivacy : IOptimizationCategory
         Tags = OptimizationTags.System | OptimizationTags.Security)]
     public class DisableUAC : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
                 "EnableLUA", 0));
@@ -38,7 +38,8 @@ public class SecurityAndPrivacy : IOptimizationCategory
         Tags = OptimizationTags.Security | OptimizationTags.Privacy)]
     public class DisableTelemetry : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             progress?.Report(new ProcessingProgress
             {
@@ -171,12 +172,10 @@ public class SecurityAndPrivacy : IOptimizationCategory
                 );
 
                 if (result.ExitCode != 0)
-                {
                     context.Logger.LogWarning(
                         "Failed to disable task {Task}",
                         task
                     );
-                }
             }
 
             return Task.FromResult(ApplyResult.True());
@@ -231,8 +230,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
             );
             context.Logger.LogInformation("Disabled WMI AutoLogger sessions");
             return Task.FromResult(ApplyResult.True());
-        }
-    }
+        }}
 
     [Optimization(Id = "6856782A-B530-4623-BD89-942D73FB82FD", Risk = OptimizationRisk.Moderate,
         Tags = OptimizationTags.Privacy | OptimizationTags.System)]
@@ -257,8 +255,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
              );
             context.Logger.LogInformation("Disabled Cortana and web search");
             return Task.FromResult(ApplyResult.True());
-        }
-    }
+        }}
 
     [Optimization(Id = "64C6BEC3-B58C-4E57-830A-1DE1F4650542", Risk = OptimizationRisk.Moderate,
         Tags = OptimizationTags.Privacy | OptimizationTags.System)]
@@ -288,8 +285,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
 
             context.Logger.LogInformation("Disabled Windows Copilot");
             return Task.FromResult(ApplyResult.True());
-        }
-    }
+        }}
 
     [Optimization(Id = "00C997FE-1CB7-41BD-B473-65A81333AEE9", Risk = OptimizationRisk.Safe,
     Tags = OptimizationTags.System | OptimizationTags.Latency | OptimizationTags.Privacy)]
@@ -313,6 +309,5 @@ public class SecurityAndPrivacy : IOptimizationCategory
             );
             context.Logger.LogInformation("Disabled content delivery manager");
             return Task.FromResult(ApplyResult.True());
-        }
-    }
+        }}
 }

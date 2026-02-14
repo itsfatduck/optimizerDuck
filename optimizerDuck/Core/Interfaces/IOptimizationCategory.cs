@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using optimizerDuck.Core.Models.Optimization;
 using optimizerDuck.Core.Models.UI;
 
 namespace optimizerDuck.Core.Interfaces;

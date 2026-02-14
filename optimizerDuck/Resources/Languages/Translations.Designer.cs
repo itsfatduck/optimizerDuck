@@ -69,15 +69,6 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Skip.
-        /// </summary>
-        public static string Button_Skip {
-            get {
-                return ResourceManager.GetString("Button.Skip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Clear.
         /// </summary>
         public static string Button_Clear {
@@ -128,6 +119,15 @@ namespace optimizerDuck.Resources.Languages {
         public static string Button_Retry {
             get {
                 return ResourceManager.GetString("Button.Retry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skip.
+        /// </summary>
+        public static string Button_Skip {
+            get {
+                return ResourceManager.GetString("Button.Skip", resourceCulture);
             }
         }
         
@@ -673,7 +673,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Switches non-critical system services to manual start, reducing background usage without breaking functionality. Required services will start automatically when needed..
+        ///   Looks up a localized string similar to Configures 100+ Windows services startup types: disables telemetry services (DiagTrack, DcpSvc), sets non-critical services to Manual, keeps essential services (Audio, Networking, Security) as Automatic. Reduces background RAM/CPU usage..
         /// </summary>
         public static string Optimizer_BloatwareAndServices_ConfigureServices_ShortDescription {
             get {
@@ -691,7 +691,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Blocks Windows from automatically installing OEM/bundled apps and suggested apps, helping keep the system cleaner from bloatware (especially after a fresh install or reset)..
+        ///   Looks up a localized string similar to Sets PreInstalledAppsEnabled=0, OemPreInstalledAppsEnabled=0, SilentInstalledAppsEnabled=0 to prevent automatic installation of OEM bloatware and promoted apps..
         /// </summary>
         public static string Optimizer_BloatwareAndServices_DisablePreinstalledApps_ShortDescription {
             get {
@@ -718,7 +718,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables AMD Active State Power Management to reduce latency and improve responsiveness. May increase PCIe power draw..
+        ///   Looks up a localized string similar to Sets EnableAspmL0s=0, EnableAspmL1=0 to disable Active State Power Management on AMD GPUs, reducing PCIe bus latency. Increases slot power consumption..
         /// </summary>
         public static string Optimizer_Gpu_AmdDisableAspm_ShortDescription {
             get {
@@ -736,7 +736,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables AMD power gating features to maintain consistent GPU performance under load. May increase power draw and temperatures..
+        ///   Looks up a localized string similar to Sets DisablePowerGating=1, PP_GPUPowerDownEnabled=0, DisableDynamicPstate=1 to prevent AMD GPU power state transitions. Maintains consistent clocks at cost of higher idle power..
         /// </summary>
         public static string Optimizer_Gpu_AmdDisablePowerGating_ShortDescription {
             get {
@@ -754,7 +754,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables AMD Ultra Low Power State to prevent GPU power-down issues and improve wake-up latency..
+        ///   Looks up a localized string similar to Sets EnableULPS=0 in AMD GPU registry to prevent Ultra Low Power State wake-up delays and multi-monitor issues. Reduces power saving on idle..
         /// </summary>
         public static string Optimizer_Gpu_AmdDisableUlps_ShortDescription {
             get {
@@ -772,7 +772,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables AMD video engine clock gating to improve video processing performance and stability. May increase power usage..
+        ///   Looks up a localized string similar to Sets DisableVCEPowerGating=1, DisableVceClockGating=1, EnableUvdClockGating=0 for AMD video engines (VCE/UVD) to improve encode/decode stability. Increases video playback power..
         /// </summary>
         public static string Optimizer_Gpu_AmdDisableVideoClockGating_ShortDescription {
             get {
@@ -790,7 +790,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables Intel adaptive vertical sync to provide more consistent frame timing..
+        ///   Looks up a localized string similar to Sets AdaptiveVsyncEnable=0 to disable Intel&apos;s adaptive V-Sync that dynamically adjusts to frame rate, using fixed V-Sync instead for stable timing..
         /// </summary>
         public static string Optimizer_Gpu_IntelDisableAdaptiveVsync_ShortDescription {
             get {
@@ -808,7 +808,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables Intel asynchronous flip operations to reduce display latency and improve tearing resistance..
+        ///   Looks up a localized string similar to Sets Display1_DisableAsyncFlips=1 to force synchronous buffer flips on Intel iGPU, reducing input-to-display latency and screen tearing..
         /// </summary>
         public static string Optimizer_Gpu_IntelDisableAsyncFlips_ShortDescription {
             get {
@@ -826,7 +826,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables NVIDIA asynchronous power state management for more predictable performance. May increase power usage..
+        ///   Looks up a localized string similar to Sets DisableASyncPstates=1 to prevent NVIDIA asynchronous power state switching, providing deterministic performance for VR/real-time apps..
         /// </summary>
         public static string Optimizer_Gpu_NvidiaDisableAsyncPstates_ShortDescription {
             get {
@@ -844,7 +844,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables NVIDIA dynamic power state transitions to maintain consistent performance. May increase idle power usage..
+        ///   Looks up a localized string similar to Sets DisableDynamicPstate=1 to lock NVIDIA GPU into fixed performance state, preventing clock speed fluctuations. Increases idle power draw..
         /// </summary>
         public static string Optimizer_Gpu_NvidiaDisableDynamicPstate_ShortDescription {
             get {
@@ -871,7 +871,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Blocks supported apps from running in the background, reducing idle RAM/CPU usage and improving responsiveness..
+        ///   Looks up a localized string similar to Prevents UWP apps from running background tasks, reducing memory pressure and CPU usage during idle periods..
         /// </summary>
         public static string Optimizer_Performance_DisableBackgroundApps_ShortDescription {
             get {
@@ -889,7 +889,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables Game Bar UI overlays and tips to reduce background overhead and interruptions..
+        ///   Looks up a localized string similar to Disables Xbox Game Bar overlays, startup tips, and hotkey integration to eliminate background capture overhead..
         /// </summary>
         public static string Optimizer_Performance_DisableGameBar_ShortDescription {
             get {
@@ -907,7 +907,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Turns off background game capture/recording features to free resources and reduce latency..
+        ///   Looks up a localized string similar to Completely disables Game DVR background recording (AppCaptureEnabled, GameDVR_Enabled, AllowGameDVR policies) to eliminate capture overhead..
         /// </summary>
         public static string Optimizer_Performance_DisableGameDVR_ShortDescription {
             get {
@@ -925,7 +925,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables mouse acceleration for consistent, predictable cursor movement..
+        ///   Looks up a localized string similar to Sets MouseSpeed to 0 and clears acceleration thresholds, providing 1:1 physical-to-screen cursor movement for precise gaming..
         /// </summary>
         public static string Optimizer_Performance_DisableMouseAcceleration_ShortDescription {
             get {
@@ -943,7 +943,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enables Game Mode to prioritize gaming performance and limit background activity. (Recommended on Windows 11).
+        ///   Looks up a localized string similar to Activates Windows Game Mode via registry to automatically prioritize game processes and suppress Windows Update notifications during gameplay..
         /// </summary>
         public static string Optimizer_Performance_EnableGameMode_ShortDescription {
             get {
@@ -961,7 +961,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adjusts MMCSS “Games” task settings to prioritize game workloads for more consistent frame pacing..
+        ///   Looks up a localized string similar to Configures MMCSS &quot;Games&quot; task profile with High scheduling category and elevated GPU/IO priority for consistent frame pacing..
         /// </summary>
         public static string Optimizer_Performance_GameTaskScheduling_ShortDescription {
             get {
@@ -979,7 +979,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tunes keyboard delay/repeat rate and related accessibility flags to improve typing responsiveness..
+        ///   Looks up a localized string similar to Minimizes keyboard delay (0) and maximizes repeat rate (31), disables StickyKeys/FilterKeys accessibility delays for rapid input..
         /// </summary>
         public static string Optimizer_Performance_KeyboardLatencyOptimization_ShortDescription {
             get {
@@ -997,7 +997,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reduces latency by tuning SystemProfile responsiveness and disabling network throttling for gaming and AV workloads..
+        ///   Looks up a localized string similar to Minimizes MMCSS latency by setting SystemResponsiveness to 10 and disabling network throttling (0xFFFFFFFF) for real-time workloads..
         /// </summary>
         public static string Optimizer_Performance_MultimediaResponsiveness_ShortDescription {
             get {
@@ -1015,7 +1015,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tunes Windows scheduler foreground boost so active apps feel snappier and input latency is reduced..
+        ///   Looks up a localized string similar to Configures Win32PrioritySeparation to 38 (Short, Variable, High foreground boost), prioritizing active applications and reducing input latency..
         /// </summary>
         public static string Optimizer_Performance_ProcessPriority_ShortDescription {
             get {
@@ -1042,7 +1042,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adjusts Service Host split threshold based on installed RAM to improve process isolation and stability..
+        ///   Looks up a localized string similar to Sets the Service Host split threshold to match total system RAM, forcing Windows to isolate services into separate processes for improved stability..
         /// </summary>
         public static string Optimizer_Performance_SvcHostSplit_ShortDescription {
             get {
@@ -1069,7 +1069,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables Hibernate and Fast Startup to free disk space and avoid using the hiberfile..
+        ///   Looks up a localized string similar to Disables Hibernate (HibernateEnabled=0) and Fast Startup (HiberbootEnabled=0), removes hiberfile.sys to reclaim disk space..
         /// </summary>
         public static string Optimizer_PowerManagement_DisableHibernate_ShortDescription {
             get {
@@ -1087,7 +1087,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables power throttling and related power-saving behaviors to keep performance stable under load. May increase power use and temperatures..
+        ///   Looks up a localized string similar to Disables CPU power throttling (PowerThrottlingOff=1), forces multimedia system profile to AlwaysOn, disables USB surprise removal recovery..
         /// </summary>
         public static string Optimizer_PowerManagement_DisablePowerSaving_ShortDescription {
             get {
@@ -1105,7 +1105,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prevents USB root hubs from entering power-saving mode to reduce latency. May increase power usage on laptops..
+        ///   Looks up a localized string similar to Disables USB selective suspend on all root hubs via MSPower_DeviceEnable WMI to prevent input device latency. Increases laptop power draw..
         /// </summary>
         public static string Optimizer_PowerManagement_DisableUSBPowerSaving_ShortDescription {
             get {
@@ -1205,7 +1205,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables multiple WMI AutoLogger sessions to reduce background event logging; can make troubleshooting harder..
+        ///   Looks up a localized string similar to Stops 12 WMI AutoLogger sessions (Diagtrack-Listener, SQMLogger, WdiContextLog, etc.) by setting Start=0, reducing kernel-level event collection..
         /// </summary>
         public static string Optimizer_SecurityAndPrivacy_DisableAutoLogger_ShortDescription {
             get {
@@ -1223,7 +1223,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stops suggested apps, tips, and Windows content delivery recommendations..
+        ///   Looks up a localized string similar to Disables Content Delivery Manager (ContentDeliveryAllowed=0, SubscribedContent-*=0), stopping suggested apps, tips, and promotional content in Settings/Start..
         /// </summary>
         public static string Optimizer_SecurityAndPrivacy_DisableContentDeliveryManager_ShortDescription {
             get {
@@ -1241,7 +1241,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables Windows Copilot and hides its UI integration in the taskbar and system shell..
+        ///   Looks up a localized string similar to Applies TurnOffWindowsCopilot=1 policies, hides Copilot button from taskbar, blocks shell extension {CB3B0003-8088-4EDE-8769-8B354AB2FF8C}..
         /// </summary>
         public static string Optimizer_SecurityAndPrivacy_DisableCopilot_ShortDescription {
             get {
@@ -1259,7 +1259,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Removes Cortana and web search integration from Windows Search..
+        ///   Looks up a localized string similar to Blocks Cortana via AllowCortana=0, AllowCloudSearch=0 policies and disables web search integration in Windows Search..
         /// </summary>
         public static string Optimizer_SecurityAndPrivacy_DisableCortana_ShortDescription {
             get {
@@ -1304,7 +1304,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reduces Windows diagnostics/telemetry and feedback by applying policies, registry settings, services, and scheduled tasks. May affect error reporting and some compatibility features..
+        ///   Looks up a localized string similar to Applies comprehensive anti-telemetry policies: disables DiagTrack, dmwappushservice, WerSvc services; disables 14+ telemetry scheduled tasks; blocks 50+ telemetry registry keys including AllowTelemetry, AdvertisingInfo, Location tracking..
         /// </summary>
         public static string Optimizer_SecurityAndPrivacy_DisableTelemetry_ShortDescription {
             get {
@@ -1322,7 +1322,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables UAC (User Account Control) – the mechanism that asks for confirmation when running applications requiring Admin rights. Turning it off may reduce annoyance, but it also weakens important security protections..
+        ///   Looks up a localized string similar to Sets EnableLUA=0 to disable User Account Control elevation prompts, allowing silent admin execution. Significantly reduces system security..
         /// </summary>
         public static string Optimizer_SecurityAndPrivacy_DisableUAC_ShortDescription {
             get {
@@ -1538,7 +1538,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables various system notifications and sync provider notifications to reduce interruptions..
+        ///   Looks up a localized string similar to Sets ShowSyncProviderNotifications=0, SystemPaneSuggestionsEnabled=0, ToastEnabled=0 to disable OneDrive sync ads, Windows tips, and toast notifications..
         /// </summary>
         public static string Optimizer_UserExperience_DisableExplorerAndSystemNotifications_ShortDescription {
             get {
@@ -1556,7 +1556,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hides Widgets, Chat, and Task View buttons from the taskbar for a cleaner interface..
+        ///   Looks up a localized string similar to Sets TaskbarDa=0 (Widgets), TaskbarMn=0 (Chat), ShowTaskViewButton=0 to hide taskbar buttons for a minimal interface..
         /// </summary>
         public static string Optimizer_UserExperience_DisableTaskbarExtraButtons_ShortDescription {
             get {
@@ -1574,7 +1574,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Removes the news and interests widget from the taskbar to reduce distractions and resource usage..
+        ///   Looks up a localized string similar to Sets AllowNewsAndInterests=0, EnableFeeds=0 to remove the News and Interests widget from taskbar, eliminating MSN feed background updates..
         /// </summary>
         public static string Optimizer_UserExperience_DisableTaskbarNewsAndInterests_ShortDescription {
             get {
@@ -1592,7 +1592,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Removes the search box from taskbar and disables Bing web search integration..
+        ///   Looks up a localized string similar to Sets SearchboxTaskbarMode=0, BingSearchEnabled=0 to remove search box from taskbar and disable Bing web search in Start menu..
         /// </summary>
         public static string Optimizer_UserExperience_DisableTaskbarSearchAndBing_ShortDescription {
             get {
@@ -1610,7 +1610,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables taskbar animations, shadows, transparency, and Aero Peek for better performance..
+        ///   Looks up a localized string similar to Sets TaskbarAnimations=0, ListviewShadow=0, EnableTransparency=0, EnableAeroPeek=0 to disable animations, shadows, transparency for improved UI responsiveness..
         /// </summary>
         public static string Optimizer_UserExperience_DisableVisualEffects_ShortDescription {
             get {
@@ -1628,7 +1628,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Restores the classic Windows context menu instead of the modern simplified version..
+        ///   Looks up a localized string similar to Creates InprocServer32 key at CLSID {86ca1aa0-34aa-4e8b-a509-50c905bae2a2} to restore Windows 10-style full context menu on Windows 11..
         /// </summary>
         public static string Optimizer_UserExperience_EnableClassicContextMenu_ShortDescription {
             get {
@@ -1646,7 +1646,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enables dark mode for system apps and interface elements to reduce eye strain..
+        ///   Looks up a localized string similar to Sets AppsUseLightTheme=0, SystemUsesLightTheme=0 to enable dark mode for system apps, Settings, and shell elements..
         /// </summary>
         public static string Optimizer_UserExperience_EnableDarkMode_ShortDescription {
             get {
@@ -1664,7 +1664,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds the ability to right-click taskbar applications and select &quot;End task&quot; for quick process termination..
+        ///   Looks up a localized string similar to Sets TaskbarEndTask=1 to add &quot;End task&quot; option to taskbar right-click menu, allowing quick process termination without Task Manager..
         /// </summary>
         public static string Optimizer_UserExperience_EnableTaskbarEndTask_ShortDescription {
             get {
@@ -1682,7 +1682,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Removes Meet Now and People icons from the taskbar to reduce clutter..
+        ///   Looks up a localized string similar to Sets HideSCAMeetNow=1, PeopleBand=0 to remove Meet Now (Skype) and People icons from taskbar notification area..
         /// </summary>
         public static string Optimizer_UserExperience_RemoveMeetNowAndPeople_ShortDescription {
             get {
@@ -1700,7 +1700,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Makes file extensions visible and shows hidden system files for better file management..
+        ///   Looks up a localized string similar to Sets HideFileExt=0, Hidden=1 in Explorer to display file extensions and reveal hidden/system files for transparency..
         /// </summary>
         public static string Optimizer_UserExperience_ShowFileExtensionsAndHiddenFiles_ShortDescription {
             get {
@@ -1718,7 +1718,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds seconds display to the system clock in the taskbar for more precise time tracking..
+        ///   Looks up a localized string similar to Sets ShowSecondsInSystemClock=1 to display seconds in taskbar clock for precise time monitoring..
         /// </summary>
         public static string Optimizer_UserExperience_ShowSecondsInSystemClock_ShortDescription {
             get {
@@ -1736,7 +1736,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reduces Explorer startup delay and menu popup delay for faster interface response..
+        ///   Looks up a localized string similar to Sets StartupDelayInMSec=0, MenuShowDelay=0 to eliminate Explorer startup delay and reduce menu hover delay to minimum..
         /// </summary>
         public static string Optimizer_UserExperience_SpeedUpExplorerAndMenus_ShortDescription {
             get {

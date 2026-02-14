@@ -1,5 +1,5 @@
-using Microsoft.Extensions.Logging;
 using System.Collections.ObjectModel;
+using Microsoft.Extensions.Logging;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Attributes;
 using optimizerDuck.Core.Models.Optimization;
@@ -24,7 +24,8 @@ public class UserExperience : IOptimizationCategory
         Tags = OptimizationTags.System | OptimizationTags.Visual | OptimizationTags.Privacy)]
     public sealed class DisableTaskbarNewsAndInterests : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
                 new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Dsh", "AllowNewsAndInterests", 0),
@@ -43,7 +44,8 @@ public class UserExperience : IOptimizationCategory
         Tags = OptimizationTags.System | OptimizationTags.Visual)]
     public sealed class DisableTaskbarExtraButtons : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
@@ -64,7 +66,8 @@ public class UserExperience : IOptimizationCategory
         Tags = OptimizationTags.System | OptimizationTags.Visual | OptimizationTags.Privacy)]
     public sealed class DisableTaskbarSearchAndBing : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Search",
@@ -83,7 +86,8 @@ public class UserExperience : IOptimizationCategory
         Tags = OptimizationTags.System)]
     public sealed class RemoveMeetNowAndPeople : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer",
@@ -97,14 +101,14 @@ public class UserExperience : IOptimizationCategory
     }
 
 
-
     [Optimization(
         Id = "E1C2D3A4-B5F6-47A8-9C0D-1F2E3A4B5C6D",
         Risk = OptimizationRisk.Safe,
         Tags = OptimizationTags.System)]
     public sealed class EnableTaskbarEndTask : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
                 new RegistryItem(
@@ -122,7 +126,8 @@ public class UserExperience : IOptimizationCategory
         Tags = OptimizationTags.System | OptimizationTags.Visual | OptimizationTags.Power)]
     public sealed class EnableDarkMode : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
                 new RegistryItem(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
@@ -141,16 +146,17 @@ public class UserExperience : IOptimizationCategory
         Tags = OptimizationTags.System | OptimizationTags.Privacy)]
     public sealed class DisableExplorerAndSystemNotifications : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
-                new(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
                     "ShowSyncProviderNotifications", 0),
-                new(@"HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager",
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager",
                     "SystemPaneSuggestionsEnabled", 0),
-                new(@"HKCU\Software\Microsoft\Windows\CurrentVersion\PushNotifications",
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\PushNotifications",
                     "ToastEnabled", 0),
-                new(@"HKCU\Software\Microsoft\Windows\CurrentVersion\PushNotifications",
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\PushNotifications",
                     "LockScreenToastEnabled", 0)
             );
             context.Logger.LogInformation("Disabled Explorer and system notifications");
@@ -165,7 +171,8 @@ public class UserExperience : IOptimizationCategory
         Tags = OptimizationTags.System | OptimizationTags.Visual)]
     public sealed class ShowFileExtensionsAndHiddenFiles : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
                 new RegistryItem(
@@ -188,7 +195,8 @@ public class UserExperience : IOptimizationCategory
         Tags = OptimizationTags.Visual)]
     public sealed class EnableClassicContextMenu : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
                 new RegistryItem(
@@ -207,12 +215,13 @@ public class UserExperience : IOptimizationCategory
         Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Latency)]
     public sealed class SpeedUpExplorerAndMenus : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
-                new(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Serialize",
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Serialize",
                     "StartupDelayInMSec", 0),
-                new(@"HKCU\Control Panel\Desktop",
+                new RegistryItem(@"HKCU\Control Panel\Desktop",
                     "MenuShowDelay", "0")
             );
             context.Logger.LogInformation("Speeded up Explorer and menus");
@@ -226,7 +235,8 @@ public class UserExperience : IOptimizationCategory
         Tags = OptimizationTags.Visual)]
     public sealed class ShowSecondsInSystemClock : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
                 new RegistryItem(
@@ -244,16 +254,17 @@ public class UserExperience : IOptimizationCategory
         Tags = OptimizationTags.System | OptimizationTags.Visual | OptimizationTags.Performance)]
     public sealed class DisableVisualEffects : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
-                new(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
                     "TaskbarAnimations", 0),
-                new(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
                     "ListviewShadow", 0),
-                new(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
                     "EnableTransparency", 0),
-                new(@"HKCU\Software\Microsoft\Windows\DWM",
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\DWM",
                     "EnableAeroPeek", 0)
             );
             context.Logger.LogInformation("Disabled visual effects");

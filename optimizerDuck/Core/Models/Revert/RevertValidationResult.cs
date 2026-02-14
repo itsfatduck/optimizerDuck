@@ -1,5 +1,4 @@
 using optimizerDuck.Resources.Languages;
-using optimizerDuck.Services.Managers;
 
 namespace optimizerDuck.Core.Models.Revert;
 

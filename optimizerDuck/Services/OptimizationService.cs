@@ -29,6 +29,96 @@ public class OptimizationService(
     private static readonly object _cacheLock = new();
     private readonly ILogger _logger = logger;
 
+    public async Task<bool> CreateRestorePointAsync()
+    {
+        var dialogViewModel = new ProcessingOptimizationViewModel();
+        var dialogContent = new ProcessingOptimizationDialog { DataContext = dialogViewModel };
+
+        var dialog = new ContentDialog
+        {
+            Title = Translations.RestorePoint_Title,
+            Content = dialogContent,
+            IsFooterVisible = false
+        };
+
+        _ = contentDialogService.ShowAsync(dialog, CancellationToken.None);
+
+        try
+        {
+            async Task<ShellResult> RunPowerShellAsync(string command)
+            {
+                return await Task.Run(() => ShellService.PowerShell(command));
+            }
+
+            dialogViewModel.ProgressReporter.Report(new ProcessingProgress
+            {
+                Message = Translations.RestorePoint_Progress_Creating,
+                IsIndeterminate = true
+            });
+
+            using var tracker = ServiceTracker.Begin(_logger);
+
+            var result = await RunPowerShellAsync(
+                $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS");
+
+            if (result.ExitCode == 0)
+                return true;
+
+            if (!Regex.IsMatch(result.Stderr,
+                    @"\b(is\s+disabled|system\s+restore\s+is\s+disabled|disabled\s+by\s+group\s+policy|disableconfig|disablesr|protection\s+is\s+off)\b",
+                    RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
+            {
+                _logger.LogError("Failed to create restore point (not a 'disabled' case): {Message}", result.Stderr);
+                return false;
+            }
+
+            _logger.LogError("Failed to create restore point due to disabled feature: {Message}", result.Stderr);
+
+            dialogViewModel.ProgressReporter.Report(new ProcessingProgress
+            {
+                Message = Translations.RestorePoint_Progress_Enabling,
+                IsIndeterminate = true
+            });
+
+            // try to enable it
+            _logger.LogInformation("Enabling System Protection on system drive...");
+            var enableResult = await RunPowerShellAsync("Enable-ComputerRestore -Drive \"$env:SystemDrive\"");
+            if (enableResult.ExitCode != 0)
+            {
+                _logger.LogError("Failed to enable System Protection on system drive: {Message}", enableResult.Stderr);
+                return false;
+            }
+
+            dialogViewModel.ProgressReporter.Report(new ProcessingProgress
+            {
+                Message = Translations.RestorePoint_Progress_Retrying,
+                IsIndeterminate = true
+            });
+
+            // retry creating restore point
+            _logger.LogInformation("Retrying to create restore point...");
+            result = await RunPowerShellAsync(
+                $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS");
+
+            if (result.ExitCode == 0)
+                return true;
+
+            if (result.Stderr.Contains("is disabled", StringComparison.OrdinalIgnoreCase))
+            {
+                _logger.LogError("Failed to create restore point after enabling feature: {Message}", result.Stderr);
+                return false;
+            }
+
+
+            _logger.LogError("Failed to create restore point: {Message}", result.Stderr);
+            return false;
+        }
+        finally
+        {
+            dialog.Hide();
+        }
+    }
+
     #region Main Methods
 
     public async Task<OptimizationResult> ApplyAsync(IOptimization optimization,
@@ -74,12 +164,10 @@ public class OptimizationService(
 
                 // If revert succeeds, remove any cached applied state.
                 if (revertResult.Success)
-                {
                     lock (_cacheLock)
                     {
                         _stateCache.Remove(optimization.Id);
                     }
-                }
 
                 return new OptimizationResult
                 {
@@ -117,12 +205,10 @@ public class OptimizationService(
 
             // Update cache after successful apply
             if (status == OptimizationSuccessResult.Success)
-            {
                 lock (_cacheLock)
                 {
                     _stateCache[optimization.Id] = (true, DateTime.Now);
                 }
-            }
 
             if (!revertContextDisposed)
                 await revertContext.DisposeAsync();
@@ -144,7 +230,6 @@ public class OptimizationService(
 
             // Best-effort: persist any revert steps that were recorded before the exception.
             if (revertContext is not null && !revertContextDisposed)
-            {
                 try
                 {
                     await revertContext.DisposeAsync();
@@ -154,7 +239,6 @@ public class OptimizationService(
                 {
                     // Best-effort cleanup only.
                 }
-            }
         }
         finally
         {
@@ -211,12 +295,10 @@ public class OptimizationService(
 
         // Update cache after revert
         if (result.Success)
-        {
             lock (_cacheLock)
             {
                 _stateCache.Remove(optimization.Id);
             }
-        }
 
         return result;
     }
@@ -238,7 +320,6 @@ public class OptimizationService(
         lock (_cacheLock)
         {
             foreach (var optimization in optimizations)
-            {
                 if (_stateCache.TryGetValue(optimization.Id, out var cachedState))
                 {
                     // Use cached state
@@ -249,7 +330,6 @@ public class OptimizationService(
                 {
                     uncachedIds.Add(optimization.Id);
                 }
-            }
         }
 
         // Only fetch from disk for uncached optimizations
@@ -258,7 +338,7 @@ public class OptimizationService(
             var tasks = uncachedIds.Select(async id =>
             {
                 var revertData = await RevertManager.GetRevertDataAsync(id);
-                var state = (IsApplied: revertData != null, AppliedAt: revertData?.AppliedAt);
+                var state = (IsApplied: revertData != null, revertData?.AppliedAt);
 
                 lock (_cacheLock)
                 {
@@ -369,94 +449,4 @@ public class OptimizationService(
     }
 
     #endregion Helpers
-
-    public async Task<bool> CreateRestorePointAsync()
-    {
-        var dialogViewModel = new ProcessingOptimizationViewModel();
-        var dialogContent = new ProcessingOptimizationDialog { DataContext = dialogViewModel };
-
-        var dialog = new ContentDialog
-        {
-            Title = Translations.RestorePoint_Title,
-            Content = dialogContent,
-            IsFooterVisible = false,
-        };
-
-        _ = contentDialogService.ShowAsync(dialog, CancellationToken.None);
-
-        try
-        {
-            async Task<ShellResult> RunPowerShellAsync(string command)
-            {
-                return await Task.Run(() => ShellService.PowerShell(command));
-            }
-
-            dialogViewModel.ProgressReporter.Report(new ProcessingProgress
-            {
-                Message = Translations.RestorePoint_Progress_Creating,
-                IsIndeterminate = true
-            });
-
-            using var tracker = ServiceTracker.Begin(_logger);
-
-            var result = await RunPowerShellAsync(
-                $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS");
-
-            if (result.ExitCode == 0)
-                return true;
-
-            if (!Regex.IsMatch(result.Stderr,
-                    @"\b(is\s+disabled|system\s+restore\s+is\s+disabled|disabled\s+by\s+group\s+policy|disableconfig|disablesr|protection\s+is\s+off)\b",
-                    RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
-            {
-                _logger.LogError("Failed to create restore point (not a 'disabled' case): {Message}", result.Stderr);
-                return false;
-            }
-
-            _logger.LogError("Failed to create restore point due to disabled feature: {Message}", result.Stderr);
-
-            dialogViewModel.ProgressReporter.Report(new ProcessingProgress
-            {
-                Message = Translations.RestorePoint_Progress_Enabling,
-                IsIndeterminate = true
-            });
-
-            // try to enable it
-            _logger.LogInformation("Enabling System Protection on system drive...");
-            var enableResult = await RunPowerShellAsync("Enable-ComputerRestore -Drive \"$env:SystemDrive\"");
-            if (enableResult.ExitCode != 0)
-            {
-                _logger.LogError("Failed to enable System Protection on system drive: {Message}", enableResult.Stderr);
-                return false;
-            }
-
-            dialogViewModel.ProgressReporter.Report(new ProcessingProgress
-            {
-                Message = Translations.RestorePoint_Progress_Retrying,
-                IsIndeterminate = true
-            });
-
-            // retry creating restore point
-            _logger.LogInformation("Retrying to create restore point...");
-            result = await RunPowerShellAsync(
-                $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS");
-            
-            if (result.ExitCode == 0)
-                return true;
-
-            if (result.Stderr.Contains("is disabled", StringComparison.OrdinalIgnoreCase))
-            {
-                _logger.LogError("Failed to create restore point after enabling feature: {Message}", result.Stderr);
-                return false;
-            }
-
-
-            _logger.LogError("Failed to create restore point: {Message}", result.Stderr);
-            return false;
-        }
-        finally
-        {
-            dialog.Hide();
-        }
-    }
 }

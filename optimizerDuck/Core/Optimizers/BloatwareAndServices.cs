@@ -22,7 +22,8 @@ public class BloatwareAndServices : IOptimizationCategory
         Tags = OptimizationTags.System | OptimizationTags.Disk)]
     public class DisablePreinstalledApps : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
                 new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager",
@@ -43,7 +44,8 @@ public class BloatwareAndServices : IOptimizationCategory
         Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Latency)]
     public class ConfigureServices : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             var servicesToChange = new List<ServiceItem>
             {

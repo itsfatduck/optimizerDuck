@@ -24,7 +24,8 @@ public class PowerManagement : IOptimizationCategory
         Tags = OptimizationTags.System | OptimizationTags.Power | OptimizationTags.Performance)]
     public class DisableHibernate : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
                 new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\Power", "HibernateEnabled", 0),
@@ -96,7 +97,8 @@ public class PowerManagement : IOptimizationCategory
                OptimizationTags.Power)]
     public class InstallOptimizerDuckPowerPlan : BaseOptimization
     {
-        public override async Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override async Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             var activeQuery = ShellService.CMD("powercfg /getactivescheme");
             var match = Regex.Match(
@@ -128,6 +130,7 @@ public class PowerManagement : IOptimizationCategory
                 context.Logger.LogError("Failed to download optimizerDuck power plan");
                 return ApplyResult.False(Loc.Instance[$"{ErrorPrefix}.DownloadFailed"]);
             }
+
             context.Logger.LogInformation("Downloaded optimizerDuck power plan to {Path}", powerPlanPath);
 
             progress?.Report(new ProcessingProgress
@@ -136,8 +139,10 @@ public class PowerManagement : IOptimizationCategory
                 IsIndeterminate = true
             });
 
-            ShellService.CMD("powercfg /setactive 381b4222-f694-41f0-9685-ff5bb260df2e", policy: ShellPolicy.SuccessExitCodes(0, 1)); // set Balanced
-            var result = ShellService.CMD($"powercfg /delete {Shared.PowerPlanGUID}", $"powercfg /setactive {previousPlanGuid}", policy: ShellPolicy.SuccessExitCodes(0, 1));
+            ShellService.CMD("powercfg /setactive 381b4222-f694-41f0-9685-ff5bb260df2e",
+                policy: ShellPolicy.SuccessExitCodes(0, 1)); // set Balanced
+            var result = ShellService.CMD($"powercfg /delete {Shared.PowerPlanGUID}",
+                $"powercfg /setactive {previousPlanGuid}", ShellPolicy.SuccessExitCodes(0, 1));
             if (result.ExitCode == 0)
                 context.Logger.LogInformation("Deleted old power plan");
 
@@ -154,6 +159,7 @@ public class PowerManagement : IOptimizationCategory
                 context.Logger.LogError("Failed to activate optimizerDuck power plan: {Error}", setActiveResult.Stderr);
                 return ApplyResult.False(Loc.Instance[$"{ErrorPrefix}.ActivateFailed"]);
             }
+
             context.Logger.LogInformation("Installed optimizerDuck power plan successfully!");
             return ApplyResult.True();
         }
@@ -163,7 +169,8 @@ public class PowerManagement : IOptimizationCategory
         Tags = OptimizationTags.Power | OptimizationTags.Performance | OptimizationTags.System)]
     public class DisablePowerSaving : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
                 new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\USB\AutomaticSurpriseRemoval",
