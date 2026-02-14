@@ -142,10 +142,7 @@
     <data name="Optimizer.UI.Risk.Risky" xml:space="preserve">
     <value>Nguy hiểm</value>
   </data>
-    <data name="Button.CopyGuid" xml:space="preserve">
-    <value>Sao Chép GUID</value>
-  </data>
-    <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
+  <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
     <value>Mô tả chi tiết</value>
   </data>
     <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
@@ -299,7 +296,8 @@
     <value>Thử lại</value>
   </data>
     <data name="Settings.About.Duck.Description" xml:space="preserve">
-    <value>Cảm ơn bạn đã tin tưởng và ủng hộ &lt;3! Phiên bản hiện tại: {0}</value>
+    <value><![CDATA[Cảm ơn bạn đã tin tưởng và ủng hộ &lt;3!
+Phiên bản hiện tại: {0}]]> </value>
   </data>
     <data name="Settings.Advanced.Header" xml:space="preserve">
     <value>Nâng cao</value>
@@ -819,5 +817,8 @@
   </data>
   <data name="Bloatware.Loading" xml:space="preserve">
     <value>Đang tìm kiếm ứng dụng có thể gỡ…</value>
+  </data>
+  <data name="Sidebar.Bloatware" xml:space="preserve">
+    <value>Bloatware</value>
   </data>
 </root>

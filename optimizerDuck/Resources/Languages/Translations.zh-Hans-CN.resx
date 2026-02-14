@@ -48,9 +48,6 @@
     <data name="Button.Open" xml:space="preserve">
     <value>打开</value>
   </data>
-    <data name="Button.CopyGuid" xml:space="preserve">
-    <value>复制 GUID</value>
-  </data>
     <data name="Button.Skip" xml:space="preserve">
     <value>跳过</value>
   </data>
@@ -866,4 +863,7 @@
   <data name="Bloatware.Loading" xml:space="preserve">
     <value>正在搜索可移除的应用…</value>
   </data>
+    <data name="Sidebar.Bloatware" xml:space="preserve">
+      <value>臃肿软件</value>
+    </data>
 </root>

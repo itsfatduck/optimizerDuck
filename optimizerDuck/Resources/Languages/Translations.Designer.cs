@@ -159,15 +159,6 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copy GUID.
-        /// </summary>
-        public static string Button_CopyGuid {
-            get {
-                return ResourceManager.GetString("Button.CopyGuid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         public static string Button_Ok {
@@ -2399,6 +2390,15 @@ namespace optimizerDuck.Resources.Languages {
         public static string Settings_Optimize_ShellTimeout_Warning {
             get {
                 return ResourceManager.GetString("Settings.Optimize.ShellTimeout.Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bloatware.
+        /// </summary>
+        public static string Sidebar_Bloatware {
+            get {
+                return ResourceManager.GetString("Sidebar.Bloatware", resourceCulture);
             }
         }
         
