@@ -60,6 +60,24 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Removing {0} ({1}/{2}).
+        /// </summary>
+        public static string BloatwareDialog_Removing {
+            get {
+                return ResourceManager.GetString("BloatwareDialog.Removing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing {0} AppX Package(s).
+        /// </summary>
+        public static string BloatwareDialog_Title {
+            get {
+                return ResourceManager.GetString("BloatwareDialog.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Button_Cancel {
