@@ -13,6 +13,7 @@
     xmlns:converters="clr-namespace:optimizerDuck.Common.Helpers.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:optimizers="clr-namespace:optimizerDuck.Core.Optimizers"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Page.Resources>
@@ -45,7 +46,7 @@
             </ui:VirtualizingItemsControl.ItemContainerStyle>
 
             <ui:VirtualizingItemsControl.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate DataType="{x:Type optimizers:BaseOptimization}">
                     <Border
                         Background="{DynamicResource CardBackground}"
                         BorderBrush="{DynamicResource CardBorderBrush}"
