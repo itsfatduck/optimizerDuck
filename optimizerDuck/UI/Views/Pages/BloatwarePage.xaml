@@ -57,7 +57,11 @@
                         Header="{Binding ViewModel.SelectedCount, StringFormat='Remove ({0})'}"
                         Icon="{ui:SymbolIcon Delete24,
                                              FontSize=18}" />
-                    <ui:MenuItem Header="Refresh" Icon="{ui:SymbolIcon ArrowClockwise24, FontSize=18}" />
+                    <ui:MenuItem
+                        Command="{Binding ViewModel.RefreshCommand}"
+                        Header="Refresh"
+                        Icon="{ui:SymbolIcon ArrowClockwise24,
+                                             FontSize=18}" />
                 </Menu>
                 <ui:VirtualizingItemsControl Grid.Row="1" ItemsSource="{Binding ViewModel.AppxPackages}">
                     <ui:VirtualizingItemsControl.Template>
@@ -76,7 +80,7 @@
 
                     <!--  Item template  -->
                     <ui:VirtualizingItemsControl.ItemTemplate>
-                        <DataTemplate DataType="{x:Type bloatware:AppxPackage}">
+                        <DataTemplate DataType="{x:Type bloatware:AppXPackage}">
                             <Border
                                 Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
                                 CornerRadius="6"
@@ -106,13 +110,51 @@
                                             <!--  App Name  -->
                                             <ui:TextBlock FontTypography="BodyStrong" Text="{Binding Name}" />
 
-                                            <!--  Version  -->
-                                            <ui:TextBlock
-                                                Appearance="Tertiary"
-                                                FontTypography="Body"
+                                            <Border
+                                                Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                                CornerRadius="5"
+                                                HorizontalAlignment="Left"
                                                 Margin="5,0,0,0"
-                                                Text="{Binding Version, StringFormat=' v{0}'}"
-                                                VerticalAlignment="Center" />
+                                                Padding="4,1"
+                                                VerticalAlignment="Center">
+                                                <!--  Version  -->
+                                                <ui:TextBlock
+                                                    Appearance="Tertiary"
+                                                    FontTypography="Body"
+                                                    Text="{Binding Version, StringFormat='v{0}'}"
+                                                    VerticalAlignment="Center" />
+                                            </Border>
+
+                                            <Border
+                                                CornerRadius="5"
+                                                HorizontalAlignment="Left"
+                                                Margin="5,0,0,0"
+                                                Padding="4,2">
+                                                <Border.Style>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Risk}" Value="Caution">
+                                                                <Setter Property="Background" Value="{DynamicResource SystemFillColorCautionBrush}" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Border.Style>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <ui:SymbolIcon
+                                                        Foreground="{DynamicResource TextFillColorInverseBrush}"
+                                                        Margin="0,0,5,0"
+                                                        Symbol="{Binding RiskVisual.Icon}" />
+
+                                                    <ui:TextBlock
+                                                        FontTypography="Caption"
+                                                        Foreground="{DynamicResource TextFillColorInverseBrush}"
+                                                        HorizontalAlignment="Center"
+                                                        Text="{Binding RiskVisual.Display}"
+                                                        TextWrapping="Wrap"
+                                                        VerticalAlignment="Center" />
+                                                </StackPanel>
+                                            </Border>
 
                                         </DockPanel>
 

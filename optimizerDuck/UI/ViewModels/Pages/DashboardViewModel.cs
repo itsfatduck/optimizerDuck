@@ -31,7 +31,7 @@ public partial class DashboardViewModel : ViewModel
 
     [ObservableProperty] private RamInfo _runtimeRam = RamInfo.Unknown;
     [ObservableProperty] private SystemSnapshot _systemInfo = SystemSnapshot.Unknown;
-    private bool _updateNotified; // phân biệt close do user
+    private bool _updateNotified;
 
     public DashboardViewModel(SystemInfoService systemInfoService, ISnackbarService snackbarService,
         ILogger<DashboardViewModel> logger, UpdaterService updaterService, IContentDialogService contentDialogService)
@@ -63,7 +63,6 @@ public partial class DashboardViewModel : ViewModel
             _isUpdateInfoOpen = value;
             OnPropertyChanged();
 
-            // User vừa bấm ❌
             if (!_isUpdateInfoOpen && _updateNotified) OpenLatestRelease();
         }
     }

@@ -31,8 +31,8 @@ public class OptimizationService(
 
     public async Task<bool> CreateRestorePointAsync()
     {
-        var dialogViewModel = new ProcessingOptimizationViewModel();
-        var dialogContent = new ProcessingOptimizationDialog { DataContext = dialogViewModel };
+        var dialogViewModel = new ProcessingViewModel();
+        var dialogContent = new ProcessingDialog { DataContext = dialogViewModel };
 
         var dialog = new ContentDialog
         {

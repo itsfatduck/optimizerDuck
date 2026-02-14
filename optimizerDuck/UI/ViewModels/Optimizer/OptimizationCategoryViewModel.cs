@@ -64,11 +64,11 @@ public partial class OptimizationCategoryViewModel : ViewModel
         IOptimization optimization,
         Func<IProgress<ProcessingProgress>, Task<T>> action)
     {
-        var viewModel = new ProcessingOptimizationViewModel();
+        var viewModel = new ProcessingViewModel();
         var dialog = new ContentDialog
         {
             Title = BuildDialogTitle(optimization),
-            Content = new ProcessingOptimizationDialog { DataContext = viewModel },
+            Content = new ProcessingDialog { DataContext = viewModel },
             IsFooterVisible = false
         };
 

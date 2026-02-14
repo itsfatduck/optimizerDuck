@@ -193,7 +193,7 @@ public class OptimizationServiceTests
     {
         public Type? OwnerType { get; set; }
         public string OwnerKey { get; } = "Test";
-        public OptimizationRiskVisual RiskVisual { get; } = new();
+        public RiskVisual RiskVisual { get; } = new();
         public IEnumerable<OptimizationTagDisplay> TagDisplays { get; } = [];
 
         public string Prefix { get; } = "Test";

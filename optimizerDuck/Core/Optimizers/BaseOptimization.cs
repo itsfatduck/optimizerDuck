@@ -26,24 +26,24 @@ public abstract class BaseOptimization : IOptimization
         ?? throw new InvalidOperationException(
             $"{GetType().Name} has no owner assigned");
 
-    public OptimizationRiskVisual RiskVisual => Risk switch
+    public RiskVisual RiskVisual => Risk switch
     {
-        OptimizationRisk.Safe => new OptimizationRiskVisual
+        OptimizationRisk.Safe => new RiskVisual
         {
             Display = Translations.Optimizer_UI_Risk_Safe,
             Icon = SymbolRegular.ShieldCheckmark24
         },
-        OptimizationRisk.Moderate => new OptimizationRiskVisual
+        OptimizationRisk.Moderate => new RiskVisual
         {
             Display = Translations.Optimizer_UI_Risk_Moderate,
             Icon = SymbolRegular.Warning24
         },
-        OptimizationRisk.Risky => new OptimizationRiskVisual
+        OptimizationRisk.Risky => new RiskVisual
         {
             Display = Translations.Optimizer_UI_Risk_Risky,
             Icon = SymbolRegular.ShieldError24
         },
-        _ => new OptimizationRiskVisual
+        _ => new RiskVisual
         {
             Display = Translations.Optimizer_UI_Risk_Safe,
             Icon = SymbolRegular.ShieldCheckmark24

@@ -6,12 +6,12 @@ namespace optimizerDuck.UI.Views.Dialogs;
 /// <summary>
 ///     Interaction logic for ProcessingOptimizationDialog.xaml
 /// </summary>
-public partial class ProcessingOptimizationDialog : UserControl
+public partial class ProcessingDialog : UserControl
 {
-    public ProcessingOptimizationDialog()
+    public ProcessingDialog()
     {
         InitializeComponent();
     }
 
-    public ProcessingOptimizationViewModel? ViewModel => DataContext as ProcessingOptimizationViewModel;
+    public ProcessingViewModel? ViewModel => DataContext as ProcessingViewModel;
 }

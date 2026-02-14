@@ -11,7 +11,7 @@ namespace optimizerDuck.Services;
 
 public class BloatwareService(ILogger<BloatwareService> logger)
 {
-    public async Task<List<AppxPackage>> GetAppXPackagesAsync()
+    public async Task<List<AppXPackage>> GetAppXPackagesAsync()
     {
         try
         {
@@ -67,10 +67,10 @@ public class BloatwareService(ILogger<BloatwareService> logger)
             var options = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true,
-                Converters = { new JsonStringEnumConverter()}
+                Converters = { new JsonStringEnumConverter() }
             };
 
-            var apps = JsonSerializer.Deserialize<List<AppxPackage>>(result.Stdout, options);
+            var apps = JsonSerializer.Deserialize<List<AppXPackage>>(result.Stdout, options)!.OrderBy(a => a.Risk).ToList();
 
             logger.LogInformation("Found {AppCount} AppX packages", apps.Count);
 
@@ -78,8 +78,64 @@ public class BloatwareService(ILogger<BloatwareService> logger)
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Failed to get bloatware choices");
+            logger.LogError(ex, "Failed to get AppX packages");
             return [];
+        }
+    }
+
+    public async Task RemoveAppXPackage(AppXPackage appXPackage)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(appXPackage.PackageFullName))
+            {
+                logger.LogWarning("Skip removing app because PackageFullName is empty: {Name}", appXPackage.Name);
+                return;
+            }
+
+            logger.LogInformation("Removing AppX package {Name} ({Package})",
+                appXPackage.Name, appXPackage.PackageFullName);
+
+            var script = $$"""
+                           $pkg = "{{appXPackage.PackageFullName}}"
+
+                           Write-Output "Removing installed package..."
+
+                           # remove for current + all users
+                           Get-AppxPackage -AllUsers | Where-Object { $_.PackageFullName -eq $pkg } | ForEach-Object {
+                               try {
+                                   Remove-AppxPackage -Package $_.PackageFullName -AllUsers -ErrorAction Stop
+                                   Write-Output "Removed installed package: $($_.PackageFullName)"
+                               } catch {
+                                   Write-Output "Failed removing installed package: $($_.PackageFullName)"
+                               }
+                           }
+
+                           Write-Output "Removing provisioned package..."
+
+                           # remove provisioned version so it doesn't reinstall
+                           Get-AppxProvisionedPackage -Online |
+                           Where-Object { $_.PackageName -like "*$pkg*" } |
+                           ForEach-Object {
+                               try {
+                                   Remove-AppxProvisionedPackage -Online -PackageName $_.PackageName -ErrorAction Stop | Out-Null
+                                   Write-Output "Removed provisioned package: $($_.PackageName)"
+                               } catch {
+                                   Write-Output "Failed removing provisioned package: $($_.PackageName)"
+                               }
+                           }
+                           """;
+
+            var result = await ShellService.PowerShellAsync(script);
+
+            if (!string.IsNullOrWhiteSpace(result.Stderr))
+                logger.LogWarning("Remove AppX stderr: {Error}", result.Stderr);
+
+            logger.LogInformation("Remove AppX finished for {Name}", appXPackage.Name);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Failed removing AppX package {Name}", appXPackage.Name);
         }
     }
 }
