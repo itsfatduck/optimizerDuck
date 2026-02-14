@@ -34,7 +34,7 @@ public class PowerManagement : IOptimizationCategory
                     "ShowHibernateOption", 0),
                 new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power", "HiberbootEnabled", 0)
             );
-            ShellService.CMD("powercfg /h off");
+            ShellService.CMD("powercfg /h off", "powercfg /h on");
             context.Logger.LogInformation("Disabled hibernate and fast startup");
             return Task.FromResult(ApplyResult.True());
         }
