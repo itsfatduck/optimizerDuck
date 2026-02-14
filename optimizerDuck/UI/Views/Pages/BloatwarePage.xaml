@@ -20,8 +20,9 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Page.Resources>
-        <converters:ZeroToVisibilityConverter x:Key="ZeroToVisibilityConverter" />
         <converters:GreaterThanZeroToVisibilityConverter x:Key="GreaterThanZeroToVisibilityConverter" />
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:EmptyWhileNotLoadingConverter x:Key="EmptyWhileNotLoadingConverter" />
     </Page.Resources>
 
     <Grid RowDefinitions="Auto *">
@@ -31,15 +32,54 @@
             Text="{ext:Loc Bloatware.Header.Title}"
             TextWrapping="Wrap" />
 
-        <Border Grid.Row="1" Visibility="{Binding ViewModel.AppxPackages.Count, Converter={StaticResource ZeroToVisibilityConverter}}">
+        <!--  Empty  -->
+        <Border Grid.Row="1">
+            <Border.Visibility>
+                <MultiBinding Converter="{StaticResource EmptyWhileNotLoadingConverter}">
+                    <Binding Path="ViewModel.AppxPackages.Count" />
+                    <Binding Path="ViewModel.IsLoading" />
+                </MultiBinding>
+            </Border.Visibility>
+
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ui:SymbolIcon
+                    FontSize="46"
+                    Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                    HorizontalAlignment="Center"
+                    Margin="0,0,0,15"
+                    Symbol="DeleteOff24" />
+                <ui:TextBlock
+                    FontTypography="Subtitle"
+                    HorizontalAlignment="Center"
+                    Text="{ext:Loc Bloatware.Empty.Title}" />
+                <ui:TextBlock
+                    Appearance="Secondary"
+                    FontTypography="Body"
+                    HorizontalAlignment="Center"
+                    Margin="0,0,0,10"
+                    Text="{ext:Loc Bloatware.Empty.Description}" />
+                <ui:Button
+                    Appearance="Primary"
+                    Command="{Binding ViewModel.RefreshCommand}"
+                    Content="{ext:Loc Bloatware.Menu.Refresh}"
+                    HorizontalAlignment="Center"
+                    Icon="{ui:SymbolIcon ArrowClockwise24,
+                                         FontSize=18}" />
+            </StackPanel>
+        </Border>
+
+        <!--  Loading  -->
+        <Border Grid.Row="1" Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ui:ProgressRing
                     HorizontalAlignment="Center"
                     IsIndeterminate="True"
+                    Margin="0,0,0,5"
                     VerticalAlignment="Center" />
                 <ui:TextBlock
+                    FontTypography="BodyStrong"
                     HorizontalAlignment="Center"
-                    Text="Getting AppX packages..."
+                    Text="{ext:Loc Bloatware.Loading}"
                     VerticalAlignment="Center" />
             </StackPanel>
         </Border>
@@ -51,18 +91,24 @@
             Padding="8"
             Visibility="{Binding ViewModel.AppxPackages.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
             <Grid RowDefinitions="Auto *">
-                <Menu>
-                    <ui:MenuItem
+                <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+                    <ui:Button
+                        Appearance="Danger"
                         Command="{Binding ViewModel.RemoveSelectedCommand}"
-                        Header="{Binding ViewModel.SelectedCount, StringFormat='Remove ({0})'}"
+                        Content="{ext:Loc Bloatware.Menu.Remove,
+                                          {Binding ViewModel.SelectedCount}}"
                         Icon="{ui:SymbolIcon Delete24,
                                              FontSize=18}" />
-                    <ui:MenuItem
+
+                    <Separator Margin="3,0,3,0" />
+
+                    <ui:Button
+                        Appearance="Primary"
                         Command="{Binding ViewModel.RefreshCommand}"
-                        Header="Refresh"
+                        Content="{ext:Loc Bloatware.Menu.Refresh}"
                         Icon="{ui:SymbolIcon ArrowClockwise24,
                                              FontSize=18}" />
-                </Menu>
+                </StackPanel>
                 <ui:VirtualizingItemsControl Grid.Row="1" ItemsSource="{Binding ViewModel.AppxPackages}">
                     <ui:VirtualizingItemsControl.Template>
                         <ControlTemplate TargetType="ItemsControl">
@@ -160,7 +206,7 @@
 
                                         <!--  Publisher  -->
                                         <ui:TextBlock
-                                            Appearance="Secondary"
+                                            Appearance="Disabled"
                                             FontTypography="Body"
                                             Margin="0,2,0,0"
                                             Text="{Binding Publisher}"
@@ -174,9 +220,9 @@
                                             Text="{Binding InstallLocation}"
                                             TextTrimming="CharacterEllipsis" />
 
-                                        <!--  Package full name (technical, nhỏ hơn)  -->
+                                        <!--  Package full name  -->
                                         <ui:TextBlock
-                                            Appearance="Disabled"
+                                            Appearance="Secondary"
                                             FontTypography="Caption"
                                             Margin="0,4,0,0"
                                             Text="{Binding PackageFullName}"

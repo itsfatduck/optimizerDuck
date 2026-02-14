@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 using optimizerDuck.Core.Models.Bloatware;
 using optimizerDuck.Core.Models.UI;
 using optimizerDuck.Resources.Languages;
@@ -23,19 +24,22 @@ public partial class BloatwareViewModel : ViewModel
     private readonly BloatwareService _bloatwareService;
     private readonly IContentDialogService _contentDialogService;
     private readonly ISnackbarService _snackbarService;
+    private readonly ILogger<BloatwareViewModel> _logger;
 
 
-    public ObservableCollection<AppXPackage> AppxPackages { get; private set; } = [];
+    public ObservableCollection<AppXPackage> AppxPackages { get; } = [];
+    [ObservableProperty] private bool isLoading;
 
     public bool HasSelectedItems => AppxPackages.Any(x => x.IsSelected);
     public int SelectedCount => AppxPackages.Count(x => x.IsSelected);
 
     public BloatwareViewModel(BloatwareService bloatwareService, IContentDialogService contentDialogService,
-        ISnackbarService snackbarService)
+        ISnackbarService snackbarService, ILogger<BloatwareViewModel> logger)
     {
         _bloatwareService = bloatwareService;
         _contentDialogService = contentDialogService;
         _snackbarService = snackbarService;
+        _logger = logger;
 
         AppxPackages.CollectionChanged += (_, e) =>
         {
@@ -57,11 +61,13 @@ public partial class BloatwareViewModel : ViewModel
         if (_isInitialized)
             return;
 
+        _isInitialized = true;
+        
+        IsLoading = true;
         var appxPackages = await _bloatwareService.GetAppXPackagesAsync();
         foreach (var package in appxPackages)
             AppxPackages.Add(package);
-
-        _isInitialized = true;
+        IsLoading = false;
     }
 
     #region Commands
@@ -81,6 +87,7 @@ public partial class BloatwareViewModel : ViewModel
 
         try
         {
+            _logger.LogInformation("===== START removing {Count} AppX Packages =====", toRemove.Count);
             _ = _contentDialogService.ShowAsync(dialog, CancellationToken.None);
 
 
@@ -95,14 +102,14 @@ public partial class BloatwareViewModel : ViewModel
                     Total = toRemove.Count,
                     Value = i
                 });
-                //await _bloatwareService.RemoveAppXPackage(item);
-                await Task.Delay(1000);
+                await _bloatwareService.RemoveAppXPackage(item);
             }
         }
         finally
         {
             dialog.Hide();
             await Refresh();
+            _logger.LogInformation("===== END removing {Count} AppX Packages =====", toRemove.Count);
         }
     }
 
@@ -111,12 +118,14 @@ public partial class BloatwareViewModel : ViewModel
     [RelayCommand]
     private async Task Refresh()
     {
+        IsLoading = true;
         AppxPackages.Clear();
         UpdateProperties();
 
         var appxPackages = await _bloatwareService.GetAppXPackagesAsync();
         foreach (var package in appxPackages)
             AppxPackages.Add(package);
+        IsLoading = false;
     }
 
     #endregion

@@ -60,6 +60,60 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to optimizerDuck didn&apos;t find any removable AppX packages. Everything looks quite good..
+        /// </summary>
+        public static string Bloatware_Empty_Description {
+            get {
+                return ResourceManager.GetString("Bloatware.Empty.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No unnecessary apps found.
+        /// </summary>
+        public static string Bloatware_Empty_Title {
+            get {
+                return ResourceManager.GetString("Bloatware.Empty.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bloatware.
+        /// </summary>
+        public static string Bloatware_Header_Title {
+            get {
+                return ResourceManager.GetString("Bloatware.Header.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Looking for removable apps….
+        /// </summary>
+        public static string Bloatware_Loading {
+            get {
+                return ResourceManager.GetString("Bloatware.Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refresh.
+        /// </summary>
+        public static string Bloatware_Menu_Refresh {
+            get {
+                return ResourceManager.GetString("Bloatware.Menu.Refresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove ({0}).
+        /// </summary>
+        public static string Bloatware_Menu_Remove {
+            get {
+                return ResourceManager.GetString("Bloatware.Menu.Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Removing {0} ({1}/{2}).
         /// </summary>
         public static string BloatwareDialog_Removing {

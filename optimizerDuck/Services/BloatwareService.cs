@@ -85,6 +85,7 @@ public class BloatwareService(ILogger<BloatwareService> logger)
 
     public async Task RemoveAppXPackage(AppXPackage appXPackage)
     {
+        using var tracker = ServiceTracker.Begin(logger);
         try
         {
             if (string.IsNullOrWhiteSpace(appXPackage.PackageFullName))
