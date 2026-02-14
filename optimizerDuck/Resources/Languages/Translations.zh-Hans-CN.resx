@@ -48,9 +48,6 @@
     <data name="Button.Open" xml:space="preserve">
     <value>打开</value>
   </data>
-    <data name="Button.CopyGuid" xml:space="preserve">
-    <value>复制 GUID</value>
-  </data>
     <data name="Button.Skip" xml:space="preserve">
     <value>跳过</value>
   </data>
@@ -842,4 +839,31 @@
     <data name="RestorePoint.Snackbar.Error.Message" xml:space="preserve">
     <value>创建或启用系统还原时出错，请尝试手动创建。</value>
   </data>
+  <data name="BloatwareDialog.Title" xml:space="preserve">
+    <value>正在移除 {0} 个 AppX 包</value>
+  </data>
+  <data name="BloatwareDialog.Removing" xml:space="preserve">
+    <value>正在移除 {0} ({1}/{2})</value>
+  </data>
+  <data name="Bloatware.Header.Title" xml:space="preserve">
+    <value>臃肿软件</value>
+  </data>
+  <data name="Bloatware.Menu.Remove" xml:space="preserve">
+    <value>移除 ({0})</value>
+  </data>
+  <data name="Bloatware.Menu.Refresh" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="Bloatware.Empty.Title" xml:space="preserve">
+    <value>未发现不必要的应用</value>
+  </data>
+  <data name="Bloatware.Empty.Description" xml:space="preserve">
+    <value>optimizerDuck 未找到可移除的 AppX 包。一切看起来都很好。</value>
+  </data>
+  <data name="Bloatware.Loading" xml:space="preserve">
+    <value>正在搜索可移除的应用…</value>
+  </data>
+    <data name="Sidebar.Bloatware" xml:space="preserve">
+      <value>臃肿软件</value>
+    </data>
 </root>

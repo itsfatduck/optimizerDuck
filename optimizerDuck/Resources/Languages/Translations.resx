@@ -146,10 +146,7 @@
     <data name="Optimizer.UI.Risk.Risky" xml:space="preserve">
     <value>Risky</value>
   </data>
-    <data name="Button.CopyGuid" xml:space="preserve">
-    <value>Copy GUID</value>
-  </data>
-    <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
+  <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
     <value>Detailed description</value>
   </data>
     <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
@@ -799,5 +796,32 @@ Current version: {0}]]></value>
   </data>
     <data name="Button.ViewLatestRelease" xml:space="preserve">
     <value>View latest release</value>
+  </data>
+  <data name="BloatwareDialog.Title" xml:space="preserve">
+    <value>Removing {0} AppX Package(s)</value>
+  </data>
+  <data name="BloatwareDialog.Removing" xml:space="preserve">
+    <value>Removing {0} ({1}/{2})</value>
+  </data>
+  <data name="Bloatware.Header.Title" xml:space="preserve">
+    <value>Bloatware</value>
+  </data>
+  <data name="Bloatware.Menu.Remove" xml:space="preserve">
+    <value>Remove ({0})</value>
+  </data>
+  <data name="Bloatware.Menu.Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Bloatware.Empty.Title" xml:space="preserve">
+    <value>No unnecessary apps found</value>
+  </data>
+  <data name="Bloatware.Empty.Description" xml:space="preserve">
+    <value>optimizerDuck didn't find any removable AppX packages. Everything looks quite good.</value>
+  </data>
+  <data name="Bloatware.Loading" xml:space="preserve">
+    <value>Looking for removable apps…</value>
+  </data>
+  <data name="Sidebar.Bloatware" xml:space="preserve">
+    <value>Bloatware</value>
   </data>
 </root>

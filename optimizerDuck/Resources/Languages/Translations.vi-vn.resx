@@ -142,10 +142,7 @@
     <data name="Optimizer.UI.Risk.Risky" xml:space="preserve">
     <value>Nguy hiểm</value>
   </data>
-    <data name="Button.CopyGuid" xml:space="preserve">
-    <value>Sao Chép GUID</value>
-  </data>
-    <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
+  <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
     <value>Mô tả chi tiết</value>
   </data>
     <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
@@ -299,7 +296,8 @@
     <value>Thử lại</value>
   </data>
     <data name="Settings.About.Duck.Description" xml:space="preserve">
-    <value>Cảm ơn bạn đã tin tưởng và ủng hộ &lt;3! Phiên bản hiện tại: {0}</value>
+    <value><![CDATA[Cảm ơn bạn đã tin tưởng và ủng hộ &lt;3!
+Phiên bản hiện tại: {0}]]> </value>
   </data>
     <data name="Settings.Advanced.Header" xml:space="preserve">
     <value>Nâng cao</value>
@@ -723,12 +721,13 @@
         <value>Tắt hoạt ảnh taskbar, bóng đổ, độ trong suốt và Aero Peek để có hiệu suất tốt hơn.</value>
     </data>
     <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
-    <value>Đừng thay đổi nếu bạn không thực sự biết mình đang làm gì</value>
+    <value>ĐỪNG thay đổi trừ khi bạn biết chính xác mình đang làm gì</value>
   </data>
     <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DownloadFailed" xml:space="preserve">
-    <value>Không thể tải power plan của optimizerDuck.</value>
+    <value>Không thể tải xuống power plan của optimizerDuck.</value>
   </data>
     <data name="Settings.About.Acknowledgements.Title" xml:space="preserve">
+    <value>Cảm ơn</value>
     <value>Ghi nhận (Acknowledgments)</value>
   </data>
     <data name="Settings.About.Acknowledgements.Description" xml:space="preserve">
@@ -794,5 +793,32 @@
   </data>
     <data name="Button.ViewLatestRelease" xml:space="preserve">
     <value>Xem bản phát hành mới nhất</value>
+  </data>
+    <data name="BloatwareDialog.Title" xml:space="preserve">
+    <value>Đang gỡ {0} Gói AppX</value>
+  </data>
+  <data name="BloatwareDialog.Removing" xml:space="preserve">
+    <value>Đang gỡ {0} ({1}/{2})</value>
+  </data>
+  <data name="Bloatware.Header.Title" xml:space="preserve">
+    <value>Bloatware</value>
+  </data>
+  <data name="Bloatware.Menu.Remove" xml:space="preserve">
+    <value>Gỡ ({0})</value>
+  </data>
+  <data name="Bloatware.Menu.Refresh" xml:space="preserve">
+    <value>Làm mới</value>
+  </data>
+  <data name="Bloatware.Empty.Title" xml:space="preserve">
+    <value>Không tìm thấy ứng dụng không cần thiết</value>
+  </data>
+  <data name="Bloatware.Empty.Description" xml:space="preserve">
+    <value>optimizerDuck không tìm thấy gói AppX nào có thể gỡ. Mọi thứ trông ổn.</value>
+  </data>
+  <data name="Bloatware.Loading" xml:space="preserve">
+    <value>Đang tìm kiếm ứng dụng có thể gỡ…</value>
+  </data>
+  <data name="Sidebar.Bloatware" xml:space="preserve">
+    <value>Bloatware</value>
   </data>
 </root>
