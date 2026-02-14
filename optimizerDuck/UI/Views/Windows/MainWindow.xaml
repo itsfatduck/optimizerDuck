@@ -9,6 +9,7 @@
     WindowBackdropType="Mica"
     WindowCornerPreference="Round"
     WindowStartupLocation="CenterScreen"
+    d:DataContext="{d:DesignInstance windows:MainWindow}"
     mc:Ignorable="d"
     ui:Design.Background="Black"
     ui:Design.Foreground="White"
@@ -19,6 +20,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pages="clr-namespace:optimizerDuck.UI.Views.Pages"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:windows="clr-namespace:optimizerDuck.UI.Views.Windows"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid>
         <ui:NavigationView

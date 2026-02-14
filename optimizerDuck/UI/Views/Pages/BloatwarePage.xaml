@@ -3,6 +3,7 @@
     Margin="0,32,0,0"
     ScrollViewer.CanContentScroll="False"
     Title="BloatwarePage"
+    d:DataContext="{d:DesignInstance local:BloatwarePage}"
     d:DesignHeight="1200"
     d:DesignWidth="800"
     mc:Ignorable="d"
@@ -19,127 +20,132 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Page.Resources>
-        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        <converters:ZeroToVisibilityConverter x:Key="ZeroToVisibilityConverter" />
+        <converters:GreaterThanZeroToVisibilityConverter x:Key="GreaterThanZeroToVisibilityConverter" />
     </Page.Resources>
 
-
-    <StackPanel>
+    <Grid RowDefinitions="Auto *">
         <ui:TextBlock
             FontTypography="Title"
             Margin="0,0,0,20"
             Text="{ext:Loc Bloatware.Header.Title}"
             TextWrapping="Wrap" />
 
+        <Border Grid.Row="1" Visibility="{Binding ViewModel.AppxPackages.Count, Converter={StaticResource ZeroToVisibilityConverter}}">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ui:ProgressRing
+                    HorizontalAlignment="Center"
+                    IsIndeterminate="True"
+                    VerticalAlignment="Center" />
+                <ui:TextBlock
+                    HorizontalAlignment="Center"
+                    Text="Getting AppX packages..."
+                    VerticalAlignment="Center" />
+            </StackPanel>
+        </Border>
+
         <Border
             Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
             CornerRadius="6"
-            Padding="8">
-            <ui:VirtualizingItemsControl ItemsSource="{Binding ViewModel.AppxPackages}" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                <!--  Layout panel  -->
-                <ui:VirtualizingItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel />
-                    </ItemsPanelTemplate>
-                </ui:VirtualizingItemsControl.ItemsPanel>
+            Grid.Row="1"
+            Padding="8"
+            Visibility="{Binding ViewModel.AppxPackages.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
+            <Grid RowDefinitions="Auto *">
+                <Menu>
+                    <ui:MenuItem
+                        Command="{Binding ViewModel.RemoveSelectedCommand}"
+                        Header="{Binding ViewModel.SelectedCount, StringFormat='Remove ({0})'}"
+                        Icon="{ui:SymbolIcon Delete24,
+                                             FontSize=18}" />
+                    <ui:MenuItem Header="Refresh" Icon="{ui:SymbolIcon ArrowClockwise24, FontSize=18}" />
+                </Menu>
+                <ui:VirtualizingItemsControl Grid.Row="1" ItemsSource="{Binding ViewModel.AppxPackages}">
+                    <ui:VirtualizingItemsControl.Template>
+                        <ControlTemplate TargetType="ItemsControl">
+                            <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+                                <ItemsPresenter />
+                            </ScrollViewer>
+                        </ControlTemplate>
+                    </ui:VirtualizingItemsControl.Template>
+                    <!--  Layout panel  -->
+                    <ui:VirtualizingItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ui:VirtualizingItemsControl.ItemsPanel>
 
-                <!--  Item template  -->
-                <ui:VirtualizingItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type bloatware:AppxPackage}">
-                        <Border
-                            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="6"
-                            Margin="0,0,0,8"
-                            Padding="12">
+                    <!--  Item template  -->
+                    <ui:VirtualizingItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type bloatware:AppxPackage}">
+                            <Border
+                                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                                CornerRadius="6"
+                                Margin="0,0,0,8"
+                                Padding="12">
 
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
 
-                                <!--  Checkbox  -->
-                                <CheckBox
-                                    Grid.Column="0"
-                                    IsChecked="{Binding IsSelected, Mode=TwoWay}"
-                                    IsEnabled="{Binding NonRemovable, Converter={StaticResource InverseBooleanConverter}}"
-                                    Margin="0,4,12,0"
-                                    VerticalAlignment="Top" />
+                                    <!--  Checkbox  -->
+                                    <CheckBox
+                                        Grid.Column="0"
+                                        IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                        Margin="0,4,12,0"
+                                        VerticalAlignment="Top" />
 
-                                <!--  Content  -->
-                                <StackPanel Grid.Column="1">
+                                    <!--  Content  -->
+                                    <StackPanel Grid.Column="1">
 
-                                    <!--  Top row  -->
-                                    <DockPanel LastChildFill="False">
+                                        <!--  Top row  -->
+                                        <DockPanel LastChildFill="False">
 
-                                        <!--  App Name  -->
-                                        <ui:TextBlock FontTypography="BodyStrong" Text="{Binding Name}" />
+                                            <!--  App Name  -->
+                                            <ui:TextBlock FontTypography="BodyStrong" Text="{Binding Name}" />
 
-                                        <!--  Version  -->
+                                            <!--  Version  -->
+                                            <ui:TextBlock
+                                                Appearance="Tertiary"
+                                                FontTypography="Body"
+                                                Margin="5,0,0,0"
+                                                Text="{Binding Version, StringFormat=' v{0}'}"
+                                                VerticalAlignment="Center" />
+
+                                        </DockPanel>
+
+                                        <!--  Publisher  -->
                                         <ui:TextBlock
-                                            Appearance="Tertiary"
+                                            Appearance="Secondary"
                                             FontTypography="Body"
-                                            Margin="5,0,0,0"
-                                            Text="{Binding Version, StringFormat=' v{0}'}"
-                                            VerticalAlignment="Center" />
+                                            Margin="0,2,0,0"
+                                            Text="{Binding Publisher}"
+                                            TextTrimming="CharacterEllipsis" />
 
-                                    </DockPanel>
+                                        <!--  Install location  -->
+                                        <ui:TextBlock
+                                            Appearance="Disabled"
+                                            FontTypography="Body"
+                                            Margin="0,2,0,0"
+                                            Text="{Binding InstallLocation}"
+                                            TextTrimming="CharacterEllipsis" />
 
-                                    <!--  Publisher  -->
-                                    <ui:TextBlock
-                                        Appearance="Secondary"
-                                        FontTypography="Body"
-                                        Margin="0,2,0,0"
-                                        Text="{Binding Publisher}"
-                                        TextTrimming="CharacterEllipsis" />
-
-                                    <!--  Install info  -->
-                                    <ui:TextBlock
-                                        Appearance="Tertiary"
-                                        FontTypography="Body"
-                                        Margin="0,2,0,0">
-                                        <Run Text="Installed: " />
-                                        <Run Text="{Binding InstallDate, StringFormat='{}{0:yyyy-MM-dd}'}" />
-                                    </ui:TextBlock>
-
-                                    <!--  Install location  -->
-                                    <ui:TextBlock
-                                        Appearance="Disabled"
-                                        FontTypography="Body"
-                                        Margin="0,2,0,0"
-                                        Text="{Binding InstallLocation}"
-                                        TextTrimming="CharacterEllipsis" />
-
-                                    <!--  Package full name (technical, nhỏ hơn)  -->
-                                    <ui:TextBlock
-                                        Appearance="Disabled"
-                                        FontTypography="Caption"
-                                        Margin="0,4,0,0"
-                                        Text="{Binding PackageFullName}"
-                                        TextTrimming="CharacterEllipsis" />
-                                </StackPanel>
-
-                                <!--  NonRemovable Badge  -->
-                                <Border
-                                    Background="#AAFF3B30"
-                                    CornerRadius="12"
-                                    Grid.Column="2"
-                                    Padding="8,4"
-                                    VerticalAlignment="Top"
-                                    Visibility="{Binding NonRemovable, Converter={StaticResource BooleanToVisibilityConverter}}">
-
-                                    <TextBlock
-                                        FontSize="11"
-                                        FontWeight="SemiBold"
-                                        Foreground="White"
-                                        Text="System" />
-                                </Border>
-
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ui:VirtualizingItemsControl.ItemTemplate>
-            </ui:VirtualizingItemsControl>
+                                        <!--  Package full name (technical, nhỏ hơn)  -->
+                                        <ui:TextBlock
+                                            Appearance="Disabled"
+                                            FontTypography="Caption"
+                                            Margin="0,4,0,0"
+                                            Text="{Binding PackageFullName}"
+                                            TextTrimming="CharacterEllipsis" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ui:VirtualizingItemsControl.ItemTemplate>
+                </ui:VirtualizingItemsControl>
+            </Grid>
         </Border>
-    </StackPanel>
+    </Grid>
 </Page>

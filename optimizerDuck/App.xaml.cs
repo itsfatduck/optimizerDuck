@@ -168,6 +168,7 @@ public partial class App : Application
                     // Services
                     services.AddSingleton<OptimizationRegistry>();
                     services.AddSingleton<OptimizationService>();
+                    services.AddSingleton<BloatwareService>();
                     services.AddSingleton<SystemInfoService>();
                     services.AddSingleton<StreamService>();
                     services.AddSingleton<UpdaterService>();
