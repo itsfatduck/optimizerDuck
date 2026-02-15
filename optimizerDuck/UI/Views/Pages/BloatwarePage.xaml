@@ -1,15 +1,7 @@
 <Page
-    Margin="0,32,0,0"
-    ScrollViewer.CanContentScroll="False"
-    Title="BloatwarePage"
-    d:DataContext="{d:DesignInstance local:BloatwarePage}"
-    d:DesignHeight="1200"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
-    ui:Design.Background="Black"
-    ui:Design.Foreground="White"
     x:Class="optimizerDuck.UI.Views.Pages.BloatwarePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:bloatware="clr-namespace:optimizerDuck.Core.Models.Bloatware"
     xmlns:converters="clr-namespace:optimizerDuck.Common.Helpers.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -17,7 +9,16 @@
     xmlns:local="clr-namespace:optimizerDuck.UI.Views.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    Title="BloatwarePage"
+    Margin="0,32,0,0"
+    d:DataContext="{d:DesignInstance local:BloatwarePage}"
+    d:DesignHeight="1200"
+    d:DesignWidth="800"
+    ui:Design.Background="Black"
+    ui:Design.Foreground="White"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    ScrollViewer.CanContentScroll="False"
+    mc:Ignorable="d">
     <Page.Resources>
         <converters:GreaterThanZeroToVisibilityConverter x:Key="GreaterThanZeroToVisibilityConverter" />
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -26,8 +27,8 @@
 
     <Grid RowDefinitions="Auto *">
         <ui:TextBlock
-            FontTypography="Title"
             Margin="0,0,0,20"
+            FontTypography="Title"
             Text="{ext:Loc Bloatware.Header.Title}"
             TextWrapping="Wrap" />
 
@@ -42,26 +43,26 @@
 
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ui:SymbolIcon
+                    Margin="0,0,0,15"
+                    HorizontalAlignment="Center"
                     FontSize="46"
                     Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                    HorizontalAlignment="Center"
-                    Margin="0,0,0,15"
                     Symbol="DeleteOff24" />
                 <ui:TextBlock
-                    FontTypography="Subtitle"
                     HorizontalAlignment="Center"
+                    FontTypography="Subtitle"
                     Text="{ext:Loc Bloatware.Empty.Title}" />
                 <ui:TextBlock
+                    Margin="0,0,0,10"
+                    HorizontalAlignment="Center"
                     Appearance="Secondary"
                     FontTypography="Body"
-                    HorizontalAlignment="Center"
-                    Margin="0,0,0,10"
                     Text="{ext:Loc Bloatware.Empty.Description}" />
                 <ui:Button
+                    HorizontalAlignment="Center"
                     Appearance="Primary"
                     Command="{Binding ViewModel.RefreshCommand}"
                     Content="{ext:Loc Bloatware.Menu.Refresh}"
-                    HorizontalAlignment="Center"
                     Icon="{ui:SymbolIcon ArrowClockwise24,
                                          FontSize=18}" />
             </StackPanel>
@@ -71,23 +72,23 @@
         <Border Grid.Row="1" Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ui:ProgressRing
-                    HorizontalAlignment="Center"
-                    IsIndeterminate="True"
                     Margin="0,0,0,5"
-                    VerticalAlignment="Center" />
-                <ui:TextBlock
-                    FontTypography="BodyStrong"
                     HorizontalAlignment="Center"
-                    Text="{ext:Loc Bloatware.Loading}"
-                    VerticalAlignment="Center" />
+                    VerticalAlignment="Center"
+                    IsIndeterminate="True" />
+                <ui:TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontTypography="BodyStrong"
+                    Text="{ext:Loc Bloatware.Loading}" />
             </StackPanel>
         </Border>
 
         <Border
-            Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-            CornerRadius="6"
             Grid.Row="1"
             Padding="8"
+            Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+            CornerRadius="6"
             Visibility="{Binding ViewModel.AppxPackages.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
             <Grid RowDefinitions="Auto *">
                 <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
@@ -127,10 +128,10 @@
                     <ui:VirtualizingItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type bloatware:AppXPackage}">
                             <Border
-                                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-                                CornerRadius="6"
                                 Margin="0,0,0,8"
-                                Padding="12">
+                                Padding="12"
+                                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                                CornerRadius="6">
 
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -142,9 +143,9 @@
                                     <!--  Checkbox  -->
                                     <CheckBox
                                         Grid.Column="0"
-                                        IsChecked="{Binding IsSelected, Mode=TwoWay}"
                                         Margin="0,4,12,0"
-                                        VerticalAlignment="Top" />
+                                        VerticalAlignment="Top"
+                                        IsChecked="{Binding IsSelected, Mode=TwoWay}" />
 
                                     <!--  Content  -->
                                     <StackPanel Grid.Column="1">
@@ -156,25 +157,26 @@
                                             <ui:TextBlock FontTypography="BodyStrong" Text="{Binding Name}" />
 
                                             <Border
-                                                Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                                CornerRadius="5"
-                                                HorizontalAlignment="Left"
                                                 Margin="5,0,0,0"
                                                 Padding="4,1"
-                                                VerticalAlignment="Center">
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                                CornerRadius="5">
                                                 <!--  Version  -->
                                                 <ui:TextBlock
+                                                    VerticalAlignment="Center"
                                                     Appearance="Tertiary"
                                                     FontTypography="Body"
-                                                    Text="{Binding Version}"
-                                                    VerticalAlignment="Center" />
+                                                    Text="{Binding Version}" />
                                             </Border>
 
                                             <Border
-                                                CornerRadius="5"
-                                                HorizontalAlignment="Left"
                                                 Margin="5,0,0,0"
-                                                Padding="4,2">
+                                                Padding="4,2"
+                                                HorizontalAlignment="Left"
+                                                CornerRadius="5"
+                                                Visibility="{Binding ShouldVisibleRisk, Converter={StaticResource BooleanToVisibilityConverter}}">
                                                 <Border.Style>
                                                     <Style TargetType="Border">
                                                         <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
@@ -182,69 +184,47 @@
                                                             <DataTrigger Binding="{Binding Risk}" Value="Caution">
                                                                 <Setter Property="Background" Value="{DynamicResource SystemFillColorCautionBrush}" />
                                                             </DataTrigger>
-                                                            <DataTrigger Binding="{Binding Risk}" Value="Unknown">
-                                                                <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
-                                                            </DataTrigger>
                                                         </Style.Triggers>
                                                     </Style>
                                                 </Border.Style>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <ui:SymbolIcon Margin="0,0,5,0" Symbol="{Binding RiskVisual.Icon}">
-                                                        <ui:SymbolIcon.Style>
-                                                            <Style TargetType="ui:SymbolIcon">
-                                                                <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
-                                                                <Style.Triggers>
-                                                                    <DataTrigger Binding="{Binding Risk}" Value="Unknown">
-                                                                        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
-                                                                    </DataTrigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </ui:SymbolIcon.Style>
-                                                    </ui:SymbolIcon>
+                                                    <ui:SymbolIcon
+                                                        Margin="0,0,5,0"
+                                                        Foreground="{DynamicResource TextFillColorInverseBrush}"
+                                                        Symbol="{Binding RiskVisual.Icon}" />
 
                                                     <ui:TextBlock
-                                                        FontTypography="Caption"
                                                         HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        FontTypography="Caption"
+                                                        Foreground="{DynamicResource TextFillColorInverseBrush}"
                                                         Text="{Binding RiskVisual.Display}"
-                                                        TextWrapping="Wrap"
-                                                        VerticalAlignment="Center">
-                                                        <ui:TextBlock.Style>
-                                                            <Style TargetType="ui:TextBlock">
-                                                                <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
-                                                                <Style.Triggers>
-                                                                    <DataTrigger Binding="{Binding Risk}" Value="Unknown">
-                                                                        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
-                                                                    </DataTrigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </ui:TextBlock.Style>
-                                                    </ui:TextBlock>
+                                                        TextWrapping="Wrap" />
                                                 </StackPanel>
                                             </Border>
-
                                         </DockPanel>
 
                                         <!--  Publisher  -->
                                         <ui:TextBlock
+                                            Margin="0,2,0,0"
                                             Appearance="Disabled"
                                             FontTypography="Body"
-                                            Margin="0,2,0,0"
                                             Text="{Binding Publisher}"
                                             TextTrimming="CharacterEllipsis" />
 
                                         <!--  Install location  -->
                                         <ui:TextBlock
+                                            Margin="0,2,0,0"
                                             Appearance="Disabled"
                                             FontTypography="Body"
-                                            Margin="0,2,0,0"
                                             Text="{Binding InstallLocation}"
                                             TextTrimming="CharacterEllipsis" />
 
                                         <!--  Package full name  -->
                                         <ui:TextBlock
+                                            Margin="0,4,0,0"
                                             Appearance="Secondary"
                                             FontTypography="Caption"
-                                            Margin="0,4,0,0"
                                             Text="{Binding PackageFullName}"
                                             TextTrimming="CharacterEllipsis" />
                                     </StackPanel>

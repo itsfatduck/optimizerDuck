@@ -1,15 +1,17 @@
 using Microsoft.Extensions.Logging;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using Microsoft.Extensions.Options;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Common.Helpers.Converters;
 using optimizerDuck.Core.Models.Bloatware;
+using optimizerDuck.Core.Models.Config;
 using optimizerDuck.Services.OptimizationServices;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace optimizerDuck.Services;
 
-public class BloatwareService(ILogger<BloatwareService> logger)
+public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<AppSettings> appOptionsMonitor)
 {
     public async Task<List<AppXPackage>> GetAppXPackagesAsync()
     {
@@ -19,27 +21,26 @@ public class BloatwareService(ILogger<BloatwareService> logger)
                                                                # SAFE_APPS
                                                                $safeApps = "{{string.Join(",", Shared.SafeApps.Keys)}}" -split "," |
                                                                            ForEach-Object { $_.Trim().ToLower() }
-                                                               
+
                                                                # CAUTION_APPS
                                                                $cautionApps = "{{string.Join(",", Shared.CautionApps.Keys)}}" -split "," |
                                                                               ForEach-Object { $_.Trim().ToLower() }
-                                                               
+
                                                                # Installed removable apps
                                                                $installedApps = Get-AppxPackage | Where-Object { $_.NonRemovable -eq 0 }
-                                                               
+
                                                                # Build result array efficiently
                                                                $result = foreach ($app in $installedApps) {
-                                                               
                                                                    $nameLower = $app.Name.ToLower()
                                                                    $risk = "Unknown"
-                                                               
+
                                                                    if ($safeApps | Where-Object { $nameLower -like "*$_*" }) {
                                                                        $risk = "Safe"
                                                                    }
                                                                    elseif ($cautionApps | Where-Object { $nameLower -like "*$_*" }) {
                                                                        $risk = "Caution"
                                                                    }
-                                                               
+
                                                                    [PSCustomObject]@{
                                                                        Name            = $app.Name
                                                                        PackageFullName = $app.PackageFullName
@@ -49,11 +50,10 @@ public class BloatwareService(ILogger<BloatwareService> logger)
                                                                        Risk            = $risk
                                                                    }
                                                                }
-                                                               
-                                                               @($result) | ConvertTo-Json -Depth 4
-                                                               
-                                                               """);
 
+                                                               @($result) | ConvertTo-Json -Depth 4
+
+                                                               """);
 
             var options = new JsonSerializerOptions
             {
@@ -61,7 +61,7 @@ public class BloatwareService(ILogger<BloatwareService> logger)
                 Converters = { new JsonStringEnumConverter() }
             };
 
-            var apps = JsonSerializer.Deserialize<List<AppXPackage>>(result.Stdout, options)!.OrderBy(a => a.Risk).ToList();
+            var apps = JsonSerializer.Deserialize<List<AppXPackage>>(result.Stdout, options)!.OrderBy(a => a.Name).ToList();
 
             logger.LogInformation("Found {AppCount} AppX packages", apps.Count);
 
@@ -89,34 +89,46 @@ public class BloatwareService(ILogger<BloatwareService> logger)
                 appXPackage.Name, appXPackage.PackageFullName);
 
             var script = $$"""
-                           $pkg = "{{appXPackage.PackageFullName}}"
+                        $pkg = "{{appXPackage.PackageFullName}}"
 
-                           Write-Output "Removing installed package..."
+                        Write-Output "Removing installed package..."
 
-                           # remove for current + all users
-                           Get-AppxPackage -AllUsers | Where-Object { $_.PackageFullName -eq $pkg } | ForEach-Object {
-                               try {
-                                   Remove-AppxPackage -Package $_.PackageFullName -AllUsers -ErrorAction Stop
-                                   Write-Output "Removed installed package: $($_.PackageFullName)"
-                               } catch {
-                                   Write-Output "Failed removing installed package: $($_.PackageFullName)"
-                               }
-                           }
+                        Get-AppxPackage -AllUsers |
+                        Where-Object { $_.PackageFullName -eq $pkg } |
+                        ForEach-Object {
+                            try {
+                                Remove-AppxPackage -Package $_.PackageFullName -AllUsers -ErrorAction Stop
+                                Write-Output "Removed installed package: $($_.PackageFullName)"
+                            } catch {
+                                Write-Output "Failed removing installed package: $($_.PackageFullName)"
+                            }
+                        }
+                        """;
 
-                           Write-Output "Removing provisioned package..."
+            if (appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned)
+            {
+                script += """
 
-                           # remove provisioned version so it doesn't reinstall
-                           Get-AppxProvisionedPackage -Online |
-                           Where-Object { $_.PackageName -like "*$pkg*" } |
-                           ForEach-Object {
-                               try {
-                                   Remove-AppxProvisionedPackage -Online -PackageName $_.PackageName -ErrorAction Stop | Out-Null
-                                   Write-Output "Removed provisioned package: $($_.PackageName)"
-                               } catch {
-                                   Write-Output "Failed removing provisioned package: $($_.PackageName)"
-                               }
-                           }
-                           """;
+                            Write-Output "Removing provisioned package..."
+
+                            Get-AppxProvisionedPackage -Online |
+                            Where-Object { $_.PackageName -like "*$pkg*" } |
+                            ForEach-Object {
+                                try {
+                                    Remove-AppxProvisionedPackage -Online -PackageName $_.PackageName -ErrorAction Stop | Out-Null
+                                    Write-Output "Removed provisioned package: $($_.PackageName)"
+                                } catch {
+                                    Write-Output "Failed removing provisioned package: $($_.PackageName)"
+                                }
+                            }
+                            """;
+            }
+            else
+            {
+                script += """
+                            Write-Output "Skipping provisioned package removal (disabled by user)"
+                            """;
+            }
 
             var result = await ShellService.PowerShellAsync(script);
 

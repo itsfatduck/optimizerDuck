@@ -4,6 +4,7 @@ public sealed class AppSettings
 {
     public AppOptions App { get; set; } = new();
     public OptimizeOptions Optimize { get; set; } = new();
+    public BloatwareOptions Bloatware { get; set; } = new();
 
     public sealed class AppOptions
     {
@@ -14,5 +15,10 @@ public sealed class AppSettings
     public sealed class OptimizeOptions
     {
         public int ShellTimeoutMs { get; set; } = 120000;
+    }
+
+    public sealed class BloatwareOptions
+    {
+        public bool RemoveProvisioned { get; set; } = true;
     }
 }

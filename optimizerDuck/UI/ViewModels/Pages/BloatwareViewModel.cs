@@ -26,7 +26,6 @@ public partial class BloatwareViewModel : ViewModel
     private readonly ISnackbarService _snackbarService;
     private readonly ILogger<BloatwareViewModel> _logger;
 
-
     public ObservableCollection<AppXPackage> AppxPackages { get; } = [];
     [ObservableProperty] private bool isLoading;
 
@@ -62,7 +61,7 @@ public partial class BloatwareViewModel : ViewModel
             return;
 
         _isInitialized = true;
-        
+
         IsLoading = true;
         var appxPackages = await _bloatwareService.GetAppXPackagesAsync();
         foreach (var package in appxPackages)
@@ -77,6 +76,14 @@ public partial class BloatwareViewModel : ViewModel
     {
         var toRemove = AppxPackages.Where(x => x.IsSelected).ToList();
 
+        var askForConfirmation = new ContentDialog
+        {
+            Title = string.Format(Translations.BloatwareDialog_Confirmation_Title, SelectedCount),
+            Content = string.Format(Translations.BloatwareDialog_Confirmation_Message, string.Join(", ", toRemove),
+            Primary = Translations.Button_Ok,
+            Close = Translations.Button_Cancel
+        };
+
         var viewModel = new ProcessingViewModel();
         var dialog = new ContentDialog
         {
@@ -89,7 +96,6 @@ public partial class BloatwareViewModel : ViewModel
         {
             _logger.LogInformation("===== START removing {Count} AppX Packages =====", toRemove.Count);
             _ = _contentDialogService.ShowAsync(dialog, CancellationToken.None);
-
 
             for (var i = 0; i < toRemove.Count; i++)
             {
@@ -128,7 +134,7 @@ public partial class BloatwareViewModel : ViewModel
         IsLoading = false;
     }
 
-    #endregion
+    #endregion Commands
 
     #region Property Changed
 
@@ -141,7 +147,7 @@ public partial class BloatwareViewModel : ViewModel
         }
     }
 
-    #endregion
+    #endregion Property Changed
 
     #region Helpers
 
@@ -151,5 +157,5 @@ public partial class BloatwareViewModel : ViewModel
         OnPropertyChanged(nameof(SelectedCount));
     }
 
-    #endregion
+    #endregion Helpers
 }

@@ -22,7 +22,7 @@ public partial class AppXPackage : ObservableObject
     public string Version { get; init; }
     public string InstallLocation { get; init; }
     public AppRisk Risk { get; init; }
-    
+
     public RiskVisual RiskVisual => Risk switch
     {
         AppRisk.Safe => new RiskVisual
@@ -35,15 +35,12 @@ public partial class AppXPackage : ObservableObject
             Display = Translations.Optimizer_UI_Risk_Moderate,
             Icon = SymbolRegular.Warning24
         },
-        AppRisk.Unknown => new RiskVisual
-        {
-            Display = Translations.Bloatware_UI_Risk_Unknown,
-            Icon = SymbolRegular.ShieldQuestion24
-        },
         _ => new RiskVisual
         {
             Display = Translations.Optimizer_UI_Risk_Safe,
             Icon = SymbolRegular.ShieldCheckmark24
         }
     };
+
+    public bool ShouldVisibleRisk => Risk != AppRisk.Unknown;
 };
