@@ -76,13 +76,17 @@ public partial class BloatwareViewModel : ViewModel
     {
         var toRemove = AppxPackages.Where(x => x.IsSelected).ToList();
 
-        var askForConfirmation = new ContentDialog
+        var askForConfirmationDialog = new ContentDialog
         {
             Title = string.Format(Translations.BloatwareDialog_Confirmation_Title, SelectedCount),
-            Content = string.Format(Translations.BloatwareDialog_Confirmation_Message, string.Join(", ", toRemove),
-            Primary = Translations.Button_Ok,
-            Close = Translations.Button_Cancel
+            Content = string.Format(Translations.BloatwareDialog_Confirmation_Message, string.Join(", ", toRemove.Select(a => a.Name))),
+            PrimaryButtonText = Translations.Button_Ok,
+            CloseButtonText = Translations.Button_Cancel
         };
+
+        var result = await _contentDialogService.ShowAsync(askForConfirmationDialog, CancellationToken.None);
+        if (result != ContentDialogResult.Primary)
+            return;
 
         var viewModel = new ProcessingViewModel();
         var dialog = new ContentDialog
@@ -108,14 +112,15 @@ public partial class BloatwareViewModel : ViewModel
                     Total = toRemove.Count,
                     Value = i
                 });
-                await _bloatwareService.RemoveAppXPackage(item);
+                //await _bloatwareService.RemoveAppXPackage(item);
+                await Task.Delay(500); // Simulate work
             }
         }
         finally
         {
+            _logger.LogInformation("===== END removing {Count} AppX Packages =====", toRemove.Count);
             dialog.Hide();
             await Refresh();
-            _logger.LogInformation("===== END removing {Count} AppX Packages =====", toRemove.Count);
         }
     }
 

@@ -29,8 +29,10 @@ public partial class SettingsViewModel(
 {
     [ObservableProperty] private ApplicationTheme _currentApplicationTheme = ApplicationTheme.Unknown;
     private bool _isInitialized;
+
     [ObservableProperty] private string _selectedCultureName = string.Empty;
     [ObservableProperty] private int _shellTimeoutMs;
+    [ObservableProperty] private bool _removeProvisioned;
     public string Version { get; } = Shared.FileVersion;
 
     //Learn more links

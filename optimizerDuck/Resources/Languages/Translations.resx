@@ -824,7 +824,7 @@ Current version: {0}]]></value>
   <data name="BloatwareDialog.Confirmation.Title" xml:space="preserve">
     <value></value>
   </data>
-  <data name="BloatwareDialog.Confirmation.Description" xml:space="preserve">
+  <data name="BloatwareDialog.Confirmation.Message" xml:space="preserve">
     <value></value>
   </data>
 </root>

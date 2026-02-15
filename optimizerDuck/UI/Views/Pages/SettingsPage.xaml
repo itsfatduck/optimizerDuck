@@ -132,7 +132,7 @@
                         </StackPanel>
                     </ui:CardControl.Header>
 
-                    <ui:ToggleSwitch />
+                    <ui:ToggleSwitch Command />
                 </ui:CardControl>
             </StackPanel>
 

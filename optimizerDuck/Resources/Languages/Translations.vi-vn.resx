@@ -822,4 +822,7 @@ Phiên bản hiện tại: {0}]]> </value>
   <data name="BloatwareDialog.Confirmation.Title" xml:space="preserve">
     <value>Bạn có muốn xóa {0} ứng dụng?</value>
   </data>
+  <data name="BloatwareDialog.Confirmation.Message" xml:space="preserve">
+    <value>Bạn chuẩn bị sẽ xóa: {0}</value>
+  </data>
 </root>

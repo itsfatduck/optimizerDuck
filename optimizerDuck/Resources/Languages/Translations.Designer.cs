@@ -117,9 +117,9 @@ namespace optimizerDuck.Resources.Languages {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string BloatwareDialog_Confirmation_Description {
+        public static string BloatwareDialog_Confirmation_Message {
             get {
-                return ResourceManager.GetString("BloatwareDialog.Confirmation.Description", resourceCulture);
+                return ResourceManager.GetString("BloatwareDialog.Confirmation.Message", resourceCulture);
             }
         }
         
