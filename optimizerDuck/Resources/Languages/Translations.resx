@@ -140,7 +140,7 @@
     <value>Safe</value>
   </data>
   <data name="Optimizer.UI.Risk.Moderate" xml:space="preserve">
-    <value>Moderate</value>
+    <value>Caution</value>
   </data>
   <data name="Optimizer.UI.Risk.Risky" xml:space="preserve">
     <value>Risky</value>

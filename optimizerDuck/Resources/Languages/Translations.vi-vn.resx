@@ -137,7 +137,7 @@
     <value>An toàn</value>
   </data>
   <data name="Optimizer.UI.Risk.Moderate" xml:space="preserve">
-    <value>Trung bình</value>
+    <value>Cẩn thận</value>
   </data>
   <data name="Optimizer.UI.Risk.Risky" xml:space="preserve">
     <value>Nguy hiểm</value>

@@ -231,7 +231,7 @@
     <value>Безопасно</value>
   </data>
     <data name="Optimizer.UI.Risk.Moderate" xml:space="preserve">
-    <value>Умеренно</value>
+    <value>Осторожно</value>
   </data>
     <data name="Optimizer.UI.Risk.Risky" xml:space="preserve">
     <value>Рискованно</value>

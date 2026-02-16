@@ -128,7 +128,7 @@
                     <ui:VirtualizingItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type bloatware:AppXPackage}">
                             <Border
-                                Margin="0,0,0,8"
+                                Margin="0,0,0,4"
                                 Padding="12"
                                 Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
                                 CornerRadius="6">

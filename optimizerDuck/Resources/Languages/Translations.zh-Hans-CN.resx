@@ -231,7 +231,7 @@
     <value>安全</value>
   </data>
     <data name="Optimizer.UI.Risk.Moderate" xml:space="preserve">
-    <value>中等</value>
+    <value>谨慎</value>
   </data>
     <data name="Optimizer.UI.Risk.Risky" xml:space="preserve">
     <value>高风险</value>
