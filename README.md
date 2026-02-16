@@ -17,15 +17,6 @@
 
 <img src="./.github/assets/app_dark.png" alt="optimizerDuck Dark Mode" title="optimizerDuck Dark Mode" width="800"/>
 
-<details>
-  <summary><b>Light Mode</b></summary>
-  <br>
-  <img src="./.github/assets/app_light.png" 
-       alt="optimizerDuck Light Mode" 
-       title="optimizerDuck Light Mode" 
-       width="800"/>
-</details>
-
 </div>
 
 ---
