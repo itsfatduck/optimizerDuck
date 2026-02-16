@@ -16,11 +16,11 @@ public partial class AppXPackage : ObservableObject
 {
     [ObservableProperty] private bool _isSelected;
 
-    public string Name { get; init; }
-    public string PackageFullName { get; init; }
-    public string Publisher { get; init; }
-    public string Version { get; init; }
-    public string InstallLocation { get; init; }
+    public required string Name { get; init; }
+    public required string PackageFullName { get; init; }
+    public required string Publisher { get; init; }
+    public required string Version { get; init; }
+    public required string InstallLocation { get; init; }
     public AppRisk Risk { get; init; }
 
     public RiskVisual RiskVisual => Risk switch
