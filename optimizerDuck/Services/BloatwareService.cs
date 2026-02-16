@@ -80,28 +80,18 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
                         $pkgFull = "{{appXPackage.PackageFullName}}"
                         $name = "{{appXPackage.Name}}"
 
-                        Write-Output "Searching installed package by FullName..."
-
                         $installed = Get-AppxPackage -PackageTypeFilter Main,Bundle,Resource |
-                                     Where-Object { $_.PackageFullName -eq $pkgFull }
+                                     Where-Object { $_.PackageFullName -eq $pkgFull -or $_.Name -eq $name }
 
                         if (-not $installed) {
-                            Write-Output "FullName not found, searching by Name..."
-
-                            $installed = Get-AppxPackage -Name $name -PackageTypeFilter Main,Bundle,Resource
-                        }
-
-                        if (-not $installed) {
-                            Write-Output "Installed package not found"
-                        }
-                        else {
+                            Write-Output "No installed package found for $name"
+                        } else {
                             foreach ($p in $installed) {
-                                t
+                                try {
                                     Remove-AppxPackage -Package $p.PackageFullName -ErrorAction Stop
-                                    Write-Output "Removed installed package: $($p.PackageFullName)"
-                                }
-                                catch {
-                                    Write-Output "Failed removing installed package: $($p.PackageFullName). Error: $($_.Exception.Message)"
+                                    Write-Output "Removed: $($p.PackageFullName)"
+                                } catch {
+                                    Write-Output "Failed: $($p.PackageFullName). Error: $($_.Exception.Message)"
                                 }
                             }
                         }
