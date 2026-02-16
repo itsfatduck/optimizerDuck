@@ -846,7 +846,7 @@
     <value>Удаление {0} ({1}/{2})</value>
   </data>
   <data name="Bloatware.Header.Title" xml:space="preserve">
-    <value>Bloatware</value>
+    <value>Ненужные приложения</value>
   </data>
   <data name="Bloatware.Menu.Remove" xml:space="preserve">
     <value>Удалить ({0})</value>
@@ -863,7 +863,22 @@
   <data name="Bloatware.Loading" xml:space="preserve">
     <value>Поиск удаляемых приложений…</value>
   </data>
-    <data name="Sidebar.Bloatware" xml:space="preserve">
-      <value>Bloatware</value>
-    </data>
+  <data name="Sidebar.Bloatware" xml:space="preserve">
+    <value>Ненужные приложения</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.Title" xml:space="preserve">
+    <value>Удалить {0} приложений?</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.Message" xml:space="preserve">
+    <value>Вы собираетесь удалить: {0}</value>
+  </data>
+  <data name="Settings.Bloatware.Header" xml:space="preserve">
+    <value>Ненужные приложения</value>
+  </data>
+  <data name="Settings.Bloatware.RemoveProvisioned.Title" xml:space="preserve">
+    <value>Также удалять подготовленные пакеты</value>
+  </data>
+  <data name="Settings.Bloatware.RemoveProvisioned.Description" xml:space="preserve">
+    <value>При удалении установленных пакетов AppX также удалять соответствующие подготовленные пакеты, чтобы предотвратить автоматическую переустановку для новых пользователей.</value>
+  </data>
 </root>

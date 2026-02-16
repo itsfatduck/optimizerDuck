@@ -822,18 +822,18 @@ Current version: {0}]]></value>
     <value>Bloatware</value>
   </data>
   <data name="BloatwareDialog.Confirmation.Title" xml:space="preserve">
-    <value></value>
+    <value>Remove {0} App(s)?</value>
   </data>
   <data name="BloatwareDialog.Confirmation.Message" xml:space="preserve">
-    <value></value>
+    <value>You are about to remove: {0}</value>
   </data>
   <data name="Settings.Bloatware.Header" xml:space="preserve">
     <value>Bloatware</value>
   </data>
   <data name="Settings.Bloatware.RemoveProvisioned.Title" xml:space="preserve">
-    <value>Remove AppX Packages (Installed &amp; Provisioned)</value>
+    <value>Also remove Provisioned packages</value>
   </data>
   <data name="Settings.Bloatware.RemoveProvisioned.Description" xml:space="preserve">
-    <value>Remove installed and provisioned AppX packages</value>
+    <value>When removing installed AppX packages, also remove the corresponding Provisioned packages to prevent automatic reinstallation for new users.</value>
   </data>
 </root>

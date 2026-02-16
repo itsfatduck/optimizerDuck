@@ -726,14 +726,13 @@ Phiên bản hiện tại: {0}]]> </value>
     <value>Không thể tải xuống power plan của optimizerDuck.</value>
   </data>
   <data name="Settings.About.Acknowledgements.Title" xml:space="preserve">
-    <value>Cảm ơn</value>
-    <value>Ghi nhận (Acknowledgments)</value>
+    <value>Ghi nhận đóng góp</value>
   </data>
   <data name="Settings.About.Acknowledgements.Description" xml:space="preserve">
     <value>optimizerDuck được xây dựng nhờ các phần mềm và tài nguyên nguồn mở.</value>
   </data>
   <data name="Settings.About.LearnMore.Acknowledgements" xml:space="preserve">
-    <value>Ghi nhận (Acknowledgments)</value>
+    <value>Ghi nhận đóng góp</value>
   </data>
   <data name="RestorePoint.Title" xml:space="preserve">
     <value>Phục hồi hệ thống</value>
@@ -829,9 +828,10 @@ Phiên bản hiện tại: {0}]]> </value>
     <value>Bloatware</value>
   </data>
   <data name="Settings.Bloatware.RemoveProvisioned.Title" xml:space="preserve">
-    <value>Xóa Gói AppX (Đã cài đặt &amp; Provisioned)</value>
+    <value>Cũng xóa gói Provisioned</value>
   </data>
   <data name="Settings.Bloatware.RemoveProvisioned.Description" xml:space="preserve">
-    <value>Xóa các gói AppX đã cài đặt và gói hệ thống provisioned (các gói được cài sẵn trong hệ thống)</value>
+    <value>Khi xóa gói AppX đã cài đặt, cũng xóa luôn các gói Provisioned tương ứng để ngăn tự động cài lại cho người dùng mới.</value>
   </data>
+  <!-- ... -->
 </root>
