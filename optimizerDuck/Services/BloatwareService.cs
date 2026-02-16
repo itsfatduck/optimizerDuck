@@ -95,6 +95,7 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
                                 }
                             }
                         }
+
                         """;
 
             if (appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned)
