@@ -753,10 +753,12 @@ Current version: {0}]]></value>
     <value>System Restore</value>
   </data>
   <data name="RestorePointDialog.Description" xml:space="preserve">
-    <value>The Windows operating system includes a feature called Restore Point, which allows you to revert the system to its previous state before applying any changes or optimizations.</value>
+    <value><![CDATA[Restore Point allows you to revert your system to a previous state.
+It's a safety measure to protect your Windows before applying changes.]]></value>
   </data>
   <data name="RestorePointDialog.Help" xml:space="preserve">
-    <value>When you proceed, the application will automatically activate System Restore (if it is disabled) and create a new restore point with a name starting with "optimizerDuck...", helping safeguard the system before any changes.</value>
+    <value><![CDATA[We will automatically enable System Restore and create a checkpoint named "optimizerDuck...".
+This ensures you can always go back if anything goes wrong.]]></value>
   </data>
   <data name="RestorePoint.Snackbar.Error.Title" xml:space="preserve">
     <value>Unable to create or enable System Restore.</value>

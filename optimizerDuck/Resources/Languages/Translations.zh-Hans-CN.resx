@@ -813,10 +813,12 @@
     <value>系统还原</value>
   </data>
     <data name="RestorePointDialog.Description" xml:space="preserve">
-    <value>Windows 操作系统包含系统还原功能，可让您在应用任何更改或优化前将系统恢复到之前的状态。</value>
+    <value><![CDATA[系统还原功能可让您在进行更改前将系统恢复到之前的状态。
+这是在应用优化前保护系统的安全措施。]]></value>
   </data>
     <data name="RestorePointDialog.Help" xml:space="preserve">
-    <value>继续操作时，应用将自动激活系统还原（如已禁用）并创建以 "optimizerDuck..." 开头的新还原点，在进行任何更改前保护系统。</value>
+    <value><![CDATA[程序将自动开启系统还原并创建一个名为 "optimizerDuck..." 的还原点。
+如果出现任何问题，您可以随时恢复系统。]]></value>
   </data>
     <data name="RestorePoint.Progress.Creating" xml:space="preserve">
     <value>正在创建还原点...</value>

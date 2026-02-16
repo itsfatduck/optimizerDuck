@@ -738,10 +738,12 @@ Phiên bản hiện tại: {0}]]> </value>
     <value>Phục hồi hệ thống</value>
   </data>
   <data name="RestorePointDialog.Description" xml:space="preserve">
-    <value>Hệ điều hành Windows tích hợp một tính năng gọi là Restore Point. Nhờ đó, bạn có thể dễ dàng đưa hệ thống trở về trạng thái trước khi thực hiện bất kỳ thay đổi hay tối ưu nào, giúp hạn chế rủi ro và đảm bảo an toàn cho máy tính.</value>
+    <value><![CDATA[Restore Point giúp bạn đưa hệ thống trở về trạng thái trước khi thay đổi.
+Đây là cách an toàn nhất để bảo vệ máy tính của bạn khi tối ưu hóa.]]></value>
   </data>
   <data name="RestorePointDialog.Help" xml:space="preserve">
-    <value>Khi bạn tiếp tục, ứng dụng sẽ tự động kích hoạt System Restore (nếu đang tắt) và tạo một điểm khôi phục mới với tên bắt đầu bằng "optimizerDuck...", giúp bảo vệ hệ thống trước mọi thay đổi.</value>
+    <value><![CDATA[Ứng dụng sẽ tự động kích hoạt và tạo một điểm khôi phục mới mang tên "optimizerDuck...".
+Hãy yên tâm rằng hệ thống của bạn luôn có đường lui nếu có sự cố xảy ra.]]></value>
   </data>
   <data name="RestorePoint.Snackbar.Error.Title" xml:space="preserve">
     <value>Không thể tạo hoặc bật System Restore</value>
