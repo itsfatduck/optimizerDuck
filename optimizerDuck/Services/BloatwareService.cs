@@ -18,42 +18,42 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
         try
         {
             var result = await ShellService.PowerShellAsync($$"""
-                                                               # SAFE_APPS
-                                                               $safeApps = "{{string.Join(",", Shared.SafeApps.Keys)}}" -split "," |
-                                                                           ForEach-Object { $_.Trim().ToLower() }
+                                                              # SAFE_APPS
+                                                              $safeApps = "{{string.Join(",", Shared.SafeApps.Keys)}}" -split "," |
+                                                                          ForEach-Object { $_.Trim().ToLower() }
 
-                                                               # CAUTION_APPS
-                                                               $cautionApps = "{{string.Join(",", Shared.CautionApps.Keys)}}" -split "," |
-                                                                              ForEach-Object { $_.Trim().ToLower() }
+                                                              # CAUTION_APPS
+                                                              $cautionApps = "{{string.Join(",", Shared.CautionApps.Keys)}}" -split "," |
+                                                                             ForEach-Object { $_.Trim().ToLower() }
 
-                                                               # Installed removable apps
-                                                               $installedApps = Get-AppxPackage | Where-Object { $_.NonRemovable -eq 0 }
+                                                              # Installed removable apps
+                                                              $installedApps = Get-AppxPackage | Where-Object { $_.NonRemovable -eq 0 }
 
-                                                               # Build result array efficiently
-                                                               $result = foreach ($app in $installedApps) {
-                                                                   $nameLower = $app.Name.ToLower()
-                                                                   $risk = "Unknown"
+                                                              # Build result array efficiently
+                                                              $result = foreach ($app in $installedApps) {
+                                                                  $nameLower = $app.Name.ToLower()
+                                                                  $risk = "Unknown"
 
-                                                                   if ($safeApps | Where-Object { $nameLower -like "*$_*" }) {
-                                                                       $risk = "Safe"
-                                                                   }
-                                                                   elseif ($cautionApps | Where-Object { $nameLower -like "*$_*" }) {
-                                                                       $risk = "Caution"
-                                                                   }
+                                                                  if ($safeApps | Where-Object { $nameLower -like "*$_*" }) {
+                                                                      $risk = "Safe"
+                                                                  }
+                                                                  elseif ($cautionApps | Where-Object { $nameLower -like "*$_*" }) {
+                                                                      $risk = "Caution"
+                                                                  }
 
-                                                                   [PSCustomObject]@{
-                                                                       Name            = $app.Name
-                                                                       PackageFullName = $app.PackageFullName
-                                                                       Publisher       = $app.Publisher
-                                                                       Version         = $app.Version.ToString()
-                                                                       InstallLocation = if ($app.InstallLocation) { $app.InstallLocation } else { "" }
-                                                                       Risk            = $risk
-                                                                   }
-                                                               }
+                                                                  [PSCustomObject]@{
+                                                                      Name            = $app.Name
+                                                                      PackageFullName = $app.PackageFullName
+                                                                      Publisher       = $app.Publisher
+                                                                      Version         = $app.Version.ToString()
+                                                                      InstallLocation = if ($app.InstallLocation) { $app.InstallLocation } else { "" }
+                                                                      Risk            = $risk
+                                                                  }
+                                                              }
 
-                                                               @($result) | ConvertTo-Json -Depth 4
+                                                              @($result) | ConvertTo-Json -Depth 4
 
-                                                               """);
+                                                              """);
 
             var options = new JsonSerializerOptions
             {
@@ -61,7 +61,8 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
                 Converters = { new JsonStringEnumConverter() }
             };
 
-            var apps = JsonSerializer.Deserialize<List<AppXPackage>>(result.Stdout, options)!.OrderBy(a => a.Name).ToList();
+            var apps = JsonSerializer.Deserialize<List<AppXPackage>>(result.Stdout, options)!.OrderBy(a => a.Name)
+                .ToList();
 
             logger.LogInformation("Found {AppCount} AppX packages", apps.Count);
 
@@ -89,46 +90,59 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
                 appXPackage.Name, appXPackage.PackageFullName);
 
             var script = $$"""
-                        $pkg = "{{appXPackage.PackageFullName}}"
+                           $pkgFull = "{{appXPackage.PackageFullName}}"
+                           $pkgName = $pkgFull.Split('_')[0] + "_" + $pkgFull.Split('_')[-1]
 
-                        Write-Output "Removing installed package..."
+                           Write-Output "Searching installed package..."
 
-                        Get-AppxPackage -AllUsers |
-                        Where-Object { $_.PackageFullName -eq $pkg } |
-                        ForEach-Object {
-                            try {
-                                Remove-AppxPackage -Package $_.PackageFullName -AllUsers -ErrorAction Stop
-                                Write-Output "Removed installed package: $($_.PackageFullName)"
-                            } catch {
-                                Write-Output "Failed removing installed package: $($_.PackageFullName)"
-                            }
-                        }
-                        """;
+                           $installed = Get-AppxPackage -AllUsers | Where-Object { $_.PackageFullName -eq $pkgFull }
+
+                           if (-not $installed) {
+                               Write-Output "Installed package not found"
+                           }
+                           else {
+                               foreach ($p in $installed) {
+                                   try {
+                                       Remove-AppxPackage -Package $p.PackageFullName -ErrorAction Stop
+                                       Write-Output "Removed installed package: $($p.PackageFullName)"
+                                   } catch {
+                                       Write-Output "Failed removing installed package: $($p.PackageFullName)"
+                                   }
+                               }
+                           }
+                           """;
+
 
             if (appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned)
             {
                 script += """
+                          Write-Output "Searching provisioned package..."
 
-                            Write-Output "Removing provisioned package..."
+                          $prov = Get-AppxProvisionedPackage -Online |
+                          Where-Object { $_.PackageName -eq $pkgName }
 
-                            Get-AppxProvisionedPackage -Online |
-                            Where-Object { $_.PackageName -like "*$pkg*" } |
-                            ForEach-Object {
-                                try {
-                                    Remove-AppxProvisionedPackage -Online -PackageName $_.PackageName -ErrorAction Stop | Out-Null
-                                    Write-Output "Removed provisioned package: $($_.PackageName)"
-                                } catch {
-                                    Write-Output "Failed removing provisioned package: $($_.PackageName)"
-                                }
-                            }
-                            """;
+                          if (-not $prov) {
+                              Write-Output "Provisioned package not found"
+                          }
+                          else {
+                              foreach ($p in $prov) {
+                                  try {
+                                      Remove-AppxProvisionedPackage -Online -PackageName $p.PackageName -ErrorAction Stop | Out-Null
+                                      Write-Output "Removed provisioned package: $($p.PackageName)"
+                                  } catch {
+                                      Write-Output "Failed removing provisioned package: $($p.PackageName)"
+                                  }
+                              }
+                          }
+                          """;
             }
             else
             {
                 script += """
-                            Write-Output "Skipping provisioned package removal (disabled by user)"
-                            """;
+                          Write-Output "Skipping provisioned package removal (disabled by user)"
+                          """;
             }
+
 
             var result = await ShellService.PowerShellAsync(script);
 

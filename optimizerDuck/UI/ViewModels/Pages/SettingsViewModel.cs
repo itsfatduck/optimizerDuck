@@ -61,6 +61,7 @@ public partial class SettingsViewModel(
     {
         SelectedCultureName = appOptionsMonitor.CurrentValue.App.Language;
         ShellTimeoutMs = appOptionsMonitor.CurrentValue.Optimize.ShellTimeoutMs;
+        RemoveProvisioned = appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned;
         CurrentApplicationTheme = ApplicationThemeManager.GetAppTheme();
 
         ApplicationThemeManager.Changed += OnThemeChanged;
@@ -167,6 +168,14 @@ public partial class SettingsViewModel(
             );
             logger.LogError(ex, "Failed to open acknowledgements page");
         }
+    }
+
+    [RelayCommand]
+    private void ToggleRemoveProvisioned()
+    {
+        if (!_isInitialized) return;
+        _ = configManager.SetAsync("bloatware:removeProvisioned",
+            (!appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned).ToString());
     }
 
     [RelayCommand]

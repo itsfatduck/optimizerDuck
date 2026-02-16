@@ -825,4 +825,13 @@ Phiên bản hiện tại: {0}]]> </value>
   <data name="BloatwareDialog.Confirmation.Message" xml:space="preserve">
     <value>Bạn chuẩn bị sẽ xóa: {0}</value>
   </data>
+  <data name="Settings.Bloatware.Header" xml:space="preserve">
+    <value>Bloatware</value>
+  </data>
+  <data name="Settings.Bloatware.RemoveProvisioned.Title" xml:space="preserve">
+    <value>Xóa Gói AppX (Đã cài đặt &amp; Provisioned)</value>
+  </data>
+  <data name="Settings.Bloatware.RemoveProvisioned.Description" xml:space="preserve">
+    <value>Xóa các gói AppX đã cài đặt và gói hệ thống provisioned (các gói được cài sẵn trong hệ thống)</value>
+  </data>
 </root>
