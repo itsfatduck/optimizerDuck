@@ -77,29 +77,35 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
                 appXPackage.Name, appXPackage.PackageFullName);
 
             var script = $$"""
-                           $pkgFull = "{{appXPackage.PackageFullName}}"
-                           $name = "{{appXPackage.Name}}"
+                        $pkgFull = "{{appXPackage.PackageFullName}}"
+                        $name = "{{appXPackage.Name}}"
 
-                           Write-Output "Searching installed package..."
+                        Write-Output "Searching installed package by FullName..."
 
-                           $installed = Get-AppxPackage | Where-Object { $_.PackageFullName -eq $pkgFull }
+                        $installed = Get-AppxPackage -PackageTypeFilter Main,Bundle,Resource |
+                                     Where-Object { $_.PackageFullName -eq $pkgFull }
 
-                           if (-not $installed) {
-                               Write-Output "Installed package not found"
-                           }
-                           else {
-                               foreach ($p in $installed) {
-                                   try {
-                                       Remove-AppxPackage -Package $p.PackageFullName -ErrorAction Stop
-                                       Write-Output "Removed installed package: $($p.PackageFullName)"
-                                   }
-                                   catch {
-                                       Write-Output "Failed removing installed package: $($p.PackageFullName). Error: $($_.Exception.Message)"
-                                   }
-                               }
-                           }
+                        if (-not $installed) {
+                            Write-Output "FullName not found, searching by Name..."
 
-                           """;
+                            $installed = Get-AppxPackage -Name $name -PackageTypeFilter Main,Bundle,Resource
+                        }
+
+                        if (-not $installed) {
+                            Write-Output "Installed package not found"
+                        }
+                        else {
+                            foreach ($p in $installed) {
+                                t
+                                    Remove-AppxPackage -Package $p.PackageFullName -ErrorAction Stop
+                                    Write-Output "Removed installed package: $($p.PackageFullName)"
+                                }
+                                catch {
+                                    Write-Output "Failed removing installed package: $($p.PackageFullName). Error: $($_.Exception.Message)"
+                                }
+                            }
+                        }
+                        """;
 
             if (appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned)
             {
