@@ -45,74 +45,114 @@ public static class Shared
     public static string RevertDirectory =>
         Path.Combine(RootDirectory, "Revert");
     
-    public static readonly Dictionary<string, string> SafeApps = new()
+    public static readonly HashSet<string> SafeApps = new()
     {
-        // bing
-        ["Microsoft.BingWeather"] = "Weather",
-        ["Microsoft.BingNews"] = "Bing News",
-        ["Microsoft.BingSearch"] = "Bing Search",
+        // Bing / MSN
+        "Microsoft.BingWeather",
+        "Microsoft.BingNews",
+        "Microsoft.BingSearch",
+        "Microsoft.BingFinance",
+        "Microsoft.BingSports",
+        "Microsoft.BingFoodAndDrink",
+        "Microsoft.BingHealthAndFitness",
+        "Microsoft.BingTravel",
+        "Microsoft.MicrosoftNews",
 
-        ["Microsoft.GetHelp"] = "Get Help",
-        ["Microsoft.GetStarted"] = "Get Started / Tips",
-        ["Microsoft.Messaging"] = "Messaging",
-        ["Microsoft.Microsoft3DViewer"] = "3D Viewer",
-        ["Microsoft.MicrosoftSolitaireCollection"] = "Solitaire Collection",
-        ["Microsoft.MicrosoftStickyNotes"] = "Sticky Notes",
-        ["Microsoft.MixedReality.Portal"] = "Mixed Reality Portal",
-        ["Microsoft.OneConnect"] = "OneConnect (Connect App)",
-        ["Microsoft.People"] = "People",
-        ["Microsoft.Print3D"] = "Print 3D",
-        ["SkypeApp"] = "Skype",
-        ["Microsoft.WindowsAlarms"] = "Alarms & Clock",
-        ["Microsoft.WindowsCamera"] = "Camera",
-        ["Microsoft.WindowsMaps"] = "Maps",
-        ["Microsoft.WindowsFeedbackHub"] = "Feedback Hub",
-        ["Microsoft.WindowsSoundRecorder"] = "Voice Recorder",
-        ["Microsoft.ZuneMusic"] = "Media Player / Groove",
-        ["Microsoft.Sway"] = "Microsoft Sway",
-        ["Microsoft.3DBuilder"] = "3D Builder (legacy)",
-        ["Microsoft.DrawboardPDF"] = "Drawboard PDF (OEM)",
-        ["WindowsPhone"] = "Windows Phone (old)",
-        ["CommsPhone"] = "Communications Phone (old)",
-        ["Microsoft.Todos"] = "Microsoft To Do",
-        ["Microsoft.WindowsCommunicationsApps"] = "Mail and Calendar",
-        ["MicrosoftCorporationII.QuickAssist"] = "Quick Assist",
-        ["Microsoft.Office.OneNote"] = "OneNote",
-        ["Microsoft.YourPhone"] = "Phone Link",
-        ["Microsoft.MicrosoftNews"] = "Microsoft News",
-        ["Microsoft.MicrosoftOfficeHub"] = "Office Hub"
+        // Utilities & Services
+        "Microsoft.GetHelp",
+        "Microsoft.GetStarted",
+        "Microsoft.Messaging",
+        "Microsoft.OneConnect",
+        "Microsoft.People",
+        "Microsoft.WindowsFeedbackHub",
+        "Microsoft.WindowsMaps",
+        "Microsoft.YourPhone",
+        "Microsoft.OneNote",
+        "Microsoft.Todos",
+        "Microsoft.MicrosoftOfficeHub",
+        "Microsoft.Office.OneNote",
+        "Microsoft.Office.Sway",
+        "Microsoft.SkypeApp",
+        "Microsoft.Wallet",
+        "Microsoft.MSWallet",
+        "Microsoft.RemoteDesktop",
+        "Microsoft.OutlookForWindows",
+        "Microsoft.LinkedInForWindows",
+
+        // Mixed Reality & 3D
+        "Microsoft.Microsoft3DViewer",
+        "Microsoft.MixedReality.Portal",
+        "Microsoft.Print3D",
+        "Microsoft.3DBuilder",
+        "Microsoft.Paint3D",
+
+        // Multimedia (Legacy/Redundant)
+        "Microsoft.ZuneMusic",
+        "Microsoft.ZuneVideo",
+        "Microsoft.Sway",
+        "Microsoft.WindowsSoundRecorder",
+
+        // Entertainment & Games
+        "Microsoft.MicrosoftSolitaireCollection",
+        "Microsoft.WindowsAlarms",
+        "Microsoft.549981C3F5F10", // Cortana
+        
+        // Third-party (often pre-installed by MS)
+        "SpotifyAB.SpotifyMusic",
+        "Disney.DisneyPlus",
+        "Amazon.Amazon",
+        "Clipchamp.Clipchamp",
+
+        // Legacy / Others
+        "WindowsPhone",
+        "CommsPhone",
+        "Microsoft.DrawboardPDF"
     };
 
 
-    public static readonly Dictionary<string, string> CautionApps = new()
+    public static readonly HashSet<string> CautionApps = new()
     {
-        ["Microsoft.WindowsCalculator"] = "Calculator",
-        ["Microsoft.Windows.Photos"] = "Photos",
-        ["Microsoft.MSPaint"] = "Paint",
-        ["Microsoft.Paint3D"] = "Paint 3D",
-        ["Microsoft.ScreenSketch"] = "Snipping Tool & Sketch",
-        ["Microsoft.WindowsStore"] = "Microsoft Store",
-        ["Microsoft.XboxIdentityProvider"] = "Xbox Identity Provider",
-        ["Microsoft.WindowsTerminal"] = "Windows Terminal",
-        ["Microsoft.WindowsTerminalPreview"] = "Windows Terminal (Preview)",
-        ["Clipchamp.Clipchamp"] = "Clipchamp (Video Editor)",
-        ["Microsoft.WindowsNotepad"] = "Notepad",
-        ["Microsoft.PowerAutomateDesktop"] = "Power Automate",
-        ["MicrosoftTeams"] = "Microsoft Teams",
-        ["MicrosoftCorporationII.MicrosoftFamily"] = "Microsoft Family Safety",
-        ["MicrosoftCorporationII.MicrosoftSupportDiagnosticTool"] = "Support Diagnostic Tool",
-        // Extensions
-        ["Microsoft.HEIFImageExtension"] = "HEIF Image Extension",
-        ["Microsoft.WebMediaExtensions"] = "Web Media Extensions",
-        ["Microsoft.WebpImageExtension"] = "WebP Image Extension",
-        ["Microsoft.RawImageExtension"] = "Raw Image Extension",
-        ["Microsoft.VP9VideoExtensions"] = "VP9 Video Extension",
-        ["Microsoft.AV1VideoExtension"] = "AV1 Video Extension",
-        // Xbox / Game Bar
-        ["Microsoft.XboxSpeechToTextOverlay"] = "Xbox Speech Overlay",
-        ["Microsoft.XboxGameOverlay"] = "Xbox Game Overlay",
-        ["Microsoft.XboxGamingOverlay"] = "Xbox Game Bar",
-        ["Microsoft.XboxApp"] = "Xbox Console Companion",
-        ["Microsoft.Xbox.TCUI"] = "Xbox TCUI"
+        // Core Utilities
+        "Microsoft.WindowsCalculator",
+        "Microsoft.WindowsPhotos",
+        "Microsoft.MSPaint",
+        "Microsoft.WindowsNotepad",
+        "Microsoft.WindowsCamera",
+        "Microsoft.ScreenSketch",
+        
+        // System Tools
+        "Microsoft.WindowsStore",
+        "Microsoft.StorePurchaseApp",
+        "Microsoft.DesktopAppInstaller",
+        "Microsoft.WindowsTerminal",
+        "Microsoft.WindowsTerminalPreview",
+        "Microsoft.PowerAutomateDesktop",
+        
+        // Communication
+        "MicrosoftTeams",
+        "Microsoft.WindowsCommunicationsApps",
+        
+        // Security & Family
+        "MicrosoftCorporationII.MicrosoftFamily",
+        "MicrosoftCorporationII.MicrosoftSupportDiagnosticTool",
+        
+        // Extensions (Essential for files)
+        "Microsoft.HEIFImageExtension",
+        "Microsoft.WebMediaExtensions",
+        "Microsoft.WebpImageExtension",
+        "Microsoft.RawImageExtension",
+        "Microsoft.VP9VideoExtensions",
+        "Microsoft.AV1VideoExtension",
+        "Microsoft.HEVCVideoExtension",
+        "Microsoft.MPEG2VideoExtension",
+        
+        // Xbox / Gaming Services
+        "Microsoft.XboxIdentityProvider",
+        "Microsoft.XboxSpeechToTextOverlay",
+        "Microsoft.XboxGameOverlay",
+        "Microsoft.XboxGamingOverlay",
+        "Microsoft.XboxApp",
+        "Microsoft.Xbox.TCUI",
+        "Microsoft.GamingApp"
     };
 }

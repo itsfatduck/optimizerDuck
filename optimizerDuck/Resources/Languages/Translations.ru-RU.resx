@@ -876,7 +876,7 @@
     <value>Ненужные приложения</value>
   </data>
   <data name="Settings.Bloatware.RemoveProvisioned.Title" xml:space="preserve">
-    <value>Также удалять подготовленные пакеты</value>
+    <value>Удалять подготовленные пакеты</value>
   </data>
   <data name="Settings.Bloatware.RemoveProvisioned.Description" xml:space="preserve">
     <value>При удалении установленных пакетов AppX также удалять соответствующие подготовленные пакеты, чтобы предотвратить автоматическую переустановку для новых пользователей.</value>

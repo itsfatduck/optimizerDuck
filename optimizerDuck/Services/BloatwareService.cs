@@ -7,6 +7,8 @@ using optimizerDuck.Core.Models.Config;
 using optimizerDuck.Services.OptimizationServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Linq;
+using System.Text.RegularExpressions;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace optimizerDuck.Services;
@@ -17,43 +19,28 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
     {
         try
         {
+            var safePattern = string.Join("|", Shared.SafeApps.Select(Regex.Escape));
+            var cautionPattern = string.Join("|", Shared.CautionApps.Select(Regex.Escape));
+
             var result = await ShellService.PowerShellAsync($$"""
-                                                              # SAFE_APPS
-                                                              $safeApps = "{{string.Join(",", Shared.SafeApps.Keys)}}" -split "," |
-                                                                          ForEach-Object { $_.Trim().ToLower() }
+                $safeRegex = '{{safePattern}}'
+                $cautionRegex = '{{cautionPattern}}'
 
-                                                              # CAUTION_APPS
-                                                              $cautionApps = "{{string.Join(",", Shared.CautionApps.Keys)}}" -split "," |
-                                                                             ForEach-Object { $_.Trim().ToLower() }
+                Get-AppxPackage | Where-Object { $_.NonRemovable -eq $false } | ForEach-Object {
+                    $risk = "Unknown"
+                    if ($_.Name -match $safeRegex) { $risk = "Safe" }
+                    elseif ($_.Name -match $cautionRegex) { $risk = "Caution" }
 
-                                                              # Installed removable apps
-                                                              $installedApps = Get-AppxPackage | Where-Object { $_.NonRemovable -eq 0 }
-
-                                                              # Build result array efficiently
-                                                              $result = foreach ($app in $installedApps) {
-                                                                  $nameLower = $app.Name.ToLower()
-                                                                  $risk = "Unknown"
-
-                                                                  if ($safeApps | Where-Object { $nameLower -like "*$_*" }) {
-                                                                      $risk = "Safe"
-                                                                  }
-                                                                  elseif ($cautionApps | Where-Object { $nameLower -like "*$_*" }) {
-                                                                      $risk = "Caution"
-                                                                  }
-
-                                                                  [PSCustomObject]@{
-                                                                      Name            = $app.Name
-                                                                      PackageFullName = $app.PackageFullName
-                                                                      Publisher       = $app.Publisher
-                                                                      Version         = $app.Version.ToString()
-                                                                      InstallLocation = if ($app.InstallLocation) { $app.InstallLocation } else { "" }
-                                                                      Risk            = $risk
-                                                                  }
-                                                              }
-
-                                                              @($result) | ConvertTo-Json -Depth 4
-
-                                                              """);
+                    [PSCustomObject]@{
+                        Name            = $_.Name
+                        PackageFullName = $_.PackageFullName
+                        Publisher       = $_.Publisher
+                        Version         = $_.Version.ToString()
+                        InstallLocation = if ($_.InstallLocation) { $_.InstallLocation } else { "" }
+                        Risk            = $risk
+                    }
+                } | ConvertTo-Json -Depth 2
+                """);
 
             var options = new JsonSerializerOptions
             {

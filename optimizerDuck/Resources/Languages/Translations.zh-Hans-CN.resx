@@ -876,7 +876,7 @@
     <value>臃肿软件</value>
   </data>
   <data name="Settings.Bloatware.RemoveProvisioned.Title" xml:space="preserve">
-    <value>同时移除已配置包</value>
+    <value>移除已配置包</value>
   </data>
   <data name="Settings.Bloatware.RemoveProvisioned.Description" xml:space="preserve">
     <value>移除已安装的 AppX 包时，同时移除对应的已配置包，以防止新用户时自动重新安装。</value>

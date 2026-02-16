@@ -828,7 +828,7 @@ Phiên bản hiện tại: {0}]]> </value>
     <value>Bloatware</value>
   </data>
   <data name="Settings.Bloatware.RemoveProvisioned.Title" xml:space="preserve">
-    <value>Cũng xóa gói Provisioned</value>
+    <value>Xóa gói Provisioned</value>
   </data>
   <data name="Settings.Bloatware.RemoveProvisioned.Description" xml:space="preserve">
     <value>Khi xóa gói AppX đã cài đặt, cũng xóa luôn các gói Provisioned tương ứng để ngăn tự động cài lại cho người dùng mới.</value>

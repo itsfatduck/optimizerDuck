@@ -831,7 +831,7 @@ Current version: {0}]]></value>
     <value>Bloatware</value>
   </data>
   <data name="Settings.Bloatware.RemoveProvisioned.Title" xml:space="preserve">
-    <value>Also remove Provisioned packages</value>
+    <value>Remove Provisioned packages</value>
   </data>
   <data name="Settings.Bloatware.RemoveProvisioned.Description" xml:space="preserve">
     <value>When removing installed AppX packages, also remove the corresponding Provisioned packages to prevent automatic reinstallation for new users.</value>
