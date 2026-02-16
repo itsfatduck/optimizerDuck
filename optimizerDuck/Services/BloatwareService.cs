@@ -82,7 +82,7 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
 
                            Write-Output "Searching installed package..."
 
-                           $installed = Get-AppxPackage -AllUsers | Where-Object { $_.PackageFullName -eq $pkgFull }
+                           $installed = Get-AppxPackage | Where-Object { $_.PackageFullName -eq $pkgFull }
 
                            if (-not $installed) {
                                Write-Output "Installed package not found"
@@ -90,11 +90,11 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
                            else {
                                foreach ($p in $installed) {
                                    try {
-                                       Remove-AppxPackage -AllUsers -Package $p.PackageFullName -ErrorAction Stop
+                                       Remove-AppxPackage -Package $p.PackageFullName -ErrorAction Stop
                                        Write-Output "Removed installed package: $($p.PackageFullName)"
                                    }
                                    catch {
-                                       Write-Output "Failed removing installed package: $($p.PackageFullName)"
+                                       Write-Output "Failed removing installed package: $($p.PackageFullName). Error: $($_.Exception.Message)"
                                    }
                                }
                            }
@@ -119,7 +119,7 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
                                       Write-Output "Removed provisioned package: $($p.PackageName)"
                                   }
                                   catch {
-                                      Write-Output "Failed removing provisioned package: $($p.PackageName)"
+                                      Write-Output "Failed removing provisioned package: $($p.PackageName). Error: $($_.Exception.Message)"
                                   }
                               }
                           }

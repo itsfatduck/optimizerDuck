@@ -820,6 +820,9 @@
     <value><![CDATA[程序将自动开启系统还原并创建一个名为 "optimizerDuck..." 的还原点。
 如果出现任何问题，您可以随时恢复系统。]]></value>
   </data>
+    <data name="RestorePoint.Snackbar.Warning.LimitReached" xml:space="preserve">
+    <value>过去 24 小时内已创建还原点。</value>
+  </data>
     <data name="RestorePoint.Progress.Creating" xml:space="preserve">
     <value>正在创建还原点...</value>
   </data>

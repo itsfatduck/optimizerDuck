@@ -766,6 +766,9 @@ This ensures you can always go back if anything goes wrong.]]></value>
   <data name="RestorePoint.Snackbar.Error.Message" xml:space="preserve">
     <value>An error occurred while creating or enabling System Restore. Please try creating it manually.</value>
   </data>
+  <data name="RestorePoint.Snackbar.Warning.LimitReached" xml:space="preserve">
+    <value>A restore point has already been created within the past 24 hours.</value>
+  </data>
   <data name="RestorePoint.Progress.Creating" xml:space="preserve">
     <value>Creating a restore point...</value>
   </data>

@@ -29,7 +29,7 @@ public class OptimizationService(
     private static readonly object _cacheLock = new();
     private readonly ILogger _logger = logger;
 
-    public async Task<bool> CreateRestorePointAsync()
+    public async Task<RestorePointResult> CreateRestorePointAsync()
     {
         var dialogViewModel = new ProcessingViewModel();
         var dialogContent = new ProcessingDialog { DataContext = dialogViewModel };
@@ -61,15 +61,25 @@ public class OptimizationService(
             var result = await RunPowerShellAsync(
                 $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS");
 
+            // it gives stderr but exitcode is 0
+            if (result.Stderr.Contains("already been created within the past 1440 minutes",
+                    StringComparison.OrdinalIgnoreCase))
+            {
+                _logger.LogWarning("Restore point creation skipped: frequency limit reached.");
+                return RestorePointResult.FrequencyLimitReached;
+            }
+
             if (result.ExitCode == 0)
-                return true;
+                return RestorePointResult.Success;
+
+            
 
             if (!Regex.IsMatch(result.Stderr,
                     @"\b(is\s+disabled|system\s+restore\s+is\s+disabled|disabled\s+by\s+group\s+policy|disableconfig|disablesr|protection\s+is\s+off)\b",
                     RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
             {
                 _logger.LogError("Failed to create restore point (not a 'disabled' case): {Message}", result.Stderr);
-                return false;
+                return RestorePointResult.Failed;
             }
 
             _logger.LogError("Failed to create restore point due to disabled feature: {Message}", result.Stderr);
@@ -86,7 +96,7 @@ public class OptimizationService(
             if (enableResult.ExitCode != 0)
             {
                 _logger.LogError("Failed to enable System Protection on system drive: {Message}", enableResult.Stderr);
-                return false;
+                return RestorePointResult.Failed;
             }
 
             dialogViewModel.ProgressReporter.Report(new ProcessingProgress
@@ -100,18 +110,27 @@ public class OptimizationService(
             result = await RunPowerShellAsync(
                 $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS");
 
+            if (result.Stderr.Contains("already been created within the past 1440 minutes",
+                    StringComparison.OrdinalIgnoreCase))
+            {
+                _logger.LogWarning("Restore point creation skipped: frequency limit reached.");
+                return RestorePointResult.FrequencyLimitReached;
+            }
+
             if (result.ExitCode == 0)
-                return true;
+                return RestorePointResult.Success;
 
             if (result.Stderr.Contains("is disabled", StringComparison.OrdinalIgnoreCase))
             {
                 _logger.LogError("Failed to create restore point after enabling feature: {Message}", result.Stderr);
-                return false;
+                return RestorePointResult.Failed;
             }
+
+            
 
 
             _logger.LogError("Failed to create restore point: {Message}", result.Stderr);
-            return false;
+            return RestorePointResult.Failed;
         }
         finally
         {
@@ -449,4 +468,11 @@ public class OptimizationService(
     }
 
     #endregion Helpers
+}
+
+public enum RestorePointResult
+{
+    Success,
+    Failed,
+    FrequencyLimitReached
 }

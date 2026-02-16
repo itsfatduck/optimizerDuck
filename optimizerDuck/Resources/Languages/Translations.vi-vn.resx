@@ -751,6 +751,9 @@ Hãy yên tâm rằng hệ thống của bạn luôn có đường lui nếu có
   <data name="RestorePoint.Snackbar.Error.Message" xml:space="preserve">
     <value>Lỗi khi tạo hoặc bật System Restore, bạn hãy thử tạo thủ công.</value>
   </data>
+  <data name="RestorePoint.Snackbar.Warning.LimitReached" xml:space="preserve">
+    <value>Một điểm khôi phục đã được tạo trong vòng 24 giờ qua.</value>
+  </data>
   <data name="RestorePoint.Progress.Creating" xml:space="preserve">
     <value>Đang tạo điểm khôi phục...</value>
   </data>

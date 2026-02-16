@@ -165,23 +165,39 @@ public partial class OptimizationCategoryViewModel : ViewModel
         if (result == ContentDialogResult.Secondary) // User skipped
             return true;
 
-        var success = await _optimizationService.CreateRestorePointAsync();
-        if (!success)
-            _snackbarService.Show(
-                Translations.RestorePoint_Snackbar_Error_Title,
-                Translations.RestorePoint_Snackbar_Error_Message,
-                ControlAppearance.Danger,
-                new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                TimeSpan.FromSeconds(5)
-            );
-        else
-            _snackbarService.Show(
-                Translations.RestorePoint_Snackbar_Success_Title,
-                string.Format(Translations.RestorePoint_Snackbar_Success_Message, Shared.RestorePointName),
-                ControlAppearance.Success,
-                new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
-                TimeSpan.FromSeconds(5)
-            );
+        var resultState = await _optimizationService.CreateRestorePointAsync();
+
+        switch (resultState)
+        {
+            case RestorePointResult.Success:
+                _snackbarService.Show(
+                    Translations.RestorePoint_Snackbar_Success_Title,
+                    string.Format(Translations.RestorePoint_Snackbar_Success_Message, Shared.RestorePointName),
+                    ControlAppearance.Success,
+                    new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
+                    TimeSpan.FromSeconds(5)
+                );
+                break;
+            case RestorePointResult.FrequencyLimitReached:
+                _snackbarService.Show(
+                    Translations.RestorePoint_Title,
+                    Translations.RestorePoint_Snackbar_Warning_LimitReached,
+                    ControlAppearance.Caution,
+                    new SymbolIcon { Symbol = SymbolRegular.Warning24, Filled = true },
+                    TimeSpan.FromSeconds(5)
+                );
+                break;
+            case RestorePointResult.Failed:
+            default:
+                _snackbarService.Show(
+                    Translations.RestorePoint_Snackbar_Error_Title,
+                    Translations.RestorePoint_Snackbar_Error_Message,
+                    ControlAppearance.Danger,
+                    new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
+                    TimeSpan.FromSeconds(5)
+                );
+                break;
+        }
 
         return true;
     }

@@ -11,7 +11,7 @@
     mc:Ignorable="d">
     <Grid>
         <StackPanel>
-            <ui:SymbolIcon FontSize="48" Symbol="DatabaseLightning20" />
+            <ui:SymbolIcon  FontSize="48" Symbol="DatabaseLightning20" />
             <ui:TextBlock
                 HorizontalAlignment="Center"
                 FontTypography="Body"
@@ -19,15 +19,12 @@
                 TextAlignment="Center"
                 TextWrapping="Wrap" />
 
-
             <ui:InfoBar
                 Margin="0,15,0,0"
                 IsClosable="False"
                 IsOpen="True"
                 Message="{ext:Loc RestorePointDialog.Help}"
                 Severity="Success" />
-
-
         </StackPanel>
     </Grid>
 </UserControl>

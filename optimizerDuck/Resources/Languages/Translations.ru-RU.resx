@@ -820,6 +820,9 @@
     <value><![CDATA[Приложение автоматически включит восстановление и создаст точку "optimizerDuck...".
 Это гарантирует возможность отката, если что-то пойдет не так.]]></value>
   </data>
+    <data name="RestorePoint.Snackbar.Warning.LimitReached" xml:space="preserve">
+    <value>Точка восстановления уже была создана за последние 24 часа.</value>
+  </data>
     <data name="RestorePoint.Progress.Creating" xml:space="preserve">
     <value>Создание точки восстановления...</value>
   </data>

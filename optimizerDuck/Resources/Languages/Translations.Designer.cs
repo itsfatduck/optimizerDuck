@@ -1898,6 +1898,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A restore point has already been created within the past 24 hours.
+        /// </summary>
+        public static string RestorePoint_Snackbar_Warning_LimitReached {
+            get {
+                return ResourceManager.GetString("RestorePoint.Snackbar.Warning.LimitReached", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to System Restore.
         /// </summary>
         public static string RestorePoint_Title {
