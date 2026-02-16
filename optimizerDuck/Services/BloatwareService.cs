@@ -91,7 +91,7 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
 
             var script = $$"""
                            $pkgFull = "{{appXPackage.PackageFullName}}"
-                           $pkgName = $pkgFull.Split('_')[0] + "_" + $pkgFull.Split('_')[-1]
+                           $name = "{{appXPackage.Name}}"
 
                            Write-Output "Searching installed package..."
 
@@ -103,15 +103,16 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
                            else {
                                foreach ($p in $installed) {
                                    try {
-                                       Remove-AppxPackage -Package $p.PackageFullName -ErrorAction Stop
+                                       Remove-AppxPackage -AllUsers -Package $p.PackageFullName -ErrorAction Stop
                                        Write-Output "Removed installed package: $($p.PackageFullName)"
-                                   } catch {
+                                   }
+                                   catch {
                                        Write-Output "Failed removing installed package: $($p.PackageFullName)"
                                    }
                                }
                            }
-                           """;
 
+                           """;
 
             if (appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned)
             {
@@ -119,7 +120,7 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
                           Write-Output "Searching provisioned package..."
 
                           $prov = Get-AppxProvisionedPackage -Online |
-                          Where-Object { $_.PackageName -eq $pkgName }
+                                  Where-Object { $_.DisplayName -eq $name }
 
                           if (-not $prov) {
                               Write-Output "Provisioned package not found"
@@ -129,11 +130,13 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
                                   try {
                                       Remove-AppxProvisionedPackage -Online -PackageName $p.PackageName -ErrorAction Stop | Out-Null
                                       Write-Output "Removed provisioned package: $($p.PackageName)"
-                                  } catch {
+                                  }
+                                  catch {
                                       Write-Output "Failed removing provisioned package: $($p.PackageName)"
                                   }
                               }
                           }
+
                           """;
             }
             else
@@ -142,7 +145,6 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
                           Write-Output "Skipping provisioned package removal (disabled by user)"
                           """;
             }
-
 
             var result = await ShellService.PowerShellAsync(script);
 
