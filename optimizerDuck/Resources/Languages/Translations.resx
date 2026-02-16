@@ -810,10 +810,10 @@ Current version: {0}]]></value>
     <value>Refresh</value>
   </data>
   <data name="Bloatware.Empty.Title" xml:space="preserve">
-    <value>No unnecessary apps found</value>
+    <value>No unnecessary apps found ¯\_(ツ)_/¯</value>
   </data>
   <data name="Bloatware.Empty.Description" xml:space="preserve">
-    <value>optimizerDuck didn't find any removable AppX packages. Everything looks quite good.</value>
+    <value>optimizerDuck didn't find any removable AppX packages. It's empty as a void...</value>
   </data>
   <data name="Bloatware.Loading" xml:space="preserve">
     <value>Looking for removable apps…</value>

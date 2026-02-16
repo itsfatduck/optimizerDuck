@@ -807,10 +807,10 @@ Phiên bản hiện tại: {0}]]> </value>
     <value>Làm mới</value>
   </data>
   <data name="Bloatware.Empty.Title" xml:space="preserve">
-    <value>Không tìm thấy ứng dụng không cần thiết</value>
+    <value>Không tìm thấy bất kì một ứng dụng nào ¯\_(ツ)_/¯</value>
   </data>
   <data name="Bloatware.Empty.Description" xml:space="preserve">
-    <value>optimizerDuck không tìm thấy gói AppX nào có thể gỡ. Mọi thứ trông ổn.</value>
+    <value>optimizerDuck không tìm thấy gói AppX nào có thể xóa. mọi thứ trống không như hư vô...</value>
   </data>
   <data name="Bloatware.Loading" xml:space="preserve">
     <value>Đang tìm kiếm ứng dụng có thể gỡ…</value>

@@ -855,10 +855,10 @@
     <value>Обновить</value>
   </data>
   <data name="Bloatware.Empty.Title" xml:space="preserve">
-    <value>Не найдено ненужных приложений</value>
+    <value>Ни одного приложения не найдено ¯\_(ツ)_/¯</value>
   </data>
   <data name="Bloatware.Empty.Description" xml:space="preserve">
-    <value>optimizerDuck не нашёл удаляемых пакетов AppX. Всё выглядит хорошо.</value>
+    <value>optimizerDuck не нашел ни одного расширения AppX для удаления. Пусто, как в бесконечной пустоте...</value>
   </data>
   <data name="Bloatware.Loading" xml:space="preserve">
     <value>Поиск удаляемых приложений…</value>

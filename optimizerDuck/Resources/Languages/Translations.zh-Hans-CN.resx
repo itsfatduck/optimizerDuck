@@ -855,10 +855,10 @@
     <value>刷新</value>
   </data>
   <data name="Bloatware.Empty.Title" xml:space="preserve">
-    <value>未发现不必要的应用</value>
+    <value>未找到任何应用程序 ¯\_(ツ)_/¯</value>
   </data>
   <data name="Bloatware.Empty.Description" xml:space="preserve">
-    <value>optimizerDuck 未找到可移除的 AppX 包。一切看起来都很好。</value>
+    <value>optimizerDuck 未找到任何可卸载的 AppX 包。一切如虚空般空旷...</value>
   </data>
   <data name="Bloatware.Loading" xml:space="preserve">
     <value>正在搜索可移除的应用…</value>
