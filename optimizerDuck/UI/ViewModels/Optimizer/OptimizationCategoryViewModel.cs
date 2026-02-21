@@ -238,7 +238,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
         // Keep a stable reference to the previous state in case we need to roll back UI changes.
         var wasApplied = await OptimizationService.IsAppliedAsync(optimization.Id);
 
-        if (_optimizationService.IsRequestedRestorePoint)
+        if (!_optimizationService.WasRequestedRestorePoint)
         {
             if (!await HandleRestorePointAsync())
             {
@@ -246,7 +246,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 return;
             }
 
-            _optimizationService.IsRequestedRestorePoint = true;
+            _optimizationService.WasRequestedRestorePoint = true;
         }
 
         try

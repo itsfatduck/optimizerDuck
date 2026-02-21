@@ -29,7 +29,7 @@ public class OptimizationService(
     private static readonly object _cacheLock = new();
     private readonly ILogger _logger = logger;
 
-    public bool IsRequestedRestorePoint { get; set; }
+    public bool WasRequestedRestorePoint { get; set; } = false;
 
     public async Task<RestorePointResult> CreateRestorePointAsync()
     {
