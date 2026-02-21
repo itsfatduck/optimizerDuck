@@ -23,7 +23,7 @@ public class UpdaterService
         _logger = logger;
     }
 
-    public async Task<bool> CheckForUpdatesAsync()
+    public async Task<(bool Result, string? Version)> CheckForUpdatesAsync()
     {
         _logger.LogInformation("Checking for updates (Current version: {CurrentVersion})",
             Shared.FileVersion);
@@ -37,7 +37,7 @@ public class UpdaterService
             if (latestRelease == null || string.IsNullOrEmpty(latestRelease.TagName))
             {
                 _logger.LogWarning("Could not retrieve latest release information");
-                return false;
+                return (false, null);
             }
 
             // "v1.1.0" -> "1.1.0"
@@ -55,7 +55,7 @@ public class UpdaterService
             {
                 _logger.LogWarning("Could not parse latest release version: {LatestReleaseTagName}",
                     latestRelease.TagName);
-                return false;
+                return (false, null);
             }
 
             var currentVersion = Version.Parse(Shared.FileVersion);
@@ -70,21 +70,21 @@ public class UpdaterService
                 if (updateExecutableAsset == null)
                 {
                     _logger.LogWarning("No update executable (.exe) found in the latest release");
-                    return false;
+                    return (false, null);
                 }
 
                 _logger.LogInformation("A new version ({LatestVersion}) is available!", latestVersionStr);
 
-                return true;
+                return (true, latestVersionStr);
             }
 
             _logger.LogInformation("You are running the latest version");
-            return false;
+            return (false, null);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error checking for updates");
-            return false;
+            return (false, null);
         }
     }
 }

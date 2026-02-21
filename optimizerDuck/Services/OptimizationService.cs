@@ -29,6 +29,8 @@ public class OptimizationService(
     private static readonly object _cacheLock = new();
     private readonly ILogger _logger = logger;
 
+    public bool IsRequestedRestorePoint { get; set; }
+
     public async Task<RestorePointResult> CreateRestorePointAsync()
     {
         var dialogViewModel = new ProcessingViewModel();
@@ -71,8 +73,6 @@ public class OptimizationService(
 
             if (result.ExitCode == 0)
                 return RestorePointResult.Success;
-
-            
 
             if (!Regex.IsMatch(result.Stderr,
                     @"\b(is\s+disabled|system\s+restore\s+is\s+disabled|disabled\s+by\s+group\s+policy|disableconfig|disablesr|protection\s+is\s+off)\b",
@@ -125,9 +125,6 @@ public class OptimizationService(
                 _logger.LogError("Failed to create restore point after enabling feature: {Message}", result.Stderr);
                 return RestorePointResult.Failed;
             }
-
-            
-
 
             _logger.LogError("Failed to create restore point: {Message}", result.Stderr);
             return RestorePointResult.Failed;

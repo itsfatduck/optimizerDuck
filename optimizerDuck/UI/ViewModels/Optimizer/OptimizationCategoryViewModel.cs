@@ -25,8 +25,6 @@ public partial class OptimizationCategoryViewModel : ViewModel
     private readonly OptimizationService _optimizationService;
     private readonly ISnackbarService _snackbarService;
 
-    private bool _isApplied;
-
     [ObservableProperty] private ObservableCollection<IOptimization> _optimizations = [];
 
     public OptimizationCategoryViewModel(
@@ -178,6 +176,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
                     TimeSpan.FromSeconds(5)
                 );
                 break;
+
             case RestorePointResult.FrequencyLimitReached:
                 _snackbarService.Show(
                     Translations.RestorePoint_Title,
@@ -187,6 +186,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
                     TimeSpan.FromSeconds(5)
                 );
                 break;
+
             case RestorePointResult.Failed:
             default:
                 _snackbarService.Show(
@@ -238,7 +238,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
         // Keep a stable reference to the previous state in case we need to roll back UI changes.
         var wasApplied = await OptimizationService.IsAppliedAsync(optimization.Id);
 
-        if (!_isApplied)
+        if (_optimizationService.IsRequestedRestorePoint)
         {
             if (!await HandleRestorePointAsync())
             {
@@ -246,7 +246,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 return;
             }
 
-            _isApplied = true;
+            _optimizationService.IsRequestedRestorePoint = true;
         }
 
         try

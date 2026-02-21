@@ -841,4 +841,11 @@ This ensures you can always go back if anything goes wrong.]]></value>
   <data name="Settings.Bloatware.RemoveProvisioned.Description" xml:space="preserve">
     <value>When removing installed AppX packages, also remove the corresponding Provisioned packages to prevent automatic reinstallation for new users.</value>
   </data>
+  <data name="Dashboard.UpdateInfoBar.Message" xml:space="preserve">
+    <value>optimizerDuck (v{0}) is available!
+Update now to enjoy the latest features, improvements, and bug fixes.</value>
+  </data>
+  <data name="Dashboard.UpdateInfoBar.Title" xml:space="preserve">
+    <value>New Update Ready</value>
+  </data>
 </root>

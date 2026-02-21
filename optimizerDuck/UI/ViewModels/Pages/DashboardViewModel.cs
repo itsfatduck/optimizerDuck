@@ -27,6 +27,7 @@ public partial class DashboardViewModel : ViewModel
     private bool _isInitialized;
 
     [ObservableProperty] private bool _isLoading;
+    [ObservableProperty] private string _latestVersion;
     private bool _isUpdateInfoOpen;
 
     [ObservableProperty] private RamInfo _runtimeRam = RamInfo.Unknown;
@@ -77,10 +78,12 @@ public partial class DashboardViewModel : ViewModel
         if (!_isInitialized)
         {
             _systemInfoService.LogSummary();
-            if (await _updaterService.CheckForUpdatesAsync())
+            var (result, version) = await _updaterService.CheckForUpdatesAsync();
+            if (result)
             {
                 _updateNotified = true;
                 IsUpdateInfoOpen = true;
+                LatestVersion = version;
             }
 
             _isInitialized = true;
@@ -96,7 +99,6 @@ public partial class DashboardViewModel : ViewModel
         return base.OnNavigatedFromAsync();
     }
 
-
     #region Property Changed
 
     private void OnThemeChanged(ApplicationTheme currentApplicationTheme, Color systemAccent)
@@ -104,7 +106,7 @@ public partial class DashboardViewModel : ViewModel
         if (CurrentApplicationTheme != currentApplicationTheme) CurrentApplicationTheme = currentApplicationTheme;
     }
 
-    #endregion
+    #endregion Property Changed
 
     #region Commands
 
@@ -204,7 +206,7 @@ public partial class DashboardViewModel : ViewModel
         }
     }
 
-    #endregion
+    #endregion Commands
 
     #region Helpers
 
@@ -264,5 +266,5 @@ public partial class DashboardViewModel : ViewModel
         }
     }
 
-    #endregion
+    #endregion Helpers
 }

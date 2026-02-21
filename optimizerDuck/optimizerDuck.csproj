@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net10.0-windows</TargetFramework>
+        <TargetFramework>net10.0-windows10.0.17763.0</TargetFramework>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -10,7 +10,7 @@
         <Authors>fatDuck</Authors>
         <ApplicationIcon>Logo.ico</ApplicationIcon>
         <Company>fatDuck</Company>
-        <FileVersion>2.1.0</FileVersion>
+        <FileVersion>2.1.1</FileVersion>
         <Version>1.0.0</Version>
         <Product>optimizerDuck</Product>
         <Copyright>Copyright fatDuck 2026</Copyright>
@@ -18,6 +18,7 @@
         <AssemblyDescription>Free, open-source Windows optimization tool for performance, privacy, and simplicity.</AssemblyDescription>
         <NeutralLanguage>en-US</NeutralLanguage>
         <ApplicationManifest>app.manifest</ApplicationManifest>
+        <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -38,17 +39,17 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0"/>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.3"/>
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.3"/>
-        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.3"/>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.4"/>
-        <PackageReference Include="Serilog" Version="4.3.1"/>
-        <PackageReference Include="Serilog.Extensions.Hosting" Version="10.0.0"/>
-        <PackageReference Include="Serilog.Sinks.File" Version="7.0.0"/>
-        <PackageReference Include="System.Management.Automation" Version="7.5.4"/>
-        <PackageReference Include="WPF-UI" Version="4.2.0"/>
-        <PackageReference Include="WPF-UI.DependencyInjection" Version="4.2.0"/>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.3" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.3" />
+        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.3" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+        <PackageReference Include="Serilog" Version="4.3.1" />
+        <PackageReference Include="Serilog.Extensions.Hosting" Version="10.0.0" />
+        <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+        <PackageReference Include="System.Management.Automation" Version="7.5.4" />
+        <PackageReference Include="WPF-UI" Version="4.2.0" />
+        <PackageReference Include="WPF-UI.DependencyInjection" Version="4.2.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -67,13 +68,13 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="Resources\Images\Duck.png"/>
-        <None Remove="Resources\Images\GitHubLogoBlack.png"/>
-        <Resource Include="Resources\Images\Duck.png"/>
-        <None Remove="Resources\Images\Windows11.png"/>
-        <Resource Include="Resources\Images\GitHubLogoBlack.png"/>
-        <Resource Include="Resources\Images\GitHubLogoWhite.png"/>
-        <Resource Include="Resources\Images\DiscordLogo.png"/>
+        <None Remove="Resources\Images\Duck.png" />
+        <None Remove="Resources\Images\GitHubLogoBlack.png" />
+        <Resource Include="Resources\Images\Duck.png" />
+        <None Remove="Resources\Images\Windows11.png" />
+        <Resource Include="Resources\Images\GitHubLogoBlack.png" />
+        <Resource Include="Resources\Images\GitHubLogoWhite.png" />
+        <Resource Include="Resources\Images\DiscordLogo.png" />
     </ItemGroup>
 
 </Project>
