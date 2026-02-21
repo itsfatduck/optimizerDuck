@@ -295,67 +295,67 @@
 
     <!-- Performance Optimizations -->
     <data name="Optimizer.Performance.DisableBackgroundApps.Name" xml:space="preserve">
-    <value>禁用后台应用活动</value>
+    <value>禁用后台应用</value>
   </data>
     <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
-    <value>阻止 UWP 应用运行后台任务，降低空闲时的内存压力和 CPU 占用</value>
+    <value>禁止非活动应用程序在后台运行，释放内存并降低 CPU 占用。</value>
   </data>
     <data name="Optimizer.Performance.SvcHostSplit.Name" xml:space="preserve">
-    <value>启用服务主机分离</value>
+    <value>优化服务隔离</value>
   </data>
     <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
-    <value>将 Service Host 分离阈值设置为系统总内存容量，强制 Windows 将服务隔离到独立进程以提升稳定性</value>
+    <value>将系统服务拆分为独立进程，显著提升 Windows 的稳定性。</value>
   </data>
     <data name="Optimizer.Performance.SvcHostSplit.Error.InvalidRAM" xml:space="preserve">
     <value>无效的内存容量：{0}</value>
   </data>
     <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
-    <value>启用前台进程提升</value>
+    <value>优先处理活动应用</value>
   </data>
     <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
-    <value>配置 Win32PrioritySeparation 为 38（短可变时间片、高前台提升），优先处理活动应用，降低输入延迟</value>
+    <value>为您当前使用的应用程序分配更多 CPU 资源，提供更快速的响应体验。 </value>
   </data>
     <data name="Optimizer.Performance.GameTaskScheduling.Name" xml:space="preserve">
-    <value>启用游戏任务优先级</value>
+    <value>优化游戏调度</value>
   </data>
     <data name="Optimizer.Performance.GameTaskScheduling.ShortDescription" xml:space="preserve">
-    <value>配置 MMCSS "Games" 任务配置文件为高调度类别，提升 GPU/IO 优先级以实现稳定的帧 pacing</value>
+    <value>为游戏负载分配高优先级，确保帧率（FPS）稳定，游戏运行更顺滑。</value>
   </data>
     <data name="Optimizer.Performance.MultimediaResponsiveness.Name" xml:space="preserve">
-    <value>优化 MMCSS 响应性</value>
+    <value>优化多媒体响应</value>
   </data>
     <data name="Optimizer.Performance.MultimediaResponsiveness.ShortDescription" xml:space="preserve">
-    <value>将 SystemResponsiveness 设为 10，禁用网络节流（0xFFFFFFFF），最小化 MMCSS 延迟，适用于实时工作负载</value>
+    <value>降低音频、视频和网络任务的延迟，改善实时媒体和游戏表现。</value>
   </data>
     <data name="Optimizer.Performance.DisableGameBar.Name" xml:space="preserve">
     <value>禁用 Xbox 游戏栏</value>
   </data>
     <data name="Optimizer.Performance.DisableGameBar.ShortDescription" xml:space="preserve">
-    <value>禁用 Xbox 游戏栏覆盖层、启动提示和热键集成，消除后台捕获开销</value>
+    <value>禁用 Xbox 游戏栏覆盖层和后台功能，在游戏时节省系统资源。</value>
   </data>
     <data name="Optimizer.Performance.EnableGameMode.Name" xml:space="preserve">
     <value>启用游戏模式</value>
   </data>
-    <data name="Optimizer.Performance.EnableGameMode.ShortDescription" xml:space="preserve">
-    <value>通过注册表激活 Windows 游戏模式，自动优先处理游戏进程并抑制游戏期间的 Windows 更新通知</value>
+  <data name="Optimizer.Performance.EnableGameMode.ShortDescription" xml:space="preserve">
+    <value>启用 Windows 游戏模式以优先处理游戏进程，并防止 Windows 更新的中断。</value>
   </data>
     <data name="Optimizer.Performance.DisableGameDVR.Name" xml:space="preserve">
-    <value>禁用游戏 DVR 录制</value>
+    <value>禁用后台录制</value>
   </data>
     <data name="Optimizer.Performance.DisableGameDVR.ShortDescription" xml:space="preserve">
-    <value>完全禁用游戏 DVR 后台录制（AppCaptureEnabled、GameDVR_Enabled、AllowGameDVR 策略），消除捕获开销</value>
+    <value>关闭自动后台游戏录制 (DVR)，找回损失的性能和磁盘带宽。</value>
   </data>
     <data name="Optimizer.Performance.DisableMouseAcceleration.Name" xml:space="preserve">
     <value>禁用鼠标加速</value>
   </data>
     <data name="Optimizer.Performance.DisableMouseAcceleration.ShortDescription" xml:space="preserve">
-    <value>设置 MouseSpeed 为 0 并清除加速阈值，实现物理移动与屏幕光标的 1:1 映射，提供精确的游戏控制</value>
+    <value>禁用 Windows 自动鼠标速度调整，提供精确的 1:1 光标移动。</value>
   </data>
     <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
     <value>优化键盘响应</value>
   </data>
     <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
-    <value>最小化键盘延迟（0）并最大化重复速率（31），禁用粘滞键/筛选键辅助功能延迟，实现快速输入</value>
+    <value>降低键盘输入延迟并提高重复速率，使打字和游戏响应更迅速。</value>
   </data>
 
     <!-- Power Management -->
@@ -363,19 +363,19 @@
     <value>禁用休眠与快速启动</value>
   </data>
     <data name="Optimizer.PowerManagement.DisableHibernate.ShortDescription" xml:space="preserve">
-    <value>禁用休眠（HibernateEnabled=0）和快速启动（HiberbootEnabled=0），删除 hiberfile.sys 以释放磁盘空间</value>
+    <value>关闭休眠和快速启动以回收数 GB 磁盘空间，并确保系统完全启动。</value>
   </data>
     <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
-    <value>禁用 USB 电源节能</value>
+    <value>禁止 USB 自动断电</value>
   </data>
     <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
-    <value>通过 MSPower_DeviceEnable WMI 在所有根集线器上禁用 USB 选择性暂停，防止输入设备延迟。会增加笔记本功耗</value>
+    <value>防止 Windows 关闭 USB 端口供电，消除鼠标、键盘等外设的唤醒延迟。</value>
   </data>
     <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
-    <value>安装 optimizerDuck 电源计划</value>
+    <value>应用优化电源计划</value>
   </data>
-    <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
-    <value>下载、导入并激活 optimizerDuck 高性能电源计划，优先保证最大性能。可能增加功耗、发热和风扇噪音</value>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
+    <value>安装自定义的性能优先电源计划，确保您的系统始终以最高速度运行。</value>
   </data>
     <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Downloading" xml:space="preserve">
     <value>正在下载电源计划...</value>
@@ -397,24 +397,24 @@
     <value>激活 optimizerDuck 电源计划失败</value>
   </data>
     <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
-    <value>禁用电源节流</value>
+    <value>禁用系统电源节流</value>
   </data>
     <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
-    <value>禁用 CPU 电源节流（PowerThrottlingOff=1），强制多媒体系统配置文件为 AlwaysOn，禁用 USB 意外移除恢复</value>
+    <value>防止 Windows 限制 CPU 性能（电源节流），为活动任务维持峰值动力。</value>
   </data>
 
     <!-- Security & Privacy -->
     <data name="Optimizer.SecurityAndPrivacy.DisableUAC.Name" xml:space="preserve">
-    <value>禁用 UAC 提示</value>
+    <value>禁用管理员权限提示 (UAC)</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableUAC.ShortDescription" xml:space="preserve">
-    <value>设置 EnableLUA=0 以禁用用户账户控制提升提示，允许静默管理员执行。显著降低系统安全性</value>
+    <value>关闭以管理员身份运行应用时请求确认的用户账户控制 (UAC) 窗口。</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
-    <value>减少遥测与反馈</value>
+    <value>禁用数据采集 (遥测)</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
-    <value>应用全面的反遥测策略：禁用 DiagTrack、dmwappushservice、WerSvc 服务；禁用 14+ 个遥测计划任务；阻止 50+ 个遥测注册表项包括 AllowTelemetry、AdvertisingInfo、位置跟踪</value>
+    <value>禁用 Windows 遥测和使用情况追踪服务，增强个人隐私并减少后台活动。</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
     <value>正在应用策略和注册表更改...</value>
@@ -426,42 +426,42 @@
     <value>正在禁用遥测计划任务...</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.Name" xml:space="preserve">
-    <value>禁用 WMI 自动日志</value>
+    <value>禁用系统日志记录</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
-    <value>通过设置 Start=0 停止 12 个 WMI AutoLogger 会话（Diagtrack-Listener、SQMLogger、WdiContextLog 等），减少内核级事件收集</value>
+    <value>停止非必要的系统事件日志记录，减少持续的磁盘活动并节省 CPU 资源。</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
     <value>禁用 Cortana 与网络搜索</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
-    <value>通过 AllowCortana=0、AllowCloudSearch=0 策略阻止 Cortana，禁用 Windows 搜索中的网络搜索集成</value>
+    <value>关闭 Cortana 语音助手，并从 Windows 搜索栏中移除 Bing 网络搜索结果。</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
     <value>禁用 Windows Copilot</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
-    <value>应用 TurnOffWindowsCopilot=1 策略，从任务栏隐藏 Copilot 按钮，阻止 shell 扩展 {CB3B0003-8088-4EDE-8769-8B354AB2FF8C}</value>
+    <value>从任务栏和系统组件中移除 AI 助手 Copilot，释放内存和屏幕空间。</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
-    <value>禁用内容推送</value>
+    <value>禁用广告与推荐</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
-    <value>禁用内容推送管理器（ContentDeliveryAllowed=0、SubscribedContent-*=0），停止设置/开始菜单中的推荐应用、提示和促销内容</value>
+    <value>阻止 Windows 自动安装推广应用，并停止在开始菜单中显示建议内容。</value>
   </data>
 
     <!-- Bloatware & Services -->
     <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
-    <value>阻止预装应用</value>
+    <value>阻止预装流氓软件</value>
   </data>
     <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
-    <value>设置 PreInstalledAppsEnabled=0、OemPreInstalledAppsEnabled=0、SilentInstalledAppsEnabled=0 以防止自动安装 OEM 预装软件和推广应用</value>
+    <value>防止 Windows 自动重新安装不需要的第三方应用和预装推广软件。</value>
   </data>
     <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
-    <value>优化服务启动</value>
+    <value>优化系统服务启动</value>
   </data>
     <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
-    <value>配置 100+ Windows 服务启动类型：禁用遥测服务（DiagTrack、DcpSvc），将非关键服务设为手动，保持必要服务（音频、网络、安全）为自动。减少后台内存/CPU 占用</value>
+    <value>调整非必要的后台服务，在保留 Windows 核心功能的同时释放系统资源。</value>
   </data>
     <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType"
           xml:space="preserve">
@@ -473,123 +473,123 @@
     <value>禁用 AMD ULPS</value>
   </data>
     <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
-    <value>在 AMD GPU 注册表中设置 EnableULPS=0，防止超低功耗状态唤醒延迟和多显示器问题。降低空闲时电源节能</value>
+    <value>关闭 AMD 的超低功耗模式，消除唤醒时的 GPU 卡顿或延迟。</value>
   </data>
     <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
     <value>禁用 AMD 电源门控</value>
   </data>
     <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
-    <value>设置 DisablePowerGating=1、PP_GPUPowerDownEnabled=0、DisableDynamicPstate=1 以阻止 AMD GPU 电源状态转换。保持恒定频率，代价是更高的空闲功耗</value>
+    <value>通过防止自动断开内部组件供电，维持稳定的 GPU 性能。</value>
   </data>
     <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
     <value>禁用 AMD 视频时钟门控</value>
   </data>
     <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-    <value>为 AMD 视频引擎（VCE/UVD）设置 DisableVCEPowerGating=1、DisableVceClockGating=1、EnableUvdClockGating=0，提升编解码稳定性。增加视频播放功耗</value>
+    <value>通过保持视频引擎频率就绪，增强视频处理的稳定性。</value>
   </data>
     <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
     <value>禁用 AMD ASPM</value>
   </data>
     <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
-    <value>设置 EnableAspmL0s=0、EnableAspmL1=0 以在 AMD GPU 上禁用主动状态电源管理，降低 PCIe 总线延迟。增加插槽功耗</value>
+    <value>降低 AMD 显卡的 PCIe 通信延迟，提升响应速度。</value>
   </data>
     <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
-    <value>禁用 NVIDIA 动态 P-State</value>
+    <value>锁定 NVIDIA 电源状态</value>
   </data>
     <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
-    <value>设置 DisableDynamicPstate=1 以将 NVIDIA GPU 锁定在固定性能状态，防止频率波动。增加空闲功耗</value>
+    <value>防止 NVIDIA GPU 自动更改能级，以维持最一致的性能表现。</value>
   </data>
     <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
-    <value>禁用 NVIDIA 异步 P-State</value>
+    <value>禁用异步 P-States</value>
   </data>
     <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
-    <value>设置 DisableASyncPstates=1 以阻止 NVIDIA 异步电源状态切换，为 VR/实时应用提供确定性性能</value>
+    <value>关闭异步能效状态切换，以获得极致的稳定性。</value>
   </data>
     <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
-    <value>禁用 Intel 异步翻转</value>
+    <value>启用 Intel 图像同步</value>
   </data>
     <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
-    <value>设置 Display1_DisableAsyncFlips=1 以在 Intel 核显上强制同步缓冲区翻转，降低输入到显示延迟并减少画面撕裂</value>
+    <value>使用同步帧刷新机制降低显示延迟，并限制画面撕裂。</value>
   </data>
     <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
-    <value>禁用 Intel 自适应垂直同步</value>
+    <value>禁用自适应垂直同步</value>
   </data>
     <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
-    <value>设置 AdaptiveVsyncEnable=0 以禁用 Intel 根据帧率动态调整的自适应垂直同步，改用固定垂直同步以获得稳定时序</value>
+    <value>通过关闭 Intel 的自适应垂直同步功能，维持固定的帧生成时间。</value>
   </data>
 
     <!-- User Experience -->
     <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.Name" xml:space="preserve">
-    <value>禁用任务栏资讯和兴趣</value>
+    <value>禁用资讯和兴趣</value>
   </data>
     <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.ShortDescription" xml:space="preserve">
-    <value>设置 AllowNewsAndInterests=0、EnableFeeds=0 以从任务栏移除资讯和兴趣小组件，消除 MSN 订阅后台更新</value>
+    <value>从任务栏移除资讯组件，减少分心并减轻系统负担。</value>
   </data>
     <data name="Optimizer.UserExperience.DisableTaskbarExtraButtons.Name" xml:space="preserve">
-    <value>禁用任务栏额外按钮</value>
+    <value>隐藏任务栏无用按钮</value>
   </data>
     <data name="Optimizer.UserExperience.DisableTaskbarExtraButtons.ShortDescription" xml:space="preserve">
-    <value>设置 TaskbarDa=0（小组件）、TaskbarMn=0（聊天）、ShowTaskViewButton=0 以隐藏任务栏按钮，实现极简界面</value>
+    <value>隐藏小组件、聊天和任务视图按钮，使任务栏更整洁。</value>
   </data>
     <data name="Optimizer.UserExperience.DisableTaskbarSearchAndBing.Name" xml:space="preserve">
     <value>禁用任务栏搜索和 Bing</value>
   </data>
     <data name="Optimizer.UserExperience.DisableTaskbarSearchAndBing.ShortDescription" xml:space="preserve">
-    <value>设置 SearchboxTaskbarMode=0、BingSearchEnabled=0 以从任务栏移除搜索框，禁用开始菜单中的 Bing 网络搜索</value>
+    <value>移除搜索框并禁用 Bing 搜索结果，让任务栏和开始菜单更清爽。</value>
   </data>
     <data name="Optimizer.UserExperience.RemoveMeetNowAndPeople.Name" xml:space="preserve">
-    <value>移除 Meet Now 和 People</value>
+    <value>移除 Meet Now 与 People</value>
   </data>
     <data name="Optimizer.UserExperience.RemoveMeetNowAndPeople.ShortDescription" xml:space="preserve">
-    <value>设置 HideSCAMeetNow=1、PeopleBand=0 以从任务栏通知区域移除 Meet Now（Skype）和 People 图标</value>
+    <value>从系统托盘中移除 Meet Now 和 People 图标，减少视觉干扰。</value>
   </data>
     <data name="Optimizer.UserExperience.EnableTaskbarEndTask.Name" xml:space="preserve">
-    <value>启用任务栏结束任务</value>
+    <value>启用“结束任务”功能</value>
   </data>
     <data name="Optimizer.UserExperience.EnableTaskbarEndTask.ShortDescription" xml:space="preserve">
-    <value>设置 TaskbarEndTask=1 以在任务栏右键菜单添加"结束任务"选项，无需任务管理器即可快速终止进程</value>
+    <value>允许直接从任务栏快速关闭无响应的应用，无需打开任务管理器。</value>
   </data>
     <data name="Optimizer.UserExperience.EnableDarkMode.Name" xml:space="preserve">
-    <value>启用深色模式</value>
+    <value>激活深色模式 (Dark Mode)</value>
   </data>
     <data name="Optimizer.UserExperience.EnableDarkMode.ShortDescription" xml:space="preserve">
-    <value>设置 AppsUseLightTheme=0、SystemUsesLightTheme=0 以为系统应用、设置和 shell 元素启用深色模式</value>
+    <value>将系统和应用切换至深色界面，以缓解眼部疲劳并节省能源。</value>
   </data>
     <data name="Optimizer.UserExperience.DisableExplorerAndSystemNotifications.Name" xml:space="preserve">
-    <value>禁用资源管理器和系统通知</value>
+    <value>禁用烦人的系统通知</value>
   </data>
     <data name="Optimizer.UserExperience.DisableExplorerAndSystemNotifications.ShortDescription" xml:space="preserve">
-    <value>设置 ShowSyncProviderNotifications=0、SystemPaneSuggestionsEnabled=0、ToastEnabled=0 以禁用 OneDrive 同步广告、Windows 提示和 Toast 通知</value>
+    <value>拦截来自 Windows 的广告、使用提示和其他非必要通知。</value>
   </data>
     <data name="Optimizer.UserExperience.ShowFileExtensionsAndHiddenFiles.Name" xml:space="preserve">
-    <value>显示文件扩展名和隐藏文件</value>
+    <value>显示扩展名与隐藏文件</value>
   </data>
     <data name="Optimizer.UserExperience.ShowFileExtensionsAndHiddenFiles.ShortDescription" xml:space="preserve">
-    <value>在资源管理器中设置 HideFileExt=0、Hidden=1 以显示文件扩展名并显示隐藏/系统文件以提高透明度</value>
+    <value>始终显示文件扩展名和隐藏的系统文件，方便系统管理。</value>
   </data>
     <data name="Optimizer.UserExperience.EnableClassicContextMenu.Name" xml:space="preserve">
-    <value>启用经典上下文菜单（Windows 11）</value>
+    <value>使用经典右键菜单</value>
   </data>
     <data name="Optimizer.UserExperience.EnableClassicContextMenu.ShortDescription" xml:space="preserve">
-    <value>在 CLSID {86ca1aa0-34aa-4e8b-a509-50c905bae2a2} 创建 InprocServer32 键，在 Windows 11 上恢复 Windows 10 风格完整上下文菜单</value>
+    <value>在 Windows 11 上恢复 Windows 10 风格的完整右键菜单。</value>
   </data>
     <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
-    <value>加速资源管理器和菜单</value>
+    <value>加速资源管理器与菜单</value>
   </data>
     <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
-    <value>设置 StartupDelayInMSec=0、MenuShowDelay=0 以消除资源管理器启动延迟，将菜单悬停延迟降至最小</value>
+    <value>消除打开文件夹和显示菜单时的延迟，使界面响应瞬时化。</value>
   </data>
     <data name="Optimizer.UserExperience.ShowSecondsInSystemClock.Name" xml:space="preserve">
-    <value>在系统时钟显示秒数</value>
+    <value>时钟显示秒数</value>
   </data>
     <data name="Optimizer.UserExperience.ShowSecondsInSystemClock.ShortDescription" xml:space="preserve">
-    <value>设置 ShowSecondsInSystemClock=1 以在任务栏时钟显示秒数，实现精确时间监控</value>
+    <value>在任务栏系统时钟中增加秒数显示，方便精确计时。</value>
   </data>
     <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
-    <value>禁用视觉效果</value>
+    <value>禁用动画效果</value>
   </data>
     <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
-    <value>设置 TaskbarAnimations=0、ListviewShadow=0、EnableTransparency=0、EnableAeroPeek=0 以禁用动画、阴影、透明度，提升 UI 响应速度</value>
+    <value>关闭窗口动画、阴影和透明效果，以获得最极致的界面速度。</value>
   </data>
 
     <!-- Dialogs -->

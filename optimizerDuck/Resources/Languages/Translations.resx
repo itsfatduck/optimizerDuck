@@ -453,82 +453,82 @@ Current version: {0}]]></value>
     <value>Bloatware &amp; Services</value>
   </data>
   <data name="Optimizer.Performance.DisableBackgroundApps.Name" xml:space="preserve">
-        <value>Disable Background App Activity</value>
+        <value>Disable Background Apps</value>
     </data>
   <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
-    <value>Prevents UWP apps from running background tasks, reducing memory pressure and CPU usage during idle periods.</value>
+    <value>Prevents inactive applications from running in the background to free up RAM and reduce CPU overhead.</value>
   </data>
   <data name="Optimizer.Performance.SvcHostSplit.Name" xml:space="preserve">
-        <value>Enable Service Host Splitting</value>
+        <value>Optimize Service Isolation</value>
     </data>
   <data name="Optimizer.Performance.SvcHostSplit.Error.InvalidRAM" xml:space="preserve">
     <value>Invalid RAM: {0}</value>
   </data>
   <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
-        <value>Enable Foreground Boost</value>
+        <value>Prioritize Active Applications</value>
     </data>
   <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
-    <value>Configures Win32PrioritySeparation to 38 (Short, Variable, High foreground boost), prioritizing active applications and reducing input latency.</value>
+    <value>Allocates more CPU resources to the application you are currently using for a faster, more responsive experience.</value>
   </data>
   <data name="Optimizer.Performance.GameTaskScheduling.Name" xml:space="preserve">
-        <value>Enable Game Task Priority</value>
+        <value>Optimize Game Scheduling</value>
     </data>
   <data name="Optimizer.Performance.GameTaskScheduling.ShortDescription" xml:space="preserve">
-    <value>Configures MMCSS "Games" task profile with High scheduling category and elevated GPU/IO priority for consistent frame pacing.</value>
+    <value>Assigns high priority to gaming workloads to ensure consistent frames per second (FPS) and smoother gameplay.</value>
   </data>
   <data name="Optimizer.Performance.MultimediaResponsiveness.Name" xml:space="preserve">
-        <value>Optimize MMCSS Responsiveness</value>
+        <value>Optimize Multimedia Response</value>
     </data>
   <data name="Optimizer.Performance.MultimediaResponsiveness.ShortDescription" xml:space="preserve">
-    <value>Minimizes MMCSS latency by setting SystemResponsiveness to 10 and disabling network throttling (0xFFFFFFFF) for real-time workloads.</value>
+    <value>Reduces latency for audio, video, and network tasks to improve real-time media and gaming performance.</value>
   </data>
   <data name="Optimizer.Performance.DisableGameBar.Name" xml:space="preserve">
         <value>Disable Xbox Game Bar</value>
     </data>
   <data name="Optimizer.Performance.DisableGameBar.ShortDescription" xml:space="preserve">
-    <value>Disables Xbox Game Bar overlays, startup tips, and hotkey integration to eliminate background capture overhead.</value>
+    <value>Disables Xbox Game Bar overlays and background features to save system resources while gaming.</value>
   </data>
   <data name="Optimizer.Performance.EnableGameMode.Name" xml:space="preserve">
     <value>Enable Game Mode</value>
   </data>
   <data name="Optimizer.Performance.EnableGameMode.ShortDescription" xml:space="preserve">
-    <value>Activates Windows Game Mode via registry to automatically prioritize game processes and suppress Windows Update notifications during gameplay.</value>
+    <value>Activates Windows Game Mode to prioritize game processes and prevent interruptions from Windows Update.</value>
   </data>
   <data name="Optimizer.Performance.DisableGameDVR.Name" xml:space="preserve">
-        <value>Disable Game DVR Recording</value>
+        <value>Disable Background Recording</value>
     </data>
   <data name="Optimizer.Performance.DisableGameDVR.ShortDescription" xml:space="preserve">
-    <value>Completely disables Game DVR background recording (AppCaptureEnabled, GameDVR_Enabled, AllowGameDVR policies) to eliminate capture overhead.</value>
+    <value>Turns off automatic background game recording (DVR) to reclaim lost performance and disk bandwidth.</value>
   </data>
   <data name="Optimizer.Performance.DisableMouseAcceleration.Name" xml:space="preserve">
         <value>Disable Mouse Acceleration</value>
     </data>
   <data name="Optimizer.Performance.DisableMouseAcceleration.ShortDescription" xml:space="preserve">
-    <value>Sets MouseSpeed to 0 and clears acceleration thresholds, providing 1:1 physical-to-screen cursor movement for precise gaming.</value>
+    <value>Disables Windows' automatic mouse speed adjustment for precise, 1:1 cursor movement.</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
-        <value>Optimize Keyboard Responsiveness</value>
+        <value>Optimize Keyboard Response</value>
     </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
-    <value>Minimizes keyboard delay (0) and maximizes repeat rate (31), disables StickyKeys/FilterKeys accessibility delays for rapid input.</value>
+    <value>Reduces keyboard input delay and increases repeat rate for faster, more responsive typing and gaming.</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableHibernate.Name" xml:space="preserve">
-        <value>Disable Hibernate &amp; Fast Startup</value>
+        <value>Disable Hibernation &amp; Fast Startup</value>
     </data>
   <data name="Optimizer.PowerManagement.DisableHibernate.ShortDescription" xml:space="preserve">
-    <value>Disables Hibernate (HibernateEnabled=0) and Fast Startup (HiberbootEnabled=0), removes hiberfile.sys to reclaim disk space.</value>
+    <value>Turns off Hibernation and Fast Startup to reclaim several gigabytes of disk space and ensure a fresh system boot.</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
         <value>Disable USB Power Saving</value>
     </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
-    <value>Disables USB selective suspend on all root hubs via MSPower_DeviceEnable WMI to prevent input device latency. Increases laptop power draw.</value>
+    <value>Prevents Windows from powering down USB ports, eliminating wake-up delays for mice, keyboards, and other peripherals.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
-    <value>Install optimizerDuck's Power Plan</value>
+    <value>Apply Optimized Power Plan</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
-    <value>Downloads, imports, and activates the optimizerDuck power plan to prioritize maximum performance. May increase power use, heat, and fan noise.</value>
+    <value>Installs a custom performance-focused power plan to ensure your system always runs at maximum speed.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Downloading" xml:space="preserve">
     <value>Downloading power plan...</value>
@@ -537,22 +537,22 @@ Current version: {0}]]></value>
     <value>Importing and activating power plan...</value>
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
-        <value>Disable Power Throttling</value>
+        <value>Disable System Power Throttling</value>
     </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
-    <value>Disables CPU power throttling (PowerThrottlingOff=1), forces multimedia system profile to AlwaysOn, disables USB surprise removal recovery.</value>
+    <value>Prevents Windows from limiting CPU performance (Power Throttling) to maintain peak power for active tasks.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableUAC.Name" xml:space="preserve">
-        <value>Disable UAC Prompts</value>
+        <value>Disable Admin Prompts (UAC)</value>
     </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableUAC.ShortDescription" xml:space="preserve">
-    <value>Sets EnableLUA=0 to disable User Account Control elevation prompts, allowing silent admin execution. Significantly reduces system security.</value>
+    <value>Turns off User Account Control (UAC) windows that ask for permission when running apps as administrator.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
-        <value>Reduce Telemetry &amp; Feedback</value>
+        <value>Disable Data Collection (Telemetry)</value>
     </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
-    <value>Applies comprehensive anti-telemetry policies: disables DiagTrack, dmwappushservice, WerSvc services; disables 14+ telemetry scheduled tasks; blocks 50+ telemetry registry keys including AllowTelemetry, AdvertisingInfo, Location tracking.</value>
+    <value>Disables Windows telemetry and usage tracking services to enhance your personal privacy and reduce background activity.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
     <value>Applying policy and registry changes...</value>
@@ -564,40 +564,40 @@ Current version: {0}]]></value>
     <value>Disabling scheduled telemetry tasks...</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.Name" xml:space="preserve">
-    <value>Disable WMI AutoLogger</value>
+    <value>Disable Background Logging</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
-    <value>Stops 12 WMI AutoLogger sessions (Diagtrack-Listener, SQMLogger, WdiContextLog, etc.) by setting Start=0, reducing kernel-level event collection.</value>
+    <value>Stops non-essential system event logging to reduce continuous disk activity and save CPU cycles.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
         <value>Disable Cortana &amp; Web Search</value>
     </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
-    <value>Blocks Cortana via AllowCortana=0, AllowCloudSearch=0 policies and disables web search integration in Windows Search.</value>
+    <value>Turns off the Cortana voice assistant and removes Bing web results from the Windows Search bar.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
         <value>Disable Windows Copilot</value>
     </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
-    <value>Applies TurnOffWindowsCopilot=1 policies, hides Copilot button from taskbar, blocks shell extension {CB3B0003-8088-4EDE-8769-8B354AB2FF8C}.</value>
+    <value>Removes the AI Copilot assistant from the taskbar and system shell to free up memory and screen space.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
-        <value>Disable Content Delivery</value>
+        <value>Disable Ads &amp; Suggestions</value>
     </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
-    <value>Disables Content Delivery Manager (ContentDeliveryAllowed=0, SubscribedContent-*=0), stopping suggested apps, tips, and promotional content in Settings/Start.</value>
+    <value>Blocks Windows from automatically installing promoted apps (bloatware) and showing suggestions in the Start menu.</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
-        <value>Block Preinstalled Apps</value>
+        <value>Block Preinstalled Bloatware</value>
     </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
-    <value>Sets PreInstalledAppsEnabled=0, OemPreInstalledAppsEnabled=0, SilentInstalledAppsEnabled=0 to prevent automatic installation of OEM bloatware and promoted apps.</value>
+    <value>Prevents Windows from automatically re-installing unwanted third-party apps and promoted software.</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
-        <value>Optimize Service Startup</value>
+        <value>Optimize System Services</value>
     </data>
   <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
-    <value>Configures 100+ Windows services startup types: disables telemetry services (DiagTrack, DcpSvc), sets non-critical services to Manual, keeps essential services (Audio, Networking, Security) as Automatic. Reduces background RAM/CPU usage.</value>
+    <value>Adjusts non-essential background services to free up resources while maintaining all necessary Windows functionality.</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType" xml:space="preserve">
     <value>Setting startup type for {0} to {1}...</value>

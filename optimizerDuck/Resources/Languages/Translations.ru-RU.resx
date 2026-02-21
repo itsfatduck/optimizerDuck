@@ -295,67 +295,67 @@
 
     <!-- Performance Optimizations -->
     <data name="Optimizer.Performance.DisableBackgroundApps.Name" xml:space="preserve">
-    <value>Отключить фоновую активность приложений</value>
+    <value>Отключить фоновые приложения</value>
   </data>
     <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
-    <value>Предотвращает выполнение фоновых задач UWP-приложениями, снижая нагрузку на память и CPU в периоды простоя</value>
+    <value>Запрещает неактивным приложениям работать в фоне, освобождая ОЗУ и снижая нагрузку на процессор.</value>
   </data>
     <data name="Optimizer.Performance.SvcHostSplit.Name" xml:space="preserve">
-    <value>Включить разделение Service Host</value>
+    <value>Оптимизировать изоляцию служб</value>
   </data>
     <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
-    <value>Устанавливает порог разделения Service Host равным общему объёму системной памяти, принудительно изолируя службы в отдельные процессы для повышения стабильности</value>
+    <value>Разделяет системные службы на отдельные процессы для значительного повышения стабильности Windows.</value>
   </data>
     <data name="Optimizer.Performance.SvcHostSplit.Error.InvalidRAM" xml:space="preserve">
     <value>Недействительный объём памяти: {0}</value>
   </data>
     <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
-    <value>Включить повышение приоритета foreground</value>
+    <value>Приоритет активных приложений</value>
   </data>
     <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
-    <value>Настраивает Win32PrioritySeparation на 38 (короткий переменный квант, высокое повышение foreground), приоритизируя активные приложения и снижая задержку ввода</value>
+    <value>Выделяет больше ресурсов процессора приложению, которое вы используете, для более быстрой работы.</value>
   </data>
     <data name="Optimizer.Performance.GameTaskScheduling.Name" xml:space="preserve">
-    <value>Включить приоритет игровых задач</value>
+    <value>Оптимизировать игровое планирование</value>
   </data>
     <data name="Optimizer.Performance.GameTaskScheduling.ShortDescription" xml:space="preserve">
-    <value>Настраивает профиль задач MMCSS "Games" на категорию High с повышенным GPU/IO приоритетом для стабильного кадрового pacing</value>
+    <value>Назначает высокий приоритет игровым процессам для обеспечения стабильного FPS и плавного геймплея.</value>
   </data>
     <data name="Optimizer.Performance.MultimediaResponsiveness.Name" xml:space="preserve">
-    <value>Оптимизировать отзывчивость MMCSS</value>
+    <value>Оптимизировать отклик мультимедиа</value>
   </data>
     <data name="Optimizer.Performance.MultimediaResponsiveness.ShortDescription" xml:space="preserve">
-    <value>Минимизирует задержку MMCSS, устанавливая SystemResponsiveness в 10 и отключая сетевое регулирование (0xFFFFFFFF) для real-time нагрузок</value>
+    <value>Снижает задержки для звука, видео и сети, улучшая работу медиа и игр в реальном времени.</value>
   </data>
     <data name="Optimizer.Performance.DisableGameBar.Name" xml:space="preserve">
     <value>Отключить Xbox Game Bar</value>
   </data>
     <data name="Optimizer.Performance.DisableGameBar.ShortDescription" xml:space="preserve">
-    <value>Отключает оверлеи Xbox Game Bar, стартовые подсказки и интеграцию горячих клавиш, устраняя накладные расходы фонового захвата</value>
+    <value>Отключает оверлеи и фоновые функции Game Bar для экономии ресурсов системы во время игры.</value>
   </data>
     <data name="Optimizer.Performance.EnableGameMode.Name" xml:space="preserve">
     <value>Включить игровой режим</value>
   </data>
     <data name="Optimizer.Performance.EnableGameMode.ShortDescription" xml:space="preserve">
-    <value>Активирует игровой режим Windows через реестр для автоматической приоритизации игровых процессов и подавления уведомлений Windows Update во время игры</value>
+    <value>Активирует Игровой режим Windows для приоритизации игр и предотвращения прерываний от Центра обновлений.</value>
   </data>
     <data name="Optimizer.Performance.DisableGameDVR.Name" xml:space="preserve">
-    <value>Отключить запись Game DVR</value>
+    <value>Отключить фоновую запись</value>
   </data>
     <data name="Optimizer.Performance.DisableGameDVR.ShortDescription" xml:space="preserve">
-    <value>Полностью отключает фоновую запись Game DVR (AppCaptureEnabled, GameDVR_Enabled, политики AllowGameDVR), устраняя накладные расходы захвата</value>
+    <value>Выключает автоматическую запись игрового процесса в фоне для возврата потерянной производительности.</value>
   </data>
     <data name="Optimizer.Performance.DisableMouseAcceleration.Name" xml:space="preserve">
-    <value>Отключить акселерацию мыши</value>
+    <value>Отключить ускорение мыши</value>
   </data>
     <data name="Optimizer.Performance.DisableMouseAcceleration.ShortDescription" xml:space="preserve">
-    <value>Устанавливает MouseSpeed в 0 и сбрасывает пороги акселерации, обеспечивая соответствие 1:1 физического перемещения и движения курсора для точного игрового управления</value>
+    <value>Выключает автоматическую подстройку скорости мыши Windows для точного перемещения курсора 1:1.</value>
   </data>
     <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
-    <value>Оптимизировать отзывчивость клавиатуры</value>
+    <value>Оптимизировать отклик клавиатуры</value>
   </data>
     <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
-    <value>Минимизирует задержку клавиатуры (0) и максимизирует скорость повтора (31), отключает задержки специальных возможностей StickyKeys/FilterKeys для быстрого ввода</value>
+    <value>Снижает задержку ввода и ускоряет повтор клавиш для более быстрого набора текста и реакции в играх.</value>
   </data>
 
     <!-- Power Management -->
@@ -363,19 +363,19 @@
     <value>Отключить гибернацию и быстрый запуск</value>
   </data>
     <data name="Optimizer.PowerManagement.DisableHibernate.ShortDescription" xml:space="preserve">
-    <value>Отключает гибернацию (HibernateEnabled=0) и быстрый запуск (HiberbootEnabled=0), удаляет hiberfile.sys для освобождения дискового пространства</value>
+    <value>Выключает гибернацию и быстрый запуск для очистки нескольких ГБ места на диске и «чистой» загрузки.</value>
   </data>
     <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
-    <value>Отключить энергосбережение USB</value>
+    <value>Запретить отключение USB портов</value>
   </data>
     <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
-    <value>Отключает выборочное приостановление USB на всех корневых хабах через WMI MSPower_DeviceEnable, предотвращая задержку устройств ввода. Увеличивает энергопотребление ноутбука</value>
+    <value>Предотвращает отключение питания USB-портов системой, устраняя задержки пробуждения мыши и клавиатуры.</value>
   </data>
     <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
-    <value>Установить план питания optimizerDuck</value>
+    <value>Применить оптимальную схему питания</value>
   </data>
-    <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
-    <value>Загружает, импортирует и активирует план питания optimizerDuck для максимальной производительности. Может увеличить энергопотребление, нагрев и шум вентиляторов</value>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
+    <value>Устанавливает специальную схему питания для обеспечения максимальной производительности системы.</value>
   </data>
     <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Downloading" xml:space="preserve">
     <value>Загрузка плана питания...</value>
@@ -397,24 +397,24 @@
     <value>Ошибка активации плана питания optimizerDuck</value>
   </data>
     <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
-    <value>Отключить регулирование питания</value>
+    <value>Отключить ограничение питания CPU</value>
   </data>
     <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
-    <value>Отключает регулирование питания CPU (PowerThrottlingOff=1), принудительно устанавливает профиль мультимедиа в AlwaysOn, отключает восстановление при неожиданном отключении USB</value>
+    <value>Запрещает Windows ограничивать производительность процессора для сохранения полной мощности.</value>
   </data>
 
     <!-- Security & Privacy -->
     <data name="Optimizer.SecurityAndPrivacy.DisableUAC.Name" xml:space="preserve">
-    <value>Отключить запросы UAC</value>
+    <value>Отключить уведомления UAC (Админ)</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableUAC.ShortDescription" xml:space="preserve">
-    <value>Устанавливает EnableLUA=0 для отключения запросов повышения прав UAC, разрешая тихое выполнение с правами администратора. Значительно снижает безопасность системы</value>
+    <value>Выключает окна контроля учетных записей (UAC), запрашивающие разрешение при запуске программ.</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
-    <value>Сократить телеметрию и отзывы</value>
+    <value>Отключить сбор данных (Телеметрия)</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
-    <value>Применяет комплексные антителеметричные политики: отключает службы DiagTrack, dmwappushservice, WerSvc; отключает 14+ телеметричных плановых задач; блокирует 50+ телеметричных ключей реестра включая AllowTelemetry, AdvertisingInfo, отслеживание местоположения</value>
+    <value>Отключает службы отслеживания Windows для повышения приватности и снижения фоновой активности.</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
     <value>Применение политик и изменений реестра...</value>
@@ -426,42 +426,42 @@
     <value>Отключение плановых телеметричных задач...</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.Name" xml:space="preserve">
-    <value>Отключить WMI AutoLogger</value>
+    <value>Отключить системные журналы</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
-    <value>Останавливает 12 сессий WMI AutoLogger (Diagtrack-Listener, SQMLogger, WdiContextLog и др.), устанавливая Start=0, снижая сбор событий на уровне ядра</value>
+    <value>Останавливает сбор необязательных журналов событий для снижения активности диска и нагрузки на ЦП.</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
-    <value>Отключить Cortana и веб-поиск</value>
+    <value>Отключить Cortana и поиск в сети</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
-    <value>Блокирует Cortana через политики AllowCortana=0, AllowCloudSearch=0 и отключает интеграцию веб-поиска в Windows Search</value>
+    <value>Выключает помощника Cortana и убирает результаты поиска Bing из панели задач Windows.</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
     <value>Отключить Windows Copilot</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
-    <value>Применяет политики TurnOffWindowsCopilot=1, скрывает кнопку Copilot с панели задач, блокирует shell-расширение {CB3B0003-8088-4EDE-8769-8B354AB2FF8C}</value>
+    <value>Удаляет ИИ-помощника Copilot с панели задач и из системы для экономии ресурсов и места на экране.</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
-    <value>Отключить доставку контента</value>
+    <value>Отключить рекламу и советы</value>
   </data>
     <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
-    <value>Отключает Content Delivery Manager (ContentDeliveryAllowed=0, SubscribedContent-*=0), останавливая рекомендуемые приложения, подсказки и промо-контент в Параметрах/Пуске</value>
+    <value>Блокирует автоматическую установку рекламных приложений и показ советов в меню «Пуск». </value>
   </data>
 
     <!-- Bloatware & Services -->
     <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
-    <value>Блокировать предустановленные приложения</value>
+    <value>Блокировать предустановленный софт</value>
   </data>
     <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
-    <value>Устанавливает PreInstalledAppsEnabled=0, OemPreInstalledAppsEnabled=0, SilentInstalledAppsEnabled=0 для предотвращения автоматической установки OEM-предустановленного ПО и промо-приложений</value>
+    <value>Предотвращает автоматическую переустановку ненужных приложений и встроенного рекламного ПО.</value>
   </data>
     <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
-    <value>Оптимизировать запуск служб</value>
+    <value>Оптимизировать системные службы</value>
   </data>
     <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
-    <value>Настраивает типы запуска 100+ служб Windows: отключает телеметричные службы (DiagTrack, DcpSvc), устанавливает некритичные службы вручную, сохраняет необходимые (аудио, сеть, безопасность) как автоматические. Снижает фоновое использование RAM/CPU</value>
+    <value>Настраивает запуск необязательных служб для экономии ресурсов при сохранении всех функций Windows.</value>
   </data>
     <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType"
           xml:space="preserve">
@@ -470,126 +470,126 @@
 
     <!-- GPU Optimizations -->
     <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
-    <value>Отключить AMD ULPS</value>
+    <value>Включить AMD ULPS</value>
   </data>
     <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
-    <value>Устанавливает EnableULPS=0 в реестре GPU AMD для предотвращения задержек пробуждения из состояния Ultra Low Power State и проблем с несколькими мониторами. Снижает энергосбережение в простое</value>
+    <value>Травля режима ультра-низкого энергопотребления AMD для устранения задержек при пробуждении GPU.</value>
   </data>
     <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
-    <value>Отключить управление питанием AMD</value>
+    <value>Отключить AMD Power Gating</value>
   </data>
     <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
-    <value>Устанавливает DisablePowerGating=1, PP_GPUPowerDownEnabled=0, DisableDynamicPstate=1 для предотвращения переходов GPU AMD между состояниями питания. Поддерживает постоянные частоты за счёт более высокого энергопотребления в простое</value>
+    <value>Поддерживает стабильную производительность GPU, предотвращая автоматическое отключение его компонентов.</value>
   </data>
     <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
-    <value>Отключить тактовое управление видео AMD</value>
+    <value>Отключить AMD Video Clock Gating</value>
   </data>
     <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-    <value>Устанавливает DisableVCEPowerGating=1, DisableVceClockGating=1, EnableUvdClockGating=0 для видеодвижков AMD (VCE/UVD), повышая стабильность кодирования/декодирования. Увеличивает энергопотребление при воспроизведении видео</value>
+    <value>Повышает стабильность обработки видео за счет поддержания готовности видеоядер.</value>
   </data>
     <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
     <value>Отключить AMD ASPM</value>
   </data>
     <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
-    <value>Устанавливает EnableAspmL0s=0, EnableAspmL1=0 для отключения Active State Power Management на GPU AMD, снижая задержку шины PCIe. Увеличивает энергопотребление слота</value>
+    <value>Снижает задержки шины PCIe для графики AMD, улучшая скорость отклика.</value>
   </data>
     <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
-    <value>Отключить динамические P-State NVIDIA</value>
+    <value>Зафиксировать питание NVIDIA</value>
   </data>
     <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
-    <value>Устанавливает DisableDynamicPstate=1 для фиксации GPU NVIDIA в состоянии постоянной производительности, предотвращая колебания частот. Увеличивает энергопотребление в простое</value>
+    <value>Предотвращает автоматическое изменение уровней энергии GPU NVIDIA для стабильной производительности.</value>
   </data>
     <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
-    <value>Отключить асинхронные P-State NVIDIA</value>
+    <value>Отключить Async P-States</value>
   </data>
     <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
-    <value>Устанавливает DisableASyncPstates=1 для предотвращения асинхронного переключения состояний питания NVIDIA, обеспечивая детерминированную производительность для VR/real-time приложений</value>
+    <value>Выключает асинхронное переключение состояний питания для достижения максимальной стабильности.</value>
   </data>
     <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
-    <value>Отключить асинхронные переключения Intel</value>
+    <value>Включить синхронизацию Intel</value>
   </data>
     <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
-    <value>Устанавливает Display1_DisableAsyncFlips=1 для принудительного синхронного переключения буферов на Intel iGPU, снижая задержку от ввода до отображения и уменьшая разрывы кадров</value>
+    <value>Использует синхронное обновление кадров для снижения задержки отображения и разрывов экрана.</value>
   </data>
     <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
-    <value>Отключить адаптивную вертикальную синхронизацию Intel</value>
+    <value>Отключить Adaptive V-Sync</value>
   </data>
     <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
-    <value>Устанавливает AdaptiveVsyncEnable=0 для отключения адаптивной вертикальной синхронизации Intel, которая динамически регулируется под частоту кадров, используя фиксированную вертикальную синхронизацию для стабильного тайминга</value>
+    <value>Поддерживает стабильное время кадра, отключая адаптивную вертикальную синхронизацию Intel.</value>
   </data>
 
     <!-- User Experience -->
     <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.Name" xml:space="preserve">
-    <value>Отключить Новости и Интересы на панели задач</value>
+    <value>Отключить Новости и Интересы</value>
   </data>
     <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.ShortDescription" xml:space="preserve">
-    <value>Устанавливает AllowNewsAndInterests=0, EnableFeeds=0 для удаления виджета Новости и Интересы с панели задач, устраняя фоновые обновления ленты MSN</value>
+    <value>Удаляет виджет новостей с панели задач для снижения отвлекающих факторов и нагрузки.</value>
   </data>
     <data name="Optimizer.UserExperience.DisableTaskbarExtraButtons.Name" xml:space="preserve">
-    <value>Отключить дополнительные кнопки панели задач</value>
+    <value>Скрыть лишние кнопки панели задач</value>
   </data>
     <data name="Optimizer.UserExperience.DisableTaskbarExtraButtons.ShortDescription" xml:space="preserve">
-    <value>Устанавливает TaskbarDa=0 (Виджеты), TaskbarMn=0 (Чат), ShowTaskViewButton=0 для скрытия кнопок панели задач, создавая минималистичный интерфейс</value>
+    <value>Очищает панель задач, скрывая кнопки Виджетов, Чата и Представления задач.</value>
   </data>
     <data name="Optimizer.UserExperience.DisableTaskbarSearchAndBing.Name" xml:space="preserve">
     <value>Отключить поиск и Bing на панели задач</value>
   </data>
     <data name="Optimizer.UserExperience.DisableTaskbarSearchAndBing.ShortDescription" xml:space="preserve">
-    <value>Устанавливает SearchboxTaskbarMode=0, BingSearchEnabled=0 для удаления поля поиска с панели задач и отключения веб-поиска Bing в меню Пуск</value>
+    <value>Удаляет поле поиска и отключает результаты Bing для чистоты панели задач и меню «Пуск».</value>
   </data>
     <data name="Optimizer.UserExperience.RemoveMeetNowAndPeople.Name" xml:space="preserve">
     <value>Удалить Meet Now и Люди</value>
   </data>
     <data name="Optimizer.UserExperience.RemoveMeetNowAndPeople.ShortDescription" xml:space="preserve">
-    <value>Устанавливает HideSCAMeetNow=1, PeopleBand=0 для удаления иконок Meet Now (Skype) и Люди из области уведомлений панели задач</value>
+    <value>Удаляет иконки Meet Now и Люди из системного трея для уменьшения загроможденности.</value>
   </data>
     <data name="Optimizer.UserExperience.EnableTaskbarEndTask.Name" xml:space="preserve">
-    <value>Включить завершение задач на панели задач</value>
+    <value>Включить функцию «Завершить задачу»</value>
   </data>
     <data name="Optimizer.UserExperience.EnableTaskbarEndTask.ShortDescription" xml:space="preserve">
-    <value>Устанавливает TaskbarEndTask=1 для добавления опции "Завершить задачу" в контекстное меню панели задач, позволяя быстро завершать процессы без Диспетчера задач</value>
+    <value>Позволяет быстро закрывать зависшие приложения прямо с панели задач без Диспетчера задач.</value>
   </data>
     <data name="Optimizer.UserExperience.EnableDarkMode.Name" xml:space="preserve">
-    <value>Включить тёмный режим</value>
+    <value>Включить тёмный режим (Dark Mode)</value>
   </data>
     <data name="Optimizer.UserExperience.EnableDarkMode.ShortDescription" xml:space="preserve">
-    <value>Устанавливает AppsUseLightTheme=0, SystemUsesLightTheme=0 для включения тёмного режима в системных приложениях, Параметрах и элементах оболочки</value>
+    <value>Переводит систему и приложения на темную тему для снижения нагрузки на глаза и экономии энергии.</value>
   </data>
     <data name="Optimizer.UserExperience.DisableExplorerAndSystemNotifications.Name" xml:space="preserve">
-    <value>Отключить уведомления Проводника и системы</value>
+    <value>Отключить навязчивые уведомления</value>
   </data>
     <data name="Optimizer.UserExperience.DisableExplorerAndSystemNotifications.ShortDescription" xml:space="preserve">
-    <value>Устанавливает ShowSyncProviderNotifications=0, SystemPaneSuggestionsEnabled=0, ToastEnabled=0 для отключения рекламы синхронизации OneDrive, подсказок Windows и всплывающих уведомлений</value>
+    <value>Блокирует рекламу, советы по использованию и другие ненужные уведомления Windows.</value>
   </data>
     <data name="Optimizer.UserExperience.ShowFileExtensionsAndHiddenFiles.Name" xml:space="preserve">
     <value>Показывать расширения и скрытые файлы</value>
   </data>
     <data name="Optimizer.UserExperience.ShowFileExtensionsAndHiddenFiles.ShortDescription" xml:space="preserve">
-    <value>В Проводнике устанавливает HideFileExt=0, Hidden=1 для отображения расширений файлов и показа скрытых/системных файлов для прозрачности</value>
+    <value>Включает отображение расширений имен файлов и скрытых папок для удобства управления.</value>
   </data>
     <data name="Optimizer.UserExperience.EnableClassicContextMenu.Name" xml:space="preserve">
-    <value>Включить классическое контекстное меню (Windows 11)</value>
+    <value>Использовать классическое меню</value>
   </data>
     <data name="Optimizer.UserExperience.EnableClassicContextMenu.ShortDescription" xml:space="preserve">
-    <value>Создаёт ключ InprocServer32 в CLSID {86ca1aa0-34aa-4e8b-a509-50c905bae2a2} для восстановления полного контекстного меню в стиле Windows 10 на Windows 11</value>
+    <value>Восстанавливает полное контекстное меню в стиле Windows 10 на Windows 11.</value>
   </data>
     <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
     <value>Ускорить Проводник и меню</value>
   </data>
     <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
-    <value>Устанавливает StartupDelayInMSec=0, MenuShowDelay=0 для устранения задержки запуска Проводника и минимизации задержки при наведении на меню</value>
+    <value>Убирает задержку при открытии папок и показе меню для мгновенной реакции интерфейса.</value>
   </data>
     <data name="Optimizer.UserExperience.ShowSecondsInSystemClock.Name" xml:space="preserve">
-    <value>Показывать секунды в системных часах</value>
+    <value>Показывать секунды в часах</value>
   </data>
     <data name="Optimizer.UserExperience.ShowSecondsInSystemClock.ShortDescription" xml:space="preserve">
-    <value>Устанавливает ShowSecondsInSystemClock=1 для отображения секунд в часах на панели задач для точного мониторинга времени</value>
+    <value>Добавляет отображение секунд в системные часы на панели задач для точного отслеживания.</value>
   </data>
     <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
-    <value>Отключить визуальные эффекты</value>
+    <value>Отключить анимации и эффекты</value>
   </data>
     <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
-    <value>Устанавливает TaskbarAnimations=0, ListviewShadow=0, EnableTransparency=0, EnableAeroPeek=0 для отключения анимаций, теней, прозрачности, повышая отзывчивость интерфейса</value>
+    <value>Выключает анимацию окон, тени и прозрачность для максимального быстродействия интерфейса.</value>
   </data>
 
     <!-- Dialogs -->
