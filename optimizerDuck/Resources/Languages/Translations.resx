@@ -875,4 +875,52 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="Dashboard.OptimizationScore.Poor" xml:space="preserve">
     <value>More optimizations are available to boost performance.</value>
   </data>
+  <data name="Common.Search.Placeholder" xml:space="preserve">
+    <value>Search...</value>
+  </data>
+  <data name="Common.Filter.All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Common.SortBy.Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="Common.SortBy.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Common.SortBy.Risk" xml:space="preserve">
+    <value>Risk</value>
+  </data>
+  <data name="Common.SortBy.Publisher" xml:space="preserve">
+    <value>Publisher</value>
+  </data>
+  <data name="Optimizer.Menu.ApplyAllSafe" xml:space="preserve">
+    <value>Apply All Safe</value>
+  </data>
+  <data name="Optimizer.Menu.ApplyAll" xml:space="preserve">
+    <value>Apply Everything</value>
+  </data>
+  <data name="Optimizer.Menu.ViewSource" xml:space="preserve">
+    <value>View Source</value>
+  </data>
+  <data name="Bloatware.Menu.SelectAllSafe" xml:space="preserve">
+    <value>Select All Safe</value>
+  </data>
+  <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
+    <value>Hide Applied</value>
+  </data>
+  <data name="Optimizer.Menu.ApplyMenu" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="Optimizer.Menu.BatchApply.Title" xml:space="preserve">
+    <value>Applying Optimizations</value>
+  </data>
+  <data name="Bloatware.Search.NoResults" xml:space="preserve">
+    <value>No results found. Try a different search term or filter.</value>
+  </data>
+  <data name="Common.Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="Common.SortBy" xml:space="preserve">
+    <value>Sort by</value>
+  </data>
 </root>

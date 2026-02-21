@@ -26,11 +26,22 @@ public partial class BloatwareViewModel : ViewModel
     private readonly ISnackbarService _snackbarService;
     private readonly ILogger<BloatwareViewModel> _logger;
 
+    private readonly List<AppXPackage> _allPackages = [];
     public ObservableCollection<AppXPackage> AppxPackages { get; } = [];
     [ObservableProperty] private bool isLoading;
 
+    // Search, Filter, Sort
+    [ObservableProperty] private string _searchText = string.Empty;
+    [ObservableProperty] private int _selectedRiskFilterIndex; // 0=All, 1=Safe, 2=Caution
+    [ObservableProperty] private int _selectedSortByIndex; // 0=Default, 1=Name, 2=Publisher, 3=Risk
+
+    partial void OnSearchTextChanged(string value) => ApplyFilter();
+    partial void OnSelectedRiskFilterIndexChanged(int value) => ApplyFilter();
+    partial void OnSelectedSortByIndexChanged(int value) => ApplyFilter();
+
     public bool HasSelectedItems => AppxPackages.Any(x => x.IsSelected);
     public int SelectedCount => AppxPackages.Count(x => x.IsSelected);
+    public bool HasData => _allPackages.Count > 0;
 
     public BloatwareViewModel(BloatwareService bloatwareService, IContentDialogService contentDialogService,
         ISnackbarService snackbarService, ILogger<BloatwareViewModel> logger)
@@ -64,9 +75,45 @@ public partial class BloatwareViewModel : ViewModel
 
         IsLoading = true;
         var appxPackages = await _bloatwareService.GetAppXPackagesAsync();
-        foreach (var package in appxPackages)
-            AppxPackages.Add(package);
+        _allPackages.AddRange(appxPackages);
+        ApplyFilter();
         IsLoading = false;
+    }
+
+    private void ApplyFilter()
+    {
+        var query = _allPackages.AsEnumerable();
+
+        // Search
+        if (!string.IsNullOrWhiteSpace(SearchText))
+        {
+            var search = SearchText.Trim();
+            query = query.Where(p =>
+                p.Name.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                p.Publisher.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                p.PackageFullName.Contains(search, StringComparison.OrdinalIgnoreCase));
+        }
+
+        // Filter by risk
+        query = SelectedRiskFilterIndex switch
+        {
+            1 => query.Where(p => p.Risk == AppRisk.Safe),
+            2 => query.Where(p => p.Risk == AppRisk.Caution),
+            _ => query
+        };
+
+        // Sort
+        query = SelectedSortByIndex switch
+        {
+            1 => query.OrderBy(p => p.Name),
+            2 => query.OrderBy(p => p.Publisher),
+            3 => query.OrderBy(p => p.Risk),
+            _ => query
+        };
+
+        AppxPackages.Clear();
+        foreach (var package in query)
+            AppxPackages.Add(package);
     }
 
     #region Commands
@@ -130,13 +177,21 @@ public partial class BloatwareViewModel : ViewModel
     private async Task Refresh()
     {
         IsLoading = true;
+        _allPackages.Clear();
         AppxPackages.Clear();
         UpdateProperties();
 
         var appxPackages = await _bloatwareService.GetAppXPackagesAsync();
-        foreach (var package in appxPackages)
-            AppxPackages.Add(package);
+        _allPackages.AddRange(appxPackages);
+        ApplyFilter();
         IsLoading = false;
+    }
+
+    [RelayCommand]
+    private void SelectAllSafe()
+    {
+        foreach (var package in AppxPackages)
+            package.IsSelected = package.Risk == AppRisk.Safe;
     }
 
     #endregion Commands
@@ -160,6 +215,7 @@ public partial class BloatwareViewModel : ViewModel
     {
         OnPropertyChanged(nameof(HasSelectedItems));
         OnPropertyChanged(nameof(SelectedCount));
+        OnPropertyChanged(nameof(HasData));
     }
 
     #endregion Helpers

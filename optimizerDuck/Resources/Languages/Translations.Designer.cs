@@ -115,6 +115,24 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select All Safe.
+        /// </summary>
+        public static string Bloatware_Menu_SelectAllSafe {
+            get {
+                return ResourceManager.GetString("Bloatware.Menu.SelectAllSafe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No results found. Try a different search term or filter..
+        /// </summary>
+        public static string Bloatware_Search_NoResults {
+            get {
+                return ResourceManager.GetString("Bloatware.Search.NoResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You are about to remove: {0}.
         /// </summary>
         public static string BloatwareDialog_Confirmation_Message {
@@ -286,6 +304,60 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string Common_Filter_All {
+            get {
+                return ResourceManager.GetString("Common.Filter.All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search....
+        /// </summary>
+        public static string Common_Search_Placeholder {
+            get {
+                return ResourceManager.GetString("Common.Search.Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default.
+        /// </summary>
+        public static string Common_SortBy_Default {
+            get {
+                return ResourceManager.GetString("Common.SortBy.Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Common_SortBy_Name {
+            get {
+                return ResourceManager.GetString("Common.SortBy.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publisher.
+        /// </summary>
+        public static string Common_SortBy_Publisher {
+            get {
+                return ResourceManager.GetString("Common.SortBy.Publisher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Risk.
+        /// </summary>
+        public static string Common_SortBy_Risk {
+            get {
+                return ResourceManager.GetString("Common.SortBy.Risk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown.
         /// </summary>
         public static string Common_Unknown {
@@ -408,6 +480,60 @@ namespace optimizerDuck.Resources.Languages {
         public static string Dashboard_Header_Title {
             get {
                 return ResourceManager.GetString("Dashboard.Header.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} of {1} optimizations applied.
+        /// </summary>
+        public static string Dashboard_OptimizationScore_Applied {
+            get {
+                return ResourceManager.GetString("Dashboard.OptimizationScore.Applied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Excellent! Your system is fully optimized..
+        /// </summary>
+        public static string Dashboard_OptimizationScore_Excellent {
+            get {
+                return ResourceManager.GetString("Dashboard.OptimizationScore.Excellent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fair — there&apos;s room for improvement..
+        /// </summary>
+        public static string Dashboard_OptimizationScore_Fair {
+            get {
+                return ResourceManager.GetString("Dashboard.OptimizationScore.Fair", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Good — your system is well optimized..
+        /// </summary>
+        public static string Dashboard_OptimizationScore_Good {
+            get {
+                return ResourceManager.GetString("Dashboard.OptimizationScore.Good", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optimization Score.
+        /// </summary>
+        public static string Dashboard_OptimizationScore_Header {
+            get {
+                return ResourceManager.GetString("Dashboard.OptimizationScore.Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More optimizations are available to boost performance..
+        /// </summary>
+        public static string Dashboard_OptimizationScore_Poor {
+            get {
+                return ResourceManager.GetString("Dashboard.OptimizationScore.Poor", resourceCulture);
             }
         }
         
@@ -746,7 +872,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Optimize Service Startup.
+        ///   Looks up a localized string similar to Optimize System Services.
         /// </summary>
         public static string Optimizer_BloatwareAndServices_ConfigureServices_Name {
             get {
@@ -765,7 +891,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Configures 100+ Windows services startup types: disables telemetry services (DiagTrack, DcpSvc), sets non-critical services to Manual, keeps essential services (Audio, Networking, Security) as Automatic. Reduces background RAM/CPU usage..
+        ///   Looks up a localized string similar to Adjusts non-essential background services to free up resources while maintaining all necessary Windows functionality..
         /// </summary>
         public static string Optimizer_BloatwareAndServices_ConfigureServices_ShortDescription {
             get {
@@ -774,7 +900,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Block Preinstalled Apps.
+        ///   Looks up a localized string similar to Block Preinstalled Bloatware.
         /// </summary>
         public static string Optimizer_BloatwareAndServices_DisablePreinstalledApps_Name {
             get {
@@ -783,7 +909,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sets PreInstalledAppsEnabled=0, OemPreInstalledAppsEnabled=0, SilentInstalledAppsEnabled=0 to prevent automatic installation of OEM bloatware and promoted apps..
+        ///   Looks up a localized string similar to Prevents Windows from automatically re-installing unwanted third-party apps and promoted software..
         /// </summary>
         public static string Optimizer_BloatwareAndServices_DisablePreinstalledApps_ShortDescription {
             get {
@@ -873,6 +999,24 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable Hardware-Accelerated GPU Scheduling.
+        /// </summary>
+        public static string Optimizer_Gpu_EnableHardwareAcceleratedGpuScheduling_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.Gpu.EnableHardwareAcceleratedGpuScheduling.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enables HAGS to let the GPU manage its own video memory scheduling directly, reducing CPU overhead and display latency. Requires a compatible GPU driver and reboot..
+        /// </summary>
+        public static string Optimizer_Gpu_EnableHardwareAcceleratedGpuScheduling_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.Gpu.EnableHardwareAcceleratedGpuScheduling.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disable Intel Adaptive V-Sync.
         /// </summary>
         public static string Optimizer_Gpu_IntelDisableAdaptiveVsync_Name {
@@ -945,6 +1089,60 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Apply Everything.
+        /// </summary>
+        public static string Optimizer_Menu_ApplyAll {
+            get {
+                return ResourceManager.GetString("Optimizer.Menu.ApplyAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply All Safe.
+        /// </summary>
+        public static string Optimizer_Menu_ApplyAllSafe {
+            get {
+                return ResourceManager.GetString("Optimizer.Menu.ApplyAllSafe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply.
+        /// </summary>
+        public static string Optimizer_Menu_ApplyMenu {
+            get {
+                return ResourceManager.GetString("Optimizer.Menu.ApplyMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applying Optimizations.
+        /// </summary>
+        public static string Optimizer_Menu_BatchApply_Title {
+            get {
+                return ResourceManager.GetString("Optimizer.Menu.BatchApply.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide Applied.
+        /// </summary>
+        public static string Optimizer_Menu_HideApplied {
+            get {
+                return ResourceManager.GetString("Optimizer.Menu.HideApplied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View Source.
+        /// </summary>
+        public static string Optimizer_Menu_ViewSource {
+            get {
+                return ResourceManager.GetString("Optimizer.Menu.ViewSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Performance.
         /// </summary>
         public static string Optimizer_Performance {
@@ -954,7 +1152,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable Background App Activity.
+        ///   Looks up a localized string similar to Disable Background Apps.
         /// </summary>
         public static string Optimizer_Performance_DisableBackgroundApps_Name {
             get {
@@ -963,11 +1161,29 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prevents UWP apps from running background tasks, reducing memory pressure and CPU usage during idle periods..
+        ///   Looks up a localized string similar to Prevents inactive applications from running in the background to free up RAM and reduce CPU overhead..
         /// </summary>
         public static string Optimizer_Performance_DisableBackgroundApps_ShortDescription {
             get {
                 return ResourceManager.GetString("Optimizer.Performance.DisableBackgroundApps.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable Full-Screen Optimizations.
+        /// </summary>
+        public static string Optimizer_Performance_DisableFullscreenOptimizations_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.Performance.DisableFullscreenOptimizations.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disables Windows DWM-based full-screen optimizations to eliminate input lag, frame pacing issues, and forced borderless windowed mode in games..
+        /// </summary>
+        public static string Optimizer_Performance_DisableFullscreenOptimizations_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.Performance.DisableFullscreenOptimizations.ShortDescription", resourceCulture);
             }
         }
         
@@ -981,7 +1197,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables Xbox Game Bar overlays, startup tips, and hotkey integration to eliminate background capture overhead..
+        ///   Looks up a localized string similar to Disables Xbox Game Bar overlays and background features to save system resources while gaming..
         /// </summary>
         public static string Optimizer_Performance_DisableGameBar_ShortDescription {
             get {
@@ -990,7 +1206,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable Game DVR Recording.
+        ///   Looks up a localized string similar to Disable Background Recording.
         /// </summary>
         public static string Optimizer_Performance_DisableGameDVR_Name {
             get {
@@ -999,7 +1215,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Completely disables Game DVR background recording (AppCaptureEnabled, GameDVR_Enabled, AllowGameDVR policies) to eliminate capture overhead..
+        ///   Looks up a localized string similar to Turns off automatic background game recording (DVR) to reclaim lost performance and disk bandwidth..
         /// </summary>
         public static string Optimizer_Performance_DisableGameDVR_ShortDescription {
             get {
@@ -1017,7 +1233,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sets MouseSpeed to 0 and clears acceleration thresholds, providing 1:1 physical-to-screen cursor movement for precise gaming..
+        ///   Looks up a localized string similar to Disables Windows&apos; automatic mouse speed adjustment for precise, 1:1 cursor movement..
         /// </summary>
         public static string Optimizer_Performance_DisableMouseAcceleration_ShortDescription {
             get {
@@ -1035,7 +1251,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Activates Windows Game Mode via registry to automatically prioritize game processes and suppress Windows Update notifications during gameplay..
+        ///   Looks up a localized string similar to Activates Windows Game Mode to prioritize game processes and prevent interruptions from Windows Update..
         /// </summary>
         public static string Optimizer_Performance_EnableGameMode_ShortDescription {
             get {
@@ -1044,7 +1260,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enable Game Task Priority.
+        ///   Looks up a localized string similar to Optimize Game Scheduling.
         /// </summary>
         public static string Optimizer_Performance_GameTaskScheduling_Name {
             get {
@@ -1053,7 +1269,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Configures MMCSS &quot;Games&quot; task profile with High scheduling category and elevated GPU/IO priority for consistent frame pacing..
+        ///   Looks up a localized string similar to Assigns high priority to gaming workloads to ensure consistent frames per second (FPS) and smoother gameplay..
         /// </summary>
         public static string Optimizer_Performance_GameTaskScheduling_ShortDescription {
             get {
@@ -1062,7 +1278,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Optimize Keyboard Responsiveness.
+        ///   Looks up a localized string similar to Optimize Keyboard Response.
         /// </summary>
         public static string Optimizer_Performance_KeyboardLatencyOptimization_Name {
             get {
@@ -1071,7 +1287,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Minimizes keyboard delay (0) and maximizes repeat rate (31), disables StickyKeys/FilterKeys accessibility delays for rapid input..
+        ///   Looks up a localized string similar to Reduces keyboard input delay and increases repeat rate for faster, more responsive typing and gaming..
         /// </summary>
         public static string Optimizer_Performance_KeyboardLatencyOptimization_ShortDescription {
             get {
@@ -1080,7 +1296,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Optimize MMCSS Responsiveness.
+        ///   Looks up a localized string similar to Optimize Multimedia Response.
         /// </summary>
         public static string Optimizer_Performance_MultimediaResponsiveness_Name {
             get {
@@ -1089,7 +1305,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Minimizes MMCSS latency by setting SystemResponsiveness to 10 and disabling network throttling (0xFFFFFFFF) for real-time workloads..
+        ///   Looks up a localized string similar to Reduces latency for audio, video, and network tasks to improve real-time media and gaming performance..
         /// </summary>
         public static string Optimizer_Performance_MultimediaResponsiveness_ShortDescription {
             get {
@@ -1098,7 +1314,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enable Foreground Boost.
+        ///   Looks up a localized string similar to Prioritize Active Applications.
         /// </summary>
         public static string Optimizer_Performance_ProcessPriority_Name {
             get {
@@ -1107,7 +1323,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Configures Win32PrioritySeparation to 38 (Short, Variable, High foreground boost), prioritizing active applications and reducing input latency..
+        ///   Looks up a localized string similar to Allocates more CPU resources to the application you are currently using for a faster, more responsive experience..
         /// </summary>
         public static string Optimizer_Performance_ProcessPriority_ShortDescription {
             get {
@@ -1125,7 +1341,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enable Service Host Splitting.
+        ///   Looks up a localized string similar to Optimize Service Isolation.
         /// </summary>
         public static string Optimizer_Performance_SvcHostSplit_Name {
             get {
@@ -1152,7 +1368,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable Hibernate &amp; Fast Startup.
+        ///   Looks up a localized string similar to Disable Hibernation &amp; Fast Startup.
         /// </summary>
         public static string Optimizer_PowerManagement_DisableHibernate_Name {
             get {
@@ -1161,7 +1377,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables Hibernate (HibernateEnabled=0) and Fast Startup (HiberbootEnabled=0), removes hiberfile.sys to reclaim disk space..
+        ///   Looks up a localized string similar to Turns off Hibernation and Fast Startup to reclaim several gigabytes of disk space and ensure a fresh system boot..
         /// </summary>
         public static string Optimizer_PowerManagement_DisableHibernate_ShortDescription {
             get {
@@ -1170,7 +1386,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable Power Throttling.
+        ///   Looks up a localized string similar to Disable System Power Throttling.
         /// </summary>
         public static string Optimizer_PowerManagement_DisablePowerSaving_Name {
             get {
@@ -1179,7 +1395,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables CPU power throttling (PowerThrottlingOff=1), forces multimedia system profile to AlwaysOn, disables USB surprise removal recovery..
+        ///   Looks up a localized string similar to Prevents Windows from limiting CPU performance (Power Throttling) to maintain peak power for active tasks..
         /// </summary>
         public static string Optimizer_PowerManagement_DisablePowerSaving_ShortDescription {
             get {
@@ -1197,7 +1413,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables USB selective suspend on all root hubs via MSPower_DeviceEnable WMI to prevent input device latency. Increases laptop power draw..
+        ///   Looks up a localized string similar to Prevents Windows from powering down USB ports, eliminating wake-up delays for mice, keyboards, and other peripherals..
         /// </summary>
         public static string Optimizer_PowerManagement_DisableUSBPowerSaving_ShortDescription {
             get {
@@ -1243,7 +1459,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Install optimizerDuck&apos;s Power Plan.
+        ///   Looks up a localized string similar to Apply Optimized Power Plan.
         /// </summary>
         public static string Optimizer_PowerManagement_InstallOptimizerDuckPowerPlan_Name {
             get {
@@ -1270,7 +1486,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Downloads, imports, and activates the optimizerDuck power plan to prioritize maximum performance. May increase power use, heat, and fan noise..
+        ///   Looks up a localized string similar to Installs a custom performance-focused power plan to ensure your system always runs at maximum speed..
         /// </summary>
         public static string Optimizer_PowerManagement_InstallOptimizerDuckPowerPlan_ShortDescription {
             get {
@@ -1288,7 +1504,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable WMI AutoLogger.
+        ///   Looks up a localized string similar to Disable Background Logging.
         /// </summary>
         public static string Optimizer_SecurityAndPrivacy_DisableAutoLogger_Name {
             get {
@@ -1297,7 +1513,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stops 12 WMI AutoLogger sessions (Diagtrack-Listener, SQMLogger, WdiContextLog, etc.) by setting Start=0, reducing kernel-level event collection..
+        ///   Looks up a localized string similar to Stops non-essential system event logging to reduce continuous disk activity and save CPU cycles..
         /// </summary>
         public static string Optimizer_SecurityAndPrivacy_DisableAutoLogger_ShortDescription {
             get {
@@ -1306,7 +1522,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable Content Delivery.
+        ///   Looks up a localized string similar to Disable Ads &amp; Suggestions.
         /// </summary>
         public static string Optimizer_SecurityAndPrivacy_DisableContentDeliveryManager_Name {
             get {
@@ -1315,7 +1531,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables Content Delivery Manager (ContentDeliveryAllowed=0, SubscribedContent-*=0), stopping suggested apps, tips, and promotional content in Settings/Start..
+        ///   Looks up a localized string similar to Blocks Windows from automatically installing promoted apps (bloatware) and showing suggestions in the Start menu..
         /// </summary>
         public static string Optimizer_SecurityAndPrivacy_DisableContentDeliveryManager_ShortDescription {
             get {
@@ -1333,7 +1549,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Applies TurnOffWindowsCopilot=1 policies, hides Copilot button from taskbar, blocks shell extension {CB3B0003-8088-4EDE-8769-8B354AB2FF8C}..
+        ///   Looks up a localized string similar to Removes the AI Copilot assistant from the taskbar and system shell to free up memory and screen space..
         /// </summary>
         public static string Optimizer_SecurityAndPrivacy_DisableCopilot_ShortDescription {
             get {
@@ -1351,7 +1567,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Blocks Cortana via AllowCortana=0, AllowCloudSearch=0 policies and disables web search integration in Windows Search..
+        ///   Looks up a localized string similar to Turns off the Cortana voice assistant and removes Bing web results from the Windows Search bar..
         /// </summary>
         public static string Optimizer_SecurityAndPrivacy_DisableCortana_ShortDescription {
             get {
@@ -1360,7 +1576,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reduce Telemetry &amp; Feedback.
+        ///   Looks up a localized string similar to Disable Data Collection (Telemetry).
         /// </summary>
         public static string Optimizer_SecurityAndPrivacy_DisableTelemetry_Name {
             get {
@@ -1396,7 +1612,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Applies comprehensive anti-telemetry policies: disables DiagTrack, dmwappushservice, WerSvc services; disables 14+ telemetry scheduled tasks; blocks 50+ telemetry registry keys including AllowTelemetry, AdvertisingInfo, Location tracking..
+        ///   Looks up a localized string similar to Disables Windows telemetry and usage tracking services to enhance your personal privacy and reduce background activity..
         /// </summary>
         public static string Optimizer_SecurityAndPrivacy_DisableTelemetry_ShortDescription {
             get {
@@ -1405,7 +1621,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable UAC Prompts.
+        ///   Looks up a localized string similar to Disable Admin Prompts (UAC).
         /// </summary>
         public static string Optimizer_SecurityAndPrivacy_DisableUAC_Name {
             get {
@@ -1414,7 +1630,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sets EnableLUA=0 to disable User Account Control elevation prompts, allowing silent admin execution. Significantly reduces system security..
+        ///   Looks up a localized string similar to Turns off User Account Control (UAC) windows that ask for permission when running apps as administrator..
         /// </summary>
         public static string Optimizer_SecurityAndPrivacy_DisableUAC_ShortDescription {
             get {

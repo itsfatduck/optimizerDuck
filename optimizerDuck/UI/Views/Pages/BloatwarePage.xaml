@@ -21,6 +21,7 @@
     mc:Ignorable="d">
     <Page.Resources>
         <converters:GreaterThanZeroToVisibilityConverter x:Key="GreaterThanZeroToVisibilityConverter" />
+        <converters:ZeroToVisibilityConverter x:Key="ZeroToVisibilityConverter" />
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <converters:EmptyWhileNotLoadingConverter x:Key="EmptyWhileNotLoadingConverter" />
     </Page.Resources>
@@ -32,14 +33,22 @@
             Text="{ext:Loc Bloatware.Header.Title}"
             TextWrapping="Wrap" />
 
-        <!--  Empty  -->
+        <!--  Empty (truly no packages installed)  -->
         <Border Grid.Row="1">
-            <Border.Visibility>
-                <MultiBinding Converter="{StaticResource EmptyWhileNotLoadingConverter}">
-                    <Binding Path="ViewModel.AppxPackages.Count" />
-                    <Binding Path="ViewModel.IsLoading" />
-                </MultiBinding>
-            </Border.Visibility>
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ViewModel.HasData}" Value="False" />
+                                <Condition Binding="{Binding ViewModel.IsLoading}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Visibility" Value="Visible" />
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
 
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ui:SymbolIcon
@@ -89,9 +98,79 @@
             Padding="8"
             Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
             CornerRadius="6"
-            Visibility="{Binding ViewModel.AppxPackages.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
-            <Grid RowDefinitions="Auto *">
-                <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+            Visibility="{Binding ViewModel.HasData, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid RowDefinitions="Auto,Auto,*">
+
+                <!--  Search / Filter / Sort toolbar  -->
+                <WrapPanel
+                    Grid.Row="0"
+                    Margin="0,0,0,5"
+                    Orientation="Horizontal">
+
+                    <!--  Search  -->
+                    <ui:TextBox
+                        MinWidth="200"
+                        Margin="0,0,8,4"
+                        Icon="{ui:SymbolIcon Search24}"
+                        PlaceholderText="{ext:Loc Common.Search.Placeholder}"
+                        Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <!--  Filter by Risk  -->
+                    <ComboBox
+                        Margin="0,0,8,0"
+                        VerticalAlignment="Center"
+                        SelectedIndex="{Binding ViewModel.SelectedRiskFilterIndex}"
+                        ToolTip="{ext:Loc Common.Filter}">
+                        <ComboBoxItem HorizontalContentAlignment="Left">
+                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                <ui:SymbolIcon
+                                    Margin="0,0,6,0"
+                                    HorizontalAlignment="Left"
+                                    Symbol="Filter24" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Left"
+                                    Text="{ext:Loc Common.Filter.All}" />
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem HorizontalContentAlignment="Left">
+                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                <ui:SymbolIcon
+                                    Margin="0,0,6,0"
+                                    HorizontalAlignment="Left"
+                                    Foreground="{DynamicResource SystemFillColorSuccessBrush}"
+                                    Symbol="ShieldCheckmark24" />
+                                <TextBlock Grid.Column="1" Text="{ext:Loc Optimizer.UI.Risk.Safe}" />
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem HorizontalContentAlignment="Left">
+                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                <ui:SymbolIcon
+                                    Margin="0,0,6,0"
+                                    HorizontalAlignment="Left"
+                                    Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                                    Symbol="Warning24" />
+                                <TextBlock Grid.Column="1" Text="{ext:Loc Optimizer.UI.Risk.Moderate}" />
+                            </Grid>
+                        </ComboBoxItem>
+                    </ComboBox>
+                    <!--  Sort By  -->
+                    <ComboBox
+                        Margin="0,0,8,4"
+                        SelectedIndex="{Binding ViewModel.SelectedSortByIndex}"
+                        ToolTip="{ext:Loc Common.SortBy}">
+                        <ComboBoxItem Content="{ext:Loc Common.SortBy.Default}" />
+                        <ComboBoxItem Content="{ext:Loc Common.SortBy.Name}" />
+                        <ComboBoxItem Content="{ext:Loc Common.SortBy.Publisher}" />
+                        <ComboBoxItem Content="{ext:Loc Common.SortBy.Risk}" />
+                    </ComboBox>
+                </WrapPanel>
+
+                <!--  Action buttons  -->
+                <StackPanel
+                    Grid.Row="1"
+                    Margin="0,0,0,5"
+                    Orientation="Horizontal">
                     <ui:Button
                         Appearance="Danger"
                         Command="{Binding ViewModel.RemoveSelectedCommand}"
@@ -103,13 +182,45 @@
                     <Separator Margin="3,0,3,0" />
 
                     <ui:Button
+                        Appearance="Success"
+                        Command="{Binding ViewModel.SelectAllSafeCommand}"
+                        Content="{ext:Loc Bloatware.Menu.SelectAllSafe}"
+                        Icon="{ui:SymbolIcon ShieldCheckmark24,
+                                             FontSize=18}" />
+
+                    <Separator Margin="3,0,3,0" />
+
+                    <ui:Button
                         Appearance="Primary"
                         Command="{Binding ViewModel.RefreshCommand}"
                         Content="{ext:Loc Bloatware.Menu.Refresh}"
                         Icon="{ui:SymbolIcon ArrowClockwise24,
                                              FontSize=18}" />
                 </StackPanel>
-                <ui:VirtualizingItemsControl Grid.Row="1" ItemsSource="{Binding ViewModel.AppxPackages}">
+
+                <!--  No search results  -->
+                <StackPanel
+                    Grid.Row="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Visibility="{Binding ViewModel.AppxPackages.Count, Converter={StaticResource ZeroToVisibilityConverter}}">
+                    <ui:SymbolIcon
+                        Margin="0,0,0,10"
+                        HorizontalAlignment="Center"
+                        FontSize="36"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Symbol="SearchInfo24" />
+                    <ui:TextBlock
+                        HorizontalAlignment="Center"
+                        Appearance="Secondary"
+                        FontTypography="Body"
+                        Text="{ext:Loc Bloatware.Search.NoResults}" />
+                </StackPanel>
+
+                <ui:VirtualizingItemsControl
+                    Grid.Row="2"
+                    ItemsSource="{Binding ViewModel.AppxPackages}"
+                    Visibility="{Binding ViewModel.AppxPackages.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
                     <ui:VirtualizingItemsControl.Template>
                         <ControlTemplate TargetType="ItemsControl">
                             <ScrollViewer HorizontalScrollBarVisibility="Disabled">

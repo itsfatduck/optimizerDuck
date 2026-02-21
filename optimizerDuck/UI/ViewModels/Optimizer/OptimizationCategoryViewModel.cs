@@ -1,4 +1,6 @@
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Net.Http;
 using System.Windows.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -7,6 +9,7 @@ using optimizerDuck.Common.Helpers;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Optimization;
 using optimizerDuck.Core.Models.UI;
+using optimizerDuck.Core.Optimizers;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services;
 using optimizerDuck.UI.ViewModels.Dialogs;
@@ -25,7 +28,20 @@ public partial class OptimizationCategoryViewModel : ViewModel
     private readonly OptimizationService _optimizationService;
     private readonly ISnackbarService _snackbarService;
 
+    private static readonly HttpClient httpClient = new() { Timeout = TimeSpan.FromSeconds(5) };
+    private readonly ObservableCollection<IOptimization> _allOptimizations = [];
     [ObservableProperty] private ObservableCollection<IOptimization> _optimizations = [];
+
+    // Search, Filter, Sort
+    [ObservableProperty] private string _searchText = string.Empty;
+    [ObservableProperty] private int _selectedRiskFilterIndex; // 0=All, 1=Safe, 2=Moderate, 3=Risky
+    [ObservableProperty] private int _selectedSortByIndex; // 0=Default, 1=Name, 2=Risk
+    [ObservableProperty] private bool _hideApplied;
+
+    partial void OnSearchTextChanged(string value) => ApplyFilter();
+    partial void OnSelectedRiskFilterIndexChanged(int value) => ApplyFilter();
+    partial void OnSelectedSortByIndexChanged(int value) => ApplyFilter();
+    partial void OnHideAppliedChanged(bool value) => ApplyFilter();
 
     public OptimizationCategoryViewModel(
         IOptimizationCategory category,
@@ -48,13 +64,52 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
     private async Task LoadOptimizationStatesAsync()
     {
-        if (Optimizations.Count > 0) return;
+        if (_allOptimizations.Count > 0) return;
 
         foreach (var optimization in _category.Optimizations)
         {
-            Optimizations.Add(optimization);
+            _allOptimizations.Add(optimization);
             await Task.Delay(10);
         }
+
+        ApplyFilter();
+    }
+
+    private void ApplyFilter()
+    {
+        var query = _allOptimizations.AsEnumerable();
+
+        // Search
+        if (!string.IsNullOrWhiteSpace(SearchText))
+        {
+            var search = SearchText.Trim();
+            query = query.Where(o =>
+                o.Name.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                o.ShortDescription.Contains(search, StringComparison.OrdinalIgnoreCase));
+        }
+
+        // Filter by risk
+        query = SelectedRiskFilterIndex switch
+        {
+            1 => query.Where(o => o.Risk == OptimizationRisk.Safe),
+            2 => query.Where(o => o.Risk == OptimizationRisk.Moderate),
+            3 => query.Where(o => o.Risk == OptimizationRisk.Risky),
+            _ => query
+        };
+
+        // Hide applied
+        if (HideApplied)
+            query = query.Where(o => !o.State.IsApplied);
+
+        // Sort
+        query = SelectedSortByIndex switch
+        {
+            1 => query.OrderBy(o => o.Name),
+            2 => query.OrderBy(o => o.Risk),
+            _ => query // default order from registry
+        };
+
+        Optimizations = new ObservableCollection<IOptimization>(query);
     }
 
     // Keep the progress dialog visible while long-running work is running.
@@ -398,6 +453,59 @@ public partial class OptimizationCategoryViewModel : ViewModel
             CloseButtonText = Translations.Button_Ok
         };
         var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
+    }
+
+  
+
+    [RelayCommand]
+    private async Task ViewSourceOnGitHubAsync(IOptimization optimization)
+    {
+        if (optimization is not BaseOptimization baseOpt || baseOpt.OwnerType == null)
+            return;
+
+        var fileName = baseOpt.OwnerType.Name;
+        var className = optimization.OptimizationKey;
+        var relativePath = $"optimizerDuck/Core/Optimizers/{fileName}.cs";
+        var url = $"{Shared.GitHubRepoURL}/blob/master/{relativePath}";
+
+        // Fetch source from GitHub raw content to find the class line number
+        try
+        {
+            var rawUrl = $"https://raw.githubusercontent.com/itsfatduck/optimizerDuck/master/{relativePath}";
+            var source = await httpClient.GetStringAsync(rawUrl);
+            var lines = source.Split('\n');
+            for (var i = 0; i < lines.Length; i++)
+            {
+                if (lines[i].Contains($"class {className}", StringComparison.OrdinalIgnoreCase))
+                {
+                    url += $"?plain=1#L{i + 1}";
+                    break;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Could not fetch source to find line number for {Class}", className);
+        }
+
+        try
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = url,
+                UseShellExecute = true
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to open GitHub URL: {Url}", url);
+            _snackbarService.Show(
+                Translations.Snackbar_OpenLinkFailed_Title,
+                Translations.Snackbar_OpenLinkFailed_Message,
+                ControlAppearance.Danger,
+                new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
+                TimeSpan.FromSeconds(5));
+        }
     }
 
     #endregion Commands
