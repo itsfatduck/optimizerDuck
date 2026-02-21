@@ -890,4 +890,34 @@
     <value>optimizerDuck (v{0}) 已发布！
 立即更新以体验最新的功能、改进和问题修复。</value>
   </data>
+  <data name="Optimizer.Performance.DisableFullscreenOptimizations.Name" xml:space="preserve">
+    <value>禁用全屏优化</value>
+  </data>
+  <data name="Optimizer.Performance.DisableFullscreenOptimizations.ShortDescription" xml:space="preserve">
+    <value>禁用 Windows DWM 全屏优化，消除游戏中的输入延迟、帧间隔不稳和强制无边框窗口模式。</value>
+  </data>
+  <data name="Optimizer.Gpu.EnableHardwareAcceleratedGpuScheduling.Name" xml:space="preserve">
+    <value>启用硬件加速 GPU 调度</value>
+  </data>
+  <data name="Optimizer.Gpu.EnableHardwareAcceleratedGpuScheduling.ShortDescription" xml:space="preserve">
+    <value>启用 HAGS 让 GPU 直接管理显存调度，降低 CPU 开销和显示延迟。需要兼容的 GPU 驱动程序并重启。</value>
+  </data>
+  <data name="Dashboard.OptimizationScore.Header" xml:space="preserve">
+    <value>优化评分</value>
+  </data>
+  <data name="Dashboard.OptimizationScore.Applied" xml:space="preserve">
+    <value>已应用 {0} / {1} 项优化</value>
+  </data>
+  <data name="Dashboard.OptimizationScore.Excellent" xml:space="preserve">
+    <value>出色！您的系统已完全优化。</value>
+  </data>
+  <data name="Dashboard.OptimizationScore.Good" xml:space="preserve">
+    <value>良好——系统已得到优化。</value>
+  </data>
+  <data name="Dashboard.OptimizationScore.Fair" xml:space="preserve">
+    <value>一般——还有提升空间。</value>
+  </data>
+  <data name="Dashboard.OptimizationScore.Poor" xml:space="preserve">
+    <value>还有更多优化可以提升性能。</value>
+  </data>
 </root>

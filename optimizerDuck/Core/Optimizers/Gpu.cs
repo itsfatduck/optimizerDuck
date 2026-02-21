@@ -15,6 +15,7 @@ namespace optimizerDuck.Core.Optimizers;
 public abstract class GpuRegistryOptimization : BaseOptimization
 {
     protected abstract GpuVendor Vendor { get; }
+
     protected abstract IReadOnlyList<RegistryItem> CreateItems(string registryPath);
 
     public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
@@ -45,7 +46,6 @@ public class Gpu : IOptimizationCategory
     public string Name { get; init; } = Loc.Instance[$"Optimizer.{nameof(Gpu)}"];
     public OptimizationCategoryOrder Order { get; init; } = OptimizationCategoryOrder.Gpu;
     public ObservableCollection<IOptimization> Optimizations { get; init; } = [];
-
 
     /// <summary>
     ///     Attempts to parse a WMI <c>DeviceID</c> (e.g., "VideoController1") into a zero-based registry index
@@ -178,7 +178,6 @@ public class Gpu : IOptimizationCategory
         }
     }
 
-
     [Optimization(
         Id = "8A4B4C4D-000E-42DB-8BD7-293067F8FAE7",
         Risk = OptimizationRisk.Safe,
@@ -197,7 +196,6 @@ public class Gpu : IOptimizationCategory
         }
     }
 
-
     [Optimization(
         Id = "FA58802F-B98C-4E98-AA67-067C5A394296",
         Risk = OptimizationRisk.Safe,
@@ -214,7 +212,6 @@ public class Gpu : IOptimizationCategory
             ];
         }
     }
-
 
     [Optimization(
         Id = "9E7702BE-9E03-4C96-A316-C4E435CB993E",
@@ -250,7 +247,6 @@ public class Gpu : IOptimizationCategory
         }
     }
 
-
     [Optimization(
         Id = "EBFB0DED-5D1A-4CD1-B5C0-4F7018DD6054",
         Risk = OptimizationRisk.Safe,
@@ -265,6 +261,23 @@ public class Gpu : IOptimizationCategory
             [
                 new(path, "AdaptiveVsyncEnable", 0)
             ];
+        }
+    }
+
+    [Optimization(
+        Id = "754B65CB-3A72-462F-9D33-2383F98F6B67",
+        Risk = OptimizationRisk.Moderate,
+        Tags = OptimizationTags.Performance | OptimizationTags.Latency)]
+    public class EnableHardwareAcceleratedGpuScheduling : BaseOptimization
+    {
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
+        {
+            RegistryService.Write(
+                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers", "HwSchMode", 2)
+            );
+            context.Logger.LogInformation("Enabled Hardware-Accelerated GPU Scheduling");
+            return Task.FromResult(ApplyResult.True());
         }
     }
 }

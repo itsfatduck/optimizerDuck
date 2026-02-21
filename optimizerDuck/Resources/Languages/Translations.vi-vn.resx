@@ -845,4 +845,34 @@ Hãy yên tâm rằng hệ thống của bạn luôn có đường lui nếu có
     <value>Đã có phiên bản optimizerDuck (v{0})!
 Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và sửa lỗi mới nhất.</value>
   </data>
+  <data name="Optimizer.Performance.DisableFullscreenOptimizations.Name" xml:space="preserve">
+    <value>Tắt tối ưu hóa toàn màn hình</value>
+  </data>
+  <data name="Optimizer.Performance.DisableFullscreenOptimizations.ShortDescription" xml:space="preserve">
+    <value>Vô hiệu hóa tối ưu hóa toàn màn hình của Windows (FSO) để loại bỏ độ trễ đầu vào, giật hình và chế độ cửa sổ không viền bị ép buộc trong game.</value>
+  </data>
+  <data name="Optimizer.Gpu.EnableHardwareAcceleratedGpuScheduling.Name" xml:space="preserve">
+    <value>Bật lập lịch GPU tăng tốc phần cứng</value>
+  </data>
+  <data name="Optimizer.Gpu.EnableHardwareAcceleratedGpuScheduling.ShortDescription" xml:space="preserve">
+    <value>Cho phép GPU trực tiếp quản lý bộ nhớ video, giảm tải CPU và giảm độ trễ hiển thị. Yêu cầu driver GPU tương thích và khởi động lại.</value>
+  </data>
+  <data name="Dashboard.OptimizationScore.Header" xml:space="preserve">
+    <value>Điểm tối ưu</value>
+  </data>
+  <data name="Dashboard.OptimizationScore.Applied" xml:space="preserve">
+    <value>Đã áp dụng {0} trên {1} tối ưu</value>
+  </data>
+  <data name="Dashboard.OptimizationScore.Excellent" xml:space="preserve">
+    <value>Tuyệt vời! Hệ thống đã được tối ưu hoàn toàn.</value>
+  </data>
+  <data name="Dashboard.OptimizationScore.Good" xml:space="preserve">
+    <value>Tốt — hệ thống đã được tối ưu khá tốt.</value>
+  </data>
+  <data name="Dashboard.OptimizationScore.Fair" xml:space="preserve">
+    <value>Khá — vẫn còn nhiều cải tiến có thể áp dụng.</value>
+  </data>
+  <data name="Dashboard.OptimizationScore.Poor" xml:space="preserve">
+    <value>Còn nhiều tối ưu có thể áp dụng để tăng hiệu suất.</value>
+  </data>
 </root>

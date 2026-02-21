@@ -91,7 +91,6 @@ public class Performance : IOptimizationCategory
 
             const int win32Priority = 38; // Short, Variable, High foreground boost
 
-
             RegistryService.Write(
                 new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl", "Win32PrioritySeparation",
                     win32Priority)
@@ -154,7 +153,6 @@ public class Performance : IOptimizationCategory
             return Task.FromResult(ApplyResult.True());
         }
     }
-
 
     [Optimization(
         Id = "70D84D83-01DB-455A-8004-D80BC372094C",
@@ -255,6 +253,26 @@ public class Performance : IOptimizationCategory
             );
 
             context.Logger.LogInformation("Optimized keyboard responsiveness");
+            return Task.FromResult(ApplyResult.True());
+        }
+    }
+
+    [Optimization(
+        Id = "3046C006-AD21-4BDB-9C55-8EF15B367487",
+        Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.Performance | OptimizationTags.Display)]
+    public class DisableFullscreenOptimizations : BaseOptimization
+    {
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
+        {
+            RegistryService.Write(
+                new RegistryItem(@"HKCU\System\GameConfigStore", "GameDVR_DXGIHonorFSEWindowsCompatible", 1),
+                new RegistryItem(@"HKCU\System\GameConfigStore", "GameDVR_FSEBehavior", 2),
+                new RegistryItem(@"HKCU\System\GameConfigStore", "GameDVR_FSEBehaviorMode", 2),
+                new RegistryItem(@"HKCU\System\GameConfigStore", "GameDVR_HonorUserFSEBehaviorMode", 1)
+            );
+            context.Logger.LogInformation("Disabled full-screen optimizations");
             return Task.FromResult(ApplyResult.True());
         }
     }
