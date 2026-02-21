@@ -838,5 +838,8 @@ Hãy yên tâm rằng hệ thống của bạn luôn có đường lui nếu có
   <data name="Settings.Bloatware.RemoveProvisioned.Description" xml:space="preserve">
     <value>Khi xóa gói AppX đã cài đặt, cũng xóa luôn các gói Provisioned tương ứng để ngăn tự động cài lại cho người dùng mới.</value>
   </data>
-  <!-- ... -->
+  <data name="Dashboard.UpdateInfoBar.Message" xml:space="preserve">
+    <value>Đã có phiên bản optimizerDuck (v{0})!
+Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và sửa lỗi mới nhất.</value>
+  </data>
 </root>

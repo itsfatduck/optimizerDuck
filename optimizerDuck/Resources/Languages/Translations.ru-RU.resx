@@ -886,4 +886,8 @@
   <data name="Settings.Bloatware.RemoveProvisioned.Description" xml:space="preserve">
     <value>При удалении установленных пакетов AppX также удалять соответствующие подготовленные пакеты, чтобы предотвратить автоматическую переустановку для новых пользователей.</value>
   </data>
+  <data name="Dashboard.UpdateInfoBar.Message" xml:space="preserve">
+    <value>Доступна версия optimizerDuck (v{0})!
+Обновитесь сейчас, чтобы воспользоваться последними функциями, улучшениями и исправлениями ошибок.</value>
+  </data>
 </root>
