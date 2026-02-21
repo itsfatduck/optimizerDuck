@@ -18,7 +18,6 @@
         <AssemblyDescription>Free, open-source Windows optimization tool for performance, privacy, and simplicity.</AssemblyDescription>
         <NeutralLanguage>en-US</NeutralLanguage>
         <ApplicationManifest>app.manifest</ApplicationManifest>
-        <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

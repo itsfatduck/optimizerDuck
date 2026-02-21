@@ -27,7 +27,7 @@ public partial class DashboardViewModel : ViewModel
     private bool _isInitialized;
 
     [ObservableProperty] private bool _isLoading;
-    [ObservableProperty] private string _latestVersion;
+    [ObservableProperty] private string? _latestVersion;
     private bool _isUpdateInfoOpen;
 
     [ObservableProperty] private RamInfo _runtimeRam = RamInfo.Unknown;
