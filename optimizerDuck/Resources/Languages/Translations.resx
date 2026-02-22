@@ -1105,4 +1105,31 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="DiskCleanup.Item.ErrorReports.Description" xml:space="preserve">
     <value>Windows error reports and crash dump files</value>
   </data>
+  <data name="Dashboard.SystemInfo.Os.DeviceType.Laptop" xml:space="preserve">
+    <value>Laptop</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.DeviceType.Desktop" xml:space="preserve">
+    <value>Desktop</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.Build" xml:space="preserve">
+    <value>Build {0}</value>
+  </data>
+  <data name="Bloatware.Header.Description" xml:space="preserve">
+    <value>Manage and remove pre-installed applications that you don't need</value>
+  </data>
+  <data name="Dashboard.Header.Description" xml:space="preserve">
+    <value>System overview and quick actions</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Header" xml:space="preserve">
+    <value>System Information</value>
+  </data>
+  <data name="DiskCleanup.ItemsSelected" xml:space="preserve">
+    <value>{0} ({1} items selected)</value>
+  </data>
+  <data name="DiskCleanup.Button.CleanSelected" xml:space="preserve">
+    <value>Clean Selected ({0})</value>
+  </data>
+  <data name="DiskCleanup.EmptySize" xml:space="preserve">
+    <value>Empty size</value>
+  </data>
 </root>

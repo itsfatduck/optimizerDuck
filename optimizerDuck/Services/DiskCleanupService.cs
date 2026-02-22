@@ -102,7 +102,6 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
             }
 
             item.IsScanned = true;
-            logger.LogInformation("Scanned {ItemId}: {Size}", item.Id, item.FormattedSize);
         }
         catch (Exception ex)
         {
@@ -118,8 +117,7 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
 
     public async Task ScanAllAsync(IEnumerable<CleanupItem> items)
     {
-        foreach (var item in items)
-            await ScanAsync(item);
+        await Task.WhenAll(items.Select(ScanAsync));
     }
 
     public async Task<long> CleanAsync(CleanupItem item)

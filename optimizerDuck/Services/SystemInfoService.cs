@@ -793,13 +793,13 @@ internal static class OsProvider
             switch (type)
             {
                 case 8 or 9 or 10 or 11 or 14 or 30 or 31 or 32:
-                    return "Laptop";
+                    return Translations.Dashboard_SystemInfo_Os_DeviceType_Laptop;
 
                 case >= 1 and <= 7 or 12 or 13 or >= 15 and <= 29 or >= 33 and <= 36:
-                    return "Desktop";
+                    return Translations.Dashboard_SystemInfo_Os_DeviceType_Desktop;
             }
 
-        return "Unknown";
+        return Translations.Common_Unknown;
     }
 
     private static string FormatWmiDate(string wmiDate)

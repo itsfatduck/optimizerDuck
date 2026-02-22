@@ -1105,4 +1105,31 @@
   <data name="DiskCleanup.Item.ErrorReports.Description" xml:space="preserve">
     <value>Отчёты об ошибках Windows и файлы аварийных дампов</value>
   </data>
+  <data name="Dashboard.SystemInfo.Os.DeviceType.Laptop" xml:space="preserve">
+    <value>Ноутбук</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.DeviceType.Desktop" xml:space="preserve">
+    <value>Настольный ПК</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.Build" xml:space="preserve">
+    <value>Сборка {0}</value>
+  </data>
+  <data name="Bloatware.Header.Description" xml:space="preserve">
+    <value>Управление и удаление ненужных предустановленных приложений</value>
+  </data>
+  <data name="Dashboard.Header.Description" xml:space="preserve">
+    <value>Обзор системы и быстрые действия</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Header" xml:space="preserve">
+    <value>Информация о системе</value>
+  </data>
+  <data name="DiskCleanup.ItemsSelected" xml:space="preserve">
+    <value>{0} (выбрано элементов: {1})</value>
+  </data>
+  <data name="DiskCleanup.Button.CleanSelected" xml:space="preserve">
+    <value>Очистить выбранное ({0})</value>
+  </data>
+  <data name="DiskCleanup.EmptySize" xml:space="preserve">
+    <value>Пустой</value>
+  </data>
 </root>

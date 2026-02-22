@@ -51,8 +51,6 @@ public partial class DiskCleanupViewModel(
                         UpdateProperties();
                 };
             }
-
-            UpdateProperties();
         }
         catch (Exception ex)
         {
@@ -61,6 +59,7 @@ public partial class DiskCleanupViewModel(
         finally
         {
             IsLoading = false;
+            UpdateProperties();
         }
 
         // Automatically start scanning
@@ -76,7 +75,6 @@ public partial class DiskCleanupViewModel(
         try
         {
             await diskCleanupService.ScanAllAsync(CleanupItems);
-            UpdateProperties();
         }
         catch (Exception ex)
         {
@@ -85,6 +83,7 @@ public partial class DiskCleanupViewModel(
         finally
         {
             IsScanning = false;
+            UpdateProperties();
         }
     }
 
@@ -97,7 +96,10 @@ public partial class DiskCleanupViewModel(
         try
         {
             var freedBytes = await diskCleanupService.CleanSelectedAsync(CleanupItems);
-            UpdateProperties();
+
+            // Deselect all items after successful clean
+            foreach (var item in CleanupItems)
+                item.IsSelected = false;
 
             snackbarService.Show(
                 Translations.DiskCleanup_Complete_Title,
@@ -121,6 +123,7 @@ public partial class DiskCleanupViewModel(
         finally
         {
             IsCleaning = false;
+            UpdateProperties();
         }
     }
 

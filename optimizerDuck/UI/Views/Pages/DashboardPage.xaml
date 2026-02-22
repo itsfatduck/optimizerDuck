@@ -57,10 +57,10 @@
                                   {Binding ViewModel.LatestVersion}}"
                 Severity="Warning" />
             <Grid ColumnDefinitions="*,Auto">
-                <ui:TextBlock
-                    FontTypography="Title"
-                    Text="{ext:Loc Dashboard.Header.Title}"
-                    TextWrapping="Wrap" />
+                    <ui:TextBlock
+                        FontTypography="Title"
+                        Text="{ext:Loc Dashboard.Header.Title}"
+                        TextWrapping="Wrap" />
 
                 <Menu Grid.Column="1">
                     <ui:MenuItem Header="{ext:Loc Dashboard.Header.Menu.Header.Options}">
@@ -192,7 +192,7 @@
                                         CornerRadius="4"
                                         Margin="0,0,4,4"
                                         Padding="6,3">
-                                        <ui:TextBlock FontTypography="Caption" Text="{Binding ViewModel.SystemInfo.Os.BuildNumber, StringFormat='{}Build {0}'}" />
+                                        <ui:TextBlock FontTypography="Caption" Text="{ext:Loc Dashboard.SystemInfo.Os.Build, {Binding ViewModel.SystemInfo.Os.BuildNumber}}" />
                                     </Border>
                                     <Border
                                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
@@ -200,6 +200,13 @@
                                         Margin="0,0,4,4"
                                         Padding="6,3">
                                         <ui:TextBlock FontTypography="Caption" Text="{Binding ViewModel.SystemInfo.Os.DeviceType}" />
+                                    </Border>
+                                    <Border
+                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                        CornerRadius="4"
+                                        Margin="0,0,4,4"
+                                        Padding="6,3">
+                                        <ui:TextBlock FontTypography="Caption" Text="{Binding ViewModel.SystemInfo.Os.InstallDate}" />
                                     </Border>
                                 </WrapPanel>
                             </Grid>
@@ -386,8 +393,8 @@
                 </UniformGrid>
 
                 <!--  Storage Section  -->
-                <ui:TextBlock
-                    FontTypography="BodyStrong"
+                    <ui:TextBlock
+                        FontTypography="BodyStrong"
                     Margin="0,20,0,8"
                     Text="{ext:Loc Dashboard.SystemInfo.Storage.Header}" />
 

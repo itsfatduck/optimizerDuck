@@ -1105,4 +1105,31 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="DiskCleanup.Item.ErrorReports.Description" xml:space="preserve">
     <value>Báo cáo lỗi Windows và tệp crash dump</value>
   </data>
+  <data name="Dashboard.SystemInfo.Os.DeviceType.Laptop" xml:space="preserve">
+    <value>Máy tính xách tay</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.DeviceType.Desktop" xml:space="preserve">
+    <value>Máy tính để bàn</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.Build" xml:space="preserve">
+    <value>Bản dựng {0}</value>
+  </data>
+  <data name="Bloatware.Header.Description" xml:space="preserve">
+    <value>Quản lý và gỡ bỏ các ứng dụng cài sẵn không cần thiết</value>
+  </data>
+  <data name="Dashboard.Header.Description" xml:space="preserve">
+    <value>Tổng quan hệ thống và thao tác nhanh</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Header" xml:space="preserve">
+    <value>Thông tin hệ thống</value>
+  </data>
+  <data name="DiskCleanup.ItemsSelected" xml:space="preserve">
+    <value>{0} (đã chọn {1} mục)</value>
+  </data>
+  <data name="DiskCleanup.Button.CleanSelected" xml:space="preserve">
+    <value>Dọn dẹp đã chọn ({0})</value>
+  </data>
+  <data name="DiskCleanup.EmptySize" xml:space="preserve">
+    <value>Trống</value>
+  </data>
 </root>

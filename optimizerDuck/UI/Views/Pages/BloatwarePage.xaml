@@ -27,11 +27,18 @@
     </Page.Resources>
 
     <Grid RowDefinitions="Auto *">
-        <ui:TextBlock
-            FontTypography="Title"
-            Margin="0,0,0,20"
-            Text="{ext:Loc Bloatware.Header.Title}"
-            TextWrapping="Wrap" />
+        <StackPanel Margin="0,0,0,20">
+            <ui:TextBlock
+                FontTypography="Title"
+                Text="{ext:Loc Bloatware.Header.Title}"
+                TextWrapping="Wrap" />
+            <ui:TextBlock
+                Margin="0,4,0,0"
+                Appearance="Secondary"
+                FontTypography="Body"
+                Text="{ext:Loc Bloatware.Header.Description}"
+                TextWrapping="Wrap" />
+        </StackPanel>
 
         <!--  Empty (truly no packages installed)  -->
         <Border Grid.Row="1">

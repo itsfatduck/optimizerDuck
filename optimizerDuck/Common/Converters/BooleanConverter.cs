@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace optimizerDuck.Common.Helpers.Converters;
+namespace optimizerDuck.Common.Converters;
 
 // Source - https://stackoverflow.com/a/5182660
 // Posted by Atif Aziz, modified by community. See post 'Timeline' for change history

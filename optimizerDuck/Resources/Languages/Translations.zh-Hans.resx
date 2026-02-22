@@ -1051,5 +1051,23 @@
   <data name="DiskCleanup.Item.ErrorReports.Description" xml:space="preserve">
     <value>Windows 错误报告和崩溃转储文件</value>
   </data>
+  <data name="Dashboard.SystemInfo.Os.DeviceType.Laptop" xml:space="preserve">
+    <value>笔记本电脑</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.DeviceType.Desktop" xml:space="preserve">
+    <value>台式电脑</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.Build" xml:space="preserve">
+    <value>内部版本 {0}</value>
+  </data>
+  <data name="Bloatware.Header.Description" xml:space="preserve">
+    <value>管理和卸载不需要的预装应用程序</value>
+  </data>
+  <data name="Dashboard.Header.Description" xml:space="preserve">
+    <value>系统概览与快速操作</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Header" xml:space="preserve">
+    <value>系统信息</value>
+  </data>
 
 </root>
