@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net.Http;
@@ -29,18 +30,39 @@ public partial class OptimizationCategoryViewModel : ViewModel
     private readonly ISnackbarService _snackbarService;
 
     private static readonly HttpClient httpClient = new() { Timeout = TimeSpan.FromSeconds(5) };
+    private static readonly ConcurrentDictionary<string, (string Content, DateTime FetchedAt)> _sourceCache = new();
+    private static readonly TimeSpan SourceCacheTtl = TimeSpan.FromMinutes(5);
+
     private readonly ObservableCollection<IOptimization> _allOptimizations = [];
     [ObservableProperty] private ObservableCollection<IOptimization> _optimizations = [];
 
     // Search, Filter, Sort
     [ObservableProperty] private string _searchText = string.Empty;
+
     [ObservableProperty] private int _selectedRiskFilterIndex; // 0=All, 1=Safe, 2=Moderate, 3=Risky
     [ObservableProperty] private int _selectedSortByIndex; // 0=Default, 1=Name, 2=Risk
     [ObservableProperty] private bool _hideApplied;
 
-    partial void OnSearchTextChanged(string value) => ApplyFilter();
+    private CancellationTokenSource? _searchDebounce;
+
+    partial void OnSearchTextChanged(string value) => DebounceSearch();
+
+    private async void DebounceSearch()
+    {
+        _searchDebounce?.Cancel();
+        _searchDebounce = new CancellationTokenSource();
+        try
+        {
+            await Task.Delay(250, _searchDebounce.Token);
+            ApplyFilter();
+        }
+        catch (TaskCanceledException) { }
+    }
+
     partial void OnSelectedRiskFilterIndexChanged(int value) => ApplyFilter();
+
     partial void OnSelectedSortByIndexChanged(int value) => ApplyFilter();
+
     partial void OnHideAppliedChanged(bool value) => ApplyFilter();
 
     public OptimizationCategoryViewModel(
@@ -109,7 +131,10 @@ public partial class OptimizationCategoryViewModel : ViewModel
             _ => query // default order from registry
         };
 
-        Optimizations = new ObservableCollection<IOptimization>(query);
+        var filtered = query.ToList();
+        Optimizations.Clear();
+        foreach (var item in filtered)
+            Optimizations.Add(item);
     }
 
     // Keep the progress dialog visible while long-running work is running.
@@ -455,8 +480,6 @@ public partial class OptimizationCategoryViewModel : ViewModel
         var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
     }
 
-  
-
     [RelayCommand]
     private async Task ViewSourceOnGitHubAsync(IOptimization optimization)
     {
@@ -472,13 +495,25 @@ public partial class OptimizationCategoryViewModel : ViewModel
         try
         {
             var rawUrl = $"https://raw.githubusercontent.com/itsfatduck/optimizerDuck/master/{relativePath}";
-            var source = await httpClient.GetStringAsync(rawUrl);
+
+            string source;
+            if (_sourceCache.TryGetValue(rawUrl, out var cached)
+                && DateTime.UtcNow - cached.FetchedAt < SourceCacheTtl)
+            {
+                source = cached.Content;
+            }
+            else
+            {
+                source = await httpClient.GetStringAsync(rawUrl);
+                _sourceCache[rawUrl] = (source, DateTime.UtcNow);
+            }
+
             var lines = source.Split('\n');
             for (var i = 0; i < lines.Length; i++)
             {
                 if (lines[i].Contains($"class {className}", StringComparison.OrdinalIgnoreCase))
                 {
-                    url += $"?plain=1#L{i + 1}";
+                    url += $"#L{i + 1}";
                     break;
                 }
             }

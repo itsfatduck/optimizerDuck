@@ -304,6 +304,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filter.
+        /// </summary>
+        public static string Common_Filter {
+            get {
+                return ResourceManager.GetString("Common.Filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All.
         /// </summary>
         public static string Common_Filter_All {
@@ -318,6 +327,15 @@ namespace optimizerDuck.Resources.Languages {
         public static string Common_Search_Placeholder {
             get {
                 return ResourceManager.GetString("Common.Search.Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort by.
+        /// </summary>
+        public static string Common_SortBy {
+            get {
+                return ResourceManager.GetString("Common.SortBy", resourceCulture);
             }
         }
         
@@ -403,7 +421,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Support me and keep this project growing!.
+        ///   Looks up a localized string similar to Star the repo on GitHub, share it with friends, or donate — every bit helps this project grow!.
         /// </summary>
         public static string Dashboard_Actions_SupportMe_Description {
             get {
@@ -2425,7 +2443,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Support me.
+        ///   Looks up a localized string similar to Star &amp; Support me.
         /// </summary>
         public static string Settings_About_LearnMore_Support {
             get {

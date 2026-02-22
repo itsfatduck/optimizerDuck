@@ -47,7 +47,7 @@ public partial class SettingsViewModel(
     [
         new("English", new CultureInfo("en-US")),
         new("Tiếng Việt", new CultureInfo("vi-VN")),
-        new("简体中文", new CultureInfo("zh-Hans-CN")),
+        new("简体中文", new CultureInfo("zh-Hans")),
         new("Русский", new CultureInfo("ru-RU"))
     ];
 

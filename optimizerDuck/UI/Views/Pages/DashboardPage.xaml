@@ -132,9 +132,10 @@
             <ui:CardAction
                 Margin="5,0,0,0"
                 VerticalAlignment="Stretch"
+                BorderThickness="1"
                 Command="{Binding ViewModel.OpenActionCommand}"
                 CommandParameter="Support"
-                Icon="{ui:SymbolIcon Heart24,
+                Icon="{ui:SymbolIcon Star24,
                                      Filled=True}">
                 <StackPanel>
                     <ui:TextBlock FontTypography="BodyStrong" Text="{ext:Loc Dashboard.Actions.SupportMe.Title}" />

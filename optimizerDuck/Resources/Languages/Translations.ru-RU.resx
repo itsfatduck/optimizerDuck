@@ -1,848 +1,901 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-    <resheader name="resmimetype">
-        <value>text/microsoft-resx</value>
-    </resheader>
-    <resheader name="version">
-        <value>1.3</value>
-    </resheader>
-    <resheader name="reader">
-        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
-            PublicKeyToken=b77a5c561934e089
-        </value>
-    </resheader>
-    <resheader name="writer">
-        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
-            PublicKeyToken=b77a5c561934e089
-        </value>
-    </resheader>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
 
-    <!-- Dashboard & Navigation -->
-    <data name="Dashboard.Header.Title" xml:space="preserve">
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Dashboard.Header.Title" xml:space="preserve">
     <value>Панель управления</value>
   </data>
-    <data name="Sidebar.Dashboard" xml:space="preserve">
+  <data name="Sidebar.Dashboard" xml:space="preserve">
     <value>Панель управления</value>
   </data>
-    <data name="Sidebar.Settings" xml:space="preserve">
+  <data name="Sidebar.Settings" xml:space="preserve">
     <value>Настройки</value>
   </data>
-    <data name="Sidebar.Optimize" xml:space="preserve">
-    <value>Оптимизация</value>
-  </data>
-    <data name="Button.Close" xml:space="preserve">
+  <data name="Button.Close" xml:space="preserve">
     <value>Закрыть</value>
   </data>
-    <data name="Button.Ok" xml:space="preserve">
-    <value>OK</value>
-  </data>
-    <data name="Button.Cancel" xml:space="preserve">
-    <value>Отмена</value>
-  </data>
-    <data name="Button.Retry" xml:space="preserve">
-    <value>Повторить</value>
-  </data>
-    <data name="Button.Clear" xml:space="preserve">
-    <value>Очистить</value>
-  </data>
-    <data name="Button.Open" xml:space="preserve">
-    <value>Открыть</value>
-  </data>
-    <data name="Button.Skip" xml:space="preserve">
-    <value>Пропустить</value>
-  </data>
-    <data name="Button.ViewLatestRelease" xml:space="preserve">
-    <value>Посмотреть последний релиз</value>
-  </data>
-
-    <!-- System Info -->
-    <data name="Dashboard.SystemInfo.Cpu.Cores" xml:space="preserve">
+  <data name="Dashboard.SystemInfo.Cpu.Cores" xml:space="preserve">
     <value>{0} ядер</value>
   </data>
-    <data name="Dashboard.SystemInfo.Cpu.Threads" xml:space="preserve">
-    <value>{0} потоков</value>
-  </data>
-    <data name="Dashboard.SystemInfo.Ram.Modules" xml:space="preserve">
-    <value>{0} модулей памяти</value>
-  </data>
-    <data name="Dashboard.SystemInfo.Ram.Used" xml:space="preserve">
-    <value>Использовано {0} ГБ</value>
-  </data>
-    <data name="Dashboard.SystemInfo.Ram.Available" xml:space="preserve">
-    <value>Доступно {0} ГБ</value>
-  </data>
-    <data name="Dashboard.SystemInfo.Storage.Header" xml:space="preserve">
-    <value>Хранилище</value>
-  </data>
-    <data name="Dashboard.SystemInfo.Storage.System" xml:space="preserve">
-    <value>СИСТЕМНЫЙ</value>
-  </data>
-    <data name="Dashboard.SystemInfo.Storage.DiskInfo" xml:space="preserve">
+  <data name="Dashboard.SystemInfo.Storage.DiskInfo" xml:space="preserve">
     <value>Использовано {0} ГБ из {1} ГБ (свободно {2} ГБ)</value>
   </data>
-    <data name="Dashboard.SystemInfo.Gpu.More" xml:space="preserve">
-    <value>+ ещё {0} GPU</value>
+  <data name="Dashboard.SystemInfo.Ram.Modules" xml:space="preserve">
+    <value>{0} модулей памяти</value>
   </data>
-    <data name="Dashboard.SystemInfo.Loading" xml:space="preserve">
+  <data name="Dashboard.SystemInfo.Cpu.Threads" xml:space="preserve">
+    <value>{0} потоков</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Storage.System" xml:space="preserve">
+    <value>СИСТЕМНЫЙ</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Storage.Header" xml:space="preserve">
+    <value>Хранилище</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Ram.Used" xml:space="preserve">
+    <value>Использовано {0} ГБ</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Ram.Available" xml:space="preserve">
+    <value>Доступно {0} ГБ</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Loading" xml:space="preserve">
     <value>Получение информации о системе...</value>
   </data>
-
-    <!-- Dashboard Actions -->
-    <data name="Dashboard.Actions.Discord.Title" xml:space="preserve">
+  <data name="Sidebar.Optimize" xml:space="preserve">
+    <value>Оптимизация</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Gpu.More" xml:space="preserve">
+    <value>+ ещё {0} GPU</value>
+  </data>
+  <data name="Dashboard.Actions.Discord.Title" xml:space="preserve">
     <value>Сообщество Discord</value>
   </data>
-    <data name="Dashboard.Actions.Discord.Description" xml:space="preserve">
+  <data name="Dashboard.Actions.Discord.Description" xml:space="preserve">
     <value>Присоединяйтесь к нашему сообществу Discord для получения технической поддержки или обсуждений</value>
   </data>
-    <data name="Dashboard.Actions.GitHub.Title" xml:space="preserve">
+  <data name="Dashboard.Actions.GitHub.Title" xml:space="preserve">
     <value>Репозиторий GitHub</value>
   </data>
-    <data name="Dashboard.Actions.GitHub.Description" xml:space="preserve">
+  <data name="Dashboard.Actions.GitHub.Description" xml:space="preserve">
     <value>Изучайте, проверяйте и вносите вклад в код на GitHub</value>
   </data>
-    <data name="Dashboard.Actions.SupportMe.Title" xml:space="preserve">
+  <data name="Dashboard.Actions.SupportMe.Title" xml:space="preserve">
     <value>Поддержать разработчика</value>
   </data>
-    <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
-    <value>Поддержите развитие этого проекта</value>
+  <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
+    <value>Поставьте звезду на GitHub, поделитесь с друзьями или поддержите донатом — любая помощь важна!</value>
   </data>
-
-    <!-- Settings -->
-    <data name="Settings.Header.Title" xml:space="preserve">
-    <value>Настройки</value>
-  </data>
-    <data name="Settings.Appearance.Header" xml:space="preserve">
-    <value>Внешний вид</value>
-  </data>
-    <data name="Settings.Appearance.LanguageSelector.Title" xml:space="preserve">
-    <value>Язык</value>
-  </data>
-    <data name="Settings.Appearance.LanguageSelector.Description" xml:space="preserve">
-    <value>Выберите предпочитаемый язык интерфейса</value>
-  </data>
-    <data name="Settings.Appearance.ThemeSelector.Title" xml:space="preserve">
-    <value>Тема</value>
-  </data>
-    <data name="Settings.Appearance.ThemeSelector.Description" xml:space="preserve">
-    <value>Выберите тему оформления приложения</value>
-  </data>
-    <data name="Settings.Appearance.ThemeSelector.Light" xml:space="preserve">
-    <value>Светлая</value>
-  </data>
-    <data name="Settings.Appearance.ThemeSelector.Dark" xml:space="preserve">
-    <value>Тёмная</value>
-  </data>
-    <data name="Settings.Appearance.ThemeSelector.HighContrast" xml:space="preserve">
-    <value>Высокий контраст</value>
-  </data>
-    <data name="Settings.LanguageChanged.Title" xml:space="preserve">
+  <data name="Settings.LanguageChanged.Title" xml:space="preserve">
     <value>Язык изменён</value>
   </data>
-    <data name="Settings.LanguageChanged.Description" xml:space="preserve">
+  <data name="Settings.LanguageChanged.Description" xml:space="preserve">
     <value>Необходимо перезапустить приложение для применения новых языковых настроек</value>
   </data>
-    <data name="Settings.Optimize.Header" xml:space="preserve">
-    <value>Параметры оптимизации</value>
+  <data name="Button.Ok" xml:space="preserve">
+    <value>OK</value>
   </data>
-    <data name="Settings.Optimize.ShellTimeout.Title" xml:space="preserve">
-    <value>Таймаут Shell-сервиса</value>
+  <data name="Settings.Header.Title" xml:space="preserve">
+    <value>Настройки</value>
   </data>
-    <data name="Settings.Optimize.ShellTimeout.Description" xml:space="preserve">
-    <value>Таймаут выполнения каждой команды Shell (в миллисекундах)</value>
+  <data name="Settings.Appearance.Header" xml:space="preserve">
+    <value>Внешний вид</value>
   </data>
-    <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
-    <value>Не изменяйте, если точно не знаете, что делаете</value>
+  <data name="Settings.Appearance.LanguageSelector.Title" xml:space="preserve">
+    <value>Язык</value>
   </data>
-    <data name="Settings.Advanced.Header" xml:space="preserve">
-    <value>Расширенные</value>
+  <data name="Settings.Appearance.LanguageSelector.Description" xml:space="preserve">
+    <value>Выберите предпочитаемый язык интерфейса</value>
   </data>
-    <data name="Settings.Advanced.ClearResources.Title" xml:space="preserve">
-    <value>Очистить ресурсы</value>
+  <data name="Settings.Appearance.ThemeSelector.Title" xml:space="preserve">
+    <value>Тема</value>
   </data>
-    <data name="Settings.Advanced.ClearResources.Description" xml:space="preserve">
-    <value>Удалить все файлы, загруженные в процессе оптимизации</value>
+  <data name="Settings.Appearance.ThemeSelector.Description" xml:space="preserve">
+    <value>Выберите тему оформления приложения</value>
   </data>
-    <data name="Settings.Advanced.ClearRevertDatas.Title" xml:space="preserve">
-    <value>Очистить все данные отката</value>
+  <data name="Settings.Appearance.ThemeSelector.Light" xml:space="preserve">
+    <value>Светлая</value>
   </data>
-    <data name="Settings.Advanced.ClearRevertDatas.Description" xml:space="preserve">
-    <value>Удалить все данные отката от оптимизаций</value>
+  <data name="Settings.Appearance.ThemeSelector.Dark" xml:space="preserve">
+    <value>Тёмная</value>
   </data>
-    <data name="Settings.Advanced.OpenRootDir.Title" xml:space="preserve">
-    <value>Открыть корневую директорию</value>
+  <data name="Settings.Appearance.ThemeSelector.HighContrast" xml:space="preserve">
+    <value>Высокий контраст</value>
   </data>
-    <data name="Settings.Advanced.OpenRootDir.Description" xml:space="preserve">
-    <value>Открыть корневую директорию приложения, содержащую все необходимые файлы</value>
+  <data name="Common.AppliedSecondsAgo" xml:space="preserve">
+    <value>Применено {0} сек. назад</value>
   </data>
-    <data name="Settings.About.Header" xml:space="preserve">
-    <value>О программе</value>
+  <data name="Common.AppliedMinutesAgo" xml:space="preserve">
+    <value>Применено {0} мин. назад</value>
   </data>
-    <data name="Settings.About.Duck.Description" xml:space="preserve">
-    <value><![CDATA[Спасибо за ваше доверие и поддержку <3!
-Текущая версия: {0}]]></value>
+  <data name="Common.AppliedHoursAgo" xml:space="preserve">
+    <value>Применено {0} ч. назад</value>
   </data>
-    <data name="Settings.About.LearnMore" xml:space="preserve">
-    <value>Узнать больше</value>
+  <data name="Common.AppliedDaysAgo" xml:space="preserve">
+    <value>Применено {0} дн. назад</value>
   </data>
-    <data name="Settings.About.LearnMore.Documentation" xml:space="preserve">
-    <value>Документация</value>
+  <data name="Common.AppliedMonthsAgo" xml:space="preserve">
+    <value>Применено {0} мес. назад</value>
   </data>
-    <data name="Settings.About.LearnMore.Support" xml:space="preserve">
-    <value>Поддержать разработчика</value>
+  <data name="Common.AppliedYearsAgo" xml:space="preserve">
+    <value>Применено {0} г. назад</value>
   </data>
-    <data name="Settings.About.LearnMore.Discord" xml:space="preserve">
-    <value>Сообщество Discord</value>
-  </data>
-    <data name="Settings.About.LearnMore.GitHub" xml:space="preserve">
-    <value>Репозиторий GitHub</value>
-  </data>
-    <data name="Settings.About.Acknowledgements.Title" xml:space="preserve">
-    <value>Благодарности</value>
-  </data>
-    <data name="Settings.About.Acknowledgements.Description" xml:space="preserve">
-    <value>optimizerDuck стал возможен благодаря следующему программному обеспечению с открытым исходным кодом</value>
-  </data>
-    <data name="Settings.About.LearnMore.Acknowledgements" xml:space="preserve">
-    <value>Благодарности</value>
-  </data>
-
-    <!-- Optimizer Categories -->
-    <data name="Optimizer.Performance" xml:space="preserve">
-    <value>Производительность</value>
-  </data>
-    <data name="Optimizer.PowerManagement" xml:space="preserve">
-    <value>Управление питанием</value>
-  </data>
-    <data name="Optimizer.SecurityAndPrivacy" xml:space="preserve">
-    <value>Безопасность и конфиденциальность</value>
-  </data>
-    <data name="Optimizer.BloatwareAndServices" xml:space="preserve">
-    <value>Раз bloatware и службы</value>
-  </data>
-    <data name="Optimizer.Gpu" xml:space="preserve">
-    <value>Графический процессор</value>
-  </data>
-    <data name="Optimizer.UserExperience" xml:space="preserve">
-    <value>Пользовательский опыт</value>
-  </data>
-
-    <!-- Risk Levels -->
-    <data name="Optimizer.UI.Risk.Safe" xml:space="preserve">
+  <data name="Optimizer.UI.Risk.Safe" xml:space="preserve">
     <value>Безопасно</value>
   </data>
-    <data name="Optimizer.UI.Risk.Moderate" xml:space="preserve">
+  <data name="Optimizer.UI.Risk.Moderate" xml:space="preserve">
     <value>Осторожно</value>
   </data>
-    <data name="Optimizer.UI.Risk.Risky" xml:space="preserve">
+  <data name="Optimizer.UI.Risk.Risky" xml:space="preserve">
     <value>Рискованно</value>
   </data>
-    <data name="Optimizer.UI.Risk.Help" xml:space="preserve">
-    <value>Это значение отражает уровень вмешательства и безопасность процесса оптимизации. Пожалуйста, внимательно рассмотрите перед применением любой оптимизации.</value>
+  <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
+    <value>Подробное описание</value>
   </data>
-
-    <!-- Tags -->
-    <data name="Optimizer.UI.Tags.System" xml:space="preserve">
-    <value>Система</value>
+  <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
+    <value>Теги</value>
   </data>
-    <data name="Optimizer.UI.Tags.Ram" xml:space="preserve">
-    <value>Память</value>
+  <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
+    <value>Уровень риска</value>
   </data>
-    <data name="Optimizer.UI.Tags.Disk" xml:space="preserve">
-    <value>Диск</value>
+  <data name="OptimizationDetailsDialog.Other" xml:space="preserve">
+    <value>Прочее</value>
   </data>
-    <data name="Optimizer.UI.Tags.Network" xml:space="preserve">
-    <value>Сеть</value>
-  </data>
-    <data name="Optimizer.UI.Tags.NetworkRequired" xml:space="preserve">
-    <value>Требуется подключение к сети</value>
-  </data>
-    <data name="Optimizer.UI.Tags.Privacy" xml:space="preserve">
-    <value>Конфиденциальность</value>
-  </data>
-    <data name="Optimizer.UI.Tags.Security" xml:space="preserve">
-    <value>Безопасность</value>
-  </data>
-    <data name="Optimizer.UI.Tags.Performance" xml:space="preserve">
-    <value>Производительность</value>
-  </data>
-    <data name="Optimizer.UI.Tags.Latency" xml:space="preserve">
-    <value>Задержка</value>
-  </data>
-    <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
-    <value>Питание</value>
-  </data>
-    <data name="Optimizer.UI.Tags.Audio" xml:space="preserve">
-    <value>Аудио</value>
-  </data>
-    <data name="Optimizer.UI.Tags.Display" xml:space="preserve">
-    <value>Дисплей</value>
-  </data>
-    <data name="Optimizer.UI.Tags.Visual" xml:space="preserve">
-    <value>Визуальные эффекты</value>
-  </data>
-    <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
-    <value>NVIDIA</value>
-  </data>
-    <data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
-    <value>AMD</value>
-  </data>
-    <data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
-    <value>Intel</value>
-  </data>
-    <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
-    <value>Эти теги указывают, какие части системы затронет оптимизация</value>
-  </data>
-
-    <!-- Performance Optimizations -->
-    <data name="Optimizer.Performance.DisableBackgroundApps.Name" xml:space="preserve">
-    <value>Отключить фоновые приложения</value>
-  </data>
-    <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
-    <value>Запрещает неактивным приложениям работать в фоне, освобождая ОЗУ и снижая нагрузку на процессор.</value>
-  </data>
-    <data name="Optimizer.Performance.SvcHostSplit.Name" xml:space="preserve">
-    <value>Оптимизировать изоляцию служб</value>
-  </data>
-    <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
     <value>Разделяет системные службы на отдельные процессы для значительного повышения стабильности Windows.</value>
   </data>
-    <data name="Optimizer.Performance.SvcHostSplit.Error.InvalidRAM" xml:space="preserve">
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
+    <value>Не удалось определить активный план питания</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ImportFailed" xml:space="preserve">
+    <value>Ошибка импорта плана питания optimizerDuck</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ActivateFailed" xml:space="preserve">
+    <value>Ошибка активации плана питания optimizerDuck</value>
+  </data>
+  <data name="Optimizer.UI.Risk.Help" xml:space="preserve">
+    <value>Это значение отражает уровень вмешательства и безопасность процесса оптимизации. Пожалуйста, внимательно рассмотрите перед применением любой оптимизации.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.System" xml:space="preserve">
+    <value>Система</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Ram" xml:space="preserve">
+    <value>Память</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Disk" xml:space="preserve">
+    <value>Диск</value>
+  </data>
+  <data name="Optimizer.UI.Tags.NetworkRequired" xml:space="preserve">
+    <value>Требуется подключение к сети</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Network" xml:space="preserve">
+    <value>Сеть</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Privacy" xml:space="preserve">
+    <value>Конфиденциальность</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Audio" xml:space="preserve">
+    <value>Аудио</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
+    <value>Эти теги указывают, какие части системы затронет оптимизация</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
+    <value>NVIDIA</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
+    <value>AMD</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
+    <value>Intel</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
+    <value>Питание</value>
+  </data>
+  <data name="Revert.Error.InvalidData" xml:space="preserve">
+    <value>Недействительные данные отката для {0}: {1}</value>
+  </data>
+  <data name="Revert.Error.NoDataFound" xml:space="preserve">
+    <value>Данные отката для {0} не найдены</value>
+  </data>
+  <data name="Optimization.Revert.Reverting" xml:space="preserve">
+    <value>Откат изменений...</value>
+  </data>
+  <data name="Optimization.Revert.Success" xml:space="preserve">
+    <value>Успешно отменено {0}!</value>
+  </data>
+  <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
+    <value>Отменено {0}, но {1} шагов не удалось</value>
+  </data>
+  <data name="Revert.Error.RevertFailed" xml:space="preserve">
+    <value>Не удалось отменить {0}: {1}</value>
+  </data>
+  <data name="Optimization.Revert.ExecutingStep" xml:space="preserve">
+    <value>Выполнение шага отката: {0}/{1} ({2})</value>
+  </data>
+  <data name="Revert.Error.FileNotFound" xml:space="preserve">
+    <value>Файл отката не найден</value>
+  </data>
+  <data name="Revert.Error.FileEmpty" xml:space="preserve">
+    <value>Файл отката пуст</value>
+  </data>
+  <data name="Revert.Error.ReadFailed" xml:space="preserve">
+    <value>Ошибка чтения данных отката: {0}</value>
+  </data>
+  <data name="Revert.Error.InvalidJson" xml:space="preserve">
+    <value>Недействительные данные отката</value>
+  </data>
+  <data name="Revert.Error.InvalidJsonFormat" xml:space="preserve">
+    <value>Недействительный формат JSON: {0}</value>
+  </data>
+  <data name="Revert.Error.NoSteps" xml:space="preserve">
+    <value>Шаги отката не найдены</value>
+  </data>
+  <data name="Revert.Error.InvalidSteps" xml:space="preserve">
+    <value>Недействительные шаги отката: {0}</value>
+  </data>
+  <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
+    <value>Несоответствие ID оптимизации</value>
+  </data>
+  <data name="Optimization.Apply.Processing" xml:space="preserve">
+    <value>Применение изменений...</value>
+  </data>
+  <data name="Optimization.Apply.Completed" xml:space="preserve">
+    <value>Завершено</value>
+  </data>
+  <data name="Optimization.Apply.Success" xml:space="preserve">
+    <value>Успешно применено {0}</value>
+  </data>
+  <data name="Optimization.Apply.Error.FailedWithSteps" xml:space="preserve">
+    <value>Применено {0}, но {1} шагов не удалось</value>
+  </data>
+  <data name="Optimization.Apply.Error.Failed" xml:space="preserve">
+    <value>Не удалось применить {0}</value>
+  </data>
+  <data name="Service.Common.Error.AccessDenied" xml:space="preserve">
+    <value>Доступ запрещён</value>
+  </data>
+  <data name="Service.Registry.Error.AccessDeniedProtectedHive" xml:space="preserve">
+    <value>Доступ запрещён (защищённый раздел реестра)</value>
+  </data>
+  <data name="Service.Registry.Error.UnauthorizedAccess" xml:space="preserve">
+    <value>Несанкционированный доступ</value>
+  </data>
+  <data name="Service.Registry.Error.CreateOrOpenSubkeyFailed" xml:space="preserve">
+    <value>Ошибка создания/открытия подраздела</value>
+  </data>
+  <data name="Service.Service.Error.NotFound" xml:space="preserve">
+    <value>Служба не найдена</value>
+  </data>
+  <data name="Service.Service.Error.UpdateRegistryForStartupTypeFailed" xml:space="preserve">
+    <value>Ошибка обновления реестра для типа запуска</value>
+  </data>
+  <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
+    <value>Ошибка ChangeStartMode (код: {0})</value>
+  </data>
+  <data name="Service.Shell.Error.ExitCode" xml:space="preserve">
+    <value>Код выхода {0}</value>
+  </data>
+  <data name="Service.Shell.Error.TimedOut" xml:space="preserve">
+    <value>Таймаут</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
+    <value>Файл отката</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
+    <value>Открыть папку и выбрать файл данных отката для этой оптимизации</value>
+  </data>
+  <data name="OptimizationResultDialog.Header" xml:space="preserve">
+    <value>{0} неудачных шагов</value>
+  </data>
+  <data name="OptimizationResultDialog.Description" xml:space="preserve">
+    <value>Некоторые шаги не были выполнены успешно. Вы можете повторить только неудавшиеся шаги.</value>
+  </data>
+  <data name="Button.Retry" xml:space="preserve">
+    <value>Повторить</value>
+  </data>
+  <data name="Settings.About.Duck.Description" xml:space="preserve">
+    <value>Спасибо за ваше доверие и поддержку &lt;3!
+Текущая версия: {0}</value>
+  </data>
+  <data name="Settings.Advanced.Header" xml:space="preserve">
+    <value>Расширенные</value>
+  </data>
+  <data name="Settings.Optimize.Header" xml:space="preserve">
+    <value>Параметры оптимизации</value>
+  </data>
+  <data name="Settings.Optimize.ShellTimeout.Title" xml:space="preserve">
+    <value>Таймаут Shell-сервиса</value>
+  </data>
+  <data name="Settings.Optimize.ShellTimeout.Description" xml:space="preserve">
+    <value>Таймаут выполнения каждой команды Shell (в миллисекундах)</value>
+  </data>
+  <data name="Settings.Advanced.ClearResources.Title" xml:space="preserve">
+    <value>Очистить ресурсы</value>
+  </data>
+  <data name="Settings.Advanced.ClearResources.Description" xml:space="preserve">
+    <value>Удалить все файлы, загруженные в процессе оптимизации</value>
+  </data>
+  <data name="Settings.Advanced.ClearRevertDatas.Title" xml:space="preserve">
+    <value>Очистить все данные отката</value>
+  </data>
+  <data name="Settings.Advanced.ClearRevertDatas.Description" xml:space="preserve">
+    <value>Удалить все данные отката от оптимизаций</value>
+  </data>
+  <data name="Button.Clear" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
+  <data name="Settings.Advanced.OpenRootDir.Title" xml:space="preserve">
+    <value>Открыть корневую директорию</value>
+  </data>
+  <data name="Settings.Advanced.OpenRootDir.Description" xml:space="preserve">
+    <value>Открыть корневую директорию приложения, содержащую все необходимые файлы</value>
+  </data>
+  <data name="Button.Open" xml:space="preserve">
+    <value>Открыть</value>
+  </data>
+  <data name="Settings.About.Header" xml:space="preserve">
+    <value>О программе</value>
+  </data>
+  <data name="Settings.About.LearnMore" xml:space="preserve">
+    <value>Узнать больше</value>
+  </data>
+  <data name="Settings.About.LearnMore.Documentation" xml:space="preserve">
+    <value>Документация</value>
+  </data>
+  <data name="Settings.About.LearnMore.Support" xml:space="preserve">
+    <value>Звезда и поддержка</value>
+  </data>
+  <data name="Settings.About.LearnMore.Discord" xml:space="preserve">
+    <value>Сообщество Discord</value>
+  </data>
+  <data name="Settings.About.LearnMore.GitHub" xml:space="preserve">
+    <value>Репозиторий GitHub</value>
+  </data>
+  <data name="Dialog.AreYouSure.Title" xml:space="preserve">
+    <value>Вы уверены, что хотите продолжить?</value>
+  </data>
+  <data name="Settings.ClearResources.Description" xml:space="preserve">
+    <value>Вы собираетесь удалить все ресурсы, загруженные или созданные в процессе оптимизации. Обратите внимание, что это действие необратимо, пожалуйста, убедитесь перед продолжением.</value>
+  </data>
+  <data name="Button.Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Button.Skip" xml:space="preserve">
+    <value>Пропустить</value>
+  </data>
+  <data name="Settings.ClearRevertData.Description" xml:space="preserve">
+    <value>Вы собираетесь удалить все данные отката, созданные после процесса оптимизации. Это означает, что вы больше не сможете восстановить состояние до оптимизации, пожалуйста, внимательно рассмотрите перед подтверждением.</value>
+  </data>
+  <data name="ProcessingOptimizationDialog.Warning.DontCloseAppOrRestart" xml:space="preserve">
+    <value>Пожалуйста, не закрывайте приложение и не перезагружайте компьютер во время применения или отката изменений.</value>
+  </data>
+  <data name="Common.AppliedJustNow" xml:space="preserve">
+    <value>Только что применено</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
+    <value>Ошибка применения оптимизации</value>
+  </data>
+  <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
+    <value>Ошибка отката оптимизации</value>
+  </data>
+  <data name="Optimization.Toggle.Snackbar.Error.Title" xml:space="preserve">
+    <value>Ошибка переключения оптимизации</value>
+  </data>
+  <data name="Optimization.Toggle.Snackbar.Error.Message" xml:space="preserve">
+    <value>Произошла ошибка: {0}</value>
+  </data>
+  <data name="Optimization.Retry.Processing" xml:space="preserve">
+    <value>Повторение неудавшихся шагов...</value>
+  </data>
+  <data name="Optimization.RetryStep.Processing" xml:space="preserve">
+    <value>Повторение шага {0} ({1}/{2} шагов)</value>
+  </data>
+  <data name="Optimization.Revert.Error.Failed" xml:space="preserve">
+    <value>Не удалось отменить {0}</value>
+  </data>
+  <data name="Dashboard.Header.Menu.Refresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="Dashboard.Header.Menu.Header.Options" xml:space="preserve">
+    <value>Параметры</value>
+  </data>
+  <data name="Dashboard.Header.Menu.Header.Run" xml:space="preserve">
+    <value>Запуск</value>
+  </data>
+  <data name="Dashboard.Header.Menu.RunSettings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Dashboard.Header.Menu.RunTaskManager" xml:space="preserve">
+    <value>Диспетчер задач</value>
+  </data>
+  <data name="Dashboard.Header.Menu.RunControlPanel" xml:space="preserve">
+    <value>Панель управления</value>
+  </data>
+  <data name="Common.Unknown" xml:space="preserve">
+    <value>Неизвестно</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Security" xml:space="preserve">
+    <value>Безопасность</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Performance" xml:space="preserve">
+    <value>Производительность</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Latency" xml:space="preserve">
+    <value>Задержка</value>
+  </data>
+  <data name="Optimizer.Performance" xml:space="preserve">
+    <value>Производительность</value>
+  </data>
+  <data name="Optimizer.PowerManagement" xml:space="preserve">
+    <value>Управление питанием</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy" xml:space="preserve">
+    <value>Безопасность и конфиденциальность</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices" xml:space="preserve">
+    <value>Раз bloatware и службы</value>
+  </data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.Name" xml:space="preserve">
+    <value>Отключить фоновые приложения</value>
+  </data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
+    <value>Запрещает неактивным приложениям работать в фоне, освобождая ОЗУ и снижая нагрузку на процессор.</value>
+  </data>
+  <data name="Optimizer.Performance.SvcHostSplit.Name" xml:space="preserve">
+    <value>Оптимизировать изоляцию служб</value>
+  </data>
+  <data name="Optimizer.Performance.SvcHostSplit.Error.InvalidRAM" xml:space="preserve">
     <value>Недействительный объём памяти: {0}</value>
   </data>
-    <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
+  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
     <value>Приоритет активных приложений</value>
   </data>
-    <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
     <value>Выделяет больше ресурсов процессора приложению, которое вы используете, для более быстрой работы.</value>
   </data>
-    <data name="Optimizer.Performance.GameTaskScheduling.Name" xml:space="preserve">
+  <data name="Optimizer.Performance.GameTaskScheduling.Name" xml:space="preserve">
     <value>Оптимизировать игровое планирование</value>
   </data>
-    <data name="Optimizer.Performance.GameTaskScheduling.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Performance.GameTaskScheduling.ShortDescription" xml:space="preserve">
     <value>Назначает высокий приоритет игровым процессам для обеспечения стабильного FPS и плавного геймплея.</value>
   </data>
-    <data name="Optimizer.Performance.MultimediaResponsiveness.Name" xml:space="preserve">
+  <data name="Optimizer.Performance.MultimediaResponsiveness.Name" xml:space="preserve">
     <value>Оптимизировать отклик мультимедиа</value>
   </data>
-    <data name="Optimizer.Performance.MultimediaResponsiveness.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Performance.MultimediaResponsiveness.ShortDescription" xml:space="preserve">
     <value>Снижает задержки для звука, видео и сети, улучшая работу медиа и игр в реальном времени.</value>
   </data>
-    <data name="Optimizer.Performance.DisableGameBar.Name" xml:space="preserve">
+  <data name="Optimizer.Performance.DisableGameBar.Name" xml:space="preserve">
     <value>Отключить Xbox Game Bar</value>
   </data>
-    <data name="Optimizer.Performance.DisableGameBar.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Performance.DisableGameBar.ShortDescription" xml:space="preserve">
     <value>Отключает оверлеи и фоновые функции Game Bar для экономии ресурсов системы во время игры.</value>
   </data>
-    <data name="Optimizer.Performance.EnableGameMode.Name" xml:space="preserve">
+  <data name="Optimizer.Performance.EnableGameMode.Name" xml:space="preserve">
     <value>Включить игровой режим</value>
   </data>
-    <data name="Optimizer.Performance.EnableGameMode.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Performance.EnableGameMode.ShortDescription" xml:space="preserve">
     <value>Активирует Игровой режим Windows для приоритизации игр и предотвращения прерываний от Центра обновлений.</value>
   </data>
-    <data name="Optimizer.Performance.DisableGameDVR.Name" xml:space="preserve">
+  <data name="Optimizer.Performance.DisableGameDVR.Name" xml:space="preserve">
     <value>Отключить фоновую запись</value>
   </data>
-    <data name="Optimizer.Performance.DisableGameDVR.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Performance.DisableGameDVR.ShortDescription" xml:space="preserve">
     <value>Выключает автоматическую запись игрового процесса в фоне для возврата потерянной производительности.</value>
   </data>
-    <data name="Optimizer.Performance.DisableMouseAcceleration.Name" xml:space="preserve">
+  <data name="Optimizer.Performance.DisableMouseAcceleration.Name" xml:space="preserve">
     <value>Отключить ускорение мыши</value>
   </data>
-    <data name="Optimizer.Performance.DisableMouseAcceleration.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Performance.DisableMouseAcceleration.ShortDescription" xml:space="preserve">
     <value>Выключает автоматическую подстройку скорости мыши Windows для точного перемещения курсора 1:1.</value>
   </data>
-    <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
     <value>Оптимизировать отклик клавиатуры</value>
   </data>
-    <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
     <value>Снижает задержку ввода и ускоряет повтор клавиш для более быстрого набора текста и реакции в играх.</value>
   </data>
-
-    <!-- Power Management -->
-    <data name="Optimizer.PowerManagement.DisableHibernate.Name" xml:space="preserve">
+  <data name="Optimizer.PowerManagement.DisableHibernate.Name" xml:space="preserve">
     <value>Отключить гибернацию и быстрый запуск</value>
   </data>
-    <data name="Optimizer.PowerManagement.DisableHibernate.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.PowerManagement.DisableHibernate.ShortDescription" xml:space="preserve">
     <value>Выключает гибернацию и быстрый запуск для очистки нескольких ГБ места на диске и «чистой» загрузки.</value>
   </data>
-    <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
     <value>Запретить отключение USB портов</value>
   </data>
-    <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
     <value>Предотвращает отключение питания USB-портов системой, устраняя задержки пробуждения мыши и клавиатуры.</value>
   </data>
-    <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
     <value>Применить оптимальную схему питания</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
     <value>Устанавливает специальную схему питания для обеспечения максимальной производительности системы.</value>
   </data>
-    <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Downloading" xml:space="preserve">
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Downloading" xml:space="preserve">
     <value>Загрузка плана питания...</value>
   </data>
-    <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
     <value>Импорт и активация плана питания...</value>
   </data>
-    <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed"
-          xml:space="preserve">
-    <value>Не удалось определить активный план питания</value>
-  </data>
-    <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DownloadFailed" xml:space="preserve">
-    <value>Ошибка загрузки плана питания optimizerDuck</value>
-  </data>
-    <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ImportFailed" xml:space="preserve">
-    <value>Ошибка импорта плана питания optimizerDuck</value>
-  </data>
-    <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ActivateFailed" xml:space="preserve">
-    <value>Ошибка активации плана питания optimizerDuck</value>
-  </data>
-    <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
     <value>Отключить ограничение питания CPU</value>
   </data>
-    <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
     <value>Запрещает Windows ограничивать производительность процессора для сохранения полной мощности.</value>
   </data>
-
-    <!-- Security & Privacy -->
-    <data name="Optimizer.SecurityAndPrivacy.DisableUAC.Name" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableUAC.Name" xml:space="preserve">
     <value>Отключить уведомления UAC (Админ)</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableUAC.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableUAC.ShortDescription" xml:space="preserve">
     <value>Выключает окна контроля учетных записей (UAC), запрашивающие разрешение при запуске программ.</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
     <value>Отключить сбор данных (Телеметрия)</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
     <value>Отключает службы отслеживания Windows для повышения приватности и снижения фоновой активности.</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
     <value>Применение политик и изменений реестра...</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableServices" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableServices" xml:space="preserve">
     <value>Отключение телеметричных служб...</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableTasks" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableTasks" xml:space="preserve">
     <value>Отключение плановых телеметричных задач...</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.Name" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.Name" xml:space="preserve">
     <value>Отключить системные журналы</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
     <value>Останавливает сбор необязательных журналов событий для снижения активности диска и нагрузки на ЦП.</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
     <value>Отключить Cortana и поиск в сети</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
     <value>Выключает помощника Cortana и убирает результаты поиска Bing из панели задач Windows.</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
     <value>Отключить Windows Copilot</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
     <value>Удаляет ИИ-помощника Copilot с панели задач и из системы для экономии ресурсов и места на экране.</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
     <value>Отключить рекламу и советы</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
     <value>Блокирует автоматическую установку рекламных приложений и показ советов в меню «Пуск». </value>
   </data>
-
-    <!-- Bloatware & Services -->
-    <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
+  <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
     <value>Блокировать предустановленный софт</value>
   </data>
-    <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
     <value>Предотвращает автоматическую переустановку ненужных приложений и встроенного рекламного ПО.</value>
   </data>
-    <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
     <value>Оптимизировать системные службы</value>
   </data>
-    <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
     <value>Настраивает запуск необязательных служб для экономии ресурсов при сохранении всех функций Windows.</value>
   </data>
-    <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType"
-          xml:space="preserve">
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType" xml:space="preserve">
     <value>Установка типа запуска для {0} в {1}...</value>
   </data>
-
-    <!-- GPU Optimizations -->
-    <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
+  <data name="Optimizer.UI.Tags.Display" xml:space="preserve">
+    <value>Дисплей</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Visual" xml:space="preserve">
+    <value>Визуальные эффекты</value>
+  </data>
+  <data name="Optimizer.Gpu" xml:space="preserve">
+    <value>Графический процессор</value>
+  </data>
+  <data name="Optimizer.UserExperience" xml:space="preserve">
+    <value>Пользовательский опыт</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
     <value>Включить AMD ULPS</value>
   </data>
-    <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
     <value>Травля режима ультра-низкого энергопотребления AMD для устранения задержек при пробуждении GPU.</value>
   </data>
-    <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
     <value>Отключить AMD Power Gating</value>
   </data>
-    <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
     <value>Поддерживает стабильную производительность GPU, предотвращая автоматическое отключение его компонентов.</value>
   </data>
-    <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
     <value>Отключить AMD Video Clock Gating</value>
   </data>
-    <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
     <value>Повышает стабильность обработки видео за счет поддержания готовности видеоядер.</value>
   </data>
-    <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
+  <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
     <value>Отключить AMD ASPM</value>
   </data>
-    <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
     <value>Снижает задержки шины PCIe для графики AMD, улучшая скорость отклика.</value>
   </data>
-    <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
     <value>Зафиксировать питание NVIDIA</value>
   </data>
-    <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
     <value>Предотвращает автоматическое изменение уровней энергии GPU NVIDIA для стабильной производительности.</value>
   </data>
-    <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
     <value>Отключить Async P-States</value>
   </data>
-    <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
     <value>Выключает асинхронное переключение состояний питания для достижения максимальной стабильности.</value>
   </data>
-    <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
     <value>Включить синхронизацию Intel</value>
   </data>
-    <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
     <value>Использует синхронное обновление кадров для снижения задержки отображения и разрывов экрана.</value>
   </data>
-    <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
     <value>Отключить Adaptive V-Sync</value>
   </data>
-    <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
     <value>Поддерживает стабильное время кадра, отключая адаптивную вертикальную синхронизацию Intel.</value>
   </data>
-
-    <!-- User Experience -->
-    <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.Name" xml:space="preserve">
+  <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.Name" xml:space="preserve">
     <value>Отключить Новости и Интересы</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.ShortDescription" xml:space="preserve">
     <value>Удаляет виджет новостей с панели задач для снижения отвлекающих факторов и нагрузки.</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableTaskbarExtraButtons.Name" xml:space="preserve">
+  <data name="Optimizer.UserExperience.DisableTaskbarExtraButtons.Name" xml:space="preserve">
     <value>Скрыть лишние кнопки панели задач</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableTaskbarExtraButtons.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.UserExperience.DisableTaskbarExtraButtons.ShortDescription" xml:space="preserve">
     <value>Очищает панель задач, скрывая кнопки Виджетов, Чата и Представления задач.</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableTaskbarSearchAndBing.Name" xml:space="preserve">
+  <data name="Optimizer.UserExperience.DisableTaskbarSearchAndBing.Name" xml:space="preserve">
     <value>Отключить поиск и Bing на панели задач</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableTaskbarSearchAndBing.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.UserExperience.DisableTaskbarSearchAndBing.ShortDescription" xml:space="preserve">
     <value>Удаляет поле поиска и отключает результаты Bing для чистоты панели задач и меню «Пуск».</value>
   </data>
-    <data name="Optimizer.UserExperience.RemoveMeetNowAndPeople.Name" xml:space="preserve">
+  <data name="Optimizer.UserExperience.RemoveMeetNowAndPeople.Name" xml:space="preserve">
     <value>Удалить Meet Now и Люди</value>
   </data>
-    <data name="Optimizer.UserExperience.RemoveMeetNowAndPeople.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.UserExperience.RemoveMeetNowAndPeople.ShortDescription" xml:space="preserve">
     <value>Удаляет иконки Meet Now и Люди из системного трея для уменьшения загроможденности.</value>
   </data>
-    <data name="Optimizer.UserExperience.EnableTaskbarEndTask.Name" xml:space="preserve">
+  <data name="Optimizer.UserExperience.EnableTaskbarEndTask.Name" xml:space="preserve">
     <value>Включить функцию «Завершить задачу»</value>
   </data>
-    <data name="Optimizer.UserExperience.EnableTaskbarEndTask.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.UserExperience.EnableTaskbarEndTask.ShortDescription" xml:space="preserve">
     <value>Позволяет быстро закрывать зависшие приложения прямо с панели задач без Диспетчера задач.</value>
   </data>
-    <data name="Optimizer.UserExperience.EnableDarkMode.Name" xml:space="preserve">
+  <data name="Optimizer.UserExperience.EnableDarkMode.Name" xml:space="preserve">
     <value>Включить тёмный режим (Dark Mode)</value>
   </data>
-    <data name="Optimizer.UserExperience.EnableDarkMode.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.UserExperience.EnableDarkMode.ShortDescription" xml:space="preserve">
     <value>Переводит систему и приложения на темную тему для снижения нагрузки на глаза и экономии энергии.</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableExplorerAndSystemNotifications.Name" xml:space="preserve">
+  <data name="Optimizer.UserExperience.DisableExplorerAndSystemNotifications.Name" xml:space="preserve">
     <value>Отключить навязчивые уведомления</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableExplorerAndSystemNotifications.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.UserExperience.DisableExplorerAndSystemNotifications.ShortDescription" xml:space="preserve">
     <value>Блокирует рекламу, советы по использованию и другие ненужные уведомления Windows.</value>
   </data>
-    <data name="Optimizer.UserExperience.ShowFileExtensionsAndHiddenFiles.Name" xml:space="preserve">
+  <data name="Optimizer.UserExperience.ShowFileExtensionsAndHiddenFiles.Name" xml:space="preserve">
     <value>Показывать расширения и скрытые файлы</value>
   </data>
-    <data name="Optimizer.UserExperience.ShowFileExtensionsAndHiddenFiles.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.UserExperience.ShowFileExtensionsAndHiddenFiles.ShortDescription" xml:space="preserve">
     <value>Включает отображение расширений имен файлов и скрытых папок для удобства управления.</value>
   </data>
-    <data name="Optimizer.UserExperience.EnableClassicContextMenu.Name" xml:space="preserve">
+  <data name="Optimizer.UserExperience.EnableClassicContextMenu.Name" xml:space="preserve">
     <value>Использовать классическое меню</value>
   </data>
-    <data name="Optimizer.UserExperience.EnableClassicContextMenu.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.UserExperience.EnableClassicContextMenu.ShortDescription" xml:space="preserve">
     <value>Восстанавливает полное контекстное меню в стиле Windows 10 на Windows 11.</value>
   </data>
-    <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
+  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
     <value>Ускорить Проводник и меню</value>
   </data>
-    <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
     <value>Убирает задержку при открытии папок и показе меню для мгновенной реакции интерфейса.</value>
   </data>
-    <data name="Optimizer.UserExperience.ShowSecondsInSystemClock.Name" xml:space="preserve">
+  <data name="Optimizer.UserExperience.ShowSecondsInSystemClock.Name" xml:space="preserve">
     <value>Показывать секунды в часах</value>
   </data>
-    <data name="Optimizer.UserExperience.ShowSecondsInSystemClock.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.UserExperience.ShowSecondsInSystemClock.ShortDescription" xml:space="preserve">
     <value>Добавляет отображение секунд в системные часы на панели задач для точного отслеживания.</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
+  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
     <value>Отключить анимации и эффекты</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
     <value>Выключает анимацию окон, тени и прозрачность для максимального быстродействия интерфейса.</value>
   </data>
-
-    <!-- Dialogs -->
-    <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
-    <value>Подробное описание</value>
+  <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
+    <value>Не изменяйте, если точно не знаете, что делаете</value>
   </data>
-    <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
-    <value>Теги</value>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DownloadFailed" xml:space="preserve">
+    <value>Ошибка загрузки плана питания optimizerDuck</value>
   </data>
-    <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
-    <value>Уровень риска</value>
+  <data name="Settings.About.Acknowledgements.Title" xml:space="preserve">
+    <value>Благодарности</value>
   </data>
-    <data name="OptimizationDetailsDialog.Other" xml:space="preserve">
-    <value>Прочее</value>
+  <data name="Settings.About.Acknowledgements.Description" xml:space="preserve">
+    <value>optimizerDuck стал возможен благодаря следующему программному обеспечению с открытым исходным кодом</value>
   </data>
-    <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
-    <value>Файл отката</value>
+  <data name="Settings.About.LearnMore.Acknowledgements" xml:space="preserve">
+    <value>Благодарности</value>
   </data>
-    <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
-    <value>Открыть папку и выбрать файл данных отката для этой оптимизации</value>
-  </data>
-
-    <!-- Optimization Processing -->
-    <data name="Optimization.Apply.Processing" xml:space="preserve">
-    <value>Применение изменений...</value>
-  </data>
-    <data name="Optimization.Apply.Completed" xml:space="preserve">
-    <value>Завершено</value>
-  </data>
-    <data name="Optimization.Apply.Success" xml:space="preserve">
-    <value>Успешно применено {0}</value>
-  </data>
-    <data name="Optimization.Apply.Error.FailedWithSteps" xml:space="preserve">
-    <value>Применено {0}, но {1} шагов не удалось</value>
-  </data>
-    <data name="Optimization.Apply.Error.Failed" xml:space="preserve">
-    <value>Не удалось применить {0}</value>
-  </data>
-    <data name="Optimization.Revert.Reverting" xml:space="preserve">
-    <value>Откат изменений...</value>
-  </data>
-    <data name="Optimization.Revert.Success" xml:space="preserve">
-    <value>Успешно отменено {0}!</value>
-  </data>
-    <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
-    <value>Отменено {0}, но {1} шагов не удалось</value>
-  </data>
-    <data name="Optimization.Revert.Error.Failed" xml:space="preserve">
-    <value>Не удалось отменить {0}</value>
-  </data>
-    <data name="Optimization.Retry.Processing" xml:space="preserve">
-    <value>Повторение неудавшихся шагов...</value>
-  </data>
-    <data name="Optimization.RetryStep.Processing" xml:space="preserve">
-    <value>Повторение шага {0} ({1}/{2} шагов)</value>
-  </data>
-    <data name="Optimization.Revert.ExecutingStep" xml:space="preserve">
-    <value>Выполнение шага отката: {0}/{1} ({2})</value>
-  </data>
-
-    <!-- Revert Errors -->
-    <data name="Revert.Error.InvalidData" xml:space="preserve">
-    <value>Недействительные данные отката для {0}: {1}</value>
-  </data>
-    <data name="Revert.Error.NoDataFound" xml:space="preserve">
-    <value>Данные отката для {0} не найдены</value>
-  </data>
-    <data name="Revert.Error.RevertFailed" xml:space="preserve">
-    <value>Не удалось отменить {0}: {1}</value>
-  </data>
-    <data name="Revert.Error.FileNotFound" xml:space="preserve">
-    <value>Файл отката не найден</value>
-  </data>
-    <data name="Revert.Error.FileEmpty" xml:space="preserve">
-    <value>Файл отката пуст</value>
-  </data>
-    <data name="Revert.Error.ReadFailed" xml:space="preserve">
-    <value>Ошибка чтения данных отката: {0}</value>
-  </data>
-    <data name="Revert.Error.InvalidJson" xml:space="preserve">
-    <value>Недействительные данные отката</value>
-  </data>
-    <data name="Revert.Error.InvalidJsonFormat" xml:space="preserve">
-    <value>Недействительный формат JSON: {0}</value>
-  </data>
-    <data name="Revert.Error.NoSteps" xml:space="preserve">
-    <value>Шаги отката не найдены</value>
-  </data>
-    <data name="Revert.Error.InvalidSteps" xml:space="preserve">
-    <value>Недействительные шаги отката: {0}</value>
-  </data>
-    <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
-    <value>Несоответствие ID оптимизации</value>
-  </data>
-
-    <!-- Service Errors -->
-    <data name="Service.Common.Error.AccessDenied" xml:space="preserve">
-    <value>Доступ запрещён</value>
-  </data>
-    <data name="Service.Registry.Error.AccessDeniedProtectedHive" xml:space="preserve">
-    <value>Доступ запрещён (защищённый раздел реестра)</value>
-  </data>
-    <data name="Service.Registry.Error.UnauthorizedAccess" xml:space="preserve">
-    <value>Несанкционированный доступ</value>
-  </data>
-    <data name="Service.Registry.Error.CreateOrOpenSubkeyFailed" xml:space="preserve">
-    <value>Ошибка создания/открытия подраздела</value>
-  </data>
-    <data name="Service.Service.Error.NotFound" xml:space="preserve">
-    <value>Служба не найдена</value>
-  </data>
-    <data name="Service.Service.Error.UpdateRegistryForStartupTypeFailed" xml:space="preserve">
-    <value>Ошибка обновления реестра для типа запуска</value>
-  </data>
-    <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
-    <value>Ошибка ChangeStartMode (код: {0})</value>
-  </data>
-    <data name="Service.Shell.Error.ExitCode" xml:space="preserve">
-    <value>Код выхода {0}</value>
-  </data>
-    <data name="Service.Shell.Error.TimedOut" xml:space="preserve">
-    <value>Таймаут</value>
-  </data>
-
-    <!-- Dialog Messages -->
-    <data name="Dialog.AreYouSure.Title" xml:space="preserve">
-    <value>Вы уверены, что хотите продолжить?</value>
-  </data>
-    <data name="Settings.ClearResources.Description" xml:space="preserve">
-    <value>Вы собираетесь удалить все ресурсы, загруженные или созданные в процессе оптимизации. Обратите внимание, что это действие необратимо, пожалуйста, убедитесь перед продолжением.</value>
-  </data>
-    <data name="Settings.ClearRevertData.Description" xml:space="preserve">
-    <value>Вы собираетесь удалить все данные отката, созданные после процесса оптимизации. Это означает, что вы больше не сможете восстановить состояние до оптимизации, пожалуйста, внимательно рассмотрите перед подтверждением.</value>
-  </data>
-    <data name="ProcessingOptimizationDialog.Warning.DontCloseAppOrRestart" xml:space="preserve">
-    <value>Пожалуйста, не закрывайте приложение и не перезагружайте компьютер во время применения или отката изменений.</value>
-  </data>
-
-    <!-- Snackbar Messages -->
-    <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
-    <value>Ошибка применения оптимизации</value>
-  </data>
-    <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
-    <value>Ошибка отката оптимизации</value>
-  </data>
-    <data name="Optimization.Toggle.Snackbar.Error.Title" xml:space="preserve">
-    <value>Ошибка переключения оптимизации</value>
-  </data>
-    <data name="Optimization.Toggle.Snackbar.Error.Message" xml:space="preserve">
-    <value>Произошла ошибка: {0}</value>
-  </data>
-    <data name="Snackbar.OpenLinkFailed.Title" xml:space="preserve">
-    <value>Не удалось открыть путь</value>
-  </data>
-    <data name="Snackbar.OpenLinkFailed.Message" xml:space="preserve">
-    <value>Ошибка при открытии пути, проверьте журнал.</value>
-  </data>
-    <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
-    <value>Не удалось открыть папку или файл</value>
-  </data>
-    <data name="Snackbar.OpenFailed.Message" xml:space="preserve">
-    <value>Ошибка при открытии папки или файла, проверьте журнал.</value>
-  </data>
-
-    <!-- Common -->
-    <data name="Common.Unknown" xml:space="preserve">
-    <value>Неизвестно</value>
-  </data>
-    <data name="Common.AppliedJustNow" xml:space="preserve">
-    <value>Только что применено</value>
-  </data>
-    <data name="Common.AppliedSecondsAgo" xml:space="preserve">
-    <value>Применено {0} сек. назад</value>
-  </data>
-    <data name="Common.AppliedMinutesAgo" xml:space="preserve">
-    <value>Применено {0} мин. назад</value>
-  </data>
-    <data name="Common.AppliedHoursAgo" xml:space="preserve">
-    <value>Применено {0} ч. назад</value>
-  </data>
-    <data name="Common.AppliedDaysAgo" xml:space="preserve">
-    <value>Применено {0} дн. назад</value>
-  </data>
-    <data name="Common.AppliedMonthsAgo" xml:space="preserve">
-    <value>Применено {0} мес. назад</value>
-  </data>
-    <data name="Common.AppliedYearsAgo" xml:space="preserve">
-    <value>Применено {0} г. назад</value>
-  </data>
-
-    <!-- Menu -->
-    <data name="Dashboard.Header.Menu.Refresh" xml:space="preserve">
-    <value>Обновить</value>
-  </data>
-    <data name="Dashboard.Header.Menu.Header.Options" xml:space="preserve">
-    <value>Параметры</value>
-  </data>
-    <data name="Dashboard.Header.Menu.Header.Run" xml:space="preserve">
-    <value>Запуск</value>
-  </data>
-    <data name="Dashboard.Header.Menu.RunSettings" xml:space="preserve">
-    <value>Настройки</value>
-  </data>
-    <data name="Dashboard.Header.Menu.RunTaskManager" xml:space="preserve">
-    <value>Диспетчер задач</value>
-  </data>
-    <data name="Dashboard.Header.Menu.RunControlPanel" xml:space="preserve">
-    <value>Панель управления</value>
-  </data>
-
-    <!-- Result Dialog -->
-    <data name="OptimizationResultDialog.Header" xml:space="preserve">
-    <value>{0} неудачных шагов</value>
-  </data>
-    <data name="OptimizationResultDialog.Description" xml:space="preserve">
-    <value>Некоторые шаги не были выполнены успешно. Вы можете повторить только неудавшиеся шаги.</value>
-  </data>
-
-    <!-- Restore Point -->
-    <data name="RestorePoint.Title" xml:space="preserve">
+  <data name="RestorePoint.Title" xml:space="preserve">
     <value>Восстановление системы</value>
   </data>
-    <data name="RestorePointDialog.Description" xml:space="preserve">
-    <value><![CDATA[Точка восстановления позволяет вернуть систему в исходное состояние.
-Это важная мера безопасности перед применением оптимизаций.]]></value>
+  <data name="RestorePointDialog.Description" xml:space="preserve">
+    <value>Точка восстановления позволяет вернуть систему в исходное состояние.
+Это важная мера безопасности перед применением оптимизаций.</value>
   </data>
-    <data name="RestorePointDialog.Help" xml:space="preserve">
-    <value><![CDATA[Приложение автоматически включит восстановление и создаст точку "optimizerDuck...".
-Это гарантирует возможность отката, если что-то пойдет не так.]]></value>
+  <data name="RestorePointDialog.Help" xml:space="preserve">
+    <value>Приложение автоматически включит восстановление и создаст точку "optimizerDuck...".
+Это гарантирует возможность отката, если что-то пойдет не так.</value>
   </data>
-    <data name="RestorePoint.Snackbar.Warning.LimitReached" xml:space="preserve">
-    <value>Точка восстановления уже была создана за последние 24 часа.</value>
-  </data>
-    <data name="RestorePoint.Progress.Creating" xml:space="preserve">
-    <value>Создание точки восстановления...</value>
-  </data>
-    <data name="RestorePoint.Progress.Enabling" xml:space="preserve">
-    <value>Включение восстановления системы...</value>
-  </data>
-    <data name="RestorePoint.Progress.Retrying" xml:space="preserve">
-    <value>Повторная попытка создания точки восстановления...</value>
-  </data>
-    <data name="RestorePoint.Snackbar.Success.Title" xml:space="preserve">
-    <value>Точка восстановления успешно создана</value>
-  </data>
-    <data name="RestorePoint.Snackbar.Success.Message" xml:space="preserve">
-    <value>Точка восстановления создана с именем: "{0}".</value>
-  </data>
-    <data name="RestorePoint.Snackbar.Error.Title" xml:space="preserve">
+  <data name="RestorePoint.Snackbar.Error.Title" xml:space="preserve">
     <value>Не удалось создать или включить восстановление системы</value>
   </data>
-    <data name="RestorePoint.Snackbar.Error.Message" xml:space="preserve">
+  <data name="RestorePoint.Snackbar.Error.Message" xml:space="preserve">
     <value>Ошибка при создании или включении восстановления системы, попробуйте создать вручную.</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Warning.LimitReached" xml:space="preserve">
+    <value>Точка восстановления уже была создана за последние 24 часа.</value>
+  </data>
+  <data name="RestorePoint.Progress.Creating" xml:space="preserve">
+    <value>Создание точки восстановления...</value>
+  </data>
+  <data name="RestorePoint.Progress.Enabling" xml:space="preserve">
+    <value>Включение восстановления системы...</value>
+  </data>
+  <data name="RestorePoint.Progress.Retrying" xml:space="preserve">
+    <value>Повторная попытка создания точки восстановления...</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Success.Title" xml:space="preserve">
+    <value>Точка восстановления успешно создана</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Success.Message" xml:space="preserve">
+    <value>Точка восстановления создана с именем: "{0}".</value>
+  </data>
+  <data name="Snackbar.OpenLinkFailed.Title" xml:space="preserve">
+    <value>Не удалось открыть путь</value>
+  </data>
+  <data name="Snackbar.OpenLinkFailed.Message" xml:space="preserve">
+    <value>Ошибка при открытии пути, проверьте журнал.</value>
+  </data>
+  <data name="Snackbar.OpenFailed.Message" xml:space="preserve">
+    <value>Ошибка при открытии папки или файла, проверьте журнал.</value>
+  </data>
+  <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
+    <value>Не удалось открыть папку или файл</value>
+  </data>
+  <data name="Button.ViewLatestRelease" xml:space="preserve">
+    <value>Посмотреть последний релиз</value>
   </data>
   <data name="BloatwareDialog.Title" xml:space="preserve">
     <value>Удаление {0} пакетов AppX</value>
@@ -919,5 +972,53 @@
   </data>
   <data name="Dashboard.OptimizationScore.Poor" xml:space="preserve">
     <value>Доступны дополнительные оптимизации для повышения производительности.</value>
+  </data>
+  <data name="Common.Search.Placeholder" xml:space="preserve">
+    <value>Поиск...</value>
+  </data>
+  <data name="Common.Filter.All" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="Common.SortBy.Default" xml:space="preserve">
+    <value>По умолчанию</value>
+  </data>
+  <data name="Common.SortBy.Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Common.SortBy.Risk" xml:space="preserve">
+    <value>Риск</value>
+  </data>
+  <data name="Common.SortBy.Publisher" xml:space="preserve">
+    <value>Издатель</value>
+  </data>
+  <data name="Optimizer.Menu.ApplyAllSafe" xml:space="preserve">
+    <value>Применить все безопасные</value>
+  </data>
+  <data name="Optimizer.Menu.ApplyAll" xml:space="preserve">
+    <value>Применить всё</value>
+  </data>
+  <data name="Optimizer.Menu.ViewSource" xml:space="preserve">
+    <value>Просмотреть код</value>
+  </data>
+  <data name="Bloatware.Menu.SelectAllSafe" xml:space="preserve">
+    <value>Выбрать все безопасные</value>
+  </data>
+  <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
+    <value>Скрыть примененные</value>
+  </data>
+  <data name="Optimizer.Menu.ApplyMenu" xml:space="preserve">
+    <value>Применить</value>
+  </data>
+  <data name="Optimizer.Menu.BatchApply.Title" xml:space="preserve">
+    <value>Применение оптимизаций</value>
+  </data>
+  <data name="Bloatware.Search.NoResults" xml:space="preserve">
+    <value>Результаты не найдены. Попробуйте другой поисковый запрос или фильтр.</value>
+  </data>
+  <data name="Common.Filter" xml:space="preserve">
+    <value>Фильтр</value>
+  </data>
+  <data name="Common.SortBy" xml:space="preserve">
+    <value>Сортировать по</value>
   </data>
 </root>

@@ -104,7 +104,7 @@
     <value>支持开发者</value>
   </data>
     <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
-    <value>支持本项目持续发展</value>
+    <value>在 GitHub 上给项目加星、分享给朋友或捐赠——每一份支持都很重要！</value>
   </data>
 
     <!-- Settings -->
@@ -188,7 +188,7 @@
     <value>文档</value>
   </data>
     <data name="Settings.About.LearnMore.Support" xml:space="preserve">
-    <value>支持开发者</value>
+    <value>Star 与支持</value>
   </data>
     <data name="Settings.About.LearnMore.Discord" xml:space="preserve">
     <value>Discord 社区</value>
@@ -919,5 +919,53 @@
   </data>
   <data name="Dashboard.OptimizationScore.Poor" xml:space="preserve">
     <value>还有更多优化可以提升性能。</value>
+  </data>  <data name="Common.Search.Placeholder" xml:space="preserve">
+    <value>搜索...</value>
   </data>
+  <data name="Common.Filter.All" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="Common.Filter" xml:space="preserve">
+    <value>筛选</value>
+  </data>
+  <data name="Common.SortBy.Default" xml:space="preserve">
+    <value>默认</value>
+  </data>
+  <data name="Common.SortBy.Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="Common.SortBy.Risk" xml:space="preserve">
+    <value>风险</value>
+  </data>
+  <data name="Common.SortBy.Publisher" xml:space="preserve">
+    <value>发行商</value>
+  </data>
+  <data name="Common.SortBy" xml:space="preserve">
+    <value>排序</value>
+  </data>
+  <data name="Optimizer.Menu.ApplyAllSafe" xml:space="preserve">
+    <value>应用所有安全项</value>
+  </data>
+  <data name="Optimizer.Menu.ApplyAll" xml:space="preserve">
+    <value>应用全部</value>
+  </data>
+  <data name="Optimizer.Menu.ViewSource" xml:space="preserve">
+    <value>查看源码</value>
+  </data>
+  <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
+    <value>隐藏已应用</value>
+  </data>
+  <data name="Optimizer.Menu.ApplyMenu" xml:space="preserve">
+    <value>应用</value>
+  </data>
+  <data name="Optimizer.Menu.BatchApply.Title" xml:space="preserve">
+    <value>正在应用优化</value>
+  </data>
+  <data name="Bloatware.Menu.SelectAllSafe" xml:space="preserve">
+    <value>选择所有安全项</value>
+  </data>
+  <data name="Bloatware.Search.NoResults" xml:space="preserve">
+    <value>未找到结果。请尝试其他搜索词或筛选条件。</value>
+  </data>
+
 </root>

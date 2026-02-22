@@ -1,33 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
   </resheader>
   <resheader name="version">
-    <value>1.3</value>
+    <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
-            PublicKeyToken=b77a5c561934e089
-        </value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
-            PublicKeyToken=b77a5c561934e089
-        </value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Dashboard.Header.Title" xml:space="preserve">
-        <value>Dashboard</value>
-    </data>
+    <value>Dashboard</value>
+  </data>
   <data name="Sidebar.Dashboard" xml:space="preserve">
-        <value>Dashboard</value>
-    </data>
+    <value>Dashboard</value>
+  </data>
   <data name="Sidebar.Settings" xml:space="preserve">
-        <value>Cài đặt</value>
-    </data>
+    <value>Cài đặt</value>
+  </data>
+  <data name="Button.Close" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
   <data name="Dashboard.SystemInfo.Cpu.Cores" xml:space="preserve">
-        <value>{0} Nhân</value>
-    </data>
+    <value>{0} Nhân</value>
+  </data>
   <data name="Dashboard.SystemInfo.Storage.DiskInfo" xml:space="preserve">
     <value>Đã dùng {0} GB trên tổng {1} GB (còn {2} GB trống)</value>
   </data>
@@ -74,7 +178,7 @@
     <value>Hỗ Trợ Tôi</value>
   </data>
   <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
-    <value>Hỗ trợ tôi để dự án tiếp tục phát triển!</value>
+    <value>Star repo trên GitHub, chia sẻ với bạn bè, hoặc donate — mọi đóng góp đều giúp dự án phát triển!</value>
   </data>
   <data name="Settings.LanguageChanged.Title" xml:space="preserve">
     <value>Thay đổi ngôn ngữ</value>
@@ -84,9 +188,6 @@
   </data>
   <data name="Button.Ok" xml:space="preserve">
     <value>OK</value>
-  </data>
-  <data name="Button.Close" xml:space="preserve">
-    <value>Hủy</value>
   </data>
   <data name="Settings.Header.Title" xml:space="preserve">
     <value>Cài đặt</value>
@@ -115,14 +216,8 @@
   <data name="Settings.Appearance.ThemeSelector.HighContrast" xml:space="preserve">
     <value>Tương phản cao</value>
   </data>
-  <data name="Common.AppliedYearsAgo" xml:space="preserve">
-    <value>Đã áp dụng {0} năm trước</value>
-  </data>
   <data name="Common.AppliedSecondsAgo" xml:space="preserve">
     <value>Đã áp dụng {0} giây trước</value>
-  </data>
-  <data name="Common.AppliedMonthsAgo" xml:space="preserve">
-    <value>Đã áp dụng {0} tháng trước</value>
   </data>
   <data name="Common.AppliedMinutesAgo" xml:space="preserve">
     <value>Đã áp dụng {0} phút trước</value>
@@ -132,6 +227,12 @@
   </data>
   <data name="Common.AppliedDaysAgo" xml:space="preserve">
     <value>Đã áp dụng {0} ngày trước</value>
+  </data>
+  <data name="Common.AppliedMonthsAgo" xml:space="preserve">
+    <value>Đã áp dụng {0} tháng trước</value>
+  </data>
+  <data name="Common.AppliedYearsAgo" xml:space="preserve">
+    <value>Đã áp dụng {0} năm trước</value>
   </data>
   <data name="Optimizer.UI.Risk.Safe" xml:space="preserve">
     <value>An toàn</value>
@@ -154,44 +255,56 @@
   <data name="OptimizationDetailsDialog.Other" xml:space="preserve">
     <value>Khác</value>
   </data>
-  <data name="Optimizer.UI.Tags.Audio" xml:space="preserve">
-    <value>Âm thanh</value>
+  <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
+    <value>Chia nhỏ các dịch vụ hệ thống thành các tiến trình riêng biệt để tăng đáng kể độ ổn định.</value>
   </data>
-  <data name="Optimizer.UI.Tags.Disk" xml:space="preserve">
-    <value>Ổ cứng</value>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
+    <value>Không thể phát hiện power plan đang hoạt động hiện tại.</value>
   </data>
-  <data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
-    <value>Intel</value>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ImportFailed" xml:space="preserve">
+    <value>Không thể nhập power plan của optimizerDuck.</value>
   </data>
-  <data name="Optimizer.UI.Tags.Network" xml:space="preserve">
-    <value>Mạng</value>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ActivateFailed" xml:space="preserve">
+    <value>Không thể kích hoạt power plan của optimizerDuck.</value>
   </data>
-  <data name="Optimizer.UI.Tags.NetworkRequired" xml:space="preserve">
-    <value>Cần kết nối mạng</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
-    <value>NVIDIA</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
-    <value>Công suất/Điện năng</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Privacy" xml:space="preserve">
-    <value>Quyền riêng tư</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Ram" xml:space="preserve">
-    <value>Ram</value>
+  <data name="Optimizer.UI.Risk.Help" xml:space="preserve">
+    <value>Giá trị này thể hiện mức độ can thiệp và mức độ an toàn của quá trình tối ưu hóa. Vui lòng thận trọng và xem xét kỹ lưỡng trước khi áp dụng bất kỳ tối ưu nào.</value>
   </data>
   <data name="Optimizer.UI.Tags.System" xml:space="preserve">
     <value>Hệ thống</value>
   </data>
-  <data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
-    <value>AMD</value>
+  <data name="Optimizer.UI.Tags.Ram" xml:space="preserve">
+    <value>Ram</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Disk" xml:space="preserve">
+    <value>Ổ cứng</value>
+  </data>
+  <data name="Optimizer.UI.Tags.NetworkRequired" xml:space="preserve">
+    <value>Cần kết nối mạng</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Network" xml:space="preserve">
+    <value>Mạng</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Privacy" xml:space="preserve">
+    <value>Quyền riêng tư</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Audio" xml:space="preserve">
+    <value>Âm thanh</value>
   </data>
   <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
     <value>Các thẻ này cho biết tối ưu sẽ ảnh hưởng đến phần nào trong hệ thống.</value>
   </data>
-  <data name="Optimizer.UI.Risk.Help" xml:space="preserve">
-    <value>Giá trị này thể hiện mức độ can thiệp và mức độ an toàn của quá trình tối ưu hóa. Vui lòng thận trọng và xem xét kỹ lưỡng trước khi áp dụng bất kỳ tối ưu nào.</value>
+  <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
+    <value>NVIDIA</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
+    <value>AMD</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
+    <value>Intel</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
+    <value>Công suất/Điện năng</value>
   </data>
   <data name="Revert.Error.InvalidData" xml:space="preserve">
     <value>Dữ liệu hoàn tác không hợp lệ cho {0}: {1}</value>
@@ -296,8 +409,8 @@
     <value>Thử lại</value>
   </data>
   <data name="Settings.About.Duck.Description" xml:space="preserve">
-    <value><![CDATA[Cảm ơn bạn đã tin tưởng và ủng hộ <3!
-Phiên bản hiện tại: {0}]]> </value>
+    <value>Cảm ơn bạn đã tin tưởng và ủng hộ &lt;3!
+Phiên bản hiện tại: {0} </value>
   </data>
   <data name="Settings.Advanced.Header" xml:space="preserve">
     <value>Nâng cao</value>
@@ -345,7 +458,7 @@ Phiên bản hiện tại: {0}]]> </value>
     <value>Tài liệu hướng dẫn</value>
   </data>
   <data name="Settings.About.LearnMore.Support" xml:space="preserve">
-    <value>Hỗ trợ tôi</value>
+    <value>Star &amp; Hỗ trợ tôi</value>
   </data>
   <data name="Settings.About.LearnMore.Discord" xml:space="preserve">
     <value>Cộng đồng Discord</value>
@@ -371,11 +484,11 @@ Phiên bản hiện tại: {0}]]> </value>
   <data name="ProcessingOptimizationDialog.Warning.DontCloseAppOrRestart" xml:space="preserve">
     <value>Vui lòng không tắt ứng dụng hoặc tắt máy trong khi đang áp dụng hoặc hoàn tác các thay đổi hệ thống.</value>
   </data>
-  <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
-    <value>Đã xảy ra lỗi sau khi áp dụng.</value>
-  </data>
   <data name="Common.AppliedJustNow" xml:space="preserve">
     <value>Vừa áp dụng</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
+    <value>Đã xảy ra lỗi sau khi áp dụng.</value>
   </data>
   <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
     <value>Đã xảy ra lỗi sau khi hoàn tác</value>
@@ -383,14 +496,14 @@ Phiên bản hiện tại: {0}]]> </value>
   <data name="Optimization.Toggle.Snackbar.Error.Title" xml:space="preserve">
     <value>Không thể áp dụng/hoàn tác tối ưu</value>
   </data>
+  <data name="Optimization.Toggle.Snackbar.Error.Message" xml:space="preserve">
+    <value>Đã xảy ra lỗi: {0}</value>
+  </data>
   <data name="Optimization.Retry.Processing" xml:space="preserve">
     <value>Đang thử lại các bước thất bại...</value>
   </data>
   <data name="Optimization.RetryStep.Processing" xml:space="preserve">
     <value>Đang thử lại bước {0} ({1}/ {2} bước)</value>
-  </data>
-  <data name="Optimization.Toggle.Snackbar.Error.Message" xml:space="preserve">
-    <value>Đã xảy ra lỗi: {0}</value>
   </data>
   <data name="Optimization.Revert.Error.Failed" xml:space="preserve">
     <value>Không thể hoàn tác {0}.</value>
@@ -417,26 +530,26 @@ Phiên bản hiện tại: {0}]]> </value>
     <value>Không rõ</value>
   </data>
   <data name="Optimizer.UI.Tags.Security" xml:space="preserve">
-        <value>Bảo mật</value>
-    </data>
+    <value>Bảo mật</value>
+  </data>
   <data name="Optimizer.UI.Tags.Performance" xml:space="preserve">
-        <value>Hiệu suất</value>
-    </data>
+    <value>Hiệu suất</value>
+  </data>
   <data name="Optimizer.UI.Tags.Latency" xml:space="preserve">
-        <value>Độ trễ</value>
-    </data>
+    <value>Độ trễ</value>
+  </data>
   <data name="Optimizer.Performance" xml:space="preserve">
-     <value>Hiệu suất</value>
-    </data>
+    <value>Hiệu suất</value>
+  </data>
   <data name="Optimizer.PowerManagement" xml:space="preserve">
-     <value>Quản lý điện năng</value>
-    </data>
+    <value>Quản lý điện năng</value>
+  </data>
   <data name="Optimizer.SecurityAndPrivacy" xml:space="preserve">
-     <value>Bảo mật &amp; Quyền riêng tư</value>
-    </data>
+    <value>Bảo mật &amp; Quyền riêng tư</value>
+  </data>
   <data name="Optimizer.BloatwareAndServices" xml:space="preserve">
-     <value>Bloatware &amp; Dịch vụ</value>
-    </data>
+    <value>Bloatware &amp; Dịch vụ</value>
+  </data>
   <data name="Optimizer.Performance.DisableBackgroundApps.Name" xml:space="preserve">
     <value>Vô hiệu hóa ứng dụng nền</value>
   </data>
@@ -445,9 +558,6 @@ Phiên bản hiện tại: {0}]]> </value>
   </data>
   <data name="Optimizer.Performance.SvcHostSplit.Name" xml:space="preserve">
     <value>Tối ưu hóa cô lập dịch vụ</value>
-  </data>
-  <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
-    <value>Chia nhỏ các dịch vụ hệ thống thành các tiến trình riêng biệt để tăng đáng kể độ ổn định.</value>
   </data>
   <data name="Optimizer.Performance.SvcHostSplit.Error.InvalidRAM" xml:space="preserve">
     <value>RAM không hợp lệ: {0}</value>
@@ -471,8 +581,8 @@ Phiên bản hiện tại: {0}]]> </value>
     <value>Giảm thiểu độ trễ MMCSS bằng cách đặt SystemResponsiveness thành 10 và vô hiệu hóa điều tiết mạng (0xFFFFFFFF) cho các tác vụ thời gian thực.</value>
   </data>
   <data name="Optimizer.Performance.DisableGameBar.Name" xml:space="preserve">
-     <value>Tắt Xbox Game Bar</value>
-    </data>
+    <value>Tắt Xbox Game Bar</value>
+  </data>
   <data name="Optimizer.Performance.DisableGameBar.ShortDescription" xml:space="preserve">
     <value>Vô hiệu hóa lớp phủ Xbox Game Bar, thông báo khởi động và tích hợp phím tắt để loại bỏ chi phí xử lý nền từ tính năng ghi hình.</value>
   </data>
@@ -558,20 +668,20 @@ Phiên bản hiện tại: {0}]]> </value>
     <value>Ngăn việc ghi lại các nhật ký chẩn đoán chạy ngầm không cần thiết để tiết kiệm tài nguyên CPU/Ổ cứng.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
-     <value>Vô hiệu hóa Cortana &amp; Tìm kiếm</value>
-    </data>
+    <value>Vô hiệu hóa Cortana &amp; Tìm kiếm</value>
+  </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
     <value>Tắt trợ lý ảo Cortana và ngăn Windows Search tìm kiếm trực tuyến để có kết quả nhanh hơn.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
-     <value>Vô hiệu hóa Windows Copilot</value>
-    </data>
+    <value>Vô hiệu hóa Windows Copilot</value>
+  </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
     <value>Gỡ bỏ trợ lý AI Copilot khỏi thanh tác vụ và hệ thống để tiết kiệm dung lượng RAM.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
-     <value>Vô hiệu hóa quảng cáo &amp; gợi ý</value>
-    </data>
+    <value>Vô hiệu hóa quảng cáo &amp; gợi ý</value>
+  </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
     <value>Chặn Windows tự động cài đặt ứng dụng quảng cáo và gợi ý nội dung trên màn hình Start.</value>
   </data>
@@ -579,8 +689,8 @@ Phiên bản hiện tại: {0}]]> </value>
     <value>Chặn ứng dụng rác cài sẵn</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
-     <value>Chặn Windows tự động cài app OEM/bundled và “suggested apps”, giúp máy sạch bloatware hơn (đặc biệt sau cài mới/reset).</value>
-    </data>
+    <value>Chặn Windows tự động cài app OEM/bundled và “suggested apps”, giúp máy sạch bloatware hơn (đặc biệt sau cài mới/reset).</value>
+  </data>
   <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
     <value>Tối ưu hóa các dịch vụ hệ thống</value>
   </data>
@@ -597,131 +707,131 @@ Phiên bản hiện tại: {0}]]> </value>
     <value>Giao diện</value>
   </data>
   <data name="Optimizer.Gpu" xml:space="preserve">
-        <value>GPU</value>
-    </data>
+    <value>GPU</value>
+  </data>
   <data name="Optimizer.UserExperience" xml:space="preserve">
-        <value>Trải nghiệm người dùng</value>
-    </data>
+    <value>Trải nghiệm người dùng</value>
+  </data>
   <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
-        <value>Vô hiệu hóa AMD ULPS</value>
-    </data>
+    <value>Vô hiệu hóa AMD ULPS</value>
+  </data>
   <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
-        <value>Tắt chế độ siêu tiết kiệm điện của AMD để tránh hiện tượng GPU bị khựng hoặc trễ khi thức dậy.</value>
-    </data>
+    <value>Tắt chế độ siêu tiết kiệm điện của AMD để tránh hiện tượng GPU bị khựng hoặc trễ khi thức dậy.</value>
+  </data>
   <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
-        <value>Tắt AMD Power Gating</value>
-    </data>
+    <value>Tắt AMD Power Gating</value>
+  </data>
   <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
-        <value>Duy trì hiệu năng GPU ổn định bằng cách ngăn việc tự động ngắt nguồn các thành phần bên trong.</value>
-    </data>
+    <value>Duy trì hiệu năng GPU ổn định bằng cách ngăn việc tự động ngắt nguồn các thành phần bên trong.</value>
+  </data>
   <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
-        <value>Tắt AMD Video Clock Gating</value>
-    </data>
+    <value>Tắt AMD Video Clock Gating</value>
+  </data>
   <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-        <value>Tăng cường độ ổn định cho quá trình xử lý video bằng cách giữ xung nhịp engine video luôn sẵn sàng.</value>
-    </data>
+    <value>Tăng cường độ ổn định cho quá trình xử lý video bằng cách giữ xung nhịp engine video luôn sẵn sàng.</value>
+  </data>
   <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
-        <value>Vô hiệu hóa AMD ASPM</value>
-    </data>
+    <value>Vô hiệu hóa AMD ASPM</value>
+  </data>
   <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
-        <value>Giảm độ trễ giao tiếp PCIe cho card đồ họa AMD, giúp tăng tốc độ phản hồi.</value>
-    </data>
+    <value>Giảm độ trễ giao tiếp PCIe cho card đồ họa AMD, giúp tăng tốc độ phản hồi.</value>
+  </data>
   <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
-        <value>Khóa trạng thái năng lượng NVIDIA</value>
-    </data>
+    <value>Khóa trạng thái năng lượng NVIDIA</value>
+  </data>
   <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
-        <value>Ngăn NVIDIA GPU tự động thay đổi mức năng lượng để duy trì mức hiệu năng nhất quán nhất.</value>
-    </data>
+    <value>Ngăn NVIDIA GPU tự động thay đổi mức năng lượng để duy trì mức hiệu năng nhất quán nhất.</value>
+  </data>
   <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
-        <value>Vô hiệu hóa Async P-States</value>
-    </data>
+    <value>Vô hiệu hóa Async P-States</value>
+  </data>
   <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
-        <value>Tắt việc chuyển đổi trạng thái hiệu năng không đồng bộ để đạt được sự ổn định cao nhất.</value>
-    </data>
+    <value>Tắt việc chuyển đổi trạng thái hiệu năng không đồng bộ để đạt được sự ổn định cao nhất.</value>
+  </data>
   <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
-        <value>Bật đồng bộ hình ảnh Intel</value>
-    </data>
+    <value>Bật đồng bộ hình ảnh Intel</value>
+  </data>
   <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
-        <value>Sử dụng cơ chế làm mới khung hình đồng bộ để giảm độ trễ hiển thị và hạn chế xé hình.</value>
-    </data>
+    <value>Sử dụng cơ chế làm mới khung hình đồng bộ để giảm độ trễ hiển thị và hạn chế xé hình.</value>
+  </data>
   <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
-        <value>Vô hiệu hóa Adaptive V-Sync</value>
-    </data>
+    <value>Vô hiệu hóa Adaptive V-Sync</value>
+  </data>
   <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
-        <value>Duy trì thời gian xuất khung hình ổn định bằng cách tắt tính năng V-Sync thích ứng của Intel.</value>
-    </data>
+    <value>Duy trì thời gian xuất khung hình ổn định bằng cách tắt tính năng V-Sync thích ứng của Intel.</value>
+  </data>
   <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.Name" xml:space="preserve">
-        <value>Tắt Tin tức &amp; Sở thích</value>
-    </data>
+    <value>Tắt Tin tức &amp; Sở thích</value>
+  </data>
   <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.ShortDescription" xml:space="preserve">
-        <value>Gỡ bỏ tiện ích tin tức trên thanh tác vụ để tập trung hơn và giảm tải cho hệ thống.</value>
-    </data>
+    <value>Gỡ bỏ tiện ích tin tức trên thanh tác vụ để tập trung hơn và giảm tải cho hệ thống.</value>
+  </data>
   <data name="Optimizer.UserExperience.DisableTaskbarExtraButtons.Name" xml:space="preserve">
-        <value>Ẩn các nút không dùng trên Taskbar</value>
-    </data>
+    <value>Ẩn các nút không dùng trên Taskbar</value>
+  </data>
   <data name="Optimizer.UserExperience.DisableTaskbarExtraButtons.ShortDescription" xml:space="preserve">
-        <value>Dọn dẹp thanh tác vụ bằng cách ẩn các nút Widgets, Chat và Task View.</value>
-    </data>
+    <value>Dọn dẹp thanh tác vụ bằng cách ẩn các nút Widgets, Chat và Task View.</value>
+  </data>
   <data name="Optimizer.UserExperience.DisableTaskbarSearchAndBing.Name" xml:space="preserve">
-        <value>Tắt Tìm kiếm &amp; Bing trên Taskbar</value>
-    </data>
+    <value>Tắt Tìm kiếm &amp; Bing trên Taskbar</value>
+  </data>
   <data name="Optimizer.UserExperience.DisableTaskbarSearchAndBing.ShortDescription" xml:space="preserve">
-        <value>Gỡ bỏ hộp tìm kiếm và tắt kết quả từ Bing để thanh tác vụ và menu Start sạch sẽ hơn.</value>
-    </data>
+    <value>Gỡ bỏ hộp tìm kiếm và tắt kết quả từ Bing để thanh tác vụ và menu Start sạch sẽ hơn.</value>
+  </data>
   <data name="Optimizer.UserExperience.RemoveMeetNowAndPeople.Name" xml:space="preserve">
-        <value>Xóa Meet Now &amp; People</value>
-    </data>
+    <value>Xóa Meet Now &amp; People</value>
+  </data>
   <data name="Optimizer.UserExperience.RemoveMeetNowAndPeople.ShortDescription" xml:space="preserve">
-        <value>Gỡ bỏ các biểu tượng Meet Now và People khỏi thanh hệ thống để giảm sự lộn xộn.</value>
-    </data>
+    <value>Gỡ bỏ các biểu tượng Meet Now và People khỏi thanh hệ thống để giảm sự lộn xộn.</value>
+  </data>
   <data name="Optimizer.UserExperience.EnableTaskbarEndTask.Name" xml:space="preserve">
-        <value>Bật tính năng "Kết thúc tác vụ"</value>
-    </data>
+    <value>Bật tính năng "Kết thúc tác vụ"</value>
+  </data>
   <data name="Optimizer.UserExperience.EnableTaskbarEndTask.ShortDescription" xml:space="preserve">
-        <value>Cho phép nhanh chóng tắt ứng dụng bị treo ngay từ thanh tác vụ mà không cần mở Task Manager.</value>
-    </data>
+    <value>Cho phép nhanh chóng tắt ứng dụng bị treo ngay từ thanh tác vụ mà không cần mở Task Manager.</value>
+  </data>
   <data name="Optimizer.UserExperience.EnableDarkMode.Name" xml:space="preserve">
-        <value>Kích hoạt Chế độ tối (Dark Mode)</value>
-    </data>
+    <value>Kích hoạt Chế độ tối (Dark Mode)</value>
+  </data>
   <data name="Optimizer.UserExperience.EnableDarkMode.ShortDescription" xml:space="preserve">
-        <value>Chuyển hệ điều hành và ứng dụng sang giao diện tối giúp dịu mắt và tiết kiệm điện.</value>
-    </data>
+    <value>Chuyển hệ điều hành và ứng dụng sang giao diện tối giúp dịu mắt và tiết kiệm điện.</value>
+  </data>
   <data name="Optimizer.UserExperience.DisableExplorerAndSystemNotifications.Name" xml:space="preserve">
-        <value>Vô hiệu hóa thông báo phiền hà</value>
-    </data>
+    <value>Vô hiệu hóa thông báo phiền hà</value>
+  </data>
   <data name="Optimizer.UserExperience.DisableExplorerAndSystemNotifications.ShortDescription" xml:space="preserve">
-        <value>Chặn các thông báo quảng cáo, mẹo sử dụng và thông báo không cần thiết từ Windows.</value>
-    </data>
+    <value>Chặn các thông báo quảng cáo, mẹo sử dụng và thông báo không cần thiết từ Windows.</value>
+  </data>
   <data name="Optimizer.UserExperience.ShowFileExtensionsAndHiddenFiles.Name" xml:space="preserve">
-        <value>Hiện đuôi tệp &amp; tệp ẩn</value>
-    </data>
+    <value>Hiện đuôi tệp &amp; tệp ẩn</value>
+  </data>
   <data name="Optimizer.UserExperience.ShowFileExtensionsAndHiddenFiles.ShortDescription" xml:space="preserve">
-        <value>Hiển thị đầy đủ phần mở rộng tệp và các tệp tin ẩn để thuận tiện cho việc quản lý hệ thống.</value>
-    </data>
+    <value>Hiển thị đầy đủ phần mở rộng tệp và các tệp tin ẩn để thuận tiện cho việc quản lý hệ thống.</value>
+  </data>
   <data name="Optimizer.UserExperience.EnableClassicContextMenu.Name" xml:space="preserve">
     <value>Sử dụng Menu chuột phải cổ điển</value>
   </data>
   <data name="Optimizer.UserExperience.EnableClassicContextMenu.ShortDescription" xml:space="preserve">
-        <value>Khôi phục menu chuột phải đầy đủ kiểu Windows 10 trên Windows 11.</value>
-    </data>
+    <value>Khôi phục menu chuột phải đầy đủ kiểu Windows 10 trên Windows 11.</value>
+  </data>
   <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
-        <value>Tăng tốc Explorer &amp; Menu</value>
-    </data>
+    <value>Tăng tốc Explorer &amp; Menu</value>
+  </data>
   <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
-        <value>Loại bỏ thời gian trễ khi mở thư mục và hiển thị menu để giao diện phản hồi tức thì.</value>
-    </data>
+    <value>Loại bỏ thời gian trễ khi mở thư mục và hiển thị menu để giao diện phản hồi tức thì.</value>
+  </data>
   <data name="Optimizer.UserExperience.ShowSecondsInSystemClock.Name" xml:space="preserve">
-        <value>Hiển thị giây trên đồng hồ</value>
-    </data>
+    <value>Hiển thị giây trên đồng hồ</value>
+  </data>
   <data name="Optimizer.UserExperience.ShowSecondsInSystemClock.ShortDescription" xml:space="preserve">
-        <value>Thêm hiển thị kim giây vào đồng hồ hệ thống trên thanh tác vụ để theo dõi giờ chính xác.</value>
-    </data>
+    <value>Thêm hiển thị kim giây vào đồng hồ hệ thống trên thanh tác vụ để theo dõi giờ chính xác.</value>
+  </data>
   <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
-        <value>Tắt hiệu ứng chuyển động</value>
-    </data>
+    <value>Tắt hiệu ứng chuyển động</value>
+  </data>
   <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
-        <value>Vô hiệu hóa các hiệu ứng cửa sổ, bóng đổ và độ trong suốt để tăng tối đa tốc độ giao diện.</value>
-    </data>
+    <value>Vô hiệu hóa các hiệu ứng cửa sổ, bóng đổ và độ trong suốt để tăng tối đa tốc độ giao diện.</value>
+  </data>
   <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
     <value>ĐỪNG thay đổi trừ khi bạn biết chính xác mình đang làm gì</value>
   </data>
@@ -741,12 +851,12 @@ Phiên bản hiện tại: {0}]]> </value>
     <value>Phục hồi hệ thống</value>
   </data>
   <data name="RestorePointDialog.Description" xml:space="preserve">
-    <value><![CDATA[Restore Point giúp bạn đưa hệ thống trở về trạng thái trước khi thay đổi.
-Đây là cách an toàn nhất để bảo vệ máy tính của bạn khi tối ưu hóa.]]></value>
+    <value>Restore Point giúp bạn đưa hệ thống trở về trạng thái trước khi thay đổi.
+Đây là cách an toàn nhất để bảo vệ máy tính của bạn khi tối ưu hóa.</value>
   </data>
   <data name="RestorePointDialog.Help" xml:space="preserve">
-    <value><![CDATA[Ứng dụng sẽ tự động kích hoạt và tạo một điểm khôi phục mới mang tên "optimizerDuck...".
-Hãy yên tâm rằng hệ thống của bạn luôn có đường lui nếu có sự cố xảy ra.]]></value>
+    <value>Ứng dụng sẽ tự động kích hoạt và tạo một điểm khôi phục mới mang tên "optimizerDuck...".
+Hãy yên tâm rằng hệ thống của bạn luôn có đường lui nếu có sự cố xảy ra.</value>
   </data>
   <data name="RestorePoint.Snackbar.Error.Title" xml:space="preserve">
     <value>Không thể tạo hoặc bật System Restore</value>
@@ -783,18 +893,6 @@ Hãy yên tâm rằng hệ thống của bạn luôn có đường lui nếu có
   </data>
   <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
     <value>Không thể mở thư mục hoặc tệp</value>
-  </data>
-  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ImportFailed" xml:space="preserve">
-    <value>Không thể nhập power plan của optimizerDuck.</value>
-  </data>
-  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
-    <value>Không thể phát hiện power plan đang hoạt động hiện tại.</value>
-  </data>
-  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ActivateFailed" xml:space="preserve">
-    <value>Không thể kích hoạt power plan của optimizerDuck.</value>
-  </data>
-  <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
-    <value>Tách các dịch vụ hệ thống thành những tiến trình riêng biệt để tăng cường tính ổn định cho Windows.</value>
   </data>
   <data name="Button.ViewLatestRelease" xml:space="preserve">
     <value>Xem bản phát hành mới nhất</value>
@@ -874,5 +972,53 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="Dashboard.OptimizationScore.Poor" xml:space="preserve">
     <value>Còn nhiều tối ưu có thể áp dụng để tăng hiệu suất.</value>
+  </data>
+  <data name="Common.Search.Placeholder" xml:space="preserve">
+    <value>Tìm kiếm...</value>
+  </data>
+  <data name="Common.Filter.All" xml:space="preserve">
+    <value>Tất cả</value>
+  </data>
+  <data name="Common.SortBy.Default" xml:space="preserve">
+    <value>Mặc định</value>
+  </data>
+  <data name="Common.SortBy.Name" xml:space="preserve">
+    <value>Tên</value>
+  </data>
+  <data name="Common.SortBy.Risk" xml:space="preserve">
+    <value>Độ rủi ro</value>
+  </data>
+  <data name="Common.SortBy.Publisher" xml:space="preserve">
+    <value>Nhà phát hành</value>
+  </data>
+  <data name="Optimizer.Menu.ApplyAllSafe" xml:space="preserve">
+    <value>Áp dụng tất cả an toàn</value>
+  </data>
+  <data name="Optimizer.Menu.ApplyAll" xml:space="preserve">
+    <value>Áp dụng tất cả</value>
+  </data>
+  <data name="Optimizer.Menu.ViewSource" xml:space="preserve">
+    <value>Xem mã nguồn</value>
+  </data>
+  <data name="Bloatware.Menu.SelectAllSafe" xml:space="preserve">
+    <value>Chọn tất cả an toàn</value>
+  </data>
+  <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
+    <value>Ẩn đã áp dụng</value>
+  </data>
+  <data name="Optimizer.Menu.ApplyMenu" xml:space="preserve">
+    <value>Áp dụng</value>
+  </data>
+  <data name="Optimizer.Menu.BatchApply.Title" xml:space="preserve">
+    <value>Đang áp dụng các tối ưu</value>
+  </data>
+  <data name="Bloatware.Search.NoResults" xml:space="preserve">
+    <value>Không tìm thấy kết quả. Hãy thử từ khóa hoặc bộ lọc khác.</value>
+  </data>
+  <data name="Common.Filter" xml:space="preserve">
+    <value>Bộ lọc</value>
+  </data>
+  <data name="Common.SortBy" xml:space="preserve">
+    <value>Sắp xếp theo</value>
   </data>
 </root>

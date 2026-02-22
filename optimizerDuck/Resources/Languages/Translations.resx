@@ -1,39 +1,137 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root" xmlns="">
-    <xsd:element name="root" msdata:IsDataSet="true"></xsd:element>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
   </xsd:schema>
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
   </resheader>
   <resheader name="version">
-    <value>1.3</value>
+    <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
-            PublicKeyToken=b77a5c561934e089
-        </value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
-            PublicKeyToken=b77a5c561934e089
-        </value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Dashboard.Header.Title" xml:space="preserve">
-        <value>Dashboard</value>
-    </data>
+    <value>Dashboard</value>
+  </data>
   <data name="Sidebar.Dashboard" xml:space="preserve">
-        <value>Dashboard</value>
-    </data>
+    <value>Dashboard</value>
+  </data>
   <data name="Sidebar.Settings" xml:space="preserve">
-        <value>Settings</value>
-    </data>
+    <value>Settings</value>
+  </data>
   <data name="Button.Close" xml:space="preserve">
-        <value>Close</value>
-    </data>
+    <value>Close</value>
+  </data>
   <data name="Dashboard.SystemInfo.Cpu.Cores" xml:space="preserve">
-        <value>{0} Cores</value>
-    </data>
+    <value>{0} Cores</value>
+  </data>
   <data name="Dashboard.SystemInfo.Storage.DiskInfo" xml:space="preserve">
     <value>{0} GB used of {1} GB ({2} GB free)</value>
   </data>
@@ -80,7 +178,7 @@
     <value>Support Me</value>
   </data>
   <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
-    <value>Support me and keep this project growing!</value>
+    <value>Star the repo on GitHub, share it with friends, or donate — every bit helps this project grow!</value>
   </data>
   <data name="Settings.LanguageChanged.Title" xml:space="preserve">
     <value>Language change</value>
@@ -311,8 +409,8 @@
     <value>Retry</value>
   </data>
   <data name="Settings.About.Duck.Description" xml:space="preserve">
-    <value><![CDATA[Thank you for your trust and support <3!
-Current version: {0}]]></value>
+    <value>Thank you for your trust and support &lt;3!
+Current version: {0}</value>
   </data>
   <data name="Settings.Advanced.Header" xml:space="preserve">
     <value>Advanced</value>
@@ -360,7 +458,7 @@ Current version: {0}]]></value>
     <value>Documentation</value>
   </data>
   <data name="Settings.About.LearnMore.Support" xml:space="preserve">
-    <value>Support me</value>
+    <value>Star &amp; Support me</value>
   </data>
   <data name="Settings.About.LearnMore.Discord" xml:space="preserve">
     <value>Discord community</value>
@@ -453,38 +551,38 @@ Current version: {0}]]></value>
     <value>Bloatware &amp; Services</value>
   </data>
   <data name="Optimizer.Performance.DisableBackgroundApps.Name" xml:space="preserve">
-        <value>Disable Background Apps</value>
-    </data>
+    <value>Disable Background Apps</value>
+  </data>
   <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
     <value>Prevents inactive applications from running in the background to free up RAM and reduce CPU overhead.</value>
   </data>
   <data name="Optimizer.Performance.SvcHostSplit.Name" xml:space="preserve">
-        <value>Optimize Service Isolation</value>
-    </data>
+    <value>Optimize Service Isolation</value>
+  </data>
   <data name="Optimizer.Performance.SvcHostSplit.Error.InvalidRAM" xml:space="preserve">
     <value>Invalid RAM: {0}</value>
   </data>
   <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
-        <value>Prioritize Active Applications</value>
-    </data>
+    <value>Prioritize Active Applications</value>
+  </data>
   <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
     <value>Allocates more CPU resources to the application you are currently using for a faster, more responsive experience.</value>
   </data>
   <data name="Optimizer.Performance.GameTaskScheduling.Name" xml:space="preserve">
-        <value>Optimize Game Scheduling</value>
-    </data>
+    <value>Optimize Game Scheduling</value>
+  </data>
   <data name="Optimizer.Performance.GameTaskScheduling.ShortDescription" xml:space="preserve">
     <value>Assigns high priority to gaming workloads to ensure consistent frames per second (FPS) and smoother gameplay.</value>
   </data>
   <data name="Optimizer.Performance.MultimediaResponsiveness.Name" xml:space="preserve">
-        <value>Optimize Multimedia Response</value>
-    </data>
+    <value>Optimize Multimedia Response</value>
+  </data>
   <data name="Optimizer.Performance.MultimediaResponsiveness.ShortDescription" xml:space="preserve">
     <value>Reduces latency for audio, video, and network tasks to improve real-time media and gaming performance.</value>
   </data>
   <data name="Optimizer.Performance.DisableGameBar.Name" xml:space="preserve">
-        <value>Disable Xbox Game Bar</value>
-    </data>
+    <value>Disable Xbox Game Bar</value>
+  </data>
   <data name="Optimizer.Performance.DisableGameBar.ShortDescription" xml:space="preserve">
     <value>Disables Xbox Game Bar overlays and background features to save system resources while gaming.</value>
   </data>
@@ -495,32 +593,32 @@ Current version: {0}]]></value>
     <value>Activates Windows Game Mode to prioritize game processes and prevent interruptions from Windows Update.</value>
   </data>
   <data name="Optimizer.Performance.DisableGameDVR.Name" xml:space="preserve">
-        <value>Disable Background Recording</value>
-    </data>
+    <value>Disable Background Recording</value>
+  </data>
   <data name="Optimizer.Performance.DisableGameDVR.ShortDescription" xml:space="preserve">
     <value>Turns off automatic background game recording (DVR) to reclaim lost performance and disk bandwidth.</value>
   </data>
   <data name="Optimizer.Performance.DisableMouseAcceleration.Name" xml:space="preserve">
-        <value>Disable Mouse Acceleration</value>
-    </data>
+    <value>Disable Mouse Acceleration</value>
+  </data>
   <data name="Optimizer.Performance.DisableMouseAcceleration.ShortDescription" xml:space="preserve">
     <value>Disables Windows' automatic mouse speed adjustment for precise, 1:1 cursor movement.</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
-        <value>Optimize Keyboard Response</value>
-    </data>
+    <value>Optimize Keyboard Response</value>
+  </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
     <value>Reduces keyboard input delay and increases repeat rate for faster, more responsive typing and gaming.</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableHibernate.Name" xml:space="preserve">
-        <value>Disable Hibernation &amp; Fast Startup</value>
-    </data>
+    <value>Disable Hibernation &amp; Fast Startup</value>
+  </data>
   <data name="Optimizer.PowerManagement.DisableHibernate.ShortDescription" xml:space="preserve">
     <value>Turns off Hibernation and Fast Startup to reclaim several gigabytes of disk space and ensure a fresh system boot.</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
-        <value>Disable USB Power Saving</value>
-    </data>
+    <value>Disable USB Power Saving</value>
+  </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
     <value>Prevents Windows from powering down USB ports, eliminating wake-up delays for mice, keyboards, and other peripherals.</value>
   </data>
@@ -537,20 +635,20 @@ Current version: {0}]]></value>
     <value>Importing and activating power plan...</value>
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
-        <value>Disable System Power Throttling</value>
-    </data>
+    <value>Disable System Power Throttling</value>
+  </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
     <value>Prevents Windows from limiting CPU performance (Power Throttling) to maintain peak power for active tasks.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableUAC.Name" xml:space="preserve">
-        <value>Disable Admin Prompts (UAC)</value>
-    </data>
+    <value>Disable Admin Prompts (UAC)</value>
+  </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableUAC.ShortDescription" xml:space="preserve">
     <value>Turns off User Account Control (UAC) windows that ask for permission when running apps as administrator.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
-        <value>Disable Data Collection (Telemetry)</value>
-    </data>
+    <value>Disable Data Collection (Telemetry)</value>
+  </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
     <value>Disables Windows telemetry and usage tracking services to enhance your personal privacy and reduce background activity.</value>
   </data>
@@ -570,32 +668,32 @@ Current version: {0}]]></value>
     <value>Stops non-essential system event logging to reduce continuous disk activity and save CPU cycles.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
-        <value>Disable Cortana &amp; Web Search</value>
-    </data>
+    <value>Disable Cortana &amp; Web Search</value>
+  </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
     <value>Turns off the Cortana voice assistant and removes Bing web results from the Windows Search bar.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
-        <value>Disable Windows Copilot</value>
-    </data>
+    <value>Disable Windows Copilot</value>
+  </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
     <value>Removes the AI Copilot assistant from the taskbar and system shell to free up memory and screen space.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
-        <value>Disable Ads &amp; Suggestions</value>
-    </data>
+    <value>Disable Ads &amp; Suggestions</value>
+  </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
     <value>Blocks Windows from automatically installing promoted apps (bloatware) and showing suggestions in the Start menu.</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
-        <value>Block Preinstalled Bloatware</value>
-    </data>
+    <value>Block Preinstalled Bloatware</value>
+  </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
     <value>Prevents Windows from automatically re-installing unwanted third-party apps and promoted software.</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
-        <value>Optimize System Services</value>
-    </data>
+    <value>Optimize System Services</value>
+  </data>
   <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
     <value>Adjusts non-essential background services to free up resources while maintaining all necessary Windows functionality.</value>
   </data>
@@ -609,131 +707,131 @@ Current version: {0}]]></value>
     <value>Visual</value>
   </data>
   <data name="Optimizer.Gpu" xml:space="preserve">
-        <value>GPU</value>
-    </data>
+    <value>GPU</value>
+  </data>
   <data name="Optimizer.UserExperience" xml:space="preserve">
-        <value>User Experience</value>
-    </data>
+    <value>User Experience</value>
+  </data>
   <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
-        <value>Disable AMD ULPS</value>
-    </data>
+    <value>Disable AMD ULPS</value>
+  </data>
   <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
-        <value>Sets EnableULPS=0 in AMD GPU registry to prevent Ultra Low Power State wake-up delays and multi-monitor issues. Reduces power saving on idle.</value>
-    </data>
+    <value>Sets EnableULPS=0 in AMD GPU registry to prevent Ultra Low Power State wake-up delays and multi-monitor issues. Reduces power saving on idle.</value>
+  </data>
   <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
-        <value>Disable AMD Power Gating</value>
-    </data>
+    <value>Disable AMD Power Gating</value>
+  </data>
   <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
-        <value>Sets DisablePowerGating=1, PP_GPUPowerDownEnabled=0, DisableDynamicPstate=1 to prevent AMD GPU power state transitions. Maintains consistent clocks at cost of higher idle power.</value>
-    </data>
+    <value>Sets DisablePowerGating=1, PP_GPUPowerDownEnabled=0, DisableDynamicPstate=1 to prevent AMD GPU power state transitions. Maintains consistent clocks at cost of higher idle power.</value>
+  </data>
   <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
-        <value>Disable AMD Video Clock Gating</value>
-    </data>
+    <value>Disable AMD Video Clock Gating</value>
+  </data>
   <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-        <value>Sets DisableVCEPowerGating=1, DisableVceClockGating=1, EnableUvdClockGating=0 for AMD video engines (VCE/UVD) to improve encode/decode stability. Increases video playback power.</value>
-    </data>
+    <value>Sets DisableVCEPowerGating=1, DisableVceClockGating=1, EnableUvdClockGating=0 for AMD video engines (VCE/UVD) to improve encode/decode stability. Increases video playback power.</value>
+  </data>
   <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
-        <value>Disable AMD ASPM</value>
-    </data>
+    <value>Disable AMD ASPM</value>
+  </data>
   <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
-        <value>Sets EnableAspmL0s=0, EnableAspmL1=0 to disable Active State Power Management on AMD GPUs, reducing PCIe bus latency. Increases slot power consumption.</value>
-    </data>
+    <value>Sets EnableAspmL0s=0, EnableAspmL1=0 to disable Active State Power Management on AMD GPUs, reducing PCIe bus latency. Increases slot power consumption.</value>
+  </data>
   <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
-        <value>Disable NVIDIA Dynamic P-State</value>
-    </data>
+    <value>Disable NVIDIA Dynamic P-State</value>
+  </data>
   <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
-        <value>Sets DisableDynamicPstate=1 to lock NVIDIA GPU into fixed performance state, preventing clock speed fluctuations. Increases idle power draw.</value>
-    </data>
+    <value>Sets DisableDynamicPstate=1 to lock NVIDIA GPU into fixed performance state, preventing clock speed fluctuations. Increases idle power draw.</value>
+  </data>
   <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
-        <value>Disable NVIDIA Async P-States</value>
-    </data>
+    <value>Disable NVIDIA Async P-States</value>
+  </data>
   <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
-        <value>Sets DisableASyncPstates=1 to prevent NVIDIA asynchronous power state switching, providing deterministic performance for VR/real-time apps.</value>
-    </data>
+    <value>Sets DisableASyncPstates=1 to prevent NVIDIA asynchronous power state switching, providing deterministic performance for VR/real-time apps.</value>
+  </data>
   <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
-        <value>Disable Intel Async Flips</value>
-    </data>
+    <value>Disable Intel Async Flips</value>
+  </data>
   <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
-        <value>Sets Display1_DisableAsyncFlips=1 to force synchronous buffer flips on Intel iGPU, reducing input-to-display latency and screen tearing.</value>
-    </data>
+    <value>Sets Display1_DisableAsyncFlips=1 to force synchronous buffer flips on Intel iGPU, reducing input-to-display latency and screen tearing.</value>
+  </data>
   <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
-        <value>Disable Intel Adaptive V-Sync</value>
-    </data>
+    <value>Disable Intel Adaptive V-Sync</value>
+  </data>
   <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
-        <value>Sets AdaptiveVsyncEnable=0 to disable Intel's adaptive V-Sync that dynamically adjusts to frame rate, using fixed V-Sync instead for stable timing.</value>
-    </data>
+    <value>Sets AdaptiveVsyncEnable=0 to disable Intel's adaptive V-Sync that dynamically adjusts to frame rate, using fixed V-Sync instead for stable timing.</value>
+  </data>
   <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.Name" xml:space="preserve">
-        <value>Disable Taskbar News &amp; Interests</value>
-    </data>
+    <value>Disable Taskbar News &amp; Interests</value>
+  </data>
   <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.ShortDescription" xml:space="preserve">
-        <value>Sets AllowNewsAndInterests=0, EnableFeeds=0 to remove the News and Interests widget from taskbar, eliminating MSN feed background updates.</value>
-    </data>
+    <value>Sets AllowNewsAndInterests=0, EnableFeeds=0 to remove the News and Interests widget from taskbar, eliminating MSN feed background updates.</value>
+  </data>
   <data name="Optimizer.UserExperience.DisableTaskbarExtraButtons.Name" xml:space="preserve">
-        <value>Disable Extra Taskbar Buttons</value>
-    </data>
+    <value>Disable Extra Taskbar Buttons</value>
+  </data>
   <data name="Optimizer.UserExperience.DisableTaskbarExtraButtons.ShortDescription" xml:space="preserve">
-        <value>Sets TaskbarDa=0 (Widgets), TaskbarMn=0 (Chat), ShowTaskViewButton=0 to hide taskbar buttons for a minimal interface.</value>
-    </data>
+    <value>Sets TaskbarDa=0 (Widgets), TaskbarMn=0 (Chat), ShowTaskViewButton=0 to hide taskbar buttons for a minimal interface.</value>
+  </data>
   <data name="Optimizer.UserExperience.DisableTaskbarSearchAndBing.Name" xml:space="preserve">
-        <value>Disable Taskbar Search &amp; Bing</value>
-    </data>
+    <value>Disable Taskbar Search &amp; Bing</value>
+  </data>
   <data name="Optimizer.UserExperience.DisableTaskbarSearchAndBing.ShortDescription" xml:space="preserve">
-        <value>Sets SearchboxTaskbarMode=0, BingSearchEnabled=0 to remove search box from taskbar and disable Bing web search in Start menu.</value>
-    </data>
+    <value>Sets SearchboxTaskbarMode=0, BingSearchEnabled=0 to remove search box from taskbar and disable Bing web search in Start menu.</value>
+  </data>
   <data name="Optimizer.UserExperience.RemoveMeetNowAndPeople.Name" xml:space="preserve">
-        <value>Remove Meet Now &amp; People</value>
-    </data>
+    <value>Remove Meet Now &amp; People</value>
+  </data>
   <data name="Optimizer.UserExperience.RemoveMeetNowAndPeople.ShortDescription" xml:space="preserve">
-        <value>Sets HideSCAMeetNow=1, PeopleBand=0 to remove Meet Now (Skype) and People icons from taskbar notification area.</value>
-    </data>
+    <value>Sets HideSCAMeetNow=1, PeopleBand=0 to remove Meet Now (Skype) and People icons from taskbar notification area.</value>
+  </data>
   <data name="Optimizer.UserExperience.EnableTaskbarEndTask.Name" xml:space="preserve">
-        <value>Enable Taskbar End Task</value>
-    </data>
+    <value>Enable Taskbar End Task</value>
+  </data>
   <data name="Optimizer.UserExperience.EnableTaskbarEndTask.ShortDescription" xml:space="preserve">
-        <value>Sets TaskbarEndTask=1 to add "End task" option to taskbar right-click menu, allowing quick process termination without Task Manager.</value>
-    </data>
+    <value>Sets TaskbarEndTask=1 to add "End task" option to taskbar right-click menu, allowing quick process termination without Task Manager.</value>
+  </data>
   <data name="Optimizer.UserExperience.EnableDarkMode.Name" xml:space="preserve">
-        <value>Enable Dark Mode</value>
-    </data>
+    <value>Enable Dark Mode</value>
+  </data>
   <data name="Optimizer.UserExperience.EnableDarkMode.ShortDescription" xml:space="preserve">
-        <value>Sets AppsUseLightTheme=0, SystemUsesLightTheme=0 to enable dark mode for system apps, Settings, and shell elements.</value>
-    </data>
+    <value>Sets AppsUseLightTheme=0, SystemUsesLightTheme=0 to enable dark mode for system apps, Settings, and shell elements.</value>
+  </data>
   <data name="Optimizer.UserExperience.DisableExplorerAndSystemNotifications.Name" xml:space="preserve">
-        <value>Disable Explorer &amp; System Notifications</value>
-    </data>
+    <value>Disable Explorer &amp; System Notifications</value>
+  </data>
   <data name="Optimizer.UserExperience.DisableExplorerAndSystemNotifications.ShortDescription" xml:space="preserve">
-        <value>Sets ShowSyncProviderNotifications=0, SystemPaneSuggestionsEnabled=0, ToastEnabled=0 to disable OneDrive sync ads, Windows tips, and toast notifications.</value>
-    </data>
+    <value>Sets ShowSyncProviderNotifications=0, SystemPaneSuggestionsEnabled=0, ToastEnabled=0 to disable OneDrive sync ads, Windows tips, and toast notifications.</value>
+  </data>
   <data name="Optimizer.UserExperience.ShowFileExtensionsAndHiddenFiles.Name" xml:space="preserve">
-        <value>Show File Extensions &amp; Hidden Files</value>
-    </data>
+    <value>Show File Extensions &amp; Hidden Files</value>
+  </data>
   <data name="Optimizer.UserExperience.ShowFileExtensionsAndHiddenFiles.ShortDescription" xml:space="preserve">
-        <value>Sets HideFileExt=0, Hidden=1 in Explorer to display file extensions and reveal hidden/system files for transparency.</value>
-    </data>
+    <value>Sets HideFileExt=0, Hidden=1 in Explorer to display file extensions and reveal hidden/system files for transparency.</value>
+  </data>
   <data name="Optimizer.UserExperience.EnableClassicContextMenu.Name" xml:space="preserve">
     <value>Enable Classic Context Menu (for Windows 11)</value>
   </data>
   <data name="Optimizer.UserExperience.EnableClassicContextMenu.ShortDescription" xml:space="preserve">
-        <value>Creates InprocServer32 key at CLSID {86ca1aa0-34aa-4e8b-a509-50c905bae2a2} to restore Windows 10-style full context menu on Windows 11.</value>
-    </data>
+    <value>Creates InprocServer32 key at CLSID {86ca1aa0-34aa-4e8b-a509-50c905bae2a2} to restore Windows 10-style full context menu on Windows 11.</value>
+  </data>
   <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
-        <value>Speed Up Explorer &amp; Menus</value>
-    </data>
+    <value>Speed Up Explorer &amp; Menus</value>
+  </data>
   <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
-        <value>Sets StartupDelayInMSec=0, MenuShowDelay=0 to eliminate Explorer startup delay and reduce menu hover delay to minimum.</value>
-    </data>
+    <value>Sets StartupDelayInMSec=0, MenuShowDelay=0 to eliminate Explorer startup delay and reduce menu hover delay to minimum.</value>
+  </data>
   <data name="Optimizer.UserExperience.ShowSecondsInSystemClock.Name" xml:space="preserve">
-        <value>Show Seconds in System Clock</value>
-    </data>
+    <value>Show Seconds in System Clock</value>
+  </data>
   <data name="Optimizer.UserExperience.ShowSecondsInSystemClock.ShortDescription" xml:space="preserve">
-        <value>Sets ShowSecondsInSystemClock=1 to display seconds in taskbar clock for precise time monitoring.</value>
-    </data>
+    <value>Sets ShowSecondsInSystemClock=1 to display seconds in taskbar clock for precise time monitoring.</value>
+  </data>
   <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
-        <value>Disable Visual Effects</value>
-    </data>
+    <value>Disable Visual Effects</value>
+  </data>
   <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
-        <value>Sets TaskbarAnimations=0, ListviewShadow=0, EnableTransparency=0, EnableAeroPeek=0 to disable animations, shadows, transparency for improved UI responsiveness.</value>
-    </data>
+    <value>Sets TaskbarAnimations=0, ListviewShadow=0, EnableTransparency=0, EnableAeroPeek=0 to disable animations, shadows, transparency for improved UI responsiveness.</value>
+  </data>
   <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
     <value>Do NOT change unless you know exactly what you are doing</value>
   </data>
@@ -753,12 +851,12 @@ Current version: {0}]]></value>
     <value>System Restore</value>
   </data>
   <data name="RestorePointDialog.Description" xml:space="preserve">
-    <value><![CDATA[Restore Point allows you to revert your system to a previous state.
-It's a safety measure to protect your Windows before applying changes.]]></value>
+    <value>Restore Point allows you to revert your system to a previous state.
+It's a safety measure to protect your Windows before applying changes.</value>
   </data>
   <data name="RestorePointDialog.Help" xml:space="preserve">
-    <value><![CDATA[We will automatically enable System Restore and create a checkpoint named "optimizerDuck...".
-This ensures you can always go back if anything goes wrong.]]></value>
+    <value>We will automatically enable System Restore and create a checkpoint named "optimizerDuck...".
+This ensures you can always go back if anything goes wrong.</value>
   </data>
   <data name="RestorePoint.Snackbar.Error.Title" xml:space="preserve">
     <value>Unable to create or enable System Restore.</value>

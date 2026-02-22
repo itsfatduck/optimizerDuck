@@ -35,7 +35,20 @@ public partial class BloatwareViewModel : ViewModel
     [ObservableProperty] private int _selectedRiskFilterIndex; // 0=All, 1=Safe, 2=Caution
     [ObservableProperty] private int _selectedSortByIndex; // 0=Default, 1=Name, 2=Publisher, 3=Risk
 
-    partial void OnSearchTextChanged(string value) => ApplyFilter();
+    private CancellationTokenSource? _searchDebounce;
+    partial void OnSearchTextChanged(string value) => DebounceSearch();
+
+    private async void DebounceSearch()
+    {
+        _searchDebounce?.Cancel();
+        _searchDebounce = new CancellationTokenSource();
+        try
+        {
+            await Task.Delay(250, _searchDebounce.Token);
+            ApplyFilter();
+        }
+        catch (TaskCanceledException) { }
+    }
     partial void OnSelectedRiskFilterIndexChanged(int value) => ApplyFilter();
     partial void OnSelectedSortByIndexChanged(int value) => ApplyFilter();
 
@@ -110,6 +123,10 @@ public partial class BloatwareViewModel : ViewModel
             3 => query.OrderBy(p => p.Risk),
             _ => query
         };
+
+        // Detach PropertyChanged listeners before clearing to avoid unnecessary event overhead
+        foreach (var p in AppxPackages)
+            p.PropertyChanged -= Item_PropertyChanged;
 
         AppxPackages.Clear();
         foreach (var package in query)

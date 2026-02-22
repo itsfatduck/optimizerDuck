@@ -59,14 +59,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Update="Resources\Languages\Translations.Designer.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>Translations.resx</DependentUpon>
-        </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
         <None Remove="Resources\Images\Duck.png" />
         <None Remove="Resources\Images\GitHubLogoBlack.png" />
         <Resource Include="Resources\Images\Duck.png" />
@@ -74,6 +66,14 @@
         <Resource Include="Resources\Images\GitHubLogoBlack.png" />
         <Resource Include="Resources\Images\GitHubLogoWhite.png" />
         <Resource Include="Resources\Images\DiscordLogo.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Resources\Languages\Translations.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Translations.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>

@@ -274,8 +274,11 @@
                     TextTrimming="WordEllipsis"
                     TextWrapping="Wrap" />
                 <StackPanel Margin="7,0,0,0">
+                    <ui:HyperlinkButton
+                        Content="{ext:Loc Settings.About.LearnMore.Support}"
+                        Icon="{ui:SymbolIcon Star24}"
+                        NavigateUri="{Binding ViewModel.SupportMe}" />
                     <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.Documentation}" NavigateUri="{Binding ViewModel.Documentation}" />
-                    <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.Support}" NavigateUri="{Binding ViewModel.SupportMe}" />
                     <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.Acknowledgements}" NavigateUri="{Binding ViewModel.Acknowledgements}" />
                     <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.Discord}" NavigateUri="{Binding ViewModel.DiscordInvite}" />
                     <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.GitHub}" NavigateUri="{Binding ViewModel.GitHubRepo}" />
