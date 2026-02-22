@@ -180,7 +180,7 @@
                             </Setter>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding ViewModel.IsAllSelected}" Value="True">
-                                    <Setter Property="Appearance" Value="Caution" />
+                                    <Setter Property="Appearance" Value="Danger" />
                                     <Setter Property="Content" Value="{ext:Loc DiskCleanup.Button.DeselectAll}" />
                                     <Setter Property="Icon">
                                         <Setter.Value>

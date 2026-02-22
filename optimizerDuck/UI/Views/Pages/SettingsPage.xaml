@@ -142,79 +142,50 @@
                     Text="{ext:Loc Settings.Advanced.Header}"
                     TextWrapping="Wrap" />
 
-                <ui:CardControl Icon="{ui:SymbolIcon Archive24}">
-                    <ui:CardControl.Header>
-                        <StackPanel>
-                            <ui:TextBlock
-                                Appearance="Primary"
-                                FontTypography="BodyStrong"
-                                Margin="0"
-                                Text="{ext:Loc Settings.Advanced.ClearResources.Title}"
-                                TextWrapping="Wrap" />
-                            <ui:TextBlock
-                                Appearance="Secondary"
-                                Text="{ext:Loc Settings.Advanced.ClearResources.Description}"
-                                TextWrapping="Wrap" />
-                        </StackPanel>
-                    </ui:CardControl.Header>
+                <ui:CardAction Command="{Binding ViewModel.ClearResourcesCommand}" Icon="{ui:SymbolIcon Archive24}">
+                    <StackPanel>
+                        <ui:TextBlock
+                            Appearance="Primary"
+                            FontTypography="BodyStrong"
+                            Margin="0"
+                            Text="{ext:Loc Settings.Advanced.ClearResources.Title}"
+                            TextWrapping="Wrap" />
+                        <ui:TextBlock
+                            Appearance="Secondary"
+                            Text="{ext:Loc Settings.Advanced.ClearResources.Description}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </ui:CardAction>
 
-                    <ui:Button
-                        Appearance="Danger"
-                        Command="{Binding ViewModel.ClearResourcesCommand}"
-                        Content="{ext:Loc Button.Clear}"
-                        Cursor="Hand"
-                        Icon="{ui:SymbolIcon Delete24}"
-                        VerticalAlignment="Center" />
-                </ui:CardControl>
+                <ui:CardAction Command="{Binding ViewModel.ClearAllRevertDataCommand}" Icon="{ui:SymbolIcon DatabaseLightning20}">
+                    <StackPanel>
+                        <ui:TextBlock
+                            Appearance="Primary"
+                            FontTypography="BodyStrong"
+                            Margin="0"
+                            Text="{ext:Loc Settings.Advanced.ClearRevertDatas.Title}"
+                            TextWrapping="Wrap" />
+                        <ui:TextBlock
+                            Appearance="Secondary"
+                            Text="{ext:Loc Settings.Advanced.ClearRevertDatas.Description}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </ui:CardAction>
 
-                <ui:CardControl Icon="{ui:SymbolIcon DatabaseLightning20}">
-                    <ui:CardControl.Header>
-                        <StackPanel>
-                            <ui:TextBlock
-                                Appearance="Primary"
-                                FontTypography="BodyStrong"
-                                Margin="0"
-                                Text="{ext:Loc Settings.Advanced.ClearRevertDatas.Title}"
-                                TextWrapping="Wrap" />
-                            <ui:TextBlock
-                                Appearance="Secondary"
-                                Text="{ext:Loc Settings.Advanced.ClearRevertDatas.Description}"
-                                TextWrapping="Wrap" />
-                        </StackPanel>
-                    </ui:CardControl.Header>
-
-                    <ui:Button
-                        Appearance="Danger"
-                        Command="{Binding ViewModel.ClearAllRevertDataCommand}"
-                        Content="{ext:Loc Button.Clear}"
-                        Cursor="Hand"
-                        Icon="{ui:SymbolIcon Delete24}"
-                        VerticalAlignment="Center" />
-                </ui:CardControl>
-
-                <ui:CardControl Icon="{ui:SymbolIcon Folder24}">
-                    <ui:CardControl.Header>
-                        <StackPanel>
-                            <ui:TextBlock
-                                Appearance="Primary"
-                                FontTypography="BodyStrong"
-                                Margin="0"
-                                Text="{ext:Loc Settings.Advanced.OpenRootDir.Title}"
-                                TextWrapping="Wrap" />
-                            <ui:TextBlock
-                                Appearance="Secondary"
-                                Text="{ext:Loc Settings.Advanced.OpenRootDir.Description}"
-                                TextWrapping="Wrap" />
-                        </StackPanel>
-                    </ui:CardControl.Header>
-
-                    <ui:Button
-                        Command="{Binding ViewModel.OpenRootDirCommand}"
-                        Content="{ext:Loc Button.Open}"
-                        Cursor="Hand"
-                        Icon="{ui:SymbolIcon OpenFolder24}"
-                        VerticalAlignment="Center" />
-                </ui:CardControl>
+                <ui:CardAction Command="{Binding ViewModel.OpenRootDirCommand}" Icon="{ui:SymbolIcon Folder24}">
+                    <StackPanel>
+                        <ui:TextBlock
+                            Appearance="Primary"
+                            FontTypography="BodyStrong"
+                            Margin="0"
+                            Text="{ext:Loc Settings.Advanced.OpenRootDir.Title}"
+                            TextWrapping="Wrap" />
+                        <ui:TextBlock
+                            Appearance="Secondary"
+                            Text="{ext:Loc Settings.Advanced.OpenRootDir.Description}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </ui:CardAction>
             </StackPanel>
 
             <StackPanel Margin="0,20,0,0">
