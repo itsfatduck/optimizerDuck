@@ -964,6 +964,9 @@
   <data name="Bloatware.Menu.SelectAllSafe" xml:space="preserve">
     <value>选择所有安全项</value>
   </data>
+  <data name="Bloatware.Menu.UnselectAllSafe" xml:space="preserve">
+    <value>取消选择安全项</value>
+  </data>
   <data name="Bloatware.Search.NoResults" xml:space="preserve">
     <value>未找到结果。请尝试其他搜索词或筛选条件。</value>
   </data>

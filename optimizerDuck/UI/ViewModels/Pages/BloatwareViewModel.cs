@@ -55,6 +55,8 @@ public partial class BloatwareViewModel : ViewModel
     public bool HasSelectedItems => AppxPackages.Any(x => x.IsSelected);
     public int SelectedCount => AppxPackages.Count(x => x.IsSelected);
     public bool HasData => _allPackages.Count > 0;
+    public bool HasSafePackages => AppxPackages.Any(x => x.Risk == AppRisk.Safe);
+    public bool IsAllSafeSelected => HasSafePackages && AppxPackages.Where(x => x.Risk == AppRisk.Safe).All(x => x.IsSelected);
 
     public BloatwareViewModel(BloatwareService bloatwareService, IContentDialogService contentDialogService,
         ISnackbarService snackbarService, ILogger<BloatwareViewModel> logger)
@@ -207,8 +209,9 @@ public partial class BloatwareViewModel : ViewModel
     [RelayCommand]
     private void SelectAllSafe()
     {
-        foreach (var package in AppxPackages)
-            package.IsSelected = package.Risk == AppRisk.Safe;
+        var shouldDeselect = IsAllSafeSelected;
+        foreach (var package in AppxPackages.Where(x => x.Risk == AppRisk.Safe))
+            package.IsSelected = !shouldDeselect;
     }
 
     #endregion Commands
@@ -233,6 +236,8 @@ public partial class BloatwareViewModel : ViewModel
         OnPropertyChanged(nameof(HasSelectedItems));
         OnPropertyChanged(nameof(SelectedCount));
         OnPropertyChanged(nameof(HasData));
+        OnPropertyChanged(nameof(HasSafePackages));
+        OnPropertyChanged(nameof(IsAllSafeSelected));
     }
 
     #endregion Helpers

@@ -36,6 +36,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
     private readonly ObservableCollection<IOptimization> _allOptimizations = [];
     [ObservableProperty] private ObservableCollection<IOptimization> _optimizations = [];
 
+    public bool HasAppliedOptimizations => _allOptimizations.Any(o => o.State.IsApplied);
+
     // Search, Filter, Sort
     [ObservableProperty] private string _searchText = string.Empty;
 
@@ -90,6 +92,11 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
         foreach (var optimization in _category.Optimizations)
         {
+            optimization.State.PropertyChanged += (_, e) =>
+            {
+                if (e.PropertyName == nameof(OptimizationState.IsApplied))
+                    OnPropertyChanged(nameof(HasAppliedOptimizations));
+            };
             _allOptimizations.Add(optimization);
             await Task.Delay(10);
         }
@@ -135,6 +142,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
         Optimizations.Clear();
         foreach (var item in filtered)
             Optimizations.Add(item);
+
+        OnPropertyChanged(nameof(HasAppliedOptimizations));
     }
 
     // Keep the progress dialog visible while long-running work is running.

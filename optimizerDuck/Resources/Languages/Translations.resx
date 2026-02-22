@@ -1003,6 +1003,9 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="Bloatware.Menu.SelectAllSafe" xml:space="preserve">
     <value>Select All Safe</value>
   </data>
+  <data name="Bloatware.Menu.UnselectAllSafe" xml:space="preserve">
+    <value>Unselect All Safe</value>
+  </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
     <value>Hide Applied</value>
   </data>

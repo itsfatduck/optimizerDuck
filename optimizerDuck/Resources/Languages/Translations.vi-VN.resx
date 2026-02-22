@@ -1003,6 +1003,9 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Bloatware.Menu.SelectAllSafe" xml:space="preserve">
     <value>Chọn tất cả an toàn</value>
   </data>
+  <data name="Bloatware.Menu.UnselectAllSafe" xml:space="preserve">
+    <value>Bỏ chọn tất cả an toàn</value>
+  </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
     <value>Ẩn đã áp dụng</value>
   </data>
