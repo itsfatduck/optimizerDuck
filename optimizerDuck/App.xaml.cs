@@ -158,6 +158,9 @@ public partial class App : Application
                     services.AddSingleton<BloatwareViewModel>();
                     services.AddSingleton<BloatwarePage>();
 
+                    services.AddSingleton<DiskCleanupViewModel>();
+                    services.AddSingleton<DiskCleanupPage>();
+
                     // Optimizations
                     services.AddAllOptimizationPages();
 
@@ -169,6 +172,7 @@ public partial class App : Application
                     services.AddSingleton<OptimizationRegistry>();
                     services.AddSingleton<OptimizationService>();
                     services.AddSingleton<BloatwareService>();
+                    services.AddSingleton<DiskCleanupService>();
                     services.AddSingleton<SystemInfoService>();
                     services.AddSingleton<StreamService>();
                     services.AddSingleton<UpdaterService>();

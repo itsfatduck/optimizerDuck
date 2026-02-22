@@ -1,0 +1,277 @@
+<Page
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    Margin="0,32,0,0"
+    ScrollViewer.CanContentScroll="False"
+    Title="DiskCleanupPage"
+    d:DataContext="{d:DesignInstance local:DiskCleanupPage}"
+    d:DesignHeight="1200"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    ui:Design.Background="Black"
+    ui:Design.Foreground="White"
+    x:Class="optimizerDuck.UI.Views.Pages.DiskCleanupPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:cleanup="clr-namespace:optimizerDuck.Core.Models.Cleanup"
+    xmlns:converters="clr-namespace:optimizerDuck.Common.Helpers.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
+    xmlns:local="clr-namespace:optimizerDuck.UI.Views.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Page.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:GreaterThanZeroToVisibilityConverter x:Key="GreaterThanZeroToVisibilityConverter" />
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    </Page.Resources>
+
+    <Grid RowDefinitions="Auto *">
+        <!-- Header -->
+        <StackPanel Margin="0,0,0,20">
+            <ui:TextBlock
+                FontTypography="Title"
+                Text="{ext:Loc DiskCleanup.Header.Title}"
+                TextWrapping="Wrap" />
+            <ui:TextBlock
+                Appearance="Secondary"
+                FontTypography="Body"
+                Margin="0,4,0,0"
+                Text="{ext:Loc DiskCleanup.Header.Description}"
+                TextWrapping="Wrap" />
+        </StackPanel>
+
+        <!-- Loading -->
+        <Border Grid.Row="1" Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ui:ProgressRing
+                    HorizontalAlignment="Center"
+                    IsIndeterminate="True"
+                    Margin="0,0,0,5"
+                    VerticalAlignment="Center" />
+                <ui:TextBlock
+                    FontTypography="BodyStrong"
+                    HorizontalAlignment="Center"
+                    Text="{ext:Loc DiskCleanup.Loading}"
+                    VerticalAlignment="Center" />
+            </StackPanel>
+        </Border>
+
+        <!-- Main content -->
+        <Border
+            Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+            CornerRadius="6"
+            Grid.Row="1"
+            Padding="8"
+            Visibility="{Binding ViewModel.HasData, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid RowDefinitions="Auto,Auto,*">
+
+                <!-- Summary card -->
+                <ui:CardControl
+                    Grid.Row="0"
+                    Icon="{ui:SymbolIcon HardDrive20}"
+                    Margin="0,0,0,8">
+                    <ui:CardControl.Header>
+                        <StackPanel>
+                            <ui:TextBlock
+                                Appearance="Primary"
+                                FontTypography="BodyStrong"
+                                Text="{ext:Loc DiskCleanup.TotalSpace}" />
+                            <ui:TextBlock
+                                Appearance="Secondary"
+                                FontTypography="Body">
+                                <ui:TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} ({1} items selected)">
+                                        <Binding Path="ViewModel.TotalSelectedSizeFormatted" />
+                                        <Binding Path="ViewModel.SelectedCount" />
+                                    </MultiBinding>
+                                </ui:TextBlock.Text>
+                            </ui:TextBlock>
+                        </StackPanel>
+                    </ui:CardControl.Header>
+                </ui:CardControl>
+
+                <!-- Action buttons -->
+                <StackPanel
+                    Grid.Row="1"
+                    Margin="0,0,0,8"
+                    Orientation="Horizontal">
+
+                    <!-- Scan button -->
+                    <ui:Button
+                        Appearance="Primary"
+                        Command="{Binding ViewModel.ScanCommand}"
+                        Content="{ext:Loc DiskCleanup.Button.Scan}"
+                        Icon="{ui:SymbolIcon Search24,
+                                             FontSize=18}"
+                        IsEnabled="{Binding ViewModel.IsScanning, Converter={StaticResource InverseBooleanConverter}}" />
+
+                    <Separator Margin="3,0,3,0" />
+
+                    <!-- Clean button -->
+                    <ui:Button
+                        Appearance="Danger"
+                        Command="{Binding ViewModel.CleanSelectedCommand}"
+                        IsEnabled="{Binding ViewModel.CanClean}">
+                        <ui:Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <ui:SymbolIcon FontSize="18" Margin="0,0,6,0" Symbol="Delete24" />
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}Clean Selected ({0})">
+                                            <Binding Path="ViewModel.TotalSelectedSizeFormatted" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </StackPanel>
+                        </ui:Button.Content>
+                    </ui:Button>
+
+                    <Separator Margin="3,0,3,0" />
+
+                    <!-- Select/Deselect All -->
+                    <ui:Button Command="{Binding ViewModel.SelectAllCommand}">
+                        <ui:Button.Style>
+                            <Style BasedOn="{StaticResource {x:Type ui:Button}}" TargetType="ui:Button">
+                                <Setter Property="Appearance" Value="Success" />
+                                <Setter Property="Content" Value="{ext:Loc DiskCleanup.Button.SelectAll}" />
+                                <Setter Property="Icon">
+                                    <Setter.Value>
+                                        <ui:SymbolIcon FontSize="18" Symbol="CheckboxChecked24" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ViewModel.IsAllSelected}" Value="True">
+                                        <Setter Property="Appearance" Value="Caution" />
+                                        <Setter Property="Content" Value="{ext:Loc DiskCleanup.Button.DeselectAll}" />
+                                        <Setter Property="Icon">
+                                            <Setter.Value>
+                                                <ui:SymbolIcon FontSize="18" Symbol="CheckboxUnchecked24" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ui:Button.Style>
+                    </ui:Button>
+                </StackPanel>
+
+                <!-- Scanning indicator -->
+                <StackPanel
+                    Grid.Row="2"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Top"
+                    Margin="0,0,0,8"
+                    Visibility="{Binding ViewModel.IsScanning, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <ui:ProgressRing
+                        Height="16"
+                        IsIndeterminate="True"
+                        Margin="0,0,8,0"
+                        Width="16" />
+                    <ui:TextBlock
+                        Appearance="Secondary"
+                        FontTypography="Caption"
+                        Text="{ext:Loc DiskCleanup.Scanning}" />
+                </StackPanel>
+
+                <!-- Items list -->
+                <ScrollViewer
+                    Grid.Row="2"
+                    HorizontalScrollBarVisibility="Disabled"
+                    Margin="0,28,0,0"
+                    VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding ViewModel.CleanupItems}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type cleanup:CleanupItem}">
+                                <Border
+                                    Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                                    CornerRadius="6"
+                                    Margin="0,0,0,4"
+                                    Padding="12">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Checkbox -->
+                                        <CheckBox
+                                            Grid.Column="0"
+                                            IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                            Margin="0,4,12,0"
+                                            VerticalAlignment="Top" />
+
+                                        <!-- Icon -->
+                                        <ui:SymbolIcon
+                                            FontSize="24"
+                                            Grid.Column="1"
+                                            Margin="0,4,12,0"
+                                            Symbol="{Binding Icon}"
+                                            VerticalAlignment="Top" />
+
+                                        <!-- Info -->
+                                        <StackPanel Grid.Column="2">
+                                            <ui:TextBlock FontTypography="BodyStrong" Text="{Binding Name}" />
+                                            <ui:TextBlock
+                                                Appearance="Disabled"
+                                                FontTypography="Body"
+                                                Margin="0,2,0,0"
+                                                Text="{Binding Description}"
+                                                TextWrapping="Wrap" />
+                                            <ui:TextBlock
+                                                Appearance="Secondary"
+                                                FontTypography="Caption"
+                                                Margin="0,2,0,0"
+                                                Text="{Binding Path}"
+                                                TextTrimming="CharacterEllipsis" />
+                                        </StackPanel>
+
+                                        <!-- Size / Status indicator -->
+                                        <StackPanel
+                                            Grid.Column="3"
+                                            HorizontalAlignment="Right"
+                                            Margin="12,0,0,0"
+                                            VerticalAlignment="Center">
+                                            <!-- Scanning spinner -->
+                                            <ui:ProgressRing
+                                                Height="20"
+                                                IsIndeterminate="True"
+                                                Visibility="{Binding IsScanning, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                Width="20" />
+                                            <!-- Cleaning spinner -->
+                                            <ui:ProgressRing
+                                                Height="20"
+                                                IsIndeterminate="True"
+                                                Visibility="{Binding IsCleaning, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                Width="20" />
+                                            <!-- Size display -->
+                                            <ui:TextBlock
+                                                FontTypography="BodyStrong"
+                                                Text="{Binding FormattedSize}"
+                                                Visibility="{Binding IsScanned, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                <ui:TextBlock.Style>
+                                                    <Style BasedOn="{StaticResource {x:Type ui:TextBlock}}" TargetType="ui:TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsScanning}" Value="True">
+                                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding IsCleaning}" Value="True">
+                                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </ui:TextBlock.Style>
+                                            </ui:TextBlock>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

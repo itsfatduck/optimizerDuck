@@ -1024,4 +1024,85 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="Common.SortBy" xml:space="preserve">
     <value>Sort by</value>
   </data>
+  <data name="Sidebar.DiskCleanup" xml:space="preserve">
+    <value>Disk Cleanup</value>
+  </data>
+  <data name="DiskCleanup.Header.Title" xml:space="preserve">
+    <value>Disk Cleanup</value>
+  </data>
+  <data name="DiskCleanup.Header.Description" xml:space="preserve">
+    <value>Free up disk space by removing temporary files and cache</value>
+  </data>
+  <data name="DiskCleanup.TotalSpace" xml:space="preserve">
+    <value>Total reclaimable space</value>
+  </data>
+  <data name="DiskCleanup.Button.Scan" xml:space="preserve">
+    <value>Scan</value>
+  </data>
+  <data name="DiskCleanup.Button.SelectAll" xml:space="preserve">
+    <value>Select All</value>
+  </data>
+  <data name="DiskCleanup.Button.DeselectAll" xml:space="preserve">
+    <value>Deselect All</value>
+  </data>
+  <data name="DiskCleanup.Scanning" xml:space="preserve">
+    <value>Scanning...</value>
+  </data>
+  <data name="DiskCleanup.Loading" xml:space="preserve">
+    <value>Loading cleanup items...</value>
+  </data>
+  <data name="DiskCleanup.Complete.Title" xml:space="preserve">
+    <value>Cleanup Complete</value>
+  </data>
+  <data name="DiskCleanup.Complete.Message" xml:space="preserve">
+    <value>Successfully freed {0} of disk space</value>
+  </data>
+  <data name="DiskCleanup.Error.Title" xml:space="preserve">
+    <value>Cleanup Error</value>
+  </data>
+  <data name="DiskCleanup.Error.Message" xml:space="preserve">
+    <value>Some files could not be deleted. They may be in use by another process.</value>
+  </data>
+  <data name="DiskCleanup.Item.TempFiles" xml:space="preserve">
+    <value>Temporary Files</value>
+  </data>
+  <data name="DiskCleanup.Item.TempFiles.Description" xml:space="preserve">
+    <value>User temporary files created by applications</value>
+  </data>
+  <data name="DiskCleanup.Item.SystemTemp" xml:space="preserve">
+    <value>System Temp Files</value>
+  </data>
+  <data name="DiskCleanup.Item.SystemTemp.Description" xml:space="preserve">
+    <value>Windows system temporary files</value>
+  </data>
+  <data name="DiskCleanup.Item.WindowsUpdate" xml:space="preserve">
+    <value>Windows Update Cache</value>
+  </data>
+  <data name="DiskCleanup.Item.WindowsUpdate.Description" xml:space="preserve">
+    <value>Downloaded Windows Update files that are no longer needed</value>
+  </data>
+  <data name="DiskCleanup.Item.Prefetch" xml:space="preserve">
+    <value>Prefetch Files</value>
+  </data>
+  <data name="DiskCleanup.Item.Prefetch.Description" xml:space="preserve">
+    <value>Application prefetch data used to speed up loading</value>
+  </data>
+  <data name="DiskCleanup.Item.Thumbnails" xml:space="preserve">
+    <value>Thumbnail Cache</value>
+  </data>
+  <data name="DiskCleanup.Item.Thumbnails.Description" xml:space="preserve">
+    <value>Cached thumbnail images for Explorer file previews</value>
+  </data>
+  <data name="DiskCleanup.Item.RecycleBin" xml:space="preserve">
+    <value>Recycle Bin</value>
+  </data>
+  <data name="DiskCleanup.Item.RecycleBin.Description" xml:space="preserve">
+    <value>Deleted files still stored in the Recycle Bin</value>
+  </data>
+  <data name="DiskCleanup.Item.ErrorReports" xml:space="preserve">
+    <value>Error Reports</value>
+  </data>
+  <data name="DiskCleanup.Item.ErrorReports.Description" xml:space="preserve">
+    <value>Windows error reports and crash dump files</value>
+  </data>
 </root>

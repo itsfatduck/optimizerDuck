@@ -970,5 +970,86 @@
   <data name="Bloatware.Search.NoResults" xml:space="preserve">
     <value>未找到结果。请尝试其他搜索词或筛选条件。</value>
   </data>
+  <data name="Sidebar.DiskCleanup" xml:space="preserve">
+    <value>磁盘清理</value>
+  </data>
+  <data name="DiskCleanup.Header.Title" xml:space="preserve">
+    <value>磁盘清理</value>
+  </data>
+  <data name="DiskCleanup.Header.Description" xml:space="preserve">
+    <value>通过删除临时文件和缓存来释放磁盘空间</value>
+  </data>
+  <data name="DiskCleanup.TotalSpace" xml:space="preserve">
+    <value>可回收的总空间</value>
+  </data>
+  <data name="DiskCleanup.Button.Scan" xml:space="preserve">
+    <value>扫描</value>
+  </data>
+  <data name="DiskCleanup.Button.SelectAll" xml:space="preserve">
+    <value>全选</value>
+  </data>
+  <data name="DiskCleanup.Button.DeselectAll" xml:space="preserve">
+    <value>取消全选</value>
+  </data>
+  <data name="DiskCleanup.Scanning" xml:space="preserve">
+    <value>正在扫描...</value>
+  </data>
+  <data name="DiskCleanup.Loading" xml:space="preserve">
+    <value>正在加载清理项目...</value>
+  </data>
+  <data name="DiskCleanup.Complete.Title" xml:space="preserve">
+    <value>清理完成</value>
+  </data>
+  <data name="DiskCleanup.Complete.Message" xml:space="preserve">
+    <value>成功释放了 {0} 的磁盘空间</value>
+  </data>
+  <data name="DiskCleanup.Error.Title" xml:space="preserve">
+    <value>清理错误</value>
+  </data>
+  <data name="DiskCleanup.Error.Message" xml:space="preserve">
+    <value>部分文件无法删除，可能正在被其他程序使用。</value>
+  </data>
+  <data name="DiskCleanup.Item.TempFiles" xml:space="preserve">
+    <value>临时文件</value>
+  </data>
+  <data name="DiskCleanup.Item.TempFiles.Description" xml:space="preserve">
+    <value>应用程序创建的用户临时文件</value>
+  </data>
+  <data name="DiskCleanup.Item.SystemTemp" xml:space="preserve">
+    <value>系统临时文件</value>
+  </data>
+  <data name="DiskCleanup.Item.SystemTemp.Description" xml:space="preserve">
+    <value>Windows 系统临时文件</value>
+  </data>
+  <data name="DiskCleanup.Item.WindowsUpdate" xml:space="preserve">
+    <value>Windows 更新缓存</value>
+  </data>
+  <data name="DiskCleanup.Item.WindowsUpdate.Description" xml:space="preserve">
+    <value>已下载的不再需要的 Windows 更新文件</value>
+  </data>
+  <data name="DiskCleanup.Item.Prefetch" xml:space="preserve">
+    <value>预取文件</value>
+  </data>
+  <data name="DiskCleanup.Item.Prefetch.Description" xml:space="preserve">
+    <value>用于加速应用程序加载的预取数据</value>
+  </data>
+  <data name="DiskCleanup.Item.Thumbnails" xml:space="preserve">
+    <value>缩略图缓存</value>
+  </data>
+  <data name="DiskCleanup.Item.Thumbnails.Description" xml:space="preserve">
+    <value>资源管理器文件预览的缓存缩略图</value>
+  </data>
+  <data name="DiskCleanup.Item.RecycleBin" xml:space="preserve">
+    <value>回收站</value>
+  </data>
+  <data name="DiskCleanup.Item.RecycleBin.Description" xml:space="preserve">
+    <value>仍存储在回收站中的已删除文件</value>
+  </data>
+  <data name="DiskCleanup.Item.ErrorReports" xml:space="preserve">
+    <value>错误报告</value>
+  </data>
+  <data name="DiskCleanup.Item.ErrorReports.Description" xml:space="preserve">
+    <value>Windows 错误报告和崩溃转储文件</value>
+  </data>
 
 </root>

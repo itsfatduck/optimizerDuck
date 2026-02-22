@@ -51,6 +51,11 @@
                     Content="{extensions:Loc Sidebar.Bloatware}"
                     Icon="{ui:SymbolIcon Delete24}"
                     TargetPageType="{x:Type pages:BloatwarePage}" />
+
+                <ui:NavigationViewItem
+                    Content="{extensions:Loc Sidebar.DiskCleanup}"
+                    Icon="{ui:SymbolIcon HardDrive20}"
+                    TargetPageType="{x:Type pages:DiskCleanupPage}" />
             </ui:NavigationView.MenuItems>
 
             <ui:NavigationView.FooterMenuItems>

@@ -2765,5 +2765,248 @@ namespace optimizerDuck.Resources.Languages {
                 return ResourceManager.GetString("Snackbar.OpenLinkFailed.Title", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disk Cleanup.
+        /// </summary>
+        public static string Sidebar_DiskCleanup {
+            get {
+                return ResourceManager.GetString("Sidebar.DiskCleanup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disk Cleanup.
+        /// </summary>
+        public static string DiskCleanup_Header_Title {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Header.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Free up disk space by removing temporary files and cache.
+        /// </summary>
+        public static string DiskCleanup_Header_Description {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Header.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total reclaimable space.
+        /// </summary>
+        public static string DiskCleanup_TotalSpace {
+            get {
+                return ResourceManager.GetString("DiskCleanup.TotalSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scan.
+        /// </summary>
+        public static string DiskCleanup_Button_Scan {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Button.Scan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select All.
+        /// </summary>
+        public static string DiskCleanup_Button_SelectAll {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Button.SelectAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deselect All.
+        /// </summary>
+        public static string DiskCleanup_Button_DeselectAll {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Button.DeselectAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scanning....
+        /// </summary>
+        public static string DiskCleanup_Scanning {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Scanning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading cleanup items....
+        /// </summary>
+        public static string DiskCleanup_Loading {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cleanup Complete.
+        /// </summary>
+        public static string DiskCleanup_Complete_Title {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Complete.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully freed {0} of disk space.
+        /// </summary>
+        public static string DiskCleanup_Complete_Message {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Complete.Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cleanup Error.
+        /// </summary>
+        public static string DiskCleanup_Error_Title {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Error.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Some files could not be deleted. They may be in use by another process..
+        /// </summary>
+        public static string DiskCleanup_Error_Message {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Error.Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Temporary Files.
+        /// </summary>
+        public static string DiskCleanup_Item_TempFiles {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Item.TempFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User temporary files created by applications.
+        /// </summary>
+        public static string DiskCleanup_Item_TempFiles_Description {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Item.TempFiles.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System Temp Files.
+        /// </summary>
+        public static string DiskCleanup_Item_SystemTemp {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Item.SystemTemp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows system temporary files.
+        /// </summary>
+        public static string DiskCleanup_Item_SystemTemp_Description {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Item.SystemTemp.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows Update Cache.
+        /// </summary>
+        public static string DiskCleanup_Item_WindowsUpdate {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Item.WindowsUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloaded Windows Update files that are no longer needed.
+        /// </summary>
+        public static string DiskCleanup_Item_WindowsUpdate_Description {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Item.WindowsUpdate.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prefetch Files.
+        /// </summary>
+        public static string DiskCleanup_Item_Prefetch {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Item.Prefetch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application prefetch data used to speed up loading.
+        /// </summary>
+        public static string DiskCleanup_Item_Prefetch_Description {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Item.Prefetch.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thumbnail Cache.
+        /// </summary>
+        public static string DiskCleanup_Item_Thumbnails {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Item.Thumbnails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cached thumbnail images for Explorer file previews.
+        /// </summary>
+        public static string DiskCleanup_Item_Thumbnails_Description {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Item.Thumbnails.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recycle Bin.
+        /// </summary>
+        public static string DiskCleanup_Item_RecycleBin {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Item.RecycleBin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleted files still stored in the Recycle Bin.
+        /// </summary>
+        public static string DiskCleanup_Item_RecycleBin_Description {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Item.RecycleBin.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error Reports.
+        /// </summary>
+        public static string DiskCleanup_Item_ErrorReports {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Item.ErrorReports", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows error reports and crash dump files.
+        /// </summary>
+        public static string DiskCleanup_Item_ErrorReports_Description {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Item.ErrorReports.Description", resourceCulture);
+            }
+        }
     }
 }

@@ -1024,4 +1024,85 @@
   <data name="Common.SortBy" xml:space="preserve">
     <value>Сортировать по</value>
   </data>
+  <data name="Sidebar.DiskCleanup" xml:space="preserve">
+    <value>Очистка диска</value>
+  </data>
+  <data name="DiskCleanup.Header.Title" xml:space="preserve">
+    <value>Очистка диска</value>
+  </data>
+  <data name="DiskCleanup.Header.Description" xml:space="preserve">
+    <value>Освободите место на диске, удалив временные файлы и кеш</value>
+  </data>
+  <data name="DiskCleanup.TotalSpace" xml:space="preserve">
+    <value>Общий объём для освобождения</value>
+  </data>
+  <data name="DiskCleanup.Button.Scan" xml:space="preserve">
+    <value>Сканировать</value>
+  </data>
+  <data name="DiskCleanup.Button.SelectAll" xml:space="preserve">
+    <value>Выбрать всё</value>
+  </data>
+  <data name="DiskCleanup.Button.DeselectAll" xml:space="preserve">
+    <value>Снять выделение</value>
+  </data>
+  <data name="DiskCleanup.Scanning" xml:space="preserve">
+    <value>Сканирование...</value>
+  </data>
+  <data name="DiskCleanup.Loading" xml:space="preserve">
+    <value>Загрузка элементов очистки...</value>
+  </data>
+  <data name="DiskCleanup.Complete.Title" xml:space="preserve">
+    <value>Очистка завершена</value>
+  </data>
+  <data name="DiskCleanup.Complete.Message" xml:space="preserve">
+    <value>Успешно освобождено {0} дискового пространства</value>
+  </data>
+  <data name="DiskCleanup.Error.Title" xml:space="preserve">
+    <value>Ошибка очистки</value>
+  </data>
+  <data name="DiskCleanup.Error.Message" xml:space="preserve">
+    <value>Некоторые файлы не удалось удалить. Возможно, они используются другим процессом.</value>
+  </data>
+  <data name="DiskCleanup.Item.TempFiles" xml:space="preserve">
+    <value>Временные файлы</value>
+  </data>
+  <data name="DiskCleanup.Item.TempFiles.Description" xml:space="preserve">
+    <value>Пользовательские временные файлы, созданные приложениями</value>
+  </data>
+  <data name="DiskCleanup.Item.SystemTemp" xml:space="preserve">
+    <value>Системные временные файлы</value>
+  </data>
+  <data name="DiskCleanup.Item.SystemTemp.Description" xml:space="preserve">
+    <value>Временные файлы системы Windows</value>
+  </data>
+  <data name="DiskCleanup.Item.WindowsUpdate" xml:space="preserve">
+    <value>Кеш обновлений Windows</value>
+  </data>
+  <data name="DiskCleanup.Item.WindowsUpdate.Description" xml:space="preserve">
+    <value>Загруженные файлы обновлений Windows, которые больше не нужны</value>
+  </data>
+  <data name="DiskCleanup.Item.Prefetch" xml:space="preserve">
+    <value>Файлы предварительной загрузки</value>
+  </data>
+  <data name="DiskCleanup.Item.Prefetch.Description" xml:space="preserve">
+    <value>Данные предварительной загрузки для ускорения запуска приложений</value>
+  </data>
+  <data name="DiskCleanup.Item.Thumbnails" xml:space="preserve">
+    <value>Кеш эскизов</value>
+  </data>
+  <data name="DiskCleanup.Item.Thumbnails.Description" xml:space="preserve">
+    <value>Кешированные эскизы для предпросмотра файлов в Проводнике</value>
+  </data>
+  <data name="DiskCleanup.Item.RecycleBin" xml:space="preserve">
+    <value>Корзина</value>
+  </data>
+  <data name="DiskCleanup.Item.RecycleBin.Description" xml:space="preserve">
+    <value>Удалённые файлы, хранящиеся в Корзине</value>
+  </data>
+  <data name="DiskCleanup.Item.ErrorReports" xml:space="preserve">
+    <value>Отчёты об ошибках</value>
+  </data>
+  <data name="DiskCleanup.Item.ErrorReports.Description" xml:space="preserve">
+    <value>Отчёты об ошибках Windows и файлы аварийных дампов</value>
+  </data>
 </root>
