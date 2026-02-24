@@ -13,7 +13,7 @@ public class UpdaterService
 
     public const string LatestReleaseUrl = $"https://github.com/{Owner}/{Repo}/releases/latest";
 
-    private required readonly HttpClient _httpClient;
+    private readonly HttpClient _httpClient;
     private readonly ILogger _logger;
 
     public UpdaterService(ILogger<UpdaterService> logger)
