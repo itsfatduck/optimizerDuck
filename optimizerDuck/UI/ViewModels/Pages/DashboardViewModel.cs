@@ -31,6 +31,7 @@ public partial class DashboardViewModel : ViewModel
     private bool _isUpdateInfoOpen;
 
     [ObservableProperty] private RamInfo _runtimeRam = RamInfo.Unknown;
+    [ObservableProperty] private DiskInfo _runtimeDisk = DiskInfo.Unknown;
     [ObservableProperty] private SystemSnapshot _systemInfo = SystemSnapshot.Unknown;
     private bool _updateNotified;
 
@@ -219,6 +220,7 @@ public partial class DashboardViewModel : ViewModel
             var snapshot = await _systemInfoService.RefreshAsync();
             SystemInfo = snapshot;
             RuntimeRam = snapshot.Ram;
+            RuntimeDisk = snapshot.Disk;
         }
         catch (Exception ex)
         {
@@ -235,7 +237,9 @@ public partial class DashboardViewModel : ViewModel
         try
         {
             var ramInfo = await Task.Run(RamProvider.Get);
+            var diskInfo = await Task.Run(DiskProvider.Get);
             RuntimeRam = ramInfo;
+            RuntimeDisk = diskInfo;
         }
         catch (Exception ex)
         {

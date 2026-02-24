@@ -1,29 +1,29 @@
 <Page
-    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-    Margin="0,32,0,0"
-    ScrollViewer.CanContentScroll="False"
-    Title="Dashboard"
-    d:DataContext="{d:DesignInstance pages:DashboardPage}"
-    d:DesignHeight="650"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
-    ui:Design.Background="Black"
-    ui:Design.Foreground="White"
     x:Class="optimizerDuck.UI.Views.Pages.DashboardPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:optimizerDuck.Common.Helpers.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pages="clr-namespace:optimizerDuck.UI.Views.Pages"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    Title="Dashboard"
+    Margin="0,32,0,0"
+    d:DataContext="{d:DesignInstance pages:DashboardPage}"
+    d:DesignHeight="650"
+    d:DesignWidth="800"
+    ui:Design.Background="Black"
+    ui:Design.Foreground="White"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    ScrollViewer.CanContentScroll="False"
+    mc:Ignorable="d">
 
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <converters:MBToGBConverter x:Key="MBToGBConverter" />
-        <converters:GreaterThanNumberToVisibilityConverter Threshold="1" x:Key="GreaterThanOneToVisibilityConverter" />
-        <converters:MinusNumberConverter NumberToMinus="1" x:Key="MinusOneConverter" />
+        <converters:GreaterThanNumberToVisibilityConverter x:Key="GreaterThanOneToVisibilityConverter" Threshold="1" />
+        <converters:MinusNumberConverter x:Key="MinusOneConverter" NumberToMinus="1" />
         <converters:ThemeToGitHubIconConverter x:Key="ThemeToGitHubIconConverter" />
     </Page.Resources>
 
@@ -36,13 +36,13 @@
             <Border Background="{DynamicResource ApplicationBackgroundBrush}" Opacity="0.8" />
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ui:ProgressRing
+                    Width="60"
                     Height="60"
-                    IsIndeterminate="True"
-                    Width="60" />
+                    IsIndeterminate="True" />
                 <ui:TextBlock
-                    FontTypography="Subtitle"
-                    HorizontalAlignment="Center"
                     Margin="0,16,0,0"
+                    HorizontalAlignment="Center"
+                    FontTypography="Subtitle"
                     Text="{ext:Loc Dashboard.SystemInfo.Loading}"
                     TextWrapping="Wrap" />
             </StackPanel>
@@ -51,16 +51,16 @@
         <!--  Header  -->
         <StackPanel Margin="0,0,0,20">
             <ui:InfoBar
-                IsOpen="{Binding ViewModel.IsUpdateInfoOpen, Mode=TwoWay}"
                 Margin="0,0,0,10"
+                IsOpen="{Binding ViewModel.IsUpdateInfoOpen, Mode=TwoWay}"
                 Message="{ext:Loc Dashboard.UpdateInfoBar.Message,
                                   {Binding ViewModel.LatestVersion}}"
                 Severity="Warning" />
             <Grid ColumnDefinitions="*,Auto">
-                    <ui:TextBlock
-                        FontTypography="Title"
-                        Text="{ext:Loc Dashboard.Header.Title}"
-                        TextWrapping="Wrap" />
+                <ui:TextBlock
+                    FontTypography="Title"
+                    Text="{ext:Loc Dashboard.Header.Title}"
+                    TextWrapping="Wrap" />
 
                 <Menu Grid.Column="1">
                     <ui:MenuItem Header="{ext:Loc Dashboard.Header.Menu.Header.Options}">
@@ -90,14 +90,14 @@
 
         <!--  Action Cards  -->
         <UniformGrid
-            Columns="3"
             Grid.Row="1"
-            Margin="0,0,0,20">
+            Margin="0,0,0,20"
+            Columns="3">
             <ui:CardAction
-                Command="{Binding ViewModel.OpenActionCommand}"
-                CommandParameter="Discord"
                 Margin="0,0,5,0"
-                VerticalAlignment="Stretch">
+                VerticalAlignment="Stretch"
+                Command="{Binding ViewModel.OpenActionCommand}"
+                CommandParameter="Discord">
                 <ui:CardAction.Icon>
                     <ui:ImageIcon Height="25" Source="pack://application:,,,/Resources/Images/DiscordLogo.png" />
                 </ui:CardAction.Icon>
@@ -112,10 +112,10 @@
             </ui:CardAction>
 
             <ui:CardAction
-                Command="{Binding ViewModel.OpenActionCommand}"
-                CommandParameter="GitHub"
                 Margin="5,0,5,0"
-                VerticalAlignment="Stretch">
+                VerticalAlignment="Stretch"
+                Command="{Binding ViewModel.OpenActionCommand}"
+                CommandParameter="GitHub">
                 <ui:CardAction.Icon>
                     <ui:ImageIcon Height="40" Source="{Binding ViewModel.CurrentApplicationTheme, Converter={StaticResource ThemeToGitHubIconConverter}}" />
                 </ui:CardAction.Icon>
@@ -130,11 +130,11 @@
             </ui:CardAction>
 
             <ui:CardAction
+                Margin="5,0,0,0"
+                VerticalAlignment="Stretch"
                 BorderThickness="1"
                 Command="{Binding ViewModel.OpenActionCommand}"
-                CommandParameter="Support"
-                Margin="5,0,0,0"
-                VerticalAlignment="Stretch">
+                CommandParameter="Support">
 
                 <ui:CardAction.Icon>
                     <ui:SymbolIcon
@@ -156,17 +156,17 @@
 
         <ScrollViewer
             Grid.Row="2"
-            HorizontalScrollBarVisibility="Disabled"
             Padding="20,0"
+            HorizontalScrollBarVisibility="Disabled"
             VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <!--  System Info Cards  -->
                 <UniformGrid Columns="2" Rows="2">
                     <!--  Operating System  -->
                     <ui:CardControl
-                        Icon="{ui:SymbolIcon Tv24}"
                         Margin="0,0,5,5"
-                        VerticalAlignment="Stretch">
+                        VerticalAlignment="Stretch"
+                        Icon="{ui:SymbolIcon Tv24}">
                         <ui:CardControl.Header>
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -188,24 +188,24 @@
                                     Margin="0,8,0,0"
                                     Orientation="Horizontal">
                                     <Border
-                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="4"
                                         Margin="0,0,4,4"
-                                        Padding="6,3">
+                                        Padding="6,3"
+                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                        CornerRadius="4">
                                         <ui:TextBlock FontTypography="Caption" Text="{ext:Loc Dashboard.SystemInfo.Os.Build, {Binding ViewModel.SystemInfo.Os.BuildNumber}}" />
                                     </Border>
                                     <Border
-                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="4"
                                         Margin="0,0,4,4"
-                                        Padding="6,3">
+                                        Padding="6,3"
+                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                        CornerRadius="4">
                                         <ui:TextBlock FontTypography="Caption" Text="{Binding ViewModel.SystemInfo.Os.DeviceType}" />
                                     </Border>
                                     <Border
-                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="4"
                                         Margin="0,0,4,4"
-                                        Padding="6,3">
+                                        Padding="6,3"
+                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                        CornerRadius="4">
                                         <ui:TextBlock FontTypography="Caption" Text="{Binding ViewModel.SystemInfo.Os.InstallDate}" />
                                     </Border>
                                 </WrapPanel>
@@ -215,9 +215,9 @@
 
                     <!--  CPU  -->
                     <ui:CardControl
-                        Icon="{ui:SymbolIcon DeveloperBoard24}"
                         Margin="5,0,0,5"
-                        VerticalAlignment="Stretch">
+                        VerticalAlignment="Stretch"
+                        Icon="{ui:SymbolIcon DeveloperBoard24}">
                         <ui:CardControl.Header>
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -244,20 +244,20 @@
                                     Margin="0,8,0,0"
                                     Orientation="Horizontal">
                                     <Border
-                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="4"
                                         Margin="0,0,4,4"
-                                        Padding="6,3">
+                                        Padding="6,3"
+                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                        CornerRadius="4">
                                         <ui:TextBlock FontTypography="Caption">
                                             <Run Text="{Binding ViewModel.SystemInfo.Cpu.CurrentClockMHz}" />
                                             <Run Text="MHz" />
                                         </ui:TextBlock>
                                     </Border>
                                     <Border
-                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="4"
                                         Margin="0,0,4,4"
-                                        Padding="6,3">
+                                        Padding="6,3"
+                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                        CornerRadius="4">
                                         <ui:TextBlock FontTypography="Caption">
                                             <Run Text="L2:" />
                                             <Run Text="{Binding ViewModel.SystemInfo.Cpu.L2CacheKB}" />
@@ -265,10 +265,10 @@
                                         </ui:TextBlock>
                                     </Border>
                                     <Border
-                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="4"
                                         Margin="0,0,4,4"
-                                        Padding="6,3">
+                                        Padding="6,3"
+                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                        CornerRadius="4">
                                         <ui:TextBlock FontTypography="Caption">
                                             <Run Text="L3:" />
                                             <Run Text="{Binding ViewModel.SystemInfo.Cpu.L3CacheKB}" />
@@ -282,9 +282,9 @@
 
                     <!--  RAM  -->
                     <ui:CardControl
-                        Icon="{ui:SymbolIcon Memory16}"
                         Margin="0,5,5,0"
-                        VerticalAlignment="Stretch">
+                        VerticalAlignment="Stretch"
+                        Icon="{ui:SymbolIcon Memory16}">
                         <ui:CardControl.Header>
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -317,9 +317,9 @@
                                     Margin="0,8,0,0"
                                     Orientation="Horizontal">
                                     <Border
+                                        Padding="6,3"
                                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="4"
-                                        Padding="6,3">
+                                        CornerRadius="4">
                                         <ui:TextBlock FontTypography="Caption">
                                             <Run Text="{ext:Loc Dashboard.SystemInfo.Ram.Modules, {Binding ViewModel.RuntimeRam.Modules.Count, Mode=OneWay}}" />
                                         </ui:TextBlock>
@@ -331,9 +331,9 @@
 
                     <!--  GPU  -->
                     <ui:CardControl
-                        Icon="{ui:SymbolIcon NetworkAdapter16}"
                         Margin="5,5,0,0"
-                        VerticalAlignment="Stretch">
+                        VerticalAlignment="Stretch"
+                        Icon="{ui:SymbolIcon NetworkAdapter16}">
                         <ui:CardControl.Header>
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -357,30 +357,30 @@
                                     Margin="0,8,0,0"
                                     Orientation="Horizontal">
                                     <Border
-                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="4"
                                         Margin="0,0,4,4"
-                                        Padding="6,3">
+                                        Padding="6,3"
+                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                        CornerRadius="4">
                                         <ui:TextBlock FontTypography="Caption">
                                             <Run Text="{Binding ViewModel.SystemInfo.PrimaryGpu.MemoryMB, Converter={StaticResource MBToGBConverter}}" />
                                             <Run Text="GB" />
                                         </ui:TextBlock>
                                     </Border>
                                     <Border
-                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="4"
                                         Margin="0,0,4,4"
-                                        Padding="6,3">
+                                        Padding="6,3"
+                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                        CornerRadius="4">
                                         <ui:TextBlock
                                             FontTypography="Caption"
                                             Text="{Binding ViewModel.SystemInfo.PrimaryGpu.DriverVersion}"
                                             TextTrimming="CharacterEllipsis" />
                                     </Border>
                                     <Border
-                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="4"
                                         Margin="0,0,4,4"
                                         Padding="6,3"
+                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                        CornerRadius="4"
                                         Visibility="{Binding ViewModel.SystemInfo.Gpus.Count, Converter={StaticResource GreaterThanOneToVisibilityConverter}}">
                                         <ui:TextBlock FontTypography="Caption">
                                             <Run Text="{ext:Loc Dashboard.SystemInfo.Gpu.More, {Binding ViewModel.SystemInfo.Gpus.Count, Mode=OneWay, Converter={StaticResource MinusOneConverter}}}" />
@@ -393,12 +393,12 @@
                 </UniformGrid>
 
                 <!--  Storage Section  -->
-                    <ui:TextBlock
-                        FontTypography="BodyStrong"
+                <ui:TextBlock
                     Margin="0,20,0,8"
+                    FontTypography="BodyStrong"
                     Text="{ext:Loc Dashboard.SystemInfo.Storage.Header}" />
 
-                <ItemsControl ItemsSource="{Binding ViewModel.SystemInfo.Disk.Volumes}">
+                <ItemsControl ItemsSource="{Binding ViewModel.RuntimeDisk.Volumes}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <ui:CardControl Margin="0,0,0,8">
@@ -427,22 +427,22 @@
                                         <!--  Drive Letter and Label  -->
                                         <StackPanel Grid.Row="0" Orientation="Horizontal">
                                             <ui:TextBlock
-                                                FontTypography="BodyStrong"
                                                 Margin="0,0,5,0"
+                                                FontTypography="BodyStrong"
                                                 Text="{Binding Letter, StringFormat='({0})'}" />
 
                                             <ui:TextBlock
-                                                FontTypography="Caption"
                                                 Margin="0,0,5,0"
-                                                Text="{Binding Label}"
-                                                VerticalAlignment="Center" />
+                                                VerticalAlignment="Center"
+                                                FontTypography="Caption"
+                                                Text="{Binding Label}" />
 
                                             <Border
-                                                Background="{DynamicResource SystemFillColorAttentionBrush}"
-                                                CornerRadius="4"
                                                 Margin="0,0,4,0"
                                                 Padding="5,2"
                                                 VerticalAlignment="Center"
+                                                Background="{DynamicResource SystemFillColorAttentionBrush}"
+                                                CornerRadius="4"
                                                 Visibility="{Binding SystemDrive, Converter={StaticResource BoolToVisibilityConverter}}">
                                                 <ui:TextBlock
                                                     FontTypography="Caption"
@@ -451,11 +451,11 @@
                                             </Border>
 
                                             <Border
-                                                Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                                CornerRadius="4"
                                                 Margin="0,0,4,0"
                                                 Padding="5,2"
-                                                VerticalAlignment="Center">
+                                                VerticalAlignment="Center"
+                                                Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                                CornerRadius="4">
                                                 <ui:TextBlock FontTypography="Caption" Text="{Binding MediaType}">
                                                     <ui:TextBlock.Style>
                                                         <Style TargetType="ui:TextBlock">
@@ -473,20 +473,20 @@
                                             </Border>
 
                                             <Border
-                                                Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                                CornerRadius="4"
                                                 Padding="5,2"
-                                                VerticalAlignment="Center">
+                                                VerticalAlignment="Center"
+                                                Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                                CornerRadius="4">
                                                 <ui:TextBlock FontTypography="Caption" Text="{Binding FileSystem}" />
                                             </Border>
                                         </StackPanel>
 
                                         <!--  Model Information  -->
                                         <ui:TextBlock
-                                            Appearance="Secondary"
-                                            FontTypography="Caption"
                                             Grid.Row="1"
                                             Margin="0,4,0,0"
+                                            Appearance="Secondary"
+                                            FontTypography="Caption"
                                             Text="{Binding Model}"
                                             TextTrimming="CharacterEllipsis"
                                             Visibility="{Binding Model, Converter={StaticResource NullToVisibilityConverter}}" />
