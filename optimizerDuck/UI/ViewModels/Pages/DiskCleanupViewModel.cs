@@ -25,8 +25,10 @@ public partial class DiskCleanupViewModel(
     public int SelectedCount => CleanupItems.Count(i => i.IsSelected);
     public long TotalSelectedSizeBytes => CleanupItems.Where(i => i.IsSelected).Sum(i => i.SizeBytes);
     public string TotalSelectedSizeFormatted => CleanupItem.FormatBytes(TotalSelectedSizeBytes);
+    public long TotalSelectedFileCount => CleanupItems.Where(i => i.IsSelected).Sum(i => i.FileCount);
     public long TotalSizeBytes => CleanupItems.Sum(i => i.SizeBytes);
     public string TotalSizeFormatted => CleanupItem.FormatBytes(TotalSizeBytes);
+    public long TotalFileCount => CleanupItems.Sum(i => i.FileCount);
     public bool CanClean => SelectedCount > 0 && TotalSelectedSizeBytes > 0 && !IsCleaning && !IsScanning;
     public bool IsAllSelected => CleanupItems.Count > 0 && CleanupItems.All(i => i.IsSelected);
 
@@ -47,7 +49,7 @@ public partial class DiskCleanupViewModel(
             {
                 item.PropertyChanged += (_, e) =>
                 {
-                    if (e.PropertyName is nameof(CleanupItem.IsSelected) or nameof(CleanupItem.SizeBytes))
+                    if (e.PropertyName is nameof(CleanupItem.IsSelected) or nameof(CleanupItem.SizeBytes) or nameof(CleanupItem.FileCount))
                         UpdateProperties();
                 };
             }
@@ -143,8 +145,10 @@ public partial class DiskCleanupViewModel(
         OnPropertyChanged(nameof(SelectedCount));
         OnPropertyChanged(nameof(TotalSelectedSizeBytes));
         OnPropertyChanged(nameof(TotalSelectedSizeFormatted));
+        OnPropertyChanged(nameof(TotalSelectedFileCount));
         OnPropertyChanged(nameof(TotalSizeBytes));
         OnPropertyChanged(nameof(TotalSizeFormatted));
+        OnPropertyChanged(nameof(TotalFileCount));
         OnPropertyChanged(nameof(CanClean));
         OnPropertyChanged(nameof(IsAllSelected));
     }

@@ -1,847 +1,822 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-    <resheader name="resmimetype">
-        <value>text/microsoft-resx</value>
-    </resheader>
-    <resheader name="version">
-        <value>1.3</value>
-    </resheader>
-    <resheader name="reader">
-        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
             PublicKeyToken=b77a5c561934e089
         </value>
-    </resheader>
-    <resheader name="writer">
-        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
             PublicKeyToken=b77a5c561934e089
         </value>
-    </resheader>
-
-    <!-- Dashboard & Navigation -->
-    <data name="Dashboard.Header.Title" xml:space="preserve">
+  </resheader>
+  <!-- Dashboard & Navigation -->
+  <data name="Dashboard.Header.Title" xml:space="preserve">
     <value>仪表板</value>
   </data>
-    <data name="Sidebar.Dashboard" xml:space="preserve">
+  <data name="Sidebar.Dashboard" xml:space="preserve">
     <value>仪表板</value>
   </data>
-    <data name="Sidebar.Settings" xml:space="preserve">
+  <data name="Sidebar.Settings" xml:space="preserve">
     <value>设置</value>
   </data>
-    <data name="Sidebar.Optimize" xml:space="preserve">
+  <data name="Sidebar.Optimize" xml:space="preserve">
     <value>系统优化</value>
   </data>
-    <data name="Button.Close" xml:space="preserve">
+  <data name="Button.Close" xml:space="preserve">
     <value>关闭</value>
   </data>
-    <data name="Button.Ok" xml:space="preserve">
+  <data name="Button.Ok" xml:space="preserve">
     <value>确定</value>
   </data>
-    <data name="Button.Cancel" xml:space="preserve">
+  <data name="Button.Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
-    <data name="Button.Retry" xml:space="preserve">
+  <data name="Button.Retry" xml:space="preserve">
     <value>重试</value>
   </data>
-    <data name="Button.Clear" xml:space="preserve">
+  <data name="Button.Clear" xml:space="preserve">
     <value>清除</value>
   </data>
-    <data name="Button.Open" xml:space="preserve">
+  <data name="Button.Open" xml:space="preserve">
     <value>打开</value>
   </data>
-    <data name="Button.Skip" xml:space="preserve">
+  <data name="Button.Skip" xml:space="preserve">
     <value>跳过</value>
   </data>
-    <data name="Button.ViewLatestRelease" xml:space="preserve">
+  <data name="Button.ViewLatestRelease" xml:space="preserve">
     <value>查看最新版本</value>
   </data>
-
-    <!-- System Info -->
-    <data name="Dashboard.SystemInfo.Cpu.Cores" xml:space="preserve">
+  <!-- System Info -->
+  <data name="Dashboard.SystemInfo.Cpu.Cores" xml:space="preserve">
     <value>{0} 核心</value>
   </data>
-    <data name="Dashboard.SystemInfo.Cpu.Threads" xml:space="preserve">
+  <data name="Dashboard.SystemInfo.Cpu.Threads" xml:space="preserve">
     <value>{0} 线程</value>
   </data>
-    <data name="Dashboard.SystemInfo.Ram.Modules" xml:space="preserve">
+  <data name="Dashboard.SystemInfo.Ram.Modules" xml:space="preserve">
     <value>{0} 条内存</value>
   </data>
-    <data name="Dashboard.SystemInfo.Ram.Used" xml:space="preserve">
+  <data name="Dashboard.SystemInfo.Ram.Used" xml:space="preserve">
     <value>已用 {0} GB</value>
   </data>
-    <data name="Dashboard.SystemInfo.Ram.Available" xml:space="preserve">
+  <data name="Dashboard.SystemInfo.Ram.Available" xml:space="preserve">
     <value>可用 {0} GB</value>
   </data>
-    <data name="Dashboard.SystemInfo.Storage.Header" xml:space="preserve">
+  <data name="Dashboard.SystemInfo.Storage.Header" xml:space="preserve">
     <value>存储</value>
   </data>
-    <data name="Dashboard.SystemInfo.Storage.System" xml:space="preserve">
+  <data name="Dashboard.SystemInfo.Storage.System" xml:space="preserve">
     <value>系统盘</value>
   </data>
-    <data name="Dashboard.SystemInfo.Storage.DiskInfo" xml:space="preserve">
+  <data name="Dashboard.SystemInfo.Storage.DiskInfo" xml:space="preserve">
     <value>已用 {0} GB / 共 {1} GB (剩余 {2} GB)</value>
   </data>
-    <data name="Dashboard.SystemInfo.Gpu.More" xml:space="preserve">
+  <data name="Dashboard.SystemInfo.Gpu.More" xml:space="preserve">
     <value>+ {0} 个其他 GPU</value>
   </data>
-    <data name="Dashboard.SystemInfo.Loading" xml:space="preserve">
+  <data name="Dashboard.SystemInfo.Loading" xml:space="preserve">
     <value>正在获取系统信息...</value>
   </data>
-
-    <!-- Dashboard Actions -->
-    <data name="Dashboard.Actions.Discord.Title" xml:space="preserve">
+  <!-- Dashboard Actions -->
+  <data name="Dashboard.Actions.Discord.Title" xml:space="preserve">
     <value>Discord 社区</value>
   </data>
-    <data name="Dashboard.Actions.Discord.Description" xml:space="preserve">
+  <data name="Dashboard.Actions.Discord.Description" xml:space="preserve">
     <value>加入我们的 Discord 社区获取技术支持或参与讨论</value>
   </data>
-    <data name="Dashboard.Actions.GitHub.Title" xml:space="preserve">
+  <data name="Dashboard.Actions.GitHub.Title" xml:space="preserve">
     <value>GitHub 仓库</value>
   </data>
-    <data name="Dashboard.Actions.GitHub.Description" xml:space="preserve">
+  <data name="Dashboard.Actions.GitHub.Description" xml:space="preserve">
     <value>在 GitHub 上探索、审查并贡献代码</value>
   </data>
-    <data name="Dashboard.Actions.SupportMe.Title" xml:space="preserve">
+  <data name="Dashboard.Actions.SupportMe.Title" xml:space="preserve">
     <value>支持开发者</value>
   </data>
-    <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
+  <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
     <value>在 GitHub 上给项目加星、分享给朋友或捐赠——每一份支持都很重要！</value>
   </data>
-
-    <!-- Settings -->
-    <data name="Settings.Header.Title" xml:space="preserve">
+  <!-- Settings -->
+  <data name="Settings.Header.Title" xml:space="preserve">
     <value>设置</value>
   </data>
-    <data name="Settings.Appearance.Header" xml:space="preserve">
+  <data name="Settings.Appearance.Header" xml:space="preserve">
     <value>外观</value>
   </data>
-    <data name="Settings.Appearance.LanguageSelector.Title" xml:space="preserve">
+  <data name="Settings.Appearance.LanguageSelector.Title" xml:space="preserve">
     <value>语言</value>
   </data>
-    <data name="Settings.Appearance.LanguageSelector.Description" xml:space="preserve">
+  <data name="Settings.Appearance.LanguageSelector.Description" xml:space="preserve">
     <value>选择您偏好的界面语言</value>
   </data>
-    <data name="Settings.Appearance.ThemeSelector.Title" xml:space="preserve">
+  <data name="Settings.Appearance.ThemeSelector.Title" xml:space="preserve">
     <value>主题</value>
   </data>
-    <data name="Settings.Appearance.ThemeSelector.Description" xml:space="preserve">
+  <data name="Settings.Appearance.ThemeSelector.Description" xml:space="preserve">
     <value>选择应用界面主题</value>
   </data>
-    <data name="Settings.Appearance.ThemeSelector.Light" xml:space="preserve">
+  <data name="Settings.Appearance.ThemeSelector.Light" xml:space="preserve">
     <value>浅色</value>
   </data>
-    <data name="Settings.Appearance.ThemeSelector.Dark" xml:space="preserve">
+  <data name="Settings.Appearance.ThemeSelector.Dark" xml:space="preserve">
     <value>深色</value>
   </data>
-    <data name="Settings.Appearance.ThemeSelector.HighContrast" xml:space="preserve">
+  <data name="Settings.Appearance.ThemeSelector.HighContrast" xml:space="preserve">
     <value>高对比度</value>
   </data>
-    <data name="Settings.LanguageChanged.Title" xml:space="preserve">
+  <data name="Settings.LanguageChanged.Title" xml:space="preserve">
     <value>语言已更改</value>
   </data>
-    <data name="Settings.LanguageChanged.Description" xml:space="preserve">
+  <data name="Settings.LanguageChanged.Description" xml:space="preserve">
     <value>您需要重启应用程序以应用新语言设置</value>
   </data>
-    <data name="Settings.Optimize.Header" xml:space="preserve">
+  <data name="Settings.Optimize.Header" xml:space="preserve">
     <value>优化选项</value>
   </data>
-    <data name="Settings.Optimize.ShellTimeout.Title" xml:space="preserve">
+  <data name="Settings.Optimize.ShellTimeout.Title" xml:space="preserve">
     <value>Shell 服务超时</value>
   </data>
-    <data name="Settings.Optimize.ShellTimeout.Description" xml:space="preserve">
+  <data name="Settings.Optimize.ShellTimeout.Description" xml:space="preserve">
     <value>每个 Shell 命令执行的超时时间（毫秒）</value>
   </data>
-    <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
+  <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
     <value>请勿修改，除非您确切了解其作用</value>
   </data>
-    <data name="Settings.Advanced.Header" xml:space="preserve">
+  <data name="Settings.Advanced.Header" xml:space="preserve">
     <value>高级</value>
   </data>
-    <data name="Settings.Advanced.ClearResources.Title" xml:space="preserve">
+  <data name="Settings.Advanced.ClearResources.Title" xml:space="preserve">
     <value>清除资源文件</value>
   </data>
-    <data name="Settings.Advanced.ClearResources.Description" xml:space="preserve">
+  <data name="Settings.Advanced.ClearResources.Description" xml:space="preserve">
     <value>删除优化过程中下载的所有文件</value>
   </data>
-    <data name="Settings.Advanced.ClearRevertDatas.Title" xml:space="preserve">
+  <data name="Settings.Advanced.ClearRevertDatas.Title" xml:space="preserve">
     <value>清除所有还原数据</value>
   </data>
-    <data name="Settings.Advanced.ClearRevertDatas.Description" xml:space="preserve">
+  <data name="Settings.Advanced.ClearRevertDatas.Description" xml:space="preserve">
     <value>清除所有优化产生的还原数据</value>
   </data>
-    <data name="Settings.Advanced.OpenRootDir.Title" xml:space="preserve">
+  <data name="Settings.Advanced.OpenRootDir.Title" xml:space="preserve">
     <value>打开根目录</value>
   </data>
-    <data name="Settings.Advanced.OpenRootDir.Description" xml:space="preserve">
+  <data name="Settings.Advanced.OpenRootDir.Description" xml:space="preserve">
     <value>打开应用程序根目录，包含所有必要文件</value>
   </data>
-    <data name="Settings.About.Header" xml:space="preserve">
+  <data name="Settings.About.Header" xml:space="preserve">
     <value>关于</value>
   </data>
-    <data name="Settings.About.Duck.Description" xml:space="preserve">
+  <data name="Settings.About.Duck.Description" xml:space="preserve">
     <value><![CDATA[感谢您的信任与支持 <3！
 当前版本：{0}]]></value>
   </data>
-    <data name="Settings.About.LearnMore" xml:space="preserve">
+  <data name="Settings.About.LearnMore" xml:space="preserve">
     <value>了解更多</value>
   </data>
-    <data name="Settings.About.LearnMore.Documentation" xml:space="preserve">
+  <data name="Settings.About.LearnMore.Documentation" xml:space="preserve">
     <value>文档</value>
   </data>
-    <data name="Settings.About.LearnMore.Support" xml:space="preserve">
+  <data name="Settings.About.LearnMore.Support" xml:space="preserve">
     <value>Star 与支持</value>
   </data>
-    <data name="Settings.About.LearnMore.Discord" xml:space="preserve">
+  <data name="Settings.About.LearnMore.Discord" xml:space="preserve">
     <value>Discord 社区</value>
   </data>
-    <data name="Settings.About.LearnMore.GitHub" xml:space="preserve">
+  <data name="Settings.About.LearnMore.GitHub" xml:space="preserve">
     <value>GitHub 仓库</value>
   </data>
-    <data name="Settings.About.Acknowledgements.Title" xml:space="preserve">
+  <data name="Settings.About.Acknowledgements.Title" xml:space="preserve">
     <value>致谢</value>
   </data>
-    <data name="Settings.About.Acknowledgements.Description" xml:space="preserve">
+  <data name="Settings.About.Acknowledgements.Description" xml:space="preserve">
     <value>optimizerDuck 得益于以下开源软件和资源</value>
   </data>
-    <data name="Settings.About.LearnMore.Acknowledgements" xml:space="preserve">
+  <data name="Settings.About.LearnMore.Acknowledgements" xml:space="preserve">
     <value>致谢</value>
   </data>
-
-    <!-- Optimizer Categories -->
-    <data name="Optimizer.Performance" xml:space="preserve">
+  <!-- Optimizer Categories -->
+  <data name="Optimizer.Performance" xml:space="preserve">
     <value>性能优化</value>
   </data>
-    <data name="Optimizer.PowerManagement" xml:space="preserve">
+  <data name="Optimizer.PowerManagement" xml:space="preserve">
     <value>电源管理</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy" xml:space="preserve">
     <value>安全与隐私</value>
   </data>
-    <data name="Optimizer.BloatwareAndServices" xml:space="preserve">
+  <data name="Optimizer.BloatwareAndServices" xml:space="preserve">
     <value>精简与服务</value>
   </data>
-    <data name="Optimizer.Gpu" xml:space="preserve">
+  <data name="Optimizer.Gpu" xml:space="preserve">
     <value>图形处理器</value>
   </data>
-    <data name="Optimizer.UserExperience" xml:space="preserve">
+  <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>用户体验</value>
   </data>
-
-    <!-- Risk Levels -->
-    <data name="Optimizer.UI.Risk.Safe" xml:space="preserve">
+  <!-- Risk Levels -->
+  <data name="Optimizer.UI.Risk.Safe" xml:space="preserve">
     <value>安全</value>
   </data>
-    <data name="Optimizer.UI.Risk.Moderate" xml:space="preserve">
+  <data name="Optimizer.UI.Risk.Moderate" xml:space="preserve">
     <value>谨慎</value>
   </data>
-    <data name="Optimizer.UI.Risk.Risky" xml:space="preserve">
+  <data name="Optimizer.UI.Risk.Risky" xml:space="preserve">
     <value>高风险</value>
   </data>
-    <data name="Optimizer.UI.Risk.Help" xml:space="preserve">
+  <data name="Optimizer.UI.Risk.Help" xml:space="preserve">
     <value>该数值反映优化过程的干预程度和安全等级。请在应用任何优化前谨慎考虑。</value>
   </data>
-
-    <!-- Tags -->
-    <data name="Optimizer.UI.Tags.System" xml:space="preserve">
+  <!-- Tags -->
+  <data name="Optimizer.UI.Tags.System" xml:space="preserve">
     <value>系统</value>
   </data>
-    <data name="Optimizer.UI.Tags.Ram" xml:space="preserve">
+  <data name="Optimizer.UI.Tags.Ram" xml:space="preserve">
     <value>内存</value>
   </data>
-    <data name="Optimizer.UI.Tags.Disk" xml:space="preserve">
+  <data name="Optimizer.UI.Tags.Disk" xml:space="preserve">
     <value>磁盘</value>
   </data>
-    <data name="Optimizer.UI.Tags.Network" xml:space="preserve">
+  <data name="Optimizer.UI.Tags.Network" xml:space="preserve">
     <value>网络</value>
   </data>
-    <data name="Optimizer.UI.Tags.NetworkRequired" xml:space="preserve">
+  <data name="Optimizer.UI.Tags.NetworkRequired" xml:space="preserve">
     <value>需要网络连接</value>
   </data>
-    <data name="Optimizer.UI.Tags.Privacy" xml:space="preserve">
+  <data name="Optimizer.UI.Tags.Privacy" xml:space="preserve">
     <value>隐私</value>
   </data>
-    <data name="Optimizer.UI.Tags.Security" xml:space="preserve">
+  <data name="Optimizer.UI.Tags.Security" xml:space="preserve">
     <value>安全</value>
   </data>
-    <data name="Optimizer.UI.Tags.Performance" xml:space="preserve">
+  <data name="Optimizer.UI.Tags.Performance" xml:space="preserve">
     <value>性能</value>
   </data>
-    <data name="Optimizer.UI.Tags.Latency" xml:space="preserve">
+  <data name="Optimizer.UI.Tags.Latency" xml:space="preserve">
     <value>延迟</value>
   </data>
-    <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
+  <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
     <value>电源</value>
   </data>
-    <data name="Optimizer.UI.Tags.Audio" xml:space="preserve">
+  <data name="Optimizer.UI.Tags.Audio" xml:space="preserve">
     <value>音频</value>
   </data>
-    <data name="Optimizer.UI.Tags.Display" xml:space="preserve">
+  <data name="Optimizer.UI.Tags.Display" xml:space="preserve">
     <value>显示</value>
   </data>
-    <data name="Optimizer.UI.Tags.Visual" xml:space="preserve">
+  <data name="Optimizer.UI.Tags.Visual" xml:space="preserve">
     <value>视觉效果</value>
   </data>
-    <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
+  <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
     <value>NVIDIA</value>
   </data>
-    <data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
+  <data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
     <value>AMD</value>
   </data>
-    <data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
+  <data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
     <value>Intel</value>
   </data>
-    <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
+  <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
     <value>这些标签指示优化将影响系统的哪些部分</value>
   </data>
-
-    <!-- Performance Optimizations -->
-    <data name="Optimizer.Performance.DisableBackgroundApps.Name" xml:space="preserve">
+  <!-- Performance Optimizations -->
+  <data name="Optimizer.Performance.DisableBackgroundApps.Name" xml:space="preserve">
     <value>禁用后台应用</value>
   </data>
-    <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
     <value>禁止非活动应用程序在后台运行，释放内存并降低 CPU 占用。</value>
   </data>
-    <data name="Optimizer.Performance.SvcHostSplit.Name" xml:space="preserve">
+  <data name="Optimizer.Performance.SvcHostSplit.Name" xml:space="preserve">
     <value>优化服务隔离</value>
   </data>
-    <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
     <value>将系统服务拆分为独立进程，显著提升 Windows 的稳定性。</value>
   </data>
-    <data name="Optimizer.Performance.SvcHostSplit.Error.InvalidRAM" xml:space="preserve">
+  <data name="Optimizer.Performance.SvcHostSplit.Error.InvalidRAM" xml:space="preserve">
     <value>无效的内存容量：{0}</value>
   </data>
-    <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
+  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
     <value>优先处理活动应用</value>
   </data>
-    <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
     <value>为您当前使用的应用程序分配更多 CPU 资源，提供更快速的响应体验。 </value>
   </data>
-    <data name="Optimizer.Performance.GameTaskScheduling.Name" xml:space="preserve">
+  <data name="Optimizer.Performance.GameTaskScheduling.Name" xml:space="preserve">
     <value>优化游戏调度</value>
   </data>
-    <data name="Optimizer.Performance.GameTaskScheduling.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Performance.GameTaskScheduling.ShortDescription" xml:space="preserve">
     <value>为游戏负载分配高优先级，确保帧率（FPS）稳定，游戏运行更顺滑。</value>
   </data>
-    <data name="Optimizer.Performance.MultimediaResponsiveness.Name" xml:space="preserve">
+  <data name="Optimizer.Performance.MultimediaResponsiveness.Name" xml:space="preserve">
     <value>优化多媒体响应</value>
   </data>
-    <data name="Optimizer.Performance.MultimediaResponsiveness.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Performance.MultimediaResponsiveness.ShortDescription" xml:space="preserve">
     <value>降低音频、视频和网络任务的延迟，改善实时媒体和游戏表现。</value>
   </data>
-    <data name="Optimizer.Performance.DisableGameBar.Name" xml:space="preserve">
+  <data name="Optimizer.Performance.DisableGameBar.Name" xml:space="preserve">
     <value>禁用 Xbox 游戏栏</value>
   </data>
-    <data name="Optimizer.Performance.DisableGameBar.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Performance.DisableGameBar.ShortDescription" xml:space="preserve">
     <value>禁用 Xbox 游戏栏覆盖层和后台功能，在游戏时节省系统资源。</value>
   </data>
-    <data name="Optimizer.Performance.EnableGameMode.Name" xml:space="preserve">
+  <data name="Optimizer.Performance.EnableGameMode.Name" xml:space="preserve">
     <value>启用游戏模式</value>
   </data>
   <data name="Optimizer.Performance.EnableGameMode.ShortDescription" xml:space="preserve">
     <value>启用 Windows 游戏模式以优先处理游戏进程，并防止 Windows 更新的中断。</value>
   </data>
-    <data name="Optimizer.Performance.DisableGameDVR.Name" xml:space="preserve">
+  <data name="Optimizer.Performance.DisableGameDVR.Name" xml:space="preserve">
     <value>禁用后台录制</value>
   </data>
-    <data name="Optimizer.Performance.DisableGameDVR.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Performance.DisableGameDVR.ShortDescription" xml:space="preserve">
     <value>关闭自动后台游戏录制 (DVR)，找回损失的性能和磁盘带宽。</value>
   </data>
-    <data name="Optimizer.Performance.DisableMouseAcceleration.Name" xml:space="preserve">
+  <data name="Optimizer.Performance.DisableMouseAcceleration.Name" xml:space="preserve">
     <value>禁用鼠标加速</value>
   </data>
-    <data name="Optimizer.Performance.DisableMouseAcceleration.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Performance.DisableMouseAcceleration.ShortDescription" xml:space="preserve">
     <value>禁用 Windows 自动鼠标速度调整，提供精确的 1:1 光标移动。</value>
   </data>
-    <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
     <value>优化键盘响应</value>
   </data>
-    <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
     <value>降低键盘输入延迟并提高重复速率，使打字和游戏响应更迅速。</value>
   </data>
-
-    <!-- Power Management -->
-    <data name="Optimizer.PowerManagement.DisableHibernate.Name" xml:space="preserve">
+  <!-- Power Management -->
+  <data name="Optimizer.PowerManagement.DisableHibernate.Name" xml:space="preserve">
     <value>禁用休眠与快速启动</value>
   </data>
-    <data name="Optimizer.PowerManagement.DisableHibernate.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.PowerManagement.DisableHibernate.ShortDescription" xml:space="preserve">
     <value>关闭休眠和快速启动以回收数 GB 磁盘空间，并确保系统完全启动。</value>
   </data>
-    <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
     <value>禁止 USB 自动断电</value>
   </data>
-    <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
     <value>防止 Windows 关闭 USB 端口供电，消除鼠标、键盘等外设的唤醒延迟。</value>
   </data>
-    <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
     <value>应用优化电源计划</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
     <value>安装自定义的性能优先电源计划，确保您的系统始终以最高速度运行。</value>
   </data>
-    <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Downloading" xml:space="preserve">
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Downloading" xml:space="preserve">
     <value>正在下载电源计划...</value>
   </data>
-    <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
     <value>正在导入并激活电源计划...</value>
   </data>
-    <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed"
-          xml:space="preserve">
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
     <value>无法检测当前活动的电源计划</value>
   </data>
-    <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DownloadFailed" xml:space="preserve">
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DownloadFailed" xml:space="preserve">
     <value>下载 optimizerDuck 电源计划失败</value>
   </data>
-    <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ImportFailed" xml:space="preserve">
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ImportFailed" xml:space="preserve">
     <value>导入 optimizerDuck 电源计划失败</value>
   </data>
-    <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ActivateFailed" xml:space="preserve">
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ActivateFailed" xml:space="preserve">
     <value>激活 optimizerDuck 电源计划失败</value>
   </data>
-    <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
     <value>禁用系统电源节流</value>
   </data>
-    <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
     <value>防止 Windows 限制 CPU 性能（电源节流），为活动任务维持峰值动力。</value>
   </data>
-
-    <!-- Security & Privacy -->
-    <data name="Optimizer.SecurityAndPrivacy.DisableUAC.Name" xml:space="preserve">
+  <!-- Security & Privacy -->
+  <data name="Optimizer.SecurityAndPrivacy.DisableUAC.Name" xml:space="preserve">
     <value>禁用管理员权限提示 (UAC)</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableUAC.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableUAC.ShortDescription" xml:space="preserve">
     <value>关闭以管理员身份运行应用时请求确认的用户账户控制 (UAC) 窗口。</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
     <value>禁用数据采集 (遥测)</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
     <value>禁用 Windows 遥测和使用情况追踪服务，增强个人隐私并减少后台活动。</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
     <value>正在应用策略和注册表更改...</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableServices" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableServices" xml:space="preserve">
     <value>正在禁用遥测服务...</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableTasks" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableTasks" xml:space="preserve">
     <value>正在禁用遥测计划任务...</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.Name" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.Name" xml:space="preserve">
     <value>禁用系统日志记录</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
     <value>停止非必要的系统事件日志记录，减少持续的磁盘活动并节省 CPU 资源。</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
     <value>禁用 Cortana 与网络搜索</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
     <value>关闭 Cortana 语音助手，并从 Windows 搜索栏中移除 Bing 网络搜索结果。</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
     <value>禁用 Windows Copilot</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
     <value>从任务栏和系统组件中移除 AI 助手 Copilot，释放内存和屏幕空间。</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
     <value>禁用广告与推荐</value>
   </data>
-    <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
     <value>阻止 Windows 自动安装推广应用，并停止在开始菜单中显示建议内容。</value>
   </data>
-
-    <!-- Bloatware & Services -->
-    <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
+  <!-- Bloatware & Services -->
+  <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
     <value>阻止预装流氓软件</value>
   </data>
-    <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
     <value>防止 Windows 自动重新安装不需要的第三方应用和预装推广软件。</value>
   </data>
-    <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
     <value>优化系统服务启动</value>
   </data>
-    <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
     <value>调整非必要的后台服务，在保留 Windows 核心功能的同时释放系统资源。</value>
   </data>
-    <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType"
-          xml:space="preserve">
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType" xml:space="preserve">
     <value>正在将 {0} 的启动类型设置为 {1}...</value>
   </data>
-
-    <!-- GPU Optimizations -->
-    <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
+  <!-- GPU Optimizations -->
+  <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
     <value>禁用 AMD ULPS</value>
   </data>
-    <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
     <value>关闭 AMD 的超低功耗模式，消除唤醒时的 GPU 卡顿或延迟。</value>
   </data>
-    <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
     <value>禁用 AMD 电源门控</value>
   </data>
-    <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
     <value>通过防止自动断开内部组件供电，维持稳定的 GPU 性能。</value>
   </data>
-    <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
     <value>禁用 AMD 视频时钟门控</value>
   </data>
-    <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
     <value>通过保持视频引擎频率就绪，增强视频处理的稳定性。</value>
   </data>
-    <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
+  <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
     <value>禁用 AMD ASPM</value>
   </data>
-    <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
     <value>降低 AMD 显卡的 PCIe 通信延迟，提升响应速度。</value>
   </data>
-    <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
     <value>锁定 NVIDIA 电源状态</value>
   </data>
-    <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
     <value>防止 NVIDIA GPU 自动更改能级，以维持最一致的性能表现。</value>
   </data>
-    <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
     <value>禁用异步 P-States</value>
   </data>
-    <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
     <value>关闭异步能效状态切换，以获得极致的稳定性。</value>
   </data>
-    <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
     <value>启用 Intel 图像同步</value>
   </data>
-    <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
     <value>使用同步帧刷新机制降低显示延迟，并限制画面撕裂。</value>
   </data>
-    <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
     <value>禁用自适应垂直同步</value>
   </data>
-    <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
     <value>通过关闭 Intel 的自适应垂直同步功能，维持固定的帧生成时间。</value>
   </data>
-
-    <!-- User Experience -->
-    <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.Name" xml:space="preserve">
+  <!-- User Experience -->
+  <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.Name" xml:space="preserve">
     <value>禁用资讯和兴趣</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.ShortDescription" xml:space="preserve">
     <value>从任务栏移除资讯组件，减少分心并减轻系统负担。</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableTaskbarExtraButtons.Name" xml:space="preserve">
+  <data name="Optimizer.UserExperience.DisableTaskbarExtraButtons.Name" xml:space="preserve">
     <value>隐藏任务栏无用按钮</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableTaskbarExtraButtons.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.UserExperience.DisableTaskbarExtraButtons.ShortDescription" xml:space="preserve">
     <value>隐藏小组件、聊天和任务视图按钮，使任务栏更整洁。</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableTaskbarSearchAndBing.Name" xml:space="preserve">
+  <data name="Optimizer.UserExperience.DisableTaskbarSearchAndBing.Name" xml:space="preserve">
     <value>禁用任务栏搜索和 Bing</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableTaskbarSearchAndBing.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.UserExperience.DisableTaskbarSearchAndBing.ShortDescription" xml:space="preserve">
     <value>移除搜索框并禁用 Bing 搜索结果，让任务栏和开始菜单更清爽。</value>
   </data>
-    <data name="Optimizer.UserExperience.RemoveMeetNowAndPeople.Name" xml:space="preserve">
+  <data name="Optimizer.UserExperience.RemoveMeetNowAndPeople.Name" xml:space="preserve">
     <value>移除 Meet Now 与 People</value>
   </data>
-    <data name="Optimizer.UserExperience.RemoveMeetNowAndPeople.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.UserExperience.RemoveMeetNowAndPeople.ShortDescription" xml:space="preserve">
     <value>从系统托盘中移除 Meet Now 和 People 图标，减少视觉干扰。</value>
   </data>
-    <data name="Optimizer.UserExperience.EnableTaskbarEndTask.Name" xml:space="preserve">
+  <data name="Optimizer.UserExperience.EnableTaskbarEndTask.Name" xml:space="preserve">
     <value>启用“结束任务”功能</value>
   </data>
-    <data name="Optimizer.UserExperience.EnableTaskbarEndTask.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.UserExperience.EnableTaskbarEndTask.ShortDescription" xml:space="preserve">
     <value>允许直接从任务栏快速关闭无响应的应用，无需打开任务管理器。</value>
   </data>
-    <data name="Optimizer.UserExperience.EnableDarkMode.Name" xml:space="preserve">
+  <data name="Optimizer.UserExperience.EnableDarkMode.Name" xml:space="preserve">
     <value>激活深色模式 (Dark Mode)</value>
   </data>
-    <data name="Optimizer.UserExperience.EnableDarkMode.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.UserExperience.EnableDarkMode.ShortDescription" xml:space="preserve">
     <value>将系统和应用切换至深色界面，以缓解眼部疲劳并节省能源。</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableExplorerAndSystemNotifications.Name" xml:space="preserve">
+  <data name="Optimizer.UserExperience.DisableExplorerAndSystemNotifications.Name" xml:space="preserve">
     <value>禁用烦人的系统通知</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableExplorerAndSystemNotifications.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.UserExperience.DisableExplorerAndSystemNotifications.ShortDescription" xml:space="preserve">
     <value>拦截来自 Windows 的广告、使用提示和其他非必要通知。</value>
   </data>
-    <data name="Optimizer.UserExperience.ShowFileExtensionsAndHiddenFiles.Name" xml:space="preserve">
+  <data name="Optimizer.UserExperience.ShowFileExtensionsAndHiddenFiles.Name" xml:space="preserve">
     <value>显示扩展名与隐藏文件</value>
   </data>
-    <data name="Optimizer.UserExperience.ShowFileExtensionsAndHiddenFiles.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.UserExperience.ShowFileExtensionsAndHiddenFiles.ShortDescription" xml:space="preserve">
     <value>始终显示文件扩展名和隐藏的系统文件，方便系统管理。</value>
   </data>
-    <data name="Optimizer.UserExperience.EnableClassicContextMenu.Name" xml:space="preserve">
+  <data name="Optimizer.UserExperience.EnableClassicContextMenu.Name" xml:space="preserve">
     <value>使用经典右键菜单</value>
   </data>
-    <data name="Optimizer.UserExperience.EnableClassicContextMenu.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.UserExperience.EnableClassicContextMenu.ShortDescription" xml:space="preserve">
     <value>在 Windows 11 上恢复 Windows 10 风格的完整右键菜单。</value>
   </data>
-    <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
+  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
     <value>加速资源管理器与菜单</value>
   </data>
-    <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
     <value>消除打开文件夹和显示菜单时的延迟，使界面响应瞬时化。</value>
   </data>
-    <data name="Optimizer.UserExperience.ShowSecondsInSystemClock.Name" xml:space="preserve">
+  <data name="Optimizer.UserExperience.ShowSecondsInSystemClock.Name" xml:space="preserve">
     <value>时钟显示秒数</value>
   </data>
-    <data name="Optimizer.UserExperience.ShowSecondsInSystemClock.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.UserExperience.ShowSecondsInSystemClock.ShortDescription" xml:space="preserve">
     <value>在任务栏系统时钟中增加秒数显示，方便精确计时。</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
+  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
     <value>禁用动画效果</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
     <value>关闭窗口动画、阴影和透明效果，以获得最极致的界面速度。</value>
   </data>
-
-    <!-- Dialogs -->
-    <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
+  <!-- Dialogs -->
+  <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
     <value>详细描述</value>
   </data>
-    <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
+  <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
     <value>标签</value>
   </data>
-    <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
+  <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
     <value>风险等级</value>
   </data>
-    <data name="OptimizationDetailsDialog.Other" xml:space="preserve">
+  <data name="OptimizationDetailsDialog.Other" xml:space="preserve">
     <value>其他</value>
   </data>
-    <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
+  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
     <value>还原文件</value>
   </data>
-    <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
+  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
     <value>打开文件夹并选择此优化的还原数据文件</value>
   </data>
-
-    <!-- Optimization Processing -->
-    <data name="Optimization.Apply.Processing" xml:space="preserve">
+  <!-- Optimization Processing -->
+  <data name="Optimization.Apply.Processing" xml:space="preserve">
     <value>正在应用更改...</value>
   </data>
-    <data name="Optimization.Apply.Completed" xml:space="preserve">
+  <data name="Optimization.Apply.Completed" xml:space="preserve">
     <value>已完成</value>
   </data>
-    <data name="Optimization.Apply.Success" xml:space="preserve">
+  <data name="Optimization.Apply.Success" xml:space="preserve">
     <value>成功应用 {0}</value>
   </data>
-    <data name="Optimization.Apply.Error.FailedWithSteps" xml:space="preserve">
+  <data name="Optimization.Apply.Error.FailedWithSteps" xml:space="preserve">
     <value>已应用 {0}，但有 {1} 个步骤失败</value>
   </data>
-    <data name="Optimization.Apply.Error.Failed" xml:space="preserve">
+  <data name="Optimization.Apply.Error.Failed" xml:space="preserve">
     <value>应用 {0} 失败</value>
   </data>
-    <data name="Optimization.Revert.Reverting" xml:space="preserve">
+  <data name="Optimization.Revert.Reverting" xml:space="preserve">
     <value>正在还原...</value>
   </data>
-    <data name="Optimization.Revert.Success" xml:space="preserve">
+  <data name="Optimization.Revert.Success" xml:space="preserve">
     <value>成功还原 {0}！</value>
   </data>
-    <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
+  <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
     <value>还原 {0}，但有 {1} 个步骤失败</value>
   </data>
-    <data name="Optimization.Revert.Error.Failed" xml:space="preserve">
+  <data name="Optimization.Revert.Error.Failed" xml:space="preserve">
     <value>还原 {0} 失败</value>
   </data>
-    <data name="Optimization.Retry.Processing" xml:space="preserve">
+  <data name="Optimization.Retry.Processing" xml:space="preserve">
     <value>正在重试失败的步骤...</value>
   </data>
-    <data name="Optimization.RetryStep.Processing" xml:space="preserve">
+  <data name="Optimization.RetryStep.Processing" xml:space="preserve">
     <value>正在重试第 {0} 步（共 {1}/{2} 步）</value>
   </data>
-    <data name="Optimization.Revert.ExecutingStep" xml:space="preserve">
+  <data name="Optimization.Revert.ExecutingStep" xml:space="preserve">
     <value>正在执行还原步骤：{0}/{1} ({2})</value>
   </data>
-
-    <!-- Revert Errors -->
-    <data name="Revert.Error.InvalidData" xml:space="preserve">
+  <!-- Revert Errors -->
+  <data name="Revert.Error.InvalidData" xml:space="preserve">
     <value>{0} 的还原数据无效：{1}</value>
   </data>
-    <data name="Revert.Error.NoDataFound" xml:space="preserve">
+  <data name="Revert.Error.NoDataFound" xml:space="preserve">
     <value>未找到 {0} 的还原数据</value>
   </data>
-    <data name="Revert.Error.RevertFailed" xml:space="preserve">
+  <data name="Revert.Error.RevertFailed" xml:space="preserve">
     <value>还原 {0} 失败：{1}</value>
   </data>
-    <data name="Revert.Error.FileNotFound" xml:space="preserve">
+  <data name="Revert.Error.FileNotFound" xml:space="preserve">
     <value>未找到还原文件</value>
   </data>
-    <data name="Revert.Error.FileEmpty" xml:space="preserve">
+  <data name="Revert.Error.FileEmpty" xml:space="preserve">
     <value>还原文件为空</value>
   </data>
-    <data name="Revert.Error.ReadFailed" xml:space="preserve">
+  <data name="Revert.Error.ReadFailed" xml:space="preserve">
     <value>读取还原数据失败：{0}</value>
   </data>
-    <data name="Revert.Error.InvalidJson" xml:space="preserve">
+  <data name="Revert.Error.InvalidJson" xml:space="preserve">
     <value>还原数据无效</value>
   </data>
-    <data name="Revert.Error.InvalidJsonFormat" xml:space="preserve">
+  <data name="Revert.Error.InvalidJsonFormat" xml:space="preserve">
     <value>JSON 格式无效：{0}</value>
   </data>
-    <data name="Revert.Error.NoSteps" xml:space="preserve">
+  <data name="Revert.Error.NoSteps" xml:space="preserve">
     <value>未找到还原步骤</value>
   </data>
-    <data name="Revert.Error.InvalidSteps" xml:space="preserve">
+  <data name="Revert.Error.InvalidSteps" xml:space="preserve">
     <value>还原步骤无效：{0}</value>
   </data>
-    <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
+  <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
     <value>优化 ID 不匹配</value>
   </data>
-
-    <!-- Service Errors -->
-    <data name="Service.Common.Error.AccessDenied" xml:space="preserve">
+  <!-- Service Errors -->
+  <data name="Service.Common.Error.AccessDenied" xml:space="preserve">
     <value>访问被拒绝</value>
   </data>
-    <data name="Service.Registry.Error.AccessDeniedProtectedHive" xml:space="preserve">
+  <data name="Service.Registry.Error.AccessDeniedProtectedHive" xml:space="preserve">
     <value>访问被拒绝（受保护的注册表项）</value>
   </data>
-    <data name="Service.Registry.Error.UnauthorizedAccess" xml:space="preserve">
+  <data name="Service.Registry.Error.UnauthorizedAccess" xml:space="preserve">
     <value>未授权访问</value>
   </data>
-    <data name="Service.Registry.Error.CreateOrOpenSubkeyFailed" xml:space="preserve">
+  <data name="Service.Registry.Error.CreateOrOpenSubkeyFailed" xml:space="preserve">
     <value>创建/打开子键失败</value>
   </data>
-    <data name="Service.Service.Error.NotFound" xml:space="preserve">
+  <data name="Service.Service.Error.NotFound" xml:space="preserve">
     <value>服务未找到</value>
   </data>
-    <data name="Service.Service.Error.UpdateRegistryForStartupTypeFailed" xml:space="preserve">
+  <data name="Service.Service.Error.UpdateRegistryForStartupTypeFailed" xml:space="preserve">
     <value>更新启动类型的注册表失败</value>
   </data>
-    <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
+  <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
     <value>更改启动模式失败（代码：{0}）</value>
   </data>
-    <data name="Service.Shell.Error.ExitCode" xml:space="preserve">
+  <data name="Service.Shell.Error.ExitCode" xml:space="preserve">
     <value>退出代码 {0}</value>
   </data>
-    <data name="Service.Shell.Error.TimedOut" xml:space="preserve">
+  <data name="Service.Shell.Error.TimedOut" xml:space="preserve">
     <value>超时</value>
   </data>
-
-    <!-- Dialog Messages -->
-    <data name="Dialog.AreYouSure.Title" xml:space="preserve">
+  <!-- Dialog Messages -->
+  <data name="Dialog.AreYouSure.Title" xml:space="preserve">
     <value>您确定要继续吗？</value>
   </data>
-    <data name="Settings.ClearResources.Description" xml:space="preserve">
+  <data name="Settings.ClearResources.Description" xml:space="preserve">
     <value>您即将删除优化过程中下载或生成的所有资源。请注意此操作不可撤销，请确认后再继续。</value>
   </data>
-    <data name="Settings.ClearRevertData.Description" xml:space="preserve">
+  <data name="Settings.ClearRevertData.Description" xml:space="preserve">
     <value>您即将删除优化后生成的所有还原数据。这意味着您将无法恢复到优化前的状态，请仔细考虑后再确认。</value>
   </data>
-    <data name="ProcessingOptimizationDialog.Warning.DontCloseAppOrRestart" xml:space="preserve">
+  <data name="ProcessingOptimizationDialog.Warning.DontCloseAppOrRestart" xml:space="preserve">
     <value>在应用或还原更改时，请勿关闭应用或重启计算机。</value>
   </data>
-
-    <!-- Snackbar Messages -->
-    <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
+  <!-- Snackbar Messages -->
+  <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
     <value>应用优化失败</value>
   </data>
-    <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
+  <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
     <value>还原优化失败</value>
   </data>
-    <data name="Optimization.Toggle.Snackbar.Error.Title" xml:space="preserve">
+  <data name="Optimization.Toggle.Snackbar.Error.Title" xml:space="preserve">
     <value>切换优化状态失败</value>
   </data>
-    <data name="Optimization.Toggle.Snackbar.Error.Message" xml:space="preserve">
+  <data name="Optimization.Toggle.Snackbar.Error.Message" xml:space="preserve">
     <value>发生错误：{0}</value>
   </data>
-    <data name="Snackbar.OpenLinkFailed.Title" xml:space="preserve">
+  <data name="Snackbar.OpenLinkFailed.Title" xml:space="preserve">
     <value>无法打开路径</value>
   </data>
-    <data name="Snackbar.OpenLinkFailed.Message" xml:space="preserve">
+  <data name="Snackbar.OpenLinkFailed.Message" xml:space="preserve">
     <value>打开路径时出错，请检查日志。</value>
   </data>
-    <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
+  <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
     <value>无法打开文件夹或文件</value>
   </data>
-    <data name="Snackbar.OpenFailed.Message" xml:space="preserve">
+  <data name="Snackbar.OpenFailed.Message" xml:space="preserve">
     <value>打开文件夹或文件时出错，请检查日志。</value>
   </data>
-
-    <!-- Common -->
-    <data name="Common.Unknown" xml:space="preserve">
+  <!-- Common -->
+  <data name="Common.Unknown" xml:space="preserve">
     <value>未知</value>
   </data>
-    <data name="Common.AppliedJustNow" xml:space="preserve">
+  <data name="Common.AppliedJustNow" xml:space="preserve">
     <value>刚刚应用</value>
   </data>
-    <data name="Common.AppliedSecondsAgo" xml:space="preserve">
+  <data name="Common.AppliedSecondsAgo" xml:space="preserve">
     <value>{0} 秒前应用</value>
   </data>
-    <data name="Common.AppliedMinutesAgo" xml:space="preserve">
+  <data name="Common.AppliedMinutesAgo" xml:space="preserve">
     <value>{0} 分钟前应用</value>
   </data>
-    <data name="Common.AppliedHoursAgo" xml:space="preserve">
+  <data name="Common.AppliedHoursAgo" xml:space="preserve">
     <value>{0} 小时前应用</value>
   </data>
-    <data name="Common.AppliedDaysAgo" xml:space="preserve">
+  <data name="Common.AppliedDaysAgo" xml:space="preserve">
     <value>{0} 天前应用</value>
   </data>
-    <data name="Common.AppliedMonthsAgo" xml:space="preserve">
+  <data name="Common.AppliedMonthsAgo" xml:space="preserve">
     <value>{0} 个月前应用</value>
   </data>
-    <data name="Common.AppliedYearsAgo" xml:space="preserve">
+  <data name="Common.AppliedYearsAgo" xml:space="preserve">
     <value>{0} 年前应用</value>
   </data>
-
-    <!-- Menu -->
-    <data name="Dashboard.Header.Menu.Refresh" xml:space="preserve">
+  <!-- Menu -->
+  <data name="Dashboard.Header.Menu.Refresh" xml:space="preserve">
     <value>刷新</value>
   </data>
-    <data name="Dashboard.Header.Menu.Header.Options" xml:space="preserve">
+  <data name="Dashboard.Header.Menu.Header.Options" xml:space="preserve">
     <value>选项</value>
   </data>
-    <data name="Dashboard.Header.Menu.Header.Run" xml:space="preserve">
+  <data name="Dashboard.Header.Menu.Header.Run" xml:space="preserve">
     <value>运行</value>
   </data>
-    <data name="Dashboard.Header.Menu.RunSettings" xml:space="preserve">
+  <data name="Dashboard.Header.Menu.RunSettings" xml:space="preserve">
     <value>设置</value>
   </data>
-    <data name="Dashboard.Header.Menu.RunTaskManager" xml:space="preserve">
+  <data name="Dashboard.Header.Menu.RunTaskManager" xml:space="preserve">
     <value>任务管理器</value>
   </data>
-    <data name="Dashboard.Header.Menu.RunControlPanel" xml:space="preserve">
+  <data name="Dashboard.Header.Menu.RunControlPanel" xml:space="preserve">
     <value>控制面板</value>
   </data>
-
-    <!-- Result Dialog -->
-    <data name="OptimizationResultDialog.Header" xml:space="preserve">
+  <!-- Result Dialog -->
+  <data name="OptimizationResultDialog.Header" xml:space="preserve">
     <value>{0} 个失败步骤</value>
   </data>
-    <data name="OptimizationResultDialog.Description" xml:space="preserve">
+  <data name="OptimizationResultDialog.Description" xml:space="preserve">
     <value>某些步骤未成功完成。您可以仅重试失败的步骤。</value>
   </data>
-
-    <!-- Restore Point -->
-    <data name="RestorePoint.Title" xml:space="preserve">
+  <!-- Restore Point -->
+  <data name="RestorePoint.Title" xml:space="preserve">
     <value>系统还原</value>
   </data>
-    <data name="RestorePointDialog.Description" xml:space="preserve">
+  <data name="RestorePointDialog.Description" xml:space="preserve">
     <value><![CDATA[系统还原功能可让您在进行更改前将系统恢复到之前的状态。
 这是在应用优化前保护系统的安全措施。]]></value>
   </data>
-    <data name="RestorePointDialog.Help" xml:space="preserve">
+  <data name="RestorePointDialog.Help" xml:space="preserve">
     <value><![CDATA[程序将自动开启系统还原并创建一个名为 "optimizerDuck..." 的还原点。
 如果出现任何问题，您可以随时恢复系统。]]></value>
   </data>
-    <data name="RestorePoint.Snackbar.Warning.LimitReached" xml:space="preserve">
+  <data name="RestorePoint.Snackbar.Warning.LimitReached" xml:space="preserve">
     <value>过去 24 小时内已创建还原点。</value>
   </data>
-    <data name="RestorePoint.Progress.Creating" xml:space="preserve">
+  <data name="RestorePoint.Progress.Creating" xml:space="preserve">
     <value>正在创建还原点...</value>
   </data>
-    <data name="RestorePoint.Progress.Enabling" xml:space="preserve">
+  <data name="RestorePoint.Progress.Enabling" xml:space="preserve">
     <value>正在启用系统还原...</value>
   </data>
-    <data name="RestorePoint.Progress.Retrying" xml:space="preserve">
+  <data name="RestorePoint.Progress.Retrying" xml:space="preserve">
     <value>正在重试创建还原点...</value>
   </data>
-    <data name="RestorePoint.Snackbar.Success.Title" xml:space="preserve">
+  <data name="RestorePoint.Snackbar.Success.Title" xml:space="preserve">
     <value>还原点创建成功</value>
   </data>
-    <data name="RestorePoint.Snackbar.Success.Message" xml:space="preserve">
+  <data name="RestorePoint.Snackbar.Success.Message" xml:space="preserve">
     <value>已创建名为 "{0}" 的还原点。</value>
   </data>
-    <data name="RestorePoint.Snackbar.Error.Title" xml:space="preserve">
+  <data name="RestorePoint.Snackbar.Error.Title" xml:space="preserve">
     <value>无法创建或启用系统还原</value>
   </data>
-    <data name="RestorePoint.Snackbar.Error.Message" xml:space="preserve">
+  <data name="RestorePoint.Snackbar.Error.Message" xml:space="preserve">
     <value>创建或启用系统还原时出错，请尝试手动创建。</value>
   </data>
   <data name="BloatwareDialog.Title" xml:space="preserve">
@@ -868,7 +843,7 @@
   <data name="Bloatware.Loading" xml:space="preserve">
     <value>正在搜索可移除的应用…</value>
   </data>
-    <data name="Sidebar.Bloatware" xml:space="preserve">
+  <data name="Sidebar.Bloatware" xml:space="preserve">
       <value>臃肿软件</value>
     </data>
   <data name="BloatwareDialog.Confirmation.Title" xml:space="preserve">
@@ -902,24 +877,7 @@
   <data name="Optimizer.Gpu.EnableHardwareAcceleratedGpuScheduling.ShortDescription" xml:space="preserve">
     <value>启用 HAGS 让 GPU 直接管理显存调度，降低 CPU 开销和显示延迟。需要兼容的 GPU 驱动程序并重启。</value>
   </data>
-  <data name="Dashboard.OptimizationScore.Header" xml:space="preserve">
-    <value>优化评分</value>
-  </data>
-  <data name="Dashboard.OptimizationScore.Applied" xml:space="preserve">
-    <value>已应用 {0} / {1} 项优化</value>
-  </data>
-  <data name="Dashboard.OptimizationScore.Excellent" xml:space="preserve">
-    <value>出色！您的系统已完全优化。</value>
-  </data>
-  <data name="Dashboard.OptimizationScore.Good" xml:space="preserve">
-    <value>良好——系统已得到优化。</value>
-  </data>
-  <data name="Dashboard.OptimizationScore.Fair" xml:space="preserve">
-    <value>一般——还有提升空间。</value>
-  </data>
-  <data name="Dashboard.OptimizationScore.Poor" xml:space="preserve">
-    <value>还有更多优化可以提升性能。</value>
-  </data>  <data name="Common.Search.Placeholder" xml:space="preserve">
+  <data name="Common.Search.Placeholder" xml:space="preserve">
     <value>搜索...</value>
   </data>
   <data name="Common.Filter.All" xml:space="preserve">
@@ -1069,5 +1027,19 @@
   <data name="Dashboard.SystemInfo.Header" xml:space="preserve">
     <value>系统信息</value>
   </data>
-
+  <data name="DiskCleanup_FilesCount" xml:space="preserve">
+    <value>{0} 个文件</value>
+  </data>
+  <data name="DiskCleanup_ItemsAndFilesSelected" xml:space="preserve">
+    <value>已选择 {0} • {1} 项 • {2} 个文件</value>
+  </data>
+  <data name="DiskCleanup.ItemsSelected" xml:space="preserve">
+    <value>{0} (已选中 {1} 项)</value>
+  </data>
+  <data name="DiskCleanup.Button.CleanSelected" xml:space="preserve">
+    <value>清理选中项 ({0})</value>
+  </data>
+  <data name="DiskCleanup.EmptySize" xml:space="preserve">
+    <value>空大小</value>
+  </data>
 </root>

@@ -955,24 +955,6 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="Optimizer.Gpu.EnableHardwareAcceleratedGpuScheduling.ShortDescription" xml:space="preserve">
     <value>Enables HAGS to let the GPU manage its own video memory scheduling directly, reducing CPU overhead and display latency. Requires a compatible GPU driver and reboot.</value>
   </data>
-  <data name="Dashboard.OptimizationScore.Header" xml:space="preserve">
-    <value>Optimization Score</value>
-  </data>
-  <data name="Dashboard.OptimizationScore.Applied" xml:space="preserve">
-    <value>{0} of {1} optimizations applied</value>
-  </data>
-  <data name="Dashboard.OptimizationScore.Excellent" xml:space="preserve">
-    <value>Excellent! Your system is fully optimized.</value>
-  </data>
-  <data name="Dashboard.OptimizationScore.Good" xml:space="preserve">
-    <value>Good — your system is well optimized.</value>
-  </data>
-  <data name="Dashboard.OptimizationScore.Fair" xml:space="preserve">
-    <value>Fair — there's room for improvement.</value>
-  </data>
-  <data name="Dashboard.OptimizationScore.Poor" xml:space="preserve">
-    <value>More optimizations are available to boost performance.</value>
-  </data>
   <data name="Common.Search.Placeholder" xml:space="preserve">
     <value>Search...</value>
   </data>
@@ -1131,5 +1113,11 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   </data>
   <data name="DiskCleanup.EmptySize" xml:space="preserve">
     <value>Empty size</value>
+  </data>
+  <data name="DiskCleanup_FilesCount" xml:space="preserve">
+    <value>{0} files</value>
+  </data>
+  <data name="DiskCleanup_ItemsAndFilesSelected" xml:space="preserve">
+    <value>{0} selected • {1} items • {2} files</value>
   </data>
 </root>

@@ -955,24 +955,6 @@
   <data name="Optimizer.Gpu.EnableHardwareAcceleratedGpuScheduling.ShortDescription" xml:space="preserve">
     <value>Позволяет GPU самостоятельно управлять видеопамятью, снижая нагрузку на ЦП и задержку отображения. Требуется совместимый драйвер и перезагрузка.</value>
   </data>
-  <data name="Dashboard.OptimizationScore.Header" xml:space="preserve">
-    <value>Оценка оптимизации</value>
-  </data>
-  <data name="Dashboard.OptimizationScore.Applied" xml:space="preserve">
-    <value>Применено {0} из {1} оптимизаций</value>
-  </data>
-  <data name="Dashboard.OptimizationScore.Excellent" xml:space="preserve">
-    <value>Отлично! Ваша система полностью оптимизирована.</value>
-  </data>
-  <data name="Dashboard.OptimizationScore.Good" xml:space="preserve">
-    <value>Хорошо — система хорошо оптимизирована.</value>
-  </data>
-  <data name="Dashboard.OptimizationScore.Fair" xml:space="preserve">
-    <value>Неплохо — есть возможности для улучшения.</value>
-  </data>
-  <data name="Dashboard.OptimizationScore.Poor" xml:space="preserve">
-    <value>Доступны дополнительные оптимизации для повышения производительности.</value>
-  </data>
   <data name="Common.Search.Placeholder" xml:space="preserve">
     <value>Поиск...</value>
   </data>
@@ -1131,5 +1113,11 @@
   </data>
   <data name="DiskCleanup.EmptySize" xml:space="preserve">
     <value>Пустой</value>
+  </data>
+  <data name="DiskCleanup_FilesCount" xml:space="preserve">
+    <value>{0} файлов</value>
+  </data>
+  <data name="DiskCleanup_ItemsAndFilesSelected" xml:space="preserve">
+    <value>Выбрано {0} • Элементов: {1} • Файлов: {2}</value>
   </data>
 </root>

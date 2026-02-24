@@ -96,7 +96,6 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             FontSize="22"
-                            Foreground="White"
                             Symbol="HardDrive20" />
                     </Border>
 
@@ -107,9 +106,10 @@
                             Margin="0,2,0,0"
                             Appearance="Secondary"
                             FontTypography="Body"
-                            Text="{ext:Loc DiskCleanup.ItemsSelected,
+                            Text="{ext:Loc DiskCleanup_ItemsAndFilesSelected,
                                            {Binding ViewModel.TotalSelectedSizeFormatted},
-                                           {Binding ViewModel.SelectedCount}}" />
+                                           {Binding ViewModel.SelectedCount},
+                                           {Binding ViewModel.TotalSelectedFileCount}}" />
                     </StackPanel>
 
                     <!--  Scanning indicator in summary  -->
@@ -298,10 +298,22 @@
                                                         </Style.Triggers>
                                                     </Style>
                                                 </Border.Style>
-                                                <ui:TextBlock
-                                                    FontTypography="Caption"
-                                                    Foreground="{DynamicResource TextFillColorInverseBrush}"
-                                                    Text="{Binding FormattedSize}" />
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                    <ui:TextBlock
+                                                        FontTypography="Caption"
+                                                        Foreground="{DynamicResource TextFillColorInverseBrush}"
+                                                        Text="{Binding FormattedSize}" />
+                                                    <ui:TextBlock
+                                                        Margin="6,0,6,0"
+                                                        FontTypography="Caption"
+                                                        Foreground="{DynamicResource TextFillColorInverseBrush}"
+                                                        Opacity="0.8"
+                                                        Text="•" />
+                                                    <ui:TextBlock
+                                                        FontTypography="Caption"
+                                                        Foreground="{DynamicResource TextFillColorInverseBrush}"
+                                                        Text="{ext:Loc DiskCleanup_FilesCount, {Binding FileCount}}" />
+                                                </StackPanel>
                                             </Border>
                                             <Border>
                                                 <Border.Style>

@@ -955,24 +955,6 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Optimizer.Gpu.EnableHardwareAcceleratedGpuScheduling.ShortDescription" xml:space="preserve">
     <value>Cho phép GPU trực tiếp quản lý bộ nhớ video, giảm tải CPU và giảm độ trễ hiển thị. Yêu cầu driver GPU tương thích và khởi động lại.</value>
   </data>
-  <data name="Dashboard.OptimizationScore.Header" xml:space="preserve">
-    <value>Điểm tối ưu</value>
-  </data>
-  <data name="Dashboard.OptimizationScore.Applied" xml:space="preserve">
-    <value>Đã áp dụng {0} trên {1} tối ưu</value>
-  </data>
-  <data name="Dashboard.OptimizationScore.Excellent" xml:space="preserve">
-    <value>Tuyệt vời! Hệ thống đã được tối ưu hoàn toàn.</value>
-  </data>
-  <data name="Dashboard.OptimizationScore.Good" xml:space="preserve">
-    <value>Tốt — hệ thống đã được tối ưu khá tốt.</value>
-  </data>
-  <data name="Dashboard.OptimizationScore.Fair" xml:space="preserve">
-    <value>Khá — vẫn còn nhiều cải tiến có thể áp dụng.</value>
-  </data>
-  <data name="Dashboard.OptimizationScore.Poor" xml:space="preserve">
-    <value>Còn nhiều tối ưu có thể áp dụng để tăng hiệu suất.</value>
-  </data>
   <data name="Common.Search.Placeholder" xml:space="preserve">
     <value>Tìm kiếm...</value>
   </data>
@@ -1131,5 +1113,11 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="DiskCleanup.EmptySize" xml:space="preserve">
     <value>Trống</value>
+  </data>
+  <data name="DiskCleanup_FilesCount" xml:space="preserve">
+    <value>{0} tệp</value>
+  </data>
+  <data name="DiskCleanup_ItemsAndFilesSelected" xml:space="preserve">
+    <value>Đã chọn {0} • {1} mục • {2} tệp</value>
   </data>
 </root>

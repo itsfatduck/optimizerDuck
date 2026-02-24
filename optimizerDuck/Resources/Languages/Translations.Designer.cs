@@ -529,60 +529,6 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} of {1} optimizations applied.
-        /// </summary>
-        public static string Dashboard_OptimizationScore_Applied {
-            get {
-                return ResourceManager.GetString("Dashboard.OptimizationScore.Applied", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Excellent! Your system is fully optimized..
-        /// </summary>
-        public static string Dashboard_OptimizationScore_Excellent {
-            get {
-                return ResourceManager.GetString("Dashboard.OptimizationScore.Excellent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Fair — there&apos;s room for improvement..
-        /// </summary>
-        public static string Dashboard_OptimizationScore_Fair {
-            get {
-                return ResourceManager.GetString("Dashboard.OptimizationScore.Fair", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Good — your system is well optimized..
-        /// </summary>
-        public static string Dashboard_OptimizationScore_Good {
-            get {
-                return ResourceManager.GetString("Dashboard.OptimizationScore.Good", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Optimization Score.
-        /// </summary>
-        public static string Dashboard_OptimizationScore_Header {
-            get {
-                return ResourceManager.GetString("Dashboard.OptimizationScore.Header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to More optimizations are available to boost performance..
-        /// </summary>
-        public static string Dashboard_OptimizationScore_Poor {
-            get {
-                return ResourceManager.GetString("Dashboard.OptimizationScore.Poor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} Cores.
         /// </summary>
         public static string Dashboard_SystemInfo_Cpu_Cores {
@@ -606,6 +552,15 @@ namespace optimizerDuck.Resources.Languages {
         public static string Dashboard_SystemInfo_Gpu_More {
             get {
                 return ResourceManager.GetString("Dashboard.SystemInfo.Gpu.More", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System Information.
+        /// </summary>
+        public static string Dashboard_SystemInfo_Header {
+            get {
+                return ResourceManager.GetString("Dashboard.SystemInfo.Header", resourceCulture);
             }
         }
         
@@ -719,6 +674,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clean Selected ({0}).
+        /// </summary>
+        public static string DiskCleanup_Button_CleanSelected {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Button.CleanSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deselect All.
         /// </summary>
         public static string DiskCleanup_Button_DeselectAll {
@@ -764,6 +728,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Empty size.
+        /// </summary>
+        public static string DiskCleanup_EmptySize {
+            get {
+                return ResourceManager.GetString("DiskCleanup.EmptySize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Some files could not be deleted. They may be in use by another process..
         /// </summary>
         public static string DiskCleanup_Error_Message {
@@ -778,6 +751,15 @@ namespace optimizerDuck.Resources.Languages {
         public static string DiskCleanup_Error_Title {
             get {
                 return ResourceManager.GetString("DiskCleanup.Error.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} files.
+        /// </summary>
+        public static string DiskCleanup_FilesCount {
+            get {
+                return ResourceManager.GetString("DiskCleanup_FilesCount", resourceCulture);
             }
         }
         
@@ -922,6 +904,24 @@ namespace optimizerDuck.Resources.Languages {
         public static string DiskCleanup_Item_WindowsUpdate_Description {
             get {
                 return ResourceManager.GetString("DiskCleanup.Item.WindowsUpdate.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} selected • {1} items • {2} files.
+        /// </summary>
+        public static string DiskCleanup_ItemsAndFilesSelected {
+            get {
+                return ResourceManager.GetString("DiskCleanup_ItemsAndFilesSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} ({1} items selected).
+        /// </summary>
+        public static string DiskCleanup_ItemsSelected {
+            get {
+                return ResourceManager.GetString("DiskCleanup.ItemsSelected", resourceCulture);
             }
         }
         

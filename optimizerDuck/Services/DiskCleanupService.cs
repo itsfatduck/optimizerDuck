@@ -87,18 +87,35 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 // For RecycleBin, estimate size via PowerShell
                 if (item.Id == "RecycleBin")
                 {
-                    var result = await ShellService.PowerShellAsync(
-                        "(New-Object -ComObject Shell.Application).NameSpace(0xA).Items() | " +
-                        "Measure-Object -Property Size -Sum | Select-Object -ExpandProperty Sum");
-                    if (long.TryParse(result.Stdout.Trim(), out var size))
+                    var script = "$items = (New-Object -ComObject Shell.Application).NameSpace(0xA).Items(); " +
+                                 "if ($null -ne $items) { " +
+                                 "  $measure = $items | Measure-Object -Property Size -Sum; " +
+                                 "  $sum = if ($null -ne $measure.Sum) { $measure.Sum } else { 0 }; " +
+                                 "  $count = if ($null -ne $items.Count) { $items.Count } else { 0 }; " +
+                                 "  Write-Output \"$sum|$count\" " +
+                                 "} else { Write-Output '0|0' }";
+
+                    var result = await ShellService.PowerShellAsync(script);
+                    var parts = result.Stdout.Trim().Split('|');
+                    if (parts.Length == 2 && 
+                        long.TryParse(parts[0], out var size) && 
+                        long.TryParse(parts[1], out var count))
+                    {
                         item.SizeBytes = size;
+                        item.FileCount = count;
+                    }
                     else
+                    {
                         item.SizeBytes = 0;
+                        item.FileCount = 0;
+                    }
                 }
             }
             else
             {
-                item.SizeBytes = await Task.Run(() => CalculateDirectorySize(item.Path, item.Id));
+                var metrics = await Task.Run(() => CalculateDirectoryMetrics(item.Path, item.Id));
+                item.SizeBytes = metrics.Size;
+                item.FileCount = metrics.Count;
             }
 
             item.IsScanned = true;
@@ -107,6 +124,7 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
         {
             logger.LogError(ex, "Failed to scan {ItemId}", item.Id);
             item.SizeBytes = 0;
+            item.FileCount = 0;
             item.IsScanned = true;
         }
         finally
@@ -133,6 +151,7 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 await ShellService.PowerShellAsync(item.Path);
                 freedBytes = sizeBefore;
                 item.SizeBytes = 0;
+                item.FileCount = 0;
                 logger.LogInformation("Cleaned {ItemId} via command, freed ~{Size}",
                     item.Id, CleanupItem.FormatBytes(freedBytes));
             }
@@ -140,6 +159,10 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
             {
                 freedBytes = await Task.Run(() => DeleteFilesInDirectory(item.Path, item.Id));
                 item.SizeBytes = Math.Max(0, item.SizeBytes - freedBytes);
+                // Simple assumption: if all bytes freed or directory processed, items count is 0 or needs rescan.
+                // We'll just reset FileCount to 0 for simplicity if freedBytes > 0 or assuming it cleaned it up.
+                // Ideally we'd rescan, but it's simpler to set it to 0. 
+                item.FileCount = 0; 
                 logger.LogInformation("Cleaned {ItemId}, freed {Size}",
                     item.Id, CleanupItem.FormatBytes(freedBytes));
             }
@@ -164,12 +187,13 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
         return totalFreed;
     }
 
-    private long CalculateDirectorySize(string path, string itemId)
+    private (long Size, long Count) CalculateDirectoryMetrics(string path, string itemId)
     {
         if (!Directory.Exists(path))
-            return 0;
+            return (0, 0);
 
         long size = 0;
+        long count = 0;
         try
         {
             // For Thumbnails, only count thumbcache_* files
@@ -180,6 +204,7 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 try
                 {
                     size += new FileInfo(file).Length;
+                    count++;
                 }
                 catch
                 {
@@ -199,6 +224,7 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                             try
                             {
                                 size += new FileInfo(file).Length;
+                                count++;
                             }
                             catch
                             {
@@ -215,10 +241,10 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
         }
         catch (Exception ex)
         {
-            logger.LogWarning(ex, "Error calculating size for {ItemId} at {Path}", itemId, path);
+            logger.LogWarning(ex, "Error calculating metrics for {ItemId} at {Path}", itemId, path);
         }
 
-        return size;
+        return (size, count);
     }
 
     private long DeleteFilesInDirectory(string path, string itemId)

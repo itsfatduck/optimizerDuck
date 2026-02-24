@@ -17,6 +17,7 @@ public partial class CleanupItem : ObservableObject
     public bool IsCommand { get; init; }
 
     [ObservableProperty] private long _sizeBytes;
+    [ObservableProperty] private long _fileCount;
     [ObservableProperty] private bool _isSelected = true;
     [ObservableProperty] private bool _isScanning;
     [ObservableProperty] private bool _isCleaning;
