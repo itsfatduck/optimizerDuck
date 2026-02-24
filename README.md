@@ -15,7 +15,7 @@
 [![.NET Latest](https://img.shields.io/badge/.NET_Runtime-Latest-ef99dd)](https://dotnet.microsoft.com/en-us/download)
 [![Supported OS](https://img.shields.io/badge/Supported-Windows_10+_x64-0078d4)](https://www.microsoft.com/en-us/software-download/)
 
-<img src="./.github/assets/app_dark.png" alt="optimizerDuck Dark Mode" title="optimizerDuck Dark Mode" width="800"/>
+<img src="./.github/assets/app.png" alt="optimizerDuck Dark Mode" title="optimizerDuck Dark Mode" width="800"/>
 
 </div>
 
