@@ -89,7 +89,7 @@
     <value>Discord 社区</value>
   </data>
   <data name="Dashboard.Actions.Discord.Description" xml:space="preserve">
-    <value>加入我们的 Discord 社区获取技术支持或参与讨论</value>
+    <value>加入 Discord 社区获取技术支持或参与讨论</value>
   </data>
   <data name="Dashboard.Actions.GitHub.Title" xml:space="preserve">
     <value>GitHub 仓库</value>

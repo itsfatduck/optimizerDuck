@@ -166,7 +166,7 @@
     <value>Сообщество Discord</value>
   </data>
   <data name="Dashboard.Actions.Discord.Description" xml:space="preserve">
-    <value>Присоединяйтесь к нашему сообществу Discord для получения технической поддержки или обсуждений</value>
+    <value>Присоединяйтесь к сообществу Discord для получения технической поддержки или обсуждений</value>
   </data>
   <data name="Dashboard.Actions.GitHub.Title" xml:space="preserve">
     <value>Репозиторий GitHub</value>
