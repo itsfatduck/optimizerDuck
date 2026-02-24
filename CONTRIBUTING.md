@@ -6,7 +6,7 @@ We want to make contributing to `optimizerDuck` as easy, transparent, and welcom
 ## 💬 Where to Get Help
 If you have questions, need help, or want to discuss a feature, feel free to reach out to the author directly:
 - **Discord**: contact via project server (link in README)
-- **Email**: **`itsfatduck@gmail.com`**
+- **Email**: itsfatduck@gmail.com
 - **GitHub Issues**: Open a discussion or an issue.
 
 ## 🛠️ Setting Up the Project
