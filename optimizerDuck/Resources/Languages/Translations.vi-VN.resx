@@ -1120,4 +1120,7 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="DiskCleanup_ItemsAndFilesSelected" xml:space="preserve">
     <value>Đã chọn {0} • {1} mục • {2} tệp</value>
   </data>
+  <data name="Settings.About.Author.Description" xml:space="preserve">
+    <value>hi, tôi là người tạo ra ứng dụng này. tôi yêu mèo.</value>
+  </data>
 </root>

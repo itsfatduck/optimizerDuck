@@ -1120,4 +1120,7 @@
   <data name="DiskCleanup_ItemsAndFilesSelected" xml:space="preserve">
     <value>Выбрано {0} • Элементов: {1} • Файлов: {2}</value>
   </data>
+  <data name="Settings.About.Author.Description" xml:space="preserve">
+    <value>привет, я создатель этого приложения. я люблю кошек.</value>
+  </data>
 </root>

@@ -1042,4 +1042,7 @@
   <data name="DiskCleanup.EmptySize" xml:space="preserve">
     <value>空大小</value>
   </data>
+  <data name="Settings.About.Author.Description" xml:space="preserve">
+    <value>hi, 我是这个应用的作者. 我超爱猫.</value>
+  </data>
 </root>

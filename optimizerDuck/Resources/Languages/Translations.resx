@@ -1120,4 +1120,7 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="DiskCleanup_ItemsAndFilesSelected" xml:space="preserve">
     <value>{0} selected • {1} items • {2} files</value>
   </data>
+  <data name="Settings.About.Author.Description" xml:space="preserve">
+    <value>hi, i'm the creator of this app. i love cats.</value>
+  </data>
 </root>

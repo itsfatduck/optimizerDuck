@@ -403,7 +403,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Join our Discord community to... get support or play games with me.
+        ///   Looks up a localized string similar to Join my Discord community to... get support or play games with me.
         /// </summary>
         public static string Dashboard_Actions_Discord_Description {
             get {
@@ -2459,7 +2459,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We will automatically enable System Restore and create a checkpoint named &quot;optimizerDuck...&quot;.
+        ///   Looks up a localized string similar to The application will automatically enable System Restore and create a checkpoint named &quot;optimizerDuck...&quot;.
         ///This ensures you can always go back if anything goes wrong..
         /// </summary>
         public static string RestorePointDialog_Help {
@@ -2663,6 +2663,15 @@ namespace optimizerDuck.Resources.Languages {
         public static string Settings_About_Acknowledgements_Title {
             get {
                 return ResourceManager.GetString("Settings.About.Acknowledgements.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Settings_About_Author_Description {
+            get {
+                return ResourceManager.GetString("Settings.About.Author.Description", resourceCulture);
             }
         }
         
