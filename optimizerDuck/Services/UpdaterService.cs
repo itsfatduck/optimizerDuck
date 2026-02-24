@@ -13,12 +13,12 @@ public class UpdaterService
 
     public const string LatestReleaseUrl = $"https://github.com/{Owner}/{Repo}/releases/latest";
 
-    private readonly HttpClient? _httpClient;
+    private required readonly HttpClient _httpClient;
     private readonly ILogger _logger;
 
     public UpdaterService(ILogger<UpdaterService> logger)
     {
-        _httpClient ??= new HttpClient();
+        _httpClient = new HttpClient();
         _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("optimizerDuck", "1.0"));
         _logger = logger;
     }
