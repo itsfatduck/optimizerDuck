@@ -125,6 +125,7 @@ public partial class DiskCleanupViewModel(
         finally
         {
             IsCleaning = false;
+            await diskCleanupService.ScanAllAsync(CleanupItems);
             UpdateProperties();
         }
     }

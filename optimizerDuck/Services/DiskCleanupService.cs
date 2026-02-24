@@ -97,8 +97,8 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
 
                     var result = await ShellService.PowerShellAsync(script);
                     var parts = result.Stdout.Trim().Split('|');
-                    if (parts.Length == 2 && 
-                        long.TryParse(parts[0], out var size) && 
+                    if (parts.Length == 2 &&
+                        long.TryParse(parts[0], out var size) &&
                         long.TryParse(parts[1], out var count))
                     {
                         item.SizeBytes = size;
@@ -150,8 +150,6 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 var sizeBefore = item.SizeBytes;
                 await ShellService.PowerShellAsync(item.Path);
                 freedBytes = sizeBefore;
-                item.SizeBytes = 0;
-                item.FileCount = 0;
                 logger.LogInformation("Cleaned {ItemId} via command, freed ~{Size}",
                     item.Id, CleanupItem.FormatBytes(freedBytes));
             }
@@ -159,10 +157,6 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
             {
                 freedBytes = await Task.Run(() => DeleteFilesInDirectory(item.Path, item.Id));
                 item.SizeBytes = Math.Max(0, item.SizeBytes - freedBytes);
-                // Simple assumption: if all bytes freed or directory processed, items count is 0 or needs rescan.
-                // We'll just reset FileCount to 0 for simplicity if freedBytes > 0 or assuming it cleaned it up.
-                // Ideally we'd rescan, but it's simpler to set it to 0. 
-                item.FileCount = 0; 
                 logger.LogInformation("Cleaned {ItemId}, freed {Size}",
                     item.Id, CleanupItem.FormatBytes(freedBytes));
             }
