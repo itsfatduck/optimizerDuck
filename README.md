@@ -56,7 +56,7 @@ _More languages may be added in the future._
 
 Full documentation and advanced guides are available here:  
 
-**[📚 Documentation](./Docs/index.md)**
+### [Repository Wiki](https://github.com/itsfatduck/optimizerDuck/wiki)
 
 ---
 
