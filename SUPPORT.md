@@ -41,6 +41,9 @@ You can still support optimizerDuck by:
 * 🐞 Reporting bugs
 * 💡 Suggesting features
 * 🌍 Helping translate
+* 💬 Joining the Discord server
+
+[![Discord server](https://discordapp.com/api/guilds/1091675679994675240/widget.png?style=banner3)](https://discord.gg/tDUBDCYw9Q)
 
 Every contribution, financial or not, helps the project grow.
 
