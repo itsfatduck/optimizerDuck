@@ -11,6 +11,9 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
 {
     public List<CleanupItem> GetCleanupItems()
     {
+        var windowsDir = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
+        var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+
         return
         [
             new CleanupItem
@@ -26,7 +29,7 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 Id = "SystemTemp",
                 Name = Translations.DiskCleanup_Item_SystemTemp,
                 Description = Translations.DiskCleanup_Item_SystemTemp_Description,
-                Path = @"C:\Windows\Temp",
+                Path = Path.Combine(windowsDir, "Temp"),
                 Icon = SymbolRegular.DocumentError24
             },
             new CleanupItem
@@ -34,7 +37,7 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 Id = "WindowsUpdate",
                 Name = Translations.DiskCleanup_Item_WindowsUpdate,
                 Description = Translations.DiskCleanup_Item_WindowsUpdate_Description,
-                Path = @"C:\Windows\SoftwareDistribution\Download",
+                Path = Path.Combine(windowsDir, @"SoftwareDistribution\Download"),
                 Icon = SymbolRegular.ArrowDownload24
             },
             new CleanupItem
@@ -42,7 +45,7 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 Id = "Prefetch",
                 Name = Translations.DiskCleanup_Item_Prefetch,
                 Description = Translations.DiskCleanup_Item_Prefetch_Description,
-                Path = @"C:\Windows\Prefetch",
+                Path = Path.Combine(windowsDir, "Prefetch"),
                 Icon = SymbolRegular.Flash24
             },
             new CleanupItem
@@ -50,9 +53,7 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 Id = "Thumbnails",
                 Name = Translations.DiskCleanup_Item_Thumbnails,
                 Description = Translations.DiskCleanup_Item_Thumbnails_Description,
-                Path = Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                    @"Microsoft\Windows\Explorer"),
+                Path = Path.Combine(localAppData, @"Microsoft\Windows\Explorer"),
                 Icon = SymbolRegular.Image24
             },
             new CleanupItem
@@ -69,9 +70,7 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 Id = "ErrorReports",
                 Name = Translations.DiskCleanup_Item_ErrorReports,
                 Description = Translations.DiskCleanup_Item_ErrorReports_Description,
-                Path = Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                    "CrashDumps"),
+                Path = Path.Combine(localAppData, "CrashDumps"),
                 Icon = SymbolRegular.Bug24
             }
         ];
