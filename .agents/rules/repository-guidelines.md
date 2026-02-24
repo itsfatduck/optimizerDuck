@@ -1,3 +1,7 @@
+---
+trigger: always_on
+---
+
 # Repository Guidelines
 
 Welcome to the `optimizerDuck` repository! This document provides guidelines for contributing to the project, ensuring consistency and maintainability across the codebase.
