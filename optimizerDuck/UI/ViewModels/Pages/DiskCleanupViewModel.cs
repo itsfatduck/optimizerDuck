@@ -20,6 +20,13 @@ public partial class DiskCleanupViewModel(
     [ObservableProperty] private bool _isScanning;
     [ObservableProperty] private bool _isCleaning;
 
+    // Sort
+    [ObservableProperty] private int _selectedSortByIndex; // 0=Default, 1=Size, 2=Name, 3=Path
+
+    private List<CleanupItem> _originalOrder = [];
+
+    partial void OnSelectedSortByIndexChanged(int value) => ApplySort();
+
     public bool HasData => CleanupItems.Count > 0 && !IsLoading;
     public bool IsAllScanned => CleanupItems.Count > 0 && CleanupItems.All(i => i.IsScanned);
     public int SelectedCount => CleanupItems.Count(i => i.IsSelected);
@@ -44,6 +51,7 @@ public partial class DiskCleanupViewModel(
         {
             var items = diskCleanupService.GetCleanupItems();
             CleanupItems = new ObservableCollection<CleanupItem>(items);
+            _originalOrder = [.. items];
 
             foreach (var item in CleanupItems)
             {
@@ -137,6 +145,24 @@ public partial class DiskCleanupViewModel(
         foreach (var item in CleanupItems)
             item.IsSelected = shouldSelect;
         UpdateProperties();
+    }
+
+    private void ApplySort()
+    {
+        var sorted = SelectedSortByIndex switch
+        {
+            1 => CleanupItems.OrderByDescending(i => i.SizeBytes).ToList(),
+            2 => CleanupItems.OrderBy(i => i.Name).ToList(),
+            3 => CleanupItems.OrderBy(i => i.Path).ToList(),
+            _ => _originalOrder.ToList()
+        };
+
+        for (var i = 0; i < sorted.Count; i++)
+        {
+            var currentIndex = CleanupItems.IndexOf(sorted[i]);
+            if (currentIndex != i)
+                CleanupItems.Move(currentIndex, i);
+        }
     }
 
     private void UpdateProperties()

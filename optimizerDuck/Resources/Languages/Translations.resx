@@ -973,6 +973,12 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="Common.SortBy.Publisher" xml:space="preserve">
     <value>Publisher</value>
   </data>
+  <data name="Common.SortBy.Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="Common.SortBy.Path" xml:space="preserve">
+    <value>Path</value>
+  </data>
   <data name="Optimizer.Menu.ApplyAllSafe" xml:space="preserve">
     <value>Apply All Safe</value>
   </data>

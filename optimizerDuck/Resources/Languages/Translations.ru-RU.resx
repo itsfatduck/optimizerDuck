@@ -973,6 +973,12 @@
   <data name="Common.SortBy.Publisher" xml:space="preserve">
     <value>Издатель</value>
   </data>
+  <data name="Common.SortBy.Size" xml:space="preserve">
+    <value>Размер</value>
+  </data>
+  <data name="Common.SortBy.Path" xml:space="preserve">
+    <value>Путь</value>
+  </data>
   <data name="Optimizer.Menu.ApplyAllSafe" xml:space="preserve">
     <value>Применить все безопасные</value>
   </data>

@@ -898,6 +898,12 @@
   <data name="Common.SortBy.Publisher" xml:space="preserve">
     <value>发行商</value>
   </data>
+  <data name="Common.SortBy.Size" xml:space="preserve">
+    <value>大小</value>
+  </data>
+  <data name="Common.SortBy.Path" xml:space="preserve">
+    <value>路径</value>
+  </data>
   <data name="Common.SortBy" xml:space="preserve">
     <value>排序</value>
   </data>

@@ -973,6 +973,12 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Common.SortBy.Publisher" xml:space="preserve">
     <value>Nhà phát hành</value>
   </data>
+  <data name="Common.SortBy.Size" xml:space="preserve">
+    <value>Kích thước</value>
+  </data>
+  <data name="Common.SortBy.Path" xml:space="preserve">
+    <value>Đường dẫn</value>
+  </data>
   <data name="Optimizer.Menu.ApplyAllSafe" xml:space="preserve">
     <value>Áp dụng tất cả an toàn</value>
   </data>

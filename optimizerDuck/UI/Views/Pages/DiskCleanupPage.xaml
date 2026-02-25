@@ -75,7 +75,7 @@
         <!--  Main content  -->
         <Grid
             Grid.Row="1"
-            RowDefinitions="Auto,Auto,*"
+            RowDefinitions="Auto,Auto,Auto,*"
             Visibility="{Binding ViewModel.HasData, Converter={StaticResource BooleanToVisibilityConverter}}">
 
             <!--  Summary card  -->
@@ -132,9 +132,30 @@
                 </Grid>
             </Border>
 
+            <!--  Sort toolbar  -->
+            <WrapPanel
+                Grid.Row="1"
+                Margin="0,0,0,8"
+                Orientation="Horizontal">
+
+                <!--  Sort By  -->
+                <ComboBox
+                    Margin="0,0,8,0"
+                    SelectedIndex="{Binding ViewModel.SelectedSortByIndex}"
+                    ToolTip="{ext:Loc Common.SortBy}"
+                    ToolTipService.BetweenShowDelay="160"
+                    ToolTipService.Placement="Top"
+                    VerticalAlignment="Center">
+                    <ComboBoxItem Content="{ext:Loc Common.SortBy.Default}" />
+                    <ComboBoxItem Content="{ext:Loc Common.SortBy.Size}" />
+                    <ComboBoxItem Content="{ext:Loc Common.SortBy.Name}" />
+                    <ComboBoxItem Content="{ext:Loc Common.SortBy.Path}" />
+                </ComboBox>
+            </WrapPanel>
+
             <!--  Action buttons  -->
             <StackPanel
-                Grid.Row="1"
+                Grid.Row="2"
                 Margin="0,0,0,12"
                 Orientation="Horizontal">
 
@@ -195,7 +216,7 @@
             </StackPanel>
 
             <!--  Items list (virtualized)  -->
-            <ui:VirtualizingItemsControl Grid.Row="2" ItemsSource="{Binding ViewModel.CleanupItems}">
+            <ui:VirtualizingItemsControl Grid.Row="3" ItemsSource="{Binding ViewModel.CleanupItems}">
                 <ui:VirtualizingItemsControl.Template>
                     <ControlTemplate TargetType="ItemsControl">
                         <ScrollViewer HorizontalScrollBarVisibility="Disabled">
