@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:bloatware="clr-namespace:optimizerDuck.Core.Models.Bloatware"
-    xmlns:converters="clr-namespace:optimizerDuck.Common.Helpers.Converters"
+    xmlns:converters="clr-namespace:optimizerDuck.Common.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
     xmlns:local="clr-namespace:optimizerDuck.UI.Views.Pages"
@@ -276,6 +276,7 @@
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
@@ -287,8 +288,18 @@
                                         VerticalAlignment="Top"
                                         IsChecked="{Binding IsSelected, Mode=TwoWay}" />
 
+                                    <!--  Logo Image  -->
+                                    <Image
+                                        Grid.Column="1"
+                                        Width="36"
+                                        Height="36"
+                                        Margin="0,0,12,0"
+                                        VerticalAlignment="Top"
+                                        Source="{Binding LogoImage}"
+                                        Stretch="UniformToFill" />
+
                                     <!--  Content  -->
-                                    <StackPanel Grid.Column="1">
+                                    <StackPanel Grid.Column="2">
 
                                         <!--  Top row  -->
                                         <DockPanel LastChildFill="False">

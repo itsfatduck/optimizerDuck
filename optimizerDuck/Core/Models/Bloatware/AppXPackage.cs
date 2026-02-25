@@ -16,6 +16,7 @@ public partial class AppXPackage : ObservableObject
 {
     [ObservableProperty] private bool _isSelected;
 
+    public string? LogoImage { get; set; }
     public required string Name { get; init; }
     public required string PackageFullName { get; init; }
     public required string Publisher { get; init; }

@@ -32,10 +32,12 @@ public partial class BloatwareViewModel : ViewModel
 
     // Search, Filter, Sort
     [ObservableProperty] private string _searchText = string.Empty;
+
     [ObservableProperty] private int _selectedRiskFilterIndex; // 0=All, 1=Safe, 2=Caution
     [ObservableProperty] private int _selectedSortByIndex; // 0=Default, 1=Name, 2=Publisher, 3=Risk
 
     private CancellationTokenSource? _searchDebounce;
+
     partial void OnSearchTextChanged(string value) => DebounceSearch();
 
     private async void DebounceSearch()
@@ -49,7 +51,9 @@ public partial class BloatwareViewModel : ViewModel
         }
         catch (TaskCanceledException) { }
     }
+
     partial void OnSelectedRiskFilterIndexChanged(int value) => ApplyFilter();
+
     partial void OnSelectedSortByIndexChanged(int value) => ApplyFilter();
 
     public bool HasSelectedItems => AppxPackages.Any(x => x.IsSelected);
@@ -130,8 +134,9 @@ public partial class BloatwareViewModel : ViewModel
         foreach (var p in AppxPackages)
             p.PropertyChanged -= Item_PropertyChanged;
 
+        var filtered = query.ToList();
         AppxPackages.Clear();
-        foreach (var package in query)
+        foreach (var package in filtered)
             AppxPackages.Add(package);
     }
 

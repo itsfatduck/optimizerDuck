@@ -1129,4 +1129,34 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="Settings.About.Author.Description" xml:space="preserve">
     <value>hi, i'm the creator of this app. i love cats.</value>
   </data>
+  <data name="Sidebar.StartupManager" xml:space="preserve">
+    <value>Startup Manager</value>
+  </data>
+  <data name="StartupManager.Header.Title" xml:space="preserve">
+    <value>Startup Manager</value>
+  </data>
+  <data name="StartupManager.Header.Description" xml:space="preserve">
+    <value>Manage applications and tasks that run automatically when Windows starts.</value>
+  </data>
+  <data name="StartupManager.Apps.Title" xml:space="preserve">
+    <value>Startup Apps</value>
+  </data>
+  <data name="StartupManager.Tasks.Title" xml:space="preserve">
+    <value>Scheduled Tasks (Logon)</value>
+  </data>
+  <data name="StartupManager.Loading" xml:space="preserve">
+    <value>Scanning startup items...</value>
+  </data>
+  <data name="StartupManager.Loading.Hint" xml:space="preserve">
+    <value>This may take a moment while we scan the registry and startup folders.</value>
+  </data>
+  <data name="StartupManager.Empty.Title" xml:space="preserve">
+    <value>No startup items</value>
+  </data>
+  <data name="StartupManager.Empty.Description" xml:space="preserve">
+    <value>No startup applications or scheduled tasks were found on this system.</value>
+  </data>
+  <data name="StartupManager.Menu.Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
 </root>

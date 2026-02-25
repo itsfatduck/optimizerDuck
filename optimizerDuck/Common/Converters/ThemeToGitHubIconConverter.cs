@@ -3,7 +3,7 @@ using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using Wpf.Ui.Appearance;
 
-namespace optimizerDuck.Common.Helpers.Converters;
+namespace optimizerDuck.Common.Converters;
 
 public sealed class ThemeToGitHubIconConverter : IValueConverter
 {

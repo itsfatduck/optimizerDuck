@@ -1129,4 +1129,34 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Settings.About.Author.Description" xml:space="preserve">
     <value>hi, tôi là người tạo ra ứng dụng này. tôi yêu mèo.</value>
   </data>
+  <data name="Sidebar.StartupManager" xml:space="preserve">
+    <value>Quản Lý Khởi Động</value>
+  </data>
+  <data name="StartupManager.Header.Title" xml:space="preserve">
+    <value>Quản Lý Khởi Động</value>
+  </data>
+  <data name="StartupManager.Header.Description" xml:space="preserve">
+    <value>Quản lý các ứng dụng và tác vụ tự động chạy khi Windows khởi động</value>
+  </data>
+  <data name="StartupManager.Apps.Title" xml:space="preserve">
+    <value>Ứng dụng Khởi động</value>
+  </data>
+  <data name="StartupManager.Tasks.Title" xml:space="preserve">
+    <value>Tác vụ Lên lịch (Logon)</value>
+  </data>
+  <data name="StartupManager.Loading" xml:space="preserve">
+    <value>Đang quét các mục khởi động...</value>
+  </data>
+  <data name="StartupManager.Loading.Hint" xml:space="preserve">
+    <value>Quá trình này có thể mất một lúc khi quét registry và thư mục khởi động.</value>
+  </data>
+  <data name="StartupManager.Empty.Title" xml:space="preserve">
+    <value>Không có mục khởi động</value>
+  </data>
+  <data name="StartupManager.Empty.Description" xml:space="preserve">
+    <value>Không tìm thấy ứng dụng hoặc tác vụ khởi động nào trên hệ thống này.</value>
+  </data>
+  <data name="StartupManager.Menu.Refresh" xml:space="preserve">
+    <value>Làm mới</value>
+  </data>
 </root>

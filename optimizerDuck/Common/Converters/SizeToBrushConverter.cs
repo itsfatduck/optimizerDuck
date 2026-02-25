@@ -1,8 +1,9 @@
+using optimizerDuck.Common.Helpers;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace optimizerDuck.Common.Helpers.Converters;
+namespace optimizerDuck.Common.Converters;
 
 /// <summary>
 ///     Converts a byte size (long) to a color brush:

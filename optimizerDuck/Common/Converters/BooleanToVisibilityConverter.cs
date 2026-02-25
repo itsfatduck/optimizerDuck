@@ -1,7 +1,7 @@
 using optimizerDuck.Common.Converters;
 using System.Windows;
 
-namespace optimizerDuck.Common.Helpers.Converters;
+namespace optimizerDuck.Common.Converters;
 
 public sealed class BooleanToVisibilityConverter()
     : BooleanConverter<Visibility>(Visibility.Visible, Visibility.Collapsed);

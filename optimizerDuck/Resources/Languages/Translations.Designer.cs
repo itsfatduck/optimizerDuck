@@ -412,24 +412,6 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Source.
-        /// </summary>
-        public static string Common_SortBy_Source {
-            get {
-                return ResourceManager.GetString("Common.SortBy.Source", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Status.
-        /// </summary>
-        public static string Common_SortBy_Status {
-            get {
-                return ResourceManager.GetString("Common.SortBy.Status", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Unknown.
         /// </summary>
         public static string Common_Unknown {
@@ -3118,61 +3100,16 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No programs are configured to run at startup..
+        ///   Looks up a localized string similar to Startup Apps.
         /// </summary>
-        public static string StartupManager_Empty_Description {
+        public static string StartupManager_Apps_Title {
             get {
-                return ResourceManager.GetString("StartupManager.Empty.Description", resourceCulture);
+                return ResourceManager.GetString("StartupManager.Apps.Title", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No startup items found.
-        /// </summary>
-        public static string StartupManager_Empty_Title {
-            get {
-                return ResourceManager.GetString("StartupManager.Empty.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to All Sources.
-        /// </summary>
-        public static string StartupManager_Filter_All {
-            get {
-                return ResourceManager.GetString("StartupManager.Filter.All", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Startup Folder.
-        /// </summary>
-        public static string StartupManager_Filter_Folder {
-            get {
-                return ResourceManager.GetString("StartupManager.Filter.Folder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Registry.
-        /// </summary>
-        public static string StartupManager_Filter_Registry {
-            get {
-                return ResourceManager.GetString("StartupManager.Filter.Registry", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scheduled Task.
-        /// </summary>
-        public static string StartupManager_Filter_ScheduledTask {
-            get {
-                return ResourceManager.GetString("StartupManager.Filter.ScheduledTask", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Manage programs that run automatically when you log in.
+        ///   Looks up a localized string similar to Manage applications and tasks that run automatically when Windows starts..
         /// </summary>
         public static string StartupManager_Header_Description {
             get {
@@ -3190,74 +3127,11 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scanning startup entries….
+        ///   Looks up a localized string similar to Scheduled Tasks (Logon).
         /// </summary>
-        public static string StartupManager_Loading {
+        public static string StartupManager_Tasks_Title {
             get {
-                return ResourceManager.GetString("StartupManager.Loading", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Refresh.
-        /// </summary>
-        public static string StartupManager_Menu_Refresh {
-            get {
-                return ResourceManager.GetString("StartupManager.Menu.Refresh", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No results found. Try a different search term or filter..
-        /// </summary>
-        public static string StartupManager_Search_NoResults {
-            get {
-                return ResourceManager.GetString("StartupManager.Search.NoResults", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Startup Folder.
-        /// </summary>
-        public static string StartupManager_Source_Folder {
-            get {
-                return ResourceManager.GetString("StartupManager.Source.Folder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Registry.
-        /// </summary>
-        public static string StartupManager_Source_Registry {
-            get {
-                return ResourceManager.GetString("StartupManager.Source.Registry", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scheduled Task.
-        /// </summary>
-        public static string StartupManager_Source_ScheduledTask {
-            get {
-                return ResourceManager.GetString("StartupManager.Source.ScheduledTask", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An error occurred: {0}.
-        /// </summary>
-        public static string StartupManager_Toggle_Error_Message {
-            get {
-                return ResourceManager.GetString("StartupManager.Toggle.Error.Message", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Couldn&apos;t toggle startup entry.
-        /// </summary>
-        public static string StartupManager_Toggle_Error_Title {
-            get {
-                return ResourceManager.GetString("StartupManager.Toggle.Error.Title", resourceCulture);
+                return ResourceManager.GetString("StartupManager.Tasks.Title", resourceCulture);
             }
         }
     }

@@ -2,7 +2,7 @@ using System.Globalization;
 using System.Windows.Data;
 using Wpf.Ui.Appearance;
 
-namespace optimizerDuck.Common.Helpers.Converters;
+namespace optimizerDuck.Common.Converters;
 
 public sealed class ThemeToIndexConverter : IValueConverter
 {

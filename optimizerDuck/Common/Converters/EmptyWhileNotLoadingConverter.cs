@@ -2,7 +2,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace optimizerDuck.Common.Helpers.Converters;
+namespace optimizerDuck.Common.Converters;
 
 public class EmptyWhileNotLoadingConverter : IMultiValueConverter
 {

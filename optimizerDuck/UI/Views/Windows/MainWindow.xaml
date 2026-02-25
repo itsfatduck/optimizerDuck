@@ -53,6 +53,11 @@
                     TargetPageType="{x:Type pages:BloatwarePage}" />
 
                 <ui:NavigationViewItem
+                    Content="{extensions:Loc Sidebar.StartupManager}"
+                    Icon="{ui:SymbolIcon AppFolder24}"
+                    TargetPageType="{x:Type pages:StartupManagerPage}" />
+
+                <ui:NavigationViewItem
                     Content="{extensions:Loc Sidebar.DiskCleanup}"
                     Icon="{ui:SymbolIcon HardDrive20}"
                     TargetPageType="{x:Type pages:DiskCleanupPage}" />
