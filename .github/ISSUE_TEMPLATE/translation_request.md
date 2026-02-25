@@ -1,7 +1,7 @@
 ---
 name: "🌐 Translation Request"
 about: Request a new language translation or report translation errors in optimizerDuck
-title: 'feat(i18n): add [Language] translation' # or 'fix(i18n): update [Language] translation'
+title: 'feat(i18n): add [Language] translation (or update [Language] translation)'
 labels: 'translation, enhancement'
 assignees: ''
 ---

@@ -1,16 +1,7 @@
 <Page
-    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-    Margin="0,32,0,0"
-    ScrollViewer.CanContentScroll="False"
-    Title="BloatwarePage"
-    d:DataContext="{d:DesignInstance local:BloatwarePage}"
-    d:DesignHeight="1200"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
-    ui:Design.Background="Black"
-    ui:Design.Foreground="White"
     x:Class="optimizerDuck.UI.Views.Pages.BloatwarePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:bloatware="clr-namespace:optimizerDuck.Core.Models.Bloatware"
     xmlns:converters="clr-namespace:optimizerDuck.Common.Helpers.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -18,7 +9,16 @@
     xmlns:local="clr-namespace:optimizerDuck.UI.Views.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    Title="BloatwarePage"
+    Margin="0,32,0,0"
+    d:DataContext="{d:DesignInstance local:BloatwarePage}"
+    d:DesignHeight="1200"
+    d:DesignWidth="800"
+    ui:Design.Background="Black"
+    ui:Design.Foreground="White"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    ScrollViewer.CanContentScroll="False"
+    mc:Ignorable="d">
     <Page.Resources>
         <converters:GreaterThanZeroToVisibilityConverter x:Key="GreaterThanZeroToVisibilityConverter" />
         <converters:ZeroToVisibilityConverter x:Key="ZeroToVisibilityConverter" />
@@ -59,26 +59,26 @@
 
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ui:SymbolIcon
+                    Margin="0,0,0,15"
+                    HorizontalAlignment="Center"
                     FontSize="46"
                     Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                    HorizontalAlignment="Center"
-                    Margin="0,0,0,15"
                     Symbol="DeleteOff24" />
                 <ui:TextBlock
-                    FontTypography="Subtitle"
                     HorizontalAlignment="Center"
+                    FontTypography="Subtitle"
                     Text="{ext:Loc Bloatware.Empty.Title}" />
                 <ui:TextBlock
+                    Margin="0,0,0,10"
+                    HorizontalAlignment="Center"
                     Appearance="Secondary"
                     FontTypography="Body"
-                    HorizontalAlignment="Center"
-                    Margin="0,0,0,10"
                     Text="{ext:Loc Bloatware.Empty.Description}" />
                 <ui:Button
+                    HorizontalAlignment="Center"
                     Appearance="Primary"
                     Command="{Binding ViewModel.RefreshCommand}"
                     Content="{ext:Loc Bloatware.Menu.Refresh}"
-                    HorizontalAlignment="Center"
                     Icon="{ui:SymbolIcon ArrowClockwise24,
                                          FontSize=18}" />
             </StackPanel>
@@ -88,26 +88,24 @@
         <Border Grid.Row="1" Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ui:ProgressRing
-                    HorizontalAlignment="Center"
-                    IsIndeterminate="True"
                     Margin="0,0,0,5"
-                    VerticalAlignment="Center" />
-                <ui:TextBlock
-                    FontTypography="BodyStrong"
                     HorizontalAlignment="Center"
-                    Text="{ext:Loc Bloatware.Loading}"
-                    VerticalAlignment="Center" />
+                    VerticalAlignment="Center"
+                    IsIndeterminate="True" />
+                <ui:TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontTypography="BodyStrong"
+                    Text="{ext:Loc Bloatware.Loading}" />
             </StackPanel>
         </Border>
 
         <Border
-            Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-            CornerRadius="6"
             Grid.Row="1"
-            Padding="8"
+            Padding="8,0,8,0"
+            CornerRadius="6"
             Visibility="{Binding ViewModel.HasData, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid RowDefinitions="Auto,Auto,*">
-
                 <!--  Search / Filter / Sort toolbar  -->
                 <WrapPanel
                     Grid.Row="0"
@@ -116,26 +114,26 @@
 
                     <!--  Search  -->
                     <ui:TextBox
-                        Icon="{ui:SymbolIcon Search24}"
-                        Margin="0,0,8,0"
                         MinWidth="200"
+                        Margin="0,0,8,0"
+                        VerticalAlignment="Center"
+                        Icon="{ui:SymbolIcon Search24}"
                         PlaceholderText="{ext:Loc Common.Search.Placeholder}"
-                        Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}"
-                        VerticalAlignment="Center" />
+                        Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}" />
 
                     <!--  Filter by Risk  -->
                     <ComboBox
                         Margin="0,0,8,0"
+                        VerticalAlignment="Center"
                         SelectedIndex="{Binding ViewModel.SelectedRiskFilterIndex}"
                         ToolTip="{ext:Loc Common.Filter}"
                         ToolTipService.BetweenShowDelay="160"
-                        ToolTipService.Placement="Top"
-                        VerticalAlignment="Center">
+                        ToolTipService.Placement="Top">
                         <ComboBoxItem HorizontalContentAlignment="Left">
-                            <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
                                 <ui:SymbolIcon
-                                    HorizontalAlignment="Left"
                                     Margin="0,0,6,0"
+                                    HorizontalAlignment="Left"
                                     Symbol="Filter24" />
                                 <TextBlock
                                     Grid.Column="1"
@@ -144,21 +142,21 @@
                             </Grid>
                         </ComboBoxItem>
                         <ComboBoxItem HorizontalContentAlignment="Left">
-                            <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
                                 <ui:SymbolIcon
-                                    Foreground="{DynamicResource SystemFillColorSuccessBrush}"
-                                    HorizontalAlignment="Left"
                                     Margin="0,0,6,0"
+                                    HorizontalAlignment="Left"
+                                    Foreground="{DynamicResource SystemFillColorSuccessBrush}"
                                     Symbol="ShieldCheckmark24" />
                                 <TextBlock Grid.Column="1" Text="{ext:Loc Optimizer.UI.Risk.Safe}" />
                             </Grid>
                         </ComboBoxItem>
                         <ComboBoxItem HorizontalContentAlignment="Left">
-                            <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
                                 <ui:SymbolIcon
-                                    Foreground="{DynamicResource SystemFillColorCautionBrush}"
-                                    HorizontalAlignment="Left"
                                     Margin="0,0,6,0"
+                                    HorizontalAlignment="Left"
+                                    Foreground="{DynamicResource SystemFillColorCautionBrush}"
                                     Symbol="Warning24" />
                                 <TextBlock Grid.Column="1" Text="{ext:Loc Optimizer.UI.Risk.Moderate}" />
                             </Grid>
@@ -167,11 +165,11 @@
                     <!--  Sort By  -->
                     <ComboBox
                         Margin="0,0,8,0"
+                        VerticalAlignment="Center"
                         SelectedIndex="{Binding ViewModel.SelectedSortByIndex}"
                         ToolTip="{ext:Loc Common.SortBy}"
                         ToolTipService.BetweenShowDelay="160"
-                        ToolTipService.Placement="Top"
-                        VerticalAlignment="Center">
+                        ToolTipService.Placement="Top">
                         <ComboBoxItem Content="{ext:Loc Common.SortBy.Default}" />
                         <ComboBoxItem Content="{ext:Loc Common.SortBy.Name}" />
                         <ComboBoxItem Content="{ext:Loc Common.SortBy.Publisher}" />
@@ -236,15 +234,15 @@
                     VerticalAlignment="Center"
                     Visibility="{Binding ViewModel.AppxPackages.Count, Converter={StaticResource ZeroToVisibilityConverter}}">
                     <ui:SymbolIcon
+                        Margin="0,0,0,10"
+                        HorizontalAlignment="Center"
                         FontSize="36"
                         Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                        HorizontalAlignment="Center"
-                        Margin="0,0,0,10"
                         Symbol="SearchInfo24" />
                     <ui:TextBlock
+                        HorizontalAlignment="Center"
                         Appearance="Secondary"
                         FontTypography="Body"
-                        HorizontalAlignment="Center"
                         Text="{ext:Loc Bloatware.Search.NoResults}" />
                 </StackPanel>
 
@@ -270,10 +268,10 @@
                     <ui:VirtualizingItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type bloatware:AppXPackage}">
                             <Border
-                                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-                                CornerRadius="6"
                                 Margin="0,0,0,4"
-                                Padding="12">
+                                Padding="12"
+                                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                                CornerRadius="6">
 
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -285,9 +283,9 @@
                                     <!--  Checkbox  -->
                                     <CheckBox
                                         Grid.Column="0"
-                                        IsChecked="{Binding IsSelected, Mode=TwoWay}"
                                         Margin="0,4,12,0"
-                                        VerticalAlignment="Top" />
+                                        VerticalAlignment="Top"
+                                        IsChecked="{Binding IsSelected, Mode=TwoWay}" />
 
                                     <!--  Content  -->
                                     <StackPanel Grid.Column="1">
@@ -299,25 +297,25 @@
                                             <ui:TextBlock FontTypography="BodyStrong" Text="{Binding Name}" />
 
                                             <Border
-                                                Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                                CornerRadius="5"
-                                                HorizontalAlignment="Left"
                                                 Margin="5,0,0,0"
                                                 Padding="4,1"
-                                                VerticalAlignment="Center">
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                                CornerRadius="5">
                                                 <!--  Version  -->
                                                 <ui:TextBlock
+                                                    VerticalAlignment="Center"
                                                     Appearance="Tertiary"
                                                     FontTypography="Body"
-                                                    Text="{Binding Version}"
-                                                    VerticalAlignment="Center" />
+                                                    Text="{Binding Version}" />
                                             </Border>
 
                                             <Border
-                                                CornerRadius="5"
-                                                HorizontalAlignment="Left"
                                                 Margin="5,0,0,0"
                                                 Padding="4,2"
+                                                HorizontalAlignment="Left"
+                                                CornerRadius="5"
                                                 Visibility="{Binding ShouldVisibleRisk, Converter={StaticResource BooleanToVisibilityConverter}}">
                                                 <Border.Style>
                                                     <Style TargetType="Border">
@@ -331,42 +329,42 @@
                                                 </Border.Style>
                                                 <StackPanel Orientation="Horizontal">
                                                     <ui:SymbolIcon
-                                                        Foreground="{DynamicResource TextFillColorInverseBrush}"
                                                         Margin="0,0,5,0"
+                                                        Foreground="{DynamicResource TextFillColorInverseBrush}"
                                                         Symbol="{Binding RiskVisual.Icon}" />
 
                                                     <ui:TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
                                                         FontTypography="Caption"
                                                         Foreground="{DynamicResource TextFillColorInverseBrush}"
-                                                        HorizontalAlignment="Center"
                                                         Text="{Binding RiskVisual.Display}"
-                                                        TextWrapping="Wrap"
-                                                        VerticalAlignment="Center" />
+                                                        TextWrapping="Wrap" />
                                                 </StackPanel>
                                             </Border>
                                         </DockPanel>
 
                                         <!--  Publisher  -->
                                         <ui:TextBlock
+                                            Margin="0,2,0,0"
                                             Appearance="Disabled"
                                             FontTypography="Body"
-                                            Margin="0,2,0,0"
                                             Text="{Binding Publisher}"
                                             TextTrimming="CharacterEllipsis" />
 
                                         <!--  Install location  -->
                                         <ui:TextBlock
+                                            Margin="0,2,0,0"
                                             Appearance="Disabled"
                                             FontTypography="Body"
-                                            Margin="0,2,0,0"
                                             Text="{Binding InstallLocation}"
                                             TextTrimming="CharacterEllipsis" />
 
                                         <!--  Package full name  -->
                                         <ui:TextBlock
+                                            Margin="0,4,0,0"
                                             Appearance="Secondary"
                                             FontTypography="Caption"
-                                            Margin="0,4,0,0"
                                             Text="{Binding PackageFullName}"
                                             TextTrimming="CharacterEllipsis" />
                                     </StackPanel>
