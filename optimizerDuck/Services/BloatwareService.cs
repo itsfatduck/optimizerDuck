@@ -174,7 +174,7 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
     {
         try
         {
-            // 1. Fast path: check for common high-quality logos first without parsing manifest
+            // check for common high-quality logos first without parsing manifest
             var assetsDir = Path.Combine(installLocation, "Assets");
             if (Directory.Exists(assetsDir))
             {
@@ -185,7 +185,7 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
                     if (File.Exists(path)) return path;
                 }
 
-                // If exact matches aren't found, try patterns that might have scale modifiers
+                // if exact matches aren't found, try patterns that might have scale modifiers
                 var highQualityPatterns = new[] { "*StoreLogo*.png", "*Logo*.png" };
                 foreach (var pattern in highQualityPatterns)
                 {
@@ -196,7 +196,7 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
                 }
             }
 
-            // 2. Fallback: Parse AppxManifest.xml
+            // fallback: parse AppxManifest.xml
             var manifest = Path.Combine(installLocation, "AppxManifest.xml");
             if (!File.Exists(manifest)) return null;
 
@@ -222,7 +222,7 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
                 AddAttr(candidates, visual, "Square44x44Logo");
             }
 
-            // Resolve manifest candidates
+            // resolve manifest candidates
             foreach (var rel in candidates)
             {
                 var clean = rel.Replace('/', '\\');
@@ -230,7 +230,7 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
 
                 if (File.Exists(full)) return full;
 
-                // Fallback: search for file with matching name and extension but different scale modifiers
+                // fallback: search for file with matching name and extension but different scale modifiers
                 var nameWithoutExt = Path.GetFileNameWithoutExtension(clean);
                 var ext = Path.GetExtension(clean);
                 var dirPath = Path.GetDirectoryName(clean);
@@ -247,7 +247,7 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
         }
         catch
         {
-            // Ignored: returning null if any file access/parsing fails
+            // ignored: returning null if any file access/parsing fails
         }
 
         return null;
