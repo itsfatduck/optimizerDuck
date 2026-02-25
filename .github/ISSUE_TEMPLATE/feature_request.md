@@ -6,10 +6,11 @@ labels: enhancement
 assignees: ''
 ---
 
-> **Note:** If you are suggesting a specific Windows tweak or optimization script, please use the **"Optimization Tweak Request"** template instead!
+> [!NOTE]
+> If you are suggesting a specific Windows tweak or optimization script, please use the **"Optimization Tweak Request"** template instead!
 
 **Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+A clear and concise description of what the problem is. Ex. I'm always frustrated when [...] 
 
 **Describe the solution you'd like**
 A clear and concise description of what you want to happen. How should it look? How should it work?
