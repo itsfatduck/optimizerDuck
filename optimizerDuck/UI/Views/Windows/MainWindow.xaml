@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pages="clr-namespace:optimizerDuck.UI.Views.Pages"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:controls="clr-namespace:optimizerDuck.UI.Controls"
     xmlns:windows="clr-namespace:optimizerDuck.UI.Views.Windows"
     Title="optimizerDuck"
     Width="1350"
@@ -35,29 +36,29 @@
             PaneDisplayMode="Left"
             TitleBar="{Binding ElementName=TitleBar, Mode=OneWay}">
             <ui:NavigationView.MenuItems>
-                <ui:NavigationViewItem
+                <controls:FilledNavigationViewItem
                     Content="{extensions:Loc Sidebar.Dashboard}"
                     Icon="{ui:SymbolIcon Home24}"
                     TargetPageType="{x:Type pages:DashboardPage}" />
 
                 <ui:NavigationViewItemSeparator Margin="0,2,0,2" />
 
-                <ui:NavigationViewItem
+                <controls:FilledNavigationViewItem
                     Content="{extensions:Loc Sidebar.Optimize}"
                     Icon="{ui:SymbolIcon Rocket24}"
                     TargetPageType="{x:Type pages:OptimizePage}" />
 
-                <ui:NavigationViewItem
+                <controls:FilledNavigationViewItem
                     Content="{extensions:Loc Sidebar.Bloatware}"
                     Icon="{ui:SymbolIcon Delete24}"
                     TargetPageType="{x:Type pages:BloatwarePage}" />
 
-                <ui:NavigationViewItem
+                <controls:FilledNavigationViewItem
                     Content="{extensions:Loc Sidebar.StartupManager}"
-                    Icon="{ui:SymbolIcon AppFolder24}"
+                    Icon="{ui:SymbolIcon WindowApps24}"
                     TargetPageType="{x:Type pages:StartupManagerPage}" />
 
-                <ui:NavigationViewItem
+                <controls:FilledNavigationViewItem
                     Content="{extensions:Loc Sidebar.DiskCleanup}"
                     Icon="{ui:SymbolIcon HardDrive20}"
                     TargetPageType="{x:Type pages:DiskCleanupPage}" />
@@ -65,7 +66,7 @@
 
             <ui:NavigationView.FooterMenuItems>
                 <ui:NavigationViewItemSeparator Margin="0,2,0,2" />
-                <ui:NavigationViewItem
+                <controls:FilledNavigationViewItem
                     Content="{extensions:Loc Sidebar.Settings}"
                     Icon="{ui:SymbolIcon Settings24}"
                     TargetPageType="{x:Type pages:SettingsPage}" />
