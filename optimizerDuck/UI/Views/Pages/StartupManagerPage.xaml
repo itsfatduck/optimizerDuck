@@ -38,8 +38,7 @@
         </StackPanel>
 
         <!--  Loading Indicator  -->
-        <Border Grid.Row="1"
-                Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Border Grid.Row="1" Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ui:ProgressRing
                     Height="48"
@@ -106,8 +105,7 @@
         </Border>
 
         <!--  Main Content  -->
-        <Border Grid.Row="1"
-                Visibility="{Binding ViewModel.HasData, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Border Grid.Row="1" Visibility="{Binding ViewModel.HasData, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid RowDefinitions="Auto,*">
                 <!--  Toolbar  -->
                 <WrapPanel
@@ -188,8 +186,7 @@
                                                         Width="36" />
                                                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                                         <DockPanel LastChildFill="False">
-                                                            <ui:TextBlock FontTypography="BodyStrong"
-                                                                          Text="{Binding Name}" />
+                                                            <ui:TextBlock FontTypography="BodyStrong" Text="{Binding Name}" />
                                                             <Border
                                                                 Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
                                                                 CornerRadius="4"

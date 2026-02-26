@@ -1,28 +1,28 @@
 <UserControl
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d"
     x:Class="optimizerDuck.UI.Views.Dialogs.RestorePointDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    d:DesignHeight="300"
-    d:DesignWidth="300"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid>
         <StackPanel>
             <ui:SymbolIcon FontSize="48" Symbol="DatabaseLightning20" />
             <ui:TextBlock
-                HorizontalAlignment="Center"
                 FontTypography="Body"
+                HorizontalAlignment="Center"
                 Text="{ext:Loc RestorePointDialog.Description}"
                 TextAlignment="Center"
                 TextWrapping="Wrap" />
 
             <ui:InfoBar
-                Margin="0,15,0,0"
                 IsClosable="False"
                 IsOpen="True"
+                Margin="0,15,0,0"
                 Message="{ext:Loc RestorePointDialog.Help}"
                 Severity="Success" />
         </StackPanel>

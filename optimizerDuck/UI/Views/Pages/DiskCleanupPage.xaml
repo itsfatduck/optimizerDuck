@@ -41,8 +41,7 @@
         </StackPanel>
 
         <!--  Loading state (initial scan)  -->
-        <Border Grid.Row="1"
-                Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Border Grid.Row="1" Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel
                 HorizontalAlignment="Center"
                 Orientation="Vertical"
@@ -181,8 +180,7 @@
                                 FontSize="18"
                                 Margin="0,0,6,0"
                                 Symbol="Delete24" />
-                            <TextBlock
-                                Text="{ext:Loc DiskCleanup.Button.CleanSelected, {Binding ViewModel.TotalSelectedSizeFormatted}}" />
+                            <TextBlock Text="{ext:Loc DiskCleanup.Button.CleanSelected, {Binding ViewModel.TotalSelectedSizeFormatted}}" />
                         </StackPanel>
                     </ui:Button.Content>
                 </ui:Button>
@@ -293,11 +291,9 @@
                                         Margin="0,6,0,0">
                                         <Border.Style>
                                             <Style TargetType="Border">
-                                                <Setter Property="Visibility"
-                                                        Value="{Binding IsScanned, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                                <Setter Property="Visibility" Value="{Binding IsScanned, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                                 <Setter Property="Padding" Value="8,3" />
-                                                <Setter Property="Background"
-                                                        Value="{Binding SizeBytes, Converter={StaticResource SizeToBrushConverter}}" />
+                                                <Setter Property="Background" Value="{Binding SizeBytes, Converter={StaticResource SizeToBrushConverter}}" />
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding IsScanning}" Value="True">
                                                         <Setter Property="Visibility" Value="Collapsed" />
