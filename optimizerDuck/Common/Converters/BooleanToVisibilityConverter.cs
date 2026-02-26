@@ -1,4 +1,3 @@
-using optimizerDuck.Common.Converters;
 using System.Windows;
 
 namespace optimizerDuck.Common.Converters;

@@ -134,7 +134,7 @@ public class Gpu : IOptimizationCategory
         {
             return
             [
-                new(path, "EnableULPS", 0)
+                new RegistryItem(path, "EnableULPS", 0)
             ];
         }
     }
@@ -151,9 +151,9 @@ public class Gpu : IOptimizationCategory
         {
             return
             [
-                new(path, "DisablePowerGating", 1),
-                new(path, "PP_GPUPowerDownEnabled", 0),
-                new(path, "DisableDynamicPstate", 1)
+                new RegistryItem(path, "DisablePowerGating", 1),
+                new RegistryItem(path, "PP_GPUPowerDownEnabled", 0),
+                new RegistryItem(path, "DisableDynamicPstate", 1)
             ];
         }
     }
@@ -170,10 +170,10 @@ public class Gpu : IOptimizationCategory
         {
             return
             [
-                new(path, "DisableVCEPowerGating", 1),
-                new(path, "DisableVceClockGating", 1),
-                new(path, "EnableUvdClockGating", 0),
-                new(path, "EnableVceSwClockGating", 0)
+                new RegistryItem(path, "DisableVCEPowerGating", 1),
+                new RegistryItem(path, "DisableVceClockGating", 1),
+                new RegistryItem(path, "EnableUvdClockGating", 0),
+                new RegistryItem(path, "EnableVceSwClockGating", 0)
             ];
         }
     }
@@ -190,8 +190,8 @@ public class Gpu : IOptimizationCategory
         {
             return
             [
-                new(path, "EnableAspmL0s", 0),
-                new(path, "EnableAspmL1", 0)
+                new RegistryItem(path, "EnableAspmL0s", 0),
+                new RegistryItem(path, "EnableAspmL1", 0)
             ];
         }
     }
@@ -208,7 +208,7 @@ public class Gpu : IOptimizationCategory
         {
             return
             [
-                new(path, "DisableDynamicPstate", 1)
+                new RegistryItem(path, "DisableDynamicPstate", 1)
             ];
         }
     }
@@ -225,7 +225,7 @@ public class Gpu : IOptimizationCategory
         {
             return
             [
-                new(path, "DisableASyncPstates", 1)
+                new RegistryItem(path, "DisableASyncPstates", 1)
             ];
         }
     }
@@ -242,7 +242,7 @@ public class Gpu : IOptimizationCategory
         {
             return
             [
-                new(path, "Display1_DisableAsyncFlips", 1)
+                new RegistryItem(path, "Display1_DisableAsyncFlips", 1)
             ];
         }
     }
@@ -259,7 +259,7 @@ public class Gpu : IOptimizationCategory
         {
             return
             [
-                new(path, "AdaptiveVsyncEnable", 0)
+                new RegistryItem(path, "AdaptiveVsyncEnable", 0)
             ];
         }
     }

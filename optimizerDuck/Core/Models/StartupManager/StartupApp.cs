@@ -1,3 +1,4 @@
+using System.IO;
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -25,7 +26,7 @@ public partial class StartupApp : ObservableObject
     public required string PathOrKey { get; init; }
     public required string OriginalValueNameOrFileName { get; init; }
     public string? FilePath { get; set; }
-    public bool CanOpenLocation => !string.IsNullOrEmpty(FilePath) && System.IO.File.Exists(FilePath);
+    public bool CanOpenLocation => !string.IsNullOrEmpty(FilePath) && File.Exists(FilePath);
 
     public string LocationDisplay => Location switch
     {

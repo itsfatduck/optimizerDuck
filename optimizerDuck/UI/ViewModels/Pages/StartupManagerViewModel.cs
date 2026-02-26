@@ -1,7 +1,8 @@
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Core.Models.StartupManager;
 using optimizerDuck.Services;
@@ -10,34 +11,31 @@ namespace optimizerDuck.UI.ViewModels.Pages;
 
 public partial class StartupManagerViewModel : ViewModel
 {
-    private bool _isInitialized;
-    private readonly StartupManagerService _startupManagerService;
-    private readonly ILogger<StartupManagerViewModel> _logger;
-
     private readonly List<StartupApp> _allApps = [];
     private readonly List<StartupTask> _allTasks = [];
+    private readonly ILogger<StartupManagerViewModel> _logger;
+    private readonly StartupManagerService _startupManagerService;
+    private bool _isInitialized;
 
-    public ObservableCollection<StartupApp> Apps { get; } = [];
-    public ObservableCollection<StartupTask> Tasks { get; } = [];
-
-    [ObservableProperty] 
-    [NotifyPropertyChangedFor(nameof(IsNotLoading))]
+    [ObservableProperty] [NotifyPropertyChangedFor(nameof(IsNotLoading))]
     private bool _isLoading;
 
-    [ObservableProperty]
-    private string _searchText = string.Empty;
-
-    public bool IsNotLoading => !IsLoading;
-
-    public bool HasApps => Apps.Count > 0;
-    public bool HasTasks => Tasks.Count > 0;
-    public bool HasData => HasApps || HasTasks;
+    [ObservableProperty] private string _searchText = string.Empty;
 
     public StartupManagerViewModel(StartupManagerService startupManagerService, ILogger<StartupManagerViewModel> logger)
     {
         _startupManagerService = startupManagerService;
         _logger = logger;
     }
+
+    public ObservableCollection<StartupApp> Apps { get; } = [];
+    public ObservableCollection<StartupTask> Tasks { get; } = [];
+
+    public bool IsNotLoading => !IsLoading;
+
+    public bool HasApps => Apps.Count > 0;
+    public bool HasTasks => Tasks.Count > 0;
+    public bool HasData => HasApps || HasTasks;
 
     public override async Task OnNavigatedToAsync()
     {
@@ -58,16 +56,14 @@ public partial class StartupManagerViewModel : ViewModel
     private void OpenLocation(StartupApp? app)
     {
         if (app?.CanOpenLocation == true)
-        {
             try
             {
-                System.Diagnostics.Process.Start("explorer.exe", $"/select,\"{app.FilePath}\"");
+                Process.Start("explorer.exe", $"/select,\"{app.FilePath}\"");
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Failed to open location for {Name}", app.Name);
             }
-        }
     }
 
     partial void OnSearchTextChanged(string value)
@@ -108,7 +104,7 @@ public partial class StartupManagerViewModel : ViewModel
         // Unsubscribe existing items
         foreach (var app in Apps) app.PropertyChanged -= App_PropertyChanged;
         foreach (var task in Tasks) task.PropertyChanged -= Task_PropertyChanged;
-        
+
         Apps.Clear();
         Tasks.Clear();
 
@@ -149,16 +145,12 @@ public partial class StartupManagerViewModel : ViewModel
     private async void App_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(StartupApp.IsEnabled) && sender is StartupApp app)
-        {
             await _startupManagerService.ToggleStartupApp(app, app.IsEnabled);
-        }
     }
 
     private async void Task_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(StartupTask.IsEnabled) && sender is StartupTask task)
-        {
             await _startupManagerService.ToggleStartupTask(task, task.IsEnabled);
-        }
     }
 }

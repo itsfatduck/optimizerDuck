@@ -16,16 +16,16 @@ public partial class DiskCleanupViewModel(
     ILogger<DiskCleanupViewModel> logger) : ViewModel
 {
     [ObservableProperty] private ObservableCollection<CleanupItem> _cleanupItems = [];
+
+    private bool _initialized;
+    [ObservableProperty] private bool _isCleaning;
     [ObservableProperty] private bool _isLoading;
     [ObservableProperty] private bool _isScanning;
-    [ObservableProperty] private bool _isCleaning;
-
-    // Sort
-    [ObservableProperty] private int _selectedSortByIndex; // 0=Default, 1=Size, 2=Name, 3=Path
 
     private List<CleanupItem> _originalOrder = [];
 
-    partial void OnSelectedSortByIndexChanged(int value) => ApplySort();
+    // Sort
+    [ObservableProperty] private int _selectedSortByIndex; // 0=Default, 1=Size, 2=Name, 3=Path
 
     public bool HasData => CleanupItems.Count > 0 && !IsLoading;
     public bool IsAllScanned => CleanupItems.Count > 0 && CleanupItems.All(i => i.IsScanned);
@@ -39,7 +39,10 @@ public partial class DiskCleanupViewModel(
     public bool CanClean => SelectedCount > 0 && TotalSelectedSizeBytes > 0 && !IsCleaning && !IsScanning;
     public bool IsAllSelected => CleanupItems.Count > 0 && CleanupItems.All(i => i.IsSelected);
 
-    private bool _initialized;
+    partial void OnSelectedSortByIndexChanged(int value)
+    {
+        ApplySort();
+    }
 
     public override async Task OnNavigatedToAsync()
     {
@@ -54,13 +57,12 @@ public partial class DiskCleanupViewModel(
             _originalOrder = [.. items];
 
             foreach (var item in CleanupItems)
-            {
                 item.PropertyChanged += (_, e) =>
                 {
-                    if (e.PropertyName is nameof(CleanupItem.IsSelected) or nameof(CleanupItem.SizeBytes) or nameof(CleanupItem.FileCount))
+                    if (e.PropertyName is nameof(CleanupItem.IsSelected) or nameof(CleanupItem.SizeBytes)
+                        or nameof(CleanupItem.FileCount))
                         UpdateProperties();
                 };
-            }
         }
         catch (Exception ex)
         {

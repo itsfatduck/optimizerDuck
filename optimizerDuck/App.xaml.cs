@@ -154,7 +154,7 @@ public partial class App : Application
 
                     services.AddSingleton<SettingsViewModel>();
                     services.AddSingleton<SettingsPage>();
-                    
+
                     services.AddSingleton<BloatwareViewModel>();
                     services.AddSingleton<BloatwarePage>();
 

@@ -1,15 +1,14 @@
+using System.IO;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Text.RegularExpressions;
+using System.Xml.Linq;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Core.Models.Bloatware;
 using optimizerDuck.Core.Models.Config;
 using optimizerDuck.Services.OptimizationServices;
-using System.IO;
-using System.Linq;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Text.RegularExpressions;
-using System.Xml.Linq;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace optimizerDuck.Services;
@@ -24,30 +23,30 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
             var cautionPattern = string.Join("|", Shared.CautionApps.Select(Regex.Escape));
 
             var result = await ShellService.PowerShellAsync($$"""
-                $safeRegex = '{{safePattern}}'
-                $cautionRegex = '{{cautionPattern}}'
+                                                              $safeRegex = '{{safePattern}}'
+                                                              $cautionRegex = '{{cautionPattern}}'
 
-                Get-AppxPackage |
-                Where-Object {
-                    $_.NonRemovable -eq $false -and
-                    $_.IsFramework -eq $false
-                } |
-                ForEach-Object {
-                    $risk = "Unknown"
+                                                              Get-AppxPackage |
+                                                              Where-Object {
+                                                                  $_.NonRemovable -eq $false -and
+                                                                  $_.IsFramework -eq $false
+                                                              } |
+                                                              ForEach-Object {
+                                                                  $risk = "Unknown"
 
-                    if ($_.Name -match $safeRegex) { $risk = "Safe" }
-                    elseif ($_.Name -match $cautionRegex) { $risk = "Caution" }
+                                                                  if ($_.Name -match $safeRegex) { $risk = "Safe" }
+                                                                  elseif ($_.Name -match $cautionRegex) { $risk = "Caution" }
 
-                    [PSCustomObject]@{
-                        Name            = $_.Name
-                        PackageFullName = $_.PackageFullName
-                        Publisher       = $_.Publisher
-                        Version         = $_.Version.ToString()
-                        InstallLocation = if ($_.InstallLocation) { $_.InstallLocation } else { "" }
-                        Risk            = $risk
-                    }
-                } | ConvertTo-Json -Depth 2
-                """);
+                                                                  [PSCustomObject]@{
+                                                                      Name            = $_.Name
+                                                                      PackageFullName = $_.PackageFullName
+                                                                      Publisher       = $_.Publisher
+                                                                      Version         = $_.Version.ToString()
+                                                                      InstallLocation = if ($_.InstallLocation) { $_.InstallLocation } else { "" }
+                                                                      Risk            = $risk
+                                                                  }
+                                                              } | ConvertTo-Json -Depth 2
+                                                              """);
 
             var options = new JsonSerializerOptions
             {
@@ -66,11 +65,7 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
                 try
                 {
                     var manifestLogo = ResolveLogo(app.InstallLocation);
-                    if (manifestLogo != null)
-                    {
-                        app.LogoImage = manifestLogo;
-                        continue;
-                    }
+                    if (manifestLogo != null) app.LogoImage = manifestLogo;
                 }
                 catch
                 {
@@ -104,29 +99,28 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
                 appXPackage.Name, appXPackage.PackageFullName);
 
             var script = $$"""
-                        $pkgFull = "{{appXPackage.PackageFullName}}"
-                        $name = "{{appXPackage.Name}}"
+                           $pkgFull = "{{appXPackage.PackageFullName}}"
+                           $name = "{{appXPackage.Name}}"
 
-                        $installed = Get-AppxPackage -PackageTypeFilter Main,Bundle,Resource |
-                                     Where-Object { $_.PackageFullName -eq $pkgFull -or $_.Name -eq $name }
+                           $installed = Get-AppxPackage -PackageTypeFilter Main,Bundle,Resource |
+                                        Where-Object { $_.PackageFullName -eq $pkgFull -or $_.Name -eq $name }
 
-                        if (-not $installed) {
-                            Write-Output "No installed package found for $name"
-                        } else {
-                            foreach ($p in $installed) {
-                                try {
-                                    Remove-AppxPackage -Package $p.PackageFullName -ErrorAction Stop
-                                    Write-Output "Removed: $($p.PackageFullName)"
-                                } catch {
-                                    Write-Output "Failed: $($p.PackageFullName). Error: $($_.Exception.Message)"
-                                }
-                            }
-                        }
+                           if (-not $installed) {
+                               Write-Output "No installed package found for $name"
+                           } else {
+                               foreach ($p in $installed) {
+                                   try {
+                                       Remove-AppxPackage -Package $p.PackageFullName -ErrorAction Stop
+                                       Write-Output "Removed: $($p.PackageFullName)"
+                                   } catch {
+                                       Write-Output "Failed: $($p.PackageFullName). Error: $($_.Exception.Message)"
+                                   }
+                               }
+                           }
 
-                        """;
+                           """;
 
             if (appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned)
-            {
                 script += """
                           Write-Output "Searching provisioned package..."
 
@@ -149,13 +143,10 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
                           }
 
                           """;
-            }
             else
-            {
                 script += """
                           Write-Output "Skipping provisioned package removal (disabled by user)"
                           """;
-            }
 
             var result = await ShellService.PowerShellAsync(script);
 
@@ -190,8 +181,8 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
                 foreach (var pattern in highQualityPatterns)
                 {
                     var match = Directory.EnumerateFiles(assetsDir, pattern, SearchOption.TopDirectoryOnly)
-                                         .OrderByDescending(f => new FileInfo(f).Length)
-                                         .FirstOrDefault();
+                        .OrderByDescending(f => new FileInfo(f).Length)
+                        .FirstOrDefault();
                     if (match != null) return match;
                 }
             }
@@ -204,7 +195,7 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
             var root = doc.Root;
             if (root == null) return null;
 
-            XNamespace ns = root.Name.Namespace;
+            var ns = root.Name.Namespace;
             List<string> candidates = [];
 
             var props = root.Element(ns + "Properties");
@@ -214,7 +205,8 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
                 if (!string.IsNullOrWhiteSpace(logo)) candidates.Add(logo);
             }
 
-            var visual = root.Descendants().FirstOrDefault(e => e.Name.LocalName == "VisualElements" || e.Name.LocalName == "DefaultTile");
+            var visual = root.Descendants().FirstOrDefault(e =>
+                e.Name.LocalName == "VisualElements" || e.Name.LocalName == "DefaultTile");
             if (visual != null)
             {
                 AddAttr(candidates, visual, "Square150x150Logo");
@@ -234,13 +226,16 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
                 var nameWithoutExt = Path.GetFileNameWithoutExtension(clean);
                 var ext = Path.GetExtension(clean);
                 var dirPath = Path.GetDirectoryName(clean);
-                var searchDir = string.IsNullOrEmpty(dirPath) ? installLocation : Path.Combine(installLocation, dirPath);
+                var searchDir = string.IsNullOrEmpty(dirPath)
+                    ? installLocation
+                    : Path.Combine(installLocation, dirPath);
 
                 if (Directory.Exists(searchDir))
                 {
-                    var found = Directory.EnumerateFiles(searchDir, $"{nameWithoutExt}*{ext}", SearchOption.TopDirectoryOnly)
-                                         .OrderByDescending(f => new FileInfo(f).Length)
-                                         .FirstOrDefault();
+                    var found = Directory
+                        .EnumerateFiles(searchDir, $"{nameWithoutExt}*{ext}", SearchOption.TopDirectoryOnly)
+                        .OrderByDescending(f => new FileInfo(f).Length)
+                        .FirstOrDefault();
                     if (found != null) return found;
                 }
             }

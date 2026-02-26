@@ -5,6 +5,13 @@ namespace optimizerDuck.Core.Models.Cleanup;
 
 public partial class CleanupItem : ObservableObject
 {
+    [ObservableProperty] private long _fileCount;
+    [ObservableProperty] private bool _isCleaning;
+    [ObservableProperty] private bool _isScanned;
+    [ObservableProperty] private bool _isScanning;
+    [ObservableProperty] private bool _isSelected = true;
+
+    [ObservableProperty] private long _sizeBytes;
     public required string Id { get; init; }
     public required string Name { get; init; }
     public required string Description { get; init; }
@@ -16,16 +23,12 @@ public partial class CleanupItem : ObservableObject
     /// </summary>
     public bool IsCommand { get; init; }
 
-    [ObservableProperty] private long _sizeBytes;
-    [ObservableProperty] private long _fileCount;
-    [ObservableProperty] private bool _isSelected = true;
-    [ObservableProperty] private bool _isScanning;
-    [ObservableProperty] private bool _isCleaning;
-    [ObservableProperty] private bool _isScanned;
-
     public string FormattedSize => FormatBytes(SizeBytes);
 
-    partial void OnSizeBytesChanged(long value) => OnPropertyChanged(nameof(FormattedSize));
+    partial void OnSizeBytesChanged(long value)
+    {
+        OnPropertyChanged(nameof(FormattedSize));
+    }
 
     public static string FormatBytes(long bytes)
     {

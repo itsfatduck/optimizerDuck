@@ -1,7 +1,7 @@
-using optimizerDuck.Common.Helpers;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
+using optimizerDuck.Common.Helpers;
 
 namespace optimizerDuck.Common.Converters;
 
@@ -11,13 +11,19 @@ namespace optimizerDuck.Common.Converters;
 /// </summary>
 public class SizeToBrushConverter : IValueConverter
 {
-    private static readonly SolidColorBrush GreenBrush = ThemeResource.Get<SolidColorBrush>("SystemFillColorSuccessBrush");
-    private static readonly SolidColorBrush OrangeBrush = ThemeResource.Get<SolidColorBrush>("SystemFillColorCautionBrush");
-    private static readonly SolidColorBrush RedBrush = ThemeResource.Get<SolidColorBrush>("SystemFillColorCriticalBrush");
-    private static readonly SolidColorBrush DefaultBrush = new(Color.FromArgb(0x0, 0x0, 0x0, 0x0));
-
     private const long TenMB = 10L * 1024 * 1024;
     private const long HundredMB = 100L * 1024 * 1024;
+
+    private static readonly SolidColorBrush GreenBrush =
+        ThemeResource.Get<SolidColorBrush>("SystemFillColorSuccessBrush");
+
+    private static readonly SolidColorBrush OrangeBrush =
+        ThemeResource.Get<SolidColorBrush>("SystemFillColorCautionBrush");
+
+    private static readonly SolidColorBrush RedBrush =
+        ThemeResource.Get<SolidColorBrush>("SystemFillColorCriticalBrush");
+
+    private static readonly SolidColorBrush DefaultBrush = new(Color.FromArgb(0x0, 0x0, 0x0, 0x0));
 
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {

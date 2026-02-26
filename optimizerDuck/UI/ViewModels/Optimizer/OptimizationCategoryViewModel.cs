@@ -23,35 +23,24 @@ namespace optimizerDuck.UI.ViewModels.Optimizer;
 
 public partial class OptimizationCategoryViewModel : ViewModel
 {
-    private readonly IOptimizationCategory _category;
-    private readonly IContentDialogService _contentDialogService;
-    private readonly ILogger<OptimizationCategoryViewModel> _logger;
-    private readonly OptimizationService _optimizationService;
-    private readonly ISnackbarService _snackbarService;
-
     private static readonly HttpClient httpClient = new() { Timeout = TimeSpan.FromSeconds(5) };
     private static readonly ConcurrentDictionary<string, (string Content, DateTime FetchedAt)> _sourceCache = new();
     private static readonly TimeSpan SourceCacheTtl = TimeSpan.FromMinutes(5);
 
     private readonly ObservableCollection<IOptimization> _allOptimizations = [];
+    private readonly IOptimizationCategory _category;
+    private readonly IContentDialogService _contentDialogService;
+    private readonly ILogger<OptimizationCategoryViewModel> _logger;
+    private readonly OptimizationService _optimizationService;
+    private readonly ISnackbarService _snackbarService;
+    [ObservableProperty] private bool _hideApplied;
     [ObservableProperty] private ObservableCollection<IOptimization> _optimizations = [];
-
-    public bool HasAppliedOptimizations => _allOptimizations.Any(o => o.State.IsApplied);
 
     // Search, Filter, Sort
     [ObservableProperty] private string _searchText = string.Empty;
 
     [ObservableProperty] private int _selectedRiskFilterIndex; // 0=All, 1=Safe, 2=Moderate, 3=Risky
     [ObservableProperty] private int _selectedSortByIndex; // 0=Default, 1=Name, 2=Risk
-    [ObservableProperty] private bool _hideApplied;
-
-    partial void OnSearchTextChanged(string value) => ApplyFilter();
-
-    partial void OnSelectedRiskFilterIndexChanged(int value) => ApplyFilter();
-
-    partial void OnSelectedSortByIndexChanged(int value) => ApplyFilter();
-
-    partial void OnHideAppliedChanged(bool value) => ApplyFilter();
 
     public OptimizationCategoryViewModel(
         IOptimizationCategory category,
@@ -65,6 +54,28 @@ public partial class OptimizationCategoryViewModel : ViewModel
         _snackbarService = snackbarService;
         _logger = logger;
         _contentDialogService = contentDialogService;
+    }
+
+    public bool HasAppliedOptimizations => _allOptimizations.Any(o => o.State.IsApplied);
+
+    partial void OnSearchTextChanged(string value)
+    {
+        ApplyFilter();
+    }
+
+    partial void OnSelectedRiskFilterIndexChanged(int value)
+    {
+        ApplyFilter();
+    }
+
+    partial void OnSelectedSortByIndexChanged(int value)
+    {
+        ApplyFilter();
+    }
+
+    partial void OnHideAppliedChanged(bool value)
+    {
+        ApplyFilter();
     }
 
     public override async Task OnNavigatedToAsync()
@@ -505,13 +516,11 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
             var lines = source.Split('\n');
             for (var i = 0; i < lines.Length; i++)
-            {
                 if (lines[i].Contains($"class {className}", StringComparison.OrdinalIgnoreCase))
                 {
                     url += $"#L{i + 1}";
                     break;
                 }
-            }
         }
         catch (Exception ex)
         {

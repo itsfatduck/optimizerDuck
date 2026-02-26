@@ -117,7 +117,8 @@
                 Command="{Binding ViewModel.OpenActionCommand}"
                 CommandParameter="GitHub">
                 <ui:CardAction.Icon>
-                    <ui:ImageIcon Height="40" Source="{Binding ViewModel.CurrentApplicationTheme, Converter={StaticResource ThemeToGitHubIconConverter}}" />
+                    <ui:ImageIcon Height="40"
+                                  Source="{Binding ViewModel.CurrentApplicationTheme, Converter={StaticResource ThemeToGitHubIconConverter}}" />
                 </ui:CardAction.Icon>
                 <StackPanel>
                     <ui:TextBlock FontTypography="BodyStrong" Text="{ext:Loc Dashboard.Actions.GitHub.Title}" />
@@ -175,7 +176,8 @@
                                 </Grid.RowDefinitions>
 
                                 <StackPanel Grid.Row="0">
-                                    <ui:TextBlock FontTypography="BodyStrong" Text="{Binding ViewModel.SystemInfo.Os.Name}" />
+                                    <ui:TextBlock FontTypography="BodyStrong"
+                                                  Text="{Binding ViewModel.SystemInfo.Os.Name}" />
                                     <ui:TextBlock Appearance="Secondary" FontTypography="Caption">
                                         <Run Text="{Binding ViewModel.SystemInfo.Os.Edition}" />
                                         <Run Text="·" />
@@ -192,21 +194,24 @@
                                         Padding="6,3"
                                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
                                         CornerRadius="4">
-                                        <ui:TextBlock FontTypography="Caption" Text="{ext:Loc Dashboard.SystemInfo.Os.Build, {Binding ViewModel.SystemInfo.Os.BuildNumber}}" />
+                                        <ui:TextBlock FontTypography="Caption"
+                                                      Text="{ext:Loc Dashboard.SystemInfo.Os.Build, {Binding ViewModel.SystemInfo.Os.BuildNumber}}" />
                                     </Border>
                                     <Border
                                         Margin="0,0,4,4"
                                         Padding="6,3"
                                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
                                         CornerRadius="4">
-                                        <ui:TextBlock FontTypography="Caption" Text="{Binding ViewModel.SystemInfo.Os.DeviceType}" />
+                                        <ui:TextBlock FontTypography="Caption"
+                                                      Text="{Binding ViewModel.SystemInfo.Os.DeviceType}" />
                                     </Border>
                                     <Border
                                         Margin="0,0,4,4"
                                         Padding="6,3"
                                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
                                         CornerRadius="4">
-                                        <ui:TextBlock FontTypography="Caption" Text="{Binding ViewModel.SystemInfo.Os.InstallDate}" />
+                                        <ui:TextBlock FontTypography="Caption"
+                                                      Text="{Binding ViewModel.SystemInfo.Os.InstallDate}" />
                                     </Border>
                                 </WrapPanel>
                             </Grid>
@@ -233,9 +238,11 @@
                                     <ui:TextBlock Appearance="Secondary" FontTypography="Caption">
                                         <Run Text="{Binding ViewModel.SystemInfo.Cpu.Vendor}" />
                                         <Run Text="·" />
-                                        <Run Text="{ext:Loc Dashboard.SystemInfo.Cpu.Cores, {Binding ViewModel.SystemInfo.Cpu.Cores}}" />
+                                        <Run
+                                            Text="{ext:Loc Dashboard.SystemInfo.Cpu.Cores, {Binding ViewModel.SystemInfo.Cpu.Cores}}" />
                                         <Run Text="/" />
-                                        <Run Text="{ext:Loc Dashboard.SystemInfo.Cpu.Threads, {Binding ViewModel.SystemInfo.Cpu.Threads}}" />
+                                        <Run
+                                            Text="{ext:Loc Dashboard.SystemInfo.Cpu.Threads, {Binding ViewModel.SystemInfo.Cpu.Threads}}" />
                                     </ui:TextBlock>
                                 </StackPanel>
 
@@ -299,9 +306,11 @@
                                         <Run Text="GB RAM" />
                                     </ui:TextBlock>
                                     <ui:TextBlock Appearance="Secondary" FontTypography="Caption">
-                                        <Run Text="{ext:Loc Dashboard.SystemInfo.Ram.Used, {Binding ViewModel.RuntimeRam.UsedGB, StringFormat='{}{0:F1}'}}" />
+                                        <Run
+                                            Text="{ext:Loc Dashboard.SystemInfo.Ram.Used, {Binding ViewModel.RuntimeRam.UsedGB, StringFormat='{}{0:F1}'}}" />
                                         <Run Text="·" />
-                                        <Run Text="{ext:Loc Dashboard.SystemInfo.Ram.Available, {Binding ViewModel.RuntimeRam.AvailableGB, StringFormat='{}{0:F1}'}}" />
+                                        <Run
+                                            Text="{ext:Loc Dashboard.SystemInfo.Ram.Available, {Binding ViewModel.RuntimeRam.AvailableGB, StringFormat='{}{0:F1}'}}" />
                                     </ui:TextBlock>
                                 </StackPanel>
 
@@ -321,7 +330,8 @@
                                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
                                         CornerRadius="4">
                                         <ui:TextBlock FontTypography="Caption">
-                                            <Run Text="{ext:Loc Dashboard.SystemInfo.Ram.Modules, {Binding ViewModel.RuntimeRam.Modules.Count, Mode=OneWay}}" />
+                                            <Run
+                                                Text="{ext:Loc Dashboard.SystemInfo.Ram.Modules, {Binding ViewModel.RuntimeRam.Modules.Count, Mode=OneWay}}" />
                                         </ui:TextBlock>
                                     </Border>
                                 </WrapPanel>
@@ -362,7 +372,8 @@
                                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
                                         CornerRadius="4">
                                         <ui:TextBlock FontTypography="Caption">
-                                            <Run Text="{Binding ViewModel.SystemInfo.PrimaryGpu.MemoryMB, Converter={StaticResource MBToGBConverter}}" />
+                                            <Run
+                                                Text="{Binding ViewModel.SystemInfo.PrimaryGpu.MemoryMB, Converter={StaticResource MBToGBConverter}}" />
                                             <Run Text="GB" />
                                         </ui:TextBlock>
                                     </Border>
@@ -383,7 +394,8 @@
                                         CornerRadius="4"
                                         Visibility="{Binding ViewModel.SystemInfo.Gpus.Count, Converter={StaticResource GreaterThanOneToVisibilityConverter}}">
                                         <ui:TextBlock FontTypography="Caption">
-                                            <Run Text="{ext:Loc Dashboard.SystemInfo.Gpu.More, {Binding ViewModel.SystemInfo.Gpus.Count, Mode=OneWay, Converter={StaticResource MinusOneConverter}}}" />
+                                            <Run
+                                                Text="{ext:Loc Dashboard.SystemInfo.Gpu.More, {Binding ViewModel.SystemInfo.Gpus.Count, Mode=OneWay, Converter={StaticResource MinusOneConverter}}}" />
                                         </ui:TextBlock>
                                     </Border>
                                 </WrapPanel>
@@ -408,7 +420,8 @@
                                             <Style TargetType="ui:SymbolIcon">
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding SystemDrive}" Value="True">
-                                                        <Setter Property="Foreground" Value="{DynamicResource SystemFillColorAttentionBrush}" />
+                                                        <Setter Property="Foreground"
+                                                                Value="{DynamicResource SystemFillColorAttentionBrush}" />
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -461,10 +474,12 @@
                                                         <Style TargetType="ui:TextBlock">
                                                             <Style.Triggers>
                                                                 <DataTrigger Binding="{Binding MediaType}" Value="SSD">
-                                                                    <Setter Property="Foreground" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                                                                    <Setter Property="Foreground"
+                                                                            Value="{DynamicResource SystemFillColorSuccessBrush}" />
                                                                 </DataTrigger>
                                                                 <DataTrigger Binding="{Binding MediaType}" Value="HDD">
-                                                                    <Setter Property="Foreground" Value="{DynamicResource SystemFillColorCautionBrush}" />
+                                                                    <Setter Property="Foreground"
+                                                                            Value="{DynamicResource SystemFillColorCautionBrush}" />
                                                                 </DataTrigger>
                                                             </Style.Triggers>
                                                         </Style>

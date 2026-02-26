@@ -193,7 +193,6 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
             var searchPattern = itemId == "Thumbnails" ? "thumbcache_*" : "*";
 
             foreach (var file in Directory.EnumerateFiles(path, searchPattern, SearchOption.TopDirectoryOnly))
-            {
                 try
                 {
                     size += new FileInfo(file).Length;
@@ -203,17 +202,13 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 {
                     // skip inaccessible files
                 }
-            }
 
             // For non-thumbnail items, also include subdirectories
             if (itemId != "Thumbnails")
-            {
                 foreach (var dir in Directory.EnumerateDirectories(path))
-                {
                     try
                     {
                         foreach (var file in Directory.EnumerateFiles(dir, "*", SearchOption.AllDirectories))
-                        {
                             try
                             {
                                 size += new FileInfo(file).Length;
@@ -223,14 +218,11 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                             {
                                 // skip inaccessible files
                             }
-                        }
                     }
                     catch
                     {
                         // skip inaccessible directories
                     }
-                }
-            }
         }
         catch (Exception ex)
         {
@@ -250,7 +242,6 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
 
         // Delete files
         foreach (var file in Directory.EnumerateFiles(path, searchPattern, SearchOption.TopDirectoryOnly))
-        {
             try
             {
                 var length = new FileInfo(file).Length;
@@ -261,17 +252,13 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
             {
                 logger.LogDebug(ex, "Could not delete file: {File}", file);
             }
-        }
 
         // For non-thumbnail items, also delete subdirectory contents
         if (itemId != "Thumbnails")
-        {
             foreach (var dir in Directory.EnumerateDirectories(path))
-            {
                 try
                 {
                     foreach (var file in Directory.EnumerateFiles(dir, "*", SearchOption.AllDirectories))
-                    {
                         try
                         {
                             var length = new FileInfo(file).Length;
@@ -282,7 +269,6 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                         {
                             // skip locked files
                         }
-                    }
 
                     // Try to remove empty directories
                     try
@@ -298,8 +284,6 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 {
                     logger.LogDebug(ex, "Could not access directory: {Dir}", dir);
                 }
-            }
-        }
 
         return freed;
     }

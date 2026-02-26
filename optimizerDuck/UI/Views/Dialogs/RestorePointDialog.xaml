@@ -11,7 +11,7 @@
     mc:Ignorable="d">
     <Grid>
         <StackPanel>
-            <ui:SymbolIcon  FontSize="48" Symbol="DatabaseLightning20" />
+            <ui:SymbolIcon FontSize="48" Symbol="DatabaseLightning20" />
             <ui:TextBlock
                 HorizontalAlignment="Center"
                 FontTypography="Body"

@@ -23,7 +23,6 @@
         <converters:GreaterThanZeroToVisibilityConverter x:Key="GreaterThanZeroToVisibilityConverter" />
         <converters:ZeroToVisibilityConverter x:Key="ZeroToVisibilityConverter" />
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-        <converters:EmptyWhileNotLoadingConverter x:Key="EmptyWhileNotLoadingConverter" />
     </Page.Resources>
 
     <Grid RowDefinitions="Auto *">
@@ -85,7 +84,8 @@
         </Border>
 
         <!--  Loading  -->
-        <Border Grid.Row="1" Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Border Grid.Row="1"
+                Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ui:ProgressRing
                     HorizontalAlignment="Center"
@@ -190,9 +190,11 @@
                         Icon="{ui:SymbolIcon Delete24,
                                              FontSize=18}" />
 
-                    <Separator Margin="3,0,3,0" Visibility="{Binding ViewModel.HasSafePackages, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <Separator Margin="3,0,3,0"
+                               Visibility="{Binding ViewModel.HasSafePackages, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                    <ui:Button Command="{Binding ViewModel.SelectAllSafeCommand}" Visibility="{Binding ViewModel.HasSafePackages, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <ui:Button Command="{Binding ViewModel.SelectAllSafeCommand}"
+                               Visibility="{Binding ViewModel.HasSafePackages, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <ui:Button.Style>
                             <Style BasedOn="{StaticResource {x:Type ui:Button}}" TargetType="ui:Button">
                                 <Setter Property="Appearance" Value="Success" />
@@ -330,10 +332,12 @@
                                                 Visibility="{Binding ShouldVisibleRisk, Converter={StaticResource BooleanToVisibilityConverter}}">
                                                 <Border.Style>
                                                     <Style TargetType="Border">
-                                                        <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                                                        <Setter Property="Background"
+                                                                Value="{DynamicResource SystemFillColorSuccessBrush}" />
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding Risk}" Value="Caution">
-                                                                <Setter Property="Background" Value="{DynamicResource SystemFillColorCautionBrush}" />
+                                                                <Setter Property="Background"
+                                                                        Value="{DynamicResource SystemFillColorCautionBrush}" />
                                                             </DataTrigger>
                                                         </Style.Triggers>
                                                     </Style>

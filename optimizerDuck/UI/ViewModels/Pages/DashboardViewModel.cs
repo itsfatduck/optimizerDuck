@@ -27,11 +27,11 @@ public partial class DashboardViewModel : ViewModel
     private bool _isInitialized;
 
     [ObservableProperty] private bool _isLoading;
-    [ObservableProperty] private string? _latestVersion;
     private bool _isUpdateInfoOpen;
+    [ObservableProperty] private string? _latestVersion;
+    [ObservableProperty] private DiskInfo _runtimeDisk = DiskInfo.Unknown;
 
     [ObservableProperty] private RamInfo _runtimeRam = RamInfo.Unknown;
-    [ObservableProperty] private DiskInfo _runtimeDisk = DiskInfo.Unknown;
     [ObservableProperty] private SystemSnapshot _systemInfo = SystemSnapshot.Unknown;
     private bool _updateNotified;
 

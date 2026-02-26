@@ -1,7 +1,4 @@
-using Microsoft.Extensions.Logging;
-using Microsoft.Win32;
-using optimizerDuck.Core.Models.StartupManager;
-using optimizerDuck.Services.OptimizationServices;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text.Json;
@@ -9,6 +6,10 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Microsoft.Extensions.Logging;
+using Microsoft.Win32;
+using optimizerDuck.Core.Models.StartupManager;
+using optimizerDuck.Services.OptimizationServices;
 
 namespace optimizerDuck.Services;
 
@@ -21,10 +22,14 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         await Task.Run(() =>
         {
             // 1. Registry
-            ScanRegistryKey(Registry.CurrentUser, @"Software\Microsoft\Windows\CurrentVersion\Run", StartupAppLocation.RegistryHKCURun, apps);
-            ScanRegistryKey(Registry.LocalMachine, @"Software\Microsoft\Windows\CurrentVersion\Run", StartupAppLocation.RegistryHKLMRun, apps);
-            ScanRegistryKey(Registry.CurrentUser, @"Software\Microsoft\Windows\CurrentVersion\RunOnce", StartupAppLocation.RegistryHKCURunOnce, apps);
-            ScanRegistryKey(Registry.LocalMachine, @"Software\Microsoft\Windows\CurrentVersion\RunOnce", StartupAppLocation.RegistryHKLMRunOnce, apps);
+            ScanRegistryKey(Registry.CurrentUser, @"Software\Microsoft\Windows\CurrentVersion\Run",
+                StartupAppLocation.RegistryHKCURun, apps);
+            ScanRegistryKey(Registry.LocalMachine, @"Software\Microsoft\Windows\CurrentVersion\Run",
+                StartupAppLocation.RegistryHKLMRun, apps);
+            ScanRegistryKey(Registry.CurrentUser, @"Software\Microsoft\Windows\CurrentVersion\RunOnce",
+                StartupAppLocation.RegistryHKCURunOnce, apps);
+            ScanRegistryKey(Registry.LocalMachine, @"Software\Microsoft\Windows\CurrentVersion\RunOnce",
+                StartupAppLocation.RegistryHKLMRunOnce, apps);
 
             // 2. Startup Folders
             var userStartup = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
@@ -37,7 +42,8 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         return apps.OrderBy(a => a.Name).ToList();
     }
 
-    private void ScanRegistryKey(RegistryKey rootKey, string subKeyPath, StartupAppLocation location, List<StartupApp> apps)
+    private void ScanRegistryKey(RegistryKey rootKey, string subKeyPath, StartupAppLocation location,
+        List<StartupApp> apps)
     {
         try
         {
@@ -81,9 +87,9 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
     }
 
     /// <summary>
-    /// Checks the StartupApproved registry to determine if an item is enabled.
-    /// The binary data format: bytes[0] == 02 or 06 means enabled; 03 or 07 means disabled.
-    /// If no entry exists in StartupApproved, assume enabled (item is present in Run key).
+    ///     Checks the StartupApproved registry to determine if an item is enabled.
+    ///     The binary data format: bytes[0] == 02 or 06 means enabled; 03 or 07 means disabled.
+    ///     If no entry exists in StartupApproved, assume enabled (item is present in Run key).
     /// </summary>
     private static bool IsStartupApproved(RegistryKey? approvedKey, string valueName)
     {
@@ -92,10 +98,8 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         try
         {
             if (approvedKey.GetValue(valueName) is byte[] data && data.Length >= 4)
-            {
                 // Disabled flags: 03, 07; Enabled flags: 02, 06
                 return data[0] != 0x03 && data[0] != 0x07;
-            }
         }
         catch
         {
@@ -114,14 +118,14 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
             foreach (var file in Directory.GetFiles(dirPath))
             {
                 var isEnabled = !file.EndsWith(".disabled", StringComparison.OrdinalIgnoreCase);
-                
+
                 var fileName = Path.GetFileName(file);
-                
+
                 // Hide pure .ini files like desktop.ini
                 if (fileName.Equals("desktop.ini", StringComparison.OrdinalIgnoreCase)) continue;
 
                 var name = Path.GetFileNameWithoutExtension(isEnabled ? fileName : fileName.Replace(".disabled", ""));
-                
+
                 var appInfo = GetAppInfo(file);
                 var publisher = !string.IsNullOrWhiteSpace(appInfo.Publisher) ? appInfo.Publisher : appInfo.Description;
                 if (string.IsNullOrWhiteSpace(publisher)) publisher = "Folder Shortcut";
@@ -152,14 +156,11 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         {
             try
             {
-                if (app.Location is StartupAppLocation.RegistryHKCURun or StartupAppLocation.RegistryHKLMRun or StartupAppLocation.RegistryHKCURunOnce or StartupAppLocation.RegistryHKLMRunOnce)
-                {
+                if (app.Location is StartupAppLocation.RegistryHKCURun or StartupAppLocation.RegistryHKLMRun
+                    or StartupAppLocation.RegistryHKCURunOnce or StartupAppLocation.RegistryHKLMRunOnce)
                     ToggleRegistryStartupApp(app, enable);
-                }
                 else // Folders
-                {
                     ToggleFolderStartupApp(app, enable);
-                }
             }
             catch (Exception ex)
             {
@@ -184,7 +185,8 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         if (rootKey == null) return;
 
         // Write enable/disable to StartupApproved\Run (same mechanism as Task Manager)
-        var isRunOnce = app.Location is StartupAppLocation.RegistryHKCURunOnce or StartupAppLocation.RegistryHKLMRunOnce;
+        var isRunOnce =
+            app.Location is StartupAppLocation.RegistryHKCURunOnce or StartupAppLocation.RegistryHKLMRunOnce;
         var approvedSubKeyPath = isRunOnce
             ? @"Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\RunOnce"
             : @"Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run";
@@ -234,27 +236,19 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
             ");
 
             if (result.ExitCode == 0 && !string.IsNullOrWhiteSpace(result.Stdout))
-            {
                 try
                 {
                     using var doc = JsonDocument.Parse(result.Stdout);
                     if (doc.RootElement.ValueKind == JsonValueKind.Array)
-                    {
                         foreach (var el in doc.RootElement.EnumerateArray())
-                        {
                             ParseTaskElement(el, tasks);
-                        }
-                    }
                     else if (doc.RootElement.ValueKind == JsonValueKind.Object)
-                    {
                         ParseTaskElement(doc.RootElement, tasks);
-                    }
                 }
                 catch (Exception parserEx)
                 {
                     logger.LogError(parserEx, "Failed to parse json: {Json}", result.Stdout);
                 }
-            }
         }
         catch (Exception ex)
         {
@@ -263,14 +257,14 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
 
         return tasks.OrderBy(t => t.TaskName).ToList();
     }
-    
+
     private void ParseTaskElement(JsonElement el, List<StartupTask> tasks)
     {
         var name = el.TryGetProperty("TaskName", out var nProp) ? nProp.GetString() : "";
         var path = el.TryGetProperty("TaskPath", out var pProp) ? pProp.GetString() : "";
         var state = el.TryGetProperty("State", out var sProp) ? sProp.GetInt32() : 0;
         var desc = el.TryGetProperty("Description", out var dProp) ? dProp.GetString() : "";
-        
+
         if (string.IsNullOrWhiteSpace(name)) return;
 
         tasks.Add(new StartupTask
@@ -288,12 +282,11 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         {
             var command = enable ? "Enable-ScheduledTask" : "Disable-ScheduledTask";
             var script = $@"{command} -TaskPath ""{task.TaskPath}"" -TaskName ""{task.TaskName}""";
-            
+
             var result = await ShellService.PowerShellAsync(script);
             if (result.ExitCode != 0)
-            {
-                logger.LogWarning("Toggle tasks returned exit code {ExitCode}. Stderr: {Stderr}", result.ExitCode, result.Stderr);
-            }
+                logger.LogWarning("Toggle tasks returned exit code {ExitCode}. Stderr: {Stderr}", result.ExitCode,
+                    result.Stderr);
         }
         catch (Exception ex)
         {
@@ -307,10 +300,7 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         {
             var path = command.Trim('\"');
             var exeIdx = path.IndexOf(".exe", StringComparison.OrdinalIgnoreCase);
-            if (exeIdx > 0)
-            {
-                path = path[..(exeIdx + 4)].Trim('\"', ' ', '\'');
-            }
+            if (exeIdx > 0) path = path[..(exeIdx + 4)].Trim('\"', ' ', '\'');
 
             if (!File.Exists(path))
             {
@@ -342,9 +332,10 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         {
             // Ignored, fallback to generic or null
         }
+
         return null;
     }
-    
+
     private string? GetFullPathFromEnvironment(string fileName)
     {
         if (File.Exists(fileName))
@@ -370,22 +361,15 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         {
             var path = command.Trim('\"');
             var exeIdx = path.IndexOf(".exe", StringComparison.OrdinalIgnoreCase);
-            if (exeIdx > 0)
-            {
-                path = path[..(exeIdx + 4)].Trim('\"', ' ', '\'');
-            }
+            if (exeIdx > 0) path = path[..(exeIdx + 4)].Trim('\"', ' ', '\'');
 
             if (!File.Exists(path))
-            {
                 if (!path.Contains('\\') && !path.Contains('/'))
-                {
                     path = GetFullPathFromEnvironment(path);
-                }
-            }
 
             if (!string.IsNullOrEmpty(path) && File.Exists(path))
             {
-                var fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(path);
+                var fvi = FileVersionInfo.GetVersionInfo(path);
                 return (path, fvi.CompanyName, fvi.FileDescription);
             }
         }
@@ -393,6 +377,7 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         {
             // Ignored, fallback
         }
+
         return (null, null, null);
     }
 }

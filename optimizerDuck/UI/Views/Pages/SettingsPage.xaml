@@ -70,7 +70,8 @@
                             TextWrapping="Wrap" />
                     </StackPanel>
                 </ui:CardControl.Header>
-                <ComboBox SelectedIndex="{Binding ViewModel.CurrentApplicationTheme, Converter={StaticResource ThemeToIndexConverter}, Mode=TwoWay}">
+                <ComboBox
+                    SelectedIndex="{Binding ViewModel.CurrentApplicationTheme, Converter={StaticResource ThemeToIndexConverter}, Mode=TwoWay}">
                     <ComboBoxItem Content="{ext:Loc Settings.Appearance.ThemeSelector.Light}" />
                     <ComboBoxItem Content="{ext:Loc Settings.Appearance.ThemeSelector.Dark}" />
                     <ComboBoxItem Content="{ext:Loc Settings.Appearance.ThemeSelector.HighContrast}" />
@@ -132,7 +133,8 @@
                         </StackPanel>
                     </ui:CardControl.Header>
 
-                    <ui:ToggleSwitch Command="{Binding ViewModel.ToggleRemoveProvisionedCommand}" IsChecked="{Binding ViewModel.RemoveProvisioned, Mode=TwoWay}" />
+                    <ui:ToggleSwitch Command="{Binding ViewModel.ToggleRemoveProvisionedCommand}"
+                                     IsChecked="{Binding ViewModel.RemoveProvisioned, Mode=TwoWay}" />
                 </ui:CardControl>
             </StackPanel>
 
@@ -157,7 +159,8 @@
                     </StackPanel>
                 </ui:CardAction>
 
-                <ui:CardAction Command="{Binding ViewModel.ClearAllRevertDataCommand}" Icon="{ui:SymbolIcon DatabaseLightning20}">
+                <ui:CardAction Command="{Binding ViewModel.ClearAllRevertDataCommand}"
+                               Icon="{ui:SymbolIcon DatabaseLightning20}">
                     <StackPanel>
                         <ui:TextBlock
                             Margin="0"
@@ -196,7 +199,8 @@
 
                 <ui:CardControl>
                     <ui:CardControl.Icon>
-                        <ui:ImageIcon Height="25" Source="pack://application:,,,/optimizerDuck;component/Resources/Images/Duck.png" />
+                        <ui:ImageIcon Height="25"
+                                      Source="pack://application:,,,/optimizerDuck;component/Resources/Images/Duck.png" />
                     </ui:CardControl.Icon>
 
                     <ui:CardControl.Header>
@@ -263,11 +267,16 @@
                     TextTrimming="WordEllipsis"
                     TextWrapping="Wrap" />
                 <StackPanel Margin="7,0,0,0">
-                    <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.Support}" NavigateUri="{Binding ViewModel.SupportMe}" />
-                    <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.Documentation}" NavigateUri="{Binding ViewModel.Documentation}" />
-                    <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.Acknowledgements}" NavigateUri="{Binding ViewModel.Acknowledgements}" />
-                    <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.Discord}" NavigateUri="{Binding ViewModel.DiscordInvite}" />
-                    <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.GitHub}" NavigateUri="{Binding ViewModel.GitHubRepo}" />
+                    <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.Support}"
+                                        NavigateUri="{Binding ViewModel.SupportMe}" />
+                    <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.Documentation}"
+                                        NavigateUri="{Binding ViewModel.Documentation}" />
+                    <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.Acknowledgements}"
+                                        NavigateUri="{Binding ViewModel.Acknowledgements}" />
+                    <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.Discord}"
+                                        NavigateUri="{Binding ViewModel.DiscordInvite}" />
+                    <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.GitHub}"
+                                        NavigateUri="{Binding ViewModel.GitHubRepo}" />
                 </StackPanel>
             </StackPanel>
         </StackPanel>

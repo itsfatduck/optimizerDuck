@@ -1,15 +1,12 @@
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Core.Models.Bloatware;
 using optimizerDuck.Core.Models.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services;
-using optimizerDuck.Services.Managers;
-using optimizerDuck.UI.ViewModels;
 using optimizerDuck.UI.ViewModels.Dialogs;
 using optimizerDuck.UI.Views.Dialogs;
 using Wpf.Ui;
@@ -19,34 +16,20 @@ namespace optimizerDuck.UI.ViewModels.Pages;
 
 public partial class BloatwareViewModel : ViewModel
 {
-    private bool _isInitialized;
+    private readonly List<AppXPackage> _allPackages = [];
 
     private readonly BloatwareService _bloatwareService;
     private readonly IContentDialogService _contentDialogService;
-    private readonly ISnackbarService _snackbarService;
     private readonly ILogger<BloatwareViewModel> _logger;
-
-    private readonly List<AppXPackage> _allPackages = [];
-    public ObservableCollection<AppXPackage> AppxPackages { get; } = [];
-    [ObservableProperty] private bool isLoading;
+    private readonly ISnackbarService _snackbarService;
+    private bool _isInitialized;
 
     // Search, Filter, Sort
     [ObservableProperty] private string _searchText = string.Empty;
 
     [ObservableProperty] private int _selectedRiskFilterIndex; // 0=All, 1=Safe, 2=Caution
     [ObservableProperty] private int _selectedSortByIndex; // 0=Default, 1=Name, 2=Publisher, 3=Risk
-
-    partial void OnSearchTextChanged(string value) => ApplyFilter();
-
-    partial void OnSelectedRiskFilterIndexChanged(int value) => ApplyFilter();
-
-    partial void OnSelectedSortByIndexChanged(int value) => ApplyFilter();
-
-    public bool HasSelectedItems => AppxPackages.Any(x => x.IsSelected);
-    public int SelectedCount => AppxPackages.Count(x => x.IsSelected);
-    public bool HasData => _allPackages.Count > 0;
-    public bool HasSafePackages => AppxPackages.Any(x => x.Risk == AppRisk.Safe);
-    public bool IsAllSafeSelected => HasSafePackages && AppxPackages.Where(x => x.Risk == AppRisk.Safe).All(x => x.IsSelected);
+    [ObservableProperty] private bool isLoading;
 
     public BloatwareViewModel(BloatwareService bloatwareService, IContentDialogService contentDialogService,
         ISnackbarService snackbarService, ILogger<BloatwareViewModel> logger)
@@ -69,6 +52,31 @@ public partial class BloatwareViewModel : ViewModel
             UpdateProperties();
             RemoveSelectedCommand.NotifyCanExecuteChanged();
         };
+    }
+
+    public ObservableCollection<AppXPackage> AppxPackages { get; } = [];
+
+    public bool HasSelectedItems => AppxPackages.Any(x => x.IsSelected);
+    public int SelectedCount => AppxPackages.Count(x => x.IsSelected);
+    public bool HasData => _allPackages.Count > 0;
+    public bool HasSafePackages => AppxPackages.Any(x => x.Risk == AppRisk.Safe);
+
+    public bool IsAllSafeSelected =>
+        HasSafePackages && AppxPackages.Where(x => x.Risk == AppRisk.Safe).All(x => x.IsSelected);
+
+    partial void OnSearchTextChanged(string value)
+    {
+        ApplyFilter();
+    }
+
+    partial void OnSelectedRiskFilterIndexChanged(int value)
+    {
+        ApplyFilter();
+    }
+
+    partial void OnSelectedSortByIndexChanged(int value)
+    {
+        ApplyFilter();
     }
 
     public override async Task OnNavigatedToAsync()
@@ -126,6 +134,32 @@ public partial class BloatwareViewModel : ViewModel
             AppxPackages.Add(package);
     }
 
+    #region Property Changed
+
+    private void Item_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(AppXPackage.IsSelected))
+        {
+            UpdateProperties();
+            RemoveSelectedCommand.NotifyCanExecuteChanged();
+        }
+    }
+
+    #endregion Property Changed
+
+    #region Helpers
+
+    private void UpdateProperties()
+    {
+        OnPropertyChanged(nameof(HasSelectedItems));
+        OnPropertyChanged(nameof(SelectedCount));
+        OnPropertyChanged(nameof(HasData));
+        OnPropertyChanged(nameof(HasSafePackages));
+        OnPropertyChanged(nameof(IsAllSafeSelected));
+    }
+
+    #endregion Helpers
+
     #region Commands
 
     [RelayCommand(CanExecute = nameof(CanRemoveSelected))]
@@ -136,7 +170,8 @@ public partial class BloatwareViewModel : ViewModel
         var askForConfirmationDialog = new ContentDialog
         {
             Title = string.Format(Translations.BloatwareDialog_Confirmation_Title, SelectedCount),
-            Content = string.Format(Translations.BloatwareDialog_Confirmation_Message, string.Join(", ", toRemove.Select(a => a.Name))),
+            Content = string.Format(Translations.BloatwareDialog_Confirmation_Message,
+                string.Join(", ", toRemove.Select(a => a.Name))),
             PrimaryButtonText = Translations.Button_Ok,
             CloseButtonText = Translations.Button_Cancel
         };
@@ -181,7 +216,10 @@ public partial class BloatwareViewModel : ViewModel
         }
     }
 
-    private bool CanRemoveSelected() => HasSelectedItems;
+    private bool CanRemoveSelected()
+    {
+        return HasSelectedItems;
+    }
 
     [RelayCommand]
     private async Task Refresh()
@@ -206,30 +244,4 @@ public partial class BloatwareViewModel : ViewModel
     }
 
     #endregion Commands
-
-    #region Property Changed
-
-    private void Item_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        if (e.PropertyName == nameof(AppXPackage.IsSelected))
-        {
-            UpdateProperties();
-            RemoveSelectedCommand.NotifyCanExecuteChanged();
-        }
-    }
-
-    #endregion Property Changed
-
-    #region Helpers
-
-    private void UpdateProperties()
-    {
-        OnPropertyChanged(nameof(HasSelectedItems));
-        OnPropertyChanged(nameof(SelectedCount));
-        OnPropertyChanged(nameof(HasData));
-        OnPropertyChanged(nameof(HasSafePackages));
-        OnPropertyChanged(nameof(IsAllSafeSelected));
-    }
-
-    #endregion Helpers
 }

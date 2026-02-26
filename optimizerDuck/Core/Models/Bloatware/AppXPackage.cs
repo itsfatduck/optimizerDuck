@@ -44,4 +44,4 @@ public partial class AppXPackage : ObservableObject
     };
 
     public bool ShouldVisibleRisk => Risk != AppRisk.Unknown;
-};
+}

@@ -1,4 +1,3 @@
-using System.Windows.Controls;
 using optimizerDuck.UI.ViewModels.Pages;
 using Wpf.Ui.Abstractions.Controls;
 

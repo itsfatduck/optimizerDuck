@@ -36,15 +36,6 @@ public static class Shared
     public static readonly string ExeName = Path.GetFileName(ExePath);
     public static readonly string FileVersion = FileVersionInfo.GetVersionInfo(ExePath).FileVersion!;
 
-    public static string RootDirectory =>
-        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "optimizerDuck");
-
-    public static string ResourcesDirectory =>
-        Path.Combine(RootDirectory, "Resources");
-
-    public static string RevertDirectory =>
-        Path.Combine(RootDirectory, "Revert");
-    
     public static readonly HashSet<string> SafeApps = new()
     {
         // Bing / MSN
@@ -96,7 +87,7 @@ public static class Shared
         "Microsoft.MicrosoftSolitaireCollection",
         "Microsoft.WindowsAlarms",
         "Microsoft.549981C3F5F10", // Cortana
-        
+
         // Third-party (often pre-installed by MS)
         "SpotifyAB.SpotifyMusic",
         "Disney.DisneyPlus",
@@ -119,7 +110,7 @@ public static class Shared
         "Microsoft.WindowsNotepad",
         "Microsoft.WindowsCamera",
         "Microsoft.ScreenSketch",
-        
+
         // System Tools
         "Microsoft.WindowsStore",
         "Microsoft.StorePurchaseApp",
@@ -127,15 +118,15 @@ public static class Shared
         "Microsoft.WindowsTerminal",
         "Microsoft.WindowsTerminalPreview",
         "Microsoft.PowerAutomateDesktop",
-        
+
         // Communication
         "MicrosoftTeams",
         "Microsoft.WindowsCommunicationsApps",
-        
+
         // Security & Family
         "MicrosoftCorporationII.MicrosoftFamily",
         "MicrosoftCorporationII.MicrosoftSupportDiagnosticTool",
-        
+
         // Extensions (Essential for files)
         "Microsoft.HEIFImageExtension",
         "Microsoft.WebMediaExtensions",
@@ -145,7 +136,7 @@ public static class Shared
         "Microsoft.AV1VideoExtension",
         "Microsoft.HEVCVideoExtension",
         "Microsoft.MPEG2VideoExtension",
-        
+
         // Xbox / Gaming Services
         "Microsoft.XboxIdentityProvider",
         "Microsoft.XboxSpeechToTextOverlay",
@@ -155,4 +146,13 @@ public static class Shared
         "Microsoft.Xbox.TCUI",
         "Microsoft.GamingApp"
     };
+
+    public static string RootDirectory =>
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "optimizerDuck");
+
+    public static string ResourcesDirectory =>
+        Path.Combine(RootDirectory, "Resources");
+
+    public static string RevertDirectory =>
+        Path.Combine(RootDirectory, "Revert");
 }
