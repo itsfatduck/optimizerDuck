@@ -10,7 +10,7 @@
         <Authors>fatDuck</Authors>
         <ApplicationIcon>Logo.ico</ApplicationIcon>
         <Company>fatDuck</Company>
-        <FileVersion>2.3.1</FileVersion>
+        <FileVersion>2.4.0</FileVersion>
         <Version>1.0.0</Version>
         <Product>optimizerDuck</Product>
         <Copyright>Copyright fatDuck 2026</Copyright>
@@ -59,10 +59,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="Resources\Images\Duck.png"/>
-        <None Remove="Resources\Images\GitHubLogoBlack.png"/>
         <Resource Include="Resources\Images\Duck.png"/>
-        <None Remove="Resources\Images\Windows11.png"/>
         <Resource Include="Resources\Images\GitHubLogoBlack.png"/>
         <Resource Include="Resources\Images\GitHubLogoWhite.png"/>
         <Resource Include="Resources\Images\DiscordLogo.png"/>

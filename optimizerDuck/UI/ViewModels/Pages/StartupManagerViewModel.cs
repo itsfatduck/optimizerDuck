@@ -81,11 +81,13 @@ public partial class StartupManagerViewModel : ViewModel
 
         try
         {
-            var apps = await _startupManagerService.GetStartupAppsAsync();
-            _allApps.AddRange(apps);
+            var appsTask = _startupManagerService.GetStartupAppsAsync();
+            var tasksTask = _startupManagerService.GetStartupTasksAsync();
 
-            var tasks = await _startupManagerService.GetStartupTasksAsync();
-            _allTasks.AddRange(tasks);
+            await Task.WhenAll(appsTask, tasksTask);
+
+            _allApps.AddRange(appsTask.Result);
+            _allTasks.AddRange(tasksTask.Result);
 
             ApplyFilter();
         }

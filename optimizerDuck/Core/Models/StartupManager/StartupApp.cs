@@ -18,14 +18,27 @@ public partial class StartupApp : ObservableObject
 {
     [ObservableProperty] private bool _isEnabled;
 
-    public ImageSource? LogoImage { get; set; }
+    [ObservableProperty] private ImageSource? _logoImage;
     public required string Name { get; init; }
-    public required string Publisher { get; init; }
-    public required string Command { get; init; }
+    [ObservableProperty] private string _publisher = string.Empty;
+    [ObservableProperty] private string _command = string.Empty;
     public required StartupAppLocation Location { get; init; }
     public required string PathOrKey { get; init; }
-    public required string OriginalValueNameOrFileName { get; init; }
-    public string? FilePath { get; set; }
+    [ObservableProperty] private string _originalValueNameOrFileName = string.Empty;
+    
+    private string? _filePath;
+    public string? FilePath
+    {
+        get => _filePath;
+        set
+        {
+            if (SetProperty(ref _filePath, value))
+            {
+                OnPropertyChanged(nameof(CanOpenLocation));
+            }
+        }
+    }
+
     public bool CanOpenLocation => !string.IsNullOrEmpty(FilePath) && File.Exists(FilePath);
 
     public string LocationDisplay => Location switch

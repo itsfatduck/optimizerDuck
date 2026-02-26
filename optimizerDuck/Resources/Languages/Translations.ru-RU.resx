@@ -1136,4 +1136,10 @@
     <data name="Settings.About.Author.Description" xml:space="preserve">
     <value>привет, я создатель этого приложения. я люблю кошек.</value>
   </data>
+    <data name="Common.Toggle.On" xml:space="preserve">
+    <value>Вкл</value>
+  </data>
+    <data name="Common.Toggle.Off" xml:space="preserve">
+    <value>Выкл</value>
+  </data>
 </root>

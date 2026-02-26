@@ -1155,7 +1155,7 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
     <value>Scanning startup items...</value>
   </data>
     <data name="StartupManager.Loading.Hint" xml:space="preserve">
-    <value>This may take a moment while we scan the registry and startup folders.</value>
+    <value>This may take a moment while the application scans the registry and startup folders.</value>
   </data>
     <data name="StartupManager.Empty.Title" xml:space="preserve">
     <value>No startup items</value>
@@ -1165,5 +1165,11 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   </data>
     <data name="StartupManager.Menu.Refresh" xml:space="preserve">
     <value>Refresh</value>
+  </data>
+    <data name="Common.Toggle.On" xml:space="preserve">
+    <value>On</value>
+  </data>
+    <data name="Common.Toggle.Off" xml:space="preserve">
+    <value>Off</value>
   </data>
 </root>

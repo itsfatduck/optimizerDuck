@@ -1053,4 +1053,10 @@
     <data name="Settings.About.Author.Description" xml:space="preserve">
     <value>hi, 我是这个应用的作者. 我超爱猫.</value>
   </data>
+    <data name="Common.Toggle.On" xml:space="preserve">
+    <value>开启</value>
+  </data>
+    <data name="Common.Toggle.Off" xml:space="preserve">
+    <value>关闭</value>
+  </data>
 </root>

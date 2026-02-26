@@ -216,6 +216,8 @@
                                                         <ui:ToggleSwitch
                                                             IsChecked="{Binding IsEnabled, Mode=TwoWay}"
                                                             Margin="0,0,16,0"
+                                                            OffContent="{ext:Loc Common.Toggle.Off}"
+                                                            OnContent="{ext:Loc Common.Toggle.On}"
                                                             VerticalAlignment="Center" />
                                                         <ui:SymbolIcon FontSize="16" Symbol="Open24" />
                                                     </StackPanel>
@@ -229,7 +231,7 @@
 
                         <!--  Scheduled Tasks Section  -->
                         <ui:CardExpander
-                            Icon="{ui:SymbolIcon TaskListLtr24}"
+                            Icon="{ui:SymbolIcon CalculatorArrowClockwise24}"
                             IsExpanded="True"
                             Margin="0,0,0,12"
                             Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
@@ -289,6 +291,8 @@
                                                 <ui:ToggleSwitch
                                                     Grid.Column="1"
                                                     IsChecked="{Binding IsEnabled, Mode=TwoWay}"
+                                                    OffContent="{ext:Loc Common.Toggle.Off}"
+                                                    OnContent="{ext:Loc Common.Toggle.On}"
                                                     VerticalAlignment="Center" />
                                             </Grid>
                                         </Border>

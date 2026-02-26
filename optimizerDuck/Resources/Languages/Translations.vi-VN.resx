@@ -1155,7 +1155,7 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
     <value>Đang quét các mục khởi động...</value>
   </data>
     <data name="StartupManager.Loading.Hint" xml:space="preserve">
-    <value>Quá trình này có thể mất một lúc khi quét registry và thư mục khởi động.</value>
+    <value>Quá trình này có thể mất một lúc khi ứng dụng quét registry và thư mục khởi động.</value>
   </data>
     <data name="StartupManager.Empty.Title" xml:space="preserve">
     <value>Không có mục khởi động</value>
@@ -1165,5 +1165,11 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
     <data name="StartupManager.Menu.Refresh" xml:space="preserve">
     <value>Làm mới</value>
+  </data>
+    <data name="Common.Toggle.On" xml:space="preserve">
+    <value>Bật</value>
+  </data>
+    <data name="Common.Toggle.Off" xml:space="preserve">
+    <value>Tắt</value>
   </data>
 </root>

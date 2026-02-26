@@ -9,7 +9,7 @@ namespace optimizerDuck.Services;
 
 public class DiskCleanupService(ILogger<DiskCleanupService> logger)
 {
-    public List<CleanupItem> GetCleanupItems()
+    public static List<CleanupItem> GetCleanupItems()
     {
         var windowsDir = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
         var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);

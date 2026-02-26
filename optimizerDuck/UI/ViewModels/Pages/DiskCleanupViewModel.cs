@@ -52,8 +52,8 @@ public partial class DiskCleanupViewModel(
         IsLoading = true;
         try
         {
-            var items = diskCleanupService.GetCleanupItems();
-            CleanupItems = new ObservableCollection<CleanupItem>(items);
+            var items = DiskCleanupService.GetCleanupItems();
+            CleanupItems = new ObservableCollection<CleanupItem>(items.ToArray());
             _originalOrder = [.. items];
 
             foreach (var item in CleanupItems)
@@ -76,6 +76,8 @@ public partial class DiskCleanupViewModel(
 
         // Automatically start scanning
         await ScanAsync();
+
+        CleanupItems = new ObservableCollection<CleanupItem>(CleanupItems.OrderByDescending(i => i.SizeBytes).ToArray());
     }
 
     [RelayCommand]

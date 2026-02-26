@@ -37,6 +37,18 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
 
             ScanDirectory(userStartup, StartupAppLocation.UserStartupFolder, apps);
             ScanDirectory(commonStartup, StartupAppLocation.CommonStartupFolder, apps);
+
+            // Parallel fetch expensive info (Icons, File version info)
+            Parallel.ForEach(apps, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, app =>
+            {
+                var appInfo = GetAppInfo(app.Command);
+                var publisher = !string.IsNullOrWhiteSpace(appInfo.Publisher) ? appInfo.Publisher : appInfo.Description;
+                if (string.IsNullOrWhiteSpace(publisher)) publisher = app.Location == StartupAppLocation.UserStartupFolder || app.Location == StartupAppLocation.CommonStartupFolder ? "Folder Shortcut" : "Registry";
+
+                app.Publisher = publisher;
+                app.FilePath = appInfo.FilePath;
+                app.LogoImage = ExtractIcon(app.Command);
+            });
         });
 
         return apps.OrderBy(a => a.Name).ToList();
@@ -62,21 +74,14 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                 var command = key.GetValue(valueName)?.ToString() ?? string.Empty;
                 var isEnabled = IsStartupApproved(approvedKey, valueName);
 
-                var appInfo = GetAppInfo(command);
-                var publisher = !string.IsNullOrWhiteSpace(appInfo.Publisher) ? appInfo.Publisher : appInfo.Description;
-                if (string.IsNullOrWhiteSpace(publisher)) publisher = "Registry";
-
                 apps.Add(new StartupApp
                 {
                     Name = valueName,
-                    Publisher = publisher,
                     Command = command,
-                    FilePath = appInfo.FilePath,
                     Location = location,
                     PathOrKey = $@"{rootKey.Name}\{subKeyPath}",
                     OriginalValueNameOrFileName = valueName,
-                    IsEnabled = isEnabled,
-                    LogoImage = ExtractIcon(command)
+                    IsEnabled = isEnabled
                 });
             }
         }
@@ -115,32 +120,32 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
 
         try
         {
+            // Determine registry root key based on folder location
+            var rootKey = location == StartupAppLocation.CommonStartupFolder
+                ? Registry.LocalMachine
+                : Registry.CurrentUser;
+
+            var approvedSubKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\StartupFolder";
+            using var approvedKey = rootKey.OpenSubKey(approvedSubKeyPath);
+
             foreach (var file in Directory.GetFiles(dirPath))
             {
-                var isEnabled = !file.EndsWith(".disabled", StringComparison.OrdinalIgnoreCase);
-
                 var fileName = Path.GetFileName(file);
 
                 // Hide pure .ini files like desktop.ini
                 if (fileName.Equals("desktop.ini", StringComparison.OrdinalIgnoreCase)) continue;
 
-                var name = Path.GetFileNameWithoutExtension(isEnabled ? fileName : fileName.Replace(".disabled", ""));
-
-                var appInfo = GetAppInfo(file);
-                var publisher = !string.IsNullOrWhiteSpace(appInfo.Publisher) ? appInfo.Publisher : appInfo.Description;
-                if (string.IsNullOrWhiteSpace(publisher)) publisher = "Folder Shortcut";
+                var isEnabled = IsStartupApproved(approvedKey, fileName);
+                var name = Path.GetFileNameWithoutExtension(fileName);
 
                 apps.Add(new StartupApp
                 {
                     Name = string.IsNullOrWhiteSpace(name) ? fileName : name,
-                    Publisher = publisher,
                     Command = file,
-                    FilePath = appInfo.FilePath,
                     Location = location,
                     PathOrKey = dirPath,
                     OriginalValueNameOrFileName = fileName,
-                    IsEnabled = isEnabled,
-                    LogoImage = ExtractIcon(file)
+                    IsEnabled = isEnabled
                 });
             }
         }
@@ -169,7 +174,7 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         });
     }
 
-    private void ToggleRegistryStartupApp(StartupApp app, bool enable)
+    private static void ToggleRegistryStartupApp(StartupApp app, bool enable)
     {
         // Parse RootKey and SubKey from app.PathOrKey
         var firstSlash = app.PathOrKey.IndexOf('\\');
@@ -202,25 +207,17 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
 
     private static void ToggleFolderStartupApp(StartupApp app, bool enable)
     {
-        var currentPath = Path.Combine(app.PathOrKey, app.OriginalValueNameOrFileName);
-        if (!File.Exists(currentPath)) return;
+        var rootKey = app.Location == StartupAppLocation.CommonStartupFolder
+            ? Registry.LocalMachine
+            : Registry.CurrentUser;
 
-        if (enable)
-        {
-            if (currentPath.EndsWith(".disabled", StringComparison.OrdinalIgnoreCase))
-            {
-                var newPath = currentPath[..^9]; // remove .disabled
-                File.Move(currentPath, newPath);
-            }
-        }
-        else
-        {
-            if (!currentPath.EndsWith(".disabled", StringComparison.OrdinalIgnoreCase))
-            {
-                var newPath = currentPath + ".disabled";
-                File.Move(currentPath, newPath);
-            }
-        }
+        const string approvedSubKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\StartupFolder";
+        using var approvedKey = rootKey.OpenSubKey(approvedSubKeyPath, true)
+                                ?? rootKey.CreateSubKey(approvedSubKeyPath, true);
+
+        var data = new byte[12];
+        data[0] = enable ? (byte)0x02 : (byte)0x03;
+        approvedKey.SetValue(app.OriginalValueNameOrFileName, data, RegistryValueKind.Binary);
     }
 
     public async Task<List<StartupTask>> GetStartupTasksAsync()
@@ -258,10 +255,10 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         return tasks.OrderBy(t => t.TaskName).ToList();
     }
 
-    private void ParseTaskElement(JsonElement el, List<StartupTask> tasks)
+    private static void ParseTaskElement(JsonElement el, List<StartupTask> tasks)
     {
-        var name = el.TryGetProperty("TaskName", out var nProp) ? nProp.GetString() : "";
-        var path = el.TryGetProperty("TaskPath", out var pProp) ? pProp.GetString() : "";
+        var name = el.TryGetProperty("TaskName", out var nProp) ? nProp.GetString() ?? "" : "";
+        var path = el.TryGetProperty("TaskPath", out var pProp) ? pProp.GetString() ?? "" : "";
         var state = el.TryGetProperty("State", out var sProp) ? sProp.GetInt32() : 0;
         var desc = el.TryGetProperty("Description", out var dProp) ? dProp.GetString() : "";
 
@@ -281,7 +278,9 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         try
         {
             var command = enable ? "Enable-ScheduledTask" : "Disable-ScheduledTask";
-            var script = $@"{command} -TaskPath ""{task.TaskPath}"" -TaskName ""{task.TaskName}""";
+            var script = $"""
+                          {command} -TaskPath "{task.TaskPath}" -TaskName "{task.TaskName}"
+                          """;
 
             var result = await ShellService.PowerShellAsync(script);
             if (result.ExitCode != 0)
@@ -294,7 +293,7 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         }
     }
 
-    private ImageSource? ExtractIcon(string command)
+    private static BitmapSource? ExtractIcon(string command)
     {
         try
         {
@@ -336,7 +335,7 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         return null;
     }
 
-    private string? GetFullPathFromEnvironment(string fileName)
+    private static string? GetFullPathFromEnvironment(string fileName)
     {
         if (File.Exists(fileName))
             return Path.GetFullPath(fileName);

@@ -21,7 +21,6 @@ public partial class BloatwareViewModel : ViewModel
     private readonly BloatwareService _bloatwareService;
     private readonly IContentDialogService _contentDialogService;
     private readonly ILogger<BloatwareViewModel> _logger;
-    private readonly ISnackbarService _snackbarService;
     private bool _isInitialized;
 
     // Search, Filter, Sort
@@ -31,12 +30,10 @@ public partial class BloatwareViewModel : ViewModel
     [ObservableProperty] private int _selectedSortByIndex; // 0=Default, 1=Name, 2=Publisher, 3=Risk
     [ObservableProperty] private bool isLoading;
 
-    public BloatwareViewModel(BloatwareService bloatwareService, IContentDialogService contentDialogService,
-        ISnackbarService snackbarService, ILogger<BloatwareViewModel> logger)
+    public BloatwareViewModel(BloatwareService bloatwareService, IContentDialogService contentDialogService, ILogger<BloatwareViewModel> logger)
     {
         _bloatwareService = bloatwareService;
         _contentDialogService = contentDialogService;
-        _snackbarService = snackbarService;
         _logger = logger;
 
         AppxPackages.CollectionChanged += (_, e) =>
