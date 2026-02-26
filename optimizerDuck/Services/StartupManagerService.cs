@@ -229,7 +229,7 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         {
             var result = await ShellService.PowerShellAsync(@"
                 Get-ScheduledTask | 
-                Where-Object { $_.Triggers.CimClass.CimClassName -match 'LogonTrigger' -and $_.TaskPath -notmatch '\\Microsoft\\' } | 
+                Where-Object { $_.Triggers.CimClass.CimClassName -match 'LogonTrigger' -and $_.TaskPath -notlike '\\Microsoft\\*' } | 
                 Select-Object TaskName, TaskPath, State, Description | 
                 ConvertTo-Json -Depth 2
             ");
@@ -238,11 +238,18 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                 try
                 {
                     using var doc = JsonDocument.Parse(result.Stdout);
-                    if (doc.RootElement.ValueKind == JsonValueKind.Array)
-                        foreach (var el in doc.RootElement.EnumerateArray())
-                            ParseTaskElement(el, tasks);
-                    else if (doc.RootElement.ValueKind == JsonValueKind.Object)
-                        ParseTaskElement(doc.RootElement, tasks);
+                    switch (doc.RootElement.ValueKind)
+                    {
+                        case JsonValueKind.Array:
+                        {
+                            foreach (var el in doc.RootElement.EnumerateArray())
+                                ParseTaskElement(el, tasks);
+                            break;
+                        }
+                        case JsonValueKind.Object:
+                            ParseTaskElement(doc.RootElement, tasks);
+                            break;
+                    }
                 }
                 catch (Exception parserEx)
                 {

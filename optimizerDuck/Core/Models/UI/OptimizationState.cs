@@ -7,7 +7,9 @@ namespace optimizerDuck.Core.Models.UI;
 
 public partial class OptimizationState : ObservableObject
 {
-    private readonly DispatcherTimer _timer;
+    private static readonly DispatcherTimer _globalTimer;
+    private static readonly System.Collections.Generic.List<WeakReference<OptimizationState>> _instances = [];
+
     private int _lastDisplayedSeconds = -1;
 
     [ObservableProperty] private DateTime? appliedAt;
@@ -16,16 +18,41 @@ public partial class OptimizationState : ObservableObject
 
     [ObservableProperty] private OptimizationRisk risk;
 
+    static OptimizationState()
+    {
+        _globalTimer = new DispatcherTimer(
+            TimeSpan.FromSeconds(1),
+            DispatcherPriority.Render,
+            (s, e) => UpdateAllRelativeTimes(),
+            Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher
+        );
+        _globalTimer.Start();
+    }
+
+    private static void UpdateAllRelativeTimes()
+    {
+        lock (_instances)
+        {
+            for (var i = _instances.Count - 1; i >= 0; i--)
+            {
+                if (_instances[i].TryGetTarget(out var instance))
+                {
+                    instance.UpdateRelativeTime();
+                }
+                else
+                {
+                    _instances.RemoveAt(i);
+                }
+            }
+        }
+    }
+
     public OptimizationState()
     {
-        _timer = new DispatcherTimer(
-            TimeSpan.FromMilliseconds(250),
-            DispatcherPriority.Render,
-            (s, e) => UpdateRelativeTime(),
-            Application.Current?.Dispatcher
-            ?? Dispatcher.CurrentDispatcher
-        );
-        _timer.Start();
+        lock (_instances)
+        {
+            _instances.Add(new WeakReference<OptimizationState>(this));
+        }
     }
 
     private void UpdateRelativeTime()

@@ -136,9 +136,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
         };
 
         var filtered = query.ToList();
-        Optimizations.Clear();
-        foreach (var item in filtered)
-            Optimizations.Add(item);
+        Optimizations = new ObservableCollection<IOptimization>(filtered);
 
         OnPropertyChanged(nameof(HasAppliedOptimizations));
     }
