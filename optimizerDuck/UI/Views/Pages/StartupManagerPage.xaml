@@ -108,15 +108,13 @@
         <Border Grid.Row="1" Visibility="{Binding ViewModel.HasData, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid RowDefinitions="Auto,*">
                 <!--  Toolbar  -->
-                <Grid
-                    Grid.Row="0"
-                    Margin="0,0,16,12">
+                <Grid Grid.Row="0" Margin="0,0,16,12">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    
+
                     <WrapPanel Grid.Column="0" Orientation="Horizontal">
                         <!--  Search  -->
                         <ui:TextBox
@@ -137,20 +135,38 @@
                             VerticalAlignment="Center">
                             <ComboBoxItem HorizontalContentAlignment="Left">
                                 <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
-                                    <ui:SymbolIcon HorizontalAlignment="Left" Margin="0,0,6,0" Symbol="TextSortAscending24" />
-                                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Text="{ext:Loc Common.SortBy.Name}" />
+                                    <ui:SymbolIcon
+                                        HorizontalAlignment="Left"
+                                        Margin="0,0,6,0"
+                                        Symbol="TextSortAscending24" />
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Left"
+                                        Text="{ext:Loc Common.SortBy.Name}" />
                                 </Grid>
                             </ComboBoxItem>
                             <ComboBoxItem HorizontalContentAlignment="Left">
                                 <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
-                                    <ui:SymbolIcon HorizontalAlignment="Left" Margin="0,0,6,0" Symbol="ToggleRight24" />
-                                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Text="{ext:Loc Common.SortBy.Status}" />
+                                    <ui:SymbolIcon
+                                        HorizontalAlignment="Left"
+                                        Margin="0,0,6,0"
+                                        Symbol="ToggleRight24" />
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Left"
+                                        Text="{ext:Loc Common.SortBy.Status}" />
                                 </Grid>
                             </ComboBoxItem>
                             <ComboBoxItem HorizontalContentAlignment="Left">
                                 <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
-                                    <ui:SymbolIcon HorizontalAlignment="Left" Margin="0,0,6,0" Symbol="Folder24" />
-                                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Text="{ext:Loc Common.SortBy.Path}" />
+                                    <ui:SymbolIcon
+                                        HorizontalAlignment="Left"
+                                        Margin="0,0,6,0"
+                                        Symbol="Folder24" />
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Left"
+                                        Text="{ext:Loc Common.SortBy.Path}" />
                                 </Grid>
                             </ComboBoxItem>
                         </ComboBox>
@@ -164,11 +180,12 @@
                     </WrapPanel>
 
                     <ui:Button
-                        Grid.Column="2"
                         Appearance="Secondary"
                         Command="{Binding ViewModel.OpenStartupSettingsCommand}"
                         Content="{ext:Loc StartupManager.Menu.OpenSettings}"
-                        Icon="{ui:SymbolIcon Settings24, FontSize=18}"
+                        Grid.Column="2"
+                        Icon="{ui:SymbolIcon Settings24,
+                                             FontSize=18}"
                         VerticalAlignment="Center" />
                 </Grid>
 
@@ -257,6 +274,7 @@
                                                     </StackPanel>
                                                     <StackPanel Grid.Column="2" Orientation="Horizontal">
                                                         <ui:ToggleSwitch
+                                                            Cursor="Hand"
                                                             IsChecked="{Binding IsEnabled, Mode=TwoWay}"
                                                             Margin="0,0,16,0"
                                                             OffContent="{ext:Loc Common.Toggle.Off}"
@@ -332,6 +350,7 @@
                                                 </StackPanel>
 
                                                 <ui:ToggleSwitch
+                                                    Cursor="Hand"
                                                     Grid.Column="1"
                                                     IsChecked="{Binding IsEnabled, Mode=TwoWay}"
                                                     OffContent="{ext:Loc Common.Toggle.Off}"

@@ -229,7 +229,7 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         {
             var result = await ShellService.PowerShellAsync(@"
                 Get-ScheduledTask | 
-                Where-Object { $_.Triggers.CimClass.CimClassName -match 'LogonTrigger' -and $_.TaskPath -notlike '\\Microsoft\\*' } | 
+                Where-Object { $_.Triggers.CimClass.CimClassName -match 'LogonTrigger' -and $_.TaskPath -notlike '\Microsoft\*' } | 
                 Select-Object TaskName, TaskPath, State, Description | 
                 ConvertTo-Json -Depth 2
             ");
