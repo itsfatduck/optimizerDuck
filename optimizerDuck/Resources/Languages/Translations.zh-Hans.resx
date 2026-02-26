@@ -585,17 +585,8 @@
     <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
     <value>标签</value>
   </data>
-    <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
-    <value>风险等级</value>
-  </data>
-    <data name="OptimizationDetailsDialog.Other" xml:space="preserve">
-    <value>其他</value>
-  </data>
     <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
     <value>还原文件</value>
-  </data>
-    <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
-    <value>打开文件夹并选择此优化的还原数据文件</value>
   </data>
     <!-- Optimization Processing -->
     <data name="Optimization.Apply.Processing" xml:space="preserve">
@@ -1072,13 +1063,10 @@
     <value>管理在 Windows 启动时自动运行的应用程序和任务。</value>
   </data>
   <data name="OptimizationDetailsDialog.Other" xml:space="preserve">
-    <value>其他操作</value>
+    <value>其他</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
     <value>打开包含此优化恢复数据的原始 JSON 文件。</value>
-  </data>
-  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
-    <value>打开恢复数据</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
     <value>在浏览器中打开此优化的源代码。</value>
@@ -1088,9 +1076,6 @@
   </data>
   <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
     <value>风险等级</value>
-  </data>
-  <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
-    <value>标签</value>
   </data>
   <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
     <value>技术细节</value>

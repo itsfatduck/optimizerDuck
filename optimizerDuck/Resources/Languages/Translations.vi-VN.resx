@@ -254,9 +254,6 @@
     <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
     <value>Thẻ</value>
   </data>
-    <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
-    <value>Độ an toàn</value>
-  </data>
     <data name="OptimizationDetailsDialog.Other" xml:space="preserve">
     <value>Khác</value>
   </data>
@@ -1156,9 +1153,6 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
     <value>Mức độ rủi ro</value>
-  </data>
-  <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
-    <value>Thẻ</value>
   </data>
   <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
     <value>Chi tiết kỹ thuật</value>

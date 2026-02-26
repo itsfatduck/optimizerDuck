@@ -254,12 +254,6 @@
     <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
     <value>Теги</value>
   </data>
-    <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
-    <value>Уровень риска</value>
-  </data>
-    <data name="OptimizationDetailsDialog.Other" xml:space="preserve">
-    <value>Прочее</value>
-  </data>
     <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
     <value>Разделяет системные службы на отдельные процессы для значительного повышения стабильности Windows.</value>
   </data>
@@ -401,9 +395,6 @@
   </data>
     <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
     <value>Файл отката</value>
-  </data>
-    <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
-    <value>Открыть папку и выбрать файл данных отката для этой оптимизации</value>
   </data>
     <data name="OptimizationResultDialog.Header" xml:space="preserve">
     <value>{0} неудачных шагов</value>
@@ -1155,13 +1146,10 @@
     <value>Управление приложениями и задачами, которые автоматически запускаются при запуске Windows.</value>
   </data>
   <data name="OptimizationDetailsDialog.Other" xml:space="preserve">
-    <value>Другие действия</value>
+    <value>Прочее</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
     <value>Откройте файл JSON, содержащий данные об отмене этой настройки.</value>
-  </data>
-  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
-    <value>Открыть данные отмены</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
     <value>Откройте исходный код для этой настройки в вашем браузере.</value>
@@ -1171,9 +1159,6 @@
   </data>
   <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
     <value>Уровень риска</value>
-  </data>
-  <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
-    <value>Теги</value>
   </data>
   <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
     <value>Технические детали</value>

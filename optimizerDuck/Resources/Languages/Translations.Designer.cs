@@ -105,6 +105,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This may take a moment while the application scans for installed packages..
+        /// </summary>
+        public static string Bloatware_Loading_Hint {
+            get {
+                return ResourceManager.GetString("Bloatware.Loading.Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Refresh.
         /// </summary>
         public static string Bloatware_Menu_Refresh {
@@ -407,6 +416,42 @@ namespace optimizerDuck.Resources.Languages {
         public static string Common_SortBy_Size {
             get {
                 return ResourceManager.GetString("Common.SortBy.Size", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Common_SortBy_Status {
+            get {
+                return ResourceManager.GetString("Common.SortBy.Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applied.
+        /// </summary>
+        public static string Common_Status_Applied {
+            get {
+                return ResourceManager.GetString("Common.Status.Applied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Off.
+        /// </summary>
+        public static string Common_Toggle_Off {
+            get {
+                return ResourceManager.GetString("Common.Toggle.Off", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On.
+        /// </summary>
+        public static string Common_Toggle_On {
+            get {
+                return ResourceManager.GetString("Common.Toggle.On", resourceCulture);
             }
         }
         
@@ -1114,11 +1159,29 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Class Name.
+        /// </summary>
+        public static string OptimizationDetailsDialog_Class {
+            get {
+                return ResourceManager.GetString("OptimizationDetailsDialog.Class", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Detailed description.
         /// </summary>
         public static string OptimizationDetailsDialog_DetailedDescription {
             get {
                 return ResourceManager.GetString("OptimizationDetailsDialog.DetailedDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optimization ID.
+        /// </summary>
+        public static string OptimizationDetailsDialog_Id {
+            get {
+                return ResourceManager.GetString("OptimizationDetailsDialog.Id", resourceCulture);
             }
         }
         
@@ -1132,7 +1195,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open the folder and select the rollback data file for this optimization..
+        ///   Looks up a localized string similar to Open the raw json file containing revert data for this optimization..
         /// </summary>
         public static string OptimizationDetailsDialog_Other_OpenRevertFile_Description {
             get {
@@ -1150,7 +1213,25 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Risk.
+        ///   Looks up a localized string similar to Open the source code for this optimization in your browser..
+        /// </summary>
+        public static string OptimizationDetailsDialog_Other_ViewSource_Description {
+            get {
+                return ResourceManager.GetString("OptimizationDetailsDialog.Other.ViewSource.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View Source on GitHub.
+        /// </summary>
+        public static string OptimizationDetailsDialog_Other_ViewSource_Title {
+            get {
+                return ResourceManager.GetString("OptimizationDetailsDialog.Other.ViewSource.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Risk Level.
         /// </summary>
         public static string OptimizationDetailsDialog_Risk {
             get {
@@ -1164,6 +1245,15 @@ namespace optimizerDuck.Resources.Languages {
         public static string OptimizationDetailsDialog_Tags {
             get {
                 return ResourceManager.GetString("OptimizationDetailsDialog.Tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Technical Details.
+        /// </summary>
+        public static string OptimizationDetailsDialog_TechnicalDetails {
+            get {
+                return ResourceManager.GetString("OptimizationDetailsDialog.TechnicalDetails", resourceCulture);
             }
         }
         
@@ -3153,11 +3243,20 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This may take a moment while we scan the registry and startup folders..
+        ///   Looks up a localized string similar to This may take a moment while the application scans the registry and startup folders..
         /// </summary>
         public static string StartupManager_Loading_Hint {
             get {
                 return ResourceManager.GetString("StartupManager.Loading.Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Settings.
+        /// </summary>
+        public static string StartupManager_Menu_OpenSettings {
+            get {
+                return ResourceManager.GetString("StartupManager.Menu.OpenSettings", resourceCulture);
             }
         }
         

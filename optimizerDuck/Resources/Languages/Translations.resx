@@ -59,7 +59,8 @@
               : using a System.ComponentModel.TypeConverter
               : and then encoded with base64 encoding.
       -->
-    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root"
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"
+                id="root"
                 xmlns="">
         <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
         <xsd:element name="root" msdata:IsDataSet="true">
@@ -254,12 +255,6 @@
     <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
     <value>Tags</value>
   </data>
-    <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
-    <value>Risk</value>
-  </data>
-    <data name="OptimizationDetailsDialog.Other" xml:space="preserve">
-    <value>Other</value>
-  </data>
     <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
     <value>Sets the Service Host split threshold to match total system RAM, forcing Windows to isolate services into separate processes for improved stability.</value>
   </data>
@@ -401,9 +396,6 @@
   </data>
     <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
     <value>Revert file</value>
-  </data>
-    <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
-    <value>Open the folder and select the rollback data file for this optimization.</value>
   </data>
     <data name="OptimizationResultDialog.Header" xml:space="preserve">
     <value>{0} Failed steps</value>
@@ -928,7 +920,7 @@ This ensures you can always go back if anything goes wrong.</value>
     <data name="Bloatware.Loading" xml:space="preserve">
     <value>Looking for removable apps…</value>
   </data>
-  <data name="Bloatware.Loading.Hint" xml:space="preserve">
+    <data name="Bloatware.Loading.Hint" xml:space="preserve">
     <value>This may take a moment while the application scans for installed packages.</value>
   </data>
     <data name="Sidebar.Bloatware" xml:space="preserve">
@@ -1151,31 +1143,25 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
     <data name="OptimizationDetailsDialog.Other" xml:space="preserve">
     <value>Other</value>
   </data>
-  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
+    <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
     <value>Open the raw json file containing revert data for this optimization.</value>
   </data>
-  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
-    <value>Open revert data</value>
-  </data>
-  <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
+    <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
     <value>Open the source code for this optimization in your browser.</value>
   </data>
-  <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
+    <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
     <value>View Source on GitHub</value>
   </data>
-  <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
+    <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
     <value>Risk Level</value>
   </data>
-  <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
-    <value>Tags</value>
-  </data>
-  <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
+    <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
     <value>Technical Details</value>
   </data>
-  <data name="OptimizationDetailsDialog.Id" xml:space="preserve">
+    <data name="OptimizationDetailsDialog.Id" xml:space="preserve">
     <value>Optimization ID</value>
   </data>
-  <data name="OptimizationDetailsDialog.Class" xml:space="preserve">
+    <data name="OptimizationDetailsDialog.Class" xml:space="preserve">
     <value>Class Name</value>
   </data>
     <data name="StartupManager.Apps.Title" xml:space="preserve">
