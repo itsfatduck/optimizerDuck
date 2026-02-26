@@ -163,66 +163,66 @@
                             <ItemsControl ItemsSource="{Binding ViewModel.Apps}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type models:StartupApp}">
-                                        <Border
-                                            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-                                            CornerRadius="6"
-                                            Margin="0,0,0,4"
-                                            Padding="12,10">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto" />
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="Auto" />
-                                                </Grid.ColumnDefinitions>
-
-                                                <!--  Logo  -->
-                                                <Image
-                                                    Grid.Column="0"
-                                                    Height="36"
-                                                    Margin="0,0,12,0"
-                                                    Source="{Binding LogoImage}"
-                                                    Stretch="UniformToFill"
-                                                    VerticalAlignment="Center"
-                                                    Width="36" />
-
-                                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                                    <!--  Name + Location badge  -->
-                                                    <DockPanel LastChildFill="False">
-                                                        <ui:TextBlock FontTypography="BodyStrong" Text="{Binding Name}" />
-                                                        <Border
-                                                            Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                                            CornerRadius="4"
-                                                            Margin="8,0,0,0"
-                                                            Padding="6,1"
-                                                            VerticalAlignment="Center">
-                                                            <ui:TextBlock
-                                                                Appearance="Tertiary"
-                                                                FontTypography="Caption"
-                                                                Text="{Binding LocationDisplay}"
-                                                                VerticalAlignment="Center" />
-                                                        </Border>
-                                                    </DockPanel>
-                                                    <!--  Publisher  -->
-                                                    <ui:TextBlock
-                                                        Appearance="Secondary"
-                                                        FontTypography="Caption"
-                                                        Margin="0,2,0,0"
-                                                        Text="{Binding Publisher}" />
-                                                    <!--  Command  -->
-                                                    <ui:TextBlock
-                                                        Appearance="Disabled"
-                                                        FontTypography="Caption"
-                                                        Margin="0,2,0,0"
-                                                        Text="{Binding Command}"
-                                                        TextTrimming="CharacterEllipsis" />
-                                                </StackPanel>
-
-                                                <ui:ToggleSwitch
-                                                    Grid.Column="2"
-                                                    IsChecked="{Binding IsEnabled, Mode=TwoWay}"
-                                                    VerticalAlignment="Center" />
-                                            </Grid>
-                                        </Border>
+                                        <Grid>
+                                            <ui:CardAction
+                                                Command="{Binding DataContext.ViewModel.OpenLocationCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                CommandParameter="{Binding}"
+                                                IsChevronVisible="False"
+                                                Margin="0,0,0,4"
+                                                Padding="12,10"
+                                                x:Name="ActionCard">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Image
+                                                        Grid.Column="0"
+                                                        Height="36"
+                                                        Margin="0,0,12,0"
+                                                        Source="{Binding LogoImage}"
+                                                        Stretch="UniformToFill"
+                                                        VerticalAlignment="Center"
+                                                        Width="36" />
+                                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                        <DockPanel LastChildFill="False">
+                                                            <ui:TextBlock FontTypography="BodyStrong" Text="{Binding Name}" />
+                                                            <Border
+                                                                Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                                                CornerRadius="4"
+                                                                Margin="8,0,0,0"
+                                                                Padding="6,1"
+                                                                VerticalAlignment="Center">
+                                                                <ui:TextBlock
+                                                                    Appearance="Tertiary"
+                                                                    FontTypography="Caption"
+                                                                    Text="{Binding LocationDisplay}"
+                                                                    VerticalAlignment="Center" />
+                                                            </Border>
+                                                        </DockPanel>
+                                                        <ui:TextBlock
+                                                            Appearance="Secondary"
+                                                            FontTypography="Caption"
+                                                            Margin="0,2,0,0"
+                                                            Text="{Binding Publisher}" />
+                                                        <ui:TextBlock
+                                                            Appearance="Disabled"
+                                                            FontTypography="Caption"
+                                                            Margin="0,2,0,0"
+                                                            Text="{Binding Command}"
+                                                            TextTrimming="CharacterEllipsis" />
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                                        <ui:ToggleSwitch
+                                                            IsChecked="{Binding IsEnabled, Mode=TwoWay}"
+                                                            Margin="0,0,16,0"
+                                                            VerticalAlignment="Center" />
+                                                        <ui:SymbolIcon FontSize="16" Symbol="Open24" />
+                                                    </StackPanel>
+                                                </Grid>
+                                            </ui:CardAction>
+                                        </Grid>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -279,7 +279,7 @@
                                                         FontTypography="Caption"
                                                         Margin="0,2,0,0"
                                                         Text="{Binding Description}"
-                                                        TextTrimming="CharacterEllipsis" />
+                                                        TextWrapping="Wrap" />
                                                     <ui:TextBlock
                                                         Appearance="Disabled"
                                                         FontTypography="Caption"

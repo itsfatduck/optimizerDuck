@@ -54,6 +54,22 @@ public partial class StartupManagerViewModel : ViewModel
         await LoadDataAsync();
     }
 
+    [RelayCommand]
+    private void OpenLocation(StartupApp? app)
+    {
+        if (app?.CanOpenLocation == true)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start("explorer.exe", $"/select,\"{app.FilePath}\"");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to open location for {Name}", app.Name);
+            }
+        }
+    }
+
     partial void OnSearchTextChanged(string value)
     {
         ApplyFilter();

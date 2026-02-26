@@ -36,21 +36,7 @@ public partial class BloatwareViewModel : ViewModel
     [ObservableProperty] private int _selectedRiskFilterIndex; // 0=All, 1=Safe, 2=Caution
     [ObservableProperty] private int _selectedSortByIndex; // 0=Default, 1=Name, 2=Publisher, 3=Risk
 
-    private CancellationTokenSource? _searchDebounce;
-
-    partial void OnSearchTextChanged(string value) => DebounceSearch();
-
-    private async void DebounceSearch()
-    {
-        _searchDebounce?.Cancel();
-        _searchDebounce = new CancellationTokenSource();
-        try
-        {
-            await Task.Delay(250, _searchDebounce.Token);
-            ApplyFilter();
-        }
-        catch (TaskCanceledException) { }
-    }
+    partial void OnSearchTextChanged(string value) => ApplyFilter();
 
     partial void OnSelectedRiskFilterIndexChanged(int value) => ApplyFilter();
 

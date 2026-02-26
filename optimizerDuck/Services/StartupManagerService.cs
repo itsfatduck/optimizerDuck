@@ -56,11 +56,16 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                 var command = key.GetValue(valueName)?.ToString() ?? string.Empty;
                 var isEnabled = IsStartupApproved(approvedKey, valueName);
 
+                var appInfo = GetAppInfo(command);
+                var publisher = !string.IsNullOrWhiteSpace(appInfo.Publisher) ? appInfo.Publisher : appInfo.Description;
+                if (string.IsNullOrWhiteSpace(publisher)) publisher = "Registry";
+
                 apps.Add(new StartupApp
                 {
                     Name = valueName,
-                    Publisher = "Registry",
+                    Publisher = publisher,
                     Command = command,
+                    FilePath = appInfo.FilePath,
                     Location = location,
                     PathOrKey = $@"{rootKey.Name}\{subKeyPath}",
                     OriginalValueNameOrFileName = valueName,
@@ -117,11 +122,16 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
 
                 var name = Path.GetFileNameWithoutExtension(isEnabled ? fileName : fileName.Replace(".disabled", ""));
                 
+                var appInfo = GetAppInfo(file);
+                var publisher = !string.IsNullOrWhiteSpace(appInfo.Publisher) ? appInfo.Publisher : appInfo.Description;
+                if (string.IsNullOrWhiteSpace(publisher)) publisher = "Folder Shortcut";
+
                 apps.Add(new StartupApp
                 {
                     Name = string.IsNullOrWhiteSpace(name) ? fileName : name,
-                    Publisher = "Folder Shortcut",
+                    Publisher = publisher,
                     Command = file,
+                    FilePath = appInfo.FilePath,
                     Location = location,
                     PathOrKey = dirPath,
                     OriginalValueNameOrFileName = fileName,
@@ -352,5 +362,37 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         }
 
         return null;
+    }
+
+    private (string? FilePath, string? Publisher, string? Description) GetAppInfo(string command)
+    {
+        try
+        {
+            var path = command.Trim('\"');
+            var exeIdx = path.IndexOf(".exe", StringComparison.OrdinalIgnoreCase);
+            if (exeIdx > 0)
+            {
+                path = path[..(exeIdx + 4)].Trim('\"', ' ', '\'');
+            }
+
+            if (!File.Exists(path))
+            {
+                if (!path.Contains('\\') && !path.Contains('/'))
+                {
+                    path = GetFullPathFromEnvironment(path);
+                }
+            }
+
+            if (!string.IsNullOrEmpty(path) && File.Exists(path))
+            {
+                var fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(path);
+                return (path, fvi.CompanyName, fvi.FileDescription);
+            }
+        }
+        catch
+        {
+            // Ignored, fallback
+        }
+        return (null, null, null);
     }
 }

@@ -45,21 +45,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
     [ObservableProperty] private int _selectedSortByIndex; // 0=Default, 1=Name, 2=Risk
     [ObservableProperty] private bool _hideApplied;
 
-    private CancellationTokenSource? _searchDebounce;
-
-    partial void OnSearchTextChanged(string value) => DebounceSearch();
-
-    private async void DebounceSearch()
-    {
-        _searchDebounce?.Cancel();
-        _searchDebounce = new CancellationTokenSource();
-        try
-        {
-            await Task.Delay(250, _searchDebounce.Token);
-            ApplyFilter();
-        }
-        catch (TaskCanceledException) { }
-    }
+    partial void OnSearchTextChanged(string value) => ApplyFilter();
 
     partial void OnSelectedRiskFilterIndexChanged(int value) => ApplyFilter();
 
