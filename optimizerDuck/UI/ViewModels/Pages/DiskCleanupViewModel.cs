@@ -25,7 +25,7 @@ public partial class DiskCleanupViewModel(
     private List<CleanupItem> _originalOrder = [];
 
     // Sort
-    [ObservableProperty] private int _selectedSortByIndex; // 0=Default, 1=Size, 2=Name, 3=Path
+    [ObservableProperty] private int _selectedSortByIndex; // 0=Size, 1=Name, 2=Path
 
     public bool HasData => CleanupItems.Count > 0 && !IsLoading;
     public bool IsAllScanned => CleanupItems.Count > 0 && CleanupItems.All(i => i.IsScanned);
@@ -155,9 +155,9 @@ public partial class DiskCleanupViewModel(
     {
         var sorted = SelectedSortByIndex switch
         {
-            1 => CleanupItems.OrderByDescending(i => i.SizeBytes).ToList(),
-            2 => CleanupItems.OrderBy(i => i.Name).ToList(),
-            3 => CleanupItems.OrderBy(i => i.Path).ToList(),
+            0 => CleanupItems.OrderByDescending(i => i.SizeBytes).ToList(),
+            1 => CleanupItems.OrderBy(i => i.Name).ToList(),
+            2 => CleanupItems.OrderBy(i => i.Path).ToList(),
             _ => _originalOrder.ToList()
         };
 

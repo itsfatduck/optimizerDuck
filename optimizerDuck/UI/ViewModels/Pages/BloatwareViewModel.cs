@@ -27,7 +27,7 @@ public partial class BloatwareViewModel : ViewModel
     [ObservableProperty] private string _searchText = string.Empty;
 
     [ObservableProperty] private int _selectedRiskFilterIndex; // 0=All, 1=Safe, 2=Caution
-    [ObservableProperty] private int _selectedSortByIndex; // 0=Default, 1=Name, 2=Publisher, 3=Risk
+    [ObservableProperty] private int _selectedSortByIndex; // 0=Name, 1=Publisher, 2=Risk
     [ObservableProperty] private bool isLoading;
 
     public BloatwareViewModel(BloatwareService bloatwareService, IContentDialogService contentDialogService, ILogger<BloatwareViewModel> logger)
@@ -115,9 +115,9 @@ public partial class BloatwareViewModel : ViewModel
         // Sort
         query = SelectedSortByIndex switch
         {
-            1 => query.OrderBy(p => p.Name),
-            2 => query.OrderBy(p => p.Publisher),
-            3 => query.OrderBy(p => p.Risk),
+            0 => query.OrderBy(p => p.Name),
+            1 => query.OrderBy(p => p.Publisher),
+            2 => query.OrderBy(p => p.Risk),
             _ => query
         };
 

@@ -175,7 +175,7 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
     public async Task<long> CleanSelectedAsync(IEnumerable<CleanupItem> items)
     {
         long totalFreed = 0;
-        foreach (var item in items.Where(i => i.IsSelected && i.SizeBytes > 0))
+        foreach (var item in items.Where(i => i is { IsSelected: true, SizeBytes: > 0 }))
             totalFreed += await CleanAsync(item);
         return totalFreed;
     }

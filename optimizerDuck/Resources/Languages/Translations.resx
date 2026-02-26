@@ -928,6 +928,9 @@ This ensures you can always go back if anything goes wrong.</value>
     <data name="Bloatware.Loading" xml:space="preserve">
     <value>Looking for removable apps…</value>
   </data>
+  <data name="Bloatware.Loading.Hint" xml:space="preserve">
+    <value>This may take a moment while the application scans for installed packages.</value>
+  </data>
     <data name="Sidebar.Bloatware" xml:space="preserve">
     <value>Bloatware</value>
   </data>
@@ -1145,6 +1148,36 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
     <data name="StartupManager.Header.Description" xml:space="preserve">
     <value>Manage applications and tasks that run automatically when Windows starts.</value>
   </data>
+    <data name="OptimizationDetailsDialog.Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
+    <value>Open the raw json file containing revert data for this optimization.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
+    <value>Open revert data</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
+    <value>Open the source code for this optimization in your browser.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
+    <value>View Source on GitHub</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
+    <value>Risk Level</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
+    <value>Technical Details</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Id" xml:space="preserve">
+    <value>Optimization ID</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Class" xml:space="preserve">
+    <value>Class Name</value>
+  </data>
     <data name="StartupManager.Apps.Title" xml:space="preserve">
     <value>Startup Apps</value>
   </data>
@@ -1171,5 +1204,14 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   </data>
     <data name="Common.Toggle.Off" xml:space="preserve">
     <value>Off</value>
+  </data>
+    <data name="Common.SortBy.Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+    <data name="Common.Status.Applied" xml:space="preserve">
+    <value>Applied</value>
+  </data>
+    <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
+    <value>Open Settings</value>
   </data>
 </root>

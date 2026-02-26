@@ -108,26 +108,69 @@
         <Border Grid.Row="1" Visibility="{Binding ViewModel.HasData, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid RowDefinitions="Auto,*">
                 <!--  Toolbar  -->
-                <WrapPanel
+                <Grid
                     Grid.Row="0"
-                    Margin="0,0,0,12"
-                    Orientation="Horizontal">
-                    <!--  Search  -->
-                    <ui:TextBox
-                        Icon="{ui:SymbolIcon Search24}"
-                        Margin="0,0,8,0"
-                        MinWidth="220"
-                        PlaceholderText="{ext:Loc Common.Search.Placeholder}"
-                        Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}"
-                        VerticalAlignment="Center" />
+                    Margin="0,0,16,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <WrapPanel Grid.Column="0" Orientation="Horizontal">
+                        <!--  Search  -->
+                        <ui:TextBox
+                            Icon="{ui:SymbolIcon Search24}"
+                            Margin="0,0,8,0"
+                            MinWidth="220"
+                            PlaceholderText="{ext:Loc Common.Search.Placeholder}"
+                            Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}"
+                            VerticalAlignment="Center" />
+
+                        <!--  Sort By  -->
+                        <ComboBox
+                            Margin="0,0,8,0"
+                            SelectedIndex="{Binding ViewModel.SelectedSortByIndex}"
+                            ToolTip="{ext:Loc Common.SortBy}"
+                            ToolTipService.BetweenShowDelay="160"
+                            ToolTipService.Placement="Top"
+                            VerticalAlignment="Center">
+                            <ComboBoxItem HorizontalContentAlignment="Left">
+                                <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                                    <ui:SymbolIcon HorizontalAlignment="Left" Margin="0,0,6,0" Symbol="TextSortAscending24" />
+                                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Text="{ext:Loc Common.SortBy.Name}" />
+                                </Grid>
+                            </ComboBoxItem>
+                            <ComboBoxItem HorizontalContentAlignment="Left">
+                                <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                                    <ui:SymbolIcon HorizontalAlignment="Left" Margin="0,0,6,0" Symbol="ToggleRight24" />
+                                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Text="{ext:Loc Common.SortBy.Status}" />
+                                </Grid>
+                            </ComboBoxItem>
+                            <ComboBoxItem HorizontalContentAlignment="Left">
+                                <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                                    <ui:SymbolIcon HorizontalAlignment="Left" Margin="0,0,6,0" Symbol="Folder24" />
+                                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Text="{ext:Loc Common.SortBy.Path}" />
+                                </Grid>
+                            </ComboBoxItem>
+                        </ComboBox>
+
+                        <ui:Button
+                            Appearance="Primary"
+                            Command="{Binding ViewModel.RefreshCommand}"
+                            Content="{ext:Loc StartupManager.Menu.Refresh}"
+                            Icon="{ui:SymbolIcon ArrowClockwise24,
+                                                 FontSize=18}" />
+                    </WrapPanel>
 
                     <ui:Button
-                        Appearance="Primary"
-                        Command="{Binding ViewModel.RefreshCommand}"
-                        Content="{ext:Loc StartupManager.Menu.Refresh}"
-                        Icon="{ui:SymbolIcon ArrowClockwise24,
-                                             FontSize=18}" />
-                </WrapPanel>
+                        Grid.Column="2"
+                        Appearance="Secondary"
+                        Command="{Binding ViewModel.OpenStartupSettingsCommand}"
+                        Content="{ext:Loc StartupManager.Menu.OpenSettings}"
+                        Icon="{ui:SymbolIcon Settings24, FontSize=18}"
+                        VerticalAlignment="Center" />
+                </Grid>
 
                 <!--  Scrollable content  -->
                 <ScrollViewer Grid.Row="1" Margin="0,0,16,0">

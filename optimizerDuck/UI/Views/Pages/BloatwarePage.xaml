@@ -87,15 +87,22 @@
         <Border Grid.Row="1" Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ui:ProgressRing
+                    Height="48"
                     HorizontalAlignment="Center"
                     IsIndeterminate="True"
-                    Margin="0,0,0,5"
-                    VerticalAlignment="Center" />
+                    Margin="0,0,0,16"
+                    VerticalAlignment="Center"
+                    Width="48" />
                 <ui:TextBlock
                     FontTypography="BodyStrong"
                     HorizontalAlignment="Center"
-                    Text="{ext:Loc Bloatware.Loading}"
-                    VerticalAlignment="Center" />
+                    Text="{ext:Loc Bloatware.Loading}" />
+                <ui:TextBlock
+                    Appearance="Secondary"
+                    FontTypography="Caption"
+                    HorizontalAlignment="Center"
+                    Margin="0,4,0,0"
+                    Text="{ext:Loc Bloatware.Loading.Hint}" />
             </StackPanel>
         </Border>
 
@@ -169,10 +176,24 @@
                         ToolTipService.BetweenShowDelay="160"
                         ToolTipService.Placement="Top"
                         VerticalAlignment="Center">
-                        <ComboBoxItem Content="{ext:Loc Common.SortBy.Default}" />
-                        <ComboBoxItem Content="{ext:Loc Common.SortBy.Name}" />
-                        <ComboBoxItem Content="{ext:Loc Common.SortBy.Publisher}" />
-                        <ComboBoxItem Content="{ext:Loc Common.SortBy.Risk}" />
+                        <ComboBoxItem HorizontalContentAlignment="Left">
+                            <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                                <ui:SymbolIcon HorizontalAlignment="Left" Margin="0,0,6,0" Symbol="TextSortAscending24" />
+                                <TextBlock Grid.Column="1" HorizontalAlignment="Left" Text="{ext:Loc Common.SortBy.Name}" />
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem HorizontalContentAlignment="Left">
+                            <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                                <ui:SymbolIcon HorizontalAlignment="Left" Margin="0,0,6,0" Symbol="Certificate24" />
+                                <TextBlock Grid.Column="1" HorizontalAlignment="Left" Text="{ext:Loc Common.SortBy.Publisher}" />
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem HorizontalContentAlignment="Left">
+                            <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                                <ui:SymbolIcon HorizontalAlignment="Left" Margin="0,0,6,0" Symbol="Shield24" />
+                                <TextBlock Grid.Column="1" HorizontalAlignment="Left" Text="{ext:Loc Common.SortBy.Risk}" />
+                            </Grid>
+                        </ComboBoxItem>
                     </ComboBox>
                 </WrapPanel>
 

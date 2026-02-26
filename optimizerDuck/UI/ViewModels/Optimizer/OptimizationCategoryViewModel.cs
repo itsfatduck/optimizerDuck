@@ -40,7 +40,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
     [ObservableProperty] private string _searchText = string.Empty;
 
     [ObservableProperty] private int _selectedRiskFilterIndex; // 0=All, 1=Safe, 2=Moderate, 3=Risky
-    [ObservableProperty] private int _selectedSortByIndex; // 0=Default, 1=Name, 2=Risk
+    [ObservableProperty] private int _selectedSortByIndex; // 0=Risk & Status, 1=Name, 2=Risk
 
     public OptimizationCategoryViewModel(
         IOptimizationCategory category,
@@ -132,7 +132,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
         {
             1 => query.OrderBy(o => o.Name),
             2 => query.OrderBy(o => o.Risk),
-            _ => query // default order from registry
+            _ => query.OrderBy(o => o.Risk).ThenByDescending(o => o.State.IsApplied ? 1 : 0) // Risk & Status (default)
         };
 
         var filtered = query.ToList();

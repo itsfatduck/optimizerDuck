@@ -845,6 +845,9 @@
     <data name="Bloatware.Loading" xml:space="preserve">
     <value>正在搜索可移除的应用…</value>
   </data>
+  <data name="Bloatware.Loading.Hint" xml:space="preserve">
+    <value>程序正在扫描已安装的包，这可能需要一点时间。</value>
+  </data>
     <data name="Sidebar.Bloatware" xml:space="preserve">
       <value>臃肿软件</value>
     </data>
@@ -1058,5 +1061,74 @@
   </data>
     <data name="Common.Toggle.Off" xml:space="preserve">
     <value>关闭</value>
+  </data>
+    <data name="Sidebar.StartupManager" xml:space="preserve">
+    <value>启动管理</value>
+  </data>
+    <data name="StartupManager.Header.Title" xml:space="preserve">
+    <value>启动管理</value>
+  </data>
+    <data name="StartupManager.Header.Description" xml:space="preserve">
+    <value>管理在 Windows 启动时自动运行的应用程序和任务。</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other" xml:space="preserve">
+    <value>其他操作</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
+    <value>打开包含此优化恢复数据的原始 JSON 文件。</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
+    <value>打开恢复数据</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
+    <value>在浏览器中打开此优化的源代码。</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
+    <value>在 GitHub 上查看源码</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
+    <value>风险等级</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
+    <value>技术细节</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Id" xml:space="preserve">
+    <value>优化 ID</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Class" xml:space="preserve">
+    <value>类名</value>
+  </data>
+    <data name="StartupManager.Apps.Title" xml:space="preserve">
+    <value>启动应用</value>
+  </data>
+    <data name="StartupManager.Tasks.Title" xml:space="preserve">
+    <value>计划任务 (登录时)</value>
+  </data>
+    <data name="StartupManager.Loading" xml:space="preserve">
+    <value>正在扫描启动项...</value>
+  </data>
+    <data name="StartupManager.Loading.Hint" xml:space="preserve">
+    <value>程序正在扫描注册表和启动文件夹，这可能需要一点时间。</value>
+  </data>
+    <data name="StartupManager.Empty.Title" xml:space="preserve">
+    <value>没有启动项</value>
+  </data>
+    <data name="StartupManager.Empty.Description" xml:space="preserve">
+    <value>在此系统上未找到启动应用程序或计划任务。</value>
+  </data>
+    <data name="StartupManager.Menu.Refresh" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+    <data name="Common.SortBy.Status" xml:space="preserve">
+    <value>状态</value>
+  </data>
+    <data name="Common.Status.Applied" xml:space="preserve">
+    <value>已应用</value>
+  </data>
+    <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
+    <value>打开设置</value>
   </data>
 </root>

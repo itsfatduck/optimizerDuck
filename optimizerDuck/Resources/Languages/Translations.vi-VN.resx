@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
     <!-- 
       Microsoft ResX Schema 
@@ -398,12 +398,6 @@
   </data>
     <data name="Service.Shell.Error.TimedOut" xml:space="preserve">
     <value>Hết thời gian chờ</value>
-  </data>
-    <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
-    <value>Tệp hoàn tác</value>
-  </data>
-    <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
-    <value>Mở thư mục và chọn tệp dữ liệu hoàn tác của tối ưu này.</value>
   </data>
     <data name="OptimizationResultDialog.Header" xml:space="preserve">
     <value>{0} Bước bị lỗi</value>
@@ -928,6 +922,9 @@ Hãy yên tâm rằng hệ thống của bạn luôn có đường lui nếu có
     <data name="Bloatware.Loading" xml:space="preserve">
     <value>Đang tìm kiếm ứng dụng có thể gỡ…</value>
   </data>
+  <data name="Bloatware.Loading.Hint" xml:space="preserve">
+    <value>Quá trình này có thể mất một lúc khi ứng dụng quét các gói đã được cài đặt.</value>
+  </data>
     <data name="Sidebar.Bloatware" xml:space="preserve">
     <value>Bloatware</value>
   </data>
@@ -1145,6 +1142,33 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
     <data name="StartupManager.Header.Description" xml:space="preserve">
     <value>Quản lý các ứng dụng và tác vụ tự động chạy khi Windows khởi động</value>
   </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
+    <value>Mở tệp JSON gốc chứa dữ liệu khôi phục cho tính năng tối ưu hóa này.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
+    <value>Mở dữ liệu khôi phục</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
+    <value>Mở mã nguồn của tính năng tối ưu hóa này trên trình duyệt của bạn.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
+    <value>Xem mã nguồn trên GitHub</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
+    <value>Mức độ rủi ro</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
+    <value>Thẻ</value>
+  </data>
+  <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
+    <value>Chi tiết kỹ thuật</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Id" xml:space="preserve">
+    <value>ID Tối ưu hóa</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Class" xml:space="preserve">
+    <value>Tên Lớp (Class)</value>
+  </data>
     <data name="StartupManager.Apps.Title" xml:space="preserve">
     <value>Ứng dụng Khởi động</value>
   </data>
@@ -1171,5 +1195,14 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
     <data name="Common.Toggle.Off" xml:space="preserve">
     <value>Tắt</value>
+  </data>
+    <data name="Common.SortBy.Status" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+    <data name="Common.Status.Applied" xml:space="preserve">
+    <value>Đã áp dụng</value>
+  </data>
+    <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
+    <value>Mở Cài đặt</value>
   </data>
 </root>

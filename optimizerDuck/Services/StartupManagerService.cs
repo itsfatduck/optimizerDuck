@@ -43,7 +43,7 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
             {
                 var appInfo = GetAppInfo(app.Command);
                 var publisher = !string.IsNullOrWhiteSpace(appInfo.Publisher) ? appInfo.Publisher : appInfo.Description;
-                if (string.IsNullOrWhiteSpace(publisher)) publisher = app.Location == StartupAppLocation.UserStartupFolder || app.Location == StartupAppLocation.CommonStartupFolder ? "Folder Shortcut" : "Registry";
+                if (string.IsNullOrWhiteSpace(publisher)) publisher = app.Location is StartupAppLocation.UserStartupFolder or StartupAppLocation.CommonStartupFolder ? "Folder Shortcut" : "Registry";
 
                 app.Publisher = publisher;
                 app.FilePath = appInfo.FilePath;
@@ -102,7 +102,7 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
 
         try
         {
-            if (approvedKey.GetValue(valueName) is byte[] data && data.Length >= 4)
+            if (approvedKey.GetValue(valueName) is byte[] { Length: >= 4 } data)
                 // Disabled flags: 03, 07; Enabled flags: 02, 06
                 return data[0] != 0x03 && data[0] != 0x07;
         }
@@ -166,6 +166,8 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                     ToggleRegistryStartupApp(app, enable);
                 else // Folders
                     ToggleFolderStartupApp(app, enable);
+
+                logger.LogInformation("Toggled startup app {Name} to {Enable}", app.Name, enable);
             }
             catch (Exception ex)
             {
@@ -189,7 +191,7 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         };
         if (rootKey == null) return;
 
-        // Write enable/disable to StartupApproved\Run (same mechanism as Task Manager)
+        // Write enable/disable to StartupApproved\Run
         var isRunOnce =
             app.Location is StartupAppLocation.RegistryHKCURunOnce or StartupAppLocation.RegistryHKLMRunOnce;
         var approvedSubKeyPath = isRunOnce
@@ -286,6 +288,8 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
             if (result.ExitCode != 0)
                 logger.LogWarning("Toggle tasks returned exit code {ExitCode}. Stderr: {Stderr}", result.ExitCode,
                     result.Stderr);
+
+            logger.LogInformation("Toggled scheduled task {Name} to {Enable}", task.TaskName, enable);
         }
         catch (Exception ex)
         {

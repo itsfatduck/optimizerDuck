@@ -1,6 +1,7 @@
 ﻿<UserControl
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    ScrollViewer.CanContentScroll="False"
+    d:DesignHeight="700"
+    d:DesignWidth="600"
     mc:Ignorable="d"
     x:Class="optimizerDuck.UI.Views.Dialogs.OptimizationDetailsDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -9,159 +10,264 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel>
+    <StackPanel Margin="0,0,16,0">
+
+        <!--  Description  -->
+        <Border
+            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+            CornerRadius="8"
+            Margin="0,0,0,12"
+            Padding="16">
             <ui:TextBlock
                 FontTypography="Body"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                 Text="{Binding Optimization.ShortDescription}"
-                TextTrimming="WordEllipsis"
                 TextWrapping="Wrap" />
+        </Border>
 
-            <Separator Margin="0,3,0,3" />
+        <!--  Status & Risk  -->
+        <Border
+            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+            CornerRadius="8"
+            Margin="0,0,0,12"
+            Padding="16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-            <StackPanel Margin="0,0,0,4" Orientation="Horizontal">
-                <ui:TextBlock
-                    FontTypography="BodyStrong"
-                    Text="{ext:Loc OptimizationDetailsDialog.Tags}"
-                    TextTrimming="WordEllipsis"
-                    TextWrapping="Wrap" />
-                <ui:SymbolIcon
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Margin="5,0,0,0"
-                    Symbol="QuestionCircle24"
-                    ToolTip="{ext:Loc Optimizer.UI.Tags.Help}"
-                    ToolTipService.InitialShowDelay="150"
-                    ToolTipService.Placement="Top"
-                    VerticalAlignment="Center" />
-            </StackPanel>
-            <ui:VirtualizingItemsControl ItemsSource="{Binding Optimization.TagDisplays}" Margin="0,2,0,2">
-                <ui:VirtualizingItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" />
-                    </ItemsPanelTemplate>
-                </ui:VirtualizingItemsControl.ItemsPanel>
-                <ui:VirtualizingItemsControl.ItemContainerStyle>
-                    <Style TargetType="ContentPresenter">
-                        <Setter Property="Margin" Value="0,0,2,2" />
-                        <Setter Property="HorizontalAlignment" Value="Left" />
-                    </Style>
-                </ui:VirtualizingItemsControl.ItemContainerStyle>
-                <ui:VirtualizingItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border
-                            Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                            CornerRadius="5"
-                            HorizontalAlignment="Left"
-                            Padding="4,2">
-                            <StackPanel Orientation="Horizontal">
-                                <ui:SymbolIcon
-                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                    Margin="0,0,5,0"
-                                    Symbol="{Binding Icon}" />
-
-                                <ui:TextBlock
-                                    Appearance="Secondary"
-                                    FontTypography="Caption"
-                                    Foreground="{DynamicResource TextFillColorInverseBrush}"
-                                    HorizontalAlignment="Center"
-                                    Text="{Binding Display}"
-                                    TextWrapping="Wrap"
-                                    VerticalAlignment="Center" />
-                            </StackPanel>
-                        </Border>
-                    </DataTemplate>
-                </ui:VirtualizingItemsControl.ItemTemplate>
-            </ui:VirtualizingItemsControl>
-
-
-            <StackPanel Margin="0,5,0,4" Orientation="Horizontal">
-                <ui:TextBlock
-                    FontTypography="BodyStrong"
-                    Text="{ext:Loc OptimizationDetailsDialog.Risk}"
-                    TextTrimming="WordEllipsis"
-                    TextWrapping="Wrap" />
-                <ui:SymbolIcon
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Margin="5,0,0,0"
-                    Symbol="QuestionCircle24"
-                    ToolTip="{ext:Loc Optimizer.UI.Risk.Help}"
-                    ToolTipService.InitialShowDelay="150"
-                    ToolTipService.Placement="Top"
-                    VerticalAlignment="Center" />
-            </StackPanel>
-            <Border
-                CornerRadius="5"
-                HorizontalAlignment="Left"
-                Padding="4,2">
-                <Border.Style>
-                    <Style TargetType="Border">
-                        <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Optimization.Risk}" Value="Moderate">
-                                <Setter Property="Background" Value="{DynamicResource SystemFillColorCautionBrush}" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding Optimization.Risk}" Value="Risky">
-                                <Setter Property="Background" Value="{DynamicResource SystemFillColorCriticalBrush}" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Border.Style>
-                <StackPanel Orientation="Horizontal">
-                    <ui:SymbolIcon
-                        Foreground="{DynamicResource TextFillColorInverseBrush}"
-                        Margin="0,0,5,0"
-                        Symbol="{Binding Optimization.RiskVisual.Icon}" />
-
-                    <ui:TextBlock
-                        FontTypography="Caption"
-                        Foreground="{DynamicResource TextFillColorInverseBrush}"
-                        HorizontalAlignment="Center"
-                        Text="{Binding Optimization.RiskVisual.Display}"
-                        TextWrapping="Wrap"
-                        VerticalAlignment="Center" />
+                <StackPanel Grid.Column="0">
+                    <StackPanel Margin="0,0,0,8" Orientation="Horizontal">
+                        <ui:TextBlock
+                            FontTypography="BodyStrong"
+                            Text="{ext:Loc OptimizationDetailsDialog.Risk}"
+                            TextTrimming="WordEllipsis"
+                            TextWrapping="Wrap" />
+                        <ui:SymbolIcon
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Margin="6,0,0,0"
+                            Symbol="QuestionCircle24"
+                            ToolTip="{ext:Loc Optimizer.UI.Risk.Help}"
+                            ToolTipService.InitialShowDelay="150"
+                            ToolTipService.Placement="Top"
+                            VerticalAlignment="Center" />
+                    </StackPanel>
+                    <Border
+                        CornerRadius="5"
+                        HorizontalAlignment="Left"
+                        Padding="6,4">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Optimization.Risk}" Value="Moderate">
+                                        <Setter Property="Background" Value="{DynamicResource SystemFillColorCautionBrush}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Optimization.Risk}" Value="Risky">
+                                        <Setter Property="Background" Value="{DynamicResource SystemFillColorCriticalBrush}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <StackPanel Orientation="Horizontal">
+                            <ui:SymbolIcon
+                                Foreground="{DynamicResource TextFillColorInverseBrush}"
+                                Margin="0,0,6,0"
+                                Symbol="{Binding Optimization.RiskVisual.Icon}" />
+                            <ui:TextBlock
+                                FontTypography="Caption"
+                                Foreground="{DynamicResource TextFillColorInverseBrush}"
+                                HorizontalAlignment="Center"
+                                Text="{Binding Optimization.RiskVisual.Display}"
+                                TextWrapping="Wrap"
+                                VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
-            </Border>
 
-            <ui:TextBlock
-                FontTypography="BodyStrong"
-                Margin="0,5,0,0"
-                Text="{ext:Loc OptimizationDetailsDialog.Other}"
-                TextTrimming="WordEllipsis"
-                TextWrapping="Wrap" />
-            <ui:CardAction
-                Command="{Binding OpenRevertFileCommand}"
-                Icon="{ui:SymbolIcon FolderOpen24}"
-                Visibility="{Binding Optimization.State.AppliedAt, Converter={StaticResource NullToVisibilityConverter}}">
-
-                <StackPanel>
+                <StackPanel Grid.Column="1" Visibility="{Binding Optimization.State.AppliedAt, Converter={StaticResource NullToVisibilityConverter}}">
                     <ui:TextBlock
                         FontTypography="BodyStrong"
-                        Text="{ext:Loc OptimizationDetailsDialog.Other.OpenRevertFile.Title}"
+                        Margin="0,0,0,8"
+                        Text="{ext:Loc Common.Status.Applied}"
+                        TextTrimming="WordEllipsis"
                         TextWrapping="Wrap" />
+                    <Border
+                        Background="{DynamicResource CardBackgroundDisabled}"
+                        CornerRadius="5"
+                        HorizontalAlignment="Left"
+                        Padding="6,4"
+                        ToolTip="{Binding Optimization.State.AppliedAt}"
+                        ToolTipService.InitialShowDelay="150"
+                        ToolTipService.Placement="Top">
+                        <ui:TextBlock
+                            FontTypography="Caption"
+                            HorizontalAlignment="Center"
+                            Text="{Binding Optimization.State.RelativeTime}"
+                            TextWrapping="Wrap"
+                            VerticalAlignment="Center" />
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!--  Tags  -->
+        <Border
+            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+            CornerRadius="8"
+            Margin="0,0,0,12"
+            Padding="16">
+            <StackPanel>
+                <StackPanel Margin="0,0,0,12" Orientation="Horizontal">
+                    <ui:TextBlock
+                        FontTypography="BodyStrong"
+                        Text="{ext:Loc OptimizationDetailsDialog.Tags}"
+                        TextTrimming="WordEllipsis"
+                        TextWrapping="Wrap" />
+                    <ui:SymbolIcon
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Margin="6,0,0,0"
+                        Symbol="QuestionCircle24"
+                        ToolTip="{ext:Loc Optimizer.UI.Tags.Help}"
+                        ToolTipService.InitialShowDelay="150"
+                        ToolTipService.Placement="Top"
+                        VerticalAlignment="Center" />
+                </StackPanel>
+                <ui:VirtualizingItemsControl ItemsSource="{Binding Optimization.TagDisplays}">
+                    <ui:VirtualizingItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        </ItemsPanelTemplate>
+                    </ui:VirtualizingItemsControl.ItemsPanel>
+                    <ui:VirtualizingItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Margin" Value="0,0,6,6" />
+                            <Setter Property="HorizontalAlignment" Value="Left" />
+                        </Style>
+                    </ui:VirtualizingItemsControl.ItemContainerStyle>
+                    <ui:VirtualizingItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                CornerRadius="5"
+                                HorizontalAlignment="Left"
+                                Padding="6,4">
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:SymbolIcon
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Margin="0,0,6,0"
+                                        Symbol="{Binding Icon}" />
+
+                                    <ui:TextBlock
+                                        Appearance="Secondary"
+                                        FontTypography="Caption"
+                                        Foreground="{DynamicResource TextFillColorInverseBrush}"
+                                        HorizontalAlignment="Center"
+                                        Text="{Binding Display}"
+                                        TextWrapping="Wrap"
+                                        VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ui:VirtualizingItemsControl.ItemTemplate>
+                </ui:VirtualizingItemsControl>
+            </StackPanel>
+        </Border>
+
+        <!--  Technical Details Section  -->
+        <ui:TextBlock
+            FontTypography="BodyStrong"
+            Margin="0,12,0,8"
+            Text="{ext:Loc OptimizationDetailsDialog.TechnicalDetails}"
+            TextWrapping="Wrap" />
+
+        <Border
+            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+            CornerRadius="8"
+            Margin="0,0,0,12"
+            Padding="0">
+            <StackPanel>
+                <Grid Margin="16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
                     <ui:TextBlock
                         Appearance="Secondary"
-                        FontTypography="Body"
-                        Text="{ext:Loc OptimizationDetailsDialog.Other.OpenRevertFile.Description}"
-                        TextWrapping="Wrap" />
-                </StackPanel>
-            </ui:CardAction>
-            <Border
-                Background="{DynamicResource CardBackgroundDisabled}"
-                CornerRadius="5"
-                HorizontalAlignment="Left"
-                Margin="0,5,0,0"
-                Padding="4,2"
-                ToolTip="{Binding Optimization.State.AppliedAt}"
-                ToolTipService.InitialShowDelay="150"
-                ToolTipService.Placement="Top"
-                Visibility="{Binding Optimization.State.AppliedAt, Converter={StaticResource NullToVisibilityConverter}}">
+                        Grid.Column="0"
+                        Text="{ext:Loc OptimizationDetailsDialog.Id}"
+                        VerticalAlignment="Center" />
+                    <ui:TextBlock
+                        FontFamily="Consolas"
+                        Grid.Column="1"
+                        Text="{Binding Optimization.Id}"
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Center" />
+                </Grid>
+                <Separator Margin="16,0,16,0" />
+                <Grid Margin="16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <ui:TextBlock
+                        Appearance="Secondary"
+                        Grid.Column="0"
+                        Text="{ext:Loc OptimizationDetailsDialog.Class}"
+                        VerticalAlignment="Center" />
+                    <ui:TextBlock
+                        FontFamily="Consolas"
+                        Grid.Column="1"
+                        Text="{Binding Optimization.OptimizationKey}"
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Center" />
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!--  Actions  -->
+        <ui:TextBlock
+            FontTypography="BodyStrong"
+            Margin="0,12,0,8"
+            Text="{ext:Loc OptimizationDetailsDialog.Other}"
+            TextTrimming="WordEllipsis"
+            TextWrapping="Wrap" />
+
+        <ui:CardAction
+            Command="{Binding ViewSourceOnGitHubCommand}"
+            Icon="{ui:SymbolIcon Code24}"
+            Margin="0,0,0,8">
+            <StackPanel>
                 <ui:TextBlock
-                    FontTypography="Caption"
-                    HorizontalAlignment="Center"
-                    Text="{Binding Optimization.State.RelativeTime}"
-                    TextWrapping="Wrap"
-                    VerticalAlignment="Center" />
-            </Border>
-        </StackPanel>
-    </ScrollViewer>
+                    FontTypography="BodyStrong"
+                    Text="{ext:Loc OptimizationDetailsDialog.Other.ViewSource.Title}"
+                    TextWrapping="Wrap" />
+                <ui:TextBlock
+                    Appearance="Secondary"
+                    FontTypography="Body"
+                    Text="{ext:Loc OptimizationDetailsDialog.Other.ViewSource.Description}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+        </ui:CardAction>
+
+        <ui:CardAction
+            Command="{Binding OpenRevertFileCommand}"
+            Icon="{ui:SymbolIcon FolderOpen24}"
+            Margin="0,0,0,4"
+            Visibility="{Binding Optimization.State.AppliedAt, Converter={StaticResource NullToVisibilityConverter}}">
+            <StackPanel>
+                <ui:TextBlock
+                    FontTypography="BodyStrong"
+                    Text="{ext:Loc OptimizationDetailsDialog.Other.OpenRevertFile.Title}"
+                    TextWrapping="Wrap" />
+                <ui:TextBlock
+                    Appearance="Secondary"
+                    FontTypography="Body"
+                    Text="{ext:Loc OptimizationDetailsDialog.Other.OpenRevertFile.Description}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+        </ui:CardAction>
+
+    </StackPanel>
 </UserControl>

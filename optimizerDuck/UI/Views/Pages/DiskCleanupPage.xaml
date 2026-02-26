@@ -46,18 +46,12 @@
                 HorizontalAlignment="Center"
                 Orientation="Vertical"
                 VerticalAlignment="Center">
-                <ui:SymbolIcon
-                    FontSize="48"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    HorizontalAlignment="Center"
-                    Margin="0,0,0,16"
-                    Symbol="HardDrive20" />
                 <ui:ProgressRing
-                    Height="36"
+                    Height="48"
                     HorizontalAlignment="Center"
                     IsIndeterminate="True"
                     Margin="0,0,0,12"
-                    Width="36" />
+                    Width="48" />
                 <ui:TextBlock
                     FontTypography="BodyStrong"
                     HorizontalAlignment="Center"
@@ -145,10 +139,42 @@
                     ToolTipService.BetweenShowDelay="160"
                     ToolTipService.Placement="Top"
                     VerticalAlignment="Center">
-                    <ComboBoxItem Content="{ext:Loc Common.SortBy.Default}" />
-                    <ComboBoxItem Content="{ext:Loc Common.SortBy.Size}" />
-                    <ComboBoxItem Content="{ext:Loc Common.SortBy.Name}" />
-                    <ComboBoxItem Content="{ext:Loc Common.SortBy.Path}" />
+                    <ComboBoxItem HorizontalContentAlignment="Left">
+                        <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                            <ui:SymbolIcon
+                                HorizontalAlignment="Left"
+                                Margin="0,0,6,0"
+                                Symbol="Storage24" />
+                            <TextBlock
+                                Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                Text="{ext:Loc Common.SortBy.Size}" />
+                        </Grid>
+                    </ComboBoxItem>
+                    <ComboBoxItem HorizontalContentAlignment="Left">
+                        <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                            <ui:SymbolIcon
+                                HorizontalAlignment="Left"
+                                Margin="0,0,6,0"
+                                Symbol="TextSortAscending24" />
+                            <TextBlock
+                                Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                Text="{ext:Loc Common.SortBy.Name}" />
+                        </Grid>
+                    </ComboBoxItem>
+                    <ComboBoxItem HorizontalContentAlignment="Left">
+                        <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                            <ui:SymbolIcon
+                                HorizontalAlignment="Left"
+                                Margin="0,0,6,0"
+                                Symbol="Folder24" />
+                            <TextBlock
+                                Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                Text="{ext:Loc Common.SortBy.Path}" />
+                        </Grid>
+                    </ComboBoxItem>
                 </ComboBox>
             </WrapPanel>
 

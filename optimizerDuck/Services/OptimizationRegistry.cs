@@ -58,17 +58,6 @@ public class OptimizationRegistry(ILoggerFactory loggerFactory)
 
         await OptimizationService.UpdateOptimizationStateAsync(optimizationCategories.SelectMany(c => c.Optimizations));
 
-        foreach (var category in optimizationCategories)
-        {
-            var sorted = category.Optimizations
-                .OrderBy(o => o.Risk)
-                .ThenByDescending(o => o.State.IsApplied ? 1 : 0)
-                .ToList();
-
-            category.Optimizations.Clear();
-            foreach (var opt in sorted)
-                category.Optimizations.Add(opt);
-        }
 
         OptimizationCategories = optimizationCategories;
     }

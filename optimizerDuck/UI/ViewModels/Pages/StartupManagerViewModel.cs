@@ -21,6 +21,7 @@ public partial class StartupManagerViewModel : ViewModel
     private bool _isLoading;
 
     [ObservableProperty] private string _searchText = string.Empty;
+    [ObservableProperty] private int _selectedSortByIndex;
 
     public StartupManagerViewModel(StartupManagerService startupManagerService, ILogger<StartupManagerViewModel> logger)
     {
@@ -53,6 +54,19 @@ public partial class StartupManagerViewModel : ViewModel
     }
 
     [RelayCommand]
+    private void OpenStartupSettings()
+    {
+        try
+        {
+            Process.Start(new ProcessStartInfo("ms-settings:startupapps") { UseShellExecute = true });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to open Startup Settings");
+        }
+    }
+
+    [RelayCommand]
     private void OpenLocation(StartupApp? app)
     {
         if (app?.CanOpenLocation == true)
@@ -67,6 +81,11 @@ public partial class StartupManagerViewModel : ViewModel
     }
 
     partial void OnSearchTextChanged(string value)
+    {
+        ApplyFilter();
+    }
+
+    partial void OnSelectedSortByIndexChanged(int value)
     {
         ApplyFilter();
     }
@@ -113,7 +132,15 @@ public partial class StartupManagerViewModel : ViewModel
         var search = SearchText.Trim();
         var hasSearch = !string.IsNullOrWhiteSpace(search);
 
-        foreach (var app in _allApps)
+        var sortedApps = SelectedSortByIndex switch
+        {
+            0 => _allApps.OrderBy(a => a.Name),
+            1 => _allApps.OrderBy(a => !a.IsEnabled).ThenBy(a => a.Name),
+            2 => _allApps.OrderBy(a => a.LocationDisplay).ThenBy(a => a.Name),
+            _ => _allApps.OrderBy(a => a.Name)
+        };
+
+        foreach (var app in sortedApps)
         {
             if (hasSearch &&
                 !app.Name.Contains(search, StringComparison.OrdinalIgnoreCase) &&
@@ -126,7 +153,15 @@ public partial class StartupManagerViewModel : ViewModel
             Apps.Add(app);
         }
 
-        foreach (var task in _allTasks)
+        var sortedTasks = SelectedSortByIndex switch
+        {
+            0 => _allTasks.OrderBy(t => t.TaskName),
+            1 => _allTasks.OrderBy(t => !t.IsEnabled).ThenBy(t => t.TaskName),
+            2 => _allTasks.OrderBy(t => t.TaskPath).ThenBy(t => t.TaskName),
+            _ => _allTasks.OrderBy(t => t.TaskName)
+        };
+
+        foreach (var task in sortedTasks)
         {
             if (hasSearch &&
                 !task.TaskName.Contains(search, StringComparison.OrdinalIgnoreCase) &&

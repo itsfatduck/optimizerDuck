@@ -105,9 +105,29 @@
                 ToolTipService.BetweenShowDelay="160"
                 ToolTipService.Placement="Top"
                 VerticalAlignment="Center">
-                <ComboBoxItem Content="{ext:Loc Common.SortBy.Default}" />
-                <ComboBoxItem Content="{ext:Loc Common.SortBy.Name}" />
-                <ComboBoxItem Content="{ext:Loc Common.SortBy.Risk}" />
+
+                <ComboBoxItem HorizontalContentAlignment="Left">
+                    <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                        <ui:SymbolIcon HorizontalAlignment="Left" Margin="0,0,6,0" Symbol="Filter24" />
+                        <TextBlock Grid.Column="1" HorizontalAlignment="Left">
+                            <Run Text="{ext:Loc Common.SortBy.Risk}" />
+                            <Run Text=" &amp; " />
+                            <Run Text="{ext:Loc Common.SortBy.Status}" />
+                        </TextBlock>
+                    </Grid>
+                </ComboBoxItem>
+                <ComboBoxItem HorizontalContentAlignment="Left">
+                    <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                        <ui:SymbolIcon HorizontalAlignment="Left" Margin="0,0,6,0" Symbol="TextSortAscending24" />
+                        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Text="{ext:Loc Common.SortBy.Name}" />
+                    </Grid>
+                </ComboBoxItem>
+                <ComboBoxItem HorizontalContentAlignment="Left">
+                    <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                        <ui:SymbolIcon HorizontalAlignment="Left" Margin="0,0,6,0" Symbol="Shield24" />
+                        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Text="{ext:Loc Common.SortBy.Risk}" />
+                    </Grid>
+                </ComboBoxItem>
             </ComboBox>
 
             <!--  Hide Applied toggle  -->
