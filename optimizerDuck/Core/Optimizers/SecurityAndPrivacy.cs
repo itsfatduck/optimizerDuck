@@ -1,5 +1,3 @@
-using System.Collections.ObjectModel;
-using System.Xml.Linq;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Attributes;
@@ -9,6 +7,9 @@ using optimizerDuck.Core.Models.UI;
 using optimizerDuck.Services.Managers;
 using optimizerDuck.Services.OptimizationServices;
 using optimizerDuck.UI.Views.Pages.Optimizations;
+using System.Collections.ObjectModel;
+using System.Text.Json;
+using System.Xml.Linq;
 
 namespace optimizerDuck.Core.Optimizers;
 
@@ -140,69 +141,71 @@ public class SecurityAndPrivacy : IOptimizationCategory
                 @"\Microsoft\Windows\Diagnosis\Scheduled",
                 @"\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticResolver"
             ]);
-            // @formatter:off
+            // @formatter:on
 
             foreach (var task in tasksToDelete)
             {
-                var query = ShellService.CMD(
-                    $"schtasks /Query /TN \"{task}\" /XML"
-                );
+                var psQuery = $@"
+                                $path = Split-Path '{task}' -Parent
+                                if ($path -ne '\') {{ $path += '\' }}
+                                $name = Split-Path '{task}' -Leaf
 
-                if (query.ExitCode != 0 || string.IsNullOrWhiteSpace(query.Stdout))
+                                try {{
+                                    $taskObj = Get-ScheduledTask -TaskPath $path -TaskName $name -ErrorAction Stop
+                                    $taskObj.Settings.Enabled
+                                }}
+                                catch {{
+                                    $null
+                                }}
+                                ";
+
+                var queryResult = ShellService.PowerShell(psQuery);
+
+                if (queryResult.ExitCode != 0 || string.IsNullOrWhiteSpace(queryResult.Stdout))
                 {
                     context.Logger.LogDebug("Task {Task} not found, skipping", task);
                     continue;
                 }
 
-                var wasEnabled = GetTaskEnabledFromXml(query.Stdout);
-
-                if (wasEnabled == null)
+                if (!bool.TryParse(queryResult.Stdout.Trim(), out var wasEnabled))
                 {
-                    context.Logger.LogWarning(
-                        "Cannot determine Enabled state from XML for task {Task}, skipping",
-                        task
-                    );
+                    context.Logger.LogDebug("Task {Task} not found or cannot read state", task);
                     continue;
                 }
 
-                var result = ShellService.CMD(
-                    $"schtasks /Change /TN \"{task}\" /Disable",
-                    () => wasEnabled.Value
-                        ? $"schtasks /Change /TN \"{task}\" /Enable"
-                        : $"schtasks /Change /TN \"{task}\" /Disable"
-                );
+                if (!wasEnabled)
+                {
+                    context.Logger.LogDebug("Task {Task} already disabled", task);
+                    continue;
+                }
+
+                var disableCommand = $@"
+                                       $path = Split-Path '{task}' -Parent
+                                       if ($path -ne '\') {{ $path += '\' }}
+                                       $name = Split-Path '{task}' -Leaf
+                                       Disable-ScheduledTask -TaskPath $path -TaskName $name
+                                       ";
+
+                var revertCommand = $@"
+                                      $path = Split-Path '{task}' -Parent
+                                      if ($path -ne '\') {{ $path += '\' }}
+                                      $name = Split-Path '{task}' -Leaf
+                                      Enable-ScheduledTask -TaskPath $path -TaskName $name
+                                      ";
+
+                var result = ShellService.PowerShell(disableCommand, revertCommand);
 
                 if (result.ExitCode != 0)
-                    context.Logger.LogWarning(
-                        "Failed to disable task {Task}",
-                        task
-                    );
+                {
+                    context.Logger.LogWarning("Failed to disable task {Task}", task);
+                }
+                else
+                {
+                    context.Logger.LogInformation("Disabled task {Task}", task);
+                }
             }
 
             return Task.FromResult(ApplyResult.True());
-        }
-
-        private static bool? GetTaskEnabledFromXml(string xml)
-        {
-            try
-            {
-                var doc = XDocument.Parse(xml);
-
-                // Task Scheduler XML has a namespace
-                var ns = doc.Root!.Name.Namespace;
-
-                var enabledElement = doc
-                    .Element(ns + "Task")?
-                    .Element(ns + "Settings")?
-                    .Element(ns + "Enabled");
-
-                // if element is not found, it means the task is enabled
-                return enabledElement == null || bool.Parse(enabledElement.Value);
-            }
-            catch
-            {
-                return null;
-            }
         }
     }
 
@@ -231,7 +234,8 @@ public class SecurityAndPrivacy : IOptimizationCategory
             );
             context.Logger.LogInformation("Disabled WMI AutoLogger sessions");
             return Task.FromResult(ApplyResult.True());
-        }}
+        }
+    }
 
     [Optimization(Id = "6856782A-B530-4623-BD89-942D73FB82FD", Risk = OptimizationRisk.Moderate,
         Tags = OptimizationTags.Privacy | OptimizationTags.System)]
@@ -256,7 +260,8 @@ public class SecurityAndPrivacy : IOptimizationCategory
              );
             context.Logger.LogInformation("Disabled Cortana and web search");
             return Task.FromResult(ApplyResult.True());
-        }}
+        }
+    }
 
     [Optimization(Id = "64C6BEC3-B58C-4E57-830A-1DE1F4650542", Risk = OptimizationRisk.Moderate,
         Tags = OptimizationTags.Privacy | OptimizationTags.System)]
@@ -286,7 +291,8 @@ public class SecurityAndPrivacy : IOptimizationCategory
 
             context.Logger.LogInformation("Disabled Windows Copilot");
             return Task.FromResult(ApplyResult.True());
-        }}
+        }
+    }
 
     [Optimization(Id = "00C997FE-1CB7-41BD-B473-65A81333AEE9", Risk = OptimizationRisk.Safe,
     Tags = OptimizationTags.System | OptimizationTags.Latency | OptimizationTags.Privacy)]
@@ -310,5 +316,6 @@ public class SecurityAndPrivacy : IOptimizationCategory
             );
             context.Logger.LogInformation("Disabled content delivery manager");
             return Task.FromResult(ApplyResult.True());
-        }}
+        }
+    }
 }
