@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./.github/assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/>
+<a href="https://optimizerduck.vercel.app/"><img src="./.github/assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/></a>
 
 # [optimizerDuck](https://optimizerduck.vercel.app/)
 
