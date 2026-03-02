@@ -76,6 +76,8 @@ Please follow project guidelines when contributing:
 - [Contributing Guidelines](./CONTRIBUTING.md)
 - [Code of Conduct](./CODE_OF_CONDUCT.md)
 
+Learn more about contributing here: [Contributing](https://optimizerduck.vercel.app/docs/contribute/overview)
+
 ---
 
 ## Support the Project
