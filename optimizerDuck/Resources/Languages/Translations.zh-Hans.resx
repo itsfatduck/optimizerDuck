@@ -98,10 +98,10 @@
     <value>在 GitHub 上探索、审查并贡献代码</value>
   </data>
     <data name="Dashboard.Actions.SupportMe.Title" xml:space="preserve">
-    <value>支持开发者</value>
+    <value>参与贡献</value>
   </data>
     <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
-    <value>在 GitHub 上给项目加星、分享给朋友或捐赠——每一份支持都很重要！</value>
+    <value>在 GitHub 上点星、与朋友分享或捐赠 每一份帮助都能让这个项目成长！</value>
   </data>
     <!-- Settings -->
     <data name="Settings.Header.Title" xml:space="preserve">
@@ -183,15 +183,10 @@
     <data name="Settings.About.LearnMore.Documentation" xml:space="preserve">
     <value>文档</value>
   </data>
-    <data name="Settings.About.LearnMore.Support" xml:space="preserve">
-    <value>Star 与支持</value>
+    <data name="Settings.About.LearnMore.Contribute" xml:space="preserve">
+    <value>参与贡献</value>
   </data>
-    <data name="Settings.About.LearnMore.Discord" xml:space="preserve">
-    <value>Discord 社区</value>
-  </data>
-    <data name="Settings.About.LearnMore.GitHub" xml:space="preserve">
-    <value>GitHub 仓库</value>
-  </data>
+
     <data name="Settings.About.Acknowledgements.Title" xml:space="preserve">
     <value>致谢</value>
   </data>
@@ -1115,5 +1110,8 @@
   </data>
     <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
     <value>打开设置</value>
+  </data>
+  <data name="Settings.About.LearnMore.Website" xml:space="preserve">
+    <value>官方网站</value>
   </data>
 </root>

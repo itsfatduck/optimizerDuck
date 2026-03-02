@@ -181,10 +181,10 @@
     <value>Explore, review, and contribute to my project through GitHub</value>
   </data>
     <data name="Dashboard.Actions.SupportMe.Title" xml:space="preserve">
-    <value>Support Me</value>
+    <value>Contribute</value>
   </data>
     <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
-    <value>Star the repo on GitHub, share it with friends, or donate — every bit helps this project grow!</value>
+    <value>Star the repo on GitHub, share it with friends, or donate every bit helps this project grow!</value>
   </data>
     <data name="Settings.LanguageChanged.Title" xml:space="preserve">
     <value>Language change</value>
@@ -455,15 +455,10 @@ Current version: {0}</value>
     <data name="Settings.About.LearnMore.Documentation" xml:space="preserve">
     <value>Documentation</value>
   </data>
-    <data name="Settings.About.LearnMore.Support" xml:space="preserve">
-    <value>Star &amp; Support me</value>
+    <data name="Settings.About.LearnMore.Contribute" xml:space="preserve">
+    <value>Contribute</value>
   </data>
-    <data name="Settings.About.LearnMore.Discord" xml:space="preserve">
-    <value>Discord community</value>
-  </data>
-    <data name="Settings.About.LearnMore.GitHub" xml:space="preserve">
-    <value>GitHub repository</value>
-  </data>
+
     <data name="Dialog.AreYouSure.Title" xml:space="preserve">
     <value>Do you really want to proceed?</value>
   </data>
@@ -1199,5 +1194,8 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   </data>
     <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
     <value>Open Settings</value>
+  </data>
+  <data name="Settings.About.LearnMore.Website" xml:space="preserve">
+    <value>Official Website</value>
   </data>
 </root>

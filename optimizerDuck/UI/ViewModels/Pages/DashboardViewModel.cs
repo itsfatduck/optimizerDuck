@@ -141,9 +141,10 @@ public partial class DashboardViewModel : ViewModel
                     break;
 
                 case "Support":
+                case "Contribute":
                     Process.Start(new ProcessStartInfo
                     {
-                        FileName = Shared.SupportMeURL,
+                        FileName = Shared.ContributeURL,
                         UseShellExecute = true
                     });
                     break;

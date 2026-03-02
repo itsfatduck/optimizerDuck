@@ -2,7 +2,7 @@
 
 <img src="./.github/assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/>
 
-# optimizerDuck
+# [optimizerDuck](https://optimizerduck.vercel.app/)
 
 **optimizerDuck is a free, open-source Windows optimization tool built for performance, privacy, and simplicity.**
 
@@ -21,12 +21,12 @@
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Download & Run
 
 1. Download the latest release from **GitHub**  
-   👉 https://github.com/itsfatduck/optimizerDuck/releases/latest
+   https://github.com/itsfatduck/optimizerDuck/releases/latest
 2. Run the `.exe` file (no installer required)
 
 > [!TIP]
@@ -34,11 +34,11 @@
 >
 > Also remember to create a restore point or backup before applying optimizations.
 
-### 🌍 Multi-Language Support
+### Multi-Language Support
 
 optimizerDuck currently supports the following languages:
 
-- 🇺🇸 **English** (United States) — _Primary & recommended_
+- 🇺🇸 **English** (United States) - _Primary & recommended_
 - 🇻🇳 **Vietnamese** (Tiếng Việt)
 - [AI] 🇨🇳 **Chinese (Simplified)** (简体中文)
 - [AI] 🇷🇺 **Russian** (Русский)
@@ -52,15 +52,15 @@ _More languages may be added in the future._
 
 ---
 
-## 📖 Documentation
+## Documentation
 
 Full documentation and advanced guides are available here:  
 
-### [Repository Wiki](https://github.com/itsfatduck/optimizerDuck/wiki)
+### 📚 [Documentation](https://optimizerduck.vercel.app/docs/guides/getting-started)
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome!
 
@@ -72,11 +72,13 @@ You can help by:
 * Improving translations
 * Enhancing documentation
 
-Please follow project guidelines when contributing.
+Please follow project guidelines when contributing:
+- [Contributing Guidelines](./CONTRIBUTING.md)
+- [Code of Conduct](./CODE_OF_CONDUCT.md)
 
 ---
 
-## 💖 Support the Project
+## Support the Project
 
 If optimizerDuck improved your PC experience:
 
@@ -91,19 +93,19 @@ Every star and contribution helps keep the project growing.
 
 ---
 
-## 💬 Community, Contributing & Support
+## Community, Contributing & Support
 
+- 🌐 [Website](https://optimizerduck.vercel.app/) → Official Website & Documentation
 - 💬 [Discord](https://discord.gg/tDUBDCYw9Q) → Live chat & support
 - 🐞 [Issues](https://github.com/itsfatduck/optimizerDuck/issues) → Bug reports
 - 💡 [Discussions](https://github.com/itsfatduck/optimizerDuck/discussions) → Feature requests
-- 📚 [Third-Party Notices](./THIRD-PARTY-NOTICES.md) → Open Source acknowledgments
 
 > [!TIP]
-> Before asking for help, check the docs and existing issues — your answer may already be there.
+> Before asking for help, check the docs and existing issues, your answer may already be there.
 
 ---
 
-## ⚠️ Disclaimer
+## Disclaimer
 
 optimizerDuck is provided **"as is"**, without warranty of any kind.
 
@@ -127,7 +129,7 @@ If you believe any part of this project violates your copyright, please open an 
 
 ---
 
-## ⚖️ License
+## License
 
 <img src=".github/assets/gplv3.png" alt="GPL v3 License" title="GPL v3 License"/>
 
@@ -136,7 +138,7 @@ See the [LICENSE](./LICENSE) file for details.
 
 ---
 
-## ⭐ Star History
+## Star History
 
 If optimizerDuck helped improve your PC, consider giving the repo a ⭐ and sharing it with others.  
 **Every star** helps motivate future improvements and features.

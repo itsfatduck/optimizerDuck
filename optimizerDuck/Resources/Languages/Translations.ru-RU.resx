@@ -167,23 +167,11 @@
     <data name="Dashboard.SystemInfo.Gpu.More" xml:space="preserve">
     <value>+ ещё {0} GPU</value>
   </data>
-    <data name="Dashboard.Actions.Discord.Title" xml:space="preserve">
-    <value>Сообщество Discord</value>
-  </data>
-    <data name="Dashboard.Actions.Discord.Description" xml:space="preserve">
-    <value>Присоединяйтесь к сообществу Discord для получения технической поддержки или обсуждений</value>
-  </data>
-    <data name="Dashboard.Actions.GitHub.Title" xml:space="preserve">
-    <value>Репозиторий GitHub</value>
-  </data>
-    <data name="Dashboard.Actions.GitHub.Description" xml:space="preserve">
-    <value>Изучайте, проверяйте и вносите вклад в код на GitHub</value>
-  </data>
     <data name="Dashboard.Actions.SupportMe.Title" xml:space="preserve">
-    <value>Поддержать разработчика</value>
+    <value>Внести вклад</value>
   </data>
     <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
-    <value>Поставьте звезду на GitHub, поделитесь с друзьями или поддержите донатом — любая помощь важна!</value>
+    <value>Поставьте звезду на GitHub, поделитесь с друзьями или поддержите донатом, любая помощь важна!</value>
   </data>
     <data name="Settings.LanguageChanged.Title" xml:space="preserve">
     <value>Язык изменён</value>
@@ -454,15 +442,10 @@
     <data name="Settings.About.LearnMore.Documentation" xml:space="preserve">
     <value>Документация</value>
   </data>
-    <data name="Settings.About.LearnMore.Support" xml:space="preserve">
-    <value>Звезда и поддержка</value>
+    <data name="Settings.About.LearnMore.Contribute" xml:space="preserve">
+    <value>Внести вклад</value>
   </data>
-    <data name="Settings.About.LearnMore.Discord" xml:space="preserve">
-    <value>Сообщество Discord</value>
-  </data>
-    <data name="Settings.About.LearnMore.GitHub" xml:space="preserve">
-    <value>Репозиторий GitHub</value>
-  </data>
+
     <data name="Dialog.AreYouSure.Title" xml:space="preserve">
     <value>Вы уверены, что хотите продолжить?</value>
   </data>
@@ -1198,5 +1181,8 @@
   </data>
     <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
     <value>Открыть параметры</value>
+  </data>
+  <data name="Settings.About.LearnMore.Website" xml:space="preserve">
+    <value>Официальный сайт</value>
   </data>
 </root>

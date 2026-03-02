@@ -83,7 +83,10 @@
                     Text="{ext:Loc Settings.Optimize.Header}"
                     TextWrapping="Wrap" />
 
-                <ui:CardControl Icon="{ui:SymbolIcon Clock24}">
+                <ui:CardControl>
+                    <ui:CardControl.Icon>
+                        <ui:SymbolIcon Foreground="{DynamicResource SystemFillColorCriticalBrush}" Symbol="Clock24" />
+                    </ui:CardControl.Icon>
                     <ui:CardControl.Header>
                         <StackPanel>
                             <ui:TextBlock
@@ -142,7 +145,10 @@
                     Text="{ext:Loc Settings.Advanced.Header}"
                     TextWrapping="Wrap" />
 
-                <ui:CardAction Command="{Binding ViewModel.ClearResourcesCommand}" Icon="{ui:SymbolIcon Archive24}">
+                <ui:CardAction Command="{Binding ViewModel.ClearResourcesCommand}">
+                    <ui:CardAction.Icon>
+                        <ui:SymbolIcon Foreground="{DynamicResource SystemFillColorCriticalBrush}" Symbol="Archive24" />
+                    </ui:CardAction.Icon>
                     <StackPanel>
                         <ui:TextBlock
                             Appearance="Primary"
@@ -157,7 +163,10 @@
                     </StackPanel>
                 </ui:CardAction>
 
-                <ui:CardAction Command="{Binding ViewModel.ClearAllRevertDataCommand}" Icon="{ui:SymbolIcon DatabaseLightning20}">
+                <ui:CardAction Command="{Binding ViewModel.ClearAllRevertDataCommand}">
+                    <ui:CardAction.Icon>
+                        <ui:SymbolIcon Foreground="{DynamicResource SystemFillColorCriticalBrush}" Symbol="DatabaseLightning20" />
+                    </ui:CardAction.Icon>
                     <StackPanel>
                         <ui:TextBlock
                             Appearance="Primary"
@@ -194,50 +203,40 @@
                     Text="{ext:Loc Settings.About.Header}"
                     TextWrapping="Wrap" />
 
-                <ui:CardControl>
-                    <ui:CardControl.Icon>
+                <ui:CardAction Command="{Binding ViewModel.OpenWebsiteCommand}" CommandParameter="Web">
+                    <ui:CardAction.Icon>
                         <ui:ImageIcon Height="25" Source="pack://application:,,,/optimizerDuck;component/Resources/Images/Duck.png" />
-                    </ui:CardControl.Icon>
+                    </ui:CardAction.Icon>
 
-                    <ui:CardControl.Header>
-                        <StackPanel>
-                            <ui:TextBlock
-                                Appearance="Primary"
-                                FontTypography="BodyStrong"
-                                Text="optimizerDuck"
-                                TextWrapping="Wrap" />
-                            <ui:TextBlock
-                                Appearance="Secondary"
-                                Text="{ext:Loc Settings.About.Duck.Description,
-                                               {Binding ViewModel.Version}}"
-                                TextWrapping="Wrap" />
-                        </StackPanel>
-                    </ui:CardControl.Header>
+                    <StackPanel>
+                        <ui:TextBlock
+                            Appearance="Primary"
+                            FontTypography="BodyStrong"
+                            Text="optimizerDuck"
+                            TextWrapping="Wrap" />
+                        <ui:TextBlock
+                            Appearance="Secondary"
+                            Text="{ext:Loc Settings.About.Duck.Description,
+                                           {Binding ViewModel.Version}}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </ui:CardAction>
 
-                    <ui:Button
-                        Command="{Binding ViewModel.OpenLatestReleaseCommand}"
-                        Content="{ext:Loc Button.ViewLatestRelease}"
-                        Cursor="Hand"
-                        Icon="{ui:SymbolIcon Open24}" />
-                </ui:CardControl>
-
-                <ui:CardControl Icon="{ui:SymbolIcon AnimalCat24}">
-
-                    <ui:CardControl.Header>
-                        <StackPanel>
-                            <ui:HyperlinkButton
-                                Content="fatDuck (itsfatduck)"
-                                FontSize="14"
-                                FontWeight="SemiBold"
-                                NavigateUri="{Binding ViewModel.SupportMe}"
-                                Padding="0" />
-                            <ui:TextBlock
-                                Appearance="Secondary"
-                                Text="{ext:Loc Settings.About.Author.Description}"
-                                TextWrapping="Wrap" />
-                        </StackPanel>
-                    </ui:CardControl.Header>
-                </ui:CardControl>
+                <ui:CardAction
+                    Command="{Binding ViewModel.OpenWebsiteCommand}"
+                    CommandParameter="Me"
+                    Icon="{ui:SymbolIcon AnimalCat24}">
+                    <StackPanel>
+                        <ui:TextBlock
+                            FontTypography="BodyStrong"
+                            Padding="0"
+                            Text="fatDuck (itsfatduck)" />
+                        <ui:TextBlock
+                            Appearance="Secondary"
+                            Text="{ext:Loc Settings.About.Author.Description}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </ui:CardAction>
 
                 <ui:CardAction Command="{Binding ViewModel.OpenAcknowledgementsCommand}" VerticalAlignment="Stretch">
                     <ui:CardAction.Icon>
@@ -263,11 +262,10 @@
                     TextTrimming="WordEllipsis"
                     TextWrapping="Wrap" />
                 <StackPanel Margin="7,0,0,0">
-                    <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.Support}" NavigateUri="{Binding ViewModel.SupportMe}" />
+                    <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.Website}" NavigateUri="{Binding ViewModel.Website}" />
+                    <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.Contribute}" NavigateUri="{Binding ViewModel.Contribute}" />
                     <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.Documentation}" NavigateUri="{Binding ViewModel.Documentation}" />
                     <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.Acknowledgements}" NavigateUri="{Binding ViewModel.Acknowledgements}" />
-                    <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.Discord}" NavigateUri="{Binding ViewModel.DiscordInvite}" />
-                    <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.GitHub}" NavigateUri="{Binding ViewModel.GitHubRepo}" />
                 </StackPanel>
             </StackPanel>
         </StackPanel>

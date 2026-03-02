@@ -180,10 +180,10 @@
     <value>Khám phá, theo dõi và đóng góp mã nguồn trực tiếp tại GitHub</value>
   </data>
     <data name="Dashboard.Actions.SupportMe.Title" xml:space="preserve">
-    <value>Hỗ Trợ Tôi</value>
+    <value>Đóng góp</value>
   </data>
     <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
-    <value>Star repo trên GitHub, chia sẻ với bạn bè, hoặc donate — mọi đóng góp đều giúp dự án phát triển!</value>
+    <value>Star repository trên GitHub, chia sẻ với bạn bè hoặc ủng hộ dự án mỗi sự giúp đỡ đều giúp dự án phát triển!</value>
   </data>
     <data name="Settings.LanguageChanged.Title" xml:space="preserve">
     <value>Thay đổi ngôn ngữ</value>
@@ -454,15 +454,10 @@ Phiên bản hiện tại: {0} </value>
     <data name="Settings.About.LearnMore.Documentation" xml:space="preserve">
     <value>Tài liệu hướng dẫn</value>
   </data>
-    <data name="Settings.About.LearnMore.Support" xml:space="preserve">
-    <value>Star &amp; Hỗ trợ tôi</value>
+    <data name="Settings.About.LearnMore.Contribute" xml:space="preserve">
+    <value>Đóng góp cho dự án</value>
   </data>
-    <data name="Settings.About.LearnMore.Discord" xml:space="preserve">
-    <value>Cộng đồng Discord</value>
-  </data>
-    <data name="Settings.About.LearnMore.GitHub" xml:space="preserve">
-    <value>Mã nguồn trên GitHub</value>
-  </data>
+
     <data name="Dialog.AreYouSure.Title" xml:space="preserve">
     <value>Bạn có chắc chắn muốn tiếp tục không?</value>
   </data>
@@ -1198,5 +1193,8 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
     <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
     <value>Mở Cài đặt</value>
+  </data>
+  <data name="Settings.About.LearnMore.Website" xml:space="preserve">
+    <value>Trang Web Chính Thức</value>
   </data>
 </root>

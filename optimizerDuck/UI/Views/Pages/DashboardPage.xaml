@@ -132,7 +132,7 @@
             <ui:CardAction
                 BorderThickness="1"
                 Command="{Binding ViewModel.OpenActionCommand}"
-                CommandParameter="Support"
+                CommandParameter="Contribute"
                 Margin="5,0,0,0"
                 VerticalAlignment="Stretch">
 

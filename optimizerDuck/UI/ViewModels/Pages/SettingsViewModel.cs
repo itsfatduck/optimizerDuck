@@ -36,11 +36,13 @@ public partial class SettingsViewModel(
     public string Version { get; } = Shared.FileVersion;
 
     //Learn more links
+    public string Website { get; } = Shared.WebsiteURL;
     public string DiscordInvite { get; } = Shared.DiscordInviteURL;
 
     public string GitHubRepo { get; } = Shared.GitHubRepoURL;
-    public string Documentation { get; } = Shared.GitHubRepoURL + "/wiki";
-    public string SupportMe { get; } = Shared.SupportMeURL;
+    public string Documentation { get; } = Shared.WebsiteURL + "docs/guides/getting-started";
+    public string Me { get; } = Shared.MeURL;
+    public string Contribute { get; } = Shared.ContributeURL;
     public string Acknowledgements { get; } = Shared.AcknowledgementsURL;
 
     public ObservableCollection<LanguageOption> Languages { get; } =
@@ -169,6 +171,45 @@ public partial class SettingsViewModel(
             logger.LogError(ex, "Failed to open acknowledgements page");
         }
     }
+    
+    [RelayCommand]
+    private void OpenWebsite(string type)
+    {
+        try
+        {
+            switch (type)
+            {
+                case "Web":
+                    logger.LogInformation("Opening page: {Url}", Shared.WebsiteURL);
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = Shared.WebsiteURL,
+                        UseShellExecute = true
+                    });
+                    break;
+                case "Me":
+                    logger.LogInformation("Opening page: {Url}", Shared.MeURL);
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = Shared.MeURL,
+                        UseShellExecute = true
+                    });
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            snackbarService.Show(
+                Translations.Snackbar_OpenLinkFailed_Title,
+                Translations.Snackbar_OpenLinkFailed_Message,
+                ControlAppearance.Danger,
+                new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
+                TimeSpan.FromSeconds(5)
+            );
+            logger.LogError(ex, "Failed to open page");
+        }
+    }
+
 
     [RelayCommand]
     private void ToggleRemoveProvisioned()
