@@ -1,4 +1,6 @@
+using System.Text;
 using optimizerDuck.Services.OptimizationServices;
+using Xunit;
 
 namespace optimizerDuck.Test.Services.OptimizationServices;
 
@@ -26,5 +28,18 @@ public class ShellServiceTests
         var result = ShellService.PowerShell("Write-Output 'ok'");
 
         Assert.Equal(0, result.ExitCode);
+    }
+
+    [Theory]
+    [InlineData("Tiếng Việt có dấu")]
+    [InlineData("Zażółć gęślą jaźń")]
+    [InlineData("Español – información")]
+    [InlineData("Français – élève")]
+    [InlineData("Deutsch – äußern")]
+    public void PowerShell_MultiLanguageUnicode_ReturnsCorrectString(string text)
+    {
+        var result = ShellService.PowerShell($"Write-Output '{text}'");
+
+        Assert.Contains(text, result.Stdout);
     }
 }
