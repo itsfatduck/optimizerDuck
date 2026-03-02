@@ -228,10 +228,10 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         try
         {
             var result = await ShellService.PowerShellAsync(@"
-                Get-ScheduledTask | 
-                Where-Object { $_.Triggers.CimClass.CimClassName -match 'LogonTrigger' -and $_.TaskPath -notlike '\Microsoft\*' } | 
-                Select-Object TaskName, TaskPath, State, Description | 
-                ConvertTo-Json -Depth 2
+                Get-ScheduledTask |
+                Where-Object { $_.Triggers.CimClass.CimClassName -match 'LogonTrigger' -and $_.TaskPath -notlike '\Microsoft\*' } |
+                Select-Object TaskName, TaskPath, State, Description, @{Name=""Enabled"";Expression={$_.Settings.Enabled}} |
+                ConvertTo-Json -Depth 3
             ");
 
             if (result.ExitCode == 0 && !string.IsNullOrWhiteSpace(result.Stdout))
@@ -241,11 +241,11 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                     switch (doc.RootElement.ValueKind)
                     {
                         case JsonValueKind.Array:
-                        {
-                            foreach (var el in doc.RootElement.EnumerateArray())
-                                ParseTaskElement(el, tasks);
-                            break;
-                        }
+                            {
+                                foreach (var el in doc.RootElement.EnumerateArray())
+                                    ParseTaskElement(el, tasks);
+                                break;
+                            }
                         case JsonValueKind.Object:
                             ParseTaskElement(doc.RootElement, tasks);
                             break;
@@ -268,7 +268,7 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
     {
         var name = el.TryGetProperty("TaskName", out var nProp) ? nProp.GetString() ?? "" : "";
         var path = el.TryGetProperty("TaskPath", out var pProp) ? pProp.GetString() ?? "" : "";
-        var state = el.TryGetProperty("State", out var sProp) ? sProp.GetInt32() : 0;
+        var enabled = el.TryGetProperty("Enabled", out var eProp) && eProp.GetBoolean();
         var desc = el.TryGetProperty("Description", out var dProp) ? dProp.GetString() : "";
 
         if (string.IsNullOrWhiteSpace(name)) return;
@@ -278,7 +278,7 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
             TaskName = name,
             TaskPath = path,
             Description = desc,
-            IsEnabled = state != 1 // 1 is Disabled in TaskState enum
+            IsEnabled = enabled
         });
     }
 
