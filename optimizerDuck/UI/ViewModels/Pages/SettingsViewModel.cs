@@ -48,9 +48,7 @@ public partial class SettingsViewModel(
     public ObservableCollection<LanguageOption> Languages { get; } =
     [
         new("English", new CultureInfo("en-US")),
-        new("Tiếng Việt", new CultureInfo("vi-VN")),
-        new("简体中文", new CultureInfo("zh-Hans")),
-        new("Русский", new CultureInfo("ru-RU"))
+        new("Tiếng Việt", new CultureInfo("vi-VN"))
     ];
 
     public override async Task OnNavigatedToAsync()

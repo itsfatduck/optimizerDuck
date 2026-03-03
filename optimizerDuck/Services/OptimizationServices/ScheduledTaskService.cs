@@ -6,7 +6,7 @@ namespace optimizerDuck.Services.OptimizationServices;
 
 public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
 {
-    #region Static utility methods (for optimizer use)
+    #region Optimization uses
 
     /// <summary>
     ///     Checks whether a task at the given full path exists and is enabled.
@@ -46,9 +46,9 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
         task.Enabled = true;
     }
 
-    #endregion
+    #endregion Optimization uses
 
-    #region Instance methods (for DI use)
+    #region Main Methods
 
     /// <summary>
     ///     Recursively retrieves all scheduled tasks from the system.
@@ -183,7 +183,7 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
     }
 
     /// <summary>
-    ///     Registers a new scheduled task from a model definition.
+    ///     [WIP] Registers a new scheduled task from a model definition.
     /// </summary>
     public void RegisterTask(string folderPath, ScheduledTaskModel model)
     {
@@ -194,9 +194,20 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
             td.RegistrationInfo.Description = model.Description ?? string.Empty;
             td.RegistrationInfo.Author = model.Author ?? string.Empty;
             td.Settings.Enabled = model.IsEnabled;
+            td.Settings.Hidden = model.Hidden;
+            
+            if (model.RunWithHighestPrivileges)
+                td.Principal.RunLevel = TaskRunLevel.Highest;
 
-            // Parse action from ActionSummary ("exe args" format)
-            if (!string.IsNullOrWhiteSpace(model.ActionSummary))
+            // Handle Action Execution accurately
+            if (!string.IsNullOrWhiteSpace(model.ExecutablePath))
+            {
+                var action = new ExecAction(model.ExecutablePath);
+                if (!string.IsNullOrWhiteSpace(model.Arguments))
+                    action.Arguments = model.Arguments;
+                td.Actions.Add(action);
+            }
+            else if (!string.IsNullOrWhiteSpace(model.ActionSummary)) // Fallback if still populated via old approach
             {
                 var parts = model.ActionSummary.Trim();
                 var spaceIdx = parts.IndexOf(' ');
@@ -211,6 +222,12 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
                 td.Triggers.Add(new LogonTrigger());
             if (model.HasBootTrigger)
                 td.Triggers.Add(new BootTrigger());
+            if (model.HasIdleTrigger)
+                td.Triggers.Add(new IdleTrigger());
+            if (model.HasRegistrationTrigger)
+                td.Triggers.Add(new RegistrationTrigger());
+            if (model.HasDailyTrigger)
+                td.Triggers.Add(new DailyTrigger { StartBoundary = DateTime.Today + model.DailyTriggerTime });
 
             // Ensure folder exists
             var folder = ts.RootFolder;
@@ -236,9 +253,9 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
         }
     }
 
-    #endregion
+    #endregion Main Methods
 
-    #region Private helpers
+    #region Helpers
 
     private void CollectTasks(TaskFolder folder, List<ScheduledTaskModel> results)
     {
@@ -302,5 +319,5 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
         };
     }
 
-    #endregion
+    #endregion Helpers
 }

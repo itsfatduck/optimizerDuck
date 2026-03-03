@@ -17,16 +17,37 @@ public partial class ScheduledTaskCreateDialog : UserControl
             var name = TaskNameBox.Text?.Trim();
             if (string.IsNullOrWhiteSpace(name)) return null;
 
+            var folderPath = FolderPathBox.Text?.Trim() ?? "\\";
+            if (!folderPath.StartsWith("\\")) folderPath = "\\" + folderPath;
+            if (folderPath.Length > 1) folderPath = folderPath.TrimEnd('\\');
+
+            var fullPath = folderPath == "\\" ? $"\\{name}" : $"{folderPath}\\{name}";
+
+            // Parse daily time
+            TimeSpan time = TimeSpan.Zero;
+            if (DailyTriggerCheck.IsChecked == true && !string.IsNullOrWhiteSpace(DailyTimeBox.Text))
+            {
+                if (TimeSpan.TryParse(DailyTimeBox.Text.Trim(), out var parsedTime))
+                    time = parsedTime;
+            }
+
             return new ScheduledTaskModel
             {
                 Name = name,
-                Path = FolderPathBox.Text?.Trim() ?? "\\",
-                FullPath = (FolderPathBox.Text?.Trim()?.TrimEnd('\\') ?? "\\") + "\\" + name,
+                Path = folderPath,
+                FullPath = fullPath,
                 Description = DescriptionBox.Text?.Trim(),
-                ActionSummary = ExecutableBox.Text?.Trim() ?? string.Empty,
+                ExecutablePath = ExecutableBox.Text?.Trim() ?? string.Empty,
+                Arguments = ArgumentsBox.Text?.Trim() ?? string.Empty,
                 IsEnabled = EnabledCheck.IsChecked == true,
                 HasLogonTrigger = LogonTriggerCheck.IsChecked == true,
-                HasBootTrigger = BootTriggerCheck.IsChecked == true
+                HasBootTrigger = BootTriggerCheck.IsChecked == true,
+                HasIdleTrigger = IdleTriggerCheck.IsChecked == true,
+                HasRegistrationTrigger = RegistrationTriggerCheck.IsChecked == true,
+                HasDailyTrigger = DailyTriggerCheck.IsChecked == true,
+                DailyTriggerTime = time,
+                RunWithHighestPrivileges = HighestPrivilegesCheck.IsChecked == true,
+                Hidden = HiddenCheck.IsChecked == true
             };
         }
     }

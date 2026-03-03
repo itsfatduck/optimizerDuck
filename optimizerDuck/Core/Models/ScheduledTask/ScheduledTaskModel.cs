@@ -30,6 +30,16 @@ public partial class ScheduledTaskModel : ObservableObject
     public bool HasLogonTrigger { get; init; }
     public bool HasBootTrigger { get; init; }
 
+    // New expanded creation properties
+    public string ExecutablePath { get; init; } = string.Empty;
+    public string Arguments { get; init; } = string.Empty;
+    public bool HasIdleTrigger { get; init; }
+    public bool HasRegistrationTrigger { get; init; }
+    public bool HasDailyTrigger { get; init; }
+    public TimeSpan DailyTriggerTime { get; init; }
+    public bool RunWithHighestPrivileges { get; init; }
+    public bool Hidden { get; init; }
+
     // Computed state helpers for UI binding
     public bool IsRunning => State.Equals("Running", StringComparison.OrdinalIgnoreCase);
     public bool IsReady => State.Equals("Ready", StringComparison.OrdinalIgnoreCase);

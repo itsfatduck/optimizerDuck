@@ -1,36 +1,148 @@
 <UserControl
-    d:DesignHeight="400"
-    d:DesignWidth="500"
-    mc:Ignorable="d"
     x:Class="optimizerDuck.UI.Views.Dialogs.ScheduledTaskCreateDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    d:DesignHeight="400"
+    d:DesignWidth="500"
+    mc:Ignorable="d">
 
-    <StackPanel MinWidth="400">
-        <ui:TextBlock FontTypography="BodyStrong" Margin="0,0,0,12" Text="{ext:Loc ScheduledTasks.Dialog.CreateTitle}" />
+    <Grid MinWidth="480">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-        <ui:TextBlock FontTypography="Caption" Margin="0,0,0,4" Text="{ext:Loc ScheduledTasks.Dialog.TaskName}" />
-        <ui:TextBox Margin="0,0,0,12" x:Name="TaskNameBox" PlaceholderText="{ext:Loc ScheduledTasks.Dialog.TaskNameHint}" />
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="24" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-        <ui:TextBlock FontTypography="Caption" Margin="0,0,0,4" Text="{ext:Loc ScheduledTasks.Dialog.Description}" />
-        <ui:TextBox Margin="0,0,0,12" x:Name="DescriptionBox" PlaceholderText="{ext:Loc ScheduledTasks.Dialog.DescriptionHint}" AcceptsReturn="True" MinHeight="60" />
+            <!--  Left Column: General & Action Info  -->
+            <StackPanel Grid.Column="0">
+                <ui:TextBlock
+                    Margin="0,0,0,4"
+                    FontTypography="Caption"
+                    Text="{ext:Loc ScheduledTasks.Dialog.TaskName}" />
+                <ui:TextBox
+                    x:Name="TaskNameBox"
+                    Margin="0,0,0,12"
+                    PlaceholderText="{ext:Loc ScheduledTasks.Dialog.TaskNameHint}" />
 
-        <ui:TextBlock FontTypography="Caption" Margin="0,0,0,4" Text="{ext:Loc ScheduledTasks.Dialog.FolderPath}" />
-        <ui:TextBox Margin="0,0,0,12" x:Name="FolderPathBox" PlaceholderText="\" />
+                <ui:TextBlock
+                    Margin="0,0,0,4"
+                    FontTypography="Caption"
+                    Text="{ext:Loc ScheduledTasks.Dialog.Description}" />
+                <ui:TextBox
+                    x:Name="DescriptionBox"
+                    MinHeight="60"
+                    Margin="0,0,0,12"
+                    AcceptsReturn="True"
+                    PlaceholderText="{ext:Loc ScheduledTasks.Dialog.DescriptionHint}"
+                    TextWrapping="Wrap" />
 
-        <ui:TextBlock FontTypography="Caption" Margin="0,0,0,4" Text="{ext:Loc ScheduledTasks.Dialog.Executable}" />
-        <ui:TextBox Margin="0,0,0,12" x:Name="ExecutableBox" PlaceholderText="C:\path\to\program.exe arguments" />
+                <ui:TextBlock
+                    Margin="0,0,0,4"
+                    FontTypography="Caption"
+                    Text="{ext:Loc ScheduledTasks.Dialog.FolderPath}" />
+                <ui:TextBox
+                    x:Name="FolderPathBox"
+                    Margin="0,0,0,12"
+                    PlaceholderText="\" />
 
-        <ui:TextBlock FontTypography="Caption" Margin="0,0,0,4" Text="{ext:Loc ScheduledTasks.Dialog.Trigger}" />
-        <StackPanel Margin="0,0,0,12" Orientation="Horizontal">
-            <CheckBox Content="{ext:Loc ScheduledTasks.Dialog.TriggerLogon}" Margin="0,0,16,0" x:Name="LogonTriggerCheck" IsChecked="True" />
-            <CheckBox Content="{ext:Loc ScheduledTasks.Dialog.TriggerBoot}" x:Name="BootTriggerCheck" />
-        </StackPanel>
+                <ui:TextBlock
+                    Margin="0,0,0,4"
+                    FontTypography="Caption"
+                    Text="{ext:Loc ScheduledTasks.Dialog.Executable}" />
+                <ui:TextBox
+                    x:Name="ExecutableBox"
+                    Margin="0,0,0,12"
+                    PlaceholderText="{ext:Loc ScheduledTasks.Dialog.ExecutableHint}" />
 
-        <CheckBox Content="{ext:Loc ScheduledTasks.Dialog.Enabled}" x:Name="EnabledCheck" IsChecked="True" />
-    </StackPanel>
+                <ui:TextBlock
+                    Margin="0,0,0,4"
+                    FontTypography="Caption"
+                    Text="{ext:Loc ScheduledTasks.Dialog.Arguments}" />
+                <ui:TextBox
+                    x:Name="ArgumentsBox"
+                    Margin="0,0,0,12"
+                    PlaceholderText="{ext:Loc ScheduledTasks.Dialog.ArgumentsHint}" />
+            </StackPanel>
+
+            <!--  Right Column: Triggers & Settings  -->
+            <StackPanel Grid.Column="2">
+                <ui:TextBlock
+                    Margin="0,0,0,4"
+                    FontTypography="Caption"
+                    Text="{ext:Loc ScheduledTasks.Dialog.Trigger}" />
+                <Border
+                    Margin="0,0,0,12"
+                    Padding="12"
+                    Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                    CornerRadius="4">
+                    <StackPanel>
+                        <CheckBox
+                            x:Name="LogonTriggerCheck"
+                            Margin="0,0,0,8"
+                            Content="{ext:Loc ScheduledTasks.Dialog.TriggerLogon}"
+                            IsChecked="True" />
+                        <CheckBox
+                            x:Name="BootTriggerCheck"
+                            Margin="0,0,0,8"
+                            Content="{ext:Loc ScheduledTasks.Dialog.TriggerBoot}" />
+                        <CheckBox
+                            x:Name="IdleTriggerCheck"
+                            Margin="0,0,0,8"
+                            Content="{ext:Loc ScheduledTasks.Dialog.TriggerIdle}" />
+                        <CheckBox
+                            x:Name="RegistrationTriggerCheck"
+                            Margin="0,0,0,8"
+                            Content="{ext:Loc ScheduledTasks.Dialog.TriggerRegistration}" />
+
+                        <StackPanel Margin="0,0,0,0" Orientation="Horizontal">
+                            <CheckBox
+                                x:Name="DailyTriggerCheck"
+                                Margin="0,0,12,0"
+                                VerticalAlignment="Center"
+                                Content="{ext:Loc ScheduledTasks.Dialog.TriggerDaily}" />
+                            <ui:TextBox
+                                x:Name="DailyTimeBox"
+                                Width="80"
+                                IsEnabled="{Binding ElementName=DailyTriggerCheck, Path=IsChecked}"
+                                PlaceholderText="12:00"
+                                ToolTip="{ext:Loc ScheduledTasks.Dialog.Time}" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <ui:TextBlock
+                    Margin="0,0,0,4"
+                    FontTypography="Caption"
+                    Text="Settings" />
+                <Border
+                    Margin="0,0,0,12"
+                    Padding="12"
+                    Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                    CornerRadius="4">
+                    <StackPanel>
+                        <CheckBox
+                            x:Name="EnabledCheck"
+                            Margin="0,0,0,8"
+                            Content="{ext:Loc ScheduledTasks.Dialog.Enabled}"
+                            IsChecked="True" />
+                        <CheckBox
+                            x:Name="HighestPrivilegesCheck"
+                            Margin="0,0,0,8"
+                            Content="{ext:Loc ScheduledTasks.Dialog.HighestPrivileges}" />
+                        <CheckBox x:Name="HiddenCheck" Content="{ext:Loc ScheduledTasks.Dialog.Hidden}" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Grid>
 </UserControl>

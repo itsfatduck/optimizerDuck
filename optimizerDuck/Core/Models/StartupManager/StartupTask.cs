@@ -12,6 +12,7 @@ public partial class StartupTask : ObservableObject
     public required string TaskPath { get; init; }
     public string? Description { get; init; }
     public string? TriggerSummary { get; init; }
+    public List<string> TriggerTypes { get; init; } = [];
     public string? ActionSummary { get; init; }
     public bool IsMicrosoftTask => TaskPath.StartsWith(@"\Microsoft\", StringComparison.OrdinalIgnoreCase);
 }

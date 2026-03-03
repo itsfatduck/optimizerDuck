@@ -100,7 +100,11 @@ public partial class ScheduledTasksViewModel : ViewModel
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to toggle task {Name}", task.Name);
-            task.IsEnabled = !task.IsEnabled; // revert UI
+            
+            // Revert UI without triggering PropertyChanged to avoid infinite loop
+            task.PropertyChanged -= Task_PropertyChanged;
+            task.IsEnabled = !task.IsEnabled;
+            task.PropertyChanged += Task_PropertyChanged;
 
             _snackbarService.Show(
                 Translations.ScheduledTasks_Snackbar_Error_Title,
@@ -203,48 +207,6 @@ public partial class ScheduledTasksViewModel : ViewModel
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to delete task {Name}", task.Name);
-
-            _snackbarService.Show(
-                Translations.ScheduledTasks_Snackbar_Error_Title,
-                ex.Message,
-                ControlAppearance.Danger,
-                new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                TimeSpan.FromSeconds(5));
-        }
-    }
-
-    [RelayCommand]
-    private async Task CreateTask()
-    {
-        var dialogContent = new ScheduledTaskCreateDialog();
-        var dialog = new ContentDialog
-        {
-            Title = Translations.ScheduledTasks_Dialog_CreateTitle,
-            Content = dialogContent,
-            PrimaryButtonText = Translations.Button_Ok,
-            CloseButtonText = Translations.Button_Cancel
-        };
-
-        var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
-        if (result != ContentDialogResult.Primary || dialogContent.CreatedModel == null) return;
-
-        try
-        {
-            var model = dialogContent.CreatedModel;
-            var folderPath = string.IsNullOrWhiteSpace(model.Path) ? "\\" : model.Path;
-            await Task.Run(() => _scheduledTaskService.RegisterTask(folderPath, model));
-            await LoadDataAsync();
-
-            _snackbarService.Show(
-                Translations.ScheduledTasks_Snackbar_Create_Title,
-                string.Format(Translations.ScheduledTasks_Snackbar_Create_Message, model.Name),
-                ControlAppearance.Success,
-                new SymbolIcon { Symbol = SymbolRegular.Add24, Filled = true },
-                TimeSpan.FromSeconds(3));
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Failed to create task");
 
             _snackbarService.Show(
                 Translations.ScheduledTasks_Snackbar_Error_Title,

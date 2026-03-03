@@ -234,6 +234,7 @@ public class StartupManagerService(ILogger<StartupManagerService> logger, Schedu
                     TaskPath = m.Path,
                     Description = m.Description,
                     TriggerSummary = m.TriggerSummary,
+                    TriggerTypes = [.. m.TriggerTypes],
                     ActionSummary = m.ActionSummary,
                     IsEnabled = m.IsEnabled
                 }).OrderBy(t => t.TaskName).ToList();
@@ -279,6 +280,10 @@ public class StartupManagerService(ILogger<StartupManagerService> logger, Schedu
         try
         {
             var path = command.Trim('\"');
+
+            // Expand environment variables (e.g., %USERPROFILE%, %ProgramFiles%) so that
+            // shortcut/command paths using them can be resolved to the actual executable for icon extraction.
+            path = Environment.ExpandEnvironmentVariables(path);
             var exeIdx = path.IndexOf(".exe", StringComparison.OrdinalIgnoreCase);
             if (exeIdx > 0) path = path[..(exeIdx + 4)].Trim('\"', ' ', '\'');
 
