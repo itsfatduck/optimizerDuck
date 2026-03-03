@@ -7,18 +7,39 @@ using optimizerDuck.Common.Helpers;
 
 namespace optimizerDuck.Services.Managers;
 
+/// <summary>
+    ///     Manages application configuration settings stored in appsettings.json.
+    /// </summary>
 public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> logger)
 {
+    /// <summary>
+    ///     The path to the configuration file.
+    /// </summary>
     private readonly string _configPath = Path.Combine(Shared.RootDirectory, "appsettings.json");
+    
+    /// <summary>
+    ///     Semaphore for thread-safe access to configuration data.
+    /// </summary>
     private readonly SemaphoreSlim _lock = new(1, 1);
+    
+    /// <summary>
+    ///     Cached configuration data.
+    /// </summary>
     private JObject _cache = new();
 
+    /// <summary>
+    ///     Initializes the configuration manager by loading settings from disk.
+    /// </summary>
     public async Task InitializeAsync()
     {
         _cache = await LoadConfigAsync();
     }
 
-
+    /// <summary>
+    ///     Sets a configuration value by key.
+    /// </summary>
+    /// <param name="key">The configuration key (e.g., "App:Language").</param>
+    /// <param name="value">The value to set.</param>
     public async Task SetAsync(string key, string value)
     {
         await _lock.WaitAsync();
@@ -39,6 +60,10 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
         }
     }
 
+    /// <summary>
+    ///     Removes a configuration value by key.
+    /// </summary>
+    /// <param name="key">The configuration key to remove.</param>
     public async Task RemoveAsync(string key)
     {
         await _lock.WaitAsync();
@@ -63,11 +88,19 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
         }
     }
 
+    /// <summary>
+    ///     Removes a configuration value by key (synchronous wrapper).
+    /// </summary>
+    /// <param name="key">The configuration key to remove.</param>
     public void Remove(string key)
     {
         _ = RemoveAsync(key);
     }
 
+    /// <summary>
+    ///     Loads configuration from disk.
+    /// </summary>
+    /// <returns>The loaded configuration as a JObject.</returns>
     private async Task<JObject> LoadConfigAsync()
     {
         try
@@ -90,6 +123,9 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
         }
     }
 
+    /// <summary>
+    ///     Saves the current configuration to disk.
+    /// </summary>
     private async Task SaveConfigAsync()
     {
         await File.WriteAllTextAsync(
@@ -99,6 +135,12 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
         (configuration as IConfigurationRoot)?.Reload();
     }
 
+    /// <summary>
+    ///     Gets a token by key (case-insensitive).
+    /// </summary>
+    /// <param name="obj">The JObject to search.</param>
+    /// <param name="key">The key to find.</param>
+    /// <returns>The matching token, or null if not found.</returns>
     private static JToken? GetTokenIgnoreCase(JObject obj, string key)
     {
         var prop = obj.Properties()
@@ -106,6 +148,12 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
         return prop?.Value;
     }
 
+    /// <summary>
+    ///     Gets or creates an object by key (case-insensitive).
+    /// </summary>
+    /// <param name="current">The current JObject.</param>
+    /// <param name="key">The key to find or create.</param>
+    /// <returns>The existing or newly created JObject.</returns>
     private static JObject GetOrCreateObjectIgnoreCase(JObject current, string key)
     {
         JProperty? first = null;
@@ -135,6 +183,12 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
         return created;
     }
 
+    /// <summary>
+    ///     Sets a value by key (case-insensitive).
+    /// </summary>
+    /// <param name="current">The current JObject.</param>
+    /// <param name="key">The key to set.</param>
+    /// <param name="value">The value to set.</param>
     private static void SetValueIgnoreCase(JObject current, string key, string value)
     {
         // Remove all case-insensitive matches
@@ -150,6 +204,11 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
         current[key] = value;
     }
 
+    /// <summary>
+    ///     Removes a value by key (case-insensitive).
+    /// </summary>
+    /// <param name="current">The current JObject.</param>
+    /// <param name="key">The key to remove.</param>
     private static void RemoveIgnoreCase(JObject current, string key)
     {
         var toRemove = new List<string>();
@@ -160,6 +219,9 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
         foreach (var name in toRemove) current.Remove(name);
     }
 
+    /// <summary>
+    ///     Validates and ensures the config file exists and is valid JSON.
+    /// </summary>
     public static void ValidateConfig()
     {
         var configPath = Path.Combine(Shared.RootDirectory, "appsettings.json");

@@ -13,6 +13,9 @@ namespace optimizerDuck.Services;
 // MODELS (Immutable Records)
 // ============================================================================
 
+/// <summary>
+///     Specifies the GPU vendor manufacturer.
+/// </summary>
 public enum GpuVendor
 {
     Unknown,
@@ -21,6 +24,9 @@ public enum GpuVendor
     Intel
 }
 
+/// <summary>
+///     Represents information about a GPU.
+/// </summary>
 public sealed record GpuInfo(
     string Name,
     string DriverVersion,
@@ -40,6 +46,9 @@ public sealed record GpuInfo(
     }
 }
 
+/// <summary>
+///     Represents information about the CPU.
+/// </summary>
 public sealed record CpuInfo(
     string Name,
     string Manufacturer,
@@ -57,6 +66,9 @@ public sealed record CpuInfo(
         Translations.Common_Unknown, Translations.Common_Unknown, 0, 0, 0, 0, 0, 0);
 }
 
+/// <summary>
+///     Represents information about a disk volume.
+/// </summary>
 public sealed record DiskVolume(
     string Letter,
     bool SystemDrive,
@@ -73,6 +85,9 @@ public sealed record DiskVolume(
     string? Model
 );
 
+/// <summary>
+///     Represents information about all disk volumes.
+/// </summary>
 public sealed record DiskInfo(
     IReadOnlyList<DiskVolume> Volumes
 )
@@ -80,6 +95,9 @@ public sealed record DiskInfo(
     public static readonly DiskInfo Unknown = new([]);
 }
 
+/// <summary>
+///     Represents a physical RAM module.
+/// </summary>
 public sealed record RamModule(
     double CapacityGB,
     string SpeedMHz,
@@ -88,6 +106,9 @@ public sealed record RamModule(
     string DeviceLocator
 );
 
+/// <summary>
+///     Represents information about RAM.
+/// </summary>
 public sealed record RamInfo(
     double TotalGB,
     long TotalMB,
@@ -101,6 +122,9 @@ public sealed record RamInfo(
     public static readonly RamInfo Unknown = new(0, 0, 0, 0, 0, 0, []);
 }
 
+/// <summary>
+///     Represents information about the operating system.
+/// </summary>
 public sealed record OsInfo(
     string Name,
     string Version,
@@ -118,6 +142,9 @@ public sealed record OsInfo(
         Translations.Common_Unknown, Translations.Common_Unknown);
 }
 
+/// <summary>
+///     Represents information about the system BIOS.
+/// </summary>
 public sealed record BiosInfo(
     string Manufacturer,
     string Version,
@@ -130,6 +157,9 @@ public sealed record BiosInfo(
         Translations.Common_Unknown, Translations.Common_Unknown, Translations.Common_Unknown);
 }
 
+/// <summary>
+///     Represents a complete snapshot of the system's hardware and software information.
+/// </summary>
 public sealed record SystemSnapshot(
     CpuInfo Cpu,
     RamInfo Ram,
@@ -191,6 +221,13 @@ internal static class WmiHelper
         }
     }
 
+    /// <summary>
+    ///     Gets an string property from a ManagementObject with fallback.
+    /// </summary>
+    /// <param name="mo">The ManagementObject to query.</param>
+    /// <param name="property">The property name to retrieve.</param>
+    /// <param name="fallback">The fallback value if property is null or missing.</param>
+    /// <returns>The property value or fallback.</returns>
     public static string GetString(ManagementObject mo, string property, string? fallback = null)
     {
         fallback ??= Translations.Common_Unknown;
@@ -210,6 +247,13 @@ internal static class WmiHelper
         }
     }
 
+    /// <summary>
+    ///     Gets an integer property from a ManagementObject with fallback.
+    /// </summary>
+    /// <param name="mo">The ManagementObject to query.</param>
+    /// <param name="property">The property name to retrieve.</param>
+    /// <param name="fallback">The fallback value if property is null or missing.</param>
+    /// <returns>The property value or fallback.</returns>
     public static int GetInt(ManagementObject mo, string property, int fallback = 0)
     {
         try
@@ -223,6 +267,13 @@ internal static class WmiHelper
         }
     }
 
+    /// <summary>
+    ///     Gets a long integer property from a ManagementObject with fallback.
+    /// </summary>
+    /// <param name="mo">The ManagementObject to query.</param>
+    /// <param name="property">The property name to retrieve.</param>
+    /// <param name="fallback">The fallback value if property is null or missing.</param>
+    /// <returns>The property value or fallback.</returns>
     public static long GetLong(ManagementObject mo, string property, long fallback = 0)
     {
         try
@@ -848,6 +899,7 @@ internal static class DxgiHelper
 
     // Microsoft Basic Render Driver identifiers
     private const uint MICROSOFT_VENDOR_ID = 0x1414;
+
     private const uint BASIC_RENDER_DEVICE_ID = 0x8C;
     private static readonly Guid IID_IDXGIFactory1 = new("770aae78-f26f-4dba-a829-253c83d1b387");
 
@@ -880,13 +932,18 @@ internal static class DxgiHelper
     {
         // IDXGIObject (4 methods)
         void SetPrivateData([In] ref Guid Name, uint DataSize, IntPtr pData);
+
         void SetPrivateDataInterface([In] ref Guid Name, [MarshalAs(UnmanagedType.IUnknown)] object pUnknown);
+
         void GetPrivateData([In] ref Guid Name, ref uint pDataSize, IntPtr pData);
+
         void GetParent([In] ref Guid riid, [MarshalAs(UnmanagedType.IUnknown)] out object ppParent);
 
         // IDXGIFactory (4 methods)
         void EnumAdapters(uint Adapter, [MarshalAs(UnmanagedType.IUnknown)] out object ppAdapter);
+
         void MakeWindowAssociation(IntPtr WindowHandle, uint Flags);
+
         void GetWindowAssociation(out IntPtr pWindowHandle);
 
         void CreateSwapChain(
@@ -910,13 +967,18 @@ internal static class DxgiHelper
     {
         // IDXGIObject (4 methods)
         void SetPrivateData([In] ref Guid Name, uint DataSize, IntPtr pData);
+
         void SetPrivateDataInterface([In] ref Guid Name, [MarshalAs(UnmanagedType.IUnknown)] object pUnknown);
+
         void GetPrivateData([In] ref Guid Name, ref uint pDataSize, IntPtr pData);
+
         void GetParent([In] ref Guid riid, [MarshalAs(UnmanagedType.IUnknown)] out object ppParent);
 
         // IDXGIAdapter (3 methods)
         void EnumOutputs(uint Output, [MarshalAs(UnmanagedType.IUnknown)] out object ppOutput);
+
         void GetDesc(out DXGI_ADAPTER_DESC pDesc);
+
         int CheckInterfaceSupport([In] ref Guid InterfaceName, out long pUMDVersion);
 
         // IDXGIAdapter1 (1 method)
@@ -1008,7 +1070,7 @@ internal static class GpuProvider
 
         try
         {
-            for (uint i = 0;; i++)
+            for (uint i = 0; ; i++)
             {
                 var hr = factory.EnumAdapters1(i, out var adapter);
                 if (hr != 0 || adapter == null) break; // DXGI_ERROR_NOT_FOUND
@@ -1373,6 +1435,7 @@ public sealed class SystemInfoService
 
     // Cache CPU, OS, BIOS info (doesn't change at runtime)
     private CpuInfo? _cachedCpu;
+
     private IReadOnlyList<GpuInfo>? _cachedGpus;
     private OsInfo? _cachedOs;
 

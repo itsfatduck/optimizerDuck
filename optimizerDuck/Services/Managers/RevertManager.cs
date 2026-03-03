@@ -11,12 +11,26 @@ using optimizerDuck.Resources.Languages;
 
 namespace optimizerDuck.Services.Managers;
 
+/// <summary>
+    ///     Manages revert functionality for optimizations, allowing users to undo changes.
+    /// </summary>
 public class RevertManager(ILogger<RevertManager> logger)
 {
+    /// <summary>
+    ///     Async local storage for the current revert context.
+    /// </summary>
     private static readonly AsyncLocal<RevertContext?> _current = new();
 
+    /// <summary>
+    ///     Gets the current revert context for the active async operation.
+    /// </summary>
     public static RevertContext? Current => _current.Value;
 
+    /// <summary>
+    ///     Begins recording revert steps for the specified optimization.
+    /// </summary>
+    /// <param name="optimization">The optimization being performed.</param>
+    /// <returns>The created revert context.</returns>
     public RevertContext BeginRecording(IOptimization optimization)
     {
         var context = new RevertContext(optimization, logger, this);
@@ -24,6 +38,10 @@ public class RevertManager(ILogger<RevertManager> logger)
         return context;
     }
 
+    /// <summary>
+    ///     Records a revert step to the current context.
+    /// </summary>
+    /// <param name="step">The revert step to record.</param>
     public static void Record(IRevertStep step)
     {
         Current?.AddStep(step);

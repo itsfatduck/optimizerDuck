@@ -17,6 +17,9 @@ using Wpf.Ui.Controls;
 
 namespace optimizerDuck.Services;
 
+/// <summary>
+///     Provides services for applying and reverting optimizations.
+/// </summary>
 public class OptimizationService(
     RevertManager revertManager,
     ILoggerFactory loggerFactory,
@@ -29,8 +32,18 @@ public class OptimizationService(
     private static readonly object _cacheLock = new();
     private readonly ILogger _logger = logger;
 
+    /// <summary>
+    ///     Indicates whether a system restore point was requested before applying optimizations.
+    /// </summary>
     public bool WasRequestedRestorePoint { get; set; } = false;
 
+    /// <summary>
+    ///     Creates a Windows system restore point.
+    /// </summary>
+    /// <returns>
+    ///     A task that completes with a <see cref="RestorePointResult"/> indicating success,
+    ///     failure, or if the frequency limit was reached.
+    /// </returns>
     public async Task<RestorePointResult> CreateRestorePointAsync()
     {
         var dialogViewModel = new ProcessingViewModel();
@@ -137,6 +150,12 @@ public class OptimizationService(
 
     #region Main Methods
 
+    /// <summary>
+    ///     Applies an optimization to the system.
+    /// </summary>
+    /// <param name="optimization">The optimization to apply.</param>
+    /// <param name="progress">A progress reporter for UI updates.</param>
+    /// <returns>A task that completes with the optimization result.</returns>
     public async Task<OptimizationResult> ApplyAsync(IOptimization optimization,
         IProgress<ProcessingProgress> progress)
     {
@@ -279,6 +298,12 @@ public class OptimizationService(
         }
     }
 
+    /// <summary>
+    ///     Reverts a previously applied optimization.
+    /// </summary>
+    /// <param name="optimization">The optimization to revert.</param>
+    /// <param name="progress">A progress reporter for UI updates (optional).</param>
+    /// <returns>A task that completes with the revert result.</returns>
     public async Task<RevertResult> RevertAsync(IOptimization optimization,
         IProgress<ProcessingProgress>? progress = null)
     {
@@ -323,11 +348,20 @@ public class OptimizationService(
 
     #region Helpers
 
+    /// <summary>
+    ///     Checks whether an optimization has been applied.
+    /// </summary>
+    /// <param name="optimizationId">The unique identifier of the optimization.</param>
+    /// <returns>True if the optimization was applied; otherwise, false.</returns>
     public static Task<bool> IsAppliedAsync(Guid optimizationId)
     {
         return RevertManager.IsAppliedAsync(optimizationId);
     }
 
+    /// <summary>
+    ///     Updates the applied state for a collection of optimizations.
+    /// </summary>
+    /// <param name="optimizations">The optimizations to update.</param>
     public static async Task UpdateOptimizationStateAsync(params IOptimization[] optimizations)
     {
         var optimizationIds = optimizations.Select(o => o.Id).ToArray();
@@ -379,11 +413,22 @@ public class OptimizationService(
         }
     }
 
+    /// <summary>
+    ///     Updates the applied state for a collection of optimizations.
+    /// </summary>
+    /// <param name="optimizations">The optimizations to update.</param>
     public static async Task UpdateOptimizationStateAsync(IEnumerable<IOptimization> optimizations)
     {
         await UpdateOptimizationStateAsync(optimizations.ToArray());
     }
 
+    /// <summary>
+    ///     Retries failed optimization steps.
+    /// </summary>
+    /// <param name="failedSteps">The steps that previously failed.</param>
+    /// <param name="reverseOrder">Whether to execute steps in reverse order.</param>
+    /// <param name="progress">A progress reporter for UI updates (optional).</param>
+    /// <returns>A list of steps that still failed after retry.</returns>
     public static async Task<List<OperationStepResult>> RetryFailedStepsAsync(
         IReadOnlyList<OperationStepResult> failedSteps,
         bool reverseOrder,

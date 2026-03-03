@@ -13,8 +13,15 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace optimizerDuck.Services;
 
+/// <summary>
+///     Provides services for discovering and removing AppX bloatware packages.
+/// </summary>
 public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<AppSettings> appOptionsMonitor)
 {
+    /// <summary>
+    ///     Gets all removable AppX packages on the system.
+    /// </summary>
+    /// <returns>A list of AppX packages with their risk levels.</returns>
     public async Task<List<AppXPackage>> GetAppXPackagesAsync()
     {
         try
@@ -84,6 +91,10 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
         }
     }
 
+    /// <summary>
+    ///     Removes an AppX package from the system.
+    /// </summary>
+    /// <param name="appXPackage">The package to remove.</param>
     public async Task RemoveAppXPackage(AppXPackage appXPackage)
     {
         using var tracker = ServiceTracker.Begin(logger);

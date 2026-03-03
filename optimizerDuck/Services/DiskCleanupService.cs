@@ -7,8 +7,15 @@ using Wpf.Ui.Controls;
 
 namespace optimizerDuck.Services;
 
+/// <summary>
+///     Provides services for cleaning up disk space (temp files, caches, etc.).
+/// </summary>
 public class DiskCleanupService(ILogger<DiskCleanupService> logger)
 {
+    /// <summary>
+    ///     Gets the available cleanup items.
+    /// </summary>
+    /// <returns>A list of cleanup items.</returns>
     public static List<CleanupItem> GetCleanupItems()
     {
         var windowsDir = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
@@ -76,6 +83,10 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
         ];
     }
 
+    /// <summary>
+    ///     Scans a cleanup item to calculate its size and file count.
+    /// </summary>
+    /// <param name="item">The cleanup item to scan.</param>
     public async Task ScanAsync(CleanupItem item)
     {
         item.IsScanning = true;
@@ -132,11 +143,20 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
         }
     }
 
+    /// <summary>
+    ///     Scans all cleanup items in parallel.
+    /// </summary>
+    /// <param name="items">The items to scan.</param>
     public async Task ScanAllAsync(IEnumerable<CleanupItem> items)
     {
         await Task.WhenAll(items.Select(ScanAsync));
     }
 
+    /// <summary>
+    ///     Cleans a single cleanup item.
+    /// </summary>
+    /// <param name="item">The item to clean.</param>
+    /// <returns>The number of bytes freed.</returns>
     public async Task<long> CleanAsync(CleanupItem item)
     {
         item.IsCleaning = true;
@@ -172,6 +192,11 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
         return freedBytes;
     }
 
+    /// <summary>
+    ///     Cleans all selected items.
+    /// </summary>
+    /// <param name="items">The items to clean.</param>
+    /// <returns>The total number of bytes freed.</returns>
     public async Task<long> CleanSelectedAsync(IEnumerable<CleanupItem> items)
     {
         long totalFreed = 0;

@@ -2,11 +2,26 @@ using optimizerDuck.Core.Models.Optimization;
 
 namespace optimizerDuck.Core.Models.Revert;
 
+/// <summary>
+///     Represents the result of a revert operation.
+/// </summary>
 public class RevertResult
 {
+    /// <summary>
+    ///     Indicates whether the revert was successful.
+    /// </summary>
     public bool Success { get; set; }
+    /// <summary>
+    ///     A message describing the result.
+    /// </summary>
     public string Message { get; set; } = string.Empty;
+    /// <summary>
+    ///     The exception that occurred, if any.
+    /// </summary>
     public Exception? Exception { get; set; }
 
+    /// <summary>
+    ///     Details of any steps that failed during revert.
+    /// </summary>
     public List<OperationStepResult> FailedStepDetails { get; set; } = [];
 }

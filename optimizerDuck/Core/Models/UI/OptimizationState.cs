@@ -5,6 +5,10 @@ using optimizerDuck.Resources.Languages;
 
 namespace optimizerDuck.Core.Models.UI;
 
+/// <summary>
+///     Tracks the applied state and timing of an optimization.
+///     Provides relative time display (e.g., "Applied 5 minutes ago").
+/// </summary>
 public partial class OptimizationState : ObservableObject
 {
     private static readonly DispatcherTimer _globalTimer;
