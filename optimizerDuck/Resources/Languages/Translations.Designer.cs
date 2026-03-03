@@ -3277,5 +3277,143 @@ namespace optimizerDuck.Resources.Languages {
                 return ResourceManager.GetString("StartupManager.Tasks.Title", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide Microsoft tasks.
+        /// </summary>
+        public static string StartupManager_Tasks_HideMicrosoft {
+            get {
+                return ResourceManager.GetString("StartupManager.Tasks.HideMicrosoft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Scheduled Task.
+        /// </summary>
+        public static string ScheduledTasks_Dialog_DeleteTitle {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Dialog.DeleteTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the task &quot;{0}&quot;? This action cannot be undone..
+        /// </summary>
+        public static string ScheduledTasks_Dialog_DeleteMessage {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Dialog.DeleteMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create New Task.
+        /// </summary>
+        public static string ScheduledTasks_Dialog_CreateTitle {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Dialog.CreateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Common_Delete {
+            get {
+                return ResourceManager.GetString("Common.Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Common_Cancel {
+            get {
+                return ResourceManager.GetString("Common.Cancel", resourceCulture);
+            }
+        }
+        
+        public static string ScheduledTasks_Menu_OpenSettings {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Menu.OpenSettings", resourceCulture);
+            }
+        }
+        
+        public static string ScheduledTasks_Details_Name {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Details.Name", resourceCulture);
+            }
+        }
+        
+        public static string ScheduledTasks_Snackbar_Enabled_Title {
+            get {
+                return ResourceManager.GetString("ScheduledTasks_Snackbar_Enabled_Title", resourceCulture);
+            }
+        }
+        
+        public static string ScheduledTasks_Snackbar_Disabled_Title {
+            get {
+                return ResourceManager.GetString("ScheduledTasks_Snackbar_Disabled_Title", resourceCulture);
+            }
+        }
+        
+        public static string ScheduledTasks_Snackbar_Toggle_Message {
+            get {
+                return ResourceManager.GetString("ScheduledTasks_Snackbar_Toggle_Message", resourceCulture);
+            }
+        }
+        
+        public static string ScheduledTasks_Snackbar_Run_Title {
+            get {
+                return ResourceManager.GetString("ScheduledTasks_Snackbar_Run_Title", resourceCulture);
+            }
+        }
+        
+        public static string ScheduledTasks_Snackbar_Run_Message {
+            get {
+                return ResourceManager.GetString("ScheduledTasks_Snackbar_Run_Message", resourceCulture);
+            }
+        }
+        
+        public static string ScheduledTasks_Snackbar_Stop_Title {
+            get {
+                return ResourceManager.GetString("ScheduledTasks_Snackbar_Stop_Title", resourceCulture);
+            }
+        }
+        
+        public static string ScheduledTasks_Snackbar_Stop_Message {
+            get {
+                return ResourceManager.GetString("ScheduledTasks_Snackbar_Stop_Message", resourceCulture);
+            }
+        }
+        
+        public static string ScheduledTasks_Snackbar_Delete_Title {
+            get {
+                return ResourceManager.GetString("ScheduledTasks_Snackbar_Delete_Title", resourceCulture);
+            }
+        }
+        
+        public static string ScheduledTasks_Snackbar_Delete_Message {
+            get {
+                return ResourceManager.GetString("ScheduledTasks_Snackbar_Delete_Message", resourceCulture);
+            }
+        }
+        
+        public static string ScheduledTasks_Snackbar_Create_Title {
+            get {
+                return ResourceManager.GetString("ScheduledTasks_Snackbar_Create_Title", resourceCulture);
+            }
+        }
+        
+        public static string ScheduledTasks_Snackbar_Create_Message {
+            get {
+                return ResourceManager.GetString("ScheduledTasks_Snackbar_Create_Message", resourceCulture);
+            }
+        }
+        
+        public static string ScheduledTasks_Snackbar_Error_Title {
+            get {
+                return ResourceManager.GetString("ScheduledTasks_Snackbar_Error_Title", resourceCulture);
+            }
+        }
     }
 }

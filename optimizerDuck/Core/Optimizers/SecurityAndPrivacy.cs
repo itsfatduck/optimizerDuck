@@ -145,63 +145,20 @@ public class SecurityAndPrivacy : IOptimizationCategory
 
             foreach (var task in tasksToDelete)
             {
-                var psQuery = $@"
-                                $path = Split-Path '{task}' -Parent
-                                if ($path -ne '\') {{ $path += '\' }}
-                                $name = Split-Path '{task}' -Leaf
-
-                                try {{
-                                    $taskObj = Get-ScheduledTask -TaskPath $path -TaskName $name -ErrorAction Stop
-                                    $taskObj.Settings.Enabled
-                                }}
-                                catch {{
-                                    $null
-                                }}
-                                ";
-
-                var queryResult = ShellService.PowerShell(psQuery);
-
-                if (queryResult.ExitCode != 0 || string.IsNullOrWhiteSpace(queryResult.Stdout))
+                try
                 {
-                    context.Logger.LogDebug("Task {Task} not found, skipping", task);
-                    continue;
-                }
+                    if (!ScheduledTaskService.IsTaskEnabled(task))
+                    {
+                        context.Logger.LogDebug("Task {Task} not found or already disabled", task);
+                        continue;
+                    }
 
-                if (!bool.TryParse(queryResult.Stdout.Trim(), out var wasEnabled))
-                {
-                    context.Logger.LogDebug("Task {Task} not found or cannot read state", task);
-                    continue;
-                }
-
-                if (!wasEnabled)
-                {
-                    context.Logger.LogDebug("Task {Task} already disabled", task);
-                    continue;
-                }
-
-                var disableCommand = $@"
-                                       $path = Split-Path '{task}' -Parent
-                                       if ($path -ne '\') {{ $path += '\' }}
-                                       $name = Split-Path '{task}' -Leaf
-                                       Disable-ScheduledTask -TaskPath $path -TaskName $name
-                                       ";
-
-                var revertCommand = $@"
-                                      $path = Split-Path '{task}' -Parent
-                                      if ($path -ne '\') {{ $path += '\' }}
-                                      $name = Split-Path '{task}' -Leaf
-                                      Enable-ScheduledTask -TaskPath $path -TaskName $name
-                                      ";
-
-                var result = ShellService.PowerShell(disableCommand, revertCommand);
-
-                if (result.ExitCode != 0)
-                {
-                    context.Logger.LogWarning("Failed to disable task {Task}", task);
-                }
-                else
-                {
+                    ScheduledTaskService.DisableTask(task);
                     context.Logger.LogInformation("Disabled task {Task}", task);
+                }
+                catch (Exception ex)
+                {
+                    context.Logger.LogWarning(ex, "Failed to disable task {Task}", task);
                 }
             }
 

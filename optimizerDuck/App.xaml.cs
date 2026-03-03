@@ -164,6 +164,9 @@ public partial class App : Application
                     services.AddSingleton<StartupManagerViewModel>();
                     services.AddSingleton<StartupManagerPage>();
 
+                    services.AddSingleton<ScheduledTasksViewModel>();
+                    services.AddSingleton<ScheduledTasksPage>();
+
                     // Optimizations
                     services.AddAllOptimizationPages();
 
@@ -177,6 +180,7 @@ public partial class App : Application
                     services.AddSingleton<BloatwareService>();
                     services.AddSingleton<DiskCleanupService>();
                     services.AddSingleton<StartupManagerService>();
+                    services.AddSingleton<ScheduledTaskService>();
                     services.AddSingleton<SystemInfoService>();
                     services.AddSingleton<StreamService>();
                     services.AddSingleton<UpdaterService>();

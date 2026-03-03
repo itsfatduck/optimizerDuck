@@ -23,18 +23,38 @@
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <converters:GreaterThanZeroToVisibilityConverter x:Key="GreaterThanZeroToVisibilityConverter" />
+        <converters:ZeroToVisibilityConverter x:Key="ZeroToVisibilityConverter" />
     </Page.Resources>
 
     <Grid RowDefinitions="Auto, *">
         <!--  Header  -->
         <StackPanel Margin="0,0,0,20">
-            <ui:TextBlock FontTypography="Title" Text="{ext:Loc StartupManager.Header.Title}" />
-            <ui:TextBlock
-                Appearance="Secondary"
-                FontTypography="Body"
-                Margin="0,4,0,0"
-                Text="{ext:Loc StartupManager.Header.Description}"
-                TextWrapping="Wrap" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <ui:TextBlock FontTypography="Title" Text="{ext:Loc StartupManager.Header.Title}" />
+                    <ui:TextBlock
+                        Appearance="Secondary"
+                        FontTypography="Body"
+                        Margin="0,4,0,0"
+                        Text="{ext:Loc StartupManager.Header.Description}"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+                <WrapPanel
+                    Grid.Column="1"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center">
+                    <ui:Button
+                        Appearance="Primary"
+                        Command="{Binding ViewModel.RefreshCommand}"
+                        Content="{ext:Loc StartupManager.Menu.Refresh}"
+                        Icon="{ui:SymbolIcon ArrowClockwise24,
+                                             FontSize=18}" />
+                </WrapPanel>
+            </Grid>
         </StackPanel>
 
         <!--  Loading Indicator  -->
@@ -106,120 +126,118 @@
 
         <!--  Main Content  -->
         <Border Grid.Row="1" Visibility="{Binding ViewModel.HasData, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Grid RowDefinitions="Auto,*">
-                <!--  Toolbar  -->
-                <Grid Grid.Row="0" Margin="0,0,16,12">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <WrapPanel Grid.Column="0" Orientation="Horizontal">
-                        <!--  Search  -->
-                        <ui:TextBox
-                            Icon="{ui:SymbolIcon Search24}"
-                            Margin="0,0,8,0"
-                            MinWidth="220"
-                            PlaceholderText="{ext:Loc Common.Search.Placeholder}"
-                            Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}"
-                            VerticalAlignment="Center" />
-
-                        <!--  Sort By  -->
-                        <ComboBox
-                            Margin="0,0,8,0"
-                            SelectedIndex="{Binding ViewModel.SelectedSortByIndex}"
-                            ToolTip="{ext:Loc Common.SortBy}"
-                            ToolTipService.BetweenShowDelay="160"
-                            ToolTipService.Placement="Top"
-                            VerticalAlignment="Center">
-                            <ComboBoxItem HorizontalContentAlignment="Left">
-                                <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
-                                    <ui:SymbolIcon
-                                        HorizontalAlignment="Left"
-                                        Margin="0,0,6,0"
-                                        Symbol="TextSortAscending24" />
-                                    <TextBlock
-                                        Grid.Column="1"
-                                        HorizontalAlignment="Left"
-                                        Text="{ext:Loc Common.SortBy.Name}" />
-                                </Grid>
-                            </ComboBoxItem>
-                            <ComboBoxItem HorizontalContentAlignment="Left">
-                                <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
-                                    <ui:SymbolIcon
-                                        HorizontalAlignment="Left"
-                                        Margin="0,0,6,0"
-                                        Symbol="ToggleRight24" />
-                                    <TextBlock
-                                        Grid.Column="1"
-                                        HorizontalAlignment="Left"
-                                        Text="{ext:Loc Common.SortBy.Status}" />
-                                </Grid>
-                            </ComboBoxItem>
-                            <ComboBoxItem HorizontalContentAlignment="Left">
-                                <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
-                                    <ui:SymbolIcon
-                                        HorizontalAlignment="Left"
-                                        Margin="0,0,6,0"
-                                        Symbol="Folder24" />
-                                    <TextBlock
-                                        Grid.Column="1"
-                                        HorizontalAlignment="Left"
-                                        Text="{ext:Loc Common.SortBy.Path}" />
-                                </Grid>
-                            </ComboBoxItem>
-                        </ComboBox>
-
-                        <ui:Button
-                            Appearance="Primary"
-                            Command="{Binding ViewModel.RefreshCommand}"
-                            Content="{ext:Loc StartupManager.Menu.Refresh}"
-                            Icon="{ui:SymbolIcon ArrowClockwise24,
-                                                 FontSize=18}" />
-                    </WrapPanel>
-
-                    <ui:Button
-                        Appearance="Secondary"
-                        Command="{Binding ViewModel.OpenStartupSettingsCommand}"
-                        Content="{ext:Loc StartupManager.Menu.OpenSettings}"
-                        Grid.Column="2"
-                        Icon="{ui:SymbolIcon Settings24,
-                                             FontSize=18}"
-                        VerticalAlignment="Center" />
-                </Grid>
-
-                <!--  Scrollable content  -->
-                <ScrollViewer Grid.Row="1" Margin="0,0,16,0">
-                    <StackPanel>
-                        <!--  Startup Apps Section  -->
-                        <ui:CardExpander
-                            Icon="{ui:SymbolIcon Apps24}"
-                            IsExpanded="True"
-                            Margin="0,0,0,12"
-                            Visibility="{Binding ViewModel.Apps.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
-                            <ui:CardExpander.Header>
-                                <StackPanel Orientation="Horizontal">
+            <ScrollViewer Margin="0,0,16,0">
+                <StackPanel>
+                    <!--  ═══════════ Startup Apps Section ═══════════  -->
+                    <ui:CardExpander
+                        Icon="{ui:SymbolIcon Apps24}"
+                        IsExpanded="True"
+                        Margin="0,0,0,12"
+                        Visibility="{Binding ViewModel.HasApps, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <ui:CardExpander.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <ui:TextBlock
+                                    FontTypography="BodyStrong"
+                                    Text="{ext:Loc StartupManager.Apps.Title}"
+                                    VerticalAlignment="Center" />
+                                <Border
+                                    Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                    CornerRadius="10"
+                                    Margin="8,0,0,0"
+                                    Padding="8,2"
+                                    VerticalAlignment="Center">
                                     <ui:TextBlock
-                                        FontTypography="BodyStrong"
-                                        Text="{ext:Loc StartupManager.Apps.Title}"
+                                        Appearance="Tertiary"
+                                        FontTypography="Caption"
+                                        Text="{Binding ViewModel.Apps.Count}"
                                         VerticalAlignment="Center" />
-                                    <Border
-                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="10"
-                                        Margin="8,0,0,0"
-                                        Padding="8,2"
-                                        VerticalAlignment="Center">
-                                        <ui:TextBlock
-                                            Appearance="Tertiary"
-                                            FontTypography="Caption"
-                                            Text="{Binding ViewModel.Apps.Count}"
-                                            VerticalAlignment="Center" />
-                                    </Border>
-                                </StackPanel>
-                            </ui:CardExpander.Header>
+                                </Border>
+                            </StackPanel>
+                        </ui:CardExpander.Header>
 
-                            <ItemsControl ItemsSource="{Binding ViewModel.Apps}">
+                        <StackPanel>
+                            <!--  Apps Toolbar  -->
+                            <WrapPanel Margin="0,0,0,8" Orientation="Horizontal">
+                                <ui:TextBox
+                                    Icon="{ui:SymbolIcon Search24}"
+                                    Margin="0,0,8,0"
+                                    MinWidth="200"
+                                    PlaceholderText="{ext:Loc Common.Search.Placeholder}"
+                                    Text="{Binding ViewModel.AppSearchText, UpdateSourceTrigger=PropertyChanged}"
+                                    VerticalAlignment="Center" />
+                                <ComboBox
+                                    Margin="0,0,8,0"
+                                    SelectedIndex="{Binding ViewModel.AppSortByIndex}"
+                                    ToolTip="{ext:Loc Common.SortBy}"
+                                    VerticalAlignment="Center">
+                                    <ComboBoxItem HorizontalContentAlignment="Left">
+                                        <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                                            <ui:SymbolIcon
+                                                HorizontalAlignment="Left"
+                                                Margin="0,0,6,0"
+                                                Symbol="TextSortAscending24" />
+                                            <TextBlock
+                                                Grid.Column="1"
+                                                HorizontalAlignment="Left"
+                                                Text="{ext:Loc Common.SortBy.Name}" />
+                                        </Grid>
+                                    </ComboBoxItem>
+                                    <ComboBoxItem HorizontalContentAlignment="Left">
+                                        <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                                            <ui:SymbolIcon
+                                                HorizontalAlignment="Left"
+                                                Margin="0,0,6,0"
+                                                Symbol="ToggleRight24" />
+                                            <TextBlock
+                                                Grid.Column="1"
+                                                HorizontalAlignment="Left"
+                                                Text="{ext:Loc Common.SortBy.Status}" />
+                                        </Grid>
+                                    </ComboBoxItem>
+                                    <ComboBoxItem HorizontalContentAlignment="Left">
+                                        <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                                            <ui:SymbolIcon
+                                                HorizontalAlignment="Left"
+                                                Margin="0,0,6,0"
+                                                Symbol="Folder24" />
+                                            <TextBlock
+                                                Grid.Column="1"
+                                                HorizontalAlignment="Left"
+                                                Text="{ext:Loc Common.SortBy.Path}" />
+                                        </Grid>
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <ui:Button
+                                    Appearance="Secondary"
+                                    Command="{Binding ViewModel.OpenStartupSettingsCommand}"
+                                    Icon="{ui:SymbolIcon Settings24,
+                                                         FontSize=16}"
+                                    Padding="8"
+                                    ToolTip="{ext:Loc StartupManager.Menu.OpenSettings}"
+                                    VerticalAlignment="Center" />
+                            </WrapPanel>
+
+                            <!--  No search results (Apps)  -->
+                            <StackPanel
+                                HorizontalAlignment="Center"
+                                Margin="0,32,0,32"
+                                VerticalAlignment="Center"
+                                Visibility="{Binding ViewModel.Apps.Count, Converter={StaticResource ZeroToVisibilityConverter}}">
+                                <ui:SymbolIcon
+                                    FontSize="36"
+                                    Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                                    HorizontalAlignment="Center"
+                                    Margin="0,0,0,10"
+                                    Symbol="SearchInfo24" />
+                                <ui:TextBlock
+                                    Appearance="Secondary"
+                                    FontTypography="Body"
+                                    HorizontalAlignment="Center"
+                                    Text="{ext:Loc Bloatware.Search.NoResults}" />
+                            </StackPanel>
+
+                            <!--  Apps List  -->
+                            <ItemsControl ItemsSource="{Binding ViewModel.Apps}" Visibility="{Binding ViewModel.Apps.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type models:StartupApp}">
                                         <Grid>
@@ -288,58 +306,158 @@
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
-                        </ui:CardExpander>
+                        </StackPanel>
+                    </ui:CardExpander>
 
-                        <!--  Scheduled Tasks Section  -->
-                        <ui:CardExpander
-                            Icon="{ui:SymbolIcon CalculatorArrowClockwise24}"
-                            IsExpanded="True"
-                            Margin="0,0,0,12"
-                            Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
-                            <ui:CardExpander.Header>
-                                <StackPanel Orientation="Horizontal">
+                    <!--  ═══════════ Scheduled Tasks Section ═══════════  -->
+                    <ui:CardExpander
+                        Icon="{ui:SymbolIcon CalculatorArrowClockwise24}"
+                        IsExpanded="True"
+                        Margin="0,0,0,12"
+                        Visibility="{Binding ViewModel.HasTasks, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <ui:CardExpander.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <ui:TextBlock
+                                    FontTypography="BodyStrong"
+                                    Text="{ext:Loc StartupManager.Tasks.Title}"
+                                    VerticalAlignment="Center" />
+                                <Border
+                                    Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                    CornerRadius="10"
+                                    Margin="8,0,0,0"
+                                    Padding="8,2"
+                                    VerticalAlignment="Center">
                                     <ui:TextBlock
-                                        FontTypography="BodyStrong"
-                                        Text="{ext:Loc StartupManager.Tasks.Title}"
+                                        Appearance="Tertiary"
+                                        FontTypography="Caption"
+                                        Text="{Binding ViewModel.Tasks.Count}"
                                         VerticalAlignment="Center" />
-                                    <Border
-                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="10"
-                                        Margin="8,0,0,0"
-                                        Padding="8,2"
-                                        VerticalAlignment="Center">
-                                        <ui:TextBlock
-                                            Appearance="Tertiary"
-                                            FontTypography="Caption"
-                                            Text="{Binding ViewModel.Tasks.Count}"
-                                            VerticalAlignment="Center" />
-                                    </Border>
-                                </StackPanel>
-                            </ui:CardExpander.Header>
+                                </Border>
+                            </StackPanel>
+                        </ui:CardExpander.Header>
 
-                            <ItemsControl ItemsSource="{Binding ViewModel.Tasks}">
+                        <StackPanel>
+                            <!--  Tasks Toolbar  -->
+                            <WrapPanel Margin="0,0,0,8" Orientation="Horizontal">
+                                <ui:TextBox
+                                    Icon="{ui:SymbolIcon Search24}"
+                                    Margin="0,0,8,0"
+                                    MinWidth="200"
+                                    PlaceholderText="{ext:Loc Common.Search.Placeholder}"
+                                    Text="{Binding ViewModel.TaskSearchText, UpdateSourceTrigger=PropertyChanged}"
+                                    VerticalAlignment="Center" />
+                                <ComboBox
+                                    Margin="0,0,8,0"
+                                    SelectedIndex="{Binding ViewModel.TaskSortByIndex}"
+                                    ToolTip="{ext:Loc Common.SortBy}"
+                                    VerticalAlignment="Center">
+                                    <ComboBoxItem HorizontalContentAlignment="Left">
+                                        <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                                            <ui:SymbolIcon
+                                                HorizontalAlignment="Left"
+                                                Margin="0,0,6,0"
+                                                Symbol="TextSortAscending24" />
+                                            <TextBlock
+                                                Grid.Column="1"
+                                                HorizontalAlignment="Left"
+                                                Text="{ext:Loc Common.SortBy.Name}" />
+                                        </Grid>
+                                    </ComboBoxItem>
+                                    <ComboBoxItem HorizontalContentAlignment="Left">
+                                        <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                                            <ui:SymbolIcon
+                                                HorizontalAlignment="Left"
+                                                Margin="0,0,6,0"
+                                                Symbol="ToggleRight24" />
+                                            <TextBlock
+                                                Grid.Column="1"
+                                                HorizontalAlignment="Left"
+                                                Text="{ext:Loc Common.SortBy.Status}" />
+                                        </Grid>
+                                    </ComboBoxItem>
+                                    <ComboBoxItem HorizontalContentAlignment="Left">
+                                        <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                                            <ui:SymbolIcon
+                                                HorizontalAlignment="Left"
+                                                Margin="0,0,6,0"
+                                                Symbol="Folder24" />
+                                            <TextBlock
+                                                Grid.Column="1"
+                                                HorizontalAlignment="Left"
+                                                Text="{ext:Loc Common.SortBy.Path}" />
+                                        </Grid>
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <ui:ToggleSwitch
+                                    Cursor="Hand"
+                                    IsChecked="{Binding ViewModel.HideMicrosoftTasks, Mode=TwoWay}"
+                                    Margin="0,0,8,0"
+                                    OffContent="{ext:Loc StartupManager.Tasks.HideMicrosoft}"
+                                    OnContent="{ext:Loc StartupManager.Tasks.HideMicrosoft}"
+                                    VerticalAlignment="Center" />
+                                <ui:Button
+                                    Appearance="Secondary"
+                                    Command="{Binding ViewModel.OpenTaskSchedulerCommand}"
+                                    Icon="{ui:SymbolIcon Settings24,
+                                                         FontSize=16}"
+                                    Padding="8"
+                                    ToolTip="{ext:Loc ScheduledTasks.Menu.OpenSettings}"
+                                    VerticalAlignment="Center" />
+                            </WrapPanel>
+
+                            <!--  No search results (Tasks)  -->
+                            <StackPanel
+                                HorizontalAlignment="Center"
+                                Margin="0,32,0,32"
+                                VerticalAlignment="Center"
+                                Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource ZeroToVisibilityConverter}}">
+                                <ui:SymbolIcon
+                                    FontSize="36"
+                                    Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                                    HorizontalAlignment="Center"
+                                    Margin="0,0,0,10"
+                                    Symbol="SearchInfo24" />
+                                <ui:TextBlock
+                                    Appearance="Secondary"
+                                    FontTypography="Body"
+                                    HorizontalAlignment="Center"
+                                    Text="{ext:Loc Bloatware.Search.NoResults}" />
+                            </StackPanel>
+
+                            <!--  Tasks List  -->
+                            <ItemsControl ItemsSource="{Binding ViewModel.Tasks}" Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type models:StartupTask}">
                                         <Border
                                             Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
                                             CornerRadius="6"
                                             Margin="0,0,0,4"
-                                            Padding="12,10">
+                                            Padding="16,12">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
 
-                                                <StackPanel
+                                                <Image
                                                     Grid.Column="0"
+                                                    Height="36"
+                                                    Margin="0,0,12,0"
+                                                    Source="{Binding LogoImage}"
+                                                    Stretch="UniformToFill"
+                                                    VerticalAlignment="Center"
+                                                    Width="36" />
+
+                                                <StackPanel
+                                                    Grid.Column="1"
                                                     Margin="0,0,12,0"
                                                     VerticalAlignment="Center">
                                                     <ui:TextBlock FontTypography="BodyStrong" Text="{Binding TaskName}" />
                                                     <ui:TextBlock
                                                         Appearance="Secondary"
                                                         FontTypography="Caption"
-                                                        Margin="0,2,0,0"
+                                                        Margin="0,4,0,0"
                                                         Text="{Binding Description}"
                                                         TextWrapping="Wrap" />
                                                     <ui:TextBlock
@@ -347,24 +465,48 @@
                                                         FontTypography="Caption"
                                                         Margin="0,2,0,0"
                                                         Text="{Binding TaskPath}" />
+                                                    <ui:TextBlock
+                                                        Appearance="Secondary"
+                                                        FontTypography="Caption"
+                                                        Margin="0,2,0,0"
+                                                        Text="{Binding TriggerSummary}" />
+                                                    <ui:TextBlock
+                                                        Appearance="Disabled"
+                                                        FontTypography="Caption"
+                                                        Margin="0,2,0,0"
+                                                        Text="{Binding ActionSummary}"
+                                                        TextTrimming="CharacterEllipsis" />
                                                 </StackPanel>
 
-                                                <ui:ToggleSwitch
-                                                    Cursor="Hand"
-                                                    Grid.Column="1"
-                                                    IsChecked="{Binding IsEnabled, Mode=TwoWay}"
-                                                    OffContent="{ext:Loc Common.Toggle.Off}"
-                                                    OnContent="{ext:Loc Common.Toggle.On}"
-                                                    VerticalAlignment="Center" />
+                                                <StackPanel
+                                                    Grid.Column="2"
+                                                    Orientation="Horizontal"
+                                                    VerticalAlignment="Center">
+                                                    <ui:Button
+                                                        Appearance="Transparent"
+                                                        Command="{Binding DataContext.ViewModel.ViewTaskDetailsCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                        CommandParameter="{Binding}"
+                                                        Icon="{ui:SymbolIcon Info24,
+                                                                             FontSize=16}"
+                                                        Margin="0,0,4,0"
+                                                        Padding="8"
+                                                        ToolTip="{ext:Loc ScheduledTasks.Action.Details}" />
+                                                    <ui:ToggleSwitch
+                                                        Cursor="Hand"
+                                                        IsChecked="{Binding IsEnabled, Mode=TwoWay}"
+                                                        OffContent="{ext:Loc Common.Toggle.Off}"
+                                                        OnContent="{ext:Loc Common.Toggle.On}"
+                                                        VerticalAlignment="Center" />
+                                                </StackPanel>
                                             </Grid>
                                         </Border>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
-                        </ui:CardExpander>
-                    </StackPanel>
-                </ScrollViewer>
-            </Grid>
+                        </StackPanel>
+                    </ui:CardExpander>
+                </StackPanel>
+            </ScrollViewer>
         </Border>
     </Grid>
 </Page>

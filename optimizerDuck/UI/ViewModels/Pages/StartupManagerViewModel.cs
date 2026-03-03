@@ -5,7 +5,11 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Core.Models.StartupManager;
+using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services;
+using optimizerDuck.UI.Views.Dialogs;
+using Wpf.Ui;
+using Wpf.Ui.Controls;
 
 namespace optimizerDuck.UI.ViewModels.Pages;
 
@@ -15,17 +19,28 @@ public partial class StartupManagerViewModel : ViewModel
     private readonly List<StartupTask> _allTasks = [];
     private readonly ILogger<StartupManagerViewModel> _logger;
     private readonly StartupManagerService _startupManagerService;
+    private readonly IContentDialogService _contentDialogService;
     private bool _isInitialized;
 
     [ObservableProperty] [NotifyPropertyChangedFor(nameof(IsNotLoading))]
     private bool _isLoading;
 
-    [ObservableProperty] private string _searchText = string.Empty;
-    [ObservableProperty] private int _selectedSortByIndex;
+    // Per-section: Apps
+    [ObservableProperty] private string _appSearchText = string.Empty;
+    [ObservableProperty] private int _appSortByIndex;
 
-    public StartupManagerViewModel(StartupManagerService startupManagerService, ILogger<StartupManagerViewModel> logger)
+    // Per-section: Tasks
+    [ObservableProperty] private string _taskSearchText = string.Empty;
+    [ObservableProperty] private int _taskSortByIndex;
+    [ObservableProperty] private bool _hideMicrosoftTasks = true;
+
+    public StartupManagerViewModel(
+        StartupManagerService startupManagerService,
+        IContentDialogService contentDialogService,
+        ILogger<StartupManagerViewModel> logger)
     {
         _startupManagerService = startupManagerService;
+        _contentDialogService = contentDialogService;
         _logger = logger;
     }
 
@@ -34,8 +49,8 @@ public partial class StartupManagerViewModel : ViewModel
 
     public bool IsNotLoading => !IsLoading;
 
-    public bool HasApps => Apps.Count > 0;
-    public bool HasTasks => Tasks.Count > 0;
+    public bool HasApps => _allApps.Count > 0;
+    public bool HasTasks => _allTasks.Count > 0;
     public bool HasData => HasApps || HasTasks;
 
     public override async Task OnNavigatedToAsync()
@@ -67,6 +82,19 @@ public partial class StartupManagerViewModel : ViewModel
     }
 
     [RelayCommand]
+    private void OpenTaskScheduler()
+    {
+        try
+        {
+            Process.Start(new ProcessStartInfo("taskschd.msc") { UseShellExecute = true });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to open Task Scheduler");
+        }
+    }
+
+    [RelayCommand]
     private void OpenLocation(StartupApp? app)
     {
         if (app?.CanOpenLocation == true)
@@ -80,15 +108,29 @@ public partial class StartupManagerViewModel : ViewModel
             }
     }
 
-    partial void OnSearchTextChanged(string value)
+    [RelayCommand]
+    private async Task ViewTaskDetails(StartupTask? task)
     {
-        ApplyFilter();
+        if (task == null) return;
+
+        var dialog = new ContentDialog
+        {
+            Title = task.TaskName,
+            Content = new StartupTaskDetailsPanel(task),
+            CloseButtonText = Translations.Button_Ok
+        };
+
+        await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
     }
 
-    partial void OnSelectedSortByIndexChanged(int value)
-    {
-        ApplyFilter();
-    }
+    // Apps filter triggers
+    partial void OnAppSearchTextChanged(string value) => ApplyAppFilter();
+    partial void OnAppSortByIndexChanged(int value) => ApplyAppFilter();
+
+    // Tasks filter triggers
+    partial void OnTaskSearchTextChanged(string value) => ApplyTaskFilter();
+    partial void OnTaskSortByIndexChanged(int value) => ApplyTaskFilter();
+    partial void OnHideMicrosoftTasksChanged(bool value) => ApplyTaskFilter();
 
     private async Task LoadDataAsync()
     {
@@ -108,7 +150,8 @@ public partial class StartupManagerViewModel : ViewModel
             _allApps.AddRange(appsTask.Result);
             _allTasks.AddRange(tasksTask.Result);
 
-            ApplyFilter();
+            ApplyAppFilter();
+            ApplyTaskFilter();
         }
         catch (Exception ex)
         {
@@ -120,19 +163,15 @@ public partial class StartupManagerViewModel : ViewModel
         }
     }
 
-    private void ApplyFilter()
+    private void ApplyAppFilter()
     {
-        // Unsubscribe existing items
         foreach (var app in Apps) app.PropertyChanged -= App_PropertyChanged;
-        foreach (var task in Tasks) task.PropertyChanged -= Task_PropertyChanged;
-
         Apps.Clear();
-        Tasks.Clear();
 
-        var search = SearchText.Trim();
+        var search = AppSearchText.Trim();
         var hasSearch = !string.IsNullOrWhiteSpace(search);
 
-        var sortedApps = SelectedSortByIndex switch
+        var sortedApps = AppSortByIndex switch
         {
             0 => _allApps.OrderBy(a => a.Name),
             1 => _allApps.OrderBy(a => !a.IsEnabled).ThenBy(a => a.Name),
@@ -153,7 +192,19 @@ public partial class StartupManagerViewModel : ViewModel
             Apps.Add(app);
         }
 
-        var sortedTasks = SelectedSortByIndex switch
+        OnPropertyChanged(nameof(HasApps));
+        OnPropertyChanged(nameof(HasData));
+    }
+
+    private void ApplyTaskFilter()
+    {
+        foreach (var task in Tasks) task.PropertyChanged -= Task_PropertyChanged;
+        Tasks.Clear();
+
+        var search = TaskSearchText.Trim();
+        var hasSearch = !string.IsNullOrWhiteSpace(search);
+
+        var sortedTasks = TaskSortByIndex switch
         {
             0 => _allTasks.OrderBy(t => t.TaskName),
             1 => _allTasks.OrderBy(t => !t.IsEnabled).ThenBy(t => t.TaskName),
@@ -163,6 +214,9 @@ public partial class StartupManagerViewModel : ViewModel
 
         foreach (var task in sortedTasks)
         {
+            if (HideMicrosoftTasks && task.IsMicrosoftTask)
+                continue;
+
             if (hasSearch &&
                 !task.TaskName.Contains(search, StringComparison.OrdinalIgnoreCase) &&
                 !(task.Description?.Contains(search, StringComparison.OrdinalIgnoreCase) ?? false) &&
@@ -174,7 +228,6 @@ public partial class StartupManagerViewModel : ViewModel
             Tasks.Add(task);
         }
 
-        OnPropertyChanged(nameof(HasApps));
         OnPropertyChanged(nameof(HasTasks));
         OnPropertyChanged(nameof(HasData));
     }

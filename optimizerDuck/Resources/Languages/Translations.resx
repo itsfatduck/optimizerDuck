@@ -1198,4 +1198,168 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="Settings.About.LearnMore.Website" xml:space="preserve">
     <value>Official Website</value>
   </data>
+
+    <!-- Scheduled Tasks (Startup Manager) -->
+    <data name="StartupManager.Tasks.HideMicrosoft" xml:space="preserve">
+    <value>Hide Microsoft tasks</value>
+  </data>
+
+    <!-- Sidebar -->
+    <data name="Sidebar.ScheduledTasks" xml:space="preserve">
+    <value>Scheduled Tasks</value>
+  </data>
+
+    <!-- Scheduled Tasks Page -->
+    <data name="ScheduledTasks.Header.Title" xml:space="preserve">
+    <value>Scheduled Tasks</value>
+  </data>
+    <data name="ScheduledTasks.Header.Description" xml:space="preserve">
+    <value>View, manage, and create Windows scheduled tasks.</value>
+  </data>
+    <data name="ScheduledTasks.Loading" xml:space="preserve">
+    <value>Loading scheduled tasks...</value>
+  </data>
+    <data name="ScheduledTasks.HideMicrosoft" xml:space="preserve">
+    <value>Hide Microsoft tasks</value>
+  </data>
+    <data name="ScheduledTasks.Menu.CreateTask" xml:space="preserve">
+    <value>Create Task</value>
+  </data>
+
+    <!-- Scheduled Tasks Actions -->
+    <data name="ScheduledTasks.Action.Details" xml:space="preserve">
+    <value>View Details</value>
+  </data>
+    <data name="ScheduledTasks.Action.Run" xml:space="preserve">
+    <value>Run</value>
+  </data>
+    <data name="ScheduledTasks.Action.Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+    <data name="ScheduledTasks.Action.Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+
+    <!-- Scheduled Tasks Dialogs -->
+    <data name="ScheduledTasks.Dialog.DeleteTitle" xml:space="preserve">
+    <value>Delete Scheduled Task</value>
+  </data>
+    <data name="ScheduledTasks.Dialog.DeleteMessage" xml:space="preserve">
+    <value>Are you sure you want to delete the task "{0}"? This action cannot be undone.</value>
+  </data>
+    <data name="ScheduledTasks.Dialog.CreateTitle" xml:space="preserve">
+    <value>Create New Task</value>
+  </data>
+    <data name="ScheduledTasks.Dialog.TaskName" xml:space="preserve">
+    <value>Task Name</value>
+  </data>
+    <data name="ScheduledTasks.Dialog.TaskNameHint" xml:space="preserve">
+    <value>Enter task name</value>
+  </data>
+    <data name="ScheduledTasks.Dialog.Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+    <data name="ScheduledTasks.Dialog.DescriptionHint" xml:space="preserve">
+    <value>Optional description</value>
+  </data>
+    <data name="ScheduledTasks.Dialog.FolderPath" xml:space="preserve">
+    <value>Folder Path</value>
+  </data>
+    <data name="ScheduledTasks.Dialog.Executable" xml:space="preserve">
+    <value>Executable</value>
+  </data>
+    <data name="ScheduledTasks.Dialog.Trigger" xml:space="preserve">
+    <value>Trigger</value>
+  </data>
+    <data name="ScheduledTasks.Dialog.TriggerLogon" xml:space="preserve">
+    <value>On Logon</value>
+  </data>
+    <data name="ScheduledTasks.Dialog.TriggerBoot" xml:space="preserve">
+    <value>On Boot</value>
+  </data>
+    <data name="ScheduledTasks.Dialog.Enabled" xml:space="preserve">
+    <value>Enable this task</value>
+  </data>
+
+    <!-- Scheduled Tasks Details -->
+    <data name="ScheduledTasks.Details.Path" xml:space="preserve">
+    <value>Path</value>
+  </data>
+    <data name="ScheduledTasks.Details.Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+    <data name="ScheduledTasks.Details.Author" xml:space="preserve">
+    <value>Author</value>
+  </data>
+    <data name="ScheduledTasks.Details.State" xml:space="preserve">
+    <value>State</value>
+  </data>
+    <data name="ScheduledTasks.Details.Triggers" xml:space="preserve">
+    <value>Triggers</value>
+  </data>
+    <data name="ScheduledTasks.Details.Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+    <data name="ScheduledTasks.Details.LastRun" xml:space="preserve">
+    <value>Last Run</value>
+  </data>
+    <data name="ScheduledTasks.Details.NextRun" xml:space="preserve">
+    <value>Next Run</value>
+  </data>
+    <data name="ScheduledTasks.Details.LastResult" xml:space="preserve">
+    <value>Last Result</value>
+  </data>
+
+    <!-- Common -->
+    <data name="Common.Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+    <data name="Common.Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+    <data name="Common.SortBy.State" xml:space="preserve">
+    <value>State</value>
+  </data>
+    <data name="ScheduledTasks.Menu.OpenSettings" xml:space="preserve">
+    <value>Open Task Scheduler</value>
+  </data>
+    <data name="ScheduledTasks.Details.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+    <data name="ScheduledTasks_Snackbar_Enabled_Title" xml:space="preserve">
+    <value>Task Enabled</value>
+  </data>
+    <data name="ScheduledTasks_Snackbar_Disabled_Title" xml:space="preserve">
+    <value>Task Disabled</value>
+  </data>
+    <data name="ScheduledTasks_Snackbar_Toggle_Message" xml:space="preserve">
+    <value>{0} has been updated successfully.</value>
+  </data>
+    <data name="ScheduledTasks_Snackbar_Run_Title" xml:space="preserve">
+    <value>Task Started</value>
+  </data>
+    <data name="ScheduledTasks_Snackbar_Run_Message" xml:space="preserve">
+    <value>{0} is now running.</value>
+  </data>
+    <data name="ScheduledTasks_Snackbar_Stop_Title" xml:space="preserve">
+    <value>Task Stopped</value>
+  </data>
+    <data name="ScheduledTasks_Snackbar_Stop_Message" xml:space="preserve">
+    <value>{0} has been stopped.</value>
+  </data>
+    <data name="ScheduledTasks_Snackbar_Delete_Title" xml:space="preserve">
+    <value>Task Deleted</value>
+  </data>
+    <data name="ScheduledTasks_Snackbar_Delete_Message" xml:space="preserve">
+    <value>{0} has been deleted.</value>
+  </data>
+    <data name="ScheduledTasks_Snackbar_Create_Title" xml:space="preserve">
+    <value>Task Created</value>
+  </data>
+    <data name="ScheduledTasks_Snackbar_Create_Message" xml:space="preserve">
+    <value>{0} has been created successfully.</value>
+  </data>
+    <data name="ScheduledTasks_Snackbar_Error_Title" xml:space="preserve">
+    <value>Error</value>
+  </data>
 </root>

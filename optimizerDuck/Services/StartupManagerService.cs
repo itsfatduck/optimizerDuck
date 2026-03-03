@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Text.Json;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -13,7 +12,7 @@ using optimizerDuck.Services.OptimizationServices;
 
 namespace optimizerDuck.Services;
 
-public class StartupManagerService(ILogger<StartupManagerService> logger)
+public class StartupManagerService(ILogger<StartupManagerService> logger, ScheduledTaskService scheduledTaskService)
 {
     public async Task<List<StartupApp>> GetStartupAppsAsync()
     {
@@ -222,89 +221,60 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         approvedKey.SetValue(app.OriginalValueNameOrFileName, data, RegistryValueKind.Binary);
     }
 
-    public async Task<List<StartupTask>> GetStartupTasksAsync()
+    public Task<List<StartupTask>> GetStartupTasksAsync()
     {
-        var tasks = new List<StartupTask>();
-        try
+        return Task.Run(() =>
         {
-            var result = await ShellService.PowerShellAsync(@"
-                Get-ScheduledTask |
-                Where-Object { $_.Triggers.CimClass.CimClassName -match 'LogonTrigger' -and $_.TaskPath -notlike '\Microsoft\*' } |
-                Select-Object TaskName, TaskPath, State, Description, @{Name=""Enabled"";Expression={$_.Settings.Enabled}} |
-                ConvertTo-Json -Depth 3
-            ");
-
-            if (result.ExitCode == 0 && !string.IsNullOrWhiteSpace(result.Stdout))
-                try
+            try
+            {
+                var models = scheduledTaskService.GetStartupTasks();
+                var tasks = models.Select(m => new StartupTask
                 {
-                    using var doc = JsonDocument.Parse(result.Stdout);
-                    switch (doc.RootElement.ValueKind)
-                    {
-                        case JsonValueKind.Array:
-                            {
-                                foreach (var el in doc.RootElement.EnumerateArray())
-                                    ParseTaskElement(el, tasks);
-                                break;
-                            }
-                        case JsonValueKind.Object:
-                            ParseTaskElement(doc.RootElement, tasks);
-                            break;
-                    }
-                }
-                catch (Exception parserEx)
+                    TaskName = m.Name,
+                    TaskPath = m.Path,
+                    Description = m.Description,
+                    TriggerSummary = m.TriggerSummary,
+                    ActionSummary = m.ActionSummary,
+                    IsEnabled = m.IsEnabled
+                }).OrderBy(t => t.TaskName).ToList();
+
+                // Extract icons from task commands
+                Parallel.ForEach(tasks, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, task =>
                 {
-                    logger.LogError(parserEx, "Failed to parse json: {Json}", result.Stdout);
-                }
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Failed to get scheduled tasks");
-        }
+                    if (!string.IsNullOrWhiteSpace(task.ActionSummary))
+                        task.LogoImage = ExtractIcon(task.ActionSummary);
+                });
 
-        return tasks.OrderBy(t => t.TaskName).ToList();
-    }
-
-    private static void ParseTaskElement(JsonElement el, List<StartupTask> tasks)
-    {
-        var name = el.TryGetProperty("TaskName", out var nProp) ? nProp.GetString() ?? "" : "";
-        var path = el.TryGetProperty("TaskPath", out var pProp) ? pProp.GetString() ?? "" : "";
-        var enabled = el.TryGetProperty("Enabled", out var eProp) && eProp.GetBoolean();
-        var desc = el.TryGetProperty("Description", out var dProp) ? dProp.GetString() : "";
-
-        if (string.IsNullOrWhiteSpace(name)) return;
-
-        tasks.Add(new StartupTask
-        {
-            TaskName = name,
-            TaskPath = path,
-            Description = desc,
-            IsEnabled = enabled
+                return tasks;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Failed to get scheduled tasks");
+                return [];
+            }
         });
     }
 
-    public async Task ToggleStartupTask(StartupTask task, bool enable)
+    public Task ToggleStartupTask(StartupTask task, bool enable)
     {
-        try
+        return Task.Run(() =>
         {
-            var command = enable ? "Enable-ScheduledTask" : "Disable-ScheduledTask";
-            var script = $"""
-                          {command} -TaskPath "{task.TaskPath}" -TaskName "{task.TaskName}"
-                          """;
-
-            var result = await ShellService.PowerShellAsync(script);
-            if (result.ExitCode != 0)
-                logger.LogWarning("Toggle tasks returned exit code {ExitCode}. Stderr: {Stderr}", result.ExitCode,
-                    result.Stderr);
-
-            logger.LogInformation("Toggled scheduled task {Name} to {Enable}", task.TaskName, enable);
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Failed to toggle task {Name}", task.TaskName);
-        }
+            try
+            {
+                var fullPath = task.TaskPath.TrimEnd('\\') + "\\" + task.TaskName;
+                if (enable)
+                    scheduledTaskService.EnableTaskLogged(fullPath);
+                else
+                    scheduledTaskService.DisableTaskLogged(fullPath);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Failed to toggle task {Name}", task.TaskName);
+            }
+        });
     }
 
-    private static BitmapSource? ExtractIcon(string command)
+    public static BitmapSource? ExtractIcon(string command)
     {
         try
         {
@@ -346,7 +316,7 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         return null;
     }
 
-    private static string? GetFullPathFromEnvironment(string fileName)
+    public static string? GetFullPathFromEnvironment(string fileName)
     {
         if (File.Exists(fileName))
             return Path.GetFullPath(fileName);

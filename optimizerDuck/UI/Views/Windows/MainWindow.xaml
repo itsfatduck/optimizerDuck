@@ -59,6 +59,11 @@
                     TargetPageType="{x:Type pages:StartupManagerPage}" />
 
                 <controls:FilledNavigationViewItem
+                    Content="{extensions:Loc Sidebar.ScheduledTasks}"
+                    Icon="{ui:SymbolIcon CalendarLtr24}"
+                    TargetPageType="{x:Type pages:ScheduledTasksPage}" />
+
+                <controls:FilledNavigationViewItem
                     Content="{extensions:Loc Sidebar.DiskCleanup}"
                     Icon="{ui:SymbolIcon HardDrive20}"
                     TargetPageType="{x:Type pages:DiskCleanupPage}" />
