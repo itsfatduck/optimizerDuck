@@ -98,8 +98,6 @@ If optimizerDuck improved your PC experience:
 * 💬 Join the Discord community
 * 🎁 Support me via **[Support](https://optimizerduck.vercel.app/docs/contribute/support-me)**
 
-<img src="./.github/assets/capoo_star.webp" alt="Capoo Star" title="Capoo Star" height="80"/>
-
 Every star and contribution helps keep the project growing.
 
 ---
