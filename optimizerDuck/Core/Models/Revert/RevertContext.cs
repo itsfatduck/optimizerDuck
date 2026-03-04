@@ -6,7 +6,7 @@ namespace optimizerDuck.Core.Models.Revert;
 
 /// <summary>
 ///     Manages the recording of revert steps during an optimization apply operation.
-///     Implements <see cref="IAsyncDisposable"/> to automatically persist recorded steps on disposal.
+///     Implements <see cref="IAsyncDisposable" /> to automatically persist recorded steps on disposal.
 /// </summary>
 public sealed class RevertContext : IAsyncDisposable
 {
@@ -16,7 +16,7 @@ public sealed class RevertContext : IAsyncDisposable
     private readonly Stack<IRevertStep> _steps = new();
 
     /// <summary>
-    ///     Initializes a new <see cref="RevertContext"/> for the given optimization.
+    ///     Initializes a new <see cref="RevertContext" /> for the given optimization.
     /// </summary>
     /// <param name="optimization">The optimization being performed.</param>
     /// <param name="logger">The logger for diagnostic messages.</param>

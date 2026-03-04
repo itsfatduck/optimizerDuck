@@ -11,10 +11,12 @@ public class RevertResult
     ///     Indicates whether the revert was successful.
     /// </summary>
     public bool Success { get; set; }
+
     /// <summary>
     ///     A message describing the result.
     /// </summary>
     public string Message { get; set; } = string.Empty;
+
     /// <summary>
     ///     The exception that occurred, if any.
     /// </summary>

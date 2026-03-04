@@ -166,7 +166,7 @@ public partial class SettingsViewModel(
             logger.LogError(ex, "Failed to open acknowledgements page");
         }
     }
-    
+
     [RelayCommand]
     private void OpenWebsite(string type)
     {

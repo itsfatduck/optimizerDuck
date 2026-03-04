@@ -125,7 +125,7 @@
         </Border>
 
         <!--  Main Content  -->
-        <Border Visibility="{Binding ViewModel.HasData, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Row="1">
+        <Border Grid.Row="1" Visibility="{Binding ViewModel.HasData, Converter={StaticResource BooleanToVisibilityConverter}}">
             <ScrollViewer Margin="0,0,16,0">
                 <StackPanel>
                     <!--  ═══════════ Startup Apps Section ═══════════  -->

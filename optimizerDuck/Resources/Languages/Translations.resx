@@ -1195,7 +1195,7 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
     <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
     <value>Open Settings</value>
   </data>
-  <data name="Settings.About.LearnMore.Website" xml:space="preserve">
+    <data name="Settings.About.LearnMore.Website" xml:space="preserve">
     <value>Official Website</value>
   </data>
 
@@ -1218,6 +1218,9 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   </data>
     <data name="ScheduledTasks.Loading" xml:space="preserve">
     <value>Loading scheduled tasks...</value>
+  </data>
+    <data name="ScheduledTasks.Loading.Hint" xml:space="preserve">
+    <value>This may take a moment while scanning for all scheduled tasks on your system.</value>
   </data>
     <data name="ScheduledTasks.HideMicrosoft" xml:space="preserve">
     <value>Hide Microsoft tasks</value>
@@ -1293,40 +1296,40 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
     <data name="ScheduledTasks.Details.Name" xml:space="preserve">
     <value>Name</value>
   </data>
-	<data name="ScheduledTasks.Snackbar.Enabled.Title" xml:space="preserve">
+    <data name="ScheduledTasks.Snackbar.Enabled.Title" xml:space="preserve">
     <value>Task Enabled</value>
   </data>
-	<data name="ScheduledTasks.Snackbar.Disabled.Title" xml:space="preserve">
+    <data name="ScheduledTasks.Snackbar.Disabled.Title" xml:space="preserve">
     <value>Task Disabled</value>
   </data>
-	<data name="ScheduledTasks.Snackbar.Toggle.Message" xml:space="preserve">
+    <data name="ScheduledTasks.Snackbar.Toggle.Message" xml:space="preserve">
     <value>{0} has been updated successfully.</value>
   </data>
-	<data name="ScheduledTasks.Snackbar.Run.Title" xml:space="preserve">
+    <data name="ScheduledTasks.Snackbar.Run.Title" xml:space="preserve">
     <value>Task Started</value>
   </data>
-	<data name="ScheduledTasks.Snackbar.Run.Message" xml:space="preserve">
+    <data name="ScheduledTasks.Snackbar.Run.Message" xml:space="preserve">
     <value>{0} is now running.</value>
   </data>
-	<data name="ScheduledTasks.Snackbar.Stop.Title" xml:space="preserve">
+    <data name="ScheduledTasks.Snackbar.Stop.Title" xml:space="preserve">
     <value>Task Stopped</value>
   </data>
-	<data name="ScheduledTasks.Snackbar.Stop.Message" xml:space="preserve">
+    <data name="ScheduledTasks.Snackbar.Stop.Message" xml:space="preserve">
     <value>{0} has been stopped.</value>
   </data>
-	<data name="ScheduledTasks.Snackbar.Delete.Title" xml:space="preserve">
+    <data name="ScheduledTasks.Snackbar.Delete.Title" xml:space="preserve">
     <value>Task Deleted</value>
   </data>
-	<data name="ScheduledTasks.Snackbar.Delete.Message" xml:space="preserve">
+    <data name="ScheduledTasks.Snackbar.Delete.Message" xml:space="preserve">
     <value>{0} has been deleted.</value>
   </data>
-	<data name="ScheduledTasks.Snackbar.Create.Title" xml:space="preserve">
+    <data name="ScheduledTasks.Snackbar.Create.Title" xml:space="preserve">
     <value>Task Created</value>
   </data>
-	<data name="ScheduledTasks.Snackbar.Create.Message" xml:space="preserve">
+    <data name="ScheduledTasks.Snackbar.Create.Message" xml:space="preserve">
     <value>{0} has been created successfully.</value>
   </data>
-	<data name="ScheduledTasks.Snackbar.Error.Title" xml:space="preserve">
+    <data name="ScheduledTasks.Snackbar.Error.Title" xml:space="preserve">
 
     <value>Error</value>
   </data>

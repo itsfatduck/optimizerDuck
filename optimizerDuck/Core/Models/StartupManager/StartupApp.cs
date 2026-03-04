@@ -23,6 +23,13 @@ public enum StartupAppLocation
 public partial class StartupApp : ObservableObject
 {
     /// <summary>
+    ///     The command that runs the application.
+    /// </summary>
+    [ObservableProperty] private string _command = string.Empty;
+
+    private string? _filePath;
+
+    /// <summary>
     ///     Indicates whether this startup entry is enabled.
     /// </summary>
     [ObservableProperty] private bool _isEnabled;
@@ -31,32 +38,32 @@ public partial class StartupApp : ObservableObject
     ///     The logo image of the application.
     /// </summary>
     [ObservableProperty] private ImageSource? _logoImage;
-    /// <summary>
-    ///     The display name of the startup application.
-    /// </summary>
-    public required string Name { get; init; }
-    /// <summary>
-    ///     The publisher or company name.
-    /// </summary>
-    [ObservableProperty] private string _publisher = string.Empty;
-    /// <summary>
-    ///     The command that runs the application.
-    /// </summary>
-    [ObservableProperty] private string _command = string.Empty;
-    /// <summary>
-    ///     Where this startup entry is located.
-    /// </summary>
-    public required StartupAppLocation Location { get; init; }
-    /// <summary>
-    ///     The registry key path or folder path.
-    /// </summary>
-    public required string PathOrKey { get; init; }
+
     /// <summary>
     ///     The original value name (registry) or file name (folder).
     /// </summary>
     [ObservableProperty] private string _originalValueNameOrFileName = string.Empty;
-    
-    private string? _filePath;
+
+    /// <summary>
+    ///     The publisher or company name.
+    /// </summary>
+    [ObservableProperty] private string _publisher = string.Empty;
+
+    /// <summary>
+    ///     The display name of the startup application.
+    /// </summary>
+    public required string Name { get; init; }
+
+    /// <summary>
+    ///     Where this startup entry is located.
+    /// </summary>
+    public required StartupAppLocation Location { get; init; }
+
+    /// <summary>
+    ///     The registry key path or folder path.
+    /// </summary>
+    public required string PathOrKey { get; init; }
+
     /// <summary>
     ///     The actual file path of the executable.
     /// </summary>
@@ -65,10 +72,7 @@ public partial class StartupApp : ObservableObject
         get => _filePath;
         set
         {
-            if (SetProperty(ref _filePath, value))
-            {
-                OnPropertyChanged(nameof(CanOpenLocation));
-            }
+            if (SetProperty(ref _filePath, value)) OnPropertyChanged(nameof(CanOpenLocation));
         }
     }
 

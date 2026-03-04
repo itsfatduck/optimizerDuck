@@ -13,7 +13,7 @@ public record LanguageOption
     public required string DisplayName { get; init; }
 
     /// <summary>
-    ///     The <see cref="CultureInfo"/> associated with this language option.
+    ///     The <see cref="CultureInfo" /> associated with this language option.
     /// </summary>
     public required CultureInfo Culture { get; init; }
 }

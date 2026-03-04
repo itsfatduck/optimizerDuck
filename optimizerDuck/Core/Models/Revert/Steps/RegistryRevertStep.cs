@@ -73,7 +73,6 @@ public class RegistryRevertStep : IRevertStep
     }
 
 
-
     /// <inheritdoc />
     public JObject ToData()
     {
@@ -129,10 +128,10 @@ public class RegistryRevertStep : IRevertStep
     }
 
     /// <summary>
-    ///     Deserializes a <see cref="RegistryRevertStep"/> from JSON data.
+    ///     Deserializes a <see cref="RegistryRevertStep" /> from JSON data.
     /// </summary>
     /// <param name="data">The JSON data to deserialize.</param>
-    /// <returns>A new <see cref="RegistryRevertStep"/> instance.</returns>
+    /// <returns>A new <see cref="RegistryRevertStep" /> instance.</returns>
     public static RegistryRevertStep FromData(JObject data)
     {
         var kind = Enum.Parse<RegistryValueKind>(data[nameof(Kind)]!.ToString());

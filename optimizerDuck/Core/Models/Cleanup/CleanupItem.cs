@@ -12,18 +12,22 @@ public partial class CleanupItem : ObservableObject
     ///     The number of files in this cleanup item.
     /// </summary>
     [ObservableProperty] private long _fileCount;
+
     /// <summary>
     ///     Indicates whether cleanup is in progress.
     /// </summary>
     [ObservableProperty] private bool _isCleaning;
+
     /// <summary>
     ///     Indicates whether this item has been scanned.
     /// </summary>
     [ObservableProperty] private bool _isScanned;
+
     /// <summary>
     ///     Indicates whether scanning is in progress.
     /// </summary>
     [ObservableProperty] private bool _isScanning;
+
     /// <summary>
     ///     Indicates whether this item is selected for cleanup.
     /// </summary>
@@ -33,22 +37,27 @@ public partial class CleanupItem : ObservableObject
     ///     The size of files in bytes.
     /// </summary>
     [ObservableProperty] private long _sizeBytes;
+
     /// <summary>
     ///     Unique identifier for this cleanup item.
     /// </summary>
     public required string Id { get; init; }
+
     /// <summary>
     ///     Display name of the cleanup item.
     /// </summary>
     public required string Name { get; init; }
+
     /// <summary>
     ///     Description of what this cleanup item contains.
     /// </summary>
     public required string Description { get; init; }
+
     /// <summary>
     ///     The file path or folder to clean.
     /// </summary>
     public required string Path { get; init; }
+
     /// <summary>
     ///     The icon to display in the UI.
     /// </summary>

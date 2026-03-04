@@ -1,6 +1,4 @@
-using System.Text;
 using optimizerDuck.Services.OptimizationServices;
-using Xunit;
 
 namespace optimizerDuck.Test.Services.OptimizationServices;
 

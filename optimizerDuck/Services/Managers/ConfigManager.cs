@@ -8,20 +8,20 @@ using optimizerDuck.Common.Helpers;
 namespace optimizerDuck.Services.Managers;
 
 /// <summary>
-    ///     Manages application configuration settings stored in appsettings.json.
-    /// </summary>
+///     Manages application configuration settings stored in appsettings.json.
+/// </summary>
 public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> logger)
 {
     /// <summary>
     ///     The path to the configuration file.
     /// </summary>
     private readonly string _configPath = Path.Combine(Shared.RootDirectory, "appsettings.json");
-    
+
     /// <summary>
     ///     Semaphore for thread-safe access to configuration data.
     /// </summary>
     private readonly SemaphoreSlim _lock = new(1, 1);
-    
+
     /// <summary>
     ///     Cached configuration data.
     /// </summary>

@@ -77,7 +77,8 @@ public partial class DiskCleanupViewModel(
         // Automatically start scanning
         await ScanAsync();
 
-        CleanupItems = new ObservableCollection<CleanupItem>(CleanupItems.OrderByDescending(i => i.SizeBytes).ToArray());
+        CleanupItems =
+            new ObservableCollection<CleanupItem>(CleanupItems.OrderByDescending(i => i.SizeBytes).ToArray());
     }
 
     [RelayCommand]

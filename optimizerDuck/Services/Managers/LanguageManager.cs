@@ -4,8 +4,8 @@ using optimizerDuck.Resources.Languages;
 namespace optimizerDuck.Services.Managers;
 
 /// <summary>
-    ///     Provides localization and culture management for the application.
-    /// </summary>
+///     Provides localization and culture management for the application.
+/// </summary>
 public class Loc
 {
     /// <summary>

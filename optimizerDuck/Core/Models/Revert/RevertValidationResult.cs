@@ -32,7 +32,7 @@ public class RevertValidationResult
     /// <summary>
     ///     Creates a successful validation result.
     /// </summary>
-    /// <returns>A valid <see cref="RevertValidationResult"/>.</returns>
+    /// <returns>A valid <see cref="RevertValidationResult" />.</returns>
     public static RevertValidationResult Success()
     {
         return new RevertValidationResult(true, "Revert data is valid.", Translations.Revert_Error_InvalidData);
@@ -43,7 +43,7 @@ public class RevertValidationResult
     /// </summary>
     /// <param name="localizedMessage">The localized error message for the user.</param>
     /// <param name="message">The technical error message.</param>
-    /// <returns>An invalid <see cref="RevertValidationResult"/>.</returns>
+    /// <returns>An invalid <see cref="RevertValidationResult" />.</returns>
     public static RevertValidationResult Fail(string localizedMessage, string message)
     {
         return new RevertValidationResult(false, message, localizedMessage);

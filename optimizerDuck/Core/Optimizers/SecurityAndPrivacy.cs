@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Attributes;
@@ -7,9 +8,6 @@ using optimizerDuck.Core.Models.UI;
 using optimizerDuck.Services.Managers;
 using optimizerDuck.Services.OptimizationServices;
 using optimizerDuck.UI.Views.Pages.Optimizations;
-using System.Collections.ObjectModel;
-using System.Text.Json;
-using System.Xml.Linq;
 
 namespace optimizerDuck.Core.Optimizers;
 
@@ -144,7 +142,6 @@ public class SecurityAndPrivacy : IOptimizationCategory
             // @formatter:on
 
             foreach (var task in tasksToDelete)
-            {
                 try
                 {
                     if (!ScheduledTaskService.IsTaskEnabled(task))
@@ -160,7 +157,6 @@ public class SecurityAndPrivacy : IOptimizationCategory
                 {
                     context.Logger.LogWarning(ex, "Failed to disable task {Task}", task);
                 }
-            }
 
             return Task.FromResult(ApplyResult.True());
         }
@@ -170,7 +166,8 @@ public class SecurityAndPrivacy : IOptimizationCategory
         Tags = OptimizationTags.Privacy)]
     public class DisableAutoLogger : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
                 new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AppModel", "Start", 0),
@@ -198,23 +195,24 @@ public class SecurityAndPrivacy : IOptimizationCategory
         Tags = OptimizationTags.Privacy | OptimizationTags.System)]
     public class DisableCortana : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
-                 new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search", "AllowCortana", 0),
-                 new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search", "AllowCloudSearch", 0),
-                 new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search", "AllowCortanaAboveLock",
-                     0),
-                 new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search", "AllowSearchToUseLocation",
-                     0),
-                 new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search", "ConnectedSearchUseWeb",
-                     0),
-                  new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search", "DisableWebSearch", 1),
-                  new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Search",
-                     "CortanaConsent", 0),
-                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Search",
-                     "CortanaConsent2", 0)
-             );
+                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search", "AllowCortana", 0),
+                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search", "AllowCloudSearch", 0),
+                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search", "AllowCortanaAboveLock",
+                    0),
+                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search", "AllowSearchToUseLocation",
+                    0),
+                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search", "ConnectedSearchUseWeb",
+                    0),
+                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search", "DisableWebSearch", 1),
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Search",
+                    "CortanaConsent", 0),
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Search",
+                    "CortanaConsent2", 0)
+            );
             context.Logger.LogInformation("Disabled Cortana and web search");
             return Task.FromResult(ApplyResult.True());
         }
@@ -224,7 +222,8 @@ public class SecurityAndPrivacy : IOptimizationCategory
         Tags = OptimizationTags.Privacy | OptimizationTags.System)]
     public class DisableCopilot : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
                 new RegistryItem(@"HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot",
@@ -252,10 +251,11 @@ public class SecurityAndPrivacy : IOptimizationCategory
     }
 
     [Optimization(Id = "00C997FE-1CB7-41BD-B473-65A81333AEE9", Risk = OptimizationRisk.Safe,
-    Tags = OptimizationTags.System | OptimizationTags.Latency | OptimizationTags.Privacy)]
+        Tags = OptimizationTags.System | OptimizationTags.Latency | OptimizationTags.Privacy)]
     public class DisableContentDeliveryManager : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
         {
             RegistryService.Write(
                 new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager",

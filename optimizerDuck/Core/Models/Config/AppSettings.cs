@@ -9,10 +9,12 @@ public sealed class AppSettings
     ///     General application settings.
     /// </summary>
     public AppOptions App { get; set; } = new();
+
     /// <summary>
     ///     Optimization-related settings.
     /// </summary>
     public OptimizeOptions Optimize { get; set; } = new();
+
     /// <summary>
     ///     Bloatware removal settings.
     /// </summary>
@@ -27,6 +29,7 @@ public sealed class AppSettings
         ///     The UI language code (e.g., "en-US").
         /// </summary>
         public string Language { get; set; } = "en-US";
+
         /// <summary>
         ///     The UI theme (e.g., "Dark").
         /// </summary>

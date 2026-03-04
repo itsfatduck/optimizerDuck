@@ -41,7 +41,7 @@ public class OptimizationService(
     ///     Creates a Windows system restore point.
     /// </summary>
     /// <returns>
-    ///     A task that completes with a <see cref="RestorePointResult"/> indicating success,
+    ///     A task that completes with a <see cref="RestorePointResult" /> indicating success,
     ///     failure, or if the frequency limit was reached.
     /// </returns>
     public async Task<RestorePointResult> CreateRestorePointAsync()

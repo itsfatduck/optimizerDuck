@@ -12,8 +12,8 @@ using optimizerDuck.Resources.Languages;
 namespace optimizerDuck.Services.Managers;
 
 /// <summary>
-    ///     Manages revert functionality for optimizations, allowing users to undo changes.
-    /// </summary>
+///     Manages revert functionality for optimizations, allowing users to undo changes.
+/// </summary>
 public class RevertManager(ILogger<RevertManager> logger)
 {
     /// <summary>

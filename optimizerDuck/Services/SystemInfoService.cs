@@ -37,6 +37,16 @@ public enum GpuVendor
 public sealed record GpuInfo
 {
     /// <summary>
+    ///     A sentinel value representing an unknown GPU.
+    /// </summary>
+    public static readonly GpuInfo Unknown = new()
+    {
+        Name = Translations.Common_Unknown,
+        DriverVersion = Translations.Common_Unknown,
+        Vendor = GpuVendor.Unknown
+    };
+
+    /// <summary>
     ///     The display name of the GPU (e.g., "NVIDIA GeForce RTX 4090").
     /// </summary>
     public required string Name { get; init; }
@@ -66,16 +76,6 @@ public sealed record GpuInfo
     /// </summary>
     public string? PnpDeviceId { get; init; }
 
-    /// <summary>
-    ///     A sentinel value representing an unknown GPU.
-    /// </summary>
-    public static readonly GpuInfo Unknown = new() 
-    {
-        Name = Translations.Common_Unknown, 
-        DriverVersion = Translations.Common_Unknown, 
-        Vendor = GpuVendor.Unknown 
-    };
-
     /// <inheritdoc />
     public override string ToString()
     {
@@ -89,6 +89,23 @@ public sealed record GpuInfo
 /// </summary>
 public sealed record CpuInfo
 {
+    /// <summary>
+    ///     A sentinel value representing an unknown CPU.
+    /// </summary>
+    public static readonly CpuInfo Unknown = new()
+    {
+        Name = Translations.Common_Unknown,
+        Manufacturer = Translations.Common_Unknown,
+        Vendor = Translations.Common_Unknown,
+        Architecture = Translations.Common_Unknown,
+        Cores = 0,
+        Threads = 0,
+        MaxClockMHz = 0,
+        CurrentClockMHz = 0,
+        L2CacheKB = 0,
+        L3CacheKB = 0
+    };
+
     /// <summary>
     ///     The processor display name (e.g., "Intel Core i9-13900K").
     /// </summary>
@@ -138,23 +155,6 @@ public sealed record CpuInfo
     ///     The L3 cache size in kilobytes.
     /// </summary>
     public required int L3CacheKB { get; init; }
-
-    /// <summary>
-    ///     A sentinel value representing an unknown CPU.
-    /// </summary>
-    public static readonly CpuInfo Unknown = new() 
-    {
-        Name = Translations.Common_Unknown, 
-        Manufacturer = Translations.Common_Unknown, 
-        Vendor = Translations.Common_Unknown, 
-        Architecture = Translations.Common_Unknown,
-        Cores = 0, 
-        Threads = 0, 
-        MaxClockMHz = 0, 
-        CurrentClockMHz = 0,
-        L2CacheKB = 0, 
-        L3CacheKB = 0 
-    };
 }
 
 /// <summary>
@@ -234,14 +234,14 @@ public sealed record DiskVolume
 public sealed record DiskInfo
 {
     /// <summary>
-    ///     The list of detected disk volumes.
-    /// </summary>
-    public required IReadOnlyList<DiskVolume> Volumes { get; init; }
-
-    /// <summary>
     ///     A sentinel value representing unknown disk information.
     /// </summary>
     public static readonly DiskInfo Unknown = new() { Volumes = [] };
+
+    /// <summary>
+    ///     The list of detected disk volumes.
+    /// </summary>
+    public required IReadOnlyList<DiskVolume> Volumes { get; init; }
 }
 
 /// <summary>
@@ -281,6 +281,12 @@ public sealed record RamModule
 public sealed record RamInfo
 {
     /// <summary>
+    ///     A sentinel value representing unknown RAM information.
+    /// </summary>
+    public static readonly RamInfo Unknown = new()
+        { TotalGB = 0, TotalMB = 0, TotalKB = 0, AvailableGB = 0, UsedPercent = 0, UsedGB = 0, Modules = [] };
+
+    /// <summary>
     ///     The total installed RAM in gigabytes.
     /// </summary>
     public required double TotalGB { get; init; }
@@ -314,11 +320,6 @@ public sealed record RamInfo
     ///     The list of physical RAM modules.
     /// </summary>
     public required IReadOnlyList<RamModule> Modules { get; init; }
-
-    /// <summary>
-    ///     A sentinel value representing unknown RAM information.
-    /// </summary>
-    public static readonly RamInfo Unknown = new() { TotalGB = 0, TotalMB = 0, TotalKB = 0, AvailableGB = 0, UsedPercent = 0, UsedGB = 0, Modules = [] };
 }
 
 /// <summary>
@@ -326,6 +327,21 @@ public sealed record RamInfo
 /// </summary>
 public sealed record OsInfo
 {
+    /// <summary>
+    ///     A sentinel value representing unknown OS information.
+    /// </summary>
+    public static readonly OsInfo Unknown = new()
+    {
+        Name = Translations.Common_Unknown,
+        Version = Translations.Common_Unknown,
+        BuildNumber = Translations.Common_Unknown,
+        Edition = Translations.Common_Unknown,
+        Architecture = Translations.Common_Unknown,
+        DeviceType = Translations.Common_Unknown,
+        InstallDate = Translations.Common_Unknown,
+        LastBootUpTime = Translations.Common_Unknown
+    };
+
     /// <summary>
     ///     The OS name (e.g., "Microsoft Windows 11 Pro").
     /// </summary>
@@ -365,21 +381,6 @@ public sealed record OsInfo
     ///     The last boot-up time.
     /// </summary>
     public required string LastBootUpTime { get; init; }
-
-    /// <summary>
-    ///     A sentinel value representing unknown OS information.
-    /// </summary>
-    public static readonly OsInfo Unknown = new() 
-    {
-        Name = Translations.Common_Unknown, 
-        Version = Translations.Common_Unknown, 
-        BuildNumber = Translations.Common_Unknown, 
-        Edition = Translations.Common_Unknown, 
-        Architecture = Translations.Common_Unknown, 
-        DeviceType = Translations.Common_Unknown, 
-        InstallDate = Translations.Common_Unknown, 
-        LastBootUpTime = Translations.Common_Unknown 
-    };
 }
 
 /// <summary>
@@ -387,6 +388,18 @@ public sealed record OsInfo
 /// </summary>
 public sealed record BiosInfo
 {
+    /// <summary>
+    ///     A sentinel value representing unknown BIOS information.
+    /// </summary>
+    public static readonly BiosInfo Unknown = new()
+    {
+        Manufacturer = Translations.Common_Unknown,
+        Version = Translations.Common_Unknown,
+        ReleaseDate = Translations.Common_Unknown,
+        SmbiosVersion = Translations.Common_Unknown,
+        SerialNumber = Translations.Common_Unknown
+    };
+
     /// <summary>
     ///     The BIOS manufacturer.
     /// </summary>
@@ -411,18 +424,6 @@ public sealed record BiosInfo
     ///     The system serial number.
     /// </summary>
     public required string SerialNumber { get; init; }
-
-    /// <summary>
-    ///     A sentinel value representing unknown BIOS information.
-    /// </summary>
-    public static readonly BiosInfo Unknown = new() 
-    {
-        Manufacturer = Translations.Common_Unknown, 
-        Version = Translations.Common_Unknown, 
-        ReleaseDate = Translations.Common_Unknown, 
-        SmbiosVersion = Translations.Common_Unknown, 
-        SerialNumber = Translations.Common_Unknown 
-    };
 }
 
 /// <summary>
@@ -430,6 +431,20 @@ public sealed record BiosInfo
 /// </summary>
 public sealed record SystemSnapshot
 {
+    /// <summary>
+    ///     A sentinel value representing a completely unknown system.
+    /// </summary>
+    public static readonly SystemSnapshot Unknown = new()
+    {
+        Cpu = CpuInfo.Unknown,
+        Ram = RamInfo.Unknown,
+        Os = OsInfo.Unknown,
+        Bios = BiosInfo.Unknown,
+        Gpus = [],
+        PrimaryGpu = null,
+        Disk = DiskInfo.Unknown
+    };
+
     /// <summary>
     ///     CPU information.
     /// </summary>
@@ -464,20 +479,6 @@ public sealed record SystemSnapshot
     ///     Disk volume information.
     /// </summary>
     public required DiskInfo Disk { get; init; }
-
-    /// <summary>
-    ///     A sentinel value representing a completely unknown system.
-    /// </summary>
-    public static readonly SystemSnapshot Unknown = new() 
-    {
-        Cpu = CpuInfo.Unknown, 
-        Ram = RamInfo.Unknown, 
-        Os = OsInfo.Unknown, 
-        Bios = BiosInfo.Unknown, 
-        Gpus = [], 
-        PrimaryGpu = null, 
-        Disk = DiskInfo.Unknown 
-    };
 }
 
 // ============================================================================
@@ -682,16 +683,16 @@ internal static class CpuProvider
 
             return new CpuInfo
             {
-                Name = name, 
-                Manufacturer = manufacturer, 
-                Vendor = vendor, 
+                Name = name,
+                Manufacturer = manufacturer,
+                Vendor = vendor,
                 Architecture = architecture,
-                Cores = cores, 
-                Threads = threads, 
-                MaxClockMHz = maxMHz, 
+                Cores = cores,
+                Threads = threads,
+                MaxClockMHz = maxMHz,
                 CurrentClockMHz = currentMHz,
-                L2CacheKB = l2kb, 
-                L3CacheKB = l3kb 
+                L2CacheKB = l2kb,
+                L3CacheKB = l3kb
             };
         }
         catch
@@ -1397,7 +1398,7 @@ internal static class GpuProvider
 
         try
         {
-            for (uint i = 0; ; i++)
+            for (uint i = 0;; i++)
             {
                 var hr = factory.EnumAdapters1(i, out var adapter);
                 if (hr != 0 || adapter == null) break; // DXGI_ERROR_NOT_FOUND
@@ -1894,7 +1895,8 @@ public sealed class SystemInfoService
                 var modelInfo = !string.IsNullOrEmpty(volume.Model) ? $" - {volume.Model}" : "";
                 _logger.LogInformation(
                     "Disk {VolumeLetter}{SystemDrive} [{MediaType}] {VolumeTotalSizeGb:F1} GB (Free: {VolumeFreeSpaceGb:F1} GB){ModelInfo}",
-                    volume.DriveLetter, systemDrive, volume.MediaType, volume.TotalSizeGB, volume.AvailableSizeGB, modelInfo);
+                    volume.DriveLetter, systemDrive, volume.MediaType, volume.TotalSizeGB, volume.AvailableSizeGB,
+                    modelInfo);
             }
         }
         catch (Exception ex)

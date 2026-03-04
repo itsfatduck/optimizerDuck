@@ -24,12 +24,10 @@ public partial class ScheduledTaskCreateDialog : UserControl
             var fullPath = folderPath == "\\" ? $"\\{name}" : $"{folderPath}\\{name}";
 
             // Parse daily time
-            TimeSpan time = TimeSpan.Zero;
+            var time = TimeSpan.Zero;
             if (DailyTriggerCheck.IsChecked == true && !string.IsNullOrWhiteSpace(DailyTimeBox.Text))
-            {
                 if (TimeSpan.TryParse(DailyTimeBox.Text.Trim(), out var parsedTime))
                     time = parsedTime;
-            }
 
             return new ScheduledTaskModel
             {

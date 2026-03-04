@@ -21,6 +21,6 @@ public interface IRevertStep
     /// <summary>
     ///     Serializes this revert step to a JSON object for persistence.
     /// </summary>
-    /// <returns>A <see cref="JObject"/> containing the serialized step data.</returns>
+    /// <returns>A <see cref="JObject" /> containing the serialized step data.</returns>
     JObject ToData();
 }

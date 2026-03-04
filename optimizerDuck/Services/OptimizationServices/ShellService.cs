@@ -63,19 +63,24 @@ public static class ShellService
         policy ??= ShellPolicy.Default;
 
         var commandForUser = (arguments.Contains("-EncodedCommand", StringComparison.OrdinalIgnoreCase)
-            ? command.DecodeBase64()
-            : command)
-                .Replace("$ProgressPreference='SilentlyContinue'; ", "")
-                .Replace("[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; ", "")
-                .Replace("$OutputEncoding = [System.Console]::OutputEncoding = [System.Console]::InputEncoding = [System.Text.Encoding]::UTF8; ", "")
-                .Replace("chcp 65001 > nul & ", "");
+                ? command.DecodeBase64()
+                : command)
+            .Replace("$ProgressPreference='SilentlyContinue'; ", "")
+            .Replace("[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; ", "")
+            .Replace(
+                "$OutputEncoding = [System.Console]::OutputEncoding = [System.Console]::InputEncoding = [System.Text.Encoding]::UTF8; ",
+                "")
+            .Replace("chcp 65001 > nul & ", "");
 
         var fullCommandForUser =
             $"{fileName} {arguments.Replace("-EncodedCommand", "-Command", StringComparison.OrdinalIgnoreCase)} {commandForUser}";
 
-        var processArgs = fileName.Equals("cmd.exe", StringComparison.OrdinalIgnoreCase) && !arguments.Contains("chcp 65001") // try best effort to ensure UTF-8 codepage for cmd, but better use PowerShell if possible
-            ? $"{arguments} chcp 65001 > nul & {command}"
-            : $"{arguments} {command}";
+        var processArgs =
+            fileName.Equals("cmd.exe", StringComparison.OrdinalIgnoreCase) &&
+            !arguments.Contains(
+                "chcp 65001") // try best effort to ensure UTF-8 codepage for cmd, but better use PowerShell if possible
+                ? $"{arguments} chcp 65001 > nul & {command}"
+                : $"{arguments} {command}";
 
         var psi = new ProcessStartInfo
         {
@@ -219,12 +224,14 @@ public static class ShellService
         policy ??= ShellPolicy.Default;
 
         var commandForUser = (arguments.Contains("-EncodedCommand", StringComparison.OrdinalIgnoreCase)
-            ? command.DecodeBase64()
-            : command)
-                .Replace("$ProgressPreference='SilentlyContinue'; ", "")
-                .Replace("[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; ", "")
-                .Replace("$OutputEncoding = [System.Console]::OutputEncoding = [System.Console]::InputEncoding = [System.Text.Encoding]::UTF8; ", "")
-                .Replace("chcp 65001 > nul & ", "");
+                ? command.DecodeBase64()
+                : command)
+            .Replace("$ProgressPreference='SilentlyContinue'; ", "")
+            .Replace("[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; ", "")
+            .Replace(
+                "$OutputEncoding = [System.Console]::OutputEncoding = [System.Console]::InputEncoding = [System.Text.Encoding]::UTF8; ",
+                "")
+            .Replace("chcp 65001 > nul & ", "");
 
         var fullCommandForUser =
             $"{fileName} {arguments.Replace("-EncodedCommand", "-Command", StringComparison.OrdinalIgnoreCase)} {commandForUser}";
@@ -447,10 +454,10 @@ public static class ShellService
     public static ShellResult PowerShell(string command, ShellRevertStep? revertStep = null, ShellPolicy? policy = null)
     {
         command =
-         "$ProgressPreference='SilentlyContinue'; " +
-         "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; " +
-         "$OutputEncoding = [System.Console]::OutputEncoding = [System.Console]::InputEncoding = [System.Text.Encoding]::UTF8; " +
-         command;
+            "$ProgressPreference='SilentlyContinue'; " +
+            "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; " +
+            "$OutputEncoding = [System.Console]::OutputEncoding = [System.Console]::InputEncoding = [System.Text.Encoding]::UTF8; " +
+            command;
         return Run("powershell.exe",
             "-NonInteractive -NoLogo -NoProfile -ExecutionPolicy Bypass -EncodedCommand",
             command.EncodeBase64(),

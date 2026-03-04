@@ -1,7 +1,9 @@
+using System.Collections.ObjectModel;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32.TaskScheduler;
 using optimizerDuck.Core.Models.ScheduledTask;
 using optimizerDuck.Resources.Languages;
+using Task = Microsoft.Win32.TaskScheduler.Task;
 
 namespace optimizerDuck.Services.OptimizationServices;
 
@@ -33,7 +35,9 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
     public static void DisableTask(string fullPath)
     {
         using var ts = new TaskService();
-        var task = ts.GetTask(fullPath) ?? throw new InvalidOperationException(string.Format(Translations.ScheduledTasks_Error_TaskNotFound, fullPath));
+        var task = ts.GetTask(fullPath) ??
+                   throw new InvalidOperationException(string.Format(Translations.ScheduledTasks_Error_TaskNotFound,
+                       fullPath));
         task.Enabled = false;
     }
 
@@ -43,7 +47,9 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
     public static void EnableTask(string fullPath)
     {
         using var ts = new TaskService();
-        var task = ts.GetTask(fullPath) ?? throw new InvalidOperationException(string.Format(Translations.ScheduledTasks_Error_TaskNotFound, fullPath));
+        var task = ts.GetTask(fullPath) ??
+                   throw new InvalidOperationException(string.Format(Translations.ScheduledTasks_Error_TaskNotFound,
+                       fullPath));
         task.Enabled = true;
     }
 
@@ -63,11 +69,12 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
             CollectTasks(ts.RootFolder, results);
 
             // Extract icons from task commands
-            Parallel.ForEach(results, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, task =>
-            {
-                if (!string.IsNullOrWhiteSpace(task.ActionSummary))
-                    task.LogoImage = StartupManagerService.ExtractIcon(task.ActionSummary);
-            });
+            Parallel.ForEach(results, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
+                task =>
+                {
+                    if (!string.IsNullOrWhiteSpace(task.ActionSummary))
+                        task.LogoImage = StartupManagerService.ExtractIcon(task.ActionSummary);
+                });
         }
         catch (Exception ex)
         {
@@ -196,7 +203,7 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
             td.RegistrationInfo.Author = model.Author ?? string.Empty;
             td.Settings.Enabled = model.IsEnabled;
             td.Settings.Hidden = model.Hidden;
-            
+
             if (model.RunWithHighestPrivileges)
                 td.Principal.RunLevel = TaskRunLevel.Highest;
 
@@ -233,7 +240,6 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
             // Ensure folder exists
             var folder = ts.RootFolder;
             if (!string.IsNullOrWhiteSpace(folderPath) && folderPath != "\\")
-            {
                 try
                 {
                     folder = ts.GetFolder(folderPath);
@@ -242,7 +248,6 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
                 {
                     folder = ts.RootFolder.CreateFolder(folderPath);
                 }
-            }
 
             folder.RegisterTaskDefinition(model.Name, td);
             logger.LogInformation("Registered task {Name} in folder {Folder}", model.Name, folderPath);
@@ -281,7 +286,7 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
         }
     }
 
-    private static ScheduledTaskModel MapTaskToModel(Microsoft.Win32.TaskScheduler.Task task)
+    private static ScheduledTaskModel MapTaskToModel(Task task)
     {
         var def = task.Definition;
         var triggers = def.Triggers;
@@ -310,7 +315,7 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
             IsEnabled = task.Enabled,
             State = task.State.ToString(),
             TriggerSummary = string.Join("; ", triggerDescriptions),
-            TriggerTypes = new(triggerDescriptions),
+            TriggerTypes = new ObservableCollection<string>(triggerDescriptions),
             ActionSummary = actionSummary,
             LastRunTime = task.LastRunTime == DateTime.MinValue ? null : task.LastRunTime,
             NextRunTime = task.NextRunTime == DateTime.MinValue ? null : task.NextRunTime,

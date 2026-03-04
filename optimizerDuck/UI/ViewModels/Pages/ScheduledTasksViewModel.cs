@@ -16,10 +16,11 @@ namespace optimizerDuck.UI.ViewModels.Pages;
 public partial class ScheduledTasksViewModel : ViewModel
 {
     private readonly List<ScheduledTaskModel> _allTasks = [];
+    private readonly IContentDialogService _contentDialogService;
     private readonly ILogger<ScheduledTasksViewModel> _logger;
     private readonly ScheduledTaskService _scheduledTaskService;
-    private readonly IContentDialogService _contentDialogService;
     private readonly ISnackbarService _snackbarService;
+    [ObservableProperty] private bool _hideMicrosoftTasks = true;
     private bool _isInitialized;
 
     [ObservableProperty] [NotifyPropertyChangedFor(nameof(IsNotLoading))]
@@ -27,7 +28,6 @@ public partial class ScheduledTasksViewModel : ViewModel
 
     [ObservableProperty] private string _searchText = string.Empty;
     [ObservableProperty] private int _sortByIndex;
-    [ObservableProperty] private bool _hideMicrosoftTasks = true;
 
     public ScheduledTasksViewModel(
         ScheduledTaskService scheduledTaskService,
@@ -89,7 +89,9 @@ public partial class ScheduledTasksViewModel : ViewModel
             });
 
             _snackbarService.Show(
-                task.IsEnabled ? Translations.ScheduledTasks_Snackbar_Enabled_Title : Translations.ScheduledTasks_Snackbar_Disabled_Title,
+                task.IsEnabled
+                    ? Translations.ScheduledTasks_Snackbar_Enabled_Title
+                    : Translations.ScheduledTasks_Snackbar_Disabled_Title,
                 string.Format(Translations.ScheduledTasks_Snackbar_Toggle_Message, task.Name),
                 ControlAppearance.Success,
                 new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
@@ -100,7 +102,7 @@ public partial class ScheduledTasksViewModel : ViewModel
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to toggle task {Name}", task.Name);
-            
+
             // Revert UI without triggering PropertyChanged to avoid infinite loop
             task.PropertyChanged -= Task_PropertyChanged;
             task.IsEnabled = !task.IsEnabled;
@@ -234,9 +236,20 @@ public partial class ScheduledTasksViewModel : ViewModel
     }
 
     // Filter triggers
-    partial void OnSearchTextChanged(string value) => ApplyFilter();
-    partial void OnSortByIndexChanged(int value) => ApplyFilter();
-    partial void OnHideMicrosoftTasksChanged(bool value) => ApplyFilter();
+    partial void OnSearchTextChanged(string value)
+    {
+        ApplyFilter();
+    }
+
+    partial void OnSortByIndexChanged(int value)
+    {
+        ApplyFilter();
+    }
+
+    partial void OnHideMicrosoftTasksChanged(bool value)
+    {
+        ApplyFilter();
+    }
 
     /// <summary>
     ///     Refreshes the state of a single task in-place by re-querying the task scheduler.

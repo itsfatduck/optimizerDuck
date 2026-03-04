@@ -13,7 +13,7 @@ public readonly record struct ApplyResult
     /// <summary>
     ///     Creates a successful result.
     /// </summary>
-    /// <returns>An <see cref="ApplyResult"/> with no error message.</returns>
+    /// <returns>An <see cref="ApplyResult" /> with no error message.</returns>
     public static ApplyResult True()
     {
         return new ApplyResult { Message = null };
@@ -23,7 +23,7 @@ public readonly record struct ApplyResult
     ///     Creates a failed result with an error message.
     /// </summary>
     /// <param name="message">The error message describing the failure.</param>
-    /// <returns>An <see cref="ApplyResult"/> containing the error message.</returns>
+    /// <returns>An <see cref="ApplyResult" /> containing the error message.</returns>
     public static ApplyResult False(string message)
     {
         return new ApplyResult { Message = message };

@@ -79,14 +79,35 @@
                     FontTypography="BodyStrong"
                     HorizontalAlignment="Center"
                     Text="{ext:Loc ScheduledTasks.Loading}" />
+                <ui:TextBlock
+                    Appearance="Secondary"
+                    FontTypography="Caption"
+                    HorizontalAlignment="Center"
+                    Margin="0,4,0,0"
+                    Text="{ext:Loc ScheduledTasks.Loading.Hint}" />
             </StackPanel>
         </Border>
 
         <!--  Main Content  -->
-        <Grid
-            Grid.Row="1"
-            RowDefinitions="Auto,*"
-            Visibility="{Binding ViewModel.IsNotLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Grid Grid.Row="1">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ViewModel.IsNotLoading}" Value="True" />
+                                <Condition Binding="{Binding ViewModel.IsLoading}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Visibility" Value="Visible" />
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
             <!--  Toolbar  -->
             <WrapPanel
                 Grid.Row="0"

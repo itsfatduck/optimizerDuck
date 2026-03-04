@@ -29,26 +29,32 @@ public partial class AppXPackage : ObservableObject
     ///     Path to the package's logo image.
     /// </summary>
     public string? LogoImage { get; set; }
+
     /// <summary>
     ///     Display name of the app.
     /// </summary>
     public required string Name { get; init; }
+
     /// <summary>
     ///     The full package name.
     /// </summary>
     public required string PackageFullName { get; init; }
+
     /// <summary>
     ///     The publisher of the app.
     /// </summary>
     public required string Publisher { get; init; }
+
     /// <summary>
     ///     The version of the app.
     /// </summary>
     public required string Version { get; init; }
+
     /// <summary>
     ///     The installation location of the app.
     /// </summary>
     public required string InstallLocation { get; init; }
+
     /// <summary>
     ///     The risk level of removing this app.
     /// </summary>

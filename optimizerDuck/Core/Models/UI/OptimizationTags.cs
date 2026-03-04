@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using optimizerDuck.Resources.Languages;
 using Wpf.Ui.Controls;
 
@@ -44,7 +43,7 @@ public enum OptimizationTags
 }
 
 /// <summary>
-///     Provides extension methods to convert <see cref="OptimizationTags"/> to display-friendly representations.
+///     Provides extension methods to convert <see cref="OptimizationTags" /> to display-friendly representations.
 /// </summary>
 public static class OptimizationTagsToDisplay
 {
@@ -53,7 +52,7 @@ public static class OptimizationTagsToDisplay
         /// <summary>
         ///     Converts the tag flags into a sequence of display-friendly representations.
         /// </summary>
-        /// <returns>An enumerable of <see cref="OptimizationTagDisplay"/> for each set flag.</returns>
+        /// <returns>An enumerable of <see cref="OptimizationTagDisplay" /> for each set flag.</returns>
         public IEnumerable<OptimizationTagDisplay> ToDisplays()
         {
             foreach (var flag in Enum.GetValues<OptimizationTags>())

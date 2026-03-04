@@ -17,22 +17,22 @@ public partial class StartupManagerViewModel : ViewModel
 {
     private readonly List<StartupApp> _allApps = [];
     private readonly List<StartupTask> _allTasks = [];
+    private readonly IContentDialogService _contentDialogService;
     private readonly ILogger<StartupManagerViewModel> _logger;
     private readonly StartupManagerService _startupManagerService;
-    private readonly IContentDialogService _contentDialogService;
+
+    // Per-section: Apps
+    [ObservableProperty] private string _appSearchText = string.Empty;
+    [ObservableProperty] private int _appSortByIndex;
+    [ObservableProperty] private bool _hideMicrosoftTasks = true;
     private bool _isInitialized;
 
     [ObservableProperty] [NotifyPropertyChangedFor(nameof(IsNotLoading))]
     private bool _isLoading;
 
-    // Per-section: Apps
-    [ObservableProperty] private string _appSearchText = string.Empty;
-    [ObservableProperty] private int _appSortByIndex;
-
     // Per-section: Tasks
     [ObservableProperty] private string _taskSearchText = string.Empty;
     [ObservableProperty] private int _taskSortByIndex;
-    [ObservableProperty] private bool _hideMicrosoftTasks = true;
 
     public StartupManagerViewModel(
         StartupManagerService startupManagerService,
@@ -124,13 +124,31 @@ public partial class StartupManagerViewModel : ViewModel
     }
 
     // Apps filter triggers
-    partial void OnAppSearchTextChanged(string value) => ApplyAppFilter();
-    partial void OnAppSortByIndexChanged(int value) => ApplyAppFilter();
+    partial void OnAppSearchTextChanged(string value)
+    {
+        ApplyAppFilter();
+    }
+
+    partial void OnAppSortByIndexChanged(int value)
+    {
+        ApplyAppFilter();
+    }
 
     // Tasks filter triggers
-    partial void OnTaskSearchTextChanged(string value) => ApplyTaskFilter();
-    partial void OnTaskSortByIndexChanged(int value) => ApplyTaskFilter();
-    partial void OnHideMicrosoftTasksChanged(bool value) => ApplyTaskFilter();
+    partial void OnTaskSearchTextChanged(string value)
+    {
+        ApplyTaskFilter();
+    }
+
+    partial void OnTaskSortByIndexChanged(int value)
+    {
+        ApplyTaskFilter();
+    }
+
+    partial void OnHideMicrosoftTasksChanged(bool value)
+    {
+        ApplyTaskFilter();
+    }
 
     private async Task LoadDataAsync()
     {

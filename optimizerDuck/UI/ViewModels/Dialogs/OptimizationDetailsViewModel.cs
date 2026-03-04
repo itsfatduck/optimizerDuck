@@ -1,10 +1,12 @@
 using System.Diagnostics;
 using System.IO;
+using System.Net.Http;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Core.Interfaces;
+using optimizerDuck.Core.Optimizers;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Managers;
 using Wpf.Ui;
@@ -51,7 +53,7 @@ public partial class OptimizationDetailsViewModel(
     [RelayCommand]
     private async Task ViewSourceOnGitHubAsync()
     {
-        if (Optimization is not Core.Optimizers.BaseOptimization baseOpt || baseOpt.OwnerType == null)
+        if (Optimization is not BaseOptimization baseOpt || baseOpt.OwnerType == null)
             return;
 
         var fileName = baseOpt.OwnerType.Name;
@@ -64,8 +66,8 @@ public partial class OptimizationDetailsViewModel(
         {
             var rawUrl = $"https://raw.githubusercontent.com/itsfatduck/optimizerDuck/master/{relativePath}";
 
-            using var httpClient = new System.Net.Http.HttpClient { Timeout = TimeSpan.FromSeconds(5) };
-            string source = await httpClient.GetStringAsync(rawUrl);
+            using var httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(5) };
+            var source = await httpClient.GetStringAsync(rawUrl);
 
             var lines = source.Split('\n');
             for (var i = 0; i < lines.Length; i++)

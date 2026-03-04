@@ -30,7 +30,8 @@ public partial class BloatwareViewModel : ViewModel
     [ObservableProperty] private int _selectedSortByIndex; // 0=Name, 1=Publisher, 2=Risk
     [ObservableProperty] private bool isLoading;
 
-    public BloatwareViewModel(BloatwareService bloatwareService, IContentDialogService contentDialogService, ILogger<BloatwareViewModel> logger)
+    public BloatwareViewModel(BloatwareService bloatwareService, IContentDialogService contentDialogService,
+        ILogger<BloatwareViewModel> logger)
     {
         _bloatwareService = bloatwareService;
         _contentDialogService = contentDialogService;

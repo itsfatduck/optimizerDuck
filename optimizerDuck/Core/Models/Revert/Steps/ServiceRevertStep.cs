@@ -47,10 +47,10 @@ public class ServiceRevertStep : IRevertStep
 
 
     /// <summary>
-    ///     Deserializes a <see cref="ServiceRevertStep"/> from JSON data.
+    ///     Deserializes a <see cref="ServiceRevertStep" /> from JSON data.
     /// </summary>
     /// <param name="data">The JSON data to deserialize.</param>
-    /// <returns>A new <see cref="ServiceRevertStep"/> instance.</returns>
+    /// <returns>A new <see cref="ServiceRevertStep" /> instance.</returns>
     public static ServiceRevertStep FromData(JObject data)
     {
         return new ServiceRevertStep

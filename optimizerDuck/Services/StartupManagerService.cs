@@ -3,7 +3,6 @@ using System.Drawing;
 using System.IO;
 using System.Windows;
 using System.Windows.Interop;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
@@ -42,7 +41,11 @@ public class StartupManagerService(ILogger<StartupManagerService> logger, Schedu
             {
                 var appInfo = GetAppInfo(app.Command);
                 var publisher = !string.IsNullOrWhiteSpace(appInfo.Publisher) ? appInfo.Publisher : appInfo.Description;
-                if (string.IsNullOrWhiteSpace(publisher)) publisher = app.Location is StartupAppLocation.UserStartupFolder or StartupAppLocation.CommonStartupFolder ? "Folder Shortcut" : "Registry";
+                if (string.IsNullOrWhiteSpace(publisher))
+                    publisher = app.Location is StartupAppLocation.UserStartupFolder
+                        or StartupAppLocation.CommonStartupFolder
+                        ? "Folder Shortcut"
+                        : "Registry";
 
                 app.Publisher = publisher;
                 app.FilePath = appInfo.FilePath;
@@ -124,7 +127,8 @@ public class StartupManagerService(ILogger<StartupManagerService> logger, Schedu
                 ? Registry.LocalMachine
                 : Registry.CurrentUser;
 
-            var approvedSubKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\StartupFolder";
+            var approvedSubKeyPath =
+                @"Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\StartupFolder";
             using var approvedKey = rootKey.OpenSubKey(approvedSubKeyPath);
 
             foreach (var file in Directory.GetFiles(dirPath))
@@ -212,7 +216,8 @@ public class StartupManagerService(ILogger<StartupManagerService> logger, Schedu
             ? Registry.LocalMachine
             : Registry.CurrentUser;
 
-        const string approvedSubKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\StartupFolder";
+        const string approvedSubKeyPath =
+            @"Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\StartupFolder";
         using var approvedKey = rootKey.OpenSubKey(approvedSubKeyPath, true)
                                 ?? rootKey.CreateSubKey(approvedSubKeyPath, true);
 
@@ -240,11 +245,12 @@ public class StartupManagerService(ILogger<StartupManagerService> logger, Schedu
                 }).OrderBy(t => t.TaskName).ToList();
 
                 // Extract icons from task commands
-                Parallel.ForEach(tasks, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, task =>
-                {
-                    if (!string.IsNullOrWhiteSpace(task.ActionSummary))
-                        task.LogoImage = ExtractIcon(task.ActionSummary);
-                });
+                Parallel.ForEach(tasks, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
+                    task =>
+                    {
+                        if (!string.IsNullOrWhiteSpace(task.ActionSummary))
+                            task.LogoImage = ExtractIcon(task.ActionSummary);
+                    });
 
                 return tasks;
             }

@@ -12,7 +12,7 @@ namespace optimizerDuck.Core.Models.UI;
 public partial class OptimizationState : ObservableObject
 {
     private static readonly DispatcherTimer _globalTimer;
-    private static readonly System.Collections.Generic.List<WeakReference<OptimizationState>> _instances = [];
+    private static readonly List<WeakReference<OptimizationState>> _instances = [];
 
     private int _lastDisplayedSeconds = -1;
 
@@ -47,29 +47,23 @@ public partial class OptimizationState : ObservableObject
         _globalTimer.Start();
     }
 
-    private static void UpdateAllRelativeTimes()
-    {
-        lock (_instances)
-        {
-            for (var i = _instances.Count - 1; i >= 0; i--)
-            {
-                if (_instances[i].TryGetTarget(out var instance))
-                {
-                    instance.UpdateRelativeTime();
-                }
-                else
-                {
-                    _instances.RemoveAt(i);
-                }
-            }
-        }
-    }
-
     public OptimizationState()
     {
         lock (_instances)
         {
             _instances.Add(new WeakReference<OptimizationState>(this));
+        }
+    }
+
+    private static void UpdateAllRelativeTimes()
+    {
+        lock (_instances)
+        {
+            for (var i = _instances.Count - 1; i >= 0; i--)
+                if (_instances[i].TryGetTarget(out var instance))
+                    instance.UpdateRelativeTime();
+                else
+                    _instances.RemoveAt(i);
         }
     }
 

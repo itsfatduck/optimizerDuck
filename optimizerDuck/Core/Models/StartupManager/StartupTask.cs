@@ -12,6 +12,7 @@ public partial class StartupTask : ObservableObject
     ///     Indicates whether the task is enabled.
     /// </summary>
     [ObservableProperty] private bool _isEnabled;
+
     /// <summary>
     ///     The logo image of the task's executable.
     /// </summary>
@@ -21,22 +22,27 @@ public partial class StartupTask : ObservableObject
     ///     The name of the scheduled task.
     /// </summary>
     public required string TaskName { get; init; }
+
     /// <summary>
     ///     The path to the task in Task Scheduler.
     /// </summary>
     public required string TaskPath { get; init; }
+
     /// <summary>
     ///     Description of the task.
     /// </summary>
     public string? Description { get; init; }
+
     /// <summary>
     ///     Summary of when the task triggers.
     /// </summary>
     public string? TriggerSummary { get; init; }
+
     /// <summary>
     ///     The types of triggers (e.g., "At logon", "At startup").
     /// </summary>
     public List<string> TriggerTypes { get; init; } = [];
+
     /// <summary>
     ///     Summary of what the task does.
     /// </summary>

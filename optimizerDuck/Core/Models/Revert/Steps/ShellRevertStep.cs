@@ -32,7 +32,11 @@ public class ShellRevertStep : IRevertStep
             {
                 ShellType.PowerShell => ShellService.PowerShell(Command),
                 ShellType.CMD => ShellService.CMD(Command),
-                _ => new ShellResult {Command = Command, Stdout = "", Stderr = "Unknown shell type", ExitCode = 1, Duration = TimeSpan.Zero}
+                _ => new ShellResult
+                {
+                    Command = Command, Stdout = "", Stderr = "Unknown shell type", ExitCode = 1,
+                    Duration = TimeSpan.Zero
+                }
             };
             return result.ExitCode == 0;
         });
@@ -49,10 +53,10 @@ public class ShellRevertStep : IRevertStep
     }
 
     /// <summary>
-    ///     Deserializes a <see cref="ShellRevertStep"/> from JSON data.
+    ///     Deserializes a <see cref="ShellRevertStep" /> from JSON data.
     /// </summary>
     /// <param name="data">The JSON data to deserialize.</param>
-    /// <returns>A new <see cref="ShellRevertStep"/> instance.</returns>
+    /// <returns>A new <see cref="ShellRevertStep" /> instance.</returns>
     public static ShellRevertStep FromData(JToken data)
     {
         return new ShellRevertStep

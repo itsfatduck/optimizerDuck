@@ -28,7 +28,7 @@ public record struct RegistryItem
     public readonly object? Value;
 
     /// <summary>
-    ///     Initializes a new <see cref="RegistryItem"/> with all fields specified.
+    ///     Initializes a new <see cref="RegistryItem" /> with all fields specified.
     /// </summary>
     /// <param name="path">The registry key path.</param>
     /// <param name="name">The value name.</param>
@@ -43,7 +43,7 @@ public record struct RegistryItem
     }
 
     /// <summary>
-    ///     Initializes a new <see cref="RegistryItem"/> with automatic kind detection.
+    ///     Initializes a new <see cref="RegistryItem" /> with automatic kind detection.
     /// </summary>
     /// <param name="path">The registry key path.</param>
     /// <param name="name">The value name.</param>
@@ -57,7 +57,7 @@ public record struct RegistryItem
     }
 
     /// <summary>
-    ///     Initializes a new <see cref="RegistryItem"/> for a named value without data (used for deletion).
+    ///     Initializes a new <see cref="RegistryItem" /> for a named value without data (used for deletion).
     /// </summary>
     /// <param name="path">The registry key path.</param>
     /// <param name="name">The value name to target.</param>
@@ -70,7 +70,8 @@ public record struct RegistryItem
     }
 
     /// <summary>
-    ///     Initializes a new <see cref="RegistryItem"/> for a key path without a specific value (used for key-level operations).
+    ///     Initializes a new <see cref="RegistryItem" /> for a key path without a specific value (used for key-level
+    ///     operations).
     /// </summary>
     /// <param name="path">The registry key path.</param>
     public RegistryItem(string path)
@@ -82,7 +83,7 @@ public record struct RegistryItem
     }
 
     /// <summary>
-    ///     Auto-detects the <see cref="RegistryValueKind"/> based on the CLR type of the value.
+    ///     Auto-detects the <see cref="RegistryValueKind" /> based on the CLR type of the value.
     /// </summary>
     private static RegistryValueKind AutoDetectKind(object? value)
     {
