@@ -2891,6 +2891,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This may take a moment while scanning for all scheduled tasks on your system..
+        /// </summary>
+        internal static string ScheduledTasks_Loading_Hint {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Loading.Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Task.
         /// </summary>
         internal static string ScheduledTasks_Menu_CreateTask {
