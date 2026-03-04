@@ -3,10 +3,10 @@ using System.Globalization;
 using System.IO;
 using System.Security;
 using Microsoft.Win32;
+using optimizerDuck.Core.Models.Execution;
 using optimizerDuck.Core.Models.Optimization.Services;
 using optimizerDuck.Core.Models.Revert.Steps;
 using optimizerDuck.Resources.Languages;
-using optimizerDuck.Services.Managers;
 
 namespace optimizerDuck.Services.OptimizationServices;
 
@@ -42,8 +42,8 @@ public static class RegistryService
 
         if (string.IsNullOrWhiteSpace(fullPath))
         {
-            ServiceTracker.LogError(null, "Registry path is null or empty");
-            ServiceTracker.Track(nameof(RegistryService), false);
+            ExecutionScope.LogError(null, "Registry path is null or empty");
+            ExecutionScope.Track(nameof(RegistryService), false);
             return false;
         }
 
@@ -53,8 +53,8 @@ public static class RegistryService
 
         if (!RootKeysMap.TryGetValue(rootToken, out rootKey))
         {
-            ServiceTracker.LogError(null, "Unknown root key: {RootToken}", rootToken);
-            ServiceTracker.Track(nameof(RegistryService), false);
+            ExecutionScope.LogError(null, "Unknown root key: {RootToken}", rootToken);
+            ExecutionScope.Track(nameof(RegistryService), false);
             return false;
         }
 
@@ -168,17 +168,17 @@ public static class RegistryService
 
                 var result = ConvertRegistryValue<T>(value);
 
-                ServiceTracker.LogInfo("Read registry {Path}:{Name} = {Value}",
+                ExecutionScope.LogInfo("Read registry {Path}:{Name} = {Value}",
                     item.Path, item.Name!, result?.ToString() ?? "<null>");
 
                 return result;
             }
             catch (Exception ex)
             {
-                ServiceTracker.LogError(ex, "Failed to read registry {Path}:{Name}",
+                ExecutionScope.LogError(ex, "Failed to read registry {Path}:{Name}",
                     item.Path, item.Name!);
 
-                ServiceTracker.LogInfo("Read registry {Path}:{Name} = <default> (raw={RawType})",
+                ExecutionScope.LogInfo("Read registry {Path}:{Name} = <default> (raw={RawType})",
                     item.Path, item.Name!, value?.GetType().FullName ?? "<null>");
 
                 return default;
@@ -190,9 +190,9 @@ public static class RegistryService
     {
         if (item.Value == null)
         {
-            ServiceTracker.LogError(null, "Value can't be null when writing {Path}:{Name}",
+            ExecutionScope.LogError(null, "Value can't be null when writing {Path}:{Name}",
                 item.Path, item.Name!);
-            ServiceTracker.Track(nameof(Write), false);
+            ExecutionScope.Track(nameof(Write), false);
             return false;
         }
 
@@ -237,8 +237,8 @@ public static class RegistryService
 
                 key.SetValue(item.Name, item.Value, item.Kind);
 
-                if (valueExists)
-                    RevertManager.Record(new RegistryRevertStep
+                var revertStep = valueExists
+                    ? new RegistryRevertStep
                     {
                         Action = RevertAction.RestorePrevious,
                         Path = item.Path,
@@ -246,51 +246,38 @@ public static class RegistryService
                         Value = backupValue,
                         Kind = backupKind ?? RegistryValueKind.Unknown,
                         CreatedSubKeys = createdSubKeys
-                    });
-                else
-                    RevertManager.Record(new RegistryRevertStep
+                    }
+                    : new RegistryRevertStep
                     {
                         Action = RevertAction.NoPreviousValue,
                         Path = item.Path,
                         Name = item.Name,
                         CreatedSubKeys = createdSubKeys
-                    });
+                    };
 
-                ServiceTracker.LogInfo("Wrote {Path}:{Name}[{Kind}] = {Value}",
+                ExecutionScope.LogInfo("Wrote {Path}:{Name}[{Kind}] = {Value}",
                     item.Path, item.Name!, item.Kind, item.Value);
-                ServiceTracker.Track(nameof(Write), true);
-                ServiceTracker.TrackStep(
-                    "Registry",
-                    description,
-                    true,
-                    null,
-                    () => Task.Run(() => Write(item)));
+                ExecutionScope.Track(nameof(Write), true);
+                ExecutionScope.RecordStep("Registry", description, true, revertStep, null);
                 return true;
             }
             catch (UnauthorizedAccessException)
             {
-                ServiceTracker.LogError(null, "Access denied writing {Path}:{Name}",
+                ExecutionScope.LogError(null, "Access denied writing {Path}:{Name}",
                     item.Path, item.Name!);
-                ServiceTracker.Track(nameof(Write), false);
-                ServiceTracker.TrackStep(
-                    "Registry",
-                    description,
-                    false,
+                ExecutionScope.Track(nameof(Write), false);
+                ExecutionScope.RecordStep("Registry", description, false, null,
                     Translations.Service_Common_Error_AccessDenied,
-                    () => Task.Run(() => Write(item)));
+                    retryAction: () => Task.FromResult(Write(item)));
                 return false;
             }
             catch (Exception ex)
             {
-                ServiceTracker.LogError(ex, "Failed to write registry {Path}:{Name}",
+                ExecutionScope.LogError(ex, "Failed to write registry {Path}:{Name}",
                     item.Path, item.Name!);
-                ServiceTracker.Track(nameof(Write), false);
-                ServiceTracker.TrackStep(
-                    "Registry",
-                    description,
-                    false,
-                    ex.Message,
-                    () => Task.Run(() => Write(item)));
+                ExecutionScope.Track(nameof(Write), false);
+                ExecutionScope.RecordStep("Registry", description, false, null, ex.Message,
+                    retryAction: () => Task.FromResult(Write(item)));
                 return false;
             }
         }, true, true, createdSubKeys);
@@ -317,15 +304,10 @@ public static class RegistryService
                 if (key == null)
                 {
                     // Missing subkey means there's nothing to delete; treat as success for revert.
-                    ServiceTracker.LogInfo("Skip delete registry {Path}:{Name} (subkey missing)",
+                    ExecutionScope.LogInfo("Skip delete registry {Path}:{Name} (subkey missing)",
                         item.Path, item.Name!);
-                    ServiceTracker.Track(nameof(DeleteValue), true);
-                    ServiceTracker.TrackStep(
-                        "Registry",
-                        description,
-                        true,
-                        null,
-                        () => Task.Run(() => DeleteValue(item)));
+                    ExecutionScope.Track(nameof(DeleteValue), true);
+                    ExecutionScope.RecordStep("Registry", description, true, null, null);
                     return true;
                 }
 
@@ -335,13 +317,8 @@ public static class RegistryService
             // Key does not exist, treat as success for revert
             if (key.GetValue(item.Name) == null)
             {
-                ServiceTracker.Track(nameof(DeleteValue), true);
-                ServiceTracker.TrackStep(
-                    "Registry",
-                    description,
-                    true,
-                    null,
-                    () => Task.Run(() => DeleteValue(item)));
+                ExecutionScope.Track(nameof(DeleteValue), true);
+                ExecutionScope.RecordStep("Registry", description, true, null, null);
                 return true;
             }
 
@@ -351,49 +328,37 @@ public static class RegistryService
             key.DeleteValue(item.Name!, false);
 
             // Record revert: key existed before deletion
-            RevertManager.Record(new RegistryRevertStep
+            var revertStep = new RegistryRevertStep
             {
                 Action = RevertAction.RestorePrevious,
                 Path = item.Path,
                 Name = item.Name,
                 Value = backupValue,
                 Kind = backupKind
-            });
+            };
 
-            ServiceTracker.LogInfo("Deleted registry {Path}:{Name}", item.Path, item.Name!);
-            ServiceTracker.Track(nameof(DeleteValue), true);
-            ServiceTracker.TrackStep(
-                "Registry",
-                description,
-                true,
-                null,
-                () => Task.Run(() => DeleteValue(item)));
+            ExecutionScope.LogInfo("Deleted registry {Path}:{Name}", item.Path, item.Name!);
+            ExecutionScope.Track(nameof(DeleteValue), true);
+            ExecutionScope.RecordStep("Registry", description, true, revertStep, null);
             return true;
         }
         catch (UnauthorizedAccessException)
         {
-            ServiceTracker.LogError(null, "Access denied deleting {Path}:{Name}",
+            ExecutionScope.LogError(null, "Access denied deleting {Path}:{Name}",
                 item.Path, item.Name!);
-            ServiceTracker.Track(nameof(DeleteValue), false);
-            ServiceTracker.TrackStep(
-                "Registry",
-                $"{item.Path}:{item.Name}",
-                false,
+            ExecutionScope.Track(nameof(DeleteValue), false);
+            ExecutionScope.RecordStep("Registry", $"{item.Path}:{item.Name}", false, null,
                 Translations.Service_Common_Error_AccessDenied,
-                () => Task.Run(() => DeleteValue(item)));
+                retryAction: () => Task.FromResult(DeleteValue(item)));
             return false;
         }
         catch (Exception ex)
         {
-            ServiceTracker.LogError(ex, "Failed to delete registry {Path}:{Name}",
+            ExecutionScope.LogError(ex, "Failed to delete registry {Path}:{Name}",
                 item.Path, item.Name!);
-            ServiceTracker.Track(nameof(DeleteValue), false);
-            ServiceTracker.TrackStep(
-                "Registry",
-                $"{item.Path}:{item.Name}",
-                false,
-                ex.Message,
-                () => Task.Run(() => DeleteValue(item)));
+            ExecutionScope.Track(nameof(DeleteValue), false);
+            ExecutionScope.RecordStep("Registry", $"{item.Path}:{item.Name}", false, null, ex.Message,
+                retryAction: () => Task.FromResult(DeleteValue(item)));
             return false;
         }
         finally
@@ -467,20 +432,15 @@ public static class RegistryService
             ? root.Name
             : $"{root.Name}\\{subPath}";
 
-        ServiceTracker.LogError(
+        ExecutionScope.LogError(
             ex,
             "{Reason}: {Path}",
             logReason,
             path);
 
-        ServiceTracker.Track(nameof(RegistryService), false);
+        ExecutionScope.Track(nameof(RegistryService), false);
 
-        ServiceTracker.TrackStep(
-            "Registry",
-            path,
-            false,
-            uiReason,
-            () => Task.FromResult(false));
+        ExecutionScope.RecordStep("Registry", path, false, null, uiReason);
     }
 
     /// <summary>
@@ -513,7 +473,7 @@ public static class RegistryService
                                $"Failed to create registry key: {root.Name}\\{currentPath}");
 
                     createdSubKeys.Add($"{root.Name}\\{currentPath}");
-                    ServiceTracker.LogDebug(
+                    ExecutionScope.LogDebug(
                         "Created registry subkey: {Path}",
                         $"{root.Name}\\{currentPath}");
                 }
@@ -584,27 +544,27 @@ public static class RegistryService
                         parent?.DeleteSubKey(keyName, false);
                     }
 
-                    ServiceTracker.LogInfo("Cleaned up empty registry key {Path}", fullPath);
+                    ExecutionScope.LogInfo("Cleaned up empty registry key {Path}", fullPath);
                 }
                 else
                 {
                     // Key is not empty, don't delete it
-                    ServiceTracker.LogDebug(
+                    ExecutionScope.LogDebug(
                         "Skipped cleanup of registry key {Path} (has {SubKeyCount} subkeys and {ValueCount} values)",
                         fullPath, key.SubKeyCount, key.ValueCount);
                 }
             }
             catch (UnauthorizedAccessException)
             {
-                ServiceTracker.LogWarning("Access denied cleaning up registry key: {Path}", fullPath);
+                ExecutionScope.LogWarning("Access denied cleaning up registry key: {Path}", fullPath);
             }
             catch (IOException ex)
             {
-                ServiceTracker.LogError(ex, "I/O error cleaning up registry key: {Path}", fullPath);
+                ExecutionScope.LogError(ex, "I/O error cleaning up registry key: {Path}", fullPath);
             }
             catch (Exception ex)
             {
-                ServiceTracker.LogError(ex, "Failed to cleanup registry key: {Path}", fullPath);
+                ExecutionScope.LogError(ex, "Failed to cleanup registry key: {Path}", fullPath);
             }
     }
 

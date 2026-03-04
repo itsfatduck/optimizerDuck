@@ -1,5 +1,3 @@
-using optimizerDuck.Resources.Languages;
-
 namespace optimizerDuck.Core.Models.Revert;
 
 /// <summary>
@@ -35,7 +33,7 @@ public class RevertValidationResult
     /// <returns>A valid <see cref="RevertValidationResult" />.</returns>
     public static RevertValidationResult Success()
     {
-        return new RevertValidationResult(true, "Revert data is valid.", Translations.Revert_Error_InvalidData);
+        return new RevertValidationResult(true, "Revert data is valid.", string.Empty);
     }
 
     /// <summary>

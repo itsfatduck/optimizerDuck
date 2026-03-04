@@ -152,7 +152,7 @@ public class RegistryRevertStep : IRevertStep
                     value = token.ToObject<string>();
                     break;
                 case RegistryValueKind.MultiString:
-                    value = token.Type == JTokenType.Array ? token.ToObject<string[]>() : token.ToObject<string[]>();
+                    value = token.ToObject<string[]>();
                     break;
                 case RegistryValueKind.Binary:
                     // stored as base64 string

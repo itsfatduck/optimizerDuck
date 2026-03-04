@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Core.Interfaces;
+using optimizerDuck.Core.Models.Execution;
 using optimizerDuck.Core.Models.Optimization;
 using optimizerDuck.Core.Models.Optimization.Services;
 using optimizerDuck.Core.Models.Revert;
@@ -17,9 +18,6 @@ using Wpf.Ui.Controls;
 
 namespace optimizerDuck.Services;
 
-/// <summary>
-///     Provides services for applying and reverting optimizations.
-/// </summary>
 public class OptimizationService(
     RevertManager revertManager,
     ILoggerFactory loggerFactory,
@@ -32,18 +30,8 @@ public class OptimizationService(
     private static readonly object _cacheLock = new();
     private readonly ILogger _logger = logger;
 
-    /// <summary>
-    ///     Indicates whether a system restore point was requested before applying optimizations.
-    /// </summary>
     public bool WasRequestedRestorePoint { get; set; } = false;
 
-    /// <summary>
-    ///     Creates a Windows system restore point.
-    /// </summary>
-    /// <returns>
-    ///     A task that completes with a <see cref="RestorePointResult" /> indicating success,
-    ///     failure, or if the frequency limit was reached.
-    /// </returns>
     public async Task<RestorePointResult> CreateRestorePointAsync()
     {
         var dialogViewModel = new ProcessingViewModel();
@@ -71,12 +59,11 @@ public class OptimizationService(
                 IsIndeterminate = true
             });
 
-            using var tracker = ServiceTracker.Begin(_logger);
+            using var scope = ExecutionScope.Begin(_logger);
 
             var result = await RunPowerShellAsync(
                 $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS");
 
-            // it gives stderr but exitcode is 0
             if (result.Stderr.Contains("already been created within the past 1440 minutes",
                     StringComparison.OrdinalIgnoreCase))
             {
@@ -103,7 +90,6 @@ public class OptimizationService(
                 IsIndeterminate = true
             });
 
-            // try to enable it
             _logger.LogInformation("Enabling System Protection on system drive...");
             var enableResult = await RunPowerShellAsync("Enable-ComputerRestore -Drive \"$env:SystemDrive\"");
             if (enableResult.ExitCode != 0)
@@ -118,7 +104,6 @@ public class OptimizationService(
                 IsIndeterminate = true
             });
 
-            // retry creating restore point
             _logger.LogInformation("Retrying to create restore point...");
             result = await RunPowerShellAsync(
                 $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS");
@@ -150,28 +135,18 @@ public class OptimizationService(
 
     #region Main Methods
 
-    /// <summary>
-    ///     Applies an optimization to the system.
-    /// </summary>
-    /// <param name="optimization">The optimization to apply.</param>
-    /// <param name="progress">A progress reporter for UI updates.</param>
-    /// <returns>A task that completes with the optimization result.</returns>
     public async Task<OptimizationResult> ApplyAsync(IOptimization optimization,
         IProgress<ProcessingProgress> progress)
     {
         var optimizationLogger = loggerFactory.CreateLogger(optimization.GetType());
 
-        OptimizationResult result;
-        List<OperationStepResult> stepResults = [];
-        var tracker = ServiceTracker.Begin(optimizationLogger);
+        using var executionScope = ExecutionScope.Begin(optimization.Id, optimization.OptimizationKey,
+            optimizationLogger);
 
-        RevertContext? revertContext = null;
-        var revertContextDisposed = false;
+        OptimizationResult result;
 
         try
         {
-            revertContext = revertManager.BeginRecording(optimization);
-
             progress.Report(new ProcessingProgress
             {
                 Message = Translations.Optimization_Apply_Processing,
@@ -187,33 +162,23 @@ public class OptimizationService(
                         StreamService = streamService
                     }));
 
-            if (!string.IsNullOrWhiteSpace(applyResult.Message)) // Optimization failed
+            if (!string.IsNullOrWhiteSpace(applyResult.Message))
             {
-                // Retry to recover from failed steps
-                stepResults = tracker.GetSteps().ToList();
-                var failedApplySteps = stepResults.Where(s => !s.Success).ToList();
-
-                // Persist revert steps first, then attempt an immediate revert.
-                await revertContext.DisposeAsync();
-                revertContextDisposed = true;
-
-                var revertResult = await revertManager.RevertAsync(
-                    optimization.Id,
-                    optimization.OptimizationKey,
-                    progress);
-
-                // If revert succeeds, remove any cached applied state.
-                if (revertResult.Success)
-                    lock (_cacheLock)
-                    {
-                        _stateCache.Remove(optimization.Id);
-                    }
+                var failedSteps = executionScope.FailedSteps;
 
                 return new OptimizationResult
                 {
                     Status = OptimizationSuccessResult.Failed,
                     Message = applyResult.Message,
-                    FailedSteps = failedApplySteps
+                    FailedSteps = failedSteps.Select(step => new OperationStepResult
+                    {
+                        Index = step.Index,
+                        Name = step.Name,
+                        Description = step.Description,
+                        Success = step.Success,
+                        Error = step.Error,
+                        RetryAction = step.RetryAction
+                    }).ToList()
                 };
             }
 
@@ -225,96 +190,88 @@ public class OptimizationService(
                 Total = 1
             });
 
-            // Collect steps after apply completes.
-            stepResults = tracker.GetSteps().ToList();
-            var failedSteps = stepResults.Where(s => !s.Success).ToList();
+            result = executionScope.ToResult();
 
-            var status = ResolveStatus(stepResults, failedSteps);
-            result = new OptimizationResult
-            {
-                Status = status,
-                Message = status == OptimizationSuccessResult.Success
-                    ? string.Format(Translations.Optimization_Apply_Success, optimization.OptimizationKey)
-                    : stepResults.Count == failedSteps.Count // if all steps failed
-                        ? string.Format(Translations.Optimization_Apply_Error_Failed, optimization.OptimizationKey)
-                        : string.Format(Translations.Optimization_Apply_Error_FailedWithSteps,
-                            optimization.OptimizationKey,
-                            failedSteps.Count),
-                FailedSteps = failedSteps
-            };
-
-            // Update cache after successful apply
-            if (status == OptimizationSuccessResult.Success)
+            if (result.Status == OptimizationSuccessResult.Success)
                 lock (_cacheLock)
                 {
                     _stateCache[optimization.Id] = (true, DateTime.Now);
                 }
 
-            if (!revertContextDisposed)
-                await revertContext.DisposeAsync();
+            if (executionScope.HasSuccessfulSteps)
+            {
+                try
+                {
+                    await revertManager.SaveRevertDataAsync(executionScope);
+                }
+                catch (Exception saveEx)
+                {
+                    _logger.LogError(saveEx, "Failed to save revert data for {Name}, but optimization was applied",
+                        optimization.OptimizationKey);
+                }
+            }
         }
         catch (Exception ex)
         {
-            stepResults = tracker?.GetSteps().ToList() ?? [];
-            var failedSteps = stepResults.Where(s => !s.Success).ToList();
+            var failedStepResults = executionScope.FailedSteps.Select(step => new OperationStepResult
+            {
+                Index = step.Index,
+                Name = step.Name,
+                Description = step.Description,
+                Success = step.Success,
+                Error = step.Error,
+                RetryAction = step.RetryAction
+            }).ToList();
 
-            var status = ResolveStatus(stepResults, failedSteps);
+            var status = GetStatus(executionScope);
             result = new OptimizationResult
             {
                 Status = status,
                 Message = string.Format(Translations.Optimization_Apply_Error_Failed,
                     optimization.OptimizationKey),
                 Exception = ex,
-                FailedSteps = failedSteps
+                FailedSteps = failedStepResults
             };
 
-            // Best-effort: persist any revert steps that were recorded before the exception.
-            if (revertContext is not null && !revertContextDisposed)
+            if (executionScope.HasSuccessfulSteps)
+            {
                 try
                 {
-                    await revertContext.DisposeAsync();
-                    revertContextDisposed = true;
+                    await revertManager.SaveRevertDataAsync(executionScope);
+                    _logger.LogWarning("Saved revert data for {Name} despite exception", optimization.OptimizationKey);
                 }
                 catch (Exception saveEx)
                 {
-                    _logger.LogError(saveEx, "Failed to save revert data after exception for {Name}",
+                    _logger.LogError(saveEx, "Critical: Failed to save revert data after exception for {Name}",
                         optimization.OptimizationKey);
                 }
-        }
-        finally
-        {
-            tracker?.Dispose();
+            }
         }
 
         return result;
 
-        OptimizationSuccessResult ResolveStatus(
-            IReadOnlyCollection<OperationStepResult> steps,
-            IReadOnlyCollection<OperationStepResult> failedSteps)
+        OptimizationSuccessResult GetStatus(Core.Models.Execution.ExecutionScope scope)
         {
-            if (steps.Count == 0)
+            if (scope.ExecutedSteps.Count == 0)
                 return OptimizationSuccessResult.Failed;
 
-            if (failedSteps.Count == 0)
-                return OptimizationSuccessResult.Success;
+            var failed = scope.FailedSteps.Count;
+            var total = scope.ExecutedSteps.Count;
 
-            return failedSteps.Count < steps.Count
-                ? OptimizationSuccessResult.PartialSuccess
-                : OptimizationSuccessResult.Failed;
+            return failed switch
+            {
+                0 => OptimizationSuccessResult.Success,
+                _ when failed < total => OptimizationSuccessResult.PartialSuccess,
+                _ => OptimizationSuccessResult.Failed
+            };
         }
     }
 
-    /// <summary>
-    ///     Reverts a previously applied optimization.
-    /// </summary>
-    /// <param name="optimization">The optimization to revert.</param>
-    /// <param name="progress">A progress reporter for UI updates (optional).</param>
-    /// <returns>A task that completes with the revert result.</returns>
     public async Task<RevertResult> RevertAsync(IOptimization optimization,
         IProgress<ProcessingProgress>? progress = null)
     {
         var optimizationLogger = loggerFactory.CreateLogger(optimization.GetType());
-        using var tracker = ServiceTracker.Begin(optimizationLogger);
+        using var scope = ExecutionScope.Begin(optimizationLogger);
 
         progress?.Report(new ProcessingProgress
         {
@@ -327,10 +284,9 @@ public class OptimizationService(
             optimization.OptimizationKey,
             progress);
 
-        // Merge tracker steps with revert result details
-        var trackerSteps = tracker.GetSteps().ToList();
-        if (result.FailedStepDetails.Count == 0 && trackerSteps.Any(s => !s.Success))
-            result.FailedStepDetails = trackerSteps.Where(s => !s.Success).ToList();
+        var scopeSteps = scope.GetStepResults();
+        if (result.FailedStepDetails.Count == 0 && scopeSteps.Any(s => !s.Success))
+            result.FailedStepDetails = scopeSteps.Where(s => !s.Success).ToList();
 
         progress?.Report(new ProcessingProgress
         {
@@ -340,7 +296,6 @@ public class OptimizationService(
             Total = 1
         });
 
-        // Update cache after revert
         if (result.Success)
             lock (_cacheLock)
             {
@@ -354,20 +309,11 @@ public class OptimizationService(
 
     #region Helpers
 
-    /// <summary>
-    ///     Checks whether an optimization has been applied.
-    /// </summary>
-    /// <param name="optimizationId">The unique identifier of the optimization.</param>
-    /// <returns>True if the optimization was applied; otherwise, false.</returns>
     public static Task<bool> IsAppliedAsync(Guid optimizationId)
     {
         return RevertManager.IsAppliedAsync(optimizationId);
     }
 
-    /// <summary>
-    ///     Updates the applied state for a collection of optimizations.
-    /// </summary>
-    /// <param name="optimizations">The optimizations to update.</param>
     public static async Task UpdateOptimizationStateAsync(params IOptimization[] optimizations)
     {
         var optimizationIds = optimizations.Select(o => o.Id).ToArray();
@@ -378,7 +324,6 @@ public class OptimizationService(
             foreach (var optimization in optimizations)
                 if (_stateCache.TryGetValue(optimization.Id, out var cachedState))
                 {
-                    // Use cached state
                     optimization.State.IsApplied = cachedState.IsApplied;
                     optimization.State.AppliedAt = cachedState.AppliedAt;
                 }
@@ -388,7 +333,6 @@ public class OptimizationService(
                 }
         }
 
-        // Only fetch from disk for uncached optimizations
         if (uncachedIds.Count > 0)
         {
             var tasks = uncachedIds.Select(async id =>
@@ -406,7 +350,6 @@ public class OptimizationService(
 
             var results = await Task.WhenAll(tasks);
 
-            // Update optimizations with fetched data
             foreach (var optimization in optimizations)
             {
                 var result = results.FirstOrDefault(r => r.Id == optimization.Id);
@@ -419,23 +362,11 @@ public class OptimizationService(
         }
     }
 
-    /// <summary>
-    ///     Updates the applied state for a collection of optimizations.
-    /// </summary>
-    /// <param name="optimizations">The optimizations to update.</param>
     public static async Task UpdateOptimizationStateAsync(IEnumerable<IOptimization> optimizations)
     {
         await UpdateOptimizationStateAsync(optimizations.ToArray());
     }
 
-    /// <summary>
-    ///     Retries failed optimization steps with configurable max retry attempts.
-    /// </summary>
-    /// <param name="failedSteps">The steps that previously failed.</param>
-    /// <param name="reverseOrder">Whether to execute steps in reverse order.</param>
-    /// <param name="progress">A progress reporter for UI updates (optional).</param>
-    /// <param name="maxRetries">Maximum number of retry attempts per step (default 3).</param>
-    /// <returns>A list of steps that still failed after retry.</returns>
     public static async Task<List<OperationStepResult>> RetryFailedStepsAsync(
         IReadOnlyList<OperationStepResult> failedSteps,
         bool reverseOrder,
@@ -490,11 +421,10 @@ public class OptimizationService(
                 }
                 catch
                 {
-                    // Retry on next attempt
                 }
 
                 if (attempt < maxRetries - 1)
-                    await Task.Delay(200 * (attempt + 1)); // progressive delay
+                    await Task.Delay(200 * (attempt + 1));
             }
 
             if (!success)
@@ -504,7 +434,7 @@ public class OptimizationService(
         return stillFailed;
     }
 
-    public static void ClearResourcesAsync()
+    public static void ClearResources()
     {
         lock (_cacheLock)
         {
@@ -521,7 +451,6 @@ public class OptimizationService(
             }
             catch
             {
-                // Best-effort cleanup only.
             }
     }
 

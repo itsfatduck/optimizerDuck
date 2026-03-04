@@ -7,84 +7,56 @@ using optimizerDuck.Common.Helpers;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Optimization;
 using optimizerDuck.Core.Models.Revert;
-using optimizerDuck.Core.Models.Revert.Steps;
 using optimizerDuck.Core.Models.UI;
 using optimizerDuck.Resources.Languages;
 
 namespace optimizerDuck.Services.Managers;
 
-/// <summary>
-///     Manages revert functionality for optimizations, allowing users to undo changes.
-/// </summary>
 public class RevertManager(ILogger<RevertManager> logger)
 {
-    /// <summary>
-    ///     Async local storage for the current revert context.
-    /// </summary>
-    private static readonly AsyncLocal<RevertContext?> _current = new();
-
-    /// <summary>
-    ///     Auto-discovered registry mapping step type strings to their FromData factory methods.
-    ///     Built once at startup via reflection.
-    /// </summary>
     private static readonly Dictionary<string, Func<JObject, IRevertStep>> _stepRegistry = BuildStepRegistry();
 
-    /// <summary>
-    ///     Gets the current revert context for the active async operation.
-    /// </summary>
-    public static RevertContext? Current => _current.Value;
+    public static IReadOnlyCollection<string> RegisteredStepTypes => _stepRegistry.Keys.ToList().AsReadOnly();
 
-    /// <summary>
-    ///     Begins recording revert steps for the specified optimization.
-    /// </summary>
-    /// <param name="optimization">The optimization being performed.</param>
-    /// <returns>The created revert context.</returns>
-    public RevertContext BeginRecording(IOptimization optimization)
+    public async Task SaveRevertDataAsync(Core.Models.Execution.ExecutionScope executionScope)
     {
-        var context = new RevertContext(optimization, logger, this);
-        _current.Value = context;
-        return context;
-    }
+        var successfulSteps = executionScope.SuccessfulSteps
+            .Where(s => s.RevertStep != null)
+            .ToList();
 
-    /// <summary>
-    ///     Records a revert step to the current context.
-    /// </summary>
-    /// <param name="step">The revert step to record.</param>
-    public static void Record(IRevertStep step)
-    {
-        Current?.AddStep(step);
-    }
+        if (successfulSteps.Count == 0)
+        {
+            logger.LogWarning("No revert steps to save for {Key}", executionScope.OptimizationKey);
+            return;
+        }
 
-    internal async Task SaveAsync(Guid optimizationId, string optimizationName, Stack<IRevertStep> steps)
-    {
-        var filePath = Path.Combine(Shared.RevertDirectory, optimizationId + ".json");
+        var steps = successfulSteps
+            .Select(s => new RevertStepData
+            {
+                Type = s.RevertStep!.Type,
+                Data = s.RevertStep.ToData()
+            })
+            .ToList();
+
+        var filePath = Path.Combine(Shared.RevertDirectory, executionScope.OptimizationId + ".json");
         var tempPath = filePath + ".tmp";
 
         try
         {
-            // Persist revert steps atomically to avoid partial writes.
-            var stepData = steps.Reverse()
-                .Select(s => new RevertStepData
-                {
-                    Type = s.Type,
-                    Data = s.ToData()
-                })
-                .ToList();
-
             var payload = new RevertData
             {
-                OptimizationId = optimizationId,
-                OptimizationName = optimizationName,
+                OptimizationId = executionScope.OptimizationId,
+                OptimizationName = executionScope.OptimizationKey,
                 AppliedAt = DateTime.Now,
-                Steps = stepData
+                Steps = steps
             };
 
             Directory.CreateDirectory(Shared.RevertDirectory);
             var json = JsonConvert.SerializeObject(payload, Formatting.Indented);
             await File.WriteAllTextAsync(tempPath, json);
             File.Move(tempPath, filePath, true);
-            logger.LogInformation("Saved {Count} revert steps for {Name} to {File}", steps.Count, optimizationName,
-                filePath);
+            logger.LogInformation("Saved {Count} revert steps for {Name} to {File}",
+                steps.Count, executionScope.OptimizationKey, filePath);
         }
         catch (Exception ex)
         {
@@ -95,10 +67,9 @@ public class RevertManager(ILogger<RevertManager> logger)
             }
             catch
             {
-                // Best-effort cleanup only.
             }
 
-            logger.LogError(ex, "Failed to save revert data for {Name}", optimizationName);
+            logger.LogError(ex, "Failed to save revert data for {Name}", executionScope.OptimizationKey);
             throw;
         }
     }
@@ -136,11 +107,11 @@ public class RevertManager(ILogger<RevertManager> logger)
 
             var failedStepDetails = new List<OperationStepResult>();
             var totalSteps = steps.Count;
-            var stack = new Stack<RevertStepEntry>(steps);
 
-            while (stack.Count > 0)
+            // Revert steps in reverse order (LIFO) for correct undo semantics
+            for (var i = steps.Count - 1; i >= 0; i--)
             {
-                var (currentIndex, step) = stack.Pop();
+                var (currentIndex, step) = steps[i];
 
                 progress?.Report(new ProcessingProgress
                 {
@@ -154,7 +125,6 @@ public class RevertManager(ILogger<RevertManager> logger)
                 var success = false;
                 Exception? lastError = null;
 
-                // Retry loop: attempt up to maxRetries + 1 times total
                 for (var attempt = 0; attempt <= maxRetries; attempt++)
                 {
                     try
@@ -171,7 +141,7 @@ public class RevertManager(ILogger<RevertManager> logger)
                     {
                         logger.LogWarning("Revert step {Index} ({Type}) failed on attempt {Attempt}, retrying...",
                             currentIndex, step.Type, attempt + 1);
-                        await Task.Delay(200 * (attempt + 1)); // progressive delay
+                        await Task.Delay(200 * (attempt + 1));
                     }
                 }
 
@@ -196,7 +166,6 @@ public class RevertManager(ILogger<RevertManager> logger)
             var allFailed = failedCount == totalSteps;
             var hasFailures = failedCount > 0;
 
-            // Partial revert: save remaining failed steps back to file for later retry
             if (hasFailures && !allFailed)
             {
                 await SaveFailedStepsAsync(optimizationId, optimizationKey, steps, failedStepDetails);
@@ -205,7 +174,7 @@ public class RevertManager(ILogger<RevertManager> logger)
             }
             else if (!hasFailures)
             {
-                await RemoveAsync(optimizationId, optimizationKey);
+                Remove(optimizationId, optimizationKey);
             }
 
             return new RevertResult
@@ -232,9 +201,6 @@ public class RevertManager(ILogger<RevertManager> logger)
         }
     }
 
-    /// <summary>
-    ///     Saves only the failed steps back to the revert file so a subsequent revert can retry them.
-    /// </summary>
     private async Task SaveFailedStepsAsync(Guid optimizationId, string optimizationName,
         List<RevertStepEntry> allSteps, List<OperationStepResult> failedDetails)
     {
@@ -277,7 +243,6 @@ public class RevertManager(ILogger<RevertManager> logger)
             }
             catch
             {
-                // Best-effort cleanup only.
             }
 
             logger.LogError(ex, "Failed to save remaining failed steps for {Name}", optimizationName);
@@ -327,7 +292,6 @@ public class RevertManager(ILogger<RevertManager> logger)
 
     public static Task<bool> IsAppliedAsync(Guid optimizationId)
     {
-        // Revert data file existence is the source of truth.
         var filePath = Path.Combine(Shared.RevertDirectory, optimizationId + ".json");
         return Task.FromResult(File.Exists(filePath));
     }
@@ -352,7 +316,7 @@ public class RevertManager(ILogger<RevertManager> logger)
         }
     }
 
-    private Task RemoveAsync(Guid optimizationId, string optimizationName)
+    private void Remove(Guid optimizationId, string optimizationName)
     {
         try
         {
@@ -367,16 +331,8 @@ public class RevertManager(ILogger<RevertManager> logger)
         {
             logger.LogError(ex, "Failed to remove revert data for {Id}", optimizationId);
         }
-
-        return Task.CompletedTask;
     }
 
-    #region Auto-Discovery
-
-    /// <summary>
-    ///     Builds the step registry by scanning all IRevertStep implementations via reflection.
-    ///     Each step type must have a static FromData(JObject) method.
-    /// </summary>
     private static Dictionary<string, Func<JObject, IRevertStep>> BuildStepRegistry()
     {
         var registry = new Dictionary<string, Func<JObject, IRevertStep>>(StringComparer.OrdinalIgnoreCase);
@@ -392,18 +348,15 @@ public class RevertManager(ILogger<RevertManager> logger)
             {
                 try
                 {
-                    // Create a temporary instance to get the Type property value
                     var instance = (IRevertStep)Activator.CreateInstance(type)!;
                     var typeKey = instance.Type;
 
-                    // Find the static FromData method (accepts JObject or JToken)
                     var fromDataMethod = type.GetMethod("FromData",
                         BindingFlags.Static | BindingFlags.Public,
                         null,
                         [typeof(JObject)],
                         null);
 
-                    // Fallback: try JToken parameter
                     fromDataMethod ??= type.GetMethod("FromData",
                         BindingFlags.Static | BindingFlags.Public,
                         null,
@@ -416,23 +369,15 @@ public class RevertManager(ILogger<RevertManager> logger)
                 }
                 catch
                 {
-                    // Skip types that can't be instantiated or lack FromData
                 }
             }
         }
         catch
         {
-            // Fallback: if reflection fails entirely, the registry remains empty
-            // and DeserializeStep will return null for all types.
         }
 
         return registry;
     }
-
-    /// <summary>
-    ///     Returns the list of registered revert step type names.
-    /// </summary>
-    public static IReadOnlyCollection<string> RegisteredStepTypes => _stepRegistry.Keys.ToList().AsReadOnly();
 
     private IRevertStep? DeserializeStep(string serviceType, JToken data)
     {
@@ -461,10 +406,6 @@ public class RevertManager(ILogger<RevertManager> logger)
             return null;
         }
     }
-
-    #endregion Auto-Discovery
-
-    #region Validation
 
     private async Task<RevertValidationResult> ValidateAsync(Guid optimizationId)
     {
@@ -534,14 +475,7 @@ public class RevertManager(ILogger<RevertManager> logger)
         return RevertValidationResult.Success();
     }
 
-    #endregion Validation
-
-    internal static void ClearCurrent()
-    {
-        _current.Value = null;
-    }
-
-    public static void ClearAllRevertDataAsync()
+    public static void ClearAllRevertData()
     {
         if (!Directory.Exists(Shared.RevertDirectory))
             return;
@@ -553,7 +487,6 @@ public class RevertManager(ILogger<RevertManager> logger)
             }
             catch
             {
-                // Best-effort cleanup only.
             }
     }
 

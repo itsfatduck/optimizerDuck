@@ -2,6 +2,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Core.Interfaces;
+using optimizerDuck.Core.Models.Execution;
 using optimizerDuck.Core.Models.Optimization;
 using optimizerDuck.Core.Models.Revert;
 using optimizerDuck.Core.Models.Revert.Steps;
@@ -23,8 +24,8 @@ public class OptimizationServiceTests
             {
                 ApplyImpl = _ =>
                 {
-                    RevertManager.Record(new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 0" });
-                    ServiceTracker.TrackStep("Test", "Test step", true);
+                    ExecutionScope.RecordStep("Test", "Test step", true,
+                        new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 0" });
                     return Task.FromResult(ApplyResult.True());
                 }
             };
@@ -66,8 +67,9 @@ public class OptimizationServiceTests
             {
                 ApplyImpl = _ =>
                 {
-                    RevertManager.Record(new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 0" });
-                    ServiceTracker.TrackStep("Test", "Failed step", false, "fail", () => Task.FromResult(false));
+                    ExecutionScope.RecordStep("Test", "Test step", true,
+                        new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 0" });
+                    ExecutionScope.RecordStep("Test", "Failed step", false, error: "fail");
                     return Task.FromResult(ApplyResult.False("apply failed"));
                 }
             };
@@ -212,7 +214,7 @@ public class OptimizationServiceTests
 
         public string Name { get; } = "Test";
         public string ShortDescription { get; } = "Test";
-        public OptimizationState State { get; set; } = null!;
+        public OptimizationState State { get; set; } = new();
 
         public Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
         {

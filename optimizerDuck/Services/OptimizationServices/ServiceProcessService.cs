@@ -1,10 +1,10 @@
 using System.Diagnostics;
 using System.Management;
 using optimizerDuck.Common.Extensions;
+using optimizerDuck.Core.Models.Execution;
 using optimizerDuck.Core.Models.Optimization.Services;
 using optimizerDuck.Core.Models.Revert.Steps;
 using optimizerDuck.Resources.Languages;
-using optimizerDuck.Services.Managers;
 
 namespace optimizerDuck.Services.OptimizationServices;
 
@@ -39,7 +39,7 @@ public static class ServiceProcessService
         }
         catch (Exception ex)
         {
-            ServiceTracker.LogError(ex, "Failed to get startup type for {ServiceName}", serviceName);
+            ExecutionScope.LogError(ex, "Failed to get startup type for {ServiceName}", serviceName);
             return null;
         }
     }
@@ -60,18 +60,19 @@ public static class ServiceProcessService
 
             if (service == null)
             {
-                ServiceTracker.LogInfo(
+                ExecutionScope.LogInfo(
                     "[SERVICE][{Name}][FAIL][NOT_FOUND][D=0ms] startup -> {StartupType}",
                     item.Name,
                     item.StartupType
                 );
-                ServiceTracker.Track(nameof(ChangeServiceStartupType), false);
-                ServiceTracker.TrackStep(
+                ExecutionScope.Track(nameof(ChangeServiceStartupType), false);
+                ExecutionScope.RecordStep(
                     "Service",
                     description,
                     false,
+                    null,
                     Translations.Service_Service_Error_NotFound,
-                    () => Task.Run(() => ChangeServiceStartupType(item)));
+                    retryAction: () => Task.FromResult(ChangeServiceStartupType(item)));
                 return false;
             }
 
@@ -94,12 +95,13 @@ public static class ServiceProcessService
 
             if (resultCode == 0)
             {
+                ServiceRevertStep? revertStep = null;
                 if (originalStartupType.HasValue && originalStartupType.Value != item.StartupType)
-                    RevertManager.Record(new ServiceRevertStep
+                    revertStep = new ServiceRevertStep
                     {
                         ServiceName = item.Name,
                         OriginalStartupType = originalStartupType.Value
-                    });
+                    };
 
                 // Handle delayed auto start registry key
                 var registrySuccess = item.StartupType == ServiceStartupType.AutomaticDelayedStart
@@ -113,24 +115,25 @@ public static class ServiceProcessService
 
                 sw.Stop();
 
-                ServiceTracker.LogInfo(
+                ExecutionScope.LogInfo(
                     "[SERVICE][{Name}][OK][CODE=0][D={Duration}] startup -> {StartupType}",
                     item.Name,
                     sw.Elapsed.FormatTime(),
                     item.StartupType
                 );
 
-                ServiceTracker.Track(nameof(ChangeServiceStartupType), registrySuccess);
-                ServiceTracker.TrackStep(
+                ExecutionScope.Track(nameof(ChangeServiceStartupType), registrySuccess);
+                ExecutionScope.RecordStep(
                     "Service",
                     description,
                     registrySuccess,
+                    registrySuccess ? revertStep : null,
                     registrySuccess ? null : Translations.Service_Service_Error_UpdateRegistryForStartupTypeFailed,
-                    () => Task.Run(() => ChangeServiceStartupType(item)));
+                    retryAction: registrySuccess ? null : () => Task.FromResult(ChangeServiceStartupType(item)));
                 return registrySuccess;
             }
 
-            ServiceTracker.LogInfo(
+            ExecutionScope.LogInfo(
                 "[SERVICE][{Name}][FAIL][CODE={Code}][D={Duration}] startup -> {StartupType}",
                 item.Name,
                 resultCode,
@@ -138,30 +141,32 @@ public static class ServiceProcessService
                 item.StartupType
             );
 
-            ServiceTracker.Track(nameof(ChangeServiceStartupType), false);
-            ServiceTracker.TrackStep(
+            ExecutionScope.Track(nameof(ChangeServiceStartupType), false);
+            ExecutionScope.RecordStep(
                 "Service",
                 description,
                 false,
+                null,
                 string.Format(Translations.Service_Service_Error_ChangeStartModeFailedWithCode, resultCode),
-                () => Task.Run(() => ChangeServiceStartupType(item)));
+                retryAction: () => Task.FromResult(ChangeServiceStartupType(item)));
             return false;
         }
         catch (Exception ex)
         {
-            ServiceTracker.LogError(
+            ExecutionScope.LogError(
                 ex,
                 "[SERVICE][{Name}][FAIL][EXCEPTION] startup -> {StartupType}",
                 item.Name,
                 item.StartupType
             );
-            ServiceTracker.Track(nameof(ChangeServiceStartupType), false);
-            ServiceTracker.TrackStep(
+            ExecutionScope.Track(nameof(ChangeServiceStartupType), false);
+            ExecutionScope.RecordStep(
                 "Service",
                 description,
                 false,
+                null,
                 ex.Message,
-                () => Task.Run(() => ChangeServiceStartupType(item)));
+                retryAction: () => Task.FromResult(ChangeServiceStartupType(item)));
             return false;
         }
     }

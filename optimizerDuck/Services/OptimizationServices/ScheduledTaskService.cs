@@ -1,9 +1,9 @@
 using System.Collections.ObjectModel;
 using Microsoft.Win32.TaskScheduler;
+using optimizerDuck.Core.Models.Execution;
 using optimizerDuck.Core.Models.Revert.Steps;
 using optimizerDuck.Core.Models.ScheduledTask;
 using optimizerDuck.Resources.Languages;
-using optimizerDuck.Services.Managers;
 using Task = Microsoft.Win32.TaskScheduler.Task;
 
 namespace optimizerDuck.Services.OptimizationServices;
@@ -23,7 +23,7 @@ public static class ScheduledTaskService
         }
         catch (Exception ex)
         {
-            ServiceTracker.LogDebug("Failed to check task enabled state {Path}: {Error}", fullPath, ex.Message);
+            ExecutionScope.LogDebug("Failed to check task enabled state {Path}: {Error}", fullPath, ex.Message);
             return false;
         }
     }
@@ -45,45 +45,48 @@ public static class ScheduledTaskService
             task.Enabled = false;
 
             // Record revert step: restore to previous enabled state
+            ScheduledTaskRevertStep? revertStep = null;
             if (wasEnabled)
-                RevertManager.Record(new ScheduledTaskRevertStep
+                revertStep = new ScheduledTaskRevertStep
                 {
                     FullPath = fullPath,
                     OriginalEnabled = true
-                });
+                };
 
-            ServiceTracker.LogInfo("Disabled task {Path}", fullPath);
-            ServiceTracker.Track(nameof(DisableTask), true);
-            ServiceTracker.TrackStep(
+            ExecutionScope.LogInfo("Disabled task {Path}", fullPath);
+            ExecutionScope.Track(nameof(DisableTask), true);
+            ExecutionScope.RecordStep(
                 "ScheduledTask",
                 description,
                 true,
-                null,
-                () => System.Threading.Tasks.Task.Run(() => DisableTask(fullPath)));
+                revertStep,
+                null);
             return true;
         }
         catch (UnauthorizedAccessException)
         {
-            ServiceTracker.LogError(null, "Access denied disabling task {Path}", fullPath);
-            ServiceTracker.Track(nameof(DisableTask), false);
-            ServiceTracker.TrackStep(
+            ExecutionScope.LogError(null, "Access denied disabling task {Path}", fullPath);
+            ExecutionScope.Track(nameof(DisableTask), false);
+            ExecutionScope.RecordStep(
                 "ScheduledTask",
                 description,
                 false,
+                null,
                 Translations.Service_Common_Error_AccessDenied,
-                () => System.Threading.Tasks.Task.Run(() => DisableTask(fullPath)));
+                retryAction: () => System.Threading.Tasks.Task.FromResult(DisableTask(fullPath)));
             return false;
         }
         catch (Exception ex)
         {
-            ServiceTracker.LogError(ex, "Failed to disable task {Path}", fullPath);
-            ServiceTracker.Track(nameof(DisableTask), false);
-            ServiceTracker.TrackStep(
+            ExecutionScope.LogError(ex, "Failed to disable task {Path}", fullPath);
+            ExecutionScope.Track(nameof(DisableTask), false);
+            ExecutionScope.RecordStep(
                 "ScheduledTask",
                 description,
                 false,
+                null,
                 ex.Message,
-                () => System.Threading.Tasks.Task.Run(() => DisableTask(fullPath)));
+                retryAction: () => System.Threading.Tasks.Task.FromResult(DisableTask(fullPath)));
             return false;
         }
     }
@@ -105,45 +108,48 @@ public static class ScheduledTaskService
             task.Enabled = true;
 
             // Record revert step: restore to previous enabled state
+            ScheduledTaskRevertStep? revertStep = null;
             if (!wasEnabled)
-                RevertManager.Record(new ScheduledTaskRevertStep
+                revertStep = new ScheduledTaskRevertStep
                 {
                     FullPath = fullPath,
                     OriginalEnabled = false
-                });
+                };
 
-            ServiceTracker.LogInfo("Enabled task {Path}", fullPath);
-            ServiceTracker.Track(nameof(EnableTask), true);
-            ServiceTracker.TrackStep(
+            ExecutionScope.LogInfo("Enabled task {Path}", fullPath);
+            ExecutionScope.Track(nameof(EnableTask), true);
+            ExecutionScope.RecordStep(
                 "ScheduledTask",
                 description,
                 true,
-                null,
-                () => System.Threading.Tasks.Task.Run(() => EnableTask(fullPath)));
+                revertStep,
+                null);
             return true;
         }
         catch (UnauthorizedAccessException)
         {
-            ServiceTracker.LogError(null, "Access denied enabling task {Path}", fullPath);
-            ServiceTracker.Track(nameof(EnableTask), false);
-            ServiceTracker.TrackStep(
+            ExecutionScope.LogError(null, "Access denied enabling task {Path}", fullPath);
+            ExecutionScope.Track(nameof(EnableTask), false);
+            ExecutionScope.RecordStep(
                 "ScheduledTask",
                 description,
                 false,
+                null,
                 Translations.Service_Common_Error_AccessDenied,
-                () => System.Threading.Tasks.Task.Run(() => EnableTask(fullPath)));
+                retryAction: () => System.Threading.Tasks.Task.FromResult(EnableTask(fullPath)));
             return false;
         }
         catch (Exception ex)
         {
-            ServiceTracker.LogError(ex, "Failed to enable task {Path}", fullPath);
-            ServiceTracker.Track(nameof(EnableTask), false);
-            ServiceTracker.TrackStep(
+            ExecutionScope.LogError(ex, "Failed to enable task {Path}", fullPath);
+            ExecutionScope.Track(nameof(EnableTask), false);
+            ExecutionScope.RecordStep(
                 "ScheduledTask",
                 description,
                 false,
+                null,
                 ex.Message,
-                () => System.Threading.Tasks.Task.Run(() => EnableTask(fullPath)));
+                retryAction: () => System.Threading.Tasks.Task.FromResult(EnableTask(fullPath)));
             return false;
         }
     }
@@ -169,7 +175,7 @@ public static class ScheduledTaskService
         }
         catch (Exception ex)
         {
-            ServiceTracker.LogError(ex, "Failed to enumerate scheduled tasks");
+            ExecutionScope.LogError(ex, "Failed to enumerate scheduled tasks");
         }
 
         return results;
@@ -194,11 +200,11 @@ public static class ScheduledTaskService
             var task = ts.GetTask(fullPath) ?? throw new InvalidOperationException(
                 string.Format(Translations.ScheduledTasks_Error_TaskNotFound, fullPath));
             task.Run();
-            ServiceTracker.LogInfo("Started task {Path}", fullPath);
+            ExecutionScope.LogInfo("Started task {Path}", fullPath);
         }
         catch (Exception ex)
         {
-            ServiceTracker.LogError(ex, "Failed to run task {Path}", fullPath);
+            ExecutionScope.LogError(ex, "Failed to run task {Path}", fullPath);
             throw;
         }
     }
@@ -211,11 +217,11 @@ public static class ScheduledTaskService
             var task = ts.GetTask(fullPath) ?? throw new InvalidOperationException(
                 string.Format(Translations.ScheduledTasks_Error_TaskNotFound, fullPath));
             task.Stop();
-            ServiceTracker.LogInfo("Stopped task {Path}", fullPath);
+            ExecutionScope.LogInfo("Stopped task {Path}", fullPath);
         }
         catch (Exception ex)
         {
-            ServiceTracker.LogError(ex, "Failed to stop task {Path}", fullPath);
+            ExecutionScope.LogError(ex, "Failed to stop task {Path}", fullPath);
             throw;
         }
     }
@@ -233,7 +239,7 @@ public static class ScheduledTaskService
         }
         catch (Exception ex)
         {
-            ServiceTracker.LogDebug("Failed to get state for task {Path}: {Error}", fullPath, ex.Message);
+            ExecutionScope.LogDebug("Failed to get state for task {Path}: {Error}", fullPath, ex.Message);
             return null;
         }
     }
@@ -247,11 +253,11 @@ public static class ScheduledTaskService
                 string.Format(Translations.ScheduledTasks_Error_TaskNotFound, fullPath));
             var folderPath = task.Folder.Path;
             ts.GetFolder(folderPath).DeleteTask(task.Name);
-            ServiceTracker.LogInfo("Deleted task {Path}", fullPath);
+            ExecutionScope.LogInfo("Deleted task {Path}", fullPath);
         }
         catch (Exception ex)
         {
-            ServiceTracker.LogError(ex, "Failed to delete task {Path}", fullPath);
+            ExecutionScope.LogError(ex, "Failed to delete task {Path}", fullPath);
             throw;
         }
     }
@@ -316,11 +322,11 @@ public static class ScheduledTaskService
                 }
 
             folder.RegisterTaskDefinition(model.Name, td);
-            ServiceTracker.LogInfo("Registered task {Name} in folder {Folder}", model.Name, folderPath);
+            ExecutionScope.LogInfo("Registered task {Name} in folder {Folder}", model.Name, folderPath);
         }
         catch (Exception ex)
         {
-            ServiceTracker.LogError(ex, "Failed to register task {Name} in {Folder}", model.Name, folderPath);
+            ExecutionScope.LogError(ex, "Failed to register task {Name} in {Folder}", model.Name, folderPath);
             throw;
         }
     }
@@ -338,7 +344,7 @@ public static class ScheduledTaskService
                 }
                 catch (Exception ex)
                 {
-                    ServiceTracker.LogDebug("Failed to map task {Name}: {Error}", task.Name, ex.Message);
+                    ExecutionScope.LogDebug("Failed to map task {Name}: {Error}", task.Name, ex.Message);
                 }
 
             foreach (var subFolder in folder.SubFolders)
@@ -346,7 +352,7 @@ public static class ScheduledTaskService
         }
         catch (Exception ex)
         {
-            ServiceTracker.LogDebug("Failed to enumerate folder {Path}: {Error}", folder.Path, ex.Message);
+            ExecutionScope.LogDebug("Failed to enumerate folder {Path}: {Error}", folder.Path, ex.Message);
         }
     }
 

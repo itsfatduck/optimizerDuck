@@ -3,10 +3,10 @@ using System.Text;
 using Microsoft.Extensions.Options;
 using optimizerDuck.Common.Extensions;
 using optimizerDuck.Core.Models.Config;
+using optimizerDuck.Core.Models.Execution;
 using optimizerDuck.Core.Models.Optimization.Services;
 using optimizerDuck.Core.Models.Revert.Steps;
 using optimizerDuck.Resources.Languages;
-using optimizerDuck.Services.Managers;
 
 namespace optimizerDuck.Services.OptimizationServices;
 
@@ -52,16 +52,9 @@ public static class ShellService
         _options = options;
     }
 
-    private static ShellResult Run(
-        string fileName,
-        string arguments,
-        string command,
-        string serviceName,
-        ShellRevertStep? revertStep,
-        ShellPolicy? policy = null)
+    private static (string commandForUser, string fullCommandForUser) SanitizeCommandForUser(
+        string fileName, string arguments, string command)
     {
-        policy ??= ShellPolicy.Default;
-
         var commandForUser = (arguments.Contains("-EncodedCommand", StringComparison.OrdinalIgnoreCase)
                 ? command.DecodeBase64()
                 : command)
@@ -74,6 +67,21 @@ public static class ShellService
 
         var fullCommandForUser =
             $"{fileName} {arguments.Replace("-EncodedCommand", "-Command", StringComparison.OrdinalIgnoreCase)} {commandForUser}";
+
+        return (commandForUser, fullCommandForUser);
+    }
+
+    private static ShellResult Run(
+        string fileName,
+        string arguments,
+        string command,
+        string serviceName,
+        ShellRevertStep? revertStep,
+        ShellPolicy? policy = null)
+    {
+        policy ??= ShellPolicy.Default;
+
+        var (_, fullCommandForUser) = SanitizeCommandForUser(fileName, arguments, command);
 
         var processArgs =
             fileName.Equals("cmd.exe", StringComparison.OrdinalIgnoreCase) &&
@@ -131,7 +139,7 @@ public static class ShellService
                 }
                 catch
                 {
-                    ServiceTracker.LogError(null, "Failed to kill process for timeout");
+                    ExecutionScope.LogError(null, "Failed to kill process for timeout");
                 }
 
                 process.WaitForExit(2000); // grace drain
@@ -153,38 +161,33 @@ public static class ShellService
 
             var success = policy.IsSuccess(result);
 
-            ServiceTracker.Track(serviceName, success);
+            ExecutionScope.Track(serviceName, success);
 
-            ServiceTracker.LogInfo("[{Service}][{Status}][EC={ExitCode}][D={Duration}] {Command}",
+            ExecutionScope.LogInfo("[{Service}][{Status}][EC={ExitCode}][D={Duration}] {Command}",
                 serviceName,
                 timedOut ? "TIMEOUT" : success ? "OK" : "FAIL",
                 result.ExitCode,
                 duration.FormatTime(),
                 fullCommandForUser);
 
-            ServiceTracker.LogTrace("[{Service}][STDOUT] {Stdout}",
+            ExecutionScope.LogTrace("[{Service}][STDOUT] {Stdout}",
                 serviceName,
                 string.IsNullOrWhiteSpace(stdout) ? "N/A" : stdout
             );
-            ServiceTracker.LogTrace("[{Service}][STDERR] {Stderr}",
+            ExecutionScope.LogTrace("[{Service}][STDERR] {Stderr}",
                 serviceName,
                 string.IsNullOrWhiteSpace(stderr) ? "N/A" : stderr
             );
 
             var error = success ? null : policy.ErrorFactory(result);
 
-            ServiceTracker.TrackStep(
+            ExecutionScope.RecordStep(
                 "Shell",
                 fullCommandForUser,
                 success,
+                revertStep,
                 error,
-                () => Task.Run(() =>
-                    policy.IsSuccess(Run(fileName, arguments, command, serviceName, revertStep, policy))
-                )
-            );
-
-            if (success && revertStep is not null)
-                RevertManager.Record(revertStep);
+                retryAction: success ? null : () => Task.FromResult(Run(fileName, arguments, command, serviceName, revertStep, policy).ExitCode == 0));
 
             return result;
         }
@@ -199,14 +202,13 @@ public static class ShellService
                 Duration = TimeSpan.Zero
             };
 
-            ServiceTracker.Track(serviceName, false);
-            ServiceTracker.LogError(ex, "[{Service}][FAIL][EXCEPTION] {Command}", serviceName, fullCommandForUser);
-            ServiceTracker.TrackStep(
+            ExecutionScope.RecordStep(
                 "Shell",
                 fullCommandForUser,
                 false,
+                revertStep,
                 ex.Message,
-                () => Task.FromResult(false));
+                retryAction: () => Task.FromResult(Run(fileName, arguments, command, serviceName, revertStep, policy).ExitCode == 0));
 
             return result;
         }
@@ -223,18 +225,7 @@ public static class ShellService
     {
         policy ??= ShellPolicy.Default;
 
-        var commandForUser = (arguments.Contains("-EncodedCommand", StringComparison.OrdinalIgnoreCase)
-                ? command.DecodeBase64()
-                : command)
-            .Replace("$ProgressPreference='SilentlyContinue'; ", "")
-            .Replace("[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; ", "")
-            .Replace(
-                "$OutputEncoding = [System.Console]::OutputEncoding = [System.Console]::InputEncoding = [System.Text.Encoding]::UTF8; ",
-                "")
-            .Replace("chcp 65001 > nul & ", "");
-
-        var fullCommandForUser =
-            $"{fileName} {arguments.Replace("-EncodedCommand", "-Command", StringComparison.OrdinalIgnoreCase)} {commandForUser}";
+        var (_, fullCommandForUser) = SanitizeCommandForUser(fileName, arguments, command);
 
         var psi = new ProcessStartInfo
         {
@@ -312,36 +303,32 @@ public static class ShellService
 
             var success = policy.IsSuccess(result);
 
-            ServiceTracker.Track(serviceName, success);
+            ExecutionScope.Track(serviceName, success);
 
-            ServiceTracker.LogInfo("[{Service}][{Status}][EC={ExitCode}][D={Duration}] {Command}",
+            ExecutionScope.LogInfo("[{Service}][{Status}][EC={ExitCode}][D={Duration}] {Command}",
                 serviceName,
                 timedOut ? "TIMEOUT" : success ? "OK" : "FAIL",
                 result.ExitCode,
                 sw.Elapsed.FormatTime(),
                 fullCommandForUser);
 
-            ServiceTracker.LogTrace("[{Service}][STDOUT] {Stdout}",
+            ExecutionScope.LogTrace("[{Service}][STDOUT] {Stdout}",
                 serviceName,
                 string.IsNullOrWhiteSpace(stdout) ? "N/A" : stdout);
 
-            ServiceTracker.LogTrace("[{Service}][STDERR] {Stderr}",
+            ExecutionScope.LogTrace("[{Service}][STDERR] {Stderr}",
                 serviceName,
                 string.IsNullOrWhiteSpace(stderr) ? "N/A" : stderr);
 
             var error = success ? null : policy.ErrorFactory(result);
 
-            ServiceTracker.TrackStep(
+            ExecutionScope.RecordStep(
                 "Shell",
                 fullCommandForUser,
                 success,
+                revertStep,
                 error,
-                async () =>
-                    policy.IsSuccess(await RunAsync(fileName, arguments, command, serviceName, revertStep, policy, ct))
-            );
-
-            if (success && revertStep is not null)
-                RevertManager.Record(revertStep);
+                retryAction: success ? null : async () => (await RunAsync(fileName, arguments, command, serviceName, revertStep, policy, ct)).ExitCode == 0);
 
             return result;
         }
@@ -356,15 +343,13 @@ public static class ShellService
                 Duration = TimeSpan.Zero
             };
 
-            ServiceTracker.Track(serviceName, false);
-            ServiceTracker.LogError(ex, "[{Service}][FAIL][EXCEPTION] {Command}", serviceName, fullCommandForUser);
-
-            ServiceTracker.TrackStep(
+            ExecutionScope.RecordStep(
                 "Shell",
                 fullCommandForUser,
                 false,
+                revertStep,
                 ex.Message,
-                () => Task.FromResult(false));
+                retryAction: async () => (await RunAsync(fileName, arguments, command, serviceName, revertStep, policy, ct)).ExitCode == 0);
 
             return result;
         }
@@ -490,7 +475,8 @@ public static class ShellService
             command.EncodeBase64(),
             nameof(PowerShell),
             revertStep,
-            policy, ct);
+            policy,
+            ct);
     }
 
     /// <summary>
