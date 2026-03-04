@@ -23,7 +23,7 @@
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <converters:GreaterThanZeroToVisibilityConverter x:Key="GreaterThanZeroToVisibilityConverter" />
-        <converters:ZeroToVisibilityConverter x:Key="ZeroToVisibilityConverter" />
+        <converters:EmptyWhileNotLoadingConverter x:Key="EmptyWhileNotLoadingConverter" />
     </Page.Resources>
 
     <Grid RowDefinitions="Auto, *">
@@ -125,7 +125,7 @@
         </Border>
 
         <!--  Main Content  -->
-        <Border Grid.Row="1" Visibility="{Binding ViewModel.HasData, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Border Visibility="{Binding ViewModel.HasData, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Row="1">
             <ScrollViewer Margin="0,0,16,0">
                 <StackPanel>
                     <!--  ═══════════ Startup Apps Section ═══════════  -->
@@ -221,8 +221,13 @@
                             <StackPanel
                                 HorizontalAlignment="Center"
                                 Margin="0,32,0,32"
-                                VerticalAlignment="Center"
-                                Visibility="{Binding ViewModel.Apps.Count, Converter={StaticResource ZeroToVisibilityConverter}}">
+                                VerticalAlignment="Center">
+                                <StackPanel.Visibility>
+                                    <MultiBinding Converter="{StaticResource EmptyWhileNotLoadingConverter}">
+                                        <Binding Path="ViewModel.Apps.Count" />
+                                        <Binding Path="ViewModel.IsLoading" />
+                                    </MultiBinding>
+                                </StackPanel.Visibility>
                                 <ui:SymbolIcon
                                     FontSize="36"
                                     Foreground="{DynamicResource SystemFillColorCriticalBrush}"
@@ -409,8 +414,13 @@
                             <StackPanel
                                 HorizontalAlignment="Center"
                                 Margin="0,32,0,32"
-                                VerticalAlignment="Center"
-                                Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource ZeroToVisibilityConverter}}">
+                                VerticalAlignment="Center">
+                                <StackPanel.Visibility>
+                                    <MultiBinding Converter="{StaticResource EmptyWhileNotLoadingConverter}">
+                                        <Binding Path="ViewModel.Tasks.Count" />
+                                        <Binding Path="ViewModel.IsLoading" />
+                                    </MultiBinding>
+                                </StackPanel.Visibility>
                                 <ui:SymbolIcon
                                     FontSize="36"
                                     Foreground="{DynamicResource SystemFillColorCriticalBrush}"

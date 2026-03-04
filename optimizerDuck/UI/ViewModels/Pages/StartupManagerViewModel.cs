@@ -140,6 +140,10 @@ public partial class StartupManagerViewModel : ViewModel
         Apps.Clear();
         Tasks.Clear();
 
+        OnPropertyChanged(nameof(HasApps));
+        OnPropertyChanged(nameof(HasTasks));
+        OnPropertyChanged(nameof(HasData));
+
         try
         {
             var appsTask = _startupManagerService.GetStartupAppsAsync();
