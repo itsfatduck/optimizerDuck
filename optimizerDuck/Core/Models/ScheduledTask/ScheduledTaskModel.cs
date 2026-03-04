@@ -109,7 +109,7 @@ public partial class ScheduledTaskModel : ObservableObject
     /// </summary>
     public TimeSpan DailyTriggerTime { get; init; }
     /// <summary>
-    ///     Indicates whether the task runs with highest privileges.
+    ///     Indicates whether the task runs with the highest privileges.
     /// </summary>
     public bool RunWithHighestPrivileges { get; init; }
     /// <summary>

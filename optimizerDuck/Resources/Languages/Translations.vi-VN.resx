@@ -1118,8 +1118,8 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="DiskCleanup.ItemsAndFilesSelected" xml:space="preserve">
     <value>Đã chọn {0} • {1} mục • {2} tệp</value>
   </data>
-  <data name="Settings.About.Author.Description" xml:space="preserve">
-    <value>hi, tôi là người tạo ra ứng dụng này. tôi yêu mèo.</value>
+  <data name="Settings.About.NeedHelp.Title" xml:space="preserve">
+    <value>Cần hỗ trợ?</value>
   </data>
   <data name="Sidebar.StartupManager" xml:space="preserve">
     <value>Quản Lý Khởi Động</value>
@@ -1309,5 +1309,14 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="Settings.About.LearnMore.Website" xml:space="preserve">
     <value>Trang Web Chính Thức</value>
+  </data>
+  <data name="Settings.About.NeedHelp.Description" xml:space="preserve">
+    <value>Nếu bạn cần hỗ trợ về tối ưu hoặc có bất kỳ thắc mắc nào, hãy tham gia cộng đồng của chúng tôi để được hỗ trợ nhanh chóng.</value>
+  </data>
+  <data name="Settings.About.LearnMore.Community" xml:space="preserve">
+    <value>Cộng đồng</value>
+  </data>
+  <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
+    <value>Không tìm thấy task: {0}</value>
   </data>
 </root>

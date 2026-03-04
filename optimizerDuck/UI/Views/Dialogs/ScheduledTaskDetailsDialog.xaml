@@ -175,6 +175,7 @@
                             FontTypography="Caption"
                             Text="{ext:Loc ScheduledTasks.Details.Action}" />
                         <ui:TextBlock
+                            FontFamily="Consolas"
                             FontTypography="Body"
                             Margin="0,2,0,0"
                             Text=""

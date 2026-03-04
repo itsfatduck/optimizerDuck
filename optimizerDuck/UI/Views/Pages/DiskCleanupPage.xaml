@@ -99,7 +99,7 @@
                             Appearance="Secondary"
                             FontTypography="Body"
                             Margin="0,2,0,0"
-                            Text="{ext:Loc DiskCleanup_ItemsAndFilesSelected,
+                            Text="{ext:Loc DiskCleanup.ItemsAndFilesSelected,
                                            {Binding ViewModel.TotalSelectedSizeFormatted},
                                            {Binding ViewModel.SelectedCount},
                                            {Binding ViewModel.TotalSelectedFileCount}}" />
@@ -360,7 +360,7 @@
                                                     <ui:TextBlock
                                                         FontTypography="Caption"
                                                         Foreground="{DynamicResource TextFillColorInverseBrush}"
-                                                        Text="{ext:Loc DiskCleanup_FilesCount,
+                                                        Text="{ext:Loc DiskCleanup.FilesCount,
                                                                        {Binding FileCount}}" />
                                                 </StackPanel>
                                             </Border>

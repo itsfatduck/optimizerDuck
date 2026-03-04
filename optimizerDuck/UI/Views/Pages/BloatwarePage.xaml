@@ -178,20 +178,38 @@
                         VerticalAlignment="Center">
                         <ComboBoxItem HorizontalContentAlignment="Left">
                             <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
-                                <ui:SymbolIcon HorizontalAlignment="Left" Margin="0,0,6,0" Symbol="TextSortAscending24" />
-                                <TextBlock Grid.Column="1" HorizontalAlignment="Left" Text="{ext:Loc Common.SortBy.Name}" />
+                                <ui:SymbolIcon
+                                    HorizontalAlignment="Left"
+                                    Margin="0,0,6,0"
+                                    Symbol="TextSortAscending24" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Left"
+                                    Text="{ext:Loc Common.SortBy.Name}" />
                             </Grid>
                         </ComboBoxItem>
                         <ComboBoxItem HorizontalContentAlignment="Left">
                             <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
-                                <ui:SymbolIcon HorizontalAlignment="Left" Margin="0,0,6,0" Symbol="Certificate24" />
-                                <TextBlock Grid.Column="1" HorizontalAlignment="Left" Text="{ext:Loc Common.SortBy.Publisher}" />
+                                <ui:SymbolIcon
+                                    HorizontalAlignment="Left"
+                                    Margin="0,0,6,0"
+                                    Symbol="Certificate24" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Left"
+                                    Text="{ext:Loc Common.SortBy.Publisher}" />
                             </Grid>
                         </ComboBoxItem>
                         <ComboBoxItem HorizontalContentAlignment="Left">
                             <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
-                                <ui:SymbolIcon HorizontalAlignment="Left" Margin="0,0,6,0" Symbol="Shield24" />
-                                <TextBlock Grid.Column="1" HorizontalAlignment="Left" Text="{ext:Loc Common.SortBy.Risk}" />
+                                <ui:SymbolIcon
+                                    HorizontalAlignment="Left"
+                                    Margin="0,0,6,0"
+                                    Symbol="Shield24" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Left"
+                                    Text="{ext:Loc Common.SortBy.Risk}" />
                             </Grid>
                         </ComboBoxItem>
                     </ComboBox>

@@ -37,11 +37,8 @@ public partial class SettingsViewModel(
 
     //Learn more links
     public string Website { get; } = Shared.WebsiteURL;
-    public string DiscordInvite { get; } = Shared.DiscordInviteURL;
-
-    public string GitHubRepo { get; } = Shared.GitHubRepoURL;
     public string Documentation { get; } = Shared.WebsiteURL + "docs/guides/getting-started";
-    public string Me { get; } = Shared.MeURL;
+    public string Community { get; } = Shared.CommunityURL;
     public string Contribute { get; } = Shared.ContributeURL;
     public string Acknowledgements { get; } = Shared.AcknowledgementsURL;
 
@@ -185,11 +182,11 @@ public partial class SettingsViewModel(
                         UseShellExecute = true
                     });
                     break;
-                case "Me":
-                    logger.LogInformation("Opening page: {Url}", Shared.MeURL);
+                case "Help":
+                    logger.LogInformation("Opening page: {Url}", Shared.CommunityURL);
                     Process.Start(new ProcessStartInfo
                     {
-                        FileName = Shared.MeURL,
+                        FileName = Shared.CommunityURL,
                         UseShellExecute = true
                     });
                     break;

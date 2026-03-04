@@ -53,6 +53,8 @@
                     Icon="{ui:SymbolIcon Delete24}"
                     TargetPageType="{x:Type pages:BloatwarePage}" />
 
+                <ui:NavigationViewItemSeparator Margin="0,2,0,2" />
+
                 <controls:FilledNavigationViewItem
                     Content="{extensions:Loc Sidebar.StartupManager}"
                     Icon="{ui:SymbolIcon WindowArrowUp24}"

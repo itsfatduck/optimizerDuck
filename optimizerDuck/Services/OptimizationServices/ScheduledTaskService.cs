@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32.TaskScheduler;
 using optimizerDuck.Core.Models.ScheduledTask;
+using optimizerDuck.Resources.Languages;
 
 namespace optimizerDuck.Services.OptimizationServices;
 
@@ -32,7 +33,7 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
     public static void DisableTask(string fullPath)
     {
         using var ts = new TaskService();
-        var task = ts.GetTask(fullPath) ?? throw new InvalidOperationException($"Task not found: {fullPath}");
+        var task = ts.GetTask(fullPath) ?? throw new InvalidOperationException(string.Format(Translations.ScheduledTasks_Error_TaskNotFound, fullPath));
         task.Enabled = false;
     }
 
@@ -42,7 +43,7 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
     public static void EnableTask(string fullPath)
     {
         using var ts = new TaskService();
-        var task = ts.GetTask(fullPath) ?? throw new InvalidOperationException($"Task not found: {fullPath}");
+        var task = ts.GetTask(fullPath) ?? throw new InvalidOperationException(string.Format(Translations.ScheduledTasks_Error_TaskNotFound, fullPath));
         task.Enabled = true;
     }
 

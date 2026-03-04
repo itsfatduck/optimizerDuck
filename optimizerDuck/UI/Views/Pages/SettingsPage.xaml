@@ -224,16 +224,16 @@
 
                 <ui:CardAction
                     Command="{Binding ViewModel.OpenWebsiteCommand}"
-                    CommandParameter="Me"
-                    Icon="{ui:SymbolIcon AnimalCat24}">
+                    CommandParameter="Help"
+                    Icon="{ui:SymbolIcon ChatBubblesQuestion24}">
                     <StackPanel>
                         <ui:TextBlock
                             FontTypography="BodyStrong"
                             Padding="0"
-                            Text="fatDuck (itsfatduck)" />
+                            Text="{ext:Loc Settings.About.NeedHelp.Title}" />
                         <ui:TextBlock
                             Appearance="Secondary"
-                            Text="{ext:Loc Settings.About.Author.Description}"
+                            Text="{ext:Loc Settings.About.NeedHelp.Description}"
                             TextWrapping="Wrap" />
                     </StackPanel>
                 </ui:CardAction>
@@ -265,6 +265,7 @@
                     <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.Website}" NavigateUri="{Binding ViewModel.Website}" />
                     <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.Contribute}" NavigateUri="{Binding ViewModel.Contribute}" />
                     <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.Documentation}" NavigateUri="{Binding ViewModel.Documentation}" />
+                    <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.Community}" NavigateUri="{Binding ViewModel.Community}" />
                     <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.Acknowledgements}" NavigateUri="{Binding ViewModel.Acknowledgements}" />
                 </StackPanel>
             </StackPanel>

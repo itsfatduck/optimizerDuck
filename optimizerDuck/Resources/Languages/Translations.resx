@@ -1123,9 +1123,9 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
     <data name="DiskCleanup.ItemsAndFilesSelected" xml:space="preserve">
     <value>{0} selected • {1} items • {2} files</value>
   </data>
-    <data name="Settings.About.Author.Description" xml:space="preserve">
-    <value>hi, i'm the creator of this app. i love cats.</value>
-  </data>
+    <data name="Settings.About.NeedHelp.Title" xml:space="preserve">
+      <value>Need help?</value>
+    </data>
     <data name="Sidebar.StartupManager" xml:space="preserve">
     <value>Startup Manager</value>
   </data>
@@ -1330,4 +1330,13 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
 
     <value>Error</value>
   </data>
+    <data name="Settings.About.NeedHelp.Description" xml:space="preserve">
+      <value>If you need help with optimization or have any questions, please join our community for quick support.</value>
+    </data>
+    <data name="Settings.About.LearnMore.Community" xml:space="preserve">
+      <value>Community</value>
+    </data>
+    <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
+      <value>Task not found: {0}</value>
+    </data>
 </root>
