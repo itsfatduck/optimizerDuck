@@ -5,12 +5,26 @@ using optimizerDuck.Services.OptimizationServices;
 
 namespace optimizerDuck.Core.Models.Revert.Steps;
 
+/// <summary>
+///     Represents a revert step that restores a Windows service to its original startup type.
+/// </summary>
 public class ServiceRevertStep : IRevertStep
 {
+    /// <summary>
+    ///     The name of the Windows service to restore.
+    /// </summary>
     public string ServiceName { get; set; } = string.Empty;
+
+    /// <summary>
+    ///     The original startup type to restore the service to.
+    /// </summary>
     public ServiceStartupType OriginalStartupType { get; set; }
+
+    /// <inheritdoc />
     public string Type => "Service";
 
+
+    /// <inheritdoc />
     public async Task<bool> ExecuteAsync()
     {
         return await Task.Run(() => ServiceProcessService.ChangeServiceStartupType(new ServiceItem
@@ -20,6 +34,8 @@ public class ServiceRevertStep : IRevertStep
         }));
     }
 
+
+    /// <inheritdoc />
     public JObject ToData()
     {
         return new JObject
@@ -29,6 +45,12 @@ public class ServiceRevertStep : IRevertStep
         };
     }
 
+
+    /// <summary>
+    ///     Deserializes a <see cref="ServiceRevertStep"/> from JSON data.
+    /// </summary>
+    /// <param name="data">The JSON data to deserialize.</param>
+    /// <returns>A new <see cref="ServiceRevertStep"/> instance.</returns>
     public static ServiceRevertStep FromData(JObject data)
     {
         return new ServiceRevertStep

@@ -6,10 +6,24 @@ using optimizerDuck.Services.OptimizationServices;
 
 namespace optimizerDuck.Core.Models.Revert.Steps;
 
+/// <summary>
+///     Represents a revert step that restores or deletes a registry value.
+/// </summary>
 public class RegistryRevertStep : IRevertStep
 {
+    /// <summary>
+    ///     The action to perform (restore previous value or delete).
+    /// </summary>
     public RevertAction Action { get; init; }
+
+    /// <summary>
+    ///     The registry key path.
+    /// </summary>
     public string Path { get; init; } = string.Empty;
+
+    /// <summary>
+    ///     The registry value name, or <c>null</c> for the default value.
+    /// </summary>
     public string? Name { get; init; }
 
     /// <summary>
@@ -17,10 +31,21 @@ public class RegistryRevertStep : IRevertStep
     /// </summary>
     public IReadOnlyList<string>? CreatedSubKeys { get; init; }
 
+
+    /// <summary>
+    ///     The original registry value to restore.
+    /// </summary>
     public object? Value { get; init; }
+
+    /// <summary>
+    ///     The registry value kind (DWord, String, etc.).
+    /// </summary>
     public RegistryValueKind Kind { get; init; }
+
+    /// <inheritdoc />
     public string Type => "Registry";
 
+    /// <inheritdoc />
     public async Task<bool> ExecuteAsync()
     {
         return await Task.Run(() =>
@@ -48,6 +73,8 @@ public class RegistryRevertStep : IRevertStep
     }
 
 
+
+    /// <inheritdoc />
     public JObject ToData()
     {
         var obj = new JObject
@@ -101,6 +128,11 @@ public class RegistryRevertStep : IRevertStep
         return obj;
     }
 
+    /// <summary>
+    ///     Deserializes a <see cref="RegistryRevertStep"/> from JSON data.
+    /// </summary>
+    /// <param name="data">The JSON data to deserialize.</param>
+    /// <returns>A new <see cref="RegistryRevertStep"/> instance.</returns>
     public static RegistryRevertStep FromData(JObject data)
     {
         var kind = Enum.Parse<RegistryValueKind>(data[nameof(Kind)]!.ToString());
@@ -150,8 +182,14 @@ public class RegistryRevertStep : IRevertStep
     }
 }
 
+/// <summary>
+///     Specifies the type of revert action to perform on a registry value.
+/// </summary>
 public enum RevertAction
 {
+    /// <summary>The value did not exist before; delete it during revert.</summary>
     NoPreviousValue,
+
+    /// <summary>Restore the previously captured value.</summary>
     RestorePrevious
 }

@@ -137,12 +137,14 @@ public static class ShellService
             var stdout = stdoutBuilder.ToString().Trim();
             var stderr = stderrBuilder.ToString().ParseCliXml().Trim();
 
-            var result = new ShellResult(
-                fullCommandForUser,
-                stdout,
-                stderr,
-                timedOut ? -1 : process.ExitCode, // use -1 error code for timed out
-                duration);
+            var result = new ShellResult
+            {
+                Command = fullCommandForUser,
+                Stdout = stdout,
+                Stderr = stderr,
+                ExitCode = timedOut ? -1 : process.ExitCode, // use -1 error code for timed out
+                Duration = duration
+            };
 
             var success = policy.IsSuccess(result);
 
@@ -183,12 +185,14 @@ public static class ShellService
         }
         catch (Exception ex)
         {
-            var result = new ShellResult(
-                fullCommandForUser,
-                string.Empty,
-                ex.Message,
-                -2,
-                TimeSpan.Zero);
+            var result = new ShellResult
+            {
+                Command = fullCommandForUser,
+                Stdout = string.Empty,
+                Stderr = ex.Message,
+                ExitCode = -2,
+                Duration = TimeSpan.Zero
+            };
 
             ServiceTracker.Track(serviceName, false);
             ServiceTracker.LogError(ex, "[{Service}][FAIL][EXCEPTION] {Command}", serviceName, fullCommandForUser);
@@ -290,12 +294,14 @@ public static class ShellService
             var stdout = stdoutBuilder.ToString().Trim();
             var stderr = stderrBuilder.ToString().ParseCliXml().Trim();
 
-            var result = new ShellResult(
-                fullCommandForUser,
-                stdout,
-                stderr,
-                timedOut ? -1 : process.ExitCode,
-                sw.Elapsed);
+            var result = new ShellResult
+            {
+                Command = fullCommandForUser,
+                Stdout = stdout,
+                Stderr = stderr,
+                ExitCode = timedOut ? -1 : process.ExitCode,
+                Duration = sw.Elapsed
+            };
 
             var success = policy.IsSuccess(result);
 
@@ -334,12 +340,14 @@ public static class ShellService
         }
         catch (Exception ex)
         {
-            var result = new ShellResult(
-                fullCommandForUser,
-                string.Empty,
-                ex.Message,
-                -2,
-                TimeSpan.Zero);
+            var result = new ShellResult
+            {
+                Command = fullCommandForUser,
+                Stdout = string.Empty,
+                Stderr = ex.Message,
+                ExitCode = -2,
+                Duration = TimeSpan.Zero
+            };
 
             ServiceTracker.Track(serviceName, false);
             ServiceTracker.LogError(ex, "[{Service}][FAIL][EXCEPTION] {Command}", serviceName, fullCommandForUser);
@@ -357,11 +365,26 @@ public static class ShellService
 
     #region Command Prompt methods
 
+    /// <summary>
+    ///     Runs a command in the Command Prompt (cmd.exe).
+    /// </summary>
+    /// <param name="command">The command to execute.</param>
+    /// <param name="revertStep">The revert step to record.</param>
+    /// <param name="policy">The policy to use for determining success.</param>
+    /// <returns>The result of the command execution.</returns>
     public static ShellResult CMD(string command, ShellRevertStep? revertStep = null, ShellPolicy? policy = null)
     {
         return Run("cmd.exe", "/c", command, nameof(CMD), revertStep, policy);
     }
 
+    /// <summary>
+    ///     Runs a command in the Command Prompt (cmd.exe) asynchronously.
+    /// </summary>
+    /// <param name="command">The command to execute.</param>
+    /// <param name="revertStep">The revert step to record.</param>
+    /// <param name="policy">The policy to use for determining success.</param>
+    /// <param name="ct">The cancellation token.</param>
+    /// <returns>The result of the command execution.</returns>
     public static Task<ShellResult> CMDAsync(
         string command,
         ShellRevertStep? revertStep = null,
@@ -378,6 +401,13 @@ public static class ShellService
             ct);
     }
 
+    /// <summary>
+    ///     Runs a command in the Command Prompt (cmd.exe) with a specific revert command.
+    /// </summary>
+    /// <param name="command">The command to execute.</param>
+    /// <param name="revertCommand">The command to execute for reverting.</param>
+    /// <param name="policy">The policy to use for determining success.</param>
+    /// <returns>The result of the command execution.</returns>
     public static ShellResult CMD(string command, string revertCommand, ShellPolicy? policy = null)
     {
         return CMD(command, new ShellRevertStep
@@ -387,6 +417,13 @@ public static class ShellService
         }, policy);
     }
 
+    /// <summary>
+    ///     Runs a command in the Command Prompt (cmd.exe) with a specific revert command.
+    /// </summary>
+    /// <param name="command">The command to execute.</param>
+    /// <param name="revertCommand">The command to execute for reverting.</param>
+    /// <param name="policy">The policy to use for determining success.</param>
+    /// <returns>The result of the command execution.</returns>
     public static ShellResult CMD(string command, Func<string> revertCommand, ShellPolicy? policy = null)
     {
         return CMD(command, new ShellRevertStep
@@ -400,6 +437,13 @@ public static class ShellService
 
     #region PowerShell methods
 
+    /// <summary>
+    ///     Runs a command in PowerShell.
+    /// </summary>
+    /// <param name="command">The command to execute.</param>
+    /// <param name="revertStep">The revert step to record.</param>
+    /// <param name="policy">The policy to use for determining success.</param>
+    /// <returns>The result of the command execution.</returns>
     public static ShellResult PowerShell(string command, ShellRevertStep? revertStep = null, ShellPolicy? policy = null)
     {
         command =
@@ -415,6 +459,14 @@ public static class ShellService
             policy);
     }
 
+    /// <summary>
+    ///     Runs a command in PowerShell asynchronously.
+    /// </summary>
+    /// <param name="command">The command to execute.</param>
+    /// <param name="revertStep">The revert step to record.</param>
+    /// <param name="policy">The policy to use for determining success.</param>
+    /// <param name="ct">The cancellation token.</param>
+    /// <returns>The result of the command execution.</returns>
     public static Task<ShellResult> PowerShellAsync(
         string command,
         ShellRevertStep? revertStep = null,
@@ -434,6 +486,13 @@ public static class ShellService
             policy, ct);
     }
 
+    /// <summary>
+    ///     Runs a command in PowerShell with a specific revert command.
+    /// </summary>
+    /// <param name="command">The command to execute.</param>
+    /// <param name="revertCommand">The command to execute for reverting.</param>
+    /// <param name="policy">The policy to use for determining success.</param>
+    /// <returns>The result of the command execution.</returns>
     public static ShellResult PowerShell(string command, string revertCommand, ShellPolicy? policy = null)
     {
         return PowerShell(command, new ShellRevertStep
@@ -443,6 +502,13 @@ public static class ShellService
         }, policy);
     }
 
+    /// <summary>
+    ///     Runs a command in PowerShell with a specific revert command.
+    /// </summary>
+    /// <param name="command">The command to execute.</param>
+    /// <param name="revertCommand">The command to execute for reverting.</param>
+    /// <param name="policy">The policy to use for determining success.</param>
+    /// <returns>The result of the command execution.</returns>
     public static ShellResult PowerShell(string command, Func<string> revertCommand, ShellPolicy? policy = null)
     {
         return PowerShell(command, new ShellRevertStep

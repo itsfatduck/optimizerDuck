@@ -180,7 +180,12 @@ public class OptimizationService(
 
             var applyResult = await Task.Run(async () =>
                 await optimization.ApplyAsync(progress,
-                    new OptimizationContext(optimizationLogger, systemInfoService.Snapshot, streamService)));
+                    new OptimizationContext
+                    {
+                        Logger = optimizationLogger,
+                        Snapshot = systemInfoService.Snapshot,
+                        StreamService = streamService
+                    }));
 
             if (!string.IsNullOrWhiteSpace(applyResult.Message)) // Optimization failed
             {

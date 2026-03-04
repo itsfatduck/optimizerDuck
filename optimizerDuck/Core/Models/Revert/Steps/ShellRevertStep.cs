@@ -5,12 +5,25 @@ using optimizerDuck.Services.OptimizationServices;
 
 namespace optimizerDuck.Core.Models.Revert.Steps;
 
+/// <summary>
+///     Represents a revert step that re-executes a shell command to undo changes.
+/// </summary>
 public class ShellRevertStep : IRevertStep
 {
+    /// <summary>
+    ///     The type of shell to use for execution.
+    /// </summary>
     public ShellType ShellType { get; set; }
+
+    /// <summary>
+    ///     The command string to execute for reverting.
+    /// </summary>
     public string Command { get; set; } = string.Empty;
+
+    /// <inheritdoc />
     public string Type => "Shell";
 
+    /// <inheritdoc />
     public async Task<bool> ExecuteAsync()
     {
         return await Task.Run(() =>
@@ -19,12 +32,13 @@ public class ShellRevertStep : IRevertStep
             {
                 ShellType.PowerShell => ShellService.PowerShell(Command),
                 ShellType.CMD => ShellService.CMD(Command),
-                _ => new ShellResult(Command, "", "Unknown shell type", 1, TimeSpan.Zero)
+                _ => new ShellResult {Command = Command, Stdout = "", Stderr = "Unknown shell type", ExitCode = 1, Duration = TimeSpan.Zero}
             };
             return result.ExitCode == 0;
         });
     }
 
+    /// <inheritdoc />
     public JObject ToData()
     {
         return new JObject
@@ -34,6 +48,11 @@ public class ShellRevertStep : IRevertStep
         };
     }
 
+    /// <summary>
+    ///     Deserializes a <see cref="ShellRevertStep"/> from JSON data.
+    /// </summary>
+    /// <param name="data">The JSON data to deserialize.</param>
+    /// <returns>A new <see cref="ShellRevertStep"/> instance.</returns>
     public static ShellRevertStep FromData(JToken data)
     {
         return new ShellRevertStep
@@ -45,8 +64,14 @@ public class ShellRevertStep : IRevertStep
     }
 }
 
+/// <summary>
+///     Specifies the type of shell used for command execution.
+/// </summary>
 public enum ShellType
 {
+    /// <summary>Windows PowerShell.</summary>
     PowerShell,
+
+    /// <summary>Command Prompt (cmd.exe).</summary>
     CMD
 }

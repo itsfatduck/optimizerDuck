@@ -16,10 +16,24 @@ public partial class OptimizationState : ObservableObject
 
     private int _lastDisplayedSeconds = -1;
 
+    /// <summary>
+    ///     The date and time when the optimization was applied.
+    /// </summary>
     [ObservableProperty] private DateTime? appliedAt;
+
+    /// <summary>
+    ///     Indicates whether the optimization is currently applied.
+    /// </summary>
     [ObservableProperty] private bool isApplied;
+
+    /// <summary>
+    ///     A human-readable relative time string (e.g., "5 minutes ago").
+    /// </summary>
     [ObservableProperty] private string? relativeTime = string.Empty;
 
+    /// <summary>
+    ///     The risk level of the optimization.
+    /// </summary>
     [ObservableProperty] private OptimizationRisk risk;
 
     static OptimizationState()

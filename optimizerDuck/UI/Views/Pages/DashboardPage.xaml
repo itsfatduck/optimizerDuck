@@ -407,7 +407,7 @@
                                         <ui:SymbolIcon.Style>
                                             <Style TargetType="ui:SymbolIcon">
                                                 <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding SystemDrive}" Value="True">
+                                                    <DataTrigger Binding="{Binding IsSystemDrive}" Value="True">
                                                         <Setter Property="Foreground" Value="{DynamicResource SystemFillColorAttentionBrush}" />
                                                     </DataTrigger>
                                                 </Style.Triggers>
@@ -429,12 +429,12 @@
                                             <ui:TextBlock
                                                 FontTypography="BodyStrong"
                                                 Margin="0,0,5,0"
-                                                Text="{Binding Letter, StringFormat='({0})'}" />
+                                                Text="{Binding DriveLetter, StringFormat='({0})'}" />
 
                                             <ui:TextBlock
                                                 FontTypography="Caption"
                                                 Margin="0,0,5,0"
-                                                Text="{Binding Label}"
+                                                Text="{Binding VolumeLabel}"
                                                 VerticalAlignment="Center" />
 
                                             <Border
@@ -443,7 +443,7 @@
                                                 Margin="0,0,4,0"
                                                 Padding="5,2"
                                                 VerticalAlignment="Center"
-                                                Visibility="{Binding SystemDrive, Converter={StaticResource BoolToVisibilityConverter}}">
+                                                Visibility="{Binding IsSystemDrive, Converter={StaticResource BoolToVisibilityConverter}}">
                                                 <ui:TextBlock
                                                     FontTypography="Caption"
                                                     Foreground="Black"
@@ -477,7 +477,7 @@
                                                 CornerRadius="4"
                                                 Padding="5,2"
                                                 VerticalAlignment="Center">
-                                                <ui:TextBlock FontTypography="Caption" Text="{Binding FileSystem}" />
+                                                <ui:TextBlock FontTypography="Caption" Text="{Binding DriveFormat}" />
                                             </Border>
                                         </StackPanel>
 
@@ -500,9 +500,9 @@
                                                 Appearance="Secondary"
                                                 FontTypography="Caption"
                                                 Text="{ext:Loc Dashboard.SystemInfo.Storage.DiskInfo,
-                                                               {Binding UsedSpaceGB, StringFormat='{}{0:F1}'},
+                                                               {Binding UsedSizeGB, StringFormat='{}{0:F1}'},
                                                                {Binding TotalSizeGB, StringFormat='{}{0:F1}'},
-                                                               {Binding FreeSpaceGB, StringFormat='{}{0:F1}'}}" />
+                                                               {Binding AvailableSizeGB, StringFormat='{}{0:F1}'}}" />
                                         </StackPanel>
 
                                         <!--  Progress Bar  -->
