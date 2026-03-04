@@ -180,7 +180,6 @@ public partial class App : Application
                     services.AddSingleton<BloatwareService>();
                     services.AddSingleton<DiskCleanupService>();
                     services.AddSingleton<StartupManagerService>();
-                    services.AddSingleton<ScheduledTaskService>();
                     services.AddSingleton<SystemInfoService>();
                     services.AddSingleton<StreamService>();
                     services.AddSingleton<UpdaterService>();

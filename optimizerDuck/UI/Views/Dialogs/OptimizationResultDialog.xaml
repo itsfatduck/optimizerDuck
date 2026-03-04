@@ -17,7 +17,14 @@
             x:Key="NullToVisibilityConverter" />
     </UserControl.Resources>
     <StackPanel>
-        <StackPanel Orientation="Horizontal">
+        <!-- Header with failed count summary -->
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+            <ui:SymbolIcon
+                Filled="True"
+                Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                Margin="0,0,8,0"
+                Symbol="ErrorCircle24"
+                VerticalAlignment="Center" />
 
             <ui:TextBlock
                 FontTypography="Subtitle"
@@ -30,74 +37,82 @@
         <ui:TextBlock
             Appearance="Secondary"
             FontTypography="Body"
-            Margin="0,2,0,8"
+            Margin="0,2,0,12"
             Text="{ext:Loc OptimizationResultDialog.Description}"
             TextWrapping="Wrap" />
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <ScrollViewer MaxHeight="350" VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding FailedSteps}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <ui:CardControl Margin="0,0,0,8">
                             <ui:CardControl.Header>
-                                <Grid ColumnDefinitions="Auto, Auto, *">
-                                    <Grid ColumnDefinitions="Auto,Auto">
+                                <StackPanel>
+                                    <!-- Top row: index + service type badge + step name -->
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                        <!-- Step index badge -->
                                         <Border
                                             Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
                                             CornerRadius="4"
                                             HorizontalAlignment="Left"
-                                            Margin="0,0,10,0"
+                                            Margin="0,0,8,0"
                                             Padding="6,2"
                                             VerticalAlignment="Center">
-                                            <StackPanel Orientation="Horizontal">
-                                                <ui:SymbolIcon
-                                                    Filled="True"
-                                                    Foreground="{DynamicResource SystemFillColorAttentionBrush}"
-                                                    Margin="0,0,5,0"
-                                                    Symbol="Warning24"
-                                                    VerticalAlignment="Center" />
-                                                <ui:TextBlock
-                                                    Appearance="Disabled"
-                                                    FontTypography="Caption"
-                                                    Text="{Binding Index, StringFormat=# {0}}"
-                                                    VerticalAlignment="Center" />
-                                            </StackPanel>
+                                            <ui:TextBlock
+                                                Appearance="Disabled"
+                                                FontTypography="Caption"
+                                                Text="{Binding Index, StringFormat=# {0}}"
+                                                VerticalAlignment="Center" />
                                         </Border>
 
-                                        <ui:TextBlock
-                                            FontTypography="BodyStrong"
-                                            Grid.Column="1"
-                                            Text="{Binding Name}"
-                                            TextWrapping="Wrap"
-                                            VerticalAlignment="Center" />
-                                    </Grid>
-
-                                    <Separator Grid.Column="1" Margin="5,0,5,0" />
-
-                                    <StackPanel Grid.Column="2">
-                                        <ui:TextBlock
-                                            Appearance="Secondary"
-                                            FontTypography="Caption"
-                                            Text="{Binding Description}"
-                                            TextWrapping="Wrap" />
-
+                                        <!-- Service type badge -->
                                         <Border
-                                            BorderBrush="{DynamicResource SystemFillColorCriticalBrush}"
-                                            BorderThickness="1"
-                                            CornerRadius="6"
+                                            Background="{DynamicResource SystemFillColorAttentionBackgroundBrush}"
+                                            CornerRadius="4"
                                             HorizontalAlignment="Left"
-                                            Margin="0,8,0,0"
-                                            Padding="8,6"
-                                            Visibility="{Binding Error, Converter={StaticResource NullToVisibilityConverter}}">
+                                            Margin="0,0,8,0"
+                                            Padding="6,2"
+                                            VerticalAlignment="Center">
+                                            <ui:TextBlock
+                                                FontTypography="Caption"
+                                                Foreground="{DynamicResource SystemFillColorAttentionBrush}"
+                                                Text="{Binding Name}"
+                                                VerticalAlignment="Center" />
+                                        </Border>
+                                    </StackPanel>
+
+                                    <!-- Step description -->
+                                    <ui:TextBlock
+                                        FontTypography="BodyStrong"
+                                        Margin="0,0,0,4"
+                                        Text="{Binding Description}"
+                                        TextWrapping="Wrap" />
+
+                                    <!-- Error message -->
+                                    <Border
+                                        BorderBrush="{DynamicResource SystemFillColorCriticalBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="6"
+                                        HorizontalAlignment="Left"
+                                        Margin="0,4,0,0"
+                                        Padding="8,6"
+                                        Visibility="{Binding Error, Converter={StaticResource NullToVisibilityConverter}}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <ui:SymbolIcon
+                                                Filled="True"
+                                                Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                                                Margin="0,0,6,0"
+                                                Symbol="Warning24"
+                                                VerticalAlignment="Center" />
                                             <ui:TextBlock
                                                 FontTypography="Caption"
                                                 Foreground="{DynamicResource SystemFillColorCriticalBrush}"
                                                 HorizontalAlignment="Stretch"
                                                 Text="{Binding Error}"
                                                 TextWrapping="Wrap" />
-                                        </Border>
-                                    </StackPanel>
-                                </Grid>
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
                             </ui:CardControl.Header>
                         </ui:CardControl>
                     </DataTemplate>

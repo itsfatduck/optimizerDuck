@@ -227,6 +227,47 @@ public partial class OptimizationCategoryViewModel : ViewModel
         return RetryOutcome.Succeeded;
     }
 
+    /// <summary>
+    ///     Shows a snackbar notification based on the operation outcome.
+    /// </summary>
+    private void ShowOutcomeSnackbar(bool succeeded, bool partial, bool failed, string operationType,
+        string message, string optimizationName)
+    {
+        if (succeeded)
+        {
+            _snackbarService.Show(
+                operationType == "apply"
+                    ? Translations.Optimization_Apply_Snackbar_Success_Title
+                    : Translations.Optimization_Revert_Snackbar_Success_Title,
+                message,
+                ControlAppearance.Success,
+                new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
+                TimeSpan.FromSeconds(5));
+        }
+        else if (partial)
+        {
+            _snackbarService.Show(
+                operationType == "apply"
+                    ? Translations.Optimization_Apply_Snackbar_Error_Title
+                    : Translations.Optimization_Revert_Snackbar_Error_Title,
+                message,
+                ControlAppearance.Caution,
+                new SymbolIcon { Symbol = SymbolRegular.Warning24, Filled = true },
+                TimeSpan.FromSeconds(5));
+        }
+        else if (failed)
+        {
+            _snackbarService.Show(
+                operationType == "apply"
+                    ? Translations.Optimization_Apply_Snackbar_Error_Title
+                    : Translations.Optimization_Revert_Snackbar_Error_Title,
+                message,
+                ControlAppearance.Danger,
+                new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
+                TimeSpan.FromSeconds(5));
+        }
+    }
+
     private async Task<bool> HandleRestorePointAsync()
     {
         var dialogContent = new RestorePointDialog();
@@ -347,16 +388,20 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 await OptimizationService.UpdateOptimizationStateAsync(optimization);
 
                 // If result status is Failed, we can't retry it
-                // We just need to show the error message and let the user know
-                // It's "not possible" to retry failed steps and save revert data again
                 if (applyResult.Status == OptimizationSuccessResult.Failed)
                 {
-                    _snackbarService.Show(
-                        Translations.Optimization_Apply_Snackbar_Error_Title,
-                        applyResult.Message,
-                        ControlAppearance.Danger,
-                        new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                        TimeSpan.FromSeconds(5));
+                    ShowOutcomeSnackbar(false, false, true, "apply",
+                        applyResult.Message, optimization.OptimizationKey);
+
+                    if (applyResult.Exception != null)
+                        _logger.LogError(applyResult.Exception, "Failed to apply {Name}",
+                            optimization.OptimizationKey);
+                    else
+                        _logger.LogWarning("Failed to apply {Name}", optimization.OptimizationKey);
+
+                    _logger.LogInformation(
+                        "===== END applying optimization {OptimizationName} ({OptimizationId}) =====",
+                        optimization.OptimizationKey, optimization.Id);
                     return;
                 }
 
@@ -366,33 +411,14 @@ public partial class OptimizationCategoryViewModel : ViewModel
                     applyResult.FailedSteps,
                     false);
 
-                // If applied successfully or retry succeeded, mark as applied
                 var succeeded = applyResult.Status == OptimizationSuccessResult.Success ||
                                 retryOutcome == RetryOutcome.Succeeded;
-
-                // If retry skipped, mark as partially applied
                 var partial = retryOutcome == RetryOutcome.Skipped;
-
-                // If retry failed, mark as failed
                 var failed = retryOutcome == RetryOutcome.None &&
                              applyResult.Status != OptimizationSuccessResult.Success;
 
-                // If retry skipped or failed, mark as failed
-                if (failed)
-                    _snackbarService.Show(
-                        Translations.Optimization_Apply_Snackbar_Error_Title,
-                        applyResult.Message,
-                        ControlAppearance.Danger,
-                        new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                        TimeSpan.FromSeconds(5));
-
-                if (partial)
-                    _snackbarService.Show(
-                        Translations.Optimization_Apply_Snackbar_Error_Title,
-                        applyResult.Message,
-                        ControlAppearance.Caution,
-                        new SymbolIcon { Symbol = SymbolRegular.Warning24, Filled = true },
-                        TimeSpan.FromSeconds(5));
+                ShowOutcomeSnackbar(succeeded, partial, failed, "apply",
+                    applyResult.Message, optimization.OptimizationKey);
 
                 if (applyResult.Exception != null)
                     _logger.LogError(applyResult.Exception, "Failed to apply {Name}", optimization.OptimizationKey);
@@ -409,14 +435,15 @@ public partial class OptimizationCategoryViewModel : ViewModel
             else
             {
                 // Revert optimization if already applied
-                _logger.LogInformation("===== START reverting optimization {OptimizationName} ({OptimizationId}) =====",
+                _logger.LogInformation(
+                    "===== START reverting optimization {OptimizationName} ({OptimizationId}) =====",
                     optimization.OptimizationKey, optimization.Id);
 
                 var revertResult = await RunWithProcessingDialogAsync(
                     optimization,
                     progress => _optimizationService.RevertAsync(optimization, progress));
 
-                // Refresh state after revert attempt. Failed steps can still be retried in the current session.
+                // Refresh state after revert attempt.
                 await OptimizationService.UpdateOptimizationStateAsync(optimization);
 
                 var retryOutcome = await HandleFailedStepsAsync(
@@ -428,31 +455,20 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 var partial = retryOutcome == RetryOutcome.Skipped;
                 var failed = retryOutcome == RetryOutcome.None && !revertResult.Success;
 
-                if (failed)
-                    _snackbarService.Show(
-                        Translations.Optimization_Revert_Snackbar_Error_Title,
-                        revertResult.Message,
-                        ControlAppearance.Danger,
-                        new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                        TimeSpan.FromSeconds(5));
-
-                if (partial)
-                    _snackbarService.Show(
-                        Translations.Optimization_Revert_Snackbar_Error_Title,
-                        revertResult.Message,
-                        ControlAppearance.Caution,
-                        new SymbolIcon { Symbol = SymbolRegular.Warning24, Filled = true },
-                        TimeSpan.FromSeconds(5));
+                ShowOutcomeSnackbar(succeeded, partial, failed, "revert",
+                    revertResult.Message, optimization.OptimizationKey);
 
                 if (revertResult.Exception != null)
-                    _logger.LogError(revertResult.Exception, "Failed to revert {Name}", optimization.OptimizationKey);
+                    _logger.LogError(revertResult.Exception, "Failed to revert {Name}",
+                        optimization.OptimizationKey);
                 else if (succeeded)
                     _logger.LogInformation("Successfully reverted {Name}", optimization.OptimizationKey);
                 else if (partial)
                     _logger.LogWarning("Partially reverted {Name}", optimization.OptimizationKey);
                 else
                     _logger.LogWarning("Failed to revert {Name}", optimization.OptimizationKey);
-                _logger.LogInformation("===== END reverting optimization {OptimizationName} ({OptimizationId}) =====",
+                _logger.LogInformation(
+                    "===== END reverting optimization {OptimizationName} ({OptimizationId}) =====",
                     optimization.OptimizationKey, optimization.Id);
             }
         }

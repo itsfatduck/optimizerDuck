@@ -11,7 +11,7 @@ using optimizerDuck.Services.OptimizationServices;
 
 namespace optimizerDuck.Services;
 
-public class StartupManagerService(ILogger<StartupManagerService> logger, ScheduledTaskService scheduledTaskService)
+public class StartupManagerService(ILogger<StartupManagerService> logger)
 {
     public async Task<List<StartupApp>> GetStartupAppsAsync()
     {
@@ -232,7 +232,7 @@ public class StartupManagerService(ILogger<StartupManagerService> logger, Schedu
         {
             try
             {
-                var models = scheduledTaskService.GetStartupTasks();
+                var models = ScheduledTaskService.GetStartupTasks();
                 var tasks = models.Select(m => new StartupTask
                 {
                     TaskName = m.Name,
@@ -270,9 +270,15 @@ public class StartupManagerService(ILogger<StartupManagerService> logger, Schedu
             {
                 var fullPath = task.TaskPath.TrimEnd('\\') + "\\" + task.TaskName;
                 if (enable)
-                    scheduledTaskService.EnableTaskLogged(fullPath);
+                {
+                    ScheduledTaskService.EnableTask(fullPath);
+                    logger.LogInformation("Enabled task {Name} ({Path})", task.TaskName, fullPath);
+                }
                 else
-                    scheduledTaskService.DisableTaskLogged(fullPath);
+                {
+                    ScheduledTaskService.DisableTask(fullPath);
+                    logger.LogInformation("Disabled task {Name} ({Path})", task.TaskName, fullPath);
+                }
             }
             catch (Exception ex)
             {

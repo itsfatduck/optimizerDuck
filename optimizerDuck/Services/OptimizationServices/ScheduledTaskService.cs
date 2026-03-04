@@ -1,19 +1,17 @@
 using System.Collections.ObjectModel;
-using Microsoft.Extensions.Logging;
 using Microsoft.Win32.TaskScheduler;
+using optimizerDuck.Core.Models.Revert.Steps;
 using optimizerDuck.Core.Models.ScheduledTask;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Managers;
 using Task = Microsoft.Win32.TaskScheduler.Task;
 
 namespace optimizerDuck.Services.OptimizationServices;
 
-public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
+public static class ScheduledTaskService
 {
-    #region Optimization uses
-
     /// <summary>
     ///     Checks whether a task at the given full path exists and is enabled.
-    ///     Static overload for use from optimizers.
     /// </summary>
     public static bool IsTaskEnabled(string fullPath)
     {
@@ -23,44 +21,137 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
             var task = ts.GetTask(fullPath);
             return task is { Enabled: true };
         }
-        catch
+        catch (Exception ex)
         {
+            ServiceTracker.LogDebug("Failed to check task enabled state {Path}: {Error}", fullPath, ex.Message);
             return false;
         }
     }
 
     /// <summary>
-    ///     Disables a task by full path. Static overload for use from optimizers.
+    ///     Disables a task by full path with logging, tracking, and revert recording.
     /// </summary>
-    public static void DisableTask(string fullPath)
+    public static bool DisableTask(string fullPath)
     {
-        using var ts = new TaskService();
-        var task = ts.GetTask(fullPath) ??
-                   throw new InvalidOperationException(string.Format(Translations.ScheduledTasks_Error_TaskNotFound,
-                       fullPath));
-        task.Enabled = false;
+        var description = $"Disable: {fullPath}";
+        try
+        {
+            using var ts = new TaskService();
+            var task = ts.GetTask(fullPath) ??
+                       throw new InvalidOperationException(string.Format(Translations.ScheduledTasks_Error_TaskNotFound,
+                           fullPath));
+
+            var wasEnabled = task.Enabled;
+            task.Enabled = false;
+
+            // Record revert step: restore to previous enabled state
+            if (wasEnabled)
+                RevertManager.Record(new ScheduledTaskRevertStep
+                {
+                    FullPath = fullPath,
+                    OriginalEnabled = true
+                });
+
+            ServiceTracker.LogInfo("Disabled task {Path}", fullPath);
+            ServiceTracker.Track(nameof(DisableTask), true);
+            ServiceTracker.TrackStep(
+                "ScheduledTask",
+                description,
+                true,
+                null,
+                () => System.Threading.Tasks.Task.Run(() => DisableTask(fullPath)));
+            return true;
+        }
+        catch (UnauthorizedAccessException)
+        {
+            ServiceTracker.LogError(null, "Access denied disabling task {Path}", fullPath);
+            ServiceTracker.Track(nameof(DisableTask), false);
+            ServiceTracker.TrackStep(
+                "ScheduledTask",
+                description,
+                false,
+                Translations.Service_Common_Error_AccessDenied,
+                () => System.Threading.Tasks.Task.Run(() => DisableTask(fullPath)));
+            return false;
+        }
+        catch (Exception ex)
+        {
+            ServiceTracker.LogError(ex, "Failed to disable task {Path}", fullPath);
+            ServiceTracker.Track(nameof(DisableTask), false);
+            ServiceTracker.TrackStep(
+                "ScheduledTask",
+                description,
+                false,
+                ex.Message,
+                () => System.Threading.Tasks.Task.Run(() => DisableTask(fullPath)));
+            return false;
+        }
     }
 
     /// <summary>
-    ///     Enables a task by full path. Static overload for use from optimizers.
+    ///     Enables a task by full path with logging, tracking, and revert recording.
     /// </summary>
-    public static void EnableTask(string fullPath)
+    public static bool EnableTask(string fullPath)
     {
-        using var ts = new TaskService();
-        var task = ts.GetTask(fullPath) ??
-                   throw new InvalidOperationException(string.Format(Translations.ScheduledTasks_Error_TaskNotFound,
-                       fullPath));
-        task.Enabled = true;
+        var description = $"Enable: {fullPath}";
+        try
+        {
+            using var ts = new TaskService();
+            var task = ts.GetTask(fullPath) ??
+                       throw new InvalidOperationException(string.Format(Translations.ScheduledTasks_Error_TaskNotFound,
+                           fullPath));
+
+            var wasEnabled = task.Enabled;
+            task.Enabled = true;
+
+            // Record revert step: restore to previous enabled state
+            if (!wasEnabled)
+                RevertManager.Record(new ScheduledTaskRevertStep
+                {
+                    FullPath = fullPath,
+                    OriginalEnabled = false
+                });
+
+            ServiceTracker.LogInfo("Enabled task {Path}", fullPath);
+            ServiceTracker.Track(nameof(EnableTask), true);
+            ServiceTracker.TrackStep(
+                "ScheduledTask",
+                description,
+                true,
+                null,
+                () => System.Threading.Tasks.Task.Run(() => EnableTask(fullPath)));
+            return true;
+        }
+        catch (UnauthorizedAccessException)
+        {
+            ServiceTracker.LogError(null, "Access denied enabling task {Path}", fullPath);
+            ServiceTracker.Track(nameof(EnableTask), false);
+            ServiceTracker.TrackStep(
+                "ScheduledTask",
+                description,
+                false,
+                Translations.Service_Common_Error_AccessDenied,
+                () => System.Threading.Tasks.Task.Run(() => EnableTask(fullPath)));
+            return false;
+        }
+        catch (Exception ex)
+        {
+            ServiceTracker.LogError(ex, "Failed to enable task {Path}", fullPath);
+            ServiceTracker.Track(nameof(EnableTask), false);
+            ServiceTracker.TrackStep(
+                "ScheduledTask",
+                description,
+                false,
+                ex.Message,
+                () => System.Threading.Tasks.Task.Run(() => EnableTask(fullPath)));
+            return false;
+        }
     }
-
-    #endregion Optimization uses
-
-    #region Main Methods
 
     /// <summary>
     ///     Recursively retrieves all scheduled tasks from the system.
     /// </summary>
-    public List<ScheduledTaskModel> GetAllTasks()
+    public static List<ScheduledTaskModel> GetAllTasks()
     {
         var results = new List<ScheduledTaskModel>();
         try
@@ -78,7 +169,7 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Failed to enumerate scheduled tasks");
+            ServiceTracker.LogError(ex, "Failed to enumerate scheduled tasks");
         }
 
         return results;
@@ -87,7 +178,7 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
     /// <summary>
     ///     Returns only tasks that have a LogonTrigger or BootTrigger (startup-related).
     /// </summary>
-    public List<ScheduledTaskModel> GetStartupTasks()
+    public static List<ScheduledTaskModel> GetStartupTasks()
     {
         return GetAllTasks()
             .Where(t => t.HasLogonTrigger || t.HasBootTrigger)
@@ -95,62 +186,36 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
             .ToList();
     }
 
-    public void EnableTaskLogged(string fullPath)
-    {
-        try
-        {
-            EnableTask(fullPath);
-            logger.LogInformation("Enabled task {Path}", fullPath);
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Failed to enable task {Path}", fullPath);
-            throw;
-        }
-    }
-
-    public void DisableTaskLogged(string fullPath)
-    {
-        try
-        {
-            DisableTask(fullPath);
-            logger.LogInformation("Disabled task {Path}", fullPath);
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Failed to disable task {Path}", fullPath);
-            throw;
-        }
-    }
-
-    public void RunTask(string fullPath)
+    public static void RunTask(string fullPath)
     {
         try
         {
             using var ts = new TaskService();
-            var task = ts.GetTask(fullPath) ?? throw new InvalidOperationException($"Task not found: {fullPath}");
+            var task = ts.GetTask(fullPath) ?? throw new InvalidOperationException(
+                string.Format(Translations.ScheduledTasks_Error_TaskNotFound, fullPath));
             task.Run();
-            logger.LogInformation("Started task {Path}", fullPath);
+            ServiceTracker.LogInfo("Started task {Path}", fullPath);
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Failed to run task {Path}", fullPath);
+            ServiceTracker.LogError(ex, "Failed to run task {Path}", fullPath);
             throw;
         }
     }
 
-    public void StopTask(string fullPath)
+    public static void StopTask(string fullPath)
     {
         try
         {
             using var ts = new TaskService();
-            var task = ts.GetTask(fullPath) ?? throw new InvalidOperationException($"Task not found: {fullPath}");
+            var task = ts.GetTask(fullPath) ?? throw new InvalidOperationException(
+                string.Format(Translations.ScheduledTasks_Error_TaskNotFound, fullPath));
             task.Stop();
-            logger.LogInformation("Stopped task {Path}", fullPath);
+            ServiceTracker.LogInfo("Stopped task {Path}", fullPath);
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Failed to stop task {Path}", fullPath);
+            ServiceTracker.LogError(ex, "Failed to stop task {Path}", fullPath);
             throw;
         }
     }
@@ -158,7 +223,7 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
     /// <summary>
     ///     Gets the current state string of a task by its full path.
     /// </summary>
-    public string? GetTaskState(string fullPath)
+    public static string? GetTaskState(string fullPath)
     {
         try
         {
@@ -168,24 +233,25 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
         }
         catch (Exception ex)
         {
-            logger.LogDebug(ex, "Failed to get state for task {Path}", fullPath);
+            ServiceTracker.LogDebug("Failed to get state for task {Path}: {Error}", fullPath, ex.Message);
             return null;
         }
     }
 
-    public void DeleteTask(string fullPath)
+    public static void DeleteTask(string fullPath)
     {
         try
         {
             using var ts = new TaskService();
-            var task = ts.GetTask(fullPath) ?? throw new InvalidOperationException($"Task not found: {fullPath}");
+            var task = ts.GetTask(fullPath) ?? throw new InvalidOperationException(
+                string.Format(Translations.ScheduledTasks_Error_TaskNotFound, fullPath));
             var folderPath = task.Folder.Path;
             ts.GetFolder(folderPath).DeleteTask(task.Name);
-            logger.LogInformation("Deleted task {Path}", fullPath);
+            ServiceTracker.LogInfo("Deleted task {Path}", fullPath);
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Failed to delete task {Path}", fullPath);
+            ServiceTracker.LogError(ex, "Failed to delete task {Path}", fullPath);
             throw;
         }
     }
@@ -193,7 +259,7 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
     /// <summary>
     ///     [WIP] Registers a new scheduled task from a model definition.
     /// </summary>
-    public void RegisterTask(string folderPath, ScheduledTaskModel model)
+    public static void RegisterTask(string folderPath, ScheduledTaskModel model)
     {
         try
         {
@@ -250,20 +316,18 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
                 }
 
             folder.RegisterTaskDefinition(model.Name, td);
-            logger.LogInformation("Registered task {Name} in folder {Folder}", model.Name, folderPath);
+            ServiceTracker.LogInfo("Registered task {Name} in folder {Folder}", model.Name, folderPath);
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Failed to register task {Name} in {Folder}", model.Name, folderPath);
+            ServiceTracker.LogError(ex, "Failed to register task {Name} in {Folder}", model.Name, folderPath);
             throw;
         }
     }
-
-    #endregion Main Methods
-
+    
     #region Helpers
 
-    private void CollectTasks(TaskFolder folder, List<ScheduledTaskModel> results)
+    private static void CollectTasks(TaskFolder folder, List<ScheduledTaskModel> results)
     {
         try
         {
@@ -274,7 +338,7 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
                 }
                 catch (Exception ex)
                 {
-                    logger.LogDebug(ex, "Failed to map task {Name}", task.Name);
+                    ServiceTracker.LogDebug("Failed to map task {Name}: {Error}", task.Name, ex.Message);
                 }
 
             foreach (var subFolder in folder.SubFolders)
@@ -282,7 +346,7 @@ public class ScheduledTaskService(ILogger<ScheduledTaskService> logger)
         }
         catch (Exception ex)
         {
-            logger.LogDebug(ex, "Failed to enumerate folder {Path}", folder.Path);
+            ServiceTracker.LogDebug("Failed to enumerate folder {Path}: {Error}", folder.Path, ex.Message);
         }
     }
 

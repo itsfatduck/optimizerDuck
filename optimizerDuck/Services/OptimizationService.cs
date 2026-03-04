@@ -263,7 +263,7 @@ public class OptimizationService(
             {
                 Status = status,
                 Message = string.Format(Translations.Optimization_Apply_Error_Failed,
-                    optimization.OptimizationKey, ex.Message),
+                    optimization.OptimizationKey),
                 Exception = ex,
                 FailedSteps = failedSteps
             };
@@ -275,9 +275,10 @@ public class OptimizationService(
                     await revertContext.DisposeAsync();
                     revertContextDisposed = true;
                 }
-                catch
+                catch (Exception saveEx)
                 {
-                    // Best-effort cleanup only.
+                    _logger.LogError(saveEx, "Failed to save revert data after exception for {Name}",
+                        optimization.OptimizationKey);
                 }
         }
         finally
@@ -326,10 +327,10 @@ public class OptimizationService(
             optimization.OptimizationKey,
             progress);
 
-        var steps = tracker.GetSteps().ToList();
-        result.FailedStepDetails = steps
-            .Where(s => s.Error != null)
-            .ToList();
+        // Merge tracker steps with revert result details
+        var trackerSteps = tracker.GetSteps().ToList();
+        if (result.FailedStepDetails.Count == 0 && trackerSteps.Any(s => !s.Success))
+            result.FailedStepDetails = trackerSteps.Where(s => !s.Success).ToList();
 
         progress?.Report(new ProcessingProgress
         {
@@ -428,16 +429,18 @@ public class OptimizationService(
     }
 
     /// <summary>
-    ///     Retries failed optimization steps.
+    ///     Retries failed optimization steps with configurable max retry attempts.
     /// </summary>
     /// <param name="failedSteps">The steps that previously failed.</param>
     /// <param name="reverseOrder">Whether to execute steps in reverse order.</param>
     /// <param name="progress">A progress reporter for UI updates (optional).</param>
+    /// <param name="maxRetries">Maximum number of retry attempts per step (default 3).</param>
     /// <returns>A list of steps that still failed after retry.</returns>
     public static async Task<List<OperationStepResult>> RetryFailedStepsAsync(
         IReadOnlyList<OperationStepResult> failedSteps,
         bool reverseOrder,
-        IProgress<ProcessingProgress>? progress = null)
+        IProgress<ProcessingProgress>? progress = null,
+        int maxRetries = 3)
     {
         if (failedSteps.Count == 0)
             return [];
@@ -477,7 +480,23 @@ public class OptimizationService(
                 continue;
             }
 
-            var success = await step.RetryAction();
+            var success = false;
+            for (var attempt = 0; attempt < maxRetries; attempt++)
+            {
+                try
+                {
+                    success = await step.RetryAction();
+                    if (success) break;
+                }
+                catch
+                {
+                    // Retry on next attempt
+                }
+
+                if (attempt < maxRetries - 1)
+                    await Task.Delay(200 * (attempt + 1)); // progressive delay
+            }
+
             if (!success)
                 stillFailed.Add(step);
         }

@@ -351,6 +351,9 @@
     <data name="Revert.Error.InvalidSteps" xml:space="preserve">
     <value>Các bước hoàn tác không hợp lệ: {0}</value>
   </data>
+    <data name="Revert.Error.StepFailed" xml:space="preserve">
+    <value>Bước hoàn tác thất bại</value>
+  </data>
     <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
     <value>OptimizationId không khớp.</value>
   </data>
@@ -483,6 +486,12 @@ Phiên bản hiện tại: {0} </value>
   </data>
     <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
     <value>Đã xảy ra lỗi sau khi hoàn tác</value>
+  </data>
+    <data name="Optimization.Apply.Snackbar.Success.Title" xml:space="preserve">
+    <value>Áp dụng tối ưu thành công</value>
+  </data>
+    <data name="Optimization.Revert.Snackbar.Success.Title" xml:space="preserve">
+    <value>Hoàn tác tối ưu thành công</value>
   </data>
     <data name="Optimization.Toggle.Snackbar.Error.Title" xml:space="preserve">
     <value>Không thể áp dụng/hoàn tác tối ưu</value>

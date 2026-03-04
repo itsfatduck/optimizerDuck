@@ -1159,6 +1159,24 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Optimization applied successfully.
+        /// </summary>
+        internal static string Optimization_Apply_Snackbar_Success_Title {
+            get {
+                return ResourceManager.GetString("Optimization.Apply.Snackbar.Success.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optimization reverted successfully.
+        /// </summary>
+        internal static string Optimization_Revert_Snackbar_Success_Title {
+            get {
+                return ResourceManager.GetString("Optimization.Revert.Snackbar.Success.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Successfully reverted {0}!.
         /// </summary>
         internal static string Optimization_Revert_Success {
@@ -2653,6 +2671,15 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Revert_Error_InvalidSteps {
             get {
                 return ResourceManager.GetString("Revert.Error.InvalidSteps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revert step failed.
+        /// </summary>
+        internal static string Revert_Error_StepFailed {
+            get {
+                return ResourceManager.GetString("Revert.Error.StepFailed", resourceCulture);
             }
         }
         

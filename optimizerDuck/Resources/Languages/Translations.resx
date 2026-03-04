@@ -349,6 +349,9 @@
     <data name="Revert.Error.InvalidSteps" xml:space="preserve">
     <value>Invalid revert steps: {0}</value>
   </data>
+    <data name="Revert.Error.StepFailed" xml:space="preserve">
+    <value>Revert step failed</value>
+  </data>
     <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
     <value>OptimizationId mismatch.</value>
   </data>
@@ -485,6 +488,12 @@ Current version: {0}</value>
   </data>
     <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
     <value>Couldn't revert optimization</value>
+  </data>
+    <data name="Optimization.Apply.Snackbar.Success.Title" xml:space="preserve">
+    <value>Optimization applied successfully</value>
+  </data>
+    <data name="Optimization.Revert.Snackbar.Success.Title" xml:space="preserve">
+    <value>Optimization reverted successfully</value>
   </data>
     <data name="Optimization.Toggle.Snackbar.Error.Title" xml:space="preserve">
     <value>Couldn't toggle optimization</value>

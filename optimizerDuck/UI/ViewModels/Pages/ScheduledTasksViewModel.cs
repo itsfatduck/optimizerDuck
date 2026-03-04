@@ -18,7 +18,6 @@ public partial class ScheduledTasksViewModel : ViewModel
     private readonly List<ScheduledTaskModel> _allTasks = [];
     private readonly IContentDialogService _contentDialogService;
     private readonly ILogger<ScheduledTasksViewModel> _logger;
-    private readonly ScheduledTaskService _scheduledTaskService;
     private readonly ISnackbarService _snackbarService;
     [ObservableProperty] private bool _hideMicrosoftTasks = true;
     private bool _isInitialized;
@@ -30,12 +29,10 @@ public partial class ScheduledTasksViewModel : ViewModel
     [ObservableProperty] private int _sortByIndex;
 
     public ScheduledTasksViewModel(
-        ScheduledTaskService scheduledTaskService,
         IContentDialogService contentDialogService,
         ISnackbarService snackbarService,
         ILogger<ScheduledTasksViewModel> logger)
     {
-        _scheduledTaskService = scheduledTaskService;
         _contentDialogService = contentDialogService;
         _snackbarService = snackbarService;
         _logger = logger;
@@ -83,9 +80,15 @@ public partial class ScheduledTasksViewModel : ViewModel
             await Task.Run(() =>
             {
                 if (task.IsEnabled)
-                    _scheduledTaskService.EnableTaskLogged(task.FullPath);
+                {
+                    ScheduledTaskService.EnableTask(task.FullPath);
+                    _logger.LogInformation("Enabled task {Name} ({Path})", task.Name, task.FullPath);
+                }
                 else
-                    _scheduledTaskService.DisableTaskLogged(task.FullPath);
+                {
+                    ScheduledTaskService.DisableTask(task.FullPath);
+                    _logger.LogInformation("Disabled task {Name} ({Path})", task.Name, task.FullPath);
+                }
             });
 
             _snackbarService.Show(
@@ -101,7 +104,7 @@ public partial class ScheduledTasksViewModel : ViewModel
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to toggle task {Name}", task.Name);
+            _logger.LogError(ex, "Failed to toggle task {Name} ({Path})", task.Name, task.FullPath);
 
             // Revert UI without triggering PropertyChanged to avoid infinite loop
             task.PropertyChanged -= Task_PropertyChanged;
@@ -123,7 +126,8 @@ public partial class ScheduledTasksViewModel : ViewModel
         if (task == null) return;
         try
         {
-            await Task.Run(() => _scheduledTaskService.RunTask(task.FullPath));
+            await Task.Run(() => ScheduledTaskService.RunTask(task.FullPath));
+            _logger.LogInformation("Ran task {Name} ({Path})", task.Name, task.FullPath);
 
             _snackbarService.Show(
                 Translations.ScheduledTasks_Snackbar_Run_Title,
@@ -136,7 +140,7 @@ public partial class ScheduledTasksViewModel : ViewModel
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to run task {Name}", task.Name);
+            _logger.LogError(ex, "Failed to run task {Name} ({Path})", task.Name, task.FullPath);
 
             _snackbarService.Show(
                 Translations.ScheduledTasks_Snackbar_Error_Title,
@@ -153,7 +157,8 @@ public partial class ScheduledTasksViewModel : ViewModel
         if (task == null) return;
         try
         {
-            await Task.Run(() => _scheduledTaskService.StopTask(task.FullPath));
+            await Task.Run(() => ScheduledTaskService.StopTask(task.FullPath));
+            _logger.LogInformation("Stopped task {Name} ({Path})", task.Name, task.FullPath);
 
             _snackbarService.Show(
                 Translations.ScheduledTasks_Snackbar_Stop_Title,
@@ -166,7 +171,7 @@ public partial class ScheduledTasksViewModel : ViewModel
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to stop task {Name}", task.Name);
+            _logger.LogError(ex, "Failed to stop task {Name} ({Path})", task.Name, task.FullPath);
 
             _snackbarService.Show(
                 Translations.ScheduledTasks_Snackbar_Error_Title,
@@ -195,7 +200,8 @@ public partial class ScheduledTasksViewModel : ViewModel
 
         try
         {
-            await Task.Run(() => _scheduledTaskService.DeleteTask(task.FullPath));
+            await Task.Run(() => ScheduledTaskService.DeleteTask(task.FullPath));
+            _logger.LogInformation("Deleted task {Name} ({Path})", task.Name, task.FullPath);
             _allTasks.RemoveAll(t => t.FullPath == task.FullPath);
             ApplyFilter();
 
@@ -208,7 +214,7 @@ public partial class ScheduledTasksViewModel : ViewModel
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to delete task {Name}", task.Name);
+            _logger.LogError(ex, "Failed to delete task {Name} ({Path})", task.Name, task.FullPath);
 
             _snackbarService.Show(
                 Translations.ScheduledTasks_Snackbar_Error_Title,
@@ -258,7 +264,7 @@ public partial class ScheduledTasksViewModel : ViewModel
     {
         try
         {
-            var newState = await Task.Run(() => _scheduledTaskService.GetTaskState(task.FullPath));
+            var newState = await Task.Run(() => ScheduledTaskService.GetTaskState(task.FullPath));
             if (newState != null)
             {
                 task.State = newState;
@@ -279,7 +285,7 @@ public partial class ScheduledTasksViewModel : ViewModel
 
         try
         {
-            var tasks = await Task.Run(() => _scheduledTaskService.GetAllTasks());
+            var tasks = await Task.Run(() => ScheduledTaskService.GetAllTasks());
             _allTasks.AddRange(tasks);
             ApplyFilter();
         }
