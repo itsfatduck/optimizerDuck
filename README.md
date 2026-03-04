@@ -104,10 +104,14 @@ Every star and contribution helps keep the project growing.
 
 ## Community, Contributing & Support
 
-- 🌐 [Website](https://optimizerduck.vercel.app/) → Official Website & Documentation
-- 💬 [Discord](https://discord.gg/tDUBDCYw9Q) → Live chat & support
-- 🐞 [Issues](https://github.com/itsfatduck/optimizerDuck/issues) → Bug reports
-- 💡 [Discussions](https://github.com/itsfatduck/optimizerDuck/discussions) → Feature requests
+- 🌐 [Website](https://optimizerduck.vercel.app/)
+  Official Website & Documentation
+- 💬 [Discord](https://discord.gg/tDUBDCYw9Q)
+  Live chat & support
+- 🐞 [Issues](https://github.com/itsfatduck/optimizerDuck/issues)
+  Bug reports
+- 💡 [Discussions](https://github.com/itsfatduck/optimizerDuck/discussions)
+  Feature requests
 
 > [!TIP]
 > Before asking for help, check the docs and existing issues, your answer may already be there.
