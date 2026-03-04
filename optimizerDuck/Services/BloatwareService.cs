@@ -21,7 +21,7 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
     /// <summary>
     ///     Gets all removable AppX packages on the system.
     /// </summary>
-    /// <returns>A list of AppX packages with their risk levels.</returns>
+    /// <returns>A list of <see cref="AppXPackage"/>.</returns>
     public async Task<List<AppXPackage>> GetAppXPackagesAsync()
     {
         try
