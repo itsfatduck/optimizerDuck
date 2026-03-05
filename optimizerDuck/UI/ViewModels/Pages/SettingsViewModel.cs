@@ -126,7 +126,7 @@ public partial class SettingsViewModel(
     {
         var result = await ConfirmationDialogAsync(Translations.Settings_ClearResources_Description);
         if (result == ContentDialogResult.Primary)
-            OptimizationService.ClearResources();
+            OptimizationService.ClearResources(logger);
     }
 
     [RelayCommand]
@@ -135,7 +135,7 @@ public partial class SettingsViewModel(
         var result = await ConfirmationDialogAsync(Translations.Settings_ClearRevertData_Description);
         if (result == ContentDialogResult.Primary)
         {
-            RevertManager.ClearAllRevertData();
+            RevertManager.ClearAllRevertData(logger);
             // Refresh optimizations
             await OptimizationService.UpdateOptimizationStateAsync(
                 optimizationRegistry.OptimizationCategories.SelectMany(c => c.Optimizations));

@@ -330,6 +330,9 @@
     <data name="Optimization.Revert.ExecutingStep" xml:space="preserve">
     <value>Đang thực hiện bước hoàn tác: {0}/{1} ({2})</value>
   </data>
+    <data name="Optimization.Revert.StepDescription" xml:space="preserve">
+    <value>Đang hoàn tác bước #{0}</value>
+  </data>
     <data name="Revert.Error.FileNotFound" xml:space="preserve">
     <value>Không tìm thấy tệp hoàn tác</value>
   </data>
@@ -392,6 +395,9 @@
   </data>
     <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
     <value>ChangeStartMode thất bại (mã: {0})</value>
+  </data>
+    <data name="Service.Service.Error.ExceptionOccurred" xml:space="preserve">
+    <value>Không thể thay đổi dịch vụ '{0}': {1}</value>
   </data>
     <data name="Service.Shell.Error.ExitCode" xml:space="preserve">
     <value>Mã thoát {0}</value>
@@ -1059,7 +1065,7 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
     <value>Tệp tạm thời</value>
   </data>
     <data name="DiskCleanup.Item.TempFiles.Description" xml:space="preserve">
-    <value>Tệp tạm thời của người dùng được tạo bởi các ứng dụng</value>
+    <value>Tệp tạm thời của người dùng được tạo bởi các ứng dụng (đã bỏ qua thư mục .net để tránh lỗi)</value>
   </data>
     <data name="DiskCleanup.Item.SystemTemp" xml:space="preserve">
     <value>Tệp tạm hệ thống</value>
@@ -1333,5 +1339,35 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
     <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
     <value>Không tìm thấy task: {0}</value>
+  </data>
+  <data name="Service.Registry.Name" xml:space="preserve">
+    <value>Registry</value>
+  </data>
+  <data name="Service.Service.Name" xml:space="preserve">
+    <value>Dịch vụ</value>
+  </data>
+  <data name="Service.ScheduledTask.Name" xml:space="preserve">
+    <value>Tác vụ hệ thống</value>
+  </data>
+  <data name="Service.Shell.Name" xml:space="preserve">
+    <value>Lệnh hệ thống</value>
+  </data>
+  <data name="Revert.Registry.Description.Restore" xml:space="preserve">
+    <value>Khôi phục giá trị registry: {0}\{1}</value>
+  </data>
+  <data name="Revert.Registry.Description.Delete" xml:space="preserve">
+    <value>Xóa giá trị registry: {0}\{1}</value>
+  </data>
+  <data name="Revert.Service.Description.Restore" xml:space="preserve">
+    <value>Khôi phục dịch vụ '{0}' về kiểu khởi động {1}</value>
+  </data>
+  <data name="Revert.ScheduledTask.Description.Enable" xml:space="preserve">
+    <value>Bật tác vụ hệ thống: {0}</value>
+  </data>
+  <data name="Revert.ScheduledTask.Description.Disable" xml:space="preserve">
+    <value>Tắt tác vụ hệ thống: {0}</value>
+  </data>
+  <data name="Revert.Shell.Description.Run" xml:space="preserve">
+    <value>Chạy lệnh {0}: {1}</value>
   </data>
 </root>

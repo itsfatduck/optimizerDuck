@@ -106,6 +106,7 @@ public partial class App : Application
     protected override async void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
+        
         try
         {
             // Create the required directories if they don't exist

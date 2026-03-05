@@ -61,19 +61,18 @@ public static class ServiceProcessService
             if (service == null)
             {
                 ExecutionScope.LogInfo(
-                    "[SERVICE][{Name}][FAIL][NOT_FOUND][D=0ms] startup -> {StartupType}",
+                    "[SERVICE][{Name}][OK][NOT_FOUND][D=0ms] startup -> {StartupType}",
                     item.Name,
                     item.StartupType
                 );
-                ExecutionScope.Track(nameof(ChangeServiceStartupType), false);
+                ExecutionScope.Track(nameof(ChangeServiceStartupType), true);
                 ExecutionScope.RecordStep(
-                    "Service",
+                    Translations.Service_Service_Name,
                     description,
-                    false,
+                    true,
                     null,
-                    Translations.Service_Service_Error_NotFound,
-                    retryAction: () => Task.FromResult(ChangeServiceStartupType(item)));
-                return false;
+                    null);
+                return true;
             }
 
             // Record revert: backup current startup type
@@ -124,12 +123,12 @@ public static class ServiceProcessService
 
                 ExecutionScope.Track(nameof(ChangeServiceStartupType), registrySuccess);
                 ExecutionScope.RecordStep(
-                    "Service",
+                    Translations.Service_Service_Name,
                     description,
                     registrySuccess,
                     registrySuccess ? revertStep : null,
                     registrySuccess ? null : Translations.Service_Service_Error_UpdateRegistryForStartupTypeFailed,
-                    retryAction: registrySuccess ? null : () => Task.FromResult(ChangeServiceStartupType(item)));
+                    registrySuccess ? null : () => Task.FromResult(ChangeServiceStartupType(item)));
                 return registrySuccess;
             }
 
@@ -143,12 +142,12 @@ public static class ServiceProcessService
 
             ExecutionScope.Track(nameof(ChangeServiceStartupType), false);
             ExecutionScope.RecordStep(
-                "Service",
+                Translations.Service_Service_Name,
                 description,
                 false,
                 null,
                 string.Format(Translations.Service_Service_Error_ChangeStartModeFailedWithCode, resultCode),
-                retryAction: () => Task.FromResult(ChangeServiceStartupType(item)));
+                () => Task.FromResult(ChangeServiceStartupType(item)));
             return false;
         }
         catch (Exception ex)
@@ -161,12 +160,12 @@ public static class ServiceProcessService
             );
             ExecutionScope.Track(nameof(ChangeServiceStartupType), false);
             ExecutionScope.RecordStep(
-                "Service",
+                Translations.Service_Service_Name,
                 description,
                 false,
                 null,
-                ex.Message,
-                retryAction: () => Task.FromResult(ChangeServiceStartupType(item)));
+                string.Format(Translations.Service_Service_Error_ExceptionOccurred, item.Name, ex.Message),
+                () => Task.FromResult(ChangeServiceStartupType(item)));
             return false;
         }
     }

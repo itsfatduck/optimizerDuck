@@ -341,7 +341,7 @@
                                         CommandParameter="{Binding}"
                                         Cursor="Hand"
                                         HorizontalAlignment="Right"
-                                        IsChecked="{Binding State.IsApplied, Mode=TwoWay}"
+                                        IsChecked="{Binding State.IsApplied, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         Margin="0,0,5,0"
                                         VerticalAlignment="Center" />
                                     <ui:Button

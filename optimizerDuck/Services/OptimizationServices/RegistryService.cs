@@ -178,9 +178,6 @@ public static class RegistryService
                 ExecutionScope.LogError(ex, "Failed to read registry {Path}:{Name}",
                     item.Path, item.Name!);
 
-                ExecutionScope.LogInfo("Read registry {Path}:{Name} = <default> (raw={RawType})",
-                    item.Path, item.Name!, value?.GetType().FullName ?? "<null>");
-
                 return default;
             }
         });
@@ -258,7 +255,7 @@ public static class RegistryService
                 ExecutionScope.LogInfo("Wrote {Path}:{Name}[{Kind}] = {Value}",
                     item.Path, item.Name!, item.Kind, item.Value);
                 ExecutionScope.Track(nameof(Write), true);
-                ExecutionScope.RecordStep("Registry", description, true, revertStep, null);
+                ExecutionScope.RecordStep(Translations.Service_Registry_Name, description, true, revertStep);
                 return true;
             }
             catch (UnauthorizedAccessException)
@@ -266,9 +263,9 @@ public static class RegistryService
                 ExecutionScope.LogError(null, "Access denied writing {Path}:{Name}",
                     item.Path, item.Name!);
                 ExecutionScope.Track(nameof(Write), false);
-                ExecutionScope.RecordStep("Registry", description, false, null,
+                ExecutionScope.RecordStep(Translations.Service_Registry_Name, description, false, null,
                     Translations.Service_Common_Error_AccessDenied,
-                    retryAction: () => Task.FromResult(Write(item)));
+                    () => Task.FromResult(Write(item)));
                 return false;
             }
             catch (Exception ex)
@@ -276,8 +273,8 @@ public static class RegistryService
                 ExecutionScope.LogError(ex, "Failed to write registry {Path}:{Name}",
                     item.Path, item.Name!);
                 ExecutionScope.Track(nameof(Write), false);
-                ExecutionScope.RecordStep("Registry", description, false, null, ex.Message,
-                    retryAction: () => Task.FromResult(Write(item)));
+                ExecutionScope.RecordStep(Translations.Service_Registry_Name, description, false, null, ex.Message,
+                    () => Task.FromResult(Write(item)));
                 return false;
             }
         }, true, true, createdSubKeys);
@@ -307,7 +304,7 @@ public static class RegistryService
                     ExecutionScope.LogInfo("Skip delete registry {Path}:{Name} (subkey missing)",
                         item.Path, item.Name!);
                     ExecutionScope.Track(nameof(DeleteValue), true);
-                    ExecutionScope.RecordStep("Registry", description, true, null, null);
+                    ExecutionScope.RecordStep(Translations.Service_Registry_Name, description, true);
                     return true;
                 }
 
@@ -318,7 +315,7 @@ public static class RegistryService
             if (key.GetValue(item.Name) == null)
             {
                 ExecutionScope.Track(nameof(DeleteValue), true);
-                ExecutionScope.RecordStep("Registry", description, true, null, null);
+                ExecutionScope.RecordStep(Translations.Service_Registry_Name, description, true);
                 return true;
             }
 
@@ -339,7 +336,7 @@ public static class RegistryService
 
             ExecutionScope.LogInfo("Deleted registry {Path}:{Name}", item.Path, item.Name!);
             ExecutionScope.Track(nameof(DeleteValue), true);
-            ExecutionScope.RecordStep("Registry", description, true, revertStep, null);
+            ExecutionScope.RecordStep(Translations.Service_Registry_Name, description, true, revertStep);
             return true;
         }
         catch (UnauthorizedAccessException)
@@ -347,9 +344,9 @@ public static class RegistryService
             ExecutionScope.LogError(null, "Access denied deleting {Path}:{Name}",
                 item.Path, item.Name!);
             ExecutionScope.Track(nameof(DeleteValue), false);
-            ExecutionScope.RecordStep("Registry", $"{item.Path}:{item.Name}", false, null,
+            ExecutionScope.RecordStep(Translations.Service_Registry_Name, $"{item.Path}:{item.Name}", false, null,
                 Translations.Service_Common_Error_AccessDenied,
-                retryAction: () => Task.FromResult(DeleteValue(item)));
+                () => Task.FromResult(DeleteValue(item)));
             return false;
         }
         catch (Exception ex)
@@ -357,8 +354,8 @@ public static class RegistryService
             ExecutionScope.LogError(ex, "Failed to delete registry {Path}:{Name}",
                 item.Path, item.Name!);
             ExecutionScope.Track(nameof(DeleteValue), false);
-            ExecutionScope.RecordStep("Registry", $"{item.Path}:{item.Name}", false, null, ex.Message,
-                retryAction: () => Task.FromResult(DeleteValue(item)));
+            ExecutionScope.RecordStep(Translations.Service_Registry_Name, $"{item.Path}:{item.Name}", false, null, ex.Message,
+                () => Task.FromResult(DeleteValue(item)));
             return false;
         }
         finally
@@ -440,7 +437,7 @@ public static class RegistryService
 
         ExecutionScope.Track(nameof(RegistryService), false);
 
-        ExecutionScope.RecordStep("Registry", path, false, null, uiReason);
+        ExecutionScope.RecordStep(Translations.Service_Registry_Name, path, false, null, uiReason);
     }
 
     /// <summary>

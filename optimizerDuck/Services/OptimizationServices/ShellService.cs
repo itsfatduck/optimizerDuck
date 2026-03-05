@@ -182,17 +182,24 @@ public static class ShellService
             var error = success ? null : policy.ErrorFactory(result);
 
             ExecutionScope.RecordStep(
-                "Shell",
+                Translations.Service_Shell_Name,
                 fullCommandForUser,
                 success,
                 revertStep,
                 error,
-                retryAction: success ? null : () => Task.FromResult(Run(fileName, arguments, command, serviceName, revertStep, policy).ExitCode == 0));
+                success
+                    ? null
+                    : () => Task.FromResult(
+                        Run(fileName, arguments, command, serviceName, revertStep, policy).ExitCode == 0));
 
             return result;
         }
         catch (Exception ex)
         {
+            ExecutionScope.LogError(ex, "[{Service}][FAIL][EXCEPTION] {Command}",
+                serviceName, fullCommandForUser);
+            ExecutionScope.Track(serviceName, false);
+
             var result = new ShellResult
             {
                 Command = fullCommandForUser,
@@ -203,12 +210,13 @@ public static class ShellService
             };
 
             ExecutionScope.RecordStep(
-                "Shell",
+                Translations.Service_Shell_Name,
                 fullCommandForUser,
                 false,
                 revertStep,
                 ex.Message,
-                retryAction: () => Task.FromResult(Run(fileName, arguments, command, serviceName, revertStep, policy).ExitCode == 0));
+                () => Task.FromResult(Run(fileName, arguments, command, serviceName, revertStep, policy).ExitCode ==
+                                      0));
 
             return result;
         }
@@ -323,17 +331,25 @@ public static class ShellService
             var error = success ? null : policy.ErrorFactory(result);
 
             ExecutionScope.RecordStep(
-                "Shell",
+                Translations.Service_Shell_Name,
                 fullCommandForUser,
                 success,
                 revertStep,
                 error,
-                retryAction: success ? null : async () => (await RunAsync(fileName, arguments, command, serviceName, revertStep, policy, ct)).ExitCode == 0);
+                success
+                    ? null
+                    : async () =>
+                        (await RunAsync(fileName, arguments, command, serviceName, revertStep, policy, ct)).ExitCode ==
+                        0);
 
             return result;
         }
         catch (Exception ex)
         {
+            ExecutionScope.LogError(ex, "[{Service}][FAIL][EXCEPTION] {Command}",
+                serviceName, fullCommandForUser);
+            ExecutionScope.Track(serviceName, false);
+
             var result = new ShellResult
             {
                 Command = fullCommandForUser,
@@ -344,12 +360,13 @@ public static class ShellService
             };
 
             ExecutionScope.RecordStep(
-                "Shell",
+                Translations.Service_Shell_Name,
                 fullCommandForUser,
                 false,
                 revertStep,
                 ex.Message,
-                retryAction: async () => (await RunAsync(fileName, arguments, command, serviceName, revertStep, policy, ct)).ExitCode == 0);
+                async () =>
+                    (await RunAsync(fileName, arguments, command, serviceName, revertStep, policy, ct)).ExitCode == 0);
 
             return result;
         }

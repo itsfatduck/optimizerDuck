@@ -26,8 +26,6 @@ public class OptimizationService(
     IContentDialogService contentDialogService,
     ILogger<OptimizationService> logger)
 {
-    private static readonly Dictionary<Guid, (bool IsApplied, DateTime? AppliedAt)> _stateCache = new();
-    private static readonly object _cacheLock = new();
     private readonly ILogger _logger = logger;
 
     public bool WasRequestedRestorePoint { get; set; } = false;
@@ -135,13 +133,17 @@ public class OptimizationService(
 
     #region Main Methods
 
+    /// <summary>
+    ///     Apply an optimization.
+    /// </summary>
+    /// <param name="optimization">The optimization to apply.</param>
+    /// <param name="progress">The progress reporter.</param>
+    /// <returns>The result of the optimization.</returns>
     public async Task<OptimizationResult> ApplyAsync(IOptimization optimization,
         IProgress<ProcessingProgress> progress)
     {
         var optimizationLogger = loggerFactory.CreateLogger(optimization.GetType());
-
-        using var executionScope = ExecutionScope.Begin(optimization.Id, optimization.OptimizationKey,
-            optimizationLogger);
+        using var executionScope = ExecutionScope.Begin(optimization, optimizationLogger);
 
         OptimizationResult result;
 
@@ -192,14 +194,7 @@ public class OptimizationService(
 
             result = executionScope.ToResult();
 
-            if (result.Status == OptimizationSuccessResult.Success)
-                lock (_cacheLock)
-                {
-                    _stateCache[optimization.Id] = (true, DateTime.Now);
-                }
-
             if (executionScope.HasSuccessfulSteps)
-            {
                 try
                 {
                     await revertManager.SaveRevertDataAsync(executionScope);
@@ -209,7 +204,6 @@ public class OptimizationService(
                     _logger.LogError(saveEx, "Failed to save revert data for {Name}, but optimization was applied",
                         optimization.OptimizationKey);
                 }
-            }
         }
         catch (Exception ex)
         {
@@ -223,18 +217,20 @@ public class OptimizationService(
                 RetryAction = step.RetryAction
             }).ToList();
 
-            var status = GetStatus(executionScope);
+            var hasAnySuccess = executionScope.HasSuccessfulSteps;
+            var status = hasAnySuccess
+                ? OptimizationSuccessResult.PartialSuccess
+                : OptimizationSuccessResult.Failed;
             result = new OptimizationResult
             {
                 Status = status,
                 Message = string.Format(Translations.Optimization_Apply_Error_Failed,
-                    optimization.OptimizationKey),
+                    optimization.Name),
                 Exception = ex,
                 FailedSteps = failedStepResults
             };
 
             if (executionScope.HasSuccessfulSteps)
-            {
                 try
                 {
                     await revertManager.SaveRevertDataAsync(executionScope);
@@ -245,33 +241,21 @@ public class OptimizationService(
                     _logger.LogError(saveEx, "Critical: Failed to save revert data after exception for {Name}",
                         optimization.OptimizationKey);
                 }
-            }
         }
 
         return result;
-
-        OptimizationSuccessResult GetStatus(Core.Models.Execution.ExecutionScope scope)
-        {
-            if (scope.ExecutedSteps.Count == 0)
-                return OptimizationSuccessResult.Failed;
-
-            var failed = scope.FailedSteps.Count;
-            var total = scope.ExecutedSteps.Count;
-
-            return failed switch
-            {
-                0 => OptimizationSuccessResult.Success,
-                _ when failed < total => OptimizationSuccessResult.PartialSuccess,
-                _ => OptimizationSuccessResult.Failed
-            };
-        }
     }
 
+    /// <summary>
+    ///     Revert an optimization.
+    /// </summary>
+    /// <param name="optimization">The optimization to revert.</param>
+    /// <param name="progress">The progress reporter.</param>
+    /// <returns>The result of the revert.</returns>
     public async Task<RevertResult> RevertAsync(IOptimization optimization,
         IProgress<ProcessingProgress>? progress = null)
     {
         var optimizationLogger = loggerFactory.CreateLogger(optimization.GetType());
-        using var scope = ExecutionScope.Begin(optimizationLogger);
 
         progress?.Report(new ProcessingProgress
         {
@@ -280,13 +264,8 @@ public class OptimizationService(
         });
 
         var result = await revertManager.RevertAsync(
-            optimization.Id,
-            optimization.OptimizationKey,
+            optimization,
             progress);
-
-        var scopeSteps = scope.GetStepResults();
-        if (result.FailedStepDetails.Count == 0 && scopeSteps.Any(s => !s.Success))
-            result.FailedStepDetails = scopeSteps.Where(s => !s.Success).ToList();
 
         progress?.Report(new ProcessingProgress
         {
@@ -296,12 +275,6 @@ public class OptimizationService(
             Total = 1
         });
 
-        if (result.Success)
-            lock (_cacheLock)
-            {
-                _stateCache.Remove(optimization.Id);
-            }
-
         return result;
     }
 
@@ -309,57 +282,30 @@ public class OptimizationService(
 
     #region Helpers
 
+    /// <summary>
+    ///     Check if an optimization is applied.
+    /// </summary>
+    /// <param name="optimizationId">The ID of the optimization.</param>
+    /// <returns>Whether the optimization is applied.</returns>
     public static Task<bool> IsAppliedAsync(Guid optimizationId)
     {
         return RevertManager.IsAppliedAsync(optimizationId);
     }
 
+    /// <summary>
+    ///     Update the state of optimizations.
+    /// </summary>
+    /// <param name="optimizations">The optimizations to update.</param>
     public static async Task UpdateOptimizationStateAsync(params IOptimization[] optimizations)
     {
-        var optimizationIds = optimizations.Select(o => o.Id).ToArray();
-        var uncachedIds = new List<Guid>();
-
-        lock (_cacheLock)
+        var tasks = optimizations.Select(async optimization =>
         {
-            foreach (var optimization in optimizations)
-                if (_stateCache.TryGetValue(optimization.Id, out var cachedState))
-                {
-                    optimization.State.IsApplied = cachedState.IsApplied;
-                    optimization.State.AppliedAt = cachedState.AppliedAt;
-                }
-                else
-                {
-                    uncachedIds.Add(optimization.Id);
-                }
-        }
+            var revertData = await RevertManager.GetRevertDataAsync(optimization.Id);
+            optimization.State.IsApplied = revertData != null;
+            optimization.State.AppliedAt = revertData?.AppliedAt;
+        });
 
-        if (uncachedIds.Count > 0)
-        {
-            var tasks = uncachedIds.Select(async id =>
-            {
-                var revertData = await RevertManager.GetRevertDataAsync(id);
-                var state = (IsApplied: revertData != null, revertData?.AppliedAt);
-
-                lock (_cacheLock)
-                {
-                    _stateCache[id] = state;
-                }
-
-                return (Id: id, State: state);
-            });
-
-            var results = await Task.WhenAll(tasks);
-
-            foreach (var optimization in optimizations)
-            {
-                var result = results.FirstOrDefault(r => r.Id == optimization.Id);
-                if (result.Id != Guid.Empty)
-                {
-                    optimization.State.IsApplied = result.State.IsApplied;
-                    optimization.State.AppliedAt = result.State.AppliedAt;
-                }
-            }
-        }
+        await Task.WhenAll(tasks);
     }
 
     public static async Task UpdateOptimizationStateAsync(IEnumerable<IOptimization> optimizations)
@@ -367,22 +313,31 @@ public class OptimizationService(
         await UpdateOptimizationStateAsync(optimizations.ToArray());
     }
 
+    /// <summary>
+    ///     Retry failed steps for an optimization.
+    /// </summary>
+    /// <param name="failedSteps">The failed steps.</param>
+    /// <param name="reverseOrder">Whether to reverse the order of the steps.</param>
+    /// <param name="logger">The logger.</param>
+    /// <param name="progress">The progress reporter.</param>
+    /// <returns>The result of the retry.</returns>
     public static async Task<List<OperationStepResult>> RetryFailedStepsAsync(
         IReadOnlyList<OperationStepResult> failedSteps,
         bool reverseOrder,
-        IProgress<ProcessingProgress>? progress = null,
-        int maxRetries = 3)
+        ILogger logger,
+        IProgress<ProcessingProgress>? progress = null)
     {
         if (failedSteps.Count == 0)
             return [];
 
         var stillFailed = new List<OperationStepResult>();
 
+        // Order steps by index, reverse if reverseOrder is true (revert flow)
         var orderedSteps = reverseOrder
             ? failedSteps.OrderByDescending(s => s.Index)
             : failedSteps.OrderBy(s => s.Index);
+
         var totalSteps = failedSteps.Count;
-        var stepIndex = 0;
 
         progress?.Report(new ProcessingProgress
         {
@@ -394,14 +349,12 @@ public class OptimizationService(
 
         foreach (var step in orderedSteps)
         {
-            stepIndex++;
-
             progress?.Report(new ProcessingProgress
             {
-                Message = string.Format(Translations.Optimization_RetryStep_Processing, step.Name, stepIndex,
+                Message = string.Format(Translations.Optimization_RetryStep_Processing, step.Name, step.Index,
                     totalSteps),
                 IsIndeterminate = false,
-                Value = stepIndex,
+                Value = step.Index,
                 Total = totalSteps
             });
 
@@ -412,35 +365,31 @@ public class OptimizationService(
             }
 
             var success = false;
-            for (var attempt = 0; attempt < maxRetries; attempt++)
-            {
-                try
-                {
-                    success = await step.RetryAction();
-                    if (success) break;
-                }
-                catch
-                {
-                }
+            Exception? lastEx = null;
 
-                if (attempt < maxRetries - 1)
-                    await Task.Delay(200 * (attempt + 1));
+            try
+            {
+                success = await step.RetryAction();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Retry step {Name} failed", step.Name);
+                lastEx = ex;
             }
 
             if (!success)
-                stillFailed.Add(step);
+                stillFailed.Add(lastEx != null ? step with { Error = lastEx.Message } : step);
         }
 
         return stillFailed;
     }
 
-    public static void ClearResources()
+    /// <summary>
+    ///     Clear resources.
+    /// </summary>
+    /// <param name="logger">The logger.</param>
+    public static void ClearResources(ILogger logger)
     {
-        lock (_cacheLock)
-        {
-            _stateCache.Clear();
-        }
-
         if (!Directory.Exists(Shared.ResourcesDirectory))
             return;
 
@@ -449,25 +398,30 @@ public class OptimizationService(
             {
                 File.Delete(filePath);
             }
-            catch
+            catch (Exception ex)
             {
+                logger.LogError(ex, "Failed to delete resource file {File}", filePath);
             }
-    }
-
-    public static void ClearStateCache()
-    {
-        lock (_cacheLock)
-        {
-            _stateCache.Clear();
-        }
     }
 
     #endregion Helpers
 }
 
+/// <summary>
+///     The result of a restore point operation.
+/// </summary>
 public enum RestorePointResult
 {
+    /// <summary>
+    ///     The restore point was created successfully.
+    /// </summary>
     Success,
+    /// <summary>
+    ///     The restore point creation failed.
+    /// </summary>
     Failed,
+    /// <summary>
+    ///     The restore point creation was skipped due to a frequency limit.
+    /// </summary>
     FrequencyLimitReached
 }

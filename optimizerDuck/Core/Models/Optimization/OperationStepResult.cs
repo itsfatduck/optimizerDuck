@@ -1,3 +1,5 @@
+using optimizerDuck.Core.Interfaces;
+
 namespace optimizerDuck.Core.Models.Optimization;
 
 /// <summary>
@@ -34,4 +36,9 @@ public record OperationStepResult
     ///     An optional action to retry this step.
     /// </summary>
     public Func<Task<bool>>? RetryAction { get; init; }
+
+    /// <summary>
+    ///     The revert data generated when applying this step, used to support retry synchronization.
+    /// </summary>
+    public IRevertStep? RevertStep { get; init; }
 }

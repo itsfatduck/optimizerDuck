@@ -230,9 +230,19 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
 
             // For non-thumbnail items, also include subdirectories
             if (itemId != "Thumbnails")
+            {
+                var dotNetTempPath = Path.GetFullPath(Path.Combine(Path.GetTempPath(), ".net"))
+                                            .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
                 foreach (var dir in Directory.EnumerateDirectories(path))
                     try
                     {
+                        // Skip .net temp files
+                        var fullDir = Path.GetFullPath(dir)
+                                            .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+
+                        if (fullDir.StartsWith(dotNetTempPath, StringComparison.OrdinalIgnoreCase))
+                            continue;
+
                         foreach (var file in Directory.EnumerateFiles(dir, "*", SearchOption.AllDirectories))
                             try
                             {
@@ -248,6 +258,7 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                     {
                         // skip inaccessible directories
                     }
+            }
         }
         catch (Exception ex)
         {
@@ -264,11 +275,15 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
 
         long freed = 0;
         var searchPattern = itemId == "Thumbnails" ? "thumbcache_*" : "*";
+        var dotNetTempPath = Path.GetFullPath(Path.Combine(Path.GetTempPath(), ".net"))
+                                    .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
 
         // Delete files
         foreach (var file in Directory.EnumerateFiles(path, searchPattern, SearchOption.TopDirectoryOnly))
             try
             {
+                // Skip .net temp files
+                if (file.StartsWith(dotNetTempPath, StringComparison.OrdinalIgnoreCase)) continue;
                 var length = new FileInfo(file).Length;
                 File.Delete(file);
                 freed += length;
@@ -283,9 +298,15 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
             foreach (var dir in Directory.EnumerateDirectories(path))
                 try
                 {
+                    var fullDir = Path.GetFullPath(dir)
+                                        .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+
+                    if (fullDir.StartsWith(dotNetTempPath, StringComparison.OrdinalIgnoreCase)) continue;
+
                     foreach (var file in Directory.EnumerateFiles(dir, "*", SearchOption.AllDirectories))
                         try
                         {
+                            if (file.StartsWith(dotNetTempPath, StringComparison.OrdinalIgnoreCase)) continue;
                             var length = new FileInfo(file).Length;
                             File.Delete(file);
                             freed += length;

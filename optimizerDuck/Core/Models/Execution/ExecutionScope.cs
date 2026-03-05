@@ -4,37 +4,39 @@ using Microsoft.Extensions.Logging;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Optimization;
 using optimizerDuck.Core.Models.UI;
+using optimizerDuck.Resources.Languages;
 
 namespace optimizerDuck.Core.Models.Execution;
 
 public sealed class ExecutionScope : IDisposable
 {
     private static readonly AsyncLocal<ExecutionScope?> _current = new();
-
-    private readonly Guid _optimizationId;
-    private readonly string _optimizationKey;
-    private readonly ILogger _logger;
-    private readonly Stopwatch _stopwatch;
     private readonly List<ExecutedStep> _executedSteps = [];
     private readonly ConcurrentDictionary<string, Stats> _stats = new();
-    private int _stepIndex;
-    private bool _disposed;
 
-    private ExecutionScope(Guid optimizationId, string optimizationKey, ILogger logger)
+    private readonly Stopwatch _stopwatch;
+    private bool _disposed;
+    private int _stepIndex;
+
+    private ExecutionScope(Guid optimizationId, string optimizationKey, string optimizationName, ILogger logger, bool loggingOnly = false)
     {
-        _optimizationId = optimizationId;
-        _optimizationKey = optimizationKey;
-        _logger = logger;
+        OptimizationId = optimizationId;
+        OptimizationKey = optimizationKey;
+        OptimizationName = optimizationName;
+        Logger = logger;
+        LoggingOnly = loggingOnly;
         _stopwatch = Stopwatch.StartNew();
     }
 
     public static ExecutionScope? Current => _current.Value;
 
-    public Guid OptimizationId => _optimizationId;
+    public Guid OptimizationId { get; }
 
-    public string OptimizationKey => _optimizationKey;
+    public string OptimizationKey { get; }
 
-    public ILogger Logger => _logger;
+    public string OptimizationName { get; }
+
+    public ILogger Logger { get; }
 
     public IReadOnlyList<ExecutedStep> ExecutedSteps => _executedSteps.AsReadOnly();
 
@@ -46,14 +48,52 @@ public sealed class ExecutionScope : IDisposable
 
     public bool HasSuccessfulSteps => _executedSteps.Any(s => s.Success);
 
-    public static ExecutionScope Begin(Guid optimizationId, string optimizationKey, ILogger logger)
+    public void Dispose()
+    {
+        if (_disposed)
+            return;
+        _disposed = true;
+
+        _stopwatch.Stop();
+
+        if (_stats.IsEmpty)
+        {
+            Logger.LogInformation(
+                "[{Key}] Completed in {Time} (no operations tracked)",
+                OptimizationKey,
+                _stopwatch.Elapsed.ToString(@"mm\:ss\.fff"));
+        }
+        else
+        {
+            var summary = string.Join(", ", _stats.Select(kv =>
+                $"{kv.Key}: +({kv.Value.Success}) -({kv.Value.Fail})"));
+
+            Logger.LogInformation(
+                "[{Key}] Completed in {Time} | {Summary}",
+                OptimizationKey,
+                _stopwatch.Elapsed.ToString(@"mm\:ss\.fff"),
+                summary);
+        }
+
+        Logger.LogInformation(
+            "[{Key}] Steps: {Total} ({Success} success, {Failed} failed)",
+            OptimizationKey,
+            _executedSteps.Count,
+            SuccessfulSteps.Count,
+            FailedSteps.Count
+        );
+
+        _current.Value = null;
+    }
+
+    public static ExecutionScope Begin(IOptimization optimization, ILogger logger)
     {
         if (_current.Value != null)
             throw new InvalidOperationException("An execution scope is already active in the current context.");
 
-        var scope = new ExecutionScope(optimizationId, optimizationKey, logger);
+        var scope = new ExecutionScope(optimization.Id, optimization.OptimizationKey, optimization.Name, logger);
         _current.Value = scope;
-        logger.LogDebug("Execution scope started for {Key} (ID: {Id})", optimizationKey, optimizationId);
+        logger.LogDebug("Execution scope started for {Key} (ID: {Id})", optimization.OptimizationKey, optimization.Id);
         return scope;
     }
 
@@ -62,11 +102,24 @@ public sealed class ExecutionScope : IDisposable
         if (_current.Value != null)
             throw new InvalidOperationException("An execution scope is already active in the current context.");
 
-        var scope = new ExecutionScope(Guid.Empty, string.Empty, logger);
+        var scope = new ExecutionScope(Guid.Empty, string.Empty, string.Empty, logger);
         _current.Value = scope;
         logger.LogDebug("Execution scope started");
         return scope;
     }
+
+    public static ExecutionScope BeginForLogging(Guid optimizationId, string optimizationKey, ILogger logger)
+    {
+        if (_current.Value != null)
+            throw new InvalidOperationException("An execution scope is already active in the current context.");
+
+        var scope = new ExecutionScope(optimizationId, optimizationKey, string.Empty, logger, loggingOnly: true);
+        _current.Value = scope;
+        logger.LogDebug("Execution scope started for {Key} (logging only)", optimizationKey);
+        return scope;
+    }
+
+    public bool LoggingOnly { get; private set; }
 
     public static ExecutedStep? RecordStep(
         string name,
@@ -77,19 +130,15 @@ public sealed class ExecutionScope : IDisposable
         Func<Task<bool>>? retryAction = null)
     {
         var scope = Current;
-        if (scope == null)
-            return null;
 
-        return scope.RecordStepInternal(name, description, success, revertStep, error, retryAction);
+        return scope?.RecordStepInternal(name, description, success, revertStep, error, retryAction);
     }
 
     public static void Track(string serviceName, bool success)
     {
         var scope = Current;
-        if (scope == null)
-            return;
 
-        scope._stats.AddOrUpdate(
+        scope?._stats.AddOrUpdate(
             serviceName,
             _ => success
                 ? new Stats { Success = 1 }
@@ -111,7 +160,8 @@ public sealed class ExecutionScope : IDisposable
             Description = s.Description,
             Success = s.Success,
             Error = s.Error,
-            RetryAction = s.RetryAction
+            RetryAction = s.RetryAction,
+            RevertStep = s.RevertStep
         }).ToList();
     }
 
@@ -125,7 +175,8 @@ public sealed class ExecutionScope : IDisposable
             Description = s.Description,
             Success = s.Success,
             Error = s.Error,
-            RetryAction = s.RetryAction
+            RetryAction = s.RetryAction,
+            RevertStep = s.RevertStep
         }).ToList();
 
         var allFailed = failedSteps.Count == ExecutedSteps.Count;
@@ -137,23 +188,23 @@ public sealed class ExecutionScope : IDisposable
             Message = status switch
             {
                 OptimizationSuccessResult.Success =>
-                    string.Format(optimizerDuck.Resources.Languages.Translations.Optimization_Apply_Success,
-                        _optimizationKey),
+                    string.Format(Translations.Optimization_Apply_Success,
+                        OptimizationName),
                 OptimizationSuccessResult.Failed when allFailed =>
-                    string.Format(optimizerDuck.Resources.Languages.Translations.Optimization_Apply_Error_Failed,
-                        _optimizationKey),
+                    string.Format(Translations.Optimization_Apply_Error_Failed,
+                        OptimizationName),
                 OptimizationSuccessResult.PartialSuccess or OptimizationSuccessResult.Failed =>
                     string.Format(
-                        optimizerDuck.Resources.Languages.Translations.Optimization_Apply_Error_FailedWithSteps,
-                        _optimizationKey,
+                        Translations.Optimization_Apply_Error_FailedWithSteps,
+                        OptimizationName,
                         failedSteps.Count),
-                _ => $"Unknown result for {_optimizationKey}"
+                _ => $"Unknown result for {OptimizationName}"
             },
             FailedSteps = failedSteps
         };
     }
 
-    private ExecutedStep RecordStepInternal(
+    private ExecutedStep? RecordStepInternal(
         string name,
         string description,
         bool success,
@@ -161,6 +212,9 @@ public sealed class ExecutionScope : IDisposable
         string? error,
         Func<Task<bool>>? retryAction = null)
     {
+        if (LoggingOnly)
+            return null;
+
         var step = new ExecutedStep(
             ++_stepIndex,
             name,
@@ -172,17 +226,35 @@ public sealed class ExecutionScope : IDisposable
 
         _executedSteps.Add(step);
 
-        _logger.LogDebug("Step {Index} ({Name}): {Result}",
-            step.Index, name, success ? "SUCCESS" : "FAILED");
-
         return step;
+    }
+
+    private OptimizationSuccessResult ResolveStatus()
+    {
+        if (_executedSteps.Count == 0)
+            return OptimizationSuccessResult.Failed;
+
+        var failed = FailedSteps.Count;
+        var total = ExecutedSteps.Count;
+
+        return failed == 0
+            ? OptimizationSuccessResult.Success
+            : failed < total
+                ? OptimizationSuccessResult.PartialSuccess
+                : OptimizationSuccessResult.Failed;
+    }
+
+    private class Stats
+    {
+        public int Fail;
+        public int Success;
     }
 
     #region Logging
 
     public static void Log(LogLevel level, string message, params object[] args)
     {
-        Current?._logger.Log(level, message, args);
+        Current?.Logger.Log(level, message, args);
     }
 
     public static void LogDebug(string message, params object[] args)
@@ -207,69 +279,10 @@ public sealed class ExecutionScope : IDisposable
 
     public static void LogError(Exception? ex, string message, params object[] args)
     {
-        Current?._logger.LogError(ex, message, args);
+        Current?.Logger.LogError(ex, message, args);
     }
 
     #endregion Logging
-
-    private OptimizationSuccessResult ResolveStatus()
-    {
-        if (_executedSteps.Count == 0)
-            return OptimizationSuccessResult.Failed;
-
-        var failed = FailedSteps.Count;
-        var total = ExecutedSteps.Count;
-
-        return failed == 0
-            ? OptimizationSuccessResult.Success
-            : failed < total
-                ? OptimizationSuccessResult.PartialSuccess
-                : OptimizationSuccessResult.Failed;
-    }
-
-    public void Dispose()
-    {
-        if (_disposed)
-            return;
-        _disposed = true;
-
-        _stopwatch.Stop();
-
-        if (_stats.IsEmpty)
-        {
-            _logger.LogInformation(
-                "[{Key}] Completed in {Time} (no operations tracked)",
-                _optimizationKey,
-                _stopwatch.Elapsed.ToString(@"mm\:ss\.fff"));
-        }
-        else
-        {
-            var summary = string.Join(", ", _stats.Select(kv =>
-                $"{kv.Key}: +({kv.Value.Success}) -({kv.Value.Fail})"));
-
-            _logger.LogInformation(
-                "[{Key}] Completed in {Time} | {Summary}",
-                _optimizationKey,
-                _stopwatch.Elapsed.ToString(@"mm\:ss\.fff"),
-                summary);
-        }
-
-        _logger.LogInformation(
-            "[{Key}] Steps: {Total} ({Success} success, {Failed} failed)",
-            _optimizationKey,
-            _executedSteps.Count,
-            _executedSteps.Count(s => s.Success),
-            _executedSteps.Count(s => !s.Success)
-        );
-
-        _current.Value = null;
-    }
-
-    private class Stats
-    {
-        public int Success;
-        public int Fail;
-    }
 }
 
 /// <summary>
@@ -277,6 +290,21 @@ public sealed class ExecutionScope : IDisposable
 /// </summary>
 public sealed record ExecutedStep
 {
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="ExecutedStep" /> class.
+    /// </summary>
+    public ExecutedStep(int index, string name, string description, bool success,
+        IRevertStep? revertStep, string? error, Func<Task<bool>>? retryAction = null)
+    {
+        Index = index;
+        Name = name;
+        Description = description;
+        Success = success;
+        RevertStep = revertStep;
+        Error = error;
+        RetryAction = retryAction;
+    }
+
     /// <summary>
     ///     The index of the step in the execution sequence.
     /// </summary>
@@ -311,19 +339,4 @@ public sealed record ExecutedStep
     ///     An optional action to retry this step if it failed.
     /// </summary>
     public Func<Task<bool>>? RetryAction { get; init; }
-
-    /// <summary>
-    ///     Initializes a new instance of the <see cref="ExecutedStep" /> class.
-    /// </summary>
-    public ExecutedStep(int index, string name, string description, bool success,
-        IRevertStep? revertStep, string? error, Func<Task<bool>>? retryAction = null)
-    {
-        Index = index;
-        Name = name;
-        Description = description;
-        Success = success;
-        RevertStep = revertStep;
-        Error = error;
-        RetryAction = retryAction;
-    }
 }

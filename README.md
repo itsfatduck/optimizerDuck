@@ -12,6 +12,7 @@
 [![License](https://img.shields.io/badge/License-GPL_v3-red)](./LICENSE)
 [![Discord](https://img.shields.io/discord/1091675679994675240?color=5865f2&label=Discord)](https://discord.gg/tDUBDCYw9Q)
 <br>
+[![CI](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml/badge.svg)](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml)
 [![.NET Latest](https://img.shields.io/badge/.NET_Runtime-Latest-ef99dd)](https://dotnet.microsoft.com/en-us/download)
 [![Supported OS](https://img.shields.io/badge/Supported-Windows_10+_x64-0078d4)](https://www.microsoft.com/en-us/software-download/)
 

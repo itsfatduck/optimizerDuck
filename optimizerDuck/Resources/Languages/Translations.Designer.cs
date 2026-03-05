@@ -1141,6 +1141,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Revert step #{0}.
+        /// </summary>
+        internal static string Optimization_Revert_StepDescription {
+            get {
+                return ResourceManager.GetString("Optimization.Revert.StepDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reverting....
         /// </summary>
         internal static string Optimization_Revert_Reverting {
@@ -3098,6 +3107,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to change service &apos;{0}&apos;: {1}.
+        /// </summary>
+        internal static string Service_Service_Error_ExceptionOccurred {
+            get {
+                return ResourceManager.GetString("Service.Service.Error.ExceptionOccurred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Service not found.
         /// </summary>
         internal static string Service_Service_Error_NotFound {
@@ -3680,6 +3698,96 @@ namespace optimizerDuck.Resources.Languages {
         internal static string StartupManager_Tasks_Title {
             get {
                 return ResourceManager.GetString("StartupManager.Tasks.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registry.
+        /// </summary>
+        internal static string Service_Registry_Name {
+            get {
+                return ResourceManager.GetString("Service.Registry.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Service.
+        /// </summary>
+        internal static string Service_Service_Name {
+            get {
+                return ResourceManager.GetString("Service.Service.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scheduled Task.
+        /// </summary>
+        internal static string Service_ScheduledTask_Name {
+            get {
+                return ResourceManager.GetString("Service.ScheduledTask.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shell.
+        /// </summary>
+        internal static string Service_Shell_Name {
+            get {
+                return ResourceManager.GetString("Service.Shell.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore registry value: {0}\{1}.
+        /// </summary>
+        internal static string Revert_Registry_Description_Restore {
+            get {
+                return ResourceManager.GetString("Revert.Registry.Description.Restore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete registry value: {0}\{1}.
+        /// </summary>
+        internal static string Revert_Registry_Description_Delete {
+            get {
+                return ResourceManager.GetString("Revert.Registry.Description.Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore service &apos;{0}&apos; to {1} startup.
+        /// </summary>
+        internal static string Revert_Service_Description_Restore {
+            get {
+                return ResourceManager.GetString("Revert.Service.Description.Restore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable scheduled task: {0}.
+        /// </summary>
+        internal static string Revert_ScheduledTask_Description_Enable {
+            get {
+                return ResourceManager.GetString("Revert.ScheduledTask.Description.Enable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable scheduled task: {0}.
+        /// </summary>
+        internal static string Revert_ScheduledTask_Description_Disable {
+            get {
+                return ResourceManager.GetString("Revert.ScheduledTask.Description.Disable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run {0} command: {1}.
+        /// </summary>
+        internal static string Revert_Shell_Description_Run {
+            get {
+                return ResourceManager.GetString("Revert.Shell.Description.Run", resourceCulture);
             }
         }
     }

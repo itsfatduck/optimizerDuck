@@ -1,8 +1,12 @@
 using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json;
 using optimizerDuck.Common.Helpers;
+using optimizerDuck.Core.Interfaces;
+using optimizerDuck.Core.Models.Optimization;
 using optimizerDuck.Core.Models.Revert;
 using optimizerDuck.Core.Models.Revert.Steps;
+using optimizerDuck.Core.Models.UI;
+using optimizerDuck.Core.Optimizers;
 using optimizerDuck.Services.Managers;
 
 namespace optimizerDuck.Test.Services.Managers;
@@ -65,7 +69,8 @@ public class RevertManagerTests
             await File.WriteAllTextAsync(path, "{ invalid json }");
 
             var manager = new RevertManager(NullLogger<RevertManager>.Instance);
-            var result = await manager.RevertAsync(id, "TestOptimization");
+            var op = new MockOptimization(id);
+            var result = await manager.RevertAsync(op);
 
             Assert.False(result.Success);
         }
@@ -77,7 +82,7 @@ public class RevertManagerTests
     }
 
     [Fact]
-    public async Task RevertAsync_WithPartialStepFailures_ReturnsFailure_And_KeepsFile()
+    public async Task RevertAsync_WithPartialStepFailures_ReturnsFailure_And_DeletesFile()
     {
         var id = Guid.NewGuid();
         var path = Path.Combine(Shared.RevertDirectory, id + ".json");
@@ -117,15 +122,30 @@ public class RevertManagerTests
             await File.WriteAllTextAsync(path, json);
 
             var manager = new RevertManager(NullLogger<RevertManager>.Instance);
-            var result = await manager.RevertAsync(id, "TestOptimization");
+            var result = await manager.RevertAsync(new MockOptimization(id));
 
             Assert.False(result.Success);
-            Assert.True(File.Exists(path));
+            Assert.False(File.Exists(path));
         }
         finally
         {
             if (File.Exists(path))
                 File.Delete(path);
         }
+    }
+}
+
+public class MockOptimization(Guid id) : IOptimization
+{
+    public Guid Id { get; } = id;
+    public OptimizationRisk Risk => OptimizationRisk.Safe;
+    public string OptimizationKey => "TestOptimization";
+    public string Name => "TestOptimization";
+    public string ShortDescription => "Mock description";
+    public OptimizationState State { get; set; } = new();
+
+    public Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+    {
+        return Task.FromResult(ApplyResult.True());
     }
 }

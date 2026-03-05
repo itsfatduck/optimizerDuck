@@ -2,6 +2,7 @@ using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Optimization.Services;
+using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.OptimizationServices;
 
 namespace optimizerDuck.Core.Models.Revert.Steps;
@@ -46,6 +47,13 @@ public class RegistryRevertStep : IRevertStep
     public string Type => "Registry";
 
     /// <inheritdoc />
+    public string Description => string.Format(
+        Action == RevertAction.RestorePrevious
+            ? Translations.Revert_Registry_Description_Restore
+            : Translations.Revert_Registry_Description_Delete,
+        Path, Name ?? "(Default)");
+
+    /// <inheritdoc />
     public async Task<bool> ExecuteAsync()
     {
         return await Task.Run(() =>
@@ -64,6 +72,9 @@ public class RegistryRevertStep : IRevertStep
 
                 _ => false
             };
+
+            if (!result)
+                throw new Exception(string.Format(Translations.Service_Common_Error_AccessDenied)); // Generic for now, but better than nothing
 
             // Cleanup empty subkeys if they were created during apply
             if (result && CreatedSubKeys?.Count > 0) RegistryService.CleanupEmptyKeys(CreatedSubKeys);

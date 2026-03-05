@@ -1,6 +1,7 @@
 using Newtonsoft.Json.Linq;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Optimization.Services;
+using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.OptimizationServices;
 
 namespace optimizerDuck.Core.Models.Revert.Steps;
@@ -23,15 +24,28 @@ public class ServiceRevertStep : IRevertStep
     /// <inheritdoc />
     public string Type => "Service";
 
+    /// <inheritdoc />
+    public string Description => string.Format(
+        Translations.Revert_Service_Description_Restore,
+        ServiceName, OriginalStartupType);
+
 
     /// <inheritdoc />
     public async Task<bool> ExecuteAsync()
     {
-        return await Task.Run(() => ServiceProcessService.ChangeServiceStartupType(new ServiceItem
+        return await Task.Run(() =>
         {
-            Name = ServiceName,
-            StartupType = OriginalStartupType
-        }));
+            var result = ServiceProcessService.ChangeServiceStartupType(new ServiceItem
+            {
+                Name = ServiceName,
+                StartupType = OriginalStartupType
+            });
+
+            if (!result)
+                throw new Exception(string.Format(Translations.Service_Service_Error_UpdateRegistryForStartupTypeFailed));
+
+            return result;
+        });
     }
 
 

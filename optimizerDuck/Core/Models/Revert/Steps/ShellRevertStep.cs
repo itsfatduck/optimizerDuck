@@ -1,6 +1,7 @@
 using Newtonsoft.Json.Linq;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Optimization.Services;
+using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.OptimizationServices;
 
 namespace optimizerDuck.Core.Models.Revert.Steps;
@@ -24,6 +25,11 @@ public class ShellRevertStep : IRevertStep
     public string Type => "Shell";
 
     /// <inheritdoc />
+    public string Description => string.Format(
+        Translations.Revert_Shell_Description_Run,
+        ShellType, Command);
+
+    /// <inheritdoc />
     public async Task<bool> ExecuteAsync()
     {
         return await Task.Run(() =>
@@ -38,6 +44,12 @@ public class ShellRevertStep : IRevertStep
                     Duration = TimeSpan.Zero
                 }
             };
+
+            if (result.ExitCode != 0)
+                throw new Exception(!string.IsNullOrWhiteSpace(result.Stderr) 
+                    ? result.Stderr 
+                    : $"Command failed with exit code {result.ExitCode}");
+
             return result.ExitCode == 0;
         });
     }

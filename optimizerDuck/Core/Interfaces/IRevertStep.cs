@@ -11,6 +11,11 @@ public interface IRevertStep
     ///     The type identifier for this revert step (e.g., "Registry", "Service", "Shell").
     /// </summary>
     public string Type { get; }
+    
+    /// <summary>
+    ///     A localized description of what this revert step does.
+    /// </summary>
+    public string Description { get; }
 
     /// <summary>
     ///     Executes this revert step asynchronously.

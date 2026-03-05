@@ -1,5 +1,6 @@
 using Newtonsoft.Json.Linq;
 using optimizerDuck.Core.Interfaces;
+using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.OptimizationServices;
 
 namespace optimizerDuck.Core.Models.Revert.Steps;
@@ -23,22 +24,22 @@ public class ScheduledTaskRevertStep : IRevertStep
     public string Type => "ScheduledTask";
 
     /// <inheritdoc />
+    public string Description => string.Format(
+        OriginalEnabled
+            ? Translations.Revert_ScheduledTask_Description_Enable
+            : Translations.Revert_ScheduledTask_Description_Disable,
+        FullPath);
+
+    /// <inheritdoc />
     public async Task<bool> ExecuteAsync()
     {
         return await Task.Run(() =>
         {
-            try
-            {
-                if (OriginalEnabled)
-                    ScheduledTaskService.EnableTask(FullPath);
-                else
-                    ScheduledTaskService.DisableTask(FullPath);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            if (OriginalEnabled)
+                ScheduledTaskService.EnableTask(FullPath);
+            else
+                ScheduledTaskService.DisableTask(FullPath);
+            return true;
         });
     }
 

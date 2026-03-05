@@ -26,4 +26,9 @@ public class RevertResult
     ///     Details of any steps that failed during revert.
     /// </summary>
     public List<OperationStepResult> FailedStepDetails { get; set; } = [];
+
+    /// <summary>
+    ///     Indicates whether the revert failed completely (all steps failed).
+    /// </summary>
+    public bool IsCompleteFailure { get; set; }
 }

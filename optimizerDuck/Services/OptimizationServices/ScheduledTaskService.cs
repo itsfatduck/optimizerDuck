@@ -56,11 +56,10 @@ public static class ScheduledTaskService
             ExecutionScope.LogInfo("Disabled task {Path}", fullPath);
             ExecutionScope.Track(nameof(DisableTask), true);
             ExecutionScope.RecordStep(
-                "ScheduledTask",
+                Translations.Service_ScheduledTask_Name,
                 description,
                 true,
-                revertStep,
-                null);
+                revertStep);
             return true;
         }
         catch (UnauthorizedAccessException)
@@ -68,12 +67,12 @@ public static class ScheduledTaskService
             ExecutionScope.LogError(null, "Access denied disabling task {Path}", fullPath);
             ExecutionScope.Track(nameof(DisableTask), false);
             ExecutionScope.RecordStep(
-                "ScheduledTask",
+                Translations.Service_ScheduledTask_Name,
                 description,
                 false,
                 null,
                 Translations.Service_Common_Error_AccessDenied,
-                retryAction: () => System.Threading.Tasks.Task.FromResult(DisableTask(fullPath)));
+                () => System.Threading.Tasks.Task.FromResult(DisableTask(fullPath)));
             return false;
         }
         catch (Exception ex)
@@ -81,12 +80,12 @@ public static class ScheduledTaskService
             ExecutionScope.LogError(ex, "Failed to disable task {Path}", fullPath);
             ExecutionScope.Track(nameof(DisableTask), false);
             ExecutionScope.RecordStep(
-                "ScheduledTask",
+                Translations.Service_ScheduledTask_Name,
                 description,
                 false,
                 null,
                 ex.Message,
-                retryAction: () => System.Threading.Tasks.Task.FromResult(DisableTask(fullPath)));
+                () => System.Threading.Tasks.Task.FromResult(DisableTask(fullPath)));
             return false;
         }
     }
@@ -119,11 +118,10 @@ public static class ScheduledTaskService
             ExecutionScope.LogInfo("Enabled task {Path}", fullPath);
             ExecutionScope.Track(nameof(EnableTask), true);
             ExecutionScope.RecordStep(
-                "ScheduledTask",
+                Translations.Service_ScheduledTask_Name,
                 description,
                 true,
-                revertStep,
-                null);
+                revertStep);
             return true;
         }
         catch (UnauthorizedAccessException)
@@ -131,12 +129,12 @@ public static class ScheduledTaskService
             ExecutionScope.LogError(null, "Access denied enabling task {Path}", fullPath);
             ExecutionScope.Track(nameof(EnableTask), false);
             ExecutionScope.RecordStep(
-                "ScheduledTask",
+                Translations.Service_ScheduledTask_Name,
                 description,
                 false,
                 null,
                 Translations.Service_Common_Error_AccessDenied,
-                retryAction: () => System.Threading.Tasks.Task.FromResult(EnableTask(fullPath)));
+                () => System.Threading.Tasks.Task.FromResult(EnableTask(fullPath)));
             return false;
         }
         catch (Exception ex)
@@ -144,12 +142,12 @@ public static class ScheduledTaskService
             ExecutionScope.LogError(ex, "Failed to enable task {Path}", fullPath);
             ExecutionScope.Track(nameof(EnableTask), false);
             ExecutionScope.RecordStep(
-                "ScheduledTask",
+                Translations.Service_ScheduledTask_Name,
                 description,
                 false,
                 null,
                 ex.Message,
-                retryAction: () => System.Threading.Tasks.Task.FromResult(EnableTask(fullPath)));
+                () => System.Threading.Tasks.Task.FromResult(EnableTask(fullPath)));
             return false;
         }
     }
@@ -330,7 +328,7 @@ public static class ScheduledTaskService
             throw;
         }
     }
-    
+
     #region Helpers
 
     private static void CollectTasks(TaskFolder folder, List<ScheduledTaskModel> results)

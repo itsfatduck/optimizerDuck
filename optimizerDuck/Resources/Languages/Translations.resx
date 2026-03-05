@@ -328,6 +328,9 @@
     <data name="Optimization.Revert.ExecutingStep" xml:space="preserve">
     <value>Executing revert step: {0}/{1} ({2})</value>
   </data>
+    <data name="Optimization.Revert.StepDescription" xml:space="preserve">
+    <value>Revert step #{0}</value>
+  </data>
     <data name="Revert.Error.FileNotFound" xml:space="preserve">
     <value>Revert file not found</value>
   </data>
@@ -390,6 +393,9 @@
   </data>
     <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
     <value>ChangeStartMode failed (code: {0})</value>
+  </data>
+    <data name="Service.Service.Error.ExceptionOccurred" xml:space="preserve">
+    <value>Failed to change service '{0}': {1}</value>
   </data>
     <data name="Service.Shell.Error.ExitCode" xml:space="preserve">
     <value>Exit code {0}</value>
@@ -1061,7 +1067,7 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
     <value>Temporary Files</value>
   </data>
     <data name="DiskCleanup.Item.TempFiles.Description" xml:space="preserve">
-    <value>User temporary files created by applications</value>
+    <value>User temporary files created by applications (excluding the .net temp directory)</value>
   </data>
     <data name="DiskCleanup.Item.SystemTemp" xml:space="preserve">
     <value>System Temp Files</value>
@@ -1351,4 +1357,34 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
     <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
       <value>Task not found: {0}</value>
     </data>
+  <data name="Service.Registry.Name" xml:space="preserve">
+    <value>Registry</value>
+  </data>
+  <data name="Service.Service.Name" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="Service.ScheduledTask.Name" xml:space="preserve">
+    <value>Scheduled Task</value>
+  </data>
+  <data name="Service.Shell.Name" xml:space="preserve">
+    <value>Shell</value>
+  </data>
+  <data name="Revert.Registry.Description.Restore" xml:space="preserve">
+    <value>Restore registry value: {0}\{1}</value>
+  </data>
+  <data name="Revert.Registry.Description.Delete" xml:space="preserve">
+    <value>Delete registry value: {0}\{1}</value>
+  </data>
+  <data name="Revert.Service.Description.Restore" xml:space="preserve">
+    <value>Restore service '{0}' to {1} startup</value>
+  </data>
+  <data name="Revert.ScheduledTask.Description.Enable" xml:space="preserve">
+    <value>Enable scheduled task: {0}</value>
+  </data>
+  <data name="Revert.ScheduledTask.Description.Disable" xml:space="preserve">
+    <value>Disable scheduled task: {0}</value>
+  </data>
+  <data name="Revert.Shell.Description.Run" xml:space="preserve">
+    <value>Run {0} command: {1}</value>
+  </data>
 </root>

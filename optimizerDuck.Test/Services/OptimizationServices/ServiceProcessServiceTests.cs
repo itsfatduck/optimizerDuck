@@ -6,7 +6,7 @@ namespace optimizerDuck.Test.Services.OptimizationServices;
 public class ServiceProcessServiceTests
 {
     [Fact]
-    public void ChangeServiceStartupType_WithMissingService_ReturnsFalse()
+    public void ChangeServiceStartupType_WithMissingService_ReturnsTrue()
     {
         var item = new ServiceItem
         {
@@ -16,6 +16,6 @@ public class ServiceProcessServiceTests
 
         var result = ServiceProcessService.ChangeServiceStartupType(item);
 
-        Assert.False(result);
+        Assert.True(result);
     }
 }

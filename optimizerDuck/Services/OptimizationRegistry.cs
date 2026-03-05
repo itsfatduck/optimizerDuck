@@ -14,9 +14,6 @@ public class OptimizationRegistry(ILoggerFactory loggerFactory)
 
     public async Task PreloadOptimizations()
     {
-        // Clear state cache before preloading to ensure fresh data
-        OptimizationService.ClearStateCache();
-
         var optimizationCategories = ReflectionHelper
             .FindImplementationsInLoadedAssemblies<IOptimizationCategory>()
             .Select(t =>

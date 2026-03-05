@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging.Abstractions;
+using Newtonsoft.Json.Linq;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Execution;
 using optimizerDuck.Core.Models.Optimization;
@@ -14,7 +15,7 @@ public class ExecutionScopeTests
     {
         var logger = NullLogger.Instance;
 
-        using var scope = ExecutionScope.Begin(Guid.NewGuid(), "TestOptimization", logger);
+        using var scope = ExecutionScope.Begin(new MockOptimization(), logger);
 
         ExecutionScope.RecordStep("TestStep", "Test description", true);
 
@@ -28,7 +29,7 @@ public class ExecutionScopeTests
     {
         var logger = NullLogger.Instance;
 
-        using var scope = ExecutionScope.Begin(Guid.NewGuid(), "TestOptimization", logger);
+        using var scope = ExecutionScope.Begin(new MockOptimization(), logger);
 
         ExecutionScope.RecordStep("TestStep", "Test description", false, error: "Test error");
 
@@ -44,7 +45,7 @@ public class ExecutionScopeTests
         var logger = NullLogger.Instance;
         var revertStep = new MockRevertStep();
 
-        using var scope = ExecutionScope.Begin(Guid.NewGuid(), "TestOptimization", logger);
+        using var scope = ExecutionScope.Begin(new MockOptimization(), logger);
 
         ExecutionScope.RecordStep("TestStep", "Test description", true, revertStep);
 
@@ -57,7 +58,7 @@ public class ExecutionScopeTests
     {
         var logger = NullLogger.Instance;
 
-        using var scope = ExecutionScope.Begin(Guid.NewGuid(), "TestOptimization", logger);
+        using var scope = ExecutionScope.Begin(new MockOptimization(), logger);
 
         ExecutionScope.RecordStep("SuccessStep1", "Description", true);
         ExecutionScope.RecordStep("FailedStep", "Description", false, error: "Error");
@@ -74,7 +75,7 @@ public class ExecutionScopeTests
     {
         var logger = NullLogger.Instance;
 
-        using var scope = ExecutionScope.Begin(Guid.NewGuid(), "TestOptimization", logger);
+        using var scope = ExecutionScope.Begin(new MockOptimization(), logger);
 
         ExecutionScope.RecordStep("Step1", "Description", true);
         ExecutionScope.RecordStep("Step2", "Description", true);
@@ -90,7 +91,7 @@ public class ExecutionScopeTests
     {
         var logger = NullLogger.Instance;
 
-        var scope = ExecutionScope.Begin(Guid.NewGuid(), "TestOptimization", logger);
+        var scope = ExecutionScope.Begin(new MockOptimization(), logger);
 
         ExecutionScope.RecordStep("Success", "Description", true);
         ExecutionScope.RecordStep("Fail", "Description", false);
@@ -121,10 +122,10 @@ public class ExecutionScopeTests
     {
         var logger = NullLogger.Instance;
 
-        using var scope = ExecutionScope.Begin(Guid.NewGuid(), "TestOptimization", logger);
+        using var scope = ExecutionScope.Begin(new MockOptimization(), logger);
 
         Assert.Throws<InvalidOperationException>(() =>
-            ExecutionScope.Begin(Guid.NewGuid(), "Another", logger));
+            ExecutionScope.Begin(new MockOptimization(), logger));
     }
 
     [Fact]
@@ -140,7 +141,7 @@ public class ExecutionScopeTests
     {
         var logger = NullLogger.Instance;
 
-        using var scope = ExecutionScope.Begin(Guid.NewGuid(), "TestOptimization", logger);
+        using var scope = ExecutionScope.Begin(new MockOptimization(), logger);
 
         ExecutionScope.Track("Registry", true);
         ExecutionScope.Track("Registry", true);
@@ -155,7 +156,7 @@ public class ExecutionScopeTests
     {
         var logger = NullLogger.Instance;
 
-        using var scope = ExecutionScope.Begin(Guid.NewGuid(), "TestOptimization", logger);
+        using var scope = ExecutionScope.Begin(new MockOptimization(), logger);
 
         ExecutionScope.RecordStep("Step1", "Desc1", true);
         ExecutionScope.RecordStep("Step2", "Desc2", false, error: "err");
@@ -187,6 +188,20 @@ public class MockOptimization : IOptimization
 public class MockRevertStep : IRevertStep
 {
     public string Type => "Mock";
-    public Task<bool> ExecuteAsync() => Task.FromResult(true);
-    public Newtonsoft.Json.Linq.JObject ToData() => new();
+    public string Description => "Mock Description";
+
+    public static MockRevertStep FromData(JObject data)
+    {
+        return new MockRevertStep();
+    }
+
+    public Task<bool> ExecuteAsync()
+    {
+        return Task.FromResult(true);
+    }
+
+    public JObject ToData()
+    {
+        return new JObject();
+    }
 }
