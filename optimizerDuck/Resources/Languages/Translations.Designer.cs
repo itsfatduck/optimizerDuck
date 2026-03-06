@@ -800,7 +800,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Successfully freed {0} of disk space.
+        ///   Looks up a localized string similar to Successfully freed {0} of disk space in {1}.
         /// </summary>
         internal static string DiskCleanup_Complete_Message {
             get {
@@ -1327,6 +1327,24 @@ namespace optimizerDuck.Resources.Languages {
         internal static string OptimizationResultDialog_Header {
             get {
                 return ResourceManager.GetString("OptimizationResultDialog.Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading optimizations....
+        /// </summary>
+        internal static string Optimizations_Loading {
+            get {
+                return ResourceManager.GetString("Optimizations.Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please wait....
+        /// </summary>
+        internal static string Optimizations_Loading_Hint {
+            get {
+                return ResourceManager.GetString("Optimizations.Loading.Hint", resourceCulture);
             }
         }
         
@@ -3640,20 +3658,20 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Displays a notification when optimizations have been successfully applied..
+        ///   Looks up a localized string similar to Displays a notification when optimizations have been successfully applied or reverted..
         /// </summary>
-        internal static string Settings_Optimize_ShowSnackbarNotificationAfterAppliedSuccessfully_Description {
+        internal static string Settings_Optimize_ShowCompletionNotification_Description {
             get {
-                return ResourceManager.GetString("Settings.Optimize.ShowSnackbarNotificationAfterAppliedSuccessfully.Description", resourceCulture);
+                return ResourceManager.GetString("Settings.Optimize.ShowCompletionNotification.Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Show completion notification.
         /// </summary>
-        internal static string Settings_Optimize_ShowSnackbarNotificationAfterAppliedSuccessfully_Title {
+        internal static string Settings_Optimize_ShowCompletionNotification_Title {
             get {
-                return ResourceManager.GetString("Settings.Optimize.ShowSnackbarNotificationAfterAppliedSuccessfully.Title", resourceCulture);
+                return ResourceManager.GetString("Settings.Optimize.ShowCompletionNotification.Title", resourceCulture);
             }
         }
         
