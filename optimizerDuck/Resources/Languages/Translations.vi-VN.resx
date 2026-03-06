@@ -488,8 +488,8 @@ Phiên bản hiện tại: {0} </value>
     <value>Vừa áp dụng</value>
   </data>
     <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
-    <value>Đã xảy ra lỗi sau khi áp dụng.</value>
-  </data>
+      <value>Đã xảy ra lỗi sau khi áp dụng</value>
+    </data>
     <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
     <value>Đã xảy ra lỗi sau khi hoàn tác</value>
   </data>

@@ -272,14 +272,18 @@ public partial class OptimizationCategoryViewModel : ViewModel
     /// <param name="message">The message to show.</param>
     /// <param name="optimizationName">The name of the optimization.</param>
     private void ShowOutcomeSnackbar(bool succeeded, bool partial, bool failed, string operationType,
-        string message, string optimizationName)
+        string message, string optimizationName, bool restorePointCreated = false)
     {
+        var finalMessage = message;
+        if (restorePointCreated)
+            finalMessage += "\n" + string.Format(Translations.RestorePoint_Snackbar_Success_Message, Shared.RestorePointName);
+
         if (succeeded)
             _snackbarService.Show(
                 operationType == "apply"
                     ? Translations.Optimization_Apply_Snackbar_Success_Title
                     : Translations.Optimization_Revert_Snackbar_Success_Title,
-                message,
+                finalMessage,
                 ControlAppearance.Success,
                 new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
                 TimeSpan.FromSeconds(5));
@@ -288,7 +292,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 operationType == "apply"
                     ? Translations.Optimization_Apply_Snackbar_Error_Title
                     : Translations.Optimization_Revert_Snackbar_Error_Title,
-                message,
+                finalMessage,
                 ControlAppearance.Caution,
                 new SymbolIcon { Symbol = SymbolRegular.Warning24, Filled = true },
                 TimeSpan.FromSeconds(5));
@@ -297,7 +301,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 operationType == "apply"
                     ? Translations.Optimization_Apply_Snackbar_Error_Title
                     : Translations.Optimization_Revert_Snackbar_Error_Title,
-                message,
+                finalMessage,
                 ControlAppearance.Danger,
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
                 TimeSpan.FromSeconds(5));
@@ -307,7 +311,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
     ///     Handles the restore point dialog.
     /// </summary>
     /// <returns>Whether the user accepted the restore point dialog.</returns>
-    private async Task<bool> HandleRestorePointAsync()
+    private async Task<(bool Proceed, bool RestorePointCreated)> HandleRestorePointAsync()
     {
         var dialogContent = new RestorePointDialog();
         var dialog = new ContentDialog
@@ -322,23 +326,18 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
         var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
         if (result == ContentDialogResult.None) // User cancelled
-            return false;
+            return (false, false);
 
         if (result == ContentDialogResult.Secondary) // User skipped
-            return true;
+            return (true, false);
 
         var resultState = await _optimizationService.CreateRestorePointAsync();
+        var restorePointCreated = false;
 
         switch (resultState)
         {
             case RestorePointResult.Success:
-                _snackbarService.Show(
-                    Translations.RestorePoint_Snackbar_Success_Title,
-                    string.Format(Translations.RestorePoint_Snackbar_Success_Message, Shared.RestorePointName),
-                    ControlAppearance.Success,
-                    new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
-                    TimeSpan.FromSeconds(5)
-                );
+                restorePointCreated = true;
                 break;
 
             case RestorePointResult.FrequencyLimitReached:
@@ -363,7 +362,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 break;
         }
 
-        return true;
+        return (true, restorePointCreated);
     }
 
     /// <summary>
@@ -422,14 +421,17 @@ public partial class OptimizationCategoryViewModel : ViewModel
             // Keep a stable reference to the previous state in case we need to roll back UI changes.
             var wasApplied = await OptimizationService.IsAppliedAsync(optimization.Id);
 
+            var restorePointCreated = false;
             if (!_optimizationService.WasRequestedRestorePoint)
             {
-                if (!await HandleRestorePointAsync())
+                var (proceed, created) = await HandleRestorePointAsync();
+                if (!proceed)
                 {
                     optimization.State.IsApplied = wasApplied;
                     return;
                 }
 
+                restorePointCreated = created;
                 _optimizationService.WasRequestedRestorePoint = true;
             }
 
@@ -450,7 +452,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
                     if (applyResult.Status == OptimizationSuccessResult.Failed)
                     {
                         ShowOutcomeSnackbar(false, false, true, "apply",
-                            applyResult.Message, optimization.OptimizationKey);
+                            applyResult.Message, optimization.OptimizationKey, restorePointCreated);
 
                         _logger.LogWarning("Apply failed for {Name}: {Message}",
                             optimization.OptimizationKey, applyResult.Message);
@@ -478,7 +480,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
                                  applyResult.Status != OptimizationSuccessResult.Success;
 
                     ShowOutcomeSnackbar(succeeded, partial, failed, "apply",
-                        applyResult.Message, optimization.OptimizationKey);
+                        applyResult.Message, optimization.OptimizationKey, restorePointCreated);
 
                     if (succeeded)
                         _logger.LogInformation("Successfully applied {Name}", optimization.OptimizationKey);
@@ -516,7 +518,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
                                  (revertResult.IsCompleteFailure && retryOutcome == RetryOutcome.Skipped);
 
                     ShowOutcomeSnackbar(succeeded, partial, failed, "revert",
-                        revertResult.Message, optimization.OptimizationKey);
+                        revertResult.Message, optimization.OptimizationKey, restorePointCreated);
 
                     if (succeeded)
                         _logger.LogInformation("Successfully reverted {Name}", optimization.OptimizationKey);

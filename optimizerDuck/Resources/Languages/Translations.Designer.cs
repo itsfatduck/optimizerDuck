@@ -952,7 +952,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User temporary files created by applications.
+        ///   Looks up a localized string similar to User temporary files created by applications (excluding the .net temp directory).
         /// </summary>
         internal static string DiskCleanup_Item_TempFiles_Description {
             get {
@@ -1078,11 +1078,20 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Couldn&apos;t apply optimization..
+        ///   Looks up a localized string similar to Couldn&apos;t fully apply optimization.
         /// </summary>
         internal static string Optimization_Apply_Snackbar_Error_Title {
             get {
                 return ResourceManager.GetString("Optimization.Apply.Snackbar.Error.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optimization applied successfully.
+        /// </summary>
+        internal static string Optimization_Apply_Snackbar_Success_Title {
+            get {
+                return ResourceManager.GetString("Optimization.Apply.Snackbar.Success.Title", resourceCulture);
             }
         }
         
@@ -1141,15 +1150,6 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Revert step #{0}.
-        /// </summary>
-        internal static string Optimization_Revert_StepDescription {
-            get {
-                return ResourceManager.GetString("Optimization.Revert.StepDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Reverting....
         /// </summary>
         internal static string Optimization_Revert_Reverting {
@@ -1168,20 +1168,20 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Optimization applied successfully.
-        /// </summary>
-        internal static string Optimization_Apply_Snackbar_Success_Title {
-            get {
-                return ResourceManager.GetString("Optimization.Apply.Snackbar.Success.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Optimization reverted successfully.
         /// </summary>
         internal static string Optimization_Revert_Snackbar_Success_Title {
             get {
                 return ResourceManager.GetString("Optimization.Revert.Snackbar.Success.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revert step #{0}.
+        /// </summary>
+        internal static string Optimization_Revert_StepDescription {
+            get {
+                return ResourceManager.GetString("Optimization.Revert.StepDescription", resourceCulture);
             }
         }
         
@@ -2684,15 +2684,6 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Revert step failed.
-        /// </summary>
-        internal static string Revert_Error_StepFailed {
-            get {
-                return ResourceManager.GetString("Revert.Error.StepFailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No revert data found for {0}..
         /// </summary>
         internal static string Revert_Error_NoDataFound {
@@ -2734,6 +2725,69 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Revert_Error_RevertFailed {
             get {
                 return ResourceManager.GetString("Revert.Error.RevertFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revert step failed.
+        /// </summary>
+        internal static string Revert_Error_StepFailed {
+            get {
+                return ResourceManager.GetString("Revert.Error.StepFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete registry value: {0}\{1}.
+        /// </summary>
+        internal static string Revert_Registry_Description_Delete {
+            get {
+                return ResourceManager.GetString("Revert.Registry.Description.Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore registry value: {0}\{1}.
+        /// </summary>
+        internal static string Revert_Registry_Description_Restore {
+            get {
+                return ResourceManager.GetString("Revert.Registry.Description.Restore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable scheduled task: {0}.
+        /// </summary>
+        internal static string Revert_ScheduledTask_Description_Disable {
+            get {
+                return ResourceManager.GetString("Revert.ScheduledTask.Description.Disable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable scheduled task: {0}.
+        /// </summary>
+        internal static string Revert_ScheduledTask_Description_Enable {
+            get {
+                return ResourceManager.GetString("Revert.ScheduledTask.Description.Enable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore service &apos;{0}&apos; to {1} startup.
+        /// </summary>
+        internal static string Revert_Service_Description_Restore {
+            get {
+                return ResourceManager.GetString("Revert.Service.Description.Restore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run {0} command: {1}.
+        /// </summary>
+        internal static string Revert_Shell_Description_Run {
+            get {
+                return ResourceManager.GetString("Revert.Shell.Description.Run", resourceCulture);
             }
         }
         
@@ -3098,6 +3152,24 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Registry.
+        /// </summary>
+        internal static string Service_Registry_Name {
+            get {
+                return ResourceManager.GetString("Service.Registry.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scheduled Task.
+        /// </summary>
+        internal static string Service_ScheduledTask_Name {
+            get {
+                return ResourceManager.GetString("Service.ScheduledTask.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ChangeStartMode failed (code: {0}).
         /// </summary>
         internal static string Service_Service_Error_ChangeStartModeFailedWithCode {
@@ -3134,6 +3206,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Service.
+        /// </summary>
+        internal static string Service_Service_Name {
+            get {
+                return ResourceManager.GetString("Service.Service.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exit code {0}.
         /// </summary>
         internal static string Service_Shell_Error_ExitCode {
@@ -3148,6 +3229,15 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Service_Shell_Error_TimedOut {
             get {
                 return ResourceManager.GetString("Service.Shell.Error.TimedOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shell.
+        /// </summary>
+        internal static string Service_Shell_Name {
+            get {
+                return ResourceManager.GetString("Service.Shell.Name", resourceCulture);
             }
         }
         
@@ -3698,96 +3788,6 @@ namespace optimizerDuck.Resources.Languages {
         internal static string StartupManager_Tasks_Title {
             get {
                 return ResourceManager.GetString("StartupManager.Tasks.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Registry.
-        /// </summary>
-        internal static string Service_Registry_Name {
-            get {
-                return ResourceManager.GetString("Service.Registry.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Service.
-        /// </summary>
-        internal static string Service_Service_Name {
-            get {
-                return ResourceManager.GetString("Service.Service.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scheduled Task.
-        /// </summary>
-        internal static string Service_ScheduledTask_Name {
-            get {
-                return ResourceManager.GetString("Service.ScheduledTask.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Shell.
-        /// </summary>
-        internal static string Service_Shell_Name {
-            get {
-                return ResourceManager.GetString("Service.Shell.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Restore registry value: {0}\{1}.
-        /// </summary>
-        internal static string Revert_Registry_Description_Restore {
-            get {
-                return ResourceManager.GetString("Revert.Registry.Description.Restore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delete registry value: {0}\{1}.
-        /// </summary>
-        internal static string Revert_Registry_Description_Delete {
-            get {
-                return ResourceManager.GetString("Revert.Registry.Description.Delete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Restore service &apos;{0}&apos; to {1} startup.
-        /// </summary>
-        internal static string Revert_Service_Description_Restore {
-            get {
-                return ResourceManager.GetString("Revert.Service.Description.Restore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enable scheduled task: {0}.
-        /// </summary>
-        internal static string Revert_ScheduledTask_Description_Enable {
-            get {
-                return ResourceManager.GetString("Revert.ScheduledTask.Description.Enable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disable scheduled task: {0}.
-        /// </summary>
-        internal static string Revert_ScheduledTask_Description_Disable {
-            get {
-                return ResourceManager.GetString("Revert.ScheduledTask.Description.Disable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Run {0} command: {1}.
-        /// </summary>
-        internal static string Revert_Shell_Description_Run {
-            get {
-                return ResourceManager.GetString("Revert.Shell.Description.Run", resourceCulture);
             }
         }
     }

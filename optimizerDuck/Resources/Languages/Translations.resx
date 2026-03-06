@@ -490,8 +490,8 @@ Current version: {0}</value>
     <value>Just applied</value>
   </data>
     <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
-    <value>Couldn't apply optimization.</value>
-  </data>
+      <value>Couldn't fully apply optimization</value>
+    </data>
     <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
     <value>Couldn't revert optimization</value>
   </data>

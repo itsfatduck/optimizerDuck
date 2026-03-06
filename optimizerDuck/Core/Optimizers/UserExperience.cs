@@ -29,9 +29,7 @@ public class UserExperience : IOptimizationCategory
         {
             RegistryService.Write(
                 new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Dsh", "AllowNewsAndInterests", 0),
-                new RegistryItem(@"HKCU\SOFTWARE\Policies\Microsoft\Windows\Windows Feeds", "EnableFeeds", 0),
-                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Feeds",
-                    "ShellFeedsTaskbarViewMode", 2)
+                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Feeds", "EnableFeeds", 0)
             );
             context.Logger.LogInformation("Disabled taskbar news and interests");
             return Task.FromResult(ApplyResult.True());
