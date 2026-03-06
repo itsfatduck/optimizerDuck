@@ -1,16 +1,16 @@
 @echo off
 echo hi itsfatduck bro :D
 
-echo Available build profiles:
+echo Available publish profiles:
 echo 1. Portable
 echo 2. Single
-set /p buildOption="Choose build profile (1/2): "
+set /p buildOption="Choose publish profile (1/2): "
 if "%buildOption%"=="1" (
-    echo Publishing portable build...
+    echo Publishing portable publish...
     dotnet publish optimizerDuck/optimizerDuck.csproj /p:PublishProfile=Portable
     pause
 ) else if "%buildOption%"=="2" (
-    echo Publishing single build...
+    echo Publishing single publish...
     dotnet publish optimizerDuck/optimizerDuck.csproj /p:PublishProfile=Single
     pause
 ) else (
