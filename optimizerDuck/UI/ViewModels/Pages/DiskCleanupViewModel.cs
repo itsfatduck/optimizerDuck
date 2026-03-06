@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
@@ -110,7 +111,9 @@ public partial class DiskCleanupViewModel(
         IsCleaning = true;
         try
         {
+            var sw = Stopwatch.StartNew();
             var freedBytes = await diskCleanupService.CleanSelectedAsync(CleanupItems);
+            sw.Stop();
 
             // Deselect all items after successful clean
             foreach (var item in CleanupItems)
@@ -118,12 +121,12 @@ public partial class DiskCleanupViewModel(
 
             snackbarService.Show(
                 Translations.DiskCleanup_Complete_Title,
-                string.Format(Translations.DiskCleanup_Complete_Message, CleanupItem.FormatBytes(freedBytes)),
+                string.Format(Translations.DiskCleanup_Complete_Message, CleanupItem.FormatBytes(freedBytes), $"{sw.Elapsed.TotalSeconds:0.0}s"),
                 ControlAppearance.Success,
                 new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
                 TimeSpan.FromSeconds(5));
 
-            logger.LogInformation("Disk cleanup completed, freed {Size}", CleanupItem.FormatBytes(freedBytes));
+            logger.LogInformation("Disk cleanup completed, freed {Size} in {Duration}", CleanupItem.FormatBytes(freedBytes), sw.Elapsed);
         }
         catch (Exception ex)
         {

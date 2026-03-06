@@ -1050,7 +1050,7 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
     <value>Dọn dẹp hoàn tất</value>
   </data>
   <data name="DiskCleanup.Complete.Message" xml:space="preserve">
-    <value>Đã giải phóng {0} dung lượng ổ đĩa</value>
+    <value>Đã giải phóng {0} dung lượng ổ đĩa trong {1}</value>
   </data>
   <data name="DiskCleanup.Error.Title" xml:space="preserve">
     <value>Lỗi dọn dẹp</value>
