@@ -1396,4 +1396,10 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="Settings.Optimize.ShowSnackbarNotificationAfterAppliedSuccessfully.Description" xml:space="preserve">
     <value>Displays a notification when optimizations have been successfully applied.</value>
   </data>
+  <data name="Optimizations.Loading" xml:space="preserve">
+    <value>Loading optimizations...</value>
+  </data>
+  <data name="Optimizations.Loading.Hint" xml:space="preserve">
+    <value>Please wait...</value>
+  </data>
 </root>

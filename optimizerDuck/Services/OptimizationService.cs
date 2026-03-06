@@ -57,7 +57,7 @@ public class OptimizationService(
             var result = await ShellService.PowerShellAsync(
                 $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS");
 
-            if (result.Stderr.Contains("already been created within the past 1440 minutes",
+            if (result.Stderr.Contains("already been created within the past",
                     StringComparison.OrdinalIgnoreCase))
             {
                 _logger.LogWarning("Restore point creation skipped: frequency limit reached.");
@@ -89,7 +89,7 @@ public class OptimizationService(
             result = await ShellService.PowerShellAsync(
                 $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS");
 
-            if (result.Stderr.Contains("already been created within the past 1440 minutes", StringComparison.OrdinalIgnoreCase))
+            if (result.Stderr.Contains("already been created within the past", StringComparison.OrdinalIgnoreCase))
                 return RestorePointResult.FrequencyLimitReached;
 
             return result.ExitCode == 0 ? RestorePointResult.Success : RestorePointResult.Failed;
@@ -122,8 +122,12 @@ public class OptimizationService(
                     Message = applyResult.Message,
                     FailedSteps = scope.FailedSteps.Select(s => new OperationStepResult
                     {
-                        Index = s.Index, Name = s.Name, Description = s.Description,
-                        Success = s.Success, Error = s.Error, RetryAction = s.RetryAction
+                        Index = s.Index,
+                        Name = s.Name,
+                        Description = s.Description,
+                        Success = s.Success,
+                        Error = s.Error,
+                        RetryAction = s.RetryAction
                     }).ToList()
                 };
             }
@@ -141,8 +145,12 @@ public class OptimizationService(
         {
             var failedSteps = scope.FailedSteps.Select(s => new OperationStepResult
             {
-                Index = s.Index, Name = s.Name, Description = s.Description,
-                Success = s.Success, Error = s.Error, RetryAction = s.RetryAction
+                Index = s.Index,
+                Name = s.Name,
+                Description = s.Description,
+                Success = s.Success,
+                Error = s.Error,
+                RetryAction = s.RetryAction
             }).ToList();
 
             var status = scope.HasSuccessfulSteps ? OptimizationSuccessResult.PartialSuccess : OptimizationSuccessResult.Failed;
@@ -200,7 +208,9 @@ public class OptimizationService(
             progress?.Report(new ProcessingProgress
             {
                 Message = string.Format(Translations.Optimization_RetryStep_Processing, step.Name, step.Index, total),
-                IsIndeterminate = false, Value = step.Index, Total = total
+                IsIndeterminate = false,
+                Value = step.Index,
+                Total = total
             });
 
             if (step.RetryAction == null) { stillFailed.Add(step); continue; }

@@ -1388,4 +1388,10 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Settings.Optimize.ShowSnackbarNotificationAfterAppliedSuccessfully.Description" xml:space="preserve">
     <value>Hiển thị thông báo sau khi quá trình áp dụng tối ưu hóa hoàn tất thành công.</value>
   </data>
+  <data name="Optimizations.Loading" xml:space="preserve">
+    <value>Đang tải danh sách tối ưu hóa...</value>
+  </data>
+  <data name="Optimizations.Loading.Hint" xml:space="preserve">
+    <value>Vui lòng đợi...</value>
+  </data>
 </root>

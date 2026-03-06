@@ -30,7 +30,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
     private static readonly ConcurrentDictionary<string, (string Content, DateTime FetchedAt)> _sourceCache = new();
     private static readonly TimeSpan SourceCacheTtl = TimeSpan.FromMinutes(5);
 
-    private readonly ObservableCollection<IOptimization> _allOptimizations = [];
+    private readonly List<IOptimization> _allOptimizations = [];
     private readonly IOptimizationCategory _category;
     private readonly IContentDialogService _contentDialogService;
     private readonly ILogger<OptimizationCategoryViewModel> _logger;
@@ -51,6 +51,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
     [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(ToggleOptimizationCommand))]
     private bool _isProcessing;
+
+    [ObservableProperty] private bool _isLoading;
 
     public OptimizationCategoryViewModel(
         IOptimizationCategory category,
@@ -343,18 +345,28 @@ public partial class OptimizationCategoryViewModel : ViewModel
     {
         if (_allOptimizations.Count > 0) return;
 
-        foreach (var optimization in _category.Optimizations)
+        IsLoading = true;
+        try
         {
-            optimization.State.PropertyChanged += (_, e) =>
-            {
-                if (e.PropertyName == nameof(OptimizationState.IsApplied))
-                    OnPropertyChanged(nameof(HasAppliedOptimizations));
-            };
-            _allOptimizations.Add(optimization);
-            await Task.Delay(10);
-        }
+            // Allow UI to render loading ring
+            await Task.Delay(1);
 
-        ApplyFilter();
+            foreach (var optimization in _category.Optimizations)
+            {
+                optimization.State.PropertyChanged += (_, e) =>
+                {
+                    if (e.PropertyName == nameof(OptimizationState.IsApplied))
+                        OnPropertyChanged(nameof(HasAppliedOptimizations));
+                };
+                _allOptimizations.Add(optimization);
+            }
+
+            ApplyFilter();
+        }
+        finally
+        {
+            IsLoading = false;
+        }
     }
 
     /// <summary>
