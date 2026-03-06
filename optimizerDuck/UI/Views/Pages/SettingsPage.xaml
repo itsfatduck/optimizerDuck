@@ -111,6 +111,25 @@
                         SmallChange="1000"
                         Value="{Binding ViewModel.ShellTimeoutMs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </ui:CardControl>
+
+                <ui:CardControl Icon="{ui:SymbolIcon Alert24}">
+                    <ui:CardControl.Header>
+                        <StackPanel>
+                            <ui:TextBlock
+                                Appearance="Primary"
+                                FontTypography="BodyStrong"
+                                Margin="0"
+                                Text="{ext:Loc Settings.Optimize.ShowSnackbarNotificationAfterAppliedSuccessfully.Title}"
+                                TextWrapping="Wrap" />
+                            <ui:TextBlock
+                                Appearance="Secondary"
+                                Text="{ext:Loc Settings.Optimize.ShowSnackbarNotificationAfterAppliedSuccessfully.Description}"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                    </ui:CardControl.Header>
+
+                    <ui:ToggleSwitch Command="{Binding ViewModel.ToggleShowSnackbarNotificationAfterAppliedSuccessfullyCommand}" IsChecked="{Binding ViewModel.ShowSnackbarNotificationAfterAppliedSuccessfully, Mode=TwoWay}" />
+                </ui:CardControl>
             </StackPanel>
 
             <StackPanel Margin="0,20,0,0">

@@ -14,6 +14,8 @@ using optimizerDuck.Core.Optimizers;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services;
 using optimizerDuck.Services.Managers;
+using optimizerDuck.Core.Models.Config;
+using Microsoft.Extensions.Options;
 using optimizerDuck.UI.ViewModels.Dialogs;
 using optimizerDuck.UI.Views.Dialogs;
 using Wpf.Ui;
@@ -36,14 +38,19 @@ public partial class OptimizationCategoryViewModel : ViewModel
     private readonly RevertManager _revertManager;
     private readonly ISnackbarService _snackbarService;
     [ObservableProperty] private bool _hideApplied;
-    [ObservableProperty] private bool _isProcessing;
+
     [ObservableProperty] private ObservableCollection<IOptimization> _optimizations = [];
 
     // Search, Filter, Sort
     [ObservableProperty] private string _searchText = string.Empty;
 
+    private readonly IOptionsMonitor<AppSettings> _appOptionsMonitor;
+
     [ObservableProperty] private int _selectedRiskFilterIndex; // 0=All, 1=Safe, 2=Moderate, 3=Risky
     [ObservableProperty] private int _selectedSortByIndex; // 0=Risk & Status, 1=Name, 2=Risk
+
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(ToggleOptimizationCommand))]
+    private bool _isProcessing;
 
     public OptimizationCategoryViewModel(
         IOptimizationCategory category,
@@ -51,7 +58,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
         RevertManager revertManager,
         ISnackbarService snackbarService,
         IContentDialogService contentDialogService,
-        ILogger<OptimizationCategoryViewModel> logger)
+        ILogger<OptimizationCategoryViewModel> logger,
+        IOptionsMonitor<AppSettings> appOptionsMonitor)
     {
         _category = category;
         _optimizationService = optimizationService;
@@ -59,6 +67,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
         _snackbarService = snackbarService;
         _logger = logger;
         _contentDialogService = contentDialogService;
+        _appOptionsMonitor = appOptionsMonitor;
     }
 
     public bool HasAppliedOptimizations => _allOptimizations.Any(o => o.State.IsApplied);
@@ -87,6 +96,245 @@ public partial class OptimizationCategoryViewModel : ViewModel
     {
         await LoadOptimizationStatesAsync();
     }
+
+    #region Commands
+
+    /// <summary>
+    ///     Toggles the optimization.
+    /// </summary>
+    /// <param name="optimization">The optimization to toggle.</param>
+    [RelayCommand(CanExecute = nameof(CanToggleOptimization))]
+    private async Task ToggleOptimizationAsync(IOptimization optimization)
+    {
+        try
+        {
+            // Keep a stable reference to the previous state in case we need to roll back UI changes.
+            var wasApplied = await OptimizationService.IsAppliedAsync(optimization.Id);
+
+            var restorePointCreated = false;
+            if (!_optimizationService.WasRequestedRestorePoint)
+            {
+                var (proceed, created) = await HandleRestorePointAsync();
+                if (!proceed)
+                {
+                    optimization.State.IsApplied = wasApplied;
+                    return;
+                }
+
+                restorePointCreated = created;
+                _optimizationService.WasRequestedRestorePoint = true;
+            }
+
+            try
+            {
+                // Apply optimization if not already applied
+                if (!wasApplied)
+                {
+                    _logger.LogInformation(
+                        "===== START applying optimization {OptimizationName} ({OptimizationId}) =====",
+                        optimization.OptimizationKey, optimization.Id);
+                    var applyResult = await RunWithProcessingDialogAsync(
+                        optimization,
+                        progress => _optimizationService.ApplyAsync(optimization, progress));
+
+
+                    // If result status is Failed, we can't retry it
+                    if (applyResult.Status == OptimizationSuccessResult.Failed)
+                    {
+                        ShowOutcomeSnackbar(false, false, true, "apply",
+                            applyResult.Message, restorePointCreated);
+
+                        _logger.LogWarning("Apply failed for {Name}: {Message}",
+                            optimization.OptimizationKey, applyResult.Message);
+
+                        _logger.LogInformation(
+                            "===== END applying optimization {OptimizationName} ({OptimizationId}) =====",
+                            optimization.OptimizationKey, optimization.Id);
+
+                        await OptimizationService.UpdateOptimizationStateAsync(optimization);
+                        return;
+                    }
+
+                    // Retry only if there are some successful steps and some failed steps
+                    var retryOutcome = await HandleFailedStepsAsync(
+                        optimization,
+                        applyResult.FailedSteps,
+                        false);
+
+                    await OptimizationService.UpdateOptimizationStateAsync(optimization);
+
+                    var succeeded = applyResult.Status == OptimizationSuccessResult.Success ||
+                                    retryOutcome == RetryOutcome.Succeeded;
+                    var partial = retryOutcome == RetryOutcome.Skipped;
+                    var failed = retryOutcome == RetryOutcome.None &&
+                                 applyResult.Status != OptimizationSuccessResult.Success;
+
+                    ShowOutcomeSnackbar(succeeded, partial, failed, "apply",
+                        applyResult.Message, restorePointCreated);
+
+                    if (succeeded)
+                        _logger.LogInformation("Successfully applied {Name}", optimization.OptimizationKey);
+                    else if (partial)
+                        _logger.LogWarning("Partially applied {Name}", optimization.OptimizationKey);
+                    else
+                        _logger.LogWarning("Failed to apply {Name}", optimization.OptimizationKey);
+
+                    _logger.LogInformation(
+                        "===== END applying optimization {OptimizationName} ({OptimizationId}) =====",
+                        optimization.OptimizationKey, optimization.Id);
+                }
+                else
+                {
+                    // Revert optimization if already applied
+                    _logger.LogInformation(
+                        "===== START reverting optimization {OptimizationName} ({OptimizationId}) =====",
+                        optimization.OptimizationKey, optimization.Id);
+
+                    var revertResult = await RunWithProcessingDialogAsync(
+                        optimization,
+                        progress => _optimizationService.RevertAsync(optimization, progress));
+
+
+                    var retryOutcome = await HandleFailedStepsAsync(
+                        optimization,
+                        revertResult.FailedStepDetails,
+                        true);
+
+                    await OptimizationService.UpdateOptimizationStateAsync(optimization);
+
+                    var succeeded = revertResult.Success || retryOutcome == RetryOutcome.Succeeded;
+                    var partial = retryOutcome == RetryOutcome.Skipped && !revertResult.IsCompleteFailure;
+                    var failed = (retryOutcome == RetryOutcome.None && !revertResult.Success) ||
+                                 (revertResult.IsCompleteFailure && retryOutcome == RetryOutcome.Skipped);
+
+                    ShowOutcomeSnackbar(succeeded, partial, failed, "revert",
+                        revertResult.Message, restorePointCreated);
+
+                    if (succeeded)
+                        _logger.LogInformation("Successfully reverted {Name}", optimization.OptimizationKey);
+                    else if (partial)
+                        _logger.LogWarning("Partially reverted {Name}", optimization.OptimizationKey);
+                    else
+                        _logger.LogWarning("Failed to revert {Name}", optimization.OptimizationKey);
+                    _logger.LogInformation(
+                        "===== END reverting optimization {OptimizationName} ({OptimizationId}) =====",
+                        optimization.OptimizationKey, optimization.Id);
+                }
+            }
+            catch (Exception ex)
+            {
+                optimization.State.IsApplied = wasApplied; // revert UI state on failure
+                _logger.LogError(ex, "Failed to toggle optimization {Name}", optimization.OptimizationKey);
+                _snackbarService.Show(
+                    Translations.Optimization_Toggle_Snackbar_Error_Title,
+                    string.Format(Translations.Optimization_Toggle_Snackbar_Error_Message, ex.Message),
+                    ControlAppearance.Danger,
+                    new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
+                    TimeSpan.FromSeconds(5)
+                );
+            }
+        }
+        finally
+        {
+            IsProcessing = false;
+        }
+    }
+
+    /// <summary>
+    ///     Shows the details of an optimization.
+    /// </summary>
+    /// <param name="optimization">The optimization to show details for.</param>
+    [RelayCommand]
+    private async Task ShowDetailsAsync(IOptimization optimization)
+    {
+        var dialogViewModel = new OptimizationDetailsViewModel(optimization, _snackbarService, _logger);
+        var dialogContent = new OptimizationDetailsDialog { DataContext = dialogViewModel };
+        var dialog = new ContentDialog
+        {
+            Title = BuildDialogTitle(optimization),
+            Content = dialogContent,
+            CloseButtonText = Translations.Button_Ok
+        };
+        var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
+    }
+
+    /// <summary>
+    ///     Opens the source code of an optimization on GitHub.
+    /// </summary>
+    /// <param name="optimization">The optimization to view the source code for.</param>
+    [RelayCommand]
+    private async Task ViewSourceOnGitHubAsync(IOptimization optimization)
+    {
+        if (optimization is not BaseOptimization baseOpt || baseOpt.OwnerType == null)
+            return;
+
+        var fileName = baseOpt.OwnerType.Name;
+        var className = optimization.OptimizationKey;
+        var relativePath = $"optimizerDuck/Core/Optimizers/{fileName}.cs";
+        var url = $"{Shared.GitHubRepoURL}/blob/master/{relativePath}";
+
+        // Fetch source from GitHub raw content to find the class line number
+        try
+        {
+            var rawUrl = $"https://raw.githubusercontent.com/itsfatduck/optimizerDuck/master/{relativePath}";
+
+            string source;
+            if (_sourceCache.TryGetValue(rawUrl, out var cached)
+                && DateTime.UtcNow - cached.FetchedAt < SourceCacheTtl)
+            {
+                source = cached.Content;
+            }
+            else
+            {
+                source = await httpClient.GetStringAsync(rawUrl);
+                _sourceCache[rawUrl] = (source, DateTime.UtcNow);
+            }
+
+            var lines = source.Split('\n');
+            for (var i = 0; i < lines.Length; i++)
+                if (lines[i].Contains($"class {className}", StringComparison.OrdinalIgnoreCase))
+                {
+                    url += $"#L{i + 1}";
+                    break;
+                }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Could not fetch source to find line number for {Class}", className);
+        }
+
+        try
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = url,
+                UseShellExecute = true
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to open GitHub URL: {Url}", url);
+            _snackbarService.Show(
+                Translations.Snackbar_OpenLinkFailed_Title,
+                Translations.Snackbar_OpenLinkFailed_Message,
+                ControlAppearance.Danger,
+                new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
+                TimeSpan.FromSeconds(5));
+        }
+    }
+
+    #endregion Commands
+
+    #region CanExecutes
+
+    private bool CanToggleOptimization(IOptimization optimization)
+    {
+        return !IsProcessing;
+    }
+
+    #endregion
+
+    #region Helpers
 
     /// <summary>
     ///     Load all optimizations from the category and apply filters.
@@ -270,23 +518,31 @@ public partial class OptimizationCategoryViewModel : ViewModel
     /// <param name="failed">Whether the operation failed.</param>
     /// <param name="operationType">The type of operation.</param>
     /// <param name="message">The message to show.</param>
-    /// <param name="optimizationName">The name of the optimization.</param>
+    /// <param name="restorePointCreated">Whether a restore point was created.</param>
     private void ShowOutcomeSnackbar(bool succeeded, bool partial, bool failed, string operationType,
-        string message, string optimizationName, bool restorePointCreated = false)
+        string message, bool restorePointCreated = false)
     {
+        var showSuccess = _appOptionsMonitor.CurrentValue.Optimize.ShowSnackbarNotificationAfterAppliedSuccessfully;
         var finalMessage = message;
-        if (restorePointCreated)
-            finalMessage += "\n" + string.Format(Translations.RestorePoint_Snackbar_Success_Message, Shared.RestorePointName);
+
+        if (restorePointCreated && showSuccess)
+            finalMessage += "\n" + string.Format(Translations.RestorePoint_Snackbar_Success_Message,
+                Shared.RestorePointName);
 
         if (succeeded)
-            _snackbarService.Show(
-                operationType == "apply"
-                    ? Translations.Optimization_Apply_Snackbar_Success_Title
-                    : Translations.Optimization_Revert_Snackbar_Success_Title,
-                finalMessage,
-                ControlAppearance.Success,
-                new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
-                TimeSpan.FromSeconds(5));
+        {
+            if (showSuccess)
+            {
+                _snackbarService.Show(
+                    operationType == "apply"
+                        ? Translations.Optimization_Apply_Snackbar_Success_Title
+                        : Translations.Optimization_Revert_Snackbar_Success_Title,
+                    finalMessage,
+                    ControlAppearance.Success,
+                    new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
+                    TimeSpan.FromSeconds(5));
+            }
+        }
         else if (partial)
             _snackbarService.Show(
                 operationType == "apply"
@@ -337,6 +593,18 @@ public partial class OptimizationCategoryViewModel : ViewModel
         switch (resultState)
         {
             case RestorePointResult.Success:
+                // if setting show snackbar after applied successfully was off, so show it and applied snackbar wont conflict this
+                if (!_appOptionsMonitor.CurrentValue.Optimize.ShowSnackbarNotificationAfterAppliedSuccessfully)
+                {
+                    _snackbarService.Show(
+                        Translations.RestorePoint_Snackbar_Success_Title,
+                        string.Format(Translations.RestorePoint_Snackbar_Success_Message, Shared.RestorePointName),
+                        ControlAppearance.Success,
+                        new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
+                        TimeSpan.FromSeconds(5));
+                    break;
+                }
+
                 restorePointCreated = true;
                 break;
 
@@ -398,240 +666,5 @@ public partial class OptimizationCategoryViewModel : ViewModel
         Skipped
     }
 
-    #region Commands
-
-
-    /// <summary>
-    ///     Toggles the optimization.
-    /// </summary>
-    /// <param name="optimization">The optimization to toggle.</param>
-    [RelayCommand]
-    private async Task ToggleOptimizationAsync(IOptimization optimization)
-    {
-        if (IsProcessing)
-        {
-            _logger.LogWarning("An optimization is already being processed, ignoring spam");
-            return;
-        }
-
-        IsProcessing = true;
-
-        try
-        {
-            // Keep a stable reference to the previous state in case we need to roll back UI changes.
-            var wasApplied = await OptimizationService.IsAppliedAsync(optimization.Id);
-
-            var restorePointCreated = false;
-            if (!_optimizationService.WasRequestedRestorePoint)
-            {
-                var (proceed, created) = await HandleRestorePointAsync();
-                if (!proceed)
-                {
-                    optimization.State.IsApplied = wasApplied;
-                    return;
-                }
-
-                restorePointCreated = created;
-                _optimizationService.WasRequestedRestorePoint = true;
-            }
-
-            try
-            {
-                // Apply optimization if not already applied
-                if (!wasApplied)
-                {
-                    _logger.LogInformation(
-                        "===== START applying optimization {OptimizationName} ({OptimizationId}) =====",
-                        optimization.OptimizationKey, optimization.Id);
-                    var applyResult = await RunWithProcessingDialogAsync(
-                        optimization,
-                        progress => _optimizationService.ApplyAsync(optimization, progress));
-
-
-                    // If result status is Failed, we can't retry it
-                    if (applyResult.Status == OptimizationSuccessResult.Failed)
-                    {
-                        ShowOutcomeSnackbar(false, false, true, "apply",
-                            applyResult.Message, optimization.OptimizationKey, restorePointCreated);
-
-                        _logger.LogWarning("Apply failed for {Name}: {Message}",
-                            optimization.OptimizationKey, applyResult.Message);
-
-                        _logger.LogInformation(
-                            "===== END applying optimization {OptimizationName} ({OptimizationId}) =====",
-                            optimization.OptimizationKey, optimization.Id);
-
-                        await OptimizationService.UpdateOptimizationStateAsync(optimization);
-                        return;
-                    }
-
-                    // Retry only if there are some successful steps and some failed steps
-                    var retryOutcome = await HandleFailedStepsAsync(
-                        optimization,
-                        applyResult.FailedSteps,
-                        false);
-
-                    await OptimizationService.UpdateOptimizationStateAsync(optimization);
-
-                    var succeeded = applyResult.Status == OptimizationSuccessResult.Success ||
-                                    retryOutcome == RetryOutcome.Succeeded;
-                    var partial = retryOutcome == RetryOutcome.Skipped;
-                    var failed = retryOutcome == RetryOutcome.None &&
-                                 applyResult.Status != OptimizationSuccessResult.Success;
-
-                    ShowOutcomeSnackbar(succeeded, partial, failed, "apply",
-                        applyResult.Message, optimization.OptimizationKey, restorePointCreated);
-
-                    if (succeeded)
-                        _logger.LogInformation("Successfully applied {Name}", optimization.OptimizationKey);
-                    else if (partial)
-                        _logger.LogWarning("Partially applied {Name}", optimization.OptimizationKey);
-                    else
-                        _logger.LogWarning("Failed to apply {Name}", optimization.OptimizationKey);
-
-                    _logger.LogInformation(
-                        "===== END applying optimization {OptimizationName} ({OptimizationId}) =====",
-                        optimization.OptimizationKey, optimization.Id);
-                }
-                else
-                {
-                    // Revert optimization if already applied
-                    _logger.LogInformation(
-                        "===== START reverting optimization {OptimizationName} ({OptimizationId}) =====",
-                        optimization.OptimizationKey, optimization.Id);
-
-                    var revertResult = await RunWithProcessingDialogAsync(
-                        optimization,
-                        progress => _optimizationService.RevertAsync(optimization, progress));
-
-
-                    var retryOutcome = await HandleFailedStepsAsync(
-                        optimization,
-                        revertResult.FailedStepDetails,
-                        true);
-
-                    await OptimizationService.UpdateOptimizationStateAsync(optimization);
-
-                    var succeeded = revertResult.Success || retryOutcome == RetryOutcome.Succeeded;
-                    var partial = retryOutcome == RetryOutcome.Skipped && !revertResult.IsCompleteFailure;
-                    var failed = (retryOutcome == RetryOutcome.None && !revertResult.Success) ||
-                                 (revertResult.IsCompleteFailure && retryOutcome == RetryOutcome.Skipped);
-
-                    ShowOutcomeSnackbar(succeeded, partial, failed, "revert",
-                        revertResult.Message, optimization.OptimizationKey, restorePointCreated);
-
-                    if (succeeded)
-                        _logger.LogInformation("Successfully reverted {Name}", optimization.OptimizationKey);
-                    else if (partial)
-                        _logger.LogWarning("Partially reverted {Name}", optimization.OptimizationKey);
-                    else
-                        _logger.LogWarning("Failed to revert {Name}", optimization.OptimizationKey);
-                    _logger.LogInformation(
-                        "===== END reverting optimization {OptimizationName} ({OptimizationId}) =====",
-                        optimization.OptimizationKey, optimization.Id);
-                }
-            }
-            catch (Exception ex)
-            {
-                optimization.State.IsApplied = wasApplied; // revert UI state on failure
-                _logger.LogError(ex, "Failed to toggle optimization {Name}", optimization.OptimizationKey);
-                _snackbarService.Show(
-                    Translations.Optimization_Toggle_Snackbar_Error_Title,
-                    string.Format(Translations.Optimization_Toggle_Snackbar_Error_Message, ex.Message),
-                    ControlAppearance.Danger,
-                    new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                    TimeSpan.FromSeconds(5)
-                );
-            }
-        }
-        finally
-        {
-            IsProcessing = false;
-        }
-    }
-
-    /// <summary>
-    ///     Shows the details of an optimization.
-    /// </summary>
-    /// <param name="optimization">The optimization to show details for.</param>
-    [RelayCommand]
-    private async Task ShowDetailsAsync(IOptimization optimization)
-    {
-        var dialogViewModel = new OptimizationDetailsViewModel(optimization, _snackbarService, _logger);
-        var dialogContent = new OptimizationDetailsDialog { DataContext = dialogViewModel };
-        var dialog = new ContentDialog
-        {
-            Title = BuildDialogTitle(optimization),
-            Content = dialogContent,
-            CloseButtonText = Translations.Button_Ok
-        };
-        var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
-    }
-
-    /// <summary>
-    ///     Opens the source code of an optimization on GitHub.
-    /// </summary>
-    /// <param name="optimization">The optimization to view the source code for.</param>
-    [RelayCommand]
-    private async Task ViewSourceOnGitHubAsync(IOptimization optimization)
-    {
-        if (optimization is not BaseOptimization baseOpt || baseOpt.OwnerType == null)
-            return;
-
-        var fileName = baseOpt.OwnerType.Name;
-        var className = optimization.OptimizationKey;
-        var relativePath = $"optimizerDuck/Core/Optimizers/{fileName}.cs";
-        var url = $"{Shared.GitHubRepoURL}/blob/master/{relativePath}";
-
-        // Fetch source from GitHub raw content to find the class line number
-        try
-        {
-            var rawUrl = $"https://raw.githubusercontent.com/itsfatduck/optimizerDuck/master/{relativePath}";
-
-            string source;
-            if (_sourceCache.TryGetValue(rawUrl, out var cached)
-                && DateTime.UtcNow - cached.FetchedAt < SourceCacheTtl)
-            {
-                source = cached.Content;
-            }
-            else
-            {
-                source = await httpClient.GetStringAsync(rawUrl);
-                _sourceCache[rawUrl] = (source, DateTime.UtcNow);
-            }
-
-            var lines = source.Split('\n');
-            for (var i = 0; i < lines.Length; i++)
-                if (lines[i].Contains($"class {className}", StringComparison.OrdinalIgnoreCase))
-                {
-                    url += $"#L{i + 1}";
-                    break;
-                }
-        }
-        catch (Exception ex)
-        {
-            _logger.LogWarning(ex, "Could not fetch source to find line number for {Class}", className);
-        }
-
-        try
-        {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = url,
-                UseShellExecute = true
-            });
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Failed to open GitHub URL: {Url}", url);
-            _snackbarService.Show(
-                Translations.Snackbar_OpenLinkFailed_Title,
-                Translations.Snackbar_OpenLinkFailed_Message,
-                ControlAppearance.Danger,
-                new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                TimeSpan.FromSeconds(5));
-        }
-    }
-
-    #endregion Commands
+    #endregion
 }

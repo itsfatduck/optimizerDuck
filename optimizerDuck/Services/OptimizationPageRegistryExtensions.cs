@@ -1,9 +1,11 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Attributes;
+using optimizerDuck.Core.Models.Config;
 using optimizerDuck.Services.Managers;
 using Wpf.Ui;
 using OptimizationCategoryViewModel = optimizerDuck.UI.ViewModels.Optimizer.OptimizationCategoryViewModel;
@@ -38,6 +40,7 @@ public static class OptimizationPageRegistryExtensions
         var snackbarService = serviceProvider.GetRequiredService<ISnackbarService>();
         var contentDialogService = serviceProvider.GetRequiredService<IContentDialogService>();
         var logger = serviceProvider.GetRequiredService<ILogger<OptimizationCategoryViewModel>>();
+        var appOptionsMonitor = serviceProvider.GetRequiredService<IOptionsMonitor<AppSettings>>();
 
         var optimizationCategoryType = optimizationRegistry.GetCategory(categoryType);
 
@@ -47,7 +50,8 @@ public static class OptimizationPageRegistryExtensions
             revertManager,
             snackbarService,
             contentDialogService,
-            logger
+            logger,
+            appOptionsMonitor
         );
 
         return Activator.CreateInstance(pageType, viewModel)!;

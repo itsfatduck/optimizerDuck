@@ -197,7 +197,7 @@ public static class RegistryService
 
         return WithKey(item, key =>
         {
-            var description = $"{item.Path}:{item.Name}";
+            var description = string.Format(Translations.Service_Registry_Description_Write, item.Path, item.Name);
             try
             {
                 object? backupValue = null;
@@ -290,7 +290,7 @@ public static class RegistryService
 
         try
         {
-            var description = $"{item.Path}:{item.Name}";
+            var description = string.Format(Translations.Service_Registry_Description_Delete, item.Path, item.Name);
             if (string.IsNullOrEmpty(subPath))
             {
                 key = rootKey;

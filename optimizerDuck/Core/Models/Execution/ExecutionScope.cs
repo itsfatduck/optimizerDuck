@@ -180,7 +180,6 @@ public sealed class ExecutionScope : IDisposable
         }).ToList();
 
         var allFailed = failedSteps.Count == ExecutedSteps.Count;
-        var hasFailures = failedSteps.Count > 0;
 
         return new OptimizationResult
         {
@@ -286,7 +285,7 @@ public sealed class ExecutionScope : IDisposable
 }
 
 /// <summary>
-///     Represents a step that was executed during an optimization.
+///     Represents a single step recorded during optimization execution.
 /// </summary>
 public sealed record ExecutedStep
 {

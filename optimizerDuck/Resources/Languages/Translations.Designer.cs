@@ -3125,6 +3125,24 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete registry value: {0}\{1}.
+        /// </summary>
+        internal static string Service_Registry_Description_Delete {
+            get {
+                return ResourceManager.GetString("Service.Registry.Description.Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write registry value: {0}\{1}.
+        /// </summary>
+        internal static string Service_Registry_Description_Write {
+            get {
+                return ResourceManager.GetString("Service.Registry.Description.Write", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Access denied (protected hive).
         /// </summary>
         internal static string Service_Registry_Error_AccessDeniedProtectedHive {
@@ -3161,11 +3179,38 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disable scheduled task: {0}.
+        /// </summary>
+        internal static string Service_ScheduledTask_Description_Disable {
+            get {
+                return ResourceManager.GetString("Service.ScheduledTask.Description.Disable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable scheduled task: {0}.
+        /// </summary>
+        internal static string Service_ScheduledTask_Description_Enable {
+            get {
+                return ResourceManager.GetString("Service.ScheduledTask.Description.Enable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Scheduled Task.
         /// </summary>
         internal static string Service_ScheduledTask_Name {
             get {
                 return ResourceManager.GetString("Service.ScheduledTask.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change service &apos;{0}&apos; to {1} startup.
+        /// </summary>
+        internal static string Service_Service_Description_Change {
+            get {
+                return ResourceManager.GetString("Service.Service.Description.Change", resourceCulture);
             }
         }
         

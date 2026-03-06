@@ -33,7 +33,7 @@ public static class ScheduledTaskService
     /// </summary>
     public static bool DisableTask(string fullPath)
     {
-        var description = $"Disable: {fullPath}";
+        var description = string.Format(Translations.Service_ScheduledTask_Description_Disable, fullPath);
         try
         {
             using var ts = new TaskService();
@@ -95,7 +95,7 @@ public static class ScheduledTaskService
     /// </summary>
     public static bool EnableTask(string fullPath)
     {
-        var description = $"Enable: {fullPath}";
+        var description = string.Format(Translations.Service_ScheduledTask_Description_Enable, fullPath);
         try
         {
             using var ts = new TaskService();

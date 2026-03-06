@@ -14,26 +14,15 @@ using optimizerDuck.Resources.Languages;
 
 namespace optimizerDuck.Services.Managers;
 
-public class RevertManager(ILogger<RevertManager> logger)
+public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerFactory)
 {
     private static readonly Dictionary<string, Func<JObject, IRevertStep>> _stepRegistry = BuildStepRegistry();
-    private static readonly ConcurrentDictionary<Guid, object> _fileLocks = new();
+    private static readonly ConcurrentDictionary<Guid, SemaphoreSlim> _fileLocks = new();
 
-    public static IReadOnlyCollection<string> RegisteredStepTypes => _stepRegistry.Keys.ToList().AsReadOnly();
-
-    public async Task SaveRevertDataAsync(ExecutionScope executionScope)
+    public async Task SaveRevertDataAsync(ExecutionScope scope)
     {
-        var successfulSteps = executionScope.SuccessfulSteps
+        var steps = scope.SuccessfulSteps
             .Where(s => s.RevertStep != null)
-            .ToList();
-
-        if (successfulSteps.Count == 0)
-        {
-            logger.LogWarning("No revert steps to save for {Key}", executionScope.OptimizationKey);
-            return;
-        }
-
-        var steps = successfulSteps
             .Select(s => new RevertStepData
             {
                 Type = s.RevertStep!.Type,
@@ -41,468 +30,193 @@ public class RevertManager(ILogger<RevertManager> logger)
             })
             .ToList();
 
-        var filePath = Path.Combine(Shared.RevertDirectory, executionScope.OptimizationId + ".json");
-        var tempPath = filePath + ".tmp";
-
-        try
+        if (steps.Count == 0)
         {
-            var payload = new RevertData
-            {
-                OptimizationId = executionScope.OptimizationId,
-                OptimizationName = executionScope.OptimizationKey,
-                AppliedAt = DateTime.Now,
-                Steps = steps
-            };
-
-            Directory.CreateDirectory(Shared.RevertDirectory);
-            var json = JsonConvert.SerializeObject(payload, Formatting.Indented);
-            await File.WriteAllTextAsync(tempPath, json);
-            File.Move(tempPath, filePath, true);
-            logger.LogInformation("Saved {Count} revert steps for {Name} to {File}",
-                steps.Count, executionScope.OptimizationKey, filePath);
+            logger.LogWarning("No revert steps to save for {Key}", scope.OptimizationKey);
+            return;
         }
-        catch (Exception ex)
+
+        var filePath = GetFilePath(scope.OptimizationId);
+        var payload = new RevertData
         {
-            try
-            {
-                if (File.Exists(tempPath))
-                    File.Delete(tempPath);
-            }
-            catch (Exception deleteEx)
-            {
-                logger.LogWarning(deleteEx, "Failed to delete temp file {File} after save failure", tempPath);
-            }
+            OptimizationId = scope.OptimizationId,
+            OptimizationName = scope.OptimizationKey,
+            AppliedAt = DateTime.Now,
+            Steps = steps
+        };
 
-            logger.LogError(ex, "Failed to save revert data for {Name}", executionScope.OptimizationKey);
-            throw;
-        }
+        await WriteJsonAsync(filePath, payload);
+        logger.LogInformation("Saved {Count} revert steps for {Name}", steps.Count, scope.OptimizationKey);
     }
 
-    public async Task<RevertResult> RevertAsync(IOptimization optimization,
-        IProgress<ProcessingProgress>? progress = null)
+    public async Task<RevertResult> RevertAsync(IOptimization opt, IProgress<ProcessingProgress>? progress = null)
     {
-        using var scope = ExecutionScope.BeginForLogging(optimization.Id, optimization.OptimizationKey, logger);
+        var l = loggerFactory.CreateLogger<RevertManager>();
+        using var scope = ExecutionScope.BeginForLogging(opt.Id, opt.OptimizationKey, l);
 
-        try
+        var steps = await LoadStepsAsync(opt.Id);
+        if (steps.Count == 0)
+            return new RevertResult { Success = false, Message = string.Format(Translations.Revert_Error_NoDataFound, opt.Name) };
+
+        logger.LogInformation("Reverting {Key} ({Count} steps)", opt.OptimizationKey, steps.Count);
+
+        var failed = new List<OperationStepResult>();
+        var total = steps.Count;
+
+        for (var i = steps.Count - 1; i >= 0; i--)
         {
-            var validation = await ValidateAsync(optimization.Id);
-            if (!validation.IsValid)
+            var (idx, step) = steps[i];
+            progress?.Report(new ProcessingProgress
             {
-                logger.LogWarning("Invalid revert data for {Key}: {Message}", optimization.OptimizationKey,
-                    validation.Message);
-                return new RevertResult
+                Message = string.Format(Translations.Optimization_Revert_ExecutingStep, idx, total, step.Type),
+                IsIndeterminate = false,
+                Value = idx,
+                Total = total
+            });
+
+            var success = false;
+            Exception? error = null;
+
+            try { success = await step.ExecuteAsync(); }
+            catch (Exception ex) { error = ex; }
+
+            if (!success)
+            {
+                var msg = error?.Message ?? Translations.Revert_Error_StepFailed;
+                logger.LogError(error, "Revert step {Idx} ({Type}) failed", idx, step.Type);
+                failed.Add(new OperationStepResult
                 {
+                    Index = idx,
+                    Name = step.Type,
+                    Description = step.Description,
                     Success = false,
-                    Message = string.Format(Translations.Revert_Error_InvalidData, optimization.Name,
-                        validation.LocalizedMessage)
-                };
-            }
-
-            var steps = await LoadStepsAsync(optimization.Id);
-            if (steps.Count == 0)
-            {
-                logger.LogWarning("No revert steps found for {Key}", optimization.OptimizationKey);
-                return new RevertResult
-                {
-                    Success = false,
-                    Message = string.Format(Translations.Revert_Error_NoDataFound, optimization.Name)
-                };
-            }
-
-            logger.LogInformation("Reverting {Key} ({StepCount} steps)",
-                optimization.OptimizationKey, steps.Count);
-
-            var failedStepDetails = new List<OperationStepResult>();
-            var totalSteps = steps.Count;
-
-            // Revert steps in reverse order (LIFO) for correct undo semantics
-            for (var i = steps.Count - 1; i >= 0; i--)
-            {
-                var (currentIndex, step) = steps[i];
-
-                progress?.Report(new ProcessingProgress
-                {
-                    Message = string.Format(Translations.Optimization_Revert_ExecutingStep, currentIndex, totalSteps,
-                        step.Type),
-                    IsIndeterminate = false,
-                    Value = currentIndex,
-                    Total = totalSteps
+                    Error = msg,
+                    RetryAction = () => step.ExecuteAsync()
                 });
-
-                var success = false;
-                Exception? lastError = null;
-
-                try
-                {
-                    success = await step.ExecuteAsync();
-                }
-                catch (Exception ex)
-                {
-                    lastError = ex;
-                }
-
-                if (!success)
-                {
-                    var errorMessage = lastError?.Message ?? Translations.Revert_Error_StepFailed;
-                    logger.LogError(lastError, "Revert step {Index} ({Type}) failed: {Message}",
-                        currentIndex, step.Type, errorMessage);
-
-                    failedStepDetails.Add(new OperationStepResult
-                    {
-                        Index = currentIndex,
-                        Name = step.Type,
-                        Description = step.Description,
-                        Success = false,
-                        Error = errorMessage,
-                        RetryAction = async () => await step.ExecuteAsync()
-                    });
-                }
             }
-
-            var failedCount = failedStepDetails.Count;
-            var allFailed = failedCount == totalSteps;
-            var hasFailures = failedCount > 0;
-
-            // if some steps failed but not all, log a warning
-            if (hasFailures && !allFailed)
-                logger.LogWarning(
-                    "Partial revert for {Key}: {FailedCount}/{TotalCount} steps failed. " +
-                    "Revert data file will be removed; remaining retries operate in-memory.",
-                    optimization.OptimizationKey, failedCount, totalSteps);
-
-            // keep revert data if its all failed
-            if (!allFailed) Remove(optimization.Id, optimization.Name);
-
-            return new RevertResult
-            {
-                Success = !hasFailures,
-                IsCompleteFailure = allFailed,
-                Message = allFailed
-                    ? string.Format(Translations.Optimization_Revert_Error_Failed, optimization.Name)
-                    : hasFailures
-                        ? string.Format(Translations.Optimization_Revert_Error_FailedWithSteps, optimization.Name,
-                            failedCount)
-                        : string.Format(Translations.Optimization_Revert_Success, optimization.Name),
-                FailedStepDetails = failedStepDetails
-            };
         }
-        catch (Exception ex)
+
+        var failedCount = failed.Count;
+        var allFailed = failedCount == total;
+
+        if (!allFailed) Remove(opt.Id);
+
+        return new RevertResult
         {
-            logger.LogError(ex, "Failed to revert {Key}", optimization.OptimizationKey);
-            return new RevertResult
-            {
-                Success = false,
-                IsCompleteFailure = true,
-                Message = string.Format(Translations.Revert_Error_RevertFailed, optimization.Name, ex.Message),
-                Exception = ex
-            };
-        }
+            Success = failedCount == 0,
+            IsCompleteFailure = allFailed,
+            Message = allFailed
+                ? string.Format(Translations.Optimization_Revert_Error_Failed, opt.Name)
+                : failedCount > 0
+                    ? string.Format(Translations.Optimization_Revert_Error_FailedWithSteps, opt.Name, failedCount)
+                    : string.Format(Translations.Optimization_Revert_Success, opt.Name),
+            FailedStepDetails = failed
+        };
     }
 
-    public Task AppendOrUpdateRevertStepAsync(Guid optimizationId, string optimizationName, int stepIndex,
-        IRevertStep newStep)
+    public async Task AppendOrUpdateRevertStepAsync(Guid id, string name, int idx, IRevertStep step)
     {
-        var filePath = Path.Combine(Shared.RevertDirectory, optimizationId + ".json");
-        var tempPath = filePath + ".tmp";
+        var filePath = GetFilePath(id);
+        var lockObj = _fileLocks.GetOrAdd(id, _ => new SemaphoreSlim(1, 1));
 
-        // Use a per-file lock keyed by optimizationId to ensure thread-safe file access
-        var fileLockObj = _fileLocks.GetOrAdd(optimizationId, _ => new object());
-        lock (fileLockObj)
-        {
-            try
-            {
-                var content = File.Exists(filePath) ? File.ReadAllText(filePath) : string.Empty;
-                var revertData = string.IsNullOrWhiteSpace(content)
-                    ? new RevertData
-                    {
-                        OptimizationId = optimizationId,
-                        OptimizationName = optimizationName,
-                        AppliedAt = DateTime.Now,
-                        Steps = []
-                    }
-                    : JsonConvert.DeserializeObject<RevertData>(content);
-
-                if (revertData == null)
-                    return Task.CompletedTask;
-
-                // Adjust the steps list to match exactly the 1-based index length
-                while (revertData.Steps.Count < stepIndex)
-                    revertData.Steps.Add(new RevertStepData { Type = "Unknown", Data = new JObject() });
-
-                // Replace at exact 0-based index
-                revertData.Steps[stepIndex - 1] = new RevertStepData
-                {
-                    Type = newStep.Type,
-                    Data = newStep.ToData()
-                };
-
-                Directory.CreateDirectory(Shared.RevertDirectory);
-                var json = JsonConvert.SerializeObject(revertData, Formatting.Indented);
-                File.WriteAllText(tempPath, json);
-                File.Move(tempPath, filePath, true);
-
-                logger.LogInformation("Successfully inserted retried revert step at index {Index} for {Name}",
-                    stepIndex, optimizationName);
-            }
-            catch (Exception ex)
-            {
-                try
-                {
-                    if (File.Exists(tempPath))
-                        File.Delete(tempPath);
-                }
-                catch (Exception deleteEx)
-                {
-                    logger.LogWarning(deleteEx, "Failed to delete temp file {File} after save failure", tempPath);
-                }
-
-                logger.LogError(ex, "Failed to append/update revert step {Index} for {Name}", stepIndex,
-                    optimizationName);
-            }
-        }
-
-        return Task.CompletedTask;
-    }
-
-    private async Task<List<RevertStepEntry>> LoadStepsAsync(Guid optimizationId)
-    {
-        var filePath = Path.Combine(Shared.RevertDirectory, optimizationId + ".json");
-        if (!File.Exists(filePath))
-            return [];
-
+        await lockObj.WaitAsync();
         try
         {
-            var content = await File.ReadAllTextAsync(filePath);
-            if (string.IsNullOrWhiteSpace(content))
-                return [];
+            var data = await LoadAsync(filePath) ?? new RevertData { OptimizationId = id, OptimizationName = name, Steps = [] };
 
-            var revertData = JsonConvert.DeserializeObject<RevertData>(content);
-            if (revertData == null || revertData.Steps.Count == 0)
-                return [];
+            while (data.Steps.Count < idx)
+                data.Steps.Add(new RevertStepData { Type = "Unknown", Data = new JObject() });
 
-            var stepsList = new List<RevertStepEntry>();
-            var index = 0;
-            foreach (var stepData in revertData.Steps)
-            {
-                var step = DeserializeStep(stepData.Type, stepData.Data);
-                if (step == null)
-                {
-                    logger.LogWarning("Skipping unknown revert step type '{Type}' at index {Index}",
-                        stepData.Type, index);
-                    continue;
-                }
-
-                index++;
-                stepsList.Add(new RevertStepEntry(index, step));
-            }
-
-            return stepsList;
+            data.Steps[idx - 1] = new RevertStepData { Type = step.Type, Data = step.ToData() };
+            await WriteJsonAsync(filePath, data);
         }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Failed to load revert steps for {Id}", optimizationId);
-            return [];
-        }
+        finally { lockObj.Release(); }
     }
 
-    public static Task<bool> IsAppliedAsync(Guid optimizationId)
+    public static Task<bool> IsAppliedAsync(Guid id) => Task.FromResult(File.Exists(GetFilePath(id)));
+
+    public static async Task<RevertData?> GetRevertDataAsync(Guid id) => await LoadAsync(GetFilePath(id));
+
+    public static void ClearAllRevertData(ILogger l)
     {
-        var filePath = Path.Combine(Shared.RevertDirectory, optimizationId + ".json");
-        return Task.FromResult(File.Exists(filePath));
+        if (!Directory.Exists(Shared.RevertDirectory)) return;
+        foreach (var f in Directory.GetFiles(Shared.RevertDirectory))
+            try { File.Delete(f); }
+            catch (Exception ex) { l.LogError(ex, "Failed to delete {File}", f); }
     }
 
-    public static async Task<RevertData?> GetRevertDataAsync(Guid optimizationId)
+    #region Helpers
+
+    private static string GetFilePath(Guid id) => Path.Combine(Shared.RevertDirectory, $"{id}.json");
+
+    private static async Task<RevertData?> LoadAsync(string path)
     {
-        var filePath = Path.Combine(Shared.RevertDirectory, optimizationId + ".json");
-        if (!File.Exists(filePath))
-            return null;
-
-        try
-        {
-            var content = await File.ReadAllTextAsync(filePath);
-            if (string.IsNullOrWhiteSpace(content))
-                return null;
-
-            return JsonConvert.DeserializeObject<RevertData>(content);
-        }
-        catch
-        {
-            return null;
-        }
+        if (!File.Exists(path)) return null;
+        var content = await File.ReadAllTextAsync(path);
+        return string.IsNullOrWhiteSpace(content) ? null : JsonConvert.DeserializeObject<RevertData>(content);
     }
 
-    private void Remove(Guid optimizationId, string optimizationName)
+    private static async Task WriteJsonAsync(string path, RevertData data)
+    {
+        Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+        var json = JsonConvert.SerializeObject(data, Formatting.Indented);
+        await File.WriteAllTextAsync(path + ".tmp", json);
+        File.Move(path + ".tmp", path, true);
+    }
+
+    private async Task<List<(int Index, IRevertStep Step)>> LoadStepsAsync(Guid id)
+    {
+        var data = await LoadAsync(GetFilePath(id));
+        if (data == null || data.Steps.Count == 0) return [];
+
+        var result = new List<(int, IRevertStep)>();
+        for (var i = 0; i < data.Steps.Count; i++)
+        {
+            var step = DeserializeStep(data.Steps[i].Type, data.Steps[i].Data);
+            if (step != null) result.Add((i + 1, step));
+        }
+        return result;
+    }
+
+    private void Remove(Guid id, string? name = null)
     {
         try
         {
-            var filePath = Path.Combine(Shared.RevertDirectory, optimizationId + ".json");
-            if (File.Exists(filePath))
+            var path = GetFilePath(id);
+            if (File.Exists(path))
             {
-                File.Delete(filePath);
-                logger.LogInformation("Removed revert data for {Name} ({File})", optimizationName, filePath);
+                File.Delete(path);
+                logger.LogInformation("Removed revert data for {Name}", name ?? id.ToString());
             }
         }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Failed to remove revert data for {Id}", optimizationId);
-        }
+        catch (Exception ex) { logger.LogError(ex, "Failed to remove revert data for {Id}", id); }
     }
 
     private static Dictionary<string, Func<JObject, IRevertStep>> BuildStepRegistry()
     {
-        var registry = new Dictionary<string, Func<JObject, IRevertStep>>(StringComparer.OrdinalIgnoreCase);
+        var dict = new Dictionary<string, Func<JObject, IRevertStep>>();
 
-        try
+        foreach (var type in ReflectionHelper.FindImplementationsInLoadedAssemblies<IRevertStep>())
         {
-            var stepTypes = Assembly.GetExecutingAssembly()
-                .GetTypes()
-                .Where(t => t is { IsAbstract: false, IsInterface: false }
-                            && typeof(IRevertStep).IsAssignableFrom(t));
-
-            foreach (var type in stepTypes)
-                try
-                {
-                    var instance = (IRevertStep)Activator.CreateInstance(type)!;
-                    var typeKey = instance.Type;
-
-                    var fromDataMethod = type.GetMethod("FromData",
-                        BindingFlags.Static | BindingFlags.Public,
-                        null,
-                        [typeof(JObject)],
-                        null);
-
-                    fromDataMethod ??= type.GetMethod("FromData",
-                        BindingFlags.Static | BindingFlags.Public,
-                        null,
-                        [typeof(JToken)],
-                        null);
-
-                    if (fromDataMethod != null)
-                        registry[typeKey] = data =>
-                            (IRevertStep)fromDataMethod.Invoke(null, [data])!;
-                }
-                catch
-                {
-                }
-        }
-        catch
-        {
-        }
-
-        return registry;
-    }
-
-    private IRevertStep? DeserializeStep(string serviceType, JToken data)
-    {
-        try
-        {
-            if (data is not JObject obj)
-            {
-                logger.LogError(
-                    "Invalid revert step payload for type {Type}. Expected JObject, got {TokenType}",
-                    serviceType,
-                    data.Type
-                );
-                return null;
-            }
-
-            if (_stepRegistry.TryGetValue(serviceType, out var factory))
-                return factory(obj);
-
-            logger.LogWarning("Unknown revert step type '{Type}'. Registered types: {Types}",
-                serviceType, string.Join(", ", _stepRegistry.Keys));
-            return null;
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Failed to deserialize step of type {Type}", serviceType);
-            return null;
-        }
-    }
-
-    private async Task<RevertValidationResult> ValidateAsync(Guid optimizationId)
-    {
-        var filePath = Path.Combine(Shared.RevertDirectory, optimizationId + ".json");
-        if (!File.Exists(filePath))
-            return RevertValidationResult.Fail(Translations.Revert_Error_FileNotFound,
-                "Revert data file not found.");
-
-        string content;
-        try
-        {
-            content = await File.ReadAllTextAsync(filePath);
-            if (string.IsNullOrWhiteSpace(content))
-                return RevertValidationResult.Fail(Translations.Revert_Error_FileEmpty,
-                    "Revert data file is empty.");
-        }
-        catch (Exception ex)
-        {
-            return RevertValidationResult.Fail(string.Format(Translations.Revert_Error_ReadFailed, ex.Message),
-                ex.Message);
-        }
-
-        RevertData? data;
-        try
-        {
-            data = JsonConvert.DeserializeObject<RevertData>(content);
-            if (data == null)
-                return RevertValidationResult.Fail(Translations.Revert_Error_InvalidJson, "Revert data JSON is null after deserialization.");
-        }
-        catch (Exception ex)
-        {
-            return RevertValidationResult.Fail(
-                string.Format(Translations.Revert_Error_InvalidJsonFormat, ex.Message), ex.Message);
-        }
-
-        if (data.OptimizationId != optimizationId)
-            return RevertValidationResult.Fail(Translations.Revert_Error_OptimizationIdMismatch,
-                $"Optimization ID mismatch: expected {optimizationId}, found {data.OptimizationId}.");
-
-        if (data.Steps.Count == 0)
-            return RevertValidationResult.Fail(Translations.Revert_Error_NoSteps, "Revert data contains zero steps.");
-
-        var invalidSteps = new List<string>();
-        foreach (var stepData in data.Steps)
-        {
-            if (string.IsNullOrWhiteSpace(stepData.Type))
-            {
-                invalidSteps.Add("(empty)");
-                continue;
-            }
-
-            if (!_stepRegistry.ContainsKey(stepData.Type))
-            {
-                invalidSteps.Add(stepData.Type);
-                continue;
-            }
-
-            var step = DeserializeStep(stepData.Type, stepData.Data);
-            if (step == null)
-                invalidSteps.Add(stepData.Type);
-        }
-
-        if (invalidSteps.Count > 0)
-            return RevertValidationResult.Fail(string.Format(Translations.Revert_Error_InvalidSteps,
-                string.Join(", ", invalidSteps)), $"Invalid or unrecognized step types: {string.Join(", ", invalidSteps)}.");
-
-        return RevertValidationResult.Success();
-    }
-
-    public static void ClearAllRevertData(ILogger logger)
-    {
-        if (!Directory.Exists(Shared.RevertDirectory))
-            return;
-
-        foreach (var filePath in Directory.GetFiles(Shared.RevertDirectory))
             try
             {
-                File.Delete(filePath);
+                var instance = (IRevertStep)Activator.CreateInstance(type)!;
+                var key = instance.Type;
+                var method = type.GetMethod("FromData", BindingFlags.Static | BindingFlags.Public);
+                if (method != null)
+                    dict[key] = data => (IRevertStep)method.Invoke(null, [data])!;
             }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Failed to delete revert data file {File}", filePath);
-            }
+            catch { }
+        }
+
+        return dict;
     }
 
-    public sealed record RevertStepEntry(int Index, IRevertStep Step);
+    private IRevertStep? DeserializeStep(string type, JToken data)
+    {
+        if (data is not JObject obj) return null;
+        return _stepRegistry.TryGetValue(type, out var factory) ? factory(obj) : null;
+    }
+
+    #endregion
 }

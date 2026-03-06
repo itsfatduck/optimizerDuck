@@ -45,6 +45,11 @@ public sealed class AppSettings
         ///     Timeout in milliseconds for shell command execution.
         /// </summary>
         public int ShellTimeoutMs { get; set; } = 120000;
+
+        /// <summary>
+        ///     Whether to show the success snackbar after applying an optimization.
+        /// </summary>
+        public bool ShowSnackbarNotificationAfterAppliedSuccessfully { get; set; } = true;
     }
 
     /// <summary>

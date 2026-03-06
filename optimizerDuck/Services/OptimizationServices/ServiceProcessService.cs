@@ -46,7 +46,7 @@ public static class ServiceProcessService
 
     public static bool ChangeServiceStartupType(ServiceItem item)
     {
-        var description = $"{item.Name} -> {item.StartupType}";
+        var description = string.Format(Translations.Service_Service_Description_Change, item.Name, item.StartupType);
         try
         {
             if (!Scope.IsConnected)

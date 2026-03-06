@@ -153,7 +153,7 @@ public class OptimizationServiceTests
 
     private static OptimizationService CreateService()
     {
-        var revertManager = new RevertManager(NullLogger<RevertManager>.Instance);
+        var revertManager = new RevertManager(NullLogger<RevertManager>.Instance, NullLoggerFactory.Instance);
         var loggerFactory = NullLoggerFactory.Instance;
         var systemInfoService = new SystemInfoService(NullLogger<SystemInfoService>.Instance);
         var streamService = new StreamService(NullLogger<StreamService>.Instance);

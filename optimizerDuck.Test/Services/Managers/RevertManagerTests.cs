@@ -68,7 +68,7 @@ public class RevertManagerTests
         {
             await File.WriteAllTextAsync(path, "{ invalid json }");
 
-            var manager = new RevertManager(NullLogger<RevertManager>.Instance);
+            var manager = new RevertManager(NullLogger<RevertManager>.Instance, NullLoggerFactory.Instance);
             var op = new MockOptimization(id);
             var result = await manager.RevertAsync(op);
 
@@ -121,7 +121,7 @@ public class RevertManagerTests
             var json = JsonConvert.SerializeObject(payload, Formatting.Indented);
             await File.WriteAllTextAsync(path, json);
 
-            var manager = new RevertManager(NullLogger<RevertManager>.Instance);
+            var manager = new RevertManager(NullLogger<RevertManager>.Instance, NullLoggerFactory.Instance);
             var result = await manager.RevertAsync(new MockOptimization(id));
 
             Assert.False(result.Success);

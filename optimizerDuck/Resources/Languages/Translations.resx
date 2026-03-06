@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
     <!-- 
       Microsoft ResX Schema 
@@ -1368,6 +1368,21 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   </data>
   <data name="Service.Shell.Name" xml:space="preserve">
     <value>Shell</value>
+  </data>
+  <data name="Service.Registry.Description.Write" xml:space="preserve">
+    <value>Write registry value: {0}\{1}</value>
+  </data>
+  <data name="Service.Registry.Description.Delete" xml:space="preserve">
+    <value>Delete registry value: {0}\{1}</value>
+  </data>
+  <data name="Service.Service.Description.Change" xml:space="preserve">
+    <value>Change service '{0}' to {1} startup</value>
+  </data>
+  <data name="Service.ScheduledTask.Description.Enable" xml:space="preserve">
+    <value>Enable scheduled task: {0}</value>
+  </data>
+  <data name="Service.ScheduledTask.Description.Disable" xml:space="preserve">
+    <value>Disable scheduled task: {0}</value>
   </data>
   <data name="Revert.Registry.Description.Restore" xml:space="preserve">
     <value>Restore registry value: {0}\{1}</value>

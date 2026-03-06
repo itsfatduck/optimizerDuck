@@ -1352,6 +1352,21 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Service.Shell.Name" xml:space="preserve">
     <value>Lệnh hệ thống</value>
   </data>
+  <data name="Service.Registry.Description.Write" xml:space="preserve">
+    <value>Ghi giá trị registry: {0}\{1}</value>
+  </data>
+  <data name="Service.Registry.Description.Delete" xml:space="preserve">
+    <value>Xóa giá trị registry: {0}\{1}</value>
+  </data>
+  <data name="Service.Service.Description.Change" xml:space="preserve">
+    <value>Thay đổi dịch vụ '{0}' sang kiểu khởi động {1}</value>
+  </data>
+  <data name="Service.ScheduledTask.Description.Enable" xml:space="preserve">
+    <value>Bật tác vụ hệ thống: {0}</value>
+  </data>
+  <data name="Service.ScheduledTask.Description.Disable" xml:space="preserve">
+    <value>Tắt tác vụ hệ thống: {0}</value>
+  </data>
   <data name="Revert.Registry.Description.Restore" xml:space="preserve">
     <value>Khôi phục giá trị registry: {0}\{1}</value>
   </data>

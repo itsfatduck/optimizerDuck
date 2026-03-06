@@ -29,7 +29,6 @@ public class ServiceRevertStep : IRevertStep
         Translations.Revert_Service_Description_Restore,
         ServiceName, OriginalStartupType);
 
-
     /// <inheritdoc />
     public async Task<bool> ExecuteAsync()
     {

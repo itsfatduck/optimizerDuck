@@ -33,6 +33,7 @@ public partial class SettingsViewModel(
 
     [ObservableProperty] private string _selectedCultureName = string.Empty;
     [ObservableProperty] private int _shellTimeoutMs;
+    [ObservableProperty] private bool _showSnackbarNotificationAfterAppliedSuccessfully;
     public string Version { get; } = Shared.FileVersion;
 
     //Learn more links
@@ -58,6 +59,7 @@ public partial class SettingsViewModel(
     {
         SelectedCultureName = appOptionsMonitor.CurrentValue.App.Language;
         ShellTimeoutMs = appOptionsMonitor.CurrentValue.Optimize.ShellTimeoutMs;
+        ShowSnackbarNotificationAfterAppliedSuccessfully = appOptionsMonitor.CurrentValue.Optimize.ShowSnackbarNotificationAfterAppliedSuccessfully;
         RemoveProvisioned = appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned;
         CurrentApplicationTheme = ApplicationThemeManager.GetAppTheme();
 
@@ -212,6 +214,14 @@ public partial class SettingsViewModel(
         if (!_isInitialized) return;
         _ = configManager.SetAsync("bloatware:removeProvisioned",
             (!appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned).ToString());
+    }
+
+    [RelayCommand]
+    private void ToggleShowSnackbarNotificationAfterAppliedSuccessfully()
+    {
+        if (!_isInitialized) return;
+        _ = configManager.SetAsync("optimize:showSnackbarNotificationAfterAppliedSuccessfully",
+            (!appOptionsMonitor.CurrentValue.Optimize.ShowSnackbarNotificationAfterAppliedSuccessfully).ToString());
     }
 
     [RelayCommand]
