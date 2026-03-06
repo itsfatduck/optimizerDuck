@@ -49,7 +49,7 @@ public sealed class AppSettings
         /// <summary>
         ///     Whether to show the success snackbar after applying an optimization.
         /// </summary>
-        public bool ShowSnackbarNotificationAfterAppliedSuccessfully { get; set; } = true;
+        public bool ShowSnackbarNotificationAfterAppliedSuccessfully { get; set; } = false;
     }
 
     /// <summary>

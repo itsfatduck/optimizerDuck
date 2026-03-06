@@ -47,8 +47,6 @@ public class UserExperience : IOptimizationCategory
         {
             RegistryService.Write(
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
-                    "TaskbarDa", 0), // Widgets
-                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
                     "TaskbarMn", 0), // Chat
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
                     "ShowTaskViewButton", 0)
@@ -97,7 +95,6 @@ public class UserExperience : IOptimizationCategory
             return Task.FromResult(ApplyResult.True());
         }
     }
-
 
     [Optimization(
         Id = "E1C2D3A4-B5F6-47A8-9C0D-1F2E3A4B5C6D",
@@ -162,7 +159,6 @@ public class UserExperience : IOptimizationCategory
         }
     }
 
-
     [Optimization(
         Id = "B9D2F8A7-1A52-4E73-8E19-92C3A6E7D0C2",
         Risk = OptimizationRisk.Safe,
@@ -205,7 +201,6 @@ public class UserExperience : IOptimizationCategory
             return Task.FromResult(ApplyResult.True());
         }
     }
-
 
     [Optimization(
         Id = "9E2C4F7D-5A6B-4E9D-8C71-6E2F5A9C3314",
