@@ -189,8 +189,10 @@ public static class ShellService
                 error,
                 success
                     ? null
-                    : () => Task.FromResult(
-                        Run(fileName, arguments, command, serviceName, revertStep, policy).ExitCode == 0));
+                    : () => Task.Run(() =>
+                    policy.IsSuccess(Run(fileName, arguments, command, serviceName, revertStep, policy))
+                    )
+            );
 
             return result;
         }
@@ -215,8 +217,10 @@ public static class ShellService
                 false,
                 revertStep,
                 ex.Message,
-                () => Task.FromResult(Run(fileName, arguments, command, serviceName, revertStep, policy).ExitCode ==
-                                      0));
+                () => Task.Run(() =>
+                    policy.IsSuccess(Run(fileName, arguments, command, serviceName, revertStep, policy))
+                    )
+                );
 
             return result;
         }
@@ -338,9 +342,8 @@ public static class ShellService
                 error,
                 success
                     ? null
-                    : async () =>
-                        (await RunAsync(fileName, arguments, command, serviceName, revertStep, policy, ct)).ExitCode ==
-                        0);
+                    : async () => policy.IsSuccess(await RunAsync(fileName, arguments, command, serviceName, revertStep, policy, ct))
+                    );
 
             return result;
         }
@@ -365,8 +368,7 @@ public static class ShellService
                 false,
                 revertStep,
                 ex.Message,
-                async () =>
-                    (await RunAsync(fileName, arguments, command, serviceName, revertStep, policy, ct)).ExitCode == 0);
+                async () => policy.IsSuccess(await RunAsync(fileName, arguments, command, serviceName, revertStep, policy, ct)));
 
             return result;
         }

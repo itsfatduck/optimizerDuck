@@ -50,11 +50,11 @@ public class PowerManagement : IOptimizationCategory
         {
             context.Logger.LogInformation("Saving current USB power state");
             var usbStates = ShellService.PowerShell("""
-                                                        $states = Get-CimInstance -Namespace root\wmi -ClassName MSPower_DeviceEnable |
-                                                            Where-Object { $_.InstanceName -match 'USB\\ROOT' } |
-                                                            Select-Object InstanceName, Enable
+                                                    $states = Get-CimInstance -Namespace root\wmi -ClassName MSPower_DeviceEnable -ErrorAction SilentlyContinue |
+                                                    Where-Object { $_.InstanceName -match 'USB\\ROOT' } |
+                                                    Select-Object InstanceName, Enable
 
-                                                        $states | ConvertTo-Json -Compress
+                                                    $states | ConvertTo-Json -Compress
                                                     """);
 
             if (string.IsNullOrWhiteSpace(usbStates.Stdout))
@@ -65,7 +65,7 @@ public class PowerManagement : IOptimizationCategory
 
             context.Logger.LogInformation("Disabling USB power saving");
             ShellService.PowerShell("""
-                                    $devices = Get-CimInstance -Namespace root\wmi -ClassName MSPower_DeviceEnable |
+                                    $devices = Get-CimInstance -Namespace root\wmi -ClassName MSPower_DeviceEnable -ErrorAction SilentlyContinue |
                                     Where-Object { $_.InstanceName -match 'USB\\ROOT' }
 
                                     foreach ($d in $devices) {
@@ -75,13 +75,14 @@ public class PowerManagement : IOptimizationCategory
                                     }
                                     """,
                 $$"""
-                  $states = '{{usbStates.Stdout}}' | ConvertFrom-Json
+                  $states = @('{{usbStates.Stdout}}' | ConvertFrom-Json)
 
                   foreach ($s in $states) {
-                      $obj = Get-CimInstance -Namespace root\wmi -ClassName MSPower_DeviceEnable |
+                      $obj = Get-CimInstance -Namespace root\wmi -ClassName MSPower_DeviceEnable -ErrorAction SilentlyContinue |
                           Where-Object { $_.InstanceName -eq $s.InstanceName }
 
                       if ($obj -and $obj.Enable -ne [bool]$s.Enable) {
+                          Write-Host "Reverting $($s.InstanceName) to $([bool]$s.Enable)"
                           Set-CimInstance -CimInstance $obj -Property @{ Enable = [bool]$s.Enable } | Out-Null
                       }
                   }
