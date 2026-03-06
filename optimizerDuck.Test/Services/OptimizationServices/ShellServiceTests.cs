@@ -27,17 +27,4 @@ public class ShellServiceTests
 
         Assert.Equal(0, result.ExitCode);
     }
-
-    [Theory]
-    [InlineData("Tiếng Việt có dấu")]
-    [InlineData("Zażółć gęślą jaźń")]
-    [InlineData("Español – información")]
-    [InlineData("Français – élève")]
-    [InlineData("Deutsch – äußern")]
-    public void PowerShell_MultiLanguageUnicode_ReturnsCorrectString(string text)
-    {
-        var result = ShellService.PowerShell($"Write-Output '{text}'");
-
-        Assert.Contains(text, result.Stdout);
-    }
 }

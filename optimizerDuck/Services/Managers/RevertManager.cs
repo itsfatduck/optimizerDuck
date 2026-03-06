@@ -152,8 +152,23 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
     private static async Task<RevertData?> LoadAsync(string path)
     {
         if (!File.Exists(path)) return null;
-        var content = await File.ReadAllTextAsync(path);
-        return string.IsNullOrWhiteSpace(content) ? null : JsonConvert.DeserializeObject<RevertData>(content);
+
+        try
+        {
+            var content = await File.ReadAllTextAsync(path);
+            if (string.IsNullOrWhiteSpace(content))
+                return null;
+
+            return JsonConvert.DeserializeObject<RevertData>(content);
+        }
+        catch (JsonException)
+        {
+            return null;
+        }
+        catch (IOException)
+        {
+            return null;
+        }
     }
 
     private static async Task WriteJsonAsync(string path, RevertData data)
