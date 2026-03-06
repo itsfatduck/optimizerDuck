@@ -49,7 +49,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
     [ObservableProperty] private int _selectedRiskFilterIndex; // 0=All, 1=Safe, 2=Moderate, 3=Risky
     [ObservableProperty] private int _selectedSortByIndex; // 0=Risk & Status, 1=Name, 2=Risk
 
-    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(ToggleOptimizationCommand))]
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(ToggleOptimizationCommand))]
     private bool _isProcessing;
 
     [ObservableProperty] private bool _isLoading;
@@ -139,7 +140,6 @@ public partial class OptimizationCategoryViewModel : ViewModel
                         optimization,
                         progress => _optimizationService.ApplyAsync(optimization, progress));
 
-
                     // If result status is Failed, we can't retry it
                     if (applyResult.Status == OptimizationSuccessResult.Failed)
                     {
@@ -195,7 +195,6 @@ public partial class OptimizationCategoryViewModel : ViewModel
                     var revertResult = await RunWithProcessingDialogAsync(
                         optimization,
                         progress => _optimizationService.RevertAsync(optimization, progress));
-
 
                     var retryOutcome = await HandleFailedStepsAsync(
                         optimization,
@@ -334,7 +333,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
         return !IsProcessing;
     }
 
-    #endregion
+    #endregion CanExecutes
 
     #region Helpers
 
@@ -534,7 +533,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
     private void ShowOutcomeSnackbar(bool succeeded, bool partial, bool failed, string operationType,
         string message, bool restorePointCreated = false)
     {
-        var showSuccess = _appOptionsMonitor.CurrentValue.Optimize.ShowSnackbarNotificationAfterAppliedSuccessfully;
+        var showSuccess = _appOptionsMonitor.CurrentValue.Optimize.ShowCompletionNotification;
         var finalMessage = message;
 
         if (restorePointCreated && showSuccess)
@@ -606,7 +605,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
         {
             case RestorePointResult.Success:
                 // if setting show snackbar after applied successfully was off, so show it and applied snackbar wont conflict this
-                if (!_appOptionsMonitor.CurrentValue.Optimize.ShowSnackbarNotificationAfterAppliedSuccessfully)
+                if (!_appOptionsMonitor.CurrentValue.Optimize.ShowCompletionNotification)
                 {
                     _snackbarService.Show(
                         Translations.RestorePoint_Snackbar_Success_Title,
@@ -678,5 +677,5 @@ public partial class OptimizationCategoryViewModel : ViewModel
         Skipped
     }
 
-    #endregion
+    #endregion Helpers
 }

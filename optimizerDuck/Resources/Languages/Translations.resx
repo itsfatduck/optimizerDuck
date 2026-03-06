@@ -1390,11 +1390,11 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="Revert.Shell.Description.Run" xml:space="preserve">
     <value>Run {0} command: {1}</value>
   </data>
-  <data name="Settings.Optimize.ShowSnackbarNotificationAfterAppliedSuccessfully.Title" xml:space="preserve">
+  <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
     <value>Show completion notification</value>
   </data>
-  <data name="Settings.Optimize.ShowSnackbarNotificationAfterAppliedSuccessfully.Description" xml:space="preserve">
-    <value>Displays a notification when optimizations have been successfully applied.</value>
+  <data name="Settings.Optimize.ShowCompletionNotification.Description" xml:space="preserve">
+    <value>Displays a notification when optimizations have been successfully applied or reverted.</value>
   </data>
   <data name="Optimizations.Loading" xml:space="preserve">
     <value>Loading optimizations...</value>

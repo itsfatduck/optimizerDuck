@@ -1382,11 +1382,11 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Revert.Shell.Description.Run" xml:space="preserve">
     <value>Chạy lệnh {0}: {1}</value>
   </data>
-  <data name="Settings.Optimize.ShowSnackbarNotificationAfterAppliedSuccessfully.Title" xml:space="preserve">
+  <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
     <value>Hiển thị thông báo hoàn tất</value>
   </data>
-  <data name="Settings.Optimize.ShowSnackbarNotificationAfterAppliedSuccessfully.Description" xml:space="preserve">
-    <value>Hiển thị thông báo sau khi quá trình áp dụng tối ưu hóa hoàn tất thành công.</value>
+  <data name="Settings.Optimize.ShowCompletionNotification.Description" xml:space="preserve">
+    <value>Hiển thị thông báo sau khi quá trình áp dụng hoặc hoàn tác tối ưu hóa hoàn tất thành công.</value>
   </data>
   <data name="Optimizations.Loading" xml:space="preserve">
     <value>Đang tải danh sách tối ưu hóa...</value>

@@ -38,6 +38,7 @@ public partial class SettingsViewModel(
 
     //Learn more links
     public string Website { get; } = Shared.WebsiteURL;
+
     public string Documentation { get; } = Shared.WebsiteURL + "docs/guides/getting-started";
     public string Community { get; } = Shared.CommunityURL;
     public string Contribute { get; } = Shared.ContributeURL;
@@ -59,7 +60,7 @@ public partial class SettingsViewModel(
     {
         SelectedCultureName = appOptionsMonitor.CurrentValue.App.Language;
         ShellTimeoutMs = appOptionsMonitor.CurrentValue.Optimize.ShellTimeoutMs;
-        ShowSnackbarNotificationAfterAppliedSuccessfully = appOptionsMonitor.CurrentValue.Optimize.ShowSnackbarNotificationAfterAppliedSuccessfully;
+        ShowSnackbarNotificationAfterAppliedSuccessfully = appOptionsMonitor.CurrentValue.Optimize.ShowCompletionNotification;
         RemoveProvisioned = appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned;
         CurrentApplicationTheme = ApplicationThemeManager.GetAppTheme();
 
@@ -184,6 +185,7 @@ public partial class SettingsViewModel(
                         UseShellExecute = true
                     });
                     break;
+
                 case "Help":
                     logger.LogInformation("Opening page: {Url}", Shared.CommunityURL);
                     Process.Start(new ProcessStartInfo
@@ -207,7 +209,6 @@ public partial class SettingsViewModel(
         }
     }
 
-
     [RelayCommand]
     private void ToggleRemoveProvisioned()
     {
@@ -217,11 +218,11 @@ public partial class SettingsViewModel(
     }
 
     [RelayCommand]
-    private void ToggleShowSnackbarNotificationAfterAppliedSuccessfully()
+    private void ToggleShowCompletionNotification()
     {
         if (!_isInitialized) return;
-        _ = configManager.SetAsync("optimize:showSnackbarNotificationAfterAppliedSuccessfully",
-            (!appOptionsMonitor.CurrentValue.Optimize.ShowSnackbarNotificationAfterAppliedSuccessfully).ToString());
+        _ = configManager.SetAsync("optimize:showCompletionNotification",
+            (!appOptionsMonitor.CurrentValue.Optimize.ShowCompletionNotification).ToString());
     }
 
     [RelayCommand]
