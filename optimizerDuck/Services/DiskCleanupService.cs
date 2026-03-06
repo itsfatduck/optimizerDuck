@@ -212,52 +212,43 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
 
         long size = 0;
         long count = 0;
+
         try
         {
-            // For Thumbnails, only count thumbcache_* files
             var searchPattern = itemId == "Thumbnails" ? "thumbcache_*" : "*";
+            var options = new EnumerationOptions
+            {
+                IgnoreInaccessible = true,
+                RecurseSubdirectories = itemId != "Thumbnails",
+                ReturnSpecialDirectories = false
+            };
 
-            foreach (var file in Directory.EnumerateFiles(path, searchPattern, SearchOption.TopDirectoryOnly))
+            var dirInfo = new DirectoryInfo(path);
+            var dotNetTempPath = Path.GetFullPath(Path.Combine(Path.GetTempPath(), ".net"))
+                                     .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+
+            foreach (var fileInfo in dirInfo.EnumerateFiles(searchPattern, options))
+            {
                 try
                 {
-                    size += new FileInfo(file).Length;
+                    // Skip .net temp files if we are doing recursive search
+                    if (options.RecurseSubdirectories)
+                    {
+                        var fullDirPath = fileInfo.DirectoryName ?? string.Empty;
+                        fullDirPath = fullDirPath.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+
+                        if (fullDirPath.StartsWith(dotNetTempPath, StringComparison.OrdinalIgnoreCase))
+                            continue;
+                    }
+
+                    // .Length is already cached from EnumerateFiles under the hood (WIN32_FIND_DATA)
+                    size += fileInfo.Length;
                     count++;
                 }
                 catch
                 {
-                    // skip inaccessible files
+                    // Ignore inaccessible single files
                 }
-
-            // For non-thumbnail items, also include subdirectories
-            if (itemId != "Thumbnails")
-            {
-                var dotNetTempPath = Path.GetFullPath(Path.Combine(Path.GetTempPath(), ".net"))
-                                            .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
-                foreach (var dir in Directory.EnumerateDirectories(path))
-                    try
-                    {
-                        // Skip .net temp files
-                        var fullDir = Path.GetFullPath(dir)
-                                            .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
-
-                        if (fullDir.StartsWith(dotNetTempPath, StringComparison.OrdinalIgnoreCase))
-                            continue;
-
-                        foreach (var file in Directory.EnumerateFiles(dir, "*", SearchOption.AllDirectories))
-                            try
-                            {
-                                size += new FileInfo(file).Length;
-                                count++;
-                            }
-                            catch
-                            {
-                                // skip inaccessible files
-                            }
-                    }
-                    catch
-                    {
-                        // skip inaccessible directories
-                    }
             }
         }
         catch (Exception ex)
@@ -274,62 +265,73 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
             return 0;
 
         long freed = 0;
-        var searchPattern = itemId == "Thumbnails" ? "thumbcache_*" : "*";
         var dotNetTempPath = Path.GetFullPath(Path.Combine(Path.GetTempPath(), ".net"))
-                                    .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+                                 .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+        var searchPattern = itemId == "Thumbnails" ? "thumbcache_*" : "*";
+        var options = new EnumerationOptions
+        {
+            IgnoreInaccessible = true,
+            RecurseSubdirectories = itemId != "Thumbnails",
+            ReturnSpecialDirectories = false
+        };
+
+        var dirInfo = new DirectoryInfo(path);
 
         // Delete files
-        foreach (var file in Directory.EnumerateFiles(path, searchPattern, SearchOption.TopDirectoryOnly))
+        foreach (var fileInfo in dirInfo.EnumerateFiles(searchPattern, options))
+        {
             try
             {
-                // Skip .net temp files
-                if (file.StartsWith(dotNetTempPath, StringComparison.OrdinalIgnoreCase)) continue;
-                var length = new FileInfo(file).Length;
-                File.Delete(file);
+                if (options.RecurseSubdirectories)
+                {
+                    var fullDirPath = fileInfo.DirectoryName ?? string.Empty;
+                    fullDirPath = fullDirPath.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+
+                    if (fullDirPath.StartsWith(dotNetTempPath, StringComparison.OrdinalIgnoreCase))
+                        continue;
+                }
+
+                var length = fileInfo.Length;
+                fileInfo.Delete();
                 freed += length;
             }
-            catch (Exception ex)
+            catch
             {
-                logger.LogDebug(ex, "Could not delete file: {File}", file);
+                // skip locked/inaccessible files
             }
+        }
 
-        // For non-thumbnail items, also delete subdirectory contents
-        if (itemId != "Thumbnails")
-            foreach (var dir in Directory.EnumerateDirectories(path))
+        // Clean up empty directories if recursive
+        if (options.RecurseSubdirectories)
+        {
+            var dirOptions = new EnumerationOptions
+            {
+                IgnoreInaccessible = true,
+                RecurseSubdirectories = true,
+                ReturnSpecialDirectories = false
+            };
+
+            // Order by descending length to process deepest children first
+            var dirs = dirInfo.EnumerateDirectories("*", dirOptions)
+                              .OrderByDescending(d => d.FullName.Length)
+                              .ToList();
+
+            foreach (var dir in dirs)
+            {
                 try
                 {
-                    var fullDir = Path.GetFullPath(dir)
-                                        .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+                    var fullDir = dir.FullName.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+                    if (fullDir.StartsWith(dotNetTempPath, StringComparison.OrdinalIgnoreCase))
+                        continue;
 
-                    if (fullDir.StartsWith(dotNetTempPath, StringComparison.OrdinalIgnoreCase)) continue;
-
-                    foreach (var file in Directory.EnumerateFiles(dir, "*", SearchOption.AllDirectories))
-                        try
-                        {
-                            if (file.StartsWith(dotNetTempPath, StringComparison.OrdinalIgnoreCase)) continue;
-                            var length = new FileInfo(file).Length;
-                            File.Delete(file);
-                            freed += length;
-                        }
-                        catch
-                        {
-                            // skip locked files
-                        }
-
-                    // Try to remove empty directories
-                    try
-                    {
-                        Directory.Delete(dir, true);
-                    }
-                    catch
-                    {
-                        // directory may not be empty if some files were locked
-                    }
+                    dir.Delete(false); // Only delete if empty
                 }
-                catch (Exception ex)
+                catch
                 {
-                    logger.LogDebug(ex, "Could not access directory: {Dir}", dir);
+                    // directory may not be empty if files were locked, or access denied
                 }
+            }
+        }
 
         return freed;
     }
