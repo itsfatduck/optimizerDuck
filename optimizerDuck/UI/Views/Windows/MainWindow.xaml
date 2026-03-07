@@ -49,6 +49,11 @@
                     TargetPageType="{x:Type pages:OptimizePage}" />
 
                 <controls:FilledNavigationViewItem
+                    Content="{extensions:Loc Sidebar.ToggleFeatures}"
+                    Icon="{ui:SymbolIcon ToggleLeft24}"
+                    TargetPageType="{x:Type pages:ToggleFeatures.ToggleFeaturesPage}" />
+
+                <controls:FilledNavigationViewItem
                     Content="{extensions:Loc Sidebar.Bloatware}"
                     Icon="{ui:SymbolIcon Delete24}"
                     TargetPageType="{x:Type pages:BloatwarePage}" />

@@ -1,0 +1,81 @@
+<Page
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    Margin="0,32,0,0"
+    ScrollViewer.CanContentScroll="False"
+    Title="ToggleFeatures"
+    d:DataContext="{d:DesignInstance toggleFeatures:ToggleFeaturesPage}"
+    d:DesignHeight="650"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    ui:Design.Background="Black"
+    ui:Design.Foreground="White"
+    x:Class="optimizerDuck.UI.Views.Pages.ToggleFeatures.ToggleFeaturesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:optimizerDuck.UI.Views.Pages"
+    xmlns:toggleFeatures="clr-namespace:optimizerDuck.UI.Views.Pages.ToggleFeatures"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Page.Resources>
+        <toggleFeatures:LocConverter x:Key="LocConverter" />
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  Category Cards  -->
+        <ScrollViewer
+            Grid.Row="1"
+            HorizontalScrollBarVisibility="Disabled"
+            Margin="42,0,42,0"
+            VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding ViewModel.Categories}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ui:CardAction
+                            Command="{Binding DataContext.ViewModel.NavigateToCategoryCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                            CommandParameter="{Binding}"
+                            Cursor="Hand"
+                            HorizontalAlignment="Stretch"
+                            Margin="8"
+                            Padding="20"
+                            VerticalAlignment="Stretch">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <ui:SymbolIcon
+                                    FontSize="32"
+                                    Grid.Column="0"
+                                    Margin="0,0,16,0"
+                                    Symbol="{Binding Icon}" />
+
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <ui:TextBlock
+                                        FontTypography="Subtitle"
+                                        Text="{Binding Name, Converter={StaticResource LocConverter}}"
+                                        TextWrapping="Wrap" />
+                                    <ui:TextBlock
+                                        Appearance="Secondary"
+                                        FontTypography="Caption"
+                                        Margin="0,4,0,0"
+                                        Text="{Binding Description, Converter={StaticResource LocConverter}}"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Grid>
+                        </ui:CardAction>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+
+</Page>

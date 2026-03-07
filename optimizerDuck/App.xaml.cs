@@ -14,6 +14,7 @@ using optimizerDuck.Services.Managers;
 using optimizerDuck.Services.OptimizationServices;
 using optimizerDuck.UI.ViewModels.Pages;
 using optimizerDuck.UI.Views.Pages;
+using optimizerDuck.UI.Views.Pages.ToggleFeatures;
 using optimizerDuck.UI.Views.Windows;
 using Serilog;
 using Serilog.Events;
@@ -167,6 +168,10 @@ public partial class App : Application
 
                     services.AddSingleton<ScheduledTasksViewModel>();
                     services.AddSingleton<ScheduledTasksPage>();
+
+                    // Toggle Features
+                    services.AddSingleton<ToggleFeaturesViewModel>();
+                    services.AddSingleton<ToggleFeaturesPage>();
 
                     // Optimizations
                     services.AddAllOptimizationPages();
