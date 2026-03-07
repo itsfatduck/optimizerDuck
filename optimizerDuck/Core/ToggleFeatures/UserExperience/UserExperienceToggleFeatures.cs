@@ -1,90 +1,82 @@
+using System.Collections.ObjectModel;
+using optimizerDuck.Core.Interfaces;
+using optimizerDuck.Core.Models.Attributes;
 using optimizerDuck.Core.Models.UI;
 using optimizerDuck.Core.ToggleFeatures;
-using Wpf.Ui.Controls;
+using optimizerDuck.Services.Managers;
 
 namespace optimizerDuck.Core.ToggleFeatures.UserExperience;
 
-public class DisableTaskbarNewsAndInterests : BaseToggleFeature
+[ToggleFeatureCategory]
+public class UserExperience : IToggleFeatureCategory
 {
-    public override string Name => "ToggleFeature.DisableTaskbarNewsAndInterests.Name";
-    public override string Description => "ToggleFeature.DisableTaskbarNewsAndInterests.Description";
-    public override OptimizationRisk Risk => OptimizationRisk.Safe;
-    public override SymbolRegular Icon => SymbolRegular.News24;
+    public string Name { get; init; } = Loc.Instance["ToggleFeature.Category.UserExperience.Name"];
+    public ToggleFeatureCategoryOrder Order { get; init; } = ToggleFeatureCategoryOrder.UserExperience;
+    public ObservableCollection<IToggleFeature> Features { get; init; } = [];
 
-    protected new RegistryToggle Toggle { get; } = new()
+    [ToggleFeature(Id = "TF-UX-001", Risk = OptimizationRisk.Safe, Type = ToggleFeatureType.Registry)]
+    public class DisableTaskbarNewsAndInterests : RegistryToggleFeature
     {
-        Path = @"HKLM\SOFTWARE\Policies\Microsoft\Dsh",
-        Name = "AllowNewsAndInterests",
-        OnValue = 0,
-        OffValue = 1,
-        DefaultValue = 1
-    };
-}
+        public RegistryToggle Toggle { get; } = new()
+        {
+            Path = @"HKLM\SOFTWARE\Policies\Microsoft\Dsh",
+            Name = "AllowNewsAndInterests",
+            OnValue = 0,
+            OffValue = 1,
+            DefaultValue = 1
+        };
+    }
 
-public class EnableDarkMode : BaseToggleFeature
-{
-    public override string Name => "ToggleFeature.EnableDarkMode.Name";
-    public override string Description => "ToggleFeature.EnableDarkMode.Description";
-    public override OptimizationRisk Risk => OptimizationRisk.Safe;
-    public override SymbolRegular Icon => SymbolRegular.WeatherMoon24;
-
-    protected new RegistryToggle Toggle { get; } = new()
+    [ToggleFeature(Id = "TF-UX-002", Risk = OptimizationRisk.Safe, Type = ToggleFeatureType.Registry)]
+    public class EnableDarkMode : RegistryToggleFeature
     {
-        Path = @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
-        Name = "AppsUseLightTheme",
-        OnValue = 0,
-        OffValue = 1,
-        DefaultValue = 1
-    };
-}
+        public RegistryToggle Toggle { get; } = new()
+        {
+            Path = @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
+            Name = "AppsUseLightTheme",
+            OnValue = 0,
+            OffValue = 1,
+            DefaultValue = 1
+        };
+    }
 
-public class DisableVisualEffects : BaseToggleFeature
-{
-    public override string Name => "ToggleFeature.DisableVisualEffects.Name";
-    public override string Description => "ToggleFeature.DisableVisualEffects.Description";
-    public override OptimizationRisk Risk => OptimizationRisk.Safe;
-    public override SymbolRegular Icon => SymbolRegular.PaintBrush24;
-
-    protected new RegistryToggle Toggle { get; } = new()
+    [ToggleFeature(Id = "TF-UX-003", Risk = OptimizationRisk.Safe, Type = ToggleFeatureType.Registry)]
+    public class DisableVisualEffects : RegistryToggleFeature
     {
-        Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
-        Name = "TaskbarAnimations",
-        OnValue = 0,
-        OffValue = 1,
-        DefaultValue = 1
-    };
-}
+        public RegistryToggle Toggle { get; } = new()
+        {
+            Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+            Name = "TaskbarAnimations",
+            OnValue = 0,
+            OffValue = 1,
+            DefaultValue = 1
+        };
+    }
 
-public class ShowSecondsInSystemClock : BaseToggleFeature
-{
-    public override string Name => "ToggleFeature.ShowSecondsInSystemClock.Name";
-    public override string Description => "ToggleFeature.ShowSecondsInSystemClock.Description";
-    public override OptimizationRisk Risk => OptimizationRisk.Safe;
-    public override SymbolRegular Icon => SymbolRegular.Clock24;
-
-    protected new RegistryToggle Toggle { get; } = new()
+    [ToggleFeature(Id = "TF-UX-004", Risk = OptimizationRisk.Safe, Type = ToggleFeatureType.Registry)]
+    public class ShowSecondsInSystemClock : RegistryToggleFeature
     {
-        Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
-        Name = "ShowSecondsInSystemClock",
-        OnValue = 1,
-        OffValue = 0,
-        DefaultValue = 0
-    };
-}
+        public RegistryToggle Toggle { get; } = new()
+        {
+            Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+            Name = "ShowSecondsInSystemClock",
+            OnValue = 1,
+            OffValue = 0,
+            DefaultValue = 0
+        };
+    }
 
-public class EnableClassicContextMenu : BaseToggleFeature
-{
-    public override string Name => "ToggleFeature.EnableClassicContextMenu.Name";
-    public override string Description => "ToggleFeature.EnableClassicContextMenu.Description";
-    public override OptimizationRisk Risk => OptimizationRisk.Safe;
-    public override SymbolRegular Icon => SymbolRegular.List24;
-
-    protected new RegistryToggle Toggle { get; } = new()
+    [ToggleFeature(Id = "TF-UX-005", Risk = OptimizationRisk.Safe, Type = ToggleFeatureType.Registry)]
+    public class EnableClassicContextMenu : RegistryToggleFeature
     {
-        Path = @"HKCU\SOFTWARE\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32",
-        Name = "",
-        OnValue = 0,
-        OffValue = 1,
-        DefaultValue = 1
-    };
+        public RegistryToggle Toggle { get; } = new()
+        {
+            Path = @"HKCU\SOFTWARE\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32",
+            Name = "",
+            OnValue = 0,
+            OffValue = 1,
+            DefaultValue = 1,
+            CheckKeyExists = true
+        };
+    }
 }

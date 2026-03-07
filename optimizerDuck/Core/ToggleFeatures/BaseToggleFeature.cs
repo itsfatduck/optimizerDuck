@@ -1,4 +1,6 @@
+using System.Reflection;
 using optimizerDuck.Core.Interfaces;
+using optimizerDuck.Core.Models.Attributes;
 using optimizerDuck.Core.Models.UI;
 using optimizerDuck.Services.Managers;
 using Wpf.Ui.Controls;
@@ -7,34 +9,41 @@ namespace optimizerDuck.Core.ToggleFeatures;
 
 public abstract class BaseToggleFeature : IToggleFeature
 {
-    protected RegistryToggle? Toggle { get; init; }
+    private ToggleFeatureAttribute? _meta;
 
-    public abstract string Name { get; }
-    public abstract string Description { get; }
-    public abstract OptimizationRisk Risk { get; }
-    public abstract SymbolRegular Icon { get; }
+    private ToggleFeatureAttribute Meta =>
+        _meta ??= GetType().GetCustomAttribute<ToggleFeatureAttribute>()
+                  ?? throw new InvalidOperationException(
+                      $"{GetType().Name} is missing [ToggleFeature] attribute");
 
-    public virtual async Task<bool> GetStateAsync()
+    public Type? OwnerType { get; set; }
+
+    public string OwnerKey =>
+        OwnerType?.Name
+        ?? throw new InvalidOperationException(
+            $"{GetType().Name} has no owner assigned");
+
+    public Guid Id => Guid.Parse(Meta.Id);
+    public OptimizationRisk Risk => Meta.Risk;
+    public ToggleFeatureType Type => Meta.Type;
+
+    public string FeatureKey => GetType().Name;
+
+    public string Name => Loc.Instance[$"ToggleFeature.{FeatureKey}.Name"];
+    public string Description => Loc.Instance[$"ToggleFeature.{FeatureKey}.Description"];
+
+    public virtual Task<bool> GetStateAsync()
     {
-        if (Toggle == null)
-            return false;
-        return await Task.FromResult(Toggle.GetState());
+        return Task.FromResult(false);
     }
 
-    public virtual async Task EnableAsync()
+    public virtual Task EnableAsync()
     {
-        if (Toggle != null)
-            Toggle.SetState(true);
-        await Task.CompletedTask;
+        return Task.CompletedTask;
     }
 
-    public virtual async Task DisableAsync()
+    public virtual Task DisableAsync()
     {
-        if (Toggle != null)
-            Toggle.SetState(false);
-        await Task.CompletedTask;
+        return Task.CompletedTask;
     }
-
-    public string LocalizedName => Loc.Instance[$"ToggleFeature.{GetType().Name}.Name"];
-    public string LocalizedDescription => Loc.Instance[$"ToggleFeature.{GetType().Name}.Description"];
 }

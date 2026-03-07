@@ -1,56 +1,55 @@
+using System.Collections.ObjectModel;
+using optimizerDuck.Core.Interfaces;
+using optimizerDuck.Core.Models.Attributes;
 using optimizerDuck.Core.Models.UI;
 using optimizerDuck.Core.ToggleFeatures;
-using Wpf.Ui.Controls;
+using optimizerDuck.Services.Managers;
 
 namespace optimizerDuck.Core.ToggleFeatures.Privacy;
 
-public class DisableTelemetry : BaseToggleFeature
+[ToggleFeatureCategory]
+public class Privacy : IToggleFeatureCategory
 {
-    public override string Name => "ToggleFeature.DisableTelemetry.Name";
-    public override string Description => "ToggleFeature.DisableTelemetry.Description";
-    public override OptimizationRisk Risk => OptimizationRisk.Moderate;
-    public override SymbolRegular Icon => SymbolRegular.DataUsage24;
+    public string Name { get; init; } = Loc.Instance["ToggleFeature.Category.Privacy.Name"];
+    public ToggleFeatureCategoryOrder Order { get; init; } = ToggleFeatureCategoryOrder.Privacy;
+    public ObservableCollection<IToggleFeature> Features { get; init; } = [];
 
-    protected new RegistryToggle Toggle { get; } = new()
+    [ToggleFeature(Id = "TF-Privacy-001", Risk = OptimizationRisk.Moderate, Type = ToggleFeatureType.Registry)]
+    public class DisableTelemetry : RegistryToggleFeature
     {
-        Path = @"HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection",
-        Name = "AllowTelemetry",
-        OnValue = 0,
-        OffValue = 3,
-        DefaultValue = 3
-    };
-}
+        public RegistryToggle Toggle { get; } = new()
+        {
+            Path = @"HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection",
+            Name = "AllowTelemetry",
+            OnValue = 0,
+            OffValue = 3,
+            DefaultValue = 3
+        };
+    }
 
-public class DisableDiagnosticData : BaseToggleFeature
-{
-    public override string Name => "ToggleFeature.DisableDiagnosticData.Name";
-    public override string Description => "ToggleFeature.DisableDiagnosticData.Description";
-    public override OptimizationRisk Risk => OptimizationRisk.Safe;
-    public override SymbolRegular Icon => SymbolRegular.ArrowExportUp24;
-
-    protected new RegistryToggle Toggle { get; } = new()
+    [ToggleFeature(Id = "TF-Privacy-002", Risk = OptimizationRisk.Safe, Type = ToggleFeatureType.Registry)]
+    public class DisableDiagnosticData : RegistryToggleFeature
     {
-        Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack",
-        Name = "ShowedToastAtLevel",
-        OnValue = 0,
-        OffValue = 1,
-        DefaultValue = 1
-    };
-}
+        public RegistryToggle Toggle { get; } = new()
+        {
+            Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack",
+            Name = "ShowedToastAtLevel",
+            OnValue = 0,
+            OffValue = 1,
+            DefaultValue = 1
+        };
+    }
 
-public class DisableFeedbackNotifications : BaseToggleFeature
-{
-    public override string Name => "ToggleFeature.DisableFeedbackNotifications.Name";
-    public override string Description => "ToggleFeature.DisableFeedbackNotifications.Description";
-    public override OptimizationRisk Risk => OptimizationRisk.Safe;
-    public override SymbolRegular Icon => SymbolRegular.ChatBubblesQuestion24;
-
-    protected new RegistryToggle Toggle { get; } = new()
+    [ToggleFeature(Id = "TF-Privacy-003", Risk = OptimizationRisk.Safe, Type = ToggleFeatureType.Registry)]
+    public class DisableFeedbackNotifications : RegistryToggleFeature
     {
-        Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\FeedbackHub\Privacy",
-        Name = "FeedbackStorageAllowed",
-        OnValue = 0,
-        OffValue = 1,
-        DefaultValue = 1
-    };
+        public RegistryToggle Toggle { get; } = new()
+        {
+            Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\FeedbackHub\Privacy",
+            Name = "FeedbackStorageAllowed",
+            OnValue = 0,
+            OffValue = 1,
+            DefaultValue = 1
+        };
+    }
 }

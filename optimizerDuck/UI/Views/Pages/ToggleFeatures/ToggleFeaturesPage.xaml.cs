@@ -14,6 +14,6 @@ public partial class ToggleFeaturesPage : INavigableView<ToggleFeaturesViewModel
 
         InitializeComponent();
 
-        Loaded += (_, _) => ViewModel.Initialize();
+        Loaded += async (_, _) => await ViewModel.InitializeAsync();
     }
 }

@@ -1,82 +1,56 @@
 using System.Collections.ObjectModel;
-using optimizerDuck.Core.ToggleFeatures;
-using optimizerDuck.Core.ToggleFeatures.AI;
-using optimizerDuck.Core.ToggleFeatures.Privacy;
-using optimizerDuck.Core.ToggleFeatures.System;
-using optimizerDuck.Core.ToggleFeatures.UserExperience;
-using optimizerDuck.UI.Views.Pages.ToggleFeatures;
-using Wpf.Ui.Controls;
-using SysToggle = optimizerDuck.Core.ToggleFeatures.System;
+using System.Reflection;
+using optimizerDuck.Common.Helpers;
+using optimizerDuck.Core.Interfaces;
 
 namespace optimizerDuck.Services;
 
 public class ToggleFeaturesRegistry
 {
-    public ObservableCollection<ToggleFeatureCategory> Categories { get; } = [];
+    private static ToggleFeaturesRegistry? _instance;
+    public static ToggleFeaturesRegistry Instance => _instance ??= new ToggleFeaturesRegistry();
+
+    public IToggleFeatureCategory[] Categories { get; private set; } = [];
 
     public void RegisterCategories()
     {
-        Categories.Add(new ToggleFeatureCategory
-        {
-            Name = "ToggleFeature.Category.AI.Name",
-            Description = "ToggleFeature.Category.AI.Description",
-            Icon = SymbolRegular.Brain24,
-            PageType = typeof(AIToggleFeaturePage),
-            Features =
+        var categories = ReflectionHelper
+            .FindImplementationsInLoadedAssemblies<IToggleFeatureCategory>()
+            .Select(t =>
             {
-                new DisableWindowsCopilot(),
-                new DisableBingInWindowsSearch(),
-                new DisableSuggestionsInStart(),
-                new DisableTailoredExperiences()
-            }
-        });
+                var featureTypes = t.GetNestedTypes(BindingFlags.Public)
+                    .Where(nt => typeof(IToggleFeature).IsAssignableFrom(nt) && !nt.IsAbstract)
+                    .ToList();
 
-        Categories.Add(new ToggleFeatureCategory
-        {
-            Name = "ToggleFeature.Category.UserExperience.Name",
-            Description = "ToggleFeature.Category.UserExperience.Description",
-            Icon = SymbolRegular.Window24,
-            PageType = typeof(UserExperienceToggleFeaturePage),
-            Features =
-            {
-                new DisableTaskbarNewsAndInterests(),
-                new EnableDarkMode(),
-                new DisableVisualEffects(),
-                new ShowSecondsInSystemClock(),
-                new EnableClassicContextMenu()
-            }
-        });
+                var features = new ObservableCollection<IToggleFeature>(
+                    featureTypes
+                        .Select(nt => Activator.CreateInstance(nt)!)
+                        .Cast<IToggleFeature>()
+                        .ToList()
+                );
 
-        Categories.Add(new ToggleFeatureCategory
-        {
-            Name = "ToggleFeature.Category.Privacy.Name",
-            Description = "ToggleFeature.Category.Privacy.Description",
-            Icon = SymbolRegular.Shield24,
-            PageType = typeof(PrivacyToggleFeaturePage),
-            Features =
-            {
-                new DisableTelemetry(),
-                new DisableDiagnosticData(),
-                new DisableFeedbackNotifications()
-            }
-        });
+                if (features.Count == 0)
+                    return null;
 
-        Categories.Add(new ToggleFeatureCategory
-        {
-            Name = "ToggleFeature.Category.System.Name",
-            Description = "ToggleFeature.Category.System.Description",
-            Icon = SymbolRegular.Settings24,
-            PageType = typeof(SystemToggleFeaturePage),
-            Features =
-            {
-                new SysToggle.DisableAutomaticWindowsUpdate(),
-                new SysToggle.DisableStorageSense()
-            }
-        });
+                var instance = (IToggleFeatureCategory)Activator.CreateInstance(t)!;
+
+                var featuresProp = t.GetProperty(nameof(IToggleFeatureCategory.Features),
+                    BindingFlags.Public | BindingFlags.Instance);
+                if (featuresProp != null && featuresProp.CanWrite)
+                    featuresProp.SetValue(instance, features);
+
+                return instance;
+            })
+            .Where(c => c != null)
+            .Cast<IToggleFeatureCategory>()
+            .OrderBy(c => c.Order)
+            .ToArray();
+
+        Categories = categories;
     }
 
-    public ToggleFeatureCategory? GetCategoryByName(string name)
+    public IToggleFeatureCategory? GetCategory(Type type)
     {
-        return Categories.FirstOrDefault(c => c.Name == name);
+        return Categories.FirstOrDefault(c => c.GetType() == type);
     }
 }
