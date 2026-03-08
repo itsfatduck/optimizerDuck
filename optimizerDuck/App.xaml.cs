@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using optimizerDuck.Common.Extensions;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Core.Models.Config;
 using optimizerDuck.Services;
@@ -107,7 +108,7 @@ public partial class App : Application
     protected override async void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
-        
+
         try
         {
             // Create the required directories if they don't exist
@@ -173,6 +174,8 @@ public partial class App : Application
                     services.AddSingleton<ToggleFeaturesViewModel>();
                     services.AddSingleton<ToggleFeaturesPage>();
 
+                    services.AddAllToggleFeatureCategoryPages();
+
                     // Optimizations
                     services.AddAllOptimizationPages();
 
@@ -182,6 +185,7 @@ public partial class App : Application
 
                     // Services
                     services.AddSingleton<OptimizationRegistry>();
+                    services.AddSingleton<ToggleFeaturesRegistry>();
                     services.AddSingleton<OptimizationService>();
                     services.AddSingleton<BloatwareService>();
                     services.AddSingleton<DiskCleanupService>();

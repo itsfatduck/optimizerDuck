@@ -23,10 +23,6 @@ public abstract class BaseToggleFeature : IToggleFeature
         ?? throw new InvalidOperationException(
             $"{GetType().Name} has no owner assigned");
 
-    public Guid Id => Guid.Parse(Meta.Id);
-    public OptimizationRisk Risk => Meta.Risk;
-    public ToggleFeatureType Type => Meta.Type;
-
     public string FeatureKey => GetType().Name;
 
     public string Name => Loc.Instance[$"ToggleFeature.{FeatureKey}.Name"];

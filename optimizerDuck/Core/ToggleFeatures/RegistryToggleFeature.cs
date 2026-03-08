@@ -5,41 +5,34 @@ namespace optimizerDuck.Core.ToggleFeatures;
 
 public abstract class RegistryToggleFeature : BaseToggleFeature
 {
-    private RegistryToggle? _toggle;
-
-    protected RegistryToggle GetToggle()
-    {
-        if (_toggle != null)
-            return _toggle;
-
-        var toggleProperty = GetType().GetProperty("Toggle", BindingFlags.Public | BindingFlags.Instance);
-        if (toggleProperty?.PropertyType == typeof(RegistryToggle))
-        {
-            _toggle = (RegistryToggle?)toggleProperty.GetValue(this);
-        }
-
-        return _toggle!;
-    }
+    public abstract IEnumerable<RegistryToggle> GetToggles();
 
     public override Task<bool> GetStateAsync()
     {
-        var toggle = GetToggle();
-        if (toggle == null)
+        var toggles = GetToggles().ToList();
+        if (toggles.Count == 0)
             return Task.FromResult(false);
-        return Task.FromResult(toggle.GetState());
+
+        // Feature is considered ON if ALL toggles are ON
+        bool allOn = toggles.All(t => t.GetState());
+        return Task.FromResult(allOn);
     }
 
     public override Task EnableAsync()
     {
-        var toggle = GetToggle();
-        toggle?.SetState(true);
+        foreach (var toggle in GetToggles())
+        {
+            toggle.SetState(true);
+        }
         return Task.CompletedTask;
     }
 
     public override Task DisableAsync()
     {
-        var toggle = GetToggle();
-        toggle?.SetState(false);
+        foreach (var toggle in GetToggles())
+        {
+            toggle.SetState(false);
+        }
         return Task.CompletedTask;
     }
 }

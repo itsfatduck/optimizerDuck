@@ -4,20 +4,23 @@ using optimizerDuck.Core.Models.Attributes;
 using optimizerDuck.Core.Models.UI;
 using optimizerDuck.Core.ToggleFeatures;
 using optimizerDuck.Services.Managers;
+using Wpf.Ui.Controls;
 
 namespace optimizerDuck.Core.ToggleFeatures.System;
 
-[ToggleFeatureCategory]
+[ToggleFeatureCategory(PageType = typeof(SystemToggleFeaturesCategory))]
 public class System : IToggleFeatureCategory
 {
     public string Name { get; init; } = Loc.Instance["ToggleFeature.Category.System.Name"];
+    public string Description { get; init; } = Loc.Instance["ToggleFeature.Category.System.Description"];
+    public SymbolRegular Icon { get; init; } = SymbolRegular.Desktop24;
     public ToggleFeatureCategoryOrder Order { get; init; } = ToggleFeatureCategoryOrder.System;
     public ObservableCollection<IToggleFeature> Features { get; init; } = [];
 
-    [ToggleFeature(Id = "TF-System-001", Risk = OptimizationRisk.Risky, Type = ToggleFeatureType.Registry)]
-    public class DisableAutomaticWindowsUpdate : RegistryToggleFeature
+    [ToggleFeature]
+    public class DisableAutomaticWindowsUpdate : SingleRegistryToggleFeature
     {
-        public RegistryToggle Toggle { get; } = new()
+        public override RegistryToggle Toggle { get; } = new()
         {
             Path = @"HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU",
             Name = "NoAutoUpdate",
@@ -27,10 +30,10 @@ public class System : IToggleFeatureCategory
         };
     }
 
-    [ToggleFeature(Id = "TF-System-002", Risk = OptimizationRisk.Safe, Type = ToggleFeatureType.Registry)]
-    public class DisableStorageSense : RegistryToggleFeature
+    [ToggleFeature]
+    public class DisableStorageSense : SingleRegistryToggleFeature
     {
-        public RegistryToggle Toggle { get; } = new()
+        public override RegistryToggle Toggle { get; } = new()
         {
             Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\StorageSense",
             Name = "StorageSenseStatus",

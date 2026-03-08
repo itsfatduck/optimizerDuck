@@ -6,11 +6,12 @@ using optimizerDuck.Common.Helpers;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Attributes;
 using optimizerDuck.Core.Models.Config;
+using optimizerDuck.Services;
 using optimizerDuck.Services.Managers;
 using Wpf.Ui;
 using OptimizationCategoryViewModel = optimizerDuck.UI.ViewModels.Optimizer.OptimizationCategoryViewModel;
 
-namespace optimizerDuck.Services;
+namespace optimizerDuck.Common.Extensions;
 
 public static class OptimizationPageRegistryExtensions
 {

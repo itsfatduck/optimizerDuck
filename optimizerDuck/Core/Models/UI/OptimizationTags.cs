@@ -174,14 +174,6 @@ public static class OptimizationTagsToDisplay
     }
 }
 
-public enum ToggleFeatureType
-{
-    Registry,
-    Service,
-    ScheduledTask,
-    PowerShell
-}
-
 /// <summary>
 ///     Represents the UI display data for an optimization tag.
 /// </summary>

@@ -4,20 +4,23 @@ using optimizerDuck.Core.Models.Attributes;
 using optimizerDuck.Core.Models.UI;
 using optimizerDuck.Core.ToggleFeatures;
 using optimizerDuck.Services.Managers;
+using Wpf.Ui.Controls;
 
 namespace optimizerDuck.Core.ToggleFeatures.UserExperience;
 
-[ToggleFeatureCategory]
+[ToggleFeatureCategory(PageType = typeof(UserExperienceToggleFeaturesCategory))]
 public class UserExperience : IToggleFeatureCategory
 {
     public string Name { get; init; } = Loc.Instance["ToggleFeature.Category.UserExperience.Name"];
+    public string Description { get; init; } = Loc.Instance["ToggleFeature.Category.UserExperience.Description"];
+    public SymbolRegular Icon { get; init; } = SymbolRegular.Color24;
     public ToggleFeatureCategoryOrder Order { get; init; } = ToggleFeatureCategoryOrder.UserExperience;
     public ObservableCollection<IToggleFeature> Features { get; init; } = [];
 
-    [ToggleFeature(Id = "TF-UX-001", Risk = OptimizationRisk.Safe, Type = ToggleFeatureType.Registry)]
-    public class DisableTaskbarNewsAndInterests : RegistryToggleFeature
+    [ToggleFeature]
+    public class DisableTaskbarNewsAndInterests : SingleRegistryToggleFeature
     {
-        public RegistryToggle Toggle { get; } = new()
+        public override RegistryToggle Toggle { get; } = new()
         {
             Path = @"HKLM\SOFTWARE\Policies\Microsoft\Dsh",
             Name = "AllowNewsAndInterests",
@@ -27,10 +30,10 @@ public class UserExperience : IToggleFeatureCategory
         };
     }
 
-    [ToggleFeature(Id = "TF-UX-002", Risk = OptimizationRisk.Safe, Type = ToggleFeatureType.Registry)]
-    public class EnableDarkMode : RegistryToggleFeature
+    [ToggleFeature]
+    public class EnableDarkMode : SingleRegistryToggleFeature
     {
-        public RegistryToggle Toggle { get; } = new()
+        public override RegistryToggle Toggle { get; } = new()
         {
             Path = @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
             Name = "AppsUseLightTheme",
@@ -40,10 +43,10 @@ public class UserExperience : IToggleFeatureCategory
         };
     }
 
-    [ToggleFeature(Id = "TF-UX-003", Risk = OptimizationRisk.Safe, Type = ToggleFeatureType.Registry)]
-    public class DisableVisualEffects : RegistryToggleFeature
+    [ToggleFeature]
+    public class DisableVisualEffects : SingleRegistryToggleFeature
     {
-        public RegistryToggle Toggle { get; } = new()
+        public override RegistryToggle Toggle { get; } = new()
         {
             Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
             Name = "TaskbarAnimations",
@@ -53,10 +56,10 @@ public class UserExperience : IToggleFeatureCategory
         };
     }
 
-    [ToggleFeature(Id = "TF-UX-004", Risk = OptimizationRisk.Safe, Type = ToggleFeatureType.Registry)]
-    public class ShowSecondsInSystemClock : RegistryToggleFeature
+    [ToggleFeature]
+    public class ShowSecondsInSystemClock : SingleRegistryToggleFeature
     {
-        public RegistryToggle Toggle { get; } = new()
+        public override RegistryToggle Toggle { get; } = new()
         {
             Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
             Name = "ShowSecondsInSystemClock",
@@ -66,10 +69,10 @@ public class UserExperience : IToggleFeatureCategory
         };
     }
 
-    [ToggleFeature(Id = "TF-UX-005", Risk = OptimizationRisk.Safe, Type = ToggleFeatureType.Registry)]
-    public class EnableClassicContextMenu : RegistryToggleFeature
+    [ToggleFeature]
+    public class EnableClassicContextMenu : SingleRegistryToggleFeature
     {
-        public RegistryToggle Toggle { get; } = new()
+        public override RegistryToggle Toggle { get; } = new()
         {
             Path = @"HKCU\SOFTWARE\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32",
             Name = "",
