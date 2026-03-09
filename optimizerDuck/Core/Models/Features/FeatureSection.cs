@@ -6,9 +6,7 @@ namespace optimizerDuck.Core.Models.Features;
 
 public partial class FeatureSection : ObservableObject
 {
-    [ObservableProperty]
-    private string _name = string.Empty;
+    [ObservableProperty] private ObservableCollection<FeatureViewModel> _features = [];
 
-    [ObservableProperty]
-    private ObservableCollection<FeatureViewModel> _features = [];
+    [ObservableProperty] private string _name = string.Empty;
 }

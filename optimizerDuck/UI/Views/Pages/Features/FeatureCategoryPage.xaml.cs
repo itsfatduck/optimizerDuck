@@ -5,12 +5,12 @@ namespace optimizerDuck.UI.Views.Pages.Features;
 
 public partial class FeatureCategoryPage : INavigableView<FeatureCategoryViewModel>
 {
-    public FeatureCategoryViewModel ViewModel { get; }
-
     public FeatureCategoryPage(FeatureCategoryViewModel viewModel)
     {
         ViewModel = viewModel;
         DataContext = this;
         InitializeComponent();
     }
+
+    public FeatureCategoryViewModel ViewModel { get; }
 }

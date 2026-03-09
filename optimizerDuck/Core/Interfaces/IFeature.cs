@@ -1,5 +1,3 @@
-using optimizerDuck.Core.Models.UI;
-
 namespace optimizerDuck.Core.Interfaces;
 
 public interface IFeature

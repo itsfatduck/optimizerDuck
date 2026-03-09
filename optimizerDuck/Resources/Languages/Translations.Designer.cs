@@ -1051,6 +1051,78 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Control AI and smart features in Windows.
+        /// </summary>
+        internal static string Features_AI_Description {
+            get {
+                return ResourceManager.GetString("Features.AI.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AI.
+        /// </summary>
+        internal static string Features_AI_Name {
+            get {
+                return ResourceManager.GetString("Features.AI.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable or disable continuous Windows features.
+        /// </summary>
+        internal static string Features_Description {
+            get {
+                return ResourceManager.GetString("Features.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Control data collection and privacy settings.
+        /// </summary>
+        internal static string Features_Privacy_Description {
+            get {
+                return ResourceManager.GetString("Features.Privacy.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System and update settings.
+        /// </summary>
+        internal static string Features_System_Description {
+            get {
+                return ResourceManager.GetString("Features.System.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System.
+        /// </summary>
+        internal static string Features_System_Name {
+            get {
+                return ResourceManager.GetString("Features.System.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customize visual and interaction settings.
+        /// </summary>
+        internal static string Features_UserExperience_Description {
+            get {
+                return ResourceManager.GetString("Features.UserExperience.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Experience.
+        /// </summary>
+        internal static string Features_UserExperience_Name {
+            get {
+                return ResourceManager.GetString("Features.UserExperience.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Completed.
         /// </summary>
         internal static string Optimization_Apply_Completed {
@@ -3891,78 +3963,6 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Control AI and smart features in Windows.
-        /// </summary>
-        internal static string ToggleFeature_Category_AI_Description {
-            get {
-                return ResourceManager.GetString("ToggleFeature.Category.AI.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to AI.
-        /// </summary>
-        internal static string ToggleFeature_Category_AI_Name {
-            get {
-                return ResourceManager.GetString("ToggleFeature.Category.AI.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Control data collection and privacy settings.
-        /// </summary>
-        internal static string ToggleFeature_Category_Privacy_Description {
-            get {
-                return ResourceManager.GetString("ToggleFeature.Category.Privacy.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Privacy.
-        /// </summary>
-        internal static string ToggleFeature_Category_Privacy_Name {
-            get {
-                return ResourceManager.GetString("ToggleFeature.Category.Privacy.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to System and update settings.
-        /// </summary>
-        internal static string ToggleFeature_Category_System_Description {
-            get {
-                return ResourceManager.GetString("ToggleFeature.Category.System.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to System.
-        /// </summary>
-        internal static string ToggleFeature_Category_System_Name {
-            get {
-                return ResourceManager.GetString("ToggleFeature.Category.System.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Customize visual and interaction settings.
-        /// </summary>
-        internal static string ToggleFeature_Category_UserExperience_Description {
-            get {
-                return ResourceManager.GetString("ToggleFeature.Category.UserExperience.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to User Experience.
-        /// </summary>
-        internal static string ToggleFeature_Category_UserExperience_Name {
-            get {
-                return ResourceManager.GetString("ToggleFeature.Category.UserExperience.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Turn off automatic Windows updates.
         /// </summary>
         internal static string ToggleFeature_DisableAutomaticWindowsUpdate_Description {
@@ -4202,24 +4202,6 @@ namespace optimizerDuck.Resources.Languages {
         internal static string ToggleFeature_ShowSecondsInSystemClock_Description {
             get {
                 return ResourceManager.GetString("ToggleFeature.ShowSecondsInSystemClock.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show Seconds in Clock.
-        /// </summary>
-        internal static string ToggleFeature_ShowSecondsInSystemClock_Name {
-            get {
-                return ResourceManager.GetString("ToggleFeature.ShowSecondsInSystemClock.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enable or disable continuous Windows features.
-        /// </summary>
-        internal static string ToggleFeatures_Description {
-            get {
-                return ResourceManager.GetString("ToggleFeatures.Description", resourceCulture);
             }
         }
     }

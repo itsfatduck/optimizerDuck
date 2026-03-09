@@ -2,7 +2,6 @@ using System.Collections.ObjectModel;
 using Microsoft.Win32.TaskScheduler;
 using optimizerDuck.Core.Models.Execution;
 using optimizerDuck.Core.Models.Revert.Steps;
-using optimizerDuck.Core.Models.Optimization.ScheduledTask;
 using optimizerDuck.Resources.Languages;
 using ScheduledTaskModel = optimizerDuck.Core.Models.Optimization.ScheduledTask.ScheduledTaskModel;
 using Task = Microsoft.Win32.TaskScheduler.Task;

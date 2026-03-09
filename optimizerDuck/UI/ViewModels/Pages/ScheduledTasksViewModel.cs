@@ -4,7 +4,6 @@ using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
-using optimizerDuck.Core.Models.Optimization.ScheduledTask;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.OptimizationServices;
 using optimizerDuck.UI.Views.Dialogs;

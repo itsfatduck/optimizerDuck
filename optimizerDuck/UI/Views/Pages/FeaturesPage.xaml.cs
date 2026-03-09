@@ -5,8 +5,6 @@ namespace optimizerDuck.UI.Views.Pages;
 
 public partial class FeaturesPage : INavigableView<FeaturesViewModel>
 {
-    public FeaturesViewModel ViewModel { get; }
-
     public FeaturesPage(FeaturesViewModel viewModel)
     {
         ViewModel = viewModel;
@@ -16,4 +14,6 @@ public partial class FeaturesPage : INavigableView<FeaturesViewModel>
 
         Loaded += async (_, _) => await ViewModel.InitializeAsync();
     }
+
+    public FeaturesViewModel ViewModel { get; }
 }

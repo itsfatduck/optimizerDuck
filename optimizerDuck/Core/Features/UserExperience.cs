@@ -12,12 +12,6 @@ namespace optimizerDuck.Core.Features;
 [FeatureCategory(PageType = typeof(UserExperienceFeatureCategory))]
 public class UserExperience : IFeatureCategory
 {
-    public string Name => Loc.Instance[$"ToggleFeature.{nameof(UserExperience)}"];
-    public string Description => Loc.Instance[$"ToggleFeature.{nameof(UserExperience)}.Description"];
-    public SymbolRegular Icon { get; init; } = SymbolRegular.Color24;
-    public FeatureCategoryOrder Order { get; init; } = FeatureCategoryOrder.UserExperience;
-    public ObservableCollection<IFeature> Features { get; init; } = [];
-
     public enum Sections
     {
         Taskbar,
@@ -26,12 +20,18 @@ public class UserExperience : IFeatureCategory
         Explorer
     }
 
+    public string Name => Loc.Instance[$"ToggleFeature.{nameof(UserExperience)}"];
+    public string Description => Loc.Instance[$"ToggleFeature.{nameof(UserExperience)}.Description"];
+    public SymbolRegular Icon { get; init; } = SymbolRegular.Color24;
+    public FeatureCategoryOrder Order { get; init; } = FeatureCategoryOrder.UserExperience;
+    public ObservableCollection<IFeature> Features { get; init; } = [];
+
     [Feature(Section = nameof(Sections.Taskbar))]
     public class DisableTaskbarNewsAndInterests : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
         [
-            new RegistryToggle
+            new()
             {
                 Path = @"HKLM\SOFTWARE\Policies\Microsoft\Dsh",
                 Name = "AllowNewsAndInterests",
@@ -47,7 +47,7 @@ public class UserExperience : IFeatureCategory
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
         [
-            new RegistryToggle
+            new()
             {
                 Path = @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
                 Name = "AppsUseLightTheme",
@@ -63,7 +63,7 @@ public class UserExperience : IFeatureCategory
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
         [
-            new RegistryToggle
+            new()
             {
                 Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
                 Name = "TaskbarAnimations",
@@ -79,7 +79,7 @@ public class UserExperience : IFeatureCategory
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
         [
-            new RegistryToggle
+            new()
             {
                 Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
                 Name = "ShowSecondsInSystemClock",
@@ -95,7 +95,7 @@ public class UserExperience : IFeatureCategory
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
         [
-            new RegistryToggle
+            new()
             {
                 Path = @"HKCU\SOFTWARE\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32",
                 Name = "",

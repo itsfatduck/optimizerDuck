@@ -39,6 +39,8 @@ public sealed class ExecutionScope : IDisposable
 
     public bool HasSuccessfulSteps => _executedSteps.Any(s => s.Success);
 
+    private bool LoggingOnly { get; init; }
+
     public void Dispose()
     {
         if (_disposed)
@@ -119,8 +121,6 @@ public sealed class ExecutionScope : IDisposable
         logger.LogDebug("Execution scope started for {Key} (logging only)", optimizationKey);
         return scope;
     }
-
-    private bool LoggingOnly { get; init; }
 
     public static ExecutedStep? RecordStep(
         string name,

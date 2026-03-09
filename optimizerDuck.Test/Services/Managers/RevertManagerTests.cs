@@ -6,7 +6,6 @@ using optimizerDuck.Core.Models.Optimization;
 using optimizerDuck.Core.Models.Revert;
 using optimizerDuck.Core.Models.Revert.Steps;
 using optimizerDuck.Core.Models.UI;
-using optimizerDuck.Core.Optimizers;
 using optimizerDuck.Services.Managers;
 
 namespace optimizerDuck.Test.Services.Managers;

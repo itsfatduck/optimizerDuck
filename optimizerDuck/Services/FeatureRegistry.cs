@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
 using optimizerDuck.Common.Helpers;
@@ -56,10 +55,7 @@ public class FeatureRegistry
 
     public IEnumerable<NavigationViewItem> GetNavigationItems()
     {
-        if (Categories.Length == 0)
-        {
-            RegisterCategories();
-        }
+        if (Categories.Length == 0) RegisterCategories();
 
         return Categories.Select(c => new NavigationViewItem
         {

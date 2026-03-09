@@ -46,8 +46,8 @@ public class ShellRevertStep : IRevertStep
             };
 
             if (result.ExitCode != 0)
-                throw new Exception(!string.IsNullOrWhiteSpace(result.Stderr) 
-                    ? result.Stderr 
+                throw new Exception(!string.IsNullOrWhiteSpace(result.Stderr)
+                    ? result.Stderr
                     : $"Command failed with exit code {result.ExitCode}");
 
             return result.ExitCode == 0;

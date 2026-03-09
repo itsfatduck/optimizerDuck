@@ -2,7 +2,6 @@
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Services;
 using optimizerDuck.UI.Views.Pages;
-using optimizerDuck.UI.Views.Pages.Features;
 using Wpf.Ui;
 using Wpf.Ui.Abstractions;
 
@@ -22,10 +21,7 @@ public partial class MainWindow : IWindow
         RootNavigation.SetPageProviderService(pageProvider);
 
         var toggleItems = featureRegistry.GetNavigationItems();
-        foreach (var item in toggleItems)
-        {
-            FeaturesMenuItem.MenuItems.Add(item);
-        }
+        foreach (var item in toggleItems) FeaturesMenuItem.MenuItems.Add(item);
 
         RootNavigation.Loaded += OnRootNavigationLoaded;
     }

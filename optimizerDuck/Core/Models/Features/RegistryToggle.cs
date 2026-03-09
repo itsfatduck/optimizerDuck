@@ -13,17 +13,17 @@ public class RegistryToggle
     public required object? DefaultValue { get; init; } = 0;
     public bool TreatMissingAsDefault { get; init; } = false;
     public RegistryValueKind ValueKind { get; init; } = RegistryValueKind.DWord;
-    
+
 
     public bool GetState()
     {
         var value = GetRawValue();
         if (value == null)
             return OnValue == null;
-        
+
         return AreEqual(value, OnValue);
     }
-    
+
     private static bool AreEqual(object? a, object? b)
     {
         if (a == null && b == null)
@@ -55,12 +55,8 @@ public class RegistryToggle
     {
         var targetValue = isOn ? OnValue : OffValue;
         if (targetValue == null)
-        {
             RegistryService.DeleteValue(new RegistryItem(Path, Name));
-        }
         else
-        {
             RegistryService.Write(new RegistryItem(Path, Name, targetValue, ValueKind));
-        }
     }
 }

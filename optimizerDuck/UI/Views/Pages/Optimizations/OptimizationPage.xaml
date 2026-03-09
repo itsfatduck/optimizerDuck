@@ -17,7 +17,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:optimization="clr-namespace:optimizerDuck.Core.Models.Optimization"
     xmlns:optimizations="clr-namespace:optimizerDuck.UI.Views.Pages.Optimizations"
-    xmlns:optimizers="clr-namespace:optimizerDuck.Core.Optimizers"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Page.Resources>

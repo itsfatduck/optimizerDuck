@@ -36,8 +36,8 @@
             <SubType>Designer</SubType>
         </Page>
         <Page Update="UI\Views\Pages\FeaturesPage.xaml">
-          <XamlRuntime>Wpf</XamlRuntime>
-          <SubType>Designer</SubType>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
         </Page>
     </ItemGroup>
 

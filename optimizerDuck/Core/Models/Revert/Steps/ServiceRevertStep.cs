@@ -41,7 +41,8 @@ public class ServiceRevertStep : IRevertStep
             });
 
             if (!result)
-                throw new Exception(string.Format(Translations.Service_Service_Error_UpdateRegistryForStartupTypeFailed));
+                throw new Exception(
+                    string.Format(Translations.Service_Service_Error_UpdateRegistryForStartupTypeFailed));
 
             return result;
         });

@@ -60,7 +60,8 @@ public partial class SettingsViewModel(
     {
         SelectedCultureName = appOptionsMonitor.CurrentValue.App.Language;
         ShellTimeoutMs = appOptionsMonitor.CurrentValue.Optimize.ShellTimeoutMs;
-        ShowSnackbarNotificationAfterAppliedSuccessfully = appOptionsMonitor.CurrentValue.Optimize.ShowCompletionNotification;
+        ShowSnackbarNotificationAfterAppliedSuccessfully =
+            appOptionsMonitor.CurrentValue.Optimize.ShowCompletionNotification;
         RemoveProvisioned = appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned;
         CurrentApplicationTheme = ApplicationThemeManager.GetAppTheme();
 

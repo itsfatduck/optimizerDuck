@@ -100,17 +100,20 @@ public static class RegistryService
         }
         catch (SecurityException ex)
         {
-            TrackRegistryError(Translations.Service_Registry_Error_AccessDeniedProtectedHive, "Access denied (protected hive)", rootKey, subPath, ex);
+            TrackRegistryError(Translations.Service_Registry_Error_AccessDeniedProtectedHive,
+                "Access denied (protected hive)", rootKey, subPath, ex);
             return false;
         }
         catch (UnauthorizedAccessException ex)
         {
-            TrackRegistryError(Translations.Service_Registry_Error_UnauthorizedAccess, "Unauthorized access", rootKey, subPath, ex);
+            TrackRegistryError(Translations.Service_Registry_Error_UnauthorizedAccess, "Unauthorized access", rootKey,
+                subPath, ex);
             return false;
         }
         catch (Exception ex)
         {
-            TrackRegistryError(Translations.Service_Registry_Error_CreateOrOpenSubkeyFailed, "Failed to create/open subkey", rootKey, subPath, ex);
+            TrackRegistryError(Translations.Service_Registry_Error_CreateOrOpenSubkeyFailed,
+                "Failed to create/open subkey", rootKey, subPath, ex);
             return false;
         }
     }
@@ -121,7 +124,8 @@ public static class RegistryService
         if (!TryParsePath(item.Path, out var rootKey, out var subPath))
             return default;
 
-        if (!TryOpenSubKey(rootKey, subPath, out var subKey, out var shouldDispose, writable, createIfMissing, createdSubKeys))
+        if (!TryOpenSubKey(rootKey, subPath, out var subKey, out var shouldDispose, writable, createIfMissing,
+                createdSubKeys))
             return default;
 
         try
@@ -145,7 +149,8 @@ public static class RegistryService
                 if (value is null) return default;
 
                 var result = ConvertRegistryValue<T>(value);
-                ExecutionScope.LogInfo("Read registry {Path}:{Name} = {Value}", item.Path, item.Name!, result?.ToString() ?? "<null>");
+                ExecutionScope.LogInfo("Read registry {Path}:{Name} = {Value}", item.Path, item.Name!,
+                    result?.ToString() ?? "<null>");
                 return result;
             }
             catch (Exception ex)
@@ -173,7 +178,8 @@ public static class RegistryService
             try
             {
                 var backupValue = key.GetValue(item.Name, null, RegistryValueOptions.DoNotExpandEnvironmentNames);
-                var valueExists = backupValue != null || key.GetValueNames().Contains(item.Name, StringComparer.OrdinalIgnoreCase);
+                var valueExists = backupValue != null ||
+                                  key.GetValueNames().Contains(item.Name, StringComparer.OrdinalIgnoreCase);
                 var backupKind = valueExists ? key.GetValueKind(item.Name) : RegistryValueKind.Unknown;
 
                 key.SetValue(item.Name, item.Value, item.Kind);
@@ -188,7 +194,8 @@ public static class RegistryService
                     CreatedSubKeys = createdSubKeys
                 };
 
-                ExecutionScope.LogInfo("Wrote {Path}:{Name}[{Kind}] = {Value}", item.Path, item.Name!, item.Kind, item.Value);
+                ExecutionScope.LogInfo("Wrote {Path}:{Name}[{Kind}] = {Value}", item.Path, item.Name!, item.Kind,
+                    item.Value);
                 ExecutionScope.Track(nameof(Write), true);
                 ExecutionScope.RecordStep(Translations.Service_Registry_Name, description, true, revertStep);
                 return true;
@@ -197,14 +204,16 @@ public static class RegistryService
             {
                 ExecutionScope.LogError(null, "Access denied writing {Path}:{Name}", item.Path, item.Name!);
                 ExecutionScope.Track(nameof(Write), false);
-                ExecutionScope.RecordStep(Translations.Service_Registry_Name, description, false, null, Translations.Service_Common_Error_AccessDenied, () => Task.FromResult(Write(item)));
+                ExecutionScope.RecordStep(Translations.Service_Registry_Name, description, false, null,
+                    Translations.Service_Common_Error_AccessDenied, () => Task.FromResult(Write(item)));
                 return false;
             }
             catch (Exception ex)
             {
                 ExecutionScope.LogError(ex, "Failed to write registry {Path}:{Name}", item.Path, item.Name!);
                 ExecutionScope.Track(nameof(Write), false);
-                ExecutionScope.RecordStep(Translations.Service_Registry_Name, description, false, null, ex.Message, () => Task.FromResult(Write(item)));
+                ExecutionScope.RecordStep(Translations.Service_Registry_Name, description, false, null, ex.Message,
+                    () => Task.FromResult(Write(item)));
                 return false;
             }
         }, true, true, createdSubKeys);
@@ -247,14 +256,16 @@ public static class RegistryService
             {
                 ExecutionScope.LogError(null, "Access denied deleting {Path}:{Name}", item.Path, item.Name!);
                 ExecutionScope.Track(nameof(DeleteValue), false);
-                ExecutionScope.RecordStep(Translations.Service_Registry_Name, description, false, null, Translations.Service_Common_Error_AccessDenied, () => Task.FromResult(DeleteValue(item)));
+                ExecutionScope.RecordStep(Translations.Service_Registry_Name, description, false, null,
+                    Translations.Service_Common_Error_AccessDenied, () => Task.FromResult(DeleteValue(item)));
                 return false;
             }
             catch (Exception ex)
             {
                 ExecutionScope.LogError(ex, "Failed to delete registry {Path}:{Name}", item.Path, item.Name!);
                 ExecutionScope.Track(nameof(DeleteValue), false);
-                ExecutionScope.RecordStep(Translations.Service_Registry_Name, description, false, null, ex.Message, () => Task.FromResult(DeleteValue(item)));
+                ExecutionScope.RecordStep(Translations.Service_Registry_Name, description, false, null, ex.Message,
+                    () => Task.FromResult(DeleteValue(item)));
                 return false;
             }
         }, true);

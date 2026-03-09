@@ -12,17 +12,17 @@ namespace optimizerDuck.Core.Features;
 [FeatureCategory(PageType = typeof(SystemFeatureCategory))]
 public class System : IFeatureCategory
 {
-    public string Name => Loc.Instance[$"Features.{nameof(System)}"];
-    public string Description => Loc.Instance[$"Features.{nameof(System)}.Description"];
-    public SymbolRegular Icon { get; init; } = SymbolRegular.Desktop24;
-    public FeatureCategoryOrder Order { get; init; } = FeatureCategoryOrder.System;
-    public ObservableCollection<IFeature> Features { get; init; } = [];
-
     public enum Sections
     {
         WindowsUpdate,
         Storage
     }
+
+    public string Name => Loc.Instance[$"Features.{nameof(System)}"];
+    public string Description => Loc.Instance[$"Features.{nameof(System)}.Description"];
+    public SymbolRegular Icon { get; init; } = SymbolRegular.Desktop24;
+    public FeatureCategoryOrder Order { get; init; } = FeatureCategoryOrder.System;
+    public ObservableCollection<IFeature> Features { get; init; } = [];
 
     [Feature(Section = nameof(Sections.WindowsUpdate))]
     public class DisableAutomaticWindowsUpdate : BaseFeature

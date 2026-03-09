@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Optimization;
-using optimizerDuck.Core.Optimizers;
 
 namespace optimizerDuck.Services;
 

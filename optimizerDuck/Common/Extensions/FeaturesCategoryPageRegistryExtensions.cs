@@ -6,8 +6,6 @@ using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Attributes;
 using optimizerDuck.Services;
 using optimizerDuck.UI.ViewModels.Pages;
-using optimizerDuck.UI.ViewModels.Features;
-using Wpf.Ui;
 
 namespace optimizerDuck.Common.Extensions;
 

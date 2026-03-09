@@ -1,5 +1,4 @@
 using System.Windows.Controls;
-using optimizerDuck.Core.Models.Optimization.StartupManager;
 using StartupTask = optimizerDuck.Core.Models.Optimization.StartupManager.StartupTask;
 
 namespace optimizerDuck.UI.Views.Dialogs;

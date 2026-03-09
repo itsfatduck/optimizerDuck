@@ -6,7 +6,6 @@ using System.Xml.Linq;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using optimizerDuck.Common.Helpers;
-using optimizerDuck.Core.Models.Optimization.Bloatware;
 using optimizerDuck.Core.Models.Config;
 using optimizerDuck.Core.Models.Execution;
 using optimizerDuck.Services.OptimizationServices;

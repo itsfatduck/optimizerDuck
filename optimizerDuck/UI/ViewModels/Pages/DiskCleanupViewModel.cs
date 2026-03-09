@@ -3,7 +3,6 @@ using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
-using optimizerDuck.Core.Models.Optimization.Cleanup;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services;
 using Wpf.Ui;
@@ -122,12 +121,14 @@ public partial class DiskCleanupViewModel(
 
             snackbarService.Show(
                 Translations.DiskCleanup_Complete_Title,
-                string.Format(Translations.DiskCleanup_Complete_Message, CleanupItem.FormatBytes(freedBytes), $"{sw.Elapsed.TotalSeconds:0.0}s"),
+                string.Format(Translations.DiskCleanup_Complete_Message, CleanupItem.FormatBytes(freedBytes),
+                    $"{sw.Elapsed.TotalSeconds:0.0}s"),
                 ControlAppearance.Success,
                 new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
                 TimeSpan.FromSeconds(5));
 
-            logger.LogInformation("Disk cleanup completed, freed {Size} in {Duration}", CleanupItem.FormatBytes(freedBytes), sw.Elapsed);
+            logger.LogInformation("Disk cleanup completed, freed {Size} in {Duration}",
+                CleanupItem.FormatBytes(freedBytes), sw.Elapsed);
         }
         catch (Exception ex)
         {

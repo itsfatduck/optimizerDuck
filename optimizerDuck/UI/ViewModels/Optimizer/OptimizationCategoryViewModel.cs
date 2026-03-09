@@ -6,16 +6,15 @@ using System.Windows.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Core.Interfaces;
+using optimizerDuck.Core.Models.Config;
 using optimizerDuck.Core.Models.Optimization;
 using optimizerDuck.Core.Models.UI;
-using optimizerDuck.Core.Optimizers;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services;
 using optimizerDuck.Services.Managers;
-using optimizerDuck.Core.Models.Config;
-using Microsoft.Extensions.Options;
 using optimizerDuck.UI.ViewModels.Dialogs;
 using optimizerDuck.UI.Views.Dialogs;
 using Wpf.Ui;
@@ -31,6 +30,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
     private static readonly TimeSpan SourceCacheTtl = TimeSpan.FromMinutes(5);
 
     private readonly List<IOptimization> _allOptimizations = [];
+
+    private readonly IOptionsMonitor<AppSettings> _appOptionsMonitor;
     private readonly IOptimizationCategory _category;
     private readonly IContentDialogService _contentDialogService;
     private readonly ILogger<OptimizationCategoryViewModel> _logger;
@@ -39,21 +40,18 @@ public partial class OptimizationCategoryViewModel : ViewModel
     private readonly ISnackbarService _snackbarService;
     [ObservableProperty] private bool _hideApplied;
 
+    [ObservableProperty] private bool _isLoading;
+
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(ToggleOptimizationCommand))]
+    private bool _isProcessing;
+
     [ObservableProperty] private ObservableCollection<IOptimization> _optimizations = [];
 
     // Search, Filter, Sort
     [ObservableProperty] private string _searchText = string.Empty;
 
-    private readonly IOptionsMonitor<AppSettings> _appOptionsMonitor;
-
     [ObservableProperty] private int _selectedRiskFilterIndex; // 0=All, 1=Safe, 2=Moderate, 3=Risky
     [ObservableProperty] private int _selectedSortByIndex; // 0=Risk & Status, 1=Name, 2=Risk
-
-    [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(ToggleOptimizationCommand))]
-    private bool _isProcessing;
-
-    [ObservableProperty] private bool _isLoading;
 
     public OptimizationCategoryViewModel(
         IOptimizationCategory category,
@@ -99,6 +97,15 @@ public partial class OptimizationCategoryViewModel : ViewModel
     {
         await LoadOptimizationStatesAsync();
     }
+
+    #region CanExecutes
+
+    private bool CanToggleOptimization(IOptimization optimization)
+    {
+        return !IsProcessing;
+    }
+
+    #endregion CanExecutes
 
     #region Commands
 
@@ -326,15 +333,6 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
     #endregion Commands
 
-    #region CanExecutes
-
-    private bool CanToggleOptimization(IOptimization optimization)
-    {
-        return !IsProcessing;
-    }
-
-    #endregion CanExecutes
-
     #region Helpers
 
     /// <summary>
@@ -543,7 +541,6 @@ public partial class OptimizationCategoryViewModel : ViewModel
         if (succeeded)
         {
             if (showSuccess)
-            {
                 _snackbarService.Show(
                     operationType == "apply"
                         ? Translations.Optimization_Apply_Snackbar_Success_Title
@@ -552,9 +549,9 @@ public partial class OptimizationCategoryViewModel : ViewModel
                     ControlAppearance.Success,
                     new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
                     TimeSpan.FromSeconds(5));
-            }
         }
         else if (partial)
+        {
             _snackbarService.Show(
                 operationType == "apply"
                     ? Translations.Optimization_Apply_Snackbar_Error_Title
@@ -563,7 +560,9 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 ControlAppearance.Caution,
                 new SymbolIcon { Symbol = SymbolRegular.Warning24, Filled = true },
                 TimeSpan.FromSeconds(5));
+        }
         else if (failed)
+        {
             _snackbarService.Show(
                 operationType == "apply"
                     ? Translations.Optimization_Apply_Snackbar_Error_Title
@@ -572,6 +571,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 ControlAppearance.Danger,
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
                 TimeSpan.FromSeconds(5));
+        }
     }
 
     /// <summary>

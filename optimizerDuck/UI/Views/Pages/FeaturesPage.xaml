@@ -3,7 +3,7 @@
     Margin="0,32,0,0"
     ScrollViewer.CanContentScroll="False"
     Title="Features"
-    d:DataContext="{d:DesignInstance vm:FeaturesViewModel}"
+    d:DataContext="{d:DesignInstance pages:FeaturesPage}"
     d:DesignHeight="650"
     d:DesignWidth="800"
     mc:Ignorable="d"
@@ -15,13 +15,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:optimizerDuck.UI.Views.Pages"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:vm="clr-namespace:optimizerDuck.UI.ViewModels.Pages"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" />
         <converters:WidthToColumnConverter x:Key="WidthToColumnConverter" />
     </Page.Resources>
 
@@ -35,10 +35,10 @@
             <ui:TextBlock
                 FontTypography="Title"
                 Margin="0,0,0,8"
-                Text="{ext:Loc ToggleFeatures.Title}" />
+                Text="{ext:Loc Features.Title}" />
             <ui:TextBlock
                 Appearance="Secondary"
-                Text="{ext:Loc ToggleFeatures.Description}"
+                Text="{ext:Loc Features.Description}"
                 TextWrapping="Wrap" />
         </StackPanel>
 

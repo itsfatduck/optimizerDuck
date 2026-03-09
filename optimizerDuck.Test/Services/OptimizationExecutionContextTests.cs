@@ -190,11 +190,6 @@ public class MockRevertStep : IRevertStep
     public string Type => "Mock";
     public string Description => "Mock Description";
 
-    public static MockRevertStep FromData(JObject data)
-    {
-        return new MockRevertStep();
-    }
-
     public Task<bool> ExecuteAsync()
     {
         return Task.FromResult(true);
@@ -203,5 +198,10 @@ public class MockRevertStep : IRevertStep
     public JObject ToData()
     {
         return new JObject();
+    }
+
+    public static MockRevertStep FromData(JObject data)
+    {
+        return new MockRevertStep();
     }
 }

@@ -9,24 +9,18 @@ namespace optimizerDuck.UI.ViewModels.Features;
 public partial class FeatureViewModel(IFeature feature, ILoggerFactory loggerFactory) : ObservableObject
 {
     private readonly ILogger<FeatureViewModel> _logger = loggerFactory.CreateLogger<FeatureViewModel>();
-    
-    [ObservableProperty]
-    private string _name = feature.Name;
 
-    [ObservableProperty]
-    private string _description = feature.Description;
+    [ObservableProperty] private string _description = feature.Description;
 
-    [ObservableProperty]
-    private string _section = feature.Section;
+    [ObservableProperty] private bool _isEnabled;
 
-    [ObservableProperty]
-    private bool _isEnabled;
+    [ObservableProperty] private bool _isLoading;
 
-    [ObservableProperty]
-    private bool _isVisible = true;
+    [ObservableProperty] private bool _isVisible = true;
 
-    [ObservableProperty]
-    private bool _isLoading;
+    [ObservableProperty] private string _name = feature.Name;
+
+    [ObservableProperty] private string _section = feature.Section;
 
     public async Task LoadStateAsync()
     {
@@ -45,9 +39,9 @@ public partial class FeatureViewModel(IFeature feature, ILoggerFactory loggerFac
     {
         if (IsLoading)
             return;
-        
+
         var isEnabling = !IsEnabled;
-        
+
         _logger.LogInformation(
             "===== START {Action} toggle feature {FeatureName} ({FeatureKey}) =====",
             isEnabling ? "enabling" : "disabling",
@@ -69,7 +63,7 @@ public partial class FeatureViewModel(IFeature feature, ILoggerFactory loggerFac
                 await feature.DisableAsync();
                 IsEnabled = false;
             }
-            
+
             scope.Dispose();
 
             _logger.LogInformation(

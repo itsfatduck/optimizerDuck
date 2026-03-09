@@ -15,7 +15,6 @@ using optimizerDuck.Services.Managers;
 using optimizerDuck.Services.OptimizationServices;
 using optimizerDuck.UI.ViewModels.Pages;
 using optimizerDuck.UI.Views.Pages;
-using optimizerDuck.UI.Views.Pages.Features;
 using optimizerDuck.UI.Views.Windows;
 using Serilog;
 using Serilog.Events;

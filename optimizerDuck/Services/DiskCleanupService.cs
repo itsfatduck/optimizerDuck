@@ -1,6 +1,5 @@
 using System.IO;
 using Microsoft.Extensions.Logging;
-using optimizerDuck.Core.Models.Optimization.Cleanup;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.OptimizationServices;
 using Wpf.Ui.Controls;
@@ -226,10 +225,9 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
 
             var dirInfo = new DirectoryInfo(path);
             var dotNetTempPath = Path.GetFullPath(Path.Combine(Path.GetTempPath(), ".net"))
-                                     .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+                .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
 
             foreach (var fileInfo in dirInfo.EnumerateFiles(searchPattern, options))
-            {
                 try
                 {
                     // Skip .net temp files if we are doing recursive search
@@ -250,7 +248,6 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 {
                     // Ignore inaccessible single files
                 }
-            }
         }
         catch (Exception ex)
         {
@@ -267,7 +264,7 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
 
         long freed = 0;
         var dotNetTempPath = Path.GetFullPath(Path.Combine(Path.GetTempPath(), ".net"))
-                                 .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+            .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
         var searchPattern = itemId == "Thumbnails" ? "thumbcache_*" : "*";
         var options = new EnumerationOptions
         {
@@ -280,7 +277,6 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
 
         // Delete files
         foreach (var fileInfo in dirInfo.EnumerateFiles(searchPattern, options))
-        {
             try
             {
                 if (options.RecurseSubdirectories)
@@ -300,7 +296,6 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
             {
                 // skip locked/inaccessible files
             }
-        }
 
         // Clean up empty directories if recursive
         if (options.RecurseSubdirectories)
@@ -314,11 +309,10 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
 
             // Order by descending length to process deepest children first
             var dirs = dirInfo.EnumerateDirectories("*", dirOptions)
-                              .OrderByDescending(d => d.FullName.Length)
-                              .ToList();
+                .OrderByDescending(d => d.FullName.Length)
+                .ToList();
 
             foreach (var dir in dirs)
-            {
                 try
                 {
                     var fullDir = dir.FullName.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
@@ -331,7 +325,6 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 {
                     // directory may not be empty if files were locked, or access denied
                 }
-            }
         }
 
         return freed;
