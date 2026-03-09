@@ -4,12 +4,14 @@ using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
-using optimizerDuck.Core.Models.StartupManager;
+using optimizerDuck.Core.Models.Optimization.StartupManager;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services;
 using optimizerDuck.UI.Views.Dialogs;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
+using StartupApp = optimizerDuck.Core.Models.Optimization.StartupManager.StartupApp;
+using StartupTask = optimizerDuck.Core.Models.Optimization.StartupManager.StartupTask;
 
 namespace optimizerDuck.UI.ViewModels.Pages;
 

@@ -1,15 +1,13 @@
 using System.Reflection;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Attributes;
-using optimizerDuck.Core.Models.Execution;
-using optimizerDuck.Core.Models.Optimization;
 using optimizerDuck.Core.Models.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Managers;
 using Wpf.Ui.Controls;
 using OptimizationState = optimizerDuck.Core.Models.UI.OptimizationState;
 
-namespace optimizerDuck.Core.Optimizers;
+namespace optimizerDuck.Core.Models.Optimization;
 
 public abstract class BaseOptimization : IOptimization
 {

@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Core.Interfaces;
+using optimizerDuck.Core.Models.Optimization;
 using optimizerDuck.Core.Optimizers;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Managers;

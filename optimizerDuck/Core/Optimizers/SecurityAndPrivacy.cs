@@ -14,7 +14,7 @@ namespace optimizerDuck.Core.Optimizers;
 [OptimizationCategory(typeof(SecurityAndPrivacyOptimizerPage))]
 public class SecurityAndPrivacy : IOptimizationCategory
 {
-    public string Name { get; init; } = Loc.Instance[$"Optimizer.{nameof(SecurityAndPrivacy)}"];
+    public string Name => Loc.Instance[$"Optimizer.{nameof(SecurityAndPrivacy)}"];
     public OptimizationCategoryOrder Order { get; init; } = OptimizationCategoryOrder.SecurityAndPrivacy;
     public ObservableCollection<IOptimization> Optimizations { get; init; } = [];
 

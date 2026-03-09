@@ -3,7 +3,7 @@ using System.ComponentModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
-using optimizerDuck.Core.Models.Bloatware;
+using optimizerDuck.Core.Models.Optimization.Bloatware;
 using optimizerDuck.Core.Models.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services;
@@ -11,6 +11,7 @@ using optimizerDuck.UI.ViewModels.Dialogs;
 using optimizerDuck.UI.Views.Dialogs;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
+using AppXPackage = optimizerDuck.Core.Models.Optimization.Bloatware.AppXPackage;
 
 namespace optimizerDuck.UI.ViewModels.Pages;
 

@@ -11,7 +11,7 @@ public interface IOptimizationCategory
     /// <summary>
     ///     The localized display name of the category.
     /// </summary>
-    public string Name { get; init; }
+    public string Name { get; }
 
     /// <summary>
     ///     The display order of this category in the UI.

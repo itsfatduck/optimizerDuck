@@ -6,10 +6,11 @@ using System.Xml.Linq;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using optimizerDuck.Common.Helpers;
-using optimizerDuck.Core.Models.Bloatware;
+using optimizerDuck.Core.Models.Optimization.Bloatware;
 using optimizerDuck.Core.Models.Config;
 using optimizerDuck.Core.Models.Execution;
 using optimizerDuck.Services.OptimizationServices;
+using AppXPackage = optimizerDuck.Core.Models.Optimization.Bloatware.AppXPackage;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace optimizerDuck.Services;
@@ -98,7 +99,7 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
     /// <param name="appXPackage">The package to remove.</param>
     public async Task RemoveAppXPackage(AppXPackage appXPackage)
     {
-        using var scope = ExecutionScope.Begin(logger);
+        using var scope = ExecutionScope.BeginForLogging(logger);
         try
         {
             if (string.IsNullOrWhiteSpace(appXPackage.PackageFullName))

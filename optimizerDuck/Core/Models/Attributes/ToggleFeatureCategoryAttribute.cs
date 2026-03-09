@@ -1,3 +1,5 @@
+namespace optimizerDuck.Core.Models.Attributes;
+
 [AttributeUsage(AttributeTargets.Class, Inherited = false)]
 public class ToggleFeatureCategoryAttribute : Attribute
 {

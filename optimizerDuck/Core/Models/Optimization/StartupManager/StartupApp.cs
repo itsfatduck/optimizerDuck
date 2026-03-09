@@ -2,7 +2,7 @@ using System.IO;
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace optimizerDuck.Core.Models.StartupManager;
+namespace optimizerDuck.Core.Models.Optimization.StartupManager;
 
 /// <summary>
 ///     Specifies the location of a startup application.

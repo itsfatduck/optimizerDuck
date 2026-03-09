@@ -1,5 +1,6 @@
 using System.Windows.Controls;
-using optimizerDuck.Core.Models.ScheduledTask;
+using optimizerDuck.Core.Models.Optimization.ScheduledTask;
+using ScheduledTaskModel = optimizerDuck.Core.Models.Optimization.ScheduledTask.ScheduledTaskModel;
 
 namespace optimizerDuck.UI.Views.Dialogs;
 

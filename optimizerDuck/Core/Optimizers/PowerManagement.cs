@@ -16,7 +16,7 @@ namespace optimizerDuck.Core.Optimizers;
 [OptimizationCategory(typeof(PowerManagementOptimizerPage))]
 public class PowerManagement : IOptimizationCategory
 {
-    public string Name { get; init; } = Loc.Instance[$"Optimizer.{nameof(PowerManagement)}"];
+    public string Name => Loc.Instance[$"Optimizer.{nameof(PowerManagement)}"];
     public OptimizationCategoryOrder Order { get; init; } = OptimizationCategoryOrder.Power;
     public ObservableCollection<IOptimization> Optimizations { get; init; } = [];
 

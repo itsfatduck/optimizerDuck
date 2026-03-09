@@ -1,26 +1,27 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Extensions.Logging;
 using optimizerDuck.Core.Interfaces;
-using optimizerDuck.Services;
-using Wpf.Ui;
+using optimizerDuck.Core.Models.ToggleFeatures;
+using optimizerDuck.Resources.Languages;
 using Wpf.Ui.Controls;
 
-namespace optimizerDuck.UI.ViewModels.Pages;
+namespace optimizerDuck.UI.ViewModels.ToggleFeatures;
 
-public partial class ToggleFeatureCategoryViewModel : ViewModel
+public partial class ToggleFeaturesCategoryViewModel : ViewModel
 {
     [ObservableProperty] private string _categoryName = string.Empty;
     [ObservableProperty] private string _categoryDescription = string.Empty;
     [ObservableProperty] private SymbolRegular _categoryIcon;
-    [ObservableProperty] private ObservableCollection<FeatureViewModel> _features = [];
+    [ObservableProperty] private ObservableCollection<FeatureSection> _sections = [];
     [ObservableProperty] private string _searchText = string.Empty;
     [ObservableProperty] private int _selectedSortByIndex;
     [ObservableProperty] private bool _isLoading = true;
 
-    private IToggleFeatureCategory? _currentCategory;
-    private List<FeatureViewModel> _allFeatures = [];
+    private readonly IToggleFeaturesCategory? _currentCategory;
+    private readonly List<FeatureViewModel> _allFeatures = [];
 
-    public ToggleFeatureCategoryViewModel(IToggleFeatureCategory category)
+    public ToggleFeaturesCategoryViewModel(IToggleFeaturesCategory category, ILoggerFactory loggerFactory)
     {
         _currentCategory = category;
 
@@ -31,7 +32,7 @@ public partial class ToggleFeatureCategoryViewModel : ViewModel
         _allFeatures.Clear();
         foreach (var feature in _currentCategory.Features)
         {
-            _allFeatures.Add(new FeatureViewModel(feature));
+            _allFeatures.Add(new FeatureViewModel(feature, loggerFactory));
         }
 
         foreach (var feature in _allFeatures)
@@ -68,24 +69,33 @@ public partial class ToggleFeatureCategoryViewModel : ViewModel
         {
             var search = SearchText.ToLowerInvariant();
             filtered = filtered.Where(f => 
-                f.Name.ToLowerInvariant().Contains(search) || 
-                f.Description.ToLowerInvariant().Contains(search));
+                f.Name.Contains(search, StringComparison.InvariantCultureIgnoreCase) || 
+                f.Description.Contains(search, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        // Apply sorting
-        // 0 = Name (A-Z)
-        // 1 = Name (Z-A)
-        // We can match what DiskCleanup or other pages do, but simple for now
-        if (SelectedSortByIndex == 0) // Default: Name
+        var sortedFeatures = filtered.OrderBy(f => f.Name).ToList();
+
+        var grouped = sortedFeatures
+            .GroupBy(f => string.IsNullOrEmpty(f.Section) ? Translations.Common_Other : f.Section)
+            .OrderBy(g => g.Key == Translations.Common_Other ? 1 : 0)
+            .ThenBy(g => g.Key);
+
+        var sections = new ObservableCollection<FeatureSection>();
+        foreach (var group in grouped)
         {
-            filtered = filtered.OrderBy(f => f.Name);
+            var section = new FeatureSection
+            {
+                Name = group.Key,
+                Features = new ObservableCollection<FeatureViewModel>(group.ToList())
+            };
+            sections.Add(section);
+
+            foreach (var feature in section.Features)
+            {
+                feature.IsVisible = true;
+            }
         }
 
-        Features = new ObservableCollection<FeatureViewModel>(filtered);
-        
-        foreach (var feature in Features)
-        {
-            feature.IsVisible = true;
-        }
+        Sections = sections;
     }
 }

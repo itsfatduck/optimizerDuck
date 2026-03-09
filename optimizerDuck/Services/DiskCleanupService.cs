@@ -1,9 +1,10 @@
 using System.IO;
 using Microsoft.Extensions.Logging;
-using optimizerDuck.Core.Models.Cleanup;
+using optimizerDuck.Core.Models.Optimization.Cleanup;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.OptimizationServices;
 using Wpf.Ui.Controls;
+using CleanupItem = optimizerDuck.Core.Models.Optimization.Cleanup.CleanupItem;
 
 namespace optimizerDuck.Services;
 

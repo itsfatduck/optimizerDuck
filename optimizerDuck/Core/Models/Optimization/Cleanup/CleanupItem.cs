@@ -1,7 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using Wpf.Ui.Controls;
 
-namespace optimizerDuck.Core.Models.Cleanup;
+namespace optimizerDuck.Core.Models.Optimization.Cleanup;
 
 /// <summary>
 ///     Represents a disk cleanup item (e.g., temp files, Windows Update cache).

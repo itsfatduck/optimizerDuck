@@ -1508,4 +1508,7 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Optimizations.Loading.Hint" xml:space="preserve">
     <value>Vui lòng đợi...</value>
   </data>
+  <data name="Common.Other" xml:space="preserve">
+    <value>Khác</value>
+  </data>
 </root>

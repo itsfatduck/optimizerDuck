@@ -3,7 +3,7 @@ using optimizerDuck.Core.Models.UI;
 using optimizerDuck.Resources.Languages;
 using Wpf.Ui.Controls;
 
-namespace optimizerDuck.Core.Models.Bloatware;
+namespace optimizerDuck.Core.Models.Optimization.Bloatware;
 
 /// <summary>
 ///     Specifies the risk level of removing a bloatware app.

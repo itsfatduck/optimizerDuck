@@ -4,12 +4,13 @@ using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
-using optimizerDuck.Core.Models.ScheduledTask;
+using optimizerDuck.Core.Models.Optimization.ScheduledTask;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.OptimizationServices;
 using optimizerDuck.UI.Views.Dialogs;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
+using ScheduledTaskModel = optimizerDuck.Core.Models.Optimization.ScheduledTask.ScheduledTaskModel;
 
 namespace optimizerDuck.UI.ViewModels.Pages;
 

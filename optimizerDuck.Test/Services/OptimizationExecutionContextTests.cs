@@ -108,7 +108,7 @@ public class ExecutionScopeTests
     {
         var logger = NullLogger.Instance;
 
-        using var scope = ExecutionScope.Begin(logger);
+        using var scope = ExecutionScope.BeginForLogging(logger);
 
         ExecutionScope.RecordStep("TestStep", "Description", true);
 

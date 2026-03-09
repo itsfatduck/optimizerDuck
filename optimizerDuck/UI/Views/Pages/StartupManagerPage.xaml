@@ -16,7 +16,8 @@
     xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
     xmlns:local="clr-namespace:optimizerDuck.UI.Views.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="clr-namespace:optimizerDuck.Core.Models.StartupManager"
+    xmlns:models="clr-namespace:optimizerDuck.Core.Models.Optimization.StartupManager"
+    xmlns:startupManager="clr-namespace:optimizerDuck.Core.Models.Optimization.StartupManager"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
@@ -244,7 +245,7 @@
                             <!--  Apps List  -->
                             <ItemsControl ItemsSource="{Binding ViewModel.Apps}" Visibility="{Binding ViewModel.Apps.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
                                 <ItemsControl.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type models:StartupApp}">
+                                    <DataTemplate DataType="{x:Type startupManager:StartupApp}">
                                         <Grid>
                                             <ui:CardAction
                                                 Command="{Binding DataContext.ViewModel.OpenLocationCommand, RelativeSource={RelativeSource AncestorType=Page}}"
@@ -437,7 +438,7 @@
                             <!--  Tasks List  -->
                             <ItemsControl ItemsSource="{Binding ViewModel.Tasks}" Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
                                 <ItemsControl.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type models:StartupTask}">
+                                    <DataTemplate DataType="{x:Type startupManager:StartupTask}">
                                         <Border
                                             Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
                                             CornerRadius="6"

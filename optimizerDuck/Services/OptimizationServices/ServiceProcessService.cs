@@ -15,25 +15,23 @@ public static class ServiceProcessService
     /// <summary>
     ///     Get current startup type of a service
     /// </summary>
-    private static ServiceStartupType? GetStartupType(string serviceName, ManagementObject service)
+    private static ServiceStartupType? GetStartupType(string serviceName)
     {
         try
         {
-            var startMode = service["StartMode"]?.ToString();
+            var serviceKey = $@"HKLM\SYSTEM\CurrentControlSet\Services\{serviceName}";
+            var start = RegistryService.Read<int>(new RegistryItem(serviceKey, "Start"));
 
-            if (startMode is "Automatic" or "Auto")
+            if (start == 2)
             {
-                var isDelayed = RegistryService.Read<int>(new RegistryItem(
-                    $@"HKLM\SYSTEM\CurrentControlSet\Services\{serviceName}", "DelayedAutoStart"));
-                if (isDelayed == 1)
-                    return ServiceStartupType.AutomaticDelayedStart;
+                var isDelayed = RegistryService.Read<int>(new RegistryItem(serviceKey, "DelayedAutoStart"));
+                return isDelayed == 1 ? ServiceStartupType.AutomaticDelayedStart : ServiceStartupType.Automatic;
             }
 
-            return startMode switch
+            return start switch
             {
-                "Auto" or "Automatic" => ServiceStartupType.Automatic,
-                "Manual" => ServiceStartupType.Manual,
-                "Disabled" => ServiceStartupType.Disabled,
+                3 => ServiceStartupType.Manual,
+                4 => ServiceStartupType.Disabled,
                 _ => null
             };
         }
@@ -47,125 +45,75 @@ public static class ServiceProcessService
     public static bool ChangeServiceStartupType(ServiceItem item)
     {
         var description = string.Format(Translations.Service_Service_Description_Change, item.Name, item.StartupType);
+        var sw = Stopwatch.StartNew();
+        
         try
         {
-            if (!Scope.IsConnected)
-                Scope.Connect();
-
-            using var searcher = new ManagementObjectSearcher(Scope,
-                new ObjectQuery($"SELECT * FROM Win32_Service WHERE Name='{item.Name.Replace("'", "''")}'"));
-
-            using var results = searcher.Get();
-            using var service = results.OfType<ManagementObject>().FirstOrDefault();
-
-            if (service == null)
+            var originalStartupType = GetStartupType(item.Name);
+            
+            // Map ServiceStartupType to Registry 'Start' value
+            var startValue = item.StartupType switch
             {
-                ExecutionScope.LogInfo(
-                    "[SERVICE][{Name}][OK][NOT_FOUND][D=0ms] startup -> {StartupType}",
-                    item.Name,
-                    item.StartupType
-                );
-                ExecutionScope.Track(nameof(ChangeServiceStartupType), true);
-                ExecutionScope.RecordStep(
-                    Translations.Service_Service_Name,
-                    description,
-                    true,
-                    null,
-                    null);
-                return true;
-            }
-
-            // Record revert: backup current startup type
-            var originalStartupType = GetStartupType(item.Name, service);
-
-            var sw = Stopwatch.StartNew();
-
-            using var inParams = service.GetMethodParameters("ChangeStartMode");
-            inParams["StartMode"] = item.StartupType switch
-            {
-                ServiceStartupType.Automatic or ServiceStartupType.AutomaticDelayedStart => "Automatic",
-                ServiceStartupType.Manual => "Manual",
-                ServiceStartupType.Disabled => "Disabled",
-                _ => "Manual"
+                ServiceStartupType.Automatic or ServiceStartupType.AutomaticDelayedStart => 2,
+                ServiceStartupType.Manual => 3,
+                ServiceStartupType.Disabled => 4,
+                _ => 3
             };
 
-            using var outParams = service.InvokeMethod("ChangeStartMode", inParams, null);
-            var resultCode = outParams?["ReturnValue"] is uint val ? val : 1;
+            var serviceKey = $@"HKLM\SYSTEM\CurrentControlSet\Services\{item.Name}";
+            
+            // 1. Change the main 'Start' value
+            var mainSuccess = RegistryService.Write(new RegistryItem(serviceKey, "Start", startValue));
+            
+            // 2. Handle 'DelayedAutoStart' if necessary
+            var delayedSuccess = true;
+            if (item.StartupType == ServiceStartupType.AutomaticDelayedStart)
+            {
+                delayedSuccess = RegistryService.Write(new RegistryItem(serviceKey, "DelayedAutoStart", 1));
+            }
+            else
+            {
+                // Always try to delete for consistency, but don't fail if it doesn't exist
+                RegistryService.DeleteValue(new RegistryItem(serviceKey, "DelayedAutoStart"));
+            }
 
-            if (resultCode == 0)
+            var success = mainSuccess && delayedSuccess;
+            sw.Stop();
+
+            if (success)
             {
                 ServiceRevertStep? revertStep = null;
                 if (originalStartupType.HasValue && originalStartupType.Value != item.StartupType)
+                {
                     revertStep = new ServiceRevertStep
                     {
                         ServiceName = item.Name,
                         OriginalStartupType = originalStartupType.Value
                     };
-
-                // Handle delayed auto start registry key
-                var registrySuccess = item.StartupType == ServiceStartupType.AutomaticDelayedStart
-                    ? RegistryService.Write(new RegistryItem(
-                        $@"HKLM\SYSTEM\CurrentControlSet\Services\{item.Name}",
-                        "DelayedAutoStart", 1))
-                    // always delete to ensure consistency
-                    : RegistryService.DeleteValue(new RegistryItem(
-                        $@"HKLM\SYSTEM\CurrentControlSet\Services\{item.Name}",
-                        "DelayedAutoStart"));
-
-                sw.Stop();
+                }
 
                 ExecutionScope.LogInfo(
-                    "[SERVICE][{Name}][OK][CODE=0][D={Duration}] startup -> {StartupType}",
+                    "[SERVICE][{Name}][OK][D={Duration}] startup -> {StartupType}",
                     item.Name,
                     sw.Elapsed.FormatTime(),
                     item.StartupType
                 );
 
-                ExecutionScope.Track(nameof(ChangeServiceStartupType), registrySuccess);
-                ExecutionScope.RecordStep(
-                    Translations.Service_Service_Name,
-                    description,
-                    registrySuccess,
-                    registrySuccess ? revertStep : null,
-                    registrySuccess ? null : Translations.Service_Service_Error_UpdateRegistryForStartupTypeFailed,
-                    registrySuccess ? null : () => Task.FromResult(ChangeServiceStartupType(item)));
-                return registrySuccess;
+                ExecutionScope.Track(nameof(ChangeServiceStartupType), true);
+                ExecutionScope.RecordStep(Translations.Service_Service_Name, description, true, revertStep);
+                return true;
             }
 
-            ExecutionScope.LogInfo(
-                "[SERVICE][{Name}][FAIL][CODE={Code}][D={Duration}] startup -> {StartupType}",
-                item.Name,
-                resultCode,
-                sw.Elapsed.FormatTime(),
-                item.StartupType
-            );
-
+            ExecutionScope.LogInfo("[SERVICE][{Name}][FAIL][D={Duration}] startup -> {StartupType}", item.Name, sw.Elapsed.FormatTime(), item.StartupType);
             ExecutionScope.Track(nameof(ChangeServiceStartupType), false);
-            ExecutionScope.RecordStep(
-                Translations.Service_Service_Name,
-                description,
-                false,
-                null,
-                string.Format(Translations.Service_Service_Error_ChangeStartModeFailedWithCode, resultCode),
-                () => Task.FromResult(ChangeServiceStartupType(item)));
+            ExecutionScope.RecordStep(Translations.Service_Service_Name, description, false, null, Translations.Service_Service_Error_UpdateRegistryForStartupTypeFailed, () => Task.FromResult(ChangeServiceStartupType(item)));
             return false;
         }
         catch (Exception ex)
         {
-            ExecutionScope.LogError(
-                ex,
-                "[SERVICE][{Name}][FAIL][EXCEPTION] startup -> {StartupType}",
-                item.Name,
-                item.StartupType
-            );
+            ExecutionScope.LogError(ex, "[SERVICE][{Name}][FAIL][EXCEPTION] startup -> {StartupType}", item.Name, item.StartupType);
             ExecutionScope.Track(nameof(ChangeServiceStartupType), false);
-            ExecutionScope.RecordStep(
-                Translations.Service_Service_Name,
-                description,
-                false,
-                null,
-                string.Format(Translations.Service_Service_Error_ExceptionOccurred, item.Name, ex.Message),
-                () => Task.FromResult(ChangeServiceStartupType(item)));
+            ExecutionScope.RecordStep(Translations.Service_Service_Name, description, false, null, string.Format(Translations.Service_Service_Error_ExceptionOccurred, item.Name, ex.Message), () => Task.FromResult(ChangeServiceStartupType(item)));
             return false;
         }
     }

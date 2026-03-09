@@ -16,7 +16,8 @@
     xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
     xmlns:local="clr-namespace:optimizerDuck.UI.Views.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="clr-namespace:optimizerDuck.Core.Models.ScheduledTask"
+    xmlns:models="clr-namespace:optimizerDuck.Core.Models.Optimization.ScheduledTask"
+    xmlns:scheduledTask="clr-namespace:optimizerDuck.Core.Models.Optimization.ScheduledTask"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
@@ -212,7 +213,7 @@
             <ScrollViewer Grid.Row="1" Margin="0,0,16,0">
                 <ItemsControl ItemsSource="{Binding ViewModel.Tasks}" Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
                     <ItemsControl.ItemTemplate>
-                        <DataTemplate DataType="{x:Type models:ScheduledTaskModel}">
+                        <DataTemplate DataType="{x:Type scheduledTask:ScheduledTaskModel}">
                             <Border
                                 Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
                                 CornerRadius="6"

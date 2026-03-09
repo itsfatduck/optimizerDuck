@@ -1,14 +1,15 @@
 using System.Windows.Controls;
 using optimizerDuck.UI.ViewModels.Pages;
 using Wpf.Ui.Abstractions.Controls;
+using ToggleFeaturesCategoryViewModel = optimizerDuck.UI.ViewModels.ToggleFeatures.ToggleFeaturesCategoryViewModel;
 
 namespace optimizerDuck.UI.Views.Pages.ToggleFeatures;
 
-public partial class ToggleFeaturesCategoryPage : INavigableView<ToggleFeatureCategoryViewModel>
+public partial class ToggleFeaturesCategoryPage : INavigableView<ToggleFeaturesCategoryViewModel>
 {
-    public ToggleFeatureCategoryViewModel ViewModel { get; }
+    public ToggleFeaturesCategoryViewModel ViewModel { get; }
 
-    public ToggleFeaturesCategoryPage(ToggleFeatureCategoryViewModel viewModel)
+    public ToggleFeaturesCategoryPage(ToggleFeaturesCategoryViewModel viewModel)
     {
         ViewModel = viewModel;
         DataContext = this;

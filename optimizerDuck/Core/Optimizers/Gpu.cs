@@ -43,7 +43,7 @@ public abstract class GpuRegistryOptimization : BaseOptimization
 [OptimizationCategory(typeof(GpuOptimizerPage))]
 public class Gpu : IOptimizationCategory
 {
-    public string Name { get; init; } = Loc.Instance[$"Optimizer.{nameof(Gpu)}"];
+    public string Name => Loc.Instance[$"Optimizer.{nameof(Gpu)}"];
     public OptimizationCategoryOrder Order { get; init; } = OptimizationCategoryOrder.Gpu;
     public ObservableCollection<IOptimization> Optimizations { get; init; } = [];
 

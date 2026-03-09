@@ -1516,4 +1516,7 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="Optimizations.Loading.Hint" xml:space="preserve">
     <value>Please wait...</value>
   </data>
+  <data name="Common.Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
 </root>

@@ -1,7 +1,7 @@
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace optimizerDuck.Core.Models.StartupManager;
+namespace optimizerDuck.Core.Models.Optimization.StartupManager;
 
 /// <summary>
 ///     Represents a scheduled task that runs at startup.

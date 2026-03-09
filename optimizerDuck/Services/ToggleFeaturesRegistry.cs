@@ -4,19 +4,19 @@ using System.Reflection;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Attributes;
-using optimizerDuck.Core.ToggleFeatures;
+using optimizerDuck.Core.Models.ToggleFeatures;
 using Wpf.Ui.Controls;
 
 namespace optimizerDuck.Services;
 
 public class ToggleFeaturesRegistry
 {
-    public IToggleFeatureCategory[] Categories { get; private set; } = [];
+    public IToggleFeaturesCategory[] Categories { get; private set; } = [];
 
     public void RegisterCategories()
     {
         var categories = ReflectionHelper
-            .FindImplementationsInLoadedAssemblies<IToggleFeatureCategory>()
+            .FindImplementationsInLoadedAssemblies<IToggleFeaturesCategory>()
             .Select(t =>
             {
                 var featureTypes = t.GetNestedTypes(BindingFlags.Public)
@@ -37,9 +37,9 @@ public class ToggleFeaturesRegistry
 
                 var features = new ObservableCollection<IToggleFeature>(featureTypes);
 
-                var instance = (IToggleFeatureCategory)Activator.CreateInstance(t)!;
+                var instance = (IToggleFeaturesCategory)Activator.CreateInstance(t)!;
 
-                var featuresProp = t.GetProperty(nameof(IToggleFeatureCategory.Features),
+                var featuresProp = t.GetProperty(nameof(IToggleFeaturesCategory.Features),
                     BindingFlags.Public | BindingFlags.Instance);
                 if (featuresProp != null && featuresProp.CanWrite)
                     featuresProp.SetValue(instance, features);
@@ -47,7 +47,7 @@ public class ToggleFeaturesRegistry
                 return instance;
             })
             .Where(c => c != null)
-            .Cast<IToggleFeatureCategory>()
+            .Cast<IToggleFeaturesCategory>()
             .OrderBy(c => c.Order)
             .ToArray();
 

@@ -15,7 +15,7 @@ namespace optimizerDuck.Core.Optimizers;
 [OptimizationCategory(typeof(PerformanceOptimizerPage))]
 public class Performance : IOptimizationCategory
 {
-    public string Name { get; init; } = Loc.Instance[$"Optimizer.{nameof(Performance)}"];
+    public string Name => Loc.Instance[$"Optimizer.{nameof(Performance)}"];
     public OptimizationCategoryOrder Order { get; init; } = OptimizationCategoryOrder.Performance;
     public ObservableCollection<IOptimization> Optimizations { get; init; } = [];
 

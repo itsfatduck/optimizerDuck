@@ -52,7 +52,7 @@ public class OptimizationService(
                 IsIndeterminate = true
             });
 
-            using var scope = ExecutionScope.Begin(_logger);
+            using var scope = ExecutionScope.BeginForLogging(_logger);
 
             var result = await ShellService.PowerShellAsync(
                 $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS");

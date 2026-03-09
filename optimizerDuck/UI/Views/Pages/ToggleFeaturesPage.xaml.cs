@@ -1,7 +1,7 @@
 using optimizerDuck.UI.ViewModels.Pages;
 using Wpf.Ui.Abstractions.Controls;
 
-namespace optimizerDuck.UI.Views.Pages.ToggleFeatures;
+namespace optimizerDuck.UI.Views.Pages;
 
 public partial class ToggleFeaturesPage : INavigableView<ToggleFeaturesViewModel>
 {

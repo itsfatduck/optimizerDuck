@@ -1,28 +1,35 @@
 using System.Collections.ObjectModel;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Attributes;
+using optimizerDuck.Core.Models.ToggleFeatures;
 using optimizerDuck.Core.Models.UI;
-using optimizerDuck.Core.ToggleFeatures;
 using optimizerDuck.Services.Managers;
+using optimizerDuck.UI.Views.Pages.ToggleFeatures;
 using Wpf.Ui.Controls;
 
-namespace optimizerDuck.Core.ToggleFeatures.System;
+namespace optimizerDuck.Core.ToggleFeatures;
 
 [ToggleFeatureCategory(PageType = typeof(SystemToggleFeaturesCategory))]
-public class System : IToggleFeatureCategory
+public class System : IToggleFeaturesCategory
 {
-    public string Name { get; init; } = Loc.Instance["ToggleFeature.Category.System.Name"];
-    public string Description { get; init; } = Loc.Instance["ToggleFeature.Category.System.Description"];
+    public string Name => Loc.Instance[$"ToggleFeature.Category.{nameof(System)}"];
+    public string Description => Loc.Instance[$"ToggleFeature.Category.{nameof(System)}.Description"];
     public SymbolRegular Icon { get; init; } = SymbolRegular.Desktop24;
-    public ToggleFeatureCategoryOrder Order { get; init; } = ToggleFeatureCategoryOrder.System;
+    public ToggleFeaturesCategoryOrder Order { get; init; } = ToggleFeaturesCategoryOrder.System;
     public ObservableCollection<IToggleFeature> Features { get; init; } = [];
 
-    [ToggleFeature]
+    public enum Sections
+    {
+        WindowsUpdate,
+        Storage
+    }
+
+    [ToggleFeature(Section = nameof(Sections.WindowsUpdate))]
     public class DisableAutomaticWindowsUpdate : BaseToggleFeature
     {
-        public override IEnumerable<RegistryToggle> RegistryToggles =>
+        protected override IEnumerable<RegistryToggle> RegistryToggles =>
         [
-            new RegistryToggle
+            new()
             {
                 Path = @"HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU",
                 Name = "NoAutoUpdate",
@@ -33,12 +40,12 @@ public class System : IToggleFeatureCategory
         ];
     }
 
-    [ToggleFeature]
+    [ToggleFeature(Section = nameof(Sections.Storage))]
     public class DisableStorageSense : BaseToggleFeature
     {
-        public override IEnumerable<RegistryToggle> RegistryToggles =>
+        protected override IEnumerable<RegistryToggle> RegistryToggles =>
         [
-            new RegistryToggle
+            new()
             {
                 Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\StorageSense",
                 Name = "StorageSenseStatus",

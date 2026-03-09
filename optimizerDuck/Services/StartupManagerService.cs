@@ -6,8 +6,11 @@ using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
-using optimizerDuck.Core.Models.StartupManager;
+using optimizerDuck.Core.Models.Optimization.StartupManager;
+using optimizerDuck.Core.Models.Optimization.StartupManager;
 using optimizerDuck.Services.OptimizationServices;
+using StartupApp = optimizerDuck.Core.Models.Optimization.StartupManager.StartupApp;
+using StartupTask = optimizerDuck.Core.Models.Optimization.StartupManager.StartupTask;
 
 namespace optimizerDuck.Services;
 
@@ -127,8 +130,7 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                 ? Registry.LocalMachine
                 : Registry.CurrentUser;
 
-            var approvedSubKeyPath =
-                @"Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\StartupFolder";
+            const string approvedSubKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\StartupFolder";
             using var approvedKey = rootKey.OpenSubKey(approvedSubKeyPath);
 
             foreach (var file in Directory.GetFiles(dirPath))

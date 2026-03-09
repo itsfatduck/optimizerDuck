@@ -17,12 +17,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toggleFeatures="clr-namespace:optimizerDuck.UI.Views.Pages.ToggleFeatures"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:vm="clr-namespace:optimizerDuck.UI.ViewModels.Pages"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" />
     </Page.Resources>
 
     <Grid>
@@ -74,32 +72,44 @@
             Margin="42,0,42,0"
             VerticalScrollBarVisibility="Auto">
 
-            <!--  Feature Cards  -->
-            <ItemsControl ItemsSource="{Binding ViewModel.Features}" Margin="0,0,0,16">
+            <!--  Sections  -->
+            <ItemsControl ItemsSource="{Binding ViewModel.Sections}" Margin="0,0,0,16">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <ui:CardControl Margin="0,0,0,8" Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibilityConverter}}">
-                            <ui:CardControl.Header>
-                                <StackPanel VerticalAlignment="Center">
-                                    <ui:TextBlock
-                                        FontTypography="Body"
-                                        Text="{Binding Name}"
-                                        TextWrapping="Wrap" />
-                                    <ui:TextBlock
-                                        Appearance="Secondary"
-                                        FontTypography="Caption"
-                                        Margin="0,4,0,0"
-                                        Text="{Binding Description}"
-                                        TextTrimming="WordEllipsis"
-                                        TextWrapping="Wrap" />
-                                </StackPanel>
-                            </ui:CardControl.Header>
-                            <ui:ToggleSwitch
-                                Command="{Binding ToggleCommand}"
-                                HorizontalAlignment="Right"
-                                IsChecked="{Binding IsEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                VerticalAlignment="Center" />
-                        </ui:CardControl>
+                        <StackPanel Margin="0,0,0,24">
+                            <ui:TextBlock
+                                FontTypography="Subtitle"
+                                Margin="0,0,0,12"
+                                Text="{Binding Name}" />
+                            <ItemsControl ItemsSource="{Binding Features}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <ui:CardControl Margin="0,0,0,8" Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                                            <ui:CardControl.Header>
+                                                <StackPanel VerticalAlignment="Center">
+                                                    <ui:TextBlock
+                                                        FontTypography="Body"
+                                                        Text="{Binding Name}"
+                                                        TextWrapping="Wrap" />
+                                                    <ui:TextBlock
+                                                        Appearance="Secondary"
+                                                        FontTypography="Caption"
+                                                        Margin="0,4,0,0"
+                                                        Text="{Binding Description}"
+                                                        TextTrimming="WordEllipsis"
+                                                        TextWrapping="Wrap" />
+                                                </StackPanel>
+                                            </ui:CardControl.Header>
+                                            <ui:ToggleSwitch
+                                                Command="{Binding ToggleCommand}"
+                                                HorizontalAlignment="Right"
+                                                IsChecked="{Binding IsEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                VerticalAlignment="Center" />
+                                        </ui:CardControl>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace optimizerDuck.Core.Models.ScheduledTask;
+namespace optimizerDuck.Core.Models.Optimization.ScheduledTask;
 
 /// <summary>
 ///     Represents a Windows Scheduled Task.

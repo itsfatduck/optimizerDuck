@@ -14,29 +14,20 @@ public sealed class ExecutionScope : IDisposable
     private readonly List<ExecutedStep> _executedSteps = [];
     private readonly ConcurrentDictionary<string, Stats> _stats = new();
 
-    private readonly Stopwatch _stopwatch;
+    private readonly Stopwatch _stopwatch = Stopwatch.StartNew();
     private bool _disposed;
     private int _stepIndex;
 
-    private ExecutionScope(Guid optimizationId, string optimizationKey, string optimizationName, ILogger logger, bool loggingOnly = false)
-    {
-        OptimizationId = optimizationId;
-        OptimizationKey = optimizationKey;
-        OptimizationName = optimizationName;
-        Logger = logger;
-        LoggingOnly = loggingOnly;
-        _stopwatch = Stopwatch.StartNew();
-    }
 
     public static ExecutionScope? Current => _current.Value;
 
-    public Guid OptimizationId { get; }
+    public Guid? OptimizationId { get; private init; }
 
-    public string OptimizationKey { get; }
+    public string? OptimizationKey { get; private init; }
 
-    public string OptimizationName { get; }
+    public string? OptimizationName { get; init; }
 
-    public ILogger Logger { get; }
+    public required ILogger Logger { get; init; }
 
     public IReadOnlyList<ExecutedStep> ExecutedSteps => _executedSteps.AsReadOnly();
 
@@ -59,8 +50,7 @@ public sealed class ExecutionScope : IDisposable
         if (_stats.IsEmpty)
         {
             Logger.LogInformation(
-                "[{Key}] Completed in {Time} (no operations tracked)",
-                OptimizationKey,
+                "Completed in {Time} (no operations tracked)",
                 _stopwatch.Elapsed.ToString(@"mm\:ss\.fff"));
         }
         else
@@ -69,19 +59,18 @@ public sealed class ExecutionScope : IDisposable
                 $"{kv.Key}: +({kv.Value.Success}) -({kv.Value.Fail})"));
 
             Logger.LogInformation(
-                "[{Key}] Completed in {Time} | {Summary}",
-                OptimizationKey,
+                "Completed in {Time} | {Summary}",
                 _stopwatch.Elapsed.ToString(@"mm\:ss\.fff"),
                 summary);
         }
 
-        Logger.LogInformation(
-            "[{Key}] Steps: {Total} ({Success} success, {Failed} failed)",
-            OptimizationKey,
-            _executedSteps.Count,
-            SuccessfulSteps.Count,
-            FailedSteps.Count
-        );
+        if (!LoggingOnly)
+            Logger.LogInformation(
+                "Steps: {Total} ({Success} success, {Failed} failed)",
+                _executedSteps.Count,
+                SuccessfulSteps.Count,
+                FailedSteps.Count
+            );
 
         _current.Value = null;
     }
@@ -91,18 +80,26 @@ public sealed class ExecutionScope : IDisposable
         if (_current.Value != null)
             throw new InvalidOperationException("An execution scope is already active in the current context.");
 
-        var scope = new ExecutionScope(optimization.Id, optimization.OptimizationKey, optimization.Name, logger);
+        var scope = new ExecutionScope
+        {
+            OptimizationId = optimization.Id, OptimizationKey = optimization.OptimizationKey,
+            OptimizationName = optimization.Name, Logger = logger
+        };
         _current.Value = scope;
         logger.LogDebug("Execution scope started for {Key} (ID: {Id})", optimization.OptimizationKey, optimization.Id);
         return scope;
     }
 
-    public static ExecutionScope Begin(ILogger logger)
+    public static ExecutionScope BeginForLogging(ILogger logger)
     {
         if (_current.Value != null)
             throw new InvalidOperationException("An execution scope is already active in the current context.");
 
-        var scope = new ExecutionScope(Guid.Empty, string.Empty, string.Empty, logger);
+        var scope = new ExecutionScope
+        {
+            OptimizationId = Guid.Empty, OptimizationKey = string.Empty, OptimizationName = string.Empty,
+            Logger = logger, LoggingOnly = true
+        };
         _current.Value = scope;
         logger.LogDebug("Execution scope started");
         return scope;
@@ -113,13 +110,17 @@ public sealed class ExecutionScope : IDisposable
         if (_current.Value != null)
             throw new InvalidOperationException("An execution scope is already active in the current context.");
 
-        var scope = new ExecutionScope(optimizationId, optimizationKey, string.Empty, logger, loggingOnly: true);
+        var scope = new ExecutionScope
+        {
+            OptimizationId = optimizationId, OptimizationKey = optimizationKey, OptimizationName = string.Empty,
+            Logger = logger, LoggingOnly = true
+        };
         _current.Value = scope;
         logger.LogDebug("Execution scope started for {Key} (logging only)", optimizationKey);
         return scope;
     }
 
-    public bool LoggingOnly { get; private set; }
+    private bool LoggingOnly { get; init; }
 
     public static ExecutedStep? RecordStep(
         string name,

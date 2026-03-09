@@ -5,6 +5,7 @@ using System.Reflection;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using optimizerDuck.Core.Interfaces;
+using optimizerDuck.Core.Models.Attributes;
 using optimizerDuck.Services;
 using optimizerDuck.UI.Views.Pages.ToggleFeatures;
 using Wpf.Ui;
@@ -15,7 +16,7 @@ namespace optimizerDuck.UI.ViewModels.Pages;
 public partial class ToggleFeaturesViewModel : ObservableObject
 {
     [ObservableProperty]
-    private ObservableCollection<CategoryViewModel> _categories = [];
+    private ObservableCollection<ToggleFeaturesCategoryViewModel> _categories = [];
 
     [ObservableProperty]
     private string _searchText = string.Empty;
@@ -41,11 +42,11 @@ public partial class ToggleFeaturesViewModel : ObservableObject
             _registry.RegisterCategories();
         }
 
-        var categoryViewModels = new ObservableCollection<CategoryViewModel>();
+        var categoryViewModels = new ObservableCollection<ToggleFeaturesCategoryViewModel>();
 
         foreach (var category in _registry.Categories)
         {
-            categoryViewModels.Add(new CategoryViewModel
+            categoryViewModels.Add(new ToggleFeaturesCategoryViewModel
             {
                 Name = category.Name,
                 Description = category.Description,
@@ -62,16 +63,16 @@ public partial class ToggleFeaturesViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void NavigateToCategory(CategoryViewModel category)
+    private void NavigateToCategory(ToggleFeaturesCategoryViewModel toggleFeaturesCategory)
     {
-        if (category.PageType != null)
+        if (toggleFeaturesCategory.PageType != null)
         {
-            _navigationService.Navigate(category.PageType);
+            _navigationService.Navigate(toggleFeaturesCategory.PageType);
         }
     }
 }
 
-public partial class CategoryViewModel : ObservableObject
+public partial class ToggleFeaturesCategoryViewModel : ObservableObject
 {
     [ObservableProperty] private string _name = string.Empty;
     [ObservableProperty] private string _description = string.Empty;
