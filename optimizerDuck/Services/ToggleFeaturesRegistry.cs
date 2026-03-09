@@ -4,6 +4,7 @@ using System.Reflection;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Attributes;
+using optimizerDuck.Core.ToggleFeatures;
 using Wpf.Ui.Controls;
 
 namespace optimizerDuck.Services;
@@ -20,17 +21,21 @@ public class ToggleFeaturesRegistry
             {
                 var featureTypes = t.GetNestedTypes(BindingFlags.Public)
                     .Where(nt => typeof(IToggleFeature).IsAssignableFrom(nt) && !nt.IsAbstract)
+                    .Select(nt =>
+                    {
+                        var opt = (IToggleFeature)Activator.CreateInstance(nt)!;
+
+                        if (opt is BaseToggleFeature bo)
+                            bo.OwnerType = t;
+
+                        return opt;
+                    })
                     .ToList();
 
-                var features = new ObservableCollection<IToggleFeature>(
-                    featureTypes
-                        .Select(nt => Activator.CreateInstance(nt)!)
-                        .Cast<IToggleFeature>()
-                        .ToList()
-                );
-
-                if (features.Count == 0)
+                if (featureTypes.Count == 0)
                     return null;
+
+                var features = new ObservableCollection<IToggleFeature>(featureTypes);
 
                 var instance = (IToggleFeatureCategory)Activator.CreateInstance(t)!;
 
@@ -47,11 +52,6 @@ public class ToggleFeaturesRegistry
             .ToArray();
 
         Categories = categories;
-    }
-
-    public IToggleFeatureCategory? GetCategory(Type type)
-    {
-        return Categories.FirstOrDefault(c => c.GetType() == type);
     }
 
     public IEnumerable<NavigationViewItem> GetNavigationItems()

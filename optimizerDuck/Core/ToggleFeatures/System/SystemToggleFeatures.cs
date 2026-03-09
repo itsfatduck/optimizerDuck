@@ -18,28 +18,34 @@ public class System : IToggleFeatureCategory
     public ObservableCollection<IToggleFeature> Features { get; init; } = [];
 
     [ToggleFeature]
-    public class DisableAutomaticWindowsUpdate : SingleRegistryToggleFeature
+    public class DisableAutomaticWindowsUpdate : BaseToggleFeature
     {
-        public override RegistryToggle Toggle { get; } = new()
-        {
-            Path = @"HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU",
-            Name = "NoAutoUpdate",
-            OnValue = 1,
-            OffValue = 0,
-            DefaultValue = 0
-        };
+        public override IEnumerable<RegistryToggle> RegistryToggles =>
+        [
+            new RegistryToggle
+            {
+                Path = @"HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU",
+                Name = "NoAutoUpdate",
+                OnValue = 1,
+                OffValue = 0,
+                DefaultValue = 0
+            }
+        ];
     }
 
     [ToggleFeature]
-    public class DisableStorageSense : SingleRegistryToggleFeature
+    public class DisableStorageSense : BaseToggleFeature
     {
-        public override RegistryToggle Toggle { get; } = new()
-        {
-            Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\StorageSense",
-            Name = "StorageSenseStatus",
-            OnValue = 0,
-            OffValue = 1,
-            DefaultValue = 1
-        };
+        public override IEnumerable<RegistryToggle> RegistryToggles =>
+        [
+            new RegistryToggle
+            {
+                Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\StorageSense",
+                Name = "StorageSenseStatus",
+                OnValue = 0,
+                OffValue = 1,
+                DefaultValue = 1
+            }
+        ];
     }
 }

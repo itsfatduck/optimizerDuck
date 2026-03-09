@@ -5,15 +5,13 @@ using optimizerDuck.Core.Interfaces;
 
 namespace optimizerDuck.UI.ViewModels.Pages;
 
-public partial class FeatureViewModel : ObservableObject
+public partial class FeatureViewModel(IToggleFeature feature) : ObservableObject
 {
-    private readonly IToggleFeature _feature;
+    [ObservableProperty]
+    private string _name = feature.Name;
 
     [ObservableProperty]
-    private string _name = string.Empty;
-
-    [ObservableProperty]
-    private string _description = string.Empty;
+    private string _description = feature.Description;
 
     [ObservableProperty]
     private bool _isEnabled;
@@ -24,18 +22,11 @@ public partial class FeatureViewModel : ObservableObject
     [ObservableProperty]
     private bool _isLoading;
 
-    public FeatureViewModel(IToggleFeature feature)
-    {
-        _feature = feature;
-        _name = feature.Name;
-        _description = feature.Description;
-    }
-
     public async Task LoadStateAsync()
     {
         try
         {
-            IsEnabled = await _feature.GetStateAsync();
+            IsEnabled = await feature.GetStateAsync();
         }
         catch
         {
@@ -54,12 +45,12 @@ public partial class FeatureViewModel : ObservableObject
         {
             if (IsEnabled)
             {
-                await _feature.DisableAsync();
+                await feature.DisableAsync();
                 IsEnabled = false;
             }
             else
             {
-                await _feature.EnableAsync();
+                await feature.EnableAsync();
                 IsEnabled = true;
             }
         }
