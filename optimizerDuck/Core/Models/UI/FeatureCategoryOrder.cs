@@ -1,6 +1,6 @@
 namespace optimizerDuck.Core.Models.UI;
 
-public enum ToggleFeaturesCategoryOrder
+public enum FeatureCategoryOrder
 {
     System,
     UserExperience,

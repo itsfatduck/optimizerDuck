@@ -1,22 +1,22 @@
 using System.Collections.ObjectModel;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Attributes;
-using optimizerDuck.Core.Models.ToggleFeatures;
+using optimizerDuck.Core.Models.Features;
 using optimizerDuck.Core.Models.UI;
 using optimizerDuck.Services.Managers;
-using optimizerDuck.UI.Views.Pages.ToggleFeatures;
+using optimizerDuck.UI.Views.Pages.Features;
 using Wpf.Ui.Controls;
 
-namespace optimizerDuck.Core.ToggleFeatures;
+namespace optimizerDuck.Core.Features;
 
-[ToggleFeatureCategory(PageType = typeof(UserExperienceToggleFeaturesCategory))]
-public class UserExperience : IToggleFeaturesCategory
+[FeatureCategory(PageType = typeof(UserExperienceFeatureCategory))]
+public class UserExperience : IFeatureCategory
 {
-    public string Name => Loc.Instance[$"ToggleFeature.Category.{nameof(UserExperience)}"];
-    public string Description => Loc.Instance[$"ToggleFeature.Category.{nameof(UserExperience)}.Description"];
+    public string Name => Loc.Instance[$"ToggleFeature.{nameof(UserExperience)}"];
+    public string Description => Loc.Instance[$"ToggleFeature.{nameof(UserExperience)}.Description"];
     public SymbolRegular Icon { get; init; } = SymbolRegular.Color24;
-    public ToggleFeaturesCategoryOrder Order { get; init; } = ToggleFeaturesCategoryOrder.UserExperience;
-    public ObservableCollection<IToggleFeature> Features { get; init; } = [];
+    public FeatureCategoryOrder Order { get; init; } = FeatureCategoryOrder.UserExperience;
+    public ObservableCollection<IFeature> Features { get; init; } = [];
 
     public enum Sections
     {
@@ -26,8 +26,8 @@ public class UserExperience : IToggleFeaturesCategory
         Explorer
     }
 
-    [ToggleFeature(Section = nameof(Sections.Taskbar))]
-    public class DisableTaskbarNewsAndInterests : BaseToggleFeature
+    [Feature(Section = nameof(Sections.Taskbar))]
+    public class DisableTaskbarNewsAndInterests : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
         [
@@ -42,8 +42,8 @@ public class UserExperience : IToggleFeaturesCategory
         ];
     }
 
-    [ToggleFeature(Section = nameof(Sections.Appearance))]
-    public class EnableDarkMode : BaseToggleFeature
+    [Feature(Section = nameof(Sections.Appearance))]
+    public class EnableDarkMode : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
         [
@@ -58,8 +58,8 @@ public class UserExperience : IToggleFeaturesCategory
         ];
     }
 
-    [ToggleFeature(Section = nameof(Sections.Taskbar))]
-    public class DisableVisualEffects : BaseToggleFeature
+    [Feature(Section = nameof(Sections.Taskbar))]
+    public class DisableVisualEffects : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
         [
@@ -74,8 +74,8 @@ public class UserExperience : IToggleFeaturesCategory
         ];
     }
 
-    [ToggleFeature(Section = nameof(Sections.SystemTray))]
-    public class ShowSecondsInSystemClock : BaseToggleFeature
+    [Feature(Section = nameof(Sections.SystemTray))]
+    public class ShowSecondsInSystemClock : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
         [
@@ -90,8 +90,8 @@ public class UserExperience : IToggleFeaturesCategory
         ];
     }
 
-    [ToggleFeature(Section = nameof(Sections.Explorer))]
-    public class EnableClassicContextMenu : BaseToggleFeature
+    [Feature(Section = nameof(Sections.Explorer))]
+    public class EnableClassicContextMenu : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
         [
@@ -102,7 +102,7 @@ public class UserExperience : IToggleFeaturesCategory
                 OnValue = 0,
                 OffValue = 1,
                 DefaultValue = 1,
-                CheckKeyExists = true
+                TreatMissingAsDefault = true
             }
         ];
     }

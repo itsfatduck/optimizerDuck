@@ -2,7 +2,7 @@ using optimizerDuck.Core.Models.UI;
 
 namespace optimizerDuck.Core.Interfaces;
 
-public interface IToggleFeature
+public interface IFeature
 {
     string Name { get; }
     string Description { get; }

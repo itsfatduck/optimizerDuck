@@ -7,16 +7,16 @@ using CommunityToolkit.Mvvm.Input;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Attributes;
 using optimizerDuck.Services;
-using optimizerDuck.UI.Views.Pages.ToggleFeatures;
+using optimizerDuck.UI.Views.Pages.Features;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 
 namespace optimizerDuck.UI.ViewModels.Pages;
 
-public partial class ToggleFeaturesViewModel : ObservableObject
+public partial class FeaturesViewModel : ObservableObject
 {
     [ObservableProperty]
-    private ObservableCollection<ToggleFeaturesCategoryViewModel> _categories = [];
+    private ObservableCollection<FeatureCategoryItemViewModel> _categories = [];
 
     [ObservableProperty]
     private string _searchText = string.Empty;
@@ -25,9 +25,9 @@ public partial class ToggleFeaturesViewModel : ObservableObject
     private bool _isLoading = true;
 
     private readonly INavigationService _navigationService;
-    private readonly ToggleFeaturesRegistry _registry;
+    private readonly FeatureRegistry _registry;
 
-    public ToggleFeaturesViewModel(INavigationService navigationService, ToggleFeaturesRegistry registry)
+    public FeaturesViewModel(INavigationService navigationService, FeatureRegistry registry)
     {
         _navigationService = navigationService;
         _registry = registry;
@@ -42,17 +42,17 @@ public partial class ToggleFeaturesViewModel : ObservableObject
             _registry.RegisterCategories();
         }
 
-        var categoryViewModels = new ObservableCollection<ToggleFeaturesCategoryViewModel>();
+        var categoryViewModels = new ObservableCollection<FeatureCategoryItemViewModel>();
 
         foreach (var category in _registry.Categories)
         {
-            categoryViewModels.Add(new ToggleFeaturesCategoryViewModel
+            categoryViewModels.Add(new FeatureCategoryItemViewModel
             {
                 Name = category.Name,
                 Description = category.Description,
                 Icon = category.Icon,
                 CategoryType = category.GetType(),
-                PageType = category.GetType().GetCustomAttribute<ToggleFeatureCategoryAttribute>()?.PageType
+                PageType = category.GetType().GetCustomAttribute<FeatureCategoryAttribute>()?.PageType
             });
         }
 
@@ -63,16 +63,16 @@ public partial class ToggleFeaturesViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void NavigateToCategory(ToggleFeaturesCategoryViewModel toggleFeaturesCategory)
+    private void NavigateToCategory(FeatureCategoryItemViewModel featureCategoryItem)
     {
-        if (toggleFeaturesCategory.PageType != null)
+        if (featureCategoryItem.PageType != null)
         {
-            _navigationService.Navigate(toggleFeaturesCategory.PageType);
+            _navigationService.Navigate(featureCategoryItem.PageType);
         }
     }
 }
 
-public partial class ToggleFeaturesCategoryViewModel : ObservableObject
+public partial class FeatureCategoryItemViewModel : ObservableObject
 {
     [ObservableProperty] private string _name = string.Empty;
     [ObservableProperty] private string _description = string.Empty;

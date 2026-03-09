@@ -3,11 +3,11 @@ using Wpf.Ui.Abstractions.Controls;
 
 namespace optimizerDuck.UI.Views.Pages;
 
-public partial class ToggleFeaturesPage : INavigableView<ToggleFeaturesViewModel>
+public partial class FeaturesPage : INavigableView<FeaturesViewModel>
 {
-    public ToggleFeaturesViewModel ViewModel { get; }
+    public FeaturesViewModel ViewModel { get; }
 
-    public ToggleFeaturesPage(ToggleFeaturesViewModel viewModel)
+    public FeaturesPage(FeaturesViewModel viewModel)
     {
         ViewModel = viewModel;
         DataContext = this;

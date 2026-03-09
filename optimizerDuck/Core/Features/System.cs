@@ -1,22 +1,22 @@
 using System.Collections.ObjectModel;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Attributes;
-using optimizerDuck.Core.Models.ToggleFeatures;
+using optimizerDuck.Core.Models.Features;
 using optimizerDuck.Core.Models.UI;
 using optimizerDuck.Services.Managers;
-using optimizerDuck.UI.Views.Pages.ToggleFeatures;
+using optimizerDuck.UI.Views.Pages.Features;
 using Wpf.Ui.Controls;
 
-namespace optimizerDuck.Core.ToggleFeatures;
+namespace optimizerDuck.Core.Features;
 
-[ToggleFeatureCategory(PageType = typeof(SystemToggleFeaturesCategory))]
-public class System : IToggleFeaturesCategory
+[FeatureCategory(PageType = typeof(SystemFeatureCategory))]
+public class System : IFeatureCategory
 {
-    public string Name => Loc.Instance[$"ToggleFeature.Category.{nameof(System)}"];
-    public string Description => Loc.Instance[$"ToggleFeature.Category.{nameof(System)}.Description"];
+    public string Name => Loc.Instance[$"Features.{nameof(System)}"];
+    public string Description => Loc.Instance[$"Features.{nameof(System)}.Description"];
     public SymbolRegular Icon { get; init; } = SymbolRegular.Desktop24;
-    public ToggleFeaturesCategoryOrder Order { get; init; } = ToggleFeaturesCategoryOrder.System;
-    public ObservableCollection<IToggleFeature> Features { get; init; } = [];
+    public FeatureCategoryOrder Order { get; init; } = FeatureCategoryOrder.System;
+    public ObservableCollection<IFeature> Features { get; init; } = [];
 
     public enum Sections
     {
@@ -24,8 +24,8 @@ public class System : IToggleFeaturesCategory
         Storage
     }
 
-    [ToggleFeature(Section = nameof(Sections.WindowsUpdate))]
-    public class DisableAutomaticWindowsUpdate : BaseToggleFeature
+    [Feature(Section = nameof(Sections.WindowsUpdate))]
+    public class DisableAutomaticWindowsUpdate : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
         [
@@ -40,8 +40,8 @@ public class System : IToggleFeaturesCategory
         ];
     }
 
-    [ToggleFeature(Section = nameof(Sections.Storage))]
-    public class DisableStorageSense : BaseToggleFeature
+    [Feature(Section = nameof(Sections.Storage))]
+    public class DisableStorageSense : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
         [

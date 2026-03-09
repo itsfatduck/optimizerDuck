@@ -6,23 +6,22 @@ using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Attributes;
 using optimizerDuck.Services;
 using optimizerDuck.UI.ViewModels.Pages;
-using optimizerDuck.UI.ViewModels.ToggleFeatures;
+using optimizerDuck.UI.ViewModels.Features;
 using Wpf.Ui;
-using ToggleFeaturesCategoryViewModel = optimizerDuck.UI.ViewModels.ToggleFeatures.ToggleFeaturesCategoryViewModel;
 
 namespace optimizerDuck.Common.Extensions;
 
-public static class ToggleFeaturesCategoryPageRegistryExtensions
+public static class FeaturesCategoryPageRegistryExtensions
 {
-    public static void AddAllToggleFeatureCategoryPages(this IServiceCollection services)
+    public static void AddAllFeaturesCategoryPages(this IServiceCollection services)
     {
         var categoryTypes = ReflectionHelper
-            .FindImplementationsInLoadedAssemblies<IToggleFeaturesCategory>()
+            .FindImplementationsInLoadedAssemblies<IFeatureCategory>()
             .ToList();
 
         foreach (var categoryType in categoryTypes)
         {
-            var attr = categoryType.GetCustomAttribute<ToggleFeatureCategoryAttribute>();
+            var attr = categoryType.GetCustomAttribute<FeatureCategoryAttribute>();
             if (attr?.PageType != null)
             {
                 var pageType = attr.PageType;
@@ -36,11 +35,11 @@ public static class ToggleFeaturesCategoryPageRegistryExtensions
         Type categoryType,
         Type pageType)
     {
-        var registry = serviceProvider.GetRequiredService<ToggleFeaturesRegistry>();
+        var registry = serviceProvider.GetRequiredService<FeatureRegistry>();
         var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
         var category = registry.Categories.First(c => c.GetType() == categoryType);
 
-        var viewModel = new ToggleFeaturesCategoryViewModel(category, loggerFactory);
+        var viewModel = new FeatureCategoryViewModel(category, loggerFactory);
 
         return Activator.CreateInstance(pageType, viewModel)!;
     }

@@ -1,8 +1,8 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
-using optimizerDuck.UI.ViewModels.ToggleFeatures;
+using optimizerDuck.UI.ViewModels.Features;
 
-namespace optimizerDuck.Core.Models.ToggleFeatures;
+namespace optimizerDuck.Core.Models.Features;
 
 public partial class FeatureSection : ObservableObject
 {

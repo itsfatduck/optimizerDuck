@@ -15,7 +15,7 @@ using optimizerDuck.Services.Managers;
 using optimizerDuck.Services.OptimizationServices;
 using optimizerDuck.UI.ViewModels.Pages;
 using optimizerDuck.UI.Views.Pages;
-using optimizerDuck.UI.Views.Pages.ToggleFeatures;
+using optimizerDuck.UI.Views.Pages.Features;
 using optimizerDuck.UI.Views.Windows;
 using Serilog;
 using Serilog.Events;
@@ -171,10 +171,10 @@ public partial class App : Application
                     services.AddSingleton<ScheduledTasksPage>();
 
                     // Toggle Features
-                    services.AddSingleton<ToggleFeaturesViewModel>();
-                    services.AddSingleton<ToggleFeaturesPage>();
+                    services.AddSingleton<FeaturesViewModel>();
+                    services.AddSingleton<FeaturesPage>();
 
-                    services.AddAllToggleFeatureCategoryPages();
+                    services.AddAllFeaturesCategoryPages();
 
                     // Optimizations
                     services.AddAllOptimizationPages();
@@ -185,7 +185,7 @@ public partial class App : Application
 
                     // Services
                     services.AddSingleton<OptimizationRegistry>();
-                    services.AddSingleton<ToggleFeaturesRegistry>();
+                    services.AddSingleton<FeatureRegistry>();
                     services.AddSingleton<OptimizationService>();
                     services.AddSingleton<BloatwareService>();
                     services.AddSingleton<DiskCleanupService>();

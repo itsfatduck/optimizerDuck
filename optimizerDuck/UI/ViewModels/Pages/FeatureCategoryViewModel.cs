@@ -2,13 +2,14 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Core.Interfaces;
-using optimizerDuck.Core.Models.ToggleFeatures;
+using optimizerDuck.Core.Models.Features;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.UI.ViewModels.Features;
 using Wpf.Ui.Controls;
 
-namespace optimizerDuck.UI.ViewModels.ToggleFeatures;
+namespace optimizerDuck.UI.ViewModels.Pages;
 
-public partial class ToggleFeaturesCategoryViewModel : ViewModel
+public partial class FeatureCategoryViewModel : ViewModel
 {
     [ObservableProperty] private string _categoryName = string.Empty;
     [ObservableProperty] private string _categoryDescription = string.Empty;
@@ -18,10 +19,10 @@ public partial class ToggleFeaturesCategoryViewModel : ViewModel
     [ObservableProperty] private int _selectedSortByIndex;
     [ObservableProperty] private bool _isLoading = true;
 
-    private readonly IToggleFeaturesCategory? _currentCategory;
+    private readonly IFeatureCategory? _currentCategory;
     private readonly List<FeatureViewModel> _allFeatures = [];
 
-    public ToggleFeaturesCategoryViewModel(IToggleFeaturesCategory category, ILoggerFactory loggerFactory)
+    public FeatureCategoryViewModel(IFeatureCategory category, ILoggerFactory loggerFactory)
     {
         _currentCategory = category;
 
@@ -73,7 +74,7 @@ public partial class ToggleFeaturesCategoryViewModel : ViewModel
                 f.Description.Contains(search, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        var sortedFeatures = filtered.OrderBy(f => f.Name).ToList();
+        var sortedFeatures = filtered.OrderBy<FeatureViewModel, string>(f => f.Name).ToList();
 
         var grouped = sortedFeatures
             .GroupBy(f => string.IsNullOrEmpty(f.Section) ? Translations.Common_Other : f.Section)

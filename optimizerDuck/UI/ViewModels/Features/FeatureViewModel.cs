@@ -4,9 +4,9 @@ using Microsoft.Extensions.Logging;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Execution;
 
-namespace optimizerDuck.UI.ViewModels.ToggleFeatures;
+namespace optimizerDuck.UI.ViewModels.Features;
 
-public partial class FeatureViewModel(IToggleFeature feature, ILoggerFactory loggerFactory) : ObservableObject
+public partial class FeatureViewModel(IFeature feature, ILoggerFactory loggerFactory) : ObservableObject
 {
     private readonly ILogger<FeatureViewModel> _logger = loggerFactory.CreateLogger<FeatureViewModel>();
     

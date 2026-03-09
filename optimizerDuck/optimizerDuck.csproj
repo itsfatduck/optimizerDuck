@@ -35,7 +35,7 @@
             <XamlRuntime>Wpf</XamlRuntime>
             <SubType>Designer</SubType>
         </Page>
-        <Page Update="UI\Views\Pages\ToggleFeaturesPage.xaml">
+        <Page Update="UI\Views\Pages\FeaturesPage.xaml">
           <XamlRuntime>Wpf</XamlRuntime>
           <SubType>Designer</SubType>
         </Page>
@@ -76,10 +76,6 @@
             <AutoGen>True</AutoGen>
             <DependentUpon>Translations.resx</DependentUpon>
         </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Services\SystemInfoProviders\" />
     </ItemGroup>
 
 </Project>

@@ -49,10 +49,10 @@
                     TargetPageType="{x:Type pages:OptimizePage}" />
 
                 <ui:NavigationViewItem
-                    Content="{extensions:Loc Sidebar.ToggleFeatures}"
+                    Content="{extensions:Loc Sidebar.Features}"
                     Icon="{ui:SymbolIcon ToggleLeft24}"
-                    TargetPageType="{x:Type pages:ToggleFeaturesPage}"
-                    x:Name="ToggleFeaturesMenuItem" />
+                    TargetPageType="{x:Type pages:FeaturesPage}"
+                    x:Name="FeaturesMenuItem" />
 
                 <controls:FilledNavigationViewItem
                     Content="{extensions:Loc Sidebar.Bloatware}"
