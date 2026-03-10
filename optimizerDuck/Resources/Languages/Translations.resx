@@ -170,107 +170,17 @@
     <data name="Features.Description" xml:space="preserve">
     <value>Enable or disable continuous Windows features</value>
   </data>
-    <data name="Features.AI.Name" xml:space="preserve">
-    <value>AI</value>
-  </data>
-    <data name="Features.AI.Description" xml:space="preserve">
-    <value>Control AI and smart features in Windows</value>
-  </data>
     <data name="Features.UserExperience.Name" xml:space="preserve">
     <value>User Experience</value>
   </data>
     <data name="Features.UserExperience.Description" xml:space="preserve">
     <value>Customize visual and interaction settings</value>
   </data>
-    <data name="Features.Privacy.Description" xml:space="preserve">
-    <value>Control data collection and privacy settings</value>
-  </data>
     <data name="Features.System.Name" xml:space="preserve">
     <value>System</value>
   </data>
     <data name="Features.System.Description" xml:space="preserve">
     <value>System and update settings</value>
-  </data>
-    <data name="ToggleFeature.DisableWindowsCopilot.Name" xml:space="preserve">
-    <value>Disable Windows Copilot</value>
-  </data>
-    <data name="ToggleFeature.DisableWindowsCopilot.Description" xml:space="preserve">
-    <value>Turn off the AI assistant in Windows</value>
-  </data>
-    <data name="ToggleFeature.DisableBingInWindowsSearch.Name" xml:space="preserve">
-    <value>Disable Bing in Windows Search</value>
-  </data>
-    <data name="ToggleFeature.DisableBingInWindowsSearch.Description" xml:space="preserve">
-    <value>Remove Bing search results from Windows search</value>
-  </data>
-    <data name="ToggleFeature.DisableSuggestionsInStart.Name" xml:space="preserve">
-    <value>Disable Suggestions in Start</value>
-  </data>
-    <data name="ToggleFeature.DisableSuggestionsInStart.Description" xml:space="preserve">
-    <value>Turn off suggested content in Start menu</value>
-  </data>
-    <data name="ToggleFeature.DisableTailoredExperiences.Name" xml:space="preserve">
-    <value>Disable Tailored Experiences</value>
-  </data>
-    <data name="ToggleFeature.DisableTailoredExperiences.Description" xml:space="preserve">
-    <value>Turn off personalized tips and recommendations</value>
-  </data>
-    <data name="ToggleFeature.DisableTaskbarNewsAndInterests.Name" xml:space="preserve">
-    <value>Disable Taskbar News</value>
-  </data>
-    <data name="ToggleFeature.DisableTaskbarNewsAndInterests.Description" xml:space="preserve">
-    <value>Turn off news and interests in taskbar</value>
-  </data>
-    <data name="ToggleFeature.EnableDarkMode.Name" xml:space="preserve">
-    <value>Enable Dark Mode</value>
-  </data>
-    <data name="ToggleFeature.EnableDarkMode.Description" xml:space="preserve">
-    <value>Use dark theme for apps and Windows</value>
-  </data>
-    <data name="ToggleFeature.DisableVisualEffects.Name" xml:space="preserve">
-    <value>Disable Visual Effects</value>
-  </data>
-    <data name="ToggleFeature.DisableVisualEffects.Description" xml:space="preserve">
-    <value>Turn off animations and visual effects</value>
-  </data>
-    <data name="ToggleFeature.ShowSecondsInSystemClock.Description" xml:space="preserve">
-    <value>Display seconds in system tray clock</value>
-  </data>
-    <data name="ToggleFeature.EnableClassicContextMenu.Name" xml:space="preserve">
-    <value>Enable Classic Context Menu</value>
-  </data>
-    <data name="ToggleFeature.EnableClassicContextMenu.Description" xml:space="preserve">
-    <value>Use classic right-click menu instead of modern</value>
-  </data>
-    <data name="ToggleFeature.DisableTelemetry.Name" xml:space="preserve">
-    <value>Disable Telemetry</value>
-  </data>
-    <data name="ToggleFeature.DisableTelemetry.Description" xml:space="preserve">
-    <value>Reduce diagnostic data sent to Microsoft</value>
-  </data>
-    <data name="ToggleFeature.DisableDiagnosticData.Name" xml:space="preserve">
-    <value>Disable Diagnostic Data</value>
-  </data>
-    <data name="ToggleFeature.DisableDiagnosticData.Description" xml:space="preserve">
-    <value>Turn off diagnostic data collection</value>
-  </data>
-    <data name="ToggleFeature.DisableFeedbackNotifications.Name" xml:space="preserve">
-    <value>Disable Feedback</value>
-  </data>
-    <data name="ToggleFeature.DisableFeedbackNotifications.Description" xml:space="preserve">
-    <value>Turn off feedback notifications</value>
-  </data>
-    <data name="ToggleFeature.DisableAutomaticWindowsUpdate.Name" xml:space="preserve">
-    <value>Disable Automatic Updates</value>
-  </data>
-    <data name="ToggleFeature.DisableAutomaticWindowsUpdate.Description" xml:space="preserve">
-    <value>Turn off automatic Windows updates</value>
-  </data>
-    <data name="ToggleFeature.DisableStorageSense.Name" xml:space="preserve">
-    <value>Disable Storage Sense</value>
-  </data>
-    <data name="ToggleFeature.DisableStorageSense.Description" xml:space="preserve">
-    <value>Turn off automatic disk cleanup</value>
   </data>
     <data name="Dashboard.SystemInfo.Gpu.More" xml:space="preserve">
     <value>+ {0} more GPU</value>
@@ -292,6 +202,12 @@
   </data>
     <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
     <value>Star the repo on GitHub, share it with friends, or donate every bit helps this project grow!</value>
+  </data>
+    <data name="Service.Registry.Description.CreateKey" xml:space="preserve">
+    <value>Create registry key {0}</value>
+  </data>
+    <data name="Service.Registry.Description.DeleteKey" xml:space="preserve">
+    <value>Delete registry key {0}</value>
   </data>
     <data name="Settings.LanguageChanged.Title" xml:space="preserve">
     <value>Language change</value>
@@ -437,6 +353,12 @@
   </data>
     <data name="Optimization.Revert.StepDescription" xml:space="preserve">
     <value>Revert step #{0}</value>
+  </data>
+    <data name="Revert.Registry.Description.RestoreKey" xml:space="preserve">
+    <value>Restore registry key: {0}</value>
+  </data>
+    <data name="Revert.Registry.Description.DeleteKey" xml:space="preserve">
+    <value>Delete registry key: {0}</value>
   </data>
     <data name="Revert.Error.FileNotFound" xml:space="preserve">
     <value>Revert file not found</value>

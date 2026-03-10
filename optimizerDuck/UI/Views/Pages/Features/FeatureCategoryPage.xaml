@@ -56,13 +56,40 @@
                 HorizontalAlignment="Left"
                 Icon="{ui:SymbolIcon Search24}"
                 Margin="0,0,8,0"
-                MinWidth="300"
+                MinWidth="200"
                 PlaceholderText="{ext:Loc Common.Search.Placeholder}"
                 Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}"
                 VerticalAlignment="Center" />
 
-            <ComboBox SelectedIndex="{Binding ViewModel.SelectedSortByIndex}" VerticalAlignment="Center">
-                <ComboBoxItem Content="{ext:Loc Common.SortBy.Name}" />
+            <ComboBox
+                Margin="0,0,8,0"
+                SelectedIndex="{Binding ViewModel.SelectedSortByIndex}"
+                ToolTip="{ext:Loc Common.SortBy}"
+                VerticalAlignment="Center">
+                <ComboBoxItem HorizontalContentAlignment="Left">
+                    <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                        <ui:SymbolIcon
+                            HorizontalAlignment="Left"
+                            Margin="0,0,6,0"
+                            Symbol="TextSortAscending24" />
+                        <TextBlock
+                            Grid.Column="1"
+                            HorizontalAlignment="Left"
+                            Text="{ext:Loc Common.SortBy.Name}" />
+                    </Grid>
+                </ComboBoxItem>
+                <ComboBoxItem HorizontalContentAlignment="Left">
+                    <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                        <ui:SymbolIcon
+                            HorizontalAlignment="Left"
+                            Margin="0,0,6,0"
+                            Symbol="ToggleRight24" />
+                        <TextBlock
+                            Grid.Column="1"
+                            HorizontalAlignment="Left"
+                            Text="{ext:Loc Common.SortBy.Status}" />
+                    </Grid>
+                </ComboBoxItem>
             </ComboBox>
         </WrapPanel>
 
@@ -76,15 +103,18 @@
             <ItemsControl ItemsSource="{Binding ViewModel.Sections}" Margin="0,0,0,16">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Margin="0,0,0,24">
+                        <StackPanel Margin="0,0,0,18">
                             <ui:TextBlock
-                                FontTypography="Subtitle"
-                                Margin="0,0,0,12"
+                                FontTypography="BodyStrong"
+                                Margin="0,0,0,6"
                                 Text="{Binding Name}" />
                             <ItemsControl ItemsSource="{Binding Features}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <ui:CardControl Margin="0,0,0,8" Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <ui:CardControl Margin="0,0,0,4">
+                                            <ui:CardControl.Icon>
+                                                <ui:SymbolIcon Symbol="{Binding Icon}" />
+                                            </ui:CardControl.Icon>
                                             <ui:CardControl.Header>
                                                 <StackPanel VerticalAlignment="Center">
                                                     <ui:TextBlock
@@ -102,6 +132,7 @@
                                             </ui:CardControl.Header>
                                             <ui:ToggleSwitch
                                                 Command="{Binding ToggleCommand}"
+                                                Cursor="Hand"
                                                 HorizontalAlignment="Right"
                                                 IsChecked="{Binding IsEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                                 VerticalAlignment="Center" />

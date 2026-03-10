@@ -2,8 +2,10 @@ using System.Collections.ObjectModel;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Attributes;
 using optimizerDuck.Core.Models.Features;
+using optimizerDuck.Core.Models.Optimization.Services;
 using optimizerDuck.Core.Models.UI;
 using optimizerDuck.Services.Managers;
+using optimizerDuck.Services.OptimizationServices;
 using optimizerDuck.UI.Views.Pages.Features;
 using Wpf.Ui.Controls;
 
@@ -12,11 +14,10 @@ namespace optimizerDuck.Core.Features;
 [FeatureCategory(PageType = typeof(UserExperienceFeatureCategory))]
 public class UserExperience : IFeatureCategory
 {
-    public enum Sections
+    private enum Sections
     {
         Taskbar,
         Appearance,
-        SystemTray,
         Explorer
     }
 
@@ -26,8 +27,8 @@ public class UserExperience : IFeatureCategory
     public FeatureCategoryOrder Order { get; init; } = FeatureCategoryOrder.UserExperience;
     public ObservableCollection<IFeature> Features { get; init; } = [];
 
-    [Feature(Section = nameof(Sections.Taskbar))]
-    public class DisableTaskbarNewsAndInterests : BaseFeature
+    [Feature(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.News24)]
+    public class TaskbarNewsAndInterests : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
         [
@@ -42,8 +43,8 @@ public class UserExperience : IFeatureCategory
         ];
     }
 
-    [Feature(Section = nameof(Sections.Appearance))]
-    public class EnableDarkMode : BaseFeature
+    [Feature(Section = nameof(Sections.Appearance), Icon = SymbolRegular.DarkTheme24)]
+    public class DarkMode : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
         [
@@ -58,23 +59,7 @@ public class UserExperience : IFeatureCategory
         ];
     }
 
-    [Feature(Section = nameof(Sections.Taskbar))]
-    public class DisableVisualEffects : BaseFeature
-    {
-        protected override IEnumerable<RegistryToggle> RegistryToggles =>
-        [
-            new()
-            {
-                Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
-                Name = "TaskbarAnimations",
-                OnValue = 0,
-                OffValue = 1,
-                DefaultValue = 1
-            }
-        ];
-    }
-
-    [Feature(Section = nameof(Sections.SystemTray))]
+    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.Clock24)]
     public class ShowSecondsInSystemClock : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
@@ -90,20 +75,31 @@ public class UserExperience : IFeatureCategory
         ];
     }
 
-    [Feature(Section = nameof(Sections.Explorer))]
-    public class EnableClassicContextMenu : BaseFeature
+    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.CursorClick24)]
+    public class ClassicContextMenu : BaseFeature
     {
-        protected override IEnumerable<RegistryToggle> RegistryToggles =>
-        [
-            new()
-            {
-                Path = @"HKCU\SOFTWARE\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32",
-                Name = "",
-                OnValue = 0,
-                OffValue = 1,
-                DefaultValue = 1,
-                TreatMissingAsDefault = true
-            }
-        ];
+        private const string BasePath =
+            @"HKCU\SOFTWARE\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}";
+
+        private const string InprocPath =
+            BasePath + @"\InprocServer32";
+
+        public override Task<bool> GetStateAsync()
+        {
+            var exists = RegistryService.KeyExists(new RegistryItem(InprocPath));
+            return Task.FromResult(exists);
+        }
+
+        public override Task EnableAsync()
+        {
+            RegistryService.CreateSubKey(new RegistryItem(InprocPath));
+            return Task.CompletedTask;
+        }
+
+        public override Task DisableAsync()
+        {
+            RegistryService.DeleteSubKeyTree(new RegistryItem(BasePath));
+            return Task.CompletedTask;
+        }
     }
 }

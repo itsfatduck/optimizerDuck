@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
     <!-- 
           Microsoft ResX Schema 
@@ -164,17 +164,11 @@
     <data name="Sidebar.Optimize" xml:space="preserve">
     <value>Tối ưu</value>
   </data>
-    <data name="Sidebar.ToggleFeatures" xml:space="preserve">
-    <value>Tính năng bật/tắt</value>
+    <data name="Sidebar.Features" xml:space="preserve">
+    <value>Tính năng</value>
   </data>
     <data name="Features.Description" xml:space="preserve">
     <value>Bật hoặc tắt các tính năng liên tục của Windows</value>
-  </data>
-    <data name="Features.AI.Name" xml:space="preserve">
-    <value>AI</value>
-  </data>
-    <data name="Features.AI.Description" xml:space="preserve">
-    <value>Điều khiển AI và các tính năng thông minh trong Windows</value>
   </data>
     <data name="Features.UserExperience.Name" xml:space="preserve">
     <value>Trải nghiệm người dùng</value>
@@ -182,95 +176,11 @@
     <data name="Features.UserExperience.Description" xml:space="preserve">
     <value>Tùy chỉnh cài đặt hiển thị và tương tác</value>
   </data>
-    <data name="Features.Privacy.Description" xml:space="preserve">
-    <value>Điều khiển thu thập dữ liệu và cài đặt quyền riêng tư</value>
-  </data>
     <data name="Features.System.Name" xml:space="preserve">
     <value>Hệ thống</value>
   </data>
     <data name="Features.System.Description" xml:space="preserve">
     <value>Cài đặt hệ thống và cập nhật</value>
-  </data>
-    <data name="ToggleFeature.DisableWindowsCopilot.Name" xml:space="preserve">
-    <value>Tắt Windows Copilot</value>
-  </data>
-    <data name="ToggleFeature.DisableWindowsCopilot.Description" xml:space="preserve">
-    <value>Tắt trợ lý AI trong Windows</value>
-  </data>
-    <data name="ToggleFeature.DisableBingInWindowsSearch.Name" xml:space="preserve">
-    <value>Tắt Bing trong Windows Search</value>
-  </data>
-    <data name="ToggleFeature.DisableBingInWindowsSearch.Description" xml:space="preserve">
-    <value>Xóa kết quả tìm kiếm Bing khỏi Windows search</value>
-  </data>
-    <data name="ToggleFeature.DisableSuggestionsInStart.Name" xml:space="preserve">
-    <value>Tắt gợi ý trong Start</value>
-  </data>
-    <data name="ToggleFeature.DisableSuggestionsInStart.Description" xml:space="preserve">
-    <value>Tắt nội dung gợi ý trong menu Start</value>
-  </data>
-    <data name="ToggleFeature.DisableTailoredExperiences.Name" xml:space="preserve">
-    <value>Tắt Trải nghiệm cá nhân hóa</value>
-  </data>
-    <data name="ToggleFeature.DisableTailoredExperiences.Description" xml:space="preserve">
-    <value>Tắt mẹo và đề xuất được cá nhân hóa</value>
-  </data>
-    <data name="ToggleFeature.DisableTaskbarNewsAndInterests.Name" xml:space="preserve">
-    <value>Tắt Tin tức trên Taskbar</value>
-  </data>
-    <data name="ToggleFeature.DisableTaskbarNewsAndInterests.Description" xml:space="preserve">
-    <value>Tắt tin tức và sở thích trên taskbar</value>
-  </data>
-    <data name="ToggleFeature.EnableDarkMode.Name" xml:space="preserve">
-    <value>Bật Chế độ tối</value>
-  </data>
-    <data name="ToggleFeature.EnableDarkMode.Description" xml:space="preserve">
-    <value>Sử dụng giao diện tối cho ứng dụng và Windows</value>
-  </data>
-    <data name="ToggleFeature.DisableVisualEffects.Name" xml:space="preserve">
-    <value>Tắt Hiệu ứng hình ảnh</value>
-  </data>
-    <data name="ToggleFeature.DisableVisualEffects.Description" xml:space="preserve">
-    <value>Tắt hoạt animation và hiệu ứng hình ảnh</value>
-  </data>
-    <data name="ToggleFeature.ShowSecondsInSystemClock.Description" xml:space="preserve">
-    <value>Hiển thị giây trong đồng hồ system tray</value>
-  </data>
-    <data name="ToggleFeature.EnableClassicContextMenu.Name" xml:space="preserve">
-    <value>Bật Menu chuột cổ điển</value>
-  </data>
-    <data name="ToggleFeature.EnableClassicContextMenu.Description" xml:space="preserve">
-    <value>Sử dụng menu chuột phải cổ điển thay vì hiện đại</value>
-  </data>
-    <data name="ToggleFeature.DisableTelemetry.Name" xml:space="preserve">
-    <value>Tắt Telemetry</value>
-  </data>
-    <data name="ToggleFeature.DisableTelemetry.Description" xml:space="preserve">
-    <value>Giảm dữ liệu chẩn đoán gửi đến Microsoft</value>
-  </data>
-    <data name="ToggleFeature.DisableDiagnosticData.Name" xml:space="preserve">
-    <value>Tắt Dữ liệu Chẩn đoán</value>
-  </data>
-    <data name="ToggleFeature.DisableDiagnosticData.Description" xml:space="preserve">
-    <value>Tắt thu thập dữ liệu chẩn đoán</value>
-  </data>
-    <data name="ToggleFeature.DisableFeedbackNotifications.Name" xml:space="preserve">
-    <value>Tắt Thông báo Phản hồi</value>
-  </data>
-    <data name="ToggleFeature.DisableFeedbackNotifications.Description" xml:space="preserve">
-    <value>Tắt thông báo phản hồi</value>
-  </data>
-    <data name="ToggleFeature.DisableAutomaticWindowsUpdate.Name" xml:space="preserve">
-    <value>Tắt Cập nhật Tự động</value>
-  </data>
-    <data name="ToggleFeature.DisableAutomaticWindowsUpdate.Description" xml:space="preserve">
-    <value>Tắt cập nhật Windows tự động</value>
-  </data>
-    <data name="ToggleFeature.DisableStorageSense.Name" xml:space="preserve">
-    <value>Tắt Storage Sense</value>
-  </data>
-    <data name="ToggleFeature.DisableStorageSense.Description" xml:space="preserve">
-    <value>Tắt dọn dẹp đĩa tự động</value>
   </data>
     <data name="Dashboard.SystemInfo.Gpu.More" xml:space="preserve">
     <value>Còn {0} GPU khác</value>
@@ -440,6 +350,12 @@
   </data>
     <data name="Optimization.Revert.StepDescription" xml:space="preserve">
     <value>Đang hoàn tác bước #{0}</value>
+  </data>
+    <data name="Revert.Registry.Description.RestoreKey" xml:space="preserve">
+    <value>Khôi phục registry key: {0}</value>
+  </data>
+    <data name="Revert.Registry.Description.DeleteKey" xml:space="preserve">
+    <value>Xóa registry key: {0}</value>
   </data>
     <data name="Revert.Error.FileNotFound" xml:space="preserve">
     <value>Không tìm thấy tệp hoàn tác</value>

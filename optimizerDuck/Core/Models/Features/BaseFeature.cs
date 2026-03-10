@@ -2,6 +2,7 @@ using System.Reflection;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Attributes;
 using optimizerDuck.Services.Managers;
+using Wpf.Ui.Controls;
 
 namespace optimizerDuck.Core.Models.Features;
 
@@ -39,6 +40,8 @@ public abstract class BaseFeature : IFeature
                 : Loc.Instance[$"Features.{OwnerType?.Name}.Section.{section}"];
         }
     }
+
+    public SymbolRegular Icon => Meta.Icon;
 
     public virtual Task<bool> GetStateAsync()
     {

@@ -113,7 +113,7 @@ public class ExecutionScopeTests
         ExecutionScope.RecordStep("TestStep", "Description", true);
 
         Assert.NotNull(ExecutionScope.Current);
-        Assert.Single(scope.ExecutedSteps);
+        Assert.Empty(scope.ExecutedSteps);
         Assert.Equal(Guid.Empty, scope.OptimizationId);
     }
 

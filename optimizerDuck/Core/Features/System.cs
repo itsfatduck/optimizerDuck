@@ -12,9 +12,8 @@ namespace optimizerDuck.Core.Features;
 [FeatureCategory(PageType = typeof(SystemFeatureCategory))]
 public class System : IFeatureCategory
 {
-    public enum Sections
+    private enum Sections
     {
-        WindowsUpdate,
         Storage
     }
 
@@ -24,24 +23,9 @@ public class System : IFeatureCategory
     public FeatureCategoryOrder Order { get; init; } = FeatureCategoryOrder.System;
     public ObservableCollection<IFeature> Features { get; init; } = [];
 
-    [Feature(Section = nameof(Sections.WindowsUpdate))]
-    public class DisableAutomaticWindowsUpdate : BaseFeature
-    {
-        protected override IEnumerable<RegistryToggle> RegistryToggles =>
-        [
-            new()
-            {
-                Path = @"HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU",
-                Name = "NoAutoUpdate",
-                OnValue = 1,
-                OffValue = 0,
-                DefaultValue = 0
-            }
-        ];
-    }
 
-    [Feature(Section = nameof(Sections.Storage))]
-    public class DisableStorageSense : BaseFeature
+    [Feature(Section = nameof(Sections.Storage), Icon = SymbolRegular.HardDrive20)]
+    public class StorageSense : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
         [

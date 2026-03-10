@@ -32,6 +32,11 @@ public class RegistryRevertStep : IRevertStep
     /// </summary>
     public IReadOnlyList<string>? CreatedSubKeys { get; init; }
 
+    /// <summary>
+    ///     Nested sub-steps to perform a complex action like restoring a full registry tree.
+    /// </summary>
+    public IReadOnlyList<RegistryRevertStep>? SubSteps { get; init; }
+
 
     /// <summary>
     ///     The original registry value to restore.
@@ -47,42 +52,50 @@ public class RegistryRevertStep : IRevertStep
     public string Type => "Registry";
 
     /// <inheritdoc />
-    public string Description => string.Format(
-        Action == RevertAction.RestorePrevious
-            ? Translations.Revert_Registry_Description_Restore
-            : Translations.Revert_Registry_Description_Delete,
-        Path, Name ?? "(Default)");
+    public string Description => Action switch
+    {
+        RevertAction.RestorePrevious => string.Format(Translations.Revert_Registry_Description_Restore, Path, Name ?? "(Default)"),
+        RevertAction.NoPreviousValue => string.Format(Translations.Revert_Registry_Description_Delete, Path, Name ?? "(Default)"),
+        RevertAction.RestoreKey => string.Format(Translations.Revert_Registry_Description_RestoreKey, Path),
+        RevertAction.DeleteKey => string.Format(Translations.Revert_Registry_Description_DeleteKey, Path),
+        RevertAction.RestoreKeyTree => string.Format(Translations.Revert_Registry_Description_RestoreKey, Path),
+        _ => $"Revert {Path}"
+    };
 
     /// <inheritdoc />
-    public async Task<bool> ExecuteAsync()
+    public Task<bool> ExecuteAsync()
     {
-        return await Task.Run(() =>
+        var result = Action switch
         {
-            var valueName = Name ?? string.Empty;
+            RevertAction.NoPreviousValue =>
+                RegistryService.DeleteValue(new RegistryItem(Path, Name)),
 
-            var result = Action switch
-            {
-                RevertAction.NoPreviousValue =>
-                    RegistryService.DeleteValue(new RegistryItem(Path, valueName)),
+            RevertAction.RestorePrevious =>
+                Value == null
+                    ? RegistryService.DeleteValue(new RegistryItem(Path, Name))
+                    : RegistryService.Write(new RegistryItem(Path, Name, Value, Kind)),
 
-                RevertAction.RestorePrevious =>
-                    Value == null
-                        ? false
-                        : RegistryService.Write(new RegistryItem(Path, valueName, Value!, Kind)),
+            RevertAction.RestoreKey =>
+                RegistryService.CreateSubKey(new RegistryItem(Path)),
 
-                _ => false
-            };
+            RevertAction.DeleteKey =>
+                RegistryService.DeleteSubKeyTree(new RegistryItem(Path)),
 
-            if (!result)
-                throw new Exception(
-                    string.Format(Translations
-                        .Service_Common_Error_AccessDenied)); // Generic for now, but better than nothing
+            RevertAction.RestoreKeyTree =>
+                ExecuteSubSteps(),
 
-            // Cleanup empty subkeys if they were created during apply
-            if (result && CreatedSubKeys?.Count > 0) RegistryService.CleanupEmptyKeys(CreatedSubKeys);
+            _ => false
+        };
 
-            return result;
-        });
+        if (!result)
+            throw new Exception(
+                string.Format(Translations
+                    .Service_Common_Error_AccessDenied)); // Generic for now, but better than nothing
+
+        // Cleanup empty subkeys if they were created during apply
+        if (result && CreatedSubKeys?.Count > 0) RegistryService.CleanupEmptyKeys(CreatedSubKeys);
+
+        return Task.FromResult(result);
     }
 
 
@@ -99,6 +112,13 @@ public class RegistryRevertStep : IRevertStep
 
         // Save created subkeys list
         if (CreatedSubKeys?.Count > 0) obj[nameof(CreatedSubKeys)] = new JArray(CreatedSubKeys);
+
+        if (SubSteps?.Count > 0)
+        {
+            var subArray = new JArray();
+            foreach (var step in SubSteps) subArray.Add(step.ToData());
+            obj[nameof(SubSteps)] = subArray;
+        }
 
         // Serialize Value based on Kind to ensure deterministic JSON and avoid JValue rendering issues
         if (Value == null)
@@ -182,6 +202,15 @@ public class RegistryRevertStep : IRevertStep
         List<string>? createdSubKeys = null;
         if (data[nameof(CreatedSubKeys)] is JArray subKeysArray) createdSubKeys = subKeysArray.ToObject<List<string>>();
 
+        List<RegistryRevertStep>? subSteps = null;
+        if (data[nameof(SubSteps)] is JArray stepsArray)
+        {
+            subSteps = [];
+            foreach (var stepToken in stepsArray)
+                if (stepToken is JObject stepObj)
+                    subSteps.Add(FromData(stepObj));
+        }
+
         return new RegistryRevertStep
         {
             Action = Enum.Parse<RevertAction>(data[nameof(Action)]!.ToString()),
@@ -189,8 +218,20 @@ public class RegistryRevertStep : IRevertStep
             Name = data[nameof(Name)]?.ToObject<string>(),
             Value = value,
             Kind = kind,
-            CreatedSubKeys = createdSubKeys
+            CreatedSubKeys = createdSubKeys,
+            SubSteps = subSteps
         };
+    }
+
+    private bool ExecuteSubSteps()
+    {
+        if (SubSteps == null) return true;
+        foreach (var step in SubSteps)
+        {
+            // Run synchronously to ensure correct nested tree creation order
+            if (!step.ExecuteAsync().GetAwaiter().GetResult()) return false;
+        }
+        return true;
     }
 }
 
@@ -203,5 +244,14 @@ public enum RevertAction
     NoPreviousValue,
 
     /// <summary>Restore the previously captured value.</summary>
-    RestorePrevious
+    RestorePrevious,
+
+    /// <summary>The key did not exist before; delete tree during revert.</summary>
+    DeleteKey,
+
+    /// <summary>The key existed before; recreate it during revert (limited to root).</summary>
+    RestoreKey,
+
+    /// <summary>The key tree existed before; recreate the entire tree including values sequentially.</summary>
+    RestoreKeyTree
 }

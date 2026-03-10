@@ -1,9 +1,12 @@
+using Wpf.Ui.Controls;
+
 namespace optimizerDuck.Core.Models.Attributes;
 
 [AttributeUsage(AttributeTargets.Class, Inherited = false)]
 public sealed class FeatureAttribute : Attribute
 {
     public object? Section { get; init; }
+    public required SymbolRegular Icon { get; init; }
 
     public string GetSectionName()
     {

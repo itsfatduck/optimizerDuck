@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Execution;
+using Wpf.Ui.Controls;
 
 namespace optimizerDuck.UI.ViewModels.Features;
 
@@ -16,11 +17,11 @@ public partial class FeatureViewModel(IFeature feature, ILoggerFactory loggerFac
 
     [ObservableProperty] private bool _isLoading;
 
-    [ObservableProperty] private bool _isVisible = true;
-
     [ObservableProperty] private string _name = feature.Name;
 
     [ObservableProperty] private string _section = feature.Section;
+
+    public SymbolRegular Icon => feature.Icon;
 
     public async Task LoadStateAsync()
     {

@@ -7,6 +7,7 @@ using optimizerDuck.Core.Models.Execution;
 using optimizerDuck.Core.Models.Optimization.Services;
 using optimizerDuck.Core.Models.Revert.Steps;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Managers;
 
 namespace optimizerDuck.Services.OptimizationServices;
 
@@ -139,6 +140,11 @@ public static class RegistryService
         }
     }
 
+    public static bool KeyExists(RegistryItem item)
+    {
+        return WithKey(item, key => true, false);
+    }
+
     public static T? Read<T>(RegistryItem item)
     {
         return WithKey(item, key =>
@@ -223,7 +229,7 @@ public static class RegistryService
     {
         return WithKey(item, key =>
         {
-            var description = string.Format(Translations.Service_Registry_Description_Delete, item.Path, item.Name);
+            var description = string.Format(Translations.Service_Registry_Description_Delete, item.Path, item.Name ?? "(Default)");
             try
             {
                 var backupValue = key.GetValue(item.Name, null, RegistryValueOptions.DoNotExpandEnvironmentNames);
@@ -271,6 +277,148 @@ public static class RegistryService
         }, true);
     }
 
+    public static bool CreateSubKey(RegistryItem item)
+    {
+        if (!TryParsePath(item.Path, out var rootKey, out var subPath))
+            return false;
+
+        var description = string.Format(Translations.Service_Registry_Description_CreateKey, item.Path);
+        var createdSubKeys = new List<string>();
+
+        try
+        {
+            using var key = rootKey.OpenSubKey(subPath, false);
+            if (key != null)
+            {
+                ExecutionScope.LogInfo("Skip create registry {Path} (already exists)", item.Path);
+                ExecutionScope.Track(nameof(CreateSubKey), true);
+                return true;
+            }
+
+            using var newKey = CreateSubKeyTrack(rootKey, subPath, createdSubKeys);
+
+            var revertStep = new RegistryRevertStep
+            {
+                Action = RevertAction.NoPreviousValue,
+                Path = item.Path,
+                Name = null,
+                CreatedSubKeys = createdSubKeys
+            };
+
+            ExecutionScope.LogInfo("Created registry key {Path}", item.Path);
+            ExecutionScope.Track(nameof(CreateSubKey), true);
+            ExecutionScope.RecordStep(Translations.Service_Registry_Name, description, true, revertStep);
+            return true;
+        }
+        catch (UnauthorizedAccessException)
+        {
+            ExecutionScope.LogError(null, "Access denied creating {Path}", item.Path);
+            ExecutionScope.Track(nameof(CreateSubKey), false);
+            ExecutionScope.RecordStep(Translations.Service_Registry_Name, description, false, null,
+                Translations.Service_Common_Error_AccessDenied, () => Task.FromResult(CreateSubKey(item)));
+            return false;
+        }
+        catch (Exception ex)
+        {
+            ExecutionScope.LogError(ex, "Failed to create registry {Path}", item.Path);
+            ExecutionScope.Track(nameof(CreateSubKey), false);
+            ExecutionScope.RecordStep(Translations.Service_Registry_Name, description, false, null, ex.Message,
+                () => Task.FromResult(CreateSubKey(item)));
+            return false;
+        }
+    }
+
+    public static bool DeleteSubKeyTree(RegistryItem item)
+    {
+        if (!TryParsePath(item.Path, out var rootKey, out var subPath))
+            return false;
+
+        var description = string.Format(Translations.Service_Registry_Description_DeleteKey, item.Path);
+
+        try
+        {
+            using var key = rootKey.OpenSubKey(subPath, false);
+            if (key == null)
+            {
+                ExecutionScope.LogInfo("Skip delete registry key {Path} (not found)", item.Path);
+                ExecutionScope.Track(nameof(DeleteSubKeyTree), true);
+                ExecutionScope.RecordStep(Translations.Service_Registry_Name, description, true);
+                return true;
+            }
+
+            var subSteps = BackupRegistryTree(key, item.Path);
+            rootKey.DeleteSubKeyTree(subPath, false);
+
+            var revertStep = new RegistryRevertStep
+            {
+                Action = RevertAction.RestoreKeyTree,
+                Path = item.Path,
+                SubSteps = subSteps
+            };
+
+            ExecutionScope.LogInfo("Deleted registry key tree {Path}", item.Path);
+            ExecutionScope.Track(nameof(DeleteSubKeyTree), true);
+            ExecutionScope.RecordStep(Translations.Service_Registry_Name, description, true, revertStep);
+            return true;
+        }
+        catch (UnauthorizedAccessException)
+        {
+            ExecutionScope.LogError(null, "Access denied deleting {Path}", item.Path);
+            ExecutionScope.Track(nameof(DeleteSubKeyTree), false);
+            ExecutionScope.RecordStep(Translations.Service_Registry_Name, description, false, null,
+                Translations.Service_Registry_Error_AccessDeniedProtectedHive,
+                () => Task.FromResult(DeleteSubKeyTree(item)));
+            return false;
+        }
+        catch (Exception ex)
+        {
+            ExecutionScope.LogError(ex, "Failed to delete subkey tree {Path}", item.Path);
+            ExecutionScope.Track(nameof(DeleteSubKeyTree), false);
+            ExecutionScope.RecordStep(Translations.Service_Registry_Name, description, false, null, ex.Message,
+                () => Task.FromResult(DeleteSubKeyTree(item)));
+            return false;
+        }
+    }
+
+    private static List<RegistryRevertStep> BackupRegistryTree(RegistryKey key, string keyPath)
+    {
+        var steps = new List<RegistryRevertStep>();
+        BackupRegistryTreeRecursive(key, keyPath, steps, 0);
+        return steps;
+    }
+
+    private static void BackupRegistryTreeRecursive(RegistryKey key, string keyPath, List<RegistryRevertStep> steps, int depth)
+    {
+        // Guard against massive trees (e.g., HKCR\CLSID) to prevent OOM and giant JSON files
+        if (depth > 15 || steps.Count > 5000)
+        {
+            ExecutionScope.LogWarning("Skipping full backup of subtree {Path} (depth: {Depth}, items: {Count})", keyPath, depth, steps.Count);
+            return;
+        }
+
+        steps.Add(new RegistryRevertStep { Action = RevertAction.RestoreKey, Path = keyPath });
+
+        foreach (var valueName in key.GetValueNames())
+        {
+            if (steps.Count > 5000) break;
+            steps.Add(new RegistryRevertStep
+            {
+                Action = RevertAction.RestorePrevious,
+                Path = keyPath,
+                Name = string.IsNullOrEmpty(valueName) ? null : valueName,
+                Value = key.GetValue(valueName, null, RegistryValueOptions.DoNotExpandEnvironmentNames),
+                Kind = key.GetValueKind(valueName)
+            });
+        }
+
+        foreach (var subKeyName in key.GetSubKeyNames())
+        {
+            if (steps.Count > 5000) break;
+            using var subKey = key.OpenSubKey(subKeyName, false);
+            if (subKey != null)
+                BackupRegistryTreeRecursive(subKey, $@"{keyPath}\{subKeyName}", steps, depth + 1);
+        }
+    }
     public static void Write(params RegistryItem[] items)
     {
         foreach (var item in items.Distinct()) Write(item);

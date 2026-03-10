@@ -69,7 +69,11 @@ public partial class FeatureCategoryViewModel : ViewModel
                 f.Description.Contains(search, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        var sortedFeatures = filtered.OrderBy<FeatureViewModel, string>(f => f.Name).ToList();
+        var sortedFeatures = SelectedSortByIndex switch
+        {
+            1 => filtered.OrderByDescending(f => f.IsEnabled).ThenBy(f => f.Name).ToList(),
+            _ => filtered.OrderBy(f => f.Name).ToList()
+        };
 
         var grouped = sortedFeatures
             .GroupBy(f => string.IsNullOrEmpty(f.Section) ? Translations.Common_Other : f.Section)
@@ -85,8 +89,6 @@ public partial class FeatureCategoryViewModel : ViewModel
                 Features = new ObservableCollection<FeatureViewModel>(group.ToList())
             };
             sections.Add(section);
-
-            foreach (var feature in section.Features) feature.IsVisible = true;
         }
 
         Sections = sections;
