@@ -1,0 +1,1400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+      Microsoft ResX Schema 
+      
+      Version 2.0
+      
+      The primary goals of this format is to allow a simple XML format 
+      that is mostly human readable. The generation and parsing of the 
+      various data types are done through the TypeConverter classes 
+      associated with the data types.
+      
+      Example:
+      
+      ... ado.net/XML headers & schema ...
+      <resheader name="resmimetype">text/microsoft-resx</resheader>
+      <resheader name="version">2.0</resheader>
+      <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+      <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+      <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+      <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+      <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+          <value>[base64 mime encoded serialized .NET Framework object]</value>
+      </data>
+      <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+          <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+          <comment>This is a comment</comment>
+      </data>
+                  
+      There are any number of "resheader" rows that contain simple 
+      name/value pairs.
+      
+      Each data row contains a name, and value. The row also contains a 
+      type or mimetype. Type corresponds to a .NET class that support 
+      text/value conversion through the TypeConverter architecture. 
+      Classes that don't support this are serialized and stored with the 
+      mimetype set.
+      
+      The mimetype is used for serialized objects, and tells the 
+      ResXResourceReader how to depersist the object. This is currently not 
+      extensible. For a given mimetype the value must be set accordingly:
+      
+      Note - application/x-microsoft.net.object.binary.base64 is the format 
+      that the ResXResourceWriter will generate, however the reader can 
+      read any of the formats listed below.
+      
+      mimetype: application/x-microsoft.net.object.binary.base64
+      value   : The object must be serialized with 
+              : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+              : and then encoded with base64 encoding.
+      
+      mimetype: application/x-microsoft.net.object.soap.base64
+      value   : The object must be serialized with 
+              : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+              : and then encoded with base64 encoding.
+  
+      mimetype: application/x-microsoft.net.object.bytearray.base64
+      value   : The object must be serialized into a byte array 
+              : using a System.ComponentModel.TypeConverter
+              : and then encoded with base64 encoding.
+      -->
+  <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root" xmlns="">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Dashboard.Header.Title" xml:space="preserve">
+    <value>儀表板</value>
+  </data>
+  <data name="Sidebar.Dashboard" xml:space="preserve">
+    <value>儀表板</value>
+  </data>
+  <data name="Sidebar.Settings" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="Button.Close" xml:space="preserve">
+    <value>關閉</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Cpu.Cores" xml:space="preserve">
+    <value>{0} 核心</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Storage.DiskInfo" xml:space="preserve">
+    <value>已使用 {0} GB，共 {1} GB（可用 {2} GB）</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Ram.Modules" xml:space="preserve">
+    <value>{0} 個模組</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Cpu.Threads" xml:space="preserve">
+    <value>{0} 執行緒</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Storage.System" xml:space="preserve">
+    <value>系統</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Storage.Header" xml:space="preserve">
+    <value>儲存空間</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Ram.Used" xml:space="preserve">
+    <value>已使用 {0} GB</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Ram.Available" xml:space="preserve">
+    <value>可用 {0} GB</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Loading" xml:space="preserve">
+    <value>正在取得系統資訊...</value>
+  </data>
+  <data name="Sidebar.Optimize" xml:space="preserve">
+    <value>最佳化</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Gpu.More" xml:space="preserve">
+    <value>+ 還有 {0} 個 GPU</value>
+  </data>
+  <data name="Dashboard.Actions.Discord.Title" xml:space="preserve">
+    <value>Discord 社群</value>
+  </data>
+  <data name="Dashboard.Actions.Discord.Description" xml:space="preserve">
+    <value>加入我的 Discord 社群以... 取得支援或與我一起玩遊戲</value>
+  </data>
+  <data name="Dashboard.Actions.GitHub.Title" xml:space="preserve">
+    <value>GitHub 存放庫</value>
+  </data>
+  <data name="Dashboard.Actions.GitHub.Description" xml:space="preserve">
+    <value>透過 GitHub 探索、審查並貢獻此專案</value>
+  </data>
+  <data name="Dashboard.Actions.SupportMe.Title" xml:space="preserve">
+    <value>貢獻</value>
+  </data>
+  <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
+    <value>在 GitHub 上給這專案星星，與朋友分享，或是贊助，每一點幫助都能讓這個專案成長！</value>
+  </data>
+  <data name="Settings.LanguageChanged.Title" xml:space="preserve">
+    <value>語言變更</value>
+  </data>
+  <data name="Settings.LanguageChanged.Description" xml:space="preserve">
+    <value>您需要重新啟動應用程式以套用新語言。</value>
+  </data>
+  <data name="Button.Ok" xml:space="preserve">
+    <value>確定</value>
+  </data>
+  <data name="Settings.Header.Title" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="Settings.Appearance.Header" xml:space="preserve">
+    <value>外觀</value>
+  </data>
+  <data name="Settings.Appearance.LanguageSelector.Title" xml:space="preserve">
+    <value>語言</value>
+  </data>
+  <data name="Settings.Appearance.LanguageSelector.Description" xml:space="preserve">
+    <value>選擇您偏好的語言。</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.Title" xml:space="preserve">
+    <value>佈景主題</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.Description" xml:space="preserve">
+    <value>選擇您偏好的應用程式佈景主題。</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.Light" xml:space="preserve">
+    <value>淺色</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.Dark" xml:space="preserve">
+    <value>深色</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.HighContrast" xml:space="preserve">
+    <value>高對比</value>
+  </data>
+  <data name="Common.AppliedSecondsAgo" xml:space="preserve">
+    <value>{0} 秒前套用</value>
+  </data>
+  <data name="Common.AppliedMinutesAgo" xml:space="preserve">
+    <value>{0} 分鐘前套用</value>
+  </data>
+  <data name="Common.AppliedHoursAgo" xml:space="preserve">
+    <value>{0} 小時前套用</value>
+  </data>
+  <data name="Common.AppliedDaysAgo" xml:space="preserve">
+    <value>{0} 天前套用</value>
+  </data>
+  <data name="Common.AppliedMonthsAgo" xml:space="preserve">
+    <value>{0} 個月前套用</value>
+  </data>
+  <data name="Common.AppliedYearsAgo" xml:space="preserve">
+    <value>{0} 年前套用</value>
+  </data>
+  <data name="Optimizer.UI.Risk.Safe" xml:space="preserve">
+    <value>安全</value>
+  </data>
+  <data name="Optimizer.UI.Risk.Moderate" xml:space="preserve">
+    <value>謹慎</value>
+  </data>
+  <data name="Optimizer.UI.Risk.Risky" xml:space="preserve">
+    <value>高風險</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
+    <value>詳細說明</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
+    <value>標籤</value>
+  </data>
+  <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
+    <value>將服務主機分割閾值設定為符合系統總 RAM，強制 Windows 將服務隔離到獨立處理程序中以提升穩定性。</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
+    <value>無法偵測目前啟用的電源計畫。</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ImportFailed" xml:space="preserve">
+    <value>無法匯入 optimizerDuck 的電源計畫。</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ActivateFailed" xml:space="preserve">
+    <value>無法啟用 optimizerDuck 的電源計畫。</value>
+  </data>
+  <data name="Optimizer.UI.Risk.Help" xml:space="preserve">
+    <value>此數值反映介入程度及最佳化過程的安全性。在套用任何最佳化前，請謹慎考量。</value>
+  </data>
+  <data name="Optimizer.UI.Tags.System" xml:space="preserve">
+    <value>系統</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Ram" xml:space="preserve">
+    <value>記憶體</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Disk" xml:space="preserve">
+    <value>磁碟</value>
+  </data>
+  <data name="Optimizer.UI.Tags.NetworkRequired" xml:space="preserve">
+    <value>需要網路連線</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Network" xml:space="preserve">
+    <value>網路</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Privacy" xml:space="preserve">
+    <value>隱私權</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Audio" xml:space="preserve">
+    <value>音訊</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
+    <value>這些標籤指示最佳化將影響系統的哪些部分。</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
+    <value>NVIDIA</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
+    <value>AMD</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
+    <value>Intel</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
+    <value>電源</value>
+  </data>
+  <data name="Revert.Error.InvalidData" xml:space="preserve">
+    <value>{0} 的還原資料無效：{1}</value>
+  </data>
+  <data name="Revert.Error.NoDataFound" xml:space="preserve">
+    <value>找不到 {0} 的還原資料。</value>
+  </data>
+  <data name="Optimization.Revert.Reverting" xml:space="preserve">
+    <value>正在還原...</value>
+  </data>
+  <data name="Optimization.Revert.Success" xml:space="preserve">
+    <value>已成功還原 {0}！</value>
+  </data>
+  <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
+    <value>已還原 {0}，其中有 {1} 個步驟失敗。</value>
+  </data>
+  <data name="Revert.Error.RevertFailed" xml:space="preserve">
+    <value>無法還原 {0}：{1}</value>
+  </data>
+  <data name="Optimization.Revert.ExecutingStep" xml:space="preserve">
+    <value>正在執行還原步驟：{0}/{1} ({2})</value>
+  </data>
+  <data name="Optimization.Revert.StepDescription" xml:space="preserve">
+    <value>還原步驟 #{0}</value>
+  </data>
+  <data name="Revert.Error.FileNotFound" xml:space="preserve">
+    <value>找不到還原檔案</value>
+  </data>
+  <data name="Revert.Error.FileEmpty" xml:space="preserve">
+    <value>還原檔案為空</value>
+  </data>
+  <data name="Revert.Error.ReadFailed" xml:space="preserve">
+    <value>無法讀取還原資料：{0}</value>
+  </data>
+  <data name="Revert.Error.InvalidJson" xml:space="preserve">
+    <value>還原資料無效</value>
+  </data>
+  <data name="Revert.Error.InvalidJsonFormat" xml:space="preserve">
+    <value>JSON 格式無效：{0}</value>
+  </data>
+  <data name="Revert.Error.NoSteps" xml:space="preserve">
+    <value>找不到還原步驟。</value>
+  </data>
+  <data name="Revert.Error.InvalidSteps" xml:space="preserve">
+    <value>還原步驟無效：{0}</value>
+  </data>
+  <data name="Revert.Error.StepFailed" xml:space="preserve">
+    <value>還原步驟失敗</value>
+  </data>
+  <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
+    <value>最佳化 ID 不符。</value>
+  </data>
+  <data name="Optimization.Apply.Processing" xml:space="preserve">
+    <value>正在套用變更...</value>
+  </data>
+  <data name="Optimization.Apply.Completed" xml:space="preserve">
+    <value>已完成</value>
+  </data>
+  <data name="Optimization.Apply.Success" xml:space="preserve">
+    <value>已成功套用 {0}。</value>
+  </data>
+  <data name="Optimization.Apply.Error.FailedWithSteps" xml:space="preserve">
+    <value>已套用 {0}，其中有 {1} 個步驟失敗。</value>
+  </data>
+  <data name="Optimization.Apply.Error.Failed" xml:space="preserve">
+    <value>無法套用 {0}。</value>
+  </data>
+  <data name="Service.Common.Error.AccessDenied" xml:space="preserve">
+    <value>存取被拒</value>
+  </data>
+  <data name="Service.Registry.Error.AccessDeniedProtectedHive" xml:space="preserve">
+    <value>存取被拒（受保護的登錄區）</value>
+  </data>
+  <data name="Service.Registry.Error.UnauthorizedAccess" xml:space="preserve">
+    <value>未經授權的存取</value>
+  </data>
+  <data name="Service.Registry.Error.CreateOrOpenSubkeyFailed" xml:space="preserve">
+    <value>無法建立或開啟子機碼</value>
+  </data>
+  <data name="Service.Service.Error.NotFound" xml:space="preserve">
+    <value>找不到服務</value>
+  </data>
+  <data name="Service.Service.Error.UpdateRegistryForStartupTypeFailed" xml:space="preserve">
+    <value>無法更新啟動類型的登錄檔</value>
+  </data>
+  <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
+    <value>變更啟動模式失敗（代碼：{0}）</value>
+  </data>
+  <data name="Service.Service.Error.ExceptionOccurred" xml:space="preserve">
+    <value>無法變更服務 '{0}'：{1}</value>
+  </data>
+  <data name="Service.Shell.Error.ExitCode" xml:space="preserve">
+    <value>結束代碼 {0}</value>
+  </data>
+  <data name="Service.Shell.Error.TimedOut" xml:space="preserve">
+    <value>逾時</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
+    <value>還原檔案</value>
+  </data>
+  <data name="OptimizationResultDialog.Header" xml:space="preserve">
+    <value>{0} 個失敗步驟</value>
+  </data>
+  <data name="OptimizationResultDialog.Description" xml:space="preserve">
+    <value>某些步驟未成功完成。您可以只重試失敗的步驟。</value>
+  </data>
+  <data name="Button.Retry" xml:space="preserve">
+    <value>重試</value>
+  </data>
+  <data name="Settings.About.Duck.Description" xml:space="preserve">
+    <value>感謝您的信任與支持 &lt;3！
+目前版本：{0}</value>
+  </data>
+  <data name="Settings.Advanced.Header" xml:space="preserve">
+    <value>進階</value>
+  </data>
+  <data name="Settings.Optimize.Header" xml:space="preserve">
+    <value>最佳化</value>
+  </data>
+  <data name="Settings.Optimize.ShellTimeout.Title" xml:space="preserve">
+    <value>殼層服務逾時</value>
+  </data>
+  <data name="Settings.Optimize.ShellTimeout.Description" xml:space="preserve">
+    <value>每個殼層命令執行的逾時時間（毫秒）。</value>
+  </data>
+  <data name="Settings.Advanced.ClearResources.Title" xml:space="preserve">
+    <value>清除資源</value>
+  </data>
+  <data name="Settings.Advanced.ClearResources.Description" xml:space="preserve">
+    <value>刪除在最佳化過程中下載的所有檔案。</value>
+  </data>
+  <data name="Settings.Advanced.ClearRevertDatas.Title" xml:space="preserve">
+    <value>清除所有還原資料</value>
+  </data>
+  <data name="Settings.Advanced.ClearRevertDatas.Description" xml:space="preserve">
+    <value>清除所有最佳化的還原資料。</value>
+  </data>
+  <data name="Button.Clear" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="Settings.Advanced.OpenRootDir.Title" xml:space="preserve">
+    <value>開啟根目錄</value>
+  </data>
+  <data name="Settings.Advanced.OpenRootDir.Description" xml:space="preserve">
+    <value>開啟應用程式的根目錄，所有必要的檔案都儲存在這裡。</value>
+  </data>
+  <data name="Button.Open" xml:space="preserve">
+    <value>開啟</value>
+  </data>
+  <data name="Settings.About.Header" xml:space="preserve">
+    <value>關於</value>
+  </data>
+  <data name="Settings.About.LearnMore" xml:space="preserve">
+    <value>了解更多</value>
+  </data>
+  <data name="Settings.About.LearnMore.Documentation" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="Settings.About.LearnMore.Contribute" xml:space="preserve">
+    <value>貢獻</value>
+  </data>
+  <data name="Dialog.AreYouSure.Title" xml:space="preserve">
+    <value>您真的要繼續嗎？</value>
+  </data>
+  <data name="Settings.ClearResources.Description" xml:space="preserve">
+    <value>您即將刪除在最佳化過程中下載或產生的所有資源。請注意，此動作是永久的且無法復原，因此在繼續前請確認您已確定。</value>
+  </data>
+  <data name="Button.Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Button.Skip" xml:space="preserve">
+    <value>略過</value>
+  </data>
+  <data name="Settings.ClearRevertData.Description" xml:space="preserve">
+    <value>您即將刪除在最佳化過程後產生的所有還原資料。這意味著您將無法再還原至最佳化前的狀態，因此在確認前請仔細考慮。</value>
+  </data>
+  <data name="ProcessingOptimizationDialog.Warning.DontCloseAppOrRestart" xml:space="preserve">
+    <value>在套用或還原變更時，請勿關閉應用程式或重新啟動。</value>
+  </data>
+  <data name="Common.AppliedJustNow" xml:space="preserve">
+    <value>剛剛套用</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
+    <value>無法完全套用最佳化</value>
+  </data>
+  <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
+    <value>無法還原最佳化</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.Success.Title" xml:space="preserve">
+    <value>最佳化已成功套用</value>
+  </data>
+  <data name="Optimization.Revert.Snackbar.Success.Title" xml:space="preserve">
+    <value>最佳化已成功還原</value>
+  </data>
+  <data name="Optimization.Toggle.Snackbar.Error.Title" xml:space="preserve">
+    <value>無法切換最佳化</value>
+  </data>
+  <data name="Optimization.Toggle.Snackbar.Error.Message" xml:space="preserve">
+    <value>發生錯誤：{0}</value>
+  </data>
+  <data name="Optimization.Retry.Processing" xml:space="preserve">
+    <value>正在重試失敗的步驟...</value>
+  </data>
+  <data name="Optimization.RetryStep.Processing" xml:space="preserve">
+    <value>正在重試 {0} 步驟 ({1}/{2} 步驟)</value>
+  </data>
+  <data name="Optimization.Revert.Error.Failed" xml:space="preserve">
+    <value>無法還原 {0}。</value>
+  </data>
+  <data name="Dashboard.Header.Menu.Refresh" xml:space="preserve">
+    <value>重新整理</value>
+  </data>
+  <data name="Dashboard.Header.Menu.Header.Options" xml:space="preserve">
+    <value>選項</value>
+  </data>
+  <data name="Dashboard.Header.Menu.Header.Run" xml:space="preserve">
+    <value>執行</value>
+  </data>
+  <data name="Dashboard.Header.Menu.RunSettings" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="Dashboard.Header.Menu.RunTaskManager" xml:space="preserve">
+    <value>工作管理員</value>
+  </data>
+  <data name="Dashboard.Header.Menu.RunControlPanel" xml:space="preserve">
+    <value>控制台</value>
+  </data>
+  <data name="Common.Unknown" xml:space="preserve">
+    <value>未知</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Security" xml:space="preserve">
+    <value>安全性</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Performance" xml:space="preserve">
+    <value>效能</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Latency" xml:space="preserve">
+    <value>延遲</value>
+  </data>
+  <data name="Optimizer.Performance" xml:space="preserve">
+    <value>效能</value>
+  </data>
+  <data name="Optimizer.PowerManagement" xml:space="preserve">
+    <value>電源管理</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy" xml:space="preserve">
+    <value>安全性與隱私權</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices" xml:space="preserve">
+    <value>膨脹軟體與服務</value>
+  </data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.Name" xml:space="preserve">
+    <value>停用背景應用程式</value>
+  </data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
+    <value>防止閒置的應用程式在背景執行，以釋放 RAM 並減少 CPU 負擔。</value>
+  </data>
+  <data name="Optimizer.Performance.SvcHostSplit.Name" xml:space="preserve">
+    <value>最佳化服務隔離</value>
+  </data>
+  <data name="Optimizer.Performance.SvcHostSplit.Error.InvalidRAM" xml:space="preserve">
+    <value>無效的 RAM：{0}</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
+    <value>優先處理活躍中的應用程式</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
+    <value>將更多 CPU 資源分配給您目前正在使用的應用程式，以獲得更快、反應更靈敏的體驗。</value>
+  </data>
+  <data name="Optimizer.Performance.GameTaskScheduling.Name" xml:space="preserve">
+    <value>最佳化遊戲排程</value>
+  </data>
+  <data name="Optimizer.Performance.GameTaskScheduling.ShortDescription" xml:space="preserve">
+    <value>將高優先級分配給遊戲工作負載，以確保一致的每秒影格數 (FPS) 和更流暢的遊戲體驗。</value>
+  </data>
+  <data name="Optimizer.Performance.MultimediaResponsiveness.Name" xml:space="preserve">
+    <value>最佳化多媒體反應</value>
+  </data>
+  <data name="Optimizer.Performance.MultimediaResponsiveness.ShortDescription" xml:space="preserve">
+    <value>減少音訊、視訊和網路任務的延遲，以提升即時媒體和遊戲效能。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableGameBar.Name" xml:space="preserve">
+    <value>停用 Xbox Game Bar</value>
+  </data>
+  <data name="Optimizer.Performance.DisableGameBar.ShortDescription" xml:space="preserve">
+    <value>停用 Xbox Game Bar 覆疊和背景功能，以在遊戲時節省系統資源。</value>
+  </data>
+  <data name="Optimizer.Performance.EnableGameMode.Name" xml:space="preserve">
+    <value>啟用遊戲模式</value>
+  </data>
+  <data name="Optimizer.Performance.EnableGameMode.ShortDescription" xml:space="preserve">
+    <value>啟用 Windows 遊戲模式以優先處理遊戲程序，並防止 Windows Update 造成中斷。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableGameDVR.Name" xml:space="preserve">
+    <value>停用背景錄製</value>
+  </data>
+  <data name="Optimizer.Performance.DisableGameDVR.ShortDescription" xml:space="preserve">
+    <value>關閉自動背景遊戲錄製 (DVR) 以取回流失的效能和磁碟頻寬。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMouseAcceleration.Name" xml:space="preserve">
+    <value>停用滑鼠加速</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMouseAcceleration.ShortDescription" xml:space="preserve">
+    <value>停用 Windows 的自動滑鼠速度調整，以實現精確、1:1 的游標移動。</value>
+  </data>
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
+    <value>最佳化鍵盤反應</value>
+  </data>
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
+    <value>減少鍵盤輸入延遲並增加重複頻率，讓打字和遊戲速度更快、反應更靈敏。</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernate.Name" xml:space="preserve">
+    <value>停用休眠與快速啟動</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernate.ShortDescription" xml:space="preserve">
+    <value>關閉休眠和快速啟動以取回數 GB 的磁碟空間，並確保系統全新開機。</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
+    <value>停用 USB 省電模式</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
+    <value>防止 Windows 關閉 USB 連接埠的電源，消除滑鼠、鍵盤和其他周邊設備的喚醒延遲。</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
+    <value>套用最佳化的電源計畫</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
+    <value>安裝專為效能設計的自訂電源計畫，確保您的系統始終以最高速度執行。</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Downloading" xml:space="preserve">
+    <value>正在下載電源計畫...</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
+    <value>正在匯入並啟用電源計畫...</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
+    <value>停用系統電源限制</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
+    <value>防止 Windows 限制 CPU 效能 (電源限制)，以維持執行中任務的最高效能。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableUAC.Name" xml:space="preserve">
+    <value>停用管理員提示 (UAC)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableUAC.ShortDescription" xml:space="preserve">
+    <value>關閉在以管理員身分執行應用程式時要求權限的使用者帳戶控制 (UAC) 視窗。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
+    <value>停用資料收集 (遙測)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
+    <value>停用 Windows 遙測和使用情況追蹤服務，以加強您的個人隱私並減少背景活動。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
+    <value>正在套用原則與登錄檔變更...</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableServices" xml:space="preserve">
+    <value>正在停用遙測服務...</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableTasks" xml:space="preserve">
+    <value>正在停用排程的遙測工作...</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.Name" xml:space="preserve">
+    <value>停用背景記錄</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
+    <value>停止非必要的系統事件記錄，以減少持續的磁碟活動並節省 CPU 週期。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
+    <value>停用 Cortana 與網頁搜尋</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
+    <value>關閉 Cortana 語音助理，並從 Windows 搜尋列中移除 Bing 網頁搜尋結果。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
+    <value>停用 Windows Copilot</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
+    <value>從工作列和系統殼層中移除 AI Copilot 助理，以釋放記憶體和螢幕空間。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
+    <value>停用廣告與建議</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
+    <value>封鎖 Windows 自動安裝推廣的應用程式 (膨脹軟體)，以及在開始功能表中顯示建議。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
+    <value>封鎖預先安裝的膨脹軟體</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
+    <value>防止 Windows 自動重新安裝不需要的第三方程式及推廣軟體。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
+    <value>最佳化系統服務</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
+    <value>調整非必要的背景服務以釋放資源，同時保留所有必要的 Windows 功能。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType" xml:space="preserve">
+    <value>正在將 {0} 的啟動類型設定為 {1}...</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Display" xml:space="preserve">
+    <value>顯示</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Visual" xml:space="preserve">
+    <value>視覺效果</value>
+  </data>
+  <data name="Optimizer.Gpu" xml:space="preserve">
+    <value>GPU</value>
+  </data>
+  <data name="Optimizer.UserExperience" xml:space="preserve">
+    <value>使用者體驗</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
+    <value>停用 AMD ULPS</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
+    <value>將 AMD GPU 登錄檔中的 EnableULPS 設為 0，以防止超低功耗狀態的喚醒延遲和多顯示器問題。會降低閒置時的省電效果。</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
+    <value>停用 AMD 電源閘控</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
+    <value>將 DisablePowerGating=1、PP_GPUPowerDownEnabled=0、DisableDynamicPstate=1 設定以防止 AMD GPU 的電源狀態轉換。維持一致的時脈，代價是較高的閒置功耗。</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>停用 AMD 視訊時脈閘控</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>針對 AMD 視訊引擎 (VCE/UVD) 設定 DisableVCEPowerGating=1、DisableVceClockGating=1、EnableUvdClockGating=0，以改善編碼/解碼穩定性。會增加視訊播放時的功耗。</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
+    <value>停用 AMD ASPM</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
+    <value>設定 EnableAspmL0s=0、EnableAspmL1=0 以停用 AMD GPU 上的活動狀態電源管理 (ASPM)，從而降低 PCIe 匯流排延遲。會增加插槽功耗。</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
+    <value>停用 NVIDIA 動態 P-State</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
+    <value>設定 DisableDynamicPstate=1 以將 NVIDIA GPU 鎖定在固定的效能狀態，防止時脈波動。會增加閒置時的耗電量。</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
+    <value>停用 NVIDIA 非同步 P-States</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
+    <value>設定 DisableASyncPstates=1 以防止 NVIDIA 非同步電源狀態切換，為 VR / 即時應用程式提供確定的效能。</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>停用 Intel 非同步翻轉</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>設定 Display1_DisableAsyncFlips=1 以在 Intel iGPU 上強制同步緩衝區翻轉，減少輸入到顯示的延遲和畫面撕裂。</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
+    <value>停用 Intel 自適應垂直同步</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
+    <value>設定 AdaptiveVsyncEnable=0 以停用會根據影格率動態調整的 Intel 自適應垂直同步，改用固定的垂直同步以獲得穩定的時序。</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.Name" xml:space="preserve">
+    <value>停用工作列新聞與興趣</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.ShortDescription" xml:space="preserve">
+    <value>設定 AllowNewsAndInterests=0、EnableFeeds=0 以從工作列中移除「新聞與興趣」小工具，消除 MSN 摘要的背景更新。</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableTaskbarExtraButtons.Name" xml:space="preserve">
+    <value>停用額外的工作列按鈕</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableTaskbarExtraButtons.ShortDescription" xml:space="preserve">
+    <value>設定 TaskbarMn=0 (聊天)、ShowTaskViewButton=0 以隱藏工作列按鈕，獲得極簡的介面。</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableTaskbarSearchAndBing.Name" xml:space="preserve">
+    <value>停用工作列搜尋與 Bing</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableTaskbarSearchAndBing.ShortDescription" xml:space="preserve">
+    <value>設定 SearchboxTaskbarMode=0、BingSearchEnabled=0 以從工作列移除搜尋方塊，並停用開始功能表中的 Bing 網頁搜尋。</value>
+  </data>
+  <data name="Optimizer.UserExperience.RemoveMeetNowAndPeople.Name" xml:space="preserve">
+    <value>移除立即開會與聯絡人</value>
+  </data>
+  <data name="Optimizer.UserExperience.RemoveMeetNowAndPeople.ShortDescription" xml:space="preserve">
+    <value>設定 HideSCAMeetNow=1、PeopleBand=0 以從工作列通知區域移除「立即開會」(Skype) 和「聯絡人」圖示。</value>
+  </data>
+  <data name="Optimizer.UserExperience.EnableTaskbarEndTask.Name" xml:space="preserve">
+    <value>啟用工作列結束工作</value>
+  </data>
+  <data name="Optimizer.UserExperience.EnableTaskbarEndTask.ShortDescription" xml:space="preserve">
+    <value>設定 TaskbarEndTask=1 將「結束工作」選項新增至工作列右鍵選單，允許在沒有工作管理員的情況下快速終止處理程序。</value>
+  </data>
+  <data name="Optimizer.UserExperience.EnableDarkMode.Name" xml:space="preserve">
+    <value>啟用深色模式</value>
+  </data>
+  <data name="Optimizer.UserExperience.EnableDarkMode.ShortDescription" xml:space="preserve">
+    <value>設定 AppsUseLightTheme=0、SystemUsesLightTheme=0 為系統應用程式、設定和殼層元件啟用深色模式。</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableExplorerAndSystemNotifications.Name" xml:space="preserve">
+    <value>停用檔案總管與系統通知</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableExplorerAndSystemNotifications.ShortDescription" xml:space="preserve">
+    <value>設定 ShowSyncProviderNotifications=0、SystemPaneSuggestionsEnabled=0、ToastEnabled=0 以停用 OneDrive 同步廣告、Windows 提示和快顯通知。</value>
+  </data>
+  <data name="Optimizer.UserExperience.ShowFileExtensionsAndHiddenFiles.Name" xml:space="preserve">
+    <value>顯示副檔名與隱藏的檔案</value>
+  </data>
+  <data name="Optimizer.UserExperience.ShowFileExtensionsAndHiddenFiles.ShortDescription" xml:space="preserve">
+    <value>在檔案總管中設定 HideFileExt=0、Hidden=1，以顯示副檔名並顯示隱藏/系統檔案以增加透明度。</value>
+  </data>
+  <data name="Optimizer.UserExperience.EnableClassicContextMenu.Name" xml:space="preserve">
+    <value>啟用傳統右鍵選單 (適用於 Windows 11)</value>
+  </data>
+  <data name="Optimizer.UserExperience.EnableClassicContextMenu.ShortDescription" xml:space="preserve">
+    <value>在 CLSID {86ca1aa0-34aa-4e8b-a509-50c905bae2a2} 建立 InprocServer32 機碼，以在 Windows 11 上還原 Windows 10 風格的完整右鍵選單。</value>
+  </data>
+  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
+    <value>加速檔案總管與選單</value>
+  </data>
+  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
+    <value>設定 StartupDelayInMSec=0、MenuShowDelay=0 以消除檔案總管的啟動延遲，並將選單懸停延遲降至最低。</value>
+  </data>
+  <data name="Optimizer.UserExperience.ShowSecondsInSystemClock.Name" xml:space="preserve">
+    <value>在系統時鐘顯示秒數</value>
+  </data>
+  <data name="Optimizer.UserExperience.ShowSecondsInSystemClock.ShortDescription" xml:space="preserve">
+    <value>設定 ShowSecondsInSystemClock=1 以在工作列時鐘中顯示秒數，以便進行精確的時間監控。</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
+    <value>停用視覺效果</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
+    <value>設定 TaskbarAnimations=0、ListviewShadow=0、EnableTransparency=0、EnableAeroPeek=0 以停用動畫、陰影和透明度，從而提高 UI 的反應速度。</value>
+  </data>
+  <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
+    <value>除非您非常清楚自己在做什麼，否則請勿變更</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DownloadFailed" xml:space="preserve">
+    <value>無法下載 optimizerDuck 的電源計畫。</value>
+  </data>
+  <data name="Settings.About.Acknowledgements.Title" xml:space="preserve">
+    <value>鳴謝</value>
+  </data>
+  <data name="Settings.About.Acknowledgements.Description" xml:space="preserve">
+    <value>optimizerDuck 的誕生歸功於以下開放原始碼軟體和資源。</value>
+  </data>
+  <data name="Settings.About.LearnMore.Acknowledgements" xml:space="preserve">
+    <value>鳴謝</value>
+  </data>
+  <data name="RestorePoint.Title" xml:space="preserve">
+    <value>系統還原</value>
+  </data>
+  <data name="RestorePointDialog.Description" xml:space="preserve">
+    <value>還原點允許您將系統還原到先前的狀態。
+這是一項保護 Windows 的安全措施，建議在套用變更前使用。</value>
+  </data>
+  <data name="RestorePointDialog.Help" xml:space="preserve">
+    <value>應用程式將自動啟用系統還原，並建立名為「optimizerDuck...」的檢查點。
+這可確保如果出現任何問題，您始終可以回到先前的狀態。</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Error.Title" xml:space="preserve">
+    <value>無法建立或啟用系統還原。</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Error.Message" xml:space="preserve">
+    <value>建立或啟用系統還原時發生錯誤。請嘗試手動建立。</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Warning.LimitReached" xml:space="preserve">
+    <value>在過去 24 小時內已經建立了一個還原點。</value>
+  </data>
+  <data name="RestorePoint.Progress.Creating" xml:space="preserve">
+    <value>正在建立還原點...</value>
+  </data>
+  <data name="RestorePoint.Progress.Enabling" xml:space="preserve">
+    <value>正在啟用系統還原...</value>
+  </data>
+  <data name="RestorePoint.Progress.Retrying" xml:space="preserve">
+    <value>正在重試建立還原點...</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Success.Title" xml:space="preserve">
+    <value>已成功建立還原點</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Success.Message" xml:space="preserve">
+    <value>已建立名稱為：{0} 的還原點。</value>
+  </data>
+  <data name="Snackbar.OpenLinkFailed.Title" xml:space="preserve">
+    <value>無法開啟路徑</value>
+  </data>
+  <data name="Snackbar.OpenLinkFailed.Message" xml:space="preserve">
+    <value>開啟路徑時發生錯誤。請檢查日誌。</value>
+  </data>
+  <data name="Snackbar.OpenFailed.Message" xml:space="preserve">
+    <value>開啟資料夾或檔案時發生錯誤。請檢查日誌。</value>
+  </data>
+  <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
+    <value>無法開啟資料夾或檔案</value>
+  </data>
+  <data name="Button.ViewLatestRelease" xml:space="preserve">
+    <value>檢視最新發行版本</value>
+  </data>
+  <data name="BloatwareDialog.Title" xml:space="preserve">
+    <value>正在刪除 {0} 個 AppX 套件</value>
+  </data>
+  <data name="BloatwareDialog.Removing" xml:space="preserve">
+    <value>正在刪除 {0} ({1}/{2})</value>
+  </data>
+  <data name="Bloatware.Header.Title" xml:space="preserve">
+    <value>膨脹軟體</value>
+  </data>
+  <data name="Bloatware.Menu.Remove" xml:space="preserve">
+    <value>刪除 ({0})</value>
+  </data>
+  <data name="Bloatware.Menu.Refresh" xml:space="preserve">
+    <value>重新整理</value>
+  </data>
+  <data name="Bloatware.Empty.Title" xml:space="preserve">
+    <value>找不到不必要的應用程式 ¯\_(ツ)_/¯</value>
+  </data>
+  <data name="Bloatware.Empty.Description" xml:space="preserve">
+    <value>optimizerDuck 找不到任何可移除的 AppX 套件。這裡空空如也...</value>
+  </data>
+  <data name="Bloatware.Loading" xml:space="preserve">
+    <value>正在尋找可移除的應用程式...</value>
+  </data>
+  <data name="Bloatware.Loading.Hint" xml:space="preserve">
+    <value>應用程式正在掃描已安裝的套件，這可能需要一點時間。</value>
+  </data>
+  <data name="Sidebar.Bloatware" xml:space="preserve">
+    <value>膨脹軟體</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.Title" xml:space="preserve">
+    <value>要刪除 {0} 個應用程式嗎？</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.Message" xml:space="preserve">
+    <value>您即將刪除：{0}</value>
+  </data>
+  <data name="Settings.Bloatware.Header" xml:space="preserve">
+    <value>膨脹軟體</value>
+  </data>
+  <data name="Settings.Bloatware.RemoveProvisioned.Title" xml:space="preserve">
+    <value>移除佈建的套件</value>
+  </data>
+  <data name="Settings.Bloatware.RemoveProvisioned.Description" xml:space="preserve">
+    <value>刪除已安裝的 AppX 套件時，也一併移除對應的佈建套件，以防止新使用者自動重新安裝。</value>
+  </data>
+  <data name="Dashboard.UpdateInfoBar.Message" xml:space="preserve">
+    <value>optimizerDuck (v{0}) 已推出！
+立即更新以享有最新的功能、改進和錯誤修正。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableFullscreenOptimizations.Name" xml:space="preserve">
+    <value>停用全螢幕最佳化</value>
+  </data>
+  <data name="Optimizer.Performance.DisableFullscreenOptimizations.ShortDescription" xml:space="preserve">
+    <value>停用基於 Windows DWM 的全螢幕最佳化，以消除輸入延遲、幀速率問題，以及遊戲中強制無邊框視窗模式。</value>
+  </data>
+  <data name="Optimizer.Gpu.EnableHardwareAcceleratedGpuScheduling.Name" xml:space="preserve">
+    <value>啟用硬體加速 GPU 排程</value>
+  </data>
+  <data name="Optimizer.Gpu.EnableHardwareAcceleratedGpuScheduling.ShortDescription" xml:space="preserve">
+    <value>啟用 HAGS 以讓 GPU 直接管理其視訊記憶體排程，減少 CPU 負擔並降低顯示延遲。需要相容的 GPU 驅動程式並重新啟動。</value>
+  </data>
+  <data name="Common.Search.Placeholder" xml:space="preserve">
+    <value>搜尋...</value>
+  </data>
+  <data name="Common.Filter.All" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="Common.SortBy.Default" xml:space="preserve">
+    <value>預設</value>
+  </data>
+  <data name="Common.SortBy.Name" xml:space="preserve">
+    <value>名稱</value>
+  </data>
+  <data name="Common.SortBy.Risk" xml:space="preserve">
+    <value>風險</value>
+  </data>
+  <data name="Common.SortBy.Publisher" xml:space="preserve">
+    <value>發行商</value>
+  </data>
+  <data name="Common.SortBy.Size" xml:space="preserve">
+    <value>大小</value>
+  </data>
+  <data name="Common.SortBy.Path" xml:space="preserve">
+    <value>路徑</value>
+  </data>
+  <data name="Optimizer.Menu.ApplyAllSafe" xml:space="preserve">
+    <value>套用所有安全項目</value>
+  </data>
+  <data name="Optimizer.Menu.ApplyAll" xml:space="preserve">
+    <value>套用全部項目</value>
+  </data>
+  <data name="Optimizer.Menu.ViewSource" xml:space="preserve">
+    <value>檢視原始碼</value>
+  </data>
+  <data name="Bloatware.Menu.SelectAllSafe" xml:space="preserve">
+    <value>選取所有安全項目</value>
+  </data>
+  <data name="Bloatware.Menu.UnselectAllSafe" xml:space="preserve">
+    <value>取消選取所有安全項目</value>
+  </data>
+  <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
+    <value>隱藏已套用</value>
+  </data>
+  <data name="Optimizer.Menu.ApplyMenu" xml:space="preserve">
+    <value>套用</value>
+  </data>
+  <data name="Optimizer.Menu.BatchApply.Title" xml:space="preserve">
+    <value>正在套用最佳化</value>
+  </data>
+  <data name="Bloatware.Search.NoResults" xml:space="preserve">
+    <value>找不到結果。請嘗試其他搜尋詞或過濾器。</value>
+  </data>
+  <data name="Common.Filter" xml:space="preserve">
+    <value>過濾器</value>
+  </data>
+  <data name="Common.SortBy" xml:space="preserve">
+    <value>排序依據</value>
+  </data>
+  <data name="Sidebar.DiskCleanup" xml:space="preserve">
+    <value>磁碟清理</value>
+  </data>
+  <data name="DiskCleanup.Header.Title" xml:space="preserve">
+    <value>磁碟清理</value>
+  </data>
+  <data name="DiskCleanup.Header.Description" xml:space="preserve">
+    <value>透過移除暫存檔案和快取來釋放磁碟空間</value>
+  </data>
+  <data name="DiskCleanup.TotalSpace" xml:space="preserve">
+    <value>可取回的總空間</value>
+  </data>
+  <data name="DiskCleanup.Button.Scan" xml:space="preserve">
+    <value>掃描</value>
+  </data>
+  <data name="DiskCleanup.Button.SelectAll" xml:space="preserve">
+    <value>全選</value>
+  </data>
+  <data name="DiskCleanup.Button.DeselectAll" xml:space="preserve">
+    <value>取消全選</value>
+  </data>
+  <data name="DiskCleanup.Scanning" xml:space="preserve">
+    <value>正在掃描...</value>
+  </data>
+  <data name="DiskCleanup.Loading" xml:space="preserve">
+    <value>正在載入清理項目...</value>
+  </data>
+  <data name="DiskCleanup.Complete.Title" xml:space="preserve">
+    <value>清理完成</value>
+  </data>
+  <data name="DiskCleanup.Complete.Message" xml:space="preserve">
+    <value>已在 {1} 中成功釋放 {0} 的磁碟空間</value>
+  </data>
+  <data name="DiskCleanup.Error.Title" xml:space="preserve">
+    <value>清理錯誤</value>
+  </data>
+  <data name="DiskCleanup.Error.Message" xml:space="preserve">
+    <value>無法刪除某些檔案。它們可能正被其他程序使用。</value>
+  </data>
+  <data name="DiskCleanup.Item.TempFiles" xml:space="preserve">
+    <value>暫存檔案</value>
+  </data>
+  <data name="DiskCleanup.Item.TempFiles.Description" xml:space="preserve">
+    <value>應用程式建立的使用者暫存檔案（不包括 .net temp 目錄）</value>
+  </data>
+  <data name="DiskCleanup.Item.SystemTemp" xml:space="preserve">
+    <value>系統暫存檔案</value>
+  </data>
+  <data name="DiskCleanup.Item.SystemTemp.Description" xml:space="preserve">
+    <value>Windows 系統暫存檔案</value>
+  </data>
+  <data name="DiskCleanup.Item.WindowsUpdate" xml:space="preserve">
+    <value>Windows Update 快取</value>
+  </data>
+  <data name="DiskCleanup.Item.WindowsUpdate.Description" xml:space="preserve">
+    <value>已下載但不再需要的 Windows Update 檔案</value>
+  </data>
+  <data name="DiskCleanup.Item.Prefetch" xml:space="preserve">
+    <value>預先擷取檔案</value>
+  </data>
+  <data name="DiskCleanup.Item.Prefetch.Description" xml:space="preserve">
+    <value>用於加快載入速度的應用程式預先擷取資料</value>
+  </data>
+  <data name="DiskCleanup.Item.Thumbnails" xml:space="preserve">
+    <value>縮圖快取</value>
+  </data>
+  <data name="DiskCleanup.Item.Thumbnails.Description" xml:space="preserve">
+    <value>供檔案總管檔案預覽使用的快取縮圖影像</value>
+  </data>
+  <data name="DiskCleanup.Item.RecycleBin" xml:space="preserve">
+    <value>資源回收筒</value>
+  </data>
+  <data name="DiskCleanup.Item.RecycleBin.Description" xml:space="preserve">
+    <value>仍儲存在資源回收筒中的已刪除檔案</value>
+  </data>
+  <data name="DiskCleanup.Item.ErrorReports" xml:space="preserve">
+    <value>錯誤報告</value>
+  </data>
+  <data name="DiskCleanup.Item.ErrorReports.Description" xml:space="preserve">
+    <value>Windows 錯誤報告和當機傾印檔案</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.DeviceType.Laptop" xml:space="preserve">
+    <value>筆記型電腦</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.DeviceType.Desktop" xml:space="preserve">
+    <value>桌上型電腦</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.Build" xml:space="preserve">
+    <value>組建 {0}</value>
+  </data>
+  <data name="Bloatware.Header.Description" xml:space="preserve">
+    <value>管理和刪除您不需要的預先安裝應用程式</value>
+  </data>
+  <data name="Dashboard.Header.Description" xml:space="preserve">
+    <value>系統概覽和快速動作</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Header" xml:space="preserve">
+    <value>系統資訊</value>
+  </data>
+  <data name="DiskCleanup.ItemsSelected" xml:space="preserve">
+    <value>{0}（已選取 {1} 個項目）</value>
+  </data>
+  <data name="DiskCleanup.Button.CleanSelected" xml:space="preserve">
+    <value>清理所選項 ({0})</value>
+  </data>
+  <data name="DiskCleanup.EmptySize" xml:space="preserve">
+    <value>空白大小</value>
+  </data>
+  <data name="DiskCleanup.FilesCount" xml:space="preserve">
+    <value>{0} 個檔案</value>
+  </data>
+  <data name="DiskCleanup.ItemsAndFilesSelected" xml:space="preserve">
+    <value>已選取 {0} 個 • {1} 個項目 • {2} 個檔案</value>
+  </data>
+  <data name="Settings.About.NeedHelp.Title" xml:space="preserve">
+      <value>需要協助嗎？</value>
+    </data>
+  <data name="Sidebar.StartupManager" xml:space="preserve">
+    <value>啟動管理員</value>
+  </data>
+  <data name="StartupManager.Header.Title" xml:space="preserve">
+    <value>啟動管理員</value>
+  </data>
+  <data name="StartupManager.Header.Description" xml:space="preserve">
+    <value>管理在 Windows 啟動時自動執行的應用程式和工作。</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other" xml:space="preserve">
+    <value>其他</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
+    <value>開啟包含此最佳化還原資料的原始 json 檔案。</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
+    <value>在瀏覽器中開啟此最佳化的原始碼。</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
+    <value>在 GitHub 上檢視原始碼</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
+    <value>風險等級</value>
+  </data>
+  <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
+    <value>技術詳細資訊</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Id" xml:space="preserve">
+    <value>最佳化 ID</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Class" xml:space="preserve">
+    <value>類別名稱</value>
+  </data>
+  <data name="StartupManager.Apps.Title" xml:space="preserve">
+    <value>啟動應用程式</value>
+  </data>
+  <data name="StartupManager.Tasks.Title" xml:space="preserve">
+    <value>排定的工作 (登入)</value>
+  </data>
+  <data name="StartupManager.Loading" xml:space="preserve">
+    <value>正在掃描啟動項目...</value>
+  </data>
+  <data name="StartupManager.Loading.Hint" xml:space="preserve">
+    <value>應用程式正在掃描登錄檔和啟動資料夾，這可能需要一點時間。</value>
+  </data>
+  <data name="StartupManager.Empty.Title" xml:space="preserve">
+    <value>無啟動項目</value>
+  </data>
+  <data name="StartupManager.Empty.Description" xml:space="preserve">
+    <value>在此系統上找不到任何啟動應用程式或排定的工作。</value>
+  </data>
+  <data name="StartupManager.Menu.Refresh" xml:space="preserve">
+    <value>重新整理</value>
+  </data>
+  <data name="Common.Toggle.On" xml:space="preserve">
+    <value>開啟</value>
+  </data>
+  <data name="Common.Toggle.Off" xml:space="preserve">
+    <value>關閉</value>
+  </data>
+  <data name="Common.SortBy.Status" xml:space="preserve">
+    <value>狀態</value>
+  </data>
+  <data name="Common.Status.Applied" xml:space="preserve">
+    <value>已套用</value>
+  </data>
+  <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
+    <value>開啟設定</value>
+  </data>
+  <data name="Settings.About.LearnMore.Website" xml:space="preserve">
+    <value>官方網站</value>
+  </data>
+  <!-- Scheduled Tasks (Startup Manager) -->
+  <data name="StartupManager.Tasks.HideMicrosoft" xml:space="preserve">
+    <value>隱藏 Microsoft 工作</value>
+  </data>
+  <!-- Sidebar -->
+  <data name="Sidebar.ScheduledTasks" xml:space="preserve">
+    <value>排定的工作</value>
+  </data>
+  <!-- Scheduled Tasks Page -->
+  <data name="ScheduledTasks.Header.Title" xml:space="preserve">
+    <value>排定的工作</value>
+  </data>
+  <data name="ScheduledTasks.Header.Description" xml:space="preserve">
+    <value>檢視並管理 Windows 排定的工作。</value>
+  </data>
+  <data name="ScheduledTasks.Loading" xml:space="preserve">
+    <value>正在載入排定的工作...</value>
+  </data>
+  <data name="ScheduledTasks.Loading.Hint" xml:space="preserve">
+    <value>掃描系統上所有排定的工作，這可能需要一點時間。</value>
+  </data>
+  <data name="ScheduledTasks.HideMicrosoft" xml:space="preserve">
+    <value>隱藏 Microsoft 工作</value>
+  </data>
+  <data name="ScheduledTasks.Menu.CreateTask" xml:space="preserve">
+    <value>建立工作</value>
+  </data>
+  <!-- Scheduled Tasks Actions -->
+  <data name="ScheduledTasks.Action.Details" xml:space="preserve">
+    <value>檢視詳細資料</value>
+  </data>
+  <data name="ScheduledTasks.Action.Run" xml:space="preserve">
+    <value>執行</value>
+  </data>
+  <data name="ScheduledTasks.Action.Stop" xml:space="preserve">
+    <value>停止</value>
+  </data>
+  <data name="ScheduledTasks.Action.Delete" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+  <!-- Scheduled Tasks Dialogs -->
+  <data name="ScheduledTasks.Dialog.DeleteTitle" xml:space="preserve">
+    <value>刪除排定的工作</value>
+  </data>
+  <data name="ScheduledTasks.Dialog.DeleteMessage" xml:space="preserve">
+    <value>您確定要刪除工作「{0}」嗎？此動作無法復原。</value>
+  </data>
+  <!-- Scheduled Tasks Details -->
+  <data name="ScheduledTasks.Details.Path" xml:space="preserve">
+    <value>路徑</value>
+  </data>
+  <data name="ScheduledTasks.Details.Description" xml:space="preserve">
+    <value>說明</value>
+  </data>
+  <data name="ScheduledTasks.Details.Author" xml:space="preserve">
+    <value>作者</value>
+  </data>
+  <data name="ScheduledTasks.Details.State" xml:space="preserve">
+    <value>狀態</value>
+  </data>
+  <data name="ScheduledTasks.Details.Triggers" xml:space="preserve">
+    <value>觸發程序</value>
+  </data>
+  <data name="ScheduledTasks.Details.Action" xml:space="preserve">
+    <value>動作</value>
+  </data>
+  <data name="ScheduledTasks.Details.LastRun" xml:space="preserve">
+    <value>上次執行</value>
+  </data>
+  <data name="ScheduledTasks.Details.NextRun" xml:space="preserve">
+    <value>下次執行</value>
+  </data>
+  <data name="ScheduledTasks.Details.LastResult" xml:space="preserve">
+    <value>上次結果</value>
+  </data>
+  <!-- Common -->
+  <data name="Common.Delete" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Common.SortBy.State" xml:space="preserve">
+    <value>狀態</value>
+  </data>
+  <data name="ScheduledTasks.Menu.OpenSettings" xml:space="preserve">
+    <value>開啟工作排程器</value>
+  </data>
+  <data name="ScheduledTasks.Details.Name" xml:space="preserve">
+    <value>名稱</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Enabled.Title" xml:space="preserve">
+    <value>工作已啟用</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Disabled.Title" xml:space="preserve">
+    <value>工作已停用</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Toggle.Message" xml:space="preserve">
+    <value>{0} 已成功更新。</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Run.Title" xml:space="preserve">
+    <value>工作已開始</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Run.Message" xml:space="preserve">
+    <value>{0} 正在執行。</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Stop.Title" xml:space="preserve">
+    <value>工作已停止</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Stop.Message" xml:space="preserve">
+    <value>{0} 已停止。</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Delete.Title" xml:space="preserve">
+    <value>工作已刪除</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Delete.Message" xml:space="preserve">
+    <value>{0} 已刪除。</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Create.Title" xml:space="preserve">
+    <value>工作已建立</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Create.Message" xml:space="preserve">
+    <value>{0} 已成功建立。</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Error.Title" xml:space="preserve">
+    <value>錯誤</value>
+  </data>
+  <data name="Settings.About.NeedHelp.Description" xml:space="preserve">
+      <value>如果您在最佳化方面需要協助或有任何疑問，請加入我們的社群以獲得快速支援。</value>
+    </data>
+  <data name="Settings.About.LearnMore.Community" xml:space="preserve">
+      <value>社群</value>
+    </data>
+  <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
+      <value>找不到工作：{0}</value>
+    </data>
+  <data name="Service.Registry.Name" xml:space="preserve">
+    <value>登錄檔</value>
+  </data>
+  <data name="Service.Service.Name" xml:space="preserve">
+    <value>服務</value>
+  </data>
+  <data name="Service.ScheduledTask.Name" xml:space="preserve">
+    <value>排定的工作</value>
+  </data>
+  <data name="Service.Shell.Name" xml:space="preserve">
+    <value>殼層</value>
+  </data>
+  <data name="Service.Registry.Description.Write" xml:space="preserve">
+    <value>寫入登錄檔值：{0}\{1}</value>
+  </data>
+  <data name="Service.Registry.Description.Delete" xml:space="preserve">
+    <value>刪除登錄檔值：{0}\{1}</value>
+  </data>
+  <data name="Service.Service.Description.Change" xml:space="preserve">
+    <value>將服務 '{0}' 變更為 {1} 啟動</value>
+  </data>
+  <data name="Service.ScheduledTask.Description.Enable" xml:space="preserve">
+    <value>啟用排定的工作：{0}</value>
+  </data>
+  <data name="Service.ScheduledTask.Description.Disable" xml:space="preserve">
+    <value>停用排定的工作：{0}</value>
+  </data>
+  <data name="Revert.Registry.Description.Restore" xml:space="preserve">
+    <value>還原登錄檔值：{0}\{1}</value>
+  </data>
+  <data name="Revert.Registry.Description.Delete" xml:space="preserve">
+    <value>刪除登錄檔值：{0}\{1}</value>
+  </data>
+  <data name="Revert.Service.Description.Restore" xml:space="preserve">
+    <value>將服務 '{0}' 還原為 {1} 啟動</value>
+  </data>
+  <data name="Revert.ScheduledTask.Description.Enable" xml:space="preserve">
+    <value>啟用排定的工作：{0}</value>
+  </data>
+  <data name="Revert.ScheduledTask.Description.Disable" xml:space="preserve">
+    <value>停用排定的工作：{0}</value>
+  </data>
+  <data name="Revert.Shell.Description.Run" xml:space="preserve">
+    <value>執行 {0} 命令：{1}</value>
+  </data>
+  <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
+    <value>顯示完成通知</value>
+  </data>
+  <data name="Settings.Optimize.ShowCompletionNotification.Description" xml:space="preserve">
+    <value>在成功套用或還原最佳化時顯示通知。</value>
+  </data>
+  <data name="Optimizations.Loading" xml:space="preserve">
+    <value>正在載入最佳化...</value>
+  </data>
+  <data name="Optimizations.Loading.Hint" xml:space="preserve">
+    <value>請稍候...</value>
+  </data>
+</root>
