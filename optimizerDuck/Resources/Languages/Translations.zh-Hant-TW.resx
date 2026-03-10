@@ -760,76 +760,76 @@
   <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
     <value>設定 AdaptiveVsyncEnable=0 以停用會根據影格率動態調整的 Intel 自適應垂直同步，改用固定的垂直同步以獲得穩定的時序。</value>
   </data>
-  <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.Name" xml:space="preserve">
+  <data name="Features.UserExperience.TaskbarNewsAndInterests.Name" xml:space="preserve">
     <value>停用工作列新聞與興趣</value>
   </data>
-  <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.ShortDescription" xml:space="preserve">
+  <data name="Features.UserExperience.TaskbarNewsAndInterests.Description" xml:space="preserve">
     <value>設定 AllowNewsAndInterests=0、EnableFeeds=0 以從工作列中移除「新聞與興趣」小工具，消除 MSN 摘要的背景更新。</value>
   </data>
-  <data name="Optimizer.UserExperience.DisableTaskbarExtraButtons.Name" xml:space="preserve">
+  <data name="Features.UserExperience.TaskbarExtraButtons.Name" xml:space="preserve">
     <value>停用額外的工作列按鈕</value>
   </data>
-  <data name="Optimizer.UserExperience.DisableTaskbarExtraButtons.ShortDescription" xml:space="preserve">
+  <data name="Features.UserExperience.TaskbarExtraButtons.Description" xml:space="preserve">
     <value>設定 TaskbarMn=0 (聊天)、ShowTaskViewButton=0 以隱藏工作列按鈕，獲得極簡的介面。</value>
   </data>
-  <data name="Optimizer.UserExperience.DisableTaskbarSearchAndBing.Name" xml:space="preserve">
+  <data name="Features.UserExperience.TaskbarSearchAndBing.Name" xml:space="preserve">
     <value>停用工作列搜尋與 Bing</value>
   </data>
-  <data name="Optimizer.UserExperience.DisableTaskbarSearchAndBing.ShortDescription" xml:space="preserve">
+  <data name="Features.UserExperience.TaskbarSearchAndBing.Description" xml:space="preserve">
     <value>設定 SearchboxTaskbarMode=0、BingSearchEnabled=0 以從工作列移除搜尋方塊，並停用開始功能表中的 Bing 網頁搜尋。</value>
   </data>
-  <data name="Optimizer.UserExperience.RemoveMeetNowAndPeople.Name" xml:space="preserve">
+  <data name="Features.UserExperience.MeetNowAndPeople.Name" xml:space="preserve">
     <value>移除立即開會與聯絡人</value>
   </data>
-  <data name="Optimizer.UserExperience.RemoveMeetNowAndPeople.ShortDescription" xml:space="preserve">
+  <data name="Features.UserExperience.MeetNowAndPeople.Description" xml:space="preserve">
     <value>設定 HideSCAMeetNow=1、PeopleBand=0 以從工作列通知區域移除「立即開會」(Skype) 和「聯絡人」圖示。</value>
   </data>
-  <data name="Optimizer.UserExperience.EnableTaskbarEndTask.Name" xml:space="preserve">
+  <data name="Features.UserExperience.TaskbarEndTask.Name" xml:space="preserve">
     <value>啟用工作列結束工作</value>
   </data>
-  <data name="Optimizer.UserExperience.EnableTaskbarEndTask.ShortDescription" xml:space="preserve">
+  <data name="Features.UserExperience.TaskbarEndTask.Description" xml:space="preserve">
     <value>設定 TaskbarEndTask=1 將「結束工作」選項新增至工作列右鍵選單，允許在沒有工作管理員的情況下快速終止處理程序。</value>
   </data>
-  <data name="Optimizer.UserExperience.EnableDarkMode.Name" xml:space="preserve">
+  <data name="Features.UserExperience.DarkMode.Name" xml:space="preserve">
     <value>啟用深色模式</value>
   </data>
-  <data name="Optimizer.UserExperience.EnableDarkMode.ShortDescription" xml:space="preserve">
+  <data name="Features.UserExperience.DarkMode.Description" xml:space="preserve">
     <value>設定 AppsUseLightTheme=0、SystemUsesLightTheme=0 為系統應用程式、設定和殼層元件啟用深色模式。</value>
   </data>
-  <data name="Optimizer.UserExperience.DisableExplorerAndSystemNotifications.Name" xml:space="preserve">
+  <data name="Features.UserExperience.ExplorerAndSystemNotifications.Name" xml:space="preserve">
     <value>停用檔案總管與系統通知</value>
   </data>
-  <data name="Optimizer.UserExperience.DisableExplorerAndSystemNotifications.ShortDescription" xml:space="preserve">
+  <data name="Features.UserExperience.ExplorerAndSystemNotifications.Description" xml:space="preserve">
     <value>設定 ShowSyncProviderNotifications=0、SystemPaneSuggestionsEnabled=0、ToastEnabled=0 以停用 OneDrive 同步廣告、Windows 提示和快顯通知。</value>
   </data>
-  <data name="Optimizer.UserExperience.ShowFileExtensionsAndHiddenFiles.Name" xml:space="preserve">
+  <data name="Features.UserExperience.HiddenFilesAndExtensions.Name" xml:space="preserve">
     <value>顯示副檔名與隱藏的檔案</value>
   </data>
-  <data name="Optimizer.UserExperience.ShowFileExtensionsAndHiddenFiles.ShortDescription" xml:space="preserve">
+  <data name="Features.UserExperience.HiddenFilesAndExtensions.Description" xml:space="preserve">
     <value>在檔案總管中設定 HideFileExt=0、Hidden=1，以顯示副檔名並顯示隱藏/系統檔案以增加透明度。</value>
   </data>
-  <data name="Optimizer.UserExperience.EnableClassicContextMenu.Name" xml:space="preserve">
+  <data name="Features.UserExperience.ClassicContextMenu.Name" xml:space="preserve">
     <value>啟用傳統右鍵選單 (適用於 Windows 11)</value>
   </data>
-  <data name="Optimizer.UserExperience.EnableClassicContextMenu.ShortDescription" xml:space="preserve">
+  <data name="Features.UserExperience.ClassicContextMenu.Description" xml:space="preserve">
     <value>在 CLSID {86ca1aa0-34aa-4e8b-a509-50c905bae2a2} 建立 InprocServer32 機碼，以在 Windows 11 上還原 Windows 10 風格的完整右鍵選單。</value>
   </data>
-  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
+  <data name="Features.UserExperience.FastExplorerAndMenus.Name" xml:space="preserve">
     <value>加速檔案總管與選單</value>
   </data>
-  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
+  <data name="Features.UserExperience.FastExplorerAndMenus.Description" xml:space="preserve">
     <value>設定 StartupDelayInMSec=0、MenuShowDelay=0 以消除檔案總管的啟動延遲，並將選單懸停延遲降至最低。</value>
   </data>
-  <data name="Optimizer.UserExperience.ShowSecondsInSystemClock.Name" xml:space="preserve">
+  <data name="Features.UserExperience.ShowSecondsInSystemClock.Name" xml:space="preserve">
     <value>在系統時鐘顯示秒數</value>
   </data>
-  <data name="Optimizer.UserExperience.ShowSecondsInSystemClock.ShortDescription" xml:space="preserve">
+  <data name="Features.UserExperience.ShowSecondsInSystemClock.Description" xml:space="preserve">
     <value>設定 ShowSecondsInSystemClock=1 以在工作列時鐘中顯示秒數，以便進行精確的時間監控。</value>
   </data>
-  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
+  <data name="Features.UserExperience.VisualEffects.Name" xml:space="preserve">
     <value>停用視覺效果</value>
   </data>
-  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
+  <data name="Features.UserExperience.VisualEffects.Description" xml:space="preserve">
     <value>設定 TaskbarAnimations=0、ListviewShadow=0、EnableTransparency=0、EnableAeroPeek=0 以停用動畫、陰影和透明度，從而提高 UI 的反應速度。</value>
   </data>
   <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">

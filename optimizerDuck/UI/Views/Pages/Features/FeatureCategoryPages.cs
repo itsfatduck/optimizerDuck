@@ -2,9 +2,9 @@ using optimizerDuck.UI.ViewModels.Pages;
 
 namespace optimizerDuck.UI.Views.Pages.Features;
 
-public sealed class UserExperienceFeatureCategory : FeatureCategoryPage
+public sealed class PreferencesFeatureCategory : FeatureCategoryPage
 {
-    public UserExperienceFeatureCategory(FeatureCategoryViewModel viewModel) : base(viewModel)
+    public PreferencesFeatureCategory(FeatureCategoryViewModel viewModel) : base(viewModel)
     {
         InitializeComponent();
     }
@@ -13,6 +13,14 @@ public sealed class UserExperienceFeatureCategory : FeatureCategoryPage
 public sealed class SystemFeatureCategory : FeatureCategoryPage
 {
     public SystemFeatureCategory(FeatureCategoryViewModel viewModel) : base(viewModel)
+    {
+        InitializeComponent();
+    }
+}
+
+public sealed class GamingFeatureCategory : FeatureCategoryPage
+{
+    public GamingFeatureCategory(FeatureCategoryViewModel viewModel) : base(viewModel)
     {
         InitializeComponent();
     }

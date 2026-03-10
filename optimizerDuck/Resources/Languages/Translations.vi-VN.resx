@@ -170,11 +170,17 @@
     <data name="Features.Description" xml:space="preserve">
     <value>Bật hoặc tắt các tính năng liên tục của Windows</value>
   </data>
-    <data name="Features.UserExperience.Name" xml:space="preserve">
-    <value>Trải nghiệm người dùng</value>
+    <data name="Features.Preferences.Name" xml:space="preserve">
+    <value>Tùy chỉnh giao diện</value>
   </data>
-    <data name="Features.UserExperience.Description" xml:space="preserve">
+    <data name="Features.Preferences.Description" xml:space="preserve">
     <value>Tùy chỉnh cài đặt hiển thị và tương tác</value>
+  </data>
+    <data name="Features.Gaming.Name" xml:space="preserve">
+    <value>Chơi game</value>
+  </data>
+    <data name="Features.Gaming.Description" xml:space="preserve">
+    <value>Cài đặt hiển thị, đầu vào và ghi hình liên quan đến chơi game</value>
   </data>
     <data name="Features.System.Name" xml:space="preserve">
     <value>Hệ thống</value>
@@ -610,30 +616,6 @@ Phiên bản hiện tại: {0} </value>
     <data name="Optimizer.Performance.MultimediaResponsiveness.ShortDescription" xml:space="preserve">
     <value>Giảm thiểu độ trễ MMCSS bằng cách đặt SystemResponsiveness thành 10 và vô hiệu hóa điều tiết mạng (0xFFFFFFFF) cho các tác vụ thời gian thực.</value>
   </data>
-    <data name="Optimizer.Performance.DisableGameBar.Name" xml:space="preserve">
-    <value>Tắt Xbox Game Bar</value>
-  </data>
-    <data name="Optimizer.Performance.DisableGameBar.ShortDescription" xml:space="preserve">
-    <value>Vô hiệu hóa lớp phủ Xbox Game Bar, thông báo khởi động và tích hợp phím tắt để loại bỏ chi phí xử lý nền từ tính năng ghi hình.</value>
-  </data>
-    <data name="Optimizer.Performance.EnableGameMode.Name" xml:space="preserve">
-    <value>Kích hoạt Chế độ trò chơi</value>
-  </data>
-    <data name="Optimizer.Performance.EnableGameMode.ShortDescription" xml:space="preserve">
-    <value>Bật Game Mode để ưu tiên game và tạm hoãn các hoạt động gây gián đoạn của Windows Update.</value>
-  </data>
-    <data name="Optimizer.Performance.DisableGameDVR.Name" xml:space="preserve">
-    <value>Vô hiệu hóa ghi hình nền</value>
-  </data>
-    <data name="Optimizer.Performance.DisableGameDVR.ShortDescription" xml:space="preserve">
-    <value>Tắt tính năng tự động ghi hình game chạy ngầm (DVR) để thu hồi hiệu năng bị chiếm dụng.</value>
-  </data>
-    <data name="Optimizer.Performance.DisableMouseAcceleration.Name" xml:space="preserve">
-    <value>Loại bỏ gia tốc chuột</value>
-  </data>
-    <data name="Optimizer.Performance.DisableMouseAcceleration.ShortDescription" xml:space="preserve">
-    <value>Vô hiệu hóa việc tự động tăng tốc chuột của Windows, mang lại cảm giác di chuột chính xác 1:1.</value>
-  </data>
     <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
     <value>Tối ưu hóa độ trễ bàn phím</value>
   </data>
@@ -743,6 +725,12 @@ Phiên bản hiện tại: {0} </value>
     <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>Trải nghiệm người dùng</value>
   </data>
+    <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
+    <value>Tăng tốc Explorer &amp; Menu</value>
+  </data>
+    <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
+    <value>Loại bỏ thời gian trễ khi mở thư mục và hiển thị menu để giao diện phản hồi tức thì.</value>
+  </data>
     <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
     <value>Vô hiệu hóa AMD ULPS</value>
   </data>
@@ -791,77 +779,125 @@ Phiên bản hiện tại: {0} </value>
     <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
     <value>Duy trì thời gian xuất khung hình ổn định bằng cách tắt tính năng V-Sync thích ứng của Intel.</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.Name" xml:space="preserve">
-    <value>Tắt Tin tức &amp; Sở thích</value>
+    <data name="Features.Preferences.Section.Taskbar" xml:space="preserve">
+    <value>Thanh tác vụ</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableTaskbarNewsAndInterests.ShortDescription" xml:space="preserve">
-    <value>Gỡ bỏ tiện ích tin tức trên thanh tác vụ để tập trung hơn và giảm tải cho hệ thống.</value>
+    <data name="Features.Preferences.Section.Appearance" xml:space="preserve">
+    <value>Giao diện</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableTaskbarExtraButtons.Name" xml:space="preserve">
-    <value>Ẩn các nút không dùng trên Taskbar</value>
+    <data name="Features.Preferences.Section.Explorer" xml:space="preserve">
+    <value>Explorer</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableTaskbarExtraButtons.ShortDescription" xml:space="preserve">
-    <value>Dọn dẹp thanh tác vụ bằng cách ẩn các nút Widgets, Chat và Task View.</value>
+    <data name="Features.Preferences.TaskbarNewsAndInterests.Name" xml:space="preserve">
+    <value>Tin tức &amp; Sở thích trên Taskbar</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableTaskbarSearchAndBing.Name" xml:space="preserve">
-    <value>Tắt Tìm kiếm &amp; Bing trên Taskbar</value>
+    <data name="Features.Preferences.TaskbarNewsAndInterests.Description" xml:space="preserve">
+    <value>Kiểm soát tiện ích tin tức trên thanh tác vụ và cập nhật nền từ MSN.</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableTaskbarSearchAndBing.ShortDescription" xml:space="preserve">
-    <value>Gỡ bỏ hộp tìm kiếm và tắt kết quả từ Bing để thanh tác vụ và menu Start sạch sẽ hơn.</value>
+    <data name="Features.Preferences.TaskbarExtraButtons.Name" xml:space="preserve">
+    <value>Các nút phụ trên Taskbar</value>
   </data>
-    <data name="Optimizer.UserExperience.RemoveMeetNowAndPeople.Name" xml:space="preserve">
-    <value>Xóa Meet Now &amp; People</value>
+    <data name="Features.Preferences.TaskbarExtraButtons.Description" xml:space="preserve">
+    <value>Kiểm soát hiển thị nút Chat và Task View trên thanh tác vụ.</value>
   </data>
-    <data name="Optimizer.UserExperience.RemoveMeetNowAndPeople.ShortDescription" xml:space="preserve">
-    <value>Gỡ bỏ các biểu tượng Meet Now và People khỏi thanh hệ thống để giảm sự lộn xộn.</value>
+    <data name="Features.Preferences.TaskbarSearchAndBing.Name" xml:space="preserve">
+    <value>Tìm kiếm &amp; Bing trên Taskbar</value>
   </data>
-    <data name="Optimizer.UserExperience.EnableTaskbarEndTask.Name" xml:space="preserve">
-    <value>Bật tính năng "Kết thúc tác vụ"</value>
+    <data name="Features.Preferences.TaskbarSearchAndBing.Description" xml:space="preserve">
+    <value>Kiểm soát hộp tìm kiếm trên thanh tác vụ và tìm kiếm Bing trong menu Start.</value>
   </data>
-    <data name="Optimizer.UserExperience.EnableTaskbarEndTask.ShortDescription" xml:space="preserve">
-    <value>Cho phép nhanh chóng tắt ứng dụng bị treo ngay từ thanh tác vụ mà không cần mở Task Manager.</value>
+    <data name="Features.Preferences.MeetNowAndPeople.Name" xml:space="preserve">
+    <value>Meet Now &amp; People</value>
   </data>
-    <data name="Optimizer.UserExperience.EnableDarkMode.Name" xml:space="preserve">
-    <value>Kích hoạt Chế độ tối (Dark Mode)</value>
+    <data name="Features.Preferences.MeetNowAndPeople.Description" xml:space="preserve">
+    <value>Kiểm soát biểu tượng Meet Now (Skype) và People trong khu vực thông báo.</value>
   </data>
-    <data name="Optimizer.UserExperience.EnableDarkMode.ShortDescription" xml:space="preserve">
-    <value>Chuyển hệ điều hành và ứng dụng sang giao diện tối giúp dịu mắt và tiết kiệm điện.</value>
+    <data name="Features.Preferences.TaskbarEndTask.Name" xml:space="preserve">
+    <value>Kết thúc tác vụ trên Taskbar</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableExplorerAndSystemNotifications.Name" xml:space="preserve">
-    <value>Vô hiệu hóa thông báo phiền hà</value>
+    <data name="Features.Preferences.TaskbarEndTask.Description" xml:space="preserve">
+    <value>Thêm tùy chọn "Kết thúc tác vụ" vào menu chuột phải trên thanh tác vụ.</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableExplorerAndSystemNotifications.ShortDescription" xml:space="preserve">
-    <value>Chặn các thông báo quảng cáo, mẹo sử dụng và thông báo không cần thiết từ Windows.</value>
+    <data name="Features.Preferences.DarkMode.Name" xml:space="preserve">
+    <value>Chế độ tối (Dark Mode)</value>
   </data>
-    <data name="Optimizer.UserExperience.ShowFileExtensionsAndHiddenFiles.Name" xml:space="preserve">
-    <value>Hiện đuôi tệp &amp; tệp ẩn</value>
+    <data name="Features.Preferences.DarkMode.Description" xml:space="preserve">
+    <value>Bật chế độ tối cho ứng dụng hệ thống, Cài đặt và các thành phần shell.</value>
   </data>
-    <data name="Optimizer.UserExperience.ShowFileExtensionsAndHiddenFiles.ShortDescription" xml:space="preserve">
-    <value>Hiển thị đầy đủ phần mở rộng tệp và các tệp tin ẩn để thuận tiện cho việc quản lý hệ thống.</value>
+    <data name="Features.Preferences.VisualEffects.Name" xml:space="preserve">
+    <value>Hiệu ứng hình ảnh</value>
   </data>
-    <data name="Optimizer.UserExperience.EnableClassicContextMenu.Name" xml:space="preserve">
-    <value>Sử dụng Menu chuột phải cổ điển</value>
+    <data name="Features.Preferences.VisualEffects.Description" xml:space="preserve">
+    <value>Kiểm soát hiệu ứng chuyển động, bóng đổ, độ trong suốt và Aero Peek trên giao diện.</value>
   </data>
-    <data name="Optimizer.UserExperience.EnableClassicContextMenu.ShortDescription" xml:space="preserve">
+    <data name="Features.Preferences.ExplorerAndSystemNotifications.Name" xml:space="preserve">
+    <value>Explorer &amp; Thông báo hệ thống</value>
+  </data>
+    <data name="Features.Preferences.ExplorerAndSystemNotifications.Description" xml:space="preserve">
+    <value>Kiểm soát quảng cáo OneDrive, mẹo Windows và thông báo toast.</value>
+  </data>
+    <data name="Features.Preferences.HiddenFilesAndExtensions.Name" xml:space="preserve">
+    <value>Đuôi tệp &amp; Tệp ẩn</value>
+  </data>
+    <data name="Features.Preferences.HiddenFilesAndExtensions.Description" xml:space="preserve">
+    <value>Kiểm soát hiển thị đuôi tệp và tệp ẩn/hệ thống trong Explorer.</value>
+  </data>
+    <data name="Features.Preferences.ClassicContextMenu.Name" xml:space="preserve">
+    <value>Menu chuột phải cổ điển</value>
+  </data>
+    <data name="Features.Preferences.ClassicContextMenu.Description" xml:space="preserve">
     <value>Khôi phục menu chuột phải đầy đủ kiểu Windows 10 trên Windows 11.</value>
   </data>
-    <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
-    <value>Tăng tốc Explorer &amp; Menu</value>
+    <data name="Features.Preferences.ShowSecondsInSystemClock.Name" xml:space="preserve">
+    <value>Giây trên đồng hồ hệ thống</value>
   </data>
-    <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
-    <value>Loại bỏ thời gian trễ khi mở thư mục và hiển thị menu để giao diện phản hồi tức thì.</value>
+    <data name="Features.Preferences.ShowSecondsInSystemClock.Description" xml:space="preserve">
+    <value>Hiển thị giây trên đồng hồ thanh tác vụ để theo dõi thời gian chính xác.</value>
   </data>
-    <data name="Optimizer.UserExperience.ShowSecondsInSystemClock.Name" xml:space="preserve">
-    <value>Hiển thị giây trên đồng hồ</value>
+    <data name="Features.Gaming.Section.GameSettings" xml:space="preserve">
+    <value>Cài đặt trò chơi</value>
   </data>
-    <data name="Optimizer.UserExperience.ShowSecondsInSystemClock.ShortDescription" xml:space="preserve">
-    <value>Thêm hiển thị kim giây vào đồng hồ hệ thống trên thanh tác vụ để theo dõi giờ chính xác.</value>
+    <data name="Features.Gaming.Section.Input" xml:space="preserve">
+    <value>Đầu vào</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
-    <value>Tắt hiệu ứng chuyển động</value>
+    <data name="Features.Gaming.Section.Display" xml:space="preserve">
+    <value>Hiển thị</value>
   </data>
-    <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
-    <value>Vô hiệu hóa các hiệu ứng cửa sổ, bóng đổ và độ trong suốt để tăng tối đa tốc độ giao diện.</value>
+    <data name="Features.Gaming.GameMode.Name" xml:space="preserve">
+    <value>Chế độ trò chơi</value>
+  </data>
+    <data name="Features.Gaming.GameMode.Description" xml:space="preserve">
+    <value>Ưu tiên tiến trình game và ngăn gián đoạn từ Windows Update khi chơi game.</value>
+  </data>
+    <data name="Features.Gaming.GameBar.Name" xml:space="preserve">
+    <value>Xbox Game Bar</value>
+  </data>
+    <data name="Features.Gaming.GameBar.Description" xml:space="preserve">
+    <value>Kiểm soát lớp phủ Xbox Game Bar, bảng khởi động và các tính năng nền liên quan.</value>
+  </data>
+    <data name="Features.Gaming.BackgroundRecording.Name" xml:space="preserve">
+    <value>Ghi hình nền (DVR)</value>
+  </data>
+    <data name="Features.Gaming.BackgroundRecording.Description" xml:space="preserve">
+    <value>Kiểm soát tự động ghi hình game chạy ngầm (Game DVR) và chụp ứng dụng.</value>
+  </data>
+    <data name="Features.Gaming.MouseAcceleration.Name" xml:space="preserve">
+    <value>Gia tốc chuột</value>
+  </data>
+    <data name="Features.Gaming.MouseAcceleration.Description" xml:space="preserve">
+    <value>Kiểm soát tự động điều chỉnh tốc độ chuột của Windows. Tắt để di chuột chính xác 1:1.</value>
+  </data>
+    <data name="Features.Gaming.FullscreenOptimizations.Name" xml:space="preserve">
+    <value>Tối ưu hóa toàn màn hình</value>
+  </data>
+    <data name="Features.Gaming.FullscreenOptimizations.Description" xml:space="preserve">
+    <value>Kiểm soát tối ưu hóa toàn màn hình DWM có thể gây độ trễ đầu vào hoặc chế độ cửa sổ không viền bị ép buộc.</value>
+  </data>
+    <data name="Features.Gaming.HardwareAcceleratedGpuScheduling.Name" xml:space="preserve">
+    <value>Lập lịch GPU tăng tốc phần cứng</value>
+  </data>
+    <data name="Features.Gaming.HardwareAcceleratedGpuScheduling.Description" xml:space="preserve">
+    <value>Cho phép GPU trực tiếp quản lý bộ nhớ video, giảm tải CPU và giảm độ trễ hiển thị. Yêu cầu driver GPU tương thích.</value>
   </data>
     <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
     <value>ĐỪNG thay đổi trừ khi bạn biết chính xác mình đang làm gì</value>
@@ -977,18 +1013,7 @@ Hãy yên tâm rằng hệ thống của bạn luôn có đường lui nếu có
     <value>Đã có phiên bản optimizerDuck (v{0})!
 Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và sửa lỗi mới nhất.</value>
   </data>
-    <data name="Optimizer.Performance.DisableFullscreenOptimizations.Name" xml:space="preserve">
-    <value>Tắt tối ưu hóa toàn màn hình</value>
-  </data>
-    <data name="Optimizer.Performance.DisableFullscreenOptimizations.ShortDescription" xml:space="preserve">
-    <value>Vô hiệu hóa tối ưu hóa toàn màn hình của Windows (FSO) để loại bỏ độ trễ đầu vào, giật hình và chế độ cửa sổ không viền bị ép buộc trong game.</value>
-  </data>
-    <data name="Optimizer.Gpu.EnableHardwareAcceleratedGpuScheduling.Name" xml:space="preserve">
-    <value>Bật lập lịch GPU tăng tốc phần cứng</value>
-  </data>
-    <data name="Optimizer.Gpu.EnableHardwareAcceleratedGpuScheduling.ShortDescription" xml:space="preserve">
-    <value>Cho phép GPU trực tiếp quản lý bộ nhớ video, giảm tải CPU và giảm độ trễ hiển thị. Yêu cầu driver GPU tương thích và khởi động lại.</value>
-  </data>
+
     <data name="Common.Search.Placeholder" xml:space="preserve">
     <value>Tìm kiếm...</value>
   </data>

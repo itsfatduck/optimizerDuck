@@ -155,87 +155,6 @@ public class Performance : IOptimizationCategory
     }
 
     [Optimization(
-        Id = "70D84D83-01DB-455A-8004-D80BC372094C",
-        Risk = OptimizationRisk.Moderate,
-        Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Latency)]
-    public class DisableGameBar : BaseOptimization
-    {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
-            OptimizationContext context)
-        {
-            RegistryService.Write(
-                new RegistryItem(@"HKCU\System\GameConfigStore", "GameBarEnabled", 0),
-                new RegistryItem(@"HKCU\Software\Microsoft\GameBar", "ShowStartupPanel", 0),
-                new RegistryItem(@"HKCU\Software\Microsoft\GameBar", "UseNexusForGameBarEnabled", 0),
-                new RegistryItem(@"HKCU\Software\Microsoft\GameBar", "GamePanelStartupTipIndex", 0)
-            );
-            context.Logger.LogInformation("Disabled Xbox Game Bar");
-            return Task.FromResult(ApplyResult.True());
-        }
-    }
-
-    [Optimization(
-        Id = "B453F151-7408-49FD-8898-F810E7E45902",
-        Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Latency |
-               OptimizationTags.Power)]
-    public class EnableGameMode : BaseOptimization
-    {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
-            OptimizationContext context)
-        {
-            RegistryService.Write(
-                new RegistryItem(@"HKCU\Software\Microsoft\GameBar", "AllowAutoGameMode", 1),
-                new RegistryItem(@"HKCU\Software\Microsoft\GameBar", "AutoGameModeEnabled", 1)
-            );
-            context.Logger.LogInformation("Enabled Windows Game Mode");
-            return Task.FromResult(ApplyResult.True());
-        }
-    }
-
-    [Optimization(
-        Id = "E6DBF550-0191-49D2-AEED-3F80A11592EE",
-        Risk = OptimizationRisk.Moderate,
-        Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Latency |
-               OptimizationTags.Power)]
-    public class DisableGameDVR : BaseOptimization
-    {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
-            OptimizationContext context)
-        {
-            RegistryService.Write(
-                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\GameDVR", "AppCaptureEnabled", 0),
-                new RegistryItem(@"HKCU\System\GameConfigStore", "GameDVR_Enabled", 0),
-                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\GameDVR", "AllowGameDVR", 0),
-                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\PolicyManager\default\ApplicationManagement\AllowGameDVR",
-                    "value", 0)
-            );
-            context.Logger.LogInformation("Disabled Game DVR recording");
-            return Task.FromResult(ApplyResult.True());
-        }
-    }
-
-    [Optimization(
-        Id = "7D386B99-CDAD-42C9-924E-84307AA683AD",
-        Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.Latency)]
-    public class DisableMouseAcceleration : BaseOptimization
-    {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
-            OptimizationContext context)
-        {
-            RegistryService.Write(
-                new RegistryItem(@"HKCU\Control Panel\Mouse", "MouseSpeed", "0"),
-                new RegistryItem(@"HKCU\Control Panel\Mouse", "MouseThreshold1", "0"),
-                new RegistryItem(@"HKCU\Control Panel\Mouse", "MouseThreshold2", "0"),
-                new RegistryItem(@"HKCU\Control Panel\Mouse", "MouseSensitivity", "10")
-            );
-            context.Logger.LogInformation("Disabled mouse acceleration");
-            return Task.FromResult(ApplyResult.True());
-        }
-    }
-
-    [Optimization(
         Id = "613FE85C-770D-441C-B97A-147B89B99028",
         Risk = OptimizationRisk.Safe,
         Tags = OptimizationTags.Latency)]
@@ -253,26 +172,6 @@ public class Performance : IOptimizationCategory
             );
 
             context.Logger.LogInformation("Optimized keyboard responsiveness");
-            return Task.FromResult(ApplyResult.True());
-        }
-    }
-
-    [Optimization(
-        Id = "3046C006-AD21-4BDB-9C55-8EF15B367487",
-        Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.Performance | OptimizationTags.Display)]
-    public class DisableFullscreenOptimizations : BaseOptimization
-    {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
-            OptimizationContext context)
-        {
-            RegistryService.Write(
-                new RegistryItem(@"HKCU\System\GameConfigStore", "GameDVR_DXGIHonorFSEWindowsCompatible", 1),
-                new RegistryItem(@"HKCU\System\GameConfigStore", "GameDVR_FSEBehavior", 2),
-                new RegistryItem(@"HKCU\System\GameConfigStore", "GameDVR_FSEBehaviorMode", 2),
-                new RegistryItem(@"HKCU\System\GameConfigStore", "GameDVR_HonorUserFSEBehaviorMode", 1)
-            );
-            context.Logger.LogInformation("Disabled full-screen optimizations");
             return Task.FromResult(ApplyResult.True());
         }
     }

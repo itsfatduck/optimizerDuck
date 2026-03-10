@@ -263,21 +263,4 @@ public class Gpu : IOptimizationCategory
             ];
         }
     }
-
-    [Optimization(
-        Id = "754B65CB-3A72-462F-9D33-2383F98F6B67",
-        Risk = OptimizationRisk.Moderate,
-        Tags = OptimizationTags.Performance | OptimizationTags.Latency)]
-    public class EnableHardwareAcceleratedGpuScheduling : BaseOptimization
-    {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
-            OptimizationContext context)
-        {
-            RegistryService.Write(
-                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers", "HwSchMode", 2)
-            );
-            context.Logger.LogInformation("Enabled Hardware-Accelerated GPU Scheduling");
-            return Task.FromResult(ApplyResult.True());
-        }
-    }
 }
