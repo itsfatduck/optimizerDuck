@@ -737,6 +737,12 @@ Current version: {0}</value>
     <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
     <value>Sets StartupDelayInMSec=0, MenuShowDelay=0 to eliminate Explorer startup delay and reduce menu hover delay to minimum.</value>
   </data>
+    <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
+    <value>Disable Visual Effects</value>
+  </data>
+    <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
+    <value>Disables taskbar animations, listview shadows, window transparency, and Aero Peek to free up GPU/CPU resources for better performance.</value>
+  </data>
     <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
     <value>Disable AMD ULPS</value>
   </data>
@@ -800,23 +806,41 @@ Current version: {0}</value>
     <data name="Features.Preferences.TaskbarNewsAndInterests.Description" xml:space="preserve">
     <value>Controls the News and Interests widget on the taskbar and MSN feed background updates.</value>
   </data>
-    <data name="Features.Preferences.TaskbarExtraButtons.Name" xml:space="preserve">
-    <value>Extra Taskbar Buttons</value>
+    <data name="Features.Preferences.TaskbarSearchBox.Name" xml:space="preserve">
+    <value>Taskbar Search Box</value>
   </data>
-    <data name="Features.Preferences.TaskbarExtraButtons.Description" xml:space="preserve">
-    <value>Controls visibility of Chat and Task View buttons on the taskbar.</value>
+    <data name="Features.Preferences.TaskbarSearchBox.Description" xml:space="preserve">
+    <value>Controls visibility of the search box on the taskbar.</value>
   </data>
-    <data name="Features.Preferences.TaskbarSearchAndBing.Name" xml:space="preserve">
-    <value>Taskbar Search &amp; Bing</value>
+    <data name="Features.Preferences.BingSearchInStartMenu.Name" xml:space="preserve">
+    <value>Bing Search in Start Menu</value>
   </data>
-    <data name="Features.Preferences.TaskbarSearchAndBing.Description" xml:space="preserve">
-    <value>Controls the search box on the taskbar and Bing web search in Start menu.</value>
+    <data name="Features.Preferences.BingSearchInStartMenu.Description" xml:space="preserve">
+    <value>Controls Bing web search results appearing in the Start menu search.</value>
   </data>
-    <data name="Features.Preferences.MeetNowAndPeople.Name" xml:space="preserve">
-    <value>Meet Now &amp; People</value>
+    <data name="Features.Preferences.TaskbarChatButton.Name" xml:space="preserve">
+    <value>Taskbar Chat Button</value>
   </data>
-    <data name="Features.Preferences.MeetNowAndPeople.Description" xml:space="preserve">
-    <value>Controls Meet Now (Skype) and People icons in the taskbar notification area.</value>
+    <data name="Features.Preferences.TaskbarChatButton.Description" xml:space="preserve">
+    <value>Controls visibility of the Chat (Teams) button on the taskbar.</value>
+  </data>
+    <data name="Features.Preferences.TaskbarTaskViewButton.Name" xml:space="preserve">
+    <value>Taskbar Task View Button</value>
+  </data>
+    <data name="Features.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
+    <value>Controls visibility of the Task View button on the taskbar.</value>
+  </data>
+    <data name="Features.Preferences.MeetNow.Name" xml:space="preserve">
+    <value>Meet Now</value>
+  </data>
+    <data name="Features.Preferences.MeetNow.Description" xml:space="preserve">
+    <value>Controls the Meet Now (Skype) icon in the taskbar notification area.</value>
+  </data>
+    <data name="Features.Preferences.TaskbarPeople.Name" xml:space="preserve">
+    <value>Taskbar People</value>
+  </data>
+    <data name="Features.Preferences.TaskbarPeople.Description" xml:space="preserve">
+    <value>Controls the People icon on the taskbar for quick contacts access.</value>
   </data>
     <data name="Features.Preferences.TaskbarEndTask.Name" xml:space="preserve">
     <value>Taskbar End Task</value>
@@ -830,23 +854,35 @@ Current version: {0}</value>
     <data name="Features.Preferences.DarkMode.Description" xml:space="preserve">
     <value>Enables dark mode for system apps, Settings, and shell elements.</value>
   </data>
-    <data name="Features.Preferences.VisualEffects.Name" xml:space="preserve">
-    <value>Visual Effects</value>
+    <data name="Features.Preferences.ExplorerSyncNotifications.Name" xml:space="preserve">
+    <value>Explorer Sync Notifications</value>
   </data>
-    <data name="Features.Preferences.VisualEffects.Description" xml:space="preserve">
-    <value>Controls taskbar animations, listview shadows, window transparency, and Aero Peek effects.</value>
+    <data name="Features.Preferences.ExplorerSyncNotifications.Description" xml:space="preserve">
+    <value>Controls OneDrive and cloud sync provider notifications in File Explorer.</value>
   </data>
-    <data name="Features.Preferences.ExplorerAndSystemNotifications.Name" xml:space="preserve">
-    <value>Explorer &amp; System Notifications</value>
+    <data name="Features.Preferences.SystemSuggestions.Name" xml:space="preserve">
+    <value>System Suggestions</value>
   </data>
-    <data name="Features.Preferences.ExplorerAndSystemNotifications.Description" xml:space="preserve">
-    <value>Controls OneDrive sync ads, Windows tips, and toast notifications.</value>
+    <data name="Features.Preferences.SystemSuggestions.Description" xml:space="preserve">
+    <value>Controls Windows tips and app suggestions in the Settings panel.</value>
   </data>
-    <data name="Features.Preferences.HiddenFilesAndExtensions.Name" xml:space="preserve">
-    <value>File Extensions &amp; Hidden Files</value>
+    <data name="Features.Preferences.ToastNotifications.Name" xml:space="preserve">
+    <value>Toast Notifications</value>
   </data>
-    <data name="Features.Preferences.HiddenFilesAndExtensions.Description" xml:space="preserve">
-    <value>Controls visibility of file extensions and hidden/system files in Explorer.</value>
+    <data name="Features.Preferences.ToastNotifications.Description" xml:space="preserve">
+    <value>Controls toast popup notifications and lock screen notifications.</value>
+  </data>
+    <data name="Features.Preferences.ShowFileExtensions.Name" xml:space="preserve">
+    <value>Show File Extensions</value>
+  </data>
+    <data name="Features.Preferences.ShowFileExtensions.Description" xml:space="preserve">
+    <value>Shows file extensions (e.g. .txt, .exe) in File Explorer.</value>
+  </data>
+    <data name="Features.Preferences.ShowHiddenFiles.Name" xml:space="preserve">
+    <value>Show Hidden Files</value>
+  </data>
+    <data name="Features.Preferences.ShowHiddenFiles.Description" xml:space="preserve">
+    <value>Shows hidden files and folders in File Explorer.</value>
   </data>
     <data name="Features.Preferences.ClassicContextMenu.Name" xml:space="preserve">
     <value>Classic Context Menu</value>

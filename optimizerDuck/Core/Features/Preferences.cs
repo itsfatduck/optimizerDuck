@@ -51,32 +51,8 @@ public class Preferences : IFeatureCategory
         ];
     }
 
-    [Feature(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.LayoutCellFour24)]
-    public class TaskbarExtraButtons : BaseFeature
-    {
-        protected override IEnumerable<RegistryToggle> RegistryToggles =>
-        [
-            new()
-            {
-                Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
-                Name = "TaskbarMn",
-                OnValue = 1,
-                OffValue = 0,
-                DefaultValue = 1
-            },
-            new()
-            {
-                Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
-                Name = "ShowTaskViewButton",
-                OnValue = 1,
-                OffValue = 0,
-                DefaultValue = 1
-            }
-        ];
-    }
-
     [Feature(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.Search24)]
-    public class TaskbarSearchAndBing : BaseFeature
+    public class TaskbarSearchBox : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
         [
@@ -87,7 +63,15 @@ public class Preferences : IFeatureCategory
                 OnValue = 1,
                 OffValue = 0,
                 DefaultValue = 1
-            },
+            }
+        ];
+    }
+
+    [Feature(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.Globe24)]
+    public class BingSearchInStartMenu : BaseFeature
+    {
+        protected override IEnumerable<RegistryToggle> RegistryToggles =>
+        [
             new()
             {
                 Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Search",
@@ -99,8 +83,40 @@ public class Preferences : IFeatureCategory
         ];
     }
 
-    [Feature(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.People24)]
-    public class MeetNowAndPeople : BaseFeature
+    [Feature(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.Chat24)]
+    public class TaskbarChatButton : BaseFeature
+    {
+        protected override IEnumerable<RegistryToggle> RegistryToggles =>
+        [
+            new()
+            {
+                Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+                Name = "TaskbarMn",
+                OnValue = 1,
+                OffValue = 0,
+                DefaultValue = 1
+            }
+        ];
+    }
+
+    [Feature(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.DesktopMac24)]
+    public class TaskbarTaskViewButton : BaseFeature
+    {
+        protected override IEnumerable<RegistryToggle> RegistryToggles =>
+        [
+            new()
+            {
+                Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+                Name = "ShowTaskViewButton",
+                OnValue = 1,
+                OffValue = 0,
+                DefaultValue = 1
+            }
+        ];
+    }
+
+    [Feature(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.Video24)]
+    public class MeetNow : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
         [
@@ -111,7 +127,15 @@ public class Preferences : IFeatureCategory
                 OnValue = 0,
                 OffValue = 1,
                 DefaultValue = 0
-            },
+            }
+        ];
+    }
+
+    [Feature(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.People24)]
+    public class TaskbarPeople : BaseFeature
+    {
+        protected override IEnumerable<RegistryToggle> RegistryToggles =>
+        [
             new()
             {
                 Path = @"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People",
@@ -163,48 +187,8 @@ public class Preferences : IFeatureCategory
         ];
     }
 
-    [Feature(Section = nameof(Sections.Appearance), Icon = SymbolRegular.EyeOff24)]
-    public class VisualEffects : BaseFeature
-    {
-        protected override IEnumerable<RegistryToggle> RegistryToggles =>
-        [
-            new()
-            {
-                Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
-                Name = "TaskbarAnimations",
-                OnValue = 1,
-                OffValue = 0,
-                DefaultValue = 1
-            },
-            new()
-            {
-                Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
-                Name = "ListviewShadow",
-                OnValue = 1,
-                OffValue = 0,
-                DefaultValue = 1
-            },
-            new()
-            {
-                Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
-                Name = "EnableTransparency",
-                OnValue = 1,
-                OffValue = 0,
-                DefaultValue = 1
-            },
-            new()
-            {
-                Path = @"HKCU\Software\Microsoft\Windows\DWM",
-                Name = "EnableAeroPeek",
-                OnValue = 1,
-                OffValue = 0,
-                DefaultValue = 1
-            }
-        ];
-    }
-
     [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.AlertOff24)]
-    public class ExplorerAndSystemNotifications : BaseFeature
+    public class ExplorerSyncNotifications : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
         [
@@ -215,7 +199,15 @@ public class Preferences : IFeatureCategory
                 OnValue = 1,
                 OffValue = 0,
                 DefaultValue = 1
-            },
+            }
+        ];
+    }
+
+    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.Lightbulb24)]
+    public class SystemSuggestions : BaseFeature
+    {
+        protected override IEnumerable<RegistryToggle> RegistryToggles =>
+        [
             new()
             {
                 Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager",
@@ -223,7 +215,15 @@ public class Preferences : IFeatureCategory
                 OnValue = 1,
                 OffValue = 0,
                 DefaultValue = 1
-            },
+            }
+        ];
+    }
+
+    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.Alert24)]
+    public class ToastNotifications : BaseFeature
+    {
+        protected override IEnumerable<RegistryToggle> RegistryToggles =>
+        [
             new()
             {
                 Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\PushNotifications",
@@ -244,7 +244,7 @@ public class Preferences : IFeatureCategory
     }
 
     [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.DocumentText24)]
-    public class HiddenFilesAndExtensions : BaseFeature
+    public class ShowFileExtensions : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
         [
@@ -255,7 +255,15 @@ public class Preferences : IFeatureCategory
                 OnValue = 0,
                 OffValue = 1,
                 DefaultValue = 1
-            },
+            }
+        ];
+    }
+
+    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.FolderSearch24)]
+    public class ShowHiddenFiles : BaseFeature
+    {
+        protected override IEnumerable<RegistryToggle> RegistryToggles =>
+        [
             new()
             {
                 Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",

@@ -37,4 +37,28 @@ public class UserExperience : IOptimizationCategory
             return Task.FromResult(ApplyResult.True());
         }
     }
+
+    [Optimization(
+        Id = "A3D1E8F2-7B4C-4A5D-9E62-8F3A1B7C4D59",
+        Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.Performance | OptimizationTags.Visual)]
+    public sealed class DisableVisualEffects : BaseOptimization
+    {
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
+        {
+            RegistryService.Write(
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+                    "TaskbarAnimations", 0),
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+                    "ListviewShadow", 0),
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
+                    "EnableTransparency", 0),
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\DWM",
+                    "EnableAeroPeek", 0)
+            );
+            context.Logger.LogInformation("Disabled visual effects for better performance");
+            return Task.FromResult(ApplyResult.True());
+        }
+    }
 }
