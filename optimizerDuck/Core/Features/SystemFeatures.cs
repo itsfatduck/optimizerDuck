@@ -15,7 +15,6 @@ public class SystemFeatures : IFeatureCategory
 {
     private enum Sections
     {
-        Boot,
         Input
     }
 

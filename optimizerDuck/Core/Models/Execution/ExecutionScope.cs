@@ -103,7 +103,7 @@ public sealed class ExecutionScope : IDisposable
             Logger = logger, LoggingOnly = true
         };
         _current.Value = scope;
-        logger.LogDebug("Execution scope started");
+        logger.LogDebug("Execution scope started (logging only)");
         return scope;
     }
 
