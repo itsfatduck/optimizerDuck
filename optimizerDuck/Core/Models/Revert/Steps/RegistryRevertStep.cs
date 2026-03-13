@@ -68,12 +68,12 @@ public class RegistryRevertStep : IRevertStep
         var result = Action switch
         {
             RevertAction.NoPreviousValue =>
-                RegistryService.DeleteValue(new RegistryItem(Path, Name)),
+                RegistryService.DeleteValue(new RegistryItem(Path, Name!)),
 
             RevertAction.RestorePrevious =>
                 Value == null
-                    ? RegistryService.DeleteValue(new RegistryItem(Path, Name))
-                    : RegistryService.Write(new RegistryItem(Path, Name, Value, Kind)),
+                    ? RegistryService.DeleteValue(new RegistryItem(Path, Name!))
+                    : RegistryService.Write(new RegistryItem(Path, Name!, Value, Kind)),
 
             RevertAction.RestoreKey =>
                 RegistryService.CreateSubKey(new RegistryItem(Path)),

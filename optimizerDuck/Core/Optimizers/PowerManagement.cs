@@ -165,7 +165,7 @@ public class PowerManagement : IOptimizationCategory
         }
     }
 
-    [Optimization(Id = "D2392F86-2B35-4BA2-939B-6FF38EE18EE6", Risk = OptimizationRisk.Moderate,
+    [Optimization(Id = "D2392F86-2B35-4BA2-939B-6FF38EE18EE6", Risk = OptimizationRisk.Safe,
         Tags = OptimizationTags.Power | OptimizationTags.Performance | OptimizationTags.System)]
     public class DisablePowerSaving : BaseOptimization
     {
@@ -175,14 +175,28 @@ public class PowerManagement : IOptimizationCategory
             RegistryService.Write(
                 new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\USB\AutomaticSurpriseRemoval",
                     "AttemptRecoveryFromUsbPowerDrain", 0),
-                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile",
-                    "NoLazyMode", 1),
-                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile",
-                    "AlwaysOn", 1),
                 new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling", "PowerThrottlingOff",
                     1)
             );
             context.Logger.LogInformation("Disabled power saving features");
+            return Task.FromResult(ApplyResult.True());
+        }
+    }
+
+    [Optimization(Id = "C24B2B0E-A66D-43D0-8B4E-30550D107A68", Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.Performance | OptimizationTags.Latency | OptimizationTags.Audio)]
+    public class OptimizeMultimediaProfile : BaseOptimization
+    {
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
+        {
+            RegistryService.Write(
+                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile",
+                    "NoLazyMode", 1),
+                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile",
+                    "AlwaysOn", 1)
+            );
+            context.Logger.LogInformation("Optimized multimedia profile settings");
             return Task.FromResult(ApplyResult.True());
         }
     }

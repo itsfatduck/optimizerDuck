@@ -2457,7 +2457,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Optimize Multimedia Response.
+        ///   Looks up a localized string similar to Multimedia &amp; Network Responsiveness.
         /// </summary>
         internal static string Optimizer_Performance_MultimediaResponsiveness_Name {
             get {
@@ -2466,7 +2466,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reduces latency for audio, video, and network tasks to improve real-time media and gaming performance..
+        ///   Looks up a localized string similar to Prioritizes system resources for multimedia and gaming by reducing background CPU reservation and disabling network throttling for lower latency..
         /// </summary>
         internal static string Optimizer_Performance_MultimediaResponsiveness_ShortDescription {
             get {
@@ -2656,6 +2656,24 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Optimize Multimedia Profile.
+        /// </summary>
+        internal static string Optimizer_PowerManagement_OptimizeMultimediaProfile_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.PowerManagement.OptimizeMultimediaProfile.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configures the multimedia system profile to prioritize performance and disable lazy mode for better responsiveness..
+        /// </summary>
+        internal static string Optimizer_PowerManagement_OptimizeMultimediaProfile_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.PowerManagement.OptimizeMultimediaProfile.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Security &amp; Privacy.
         /// </summary>
         internal static string Optimizer_SecurityAndPrivacy {
@@ -2719,7 +2737,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable Ads &amp; Suggestions.
+        ///   Looks up a localized string similar to Disable Cloud Content Delivery.
         /// </summary>
         internal static string Optimizer_SecurityAndPrivacy_DisableContentDeliveryManager_Name {
             get {
@@ -2728,7 +2746,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Blocks Windows from automatically installing promoted apps (bloatware) and showing suggestions in the Start menu..
+        ///   Looks up a localized string similar to Turns off Windows cloud-delivered content, including system tips, spotlight suggestions, and automatic delivery of consumer features..
         /// </summary>
         internal static string Optimizer_SecurityAndPrivacy_DisableContentDeliveryManager_ShortDescription {
             get {

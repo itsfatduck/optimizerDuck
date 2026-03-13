@@ -606,10 +606,10 @@ Current version: {0}</value>
     <value>Assigns high priority to gaming workloads to ensure consistent frames per second (FPS) and smoother gameplay.</value>
   </data>
   <data name="Optimizer.Performance.MultimediaResponsiveness.Name" xml:space="preserve">
-    <value>Optimize Multimedia Response</value>
+    <value>Multimedia &amp; Network Responsiveness</value>
   </data>
   <data name="Optimizer.Performance.MultimediaResponsiveness.ShortDescription" xml:space="preserve">
-    <value>Reduces latency for audio, video, and network tasks to improve real-time media and gaming performance.</value>
+    <value>Prioritizes system resources for multimedia and gaming by reducing background CPU reservation and disabling network throttling for lower latency.</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
     <value>Optimize Keyboard Response</value>
@@ -646,6 +646,12 @@ Current version: {0}</value>
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
     <value>Prevents Windows from limiting CPU performance (Power Throttling) to maintain peak power for active tasks.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.OptimizeMultimediaProfile.Name" xml:space="preserve">
+    <value>Optimize Multimedia Profile</value>
+  </data>
+  <data name="Optimizer.PowerManagement.OptimizeMultimediaProfile.ShortDescription" xml:space="preserve">
+    <value>Configures the multimedia system profile to prioritize performance and disable lazy mode for better responsiveness.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableUAC.Name" xml:space="preserve">
     <value>Disable Admin Prompts (UAC)</value>
@@ -711,10 +717,10 @@ Current version: {0}</value>
     <value>Removes the AI Copilot assistant from the taskbar and system shell to free up memory and screen space.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
-    <value>Disable Ads &amp; Suggestions</value>
+    <value>Disable Cloud Content Delivery</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
-    <value>Blocks Windows from automatically installing promoted apps (bloatware) and showing suggestions in the Start menu.</value>
+    <value>Turns off Windows cloud-delivered content, including system tips, spotlight suggestions, and automatic delivery of consumer features.</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
     <value>Block Preinstalled Bloatware</value>

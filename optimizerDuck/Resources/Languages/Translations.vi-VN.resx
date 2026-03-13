@@ -600,10 +600,10 @@ Phiên bản hiện tại: {0} </value>
     <value>Cấu hình hồ sơ tác vụ MMCSS "Games" với danh mục lập lịch High và mức ưu tiên GPU/IO cao để đảm bảo frame pacing ổn định.</value>
   </data>
   <data name="Optimizer.Performance.MultimediaResponsiveness.Name" xml:space="preserve">
-    <value>Tối ưu hóa phản hồi đa phương tiện</value>
+    <value>Độ phản hồi Đa phương tiện &amp; Mạng</value>
   </data>
   <data name="Optimizer.Performance.MultimediaResponsiveness.ShortDescription" xml:space="preserve">
-    <value>Giảm thiểu độ trễ MMCSS bằng cách đặt SystemResponsiveness thành 10 và vô hiệu hóa điều tiết mạng (0xFFFFFFFF) cho các tác vụ thời gian thực.</value>
+    <value>Ưu tiên tài nguyên hệ thống cho đa phương tiện và trò chơi bằng cách giảm mức dự phòng CPU cho tác vụ nền và tắt giới hạn băng thông mạng để giảm độ trễ.</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
     <value>Tối ưu hóa độ trễ bàn phím</value>
@@ -640,6 +640,12 @@ Phiên bản hiện tại: {0} </value>
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
     <value>Ngăn Windows tự động giảm hiệu năng CPU (Power Throttling) để duy trì sức mạnh tối đa cho hệ thống.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.OptimizeMultimediaProfile.Name" xml:space="preserve">
+    <value>Tối ưu hóa Multimedia Profile</value>
+  </data>
+  <data name="Optimizer.PowerManagement.OptimizeMultimediaProfile.ShortDescription" xml:space="preserve">
+    <value>Cấu hình profile hệ thống multimedia để ưu tiên hiệu suất và tắt lazy mode để có độ phản hồi tốt hơn.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableUAC.Name" xml:space="preserve">
     <value>Vô hiệu hóa xác nhận Admin (UAC)</value>
@@ -705,10 +711,10 @@ Phiên bản hiện tại: {0} </value>
     <value>Gỡ bỏ trợ lý AI Copilot khỏi thanh tác vụ và hệ thống để tiết kiệm dung lượng RAM.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
-    <value>Vô hiệu hóa quảng cáo &amp; gợi ý</value>
+    <value>Tắt Phân phối Nội dung Đám mây</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
-    <value>Chặn Windows tự động cài đặt ứng dụng quảng cáo và gợi ý nội dung trên màn hình Start.</value>
+    <value>Vô hiệu hóa các nội dung được phân phối qua đám mây của Windows, bao gồm các mẹo hệ thống, gợi ý tiêu điểm (spotlight) và các tính năng tiêu dùng tự động.</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
     <value>Chặn ứng dụng rác cài sẵn</value>
