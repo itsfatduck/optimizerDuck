@@ -10,7 +10,7 @@
         <Authors>fatDuck</Authors>
         <ApplicationIcon>Logo.ico</ApplicationIcon>
         <Company>fatDuck</Company>
-        <FileVersion>2.6.4</FileVersion>
+        <FileVersion>2.7.1</FileVersion>
         <Version>1.0.0</Version>
         <Product>optimizerDuck</Product>
         <Copyright>Copyright fatDuck 2026</Copyright>
@@ -42,18 +42,18 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0"/>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.3"/>
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.3"/>
-        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.3"/>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.4"/>
-        <PackageReference Include="Serilog" Version="4.3.1"/>
-        <PackageReference Include="Serilog.Extensions.Hosting" Version="10.0.0"/>
-        <PackageReference Include="Serilog.Sinks.File" Version="7.0.0"/>
-        <PackageReference Include="System.Management.Automation" Version="7.5.4"/>
-        <PackageReference Include="TaskScheduler" Version="2.12.2"/>
-        <PackageReference Include="WPF-UI" Version="4.2.0"/>
-        <PackageReference Include="WPF-UI.DependencyInjection" Version="4.2.0"/>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.4" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.4" />
+        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.4" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+        <PackageReference Include="Serilog" Version="4.3.1" />
+        <PackageReference Include="Serilog.Extensions.Hosting" Version="10.0.0" />
+        <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+        <PackageReference Include="System.Management.Automation" Version="7.5.4" />
+        <PackageReference Include="TaskScheduler" Version="2.12.2" />
+        <PackageReference Include="WPF-UI" Version="4.2.0" />
+        <PackageReference Include="WPF-UI.DependencyInjection" Version="4.2.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -64,10 +64,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Resource Include="Resources\Images\Duck.png"/>
-        <Resource Include="Resources\Images\GitHubLogoBlack.png"/>
-        <Resource Include="Resources\Images\GitHubLogoWhite.png"/>
-        <Resource Include="Resources\Images\DiscordLogo.png"/>
+        <Resource Include="Resources\Images\Duck.png" />
+        <Resource Include="Resources\Images\GitHubLogoBlack.png" />
+        <Resource Include="Resources\Images\GitHubLogoWhite.png" />
+        <Resource Include="Resources\Images\DiscordLogo.png" />
     </ItemGroup>
 
     <ItemGroup>

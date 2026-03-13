@@ -2,6 +2,7 @@ using System.Reflection;
 using optimizerDuck.Core.Interfaces;
 using optimizerDuck.Core.Models.Attributes;
 using optimizerDuck.Services.Managers;
+using optimizerDuck.Services.OptimizationServices;
 using Wpf.Ui.Controls;
 
 namespace optimizerDuck.Core.Models.Features;
@@ -48,17 +49,33 @@ public abstract class BaseFeature : IFeature
         return Task.FromResult(RegistryToggles.All(t => t.GetState()));
     }
 
-    public virtual Task EnableAsync()
+    protected virtual bool NeedsPostAction => false;
+
+    public virtual async Task EnableAsync()
     {
-        return SetTogglesState(true);
+        await SetTogglesState(true);
+
+        if (NeedsPostAction)
+            await ExecutePostActionAsync();
     }
 
-    public virtual Task DisableAsync()
+    public virtual async Task DisableAsync()
     {
-        return SetTogglesState(false);
+        await SetTogglesState(false);
+
+        if (NeedsPostAction)
+            await ExecutePostActionAsync();
+    }
+
+    protected virtual Task ExecutePostActionAsync()
+    {
+        // Default post-action: Restart Explorer
+        ShellService.CMD("taskkill /f /im explorer.exe & start explorer.exe");
+        return Task.CompletedTask;
     }
 
     private Task SetTogglesState(bool isOn)
+
     {
         foreach (var toggle in RegistryToggles)
             toggle.SetState(isOn);

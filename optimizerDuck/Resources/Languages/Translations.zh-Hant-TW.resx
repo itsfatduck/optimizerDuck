@@ -580,30 +580,6 @@
   <data name="Optimizer.Performance.MultimediaResponsiveness.ShortDescription" xml:space="preserve">
     <value>減少音訊、視訊和網路任務的延遲，以提升即時媒體和遊戲效能。</value>
   </data>
-  <data name="Optimizer.Performance.DisableGameBar.Name" xml:space="preserve">
-    <value>停用 Xbox Game Bar</value>
-  </data>
-  <data name="Optimizer.Performance.DisableGameBar.ShortDescription" xml:space="preserve">
-    <value>停用 Xbox Game Bar 覆疊和背景功能，以在遊戲時節省系統資源。</value>
-  </data>
-  <data name="Optimizer.Performance.EnableGameMode.Name" xml:space="preserve">
-    <value>啟用遊戲模式</value>
-  </data>
-  <data name="Optimizer.Performance.EnableGameMode.ShortDescription" xml:space="preserve">
-    <value>啟用 Windows 遊戲模式以優先處理遊戲程序，並防止 Windows Update 造成中斷。</value>
-  </data>
-  <data name="Optimizer.Performance.DisableGameDVR.Name" xml:space="preserve">
-    <value>停用背景錄製</value>
-  </data>
-  <data name="Optimizer.Performance.DisableGameDVR.ShortDescription" xml:space="preserve">
-    <value>關閉自動背景遊戲錄製 (DVR) 以取回流失的效能和磁碟頻寬。</value>
-  </data>
-  <data name="Optimizer.Performance.DisableMouseAcceleration.Name" xml:space="preserve">
-    <value>停用滑鼠加速</value>
-  </data>
-  <data name="Optimizer.Performance.DisableMouseAcceleration.ShortDescription" xml:space="preserve">
-    <value>停用 Windows 的自動滑鼠速度調整，以實現精確、1:1 的游標移動。</value>
-  </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
     <value>最佳化鍵盤反應</value>
   </data>
@@ -760,78 +736,6 @@
   <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
     <value>設定 AdaptiveVsyncEnable=0 以停用會根據影格率動態調整的 Intel 自適應垂直同步，改用固定的垂直同步以獲得穩定的時序。</value>
   </data>
-  <data name="Features.UserExperience.TaskbarNewsAndInterests.Name" xml:space="preserve">
-    <value>停用工作列新聞與興趣</value>
-  </data>
-  <data name="Features.UserExperience.TaskbarNewsAndInterests.Description" xml:space="preserve">
-    <value>設定 AllowNewsAndInterests=0、EnableFeeds=0 以從工作列中移除「新聞與興趣」小工具，消除 MSN 摘要的背景更新。</value>
-  </data>
-  <data name="Features.UserExperience.TaskbarExtraButtons.Name" xml:space="preserve">
-    <value>停用額外的工作列按鈕</value>
-  </data>
-  <data name="Features.UserExperience.TaskbarExtraButtons.Description" xml:space="preserve">
-    <value>設定 TaskbarMn=0 (聊天)、ShowTaskViewButton=0 以隱藏工作列按鈕，獲得極簡的介面。</value>
-  </data>
-  <data name="Features.UserExperience.TaskbarSearchAndBing.Name" xml:space="preserve">
-    <value>停用工作列搜尋與 Bing</value>
-  </data>
-  <data name="Features.UserExperience.TaskbarSearchAndBing.Description" xml:space="preserve">
-    <value>設定 SearchboxTaskbarMode=0、BingSearchEnabled=0 以從工作列移除搜尋方塊，並停用開始功能表中的 Bing 網頁搜尋。</value>
-  </data>
-  <data name="Features.UserExperience.MeetNowAndPeople.Name" xml:space="preserve">
-    <value>移除立即開會與聯絡人</value>
-  </data>
-  <data name="Features.UserExperience.MeetNowAndPeople.Description" xml:space="preserve">
-    <value>設定 HideSCAMeetNow=1、PeopleBand=0 以從工作列通知區域移除「立即開會」(Skype) 和「聯絡人」圖示。</value>
-  </data>
-  <data name="Features.UserExperience.TaskbarEndTask.Name" xml:space="preserve">
-    <value>啟用工作列結束工作</value>
-  </data>
-  <data name="Features.UserExperience.TaskbarEndTask.Description" xml:space="preserve">
-    <value>設定 TaskbarEndTask=1 將「結束工作」選項新增至工作列右鍵選單，允許在沒有工作管理員的情況下快速終止處理程序。</value>
-  </data>
-  <data name="Features.UserExperience.DarkMode.Name" xml:space="preserve">
-    <value>啟用深色模式</value>
-  </data>
-  <data name="Features.UserExperience.DarkMode.Description" xml:space="preserve">
-    <value>設定 AppsUseLightTheme=0、SystemUsesLightTheme=0 為系統應用程式、設定和殼層元件啟用深色模式。</value>
-  </data>
-  <data name="Features.UserExperience.ExplorerAndSystemNotifications.Name" xml:space="preserve">
-    <value>停用檔案總管與系統通知</value>
-  </data>
-  <data name="Features.UserExperience.ExplorerAndSystemNotifications.Description" xml:space="preserve">
-    <value>設定 ShowSyncProviderNotifications=0、SystemPaneSuggestionsEnabled=0、ToastEnabled=0 以停用 OneDrive 同步廣告、Windows 提示和快顯通知。</value>
-  </data>
-  <data name="Features.UserExperience.HiddenFilesAndExtensions.Name" xml:space="preserve">
-    <value>顯示副檔名與隱藏的檔案</value>
-  </data>
-  <data name="Features.UserExperience.HiddenFilesAndExtensions.Description" xml:space="preserve">
-    <value>在檔案總管中設定 HideFileExt=0、Hidden=1，以顯示副檔名並顯示隱藏/系統檔案以增加透明度。</value>
-  </data>
-  <data name="Features.UserExperience.ClassicContextMenu.Name" xml:space="preserve">
-    <value>啟用傳統右鍵選單 (適用於 Windows 11)</value>
-  </data>
-  <data name="Features.UserExperience.ClassicContextMenu.Description" xml:space="preserve">
-    <value>在 CLSID {86ca1aa0-34aa-4e8b-a509-50c905bae2a2} 建立 InprocServer32 機碼，以在 Windows 11 上還原 Windows 10 風格的完整右鍵選單。</value>
-  </data>
-  <data name="Features.UserExperience.FastExplorerAndMenus.Name" xml:space="preserve">
-    <value>加速檔案總管與選單</value>
-  </data>
-  <data name="Features.UserExperience.FastExplorerAndMenus.Description" xml:space="preserve">
-    <value>設定 StartupDelayInMSec=0、MenuShowDelay=0 以消除檔案總管的啟動延遲，並將選單懸停延遲降至最低。</value>
-  </data>
-  <data name="Features.UserExperience.ShowSecondsInSystemClock.Name" xml:space="preserve">
-    <value>在系統時鐘顯示秒數</value>
-  </data>
-  <data name="Features.UserExperience.ShowSecondsInSystemClock.Description" xml:space="preserve">
-    <value>設定 ShowSecondsInSystemClock=1 以在工作列時鐘中顯示秒數，以便進行精確的時間監控。</value>
-  </data>
-  <data name="Features.UserExperience.VisualEffects.Name" xml:space="preserve">
-    <value>停用視覺效果</value>
-  </data>
-  <data name="Features.UserExperience.VisualEffects.Description" xml:space="preserve">
-    <value>設定 TaskbarAnimations=0、ListviewShadow=0、EnableTransparency=0、EnableAeroPeek=0 以停用動畫、陰影和透明度，從而提高 UI 的反應速度。</value>
-  </data>
   <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
     <value>除非您非常清楚自己在做什麼，否則請勿變更</value>
   </data>
@@ -945,18 +849,6 @@
   <data name="Dashboard.UpdateInfoBar.Message" xml:space="preserve">
     <value>optimizerDuck (v{0}) 已推出！
 立即更新以享有最新的功能、改進和錯誤修正。</value>
-  </data>
-  <data name="Optimizer.Performance.DisableFullscreenOptimizations.Name" xml:space="preserve">
-    <value>停用全螢幕最佳化</value>
-  </data>
-  <data name="Optimizer.Performance.DisableFullscreenOptimizations.ShortDescription" xml:space="preserve">
-    <value>停用基於 Windows DWM 的全螢幕最佳化，以消除輸入延遲、幀速率問題，以及遊戲中強制無邊框視窗模式。</value>
-  </data>
-  <data name="Optimizer.Gpu.EnableHardwareAcceleratedGpuScheduling.Name" xml:space="preserve">
-    <value>啟用硬體加速 GPU 排程</value>
-  </data>
-  <data name="Optimizer.Gpu.EnableHardwareAcceleratedGpuScheduling.ShortDescription" xml:space="preserve">
-    <value>啟用 HAGS 以讓 GPU 直接管理其視訊記憶體排程，減少 CPU 負擔並降低顯示延遲。需要相容的 GPU 驅動程式並重新啟動。</value>
   </data>
   <data name="Common.Search.Placeholder" xml:space="preserve">
     <value>搜尋...</value>

@@ -57,6 +57,7 @@ optimizerDuck currently supports the following languages:
 
 - 🇺🇸 **English** (United States) - _Primary & recommended_
 - 🇻🇳 **Vietnamese** (Tiếng Việt)
+- 🇹🇼 **TaiWan** ()
 
 > [!NOTE]
 > - **English is the primary and recommended language**, as it provides the most accurate, complete, and stable descriptions across all features and optimizations.  
@@ -144,3 +145,8 @@ If you believe any part of this project violates your copyright, please open an 
 
 This project is licensed under the **[GPL v3 License](https://www.gnu.org/licenses/gpl-3.0.en.html)**.  
 See the [LICENSE](./LICENSE) file for details.
+
+## Thanks to all Contributors
+My application is starting to get new contributors. Thank you all so much for your support and contributions!
+
+[![Contributors](https://contrib.rocks/image?repo=itsfatduck/optimizerDuck)](https://github.com/itsfatduck/optimizerDuck/graphs/contributors)

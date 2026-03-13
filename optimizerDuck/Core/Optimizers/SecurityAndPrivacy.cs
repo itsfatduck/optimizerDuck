@@ -57,47 +57,15 @@ public class SecurityAndPrivacy : IOptimizationCategory
                 new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection", "MicrosoftEdgeDataOptIn", 0),
                 new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Siuf\Rules", "NumberOfSIUFInPeriod", 0),
                 new RegistryItem(@"HKCU\Software\Policies\Microsoft\Windows\EdgeUI", "DisableMFUTracking", 1),
-                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows\Windows Error Reporting", "Disabled", 1),
                 new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat", "DisableInventory", 1),
                 new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat", "AITEnable", 0),
-                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo", "Enabled", 0),
-                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo", "DisabledByGroupPolicy", 1),
-                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Privacy", "TailoredExperiencesWithDiagnosticDataEnabled", 0),
-                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent", "DisableTailoredExperiencesWithDiagnosticData", 1),
-                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent", "DisableWindowsConsumerFeatures", 1),
-                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent", "DisableSoftLanding", 1),
-                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent", "DisableThirdPartySuggestions", 1),
-                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Feeds", "ShellFeedsTaskbarViewMode", 2),
-                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer", "HideSCAMeetNow", 1),
-                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\UserProfileEngagement", "ScoobeSystemSettingEnabled", 0),
-                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\InputPersonalization", "RestrictImplicitInkCollection", 1),
-                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\InputPersonalization", "RestrictImplicitTextCollection", 1),
-                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\InputPersonalization\TrainedDataStore", "HarvestContacts", 0),
-                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors", "DisableLocation", 1),
-                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors", "DisableSensors", 1),
-                new RegistryItem(@"HKLM\SYSTEM\Maps", "AutoUpdateEnabled", 0),
-                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sensor\Permissions\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}", "SensorPermissionState", 0),
-                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\System", "PublishUserActivities", 0),
-                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\System", "EnableActivityFeed", 0),
-                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\System", "PublishUserActivitiesOnUserConsent", 0),
-                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\System", "UploadUserActivities", 0),
                 new RegistryItem(@"HKCU\SOFTWARE\Policies\Microsoft\Assistance\Client\1.0", "NoExplicitFeedback", 1),
-                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Assistance\Client\1.0", "NoActiveHelp", 1),
-                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\HandwritingErrorReports", "PreventHandwritingErrorReports", 1),
-                new RegistryItem(@"HKCU\Control Panel\International\User Profile", "HttpAcceptLanguageOptOut", 1),
-                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location", "Value", "Deny"),
-                new RegistryItem(@"HKLM\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location", "Value", "Deny"),
-                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Geolocation", "Status", 0),
-                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Services\lfsvc\Service\Configuration", "Status", 0),
-                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy", "01", 0),
-                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy", "02", 0),
-                new RegistryItem(@"HKLM\Software\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting", "Value", 0),
-                new RegistryItem(@"HKLM\Software\Microsoft\PolicyManager\default\WiFi\AllowAutoConnectToWiFiSenseHotspots", "Value", 0)
+                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Assistance\Client\1.0", "NoActiveHelp", 1)
             );
             RegistryService.DeleteValue([
                 new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Siuf\Rules", "PeriodInNanoSeconds")
             ]);
-            context.Logger.LogInformation("Reduced telemetry and feedback");
+            context.Logger.LogInformation("Reduced core telemetry and feedback");
             progress?.Report(new ProcessingProgress
             {
                 Message = Loc.Instance[$"{ProgressPrefix}.DisableServices"],
@@ -106,13 +74,11 @@ public class SecurityAndPrivacy : IOptimizationCategory
                 Total = 3
             });
             ServiceProcessService.ChangeServiceStartupType(
-                new ServiceItem("DiagTrack", ServiceStartupType.Disabled),  // Connected User Experiences and Telemetry (The main telemetry service)
-                new ServiceItem("dmwappushservice", ServiceStartupType.Disabled),  //  WAP Push Message Routing Service (Used for telemetry)
-                new ServiceItem("DcpSvc", ServiceStartupType.Disabled),  //  Data Collection and Publishing Service
-                new ServiceItem("diagnosticshub.standardcollector.service", ServiceStartupType.Disabled),  //  Diagnostic Hub Standard Collector Service
-                new ServiceItem("DusmSvc", ServiceStartupType.Disabled),  //  Data Usage (Monitors app data usage)
-                new ServiceItem("WerSvc", ServiceStartupType.Disabled),  //  Windows Error Reporting Service (Sends error data to Microsoft)
-                new ServiceItem("PcaSvc", ServiceStartupType.Disabled) //  Program Compatibility Assistant Service (Monitors apps and sends data)
+                new ServiceItem("DiagTrack", ServiceStartupType.Disabled),
+                new ServiceItem("dmwappushservice", ServiceStartupType.Disabled),
+                new ServiceItem("DcpSvc", ServiceStartupType.Disabled),
+                new ServiceItem("diagnosticshub.standardcollector.service", ServiceStartupType.Disabled),
+                new ServiceItem("DusmSvc", ServiceStartupType.Disabled)
             );
 
             progress?.Report(new ProcessingProgress
@@ -131,25 +97,15 @@ public class SecurityAndPrivacy : IOptimizationCategory
                 @"\Microsoft\Windows\Autochk\Proxy",
                 @"\Microsoft\Windows\Customer Experience Improvement Program\Consolidator",
                 @"\Microsoft\Windows\Customer Experience Improvement Program\UsbCeip",
-                @"\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector",
                 @"\Microsoft\Windows\Feedback\Siuf\DmClient",
-                @"\Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload",
-                @"\Microsoft\Windows\Windows Error Reporting\QueueReporting",
-                @"\Microsoft\Windows\Maps\MapsUpdateTask",
-                @"\Microsoft\Windows\Diagnosis\Scheduled",
-                @"\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticResolver"
+                @"\Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload"
             ]);
             // @formatter:on
 
             foreach (var task in tasksToDelete)
                 try
                 {
-                    if (!ScheduledTaskService.IsTaskEnabled(task))
-                    {
-                        context.Logger.LogDebug("Task {Task} not found or already disabled", task);
-                        continue;
-                    }
-
+                    if (!ScheduledTaskService.IsTaskEnabled(task)) continue;
                     ScheduledTaskService.DisableTask(task);
                     context.Logger.LogInformation("Disabled task {Task}", task);
                 }
@@ -158,6 +114,132 @@ public class SecurityAndPrivacy : IOptimizationCategory
                     context.Logger.LogWarning(ex, "Failed to disable task {Task}", task);
                 }
 
+            return Task.FromResult(ApplyResult.True());
+        }
+    }
+
+    [Optimization(Id = "097B1C61-F372-4B9E-A1C9-D5E6F7A8B9C0", Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.System | OptimizationTags.Privacy)]
+    public class DisableErrorReporting : BaseOptimization
+    {
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
+        {
+            RegistryService.Write(
+                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows\Windows Error Reporting", "Disabled", 1),
+                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\HandwritingErrorReports", "PreventHandwritingErrorReports", 1)
+            );
+
+            ServiceProcessService.ChangeServiceStartupType(
+                new ServiceItem("WerSvc", ServiceStartupType.Disabled),
+                new ServiceItem("PcaSvc", ServiceStartupType.Disabled)
+            );
+
+            var tasksToDelete = new[]
+            {
+                @"\Microsoft\Windows\Windows Error Reporting\QueueReporting",
+                @"\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector",
+                @"\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticResolver",
+                @"\Microsoft\Windows\Diagnosis\Scheduled"
+            };
+
+            foreach (var task in tasksToDelete)
+                try
+                {
+                    if (!ScheduledTaskService.IsTaskEnabled(task)) continue;
+                    ScheduledTaskService.DisableTask(task);
+                }
+                catch (Exception ex)
+                {
+                    context.Logger.LogWarning(ex, "Failed to disable task {Task}", task);
+                }
+
+            context.Logger.LogInformation("Disabled Windows Error Reporting and Compatibility Assistant");
+            return Task.FromResult(ApplyResult.True());
+        }
+    }
+
+    [Optimization(Id = "B1C2D3E4-F5A6-4B7C-8D9E-0F1A2B3C4D5E", Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.Privacy)]
+    public class DisableAdvertisingAndSuggestions : BaseOptimization
+    {
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
+        {
+            RegistryService.Write(
+                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo", "Enabled", 0),
+                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo", "DisabledByGroupPolicy", 1),
+                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Privacy", "TailoredExperiencesWithDiagnosticDataEnabled", 0),
+                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent", "DisableTailoredExperiencesWithDiagnosticData", 1),
+                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent", "DisableWindowsConsumerFeatures", 1),
+                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent", "DisableSoftLanding", 1),
+                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent", "DisableThirdPartySuggestions", 1),
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Feeds", "ShellFeedsTaskbarViewMode", 2),
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer", "HideSCAMeetNow", 1),
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\UserProfileEngagement", "ScoobeSystemSettingEnabled", 0),
+                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\InputPersonalization", "RestrictImplicitInkCollection", 1),
+                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\InputPersonalization", "RestrictImplicitTextCollection", 1),
+                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\InputPersonalization\TrainedDataStore", "HarvestContacts", 0),
+                new RegistryItem(@"HKCU\Control Panel\International\User Profile", "HttpAcceptLanguageOptOut", 1),
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy", "01", 0),
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy", "02", 0)
+            );
+
+            context.Logger.LogInformation("Disabled advertising ID, consumer features and system suggestions");
+            return Task.FromResult(ApplyResult.True());
+        }
+    }
+
+    [Optimization(Id = "A1B2C3D4-E5F6-4A7B-8C9D-0E1F2A3B4C5D", Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.Privacy)]
+    public class DisableActivityHistory : BaseOptimization
+    {
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
+        {
+            RegistryService.Write(
+                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\System", "PublishUserActivities", 0),
+                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\System", "EnableActivityFeed", 0),
+                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\System", "PublishUserActivitiesOnUserConsent", 0),
+                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\System", "UploadUserActivities", 0)
+            );
+
+            context.Logger.LogInformation("Disabled activity history collection and syncing");
+            return Task.FromResult(ApplyResult.True());
+        }
+    }
+
+    [Optimization(Id = "C1D2E3F4-A5B6-4C7D-8E9F-0A1B2C3D4E5F", Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.Privacy)]
+    public class DisableLocationAndSensors : BaseOptimization
+    {
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
+        {
+            RegistryService.Write(
+                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors", "DisableLocation", 1),
+                new RegistryItem(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors", "DisableSensors", 1),
+                new RegistryItem(@"HKLM\SYSTEM\Maps", "AutoUpdateEnabled", 0),
+                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sensor\Permissions\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}", "SensorPermissionState", 0),
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location", "Value", "Deny"),
+                new RegistryItem(@"HKLM\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location", "Value", "Deny"),
+                new RegistryItem(@"HKCU\Software\Microsoft\Windows\CurrentVersion\Geolocation", "Status", 0),
+                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Services\lfsvc\Service\Configuration", "Status", 0),
+                new RegistryItem(@"HKLM\Software\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting", "Value", 0),
+                new RegistryItem(@"HKLM\Software\Microsoft\PolicyManager\default\WiFi\AllowAutoConnectToWiFiSenseHotspots", "Value", 0)
+            );
+
+            try
+            {
+                if (ScheduledTaskService.IsTaskEnabled(@"\Microsoft\Windows\Maps\MapsUpdateTask"))
+                    ScheduledTaskService.DisableTask(@"\Microsoft\Windows\Maps\MapsUpdateTask");
+            }
+            catch (Exception ex)
+            {
+                context.Logger.LogWarning(ex, "Failed to disable maps update task");
+            }
+
+            context.Logger.LogInformation("Disabled location tracking, sensors and offline maps updates");
             return Task.FromResult(ApplyResult.True());
         }
     }

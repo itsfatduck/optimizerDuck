@@ -106,6 +106,14 @@ public class Gaming : IFeatureCategory
             },
             new()
             {
+                Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\GameDVR",
+                Name = "HistoricalCaptureEnabled",
+                OnValue = 1,
+                OffValue = 0,
+                DefaultValue = 0
+            },
+            new()
+            {
                 Path = @"HKCU\System\GameConfigStore",
                 Name = "GameDVR_Enabled",
                 OnValue = 1,
@@ -114,16 +122,16 @@ public class Gaming : IFeatureCategory
             },
             new()
             {
-                Path = @"HKLM\SOFTWARE\Policies\Microsoft\Windows\GameDVR",
-                Name = "AllowGameDVR",
+                Path = @"HKCU\System\GameConfigStore",
+                Name = "GameDVR_HistoricalCaptureEnabled",
                 OnValue = 1,
                 OffValue = 0,
-                DefaultValue = 1
+                DefaultValue = 0
             },
             new()
             {
-                Path = @"HKLM\SOFTWARE\Microsoft\PolicyManager\default\ApplicationManagement\AllowGameDVR",
-                Name = "value",
+                Path = @"HKLM\SOFTWARE\Policies\Microsoft\Windows\GameDVR",
+                Name = "AllowGameDVR",
                 OnValue = 1,
                 OffValue = 0,
                 DefaultValue = 1

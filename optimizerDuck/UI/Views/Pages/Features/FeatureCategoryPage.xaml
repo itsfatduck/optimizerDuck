@@ -131,6 +131,8 @@
                                                 </StackPanel>
                                             </ui:CardControl.Header>
                                             <ui:ToggleSwitch
+                                                OffContent="{ext:Loc Common.Toggle.Off}"
+OnContent="{ext:Loc Common.Toggle.On}"
                                                 Command="{Binding ToggleCommand}"
                                                 Cursor="Hand"
                                                 HorizontalAlignment="Right"
