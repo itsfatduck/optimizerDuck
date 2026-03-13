@@ -57,7 +57,7 @@ optimizerDuck currently supports the following languages:
 
 - 🇺🇸 **English** (United States) - _Primary & recommended_
 - 🇻🇳 **Vietnamese** (Tiếng Việt)
-- 🇹🇼 **Traditional Chinese** (繁體中文) - _Thanks to [abc0922001](https://github.com/abc0922001)_
+- 🇹🇼 **Traditional Chinese** (正體中文) - contributed by [abc0922001](https://github.com/abc0922001)
 
 > [!NOTE]
 > - **English is the primary and recommended language**, as it provides the most accurate, complete, and stable descriptions across all features and optimizations.  
