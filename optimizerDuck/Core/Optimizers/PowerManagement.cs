@@ -28,12 +28,11 @@ public class PowerManagement : IOptimizationCategory
             OptimizationContext context)
         {
             RegistryService.Write(
-                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\Power", "HibernateEnabled", 0),
-                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling",
-                    "HibernateEnabledDefault", 0),
-                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings",
-                    "ShowHibernateOption", 0),
-                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power", "HiberbootEnabled", 0)
+                new RegistryItem(
+                    @"HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power",
+                    "HiberbootEnabled",
+                    0
+                )
             );
             ShellService.CMD("powercfg /h off", "powercfg /h on");
             context.Logger.LogInformation("Disabled hibernate and fast startup");

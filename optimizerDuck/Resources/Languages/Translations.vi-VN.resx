@@ -1538,4 +1538,64 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Features.Title" xml:space="preserve">
     <value>Tính năng</value>
   </data>
+  <data name="Features.SystemFeatures.Name" xml:space="preserve">
+    <value>Hệ thống</value>
+  </data>
+  <data name="Features.SystemFeatures.Description" xml:space="preserve">
+    <value>Tối ưu hóa các tính năng và hoạt động cốt lõi của hệ thống</value>
+  </data>
+  <data name="Features.SystemFeatures.Section.Boot" xml:space="preserve">
+    <value>Khởi động</value>
+  </data>
+  <data name="Features.SystemFeatures.Section.Input" xml:space="preserve">
+    <value>Đầu vào</value>
+  </data>
+  <data name="Features.SystemFeatures.EnableNumLockOnBoot.Name" xml:space="preserve">
+    <value>Bật NumLock khi khởi động</value>
+  </data>
+  <data name="Features.SystemFeatures.EnableNumLockOnBoot.Description" xml:space="preserve">
+    <value>Tự động bật NumLock ở màn hình đăng nhập Windows</value>
+  </data>
+  <data name="Features.Desktop.Name" xml:space="preserve">
+    <value>Màn hình chính</value>
+  </data>
+  <data name="Features.Desktop.Description" xml:space="preserve">
+    <value>Quản lý biểu tượng và hành vi lối tắt trên Desktop</value>
+  </data>
+  <data name="Features.Desktop.Section.Icons" xml:space="preserve">
+    <value>Biểu tượng Desktop</value>
+  </data>
+  <data name="Features.Desktop.Section.Behaviors" xml:space="preserve">
+    <value>Hành vi lối tắt</value>
+  </data>
+  <data name="Features.Desktop.ShowThisPc.Name" xml:space="preserve">
+    <value>Hiển thị "This PC"</value>
+  </data>
+  <data name="Features.Desktop.ShowThisPc.Description" xml:space="preserve">
+    <value>Hiển thị biểu tượng This PC trên màn hình Desktop của bạn</value>
+  </data>
+  <data name="Features.Desktop.ShowRecycleBin.Name" xml:space="preserve">
+    <value>Hiển thị Thùng rác (Recycle Bin)</value>
+  </data>
+  <data name="Features.Desktop.ShowRecycleBin.Description" xml:space="preserve">
+    <value>Hiển thị biểu tượng Thùng rác trên màn hình Desktop của bạn</value>
+  </data>
+  <data name="Features.Desktop.RemoveShortcutArrow.Name" xml:space="preserve">
+    <value>Xóa mũi tên lối tắt</value>
+  </data>
+  <data name="Features.Desktop.RemoveShortcutArrow.Description" xml:space="preserve">
+    <value>Ẩn biểu tượng mũi tên nhỏ trên các lối tắt Desktop</value>
+  </data>
+  <data name="Features.Preferences.LaunchToThisPc.Name" xml:space="preserve">
+    <value>Mở mặc định vào "This PC"</value>
+  </data>
+  <data name="Features.Preferences.LaunchToThisPc.Description" xml:space="preserve">
+    <value>Mở File Explorer thẳng vào This PC thay vì Quick Access</value>
+  </data>
+  <data name="Features.Preferences.DisableBingSearch.Name" xml:space="preserve">
+    <value>Tắt Tìm kiếm Bing</value>
+  </data>
+  <data name="Features.Preferences.DisableBingSearch.Description" xml:space="preserve">
+    <value>Xóa kết quả tìm kiếm web và đề xuất của Bing khỏi Windows Search</value>
+  </data>
 </root>

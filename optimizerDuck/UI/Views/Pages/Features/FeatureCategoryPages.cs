@@ -25,3 +25,11 @@ public sealed class GamingFeatureCategory : FeatureCategoryPage
         InitializeComponent();
     }
 }
+
+public sealed class DesktopFeatureCategory : FeatureCategoryPage
+{
+    public DesktopFeatureCategory(FeatureCategoryViewModel viewModel) : base(viewModel)
+    {
+        InitializeComponent();
+    }
+}

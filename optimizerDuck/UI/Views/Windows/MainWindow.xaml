@@ -51,8 +51,7 @@
                 <ui:NavigationViewItem
                     x:Name="FeaturesMenuItem"
                     Content="{extensions:Loc Sidebar.Features}"
-                    Icon="{ui:SymbolIcon ToggleLeft24}"
-                    TargetPageType="{x:Type pages:FeaturesPage}" />
+                    Icon="{ui:SymbolIcon ToggleLeft24}" />
 
                 <controls:FilledNavigationViewItem
                     Content="{extensions:Loc Sidebar.Bloatware}"

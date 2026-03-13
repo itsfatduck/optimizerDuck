@@ -34,7 +34,7 @@ public record struct RegistryItem
     /// <param name="name">The value name.</param>
     /// <param name="value">The value data.</param>
     /// <param name="kind">The value kind.</param>
-    public RegistryItem(string path, string name, object value, RegistryValueKind kind)
+    public RegistryItem(string path, string? name, object value, RegistryValueKind kind)
     {
         Path = path;
         Name = name;

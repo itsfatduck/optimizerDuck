@@ -30,6 +30,7 @@ public class Preferences : IFeatureCategory
     [Feature(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.TextAlignDistributedEvenly24)]
     public class TaskbarAlignment : BaseFeature
     {
+        protected override bool NeedsPostAction => true;
 
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
         [
@@ -47,6 +48,7 @@ public class Preferences : IFeatureCategory
     [Feature(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.Grid24)]
     public class TaskbarWidgets : BaseFeature
     {
+        protected override bool NeedsPostAction => true;
 
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
         [
@@ -80,6 +82,7 @@ public class Preferences : IFeatureCategory
     [Feature(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.DesktopMac24)]
     public class TaskbarTaskViewButton : BaseFeature
     {
+        protected override bool NeedsPostAction => true;
 
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
         [
@@ -291,6 +294,40 @@ public class Preferences : IFeatureCategory
             {
                 Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
                 Name = "ShowSecondsInSystemClock",
+                OnValue = 1,
+                OffValue = 0,
+                DefaultValue = 0
+            }
+        ];
+    }
+
+    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.Folder24)]
+    public class LaunchToThisPc : BaseFeature
+    {
+        protected override IEnumerable<RegistryToggle> RegistryToggles =>
+        [
+            new()
+            {
+                Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+                Name = "LaunchTo",
+                OnValue = 1,
+                OffValue = 2,
+                DefaultValue = 2
+            }
+        ];
+    }
+
+    [Feature(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.Search24)]
+    public class DisableBingSearch : BaseFeature
+    {
+        protected override bool NeedsPostAction => true;
+
+        protected override IEnumerable<RegistryToggle> RegistryToggles =>
+        [
+            new()
+            {
+                Path = @"HKCU\Software\Policies\Microsoft\Windows\Explorer",
+                Name = "DisableSearchBoxSuggestions",
                 OnValue = 1,
                 OffValue = 0,
                 DefaultValue = 0

@@ -1546,4 +1546,64 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="Features.Title" xml:space="preserve">
     <value>Features</value>
   </data>
+  <data name="Features.SystemFeatures.Name" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="Features.SystemFeatures.Description" xml:space="preserve">
+    <value>Optimize core system features and behaviors</value>
+  </data>
+  <data name="Features.SystemFeatures.Section.Boot" xml:space="preserve">
+    <value>Boot Operations</value>
+  </data>
+  <data name="Features.SystemFeatures.Section.Input" xml:space="preserve">
+    <value>Input Settings</value>
+  </data>
+  <data name="Features.SystemFeatures.EnableNumLockOnBoot.Name" xml:space="preserve">
+    <value>Enable NumLock on Boot</value>
+  </data>
+  <data name="Features.SystemFeatures.EnableNumLockOnBoot.Description" xml:space="preserve">
+    <value>Automatically turns on NumLock at the Windows login screen</value>
+  </data>
+  <data name="Features.Desktop.Name" xml:space="preserve">
+    <value>Desktop</value>
+  </data>
+  <data name="Features.Desktop.Description" xml:space="preserve">
+    <value>Manage desktop icons and shortcut behaviors</value>
+  </data>
+  <data name="Features.Desktop.Section.Icons" xml:space="preserve">
+    <value>Desktop Icons</value>
+  </data>
+  <data name="Features.Desktop.Section.Behaviors" xml:space="preserve">
+    <value>Shortcut Behaviors</value>
+  </data>
+  <data name="Features.Desktop.ShowThisPc.Name" xml:space="preserve">
+    <value>Show "This PC"</value>
+  </data>
+  <data name="Features.Desktop.ShowThisPc.Description" xml:space="preserve">
+    <value>Display the This PC icon on your desktop</value>
+  </data>
+  <data name="Features.Desktop.ShowRecycleBin.Name" xml:space="preserve">
+    <value>Show Recycle Bin</value>
+  </data>
+  <data name="Features.Desktop.ShowRecycleBin.Description" xml:space="preserve">
+    <value>Display the Recycle Bin icon on your desktop</value>
+  </data>
+  <data name="Features.Desktop.RemoveShortcutArrow.Name" xml:space="preserve">
+    <value>Remove Shortcut Arrow</value>
+  </data>
+  <data name="Features.Desktop.RemoveShortcutArrow.Description" xml:space="preserve">
+    <value>Hide the small arrow overlay on desktop shortcut icons</value>
+  </data>
+  <data name="Features.Preferences.LaunchToThisPc.Name" xml:space="preserve">
+    <value>Launch to "This PC"</value>
+  </data>
+  <data name="Features.Preferences.LaunchToThisPc.Description" xml:space="preserve">
+    <value>Open File Explorer to This PC instead of Quick Access</value>
+  </data>
+  <data name="Features.Preferences.DisableBingSearch.Name" xml:space="preserve">
+    <value>Disable Bing Search</value>
+  </data>
+  <data name="Features.Preferences.DisableBingSearch.Description" xml:space="preserve">
+    <value>Remove Bing web results and suggestions from Windows Search</value>
+  </data>
 </root>

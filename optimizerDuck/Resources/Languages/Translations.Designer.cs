@@ -1061,6 +1061,96 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage desktop icons and shortcut behaviors.
+        /// </summary>
+        internal static string Features_Desktop_Description {
+            get {
+                return ResourceManager.GetString("Features.Desktop.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Desktop.
+        /// </summary>
+        internal static string Features_Desktop_Name {
+            get {
+                return ResourceManager.GetString("Features.Desktop.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide the small arrow overlay on desktop shortcut icons.
+        /// </summary>
+        internal static string Features_Desktop_RemoveShortcutArrow_Description {
+            get {
+                return ResourceManager.GetString("Features.Desktop.RemoveShortcutArrow.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove Shortcut Arrow.
+        /// </summary>
+        internal static string Features_Desktop_RemoveShortcutArrow_Name {
+            get {
+                return ResourceManager.GetString("Features.Desktop.RemoveShortcutArrow.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shortcut Behaviors.
+        /// </summary>
+        internal static string Features_Desktop_Section_Behaviors {
+            get {
+                return ResourceManager.GetString("Features.Desktop.Section.Behaviors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Desktop Icons.
+        /// </summary>
+        internal static string Features_Desktop_Section_Icons {
+            get {
+                return ResourceManager.GetString("Features.Desktop.Section.Icons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display the Recycle Bin icon on your desktop.
+        /// </summary>
+        internal static string Features_Desktop_ShowRecycleBin_Description {
+            get {
+                return ResourceManager.GetString("Features.Desktop.ShowRecycleBin.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Recycle Bin.
+        /// </summary>
+        internal static string Features_Desktop_ShowRecycleBin_Name {
+            get {
+                return ResourceManager.GetString("Features.Desktop.ShowRecycleBin.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display the This PC icon on your desktop.
+        /// </summary>
+        internal static string Features_Desktop_ShowThisPc_Description {
+            get {
+                return ResourceManager.GetString("Features.Desktop.ShowThisPc.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show &quot;This PC&quot;.
+        /// </summary>
+        internal static string Features_Desktop_ShowThisPc_Name {
+            get {
+                return ResourceManager.GetString("Features.Desktop.ShowThisPc.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Controls automatic background game recording (Game DVR) and app capture..
         /// </summary>
         internal static string Features_Gaming_BackgroundRecording_Description {
@@ -1277,6 +1367,24 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove Bing web results and suggestions from Windows Search.
+        /// </summary>
+        internal static string Features_Preferences_DisableBingSearch_Description {
+            get {
+                return ResourceManager.GetString("Features.Preferences.DisableBingSearch.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable Bing Search.
+        /// </summary>
+        internal static string Features_Preferences_DisableBingSearch_Name {
+            get {
+                return ResourceManager.GetString("Features.Preferences.DisableBingSearch.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Decreases spacing between items in File Explorer for a denser view..
         /// </summary>
         internal static string Features_Preferences_ExplorerCompactMode_Description {
@@ -1327,6 +1435,24 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Features_Preferences_ExplorerSyncNotifications_Name {
             get {
                 return ResourceManager.GetString("Features.Preferences.ExplorerSyncNotifications.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open File Explorer to This PC instead of Quick Access.
+        /// </summary>
+        internal static string Features_Preferences_LaunchToThisPc_Description {
+            get {
+                return ResourceManager.GetString("Features.Preferences.LaunchToThisPc.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Launch to &quot;This PC&quot;.
+        /// </summary>
+        internal static string Features_Preferences_LaunchToThisPc_Name {
+            get {
+                return ResourceManager.GetString("Features.Preferences.LaunchToThisPc.Name", resourceCulture);
             }
         }
         
@@ -1633,6 +1759,60 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Features_Preferences_ToastNotifications_Name {
             get {
                 return ResourceManager.GetString("Features.Preferences.ToastNotifications.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optimize core system features and behaviors.
+        /// </summary>
+        internal static string Features_SystemFeatures_Description {
+            get {
+                return ResourceManager.GetString("Features.SystemFeatures.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically turns on NumLock at the Windows login screen.
+        /// </summary>
+        internal static string Features_SystemFeatures_EnableNumLockOnBoot_Description {
+            get {
+                return ResourceManager.GetString("Features.SystemFeatures.EnableNumLockOnBoot.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable NumLock on Boot.
+        /// </summary>
+        internal static string Features_SystemFeatures_EnableNumLockOnBoot_Name {
+            get {
+                return ResourceManager.GetString("Features.SystemFeatures.EnableNumLockOnBoot.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System.
+        /// </summary>
+        internal static string Features_SystemFeatures_Name {
+            get {
+                return ResourceManager.GetString("Features.SystemFeatures.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boot Operations.
+        /// </summary>
+        internal static string Features_SystemFeatures_Section_Boot {
+            get {
+                return ResourceManager.GetString("Features.SystemFeatures.Section.Boot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input Settings.
+        /// </summary>
+        internal static string Features_SystemFeatures_Section_Input {
+            get {
+                return ResourceManager.GetString("Features.SystemFeatures.Section.Input", resourceCulture);
             }
         }
         
