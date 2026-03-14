@@ -16,6 +16,8 @@
 [![.NET Latest](https://img.shields.io/badge/.NET_Runtime-Latest-ef99dd)](https://dotnet.microsoft.com/en-us/download)
 [![Supported OS](https://img.shields.io/badge/Supported-Windows_10+_x64-0078d4)](https://www.microsoft.com/en-us/software-download/)
 
+[Quick Start](#quick-start) • [Documentation](#documentation) • [Contributing](#contributing) • [Support](#support) • [Community](#community) • [Disclaimer](#disclaimer) • [License](#license)
+
 <details>
 <summary>Star History</summary>
 
@@ -61,9 +63,7 @@ optimizerDuck currently supports the following languages:
 
 > [!NOTE]
 > - **English is the primary and recommended language**, as it provides the most accurate, complete, and stable descriptions across all features and optimizations.  
-> - If you would like to help translate optimizerDuck into your language, feel free to open an issue or submit a pull request.
-
----
+> - If you would like to help translate optimizerDuck into your language, please take a look at [Contributing Guidelines](./.github/CONTRIBUTING.md).
 
 ## Documentation
 
@@ -71,25 +71,9 @@ Full documentation and advanced guides are available here:
 
 ### [optimizerDuck Documentation](https://optimizerduck.vercel.app/docs/guides/getting-started)
 
----
-
 ## Contributing
 
-Contributions are welcome!
-
-You can help by:
-
-* Reporting bugs
-* Suggesting improvements
-* Submitting pull requests
-* Improving translations
-* Enhancing documentation
-
-Please follow project guidelines when contributing:
-- [Contributing Guidelines](./CONTRIBUTING.md)
-- [Code of Conduct](./CODE_OF_CONDUCT.md)
-
----
+Contributions are welcome! Please read the [Contributing Guidelines](./.github/CONTRIBUTING.md) for more details.
 
 ## Support the Project
 
@@ -102,8 +86,6 @@ If optimizerDuck improved your PC experience:
 
 Every star and contribution helps keep the project growing.
 
----
-
 ## Community, Contributing & Support
 
 - 🌐 [Website](https://optimizerduck.vercel.app/) - Official Website & Documentation
@@ -112,8 +94,6 @@ Every star and contribution helps keep the project growing.
 
 > [!TIP]
 > Before asking for help, check the docs and existing issues, your answer may already be there.
-
----
 
 ## Disclaimer
 
@@ -127,8 +107,6 @@ By using this tool, you agree that the authors are **not responsible** for:
 
 Always create a **restore point or backup** before applying system changes.
 
----
-
 ## DMCA & Attribution
 
 optimizerDuck is an independent open-source project built from scratch.
@@ -137,16 +115,24 @@ Some ideas and tweaks are inspired by community research and other open-source t
 
 If you believe any part of this project violates your copyright, please open an issue or submit a DMCA request via GitHub. Valid requests will be reviewed promptly and respectfully.
 
----
+<div align="center">
 
 ## License
 
 <img src=".github/assets/gplv3.png" alt="GPL v3 License" title="GPL v3 License"/>
 
+
+
 This project is licensed under the **[GPL v3 License](https://www.gnu.org/licenses/gpl-3.0.en.html)**.  
 See the [LICENSE](./LICENSE) file for details.
 
+</div>
+
+<div align="center">
+
 ## Thanks to all Contributors
+
 My application is starting to get new contributors. Thank you all so much for your support and contributions!
 
 [![Contributors](https://contrib.rocks/image?repo=itsfatduck/optimizerDuck)](https://github.com/itsfatduck/optimizerDuck/graphs/contributors)
+</div>
