@@ -2,7 +2,7 @@
 
 <a href="https://optimizerduck.vercel.app/"><img src="./assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/></a>
 
-[Introduction](#introduction) • [Getting Started](#getting-started) • [Ways to Contribute](#ways-to-contribute) • [Detailed Contribution Guidelines](#detailed-contribution-guidelines) • [Coding Standards](#coding-standards) • [Pull Request Process](#pull-request-process) • [Credits](#credits) • [License](#license)
+[Introduction](#introduction) • [Getting Started](#getting-started) • [Ways to Contribute](#ways-to-contribute) • [Detailed Contribution Guidelines](#detailed-contribution-guidelines) • [Coding Standards](#-coding-standards) • [Localization Guidelines](#-localization-guidelines) • [Pull Request Process](#-pull-request-process) • [Credits](#-credits) • [License](#-license)
 
 </div>
 
@@ -60,7 +60,9 @@ dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj
 ---
 
 <div align="center">
-  <h2>Ways to Contribute</h2>
+
+  ## Ways to Contribute
+
 </div>
 
 We welcome a wide variety of contributions. Here is an overview of how you can help:
@@ -157,7 +159,9 @@ Great documentation helps everyone!
 ---
 
 <div align="center">
-  <h2>🌍 Localization Guidelines</h2>
+
+  ## 🌍 Localization Guidelines
+
 </div>
 
 **Never hardcode strings into the UI or Services**. All display texts, logs, and dialogs must use the Resource manager.
@@ -191,7 +195,9 @@ Great documentation helps everyone!
 ---
 
 <div align="center">
-  <h2>💻 Coding Standards</h2>
+
+  ## 💻 Coding Standards
+
 </div>
 
 We enforce a modern, clean C# codebase format.
@@ -211,7 +217,9 @@ We enforce a modern, clean C# codebase format.
 ---
 
 <div align="center">
-  <h2>🔄 Pull Request Process</h2>
+
+  ## 🔄 Pull Request Process
+
 </div>
 
 1. **Create a Branch**: Always branch out from `master`. Do not work directly on the `master` branch.
@@ -236,7 +244,9 @@ We enforce a modern, clean C# codebase format.
 ---
 
 <div align="center">
-  <h2>💬 Issue Guidelines</h2>
+
+  ## 💬 Issue Guidelines
+
 </div>
 
 If you find a bug or have an idea, we want to hear from you via GitHub Issues.
@@ -247,7 +257,9 @@ If you find a bug or have an idea, we want to hear from you via GitHub Issues.
 ---
 
 <div align="center">
-  <h2>🎖 Credits</h2>
+
+  ## 🎖 Credits
+
 </div>
 
 We love our community! 
@@ -256,7 +268,9 @@ Contributors who have merged PRs will be listed and mentioned in release notes. 
 ---
 
 <div align="center">
-  <h2>📜 License</h2>
+
+  ## 📜 License
+
 </div>
 
 By contributing to optimizerDuck, you agree that your contributions will be licensed under the project's [license](../LICENSE).
