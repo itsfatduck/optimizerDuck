@@ -2,7 +2,7 @@
 
 <a href="https://optimizerduck.vercel.app/"><img src="./assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/></a>
 
-[Introduction](#introduction) • [Getting Started](#getting-started) • [Ways to Contribute](#ways-to-contribute) • [Detailed Contribution Guidelines](#detailed-contribution-guidelines) • [Coding Standards](#coding-standards) • [Pull Request Process](#pull-request-process) • [Pull Request Checklist](#pull-request-checklist) • [Credits](#credits) • [License](#license)
+[Introduction](#introduction) • [Getting Started](#getting-started) • [Ways to Contribute](#ways-to-contribute) • [Detailed Contribution Guidelines](#detailed-contribution-guidelines) • [Coding Standards](#coding-standards) • [Pull Request Process](#pull-request-process) • [Credits](#credits) • [License](#license)
 
 </div>
 
@@ -232,21 +232,6 @@ We enforce a modern, clean C# codebase format.
    - If your PR affects the UI (adding a new page, feature card, etc.), **you must link a screenshot or a GIF**.
    - Link any related GitHub issues (`Closes #42`).
 4. **Code Review**: A maintainer will review your code. Be open to feedback!
-
----
-
-<div align="center">
-  <h2>✅ Pull Request Checklist</h2>
-</div>
-
-Before hitting that submit button on GitHub, check these boxes:
-
-- [ ] Code builds without errors or warnings (`dotnet build`).
-- [ ] All unit tests pass locally (`dotnet test`).
-- [ ] Code perfectly maps to our naming and style conventions.
-- [ ] UI changes include a screenshot/GIF in the PR description.
-- [ ] All strings added are placed in `.resx` files; no hardcoded strings.
-- [ ] Revert logic for new optimizations uses `RegistryService/ShellService` or manually records `RevertManager.Record()`.
 
 ---
 

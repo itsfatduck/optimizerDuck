@@ -15,16 +15,18 @@ Link any relevant GitHub issues here (e.g., "Fixes #123" or "Closes #456").
 - [ ] 🌐 Translation/Localization update (`i18n:` or `chore:`)
 
 ## Checklist
-<!-- Please ensure all of the following points are checked before submitting the PR -->
-- [ ] **Commit Messages:** My PR title and commit messages follow the **Conventional Commits** format (e.g., `feat: add game mode optimization`, `fix: correct layout glitch`).
-- [ ] **Compilation & Tests:** I have built the application (`dotnet build optimizerDuck.slnx`) and all tests pass (`dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj`).
-- [ ] **Code Style:** My C# code follows the project's naming conventions in [CONTRIBUTING.md](./CONTRIBUTING.md).
-- [ ] **Localization (If adding UI text):** I did NOT hardcode UI text. I have updated the `.resx` files located in the `optimizerDuck/Resources/Languages/` directory.
+<!-- Before hitting that submit button on GitHub, check these boxes: -->
+
+- [ ] Code builds without errors or warnings (`dotnet build`).
+- [ ] All unit tests pass locally (`dotnet test`).
+- [ ] Code perfectly maps to our naming and style conventions.
+- [ ] UI changes include a screenshot/GIF in the Screenshots or Video section.
 
 ### For New Optimizations (Skip if irrelevant)
-- [ ] I inherited from `BaseOptimization` (or implemented `IOptimization`).
+- [ ] I inherited from `BaseOptimization`.
 - [ ] I included the `[Optimization]` attribute with a valid `Guid` formatted `Id`, a correct `OptimizationRisk`, and appropriate `Tags`.
-- [ ] I mapped the string keys properly so the Name and Description can be translated.
+- [ ] All strings added are placed in `.resx` files; no hardcoded strings.
+- [ ] Revert logic for new optimizations uses `RegistryService/ShellService` or manually records `RevertManager.Record()`.
 
 ## Screenshots or Video (if applicable)
 <!-- 
