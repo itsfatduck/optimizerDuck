@@ -319,7 +319,7 @@ public class Preferences : IFeatureCategory
         ];
     }
 
-    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.Clock24)]
+    [Feature(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.Clock24)]
     public class ShowSecondsInSystemClock : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
