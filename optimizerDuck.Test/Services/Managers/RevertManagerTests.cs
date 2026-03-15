@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json;
-using optimizerDuck.Shared.Helpers;
+using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Revert;
@@ -29,6 +29,7 @@ public class RevertManagerTests
     {
         var id = Guid.NewGuid();
         var path = Path.Combine(Shared.RevertDirectory, id + ".json");
+        var cancellationToken = TestContext.Current.CancellationToken;
         Directory.CreateDirectory(Shared.RevertDirectory);
 
         var payload = new RevertData
@@ -42,7 +43,7 @@ public class RevertManagerTests
         try
         {
             var json = JsonConvert.SerializeObject(payload, Formatting.Indented);
-            await File.WriteAllTextAsync(path, json);
+            await File.WriteAllTextAsync(path, json, cancellationToken);
 
             var data = await RevertManager.GetRevertDataAsync(id);
 
@@ -61,11 +62,12 @@ public class RevertManagerTests
     {
         var id = Guid.NewGuid();
         var path = Path.Combine(Shared.RevertDirectory, id + ".json");
+        var cancellationToken = TestContext.Current.CancellationToken;
         Directory.CreateDirectory(Shared.RevertDirectory);
 
         try
         {
-            await File.WriteAllTextAsync(path, "{ invalid json }");
+            await File.WriteAllTextAsync(path, "{ invalid json }", cancellationToken);
 
             var manager = new RevertManager(NullLogger<RevertManager>.Instance, NullLoggerFactory.Instance);
             var op = new MockOptimization(id);
@@ -85,6 +87,7 @@ public class RevertManagerTests
     {
         var id = Guid.NewGuid();
         var path = Path.Combine(Shared.RevertDirectory, id + ".json");
+        var cancellationToken = TestContext.Current.CancellationToken;
         Directory.CreateDirectory(Shared.RevertDirectory);
 
         var payload = new RevertData
@@ -118,7 +121,7 @@ public class RevertManagerTests
         try
         {
             var json = JsonConvert.SerializeObject(payload, Formatting.Indented);
-            await File.WriteAllTextAsync(path, json);
+            await File.WriteAllTextAsync(path, json, cancellationToken);
 
             var manager = new RevertManager(NullLogger<RevertManager>.Instance, NullLoggerFactory.Instance);
             var result = await manager.RevertAsync(new MockOptimization(id));

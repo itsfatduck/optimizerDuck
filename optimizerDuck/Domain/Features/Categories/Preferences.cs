@@ -388,7 +388,7 @@ public class Preferences : IFeatureCategory
 
         public override async Task EnableAsync()
         {
-            RegistryService.Write(new RegistryItem(InprocPath, null!, ""));
+            RegistryService.Write(new RegistryItem(InprocPath, null, ""));
 
             if (NeedsPostAction)
                 await ExecutePostActionAsync();

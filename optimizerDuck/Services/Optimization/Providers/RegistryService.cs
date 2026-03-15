@@ -140,6 +140,11 @@ public static class RegistryService
         }
     }
 
+    private static string NormalizeValueName(string? name)
+    {
+        return name ?? string.Empty;
+    }
+
     public static bool KeyExists(RegistryItem item)
     {
         return WithKey(item, key => true, false);
@@ -151,7 +156,8 @@ public static class RegistryService
         {
             try
             {
-                var value = key.GetValue(item.Name, null, RegistryValueOptions.DoNotExpandEnvironmentNames);
+                var valueName = NormalizeValueName(item.Name);
+                var value = key.GetValue(valueName, null, RegistryValueOptions.DoNotExpandEnvironmentNames);
                 if (value is null) return default;
 
                 var result = ConvertRegistryValue<T>(value);
@@ -183,12 +189,13 @@ public static class RegistryService
             var description = string.Format(Translations.Service_Registry_Description_Write, item.Path, item.Name);
             try
             {
-                var backupValue = key.GetValue(item.Name, null, RegistryValueOptions.DoNotExpandEnvironmentNames);
+                var valueName = NormalizeValueName(item.Name);
+                var backupValue = key.GetValue(valueName, null, RegistryValueOptions.DoNotExpandEnvironmentNames);
                 var valueExists = backupValue != null ||
-                                  key.GetValueNames().Contains(item.Name, StringComparer.OrdinalIgnoreCase);
-                var backupKind = valueExists ? key.GetValueKind(item.Name) : RegistryValueKind.Unknown;
+                                  key.GetValueNames().Contains(valueName, StringComparer.OrdinalIgnoreCase);
+                var backupKind = valueExists ? key.GetValueKind(valueName) : RegistryValueKind.Unknown;
 
-                key.SetValue(item.Name, item.Value, item.Kind);
+                key.SetValue(valueName, item.Value, item.Kind);
 
                 var revertStep = new RegistryRevertStep
                 {
@@ -232,8 +239,9 @@ public static class RegistryService
             var description = string.Format(Translations.Service_Registry_Description_Delete, item.Path, item.Name ?? "(Default)");
             try
             {
-                var backupValue = key.GetValue(item.Name, null, RegistryValueOptions.DoNotExpandEnvironmentNames);
-                if (backupValue == null && !key.GetValueNames().Contains(item.Name, StringComparer.OrdinalIgnoreCase))
+                var valueName = NormalizeValueName(item.Name);
+                var backupValue = key.GetValue(valueName, null, RegistryValueOptions.DoNotExpandEnvironmentNames);
+                if (backupValue == null && !key.GetValueNames().Contains(valueName, StringComparer.OrdinalIgnoreCase))
                 {
                     ExecutionScope.LogInfo("Skip delete registry {Path}:{Name} (not found)", item.Path, item.Name!);
                     ExecutionScope.Track(nameof(DeleteValue), true);
@@ -241,8 +249,8 @@ public static class RegistryService
                     return true;
                 }
 
-                var backupKind = key.GetValueKind(item.Name);
-                key.DeleteValue(item.Name!, false);
+                var backupKind = key.GetValueKind(valueName);
+                key.DeleteValue(valueName, false);
 
                 var revertStep = new RegistryRevertStep
                 {

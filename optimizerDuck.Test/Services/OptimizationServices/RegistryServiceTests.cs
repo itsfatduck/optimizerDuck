@@ -98,6 +98,40 @@ public class RegistryServiceTests : IDisposable
     }
 
     [Fact]
+    public async Task DeleteDefaultValue_RestorePreviousValue_OnRevert()
+    {
+        var key = $@"{BaseTestKey}\DeleteDefaultValueTest";
+
+        RegistryService.Write(new RegistryItem(key, null, "DefaultHello"));
+        RegistryService.DeleteValue(new RegistryItem(key, null));
+
+        var step = _scope.ExecutedSteps.Last();
+
+        await step.RevertStep!.ExecuteAsync();
+
+        var value = RegistryService.Read<string>(new RegistryItem(key, null));
+        Assert.Equal("DefaultHello", value);
+    }
+
+    [Fact]
+    public async Task WriteDefaultValue_OverwriteValue_RevertRestoresPreviousValue()
+    {
+        var key = $@"{BaseTestKey}\WriteDefaultValueTest";
+
+        Assert.True(RegistryService.Write(new RegistryItem(key, null, "OriginalDefault")));
+        Assert.True(RegistryService.Write(new RegistryItem(key, null, "UpdatedDefault")));
+
+        var value = RegistryService.Read<string>(new RegistryItem(key, null));
+        Assert.Equal("UpdatedDefault", value);
+
+        var step = _scope.ExecutedSteps.Last();
+        Assert.True(await step.RevertStep!.ExecuteAsync());
+
+        var restoredValue = RegistryService.Read<string>(new RegistryItem(key, null));
+        Assert.Equal("OriginalDefault", restoredValue);
+    }
+
+    [Fact]
     public async Task DeleteSubKeyTree_CreatesRecursiveBackupAndRestoresCorrectly()
     {
         // 1. Setup a complex tree structure

@@ -34,7 +34,7 @@ public record struct RegistryItem
     /// <param name="name">The value name.</param>
     /// <param name="value">The value data.</param>
     /// <param name="kind">The value kind.</param>
-    public RegistryItem(string path, string name, object value, RegistryValueKind kind)
+    public RegistryItem(string path, string? name, object? value, RegistryValueKind kind)
     {
         Path = path;
         Name = name;
@@ -48,7 +48,7 @@ public record struct RegistryItem
     /// <param name="path">The registry key path.</param>
     /// <param name="name">The value name.</param>
     /// <param name="value">The value data (kind is auto-detected from the type).</param>
-    public RegistryItem(string path, string name, object value)
+    public RegistryItem(string path, string? name, object? value)
     {
         Path = path;
         Name = name;
@@ -61,7 +61,7 @@ public record struct RegistryItem
     /// </summary>
     /// <param name="path">The registry key path.</param>
     /// <param name="name">The value name to target.</param>
-    public RegistryItem(string path, string name)
+    public RegistryItem(string path, string? name)
     {
         Path = path;
         Name = name;
