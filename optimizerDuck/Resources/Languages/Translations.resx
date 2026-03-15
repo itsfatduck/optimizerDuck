@@ -932,6 +932,18 @@ Current version: {0}</value>
   <data name="Features.Preferences.ShowHiddenFiles.Description" xml:space="preserve">
     <value>Shows hidden files and folders in File Explorer.</value>
   </data>
+  <data name="Features.Preferences.ClipboardHistory.Name" xml:space="preserve">
+    <value>Clipboard History</value>
+  </data>
+  <data name="Features.Preferences.ClipboardHistory.Description" xml:space="preserve">
+    <value>Keep multiple copied items so you can paste them later with Win+V.</value>
+  </data>
+  <data name="Features.Preferences.WindowShake.Name" xml:space="preserve">
+    <value>Window Shake</value>
+  </data>
+  <data name="Features.Preferences.WindowShake.Description" xml:space="preserve">
+    <value>Shake a window to minimize all other open windows.</value>
+  </data>
   <data name="Features.Preferences.ClassicContextMenu.Name" xml:space="preserve">
     <value>Classic Context Menu</value>
   </data>
@@ -1593,6 +1605,30 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   </data>
   <data name="Features.Desktop.ShowRecycleBin.Description" xml:space="preserve">
     <value>Display the Recycle Bin icon on your desktop</value>
+  </data>
+  <data name="Features.Desktop.ShowUserFiles.Name" xml:space="preserve">
+    <value>Show User Files</value>
+  </data>
+  <data name="Features.Desktop.ShowUserFiles.Description" xml:space="preserve">
+    <value>Display your user profile folder as a desktop icon</value>
+  </data>
+  <data name="Features.Desktop.ShowNetwork.Name" xml:space="preserve">
+    <value>Show Network</value>
+  </data>
+  <data name="Features.Desktop.ShowNetwork.Description" xml:space="preserve">
+    <value>Display the Network icon on your desktop</value>
+  </data>
+  <data name="Features.Desktop.ShowControlPanel.Name" xml:space="preserve">
+    <value>Show Control Panel</value>
+  </data>
+  <data name="Features.Desktop.ShowControlPanel.Description" xml:space="preserve">
+    <value>Display the Control Panel icon on your desktop</value>
+  </data>
+  <data name="Features.Desktop.ShowDesktopIcons.Name" xml:space="preserve">
+    <value>Show Desktop Icons</value>
+  </data>
+  <data name="Features.Desktop.ShowDesktopIcons.Description" xml:space="preserve">
+    <value>Show or hide all desktop icons at once</value>
   </data>
   <data name="Features.Desktop.RemoveShortcutArrow.Name" xml:space="preserve">
     <value>Remove Shortcut Arrow</value>

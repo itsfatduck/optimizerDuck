@@ -62,6 +62,78 @@ public class Desktop : IFeatureCategory
         ];
     }
 
+    [Feature(Section = nameof(Sections.Icons), Icon = SymbolRegular.Folder24)]
+    public class ShowUserFiles : BaseFeature
+    {
+        protected override bool NeedsPostAction => true;
+
+        protected override IEnumerable<RegistryToggle> RegistryToggles =>
+        [
+            new()
+            {
+                Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel",
+                Name = "{59031a47-3f72-44a7-89c5-5595fe6b30ee}",
+                OnValue = 0,
+                OffValue = 1,
+                DefaultValue = 1
+            }
+        ];
+    }
+
+    [Feature(Section = nameof(Sections.Icons), Icon = SymbolRegular.Desktop24)]
+    public class ShowNetwork : BaseFeature
+    {
+        protected override bool NeedsPostAction => true;
+
+        protected override IEnumerable<RegistryToggle> RegistryToggles =>
+        [
+            new()
+            {
+                Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel",
+                Name = "{F02C1A0D-BE21-4350-88B0-7367FC96EF3C}",
+                OnValue = 0,
+                OffValue = 1,
+                DefaultValue = 1
+            }
+        ];
+    }
+
+    [Feature(Section = nameof(Sections.Icons), Icon = SymbolRegular.Grid24)]
+    public class ShowControlPanel : BaseFeature
+    {
+        protected override bool NeedsPostAction => true;
+
+        protected override IEnumerable<RegistryToggle> RegistryToggles =>
+        [
+            new()
+            {
+                Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel",
+                Name = "{5399E694-6CE5-4D6C-8FCE-1D8870FDCBA0}",
+                OnValue = 0,
+                OffValue = 1,
+                DefaultValue = 1
+            }
+        ];
+    }
+
+    [Feature(Section = nameof(Sections.Icons), Icon = SymbolRegular.Desktop24)]
+    public class ShowDesktopIcons : BaseFeature
+    {
+        protected override bool NeedsPostAction => true;
+
+        protected override IEnumerable<RegistryToggle> RegistryToggles =>
+        [
+            new()
+            {
+                Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer",
+                Name = "NoDesktop",
+                OnValue = 0,
+                OffValue = 1,
+                DefaultValue = 0
+            }
+        ];
+    }
+
 
     [Feature(Section = nameof(Sections.Behaviors), Icon = SymbolRegular.ArrowForward24)]
     public class RemoveShortcutArrow : BaseFeature

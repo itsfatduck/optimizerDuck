@@ -896,6 +896,18 @@ Phiên bản hiện tại: {0} </value>
   <data name="Features.Preferences.ShowHiddenFiles.Description" xml:space="preserve">
     <value>Hiển thị tệp và thư mục ẩn trong Explorer.</value>
   </data>
+  <data name="Features.Preferences.ClipboardHistory.Name" xml:space="preserve">
+    <value>Lịch sử khay nhớ tạm</value>
+  </data>
+  <data name="Features.Preferences.ClipboardHistory.Description" xml:space="preserve">
+    <value>Lưu nhiều nội dung đã sao chép để bạn có thể dán lại sau bằng Win+V.</value>
+  </data>
+  <data name="Features.Preferences.WindowShake.Name" xml:space="preserve">
+    <value>Lắc cửa sổ</value>
+  </data>
+  <data name="Features.Preferences.WindowShake.Description" xml:space="preserve">
+    <value>Lắc một cửa sổ để thu nhỏ tất cả các cửa sổ khác đang mở.</value>
+  </data>
   <data name="Features.Preferences.ClassicContextMenu.Name" xml:space="preserve">
     <value>Menu chuột phải cổ điển</value>
   </data>
@@ -1585,6 +1597,30 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="Features.Desktop.ShowRecycleBin.Description" xml:space="preserve">
     <value>Hiển thị biểu tượng Thùng rác trên màn hình Desktop của bạn</value>
+  </data>
+  <data name="Features.Desktop.ShowUserFiles.Name" xml:space="preserve">
+    <value>Hiển thị Thư mục người dùng</value>
+  </data>
+  <data name="Features.Desktop.ShowUserFiles.Description" xml:space="preserve">
+    <value>Hiển thị thư mục hồ sơ người dùng của bạn dưới dạng biểu tượng Desktop</value>
+  </data>
+  <data name="Features.Desktop.ShowNetwork.Name" xml:space="preserve">
+    <value>Hiển thị Mạng</value>
+  </data>
+  <data name="Features.Desktop.ShowNetwork.Description" xml:space="preserve">
+    <value>Hiển thị biểu tượng Mạng trên màn hình Desktop của bạn</value>
+  </data>
+  <data name="Features.Desktop.ShowControlPanel.Name" xml:space="preserve">
+    <value>Hiển thị Control Panel</value>
+  </data>
+  <data name="Features.Desktop.ShowControlPanel.Description" xml:space="preserve">
+    <value>Hiển thị biểu tượng Control Panel trên màn hình Desktop của bạn</value>
+  </data>
+  <data name="Features.Desktop.ShowDesktopIcons.Name" xml:space="preserve">
+    <value>Hiển thị biểu tượng Desktop</value>
+  </data>
+  <data name="Features.Desktop.ShowDesktopIcons.Description" xml:space="preserve">
+    <value>Hiện hoặc ẩn toàn bộ biểu tượng trên Desktop cùng lúc</value>
   </data>
   <data name="Features.Desktop.RemoveShortcutArrow.Name" xml:space="preserve">
     <value>Xóa mũi tên lối tắt</value>

@@ -285,6 +285,40 @@ public class Preferences : IFeatureCategory
         ];
     }
 
+    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.DocumentText24)]
+    public class ClipboardHistory : BaseFeature
+    {
+        protected override IEnumerable<RegistryToggle> RegistryToggles =>
+        [
+            new()
+            {
+                Path = @"HKCU\Software\Microsoft\Clipboard",
+                Name = "EnableClipboardHistory",
+                OnValue = 1,
+                OffValue = 0,
+                DefaultValue = 0
+            }
+        ];
+    }
+
+    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.CursorClick24)]
+    public class WindowShake : BaseFeature
+    {
+        protected override bool NeedsPostAction => true;
+
+        protected override IEnumerable<RegistryToggle> RegistryToggles =>
+        [
+            new()
+            {
+                Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+                Name = "DisallowShaking",
+                OnValue = 0,
+                OffValue = 1,
+                DefaultValue = 0
+            }
+        ];
+    }
+
     [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.Clock24)]
     public class ShowSecondsInSystemClock : BaseFeature
     {
