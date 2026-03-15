@@ -25,17 +25,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Page Update="Views\Windows\MainWindow.xaml">
+        <Page Update="UI\Windows\MainWindow.xaml">
             <Generator>MSBuild:Compile</Generator>
             <XamlRuntime>Wpf</XamlRuntime>
             <SubType>Designer</SubType>
         </Page>
-        <Page Update="Views\Pages\Optimizations\OptimizationPage.xaml">
+        <Page Update="UI\Pages\Optimize\Categories\OptimizationPage.xaml">
             <Generator>MSBuild:Compile</Generator>
             <XamlRuntime>Wpf</XamlRuntime>
             <SubType>Designer</SubType>
         </Page>
-        <Page Update="UI\Views\Pages\FeaturesPage.xaml">
+        <Page Update="UI\Pages\Features\FeaturesPage.xaml">
             <XamlRuntime>Wpf</XamlRuntime>
             <SubType>Designer</SubType>
         </Page>

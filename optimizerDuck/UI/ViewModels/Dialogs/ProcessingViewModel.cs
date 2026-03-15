@@ -1,5 +1,5 @@
-using CommunityToolkit.Mvvm.ComponentModel;
-using optimizerDuck.Core.Models.UI;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using optimizerDuck.Domain.UI;
 
 namespace optimizerDuck.UI.ViewModels.Dialogs;
 

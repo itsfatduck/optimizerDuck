@@ -1,11 +1,11 @@
-using Microsoft.Extensions.Logging.Abstractions;
+﻿using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json;
-using optimizerDuck.Common.Helpers;
-using optimizerDuck.Core.Interfaces;
-using optimizerDuck.Core.Models.Optimization;
-using optimizerDuck.Core.Models.Revert;
-using optimizerDuck.Core.Models.Revert.Steps;
-using optimizerDuck.Core.Models.UI;
+using optimizerDuck.Shared.Helpers;
+using optimizerDuck.Domain.Abstractions;
+using optimizerDuck.Domain.Optimizations.Models;
+using optimizerDuck.Domain.Revert;
+using optimizerDuck.Domain.Revert.Steps;
+using optimizerDuck.Domain.UI;
 using optimizerDuck.Services.Managers;
 
 namespace optimizerDuck.Test.Services.Managers;

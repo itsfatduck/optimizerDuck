@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows.Data;
 
 namespace optimizerDuck.Common.Converters;

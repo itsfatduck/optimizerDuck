@@ -1,10 +1,10 @@
-using Microsoft.Extensions.Logging.Abstractions;
+﻿using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json.Linq;
-using optimizerDuck.Core.Interfaces;
-using optimizerDuck.Core.Models.Execution;
-using optimizerDuck.Core.Models.Optimization;
-using optimizerDuck.Core.Models.UI;
-using OptimizationState = optimizerDuck.Core.Models.UI.OptimizationState;
+using optimizerDuck.Domain.Abstractions;
+using optimizerDuck.Domain.Execution;
+using optimizerDuck.Domain.Optimizations.Models;
+using optimizerDuck.Domain.UI;
+using OptimizationState = optimizerDuck.Domain.UI.OptimizationState;
 
 namespace optimizerDuck.Test.Services;
 

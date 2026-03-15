@@ -1,8 +1,8 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Extensions.Logging;
-using optimizerDuck.Core.Interfaces;
-using optimizerDuck.Core.Models.Features;
+using optimizerDuck.Domain.Abstractions;
+using optimizerDuck.Domain.Features.Models;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.UI.ViewModels.Features;
 using Wpf.Ui.Controls;

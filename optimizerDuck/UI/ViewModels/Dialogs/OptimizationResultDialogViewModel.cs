@@ -1,6 +1,6 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
-using optimizerDuck.Core.Models.Optimization;
+using optimizerDuck.Domain.Optimizations.Models;
 
 namespace optimizerDuck.UI.ViewModels.Dialogs;
 

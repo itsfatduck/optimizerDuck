@@ -1,12 +1,12 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Common.Helpers;
-using optimizerDuck.Core.Interfaces;
-using optimizerDuck.Core.Models.Optimization;
+using optimizerDuck.Domain.Abstractions;
+using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Managers;
 using Wpf.Ui;

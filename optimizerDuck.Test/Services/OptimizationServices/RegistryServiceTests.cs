@@ -1,13 +1,13 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Win32;
-using optimizerDuck.Core.Models.Execution;
-using optimizerDuck.Core.Interfaces;
-using optimizerDuck.Core.Models.Optimization;
-using optimizerDuck.Core.Models.Optimization.Services;
-using optimizerDuck.Core.Models.UI;
+using optimizerDuck.Domain.Execution;
+using optimizerDuck.Domain.Abstractions;
+using optimizerDuck.Domain.Optimizations.Models;
+using optimizerDuck.Domain.Optimizations.Models.Services;
+using optimizerDuck.Domain.UI;
 using optimizerDuck.Services.OptimizationServices;
 using Xunit;
 

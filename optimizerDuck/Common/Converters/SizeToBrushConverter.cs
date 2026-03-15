@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 using optimizerDuck.Common.Helpers;

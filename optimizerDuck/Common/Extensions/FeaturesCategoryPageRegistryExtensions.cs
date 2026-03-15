@@ -1,9 +1,9 @@
-using System.Reflection;
+﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Common.Helpers;
-using optimizerDuck.Core.Interfaces;
-using optimizerDuck.Core.Models.Attributes;
+using optimizerDuck.Domain.Abstractions;
+using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Services;
 using optimizerDuck.UI.ViewModels.Pages;
 

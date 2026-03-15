@@ -1,11 +1,11 @@
-using System.Reflection;
+﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using optimizerDuck.Common.Helpers;
-using optimizerDuck.Core.Interfaces;
-using optimizerDuck.Core.Models.Attributes;
-using optimizerDuck.Core.Models.Config;
+using optimizerDuck.Domain.Abstractions;
+using optimizerDuck.Domain.Attributes;
+using optimizerDuck.Domain.Configuration;
 using optimizerDuck.Services;
 using optimizerDuck.Services.Managers;
 using Wpf.Ui;

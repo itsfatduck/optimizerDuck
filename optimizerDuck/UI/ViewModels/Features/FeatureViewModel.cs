@@ -1,8 +1,8 @@
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
-using optimizerDuck.Core.Interfaces;
-using optimizerDuck.Core.Models.Execution;
+using optimizerDuck.Domain.Abstractions;
+using optimizerDuck.Domain.Execution;
 using Wpf.Ui.Controls;
 
 namespace optimizerDuck.UI.ViewModels.Features;
