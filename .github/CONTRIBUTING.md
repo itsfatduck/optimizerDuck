@@ -1,6 +1,6 @@
 <div align="center">
 
-<a href="https://optimizerduck.vercel.app/"><img src="./assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/></a>
+<a href="https://optimizerduck.vercel.app/"><img src="assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/></a>
 
 [Introduction](#introduction) • [Getting Started](#getting-started) • [Ways to Contribute](#ways-to-contribute) • [Detailed Contribution Guidelines](#detailed-contribution-guidelines) • [Coding Standards](#-coding-standards) • [Localization Guidelines](#-localization-guidelines) • [Pull Request Process](#-pull-request-process) • [Credits](#-credits) • [License](#-license)
 
