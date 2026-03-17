@@ -71,29 +71,24 @@ Full documentation and advanced guides are available here:
 
 ### [optimizerDuck Documentation](https://optimizerduck.vercel.app/docs/guides/getting-started)
 
-## Contributing
-
-Contributions are welcome! Please read the [Contributing Guidelines](./.github/CONTRIBUTING.md) for more details.
-
-## Support the Project
+## Support & Community
 
 If optimizerDuck improved your PC experience:
 
-* ⭐ Star the repository
-* 📢 Share it with others
-* 💬 Join the Discord community
-* 🎁 Support me via **[Support](https://optimizerduck.vercel.app/docs/contribute/support-me)**
+* ⭐ Star the repository  
+* 📢 Share it with others  
+* 💬 Join the Discord community  
+* 🎁 Support me via **[Support](https://optimizerduck.vercel.app/docs/contribute/support-me)**  
 
-Every star and contribution helps keep the project growing.
+### Get Help & Connect
 
-## Community, Contributing & Support
+- 🌐 [Website](https://optimizerduck.vercel.app/) - Official Website & Documentation  
+- 💬 [Discord](https://discord.gg/tDUBDCYw9Q) - Live chat & support  
+- 🐞 [Issues](https://github.com/itsfatduck/optimizerDuck/issues) - Bug reports and feature requests  
 
-- 🌐 [Website](https://optimizerduck.vercel.app/) - Official Website & Documentation
-- 💬 [Discord](https://discord.gg/tDUBDCYw9Q) - Live chat & support
-- 🐞 [Issues](https://github.com/itsfatduck/optimizerDuck/issues) - Bug reports and feature requests
+### Contributing
 
-> [!TIP]
-> Before asking for help, check the docs and existing issues, your answer may already be there.
+Contributions are welcome! Please read the [Contributing Guidelines](./.github/CONTRIBUTING.md) for more details.
 
 ## Disclaimer
 
