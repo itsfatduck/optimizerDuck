@@ -125,44 +125,20 @@ public class OptimizationService(
                 {
                     Status = OptimizationSuccessResult.Failed,
                     Message = applyResult.Message,
-                    FailedSteps = scope.FailedSteps.Select(s => new OperationStepResult
-                    {
-                        Index = s.Index,
-                        Name = s.Name,
-                        Description = s.Description,
-                        Success = s.Success,
-                        Error = s.Error,
-                        RetryAction = s.RetryAction
-                    }).ToList()
+                    FailedSteps = scope.GetStepResults().Where(step => !step.Success).ToList()
                 };
 
             progress.Report(new ProcessingProgress
                 { Message = Translations.Optimization_Apply_Completed, IsIndeterminate = false, Value = 1, Total = 1 });
 
             var result = scope.ToResult();
-            if (scope.HasSuccessfulSteps)
-                try
-                {
-                    await revertManager.SaveRevertDataAsync(scope);
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Failed to save revert data for {Name}", optimization.OptimizationKey);
-                }
+            await TrySaveRevertDataAsync(scope, optimization);
 
             return result;
         }
         catch (Exception ex)
         {
-            var failedSteps = scope.FailedSteps.Select(s => new OperationStepResult
-            {
-                Index = s.Index,
-                Name = s.Name,
-                Description = s.Description,
-                Success = s.Success,
-                Error = s.Error,
-                RetryAction = s.RetryAction
-            }).ToList();
+            var failedSteps = scope.GetStepResults().Where(step => !step.Success).ToList();
 
             var status = scope.HasSuccessfulSteps
                 ? OptimizationSuccessResult.PartialSuccess
@@ -175,15 +151,7 @@ public class OptimizationService(
                 FailedSteps = failedSteps
             };
 
-            if (scope.HasSuccessfulSteps)
-                try
-                {
-                    await revertManager.SaveRevertDataAsync(scope);
-                }
-                catch (Exception ex2)
-                {
-                    _logger.LogError(ex2, "Failed to save revert data after exception");
-                }
+            await TrySaveRevertDataAsync(scope, optimization);
 
             return result;
         }
@@ -224,29 +192,39 @@ public class OptimizationService(
         IReadOnlyList<OperationStepResult> failedSteps, bool reverseOrder, ILogger logger,
         IProgress<ProcessingProgress>? progress = null)
     {
-        if (failedSteps.Count == 0) return [];
+        return (await RetryFailedStepsWithResultsAsync(failedSteps, reverseOrder, logger, progress)).FailedSteps;
+    }
 
-        var stillFailed = new List<OperationStepResult>();
+    public static async Task<RetryFailedStepsResult> RetryFailedStepsWithResultsAsync(
+        IReadOnlyList<OperationStepResult> failedSteps, bool reverseOrder, ILogger logger,
+        IProgress<ProcessingProgress>? progress = null)
+    {
+        if (failedSteps.Count == 0) return new RetryFailedStepsResult([], []);
+
+        var remainingFailedSteps = new List<OperationStepResult>();
+        var recoveredSteps = new List<OperationStepResult>();
         var orderedSteps =
             reverseOrder ? failedSteps.OrderByDescending(s => s.Index) : failedSteps.OrderBy(s => s.Index);
         var total = failedSteps.Count;
+        var processedCount = 0;
 
         progress?.Report(new ProcessingProgress
             { Message = Translations.Optimization_Retry_Processing, IsIndeterminate = true });
 
         foreach (var step in orderedSteps)
         {
+            processedCount++;
             progress?.Report(new ProcessingProgress
             {
-                Message = string.Format(Translations.Optimization_RetryStep_Processing, step.Name, step.Index, total),
+                Message = string.Format(Translations.Optimization_RetryStep_Processing, step.Name, processedCount, total),
                 IsIndeterminate = false,
-                Value = step.Index,
+                Value = processedCount,
                 Total = total
             });
 
             if (step.RetryAction == null)
             {
-                stillFailed.Add(step);
+                remainingFailedSteps.Add(step);
                 continue;
             }
 
@@ -254,7 +232,25 @@ public class OptimizationService(
             Exception? error = null;
             try
             {
+                using var retryScope = ExecutionScope.BeginForCapture(logger);
                 success = await step.RetryAction();
+
+                if (success)
+                {
+                    var retriedStep = retryScope.SuccessfulSteps.LastOrDefault();
+                    recoveredSteps.Add(retriedStep == null
+                        ? step with { Error = null }
+                        : new OperationStepResult
+                        {
+                            Index = step.Index,
+                            Name = retriedStep.Name,
+                            Description = retriedStep.Description,
+                            Success = true,
+                            Error = null,
+                            RetryAction = null,
+                            RevertStep = retriedStep.RevertStep
+                        });
+                }
             }
             catch (Exception ex)
             {
@@ -262,10 +258,26 @@ public class OptimizationService(
                 logger.LogError(ex, "Retry step {Name} failed", step.Name);
             }
 
-            if (!success) stillFailed.Add(error != null ? step with { Error = error.Message } : step);
+            if (!success)
+                remainingFailedSteps.Add(error != null ? step with { Error = error.Message } : step);
         }
 
-        return stillFailed;
+        return new RetryFailedStepsResult(remainingFailedSteps, recoveredSteps);
+    }
+
+    private async Task TrySaveRevertDataAsync(ExecutionScope scope, IOptimization optimization)
+    {
+        if (!scope.HasSuccessfulSteps)
+            return;
+
+        try
+        {
+            await revertManager.SaveRevertDataAsync(scope);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to save revert data for {Name}", optimization.OptimizationKey);
+        }
     }
 
     public static void ClearResources(ILogger logger)
@@ -289,3 +301,7 @@ public enum RestorePointResult
     Failed,
     FrequencyLimitReached
 }
+
+public sealed record RetryFailedStepsResult(
+    List<OperationStepResult> FailedSteps,
+    List<OperationStepResult> RecoveredSteps);

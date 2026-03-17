@@ -1,5 +1,6 @@
-﻿using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Optimizations.Models;
@@ -128,6 +129,115 @@ public class RevertManagerTests
 
             Assert.False(result.Success);
             Assert.False(File.Exists(path));
+            var failedStep = Assert.Single(result.FailedSteps);
+            Assert.NotNull(failedStep.RetryAction);
+        }
+        finally
+        {
+            if (File.Exists(path))
+                File.Delete(path);
+        }
+    }
+
+    [Fact]
+    public async Task RevertAsync_WithAllStepFailures_LeavesFileForAnotherAttempt()
+    {
+        var id = Guid.NewGuid();
+        var path = Path.Combine(Shared.RevertDirectory, id + ".json");
+        var cancellationToken = TestContext.Current.CancellationToken;
+        Directory.CreateDirectory(Shared.RevertDirectory);
+
+        var payload = new RevertData
+        {
+            OptimizationId = id,
+            OptimizationName = "TestOptimization",
+            AppliedAt = DateTime.UtcNow,
+            Steps = new List<RevertStepData>
+            {
+                new()
+                {
+                    Type = "Shell",
+                    Data = new ShellRevertStep
+                    {
+                        ShellType = ShellType.CMD,
+                        Command = "exit 1"
+                    }.ToData()
+                }
+            }
+        };
+
+        try
+        {
+            var json = JsonConvert.SerializeObject(payload, Formatting.Indented);
+            await File.WriteAllTextAsync(path, json, cancellationToken);
+
+            var manager = new RevertManager(NullLogger<RevertManager>.Instance, NullLoggerFactory.Instance);
+            var result = await manager.RevertAsync(new MockOptimization(id));
+
+            Assert.False(result.Success);
+            Assert.True(result.AllStepsFailed);
+            Assert.True(File.Exists(path));
+            var failedStep = Assert.Single(result.FailedSteps);
+            Assert.NotNull(failedStep.RetryAction);
+        }
+        finally
+        {
+            if (File.Exists(path))
+                File.Delete(path);
+        }
+    }
+
+    [Fact]
+    public async Task RevertAsync_WithPartialFailures_RetryActionSucceedsAfterRevertDataIsDeleted()
+    {
+        var id = Guid.NewGuid();
+        var path = Path.Combine(Shared.RevertDirectory, id + ".json");
+        var cancellationToken = TestContext.Current.CancellationToken;
+        Directory.CreateDirectory(Shared.RevertDirectory);
+
+        var payload = new RevertData
+        {
+            OptimizationId = id,
+            OptimizationName = "TestOptimization",
+            AppliedAt = DateTime.UtcNow,
+            Steps = new List<RevertStepData>
+            {
+                new()
+                {
+                    Type = "Shell",
+                    Data = new ShellRevertStep
+                    {
+                        ShellType = ShellType.CMD,
+                        Command = "exit 0"
+                    }.ToData()
+                },
+                new()
+                {
+                    Type = RetryableTestRevertStep.StepType,
+                    Data = new RetryableTestRevertStep
+                    {
+                        StepId = Guid.NewGuid().ToString("N"),
+                        RemainingFailures = 1
+                    }.ToData()
+                }
+            }
+        };
+
+        try
+        {
+            var json = JsonConvert.SerializeObject(payload, Formatting.Indented);
+            await File.WriteAllTextAsync(path, json, cancellationToken);
+
+            var manager = new RevertManager(NullLogger<RevertManager>.Instance, NullLoggerFactory.Instance);
+            var result = await manager.RevertAsync(new MockOptimization(id));
+
+            Assert.False(result.Success);
+            Assert.False(File.Exists(path));
+
+            var failedStep = Assert.Single(result.FailedSteps);
+            Assert.NotNull(failedStep.RetryAction);
+            Assert.True(await failedStep.RetryAction!());
+            Assert.False(File.Exists(path));
         }
         finally
         {
@@ -149,5 +259,47 @@ public class MockOptimization(Guid id) : IOptimization
     public Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
     {
         return Task.FromResult(ApplyResult.True());
+    }
+}
+
+public class RetryableTestRevertStep : IRevertStep
+{
+    public const string StepType = "RetryableTest";
+
+    public string StepId { get; set; } = Guid.NewGuid().ToString("N");
+
+    public int RemainingFailures { get; set; }
+
+    public string Type => StepType;
+
+    public string Description => $"Retryable test step {StepId}";
+
+    public Task<bool> ExecuteAsync()
+    {
+        if (RemainingFailures > 0)
+        {
+            RemainingFailures--;
+            throw new InvalidOperationException("planned test failure");
+        }
+
+        return Task.FromResult(true);
+    }
+
+    public JObject ToData()
+    {
+        return new JObject
+        {
+            [nameof(StepId)] = StepId,
+            [nameof(RemainingFailures)] = RemainingFailures
+        };
+    }
+
+    public static RetryableTestRevertStep FromData(JToken data)
+    {
+        return new RetryableTestRevertStep
+        {
+            StepId = data[nameof(StepId)]?.ToString() ?? Guid.NewGuid().ToString("N"),
+            RemainingFailures = data[nameof(RemainingFailures)]?.Value<int>() ?? 0
+        };
     }
 }

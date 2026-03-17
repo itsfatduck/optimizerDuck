@@ -21,12 +21,24 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
 
     public async Task SaveRevertDataAsync(ExecutionScope scope)
     {
-        var steps = scope.SuccessfulSteps
-            .Where(s => s.RevertStep != null)
-            .Select(s => new RevertStepData { Type = s.RevertStep!.Type, Data = s.RevertStep.ToData() })
-            .ToList();
+        var maxIndex = scope.ExecutedSteps.Count == 0 ? 0 : scope.ExecutedSteps.Max(s => s.Index);
+        if (maxIndex == 0) return;
 
-        if (steps.Count == 0) return;
+        var steps = Enumerable.Range(0, maxIndex)
+            .Select(_ => new RevertStepData { Type = "Unknown", Data = new JObject() })
+            .ToList();
+        var hasRevertStep = false;
+
+        foreach (var step in scope.ExecutedSteps)
+        {
+            if (step.RevertStep == null)
+                continue;
+
+            steps[step.Index - 1] = new RevertStepData { Type = step.RevertStep.Type, Data = step.RevertStep.ToData() };
+            hasRevertStep = true;
+        }
+
+        if (!hasRevertStep) return;
 
         await WriteJsonAsync(GetFilePath(scope.OptimizationId!.Value), new RevertData
         {
@@ -37,17 +49,18 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
         });
     }
 
-    public async Task<RevertResult> RevertAsync(IOptimization opt, IProgress<ProcessingProgress>? progress = null)
+    public async Task<RevertResult> RevertAsync(IOptimization optimization,
+        IProgress<ProcessingProgress>? progress = null)
     {
-        var l = loggerFactory.CreateLogger<RevertManager>();
-        using var scope = ExecutionScope.BeginForLogging(opt.Id, opt.OptimizationKey, l);
+        var operationLogger = loggerFactory.CreateLogger<RevertManager>();
+        using var scope = ExecutionScope.BeginForLogging(optimization.Id, optimization.OptimizationKey, operationLogger);
 
-        var steps = await LoadStepsAsync(opt.Id);
+        var steps = await LoadStepsAsync(optimization.Id);
         if (steps.Count == 0)
             return new RevertResult
-                { Success = false, Message = string.Format(Translations.Revert_Error_NoDataFound, opt.Name) };
+                { Success = false, Message = string.Format(Translations.Revert_Error_NoDataFound, optimization.Name) };
 
-        var failed = new List<OperationStepResult>();
+        var failedSteps = new List<OperationStepResult>();
         var total = steps.Count;
 
         for (var i = total - 1; i >= 0; i--)
@@ -65,7 +78,7 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
             }
             catch (Exception ex)
             {
-                failed.Add(new OperationStepResult
+                failedSteps.Add(new OperationStepResult
                 {
                     Index = idx, Name = step.Type, Description = step.Description, Success = false, Error = ex.Message,
                     RetryAction = () => step.ExecuteAsync()
@@ -73,21 +86,24 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
             }
         }
 
-        if (failed.Count < total) Remove(opt.Id);
+        if (failedSteps.Count < total)
+            RemoveRevertData(optimization.Id, optimization.OptimizationKey);
 
         return new RevertResult
         {
-            Success = failed.Count == 0,
-            IsCompleteFailure = failed.Count == total,
-            Message = failed.Count == total ? string.Format(Translations.Optimization_Revert_Error_Failed, opt.Name) :
-                failed.Count > 0 ? string.Format(Translations.Optimization_Revert_Error_FailedWithSteps, opt.Name,
-                    failed.Count) :
-                string.Format(Translations.Optimization_Revert_Success, opt.Name),
-            FailedStepDetails = failed
+            Success = failedSteps.Count == 0,
+            AllStepsFailed = failedSteps.Count == total,
+            Message = failedSteps.Count == total
+                ? string.Format(Translations.Optimization_Revert_Error_Failed, optimization.Name)
+                : failedSteps.Count > 0
+                    ? string.Format(Translations.Optimization_Revert_Error_FailedWithSteps, optimization.Name,
+                        failedSteps.Count)
+                    : string.Format(Translations.Optimization_Revert_Success, optimization.Name),
+            FailedSteps = failedSteps
         };
     }
 
-    public async Task AppendOrUpdateRevertStepAsync(Guid id, string name, int idx, IRevertStep step)
+    public async Task UpsertRevertStepAtIndexAsync(Guid id, string name, int stepIndex, IRevertStep step)
     {
         var filePath = GetFilePath(id);
         var lockObj = _fileLocks.GetOrAdd(id, _ => new SemaphoreSlim(1, 1));
@@ -98,10 +114,10 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
             var data = await LoadAsync(filePath) ?? new RevertData
                 { OptimizationId = id, OptimizationName = name, Steps = [] };
 
-            while (data.Steps.Count < idx)
+            while (data.Steps.Count < stepIndex)
                 data.Steps.Add(new RevertStepData { Type = "Unknown", Data = new JObject() });
 
-            data.Steps[idx - 1] = new RevertStepData { Type = step.Type, Data = step.ToData() };
+            data.Steps[stepIndex - 1] = new RevertStepData { Type = step.Type, Data = step.ToData() };
             await WriteJsonAsync(filePath, data);
         }
         finally
@@ -120,7 +136,7 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
         return await LoadAsync(GetFilePath(id));
     }
 
-    public static void ClearAllRevertData(ILogger l)
+    public static void ClearAllRevertData(ILogger logger)
     {
         if (!Directory.Exists(Shared.RevertDirectory)) return;
         foreach (var f in Directory.GetFiles(Shared.RevertDirectory))
@@ -130,7 +146,7 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
             }
             catch (Exception ex)
             {
-                l.LogError(ex, "Failed to delete {File}", f);
+                logger.LogError(ex, "Failed to delete {File}", f);
             }
     }
 
@@ -152,6 +168,11 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
         {
             return null;
         }
+    }
+
+    public void RemoveRevertData(Guid id, string? name = null)
+    {
+        Remove(id, name);
     }
 
     private static async Task WriteJsonAsync(string path, RevertData data)

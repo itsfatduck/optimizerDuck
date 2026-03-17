@@ -8,7 +8,7 @@ namespace optimizerDuck.Domain.Optimizations.Models;
 public record OperationStepResult
 {
     /// <summary>
-    ///     The zero-based index of this step in the execution order.
+    ///     The one-based index of this step in the execution order.
     /// </summary>
     public int Index { get; init; }
 

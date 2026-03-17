@@ -122,6 +122,23 @@ public sealed class ExecutionScope : IDisposable
         return scope;
     }
 
+    public static ExecutionScope BeginForCapture(ILogger logger)
+    {
+        if (_current.Value != null)
+            throw new InvalidOperationException("An execution scope is already active in the current context.");
+
+        var scope = new ExecutionScope
+        {
+            OptimizationId = Guid.Empty,
+            OptimizationKey = string.Empty,
+            OptimizationName = string.Empty,
+            Logger = logger
+        };
+        _current.Value = scope;
+        logger.LogDebug("Execution scope started for retry capture");
+        return scope;
+    }
+
     public static ExecutedStep? RecordStep(
         string name,
         string description,
@@ -154,31 +171,13 @@ public sealed class ExecutionScope : IDisposable
 
     public List<OperationStepResult> GetStepResults()
     {
-        return _executedSteps.Select(s => new OperationStepResult
-        {
-            Index = s.Index,
-            Name = s.Name,
-            Description = s.Description,
-            Success = s.Success,
-            Error = s.Error,
-            RetryAction = s.RetryAction,
-            RevertStep = s.RevertStep
-        }).ToList();
+        return _executedSteps.Select(ToOperationStepResult).ToList();
     }
 
     public OptimizationResult ToResult()
     {
         var status = ResolveStatus();
-        var failedSteps = FailedSteps.Select(s => new OperationStepResult
-        {
-            Index = s.Index,
-            Name = s.Name,
-            Description = s.Description,
-            Success = s.Success,
-            Error = s.Error,
-            RetryAction = s.RetryAction,
-            RevertStep = s.RevertStep
-        }).ToList();
+        var failedSteps = FailedSteps.Select(ToOperationStepResult).ToList();
 
         var allFailed = failedSteps.Count == ExecutedSteps.Count;
 
@@ -242,6 +241,20 @@ public sealed class ExecutionScope : IDisposable
             : failed < total
                 ? OptimizationSuccessResult.PartialSuccess
                 : OptimizationSuccessResult.Failed;
+    }
+
+    private static OperationStepResult ToOperationStepResult(ExecutedStep step)
+    {
+        return new OperationStepResult
+        {
+            Index = step.Index,
+            Name = step.Name,
+            Description = step.Description,
+            Success = step.Success,
+            Error = step.Error,
+            RetryAction = step.RetryAction,
+            RevertStep = step.RevertStep
+        };
     }
 
     private class Stats
