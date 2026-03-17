@@ -1289,4 +1289,358 @@
   <data name="Optimizations.Loading.Hint" xml:space="preserve">
     <value>請稍候...</value>
   </data>
+  <data name="Features.Description" xml:space="preserve">
+    <value>啟用或停用 Windows 功能</value>
+  </data>
+  <data name="Features.Preferences.Name" xml:space="preserve">
+    <value>偏好設定</value>
+  </data>
+  <data name="Features.Preferences.Description" xml:space="preserve">
+    <value>自訂視覺與互動設定</value>
+  </data>
+  <data name="Features.Gaming.Name" xml:space="preserve">
+    <value>遊戲</value>
+  </data>
+  <data name="Features.Gaming.Description" xml:space="preserve">
+    <value>遊戲相關顯示、輸入與錄影設定</value>
+  </data>
+  <data name="Service.Registry.Description.CreateKey" xml:space="preserve">
+    <value>建立登錄檔機碼 {0}</value>
+  </data>
+  <data name="Service.Registry.Description.DeleteKey" xml:space="preserve">
+    <value>刪除登錄檔機碼 {0}</value>
+  </data>
+  <data name="Revert.Registry.Description.RestoreKey" xml:space="preserve">
+    <value>還原登錄檔機碼：{0}</value>
+  </data>
+  <data name="Revert.Registry.Description.DeleteKey" xml:space="preserve">
+    <value>刪除登錄檔機碼：{0}</value>
+  </data>
+  <data name="Optimizer.PowerManagement.OptimizeMultimediaProfile.Name" xml:space="preserve">
+    <value>最佳化多媒體設定檔</value>
+  </data>
+  <data name="Optimizer.PowerManagement.OptimizeMultimediaProfile.ShortDescription" xml:space="preserve">
+    <value>設定多媒體系統設定檔以優先考慮效能，並停用延遲模式以獲得更好的反應速度。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.Name" xml:space="preserve">
+    <value>停用錯誤報告</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.ShortDescription" xml:space="preserve">
+    <value>停用 Windows 錯誤報告與程式相容性助理服務。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.Name" xml:space="preserve">
+    <value>停用廣告與建議</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.ShortDescription" xml:space="preserve">
+    <value>停用個人化廣告、Windows 消費者功能與系統建議。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.Name" xml:space="preserve">
+    <value>停用活動歷程記錄</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.ShortDescription" xml:space="preserve">
+    <value>防止 Windows 收集並同步您的活動歷程記錄。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.Name" xml:space="preserve">
+    <value>停用位置與感測器</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.ShortDescription" xml:space="preserve">
+    <value>停用位置追蹤、系統感測器與離線地圖更新。</value>
+  </data>
+  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
+    <value>加快檔案總管與選單</value>
+  </data>
+  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
+    <value>將 StartupDelayInMSec 與 MenuShowDelay 設為 0，以消除檔案總管啟動延遲並將選單懸停延遲降至最低。</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
+    <value>停用視覺效果</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
+    <value>停用工作列動畫、清單檢視陰影、視窗透明度與 Aero Peek，以釋放 GPU/CPU 資源並獲得更好的效能。</value>
+  </data>
+  <data name="Features.Preferences.Section.Taskbar" xml:space="preserve">
+    <value>工作列</value>
+  </data>
+  <data name="Features.Preferences.Section.Appearance" xml:space="preserve">
+    <value>外觀</value>
+  </data>
+  <data name="Features.Preferences.Section.Explorer" xml:space="preserve">
+    <value>檔案總管</value>
+  </data>
+  <data name="Features.Preferences.TaskbarNewsAndInterests.Name" xml:space="preserve">
+    <value>工作列新聞與興趣</value>
+  </data>
+  <data name="Features.Preferences.TaskbarNewsAndInterests.Description" xml:space="preserve">
+    <value>控制工作列上的新聞與興趣小工具以及 MSN 摘要背景更新。</value>
+  </data>
+  <data name="Features.Preferences.TaskbarSearchBox.Name" xml:space="preserve">
+    <value>工作列搜尋方塊</value>
+  </data>
+  <data name="Features.Preferences.TaskbarSearchBox.Description" xml:space="preserve">
+    <value>控制工作列上搜尋方塊的可見性。</value>
+  </data>
+  <data name="Features.Preferences.BingSearchInStartMenu.Name" xml:space="preserve">
+    <value>開始功能表中的 Bing 搜尋</value>
+  </data>
+  <data name="Features.Preferences.BingSearchInStartMenu.Description" xml:space="preserve">
+    <value>控制開始功能表搜尋中是否出現 Bing 網頁搜尋結果。</value>
+  </data>
+  <data name="Features.Preferences.TaskbarChatButton.Name" xml:space="preserve">
+    <value>工作列聊天按鈕</value>
+  </data>
+  <data name="Features.Preferences.TaskbarChatButton.Description" xml:space="preserve">
+    <value>控制工作列上聊天 (Teams) 按鈕的可見性。</value>
+  </data>
+  <data name="Features.Preferences.TaskbarWidgets.Name" xml:space="preserve">
+    <value>工作列小工具</value>
+  </data>
+  <data name="Features.Preferences.TaskbarWidgets.Description" xml:space="preserve">
+    <value>控制工作列上小工具按鈕的可見性。</value>
+  </data>
+  <data name="Features.Preferences.TaskbarAlignment.Name" xml:space="preserve">
+    <value>工作列對齊</value>
+  </data>
+  <data name="Features.Preferences.TaskbarAlignment.Description" xml:space="preserve">
+    <value>切換工作列對齊方式為置中 (預設) 或靠左。</value>
+  </data>
+  <data name="Features.Preferences.ExplorerCompactMode.Name" xml:space="preserve">
+    <value>檔案總管緊湊模式</value>
+  </data>
+  <data name="Features.Preferences.ExplorerCompactMode.Description" xml:space="preserve">
+    <value>減少檔案總管中項目之間的間距，以獲得更密集的檢視。</value>
+  </data>
+  <data name="Features.Preferences.SnapAssistFlyout.Name" xml:space="preserve">
+    <value>貼齊版面配置飛出視窗</value>
+  </data>
+  <data name="Features.Preferences.SnapAssistFlyout.Description" xml:space="preserve">
+    <value>控制將游標暫留在最大化按鈕上時出現的貼齊版面配置選單。</value>
+  </data>
+  <data name="Features.Preferences.ExplorerItemCheckboxes.Name" xml:space="preserve">
+    <value>檔案總管項目核取方塊</value>
+  </data>
+  <data name="Features.Preferences.ExplorerItemCheckboxes.Description" xml:space="preserve">
+    <value>在檔案總管中選取項目時顯示核取方塊。</value>
+  </data>
+  <data name="Features.Preferences.TaskbarTaskViewButton.Name" xml:space="preserve">
+    <value>工作列工作檢視按鈕</value>
+  </data>
+  <data name="Features.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
+    <value>控制工作列上工作檢視按鈕的可見性。</value>
+  </data>
+  <data name="Features.Preferences.MeetNow.Name" xml:space="preserve">
+    <value>立即開會</value>
+  </data>
+  <data name="Features.Preferences.MeetNow.Description" xml:space="preserve">
+    <value>控制工作列通知區域中的立即開會 (Skype) 圖示。</value>
+  </data>
+  <data name="Features.Preferences.TaskbarPeople.Name" xml:space="preserve">
+    <value>工作列聯絡人</value>
+  </data>
+  <data name="Features.Preferences.TaskbarPeople.Description" xml:space="preserve">
+    <value>控制工作列上的聯絡人圖示，以便快速存取聯絡人。</value>
+  </data>
+  <data name="Features.Preferences.TaskbarEndTask.Name" xml:space="preserve">
+    <value>工作列結束工作</value>
+  </data>
+  <data name="Features.Preferences.TaskbarEndTask.Description" xml:space="preserve">
+    <value>在工作列右鍵選單中加入「結束工作」選項，以便快速終止處理程序。</value>
+  </data>
+  <data name="Features.Preferences.DarkMode.Name" xml:space="preserve">
+    <value>深色模式</value>
+  </data>
+  <data name="Features.Preferences.DarkMode.Description" xml:space="preserve">
+    <value>為系統應用程式、設定與介面元素啟用深色模式。</value>
+  </data>
+  <data name="Features.Preferences.ExplorerSyncNotifications.Name" xml:space="preserve">
+    <value>檔案總管同步通知</value>
+  </data>
+  <data name="Features.Preferences.ExplorerSyncNotifications.Description" xml:space="preserve">
+    <value>控制檔案總管中的 OneDrive 與雲端同步提供者通知。</value>
+  </data>
+  <data name="Features.Preferences.SystemSuggestions.Name" xml:space="preserve">
+    <value>系統建議</value>
+  </data>
+  <data name="Features.Preferences.SystemSuggestions.Description" xml:space="preserve">
+    <value>控制設定面板中的 Windows 提示與應用程式建議。</value>
+  </data>
+  <data name="Features.Preferences.ToastNotifications.Name" xml:space="preserve">
+    <value>快顯通知</value>
+  </data>
+  <data name="Features.Preferences.ToastNotifications.Description" xml:space="preserve">
+    <value>控制快顯通知與鎖定畫面通知。</value>
+  </data>
+  <data name="Features.Preferences.ShowFileExtensions.Name" xml:space="preserve">
+    <value>顯示副檔名</value>
+  </data>
+  <data name="Features.Preferences.ShowFileExtensions.Description" xml:space="preserve">
+    <value>在檔案總管中顯示副檔名 (例如 .txt、.exe)。</value>
+  </data>
+  <data name="Features.Preferences.ShowHiddenFiles.Name" xml:space="preserve">
+    <value>顯示隱藏的檔案</value>
+  </data>
+  <data name="Features.Preferences.ShowHiddenFiles.Description" xml:space="preserve">
+    <value>在檔案總管中顯示隱藏的檔案與資料夾。</value>
+  </data>
+  <data name="Features.Preferences.ClipboardHistory.Name" xml:space="preserve">
+    <value>剪貼簿歷程記錄</value>
+  </data>
+  <data name="Features.Preferences.ClipboardHistory.Description" xml:space="preserve">
+    <value>保留多個複製的項目，以便稍後使用 Win+V 貼上。</value>
+  </data>
+  <data name="Features.Preferences.WindowShake.Name" xml:space="preserve">
+    <value>視窗搖晃</value>
+  </data>
+  <data name="Features.Preferences.WindowShake.Description" xml:space="preserve">
+    <value>搖晃視窗以將所有其他開啟的視窗縮到最小。</value>
+  </data>
+  <data name="Features.Preferences.ClassicContextMenu.Name" xml:space="preserve">
+    <value>傳統右鍵選單</value>
+  </data>
+  <data name="Features.Preferences.ClassicContextMenu.Description" xml:space="preserve">
+    <value>在 Windows 11 上還原 Windows 10 樣式的完整右鍵選單。</value>
+  </data>
+  <data name="Features.Preferences.ShowSecondsInSystemClock.Name" xml:space="preserve">
+    <value>系統時鐘顯示秒數</value>
+  </data>
+  <data name="Features.Preferences.ShowSecondsInSystemClock.Description" xml:space="preserve">
+    <value>在工作列時鐘中顯示秒數，以進行精確的時間監控。</value>
+  </data>
+  <data name="Features.Gaming.Section.GameSettings" xml:space="preserve">
+    <value>遊戲設定</value>
+  </data>
+  <data name="Features.Gaming.Section.Input" xml:space="preserve">
+    <value>輸入</value>
+  </data>
+  <data name="Features.Gaming.Section.Display" xml:space="preserve">
+    <value>顯示</value>
+  </data>
+  <data name="Features.Gaming.GameMode.Name" xml:space="preserve">
+    <value>遊戲模式</value>
+  </data>
+  <data name="Features.Gaming.GameMode.Description" xml:space="preserve">
+    <value>在遊戲時優先處理遊戲程序並防止 Windows Update 造成干擾。</value>
+  </data>
+  <data name="Features.Gaming.GameBar.Name" xml:space="preserve">
+    <value>Xbox Game Bar</value>
+  </data>
+  <data name="Features.Gaming.GameBar.Description" xml:space="preserve">
+    <value>控制 Xbox Game Bar 重疊介面、啟動面板與相關背景功能。</value>
+  </data>
+  <data name="Features.Gaming.BackgroundRecording.Name" xml:space="preserve">
+    <value>背景錄影 (DVR)</value>
+  </data>
+  <data name="Features.Gaming.BackgroundRecording.Description" xml:space="preserve">
+    <value>控制自動背景遊戲錄影 (Game DVR) 與應用程式擷取。</value>
+  </data>
+  <data name="Features.Gaming.MouseAcceleration.Name" xml:space="preserve">
+    <value>滑鼠加速</value>
+  </data>
+  <data name="Features.Gaming.MouseAcceleration.Description" xml:space="preserve">
+    <value>控制 Windows 自動調整滑鼠速度的功能。停用可提供精確的 1:1 游標移動。</value>
+  </data>
+  <data name="Features.Gaming.FullscreenOptimizations.Name" xml:space="preserve">
+    <value>全螢幕最佳化</value>
+  </data>
+  <data name="Features.Gaming.FullscreenOptimizations.Description" xml:space="preserve">
+    <value>控制可能導致輸入延遲或強制無邊框視窗模式的 Windows DWM 全螢幕最佳化功能。</value>
+  </data>
+  <data name="Features.Gaming.HardwareAcceleratedGpuScheduling.Name" xml:space="preserve">
+    <value>硬體加速 GPU 排程</value>
+  </data>
+  <data name="Features.Gaming.HardwareAcceleratedGpuScheduling.Description" xml:space="preserve">
+    <value>讓 GPU 直接管理其自身的視訊記憶體排程，減少 CPU 負載並降低顯示延遲。需要相容的 GPU 驅動程式。</value>
+  </data>
+  <data name="Common.Other" xml:space="preserve">
+    <value>其他</value>
+  </data>
+  <data name="Sidebar.Features" xml:space="preserve">
+    <value>功能</value>
+  </data>
+  <data name="Features.Title" xml:space="preserve">
+    <value>功能</value>
+  </data>
+  <data name="Features.SystemFeatures.Name" xml:space="preserve">
+    <value>系統</value>
+  </data>
+  <data name="Features.SystemFeatures.Description" xml:space="preserve">
+    <value>最佳化核心系統功能與行為</value>
+  </data>
+  <data name="Features.SystemFeatures.Section.Boot" xml:space="preserve">
+    <value>開機操作</value>
+  </data>
+  <data name="Features.SystemFeatures.Section.Input" xml:space="preserve">
+    <value>輸入設定</value>
+  </data>
+  <data name="Features.SystemFeatures.EnableNumLockOnBoot.Name" xml:space="preserve">
+    <value>開機時啟用 NumLock</value>
+  </data>
+  <data name="Features.SystemFeatures.EnableNumLockOnBoot.Description" xml:space="preserve">
+    <value>在 Windows 登入畫面自動開啟 NumLock</value>
+  </data>
+  <data name="Features.Desktop.Name" xml:space="preserve">
+    <value>桌面</value>
+  </data>
+  <data name="Features.Desktop.Description" xml:space="preserve">
+    <value>管理桌面圖示與捷徑行為</value>
+  </data>
+  <data name="Features.Desktop.Section.Icons" xml:space="preserve">
+    <value>桌面圖示</value>
+  </data>
+  <data name="Features.Desktop.Section.Behaviors" xml:space="preserve">
+    <value>捷徑行為</value>
+  </data>
+  <data name="Features.Desktop.ShowThisPc.Name" xml:space="preserve">
+    <value>顯示「本機」</value>
+  </data>
+  <data name="Features.Desktop.ShowThisPc.Description" xml:space="preserve">
+    <value>在您的桌面上顯示本機圖示</value>
+  </data>
+  <data name="Features.Desktop.ShowRecycleBin.Name" xml:space="preserve">
+    <value>顯示資源回收筒</value>
+  </data>
+  <data name="Features.Desktop.ShowRecycleBin.Description" xml:space="preserve">
+    <value>在您的桌面上顯示資源回收筒圖示</value>
+  </data>
+  <data name="Features.Desktop.ShowUserFiles.Name" xml:space="preserve">
+    <value>顯示使用者檔案</value>
+  </data>
+  <data name="Features.Desktop.ShowUserFiles.Description" xml:space="preserve">
+    <value>將您的使用者設定檔資料夾顯示為桌面圖示</value>
+  </data>
+  <data name="Features.Desktop.ShowNetwork.Name" xml:space="preserve">
+    <value>顯示網路</value>
+  </data>
+  <data name="Features.Desktop.ShowNetwork.Description" xml:space="preserve">
+    <value>在您的桌面上顯示網路圖示</value>
+  </data>
+  <data name="Features.Desktop.ShowControlPanel.Name" xml:space="preserve">
+    <value>顯示控制台</value>
+  </data>
+  <data name="Features.Desktop.ShowControlPanel.Description" xml:space="preserve">
+    <value>在您的桌面上顯示控制台圖示</value>
+  </data>
+  <data name="Features.Desktop.ShowDesktopIcons.Name" xml:space="preserve">
+    <value>顯示桌面圖示</value>
+  </data>
+  <data name="Features.Desktop.ShowDesktopIcons.Description" xml:space="preserve">
+    <value>一次顯示或隱藏所有桌面圖示</value>
+  </data>
+  <data name="Features.Desktop.RemoveShortcutArrow.Name" xml:space="preserve">
+    <value>移除捷徑箭頭</value>
+  </data>
+  <data name="Features.Desktop.RemoveShortcutArrow.Description" xml:space="preserve">
+    <value>隱藏桌面捷徑圖示上的小箭頭覆疊</value>
+  </data>
+  <data name="Features.Preferences.LaunchToThisPc.Name" xml:space="preserve">
+    <value>啟動至「本機」</value>
+  </data>
+  <data name="Features.Preferences.LaunchToThisPc.Description" xml:space="preserve">
+    <value>開啟檔案總管時預設顯示「本機」而非「快速存取」</value>
+  </data>
+  <data name="Features.Preferences.DisableBingSearch.Name" xml:space="preserve">
+    <value>停用 Bing 搜尋</value>
+  </data>
+  <data name="Features.Preferences.DisableBingSearch.Description" xml:space="preserve">
+    <value>從 Windows 搜尋中移除 Bing 網頁結果與建議</value>
+  </data>
 </root>
