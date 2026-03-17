@@ -260,10 +260,6 @@ public partial class OptimizationCategoryViewModel : ViewModel
         var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
     }
 
-    /// <summary>
-    ///     Opens the source code of an optimization on GitHub.
-    /// </summary>
-    /// <param name="optimization">The optimization to view the source code for.</param>
     [RelayCommand]
     private async Task ViewSourceOnGitHubAsync(IOptimization optimization)
     {
@@ -329,9 +325,6 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
     #region Helpers
 
-    /// <summary>
-    ///     Load all optimizations from the category and apply filters.
-    /// </summary>
     private async Task LoadOptimizationStatesAsync()
     {
         if (_allOptimizations.Count > 0) return;
