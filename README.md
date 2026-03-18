@@ -62,12 +62,13 @@ optimizerDuck currently supports the following languages:
 - 🇹🇼 **Traditional Chinese** (正體中文) - translation by [abc0922001](https://github.com/abc0922001)
 
 > [!NOTE]
-> - **English is the primary and recommended language**, as it provides the most accurate, complete, and stable descriptions across all features and optimizations.  
+>
+> - **English is the primary and recommended language**, as it provides the most accurate, complete, and stable descriptions across all features and optimizations.
 > - If you would like to help translate optimizerDuck into your language, please take a look at [Contributing Guidelines](./.github/CONTRIBUTING.md).
 
 ## Documentation
 
-Full documentation and advanced guides are available here:  
+Full documentation and advanced guides are available here:
 
 ### [optimizerDuck Documentation](https://optimizerduck.vercel.app/docs/guides/getting-started)
 
@@ -79,10 +80,10 @@ Contributions are welcome! Please read the [Contributing Guidelines](./.github/C
 
 If optimizerDuck improved your PC experience:
 
-* ⭐ Star the repository
-* 📢 Share it with others
-* 💬 Join the Discord community
-* 🎁 Support me via **[Support](https://optimizerduck.vercel.app/docs/contribute/support-me)**
+- ⭐ Star the repository
+- 📢 Share it with others
+- 💬 Join the Discord community
+- 🎁 Support me via **[Support](https://optimizerduck.vercel.app/docs/contribute/support-me)**
 
 Every star and contribution helps keep the project growing.
 
@@ -121,8 +122,6 @@ If you believe any part of this project violates your copyright, please open an 
 
 <img src=".github/assets/gplv3.png" alt="GPL v3 License" title="GPL v3 License"/>
 
-
-
 This project is licensed under the **[GPL v3 License](https://www.gnu.org/licenses/gpl-3.0.en.html)**.  
 See the [LICENSE](./LICENSE) file for details.
 
@@ -135,4 +134,5 @@ See the [LICENSE](./LICENSE) file for details.
 My application is starting to get new contributors. Thank you all so much for your support and contributions!
 
 [![Contributors](https://contrib.rocks/image?repo=itsfatduck/optimizerDuck)](https://github.com/itsfatduck/optimizerDuck/graphs/contributors)
+
 </div>
