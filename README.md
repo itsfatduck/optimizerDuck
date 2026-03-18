@@ -81,11 +81,6 @@ If optimizerDuck improved your PC experience:
 - 💬 Join the Discord community
 - 🎁 Support me via **[Support](https://optimizerduck.vercel.app/docs/contribute/support-me)**
 
-* ⭐ Star the repository
-* 📢 Share it with others
-* 💬 Join the Discord community
-* 🎁 Support me via **[Support](https://optimizerduck.vercel.app/docs/contribute/support-me)**
-
 ### Get Help & Connect
 
 - 🌐 [Website](https://optimizerduck.vercel.app/) - Official Website & Documentation
