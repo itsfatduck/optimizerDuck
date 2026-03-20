@@ -1066,6 +1066,12 @@ Hãy yên tâm rằng hệ thống của bạn luôn có đường lui nếu có
   <data name="BloatwareDialog.Confirmation.Message" xml:space="preserve">
     <value>Bạn chuẩn bị sẽ xóa: {0}</value>
   </data>
+  <data name="BloatwareDialog.Confirmation.Description" xml:space="preserve">
+    <value>Hãy kiểm tra lại các ứng dụng đã chọn trước khi gỡ. Chỉ tiếp tục khi bạn chắc chắn.</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.SelectedList" xml:space="preserve">
+    <value>Các ứng dụng đã chọn</value>
+  </data>
   <data name="Settings.Bloatware.Header" xml:space="preserve">
     <value>Bloatware</value>
   </data>

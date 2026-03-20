@@ -160,11 +160,29 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Review the selected apps before removal. Proceed only if you are sure..
+        /// </summary>
+        internal static string BloatwareDialog_Confirmation_Description {
+            get {
+                return ResourceManager.GetString("BloatwareDialog.Confirmation.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You are about to remove: {0}.
         /// </summary>
         internal static string BloatwareDialog_Confirmation_Message {
             get {
                 return ResourceManager.GetString("BloatwareDialog.Confirmation.Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected applications.
+        /// </summary>
+        internal static string BloatwareDialog_Confirmation_SelectedList {
+            get {
+                return ResourceManager.GetString("BloatwareDialog.Confirmation.SelectedList", resourceCulture);
             }
         }
         
@@ -1115,6 +1133,60 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Display the Control Panel icon on your desktop.
+        /// </summary>
+        internal static string Features_Desktop_ShowControlPanel_Description {
+            get {
+                return ResourceManager.GetString("Features.Desktop.ShowControlPanel.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Control Panel.
+        /// </summary>
+        internal static string Features_Desktop_ShowControlPanel_Name {
+            get {
+                return ResourceManager.GetString("Features.Desktop.ShowControlPanel.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show or hide all desktop icons at once.
+        /// </summary>
+        internal static string Features_Desktop_ShowDesktopIcons_Description {
+            get {
+                return ResourceManager.GetString("Features.Desktop.ShowDesktopIcons.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Desktop Icons.
+        /// </summary>
+        internal static string Features_Desktop_ShowDesktopIcons_Name {
+            get {
+                return ResourceManager.GetString("Features.Desktop.ShowDesktopIcons.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display the Network icon on your desktop.
+        /// </summary>
+        internal static string Features_Desktop_ShowNetwork_Description {
+            get {
+                return ResourceManager.GetString("Features.Desktop.ShowNetwork.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Network.
+        /// </summary>
+        internal static string Features_Desktop_ShowNetwork_Name {
+            get {
+                return ResourceManager.GetString("Features.Desktop.ShowNetwork.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Display the Recycle Bin icon on your desktop.
         /// </summary>
         internal static string Features_Desktop_ShowRecycleBin_Description {
@@ -1147,6 +1219,24 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Features_Desktop_ShowThisPc_Name {
             get {
                 return ResourceManager.GetString("Features.Desktop.ShowThisPc.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display your user profile folder as a desktop icon.
+        /// </summary>
+        internal static string Features_Desktop_ShowUserFiles_Description {
+            get {
+                return ResourceManager.GetString("Features.Desktop.ShowUserFiles.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show User Files.
+        /// </summary>
+        internal static string Features_Desktop_ShowUserFiles_Name {
+            get {
+                return ResourceManager.GetString("Features.Desktop.ShowUserFiles.Name", resourceCulture);
             }
         }
         
@@ -1336,6 +1426,24 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Features_Preferences_ClassicContextMenu_Name {
             get {
                 return ResourceManager.GetString("Features.Preferences.ClassicContextMenu.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keep multiple copied items so you can paste them later with Win+V..
+        /// </summary>
+        internal static string Features_Preferences_ClipboardHistory_Description {
+            get {
+                return ResourceManager.GetString("Features.Preferences.ClipboardHistory.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clipboard History.
+        /// </summary>
+        internal static string Features_Preferences_ClipboardHistory_Name {
+            get {
+                return ResourceManager.GetString("Features.Preferences.ClipboardHistory.Name", resourceCulture);
             }
         }
         
@@ -1759,6 +1867,24 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Features_Preferences_ToastNotifications_Name {
             get {
                 return ResourceManager.GetString("Features.Preferences.ToastNotifications.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shake a window to minimize all other open windows..
+        /// </summary>
+        internal static string Features_Preferences_WindowShake_Description {
+            get {
+                return ResourceManager.GetString("Features.Preferences.WindowShake.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Window Shake.
+        /// </summary>
+        internal static string Features_Preferences_WindowShake_Name {
+            get {
+                return ResourceManager.GetString("Features.Preferences.WindowShake.Name", resourceCulture);
             }
         }
         

@@ -1,4 +1,5 @@
-﻿using System.IO;
+using System.Collections.Concurrent;
+using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
@@ -19,6 +20,11 @@ namespace optimizerDuck.Services;
 /// </summary>
 public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<AppSettings> appOptionsMonitor)
 {
+    private static readonly ConcurrentDictionary<string, string?> LogoCache = new(StringComparer.OrdinalIgnoreCase);
+    private static readonly Regex ScaleRegex = new(@"(?:^|[._])scale-(\d+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+    private static readonly Regex TargetSizeRegex = new(@"(?:^|[._])targetsize-(\d+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+    private static readonly string[] SupportedImageExtensions = [".png", ".jpg", ".jpeg"];
+
     /// <summary>
     ///     Gets all removable AppX packages on the system.
     /// </summary>
@@ -73,7 +79,8 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
                 try
                 {
                     var manifestLogo = ResolveLogo(app.InstallLocation);
-                    if (manifestLogo != null) app.LogoImage = manifestLogo;
+                    if (manifestLogo != null)
+                        app.LogoImage = manifestLogo;
                 }
                 catch
                 {
@@ -175,81 +182,52 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
 
     private static string? ResolveLogo(string installLocation)
     {
+        if (string.IsNullOrWhiteSpace(installLocation))
+            return null;
+
+        if (LogoCache.TryGetValue(installLocation, out var cachedLogo))
+            return cachedLogo;
+
+        var resolved = ResolveLogoCore(installLocation);
+        LogoCache[installLocation] = resolved;
+        return resolved;
+    }
+
+    private static string? ResolveLogoCore(string installLocation)
+    {
         try
         {
-            // check for common high-quality logos first without parsing manifest
+            var candidateResources = GetManifestLogoCandidates(installLocation);
+            foreach (var candidate in candidateResources)
+            {
+                var bestFromCandidate = ResolveBestQualifiedVariant(installLocation, candidate,
+                    includeThemeSpecific: true);
+                if (!string.IsNullOrWhiteSpace(bestFromCandidate))
+                    return bestFromCandidate;
+            }
+
             var assetsDir = Path.Combine(installLocation, "Assets");
-            if (Directory.Exists(assetsDir))
+            if (!Directory.Exists(assetsDir))
+                return null;
+
+            // Per Microsoft guidance, AppList/Square44x44 assets are a better primary app icon source than StoreLogo.
+            var fallbackCandidates = new[]
             {
-                var commonLogos = new[] { "Logo.png" };
-                foreach (var cl in commonLogos)
-                {
-                    var path = Path.Combine(assetsDir, cl);
-                    if (File.Exists(path)) return path;
-                }
+                @"Assets\AppList.png",
+                @"Assets\Square44x44Logo.png",
+                @"Assets\SmallTile.png",
+                @"Assets\MedTile.png",
+                @"Assets\Square150x150Logo.png",
+                @"Assets\Logo.png",
+                @"Assets\StoreLogo.png"
+            };
 
-                // if exact matches aren't found, try patterns that might have scale modifiers
-                var highQualityPatterns = new[] { "*StoreLogo*.png", "*Logo*.png" };
-                foreach (var pattern in highQualityPatterns)
-                {
-                    var match = Directory.EnumerateFiles(assetsDir, pattern, SearchOption.TopDirectoryOnly)
-                        .OrderByDescending(f => new FileInfo(f).Length)
-                        .FirstOrDefault();
-                    if (match != null) return match;
-                }
-            }
-
-            // fallback: parse AppxManifest.xml
-            var manifest = Path.Combine(installLocation, "AppxManifest.xml");
-            if (!File.Exists(manifest)) return null;
-
-            var doc = XDocument.Load(manifest);
-            var root = doc.Root;
-            if (root == null) return null;
-
-            var ns = root.Name.Namespace;
-            List<string> candidates = [];
-
-            var props = root.Element(ns + "Properties");
-            if (props != null)
+            foreach (var fallbackCandidate in fallbackCandidates)
             {
-                var logo = props.Element(ns + "Logo")?.Value;
-                if (!string.IsNullOrWhiteSpace(logo)) candidates.Add(logo);
-            }
-
-            var visual = root.Descendants().FirstOrDefault(e =>
-                e.Name.LocalName == "VisualElements" || e.Name.LocalName == "DefaultTile");
-            if (visual != null)
-            {
-                AddAttr(candidates, visual, "Square150x150Logo");
-                AddAttr(candidates, visual, "Wide310x150Logo");
-                AddAttr(candidates, visual, "Square44x44Logo");
-            }
-
-            // resolve manifest candidates
-            foreach (var rel in candidates)
-            {
-                var clean = rel.Replace('/', '\\');
-                var full = Path.Combine(installLocation, clean);
-
-                if (File.Exists(full)) return full;
-
-                // fallback: search for file with matching name and extension but different scale modifiers
-                var nameWithoutExt = Path.GetFileNameWithoutExtension(clean);
-                var ext = Path.GetExtension(clean);
-                var dirPath = Path.GetDirectoryName(clean);
-                var searchDir = string.IsNullOrEmpty(dirPath)
-                    ? installLocation
-                    : Path.Combine(installLocation, dirPath);
-
-                if (Directory.Exists(searchDir))
-                {
-                    var found = Directory
-                        .EnumerateFiles(searchDir, $"{nameWithoutExt}*{ext}", SearchOption.TopDirectoryOnly)
-                        .OrderByDescending(f => new FileInfo(f).Length)
-                        .FirstOrDefault();
-                    if (found != null) return found;
-                }
+                var bestFallback = ResolveBestQualifiedVariant(installLocation, fallbackCandidate,
+                    includeThemeSpecific: true);
+                if (!string.IsNullOrWhiteSpace(bestFallback))
+                    return bestFallback;
             }
         }
         catch
@@ -260,9 +238,180 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
         return null;
     }
 
+    private static List<string> GetManifestLogoCandidates(string installLocation)
+    {
+        var manifest = Path.Combine(installLocation, "AppxManifest.xml");
+        if (!File.Exists(manifest))
+            return [];
+
+        var candidates = new List<string>();
+        var doc = XDocument.Load(manifest);
+        var root = doc.Root;
+        if (root == null)
+            return candidates;
+
+        var ns = root.Name.Namespace;
+        var visualElements = root.Descendants().FirstOrDefault(e => e.Name.LocalName == "VisualElements");
+        var defaultTile = root.Descendants().FirstOrDefault(e => e.Name.LocalName == "DefaultTile");
+        var properties = root.Element(ns + "Properties");
+
+        if (visualElements != null)
+        {
+            AddAttr(candidates, visualElements, "Square44x44Logo");
+            AddAttr(candidates, visualElements, "Square150x150Logo");
+            AddAttr(candidates, visualElements, "Wide310x150Logo");
+            AddAttr(candidates, visualElements, "Square310x310Logo");
+        }
+
+        if (defaultTile != null)
+        {
+            AddAttr(candidates, defaultTile, "Square71x71Logo");
+            AddAttr(candidates, defaultTile, "Square310x310Logo");
+            AddAttr(candidates, defaultTile, "Wide310x150Logo");
+            AddAttr(candidates, defaultTile, "Square44x44Logo");
+            AddAttr(candidates, defaultTile, "Square150x150Logo");
+        }
+
+        var packageLogo = properties?.Element(ns + "Logo")?.Value;
+        if (!string.IsNullOrWhiteSpace(packageLogo))
+            candidates.Add(packageLogo);
+
+        return candidates
+            .Where(c => !string.IsNullOrWhiteSpace(c))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToList();
+    }
+
+    private static string? ResolveBestQualifiedVariant(string installLocation, string resourcePath,
+        bool includeThemeSpecific)
+    {
+        var normalizedResource = resourcePath.Replace('/', '\\').TrimStart('\\');
+        if (string.IsNullOrWhiteSpace(normalizedResource))
+            return null;
+
+        var fullExactPath = Path.Combine(installLocation, normalizedResource);
+        if (File.Exists(fullExactPath))
+            return fullExactPath;
+
+        var candidateDirectory = Path.GetDirectoryName(fullExactPath) ?? installLocation;
+        if (!Directory.Exists(candidateDirectory))
+            return null;
+
+        var resourceFileName = Path.GetFileName(normalizedResource);
+        var extension = Path.GetExtension(resourceFileName);
+        if (!string.IsNullOrWhiteSpace(extension) &&
+            !SupportedImageExtensions.Contains(extension, StringComparer.OrdinalIgnoreCase))
+            return null;
+
+        var baseResourceName = Path.GetFileNameWithoutExtension(resourceFileName);
+        var baseNameWithoutQualifiers = StripKnownQualifiers(baseResourceName);
+        var preferredLogicalSize = GuessLogicalBaseSize(baseNameWithoutQualifiers);
+
+        var files = Directory.EnumerateFiles(candidateDirectory, "*.*", SearchOption.TopDirectoryOnly)
+            .Where(path => SupportedImageExtensions.Contains(Path.GetExtension(path), StringComparer.OrdinalIgnoreCase))
+            .Where(path =>
+            {
+                var fileName = Path.GetFileNameWithoutExtension(path);
+                var stripped = StripKnownQualifiers(fileName);
+                return stripped.Equals(baseNameWithoutQualifiers, StringComparison.OrdinalIgnoreCase);
+            })
+            .Select(path => new LogoVariant(path, preferredLogicalSize, includeThemeSpecific))
+            .OrderByDescending(v => v.SortScore)
+            .ToList();
+
+        return files.FirstOrDefault()?.Path;
+    }
+
+    private static string StripKnownQualifiers(string fileNameWithoutExtension)
+    {
+        return Regex.Replace(
+            fileNameWithoutExtension,
+            @"(?:[._](?:scale|targetsize)-\d+|_[^._]+)+$",
+            string.Empty,
+            RegexOptions.IgnoreCase).TrimEnd('.', '_');
+    }
+
+    private static int GuessLogicalBaseSize(string baseName)
+    {
+        if (baseName.Contains("applist", StringComparison.OrdinalIgnoreCase) ||
+            baseName.Contains("square44x44", StringComparison.OrdinalIgnoreCase) ||
+            baseName.Contains("smalltile", StringComparison.OrdinalIgnoreCase))
+            return 44;
+
+        if (baseName.Contains("medtile", StringComparison.OrdinalIgnoreCase) ||
+            baseName.Contains("square150x150", StringComparison.OrdinalIgnoreCase))
+            return 150;
+
+        if (baseName.Contains("widetile", StringComparison.OrdinalIgnoreCase) ||
+            baseName.Contains("wide310x150", StringComparison.OrdinalIgnoreCase))
+            return 150;
+
+        if (baseName.Contains("large", StringComparison.OrdinalIgnoreCase) ||
+            baseName.Contains("square310x310", StringComparison.OrdinalIgnoreCase))
+            return 310;
+
+        if (baseName.Contains("storelogo", StringComparison.OrdinalIgnoreCase))
+            return 50;
+
+        return 64;
+    }
+
+    private sealed class LogoVariant
+    {
+        public LogoVariant(string path, int logicalBaseSize, bool includeThemeSpecific)
+        {
+            Path = path;
+            var fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(path);
+
+            var targetSize = TryGetQualifierNumber(TargetSizeRegex, fileNameWithoutExtension);
+            var scale = TryGetQualifierNumber(ScaleRegex, fileNameWithoutExtension);
+
+            var resolvedPixelSize = targetSize
+                ?? (scale.HasValue ? logicalBaseSize * scale.Value / 100 : logicalBaseSize);
+
+            var score = 0;
+            score += resolvedPixelSize >= 48 ? 600 : 0;
+            score += resolvedPixelSize >= 64 ? 350 : 0;
+            score += resolvedPixelSize >= 96 ? 100 : 0;
+            score -= Math.Abs(64 - resolvedPixelSize);
+
+            if (targetSize.HasValue)
+                score += 220;
+
+            if (scale.HasValue)
+                score += Math.Min(scale.Value, 400);
+
+            if (includeThemeSpecific)
+            {
+                if (fileNameWithoutExtension.Contains("_altform-unplated", StringComparison.OrdinalIgnoreCase))
+                    score += 120;
+                if (fileNameWithoutExtension.Contains("_altform-lightunplated", StringComparison.OrdinalIgnoreCase))
+                    score += 110;
+            }
+
+            if (fileNameWithoutExtension.Contains("storelogo", StringComparison.OrdinalIgnoreCase))
+                score -= 300;
+
+            SortScore = score;
+        }
+
+        public string Path { get; }
+        public int SortScore { get; }
+
+        private static int? TryGetQualifierNumber(Regex regex, string text)
+        {
+            var match = regex.Match(text);
+            if (!match.Success)
+                return null;
+
+            return int.TryParse(match.Groups[1].Value, out var value) ? value : null;
+        }
+    }
+
     private static void AddAttr(List<string> list, XElement el, string name)
     {
         var val = el.Attribute(name)?.Value;
-        if (!string.IsNullOrWhiteSpace(val)) list.Add(val);
+        if (!string.IsNullOrWhiteSpace(val))
+            list.Add(val);
     }
 }

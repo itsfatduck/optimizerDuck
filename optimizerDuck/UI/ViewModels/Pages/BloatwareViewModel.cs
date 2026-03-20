@@ -165,12 +165,12 @@ public partial class BloatwareViewModel : ViewModel
     private async Task RemoveSelected()
     {
         var toRemove = AppxPackages.Where(x => x.IsSelected).ToList();
+        var confirmationViewModel = new BloatwareConfirmationDialogViewModel(toRemove);
 
         var askForConfirmationDialog = new ContentDialog
         {
             Title = string.Format(Translations.BloatwareDialog_Confirmation_Title, SelectedCount),
-            Content = string.Format(Translations.BloatwareDialog_Confirmation_Message,
-                string.Join(", ", toRemove.Select(a => a.Name))),
+            Content = new BloatwareConfirmationDialog { DataContext = confirmationViewModel },
             PrimaryButtonText = Translations.Button_Ok,
             CloseButtonText = Translations.Button_Cancel
         };

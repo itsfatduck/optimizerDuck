@@ -1102,6 +1102,12 @@ This ensures you can always go back if anything goes wrong.</value>
   <data name="BloatwareDialog.Confirmation.Message" xml:space="preserve">
     <value>You are about to remove: {0}</value>
   </data>
+  <data name="BloatwareDialog.Confirmation.Description" xml:space="preserve">
+    <value>Review the selected apps before removal. Proceed only if you are sure.</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.SelectedList" xml:space="preserve">
+    <value>Selected applications</value>
+  </data>
   <data name="Settings.Bloatware.Header" xml:space="preserve">
     <value>Bloatware</value>
   </data>

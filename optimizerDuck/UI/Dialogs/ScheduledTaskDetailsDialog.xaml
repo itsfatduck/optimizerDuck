@@ -1,6 +1,6 @@
-﻿<UserControl
-    d:DesignHeight="400"
-    d:DesignWidth="500"
+<UserControl
+    d:DesignHeight="700"
+    d:DesignWidth="760"
     mc:Ignorable="d"
     x:Class="optimizerDuck.UI.Dialogs.ScheduledTaskDetailsDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -9,257 +9,281 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel MinWidth="620" x:Name="RootPanel">
+            <Border
+                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{DynamicResource CardBorderBrush}"
+                BorderThickness="1"
+                CornerRadius="8"
+                Margin="0,0,0,12"
+                Padding="16,12">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-    <StackPanel MinWidth="450" x:Name="RootPanel">
-        <!--  General Info Card  -->
-        <Border
-            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-            CornerRadius="8"
-            Margin="0,0,0,8"
-            Padding="0">
-            <StackPanel>
-                <Grid Margin="14,12">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <ui:SymbolIcon
-                        FontSize="14"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Margin="0,0,10,0"
-                        Symbol="Folder24"
-                        VerticalAlignment="Top" />
-                    <StackPanel Grid.Column="1">
+                    <Image
+                        Grid.Column="0"
+                        Height="40"
+                        Margin="0,0,12,0"
+                        Stretch="UniformToFill"
+                        VerticalAlignment="Center"
+                        Width="40"
+                        x:Name="TaskLogoImage" />
+
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <DockPanel LastChildFill="False">
+                            <ui:TextBlock
+                                FontTypography="BodyStrong"
+                                Text=""
+                                TextWrapping="Wrap"
+                                x:Name="TaskNameText" />
+                            <Border
+                                Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                CornerRadius="4"
+                                Margin="8,0,0,0"
+                                Padding="6,1"
+                                VerticalAlignment="Center">
+                                <ui:TextBlock
+                                    Appearance="Tertiary"
+                                    FontTypography="Caption"
+                                    Text="{ext:Loc ScheduledTasks.Header.Title}"
+                                    VerticalAlignment="Center" />
+                            </Border>
+                            <Border
+                                CornerRadius="4"
+                                Margin="8,0,0,0"
+                                Padding="6,1"
+                                VerticalAlignment="Center"
+                                x:Name="StateBorder">
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:SymbolIcon
+                                        FontSize="10"
+                                        Margin="0,0,4,0"
+                                        Symbol="Circle24"
+                                        x:Name="StateIcon" />
+                                    <ui:TextBlock
+                                        FontTypography="Caption"
+                                        Foreground="{Binding ElementName=StateIcon, Path=Foreground}"
+                                        Text=""
+                                        VerticalAlignment="Center"
+                                        x:Name="StateText" />
+                                </StackPanel>
+                            </Border>
+                        </DockPanel>
+
                         <ui:TextBlock
                             Appearance="Secondary"
                             FontTypography="Caption"
-                            Text="{ext:Loc ScheduledTasks.Details.Path}" />
-                        <ui:TextBlock
-                            FontFamily="Consolas"
-                            FontTypography="Body"
-                            Margin="0,2,0,0"
-                            Text=""
-                            TextWrapping="Wrap"
-                            x:Name="PathText" />
-                    </StackPanel>
-                </Grid>
-                <Separator Margin="14,0" />
-                <Grid Margin="14,12">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <ui:SymbolIcon
-                        FontSize="14"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Margin="0,0,10,0"
-                        Symbol="TextDescription24"
-                        VerticalAlignment="Top" />
-                    <StackPanel Grid.Column="1">
-                        <ui:TextBlock
-                            Appearance="Secondary"
-                            FontTypography="Caption"
-                            Text="{ext:Loc ScheduledTasks.Details.Description}" />
-                        <ui:TextBlock
-                            FontTypography="Body"
-                            Margin="0,2,0,0"
+                            Margin="0,4,0,0"
                             Text=""
                             TextWrapping="Wrap"
                             x:Name="DescriptionText" />
-                    </StackPanel>
-                </Grid>
-                <Separator Margin="14,0" />
-                <Grid Margin="14,12">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <ui:SymbolIcon
-                        FontSize="14"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Margin="0,0,10,0"
-                        Symbol="Person24"
-                        VerticalAlignment="Top" />
-                    <StackPanel Grid.Column="1">
                         <ui:TextBlock
-                            Appearance="Secondary"
+                            Appearance="Disabled"
                             FontTypography="Caption"
-                            Text="{ext:Loc ScheduledTasks.Details.Author}" />
-                        <ui:TextBlock
-                            FontTypography="Body"
                             Margin="0,2,0,0"
                             Text=""
-                            x:Name="AuthorText" />
+                            TextTrimming="CharacterEllipsis"
+                            x:Name="PathText" />
+
+                        <ItemsControl Margin="0,6,0,0" x:Name="TriggerBadgesItems">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border
+                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                        CornerRadius="4"
+                                        Margin="0,0,4,2"
+                                        Padding="6,2">
+                                        <StackPanel Orientation="Horizontal">
+                                            <ui:SymbolIcon
+                                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                Margin="0,0,4,0"
+                                                Symbol="Timer24" />
+                                            <ui:TextBlock
+                                                FontTypography="Caption"
+                                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                Text="{Binding}"
+                                                VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </StackPanel>
                 </Grid>
-            </StackPanel>
-        </Border>
+            </Border>
 
-        <!--  State & Triggers Card  -->
-        <Border
-            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-            CornerRadius="8"
-            Margin="0,0,0,8"
-            Padding="0">
-            <StackPanel>
-                <Grid Margin="14,12">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <ui:SymbolIcon
-                        FontSize="14"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Margin="0,0,10,0"
-                        Symbol="Flash24"
-                        VerticalAlignment="Top" />
-                    <StackPanel Grid.Column="1">
-                        <ui:TextBlock
-                            Appearance="Secondary"
-                            FontTypography="Caption"
-                            Text="{ext:Loc ScheduledTasks.Details.State}" />
-                        <Border
-                            CornerRadius="4"
-                            HorizontalAlignment="Left"
-                            Margin="0,4,0,0"
-                            Padding="8,2"
-                            x:Name="StateBorder">
+            <Border
+                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{DynamicResource CardBorderBrush}"
+                BorderThickness="1"
+                CornerRadius="8"
+                Margin="0,0,0,12"
+                Padding="0">
+                <StackPanel>
+                    <Grid Margin="14,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ui:SymbolIcon
+                            FontSize="14"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Margin="0,0,10,0"
+                            Symbol="Person24"
+                            VerticalAlignment="Top" />
+                        <StackPanel Grid.Column="1">
                             <ui:TextBlock
+                                Appearance="Secondary"
                                 FontTypography="Caption"
-                                Foreground="{DynamicResource TextFillColorInverseBrush}"
+                                Text="{ext:Loc ScheduledTasks.Details.Author}" />
+                            <ui:TextBlock
+                                FontTypography="Body"
+                                Margin="0,2,0,0"
                                 Text=""
-                                x:Name="StateText" />
-                        </Border>
-                    </StackPanel>
-                </Grid>
-                <Separator Margin="14,0" />
-                <Grid Margin="14,12">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <ui:SymbolIcon
-                        FontSize="14"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Margin="0,0,10,0"
-                        Symbol="Timer24"
-                        VerticalAlignment="Top" />
-                    <StackPanel Grid.Column="1">
-                        <ui:TextBlock
-                            Appearance="Secondary"
-                            FontTypography="Caption"
-                            Text="{ext:Loc ScheduledTasks.Details.Triggers}" />
-                        <ui:TextBlock
-                            FontTypography="Body"
-                            Margin="0,2,0,0"
-                            Text=""
-                            TextWrapping="Wrap"
-                            x:Name="TriggersText" />
-                    </StackPanel>
-                </Grid>
-                <Separator Margin="14,0" />
-                <Grid Margin="14,12">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <ui:SymbolIcon
-                        FontSize="14"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Margin="0,0,10,0"
-                        Symbol="Play24"
-                        VerticalAlignment="Top" />
-                    <StackPanel Grid.Column="1">
-                        <ui:TextBlock
-                            Appearance="Secondary"
-                            FontTypography="Caption"
-                            Text="{ext:Loc ScheduledTasks.Details.Action}" />
-                        <ui:TextBlock
-                            FontFamily="Consolas"
-                            FontTypography="Body"
-                            Margin="0,2,0,0"
-                            Text=""
-                            TextWrapping="Wrap"
-                            x:Name="ActionText" />
-                    </StackPanel>
-                </Grid>
-            </StackPanel>
-        </Border>
+                                x:Name="AuthorText" />
+                        </StackPanel>
+                    </Grid>
+                    <Separator Margin="14,0" />
 
-        <!--  Run History Card  -->
-        <Border
-            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-            CornerRadius="8"
-            Padding="0">
-            <StackPanel>
-                <Grid Margin="14,12">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <ui:SymbolIcon
-                        FontSize="14"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Margin="0,0,10,0"
-                        Symbol="History24"
-                        VerticalAlignment="Top" />
-                    <StackPanel Grid.Column="1" Margin="0,0,16,0">
-                        <ui:TextBlock
-                            Appearance="Secondary"
-                            FontTypography="Caption"
-                            Text="{ext:Loc ScheduledTasks.Details.LastRun}" />
-                        <ui:TextBlock
-                            FontTypography="Body"
-                            Margin="0,2,0,0"
-                            Text=""
-                            x:Name="LastRunText" />
-                    </StackPanel>
-                    <ui:SymbolIcon
-                        FontSize="14"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Grid.Column="2"
-                        Margin="0,0,10,0"
-                        Symbol="CalendarArrowRight24"
-                        VerticalAlignment="Top" />
-                    <StackPanel Grid.Column="3">
-                        <ui:TextBlock
-                            Appearance="Secondary"
-                            FontTypography="Caption"
-                            Text="{ext:Loc ScheduledTasks.Details.NextRun}" />
-                        <ui:TextBlock
-                            FontTypography="Body"
-                            Margin="0,2,0,0"
-                            Text=""
-                            x:Name="NextRunText" />
-                    </StackPanel>
-                </Grid>
-                <Separator Margin="14,0" />
-                <Grid Margin="14,12">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <ui:SymbolIcon
-                        FontSize="14"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Margin="0,0,10,0"
-                        Symbol="CheckmarkCircle24"
-                        VerticalAlignment="Top" />
-                    <StackPanel Grid.Column="1">
-                        <ui:TextBlock
-                            Appearance="Secondary"
-                            FontTypography="Caption"
-                            Text="{ext:Loc ScheduledTasks.Details.LastResult}" />
-                        <ui:TextBlock
-                            FontTypography="Body"
-                            Margin="0,2,0,0"
-                            Text=""
-                            x:Name="LastResultText" />
-                    </StackPanel>
-                </Grid>
-            </StackPanel>
-        </Border>
-    </StackPanel>
+                    <Grid Margin="14,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ui:SymbolIcon
+                            FontSize="14"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Margin="0,0,10,0"
+                            Symbol="Timer24"
+                            VerticalAlignment="Top" />
+                        <StackPanel Grid.Column="1">
+                            <ui:TextBlock
+                                Appearance="Secondary"
+                                FontTypography="Caption"
+                                Text="{ext:Loc ScheduledTasks.Details.Triggers}" />
+                            <ui:TextBlock
+                                FontTypography="Body"
+                                Margin="0,2,0,0"
+                                Text=""
+                                TextWrapping="Wrap"
+                                x:Name="TriggersText" />
+                        </StackPanel>
+                    </Grid>
+                    <Separator Margin="14,0" />
+
+                    <Grid Margin="14,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ui:SymbolIcon
+                            FontSize="14"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Margin="0,0,10,0"
+                            Symbol="Play24"
+                            VerticalAlignment="Top" />
+                        <StackPanel Grid.Column="1">
+                            <ui:TextBlock
+                                Appearance="Secondary"
+                                FontTypography="Caption"
+                                Text="{ext:Loc ScheduledTasks.Details.Action}" />
+                            <ui:TextBlock
+                                FontFamily="Consolas"
+                                FontTypography="Body"
+                                Margin="0,2,0,0"
+                                Text=""
+                                TextWrapping="Wrap"
+                                x:Name="ActionText" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <Border
+                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{DynamicResource CardBorderBrush}"
+                BorderThickness="1"
+                CornerRadius="8"
+                Padding="0">
+                <StackPanel>
+                    <Grid Margin="14,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ui:SymbolIcon
+                            FontSize="14"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Margin="0,0,10,0"
+                            Symbol="History24"
+                            VerticalAlignment="Top" />
+                        <StackPanel Grid.Column="1" Margin="0,0,16,0">
+                            <ui:TextBlock
+                                Appearance="Secondary"
+                                FontTypography="Caption"
+                                Text="{ext:Loc ScheduledTasks.Details.LastRun}" />
+                            <ui:TextBlock
+                                FontTypography="Body"
+                                Margin="0,2,0,0"
+                                Text=""
+                                x:Name="LastRunText" />
+                        </StackPanel>
+                        <ui:SymbolIcon
+                            FontSize="14"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Grid.Column="2"
+                            Margin="0,0,10,0"
+                            Symbol="CalendarArrowRight24"
+                            VerticalAlignment="Top" />
+                        <StackPanel Grid.Column="3">
+                            <ui:TextBlock
+                                Appearance="Secondary"
+                                FontTypography="Caption"
+                                Text="{ext:Loc ScheduledTasks.Details.NextRun}" />
+                            <ui:TextBlock
+                                FontTypography="Body"
+                                Margin="0,2,0,0"
+                                Text=""
+                                x:Name="NextRunText" />
+                        </StackPanel>
+                    </Grid>
+                    <Separator Margin="14,0" />
+                    <Grid Margin="14,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ui:SymbolIcon
+                            FontSize="14"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Margin="0,0,10,0"
+                            Symbol="CheckmarkCircle24"
+                            VerticalAlignment="Top" />
+                        <StackPanel Grid.Column="1">
+                            <ui:TextBlock
+                                Appearance="Secondary"
+                                FontTypography="Caption"
+                                Text="{ext:Loc ScheduledTasks.Details.LastResult}" />
+                            <ui:TextBlock
+                                FontTypography="Body"
+                                Margin="0,2,0,0"
+                                Text=""
+                                x:Name="LastResultText" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>
