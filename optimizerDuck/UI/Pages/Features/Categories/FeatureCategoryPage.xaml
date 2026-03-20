@@ -1,23 +1,23 @@
 ﻿<Page
-    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-    Margin="0,32,0,0"
-    ScrollViewer.CanContentScroll="False"
-    Title="{Binding ViewModel.CategoryName}"
-    d:DataContext="{d:DesignInstance features:FeatureCategoryPage}"
-    d:DesignHeight="650"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
-    ui:Design.Background="Black"
-    ui:Design.Foreground="White"
     x:Class="optimizerDuck.UI.Pages.Features.FeatureCategoryPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:optimizerDuck.Common.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
     xmlns:features="clr-namespace:optimizerDuck.UI.Pages.Features"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    Title="{Binding ViewModel.CategoryName}"
+    Margin="0,32,0,0"
+    d:DataContext="{d:DesignInstance features:FeatureCategoryPage}"
+    d:DesignHeight="650"
+    d:DesignWidth="800"
+    ui:Design.Background="Black"
+    ui:Design.Foreground="White"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    ScrollViewer.CanContentScroll="False"
+    mc:Ignorable="d">
 
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
@@ -33,14 +33,14 @@
         <StackPanel Grid.Row="0" Margin="42,0,42,16">
             <StackPanel Margin="0,0,0,8" Orientation="Horizontal">
                 <ui:SymbolIcon
-                    FontSize="24"
                     Margin="0,0,12,0"
-                    Symbol="{Binding ViewModel.CategoryIcon}"
-                    VerticalAlignment="Center" />
+                    VerticalAlignment="Center"
+                    FontSize="24"
+                    Symbol="{Binding ViewModel.CategoryIcon}" />
                 <ui:TextBlock
+                    VerticalAlignment="Center"
                     FontTypography="Title"
-                    Text="{Binding ViewModel.CategoryName}"
-                    VerticalAlignment="Center" />
+                    Text="{Binding ViewModel.CategoryName}" />
             </StackPanel>
             <ui:TextBlock
                 Appearance="Secondary"
@@ -53,24 +53,24 @@
             Margin="42,0,42,16"
             Orientation="Horizontal">
             <ui:TextBox
-                HorizontalAlignment="Left"
-                Icon="{ui:SymbolIcon Search24}"
-                Margin="0,0,8,0"
                 MinWidth="200"
+                Margin="0,0,8,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Icon="{ui:SymbolIcon Search24}"
                 PlaceholderText="{ext:Loc Common.Search.Placeholder}"
-                Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}"
-                VerticalAlignment="Center" />
+                Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}" />
 
             <ComboBox
                 Margin="0,0,8,0"
+                VerticalAlignment="Center"
                 SelectedIndex="{Binding ViewModel.SelectedSortByIndex}"
-                ToolTip="{ext:Loc Common.SortBy}"
-                VerticalAlignment="Center">
+                ToolTip="{ext:Loc Common.SortBy}">
                 <ComboBoxItem HorizontalContentAlignment="Left">
-                    <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                    <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
                         <ui:SymbolIcon
-                            HorizontalAlignment="Left"
                             Margin="0,0,6,0"
+                            HorizontalAlignment="Left"
                             Symbol="TextSortAscending24" />
                         <TextBlock
                             Grid.Column="1"
@@ -79,10 +79,10 @@
                     </Grid>
                 </ComboBoxItem>
                 <ComboBoxItem HorizontalContentAlignment="Left">
-                    <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                    <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
                         <ui:SymbolIcon
-                            HorizontalAlignment="Left"
                             Margin="0,0,6,0"
+                            HorizontalAlignment="Left"
                             Symbol="ToggleRight24" />
                         <TextBlock
                             Grid.Column="1"
@@ -95,18 +95,18 @@
 
         <ScrollViewer
             Grid.Row="2"
-            HorizontalScrollBarVisibility="Disabled"
             Margin="42,0,42,0"
+            HorizontalScrollBarVisibility="Disabled"
             VerticalScrollBarVisibility="Auto">
 
             <!--  Sections  -->
-            <ItemsControl ItemsSource="{Binding ViewModel.Sections}" Margin="0,0,0,16">
+            <ItemsControl Margin="0,0,0,16" ItemsSource="{Binding ViewModel.Sections}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Margin="0,0,0,18">
+                        <StackPanel Margin="0,0,0,0">
                             <ui:TextBlock
-                                FontTypography="BodyStrong"
                                 Margin="0,0,0,6"
+                                FontTypography="BodyStrong"
                                 Text="{Binding Name}" />
                             <ItemsControl ItemsSource="{Binding Features}">
                                 <ItemsControl.ItemTemplate>
@@ -122,22 +122,22 @@
                                                         Text="{Binding Name}"
                                                         TextWrapping="Wrap" />
                                                     <ui:TextBlock
+                                                        Margin="0,4,0,0"
                                                         Appearance="Secondary"
                                                         FontTypography="Caption"
-                                                        Margin="0,4,0,0"
                                                         Text="{Binding Description}"
                                                         TextTrimming="WordEllipsis"
                                                         TextWrapping="Wrap" />
                                                 </StackPanel>
                                             </ui:CardControl.Header>
                                             <ui:ToggleSwitch
-                                                OffContent="{ext:Loc Common.Toggle.Off}"
-OnContent="{ext:Loc Common.Toggle.On}"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Center"
                                                 Command="{Binding ToggleCommand}"
                                                 Cursor="Hand"
-                                                HorizontalAlignment="Right"
                                                 IsChecked="{Binding IsEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                                VerticalAlignment="Center" />
+                                                OffContent="{ext:Loc Common.Toggle.Off}"
+                                                OnContent="{ext:Loc Common.Toggle.On}" />
                                         </ui:CardControl>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
@@ -151,15 +151,15 @@ OnContent="{ext:Loc Common.Toggle.On}"
         <Border Grid.Row="2" Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource BoolToVisibilityConverter}}">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ui:ProgressRing
+                    Width="48"
                     Height="48"
-                    HorizontalAlignment="Center"
-                    IsIndeterminate="True"
                     Margin="0,0,0,16"
-                    VerticalAlignment="Center"
-                    Width="48" />
-                <ui:TextBlock
-                    FontTypography="BodyStrong"
                     HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    IsIndeterminate="True" />
+                <ui:TextBlock
+                    HorizontalAlignment="Center"
+                    FontTypography="BodyStrong"
                     Text="{ext:Loc Features.Loading}" />
             </StackPanel>
         </Border>

@@ -339,12 +339,15 @@
                                             ToolTipService.InitialShowDelay="150"
                                             ToolTipService.Placement="Top"
                                             Visibility="{Binding State.AppliedAt, Converter={StaticResource NullToVisibilityConverter}}">
-                                            <ui:TextBlock
-                                                HorizontalAlignment="Center"
-                                                VerticalAlignment="Center"
-                                                FontTypography="Caption"
-                                                Text="{Binding State.RelativeTime}"
-                                                TextWrapping="Wrap" />
+                                            <StackPanel Orientation="Horizontal">
+                                                <ui:SymbolIcon Margin="0,0,6,0" Symbol="CheckmarkCircle24" />
+                                                <ui:TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    FontTypography="Caption"
+                                                    Text="{Binding State.RelativeTime}"
+                                                    TextWrapping="Wrap" />
+                                            </StackPanel>
                                         </Border>
                                     </Grid>
 

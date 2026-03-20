@@ -1,233 +1,233 @@
 <UserControl
-    ScrollViewer.CanContentScroll="False"
-    d:DesignHeight="760"
-    d:DesignWidth="760"
-    mc:Ignorable="d"
     x:Class="optimizerDuck.UI.Dialogs.OptimizationDetailsDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <ScrollViewer Margin="0,0,12,0" VerticalScrollBarVisibility="Auto">
-        <StackPanel>
-            <!-- Header card: keep same visual language as optimization item -->
-            <Border
-                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-                BorderBrush="{DynamicResource CardBorderBrush}"
-                BorderThickness="1"
-                CornerRadius="8"
-                Margin="0,0,0,12"
-                Padding="16">
-                <Grid RowDefinitions="Auto,Auto,Auto,Auto">
-                    <ui:TextBlock
-                        Appearance="Disabled"
-                        FontTypography="Caption"
-                        Text="{Binding Optimization.Id}" />
+    d:DesignHeight="760"
+    d:DesignWidth="760"
+    ScrollViewer.CanContentScroll="False"
+    mc:Ignorable="d">
+    <StackPanel>
+        <Border
+            Margin="0,0,0,12"
+            Padding="16"
+            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{DynamicResource CardBorderBrush}"
+            BorderThickness="1"
+            CornerRadius="8">
+            <Grid RowDefinitions="Auto,Auto,Auto,Auto">
+                <ui:TextBlock
+                    Appearance="Disabled"
+                    FontTypography="Caption"
+                    Text="{Binding Optimization.Id}" />
 
-                    <ui:TextBlock
-                        Grid.Row="1"
-                        FontTypography="Subtitle"
-                        Margin="0,2,0,0"
-                        Text="{Binding Optimization.Name}"
-                        TextWrapping="Wrap" />
+                <ui:TextBlock
+                    Grid.Row="1"
+                    Margin="0,2,0,0"
+                    FontTypography="Subtitle"
+                    Text="{Binding Optimization.Name}"
+                    TextWrapping="Wrap" />
 
-                    <ui:VirtualizingItemsControl
-                        Grid.Row="2"
-                        ItemsSource="{Binding Optimization.TagDisplays}"
-                        Margin="0,8,0,0">
-                        <ui:VirtualizingItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" />
-                            </ItemsPanelTemplate>
-                        </ui:VirtualizingItemsControl.ItemsPanel>
-                        <ui:VirtualizingItemsControl.ItemContainerStyle>
-                            <Style TargetType="ContentPresenter">
-                                <Setter Property="Margin" Value="0,0,6,6" />
+                <ui:VirtualizingItemsControl
+                    Grid.Row="2"
+                    Margin="0,8,0,0"
+                    ItemsSource="{Binding Optimization.TagDisplays}">
+                    <ui:VirtualizingItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        </ItemsPanelTemplate>
+                    </ui:VirtualizingItemsControl.ItemsPanel>
+                    <ui:VirtualizingItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Margin" Value="0,0,6,6" />
+                        </Style>
+                    </ui:VirtualizingItemsControl.ItemContainerStyle>
+                    <ui:VirtualizingItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                Padding="6,3"
+                                Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                CornerRadius="5">
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:SymbolIcon
+                                        Margin="0,0,6,0"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Symbol="{Binding Icon}" />
+                                    <ui:TextBlock
+                                        VerticalAlignment="Center"
+                                        Appearance="Secondary"
+                                        FontTypography="Caption"
+                                        Text="{Binding Display}" />
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ui:VirtualizingItemsControl.ItemTemplate>
+                </ui:VirtualizingItemsControl>
+
+                <Grid
+                    Grid.Row="3"
+                    Margin="0,4,0,0"
+                    ColumnDefinitions="Auto,Auto,*">
+                    <Border
+                        Padding="6,4"
+                        HorizontalAlignment="Left"
+                        CornerRadius="5">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Optimization.Risk}" Value="Moderate">
+                                        <Setter Property="Background" Value="{DynamicResource SystemFillColorCautionBrush}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Optimization.Risk}" Value="Risky">
+                                        <Setter Property="Background" Value="{DynamicResource SystemFillColorCriticalBrush}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
                             </Style>
-                        </ui:VirtualizingItemsControl.ItemContainerStyle>
-                        <ui:VirtualizingItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border
-                                    Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                    CornerRadius="5"
-                                    Padding="6,3">
-                                    <StackPanel Orientation="Horizontal">
-                                        <ui:SymbolIcon
-                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                            Margin="0,0,6,0"
-                                            Symbol="{Binding Icon}" />
-                                        <ui:TextBlock
-                                            Appearance="Secondary"
-                                            FontTypography="Caption"
-                                            Text="{Binding Display}"
-                                            VerticalAlignment="Center" />
-                                    </StackPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ui:VirtualizingItemsControl.ItemTemplate>
-                    </ui:VirtualizingItemsControl>
+                        </Border.Style>
+                        <StackPanel Orientation="Horizontal">
+                            <ui:SymbolIcon
+                                Margin="0,0,6,0"
+                                Foreground="{DynamicResource TextFillColorInverseBrush}"
+                                Symbol="{Binding Optimization.RiskVisual.Icon}" />
+                            <ui:TextBlock
+                                VerticalAlignment="Center"
+                                FontTypography="Caption"
+                                Foreground="{DynamicResource TextFillColorInverseBrush}"
+                                Text="{Binding Optimization.RiskVisual.Display}" />
+                        </StackPanel>
+                    </Border>
 
-                    <Grid Grid.Row="3" Margin="0,4,0,0" ColumnDefinitions="Auto,Auto,*">
-                        <Border
-                            CornerRadius="5"
-                            HorizontalAlignment="Left"
-                            Padding="6,4">
-                            <Border.Style>
-                                <Style TargetType="Border">
-                                    <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Optimization.Risk}" Value="Moderate">
-                                            <Setter Property="Background" Value="{DynamicResource SystemFillColorCautionBrush}" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding Optimization.Risk}" Value="Risky">
-                                            <Setter Property="Background" Value="{DynamicResource SystemFillColorCriticalBrush}" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Border.Style>
-                            <StackPanel Orientation="Horizontal">
-                                <ui:SymbolIcon
-                                    Foreground="{DynamicResource TextFillColorInverseBrush}"
-                                    Margin="0,0,6,0"
-                                    Symbol="{Binding Optimization.RiskVisual.Icon}" />
-                                <ui:TextBlock
-                                    FontTypography="Caption"
-                                    Foreground="{DynamicResource TextFillColorInverseBrush}"
-                                    Text="{Binding Optimization.RiskVisual.Display}"
-                                    VerticalAlignment="Center" />
-                            </StackPanel>
-                        </Border>
-
-                        <Border
-                            Grid.Column="1"
-                            Background="{DynamicResource CardBackgroundDisabled}"
-                            CornerRadius="5"
-                            HorizontalAlignment="Left"
-                            Margin="8,0,0,0"
-                            Padding="6,4"
-                            ToolTip="{Binding Optimization.State.AppliedAt}"
-                            ToolTipService.InitialShowDelay="150"
-                            ToolTipService.Placement="Top"
-                            Visibility="{Binding Optimization.State.AppliedAt, Converter={StaticResource NullToVisibilityConverter}}">
-                            <StackPanel Orientation="Horizontal">
-                                <ui:SymbolIcon Margin="0,0,6,0" Symbol="CheckmarkCircle24" />
-                                <ui:TextBlock
-                                    FontTypography="Caption"
-                                    Text="{Binding Optimization.State.RelativeTime}"
-                                    VerticalAlignment="Center" />
-                            </StackPanel>
-                        </Border>
-                    </Grid>
+                    <Border
+                        Grid.Column="1"
+                        Margin="8,0,0,0"
+                        Padding="6,4"
+                        HorizontalAlignment="Left"
+                        Background="{DynamicResource CardBackgroundDisabled}"
+                        CornerRadius="5"
+                        ToolTip="{Binding Optimization.State.AppliedAt}"
+                        ToolTipService.InitialShowDelay="150"
+                        ToolTipService.Placement="Top"
+                        Visibility="{Binding Optimization.State.AppliedAt, Converter={StaticResource NullToVisibilityConverter}}">
+                        <StackPanel Orientation="Horizontal">
+                            <ui:SymbolIcon Margin="0,0,6,0" Symbol="CheckmarkCircle24" />
+                            <ui:TextBlock
+                                VerticalAlignment="Center"
+                                FontTypography="Caption"
+                                Text="{Binding Optimization.State.RelativeTime}" />
+                        </StackPanel>
+                    </Border>
                 </Grid>
-            </Border>
+            </Grid>
+        </Border>
 
-            <Border
-                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-                BorderBrush="{DynamicResource CardBorderBrush}"
-                BorderThickness="1"
-                CornerRadius="8"
-                Margin="0,0,0,12"
-                Padding="16">
-                <StackPanel>
+        <Border
+            Margin="0,0,0,12"
+            Padding="16"
+            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{DynamicResource CardBorderBrush}"
+            BorderThickness="1"
+            CornerRadius="8">
+            <StackPanel>
+                <ui:TextBlock
+                    Margin="0,0,0,8"
+                    FontTypography="BodyStrong"
+                    Text="{ext:Loc OptimizationDetailsDialog.DetailedDescription}" />
+                <ui:TextBlock
+                    Appearance="Secondary"
+                    FontTypography="Body"
+                    Text="{Binding Optimization.ShortDescription}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+        </Border>
+
+        <Border
+            Margin="0,0,0,12"
+            Padding="0"
+            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{DynamicResource CardBorderBrush}"
+            BorderThickness="1"
+            CornerRadius="8">
+            <StackPanel>
+                <Grid Margin="16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
                     <ui:TextBlock
-                        FontTypography="BodyStrong"
-                        Margin="0,0,0,8"
-                        Text="{ext:Loc OptimizationDetailsDialog.DetailedDescription}" />
-                    <ui:TextBlock
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
                         Appearance="Secondary"
-                        FontTypography="Body"
-                        Text="{Binding Optimization.ShortDescription}"
-                        TextWrapping="Wrap" />
-                </StackPanel>
-            </Border>
-
-            <Border
-                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-                BorderBrush="{DynamicResource CardBorderBrush}"
-                BorderThickness="1"
-                CornerRadius="8"
-                Margin="0,0,0,12"
-                Padding="0">
-                <StackPanel>
-                    <Grid Margin="16">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <ui:TextBlock
-                            Appearance="Secondary"
-                            Grid.Column="0"
-                            Text="{ext:Loc OptimizationDetailsDialog.Id}"
-                            VerticalAlignment="Center" />
-                        <ui:TextBlock
-                            FontFamily="Consolas"
-                            Grid.Column="1"
-                            Text="{Binding Optimization.Id}"
-                            TextWrapping="Wrap"
-                            VerticalAlignment="Center" />
-                    </Grid>
-                    <Separator Margin="16,0" />
-                    <Grid Margin="16">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <ui:TextBlock
-                            Appearance="Secondary"
-                            Grid.Column="0"
-                            Text="{ext:Loc OptimizationDetailsDialog.Class}"
-                            VerticalAlignment="Center" />
-                        <ui:TextBlock
-                            FontFamily="Consolas"
-                            Grid.Column="1"
-                            Text="{Binding Optimization.OptimizationKey}"
-                            TextWrapping="Wrap"
-                            VerticalAlignment="Center" />
-                    </Grid>
-                </StackPanel>
-            </Border>
-
-            <ui:TextBlock
-                FontTypography="BodyStrong"
-                Margin="0,0,0,8"
-                Text="{ext:Loc OptimizationDetailsDialog.Other}" />
-
-            <ui:CardAction
-                Command="{Binding ViewSourceOnGitHubCommand}"
-                Icon="{ui:SymbolIcon Code24}"
-                Margin="0,0,0,8">
-                <StackPanel>
+                        Text="{ext:Loc OptimizationDetailsDialog.Id}" />
                     <ui:TextBlock
-                        FontTypography="BodyStrong"
-                        Text="{ext:Loc OptimizationDetailsDialog.Other.ViewSource.Title}"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        FontFamily="Consolas"
+                        Text="{Binding Optimization.Id}"
                         TextWrapping="Wrap" />
+                </Grid>
+                <Separator Margin="16,0" />
+                <Grid Margin="16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
                     <ui:TextBlock
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
                         Appearance="Secondary"
-                        FontTypography="Body"
-                        Text="{ext:Loc OptimizationDetailsDialog.Other.ViewSource.Description}"
+                        Text="{ext:Loc OptimizationDetailsDialog.Class}" />
+                    <ui:TextBlock
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        FontFamily="Consolas"
+                        Text="{Binding Optimization.OptimizationKey}"
                         TextWrapping="Wrap" />
-                </StackPanel>
-            </ui:CardAction>
+                </Grid>
+            </StackPanel>
+        </Border>
 
-            <ui:CardAction
-                Command="{Binding OpenRevertFileCommand}"
-                Icon="{ui:SymbolIcon FolderOpen24}"
-                Margin="0,0,0,4"
-                Visibility="{Binding Optimization.State.AppliedAt, Converter={StaticResource NullToVisibilityConverter}}">
-                <StackPanel>
-                    <ui:TextBlock
-                        FontTypography="BodyStrong"
-                        Text="{ext:Loc OptimizationDetailsDialog.Other.OpenRevertFile.Title}"
-                        TextWrapping="Wrap" />
-                    <ui:TextBlock
-                        Appearance="Secondary"
-                        FontTypography="Body"
-                        Text="{ext:Loc OptimizationDetailsDialog.Other.OpenRevertFile.Description}"
-                        TextWrapping="Wrap" />
-                </StackPanel>
-            </ui:CardAction>
-        </StackPanel>
-    </ScrollViewer>
+        <ui:TextBlock
+            Margin="0,0,0,8"
+            FontTypography="BodyStrong"
+            Text="{ext:Loc OptimizationDetailsDialog.Other}" />
+
+        <ui:CardAction
+            Margin="0,0,0,8"
+            Command="{Binding ViewSourceOnGitHubCommand}"
+            Icon="{ui:SymbolIcon Code24}">
+            <StackPanel>
+                <ui:TextBlock
+                    FontTypography="BodyStrong"
+                    Text="{ext:Loc OptimizationDetailsDialog.Other.ViewSource.Title}"
+                    TextWrapping="Wrap" />
+                <ui:TextBlock
+                    Appearance="Secondary"
+                    FontTypography="Body"
+                    Text="{ext:Loc OptimizationDetailsDialog.Other.ViewSource.Description}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+        </ui:CardAction>
+
+        <ui:CardAction
+            Margin="0,0,0,4"
+            Command="{Binding OpenRevertFileCommand}"
+            Icon="{ui:SymbolIcon FolderOpen24}"
+            Visibility="{Binding Optimization.State.AppliedAt, Converter={StaticResource NullToVisibilityConverter}}">
+            <StackPanel>
+                <ui:TextBlock
+                    FontTypography="BodyStrong"
+                    Text="{ext:Loc OptimizationDetailsDialog.Other.OpenRevertFile.Title}"
+                    TextWrapping="Wrap" />
+                <ui:TextBlock
+                    Appearance="Secondary"
+                    FontTypography="Body"
+                    Text="{ext:Loc OptimizationDetailsDialog.Other.OpenRevertFile.Description}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+        </ui:CardAction>
+    </StackPanel>
 </UserControl>

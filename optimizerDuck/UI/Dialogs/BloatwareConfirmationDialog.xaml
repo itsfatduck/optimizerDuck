@@ -19,40 +19,28 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Border
+        <ui:InfoBar
             Grid.Row="0"
             Margin="0,0,0,12"
-            Padding="12"
-            Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-            CornerRadius="8">
-            <StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <ui:SymbolIcon
-                        Margin="0,0,8,0"
-                        VerticalAlignment="Center"
-                        Filled="True"
-                        Foreground="{DynamicResource SystemFillColorCautionBrush}"
-                        Symbol="Warning24" />
-                    <ui:TextBlock
-                        FontTypography="BodyStrong"
-                        Text="{ext:Loc BloatwareDialog.Confirmation.Description}"
-                        TextWrapping="Wrap" />
-                </StackPanel>
+            IsClosable="False"
+            IsOpen="True"
+            Message="{ext:Loc BloatwareDialog.Confirmation.Description}"
+            Severity="Warning" />
 
-                <ui:TextBlock
-                    Margin="0,6,0,0"
-                    Appearance="Secondary"
-                    FontTypography="Caption"
-                    Text="{ext:Loc BloatwareDialog.Confirmation.SelectedList}"
-                    TextWrapping="Wrap" />
-            </StackPanel>
-        </Border>
 
-        <ScrollViewer
+        <ui:TextBlock
             Grid.Row="1"
+            Margin="0,0,0,6"
+            Appearance="Primary"
+            FontTypography="BodyStrong"
+            Text="{ext:Loc BloatwareDialog.Confirmation.SelectedList}"
+            TextWrapping="Wrap" />
+        <ScrollViewer
+            Grid.Row="2"
             MaxHeight="420"
             VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding Items}" Visibility="{Binding Items.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
