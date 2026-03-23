@@ -10,7 +10,7 @@
         <Authors>fatDuck</Authors>
         <ApplicationIcon>Logo.ico</ApplicationIcon>
         <Company>fatDuck</Company>
-        <FileVersion>2.7.9</FileVersion>
+        <FileVersion>2.8.0</FileVersion>
         <Version>1.0.0</Version>
         <Product>optimizerDuck</Product>
         <Copyright>Copyright fatDuck 2026</Copyright>
@@ -42,7 +42,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.1" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.5" />
         <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.5" />
@@ -50,7 +50,7 @@
         <PackageReference Include="Serilog" Version="4.3.1" />
         <PackageReference Include="Serilog.Extensions.Hosting" Version="10.0.0" />
         <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
-        <PackageReference Include="System.Management.Automation" Version="7.5.5" />
+        <PackageReference Include="System.Management.Automation" Version="7.6.0" />
         <PackageReference Include="TaskScheduler" Version="2.12.2" />
         <PackageReference Include="WPF-UI" Version="4.2.0" />
         <PackageReference Include="WPF-UI.DependencyInjection" Version="4.2.0" />
