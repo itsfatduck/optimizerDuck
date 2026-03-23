@@ -1,6 +1,11 @@
 {
   "version": 1,
   "skills": {
+    "brainstorming": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "computedHash": "576ee8b8c2e1b514b1eea2d152320e208e4187e44fa4ae923ad33142f25ee8d1"
+    },
     "csharp-async": {
       "source": "github/awesome-copilot",
       "sourceType": "github",
@@ -30,6 +35,11 @@
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
       "computedHash": "4bb0cdcc99c69e25785c4646e5b9eb010a4a1ec89433113524f291fd098341a3"
+    },
+    "using-superpowers": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "computedHash": "91a4d2ccb9432dfd4d3654f6ebd97875adab301d3d77f84e590169ba397760e3"
     },
     "windows-app-developer": {
       "source": "404kidwiz/claude-supercode-skills",

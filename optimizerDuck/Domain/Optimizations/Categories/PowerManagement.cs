@@ -27,6 +27,19 @@ public class PowerManagement : IOptimizationCategory
         public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
             OptimizationContext context)
         {
+            ShellService.CMD("powercfg /h off", "powercfg /h on");
+            context.Logger.LogInformation("Disabled hibernate");
+            return Task.FromResult(ApplyResult.True());
+        }
+    }
+
+    [Optimization(Id = "2B49A8A6-E8CA-4D77-A883-DC27BDBE8B05", Risk = OptimizationRisk.Moderate,
+        Tags = OptimizationTags.System | OptimizationTags.Power | OptimizationTags.Performance)]
+    public class DisableFastStartup : BaseOptimization
+    {
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
+        {
             RegistryService.Write(
                 new RegistryItem(
                     @"HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power",
@@ -34,8 +47,7 @@ public class PowerManagement : IOptimizationCategory
                     0
                 )
             );
-            ShellService.CMD("powercfg /h off", "powercfg /h on");
-            context.Logger.LogInformation("Disabled hibernate and fast startup");
+            context.Logger.LogInformation("Disabled fast startup");
             return Task.FromResult(ApplyResult.True());
         }
     }

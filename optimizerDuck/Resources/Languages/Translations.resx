@@ -612,16 +612,28 @@ Current version: {0}</value>
     <value>Prioritizes system resources for multimedia and gaming by reducing background CPU reservation and disabling network throttling for lower latency.</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
-    <value>Optimize Keyboard Response</value>
+    <value>Optimize Keyboard Repeat</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
-    <value>Reduces keyboard input delay and increases repeat rate for faster, more responsive typing and gaming.</value>
+    <value>Sets the fastest keyboard repeat delay and repeat rate for more responsive typing and repeated key presses.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.Name" xml:space="preserve">
+    <value>Disable Accessibility Keyboard Hotkeys</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription" xml:space="preserve">
+    <value>Disables Sticky Keys, Filter Keys, and Toggle Keys keyboard shortcuts to prevent accidental pop-ups during gaming and typing.</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableHibernate.Name" xml:space="preserve">
-    <value>Disable Hibernation &amp; Fast Startup</value>
+    <value>Disable Hibernation</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableHibernate.ShortDescription" xml:space="preserve">
-    <value>Turns off Hibernation and Fast Startup to reclaim several gigabytes of disk space and ensure a fresh system boot.</value>
+    <value>Turns off hibernation to reclaim disk space used by the hiberfil.sys file.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableFastStartup.Name" xml:space="preserve">
+    <value>Disable Fast Startup</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableFastStartup.ShortDescription" xml:space="preserve">
+    <value>Turns off Fast Startup to ensure a full shutdown and cleaner hardware initialization on boot.</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
     <value>Disable USB Power Saving</value>

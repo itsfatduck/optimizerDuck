@@ -606,16 +606,28 @@ Phiên bản hiện tại: {0} </value>
     <value>Ưu tiên tài nguyên hệ thống cho đa phương tiện và trò chơi bằng cách giảm mức dự phòng CPU cho tác vụ nền và tắt giới hạn băng thông mạng để giảm độ trễ.</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
-    <value>Tối ưu hóa độ trễ bàn phím</value>
+    <value>Tối ưu lặp phím bàn phím</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
-    <value>Giảm thời gian chờ và tăng tốc độ phản hồi phím nhấn, giúp thao tác gõ phím nhanh và nhạy hơn.</value>
+    <value>Đặt độ trễ lặp và tốc độ lặp phím ở mức nhanh nhất để gõ phím và giữ phím phản hồi nhanh hơn.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.Name" xml:space="preserve">
+    <value>Tắt phím tắt trợ năng bàn phím</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription" xml:space="preserve">
+    <value>Tắt các phím tắt Sticky Keys, Filter Keys và Toggle Keys để tránh bật nhầm khi chơi game hoặc gõ phím.</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableHibernate.Name" xml:space="preserve">
     <value>Vô hiệu hóa Chế độ ngủ đông</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableHibernate.ShortDescription" xml:space="preserve">
-    <value>Tắt tính năng Hibernate và Fast Startup để giải phóng bộ nhớ ổ cứng và khởi động máy sạch hơn.</value>
+    <value>Tắt Hibernate để giải phóng dung lượng ổ đĩa do tệp hiberfil.sys sử dụng.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableFastStartup.Name" xml:space="preserve">
+    <value>Tắt Fast Startup</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableFastStartup.ShortDescription" xml:space="preserve">
+    <value>Tắt Fast Startup để đảm bảo máy tắt hoàn toàn và khởi tạo phần cứng sạch hơn khi bật lại.</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
     <value>Ngăn ngắt nguồn cổng USB</value>

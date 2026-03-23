@@ -165,13 +165,30 @@ public class Performance : IOptimizationCategory
         {
             RegistryService.Write(
                 new RegistryItem(@"HKEY_CURRENT_USER\Control Panel\Keyboard", "KeyboardDelay", "0"),
-                new RegistryItem(@"HKEY_CURRENT_USER\Control Panel\Keyboard", "KeyboardSpeed", "31"),
+                new RegistryItem(@"HKEY_CURRENT_USER\Control Panel\Keyboard", "KeyboardSpeed", "31")
+            );
+
+            context.Logger.LogInformation("Optimized keyboard repeat settings");
+            return Task.FromResult(ApplyResult.True());
+        }
+    }
+
+    [Optimization(
+        Id = "B7BB32F8-C756-47A4-83F2-F6E7EC7D45B8",
+        Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.Latency | OptimizationTags.System)]
+    public class DisableAccessibilityKeyboardHotkeys : BaseOptimization
+    {
+        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
+            OptimizationContext context)
+        {
+            RegistryService.Write(
                 new RegistryItem(@"HKEY_CURRENT_USER\Control Panel\Accessibility\StickyKeys", "Flags", "506"),
                 new RegistryItem(@"HKEY_CURRENT_USER\Control Panel\Accessibility\Keyboard Response", "Flags", "122"),
                 new RegistryItem(@"HKEY_CURRENT_USER\Control Panel\Accessibility\ToggleKeys", "Flags", "58")
             );
 
-            context.Logger.LogInformation("Optimized keyboard responsiveness");
+            context.Logger.LogInformation("Disabled accessibility keyboard hotkeys");
             return Task.FromResult(ApplyResult.True());
         }
     }
