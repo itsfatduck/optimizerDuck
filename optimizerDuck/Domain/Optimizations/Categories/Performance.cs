@@ -183,7 +183,7 @@ public class Performance : IOptimizationCategory
             OptimizationContext context)
         {
             RegistryService.Write(
-                new RegistryItem(@"HKEY_CURRENT_USER\Control Panel\Accessibility\StickyKeys", "Flags", "506"),
+                new RegistryItem(@"HKEY_CURRENT_USER\Control Panel\Accessibility\StickyKeys", "Flags", "510"),
                 new RegistryItem(@"HKEY_CURRENT_USER\Control Panel\Accessibility\Keyboard Response", "Flags", "122"),
                 new RegistryItem(@"HKEY_CURRENT_USER\Control Panel\Accessibility\ToggleKeys", "Flags", "58")
             );
