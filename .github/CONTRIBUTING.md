@@ -71,15 +71,15 @@ dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj
 
 We welcome a wide variety of contributions. Here is an overview of how you can help:
 
-| Contribution Type             | Description                              |                       Example                       |
-| :---------------------------- | :--------------------------------------- | :-------------------------------------------------: |
-| 🆕 **New Optimizations**      | Implement Windows system tweaks          | GPU/Network/Privacy tweaks, optimizing the registry |
-| 🌟 **New Features**           | Extend app capability in `Core/Features` |     Adding new UI toggles for Windows features      |
-| ✨ **Core App Functionality** | Expand core app functionality            |   Add entirely new pages, integrations, or tools    |
-| ⚡ **Improvements**           | Optimize code and boost performance      |  Improve scan speed, enhance UI/UX, optimize code   |
-| 🐛 **Bug Fixes**              | Resolve code or logic errors             |     Fix app crashes, correct UI display issues      |
-| 🌐 **Translations**           | Translate the app into new languages     |  Contribute a new language (`.resx`) or fix typos   |
-| 📚 **Documentation**          | Update README or write instructions      |   Write user guides, document APIs, improve docs    |
+| Contribution Type             | Description                                   |                       Example                       |
+| :---------------------------- | :-------------------------------------------- | :-------------------------------------------------: |
+| 🆕 **New Optimizations**      | Implement Windows system tweaks               | GPU/Network/Privacy tweaks, optimizing the registry |
+| 🌟 **New Features**           | Add new feature `Domain/Features/Categories/` |     Adding new UI toggles for Windows features      |
+| ✨ **Core App Functionality** | Expand core app functionality                 |   Add entirely new pages, integrations, or tools    |
+| ⚡ **Improvements**           | Optimize code and boost performance           |  Improve scan speed, enhance UI/UX, optimize code   |
+| 🐛 **Bug Fixes**              | Resolve code or logic errors                  |     Fix app crashes, correct UI display issues      |
+| 🌐 **Translations**           | Translate the app into new languages          |  Contribute a new language (`.resx`) or fix typos   |
+| 📚 **Documentation**          | Update README or write instructions           |   Write user guides, document APIs, improve docs    |
 
 ---
 
