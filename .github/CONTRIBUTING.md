@@ -40,7 +40,7 @@ Before you begin, ensure your development environment is ready. You will need:
 1. Fork this repository on GitHub
 2. Clone your fork locally using terminal/PowerShell:
    ```bash
-   git clone https://github.com/itsfatduck/optimizerDuck.git
+   git clone https://github.com/<your-username>/optimizerDuck.git
    cd optimizerDuck
    ```
 3. Add the upstream remote to sync changes easily:
