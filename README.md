@@ -18,8 +18,6 @@
 
 [Quick Start](#quick-start) • [Highlights](#highlights) • [Safety](#safety) • [Community](#community) • [License](#license)
 
-</div>
-
 <details>
 <summary>⭐ Star History</summary>
 
@@ -35,8 +33,6 @@ Every star helps motivate future improvements.
 </a>
 
 </details>
-
-<div align="center">
 
 <img src="./.github/assets/app.png" alt="optimizerDuck Dark Mode" title="optimizerDuck Dark Mode" width="800"/>
 
