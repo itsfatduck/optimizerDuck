@@ -6,23 +6,25 @@
 
 **optimizerDuck is a free, open-source Windows optimization tool built for performance, privacy, and simplicity.**
 
-[![Release](https://img.shields.io/github/release/itsfatduck/optimizerDuck?color=fed114&label=Release)](https://github.com/itsfatduck/optimizerDuck/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/itsfatduck/optimizerDuck/total?label=Downloads)](https://github.com/itsfatduck/optimizerDuck/releases)
-[![Stars](https://img.shields.io/endpoint?url=https://api.pinstudios.net/api/badges/stars/itsfatduck/optimizerDuck)](https://github.com/itsfatduck/optimizerDuck/stargazers)
-[![License](https://img.shields.io/badge/License-GPL_v3-red)](./LICENSE)
-[![Discord](https://img.shields.io/discord/1091675679994675240?color=5865f2&label=Discord)](https://discord.gg/tDUBDCYw9Q)
+[![Release](https://img.shields.io/github/release/itsfatduck/optimizerDuck?color=fed114&label=Release&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/itsfatduck/optimizerDuck/total?label=Downloads&style=flat-square&color=lightgreen)](https://github.com/itsfatduck/optimizerDuck/releases)
+[![Stars](https://img.shields.io/endpoint?url=https://api.pinstudios.net/api/badges/stars/itsfatduck/optimizerDuck&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/stargazers)
+[![License](https://img.shields.io/badge/License-GPL_v3-red?style=flat-square)](./LICENSE)
+[![Discord](https://img.shields.io/discord/1091675679994675240?color=5865f2&label=Discord&style=flat-square)](https://discord.gg/tDUBDCYw9Q)
 <br>
 [![CI](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml/badge.svg)](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml)
-[![.NET Latest](https://img.shields.io/badge/.NET_Runtime-Latest-ef99dd)](https://dotnet.microsoft.com/en-us/download)
-[![Supported OS](https://img.shields.io/badge/Supported-Windows_10+_x64-0078d4)](https://www.microsoft.com/en-us/software-download/)
+[![.NET Latest](https://img.shields.io/badge/.NET_Runtime-Latest-ef99dd?style=flat-square)](https://dotnet.microsoft.com/en-us/download)
+[![Supported OS](https://img.shields.io/badge/Supported-Windows_10%2B_x64-0078d4?style=flat-square)](https://www.microsoft.com/en-us/software-download/)
 
-[Quick Start](#quick-start) • [Documentation](#documentation) • [Contributing](#contributing) • [Support](#support) • [Community](#community) • [Disclaimer](#disclaimer) • [License](#license)
+[Quick Start](#quick-start) • [Highlights](#highlights) • [Safety](#safety) • [Community](#community) • [License](#license)
+
+</div>
 
 <details>
-<summary>Star History</summary>
+<summary>⭐ Star History</summary>
 
 If optimizerDuck helped improve your PC, consider giving the repo a ⭐ and sharing it with others.  
-**Every star** helps motivate future improvements and features.
+Every star helps motivate future improvements.
 
 <a href="https://www.star-history.com/#itsfatduck/optimizerDuck&type=timeline&legend=top-left">
  <picture>
@@ -34,6 +36,8 @@ If optimizerDuck helped improve your PC, consider giving the repo a ⭐ and shar
 
 </details>
 
+<div align="center">
+
 <img src="./.github/assets/app.png" alt="optimizerDuck Dark Mode" title="optimizerDuck Dark Mode" width="800"/>
 
 </div>
@@ -42,91 +46,153 @@ If optimizerDuck helped improve your PC, consider giving the repo a ⭐ and shar
 
 ## Quick Start
 
-### Download & Run
-
-1. Download the latest release from **GitHub**  
-   https://github.com/itsfatduck/optimizerDuck/releases/latest
-2. Run the `.exe` file (no installer required)
+1. Download from **GitHub** → https://github.com/itsfatduck/optimizerDuck/releases/latest
+2. Run the `.exe` (no installer needed)
+3. Restart your PC after applying changes
 
 > [!TIP]
-> Remember to restart your PC after applying optimizations to see the changes take effect.
->
-> Also remember to create a restore point or backup before applying optimizations.
-
-### Multi-Language Support
-
-optimizerDuck currently supports the following languages:
-
-- 🇺🇸 **English** (United States) - _Primary & recommended_
-- 🇻🇳 **Vietnamese** (Tiếng Việt)
-- 🇹🇼 **Traditional Chinese** (正體中文) - translation by [abc0922001](https://github.com/abc0922001)
+> Always create a **restore point** before making system changes.
 
 > [!NOTE]
->
-> - **English is the primary and recommended language**, as it provides the most accurate, complete, and stable descriptions across all features and optimizations.
-> - If you would like to help translate optimizerDuck into your language, please take a look at [Contributing Guidelines](./.github/CONTRIBUTING.md).
+> Supports English, Vietnamese, and Traditional Chinese (thanks to our contributors! [@abc0922001](https://github.com/abc0922001)). Want to add your language? [Contribute here](./.github/CONTRIBUTING.md).
+
+---
+
+## Highlights
+
+Over 35 optimizations across 6 categories, plus built-in tools to manage your system. All with clear risk indicators and one-click reverts.
+
+|     | Feature                 | What it does                                                              |
+| :-- | :---------------------- | :------------------------------------------------------------------------ |
+| 🚀  | **Performance & Power** | Speed up your system, disable bloat services, tune power settings.        |
+| 🛡️  | **Privacy Protection**  | Kill telemetry, Cortana, Copilot, ads, and tracking. Take back your data. |
+| 🎮  | **GPU Tuning**          | Vendor-specific tweaks. AMD, NVIDIA, or Intel.                            |
+| 🧩  | **Features Toggle**     | Easily enable or disable various Windows features.                        |
+| 🧹  | **Disk Cleanup**        | Clear temp files, caches, old Windows installations. Reclaim disk space.  |
+| 🗑️  | **Bloatware Remover**   | Remove pre-installed Windows apps. Risk indicators help you decide.       |
+| ⚡  | **Startup Manager**     | Control which apps run at boot. Keep what you need, disable the rest.     |
+| 📋  | **Scheduled Tasks**     | View, run, stop, or delete Windows scheduled tasks. Full control.         |
+| 💻  | **System Dashboard**    | See your CPU, RAM, GPU, Storage, and OS info at a glance.                 |
+| 🔄  | **Revert Changes**      | Made a mistake? One click to undo any change.                             |
+| 🎨  | **Clean UI**            | Dark, Light, or High Contrast theme. Modern Fluent design.                |
+| 🌐  | **Multi-Language**      | English, Vietnamese, Traditional Chinese.                                 |
+| 🔒  | **Runs Offline**        | No telemetry, no ads, no data collection. Everything runs locally.        |
+
+---
+
+## Optimization Categories
+
+Built-in optimizations across 6 categories, each with clear explanations and risk levels:
+
+- **Performance**: Service host tuning, priority tweaks, keyboard speed, gaming tweaks.
+- **Security & Privacy**: Telemetry, error reporting, Cortana, Copilot, ads, location tracking.
+- **GPU**: Vendor-specific tweaks for AMD, NVIDIA, or Intel GPUs.
+- **Power Management**: Hibernate, fast startup, USB power saving, custom power plan.
+- **Bloatware & Services**: Remove pre-installed apps. Fine-tune 200+ Windows services.
+- **User Experience**: Explorer speed, visual effects, menu delays.
+
+---
+
+## Feature Toggles
+
+Not only can you apply system optimizations, but you can also easily enable or disable various Windows features. No need to dig through the registry or search endlessly on Google. Everything is available in a clean, intuitive, and user-friendly interface.
+
+- **Desktop**. Show/hide icons (This PC, Recycle Bin, Network, User Files, Control Panel), remove shortcut arrows.
+- **Taskbar**. Center alignment, widgets, Task View button, End Task button, show seconds in clock, disable Bing search.
+- **Appearance**. Dark mode for apps and system.
+- **Explorer**. File extensions, hidden files, clipboard history, compact mode, snap assist, item checkboxes, classic context menu.
+- **Gaming**. Game Mode, Game Bar, background recording, mouse acceleration, fullscreen optimizations, hardware-accelerated GPU scheduling.
+- **System**. Auto-enable Num Lock on boot.
+
+---
+
+## Built-in Tools
+
+- **Dashboard**: Real-time hardware overview.
+- **Startup Manager**: Control boot apps. Filter, search, enable/disable.
+- **Scheduled Tasks**: Full task management.
+- **Disk Cleanup**: Scan, select, clean. Simple as that.
+- **Bloatware Remover**: List with risk levels. Filter and remove safely.
+
+---
+
+## Safety
+
+optimizerDuck is designed with safety in mind. We understand that modifying system settings can be risky, so we've implemented multiple safeguards.
+
+See the [Privacy Policy](./PRIVACY.md) for details on our commitment to user privacy and data security.
+
+- **Backups everything**: Every change is backed up in a local folder, allowing you to restore individual tweaks or the entire system.
+- **One-click revert**: Made a mistake? Just click "Revert" to undo the last change you made.
+- **Risk levels**: View the risk level of each tweak before applying it. We categorize them as Low, Medium, or High risk based on potential impact.
+- **No forced changes**: You choose which optimizations to apply. Nothing is enabled by default.
+- **Recommend restore point**: Always recommend creating a Windows restore point before applying changes for an extra layer of safety.
+
+---
 
 ## Documentation
 
-Full documentation and advanced guides are available here:
+### [Official Documentation](https://optimizerduck.vercel.app/docs/guides/getting-started)
 
-### [optimizerDuck Documentation](https://optimizerduck.vercel.app/docs/guides/getting-started)
+Step-by-step instructions, explanations of each optimization, and best practices for using optimizerDuck.
 
-## Support & Community
+---
 
-If optimizerDuck improved your PC experience:
+## Community
 
-- ⭐ Star the repository
-- 📢 Share it with others
-- 💬 Join the Discord community
-- 🎁 Support me via **[Support](https://optimizerduck.vercel.app/docs/contribute/support-me)**
+> [!TIP]
+> Join our growing community on Discord! Get support, share your experience, and connect with other users and contributors. We also have a GitHub Discussions page for more in-depth conversations and feature requests.
+> <img src="https://discord.com/api/guilds/1091675679994675240/widget.png?style=banner2" alt="Discord Banner 2"/>
 
-### Get Help & Connect
+If optimizerDuck helped your PC:
 
-- 🌐 [Website](https://optimizerduck.vercel.app/) - Official Website & Documentation
-- 💬 [Discord](https://discord.gg/tDUBDCYw9Q) - Live chat & support
-- 🐞 [Issues](https://github.com/itsfatduck/optimizerDuck/issues) - Bug reports and feature requests
+- ⭐ Star the repo
+- 💬 Join Discord for support
+- 🐞 Report bugs on GitHub
+- 🎁 Support the project [here](https://optimizerduck.vercel.app/docs/contribute/support-me)
 
-### Contributing
+### Links
 
-Contributions are welcome! Please read the [Contributing Guidelines](./.github/CONTRIBUTING.md) for more details.
+- 🌐 [Website](https://optimizerduck.vercel.app/)
+- 📖 [Documentation](https://optimizerduck.vercel.app/docs/guides/getting-started)
+- 💬 [Discord](https://discord.gg/tDUBDCYw9Q)
+- 🐞 [Issues](https://github.com/itsfatduck/optimizerDuck/issues)
+
+Every contribution helps! Whether it's a bug report, a new feature suggestion, or just sharing your experience, we appreciate it.
+
+---
 
 ## Disclaimer
 
-optimizerDuck is provided **"as is"**, without warranty of any kind.
+optimizerDuck is provided **"as is"**, without warranty.
 
-By using this tool, you agree that the authors are **not responsible** for:
+By using this tool, you agree the authors are not responsible for system instability, data loss, or issues from third-party software or user modifications.
 
-- System instability
-- Data loss
-- Performance issues caused by third-party software or user modifications
+Always create a **restore point** before applying changes.
 
-Always create a **restore point or backup** before applying system changes.
+> [!NOTE]
+> optimizerDuck modifies system settings and registry. Use at your own risk. We recommend backing up important data and creating a restore point before making changes.
+> [Terms of Service](./TERMS.md)
+> [Privacy Policy](./PRIVACY.md)
+> [Disclaimer](./DISCLAIMER.md)
 
-## DMCA & Attribution
-
-optimizerDuck is an independent open-source project built from scratch.
-
-Some ideas and tweaks are inspired by community research and other open-source tools (for example, WinUtil). Unless explicitly stated, **all code in this repository is original**.
-
-If you believe any part of this project violates your copyright, please open an issue or submit a DMCA request via GitHub. Valid requests will be reviewed promptly and respectfully.
-
-<div align="center">
+---
 
 ## License
 
-<img src=".github/assets/gplv3.png" alt="GPL v3 License" title="GPL v3 License"/>
+<div align="center">
 
-This project is licensed under the **[GPL v3 License](https://www.gnu.org/licenses/gpl-3.0.en.html)**.  
-See the [LICENSE](./LICENSE) file for details.
+<a href="./LICENSE">
+<img src=".github/assets/gplv3.png" alt="GPL v3 License" title="GPL v3 License"/>
+</a>
+
+**[GPL v3 License](https://www.gnu.org/licenses/gpl-3.0.en.html)**<br>See [LICENSE](./LICENSE).
 
 </div>
 
 <div align="center">
 
-## Thanks to all Contributors
-
-My application is starting to get new contributors. Thank you all so much for your support and contributions!
+## Thanks to all Contributors ❤️
 
 [![Contributors](https://contrib.rocks/image?repo=itsfatduck/optimizerDuck)](https://github.com/itsfatduck/optimizerDuck/graphs/contributors)
 
