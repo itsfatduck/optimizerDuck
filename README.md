@@ -168,9 +168,8 @@ Always create a **restore point** before applying changes.
 
 > [!NOTE]
 > optimizerDuck modifies system settings and registry. Use at your own risk. We recommend backing up important data and creating a restore point before making changes.
-> [Terms of Service](./TERMS.md)
-> [Privacy Policy](./PRIVACY.md)
-> [Disclaimer](./DISCLAIMER.md)
+>
+> See [Terms of Service](./TERMS.md), [Privacy Policy](./PRIVACY.md), and [Disclaimer](./DISCLAIMER.md) for more information.
 
 ---
 
