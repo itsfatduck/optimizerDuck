@@ -34,8 +34,8 @@ public class ScopeBlockTextFormatter : ITextFormatter
         var timestamp = $"{logEvent.Timestamp:yyyy-MM-dd HH:mm:ss}";
         var ctx = logEvent.Properties.TryGetValue("SourceContext", out var sourceContext)
             ? sourceContext is ScalarValue { Value: string s }
-                ? s.Split(".", 2)[1]
-                : sourceContext.ToString().Split(".", 2)[1]
+                ? s.Split(".")[^1]
+                : sourceContext.ToString().Split(".")[^1]
             : "";
         var levelText = logEvent.Level switch
         {
@@ -48,7 +48,8 @@ public class ScopeBlockTextFormatter : ITextFormatter
             _ => "UNKNOWN"
         };
 
-        var prefix = $"{timestamp} | {ctx,-67} | {levelText,-7} | ";
+        //var prefix = $"{timestamp} | {ctx,-67} | {levelText,-7} | "; // byebye 67 char SourceContext truncation, we have a new design now...
+        var prefix = $"{timestamp} | {ctx,-35} | {levelText,-7} | ";
 
         // print message
         output.WriteLine(prefix + RenderWithoutQuotes(logEvent));
