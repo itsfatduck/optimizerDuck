@@ -1,9 +1,11 @@
-﻿using System.IO;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using optimizerDuck.Common.Helpers;
+using optimizerDuck.Domain.Configuration;
+using System.IO;
+using System.Linq.Expressions;
 
 namespace optimizerDuck.Services.Managers;
 
@@ -33,6 +35,152 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
     public async Task InitializeAsync()
     {
         _cache = await LoadConfigAsync();
+    }
+
+    /// <summary>
+    ///     Ensures all default configuration keys exist. Adds missing keys with default values and logs them.
+    /// </summary>
+    public async Task EnsureDefaultsAsync()
+    {
+        await _lock.WaitAsync();
+        try
+        {
+            var defaults = new AppSettings();
+            var addedKeys = new List<string>();
+
+            var properties = typeof(AppSettings).GetProperties();
+            foreach (var prop in properties)
+            {
+                if (prop.PropertyType.IsClass && !prop.PropertyType.IsPrimitive && prop.PropertyType != typeof(string))
+                {
+                    var nestedObj = prop.GetValue(defaults);
+                    if (nestedObj != null)
+                    {
+                        var nestedProps = prop.PropertyType.GetProperties();
+                        foreach (var nestedProp in nestedProps)
+                        {
+                            var key = $"{prop.Name}:{nestedProp.Name}";
+                            var value = nestedProp.GetValue(nestedObj);
+                            if (value == null) continue;
+
+                            // Check both flat key and nested object format
+                            var existsFlat = GetTokenIgnoreCase(_cache, key) != null;
+                            var existsNested = CheckNestedExists(_cache, prop.Name, nestedProp.Name);
+
+                            if (!existsFlat && !existsNested)
+                            {
+                                // Add as nested object format (proper structure)
+                                EnsureNestedValue(_cache, prop.Name, nestedProp.Name, value.ToString() ?? "");
+                                addedKeys.Add($"{key} = {value}");
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (addedKeys.Count > 0)
+            {
+                // Clean up any duplicate flat keys that may have been added previously
+                CleanupDuplicateKeys(_cache);
+                await SaveConfigAsync();
+                logger.LogInformation("Added {Count} missing config keys: {Keys}", addedKeys.Count, string.Join(", ", addedKeys));
+            }
+        }
+        finally
+        {
+            _lock.Release();
+        }
+    }
+
+    /// <summary>
+    ///     Checks if a nested key exists in the config.
+    /// </summary>
+    private static bool CheckNestedExists(JObject root, string section, string key)
+    {
+        var sectionToken = GetTokenIgnoreCase(root, section);
+        if (sectionToken is not JObject sectionObj) return false;
+        return GetTokenIgnoreCase(sectionObj, key) != null;
+    }
+
+    /// <summary>
+    ///     Ensures a nested value exists in the config.
+    /// </summary>
+    private static void EnsureNestedValue(JObject root, string section, string key, string value)
+    {
+        var sectionObj = GetOrCreateObjectIgnoreCase(root, section);
+        SetValueIgnoreCase(sectionObj, key, value);
+    }
+
+    /// <summary>
+    ///     Cleans up duplicate flat keys that also exist in nested format.
+    /// </summary>
+    private static void CleanupDuplicateKeys(JObject root)
+    {
+        var properties = typeof(AppSettings).GetProperties();
+        var flatKeysToRemove = new List<string>();
+
+        foreach (var prop in properties)
+        {
+            if (prop.PropertyType.IsClass && !prop.PropertyType.IsPrimitive && prop.PropertyType != typeof(string))
+            {
+                var nestedProps = prop.PropertyType.GetProperties();
+                foreach (var nestedProp in nestedProps)
+                {
+                    var flatKey = $"{prop.Name}:{nestedProp.Name}";
+                    var sectionToken = GetTokenIgnoreCase(root, prop.Name);
+                    if (sectionToken is JObject)
+                    {
+                        // If nested format exists, mark flat key for removal
+                        if (GetTokenIgnoreCase(root, flatKey) != null)
+                            flatKeysToRemove.Add(flatKey);
+                    }
+                }
+            }
+        }
+
+        foreach (var key in flatKeysToRemove)
+            root.Remove(key);
+    }
+
+    /// <summary>
+    ///     Sets a configuration value using a strongly typed property expression.
+    /// </summary>
+    /// <typeparam name="T">The type of the property being updated.</typeparam>
+    /// <param name="property">
+    ///     An expression that identifies the configuration property to update, such as <c>x => x.App.Language</c>.
+    /// </param>
+    /// <param name="value">The value to assign to the specified configuration property.</param>
+    /// <example>
+    ///     <code>
+    ///     await configManager.SetAsync(x => x.App.Language, "en");
+    ///     </code>
+    /// </example>
+    public async Task SetAsync<T>(Expression<Func<AppSettings, T>> property, T value)
+    {
+        Expression expression = property.Body;
+        if (expression is UnaryExpression unary &&
+            unary.NodeType == ExpressionType.Convert)
+        {
+            expression = unary.Operand;
+        }
+
+        if (expression is not MemberExpression member)
+            throw new ArgumentException(
+                $"The property expression '{property}' must be a simple member access expression such as 'x => x.App.Language'.",
+                nameof(property));
+        // Build key from property path (e.g., App.Language -> "App:Language")
+        var keyParts = new List<string>();
+        var expr = member;
+        while (expr != null)
+        {
+            keyParts.Insert(0, expr.Member.Name);
+            if (expr.Expression is MemberExpression next)
+                expr = next;
+            else break;
+        }
+        var key = string.Join(":", keyParts);
+
+        await SetAsync(key, value?.ToString() ?? "");
     }
 
     /// <summary>

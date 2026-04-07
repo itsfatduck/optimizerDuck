@@ -1,8 +1,4 @@
-﻿using System.Globalization;
-using System.IO;
-using System.Windows;
-using System.Windows.Media;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -13,13 +9,17 @@ using optimizerDuck.Domain.Configuration;
 using optimizerDuck.Services;
 using optimizerDuck.Services.Managers;
 using optimizerDuck.Services.OptimizationServices;
-using optimizerDuck.UI.ViewModels.Pages;
 using optimizerDuck.UI.Pages;
+using optimizerDuck.UI.ViewModels.Pages;
 using optimizerDuck.UI.Windows;
 using Serilog;
 using Serilog.Events;
 using Serilog.Formatting;
 using Serilog.Parsing;
+using System.Globalization;
+using System.IO;
+using System.Windows;
+using System.Windows.Media;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.DependencyInjection;
@@ -199,8 +199,10 @@ public partial class App : Application
 
             var config = _host.Services.GetRequiredService<ConfigManager>();
             await config.InitializeAsync();
+            await config.EnsureDefaultsAsync();
 
             var appOptionsMonitor = _host.Services.GetRequiredService<IOptionsMonitor<AppSettings>>();
+
             // init shell service with config
             ShellService.Init(appOptionsMonitor);
 
@@ -227,8 +229,8 @@ public partial class App : Application
             ApplicationThemeManager.Apply(
                 appSettings.App.Theme switch
                 {
-                    "Dark" => ApplicationTheme.Dark,
-                    "HighContrast" => ApplicationTheme.HighContrast,
+                    ApplicationTheme.Dark => ApplicationTheme.Dark,
+                    ApplicationTheme.HighContrast => ApplicationTheme.HighContrast,
                     _ => ApplicationTheme.Light
                 },
                 updateAccent: false

@@ -1,10 +1,10 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 using CleanupItem = optimizerDuck.Domain.Optimizations.Models.Cleanup.CleanupItem;
@@ -75,7 +75,6 @@ public partial class DiskCleanupViewModel(
             UpdateProperties();
         }
 
-        // Automatically start scanning
         await ScanAsync();
 
         CleanupItems =

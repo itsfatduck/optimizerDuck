@@ -1,16 +1,7 @@
 ﻿<Page
-    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-    Margin="0,32,0,0"
-    ScrollViewer.CanContentScroll="False"
-    Title="ScheduledTasksPage"
-    d:DataContext="{d:DesignInstance local:ScheduledTasksPage}"
-    d:DesignHeight="1200"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
-    ui:Design.Background="Black"
-    ui:Design.Foreground="White"
     x:Class="optimizerDuck.UI.Pages.ScheduledTasksPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:optimizerDuck.Common.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
@@ -18,7 +9,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:scheduledTask="clr-namespace:optimizerDuck.Domain.Optimizations.Models.ScheduledTask"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    Title="ScheduledTasksPage"
+    Margin="0,32,0,0"
+    d:DataContext="{d:DesignInstance local:ScheduledTasksPage}"
+    d:DesignHeight="1200"
+    d:DesignWidth="800"
+    ui:Design.Background="Black"
+    ui:Design.Foreground="White"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    ScrollViewer.CanContentScroll="False"
+    mc:Ignorable="d">
 
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -38,23 +38,23 @@
                 <StackPanel Grid.Column="0">
                     <ui:TextBlock FontTypography="Title" Text="{ext:Loc ScheduledTasks.Header.Title}" />
                     <ui:TextBlock
+                        Margin="0,4,0,0"
                         Appearance="Secondary"
                         FontTypography="Body"
-                        Margin="0,4,0,0"
                         Text="{ext:Loc ScheduledTasks.Header.Description}"
                         TextWrapping="Wrap" />
                 </StackPanel>
                 <WrapPanel
                     Grid.Column="1"
-                    Orientation="Horizontal"
-                    VerticalAlignment="Center">
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
                     <ui:Button
+                        Margin="0,0,8,0"
                         Appearance="Secondary"
                         Command="{Binding ViewModel.OpenTaskSchedulerCommand}"
                         Content="{ext:Loc ScheduledTasks.Menu.OpenSettings}"
                         Icon="{ui:SymbolIcon Settings24,
-                                             FontSize=18}"
-                        Margin="0,0,8,0" />
+                                             FontSize=18}" />
                     <ui:Button
                         Appearance="Primary"
                         Command="{Binding ViewModel.RefreshCommand}"
@@ -69,21 +69,21 @@
         <Border Grid.Row="1" Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ui:ProgressRing
+                    Width="48"
                     Height="48"
-                    HorizontalAlignment="Center"
-                    IsIndeterminate="True"
                     Margin="0,0,0,16"
-                    VerticalAlignment="Center"
-                    Width="48" />
-                <ui:TextBlock
-                    FontTypography="BodyStrong"
                     HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    IsIndeterminate="True" />
+                <ui:TextBlock
+                    HorizontalAlignment="Center"
+                    FontTypography="BodyStrong"
                     Text="{ext:Loc ScheduledTasks.Loading}" />
                 <ui:TextBlock
+                    Margin="0,4,0,0"
+                    HorizontalAlignment="Center"
                     Appearance="Secondary"
                     FontTypography="Caption"
-                    HorizontalAlignment="Center"
-                    Margin="0,4,0,0"
                     Text="{ext:Loc ScheduledTasks.Loading.Hint}" />
             </StackPanel>
         </Border>
@@ -115,24 +115,24 @@
                 Orientation="Horizontal">
                 <!--  Search  -->
                 <ui:TextBox
-                    Icon="{ui:SymbolIcon Search24}"
+                    MinWidth="200"
                     Margin="0,0,8,0"
-                    MinWidth="250"
+                    VerticalAlignment="Center"
+                    Icon="{ui:SymbolIcon Search24}"
                     PlaceholderText="{ext:Loc Common.Search.Placeholder}"
-                    Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}"
-                    VerticalAlignment="Center" />
+                    Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}" />
 
                 <!--  Sort By  -->
                 <ComboBox
                     Margin="0,0,8,0"
+                    VerticalAlignment="Center"
                     SelectedIndex="{Binding ViewModel.SortByIndex}"
-                    ToolTip="{ext:Loc Common.SortBy}"
-                    VerticalAlignment="Center">
+                    ToolTip="{ext:Loc Common.SortBy}">
                     <ComboBoxItem HorizontalContentAlignment="Left">
-                        <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                        <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
                             <ui:SymbolIcon
-                                HorizontalAlignment="Left"
                                 Margin="0,0,6,0"
+                                HorizontalAlignment="Left"
                                 Symbol="TextSortAscending24" />
                             <TextBlock
                                 Grid.Column="1"
@@ -141,10 +141,10 @@
                         </Grid>
                     </ComboBoxItem>
                     <ComboBoxItem HorizontalContentAlignment="Left">
-                        <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                        <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
                             <ui:SymbolIcon
-                                HorizontalAlignment="Left"
                                 Margin="0,0,6,0"
+                                HorizontalAlignment="Left"
                                 Symbol="ToggleRight24" />
                             <TextBlock
                                 Grid.Column="1"
@@ -153,10 +153,10 @@
                         </Grid>
                     </ComboBoxItem>
                     <ComboBoxItem HorizontalContentAlignment="Left">
-                        <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                        <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
                             <ui:SymbolIcon
-                                HorizontalAlignment="Left"
                                 Margin="0,0,6,0"
+                                HorizontalAlignment="Left"
                                 Symbol="Folder24" />
                             <TextBlock
                                 Grid.Column="1"
@@ -165,10 +165,10 @@
                         </Grid>
                     </ComboBoxItem>
                     <ComboBoxItem HorizontalContentAlignment="Left">
-                        <Grid ColumnDefinitions="Auto Auto" HorizontalAlignment="Left">
+                        <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
                             <ui:SymbolIcon
-                                HorizontalAlignment="Left"
                                 Margin="0,0,6,0"
+                                HorizontalAlignment="Left"
                                 Symbol="Flash24" />
                             <TextBlock
                                 Grid.Column="1"
@@ -180,44 +180,44 @@
 
                 <!--  Hide Microsoft  -->
                 <ui:ToggleSwitch
+                    Margin="0,0,8,0"
+                    VerticalAlignment="Center"
                     Cursor="Hand"
                     IsChecked="{Binding ViewModel.HideMicrosoftTasks, Mode=TwoWay}"
-                    Margin="0,0,8,0"
                     OffContent="{ext:Loc ScheduledTasks.HideMicrosoft}"
-                    OnContent="{ext:Loc ScheduledTasks.HideMicrosoft}"
-                    VerticalAlignment="Center" />
+                    OnContent="{ext:Loc ScheduledTasks.HideMicrosoft}" />
             </WrapPanel>
 
             <!--  No search results  -->
             <StackPanel
                 Grid.Row="1"
-                HorizontalAlignment="Center"
                 Margin="0,64,0,32"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource ZeroToVisibilityConverter}}">
                 <ui:SymbolIcon
+                    Margin="0,0,0,10"
+                    HorizontalAlignment="Center"
                     FontSize="36"
                     Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                    HorizontalAlignment="Center"
-                    Margin="0,0,0,10"
                     Symbol="SearchInfo24" />
                 <ui:TextBlock
+                    HorizontalAlignment="Center"
                     Appearance="Secondary"
                     FontTypography="Body"
-                    HorizontalAlignment="Center"
                     Text="{ext:Loc Bloatware.Search.NoResults}" />
             </StackPanel>
 
             <!--  Task List  -->
-            <ScrollViewer Grid.Row="1" Margin="0,0,16,0">
+            <ScrollViewer Grid.Row="1" Margin="0,0,0,0">
                 <ItemsControl ItemsSource="{Binding ViewModel.Tasks}" Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type scheduledTask:ScheduledTaskModel}">
                             <Border
+                                Margin="0,0,16,6"
+                                Padding="16,12"
                                 Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-                                CornerRadius="6"
-                                Margin="0,0,0,6"
-                                Padding="16,12">
+                                CornerRadius="6">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
@@ -228,12 +228,12 @@
                                     <!--  Task Logo  -->
                                     <Image
                                         Grid.Column="0"
+                                        Width="36"
                                         Height="36"
                                         Margin="0,0,12,0"
-                                        Source="{Binding LogoImage}"
-                                        Stretch="UniformToFill"
                                         VerticalAlignment="Center"
-                                        Width="36" />
+                                        Source="{Binding LogoImage}"
+                                        Stretch="UniformToFill" />
 
                                     <!--  Task info  -->
                                     <StackPanel
@@ -245,10 +245,10 @@
                                         <DockPanel LastChildFill="False">
                                             <ui:TextBlock FontTypography="BodyStrong" Text="{Binding Name}" />
                                             <Border
-                                                CornerRadius="4"
                                                 Margin="8,0,0,0"
                                                 Padding="6,1"
-                                                VerticalAlignment="Center">
+                                                VerticalAlignment="Center"
+                                                CornerRadius="4">
                                                 <Border.Style>
                                                     <Style TargetType="Border">
                                                         <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorSecondaryBrush}" />
@@ -267,9 +267,9 @@
                                                 </Border.Style>
                                                 <StackPanel Orientation="Horizontal">
                                                     <ui:SymbolIcon
-                                                        FontSize="10"
+                                                        x:Name="StateIcon"
                                                         Margin="0,0,4,0"
-                                                        x:Name="StateIcon">
+                                                        FontSize="10">
                                                         <ui:SymbolIcon.Style>
                                                             <Style TargetType="ui:SymbolIcon">
                                                                 <Setter Property="Symbol" Value="Circle24" />
@@ -292,31 +292,31 @@
                                                         </ui:SymbolIcon.Style>
                                                     </ui:SymbolIcon>
                                                     <ui:TextBlock
+                                                        VerticalAlignment="Center"
                                                         FontTypography="Caption"
                                                         Foreground="{Binding ElementName=StateIcon, Path=Foreground}"
-                                                        Text="{Binding State}"
-                                                        VerticalAlignment="Center" />
+                                                        Text="{Binding State}" />
                                                 </StackPanel>
                                             </Border>
                                         </DockPanel>
 
                                         <!--  Row 2: Description  -->
                                         <ui:TextBlock
+                                            Margin="0,4,0,0"
                                             Appearance="Secondary"
                                             FontTypography="Caption"
-                                            Margin="0,4,0,0"
                                             Text="{Binding Description}"
                                             TextWrapping="Wrap" />
 
                                         <!--  Row 3: Path  -->
                                         <ui:TextBlock
+                                            Margin="0,2,0,0"
                                             Appearance="Disabled"
                                             FontTypography="Caption"
-                                            Margin="0,2,0,0"
                                             Text="{Binding FullPath}" />
 
                                         <!--  Row 4: Trigger badges  -->
-                                        <ItemsControl ItemsSource="{Binding TriggerTypes}" Margin="0,4,0,0">
+                                        <ItemsControl Margin="0,4,0,0" ItemsSource="{Binding TriggerTypes}">
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
                                                     <WrapPanel Orientation="Horizontal" />
@@ -325,20 +325,20 @@
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
                                                     <Border
-                                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                                        CornerRadius="4"
                                                         Margin="0,0,4,2"
-                                                        Padding="6,2">
+                                                        Padding="6,2"
+                                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                                        CornerRadius="4">
                                                         <StackPanel Orientation="Horizontal">
                                                             <ui:SymbolIcon
-                                                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                                 Margin="0,0,4,0"
+                                                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                                 Symbol="Timer24" />
                                                             <ui:TextBlock
+                                                                VerticalAlignment="Center"
                                                                 FontTypography="Caption"
                                                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                                Text="{Binding}"
-                                                                VerticalAlignment="Center" />
+                                                                Text="{Binding}" />
                                                         </StackPanel>
                                                     </Border>
                                                 </DataTemplate>
@@ -347,9 +347,9 @@
 
                                         <!--  Row 5: Action summary  -->
                                         <ui:TextBlock
+                                            Margin="0,2,0,0"
                                             Appearance="Disabled"
                                             FontTypography="Caption"
-                                            Margin="0,2,0,0"
                                             Text="{Binding ActionSummary}"
                                             TextTrimming="CharacterEllipsis" />
                                     </StackPanel>
@@ -357,26 +357,26 @@
                                     <!--  Actions  -->
                                     <StackPanel
                                         Grid.Column="2"
-                                        Orientation="Horizontal"
-                                        VerticalAlignment="Center">
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
                                         <ui:Button
+                                            Margin="0,0,4,0"
+                                            Padding="8"
                                             Appearance="Transparent"
                                             Command="{Binding DataContext.ViewModel.ViewDetailsCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                             CommandParameter="{Binding}"
                                             Icon="{ui:SymbolIcon Info24,
                                                                  FontSize=16}"
-                                            Margin="0,0,4,0"
-                                            Padding="8"
                                             ToolTip="{ext:Loc ScheduledTasks.Action.Details}" />
                                         <!--  Run: visible only when not running  -->
                                         <ui:Button
+                                            Margin="0,0,4,0"
+                                            Padding="8"
                                             Appearance="Transparent"
                                             Command="{Binding DataContext.ViewModel.RunTaskCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                             CommandParameter="{Binding}"
                                             Icon="{ui:SymbolIcon Play24,
                                                                  FontSize=16}"
-                                            Margin="0,0,4,0"
-                                            Padding="8"
                                             ToolTip="{ext:Loc ScheduledTasks.Action.Run}">
                                             <ui:Button.Style>
                                                 <Style BasedOn="{StaticResource {x:Type ui:Button}}" TargetType="ui:Button">
@@ -391,30 +391,30 @@
                                         </ui:Button>
                                         <!--  Stop: visible only when running  -->
                                         <ui:Button
+                                            Margin="0,0,4,0"
+                                            Padding="8"
                                             Appearance="Transparent"
                                             Command="{Binding DataContext.ViewModel.StopTaskCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                             CommandParameter="{Binding}"
                                             Icon="{ui:SymbolIcon Stop24,
                                                                  FontSize=16}"
-                                            Margin="0,0,4,0"
-                                            Padding="8"
                                             ToolTip="{ext:Loc ScheduledTasks.Action.Stop}"
                                             Visibility="{Binding IsRunning, Converter={StaticResource WpfBoolToVis}}" />
                                         <ui:Button
+                                            Margin="0,0,8,0"
+                                            Padding="8"
                                             Appearance="Transparent"
                                             Command="{Binding DataContext.ViewModel.DeleteTaskCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                             CommandParameter="{Binding}"
                                             Icon="{ui:SymbolIcon Delete24,
                                                                  FontSize=16}"
-                                            Margin="0,0,8,0"
-                                            Padding="8"
                                             ToolTip="{ext:Loc ScheduledTasks.Action.Delete}" />
                                         <ui:ToggleSwitch
+                                            VerticalAlignment="Center"
                                             Cursor="Hand"
                                             IsChecked="{Binding IsEnabled, Mode=TwoWay}"
                                             OffContent="{ext:Loc Common.Toggle.Off}"
-                                            OnContent="{ext:Loc Common.Toggle.On}"
-                                            VerticalAlignment="Center" />
+                                            OnContent="{ext:Loc Common.Toggle.On}" />
                                     </StackPanel>
                                 </Grid>
                             </Border>

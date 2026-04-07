@@ -886,7 +886,7 @@
   <data name="Bloatware.Menu.SelectAllSafe" xml:space="preserve">
     <value>選取所有安全項目</value>
   </data>
-  <data name="Bloatware.Menu.UnselectAllSafe" xml:space="preserve">
+  <data name="Bloatware.Menu.DeselectAllSafe" xml:space="preserve">
     <value>取消選取所有安全項目</value>
   </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">

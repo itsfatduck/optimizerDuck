@@ -1,7 +1,7 @@
-﻿using System.IO;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.OptimizationServices;
+using System.IO;
 using Wpf.Ui.Controls;
 using CleanupItem = optimizerDuck.Domain.Optimizations.Models.Cleanup.CleanupItem;
 
@@ -20,6 +20,8 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
     {
         var windowsDir = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
         var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        var systemDrive = Path.GetPathRoot(windowsDir) ?? "C:\\";
+
 
         return
         [
@@ -79,6 +81,14 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 Description = Translations.DiskCleanup_Item_ErrorReports_Description,
                 Path = Path.Combine(localAppData, "CrashDumps"),
                 Icon = SymbolRegular.Bug24
+            },
+            new CleanupItem
+            {
+                Id = "OldWindowsInstallation",
+                Name = Translations.DiskCleanup_Item_OldWindowsInstallation,
+                Description = Translations.DiskCleanup_Item_OldWindowsInstallation_Description,
+                Path = Path.Combine(systemDrive, "Windows.old"),
+                Icon = SymbolRegular.Building24
             }
         ];
     }

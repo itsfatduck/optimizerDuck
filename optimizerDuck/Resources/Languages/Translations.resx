@@ -1167,10 +1167,10 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
     <value>View Source</value>
   </data>
   <data name="Bloatware.Menu.SelectAllSafe" xml:space="preserve">
-    <value>Select All Safe</value>
+    <value>Select all Safe</value>
   </data>
-  <data name="Bloatware.Menu.UnselectAllSafe" xml:space="preserve">
-    <value>Unselect All Safe</value>
+  <data name="Bloatware.Menu.DeselectAllSafe" xml:space="preserve">
+    <value>Deselect all Safe</value>
   </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
     <value>Hide Applied</value>
@@ -1271,6 +1271,12 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="DiskCleanup.Item.ErrorReports.Description" xml:space="preserve">
     <value>Windows error reports and crash dump files</value>
   </data>
+  <data name="DiskCleanup.Item.OldWindowsInstallation" xml:space="preserve">
+    <value>Old Windows Installation (Windows.old)</value>
+  </data>
+  <data name="DiskCleanup.Item.OldWindowsInstallation.Description" xml:space="preserve">
+    <value>Previous Windows installation files kept after a major update or upgrade</value>
+  </data>
   <data name="Dashboard.SystemInfo.Os.DeviceType.Laptop" xml:space="preserve">
     <value>Laptop</value>
   </data>
@@ -1343,8 +1349,20 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="StartupManager.Apps.Title" xml:space="preserve">
     <value>Startup Apps</value>
   </data>
+  <data name="StartupManager.Apps.Description" xml:space="preserve">
+    <value>Applications that run automatically when Windows starts.</value>
+  </data>
+  <data name="StartupManager.Apps.CountSuffix" xml:space="preserve">
+    <value>{0} items</value>
+  </data>
   <data name="StartupManager.Tasks.Title" xml:space="preserve">
     <value>Scheduled Tasks (Logon)</value>
+  </data>
+  <data name="StartupManager.Tasks.Description" xml:space="preserve">
+    <value>Windows tasks configured to run at logon or on a schedule.</value>
+  </data>
+  <data name="StartupManager.Tasks.CountSuffix" xml:space="preserve">
+    <value>{0} tasks</value>
   </data>
   <data name="StartupManager.Loading" xml:space="preserve">
     <value>Scanning startup items...</value>
@@ -1665,5 +1683,35 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   </data>
   <data name="Features.Preferences.DisableBingSearch.Description" xml:space="preserve">
     <value>Remove Bing web results and suggestions from Windows Search</value>
+  </data>
+  <data name="Button.Accept" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="LegalDialog.Title" xml:space="preserve">
+    <value>Legal Agreement</value>
+  </data>
+  <data name="LegalDialog.Intro.ThankYou" xml:space="preserve">
+    <value>Thank you for choosing optimizerDuck.</value>
+  </data>
+  <data name="LegalDialog.Intro.Safety" xml:space="preserve">
+    <value>To ensure transparency and your safety, optimizerDuck may adjust certain system settings and registry configurations.</value>
+  </data>
+  <data name="LegalDialog.Intro.Review" xml:space="preserve">
+    <value>Please take a moment to review the following documents. By continuing, you agree to these terms.</value>
+  </data>
+  <data name="LegalDialog.Link.TermsOfService" xml:space="preserve">
+    <value>Terms of Service</value>
+  </data>
+  <data name="LegalDialog.Link.PrivacyPolicy" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
+  <data name="LegalDialog.Link.Disclaimer" xml:space="preserve">
+    <value>Disclaimer</value>
+  </data>
+  <data name="LegalDialog.Warning.Title" xml:space="preserve">
+    <value>Use at your own risk</value>
+  </data>
+  <data name="LegalDialog.Warning.Message" xml:space="preserve">
+    <value>We recommend creating a backup before applying any changes.</value>
   </data>
 </root>

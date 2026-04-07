@@ -93,12 +93,12 @@ Built-in optimizations across 6 categories, each with clear explanations and ris
 
 Not only can you apply system optimizations, but you can also easily enable or disable various Windows features. No need to dig through the registry or search endlessly on Google. Everything is available in a clean, intuitive, and user-friendly interface.
 
-- **Desktop**. Show/hide icons (This PC, Recycle Bin, Network, User Files, Control Panel), remove shortcut arrows.
-- **Taskbar**. Center alignment, widgets, Task View button, End Task button, show seconds in clock, disable Bing search.
-- **Appearance**. Dark mode for apps and system.
-- **Explorer**. File extensions, hidden files, clipboard history, compact mode, snap assist, item checkboxes, classic context menu.
-- **Gaming**. Game Mode, Game Bar, background recording, mouse acceleration, fullscreen optimizations, hardware-accelerated GPU scheduling.
-- **System**. Auto-enable Num Lock on boot.
+- **Desktop**: Show/hide icons (This PC, Recycle Bin, Network, User Files, Control Panel), remove shortcut arrows.
+- **Taskbar**: Center alignment, widgets, Task View button, End Task button, show seconds in clock, disable Bing search.
+- **Appearance**: Dark mode for apps and system.
+- **Explorer**: File extensions, hidden files, clipboard history, compact mode, snap assist, item checkboxes, classic context menu.
+- **Gaming**: Game Mode, Game Bar, background recording, mouse acceleration, fullscreen optimizations, hardware-accelerated GPU scheduling.
+- **System**: Auto-enable Num Lock on boot.
 
 ---
 
@@ -137,8 +137,8 @@ Step-by-step instructions, explanations of each optimization, and best practices
 ## Community
 
 > [!TIP]
-> Join our growing community on Discord! Get support, share your experience, and connect with other users and contributors. We also have a GitHub Discussions page for more in-depth conversations and feature requests.
-> <a href="https://discord.gg/tDUBDCYw9Q" target="_blank"><img src="https://discord.com/api/guilds/1091675679994675240/widget.png?style=banner2" alt="Discord Banner 2"/></a>
+> Join our growing community on Discord! Get support, share your experience, and connect with other users and contributors.
+> <a href="https://discord.gg/tDUBDCYw9Q"><img src="https://discord.com/api/guilds/1091675679994675240/widget.png?style=banner2" alt="Discord Banner 2"/></a>
 
 If optimizerDuck helped your PC:
 

@@ -108,7 +108,6 @@
 
         <Border
             Grid.Row="1"
-            Padding="8,0,8,0"
             CornerRadius="6"
             Visibility="{Binding ViewModel.HasData, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid RowDefinitions="Auto,Auto,*">
@@ -218,7 +217,7 @@
                 <!--  Action buttons  -->
                 <StackPanel
                     Grid.Row="1"
-                    Margin="0,0,0,5"
+                    Margin="0,0,0,8"
                     Orientation="Horizontal">
                     <ui:Button
                         Appearance="Danger"
@@ -243,10 +242,10 @@
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding ViewModel.IsAllSafeSelected}" Value="True">
                                         <Setter Property="Appearance" Value="Danger" />
-                                        <Setter Property="Content" Value="{ext:Loc Bloatware.Menu.UnselectAllSafe}" />
+                                        <Setter Property="Content" Value="{ext:Loc Bloatware.Menu.DeselectAllSafe}" />
                                         <Setter Property="Icon">
                                             <Setter.Value>
-                                                <ui:SymbolIcon FontSize="18" Symbol="DismissCircle24" />
+                                                <ui:SymbolIcon FontSize="18" Symbol="CheckboxUnchecked24" />
                                             </Setter.Value>
                                         </Setter>
                                     </DataTrigger>
@@ -306,7 +305,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type bloatware1:AppXPackage}">
                             <Border
-                                Margin="0,0,0,4"
+                                Margin="0,0,16,4"
                                 Padding="12"
                                 Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
                                 CornerRadius="6">

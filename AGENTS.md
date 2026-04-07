@@ -11,6 +11,7 @@
 - `publish.bat`: interactive/preset publish entry point (`Portable` or `Single`).
 
 ## Build, Test, and Development Commands
+- **.NET Version**: 10.0.x (see `.github/workflows/ci.yml`)
 - `dotnet restore optimizerDuck.slnx`: restore dependencies.
 - `dotnet build optimizerDuck.slnx --configuration Release --no-restore`: CI-aligned build.
 - `dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release --no-build`: run unit tests.

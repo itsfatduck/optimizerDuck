@@ -1,4 +1,6 @@
-﻿namespace optimizerDuck.Domain.Configuration;
+﻿using Wpf.Ui.Appearance;
+
+namespace optimizerDuck.Domain.Configuration;
 
 /// <summary>
 ///     Application settings that can be persisted to disk.
@@ -33,7 +35,12 @@ public sealed class AppSettings
         /// <summary>
         ///     The UI theme (e.g., "Dark").
         /// </summary>
-        public string Theme { get; set; } = "Dark";
+        public ApplicationTheme Theme { get; set; } = ApplicationTheme.Dark;
+
+        /// <summary>
+        ///     Whether the user has accepted the legal terms.
+        /// </summary>
+        public bool LegalAccepted { get; set; } = false;
     }
 
     /// <summary>

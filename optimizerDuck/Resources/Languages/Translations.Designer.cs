@@ -115,6 +115,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deselect all Safe.
+        /// </summary>
+        internal static string Bloatware_Menu_DeselectAllSafe {
+            get {
+                return ResourceManager.GetString("Bloatware.Menu.DeselectAllSafe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Refresh.
         /// </summary>
         internal static string Bloatware_Menu_Refresh {
@@ -133,20 +142,11 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select All Safe.
+        ///   Looks up a localized string similar to Select all Safe.
         /// </summary>
         internal static string Bloatware_Menu_SelectAllSafe {
             get {
                 return ResourceManager.GetString("Bloatware.Menu.SelectAllSafe", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unselect All Safe.
-        /// </summary>
-        internal static string Bloatware_Menu_UnselectAllSafe {
-            get {
-                return ResourceManager.GetString("Bloatware.Menu.UnselectAllSafe", resourceCulture);
             }
         }
         
@@ -210,6 +210,15 @@ namespace optimizerDuck.Resources.Languages {
         internal static string BloatwareDialog_Title {
             get {
                 return ResourceManager.GetString("BloatwareDialog.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Accept.
+        /// </summary>
+        internal static string Button_Accept {
+            get {
+                return ResourceManager.GetString("Button.Accept", resourceCulture);
             }
         }
         
@@ -913,6 +922,24 @@ namespace optimizerDuck.Resources.Languages {
         internal static string DiskCleanup_Item_ErrorReports_Description {
             get {
                 return ResourceManager.GetString("DiskCleanup.Item.ErrorReports.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Old Windows Installation (Windows.old).
+        /// </summary>
+        internal static string DiskCleanup_Item_OldWindowsInstallation {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Item.OldWindowsInstallation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous Windows installation files kept after a major update or upgrade.
+        /// </summary>
+        internal static string DiskCleanup_Item_OldWindowsInstallation_Description {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Item.OldWindowsInstallation.Description", resourceCulture);
             }
         }
         
@@ -1952,6 +1979,87 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please take a moment to review the following documents. By continuing, you agree to these terms..
+        /// </summary>
+        internal static string LegalDialog_Intro_Review {
+            get {
+                return ResourceManager.GetString("LegalDialog.Intro.Review", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To ensure transparency and your safety, optimizerDuck may adjust certain system settings and registry configurations..
+        /// </summary>
+        internal static string LegalDialog_Intro_Safety {
+            get {
+                return ResourceManager.GetString("LegalDialog.Intro.Safety", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thank you for choosing optimizerDuck..
+        /// </summary>
+        internal static string LegalDialog_Intro_ThankYou {
+            get {
+                return ResourceManager.GetString("LegalDialog.Intro.ThankYou", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disclaimer.
+        /// </summary>
+        internal static string LegalDialog_Link_Disclaimer {
+            get {
+                return ResourceManager.GetString("LegalDialog.Link.Disclaimer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Privacy Policy.
+        /// </summary>
+        internal static string LegalDialog_Link_PrivacyPolicy {
+            get {
+                return ResourceManager.GetString("LegalDialog.Link.PrivacyPolicy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Terms of Service.
+        /// </summary>
+        internal static string LegalDialog_Link_TermsOfService {
+            get {
+                return ResourceManager.GetString("LegalDialog.Link.TermsOfService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Legal Agreement.
+        /// </summary>
+        internal static string LegalDialog_Title {
+            get {
+                return ResourceManager.GetString("LegalDialog.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We recommend creating a backup before applying any changes..
+        /// </summary>
+        internal static string LegalDialog_Warning_Message {
+            get {
+                return ResourceManager.GetString("LegalDialog.Warning.Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use at your own risk.
+        /// </summary>
+        internal static string LegalDialog_Warning_Title {
+            get {
+                return ResourceManager.GetString("LegalDialog.Warning.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Completed.
         /// </summary>
         internal static string Optimization_Apply_Completed {
@@ -2529,6 +2637,24 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disable Accessibility Keyboard Hotkeys.
+        /// </summary>
+        internal static string Optimizer_Performance_DisableAccessibilityKeyboardHotkeys_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disables Sticky Keys, Filter Keys, and Toggle Keys keyboard shortcuts to prevent accidental pop-ups during gaming and typing..
+        /// </summary>
+        internal static string Optimizer_Performance_DisableAccessibilityKeyboardHotkeys_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disable Background Apps.
         /// </summary>
         internal static string Optimizer_Performance_DisableBackgroundApps_Name {
@@ -2565,7 +2691,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Optimize Keyboard Response.
+        ///   Looks up a localized string similar to Optimize Keyboard Repeat.
         /// </summary>
         internal static string Optimizer_Performance_KeyboardLatencyOptimization_Name {
             get {
@@ -2574,7 +2700,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reduces keyboard input delay and increases repeat rate for faster, more responsive typing and gaming..
+        ///   Looks up a localized string similar to Sets the fastest keyboard repeat delay and repeat rate for more responsive typing and repeated key presses..
         /// </summary>
         internal static string Optimizer_Performance_KeyboardLatencyOptimization_ShortDescription {
             get {
@@ -2655,7 +2781,25 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable Hibernation &amp; Fast Startup.
+        ///   Looks up a localized string similar to Disable Fast Startup.
+        /// </summary>
+        internal static string Optimizer_PowerManagement_DisableFastStartup_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.PowerManagement.DisableFastStartup.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turns off Fast Startup to ensure a full shutdown and cleaner hardware initialization on boot..
+        /// </summary>
+        internal static string Optimizer_PowerManagement_DisableFastStartup_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.PowerManagement.DisableFastStartup.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable Hibernation.
         /// </summary>
         internal static string Optimizer_PowerManagement_DisableHibernate_Name {
             get {
@@ -2664,7 +2808,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Turns off Hibernation and Fast Startup to reclaim several gigabytes of disk space and ensure a fresh system boot..
+        ///   Looks up a localized string similar to Turns off hibernation to reclaim disk space used by the hiberfil.sys file..
         /// </summary>
         internal static string Optimizer_PowerManagement_DisableHibernate_ShortDescription {
             get {
@@ -4531,6 +4675,24 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} items.
+        /// </summary>
+        internal static string StartupManager_Apps_CountSuffix {
+            get {
+                return ResourceManager.GetString("StartupManager.Apps.CountSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applications that run automatically when Windows starts..
+        /// </summary>
+        internal static string StartupManager_Apps_Description {
+            get {
+                return ResourceManager.GetString("StartupManager.Apps.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Startup Apps.
         /// </summary>
         internal static string StartupManager_Apps_Title {
@@ -4608,6 +4770,24 @@ namespace optimizerDuck.Resources.Languages {
         internal static string StartupManager_Menu_Refresh {
             get {
                 return ResourceManager.GetString("StartupManager.Menu.Refresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} tasks.
+        /// </summary>
+        internal static string StartupManager_Tasks_CountSuffix {
+            get {
+                return ResourceManager.GetString("StartupManager.Tasks.CountSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows tasks configured to run at logon or on a schedule..
+        /// </summary>
+        internal static string StartupManager_Tasks_Description {
+            get {
+                return ResourceManager.GetString("StartupManager.Tasks.Description", resourceCulture);
             }
         }
         

@@ -30,7 +30,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Margin="42,0,42,16">
+        <StackPanel Grid.Row="0" Margin="0,0,0,16">
             <StackPanel Margin="0,0,0,8" Orientation="Horizontal">
                 <ui:SymbolIcon
                     Margin="0,0,12,0"
@@ -50,7 +50,7 @@
 
         <WrapPanel
             Grid.Row="1"
-            Margin="42,0,42,16"
+            Margin="0,0,0,16"
             Orientation="Horizontal">
             <ui:TextBox
                 MinWidth="200"
@@ -65,7 +65,9 @@
                 Margin="0,0,8,0"
                 VerticalAlignment="Center"
                 SelectedIndex="{Binding ViewModel.SelectedSortByIndex}"
-                ToolTip="{ext:Loc Common.SortBy}">
+                ToolTip="{ext:Loc Common.SortBy}"
+                ToolTipService.BetweenShowDelay="160"
+                ToolTipService.Placement="Top">
                 <ComboBoxItem HorizontalContentAlignment="Left">
                     <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
                         <ui:SymbolIcon
@@ -95,15 +97,14 @@
 
         <ScrollViewer
             Grid.Row="2"
-            Margin="42,0,42,0"
             HorizontalScrollBarVisibility="Disabled"
             VerticalScrollBarVisibility="Auto">
 
             <!--  Sections  -->
-            <ItemsControl Margin="0,0,0,16" ItemsSource="{Binding ViewModel.Sections}">
+            <ItemsControl Margin="0,0,16,0" ItemsSource="{Binding ViewModel.Sections}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Margin="0,0,0,0">
+                        <StackPanel Margin="0,0,0,10">
                             <ui:TextBlock
                                 Margin="0,0,0,6"
                                 FontTypography="BodyStrong"

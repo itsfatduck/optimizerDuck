@@ -1133,7 +1133,7 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Bloatware.Menu.SelectAllSafe" xml:space="preserve">
     <value>Chọn tất cả an toàn</value>
   </data>
-  <data name="Bloatware.Menu.UnselectAllSafe" xml:space="preserve">
+  <data name="Bloatware.Menu.DeselectAllSafe" xml:space="preserve">
     <value>Bỏ chọn tất cả an toàn</value>
   </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
@@ -1235,6 +1235,12 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="DiskCleanup.Item.ErrorReports.Description" xml:space="preserve">
     <value>Báo cáo lỗi Windows và tệp crash dump</value>
   </data>
+  <data name="DiskCleanup.Item.OldWindowsInstallation" xml:space="preserve">
+    <value>Bộ cài Windows cũ (Windows.old)</value>
+  </data>
+  <data name="DiskCleanup.Item.OldWindowsInstallation.Description" xml:space="preserve">
+    <value>Tệp cài đặt Windows cũ được giữ lại sau khi cập nhật hoặc nâng cấp lớn</value>
+  </data>
   <data name="Dashboard.SystemInfo.Os.DeviceType.Laptop" xml:space="preserve">
     <value>Máy tính xách tay</value>
   </data>
@@ -1310,8 +1316,20 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="StartupManager.Apps.Title" xml:space="preserve">
     <value>Ứng dụng Khởi động</value>
   </data>
+  <data name="StartupManager.Apps.Description" xml:space="preserve">
+    <value>Các ứng dụng tự động chạy khi Windows khởi động.</value>
+  </data>
+  <data name="StartupManager.Apps.CountSuffix" xml:space="preserve">
+    <value>{0} mục</value>
+  </data>
   <data name="StartupManager.Tasks.Title" xml:space="preserve">
     <value>Tác vụ Lên lịch (Logon)</value>
+  </data>
+  <data name="StartupManager.Tasks.Description" xml:space="preserve">
+    <value>Các tác vụ Windows được cấu hình để chạy khi đăng nhập hoặc theo lịch.</value>
+  </data>
+  <data name="StartupManager.Tasks.CountSuffix" xml:space="preserve">
+    <value>{0} tác vụ</value>
   </data>
   <data name="StartupManager.Tasks.HideMicrosoft" xml:space="preserve">
     <value>Ẩn tác vụ Microsoft</value>
@@ -1657,5 +1675,35 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="Features.Preferences.DisableBingSearch.Description" xml:space="preserve">
     <value>Xóa kết quả tìm kiếm web và đề xuất của Bing khỏi Windows Search</value>
+  </data>
+  <data name="Button.Accept" xml:space="preserve">
+    <value>Chấp nhận</value>
+  </data>
+  <data name="LegalDialog.Title" xml:space="preserve">
+    <value>Thỏa thuận pháp lý</value>
+  </data>
+  <data name="LegalDialog.Intro.ThankYou" xml:space="preserve">
+    <value>Cảm ơn bạn đã chọn optimizerDuck.</value>
+  </data>
+  <data name="LegalDialog.Intro.Safety" xml:space="preserve">
+    <value>Để đảm bảo tính minh bạch và an toàn cho bạn, optimizerDuck có thể điều chỉnh một số cài đặt hệ thống và cấu hình registry.</value>
+  </data>
+  <data name="LegalDialog.Intro.Review" xml:space="preserve">
+    <value>Vui lòng dành chút thời gian xem xét các tài liệu sau. Bằng việc tiếp tục, bạn đồng ý với các điều khoản này.</value>
+  </data>
+  <data name="LegalDialog.Link.TermsOfService" xml:space="preserve">
+    <value>Điều khoản dịch vụ</value>
+  </data>
+  <data name="LegalDialog.Link.PrivacyPolicy" xml:space="preserve">
+    <value>Chính sách bảo mật</value>
+  </data>
+  <data name="LegalDialog.Link.Disclaimer" xml:space="preserve">
+    <value>Tuyên bố miễn trách</value>
+  </data>
+  <data name="LegalDialog.Warning.Title" xml:space="preserve">
+    <value>Sử dụng có rủi ro</value>
+  </data>
+  <data name="LegalDialog.Warning.Message" xml:space="preserve">
+    <value>Khuyến nghị tạo bản sao lưu trước khi áp dụng bất kỳ thay đổi nào.</value>
   </data>
 </root>

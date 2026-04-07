@@ -1,8 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Globalization;
-using System.Windows.Media;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -12,6 +8,10 @@ using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services;
 using optimizerDuck.Services.Managers;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Globalization;
+using System.Windows.Media;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -260,7 +260,7 @@ public partial class SettingsViewModel(
     {
         if (!_isInitialized) return;
         if (string.IsNullOrEmpty(value)) return;
-        _ = configManager.SetAsync("app:language", value);
+        _ = configManager.SetAsync(x => x.App.Language, value);
 
         if (value == Loc.CurrentCulture.Name) return;
         contentDialogService.ShowAlertAsync(Translations.Settings_LanguageChanged_Title,
@@ -272,14 +272,14 @@ public partial class SettingsViewModel(
     {
         if (!_isInitialized) return;
         ApplicationThemeManager.Apply(newValue, updateAccent: false);
-        _ = configManager.SetAsync("app:theme", newValue.ToString());
+        _ = configManager.SetAsync(x => x.App.Theme, newValue);
     }
 
     partial void OnShellTimeoutMsChanged(int value)
     {
         if (!_isInitialized) return;
         if (value <= 0) return;
-        _ = configManager.SetAsync("optimize:shellTimeoutMs", value.ToString(CultureInfo.InvariantCulture));
+        _ = configManager.SetAsync(x => x.Optimize.ShellTimeoutMs, value);
     }
 
     #endregion Property Changed
