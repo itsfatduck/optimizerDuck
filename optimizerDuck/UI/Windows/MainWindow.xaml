@@ -8,11 +8,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pages="clr-namespace:optimizerDuck.UI.Pages"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:viewmodels="clr-namespace:optimizerDuck.UI.ViewModels.Windows"
     xmlns:windows="clr-namespace:optimizerDuck.UI.Windows"
     Title="optimizerDuck"
     Width="1350"
     Height="800"
-    d:DataContext="{d:DesignInstance windows:MainWindow}"
+    d:DataContext="{d:DesignInstance viewmodels:MainWindowViewModel}"
     ui:Design.Background="Black"
     ui:Design.Foreground="White"
     ExtendsContentIntoTitleBar="True"
@@ -38,6 +39,7 @@
             <ui:NavigationView.MenuItems>
                 <controls:FilledNavigationViewItem
                     Content="{extensions:Loc Sidebar.Dashboard}"
+                    Cursor="Hand"
                     Icon="{ui:SymbolIcon Home24}"
                     TargetPageType="{x:Type pages:DashboardPage}" />
 
@@ -45,6 +47,7 @@
 
                 <controls:FilledNavigationViewItem
                     Content="{extensions:Loc Sidebar.Optimize}"
+                    Cursor="Hand"
                     Icon="{ui:SymbolIcon Rocket24}"
                     TargetPageType="{x:Type pages:OptimizePage}" />
 
@@ -55,6 +58,7 @@
 
                 <controls:FilledNavigationViewItem
                     Content="{extensions:Loc Sidebar.Bloatware}"
+                    Cursor="Hand"
                     Icon="{ui:SymbolIcon Delete24}"
                     TargetPageType="{x:Type pages:BloatwarePage}" />
 
@@ -62,16 +66,19 @@
 
                 <controls:FilledNavigationViewItem
                     Content="{extensions:Loc Sidebar.StartupManager}"
+                    Cursor="Hand"
                     Icon="{ui:SymbolIcon WindowArrowUp24}"
                     TargetPageType="{x:Type pages:StartupManagerPage}" />
 
                 <controls:FilledNavigationViewItem
                     Content="{extensions:Loc Sidebar.ScheduledTasks}"
+                    Cursor="Hand"
                     Icon="{ui:SymbolIcon CalendarLtr24}"
                     TargetPageType="{x:Type pages:ScheduledTasksPage}" />
 
                 <controls:FilledNavigationViewItem
                     Content="{extensions:Loc Sidebar.DiskCleanup}"
+                    Cursor="Hand"
                     Icon="{ui:SymbolIcon HardDrive20}"
                     TargetPageType="{x:Type pages:DiskCleanupPage}" />
             </ui:NavigationView.MenuItems>
@@ -80,6 +87,7 @@
                 <ui:NavigationViewItemSeparator Margin="0,2,0,2" />
                 <controls:FilledNavigationViewItem
                     Content="{extensions:Loc Sidebar.Settings}"
+                    Cursor="Hand"
                     Icon="{ui:SymbolIcon Settings24}"
                     TargetPageType="{x:Type pages:SettingsPage}" />
             </ui:NavigationView.FooterMenuItems>
@@ -91,10 +99,51 @@
             </ui:NavigationView.ContentOverlay>
         </ui:NavigationView>
 
-        <ui:TitleBar x:Name="TitleBar" Title="optimizerDuck">
-            <ui:TitleBar.Icon>
-                <ui:ImageIcon Source="pack://application:,,,/Resources/Images/Duck.png" />
-            </ui:TitleBar.Icon>
+        <ui:TitleBar x:Name="TitleBar">
+            <ui:TitleBar.Header>
+                <StackPanel
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <ui:SymbolIcon
+                        FontSize="16"
+                        Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                        Symbol="Shield24" />
+                    <ui:ImageIcon
+                        Height="25"
+                        Margin="7,0,5,0"
+                        VerticalAlignment="Center"
+                        Source="pack://application:,,,/Resources/Images/Duck.png" />
+                    <ui:TextBlock
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        FontTypography="Body"
+                        Text="optimizerDuck" />
+                    <ui:TextBlock
+                        VerticalAlignment="Center"
+                        Appearance="Disabled"
+                        FontTypography="Body"
+                        Text="{Binding Version, Mode=OneWay}" />
+                </StackPanel>
+            </ui:TitleBar.Header>
+
+            <ui:TitleBar.TrailingContent>
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                    <ui:Button
+                        Margin="0,0,5,0"
+                        Appearance="Transparent"
+                        Command="{Binding OpenSupportLinkCommand}"
+                        Icon="{ui:SymbolIcon Heart24}">
+                        Support the project
+                    </ui:Button>
+                    <ui:Button
+                        Appearance="Transparent"
+                        Command="{Binding OpenDiscordLinkCommand}"
+                        Icon="{ui:SymbolIcon Link24}">
+                        Join our Discord
+                    </ui:Button>
+                </StackPanel>
+            </ui:TitleBar.TrailingContent>
         </ui:TitleBar>
 
         <ui:ContentDialogHost x:Name="RootContentDialogPresenter" />

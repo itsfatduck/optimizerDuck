@@ -17,11 +17,11 @@ public static class Shared
                                   """;
 
 
-    public const string DiscordInviteURL = "https://discord.gg/GqvJYQsgSm";
+    public const string DiscordInviteURL = "https://discord.gg/tDUBDCYw9Q";
     public const string WebsiteURL = "https://optimizerduck.vercel.app/";
     public const string GitHubRepoURL = "https://github.com/itsfatduck/optimizerDuck";
     public const string CommunityURL = "https://optimizerduck.vercel.app/docs/community";
-    public const string ContributeURL = "https://github.com/itsfatduck/optimizerDuck/blob/master/.github/CONTRIBUTING.md";
+    public const string ContributeURL = "https://optimizerduck.vercel.app/docs/contribute/overview";
 
     public const string AcknowledgementsURL =
         "https://github.com/itsfatduck/optimizerDuck/blob/master/THIRD-PARTY-NOTICES.md";

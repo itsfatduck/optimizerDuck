@@ -6,6 +6,7 @@ using optimizerDuck.Services;
 using optimizerDuck.Services.Managers;
 using optimizerDuck.UI.Dialogs;
 using optimizerDuck.UI.Pages;
+using optimizerDuck.UI.ViewModels.Windows;
 using System.Windows;
 using Wpf.Ui;
 using Wpf.Ui.Abstractions;
@@ -19,13 +20,15 @@ public partial class MainWindow : IWindow
     private readonly IOptionsMonitor<AppSettings> _appOptionsMonitor;
     private readonly ConfigManager _configManager;
 
-    public MainWindow(ConfigManager configManager, INavigationService navigationService, IContentDialogService contentDialogService,
+    public MainWindow(MainWindowViewModel viewModel, ConfigManager configManager, INavigationService navigationService, IContentDialogService contentDialogService,
         INavigationViewPageProvider pageProvider, IOptionsMonitor<AppSettings> appOptionsMonitor, ISnackbarService snackbarService, FeatureRegistry featureRegistry)
     {
         _contentDialogService = contentDialogService;
         _appOptionsMonitor = appOptionsMonitor;
         _configManager = configManager;
         InitializeComponent();
+
+        DataContext = viewModel;
 
         snackbarService.SetSnackbarPresenter(SnackbarPresenter);
         contentDialogService.SetDialogHost(RootContentDialogPresenter);

@@ -11,6 +11,7 @@ using optimizerDuck.Services.Managers;
 using optimizerDuck.Services.OptimizationServices;
 using optimizerDuck.UI.Pages;
 using optimizerDuck.UI.ViewModels.Pages;
+using optimizerDuck.UI.ViewModels.Windows;
 using optimizerDuck.UI.Windows;
 using Serilog;
 using Serilog.Events;
@@ -147,6 +148,7 @@ public partial class App : Application
 
                     // Windows
                     services.AddSingleton<MainWindow>();
+                    services.AddSingleton<MainWindowViewModel>();
 
                     // Pages
                     services.AddSingleton<DashboardViewModel>();
