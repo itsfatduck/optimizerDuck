@@ -12,17 +12,20 @@ public partial class ScheduledTaskModel : ObservableObject
     /// <summary>
     ///     Indicates whether the task is enabled.
     /// </summary>
-    [ObservableProperty] private bool _isEnabled;
+    [ObservableProperty]
+    private bool _isEnabled;
 
     /// <summary>
     ///     The logo image of the task's executable.
     /// </summary>
-    [ObservableProperty] private ImageSource? _logoImage;
+    [ObservableProperty]
+    private ImageSource? _logoImage;
 
     /// <summary>
     ///     The current state of the task (e.g., "Ready", "Running", "Disabled").
     /// </summary>
-    [ObservableProperty] private string _state = string.Empty;
+    [ObservableProperty]
+    private string _state = string.Empty;
 
     /// <summary>
     ///     The name of the task.
@@ -82,7 +85,8 @@ public partial class ScheduledTaskModel : ObservableObject
     /// <summary>
     ///     Indicates whether this is a Microsoft system task.
     /// </summary>
-    public bool IsMicrosoftTask => Path.StartsWith(@"\Microsoft\", StringComparison.OrdinalIgnoreCase);
+    public bool IsMicrosoftTask =>
+        Path.StartsWith(@"\Microsoft\", StringComparison.OrdinalIgnoreCase);
 
     /// <summary>
     ///     Indicates whether the task has a logon trigger.

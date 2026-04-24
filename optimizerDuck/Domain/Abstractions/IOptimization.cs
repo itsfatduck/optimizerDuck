@@ -45,5 +45,8 @@ public interface IOptimization
     /// <param name="progress">A progress reporter for UI updates.</param>
     /// <param name="context">The context providing logger, system snapshot, and services.</param>
     /// <returns>A task that completes with the result of the apply operation.</returns>
-    Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context);
+    Task<ApplyResult> ApplyAsync(
+        IProgress<ProcessingProgress> progress,
+        OptimizationContext context
+    );
 }

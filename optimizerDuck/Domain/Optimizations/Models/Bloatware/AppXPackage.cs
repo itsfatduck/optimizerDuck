@@ -12,7 +12,7 @@ public enum AppRisk
 {
     Safe,
     Caution,
-    Unknown
+    Unknown,
 }
 
 /// <summary>
@@ -23,7 +23,8 @@ public partial class AppXPackage : ObservableObject
     /// <summary>
     ///     Indicates whether this package is selected for removal.
     /// </summary>
-    [ObservableProperty] private bool _isSelected;
+    [ObservableProperty]
+    private bool _isSelected;
 
     /// <summary>
     ///     Path to the package's logo image.
@@ -63,24 +64,25 @@ public partial class AppXPackage : ObservableObject
     /// <summary>
     ///     Gets the visual representation of the risk level for UI display.
     /// </summary>
-    public RiskVisual RiskVisual => Risk switch
-    {
-        AppRisk.Safe => new RiskVisual
+    public RiskVisual RiskVisual =>
+        Risk switch
         {
-            Display = Translations.Optimizer_UI_Risk_Safe,
-            Icon = SymbolRegular.ShieldCheckmark24
-        },
-        AppRisk.Caution => new RiskVisual
-        {
-            Display = Translations.Optimizer_UI_Risk_Moderate,
-            Icon = SymbolRegular.Warning24
-        },
-        _ => new RiskVisual
-        {
-            Display = Translations.Optimizer_UI_Risk_Safe,
-            Icon = SymbolRegular.ShieldCheckmark24
-        }
-    };
+            AppRisk.Safe => new RiskVisual
+            {
+                Display = Translations.Optimizer_UI_Risk_Safe,
+                Icon = SymbolRegular.ShieldCheckmark24,
+            },
+            AppRisk.Caution => new RiskVisual
+            {
+                Display = Translations.Optimizer_UI_Risk_Moderate,
+                Icon = SymbolRegular.Warning24,
+            },
+            _ => new RiskVisual
+            {
+                Display = Translations.Optimizer_UI_Risk_Safe,
+                Icon = SymbolRegular.ShieldCheckmark24,
+            },
+        };
 
     /// <summary>
     ///     Indicates whether the risk should be visible in the UI.

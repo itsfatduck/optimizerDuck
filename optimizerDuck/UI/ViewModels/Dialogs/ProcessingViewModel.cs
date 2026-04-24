@@ -5,10 +5,17 @@ namespace optimizerDuck.UI.ViewModels.Dialogs;
 
 public partial class ProcessingViewModel : ObservableObject
 {
-    [ObservableProperty] private bool _isIndeterminate;
-    [ObservableProperty] private string? _message;
-    [ObservableProperty] private int _total;
-    [ObservableProperty] private int _value;
+    [ObservableProperty]
+    private bool _isIndeterminate;
+
+    [ObservableProperty]
+    private string? _message;
+
+    [ObservableProperty]
+    private int _total;
+
+    [ObservableProperty]
+    private int _value;
 
     public ProcessingViewModel()
     {

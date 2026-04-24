@@ -26,9 +26,11 @@ public static class TextExtensions
 
             return deserialized switch
             {
-                IEnumerable<object> list => string.Join(Environment.NewLine,
-                    list.Where(_ => true).Select(o => o.ToString()?.Trim() ?? string.Empty)),
-                _ => deserialized?.ToString()?.Trim() ?? string.Empty
+                IEnumerable<object> list => string.Join(
+                    Environment.NewLine,
+                    list.Where(_ => true).Select(o => o.ToString()?.Trim() ?? string.Empty)
+                ),
+                _ => deserialized?.ToString()?.Trim() ?? string.Empty,
             };
         }
         catch
@@ -52,9 +54,7 @@ public static class TextExtensions
             if (values.Count == 0)
                 values.Add(doc.Root?.Value.Trim() ?? string.Empty);
 
-            return string.Join(Environment.NewLine, values)
-                .Replace("_x000D__x000A_", "\n")
-                .Trim();
+            return string.Join(Environment.NewLine, values).Replace("_x000D__x000A_", "\n").Trim();
         }
         catch
         {
@@ -95,8 +95,10 @@ public static class TextExtensions
 
     public static string FormatTime(this TimeSpan time)
     {
-        if (time.TotalSeconds >= 1) return $"{time.TotalSeconds:F1}s";
-        if (time.TotalMilliseconds >= 1) return $"{time.TotalMilliseconds:F0}ms";
+        if (time.TotalSeconds >= 1)
+            return $"{time.TotalSeconds:F1}s";
+        if (time.TotalMilliseconds >= 1)
+            return $"{time.TotalMilliseconds:F0}ms";
         return time.Ticks > 0 ? $"{time.Ticks} ticks" : "0";
     }
 }

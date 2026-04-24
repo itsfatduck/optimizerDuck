@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.IO;
+using System.Linq.Expressions;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Configuration;
-using System.IO;
-using System.Linq.Expressions;
 
 namespace optimizerDuck.Services.Managers;
 
@@ -51,7 +51,11 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
             var properties = typeof(AppSettings).GetProperties();
             foreach (var prop in properties)
             {
-                if (prop.PropertyType.IsClass && !prop.PropertyType.IsPrimitive && prop.PropertyType != typeof(string))
+                if (
+                    prop.PropertyType.IsClass
+                    && !prop.PropertyType.IsPrimitive
+                    && prop.PropertyType != typeof(string)
+                )
                 {
                     var nestedObj = prop.GetValue(defaults);
                     if (nestedObj != null)
@@ -61,16 +65,26 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
                         {
                             var key = $"{prop.Name}:{nestedProp.Name}";
                             var value = nestedProp.GetValue(nestedObj);
-                            if (value == null) continue;
+                            if (value == null)
+                                continue;
 
                             // Check both flat key and nested object format
                             var existsFlat = GetTokenIgnoreCase(_cache, key) != null;
-                            var existsNested = CheckNestedExists(_cache, prop.Name, nestedProp.Name);
+                            var existsNested = CheckNestedExists(
+                                _cache,
+                                prop.Name,
+                                nestedProp.Name
+                            );
 
                             if (!existsFlat && !existsNested)
                             {
                                 // Add as nested object format (proper structure)
-                                EnsureNestedValue(_cache, prop.Name, nestedProp.Name, value.ToString() ?? "");
+                                EnsureNestedValue(
+                                    _cache,
+                                    prop.Name,
+                                    nestedProp.Name,
+                                    value.ToString() ?? ""
+                                );
                                 addedKeys.Add($"{key} = {value}");
                             }
                         }
@@ -83,7 +97,11 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
                 // Clean up any duplicate flat keys that may have been added previously
                 CleanupDuplicateKeys(_cache);
                 await SaveConfigAsync();
-                logger.LogInformation("Added {Count} missing config keys: {Keys}", addedKeys.Count, string.Join(", ", addedKeys));
+                logger.LogInformation(
+                    "Added {Count} missing config keys: {Keys}",
+                    addedKeys.Count,
+                    string.Join(", ", addedKeys)
+                );
             }
         }
         finally
@@ -98,7 +116,8 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
     private static bool CheckNestedExists(JObject root, string section, string key)
     {
         var sectionToken = GetTokenIgnoreCase(root, section);
-        if (sectionToken is not JObject sectionObj) return false;
+        if (sectionToken is not JObject sectionObj)
+            return false;
         return GetTokenIgnoreCase(sectionObj, key) != null;
     }
 
@@ -121,7 +140,11 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
 
         foreach (var prop in properties)
         {
-            if (prop.PropertyType.IsClass && !prop.PropertyType.IsPrimitive && prop.PropertyType != typeof(string))
+            if (
+                prop.PropertyType.IsClass
+                && !prop.PropertyType.IsPrimitive
+                && prop.PropertyType != typeof(string)
+            )
             {
                 var nestedProps = prop.PropertyType.GetProperties();
                 foreach (var nestedProp in nestedProps)
@@ -158,8 +181,7 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
     public async Task SetAsync<T>(Expression<Func<AppSettings, T>> property, T value)
     {
         Expression expression = property.Body;
-        if (expression is UnaryExpression unary &&
-            unary.NodeType == ExpressionType.Convert)
+        if (expression is UnaryExpression unary && unary.NodeType == ExpressionType.Convert)
         {
             expression = unary.Operand;
         }
@@ -167,7 +189,8 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
         if (expression is not MemberExpression member)
             throw new ArgumentException(
                 $"The property expression '{property}' must be a simple member access expression such as 'x => x.App.Language'.",
-                nameof(property));
+                nameof(property)
+            );
         // Build key from property path (e.g., App.Language -> "App:Language")
         var keyParts = new List<string>();
         var expr = member;
@@ -176,7 +199,8 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
             keyParts.Insert(0, expr.Member.Name);
             if (expr.Expression is MemberExpression next)
                 expr = next;
-            else break;
+            else
+                break;
         }
         var key = string.Join(":", keyParts);
 
@@ -223,7 +247,8 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
             for (var i = 0; i < parts.Length - 1; i++)
             {
                 var next = GetTokenIgnoreCase(current, parts[i]);
-                if (next is not JObject nextObj) return;
+                if (next is not JObject nextObj)
+                    return;
                 current = nextObj;
             }
 
@@ -276,9 +301,7 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
     /// </summary>
     private async Task SaveConfigAsync()
     {
-        await File.WriteAllTextAsync(
-            _configPath,
-            _cache.ToString(Formatting.Indented));
+        await File.WriteAllTextAsync(_configPath, _cache.ToString(Formatting.Indented));
 
         (configuration as IConfigurationRoot)?.Reload();
     }
@@ -310,11 +333,14 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
         foreach (var p in current.Properties())
             if (string.Equals(p.Name, key, StringComparison.OrdinalIgnoreCase))
             {
-                if (first == null) first = p;
-                else extraNames.Add(p.Name);
+                if (first == null)
+                    first = p;
+                else
+                    extraNames.Add(p.Name);
             }
 
-        foreach (var name in extraNames) current.Remove(name);
+        foreach (var name in extraNames)
+            current.Remove(name);
 
         if (first?.Value is JObject existing)
             return existing;
@@ -340,7 +366,8 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
     private static void SetValueIgnoreCase(JObject current, string key, string value)
     {
         // Remove all case-insensitive matches
-        var toRemove = current.Properties()
+        var toRemove = current
+            .Properties()
             .Where(p => string.Equals(p.Name, key, StringComparison.OrdinalIgnoreCase))
             .Select(p => p.Name)
             .ToList();
@@ -364,7 +391,8 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
             if (string.Equals(p.Name, key, StringComparison.OrdinalIgnoreCase))
                 toRemove.Add(p.Name);
 
-        foreach (var name in toRemove) current.Remove(name);
+        foreach (var name in toRemove)
+            current.Remove(name);
     }
 
     /// <summary>

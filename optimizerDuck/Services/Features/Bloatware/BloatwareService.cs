@@ -18,11 +18,22 @@ namespace optimizerDuck.Services;
 /// <summary>
 ///     Provides services for discovering and removing AppX bloatware packages.
 /// </summary>
-public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<AppSettings> appOptionsMonitor)
+public class BloatwareService(
+    ILogger<BloatwareService> logger,
+    IOptionsMonitor<AppSettings> appOptionsMonitor
+)
 {
-    private static readonly ConcurrentDictionary<string, string?> LogoCache = new(StringComparer.OrdinalIgnoreCase);
-    private static readonly Regex ScaleRegex = new(@"(?:^|[._])scale-(\d+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-    private static readonly Regex TargetSizeRegex = new(@"(?:^|[._])targetsize-(\d+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+    private static readonly ConcurrentDictionary<string, string?> LogoCache = new(
+        StringComparer.OrdinalIgnoreCase
+    );
+    private static readonly Regex ScaleRegex = new(
+        @"(?:^|[._])scale-(\d+)",
+        RegexOptions.IgnoreCase | RegexOptions.Compiled
+    );
+    private static readonly Regex TargetSizeRegex = new(
+        @"(?:^|[._])targetsize-(\d+)",
+        RegexOptions.IgnoreCase | RegexOptions.Compiled
+    );
     private static readonly string[] SupportedImageExtensions = [".png", ".jpg", ".jpeg"];
 
     /// <summary>
@@ -36,39 +47,43 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
             var safePattern = string.Join("|", Shared.SafeApps.Select(Regex.Escape));
             var cautionPattern = string.Join("|", Shared.CautionApps.Select(Regex.Escape));
 
-            var result = await ShellService.PowerShellAsync($$"""
-                                                              $safeRegex = '{{safePattern}}'
-                                                              $cautionRegex = '{{cautionPattern}}'
+            var result = await ShellService.PowerShellAsync(
+                $$"""
+                $safeRegex = '{{safePattern}}'
+                $cautionRegex = '{{cautionPattern}}'
 
-                                                              Get-AppxPackage |
-                                                              Where-Object {
-                                                                  $_.NonRemovable -eq $false -and
-                                                                  $_.IsFramework -eq $false
-                                                              } |
-                                                              ForEach-Object {
-                                                                  $risk = "Unknown"
+                Get-AppxPackage |
+                Where-Object {
+                    $_.NonRemovable -eq $false -and
+                    $_.IsFramework -eq $false
+                } |
+                ForEach-Object {
+                    $risk = "Unknown"
 
-                                                                  if ($_.Name -match $safeRegex) { $risk = "Safe" }
-                                                                  elseif ($_.Name -match $cautionRegex) { $risk = "Caution" }
+                    if ($_.Name -match $safeRegex) { $risk = "Safe" }
+                    elseif ($_.Name -match $cautionRegex) { $risk = "Caution" }
 
-                                                                  [PSCustomObject]@{
-                                                                      Name            = $_.Name
-                                                                      PackageFullName = $_.PackageFullName
-                                                                      Publisher       = $_.Publisher
-                                                                      Version         = $_.Version.ToString()
-                                                                      InstallLocation = if ($_.InstallLocation) { $_.InstallLocation } else { "" }
-                                                                      Risk            = $risk
-                                                                  }
-                                                              } | ConvertTo-Json -Depth 2
-                                                              """);
+                    [PSCustomObject]@{
+                        Name            = $_.Name
+                        PackageFullName = $_.PackageFullName
+                        Publisher       = $_.Publisher
+                        Version         = $_.Version.ToString()
+                        InstallLocation = if ($_.InstallLocation) { $_.InstallLocation } else { "" }
+                        Risk            = $risk
+                    }
+                } | ConvertTo-Json -Depth 2
+                """
+            );
 
             var options = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true,
-                Converters = { new JsonStringEnumConverter() }
+                Converters = { new JsonStringEnumConverter() },
             };
 
-            var apps = JsonSerializer.Deserialize<List<AppXPackage>>(result.Stdout, options)!.OrderBy(a => a.Name)
+            var apps = JsonSerializer
+                .Deserialize<List<AppXPackage>>(result.Stdout, options)!
+                .OrderBy(a => a.Name)
                 .ToList();
 
             foreach (var app in apps)
@@ -110,62 +125,68 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
         {
             if (string.IsNullOrWhiteSpace(appXPackage.PackageFullName))
             {
-                logger.LogWarning("Skip removing app because PackageFullName is empty: {Name}", appXPackage.Name);
+                logger.LogWarning(
+                    "Skip removing app because PackageFullName is empty: {Name}",
+                    appXPackage.Name
+                );
                 return;
             }
 
-            logger.LogInformation("Removing AppX package {Name} ({Package})",
-                appXPackage.Name, appXPackage.PackageFullName);
+            logger.LogInformation(
+                "Removing AppX package {Name} ({Package})",
+                appXPackage.Name,
+                appXPackage.PackageFullName
+            );
 
             var script = $$"""
-                           $pkgFull = "{{appXPackage.PackageFullName}}"
-                           $name = "{{appXPackage.Name}}"
+                $pkgFull = "{{appXPackage.PackageFullName}}"
+                $name = "{{appXPackage.Name}}"
 
-                           $installed = Get-AppxPackage -PackageTypeFilter Main,Bundle,Resource |
-                                        Where-Object { $_.PackageFullName -eq $pkgFull -or $_.Name -eq $name }
+                $installed = Get-AppxPackage -PackageTypeFilter Main,Bundle,Resource |
+                             Where-Object { $_.PackageFullName -eq $pkgFull -or $_.Name -eq $name }
 
-                           if (-not $installed) {
-                               Write-Output "No installed package found for $name"
-                           } else {
-                               foreach ($p in $installed) {
-                                   try {
-                                       Remove-AppxPackage -Package $p.PackageFullName -ErrorAction Stop
-                                       Write-Output "Removed: $($p.PackageFullName)"
-                                   } catch {
-                                       Write-Output "Failed: $($p.PackageFullName). Error: $($_.Exception.Message)"
-                                   }
-                               }
-                           }
+                if (-not $installed) {
+                    Write-Output "No installed package found for $name"
+                } else {
+                    foreach ($p in $installed) {
+                        try {
+                            Remove-AppxPackage -Package $p.PackageFullName -ErrorAction Stop
+                            Write-Output "Removed: $($p.PackageFullName)"
+                        } catch {
+                            Write-Output "Failed: $($p.PackageFullName). Error: $($_.Exception.Message)"
+                        }
+                    }
+                }
 
-                           """;
+                """;
 
             if (appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned)
                 script += """
-                          Write-Output "Searching provisioned package..."
+                    Write-Output "Searching provisioned package..."
 
-                          $prov = Get-AppxProvisionedPackage -Online |
-                                  Where-Object { $_.DisplayName -eq $name }
+                    $prov = Get-AppxProvisionedPackage -Online |
+                            Where-Object { $_.DisplayName -eq $name }
 
-                          if (-not $prov) {
-                              Write-Output "Provisioned package not found"
-                          }
-                          else {
-                              foreach ($p in $prov) {
-                                  try {
-                                      Remove-AppxProvisionedPackage -Online -PackageName $p.PackageName -ErrorAction Stop | Out-Null
-                                      Write-Output "Removed provisioned package: $($p.PackageName)"
-                                  }
-                                  catch {
-                                      Write-Output "Failed removing provisioned package: $($p.PackageName). Error: $($_.Exception.Message)"
-                                  }
-                              }
-                          }
+                    if (-not $prov) {
+                        Write-Output "Provisioned package not found"
+                    }
+                    else {
+                        foreach ($p in $prov) {
+                            try {
+                                Remove-AppxProvisionedPackage -Online -PackageName $p.PackageName -ErrorAction Stop | Out-Null
+                                Write-Output "Removed provisioned package: $($p.PackageName)"
+                            }
+                            catch {
+                                Write-Output "Failed removing provisioned package: $($p.PackageName). Error: $($_.Exception.Message)"
+                            }
+                        }
+                    }
 
-                          """;
+                    """;
             else
                 script += """
-                          Write-Output "Skipping provisioned package removal (disabled by user)"
-                          """;
+                    Write-Output "Skipping provisioned package removal (disabled by user)"
+                    """;
 
             var result = await ShellService.PowerShellAsync(script);
 
@@ -200,8 +221,11 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
             var candidateResources = GetManifestLogoCandidates(installLocation);
             foreach (var candidate in candidateResources)
             {
-                var bestFromCandidate = ResolveBestQualifiedVariant(installLocation, candidate,
-                    includeThemeSpecific: true);
+                var bestFromCandidate = ResolveBestQualifiedVariant(
+                    installLocation,
+                    candidate,
+                    includeThemeSpecific: true
+                );
                 if (!string.IsNullOrWhiteSpace(bestFromCandidate))
                     return bestFromCandidate;
             }
@@ -219,13 +243,16 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
                 @"Assets\MedTile.png",
                 @"Assets\Square150x150Logo.png",
                 @"Assets\Logo.png",
-                @"Assets\StoreLogo.png"
+                @"Assets\StoreLogo.png",
             };
 
             foreach (var fallbackCandidate in fallbackCandidates)
             {
-                var bestFallback = ResolveBestQualifiedVariant(installLocation, fallbackCandidate,
-                    includeThemeSpecific: true);
+                var bestFallback = ResolveBestQualifiedVariant(
+                    installLocation,
+                    fallbackCandidate,
+                    includeThemeSpecific: true
+                );
                 if (!string.IsNullOrWhiteSpace(bestFallback))
                     return bestFallback;
             }
@@ -251,7 +278,8 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
             return candidates;
 
         var ns = root.Name.Namespace;
-        var visualElements = root.Descendants().FirstOrDefault(e => e.Name.LocalName == "VisualElements");
+        var visualElements = root.Descendants()
+            .FirstOrDefault(e => e.Name.LocalName == "VisualElements");
         var defaultTile = root.Descendants().FirstOrDefault(e => e.Name.LocalName == "DefaultTile");
         var properties = root.Element(ns + "Properties");
 
@@ -282,8 +310,11 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
             .ToList();
     }
 
-    private static string? ResolveBestQualifiedVariant(string installLocation, string resourcePath,
-        bool includeThemeSpecific)
+    private static string? ResolveBestQualifiedVariant(
+        string installLocation,
+        string resourcePath,
+        bool includeThemeSpecific
+    )
     {
         var normalizedResource = resourcePath.Replace('/', '\\').TrimStart('\\');
         if (string.IsNullOrWhiteSpace(normalizedResource))
@@ -299,21 +330,32 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
 
         var resourceFileName = Path.GetFileName(normalizedResource);
         var extension = Path.GetExtension(resourceFileName);
-        if (!string.IsNullOrWhiteSpace(extension) &&
-            !SupportedImageExtensions.Contains(extension, StringComparer.OrdinalIgnoreCase))
+        if (
+            !string.IsNullOrWhiteSpace(extension)
+            && !SupportedImageExtensions.Contains(extension, StringComparer.OrdinalIgnoreCase)
+        )
             return null;
 
         var baseResourceName = Path.GetFileNameWithoutExtension(resourceFileName);
         var baseNameWithoutQualifiers = StripKnownQualifiers(baseResourceName);
         var preferredLogicalSize = GuessLogicalBaseSize(baseNameWithoutQualifiers);
 
-        var files = Directory.EnumerateFiles(candidateDirectory, "*.*", SearchOption.TopDirectoryOnly)
-            .Where(path => SupportedImageExtensions.Contains(Path.GetExtension(path), StringComparer.OrdinalIgnoreCase))
+        var files = Directory
+            .EnumerateFiles(candidateDirectory, "*.*", SearchOption.TopDirectoryOnly)
+            .Where(path =>
+                SupportedImageExtensions.Contains(
+                    Path.GetExtension(path),
+                    StringComparer.OrdinalIgnoreCase
+                )
+            )
             .Where(path =>
             {
                 var fileName = Path.GetFileNameWithoutExtension(path);
                 var stripped = StripKnownQualifiers(fileName);
-                return stripped.Equals(baseNameWithoutQualifiers, StringComparison.OrdinalIgnoreCase);
+                return stripped.Equals(
+                    baseNameWithoutQualifiers,
+                    StringComparison.OrdinalIgnoreCase
+                );
             })
             .Select(path => new LogoVariant(path, preferredLogicalSize, includeThemeSpecific))
             .OrderByDescending(v => v.SortScore)
@@ -324,30 +366,41 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
 
     private static string StripKnownQualifiers(string fileNameWithoutExtension)
     {
-        return Regex.Replace(
-            fileNameWithoutExtension,
-            @"(?:[._](?:scale|targetsize)-\d+|_[^._]+)+$",
-            string.Empty,
-            RegexOptions.IgnoreCase).TrimEnd('.', '_');
+        return Regex
+            .Replace(
+                fileNameWithoutExtension,
+                @"(?:[._](?:scale|targetsize)-\d+|_[^._]+)+$",
+                string.Empty,
+                RegexOptions.IgnoreCase
+            )
+            .TrimEnd('.', '_');
     }
 
     private static int GuessLogicalBaseSize(string baseName)
     {
-        if (baseName.Contains("applist", StringComparison.OrdinalIgnoreCase) ||
-            baseName.Contains("square44x44", StringComparison.OrdinalIgnoreCase) ||
-            baseName.Contains("smalltile", StringComparison.OrdinalIgnoreCase))
+        if (
+            baseName.Contains("applist", StringComparison.OrdinalIgnoreCase)
+            || baseName.Contains("square44x44", StringComparison.OrdinalIgnoreCase)
+            || baseName.Contains("smalltile", StringComparison.OrdinalIgnoreCase)
+        )
             return 44;
 
-        if (baseName.Contains("medtile", StringComparison.OrdinalIgnoreCase) ||
-            baseName.Contains("square150x150", StringComparison.OrdinalIgnoreCase))
+        if (
+            baseName.Contains("medtile", StringComparison.OrdinalIgnoreCase)
+            || baseName.Contains("square150x150", StringComparison.OrdinalIgnoreCase)
+        )
             return 150;
 
-        if (baseName.Contains("widetile", StringComparison.OrdinalIgnoreCase) ||
-            baseName.Contains("wide310x150", StringComparison.OrdinalIgnoreCase))
+        if (
+            baseName.Contains("widetile", StringComparison.OrdinalIgnoreCase)
+            || baseName.Contains("wide310x150", StringComparison.OrdinalIgnoreCase)
+        )
             return 150;
 
-        if (baseName.Contains("large", StringComparison.OrdinalIgnoreCase) ||
-            baseName.Contains("square310x310", StringComparison.OrdinalIgnoreCase))
+        if (
+            baseName.Contains("large", StringComparison.OrdinalIgnoreCase)
+            || baseName.Contains("square310x310", StringComparison.OrdinalIgnoreCase)
+        )
             return 310;
 
         if (baseName.Contains("storelogo", StringComparison.OrdinalIgnoreCase))
@@ -366,7 +419,8 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
             var targetSize = TryGetQualifierNumber(TargetSizeRegex, fileNameWithoutExtension);
             var scale = TryGetQualifierNumber(ScaleRegex, fileNameWithoutExtension);
 
-            var resolvedPixelSize = targetSize
+            var resolvedPixelSize =
+                targetSize
                 ?? (scale.HasValue ? logicalBaseSize * scale.Value / 100 : logicalBaseSize);
 
             var score = 0;
@@ -383,9 +437,19 @@ public class BloatwareService(ILogger<BloatwareService> logger, IOptionsMonitor<
 
             if (includeThemeSpecific)
             {
-                if (fileNameWithoutExtension.Contains("_altform-unplated", StringComparison.OrdinalIgnoreCase))
+                if (
+                    fileNameWithoutExtension.Contains(
+                        "_altform-unplated",
+                        StringComparison.OrdinalIgnoreCase
+                    )
+                )
                     score += 120;
-                if (fileNameWithoutExtension.Contains("_altform-lightunplated", StringComparison.OrdinalIgnoreCase))
+                if (
+                    fileNameWithoutExtension.Contains(
+                        "_altform-lightunplated",
+                        StringComparison.OrdinalIgnoreCase
+                    )
+                )
                     score += 110;
             }
 

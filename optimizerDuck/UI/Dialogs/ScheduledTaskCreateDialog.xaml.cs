@@ -15,17 +15,23 @@ public partial class ScheduledTaskCreateDialog : UserControl
         get
         {
             var name = TaskNameBox.Text?.Trim();
-            if (string.IsNullOrWhiteSpace(name)) return null;
+            if (string.IsNullOrWhiteSpace(name))
+                return null;
 
             var folderPath = FolderPathBox.Text?.Trim() ?? "\\";
-            if (!folderPath.StartsWith("\\")) folderPath = "\\" + folderPath;
-            if (folderPath.Length > 1) folderPath = folderPath.TrimEnd('\\');
+            if (!folderPath.StartsWith("\\"))
+                folderPath = "\\" + folderPath;
+            if (folderPath.Length > 1)
+                folderPath = folderPath.TrimEnd('\\');
 
             var fullPath = folderPath == "\\" ? $"\\{name}" : $"{folderPath}\\{name}";
 
             // Parse daily time
             var time = TimeSpan.Zero;
-            if (DailyTriggerCheck.IsChecked == true && !string.IsNullOrWhiteSpace(DailyTimeBox.Text))
+            if (
+                DailyTriggerCheck.IsChecked == true
+                && !string.IsNullOrWhiteSpace(DailyTimeBox.Text)
+            )
                 if (TimeSpan.TryParse(DailyTimeBox.Text.Trim(), out var parsedTime))
                     time = parsedTime;
 
@@ -45,7 +51,7 @@ public partial class ScheduledTaskCreateDialog : UserControl
                 HasDailyTrigger = DailyTriggerCheck.IsChecked == true,
                 DailyTriggerTime = time,
                 RunWithHighestPrivileges = HighestPrivilegesCheck.IsChecked == true,
-                Hidden = HiddenCheck.IsChecked == true
+                Hidden = HiddenCheck.IsChecked == true,
             };
         }
     }

@@ -38,8 +38,10 @@ public class FeatureRegistry
 
                 var instance = (IFeatureCategory)Activator.CreateInstance(t)!;
 
-                var featuresProp = t.GetProperty(nameof(IFeatureCategory.Features),
-                    BindingFlags.Public | BindingFlags.Instance);
+                var featuresProp = t.GetProperty(
+                    nameof(IFeatureCategory.Features),
+                    BindingFlags.Public | BindingFlags.Instance
+                );
                 if (featuresProp != null && featuresProp.CanWrite)
                     featuresProp.SetValue(instance, features);
 
@@ -55,13 +57,18 @@ public class FeatureRegistry
 
     public IEnumerable<NavigationViewItem> GetNavigationItems()
     {
-        if (Categories.Length == 0) RegisterCategories();
+        if (Categories.Length == 0)
+            RegisterCategories();
 
-        return Categories.Select(c => new NavigationViewItem
-        {
-            Content = c.Name,
-            TargetPageType = c.GetType().GetCustomAttribute<FeatureCategoryAttribute>()?.PageType,
-            TargetPageTag = c.GetType().Name
-        }).Where(item => item.TargetPageType != null);
+        return Categories
+            .Select(c => new NavigationViewItem
+            {
+                Content = c.Name,
+                TargetPageType = c.GetType()
+                    .GetCustomAttribute<FeatureCategoryAttribute>()
+                    ?.PageType,
+                TargetPageTag = c.GetType().Name,
+            })
+            .Where(item => item.TargetPageType != null);
     }
 }

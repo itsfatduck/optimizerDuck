@@ -17,7 +17,8 @@ namespace optimizerDuck.UI.ViewModels.Dialogs;
 public partial class OptimizationDetailsViewModel(
     IOptimization optimization,
     ISnackbarService snackbarService,
-    ILogger logger) : ObservableObject
+    ILogger logger
+) : ObservableObject
 {
     public IOptimization Optimization { get; } = optimization;
 
@@ -25,17 +26,20 @@ public partial class OptimizationDetailsViewModel(
     private async Task OpenRevertFileAsync()
     {
         var revertData = await RevertManager.IsAppliedAsync(Optimization.Id);
-        if (!revertData) return;
+        if (!revertData)
+            return;
 
         try
         {
             var filePath = Path.Combine(Shared.RevertDirectory, Optimization.Id + ".json");
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = "explorer.exe",
-                Arguments = $"/select,\"{filePath}\"",
-                UseShellExecute = true
-            });
+            Process.Start(
+                new ProcessStartInfo
+                {
+                    FileName = "explorer.exe",
+                    Arguments = $"/select,\"{filePath}\"",
+                    UseShellExecute = true,
+                }
+            );
         }
         catch (Exception ex)
         {
@@ -46,7 +50,11 @@ public partial class OptimizationDetailsViewModel(
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
                 TimeSpan.FromSeconds(5)
             );
-            logger.LogError(ex, "Failed to open revert file for optimization {Id}", Optimization.Id);
+            logger.LogError(
+                ex,
+                "Failed to open revert file for optimization {Id}",
+                Optimization.Id
+            );
         }
     }
 
@@ -64,7 +72,8 @@ public partial class OptimizationDetailsViewModel(
         // Fetch source from GitHub raw content to find the class line number
         try
         {
-            var rawUrl = $"https://raw.githubusercontent.com/itsfatduck/optimizerDuck/master/{relativePath}";
+            var rawUrl =
+                $"https://raw.githubusercontent.com/itsfatduck/optimizerDuck/master/{relativePath}";
 
             using var httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(5) };
             var source = await httpClient.GetStringAsync(rawUrl);
@@ -79,16 +88,16 @@ public partial class OptimizationDetailsViewModel(
         }
         catch (Exception ex)
         {
-            logger.LogWarning(ex, "Could not fetch source to find line number for {Class}", className);
+            logger.LogWarning(
+                ex,
+                "Could not fetch source to find line number for {Class}",
+                className
+            );
         }
 
         try
         {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = url,
-                UseShellExecute = true
-            });
+            Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
         }
         catch (Exception ex)
         {
@@ -98,7 +107,8 @@ public partial class OptimizationDetailsViewModel(
                 Translations.Snackbar_OpenLinkFailed_Message,
                 ControlAppearance.Danger,
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                TimeSpan.FromSeconds(5));
+                TimeSpan.FromSeconds(5)
+            );
         }
     }
 }

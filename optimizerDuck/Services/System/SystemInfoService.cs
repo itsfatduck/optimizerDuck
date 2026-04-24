@@ -28,7 +28,7 @@ public enum GpuVendor
     AMD,
 
     /// <summary>Intel Corporation.</summary>
-    Intel
+    Intel,
 }
 
 /// <summary>
@@ -43,7 +43,7 @@ public sealed record GpuInfo
     {
         Name = Translations.Common_Unknown,
         DriverVersion = Translations.Common_Unknown,
-        Vendor = GpuVendor.Unknown
+        Vendor = GpuVendor.Unknown,
     };
 
     /// <summary>
@@ -79,8 +79,7 @@ public sealed record GpuInfo
     /// <inheritdoc />
     public override string ToString()
     {
-        return
-            $"GPU: {Name}, Driver: {DriverVersion}, Vendor: {Vendor}, Memory: {MemoryMB} MB, DeviceId: {DeviceId}, PnpDeviceId: {PnpDeviceId}";
+        return $"GPU: {Name}, Driver: {DriverVersion}, Vendor: {Vendor}, Memory: {MemoryMB} MB, DeviceId: {DeviceId}, PnpDeviceId: {PnpDeviceId}";
     }
 }
 
@@ -103,7 +102,7 @@ public sealed record CpuInfo
         MaxClockMHz = 0,
         CurrentClockMHz = 0,
         L2CacheKB = 0,
-        L3CacheKB = 0
+        L3CacheKB = 0,
     };
 
     /// <summary>
@@ -284,7 +283,15 @@ public sealed record RamInfo
     ///     A sentinel value representing unknown RAM information.
     /// </summary>
     public static readonly RamInfo Unknown = new()
-        { TotalGB = 0, TotalMB = 0, TotalKB = 0, AvailableGB = 0, UsedPercent = 0, UsedGB = 0, Modules = [] };
+    {
+        TotalGB = 0,
+        TotalMB = 0,
+        TotalKB = 0,
+        AvailableGB = 0,
+        UsedPercent = 0,
+        UsedGB = 0,
+        Modules = [],
+    };
 
     /// <summary>
     ///     The total installed RAM in gigabytes.
@@ -339,7 +346,7 @@ public sealed record OsInfo
         Architecture = Translations.Common_Unknown,
         DeviceType = Translations.Common_Unknown,
         InstallDate = Translations.Common_Unknown,
-        LastBootUpTime = Translations.Common_Unknown
+        LastBootUpTime = Translations.Common_Unknown,
     };
 
     /// <summary>
@@ -397,7 +404,7 @@ public sealed record BiosInfo
         Version = Translations.Common_Unknown,
         ReleaseDate = Translations.Common_Unknown,
         SmbiosVersion = Translations.Common_Unknown,
-        SerialNumber = Translations.Common_Unknown
+        SerialNumber = Translations.Common_Unknown,
     };
 
     /// <summary>
@@ -442,7 +449,7 @@ public sealed record SystemSnapshot
         Bios = BiosInfo.Unknown,
         Gpus = [],
         PrimaryGpu = null,
-        Disk = DiskInfo.Unknown
+        Disk = DiskInfo.Unknown,
     };
 
     /// <summary>
@@ -487,7 +494,9 @@ public sealed record SystemSnapshot
 
 internal static class WmiHelper
 {
-    private static readonly Dictionary<string, ManagementScope> ScopeCache = new(StringComparer.OrdinalIgnoreCase);
+    private static readonly Dictionary<string, ManagementScope> ScopeCache = new(
+        StringComparer.OrdinalIgnoreCase
+    );
     private static readonly Lock ScopeLock = new();
 
     /// <summary>
@@ -507,7 +516,10 @@ internal static class WmiHelper
         }
     }
 
-    public static IEnumerable<ManagementObject> Query(string query, string namespacePath = @"root\cimv2")
+    public static IEnumerable<ManagementObject> Query(
+        string query,
+        string namespacePath = @"root\cimv2"
+    )
     {
         try
         {
@@ -538,7 +550,7 @@ internal static class WmiHelper
             {
                 null => fallback,
                 string[] arr => arr.Length > 0 ? arr[0].Trim() : fallback,
-                _ => value.ToString()?.Trim() ?? fallback
+                _ => value.ToString()?.Trim() ?? fallback,
             };
         }
         catch
@@ -646,13 +658,17 @@ internal static class CpuProvider
             var manufacturer = Translations.Common_Unknown;
             var currentMHz = 0;
 
-            using (var cpuKey = Registry.LocalMachine.OpenSubKey(
-                       @"HARDWARE\DESCRIPTION\System\CentralProcessor\0"))
+            using (
+                var cpuKey = Registry.LocalMachine.OpenSubKey(
+                    @"HARDWARE\DESCRIPTION\System\CentralProcessor\0"
+                )
+            )
             {
                 if (cpuKey != null)
                 {
                     name = cpuKey.GetValue("ProcessorNameString")?.ToString()?.Trim() ?? name;
-                    manufacturer = cpuKey.GetValue("VendorIdentifier")?.ToString()?.Trim() ?? manufacturer;
+                    manufacturer =
+                        cpuKey.GetValue("VendorIdentifier")?.ToString()?.Trim() ?? manufacturer;
                     currentMHz = cpuKey.GetValue("~MHz") is int mhz ? mhz : 0;
                 }
             }
@@ -667,7 +683,8 @@ internal static class CpuProvider
             var l3kb = 0;
 
             var cpu = WmiHelper.GetFirst(
-                "SELECT NumberOfCores, MaxClockSpeed, L2CacheSize, L3CacheSize FROM Win32_Processor");
+                "SELECT NumberOfCores, MaxClockSpeed, L2CacheSize, L3CacheSize FROM Win32_Processor"
+            );
             if (cpu != null)
             {
                 cores = WmiHelper.GetInt(cpu, "NumberOfCores");
@@ -676,7 +693,8 @@ internal static class CpuProvider
                 l3kb = WmiHelper.GetInt(cpu, "L3CacheSize");
             }
 
-            if (cores == 0) cores = threads; // fallback
+            if (cores == 0)
+                cores = threads; // fallback
 
             var vendor = DetectCpuVendor(manufacturer);
             var architecture = Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit";
@@ -692,7 +710,7 @@ internal static class CpuProvider
                 MaxClockMHz = maxMHz,
                 CurrentClockMHz = currentMHz,
                 L2CacheKB = l2kb,
-                L3CacheKB = l3kb
+                L3CacheKB = l3kb,
             };
         }
         catch
@@ -704,8 +722,10 @@ internal static class CpuProvider
     private static string DetectCpuVendor(string manufacturer)
     {
         var lower = manufacturer.ToLowerInvariant();
-        if (lower.Contains("intel") || lower.Contains("genuineintel")) return "Intel";
-        if (lower.Contains("amd") || lower.Contains("authenticamd")) return "AMD";
+        if (lower.Contains("intel") || lower.Contains("genuineintel"))
+            return "Intel";
+        if (lower.Contains("amd") || lower.Contains("authenticamd"))
+            return "AMD";
         return "Unknown";
     }
 }
@@ -721,7 +741,9 @@ internal static class RamProvider
         try
         {
             var modules = GetPhysicalModules();
-            var (totalGB, totalMB, totalKB, availableGB, usedPercent, usedGB) = GetMemoryStats(modules);
+            var (totalGB, totalMB, totalKB, availableGB, usedPercent, usedGB) = GetMemoryStats(
+                modules
+            );
 
             return new RamInfo
             {
@@ -731,7 +753,7 @@ internal static class RamProvider
                 AvailableGB = availableGB,
                 UsedPercent = usedPercent,
                 UsedGB = usedGB,
-                Modules = modules
+                Modules = modules,
             };
         }
         catch
@@ -743,9 +765,9 @@ internal static class RamProvider
     private static List<RamModule> GetPhysicalModules()
     {
         var modules = new List<RamModule>();
-        var physicalMemory =
-            WmiHelper.Query(
-                "SELECT Capacity, Speed, Manufacturer, PartNumber, DeviceLocator FROM Win32_PhysicalMemory");
+        var physicalMemory = WmiHelper.Query(
+            "SELECT Capacity, Speed, Manufacturer, PartNumber, DeviceLocator FROM Win32_PhysicalMemory"
+        );
 
         foreach (var mem in physicalMemory)
         {
@@ -756,21 +778,29 @@ internal static class RamProvider
             var partNumber = WmiHelper.GetString(mem, "PartNumber");
             var deviceLocator = WmiHelper.GetString(mem, "DeviceLocator");
 
-            modules.Add(new RamModule
-            {
-                CapacityGB = Math.Round(capacityGB, 2),
-                SpeedMHz = speed,
-                Manufacturer = manufacturer,
-                PartNumber = partNumber,
-                DeviceLocator = deviceLocator
-            });
+            modules.Add(
+                new RamModule
+                {
+                    CapacityGB = Math.Round(capacityGB, 2),
+                    SpeedMHz = speed,
+                    Manufacturer = manufacturer,
+                    PartNumber = partNumber,
+                    DeviceLocator = deviceLocator,
+                }
+            );
         }
 
         return modules;
     }
 
-    private static (double totalGB, long totalMB, long totalKB, double availableGB, double usedPercent, double usedGB)
-        GetMemoryStats(List<RamModule> modules)
+    private static (
+        double totalGB,
+        long totalMB,
+        long totalKB,
+        double availableGB,
+        double usedPercent,
+        double usedGB
+    ) GetMemoryStats(List<RamModule> modules)
     {
         // ── Primary: GlobalMemoryStatusEx (Task Manager accuracy) ────────
         var memStatus = NativeMemory.GetMemoryStatus();
@@ -794,7 +824,8 @@ internal static class RamProvider
 
         // ── Fallback: module-based calculation ───────────────────────────
         var fallbackTotalGB = modules.Sum(m => m.CapacityGB);
-        if (fallbackTotalGB <= 0) fallbackTotalGB = 0;
+        if (fallbackTotalGB <= 0)
+            fallbackTotalGB = 0;
 
         var fallbackTotalMB = (long)(fallbackTotalGB * 1024);
         var fallbackTotalKB = fallbackTotalMB * 1024;
@@ -819,16 +850,26 @@ public static class DiskHelper
 
     [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
     private static extern SafeFileHandle CreateFile(
-        string lpFileName, uint dwDesiredAccess, uint dwShareMode,
-        IntPtr lpSecurityAttributes, uint dwCreationDisposition,
-        uint dwFlagsAndAttributes, IntPtr hTemplateFile);
+        string lpFileName,
+        uint dwDesiredAccess,
+        uint dwShareMode,
+        IntPtr lpSecurityAttributes,
+        uint dwCreationDisposition,
+        uint dwFlagsAndAttributes,
+        IntPtr hTemplateFile
+    );
 
     [DllImport("kernel32.dll", SetLastError = true)]
     private static extern bool DeviceIoControl(
-        SafeFileHandle hDevice, uint dwIoControlCode,
-        IntPtr lpInBuffer, uint nInBufferSize,
-        IntPtr lpOutBuffer, uint nOutBufferSize,
-        out uint lpBytesReturned, IntPtr lpOverlapped);
+        SafeFileHandle hDevice,
+        uint dwIoControlCode,
+        IntPtr lpInBuffer,
+        uint nInBufferSize,
+        IntPtr lpOutBuffer,
+        uint nOutBufferSize,
+        out uint lpBytesReturned,
+        IntPtr lpOverlapped
+    );
 
     public static string DetectMediaType(string driveLetter)
     {
@@ -852,9 +893,15 @@ public static class DiskHelper
             if (string.IsNullOrWhiteSpace(trimmedDrive))
                 return "Unknown";
 
-            using var handle = CreateFile(@"\\.\" + trimmedDrive, GENERIC_READ,
-                FILE_SHARE_READ | FILE_SHARE_WRITE, IntPtr.Zero,
-                OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, IntPtr.Zero);
+            using var handle = CreateFile(
+                @"\\.\" + trimmedDrive,
+                GENERIC_READ,
+                FILE_SHARE_READ | FILE_SHARE_WRITE,
+                IntPtr.Zero,
+                OPEN_EXISTING,
+                FILE_ATTRIBUTE_NORMAL,
+                IntPtr.Zero
+            );
 
             if (handle.IsInvalid)
                 return "Unknown";
@@ -863,7 +910,7 @@ public static class DiskHelper
             {
                 PropertyId = STORAGE_PROPERTY_ID.StorageDeviceSeekPenaltyProperty,
                 QueryType = STORAGE_QUERY_TYPE.PropertyStandardQuery,
-                AdditionalParameters = new byte[1]
+                AdditionalParameters = new byte[1],
             };
 
             var querySize = Marshal.SizeOf(query);
@@ -879,10 +926,16 @@ public static class DiskHelper
 
                 resultPtr = Marshal.AllocHGlobal(resultSize);
 
-                var success = DeviceIoControl(handle, IOCTL_STORAGE_QUERY_PROPERTY,
-                    queryPtr, (uint)querySize,
-                    resultPtr, (uint)resultSize,
-                    out _, IntPtr.Zero);
+                var success = DeviceIoControl(
+                    handle,
+                    IOCTL_STORAGE_QUERY_PROPERTY,
+                    queryPtr,
+                    (uint)querySize,
+                    resultPtr,
+                    (uint)resultSize,
+                    out _,
+                    IntPtr.Zero
+                );
 
                 if (!success)
                     return "Unknown";
@@ -911,12 +964,14 @@ public static class DiskHelper
         {
             // Get physical disk number from logical drive
             var partitions = WmiHelper.Query(
-                $"ASSOCIATORS OF {{Win32_LogicalDisk.DeviceID='{driveLetter.TrimEnd('\\')}' }} WHERE AssocClass=Win32_LogicalDiskToPartition");
+                $"ASSOCIATORS OF {{Win32_LogicalDisk.DeviceID='{driveLetter.TrimEnd('\\')}' }} WHERE AssocClass=Win32_LogicalDiskToPartition"
+            );
 
             foreach (var partition in partitions)
             {
                 var diskDrives = WmiHelper.Query(
-                    $"ASSOCIATORS OF {{Win32_DiskPartition.DeviceID='{partition["DeviceID"]}'}} WHERE AssocClass=Win32_DiskDriveToDiskPartition");
+                    $"ASSOCIATORS OF {{Win32_DiskPartition.DeviceID='{partition["DeviceID"]}'}} WHERE AssocClass=Win32_DiskDriveToDiskPartition"
+                );
 
                 foreach (var disk in diskDrives)
                 {
@@ -924,8 +979,12 @@ public static class DiskHelper
                     var model = WmiHelper.GetString(disk, "Model", "").ToLowerInvariant();
 
                     // Check for SSD indicators
-                    if (mediaType.Contains("ssd") || model.Contains("ssd") ||
-                        model.Contains("nvme") || mediaType.Contains("fixed hard disk media"))
+                    if (
+                        mediaType.Contains("ssd")
+                        || model.Contains("ssd")
+                        || model.Contains("nvme")
+                        || mediaType.Contains("fixed hard disk media")
+                    )
                     {
                         // Additional check for rotational rate
                         var capabilities = disk["Capabilities"];
@@ -955,17 +1014,21 @@ public static class DiskHelper
     public static bool IsSystemDrive(string driveLetter)
     {
         var systemDrive = Path.GetPathRoot(Environment.SystemDirectory)?.TrimEnd('\\') ?? "C:";
-        return string.Equals(systemDrive, driveLetter.TrimEnd('\\'), StringComparison.OrdinalIgnoreCase);
+        return string.Equals(
+            systemDrive,
+            driveLetter.TrimEnd('\\'),
+            StringComparison.OrdinalIgnoreCase
+        );
     }
 
     private enum STORAGE_PROPERTY_ID
     {
-        StorageDeviceSeekPenaltyProperty = 7
+        StorageDeviceSeekPenaltyProperty = 7,
     }
 
     private enum STORAGE_QUERY_TYPE
     {
-        PropertyStandardQuery = 0
+        PropertyStandardQuery = 0,
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -983,7 +1046,9 @@ public static class DiskHelper
     {
         public uint Version;
         public uint Size;
-        [MarshalAs(UnmanagedType.U1)] public bool IncursSeekPenalty;
+
+        [MarshalAs(UnmanagedType.U1)]
+        public bool IncursSeekPenalty;
     }
 }
 
@@ -1007,7 +1072,8 @@ internal static class DiskProvider
             var physicalDisks = GetPhysicalDiskInfo();
             var diskNumberToInfo = BuildDiskNumberMap(physicalDisks);
 
-            var volumes = DriveInfo.GetDrives()
+            var volumes = DriveInfo
+                .GetDrives()
                 .Where(d => d.IsReady)
                 .Select(drive =>
                 {
@@ -1030,15 +1096,18 @@ internal static class DiskProvider
                         IsSystemDrive = isSystemDrive,
                         DriveFormat = drive.DriveFormat,
                         DriveType = drive.DriveType.ToString(),
-                        VolumeLabel = string.IsNullOrWhiteSpace(drive.VolumeLabel) ? "Local Disk" : drive.VolumeLabel,
+                        VolumeLabel = string.IsNullOrWhiteSpace(drive.VolumeLabel)
+                            ? "Local Disk"
+                            : drive.VolumeLabel,
                         TotalSizeGB = ToGb(totalBytes),
                         AvailableSizeGB = ToGb(freeBytes),
                         UsedSizeGB = ToGb(usedBytes),
-                        UsedPercent = totalBytes > 0 ? Math.Round(usedBytes * 100.0 / totalBytes, 1) : 0,
+                        UsedPercent =
+                            totalBytes > 0 ? Math.Round(usedBytes * 100.0 / totalBytes, 1) : 0,
                         MediaType = mediaType,
                         IsRemovable = isRemovable,
                         SerialNumber = diskInfo?.SerialNumber,
-                        Model = diskInfo?.Model
+                        Model = diskInfo?.Model,
                     };
                 })
                 .ToList();
@@ -1058,7 +1127,8 @@ internal static class DiskProvider
     private static List<PhysicalDiskInfo> GetPhysicalDiskInfo()
     {
         var disks = GetViaMsftPhysicalDisk();
-        if (disks.Count > 0) return disks;
+        if (disks.Count > 0)
+            return disks;
 
         // Fallback to Win32_DiskDrive
         return GetViaWin32DiskDrive();
@@ -1075,7 +1145,8 @@ internal static class DiskProvider
         {
             var physicalDisks = WmiHelper.Query(
                 "SELECT DeviceId, FriendlyName, SerialNumber, MediaType, BusType FROM MSFT_PhysicalDisk",
-                @"root\Microsoft\Windows\Storage");
+                @"root\Microsoft\Windows\Storage"
+            );
 
             foreach (var disk in physicalDisks)
             {
@@ -1085,17 +1156,19 @@ internal static class DiskProvider
                     3 => "HDD",
                     4 => "SSD",
                     5 => "SCM", // Storage Class Memory
-                    _ => "Unknown"
+                    _ => "Unknown",
                 };
 
-                disks.Add(new PhysicalDiskInfo
-                {
-                    DiskNumber = WmiHelper.GetString(disk, "DeviceId", "-1"),
-                    Model = WmiHelper.GetString(disk, "FriendlyName"),
-                    SerialNumber = WmiHelper.GetString(disk, "SerialNumber").Trim(),
-                    MediaType = mediaType,
-                    DeviceID = "" // Not available from MSFT_PhysicalDisk
-                });
+                disks.Add(
+                    new PhysicalDiskInfo
+                    {
+                        DiskNumber = WmiHelper.GetString(disk, "DeviceId", "-1"),
+                        Model = WmiHelper.GetString(disk, "FriendlyName"),
+                        SerialNumber = WmiHelper.GetString(disk, "SerialNumber").Trim(),
+                        MediaType = mediaType,
+                        DeviceID = "", // Not available from MSFT_PhysicalDisk
+                    }
+                );
             }
         }
         catch
@@ -1114,17 +1187,20 @@ internal static class DiskProvider
         var disks = new List<PhysicalDiskInfo>();
         try
         {
-            var diskDrives =
-                WmiHelper.Query("SELECT DeviceID, Model, SerialNumber, MediaType, Index FROM Win32_DiskDrive");
+            var diskDrives = WmiHelper.Query(
+                "SELECT DeviceID, Model, SerialNumber, MediaType, Index FROM Win32_DiskDrive"
+            );
             foreach (var disk in diskDrives)
-                disks.Add(new PhysicalDiskInfo
-                {
-                    DeviceID = WmiHelper.GetString(disk, "DeviceID"),
-                    DiskNumber = WmiHelper.GetInt(disk, "Index").ToString(),
-                    Model = WmiHelper.GetString(disk, "Model"),
-                    SerialNumber = WmiHelper.GetString(disk, "SerialNumber").Trim(),
-                    MediaType = "" // Win32_DiskDrive MediaType is unreliable
-                });
+                disks.Add(
+                    new PhysicalDiskInfo
+                    {
+                        DeviceID = WmiHelper.GetString(disk, "DeviceID"),
+                        DiskNumber = WmiHelper.GetInt(disk, "Index").ToString(),
+                        Model = WmiHelper.GetString(disk, "Model"),
+                        SerialNumber = WmiHelper.GetString(disk, "SerialNumber").Trim(),
+                        MediaType = "", // Win32_DiskDrive MediaType is unreliable
+                    }
+                );
         }
         catch
         {
@@ -1137,7 +1213,9 @@ internal static class DiskProvider
     /// <summary>
     ///     Builds a lookup from disk number to PhysicalDiskInfo.
     /// </summary>
-    private static Dictionary<int, PhysicalDiskInfo> BuildDiskNumberMap(List<PhysicalDiskInfo> disks)
+    private static Dictionary<int, PhysicalDiskInfo> BuildDiskNumberMap(
+        List<PhysicalDiskInfo> disks
+    )
     {
         var map = new Dictionary<int, PhysicalDiskInfo>();
         foreach (var disk in disks)
@@ -1150,10 +1228,13 @@ internal static class DiskProvider
     /// <summary>
     ///     Maps a logical drive letter to a physical disk using Win32 associations.
     /// </summary>
-    private static PhysicalDiskInfo? GetDiskInfoForDrive(string driveLetter,
-        Dictionary<int, PhysicalDiskInfo> diskNumberMap)
+    private static PhysicalDiskInfo? GetDiskInfoForDrive(
+        string driveLetter,
+        Dictionary<int, PhysicalDiskInfo> diskNumberMap
+    )
     {
-        if (diskNumberMap.Count == 0) return null;
+        if (diskNumberMap.Count == 0)
+            return null;
 
         try
         {
@@ -1162,7 +1243,8 @@ internal static class DiskProvider
             // Try MSFT_Partition to get DiskNumber for this drive letter
             var partitions = WmiHelper.Query(
                 $"SELECT DiskNumber FROM MSFT_Partition WHERE DriveLetter = '{letter.TrimEnd(':')}'",
-                @"root\Microsoft\Windows\Storage");
+                @"root\Microsoft\Windows\Storage"
+            );
 
             foreach (var partition in partitions)
             {
@@ -1173,12 +1255,14 @@ internal static class DiskProvider
 
             // Fallback: classic WMI ASSOCIATORS path
             var classicPartitions = WmiHelper.Query(
-                $"ASSOCIATORS OF {{Win32_LogicalDisk.DeviceID='{letter}'}} WHERE AssocClass=Win32_LogicalDiskToPartition");
+                $"ASSOCIATORS OF {{Win32_LogicalDisk.DeviceID='{letter}'}} WHERE AssocClass=Win32_LogicalDiskToPartition"
+            );
 
             foreach (var partition in classicPartitions)
             {
                 var diskDrives = WmiHelper.Query(
-                    $"ASSOCIATORS OF {{Win32_DiskPartition.DeviceID='{partition["DeviceID"]}'}} WHERE AssocClass=Win32_DiskDriveToDiskPartition");
+                    $"ASSOCIATORS OF {{Win32_DiskPartition.DeviceID='{partition["DeviceID"]}'}} WHERE AssocClass=Win32_DiskDriveToDiskPartition"
+                );
 
                 foreach (var disk in diskDrives)
                 {
@@ -1234,8 +1318,8 @@ internal static class DxgiHelper
     [DllImport("dxgi.dll", PreserveSig = false)]
     private static extern void CreateDXGIFactory1(
         [In] ref Guid riid,
-        [Out] [MarshalAs(UnmanagedType.Interface)]
-        out IDXGIFactory1 factory);
+        [Out] [MarshalAs(UnmanagedType.Interface)] out IDXGIFactory1 factory
+    );
 
     public static IDXGIFactory1 CreateFactory()
     {
@@ -1261,7 +1345,10 @@ internal static class DxgiHelper
         // IDXGIObject (4 methods)
         void SetPrivateData([In] ref Guid Name, uint DataSize, IntPtr pData);
 
-        void SetPrivateDataInterface([In] ref Guid Name, [MarshalAs(UnmanagedType.IUnknown)] object pUnknown);
+        void SetPrivateDataInterface(
+            [In] ref Guid Name,
+            [MarshalAs(UnmanagedType.IUnknown)] object pUnknown
+        );
 
         void GetPrivateData([In] ref Guid Name, ref uint pDataSize, IntPtr pData);
 
@@ -1277,9 +1364,13 @@ internal static class DxgiHelper
         void CreateSwapChain(
             [MarshalAs(UnmanagedType.IUnknown)] object pDevice,
             IntPtr pDesc,
-            [MarshalAs(UnmanagedType.IUnknown)] out object ppSwapChain);
+            [MarshalAs(UnmanagedType.IUnknown)] out object ppSwapChain
+        );
 
-        void CreateSoftwareAdapter(IntPtr Module, [MarshalAs(UnmanagedType.IUnknown)] out object ppAdapter);
+        void CreateSoftwareAdapter(
+            IntPtr Module,
+            [MarshalAs(UnmanagedType.IUnknown)] out object ppAdapter
+        );
 
         // IDXGIFactory1 (2 methods)
         [PreserveSig]
@@ -1296,7 +1387,10 @@ internal static class DxgiHelper
         // IDXGIObject (4 methods)
         void SetPrivateData([In] ref Guid Name, uint DataSize, IntPtr pData);
 
-        void SetPrivateDataInterface([In] ref Guid Name, [MarshalAs(UnmanagedType.IUnknown)] object pUnknown);
+        void SetPrivateDataInterface(
+            [In] ref Guid Name,
+            [MarshalAs(UnmanagedType.IUnknown)] object pUnknown
+        );
 
         void GetPrivateData([In] ref Guid Name, ref uint pDataSize, IntPtr pData);
 
@@ -1378,11 +1472,12 @@ internal static class GpuProvider
     /// </summary>
     public static GpuInfo? GetPrimary(IReadOnlyList<GpuInfo> gpus)
     {
-        if (gpus.Count == 0) return null;
-        if (gpus.Count == 1) return gpus[0];
+        if (gpus.Count == 0)
+            return null;
+        if (gpus.Count == 1)
+            return gpus[0];
 
-        return gpus
-            .OrderByDescending(g => g.MemoryMB ?? 0)
+        return gpus.OrderByDescending(g => g.MemoryMB ?? 0)
             .ThenByDescending(g => g.Vendor == GpuVendor.NVIDIA)
             .ThenByDescending(g => g.Vendor == GpuVendor.AMD)
             .First();
@@ -1398,10 +1493,11 @@ internal static class GpuProvider
 
         try
         {
-            for (uint i = 0;; i++)
+            for (uint i = 0; ; i++)
             {
                 var hr = factory.EnumAdapters1(i, out var adapter);
-                if (hr != 0 || adapter == null) break; // DXGI_ERROR_NOT_FOUND
+                if (hr != 0 || adapter == null)
+                    break; // DXGI_ERROR_NOT_FOUND
 
                 try
                 {
@@ -1421,15 +1517,17 @@ internal static class GpuProvider
                     // Match to WMI entry for DriverVersion and DeviceID
                     var wmiMatch = FindWmiMatch(name, desc.VendorId, desc.DeviceId, wmiLookup);
 
-                    gpus.Add(new GpuInfo
-                    {
-                        Name = name,
-                        DriverVersion = wmiMatch?.DriverVersion ?? Translations.Common_Unknown,
-                        Vendor = vendor,
-                        MemoryMB = memoryMB > 0 ? memoryMB : null,
-                        DeviceId = wmiMatch?.DeviceId,
-                        PnpDeviceId = wmiMatch?.PnpDeviceId
-                    });
+                    gpus.Add(
+                        new GpuInfo
+                        {
+                            Name = name,
+                            DriverVersion = wmiMatch?.DriverVersion ?? Translations.Common_Unknown,
+                            Vendor = vendor,
+                            MemoryMB = memoryMB > 0 ? memoryMB : null,
+                            DeviceId = wmiMatch?.DeviceId,
+                            PnpDeviceId = wmiMatch?.PnpDeviceId,
+                        }
+                    );
                 }
                 finally
                 {
@@ -1439,7 +1537,8 @@ internal static class GpuProvider
         }
         finally
         {
-            if (factory != null) Marshal.ReleaseComObject(factory);
+            if (factory != null)
+                Marshal.ReleaseComObject(factory);
         }
 
         return gpus.Count > 0 ? gpus : [GpuInfo.Unknown];
@@ -1450,8 +1549,9 @@ internal static class GpuProvider
     private static IReadOnlyList<GpuInfo> GetAllViaWmi()
     {
         var gpus = new List<GpuInfo>();
-        var controllers =
-            WmiHelper.Query("SELECT Name, DriverVersion, DeviceID, PNPDeviceID, AdapterRAM FROM Win32_VideoController");
+        var controllers = WmiHelper.Query(
+            "SELECT Name, DriverVersion, DeviceID, PNPDeviceID, AdapterRAM FROM Win32_VideoController"
+        );
 
         foreach (var controller in controllers)
         {
@@ -1467,15 +1567,17 @@ internal static class GpuProvider
             int? memoryMB = adapterRam > 0 ? (int)(adapterRam / (1024 * 1024)) : null;
             var vendor = DetectGpuVendor(name, pnpId);
 
-            gpus.Add(new GpuInfo
-            {
-                Name = name,
-                DriverVersion = driver,
-                Vendor = vendor,
-                MemoryMB = memoryMB,
-                DeviceId = deviceId,
-                PnpDeviceId = pnpId
-            });
+            gpus.Add(
+                new GpuInfo
+                {
+                    Name = name,
+                    DriverVersion = driver,
+                    Vendor = vendor,
+                    MemoryMB = memoryMB,
+                    DeviceId = deviceId,
+                    PnpDeviceId = pnpId,
+                }
+            );
         }
 
         return gpus.Count > 0 ? gpus : [GpuInfo.Unknown];
@@ -1491,7 +1593,8 @@ internal static class GpuProvider
         try
         {
             var controllers = WmiHelper.Query(
-                "SELECT Name, DriverVersion, DeviceID, PNPDeviceID FROM Win32_VideoController");
+                "SELECT Name, DriverVersion, DeviceID, PNPDeviceID FROM Win32_VideoController"
+            );
 
             foreach (var controller in controllers)
             {
@@ -1503,7 +1606,9 @@ internal static class GpuProvider
                 // Extract VendorId and DeviceId from PNP DeviceID (e.g., PCI\VEN_10DE&DEV_2684&...)
                 ParsePnpIds(pnpId, out var vendorId, out var hardwareDeviceId);
 
-                entries.Add(new WmiGpuEntry(name, driver, deviceId, pnpId, vendorId, hardwareDeviceId));
+                entries.Add(
+                    new WmiGpuEntry(name, driver, deviceId, pnpId, vendorId, hardwareDeviceId)
+                );
             }
         }
         catch
@@ -1521,20 +1626,33 @@ internal static class GpuProvider
     {
         vendorId = 0;
         hardwareDeviceId = 0;
-        if (string.IsNullOrWhiteSpace(pnpId)) return;
+        if (string.IsNullOrWhiteSpace(pnpId))
+            return;
 
         var upper = pnpId.ToUpperInvariant();
 
         var venIdx = upper.IndexOf("VEN_", StringComparison.Ordinal);
         if (venIdx >= 0 && venIdx + 8 <= upper.Length)
-            if (uint.TryParse(upper.Substring(venIdx + 4, 4),
-                    NumberStyles.HexNumber, null, out var v))
+            if (
+                uint.TryParse(
+                    upper.Substring(venIdx + 4, 4),
+                    NumberStyles.HexNumber,
+                    null,
+                    out var v
+                )
+            )
                 vendorId = v;
 
         var devIdx = upper.IndexOf("DEV_", StringComparison.Ordinal);
         if (devIdx >= 0 && devIdx + 8 <= upper.Length)
-            if (uint.TryParse(upper.Substring(devIdx + 4, 4),
-                    NumberStyles.HexNumber, null, out var d))
+            if (
+                uint.TryParse(
+                    upper.Substring(devIdx + 4, 4),
+                    NumberStyles.HexNumber,
+                    null,
+                    out var d
+                )
+            )
                 hardwareDeviceId = d;
     }
 
@@ -1543,7 +1661,11 @@ internal static class GpuProvider
     ///     Priority: VendorId+DeviceId match > name substring match.
     /// </summary>
     private static WmiGpuEntry? FindWmiMatch(
-        string dxgiName, uint dxgiVendorId, uint dxgiDeviceId, List<WmiGpuEntry> wmiEntries)
+        string dxgiName,
+        uint dxgiVendorId,
+        uint dxgiDeviceId,
+        List<WmiGpuEntry> wmiEntries
+    )
     {
         // First pass: match by hardware IDs (most reliable)
         foreach (var entry in wmiEntries)
@@ -1553,8 +1675,10 @@ internal static class GpuProvider
         // Second pass: match by name substring
         var dxgiNameLower = dxgiName.ToLowerInvariant();
         foreach (var entry in wmiEntries)
-            if (!string.IsNullOrEmpty(entry.Name) &&
-                dxgiNameLower.Contains(entry.Name.ToLowerInvariant()))
+            if (
+                !string.IsNullOrEmpty(entry.Name)
+                && dxgiNameLower.Contains(entry.Name.ToLowerInvariant())
+            )
                 return entry;
 
         return null;
@@ -1565,9 +1689,9 @@ internal static class GpuProvider
     private static bool IsVirtualAdapter(string name)
     {
         var lower = name.ToLowerInvariant();
-        return lower.Contains("microsoft basic") ||
-               lower.Contains("remote desktop") ||
-               lower.Contains("virtual");
+        return lower.Contains("microsoft basic")
+            || lower.Contains("remote desktop")
+            || lower.Contains("virtual");
     }
 
     /// <summary>
@@ -1580,7 +1704,7 @@ internal static class GpuProvider
             0x10DE => GpuVendor.NVIDIA,
             0x1002 => GpuVendor.AMD,
             0x8086 => GpuVendor.Intel,
-            _ => GpuVendor.Unknown
+            _ => GpuVendor.Unknown,
         };
     }
 
@@ -1592,16 +1716,29 @@ internal static class GpuProvider
         var nameLower = name.ToLowerInvariant();
         var pnpLower = pnpId?.ToLowerInvariant() ?? "";
 
-        if (nameLower.Contains("nvidia") || nameLower.Contains("geforce") ||
-            nameLower.Contains("quadro") || nameLower.Contains("tesla") || pnpLower.Contains("ven_10de"))
+        if (
+            nameLower.Contains("nvidia")
+            || nameLower.Contains("geforce")
+            || nameLower.Contains("quadro")
+            || nameLower.Contains("tesla")
+            || pnpLower.Contains("ven_10de")
+        )
             return GpuVendor.NVIDIA;
 
-        if (nameLower.Contains("amd") || nameLower.Contains("radeon") ||
-            nameLower.Contains("ryzen") || pnpLower.Contains("ven_1002"))
+        if (
+            nameLower.Contains("amd")
+            || nameLower.Contains("radeon")
+            || nameLower.Contains("ryzen")
+            || pnpLower.Contains("ven_1002")
+        )
             return GpuVendor.AMD;
 
-        if (nameLower.Contains("intel") || nameLower.Contains("iris") ||
-            nameLower.Contains("uhd") || pnpLower.Contains("ven_8086"))
+        if (
+            nameLower.Contains("intel")
+            || nameLower.Contains("iris")
+            || nameLower.Contains("uhd")
+            || pnpLower.Contains("ven_8086")
+        )
             return GpuVendor.Intel;
 
         return GpuVendor.Unknown;
@@ -1634,19 +1771,26 @@ internal static class OsProvider
             var installDate = Translations.Common_Unknown;
             var displayVersion = "";
 
-            using (var ntKey = Registry.LocalMachine.OpenSubKey(
-                       @"SOFTWARE\Microsoft\Windows NT\CurrentVersion"))
+            using (
+                var ntKey = Registry.LocalMachine.OpenSubKey(
+                    @"SOFTWARE\Microsoft\Windows NT\CurrentVersion"
+                )
+            )
             {
                 if (ntKey != null)
                 {
-                    buildNumber = ntKey.GetValue("CurrentBuildNumber")?.ToString()
-                                  ?? ntKey.GetValue("CurrentBuild")?.ToString()
-                                  ?? buildNumber;
+                    buildNumber =
+                        ntKey.GetValue("CurrentBuildNumber")?.ToString()
+                        ?? ntKey.GetValue("CurrentBuild")?.ToString()
+                        ?? buildNumber;
                     edition = ntKey.GetValue("EditionID")?.ToString() ?? edition;
                     displayVersion = ntKey.GetValue("DisplayVersion")?.ToString() ?? "";
 
                     // Install date from Registry (Unix timestamp)
-                    if (ntKey.GetValue("InstallDate") is int installTimestamp && installTimestamp > 0)
+                    if (
+                        ntKey.GetValue("InstallDate") is int installTimestamp
+                        && installTimestamp > 0
+                    )
                     {
                         var installDateTime = DateTimeOffset.FromUnixTimeSeconds(installTimestamp);
                         installDate = installDateTime.LocalDateTime.ToString("yyyy-MM-dd");
@@ -1675,7 +1819,7 @@ internal static class OsProvider
                 Architecture = architecture,
                 DeviceType = deviceType,
                 InstallDate = installDate,
-                LastBootUpTime = lastBoot
+                LastBootUpTime = lastBoot,
             };
         }
         catch
@@ -1697,18 +1841,21 @@ internal static class OsProvider
             >= 9600 => "8.1",
             >= 9200 => "8",
             >= 7600 => "7",
-            _ => "Unknown"
+            _ => "Unknown",
         };
     }
 
     private static string GetDeviceType()
     {
         var chassis = WmiHelper.GetFirst("SELECT ChassisTypes FROM Win32_SystemEnclosure");
-        if (chassis == null) return "Unknown";
+        if (chassis == null)
+            return "Unknown";
 
         try
         {
-            return chassis["ChassisTypes"] is ushort[] { Length: > 0 } types ? MapChassisType(types) : "Unknown";
+            return chassis["ChassisTypes"] is ushort[] { Length: > 0 } types
+                ? MapChassisType(types)
+                : "Unknown";
         }
         catch
         {
@@ -1724,7 +1871,14 @@ internal static class OsProvider
                 case 8 or 9 or 10 or 11 or 14 or 30 or 31 or 32:
                     return Translations.Dashboard_SystemInfo_Os_DeviceType_Laptop;
 
-                case >= 1 and <= 7 or 12 or 13 or >= 15 and <= 29 or >= 33 and <= 36:
+                case >= 1
+                and <= 7
+                or 12
+                or 13
+                or >= 15
+                and <= 29
+                or >= 33
+                and <= 36:
                     return Translations.Dashboard_SystemInfo_Os_DeviceType_Desktop;
             }
 
@@ -1733,9 +1887,9 @@ internal static class OsProvider
 
     private static string FormatWmiDateTime(string wmiDate)
     {
-        if (wmiDate.Length < 12) return "Unknown";
-        return
-            $"{wmiDate[..4]}-{wmiDate.Substring(4, 2)}-{wmiDate.Substring(6, 2)} {wmiDate.Substring(8, 2)}:{wmiDate.Substring(10, 2)}";
+        if (wmiDate.Length < 12)
+            return "Unknown";
+        return $"{wmiDate[..4]}-{wmiDate.Substring(4, 2)}-{wmiDate.Substring(6, 2)} {wmiDate.Substring(8, 2)}:{wmiDate.Substring(10, 2)}";
     }
 }
 
@@ -1746,8 +1900,10 @@ internal static class BiosProvider
         try
         {
             var bios = WmiHelper.GetFirst(
-                "SELECT Manufacturer, BIOSVersion, SMBIOSBIOSVersion, SerialNumber, ReleaseDate FROM Win32_BIOS");
-            if (bios == null) return BiosInfo.Unknown;
+                "SELECT Manufacturer, BIOSVersion, SMBIOSBIOSVersion, SerialNumber, ReleaseDate FROM Win32_BIOS"
+            );
+            if (bios == null)
+                return BiosInfo.Unknown;
 
             var manufacturer = WmiHelper.GetString(bios, "Manufacturer");
             var version = WmiHelper.GetString(bios, "BIOSVersion");
@@ -1761,7 +1917,7 @@ internal static class BiosProvider
                 Version = version,
                 ReleaseDate = releaseDate,
                 SmbiosVersion = smbiosVersion,
-                SerialNumber = serialNumber
+                SerialNumber = serialNumber,
             };
         }
         catch
@@ -1772,7 +1928,8 @@ internal static class BiosProvider
 
     private static string FormatWmiDate(string wmiDate)
     {
-        if (wmiDate.Length < 8) return "Unknown";
+        if (wmiDate.Length < 8)
+            return "Unknown";
         return $"{wmiDate[..4]}-{wmiDate.Substring(4, 2)}-{wmiDate.Substring(6, 2)}";
     }
 }
@@ -1834,7 +1991,7 @@ public sealed class SystemInfoService
                     Bios = _cachedBios,
                     Gpus = _cachedGpus,
                     PrimaryGpu = primaryGpu,
-                    Disk = await diskTask
+                    Disk = await diskTask,
                 };
             }
             else
@@ -1857,7 +2014,7 @@ public sealed class SystemInfoService
                     Bios = _cachedBios!,
                     Gpus = gpus,
                     PrimaryGpu = primaryGpu,
-                    Disk = await diskTask
+                    Disk = await diskTask,
                 };
             }
 
@@ -1878,16 +2035,30 @@ public sealed class SystemInfoService
     {
         try
         {
-            _logger.LogInformation("OS : {OsName} {OsEdition} [{OsArchitecture}] ({OsDeviceType})",
-                Snapshot.Os.Name, Snapshot.Os.Edition, Snapshot.Os.Architecture, Snapshot.Os.DeviceType);
+            _logger.LogInformation(
+                "OS : {OsName} {OsEdition} [{OsArchitecture}] ({OsDeviceType})",
+                Snapshot.Os.Name,
+                Snapshot.Os.Edition,
+                Snapshot.Os.Architecture,
+                Snapshot.Os.DeviceType
+            );
 
             LogGpuSummary();
 
-            _logger.LogInformation("CPU: {CpuName} [{CpuVendor}] ({CpuCores} Cores/{CpuThreads} Threads)",
-                Snapshot.Cpu.Name, Snapshot.Cpu.Vendor, Snapshot.Cpu.Cores, Snapshot.Cpu.Threads);
+            _logger.LogInformation(
+                "CPU: {CpuName} [{CpuVendor}] ({CpuCores} Cores/{CpuThreads} Threads)",
+                Snapshot.Cpu.Name,
+                Snapshot.Cpu.Vendor,
+                Snapshot.Cpu.Cores,
+                Snapshot.Cpu.Threads
+            );
 
-            _logger.LogInformation("RAM: {RamTotalGb:F1} GB [{RamModules} Module(s)] (Used: {RamUsedGB:F1} GB)",
-                Snapshot.Ram.TotalGB, Snapshot.Ram.Modules.Count, Snapshot.Ram.UsedGB);
+            _logger.LogInformation(
+                "RAM: {RamTotalGb:F1} GB [{RamModules} Module(s)] (Used: {RamUsedGB:F1} GB)",
+                Snapshot.Ram.TotalGB,
+                Snapshot.Ram.Modules.Count,
+                Snapshot.Ram.UsedGB
+            );
 
             foreach (var volume in Snapshot.Disk.Volumes)
             {
@@ -1895,8 +2066,13 @@ public sealed class SystemInfoService
                 var modelInfo = !string.IsNullOrEmpty(volume.Model) ? $" - {volume.Model}" : "";
                 _logger.LogInformation(
                     "Disk {VolumeLetter}{SystemDrive} [{MediaType}] {VolumeTotalSizeGb:F1} GB (Free: {VolumeFreeSpaceGb:F1} GB){ModelInfo}",
-                    volume.DriveLetter, systemDrive, volume.MediaType, volume.TotalSizeGB, volume.AvailableSizeGB,
-                    modelInfo);
+                    volume.DriveLetter,
+                    systemDrive,
+                    volume.MediaType,
+                    volume.TotalSizeGB,
+                    volume.AvailableSizeGB,
+                    modelInfo
+                );
             }
         }
         catch (Exception ex)
@@ -1919,7 +2095,12 @@ public sealed class SystemInfoService
         {
             var gpu = Snapshot.Gpus[0];
             var memoryInfo = gpu.MemoryMB.HasValue ? $" ({gpu.MemoryMB.Value / 1024.0:F0} GB)" : "";
-            _logger.LogInformation("GPU: {GpuName} [{GpuVendor}]{MemoryInfo}", gpu.Name, gpu.Vendor, memoryInfo);
+            _logger.LogInformation(
+                "GPU: {GpuName} [{GpuVendor}]{MemoryInfo}",
+                gpu.Name,
+                gpu.Vendor,
+                memoryInfo
+            );
             return;
         }
 
@@ -1929,21 +2110,32 @@ public sealed class SystemInfoService
             var memoryInfoPrimary = Snapshot.PrimaryGpu.MemoryMB.HasValue
                 ? $" ({Snapshot.PrimaryGpu.MemoryMB.Value / 1024.0:F0} GB)"
                 : "";
-            _logger.LogInformation("GPU (Primary): {PrimaryGpuName} [{PrimaryGpuVendor}]{MemoryInfo}",
-                Snapshot.PrimaryGpu.Name, Snapshot.PrimaryGpu.Vendor, memoryInfoPrimary);
+            _logger.LogInformation(
+                "GPU (Primary): {PrimaryGpuName} [{PrimaryGpuVendor}]{MemoryInfo}",
+                Snapshot.PrimaryGpu.Name,
+                Snapshot.PrimaryGpu.Vendor,
+                memoryInfoPrimary
+            );
 
             for (var index = 0; index < Snapshot.Gpus.Count; index++)
             {
-                if (Snapshot.Gpus[index].Name == Snapshot.PrimaryGpu.Name
-                    && Snapshot.Gpus[index].Vendor == Snapshot.PrimaryGpu.Vendor)
+                if (
+                    Snapshot.Gpus[index].Name == Snapshot.PrimaryGpu.Name
+                    && Snapshot.Gpus[index].Vendor == Snapshot.PrimaryGpu.Vendor
+                )
                     continue;
 
                 var gpu = Snapshot.Gpus[index];
                 var memoryInfo = gpu.MemoryMB.HasValue
                     ? $" [{gpu.MemoryMB.Value / 1024.0:F0} GB]"
                     : "";
-                _logger.LogInformation("GPU ({GpuIndex}): {GpuName} ({GpuVendor}){MemoryInfo}",
-                    index + 1, gpu.Name, gpu.Vendor, memoryInfo);
+                _logger.LogInformation(
+                    "GPU ({GpuIndex}): {GpuName} ({GpuVendor}){MemoryInfo}",
+                    index + 1,
+                    gpu.Name,
+                    gpu.Vendor,
+                    memoryInfo
+                );
             }
 
             _logger.LogInformation("Total GPUs : {GpuCount}", gpuCount);

@@ -22,11 +22,14 @@ public partial class OptimizePage : INavigableView<OptimizeViewModel>
 
     private void OnOptimizationsLoaded()
     {
-        Dispatcher.BeginInvoke(() =>
-        {
-            var first = ViewModel.OptimizationCategories.FirstOrDefault();
-            if (first?.TargetPageType != null)
-                RootNavigation.Navigate(first.TargetPageType);
-        }, DispatcherPriority.ContextIdle);
+        Dispatcher.BeginInvoke(
+            () =>
+            {
+                var first = ViewModel.OptimizationCategories.FirstOrDefault();
+                if (first?.TargetPageType != null)
+                    RootNavigation.Navigate(first.TargetPageType);
+            },
+            DispatcherPriority.ContextIdle
+        );
     }
 }

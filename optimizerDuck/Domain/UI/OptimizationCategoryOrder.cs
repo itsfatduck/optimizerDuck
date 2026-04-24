@@ -21,5 +21,5 @@ public enum OptimizationCategoryOrder
     BloatwareAndServices,
 
     /// <summary>User experience and visual optimizations.</summary>
-    UserExperience
+    UserExperience,
 }

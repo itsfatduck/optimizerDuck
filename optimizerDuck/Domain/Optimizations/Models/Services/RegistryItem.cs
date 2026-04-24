@@ -95,7 +95,7 @@ public record struct RegistryItem
             string => RegistryValueKind.String,
             string[] => RegistryValueKind.MultiString,
             byte[] => RegistryValueKind.Binary,
-            _ => RegistryValueKind.Unknown
+            _ => RegistryValueKind.Unknown,
         };
     }
 }

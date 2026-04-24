@@ -22,21 +22,36 @@ public partial class DashboardViewModel : ViewModel
     private readonly UpdaterService _updaterService;
 
     private readonly DispatcherTimer _updateTimer;
-    [ObservableProperty] private ApplicationTheme _currentApplicationTheme = ApplicationTheme.Unknown;
+
+    [ObservableProperty]
+    private ApplicationTheme _currentApplicationTheme = ApplicationTheme.Unknown;
 
     private bool _isInitialized;
 
-    [ObservableProperty] private bool _isLoading;
+    [ObservableProperty]
+    private bool _isLoading;
     private bool _isUpdateInfoOpen;
-    [ObservableProperty] private string? _latestVersion;
-    [ObservableProperty] private DiskInfo _runtimeDisk = DiskInfo.Unknown;
 
-    [ObservableProperty] private RamInfo _runtimeRam = RamInfo.Unknown;
-    [ObservableProperty] private SystemSnapshot _systemInfo = SystemSnapshot.Unknown;
+    [ObservableProperty]
+    private string? _latestVersion;
+
+    [ObservableProperty]
+    private DiskInfo _runtimeDisk = DiskInfo.Unknown;
+
+    [ObservableProperty]
+    private RamInfo _runtimeRam = RamInfo.Unknown;
+
+    [ObservableProperty]
+    private SystemSnapshot _systemInfo = SystemSnapshot.Unknown;
     private bool _updateNotified;
 
-    public DashboardViewModel(SystemInfoService systemInfoService, ISnackbarService snackbarService,
-        ILogger<DashboardViewModel> logger, UpdaterService updaterService, IContentDialogService contentDialogService)
+    public DashboardViewModel(
+        SystemInfoService systemInfoService,
+        ISnackbarService snackbarService,
+        ILogger<DashboardViewModel> logger,
+        UpdaterService updaterService,
+        IContentDialogService contentDialogService
+    )
     {
         _systemInfoService = systemInfoService;
         _snackbarService = snackbarService;
@@ -44,10 +59,7 @@ public partial class DashboardViewModel : ViewModel
         _updaterService = updaterService;
         _contentDialogService = contentDialogService;
 
-        _updateTimer = new DispatcherTimer
-        {
-            Interval = TimeSpan.FromSeconds(2)
-        };
+        _updateTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(2) };
         _updateTimer.Tick += async (s, e) => await UpdateRuntimeInfoAsync();
 
         CurrentApplicationTheme = ApplicationThemeManager.GetAppTheme();
@@ -65,13 +77,15 @@ public partial class DashboardViewModel : ViewModel
             _isUpdateInfoOpen = value;
             OnPropertyChanged();
 
-            if (!_isUpdateInfoOpen && _updateNotified) OpenLatestRelease();
+            if (!_isUpdateInfoOpen && _updateNotified)
+                OpenLatestRelease();
         }
     }
 
     public override async Task OnNavigatedToAsync()
     {
-        if (IsLoading) return;
+        if (IsLoading)
+            return;
 
         // Load system information when user navigates to the page
         // This will also update the runtime RAM info
@@ -104,7 +118,8 @@ public partial class DashboardViewModel : ViewModel
 
     private void OnThemeChanged(ApplicationTheme currentApplicationTheme, Color systemAccent)
     {
-        if (CurrentApplicationTheme != currentApplicationTheme) CurrentApplicationTheme = currentApplicationTheme;
+        if (CurrentApplicationTheme != currentApplicationTheme)
+            CurrentApplicationTheme = currentApplicationTheme;
     }
 
     #endregion Property Changed
@@ -125,28 +140,34 @@ public partial class DashboardViewModel : ViewModel
             switch (action)
             {
                 case "Discord":
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = Shared.DiscordInviteURL,
-                        UseShellExecute = true
-                    });
+                    Process.Start(
+                        new ProcessStartInfo
+                        {
+                            FileName = Shared.DiscordInviteURL,
+                            UseShellExecute = true,
+                        }
+                    );
                     break;
 
                 case "GitHub":
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = Shared.GitHubRepoURL,
-                        UseShellExecute = true
-                    });
+                    Process.Start(
+                        new ProcessStartInfo
+                        {
+                            FileName = Shared.GitHubRepoURL,
+                            UseShellExecute = true,
+                        }
+                    );
                     break;
 
                 case "Support":
                 case "Contribute":
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = Shared.ContributeURL,
-                        UseShellExecute = true
-                    });
+                    Process.Start(
+                        new ProcessStartInfo
+                        {
+                            FileName = Shared.ContributeURL,
+                            UseShellExecute = true,
+                        }
+                    );
                     break;
             }
         }
@@ -171,27 +192,21 @@ public partial class DashboardViewModel : ViewModel
             switch (action)
             {
                 case "Settings":
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = "ms-settings:",
-                        UseShellExecute = true
-                    });
+                    Process.Start(
+                        new ProcessStartInfo { FileName = "ms-settings:", UseShellExecute = true }
+                    );
                     break;
 
                 case "TaskManager":
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = "taskmgr",
-                        UseShellExecute = true
-                    });
+                    Process.Start(
+                        new ProcessStartInfo { FileName = "taskmgr", UseShellExecute = true }
+                    );
                     break;
 
                 case "ControlPanel":
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = "control",
-                        UseShellExecute = true
-                    });
+                    Process.Start(
+                        new ProcessStartInfo { FileName = "control", UseShellExecute = true }
+                    );
                     break;
             }
         }
@@ -252,11 +267,13 @@ public partial class DashboardViewModel : ViewModel
     {
         try
         {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = UpdaterService.LatestReleaseUrl,
-                UseShellExecute = true
-            });
+            Process.Start(
+                new ProcessStartInfo
+                {
+                    FileName = UpdaterService.LatestReleaseUrl,
+                    UseShellExecute = true,
+                }
+            );
         }
         catch (Exception ex)
         {

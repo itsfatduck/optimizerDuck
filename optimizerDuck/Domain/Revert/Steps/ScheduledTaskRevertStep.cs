@@ -24,11 +24,13 @@ public class ScheduledTaskRevertStep : IRevertStep
     public string Type => "ScheduledTask";
 
     /// <inheritdoc />
-    public string Description => string.Format(
-        OriginalEnabled
-            ? Translations.Revert_ScheduledTask_Description_Enable
-            : Translations.Revert_ScheduledTask_Description_Disable,
-        FullPath);
+    public string Description =>
+        string.Format(
+            OriginalEnabled
+                ? Translations.Revert_ScheduledTask_Description_Enable
+                : Translations.Revert_ScheduledTask_Description_Disable,
+            FullPath
+        );
 
     /// <inheritdoc />
     public async Task<bool> ExecuteAsync()
@@ -49,7 +51,7 @@ public class ScheduledTaskRevertStep : IRevertStep
         return new JObject
         {
             [nameof(FullPath)] = FullPath,
-            [nameof(OriginalEnabled)] = OriginalEnabled
+            [nameof(OriginalEnabled)] = OriginalEnabled,
         };
     }
 
@@ -63,7 +65,7 @@ public class ScheduledTaskRevertStep : IRevertStep
         return new ScheduledTaskRevertStep
         {
             FullPath = data[nameof(FullPath)]?.ToString() ?? string.Empty,
-            OriginalEnabled = data[nameof(OriginalEnabled)]?.Value<bool>() ?? true
+            OriginalEnabled = data[nameof(OriginalEnabled)]?.Value<bool>() ?? true,
         };
     }
 }

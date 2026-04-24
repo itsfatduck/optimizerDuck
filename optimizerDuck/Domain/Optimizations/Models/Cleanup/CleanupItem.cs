@@ -11,32 +11,38 @@ public partial class CleanupItem : ObservableObject
     /// <summary>
     ///     The number of files in this cleanup item.
     /// </summary>
-    [ObservableProperty] private long _fileCount;
+    [ObservableProperty]
+    private long _fileCount;
 
     /// <summary>
     ///     Indicates whether cleanup is in progress.
     /// </summary>
-    [ObservableProperty] private bool _isCleaning;
+    [ObservableProperty]
+    private bool _isCleaning;
 
     /// <summary>
     ///     Indicates whether this item has been scanned.
     /// </summary>
-    [ObservableProperty] private bool _isScanned;
+    [ObservableProperty]
+    private bool _isScanned;
 
     /// <summary>
     ///     Indicates whether scanning is in progress.
     /// </summary>
-    [ObservableProperty] private bool _isScanning;
+    [ObservableProperty]
+    private bool _isScanning;
 
     /// <summary>
     ///     Indicates whether this item is selected for cleanup.
     /// </summary>
-    [ObservableProperty] private bool _isSelected = true;
+    [ObservableProperty]
+    private bool _isSelected = true;
 
     /// <summary>
     ///     The size of files in bytes.
     /// </summary>
-    [ObservableProperty] private long _sizeBytes;
+    [ObservableProperty]
+    private long _sizeBytes;
 
     /// <summary>
     ///     Unique identifier for this cleanup item.
@@ -88,7 +94,7 @@ public partial class CleanupItem : ObservableObject
             < 1024 => $"{bytes} B",
             < 1024 * 1024 => $"{bytes / 1024.0:F1} KB",
             < 1024 * 1024 * 1024 => $"{bytes / (1024.0 * 1024.0):F1} MB",
-            _ => $"{bytes / (1024.0 * 1024.0 * 1024.0):F2} GB"
+            _ => $"{bytes / (1024.0 * 1024.0 * 1024.0):F2} GB",
         };
     }
 }

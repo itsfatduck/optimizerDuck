@@ -21,11 +21,16 @@ public class OptimizeViewModel(OptimizationRegistry optimizationService) : ViewM
             return Task.CompletedTask;
 
         foreach (var category in optimizationService.OptimizationCategories)
-            OptimizationCategories.Add(new NavigationViewItem
-            {
-                Content = category.Name,
-                TargetPageType = category.GetType().GetCustomAttribute<OptimizationCategoryAttribute>()!.PageType
-            });
+            OptimizationCategories.Add(
+                new NavigationViewItem
+                {
+                    Content = category.Name,
+                    TargetPageType = category
+                        .GetType()
+                        .GetCustomAttribute<OptimizationCategoryAttribute>()!
+                        .PageType,
+                }
+            );
 
         OptimizationsLoaded?.Invoke();
         _isInitialized = true;

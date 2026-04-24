@@ -11,12 +11,14 @@ public partial class StartupTask : ObservableObject
     /// <summary>
     ///     Indicates whether the task is enabled.
     /// </summary>
-    [ObservableProperty] private bool _isEnabled;
+    [ObservableProperty]
+    private bool _isEnabled;
 
     /// <summary>
     ///     The logo image of the task's executable.
     /// </summary>
-    [ObservableProperty] private ImageSource? _logoImage;
+    [ObservableProperty]
+    private ImageSource? _logoImage;
 
     /// <summary>
     ///     The name of the scheduled task.
@@ -51,5 +53,6 @@ public partial class StartupTask : ObservableObject
     /// <summary>
     ///     Indicates whether this is a Microsoft system task.
     /// </summary>
-    public bool IsMicrosoftTask => TaskPath.StartsWith(@"\Microsoft\", StringComparison.OrdinalIgnoreCase);
+    public bool IsMicrosoftTask =>
+        TaskPath.StartsWith(@"\Microsoft\", StringComparison.OrdinalIgnoreCase);
 }

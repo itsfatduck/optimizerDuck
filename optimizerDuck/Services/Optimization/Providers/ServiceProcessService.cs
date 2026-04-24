@@ -24,27 +24,39 @@ public static class ServiceProcessService
 
             if (start == 2)
             {
-                var isDelayed = RegistryService.Read<int>(new RegistryItem(serviceKey, "DelayedAutoStart"));
-                return isDelayed == 1 ? ServiceStartupType.AutomaticDelayedStart : ServiceStartupType.Automatic;
+                var isDelayed = RegistryService.Read<int>(
+                    new RegistryItem(serviceKey, "DelayedAutoStart")
+                );
+                return isDelayed == 1
+                    ? ServiceStartupType.AutomaticDelayedStart
+                    : ServiceStartupType.Automatic;
             }
 
             return start switch
             {
                 3 => ServiceStartupType.Manual,
                 4 => ServiceStartupType.Disabled,
-                _ => null
+                _ => null,
             };
         }
         catch (Exception ex)
         {
-            ExecutionScope.LogError(ex, "Failed to get startup type for {ServiceName}", serviceName);
+            ExecutionScope.LogError(
+                ex,
+                "Failed to get startup type for {ServiceName}",
+                serviceName
+            );
             return null;
         }
     }
 
     public static bool ChangeServiceStartupType(ServiceItem item)
     {
-        var description = string.Format(Translations.Service_Service_Description_Change, item.Name, item.StartupType);
+        var description = string.Format(
+            Translations.Service_Service_Description_Change,
+            item.Name,
+            item.StartupType
+        );
         var sw = Stopwatch.StartNew();
 
         try
@@ -57,18 +69,22 @@ public static class ServiceProcessService
                 ServiceStartupType.Automatic or ServiceStartupType.AutomaticDelayedStart => 2,
                 ServiceStartupType.Manual => 3,
                 ServiceStartupType.Disabled => 4,
-                _ => 3
+                _ => 3,
             };
 
             var serviceKey = $@"HKLM\SYSTEM\CurrentControlSet\Services\{item.Name}";
 
             // 1. Change the main 'Start' value
-            var mainSuccess = RegistryService.Write(new RegistryItem(serviceKey, "Start", startValue));
+            var mainSuccess = RegistryService.Write(
+                new RegistryItem(serviceKey, "Start", startValue)
+            );
 
             // 2. Handle 'DelayedAutoStart' if necessary
             var delayedSuccess = true;
             if (item.StartupType == ServiceStartupType.AutomaticDelayedStart)
-                delayedSuccess = RegistryService.Write(new RegistryItem(serviceKey, "DelayedAutoStart", 1));
+                delayedSuccess = RegistryService.Write(
+                    new RegistryItem(serviceKey, "DelayedAutoStart", 1)
+                );
             else
                 // Always try to delete for consistency, but don't fail if it doesn't exist
                 RegistryService.DeleteValue(new RegistryItem(serviceKey, "DelayedAutoStart"));
@@ -83,7 +99,7 @@ public static class ServiceProcessService
                     revertStep = new ServiceRevertStep
                     {
                         ServiceName = item.Name,
-                        OriginalStartupType = originalStartupType.Value
+                        OriginalStartupType = originalStartupType.Value,
                     };
 
                 ExecutionScope.LogInfo(
@@ -94,26 +110,53 @@ public static class ServiceProcessService
                 );
 
                 ExecutionScope.Track(nameof(ChangeServiceStartupType), true);
-                ExecutionScope.RecordStep(Translations.Service_Service_Name, description, true, revertStep);
+                ExecutionScope.RecordStep(
+                    Translations.Service_Service_Name,
+                    description,
+                    true,
+                    revertStep
+                );
                 return true;
             }
 
-            ExecutionScope.LogInfo("[SERVICE][{Name}][FAIL][D={Duration}] startup -> {StartupType}", item.Name,
-                sw.Elapsed.FormatTime(), item.StartupType);
+            ExecutionScope.LogInfo(
+                "[SERVICE][{Name}][FAIL][D={Duration}] startup -> {StartupType}",
+                item.Name,
+                sw.Elapsed.FormatTime(),
+                item.StartupType
+            );
             ExecutionScope.Track(nameof(ChangeServiceStartupType), false);
-            ExecutionScope.RecordStep(Translations.Service_Service_Name, description, false, null,
+            ExecutionScope.RecordStep(
+                Translations.Service_Service_Name,
+                description,
+                false,
+                null,
                 Translations.Service_Service_Error_UpdateRegistryForStartupTypeFailed,
-                () => Task.FromResult(ChangeServiceStartupType(item)));
+                () => Task.FromResult(ChangeServiceStartupType(item))
+            );
             return false;
         }
         catch (Exception ex)
         {
-            ExecutionScope.LogError(ex, "[SERVICE][{Name}][FAIL][EXCEPTION] startup -> {StartupType}", item.Name,
-                item.StartupType);
+            ExecutionScope.LogError(
+                ex,
+                "[SERVICE][{Name}][FAIL][EXCEPTION] startup -> {StartupType}",
+                item.Name,
+                item.StartupType
+            );
             ExecutionScope.Track(nameof(ChangeServiceStartupType), false);
-            ExecutionScope.RecordStep(Translations.Service_Service_Name, description, false, null,
-                string.Format(Translations.Service_Service_Error_ExceptionOccurred, item.Name, ex.Message),
-                () => Task.FromResult(ChangeServiceStartupType(item)));
+            ExecutionScope.RecordStep(
+                Translations.Service_Service_Name,
+                description,
+                false,
+                null,
+                string.Format(
+                    Translations.Service_Service_Error_ExceptionOccurred,
+                    item.Name,
+                    ex.Message
+                ),
+                () => Task.FromResult(ChangeServiceStartupType(item))
+            );
             return false;
         }
     }

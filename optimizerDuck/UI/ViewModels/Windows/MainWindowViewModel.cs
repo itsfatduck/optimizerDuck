@@ -1,7 +1,7 @@
+using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using optimizerDuck.Common.Helpers;
-using System.Diagnostics;
 
 namespace optimizerDuck.UI.ViewModels.Windows;
 
@@ -20,11 +20,9 @@ public partial class MainWindowViewModel : ObservableObject
     {
         try
         {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = Shared.ContributeURL,
-                UseShellExecute = true
-            });
+            Process.Start(
+                new ProcessStartInfo { FileName = Shared.ContributeURL, UseShellExecute = true }
+            );
         }
         catch
         {
@@ -40,11 +38,9 @@ public partial class MainWindowViewModel : ObservableObject
     {
         try
         {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = Shared.DiscordInviteURL,
-                UseShellExecute = true
-            });
+            Process.Start(
+                new ProcessStartInfo { FileName = Shared.DiscordInviteURL, UseShellExecute = true }
+            );
         }
         catch
         {

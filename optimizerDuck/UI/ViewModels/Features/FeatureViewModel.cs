@@ -7,19 +7,26 @@ using Wpf.Ui.Controls;
 
 namespace optimizerDuck.UI.ViewModels.Features;
 
-public partial class FeatureViewModel(IFeature feature, ILoggerFactory loggerFactory) : ObservableObject
+public partial class FeatureViewModel(IFeature feature, ILoggerFactory loggerFactory)
+    : ObservableObject
 {
-    private readonly ILogger<FeatureViewModel> _logger = loggerFactory.CreateLogger<FeatureViewModel>();
+    private readonly ILogger<FeatureViewModel> _logger =
+        loggerFactory.CreateLogger<FeatureViewModel>();
 
-    [ObservableProperty] private string _description = feature.Description;
+    [ObservableProperty]
+    private string _description = feature.Description;
 
-    [ObservableProperty] private bool _isEnabled;
+    [ObservableProperty]
+    private bool _isEnabled;
 
-    [ObservableProperty] private bool _isLoading;
+    [ObservableProperty]
+    private bool _isLoading;
 
-    [ObservableProperty] private string _name = feature.Name;
+    [ObservableProperty]
+    private string _name = feature.Name;
 
-    [ObservableProperty] private string _section = feature.Section;
+    [ObservableProperty]
+    private string _section = feature.Section;
 
     public SymbolRegular Icon => feature.Icon;
 
@@ -47,7 +54,8 @@ public partial class FeatureViewModel(IFeature feature, ILoggerFactory loggerFac
             "===== START {Action} toggle feature {FeatureName} ({FeatureKey}) =====",
             isEnabling ? "enabling" : "disabling",
             feature.Name,
-            feature.FeatureKey);
+            feature.FeatureKey
+        );
 
         var scope = ExecutionScope.BeginForLogging(_logger);
 
@@ -71,7 +79,8 @@ public partial class FeatureViewModel(IFeature feature, ILoggerFactory loggerFac
                 "===== END {Action} toggle feature {FeatureName} ({FeatureKey}) =====",
                 isEnabling ? "enabling" : "disabling",
                 feature.Name,
-                feature.FeatureKey);
+                feature.FeatureKey
+            );
         }
         catch (Exception ex)
         {

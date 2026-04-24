@@ -23,22 +23,32 @@ public partial class StartupManagerViewModel : ViewModel
     private readonly StartupManagerService _startupManagerService;
 
     // Per-section: Apps
-    [ObservableProperty] private string _appSearchText = string.Empty;
-    [ObservableProperty] private int _appSortByIndex;
-    [ObservableProperty] private bool _hideMicrosoftTasks = true;
+    [ObservableProperty]
+    private string _appSearchText = string.Empty;
+
+    [ObservableProperty]
+    private int _appSortByIndex;
+
+    [ObservableProperty]
+    private bool _hideMicrosoftTasks = true;
     private bool _isInitialized;
 
-    [ObservableProperty] [NotifyPropertyChangedFor(nameof(IsNotLoading))]
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsNotLoading))]
     private bool _isLoading;
 
     // Per-section: Tasks
-    [ObservableProperty] private string _taskSearchText = string.Empty;
-    [ObservableProperty] private int _taskSortByIndex;
+    [ObservableProperty]
+    private string _taskSearchText = string.Empty;
+
+    [ObservableProperty]
+    private int _taskSortByIndex;
 
     public StartupManagerViewModel(
         StartupManagerService startupManagerService,
         IContentDialogService contentDialogService,
-        ILogger<StartupManagerViewModel> logger)
+        ILogger<StartupManagerViewModel> logger
+    )
     {
         _startupManagerService = startupManagerService;
         _contentDialogService = contentDialogService;
@@ -74,7 +84,9 @@ public partial class StartupManagerViewModel : ViewModel
     {
         try
         {
-            Process.Start(new ProcessStartInfo("ms-settings:startupapps") { UseShellExecute = true });
+            Process.Start(
+                new ProcessStartInfo("ms-settings:startupapps") { UseShellExecute = true }
+            );
         }
         catch (Exception ex)
         {
@@ -112,13 +124,14 @@ public partial class StartupManagerViewModel : ViewModel
     [RelayCommand]
     private async Task ViewTaskDetails(StartupTask? task)
     {
-        if (task == null) return;
+        if (task == null)
+            return;
 
         var dialog = new ContentDialog
         {
             Title = task.TaskName,
             Content = new StartupTaskDetailsPanel(task),
-            CloseButtonText = Translations.Button_Ok
+            CloseButtonText = Translations.Button_Ok,
         };
 
         await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
@@ -188,7 +201,8 @@ public partial class StartupManagerViewModel : ViewModel
 
     private void ApplyAppFilter()
     {
-        foreach (var app in Apps) app.PropertyChanged -= App_PropertyChanged;
+        foreach (var app in Apps)
+            app.PropertyChanged -= App_PropertyChanged;
         Apps.Clear();
 
         var search = AppSearchText.Trim();
@@ -199,15 +213,17 @@ public partial class StartupManagerViewModel : ViewModel
             0 => _allApps.OrderBy(a => a.Name),
             1 => _allApps.OrderBy(a => !a.IsEnabled).ThenBy(a => a.Name),
             2 => _allApps.OrderBy(a => a.LocationDisplay).ThenBy(a => a.Name),
-            _ => _allApps.OrderBy(a => a.Name)
+            _ => _allApps.OrderBy(a => a.Name),
         };
 
         foreach (var app in sortedApps)
         {
-            if (hasSearch &&
-                !app.Name.Contains(search, StringComparison.OrdinalIgnoreCase) &&
-                !app.Command.Contains(search, StringComparison.OrdinalIgnoreCase) &&
-                !app.Publisher.Contains(search, StringComparison.OrdinalIgnoreCase))
+            if (
+                hasSearch
+                && !app.Name.Contains(search, StringComparison.OrdinalIgnoreCase)
+                && !app.Command.Contains(search, StringComparison.OrdinalIgnoreCase)
+                && !app.Publisher.Contains(search, StringComparison.OrdinalIgnoreCase)
+            )
                 continue;
 
             app.PropertyChanged -= App_PropertyChanged;
@@ -221,7 +237,8 @@ public partial class StartupManagerViewModel : ViewModel
 
     private void ApplyTaskFilter()
     {
-        foreach (var task in Tasks) task.PropertyChanged -= Task_PropertyChanged;
+        foreach (var task in Tasks)
+            task.PropertyChanged -= Task_PropertyChanged;
         Tasks.Clear();
 
         var search = TaskSearchText.Trim();
@@ -232,7 +249,7 @@ public partial class StartupManagerViewModel : ViewModel
             0 => _allTasks.OrderBy(t => t.TaskName),
             1 => _allTasks.OrderBy(t => !t.IsEnabled).ThenBy(t => t.TaskName),
             2 => _allTasks.OrderBy(t => t.TaskPath).ThenBy(t => t.TaskName),
-            _ => _allTasks.OrderBy(t => t.TaskName)
+            _ => _allTasks.OrderBy(t => t.TaskName),
         };
 
         foreach (var task in sortedTasks)
@@ -240,10 +257,14 @@ public partial class StartupManagerViewModel : ViewModel
             if (HideMicrosoftTasks && task.IsMicrosoftTask)
                 continue;
 
-            if (hasSearch &&
-                !task.TaskName.Contains(search, StringComparison.OrdinalIgnoreCase) &&
-                !(task.Description?.Contains(search, StringComparison.OrdinalIgnoreCase) ?? false) &&
-                !task.TaskPath.Contains(search, StringComparison.OrdinalIgnoreCase))
+            if (
+                hasSearch
+                && !task.TaskName.Contains(search, StringComparison.OrdinalIgnoreCase)
+                && !(
+                    task.Description?.Contains(search, StringComparison.OrdinalIgnoreCase) ?? false
+                )
+                && !task.TaskPath.Contains(search, StringComparison.OrdinalIgnoreCase)
+            )
                 continue;
 
             task.PropertyChanged -= Task_PropertyChanged;

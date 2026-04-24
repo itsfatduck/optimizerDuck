@@ -31,7 +31,8 @@ public static class FeaturesCategoryPageRegistryExtensions
     private static object CreatePage(
         IServiceProvider serviceProvider,
         Type categoryType,
-        Type pageType)
+        Type pageType
+    )
     {
         var registry = serviceProvider.GetRequiredService<FeatureRegistry>();
         var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();

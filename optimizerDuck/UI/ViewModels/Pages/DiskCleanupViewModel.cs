@@ -1,10 +1,10 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 using CleanupItem = optimizerDuck.Domain.Optimizations.Models.Cleanup.CleanupItem;
@@ -14,30 +14,42 @@ namespace optimizerDuck.UI.ViewModels.Pages;
 public partial class DiskCleanupViewModel(
     DiskCleanupService diskCleanupService,
     ISnackbarService snackbarService,
-    ILogger<DiskCleanupViewModel> logger) : ViewModel
+    ILogger<DiskCleanupViewModel> logger
+) : ViewModel
 {
-    [ObservableProperty] private ObservableCollection<CleanupItem> _cleanupItems = [];
+    [ObservableProperty]
+    private ObservableCollection<CleanupItem> _cleanupItems = [];
 
     private bool _initialized;
-    [ObservableProperty] private bool _isCleaning;
-    [ObservableProperty] private bool _isLoading;
-    [ObservableProperty] private bool _isScanning;
+
+    [ObservableProperty]
+    private bool _isCleaning;
+
+    [ObservableProperty]
+    private bool _isLoading;
+
+    [ObservableProperty]
+    private bool _isScanning;
 
     private List<CleanupItem> _originalOrder = [];
 
     // Sort
-    [ObservableProperty] private int _selectedSortByIndex; // 0=Size, 1=Name, 2=Path
+    [ObservableProperty]
+    private int _selectedSortByIndex; // 0=Size, 1=Name, 2=Path
 
     public bool HasData => CleanupItems.Count > 0 && !IsLoading;
     public bool IsAllScanned => CleanupItems.Count > 0 && CleanupItems.All(i => i.IsScanned);
     public int SelectedCount => CleanupItems.Count(i => i.IsSelected);
-    public long TotalSelectedSizeBytes => CleanupItems.Where(i => i.IsSelected).Sum(i => i.SizeBytes);
+    public long TotalSelectedSizeBytes =>
+        CleanupItems.Where(i => i.IsSelected).Sum(i => i.SizeBytes);
     public string TotalSelectedSizeFormatted => CleanupItem.FormatBytes(TotalSelectedSizeBytes);
-    public long TotalSelectedFileCount => CleanupItems.Where(i => i.IsSelected).Sum(i => i.FileCount);
+    public long TotalSelectedFileCount =>
+        CleanupItems.Where(i => i.IsSelected).Sum(i => i.FileCount);
     public long TotalSizeBytes => CleanupItems.Sum(i => i.SizeBytes);
     public string TotalSizeFormatted => CleanupItem.FormatBytes(TotalSizeBytes);
     public long TotalFileCount => CleanupItems.Sum(i => i.FileCount);
-    public bool CanClean => SelectedCount > 0 && TotalSelectedSizeBytes > 0 && !IsCleaning && !IsScanning;
+    public bool CanClean =>
+        SelectedCount > 0 && TotalSelectedSizeBytes > 0 && !IsCleaning && !IsScanning;
     public bool IsAllSelected => CleanupItems.Count > 0 && CleanupItems.All(i => i.IsSelected);
 
     partial void OnSelectedSortByIndexChanged(int value)
@@ -47,7 +59,8 @@ public partial class DiskCleanupViewModel(
 
     public override async Task OnNavigatedToAsync()
     {
-        if (_initialized) return;
+        if (_initialized)
+            return;
         _initialized = true;
 
         IsLoading = true;
@@ -60,8 +73,12 @@ public partial class DiskCleanupViewModel(
             foreach (var item in CleanupItems)
                 item.PropertyChanged += (_, e) =>
                 {
-                    if (e.PropertyName is nameof(CleanupItem.IsSelected) or nameof(CleanupItem.SizeBytes)
-                        or nameof(CleanupItem.FileCount))
+                    if (
+                        e.PropertyName
+                        is nameof(CleanupItem.IsSelected)
+                            or nameof(CleanupItem.SizeBytes)
+                            or nameof(CleanupItem.FileCount)
+                    )
                         UpdateProperties();
                 };
         }
@@ -77,14 +94,16 @@ public partial class DiskCleanupViewModel(
 
         await ScanAsync();
 
-        CleanupItems =
-            new ObservableCollection<CleanupItem>(CleanupItems.OrderByDescending(i => i.SizeBytes).ToArray());
+        CleanupItems = new ObservableCollection<CleanupItem>(
+            CleanupItems.OrderByDescending(i => i.SizeBytes).ToArray()
+        );
     }
 
     [RelayCommand]
     private async Task ScanAsync()
     {
-        if (IsScanning) return;
+        if (IsScanning)
+            return;
 
         IsScanning = true;
         try
@@ -105,7 +124,8 @@ public partial class DiskCleanupViewModel(
     [RelayCommand]
     private async Task CleanSelectedAsync()
     {
-        if (!CanClean) return;
+        if (!CanClean)
+            return;
 
         IsCleaning = true;
         try
@@ -120,14 +140,21 @@ public partial class DiskCleanupViewModel(
 
             snackbarService.Show(
                 Translations.DiskCleanup_Complete_Title,
-                string.Format(Translations.DiskCleanup_Complete_Message, CleanupItem.FormatBytes(freedBytes),
-                    $"{sw.Elapsed.TotalSeconds:0.0}s"),
+                string.Format(
+                    Translations.DiskCleanup_Complete_Message,
+                    CleanupItem.FormatBytes(freedBytes),
+                    $"{sw.Elapsed.TotalSeconds:0.0}s"
+                ),
                 ControlAppearance.Success,
                 new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
-                TimeSpan.FromSeconds(5));
+                TimeSpan.FromSeconds(5)
+            );
 
-            logger.LogInformation("Disk cleanup completed, freed {Size} in {Duration}",
-                CleanupItem.FormatBytes(freedBytes), sw.Elapsed);
+            logger.LogInformation(
+                "Disk cleanup completed, freed {Size} in {Duration}",
+                CleanupItem.FormatBytes(freedBytes),
+                sw.Elapsed
+            );
         }
         catch (Exception ex)
         {
@@ -137,7 +164,8 @@ public partial class DiskCleanupViewModel(
                 Translations.DiskCleanup_Error_Message,
                 ControlAppearance.Danger,
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                TimeSpan.FromSeconds(5));
+                TimeSpan.FromSeconds(5)
+            );
         }
         finally
         {
@@ -163,7 +191,7 @@ public partial class DiskCleanupViewModel(
             0 => CleanupItems.OrderByDescending(i => i.SizeBytes).ToList(),
             1 => CleanupItems.OrderBy(i => i.Name).ToList(),
             2 => CleanupItems.OrderBy(i => i.Path).ToList(),
-            _ => _originalOrder.ToList()
+            _ => _originalOrder.ToList(),
         };
 
         for (var i = 0; i < sorted.Count; i++)

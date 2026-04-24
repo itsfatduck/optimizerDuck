@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Globalization;
+using System.IO;
+using System.Windows;
+using System.Windows.Media;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -17,10 +21,6 @@ using Serilog;
 using Serilog.Events;
 using Serilog.Formatting;
 using Serilog.Parsing;
-using System.Globalization;
-using System.IO;
-using System.Windows;
-using System.Windows.Media;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.DependencyInjection;
@@ -46,11 +46,11 @@ public class ScopeBlockTextFormatter : ITextFormatter
             LogEventLevel.Warning => "WARNING",
             LogEventLevel.Error => "ERROR",
             LogEventLevel.Fatal => "FATAL",
-            _ => "UNKNOWN"
+            _ => "UNKNOWN",
         };
 
         //var prefix = $"{timestamp} | {ctx,-67} | {levelText,-7} | "; // byebye 67 char SourceContext truncation, we have a new design now...
-        var prefix = $"{timestamp} | {ctx,-35} | {levelText,-7} | ";
+        var prefix = $"{timestamp} | {ctx, -35} | {levelText, -7} | ";
 
         // print message
         output.WriteLine(prefix + RenderWithoutQuotes(logEvent));
@@ -58,12 +58,14 @@ public class ScopeBlockTextFormatter : ITextFormatter
         // print property
         foreach (var kvp in logEvent.Properties)
         {
-            if (kvp.Key == "SourceContext") continue;
+            if (kvp.Key == "SourceContext")
+                continue;
 
-            var usedInMessage = logEvent.MessageTemplate.Tokens
-                .OfType<PropertyToken>()
+            var usedInMessage = logEvent
+                .MessageTemplate.Tokens.OfType<PropertyToken>()
                 .Any(t => t.PropertyName == kvp.Key);
-            if (usedInMessage) continue;
+            if (usedInMessage)
+                continue;
 
             var valueText = kvp.Value is ScalarValue sv
                 ? sv.Value?.ToString() ?? ""
@@ -83,7 +85,10 @@ public class ScopeBlockTextFormatter : ITextFormatter
     {
         var output = new StringWriter();
         foreach (var token in logEvent.MessageTemplate.Tokens)
-            if (token is PropertyToken pt && logEvent.Properties.TryGetValue(pt.PropertyName, out var value))
+            if (
+                token is PropertyToken pt
+                && logEvent.Properties.TryGetValue(pt.PropertyName, out var value)
+            )
             {
                 if (value is ScalarValue { Value: string s })
                     // write string without quotes
@@ -134,68 +139,74 @@ public partial class App : Application
                 .ConfigureAppConfiguration(c =>
                 {
                     ConfigManager.ValidateConfig();
-                    c.AddJsonFile(Path.Combine(Shared.RootDirectory, "appsettings.json"), false, true);
+                    c.AddJsonFile(
+                        Path.Combine(Shared.RootDirectory, "appsettings.json"),
+                        false,
+                        true
+                    );
                 })
-                .ConfigureServices((context, services) =>
-                {
-                    services.Configure<AppSettings>(context.Configuration);
+                .ConfigureServices(
+                    (context, services) =>
+                    {
+                        services.Configure<AppSettings>(context.Configuration);
 
-                    // WPF UI shi
-                    services.AddNavigationViewPageProvider();
-                    services.AddSingleton<INavigationService, NavigationService>();
-                    services.AddSingleton<IContentDialogService, ContentDialogService>();
-                    services.AddSingleton<ISnackbarService, SnackbarService>();
+                        // WPF UI shi
+                        services.AddNavigationViewPageProvider();
+                        services.AddSingleton<INavigationService, NavigationService>();
+                        services.AddSingleton<IContentDialogService, ContentDialogService>();
+                        services.AddSingleton<ISnackbarService, SnackbarService>();
 
-                    // Windows
-                    services.AddSingleton<MainWindow>();
-                    services.AddSingleton<MainWindowViewModel>();
+                        // Windows
+                        services.AddSingleton<MainWindow>();
+                        services.AddSingleton<MainWindowViewModel>();
 
-                    // Pages
-                    services.AddSingleton<DashboardViewModel>();
-                    services.AddSingleton<DashboardPage>();
+                        // Pages
+                        services.AddSingleton<DashboardViewModel>();
+                        services.AddSingleton<DashboardPage>();
 
-                    services.AddSingleton<OptimizeViewModel>();
-                    services.AddSingleton<OptimizePage>();
+                        services.AddSingleton<OptimizeViewModel>();
+                        services.AddSingleton<OptimizePage>();
 
-                    services.AddSingleton<SettingsViewModel>();
-                    services.AddSingleton<SettingsPage>();
+                        services.AddSingleton<SettingsViewModel>();
+                        services.AddSingleton<SettingsPage>();
 
-                    services.AddSingleton<BloatwareViewModel>();
-                    services.AddSingleton<BloatwarePage>();
+                        services.AddSingleton<BloatwareViewModel>();
+                        services.AddSingleton<BloatwarePage>();
 
-                    services.AddSingleton<DiskCleanupViewModel>();
-                    services.AddSingleton<DiskCleanupPage>();
+                        services.AddSingleton<DiskCleanupViewModel>();
+                        services.AddSingleton<DiskCleanupPage>();
 
-                    services.AddSingleton<StartupManagerViewModel>();
-                    services.AddSingleton<StartupManagerPage>();
+                        services.AddSingleton<StartupManagerViewModel>();
+                        services.AddSingleton<StartupManagerPage>();
 
-                    services.AddSingleton<ScheduledTasksViewModel>();
-                    services.AddSingleton<ScheduledTasksPage>();
+                        services.AddSingleton<ScheduledTasksViewModel>();
+                        services.AddSingleton<ScheduledTasksPage>();
 
-                    // Toggle Features
-                    services.AddSingleton<FeaturesViewModel>();
-                    services.AddSingleton<FeaturesPage>();
+                        // Toggle Features
+                        services.AddSingleton<FeaturesViewModel>();
+                        services.AddSingleton<FeaturesPage>();
 
-                    services.AddAllFeaturesCategoryPages();
+                        services.AddAllFeaturesCategoryPages();
 
-                    // Optimizations
-                    services.AddAllOptimizationPages();
+                        // Optimizations
+                        services.AddAllOptimizationPages();
 
-                    // Managers
-                    services.AddSingleton<ConfigManager>();
-                    services.AddSingleton<RevertManager>();
+                        // Managers
+                        services.AddSingleton<ConfigManager>();
+                        services.AddSingleton<RevertManager>();
 
-                    // Services
-                    services.AddSingleton<OptimizationRegistry>();
-                    services.AddSingleton<FeatureRegistry>();
-                    services.AddSingleton<OptimizationService>();
-                    services.AddSingleton<BloatwareService>();
-                    services.AddSingleton<DiskCleanupService>();
-                    services.AddSingleton<StartupManagerService>();
-                    services.AddSingleton<SystemInfoService>();
-                    services.AddSingleton<StreamService>();
-                    services.AddSingleton<UpdaterService>();
-                })
+                        // Services
+                        services.AddSingleton<OptimizationRegistry>();
+                        services.AddSingleton<FeatureRegistry>();
+                        services.AddSingleton<OptimizationService>();
+                        services.AddSingleton<BloatwareService>();
+                        services.AddSingleton<DiskCleanupService>();
+                        services.AddSingleton<StartupManagerService>();
+                        services.AddSingleton<SystemInfoService>();
+                        services.AddSingleton<StreamService>();
+                        services.AddSingleton<UpdaterService>();
+                    }
+                )
                 .Build();
 
             await _host.StartAsync();
@@ -204,7 +215,9 @@ public partial class App : Application
             await config.InitializeAsync();
             await config.EnsureDefaultsAsync();
 
-            var appOptionsMonitor = _host.Services.GetRequiredService<IOptionsMonitor<AppSettings>>();
+            var appOptionsMonitor = _host.Services.GetRequiredService<
+                IOptionsMonitor<AppSettings>
+            >();
 
             // init shell service with config
             ShellService.Init(appOptionsMonitor);
@@ -214,7 +227,11 @@ public partial class App : Application
             Loc.Instance.ChangeCulture(new CultureInfo(appSettings.App.Language));
 
             _logger = _host.Services.GetRequiredService<ILogger<App>>();
-            _logger.LogInformation("\n{Logo}\nVersion: {Version}\n\n", Shared.RawLogo, Shared.FileVersion);
+            _logger.LogInformation(
+                "\n{Logo}\nVersion: {Version}\n\n",
+                Shared.RawLogo,
+                Shared.FileVersion
+            );
             _logger.LogInformation("Loaded language: {Language}", appSettings.App.Language);
 
             var optimizationRegistry = _host.Services.GetRequiredService<OptimizationRegistry>();
@@ -234,7 +251,7 @@ public partial class App : Application
                 {
                     ApplicationTheme.Dark => ApplicationTheme.Dark,
                     ApplicationTheme.HighContrast => ApplicationTheme.HighContrast,
-                    _ => ApplicationTheme.Light
+                    _ => ApplicationTheme.Light,
                 },
                 updateAccent: false
             );
@@ -258,7 +275,8 @@ public partial class App : Application
                 $"Failed to start optimizerDuck.{Environment.NewLine}{Environment.NewLine}{ex.Message}",
                 "optimizerDuck",
                 MessageBoxButton.OK,
-                MessageBoxImage.Error);
+                MessageBoxImage.Error
+            );
             Shutdown(-1);
         }
     }

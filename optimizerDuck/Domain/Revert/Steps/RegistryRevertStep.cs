@@ -37,7 +37,6 @@ public class RegistryRevertStep : IRevertStep
     /// </summary>
     public IReadOnlyList<RegistryRevertStep>? SubSteps { get; init; }
 
-
     /// <summary>
     ///     The original registry value to restore.
     /// </summary>
@@ -52,52 +51,65 @@ public class RegistryRevertStep : IRevertStep
     public string Type => "Registry";
 
     /// <inheritdoc />
-    public string Description => Action switch
-    {
-        RevertAction.RestorePrevious => string.Format(Translations.Revert_Registry_Description_Restore, Path, Name ?? "(Default)"),
-        RevertAction.NoPreviousValue => string.Format(Translations.Revert_Registry_Description_Delete, Path, Name ?? "(Default)"),
-        RevertAction.RestoreKey => string.Format(Translations.Revert_Registry_Description_RestoreKey, Path),
-        RevertAction.DeleteKey => string.Format(Translations.Revert_Registry_Description_DeleteKey, Path),
-        RevertAction.RestoreKeyTree => string.Format(Translations.Revert_Registry_Description_RestoreKey, Path),
-        _ => $"Revert {Path}"
-    };
+    public string Description =>
+        Action switch
+        {
+            RevertAction.RestorePrevious => string.Format(
+                Translations.Revert_Registry_Description_Restore,
+                Path,
+                Name ?? "(Default)"
+            ),
+            RevertAction.NoPreviousValue => string.Format(
+                Translations.Revert_Registry_Description_Delete,
+                Path,
+                Name ?? "(Default)"
+            ),
+            RevertAction.RestoreKey => string.Format(
+                Translations.Revert_Registry_Description_RestoreKey,
+                Path
+            ),
+            RevertAction.DeleteKey => string.Format(
+                Translations.Revert_Registry_Description_DeleteKey,
+                Path
+            ),
+            RevertAction.RestoreKeyTree => string.Format(
+                Translations.Revert_Registry_Description_RestoreKey,
+                Path
+            ),
+            _ => $"Revert {Path}",
+        };
 
     /// <inheritdoc />
     public Task<bool> ExecuteAsync()
     {
         var result = Action switch
         {
-            RevertAction.NoPreviousValue =>
-                RegistryService.DeleteValue(new RegistryItem(Path, Name!)),
+            RevertAction.NoPreviousValue => RegistryService.DeleteValue(
+                new RegistryItem(Path, Name!)
+            ),
 
-            RevertAction.RestorePrevious =>
-                Value == null
-                    ? RegistryService.DeleteValue(new RegistryItem(Path, Name!))
-                    : RegistryService.Write(new RegistryItem(Path, Name!, Value, Kind)),
+            RevertAction.RestorePrevious => Value == null
+                ? RegistryService.DeleteValue(new RegistryItem(Path, Name!))
+                : RegistryService.Write(new RegistryItem(Path, Name!, Value, Kind)),
 
-            RevertAction.RestoreKey =>
-                RegistryService.CreateSubKey(new RegistryItem(Path)),
+            RevertAction.RestoreKey => RegistryService.CreateSubKey(new RegistryItem(Path)),
 
-            RevertAction.DeleteKey =>
-                RegistryService.DeleteSubKeyTree(new RegistryItem(Path)),
+            RevertAction.DeleteKey => RegistryService.DeleteSubKeyTree(new RegistryItem(Path)),
 
-            RevertAction.RestoreKeyTree =>
-                ExecuteSubSteps(),
+            RevertAction.RestoreKeyTree => ExecuteSubSteps(),
 
-            _ => false
+            _ => false,
         };
 
         if (!result)
-            throw new Exception(
-                string.Format(Translations
-                    .Service_Common_Error_AccessDenied)); // Generic for now, but better than nothing
+            throw new Exception(string.Format(Translations.Service_Common_Error_AccessDenied)); // Generic for now, but better than nothing
 
         // Cleanup empty subkeys if they were created during apply
-        if (result && CreatedSubKeys?.Count > 0) RegistryService.CleanupEmptyKeys(CreatedSubKeys);
+        if (result && CreatedSubKeys?.Count > 0)
+            RegistryService.CleanupEmptyKeys(CreatedSubKeys);
 
         return Task.FromResult(result);
     }
-
 
     /// <inheritdoc />
     public JObject ToData()
@@ -107,16 +119,18 @@ public class RegistryRevertStep : IRevertStep
             [nameof(Action)] = Action.ToString(),
             [nameof(Path)] = Path,
             [nameof(Name)] = Name,
-            [nameof(Kind)] = Kind.ToString()
+            [nameof(Kind)] = Kind.ToString(),
         };
 
         // Save created subkeys list
-        if (CreatedSubKeys?.Count > 0) obj[nameof(CreatedSubKeys)] = new JArray(CreatedSubKeys);
+        if (CreatedSubKeys?.Count > 0)
+            obj[nameof(CreatedSubKeys)] = new JArray(CreatedSubKeys);
 
         if (SubSteps?.Count > 0)
         {
             var subArray = new JArray();
-            foreach (var step in SubSteps) subArray.Add(step.ToData());
+            foreach (var step in SubSteps)
+                subArray.Add(step.ToData());
             obj[nameof(SubSteps)] = subArray;
         }
 
@@ -200,7 +214,8 @@ public class RegistryRevertStep : IRevertStep
 
         // Load created subkeys list
         List<string>? createdSubKeys = null;
-        if (data[nameof(CreatedSubKeys)] is JArray subKeysArray) createdSubKeys = subKeysArray.ToObject<List<string>>();
+        if (data[nameof(CreatedSubKeys)] is JArray subKeysArray)
+            createdSubKeys = subKeysArray.ToObject<List<string>>();
 
         List<RegistryRevertStep>? subSteps = null;
         if (data[nameof(SubSteps)] is JArray stepsArray)
@@ -219,17 +234,19 @@ public class RegistryRevertStep : IRevertStep
             Value = value,
             Kind = kind,
             CreatedSubKeys = createdSubKeys,
-            SubSteps = subSteps
+            SubSteps = subSteps,
         };
     }
 
     private bool ExecuteSubSteps()
     {
-        if (SubSteps == null) return true;
+        if (SubSteps == null)
+            return true;
         foreach (var step in SubSteps)
         {
             // Run synchronously to ensure correct nested tree creation order
-            if (!step.ExecuteAsync().GetAwaiter().GetResult()) return false;
+            if (!step.ExecuteAsync().GetAwaiter().GetResult())
+                return false;
         }
         return true;
     }
@@ -253,5 +270,5 @@ public enum RevertAction
     RestoreKey,
 
     /// <summary>The key tree existed before; recreate the entire tree including values sequentially.</summary>
-    RestoreKeyTree
+    RestoreKeyTree,
 }

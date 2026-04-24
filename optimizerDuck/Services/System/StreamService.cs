@@ -11,7 +11,8 @@ public class StreamService(ILogger<StreamService> logger)
 
     public async Task<(bool Success, string? FilePath)> TryDownloadAsync(
         string url,
-        string fileName)
+        string fileName
+    )
     {
         var filePath = Path.Combine(Shared.ResourcesDirectory, fileName);
 
@@ -27,12 +28,21 @@ public class StreamService(ILogger<StreamService> logger)
 
             response.EnsureSuccessStatusCode();
 
-            await using var fs = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None);
+            await using var fs = new FileStream(
+                filePath,
+                FileMode.Create,
+                FileAccess.Write,
+                FileShare.None
+            );
             await response.Content.CopyToAsync(fs).ConfigureAwait(false);
 
             var length = fs.Length;
-            logger.LogInformation("Successfully downloaded {Length} bytes from {Url} to {FilePath}", length, url,
-                filePath);
+            logger.LogInformation(
+                "Successfully downloaded {Length} bytes from {Url} to {FilePath}",
+                length,
+                url,
+                filePath
+            );
 
             return (true, filePath);
         }

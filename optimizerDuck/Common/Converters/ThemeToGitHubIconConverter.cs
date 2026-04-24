@@ -11,10 +11,12 @@ public sealed class ThemeToGitHubIconConverter : IValueConverter
     {
         if (value is ApplicationTheme theme && theme == ApplicationTheme.Dark)
             return new BitmapImage(
-                new Uri("pack://application:,,,/Resources/Images/GitHubLogoWhite.png"));
+                new Uri("pack://application:,,,/Resources/Images/GitHubLogoWhite.png")
+            );
 
         return new BitmapImage(
-            new Uri("pack://application:,,,/Resources/Images/GitHubLogoBlack.png"));
+            new Uri("pack://application:,,,/Resources/Images/GitHubLogoBlack.png")
+        );
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

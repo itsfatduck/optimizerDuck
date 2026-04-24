@@ -5,5 +5,5 @@ public enum FeatureCategoryOrder
     System,
     Desktop,
     UserExperience,
-    Gaming
+    Gaming,
 }

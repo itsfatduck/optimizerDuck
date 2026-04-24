@@ -12,19 +12,19 @@ public abstract class BaseFeature : IFeature
     private FeatureAttribute? _meta;
 
     private FeatureAttribute Meta =>
-        _meta ??= GetType().GetCustomAttribute<FeatureAttribute>()
-                  ?? throw new InvalidOperationException(
-                      $"{GetType().Name} is missing [Feature] attribute");
+        _meta ??=
+            GetType().GetCustomAttribute<FeatureAttribute>()
+            ?? throw new InvalidOperationException(
+                $"{GetType().Name} is missing [Feature] attribute"
+            );
 
     public Type? OwnerType { get; set; }
 
     public string OwnerKey =>
         OwnerType?.Name
-        ?? throw new InvalidOperationException(
-            $"{GetType().Name} has no owner assigned");
+        ?? throw new InvalidOperationException($"{GetType().Name} has no owner assigned");
 
-    protected virtual IEnumerable<RegistryToggle> RegistryToggles
-        => [];
+    protected virtual IEnumerable<RegistryToggle> RegistryToggles => [];
 
     public string FeatureKey => GetType().Name;
 
@@ -75,7 +75,6 @@ public abstract class BaseFeature : IFeature
     }
 
     private Task SetTogglesState(bool isOn)
-
     {
         foreach (var toggle in RegistryToggles)
             toggle.SetState(isOn);

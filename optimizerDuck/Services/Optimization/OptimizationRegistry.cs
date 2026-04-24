@@ -38,8 +38,10 @@ public class OptimizationRegistry(ILoggerFactory loggerFactory)
 
                 var instance = (IOptimizationCategory)Activator.CreateInstance(t)!;
 
-                var optProp = t.GetProperty(nameof(IOptimizationCategory.Optimizations),
-                    BindingFlags.Public | BindingFlags.Instance);
+                var optProp = t.GetProperty(
+                    nameof(IOptimizationCategory.Optimizations),
+                    BindingFlags.Public | BindingFlags.Instance
+                );
                 if (optProp != null && optProp.CanWrite)
                     optProp.SetValue(instance, optimizations);
 
@@ -50,11 +52,15 @@ public class OptimizationRegistry(ILoggerFactory loggerFactory)
             .OrderBy(c => c.Order)
             .ToArray();
 
-        _logger.LogInformation("Total {CategoryCount} categories and {OptimizationCount} optimizations found",
-            optimizationCategories.Length, optimizationCategories.Sum(c => c.Optimizations.Count));
+        _logger.LogInformation(
+            "Total {CategoryCount} categories and {OptimizationCount} optimizations found",
+            optimizationCategories.Length,
+            optimizationCategories.Sum(c => c.Optimizations.Count)
+        );
 
-        await OptimizationService.UpdateOptimizationStateAsync(optimizationCategories.SelectMany(c => c.Optimizations));
-
+        await OptimizationService.UpdateOptimizationStateAsync(
+            optimizationCategories.SelectMany(c => c.Optimizations)
+        );
 
         OptimizationCategories = optimizationCategories;
     }

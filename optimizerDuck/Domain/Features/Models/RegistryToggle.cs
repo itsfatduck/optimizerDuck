@@ -38,10 +38,7 @@ public class RegistryToggle
             return da == db;
         }
 
-        return a.ToString()?.Equals(
-            b.ToString(),
-            StringComparison.OrdinalIgnoreCase
-        ) == true;
+        return a.ToString()?.Equals(b.ToString(), StringComparison.OrdinalIgnoreCase) == true;
     }
 
     private object? GetRawValue()

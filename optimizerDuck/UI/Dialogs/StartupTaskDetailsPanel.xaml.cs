@@ -19,8 +19,12 @@ public partial class StartupTaskDetailsPanel : UserControl
         LogoImageControl.Source = task.LogoImage;
         TriggerBadgesItems.ItemsSource = task.TriggerTypes;
 
-        TaskStateText.Text = task.IsEnabled ? Translations.Common_Toggle_On : Translations.Common_Toggle_Off;
-        var brushKey = task.IsEnabled ? "SystemFillColorSuccessBrush" : "SystemFillColorCriticalBrush";
+        TaskStateText.Text = task.IsEnabled
+            ? Translations.Common_Toggle_On
+            : Translations.Common_Toggle_Off;
+        var brushKey = task.IsEnabled
+            ? "SystemFillColorSuccessBrush"
+            : "SystemFillColorCriticalBrush";
         if (TryFindResource(brushKey) is Brush brush)
             TaskStateBadge.Background = brush;
     }

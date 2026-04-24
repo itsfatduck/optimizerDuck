@@ -20,12 +20,17 @@ public class PowerManagement : IOptimizationCategory
     public OptimizationCategoryOrder Order { get; init; } = OptimizationCategoryOrder.Power;
     public ObservableCollection<IOptimization> Optimizations { get; init; } = [];
 
-    [Optimization(Id = "C7A97DDE-6631-48BF-A0A8-590D447A81AB", Risk = OptimizationRisk.Moderate,
-        Tags = OptimizationTags.System | OptimizationTags.Power | OptimizationTags.Performance)]
+    [Optimization(
+        Id = "C7A97DDE-6631-48BF-A0A8-590D447A81AB",
+        Risk = OptimizationRisk.Moderate,
+        Tags = OptimizationTags.System | OptimizationTags.Power | OptimizationTags.Performance
+    )]
     public class DisableHibernate : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
-            OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(
+            IProgress<ProcessingProgress> progress,
+            OptimizationContext context
+        )
         {
             ShellService.CMD("powercfg /h off", "powercfg /h on");
             context.Logger.LogInformation("Disabled hibernate");
@@ -33,12 +38,17 @@ public class PowerManagement : IOptimizationCategory
         }
     }
 
-    [Optimization(Id = "2B49A8A6-E8CA-4D77-A883-DC27BDBE8B05", Risk = OptimizationRisk.Moderate,
-        Tags = OptimizationTags.System | OptimizationTags.Power | OptimizationTags.Performance)]
+    [Optimization(
+        Id = "2B49A8A6-E8CA-4D77-A883-DC27BDBE8B05",
+        Risk = OptimizationRisk.Moderate,
+        Tags = OptimizationTags.System | OptimizationTags.Power | OptimizationTags.Performance
+    )]
     public class DisableFastStartup : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
-            OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(
+            IProgress<ProcessingProgress> progress,
+            OptimizationContext context
+        )
         {
             RegistryService.Write(
                 new RegistryItem(
@@ -52,21 +62,28 @@ public class PowerManagement : IOptimizationCategory
         }
     }
 
-    [Optimization(Id = "805F993F-67F9-4F5A-8606-998EA9087CF0", Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.Latency | OptimizationTags.Performance)]
+    [Optimization(
+        Id = "805F993F-67F9-4F5A-8606-998EA9087CF0",
+        Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.Latency | OptimizationTags.Performance
+    )]
     public class DisableUSBPowerSaving : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
-            OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(
+            IProgress<ProcessingProgress> progress,
+            OptimizationContext context
+        )
         {
             context.Logger.LogInformation("Saving current USB power state");
-            var usbStates = ShellService.PowerShell("""
-                                                    $states = Get-CimInstance -Namespace root\wmi -ClassName MSPower_DeviceEnable -ErrorAction SilentlyContinue |
-                                                    Where-Object { $_.InstanceName -match 'USB\\ROOT' } |
-                                                    Select-Object InstanceName, Enable
+            var usbStates = ShellService.PowerShell(
+                """
+                $states = Get-CimInstance -Namespace root\wmi -ClassName MSPower_DeviceEnable -ErrorAction SilentlyContinue |
+                Where-Object { $_.InstanceName -match 'USB\\ROOT' } |
+                Select-Object InstanceName, Enable
 
-                                                    $states | ConvertTo-Json -Compress
-                                                    """);
+                $states | ConvertTo-Json -Compress
+                """
+            );
 
             if (string.IsNullOrWhiteSpace(usbStates.Stdout))
             {
@@ -75,42 +92,50 @@ public class PowerManagement : IOptimizationCategory
             }
 
             context.Logger.LogInformation("Disabling USB power saving");
-            ShellService.PowerShell("""
-                                    $devices = Get-CimInstance -Namespace root\wmi -ClassName MSPower_DeviceEnable -ErrorAction SilentlyContinue |
-                                    Where-Object { $_.InstanceName -match 'USB\\ROOT' }
+            ShellService.PowerShell(
+                """
+                $devices = Get-CimInstance -Namespace root\wmi -ClassName MSPower_DeviceEnable -ErrorAction SilentlyContinue |
+                Where-Object { $_.InstanceName -match 'USB\\ROOT' }
 
-                                    foreach ($d in $devices) {
-                                        if ($d.Enable -ne $false) {
-                                            Set-CimInstance -CimInstance $d -Property @{ Enable = $false } | Out-Null
-                                        }
-                                    }
-                                    """,
+                foreach ($d in $devices) {
+                    if ($d.Enable -ne $false) {
+                        Set-CimInstance -CimInstance $d -Property @{ Enable = $false } | Out-Null
+                    }
+                }
+                """,
                 $$"""
-                  $states = @('{{usbStates.Stdout}}' | ConvertFrom-Json)
+                $states = @('{{usbStates.Stdout}}' | ConvertFrom-Json)
 
-                  foreach ($s in $states) {
-                      $obj = Get-CimInstance -Namespace root\wmi -ClassName MSPower_DeviceEnable -ErrorAction SilentlyContinue |
-                          Where-Object { $_.InstanceName -eq $s.InstanceName }
+                foreach ($s in $states) {
+                    $obj = Get-CimInstance -Namespace root\wmi -ClassName MSPower_DeviceEnable -ErrorAction SilentlyContinue |
+                        Where-Object { $_.InstanceName -eq $s.InstanceName }
 
-                      if ($obj -and $obj.Enable -ne [bool]$s.Enable) {
-                          Write-Host "Reverting $($s.InstanceName) to $([bool]$s.Enable)"
-                          Set-CimInstance -CimInstance $obj -Property @{ Enable = [bool]$s.Enable } | Out-Null
-                      }
-                  }
-                  """
+                    if ($obj -and $obj.Enable -ne [bool]$s.Enable) {
+                        Write-Host "Reverting $($s.InstanceName) to $([bool]$s.Enable)"
+                        Set-CimInstance -CimInstance $obj -Property @{ Enable = [bool]$s.Enable } | Out-Null
+                    }
+                }
+                """
             );
 
             return Task.FromResult(ApplyResult.True());
         }
     }
 
-    [Optimization(Id = "EE71E993-EE41-4449-8856-84B09B2B0C46", Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.Latency | OptimizationTags.Performance | OptimizationTags.NetworkRequired |
-               OptimizationTags.Power)]
+    [Optimization(
+        Id = "EE71E993-EE41-4449-8856-84B09B2B0C46",
+        Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.Latency
+            | OptimizationTags.Performance
+            | OptimizationTags.NetworkRequired
+            | OptimizationTags.Power
+    )]
     public class InstallOptimizerDuckPowerPlan : BaseOptimization
     {
-        public override async Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
-            OptimizationContext context)
+        public override async Task<ApplyResult> ApplyAsync(
+            IProgress<ProcessingProgress> progress,
+            OptimizationContext context
+        )
         {
             var activeQuery = ShellService.CMD("powercfg /getactivescheme");
             var match = Regex.Match(
@@ -128,47 +153,68 @@ public class PowerManagement : IOptimizationCategory
             var previousPlanGuid = match.Groups[1].Value;
             context.Logger.LogInformation("Current active power plan: {Guid}", previousPlanGuid);
 
-            progress?.Report(new ProcessingProgress
-            {
-                Message = Loc.Instance[$"{ProgressPrefix}.Downloading"],
-                IsIndeterminate = true
-            });
+            progress?.Report(
+                new ProcessingProgress
+                {
+                    Message = Loc.Instance[$"{ProgressPrefix}.Downloading"],
+                    IsIndeterminate = true,
+                }
+            );
 
             var (success, powerPlanPath) = await context.StreamService.TryDownloadAsync(
                 Shared.PowerPlanUrl,
-                "optimizerDuck.pow");
+                "optimizerDuck.pow"
+            );
             if (!success || string.IsNullOrWhiteSpace(powerPlanPath))
             {
                 context.Logger.LogError("Failed to download optimizerDuck power plan");
                 return ApplyResult.False(Loc.Instance[$"{ErrorPrefix}.DownloadFailed"]);
             }
 
-            context.Logger.LogInformation("Downloaded optimizerDuck power plan to {Path}", powerPlanPath);
+            context.Logger.LogInformation(
+                "Downloaded optimizerDuck power plan to {Path}",
+                powerPlanPath
+            );
 
-            progress?.Report(new ProcessingProgress
-            {
-                Message = Loc.Instance[$"{ProgressPrefix}.Importing"],
-                IsIndeterminate = true
-            });
+            progress?.Report(
+                new ProcessingProgress
+                {
+                    Message = Loc.Instance[$"{ProgressPrefix}.Importing"],
+                    IsIndeterminate = true,
+                }
+            );
 
-            ShellService.CMD("powercfg /setactive 381b4222-f694-41f0-9685-ff5bb260df2e",
-                policy: ShellPolicy.SuccessExitCodes(0, 1)); // set Balanced
-            var result = ShellService.CMD($"powercfg /delete {Shared.PowerPlanGUID}",
-                $"powercfg /setactive {previousPlanGuid}", ShellPolicy.SuccessExitCodes(0, 1));
+            ShellService.CMD(
+                "powercfg /setactive 381b4222-f694-41f0-9685-ff5bb260df2e",
+                policy: ShellPolicy.SuccessExitCodes(0, 1)
+            ); // set Balanced
+            var result = ShellService.CMD(
+                $"powercfg /delete {Shared.PowerPlanGUID}",
+                $"powercfg /setactive {previousPlanGuid}",
+                ShellPolicy.SuccessExitCodes(0, 1)
+            );
             if (result.ExitCode == 0)
                 context.Logger.LogInformation("Deleted old power plan");
 
-            var importResult = ShellService.CMD($"powercfg /import \"{powerPlanPath}\" {Shared.PowerPlanGUID}");
+            var importResult = ShellService.CMD(
+                $"powercfg /import \"{powerPlanPath}\" {Shared.PowerPlanGUID}"
+            );
             if (importResult.ExitCode != 0)
             {
-                context.Logger.LogError("Failed to import optimizerDuck power plan: {Error}", importResult.Stderr);
+                context.Logger.LogError(
+                    "Failed to import optimizerDuck power plan: {Error}",
+                    importResult.Stderr
+                );
                 return ApplyResult.False(Loc.Instance[$"{ErrorPrefix}.ImportFailed"]);
             }
 
             var setActiveResult = ShellService.CMD($"powercfg /setactive {Shared.PowerPlanGUID}");
             if (setActiveResult.ExitCode != 0)
             {
-                context.Logger.LogError("Failed to activate optimizerDuck power plan: {Error}", setActiveResult.Stderr);
+                context.Logger.LogError(
+                    "Failed to activate optimizerDuck power plan: {Error}",
+                    setActiveResult.Stderr
+                );
                 return ApplyResult.False(Loc.Instance[$"{ErrorPrefix}.ActivateFailed"]);
             }
 
@@ -177,36 +223,58 @@ public class PowerManagement : IOptimizationCategory
         }
     }
 
-    [Optimization(Id = "D2392F86-2B35-4BA2-939B-6FF38EE18EE6", Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.Power | OptimizationTags.Performance | OptimizationTags.System)]
+    [Optimization(
+        Id = "D2392F86-2B35-4BA2-939B-6FF38EE18EE6",
+        Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.Power | OptimizationTags.Performance | OptimizationTags.System
+    )]
     public class DisablePowerSaving : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
-            OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(
+            IProgress<ProcessingProgress> progress,
+            OptimizationContext context
+        )
         {
             RegistryService.Write(
-                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\USB\AutomaticSurpriseRemoval",
-                    "AttemptRecoveryFromUsbPowerDrain", 0),
-                new RegistryItem(@"HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling", "PowerThrottlingOff",
-                    1)
+                new RegistryItem(
+                    @"HKLM\SYSTEM\CurrentControlSet\Control\USB\AutomaticSurpriseRemoval",
+                    "AttemptRecoveryFromUsbPowerDrain",
+                    0
+                ),
+                new RegistryItem(
+                    @"HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling",
+                    "PowerThrottlingOff",
+                    1
+                )
             );
             context.Logger.LogInformation("Disabled power saving features");
             return Task.FromResult(ApplyResult.True());
         }
     }
 
-    [Optimization(Id = "C24B2B0E-A66D-43D0-8B4E-30550D107A68", Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.Performance | OptimizationTags.Latency | OptimizationTags.Audio)]
+    [Optimization(
+        Id = "C24B2B0E-A66D-43D0-8B4E-30550D107A68",
+        Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.Performance | OptimizationTags.Latency | OptimizationTags.Audio
+    )]
     public class OptimizeMultimediaProfile : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
-            OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(
+            IProgress<ProcessingProgress> progress,
+            OptimizationContext context
+        )
         {
             RegistryService.Write(
-                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile",
-                    "NoLazyMode", 1),
-                new RegistryItem(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile",
-                    "AlwaysOn", 1)
+                new RegistryItem(
+                    @"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile",
+                    "NoLazyMode",
+                    1
+                ),
+                new RegistryItem(
+                    @"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile",
+                    "AlwaysOn",
+                    1
+                )
             );
             context.Logger.LogInformation("Optimized multimedia profile settings");
             return Task.FromResult(ApplyResult.True());

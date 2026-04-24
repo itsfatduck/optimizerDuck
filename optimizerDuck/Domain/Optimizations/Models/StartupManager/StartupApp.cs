@@ -14,7 +14,7 @@ public enum StartupAppLocation
     RegistryHKCURunOnce,
     RegistryHKLMRunOnce,
     UserStartupFolder,
-    CommonStartupFolder
+    CommonStartupFolder,
 }
 
 /// <summary>
@@ -25,29 +25,34 @@ public partial class StartupApp : ObservableObject
     /// <summary>
     ///     The command that runs the application.
     /// </summary>
-    [ObservableProperty] private string _command = string.Empty;
+    [ObservableProperty]
+    private string _command = string.Empty;
 
     private string? _filePath;
 
     /// <summary>
     ///     Indicates whether this startup entry is enabled.
     /// </summary>
-    [ObservableProperty] private bool _isEnabled;
+    [ObservableProperty]
+    private bool _isEnabled;
 
     /// <summary>
     ///     The logo image of the application.
     /// </summary>
-    [ObservableProperty] private ImageSource? _logoImage;
+    [ObservableProperty]
+    private ImageSource? _logoImage;
 
     /// <summary>
     ///     The original value name (registry) or file name (folder).
     /// </summary>
-    [ObservableProperty] private string _originalValueNameOrFileName = string.Empty;
+    [ObservableProperty]
+    private string _originalValueNameOrFileName = string.Empty;
 
     /// <summary>
     ///     The publisher or company name.
     /// </summary>
-    [ObservableProperty] private string _publisher = string.Empty;
+    [ObservableProperty]
+    private string _publisher = string.Empty;
 
     /// <summary>
     ///     The display name of the startup application.
@@ -72,7 +77,8 @@ public partial class StartupApp : ObservableObject
         get => _filePath;
         set
         {
-            if (SetProperty(ref _filePath, value)) OnPropertyChanged(nameof(CanOpenLocation));
+            if (SetProperty(ref _filePath, value))
+                OnPropertyChanged(nameof(CanOpenLocation));
         }
     }
 
@@ -84,14 +90,15 @@ public partial class StartupApp : ObservableObject
     /// <summary>
     ///     Gets a human-readable string for the location.
     /// </summary>
-    public string LocationDisplay => Location switch
-    {
-        StartupAppLocation.RegistryHKCURun => "Registry (Current User)",
-        StartupAppLocation.RegistryHKLMRun => "Registry (Local Machine)",
-        StartupAppLocation.RegistryHKCURunOnce => "Registry RunOnce (Current User)",
-        StartupAppLocation.RegistryHKLMRunOnce => "Registry RunOnce (Local Machine)",
-        StartupAppLocation.UserStartupFolder => "Startup Folder (Current User)",
-        StartupAppLocation.CommonStartupFolder => "Startup Folder (All Users)",
-        _ => PathOrKey
-    };
+    public string LocationDisplay =>
+        Location switch
+        {
+            StartupAppLocation.RegistryHKCURun => "Registry (Current User)",
+            StartupAppLocation.RegistryHKLMRun => "Registry (Local Machine)",
+            StartupAppLocation.RegistryHKCURunOnce => "Registry RunOnce (Current User)",
+            StartupAppLocation.RegistryHKLMRunOnce => "Registry RunOnce (Local Machine)",
+            StartupAppLocation.UserStartupFolder => "Startup Folder (Current User)",
+            StartupAppLocation.CommonStartupFolder => "Startup Folder (All Users)",
+            _ => PathOrKey,
+        };
 }

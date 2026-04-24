@@ -14,7 +14,12 @@ public class ZeroToVisibilityConverter : IValueConverter
         return value is 0 ? True : False;
     }
 
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture
+    )
     {
         throw new NotSupportedException();
     }

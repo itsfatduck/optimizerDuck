@@ -12,5 +12,5 @@ public enum OptimizationRisk
     Moderate,
 
     /// <summary>High risk; may cause system instability or data loss. Use with caution.</summary>
-    Risky
+    Risky,
 }

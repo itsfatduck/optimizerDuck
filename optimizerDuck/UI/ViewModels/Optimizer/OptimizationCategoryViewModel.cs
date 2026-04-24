@@ -16,8 +16,8 @@ using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services;
 using optimizerDuck.Services.Managers;
-using optimizerDuck.UI.ViewModels.Dialogs;
 using optimizerDuck.UI.Dialogs;
+using optimizerDuck.UI.ViewModels.Dialogs;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 using TextBlock = Wpf.Ui.Controls.TextBlock;
@@ -27,7 +27,10 @@ namespace optimizerDuck.UI.ViewModels.Optimizer;
 public partial class OptimizationCategoryViewModel : ViewModel
 {
     private static readonly HttpClient httpClient = new() { Timeout = TimeSpan.FromSeconds(5) };
-    private static readonly ConcurrentDictionary<string, (string Content, DateTime FetchedAt)> _sourceCache = new();
+    private static readonly ConcurrentDictionary<
+        string,
+        (string Content, DateTime FetchedAt)
+    > _sourceCache = new();
     private static readonly TimeSpan SourceCacheTtl = TimeSpan.FromMinutes(5);
 
     private readonly List<IOptimization> _allOptimizations = [];
@@ -39,20 +42,29 @@ public partial class OptimizationCategoryViewModel : ViewModel
     private readonly OptimizationService _optimizationService;
     private readonly RevertManager _revertManager;
     private readonly ISnackbarService _snackbarService;
-    [ObservableProperty] private bool _hideApplied;
 
-    [ObservableProperty] private bool _isLoading;
+    [ObservableProperty]
+    private bool _hideApplied;
 
-    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(ToggleOptimizationCommand))]
+    [ObservableProperty]
+    private bool _isLoading;
+
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(ToggleOptimizationCommand))]
     private bool _isProcessing;
 
-    [ObservableProperty] private ObservableCollection<IOptimization> _optimizations = [];
+    [ObservableProperty]
+    private ObservableCollection<IOptimization> _optimizations = [];
 
     // Search, Filter, Sort
-    [ObservableProperty] private string _searchText = string.Empty;
+    [ObservableProperty]
+    private string _searchText = string.Empty;
 
-    [ObservableProperty] private int _selectedRiskFilterIndex; // 0=All, 1=Safe, 2=Moderate, 3=Risky
-    [ObservableProperty] private int _selectedSortByIndex; // 0=Risk & Status, 1=Name, 2=Risk, 3=Status
+    [ObservableProperty]
+    private int _selectedRiskFilterIndex; // 0=All, 1=Safe, 2=Moderate, 3=Risky
+
+    [ObservableProperty]
+    private int _selectedSortByIndex; // 0=Risk & Status, 1=Name, 2=Risk, 3=Status
 
     public OptimizationCategoryViewModel(
         IOptimizationCategory category,
@@ -61,7 +73,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
         ISnackbarService snackbarService,
         IContentDialogService contentDialogService,
         ILogger<OptimizationCategoryViewModel> logger,
-        IOptionsMonitor<AppSettings> appOptionsMonitor)
+        IOptionsMonitor<AppSettings> appOptionsMonitor
+    )
     {
         _category = category;
         _optimizationService = optimizationService;
@@ -143,23 +156,35 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 {
                     _logger.LogInformation(
                         "===== START applying optimization {OptimizationName} ({OptimizationId}) =====",
-                        optimization.OptimizationKey, optimization.Id);
+                        optimization.OptimizationKey,
+                        optimization.Id
+                    );
                     var applyResult = await RunWithProcessingDialogAsync(
                         optimization,
-                        progress => _optimizationService.ApplyAsync(optimization, progress));
+                        progress => _optimizationService.ApplyAsync(optimization, progress)
+                    );
 
                     // If result status is Failed, we can't retry it
                     if (applyResult.Status == OptimizationSuccessResult.Failed)
                     {
-                        ShowOperationOutcomeSnackbar(OperationNotificationState.Failed, OptimizationOperation.Apply,
-                            applyResult.Message, restorePointCreated);
+                        ShowOperationOutcomeSnackbar(
+                            OperationNotificationState.Failed,
+                            OptimizationOperation.Apply,
+                            applyResult.Message,
+                            restorePointCreated
+                        );
 
-                        _logger.LogWarning("Apply failed for {Name}: {Message}",
-                            optimization.OptimizationKey, applyResult.Message);
+                        _logger.LogWarning(
+                            "Apply failed for {Name}: {Message}",
+                            optimization.OptimizationKey,
+                            applyResult.Message
+                        );
 
                         _logger.LogInformation(
                             "===== END applying optimization {OptimizationName} ({OptimizationId}) =====",
-                            optimization.OptimizationKey, optimization.Id);
+                            optimization.OptimizationKey,
+                            optimization.Id
+                        );
 
                         await OptimizationService.UpdateOptimizationStateAsync(optimization);
                         return;
@@ -169,67 +194,109 @@ public partial class OptimizationCategoryViewModel : ViewModel
                     var retryOutcome = await HandleRetryableFailuresAsync(
                         optimization,
                         applyResult.FailedSteps,
-                        OptimizationOperation.Apply);
+                        OptimizationOperation.Apply
+                    );
 
                     await OptimizationService.UpdateOptimizationStateAsync(optimization);
 
-                    var notificationState = ResolveApplyNotificationState(applyResult, retryOutcome);
+                    var notificationState = ResolveApplyNotificationState(
+                        applyResult,
+                        retryOutcome
+                    );
 
-                    ShowOperationOutcomeSnackbar(notificationState, OptimizationOperation.Apply,
-                        applyResult.Message, restorePointCreated);
+                    ShowOperationOutcomeSnackbar(
+                        notificationState,
+                        OptimizationOperation.Apply,
+                        applyResult.Message,
+                        restorePointCreated
+                    );
 
                     if (notificationState == OperationNotificationState.Success)
-                        _logger.LogInformation("Successfully applied {Name}", optimization.OptimizationKey);
+                        _logger.LogInformation(
+                            "Successfully applied {Name}",
+                            optimization.OptimizationKey
+                        );
                     else if (notificationState == OperationNotificationState.Partial)
-                        _logger.LogWarning("Partially applied {Name}", optimization.OptimizationKey);
+                        _logger.LogWarning(
+                            "Partially applied {Name}",
+                            optimization.OptimizationKey
+                        );
                     else
                         _logger.LogWarning("Failed to apply {Name}", optimization.OptimizationKey);
 
                     _logger.LogInformation(
                         "===== END applying optimization {OptimizationName} ({OptimizationId}) =====",
-                        optimization.OptimizationKey, optimization.Id);
+                        optimization.OptimizationKey,
+                        optimization.Id
+                    );
                 }
                 else
                 {
                     // Revert optimization if already applied
                     _logger.LogInformation(
                         "===== START reverting optimization {OptimizationName} ({OptimizationId}) =====",
-                        optimization.OptimizationKey, optimization.Id);
+                        optimization.OptimizationKey,
+                        optimization.Id
+                    );
 
                     var revertResult = await RunWithProcessingDialogAsync(
                         optimization,
-                        progress => _optimizationService.RevertAsync(optimization, progress));
+                        progress => _optimizationService.RevertAsync(optimization, progress)
+                    );
 
                     var retryOutcome = await HandleRetryableFailuresAsync(
                         optimization,
                         revertResult.FailedSteps,
-                        OptimizationOperation.Revert);
+                        OptimizationOperation.Revert
+                    );
 
                     await OptimizationService.UpdateOptimizationStateAsync(optimization);
 
-                    var notificationState = ResolveRevertNotificationState(revertResult, retryOutcome);
+                    var notificationState = ResolveRevertNotificationState(
+                        revertResult,
+                        retryOutcome
+                    );
 
-                    ShowOperationOutcomeSnackbar(notificationState, OptimizationOperation.Revert,
-                        revertResult.Message, restorePointCreated);
+                    ShowOperationOutcomeSnackbar(
+                        notificationState,
+                        OptimizationOperation.Revert,
+                        revertResult.Message,
+                        restorePointCreated
+                    );
 
                     if (notificationState == OperationNotificationState.Success)
-                        _logger.LogInformation("Successfully reverted {Name}", optimization.OptimizationKey);
+                        _logger.LogInformation(
+                            "Successfully reverted {Name}",
+                            optimization.OptimizationKey
+                        );
                     else if (notificationState == OperationNotificationState.Partial)
-                        _logger.LogWarning("Partially reverted {Name}", optimization.OptimizationKey);
+                        _logger.LogWarning(
+                            "Partially reverted {Name}",
+                            optimization.OptimizationKey
+                        );
                     else
                         _logger.LogWarning("Failed to revert {Name}", optimization.OptimizationKey);
                     _logger.LogInformation(
                         "===== END reverting optimization {OptimizationName} ({OptimizationId}) =====",
-                        optimization.OptimizationKey, optimization.Id);
+                        optimization.OptimizationKey,
+                        optimization.Id
+                    );
                 }
             }
             catch (Exception ex)
             {
                 optimization.State.IsApplied = wasApplied; // revert UI state on failure
-                _logger.LogError(ex, "Failed to toggle optimization {Name}", optimization.OptimizationKey);
+                _logger.LogError(
+                    ex,
+                    "Failed to toggle optimization {Name}",
+                    optimization.OptimizationKey
+                );
                 _snackbarService.Show(
                     Translations.Optimization_Toggle_Snackbar_Error_Title,
-                    string.Format(Translations.Optimization_Toggle_Snackbar_Error_Message, ex.Message),
+                    string.Format(
+                        Translations.Optimization_Toggle_Snackbar_Error_Message,
+                        ex.Message
+                    ),
                     ControlAppearance.Danger,
                     new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
                     TimeSpan.FromSeconds(5)
@@ -249,13 +316,17 @@ public partial class OptimizationCategoryViewModel : ViewModel
     [RelayCommand]
     private async Task ShowDetailsAsync(IOptimization optimization)
     {
-        var dialogViewModel = new OptimizationDetailsViewModel(optimization, _snackbarService, _logger);
+        var dialogViewModel = new OptimizationDetailsViewModel(
+            optimization,
+            _snackbarService,
+            _logger
+        );
         var dialogContent = new OptimizationDetailsDialog { DataContext = dialogViewModel };
         var dialog = new ContentDialog
         {
             Title = BuildDialogTitle(optimization),
             Content = dialogContent,
-            CloseButtonText = Translations.Button_Ok
+            CloseButtonText = Translations.Button_Ok,
         };
         var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
     }
@@ -274,11 +345,14 @@ public partial class OptimizationCategoryViewModel : ViewModel
         // Fetch source from GitHub raw content to find the class line number
         try
         {
-            var rawUrl = $"https://raw.githubusercontent.com/itsfatduck/optimizerDuck/master/{relativePath}";
+            var rawUrl =
+                $"https://raw.githubusercontent.com/itsfatduck/optimizerDuck/master/{relativePath}";
 
             string source;
-            if (_sourceCache.TryGetValue(rawUrl, out var cached)
-                && DateTime.UtcNow - cached.FetchedAt < SourceCacheTtl)
+            if (
+                _sourceCache.TryGetValue(rawUrl, out var cached)
+                && DateTime.UtcNow - cached.FetchedAt < SourceCacheTtl
+            )
             {
                 source = cached.Content;
             }
@@ -298,16 +372,16 @@ public partial class OptimizationCategoryViewModel : ViewModel
         }
         catch (Exception ex)
         {
-            _logger.LogWarning(ex, "Could not fetch source to find line number for {Class}", className);
+            _logger.LogWarning(
+                ex,
+                "Could not fetch source to find line number for {Class}",
+                className
+            );
         }
 
         try
         {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = url,
-                UseShellExecute = true
-            });
+            Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
         }
         catch (Exception ex)
         {
@@ -317,7 +391,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 Translations.Snackbar_OpenLinkFailed_Message,
                 ControlAppearance.Danger,
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                TimeSpan.FromSeconds(5));
+                TimeSpan.FromSeconds(5)
+            );
         }
     }
 
@@ -327,7 +402,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
     private async Task LoadOptimizationStatesAsync()
     {
-        if (_allOptimizations.Count > 0) return;
+        if (_allOptimizations.Count > 0)
+            return;
 
         IsLoading = true;
         try
@@ -365,8 +441,9 @@ public partial class OptimizationCategoryViewModel : ViewModel
         {
             var search = SearchText.Trim();
             query = query.Where(o =>
-                o.Name.Contains(search, StringComparison.OrdinalIgnoreCase) ||
-                o.ShortDescription.Contains(search, StringComparison.OrdinalIgnoreCase));
+                o.Name.Contains(search, StringComparison.OrdinalIgnoreCase)
+                || o.ShortDescription.Contains(search, StringComparison.OrdinalIgnoreCase)
+            );
         }
 
         // Filter by risk
@@ -375,7 +452,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
             1 => query.Where(o => o.Risk == OptimizationRisk.Safe),
             2 => query.Where(o => o.Risk == OptimizationRisk.Moderate),
             3 => query.Where(o => o.Risk == OptimizationRisk.Risky),
-            _ => query
+            _ => query,
         };
 
         // Hide applied
@@ -388,7 +465,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
             1 => query.OrderBy(o => o.Name),
             2 => query.OrderBy(o => o.Risk),
             3 => query.OrderByDescending(o => o.State.IsApplied ? 1 : 0), // Status
-            _ => query.OrderBy(o => o.Risk).ThenByDescending(o => o.State.IsApplied ? 1 : 0) // Risk & Status (default)
+            _ => query.OrderBy(o => o.Risk).ThenByDescending(o => o.State.IsApplied ? 1 : 0), // Risk & Status (default)
         };
 
         var filtered = query.ToList();
@@ -406,14 +483,15 @@ public partial class OptimizationCategoryViewModel : ViewModel
     /// <returns>The result of the action.</returns>
     private async Task<T> RunWithProcessingDialogAsync<T>(
         IOptimization optimization,
-        Func<IProgress<ProcessingProgress>, Task<T>> action)
+        Func<IProgress<ProcessingProgress>, Task<T>> action
+    )
     {
         var viewModel = new ProcessingViewModel();
         var dialog = new ContentDialog
         {
             Title = BuildDialogTitle(optimization),
             Content = new ProcessingDialog { DataContext = viewModel },
-            IsFooterVisible = false
+            IsFooterVisible = false,
         };
 
         _ = _contentDialogService.ShowAsync(dialog, CancellationToken.None);
@@ -435,8 +513,11 @@ public partial class OptimizationCategoryViewModel : ViewModel
     /// <param name="failedSteps">The failed steps.</param>
     /// <param name="operation">The operation currently being processed.</param>
     /// <returns>The retry outcome.</returns>
-    private async Task<FailureResolutionOutcome> HandleRetryableFailuresAsync(IOptimization optimization,
-        IReadOnlyList<OperationStepResult> failedSteps, OptimizationOperation operation)
+    private async Task<FailureResolutionOutcome> HandleRetryableFailuresAsync(
+        IOptimization optimization,
+        IReadOnlyList<OperationStepResult> failedSteps,
+        OptimizationOperation operation
+    )
     {
         if (failedSteps.Count == 0)
             return FailureResolutionOutcome.NoFailures;
@@ -453,7 +534,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 Title = BuildDialogTitle(optimization),
                 Content = dialogContent,
                 PrimaryButtonText = Translations.Button_Retry,
-                CloseButtonText = Translations.Button_Cancel
+                CloseButtonText = Translations.Button_Cancel,
             };
 
             var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
@@ -462,13 +543,18 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
             if (operation == OptimizationOperation.Revert)
             {
-                remainingFailedSteps = (await RunWithProcessingDialogAsync(
+                remainingFailedSteps = (
+                    await RunWithProcessingDialogAsync(
                         optimization,
-                        progress => OptimizationService.RetryFailedStepsAsync(
-                            remainingFailedSteps,
-                            true,
-                            _logger,
-                            progress)))
+                        progress =>
+                            OptimizationService.RetryFailedStepsAsync(
+                                remainingFailedSteps,
+                                true,
+                                _logger,
+                                progress
+                            )
+                    )
+                )
                     .OrderBy(s => s.Index)
                     .ToList();
 
@@ -482,20 +568,25 @@ public partial class OptimizationCategoryViewModel : ViewModel
             else
             {
                 var retryResult = await RunWithProcessingDialogAsync(
-                        optimization,
-                        progress => OptimizationService.RetryFailedStepsWithResultsAsync(
+                    optimization,
+                    progress =>
+                        OptimizationService.RetryFailedStepsWithResultsAsync(
                             remainingFailedSteps,
                             false,
                             _logger,
-                            progress));
+                            progress
+                        )
+                );
 
-                var newFailed = retryResult.FailedSteps
-                    .OrderBy(s => s.Index)
-                    .ToList();
+                var newFailed = retryResult.FailedSteps.OrderBy(s => s.Index).ToList();
 
                 foreach (var s in retryResult.RecoveredSteps.Where(s => s.RevertStep != null))
-                    await _revertManager.UpsertRevertStepAtIndexAsync(optimization.Id,
-                        optimization.OptimizationKey, s.Index, s.RevertStep!);
+                    await _revertManager.UpsertRevertStepAtIndexAsync(
+                        optimization.Id,
+                        optimization.OptimizationKey,
+                        s.Index,
+                        s.RevertStep!
+                    );
 
                 remainingFailedSteps = newFailed;
                 if (remainingFailedSteps.Count == 0)
@@ -506,10 +597,15 @@ public partial class OptimizationCategoryViewModel : ViewModel
         return FailureResolutionOutcome.Recovered;
     }
 
-    private static OperationNotificationState ResolveApplyNotificationState(OptimizationResult applyResult,
-        FailureResolutionOutcome retryOutcome)
+    private static OperationNotificationState ResolveApplyNotificationState(
+        OptimizationResult applyResult,
+        FailureResolutionOutcome retryOutcome
+    )
     {
-        if (applyResult.Status == OptimizationSuccessResult.Success || retryOutcome == FailureResolutionOutcome.Recovered)
+        if (
+            applyResult.Status == OptimizationSuccessResult.Success
+            || retryOutcome == FailureResolutionOutcome.Recovered
+        )
             return OperationNotificationState.Success;
 
         return retryOutcome == FailureResolutionOutcome.Deferred
@@ -517,8 +613,10 @@ public partial class OptimizationCategoryViewModel : ViewModel
             : OperationNotificationState.Failed;
     }
 
-    private static OperationNotificationState ResolveRevertNotificationState(RevertResult revertResult,
-        FailureResolutionOutcome retryOutcome)
+    private static OperationNotificationState ResolveRevertNotificationState(
+        RevertResult revertResult,
+        FailureResolutionOutcome retryOutcome
+    )
     {
         if (revertResult.Success || retryOutcome == FailureResolutionOutcome.Recovered)
             return OperationNotificationState.Success;
@@ -535,16 +633,23 @@ public partial class OptimizationCategoryViewModel : ViewModel
     /// <param name="operation">The type of operation.</param>
     /// <param name="message">The message to show.</param>
     /// <param name="restorePointCreated">Whether a restore point was created.</param>
-    private void ShowOperationOutcomeSnackbar(OperationNotificationState notificationState,
+    private void ShowOperationOutcomeSnackbar(
+        OperationNotificationState notificationState,
         OptimizationOperation operation,
-        string message, bool restorePointCreated = false)
+        string message,
+        bool restorePointCreated = false
+    )
     {
         var showSuccess = _appOptionsMonitor.CurrentValue.Optimize.ShowCompletionNotification;
         var finalMessage = message;
 
         if (restorePointCreated && showSuccess)
-            finalMessage += "\n" + string.Format(Translations.RestorePoint_Snackbar_Success_Message,
-                Shared.RestorePointName);
+            finalMessage +=
+                "\n"
+                + string.Format(
+                    Translations.RestorePoint_Snackbar_Success_Message,
+                    Shared.RestorePointName
+                );
 
         if (notificationState == OperationNotificationState.Success)
         {
@@ -556,7 +661,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
                     finalMessage,
                     ControlAppearance.Success,
                     new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
-                    TimeSpan.FromSeconds(5));
+                    TimeSpan.FromSeconds(5)
+                );
         }
         else if (notificationState == OperationNotificationState.Partial)
         {
@@ -567,7 +673,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 finalMessage,
                 ControlAppearance.Caution,
                 new SymbolIcon { Symbol = SymbolRegular.Warning24, Filled = true },
-                TimeSpan.FromSeconds(5));
+                TimeSpan.FromSeconds(5)
+            );
         }
         else if (notificationState == OperationNotificationState.Failed)
         {
@@ -578,7 +685,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 finalMessage,
                 ControlAppearance.Danger,
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                TimeSpan.FromSeconds(5));
+                TimeSpan.FromSeconds(5)
+            );
         }
     }
 
@@ -596,7 +704,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
             PrimaryButtonText = Translations.Button_Ok,
             SecondaryButtonText = Translations.Button_Skip,
-            CloseButtonText = Translations.Button_Cancel
+            CloseButtonText = Translations.Button_Cancel,
         };
 
         var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
@@ -617,10 +725,14 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 {
                     _snackbarService.Show(
                         Translations.RestorePoint_Snackbar_Success_Title,
-                        string.Format(Translations.RestorePoint_Snackbar_Success_Message, Shared.RestorePointName),
+                        string.Format(
+                            Translations.RestorePoint_Snackbar_Success_Message,
+                            Shared.RestorePointName
+                        ),
                         ControlAppearance.Success,
                         new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
-                        TimeSpan.FromSeconds(5));
+                        TimeSpan.FromSeconds(5)
+                    );
                     break;
                 }
 
@@ -667,14 +779,14 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 {
                     FontTypography = FontTypography.Caption,
                     Appearance = TextColor.Disabled,
-                    Text = optimization.Id.ToString()
+                    Text = optimization.Id.ToString(),
                 },
                 new TextBlock
                 {
                     FontTypography = FontTypography.Subtitle,
-                    Text = optimization.Name
-                }
-            }
+                    Text = optimization.Name,
+                },
+            },
         };
     }
 
@@ -682,20 +794,20 @@ public partial class OptimizationCategoryViewModel : ViewModel
     {
         NoFailures,
         Recovered,
-        Deferred
+        Deferred,
     }
 
     private enum OperationNotificationState
     {
         Success,
         Partial,
-        Failed
+        Failed,
     }
 
     private enum OptimizationOperation
     {
         Apply,
-        Revert
+        Revert,
     }
 
     #endregion Helpers

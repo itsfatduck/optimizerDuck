@@ -15,37 +15,60 @@ namespace optimizerDuck.Domain.Optimizations.Categories;
 public class BloatwareAndServices : IOptimizationCategory
 {
     public string Name => Loc.Instance[$"Optimizer.{nameof(BloatwareAndServices)}"];
-    public OptimizationCategoryOrder Order { get; init; } = OptimizationCategoryOrder.BloatwareAndServices;
+    public OptimizationCategoryOrder Order { get; init; } =
+        OptimizationCategoryOrder.BloatwareAndServices;
     public ObservableCollection<IOptimization> Optimizations { get; init; } = [];
 
-    [Optimization(Id = "E3C970B0-129D-4354-BAE4-2732E5BACCF7", Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.System | OptimizationTags.Disk)]
+    [Optimization(
+        Id = "E3C970B0-129D-4354-BAE4-2732E5BACCF7",
+        Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.System | OptimizationTags.Disk
+    )]
     public class DisablePreinstalledApps : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
-            OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(
+            IProgress<ProcessingProgress> progress,
+            OptimizationContext context
+        )
         {
             RegistryService.Write(
-                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager",
-                    "PreInstalledAppsEnabled", 0),
-                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager",
-                    "PreInstalledAppsEverEnabled", 0),
-                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager",
-                    "OemPreInstalledAppsEnabled", 0),
-                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager",
-                    "SilentInstalledAppsEnabled", 0)
+                new RegistryItem(
+                    @"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager",
+                    "PreInstalledAppsEnabled",
+                    0
+                ),
+                new RegistryItem(
+                    @"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager",
+                    "PreInstalledAppsEverEnabled",
+                    0
+                ),
+                new RegistryItem(
+                    @"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager",
+                    "OemPreInstalledAppsEnabled",
+                    0
+                ),
+                new RegistryItem(
+                    @"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager",
+                    "SilentInstalledAppsEnabled",
+                    0
+                )
             );
             context.Logger.LogInformation("Blocked preinstalled apps");
             return Task.FromResult(ApplyResult.True());
         }
     }
 
-    [Optimization(Id = "66126FAC-E79B-4CDA-9F53-F85DD88730A9", Risk = OptimizationRisk.Risky,
-        Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Latency)]
+    [Optimization(
+        Id = "66126FAC-E79B-4CDA-9F53-F85DD88730A9",
+        Risk = OptimizationRisk.Risky,
+        Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Latency
+    )]
     public class ConfigureServices : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress,
-            OptimizationContext context)
+        public override Task<ApplyResult> ApplyAsync(
+            IProgress<ProcessingProgress> progress,
+            OptimizationContext context
+        )
         {
             var servicesToChange = new List<ServiceItem>
             {
@@ -287,24 +310,32 @@ public class BloatwareAndServices : IOptimizationCategory
                 new("wmiApSrv", ServiceStartupType.Manual),
                 new("workfolderssvc", ServiceStartupType.Manual),
                 new("wscsvc", ServiceStartupType.AutomaticDelayedStart),
-                new("wuauserv", ServiceStartupType.Manual)
+                new("wuauserv", ServiceStartupType.Manual),
             };
 
             for (var i = 0; i < servicesToChange.Count; i++)
             {
                 var service = servicesToChange[i];
-                progress?.Report(new ProcessingProgress
-                {
-                    Message = string.Format(Loc.Instance[$"{ProgressPrefix}.ChangeServiceStartupType"], service.Name,
-                        service.StartupType),
-                    IsIndeterminate = false,
-                    Value = i + 1,
-                    Total = servicesToChange.Count
-                });
+                progress?.Report(
+                    new ProcessingProgress
+                    {
+                        Message = string.Format(
+                            Loc.Instance[$"{ProgressPrefix}.ChangeServiceStartupType"],
+                            service.Name,
+                            service.StartupType
+                        ),
+                        IsIndeterminate = false,
+                        Value = i + 1,
+                        Total = servicesToChange.Count,
+                    }
+                );
                 ServiceProcessService.ChangeServiceStartupType(service);
             }
 
-            context.Logger.LogInformation("Optimized service startup for {Count} services", servicesToChange.Count);
+            context.Logger.LogInformation(
+                "Optimized service startup for {Count} services",
+                servicesToChange.Count
+            );
             return Task.FromResult(ApplyResult.True());
         }
     }

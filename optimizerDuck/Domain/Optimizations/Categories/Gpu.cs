@@ -18,14 +18,24 @@ public abstract class GpuRegistryOptimization : BaseOptimization
 
     protected abstract IReadOnlyList<RegistryItem> CreateItems(string registryPath);
 
-    public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+    public override Task<ApplyResult> ApplyAsync(
+        IProgress<ProcessingProgress> progress,
+        OptimizationContext context
+    )
     {
-        foreach (var gpu in context.Snapshot.Gpus
-                     .Where(g => g.Vendor == Vendor && !string.IsNullOrEmpty(g.DeviceId)))
+        foreach (
+            var gpu in context.Snapshot.Gpus.Where(g =>
+                g.Vendor == Vendor && !string.IsNullOrEmpty(g.DeviceId)
+            )
+        )
         {
             if (!Gpu.TryParseDeviceIdToIndex(gpu.DeviceId, out var index))
             {
-                context.Logger.LogWarning("Invalid DeviceId for GPU {GpuName} ({DeviceId})", gpu.Name, gpu.DeviceId);
+                context.Logger.LogWarning(
+                    "Invalid DeviceId for GPU {GpuName} ({DeviceId})",
+                    gpu.Name,
+                    gpu.DeviceId
+                );
                 continue;
             }
 
@@ -33,7 +43,11 @@ public abstract class GpuRegistryOptimization : BaseOptimization
                 $@"HKLM\SYSTEM\CurrentControlSet\Control\Class\{{4d36e968-e325-11ce-bfc1-08002be10318}}\{index:D4}";
 
             RegistryService.Write(CreateItems(path).ToArray());
-            context.Logger.LogInformation("Applied {Optimization} for GPU {DeviceId}", GetType().Name, gpu.DeviceId);
+            context.Logger.LogInformation(
+                "Applied {Optimization} for GPU {DeviceId}",
+                GetType().Name,
+                gpu.DeviceId
+            );
         }
 
         return Task.FromResult(ApplyResult.True());
@@ -125,24 +139,23 @@ public class Gpu : IOptimizationCategory
     [Optimization(
         Id = "4433CE93-B632-4D67-AE71-0241C31099C0",
         Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.Amd | OptimizationTags.Power)]
+        Tags = OptimizationTags.Amd | OptimizationTags.Power
+    )]
     public class AmdDisableUlps : GpuRegistryOptimization
     {
         protected override GpuVendor Vendor => GpuVendor.AMD;
 
         protected override IReadOnlyList<RegistryItem> CreateItems(string path)
         {
-            return
-            [
-                new RegistryItem(path, "EnableULPS", 0)
-            ];
+            return [new RegistryItem(path, "EnableULPS", 0)];
         }
     }
 
     [Optimization(
         Id = "A3836587-C461-4BEB-9C4C-88493B36C138",
         Risk = OptimizationRisk.Moderate,
-        Tags = OptimizationTags.Amd | OptimizationTags.Performance)]
+        Tags = OptimizationTags.Amd | OptimizationTags.Performance
+    )]
     public class AmdDisablePowerGating : GpuRegistryOptimization
     {
         protected override GpuVendor Vendor => GpuVendor.AMD;
@@ -153,7 +166,7 @@ public class Gpu : IOptimizationCategory
             [
                 new RegistryItem(path, "DisablePowerGating", 1),
                 new RegistryItem(path, "PP_GPUPowerDownEnabled", 0),
-                new RegistryItem(path, "DisableDynamicPstate", 1)
+                new RegistryItem(path, "DisableDynamicPstate", 1),
             ];
         }
     }
@@ -161,7 +174,8 @@ public class Gpu : IOptimizationCategory
     [Optimization(
         Id = "DB379BB5-FC8C-4AD3-BE32-11BE09E76FBA",
         Risk = OptimizationRisk.Moderate,
-        Tags = OptimizationTags.Amd | OptimizationTags.Performance)]
+        Tags = OptimizationTags.Amd | OptimizationTags.Performance
+    )]
     public class AmdDisableVideoClockGating : GpuRegistryOptimization
     {
         protected override GpuVendor Vendor => GpuVendor.AMD;
@@ -173,7 +187,7 @@ public class Gpu : IOptimizationCategory
                 new RegistryItem(path, "DisableVCEPowerGating", 1),
                 new RegistryItem(path, "DisableVceClockGating", 1),
                 new RegistryItem(path, "EnableUvdClockGating", 0),
-                new RegistryItem(path, "EnableVceSwClockGating", 0)
+                new RegistryItem(path, "EnableVceSwClockGating", 0),
             ];
         }
     }
@@ -181,7 +195,8 @@ public class Gpu : IOptimizationCategory
     [Optimization(
         Id = "8A4B4C4D-000E-42DB-8BD7-293067F8FAE7",
         Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.Amd | OptimizationTags.Latency)]
+        Tags = OptimizationTags.Amd | OptimizationTags.Latency
+    )]
     public class AmdDisableAspm : GpuRegistryOptimization
     {
         protected override GpuVendor Vendor => GpuVendor.AMD;
@@ -191,7 +206,7 @@ public class Gpu : IOptimizationCategory
             return
             [
                 new RegistryItem(path, "EnableAspmL0s", 0),
-                new RegistryItem(path, "EnableAspmL1", 0)
+                new RegistryItem(path, "EnableAspmL1", 0),
             ];
         }
     }
@@ -199,68 +214,60 @@ public class Gpu : IOptimizationCategory
     [Optimization(
         Id = "FA58802F-B98C-4E98-AA67-067C5A394296",
         Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.Nvidia | OptimizationTags.Power)]
+        Tags = OptimizationTags.Nvidia | OptimizationTags.Power
+    )]
     public class NvidiaDisableDynamicPstate : GpuRegistryOptimization
     {
         protected override GpuVendor Vendor => GpuVendor.NVIDIA;
 
         protected override IReadOnlyList<RegistryItem> CreateItems(string path)
         {
-            return
-            [
-                new RegistryItem(path, "DisableDynamicPstate", 1)
-            ];
+            return [new RegistryItem(path, "DisableDynamicPstate", 1)];
         }
     }
 
     [Optimization(
         Id = "9E7702BE-9E03-4C96-A316-C4E435CB993E",
         Risk = OptimizationRisk.Moderate,
-        Tags = OptimizationTags.Nvidia | OptimizationTags.Performance)]
+        Tags = OptimizationTags.Nvidia | OptimizationTags.Performance
+    )]
     public class NvidiaDisableAsyncPstates : GpuRegistryOptimization
     {
         protected override GpuVendor Vendor => GpuVendor.NVIDIA;
 
         protected override IReadOnlyList<RegistryItem> CreateItems(string path)
         {
-            return
-            [
-                new RegistryItem(path, "DisableASyncPstates", 1)
-            ];
+            return [new RegistryItem(path, "DisableASyncPstates", 1)];
         }
     }
 
     [Optimization(
         Id = "DF8739FF-E322-4958-B369-DF584BB9B0C1",
         Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.Intel | OptimizationTags.Latency)]
+        Tags = OptimizationTags.Intel | OptimizationTags.Latency
+    )]
     public class IntelDisableAsyncFlips : GpuRegistryOptimization
     {
         protected override GpuVendor Vendor => GpuVendor.Intel;
 
         protected override IReadOnlyList<RegistryItem> CreateItems(string path)
         {
-            return
-            [
-                new RegistryItem(path, "Display1_DisableAsyncFlips", 1)
-            ];
+            return [new RegistryItem(path, "Display1_DisableAsyncFlips", 1)];
         }
     }
 
     [Optimization(
         Id = "EBFB0DED-5D1A-4CD1-B5C0-4F7018DD6054",
         Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.Intel | OptimizationTags.Display)]
+        Tags = OptimizationTags.Intel | OptimizationTags.Display
+    )]
     public class IntelDisableAdaptiveVsync : GpuRegistryOptimization
     {
         protected override GpuVendor Vendor => GpuVendor.Intel;
 
         protected override IReadOnlyList<RegistryItem> CreateItems(string path)
         {
-            return
-            [
-                new RegistryItem(path, "AdaptiveVsyncEnable", 0)
-            ];
+            return [new RegistryItem(path, "AdaptiveVsyncEnable", 0)];
         }
     }
 }

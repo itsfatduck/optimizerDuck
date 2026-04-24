@@ -18,7 +18,6 @@ public sealed class ExecutionScope : IDisposable
     private bool _disposed;
     private int _stepIndex;
 
-
     public static ExecutionScope? Current => _current.Value;
 
     public Guid? OptimizationId { get; private init; }
@@ -53,17 +52,21 @@ public sealed class ExecutionScope : IDisposable
         {
             Logger.LogInformation(
                 "Completed in {Time} (no operations tracked)",
-                _stopwatch.Elapsed.ToString(@"mm\:ss\.fff"));
+                _stopwatch.Elapsed.ToString(@"mm\:ss\.fff")
+            );
         }
         else
         {
-            var summary = string.Join(", ", _stats.Select(kv =>
-                $"{kv.Key}: +({kv.Value.Success}) -({kv.Value.Fail})"));
+            var summary = string.Join(
+                ", ",
+                _stats.Select(kv => $"{kv.Key}: +({kv.Value.Success}) -({kv.Value.Fail})")
+            );
 
             Logger.LogInformation(
                 "Completed in {Time} | {Summary}",
                 _stopwatch.Elapsed.ToString(@"mm\:ss\.fff"),
-                summary);
+                summary
+            );
         }
 
         if (!LoggingOnly)
@@ -80,42 +83,64 @@ public sealed class ExecutionScope : IDisposable
     public static ExecutionScope Begin(IOptimization optimization, ILogger logger)
     {
         if (_current.Value != null)
-            throw new InvalidOperationException("An execution scope is already active in the current context.");
+            throw new InvalidOperationException(
+                "An execution scope is already active in the current context."
+            );
 
         var scope = new ExecutionScope
         {
-            OptimizationId = optimization.Id, OptimizationKey = optimization.OptimizationKey,
-            OptimizationName = optimization.Name, Logger = logger
+            OptimizationId = optimization.Id,
+            OptimizationKey = optimization.OptimizationKey,
+            OptimizationName = optimization.Name,
+            Logger = logger,
         };
         _current.Value = scope;
-        logger.LogDebug("Execution scope started for {Key} (ID: {Id})", optimization.OptimizationKey, optimization.Id);
+        logger.LogDebug(
+            "Execution scope started for {Key} (ID: {Id})",
+            optimization.OptimizationKey,
+            optimization.Id
+        );
         return scope;
     }
 
     public static ExecutionScope BeginForLogging(ILogger logger)
     {
         if (_current.Value != null)
-            throw new InvalidOperationException("An execution scope is already active in the current context.");
+            throw new InvalidOperationException(
+                "An execution scope is already active in the current context."
+            );
 
         var scope = new ExecutionScope
         {
-            OptimizationId = Guid.Empty, OptimizationKey = string.Empty, OptimizationName = string.Empty,
-            Logger = logger, LoggingOnly = true
+            OptimizationId = Guid.Empty,
+            OptimizationKey = string.Empty,
+            OptimizationName = string.Empty,
+            Logger = logger,
+            LoggingOnly = true,
         };
         _current.Value = scope;
         logger.LogDebug("Execution scope started (logging only)");
         return scope;
     }
 
-    public static ExecutionScope BeginForLogging(Guid optimizationId, string optimizationKey, ILogger logger)
+    public static ExecutionScope BeginForLogging(
+        Guid optimizationId,
+        string optimizationKey,
+        ILogger logger
+    )
     {
         if (_current.Value != null)
-            throw new InvalidOperationException("An execution scope is already active in the current context.");
+            throw new InvalidOperationException(
+                "An execution scope is already active in the current context."
+            );
 
         var scope = new ExecutionScope
         {
-            OptimizationId = optimizationId, OptimizationKey = optimizationKey, OptimizationName = string.Empty,
-            Logger = logger, LoggingOnly = true
+            OptimizationId = optimizationId,
+            OptimizationKey = optimizationKey,
+            OptimizationName = string.Empty,
+            Logger = logger,
+            LoggingOnly = true,
         };
         _current.Value = scope;
         logger.LogDebug("Execution scope started for {Key} (logging only)", optimizationKey);
@@ -125,14 +150,16 @@ public sealed class ExecutionScope : IDisposable
     public static ExecutionScope BeginForCapture(ILogger logger)
     {
         if (_current.Value != null)
-            throw new InvalidOperationException("An execution scope is already active in the current context.");
+            throw new InvalidOperationException(
+                "An execution scope is already active in the current context."
+            );
 
         var scope = new ExecutionScope
         {
             OptimizationId = Guid.Empty,
             OptimizationKey = string.Empty,
             OptimizationName = string.Empty,
-            Logger = logger
+            Logger = logger,
         };
         _current.Value = scope;
         logger.LogDebug("Execution scope started for retry capture");
@@ -145,11 +172,19 @@ public sealed class ExecutionScope : IDisposable
         bool success,
         IRevertStep? revertStep = null,
         string? error = null,
-        Func<Task<bool>>? retryAction = null)
+        Func<Task<bool>>? retryAction = null
+    )
     {
         var scope = Current;
 
-        return scope?.RecordStepInternal(name, description, success, revertStep, error, retryAction);
+        return scope?.RecordStepInternal(
+            name,
+            description,
+            success,
+            revertStep,
+            error,
+            retryAction
+        );
     }
 
     public static void Track(string serviceName, bool success)
@@ -158,15 +193,16 @@ public sealed class ExecutionScope : IDisposable
 
         scope?._stats.AddOrUpdate(
             serviceName,
-            _ => success
-                ? new Stats { Success = 1 }
-                : new Stats { Fail = 1 },
+            _ => success ? new Stats { Success = 1 } : new Stats { Fail = 1 },
             (_, stats) =>
             {
-                if (success) stats.Success++;
-                else stats.Fail++;
+                if (success)
+                    stats.Success++;
+                else
+                    stats.Fail++;
                 return stats;
-            });
+            }
+        );
     }
 
     public List<OperationStepResult> GetStepResults()
@@ -186,20 +222,23 @@ public sealed class ExecutionScope : IDisposable
             Status = status,
             Message = status switch
             {
-                OptimizationSuccessResult.Success =>
-                    string.Format(Translations.Optimization_Apply_Success,
-                        OptimizationName),
-                OptimizationSuccessResult.Failed when allFailed =>
-                    string.Format(Translations.Optimization_Apply_Error_Failed,
-                        OptimizationName),
+                OptimizationSuccessResult.Success => string.Format(
+                    Translations.Optimization_Apply_Success,
+                    OptimizationName
+                ),
+                OptimizationSuccessResult.Failed when allFailed => string.Format(
+                    Translations.Optimization_Apply_Error_Failed,
+                    OptimizationName
+                ),
                 OptimizationSuccessResult.PartialSuccess or OptimizationSuccessResult.Failed =>
                     string.Format(
                         Translations.Optimization_Apply_Error_FailedWithSteps,
                         OptimizationName,
-                        failedSteps.Count),
-                _ => $"Unknown result for {OptimizationName}"
+                        failedSteps.Count
+                    ),
+                _ => $"Unknown result for {OptimizationName}",
             },
-            FailedSteps = failedSteps
+            FailedSteps = failedSteps,
         };
     }
 
@@ -209,7 +248,8 @@ public sealed class ExecutionScope : IDisposable
         bool success,
         IRevertStep? revertStep,
         string? error,
-        Func<Task<bool>>? retryAction = null)
+        Func<Task<bool>>? retryAction = null
+    )
     {
         if (LoggingOnly)
             return null;
@@ -221,7 +261,8 @@ public sealed class ExecutionScope : IDisposable
             success,
             revertStep,
             error,
-            retryAction);
+            retryAction
+        );
 
         _executedSteps.Add(step);
 
@@ -236,11 +277,9 @@ public sealed class ExecutionScope : IDisposable
         var failed = FailedSteps.Count;
         var total = ExecutedSteps.Count;
 
-        return failed == 0
-            ? OptimizationSuccessResult.Success
-            : failed < total
-                ? OptimizationSuccessResult.PartialSuccess
-                : OptimizationSuccessResult.Failed;
+        return failed == 0 ? OptimizationSuccessResult.Success
+            : failed < total ? OptimizationSuccessResult.PartialSuccess
+            : OptimizationSuccessResult.Failed;
     }
 
     private static OperationStepResult ToOperationStepResult(ExecutedStep step)
@@ -253,7 +292,7 @@ public sealed class ExecutionScope : IDisposable
             Success = step.Success,
             Error = step.Error,
             RetryAction = step.RetryAction,
-            RevertStep = step.RevertStep
+            RevertStep = step.RevertStep,
         };
     }
 
@@ -306,8 +345,15 @@ public sealed record ExecutedStep
     /// <summary>
     ///     Initializes a new instance of the <see cref="ExecutedStep" /> class.
     /// </summary>
-    public ExecutedStep(int index, string name, string description, bool success,
-        IRevertStep? revertStep, string? error, Func<Task<bool>>? retryAction = null)
+    public ExecutedStep(
+        int index,
+        string name,
+        string description,
+        bool success,
+        IRevertStep? revertStep,
+        string? error,
+        Func<Task<bool>>? retryAction = null
+    )
     {
         Index = index;
         Name = name;

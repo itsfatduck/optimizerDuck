@@ -19,22 +19,26 @@ public partial class OptimizationState : ObservableObject
     /// <summary>
     ///     The date and time when the optimization was applied.
     /// </summary>
-    [ObservableProperty] private DateTime? appliedAt;
+    [ObservableProperty]
+    private DateTime? appliedAt;
 
     /// <summary>
     ///     Indicates whether the optimization is currently applied.
     /// </summary>
-    [ObservableProperty] private bool isApplied;
+    [ObservableProperty]
+    private bool isApplied;
 
     /// <summary>
     ///     A human-readable relative time string (e.g., "5 minutes ago").
     /// </summary>
-    [ObservableProperty] private string? relativeTime = string.Empty;
+    [ObservableProperty]
+    private string? relativeTime = string.Empty;
 
     /// <summary>
     ///     The risk level of the optimization.
     /// </summary>
-    [ObservableProperty] private OptimizationRisk risk;
+    [ObservableProperty]
+    private OptimizationRisk risk;
 
     static OptimizationState()
     {
@@ -78,24 +82,35 @@ public partial class OptimizationState : ObservableObject
 
         var ts = DateTime.UtcNow - AppliedAt.Value.ToUniversalTime();
         var totalSeconds = (int)Math.Floor(ts.TotalSeconds);
-        if (totalSeconds == _lastDisplayedSeconds) return;
+        if (totalSeconds == _lastDisplayedSeconds)
+            return;
 
         _lastDisplayedSeconds = totalSeconds;
 
         RelativeTime = ts switch
         {
             _ when totalSeconds < 15 => Translations.Common_AppliedJustNow,
-            _ when totalSeconds < 60 =>
-                string.Format(Translations.Common_AppliedSecondsAgo, totalSeconds),
-            _ when ts.TotalMinutes < 60 =>
-                string.Format(Translations.Common_AppliedMinutesAgo, (int)Math.Floor(ts.TotalMinutes)),
-            _ when ts.TotalHours < 24 =>
-                string.Format(Translations.Common_AppliedHoursAgo, (int)Math.Floor(ts.TotalHours)),
-            _ when ts.TotalDays < 30 =>
-                string.Format(Translations.Common_AppliedDaysAgo, (int)Math.Floor(ts.TotalDays)),
-            _ when ts.TotalDays < 365 =>
-                string.Format(Translations.Common_AppliedMonthsAgo, (int)(ts.TotalDays / 30)),
-            _ => string.Format(Translations.Common_AppliedYearsAgo, (int)(ts.TotalDays / 365))
+            _ when totalSeconds < 60 => string.Format(
+                Translations.Common_AppliedSecondsAgo,
+                totalSeconds
+            ),
+            _ when ts.TotalMinutes < 60 => string.Format(
+                Translations.Common_AppliedMinutesAgo,
+                (int)Math.Floor(ts.TotalMinutes)
+            ),
+            _ when ts.TotalHours < 24 => string.Format(
+                Translations.Common_AppliedHoursAgo,
+                (int)Math.Floor(ts.TotalHours)
+            ),
+            _ when ts.TotalDays < 30 => string.Format(
+                Translations.Common_AppliedDaysAgo,
+                (int)Math.Floor(ts.TotalDays)
+            ),
+            _ when ts.TotalDays < 365 => string.Format(
+                Translations.Common_AppliedMonthsAgo,
+                (int)(ts.TotalDays / 30)
+            ),
+            _ => string.Format(Translations.Common_AppliedYearsAgo, (int)(ts.TotalDays / 365)),
         };
     }
 

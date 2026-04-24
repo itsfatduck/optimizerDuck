@@ -12,17 +12,22 @@ public sealed class ThemeToIndexConverter : IValueConverter
         {
             ApplicationTheme.Dark => 1,
             ApplicationTheme.HighContrast => 2,
-            _ => 0
+            _ => 0,
         };
     }
 
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture
+    )
     {
         return value switch
         {
             1 => ApplicationTheme.Dark,
             2 => ApplicationTheme.HighContrast,
-            _ => ApplicationTheme.Light
+            _ => ApplicationTheme.Light,
         };
     }
 }

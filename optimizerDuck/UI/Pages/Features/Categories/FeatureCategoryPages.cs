@@ -4,7 +4,8 @@ namespace optimizerDuck.UI.Pages.Features;
 
 public sealed class PreferencesFeatureCategory : FeatureCategoryPage
 {
-    public PreferencesFeatureCategory(FeatureCategoryViewModel viewModel) : base(viewModel)
+    public PreferencesFeatureCategory(FeatureCategoryViewModel viewModel)
+        : base(viewModel)
     {
         InitializeComponent();
     }
@@ -12,7 +13,8 @@ public sealed class PreferencesFeatureCategory : FeatureCategoryPage
 
 public sealed class SystemFeatureCategory : FeatureCategoryPage
 {
-    public SystemFeatureCategory(FeatureCategoryViewModel viewModel) : base(viewModel)
+    public SystemFeatureCategory(FeatureCategoryViewModel viewModel)
+        : base(viewModel)
     {
         InitializeComponent();
     }
@@ -20,7 +22,8 @@ public sealed class SystemFeatureCategory : FeatureCategoryPage
 
 public sealed class GamingFeatureCategory : FeatureCategoryPage
 {
-    public GamingFeatureCategory(FeatureCategoryViewModel viewModel) : base(viewModel)
+    public GamingFeatureCategory(FeatureCategoryViewModel viewModel)
+        : base(viewModel)
     {
         InitializeComponent();
     }
@@ -28,7 +31,8 @@ public sealed class GamingFeatureCategory : FeatureCategoryPage
 
 public sealed class DesktopFeatureCategory : FeatureCategoryPage
 {
-    public DesktopFeatureCategory(FeatureCategoryViewModel viewModel) : base(viewModel)
+    public DesktopFeatureCategory(FeatureCategoryViewModel viewModel)
+        : base(viewModel)
     {
         InitializeComponent();
     }

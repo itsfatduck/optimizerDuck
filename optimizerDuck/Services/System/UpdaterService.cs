@@ -19,19 +19,24 @@ public class UpdaterService
     public UpdaterService(ILogger<UpdaterService> logger)
     {
         _httpClient = new HttpClient();
-        _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("optimizerDuck", "1.0"));
+        _httpClient.DefaultRequestHeaders.UserAgent.Add(
+            new ProductInfoHeaderValue("optimizerDuck", "1.0")
+        );
         _logger = logger;
     }
 
     public async Task<(bool Result, string? Version)> CheckForUpdatesAsync()
     {
-        _logger.LogInformation("Checking for updates (Current version: {CurrentVersion})",
-            Shared.FileVersion);
+        _logger.LogInformation(
+            "Checking for updates (Current version: {CurrentVersion})",
+            Shared.FileVersion
+        );
 
         try
         {
-            var response =
-                await _httpClient.GetStringAsync($"https://api.github.com/repos/{Owner}/{Repo}/releases/latest");
+            var response = await _httpClient.GetStringAsync(
+                $"https://api.github.com/repos/{Owner}/{Repo}/releases/latest"
+            );
             var latestRelease = JsonConvert.DeserializeObject<GitHubRelease>(response);
 
             if (latestRelease == null || string.IsNullOrEmpty(latestRelease.TagName))
@@ -48,13 +53,18 @@ public class UpdaterService
             if (preReleaseSeparatorIndex != -1)
                 latestVersionStr = latestVersionStr[..preReleaseSeparatorIndex];
 
-            _logger.LogDebug("Latest release version: {LatestReleaseTagName}", latestRelease.TagName);
+            _logger.LogDebug(
+                "Latest release version: {LatestReleaseTagName}",
+                latestRelease.TagName
+            );
 
             // Parse version
             if (!Version.TryParse(latestVersionStr, out var latestVersion))
             {
-                _logger.LogWarning("Could not parse latest release version: {LatestReleaseTagName}",
-                    latestRelease.TagName);
+                _logger.LogWarning(
+                    "Could not parse latest release version: {LatestReleaseTagName}",
+                    latestRelease.TagName
+                );
                 return (false, null);
             }
 
@@ -62,10 +72,10 @@ public class UpdaterService
 
             if (latestVersion > currentVersion)
             {
-                var updateExecutableAsset = latestRelease.Assets
-                    .FirstOrDefault(a =>
-                        a.Name.StartsWith("optimizerDuck", StringComparison.OrdinalIgnoreCase)
-                        && a.Name.EndsWith(".exe", StringComparison.OrdinalIgnoreCase));
+                var updateExecutableAsset = latestRelease.Assets.FirstOrDefault(a =>
+                    a.Name.StartsWith("optimizerDuck", StringComparison.OrdinalIgnoreCase)
+                    && a.Name.EndsWith(".exe", StringComparison.OrdinalIgnoreCase)
+                );
 
                 if (updateExecutableAsset == null)
                 {
@@ -73,7 +83,10 @@ public class UpdaterService
                     return (false, null);
                 }
 
-                _logger.LogInformation("A new version ({LatestVersion}) is available!", latestVersionStr);
+                _logger.LogInformation(
+                    "A new version ({LatestVersion}) is available!",
+                    latestVersionStr
+                );
 
                 return (true, latestVersionStr);
             }
@@ -92,16 +105,21 @@ public class UpdaterService
 // Helper classes for deserializing GitHub API response
 public class GitHubRelease
 {
-    [JsonProperty("tag_name")] public required string TagName { get; set; }
+    [JsonProperty("tag_name")]
+    public required string TagName { get; set; }
 
-    [JsonProperty("assets")] public required List<GitHubAsset> Assets { get; set; }
+    [JsonProperty("assets")]
+    public required List<GitHubAsset> Assets { get; set; }
 
-    [JsonProperty("body")] public required string Body { get; set; }
+    [JsonProperty("body")]
+    public required string Body { get; set; }
 }
 
 public class GitHubAsset
 {
-    [JsonProperty("name")] public required string Name { get; set; }
+    [JsonProperty("name")]
+    public required string Name { get; set; }
 
-    [JsonProperty("browser_download_url")] public required string BrowserDownloadUrl { get; set; }
+    [JsonProperty("browser_download_url")]
+    public required string BrowserDownloadUrl { get; set; }
 }

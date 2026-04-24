@@ -24,10 +24,14 @@ public class OptimizationServiceTests
             {
                 ApplyImpl = _ =>
                 {
-                    ExecutionScope.RecordStep("Test", "Test step", true,
-                        new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 0" });
+                    ExecutionScope.RecordStep(
+                        "Test",
+                        "Test step",
+                        true,
+                        new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 0" }
+                    );
                     return Task.FromResult(ApplyResult.True());
-                }
+                },
             };
 
             var revertPath = GetRevertFilePath(optimization.Id);
@@ -67,11 +71,15 @@ public class OptimizationServiceTests
             {
                 ApplyImpl = _ =>
                 {
-                    ExecutionScope.RecordStep("Test", "Test step", true,
-                        new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 0" });
+                    ExecutionScope.RecordStep(
+                        "Test",
+                        "Test step",
+                        true,
+                        new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 0" }
+                    );
                     ExecutionScope.RecordStep("Test", "Failed step", false, error: "fail");
                     return Task.FromResult(ApplyResult.False("apply failed"));
-                }
+                },
             };
 
             var revertPath = GetRevertFilePath(optimization.Id);
@@ -104,7 +112,7 @@ public class OptimizationServiceTests
         {
             var optimization = new FakeOptimization
             {
-                ApplyImpl = _ => Task.FromResult(ApplyResult.True())
+                ApplyImpl = _ => Task.FromResult(ApplyResult.True()),
             };
 
             var revertPath = GetRevertFilePath(optimization.Id);
@@ -126,10 +134,10 @@ public class OptimizationServiceTests
                             Data = new ShellRevertStep
                             {
                                 ShellType = ShellType.CMD,
-                                Command = "exit 0"
-                            }.ToData()
-                        }
-                    }
+                                Command = "exit 0",
+                            }.ToData(),
+                        },
+                    },
                 };
 
                 var json = JsonConvert.SerializeObject(payload, Formatting.Indented);
@@ -165,16 +173,21 @@ public class OptimizationServiceTests
                 Error = "fail",
                 RetryAction = () =>
                 {
-                    ExecutionScope.RecordStep("Shell", "retried step", true,
-                        new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 0" });
+                    ExecutionScope.RecordStep(
+                        "Shell",
+                        "retried step",
+                        true,
+                        new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 0" }
+                    );
                     return Task.FromResult(true);
-                }
+                },
             };
 
             var result = await OptimizationService.RetryFailedStepsWithResultsAsync(
                 [failedStep],
                 false,
-                NullLogger.Instance);
+                NullLogger.Instance
+            );
 
             Assert.Empty(result.FailedSteps);
             Assert.Single(result.RecoveredSteps);
@@ -192,18 +205,41 @@ public class OptimizationServiceTests
             {
                 ApplyImpl = _ =>
                 {
-                    ExecutionScope.RecordStep("Shell", "step 1", true,
-                        new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 11" });
-                    ExecutionScope.RecordStep("Shell", "step 2", false, null, "fail", () =>
-                    {
-                        ExecutionScope.RecordStep("Shell", "step 2 retry", true,
-                            new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 0" });
-                        return Task.FromResult(true);
-                    });
-                    ExecutionScope.RecordStep("Shell", "step 3", true,
-                        new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 33" });
+                    ExecutionScope.RecordStep(
+                        "Shell",
+                        "step 1",
+                        true,
+                        new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 11" }
+                    );
+                    ExecutionScope.RecordStep(
+                        "Shell",
+                        "step 2",
+                        false,
+                        null,
+                        "fail",
+                        () =>
+                        {
+                            ExecutionScope.RecordStep(
+                                "Shell",
+                                "step 2 retry",
+                                true,
+                                new ShellRevertStep
+                                {
+                                    ShellType = ShellType.CMD,
+                                    Command = "exit 0",
+                                }
+                            );
+                            return Task.FromResult(true);
+                        }
+                    );
+                    ExecutionScope.RecordStep(
+                        "Shell",
+                        "step 3",
+                        true,
+                        new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 33" }
+                    );
                     return Task.FromResult(ApplyResult.True());
-                }
+                },
             };
 
             var revertPath = GetRevertFilePath(optimization.Id);
@@ -225,8 +261,14 @@ public class OptimizationServiceTests
                 Assert.Equal("Shell", data.Steps[0].Type);
                 Assert.Equal("Unknown", data.Steps[1].Type);
                 Assert.Equal("Shell", data.Steps[2].Type);
-                Assert.Equal("exit 11", data.Steps[0].Data[nameof(ShellRevertStep.Command)]?.ToString());
-                Assert.Equal("exit 33", data.Steps[2].Data[nameof(ShellRevertStep.Command)]?.ToString());
+                Assert.Equal(
+                    "exit 11",
+                    data.Steps[0].Data[nameof(ShellRevertStep.Command)]?.ToString()
+                );
+                Assert.Equal(
+                    "exit 33",
+                    data.Steps[2].Data[nameof(ShellRevertStep.Command)]?.ToString()
+                );
             }
             finally
             {
@@ -245,18 +287,41 @@ public class OptimizationServiceTests
             {
                 ApplyImpl = _ =>
                 {
-                    ExecutionScope.RecordStep("Shell", "step 1", true,
-                        new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 11" });
-                    ExecutionScope.RecordStep("Shell", "step 2", false, null, "fail", () =>
-                    {
-                        ExecutionScope.RecordStep("Shell", "step 2 retry", true,
-                            new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 0" });
-                        return Task.FromResult(true);
-                    });
-                    ExecutionScope.RecordStep("Shell", "step 3", true,
-                        new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 33" });
+                    ExecutionScope.RecordStep(
+                        "Shell",
+                        "step 1",
+                        true,
+                        new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 11" }
+                    );
+                    ExecutionScope.RecordStep(
+                        "Shell",
+                        "step 2",
+                        false,
+                        null,
+                        "fail",
+                        () =>
+                        {
+                            ExecutionScope.RecordStep(
+                                "Shell",
+                                "step 2 retry",
+                                true,
+                                new ShellRevertStep
+                                {
+                                    ShellType = ShellType.CMD,
+                                    Command = "exit 0",
+                                }
+                            );
+                            return Task.FromResult(true);
+                        }
+                    );
+                    ExecutionScope.RecordStep(
+                        "Shell",
+                        "step 3",
+                        true,
+                        new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 33" }
+                    );
                     return Task.FromResult(ApplyResult.True());
-                }
+                },
             };
 
             var revertPath = GetRevertFilePath(optimization.Id);
@@ -275,26 +340,40 @@ public class OptimizationServiceTests
                 var retryResult = await OptimizationService.RetryFailedStepsWithResultsAsync(
                     applyResult.FailedSteps,
                     false,
-                    NullLogger.Instance);
+                    NullLogger.Instance
+                );
 
                 var retriedStep = Assert.Single(retryResult.RecoveredSteps);
                 Assert.Equal(2, retriedStep.Index);
                 Assert.NotNull(retriedStep.RevertStep);
 
-                var revertManager = new RevertManager(NullLogger<RevertManager>.Instance, NullLoggerFactory.Instance);
+                var revertManager = new RevertManager(
+                    NullLogger<RevertManager>.Instance,
+                    NullLoggerFactory.Instance
+                );
                 await revertManager.UpsertRevertStepAtIndexAsync(
                     optimization.Id,
                     optimization.OptimizationKey,
                     retriedStep.Index,
-                    retriedStep.RevertStep!);
+                    retriedStep.RevertStep!
+                );
 
                 var data = await RevertManager.GetRevertDataAsync(optimization.Id);
 
                 Assert.NotNull(data);
                 Assert.Equal(3, data!.Steps.Count);
-                Assert.Equal("exit 11", data.Steps[0].Data[nameof(ShellRevertStep.Command)]?.ToString());
-                Assert.Equal("exit 0", data.Steps[1].Data[nameof(ShellRevertStep.Command)]?.ToString());
-                Assert.Equal("exit 33", data.Steps[2].Data[nameof(ShellRevertStep.Command)]?.ToString());
+                Assert.Equal(
+                    "exit 11",
+                    data.Steps[0].Data[nameof(ShellRevertStep.Command)]?.ToString()
+                );
+                Assert.Equal(
+                    "exit 0",
+                    data.Steps[1].Data[nameof(ShellRevertStep.Command)]?.ToString()
+                );
+                Assert.Equal(
+                    "exit 33",
+                    data.Steps[2].Data[nameof(ShellRevertStep.Command)]?.ToString()
+                );
             }
             finally
             {
@@ -313,24 +392,62 @@ public class OptimizationServiceTests
             {
                 ApplyImpl = _ =>
                 {
-                    ExecutionScope.RecordStep("Shell", "step 1", true,
-                        new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 11" });
-                    ExecutionScope.RecordStep("Shell", "step 2", false, null, "fail 2", () =>
-                    {
-                        ExecutionScope.RecordStep("Shell", "step 2 retry", true,
-                            new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 22" });
-                        return Task.FromResult(true);
-                    });
-                    ExecutionScope.RecordStep("Shell", "step 3", true,
-                        new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 33" });
-                    ExecutionScope.RecordStep("Shell", "step 4", false, null, "fail 4", () =>
-                    {
-                        ExecutionScope.RecordStep("Shell", "step 4 retry", true,
-                            new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 44" });
-                        return Task.FromResult(true);
-                    });
+                    ExecutionScope.RecordStep(
+                        "Shell",
+                        "step 1",
+                        true,
+                        new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 11" }
+                    );
+                    ExecutionScope.RecordStep(
+                        "Shell",
+                        "step 2",
+                        false,
+                        null,
+                        "fail 2",
+                        () =>
+                        {
+                            ExecutionScope.RecordStep(
+                                "Shell",
+                                "step 2 retry",
+                                true,
+                                new ShellRevertStep
+                                {
+                                    ShellType = ShellType.CMD,
+                                    Command = "exit 22",
+                                }
+                            );
+                            return Task.FromResult(true);
+                        }
+                    );
+                    ExecutionScope.RecordStep(
+                        "Shell",
+                        "step 3",
+                        true,
+                        new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 33" }
+                    );
+                    ExecutionScope.RecordStep(
+                        "Shell",
+                        "step 4",
+                        false,
+                        null,
+                        "fail 4",
+                        () =>
+                        {
+                            ExecutionScope.RecordStep(
+                                "Shell",
+                                "step 4 retry",
+                                true,
+                                new ShellRevertStep
+                                {
+                                    ShellType = ShellType.CMD,
+                                    Command = "exit 44",
+                                }
+                            );
+                            return Task.FromResult(true);
+                        }
+                    );
                     return Task.FromResult(ApplyResult.True());
-                }
+                },
             };
 
             var revertPath = GetRevertFilePath(optimization.Id);
@@ -350,28 +467,35 @@ public class OptimizationServiceTests
                 var retryResult = await OptimizationService.RetryFailedStepsWithResultsAsync(
                     applyResult.FailedSteps,
                     false,
-                    NullLogger.Instance);
+                    NullLogger.Instance
+                );
 
                 Assert.Empty(retryResult.FailedSteps);
-                Assert.Equal([2, 4], retryResult.RecoveredSteps.Select(step => step.Index).ToArray());
+                Assert.Equal(
+                    [2, 4],
+                    retryResult.RecoveredSteps.Select(step => step.Index).ToArray()
+                );
 
-                var revertManager = new RevertManager(NullLogger<RevertManager>.Instance, NullLoggerFactory.Instance);
+                var revertManager = new RevertManager(
+                    NullLogger<RevertManager>.Instance,
+                    NullLoggerFactory.Instance
+                );
                 foreach (var recoveredStep in retryResult.RecoveredSteps)
                     await revertManager.UpsertRevertStepAtIndexAsync(
                         optimization.Id,
                         optimization.OptimizationKey,
                         recoveredStep.Index,
-                        recoveredStep.RevertStep!);
+                        recoveredStep.RevertStep!
+                    );
 
                 var data = await RevertManager.GetRevertDataAsync(optimization.Id);
 
                 Assert.NotNull(data);
                 Assert.Equal(4, data!.Steps.Count);
-                var commands = data.Steps
-                    .Select(step => step.Data[nameof(ShellRevertStep.Command)]!.ToString())
+                var commands = data
+                    .Steps.Select(step => step.Data[nameof(ShellRevertStep.Command)]!.ToString())
                     .ToArray();
-                Assert.Equal(["exit 11", "exit 22", "exit 33", "exit 44"],
-                    commands);
+                Assert.Equal(["exit 11", "exit 22", "exit 33", "exit 44"], commands);
             }
             finally
             {
@@ -393,13 +517,14 @@ public class OptimizationServiceTests
                 Description = "still failing step",
                 Success = false,
                 Error = "initial error",
-                RetryAction = () => throw new InvalidOperationException("retry exploded")
+                RetryAction = () => throw new InvalidOperationException("retry exploded"),
             };
 
             var result = await OptimizationService.RetryFailedStepsWithResultsAsync(
                 [failedStep],
                 false,
-                NullLogger.Instance);
+                NullLogger.Instance
+            );
 
             var stillFailedStep = Assert.Single(result.FailedSteps);
             Assert.Empty(result.RecoveredSteps);
@@ -410,14 +535,23 @@ public class OptimizationServiceTests
 
     private static OptimizationService CreateService()
     {
-        var revertManager = new RevertManager(NullLogger<RevertManager>.Instance, NullLoggerFactory.Instance);
+        var revertManager = new RevertManager(
+            NullLogger<RevertManager>.Instance,
+            NullLoggerFactory.Instance
+        );
         var loggerFactory = NullLoggerFactory.Instance;
         var systemInfoService = new SystemInfoService(NullLogger<SystemInfoService>.Instance);
         var streamService = new StreamService(NullLogger<StreamService>.Instance);
         var contentDialogService = new ContentDialogService();
         var logger = NullLogger<OptimizationService>.Instance;
-        return new OptimizationService(revertManager, loggerFactory, systemInfoService, streamService,
-            contentDialogService, logger);
+        return new OptimizationService(
+            revertManager,
+            loggerFactory,
+            systemInfoService,
+            streamService,
+            contentDialogService,
+            logger
+        );
     }
 
     private static string GetRevertFilePath(Guid id)
@@ -458,12 +592,10 @@ public class OptimizationServiceTests
         public string Prefix { get; } = "Test";
         public string ProgressPrefix { get; } = "Test";
 
-        public Func<(IProgress<ProcessingProgress> progress, OptimizationContext context), Task<ApplyResult>> ApplyImpl
-        {
-            get;
-            init;
-        } =
-            _ => Task.FromResult(ApplyResult.True());
+        public Func<
+            (IProgress<ProcessingProgress> progress, OptimizationContext context),
+            Task<ApplyResult>
+        > ApplyImpl { get; init; } = _ => Task.FromResult(ApplyResult.True());
 
         public Guid Id { get; } = Guid.NewGuid();
         public OptimizationRisk Risk { get; } = OptimizationRisk.Safe;
@@ -473,7 +605,10 @@ public class OptimizationServiceTests
         public string ShortDescription { get; } = "Test";
         public OptimizationState State { get; set; } = new();
 
-        public Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+        public Task<ApplyResult> ApplyAsync(
+            IProgress<ProcessingProgress> progress,
+            OptimizationContext context
+        )
         {
             return ApplyImpl((progress, context));
         }

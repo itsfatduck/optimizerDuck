@@ -26,14 +26,18 @@ public static class OptimizationPageRegistryExtensions
             var attr = categoryType.GetCustomAttribute<OptimizationCategoryAttribute>()!;
             var pageType = attr.PageType!;
 
-            services.AddSingleton(pageType, sp => CreateOptimizationPage(sp, categoryType, pageType));
+            services.AddSingleton(
+                pageType,
+                sp => CreateOptimizationPage(sp, categoryType, pageType)
+            );
         }
     }
 
     private static object CreateOptimizationPage(
         IServiceProvider serviceProvider,
         Type categoryType,
-        Type pageType)
+        Type pageType
+    )
     {
         var optimizationRegistry = serviceProvider.GetRequiredService<OptimizationRegistry>();
         var optimizationService = serviceProvider.GetRequiredService<OptimizationService>();

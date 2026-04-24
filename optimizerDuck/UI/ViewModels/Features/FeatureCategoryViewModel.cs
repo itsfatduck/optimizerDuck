@@ -14,13 +14,27 @@ public partial class FeatureCategoryViewModel : ViewModel
     private readonly List<FeatureViewModel> _allFeatures = [];
 
     private readonly IFeatureCategory? _currentCategory;
-    [ObservableProperty] private string _categoryDescription = string.Empty;
-    [ObservableProperty] private SymbolRegular _categoryIcon;
-    [ObservableProperty] private string _categoryName = string.Empty;
-    [ObservableProperty] private bool _isLoading = true;
-    [ObservableProperty] private string _searchText = string.Empty;
-    [ObservableProperty] private ObservableCollection<FeatureSection> _sections = [];
-    [ObservableProperty] private int _selectedSortByIndex;
+
+    [ObservableProperty]
+    private string _categoryDescription = string.Empty;
+
+    [ObservableProperty]
+    private SymbolRegular _categoryIcon;
+
+    [ObservableProperty]
+    private string _categoryName = string.Empty;
+
+    [ObservableProperty]
+    private bool _isLoading = true;
+
+    [ObservableProperty]
+    private string _searchText = string.Empty;
+
+    [ObservableProperty]
+    private ObservableCollection<FeatureSection> _sections = [];
+
+    [ObservableProperty]
+    private int _selectedSortByIndex;
 
     public FeatureCategoryViewModel(IFeatureCategory category, ILoggerFactory loggerFactory)
     {
@@ -34,7 +48,8 @@ public partial class FeatureCategoryViewModel : ViewModel
         foreach (var feature in _currentCategory.Features)
             _allFeatures.Add(new FeatureViewModel(feature, loggerFactory));
 
-        foreach (var feature in _allFeatures) _ = feature.LoadStateAsync();
+        foreach (var feature in _allFeatures)
+            _ = feature.LoadStateAsync();
 
         ApplyFilters();
         IsLoading = false;
@@ -57,7 +72,8 @@ public partial class FeatureCategoryViewModel : ViewModel
 
     private void ApplyFilters()
     {
-        if (_currentCategory == null) return;
+        if (_currentCategory == null)
+            return;
 
         var filtered = _allFeatures.AsEnumerable();
 
@@ -65,14 +81,15 @@ public partial class FeatureCategoryViewModel : ViewModel
         {
             var search = SearchText.ToLowerInvariant();
             filtered = filtered.Where(f =>
-                f.Name.Contains(search, StringComparison.InvariantCultureIgnoreCase) ||
-                f.Description.Contains(search, StringComparison.InvariantCultureIgnoreCase));
+                f.Name.Contains(search, StringComparison.InvariantCultureIgnoreCase)
+                || f.Description.Contains(search, StringComparison.InvariantCultureIgnoreCase)
+            );
         }
 
         var sortedFeatures = SelectedSortByIndex switch
         {
             1 => filtered.OrderByDescending(f => f.IsEnabled).ThenBy(f => f.Name).ToList(),
-            _ => filtered.OrderBy(f => f.Name).ToList()
+            _ => filtered.OrderBy(f => f.Name).ToList(),
         };
 
         var grouped = sortedFeatures
@@ -86,7 +103,7 @@ public partial class FeatureCategoryViewModel : ViewModel
             var section = new FeatureSection
             {
                 Name = group.Key,
-                Features = new ObservableCollection<FeatureViewModel>(group.ToList())
+                Features = new ObservableCollection<FeatureViewModel>(group.ToList()),
             };
             sections.Add(section);
         }

@@ -14,31 +14,40 @@ public class SizeToBrushConverter : IValueConverter
     private const long TenMB = 10L * 1024 * 1024;
     private const long HundredMB = 100L * 1024 * 1024;
 
-    private static readonly SolidColorBrush GreenBrush =
-        ThemeResource.Get<SolidColorBrush>("SystemFillColorSuccessBrush");
+    private static readonly SolidColorBrush GreenBrush = ThemeResource.Get<SolidColorBrush>(
+        "SystemFillColorSuccessBrush"
+    );
 
-    private static readonly SolidColorBrush OrangeBrush =
-        ThemeResource.Get<SolidColorBrush>("SystemFillColorCautionBrush");
+    private static readonly SolidColorBrush OrangeBrush = ThemeResource.Get<SolidColorBrush>(
+        "SystemFillColorCautionBrush"
+    );
 
-    private static readonly SolidColorBrush RedBrush =
-        ThemeResource.Get<SolidColorBrush>("SystemFillColorCriticalBrush");
+    private static readonly SolidColorBrush RedBrush = ThemeResource.Get<SolidColorBrush>(
+        "SystemFillColorCriticalBrush"
+    );
 
     private static readonly SolidColorBrush DefaultBrush = new(Color.FromArgb(0x0, 0x0, 0x0, 0x0));
 
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (value is not long bytes) return DefaultBrush;
+        if (value is not long bytes)
+            return DefaultBrush;
 
         return bytes switch
         {
             <= 0 => DefaultBrush,
             < TenMB => GreenBrush,
             < HundredMB => OrangeBrush,
-            _ => RedBrush
+            _ => RedBrush,
         };
     }
 
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture
+    )
     {
         throw new NotImplementedException();
     }

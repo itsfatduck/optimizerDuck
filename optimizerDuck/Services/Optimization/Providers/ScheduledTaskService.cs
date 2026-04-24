@@ -23,7 +23,11 @@ public static class ScheduledTaskService
         }
         catch (Exception ex)
         {
-            ExecutionScope.LogDebug("Failed to check task enabled state {Path}: {Error}", fullPath, ex.Message);
+            ExecutionScope.LogDebug(
+                "Failed to check task enabled state {Path}: {Error}",
+                fullPath,
+                ex.Message
+            );
             return false;
         }
     }
@@ -33,13 +37,18 @@ public static class ScheduledTaskService
     /// </summary>
     public static bool DisableTask(string fullPath)
     {
-        var description = string.Format(Translations.Service_ScheduledTask_Description_Disable, fullPath);
+        var description = string.Format(
+            Translations.Service_ScheduledTask_Description_Disable,
+            fullPath
+        );
         try
         {
             using var ts = new TaskService();
-            var task = ts.GetTask(fullPath) ??
-                       throw new InvalidOperationException(string.Format(Translations.ScheduledTasks_Error_TaskNotFound,
-                           fullPath));
+            var task =
+                ts.GetTask(fullPath)
+                ?? throw new InvalidOperationException(
+                    string.Format(Translations.ScheduledTasks_Error_TaskNotFound, fullPath)
+                );
 
             var wasEnabled = task.Enabled;
             task.Enabled = false;
@@ -50,7 +59,7 @@ public static class ScheduledTaskService
                 revertStep = new ScheduledTaskRevertStep
                 {
                     FullPath = fullPath,
-                    OriginalEnabled = true
+                    OriginalEnabled = true,
                 };
 
             ExecutionScope.LogInfo("Disabled task {Path}", fullPath);
@@ -59,7 +68,8 @@ public static class ScheduledTaskService
                 Translations.Service_ScheduledTask_Name,
                 description,
                 true,
-                revertStep);
+                revertStep
+            );
             return true;
         }
         catch (UnauthorizedAccessException)
@@ -72,7 +82,8 @@ public static class ScheduledTaskService
                 false,
                 null,
                 Translations.Service_Common_Error_AccessDenied,
-                () => System.Threading.Tasks.Task.FromResult(DisableTask(fullPath)));
+                () => System.Threading.Tasks.Task.FromResult(DisableTask(fullPath))
+            );
             return false;
         }
         catch (Exception ex)
@@ -85,7 +96,8 @@ public static class ScheduledTaskService
                 false,
                 null,
                 ex.Message,
-                () => System.Threading.Tasks.Task.FromResult(DisableTask(fullPath)));
+                () => System.Threading.Tasks.Task.FromResult(DisableTask(fullPath))
+            );
             return false;
         }
     }
@@ -95,13 +107,18 @@ public static class ScheduledTaskService
     /// </summary>
     public static bool EnableTask(string fullPath)
     {
-        var description = string.Format(Translations.Service_ScheduledTask_Description_Enable, fullPath);
+        var description = string.Format(
+            Translations.Service_ScheduledTask_Description_Enable,
+            fullPath
+        );
         try
         {
             using var ts = new TaskService();
-            var task = ts.GetTask(fullPath) ??
-                       throw new InvalidOperationException(string.Format(Translations.ScheduledTasks_Error_TaskNotFound,
-                           fullPath));
+            var task =
+                ts.GetTask(fullPath)
+                ?? throw new InvalidOperationException(
+                    string.Format(Translations.ScheduledTasks_Error_TaskNotFound, fullPath)
+                );
 
             var wasEnabled = task.Enabled;
             task.Enabled = true;
@@ -112,7 +129,7 @@ public static class ScheduledTaskService
                 revertStep = new ScheduledTaskRevertStep
                 {
                     FullPath = fullPath,
-                    OriginalEnabled = false
+                    OriginalEnabled = false,
                 };
 
             ExecutionScope.LogInfo("Enabled task {Path}", fullPath);
@@ -121,7 +138,8 @@ public static class ScheduledTaskService
                 Translations.Service_ScheduledTask_Name,
                 description,
                 true,
-                revertStep);
+                revertStep
+            );
             return true;
         }
         catch (UnauthorizedAccessException)
@@ -134,7 +152,8 @@ public static class ScheduledTaskService
                 false,
                 null,
                 Translations.Service_Common_Error_AccessDenied,
-                () => System.Threading.Tasks.Task.FromResult(EnableTask(fullPath)));
+                () => System.Threading.Tasks.Task.FromResult(EnableTask(fullPath))
+            );
             return false;
         }
         catch (Exception ex)
@@ -147,7 +166,8 @@ public static class ScheduledTaskService
                 false,
                 null,
                 ex.Message,
-                () => System.Threading.Tasks.Task.FromResult(EnableTask(fullPath)));
+                () => System.Threading.Tasks.Task.FromResult(EnableTask(fullPath))
+            );
             return false;
         }
     }
@@ -164,12 +184,15 @@ public static class ScheduledTaskService
             CollectTasks(ts.RootFolder, results);
 
             // Extract icons from task commands
-            Parallel.ForEach(results, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
+            Parallel.ForEach(
+                results,
+                new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
                 task =>
                 {
                     if (!string.IsNullOrWhiteSpace(task.ActionSummary))
                         task.LogoImage = StartupManagerService.ExtractIcon(task.ActionSummary);
-                });
+                }
+            );
         }
         catch (Exception ex)
         {
@@ -195,8 +218,11 @@ public static class ScheduledTaskService
         try
         {
             using var ts = new TaskService();
-            var task = ts.GetTask(fullPath) ?? throw new InvalidOperationException(
-                string.Format(Translations.ScheduledTasks_Error_TaskNotFound, fullPath));
+            var task =
+                ts.GetTask(fullPath)
+                ?? throw new InvalidOperationException(
+                    string.Format(Translations.ScheduledTasks_Error_TaskNotFound, fullPath)
+                );
             task.Run();
             ExecutionScope.LogInfo("Started task {Path}", fullPath);
         }
@@ -212,8 +238,11 @@ public static class ScheduledTaskService
         try
         {
             using var ts = new TaskService();
-            var task = ts.GetTask(fullPath) ?? throw new InvalidOperationException(
-                string.Format(Translations.ScheduledTasks_Error_TaskNotFound, fullPath));
+            var task =
+                ts.GetTask(fullPath)
+                ?? throw new InvalidOperationException(
+                    string.Format(Translations.ScheduledTasks_Error_TaskNotFound, fullPath)
+                );
             task.Stop();
             ExecutionScope.LogInfo("Stopped task {Path}", fullPath);
         }
@@ -237,7 +266,11 @@ public static class ScheduledTaskService
         }
         catch (Exception ex)
         {
-            ExecutionScope.LogDebug("Failed to get state for task {Path}: {Error}", fullPath, ex.Message);
+            ExecutionScope.LogDebug(
+                "Failed to get state for task {Path}: {Error}",
+                fullPath,
+                ex.Message
+            );
             return null;
         }
     }
@@ -247,8 +280,11 @@ public static class ScheduledTaskService
         try
         {
             using var ts = new TaskService();
-            var task = ts.GetTask(fullPath) ?? throw new InvalidOperationException(
-                string.Format(Translations.ScheduledTasks_Error_TaskNotFound, fullPath));
+            var task =
+                ts.GetTask(fullPath)
+                ?? throw new InvalidOperationException(
+                    string.Format(Translations.ScheduledTasks_Error_TaskNotFound, fullPath)
+                );
             var folderPath = task.Folder.Path;
             ts.GetFolder(folderPath).DeleteTask(task.Name);
             ExecutionScope.LogInfo("Deleted task {Path}", fullPath);
@@ -305,7 +341,9 @@ public static class ScheduledTaskService
             if (model.HasRegistrationTrigger)
                 td.Triggers.Add(new RegistrationTrigger());
             if (model.HasDailyTrigger)
-                td.Triggers.Add(new DailyTrigger { StartBoundary = DateTime.Today + model.DailyTriggerTime });
+                td.Triggers.Add(
+                    new DailyTrigger { StartBoundary = DateTime.Today + model.DailyTriggerTime }
+                );
 
             // Ensure folder exists
             var folder = ts.RootFolder;
@@ -320,11 +358,20 @@ public static class ScheduledTaskService
                 }
 
             folder.RegisterTaskDefinition(model.Name, td);
-            ExecutionScope.LogInfo("Registered task {Name} in folder {Folder}", model.Name, folderPath);
+            ExecutionScope.LogInfo(
+                "Registered task {Name} in folder {Folder}",
+                model.Name,
+                folderPath
+            );
         }
         catch (Exception ex)
         {
-            ExecutionScope.LogError(ex, "Failed to register task {Name} in {Folder}", model.Name, folderPath);
+            ExecutionScope.LogError(
+                ex,
+                "Failed to register task {Name} in {Folder}",
+                model.Name,
+                folderPath
+            );
             throw;
         }
     }
@@ -342,7 +389,11 @@ public static class ScheduledTaskService
                 }
                 catch (Exception ex)
                 {
-                    ExecutionScope.LogDebug("Failed to map task {Name}: {Error}", task.Name, ex.Message);
+                    ExecutionScope.LogDebug(
+                        "Failed to map task {Name}: {Error}",
+                        task.Name,
+                        ex.Message
+                    );
                 }
 
             foreach (var subFolder in folder.SubFolders)
@@ -350,7 +401,11 @@ public static class ScheduledTaskService
         }
         catch (Exception ex)
         {
-            ExecutionScope.LogDebug("Failed to enumerate folder {Path}: {Error}", folder.Path, ex.Message);
+            ExecutionScope.LogDebug(
+                "Failed to enumerate folder {Path}: {Error}",
+                folder.Path,
+                ex.Message
+            );
         }
     }
 
@@ -389,7 +444,7 @@ public static class ScheduledTaskService
             NextRunTime = task.NextRunTime == DateTime.MinValue ? null : task.NextRunTime,
             LastRunResult = task.LastTaskResult,
             HasLogonTrigger = hasLogon,
-            HasBootTrigger = hasBoot
+            HasBootTrigger = hasBoot,
         };
     }
 

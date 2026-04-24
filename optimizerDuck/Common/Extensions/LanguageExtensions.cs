@@ -10,34 +10,42 @@ namespace optimizerDuck.Common.Extensions;
 /// </summary>
 public class LocExtension : MarkupExtension
 {
-    public LocExtension()
-    {
-    }
+    public LocExtension() { }
 
     public LocExtension(string key)
     {
         Key = key;
     }
 
-    public LocExtension(string key, BindingBase arg1) : this(key)
+    public LocExtension(string key, BindingBase arg1)
+        : this(key)
     {
         Args.Add(arg1);
     }
 
-    public LocExtension(string key, BindingBase arg1, BindingBase arg2) : this(key)
+    public LocExtension(string key, BindingBase arg1, BindingBase arg2)
+        : this(key)
     {
         Args.Add(arg1);
         Args.Add(arg2);
     }
 
-    public LocExtension(string key, BindingBase arg1, BindingBase arg2, BindingBase arg3) : this(key)
+    public LocExtension(string key, BindingBase arg1, BindingBase arg2, BindingBase arg3)
+        : this(key)
     {
         Args.Add(arg1);
         Args.Add(arg2);
         Args.Add(arg3);
     }
 
-    public LocExtension(string key, BindingBase arg1, BindingBase arg2, BindingBase arg3, BindingBase arg4) : this(key)
+    public LocExtension(
+        string key,
+        BindingBase arg1,
+        BindingBase arg2,
+        BindingBase arg3,
+        BindingBase arg4
+    )
+        : this(key)
     {
         Args.Add(arg1);
         Args.Add(arg2);
@@ -45,8 +53,15 @@ public class LocExtension : MarkupExtension
         Args.Add(arg4);
     }
 
-    public LocExtension(string key, BindingBase arg1, BindingBase arg2, BindingBase arg3, BindingBase arg4,
-        BindingBase arg5) : this(key)
+    public LocExtension(
+        string key,
+        BindingBase arg1,
+        BindingBase arg2,
+        BindingBase arg3,
+        BindingBase arg4,
+        BindingBase arg5
+    )
+        : this(key)
     {
         Args.Add(arg1);
         Args.Add(arg2);
@@ -65,21 +80,17 @@ public class LocExtension : MarkupExtension
             return new Binding($"[{Key}]")
             {
                 Source = Loc.Instance,
-                Mode = BindingMode.OneWay
+                Mode = BindingMode.OneWay,
             }.ProvideValue(serviceProvider);
 
         var mb = new MultiBinding
         {
             Converter = new LocDynamicConverter(),
-            ConverterParameter = Key
+            ConverterParameter = Key,
         };
 
         // [0] Loc.Instance (required OneWay)
-        mb.Bindings.Add(new Binding
-        {
-            Source = Loc.Instance,
-            Mode = BindingMode.OneWay
-        });
+        mb.Bindings.Add(new Binding { Source = Loc.Instance, Mode = BindingMode.OneWay });
 
         foreach (var arg in Args)
         {
@@ -112,7 +123,12 @@ public class LocDynamicConverter : IMultiValueConverter
         return string.Format(culture, format, args);
     }
 
-    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+    public object[] ConvertBack(
+        object value,
+        Type[] targetTypes,
+        object parameter,
+        CultureInfo culture
+    )
     {
         throw new NotSupportedException();
     }

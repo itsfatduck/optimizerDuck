@@ -19,19 +19,26 @@ public partial class ScheduledTasksViewModel : ViewModel
     private readonly IContentDialogService _contentDialogService;
     private readonly ILogger<ScheduledTasksViewModel> _logger;
     private readonly ISnackbarService _snackbarService;
-    [ObservableProperty] private bool _hideMicrosoftTasks = true;
+
+    [ObservableProperty]
+    private bool _hideMicrosoftTasks = true;
     private bool _isInitialized;
 
-    [ObservableProperty] [NotifyPropertyChangedFor(nameof(IsNotLoading))]
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsNotLoading))]
     private bool _isLoading;
 
-    [ObservableProperty] private string _searchText = string.Empty;
-    [ObservableProperty] private int _sortByIndex;
+    [ObservableProperty]
+    private string _searchText = string.Empty;
+
+    [ObservableProperty]
+    private int _sortByIndex;
 
     public ScheduledTasksViewModel(
         IContentDialogService contentDialogService,
         ISnackbarService snackbarService,
-        ILogger<ScheduledTasksViewModel> logger)
+        ILogger<ScheduledTasksViewModel> logger
+    )
     {
         _contentDialogService = contentDialogService;
         _snackbarService = snackbarService;
@@ -74,7 +81,8 @@ public partial class ScheduledTasksViewModel : ViewModel
     [RelayCommand]
     private async Task ToggleTask(ScheduledTaskModel? task)
     {
-        if (task == null) return;
+        if (task == null)
+            return;
         try
         {
             await Task.Run(() =>
@@ -82,12 +90,20 @@ public partial class ScheduledTasksViewModel : ViewModel
                 if (task.IsEnabled)
                 {
                     ScheduledTaskService.EnableTask(task.FullPath);
-                    _logger.LogInformation("Enabled task {Name} ({Path})", task.Name, task.FullPath);
+                    _logger.LogInformation(
+                        "Enabled task {Name} ({Path})",
+                        task.Name,
+                        task.FullPath
+                    );
                 }
                 else
                 {
                     ScheduledTaskService.DisableTask(task.FullPath);
-                    _logger.LogInformation("Disabled task {Name} ({Path})", task.Name, task.FullPath);
+                    _logger.LogInformation(
+                        "Disabled task {Name} ({Path})",
+                        task.Name,
+                        task.FullPath
+                    );
                 }
             });
 
@@ -98,7 +114,8 @@ public partial class ScheduledTasksViewModel : ViewModel
                 string.Format(Translations.ScheduledTasks_Snackbar_Toggle_Message, task.Name),
                 ControlAppearance.Success,
                 new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
-                TimeSpan.FromSeconds(3));
+                TimeSpan.FromSeconds(3)
+            );
 
             await RefreshTaskState(task);
         }
@@ -116,14 +133,16 @@ public partial class ScheduledTasksViewModel : ViewModel
                 ex.Message,
                 ControlAppearance.Danger,
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                TimeSpan.FromSeconds(5));
+                TimeSpan.FromSeconds(5)
+            );
         }
     }
 
     [RelayCommand]
     private async Task RunTask(ScheduledTaskModel? task)
     {
-        if (task == null) return;
+        if (task == null)
+            return;
         try
         {
             await Task.Run(() => ScheduledTaskService.RunTask(task.FullPath));
@@ -134,7 +153,8 @@ public partial class ScheduledTasksViewModel : ViewModel
                 string.Format(Translations.ScheduledTasks_Snackbar_Run_Message, task.Name),
                 ControlAppearance.Success,
                 new SymbolIcon { Symbol = SymbolRegular.Play24, Filled = true },
-                TimeSpan.FromSeconds(3));
+                TimeSpan.FromSeconds(3)
+            );
 
             await RefreshTaskState(task);
         }
@@ -147,14 +167,16 @@ public partial class ScheduledTasksViewModel : ViewModel
                 ex.Message,
                 ControlAppearance.Danger,
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                TimeSpan.FromSeconds(5));
+                TimeSpan.FromSeconds(5)
+            );
         }
     }
 
     [RelayCommand]
     private async Task StopTask(ScheduledTaskModel? task)
     {
-        if (task == null) return;
+        if (task == null)
+            return;
         try
         {
             await Task.Run(() => ScheduledTaskService.StopTask(task.FullPath));
@@ -165,7 +187,8 @@ public partial class ScheduledTasksViewModel : ViewModel
                 string.Format(Translations.ScheduledTasks_Snackbar_Stop_Message, task.Name),
                 ControlAppearance.Success,
                 new SymbolIcon { Symbol = SymbolRegular.Stop24, Filled = true },
-                TimeSpan.FromSeconds(3));
+                TimeSpan.FromSeconds(3)
+            );
 
             await RefreshTaskState(task);
         }
@@ -178,25 +201,28 @@ public partial class ScheduledTasksViewModel : ViewModel
                 ex.Message,
                 ControlAppearance.Danger,
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                TimeSpan.FromSeconds(5));
+                TimeSpan.FromSeconds(5)
+            );
         }
     }
 
     [RelayCommand]
     private async Task DeleteTask(ScheduledTaskModel? task)
     {
-        if (task == null) return;
+        if (task == null)
+            return;
 
         var dialog = new ContentDialog
         {
             Title = Translations.ScheduledTasks_Dialog_DeleteTitle,
             Content = string.Format(Translations.ScheduledTasks_Dialog_DeleteMessage, task.Name),
             PrimaryButtonText = Translations.Common_Delete,
-            CloseButtonText = Translations.Common_Cancel
+            CloseButtonText = Translations.Common_Cancel,
         };
 
         var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
-        if (result != ContentDialogResult.Primary) return;
+        if (result != ContentDialogResult.Primary)
+            return;
 
         try
         {
@@ -210,7 +236,8 @@ public partial class ScheduledTasksViewModel : ViewModel
                 string.Format(Translations.ScheduledTasks_Snackbar_Delete_Message, task.Name),
                 ControlAppearance.Success,
                 new SymbolIcon { Symbol = SymbolRegular.Delete24, Filled = true },
-                TimeSpan.FromSeconds(3));
+                TimeSpan.FromSeconds(3)
+            );
         }
         catch (Exception ex)
         {
@@ -221,21 +248,23 @@ public partial class ScheduledTasksViewModel : ViewModel
                 ex.Message,
                 ControlAppearance.Danger,
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                TimeSpan.FromSeconds(5));
+                TimeSpan.FromSeconds(5)
+            );
         }
     }
 
     [RelayCommand]
     private async Task ViewDetails(ScheduledTaskModel? task)
     {
-        if (task == null) return;
+        if (task == null)
+            return;
 
         var dialogContent = new ScheduledTaskDetailsDialog { TaskModel = task };
         var dialog = new ContentDialog
         {
             Title = task.Name,
             Content = dialogContent,
-            CloseButtonText = Translations.Button_Ok
+            CloseButtonText = Translations.Button_Ok,
         };
 
         await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
@@ -302,7 +331,8 @@ public partial class ScheduledTasksViewModel : ViewModel
     private void ApplyFilter()
     {
         // Unsubscribe
-        foreach (var task in Tasks) task.PropertyChanged -= Task_PropertyChanged;
+        foreach (var task in Tasks)
+            task.PropertyChanged -= Task_PropertyChanged;
         Tasks.Clear();
 
         var search = SearchText.Trim();
@@ -314,7 +344,7 @@ public partial class ScheduledTasksViewModel : ViewModel
             1 => _allTasks.OrderBy(t => !t.IsEnabled).ThenBy(t => t.Name),
             2 => _allTasks.OrderBy(t => t.Path).ThenBy(t => t.Name),
             3 => _allTasks.OrderBy(t => t.State).ThenBy(t => t.Name),
-            _ => _allTasks.OrderBy(t => t.Name)
+            _ => _allTasks.OrderBy(t => t.Name),
         };
 
         foreach (var task in sorted)
@@ -322,11 +352,15 @@ public partial class ScheduledTasksViewModel : ViewModel
             if (HideMicrosoftTasks && task.IsMicrosoftTask)
                 continue;
 
-            if (hasSearch &&
-                !task.Name.Contains(search, StringComparison.OrdinalIgnoreCase) &&
-                !(task.Description?.Contains(search, StringComparison.OrdinalIgnoreCase) ?? false) &&
-                !task.FullPath.Contains(search, StringComparison.OrdinalIgnoreCase) &&
-                !task.ActionSummary.Contains(search, StringComparison.OrdinalIgnoreCase))
+            if (
+                hasSearch
+                && !task.Name.Contains(search, StringComparison.OrdinalIgnoreCase)
+                && !(
+                    task.Description?.Contains(search, StringComparison.OrdinalIgnoreCase) ?? false
+                )
+                && !task.FullPath.Contains(search, StringComparison.OrdinalIgnoreCase)
+                && !task.ActionSummary.Contains(search, StringComparison.OrdinalIgnoreCase)
+            )
                 continue;
 
             task.PropertyChanged -= Task_PropertyChanged;
@@ -339,7 +373,10 @@ public partial class ScheduledTasksViewModel : ViewModel
 
     private async void Task_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(ScheduledTaskModel.IsEnabled) && sender is ScheduledTaskModel task)
+        if (
+            e.PropertyName == nameof(ScheduledTaskModel.IsEnabled)
+            && sender is ScheduledTaskModel task
+        )
             await ToggleTask(task);
     }
 }

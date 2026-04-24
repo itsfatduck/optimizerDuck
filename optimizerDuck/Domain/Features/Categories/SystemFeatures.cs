@@ -3,8 +3,8 @@ using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Features.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
-using optimizerDuck.Services.Managers;
 using optimizerDuck.Domain.UI;
+using optimizerDuck.Services.Managers;
 using optimizerDuck.UI.Pages.Features;
 using Wpf.Ui.Controls;
 
@@ -15,7 +15,7 @@ public class SystemFeatures : IFeatureCategory
 {
     private enum Sections
     {
-        Input
+        Input,
     }
 
     public string Name => Loc.Instance[$"Features.{nameof(SystemFeatures)}.Name"];
@@ -28,23 +28,23 @@ public class SystemFeatures : IFeatureCategory
     public class EnableNumLockOnBoot : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
-        [
-            new()
-            {
-                Path = @"HKU\.DEFAULT\Control Panel\Keyboard",
-                Name = "InitialKeyboardIndicators",
-                OnValue = "2",
-                OffValue = "0",
-                DefaultValue = "0"
-            },
-            new()
-            {
-                Path = @"HKCU\\Control Panel\\Keyboard",
-                Name = "InitialKeyboardIndicators",
-                OnValue = "2",
-                OffValue = "0",
-                DefaultValue = "0"
-            }
-        ];
+            [
+                new()
+                {
+                    Path = @"HKU\.DEFAULT\Control Panel\Keyboard",
+                    Name = "InitialKeyboardIndicators",
+                    OnValue = "2",
+                    OffValue = "0",
+                    DefaultValue = "0",
+                },
+                new()
+                {
+                    Path = @"HKCU\\Control Panel\\Keyboard",
+                    Name = "InitialKeyboardIndicators",
+                    OnValue = "2",
+                    OffValue = "0",
+                    DefaultValue = "0",
+                },
+            ];
     }
 }

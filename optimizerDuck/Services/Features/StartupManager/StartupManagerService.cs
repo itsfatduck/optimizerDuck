@@ -22,14 +22,30 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         await Task.Run(() =>
         {
             // 1. Registry
-            ScanRegistryKey(Registry.CurrentUser, @"Software\Microsoft\Windows\CurrentVersion\Run",
-                StartupAppLocation.RegistryHKCURun, apps);
-            ScanRegistryKey(Registry.LocalMachine, @"Software\Microsoft\Windows\CurrentVersion\Run",
-                StartupAppLocation.RegistryHKLMRun, apps);
-            ScanRegistryKey(Registry.CurrentUser, @"Software\Microsoft\Windows\CurrentVersion\RunOnce",
-                StartupAppLocation.RegistryHKCURunOnce, apps);
-            ScanRegistryKey(Registry.LocalMachine, @"Software\Microsoft\Windows\CurrentVersion\RunOnce",
-                StartupAppLocation.RegistryHKLMRunOnce, apps);
+            ScanRegistryKey(
+                Registry.CurrentUser,
+                @"Software\Microsoft\Windows\CurrentVersion\Run",
+                StartupAppLocation.RegistryHKCURun,
+                apps
+            );
+            ScanRegistryKey(
+                Registry.LocalMachine,
+                @"Software\Microsoft\Windows\CurrentVersion\Run",
+                StartupAppLocation.RegistryHKLMRun,
+                apps
+            );
+            ScanRegistryKey(
+                Registry.CurrentUser,
+                @"Software\Microsoft\Windows\CurrentVersion\RunOnce",
+                StartupAppLocation.RegistryHKCURunOnce,
+                apps
+            );
+            ScanRegistryKey(
+                Registry.LocalMachine,
+                @"Software\Microsoft\Windows\CurrentVersion\RunOnce",
+                StartupAppLocation.RegistryHKLMRunOnce,
+                apps
+            );
 
             // 2. Startup Folders
             var userStartup = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
@@ -39,35 +55,50 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
             ScanDirectory(commonStartup, StartupAppLocation.CommonStartupFolder, apps);
 
             // Parallel fetch expensive info (Icons, File version info)
-            Parallel.ForEach(apps, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, app =>
-            {
-                var appInfo = GetAppInfo(app.Command);
-                var publisher = !string.IsNullOrWhiteSpace(appInfo.Publisher) ? appInfo.Publisher : appInfo.Description;
-                if (string.IsNullOrWhiteSpace(publisher))
-                    publisher = app.Location is StartupAppLocation.UserStartupFolder
-                        or StartupAppLocation.CommonStartupFolder
-                        ? "Folder Shortcut"
-                        : "Registry";
+            Parallel.ForEach(
+                apps,
+                new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
+                app =>
+                {
+                    var appInfo = GetAppInfo(app.Command);
+                    var publisher = !string.IsNullOrWhiteSpace(appInfo.Publisher)
+                        ? appInfo.Publisher
+                        : appInfo.Description;
+                    if (string.IsNullOrWhiteSpace(publisher))
+                        publisher = app.Location
+                            is StartupAppLocation.UserStartupFolder
+                                or StartupAppLocation.CommonStartupFolder
+                            ? "Folder Shortcut"
+                            : "Registry";
 
-                app.Publisher = publisher;
-                app.FilePath = appInfo.FilePath;
-                app.LogoImage = ExtractIcon(app.Command);
-            });
+                    app.Publisher = publisher;
+                    app.FilePath = appInfo.FilePath;
+                    app.LogoImage = ExtractIcon(app.Command);
+                }
+            );
         });
 
         return apps.OrderBy(a => a.Name).ToList();
     }
 
-    private void ScanRegistryKey(RegistryKey rootKey, string subKeyPath, StartupAppLocation location,
-        List<StartupApp> apps)
+    private void ScanRegistryKey(
+        RegistryKey rootKey,
+        string subKeyPath,
+        StartupAppLocation location,
+        List<StartupApp> apps
+    )
     {
         try
         {
             using var key = rootKey.OpenSubKey(subKeyPath);
-            if (key == null) return;
+            if (key == null)
+                return;
 
             // Determine the StartupApproved path based on Run vs RunOnce
-            var approvedSubKeyPath = subKeyPath.Contains("RunOnce", StringComparison.OrdinalIgnoreCase)
+            var approvedSubKeyPath = subKeyPath.Contains(
+                "RunOnce",
+                StringComparison.OrdinalIgnoreCase
+            )
                 ? @"Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\RunOnce"
                 : @"Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run";
 
@@ -78,15 +109,17 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                 var command = key.GetValue(valueName)?.ToString() ?? string.Empty;
                 var isEnabled = IsStartupApproved(approvedKey, valueName);
 
-                apps.Add(new StartupApp
-                {
-                    Name = valueName,
-                    Command = command,
-                    Location = location,
-                    PathOrKey = $@"{rootKey.Name}\{subKeyPath}",
-                    OriginalValueNameOrFileName = valueName,
-                    IsEnabled = isEnabled
-                });
+                apps.Add(
+                    new StartupApp
+                    {
+                        Name = valueName,
+                        Command = command,
+                        Location = location,
+                        PathOrKey = $@"{rootKey.Name}\{subKeyPath}",
+                        OriginalValueNameOrFileName = valueName,
+                        IsEnabled = isEnabled,
+                    }
+                );
             }
         }
         catch (Exception ex)
@@ -102,7 +135,8 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
     /// </summary>
     private static bool IsStartupApproved(RegistryKey? approvedKey, string valueName)
     {
-        if (approvedKey == null) return true;
+        if (approvedKey == null)
+            return true;
 
         try
         {
@@ -120,14 +154,16 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
 
     private void ScanDirectory(string dirPath, StartupAppLocation location, List<StartupApp> apps)
     {
-        if (string.IsNullOrWhiteSpace(dirPath) || !Directory.Exists(dirPath)) return;
+        if (string.IsNullOrWhiteSpace(dirPath) || !Directory.Exists(dirPath))
+            return;
 
         try
         {
             // Determine registry root key based on folder location
-            var rootKey = location == StartupAppLocation.CommonStartupFolder
-                ? Registry.LocalMachine
-                : Registry.CurrentUser;
+            var rootKey =
+                location == StartupAppLocation.CommonStartupFolder
+                    ? Registry.LocalMachine
+                    : Registry.CurrentUser;
 
             const string approvedSubKeyPath =
                 @"Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\StartupFolder";
@@ -138,20 +174,23 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                 var fileName = Path.GetFileName(file);
 
                 // Hide pure .ini files like desktop.ini
-                if (fileName.Equals("desktop.ini", StringComparison.OrdinalIgnoreCase)) continue;
+                if (fileName.Equals("desktop.ini", StringComparison.OrdinalIgnoreCase))
+                    continue;
 
                 var isEnabled = IsStartupApproved(approvedKey, fileName);
                 var name = Path.GetFileNameWithoutExtension(fileName);
 
-                apps.Add(new StartupApp
-                {
-                    Name = string.IsNullOrWhiteSpace(name) ? fileName : name,
-                    Command = file,
-                    Location = location,
-                    PathOrKey = dirPath,
-                    OriginalValueNameOrFileName = fileName,
-                    IsEnabled = isEnabled
-                });
+                apps.Add(
+                    new StartupApp
+                    {
+                        Name = string.IsNullOrWhiteSpace(name) ? fileName : name,
+                        Command = file,
+                        Location = location,
+                        PathOrKey = dirPath,
+                        OriginalValueNameOrFileName = fileName,
+                        IsEnabled = isEnabled,
+                    }
+                );
             }
         }
         catch (Exception ex)
@@ -166,8 +205,13 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         {
             try
             {
-                if (app.Location is StartupAppLocation.RegistryHKCURun or StartupAppLocation.RegistryHKLMRun
-                    or StartupAppLocation.RegistryHKCURunOnce or StartupAppLocation.RegistryHKLMRunOnce)
+                if (
+                    app.Location
+                    is StartupAppLocation.RegistryHKCURun
+                        or StartupAppLocation.RegistryHKLMRun
+                        or StartupAppLocation.RegistryHKCURunOnce
+                        or StartupAppLocation.RegistryHKLMRunOnce
+                )
                     ToggleRegistryStartupApp(app, enable);
                 else // Folders
                     ToggleFolderStartupApp(app, enable);
@@ -185,26 +229,31 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
     {
         // Parse RootKey and SubKey from app.PathOrKey
         var firstSlash = app.PathOrKey.IndexOf('\\');
-        if (firstSlash < 0) return;
+        if (firstSlash < 0)
+            return;
 
         var rootKeyStr = app.PathOrKey[..firstSlash];
         var rootKey = rootKeyStr switch
         {
             "HKEY_CURRENT_USER" => Registry.CurrentUser,
             "HKEY_LOCAL_MACHINE" => Registry.LocalMachine,
-            _ => null
+            _ => null,
         };
-        if (rootKey == null) return;
+        if (rootKey == null)
+            return;
 
         // Write enable/disable to StartupApproved\Run
         var isRunOnce =
-            app.Location is StartupAppLocation.RegistryHKCURunOnce or StartupAppLocation.RegistryHKLMRunOnce;
+            app.Location
+            is StartupAppLocation.RegistryHKCURunOnce
+                or StartupAppLocation.RegistryHKLMRunOnce;
         var approvedSubKeyPath = isRunOnce
             ? @"Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\RunOnce"
             : @"Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run";
 
-        using var approvedKey = rootKey.OpenSubKey(approvedSubKeyPath, true)
-                                ?? rootKey.CreateSubKey(approvedSubKeyPath, true);
+        using var approvedKey =
+            rootKey.OpenSubKey(approvedSubKeyPath, true)
+            ?? rootKey.CreateSubKey(approvedSubKeyPath, true);
 
         // Binary format: 12 bytes. First 4 bytes = status flag, rest = timestamp (zeros for manual toggle)
         var data = new byte[12];
@@ -214,14 +263,16 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
 
     private static void ToggleFolderStartupApp(StartupApp app, bool enable)
     {
-        var rootKey = app.Location == StartupAppLocation.CommonStartupFolder
-            ? Registry.LocalMachine
-            : Registry.CurrentUser;
+        var rootKey =
+            app.Location == StartupAppLocation.CommonStartupFolder
+                ? Registry.LocalMachine
+                : Registry.CurrentUser;
 
         const string approvedSubKeyPath =
             @"Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\StartupFolder";
-        using var approvedKey = rootKey.OpenSubKey(approvedSubKeyPath, true)
-                                ?? rootKey.CreateSubKey(approvedSubKeyPath, true);
+        using var approvedKey =
+            rootKey.OpenSubKey(approvedSubKeyPath, true)
+            ?? rootKey.CreateSubKey(approvedSubKeyPath, true);
 
         var data = new byte[12];
         data[0] = enable ? (byte)0x02 : (byte)0x03;
@@ -235,24 +286,30 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
             try
             {
                 var models = ScheduledTaskService.GetStartupTasks();
-                var tasks = models.Select(m => new StartupTask
-                {
-                    TaskName = m.Name,
-                    TaskPath = m.Path,
-                    Description = m.Description,
-                    TriggerSummary = m.TriggerSummary,
-                    TriggerTypes = [.. m.TriggerTypes],
-                    ActionSummary = m.ActionSummary,
-                    IsEnabled = m.IsEnabled
-                }).OrderBy(t => t.TaskName).ToList();
+                var tasks = models
+                    .Select(m => new StartupTask
+                    {
+                        TaskName = m.Name,
+                        TaskPath = m.Path,
+                        Description = m.Description,
+                        TriggerSummary = m.TriggerSummary,
+                        TriggerTypes = [.. m.TriggerTypes],
+                        ActionSummary = m.ActionSummary,
+                        IsEnabled = m.IsEnabled,
+                    })
+                    .OrderBy(t => t.TaskName)
+                    .ToList();
 
                 // Extract icons from task commands
-                Parallel.ForEach(tasks, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
+                Parallel.ForEach(
+                    tasks,
+                    new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
                     task =>
                     {
                         if (!string.IsNullOrWhiteSpace(task.ActionSummary))
                             task.LogoImage = ExtractIcon(task.ActionSummary);
-                    });
+                    }
+                );
 
                 return tasks;
             }
@@ -299,7 +356,8 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
             // shortcut/command paths using them can be resolved to the actual executable for icon extraction.
             path = Environment.ExpandEnvironmentVariables(path);
             var exeIdx = path.IndexOf(".exe", StringComparison.OrdinalIgnoreCase);
-            if (exeIdx > 0) path = path[..(exeIdx + 4)].Trim('\"', ' ', '\'');
+            if (exeIdx > 0)
+                path = path[..(exeIdx + 4)].Trim('\"', ' ', '\'');
 
             if (!File.Exists(path))
             {
@@ -322,7 +380,8 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                 var imageSource = Imaging.CreateBitmapSourceFromHIcon(
                     icon.Handle,
                     Int32Rect.Empty,
-                    BitmapSizeOptions.FromEmptyOptions());
+                    BitmapSizeOptions.FromEmptyOptions()
+                );
                 imageSource.Freeze(); // Crucial for cross-thread access
                 return imageSource;
             }
@@ -360,7 +419,8 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         {
             var path = command.Trim('\"');
             var exeIdx = path.IndexOf(".exe", StringComparison.OrdinalIgnoreCase);
-            if (exeIdx > 0) path = path[..(exeIdx + 4)].Trim('\"', ' ', '\'');
+            if (exeIdx > 0)
+                path = path[..(exeIdx + 4)].Trim('\"', ' ', '\'');
 
             if (!File.Exists(path))
                 if (!path.Contains('\\') && !path.Contains('/'))

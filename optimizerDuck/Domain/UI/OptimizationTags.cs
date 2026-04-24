@@ -39,7 +39,7 @@ public enum OptimizationTags
 
     // Performance
     Performance = 1 << 14,
-    Latency = 1 << 15
+    Latency = 1 << 15,
 }
 
 /// <summary>
@@ -75,100 +75,100 @@ public static class OptimizationTagsToDisplay
                 OptimizationTags.Ram => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.Memory16,
-                    Display = Translations.Optimizer_UI_Tags_Ram
+                    Display = Translations.Optimizer_UI_Tags_Ram,
                 },
 
                 OptimizationTags.Disk => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.HardDrive20,
-                    Display = Translations.Optimizer_UI_Tags_Disk
+                    Display = Translations.Optimizer_UI_Tags_Disk,
                 },
 
                 OptimizationTags.Latency => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.Clock24,
-                    Display = Translations.Optimizer_UI_Tags_Latency
+                    Display = Translations.Optimizer_UI_Tags_Latency,
                 },
 
                 OptimizationTags.Visual => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.VideoClip24,
-                    Display = Translations.Optimizer_UI_Tags_Visual
+                    Display = Translations.Optimizer_UI_Tags_Visual,
                 },
 
                 OptimizationTags.Display => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.VideoClip24,
-                    Display = Translations.Optimizer_UI_Tags_Display
+                    Display = Translations.Optimizer_UI_Tags_Display,
                 },
 
                 OptimizationTags.Network => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.NetworkAdapter16,
-                    Display = Translations.Optimizer_UI_Tags_Network
+                    Display = Translations.Optimizer_UI_Tags_Network,
                 },
 
                 OptimizationTags.Performance => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.Gauge24,
-                    Display = Translations.Optimizer_UI_Tags_Performance
+                    Display = Translations.Optimizer_UI_Tags_Performance,
                 },
 
                 OptimizationTags.Privacy => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.LockOpen24,
-                    Display = Translations.Optimizer_UI_Tags_Privacy
+                    Display = Translations.Optimizer_UI_Tags_Privacy,
                 },
 
                 OptimizationTags.Audio => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.Headphones24,
-                    Display = Translations.Optimizer_UI_Tags_Audio
+                    Display = Translations.Optimizer_UI_Tags_Audio,
                 },
 
                 OptimizationTags.System => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.Desktop24,
-                    Display = Translations.Optimizer_UI_Tags_System
+                    Display = Translations.Optimizer_UI_Tags_System,
                 },
 
                 OptimizationTags.Security => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.LockClosed24,
-                    Display = Translations.Optimizer_UI_Tags_Security
+                    Display = Translations.Optimizer_UI_Tags_Security,
                 },
 
                 OptimizationTags.NetworkRequired => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.Wifi120,
-                    Display = Translations.Optimizer_UI_Tags_NetworkRequired
+                    Display = Translations.Optimizer_UI_Tags_NetworkRequired,
                 },
 
                 OptimizationTags.Nvidia => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.VideoClip24,
-                    Display = Translations.Optimizer_UI_Tags_Nvidia
+                    Display = Translations.Optimizer_UI_Tags_Nvidia,
                 },
 
                 OptimizationTags.Amd => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.VideoClip24,
-                    Display = Translations.Optimizer_UI_Tags_Amd
+                    Display = Translations.Optimizer_UI_Tags_Amd,
                 },
 
                 OptimizationTags.Intel => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.VideoClip24,
-                    Display = Translations.Optimizer_UI_Tags_Intel
+                    Display = Translations.Optimizer_UI_Tags_Intel,
                 },
 
                 OptimizationTags.Power => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.BatteryCharge24,
-                    Display = Translations.Optimizer_UI_Tags_Power
+                    Display = Translations.Optimizer_UI_Tags_Power,
                 },
 
-                _ => throw new ArgumentOutOfRangeException(nameof(tags))
+                _ => throw new ArgumentOutOfRangeException(nameof(tags)),
             };
         }
     }

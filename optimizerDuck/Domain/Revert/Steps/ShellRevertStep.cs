@@ -25,9 +25,8 @@ public class ShellRevertStep : IRevertStep
     public string Type => "Shell";
 
     /// <inheritdoc />
-    public string Description => string.Format(
-        Translations.Revert_Shell_Description_Run,
-        ShellType, Command);
+    public string Description =>
+        string.Format(Translations.Revert_Shell_Description_Run, ShellType, Command);
 
     /// <inheritdoc />
     public async Task<bool> ExecuteAsync()
@@ -40,15 +39,20 @@ public class ShellRevertStep : IRevertStep
                 ShellType.CMD => ShellService.CMD(Command),
                 _ => new ShellResult
                 {
-                    Command = Command, Stdout = "", Stderr = "Unknown shell type", ExitCode = 1,
-                    Duration = TimeSpan.Zero
-                }
+                    Command = Command,
+                    Stdout = "",
+                    Stderr = "Unknown shell type",
+                    ExitCode = 1,
+                    Duration = TimeSpan.Zero,
+                },
             };
 
             if (result.ExitCode != 0)
-                throw new Exception(!string.IsNullOrWhiteSpace(result.Stderr)
-                    ? result.Stderr
-                    : $"Command failed with exit code {result.ExitCode}");
+                throw new Exception(
+                    !string.IsNullOrWhiteSpace(result.Stderr)
+                        ? result.Stderr
+                        : $"Command failed with exit code {result.ExitCode}"
+                );
 
             return result.ExitCode == 0;
         });
@@ -60,7 +64,7 @@ public class ShellRevertStep : IRevertStep
         return new JObject
         {
             [nameof(ShellType)] = ShellType.ToString(),
-            [nameof(Command)] = Command
+            [nameof(Command)] = Command,
         };
     }
 
@@ -73,9 +77,8 @@ public class ShellRevertStep : IRevertStep
     {
         return new ShellRevertStep
         {
-            ShellType = Enum.Parse<ShellType>(
-                data[nameof(ShellType)]?.ToString() ?? "PowerShell"),
-            Command = data[nameof(Command)]?.ToString() ?? string.Empty
+            ShellType = Enum.Parse<ShellType>(data[nameof(ShellType)]?.ToString() ?? "PowerShell"),
+            Command = data[nameof(Command)]?.ToString() ?? string.Empty,
         };
     }
 }
@@ -89,5 +92,5 @@ public enum ShellType
     PowerShell,
 
     /// <summary>Command Prompt (cmd.exe).</summary>
-    CMD
+    CMD,
 }

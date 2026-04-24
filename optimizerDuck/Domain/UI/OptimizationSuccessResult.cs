@@ -12,5 +12,5 @@ public enum OptimizationSuccessResult
     PartialSuccess,
 
     /// <summary>The operation failed entirely.</summary>
-    Failed
+    Failed,
 }

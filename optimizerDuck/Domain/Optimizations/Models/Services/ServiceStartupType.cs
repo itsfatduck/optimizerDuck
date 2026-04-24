@@ -15,5 +15,5 @@ public enum ServiceStartupType
     Disabled,
 
     /// <summary>The service starts automatically after a short delay at system startup.</summary>
-    AutomaticDelayedStart
+    AutomaticDelayedStart,
 }

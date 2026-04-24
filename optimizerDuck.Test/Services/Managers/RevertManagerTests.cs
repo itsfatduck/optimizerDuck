@@ -38,7 +38,7 @@ public class RevertManagerTests
             OptimizationId = id,
             OptimizationName = "TestOptimization",
             AppliedAt = DateTime.UtcNow,
-            Steps = new List<RevertStepData>()
+            Steps = new List<RevertStepData>(),
         };
 
         try
@@ -70,7 +70,10 @@ public class RevertManagerTests
         {
             await File.WriteAllTextAsync(path, "{ invalid json }", cancellationToken);
 
-            var manager = new RevertManager(NullLogger<RevertManager>.Instance, NullLoggerFactory.Instance);
+            var manager = new RevertManager(
+                NullLogger<RevertManager>.Instance,
+                NullLoggerFactory.Instance
+            );
             var op = new MockOptimization(id);
             var result = await manager.RevertAsync(op);
 
@@ -104,8 +107,8 @@ public class RevertManagerTests
                     Data = new ShellRevertStep
                     {
                         ShellType = ShellType.CMD,
-                        Command = "exit 0"
-                    }.ToData()
+                        Command = "exit 0",
+                    }.ToData(),
                 },
                 new()
                 {
@@ -113,10 +116,10 @@ public class RevertManagerTests
                     Data = new ShellRevertStep
                     {
                         ShellType = ShellType.CMD,
-                        Command = "exit 1"
-                    }.ToData()
-                }
-            }
+                        Command = "exit 1",
+                    }.ToData(),
+                },
+            },
         };
 
         try
@@ -124,7 +127,10 @@ public class RevertManagerTests
             var json = JsonConvert.SerializeObject(payload, Formatting.Indented);
             await File.WriteAllTextAsync(path, json, cancellationToken);
 
-            var manager = new RevertManager(NullLogger<RevertManager>.Instance, NullLoggerFactory.Instance);
+            var manager = new RevertManager(
+                NullLogger<RevertManager>.Instance,
+                NullLoggerFactory.Instance
+            );
             var result = await manager.RevertAsync(new MockOptimization(id));
 
             Assert.False(result.Success);
@@ -160,10 +166,10 @@ public class RevertManagerTests
                     Data = new ShellRevertStep
                     {
                         ShellType = ShellType.CMD,
-                        Command = "exit 1"
-                    }.ToData()
-                }
-            }
+                        Command = "exit 1",
+                    }.ToData(),
+                },
+            },
         };
 
         try
@@ -171,7 +177,10 @@ public class RevertManagerTests
             var json = JsonConvert.SerializeObject(payload, Formatting.Indented);
             await File.WriteAllTextAsync(path, json, cancellationToken);
 
-            var manager = new RevertManager(NullLogger<RevertManager>.Instance, NullLoggerFactory.Instance);
+            var manager = new RevertManager(
+                NullLogger<RevertManager>.Instance,
+                NullLoggerFactory.Instance
+            );
             var result = await manager.RevertAsync(new MockOptimization(id));
 
             Assert.False(result.Success);
@@ -208,8 +217,8 @@ public class RevertManagerTests
                     Data = new ShellRevertStep
                     {
                         ShellType = ShellType.CMD,
-                        Command = "exit 0"
-                    }.ToData()
+                        Command = "exit 0",
+                    }.ToData(),
                 },
                 new()
                 {
@@ -217,10 +226,10 @@ public class RevertManagerTests
                     Data = new RetryableTestRevertStep
                     {
                         StepId = Guid.NewGuid().ToString("N"),
-                        RemainingFailures = 1
-                    }.ToData()
-                }
-            }
+                        RemainingFailures = 1,
+                    }.ToData(),
+                },
+            },
         };
 
         try
@@ -228,7 +237,10 @@ public class RevertManagerTests
             var json = JsonConvert.SerializeObject(payload, Formatting.Indented);
             await File.WriteAllTextAsync(path, json, cancellationToken);
 
-            var manager = new RevertManager(NullLogger<RevertManager>.Instance, NullLoggerFactory.Instance);
+            var manager = new RevertManager(
+                NullLogger<RevertManager>.Instance,
+                NullLoggerFactory.Instance
+            );
             var result = await manager.RevertAsync(new MockOptimization(id));
 
             Assert.False(result.Success);
@@ -256,7 +268,10 @@ public class MockOptimization(Guid id) : IOptimization
     public string ShortDescription => "Mock description";
     public OptimizationState State { get; set; } = new();
 
-    public Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+    public Task<ApplyResult> ApplyAsync(
+        IProgress<ProcessingProgress> progress,
+        OptimizationContext context
+    )
     {
         return Task.FromResult(ApplyResult.True());
     }
@@ -290,7 +305,7 @@ public class RetryableTestRevertStep : IRevertStep
         return new JObject
         {
             [nameof(StepId)] = StepId,
-            [nameof(RemainingFailures)] = RemainingFailures
+            [nameof(RemainingFailures)] = RemainingFailures,
         };
     }
 
@@ -299,7 +314,7 @@ public class RetryableTestRevertStep : IRevertStep
         return new RetryableTestRevertStep
         {
             StepId = data[nameof(StepId)]?.ToString() ?? Guid.NewGuid().ToString("N"),
-            RemainingFailures = data[nameof(RemainingFailures)]?.Value<int>() ?? 0
+            RemainingFailures = data[nameof(RemainingFailures)]?.Value<int>() ?? 0,
         };
     }
 }

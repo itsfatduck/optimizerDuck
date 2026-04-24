@@ -14,43 +14,44 @@ public abstract class BaseOptimization : IOptimization
     private OptimizationAttribute? _meta;
 
     private OptimizationAttribute Meta =>
-        _meta ??= GetType().GetCustomAttribute<OptimizationAttribute>()
-                  ?? throw new InvalidOperationException(
-                      $"{GetType().Name} is missing [Optimization] attribute");
+        _meta ??=
+            GetType().GetCustomAttribute<OptimizationAttribute>()
+            ?? throw new InvalidOperationException(
+                $"{GetType().Name} is missing [Optimization] attribute"
+            );
 
     public Type? OwnerType { get; set; }
 
     public string OwnerKey =>
         OwnerType?.Name
-        ?? throw new InvalidOperationException(
-            $"{GetType().Name} has no owner assigned");
+        ?? throw new InvalidOperationException($"{GetType().Name} has no owner assigned");
 
-    public RiskVisual RiskVisual => Risk switch
-    {
-        OptimizationRisk.Safe => new RiskVisual
+    public RiskVisual RiskVisual =>
+        Risk switch
         {
-            Display = Translations.Optimizer_UI_Risk_Safe,
-            Icon = SymbolRegular.ShieldCheckmark24
-        },
-        OptimizationRisk.Moderate => new RiskVisual
-        {
-            Display = Translations.Optimizer_UI_Risk_Moderate,
-            Icon = SymbolRegular.Warning24
-        },
-        OptimizationRisk.Risky => new RiskVisual
-        {
-            Display = Translations.Optimizer_UI_Risk_Risky,
-            Icon = SymbolRegular.ShieldError24
-        },
-        _ => new RiskVisual
-        {
-            Display = Translations.Optimizer_UI_Risk_Safe,
-            Icon = SymbolRegular.ShieldCheckmark24
-        }
-    };
+            OptimizationRisk.Safe => new RiskVisual
+            {
+                Display = Translations.Optimizer_UI_Risk_Safe,
+                Icon = SymbolRegular.ShieldCheckmark24,
+            },
+            OptimizationRisk.Moderate => new RiskVisual
+            {
+                Display = Translations.Optimizer_UI_Risk_Moderate,
+                Icon = SymbolRegular.Warning24,
+            },
+            OptimizationRisk.Risky => new RiskVisual
+            {
+                Display = Translations.Optimizer_UI_Risk_Risky,
+                Icon = SymbolRegular.ShieldError24,
+            },
+            _ => new RiskVisual
+            {
+                Display = Translations.Optimizer_UI_Risk_Safe,
+                Icon = SymbolRegular.ShieldCheckmark24,
+            },
+        };
 
-    public IEnumerable<OptimizationTagDisplay> TagDisplays =>
-        Meta.Tags.ToDisplays();
+    public IEnumerable<OptimizationTagDisplay> TagDisplays => Meta.Tags.ToDisplays();
 
     public string Prefix => Loc.Instance[$"Optimizer.{OwnerKey}.{OptimizationKey}"];
     public string ProgressPrefix => Loc.Instance[$"{Prefix}.Progress"];
@@ -66,7 +67,10 @@ public abstract class BaseOptimization : IOptimization
     public string Name => Loc.Instance[$"{Prefix}.Name"];
     public string ShortDescription => Loc.Instance[$"{Prefix}.ShortDescription"];
 
-    public abstract Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context);
+    public abstract Task<ApplyResult> ApplyAsync(
+        IProgress<ProcessingProgress> progress,
+        OptimizationContext context
+    );
 }
 
 /*

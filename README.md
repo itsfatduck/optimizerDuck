@@ -16,7 +16,7 @@
 [![.NET Latest](https://img.shields.io/badge/.NET_Runtime-Latest-ef99dd?style=flat-square)](https://dotnet.microsoft.com/en-us/download)
 [![Supported OS](https://img.shields.io/badge/Supported-Windows_10%2B_x64-0078d4?style=flat-square)](https://www.microsoft.com/en-us/software-download/)
 
-[Quick Start](#quick-start) • [Highlights](#highlights) • [Safety](#safety) • [Community](#community) • [License](#license)
+English | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md)
 
 <details>
 <summary>⭐ Star History</summary>

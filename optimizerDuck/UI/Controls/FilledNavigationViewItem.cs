@@ -12,13 +12,15 @@ public class FilledNavigationViewItem : NavigationViewItem
     {
         base.Activate(navigationView);
 
-        if (Icon is SymbolIcon symbolIcon) symbolIcon.Filled = true;
+        if (Icon is SymbolIcon symbolIcon)
+            symbolIcon.Filled = true;
     }
 
     public override void Deactivate(INavigationView navigationView)
     {
         base.Deactivate(navigationView);
 
-        if (Icon is SymbolIcon symbolIcon) symbolIcon.Filled = false;
+        if (Icon is SymbolIcon symbolIcon)
+            symbolIcon.Filled = false;
     }
 }

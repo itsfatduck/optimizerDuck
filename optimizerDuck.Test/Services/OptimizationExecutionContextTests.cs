@@ -125,7 +125,8 @@ public class ExecutionScopeTests
         using var scope = ExecutionScope.Begin(new MockOptimization(), logger);
 
         Assert.Throws<InvalidOperationException>(() =>
-            ExecutionScope.Begin(new MockOptimization(), logger));
+            ExecutionScope.Begin(new MockOptimization(), logger)
+        );
     }
 
     [Fact]
@@ -179,7 +180,10 @@ public class MockOptimization : IOptimization
     public string ShortDescription => "Mock description";
     public OptimizationState State { get; set; } = new();
 
-    public Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
+    public Task<ApplyResult> ApplyAsync(
+        IProgress<ProcessingProgress> progress,
+        OptimizationContext context
+    )
     {
         return Task.FromResult(ApplyResult.True());
     }

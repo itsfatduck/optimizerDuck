@@ -1,4 +1,8 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Globalization;
+using System.Windows.Media;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -8,10 +12,6 @@ using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services;
 using optimizerDuck.Services.Managers;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Globalization;
-using System.Windows.Media;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -25,15 +25,24 @@ public partial class SettingsViewModel(
     OptimizationRegistry optimizationRegistry,
     IContentDialogService contentDialogService,
     ISnackbarService snackbarService,
-    ILogger<SettingsViewModel> logger) : ViewModel
+    ILogger<SettingsViewModel> logger
+) : ViewModel
 {
-    [ObservableProperty] private ApplicationTheme _currentApplicationTheme = ApplicationTheme.Unknown;
+    [ObservableProperty]
+    private ApplicationTheme _currentApplicationTheme = ApplicationTheme.Unknown;
     private bool _isInitialized;
-    [ObservableProperty] private bool _removeProvisioned;
 
-    [ObservableProperty] private string _selectedCultureName = string.Empty;
-    [ObservableProperty] private int _shellTimeoutMs;
-    [ObservableProperty] private bool _showSnackbarNotificationAfterAppliedSuccessfully;
+    [ObservableProperty]
+    private bool _removeProvisioned;
+
+    [ObservableProperty]
+    private string _selectedCultureName = string.Empty;
+
+    [ObservableProperty]
+    private int _shellTimeoutMs;
+
+    [ObservableProperty]
+    private bool _showSnackbarNotificationAfterAppliedSuccessfully;
     public string Version { get; } = Shared.FileVersion;
 
     //Learn more links
@@ -48,7 +57,7 @@ public partial class SettingsViewModel(
     [
         new() { DisplayName = "English", Culture = new CultureInfo("en-US") },
         new() { DisplayName = "Tiếng Việt", Culture = new CultureInfo("vi-VN") },
-        new() { DisplayName = "正體中文", Culture = new CultureInfo("zh-TW") }
+        new() { DisplayName = "正體中文", Culture = new CultureInfo("zh-TW") },
     ];
 
     public override async Task OnNavigatedToAsync()
@@ -61,8 +70,10 @@ public partial class SettingsViewModel(
     {
         SelectedCultureName = appOptionsMonitor.CurrentValue.App.Language;
         ShellTimeoutMs = appOptionsMonitor.CurrentValue.Optimize.ShellTimeoutMs;
-        ShowSnackbarNotificationAfterAppliedSuccessfully =
-            appOptionsMonitor.CurrentValue.Optimize.ShowCompletionNotification;
+        ShowSnackbarNotificationAfterAppliedSuccessfully = appOptionsMonitor
+            .CurrentValue
+            .Optimize
+            .ShowCompletionNotification;
         RemoveProvisioned = appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned;
         CurrentApplicationTheme = ApplicationThemeManager.GetAppTheme();
 
@@ -75,7 +86,8 @@ public partial class SettingsViewModel(
     private void OnThemeChanged(ApplicationTheme currentApplicationTheme, Color systemAccent)
     {
         // Update the theme if it has been changed elsewhere than in the settings.
-        if (CurrentApplicationTheme != currentApplicationTheme) CurrentApplicationTheme = currentApplicationTheme;
+        if (CurrentApplicationTheme != currentApplicationTheme)
+            CurrentApplicationTheme = currentApplicationTheme;
     }
 
     #region Helpers
@@ -92,7 +104,7 @@ public partial class SettingsViewModel(
             CloseButtonText = Translations.Button_Cancel,
 
             DefaultButton = ContentDialogButton.Close,
-            MaxWidth = 500
+            MaxWidth = 500,
         };
         return await contentDialogService.ShowAsync(dialog, CancellationToken.None);
     }
@@ -107,11 +119,9 @@ public partial class SettingsViewModel(
         try
         {
             logger.LogInformation("Opening root directory: {Path}", Shared.RootDirectory);
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = Shared.RootDirectory,
-                UseShellExecute = true
-            });
+            Process.Start(
+                new ProcessStartInfo { FileName = Shared.RootDirectory, UseShellExecute = true }
+            );
         }
         catch (Exception ex)
         {
@@ -129,7 +139,9 @@ public partial class SettingsViewModel(
     [RelayCommand]
     private async Task ClearResources()
     {
-        var result = await ConfirmationDialogAsync(Translations.Settings_ClearResources_Description);
+        var result = await ConfirmationDialogAsync(
+            Translations.Settings_ClearResources_Description
+        );
         if (result == ContentDialogResult.Primary)
             OptimizationService.ClearResources(logger);
     }
@@ -137,13 +149,16 @@ public partial class SettingsViewModel(
     [RelayCommand]
     private async Task ClearAllRevertData()
     {
-        var result = await ConfirmationDialogAsync(Translations.Settings_ClearRevertData_Description);
+        var result = await ConfirmationDialogAsync(
+            Translations.Settings_ClearRevertData_Description
+        );
         if (result == ContentDialogResult.Primary)
         {
             RevertManager.ClearAllRevertData(logger);
             // Refresh optimizations
             await OptimizationService.UpdateOptimizationStateAsync(
-                optimizationRegistry.OptimizationCategories.SelectMany(c => c.Optimizations));
+                optimizationRegistry.OptimizationCategories.SelectMany(c => c.Optimizations)
+            );
         }
     }
 
@@ -152,12 +167,17 @@ public partial class SettingsViewModel(
     {
         try
         {
-            logger.LogInformation("Opening acknowledgements page: {Url}", Shared.AcknowledgementsURL);
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = Shared.AcknowledgementsURL,
-                UseShellExecute = true
-            });
+            logger.LogInformation(
+                "Opening acknowledgements page: {Url}",
+                Shared.AcknowledgementsURL
+            );
+            Process.Start(
+                new ProcessStartInfo
+                {
+                    FileName = Shared.AcknowledgementsURL,
+                    UseShellExecute = true,
+                }
+            );
         }
         catch (Exception ex)
         {
@@ -181,20 +201,24 @@ public partial class SettingsViewModel(
             {
                 case "Web":
                     logger.LogInformation("Opening page: {Url}", Shared.WebsiteURL);
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = Shared.WebsiteURL,
-                        UseShellExecute = true
-                    });
+                    Process.Start(
+                        new ProcessStartInfo
+                        {
+                            FileName = Shared.WebsiteURL,
+                            UseShellExecute = true,
+                        }
+                    );
                     break;
 
                 case "Help":
                     logger.LogInformation("Opening page: {Url}", Shared.CommunityURL);
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = Shared.CommunityURL,
-                        UseShellExecute = true
-                    });
+                    Process.Start(
+                        new ProcessStartInfo
+                        {
+                            FileName = Shared.CommunityURL,
+                            UseShellExecute = true,
+                        }
+                    );
                     break;
             }
         }
@@ -214,17 +238,23 @@ public partial class SettingsViewModel(
     [RelayCommand]
     private void ToggleRemoveProvisioned()
     {
-        if (!_isInitialized) return;
-        _ = configManager.SetAsync("bloatware:removeProvisioned",
-            (!appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned).ToString());
+        if (!_isInitialized)
+            return;
+        _ = configManager.SetAsync(
+            "bloatware:removeProvisioned",
+            (!appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned).ToString()
+        );
     }
 
     [RelayCommand]
     private void ToggleShowCompletionNotification()
     {
-        if (!_isInitialized) return;
-        _ = configManager.SetAsync("optimize:showCompletionNotification",
-            (!appOptionsMonitor.CurrentValue.Optimize.ShowCompletionNotification).ToString());
+        if (!_isInitialized)
+            return;
+        _ = configManager.SetAsync(
+            "optimize:showCompletionNotification",
+            (!appOptionsMonitor.CurrentValue.Optimize.ShowCompletionNotification).ToString()
+        );
     }
 
     [RelayCommand]
@@ -232,12 +262,17 @@ public partial class SettingsViewModel(
     {
         try
         {
-            logger.LogInformation("Opening latest release page: {Url}", UpdaterService.LatestReleaseUrl);
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = UpdaterService.LatestReleaseUrl,
-                UseShellExecute = true
-            });
+            logger.LogInformation(
+                "Opening latest release page: {Url}",
+                UpdaterService.LatestReleaseUrl
+            );
+            Process.Start(
+                new ProcessStartInfo
+                {
+                    FileName = UpdaterService.LatestReleaseUrl,
+                    UseShellExecute = true,
+                }
+            );
         }
         catch (Exception ex)
         {
@@ -258,27 +293,39 @@ public partial class SettingsViewModel(
 
     partial void OnSelectedCultureNameChanged(string value)
     {
-        if (!_isInitialized) return;
-        if (string.IsNullOrEmpty(value)) return;
+        if (!_isInitialized)
+            return;
+        if (string.IsNullOrEmpty(value))
+            return;
         _ = configManager.SetAsync(x => x.App.Language, value);
 
-        if (value == Loc.CurrentCulture.Name) return;
-        contentDialogService.ShowAlertAsync(Translations.Settings_LanguageChanged_Title,
+        if (value == Loc.CurrentCulture.Name)
+            return;
+        contentDialogService.ShowAlertAsync(
+            Translations.Settings_LanguageChanged_Title,
             Translations.Settings_LanguageChanged_Description,
-            Translations.Button_Ok, CancellationToken.None);
+            Translations.Button_Ok,
+            CancellationToken.None
+        );
     }
 
-    partial void OnCurrentApplicationThemeChanged(ApplicationTheme oldValue, ApplicationTheme newValue)
+    partial void OnCurrentApplicationThemeChanged(
+        ApplicationTheme oldValue,
+        ApplicationTheme newValue
+    )
     {
-        if (!_isInitialized) return;
+        if (!_isInitialized)
+            return;
         ApplicationThemeManager.Apply(newValue, updateAccent: false);
         _ = configManager.SetAsync(x => x.App.Theme, newValue);
     }
 
     partial void OnShellTimeoutMsChanged(int value)
     {
-        if (!_isInitialized) return;
-        if (value <= 0) return;
+        if (!_isInitialized)
+            return;
+        if (value <= 0)
+            return;
         _ = configManager.SetAsync(x => x.Optimize.ShellTimeoutMs, value);
     }
 

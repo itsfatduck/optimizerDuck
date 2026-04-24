@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.IO;
+using Microsoft.Extensions.Logging;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.OptimizationServices;
-using System.IO;
 using Wpf.Ui.Controls;
 using CleanupItem = optimizerDuck.Domain.Optimizations.Models.Cleanup.CleanupItem;
 
@@ -19,9 +19,10 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
     public static List<CleanupItem> GetCleanupItems()
     {
         var windowsDir = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
-        var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        var localAppData = Environment.GetFolderPath(
+            Environment.SpecialFolder.LocalApplicationData
+        );
         var systemDrive = Path.GetPathRoot(windowsDir) ?? "C:\\";
-
 
         return
         [
@@ -31,7 +32,7 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 Name = Translations.DiskCleanup_Item_TempFiles,
                 Description = Translations.DiskCleanup_Item_TempFiles_Description,
                 Path = Path.GetTempPath(),
-                Icon = SymbolRegular.Document24
+                Icon = SymbolRegular.Document24,
             },
             new CleanupItem
             {
@@ -39,7 +40,7 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 Name = Translations.DiskCleanup_Item_SystemTemp,
                 Description = Translations.DiskCleanup_Item_SystemTemp_Description,
                 Path = Path.Combine(windowsDir, "Temp"),
-                Icon = SymbolRegular.DocumentError24
+                Icon = SymbolRegular.DocumentError24,
             },
             new CleanupItem
             {
@@ -47,7 +48,7 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 Name = Translations.DiskCleanup_Item_WindowsUpdate,
                 Description = Translations.DiskCleanup_Item_WindowsUpdate_Description,
                 Path = Path.Combine(windowsDir, @"SoftwareDistribution\Download"),
-                Icon = SymbolRegular.ArrowDownload24
+                Icon = SymbolRegular.ArrowDownload24,
             },
             new CleanupItem
             {
@@ -55,7 +56,7 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 Name = Translations.DiskCleanup_Item_Prefetch,
                 Description = Translations.DiskCleanup_Item_Prefetch_Description,
                 Path = Path.Combine(windowsDir, "Prefetch"),
-                Icon = SymbolRegular.Flash24
+                Icon = SymbolRegular.Flash24,
             },
             new CleanupItem
             {
@@ -63,7 +64,7 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 Name = Translations.DiskCleanup_Item_Thumbnails,
                 Description = Translations.DiskCleanup_Item_Thumbnails_Description,
                 Path = Path.Combine(localAppData, @"Microsoft\Windows\Explorer"),
-                Icon = SymbolRegular.Image24
+                Icon = SymbolRegular.Image24,
             },
             new CleanupItem
             {
@@ -72,7 +73,7 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 Description = Translations.DiskCleanup_Item_RecycleBin_Description,
                 Path = "Clear-RecycleBin -Force -ErrorAction SilentlyContinue",
                 Icon = SymbolRegular.Delete24,
-                IsCommand = true
+                IsCommand = true,
             },
             new CleanupItem
             {
@@ -80,7 +81,7 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 Name = Translations.DiskCleanup_Item_ErrorReports,
                 Description = Translations.DiskCleanup_Item_ErrorReports_Description,
                 Path = Path.Combine(localAppData, "CrashDumps"),
-                Icon = SymbolRegular.Bug24
+                Icon = SymbolRegular.Bug24,
             },
             new CleanupItem
             {
@@ -88,8 +89,8 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 Name = Translations.DiskCleanup_Item_OldWindowsInstallation,
                 Description = Translations.DiskCleanup_Item_OldWindowsInstallation_Description,
                 Path = Path.Combine(systemDrive, "Windows.old"),
-                Icon = SymbolRegular.Building24
-            }
+                Icon = SymbolRegular.Building24,
+            },
         ];
     }
 
@@ -107,19 +108,22 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 // For RecycleBin, estimate size via PowerShell
                 if (item.Id == "RecycleBin")
                 {
-                    var script = "$items = (New-Object -ComObject Shell.Application).NameSpace(0xA).Items(); " +
-                                 "if ($null -ne $items) { " +
-                                 "  $measure = $items | Measure-Object -Property Size -Sum; " +
-                                 "  $sum = if ($null -ne $measure.Sum) { $measure.Sum } else { 0 }; " +
-                                 "  $count = if ($null -ne $items.Count) { $items.Count } else { 0 }; " +
-                                 "  Write-Output \"$sum|$count\" " +
-                                 "} else { Write-Output '0|0' }";
+                    var script =
+                        "$items = (New-Object -ComObject Shell.Application).NameSpace(0xA).Items(); "
+                        + "if ($null -ne $items) { "
+                        + "  $measure = $items | Measure-Object -Property Size -Sum; "
+                        + "  $sum = if ($null -ne $measure.Sum) { $measure.Sum } else { 0 }; "
+                        + "  $count = if ($null -ne $items.Count) { $items.Count } else { 0 }; "
+                        + "  Write-Output \"$sum|$count\" "
+                        + "} else { Write-Output '0|0' }";
 
                     var result = await ShellService.PowerShellAsync(script);
                     var parts = result.Stdout.Trim().Split('|');
-                    if (parts.Length == 2 &&
-                        long.TryParse(parts[0], out var size) &&
-                        long.TryParse(parts[1], out var count))
+                    if (
+                        parts.Length == 2
+                        && long.TryParse(parts[0], out var size)
+                        && long.TryParse(parts[1], out var count)
+                    )
                     {
                         item.SizeBytes = size;
                         item.FileCount = count;
@@ -179,15 +183,21 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 var sizeBefore = item.SizeBytes;
                 await ShellService.PowerShellAsync(item.Path);
                 freedBytes = sizeBefore;
-                logger.LogInformation("Cleaned {ItemId} via command, freed ~{Size}",
-                    item.Id, CleanupItem.FormatBytes(freedBytes));
+                logger.LogInformation(
+                    "Cleaned {ItemId} via command, freed ~{Size}",
+                    item.Id,
+                    CleanupItem.FormatBytes(freedBytes)
+                );
             }
             else
             {
                 freedBytes = await Task.Run(() => DeleteFilesInDirectory(item.Path, item.Id));
                 item.SizeBytes = Math.Max(0, item.SizeBytes - freedBytes);
-                logger.LogInformation("Cleaned {ItemId}, freed {Size}",
-                    item.Id, CleanupItem.FormatBytes(freedBytes));
+                logger.LogInformation(
+                    "Cleaned {ItemId}, freed {Size}",
+                    item.Id,
+                    CleanupItem.FormatBytes(freedBytes)
+                );
             }
         }
         catch (Exception ex)
@@ -230,12 +240,13 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
             {
                 IgnoreInaccessible = true,
                 RecurseSubdirectories = itemId != "Thumbnails",
-                ReturnSpecialDirectories = false
+                ReturnSpecialDirectories = false,
             };
 
             var dirInfo = new DirectoryInfo(path);
-            var dotNetTempPath = Path.GetFullPath(Path.Combine(Path.GetTempPath(), ".net"))
-                .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+            var dotNetTempPath =
+                Path.GetFullPath(Path.Combine(Path.GetTempPath(), ".net"))
+                    .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
 
             foreach (var fileInfo in dirInfo.EnumerateFiles(searchPattern, options))
                 try
@@ -244,9 +255,16 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                     if (options.RecurseSubdirectories)
                     {
                         var fullDirPath = fileInfo.DirectoryName ?? string.Empty;
-                        fullDirPath = fullDirPath.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+                        fullDirPath =
+                            fullDirPath.TrimEnd(Path.DirectorySeparatorChar)
+                            + Path.DirectorySeparatorChar;
 
-                        if (fullDirPath.StartsWith(dotNetTempPath, StringComparison.OrdinalIgnoreCase))
+                        if (
+                            fullDirPath.StartsWith(
+                                dotNetTempPath,
+                                StringComparison.OrdinalIgnoreCase
+                            )
+                        )
                             continue;
                     }
 
@@ -273,14 +291,15 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
             return 0;
 
         long freed = 0;
-        var dotNetTempPath = Path.GetFullPath(Path.Combine(Path.GetTempPath(), ".net"))
-            .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+        var dotNetTempPath =
+            Path.GetFullPath(Path.Combine(Path.GetTempPath(), ".net"))
+                .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
         var searchPattern = itemId == "Thumbnails" ? "thumbcache_*" : "*";
         var options = new EnumerationOptions
         {
             IgnoreInaccessible = true,
             RecurseSubdirectories = itemId != "Thumbnails",
-            ReturnSpecialDirectories = false
+            ReturnSpecialDirectories = false,
         };
 
         var dirInfo = new DirectoryInfo(path);
@@ -292,7 +311,9 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 if (options.RecurseSubdirectories)
                 {
                     var fullDirPath = fileInfo.DirectoryName ?? string.Empty;
-                    fullDirPath = fullDirPath.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+                    fullDirPath =
+                        fullDirPath.TrimEnd(Path.DirectorySeparatorChar)
+                        + Path.DirectorySeparatorChar;
 
                     if (fullDirPath.StartsWith(dotNetTempPath, StringComparison.OrdinalIgnoreCase))
                         continue;
@@ -314,18 +335,21 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
             {
                 IgnoreInaccessible = true,
                 RecurseSubdirectories = true,
-                ReturnSpecialDirectories = false
+                ReturnSpecialDirectories = false,
             };
 
             // Order by descending length to process deepest children first
-            var dirs = dirInfo.EnumerateDirectories("*", dirOptions)
+            var dirs = dirInfo
+                .EnumerateDirectories("*", dirOptions)
                 .OrderByDescending(d => d.FullName.Length)
                 .ToList();
 
             foreach (var dir in dirs)
                 try
                 {
-                    var fullDir = dir.FullName.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+                    var fullDir =
+                        dir.FullName.TrimEnd(Path.DirectorySeparatorChar)
+                        + Path.DirectorySeparatorChar;
                     if (fullDir.StartsWith(dotNetTempPath, StringComparison.OrdinalIgnoreCase))
                         continue;
 

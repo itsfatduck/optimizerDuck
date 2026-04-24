@@ -7,8 +7,8 @@ using optimizerDuck.Domain.Optimizations.Models.Bloatware;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services;
-using optimizerDuck.UI.ViewModels.Dialogs;
 using optimizerDuck.UI.Dialogs;
+using optimizerDuck.UI.ViewModels.Dialogs;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 using AppXPackage = optimizerDuck.Domain.Optimizations.Models.Bloatware.AppXPackage;
@@ -25,14 +25,23 @@ public partial class BloatwareViewModel : ViewModel
     private bool _isInitialized;
 
     // Search, Filter, Sort
-    [ObservableProperty] private string _searchText = string.Empty;
+    [ObservableProperty]
+    private string _searchText = string.Empty;
 
-    [ObservableProperty] private int _selectedRiskFilterIndex; // 0=All, 1=Safe, 2=Caution
-    [ObservableProperty] private int _selectedSortByIndex; // 0=Name, 1=Publisher, 2=Risk
-    [ObservableProperty] private bool isLoading;
+    [ObservableProperty]
+    private int _selectedRiskFilterIndex; // 0=All, 1=Safe, 2=Caution
 
-    public BloatwareViewModel(BloatwareService bloatwareService, IContentDialogService contentDialogService,
-        ILogger<BloatwareViewModel> logger)
+    [ObservableProperty]
+    private int _selectedSortByIndex; // 0=Name, 1=Publisher, 2=Risk
+
+    [ObservableProperty]
+    private bool isLoading;
+
+    public BloatwareViewModel(
+        BloatwareService bloatwareService,
+        IContentDialogService contentDialogService,
+        ILogger<BloatwareViewModel> logger
+    )
     {
         _bloatwareService = bloatwareService;
         _contentDialogService = contentDialogService;
@@ -101,9 +110,10 @@ public partial class BloatwareViewModel : ViewModel
         {
             var search = SearchText.Trim();
             query = query.Where(p =>
-                p.Name.Contains(search, StringComparison.OrdinalIgnoreCase) ||
-                p.Publisher.Contains(search, StringComparison.OrdinalIgnoreCase) ||
-                p.PackageFullName.Contains(search, StringComparison.OrdinalIgnoreCase));
+                p.Name.Contains(search, StringComparison.OrdinalIgnoreCase)
+                || p.Publisher.Contains(search, StringComparison.OrdinalIgnoreCase)
+                || p.PackageFullName.Contains(search, StringComparison.OrdinalIgnoreCase)
+            );
         }
 
         // Filter by risk
@@ -111,7 +121,7 @@ public partial class BloatwareViewModel : ViewModel
         {
             1 => query.Where(p => p.Risk == AppRisk.Safe),
             2 => query.Where(p => p.Risk == AppRisk.Caution),
-            _ => query
+            _ => query,
         };
 
         // Sort
@@ -120,7 +130,7 @@ public partial class BloatwareViewModel : ViewModel
             0 => query.OrderBy(p => p.Name),
             1 => query.OrderBy(p => p.Publisher),
             2 => query.OrderBy(p => p.Risk),
-            _ => query
+            _ => query,
         };
 
         // Detach PropertyChanged listeners before clearing to avoid unnecessary event overhead
@@ -172,10 +182,13 @@ public partial class BloatwareViewModel : ViewModel
             Title = string.Format(Translations.BloatwareDialog_Confirmation_Title, SelectedCount),
             Content = new BloatwareConfirmationDialog { DataContext = confirmationViewModel },
             PrimaryButtonText = Translations.Button_Ok,
-            CloseButtonText = Translations.Button_Cancel
+            CloseButtonText = Translations.Button_Cancel,
         };
 
-        var result = await _contentDialogService.ShowAsync(askForConfirmationDialog, CancellationToken.None);
+        var result = await _contentDialogService.ShowAsync(
+            askForConfirmationDialog,
+            CancellationToken.None
+        );
         if (result != ContentDialogResult.Primary)
             return;
 
@@ -184,32 +197,45 @@ public partial class BloatwareViewModel : ViewModel
         {
             Title = string.Format(Translations.BloatwareDialog_Title, toRemove.Count),
             Content = new ProcessingDialog { DataContext = viewModel },
-            IsFooterVisible = false
+            IsFooterVisible = false,
         };
 
         try
         {
-            _logger.LogInformation("===== START removing {Count} AppX Packages =====", toRemove.Count);
+            _logger.LogInformation(
+                "===== START removing {Count} AppX Packages =====",
+                toRemove.Count
+            );
             _ = _contentDialogService.ShowAsync(dialog, CancellationToken.None);
 
             for (var i = 0; i < toRemove.Count; i++)
             {
                 var item = toRemove[i];
 
-                viewModel.ProgressReporter.Report(new ProcessingProgress
-                {
-                    Message = string.Format(Translations.BloatwareDialog_Removing, item.Name, i + 1, toRemove.Count),
-                    IsIndeterminate = false,
-                    Total = toRemove.Count,
-                    Value = i
-                });
+                viewModel.ProgressReporter.Report(
+                    new ProcessingProgress
+                    {
+                        Message = string.Format(
+                            Translations.BloatwareDialog_Removing,
+                            item.Name,
+                            i + 1,
+                            toRemove.Count
+                        ),
+                        IsIndeterminate = false,
+                        Total = toRemove.Count,
+                        Value = i,
+                    }
+                );
                 await _bloatwareService.RemoveAppXPackage(item);
                 //await Task.Delay(500); // Simulate work
             }
         }
         finally
         {
-            _logger.LogInformation("===== END removing {Count} AppX Packages =====", toRemove.Count);
+            _logger.LogInformation(
+                "===== END removing {Count} AppX Packages =====",
+                toRemove.Count
+            );
             dialog.Hide();
             await Refresh();
         }

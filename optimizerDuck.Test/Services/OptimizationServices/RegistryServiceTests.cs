@@ -3,8 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Win32;
-using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Abstractions;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
@@ -26,7 +26,11 @@ public class RegistryServiceTests : IDisposable
         public string Name => "Test";
         public string ShortDescription => "";
         public OptimizationState State { get; set; } = new();
-        public Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context) => Task.FromResult(ApplyResult.True());
+
+        public Task<ApplyResult> ApplyAsync(
+            IProgress<ProcessingProgress> progress,
+            OptimizationContext context
+        ) => Task.FromResult(ApplyResult.True());
     }
 
     public RegistryServiceTests()
@@ -147,7 +151,9 @@ public class RegistryServiceTests : IDisposable
 
         Assert.True(RegistryService.Write(new RegistryItem(keyPathA, "Value1", "Data1")));
         Assert.True(RegistryService.Write(new RegistryItem(keyPathA, null, "DefaultData")));
-        Assert.True(RegistryService.Write(new RegistryItem(keyPathB, "Value3", 42, RegistryValueKind.DWord)));
+        Assert.True(
+            RegistryService.Write(new RegistryItem(keyPathB, "Value3", 42, RegistryValueKind.DWord))
+        );
         Assert.True(RegistryService.CreateSubKey(new RegistryItem(keyPathC)));
 
         // 2. Perform the deletion of tree A
@@ -157,7 +163,9 @@ public class RegistryServiceTests : IDisposable
         Assert.False(RegistryService.KeyExists(new RegistryItem(keyPathA)));
 
         // 3. Obtain the revert step generated out of the deleted tree
-        var deleteStep = _scope.ExecutedSteps.LastOrDefault(s => s.Name == "Registry" && s.RevertStep != null);
+        var deleteStep = _scope.ExecutedSteps.LastOrDefault(s =>
+            s.Name == "Registry" && s.RevertStep != null
+        );
         Assert.NotNull(deleteStep);
 
         var revertStep = deleteStep.RevertStep;
@@ -192,9 +200,11 @@ public class RegistryServiceTests : IDisposable
         Assert.True(RegistryService.KeyExists(new RegistryItem(keyPathB)));
 
         // Obtain revert step
-        var createStep = _scope.ExecutedSteps.LastOrDefault(s => s.Name == "Registry" && s.RevertStep != null);
+        var createStep = _scope.ExecutedSteps.LastOrDefault(s =>
+            s.Name == "Registry" && s.RevertStep != null
+        );
         Assert.NotNull(createStep);
-        
+
         // Execute revert
         Assert.True(await createStep.RevertStep!.ExecuteAsync());
 

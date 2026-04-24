@@ -28,11 +28,7 @@ public abstract class ViewModel : ObservableValidator, INavigationAware
         return Task.CompletedTask;
     }
 
-    public virtual void OnNavigatedTo()
-    {
-    }
+    public virtual void OnNavigatedTo() { }
 
-    public virtual void OnNavigatedFrom()
-    {
-    }
+    public virtual void OnNavigatedFrom() { }
 }

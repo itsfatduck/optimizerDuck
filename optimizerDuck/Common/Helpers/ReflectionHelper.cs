@@ -23,10 +23,14 @@ public static class ReflectionHelper
 
     public static IEnumerable<Type> FindImplementationsInLoadedAssemblies(Type interfaceType)
     {
-        return AppDomain.CurrentDomain.GetAssemblies()
+        return AppDomain
+            .CurrentDomain.GetAssemblies()
             .SelectMany(SafeGetTypes)
-            .Where(t => t != interfaceType && t is { IsClass: true, IsAbstract: false } &&
-                        interfaceType.IsAssignableFrom(t))
+            .Where(t =>
+                t != interfaceType
+                && t is { IsClass: true, IsAbstract: false }
+                && interfaceType.IsAssignableFrom(t)
+            )
             .ToList();
     }
 
