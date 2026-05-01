@@ -56,9 +56,11 @@ public class OptimizationService(
 
             using var scope = ExecutionScope.BeginForLogging(_logger);
 
-            var result = await ShellService.PowerShellAsync(
-                $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS"
-            );
+            var result = await ShellService
+                .PowerShellAsync(
+                    $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS"
+                )
+                .ConfigureAwait(false);
 
             if (
                 result.Stderr.Contains(
@@ -95,9 +97,9 @@ public class OptimizationService(
                 }
             );
 
-            var enableResult = await ShellService.PowerShellAsync(
-                "Enable-ComputerRestore -Drive \"$env:SystemDrive\""
-            );
+            var enableResult = await ShellService
+                .PowerShellAsync("Enable-ComputerRestore -Drive \"$env:SystemDrive\"")
+                .ConfigureAwait(false);
             if (enableResult.ExitCode != 0)
             {
                 _logger.LogError(
@@ -115,9 +117,11 @@ public class OptimizationService(
                 }
             );
 
-            result = await ShellService.PowerShellAsync(
-                $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS"
-            );
+            result = await ShellService
+                .PowerShellAsync(
+                    $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS"
+                )
+                .ConfigureAwait(false);
 
             if (
                 result.Stderr.Contains(
@@ -131,7 +135,7 @@ public class OptimizationService(
         }
         finally
         {
-            dialog.Hide();
+            dialog?.Hide();
         }
     }
 
@@ -154,16 +158,19 @@ public class OptimizationService(
         try
         {
             var applyResult = await Task.Run(async () =>
-                await optimization.ApplyAsync(
-                    progress,
-                    new OptimizationContext
-                    {
-                        Logger = optLogger,
-                        Snapshot = systemInfoService.Snapshot,
-                        StreamService = streamService,
-                    }
+                    await optimization
+                        .ApplyAsync(
+                            progress,
+                            new OptimizationContext
+                            {
+                                Logger = optLogger,
+                                Snapshot = systemInfoService.Snapshot,
+                                StreamService = streamService,
+                            }
+                        )
+                        .ConfigureAwait(false)
                 )
-            );
+                .ConfigureAwait(false);
 
             if (!string.IsNullOrWhiteSpace(applyResult.Message))
                 return new OptimizationResult
@@ -184,7 +191,7 @@ public class OptimizationService(
             );
 
             var result = scope.ToResult();
-            await TrySaveRevertDataAsync(scope, optimization);
+            await TrySaveRevertDataAsync(scope, optimization).ConfigureAwait(false);
 
             return result;
         }
@@ -206,7 +213,7 @@ public class OptimizationService(
                 FailedSteps = failedSteps,
             };
 
-            await TrySaveRevertDataAsync(scope, optimization);
+            await TrySaveRevertDataAsync(scope, optimization).ConfigureAwait(false);
 
             return result;
         }
@@ -224,7 +231,7 @@ public class OptimizationService(
                 IsIndeterminate = true,
             }
         );
-        var result = await revertManager.RevertAsync(optimization, progress);
+        var result = await revertManager.RevertAsync(optimization, progress).ConfigureAwait(false);
         progress?.Report(
             new ProcessingProgress
             {
@@ -245,13 +252,14 @@ public class OptimizationService(
     public static async Task UpdateOptimizationStateAsync(params IOptimization[] optimizations)
     {
         await Task.WhenAll(
-            optimizations.Select(async opt =>
-            {
-                var data = await RevertManager.GetRevertDataAsync(opt.Id);
-                opt.State.IsApplied = data != null;
-                opt.State.AppliedAt = data?.AppliedAt;
-            })
-        );
+                optimizations.Select(async opt =>
+                {
+                    var data = await RevertManager.GetRevertDataAsync(opt.Id).ConfigureAwait(false);
+                    opt.State.IsApplied = data != null;
+                    opt.State.AppliedAt = data?.AppliedAt;
+                })
+            )
+            .ConfigureAwait(false);
     }
 
     public static Task UpdateOptimizationStateAsync(IEnumerable<IOptimization> optimizations)
@@ -326,7 +334,7 @@ public class OptimizationService(
             try
             {
                 using var retryScope = ExecutionScope.BeginForCapture(logger);
-                success = await step.RetryAction();
+                success = await step.RetryAction().ConfigureAwait(false);
 
                 if (success)
                 {
@@ -372,7 +380,7 @@ public class OptimizationService(
 
         try
         {
-            await revertManager.SaveRevertDataAsync(scope);
+            await revertManager.SaveRevertDataAsync(scope).ConfigureAwait(false);
         }
         catch (Exception ex)
         {

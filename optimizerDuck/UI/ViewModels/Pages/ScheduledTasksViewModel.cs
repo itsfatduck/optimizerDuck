@@ -26,6 +26,7 @@ public partial class ScheduledTasksViewModel : ViewModel
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsNotLoading))]
+    [NotifyPropertyChangedFor(nameof(ShowRefreshButton))]
     private bool _isLoading;
 
     [ObservableProperty]
@@ -49,6 +50,9 @@ public partial class ScheduledTasksViewModel : ViewModel
 
     public bool IsNotLoading => !IsLoading;
     public bool HasData => _allTasks.Count > 0;
+
+    public bool HasResults => Tasks.Count > 0;
+    public bool ShowRefreshButton => IsNotLoading && HasResults;
 
     public override async Task OnNavigatedToAsync()
     {
@@ -369,6 +373,8 @@ public partial class ScheduledTasksViewModel : ViewModel
         }
 
         OnPropertyChanged(nameof(HasData));
+        OnPropertyChanged(nameof(HasResults));
+        OnPropertyChanged(nameof(ShowRefreshButton));
     }
 
     private async void Task_PropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -377,6 +383,15 @@ public partial class ScheduledTasksViewModel : ViewModel
             e.PropertyName == nameof(ScheduledTaskModel.IsEnabled)
             && sender is ScheduledTaskModel task
         )
-            await ToggleTask(task);
+        {
+            try
+            {
+                await ToggleTask(task);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to toggle scheduled task {Name}", task.Name);
+            }
+        }
     }
 }

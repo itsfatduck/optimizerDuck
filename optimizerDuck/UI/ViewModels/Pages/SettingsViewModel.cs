@@ -111,6 +111,29 @@ public partial class SettingsViewModel(
 
     #endregion Helpers
 
+    private async Task SaveConfigAsync(Func<Task> saveAction, Func<Task>? revertAction = null)
+    {
+        try
+        {
+            await saveAction();
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Failed to save configuration");
+            if (revertAction != null)
+            {
+                try
+                {
+                    await revertAction();
+                }
+                catch (Exception revertEx)
+                {
+                    logger.LogError(revertEx, "Failed to revert UI property");
+                }
+            }
+        }
+    }
+
     #region Commands
 
     [RelayCommand]
@@ -236,25 +259,46 @@ public partial class SettingsViewModel(
     }
 
     [RelayCommand]
-    private void ToggleRemoveProvisioned()
+    private async Task ToggleRemoveProvisioned()
     {
         if (!_isInitialized)
             return;
-        _ = configManager.SetAsync(
-            "bloatware:removeProvisioned",
-            (!appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned).ToString()
-        );
+        try
+        {
+            await configManager.SetAsync(
+                "bloatware:removeProvisioned",
+                (!appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned).ToString()
+            );
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Failed to toggle RemoveProvisioned setting");
+            // Revert UI property on failure
+            RemoveProvisioned = appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned;
+        }
     }
 
     [RelayCommand]
-    private void ToggleShowCompletionNotification()
+    private async Task ToggleShowCompletionNotification()
     {
         if (!_isInitialized)
             return;
-        _ = configManager.SetAsync(
-            "optimize:showCompletionNotification",
-            (!appOptionsMonitor.CurrentValue.Optimize.ShowCompletionNotification).ToString()
-        );
+        try
+        {
+            await configManager.SetAsync(
+                "optimize:showCompletionNotification",
+                (!appOptionsMonitor.CurrentValue.Optimize.ShowCompletionNotification).ToString()
+            );
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Failed to toggle ShowCompletionNotification setting");
+            // Revert UI property on failure
+            ShowSnackbarNotificationAfterAppliedSuccessfully = appOptionsMonitor
+                .CurrentValue
+                .Optimize
+                .ShowCompletionNotification;
+        }
     }
 
     [RelayCommand]
@@ -297,16 +341,32 @@ public partial class SettingsViewModel(
             return;
         if (string.IsNullOrEmpty(value))
             return;
-        _ = configManager.SetAsync(x => x.App.Language, value);
+
+        var oldValue = appOptionsMonitor.CurrentValue.App.Language;
+        _ = SaveConfigAsync(
+            async () =>
+            {
+                await configManager.SetAsync(x => x.App.Language, value);
+            },
+            async () =>
+            {
+                SelectedCultureName = oldValue;
+            }
+        );
 
         if (value == Loc.CurrentCulture.Name)
             return;
-        contentDialogService.ShowAlertAsync(
-            Translations.Settings_LanguageChanged_Title,
-            Translations.Settings_LanguageChanged_Description,
-            Translations.Button_Ok,
-            CancellationToken.None
-        );
+        _ = contentDialogService
+            .ShowAlertAsync(
+                Translations.Settings_LanguageChanged_Title,
+                Translations.Settings_LanguageChanged_Description,
+                Translations.Button_Ok,
+                CancellationToken.None
+            )
+            .ContinueWith(
+                t => logger.LogError(t.Exception, "Failed to show language changed dialog"),
+                TaskContinuationOptions.OnlyOnFaulted
+            );
     }
 
     partial void OnCurrentApplicationThemeChanged(
@@ -317,7 +377,16 @@ public partial class SettingsViewModel(
         if (!_isInitialized)
             return;
         ApplicationThemeManager.Apply(newValue, updateAccent: false);
-        _ = configManager.SetAsync(x => x.App.Theme, newValue);
+        _ = SaveConfigAsync(
+            async () =>
+            {
+                await configManager.SetAsync(x => x.App.Theme, newValue);
+            },
+            async () =>
+            {
+                CurrentApplicationTheme = oldValue;
+            }
+        );
     }
 
     partial void OnShellTimeoutMsChanged(int value)
@@ -326,7 +395,18 @@ public partial class SettingsViewModel(
             return;
         if (value <= 0)
             return;
-        _ = configManager.SetAsync(x => x.Optimize.ShellTimeoutMs, value);
+
+        var oldValue = appOptionsMonitor.CurrentValue.Optimize.ShellTimeoutMs;
+        _ = SaveConfigAsync(
+            async () =>
+            {
+                await configManager.SetAsync(x => x.Optimize.ShellTimeoutMs, value);
+            },
+            async () =>
+            {
+                ShellTimeoutMs = oldValue;
+            }
+        );
     }
 
     #endregion Property Changed

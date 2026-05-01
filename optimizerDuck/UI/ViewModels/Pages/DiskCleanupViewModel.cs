@@ -50,7 +50,6 @@ public partial class DiskCleanupViewModel(
     public long TotalFileCount => CleanupItems.Sum(i => i.FileCount);
     public bool CanClean =>
         SelectedCount > 0 && TotalSelectedSizeBytes > 0 && !IsCleaning && !IsScanning;
-    public bool IsAllSelected => CleanupItems.Count > 0 && CleanupItems.All(i => i.IsSelected);
 
     partial void OnSelectedSortByIndexChanged(int value)
     {
@@ -176,12 +175,27 @@ public partial class DiskCleanupViewModel(
     }
 
     [RelayCommand]
-    private void SelectAll()
+    private void OpenFolder(CleanupItem item)
     {
-        var shouldSelect = !IsAllSelected;
-        foreach (var item in CleanupItems)
-            item.IsSelected = shouldSelect;
-        UpdateProperties();
+        if (item?.CanOpenFolder != true)
+            return;
+
+        try
+        {
+            Process.Start(new ProcessStartInfo { FileName = item.Path, UseShellExecute = true });
+            logger.LogInformation("Opened folder: {Path}", item.Path);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Failed to open folder: {Path}", item.Path);
+            snackbarService.Show(
+                Translations.Snackbar_OpenFailed_Title,
+                Translations.Snackbar_OpenFailed_Message,
+                ControlAppearance.Danger,
+                new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
+                TimeSpan.FromSeconds(3)
+            );
+        }
     }
 
     private void ApplySort()
@@ -214,6 +228,5 @@ public partial class DiskCleanupViewModel(
         OnPropertyChanged(nameof(TotalSizeFormatted));
         OnPropertyChanged(nameof(TotalFileCount));
         OnPropertyChanged(nameof(CanClean));
-        OnPropertyChanged(nameof(IsAllSelected));
     }
 }

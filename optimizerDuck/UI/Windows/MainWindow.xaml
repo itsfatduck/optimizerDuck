@@ -1,164 +1,164 @@
 ﻿<ui:FluentWindow
-  x:Class="optimizerDuck.UI.Windows.MainWindow"
-  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:controls="clr-namespace:optimizerDuck.UI.Controls"
-  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-  xmlns:extensions="clr-namespace:optimizerDuck.Common.Extensions"
-  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-  xmlns:pages="clr-namespace:optimizerDuck.UI.Pages"
-  xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-  xmlns:viewmodels="clr-namespace:optimizerDuck.UI.ViewModels.Windows"
-  xmlns:windows="clr-namespace:optimizerDuck.UI.Windows"
-  Title="optimizerDuck"
-  Width="1350"
-  Height="800"
-  d:DataContext="{d:DesignInstance viewmodels:MainWindowViewModel}"
-  ui:Design.Background="Black"
-  ui:Design.Foreground="White"
-  ExtendsContentIntoTitleBar="True"
-  SnapsToDevicePixels="True"
-  TextOptions.TextRenderingMode="ClearType"
-  UseLayoutRounding="True"
-  WindowBackdropType="Mica"
-  WindowCornerPreference="Round"
-  WindowStartupLocation="CenterScreen"
-  mc:Ignorable="d"
+    x:Class="optimizerDuck.UI.Windows.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:optimizerDuck.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:extensions="clr-namespace:optimizerDuck.Common.Extensions"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:optimizerDuck.UI.Pages"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:viewmodels="clr-namespace:optimizerDuck.UI.ViewModels.Windows"
+    xmlns:windows="clr-namespace:optimizerDuck.UI.Windows"
+    Title="optimizerDuck"
+    Width="1350"
+    Height="800"
+    d:DataContext="{d:DesignInstance viewmodels:MainWindowViewModel}"
+    ui:Design.Background="Black"
+    ui:Design.Foreground="White"
+    ExtendsContentIntoTitleBar="True"
+    SnapsToDevicePixels="True"
+    TextOptions.TextRenderingMode="ClearType"
+    UseLayoutRounding="True"
+    WindowBackdropType="Mica"
+    WindowCornerPreference="Round"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d"
 >
-  <Grid>
-    <ui:NavigationView
-      x:Name="RootNavigation"
-      Margin="0"
-      Padding="42,0,42,0"
-      FrameMargin="0"
-      IsFooterSeparatorVisible="False"
-      IsPaneToggleVisible="True"
-      IsTopSeparatorVisible="False"
-      OpenPaneLength="180"
-      PaneDisplayMode="Left"
-      TitleBar="{Binding ElementName=TitleBar, Mode=OneWay}"
-    >
-      <ui:NavigationView.MenuItems>
-        <controls:FilledNavigationViewItem
-          Content="{extensions:Loc Sidebar.Dashboard}"
-          Cursor="Hand"
-          Icon="{ui:SymbolIcon Home24}"
-          TargetPageType="{x:Type pages:DashboardPage}"
-        />
+    <Grid>
+        <ui:NavigationView
+            x:Name="RootNavigation"
+            Margin="0"
+            Padding="42,0,42,0"
+            FrameMargin="0"
+            IsFooterSeparatorVisible="False"
+            IsPaneToggleVisible="True"
+            IsTopSeparatorVisible="False"
+            OpenPaneLength="180"
+            PaneDisplayMode="Left"
+            TitleBar="{Binding ElementName=TitleBar, Mode=OneWay}"
+        >
+            <ui:NavigationView.MenuItems>
+                <controls:FilledNavigationViewItem
+                    Content="{extensions:Loc Sidebar.Dashboard}"
+                    Cursor="Hand"
+                    Icon="{ui:SymbolIcon Home24}"
+                    TargetPageType="{x:Type pages:DashboardPage}"
+                />
 
-        <ui:NavigationViewItemSeparator Margin="0,2,0,2" />
+                <ui:NavigationViewItemSeparator Margin="0,2,0,2" />
 
-        <controls:FilledNavigationViewItem
-          Content="{extensions:Loc Sidebar.Optimize}"
-          Cursor="Hand"
-          Icon="{ui:SymbolIcon Rocket24}"
-          TargetPageType="{x:Type pages:OptimizePage}"
-        />
+                <controls:FilledNavigationViewItem
+                    Content="{extensions:Loc Sidebar.Optimize}"
+                    Cursor="Hand"
+                    Icon="{ui:SymbolIcon Rocket24}"
+                    TargetPageType="{x:Type pages:OptimizePage}"
+                />
 
-        <ui:NavigationViewItem
-          x:Name="FeaturesMenuItem"
-          Content="{extensions:Loc Sidebar.Features}"
-          Icon="{ui:SymbolIcon ToggleLeft24}"
-        />
+                <ui:NavigationViewItem
+                    x:Name="FeaturesMenuItem"
+                    Content="{extensions:Loc Sidebar.Features}"
+                    Icon="{ui:SymbolIcon ToggleLeft24}"
+                />
 
-        <controls:FilledNavigationViewItem
-          Content="{extensions:Loc Sidebar.Bloatware}"
-          Cursor="Hand"
-          Icon="{ui:SymbolIcon Delete24}"
-          TargetPageType="{x:Type pages:BloatwarePage}"
-        />
+                <controls:FilledNavigationViewItem
+                    Content="{extensions:Loc Sidebar.Bloatware}"
+                    Cursor="Hand"
+                    Icon="{ui:SymbolIcon Delete24}"
+                    TargetPageType="{x:Type pages:BloatwarePage}"
+                />
 
-        <ui:NavigationViewItemSeparator Margin="0,2,0,2" />
+                <ui:NavigationViewItemSeparator Margin="0,2,0,2" />
 
-        <controls:FilledNavigationViewItem
-          Content="{extensions:Loc Sidebar.StartupManager}"
-          Cursor="Hand"
-          Icon="{ui:SymbolIcon WindowArrowUp24}"
-          TargetPageType="{x:Type pages:StartupManagerPage}"
-        />
+                <controls:FilledNavigationViewItem
+                    Content="{extensions:Loc Sidebar.StartupManager}"
+                    Cursor="Hand"
+                    Icon="{ui:SymbolIcon WindowArrowUp24}"
+                    TargetPageType="{x:Type pages:StartupManagerPage}"
+                />
 
-        <controls:FilledNavigationViewItem
-          Content="{extensions:Loc Sidebar.ScheduledTasks}"
-          Cursor="Hand"
-          Icon="{ui:SymbolIcon CalendarLtr24}"
-          TargetPageType="{x:Type pages:ScheduledTasksPage}"
-        />
+                <controls:FilledNavigationViewItem
+                    Content="{extensions:Loc Sidebar.ScheduledTasks}"
+                    Cursor="Hand"
+                    Icon="{ui:SymbolIcon CalendarLtr24}"
+                    TargetPageType="{x:Type pages:ScheduledTasksPage}"
+                />
 
-        <controls:FilledNavigationViewItem
-          Content="{extensions:Loc Sidebar.DiskCleanup}"
-          Cursor="Hand"
-          Icon="{ui:SymbolIcon HardDrive20}"
-          TargetPageType="{x:Type pages:DiskCleanupPage}"
-        />
-      </ui:NavigationView.MenuItems>
+                <controls:FilledNavigationViewItem
+                    Content="{extensions:Loc Sidebar.DiskCleanup}"
+                    Cursor="Hand"
+                    Icon="{ui:SymbolIcon HardDrive20}"
+                    TargetPageType="{x:Type pages:DiskCleanupPage}"
+                />
+            </ui:NavigationView.MenuItems>
 
-      <ui:NavigationView.FooterMenuItems>
-        <ui:NavigationViewItemSeparator Margin="0,2,0,2" />
-        <controls:FilledNavigationViewItem
-          Content="{extensions:Loc Sidebar.Settings}"
-          Cursor="Hand"
-          Icon="{ui:SymbolIcon Settings24}"
-          TargetPageType="{x:Type pages:SettingsPage}"
-        />
-      </ui:NavigationView.FooterMenuItems>
+            <ui:NavigationView.FooterMenuItems>
+                <ui:NavigationViewItemSeparator Margin="0,2,0,2" />
+                <controls:FilledNavigationViewItem
+                    Content="{extensions:Loc Sidebar.Settings}"
+                    Cursor="Hand"
+                    Icon="{ui:SymbolIcon Settings24}"
+                    TargetPageType="{x:Type pages:SettingsPage}"
+                />
+            </ui:NavigationView.FooterMenuItems>
 
-      <ui:NavigationView.ContentOverlay>
-        <Grid>
-          <ui:SnackbarPresenter x:Name="SnackbarPresenter" />
-        </Grid>
-      </ui:NavigationView.ContentOverlay>
-    </ui:NavigationView>
+            <ui:NavigationView.ContentOverlay>
+                <Grid>
+                    <ui:SnackbarPresenter x:Name="SnackbarPresenter" />
+                </Grid>
+            </ui:NavigationView.ContentOverlay>
+        </ui:NavigationView>
 
-    <ui:TitleBar x:Name="TitleBar">
-      <ui:TitleBar.Header>
-        <StackPanel Margin="10,0,0,0" VerticalAlignment="Center" Orientation="Horizontal">
-          <ui:SymbolIcon
-            FontSize="16"
-            Foreground="{DynamicResource TextFillColorDisabledBrush}"
-            Symbol="Shield24"
-          />
-          <ui:ImageIcon
-            Height="25"
-            Margin="7,0,5,0"
-            VerticalAlignment="Center"
-            Source="pack://application:,,,/Resources/Images/Duck.png"
-          />
-          <ui:TextBlock
-            Margin="0,0,5,0"
-            VerticalAlignment="Center"
-            FontTypography="Body"
-            Text="optimizerDuck"
-          />
-          <ui:TextBlock
-            VerticalAlignment="Center"
-            Appearance="Disabled"
-            FontTypography="Body"
-            Text="{Binding Version, Mode=OneWay}"
-          />
-        </StackPanel>
-      </ui:TitleBar.Header>
+        <ui:TitleBar x:Name="TitleBar">
+            <ui:TitleBar.Header>
+                <StackPanel Margin="10,0,0,0" VerticalAlignment="Center" Orientation="Horizontal">
+                    <ui:SymbolIcon
+                        FontSize="16"
+                        Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                        Symbol="Shield24"
+                    />
+                    <ui:ImageIcon
+                        Height="25"
+                        Margin="7,0,5,0"
+                        VerticalAlignment="Center"
+                        Source="pack://application:,,,/Resources/Images/Duck.png"
+                    />
+                    <ui:TextBlock
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        FontTypography="Body"
+                        Text="optimizerDuck"
+                    />
+                    <ui:TextBlock
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                        FontTypography="Body"
+                        Text="{Binding Version, Mode=OneWay}"
+                    />
+                </StackPanel>
+            </ui:TitleBar.Header>
 
-      <ui:TitleBar.TrailingContent>
-        <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-          <ui:Button
-            Margin="0,0,5,0"
-            Appearance="Transparent"
-            Command="{Binding OpenSupportLinkCommand}"
-            Icon="{ui:SymbolIcon Heart24}"
-          >
+            <ui:TitleBar.TrailingContent>
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                    <ui:Button
+                        Margin="0,0,5,0"
+                        Appearance="Transparent"
+                        Command="{Binding OpenSupportLinkCommand}"
+                        Icon="{ui:SymbolIcon Heart24}"
+                    >
                         Support the project
                     </ui:Button>
-          <ui:Button
-            Appearance="Transparent"
-            Command="{Binding OpenDiscordLinkCommand}"
-            Icon="{ui:SymbolIcon Link24}"
-          >
+                    <ui:Button
+                        Appearance="Transparent"
+                        Command="{Binding OpenDiscordLinkCommand}"
+                        Icon="{ui:SymbolIcon Link24}"
+                    >
                         Join our Discord
                     </ui:Button>
-        </StackPanel>
-      </ui:TitleBar.TrailingContent>
-    </ui:TitleBar>
+                </StackPanel>
+            </ui:TitleBar.TrailingContent>
+        </ui:TitleBar>
 
-    <ui:ContentDialogHost x:Name="RootContentDialogPresenter" />
-  </Grid>
+        <ui:ContentDialogHost x:Name="RootContentDialogPresenter" />
+    </Grid>
 </ui:FluentWindow>

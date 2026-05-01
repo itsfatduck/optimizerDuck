@@ -138,7 +138,7 @@ Step-by-step instructions, explanations of each optimization, and best practices
 
 > [!TIP]
 > Join our growing community on Discord! Get support, share your experience, and connect with other users and contributors.
-> 
+>
 > <a href="https://discord.gg/tDUBDCYw9Q"><img src="https://discord.com/api/guilds/1091675679994675240/widget.png?style=banner2" alt="Discord Banner 2"/></a>
 
 If optimizerDuck helped your PC:

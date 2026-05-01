@@ -117,147 +117,7 @@ public partial class App : Application
 
         try
         {
-            // Create the required directories if they don't exist
-            Directory.CreateDirectory(Shared.ResourcesDirectory);
-            Directory.CreateDirectory(Shared.RootDirectory);
-            Directory.CreateDirectory(Shared.RevertDirectory);
-
-            var logPath = Path.Combine(Shared.RootDirectory, "optimizerDuck.log");
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Verbose()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-                .Enrich.FromLogContext()
-                .WriteTo.File(
-                    new ScopeBlockTextFormatter(),
-                    logPath,
-                    rollingInterval: RollingInterval.Infinite
-                )
-                .CreateLogger();
-
-            _host = Host.CreateDefaultBuilder()
-                .UseSerilog()
-                .ConfigureAppConfiguration(c =>
-                {
-                    ConfigManager.ValidateConfig();
-                    c.AddJsonFile(
-                        Path.Combine(Shared.RootDirectory, "appsettings.json"),
-                        false,
-                        true
-                    );
-                })
-                .ConfigureServices(
-                    (context, services) =>
-                    {
-                        services.Configure<AppSettings>(context.Configuration);
-
-                        // WPF UI shi
-                        services.AddNavigationViewPageProvider();
-                        services.AddSingleton<INavigationService, NavigationService>();
-                        services.AddSingleton<IContentDialogService, ContentDialogService>();
-                        services.AddSingleton<ISnackbarService, SnackbarService>();
-
-                        // Windows
-                        services.AddSingleton<MainWindow>();
-                        services.AddSingleton<MainWindowViewModel>();
-
-                        // Pages
-                        services.AddSingleton<DashboardViewModel>();
-                        services.AddSingleton<DashboardPage>();
-
-                        services.AddSingleton<OptimizeViewModel>();
-                        services.AddSingleton<OptimizePage>();
-
-                        services.AddSingleton<SettingsViewModel>();
-                        services.AddSingleton<SettingsPage>();
-
-                        services.AddSingleton<BloatwareViewModel>();
-                        services.AddSingleton<BloatwarePage>();
-
-                        services.AddSingleton<DiskCleanupViewModel>();
-                        services.AddSingleton<DiskCleanupPage>();
-
-                        services.AddSingleton<StartupManagerViewModel>();
-                        services.AddSingleton<StartupManagerPage>();
-
-                        services.AddSingleton<ScheduledTasksViewModel>();
-                        services.AddSingleton<ScheduledTasksPage>();
-
-                        // Toggle Features
-                        services.AddSingleton<FeaturesViewModel>();
-                        services.AddSingleton<FeaturesPage>();
-
-                        services.AddAllFeaturesCategoryPages();
-
-                        // Optimizations
-                        services.AddAllOptimizationPages();
-
-                        // Managers
-                        services.AddSingleton<ConfigManager>();
-                        services.AddSingleton<RevertManager>();
-
-                        // Services
-                        services.AddSingleton<OptimizationRegistry>();
-                        services.AddSingleton<FeatureRegistry>();
-                        services.AddSingleton<OptimizationService>();
-                        services.AddSingleton<BloatwareService>();
-                        services.AddSingleton<DiskCleanupService>();
-                        services.AddSingleton<StartupManagerService>();
-                        services.AddSingleton<SystemInfoService>();
-                        services.AddSingleton<StreamService>();
-                        services.AddSingleton<UpdaterService>();
-                    }
-                )
-                .Build();
-
-            await _host.StartAsync();
-
-            var config = _host.Services.GetRequiredService<ConfigManager>();
-            await config.InitializeAsync();
-            await config.EnsureDefaultsAsync();
-
-            var appOptionsMonitor = _host.Services.GetRequiredService<
-                IOptionsMonitor<AppSettings>
-            >();
-
-            // init shell service with config
-            ShellService.Init(appOptionsMonitor);
-
-            var appSettings = appOptionsMonitor.CurrentValue;
-
-            Loc.Instance.ChangeCulture(new CultureInfo(appSettings.App.Language));
-
-            _logger = _host.Services.GetRequiredService<ILogger<App>>();
-            _logger.LogInformation(
-                "\n{Logo}\nVersion: {Version}\n\n",
-                Shared.RawLogo,
-                Shared.FileVersion
-            );
-            _logger.LogInformation("Loaded language: {Language}", appSettings.App.Language);
-
-            var optimizationRegistry = _host.Services.GetRequiredService<OptimizationRegistry>();
-            _logger.LogInformation("Preloading optimizations...");
-            await optimizationRegistry.PreloadOptimizations();
-
-            // Apply custom accent colors
-            ApplicationAccentColorManager.Apply(
-                Color.FromRgb(254, 209, 20),
-                Color.FromRgb(242, 124, 20),
-                Color.FromRgb(254, 209, 20),
-                Color.FromRgb(242, 124, 20)
-            );
-
-            ApplicationThemeManager.Apply(
-                appSettings.App.Theme switch
-                {
-                    ApplicationTheme.Dark => ApplicationTheme.Dark,
-                    ApplicationTheme.HighContrast => ApplicationTheme.HighContrast,
-                    _ => ApplicationTheme.Light,
-                },
-                updateAccent: false
-            );
-
-            var mainWindow = _host.Services.GetRequiredService<MainWindow>();
-            mainWindow.Show();
+            await OnStartupAsync(e);
         }
         catch (Exception ex)
         {
@@ -281,15 +141,170 @@ public partial class App : Application
         }
     }
 
-    protected override async void OnExit(ExitEventArgs e)
+    private async Task OnStartupAsync(StartupEventArgs e)
     {
-        if (_host != null)
-        {
-            await _host.StopAsync();
-            _host.Dispose();
-        }
+        // Create the required directories if they don't exist
+        Directory.CreateDirectory(Shared.ResourcesDirectory);
+        Directory.CreateDirectory(Shared.RootDirectory);
+        Directory.CreateDirectory(Shared.RevertDirectory);
 
-        await Log.CloseAndFlushAsync();
+        var logPath = Path.Combine(Shared.RootDirectory, "optimizerDuck.log");
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Verbose()
+            .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+            .Enrich.FromLogContext()
+            .WriteTo.File(
+                new ScopeBlockTextFormatter(),
+                logPath,
+                rollingInterval: RollingInterval.Infinite
+            )
+            .CreateLogger();
+
+        _host = Host.CreateDefaultBuilder()
+            .UseSerilog()
+            .ConfigureAppConfiguration(c =>
+            {
+                ConfigManager.ValidateConfig();
+                c.AddJsonFile(Path.Combine(Shared.RootDirectory, "appsettings.json"), false, true);
+            })
+            .ConfigureServices(
+                (context, services) =>
+                {
+                    services.Configure<AppSettings>(context.Configuration);
+
+                    // WPF UI shi
+                    services.AddNavigationViewPageProvider();
+                    services.AddSingleton<INavigationService, NavigationService>();
+                    services.AddSingleton<IContentDialogService, ContentDialogService>();
+                    services.AddSingleton<ISnackbarService, SnackbarService>();
+
+                    // Windows
+                    services.AddSingleton<MainWindow>();
+                    services.AddSingleton<MainWindowViewModel>();
+
+                    // Pages
+                    services.AddSingleton<DashboardViewModel>();
+                    services.AddSingleton<DashboardPage>();
+
+                    services.AddSingleton<OptimizeViewModel>();
+                    services.AddSingleton<OptimizePage>();
+
+                    services.AddSingleton<SettingsViewModel>();
+                    services.AddSingleton<SettingsPage>();
+
+                    services.AddSingleton<BloatwareViewModel>();
+                    services.AddSingleton<BloatwarePage>();
+
+                    services.AddSingleton<DiskCleanupViewModel>();
+                    services.AddSingleton<DiskCleanupPage>();
+
+                    services.AddSingleton<StartupManagerViewModel>();
+                    services.AddSingleton<StartupManagerPage>();
+
+                    services.AddSingleton<ScheduledTasksViewModel>();
+                    services.AddSingleton<ScheduledTasksPage>();
+
+                    // Toggle Features
+                    services.AddSingleton<FeaturesViewModel>();
+                    services.AddSingleton<FeaturesPage>();
+
+                    services.AddAllFeaturesCategoryPages();
+
+                    // Optimizations
+                    services.AddAllOptimizationPages();
+
+                    // Managers
+                    services.AddSingleton<ConfigManager>();
+                    services.AddSingleton<RevertManager>();
+
+                    // Services
+                    services.AddSingleton<OptimizationRegistry>();
+                    services.AddSingleton<FeatureRegistry>();
+                    services.AddSingleton<OptimizationService>();
+                    services.AddSingleton<BloatwareService>();
+                    services.AddSingleton<DiskCleanupService>();
+                    services.AddSingleton<StartupManagerService>();
+                    services.AddSingleton<SystemInfoService>();
+                    services.AddSingleton<StreamService>();
+                    services.AddSingleton<UpdaterService>();
+                }
+            )
+            .Build();
+
+        await _host.StartAsync().ConfigureAwait(false);
+
+        var config = _host.Services.GetRequiredService<ConfigManager>();
+        await config.InitializeAsync().ConfigureAwait(false);
+        await config.EnsureDefaultsAsync().ConfigureAwait(false);
+
+        var appOptionsMonitor = _host.Services.GetRequiredService<IOptionsMonitor<AppSettings>>();
+
+        // init shell service with config
+        ShellService.Init(appOptionsMonitor);
+
+        // init WMI helper for cleanup on abnormal termination
+        WmiHelper.Initialize();
+
+        var appSettings = appOptionsMonitor.CurrentValue;
+
+        Loc.Instance.ChangeCulture(new CultureInfo(appSettings.App.Language));
+
+        _logger = _host.Services.GetRequiredService<ILogger<App>>();
+        _logger.LogInformation(
+            "\n{Logo}\nVersion: {Version}\n\n",
+            Shared.RawLogo,
+            Shared.FileVersion
+        );
+        _logger.LogInformation("Loaded language: {Language}", appSettings.App.Language);
+
+        var optimizationRegistry = _host.Services.GetRequiredService<OptimizationRegistry>();
+        _logger.LogInformation("Preloading optimizations...");
+        await optimizationRegistry.PreloadOptimizations().ConfigureAwait(false);
+
+        // Apply custom accent colors and theme on UI thread
+        await Dispatcher.InvokeAsync(() =>
+        {
+            ApplicationAccentColorManager.Apply(
+                Color.FromRgb(254, 209, 20),
+                Color.FromRgb(242, 124, 20),
+                Color.FromRgb(254, 209, 20),
+                Color.FromRgb(242, 124, 20)
+            );
+
+            ApplicationThemeManager.Apply(
+                appSettings.App.Theme switch
+                {
+                    ApplicationTheme.Dark => ApplicationTheme.Dark,
+                    ApplicationTheme.HighContrast => ApplicationTheme.HighContrast,
+                    _ => ApplicationTheme.Light,
+                },
+                updateAccent: false
+            );
+
+            var mainWindow = _host.Services.GetRequiredService<MainWindow>();
+            mainWindow.Show();
+        });
+    }
+
+    protected override void OnExit(ExitEventArgs e)
+    {
+        try
+        {
+            if (_host != null)
+            {
+                _host.StopAsync().GetAwaiter().GetResult();
+                _host.Dispose();
+            }
+
+            // Dispose WMI scopes to prevent resource leaks
+            WmiHelper.DisposeScopes();
+
+            Log.CloseAndFlush();
+        }
+        catch
+        {
+            // Silently ignore exit errors to prevent blocking shutdown
+        }
 
         base.OnExit(e);
     }

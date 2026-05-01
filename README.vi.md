@@ -4,7 +4,7 @@
 
 # [optimizerDuck](https://optimizerduck.vercel.app/)
 
-**optimizerDuck là một công cụ tối ưu hóa Windows miễn phí, mã nguồn mở được xây dựng nhằm mục đích hiệu suất, quyền riêng tư và sự đơn giản.**
+**optimizerDuck là một công cụ tối ưu hóa Windows miễn phí, mã nguồn mở được xây dựng nhằm mục đích tối ưu hiệu suất, bảo mật và sự đơn giản.**
 
 [![Release](https://img.shields.io/github/release/itsfatduck/optimizerDuck?color=fed114&label=Phi%C3%AAn%20b%E1%BA%A3n&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/itsfatduck/optimizerDuck/total?label=L%C6%B0%E1%BB%A3t%20t%E1%BA%A3i&style=flat-square&color=lightgreen)](https://github.com/itsfatduck/optimizerDuck/releases)
@@ -21,11 +21,13 @@
 <details>
 <summary>⭐ Lịch sử Star</summary>
 
-Nếu optimizerDuck giúp ích cho PC của bạn, hãy cân nhắc tặng repo một ⭐ và chia sẻ nó với người khác.
+🇻🇳
+
+Nếu optimizerDuck giúp ích cho PC của bạn, hãy tặng repo một ⭐ và chia sẻ nó với người khác.
 Mỗi ngôi sao giúp tạo động lực cho những cải tiến trong tương lai.
 
 <a href="https://www.star-history.com/#itsfatduck/optimizerDuck&type=timeline&legend=top-left">
- <picture>
+<picture>
    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&type=timeline&theme=dark&legend=top-left" />
    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&type=timeline&legend=top-left" />
    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&type=timeline&legend=top-left" />
@@ -58,21 +60,21 @@ Mỗi ngôi sao giúp tạo động lực cho những cải tiến trong tương
 
 Hơn 35 tối ưu hóa trong 6 danh mục, cùng với các công cụ tích hợp để quản lý hệ thống của bạn. Tất cả đều có chỉ báo rủi ro rõ ràng và hoàn tác chỉ với một cú nhấp chuột.
 
-|     | Tính năng                 | Công dụng                                                                 |
-| :-- | :---------------------- | :------------------------------------------------------------------------ |
-| 🚀  | **Hiệu suất & Nguồn điện** | Tăng tốc hệ thống, vô hiệu hóa các dịch vụ rác, tinh chỉnh cài đặt nguồn điện. |
-| 🛡️  | **Bảo vệ quyền riêng tư**  | Tắt đo lường từ xa, Cortana, Copilot, quảng cáo và theo dõi. Lấy lại dữ liệu của bạn. |
-| 🎮  | **Tinh chỉnh GPU**          | Các tinh chỉnh dành riêng cho nhà sản xuất. AMD, NVIDIA hoặc Intel.        |
-| 🧩  | **Bật/Tắt tính năng**     | Dễ dàng bật hoặc tắt các tính năng khác nhau của Windows.                 |
-| 🧹  | **Dọn dẹp ổ đĩa**        | Xóa các tệp tạm thời, bộ nhớ cache, bản cài đặt Windows cũ. Lấy lại dung lượng ổ đĩa. |
-| 🗑️  | **Gỡ bỏ Bloatware**   | Loại bỏ các ứng dụng Windows được cài đặt sẵn. Chỉ báo rủi ro giúp bạn quyết định. |
-| ⚡  | **Quản lý khởi động**     | Kiểm soát các ứng dụng chạy khi khởi động. Giữ lại những gì bạn cần, tắt phần còn lại. |
-| 📋  | **Tác vụ đã lên lịch**     | Xem, chạy, dừng hoặc xóa các tác vụ đã lên lịch của Windows. Kiểm soát hoàn toàn. |
-| 💻  | **Bảng điều khiển hệ thống**    | Xem thông tin CPU, RAM, GPU, Lưu trữ và Hệ điều hành của bạn một cách nhanh chóng. |
-| 🔄  | **Hoàn tác thay đổi**      | Bạn đã nhầm lẫn? Một cú nhấp chuột để hoàn tác bất kỳ thay đổi nào.        |
-| 🎨  | **Giao diện sạch sẽ**            | Chủ đề Tối, Sáng hoặc Độ tương phản cao. Thiết kế Fluent hiện đại.        |
-| 🌐  | **Đa ngôn ngữ**      | Tiếng Anh, tiếng Việt, tiếng Trung phồn thể.                                 |
-| 🔒  | **Chạy ngoại tuyến**        | Không đo lường từ xa, không quảng cáo, không thu thập dữ liệu. Mọi thứ chạy cục bộ. |
+|     | Tính năng                    | Công dụng                                                                              |
+| :-- | :--------------------------- | :------------------------------------------------------------------------------------- |
+| 🚀  | **Hiệu suất & Nguồn điện**   | Tăng tốc hệ thống, vô hiệu hóa các dịch vụ rác, tinh chỉnh cài đặt nguồn điện.         |
+| 🛡️  | **Bảo vệ quyền riêng tư**    | Tắt đo lường từ xa, Cortana, Copilot, quảng cáo và theo dõi. Lấy lại dữ liệu của bạn.  |
+| 🎮  | **Tinh chỉnh GPU**           | Các tinh chỉnh dành riêng cho nhà sản xuất. AMD, NVIDIA hoặc Intel.                    |
+| 🧩  | **Bật/Tắt tính năng**        | Dễ dàng bật hoặc tắt các tính năng khác nhau của Windows.                              |
+| 🧹  | **Dọn dẹp ổ đĩa**            | Xóa các tệp tạm thời, bộ nhớ cache, bản cài đặt Windows cũ. Lấy lại dung lượng ổ đĩa.  |
+| 🗑️  | **Gỡ bỏ Bloatware**          | Loại bỏ các ứng dụng Windows được cài đặt sẵn. Chỉ báo rủi ro giúp bạn quyết định.     |
+| ⚡  | **Quản lý khởi động**        | Kiểm soát các ứng dụng chạy khi khởi động. Giữ lại những gì bạn cần, tắt phần còn lại. |
+| 📋  | **Tác vụ đã lên lịch**       | Xem, chạy, dừng hoặc xóa các tác vụ đã lên lịch của Windows. Kiểm soát hoàn toàn.      |
+| 💻  | **Bảng điều khiển hệ thống** | Xem thông tin CPU, RAM, GPU, Lưu trữ và Hệ điều hành của bạn một cách nhanh chóng.     |
+| 🔄  | **Hoàn tác thay đổi**        | Bạn đã nhầm lẫn? Một cú nhấp chuột để hoàn tác bất kỳ thay đổi nào.                    |
+| 🎨  | **Giao diện sạch sẽ**        | Chủ đề Tối, Sáng hoặc Độ tương phản cao. Thiết kế Fluent hiện đại.                     |
+| 🌐  | **Đa ngôn ngữ**              | Tiếng Anh, tiếng Việt, tiếng Trung phồn thể.                                           |
+| 🔒  | **Chạy ngoại tuyến**         | Không đo lường từ xa, không quảng cáo, không thu thập dữ liệu. Mọi thứ chạy cục bộ.    |
 
 ---
 
@@ -138,7 +140,7 @@ Hướng dẫn từng bước, giải thích về từng tối ưu hóa và các
 
 > [!TIP]
 > Tham gia cộng đồng đang phát triển của chúng tôi trên Discord! Nhận hỗ trợ, chia sẻ kinh nghiệm và kết nối với những người dùng và cộng tác viên khác.
-> 
+>
 > <a href="https://discord.gg/tDUBDCYw9Q"><img src="https://discord.com/api/guilds/1091675679994675240/widget.png?style=banner2" alt="Discord Banner 2"/></a>
 
 Nếu optimizerDuck đã giúp ích cho PC của bạn:

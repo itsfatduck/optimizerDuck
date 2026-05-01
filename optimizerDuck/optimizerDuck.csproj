@@ -1,79 +1,79 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net10.0-windows10.0.17763.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UseWPF>true</UseWPF>
-    <Authors>fatDuck</Authors>
-    <ApplicationIcon>Logo.ico</ApplicationIcon>
-    <Company>fatDuck</Company>
-    <FileVersion>2.9.1</FileVersion>
-    <Version>1.0.0</Version>
-    <Product>optimizerDuck</Product>
-    <Copyright>Copyright fatDuck 2026</Copyright>
-    <AssemblyTitle>optimizerDuck</AssemblyTitle>
-    <AssemblyDescription>Free, open-source Windows optimization tool for performance, privacy, and simplicity.</AssemblyDescription>
-    <NeutralLanguage>en-US</NeutralLanguage>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-  </PropertyGroup>
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net10.0-windows</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UseWPF>true</UseWPF>
+        <Authors>fatDuck</Authors>
+        <ApplicationIcon>Logo.ico</ApplicationIcon>
+        <Company>fatDuck</Company>
+        <FileVersion>2.9.1</FileVersion>
+        <Version>2.9.1</Version>
+        <Product>optimizerDuck</Product>
+        <Copyright>Copyright fatDuck 2026</Copyright>
+        <AssemblyTitle>optimizerDuck</AssemblyTitle>
+        <AssemblyDescription>Free, open-source Windows optimization tool for performance, privacy, and simplicity.</AssemblyDescription>
+        <NeutralLanguage>en-US</NeutralLanguage>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+    </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <PlatformTarget>x64</PlatformTarget>
-  </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <PlatformTarget>x64</PlatformTarget>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <Page Update="UI\Windows\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="UI\Pages\Optimize\Categories\OptimizationPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="UI\Pages\Features\FeaturesPage.xaml">
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
+    <ItemGroup>
+        <Page Update="UI\Windows\MainWindow.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="UI\Pages\Optimize\Categories\OptimizationPage.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="UI\Pages\Features\FeaturesPage.xaml">
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.5" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.5" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="Serilog" Version="4.3.1" />
-    <PackageReference Include="Serilog.Extensions.Hosting" Version="10.0.0" />
-    <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
-    <PackageReference Include="System.Management.Automation" Version="7.6.0" />
-    <PackageReference Include="TaskScheduler" Version="2.12.2" />
-    <PackageReference Include="WPF-UI" Version="4.2.0" />
-    <PackageReference Include="WPF-UI.DependencyInjection" Version="4.2.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.7" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.7" />
+        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.7" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+        <PackageReference Include="Serilog" Version="4.3.1" />
+        <PackageReference Include="Serilog.Extensions.Hosting" Version="10.0.0" />
+        <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+        <PackageReference Include="System.Management.Automation" Version="7.6.1" />
+        <PackageReference Include="TaskScheduler" Version="2.12.2" />
+        <PackageReference Include="WPF-UI" Version="4.2.1" />
+        <PackageReference Include="WPF-UI.DependencyInjection" Version="4.2.1" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Update="Resources\Languages\Translations.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Translations.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Update="Resources\Languages\Translations.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Translations.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+    </ItemGroup>
 
-  <ItemGroup>
-    <Resource Include="Resources\Images\Duck.png" />
-    <Resource Include="Resources\Images\GitHubLogoBlack.png" />
-    <Resource Include="Resources\Images\GitHubLogoWhite.png" />
-    <Resource Include="Resources\Images\DiscordLogo.png" />
-  </ItemGroup>
+    <ItemGroup>
+        <Resource Include="Resources\Images\Duck.png" />
+        <Resource Include="Resources\Images\GitHubLogoBlack.png" />
+        <Resource Include="Resources\Images\GitHubLogoWhite.png" />
+        <Resource Include="Resources\Images\DiscordLogo.png" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Resources\Languages\Translations.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Translations.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
+    <ItemGroup>
+        <Compile Update="Resources\Languages\Translations.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Translations.resx</DependentUpon>
+        </Compile>
+    </ItemGroup>
 </Project>

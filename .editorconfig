@@ -4,3 +4,24 @@
 # bro ts solve so many warnings!!
 # CA1416: Validate platform compatibility
 dotnet_diagnostic.CA1416.severity = silent
+
+
+# https://csharpier.com/docs/Configuration
+[*.{cs,csx}]
+# Non-configurable behaviors
+charset = utf-8
+insert_final_newline = true
+trim_trailing_whitespace = true
+dotnet_sort_system_directives_first = true
+dotnet_separate_import_directive_groups = false
+
+# conifguiawudiable
+end_of_line = lf
+indent_style = space
+indent_size = 4
+max_line_length = 100
+
+[*.{config,csproj,props,slnx,targets,xml}]
+indent_style = space
+indent_size = 4
+max_line_length = 100

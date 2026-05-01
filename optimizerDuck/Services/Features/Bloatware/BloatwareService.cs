@@ -47,33 +47,35 @@ public class BloatwareService(
             var safePattern = string.Join("|", Shared.SafeApps.Select(Regex.Escape));
             var cautionPattern = string.Join("|", Shared.CautionApps.Select(Regex.Escape));
 
-            var result = await ShellService.PowerShellAsync(
-                $$"""
-                $safeRegex = '{{safePattern}}'
-                $cautionRegex = '{{cautionPattern}}'
+            var result = await ShellService
+                .PowerShellAsync(
+                    $$"""
+                    $safeRegex = '{{safePattern}}'
+                    $cautionRegex = '{{cautionPattern}}'
 
-                Get-AppxPackage |
-                Where-Object {
-                    $_.NonRemovable -eq $false -and
-                    $_.IsFramework -eq $false
-                } |
-                ForEach-Object {
-                    $risk = "Unknown"
+                    Get-AppxPackage |
+                    Where-Object {
+                        $_.NonRemovable -eq $false -and
+                        $_.IsFramework -eq $false
+                    } |
+                    ForEach-Object {
+                        $risk = "Unknown"
 
-                    if ($_.Name -match $safeRegex) { $risk = "Safe" }
-                    elseif ($_.Name -match $cautionRegex) { $risk = "Caution" }
+                        if ($_.Name -match $safeRegex) { $risk = "Safe" }
+                        elseif ($_.Name -match $cautionRegex) { $risk = "Caution" }
 
-                    [PSCustomObject]@{
-                        Name            = $_.Name
-                        PackageFullName = $_.PackageFullName
-                        Publisher       = $_.Publisher
-                        Version         = $_.Version.ToString()
-                        InstallLocation = if ($_.InstallLocation) { $_.InstallLocation } else { "" }
-                        Risk            = $risk
-                    }
-                } | ConvertTo-Json -Depth 2
-                """
-            );
+                        [PSCustomObject]@{
+                            Name            = $_.Name
+                            PackageFullName = $_.PackageFullName
+                            Publisher       = $_.Publisher
+                            Version         = $_.Version.ToString()
+                            InstallLocation = if ($_.InstallLocation) { $_.InstallLocation } else { "" }
+                            Risk            = $risk
+                        }
+                    } | ConvertTo-Json -Depth 2
+                    """
+                )
+                .ConfigureAwait(false);
 
             var options = new JsonSerializerOptions
             {
@@ -188,7 +190,7 @@ public class BloatwareService(
                     Write-Output "Skipping provisioned package removal (disabled by user)"
                     """;
 
-            var result = await ShellService.PowerShellAsync(script);
+            var result = await ShellService.PowerShellAsync(script).ConfigureAwait(false);
 
             if (!string.IsNullOrWhiteSpace(result.Stderr))
                 logger.LogWarning("Remove AppX stderr: {Error}", result.Stderr);

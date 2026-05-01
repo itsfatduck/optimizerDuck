@@ -500,6 +500,29 @@ internal static class WmiHelper
     private static readonly Lock ScopeLock = new();
 
     /// <summary>
+    ///     Initializes the WMI helper by registering the process exit handler.
+    ///     Call this during application startup to enable cleanup on abnormal termination.
+    /// </summary>
+    public static void Initialize()
+    {
+        // Register process exit handler as a fallback for crash/force-kill scenarios
+        AppDomain.CurrentDomain.ProcessExit += OnProcessExit;
+    }
+
+    private static void OnProcessExit(object? sender, EventArgs e)
+    {
+        // Best-effort cleanup during process exit
+        try
+        {
+            DisposeScopes();
+        }
+        catch
+        {
+            // Ignore errors during process exit
+        }
+    }
+
+    /// <summary>
     ///     Gets or creates a cached ManagementScope for the given namespace.
     /// </summary>
     private static ManagementScope GetScope(string namespacePath = @"root\cimv2")
@@ -513,6 +536,18 @@ internal static class WmiHelper
             scope.Connect();
             ScopeCache[namespacePath] = scope;
             return scope;
+        }
+    }
+
+    /// <summary>
+    ///     Clears all cached ManagementScope objects.
+    ///     Note: ManagementScope does not implement IDisposable, so we only clear the cache.
+    /// </summary>
+    public static void DisposeScopes()
+    {
+        lock (ScopeLock)
+        {
+            ScopeCache.Clear();
         }
     }
 

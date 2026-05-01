@@ -34,7 +34,7 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
     /// </summary>
     public async Task InitializeAsync()
     {
-        _cache = await LoadConfigAsync();
+        _cache = await LoadConfigAsync().ConfigureAwait(false);
     }
 
     /// <summary>
@@ -96,7 +96,7 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
             {
                 // Clean up any duplicate flat keys that may have been added previously
                 CleanupDuplicateKeys(_cache);
-                await SaveConfigAsync();
+                await SaveConfigAsync().ConfigureAwait(false);
                 logger.LogInformation(
                     "Added {Count} missing config keys: {Keys}",
                     addedKeys.Count,
@@ -224,7 +224,7 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
                 current = GetOrCreateObjectIgnoreCase(current, parts[i]);
 
             SetValueIgnoreCase(current, parts[^1], value);
-            await SaveConfigAsync();
+            await SaveConfigAsync().ConfigureAwait(false);
         }
         finally
         {
@@ -253,21 +253,12 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
             }
 
             RemoveIgnoreCase(current, parts[^1]);
-            await SaveConfigAsync();
+            await SaveConfigAsync().ConfigureAwait(false);
         }
         finally
         {
             _lock.Release();
         }
-    }
-
-    /// <summary>
-    ///     Removes a configuration value by key (synchronous wrapper).
-    /// </summary>
-    /// <param name="key">The configuration key to remove.</param>
-    public void Remove(string key)
-    {
-        _ = RemoveAsync(key);
     }
 
     /// <summary>
@@ -278,12 +269,14 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
     {
         try
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(_configPath)!);
+            var configDir = Path.GetDirectoryName(_configPath);
+            if (!string.IsNullOrEmpty(configDir))
+                Directory.CreateDirectory(configDir);
 
             if (!File.Exists(_configPath))
                 return new JObject();
 
-            var content = await File.ReadAllTextAsync(_configPath);
+            var content = await File.ReadAllTextAsync(_configPath).ConfigureAwait(false);
 
             return string.IsNullOrWhiteSpace(content)
                 ? new JObject()
@@ -301,7 +294,8 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
     /// </summary>
     private async Task SaveConfigAsync()
     {
-        await File.WriteAllTextAsync(_configPath, _cache.ToString(Formatting.Indented));
+        await File.WriteAllTextAsync(_configPath, _cache.ToString(Formatting.Indented))
+            .ConfigureAwait(false);
 
         (configuration as IConfigurationRoot)?.Reload();
     }

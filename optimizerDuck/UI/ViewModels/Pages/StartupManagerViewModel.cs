@@ -35,6 +35,7 @@ public partial class StartupManagerViewModel : ViewModel
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsNotLoading))]
+    [NotifyPropertyChangedFor(nameof(ShowRefreshButton))]
     private bool _isLoading;
 
     // Per-section: Tasks
@@ -63,6 +64,9 @@ public partial class StartupManagerViewModel : ViewModel
     public bool HasApps => _allApps.Count > 0;
     public bool HasTasks => _allTasks.Count > 0;
     public bool HasData => HasApps || HasTasks;
+
+    public bool HasResults => Apps.Count > 0 || Tasks.Count > 0;
+    public bool ShowRefreshButton => IsNotLoading && HasResults;
 
     public override async Task OnNavigatedToAsync()
     {
@@ -175,6 +179,8 @@ public partial class StartupManagerViewModel : ViewModel
         OnPropertyChanged(nameof(HasApps));
         OnPropertyChanged(nameof(HasTasks));
         OnPropertyChanged(nameof(HasData));
+        OnPropertyChanged(nameof(HasResults));
+        OnPropertyChanged(nameof(ShowRefreshButton));
 
         try
         {
@@ -183,8 +189,8 @@ public partial class StartupManagerViewModel : ViewModel
 
             await Task.WhenAll(appsTask, tasksTask);
 
-            _allApps.AddRange(appsTask.Result);
-            _allTasks.AddRange(tasksTask.Result);
+            _allApps.AddRange(await appsTask);
+            _allTasks.AddRange(await tasksTask);
 
             ApplyAppFilter();
             ApplyTaskFilter();
@@ -233,6 +239,8 @@ public partial class StartupManagerViewModel : ViewModel
 
         OnPropertyChanged(nameof(HasApps));
         OnPropertyChanged(nameof(HasData));
+        OnPropertyChanged(nameof(HasResults));
+        OnPropertyChanged(nameof(ShowRefreshButton));
     }
 
     private void ApplyTaskFilter()
@@ -274,17 +282,41 @@ public partial class StartupManagerViewModel : ViewModel
 
         OnPropertyChanged(nameof(HasTasks));
         OnPropertyChanged(nameof(HasData));
+        OnPropertyChanged(nameof(HasResults));
+        OnPropertyChanged(nameof(ShowRefreshButton));
     }
 
     private async void App_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(StartupApp.IsEnabled) && sender is StartupApp app)
-            await _startupManagerService.ToggleStartupApp(app, app.IsEnabled);
+        {
+            try
+            {
+                await _startupManagerService
+                    .ToggleStartupApp(app, app.IsEnabled)
+                    .ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to toggle startup app {Name}", app.Name);
+            }
+        }
     }
 
     private async void Task_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(StartupTask.IsEnabled) && sender is StartupTask task)
-            await _startupManagerService.ToggleStartupTask(task, task.IsEnabled);
+        {
+            try
+            {
+                await _startupManagerService
+                    .ToggleStartupTask(task, task.IsEnabled)
+                    .ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to toggle startup task {Name}", task.TaskName);
+            }
+        }
     }
 }

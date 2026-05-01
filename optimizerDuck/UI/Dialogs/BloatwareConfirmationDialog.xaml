@@ -1,191 +1,197 @@
 <UserControl
-  x:Class="optimizerDuck.UI.Dialogs.BloatwareConfirmationDialog"
-  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:converters="clr-namespace:optimizerDuck.Common.Converters"
-  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-  xmlns:dialogVm="clr-namespace:optimizerDuck.UI.ViewModels.Dialogs"
-  xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
-  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-  xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-  d:DesignHeight="520"
-  d:DesignWidth="900"
-  mc:Ignorable="d"
+    x:Class="optimizerDuck.UI.Dialogs.BloatwareConfirmationDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:optimizerDuck.Common.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dialogVm="clr-namespace:optimizerDuck.UI.ViewModels.Dialogs"
+    xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    d:DesignHeight="520"
+    d:DesignWidth="900"
+    mc:Ignorable="d"
 >
-  <UserControl.Resources>
-    <converters:GreaterThanZeroToVisibilityConverter x:Key="GreaterThanZeroToVisibilityConverter" />
-    <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-  </UserControl.Resources>
+    <UserControl.Resources>
+        <converters:GreaterThanZeroToVisibilityConverter x:Key="GreaterThanZeroToVisibilityConverter" />
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </UserControl.Resources>
 
-  <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="*" />
-    </Grid.RowDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-    <ui:InfoBar
-      Grid.Row="0"
-      Margin="0,0,0,12"
-      IsClosable="False"
-      IsOpen="True"
-      Message="{ext:Loc BloatwareDialog.Confirmation.Description}"
-      Severity="Warning"
-    />
+        <ui:InfoBar
+            Grid.Row="0"
+            Margin="0,0,0,12"
+            IsClosable="False"
+            IsOpen="True"
+            Message="{ext:Loc BloatwareDialog.Confirmation.Description}"
+            Severity="Warning"
+        />
 
-    <ui:TextBlock
-      Grid.Row="1"
-      Margin="0,0,0,6"
-      Appearance="Primary"
-      FontTypography="BodyStrong"
-      Text="{ext:Loc BloatwareDialog.Confirmation.SelectedList}"
-      TextWrapping="Wrap"
-    />
-    <ScrollViewer Grid.Row="2" MaxHeight="420" VerticalScrollBarVisibility="Auto">
-      <ItemsControl
-        ItemsSource="{Binding Items}"
-        Visibility="{Binding Items.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}"
-      >
-        <ItemsControl.ItemsPanel>
-          <ItemsPanelTemplate>
-            <VirtualizingStackPanel />
-          </ItemsPanelTemplate>
-        </ItemsControl.ItemsPanel>
-
-        <ItemsControl.ItemTemplate>
-          <DataTemplate DataType="{x:Type dialogVm:BloatwareConfirmationItemViewModel}">
-            <Border
-              Margin="0,0,0,6"
-              Padding="12"
-              Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-              CornerRadius="6"
+        <ui:TextBlock
+            Grid.Row="1"
+            Margin="0,0,0,6"
+            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+            FontTypography="BodyStrong"
+            Text="{ext:Loc BloatwareDialog.Confirmation.SelectedList}"
+            TextWrapping="Wrap"
+        />
+        <ScrollViewer Grid.Row="2" MaxHeight="420" VerticalScrollBarVisibility="Auto">
+            <ItemsControl
+                ItemsSource="{Binding Items}"
+                Visibility="{Binding Items.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}"
             >
-              <Grid>
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="Auto" />
-                  <ColumnDefinition Width="Auto" />
-                  <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
 
-                <Border
-                  Grid.Column="0"
-                  MinWidth="34"
-                  Margin="0,0,12,0"
-                  Padding="6,2"
-                  VerticalAlignment="Top"
-                  Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                  CornerRadius="5"
-                >
-                  <ui:TextBlock
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Appearance="Secondary"
-                    FontTypography="Caption"
-                    Text="{Binding Index, StringFormat=#{0}}"
-                  />
-                </Border>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type dialogVm:BloatwareConfirmationItemViewModel}">
+                        <Border
+                            Margin="0,0,0,6"
+                            Padding="12"
+                            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="6"
+                        >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
 
-                <Image
-                  Grid.Column="1"
-                  Width="36"
-                  Height="36"
-                  Margin="0,0,12,0"
-                  VerticalAlignment="Top"
-                  Source="{Binding Package.LogoImage}"
-                  Stretch="UniformToFill"
-                />
+                                <Border
+                                    Grid.Column="0"
+                                    MinWidth="34"
+                                    Margin="0,0,12,0"
+                                    Padding="6,2"
+                                    VerticalAlignment="Top"
+                                    Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                    CornerRadius="5"
+                                >
+                                    <ui:TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        FontTypography="Caption"
+                                        Text="{Binding Index, StringFormat=#{0}}"
+                                    />
+                                </Border>
 
-                <StackPanel Grid.Column="2">
-                  <DockPanel LastChildFill="False">
-                    <ui:TextBlock FontTypography="BodyStrong" Text="{Binding Package.Name}" />
+                                <Image
+                                    Grid.Column="1"
+                                    Width="36"
+                                    Height="36"
+                                    Margin="0,0,12,0"
+                                    VerticalAlignment="Top"
+                                    Source="{Binding Package.LogoImage}"
+                                    Stretch="UniformToFill"
+                                />
 
-                    <Border
-                      Margin="5,0,0,0"
-                      Padding="4,1"
-                      HorizontalAlignment="Left"
-                      VerticalAlignment="Center"
-                      Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                      CornerRadius="5"
-                    >
-                      <ui:TextBlock
-                        VerticalAlignment="Center"
-                        Appearance="Tertiary"
-                        FontTypography="Body"
-                        Text="{Binding Package.Version}"
-                      />
-                    </Border>
+                                <StackPanel Grid.Column="2">
+                                    <DockPanel LastChildFill="False">
+                                        <ui:TextBlock
+                                            FontTypography="BodyStrong"
+                                            Text="{Binding Package.Name}"
+                                        />
 
-                    <Border
-                      Margin="5,0,0,0"
-                      Padding="4,2"
-                      HorizontalAlignment="Left"
-                      CornerRadius="5"
-                      Visibility="{Binding Package.ShouldVisibleRisk, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    >
-                      <Border.Style>
-                        <Style TargetType="Border">
-                          <Setter
-                            Property="Background"
-                            Value="{DynamicResource SystemFillColorSuccessBrush}"
-                          />
-                          <Style.Triggers>
-                            <DataTrigger Binding="{Binding Package.Risk}" Value="Caution">
-                              <Setter
-                                Property="Background"
-                                Value="{DynamicResource SystemFillColorCautionBrush}"
-                              />
-                            </DataTrigger>
-                          </Style.Triggers>
-                        </Style>
-                      </Border.Style>
-                      <StackPanel Orientation="Horizontal">
-                        <ui:SymbolIcon
-                          Margin="0,0,5,0"
-                          Foreground="{DynamicResource TextFillColorInverseBrush}"
-                          Symbol="{Binding Package.RiskVisual.Icon}"
-                        />
+                                        <Border
+                                            Margin="5,0,0,0"
+                                            Padding="4,1"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                            CornerRadius="5"
+                                        >
+                                            <ui:TextBlock
+                                                VerticalAlignment="Center"
+                                                Appearance="Tertiary"
+                                                FontTypography="Body"
+                                                Text="{Binding Package.Version}"
+                                            />
+                                        </Border>
 
-                        <ui:TextBlock
-                          HorizontalAlignment="Center"
-                          VerticalAlignment="Center"
-                          FontTypography="Caption"
-                          Foreground="{DynamicResource TextFillColorInverseBrush}"
-                          Text="{Binding Package.RiskVisual.Display}"
-                          TextWrapping="Wrap"
-                        />
-                      </StackPanel>
-                    </Border>
-                  </DockPanel>
+                                        <Border
+                                            Margin="5,0,0,0"
+                                            Padding="4,2"
+                                            HorizontalAlignment="Left"
+                                            CornerRadius="5"
+                                            Visibility="{Binding Package.ShouldVisibleRisk, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                        >
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Setter
+                                                        Property="Background"
+                                                        Value="{DynamicResource SystemFillColorSuccessBrush}"
+                                                    />
+                                                    <Style.Triggers>
+                                                        <DataTrigger
+                                                            Binding="{Binding Package.Risk}"
+                                                            Value="Caution"
+                                                        >
+                                                            <Setter
+                                                                Property="Background"
+                                                                Value="{DynamicResource SystemFillColorCautionBrush}"
+                                                            />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                            <StackPanel Orientation="Horizontal">
+                                                <ui:SymbolIcon
+                                                    Margin="0,0,5,0"
+                                                    Foreground="{DynamicResource TextFillColorInverseBrush}"
+                                                    Symbol="{Binding Package.RiskVisual.Icon}"
+                                                />
 
-                  <ui:TextBlock
-                    Margin="0,2,0,0"
-                    Appearance="Disabled"
-                    FontTypography="Body"
-                    Text="{Binding Package.Publisher}"
-                    TextTrimming="CharacterEllipsis"
-                  />
+                                                <ui:TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    FontTypography="Caption"
+                                                    Foreground="{DynamicResource TextFillColorInverseBrush}"
+                                                    Text="{Binding Package.RiskVisual.Display}"
+                                                    TextWrapping="Wrap"
+                                                />
+                                            </StackPanel>
+                                        </Border>
+                                    </DockPanel>
 
-                  <ui:TextBlock
-                    Margin="0,2,0,0"
-                    Appearance="Disabled"
-                    FontTypography="Body"
-                    Text="{Binding Package.InstallLocation}"
-                    TextTrimming="CharacterEllipsis"
-                  />
+                                    <ui:TextBlock
+                                        Margin="0,2,0,0"
+                                        Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                                        FontTypography="Body"
+                                        Text="{Binding Package.Publisher}"
+                                        TextTrimming="CharacterEllipsis"
+                                    />
 
-                  <ui:TextBlock
-                    Margin="0,4,0,0"
-                    Appearance="Secondary"
-                    FontTypography="Caption"
-                    Text="{Binding Package.PackageFullName}"
-                    TextTrimming="CharacterEllipsis"
-                  />
-                </StackPanel>
-              </Grid>
-            </Border>
-          </DataTemplate>
-        </ItemsControl.ItemTemplate>
-      </ItemsControl>
-    </ScrollViewer>
-  </Grid>
+                                    <ui:TextBlock
+                                        Margin="0,2,0,0"
+                                        Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                                        FontTypography="Body"
+                                        Text="{Binding Package.InstallLocation}"
+                                        TextTrimming="CharacterEllipsis"
+                                    />
+
+                                    <ui:TextBlock
+                                        Margin="0,4,0,0"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        FontTypography="Caption"
+                                        Text="{Binding Package.PackageFullName}"
+                                        TextTrimming="CharacterEllipsis"
+                                    />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
 </UserControl>

@@ -75,6 +75,11 @@ public partial class CleanupItem : ObservableObject
     public bool IsCommand { get; init; }
 
     /// <summary>
+    ///     Whether the folder exists and can be opened.
+    /// </summary>
+    public bool CanOpenFolder => !IsCommand && System.IO.Directory.Exists(Path);
+
+    /// <summary>
     ///     Gets the human-readable size string (e.g., "1.5 GB").
     /// </summary>
     public string FormattedSize => FormatBytes(SizeBytes);

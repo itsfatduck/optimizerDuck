@@ -49,6 +49,9 @@ public sealed class ShellPolicy
 
 public static class ShellService
 {
+    private const int DefaultShellTimeoutMs = 120000; // 2 minutes
+    private const int ProcessGraceDrainMs = 2000; // 2 seconds
+
     private static IOptionsMonitor<AppSettings>? _options;
 
     public static void Init(IOptionsMonitor<AppSettings> options)
@@ -140,8 +143,8 @@ public static class ShellService
             process.BeginErrorReadLine();
 
             var exited = process.WaitForExit(
-                _options?.CurrentValue.Optimize.ShellTimeoutMs ?? 120000
-            ); // fallback to 2 minutes
+                _options?.CurrentValue.Optimize.ShellTimeoutMs ?? DefaultShellTimeoutMs
+            );
             var timedOut = !exited;
 
             if (timedOut)
@@ -150,12 +153,36 @@ public static class ShellService
                 {
                     process.Kill(true);
                 }
-                catch
+                catch (Exception ex)
                 {
-                    ExecutionScope.LogError(null, "Failed to kill process for timeout");
+                    ExecutionScope.LogError(ex, "Failed to kill process for timeout");
                 }
 
-                process.WaitForExit(2000); // grace drain
+                try
+                {
+                    process.WaitForExit(ProcessGraceDrainMs);
+                }
+                catch (Exception ex)
+                {
+                    ExecutionScope.LogError(ex, "Failed to wait for process exit after kill");
+                }
+
+                // Force kill if still running after grace period
+                if (!process.HasExited)
+                {
+                    try
+                    {
+                        process.Kill(true);
+                        if (!process.HasExited)
+                        {
+                            process.WaitForExit(5000); // Wait up to 5 seconds for force kill
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ExecutionScope.LogError(ex, "Failed to force kill process after timeout");
+                    }
+                }
             }
 
             sw.Stop();
@@ -307,7 +334,7 @@ public static class ShellService
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
 
-            var timeout = _options?.CurrentValue.Optimize.ShellTimeoutMs ?? 120000;
+            var timeout = _options?.CurrentValue.Optimize.ShellTimeoutMs ?? DefaultShellTimeoutMs;
 
             using var timeoutCts = new CancellationTokenSource(timeout);
             using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(
@@ -325,14 +352,49 @@ public static class ShellService
                 {
                     process.Kill(true);
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    ExecutionScope.LogError(ex, "Failed to kill process for timeout (async)");
+                }
             }
 
             sw.Stop();
 
             var timedOut = !process.HasExited;
             if (!process.HasExited)
-                process.WaitForExit(2000);
+            {
+                try
+                {
+                    process.WaitForExit(ProcessGraceDrainMs);
+                }
+                catch (Exception ex)
+                {
+                    ExecutionScope.LogError(
+                        ex,
+                        "Failed to wait for process exit after kill (async)"
+                    );
+                }
+
+                // Force kill if still running after grace period
+                if (!process.HasExited)
+                {
+                    try
+                    {
+                        process.Kill(true);
+                        if (!process.HasExited)
+                        {
+                            process.WaitForExit(5000); // Wait up to 5 seconds for force kill
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ExecutionScope.LogError(
+                            ex,
+                            "Failed to force kill process after timeout (async)"
+                        );
+                    }
+                }
+            }
 
             var stdout = stdoutBuilder.ToString().Trim();
             var stderr = stderrBuilder.ToString().ParseCliXml().Trim();
