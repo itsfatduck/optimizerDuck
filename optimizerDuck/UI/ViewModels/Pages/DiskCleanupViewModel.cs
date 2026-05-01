@@ -96,6 +96,13 @@ public partial class DiskCleanupViewModel(
         CleanupItems = new ObservableCollection<CleanupItem>(
             CleanupItems.OrderByDescending(i => i.SizeBytes).ToArray()
         );
+
+        // only select items with size > 0
+        foreach (var item in CleanupItems)
+            if (item.SizeBytes == 0)
+                item.IsSelected = false;
+
+        UpdateProperties();
     }
 
     [RelayCommand]
