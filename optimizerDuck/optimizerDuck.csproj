@@ -9,8 +9,8 @@
         <Authors>fatDuck</Authors>
         <ApplicationIcon>Logo.ico</ApplicationIcon>
         <Company>fatDuck</Company>
-        <FileVersion>2.10.0</FileVersion>
-        <Version>2.10.0</Version>
+        <FileVersion>2.10.1</FileVersion>
+        <Version>2.10.1</Version>
         <Product>optimizerDuck</Product>
         <Copyright>Copyright fatDuck 2026</Copyright>
         <AssemblyTitle>optimizerDuck</AssemblyTitle>
@@ -51,8 +51,8 @@
         <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
         <PackageReference Include="System.Management.Automation" Version="7.6.1" />
         <PackageReference Include="TaskScheduler" Version="2.12.2" />
-        <PackageReference Include="WPF-UI" Version="4.2.1" />
-        <PackageReference Include="WPF-UI.DependencyInjection" Version="4.2.1" />
+        <PackageReference Include="WPF-UI" Version="4.3.0" />
+        <PackageReference Include="WPF-UI.DependencyInjection" Version="4.3.0" />
     </ItemGroup>
 
     <ItemGroup>

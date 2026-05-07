@@ -18,8 +18,7 @@
     ui:Design.Foreground="White"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     ScrollViewer.CanContentScroll="False"
-    mc:Ignorable="d"
->
+    mc:Ignorable="d">
     <Page.Resources>
         <converters:WidthToColumnConverter x:Key="WidthToColumnConverter" />
         <converters:ZeroToVisibilityConverter x:Key="ZeroToVisibilityConverter" />
@@ -28,28 +27,22 @@
         <converters:BooleanToVisibilityConverter
             x:Key="InverseBooleanToVisibilityConverter"
             False="Visible"
-            True="Collapsed"
-        />
+            True="Collapsed" />
         <converters:NullToVisibilityConverter
             x:Key="NullToVisibilityConverter"
             False="Visible"
-            True="Collapsed"
-        />
+            True="Collapsed" />
     </Page.Resources>
 
     <Grid>
         <!--  Main Content  -->
-        <Grid
-            RowDefinitions="Auto,*"
-            Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
-        >
+        <Grid RowDefinitions="Auto,*" Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
             <!--  Toolbar  -->
             <WrapPanel
                 Grid.Row="0"
                 Margin="5,0,5,10"
                 VerticalAlignment="Center"
-                Orientation="Horizontal"
-            >
+                Orientation="Horizontal">
                 <!--  Search  -->
                 <ui:TextBox
                     MinWidth="200"
@@ -57,8 +50,7 @@
                     VerticalAlignment="Center"
                     Icon="{ui:SymbolIcon Search24}"
                     PlaceholderText="{ext:Loc Common.Search.Placeholder}"
-                    Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}"
-                />
+                    Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}" />
 
                 <!--  Filter by Risk  -->
                 <ComboBox
@@ -67,20 +59,17 @@
                     SelectedIndex="{Binding ViewModel.SelectedRiskFilterIndex}"
                     ToolTip="{ext:Loc Common.Filter}"
                     ToolTipService.BetweenShowDelay="160"
-                    ToolTipService.Placement="Top"
-                >
+                    ToolTipService.Placement="Top">
                     <ComboBoxItem HorizontalContentAlignment="Left">
                         <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
                             <ui:SymbolIcon
                                 Margin="0,0,6,0"
                                 HorizontalAlignment="Left"
-                                Symbol="Filter24"
-                            />
+                                Symbol="Filter24" />
                             <TextBlock
                                 Grid.Column="1"
                                 HorizontalAlignment="Left"
-                                Text="{ext:Loc Common.Filter.All}"
-                            />
+                                Text="{ext:Loc Common.Filter.All}" />
                         </Grid>
                     </ComboBoxItem>
                     <ComboBoxItem HorizontalContentAlignment="Left">
@@ -88,8 +77,7 @@
                             <ui:SymbolIcon
                                 Margin="0,0,6,0"
                                 Foreground="{DynamicResource SystemFillColorSuccessBrush}"
-                                Symbol="ShieldCheckmark24"
-                            />
+                                Symbol="ShieldCheckmark24" />
                             <TextBlock Grid.Column="1" Text="{ext:Loc Optimizer.UI.Risk.Safe}" />
                         </Grid>
                     </ComboBoxItem>
@@ -98,12 +86,8 @@
                             <ui:SymbolIcon
                                 Margin="0,0,6,0"
                                 Foreground="{DynamicResource SystemFillColorCautionBrush}"
-                                Symbol="Warning24"
-                            />
-                            <TextBlock
-                                Grid.Column="1"
-                                Text="{ext:Loc Optimizer.UI.Risk.Moderate}"
-                            />
+                                Symbol="Warning24" />
+                            <TextBlock Grid.Column="1" Text="{ext:Loc Optimizer.UI.Risk.Moderate}" />
                         </Grid>
                     </ComboBoxItem>
                     <ComboBoxItem HorizontalContentAlignment="Left">
@@ -111,8 +95,7 @@
                             <ui:SymbolIcon
                                 Margin="0,0,6,0"
                                 Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                                Symbol="ShieldError24"
-                            />
+                                Symbol="ShieldError24" />
                             <TextBlock Grid.Column="1" Text="{ext:Loc Optimizer.UI.Risk.Risky}" />
                         </Grid>
                     </ComboBoxItem>
@@ -125,15 +108,13 @@
                     SelectedIndex="{Binding ViewModel.SelectedSortByIndex}"
                     ToolTip="{ext:Loc Common.SortBy}"
                     ToolTipService.BetweenShowDelay="160"
-                    ToolTipService.Placement="Top"
-                >
+                    ToolTipService.Placement="Top">
                     <ComboBoxItem HorizontalContentAlignment="Left">
                         <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
                             <ui:SymbolIcon
                                 Margin="0,0,6,0"
                                 HorizontalAlignment="Left"
-                                Symbol="Filter24"
-                            />
+                                Symbol="Filter24" />
                             <TextBlock Grid.Column="1" HorizontalAlignment="Left">
                                 <Run Text="{ext:Loc Common.SortBy.Risk}" />
                                 <Run Text=" &amp; " />
@@ -146,13 +127,11 @@
                             <ui:SymbolIcon
                                 Margin="0,0,6,0"
                                 HorizontalAlignment="Left"
-                                Symbol="TextSortAscending24"
-                            />
+                                Symbol="TextSortAscending24" />
                             <TextBlock
                                 Grid.Column="1"
                                 HorizontalAlignment="Left"
-                                Text="{ext:Loc Common.SortBy.Name}"
-                            />
+                                Text="{ext:Loc Common.SortBy.Name}" />
                         </Grid>
                     </ComboBoxItem>
                     <ComboBoxItem HorizontalContentAlignment="Left">
@@ -160,13 +139,11 @@
                             <ui:SymbolIcon
                                 Margin="0,0,6,0"
                                 HorizontalAlignment="Left"
-                                Symbol="Shield24"
-                            />
+                                Symbol="Shield24" />
                             <TextBlock
                                 Grid.Column="1"
                                 HorizontalAlignment="Left"
-                                Text="{ext:Loc Common.SortBy.Risk}"
-                            />
+                                Text="{ext:Loc Common.SortBy.Risk}" />
                         </Grid>
                     </ComboBoxItem>
                     <ComboBoxItem HorizontalContentAlignment="Left">
@@ -174,13 +151,11 @@
                             <ui:SymbolIcon
                                 Margin="0,0,6,0"
                                 HorizontalAlignment="Left"
-                                Symbol="ToggleRight24"
-                            />
+                                Symbol="ToggleRight24" />
                             <TextBlock
                                 Grid.Column="1"
                                 HorizontalAlignment="Left"
-                                Text="{ext:Loc Common.SortBy.Status}"
-                            />
+                                Text="{ext:Loc Common.SortBy.Status}" />
                         </Grid>
                     </ComboBoxItem>
                 </ComboBox>
@@ -190,8 +165,7 @@
                     Margin="0,0,0,0"
                     VerticalAlignment="Stretch"
                     IsChecked="{Binding ViewModel.HideApplied}"
-                    Visibility="{Binding ViewModel.HasAppliedOptimizations, Converter={StaticResource BooleanToVisibilityConverter}}"
-                >
+                    Visibility="{Binding ViewModel.HasAppliedOptimizations, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
                         <ui:SymbolIcon Margin="0,0,6,0" Symbol="EyeOff24" />
                         <TextBlock Text="{ext:Loc Optimizer.Menu.HideApplied}" />
@@ -204,29 +178,25 @@
                 Grid.Row="1"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Visibility="{Binding ViewModel.Optimizations.Count, Converter={StaticResource ZeroToVisibilityConverter}}"
-            >
+                Visibility="{Binding ViewModel.Optimizations.Count, Converter={StaticResource ZeroToVisibilityConverter}}">
                 <ui:SymbolIcon
                     Margin="0,0,0,10"
                     HorizontalAlignment="Center"
                     FontSize="36"
                     Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                    Symbol="SearchInfo24"
-                />
+                    Symbol="SearchInfo24" />
                 <ui:TextBlock
                     HorizontalAlignment="Center"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                     FontTypography="Body"
-                    Text="{ext:Loc Bloatware.Search.NoResults}"
-                />
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="{ext:Loc Bloatware.Search.NoResults}" />
             </StackPanel>
 
             <!--  Optimization Cards  -->
             <ui:VirtualizingItemsControl
                 Grid.Row="1"
                 ItemsSource="{Binding ViewModel.Optimizations}"
-                Visibility="{Binding ViewModel.Optimizations.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}"
-            >
+                Visibility="{Binding ViewModel.Optimizations.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
                 <ui:VirtualizingItemsControl.Template>
                     <ControlTemplate TargetType="ItemsControl">
                         <ScrollViewer HorizontalScrollBarVisibility="Disabled">
@@ -236,10 +206,7 @@
                 </ui:VirtualizingItemsControl.Template>
                 <ui:VirtualizingItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid
-                            VerticalAlignment="Top"
-                            Columns="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ScrollViewer}, Converter={StaticResource WidthToColumnConverter}}"
-                        />
+                        <UniformGrid VerticalAlignment="Top" Columns="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ScrollViewer}, Converter={StaticResource WidthToColumnConverter}}" />
                     </ItemsPanelTemplate>
                 </ui:VirtualizingItemsControl.ItemsPanel>
                 <ui:VirtualizingItemsControl.ItemContainerStyle>
@@ -256,34 +223,27 @@
                             Background="{DynamicResource CardBackground}"
                             BorderBrush="{DynamicResource CardBorderBrush}"
                             BorderThickness="1"
-                            CornerRadius="5"
-                        >
+                            CornerRadius="5">
                             <Grid RowDefinitions="Auto,Auto,Auto,Auto,*">
                                 <ui:TextBlock
                                     Grid.Row="0"
-                                    Foreground="{DynamicResource TextFillColorDisabledBrush}"
                                     FontTypography="Caption"
+                                    Foreground="{DynamicResource TextFillColorDisabledBrush}"
                                     Text="{Binding Id}"
-                                    TextWrapping="Wrap"
-                                />
+                                    TextWrapping="Wrap" />
                                 <ui:TextBlock
                                     Grid.Row="1"
                                     FontTypography="Subtitle"
                                     Text="{Binding Name}"
-                                    TextWrapping="Wrap"
-                                />
+                                    TextWrapping="Wrap" />
 
                                 <ui:VirtualizingItemsControl
                                     Grid.Row="2"
                                     Margin="0,2,0,2"
-                                    ItemsSource="{Binding TagDisplays}"
-                                >
+                                    ItemsSource="{Binding TagDisplays}">
                                     <ui:VirtualizingItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <WrapPanel
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Top"
-                                            />
+                                            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" />
                                         </ItemsPanelTemplate>
                                     </ui:VirtualizingItemsControl.ItemsPanel>
                                     <ui:VirtualizingItemsControl.ItemContainerStyle>
@@ -298,14 +258,12 @@
                                                 Padding="4,2"
                                                 HorizontalAlignment="Left"
                                                 Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                                CornerRadius="5"
-                                            >
+                                                CornerRadius="5">
                                                 <StackPanel Orientation="Horizontal">
                                                     <ui:SymbolIcon
                                                         Margin="0,0,5,0"
                                                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                        Symbol="{Binding Icon}"
-                                                    />
+                                                        Symbol="{Binding Icon}" />
 
                                                     <ui:TextBlock
                                                         HorizontalAlignment="Center"
@@ -313,8 +271,7 @@
                                                         FontTypography="Caption"
                                                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                         Text="{Binding Display}"
-                                                        TextWrapping="Wrap"
-                                                    />
+                                                        TextWrapping="Wrap" />
                                                 </StackPanel>
                                             </Border>
                                         </DataTemplate>
@@ -327,45 +284,27 @@
                                     FontTypography="Body"
                                     Text="{Binding ShortDescription}"
                                     TextTrimming="WordEllipsis"
-                                    TextWrapping="Wrap"
-                                />
+                                    TextWrapping="Wrap" />
 
                                 <Grid
                                     Grid.Row="4"
                                     Margin="0,10,0,0"
                                     VerticalAlignment="Bottom"
-                                    ColumnDefinitions="*,Auto"
-                                >
+                                    ColumnDefinitions="*,Auto">
                                     <Grid RowDefinitions="Auto,Auto">
                                         <Border
                                             Padding="4,2"
                                             HorizontalAlignment="Left"
-                                            CornerRadius="5"
-                                        >
+                                            CornerRadius="5">
                                             <Border.Style>
                                                 <Style TargetType="Border">
-                                                    <Setter
-                                                        Property="Background"
-                                                        Value="{DynamicResource SystemFillColorSuccessBrush}"
-                                                    />
+                                                    <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
                                                     <Style.Triggers>
-                                                        <DataTrigger
-                                                            Binding="{Binding Risk}"
-                                                            Value="Moderate"
-                                                        >
-                                                            <Setter
-                                                                Property="Background"
-                                                                Value="{DynamicResource SystemFillColorCautionBrush}"
-                                                            />
+                                                        <DataTrigger Binding="{Binding Risk}" Value="Moderate">
+                                                            <Setter Property="Background" Value="{DynamicResource SystemFillColorCautionBrush}" />
                                                         </DataTrigger>
-                                                        <DataTrigger
-                                                            Binding="{Binding Risk}"
-                                                            Value="Risky"
-                                                        >
-                                                            <Setter
-                                                                Property="Background"
-                                                                Value="{DynamicResource SystemFillColorCriticalBrush}"
-                                                            />
+                                                        <DataTrigger Binding="{Binding Risk}" Value="Risky">
+                                                            <Setter Property="Background" Value="{DynamicResource SystemFillColorCriticalBrush}" />
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
@@ -374,8 +313,7 @@
                                                 <ui:SymbolIcon
                                                     Margin="0,0,5,0"
                                                     Foreground="{DynamicResource TextFillColorInverseBrush}"
-                                                    Symbol="{Binding RiskVisual.Icon}"
-                                                />
+                                                    Symbol="{Binding RiskVisual.Icon}" />
 
                                                 <ui:TextBlock
                                                     HorizontalAlignment="Center"
@@ -383,8 +321,7 @@
                                                     FontTypography="Caption"
                                                     Foreground="{DynamicResource TextFillColorInverseBrush}"
                                                     Text="{Binding RiskVisual.Display}"
-                                                    TextWrapping="Wrap"
-                                                />
+                                                    TextWrapping="Wrap" />
                                             </StackPanel>
                                         </Border>
 
@@ -398,20 +335,15 @@
                                             ToolTip="{Binding State.AppliedAt}"
                                             ToolTipService.InitialShowDelay="150"
                                             ToolTipService.Placement="Top"
-                                            Visibility="{Binding State.AppliedAt, Converter={StaticResource NullToVisibilityConverter}}"
-                                        >
+                                            Visibility="{Binding State.AppliedAt, Converter={StaticResource NullToVisibilityConverter}}">
                                             <StackPanel Orientation="Horizontal">
-                                                <ui:SymbolIcon
-                                                    Margin="0,0,6,0"
-                                                    Symbol="CheckmarkCircle24"
-                                                />
+                                                <ui:SymbolIcon Margin="0,0,6,0" Symbol="CheckmarkCircle24" />
                                                 <ui:TextBlock
                                                     HorizontalAlignment="Center"
                                                     VerticalAlignment="Center"
                                                     FontTypography="Caption"
                                                     Text="{Binding State.RelativeTime}"
-                                                    TextWrapping="Wrap"
-                                                />
+                                                    TextWrapping="Wrap" />
                                             </StackPanel>
                                         </Border>
                                     </Grid>
@@ -420,8 +352,7 @@
                                         Grid.Column="1"
                                         Margin="10,0,0,0"
                                         VerticalAlignment="Bottom"
-                                        Orientation="Horizontal"
-                                    >
+                                        Orientation="Horizontal">
                                         <ui:ToggleSwitch
                                             Margin="0,0,5,0"
                                             HorizontalAlignment="Right"
@@ -429,8 +360,7 @@
                                             Command="{Binding DataContext.ViewModel.ToggleOptimizationCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                             CommandParameter="{Binding}"
                                             Cursor="Hand"
-                                            IsChecked="{Binding State.IsApplied, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        />
+                                            IsChecked="{Binding State.IsApplied, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                         <ui:Button
                                             HorizontalAlignment="Right"
                                             VerticalAlignment="Bottom"
@@ -439,9 +369,8 @@
                                             Command="{Binding DataContext.ViewModel.ViewSourceOnGitHubCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                             CommandParameter="{Binding}"
                                             Cursor="Hand"
-                                            Icon="{ui:SymbolIcon Open24}"
-                                            ToolTip="{ext:Loc Optimizer.Menu.ViewSource}"
-                                        />
+                                            Icon="{ui:SymbolIcon Code24}"
+                                            ToolTip="{ext:Loc Optimizer.Menu.ViewSource}" />
                                         <ui:Button
                                             HorizontalAlignment="Right"
                                             VerticalAlignment="Bottom"
@@ -450,8 +379,7 @@
                                             Command="{Binding DataContext.ViewModel.ShowDetailsCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                             CommandParameter="{Binding}"
                                             Cursor="Hand"
-                                            Icon="{ui:SymbolIcon MoreVertical24}"
-                                        />
+                                            Icon="{ui:SymbolIcon MoreVertical24}" />
                                     </StackPanel>
                                 </Grid>
                             </Grid>
@@ -470,20 +398,17 @@
                     Margin="0,0,0,16"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    IsIndeterminate="True"
-                />
+                    IsIndeterminate="True" />
                 <ui:TextBlock
                     HorizontalAlignment="Center"
                     FontTypography="BodyStrong"
-                    Text="{ext:Loc Optimizations.Loading}"
-                />
+                    Text="{ext:Loc Optimizations.Loading}" />
                 <ui:TextBlock
                     Margin="0,4,0,0"
                     HorizontalAlignment="Center"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                     FontTypography="Caption"
-                    Text="{ext:Loc Optimizations.Loading.Hint}"
-                />
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="{ext:Loc Optimizations.Loading.Hint}" />
             </StackPanel>
         </Border>
     </Grid>

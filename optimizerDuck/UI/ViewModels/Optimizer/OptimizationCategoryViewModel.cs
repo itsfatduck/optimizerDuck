@@ -1,4 +1,4 @@
-﻿using System.Collections.Concurrent;
+using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net.Http;
@@ -339,7 +339,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
         var fileName = baseOpt.OwnerType.Name;
         var className = optimization.OptimizationKey;
-        var relativePath = $"optimizerDuck/Domain/Optimizations/Categories/{fileName}.cs";
+        var namespacePath = (baseOpt.OwnerType.Namespace ?? string.Empty).Replace('.', '/');
+        var relativePath = $"{namespacePath}/{fileName}.cs";
         var url = $"{Shared.GitHubRepoURL}/blob/master/{relativePath}";
 
         // Fetch source from GitHub raw content to find the class line number
@@ -364,7 +365,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
             var lines = source.Split('\n');
             for (var i = 0; i < lines.Length; i++)
-                if (lines[i].Contains($"class {className}", StringComparison.OrdinalIgnoreCase))
+                if (lines[i].Contains($"class {className} : {nameof(BaseOptimization)}", StringComparison.OrdinalIgnoreCase))
                 {
                     url += $"#L{i + 1}";
                     break;
