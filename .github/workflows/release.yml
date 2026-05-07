@@ -2,7 +2,7 @@ name: Release
 
 on:
   release:
-    types: [created]
+    types: [published]
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -21,10 +21,6 @@ jobs:
         uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 10.0.x
-          cache: true
-          cache-dependency-path: |
-            optimizerDuck/optimizerDuck.csproj
-            optimizerDuck.Test/optimizerDuck.Test.csproj
 
       - name: Restore
         run: dotnet restore optimizerDuck.slnx
@@ -33,15 +29,17 @@ jobs:
         run: dotnet build optimizerDuck.slnx --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release --no-build
+        run: dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release --no-restore
 
       - name: Publish Single
-        run: dotnet publish optimizerDuck/optimizerDuck.csproj -c Release --nologo /p:PublishProfile=Single
+        run: |
+          dotnet publish optimizerDuck/optimizerDuck.csproj --nologo /p:PublishProfile=Single
+        shell: pwsh
 
       - name: Get version from tag
         id: get_version
         run: |
-          $tag = "${{ github.ref_name }}"
+          $tag = "${{ github.event.release.tag_name }}"
           $version = $tag -replace '^v', ''
           echo "version=$version" >> $env:GITHUB_OUTPUT
         shell: pwsh
