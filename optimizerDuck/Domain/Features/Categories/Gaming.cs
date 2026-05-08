@@ -148,24 +148,24 @@ public class Gaming : IFeatureCategory
                 {
                     Path = @"HKCU\Control Panel\Mouse",
                     Name = "MouseSpeed",
-                    OnValue = "1",
-                    OffValue = "0",
+                    OnValue = "0",
+                    OffValue = "1",
                     DefaultValue = "1",
                 },
                 new()
                 {
                     Path = @"HKCU\Control Panel\Mouse",
                     Name = "MouseThreshold1",
-                    OnValue = "6",
-                    OffValue = "0",
+                    OnValue = "0",
+                    OffValue = "6",
                     DefaultValue = "6",
                 },
                 new()
                 {
                     Path = @"HKCU\Control Panel\Mouse",
                     Name = "MouseThreshold2",
-                    OnValue = "10",
-                    OffValue = "0",
+                    OnValue = "0",
+                    OffValue = "10",
                     DefaultValue = "10",
                 },
             ];

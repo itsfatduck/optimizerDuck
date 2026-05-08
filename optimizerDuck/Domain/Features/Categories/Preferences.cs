@@ -122,7 +122,7 @@ public class Preferences : IFeatureCategory
                 new()
                 {
                     Path =
-                        @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
+                        @"HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
                     Name = "AppsUseLightTheme",
                     OnValue = 0,
                     OffValue = 1,
@@ -131,7 +131,7 @@ public class Preferences : IFeatureCategory
                 new()
                 {
                     Path =
-                        @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
+                        @"HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
                     Name = "SystemUsesLightTheme",
                     OnValue = 0,
                     OffValue = 1,

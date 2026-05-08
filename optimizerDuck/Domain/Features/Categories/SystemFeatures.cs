@@ -33,17 +33,17 @@ public class SystemFeatures : IFeatureCategory
                 {
                     Path = @"HKU\.DEFAULT\Control Panel\Keyboard",
                     Name = "InitialKeyboardIndicators",
-                    OnValue = "2",
-                    OffValue = "0",
-                    DefaultValue = "0",
+                    OnValue = 2,
+                    OffValue = 0,
+                    DefaultValue = 0,
                 },
                 new()
                 {
-                    Path = @"HKCU\\Control Panel\\Keyboard",
+                    Path = @"HKCU\Control Panel\Keyboard",
                     Name = "InitialKeyboardIndicators",
-                    OnValue = "2",
-                    OffValue = "0",
-                    DefaultValue = "0",
+                    OnValue = 2,
+                    OffValue = 0,
+                    DefaultValue = 0,
                 },
             ];
     }

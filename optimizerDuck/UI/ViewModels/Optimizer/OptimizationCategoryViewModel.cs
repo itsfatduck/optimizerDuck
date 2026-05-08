@@ -2,6 +2,7 @@ using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Windows;
 using System.Windows.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -189,6 +190,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
                         await OptimizationService.UpdateOptimizationStateAsync(optimization);
                         return;
                     }
+
+                    ((App)Application.Current).HasPendingChanges = true;
 
                     // Retry only if there are some successful steps and some failed steps
                     var retryOutcome = await HandleRetryableFailuresAsync(

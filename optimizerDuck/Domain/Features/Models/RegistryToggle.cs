@@ -17,8 +17,13 @@ public class RegistryToggle
     public bool GetState()
     {
         var value = GetRawValue();
+        
         if (value == null)
-            return OnValue == null;
+        {
+            // If value is null and TreatMissingAsDefault is false,
+            // treat it as the default state (off)
+            return TreatMissingAsDefault ? AreEqual(DefaultValue, OnValue) : false;
+        }
 
         return AreEqual(value, OnValue);
     }
@@ -31,14 +36,50 @@ public class RegistryToggle
         if (a == null || b == null)
             return false;
 
+        // Handle numeric types with direct comparison to avoid precision loss
         if (a is IConvertible && b is IConvertible)
         {
-            var da = Convert.ToDecimal(a);
-            var db = Convert.ToDecimal(b);
-            return da == db;
+            try
+            {
+                // Try direct type comparison first
+                if (a.GetType() == b.GetType())
+                {
+                    return a.Equals(b);
+                }
+
+                // For numeric types, compare as the most precise type
+                var typeA = a.GetType();
+                var typeB = b.GetType();
+                
+                // If both are integers, compare as long
+                if ((typeA == typeof(int) || typeA == typeof(long) || typeA == typeof(short) || typeA == typeof(byte)) &&
+                    (typeB == typeof(int) || typeB == typeof(long) || typeB == typeof(short) || typeB == typeof(byte)))
+                {
+                    return Convert.ToInt64(a) == Convert.ToInt64(b);
+                }
+                
+                // For floating point, compare as double
+                if ((typeA == typeof(float) || typeA == typeof(double) || typeA == typeof(decimal)) &&
+                    (typeB == typeof(float) || typeB == typeof(double) || typeB == typeof(decimal)))
+                {
+                    return Convert.ToDouble(a) == Convert.ToDouble(b);
+                }
+                
+                // Fallback to decimal comparison for other convertible types
+                var da = Convert.ToDecimal(a);
+                var db = Convert.ToDecimal(b);
+                return da == db;
+            }
+            catch
+            {
+                // If conversion fails, fall back to string comparison
+            }
         }
 
-        return a.ToString()?.Equals(b.ToString(), StringComparison.OrdinalIgnoreCase) == true;
+        // String comparison - use ordinal for case-sensitive, ordinal ignore case for case-insensitive
+        var strA = a.ToString();
+        var strB = b.ToString();
+        return strA != null && strB != null && strA.Equals(strB, StringComparison.Ordinal);
     }
 
     private object? GetRawValue()
@@ -48,7 +89,7 @@ public class RegistryToggle
         if (value == null && TreatMissingAsDefault)
             return DefaultValue;
 
-        return value ?? DefaultValue;
+        return value;
     }
 
     public void SetState(bool isOn)

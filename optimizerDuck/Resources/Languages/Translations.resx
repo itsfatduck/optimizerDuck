@@ -1714,4 +1714,19 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="LegalDialog.Warning.Message" xml:space="preserve">
     <value>We recommend creating a backup before applying any changes.</value>
   </data>
+  <data name="Dialog.PendingChanges.Title" xml:space="preserve">
+    <value>Apply Changes</value>
+  </data>
+  <data name="Dialog.PendingChanges.Content" xml:space="preserve">
+    <value>Some changes require a restart to take effect. What would you like to do before exiting?</value>
+  </data>
+  <data name="Dialog.PendingChanges.CloseButton" xml:space="preserve">
+    <value>Exit Anyway</value>
+  </data>
+  <data name="Dialog.PendingChanges.PrimaryButton" xml:space="preserve">
+    <value>Restart PC</value>
+  </data>
+  <data name="Dialog.PendingChanges.SecondaryButton" xml:space="preserve">
+    <value>Restart Explorer</value>
+  </data>
 </root>

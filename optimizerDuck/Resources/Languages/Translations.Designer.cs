@@ -800,6 +800,51 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exit Anyway.
+        /// </summary>
+        internal static string Dialog_PendingChanges_CloseButton {
+            get {
+                return ResourceManager.GetString("Dialog.PendingChanges.CloseButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Some changes require a restart to take effect. What would you like to do before exiting?.
+        /// </summary>
+        internal static string Dialog_PendingChanges_Content {
+            get {
+                return ResourceManager.GetString("Dialog.PendingChanges.Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restart PC.
+        /// </summary>
+        internal static string Dialog_PendingChanges_PrimaryButton {
+            get {
+                return ResourceManager.GetString("Dialog.PendingChanges.PrimaryButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restart Explorer.
+        /// </summary>
+        internal static string Dialog_PendingChanges_SecondaryButton {
+            get {
+                return ResourceManager.GetString("Dialog.PendingChanges.SecondaryButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply Changes.
+        /// </summary>
+        internal static string Dialog_PendingChanges_Title {
+            get {
+                return ResourceManager.GetString("Dialog.PendingChanges.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clean Selected ({0}).
         /// </summary>
         internal static string DiskCleanup_Button_CleanSelected {

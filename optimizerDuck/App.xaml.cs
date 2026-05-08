@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Media;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Options;
 using optimizerDuck.Common.Extensions;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Configuration;
+using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services;
 using optimizerDuck.Services.Managers;
 using optimizerDuck.Services.OptimizationServices;
@@ -23,7 +25,9 @@ using Serilog.Formatting;
 using Serilog.Parsing;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
+using Wpf.Ui.Controls;
 using Wpf.Ui.DependencyInjection;
+using Wpf.Ui.Extensions;
 
 namespace optimizerDuck;
 
@@ -50,7 +54,7 @@ public class ScopeBlockTextFormatter : ITextFormatter
         };
 
         //var prefix = $"{timestamp} | {ctx,-67} | {levelText,-7} | "; // byebye 67 char SourceContext truncation, we have a new design now...
-        var prefix = $"{timestamp} | {ctx, -35} | {levelText, -7} | ";
+        var prefix = $"{timestamp} | {ctx,-35} | {levelText,-7} | ";
 
         // print message
         output.WriteLine(prefix + RenderWithoutQuotes(logEvent));
@@ -110,6 +114,10 @@ public partial class App : Application
 {
     private IHost? _host;
     private ILogger<App> _logger = null!;
+    private bool _allowClose;
+    private IContentDialogService? _contentDialogService = null;
+
+    public bool HasPendingChanges { get; set; }
 
     protected override async void OnStartup(StartupEventArgs e)
     {
@@ -131,10 +139,10 @@ public partial class App : Application
                 // ignore logging failures during fatal startup handling
             }
 
-            MessageBox.Show(
+            System.Windows.MessageBox.Show(
                 $"Failed to start optimizerDuck.{Environment.NewLine}{Environment.NewLine}{ex.Message}",
                 "optimizerDuck",
-                MessageBoxButton.OK,
+                System.Windows.MessageBoxButton.OK,
                 MessageBoxImage.Error
             );
             Shutdown(-1);
@@ -282,6 +290,7 @@ public partial class App : Application
             );
 
             var mainWindow = _host.Services.GetRequiredService<MainWindow>();
+            mainWindow.Closing += MainWindow_Closing;
             mainWindow.Show();
         });
     }
@@ -307,5 +316,84 @@ public partial class App : Application
         }
 
         base.OnExit(e);
+    }
+
+    protected async void MainWindow_Closing(object? sender,
+        CancelEventArgs e)
+    {
+        if (_allowClose)
+        {
+            return;
+        }
+
+        if (!HasPendingChanges)
+        {
+            return;
+        }
+
+        e.Cancel = true;
+
+        try
+        {
+            _contentDialogService ??=
+                _host!.Services.GetRequiredService<IContentDialogService>();
+
+            var result = await _contentDialogService.ShowSimpleDialogAsync(
+                new SimpleContentDialogCreateOptions
+                {
+                    Title = Translations.Dialog_PendingChanges_Title,
+                    Content = Translations.Dialog_PendingChanges_Content,
+                    CloseButtonText =
+                        Translations.Dialog_PendingChanges_CloseButton,
+                    PrimaryButtonText =
+                        Translations.Dialog_PendingChanges_PrimaryButton,
+                    SecondaryButtonText =
+                        Translations.Dialog_PendingChanges_SecondaryButton
+                }
+            );
+
+            switch (result)
+            {
+                case ContentDialogResult.Primary:
+                    _logger.LogInformation(
+                        "User chose to restart PC."
+                    );
+
+                    ShellService.CMD("shutdown /r /t 0");
+                    break;
+
+                case ContentDialogResult.Secondary:
+                    _logger.LogInformation(
+                        "User chose to restart Explorer."
+                    );
+
+                    ShellService.CMD(
+                        "taskkill /f /im explorer.exe && start explorer.exe"
+                    );
+
+                    _allowClose = true;
+                    Current.Shutdown();
+                    break;
+
+                case ContentDialogResult.None:
+                    _logger.LogInformation(
+                        "User chose to exit without applying changes."
+                    );
+
+                    _allowClose = true;
+                    Current.Shutdown();
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(
+                ex,
+                "Failed to show pending changes dialog."
+            );
+
+            _allowClose = true;
+            Current.Shutdown();
+        }
     }
 }

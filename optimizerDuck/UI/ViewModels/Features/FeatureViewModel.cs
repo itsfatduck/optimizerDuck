@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.Windows;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Domain.Abstractions;
@@ -12,6 +13,9 @@ public partial class FeatureViewModel(IFeature feature, ILoggerFactory loggerFac
 {
     private readonly ILogger<FeatureViewModel> _logger =
         loggerFactory.CreateLogger<FeatureViewModel>();
+
+    public IFeature Feature => feature;
+
 
     [ObservableProperty]
     private string _description = feature.Description;
@@ -72,6 +76,8 @@ public partial class FeatureViewModel(IFeature feature, ILoggerFactory loggerFac
                 await feature.DisableAsync();
                 IsEnabled = false;
             }
+
+            ((App)Application.Current).HasPendingChanges = true;
 
             scope.Dispose();
 

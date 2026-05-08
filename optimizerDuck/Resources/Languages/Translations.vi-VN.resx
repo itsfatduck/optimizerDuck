@@ -1706,4 +1706,19 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="LegalDialog.Warning.Message" xml:space="preserve">
     <value>Khuyến nghị tạo bản sao lưu trước khi áp dụng bất kỳ thay đổi nào.</value>
   </data>
+  <data name="Dialog.PendingChanges.Title" xml:space="preserve">
+    <value>Áp dụng thay đổi</value>
+  </data>
+  <data name="Dialog.PendingChanges.Content" xml:space="preserve">
+    <value>Một số thay đổi yêu cầu khởi động lại để có hiệu lực. Bạn muốn làm gì trước khi thoát?</value>
+  </data>
+  <data name="Dialog.PendingChanges.CloseButton" xml:space="preserve">
+    <value>Vẫn thoát</value>
+  </data>
+  <data name="Dialog.PendingChanges.PrimaryButton" xml:space="preserve">
+    <value>Khởi động lại máy tính</value>
+  </data>
+  <data name="Dialog.PendingChanges.SecondaryButton" xml:space="preserve">
+    <value>Khởi động lại Explorer</value>
+  </data>
 </root>
