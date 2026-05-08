@@ -16,7 +16,9 @@
 [![.NET Latest](https://img.shields.io/badge/.NET_Runtime-Latest-ef99dd?style=flat-square)](https://dotnet.microsoft.com/en-us/download)
 [![Supported OS](https://img.shields.io/badge/Supported-Windows_10%2B_x64-0078d4?style=flat-square)](https://www.microsoft.com/en-us/software-download/)
 
-English | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md)
+**[Getting Started](https://optimizerduck.vercel.app/docs/guides/getting-started) | [How It Works?](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [Frequently Asked Questions](https://optimizerduck.vercel.app/docs/faq/general)**
+
+**English** | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md)
 
 <details>
 <summary>⭐ Star History</summary>

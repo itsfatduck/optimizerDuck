@@ -16,7 +16,9 @@
 [![.NET Latest](https://img.shields.io/badge/.NET_Runtime-M%E1%BB%9Bi%20nh%E1%BA%A5t-ef99dd?style=flat-square)](https://dotnet.microsoft.com/en-us/download)
 [![Supported OS](https://img.shields.io/badge/H%E1%BB%87%20%C4%91i%E1%BB%81u%20h%C3%A0nh-Windows_10%2B_x64-0078d4?style=flat-square)](https://www.microsoft.com/en-us/software-download/)
 
-[English](README.md) | Tiếng Việt | [繁體中文](README.zh-TW.md)
+**[Bắt đầu](https://optimizerduck.vercel.app/docs/guides/getting-started) | [Cách nó hoạt động?](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [Câu hỏi thường gặp](https://optimizerduck.vercel.app/docs/faq/general)**
+
+[English](README.md) | **Tiếng Việt** | [繁體中文](README.zh-TW.md)
 
 <details>
 <summary>⭐ Lịch sử Star</summary>

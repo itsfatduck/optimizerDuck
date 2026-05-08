@@ -16,7 +16,9 @@
 [![.NET Latest](https://img.shields.io/badge/.NET_Runtime-%E6%9C%80%E6%96%B0-ef99dd?style=flat-square)](https://dotnet.microsoft.com/en-us/download)
 [![Supported OS](https://img.shields.io/badge/%E6%94%AF%E6%8F%B4%E7%B3%BB%E7%B5%B1-Windows_10%2B_x64-0078d4?style=flat-square)](https://www.microsoft.com/en-us/software-download/)
 
-[English](README.md) | [Tiếng Việt](README.vi.md) | 繁體中文
+**[開始使用](https://optimizerduck.vercel.app/docs/guides/getting-started) | [它是如何運作的？](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [常見問題](https://optimizerduck.vercel.app/docs/faq/general)**
+
+[English](README.md) | [Tiếng Việt](README.vi.md) | **繁體中文**
 
 <details>
 <summary>⭐ 星星歷史</summary>
