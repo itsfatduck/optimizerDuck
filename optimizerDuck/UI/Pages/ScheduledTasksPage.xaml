@@ -339,6 +339,7 @@
                                             Appearance="Transparent"
                                             Command="{Binding DataContext.ViewModel.ViewDetailsCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                             CommandParameter="{Binding}"
+                                            Cursor="Hand"
                                             Icon="{ui:SymbolIcon Info24,
                                                                  FontSize=16}"
                                             ToolTip="{ext:Loc ScheduledTasks.Action.Details}" />
@@ -349,6 +350,7 @@
                                             Appearance="Transparent"
                                             Command="{Binding DataContext.ViewModel.RunTaskCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                             CommandParameter="{Binding}"
+                                            Cursor="Hand"
                                             Icon="{ui:SymbolIcon Play24,
                                                                  FontSize=16}"
                                             ToolTip="{ext:Loc ScheduledTasks.Action.Run}">
@@ -370,6 +372,7 @@
                                             Appearance="Transparent"
                                             Command="{Binding DataContext.ViewModel.StopTaskCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                             CommandParameter="{Binding}"
+                                            Cursor="Hand"
                                             Icon="{ui:SymbolIcon Stop24,
                                                                  FontSize=16}"
                                             ToolTip="{ext:Loc ScheduledTasks.Action.Stop}"
@@ -380,6 +383,7 @@
                                             Appearance="Transparent"
                                             Command="{Binding DataContext.ViewModel.DeleteTaskCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                             CommandParameter="{Binding}"
+                                            Cursor="Hand"
                                             Icon="{ui:SymbolIcon Delete24,
                                                                  FontSize=16}"
                                             ToolTip="{ext:Loc ScheduledTasks.Action.Delete}" />
