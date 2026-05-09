@@ -583,56 +583,11 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to System overview and quick actions.
-        /// </summary>
-        internal static string Dashboard_Header_Description {
-            get {
-                return ResourceManager.GetString("Dashboard.Header.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Options.
-        /// </summary>
-        internal static string Dashboard_Header_Menu_Header_Options {
-            get {
-                return ResourceManager.GetString("Dashboard.Header.Menu.Header.Options", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Run.
-        /// </summary>
-        internal static string Dashboard_Header_Menu_Header_Run {
-            get {
-                return ResourceManager.GetString("Dashboard.Header.Menu.Header.Run", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Refresh.
         /// </summary>
         internal static string Dashboard_Header_Menu_Refresh {
             get {
                 return ResourceManager.GetString("Dashboard.Header.Menu.Refresh", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Control Panel.
-        /// </summary>
-        internal static string Dashboard_Header_Menu_RunControlPanel {
-            get {
-                return ResourceManager.GetString("Dashboard.Header.Menu.RunControlPanel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Settings.
-        /// </summary>
-        internal static string Dashboard_Header_Menu_RunSettings {
-            get {
-                return ResourceManager.GetString("Dashboard.Header.Menu.RunSettings", resourceCulture);
             }
         }
         
@@ -3918,7 +3873,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This may take a moment while scanning for all scheduled tasks on your system..
+        ///   Looks up a localized string similar to This may take a moment while scanning for all scheduled tasks on your system....
         /// </summary>
         internal static string ScheduledTasks_Loading_Hint {
             get {
@@ -4260,6 +4215,24 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to View documentation, usage guides, and FAQs..
+        /// </summary>
+        internal static string Settings_About_Documentation_Description {
+            get {
+                return ResourceManager.GetString("Settings.About.Documentation.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Documentation.
+        /// </summary>
+        internal static string Settings_About_Documentation_Title {
+            get {
+                return ResourceManager.GetString("Settings.About.Documentation.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thank you for your trust and support &lt;3!
         ///Current version: {0}.
         /// </summary>
@@ -4275,60 +4248,6 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Settings_About_Header {
             get {
                 return ResourceManager.GetString("Settings.About.Header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Learn more.
-        /// </summary>
-        internal static string Settings_About_LearnMore {
-            get {
-                return ResourceManager.GetString("Settings.About.LearnMore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Acknowledgments.
-        /// </summary>
-        internal static string Settings_About_LearnMore_Acknowledgements {
-            get {
-                return ResourceManager.GetString("Settings.About.LearnMore.Acknowledgements", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Community.
-        /// </summary>
-        internal static string Settings_About_LearnMore_Community {
-            get {
-                return ResourceManager.GetString("Settings.About.LearnMore.Community", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Contribute.
-        /// </summary>
-        internal static string Settings_About_LearnMore_Contribute {
-            get {
-                return ResourceManager.GetString("Settings.About.LearnMore.Contribute", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Documentation.
-        /// </summary>
-        internal static string Settings_About_LearnMore_Documentation {
-            get {
-                return ResourceManager.GetString("Settings.About.LearnMore.Documentation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Official Website.
-        /// </summary>
-        internal static string Settings_About_LearnMore_Website {
-            get {
-                return ResourceManager.GetString("Settings.About.LearnMore.Website", resourceCulture);
             }
         }
         

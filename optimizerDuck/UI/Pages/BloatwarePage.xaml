@@ -259,7 +259,7 @@
                     <ItemsControl.Template>
                         <ControlTemplate TargetType="ItemsControl">
                             <ScrollViewer HorizontalScrollBarVisibility="Disabled">
-                                <ItemsPresenter />
+                                <ItemsPresenter Margin="0,0,12,0" />
                             </ScrollViewer>
                         </ControlTemplate>
                     </ItemsControl.Template>

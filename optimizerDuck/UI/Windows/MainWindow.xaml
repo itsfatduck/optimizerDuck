@@ -33,7 +33,7 @@
             IsFooterSeparatorVisible="False"
             IsPaneToggleVisible="True"
             IsTopSeparatorVisible="False"
-            OpenPaneLength="220"
+            OpenPaneLength="160"
             PaneDisplayMode="Left"
             TitleBar="{Binding ElementName=TitleBar, Mode=OneWay}">
             <ui:NavigationView.MenuItems>

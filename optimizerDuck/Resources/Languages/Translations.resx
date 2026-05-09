@@ -482,15 +482,6 @@ Current version: {0}</value>
   <data name="Settings.About.Header" xml:space="preserve">
     <value>About</value>
   </data>
-  <data name="Settings.About.LearnMore" xml:space="preserve">
-    <value>Learn more</value>
-  </data>
-  <data name="Settings.About.LearnMore.Documentation" xml:space="preserve">
-    <value>Documentation</value>
-  </data>
-  <data name="Settings.About.LearnMore.Contribute" xml:space="preserve">
-    <value>Contribute</value>
-  </data>
   <data name="Dialog.AreYouSure.Title" xml:space="preserve">
     <value>Do you really want to proceed?</value>
   </data>
@@ -542,20 +533,8 @@ Current version: {0}</value>
   <data name="Dashboard.Header.Menu.Refresh" xml:space="preserve">
     <value>Refresh</value>
   </data>
-  <data name="Dashboard.Header.Menu.Header.Options" xml:space="preserve">
-    <value>Options</value>
-  </data>
-  <data name="Dashboard.Header.Menu.Header.Run" xml:space="preserve">
-    <value>Run</value>
-  </data>
-  <data name="Dashboard.Header.Menu.RunSettings" xml:space="preserve">
-    <value>Settings</value>
-  </data>
   <data name="Dashboard.Header.Menu.RunTaskManager" xml:space="preserve">
     <value>Task Manager</value>
-  </data>
-  <data name="Dashboard.Header.Menu.RunControlPanel" xml:space="preserve">
-    <value>Control Panel</value>
   </data>
   <data name="Common.Unknown" xml:space="preserve">
     <value>Unknown</value>
@@ -1025,9 +1004,6 @@ Current version: {0}</value>
   <data name="Settings.About.Acknowledgements.Description" xml:space="preserve">
     <value>optimizerDuck is made possible by the following open-source software and resources.</value>
   </data>
-  <data name="Settings.About.LearnMore.Acknowledgements" xml:space="preserve">
-    <value>Acknowledgments</value>
-  </data>
   <data name="RestorePoint.Title" xml:space="preserve">
     <value>System Restore</value>
   </data>
@@ -1289,9 +1265,6 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="Bloatware.Header.Description" xml:space="preserve">
     <value>Manage and remove pre-installed applications that you don't need</value>
   </data>
-  <data name="Dashboard.Header.Description" xml:space="preserve">
-    <value>System overview and quick actions</value>
-  </data>
   <data name="Dashboard.SystemInfo.Header" xml:space="preserve">
     <value>System Information</value>
   </data>
@@ -1394,9 +1367,6 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
     <value>Open Settings</value>
   </data>
-  <data name="Settings.About.LearnMore.Website" xml:space="preserve">
-    <value>Official Website</value>
-  </data>
   <!-- Scheduled Tasks (Startup Manager) -->
   <data name="StartupManager.Tasks.HideMicrosoft" xml:space="preserve">
     <value>Hide Microsoft tasks</value>
@@ -1416,7 +1386,7 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
     <value>Loading scheduled tasks...</value>
   </data>
   <data name="ScheduledTasks.Loading.Hint" xml:space="preserve">
-    <value>This may take a moment while scanning for all scheduled tasks on your system.</value>
+    <value>This may take a moment while scanning for all scheduled tasks on your system...</value>
   </data>
   <data name="ScheduledTasks.HideMicrosoft" xml:space="preserve">
     <value>Hide Microsoft tasks</value>
@@ -1527,9 +1497,6 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   </data>
   <data name="Settings.About.NeedHelp.Description" xml:space="preserve">
       <value>If you need help with optimization or have any questions, please join our community for quick support.</value>
-    </data>
-  <data name="Settings.About.LearnMore.Community" xml:space="preserve">
-      <value>Community</value>
     </data>
   <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
       <value>Task not found: {0}</value>
@@ -1728,5 +1695,11 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   </data>
   <data name="Dialog.PendingChanges.SecondaryButton" xml:space="preserve">
     <value>Restart Explorer</value>
+  </data>
+  <data name="Settings.About.Documentation.Title" xml:space="preserve">
+    <value>Documentation</value>
+  </data>
+  <data name="Settings.About.Documentation.Description" xml:space="preserve">
+    <value>View documentation, usage guides, and FAQs.</value>
   </data>
 </root>

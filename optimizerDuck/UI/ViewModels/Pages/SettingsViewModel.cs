@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Media;
@@ -44,14 +44,6 @@ public partial class SettingsViewModel(
     [ObservableProperty]
     private bool _showSnackbarNotificationAfterAppliedSuccessfully;
     public string Version { get; } = Shared.FileVersion;
-
-    //Learn more links
-    public string Website { get; } = Shared.WebsiteURL;
-
-    public string Documentation { get; } = Shared.WebsiteURL + "docs/guides/getting-started";
-    public string Community { get; } = Shared.CommunityURL;
-    public string Contribute { get; } = Shared.ContributeURL;
-    public string Acknowledgements { get; } = Shared.AcknowledgementsURL;
 
     public ObservableCollection<LanguageOption> Languages { get; } =
     [
@@ -186,48 +178,40 @@ public partial class SettingsViewModel(
     }
 
     [RelayCommand]
-    private void OpenAcknowledgements()
-    {
-        try
-        {
-            logger.LogInformation(
-                "Opening acknowledgements page: {Url}",
-                Shared.AcknowledgementsURL
-            );
-            Process.Start(
-                new ProcessStartInfo
-                {
-                    FileName = Shared.AcknowledgementsURL,
-                    UseShellExecute = true,
-                }
-            );
-        }
-        catch (Exception ex)
-        {
-            snackbarService.Show(
-                Translations.Snackbar_OpenLinkFailed_Title,
-                Translations.Snackbar_OpenLinkFailed_Message,
-                ControlAppearance.Danger,
-                new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                TimeSpan.FromSeconds(5)
-            );
-            logger.LogError(ex, "Failed to open acknowledgements page");
-        }
-    }
-
-    [RelayCommand]
     private void OpenWebsite(string type)
     {
         try
         {
             switch (type)
             {
-                case "Web":
-                    logger.LogInformation("Opening page: {Url}", Shared.WebsiteURL);
+                case "Documentation":
+                    logger.LogInformation("Opening page: {Url}", Shared.WebsiteURL + "docs/guides/getting-started");
                     Process.Start(
                         new ProcessStartInfo
                         {
-                            FileName = Shared.WebsiteURL,
+                            FileName = Shared.WebsiteURL + "docs/guides/getting-started",
+                            UseShellExecute = true,
+                        }
+                    );
+                    break;
+
+                case "GitHub":
+                    logger.LogInformation("Opening page: {Url}", Shared.GitHubRepoURL);
+                    Process.Start(
+                        new ProcessStartInfo
+                        {
+                            FileName = Shared.GitHubRepoURL,
+                            UseShellExecute = true,
+                        }
+                    );
+                    break;
+
+                case "Acknowledgements":
+                    logger.LogInformation("Opening page: {Url}", Shared.AcknowledgementsURL);
+                    Process.Start(
+                        new ProcessStartInfo
+                        {
+                            FileName = Shared.AcknowledgementsURL,
                             UseShellExecute = true,
                         }
                     );

@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Windows.Media;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -130,6 +130,37 @@ public partial class DashboardViewModel : ViewModel
     private async Task RefreshAsync()
     {
         await LoadSystemInfoAsync();
+    }
+
+    [RelayCommand]
+    private void SelectDisk(DiskVolume diskVolume)
+    {
+        if (diskVolume is null || string.IsNullOrWhiteSpace(diskVolume.DriveLetter))
+            return;
+
+        try
+        {
+            var drivePath = $"{diskVolume.DriveLetter}\\";
+
+            Process.Start(
+                new ProcessStartInfo
+                {
+                    FileName = drivePath,
+                    UseShellExecute = true,
+                }
+            );
+        }
+        catch (Exception ex)
+        {
+            _snackbarService.Show(
+                Translations.Snackbar_OpenFailed_Title,
+                Translations.Snackbar_OpenFailed_Message,
+                ControlAppearance.Danger,
+                new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
+                TimeSpan.FromSeconds(5)
+            );
+            _logger.LogError(ex, "Failed to open disk volume {DriveLetter}", diskVolume.DriveLetter);
+        }
     }
 
     [RelayCommand]

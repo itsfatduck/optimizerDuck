@@ -451,15 +451,6 @@
   <data name="Settings.About.Header" xml:space="preserve">
     <value>關於</value>
   </data>
-  <data name="Settings.About.LearnMore" xml:space="preserve">
-    <value>了解更多</value>
-  </data>
-  <data name="Settings.About.LearnMore.Documentation" xml:space="preserve">
-    <value>文件</value>
-  </data>
-  <data name="Settings.About.LearnMore.Contribute" xml:space="preserve">
-    <value>貢獻</value>
-  </data>
   <data name="Dialog.AreYouSure.Title" xml:space="preserve">
     <value>您真的要繼續嗎？</value>
   </data>
@@ -511,20 +502,8 @@
   <data name="Dashboard.Header.Menu.Refresh" xml:space="preserve">
     <value>重新整理</value>
   </data>
-  <data name="Dashboard.Header.Menu.Header.Options" xml:space="preserve">
-    <value>選項</value>
-  </data>
-  <data name="Dashboard.Header.Menu.Header.Run" xml:space="preserve">
-    <value>執行</value>
-  </data>
-  <data name="Dashboard.Header.Menu.RunSettings" xml:space="preserve">
-    <value>設定</value>
-  </data>
   <data name="Dashboard.Header.Menu.RunTaskManager" xml:space="preserve">
     <value>工作管理員</value>
-  </data>
-  <data name="Dashboard.Header.Menu.RunControlPanel" xml:space="preserve">
-    <value>控制台</value>
   </data>
   <data name="Common.Unknown" xml:space="preserve">
     <value>未知</value>
@@ -747,9 +726,6 @@
   </data>
   <data name="Settings.About.Acknowledgements.Description" xml:space="preserve">
     <value>optimizerDuck 的誕生歸功於以下開放原始碼軟體和資源。</value>
-  </data>
-  <data name="Settings.About.LearnMore.Acknowledgements" xml:space="preserve">
-    <value>鳴謝</value>
   </data>
   <data name="RestorePoint.Title" xml:space="preserve">
     <value>系統還原</value>
@@ -1000,9 +976,6 @@
   <data name="Bloatware.Header.Description" xml:space="preserve">
     <value>管理和刪除您不需要的預先安裝應用程式</value>
   </data>
-  <data name="Dashboard.Header.Description" xml:space="preserve">
-    <value>系統概覽和快速動作</value>
-  </data>
   <data name="Dashboard.SystemInfo.Header" xml:space="preserve">
     <value>系統資訊</value>
   </data>
@@ -1092,9 +1065,6 @@
   </data>
   <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
     <value>開啟設定</value>
-  </data>
-  <data name="Settings.About.LearnMore.Website" xml:space="preserve">
-    <value>官方網站</value>
   </data>
   <!-- Scheduled Tasks (Startup Manager) -->
   <data name="StartupManager.Tasks.HideMicrosoft" xml:space="preserve">
@@ -1225,9 +1195,6 @@
   </data>
   <data name="Settings.About.NeedHelp.Description" xml:space="preserve">
       <value>如果您在最佳化方面需要協助或有任何疑問，請加入我們的社群以獲得快速支援。</value>
-    </data>
-  <data name="Settings.About.LearnMore.Community" xml:space="preserve">
-      <value>社群</value>
     </data>
   <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
       <value>找不到工作：{0}</value>

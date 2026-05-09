@@ -17,6 +17,7 @@
     Style="{StaticResource PageRootStyle}"
     mc:Ignorable="d">
     <Page.Resources>
+        <converters:ThemeToGitHubIconConverter x:Key="ThemeToGitHubIconConverter" />
         <converters:ThemeToIndexConverter x:Key="ThemeToIndexConverter" />
     </Page.Resources>
 
@@ -228,122 +229,150 @@
                 <StackPanel Style="{StaticResource SettingsSectionStyle}">
                     <ui:TextBlock Style="{StaticResource SectionHeaderStyle}" Text="{ext:Loc Settings.About.Header}" />
 
-                    <ui:CardAction
+                    <ui:CardExpander
                         Margin="0,0,0,4"
                         Padding="16,14"
-                        Command="{Binding ViewModel.OpenWebsiteCommand}"
-                        CommandParameter="Web"
-                        Cursor="Hand"
-                        IsChevronVisible="False">
-                        <ui:CardAction.Icon>
+                        IsExpanded="True">
+                        <ui:CardExpander.Icon>
                             <ui:ImageIcon Height="25" Source="pack://application:,,,/optimizerDuck;component/Resources/Images/Duck.png" />
-                        </ui:CardAction.Icon>
+                        </ui:CardExpander.Icon>
 
-                        <Grid ColumnDefinitions="* Auto">
+                        <ui:CardExpander.Header>
+                            <Grid ColumnDefinitions="* Auto">
+                                <StackPanel>
+                                    <ui:TextBlock
+                                        FontTypography="BodyStrong"
+                                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                        Text="optimizerDuck"
+                                        TextWrapping="Wrap" />
+                                    <ui:TextBlock
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Text="{ext:Loc Settings.About.Duck.Description,
+                                                       {Binding ViewModel.Version}}"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Grid>
+                        </ui:CardExpander.Header>
+
+                        <Border>
                             <StackPanel>
-                                <ui:TextBlock
-                                    FontTypography="BodyStrong"
-                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                                    Text="optimizerDuck"
-                                    TextWrapping="Wrap" />
-                                <ui:TextBlock
-                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                    Text="{ext:Loc Settings.About.Duck.Description,
-                                                   {Binding ViewModel.Version}}"
-                                    TextWrapping="Wrap" />
+                                <ui:CardAction
+                                    Margin="0,0,0,4"
+                                    Padding="16,14"
+                                    VerticalAlignment="Stretch"
+                                    Command="{Binding ViewModel.OpenWebsiteCommand}"
+                                    CommandParameter="GitHub"
+                                    Cursor="Hand"
+                                    IsChevronVisible="False">
+                                    <ui:CardAction.Icon>
+                                        <ui:ImageIcon Height="24" Source="{Binding ViewModel.CurrentApplicationTheme, Converter={StaticResource ThemeToGitHubIconConverter}}" />
+                                    </ui:CardAction.Icon>
+                                    <StackPanel>
+                                        <Grid ColumnDefinitions="* Auto">
+                                            <StackPanel>
+                                                <ui:TextBlock FontTypography="BodyStrong" Text="{ext:Loc Dashboard.Actions.GitHub.Title}" />
+                                                <ui:TextBlock
+                                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                    Text="{ext:Loc Dashboard.Actions.GitHub.Description}"
+                                                    TextWrapping="Wrap" />
+                                            </StackPanel>
+
+                                            <ui:SymbolIcon
+                                                Grid.Column="1"
+                                                FontSize="20"
+                                                Symbol="Open24" />
+                                        </Grid>
+                                    </StackPanel>
+                                </ui:CardAction>
+
+                                <ui:CardAction
+                                    Margin="0,0,0,4"
+                                    Padding="16,14"
+                                    VerticalAlignment="Stretch"
+                                    Command="{Binding ViewModel.OpenWebsiteCommand}"
+                                    CommandParameter="Documentation"
+                                    Cursor="Hand"
+                                    Icon="{ui:SymbolIcon Book20}"
+                                    IsChevronVisible="False">
+                                    <StackPanel>
+                                        <Grid ColumnDefinitions="* Auto">
+                                            <StackPanel>
+                                                <ui:TextBlock FontTypography="BodyStrong" Text="{ext:Loc Settings.About.Documentation.Title}" />
+                                                <ui:TextBlock
+                                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                    Text="{ext:Loc Settings.About.Documentation.Description}"
+                                                    TextWrapping="Wrap" />
+                                            </StackPanel>
+
+                                            <ui:SymbolIcon
+                                                Grid.Column="1"
+                                                FontSize="20"
+                                                Symbol="Open24" />
+                                        </Grid>
+                                    </StackPanel>
+                                </ui:CardAction>
+
+                                <ui:CardAction
+                                    Margin="0,0,0,4"
+                                    Padding="16,14"
+                                    Command="{Binding ViewModel.OpenWebsiteCommand}"
+                                    CommandParameter="Help"
+                                    Cursor="Hand"
+                                    Icon="{ui:SymbolIcon ChatBubblesQuestion24}"
+                                    IsChevronVisible="False">
+                                    <Grid ColumnDefinitions="* Auto">
+                                        <StackPanel>
+                                            <ui:TextBlock
+                                                Padding="0"
+                                                FontTypography="BodyStrong"
+                                                Text="{ext:Loc Settings.About.NeedHelp.Title}" />
+                                            <ui:TextBlock
+                                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                Text="{ext:Loc Settings.About.NeedHelp.Description}"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+
+                                        <ui:SymbolIcon
+                                            Grid.Column="1"
+                                            FontSize="20"
+                                            Symbol="Open24" />
+                                    </Grid>
+                                </ui:CardAction>
+
+                                <ui:CardAction
+                                    Margin="0,0,0,4"
+                                    Padding="16,14"
+                                    VerticalAlignment="Stretch"
+                                    Command="{Binding ViewModel.OpenWebsiteCommand}"
+                                    CommandParameter="Acknowledgements"
+                                    Cursor="Hand"
+                                    IsChevronVisible="False">
+                                    <ui:CardAction.Icon>
+                                        <ui:SymbolIcon Symbol="DocumentHeart24" />
+                                    </ui:CardAction.Icon>
+
+                                    <Grid ColumnDefinitions="* Auto">
+                                        <StackPanel>
+                                            <ui:TextBlock
+                                                FontTypography="BodyStrong"
+                                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                                Text="{ext:Loc Settings.About.Acknowledgements.Title}"
+                                                TextWrapping="Wrap" />
+                                            <ui:TextBlock
+                                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                Text="{ext:Loc Settings.About.Acknowledgements.Description}"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+
+                                        <ui:SymbolIcon
+                                            Grid.Column="1"
+                                            FontSize="20"
+                                            Symbol="Open24" />
+                                    </Grid>
+                                </ui:CardAction>
                             </StackPanel>
-                            <ui:SymbolIcon
-                                Grid.Column="1"
-                                FontSize="20"
-                                Symbol="Open24" />
-                        </Grid>
-                    </ui:CardAction>
-
-                    <ui:CardAction
-                        Margin="0,0,0,4"
-                        Padding="16,14"
-                        Command="{Binding ViewModel.OpenWebsiteCommand}"
-                        CommandParameter="Help"
-                        Cursor="Hand"
-                        Icon="{ui:SymbolIcon ChatBubblesQuestion24}"
-                        IsChevronVisible="False">
-                        <Grid ColumnDefinitions="* Auto">
-                            <StackPanel>
-                                <ui:TextBlock
-                                    Padding="0"
-                                    FontTypography="BodyStrong"
-                                    Text="{ext:Loc Settings.About.NeedHelp.Title}" />
-                                <ui:TextBlock
-                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                    Text="{ext:Loc Settings.About.NeedHelp.Description}"
-                                    TextWrapping="Wrap" />
-                            </StackPanel>
-
-                            <ui:SymbolIcon
-                                Grid.Column="1"
-                                FontSize="20"
-                                Symbol="Open24" />
-                        </Grid>
-                    </ui:CardAction>
-
-                    <ui:CardAction
-                        Margin="0,0,0,4"
-                        Padding="16,14"
-                        VerticalAlignment="Stretch"
-                        Command="{Binding ViewModel.OpenAcknowledgementsCommand}"
-                        Cursor="Hand"
-                        IsChevronVisible="False">
-                        <ui:CardAction.Icon>
-                            <ui:SymbolIcon Symbol="DocumentHeart24" />
-                        </ui:CardAction.Icon>
-
-                        <Grid ColumnDefinitions="* Auto">
-                            <StackPanel>
-                                <ui:TextBlock
-                                    FontTypography="BodyStrong"
-                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                                    Text="{ext:Loc Settings.About.Acknowledgements.Title}"
-                                    TextWrapping="Wrap" />
-                                <ui:TextBlock
-                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                    Text="{ext:Loc Settings.About.Acknowledgements.Description}"
-                                    TextWrapping="Wrap" />
-                            </StackPanel>
-
-                            <ui:SymbolIcon
-                                Grid.Column="1"
-                                FontSize="20"
-                                Symbol="Open24" />
-                        </Grid>
-                    </ui:CardAction>
-
-                    <ui:TextBlock
-                        Margin="0,16,0,8"
-                        FontTypography="BodyStrong"
-                        Text="{ext:Loc Settings.About.LearnMore}"
-                        TextTrimming="WordEllipsis"
-                        TextWrapping="Wrap" />
-                    <Border Style="{StaticResource ToolbarSurfaceStyle}">
-                        <WrapPanel>
-                            <ui:HyperlinkButton
-                                Margin="0,0,8,0"
-                                Content="{ext:Loc Settings.About.LearnMore.Website}"
-                                NavigateUri="{Binding ViewModel.Website}" />
-                            <ui:HyperlinkButton
-                                Margin="0,0,8,0"
-                                Content="{ext:Loc Settings.About.LearnMore.Contribute}"
-                                NavigateUri="{Binding ViewModel.Contribute}" />
-                            <ui:HyperlinkButton
-                                Margin="0,0,8,0"
-                                Content="{ext:Loc Settings.About.LearnMore.Documentation}"
-                                NavigateUri="{Binding ViewModel.Documentation}" />
-                            <ui:HyperlinkButton
-                                Margin="0,0,8,0"
-                                Content="{ext:Loc Settings.About.LearnMore.Community}"
-                                NavigateUri="{Binding ViewModel.Community}" />
-                            <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.Acknowledgements}" NavigateUri="{Binding ViewModel.Acknowledgements}" />
-                        </WrapPanel>
-                    </Border>
+                        </Border>
+                    </ui:CardExpander>
                 </StackPanel>
             </StackPanel>
         </StackPanel>

@@ -435,7 +435,7 @@
   </data>
   <data name="Settings.About.Duck.Description" xml:space="preserve">
     <value>Cảm ơn bạn đã tin tưởng và ủng hộ &lt;3!
-Phiên bản hiện tại: {0} </value>
+Phiên bản hiện tại: {0}</value>
   </data>
   <data name="Settings.Advanced.Header" xml:space="preserve">
     <value>Nâng cao</value>
@@ -475,15 +475,6 @@ Phiên bản hiện tại: {0} </value>
   </data>
   <data name="Settings.About.Header" xml:space="preserve">
     <value>Giới thiệu</value>
-  </data>
-  <data name="Settings.About.LearnMore" xml:space="preserve">
-    <value>Tìm hiểu thêm</value>
-  </data>
-  <data name="Settings.About.LearnMore.Documentation" xml:space="preserve">
-    <value>Tài liệu hướng dẫn</value>
-  </data>
-  <data name="Settings.About.LearnMore.Contribute" xml:space="preserve">
-    <value>Đóng góp cho dự án</value>
   </data>
   <data name="Dialog.AreYouSure.Title" xml:space="preserve">
     <value>Bạn có chắc chắn muốn tiếp tục không?</value>
@@ -536,20 +527,8 @@ Phiên bản hiện tại: {0} </value>
   <data name="Dashboard.Header.Menu.Refresh" xml:space="preserve">
     <value>Làm mới</value>
   </data>
-  <data name="Dashboard.Header.Menu.Header.Options" xml:space="preserve">
-    <value>Tùy chọn</value>
-  </data>
-  <data name="Dashboard.Header.Menu.Header.Run" xml:space="preserve">
-    <value>Mở</value>
-  </data>
-  <data name="Dashboard.Header.Menu.RunSettings" xml:space="preserve">
-    <value>Cài đặt</value>
-  </data>
   <data name="Dashboard.Header.Menu.RunTaskManager" xml:space="preserve">
     <value>Task Manager</value>
-  </data>
-  <data name="Dashboard.Header.Menu.RunControlPanel" xml:space="preserve">
-    <value>Control Panel</value>
   </data>
   <data name="Common.Unknown" xml:space="preserve">
     <value>Không rõ</value>
@@ -678,7 +657,7 @@ Phiên bản hiện tại: {0} </value>
     <value>Đang tắt các dịch vụ telemetry...</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableTasks" xml:space="preserve">
-    <value>Đang tắt các tác vụ telemetry theo lịch trình…</value>
+    <value>Đang tắt các tác vụ telemetry theo lịch trình...</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.Name" xml:space="preserve">
     <value>Vô hiệu hóa báo cáo lỗi</value>
@@ -989,9 +968,6 @@ Phiên bản hiện tại: {0} </value>
   <data name="Settings.About.Acknowledgements.Description" xml:space="preserve">
     <value>optimizerDuck được xây dựng nhờ các phần mềm và tài nguyên nguồn mở.</value>
   </data>
-  <data name="Settings.About.LearnMore.Acknowledgements" xml:space="preserve">
-    <value>Ghi nhận đóng góp</value>
-  </data>
   <data name="RestorePoint.Title" xml:space="preserve">
     <value>Phục hồi hệ thống</value>
   </data>
@@ -1253,9 +1229,6 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Bloatware.Header.Description" xml:space="preserve">
     <value>Quản lý và gỡ bỏ các ứng dụng cài sẵn không cần thiết</value>
   </data>
-  <data name="Dashboard.Header.Description" xml:space="preserve">
-    <value>Tổng quan hệ thống và thao tác nhanh</value>
-  </data>
   <data name="Dashboard.SystemInfo.Header" xml:space="preserve">
     <value>Thông tin hệ thống</value>
   </data>
@@ -1287,7 +1260,7 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
     <value>Quản Lý Khởi Động</value>
   </data>
   <data name="StartupManager.Header.Description" xml:space="preserve">
-    <value>Quản lý các ứng dụng và tác vụ tự động chạy khi Windows khởi động</value>
+    <value>Quản lý các ứng dụng và tác vụ tự động chạy khi Windows khởi động.</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
     <value>Mở tệp JSON gốc chứa dữ liệu khôi phục cho tính năng tối ưu hóa này.</value>
@@ -1478,14 +1451,8 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="ScheduledTasks.Snackbar.Error.Title" xml:space="preserve">
     <value>Lỗi</value>
   </data>
-  <data name="Settings.About.LearnMore.Website" xml:space="preserve">
-    <value>Trang Web Chính Thức</value>
-  </data>
   <data name="Settings.About.NeedHelp.Description" xml:space="preserve">
     <value>Nếu bạn cần hỗ trợ về tối ưu hoặc có bất kỳ thắc mắc nào, hãy tham gia cộng đồng của chúng tôi để được hỗ trợ nhanh chóng.</value>
-  </data>
-  <data name="Settings.About.LearnMore.Community" xml:space="preserve">
-    <value>Cộng đồng</value>
   </data>
   <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
     <value>Không tìm thấy task: {0}</value>
@@ -1720,5 +1687,11 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="Dialog.PendingChanges.SecondaryButton" xml:space="preserve">
     <value>Khởi động lại Explorer</value>
+  </data>
+  <data name="Settings.About.Documentation.Title" xml:space="preserve">
+    <value>Tài liệu</value>
+  </data>
+  <data name="Settings.About.Documentation.Description" xml:space="preserve">
+    <value>Xem tài liệu, hướng dẫn sử dụng và các câu hỏi thường gặp.</value>
   </data>
 </root>

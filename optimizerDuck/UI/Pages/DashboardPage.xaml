@@ -395,8 +395,12 @@
                 <ItemsControl ItemsSource="{Binding ViewModel.RuntimeDisk.Volumes}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <ui:CardControl Margin="0,0,0,8">
-                                <ui:CardControl.Icon>
+                            <ui:CardAction
+                                Margin="0,0,0,8"
+                                Command="{Binding DataContext.ViewModel.SelectDiskCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                CommandParameter="{Binding}"
+                                Cursor="Hand">
+                                <ui:CardAction.Icon>
                                     <ui:SymbolIcon Filled="True" Symbol="HardDrive20">
                                         <ui:SymbolIcon.Style>
                                             <Style TargetType="ui:SymbolIcon">
@@ -408,107 +412,105 @@
                                             </Style>
                                         </ui:SymbolIcon.Style>
                                     </ui:SymbolIcon>
-                                </ui:CardControl.Icon>
-                                <ui:CardControl.Header>
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
+                                </ui:CardAction.Icon>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
 
-                                        <!--  Drive Letter and Label  -->
-                                        <StackPanel Grid.Row="0" Orientation="Horizontal">
-                                            <ui:TextBlock
-                                                Margin="0,0,8,0"
-                                                FontTypography="BodyStrong"
-                                                Text="{Binding DriveLetter, StringFormat='({0})'}" />
-
-                                            <ui:TextBlock
-                                                Margin="0,0,8,0"
-                                                VerticalAlignment="Center"
-                                                FontTypography="Caption"
-                                                Text="{Binding VolumeLabel}" />
-
-                                            <Border
-                                                Margin="0,0,4,0"
-                                                Padding="5,2"
-                                                VerticalAlignment="Center"
-                                                Background="{DynamicResource SystemFillColorAttentionBrush}"
-                                                CornerRadius="{StaticResource CornerRadiusSmall}"
-                                                Visibility="{Binding IsSystemDrive, Converter={StaticResource BoolToVisibilityConverter}}">
-                                                <ui:TextBlock
-                                                    FontTypography="Caption"
-                                                    Foreground="Black"
-                                                    Text="{ext:Loc Dashboard.SystemInfo.Storage.System}" />
-                                            </Border>
-
-                                            <Border
-                                                Margin="0,0,4,0"
-                                                Padding="5,2"
-                                                VerticalAlignment="Center"
-                                                Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                                CornerRadius="{StaticResource CornerRadiusSmall}">
-                                                <ui:TextBlock FontTypography="Caption" Text="{Binding MediaType}">
-                                                    <ui:TextBlock.Style>
-                                                        <Style TargetType="ui:TextBlock">
-                                                            <Style.Triggers>
-                                                                <DataTrigger Binding="{Binding MediaType}" Value="SSD">
-                                                                    <Setter Property="Foreground" Value="{DynamicResource SystemFillColorSuccessBrush}" />
-                                                                </DataTrigger>
-                                                                <DataTrigger Binding="{Binding MediaType}" Value="HDD">
-                                                                    <Setter Property="Foreground" Value="{DynamicResource SystemFillColorCautionBrush}" />
-                                                                </DataTrigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </ui:TextBlock.Style>
-                                                </ui:TextBlock>
-                                            </Border>
-
-                                            <Border
-                                                Padding="5,2"
-                                                VerticalAlignment="Center"
-                                                Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                                CornerRadius="{StaticResource CornerRadiusSmall}">
-                                                <ui:TextBlock FontTypography="Caption" Text="{Binding DriveFormat}" />
-                                            </Border>
-                                        </StackPanel>
-
-                                        <!--  Model Information  -->
+                                    <!--  Drive Letter and Label  -->
+                                    <StackPanel Grid.Row="0" Orientation="Horizontal">
                                         <ui:TextBlock
-                                            Grid.Row="1"
-                                            Margin="0,4,0,0"
+                                            Margin="0,0,8,0"
+                                            FontTypography="BodyStrong"
+                                            Text="{Binding DriveLetter, StringFormat='({0})'}" />
+
+                                        <ui:TextBlock
+                                            Margin="0,0,8,0"
+                                            VerticalAlignment="Center"
+                                            FontTypography="Caption"
+                                            Text="{Binding VolumeLabel}" />
+
+                                        <Border
+                                            Margin="0,0,4,0"
+                                            Padding="5,2"
+                                            VerticalAlignment="Center"
+                                            Background="{DynamicResource SystemFillColorAttentionBrush}"
+                                            CornerRadius="{StaticResource CornerRadiusSmall}"
+                                            Visibility="{Binding IsSystemDrive, Converter={StaticResource BoolToVisibilityConverter}}">
+                                            <ui:TextBlock
+                                                FontTypography="Caption"
+                                                Foreground="Black"
+                                                Text="{ext:Loc Dashboard.SystemInfo.Storage.System}" />
+                                        </Border>
+
+                                        <Border
+                                            Margin="0,0,4,0"
+                                            Padding="5,2"
+                                            VerticalAlignment="Center"
+                                            Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                            CornerRadius="{StaticResource CornerRadiusSmall}">
+                                            <ui:TextBlock FontTypography="Caption" Text="{Binding MediaType}">
+                                                <ui:TextBlock.Style>
+                                                    <Style TargetType="ui:TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding MediaType}" Value="SSD">
+                                                                <Setter Property="Foreground" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding MediaType}" Value="HDD">
+                                                                <Setter Property="Foreground" Value="{DynamicResource SystemFillColorCautionBrush}" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </ui:TextBlock.Style>
+                                            </ui:TextBlock>
+                                        </Border>
+
+                                        <Border
+                                            Padding="5,2"
+                                            VerticalAlignment="Center"
+                                            Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                            CornerRadius="{StaticResource CornerRadiusSmall}">
+                                            <ui:TextBlock FontTypography="Caption" Text="{Binding DriveFormat}" />
+                                        </Border>
+                                    </StackPanel>
+
+                                    <!--  Model Information  -->
+                                    <ui:TextBlock
+                                        Grid.Row="1"
+                                        Margin="0,4,0,0"
+                                        FontTypography="Caption"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Text="{Binding Model}"
+                                        TextTrimming="CharacterEllipsis"
+                                        Visibility="{Binding Model, Converter={StaticResource NullToVisibilityConverter}}" />
+
+                                    <!--  Storage Stats  -->
+                                    <StackPanel
+                                        Grid.Row="2"
+                                        Margin="0,4,0,0"
+                                        Orientation="Horizontal">
+                                        <ui:TextBlock
                                             FontTypography="Caption"
                                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                            Text="{Binding Model}"
-                                            TextTrimming="CharacterEllipsis"
-                                            Visibility="{Binding Model, Converter={StaticResource NullToVisibilityConverter}}" />
+                                            Text="{ext:Loc Dashboard.SystemInfo.Storage.DiskInfo,
+                                                           {Binding UsedSizeGB, StringFormat='{}{0:F1}'},
+                                                           {Binding TotalSizeGB, StringFormat='{}{0:F1}'},
+                                                           {Binding AvailableSizeGB, StringFormat='{}{0:F1}'}}" />
+                                    </StackPanel>
 
-                                        <!--  Storage Stats  -->
-                                        <StackPanel
-                                            Grid.Row="2"
-                                            Margin="0,4,0,0"
-                                            Orientation="Horizontal">
-                                            <ui:TextBlock
-                                                FontTypography="Caption"
-                                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                Text="{ext:Loc Dashboard.SystemInfo.Storage.DiskInfo,
-                                                               {Binding UsedSizeGB, StringFormat='{}{0:F1}'},
-                                                               {Binding TotalSizeGB, StringFormat='{}{0:F1}'},
-                                                               {Binding AvailableSizeGB, StringFormat='{}{0:F1}'}}" />
-                                        </StackPanel>
-
-                                        <!--  Progress Bar  -->
-                                        <ProgressBar
-                                            Grid.Row="3"
-                                            Height="6"
-                                            Margin="0,8,0,0"
-                                            Maximum="100"
-                                            Value="{Binding UsedPercent}" />
-                                    </Grid>
-                                </ui:CardControl.Header>
-                            </ui:CardControl>
+                                    <!--  Progress Bar  -->
+                                    <ProgressBar
+                                        Grid.Row="3"
+                                        Height="6"
+                                        Margin="0,8,0,0"
+                                        Maximum="100"
+                                        Value="{Binding UsedPercent}" />
+                                </Grid>
+                            </ui:CardAction>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
