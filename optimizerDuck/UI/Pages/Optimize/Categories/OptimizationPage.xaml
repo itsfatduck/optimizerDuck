@@ -10,13 +10,12 @@
     xmlns:optimizations="clr-namespace:optimizerDuck.UI.Pages.Optimizations"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="OptimizationPage"
-    Margin="0,32,0,0"
+    Style="{StaticResource DuckPageRootStyle}"
     d:DataContext="{d:DesignInstance optimizations:OptimizationPage}"
     d:DesignHeight="650"
     d:DesignWidth="800"
     ui:Design.Background="Black"
     ui:Design.Foreground="White"
-    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     ScrollViewer.CanContentScroll="False"
     mc:Ignorable="d">
     <Page.Resources>
@@ -38,24 +37,19 @@
         <!--  Main Content  -->
         <Grid RowDefinitions="Auto,*" Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
             <!--  Toolbar  -->
+            <Border Grid.Row="0" Style="{StaticResource DuckToolbarSurfaceStyle}">
             <WrapPanel
-                Grid.Row="0"
-                Margin="5,0,5,10"
                 VerticalAlignment="Center"
                 Orientation="Horizontal">
                 <!--  Search  -->
                 <ui:TextBox
-                    MinWidth="200"
-                    Margin="0,0,8,0"
-                    VerticalAlignment="Center"
-                    Icon="{ui:SymbolIcon Search24}"
+                    Style="{StaticResource DuckSearchBoxStyle}"
                     PlaceholderText="{ext:Loc Common.Search.Placeholder}"
                     Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}" />
 
                 <!--  Filter by Risk  -->
                 <ComboBox
-                    Margin="0,0,8,0"
-                    VerticalAlignment="Center"
+                    Style="{StaticResource DuckComboBoxStyle}"
                     SelectedIndex="{Binding ViewModel.SelectedRiskFilterIndex}"
                     ToolTip="{ext:Loc Common.Filter}"
                     ToolTipService.BetweenShowDelay="160"
@@ -103,8 +97,7 @@
 
                 <!--  Sort By  -->
                 <ComboBox
-                    Margin="0,0,8,0"
-                    VerticalAlignment="Center"
+                    Style="{StaticResource DuckComboBoxStyle}"
                     SelectedIndex="{Binding ViewModel.SelectedSortByIndex}"
                     ToolTip="{ext:Loc Common.SortBy}"
                     ToolTipService.BetweenShowDelay="160"
@@ -172,6 +165,7 @@
                     </StackPanel>
                 </ToggleButton>
             </WrapPanel>
+            </Border>
 
             <!--  No search results  -->
             <StackPanel
@@ -200,7 +194,7 @@
                 <ui:VirtualizingItemsControl.Template>
                     <ControlTemplate TargetType="ItemsControl">
                         <ScrollViewer HorizontalScrollBarVisibility="Disabled">
-                            <ItemsPresenter Margin="0,0,7,0" />
+                            <ItemsPresenter />
                         </ScrollViewer>
                     </ControlTemplate>
                 </ui:VirtualizingItemsControl.Template>
@@ -211,7 +205,7 @@
                 </ui:VirtualizingItemsControl.ItemsPanel>
                 <ui:VirtualizingItemsControl.ItemContainerStyle>
                     <Style TargetType="ContentPresenter">
-                        <Setter Property="Margin" Value="5" />
+                        <Setter Property="Margin" Value="0,0,12,12" />
                         <Setter Property="HorizontalAlignment" Value="Stretch" />
                     </Style>
                 </ui:VirtualizingItemsControl.ItemContainerStyle>
@@ -219,11 +213,11 @@
                 <ui:VirtualizingItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type optimization:BaseOptimization}">
                         <Border
-                            Padding="20,10"
-                            Background="{DynamicResource CardBackground}"
-                            BorderBrush="{DynamicResource CardBorderBrush}"
+                            Padding="20,14"
+                            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1"
-                            CornerRadius="5">
+                            CornerRadius="{StaticResource DuckCornerRadiusMedium}">
                             <Grid RowDefinitions="Auto,Auto,Auto,Auto,*">
                                 <ui:TextBlock
                                     Grid.Row="0"
@@ -255,13 +249,13 @@
                                     <ui:VirtualizingItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Border
-                                                Padding="4,2"
+                                                Padding="6,2"
                                                 HorizontalAlignment="Left"
                                                 Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                                CornerRadius="5">
+                                                CornerRadius="{StaticResource DuckCornerRadiusSmall}">
                                                 <StackPanel Orientation="Horizontal">
                                                     <ui:SymbolIcon
-                                                        Margin="0,0,5,0"
+                                                        Margin="0,0,6,0"
                                                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                         Symbol="{Binding Icon}" />
 
@@ -293,9 +287,9 @@
                                     ColumnDefinitions="*,Auto">
                                     <Grid RowDefinitions="Auto,Auto">
                                         <Border
-                                            Padding="4,2"
+                                            Padding="6,2"
                                             HorizontalAlignment="Left"
-                                            CornerRadius="5">
+                                            CornerRadius="{StaticResource DuckCornerRadiusSmall}">
                                             <Border.Style>
                                                 <Style TargetType="Border">
                                                     <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
@@ -311,7 +305,7 @@
                                             </Border.Style>
                                             <StackPanel Orientation="Horizontal">
                                                 <ui:SymbolIcon
-                                                    Margin="0,0,5,0"
+                                                    Margin="0,0,6,0"
                                                     Foreground="{DynamicResource TextFillColorInverseBrush}"
                                                     Symbol="{Binding RiskVisual.Icon}" />
 
@@ -327,11 +321,11 @@
 
                                         <Border
                                             Grid.Row="1"
-                                            Margin="0,5,0,0"
-                                            Padding="4,2"
+                                            Margin="0,8,0,0"
+                                            Padding="6,2"
                                             HorizontalAlignment="Left"
                                             Background="{DynamicResource CardBackgroundDisabled}"
-                                            CornerRadius="5"
+                                            CornerRadius="{StaticResource DuckCornerRadiusSmall}"
                                             ToolTip="{Binding State.AppliedAt}"
                                             ToolTipService.InitialShowDelay="150"
                                             ToolTipService.Placement="Top"
@@ -354,9 +348,8 @@
                                         VerticalAlignment="Bottom"
                                         Orientation="Horizontal">
                                         <ui:ToggleSwitch
-                                            Margin="0,0,5,0"
+                                            Style="{StaticResource DuckToggleSwitchStyle}"
                                             HorizontalAlignment="Right"
-                                            VerticalAlignment="Center"
                                             Command="{Binding DataContext.ViewModel.ToggleOptimizationCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                             CommandParameter="{Binding}"
                                             Cursor="Hand"

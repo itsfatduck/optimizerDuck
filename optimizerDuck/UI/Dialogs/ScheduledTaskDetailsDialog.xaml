@@ -14,11 +14,11 @@
         <StackPanel MinWidth="620" x:Name="RootPanel">
             <Border
                 Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-                BorderBrush="{DynamicResource CardBorderBrush}"
+                BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
                 BorderThickness="1"
-                CornerRadius="8"
+                CornerRadius="{StaticResource DuckCornerRadiusMedium}"
                 Margin="0,0,0,12"
-                Padding="16,12"
+                Padding="{StaticResource DuckCardPadding}"
             >
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -137,9 +137,9 @@
 
             <Border
                 Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-                BorderBrush="{DynamicResource CardBorderBrush}"
+                BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
                 BorderThickness="1"
-                CornerRadius="8"
+                CornerRadius="{StaticResource DuckCornerRadiusMedium}"
                 Margin="0,0,0,12"
                 Padding="0"
             >
@@ -234,9 +234,9 @@
 
             <Border
                 Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-                BorderBrush="{DynamicResource CardBorderBrush}"
+                BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
                 BorderThickness="1"
-                CornerRadius="8"
+                CornerRadius="{StaticResource DuckCornerRadiusMedium}"
                 Padding="0"
             >
                 <StackPanel>

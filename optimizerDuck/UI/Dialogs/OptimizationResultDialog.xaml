@@ -18,7 +18,7 @@
             x:Key="NullToVisibilityConverter"
         />
     </UserControl.Resources>
-    <StackPanel>
+    <StackPanel MinWidth="560">
         <!-- Header with failed count summary -->
         <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
             <ui:SymbolIcon
@@ -102,7 +102,7 @@
                                     <Border
                                         BorderBrush="{DynamicResource SystemFillColorCriticalBrush}"
                                         BorderThickness="1"
-                                        CornerRadius="6"
+                                        CornerRadius="{StaticResource DuckCornerRadiusMedium}"
                                         HorizontalAlignment="Left"
                                         Margin="0,4,0,0"
                                         Padding="8,6"

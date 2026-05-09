@@ -10,11 +10,13 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 >
-    <Grid>
-        <StackPanel>
-            <ui:SymbolIcon FontSize="48" Symbol="DatabaseLightning20" />
+    <Grid Style="{StaticResource DuckDialogRootStyle}">
+        <StackPanel Style="{StaticResource DuckDialogContentStackStyle}">
+            <ui:SymbolIcon
+                Style="{StaticResource DuckDialogIconStyle}"
+                Symbol="DatabaseLightning20" />
             <ui:TextBlock
-                FontTypography="Body"
+                FontTypography="BodyStrong"
                 HorizontalAlignment="Center"
                 Text="{ext:Loc RestorePointDialog.Description}"
                 TextAlignment="Center"
@@ -24,7 +26,7 @@
             <ui:InfoBar
                 IsClosable="False"
                 IsOpen="True"
-                Margin="0,15,0,0"
+                Margin="0,16,0,0"
                 Message="{ext:Loc RestorePointDialog.Help}"
                 Severity="Success"
             />

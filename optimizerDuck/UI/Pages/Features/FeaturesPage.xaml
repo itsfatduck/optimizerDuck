@@ -1,6 +1,5 @@
 ﻿<Page
-    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-    Margin="0,32,0,0"
+    Style="{StaticResource DuckPageRootStyle}"
     ScrollViewer.CanContentScroll="False"
     Title="Features"
     d:DataContext="{d:DesignInstance pages:FeaturesPage}"
@@ -31,19 +30,18 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Margin="42,0,42,16">
-            <ui:TextBlock FontTypography="Title" Margin="0,0,0,8" Text="{ext:Loc Features.Title}" />
+        <StackPanel Grid.Row="0" Style="{StaticResource DuckPageHeaderStyle}">
+            <ui:TextBlock Style="{StaticResource DuckPageTitleStyle}" Text="{ext:Loc Features.Title}" />
             <ui:TextBlock
-                Appearance="Secondary"
+                Style="{StaticResource DuckPageDescriptionStyle}"
                 Text="{ext:Loc Features.Description}"
-                TextWrapping="Wrap"
             />
         </StackPanel>
 
         <ui:VirtualizingItemsControl
             Grid.Row="1"
             ItemsSource="{Binding ViewModel.Categories}"
-            Margin="42,0,42,0"
+            Margin="0"
         >
             <ui:VirtualizingItemsControl.Template>
                 <ControlTemplate TargetType="ItemsControl">
@@ -67,7 +65,7 @@
 
             <ui:VirtualizingItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
-                    <Setter Property="Margin" Value="5" />
+                    <Setter Property="Margin" Value="0,0,12,12" />
                     <Setter Property="HorizontalAlignment" Value="Stretch" />
                 </Style>
             </ui:VirtualizingItemsControl.ItemContainerStyle>
@@ -78,7 +76,7 @@
                         Command="{Binding DataContext.ViewModel.NavigateToCategoryCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                         CommandParameter="{Binding}"
                         IsChevronVisible="False"
-                        Padding="20,16"
+                        Padding="20,18"
                     >
                         <Grid RowDefinitions="Auto,Auto,Auto">
                             <ui:SymbolIcon
@@ -86,6 +84,7 @@
                                 Grid.Row="0"
                                 HorizontalAlignment="Left"
                                 Margin="0,0,0,12"
+                                Foreground="{DynamicResource DuckAccentYellowBrush}"
                                 Symbol="{Binding Icon}"
                             />
 

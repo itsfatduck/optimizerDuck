@@ -9,13 +9,12 @@
     xmlns:pages="clr-namespace:optimizerDuck.UI.Pages"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="SettingsPage"
-    Margin="0,32,0,0"
+    Style="{StaticResource DuckPageRootStyle}"
     d:DataContext="{d:DesignInstance pages:SettingsPage}"
     d:DesignHeight="1200"
     d:DesignWidth="800"
     ui:Design.Background="Black"
     ui:Design.Foreground="White"
-    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d"
 >
     <Page.Resources>
@@ -24,24 +23,21 @@
 
     <StackPanel>
         <ui:TextBlock
-            FontTypography="Title"
+            Style="{StaticResource DuckPageTitleStyle}"
             Text="{ext:Loc Settings.Header.Title}"
-            TextWrapping="Wrap"
         />
 
-        <StackPanel Margin="0,20,0,0">
+        <StackPanel Style="{StaticResource DuckSettingsSectionStyle}">
             <ui:TextBlock
-                FontTypography="BodyStrong"
+                Style="{StaticResource DuckSectionHeaderStyle}"
                 Text="{ext:Loc Settings.Appearance.Header}"
-                TextWrapping="Wrap"
             />
-            <ui:CardControl Icon="{ui:SymbolIcon Globe24}">
+            <ui:CardControl Margin="0,0,0,8" Icon="{ui:SymbolIcon Globe24}">
                 <ui:CardControl.Header>
                     <StackPanel>
                         <ui:TextBlock
                             Margin="0"
                             FontTypography="BodyStrong"
-                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                             Text="{ext:Loc Settings.Appearance.LanguageSelector.Title}"
                             TextWrapping="Wrap"
                         />
@@ -59,12 +55,11 @@
                     SelectedValuePath="Culture.Name"
                 />
             </ui:CardControl>
-            <ui:CardControl Icon="{ui:SymbolIcon Color24}">
+            <ui:CardControl Margin="0,0,0,8" Icon="{ui:SymbolIcon Color24}">
                 <ui:CardControl.Header>
                     <StackPanel>
                         <ui:TextBlock
                             Margin="0"
-                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                             FontTypography="BodyStrong"
                             Text="{ext:Loc Settings.Appearance.ThemeSelector.Title}"
                             TextWrapping="Wrap"
@@ -83,14 +78,13 @@
                 </ComboBox>
             </ui:CardControl>
 
-            <StackPanel Margin="0,20,0,0">
+            <StackPanel Style="{StaticResource DuckSettingsSectionStyle}">
                 <ui:TextBlock
-                    FontTypography="BodyStrong"
+                    Style="{StaticResource DuckSectionHeaderStyle}"
                     Text="{ext:Loc Settings.Optimize.Header}"
-                    TextWrapping="Wrap"
                 />
 
-                <ui:CardControl>
+                <ui:CardControl Margin="0,0,0,8">
                     <ui:CardControl.Icon>
                         <ui:SymbolIcon
                             Foreground="{DynamicResource SystemFillColorCriticalBrush}"
@@ -126,7 +120,7 @@
                     />
                 </ui:CardControl>
 
-                <ui:CardControl Icon="{ui:SymbolIcon Alert24}">
+                <ui:CardControl Margin="0,0,0,8" Icon="{ui:SymbolIcon Alert24}">
                     <ui:CardControl.Header>
                         <StackPanel>
                             <ui:TextBlock
@@ -151,14 +145,13 @@
                 </ui:CardControl>
             </StackPanel>
 
-            <StackPanel Margin="0,20,0,0">
+            <StackPanel Style="{StaticResource DuckSettingsSectionStyle}">
                 <ui:TextBlock
-                    FontTypography="BodyStrong"
+                    Style="{StaticResource DuckSectionHeaderStyle}"
                     Text="{ext:Loc Settings.Bloatware.Header}"
-                    TextWrapping="Wrap"
                 />
 
-                <ui:CardControl Icon="{ui:SymbolIcon UninstallApp24}">
+                <ui:CardControl Margin="0,0,0,8" Icon="{ui:SymbolIcon UninstallApp24}">
                     <ui:CardControl.Header>
                         <StackPanel>
                             <ui:TextBlock
@@ -183,14 +176,13 @@
                 </ui:CardControl>
             </StackPanel>
 
-            <StackPanel Margin="0,20,0,0">
+            <StackPanel Style="{StaticResource DuckSettingsSectionStyle}">
                 <ui:TextBlock
-                    FontTypography="BodyStrong"
+                    Style="{StaticResource DuckSectionHeaderStyle}"
                     Text="{ext:Loc Settings.Advanced.Header}"
-                    TextWrapping="Wrap"
                 />
 
-                <ui:CardAction Command="{Binding ViewModel.ClearResourcesCommand}">
+                <ui:CardAction Margin="0,0,0,8" Padding="16,14" Command="{Binding ViewModel.ClearResourcesCommand}">
                     <ui:CardAction.Icon>
                         <ui:SymbolIcon
                             Foreground="{DynamicResource SystemFillColorCriticalBrush}"
@@ -200,7 +192,6 @@
                     <StackPanel>
                         <ui:TextBlock
                             Margin="0"
-                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                             FontTypography="BodyStrong"
                             Text="{ext:Loc Settings.Advanced.ClearResources.Title}"
                             TextWrapping="Wrap"
@@ -213,7 +204,7 @@
                     </StackPanel>
                 </ui:CardAction>
 
-                <ui:CardAction Command="{Binding ViewModel.ClearAllRevertDataCommand}">
+                <ui:CardAction Margin="0,0,0,8" Padding="16,14" Command="{Binding ViewModel.ClearAllRevertDataCommand}">
                     <ui:CardAction.Icon>
                         <ui:SymbolIcon
                             Foreground="{DynamicResource SystemFillColorCriticalBrush}"
@@ -223,7 +214,6 @@
                     <StackPanel>
                         <ui:TextBlock
                             Margin="0"
-                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                             FontTypography="BodyStrong"
                             Text="{ext:Loc Settings.Advanced.ClearRevertDatas.Title}"
                             TextWrapping="Wrap"
@@ -237,6 +227,8 @@
                 </ui:CardAction>
 
                 <ui:CardAction
+                    Margin="0,0,0,8"
+                    Padding="16,14"
                     Command="{Binding ViewModel.OpenRootDirCommand}"
                     Icon="{ui:SymbolIcon Folder24}"
                     IsChevronVisible="False"
@@ -261,14 +253,15 @@
                 </ui:CardAction>
             </StackPanel>
 
-            <StackPanel Margin="0,20,0,0">
+            <StackPanel Style="{StaticResource DuckSettingsSectionStyle}">
                 <ui:TextBlock
-                    FontTypography="BodyStrong"
+                    Style="{StaticResource DuckSectionHeaderStyle}"
                     Text="{ext:Loc Settings.About.Header}"
-                    TextWrapping="Wrap"
                 />
 
                 <ui:CardAction
+                    Margin="0,0,0,8"
+                    Padding="16,14"
                     Command="{Binding ViewModel.OpenWebsiteCommand}"
                     CommandParameter="Web"
                     IsChevronVisible="False"
@@ -300,6 +293,8 @@
                 </ui:CardAction>
 
                 <ui:CardAction
+                    Margin="0,0,0,8"
+                    Padding="16,14"
                     Command="{Binding ViewModel.OpenWebsiteCommand}"
                     CommandParameter="Help"
                     Icon="{ui:SymbolIcon ChatBubblesQuestion24}"
@@ -324,6 +319,8 @@
                 </ui:CardAction>
 
                 <ui:CardAction
+                    Margin="0,0,0,8"
+                    Padding="16,14"
                     VerticalAlignment="Stretch"
                     Command="{Binding ViewModel.OpenAcknowledgementsCommand}"
                     IsChevronVisible="False"
@@ -352,26 +349,31 @@
                 </ui:CardAction>
 
                 <ui:TextBlock
-                    Margin="0,15,0,0"
-                    FontTypography="Subtitle"
+                    Margin="0,16,0,8"
+                    FontTypography="BodyStrong"
                     Text="{ext:Loc Settings.About.LearnMore}"
                     TextTrimming="WordEllipsis"
                     TextWrapping="Wrap"
                 />
-                <StackPanel Margin="7,0,0,0">
+                <Border Style="{StaticResource DuckToolbarSurfaceStyle}">
+                <WrapPanel>
                     <ui:HyperlinkButton
+                        Margin="0,0,8,0"
                         Content="{ext:Loc Settings.About.LearnMore.Website}"
                         NavigateUri="{Binding ViewModel.Website}"
                     />
                     <ui:HyperlinkButton
+                        Margin="0,0,8,0"
                         Content="{ext:Loc Settings.About.LearnMore.Contribute}"
                         NavigateUri="{Binding ViewModel.Contribute}"
                     />
                     <ui:HyperlinkButton
+                        Margin="0,0,8,0"
                         Content="{ext:Loc Settings.About.LearnMore.Documentation}"
                         NavigateUri="{Binding ViewModel.Documentation}"
                     />
                     <ui:HyperlinkButton
+                        Margin="0,0,8,0"
                         Content="{ext:Loc Settings.About.LearnMore.Community}"
                         NavigateUri="{Binding ViewModel.Community}"
                     />
@@ -379,7 +381,8 @@
                         Content="{ext:Loc Settings.About.LearnMore.Acknowledgements}"
                         NavigateUri="{Binding ViewModel.Acknowledgements}"
                     />
-                </StackPanel>
+                </WrapPanel>
+                </Border>
             </StackPanel>
         </StackPanel>
     </StackPanel>

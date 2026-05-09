@@ -10,13 +10,12 @@
     xmlns:startupManager="clr-namespace:optimizerDuck.Domain.Optimizations.Models.StartupManager"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="StartupManagerPage"
-    Margin="0,32,0,0"
+    Style="{StaticResource DuckPageRootStyle}"
     d:DataContext="{d:DesignInstance local:StartupManagerPage}"
     d:DesignHeight="1200"
     d:DesignWidth="800"
     ui:Design.Background="Black"
     ui:Design.Foreground="White"
-    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     ScrollViewer.CanContentScroll="False"
     mc:Ignorable="d"
 >
@@ -28,7 +27,7 @@
 
     <Grid RowDefinitions="Auto, *">
         <!--  Header  -->
-        <StackPanel Margin="0,0,0,20">
+        <StackPanel Style="{StaticResource DuckPageHeaderStyle}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -36,15 +35,12 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0">
                     <ui:TextBlock
-                        FontTypography="Title"
+                        Style="{StaticResource DuckPageTitleStyle}"
                         Text="{ext:Loc StartupManager.Header.Title}"
                     />
                     <ui:TextBlock
-                        Margin="0,4,0,0"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        FontTypography="Body"
+                        Style="{StaticResource DuckPageDescriptionStyle}"
                         Text="{ext:Loc StartupManager.Header.Description}"
-                        TextWrapping="Wrap"
                     />
                 </StackPanel>
                 <WrapPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal">
@@ -108,7 +104,7 @@
 
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ui:SymbolIcon
-                    Margin="0,0,0,15"
+                    Margin="0,0,0,16"
                     HorizontalAlignment="Center"
                     FontSize="46"
                     Foreground="{DynamicResource SystemFillColorCriticalBrush}"
@@ -187,18 +183,15 @@
 
                         <StackPanel>
                             <!--  Apps Toolbar  -->
-                            <WrapPanel Margin="0,0,0,8" Orientation="Horizontal">
+                            <Border Style="{StaticResource DuckToolbarSurfaceStyle}">
+                            <WrapPanel Orientation="Horizontal">
                                 <ui:TextBox
-                                    MinWidth="200"
-                                    Margin="0,0,8,0"
-                                    VerticalAlignment="Center"
-                                    Icon="{ui:SymbolIcon Search24}"
+                                    Style="{StaticResource DuckSearchBoxStyle}"
                                     PlaceholderText="{ext:Loc Common.Search.Placeholder}"
                                     Text="{Binding ViewModel.AppSearchText, UpdateSourceTrigger=PropertyChanged}"
                                 />
                                 <ComboBox
-                                    Margin="0,0,8,0"
-                                    VerticalAlignment="Center"
+                                    Style="{StaticResource DuckComboBoxStyle}"
                                     SelectedIndex="{Binding ViewModel.AppSortByIndex}"
                                     ToolTip="{ext:Loc Common.SortBy}"
                                 >
@@ -264,12 +257,11 @@
                                     ToolTip="{ext:Loc StartupManager.Menu.OpenSettings}"
                                 />
                             </WrapPanel>
+                            </Border>
 
                             <!--  No search results (Apps)  -->
                             <StackPanel
-                                Margin="0,32,0,32"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
+                                Style="{StaticResource DuckEmptyStatePanelStyle}"
                             >
                                 <StackPanel.Visibility>
                                     <MultiBinding Converter="{StaticResource EmptyWhileNotLoadingConverter}">
@@ -302,8 +294,8 @@
                                         <Grid>
                                             <ui:CardAction
                                                 x:Name="ActionCard"
-                                                Margin="0,0,0,4"
-                                                Padding="12,10"
+                                                Margin="0,0,0,8"
+                                                Padding="16,12"
                                                 Command="{Binding DataContext.ViewModel.OpenLocationCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                                 CommandParameter="{Binding}"
                                                 IsChevronVisible="False"
@@ -366,9 +358,7 @@
                                                         Orientation="Horizontal"
                                                     >
                                                         <ui:ToggleSwitch
-                                                            Margin="0,0,16,0"
-                                                            VerticalAlignment="Center"
-                                                            Cursor="Hand"
+                                                            Style="{StaticResource DuckToggleSwitchStyle}"
                                                             IsChecked="{Binding IsEnabled, Mode=TwoWay}"
                                                             OffContent="{ext:Loc Common.Toggle.Off}"
                                                             OnContent="{ext:Loc Common.Toggle.On}"
@@ -430,18 +420,15 @@
 
                         <StackPanel>
                             <!--  Tasks Toolbar  -->
-                            <WrapPanel Margin="0,0,0,8" Orientation="Horizontal">
+                            <Border Style="{StaticResource DuckToolbarSurfaceStyle}">
+                            <WrapPanel Orientation="Horizontal">
                                 <ui:TextBox
-                                    MinWidth="200"
-                                    Margin="0,0,8,0"
-                                    VerticalAlignment="Center"
-                                    Icon="{ui:SymbolIcon Search24}"
+                                    Style="{StaticResource DuckSearchBoxStyle}"
                                     PlaceholderText="{ext:Loc Common.Search.Placeholder}"
                                     Text="{Binding ViewModel.TaskSearchText, UpdateSourceTrigger=PropertyChanged}"
                                 />
                                 <ComboBox
-                                    Margin="0,0,8,0"
-                                    VerticalAlignment="Center"
+                                    Style="{StaticResource DuckComboBoxStyle}"
                                     SelectedIndex="{Binding ViewModel.TaskSortByIndex}"
                                     ToolTip="{ext:Loc Common.SortBy}"
                                 >
@@ -498,9 +485,7 @@
                                     </ComboBoxItem>
                                 </ComboBox>
                                 <ui:ToggleSwitch
-                                    Margin="0,0,8,0"
-                                    VerticalAlignment="Center"
-                                    Cursor="Hand"
+                                    Style="{StaticResource DuckToggleSwitchStyle}"
                                     IsChecked="{Binding ViewModel.HideMicrosoftTasks, Mode=TwoWay}"
                                     OffContent="{ext:Loc StartupManager.Tasks.HideMicrosoft}"
                                     OnContent="{ext:Loc StartupManager.Tasks.HideMicrosoft}"
@@ -515,12 +500,11 @@
                                     ToolTip="{ext:Loc ScheduledTasks.Menu.OpenSettings}"
                                 />
                             </WrapPanel>
+                            </Border>
 
                             <!--  No search results (Tasks)  -->
                             <StackPanel
-                                Margin="0,32,0,32"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
+                                Style="{StaticResource DuckEmptyStatePanelStyle}"
                             >
                                 <StackPanel.Visibility>
                                     <MultiBinding Converter="{StaticResource EmptyWhileNotLoadingConverter}">
@@ -551,10 +535,7 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type startupManager:StartupTask}">
                                         <Border
-                                            Margin="0,0,0,6"
-                                            Padding="16,12"
-                                            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-                                            CornerRadius="6"
+                                            Style="{StaticResource DuckListRowStyle}"
                                         >
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
@@ -655,8 +636,7 @@
                                                         ToolTip="{ext:Loc ScheduledTasks.Action.Details}"
                                                     />
                                                     <ui:ToggleSwitch
-                                                        VerticalAlignment="Center"
-                                                        Cursor="Hand"
+                                                        Style="{StaticResource DuckToggleSwitchStyle}"
                                                         IsChecked="{Binding IsEnabled, Mode=TwoWay}"
                                                         OffContent="{ext:Loc Common.Toggle.Off}"
                                                         OnContent="{ext:Loc Common.Toggle.On}"

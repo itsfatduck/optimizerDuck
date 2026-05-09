@@ -9,13 +9,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="{Binding ViewModel.CategoryName}"
-    Margin="0,32,0,0"
+    Style="{StaticResource DuckPageRootStyle}"
     d:DataContext="{d:DesignInstance features:FeatureCategoryPage}"
     d:DesignHeight="650"
     d:DesignWidth="800"
     ui:Design.Background="Black"
     ui:Design.Foreground="White"
-    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     ScrollViewer.CanContentScroll="False"
     mc:Ignorable="d">
     <Page.Resources>
@@ -29,40 +28,37 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Margin="0,0,0,16">
+        <StackPanel Grid.Row="0" Style="{StaticResource DuckPageHeaderStyle}">
             <StackPanel Margin="0,0,0,8" Orientation="Horizontal">
                 <ui:SymbolIcon
                     Margin="0,0,12,0"
                     VerticalAlignment="Center"
                     FontSize="24"
+                    Foreground="{DynamicResource DuckAccentYellowBrush}"
                     Symbol="{Binding ViewModel.CategoryIcon}" />
                 <ui:TextBlock
                     VerticalAlignment="Center"
-                    FontTypography="Title"
+                    Style="{StaticResource DuckPageTitleStyle}"
                     Text="{Binding ViewModel.CategoryName}" />
             </StackPanel>
             <ui:TextBlock
-                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Style="{StaticResource DuckPageDescriptionStyle}"
                 Text="{Binding ViewModel.CategoryDescription}"
-                TextWrapping="Wrap" />
+                Margin="0" />
         </StackPanel>
 
-        <WrapPanel
+        <Border
             Grid.Row="1"
-            Margin="0,0,0,16"
-            Orientation="Horizontal">
+            Style="{StaticResource DuckToolbarSurfaceStyle}">
+        <WrapPanel Orientation="Horizontal">
             <ui:TextBox
-                MinWidth="200"
-                Margin="0,0,8,0"
+                Style="{StaticResource DuckSearchBoxStyle}"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Icon="{ui:SymbolIcon Search24}"
                 PlaceholderText="{ext:Loc Common.Search.Placeholder}"
                 Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}" />
 
             <ComboBox
-                Margin="0,0,8,0"
-                VerticalAlignment="Center"
+                Style="{StaticResource DuckComboBoxStyle}"
                 SelectedIndex="{Binding ViewModel.SelectedSortByIndex}"
                 ToolTip="{ext:Loc Common.SortBy}"
                 ToolTipService.BetweenShowDelay="160"
@@ -93,24 +89,24 @@
                 </ComboBoxItem>
             </ComboBox>
         </WrapPanel>
+        </Border>
 
         <ScrollViewer
             Grid.Row="2"
             HorizontalScrollBarVisibility="Disabled"
             VerticalScrollBarVisibility="Auto">
             <!--  Sections  -->
-            <ItemsControl Margin="0,0,16,0" ItemsSource="{Binding ViewModel.Sections}">
+            <ItemsControl Style="{x:Null}" Margin="0" ItemsSource="{Binding ViewModel.Sections}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Margin="0,0,0,10">
+                        <StackPanel Margin="0,0,0,20">
                             <ui:TextBlock
-                                Margin="0,0,0,6"
-                                FontTypography="BodyStrong"
+                                Style="{StaticResource DuckSectionHeaderStyle}"
                                 Text="{Binding Name}" />
                             <ItemsControl ItemsSource="{Binding Features}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <ui:CardControl Margin="0,0,0,4">
+                                        <ui:CardControl Margin="0,0,0,8">
                                             <ui:CardControl.Icon>
                                                 <ui:SymbolIcon Symbol="{Binding Icon}" />
                                             </ui:CardControl.Icon>
@@ -134,7 +130,7 @@
                                                 HorizontalAlignment="Right"
                                                 Orientation="Horizontal">
                                                 <ui:ToggleSwitch
-                                                    VerticalAlignment="Center"
+                                                    Style="{StaticResource DuckToggleSwitchStyle}"
                                                     Command="{Binding ToggleCommand}"
                                                     Cursor="Hand"
                                                     IsChecked="{Binding IsEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"

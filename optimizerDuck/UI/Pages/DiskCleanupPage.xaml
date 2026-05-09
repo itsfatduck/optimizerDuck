@@ -10,13 +10,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="DiskCleanupPage"
-    Margin="0,32,0,0"
+    Style="{StaticResource DuckPageRootStyle}"
     d:DataContext="{d:DesignInstance local:DiskCleanupPage}"
     d:DesignHeight="1200"
     d:DesignWidth="800"
     ui:Design.Background="Black"
     ui:Design.Foreground="White"
-    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     ScrollViewer.CanContentScroll="False"
     mc:Ignorable="d">
     <Page.Resources>
@@ -26,16 +25,6 @@
             False="Visible"
             True="Collapsed" />
         <converters:SizeToBrushConverter x:Key="SizeToBrushConverter" />
-
-        <!--  Modern Card Style  -->
-        <Style x:Key="CleanupItemCardStyle" TargetType="Border">
-            <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
-            <Setter Property="CornerRadius" Value="8" />
-            <Setter Property="Padding" Value="16,12" />
-            <Setter Property="Margin" Value="0,0,0,6" />
-            <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
-            <Setter Property="BorderThickness" Value="1" />
-        </Style>
 
         <!--  Clickable Name Style  -->
         <Style
@@ -62,17 +51,15 @@
 
     <Grid RowDefinitions="Auto,*">
         <!--  Header  -->
-        <StackPanel Margin="0,0,0,20">
+        <StackPanel Style="{StaticResource DuckPageHeaderStyle}">
             <ui:TextBlock
-                FontTypography="Title"
+                Style="{StaticResource DuckPageTitleStyle}"
                 Text="{ext:Loc DiskCleanup.Header.Title}"
-                TextWrapping="Wrap" />
+                />
             <ui:TextBlock
-                Margin="0,4,0,0"
-                FontTypography="Body"
-                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Style="{StaticResource DuckPageDescriptionStyle}"
                 Text="{ext:Loc DiskCleanup.Header.Description}"
-                TextWrapping="Wrap" />
+                />
         </StackPanel>
 
         <!--  Loading State  -->
@@ -102,11 +89,7 @@
             RowDefinitions="Auto,*"
             Visibility="{Binding ViewModel.HasData, Converter={StaticResource BooleanToVisibilityConverter}}">
             <!--  Toolbar Card  -->
-            <Border
-                Margin="0,0,0,12"
-                Padding="16"
-                Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                CornerRadius="8">
+            <Border Style="{StaticResource DuckToolbarSurfaceStyle}">
                 <Grid ColumnDefinitions="Auto,*,Auto">
                     <!--  Summary Info  -->
                     <StackPanel Grid.Column="0" VerticalAlignment="Center">
@@ -128,8 +111,7 @@
                         Orientation="Horizontal">
                         <!--  Sort Dropdown  -->
                         <ComboBox
-                            Margin="0,0,8,0"
-                            VerticalAlignment="Center"
+                            Style="{StaticResource DuckComboBoxStyle}"
                             SelectedIndex="{Binding ViewModel.SelectedSortByIndex}"
                             ToolTip="{ext:Loc Common.SortBy}">
                             <ComboBoxItem HorizontalContentAlignment="Left">
@@ -206,7 +188,7 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type cleanup1:CleanupItem}">
-                        <Border Style="{StaticResource CleanupItemCardStyle}">
+                        <Border Style="{StaticResource DuckListRowStyle}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
@@ -251,7 +233,7 @@
 
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock
-                                                Margin="0,0,5,0"
+                                                Margin="0,0,8,0"
                                                 VerticalAlignment="Center"
                                                 Text="{Binding Name}" />
                                             <ui:SymbolIcon
@@ -284,7 +266,7 @@
                                     <Border
                                         Margin="0,6,0,0"
                                         HorizontalAlignment="Left"
-                                        CornerRadius="6">
+                                        CornerRadius="{StaticResource DuckCornerRadiusSmall}">
                                         <Border.Style>
                                             <Style TargetType="Border">
                                                 <Setter Property="Padding" Value="8,3" />

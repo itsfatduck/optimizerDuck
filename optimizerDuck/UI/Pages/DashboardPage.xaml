@@ -1,6 +1,5 @@
 ﻿<Page
-    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-    Margin="0,32,0,0"
+    Style="{StaticResource DuckPageRootStyle}"
     ScrollViewer.CanContentScroll="False"
     Title="Dashboard"
     d:DataContext="{d:DesignInstance pages:DashboardPage}"
@@ -51,60 +50,44 @@
         </Grid>
 
         <!--  Header  -->
-        <StackPanel Margin="0,0,0,20">
+        <StackPanel Style="{StaticResource DuckPageHeaderStyle}">
             <ui:InfoBar
                 IsOpen="{Binding ViewModel.IsUpdateInfoOpen, Mode=TwoWay}"
-                Margin="0,0,0,10"
+                Margin="0,0,0,12"
                 Message="{ext:Loc Dashboard.UpdateInfoBar.Message,
                                   {Binding ViewModel.LatestVersion}}"
                 Severity="Warning"
             />
             <Grid ColumnDefinitions="*,Auto">
                 <ui:TextBlock
-                    FontTypography="Title"
+                    Style="{StaticResource DuckPageTitleStyle}"
                     Text="{ext:Loc Dashboard.Header.Title}"
-                    TextWrapping="Wrap"
                 />
 
-                <Menu Grid.Column="1">
-                    <ui:MenuItem Header="{ext:Loc Dashboard.Header.Menu.Header.Options}">
-                        <ui:MenuItem
-                            Header="{ext:Loc Dashboard.Header.Menu.Header.Run}"
-                            Icon="{ui:SymbolIcon Apps24}"
-                        >
-                            <ui:MenuItem
-                                Command="{Binding ViewModel.RunCommand}"
-                                CommandParameter="Settings"
-                                Header="{ext:Loc Dashboard.Header.Menu.RunSettings}"
-                            />
-                            <ui:MenuItem
-                                Command="{Binding ViewModel.RunCommand}"
-                                CommandParameter="TaskManager"
-                                Header="{ext:Loc Dashboard.Header.Menu.RunTaskManager}"
-                            />
-                            <ui:MenuItem
-                                Command="{Binding ViewModel.RunCommand}"
-                                CommandParameter="ControlPanel"
-                                Header="{ext:Loc Dashboard.Header.Menu.RunControlPanel}"
-                            />
-                        </ui:MenuItem>
-                        <Separator />
-                        <ui:MenuItem
-                            Command="{Binding ViewModel.RefreshCommand}"
-                            Header="{ext:Loc Dashboard.Header.Menu.Refresh}"
-                            Icon="{ui:SymbolIcon ArrowClockwise24}"
-                        />
-                    </ui:MenuItem>
-                </Menu>
+                <WrapPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal">
+                    <ui:Button
+                        Margin="0,0,8,0"
+                        Appearance="Secondary"
+                        Command="{Binding ViewModel.RunCommand}"
+                        CommandParameter="TaskManager"
+                        Content="{ext:Loc Dashboard.Header.Menu.RunTaskManager}"
+                        Icon="{ui:SymbolIcon Apps24}" />
+                    <ui:Button
+                        Appearance="Primary"
+                        Command="{Binding ViewModel.RefreshCommand}"
+                        Content="{ext:Loc Dashboard.Header.Menu.Refresh}"
+                        Icon="{ui:SymbolIcon ArrowClockwise24}" />
+                </WrapPanel>
             </Grid>
         </StackPanel>
 
         <!--  Action Cards  -->
-        <UniformGrid Columns="3" Grid.Row="1" Margin="0,0,0,20">
+        <UniformGrid Columns="3" Grid.Row="1" Margin="0,0,0,24">
             <ui:CardAction
                 Command="{Binding ViewModel.OpenActionCommand}"
                 CommandParameter="Discord"
-                Margin="0,0,5,0"
+                Margin="0,0,12,0"
+                Padding="16,14"
                 VerticalAlignment="Stretch"
             >
                 <ui:CardAction.Icon>
@@ -130,7 +113,8 @@
             <ui:CardAction
                 Command="{Binding ViewModel.OpenActionCommand}"
                 CommandParameter="GitHub"
-                Margin="5,0,5,0"
+                Margin="0,0,12,0"
+                Padding="16,14"
                 VerticalAlignment="Stretch"
             >
                 <ui:CardAction.Icon>
@@ -157,7 +141,8 @@
                 BorderThickness="1"
                 Command="{Binding ViewModel.OpenActionCommand}"
                 CommandParameter="Contribute"
-                Margin="5,0,0,0"
+                Margin="0"
+                Padding="16,14"
                 VerticalAlignment="Stretch"
             >
                 <ui:CardAction.Icon>
@@ -186,7 +171,7 @@
         <ScrollViewer
             Grid.Row="2"
             HorizontalScrollBarVisibility="Disabled"
-            Padding="20,0"
+            Padding="0"
             VerticalScrollBarVisibility="Auto"
         >
             <StackPanel>
@@ -195,7 +180,7 @@
                     <!--  Operating System  -->
                     <ui:CardControl
                         Icon="{ui:SymbolIcon Tv24}"
-                        Margin="0,0,5,5"
+                        Margin="0,0,12,12"
                         VerticalAlignment="Stretch"
                     >
                         <ui:CardControl.Header>
@@ -223,9 +208,9 @@
                                 <WrapPanel Grid.Row="1" Margin="0,8,0,0" Orientation="Horizontal">
                                     <Border
                                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="4"
+                                        CornerRadius="{StaticResource DuckCornerRadiusSmall}"
                                         Margin="0,0,4,4"
-                                        Padding="6,3"
+                                        Padding="6,2"
                                     >
                                         <ui:TextBlock
                                             FontTypography="Caption"
@@ -234,9 +219,9 @@
                                     </Border>
                                     <Border
                                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="4"
+                                        CornerRadius="{StaticResource DuckCornerRadiusSmall}"
                                         Margin="0,0,4,4"
-                                        Padding="6,3"
+                                        Padding="6,2"
                                     >
                                         <ui:TextBlock
                                             FontTypography="Caption"
@@ -245,9 +230,9 @@
                                     </Border>
                                     <Border
                                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="4"
+                                        CornerRadius="{StaticResource DuckCornerRadiusSmall}"
                                         Margin="0,0,4,4"
-                                        Padding="6,3"
+                                        Padding="6,2"
                                     >
                                         <ui:TextBlock
                                             FontTypography="Caption"
@@ -262,7 +247,7 @@
                     <!--  CPU  -->
                     <ui:CardControl
                         Icon="{ui:SymbolIcon DeveloperBoard24}"
-                        Margin="5,0,0,5"
+                        Margin="0,0,0,12"
                         VerticalAlignment="Stretch"
                     >
                         <ui:CardControl.Header>
@@ -293,9 +278,9 @@
                                 <WrapPanel Grid.Row="1" Margin="0,8,0,0" Orientation="Horizontal">
                                     <Border
                                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="4"
+                                        CornerRadius="{StaticResource DuckCornerRadiusSmall}"
                                         Margin="0,0,4,4"
-                                        Padding="6,3"
+                                        Padding="6,2"
                                     >
                                         <ui:TextBlock FontTypography="Caption">
                                             <Run Text="{Binding ViewModel.SystemInfo.Cpu.CurrentClockMHz}" />
@@ -304,9 +289,9 @@
                                     </Border>
                                     <Border
                                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="4"
+                                        CornerRadius="{StaticResource DuckCornerRadiusSmall}"
                                         Margin="0,0,4,4"
-                                        Padding="6,3"
+                                        Padding="6,2"
                                     >
                                         <ui:TextBlock FontTypography="Caption">
                                             <Run Text="L2:" />
@@ -316,9 +301,9 @@
                                     </Border>
                                     <Border
                                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="4"
+                                        CornerRadius="{StaticResource DuckCornerRadiusSmall}"
                                         Margin="0,0,4,4"
-                                        Padding="6,3"
+                                        Padding="6,2"
                                     >
                                         <ui:TextBlock FontTypography="Caption">
                                             <Run Text="L3:" />
@@ -334,7 +319,7 @@
                     <!--  RAM  -->
                     <ui:CardControl
                         Icon="{ui:SymbolIcon Memory16}"
-                        Margin="0,5,5,0"
+                        Margin="0,0,12,0"
                         VerticalAlignment="Stretch"
                     >
                         <ui:CardControl.Header>
@@ -371,8 +356,8 @@
                                 <WrapPanel Grid.Row="2" Margin="0,8,0,0" Orientation="Horizontal">
                                     <Border
                                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="4"
-                                        Padding="6,3"
+                                        CornerRadius="{StaticResource DuckCornerRadiusSmall}"
+                                        Padding="6,2"
                                     >
                                         <ui:TextBlock FontTypography="Caption">
                                             <Run Text="{ext:Loc Dashboard.SystemInfo.Ram.Modules, {Binding ViewModel.RuntimeRam.Modules.Count, Mode=OneWay}}" />
@@ -386,7 +371,7 @@
                     <!--  GPU  -->
                     <ui:CardControl
                         Icon="{ui:SymbolIcon NetworkAdapter16}"
-                        Margin="5,5,0,0"
+                        Margin="0"
                         VerticalAlignment="Stretch"
                     >
                         <ui:CardControl.Header>
@@ -412,9 +397,9 @@
                                 <WrapPanel Grid.Row="1" Margin="0,8,0,0" Orientation="Horizontal">
                                     <Border
                                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="4"
+                                        CornerRadius="{StaticResource DuckCornerRadiusSmall}"
                                         Margin="0,0,4,4"
-                                        Padding="6,3"
+                                        Padding="6,2"
                                     >
                                         <ui:TextBlock FontTypography="Caption">
                                             <Run Text="{Binding ViewModel.SystemInfo.PrimaryGpu.MemoryMB, Converter={StaticResource MBToGBConverter}}" />
@@ -423,9 +408,9 @@
                                     </Border>
                                     <Border
                                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="4"
+                                        CornerRadius="{StaticResource DuckCornerRadiusSmall}"
                                         Margin="0,0,4,4"
-                                        Padding="6,3"
+                                        Padding="6,2"
                                     >
                                         <ui:TextBlock
                                             FontTypography="Caption"
@@ -435,9 +420,9 @@
                                     </Border>
                                     <Border
                                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="4"
+                                        CornerRadius="{StaticResource DuckCornerRadiusSmall}"
                                         Margin="0,0,4,4"
-                                        Padding="6,3"
+                                        Padding="6,2"
                                         Visibility="{Binding ViewModel.SystemInfo.Gpus.Count, Converter={StaticResource GreaterThanOneToVisibilityConverter}}"
                                     >
                                         <ui:TextBlock FontTypography="Caption">
@@ -493,20 +478,20 @@
                                         <StackPanel Grid.Row="0" Orientation="Horizontal">
                                             <ui:TextBlock
                                                 FontTypography="BodyStrong"
-                                                Margin="0,0,5,0"
+                                                Margin="0,0,8,0"
                                                 Text="{Binding DriveLetter, StringFormat='({0})'}"
                                             />
 
                                             <ui:TextBlock
                                                 FontTypography="Caption"
-                                                Margin="0,0,5,0"
+                                                Margin="0,0,8,0"
                                                 Text="{Binding VolumeLabel}"
                                                 VerticalAlignment="Center"
                                             />
 
                                             <Border
                                                 Background="{DynamicResource SystemFillColorAttentionBrush}"
-                                                CornerRadius="4"
+                                                CornerRadius="{StaticResource DuckCornerRadiusSmall}"
                                                 Margin="0,0,4,0"
                                                 Padding="5,2"
                                                 VerticalAlignment="Center"
@@ -521,7 +506,7 @@
 
                                             <Border
                                                 Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                                CornerRadius="4"
+                                                CornerRadius="{StaticResource DuckCornerRadiusSmall}"
                                                 Margin="0,0,4,0"
                                                 Padding="5,2"
                                                 VerticalAlignment="Center"
@@ -559,7 +544,7 @@
 
                                             <Border
                                                 Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                                CornerRadius="4"
+                                                CornerRadius="{StaticResource DuckCornerRadiusSmall}"
                                                 Padding="5,2"
                                                 VerticalAlignment="Center"
                                             >

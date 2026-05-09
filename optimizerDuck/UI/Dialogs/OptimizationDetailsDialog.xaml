@@ -16,9 +16,9 @@
             Margin="0,0,0,12"
             Padding="16"
             Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-            BorderBrush="{DynamicResource CardBorderBrush}"
+            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
             BorderThickness="1"
-            CornerRadius="8"
+            CornerRadius="{StaticResource DuckCornerRadiusMedium}"
         >
             <Grid RowDefinitions="Auto,Auto,Auto,Auto">
                 <ui:TextBlock
@@ -53,9 +53,9 @@
                     <ui:VirtualizingItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border
-                                Padding="6,3"
+                                Padding="6,2"
                                 Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                CornerRadius="5"
+                                CornerRadius="{StaticResource DuckCornerRadiusSmall}"
                             >
                                 <StackPanel Orientation="Horizontal">
                                     <ui:SymbolIcon
@@ -76,7 +76,7 @@
                 </ui:VirtualizingItemsControl>
 
                 <Grid Grid.Row="3" Margin="0,4,0,0" ColumnDefinitions="Auto,Auto,*">
-                    <Border Padding="6,4" HorizontalAlignment="Left" CornerRadius="5">
+                    <Border Padding="6,4" HorizontalAlignment="Left" CornerRadius="{StaticResource DuckCornerRadiusSmall}">
                         <Border.Style>
                             <Style TargetType="Border">
                                 <Setter
@@ -126,7 +126,7 @@
                         Padding="6,4"
                         HorizontalAlignment="Left"
                         Background="{DynamicResource CardBackgroundDisabled}"
-                        CornerRadius="5"
+                        CornerRadius="{StaticResource DuckCornerRadiusSmall}"
                         ToolTip="{Binding Optimization.State.AppliedAt}"
                         ToolTipService.InitialShowDelay="150"
                         ToolTipService.Placement="Top"
@@ -149,9 +149,9 @@
             Margin="0,0,0,12"
             Padding="16"
             Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-            BorderBrush="{DynamicResource CardBorderBrush}"
+            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
             BorderThickness="1"
-            CornerRadius="8"
+            CornerRadius="{StaticResource DuckCornerRadiusMedium}"
         >
             <StackPanel>
                 <ui:TextBlock
@@ -172,9 +172,9 @@
             Margin="0,0,0,12"
             Padding="0"
             Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-            BorderBrush="{DynamicResource CardBorderBrush}"
+            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
             BorderThickness="1"
-            CornerRadius="8"
+            CornerRadius="{StaticResource DuckCornerRadiusMedium}"
         >
             <StackPanel>
                 <Grid Margin="16">

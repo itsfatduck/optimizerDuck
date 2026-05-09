@@ -30,7 +30,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
     private static readonly HttpClient httpClient = new() { Timeout = TimeSpan.FromSeconds(5) };
     private static readonly ConcurrentDictionary<
         string,
-        (string Content, DateTime FetchedAt)
+        Lazy<Task<(string Content, DateTime FetchedAt)>>
     > _sourceCache = new();
     private static readonly TimeSpan SourceCacheTtl = TimeSpan.FromMinutes(5);
 
@@ -352,19 +352,17 @@ public partial class OptimizationCategoryViewModel : ViewModel
             var rawUrl =
                 $"https://raw.githubusercontent.com/itsfatduck/optimizerDuck/master/{relativePath}";
 
-            string source;
-            if (
-                _sourceCache.TryGetValue(rawUrl, out var cached)
-                && DateTime.UtcNow - cached.FetchedAt < SourceCacheTtl
-            )
+            var cached = _sourceCache.GetOrAdd(rawUrl, CreateSourceCacheEntry);
+
+            var cachedSource = await cached.Value;
+            if (DateTime.UtcNow - cachedSource.FetchedAt >= SourceCacheTtl)
             {
-                source = cached.Content;
+                var refreshed = CreateSourceCacheEntry(rawUrl);
+                _sourceCache[rawUrl] = refreshed;
+                cachedSource = await refreshed.Value;
             }
-            else
-            {
-                source = await httpClient.GetStringAsync(rawUrl);
-                _sourceCache[rawUrl] = (source, DateTime.UtcNow);
-            }
+
+            var source = cachedSource.Content;
 
             var lines = source.Split('\n');
             for (var i = 0; i < lines.Length; i++)
@@ -431,6 +429,15 @@ public partial class OptimizationCategoryViewModel : ViewModel
         {
             IsLoading = false;
         }
+    }
+
+    private static Lazy<Task<(string Content, DateTime FetchedAt)>> CreateSourceCacheEntry(
+        string rawUrl
+    )
+    {
+        return new Lazy<Task<(string Content, DateTime FetchedAt)>>(
+            async () => (await httpClient.GetStringAsync(rawUrl), DateTime.UtcNow)
+        );
     }
 
     /// <summary>

@@ -10,13 +10,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="BloatwarePage"
-    Margin="0,32,0,0"
+    Style="{StaticResource DuckPageRootStyle}"
     d:DataContext="{d:DesignInstance local:BloatwarePage}"
     d:DesignHeight="1200"
     d:DesignWidth="800"
     ui:Design.Background="Black"
     ui:Design.Foreground="White"
-    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     ScrollViewer.CanContentScroll="False"
     mc:Ignorable="d"
 >
@@ -27,18 +26,14 @@
     </Page.Resources>
 
     <Grid RowDefinitions="Auto *">
-        <StackPanel Margin="0,0,0,20">
+        <StackPanel Style="{StaticResource DuckPageHeaderStyle}">
             <ui:TextBlock
-                FontTypography="Title"
+                Style="{StaticResource DuckPageTitleStyle}"
                 Text="{ext:Loc Bloatware.Header.Title}"
-                TextWrapping="Wrap"
             />
             <ui:TextBlock
-                Margin="0,4,0,0"
-                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                FontTypography="Body"
+                Style="{StaticResource DuckPageDescriptionStyle}"
                 Text="{ext:Loc Bloatware.Header.Description}"
-                TextWrapping="Wrap"
             />
         </StackPanel>
 
@@ -59,12 +54,9 @@
                 </Style>
             </Border.Style>
 
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Style="{StaticResource DuckEmptyStatePanelStyle}">
                 <ui:SymbolIcon
-                    Margin="0,0,0,15"
-                    HorizontalAlignment="Center"
-                    FontSize="46"
-                    Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                    Style="{StaticResource DuckEmptyStateIconStyle}"
                     Symbol="DeleteOff24"
                 />
                 <ui:TextBlock
@@ -73,10 +65,9 @@
                     Text="{ext:Loc Bloatware.Empty.Title}"
                 />
                 <ui:TextBlock
-                    Margin="0,0,0,10"
+                    Margin="0,4,0,16"
                     HorizontalAlignment="Center"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    FontTypography="Body"
+                    Style="{StaticResource DuckSecondaryTextStyle}"
                     Text="{ext:Loc Bloatware.Empty.Description}"
                 />
                 <ui:Button
@@ -121,26 +112,22 @@
 
         <Border
             Grid.Row="1"
-            CornerRadius="6"
             Visibility="{Binding ViewModel.HasData, Converter={StaticResource BooleanToVisibilityConverter}}"
         >
             <Grid RowDefinitions="Auto,Auto,*">
                 <!--  Search / Filter / Sort toolbar  -->
-                <WrapPanel Grid.Row="0" Margin="0,0,0,5" Orientation="Horizontal">
+                <Border Grid.Row="0" Style="{StaticResource DuckToolbarSurfaceStyle}">
+                <WrapPanel Orientation="Horizontal">
                     <!--  Search  -->
                     <ui:TextBox
-                        MinWidth="200"
-                        Margin="0,0,8,0"
-                        VerticalAlignment="Center"
-                        Icon="{ui:SymbolIcon Search24}"
+                        Style="{StaticResource DuckSearchBoxStyle}"
                         PlaceholderText="{ext:Loc Common.Search.Placeholder}"
                         Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}"
                     />
 
                     <!--  Filter by Risk  -->
                     <ComboBox
-                        Margin="0,0,8,0"
-                        VerticalAlignment="Center"
+                        Style="{StaticResource DuckComboBoxStyle}"
                         SelectedIndex="{Binding ViewModel.SelectedRiskFilterIndex}"
                         ToolTip="{ext:Loc Common.Filter}"
                         ToolTipService.BetweenShowDelay="160"
@@ -191,8 +178,7 @@
                     </ComboBox>
                     <!--  Sort By  -->
                     <ComboBox
-                        Margin="0,0,8,0"
-                        VerticalAlignment="Center"
+                        Style="{StaticResource DuckComboBoxStyle}"
                         SelectedIndex="{Binding ViewModel.SelectedSortByIndex}"
                         ToolTip="{ext:Loc Common.SortBy}"
                         ToolTipService.BetweenShowDelay="160"
@@ -242,9 +228,10 @@
                         </ComboBoxItem>
                     </ComboBox>
                 </WrapPanel>
+                </Border>
 
                 <!--  Action buttons  -->
-                <StackPanel Grid.Row="1" Margin="0,0,0,8" Orientation="Horizontal">
+                <StackPanel Grid.Row="1" Margin="0,0,0,12" Orientation="Horizontal">
                     <ui:Button
                         Appearance="Danger"
                         Command="{Binding ViewModel.RemoveSelectedCommand}"
@@ -255,7 +242,7 @@
                     />
 
                     <Separator
-                        Margin="3,0,3,0"
+                        Margin="8,0,8,0"
                         Visibility="{Binding ViewModel.HasSafePackages, Converter={StaticResource BooleanToVisibilityConverter}}"
                     />
 
@@ -302,7 +289,7 @@
                         </ui:Button.Style>
                     </ui:Button>
 
-                    <Separator Margin="3,0,3,0" />
+                    <Separator Margin="8,0,8,0" />
 
                     <ui:Button
                         Appearance="Primary"
@@ -316,15 +303,11 @@
                 <!--  No search results  -->
                 <StackPanel
                     Grid.Row="2"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
+                    Style="{StaticResource DuckEmptyStatePanelStyle}"
                     Visibility="{Binding ViewModel.AppxPackages.Count, Converter={StaticResource ZeroToVisibilityConverter}}"
                 >
                     <ui:SymbolIcon
-                        Margin="0,0,0,10"
-                        HorizontalAlignment="Center"
-                        FontSize="36"
-                        Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                        Style="{StaticResource DuckEmptyStateIconStyle}"
                         Symbol="SearchInfo24"
                     />
                     <ui:TextBlock
@@ -358,10 +341,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type bloatware1:AppXPackage}">
                             <Border
-                                Margin="0,0,16,4"
-                                Padding="12"
-                                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-                                CornerRadius="6"
+                                Style="{StaticResource DuckListRowStyle}"
                             >
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -401,12 +381,12 @@
                                             />
 
                                             <Border
-                                                Margin="5,0,0,0"
+                                                Margin="8,0,0,0"
                                                 Padding="4,1"
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
                                                 Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                                CornerRadius="5"
+                                                CornerRadius="{StaticResource DuckCornerRadiusSmall}"
                                             >
                                                 <!--  Version  -->
                                                 <ui:TextBlock
@@ -418,10 +398,10 @@
                                             </Border>
 
                                             <Border
-                                                Margin="5,0,0,0"
-                                                Padding="4,2"
+                                                Margin="8,0,0,0"
+                                                Padding="6,2"
                                                 HorizontalAlignment="Left"
-                                                CornerRadius="5"
+                                                CornerRadius="{StaticResource DuckCornerRadiusSmall}"
                                                 Visibility="{Binding ShouldVisibleRisk, Converter={StaticResource BooleanToVisibilityConverter}}"
                                             >
                                                 <Border.Style>
@@ -445,7 +425,7 @@
                                                 </Border.Style>
                                                 <StackPanel Orientation="Horizontal">
                                                     <ui:SymbolIcon
-                                                        Margin="0,0,5,0"
+                                                        Margin="0,0,8,0"
                                                         Foreground="{DynamicResource TextFillColorInverseBrush}"
                                                         Symbol="{Binding RiskVisual.Icon}"
                                                     />

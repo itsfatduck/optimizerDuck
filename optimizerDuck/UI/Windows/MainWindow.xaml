@@ -29,12 +29,12 @@
         <ui:NavigationView
             x:Name="RootNavigation"
             Margin="0"
-            Padding="42,0,42,0"
+            Padding="0"
             FrameMargin="0"
             IsFooterSeparatorVisible="False"
             IsPaneToggleVisible="True"
             IsTopSeparatorVisible="False"
-            OpenPaneLength="180"
+            OpenPaneLength="220"
             PaneDisplayMode="Left"
             TitleBar="{Binding ElementName=TitleBar, Mode=OneWay}"
         >
@@ -111,20 +111,20 @@
 
         <ui:TitleBar x:Name="TitleBar">
             <ui:TitleBar.Header>
-                <StackPanel Margin="10,0,0,0" VerticalAlignment="Center" Orientation="Horizontal">
+                <StackPanel Margin="12,0,0,0" VerticalAlignment="Center" Orientation="Horizontal">
                     <ui:SymbolIcon
-                        FontSize="16"
+                        FontSize="15"
                         Foreground="{DynamicResource TextFillColorDisabledBrush}"
                         Symbol="Shield24"
                     />
                     <ui:ImageIcon
                         Height="25"
-                        Margin="7,0,5,0"
+                        Margin="8,0,6,0"
                         VerticalAlignment="Center"
                         Source="pack://application:,,,/Resources/Images/Duck.png"
                     />
                     <ui:TextBlock
-                        Margin="0,0,5,0"
+                        Margin="0,0,6,0"
                         VerticalAlignment="Center"
                         FontTypography="Body"
                         Text="optimizerDuck"
@@ -139,22 +139,20 @@
             </ui:TitleBar.Header>
 
             <ui:TitleBar.TrailingContent>
-                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                <StackPanel Margin="0,0,8,0" VerticalAlignment="Center" Orientation="Horizontal">
                     <ui:Button
-                        Margin="0,0,5,0"
+                        Margin="0,0,8,0"
                         Appearance="Transparent"
                         Command="{Binding OpenSupportLinkCommand}"
                         Icon="{ui:SymbolIcon Heart24}"
-                    >
-                        Support the project
-                    </ui:Button>
+                        ToolTip="Support the project"
+                    />
                     <ui:Button
                         Appearance="Transparent"
                         Command="{Binding OpenDiscordLinkCommand}"
                         Icon="{ui:SymbolIcon Link24}"
-                    >
-                        Join our Discord
-                    </ui:Button>
+                        ToolTip="Join our Discord"
+                    />
                 </StackPanel>
             </ui:TitleBar.TrailingContent>
         </ui:TitleBar>

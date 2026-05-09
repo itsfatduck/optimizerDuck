@@ -1,6 +1,5 @@
 ﻿<Page
-    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-    Margin="0,32,0,0"
+    Style="{StaticResource DuckPageRootStyle}"
     ScrollViewer.CanContentScroll="False"
     Title="OptimizerPage"
     d:DataContext="{d:DesignInstance pages:OptimizePage}"
@@ -26,7 +25,7 @@
             IsTopSeparatorVisible="False"
             Margin="0"
             MenuItemsSource="{Binding ViewModel.OptimizationCategories}"
-            Padding="42,0,42,0"
+            Padding="0"
             PaneDisplayMode="Top"
             x:Name="RootNavigation"
         />

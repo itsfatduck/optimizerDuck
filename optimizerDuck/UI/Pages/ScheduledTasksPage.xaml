@@ -10,13 +10,12 @@
     xmlns:scheduledTask="clr-namespace:optimizerDuck.Domain.Optimizations.Models.ScheduledTask"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="ScheduledTasksPage"
-    Margin="0,32,0,0"
+    Style="{StaticResource DuckPageRootStyle}"
     d:DataContext="{d:DesignInstance local:ScheduledTasksPage}"
     d:DesignHeight="1200"
     d:DesignWidth="800"
     ui:Design.Background="Black"
     ui:Design.Foreground="White"
-    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     ScrollViewer.CanContentScroll="False"
     mc:Ignorable="d"
 >
@@ -29,7 +28,7 @@
 
     <Grid RowDefinitions="Auto, *">
         <!--  Header  -->
-        <StackPanel Margin="0,0,0,20">
+        <StackPanel Style="{StaticResource DuckPageHeaderStyle}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -37,15 +36,12 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0">
                     <ui:TextBlock
-                        FontTypography="Title"
+                        Style="{StaticResource DuckPageTitleStyle}"
                         Text="{ext:Loc ScheduledTasks.Header.Title}"
                     />
                     <ui:TextBlock
-                        Margin="0,4,0,0"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        FontTypography="Body"
+                        Style="{StaticResource DuckPageDescriptionStyle}"
                         Text="{ext:Loc ScheduledTasks.Header.Description}"
-                        TextWrapping="Wrap"
                     />
                 </StackPanel>
                 <WrapPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal">
@@ -122,21 +118,18 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <!--  Toolbar  -->
-            <WrapPanel Grid.Row="0" Margin="0,0,16,12" Orientation="Horizontal">
+            <Border Grid.Row="0" Style="{StaticResource DuckToolbarSurfaceStyle}">
+            <WrapPanel Orientation="Horizontal">
                 <!--  Search  -->
                 <ui:TextBox
-                    MinWidth="200"
-                    Margin="0,0,8,0"
-                    VerticalAlignment="Center"
-                    Icon="{ui:SymbolIcon Search24}"
+                    Style="{StaticResource DuckSearchBoxStyle}"
                     PlaceholderText="{ext:Loc Common.Search.Placeholder}"
                     Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}"
                 />
 
                 <!--  Sort By  -->
                 <ComboBox
-                    Margin="0,0,8,0"
-                    VerticalAlignment="Center"
+                    Style="{StaticResource DuckComboBoxStyle}"
                     SelectedIndex="{Binding ViewModel.SortByIndex}"
                     ToolTip="{ext:Loc Common.SortBy}"
                 >
@@ -200,34 +193,27 @@
 
                 <!--  Hide Microsoft  -->
                 <ui:ToggleSwitch
-                    Margin="0,0,8,0"
-                    VerticalAlignment="Center"
-                    Cursor="Hand"
+                    Style="{StaticResource DuckToggleSwitchStyle}"
                     IsChecked="{Binding ViewModel.HideMicrosoftTasks, Mode=TwoWay}"
                     OffContent="{ext:Loc ScheduledTasks.HideMicrosoft}"
                     OnContent="{ext:Loc ScheduledTasks.HideMicrosoft}"
                 />
             </WrapPanel>
+            </Border>
 
             <!--  No search results  -->
             <StackPanel
                 Grid.Row="1"
-                Margin="0,64,0,32"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Top"
+                Style="{StaticResource DuckEmptyStatePanelStyle}"
                 Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource ZeroToVisibilityConverter}}"
             >
                 <ui:SymbolIcon
-                    Margin="0,0,0,10"
-                    HorizontalAlignment="Center"
-                    FontSize="36"
-                    Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                    Style="{StaticResource DuckEmptyStateIconStyle}"
                     Symbol="SearchInfo24"
                 />
                 <ui:TextBlock
                     HorizontalAlignment="Center"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    FontTypography="Body"
+                    Style="{StaticResource DuckSecondaryTextStyle}"
                     Text="{ext:Loc Bloatware.Search.NoResults}"
                 />
             </StackPanel>
@@ -241,10 +227,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type scheduledTask:ScheduledTaskModel}">
                             <Border
-                                Margin="0,0,16,6"
-                                Padding="16,12"
-                                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-                                CornerRadius="6"
+                                Style="{StaticResource DuckListRowStyle}"
                             >
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -522,8 +505,7 @@
                                             ToolTip="{ext:Loc ScheduledTasks.Action.Delete}"
                                         />
                                         <ui:ToggleSwitch
-                                            VerticalAlignment="Center"
-                                            Cursor="Hand"
+                                            Style="{StaticResource DuckToggleSwitchStyle}"
                                             IsChecked="{Binding IsEnabled, Mode=TwoWay}"
                                             OffContent="{ext:Loc Common.Toggle.Off}"
                                             OnContent="{ext:Loc Common.Toggle.On}"

@@ -10,7 +10,7 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 >
-    <Grid MinWidth="480">
+    <Grid MinWidth="560">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -89,9 +89,11 @@
                 />
                 <Border
                     Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-                    CornerRadius="4"
+                    BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="{StaticResource DuckCornerRadiusMedium}"
                     Margin="0,0,0,12"
-                    Padding="12"
+                    Padding="{StaticResource DuckCardPadding}"
                 >
                     <StackPanel>
                         <CheckBox
@@ -137,9 +139,11 @@
                 <ui:TextBlock FontTypography="Caption" Margin="0,0,0,4" Text="Settings" />
                 <Border
                     Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-                    CornerRadius="4"
+                    BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="{StaticResource DuckCornerRadiusMedium}"
                     Margin="0,0,0,12"
-                    Padding="12"
+                    Padding="{StaticResource DuckCardPadding}"
                 >
                     <StackPanel>
                         <CheckBox

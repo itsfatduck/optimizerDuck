@@ -1,4 +1,4 @@
-<UserControl
+﻿<UserControl
     x:Class="optimizerDuck.UI.Dialogs.BloatwareConfirmationDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -17,7 +17,7 @@
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
 
-    <Grid>
+    <Grid MinWidth="720">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -36,7 +36,6 @@
         <ui:TextBlock
             Grid.Row="1"
             Margin="0,0,0,6"
-            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
             FontTypography="BodyStrong"
             Text="{ext:Loc BloatwareDialog.Confirmation.SelectedList}"
             TextWrapping="Wrap"
@@ -55,10 +54,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type dialogVm:BloatwareConfirmationItemViewModel}">
                         <Border
-                            Margin="0,0,0,6"
-                            Padding="12"
-                            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="6"
+                            Style="{StaticResource DuckListRowStyle}"
                         >
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -74,7 +70,7 @@
                                     Padding="6,2"
                                     VerticalAlignment="Top"
                                     Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                    CornerRadius="5"
+                                    CornerRadius="{StaticResource DuckCornerRadiusSmall}"
                                 >
                                     <ui:TextBlock
                                         HorizontalAlignment="Center"
@@ -103,12 +99,12 @@
                                         />
 
                                         <Border
-                                            Margin="5,0,0,0"
+                                            Margin="8,0,0,0"
                                             Padding="4,1"
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
                                             Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                            CornerRadius="5"
+                                            CornerRadius="{StaticResource DuckCornerRadiusSmall}"
                                         >
                                             <ui:TextBlock
                                                 VerticalAlignment="Center"
@@ -119,10 +115,10 @@
                                         </Border>
 
                                         <Border
-                                            Margin="5,0,0,0"
-                                            Padding="4,2"
+                                            Margin="8,0,0,0"
+                                            Padding="6,2"
                                             HorizontalAlignment="Left"
-                                            CornerRadius="5"
+                                            CornerRadius="{StaticResource DuckCornerRadiusSmall}"
                                             Visibility="{Binding Package.ShouldVisibleRisk, Converter={StaticResource BooleanToVisibilityConverter}}"
                                         >
                                             <Border.Style>
@@ -146,7 +142,7 @@
                                             </Border.Style>
                                             <StackPanel Orientation="Horizontal">
                                                 <ui:SymbolIcon
-                                                    Margin="0,0,5,0"
+                                                    Margin="0,0,8,0"
                                                     Foreground="{DynamicResource TextFillColorInverseBrush}"
                                                     Symbol="{Binding Package.RiskVisual.Icon}"
                                                 />

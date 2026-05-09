@@ -9,6 +9,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ui:ThemesDictionary Theme="Dark" />
                 <ui:ControlsDictionary />
+                <ResourceDictionary Source="pack://application:,,,/UI/Styles/FluentDesign.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <Style TargetType="Image">

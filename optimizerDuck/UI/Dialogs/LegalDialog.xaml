@@ -10,7 +10,7 @@
     d:DesignWidth="520"
     mc:Ignorable="d"
 >
-    <Grid>
+    <Grid Style="{StaticResource DuckDialogRootStyle}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -24,20 +24,21 @@
                 TextWrapping="Wrap"
             />
             <ui:TextBlock
-                Margin="0,3,0,0"
+                Margin="0,8,0,0"
                 FontTypography="Body"
                 Text="{ext:Loc LegalDialog.Intro.Safety}"
                 TextWrapping="Wrap"
             />
             <ui:TextBlock
-                Margin="0,1,0,0"
+                Margin="0,4,0,0"
                 FontTypography="Body"
                 Text="{ext:Loc LegalDialog.Intro.Review}"
                 TextWrapping="Wrap"
             />
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Margin="0,6,0,6">
+        <Border Grid.Row="1" Margin="0,12,0,12" Style="{StaticResource DuckToolbarSurfaceStyle}">
+        <StackPanel>
             <ui:HyperlinkButton
                 Content="{ext:Loc Key=LegalDialog.Link.TermsOfService}"
                 Icon="{ui:SymbolIcon DocumentText24}"
@@ -58,6 +59,7 @@
                 NavigateUri="https://github.com/itsfatduck/optimizerDuck/blob/master/DISCLAIMER.md"
             />
         </StackPanel>
+        </Border>
 
         <ui:InfoBar
             Title="{ext:Loc Key=LegalDialog.Warning.Title}"
