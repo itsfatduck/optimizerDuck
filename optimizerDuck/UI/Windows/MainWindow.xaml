@@ -138,13 +138,13 @@
                         Command="{Binding OpenSupportLinkCommand}"
                         Cursor="Hand"
                         Icon="{ui:SymbolIcon Heart24}"
-                        ToolTip="Support the project" />
+                        ToolTip="{extensions:Loc TitleBar.Support}" />
                     <ui:Button
                         Appearance="Transparent"
                         Command="{Binding OpenDiscordLinkCommand}"
                         Cursor="Hand"
-                        Icon="{ui:SymbolIcon Link24}"
-                        ToolTip="Join our Discord" />
+                        Icon="{ui:SymbolIcon PeopleCommunity24}"
+                        ToolTip="{extensions:Loc TitleBar.Discord}" />
                 </StackPanel>
             </ui:TitleBar.TrailingContent>
         </ui:TitleBar>

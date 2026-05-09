@@ -1697,4 +1697,10 @@
   <data name="Settings.About.Documentation.Description" xml:space="preserve">
     <value>查看說明文件、使用指南及常見問題。</value>
   </data>
+  <data name="TitleBar.Support" xml:space="preserve">
+    <value>支持專案</value>
+  </data>
+  <data name="TitleBar.Discord" xml:space="preserve">
+    <value>加入 Discord 社群</value>
+  </data>
 </root>

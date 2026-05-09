@@ -1694,4 +1694,10 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Settings.About.Documentation.Description" xml:space="preserve">
     <value>Xem tài liệu, hướng dẫn sử dụng và các câu hỏi thường gặp.</value>
   </data>
+  <data name="TitleBar.Support" xml:space="preserve">
+    <value>Ủng hộ dự án</value>
+  </data>
+  <data name="TitleBar.Discord" xml:space="preserve">
+    <value>Tham gia cộng đồng Discord</value>
+  </data>
 </root>

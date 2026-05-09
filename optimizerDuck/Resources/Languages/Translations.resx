@@ -1702,4 +1702,10 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="Settings.About.Documentation.Description" xml:space="preserve">
     <value>View documentation, usage guides, and FAQs.</value>
   </data>
+  <data name="TitleBar.Support" xml:space="preserve">
+    <value>Support the Project</value>
+  </data>
+  <data name="TitleBar.Discord" xml:space="preserve">
+    <value>Join the Discord community</value>
+  </data>
 </root>
