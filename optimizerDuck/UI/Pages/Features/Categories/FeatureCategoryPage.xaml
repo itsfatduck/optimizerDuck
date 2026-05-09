@@ -95,7 +95,7 @@
             VerticalScrollBarVisibility="Auto">
             <!--  Sections  -->
             <ItemsControl
-                Margin="0"
+                Margin="0,0,12,0"
                 ItemsSource="{Binding ViewModel.Sections}"
                 Style="{x:Null}">
                 <ItemsControl.ItemTemplate>
