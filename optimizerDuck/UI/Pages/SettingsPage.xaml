@@ -9,381 +9,343 @@
     xmlns:pages="clr-namespace:optimizerDuck.UI.Pages"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="SettingsPage"
-    Style="{StaticResource DuckPageRootStyle}"
     d:DataContext="{d:DesignInstance pages:SettingsPage}"
     d:DesignHeight="1200"
     d:DesignWidth="800"
     ui:Design.Background="Black"
     ui:Design.Foreground="White"
-    mc:Ignorable="d"
->
+    Style="{StaticResource PageRootStyle}"
+    mc:Ignorable="d">
     <Page.Resources>
         <converters:ThemeToIndexConverter x:Key="ThemeToIndexConverter" />
     </Page.Resources>
 
-    <StackPanel>
-        <ui:TextBlock
-            Style="{StaticResource DuckPageTitleStyle}"
-            Text="{ext:Loc Settings.Header.Title}"
-        />
+    <ScrollViewer>
+        <StackPanel Margin="0,0,12,0">
+            <ui:TextBlock Style="{StaticResource PageTitleStyle}" Text="{ext:Loc Settings.Header.Title}" />
 
-        <StackPanel Style="{StaticResource DuckSettingsSectionStyle}">
-            <ui:TextBlock
-                Style="{StaticResource DuckSectionHeaderStyle}"
-                Text="{ext:Loc Settings.Appearance.Header}"
-            />
-            <ui:CardControl Margin="0,0,0,8" Icon="{ui:SymbolIcon Globe24}">
-                <ui:CardControl.Header>
-                    <StackPanel>
-                        <ui:TextBlock
-                            Margin="0"
-                            FontTypography="BodyStrong"
-                            Text="{ext:Loc Settings.Appearance.LanguageSelector.Title}"
-                            TextWrapping="Wrap"
-                        />
-                        <ui:TextBlock
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Text="{ext:Loc Settings.Appearance.LanguageSelector.Description}"
-                            TextWrapping="Wrap"
-                        />
-                    </StackPanel>
-                </ui:CardControl.Header>
-                <ComboBox
-                    DisplayMemberPath="DisplayName"
-                    ItemsSource="{Binding ViewModel.Languages}"
-                    SelectedValue="{Binding ViewModel.SelectedCultureName, Mode=TwoWay}"
-                    SelectedValuePath="Culture.Name"
-                />
-            </ui:CardControl>
-            <ui:CardControl Margin="0,0,0,8" Icon="{ui:SymbolIcon Color24}">
-                <ui:CardControl.Header>
-                    <StackPanel>
-                        <ui:TextBlock
-                            Margin="0"
-                            FontTypography="BodyStrong"
-                            Text="{ext:Loc Settings.Appearance.ThemeSelector.Title}"
-                            TextWrapping="Wrap"
-                        />
-                        <ui:TextBlock
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Text="{ext:Loc Settings.Appearance.ThemeSelector.Description}"
-                            TextWrapping="Wrap"
-                        />
-                    </StackPanel>
-                </ui:CardControl.Header>
-                <ComboBox SelectedIndex="{Binding ViewModel.CurrentApplicationTheme, Converter={StaticResource ThemeToIndexConverter}, Mode=TwoWay}">
-                    <ComboBoxItem Content="{ext:Loc Settings.Appearance.ThemeSelector.Light}" />
-                    <ComboBoxItem Content="{ext:Loc Settings.Appearance.ThemeSelector.Dark}" />
-                    <ComboBoxItem Content="{ext:Loc Settings.Appearance.ThemeSelector.HighContrast}" />
-                </ComboBox>
-            </ui:CardControl>
-
-            <StackPanel Style="{StaticResource DuckSettingsSectionStyle}">
-                <ui:TextBlock
-                    Style="{StaticResource DuckSectionHeaderStyle}"
-                    Text="{ext:Loc Settings.Optimize.Header}"
-                />
-
-                <ui:CardControl Margin="0,0,0,8">
-                    <ui:CardControl.Icon>
-                        <ui:SymbolIcon
-                            Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                            Symbol="Clock24"
-                        />
-                    </ui:CardControl.Icon>
+            <StackPanel Style="{StaticResource SettingsSectionStyle}">
+                <ui:TextBlock Style="{StaticResource SectionHeaderStyle}" Text="{ext:Loc Settings.Appearance.Header}" />
+                <ui:CardControl Margin="0,0,0,4" Icon="{ui:SymbolIcon Globe24}">
                     <ui:CardControl.Header>
                         <StackPanel>
                             <ui:TextBlock
                                 Margin="0"
-                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                 FontTypography="BodyStrong"
-                                Text="{ext:Loc Settings.Optimize.ShellTimeout.Title}"
-                                TextWrapping="Wrap"
-                            />
+                                Text="{ext:Loc Settings.Appearance.LanguageSelector.Title}"
+                                TextWrapping="Wrap" />
                             <ui:TextBlock
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Text="{ext:Loc Settings.Optimize.ShellTimeout.Description}"
-                                TextWrapping="Wrap"
-                            />
-                            <ui:TextBlock
-                                Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                                Text="{ext:Loc Settings.Optimize.ShellTimeout.Warning}"
-                                TextWrapping="Wrap"
-                            />
+                                Text="{ext:Loc Settings.Appearance.LanguageSelector.Description}"
+                                TextWrapping="Wrap" />
                         </StackPanel>
                     </ui:CardControl.Header>
-
-                    <ui:NumberBox
-                        Minimum="1000"
-                        SmallChange="1000"
-                        Value="{Binding ViewModel.ShellTimeoutMs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    />
+                    <ComboBox
+                        DisplayMemberPath="DisplayName"
+                        ItemsSource="{Binding ViewModel.Languages}"
+                        SelectedValue="{Binding ViewModel.SelectedCultureName, Mode=TwoWay}"
+                        SelectedValuePath="Culture.Name" />
                 </ui:CardControl>
-
-                <ui:CardControl Margin="0,0,0,8" Icon="{ui:SymbolIcon Alert24}">
+                <ui:CardControl Margin="0,0,0,4" Icon="{ui:SymbolIcon Color24}">
                     <ui:CardControl.Header>
                         <StackPanel>
                             <ui:TextBlock
                                 Margin="0"
-                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                 FontTypography="BodyStrong"
-                                Text="{ext:Loc Settings.Optimize.ShowCompletionNotification.Title}"
-                                TextWrapping="Wrap"
-                            />
+                                Text="{ext:Loc Settings.Appearance.ThemeSelector.Title}"
+                                TextWrapping="Wrap" />
                             <ui:TextBlock
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Text="{ext:Loc Settings.Optimize.ShowCompletionNotification.Description}"
-                                TextWrapping="Wrap"
-                            />
+                                Text="{ext:Loc Settings.Appearance.ThemeSelector.Description}"
+                                TextWrapping="Wrap" />
                         </StackPanel>
                     </ui:CardControl.Header>
-
-                    <ui:ToggleSwitch
-                        Command="{Binding ViewModel.ToggleShowCompletionNotificationCommand}"
-                        IsChecked="{Binding ViewModel.ShowSnackbarNotificationAfterAppliedSuccessfully, Mode=TwoWay}"
-                    />
+                    <ComboBox SelectedIndex="{Binding ViewModel.CurrentApplicationTheme, Converter={StaticResource ThemeToIndexConverter}, Mode=TwoWay}">
+                        <ComboBoxItem Content="{ext:Loc Settings.Appearance.ThemeSelector.Light}" />
+                        <ComboBoxItem Content="{ext:Loc Settings.Appearance.ThemeSelector.Dark}" />
+                        <ComboBoxItem Content="{ext:Loc Settings.Appearance.ThemeSelector.HighContrast}" />
+                    </ComboBox>
                 </ui:CardControl>
-            </StackPanel>
 
-            <StackPanel Style="{StaticResource DuckSettingsSectionStyle}">
-                <ui:TextBlock
-                    Style="{StaticResource DuckSectionHeaderStyle}"
-                    Text="{ext:Loc Settings.Bloatware.Header}"
-                />
+                <StackPanel Style="{StaticResource SettingsSectionStyle}">
+                    <ui:TextBlock Style="{StaticResource SectionHeaderStyle}" Text="{ext:Loc Settings.Optimize.Header}" />
 
-                <ui:CardControl Margin="0,0,0,8" Icon="{ui:SymbolIcon UninstallApp24}">
-                    <ui:CardControl.Header>
+                    <ui:CardControl Margin="0,0,0,4">
+                        <ui:CardControl.Icon>
+                            <ui:SymbolIcon Foreground="{DynamicResource SystemFillColorCriticalBrush}" Symbol="Clock24" />
+                        </ui:CardControl.Icon>
+                        <ui:CardControl.Header>
+                            <StackPanel>
+                                <ui:TextBlock
+                                    Margin="0"
+                                    FontTypography="BodyStrong"
+                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                    Text="{ext:Loc Settings.Optimize.ShellTimeout.Title}"
+                                    TextWrapping="Wrap" />
+                                <ui:TextBlock
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="{ext:Loc Settings.Optimize.ShellTimeout.Description}"
+                                    TextWrapping="Wrap" />
+                                <ui:TextBlock
+                                    Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                                    Text="{ext:Loc Settings.Optimize.ShellTimeout.Warning}"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                        </ui:CardControl.Header>
+
+                        <ui:NumberBox
+                            Minimum="1000"
+                            SmallChange="1000"
+                            Value="{Binding ViewModel.ShellTimeoutMs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </ui:CardControl>
+
+                    <ui:CardControl Margin="0,0,0,4" Icon="{ui:SymbolIcon Alert24}">
+                        <ui:CardControl.Header>
+                            <StackPanel>
+                                <ui:TextBlock
+                                    Margin="0"
+                                    FontTypography="BodyStrong"
+                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                    Text="{ext:Loc Settings.Optimize.ShowCompletionNotification.Title}"
+                                    TextWrapping="Wrap" />
+                                <ui:TextBlock
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="{ext:Loc Settings.Optimize.ShowCompletionNotification.Description}"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                        </ui:CardControl.Header>
+
+                        <ui:ToggleSwitch
+                            Command="{Binding ViewModel.ToggleShowCompletionNotificationCommand}"
+                            Cursor="Hand"
+                            IsChecked="{Binding ViewModel.ShowSnackbarNotificationAfterAppliedSuccessfully, Mode=TwoWay}"
+                            OffContent="{ext:Loc Common.Toggle.Off}"
+                            OnContent="{ext:Loc Common.Toggle.On}" />
+                    </ui:CardControl>
+                </StackPanel>
+
+                <StackPanel Style="{StaticResource SettingsSectionStyle}">
+                    <ui:TextBlock Style="{StaticResource SectionHeaderStyle}" Text="{ext:Loc Settings.Bloatware.Header}" />
+
+                    <ui:CardControl Margin="0,0,0,4" Icon="{ui:SymbolIcon UninstallApp24}">
+                        <ui:CardControl.Header>
+                            <StackPanel>
+                                <ui:TextBlock
+                                    Margin="0"
+                                    FontTypography="BodyStrong"
+                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                    Text="{ext:Loc Settings.Bloatware.RemoveProvisioned.Title}"
+                                    TextWrapping="Wrap" />
+                                <ui:TextBlock
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="{ext:Loc Settings.Bloatware.RemoveProvisioned.Description}"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                        </ui:CardControl.Header>
+
+                        <ui:ToggleSwitch
+                            Command="{Binding ViewModel.ToggleRemoveProvisionedCommand}"
+                            Cursor="Hand"
+                            IsChecked="{Binding ViewModel.RemoveProvisioned, Mode=TwoWay}"
+                            OffContent="{ext:Loc Common.Toggle.Off}"
+                            OnContent="{ext:Loc Common.Toggle.On}" />
+                    </ui:CardControl>
+                </StackPanel>
+
+                <StackPanel Style="{StaticResource SettingsSectionStyle}">
+                    <ui:TextBlock Style="{StaticResource SectionHeaderStyle}" Text="{ext:Loc Settings.Advanced.Header}" />
+
+                    <ui:CardAction
+                        Margin="0,0,0,4"
+                        Padding="16,14"
+                        Command="{Binding ViewModel.ClearResourcesCommand}"
+                        Cursor="Hand">
+                        <ui:CardAction.Icon>
+                            <ui:SymbolIcon Foreground="{DynamicResource SystemFillColorCriticalBrush}" Symbol="Archive24" />
+                        </ui:CardAction.Icon>
                         <StackPanel>
                             <ui:TextBlock
                                 Margin="0"
-                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                 FontTypography="BodyStrong"
-                                Text="{ext:Loc Settings.Bloatware.RemoveProvisioned.Title}"
-                                TextWrapping="Wrap"
-                            />
+                                Text="{ext:Loc Settings.Advanced.ClearResources.Title}"
+                                TextWrapping="Wrap" />
                             <ui:TextBlock
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Text="{ext:Loc Settings.Bloatware.RemoveProvisioned.Description}"
-                                TextWrapping="Wrap"
-                            />
+                                Text="{ext:Loc Settings.Advanced.ClearResources.Description}"
+                                TextWrapping="Wrap" />
                         </StackPanel>
-                    </ui:CardControl.Header>
+                    </ui:CardAction>
 
-                    <ui:ToggleSwitch
-                        Command="{Binding ViewModel.ToggleRemoveProvisionedCommand}"
-                        IsChecked="{Binding ViewModel.RemoveProvisioned, Mode=TwoWay}"
-                    />
-                </ui:CardControl>
-            </StackPanel>
-
-            <StackPanel Style="{StaticResource DuckSettingsSectionStyle}">
-                <ui:TextBlock
-                    Style="{StaticResource DuckSectionHeaderStyle}"
-                    Text="{ext:Loc Settings.Advanced.Header}"
-                />
-
-                <ui:CardAction Margin="0,0,0,8" Padding="16,14" Command="{Binding ViewModel.ClearResourcesCommand}">
-                    <ui:CardAction.Icon>
-                        <ui:SymbolIcon
-                            Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                            Symbol="Archive24"
-                        />
-                    </ui:CardAction.Icon>
-                    <StackPanel>
-                        <ui:TextBlock
-                            Margin="0"
-                            FontTypography="BodyStrong"
-                            Text="{ext:Loc Settings.Advanced.ClearResources.Title}"
-                            TextWrapping="Wrap"
-                        />
-                        <ui:TextBlock
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Text="{ext:Loc Settings.Advanced.ClearResources.Description}"
-                            TextWrapping="Wrap"
-                        />
-                    </StackPanel>
-                </ui:CardAction>
-
-                <ui:CardAction Margin="0,0,0,8" Padding="16,14" Command="{Binding ViewModel.ClearAllRevertDataCommand}">
-                    <ui:CardAction.Icon>
-                        <ui:SymbolIcon
-                            Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                            Symbol="DatabaseLightning20"
-                        />
-                    </ui:CardAction.Icon>
-                    <StackPanel>
-                        <ui:TextBlock
-                            Margin="0"
-                            FontTypography="BodyStrong"
-                            Text="{ext:Loc Settings.Advanced.ClearRevertDatas.Title}"
-                            TextWrapping="Wrap"
-                        />
-                        <ui:TextBlock
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Text="{ext:Loc Settings.Advanced.ClearRevertDatas.Description}"
-                            TextWrapping="Wrap"
-                        />
-                    </StackPanel>
-                </ui:CardAction>
-
-                <ui:CardAction
-                    Margin="0,0,0,8"
-                    Padding="16,14"
-                    Command="{Binding ViewModel.OpenRootDirCommand}"
-                    Icon="{ui:SymbolIcon Folder24}"
-                    IsChevronVisible="False"
-                >
-                    <Grid ColumnDefinitions="* Auto">
+                    <ui:CardAction
+                        Margin="0,0,0,4"
+                        Padding="16,14"
+                        Command="{Binding ViewModel.ClearAllRevertDataCommand}"
+                        Cursor="Hand">
+                        <ui:CardAction.Icon>
+                            <ui:SymbolIcon Foreground="{DynamicResource SystemFillColorCriticalBrush}" Symbol="DatabaseLightning20" />
+                        </ui:CardAction.Icon>
                         <StackPanel>
                             <ui:TextBlock
                                 Margin="0"
-                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                 FontTypography="BodyStrong"
-                                Text="{ext:Loc Settings.Advanced.OpenRootDir.Title}"
-                                TextWrapping="Wrap"
-                            />
+                                Text="{ext:Loc Settings.Advanced.ClearRevertDatas.Title}"
+                                TextWrapping="Wrap" />
                             <ui:TextBlock
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Text="{ext:Loc Settings.Advanced.OpenRootDir.Description}"
-                                TextWrapping="Wrap"
-                            />
+                                Text="{ext:Loc Settings.Advanced.ClearRevertDatas.Description}"
+                                TextWrapping="Wrap" />
                         </StackPanel>
-                        <ui:SymbolIcon Grid.Column="1" FontSize="20" Symbol="Open24" />
-                    </Grid>
-                </ui:CardAction>
-            </StackPanel>
+                    </ui:CardAction>
 
-            <StackPanel Style="{StaticResource DuckSettingsSectionStyle}">
-                <ui:TextBlock
-                    Style="{StaticResource DuckSectionHeaderStyle}"
-                    Text="{ext:Loc Settings.About.Header}"
-                />
+                    <ui:CardAction
+                        Margin="0,0,0,4"
+                        Padding="16,14"
+                        Command="{Binding ViewModel.OpenRootDirCommand}"
+                        Cursor="Hand"
+                        Icon="{ui:SymbolIcon Folder24}"
+                        IsChevronVisible="False">
+                        <Grid ColumnDefinitions="* Auto">
+                            <StackPanel>
+                                <ui:TextBlock
+                                    Margin="0"
+                                    FontTypography="BodyStrong"
+                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                    Text="{ext:Loc Settings.Advanced.OpenRootDir.Title}"
+                                    TextWrapping="Wrap" />
+                                <ui:TextBlock
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="{ext:Loc Settings.Advanced.OpenRootDir.Description}"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                            <ui:SymbolIcon
+                                Grid.Column="1"
+                                FontSize="20"
+                                Symbol="Open24" />
+                        </Grid>
+                    </ui:CardAction>
+                </StackPanel>
 
-                <ui:CardAction
-                    Margin="0,0,0,8"
-                    Padding="16,14"
-                    Command="{Binding ViewModel.OpenWebsiteCommand}"
-                    CommandParameter="Web"
-                    IsChevronVisible="False"
-                >
-                    <ui:CardAction.Icon>
-                        <ui:ImageIcon
-                            Height="25"
-                            Source="pack://application:,,,/optimizerDuck;component/Resources/Images/Duck.png"
-                        />
-                    </ui:CardAction.Icon>
+                <StackPanel Style="{StaticResource SettingsSectionStyle}">
+                    <ui:TextBlock Style="{StaticResource SectionHeaderStyle}" Text="{ext:Loc Settings.About.Header}" />
 
-                    <Grid ColumnDefinitions="* Auto">
-                        <StackPanel>
-                            <ui:TextBlock
-                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                                FontTypography="BodyStrong"
-                                Text="optimizerDuck"
-                                TextWrapping="Wrap"
-                            />
-                            <ui:TextBlock
-                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Text="{ext:Loc Settings.About.Duck.Description,
-                                               {Binding ViewModel.Version}}"
-                                TextWrapping="Wrap"
-                            />
-                        </StackPanel>
-                        <ui:SymbolIcon Grid.Column="1" FontSize="20" Symbol="Open24" />
-                    </Grid>
-                </ui:CardAction>
+                    <ui:CardAction
+                        Margin="0,0,0,4"
+                        Padding="16,14"
+                        Command="{Binding ViewModel.OpenWebsiteCommand}"
+                        CommandParameter="Web"
+                        Cursor="Hand"
+                        IsChevronVisible="False">
+                        <ui:CardAction.Icon>
+                            <ui:ImageIcon Height="25" Source="pack://application:,,,/optimizerDuck;component/Resources/Images/Duck.png" />
+                        </ui:CardAction.Icon>
 
-                <ui:CardAction
-                    Margin="0,0,0,8"
-                    Padding="16,14"
-                    Command="{Binding ViewModel.OpenWebsiteCommand}"
-                    CommandParameter="Help"
-                    Icon="{ui:SymbolIcon ChatBubblesQuestion24}"
-                    IsChevronVisible="False"
-                >
-                    <Grid ColumnDefinitions="* Auto">
-                        <StackPanel>
-                            <ui:TextBlock
-                                Padding="0"
-                                FontTypography="BodyStrong"
-                                Text="{ext:Loc Settings.About.NeedHelp.Title}"
-                            />
-                            <ui:TextBlock
-                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Text="{ext:Loc Settings.About.NeedHelp.Description}"
-                                TextWrapping="Wrap"
-                            />
-                        </StackPanel>
+                        <Grid ColumnDefinitions="* Auto">
+                            <StackPanel>
+                                <ui:TextBlock
+                                    FontTypography="BodyStrong"
+                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                    Text="optimizerDuck"
+                                    TextWrapping="Wrap" />
+                                <ui:TextBlock
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="{ext:Loc Settings.About.Duck.Description,
+                                                   {Binding ViewModel.Version}}"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                            <ui:SymbolIcon
+                                Grid.Column="1"
+                                FontSize="20"
+                                Symbol="Open24" />
+                        </Grid>
+                    </ui:CardAction>
 
-                        <ui:SymbolIcon Grid.Column="1" FontSize="20" Symbol="Open24" />
-                    </Grid>
-                </ui:CardAction>
+                    <ui:CardAction
+                        Margin="0,0,0,4"
+                        Padding="16,14"
+                        Command="{Binding ViewModel.OpenWebsiteCommand}"
+                        CommandParameter="Help"
+                        Cursor="Hand"
+                        Icon="{ui:SymbolIcon ChatBubblesQuestion24}"
+                        IsChevronVisible="False">
+                        <Grid ColumnDefinitions="* Auto">
+                            <StackPanel>
+                                <ui:TextBlock
+                                    Padding="0"
+                                    FontTypography="BodyStrong"
+                                    Text="{ext:Loc Settings.About.NeedHelp.Title}" />
+                                <ui:TextBlock
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="{ext:Loc Settings.About.NeedHelp.Description}"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
 
-                <ui:CardAction
-                    Margin="0,0,0,8"
-                    Padding="16,14"
-                    VerticalAlignment="Stretch"
-                    Command="{Binding ViewModel.OpenAcknowledgementsCommand}"
-                    IsChevronVisible="False"
-                >
-                    <ui:CardAction.Icon>
-                        <ui:SymbolIcon Symbol="DocumentHeart24" />
-                    </ui:CardAction.Icon>
+                            <ui:SymbolIcon
+                                Grid.Column="1"
+                                FontSize="20"
+                                Symbol="Open24" />
+                        </Grid>
+                    </ui:CardAction>
 
-                    <Grid ColumnDefinitions="* Auto">
-                        <StackPanel>
-                            <ui:TextBlock
-                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                                FontTypography="BodyStrong"
-                                Text="{ext:Loc Settings.About.Acknowledgements.Title}"
-                                TextWrapping="Wrap"
-                            />
-                            <ui:TextBlock
-                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Text="{ext:Loc Settings.About.Acknowledgements.Description}"
-                                TextWrapping="Wrap"
-                            />
-                        </StackPanel>
+                    <ui:CardAction
+                        Margin="0,0,0,4"
+                        Padding="16,14"
+                        VerticalAlignment="Stretch"
+                        Command="{Binding ViewModel.OpenAcknowledgementsCommand}"
+                        Cursor="Hand"
+                        IsChevronVisible="False">
+                        <ui:CardAction.Icon>
+                            <ui:SymbolIcon Symbol="DocumentHeart24" />
+                        </ui:CardAction.Icon>
 
-                        <ui:SymbolIcon Grid.Column="1" FontSize="20" Symbol="Open24" />
-                    </Grid>
-                </ui:CardAction>
+                        <Grid ColumnDefinitions="* Auto">
+                            <StackPanel>
+                                <ui:TextBlock
+                                    FontTypography="BodyStrong"
+                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                    Text="{ext:Loc Settings.About.Acknowledgements.Title}"
+                                    TextWrapping="Wrap" />
+                                <ui:TextBlock
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="{ext:Loc Settings.About.Acknowledgements.Description}"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
 
-                <ui:TextBlock
-                    Margin="0,16,0,8"
-                    FontTypography="BodyStrong"
-                    Text="{ext:Loc Settings.About.LearnMore}"
-                    TextTrimming="WordEllipsis"
-                    TextWrapping="Wrap"
-                />
-                <Border Style="{StaticResource DuckToolbarSurfaceStyle}">
-                <WrapPanel>
-                    <ui:HyperlinkButton
-                        Margin="0,0,8,0"
-                        Content="{ext:Loc Settings.About.LearnMore.Website}"
-                        NavigateUri="{Binding ViewModel.Website}"
-                    />
-                    <ui:HyperlinkButton
-                        Margin="0,0,8,0"
-                        Content="{ext:Loc Settings.About.LearnMore.Contribute}"
-                        NavigateUri="{Binding ViewModel.Contribute}"
-                    />
-                    <ui:HyperlinkButton
-                        Margin="0,0,8,0"
-                        Content="{ext:Loc Settings.About.LearnMore.Documentation}"
-                        NavigateUri="{Binding ViewModel.Documentation}"
-                    />
-                    <ui:HyperlinkButton
-                        Margin="0,0,8,0"
-                        Content="{ext:Loc Settings.About.LearnMore.Community}"
-                        NavigateUri="{Binding ViewModel.Community}"
-                    />
-                    <ui:HyperlinkButton
-                        Content="{ext:Loc Settings.About.LearnMore.Acknowledgements}"
-                        NavigateUri="{Binding ViewModel.Acknowledgements}"
-                    />
-                </WrapPanel>
-                </Border>
+                            <ui:SymbolIcon
+                                Grid.Column="1"
+                                FontSize="20"
+                                Symbol="Open24" />
+                        </Grid>
+                    </ui:CardAction>
+
+                    <ui:TextBlock
+                        Margin="0,16,0,8"
+                        FontTypography="BodyStrong"
+                        Text="{ext:Loc Settings.About.LearnMore}"
+                        TextTrimming="WordEllipsis"
+                        TextWrapping="Wrap" />
+                    <Border Style="{StaticResource ToolbarSurfaceStyle}">
+                        <WrapPanel>
+                            <ui:HyperlinkButton
+                                Margin="0,0,8,0"
+                                Content="{ext:Loc Settings.About.LearnMore.Website}"
+                                NavigateUri="{Binding ViewModel.Website}" />
+                            <ui:HyperlinkButton
+                                Margin="0,0,8,0"
+                                Content="{ext:Loc Settings.About.LearnMore.Contribute}"
+                                NavigateUri="{Binding ViewModel.Contribute}" />
+                            <ui:HyperlinkButton
+                                Margin="0,0,8,0"
+                                Content="{ext:Loc Settings.About.LearnMore.Documentation}"
+                                NavigateUri="{Binding ViewModel.Documentation}" />
+                            <ui:HyperlinkButton
+                                Margin="0,0,8,0"
+                                Content="{ext:Loc Settings.About.LearnMore.Community}"
+                                NavigateUri="{Binding ViewModel.Community}" />
+                            <ui:HyperlinkButton Content="{ext:Loc Settings.About.LearnMore.Acknowledgements}" NavigateUri="{Binding ViewModel.Acknowledgements}" />
+                        </WrapPanel>
+                    </Border>
+                </StackPanel>
             </StackPanel>
         </StackPanel>
-    </StackPanel>
+    </ScrollViewer>
 </Page>

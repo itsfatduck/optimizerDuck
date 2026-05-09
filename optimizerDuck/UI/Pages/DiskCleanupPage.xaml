@@ -10,13 +10,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="DiskCleanupPage"
-    Style="{StaticResource DuckPageRootStyle}"
     d:DataContext="{d:DesignInstance local:DiskCleanupPage}"
     d:DesignHeight="1200"
     d:DesignWidth="800"
     ui:Design.Background="Black"
     ui:Design.Foreground="White"
     ScrollViewer.CanContentScroll="False"
+    Style="{StaticResource PageRootStyle}"
     mc:Ignorable="d">
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -51,15 +51,9 @@
 
     <Grid RowDefinitions="Auto,*">
         <!--  Header  -->
-        <StackPanel Style="{StaticResource DuckPageHeaderStyle}">
-            <ui:TextBlock
-                Style="{StaticResource DuckPageTitleStyle}"
-                Text="{ext:Loc DiskCleanup.Header.Title}"
-                />
-            <ui:TextBlock
-                Style="{StaticResource DuckPageDescriptionStyle}"
-                Text="{ext:Loc DiskCleanup.Header.Description}"
-                />
+        <StackPanel Style="{StaticResource PageHeaderStyle}">
+            <ui:TextBlock Style="{StaticResource PageTitleStyle}" Text="{ext:Loc DiskCleanup.Header.Title}" />
+            <ui:TextBlock Style="{StaticResource PageDescriptionStyle}" Text="{ext:Loc DiskCleanup.Header.Description}" />
         </StackPanel>
 
         <!--  Loading State  -->
@@ -89,7 +83,7 @@
             RowDefinitions="Auto,*"
             Visibility="{Binding ViewModel.HasData, Converter={StaticResource BooleanToVisibilityConverter}}">
             <!--  Toolbar Card  -->
-            <Border Style="{StaticResource DuckToolbarSurfaceStyle}">
+            <Border Style="{StaticResource ToolbarSurfaceStyle}">
                 <Grid ColumnDefinitions="Auto,*,Auto">
                     <!--  Summary Info  -->
                     <StackPanel Grid.Column="0" VerticalAlignment="Center">
@@ -111,8 +105,8 @@
                         Orientation="Horizontal">
                         <!--  Sort Dropdown  -->
                         <ComboBox
-                            Style="{StaticResource DuckComboBoxStyle}"
                             SelectedIndex="{Binding ViewModel.SelectedSortByIndex}"
+                            Style="{StaticResource ComboBoxStyle}"
                             ToolTip="{ext:Loc Common.SortBy}">
                             <ComboBoxItem HorizontalContentAlignment="Left">
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
@@ -188,7 +182,7 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type cleanup1:CleanupItem}">
-                        <Border Style="{StaticResource DuckListRowStyle}">
+                        <Border Style="{StaticResource ListRowStyle}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
@@ -266,7 +260,7 @@
                                     <Border
                                         Margin="0,6,0,0"
                                         HorizontalAlignment="Left"
-                                        CornerRadius="{StaticResource DuckCornerRadiusSmall}">
+                                        CornerRadius="{StaticResource CornerRadiusSmall}">
                                         <Border.Style>
                                             <Style TargetType="Border">
                                                 <Setter Property="Padding" Value="8,3" />

@@ -10,15 +10,14 @@
     xmlns:scheduledTask="clr-namespace:optimizerDuck.Domain.Optimizations.Models.ScheduledTask"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="ScheduledTasksPage"
-    Style="{StaticResource DuckPageRootStyle}"
     d:DataContext="{d:DesignInstance local:ScheduledTasksPage}"
     d:DesignHeight="1200"
     d:DesignWidth="800"
     ui:Design.Background="Black"
     ui:Design.Foreground="White"
     ScrollViewer.CanContentScroll="False"
-    mc:Ignorable="d"
->
+    Style="{StaticResource PageRootStyle}"
+    mc:Ignorable="d">
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <BooleanToVisibilityConverter x:Key="WpfBoolToVis" />
@@ -28,48 +27,40 @@
 
     <Grid RowDefinitions="Auto, *">
         <!--  Header  -->
-        <StackPanel Style="{StaticResource DuckPageHeaderStyle}">
+        <StackPanel Style="{StaticResource PageHeaderStyle}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0">
-                    <ui:TextBlock
-                        Style="{StaticResource DuckPageTitleStyle}"
-                        Text="{ext:Loc ScheduledTasks.Header.Title}"
-                    />
-                    <ui:TextBlock
-                        Style="{StaticResource DuckPageDescriptionStyle}"
-                        Text="{ext:Loc ScheduledTasks.Header.Description}"
-                    />
+                    <ui:TextBlock Style="{StaticResource PageTitleStyle}" Text="{ext:Loc ScheduledTasks.Header.Title}" />
+                    <ui:TextBlock Style="{StaticResource PageDescriptionStyle}" Text="{ext:Loc ScheduledTasks.Header.Description}" />
                 </StackPanel>
-                <WrapPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal">
+                <WrapPanel
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
                     <ui:Button
                         Margin="0,0,8,0"
                         Appearance="Secondary"
                         Command="{Binding ViewModel.OpenTaskSchedulerCommand}"
                         Content="{ext:Loc ScheduledTasks.Menu.OpenSettings}"
                         Icon="{ui:SymbolIcon Settings24,
-                                             FontSize=18}"
-                    />
+                                             FontSize=18}" />
                     <ui:Button
                         Appearance="Primary"
                         Command="{Binding ViewModel.RefreshCommand}"
                         Content="{ext:Loc StartupManager.Menu.Refresh}"
                         Icon="{ui:SymbolIcon ArrowClockwise24,
                                              FontSize=18}"
-                        Visibility="{Binding ViewModel.ShowRefreshButton, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    />
+                        Visibility="{Binding ViewModel.ShowRefreshButton, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 </WrapPanel>
             </Grid>
         </StackPanel>
 
         <!--  Loading Indicator  -->
-        <Border
-            Grid.Row="1"
-            Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"
-        >
+        <Border Grid.Row="1" Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ui:ProgressRing
                     Width="48"
@@ -77,20 +68,17 @@
                     Margin="0,0,0,16"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    IsIndeterminate="True"
-                />
+                    IsIndeterminate="True" />
                 <ui:TextBlock
                     HorizontalAlignment="Center"
                     FontTypography="BodyStrong"
-                    Text="{ext:Loc ScheduledTasks.Loading}"
-                />
+                    Text="{ext:Loc ScheduledTasks.Loading}" />
                 <ui:TextBlock
                     Margin="0,4,0,0"
                     HorizontalAlignment="Center"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                     FontTypography="Caption"
-                    Text="{ext:Loc ScheduledTasks.Loading.Hint}"
-                />
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="{ext:Loc ScheduledTasks.Loading.Hint}" />
             </StackPanel>
         </Border>
 
@@ -102,10 +90,7 @@
                     <Style.Triggers>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
-                                <Condition
-                                    Binding="{Binding ViewModel.IsNotLoading}"
-                                    Value="True"
-                                />
+                                <Condition Binding="{Binding ViewModel.IsNotLoading}" Value="True" />
                                 <Condition Binding="{Binding ViewModel.IsLoading}" Value="False" />
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Visibility" Value="Visible" />
@@ -118,117 +103,96 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <!--  Toolbar  -->
-            <Border Grid.Row="0" Style="{StaticResource DuckToolbarSurfaceStyle}">
-            <WrapPanel Orientation="Horizontal">
-                <!--  Search  -->
-                <ui:TextBox
-                    Style="{StaticResource DuckSearchBoxStyle}"
-                    PlaceholderText="{ext:Loc Common.Search.Placeholder}"
-                    Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}"
-                />
+            <Border Grid.Row="0" Style="{StaticResource ToolbarSurfaceStyle}">
+                <WrapPanel Orientation="Horizontal">
+                    <!--  Search  -->
+                    <ui:TextBox
+                        PlaceholderText="{ext:Loc Common.Search.Placeholder}"
+                        Style="{StaticResource SearchBoxStyle}"
+                        Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}" />
 
-                <!--  Sort By  -->
-                <ComboBox
-                    Style="{StaticResource DuckComboBoxStyle}"
-                    SelectedIndex="{Binding ViewModel.SortByIndex}"
-                    ToolTip="{ext:Loc Common.SortBy}"
-                >
-                    <ComboBoxItem HorizontalContentAlignment="Left">
-                        <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
-                            <ui:SymbolIcon
-                                Margin="0,0,6,0"
-                                HorizontalAlignment="Left"
-                                Symbol="TextSortAscending24"
-                            />
-                            <TextBlock
-                                Grid.Column="1"
-                                HorizontalAlignment="Left"
-                                Text="{ext:Loc Common.SortBy.Name}"
-                            />
-                        </Grid>
-                    </ComboBoxItem>
-                    <ComboBoxItem HorizontalContentAlignment="Left">
-                        <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
-                            <ui:SymbolIcon
-                                Margin="0,0,6,0"
-                                HorizontalAlignment="Left"
-                                Symbol="ToggleRight24"
-                            />
-                            <TextBlock
-                                Grid.Column="1"
-                                HorizontalAlignment="Left"
-                                Text="{ext:Loc Common.SortBy.Status}"
-                            />
-                        </Grid>
-                    </ComboBoxItem>
-                    <ComboBoxItem HorizontalContentAlignment="Left">
-                        <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
-                            <ui:SymbolIcon
-                                Margin="0,0,6,0"
-                                HorizontalAlignment="Left"
-                                Symbol="Folder24"
-                            />
-                            <TextBlock
-                                Grid.Column="1"
-                                HorizontalAlignment="Left"
-                                Text="{ext:Loc Common.SortBy.Path}"
-                            />
-                        </Grid>
-                    </ComboBoxItem>
-                    <ComboBoxItem HorizontalContentAlignment="Left">
-                        <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
-                            <ui:SymbolIcon
-                                Margin="0,0,6,0"
-                                HorizontalAlignment="Left"
-                                Symbol="Flash24"
-                            />
-                            <TextBlock
-                                Grid.Column="1"
-                                HorizontalAlignment="Left"
-                                Text="{ext:Loc Common.SortBy.State}"
-                            />
-                        </Grid>
-                    </ComboBoxItem>
-                </ComboBox>
+                    <!--  Sort By  -->
+                    <ComboBox
+                        SelectedIndex="{Binding ViewModel.SortByIndex}"
+                        Style="{StaticResource ComboBoxStyle}"
+                        ToolTip="{ext:Loc Common.SortBy}">
+                        <ComboBoxItem HorizontalContentAlignment="Left">
+                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                <ui:SymbolIcon
+                                    Margin="0,0,6,0"
+                                    HorizontalAlignment="Left"
+                                    Symbol="TextSortAscending24" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Left"
+                                    Text="{ext:Loc Common.SortBy.Name}" />
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem HorizontalContentAlignment="Left">
+                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                <ui:SymbolIcon
+                                    Margin="0,0,6,0"
+                                    HorizontalAlignment="Left"
+                                    Symbol="ToggleRight24" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Left"
+                                    Text="{ext:Loc Common.SortBy.Status}" />
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem HorizontalContentAlignment="Left">
+                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                <ui:SymbolIcon
+                                    Margin="0,0,6,0"
+                                    HorizontalAlignment="Left"
+                                    Symbol="Folder24" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Left"
+                                    Text="{ext:Loc Common.SortBy.Path}" />
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem HorizontalContentAlignment="Left">
+                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                <ui:SymbolIcon
+                                    Margin="0,0,6,0"
+                                    HorizontalAlignment="Left"
+                                    Symbol="Flash24" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Left"
+                                    Text="{ext:Loc Common.SortBy.State}" />
+                            </Grid>
+                        </ComboBoxItem>
+                    </ComboBox>
 
-                <!--  Hide Microsoft  -->
-                <ui:ToggleSwitch
-                    Style="{StaticResource DuckToggleSwitchStyle}"
-                    IsChecked="{Binding ViewModel.HideMicrosoftTasks, Mode=TwoWay}"
-                    OffContent="{ext:Loc ScheduledTasks.HideMicrosoft}"
-                    OnContent="{ext:Loc ScheduledTasks.HideMicrosoft}"
-                />
-            </WrapPanel>
+                    <!--  Hide Microsoft  -->
+                    <ui:ToggleSwitch
+                        IsChecked="{Binding ViewModel.HideMicrosoftTasks, Mode=TwoWay}"
+                        OffContent="{ext:Loc ScheduledTasks.HideMicrosoft}"
+                        OnContent="{ext:Loc ScheduledTasks.HideMicrosoft}"
+                        Style="{StaticResource ToggleSwitchStyle}" />
+                </WrapPanel>
             </Border>
 
             <!--  No search results  -->
             <StackPanel
                 Grid.Row="1"
-                Style="{StaticResource DuckEmptyStatePanelStyle}"
-                Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource ZeroToVisibilityConverter}}"
-            >
-                <ui:SymbolIcon
-                    Style="{StaticResource DuckEmptyStateIconStyle}"
-                    Symbol="SearchInfo24"
-                />
+                Style="{StaticResource EmptyStatePanelStyle}"
+                Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource ZeroToVisibilityConverter}}">
+                <ui:SymbolIcon Style="{StaticResource EmptyStateIconStyle}" Symbol="SearchInfo24" />
                 <ui:TextBlock
                     HorizontalAlignment="Center"
-                    Style="{StaticResource DuckSecondaryTextStyle}"
-                    Text="{ext:Loc Bloatware.Search.NoResults}"
-                />
+                    Style="{StaticResource SecondaryTextStyle}"
+                    Text="{ext:Loc Bloatware.Search.NoResults}" />
             </StackPanel>
 
             <!--  Task List  -->
             <ScrollViewer Grid.Row="1" Margin="0,0,0,0">
-                <ItemsControl
-                    ItemsSource="{Binding ViewModel.Tasks}"
-                    Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}"
-                >
+                <ItemsControl ItemsSource="{Binding ViewModel.Tasks}" Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type scheduledTask:ScheduledTaskModel}">
-                            <Border
-                                Style="{StaticResource DuckListRowStyle}"
-                            >
+                            <Border Style="{StaticResource ListRowStyle}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
@@ -244,60 +208,33 @@
                                         Margin="0,0,12,0"
                                         VerticalAlignment="Center"
                                         Source="{Binding LogoImage}"
-                                        Stretch="UniformToFill"
-                                    />
+                                        Stretch="UniformToFill" />
 
                                     <!--  Task info  -->
                                     <StackPanel
                                         Grid.Column="1"
                                         Margin="0,0,12,0"
-                                        VerticalAlignment="Center"
-                                    >
+                                        VerticalAlignment="Center">
                                         <!--  Row 1: Name + State badge  -->
                                         <DockPanel LastChildFill="False">
-                                            <ui:TextBlock
-                                                FontTypography="BodyStrong"
-                                                Text="{Binding Name}"
-                                            />
+                                            <ui:TextBlock FontTypography="BodyStrong" Text="{Binding Name}" />
                                             <Border
                                                 Margin="8,0,0,0"
                                                 Padding="6,1"
                                                 VerticalAlignment="Center"
-                                                CornerRadius="4"
-                                            >
+                                                CornerRadius="4">
                                                 <Border.Style>
                                                     <Style TargetType="Border">
-                                                        <Setter
-                                                            Property="Background"
-                                                            Value="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                                        />
+                                                        <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorSecondaryBrush}" />
                                                         <Style.Triggers>
-                                                            <DataTrigger
-                                                                Binding="{Binding IsReady}"
-                                                                Value="True"
-                                                            >
-                                                                <Setter
-                                                                    Property="Background"
-                                                                    Value="{DynamicResource SystemFillColorSuccessBrush}"
-                                                                />
+                                                            <DataTrigger Binding="{Binding IsReady}" Value="True">
+                                                                <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
                                                             </DataTrigger>
-                                                            <DataTrigger
-                                                                Binding="{Binding IsRunning}"
-                                                                Value="True"
-                                                            >
-                                                                <Setter
-                                                                    Property="Background"
-                                                                    Value="{DynamicResource AccentButtonBackground}"
-                                                                />
+                                                            <DataTrigger Binding="{Binding IsRunning}" Value="True">
+                                                                <Setter Property="Background" Value="{DynamicResource AccentButtonBackground}" />
                                                             </DataTrigger>
-                                                            <DataTrigger
-                                                                Binding="{Binding IsDisabledState}"
-                                                                Value="True"
-                                                            >
-                                                                <Setter
-                                                                    Property="Background"
-                                                                    Value="{DynamicResource SystemFillColorCriticalBrush}"
-                                                                />
+                                                            <DataTrigger Binding="{Binding IsDisabledState}" Value="True">
+                                                                <Setter Property="Background" Value="{DynamicResource SystemFillColorCriticalBrush}" />
                                                             </DataTrigger>
                                                         </Style.Triggers>
                                                     </Style>
@@ -306,57 +243,23 @@
                                                     <ui:SymbolIcon
                                                         x:Name="StateIcon"
                                                         Margin="0,0,4,0"
-                                                        FontSize="10"
-                                                    >
+                                                        FontSize="10">
                                                         <ui:SymbolIcon.Style>
                                                             <Style TargetType="ui:SymbolIcon">
-                                                                <Setter
-                                                                    Property="Symbol"
-                                                                    Value="Circle24"
-                                                                />
-                                                                <Setter
-                                                                    Property="Foreground"
-                                                                    Value="{DynamicResource TextFillColorPrimaryBrush}"
-                                                                />
+                                                                <Setter Property="Symbol" Value="Circle24" />
+                                                                <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
                                                                 <Style.Triggers>
-                                                                    <DataTrigger
-                                                                        Binding="{Binding IsReady}"
-                                                                        Value="True"
-                                                                    >
-                                                                        <Setter
-                                                                            Property="Symbol"
-                                                                            Value="CheckmarkCircle24"
-                                                                        />
-                                                                        <Setter
-                                                                            Property="Foreground"
-                                                                            Value="{DynamicResource TextFillColorInverseBrush}"
-                                                                        />
+                                                                    <DataTrigger Binding="{Binding IsReady}" Value="True">
+                                                                        <Setter Property="Symbol" Value="CheckmarkCircle24" />
+                                                                        <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
                                                                     </DataTrigger>
-                                                                    <DataTrigger
-                                                                        Binding="{Binding IsRunning}"
-                                                                        Value="True"
-                                                                    >
-                                                                        <Setter
-                                                                            Property="Foreground"
-                                                                            Value="{DynamicResource TextFillColorInverseBrush}"
-                                                                        />
-                                                                        <Setter
-                                                                            Property="Symbol"
-                                                                            Value="Play24"
-                                                                        />
+                                                                    <DataTrigger Binding="{Binding IsRunning}" Value="True">
+                                                                        <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
+                                                                        <Setter Property="Symbol" Value="Play24" />
                                                                     </DataTrigger>
-                                                                    <DataTrigger
-                                                                        Binding="{Binding IsDisabledState}"
-                                                                        Value="True"
-                                                                    >
-                                                                        <Setter
-                                                                            Property="Symbol"
-                                                                            Value="Dismiss24"
-                                                                        />
-                                                                        <Setter
-                                                                            Property="Foreground"
-                                                                            Value="{DynamicResource TextFillColorInverseBrush}"
-                                                                        />
+                                                                    <DataTrigger Binding="{Binding IsDisabledState}" Value="True">
+                                                                        <Setter Property="Symbol" Value="Dismiss24" />
+                                                                        <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
                                                                     </DataTrigger>
                                                                 </Style.Triggers>
                                                             </Style>
@@ -366,8 +269,7 @@
                                                         VerticalAlignment="Center"
                                                         FontTypography="Caption"
                                                         Foreground="{Binding ElementName=StateIcon, Path=Foreground}"
-                                                        Text="{Binding State}"
-                                                    />
+                                                        Text="{Binding State}" />
                                                 </StackPanel>
                                             </Border>
                                         </DockPanel>
@@ -375,25 +277,20 @@
                                         <!--  Row 2: Description  -->
                                         <ui:TextBlock
                                             Margin="0,4,0,0"
-                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                             FontTypography="Caption"
+                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                             Text="{Binding Description}"
-                                            TextWrapping="Wrap"
-                                        />
+                                            TextWrapping="Wrap" />
 
                                         <!--  Row 3: Path  -->
                                         <ui:TextBlock
                                             Margin="0,2,0,0"
-                                            Foreground="{DynamicResource TextFillColorDisabledBrush}"
                                             FontTypography="Caption"
-                                            Text="{Binding FullPath}"
-                                        />
+                                            Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                                            Text="{Binding FullPath}" />
 
                                         <!--  Row 4: Trigger badges  -->
-                                        <ItemsControl
-                                            Margin="0,4,0,0"
-                                            ItemsSource="{Binding TriggerTypes}"
-                                        >
+                                        <ItemsControl Margin="0,4,0,0" ItemsSource="{Binding TriggerTypes}">
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
                                                     <WrapPanel Orientation="Horizontal" />
@@ -405,20 +302,17 @@
                                                         Margin="0,0,4,2"
                                                         Padding="6,2"
                                                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                                        CornerRadius="4"
-                                                    >
+                                                        CornerRadius="4">
                                                         <StackPanel Orientation="Horizontal">
                                                             <ui:SymbolIcon
                                                                 Margin="0,0,4,0"
                                                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                                Symbol="Timer24"
-                                                            />
+                                                                Symbol="Timer24" />
                                                             <ui:TextBlock
                                                                 VerticalAlignment="Center"
                                                                 FontTypography="Caption"
                                                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                                Text="{Binding}"
-                                                            />
+                                                                Text="{Binding}" />
                                                         </StackPanel>
                                                     </Border>
                                                 </DataTemplate>
@@ -428,19 +322,17 @@
                                         <!--  Row 5: Action summary  -->
                                         <ui:TextBlock
                                             Margin="0,2,0,0"
-                                            Foreground="{DynamicResource TextFillColorDisabledBrush}"
                                             FontTypography="Caption"
+                                            Foreground="{DynamicResource TextFillColorDisabledBrush}"
                                             Text="{Binding ActionSummary}"
-                                            TextTrimming="CharacterEllipsis"
-                                        />
+                                            TextTrimming="CharacterEllipsis" />
                                     </StackPanel>
 
                                     <!--  Actions  -->
                                     <StackPanel
                                         Grid.Column="2"
                                         VerticalAlignment="Center"
-                                        Orientation="Horizontal"
-                                    >
+                                        Orientation="Horizontal">
                                         <ui:Button
                                             Margin="0,0,4,0"
                                             Padding="8"
@@ -449,8 +341,7 @@
                                             CommandParameter="{Binding}"
                                             Icon="{ui:SymbolIcon Info24,
                                                                  FontSize=16}"
-                                            ToolTip="{ext:Loc ScheduledTasks.Action.Details}"
-                                        />
+                                            ToolTip="{ext:Loc ScheduledTasks.Action.Details}" />
                                         <!--  Run: visible only when not running  -->
                                         <ui:Button
                                             Margin="0,0,4,0"
@@ -460,23 +351,13 @@
                                             CommandParameter="{Binding}"
                                             Icon="{ui:SymbolIcon Play24,
                                                                  FontSize=16}"
-                                            ToolTip="{ext:Loc ScheduledTasks.Action.Run}"
-                                        >
+                                            ToolTip="{ext:Loc ScheduledTasks.Action.Run}">
                                             <ui:Button.Style>
-                                                <Style
-                                                    BasedOn="{StaticResource {x:Type ui:Button}}"
-                                                    TargetType="ui:Button"
-                                                >
+                                                <Style BasedOn="{StaticResource {x:Type ui:Button}}" TargetType="ui:Button">
                                                     <Setter Property="Visibility" Value="Visible" />
                                                     <Style.Triggers>
-                                                        <DataTrigger
-                                                            Binding="{Binding IsRunning}"
-                                                            Value="True"
-                                                        >
-                                                            <Setter
-                                                                Property="Visibility"
-                                                                Value="Collapsed"
-                                                            />
+                                                        <DataTrigger Binding="{Binding IsRunning}" Value="True">
+                                                            <Setter Property="Visibility" Value="Collapsed" />
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
@@ -492,8 +373,7 @@
                                             Icon="{ui:SymbolIcon Stop24,
                                                                  FontSize=16}"
                                             ToolTip="{ext:Loc ScheduledTasks.Action.Stop}"
-                                            Visibility="{Binding IsRunning, Converter={StaticResource WpfBoolToVis}}"
-                                        />
+                                            Visibility="{Binding IsRunning, Converter={StaticResource WpfBoolToVis}}" />
                                         <ui:Button
                                             Margin="0,0,8,0"
                                             Padding="8"
@@ -502,14 +382,12 @@
                                             CommandParameter="{Binding}"
                                             Icon="{ui:SymbolIcon Delete24,
                                                                  FontSize=16}"
-                                            ToolTip="{ext:Loc ScheduledTasks.Action.Delete}"
-                                        />
+                                            ToolTip="{ext:Loc ScheduledTasks.Action.Delete}" />
                                         <ui:ToggleSwitch
-                                            Style="{StaticResource DuckToggleSwitchStyle}"
                                             IsChecked="{Binding IsEnabled, Mode=TwoWay}"
                                             OffContent="{ext:Loc Common.Toggle.Off}"
                                             OnContent="{ext:Loc Common.Toggle.On}"
-                                        />
+                                            Style="{StaticResource ToggleSwitchStyle}" />
                                     </StackPanel>
                                 </Grid>
                             </Border>

@@ -10,15 +10,14 @@
     xmlns:startupManager="clr-namespace:optimizerDuck.Domain.Optimizations.Models.StartupManager"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="StartupManagerPage"
-    Style="{StaticResource DuckPageRootStyle}"
     d:DataContext="{d:DesignInstance local:StartupManagerPage}"
     d:DesignHeight="1200"
     d:DesignWidth="800"
     ui:Design.Background="Black"
     ui:Design.Foreground="White"
     ScrollViewer.CanContentScroll="False"
-    mc:Ignorable="d"
->
+    Style="{StaticResource PageRootStyle}"
+    mc:Ignorable="d">
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <converters:GreaterThanZeroToVisibilityConverter x:Key="GreaterThanZeroToVisibilityConverter" />
@@ -27,40 +26,33 @@
 
     <Grid RowDefinitions="Auto, *">
         <!--  Header  -->
-        <StackPanel Style="{StaticResource DuckPageHeaderStyle}">
+        <StackPanel Style="{StaticResource PageHeaderStyle}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0">
-                    <ui:TextBlock
-                        Style="{StaticResource DuckPageTitleStyle}"
-                        Text="{ext:Loc StartupManager.Header.Title}"
-                    />
-                    <ui:TextBlock
-                        Style="{StaticResource DuckPageDescriptionStyle}"
-                        Text="{ext:Loc StartupManager.Header.Description}"
-                    />
+                    <ui:TextBlock Style="{StaticResource PageTitleStyle}" Text="{ext:Loc StartupManager.Header.Title}" />
+                    <ui:TextBlock Style="{StaticResource PageDescriptionStyle}" Text="{ext:Loc StartupManager.Header.Description}" />
                 </StackPanel>
-                <WrapPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal">
+                <WrapPanel
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
                     <ui:Button
                         Appearance="Primary"
                         Command="{Binding ViewModel.RefreshCommand}"
                         Content="{ext:Loc StartupManager.Menu.Refresh}"
                         Icon="{ui:SymbolIcon ArrowClockwise24,
                                              FontSize=18}"
-                        Visibility="{Binding ViewModel.ShowRefreshButton, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    />
+                        Visibility="{Binding ViewModel.ShowRefreshButton, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 </WrapPanel>
             </Grid>
         </StackPanel>
 
         <!--  Loading Indicator  -->
-        <Border
-            Grid.Row="1"
-            Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"
-        >
+        <Border Grid.Row="1" Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ui:ProgressRing
                     Width="48"
@@ -68,20 +60,17 @@
                     Margin="0,0,0,16"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    IsIndeterminate="True"
-                />
+                    IsIndeterminate="True" />
                 <ui:TextBlock
                     HorizontalAlignment="Center"
                     FontTypography="BodyStrong"
-                    Text="{ext:Loc StartupManager.Loading}"
-                />
+                    Text="{ext:Loc StartupManager.Loading}" />
                 <ui:TextBlock
                     Margin="0,4,0,0"
                     HorizontalAlignment="Center"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                     FontTypography="Caption"
-                    Text="{ext:Loc StartupManager.Loading.Hint}"
-                />
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="{ext:Loc StartupManager.Loading.Hint}" />
             </StackPanel>
         </Border>
 
@@ -108,36 +97,29 @@
                     HorizontalAlignment="Center"
                     FontSize="46"
                     Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                    Symbol="AppGeneric24"
-                />
+                    Symbol="AppGeneric24" />
                 <ui:TextBlock
                     HorizontalAlignment="Center"
                     FontTypography="Subtitle"
-                    Text="{ext:Loc StartupManager.Empty.Title}"
-                />
+                    Text="{ext:Loc StartupManager.Empty.Title}" />
                 <ui:TextBlock
                     Margin="0,0,0,10"
                     HorizontalAlignment="Center"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                     FontTypography="Body"
-                    Text="{ext:Loc StartupManager.Empty.Description}"
-                />
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="{ext:Loc StartupManager.Empty.Description}" />
                 <ui:Button
                     HorizontalAlignment="Center"
                     Appearance="Primary"
                     Command="{Binding ViewModel.RefreshCommand}"
                     Content="{ext:Loc StartupManager.Menu.Refresh}"
                     Icon="{ui:SymbolIcon ArrowClockwise24,
-                                         FontSize=18}"
-                />
+                                         FontSize=18}" />
             </StackPanel>
         </Border>
 
         <!--  Main Content  -->
-        <Border
-            Grid.Row="1"
-            Visibility="{Binding ViewModel.HasData, Converter={StaticResource BooleanToVisibilityConverter}}"
-        >
+        <Border Grid.Row="1" Visibility="{Binding ViewModel.HasData, Converter={StaticResource BooleanToVisibilityConverter}}">
             <ScrollViewer>
                 <StackPanel Margin="0,0,16,0">
                     <!--  ═══════════ Startup Apps Section ═══════════  -->
@@ -145,124 +127,99 @@
                         Margin="0,0,0,12"
                         Icon="{ui:SymbolIcon Apps24}"
                         IsExpanded="True"
-                        Visibility="{Binding ViewModel.HasApps, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    >
+                        Visibility="{Binding ViewModel.HasApps, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <ui:CardExpander.Header>
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <ui:TextBlock
                                         VerticalAlignment="Center"
                                         FontTypography="BodyStrong"
-                                        Text="{ext:Loc StartupManager.Apps.Title}"
-                                    />
+                                        Text="{ext:Loc StartupManager.Apps.Title}" />
                                     <Border
                                         Margin="8,0,0,0"
                                         Padding="8,2"
                                         VerticalAlignment="Center"
                                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="10"
-                                    >
+                                        CornerRadius="10">
                                         <ui:TextBlock
                                             VerticalAlignment="Center"
                                             Appearance="Tertiary"
                                             FontTypography="Caption"
                                             Text="{ext:Loc StartupManager.Apps.CountSuffix,
-                                                           {Binding ViewModel.Apps.Count}}"
-                                        />
+                                                           {Binding ViewModel.Apps.Count}}" />
                                     </Border>
                                 </StackPanel>
                                 <ui:TextBlock
                                     Margin="0,4,0,0"
-                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                     FontTypography="Caption"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                     Text="{ext:Loc StartupManager.Apps.Description}"
-                                    TextWrapping="Wrap"
-                                />
+                                    TextWrapping="Wrap" />
                             </StackPanel>
                         </ui:CardExpander.Header>
 
                         <StackPanel>
                             <!--  Apps Toolbar  -->
-                            <Border Style="{StaticResource DuckToolbarSurfaceStyle}">
-                            <WrapPanel Orientation="Horizontal">
-                                <ui:TextBox
-                                    Style="{StaticResource DuckSearchBoxStyle}"
-                                    PlaceholderText="{ext:Loc Common.Search.Placeholder}"
-                                    Text="{Binding ViewModel.AppSearchText, UpdateSourceTrigger=PropertyChanged}"
-                                />
-                                <ComboBox
-                                    Style="{StaticResource DuckComboBoxStyle}"
-                                    SelectedIndex="{Binding ViewModel.AppSortByIndex}"
-                                    ToolTip="{ext:Loc Common.SortBy}"
-                                >
-                                    <ComboBoxItem HorizontalContentAlignment="Left">
-                                        <Grid
-                                            HorizontalAlignment="Left"
-                                            ColumnDefinitions="Auto Auto"
-                                        >
-                                            <ui:SymbolIcon
-                                                Margin="0,0,6,0"
-                                                HorizontalAlignment="Left"
-                                                Symbol="TextSortAscending24"
-                                            />
-                                            <TextBlock
-                                                Grid.Column="1"
-                                                HorizontalAlignment="Left"
-                                                Text="{ext:Loc Common.SortBy.Name}"
-                                            />
-                                        </Grid>
-                                    </ComboBoxItem>
-                                    <ComboBoxItem HorizontalContentAlignment="Left">
-                                        <Grid
-                                            HorizontalAlignment="Left"
-                                            ColumnDefinitions="Auto Auto"
-                                        >
-                                            <ui:SymbolIcon
-                                                Margin="0,0,6,0"
-                                                HorizontalAlignment="Left"
-                                                Symbol="ToggleRight24"
-                                            />
-                                            <TextBlock
-                                                Grid.Column="1"
-                                                HorizontalAlignment="Left"
-                                                Text="{ext:Loc Common.SortBy.Status}"
-                                            />
-                                        </Grid>
-                                    </ComboBoxItem>
-                                    <ComboBoxItem HorizontalContentAlignment="Left">
-                                        <Grid
-                                            HorizontalAlignment="Left"
-                                            ColumnDefinitions="Auto Auto"
-                                        >
-                                            <ui:SymbolIcon
-                                                Margin="0,0,6,0"
-                                                HorizontalAlignment="Left"
-                                                Symbol="Folder24"
-                                            />
-                                            <TextBlock
-                                                Grid.Column="1"
-                                                HorizontalAlignment="Left"
-                                                Text="{ext:Loc Common.SortBy.Path}"
-                                            />
-                                        </Grid>
-                                    </ComboBoxItem>
-                                </ComboBox>
-                                <ui:Button
-                                    Padding="8"
-                                    VerticalAlignment="Center"
-                                    Appearance="Secondary"
-                                    Command="{Binding ViewModel.OpenStartupSettingsCommand}"
-                                    Icon="{ui:SymbolIcon Settings24,
-                                                         FontSize=16}"
-                                    ToolTip="{ext:Loc StartupManager.Menu.OpenSettings}"
-                                />
-                            </WrapPanel>
+                            <Border Style="{StaticResource ToolbarSurfaceStyle}">
+                                <WrapPanel Orientation="Horizontal">
+                                    <ui:TextBox
+                                        PlaceholderText="{ext:Loc Common.Search.Placeholder}"
+                                        Style="{StaticResource SearchBoxStyle}"
+                                        Text="{Binding ViewModel.AppSearchText, UpdateSourceTrigger=PropertyChanged}" />
+                                    <ComboBox
+                                        SelectedIndex="{Binding ViewModel.AppSortByIndex}"
+                                        Style="{StaticResource ComboBoxStyle}"
+                                        ToolTip="{ext:Loc Common.SortBy}">
+                                        <ComboBoxItem HorizontalContentAlignment="Left">
+                                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                                <ui:SymbolIcon
+                                                    Margin="0,0,6,0"
+                                                    HorizontalAlignment="Left"
+                                                    Symbol="TextSortAscending24" />
+                                                <TextBlock
+                                                    Grid.Column="1"
+                                                    HorizontalAlignment="Left"
+                                                    Text="{ext:Loc Common.SortBy.Name}" />
+                                            </Grid>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem HorizontalContentAlignment="Left">
+                                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                                <ui:SymbolIcon
+                                                    Margin="0,0,6,0"
+                                                    HorizontalAlignment="Left"
+                                                    Symbol="ToggleRight24" />
+                                                <TextBlock
+                                                    Grid.Column="1"
+                                                    HorizontalAlignment="Left"
+                                                    Text="{ext:Loc Common.SortBy.Status}" />
+                                            </Grid>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem HorizontalContentAlignment="Left">
+                                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                                <ui:SymbolIcon
+                                                    Margin="0,0,6,0"
+                                                    HorizontalAlignment="Left"
+                                                    Symbol="Folder24" />
+                                                <TextBlock
+                                                    Grid.Column="1"
+                                                    HorizontalAlignment="Left"
+                                                    Text="{ext:Loc Common.SortBy.Path}" />
+                                            </Grid>
+                                        </ComboBoxItem>
+                                    </ComboBox>
+                                    <ui:Button
+                                        Padding="8"
+                                        VerticalAlignment="Center"
+                                        Appearance="Secondary"
+                                        Command="{Binding ViewModel.OpenStartupSettingsCommand}"
+                                        Icon="{ui:SymbolIcon Settings24,
+                                                             FontSize=16}"
+                                        ToolTip="{ext:Loc StartupManager.Menu.OpenSettings}" />
+                                </WrapPanel>
                             </Border>
 
                             <!--  No search results (Apps)  -->
-                            <StackPanel
-                                Style="{StaticResource DuckEmptyStatePanelStyle}"
-                            >
+                            <StackPanel Style="{StaticResource EmptyStatePanelStyle}">
                                 <StackPanel.Visibility>
                                     <MultiBinding Converter="{StaticResource EmptyWhileNotLoadingConverter}">
                                         <Binding Path="ViewModel.Apps.Count" />
@@ -274,21 +231,16 @@
                                     HorizontalAlignment="Center"
                                     FontSize="36"
                                     Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                                    Symbol="SearchInfo24"
-                                />
+                                    Symbol="SearchInfo24" />
                                 <ui:TextBlock
                                     HorizontalAlignment="Center"
-                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                     FontTypography="Body"
-                                    Text="{ext:Loc Bloatware.Search.NoResults}"
-                                />
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="{ext:Loc Bloatware.Search.NoResults}" />
                             </StackPanel>
 
                             <!--  Apps List  -->
-                            <ItemsControl
-                                ItemsSource="{Binding ViewModel.Apps}"
-                                Visibility="{Binding ViewModel.Apps.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}"
-                            >
+                            <ItemsControl ItemsSource="{Binding ViewModel.Apps}" Visibility="{Binding ViewModel.Apps.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type startupManager:StartupApp}">
                                         <Grid>
@@ -298,8 +250,7 @@
                                                 Padding="16,12"
                                                 Command="{Binding DataContext.ViewModel.OpenLocationCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                                 CommandParameter="{Binding}"
-                                                IsChevronVisible="False"
-                                            >
+                                                IsChevronVisible="False">
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="Auto" />
@@ -313,60 +264,42 @@
                                                         Margin="0,0,12,0"
                                                         VerticalAlignment="Center"
                                                         Source="{Binding LogoImage}"
-                                                        Stretch="UniformToFill"
-                                                    />
-                                                    <StackPanel
-                                                        Grid.Column="1"
-                                                        VerticalAlignment="Center"
-                                                    >
+                                                        Stretch="UniformToFill" />
+                                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                                         <DockPanel LastChildFill="False">
-                                                            <ui:TextBlock
-                                                                FontTypography="BodyStrong"
-                                                                Text="{Binding Name}"
-                                                            />
+                                                            <ui:TextBlock FontTypography="BodyStrong" Text="{Binding Name}" />
                                                             <Border
                                                                 Margin="8,0,0,0"
                                                                 Padding="6,1"
                                                                 VerticalAlignment="Center"
                                                                 Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                                                CornerRadius="4"
-                                                            >
+                                                                CornerRadius="4">
                                                                 <ui:TextBlock
                                                                     VerticalAlignment="Center"
                                                                     Appearance="Tertiary"
                                                                     FontTypography="Caption"
-                                                                    Text="{Binding LocationDisplay}"
-                                                                />
+                                                                    Text="{Binding LocationDisplay}" />
                                                             </Border>
                                                         </DockPanel>
                                                         <ui:TextBlock
                                                             Margin="0,2,0,0"
-                                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                             FontTypography="Caption"
-                                                            Text="{Binding Publisher}"
-                                                        />
+                                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                            Text="{Binding Publisher}" />
                                                         <ui:TextBlock
                                                             Margin="0,2,0,0"
-                                                            Foreground="{DynamicResource TextFillColorDisabledBrush}"
                                                             FontTypography="Caption"
+                                                            Foreground="{DynamicResource TextFillColorDisabledBrush}"
                                                             Text="{Binding Command}"
-                                                            TextTrimming="CharacterEllipsis"
-                                                        />
+                                                            TextTrimming="CharacterEllipsis" />
                                                     </StackPanel>
-                                                    <StackPanel
-                                                        Grid.Column="2"
-                                                        Orientation="Horizontal"
-                                                    >
+                                                    <StackPanel Grid.Column="2" Orientation="Horizontal">
                                                         <ui:ToggleSwitch
-                                                            Style="{StaticResource DuckToggleSwitchStyle}"
                                                             IsChecked="{Binding IsEnabled, Mode=TwoWay}"
                                                             OffContent="{ext:Loc Common.Toggle.Off}"
                                                             OnContent="{ext:Loc Common.Toggle.On}"
-                                                        />
-                                                        <ui:SymbolIcon
-                                                            FontSize="16"
-                                                            Symbol="Open24"
-                                                        />
+                                                            Style="{StaticResource ToggleSwitchStyle}" />
+                                                        <ui:SymbolIcon FontSize="16" Symbol="Open24" />
                                                     </StackPanel>
                                                 </Grid>
                                             </ui:CardAction>
@@ -382,130 +315,104 @@
                         Margin="0,0,0,12"
                         Icon="{ui:SymbolIcon CalculatorArrowClockwise24}"
                         IsExpanded="True"
-                        Visibility="{Binding ViewModel.HasTasks, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    >
+                        Visibility="{Binding ViewModel.HasTasks, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <ui:CardExpander.Header>
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <ui:TextBlock
                                         VerticalAlignment="Center"
                                         FontTypography="BodyStrong"
-                                        Text="{ext:Loc StartupManager.Tasks.Title}"
-                                    />
+                                        Text="{ext:Loc StartupManager.Tasks.Title}" />
                                     <Border
                                         Margin="8,0,0,0"
                                         Padding="8,2"
                                         VerticalAlignment="Center"
                                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="10"
-                                    >
+                                        CornerRadius="10">
                                         <ui:TextBlock
                                             VerticalAlignment="Center"
                                             Appearance="Tertiary"
                                             FontTypography="Caption"
                                             Text="{ext:Loc StartupManager.Tasks.CountSuffix,
-                                                           {Binding ViewModel.Tasks.Count}}"
-                                        />
+                                                           {Binding ViewModel.Tasks.Count}}" />
                                     </Border>
                                 </StackPanel>
                                 <ui:TextBlock
                                     Margin="0,4,0,0"
-                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                     FontTypography="Caption"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                     Text="{ext:Loc StartupManager.Tasks.Description}"
-                                    TextWrapping="Wrap"
-                                />
+                                    TextWrapping="Wrap" />
                             </StackPanel>
                         </ui:CardExpander.Header>
 
                         <StackPanel>
                             <!--  Tasks Toolbar  -->
-                            <Border Style="{StaticResource DuckToolbarSurfaceStyle}">
-                            <WrapPanel Orientation="Horizontal">
-                                <ui:TextBox
-                                    Style="{StaticResource DuckSearchBoxStyle}"
-                                    PlaceholderText="{ext:Loc Common.Search.Placeholder}"
-                                    Text="{Binding ViewModel.TaskSearchText, UpdateSourceTrigger=PropertyChanged}"
-                                />
-                                <ComboBox
-                                    Style="{StaticResource DuckComboBoxStyle}"
-                                    SelectedIndex="{Binding ViewModel.TaskSortByIndex}"
-                                    ToolTip="{ext:Loc Common.SortBy}"
-                                >
-                                    <ComboBoxItem HorizontalContentAlignment="Left">
-                                        <Grid
-                                            HorizontalAlignment="Left"
-                                            ColumnDefinitions="Auto Auto"
-                                        >
-                                            <ui:SymbolIcon
-                                                Margin="0,0,6,0"
-                                                HorizontalAlignment="Left"
-                                                Symbol="TextSortAscending24"
-                                            />
-                                            <TextBlock
-                                                Grid.Column="1"
-                                                HorizontalAlignment="Left"
-                                                Text="{ext:Loc Common.SortBy.Name}"
-                                            />
-                                        </Grid>
-                                    </ComboBoxItem>
-                                    <ComboBoxItem HorizontalContentAlignment="Left">
-                                        <Grid
-                                            HorizontalAlignment="Left"
-                                            ColumnDefinitions="Auto Auto"
-                                        >
-                                            <ui:SymbolIcon
-                                                Margin="0,0,6,0"
-                                                HorizontalAlignment="Left"
-                                                Symbol="ToggleRight24"
-                                            />
-                                            <TextBlock
-                                                Grid.Column="1"
-                                                HorizontalAlignment="Left"
-                                                Text="{ext:Loc Common.SortBy.Status}"
-                                            />
-                                        </Grid>
-                                    </ComboBoxItem>
-                                    <ComboBoxItem HorizontalContentAlignment="Left">
-                                        <Grid
-                                            HorizontalAlignment="Left"
-                                            ColumnDefinitions="Auto Auto"
-                                        >
-                                            <ui:SymbolIcon
-                                                Margin="0,0,6,0"
-                                                HorizontalAlignment="Left"
-                                                Symbol="Folder24"
-                                            />
-                                            <TextBlock
-                                                Grid.Column="1"
-                                                HorizontalAlignment="Left"
-                                                Text="{ext:Loc Common.SortBy.Path}"
-                                            />
-                                        </Grid>
-                                    </ComboBoxItem>
-                                </ComboBox>
-                                <ui:ToggleSwitch
-                                    Style="{StaticResource DuckToggleSwitchStyle}"
-                                    IsChecked="{Binding ViewModel.HideMicrosoftTasks, Mode=TwoWay}"
-                                    OffContent="{ext:Loc StartupManager.Tasks.HideMicrosoft}"
-                                    OnContent="{ext:Loc StartupManager.Tasks.HideMicrosoft}"
-                                />
-                                <ui:Button
-                                    Padding="8"
-                                    VerticalAlignment="Center"
-                                    Appearance="Secondary"
-                                    Command="{Binding ViewModel.OpenTaskSchedulerCommand}"
-                                    Icon="{ui:SymbolIcon Settings24,
-                                                         FontSize=16}"
-                                    ToolTip="{ext:Loc ScheduledTasks.Menu.OpenSettings}"
-                                />
-                            </WrapPanel>
+                            <Border Style="{StaticResource ToolbarSurfaceStyle}">
+                                <WrapPanel Orientation="Horizontal">
+                                    <ui:TextBox
+                                        PlaceholderText="{ext:Loc Common.Search.Placeholder}"
+                                        Style="{StaticResource SearchBoxStyle}"
+                                        Text="{Binding ViewModel.TaskSearchText, UpdateSourceTrigger=PropertyChanged}" />
+                                    <ComboBox
+                                        SelectedIndex="{Binding ViewModel.TaskSortByIndex}"
+                                        Style="{StaticResource ComboBoxStyle}"
+                                        ToolTip="{ext:Loc Common.SortBy}">
+                                        <ComboBoxItem HorizontalContentAlignment="Left">
+                                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                                <ui:SymbolIcon
+                                                    Margin="0,0,6,0"
+                                                    HorizontalAlignment="Left"
+                                                    Symbol="TextSortAscending24" />
+                                                <TextBlock
+                                                    Grid.Column="1"
+                                                    HorizontalAlignment="Left"
+                                                    Text="{ext:Loc Common.SortBy.Name}" />
+                                            </Grid>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem HorizontalContentAlignment="Left">
+                                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                                <ui:SymbolIcon
+                                                    Margin="0,0,6,0"
+                                                    HorizontalAlignment="Left"
+                                                    Symbol="ToggleRight24" />
+                                                <TextBlock
+                                                    Grid.Column="1"
+                                                    HorizontalAlignment="Left"
+                                                    Text="{ext:Loc Common.SortBy.Status}" />
+                                            </Grid>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem HorizontalContentAlignment="Left">
+                                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                                <ui:SymbolIcon
+                                                    Margin="0,0,6,0"
+                                                    HorizontalAlignment="Left"
+                                                    Symbol="Folder24" />
+                                                <TextBlock
+                                                    Grid.Column="1"
+                                                    HorizontalAlignment="Left"
+                                                    Text="{ext:Loc Common.SortBy.Path}" />
+                                            </Grid>
+                                        </ComboBoxItem>
+                                    </ComboBox>
+                                    <ui:ToggleSwitch
+                                        IsChecked="{Binding ViewModel.HideMicrosoftTasks, Mode=TwoWay}"
+                                        OffContent="{ext:Loc StartupManager.Tasks.HideMicrosoft}"
+                                        OnContent="{ext:Loc StartupManager.Tasks.HideMicrosoft}"
+                                        Style="{StaticResource ToggleSwitchStyle}" />
+                                    <ui:Button
+                                        Padding="8"
+                                        VerticalAlignment="Center"
+                                        Appearance="Secondary"
+                                        Command="{Binding ViewModel.OpenTaskSchedulerCommand}"
+                                        Icon="{ui:SymbolIcon Settings24,
+                                                             FontSize=16}"
+                                        ToolTip="{ext:Loc ScheduledTasks.Menu.OpenSettings}" />
+                                </WrapPanel>
                             </Border>
 
                             <!--  No search results (Tasks)  -->
-                            <StackPanel
-                                Style="{StaticResource DuckEmptyStatePanelStyle}"
-                            >
+                            <StackPanel Style="{StaticResource EmptyStatePanelStyle}">
                                 <StackPanel.Visibility>
                                     <MultiBinding Converter="{StaticResource EmptyWhileNotLoadingConverter}">
                                         <Binding Path="ViewModel.Tasks.Count" />
@@ -517,26 +424,19 @@
                                     HorizontalAlignment="Center"
                                     FontSize="36"
                                     Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                                    Symbol="SearchInfo24"
-                                />
+                                    Symbol="SearchInfo24" />
                                 <ui:TextBlock
                                     HorizontalAlignment="Center"
-                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                     FontTypography="Body"
-                                    Text="{ext:Loc Bloatware.Search.NoResults}"
-                                />
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="{ext:Loc Bloatware.Search.NoResults}" />
                             </StackPanel>
 
                             <!--  Tasks List  -->
-                            <ItemsControl
-                                ItemsSource="{Binding ViewModel.Tasks}"
-                                Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}"
-                            >
+                            <ItemsControl ItemsSource="{Binding ViewModel.Tasks}" Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type startupManager:StartupTask}">
-                                        <Border
-                                            Style="{StaticResource DuckListRowStyle}"
-                                        >
+                                        <Border Style="{StaticResource ListRowStyle}">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto" />
@@ -551,35 +451,25 @@
                                                     Margin="0,0,12,0"
                                                     VerticalAlignment="Center"
                                                     Source="{Binding LogoImage}"
-                                                    Stretch="UniformToFill"
-                                                />
+                                                    Stretch="UniformToFill" />
 
                                                 <StackPanel
                                                     Grid.Column="1"
                                                     Margin="0,0,12,0"
-                                                    VerticalAlignment="Center"
-                                                >
-                                                    <ui:TextBlock
-                                                        FontTypography="BodyStrong"
-                                                        Text="{Binding TaskName}"
-                                                    />
+                                                    VerticalAlignment="Center">
+                                                    <ui:TextBlock FontTypography="BodyStrong" Text="{Binding TaskName}" />
                                                     <ui:TextBlock
                                                         Margin="0,4,0,0"
-                                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                         FontTypography="Caption"
+                                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                         Text="{Binding Description}"
-                                                        TextWrapping="Wrap"
-                                                    />
+                                                        TextWrapping="Wrap" />
                                                     <ui:TextBlock
                                                         Margin="0,2,0,0"
-                                                        Foreground="{DynamicResource TextFillColorDisabledBrush}"
                                                         FontTypography="Caption"
-                                                        Text="{Binding TaskPath}"
-                                                    />
-                                                    <ItemsControl
-                                                        Margin="0,4,0,0"
-                                                        ItemsSource="{Binding TriggerTypes}"
-                                                    >
+                                                        Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                                                        Text="{Binding TaskPath}" />
+                                                    <ItemsControl Margin="0,4,0,0" ItemsSource="{Binding TriggerTypes}">
                                                         <ItemsControl.ItemsPanel>
                                                             <ItemsPanelTemplate>
                                                                 <WrapPanel Orientation="Horizontal" />
@@ -591,21 +481,18 @@
                                                                     Margin="0,0,4,2"
                                                                     Padding="6,2"
                                                                     Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                                                    CornerRadius="4"
-                                                                >
+                                                                    CornerRadius="4">
                                                                     <StackPanel Orientation="Horizontal">
                                                                         <ui:SymbolIcon
                                                                             Margin="0,0,4,0"
                                                                             FontSize="15"
                                                                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                                            Symbol="Timer24"
-                                                                        />
+                                                                            Symbol="Timer24" />
                                                                         <ui:TextBlock
                                                                             VerticalAlignment="Center"
                                                                             FontTypography="Caption"
                                                                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                                            Text="{Binding}"
-                                                                        />
+                                                                            Text="{Binding}" />
                                                                     </StackPanel>
                                                                 </Border>
                                                             </DataTemplate>
@@ -613,18 +500,16 @@
                                                     </ItemsControl>
                                                     <ui:TextBlock
                                                         Margin="0,2,0,0"
-                                                        Foreground="{DynamicResource TextFillColorDisabledBrush}"
                                                         FontTypography="Caption"
+                                                        Foreground="{DynamicResource TextFillColorDisabledBrush}"
                                                         Text="{Binding ActionSummary}"
-                                                        TextTrimming="CharacterEllipsis"
-                                                    />
+                                                        TextTrimming="CharacterEllipsis" />
                                                 </StackPanel>
 
                                                 <StackPanel
                                                     Grid.Column="2"
                                                     VerticalAlignment="Center"
-                                                    Orientation="Horizontal"
-                                                >
+                                                    Orientation="Horizontal">
                                                     <ui:Button
                                                         Margin="0,0,4,0"
                                                         Padding="8"
@@ -633,14 +518,12 @@
                                                         CommandParameter="{Binding}"
                                                         Icon="{ui:SymbolIcon Info24,
                                                                              FontSize=16}"
-                                                        ToolTip="{ext:Loc ScheduledTasks.Action.Details}"
-                                                    />
+                                                        ToolTip="{ext:Loc ScheduledTasks.Action.Details}" />
                                                     <ui:ToggleSwitch
-                                                        Style="{StaticResource DuckToggleSwitchStyle}"
                                                         IsChecked="{Binding IsEnabled, Mode=TwoWay}"
                                                         OffContent="{ext:Loc Common.Toggle.Off}"
                                                         OnContent="{ext:Loc Common.Toggle.On}"
-                                                    />
+                                                        Style="{StaticResource ToggleSwitchStyle}" />
                                                 </StackPanel>
                                             </Grid>
                                         </Border>

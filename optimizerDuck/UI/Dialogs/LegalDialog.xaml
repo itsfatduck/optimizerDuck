@@ -8,9 +8,8 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     d:DesignHeight="420"
     d:DesignWidth="520"
-    mc:Ignorable="d"
->
-    <Grid Style="{StaticResource DuckDialogRootStyle}">
+    mc:Ignorable="d">
+    <Grid Style="{StaticResource DialogRootStyle}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -21,44 +20,41 @@
             <ui:TextBlock
                 FontTypography="BodyStrong"
                 Text="{ext:Loc LegalDialog.Intro.ThankYou}"
-                TextWrapping="Wrap"
-            />
+                TextWrapping="Wrap" />
             <ui:TextBlock
                 Margin="0,8,0,0"
                 FontTypography="Body"
                 Text="{ext:Loc LegalDialog.Intro.Safety}"
-                TextWrapping="Wrap"
-            />
+                TextWrapping="Wrap" />
             <ui:TextBlock
                 Margin="0,4,0,0"
                 FontTypography="Body"
                 Text="{ext:Loc LegalDialog.Intro.Review}"
-                TextWrapping="Wrap"
-            />
+                TextWrapping="Wrap" />
         </StackPanel>
 
-        <Border Grid.Row="1" Margin="0,12,0,12" Style="{StaticResource DuckToolbarSurfaceStyle}">
-        <StackPanel>
-            <ui:HyperlinkButton
-                Content="{ext:Loc Key=LegalDialog.Link.TermsOfService}"
-                Icon="{ui:SymbolIcon DocumentText24}"
-                NavigateUri="https://github.com/itsfatduck/optimizerDuck/blob/master/TERMS.md"
-            />
+        <Border
+            Grid.Row="1"
+            Margin="0,12,0,12"
+            Style="{StaticResource ToolbarSurfaceStyle}">
+            <StackPanel>
+                <ui:HyperlinkButton
+                    Content="{ext:Loc Key=LegalDialog.Link.TermsOfService}"
+                    Icon="{ui:SymbolIcon DocumentText24}"
+                    NavigateUri="https://github.com/itsfatduck/optimizerDuck/blob/master/TERMS.md" />
 
-            <ui:HyperlinkButton
-                Margin="0,4,0,0"
-                Content="{ext:Loc Key=LegalDialog.Link.PrivacyPolicy}"
-                Icon="{ui:SymbolIcon ShieldLock24}"
-                NavigateUri="https://github.com/itsfatduck/optimizerDuck/blob/master/PRIVACY.md"
-            />
+                <ui:HyperlinkButton
+                    Margin="0,4,0,0"
+                    Content="{ext:Loc Key=LegalDialog.Link.PrivacyPolicy}"
+                    Icon="{ui:SymbolIcon ShieldLock24}"
+                    NavigateUri="https://github.com/itsfatduck/optimizerDuck/blob/master/PRIVACY.md" />
 
-            <ui:HyperlinkButton
-                Margin="0,4,0,0"
-                Content="{ext:Loc Key=LegalDialog.Link.Disclaimer}"
-                Icon="{ui:SymbolIcon Warning24}"
-                NavigateUri="https://github.com/itsfatduck/optimizerDuck/blob/master/DISCLAIMER.md"
-            />
-        </StackPanel>
+                <ui:HyperlinkButton
+                    Margin="0,4,0,0"
+                    Content="{ext:Loc Key=LegalDialog.Link.Disclaimer}"
+                    Icon="{ui:SymbolIcon Warning24}"
+                    NavigateUri="https://github.com/itsfatduck/optimizerDuck/blob/master/DISCLAIMER.md" />
+            </StackPanel>
         </Border>
 
         <ui:InfoBar
@@ -67,7 +63,6 @@
             IsClosable="False"
             IsOpen="True"
             Message="{ext:Loc Key=LegalDialog.Warning.Message}"
-            Severity="Warning"
-        />
+            Severity="Warning" />
     </Grid>
 </UserControl>

@@ -1,15 +1,7 @@
 ﻿<Page
-    Style="{StaticResource DuckPageRootStyle}"
-    ScrollViewer.CanContentScroll="False"
-    Title="Features"
-    d:DataContext="{d:DesignInstance pages:FeaturesPage}"
-    d:DesignHeight="650"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
-    ui:Design.Background="Black"
-    ui:Design.Foreground="White"
     x:Class="optimizerDuck.UI.Pages.FeaturesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:optimizerDuck.Common.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
@@ -17,8 +9,15 @@
     xmlns:pages="clr-namespace:optimizerDuck.UI.Pages"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:vm="clr-namespace:optimizerDuck.UI.ViewModels.Pages"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
->
+    Title="Features"
+    d:DataContext="{d:DesignInstance pages:FeaturesPage}"
+    d:DesignHeight="650"
+    d:DesignWidth="800"
+    ui:Design.Background="Black"
+    ui:Design.Foreground="White"
+    ScrollViewer.CanContentScroll="False"
+    Style="{StaticResource PageRootStyle}"
+    mc:Ignorable="d">
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <converters:WidthToColumnConverter x:Key="WidthToColumnConverter" />
@@ -30,25 +29,18 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Style="{StaticResource DuckPageHeaderStyle}">
-            <ui:TextBlock Style="{StaticResource DuckPageTitleStyle}" Text="{ext:Loc Features.Title}" />
-            <ui:TextBlock
-                Style="{StaticResource DuckPageDescriptionStyle}"
-                Text="{ext:Loc Features.Description}"
-            />
+        <StackPanel Grid.Row="0" Style="{StaticResource PageHeaderStyle}">
+            <ui:TextBlock Style="{StaticResource PageTitleStyle}" Text="{ext:Loc Features.Title}" />
+            <ui:TextBlock Style="{StaticResource PageDescriptionStyle}" Text="{ext:Loc Features.Description}" />
         </StackPanel>
 
         <ui:VirtualizingItemsControl
             Grid.Row="1"
-            ItemsSource="{Binding ViewModel.Categories}"
             Margin="0"
-        >
+            ItemsSource="{Binding ViewModel.Categories}">
             <ui:VirtualizingItemsControl.Template>
                 <ControlTemplate TargetType="ItemsControl">
-                    <ScrollViewer
-                        HorizontalScrollBarVisibility="Disabled"
-                        VerticalScrollBarVisibility="Auto"
-                    >
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                         <ItemsPresenter />
                     </ScrollViewer>
                 </ControlTemplate>
@@ -56,10 +48,7 @@
 
             <ui:VirtualizingItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid
-                        Columns="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ScrollViewer}, Converter={StaticResource WidthToColumnConverter}}"
-                        VerticalAlignment="Top"
-                    />
+                    <UniformGrid VerticalAlignment="Top" Columns="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ScrollViewer}, Converter={StaticResource WidthToColumnConverter}}" />
                 </ItemsPanelTemplate>
             </ui:VirtualizingItemsControl.ItemsPanel>
 
@@ -73,60 +62,51 @@
             <ui:VirtualizingItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type vm:FeatureCategoryItemViewModel}">
                     <ui:CardAction
+                        Padding="20,18"
                         Command="{Binding DataContext.ViewModel.NavigateToCategoryCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                         CommandParameter="{Binding}"
-                        IsChevronVisible="False"
-                        Padding="20,18"
-                    >
+                        IsChevronVisible="False">
                         <Grid RowDefinitions="Auto,Auto,Auto">
                             <ui:SymbolIcon
-                                FontSize="32"
                                 Grid.Row="0"
-                                HorizontalAlignment="Left"
                                 Margin="0,0,0,12"
-                                Foreground="{DynamicResource DuckAccentYellowBrush}"
-                                Symbol="{Binding Icon}"
-                            />
+                                HorizontalAlignment="Left"
+                                FontSize="32"
+                                Foreground="{DynamicResource AccentYellowBrush}"
+                                Symbol="{Binding Icon}" />
 
                             <ui:TextBlock
-                                FontTypography="Subtitle"
                                 Grid.Row="1"
                                 Margin="0,0,0,6"
+                                FontTypography="Subtitle"
                                 Text="{Binding Name}"
-                                TextWrapping="Wrap"
-                            />
+                                TextWrapping="Wrap" />
 
                             <ui:TextBlock
+                                Grid.Row="2"
                                 Appearance="Secondary"
                                 FontTypography="Body"
-                                Grid.Row="2"
                                 Text="{Binding Description}"
-                                TextWrapping="Wrap"
-                            />
+                                TextWrapping="Wrap" />
                         </Grid>
                     </ui:CardAction>
                 </DataTemplate>
             </ui:VirtualizingItemsControl.ItemTemplate>
         </ui:VirtualizingItemsControl>
 
-        <Border
-            Grid.Row="1"
-            Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource BoolToVisibilityConverter}}"
-        >
+        <Border Grid.Row="1" Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource BoolToVisibilityConverter}}">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ui:ProgressRing
-                    Height="48"
-                    HorizontalAlignment="Center"
-                    IsIndeterminate="True"
-                    Margin="0,0,0,16"
-                    VerticalAlignment="Center"
                     Width="48"
-                />
-                <ui:TextBlock
-                    FontTypography="BodyStrong"
+                    Height="48"
+                    Margin="0,0,0,16"
                     HorizontalAlignment="Center"
-                    Text="{ext:Loc ToggleFeatures.Loading}"
-                />
+                    VerticalAlignment="Center"
+                    IsIndeterminate="True" />
+                <ui:TextBlock
+                    HorizontalAlignment="Center"
+                    FontTypography="BodyStrong"
+                    Text="{ext:Loc ToggleFeatures.Loading}" />
             </StackPanel>
         </Border>
     </Grid>

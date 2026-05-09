@@ -10,8 +10,7 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     d:DesignHeight="520"
     d:DesignWidth="900"
-    mc:Ignorable="d"
->
+    mc:Ignorable="d">
     <UserControl.Resources>
         <converters:GreaterThanZeroToVisibilityConverter x:Key="GreaterThanZeroToVisibilityConverter" />
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -30,21 +29,19 @@
             IsClosable="False"
             IsOpen="True"
             Message="{ext:Loc BloatwareDialog.Confirmation.Description}"
-            Severity="Warning"
-        />
+            Severity="Warning" />
 
         <ui:TextBlock
             Grid.Row="1"
             Margin="0,0,0,6"
             FontTypography="BodyStrong"
             Text="{ext:Loc BloatwareDialog.Confirmation.SelectedList}"
-            TextWrapping="Wrap"
-        />
-        <ScrollViewer Grid.Row="2" MaxHeight="420" VerticalScrollBarVisibility="Auto">
-            <ItemsControl
-                ItemsSource="{Binding Items}"
-                Visibility="{Binding Items.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}"
-            >
+            TextWrapping="Wrap" />
+        <ScrollViewer
+            Grid.Row="2"
+            MaxHeight="420"
+            VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Items}" Visibility="{Binding Items.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel />
@@ -53,9 +50,7 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type dialogVm:BloatwareConfirmationItemViewModel}">
-                        <Border
-                            Style="{StaticResource DuckListRowStyle}"
-                        >
+                        <Border Style="{StaticResource ListRowStyle}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
@@ -70,15 +65,13 @@
                                     Padding="6,2"
                                     VerticalAlignment="Top"
                                     Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                    CornerRadius="{StaticResource DuckCornerRadiusSmall}"
-                                >
+                                    CornerRadius="{StaticResource CornerRadiusSmall}">
                                     <ui:TextBlock
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                         FontTypography="Caption"
-                                        Text="{Binding Index, StringFormat=#{0}}"
-                                    />
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Text="{Binding Index, StringFormat=#{0}}" />
                                 </Border>
 
                                 <Image
@@ -88,15 +81,11 @@
                                     Margin="0,0,12,0"
                                     VerticalAlignment="Top"
                                     Source="{Binding Package.LogoImage}"
-                                    Stretch="UniformToFill"
-                                />
+                                    Stretch="UniformToFill" />
 
                                 <StackPanel Grid.Column="2">
                                     <DockPanel LastChildFill="False">
-                                        <ui:TextBlock
-                                            FontTypography="BodyStrong"
-                                            Text="{Binding Package.Name}"
-                                        />
+                                        <ui:TextBlock FontTypography="BodyStrong" Text="{Binding Package.Name}" />
 
                                         <Border
                                             Margin="8,0,0,0"
@@ -104,38 +93,26 @@
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
                                             Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                            CornerRadius="{StaticResource DuckCornerRadiusSmall}"
-                                        >
+                                            CornerRadius="{StaticResource CornerRadiusSmall}">
                                             <ui:TextBlock
                                                 VerticalAlignment="Center"
                                                 Appearance="Tertiary"
                                                 FontTypography="Body"
-                                                Text="{Binding Package.Version}"
-                                            />
+                                                Text="{Binding Package.Version}" />
                                         </Border>
 
                                         <Border
                                             Margin="8,0,0,0"
                                             Padding="6,2"
                                             HorizontalAlignment="Left"
-                                            CornerRadius="{StaticResource DuckCornerRadiusSmall}"
-                                            Visibility="{Binding Package.ShouldVisibleRisk, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                        >
+                                            CornerRadius="{StaticResource CornerRadiusSmall}"
+                                            Visibility="{Binding Package.ShouldVisibleRisk, Converter={StaticResource BooleanToVisibilityConverter}}">
                                             <Border.Style>
                                                 <Style TargetType="Border">
-                                                    <Setter
-                                                        Property="Background"
-                                                        Value="{DynamicResource SystemFillColorSuccessBrush}"
-                                                    />
+                                                    <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
                                                     <Style.Triggers>
-                                                        <DataTrigger
-                                                            Binding="{Binding Package.Risk}"
-                                                            Value="Caution"
-                                                        >
-                                                            <Setter
-                                                                Property="Background"
-                                                                Value="{DynamicResource SystemFillColorCautionBrush}"
-                                                            />
+                                                        <DataTrigger Binding="{Binding Package.Risk}" Value="Caution">
+                                                            <Setter Property="Background" Value="{DynamicResource SystemFillColorCautionBrush}" />
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
@@ -144,8 +121,7 @@
                                                 <ui:SymbolIcon
                                                     Margin="0,0,8,0"
                                                     Foreground="{DynamicResource TextFillColorInverseBrush}"
-                                                    Symbol="{Binding Package.RiskVisual.Icon}"
-                                                />
+                                                    Symbol="{Binding Package.RiskVisual.Icon}" />
 
                                                 <ui:TextBlock
                                                     HorizontalAlignment="Center"
@@ -153,35 +129,31 @@
                                                     FontTypography="Caption"
                                                     Foreground="{DynamicResource TextFillColorInverseBrush}"
                                                     Text="{Binding Package.RiskVisual.Display}"
-                                                    TextWrapping="Wrap"
-                                                />
+                                                    TextWrapping="Wrap" />
                                             </StackPanel>
                                         </Border>
                                     </DockPanel>
 
                                     <ui:TextBlock
                                         Margin="0,2,0,0"
-                                        Foreground="{DynamicResource TextFillColorDisabledBrush}"
                                         FontTypography="Body"
+                                        Foreground="{DynamicResource TextFillColorDisabledBrush}"
                                         Text="{Binding Package.Publisher}"
-                                        TextTrimming="CharacterEllipsis"
-                                    />
+                                        TextTrimming="CharacterEllipsis" />
 
                                     <ui:TextBlock
                                         Margin="0,2,0,0"
-                                        Foreground="{DynamicResource TextFillColorDisabledBrush}"
                                         FontTypography="Body"
+                                        Foreground="{DynamicResource TextFillColorDisabledBrush}"
                                         Text="{Binding Package.InstallLocation}"
-                                        TextTrimming="CharacterEllipsis"
-                                    />
+                                        TextTrimming="CharacterEllipsis" />
 
                                     <ui:TextBlock
                                         Margin="0,4,0,0"
-                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                         FontTypography="Caption"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                         Text="{Binding Package.PackageFullName}"
-                                        TextTrimming="CharacterEllipsis"
-                                    />
+                                        TextTrimming="CharacterEllipsis" />
                                 </StackPanel>
                             </Grid>
                         </Border>

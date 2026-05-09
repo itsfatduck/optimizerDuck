@@ -10,13 +10,13 @@
     xmlns:optimizations="clr-namespace:optimizerDuck.UI.Pages.Optimizations"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="OptimizationPage"
-    Style="{StaticResource DuckPageRootStyle}"
     d:DataContext="{d:DesignInstance optimizations:OptimizationPage}"
     d:DesignHeight="650"
     d:DesignWidth="800"
     ui:Design.Background="Black"
     ui:Design.Foreground="White"
     ScrollViewer.CanContentScroll="False"
+    Style="{StaticResource PageRootStyle}"
     mc:Ignorable="d">
     <Page.Resources>
         <converters:WidthToColumnConverter x:Key="WidthToColumnConverter" />
@@ -37,134 +37,132 @@
         <!--  Main Content  -->
         <Grid RowDefinitions="Auto,*" Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
             <!--  Toolbar  -->
-            <Border Grid.Row="0" Style="{StaticResource DuckToolbarSurfaceStyle}">
-            <WrapPanel
-                VerticalAlignment="Center"
-                Orientation="Horizontal">
-                <!--  Search  -->
-                <ui:TextBox
-                    Style="{StaticResource DuckSearchBoxStyle}"
-                    PlaceholderText="{ext:Loc Common.Search.Placeholder}"
-                    Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}" />
+            <Border Grid.Row="0" Style="{StaticResource ToolbarSurfaceStyle}">
+                <WrapPanel VerticalAlignment="Center" Orientation="Horizontal">
+                    <!--  Search  -->
+                    <ui:TextBox
+                        PlaceholderText="{ext:Loc Common.Search.Placeholder}"
+                        Style="{StaticResource SearchBoxStyle}"
+                        Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}" />
 
-                <!--  Filter by Risk  -->
-                <ComboBox
-                    Style="{StaticResource DuckComboBoxStyle}"
-                    SelectedIndex="{Binding ViewModel.SelectedRiskFilterIndex}"
-                    ToolTip="{ext:Loc Common.Filter}"
-                    ToolTipService.BetweenShowDelay="160"
-                    ToolTipService.Placement="Top">
-                    <ComboBoxItem HorizontalContentAlignment="Left">
-                        <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
-                            <ui:SymbolIcon
-                                Margin="0,0,6,0"
-                                HorizontalAlignment="Left"
-                                Symbol="Filter24" />
-                            <TextBlock
-                                Grid.Column="1"
-                                HorizontalAlignment="Left"
-                                Text="{ext:Loc Common.Filter.All}" />
-                        </Grid>
-                    </ComboBoxItem>
-                    <ComboBoxItem HorizontalContentAlignment="Left">
-                        <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
-                            <ui:SymbolIcon
-                                Margin="0,0,6,0"
-                                Foreground="{DynamicResource SystemFillColorSuccessBrush}"
-                                Symbol="ShieldCheckmark24" />
-                            <TextBlock Grid.Column="1" Text="{ext:Loc Optimizer.UI.Risk.Safe}" />
-                        </Grid>
-                    </ComboBoxItem>
-                    <ComboBoxItem HorizontalContentAlignment="Left">
-                        <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
-                            <ui:SymbolIcon
-                                Margin="0,0,6,0"
-                                Foreground="{DynamicResource SystemFillColorCautionBrush}"
-                                Symbol="Warning24" />
-                            <TextBlock Grid.Column="1" Text="{ext:Loc Optimizer.UI.Risk.Moderate}" />
-                        </Grid>
-                    </ComboBoxItem>
-                    <ComboBoxItem HorizontalContentAlignment="Left">
-                        <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
-                            <ui:SymbolIcon
-                                Margin="0,0,6,0"
-                                Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                                Symbol="ShieldError24" />
-                            <TextBlock Grid.Column="1" Text="{ext:Loc Optimizer.UI.Risk.Risky}" />
-                        </Grid>
-                    </ComboBoxItem>
-                </ComboBox>
+                    <!--  Filter by Risk  -->
+                    <ComboBox
+                        SelectedIndex="{Binding ViewModel.SelectedRiskFilterIndex}"
+                        Style="{StaticResource ComboBoxStyle}"
+                        ToolTip="{ext:Loc Common.Filter}"
+                        ToolTipService.BetweenShowDelay="160"
+                        ToolTipService.Placement="Top">
+                        <ComboBoxItem HorizontalContentAlignment="Left">
+                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                <ui:SymbolIcon
+                                    Margin="0,0,6,0"
+                                    HorizontalAlignment="Left"
+                                    Symbol="Filter24" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Left"
+                                    Text="{ext:Loc Common.Filter.All}" />
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem HorizontalContentAlignment="Left">
+                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                <ui:SymbolIcon
+                                    Margin="0,0,6,0"
+                                    Foreground="{DynamicResource SystemFillColorSuccessBrush}"
+                                    Symbol="ShieldCheckmark24" />
+                                <TextBlock Grid.Column="1" Text="{ext:Loc Optimizer.UI.Risk.Safe}" />
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem HorizontalContentAlignment="Left">
+                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                <ui:SymbolIcon
+                                    Margin="0,0,6,0"
+                                    Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                                    Symbol="Warning24" />
+                                <TextBlock Grid.Column="1" Text="{ext:Loc Optimizer.UI.Risk.Moderate}" />
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem HorizontalContentAlignment="Left">
+                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                <ui:SymbolIcon
+                                    Margin="0,0,6,0"
+                                    Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                                    Symbol="ShieldError24" />
+                                <TextBlock Grid.Column="1" Text="{ext:Loc Optimizer.UI.Risk.Risky}" />
+                            </Grid>
+                        </ComboBoxItem>
+                    </ComboBox>
 
-                <!--  Sort By  -->
-                <ComboBox
-                    Style="{StaticResource DuckComboBoxStyle}"
-                    SelectedIndex="{Binding ViewModel.SelectedSortByIndex}"
-                    ToolTip="{ext:Loc Common.SortBy}"
-                    ToolTipService.BetweenShowDelay="160"
-                    ToolTipService.Placement="Top">
-                    <ComboBoxItem HorizontalContentAlignment="Left">
-                        <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
-                            <ui:SymbolIcon
-                                Margin="0,0,6,0"
-                                HorizontalAlignment="Left"
-                                Symbol="Filter24" />
-                            <TextBlock Grid.Column="1" HorizontalAlignment="Left">
-                                <Run Text="{ext:Loc Common.SortBy.Risk}" />
-                                <Run Text=" &amp; " />
-                                <Run Text="{ext:Loc Common.SortBy.Status}" />
-                            </TextBlock>
-                        </Grid>
-                    </ComboBoxItem>
-                    <ComboBoxItem HorizontalContentAlignment="Left">
-                        <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
-                            <ui:SymbolIcon
-                                Margin="0,0,6,0"
-                                HorizontalAlignment="Left"
-                                Symbol="TextSortAscending24" />
-                            <TextBlock
-                                Grid.Column="1"
-                                HorizontalAlignment="Left"
-                                Text="{ext:Loc Common.SortBy.Name}" />
-                        </Grid>
-                    </ComboBoxItem>
-                    <ComboBoxItem HorizontalContentAlignment="Left">
-                        <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
-                            <ui:SymbolIcon
-                                Margin="0,0,6,0"
-                                HorizontalAlignment="Left"
-                                Symbol="Shield24" />
-                            <TextBlock
-                                Grid.Column="1"
-                                HorizontalAlignment="Left"
-                                Text="{ext:Loc Common.SortBy.Risk}" />
-                        </Grid>
-                    </ComboBoxItem>
-                    <ComboBoxItem HorizontalContentAlignment="Left">
-                        <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
-                            <ui:SymbolIcon
-                                Margin="0,0,6,0"
-                                HorizontalAlignment="Left"
-                                Symbol="ToggleRight24" />
-                            <TextBlock
-                                Grid.Column="1"
-                                HorizontalAlignment="Left"
-                                Text="{ext:Loc Common.SortBy.Status}" />
-                        </Grid>
-                    </ComboBoxItem>
-                </ComboBox>
+                    <!--  Sort By  -->
+                    <ComboBox
+                        SelectedIndex="{Binding ViewModel.SelectedSortByIndex}"
+                        Style="{StaticResource ComboBoxStyle}"
+                        ToolTip="{ext:Loc Common.SortBy}"
+                        ToolTipService.BetweenShowDelay="160"
+                        ToolTipService.Placement="Top">
+                        <ComboBoxItem HorizontalContentAlignment="Left">
+                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                <ui:SymbolIcon
+                                    Margin="0,0,6,0"
+                                    HorizontalAlignment="Left"
+                                    Symbol="Filter24" />
+                                <TextBlock Grid.Column="1" HorizontalAlignment="Left">
+                                    <Run Text="{ext:Loc Common.SortBy.Risk}" />
+                                    <Run Text=" &amp; " />
+                                    <Run Text="{ext:Loc Common.SortBy.Status}" />
+                                </TextBlock>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem HorizontalContentAlignment="Left">
+                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                <ui:SymbolIcon
+                                    Margin="0,0,6,0"
+                                    HorizontalAlignment="Left"
+                                    Symbol="TextSortAscending24" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Left"
+                                    Text="{ext:Loc Common.SortBy.Name}" />
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem HorizontalContentAlignment="Left">
+                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                <ui:SymbolIcon
+                                    Margin="0,0,6,0"
+                                    HorizontalAlignment="Left"
+                                    Symbol="Shield24" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Left"
+                                    Text="{ext:Loc Common.SortBy.Risk}" />
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem HorizontalContentAlignment="Left">
+                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                <ui:SymbolIcon
+                                    Margin="0,0,6,0"
+                                    HorizontalAlignment="Left"
+                                    Symbol="ToggleRight24" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Left"
+                                    Text="{ext:Loc Common.SortBy.Status}" />
+                            </Grid>
+                        </ComboBoxItem>
+                    </ComboBox>
 
-                <!--  Hide Applied toggle  -->
-                <ToggleButton
-                    Margin="0,0,0,0"
-                    VerticalAlignment="Stretch"
-                    IsChecked="{Binding ViewModel.HideApplied}"
-                    Visibility="{Binding ViewModel.HasAppliedOptimizations, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <StackPanel Orientation="Horizontal">
-                        <ui:SymbolIcon Margin="0,0,6,0" Symbol="EyeOff24" />
-                        <TextBlock Text="{ext:Loc Optimizer.Menu.HideApplied}" />
-                    </StackPanel>
-                </ToggleButton>
-            </WrapPanel>
+                    <!--  Hide Applied toggle  -->
+                    <ToggleButton
+                        Margin="0,0,0,0"
+                        VerticalAlignment="Stretch"
+                        IsChecked="{Binding ViewModel.HideApplied}"
+                        Visibility="{Binding ViewModel.HasAppliedOptimizations, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel Orientation="Horizontal">
+                            <ui:SymbolIcon Margin="0,0,6,0" Symbol="EyeOff24" />
+                            <TextBlock Text="{ext:Loc Optimizer.Menu.HideApplied}" />
+                        </StackPanel>
+                    </ToggleButton>
+                </WrapPanel>
             </Border>
 
             <!--  No search results  -->
@@ -217,7 +215,7 @@
                             Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
                             BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1"
-                            CornerRadius="{StaticResource DuckCornerRadiusMedium}">
+                            CornerRadius="{StaticResource CornerRadiusMedium}">
                             <Grid RowDefinitions="Auto,Auto,Auto,Auto,*">
                                 <ui:TextBlock
                                     Grid.Row="0"
@@ -252,7 +250,7 @@
                                                 Padding="6,2"
                                                 HorizontalAlignment="Left"
                                                 Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                                CornerRadius="{StaticResource DuckCornerRadiusSmall}">
+                                                CornerRadius="{StaticResource CornerRadiusSmall}">
                                                 <StackPanel Orientation="Horizontal">
                                                     <ui:SymbolIcon
                                                         Margin="0,0,6,0"
@@ -289,7 +287,7 @@
                                         <Border
                                             Padding="6,2"
                                             HorizontalAlignment="Left"
-                                            CornerRadius="{StaticResource DuckCornerRadiusSmall}">
+                                            CornerRadius="{StaticResource CornerRadiusSmall}">
                                             <Border.Style>
                                                 <Style TargetType="Border">
                                                     <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
@@ -325,7 +323,7 @@
                                             Padding="6,2"
                                             HorizontalAlignment="Left"
                                             Background="{DynamicResource CardBackgroundDisabled}"
-                                            CornerRadius="{StaticResource DuckCornerRadiusSmall}"
+                                            CornerRadius="{StaticResource CornerRadiusSmall}"
                                             ToolTip="{Binding State.AppliedAt}"
                                             ToolTipService.InitialShowDelay="150"
                                             ToolTipService.Placement="Top"
@@ -348,12 +346,12 @@
                                         VerticalAlignment="Bottom"
                                         Orientation="Horizontal">
                                         <ui:ToggleSwitch
-                                            Style="{StaticResource DuckToggleSwitchStyle}"
                                             HorizontalAlignment="Right"
                                             Command="{Binding DataContext.ViewModel.ToggleOptimizationCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                             CommandParameter="{Binding}"
                                             Cursor="Hand"
-                                            IsChecked="{Binding State.IsApplied, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            IsChecked="{Binding State.IsApplied, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Style="{StaticResource ToggleSwitchStyle}" />
                                         <ui:Button
                                             HorizontalAlignment="Right"
                                             VerticalAlignment="Bottom"
@@ -367,6 +365,7 @@
                                         <ui:Button
                                             HorizontalAlignment="Right"
                                             VerticalAlignment="Bottom"
+                                            Appearance="Transparent"
                                             Background="Transparent"
                                             BorderBrush="Transparent"
                                             Command="{Binding DataContext.ViewModel.ShowDetailsCommand, RelativeSource={RelativeSource AncestorType=Page}}"

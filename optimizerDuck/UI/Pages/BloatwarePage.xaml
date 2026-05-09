@@ -10,15 +10,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="BloatwarePage"
-    Style="{StaticResource DuckPageRootStyle}"
     d:DataContext="{d:DesignInstance local:BloatwarePage}"
     d:DesignHeight="1200"
     d:DesignWidth="800"
     ui:Design.Background="Black"
     ui:Design.Foreground="White"
     ScrollViewer.CanContentScroll="False"
-    mc:Ignorable="d"
->
+    Style="{StaticResource PageRootStyle}"
+    mc:Ignorable="d">
     <Page.Resources>
         <converters:GreaterThanZeroToVisibilityConverter x:Key="GreaterThanZeroToVisibilityConverter" />
         <converters:ZeroToVisibilityConverter x:Key="ZeroToVisibilityConverter" />
@@ -26,15 +25,9 @@
     </Page.Resources>
 
     <Grid RowDefinitions="Auto *">
-        <StackPanel Style="{StaticResource DuckPageHeaderStyle}">
-            <ui:TextBlock
-                Style="{StaticResource DuckPageTitleStyle}"
-                Text="{ext:Loc Bloatware.Header.Title}"
-            />
-            <ui:TextBlock
-                Style="{StaticResource DuckPageDescriptionStyle}"
-                Text="{ext:Loc Bloatware.Header.Description}"
-            />
+        <StackPanel Style="{StaticResource PageHeaderStyle}">
+            <ui:TextBlock Style="{StaticResource PageTitleStyle}" Text="{ext:Loc Bloatware.Header.Title}" />
+            <ui:TextBlock Style="{StaticResource PageDescriptionStyle}" Text="{ext:Loc Bloatware.Header.Description}" />
         </StackPanel>
 
         <!--  Empty (truly no packages installed)  -->
@@ -54,38 +47,29 @@
                 </Style>
             </Border.Style>
 
-            <StackPanel Style="{StaticResource DuckEmptyStatePanelStyle}">
-                <ui:SymbolIcon
-                    Style="{StaticResource DuckEmptyStateIconStyle}"
-                    Symbol="DeleteOff24"
-                />
+            <StackPanel Style="{StaticResource EmptyStatePanelStyle}">
+                <ui:SymbolIcon Style="{StaticResource EmptyStateIconStyle}" Symbol="DeleteOff24" />
                 <ui:TextBlock
                     HorizontalAlignment="Center"
                     FontTypography="Subtitle"
-                    Text="{ext:Loc Bloatware.Empty.Title}"
-                />
+                    Text="{ext:Loc Bloatware.Empty.Title}" />
                 <ui:TextBlock
                     Margin="0,4,0,16"
                     HorizontalAlignment="Center"
-                    Style="{StaticResource DuckSecondaryTextStyle}"
-                    Text="{ext:Loc Bloatware.Empty.Description}"
-                />
+                    Style="{StaticResource SecondaryTextStyle}"
+                    Text="{ext:Loc Bloatware.Empty.Description}" />
                 <ui:Button
                     HorizontalAlignment="Center"
                     Appearance="Primary"
                     Command="{Binding ViewModel.RefreshCommand}"
                     Content="{ext:Loc Bloatware.Menu.Refresh}"
                     Icon="{ui:SymbolIcon ArrowClockwise24,
-                                         FontSize=18}"
-                />
+                                         FontSize=18}" />
             </StackPanel>
         </Border>
 
         <!--  Loading  -->
-        <Border
-            Grid.Row="1"
-            Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"
-        >
+        <Border Grid.Row="1" Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ui:ProgressRing
                     Width="48"
@@ -93,194 +77,150 @@
                     Margin="0,0,0,16"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    IsIndeterminate="True"
-                />
+                    IsIndeterminate="True" />
                 <ui:TextBlock
                     HorizontalAlignment="Center"
                     FontTypography="BodyStrong"
-                    Text="{ext:Loc Bloatware.Loading}"
-                />
+                    Text="{ext:Loc Bloatware.Loading}" />
                 <ui:TextBlock
                     Margin="0,4,0,0"
                     HorizontalAlignment="Center"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                     FontTypography="Caption"
-                    Text="{ext:Loc Bloatware.Loading.Hint}"
-                />
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="{ext:Loc Bloatware.Loading.Hint}" />
             </StackPanel>
         </Border>
 
-        <Border
-            Grid.Row="1"
-            Visibility="{Binding ViewModel.HasData, Converter={StaticResource BooleanToVisibilityConverter}}"
-        >
+        <Border Grid.Row="1" Visibility="{Binding ViewModel.HasData, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid RowDefinitions="Auto,Auto,*">
                 <!--  Search / Filter / Sort toolbar  -->
-                <Border Grid.Row="0" Style="{StaticResource DuckToolbarSurfaceStyle}">
-                <WrapPanel Orientation="Horizontal">
-                    <!--  Search  -->
-                    <ui:TextBox
-                        Style="{StaticResource DuckSearchBoxStyle}"
-                        PlaceholderText="{ext:Loc Common.Search.Placeholder}"
-                        Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}"
-                    />
+                <Border Grid.Row="0" Style="{StaticResource ToolbarSurfaceStyle}">
+                    <WrapPanel Orientation="Horizontal">
+                        <!--  Search  -->
+                        <ui:TextBox
+                            PlaceholderText="{ext:Loc Common.Search.Placeholder}"
+                            Style="{StaticResource SearchBoxStyle}"
+                            Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}" />
 
-                    <!--  Filter by Risk  -->
-                    <ComboBox
-                        Style="{StaticResource DuckComboBoxStyle}"
-                        SelectedIndex="{Binding ViewModel.SelectedRiskFilterIndex}"
-                        ToolTip="{ext:Loc Common.Filter}"
-                        ToolTipService.BetweenShowDelay="160"
-                        ToolTipService.Placement="Top"
-                    >
-                        <ComboBoxItem HorizontalContentAlignment="Left">
-                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
-                                <ui:SymbolIcon
-                                    Margin="0,0,6,0"
-                                    HorizontalAlignment="Left"
-                                    Symbol="Filter24"
-                                />
-                                <TextBlock
-                                    Grid.Column="1"
-                                    HorizontalAlignment="Left"
-                                    Text="{ext:Loc Common.Filter.All}"
-                                />
-                            </Grid>
-                        </ComboBoxItem>
-                        <ComboBoxItem HorizontalContentAlignment="Left">
-                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
-                                <ui:SymbolIcon
-                                    Margin="0,0,6,0"
-                                    HorizontalAlignment="Left"
-                                    Foreground="{DynamicResource SystemFillColorSuccessBrush}"
-                                    Symbol="ShieldCheckmark24"
-                                />
-                                <TextBlock
-                                    Grid.Column="1"
-                                    Text="{ext:Loc Optimizer.UI.Risk.Safe}"
-                                />
-                            </Grid>
-                        </ComboBoxItem>
-                        <ComboBoxItem HorizontalContentAlignment="Left">
-                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
-                                <ui:SymbolIcon
-                                    Margin="0,0,6,0"
-                                    HorizontalAlignment="Left"
-                                    Foreground="{DynamicResource SystemFillColorCautionBrush}"
-                                    Symbol="Warning24"
-                                />
-                                <TextBlock
-                                    Grid.Column="1"
-                                    Text="{ext:Loc Optimizer.UI.Risk.Moderate}"
-                                />
-                            </Grid>
-                        </ComboBoxItem>
-                    </ComboBox>
-                    <!--  Sort By  -->
-                    <ComboBox
-                        Style="{StaticResource DuckComboBoxStyle}"
-                        SelectedIndex="{Binding ViewModel.SelectedSortByIndex}"
-                        ToolTip="{ext:Loc Common.SortBy}"
-                        ToolTipService.BetweenShowDelay="160"
-                        ToolTipService.Placement="Top"
-                    >
-                        <ComboBoxItem HorizontalContentAlignment="Left">
-                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
-                                <ui:SymbolIcon
-                                    Margin="0,0,6,0"
-                                    HorizontalAlignment="Left"
-                                    Symbol="TextSortAscending24"
-                                />
-                                <TextBlock
-                                    Grid.Column="1"
-                                    HorizontalAlignment="Left"
-                                    Text="{ext:Loc Common.SortBy.Name}"
-                                />
-                            </Grid>
-                        </ComboBoxItem>
-                        <ComboBoxItem HorizontalContentAlignment="Left">
-                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
-                                <ui:SymbolIcon
-                                    Margin="0,0,6,0"
-                                    HorizontalAlignment="Left"
-                                    Symbol="Certificate24"
-                                />
-                                <TextBlock
-                                    Grid.Column="1"
-                                    HorizontalAlignment="Left"
-                                    Text="{ext:Loc Common.SortBy.Publisher}"
-                                />
-                            </Grid>
-                        </ComboBoxItem>
-                        <ComboBoxItem HorizontalContentAlignment="Left">
-                            <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
-                                <ui:SymbolIcon
-                                    Margin="0,0,6,0"
-                                    HorizontalAlignment="Left"
-                                    Symbol="Shield24"
-                                />
-                                <TextBlock
-                                    Grid.Column="1"
-                                    HorizontalAlignment="Left"
-                                    Text="{ext:Loc Common.SortBy.Risk}"
-                                />
-                            </Grid>
-                        </ComboBoxItem>
-                    </ComboBox>
-                </WrapPanel>
+                        <!--  Filter by Risk  -->
+                        <ComboBox
+                            SelectedIndex="{Binding ViewModel.SelectedRiskFilterIndex}"
+                            Style="{StaticResource ComboBoxStyle}"
+                            ToolTip="{ext:Loc Common.Filter}"
+                            ToolTipService.BetweenShowDelay="160"
+                            ToolTipService.Placement="Top">
+                            <ComboBoxItem HorizontalContentAlignment="Left">
+                                <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                    <ui:SymbolIcon
+                                        Margin="0,0,6,0"
+                                        HorizontalAlignment="Left"
+                                        Symbol="Filter24" />
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Left"
+                                        Text="{ext:Loc Common.Filter.All}" />
+                                </Grid>
+                            </ComboBoxItem>
+                            <ComboBoxItem HorizontalContentAlignment="Left">
+                                <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                    <ui:SymbolIcon
+                                        Margin="0,0,6,0"
+                                        HorizontalAlignment="Left"
+                                        Foreground="{DynamicResource SystemFillColorSuccessBrush}"
+                                        Symbol="ShieldCheckmark24" />
+                                    <TextBlock Grid.Column="1" Text="{ext:Loc Optimizer.UI.Risk.Safe}" />
+                                </Grid>
+                            </ComboBoxItem>
+                            <ComboBoxItem HorizontalContentAlignment="Left">
+                                <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                    <ui:SymbolIcon
+                                        Margin="0,0,6,0"
+                                        HorizontalAlignment="Left"
+                                        Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                                        Symbol="Warning24" />
+                                    <TextBlock Grid.Column="1" Text="{ext:Loc Optimizer.UI.Risk.Moderate}" />
+                                </Grid>
+                            </ComboBoxItem>
+                        </ComboBox>
+                        <!--  Sort By  -->
+                        <ComboBox
+                            SelectedIndex="{Binding ViewModel.SelectedSortByIndex}"
+                            Style="{StaticResource ComboBoxStyle}"
+                            ToolTip="{ext:Loc Common.SortBy}"
+                            ToolTipService.BetweenShowDelay="160"
+                            ToolTipService.Placement="Top">
+                            <ComboBoxItem HorizontalContentAlignment="Left">
+                                <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                    <ui:SymbolIcon
+                                        Margin="0,0,6,0"
+                                        HorizontalAlignment="Left"
+                                        Symbol="TextSortAscending24" />
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Left"
+                                        Text="{ext:Loc Common.SortBy.Name}" />
+                                </Grid>
+                            </ComboBoxItem>
+                            <ComboBoxItem HorizontalContentAlignment="Left">
+                                <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                    <ui:SymbolIcon
+                                        Margin="0,0,6,0"
+                                        HorizontalAlignment="Left"
+                                        Symbol="Certificate24" />
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Left"
+                                        Text="{ext:Loc Common.SortBy.Publisher}" />
+                                </Grid>
+                            </ComboBoxItem>
+                            <ComboBoxItem HorizontalContentAlignment="Left">
+                                <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                                    <ui:SymbolIcon
+                                        Margin="0,0,6,0"
+                                        HorizontalAlignment="Left"
+                                        Symbol="Shield24" />
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Left"
+                                        Text="{ext:Loc Common.SortBy.Risk}" />
+                                </Grid>
+                            </ComboBoxItem>
+                        </ComboBox>
+                    </WrapPanel>
                 </Border>
 
                 <!--  Action buttons  -->
-                <StackPanel Grid.Row="1" Margin="0,0,0,12" Orientation="Horizontal">
+                <StackPanel
+                    Grid.Row="1"
+                    Margin="0,0,0,12"
+                    Orientation="Horizontal">
                     <ui:Button
                         Appearance="Danger"
                         Command="{Binding ViewModel.RemoveSelectedCommand}"
                         Content="{ext:Loc Bloatware.Menu.Remove,
                                           {Binding ViewModel.SelectedCount}}"
                         Icon="{ui:SymbolIcon Delete24,
-                                             FontSize=18}"
-                    />
+                                             FontSize=18}" />
 
-                    <Separator
-                        Margin="8,0,8,0"
-                        Visibility="{Binding ViewModel.HasSafePackages, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    />
+                    <Separator Margin="4,0,4,0" Visibility="{Binding ViewModel.HasSafePackages, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                    <ui:Button
-                        Command="{Binding ViewModel.SelectAllSafeCommand}"
-                        Visibility="{Binding ViewModel.HasSafePackages, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    >
+                    <ui:Button Command="{Binding ViewModel.SelectAllSafeCommand}" Visibility="{Binding ViewModel.HasSafePackages, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <ui:Button.Style>
-                            <Style
-                                BasedOn="{StaticResource {x:Type ui:Button}}"
-                                TargetType="ui:Button"
-                            >
+                            <Style BasedOn="{StaticResource {x:Type ui:Button}}" TargetType="ui:Button">
                                 <Setter Property="Appearance" Value="Success" />
-                                <Setter
-                                    Property="Content"
-                                    Value="{ext:Loc Bloatware.Menu.SelectAllSafe}"
-                                />
+                                <Setter Property="Content" Value="{ext:Loc Bloatware.Menu.SelectAllSafe}" />
                                 <Setter Property="Icon">
                                     <Setter.Value>
                                         <ui:SymbolIcon FontSize="18" Symbol="ShieldCheckmark24" />
                                     </Setter.Value>
                                 </Setter>
                                 <Style.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding ViewModel.IsAllSafeSelected}"
-                                        Value="True"
-                                    >
+                                    <DataTrigger Binding="{Binding ViewModel.IsAllSafeSelected}" Value="True">
                                         <Setter Property="Appearance" Value="Danger" />
-                                        <Setter
-                                            Property="Content"
-                                            Value="{ext:Loc Bloatware.Menu.DeselectAllSafe}"
-                                        />
+                                        <Setter Property="Content" Value="{ext:Loc Bloatware.Menu.DeselectAllSafe}" />
                                         <Setter Property="Icon">
                                             <Setter.Value>
-                                                <ui:SymbolIcon
-                                                    FontSize="18"
-                                                    Symbol="CheckboxUnchecked24"
-                                                />
+                                                <ui:SymbolIcon FontSize="18" Symbol="CheckboxUnchecked24" />
                                             </Setter.Value>
                                         </Setter>
                                     </DataTrigger>
@@ -289,40 +229,33 @@
                         </ui:Button.Style>
                     </ui:Button>
 
-                    <Separator Margin="8,0,8,0" />
+                    <Separator Margin="4,0,4,0" />
 
                     <ui:Button
                         Appearance="Primary"
                         Command="{Binding ViewModel.RefreshCommand}"
                         Content="{ext:Loc Bloatware.Menu.Refresh}"
                         Icon="{ui:SymbolIcon ArrowClockwise24,
-                                             FontSize=18}"
-                    />
+                                             FontSize=18}" />
                 </StackPanel>
 
                 <!--  No search results  -->
                 <StackPanel
                     Grid.Row="2"
-                    Style="{StaticResource DuckEmptyStatePanelStyle}"
-                    Visibility="{Binding ViewModel.AppxPackages.Count, Converter={StaticResource ZeroToVisibilityConverter}}"
-                >
-                    <ui:SymbolIcon
-                        Style="{StaticResource DuckEmptyStateIconStyle}"
-                        Symbol="SearchInfo24"
-                    />
+                    Style="{StaticResource EmptyStatePanelStyle}"
+                    Visibility="{Binding ViewModel.AppxPackages.Count, Converter={StaticResource ZeroToVisibilityConverter}}">
+                    <ui:SymbolIcon Style="{StaticResource EmptyStateIconStyle}" Symbol="SearchInfo24" />
                     <ui:TextBlock
                         HorizontalAlignment="Center"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                         FontTypography="Body"
-                        Text="{ext:Loc Bloatware.Search.NoResults}"
-                    />
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="{ext:Loc Bloatware.Search.NoResults}" />
                 </StackPanel>
 
                 <ItemsControl
                     Grid.Row="2"
                     ItemsSource="{Binding ViewModel.AppxPackages}"
-                    Visibility="{Binding ViewModel.AppxPackages.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}"
-                >
+                    Visibility="{Binding ViewModel.AppxPackages.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
                     <ItemsControl.Template>
                         <ControlTemplate TargetType="ItemsControl">
                             <ScrollViewer HorizontalScrollBarVisibility="Disabled">
@@ -340,9 +273,7 @@
                     <!--  Item template  -->
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type bloatware1:AppXPackage}">
-                            <Border
-                                Style="{StaticResource DuckListRowStyle}"
-                            >
+                            <Border Style="{StaticResource ListRowStyle}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
@@ -356,8 +287,7 @@
                                         Grid.Column="0"
                                         Margin="0,4,12,0"
                                         VerticalAlignment="Top"
-                                        IsChecked="{Binding IsSelected, Mode=TwoWay}"
-                                    />
+                                        IsChecked="{Binding IsSelected, Mode=TwoWay}" />
 
                                     <!--  Logo Image  -->
                                     <Image
@@ -367,18 +297,14 @@
                                         Margin="0,0,12,0"
                                         VerticalAlignment="Top"
                                         Source="{Binding LogoImage}"
-                                        Stretch="UniformToFill"
-                                    />
+                                        Stretch="UniformToFill" />
 
                                     <!--  Content  -->
                                     <StackPanel Grid.Column="2">
                                         <!--  Top row  -->
                                         <DockPanel LastChildFill="False">
                                             <!--  App Name  -->
-                                            <ui:TextBlock
-                                                FontTypography="BodyStrong"
-                                                Text="{Binding Name}"
-                                            />
+                                            <ui:TextBlock FontTypography="BodyStrong" Text="{Binding Name}" />
 
                                             <Border
                                                 Margin="8,0,0,0"
@@ -386,39 +312,27 @@
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
                                                 Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                                CornerRadius="{StaticResource DuckCornerRadiusSmall}"
-                                            >
+                                                CornerRadius="{StaticResource CornerRadiusSmall}">
                                                 <!--  Version  -->
                                                 <ui:TextBlock
                                                     VerticalAlignment="Center"
                                                     Appearance="Tertiary"
                                                     FontTypography="Body"
-                                                    Text="{Binding Version}"
-                                                />
+                                                    Text="{Binding Version}" />
                                             </Border>
 
                                             <Border
                                                 Margin="8,0,0,0"
                                                 Padding="6,2"
                                                 HorizontalAlignment="Left"
-                                                CornerRadius="{StaticResource DuckCornerRadiusSmall}"
-                                                Visibility="{Binding ShouldVisibleRisk, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                            >
+                                                CornerRadius="{StaticResource CornerRadiusSmall}"
+                                                Visibility="{Binding ShouldVisibleRisk, Converter={StaticResource BooleanToVisibilityConverter}}">
                                                 <Border.Style>
                                                     <Style TargetType="Border">
-                                                        <Setter
-                                                            Property="Background"
-                                                            Value="{DynamicResource SystemFillColorSuccessBrush}"
-                                                        />
+                                                        <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
                                                         <Style.Triggers>
-                                                            <DataTrigger
-                                                                Binding="{Binding Risk}"
-                                                                Value="Caution"
-                                                            >
-                                                                <Setter
-                                                                    Property="Background"
-                                                                    Value="{DynamicResource SystemFillColorCautionBrush}"
-                                                                />
+                                                            <DataTrigger Binding="{Binding Risk}" Value="Caution">
+                                                                <Setter Property="Background" Value="{DynamicResource SystemFillColorCautionBrush}" />
                                                             </DataTrigger>
                                                         </Style.Triggers>
                                                     </Style>
@@ -427,8 +341,7 @@
                                                     <ui:SymbolIcon
                                                         Margin="0,0,8,0"
                                                         Foreground="{DynamicResource TextFillColorInverseBrush}"
-                                                        Symbol="{Binding RiskVisual.Icon}"
-                                                    />
+                                                        Symbol="{Binding RiskVisual.Icon}" />
 
                                                     <ui:TextBlock
                                                         HorizontalAlignment="Center"
@@ -436,8 +349,7 @@
                                                         FontTypography="Caption"
                                                         Foreground="{DynamicResource TextFillColorInverseBrush}"
                                                         Text="{Binding RiskVisual.Display}"
-                                                        TextWrapping="Wrap"
-                                                    />
+                                                        TextWrapping="Wrap" />
                                                 </StackPanel>
                                             </Border>
                                         </DockPanel>
@@ -445,29 +357,26 @@
                                         <!--  Publisher  -->
                                         <ui:TextBlock
                                             Margin="0,2,0,0"
-                                            Foreground="{DynamicResource TextFillColorDisabledBrush}"
                                             FontTypography="Body"
+                                            Foreground="{DynamicResource TextFillColorDisabledBrush}"
                                             Text="{Binding Publisher}"
-                                            TextTrimming="CharacterEllipsis"
-                                        />
+                                            TextTrimming="CharacterEllipsis" />
 
                                         <!--  Install location  -->
                                         <ui:TextBlock
                                             Margin="0,2,0,0"
-                                            Foreground="{DynamicResource TextFillColorDisabledBrush}"
                                             FontTypography="Body"
+                                            Foreground="{DynamicResource TextFillColorDisabledBrush}"
                                             Text="{Binding InstallLocation}"
-                                            TextTrimming="CharacterEllipsis"
-                                        />
+                                            TextTrimming="CharacterEllipsis" />
 
                                         <!--  Package full name  -->
                                         <ui:TextBlock
                                             Margin="0,4,0,0"
-                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                             FontTypography="Caption"
+                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                             Text="{Binding PackageFullName}"
-                                            TextTrimming="CharacterEllipsis"
-                                        />
+                                            TextTrimming="CharacterEllipsis" />
                                     </StackPanel>
                                 </Grid>
                             </Border>

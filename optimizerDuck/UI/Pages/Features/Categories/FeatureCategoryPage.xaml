@@ -9,13 +9,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="{Binding ViewModel.CategoryName}"
-    Style="{StaticResource DuckPageRootStyle}"
     d:DataContext="{d:DesignInstance features:FeatureCategoryPage}"
     d:DesignHeight="650"
     d:DesignWidth="800"
     ui:Design.Background="Black"
     ui:Design.Foreground="White"
     ScrollViewer.CanContentScroll="False"
+    Style="{StaticResource PageRootStyle}"
     mc:Ignorable="d">
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
@@ -28,67 +28,65 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Style="{StaticResource DuckPageHeaderStyle}">
+        <StackPanel Grid.Row="0" Style="{StaticResource PageHeaderStyle}">
             <StackPanel Margin="0,0,0,8" Orientation="Horizontal">
                 <ui:SymbolIcon
                     Margin="0,0,12,0"
                     VerticalAlignment="Center"
                     FontSize="24"
-                    Foreground="{DynamicResource DuckAccentYellowBrush}"
+                    Foreground="{DynamicResource AccentYellowBrush}"
                     Symbol="{Binding ViewModel.CategoryIcon}" />
                 <ui:TextBlock
                     VerticalAlignment="Center"
-                    Style="{StaticResource DuckPageTitleStyle}"
+                    Style="{StaticResource PageTitleStyle}"
                     Text="{Binding ViewModel.CategoryName}" />
             </StackPanel>
             <ui:TextBlock
-                Style="{StaticResource DuckPageDescriptionStyle}"
-                Text="{Binding ViewModel.CategoryDescription}"
-                Margin="0" />
+                Margin="0"
+                Style="{StaticResource PageDescriptionStyle}"
+                Text="{Binding ViewModel.CategoryDescription}" />
         </StackPanel>
 
-        <Border
-            Grid.Row="1"
-            Style="{StaticResource DuckToolbarSurfaceStyle}">
-        <WrapPanel Orientation="Horizontal">
-            <ui:TextBox
-                Style="{StaticResource DuckSearchBoxStyle}"
-                HorizontalAlignment="Left"
-                PlaceholderText="{ext:Loc Common.Search.Placeholder}"
-                Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}" />
+        <Border Grid.Row="1" Style="{StaticResource ToolbarSurfaceStyle}">
+            <WrapPanel Orientation="Horizontal">
+                <ui:TextBox
+                    HorizontalAlignment="Left"
+                    PlaceholderText="{ext:Loc Common.Search.Placeholder}"
+                    Style="{StaticResource SearchBoxStyle}"
+                    Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}" />
 
-            <ComboBox
-                Style="{StaticResource DuckComboBoxStyle}"
-                SelectedIndex="{Binding ViewModel.SelectedSortByIndex}"
-                ToolTip="{ext:Loc Common.SortBy}"
-                ToolTipService.BetweenShowDelay="160"
-                ToolTipService.Placement="Top">
-                <ComboBoxItem HorizontalContentAlignment="Left">
-                    <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
-                        <ui:SymbolIcon
-                            Margin="0,0,6,0"
-                            HorizontalAlignment="Left"
-                            Symbol="TextSortAscending24" />
-                        <TextBlock
-                            Grid.Column="1"
-                            HorizontalAlignment="Left"
-                            Text="{ext:Loc Common.SortBy.Name}" />
-                    </Grid>
-                </ComboBoxItem>
-                <ComboBoxItem HorizontalContentAlignment="Left">
-                    <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
-                        <ui:SymbolIcon
-                            Margin="0,0,6,0"
-                            HorizontalAlignment="Left"
-                            Symbol="ToggleRight24" />
-                        <TextBlock
-                            Grid.Column="1"
-                            HorizontalAlignment="Left"
-                            Text="{ext:Loc Common.SortBy.Status}" />
-                    </Grid>
-                </ComboBoxItem>
-            </ComboBox>
-        </WrapPanel>
+                <ComboBox
+                    SelectedIndex="{Binding ViewModel.SelectedSortByIndex}"
+                    Style="{StaticResource ComboBoxStyle}"
+                    ToolTip="{ext:Loc Common.SortBy}"
+                    ToolTipService.BetweenShowDelay="160"
+                    ToolTipService.Placement="Top">
+                    <ComboBoxItem HorizontalContentAlignment="Left">
+                        <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                            <ui:SymbolIcon
+                                Margin="0,0,6,0"
+                                HorizontalAlignment="Left"
+                                Symbol="TextSortAscending24" />
+                            <TextBlock
+                                Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                Text="{ext:Loc Common.SortBy.Name}" />
+                        </Grid>
+                    </ComboBoxItem>
+                    <ComboBoxItem HorizontalContentAlignment="Left">
+                        <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
+                            <ui:SymbolIcon
+                                Margin="0,0,6,0"
+                                HorizontalAlignment="Left"
+                                Symbol="ToggleRight24" />
+                            <TextBlock
+                                Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                Text="{ext:Loc Common.SortBy.Status}" />
+                        </Grid>
+                    </ComboBoxItem>
+                </ComboBox>
+            </WrapPanel>
         </Border>
 
         <ScrollViewer
@@ -96,17 +94,18 @@
             HorizontalScrollBarVisibility="Disabled"
             VerticalScrollBarVisibility="Auto">
             <!--  Sections  -->
-            <ItemsControl Style="{x:Null}" Margin="0" ItemsSource="{Binding ViewModel.Sections}">
+            <ItemsControl
+                Margin="0"
+                ItemsSource="{Binding ViewModel.Sections}"
+                Style="{x:Null}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="0,0,0,20">
-                            <ui:TextBlock
-                                Style="{StaticResource DuckSectionHeaderStyle}"
-                                Text="{Binding Name}" />
+                            <ui:TextBlock Style="{StaticResource SectionHeaderStyle}" Text="{Binding Name}" />
                             <ItemsControl ItemsSource="{Binding Features}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <ui:CardControl Margin="0,0,0,8">
+                                        <ui:CardControl Margin="0,0,0,4">
                                             <ui:CardControl.Icon>
                                                 <ui:SymbolIcon Symbol="{Binding Icon}" />
                                             </ui:CardControl.Icon>
@@ -130,12 +129,12 @@
                                                 HorizontalAlignment="Right"
                                                 Orientation="Horizontal">
                                                 <ui:ToggleSwitch
-                                                    Style="{StaticResource DuckToggleSwitchStyle}"
                                                     Command="{Binding ToggleCommand}"
                                                     Cursor="Hand"
                                                     IsChecked="{Binding IsEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                                     OffContent="{ext:Loc Common.Toggle.Off}"
-                                                    OnContent="{ext:Loc Common.Toggle.On}" />
+                                                    OnContent="{ext:Loc Common.Toggle.On}"
+                                                    Style="{StaticResource ToggleSwitchStyle}" />
                                                 <ui:Button
                                                     Margin="8,0,0,0"
                                                     VerticalAlignment="Center"

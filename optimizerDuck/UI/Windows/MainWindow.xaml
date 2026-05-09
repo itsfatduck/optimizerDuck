@@ -23,8 +23,7 @@
     WindowBackdropType="Mica"
     WindowCornerPreference="Round"
     WindowStartupLocation="CenterScreen"
-    mc:Ignorable="d"
->
+    mc:Ignorable="d">
     <Grid>
         <ui:NavigationView
             x:Name="RootNavigation"
@@ -36,15 +35,13 @@
             IsTopSeparatorVisible="False"
             OpenPaneLength="220"
             PaneDisplayMode="Left"
-            TitleBar="{Binding ElementName=TitleBar, Mode=OneWay}"
-        >
+            TitleBar="{Binding ElementName=TitleBar, Mode=OneWay}">
             <ui:NavigationView.MenuItems>
                 <controls:FilledNavigationViewItem
                     Content="{extensions:Loc Sidebar.Dashboard}"
                     Cursor="Hand"
                     Icon="{ui:SymbolIcon Home24}"
-                    TargetPageType="{x:Type pages:DashboardPage}"
-                />
+                    TargetPageType="{x:Type pages:DashboardPage}" />
 
                 <ui:NavigationViewItemSeparator Margin="0,2,0,2" />
 
@@ -52,21 +49,18 @@
                     Content="{extensions:Loc Sidebar.Optimize}"
                     Cursor="Hand"
                     Icon="{ui:SymbolIcon Rocket24}"
-                    TargetPageType="{x:Type pages:OptimizePage}"
-                />
+                    TargetPageType="{x:Type pages:OptimizePage}" />
 
                 <ui:NavigationViewItem
                     x:Name="FeaturesMenuItem"
                     Content="{extensions:Loc Sidebar.Features}"
-                    Icon="{ui:SymbolIcon ToggleLeft24}"
-                />
+                    Icon="{ui:SymbolIcon ToggleLeft24}" />
 
                 <controls:FilledNavigationViewItem
                     Content="{extensions:Loc Sidebar.Bloatware}"
                     Cursor="Hand"
                     Icon="{ui:SymbolIcon Delete24}"
-                    TargetPageType="{x:Type pages:BloatwarePage}"
-                />
+                    TargetPageType="{x:Type pages:BloatwarePage}" />
 
                 <ui:NavigationViewItemSeparator Margin="0,2,0,2" />
 
@@ -74,22 +68,19 @@
                     Content="{extensions:Loc Sidebar.StartupManager}"
                     Cursor="Hand"
                     Icon="{ui:SymbolIcon WindowArrowUp24}"
-                    TargetPageType="{x:Type pages:StartupManagerPage}"
-                />
+                    TargetPageType="{x:Type pages:StartupManagerPage}" />
 
                 <controls:FilledNavigationViewItem
                     Content="{extensions:Loc Sidebar.ScheduledTasks}"
                     Cursor="Hand"
                     Icon="{ui:SymbolIcon CalendarLtr24}"
-                    TargetPageType="{x:Type pages:ScheduledTasksPage}"
-                />
+                    TargetPageType="{x:Type pages:ScheduledTasksPage}" />
 
                 <controls:FilledNavigationViewItem
                     Content="{extensions:Loc Sidebar.DiskCleanup}"
                     Cursor="Hand"
                     Icon="{ui:SymbolIcon HardDrive20}"
-                    TargetPageType="{x:Type pages:DiskCleanupPage}"
-                />
+                    TargetPageType="{x:Type pages:DiskCleanupPage}" />
             </ui:NavigationView.MenuItems>
 
             <ui:NavigationView.FooterMenuItems>
@@ -98,8 +89,7 @@
                     Content="{extensions:Loc Sidebar.Settings}"
                     Cursor="Hand"
                     Icon="{ui:SymbolIcon Settings24}"
-                    TargetPageType="{x:Type pages:SettingsPage}"
-                />
+                    TargetPageType="{x:Type pages:SettingsPage}" />
             </ui:NavigationView.FooterMenuItems>
 
             <ui:NavigationView.ContentOverlay>
@@ -111,48 +101,50 @@
 
         <ui:TitleBar x:Name="TitleBar">
             <ui:TitleBar.Header>
-                <StackPanel Margin="12,0,0,0" VerticalAlignment="Center" Orientation="Horizontal">
+                <StackPanel
+                    Margin="12,0,0,0"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
                     <ui:SymbolIcon
                         FontSize="15"
                         Foreground="{DynamicResource TextFillColorDisabledBrush}"
-                        Symbol="Shield24"
-                    />
+                        Symbol="Shield24" />
                     <ui:ImageIcon
                         Height="25"
                         Margin="8,0,6,0"
                         VerticalAlignment="Center"
-                        Source="pack://application:,,,/Resources/Images/Duck.png"
-                    />
+                        Source="pack://application:,,,/Resources/Images/Duck.png" />
                     <ui:TextBlock
                         Margin="0,0,6,0"
                         VerticalAlignment="Center"
                         FontTypography="Body"
-                        Text="optimizerDuck"
-                    />
+                        Text="optimizerDuck" />
                     <ui:TextBlock
                         VerticalAlignment="Center"
-                        Foreground="{DynamicResource TextFillColorDisabledBrush}"
                         FontTypography="Body"
-                        Text="{Binding Version, Mode=OneWay}"
-                    />
+                        Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                        Text="{Binding Version, Mode=OneWay}" />
                 </StackPanel>
             </ui:TitleBar.Header>
 
             <ui:TitleBar.TrailingContent>
-                <StackPanel Margin="0,0,8,0" VerticalAlignment="Center" Orientation="Horizontal">
+                <StackPanel
+                    Margin="0,0,8,0"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
                     <ui:Button
                         Margin="0,0,8,0"
                         Appearance="Transparent"
                         Command="{Binding OpenSupportLinkCommand}"
+                        Cursor="Hand"
                         Icon="{ui:SymbolIcon Heart24}"
-                        ToolTip="Support the project"
-                    />
+                        ToolTip="Support the project" />
                     <ui:Button
                         Appearance="Transparent"
                         Command="{Binding OpenDiscordLinkCommand}"
+                        Cursor="Hand"
                         Icon="{ui:SymbolIcon Link24}"
-                        ToolTip="Join our Discord"
-                    />
+                        ToolTip="Join our Discord" />
                 </StackPanel>
             </ui:TitleBar.TrailingContent>
         </ui:TitleBar>
