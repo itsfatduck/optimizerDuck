@@ -1610,4 +1610,91 @@
   <data name="Features.Preferences.DisableBingSearch.Description" xml:space="preserve">
     <value>從 Windows 搜尋中移除 Bing 網頁結果與建議</value>
   </data>
+  <data name="Dialog.PendingChanges.Title" xml:space="preserve">
+    <value>套用變更</value>
+  </data>
+  <data name="Dialog.PendingChanges.Content" xml:space="preserve">
+    <value>部分變更需要重新啟動才能生效。在退出前您想要做什麼？</value>
+  </data>
+  <data name="Dialog.PendingChanges.CloseButton" xml:space="preserve">
+    <value>直接退出</value>
+  </data>
+  <data name="Dialog.PendingChanges.PrimaryButton" xml:space="preserve">
+    <value>重新啟動電腦</value>
+  </data>
+  <data name="Dialog.PendingChanges.SecondaryButton" xml:space="preserve">
+    <value>重新啟動檔案總管</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.Description" xml:space="preserve">
+    <value>請在移除前檢查已選取的應用程式。僅在確定時繼續。</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.SelectedList" xml:space="preserve">
+    <value>已選取的應用程式</value>
+  </data>
+  <data name="Button.Accept" xml:space="preserve">
+    <value>接受</value>
+  </data>
+  <data name="DiskCleanup.Item.OldWindowsInstallation" xml:space="preserve">
+    <value>舊 Windows 安裝 (Windows.old)</value>
+  </data>
+  <data name="DiskCleanup.Item.OldWindowsInstallation.Description" xml:space="preserve">
+    <value>主要更新或升級後保留的舊 Windows 安裝檔案</value>
+  </data>
+  <data name="LegalDialog.Intro.Review" xml:space="preserve">
+    <value>請花點時間審閱下列文件。繼續即表示您同意這些條款。</value>
+  </data>
+  <data name="LegalDialog.Intro.Safety" xml:space="preserve">
+    <value>為確保透明度與您的安全，optimizerDuck 可能會調整部分系統設定與登錄檔設定。</value>
+  </data>
+  <data name="LegalDialog.Intro.ThankYou" xml:space="preserve">
+    <value>感謝您選擇 optimizerDuck。</value>
+  </data>
+  <data name="LegalDialog.Link.Disclaimer" xml:space="preserve">
+    <value>免責聲明</value>
+  </data>
+  <data name="LegalDialog.Link.PrivacyPolicy" xml:space="preserve">
+    <value>隱私權政策</value>
+  </data>
+  <data name="LegalDialog.Link.TermsOfService" xml:space="preserve">
+    <value>服務條款</value>
+  </data>
+  <data name="LegalDialog.Title" xml:space="preserve">
+    <value>法律協議</value>
+  </data>
+  <data name="LegalDialog.Warning.Message" xml:space="preserve">
+    <value>建議在套用任何變更前建立備份。</value>
+  </data>
+  <data name="LegalDialog.Warning.Title" xml:space="preserve">
+    <value>使用風險自負</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.Name" xml:space="preserve">
+    <value>停用輔助功能鍵盤快速鍵</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription" xml:space="preserve">
+    <value>停用黏滞鍵、篩選鍵和切換鍵的鍵盤快速鍵，以防止遊戲和打字時意外彈出視窗。</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableFastStartup.Name" xml:space="preserve">
+    <value>停用快速啟動</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableFastStartup.ShortDescription" xml:space="preserve">
+    <value>關閉快速啟動以確保完全關機，並在開機時有更乾淨的硬體初始化。</value>
+  </data>
+  <data name="StartupManager.Apps.CountSuffix" xml:space="preserve">
+    <value>{0} 個項目</value>
+  </data>
+  <data name="StartupManager.Tasks.CountSuffix" xml:space="preserve">
+    <value>{0} 個工作</value>
+  </data>
+  <data name="StartupManager.Tasks.Description" xml:space="preserve">
+    <value>設定為在登入或依排程執行的 Windows 工作。</value>
+  </data>
+  <data name="StartupManager.Apps.Description" xml:space="preserve">
+    <value>Windows 啟動時自動執行的應用程式。</value>
+  </data>
+  <data name="Settings.About.Documentation.Title" xml:space="preserve">
+    <value>說明文件</value>
+  </data>
+  <data name="Settings.About.Documentation.Description" xml:space="preserve">
+    <value>查看說明文件、使用指南及常見問題。</value>
+  </data>
 </root>
