@@ -403,6 +403,42 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Depends.
+        /// </summary>
+        internal static string Common_Recommendation_Depends {
+            get {
+                return ResourceManager.GetString("Common.Recommendation.Depends", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Experimental.
+        /// </summary>
+        internal static string Common_Recommendation_Experimental {
+            get {
+                return ResourceManager.GetString("Common.Recommendation.Experimental", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not Recommended.
+        /// </summary>
+        internal static string Common_Recommendation_Off {
+            get {
+                return ResourceManager.GetString("Common.Recommendation.Off", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recommended.
+        /// </summary>
+        internal static string Common_Recommendation_On {
+            get {
+                return ResourceManager.GetString("Common.Recommendation.On", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search....
         /// </summary>
         internal static string Common_Search_Placeholder {
@@ -1907,29 +1943,29 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to System.
+        /// </summary>
+        internal static string Features_SystemFeatures_Name {
+            get {
+                return ResourceManager.GetString("Features.SystemFeatures.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Turn NumLock on or off at the Windows login screen.
         /// </summary>
-        internal static string Features_SystemFeatures_EnableNumLockOnBoot_Description {
+        internal static string Features_SystemFeatures_NumLockOnBoot_Description {
             get {
-                return ResourceManager.GetString("Features.SystemFeatures.EnableNumLockOnBoot.Description", resourceCulture);
+                return ResourceManager.GetString("Features.SystemFeatures.NumLockOnBoot.Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to NumLock on Boot.
         /// </summary>
-        internal static string Features_SystemFeatures_EnableNumLockOnBoot_Name {
+        internal static string Features_SystemFeatures_NumLockOnBoot_Name {
             get {
-                return ResourceManager.GetString("Features.SystemFeatures.EnableNumLockOnBoot.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to System.
-        /// </summary>
-        internal static string Features_SystemFeatures_Name {
-            get {
-                return ResourceManager.GetString("Features.SystemFeatures.Name", resourceCulture);
+                return ResourceManager.GetString("Features.SystemFeatures.NumLockOnBoot.Name", resourceCulture);
             }
         }
         

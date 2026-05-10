@@ -1531,10 +1531,10 @@
   <data name="Features.SystemFeatures.Section.Input" xml:space="preserve">
     <value>輸入設定</value>
   </data>
-  <data name="Features.SystemFeatures.EnableNumLockOnBoot.Name" xml:space="preserve">
+  <data name="Features.SystemFeatures.NumLockOnBoot.Name" xml:space="preserve">
     <value>開機時的 NumLock</value>
   </data>
-  <data name="Features.SystemFeatures.EnableNumLockOnBoot.Description" xml:space="preserve">
+  <data name="Features.SystemFeatures.NumLockOnBoot.Description" xml:space="preserve">
     <value>在 Windows 登入畫面啟用或停用 NumLock</value>
   </data>
   <data name="Features.Desktop.Name" xml:space="preserve">

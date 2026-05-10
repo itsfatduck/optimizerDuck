@@ -51,7 +51,7 @@ public class Gaming : IFeatureCategory
             ];
     }
 
-    [Feature(Section = nameof(Sections.GameSettings), Icon = SymbolRegular.XboxConsole24)]
+    [Feature(Section = nameof(Sections.GameSettings), Icon = SymbolRegular.XboxConsole24, Recommendation = RecommendationState.Off)]
     public class GameBar : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
@@ -139,7 +139,7 @@ public class Gaming : IFeatureCategory
             ];
     }
 
-    [Feature(Section = nameof(Sections.Input), Icon = SymbolRegular.Cursor24)]
+    [Feature(Section = nameof(Sections.Input), Icon = SymbolRegular.Cursor24, Recommendation = RecommendationState.Off)]
     public class MouseAcceleration : BaseFeature
     {
         private const string Path = @"HKCU\Control Panel\Mouse";

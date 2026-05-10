@@ -11,8 +11,9 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <converters:NullToVisibilityConverter
+        <converters:ValueConditionToVisibilityConverter
             x:Key="NullToVisibilityConverter"
+            ConditionType="IsNull"
             False="Visible"
             True="Collapsed" />
     </UserControl.Resources>

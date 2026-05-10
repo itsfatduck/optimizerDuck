@@ -352,7 +352,7 @@ public class Preferences : IFeatureCategory
             ];
     }
 
-    [Feature(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.Search24)]
+    [Feature(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.Search24, Recommendation = RecommendationState.Off)]
     public class BingSearch : BaseFeature
     {
         protected override bool NeedsPostAction => true;
@@ -370,7 +370,7 @@ public class Preferences : IFeatureCategory
             ];
     }
 
-    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.CursorClick24)]
+    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.CursorClick24, Recommendation = RecommendationState.On)]
     public class ClassicContextMenu : BaseFeature
     {
         private const string BasePath =

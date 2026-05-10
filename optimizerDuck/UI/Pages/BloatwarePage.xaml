@@ -19,8 +19,14 @@
     Style="{StaticResource PageRootStyle}"
     mc:Ignorable="d">
     <Page.Resources>
-        <converters:GreaterThanZeroToVisibilityConverter x:Key="GreaterThanZeroToVisibilityConverter" />
-        <converters:ZeroToVisibilityConverter x:Key="ZeroToVisibilityConverter" />
+        <converters:NumericComparisonToVisibilityConverter
+            x:Key="GreaterThanZeroToVisibilityConverter"
+            ComparisonType="GreaterThan"
+            Threshold="0" />
+        <converters:NumericComparisonToVisibilityConverter
+            x:Key="ZeroToVisibilityConverter"
+            ComparisonType="Equal"
+            Threshold="0" />
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Page.Resources>
 

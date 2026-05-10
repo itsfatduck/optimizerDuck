@@ -538,6 +538,18 @@
   <data name="Common.Unknown" xml:space="preserve">
     <value>Unknown</value>
   </data>
+  <data name="Common.Recommendation.On" xml:space="preserve">
+    <value>Recommended</value>
+  </data>
+  <data name="Common.Recommendation.Off" xml:space="preserve">
+    <value>Not Recommended</value>
+  </data>
+  <data name="Common.Recommendation.Experimental" xml:space="preserve">
+    <value>Experimental</value>
+  </data>
+  <data name="Common.Recommendation.Depends" xml:space="preserve">
+    <value>Depends</value>
+  </data>
   <data name="Optimizer.UI.Tags.Security" xml:space="preserve">
     <value>Security</value>
   </data>
@@ -1572,10 +1584,10 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="Features.SystemFeatures.Section.Input" xml:space="preserve">
     <value>Input Settings</value>
   </data>
-  <data name="Features.SystemFeatures.EnableNumLockOnBoot.Name" xml:space="preserve">
+  <data name="Features.SystemFeatures.NumLockOnBoot.Name" xml:space="preserve">
     <value>NumLock on Boot</value>
   </data>
-  <data name="Features.SystemFeatures.EnableNumLockOnBoot.Description" xml:space="preserve">
+  <data name="Features.SystemFeatures.NumLockOnBoot.Description" xml:space="preserve">
     <value>Turn NumLock on or off at the Windows login screen</value>
   </data>
   <data name="Features.Desktop.Name" xml:space="preserve">

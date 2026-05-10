@@ -1564,10 +1564,10 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Features.SystemFeatures.Section.Input" xml:space="preserve">
     <value>Đầu vào</value>
   </data>
-  <data name="Features.SystemFeatures.EnableNumLockOnBoot.Name" xml:space="preserve">
+  <data name="Features.SystemFeatures.NumLockOnBoot.Name" xml:space="preserve">
     <value>NumLock khi khởi động</value>
   </data>
-  <data name="Features.SystemFeatures.EnableNumLockOnBoot.Description" xml:space="preserve">
+  <data name="Features.SystemFeatures.NumLockOnBoot.Description" xml:space="preserve">
     <value>Bật hoặc tắt NumLock tại màn hình đăng nhập Windows</value>
   </data>
   <data name="Features.Desktop.Name" xml:space="preserve">

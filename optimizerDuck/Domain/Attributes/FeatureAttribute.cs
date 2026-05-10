@@ -1,4 +1,5 @@
-﻿using Wpf.Ui.Controls;
+﻿using optimizerDuck.Domain.Features.Models;
+using Wpf.Ui.Controls;
 
 namespace optimizerDuck.Domain.Attributes;
 
@@ -7,6 +8,7 @@ public sealed class FeatureAttribute : Attribute
 {
     public object? Section { get; init; }
     public required SymbolRegular Icon { get; init; }
+    public RecommendationState Recommendation { get; init; } = RecommendationState.None;
 
     public string GetSectionName()
     {

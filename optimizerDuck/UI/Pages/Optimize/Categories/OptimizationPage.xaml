@@ -20,15 +20,22 @@
     mc:Ignorable="d">
     <Page.Resources>
         <converters:WidthToColumnConverter x:Key="WidthToColumnConverter" />
-        <converters:ZeroToVisibilityConverter x:Key="ZeroToVisibilityConverter" />
-        <converters:GreaterThanZeroToVisibilityConverter x:Key="GreaterThanZeroToVisibilityConverter" />
+        <converters:NumericComparisonToVisibilityConverter
+            x:Key="ZeroToVisibilityConverter"
+            ComparisonType="Equal"
+            Threshold="0" />
+        <converters:NumericComparisonToVisibilityConverter
+            x:Key="GreaterThanZeroToVisibilityConverter"
+            ComparisonType="GreaterThan"
+            Threshold="0" />
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <converters:BooleanToVisibilityConverter
             x:Key="InverseBooleanToVisibilityConverter"
             False="Visible"
             True="Collapsed" />
-        <converters:NullToVisibilityConverter
+        <converters:ValueConditionToVisibilityConverter
             x:Key="NullToVisibilityConverter"
+            ConditionType="IsNull"
             False="Visible"
             True="Collapsed" />
     </Page.Resources>

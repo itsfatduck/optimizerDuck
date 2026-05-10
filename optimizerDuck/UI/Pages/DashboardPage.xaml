@@ -20,9 +20,17 @@
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <converters:MBToGBConverter x:Key="MBToGBConverter" />
-        <converters:GreaterThanNumberToVisibilityConverter x:Key="GreaterThanOneToVisibilityConverter" Threshold="1" />
+        <converters:NumericComparisonToVisibilityConverter
+            x:Key="GreaterThanOneToVisibilityConverter"
+            ComparisonType="GreaterThan"
+            Threshold="1" />
         <converters:MinusNumberConverter x:Key="MinusOneConverter" NumberToMinus="1" />
         <converters:ThemeToGitHubIconConverter x:Key="ThemeToGitHubIconConverter" />
+        <converters:ValueConditionToVisibilityConverter
+            x:Key="NullToVisibilityConverter"
+            ConditionType="IsNull"
+            False="Visible"
+            True="Collapsed" />
     </Page.Resources>
 
     <Grid RowDefinitions="Auto,Auto,*">

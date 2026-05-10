@@ -20,7 +20,10 @@
     mc:Ignorable="d">
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-        <converters:GreaterThanZeroToVisibilityConverter x:Key="GreaterThanZeroToVisibilityConverter" />
+        <converters:NumericComparisonToVisibilityConverter
+            x:Key="GreaterThanZeroToVisibilityConverter"
+            ComparisonType="GreaterThan"
+            Threshold="0" />
         <converters:EmptyWhileNotLoadingConverter x:Key="EmptyWhileNotLoadingConverter" />
     </Page.Resources>
 

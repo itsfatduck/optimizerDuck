@@ -12,7 +12,10 @@
     d:DesignWidth="900"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <converters:GreaterThanZeroToVisibilityConverter x:Key="GreaterThanZeroToVisibilityConverter" />
+        <converters:NumericComparisonToVisibilityConverter
+            x:Key="GreaterThanZeroToVisibilityConverter"
+            ComparisonType="GreaterThan"
+            Threshold="0" />
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
 

@@ -44,6 +44,18 @@ public abstract class BaseFeature : IFeature
 
     public SymbolRegular Icon => Meta.Icon;
 
+    public string RecommendationPrefix =>
+        $"Features.{OwnerKey}.{FeatureKey}.Recommendation";
+
+    public virtual FeatureRecommendationResult? GetRecommendation()
+    {
+        var state = Meta.Recommendation;
+        if (state == RecommendationState.None)
+            return null;
+
+        return new FeatureRecommendationResult(state, $"{RecommendationPrefix}.Reason");
+    }
+
     public virtual Task<bool> GetStateAsync()
     {
         return Task.FromResult(RegistryToggles.All(t => t.GetState()));
