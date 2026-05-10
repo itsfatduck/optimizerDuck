@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Features.Models;
@@ -121,8 +121,7 @@ public class Preferences : IFeatureCategory
             [
                 new()
                 {
-                    Path =
-                        @"HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
+                    Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
                     Name = "AppsUseLightTheme",
                     OnValue = 0,
                     OffValue = 1,
@@ -130,8 +129,7 @@ public class Preferences : IFeatureCategory
                 },
                 new()
                 {
-                    Path =
-                        @"HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
+                    Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
                     Name = "SystemUsesLightTheme",
                     OnValue = 0,
                     OffValue = 1,
@@ -355,7 +353,7 @@ public class Preferences : IFeatureCategory
     }
 
     [Feature(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.Search24)]
-    public class DisableBingSearch : BaseFeature
+    public class BingSearch : BaseFeature
     {
         protected override bool NeedsPostAction => true;
 
@@ -365,8 +363,8 @@ public class Preferences : IFeatureCategory
                 {
                     Path = @"HKCU\Software\Policies\Microsoft\Windows\Explorer",
                     Name = "DisableSearchBoxSuggestions",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValue = 0,
+                    OffValue = 1,
                     DefaultValue = 0,
                 },
             ];

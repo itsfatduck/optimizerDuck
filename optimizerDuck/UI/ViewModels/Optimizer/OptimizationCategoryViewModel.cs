@@ -366,7 +366,13 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
             var lines = source.Split('\n');
             for (var i = 0; i < lines.Length; i++)
-                if (lines[i].Contains($"class {className} : {nameof(BaseOptimization)}", StringComparison.OrdinalIgnoreCase))
+                if (
+                    lines[i]
+                        .Contains(
+                            $"class {className} : {nameof(BaseOptimization)}",
+                            StringComparison.OrdinalIgnoreCase
+                        )
+                )
                 {
                     url += $"#L{i + 1}";
                     break;
@@ -435,8 +441,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
         string rawUrl
     )
     {
-        return new Lazy<Task<(string Content, DateTime FetchedAt)>>(
-            async () => (await httpClient.GetStringAsync(rawUrl), DateTime.UtcNow)
+        return new Lazy<Task<(string Content, DateTime FetchedAt)>>(async () =>
+            (await httpClient.GetStringAsync(rawUrl), DateTime.UtcNow)
         );
     }
 

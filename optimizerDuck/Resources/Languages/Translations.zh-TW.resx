@@ -409,8 +409,7 @@
     <value>重試</value>
   </data>
   <data name="Settings.About.Duck.Description" xml:space="preserve">
-    <value>感謝您的信任與支持 &lt;3！
-目前版本：{0}</value>
+    <value>目前版本：{0}</value>
   </data>
   <data name="Settings.Advanced.Header" xml:space="preserve">
     <value>進階</value>
@@ -1346,12 +1345,6 @@
   <data name="Features.Preferences.TaskbarSearchBox.Description" xml:space="preserve">
     <value>控制工作列上搜尋方塊的可見性。</value>
   </data>
-  <data name="Features.Preferences.BingSearchInStartMenu.Name" xml:space="preserve">
-    <value>開始功能表中的 Bing 搜尋</value>
-  </data>
-  <data name="Features.Preferences.BingSearchInStartMenu.Description" xml:space="preserve">
-    <value>控制開始功能表搜尋中是否出現 Bing 網頁搜尋結果。</value>
-  </data>
   <data name="Features.Preferences.TaskbarChatButton.Name" xml:space="preserve">
     <value>工作列聊天按鈕</value>
   </data>
@@ -1503,7 +1496,7 @@
     <value>滑鼠加速</value>
   </data>
   <data name="Features.Gaming.MouseAcceleration.Description" xml:space="preserve">
-    <value>控制 Windows 自動調整滑鼠速度的功能。停用可提供精確的 1:1 游標移動。</value>
+    <value>啟用或停用 Windows 滑鼠加速，以獲得更一致的游標移動。</value>
   </data>
   <data name="Features.Gaming.FullscreenOptimizations.Name" xml:space="preserve">
     <value>全螢幕最佳化</value>
@@ -1539,10 +1532,10 @@
     <value>輸入設定</value>
   </data>
   <data name="Features.SystemFeatures.EnableNumLockOnBoot.Name" xml:space="preserve">
-    <value>開機時啟用 NumLock</value>
+    <value>開機時的 NumLock</value>
   </data>
   <data name="Features.SystemFeatures.EnableNumLockOnBoot.Description" xml:space="preserve">
-    <value>在 Windows 登入畫面自動開啟 NumLock</value>
+    <value>在 Windows 登入畫面啟用或停用 NumLock</value>
   </data>
   <data name="Features.Desktop.Name" xml:space="preserve">
     <value>桌面</value>
@@ -1592,11 +1585,11 @@
   <data name="Features.Desktop.ShowDesktopIcons.Description" xml:space="preserve">
     <value>一次顯示或隱藏所有桌面圖示</value>
   </data>
-  <data name="Features.Desktop.RemoveShortcutArrow.Name" xml:space="preserve">
-    <value>移除捷徑箭頭</value>
+  <data name="Features.Desktop.ShortcutArrow.Name" xml:space="preserve">
+    <value>捷徑箭頭</value>
   </data>
-  <data name="Features.Desktop.RemoveShortcutArrow.Description" xml:space="preserve">
-    <value>隱藏桌面捷徑圖示上的小箭頭覆疊</value>
+  <data name="Features.Desktop.ShortcutArrow.Description" xml:space="preserve">
+    <value>顯示或隱藏桌面圖示上的捷徑箭頭覆疊</value>
   </data>
   <data name="Features.Preferences.LaunchToThisPc.Name" xml:space="preserve">
     <value>啟動至「本機」</value>
@@ -1604,11 +1597,11 @@
   <data name="Features.Preferences.LaunchToThisPc.Description" xml:space="preserve">
     <value>開啟檔案總管時預設顯示「本機」而非「快速存取」</value>
   </data>
-  <data name="Features.Preferences.DisableBingSearch.Name" xml:space="preserve">
-    <value>停用 Bing 搜尋</value>
+  <data name="Features.Preferences.BingSearch.Name" xml:space="preserve">
+    <value>Bing 搜尋</value>
   </data>
-  <data name="Features.Preferences.DisableBingSearch.Description" xml:space="preserve">
-    <value>從 Windows 搜尋中移除 Bing 網頁結果與建議</value>
+  <data name="Features.Preferences.BingSearch.Description" xml:space="preserve">
+    <value>顯示或隱藏 Windows 搜尋中的 Bing 網頁結果與建議</value>
   </data>
   <data name="Dialog.PendingChanges.Title" xml:space="preserve">
     <value>套用變更</value>

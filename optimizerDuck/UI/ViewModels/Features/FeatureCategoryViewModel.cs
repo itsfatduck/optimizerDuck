@@ -129,7 +129,10 @@ public partial class FeatureCategoryViewModel : ViewModel
         if (featureViewModel is null)
             return;
 
-        if (featureViewModel.Feature is not BaseFeature baseFeature || baseFeature.OwnerType == null)
+        if (
+            featureViewModel.Feature is not BaseFeature baseFeature
+            || baseFeature.OwnerType == null
+        )
             return;
 
         var fileName = baseFeature.OwnerType.Name;
@@ -160,7 +163,13 @@ public partial class FeatureCategoryViewModel : ViewModel
 
             var lines = source.Split('\n');
             for (var i = 0; i < lines.Length; i++)
-                if (lines[i].Contains($"class {className} : {nameof(BaseFeature)}", StringComparison.OrdinalIgnoreCase))
+                if (
+                    lines[i]
+                        .Contains(
+                            $"class {className} : {nameof(BaseFeature)}",
+                            StringComparison.OrdinalIgnoreCase
+                        )
+                )
                 {
                     url += $"#L{i + 1}";
                     break;
@@ -180,7 +189,9 @@ public partial class FeatureCategoryViewModel : ViewModel
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine($"Failed to open GitHub URL: {url}. Error: {ex.Message}");
+            System.Diagnostics.Debug.WriteLine(
+                $"Failed to open GitHub URL: {url}. Error: {ex.Message}"
+            );
         }
     }
 }

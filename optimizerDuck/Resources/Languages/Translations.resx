@@ -440,8 +440,7 @@
     <value>Retry</value>
   </data>
   <data name="Settings.About.Duck.Description" xml:space="preserve">
-    <value>Thank you for your trust and support &lt;3!
-Current version: {0}</value>
+    <value>Current version: {0}</value>
   </data>
   <data name="Settings.Advanced.Header" xml:space="preserve">
     <value>Advanced</value>
@@ -821,12 +820,6 @@ Current version: {0}</value>
   <data name="Features.Preferences.TaskbarSearchBox.Description" xml:space="preserve">
     <value>Controls visibility of the search box on the taskbar.</value>
   </data>
-  <data name="Features.Preferences.BingSearchInStartMenu.Name" xml:space="preserve">
-    <value>Bing Search in Start Menu</value>
-  </data>
-  <data name="Features.Preferences.BingSearchInStartMenu.Description" xml:space="preserve">
-    <value>Controls Bing web search results appearing in the Start menu search.</value>
-  </data>
   <data name="Features.Preferences.TaskbarChatButton.Name" xml:space="preserve">
     <value>Taskbar Chat Button</value>
   </data>
@@ -978,7 +971,7 @@ Current version: {0}</value>
     <value>Mouse Acceleration</value>
   </data>
   <data name="Features.Gaming.MouseAcceleration.Description" xml:space="preserve">
-    <value>Controls Windows' automatic mouse speed adjustment. Disabling provides precise, 1:1 cursor movement.</value>
+    <value>Enables or disables Windows mouse acceleration for more consistent cursor movement.</value>
   </data>
   <data name="Features.Gaming.FullscreenOptimizations.Name" xml:space="preserve">
     <value>Fullscreen Optimizations</value>
@@ -1580,10 +1573,10 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
     <value>Input Settings</value>
   </data>
   <data name="Features.SystemFeatures.EnableNumLockOnBoot.Name" xml:space="preserve">
-    <value>Enable NumLock on Boot</value>
+    <value>NumLock on Boot</value>
   </data>
   <data name="Features.SystemFeatures.EnableNumLockOnBoot.Description" xml:space="preserve">
-    <value>Automatically turns on NumLock at the Windows login screen</value>
+    <value>Turn NumLock on or off at the Windows login screen</value>
   </data>
   <data name="Features.Desktop.Name" xml:space="preserve">
     <value>Desktop</value>
@@ -1633,11 +1626,11 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="Features.Desktop.ShowDesktopIcons.Description" xml:space="preserve">
     <value>Show or hide all desktop icons at once</value>
   </data>
-  <data name="Features.Desktop.RemoveShortcutArrow.Name" xml:space="preserve">
-    <value>Remove Shortcut Arrow</value>
+  <data name="Features.Desktop.ShortcutArrow.Name" xml:space="preserve">
+    <value>Shortcut Arrow</value>
   </data>
-  <data name="Features.Desktop.RemoveShortcutArrow.Description" xml:space="preserve">
-    <value>Hide the small arrow overlay on desktop shortcut icons</value>
+  <data name="Features.Desktop.ShortcutArrow.Description" xml:space="preserve">
+    <value>Show or hide the shortcut arrow overlay on desktop icons</value>
   </data>
   <data name="Features.Preferences.LaunchToThisPc.Name" xml:space="preserve">
     <value>Launch to "This PC"</value>
@@ -1645,11 +1638,11 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="Features.Preferences.LaunchToThisPc.Description" xml:space="preserve">
     <value>Open File Explorer to This PC instead of Quick Access</value>
   </data>
-  <data name="Features.Preferences.DisableBingSearch.Name" xml:space="preserve">
-    <value>Disable Bing Search</value>
+  <data name="Features.Preferences.BingSearch.Name" xml:space="preserve">
+    <value>Bing Search</value>
   </data>
-  <data name="Features.Preferences.DisableBingSearch.Description" xml:space="preserve">
-    <value>Remove Bing web results and suggestions from Windows Search</value>
+  <data name="Features.Preferences.BingSearch.Description" xml:space="preserve">
+    <value>Show or hide Bing web results and suggestions in Windows Search</value>
   </data>
   <data name="Button.Accept" xml:space="preserve">
     <value>Accept</value>

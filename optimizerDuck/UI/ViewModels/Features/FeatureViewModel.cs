@@ -16,7 +16,6 @@ public partial class FeatureViewModel(IFeature feature, ILoggerFactory loggerFac
 
     public IFeature Feature => feature;
 
-
     [ObservableProperty]
     private string _description = feature.Description;
 

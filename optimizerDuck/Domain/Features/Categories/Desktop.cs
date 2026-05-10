@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Features.Models;
@@ -140,7 +140,7 @@ public class Desktop : IFeatureCategory
     }
 
     [Feature(Section = nameof(Sections.Behaviors), Icon = SymbolRegular.ArrowForward24)]
-    public class RemoveShortcutArrow : BaseFeature
+    public class ShortcutArrow : BaseFeature
     {
         private const string Path =
             @"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons";
@@ -150,18 +150,13 @@ public class Desktop : IFeatureCategory
         public override Task<bool> GetStateAsync()
         {
             var value = RegistryService.Read<string>(new RegistryItem(Path, "29"));
-            return Task.FromResult(value?.ToString() == @"%windir%\System32\shell32.dll,-50");
+            return Task.FromResult(string.Equals(value, "", StringComparison.OrdinalIgnoreCase));
         }
 
         public override async Task EnableAsync()
         {
             RegistryService.Write(
-                new RegistryItem(
-                    Path,
-                    "29",
-                    @"%windir%\System32\shell32.dll,-50",
-                    Microsoft.Win32.RegistryValueKind.String
-                )
+                new RegistryItem(Path, "29", @"%windir%\System32\shell32.dll,-50")
             );
             if (NeedsPostAction)
                 await ExecutePostActionAsync();

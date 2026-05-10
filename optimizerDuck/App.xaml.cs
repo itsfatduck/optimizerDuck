@@ -54,7 +54,7 @@ public class ScopeBlockTextFormatter : ITextFormatter
         };
 
         //var prefix = $"{timestamp} | {ctx,-67} | {levelText,-7} | "; // byebye 67 char SourceContext truncation, we have a new design now...
-        var prefix = $"{timestamp} | {ctx,-35} | {levelText,-7} | ";
+        var prefix = $"{timestamp} | {ctx, -35} | {levelText, -7} | ";
 
         // print message
         output.WriteLine(prefix + RenderWithoutQuotes(logEvent));
@@ -318,8 +318,7 @@ public partial class App : Application
         base.OnExit(e);
     }
 
-    protected async void MainWindow_Closing(object? sender,
-        CancelEventArgs e)
+    protected async void MainWindow_Closing(object? sender, CancelEventArgs e)
     {
         if (_allowClose)
         {
@@ -335,50 +334,38 @@ public partial class App : Application
 
         try
         {
-            _contentDialogService ??=
-                _host!.Services.GetRequiredService<IContentDialogService>();
+            _contentDialogService ??= _host!.Services.GetRequiredService<IContentDialogService>();
 
             var result = await _contentDialogService.ShowSimpleDialogAsync(
                 new SimpleContentDialogCreateOptions
                 {
                     Title = Translations.Dialog_PendingChanges_Title,
                     Content = Translations.Dialog_PendingChanges_Content,
-                    CloseButtonText =
-                        Translations.Dialog_PendingChanges_CloseButton,
-                    PrimaryButtonText =
-                        Translations.Dialog_PendingChanges_PrimaryButton,
-                    SecondaryButtonText =
-                        Translations.Dialog_PendingChanges_SecondaryButton
+                    CloseButtonText = Translations.Dialog_PendingChanges_CloseButton,
+                    PrimaryButtonText = Translations.Dialog_PendingChanges_PrimaryButton,
+                    SecondaryButtonText = Translations.Dialog_PendingChanges_SecondaryButton,
                 }
             );
 
             switch (result)
             {
                 case ContentDialogResult.Primary:
-                    _logger.LogInformation(
-                        "User chose to restart PC."
-                    );
+                    _logger.LogInformation("User chose to restart PC.");
 
                     ShellService.CMD("shutdown /r /t 0");
                     break;
 
                 case ContentDialogResult.Secondary:
-                    _logger.LogInformation(
-                        "User chose to restart Explorer."
-                    );
+                    _logger.LogInformation("User chose to restart Explorer.");
 
-                    ShellService.CMD(
-                        "taskkill /f /im explorer.exe && start explorer.exe"
-                    );
+                    ShellService.CMD("taskkill /f /im explorer.exe && start explorer.exe");
 
                     _allowClose = true;
                     Current.Shutdown();
                     break;
 
                 case ContentDialogResult.None:
-                    _logger.LogInformation(
-                        "User chose to exit without applying changes."
-                    );
+                    _logger.LogInformation("User chose to exit without applying changes.");
 
                     _allowClose = true;
                     Current.Shutdown();
@@ -387,10 +374,7 @@ public partial class App : Application
         }
         catch (Exception ex)
         {
-            _logger.LogError(
-                ex,
-                "Failed to show pending changes dialog."
-            );
+            _logger.LogError(ex, "Failed to show pending changes dialog.");
 
             _allowClose = true;
             Current.Shutdown();

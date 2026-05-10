@@ -1,8 +1,7 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Features.Models;
-using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Services.Managers;
 using optimizerDuck.UI.Pages.Features;
@@ -25,7 +24,7 @@ public class SystemFeatures : IFeatureCategory
     public ObservableCollection<IFeature> Features { get; init; } = [];
 
     [Feature(Section = nameof(Sections.Input), Icon = SymbolRegular.NumberSymbol24)]
-    public class EnableNumLockOnBoot : BaseFeature
+    public class NumLockOnBoot : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [

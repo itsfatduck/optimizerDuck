@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Features.Models;
@@ -142,33 +142,75 @@ public class Gaming : IFeatureCategory
     [Feature(Section = nameof(Sections.Input), Icon = SymbolRegular.Cursor24)]
     public class MouseAcceleration : BaseFeature
     {
-        protected override IEnumerable<RegistryToggle> RegistryToggles =>
-            [
-                new()
-                {
-                    Path = @"HKCU\Control Panel\Mouse",
-                    Name = "MouseSpeed",
-                    OnValue = "0",
-                    OffValue = "1",
-                    DefaultValue = "1",
-                },
-                new()
-                {
-                    Path = @"HKCU\Control Panel\Mouse",
-                    Name = "MouseThreshold1",
-                    OnValue = "0",
-                    OffValue = "6",
-                    DefaultValue = "6",
-                },
-                new()
-                {
-                    Path = @"HKCU\Control Panel\Mouse",
-                    Name = "MouseThreshold2",
-                    OnValue = "0",
-                    OffValue = "10",
-                    DefaultValue = "10",
-                },
-            ];
+        private const string Path = @"HKCU\Control Panel\Mouse";
+
+        public override Task<bool> GetStateAsync()
+        {
+            // Mouse acceleration is ON if any of the values are non-zero
+            var mouseSpeed = RegistryService.Read<string>(new RegistryItem(Path, "MouseSpeed"));
+            var threshold1 = RegistryService.Read<string>(
+                new RegistryItem(Path, "MouseThreshold1")
+            );
+            var threshold2 = RegistryService.Read<string>(
+                new RegistryItem(Path, "MouseThreshold2")
+            );
+
+            // Check if any value is non-zero (acceleration enabled)
+            var isNonZero =
+                (int.TryParse(mouseSpeed, out var speed) && speed != 0)
+                || (int.TryParse(threshold1, out var t1) && t1 != 0)
+                || (int.TryParse(threshold2, out var t2) && t2 != 0);
+
+            return Task.FromResult(isNonZero);
+        }
+
+        public override async Task EnableAsync()
+        {
+            RegistryService.Write(
+                new RegistryItem(Path, "MouseSpeed", "1")
+            );
+            RegistryService.Write(
+                new RegistryItem(
+                    Path,
+                    "MouseThreshold1",
+                    "6"
+                )
+            );
+            RegistryService.Write(
+                new RegistryItem(
+                    Path,
+                    "MouseThreshold2",
+                    "10"
+                )
+            );
+
+            if (NeedsPostAction)
+                await ExecutePostActionAsync();
+        }
+
+        public override async Task DisableAsync()
+        {
+            RegistryService.Write(
+                new RegistryItem(Path, "MouseSpeed", "0")
+            );
+            RegistryService.Write(
+                new RegistryItem(
+                    Path,
+                    "MouseThreshold1",
+                    "0"
+                )
+            );
+            RegistryService.Write(
+                new RegistryItem(
+                    Path,
+                    "MouseThreshold2",
+                    "0"
+                )
+            );
+
+            if (NeedsPostAction)
+                await ExecutePostActionAsync();
+        }
     }
 
     [Feature(Section = nameof(Sections.Display), Icon = SymbolRegular.FullScreenMaximize24)]

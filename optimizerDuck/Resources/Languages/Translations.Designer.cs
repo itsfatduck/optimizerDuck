@@ -1124,24 +1124,6 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hide the small arrow overlay on desktop shortcut icons.
-        /// </summary>
-        internal static string Features_Desktop_RemoveShortcutArrow_Description {
-            get {
-                return ResourceManager.GetString("Features.Desktop.RemoveShortcutArrow.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Remove Shortcut Arrow.
-        /// </summary>
-        internal static string Features_Desktop_RemoveShortcutArrow_Name {
-            get {
-                return ResourceManager.GetString("Features.Desktop.RemoveShortcutArrow.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Shortcut Behaviors.
         /// </summary>
         internal static string Features_Desktop_Section_Behaviors {
@@ -1156,6 +1138,24 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Features_Desktop_Section_Icons {
             get {
                 return ResourceManager.GetString("Features.Desktop.Section.Icons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show or hide the shortcut arrow overlay on desktop icons.
+        /// </summary>
+        internal static string Features_Desktop_ShortcutArrow_Description {
+            get {
+                return ResourceManager.GetString("Features.Desktop.ShortcutArrow.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shortcut Arrow.
+        /// </summary>
+        internal static string Features_Desktop_ShortcutArrow_Name {
+            get {
+                return ResourceManager.GetString("Features.Desktop.ShortcutArrow.Name", resourceCulture);
             }
         }
         
@@ -1367,7 +1367,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Controls Windows&apos; automatic mouse speed adjustment. Disabling provides precise, 1:1 cursor movement..
+        ///   Looks up a localized string similar to Enables or disables Windows mouse acceleration for more consistent cursor movement..
         /// </summary>
         internal static string Features_Gaming_MouseAcceleration_Description {
             get {
@@ -1421,20 +1421,20 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Controls Bing web search results appearing in the Start menu search..
+        ///   Looks up a localized string similar to Show or hide Bing web results and suggestions in Windows Search.
         /// </summary>
-        internal static string Features_Preferences_BingSearchInStartMenu_Description {
+        internal static string Features_Preferences_BingSearch_Description {
             get {
-                return ResourceManager.GetString("Features.Preferences.BingSearchInStartMenu.Description", resourceCulture);
+                return ResourceManager.GetString("Features.Preferences.BingSearch.Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bing Search in Start Menu.
+        ///   Looks up a localized string similar to Bing Search.
         /// </summary>
-        internal static string Features_Preferences_BingSearchInStartMenu_Name {
+        internal static string Features_Preferences_BingSearch_Name {
             get {
-                return ResourceManager.GetString("Features.Preferences.BingSearchInStartMenu.Name", resourceCulture);
+                return ResourceManager.GetString("Features.Preferences.BingSearch.Name", resourceCulture);
             }
         }
         
@@ -1498,24 +1498,6 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Features_Preferences_Description {
             get {
                 return ResourceManager.GetString("Features.Preferences.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Remove Bing web results and suggestions from Windows Search.
-        /// </summary>
-        internal static string Features_Preferences_DisableBingSearch_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.DisableBingSearch.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disable Bing Search.
-        /// </summary>
-        internal static string Features_Preferences_DisableBingSearch_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.DisableBingSearch.Name", resourceCulture);
             }
         }
         
@@ -1925,7 +1907,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Automatically turns on NumLock at the Windows login screen.
+        ///   Looks up a localized string similar to Turn NumLock on or off at the Windows login screen.
         /// </summary>
         internal static string Features_SystemFeatures_EnableNumLockOnBoot_Description {
             get {
@@ -1934,7 +1916,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enable NumLock on Boot.
+        ///   Looks up a localized string similar to NumLock on Boot.
         /// </summary>
         internal static string Features_SystemFeatures_EnableNumLockOnBoot_Name {
             get {
@@ -4233,8 +4215,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thank you for your trust and support &lt;3!
-        ///Current version: {0}.
+        ///   Looks up a localized string similar to Current version: {0}.
         /// </summary>
         internal static string Settings_About_Duck_Description {
             get {
@@ -4770,6 +4751,24 @@ namespace optimizerDuck.Resources.Languages {
         internal static string StartupManager_Tasks_Title {
             get {
                 return ResourceManager.GetString("StartupManager.Tasks.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Join the Discord community.
+        /// </summary>
+        internal static string TitleBar_Discord {
+            get {
+                return ResourceManager.GetString("TitleBar.Discord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Support the Project.
+        /// </summary>
+        internal static string TitleBar_Support {
+            get {
+                return ResourceManager.GetString("TitleBar.Support", resourceCulture);
             }
         }
     }

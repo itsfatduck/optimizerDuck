@@ -142,13 +142,7 @@ public partial class DashboardViewModel : ViewModel
         {
             var drivePath = $"{diskVolume.DriveLetter}\\";
 
-            Process.Start(
-                new ProcessStartInfo
-                {
-                    FileName = drivePath,
-                    UseShellExecute = true,
-                }
-            );
+            Process.Start(new ProcessStartInfo { FileName = drivePath, UseShellExecute = true });
         }
         catch (Exception ex)
         {
@@ -159,7 +153,11 @@ public partial class DashboardViewModel : ViewModel
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
                 TimeSpan.FromSeconds(5)
             );
-            _logger.LogError(ex, "Failed to open disk volume {DriveLetter}", diskVolume.DriveLetter);
+            _logger.LogError(
+                ex,
+                "Failed to open disk volume {DriveLetter}",
+                diskVolume.DriveLetter
+            );
         }
     }
 

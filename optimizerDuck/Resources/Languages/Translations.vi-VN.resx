@@ -434,8 +434,7 @@
     <value>Thử lại</value>
   </data>
   <data name="Settings.About.Duck.Description" xml:space="preserve">
-    <value>Cảm ơn bạn đã tin tưởng và ủng hộ &lt;3!
-Phiên bản hiện tại: {0}</value>
+    <value>Phiên bản hiện tại: {0}</value>
   </data>
   <data name="Settings.Advanced.Header" xml:space="preserve">
     <value>Nâng cao</value>
@@ -815,12 +814,6 @@ Phiên bản hiện tại: {0}</value>
   <data name="Features.Preferences.TaskbarSearchBox.Description" xml:space="preserve">
     <value>Kiểm soát hiển thị ô tìm kiếm trên thanh tác vụ.</value>
   </data>
-  <data name="Features.Preferences.BingSearchInStartMenu.Name" xml:space="preserve">
-    <value>Tìm kiếm Bing trong Start Menu</value>
-  </data>
-  <data name="Features.Preferences.BingSearchInStartMenu.Description" xml:space="preserve">
-    <value>Kiểm soát kết quả tìm kiếm Bing xuất hiện trong menu Start.</value>
-  </data>
   <data name="Features.Preferences.TaskbarChatButton.Name" xml:space="preserve">
     <value>Nút Chat trên Taskbar</value>
   </data>
@@ -942,7 +935,7 @@ Phiên bản hiện tại: {0}</value>
     <value>Gia tốc chuột</value>
   </data>
   <data name="Features.Gaming.MouseAcceleration.Description" xml:space="preserve">
-    <value>Kiểm soát tự động điều chỉnh tốc độ chuột của Windows. Tắt để di chuột chính xác 1:1.</value>
+    <value>Bật hoặc tắt tăng tốc chuột của Windows để di chuyển con trỏ ổn định hơn.</value>
   </data>
   <data name="Features.Gaming.FullscreenOptimizations.Name" xml:space="preserve">
     <value>Tối ưu hóa toàn màn hình</value>
@@ -1572,10 +1565,10 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
     <value>Đầu vào</value>
   </data>
   <data name="Features.SystemFeatures.EnableNumLockOnBoot.Name" xml:space="preserve">
-    <value>Bật NumLock khi khởi động</value>
+    <value>NumLock khi khởi động</value>
   </data>
   <data name="Features.SystemFeatures.EnableNumLockOnBoot.Description" xml:space="preserve">
-    <value>Tự động bật NumLock ở màn hình đăng nhập Windows</value>
+    <value>Bật hoặc tắt NumLock tại màn hình đăng nhập Windows</value>
   </data>
   <data name="Features.Desktop.Name" xml:space="preserve">
     <value>Màn hình chính</value>
@@ -1625,11 +1618,11 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Features.Desktop.ShowDesktopIcons.Description" xml:space="preserve">
     <value>Hiện hoặc ẩn toàn bộ biểu tượng trên Desktop cùng lúc</value>
   </data>
-  <data name="Features.Desktop.RemoveShortcutArrow.Name" xml:space="preserve">
-    <value>Xóa mũi tên lối tắt</value>
+  <data name="Features.Desktop.ShortcutArrow.Name" xml:space="preserve">
+    <value>Mũi tên lối tắt</value>
   </data>
-  <data name="Features.Desktop.RemoveShortcutArrow.Description" xml:space="preserve">
-    <value>Ẩn biểu tượng mũi tên nhỏ trên các lối tắt Desktop</value>
+  <data name="Features.Desktop.ShortcutArrow.Description" xml:space="preserve">
+    <value>Hiện hoặc ẩn mũi tên lối tắt trên biểu tượng Desktop</value>
   </data>
   <data name="Features.Preferences.LaunchToThisPc.Name" xml:space="preserve">
     <value>Mở mặc định vào "This PC"</value>
@@ -1637,11 +1630,11 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Features.Preferences.LaunchToThisPc.Description" xml:space="preserve">
     <value>Mở File Explorer thẳng vào This PC thay vì Quick Access</value>
   </data>
-  <data name="Features.Preferences.DisableBingSearch.Name" xml:space="preserve">
-    <value>Tắt Tìm kiếm Bing</value>
+  <data name="Features.Preferences.BingSearch.Name" xml:space="preserve">
+    <value>Tìm kiếm Bing</value>
   </data>
-  <data name="Features.Preferences.DisableBingSearch.Description" xml:space="preserve">
-    <value>Xóa kết quả tìm kiếm web và đề xuất của Bing khỏi Windows Search</value>
+  <data name="Features.Preferences.BingSearch.Description" xml:space="preserve">
+    <value>Hiện hoặc ẩn kết quả tìm kiếm web và đề xuất Bing trong Windows Search</value>
   </data>
   <data name="Button.Accept" xml:space="preserve">
     <value>Chấp nhận</value>

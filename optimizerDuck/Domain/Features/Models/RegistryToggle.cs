@@ -17,7 +17,7 @@ public class RegistryToggle
     public bool GetState()
     {
         var value = GetRawValue();
-        
+
         if (value == null)
         {
             // If value is null and TreatMissingAsDefault is false,
@@ -50,21 +50,39 @@ public class RegistryToggle
                 // For numeric types, compare as the most precise type
                 var typeA = a.GetType();
                 var typeB = b.GetType();
-                
+
                 // If both are integers, compare as long
-                if ((typeA == typeof(int) || typeA == typeof(long) || typeA == typeof(short) || typeA == typeof(byte)) &&
-                    (typeB == typeof(int) || typeB == typeof(long) || typeB == typeof(short) || typeB == typeof(byte)))
+                if (
+                    (
+                        typeA == typeof(int)
+                        || typeA == typeof(long)
+                        || typeA == typeof(short)
+                        || typeA == typeof(byte)
+                    )
+                    && (
+                        typeB == typeof(int)
+                        || typeB == typeof(long)
+                        || typeB == typeof(short)
+                        || typeB == typeof(byte)
+                    )
+                )
                 {
                     return Convert.ToInt64(a) == Convert.ToInt64(b);
                 }
-                
+
                 // For floating point, compare as double
-                if ((typeA == typeof(float) || typeA == typeof(double) || typeA == typeof(decimal)) &&
-                    (typeB == typeof(float) || typeB == typeof(double) || typeB == typeof(decimal)))
+                if (
+                    (typeA == typeof(float) || typeA == typeof(double) || typeA == typeof(decimal))
+                    && (
+                        typeB == typeof(float)
+                        || typeB == typeof(double)
+                        || typeB == typeof(decimal)
+                    )
+                )
                 {
                     return Convert.ToDouble(a) == Convert.ToDouble(b);
                 }
-                
+
                 // Fallback to decimal comparison for other convertible types
                 var da = Convert.ToDecimal(a);
                 var db = Convert.ToDecimal(b);
