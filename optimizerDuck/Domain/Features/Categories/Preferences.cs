@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Features.Models;
@@ -45,7 +45,7 @@ public class Preferences : IFeatureCategory
             ];
     }
 
-    [Feature(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.Grid24)]
+    [Feature(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.Grid24, Recommendation = RecommendationState.Off)]
     public class TaskbarWidgets : BaseFeature
     {
         protected override bool NeedsPostAction => true;
@@ -67,6 +67,7 @@ public class Preferences : IFeatureCategory
                     OnValue = 1,
                     OffValue = 0,
                     DefaultValue = 1,
+                    IsOptional = true,
                 },
                 new()
                 {
@@ -75,6 +76,7 @@ public class Preferences : IFeatureCategory
                     OnValue = 1,
                     OffValue = 0,
                     DefaultValue = 1,
+                    IsOptional = true,
                 },
             ];
     }
@@ -97,7 +99,7 @@ public class Preferences : IFeatureCategory
             ];
     }
 
-    [Feature(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.WindowConsole20)]
+    [Feature(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.WindowConsole20, Recommendation = RecommendationState.On)]
     public class TaskbarEndTask : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
@@ -138,7 +140,7 @@ public class Preferences : IFeatureCategory
             ];
     }
 
-    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.AlertOff24)]
+    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.AlertOff24, Recommendation = RecommendationState.Off)]
     public class ExplorerSyncNotifications : BaseFeature
     {
         protected override bool NeedsPostAction => true;
@@ -156,7 +158,7 @@ public class Preferences : IFeatureCategory
             ];
     }
 
-    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.Lightbulb24)]
+    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.Lightbulb24, Recommendation = RecommendationState.Off)]
     public class SystemSuggestions : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
@@ -192,6 +194,7 @@ public class Preferences : IFeatureCategory
                     OnValue = 1,
                     OffValue = 0,
                     DefaultValue = 1,
+                    IsOptional = true,
                 },
             ];
     }
@@ -250,7 +253,7 @@ public class Preferences : IFeatureCategory
             ];
     }
 
-    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.DocumentText24)]
+    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.DocumentText24, Recommendation = RecommendationState.On)]
     public class ShowFileExtensions : BaseFeature
     {
         protected override bool NeedsPostAction => true;
@@ -268,7 +271,7 @@ public class Preferences : IFeatureCategory
             ];
     }
 
-    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.FolderProhibited48)]
+    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.FolderProhibited48, Recommendation = RecommendationState.On)]
     public class ShowHiddenFiles : BaseFeature
     {
         protected override bool NeedsPostAction => true;
@@ -286,7 +289,7 @@ public class Preferences : IFeatureCategory
             ];
     }
 
-    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.DocumentText24)]
+    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.DocumentText24, Recommendation = RecommendationState.On)]
     public class ClipboardHistory : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>

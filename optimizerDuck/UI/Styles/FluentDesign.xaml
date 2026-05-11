@@ -49,7 +49,7 @@
 
     <Style x:Key="PageDescriptionStyle" TargetType="ui:TextBlock">
         <Setter Property="Margin" Value="0,4,0,0" />
-        <Setter Property="Appearance" Value="Secondary" />
+        <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
         <Setter Property="FontTypography" Value="Body" />
         <Setter Property="TextWrapping" Value="Wrap" />
     </Style>
@@ -66,7 +66,7 @@
     </Style>
 
     <Style x:Key="CaptionTextStyle" TargetType="ui:TextBlock">
-        <Setter Property="Appearance" Value="Secondary" />
+        <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
         <Setter Property="FontTypography" Value="Caption" />
         <Setter Property="TextWrapping" Value="Wrap" />
     </Style>

@@ -23,7 +23,7 @@ public class SystemFeatures : IFeatureCategory
     public FeatureCategoryOrder Order { get; init; } = FeatureCategoryOrder.System;
     public ObservableCollection<IFeature> Features { get; init; } = [];
 
-    [Feature(Section = nameof(Sections.Input), Icon = SymbolRegular.NumberSymbol24)]
+    [Feature(Section = nameof(Sections.Input), Icon = SymbolRegular.NumberSymbol24, Recommendation = RecommendationState.On)]
     public class NumLockOnBoot : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>

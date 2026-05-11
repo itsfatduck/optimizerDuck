@@ -16,15 +16,15 @@ public class SizeToBrushConverter : IValueConverter
 
     private static readonly SolidColorBrush GreenBrush = ThemeResource.Get<SolidColorBrush>(
         "SystemFillColorSuccessBrush"
-    );
+    ) ?? new SolidColorBrush(Color.FromRgb(0, 180, 0));
 
     private static readonly SolidColorBrush OrangeBrush = ThemeResource.Get<SolidColorBrush>(
         "SystemFillColorCautionBrush"
-    );
+    ) ?? new SolidColorBrush(Color.FromRgb(255, 140, 0));
 
     private static readonly SolidColorBrush RedBrush = ThemeResource.Get<SolidColorBrush>(
         "SystemFillColorCriticalBrush"
-    );
+    ) ?? new SolidColorBrush(Color.FromRgb(220, 0, 0));
 
     private static readonly SolidColorBrush DefaultBrush = new(Color.FromArgb(0x0, 0x0, 0x0, 0x0));
 

@@ -844,11 +844,14 @@
   <data name="Features.Preferences.TaskbarWidgets.Description" xml:space="preserve">
     <value>Controls visibility of the Widgets button on the taskbar.</value>
   </data>
+  <data name="Features.Preferences.TaskbarWidgets.Recommendation.Reason" xml:space="preserve">
+    <value>Turning off widgets removes the background web service that fetches news and weather, reducing idle network and memory usage.</value>
+  </data>
   <data name="Features.Preferences.TaskbarAlignment.Name" xml:space="preserve">
     <value>Taskbar Alignment</value>
   </data>
   <data name="Features.Preferences.TaskbarAlignment.Description" xml:space="preserve">
-    <value>Switches taskbar alignment between Center (default) and Left.</value>
+    <value>Switches taskbar alignment between Center and Left.</value>
   </data>
   <data name="Features.Preferences.ExplorerCompactMode.Name" xml:space="preserve">
     <value>Explorer Compact Mode</value>
@@ -892,11 +895,14 @@
   <data name="Features.Preferences.TaskbarEndTask.Description" xml:space="preserve">
     <value>Adds an "End task" option to the taskbar right-click menu for quick process termination.</value>
   </data>
+  <data name="Features.Preferences.TaskbarEndTask.Recommendation.Reason" xml:space="preserve">
+    <value>End Task on the taskbar lets you kill frozen apps instantly without opening Task Manager.</value>
+  </data>
   <data name="Features.Preferences.DarkMode.Name" xml:space="preserve">
     <value>Dark Mode</value>
   </data>
   <data name="Features.Preferences.DarkMode.Description" xml:space="preserve">
-    <value>Enables dark mode for system apps, Settings, and shell elements.</value>
+    <value>Dark mode for system apps, Settings, and shell elements.</value>
   </data>
   <data name="Features.Preferences.ExplorerSyncNotifications.Name" xml:space="preserve">
     <value>Explorer Sync Notifications</value>
@@ -904,11 +910,17 @@
   <data name="Features.Preferences.ExplorerSyncNotifications.Description" xml:space="preserve">
     <value>Controls OneDrive and cloud sync provider notifications in File Explorer.</value>
   </data>
+  <data name="Features.Preferences.ExplorerSyncNotifications.Recommendation.Reason" xml:space="preserve">
+    <value>Disabling sync notifications stops OneDrive pop-ups from interrupting file browsing in Explorer.</value>
+  </data>
   <data name="Features.Preferences.SystemSuggestions.Name" xml:space="preserve">
     <value>System Suggestions</value>
   </data>
   <data name="Features.Preferences.SystemSuggestions.Description" xml:space="preserve">
     <value>Controls Windows tips and app suggestions in the Settings panel.</value>
+  </data>
+  <data name="Features.Preferences.SystemSuggestions.Recommendation.Reason" xml:space="preserve">
+    <value>Turning off system suggestions stops Windows from recommending apps and settings you did not ask for.</value>
   </data>
   <data name="Features.Preferences.ToastNotifications.Name" xml:space="preserve">
     <value>Toast Notifications</value>
@@ -922,17 +934,26 @@
   <data name="Features.Preferences.ShowFileExtensions.Description" xml:space="preserve">
     <value>Shows file extensions (e.g. .txt, .exe) in File Explorer.</value>
   </data>
+  <data name="Features.Preferences.ShowFileExtensions.Recommendation.Reason" xml:space="preserve">
+    <value>Showing file extensions makes it easy to spot suspicious file types and prevents malware from hiding behind fake icons.</value>
+  </data>
   <data name="Features.Preferences.ShowHiddenFiles.Name" xml:space="preserve">
     <value>Show Hidden Files</value>
   </data>
   <data name="Features.Preferences.ShowHiddenFiles.Description" xml:space="preserve">
     <value>Shows hidden files and folders in File Explorer.</value>
   </data>
+  <data name="Features.Preferences.ShowHiddenFiles.Recommendation.Reason" xml:space="preserve">
+    <value>Hidden files contain system and config data you may need to manage; showing them gives you full visibility of your system.</value>
+  </data>
   <data name="Features.Preferences.ClipboardHistory.Name" xml:space="preserve">
     <value>Clipboard History</value>
   </data>
   <data name="Features.Preferences.ClipboardHistory.Description" xml:space="preserve">
-    <value>Keep multiple copied items so you can paste them later with Win+V.</value>
+    <value>Clipboard history for multiple copied items accessible with Win+V.</value>
+  </data>
+  <data name="Features.Preferences.ClipboardHistory.Recommendation.Reason" xml:space="preserve">
+    <value>Clipboard history lets you recall multiple past copies with Win+V, speeding up repetitive copy-paste workflows.</value>
   </data>
   <data name="Features.Preferences.WindowShake.Name" xml:space="preserve">
     <value>Window Shake</value>
@@ -944,13 +965,16 @@
     <value>Classic Context Menu</value>
   </data>
   <data name="Features.Preferences.ClassicContextMenu.Description" xml:space="preserve">
-    <value>Restores Windows 10-style full context menu on Windows 11.</value>
+    <value>Windows 10-style context menu on Windows 11.</value>
+  </data>
+  <data name="Features.Preferences.ClassicContextMenu.Recommendation.Reason" xml:space="preserve">
+    <value>The classic menu shows all options at once without the extra click needed to expand Windows 11's condensed menu.</value>
   </data>
   <data name="Features.Preferences.ShowSecondsInSystemClock.Name" xml:space="preserve">
     <value>Seconds in System Clock</value>
   </data>
   <data name="Features.Preferences.ShowSecondsInSystemClock.Description" xml:space="preserve">
-    <value>Displays seconds in the taskbar clock for precise time monitoring.</value>
+    <value>Displays seconds in the taskbar clock.</value>
   </data>
   <data name="Features.Gaming.Section.GameSettings" xml:space="preserve">
     <value>Game Settings</value>
@@ -965,7 +989,10 @@
     <value>Game Mode</value>
   </data>
   <data name="Features.Gaming.GameMode.Description" xml:space="preserve">
-    <value>Prioritizes game processes and prevents interruptions from Windows Update while gaming.</value>
+    <value>Windows Game Mode for gaming processes and Windows Update behavior.</value>
+  </data>
+  <data name="Features.Gaming.GameMode.Recommendation.Reason" xml:space="preserve">
+    <value>Game Mode automatically prioritizes game processes and suspends Windows Update notifications while gaming for smoother performance.</value>
   </data>
   <data name="Features.Gaming.GameBar.Name" xml:space="preserve">
     <value>Xbox Game Bar</value>
@@ -973,29 +1000,44 @@
   <data name="Features.Gaming.GameBar.Description" xml:space="preserve">
     <value>Controls Xbox Game Bar overlays, startup panel, and related background features.</value>
   </data>
+  <data name="Features.Gaming.GameBar.Recommendation.Reason" xml:space="preserve">
+    <value>Disabling Game Bar frees up system resources and prevents background overlays from interfering with your games.</value>
+  </data>
   <data name="Features.Gaming.BackgroundRecording.Name" xml:space="preserve">
     <value>Background Recording (DVR)</value>
   </data>
   <data name="Features.Gaming.BackgroundRecording.Description" xml:space="preserve">
     <value>Controls automatic background game recording (Game DVR) and app capture.</value>
   </data>
+  <data name="Features.Gaming.BackgroundRecording.Recommendation.Reason" xml:space="preserve">
+    <value>Disabling background recording stops DVR from silently capturing gameplay, saving CPU and disk write cycles.</value>
+  </data>
   <data name="Features.Gaming.MouseAcceleration.Name" xml:space="preserve">
     <value>Mouse Acceleration</value>
   </data>
   <data name="Features.Gaming.MouseAcceleration.Description" xml:space="preserve">
-    <value>Enables or disables Windows mouse acceleration for more consistent cursor movement.</value>
+    <value>Windows mouse acceleration setting for cursor movement.</value>
+  </data>
+  <data name="Features.Gaming.MouseAcceleration.Recommendation.Reason" xml:space="preserve">
+    <value>Disabling acceleration gives you raw, linear mouse input for better aim precision and muscle memory consistency.</value>
   </data>
   <data name="Features.Gaming.FullscreenOptimizations.Name" xml:space="preserve">
     <value>Fullscreen Optimizations</value>
   </data>
   <data name="Features.Gaming.FullscreenOptimizations.Description" xml:space="preserve">
-    <value>Controls Windows DWM-based full-screen optimizations that may cause input lag or forced borderless windowed mode.</value>
+    <value>Windows DWM-based full-screen optimizations setting.</value>
+  </data>
+  <data name="Features.Gaming.FullscreenOptimizations.Recommendation.Reason" xml:space="preserve">
+    <value>Disable it if you experience in-game stuttering, input lag, or black screens (especially in competitive shooters)</value>
   </data>
   <data name="Features.Gaming.HardwareAcceleratedGpuScheduling.Name" xml:space="preserve">
     <value>Hardware-Accelerated GPU Scheduling</value>
   </data>
   <data name="Features.Gaming.HardwareAcceleratedGpuScheduling.Description" xml:space="preserve">
-    <value>Lets the GPU manage its own video memory scheduling directly, reducing CPU overhead and display latency. Requires a compatible GPU driver.</value>
+    <value>GPU video memory scheduling mode. Requires a compatible GPU driver.</value>
+  </data>
+  <data name="Features.Gaming.HardwareAcceleratedGpuScheduling.Recommendation.Reason" xml:space="preserve">
+    <value>GPU scheduling offloads frame management from the CPU to the GPU, cutting display latency and improving frame pacing.</value>
   </data>
   <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
     <value>Do NOT change unless you know exactly what you are doing</value>
@@ -1081,7 +1123,7 @@ This ensures you can always go back if anything goes wrong.</value>
     <value>optimizerDuck didn't find any removable AppX packages. It's empty as a void...</value>
   </data>
   <data name="Bloatware.Loading" xml:space="preserve">
-    <value>Looking for removable apps…</value>
+    <value>Looking for removable apps...</value>
   </data>
   <data name="Bloatware.Loading.Hint" xml:space="preserve">
     <value>This may take a moment while the application scans for installed packages.</value>
@@ -1576,7 +1618,7 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
     <value>System</value>
   </data>
   <data name="Features.SystemFeatures.Description" xml:space="preserve">
-    <value>Optimize core system features and behaviors</value>
+    <value>Core system features and behaviors</value>
   </data>
   <data name="Features.SystemFeatures.Section.Boot" xml:space="preserve">
     <value>Boot Operations</value>
@@ -1588,13 +1630,16 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
     <value>NumLock on Boot</value>
   </data>
   <data name="Features.SystemFeatures.NumLockOnBoot.Description" xml:space="preserve">
-    <value>Turn NumLock on or off at the Windows login screen</value>
+    <value>NumLock state at the Windows login screen.</value>
+  </data>
+  <data name="Features.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
+    <value>Enabling NumLock at boot ensures the numpad is ready immediately after login, avoiding manual toggling each time.</value>
   </data>
   <data name="Features.Desktop.Name" xml:space="preserve">
     <value>Desktop</value>
   </data>
   <data name="Features.Desktop.Description" xml:space="preserve">
-    <value>Manage desktop icons and shortcut behaviors</value>
+    <value>Desktop icons and shortcut settings</value>
   </data>
   <data name="Features.Desktop.Section.Icons" xml:space="preserve">
     <value>Desktop Icons</value>
@@ -1603,58 +1648,61 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
     <value>Shortcut Behaviors</value>
   </data>
   <data name="Features.Desktop.ShowThisPc.Name" xml:space="preserve">
-    <value>Show "This PC"</value>
+    <value>This PC</value>
   </data>
   <data name="Features.Desktop.ShowThisPc.Description" xml:space="preserve">
-    <value>Display the This PC icon on your desktop</value>
+    <value>Displays the This PC icon on your desktop</value>
   </data>
   <data name="Features.Desktop.ShowRecycleBin.Name" xml:space="preserve">
-    <value>Show Recycle Bin</value>
+    <value>Recycle Bin</value>
   </data>
   <data name="Features.Desktop.ShowRecycleBin.Description" xml:space="preserve">
-    <value>Display the Recycle Bin icon on your desktop</value>
+    <value>Displays the Recycle Bin icon on your desktop</value>
   </data>
   <data name="Features.Desktop.ShowUserFiles.Name" xml:space="preserve">
-    <value>Show User Files</value>
+    <value>User Files</value>
   </data>
   <data name="Features.Desktop.ShowUserFiles.Description" xml:space="preserve">
-    <value>Display your user profile folder as a desktop icon</value>
+    <value>Displays your user profile folder as a desktop icon</value>
   </data>
   <data name="Features.Desktop.ShowNetwork.Name" xml:space="preserve">
-    <value>Show Network</value>
+    <value>Network</value>
   </data>
   <data name="Features.Desktop.ShowNetwork.Description" xml:space="preserve">
-    <value>Display the Network icon on your desktop</value>
+    <value>Displays the Network icon on your desktop</value>
   </data>
   <data name="Features.Desktop.ShowControlPanel.Name" xml:space="preserve">
-    <value>Show Control Panel</value>
+    <value>Control Panel</value>
   </data>
   <data name="Features.Desktop.ShowControlPanel.Description" xml:space="preserve">
-    <value>Display the Control Panel icon on your desktop</value>
+    <value>Displays the Control Panel icon on your desktop</value>
   </data>
   <data name="Features.Desktop.ShowDesktopIcons.Name" xml:space="preserve">
-    <value>Show Desktop Icons</value>
+    <value>Desktop Icons</value>
   </data>
   <data name="Features.Desktop.ShowDesktopIcons.Description" xml:space="preserve">
-    <value>Show or hide all desktop icons at once</value>
+    <value>Shows or hides all desktop icons at once</value>
   </data>
   <data name="Features.Desktop.ShortcutArrow.Name" xml:space="preserve">
     <value>Shortcut Arrow</value>
   </data>
   <data name="Features.Desktop.ShortcutArrow.Description" xml:space="preserve">
-    <value>Show or hide the shortcut arrow overlay on desktop icons</value>
+    <value>Shows or hides the shortcut arrow overlay on desktop icons</value>
   </data>
   <data name="Features.Preferences.LaunchToThisPc.Name" xml:space="preserve">
     <value>Launch to "This PC"</value>
   </data>
   <data name="Features.Preferences.LaunchToThisPc.Description" xml:space="preserve">
-    <value>Open File Explorer to This PC instead of Quick Access</value>
+    <value>File Explorer default location setting (This PC or Quick Access).</value>
   </data>
   <data name="Features.Preferences.BingSearch.Name" xml:space="preserve">
     <value>Bing Search</value>
   </data>
   <data name="Features.Preferences.BingSearch.Description" xml:space="preserve">
-    <value>Show or hide Bing web results and suggestions in Windows Search</value>
+    <value>Bing web search integration in Windows Search and Start menu results.</value>
+  </data>
+  <data name="Features.Preferences.BingSearch.Recommendation.Reason" xml:space="preserve">
+    <value>Turning off Bing search prevents web queries from cluttering local search results and improves search speed.</value>
   </data>
   <data name="Button.Accept" xml:space="preserve">
     <value>Accept</value>

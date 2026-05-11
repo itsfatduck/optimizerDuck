@@ -58,7 +58,15 @@ public abstract class BaseFeature : IFeature
 
     public virtual Task<bool> GetStateAsync()
     {
-        return Task.FromResult(RegistryToggles.All(t => t.GetState()));
+        var toggles = RegistryToggles.ToList();
+        if (toggles.Count == 0)
+            return Task.FromResult(false);
+
+        var required = toggles.Where(t => !t.IsOptional).ToList();
+        if (required.Count == 0)
+            required = toggles;
+
+        return Task.FromResult(required.All(t => t.GetState()));
     }
 
     protected virtual bool NeedsPostAction => false;

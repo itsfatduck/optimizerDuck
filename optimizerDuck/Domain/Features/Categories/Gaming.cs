@@ -27,7 +27,7 @@ public class Gaming : IFeatureCategory
     public FeatureCategoryOrder Order { get; init; } = FeatureCategoryOrder.Gaming;
     public ObservableCollection<IFeature> Features { get; init; } = [];
 
-    [Feature(Section = nameof(Sections.GameSettings), Icon = SymbolRegular.XboxController24)]
+    [Feature(Section = nameof(Sections.GameSettings), Icon = SymbolRegular.XboxController24, Recommendation = RecommendationState.On)]
     public class GameMode : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
@@ -71,6 +71,7 @@ public class Gaming : IFeatureCategory
                     OnValue = 1,
                     OffValue = 0,
                     DefaultValue = 1,
+                    IsOptional = true,
                 },
                 new()
                 {
@@ -79,6 +80,7 @@ public class Gaming : IFeatureCategory
                     OnValue = 1,
                     OffValue = 0,
                     DefaultValue = 1,
+                    IsOptional = true,
                 },
                 new()
                 {
@@ -87,11 +89,12 @@ public class Gaming : IFeatureCategory
                     OnValue = 3,
                     OffValue = 0,
                     DefaultValue = 3,
+                    IsOptional = true,
                 },
             ];
     }
 
-    [Feature(Section = nameof(Sections.GameSettings), Icon = SymbolRegular.Record24)]
+    [Feature(Section = nameof(Sections.GameSettings), Icon = SymbolRegular.Record24, Recommendation = RecommendationState.Off)]
     public class BackgroundRecording : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
@@ -111,6 +114,7 @@ public class Gaming : IFeatureCategory
                     OnValue = 1,
                     OffValue = 0,
                     DefaultValue = 0,
+                    IsOptional = true,
                 },
                 new()
                 {
@@ -127,6 +131,7 @@ public class Gaming : IFeatureCategory
                     OnValue = 1,
                     OffValue = 0,
                     DefaultValue = 0,
+                    IsOptional = true,
                 },
                 new()
                 {
@@ -213,7 +218,7 @@ public class Gaming : IFeatureCategory
         }
     }
 
-    [Feature(Section = nameof(Sections.Display), Icon = SymbolRegular.FullScreenMaximize24)]
+    [Feature(Section = nameof(Sections.Display), Icon = SymbolRegular.FullScreenMaximize24, Recommendation = RecommendationState.Depends)]
     public class FullscreenOptimizations : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
@@ -253,7 +258,7 @@ public class Gaming : IFeatureCategory
             ];
     }
 
-    [Feature(Section = nameof(Sections.Display), Icon = SymbolRegular.VideoClip24)]
+    [Feature(Section = nameof(Sections.Display), Icon = SymbolRegular.VideoClip24, Recommendation = RecommendationState.On)]
     public class HardwareAcceleratedGpuScheduling : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>

@@ -97,7 +97,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Looking for removable apps….
+        ///   Looks up a localized string similar to Looking for removable apps....
         /// </summary>
         internal static string Bloatware_Loading {
             get {
@@ -1142,7 +1142,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Manage desktop icons and shortcut behaviors.
+        ///   Looks up a localized string similar to Desktop icons and shortcut settings.
         /// </summary>
         internal static string Features_Desktop_Description {
             get {
@@ -1178,7 +1178,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show or hide the shortcut arrow overlay on desktop icons.
+        ///   Looks up a localized string similar to Shows or hides the shortcut arrow overlay on desktop icons.
         /// </summary>
         internal static string Features_Desktop_ShortcutArrow_Description {
             get {
@@ -1196,7 +1196,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display the Control Panel icon on your desktop.
+        ///   Looks up a localized string similar to Displays the Control Panel icon on your desktop.
         /// </summary>
         internal static string Features_Desktop_ShowControlPanel_Description {
             get {
@@ -1205,7 +1205,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show Control Panel.
+        ///   Looks up a localized string similar to Control Panel.
         /// </summary>
         internal static string Features_Desktop_ShowControlPanel_Name {
             get {
@@ -1214,7 +1214,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show or hide all desktop icons at once.
+        ///   Looks up a localized string similar to Shows or hides all desktop icons at once.
         /// </summary>
         internal static string Features_Desktop_ShowDesktopIcons_Description {
             get {
@@ -1223,7 +1223,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show Desktop Icons.
+        ///   Looks up a localized string similar to Desktop Icons.
         /// </summary>
         internal static string Features_Desktop_ShowDesktopIcons_Name {
             get {
@@ -1232,7 +1232,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display the Network icon on your desktop.
+        ///   Looks up a localized string similar to Displays the Network icon on your desktop.
         /// </summary>
         internal static string Features_Desktop_ShowNetwork_Description {
             get {
@@ -1241,7 +1241,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show Network.
+        ///   Looks up a localized string similar to Network.
         /// </summary>
         internal static string Features_Desktop_ShowNetwork_Name {
             get {
@@ -1250,7 +1250,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display the Recycle Bin icon on your desktop.
+        ///   Looks up a localized string similar to Displays the Recycle Bin icon on your desktop.
         /// </summary>
         internal static string Features_Desktop_ShowRecycleBin_Description {
             get {
@@ -1259,7 +1259,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show Recycle Bin.
+        ///   Looks up a localized string similar to Recycle Bin.
         /// </summary>
         internal static string Features_Desktop_ShowRecycleBin_Name {
             get {
@@ -1268,7 +1268,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display the This PC icon on your desktop.
+        ///   Looks up a localized string similar to Displays the This PC icon on your desktop.
         /// </summary>
         internal static string Features_Desktop_ShowThisPc_Description {
             get {
@@ -1277,7 +1277,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show &quot;This PC&quot;.
+        ///   Looks up a localized string similar to This PC.
         /// </summary>
         internal static string Features_Desktop_ShowThisPc_Name {
             get {
@@ -1286,7 +1286,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display your user profile folder as a desktop icon.
+        ///   Looks up a localized string similar to Displays your user profile folder as a desktop icon.
         /// </summary>
         internal static string Features_Desktop_ShowUserFiles_Description {
             get {
@@ -1295,7 +1295,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show User Files.
+        ///   Looks up a localized string similar to User Files.
         /// </summary>
         internal static string Features_Desktop_ShowUserFiles_Name {
             get {
@@ -1322,6 +1322,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disabling background recording stops DVR from silently capturing gameplay, saving CPU and disk write cycles..
+        /// </summary>
+        internal static string Features_Gaming_BackgroundRecording_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Features.Gaming.BackgroundRecording.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Game-related display, input, and recording settings.
         /// </summary>
         internal static string Features_Gaming_Description {
@@ -1331,7 +1340,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Controls Windows DWM-based full-screen optimizations that may cause input lag or forced borderless windowed mode..
+        ///   Looks up a localized string similar to Windows DWM-based full-screen optimizations setting..
         /// </summary>
         internal static string Features_Gaming_FullscreenOptimizations_Description {
             get {
@@ -1345,6 +1354,15 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Features_Gaming_FullscreenOptimizations_Name {
             get {
                 return ResourceManager.GetString("Features.Gaming.FullscreenOptimizations.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable it if you experience in-game stuttering, input lag, or black screens (especially in competitive shooters).
+        /// </summary>
+        internal static string Features_Gaming_FullscreenOptimizations_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Features.Gaming.FullscreenOptimizations.Recommendation.Reason", resourceCulture);
             }
         }
         
@@ -1367,7 +1385,16 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prioritizes game processes and prevents interruptions from Windows Update while gaming..
+        ///   Looks up a localized string similar to Disabling Game Bar frees up system resources and prevents background overlays from interfering with your games..
+        /// </summary>
+        internal static string Features_Gaming_GameBar_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Features.Gaming.GameBar.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows Game Mode for gaming processes and Windows Update behavior..
         /// </summary>
         internal static string Features_Gaming_GameMode_Description {
             get {
@@ -1385,7 +1412,16 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lets the GPU manage its own video memory scheduling directly, reducing CPU overhead and display latency. Requires a compatible GPU driver..
+        ///   Looks up a localized string similar to Game Mode automatically prioritizes game processes and suspends Windows Update notifications while gaming for smoother performance..
+        /// </summary>
+        internal static string Features_Gaming_GameMode_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Features.Gaming.GameMode.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GPU video memory scheduling mode. Requires a compatible GPU driver..
         /// </summary>
         internal static string Features_Gaming_HardwareAcceleratedGpuScheduling_Description {
             get {
@@ -1403,7 +1439,16 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enables or disables Windows mouse acceleration for more consistent cursor movement..
+        ///   Looks up a localized string similar to GPU scheduling offloads frame management from the CPU to the GPU, cutting display latency and improving frame pacing..
+        /// </summary>
+        internal static string Features_Gaming_HardwareAcceleratedGpuScheduling_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Features.Gaming.HardwareAcceleratedGpuScheduling.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows mouse acceleration setting for cursor movement..
         /// </summary>
         internal static string Features_Gaming_MouseAcceleration_Description {
             get {
@@ -1417,6 +1462,15 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Features_Gaming_MouseAcceleration_Name {
             get {
                 return ResourceManager.GetString("Features.Gaming.MouseAcceleration.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disabling acceleration gives you raw, linear mouse input for better aim precision and muscle memory consistency..
+        /// </summary>
+        internal static string Features_Gaming_MouseAcceleration_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Features.Gaming.MouseAcceleration.Recommendation.Reason", resourceCulture);
             }
         }
         
@@ -1457,7 +1511,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show or hide Bing web results and suggestions in Windows Search.
+        ///   Looks up a localized string similar to Bing web search integration in Windows Search and Start menu results..
         /// </summary>
         internal static string Features_Preferences_BingSearch_Description {
             get {
@@ -1475,7 +1529,16 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Restores Windows 10-style full context menu on Windows 11..
+        ///   Looks up a localized string similar to Turning off Bing search prevents web queries from cluttering local search results and improves search speed..
+        /// </summary>
+        internal static string Features_Preferences_BingSearch_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Features.Preferences.BingSearch.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows 10-style context menu on Windows 11..
         /// </summary>
         internal static string Features_Preferences_ClassicContextMenu_Description {
             get {
@@ -1493,7 +1556,16 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Keep multiple copied items so you can paste them later with Win+V..
+        ///   Looks up a localized string similar to The classic menu shows all options at once without the extra click needed to expand Windows 11&apos;s condensed menu..
+        /// </summary>
+        internal static string Features_Preferences_ClassicContextMenu_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Features.Preferences.ClassicContextMenu.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clipboard history for multiple copied items accessible with Win+V..
         /// </summary>
         internal static string Features_Preferences_ClipboardHistory_Description {
             get {
@@ -1511,7 +1583,16 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enables dark mode for system apps, Settings, and shell elements..
+        ///   Looks up a localized string similar to Clipboard history lets you recall multiple past copies with Win+V, speeding up repetitive copy-paste workflows..
+        /// </summary>
+        internal static string Features_Preferences_ClipboardHistory_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Features.Preferences.ClipboardHistory.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dark mode for system apps, Settings, and shell elements..
         /// </summary>
         internal static string Features_Preferences_DarkMode_Description {
             get {
@@ -1592,7 +1673,16 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open File Explorer to This PC instead of Quick Access.
+        ///   Looks up a localized string similar to Disabling sync notifications stops OneDrive pop-ups from interrupting file browsing in Explorer..
+        /// </summary>
+        internal static string Features_Preferences_ExplorerSyncNotifications_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Features.Preferences.ExplorerSyncNotifications.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Explorer default location setting (This PC or Quick Access)..
         /// </summary>
         internal static string Features_Preferences_LaunchToThisPc_Description {
             get {
@@ -1682,6 +1772,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Showing file extensions makes it easy to spot suspicious file types and prevents malware from hiding behind fake icons..
+        /// </summary>
+        internal static string Features_Preferences_ShowFileExtensions_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Features.Preferences.ShowFileExtensions.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Shows hidden files and folders in File Explorer..
         /// </summary>
         internal static string Features_Preferences_ShowHiddenFiles_Description {
@@ -1700,7 +1799,16 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Displays seconds in the taskbar clock for precise time monitoring..
+        ///   Looks up a localized string similar to Hidden files contain system and config data you may need to manage; showing them gives you full visibility of your system..
+        /// </summary>
+        internal static string Features_Preferences_ShowHiddenFiles_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Features.Preferences.ShowHiddenFiles.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Displays seconds in the taskbar clock..
         /// </summary>
         internal static string Features_Preferences_ShowSecondsInSystemClock_Description {
             get {
@@ -1754,7 +1862,16 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Switches taskbar alignment between Center (default) and Left..
+        ///   Looks up a localized string similar to Turning off system suggestions stops Windows from recommending apps and settings you did not ask for..
+        /// </summary>
+        internal static string Features_Preferences_SystemSuggestions_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Features.Preferences.SystemSuggestions.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Switches taskbar alignment between Center and Left..
         /// </summary>
         internal static string Features_Preferences_TaskbarAlignment_Description {
             get {
@@ -1804,6 +1921,15 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Features_Preferences_TaskbarEndTask_Name {
             get {
                 return ResourceManager.GetString("Features.Preferences.TaskbarEndTask.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End Task on the taskbar lets you kill frozen apps instantly without opening Task Manager..
+        /// </summary>
+        internal static string Features_Preferences_TaskbarEndTask_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Features.Preferences.TaskbarEndTask.Recommendation.Reason", resourceCulture);
             }
         }
         
@@ -1898,6 +2024,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Turning off widgets removes the background web service that fetches news and weather, reducing idle network and memory usage..
+        /// </summary>
+        internal static string Features_Preferences_TaskbarWidgets_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Features.Preferences.TaskbarWidgets.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Controls toast popup notifications and lock screen notifications..
         /// </summary>
         internal static string Features_Preferences_ToastNotifications_Description {
@@ -1934,7 +2069,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Optimize core system features and behaviors.
+        ///   Looks up a localized string similar to Core system features and behaviors.
         /// </summary>
         internal static string Features_SystemFeatures_Description {
             get {
@@ -1952,7 +2087,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Turn NumLock on or off at the Windows login screen.
+        ///   Looks up a localized string similar to NumLock state at the Windows login screen..
         /// </summary>
         internal static string Features_SystemFeatures_NumLockOnBoot_Description {
             get {
@@ -1966,6 +2101,15 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Features_SystemFeatures_NumLockOnBoot_Name {
             get {
                 return ResourceManager.GetString("Features.SystemFeatures.NumLockOnBoot.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enabling NumLock at boot ensures the numpad is ready immediately after login, avoiding manual toggling each time..
+        /// </summary>
+        internal static string Features_SystemFeatures_NumLockOnBoot_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Features.SystemFeatures.NumLockOnBoot.Recommendation.Reason", resourceCulture);
             }
         }
         

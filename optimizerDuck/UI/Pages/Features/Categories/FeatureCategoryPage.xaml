@@ -20,6 +20,34 @@
     mc:Ignorable="d">
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <converters:RecommendationForegroundConverter x:Key="RecommendationForegroundConverter" />
+
+        <Style x:Key="RecommendationForegroundTextBlockStyle" TargetType="ui:TextBlock">
+
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <MultiBinding Converter="{StaticResource RecommendationForegroundConverter}">
+                        <Binding Path="Recommendation.State" />
+                        <Binding Path="ViewModel.CurrentApplicationTheme" RelativeSource="{RelativeSource AncestorType=Page}" />
+                    </MultiBinding>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="RecommendationForegroundSymbolStyle" TargetType="ui:SymbolIcon">
+
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <MultiBinding Converter="{StaticResource RecommendationForegroundConverter}">
+
+                        <Binding Path="Recommendation.State" />
+
+                        <Binding Path="ViewModel.CurrentApplicationTheme" RelativeSource="{RelativeSource AncestorType=Page}" />
+
+                    </MultiBinding>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
 
     <Grid>
@@ -147,70 +175,28 @@
                                                                 </Style>
                                                             </Border.Style>
                                                             <StackPanel Orientation="Horizontal">
-                                                                <StackPanel.Resources>
-                                                                    <SolidColorBrush x:Key="RecommendationBrush" Color="White" />
-                                                                </StackPanel.Resources>
 
                                                                 <ui:TextBlock
                                                                     Margin="0,0,5,0"
                                                                     HorizontalAlignment="Center"
                                                                     VerticalAlignment="Center"
                                                                     FontTypography="Caption"
+                                                                    Style="{StaticResource RecommendationForegroundTextBlockStyle}"
                                                                     Text="{Binding RecommendationStateDisplay}"
-                                                                    TextWrapping="Wrap">
-
-                                                                    <ui:TextBlock.Style>
-                                                                        <Style TargetType="ui:TextBlock">
-                                                                            <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
-
-                                                                            <Style.Triggers>
-                                                                                <DataTrigger Binding="{Binding Recommendation.State}" Value="{x:Static models:RecommendationState.Off}">
-
-                                                                                    <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
-                                                                                </DataTrigger>
-                                                                            </Style.Triggers>
-                                                                        </Style>
-                                                                    </ui:TextBlock.Style>
-                                                                </ui:TextBlock>
+                                                                    TextWrapping="Wrap" />
 
                                                                 <ui:SymbolIcon
                                                                     Margin="0,0,4,0"
                                                                     HorizontalAlignment="Center"
                                                                     VerticalAlignment="Center"
-                                                                    Symbol="{Binding RecommendationIcon}">
-
-                                                                    <ui:SymbolIcon.Style>
-                                                                        <Style TargetType="ui:SymbolIcon">
-                                                                            <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
-
-                                                                            <Style.Triggers>
-                                                                                <DataTrigger Binding="{Binding Recommendation.State}" Value="{x:Static models:RecommendationState.Off}">
-
-                                                                                    <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
-                                                                                </DataTrigger>
-                                                                            </Style.Triggers>
-                                                                        </Style>
-                                                                    </ui:SymbolIcon.Style>
-                                                                </ui:SymbolIcon>
+                                                                    Style="{StaticResource RecommendationForegroundSymbolStyle}"
+                                                                    Symbol="{Binding RecommendationIcon}" />
 
                                                                 <ui:SymbolIcon
                                                                     HorizontalAlignment="Center"
                                                                     VerticalAlignment="Center"
-                                                                    Symbol="QuestionCircle24">
-
-                                                                    <ui:SymbolIcon.Style>
-                                                                        <Style TargetType="ui:SymbolIcon">
-                                                                            <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
-
-                                                                            <Style.Triggers>
-                                                                                <DataTrigger Binding="{Binding Recommendation.State}" Value="{x:Static models:RecommendationState.Off}">
-
-                                                                                    <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
-                                                                                </DataTrigger>
-                                                                            </Style.Triggers>
-                                                                        </Style>
-                                                                    </ui:SymbolIcon.Style>
-                                                                </ui:SymbolIcon>
+                                                                    Style="{StaticResource RecommendationForegroundSymbolStyle}"
+                                                                    Symbol="QuestionCircle24" />
                                                             </StackPanel>
                                                         </Border>
                                                     </StackPanel>

@@ -2,6 +2,8 @@ using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Windows;
+using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
@@ -10,6 +12,7 @@ using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Features.Models;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.UI.ViewModels.Features;
+using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 
 namespace optimizerDuck.UI.ViewModels.Pages;
@@ -26,6 +29,9 @@ public partial class FeatureCategoryViewModel : ViewModel
     private readonly List<FeatureViewModel> _allFeatures = [];
 
     private readonly IFeatureCategory? _currentCategory;
+
+    [ObservableProperty]
+    private ApplicationTheme _currentApplicationTheme = ApplicationTheme.Unknown;
 
     [ObservableProperty]
     private string _categoryDescription = string.Empty;
@@ -56,6 +62,10 @@ public partial class FeatureCategoryViewModel : ViewModel
         CategoryDescription = _currentCategory.Description;
         CategoryIcon = _currentCategory.Icon;
 
+        CurrentApplicationTheme = ApplicationThemeManager.GetAppTheme();
+
+        ApplicationThemeManager.Changed += OnThemeChanged;
+
         _allFeatures.Clear();
         foreach (var feature in _currentCategory.Features)
             _allFeatures.Add(new FeatureViewModel(feature, loggerFactory));
@@ -67,9 +77,24 @@ public partial class FeatureCategoryViewModel : ViewModel
         IsLoading = false;
     }
 
-    public override async Task OnNavigatedToAsync()
+    private void OnThemeChanged(ApplicationTheme currentApplicationTheme, Color systemAccent)
     {
-        await base.OnNavigatedToAsync();
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            if (CurrentApplicationTheme != currentApplicationTheme)
+                CurrentApplicationTheme = currentApplicationTheme;
+        });
+    }
+
+    public override Task OnNavigatedToAsync()
+    {
+        return base.OnNavigatedToAsync();
+    }
+
+    public override Task OnNavigatedFromAsync()
+    {
+        ApplicationThemeManager.Changed -= OnThemeChanged;
+        return base.OnNavigatedFromAsync();
     }
 
     partial void OnSearchTextChanged(string value)

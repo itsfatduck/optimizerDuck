@@ -55,8 +55,8 @@ public partial class FeatureViewModel(IFeature feature, ILoggerFactory loggerFac
             RecommendationState.On => SymbolRegular.Checkmark24,
             RecommendationState.Off => SymbolRegular.Dismiss24,
             RecommendationState.Experimental => SymbolRegular.Beaker24,
-            RecommendationState.Depends => SymbolRegular.QuestionCircle24,
-            _ => SymbolRegular.QuestionCircle24,
+            RecommendationState.Depends => SymbolRegular.PersonQuestionMark24,
+            _ => SymbolRegular.PersonQuestionMark24,
         };
 
     public string? RecommendationReason =>

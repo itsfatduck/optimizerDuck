@@ -110,6 +110,7 @@ public partial class DashboardViewModel : ViewModel
 
     public override Task OnNavigatedFromAsync()
     {
+        ApplicationThemeManager.Changed -= OnThemeChanged;
         _updateTimer.Stop();
         return base.OnNavigatedFromAsync();
     }

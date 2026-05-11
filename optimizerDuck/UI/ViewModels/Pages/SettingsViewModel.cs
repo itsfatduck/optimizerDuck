@@ -58,6 +58,12 @@ public partial class SettingsViewModel(
             await InitializeViewModel();
     }
 
+    public override Task OnNavigatedFromAsync()
+    {
+        ApplicationThemeManager.Changed -= OnThemeChanged;
+        return base.OnNavigatedFromAsync();
+    }
+
     private Task InitializeViewModel()
     {
         SelectedCultureName = appOptionsMonitor.CurrentValue.App.Language;

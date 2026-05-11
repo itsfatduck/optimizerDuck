@@ -1,15 +1,13 @@
-﻿using System.Globalization;
-using System.Windows.Data;
-using System.Windows.Media.Imaging;
+﻿using System.Windows.Media.Imaging;
 using Wpf.Ui.Appearance;
 
 namespace optimizerDuck.Common.Converters;
 
-public sealed class ThemeToGitHubIconConverter : IValueConverter
+public sealed class ThemeToGitHubIconConverter : ThemeConverterBase<BitmapImage>
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    protected override BitmapImage ConvertTheme(ApplicationTheme theme, object parameter)
     {
-        if (value is ApplicationTheme theme && theme == ApplicationTheme.Dark)
+        if (theme == ApplicationTheme.Dark)
             return new BitmapImage(
                 new Uri("pack://application:,,,/Resources/Images/GitHubLogoWhite.png")
             );
@@ -17,10 +15,5 @@ public sealed class ThemeToGitHubIconConverter : IValueConverter
         return new BitmapImage(
             new Uri("pack://application:,,,/Resources/Images/GitHubLogoBlack.png")
         );
-    }
-
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotSupportedException();
     }
 }

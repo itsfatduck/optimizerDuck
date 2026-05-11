@@ -12,6 +12,7 @@ public class RegistryToggle
     public object? OffValue { get; init; } = 0;
     public object? DefaultValue { get; init; } = 0;
     public bool TreatMissingAsDefault { get; init; } = false;
+    public bool IsOptional { get; init; } = false;
     public RegistryValueKind ValueKind { get; init; } = RegistryValueKind.DWord;
 
     public bool GetState()
