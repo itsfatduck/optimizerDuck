@@ -149,22 +149,41 @@ public class Desktop : IFeatureCategory
 
         public override Task<bool> GetStateAsync()
         {
-            var value = RegistryService.Read<string>(new RegistryItem(Path, "29"));
-            return Task.FromResult(string.Equals(value, "", StringComparison.OrdinalIgnoreCase));
+            var value = RegistryService.Read<string>(
+                new RegistryItem(Path, "29")
+            );
+
+            return Task.FromResult(
+                !string.Equals(
+                    value,
+                    @"%windir%\System32\shell32.dll,-50",
+                    StringComparison.OrdinalIgnoreCase
+                )
+            );
         }
 
         public override async Task EnableAsync()
         {
-            RegistryService.Write(
-                new RegistryItem(Path, "29", @"%windir%\System32\shell32.dll,-50")
+            // show arrow
+            RegistryService.DeleteValue(
+                new RegistryItem(Path, "29")
             );
+
             if (NeedsPostAction)
                 await ExecutePostActionAsync();
         }
 
         public override async Task DisableAsync()
         {
-            RegistryService.DeleteValue(new RegistryItem(Path, "29"));
+            // hide arrow
+            RegistryService.Write(
+                new RegistryItem(
+                    Path,
+                    "29",
+                    @"%windir%\System32\shell32.dll,-50"
+                )
+            );
+
             if (NeedsPostAction)
                 await ExecutePostActionAsync();
         }
