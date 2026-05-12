@@ -18,7 +18,7 @@
 
 **[開始使用](https://optimizerduck.vercel.app/docs/guides/getting-started) | [它是如何運作的？](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [常見問題](https://optimizerduck.vercel.app/docs/faq/general)**
 
-[English](README.md) | [Tiếng Việt](README.vi.md) | **繁體中文**
+[English](README.md) | [Tiếng Việt](README.vi.md) | **繁體中文**  | [简体中文](README.zh-CN.md)
 
 <details>
 <summary>⭐ 星星歷史</summary>
@@ -52,7 +52,7 @@
 > 在進行系統更改之前，請務必建立**還原點**。
 
 > [!NOTE]
-> 支援英文、越南文和繁體中文（感謝我們的貢獻者！ [@abc0922001](https://github.com/abc0922001)）。想加入您的語言嗎？[在此貢獻](./.github/CONTRIBUTING.md)。
+> 支援英文、越南文和繁體中文（感謝我們的貢獻者！ [@abc0922001](https://github.com/abc0922001)）、简体中文（感谢贡献者 [@wcxu21](https://github.com/wcxu21)）。想加入您的語言嗎？[在此貢獻](./.github/CONTRIBUTING.md)。
 
 ---
 
