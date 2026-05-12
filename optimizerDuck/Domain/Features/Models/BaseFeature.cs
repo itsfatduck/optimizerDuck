@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Services.Managers;
@@ -73,7 +73,7 @@ public abstract class BaseFeature : IFeature
 
     public virtual async Task EnableAsync()
     {
-        await SetTogglesState(true);
+        await SetTogglesStateAsync(true);
 
         if (NeedsPostAction)
             await ExecutePostActionAsync();
@@ -81,24 +81,24 @@ public abstract class BaseFeature : IFeature
 
     public virtual async Task DisableAsync()
     {
-        await SetTogglesState(false);
+        await SetTogglesStateAsync(false);
 
         if (NeedsPostAction)
             await ExecutePostActionAsync();
     }
 
-    protected virtual Task ExecutePostActionAsync()
+    protected virtual async Task ExecutePostActionAsync()
     {
         // Default post-action: Restart Explorer
-        ShellService.CMD("taskkill /f /im explorer.exe & start explorer.exe");
-        return Task.CompletedTask;
+        await ShellService.CMDAsync("taskkill /f /im explorer.exe & start explorer.exe");
     }
 
-    private Task SetTogglesState(bool isOn)
+    private Task SetTogglesStateAsync(bool isOn)
     {
-        foreach (var toggle in RegistryToggles)
-            toggle.SetState(isOn);
-
-        return Task.CompletedTask;
+        return Task.Run(() =>
+        {
+            foreach (var toggle in RegistryToggles)
+                toggle.SetState(isOn);
+        });
     }
 }

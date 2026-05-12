@@ -1,4 +1,4 @@
-﻿using Microsoft.Win32;
+using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Optimizations.Models.Services;
@@ -80,7 +80,7 @@ public class RegistryRevertStep : IRevertStep
         };
 
     /// <inheritdoc />
-    public Task<bool> ExecuteAsync()
+    public async Task<bool> ExecuteAsync()
     {
         var result = Action switch
         {
@@ -96,7 +96,7 @@ public class RegistryRevertStep : IRevertStep
 
             RevertAction.DeleteKey => RegistryService.DeleteSubKeyTree(new RegistryItem(Path)),
 
-            RevertAction.RestoreKeyTree => ExecuteSubSteps(),
+            RevertAction.RestoreKeyTree => await ExecuteSubStepsAsync(),
 
             _ => false,
         };
@@ -108,7 +108,7 @@ public class RegistryRevertStep : IRevertStep
         if (result && CreatedSubKeys?.Count > 0)
             RegistryService.CleanupEmptyKeys(CreatedSubKeys);
 
-        return Task.FromResult(result);
+        return result;
     }
 
     /// <inheritdoc />
@@ -238,14 +238,13 @@ public class RegistryRevertStep : IRevertStep
         };
     }
 
-    private bool ExecuteSubSteps()
+    private async Task<bool> ExecuteSubStepsAsync()
     {
         if (SubSteps == null)
             return true;
         foreach (var step in SubSteps)
         {
-            // Run synchronously to ensure correct nested tree creation order
-            if (!step.ExecuteAsync().GetAwaiter().GetResult())
+            if (!await step.ExecuteAsync())
                 return false;
         }
         return true;

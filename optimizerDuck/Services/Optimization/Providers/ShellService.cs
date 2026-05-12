@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Text;
 using Microsoft.Extensions.Options;
 using optimizerDuck.Common.Extensions;
@@ -348,13 +348,20 @@ public static class ShellService
             }
             catch (OperationCanceledException)
             {
+                // Process timed out, attempt cleanup
+                ExecutionScope.LogWarning("Process timed out, attempting to kill: PID {ProcessId}", process.Id);
+
                 try
                 {
-                    process.Kill(true);
+                    if (!process.HasExited)
+                    {
+                        process.Kill(entireProcessTree: true);
+                        ExecutionScope.LogInfo("Killed process: PID {ProcessId}", process.Id);
+                    }
                 }
                 catch (Exception ex)
                 {
-                    ExecutionScope.LogError(ex, "Failed to kill process for timeout (async)");
+                    ExecutionScope.LogError(ex, "Failed to kill process for timeout (async), PID: {ProcessId}", process.Id);
                 }
             }
 
@@ -363,15 +370,18 @@ public static class ShellService
             var timedOut = !process.HasExited;
             if (!process.HasExited)
             {
+                // Process still running after kill attempt, wait for grace period
                 try
                 {
+                    ExecutionScope.LogWarning("Process still running after kill, waiting for grace period: PID {ProcessId}", process.Id);
                     process.WaitForExit(ProcessGraceDrainMs);
                 }
                 catch (Exception ex)
                 {
                     ExecutionScope.LogError(
                         ex,
-                        "Failed to wait for process exit after kill (async)"
+                        "Failed to wait for process exit after kill (async), PID: {ProcessId}",
+                        process.Id
                     );
                 }
 
@@ -380,17 +390,21 @@ public static class ShellService
                 {
                     try
                     {
-                        process.Kill(true);
-                        if (!process.HasExited)
+                        ExecutionScope.LogWarning("Process still running after grace period, force killing: PID {ProcessId}", process.Id);
+                        process.Kill(entireProcessTree: true);
+
+                        // Wait up to 5 seconds for force kill
+                        if (!process.WaitForExit(5000))
                         {
-                            process.WaitForExit(5000); // Wait up to 5 seconds for force kill
+                            ExecutionScope.LogWarning("Process did not exit after force kill: PID {ProcessId}. User may need manual cleanup.", process.Id);
                         }
                     }
                     catch (Exception ex)
                     {
                         ExecutionScope.LogError(
                             ex,
-                            "Failed to force kill process after timeout (async)"
+                            "Failed to force kill process after timeout (async), PID: {ProcessId}. User may need manual cleanup.",
+                            process.Id
                         );
                     }
                 }

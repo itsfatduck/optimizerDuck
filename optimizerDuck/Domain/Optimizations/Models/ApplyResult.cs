@@ -1,4 +1,4 @@
-﻿namespace optimizerDuck.Domain.Optimizations.Models;
+namespace optimizerDuck.Domain.Optimizations.Models;
 
 /// <summary>
 ///     Represents the result of applying a single optimization step.
@@ -8,7 +8,7 @@ public readonly record struct ApplyResult
     /// <summary>
     ///     The error message if the step failed; <c>null</c> if successful.
     /// </summary>
-    public string? Message { get; init; }
+    public string? ErrorMessage { get; init; }
 
     /// <summary>
     ///     Creates a successful result.
@@ -16,7 +16,7 @@ public readonly record struct ApplyResult
     /// <returns>An <see cref="ApplyResult" /> with no error message.</returns>
     public static ApplyResult True()
     {
-        return new ApplyResult { Message = null };
+        return new ApplyResult { ErrorMessage = null };
     }
 
     /// <summary>
@@ -26,6 +26,6 @@ public readonly record struct ApplyResult
     /// <returns>An <see cref="ApplyResult" /> containing the error message.</returns>
     public static ApplyResult False(string message)
     {
-        return new ApplyResult { Message = message };
+        return new ApplyResult { ErrorMessage = message };
     }
 }

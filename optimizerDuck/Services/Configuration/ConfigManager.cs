@@ -396,14 +396,30 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
     {
         var configPath = Path.Combine(Shared.RootDirectory, "appsettings.json");
 
-        // Rewrite config file if it's empty
-        if (!File.Exists(configPath) || string.IsNullOrWhiteSpace(File.ReadAllText(configPath)))
-            File.WriteAllText(configPath, "{}");
-
-        // Rewrite config file if it's invalid JSON
         try
         {
-            JsonConvert.DeserializeObject<JObject>(File.ReadAllText(configPath));
+            if (!File.Exists(configPath))
+            {
+                File.WriteAllText(configPath, "{}");
+                return;
+            }
+
+            var content = File.ReadAllText(configPath);
+            if (string.IsNullOrWhiteSpace(content))
+            {
+                File.WriteAllText(configPath, "{}");
+                return;
+            }
+
+            // Quick check for basic JSON structure before full parse
+            var trimmed = content.Trim();
+            if (!trimmed.StartsWith('{') || !trimmed.EndsWith('}'))
+            {
+                File.WriteAllText(configPath, "{}");
+                return;
+            }
+
+            JsonConvert.DeserializeObject<JObject>(content);
         }
         catch
         {

@@ -673,13 +673,17 @@ public static class RegistryService
         if (targetType == typeof(string[]) && value is string[] arr)
             return (T)(object)arr;
 
-        // Bool: Registry sometimes saves DWORD 0/1 or string "true/false"
+        // Bool: Registry sometimes saves DWORD 0/1 or string "true/false", "1"/"0", "yes"/"no"
         if (targetType == typeof(bool))
             return value switch
             {
                 int i => (T)(object)(i != 0),
                 long l => (T)(object)(l != 0),
                 string s when bool.TryParse(s, out var b) => (T)(object)b,
+                string s when s.Equals("1") || s.Equals("yes", StringComparison.OrdinalIgnoreCase) =>
+                    (T)(object)true,
+                string s when s.Equals("0") || s.Equals("no", StringComparison.OrdinalIgnoreCase) =>
+                    (T)(object)false,
                 _ => default,
             };
 

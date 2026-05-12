@@ -21,6 +21,7 @@ using optimizerDuck.UI.Dialogs;
 using optimizerDuck.UI.ViewModels.Dialogs;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
+using Wpf.Ui.Extensions;
 using TextBlock = Wpf.Ui.Controls.TextBlock;
 
 namespace optimizerDuck.UI.ViewModels.Optimizer;
@@ -134,7 +135,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
         try
         {
             // Keep a stable reference to the previous state in case we need to roll back UI changes.
-            var wasApplied = await OptimizationService.IsAppliedAsync(optimization.Id);
+            var wasApplied = await RevertManager.IsAppliedAsync(optimization.Id);
 
             var restorePointCreated = false;
             if (!_optimizationService.WasRequestedRestorePoint)
@@ -165,7 +166,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
                         progress => _optimizationService.ApplyAsync(optimization, progress)
                     );
 
-                    // If result status is Failed, we can't retry it
+                    // If result status is completely Failed, we can't retry it
                     if (applyResult.Status == OptimizationSuccessResult.Failed)
                     {
                         ShowOperationOutcomeSnackbar(
@@ -176,7 +177,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
                         );
 
                         _logger.LogWarning(
-                            "Apply failed for {Name}: {Message}",
+                            "Apply failed {Name} optimization: {Message}",
                             optimization.OptimizationKey,
                             applyResult.Message
                         );
@@ -247,12 +248,13 @@ public partial class OptimizationCategoryViewModel : ViewModel
                         progress => _optimizationService.RevertAsync(optimization, progress)
                     );
 
+                    ((App)Application.Current).HasPendingChanges = true;
+
                     var retryOutcome = await HandleRetryableFailuresAsync(
                         optimization,
                         revertResult.FailedSteps,
                         OptimizationOperation.Revert
                     );
-
                     await OptimizationService.UpdateOptimizationStateAsync(optimization);
 
                     var notificationState = ResolveRevertNotificationState(
@@ -416,9 +418,6 @@ public partial class OptimizationCategoryViewModel : ViewModel
         IsLoading = true;
         try
         {
-            // Allow UI to render loading ring
-            await Task.Delay(1);
-
             foreach (var optimization in _category.Optimizations)
             {
                 optimization.State.PropertyChanged += (_, e) =>
@@ -731,54 +730,90 @@ public partial class OptimizationCategoryViewModel : ViewModel
         if (result == ContentDialogResult.Secondary) // User skipped
             return (true, false);
 
-        var resultState = await _optimizationService.CreateRestorePointAsync();
-        var restorePointCreated = false;
-
-        switch (resultState)
+        try
         {
-            case RestorePointResult.Success:
-                // if setting show snackbar after applied successfully was off, so show it and applied snackbar wont conflict this
-                if (!_appOptionsMonitor.CurrentValue.Optimize.ShowCompletionNotification)
-                {
+            var resultState = await _optimizationService.CreateRestorePointAsync();
+
+            switch (resultState)
+            {
+                case RestorePointResult.Success:
+                    // if setting show snackbar after applied successfully was off, so show it and applied snackbar wont conflict this
+                    if (!_appOptionsMonitor.CurrentValue.Optimize.ShowCompletionNotification)
+                    {
+                        _snackbarService.Show(
+                            Translations.RestorePoint_Snackbar_Success_Title,
+                            string.Format(
+                                Translations.RestorePoint_Snackbar_Success_Message,
+                                Shared.RestorePointName
+                            ),
+                            ControlAppearance.Success,
+                            new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
+                            TimeSpan.FromSeconds(5)
+                        );
+                        break;
+                    }
+
+                    return (true, true);
+
+                case RestorePointResult.FrequencyLimitReached:
                     _snackbarService.Show(
-                        Translations.RestorePoint_Snackbar_Success_Title,
-                        string.Format(
-                            Translations.RestorePoint_Snackbar_Success_Message,
-                            Shared.RestorePointName
-                        ),
-                        ControlAppearance.Success,
-                        new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
+                        Translations.RestorePoint_Snackbar_Error_Title,
+                        Translations.RestorePoint_Snackbar_Warning_LimitReached,
+                        ControlAppearance.Caution,
+                        new SymbolIcon { Symbol = SymbolRegular.Warning24, Filled = true },
                         TimeSpan.FromSeconds(5)
                     );
                     break;
-                }
 
-                restorePointCreated = true;
-                break;
+                case RestorePointResult.Failed:
+                default:
+                    _snackbarService.Show(
+                        Translations.RestorePoint_Snackbar_Error_Title,
+                        Translations.RestorePoint_Snackbar_Error_Message,
+                        ControlAppearance.Danger,
+                        new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
+                        TimeSpan.FromSeconds(5)
+                    );
+                    break;
+            }
 
-            case RestorePointResult.FrequencyLimitReached:
-                _snackbarService.Show(
-                    Translations.RestorePoint_Title,
-                    Translations.RestorePoint_Snackbar_Warning_LimitReached,
+            var failedMessage =
+                resultState == RestorePointResult.FrequencyLimitReached
+                    ? Translations.RestorePoint_Snackbar_Warning_LimitReached
+                    : "";
+            var failedResult = await _contentDialogService.ShowSimpleDialogAsync(
+                new SimpleContentDialogCreateOptions
+                {
+                    Title = Translations.RestorePoint_Snackbar_Error_Title,
+                    Content =
+                        failedMessage + $"\n{Translations.RestorePoint_Snackbar_Error_Message}",
+
+                    PrimaryButtonText = Translations.Button_Skip,
+                    CloseButtonText = Translations.Button_Cancel,
+                },
+                CancellationToken.None
+            );
+
+            if (failedResult == ContentDialogResult.Primary) // User chose to skip after failure
+                return (true, false);
+
+            return (false, false);
+
+        }
+
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Failed to create restore point");
+            _snackbarService.Show(
+                    Translations.RestorePoint_Snackbar_Error_Title,
+                    Translations.RestorePoint_Snackbar_Error_Message,
                     ControlAppearance.Caution,
                     new SymbolIcon { Symbol = SymbolRegular.Warning24, Filled = true },
                     TimeSpan.FromSeconds(5)
                 );
-                break;
-
-            case RestorePointResult.Failed:
-            default:
-                _snackbarService.Show(
-                    Translations.RestorePoint_Snackbar_Error_Title,
-                    Translations.RestorePoint_Snackbar_Error_Message,
-                    ControlAppearance.Danger,
-                    new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                    TimeSpan.FromSeconds(5)
-                );
-                break;
         }
 
-        return (true, restorePointCreated);
+        return (true, false);
     }
 
     /// <summary>

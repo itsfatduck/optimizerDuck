@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -293,8 +293,7 @@ public partial class StartupManagerViewModel : ViewModel
             try
             {
                 await _startupManagerService
-                    .ToggleStartupApp(app, app.IsEnabled)
-                    .ConfigureAwait(false);
+                    .ToggleStartupApp(app, app.IsEnabled);
             }
             catch (Exception ex)
             {
@@ -310,8 +309,7 @@ public partial class StartupManagerViewModel : ViewModel
             try
             {
                 await _startupManagerService
-                    .ToggleStartupTask(task, task.IsEnabled)
-                    .ConfigureAwait(false);
+                    .ToggleStartupTask(task, task.IsEnabled);
             }
             catch (Exception ex)
             {

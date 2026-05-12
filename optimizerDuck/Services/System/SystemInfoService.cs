@@ -680,12 +680,21 @@ internal static class NativeMemory
 
 internal static class CpuProvider
 {
+    private static CpuInfo? _cachedStatic;
+
     /// <summary>
     ///     Gets CPU info using Registry (fast) + targeted WMI (only for cache sizes).
     ///     Registry path: HKLM\HARDWARE\DESCRIPTION\System\CentralProcessor\0
     /// </summary>
     public static CpuInfo Get()
     {
+        if (_cachedStatic != null)
+        {
+            // Only current clock speed changes, but we'll stick to max/registry value for stability
+            // unless we really need real-time tracking (which WMI isn't great for anyway)
+            return _cachedStatic;
+        }
+
         try
         {
             // ── Fast path: Registry ──────────────────────────────────────
@@ -734,7 +743,7 @@ internal static class CpuProvider
             var vendor = DetectCpuVendor(manufacturer);
             var architecture = Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit";
 
-            return new CpuInfo
+            _cachedStatic = new CpuInfo
             {
                 Name = name,
                 Manufacturer = manufacturer,
@@ -747,6 +756,8 @@ internal static class CpuProvider
                 L2CacheKB = l2kb,
                 L3CacheKB = l3kb,
             };
+
+            return _cachedStatic;
         }
         catch
         {
@@ -767,6 +778,8 @@ internal static class CpuProvider
 
 internal static class RamProvider
 {
+    private static List<RamModule>? _cachedModules;
+
     /// <summary>
     ///     Gets RAM info using GlobalMemoryStatusEx (same API as Task Manager)
     ///     for usage stats, and WMI only for physical module details.
@@ -799,6 +812,9 @@ internal static class RamProvider
 
     private static List<RamModule> GetPhysicalModules()
     {
+        if (_cachedModules != null)
+            return _cachedModules;
+
         var modules = new List<RamModule>();
         var physicalMemory = WmiHelper.Query(
             "SELECT Capacity, Speed, Manufacturer, PartNumber, DeviceLocator FROM Win32_PhysicalMemory"
@@ -825,6 +841,7 @@ internal static class RamProvider
             );
         }
 
+        _cachedModules = modules;
         return modules;
     }
 

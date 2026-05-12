@@ -16,49 +16,38 @@ namespace optimizerDuck.Services.Managers;
 
 public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerFactory)
 {
-    private static readonly Dictionary<string, Func<JObject, IRevertStep>> _stepRegistry =
-        BuildStepRegistry();
+    private static readonly Lazy<Dictionary<string, Func<JObject, IRevertStep>>> _stepRegistry =
+        new(BuildStepRegistry);
+
     private static readonly ConcurrentDictionary<Guid, SemaphoreSlim> _fileLocks = new();
 
     public async Task SaveRevertDataAsync(ExecutionScope scope)
     {
-        var maxIndex = scope.ExecutedSteps.Count == 0 ? 0 : scope.ExecutedSteps.Max(s => s.Index);
-        if (maxIndex == 0)
+        if (!scope.HasSuccessfulSteps)
             return;
 
-        var steps = Enumerable
-            .Range(0, maxIndex)
-            .Select(_ => new RevertStepData { Type = "Unknown", Data = new JObject() })
-            .ToList();
-        var hasRevertStep = false;
-
-        foreach (var step in scope.ExecutedSteps)
-        {
-            if (step.RevertStep == null)
-                continue;
-
-            steps[step.Index - 1] = new RevertStepData
+        var steps = scope.ExecutedSteps
+            .Where(s => s.RevertStep != null)
+            .Select(s => new RevertStepData
             {
-                Type = step.RevertStep.Type,
-                Data = step.RevertStep.ToData(),
-            };
-            hasRevertStep = true;
-        }
+                Type = s.RevertStep!.Type,
+                Data = s.RevertStep.ToData(),
+            })
+            .ToList();
 
-        if (!hasRevertStep)
+        if (steps.Count == 0)
             return;
 
         await WriteJsonAsync(
-                GetFilePath(scope.OptimizationId!.Value),
-                new RevertData
-                {
-                    OptimizationId = scope.OptimizationId!.Value,
-                    OptimizationName = scope.OptimizationKey!,
-                    AppliedAt = DateTime.Now,
-                    Steps = steps,
-                }
-            )
-            .ConfigureAwait(false);
+            GetFilePath(scope.OptimizationId!.Value),
+            new RevertData
+            {
+                OptimizationId = scope.OptimizationId!.Value,
+                OptimizationName = scope.OptimizationKey!,
+                AppliedAt = DateTime.Now,
+                Steps = steps,
+            }
+        );
     }
 
     public async Task<RevertResult> RevertAsync(
@@ -73,7 +62,7 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
             operationLogger
         );
 
-        var steps = await LoadStepsAsync(optimization.Id).ConfigureAwait(false);
+        var steps = await LoadStepsAsync(optimization.Id);
         if (steps.Count == 0)
             return new RevertResult
             {
@@ -103,7 +92,7 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
 
             try
             {
-                if (!await step.ExecuteAsync().ConfigureAwait(false))
+                if (!await step.ExecuteAsync())
                     throw new Exception(Translations.Revert_Error_StepFailed);
             }
             catch (Exception ex)
@@ -160,7 +149,7 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
         try
         {
             var data =
-                await LoadAsync(filePath).ConfigureAwait(false)
+                await LoadAsync(filePath)
                 ?? new RevertData
                 {
                     OptimizationId = id,
@@ -176,7 +165,7 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
                 Type = step.Type,
                 Data = step.ToData(),
             };
-            await WriteJsonAsync(filePath, data).ConfigureAwait(false);
+            await WriteJsonAsync(filePath, data);
         }
         finally
         {
@@ -191,7 +180,7 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
 
     public static async Task<RevertData?> GetRevertDataAsync(Guid id)
     {
-        return await LoadAsync(GetFilePath(id)).ConfigureAwait(false);
+        return await LoadAsync(GetFilePath(id));
     }
 
     public static void ClearAllRevertData(ILogger logger)
@@ -223,7 +212,7 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
         try
         {
             return JsonConvert.DeserializeObject<RevertData>(
-                await File.ReadAllTextAsync(path).ConfigureAwait(false)
+                await File.ReadAllTextAsync(path)
             );
         }
         catch
@@ -240,13 +229,12 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
     private static async Task WriteJsonAsync(string path, RevertData data)
     {
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);
-        await File.WriteAllTextAsync(path, JsonConvert.SerializeObject(data, Formatting.Indented))
-            .ConfigureAwait(false);
+        await File.WriteAllTextAsync(path, JsonConvert.SerializeObject(data, Formatting.Indented));
     }
 
     private async Task<List<(int Index, IRevertStep Step)>> LoadStepsAsync(Guid id)
     {
-        var data = await LoadAsync(GetFilePath(id)).ConfigureAwait(false);
+        var data = await LoadAsync(GetFilePath(id));
         if (data == null || data.Steps.Count == 0)
             return [];
 
@@ -298,7 +286,7 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
     {
         if (data is not JObject obj)
             return null;
-        return _stepRegistry.TryGetValue(type, out var factory) ? factory(obj) : null;
+        return _stepRegistry.Value.TryGetValue(type, out var factory) ? factory(obj) : null;
     }
 
     #endregion

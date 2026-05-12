@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 
 namespace optimizerDuck.Common.Helpers;
 
@@ -21,17 +21,36 @@ public static class ReflectionHelper
         }
     }
 
+    private static readonly Dictionary<Type, List<Type>> _implementationCache = new();
+    private static readonly object _cacheLock = new();
+
     public static IEnumerable<Type> FindImplementationsInLoadedAssemblies(Type interfaceType)
     {
-        return AppDomain
-            .CurrentDomain.GetAssemblies()
-            .SelectMany(SafeGetTypes)
-            .Where(t =>
-                t != interfaceType
-                && t is { IsClass: true, IsAbstract: false }
-                && interfaceType.IsAssignableFrom(t)
-            )
-            .ToList();
+        lock (_cacheLock)
+        {
+            if (_implementationCache.TryGetValue(interfaceType, out var cached))
+                return cached;
+
+            var types = AppDomain
+                .CurrentDomain.GetAssemblies()
+                .Where(a =>
+                    a.FullName != null
+                    && a.FullName.StartsWith(
+                        nameof(optimizerDuck),
+                        StringComparison.OrdinalIgnoreCase
+                    )
+                )
+                .SelectMany(SafeGetTypes)
+                .Where(t =>
+                    t != interfaceType
+                    && t is { IsClass: true, IsAbstract: false }
+                    && interfaceType.IsAssignableFrom(t)
+                )
+                .ToList();
+
+            _implementationCache[interfaceType] = types;
+            return types;
+        }
     }
 
     public static IEnumerable<Type> FindImplementationsInLoadedAssemblies<TInterface>()

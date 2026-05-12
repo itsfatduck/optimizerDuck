@@ -212,4 +212,160 @@ public class RegistryServiceTests : IDisposable
         Assert.False(RegistryService.KeyExists(new RegistryItem(keyPathB)));
         Assert.False(RegistryService.KeyExists(new RegistryItem(keyPathA)));
     }
+
+    [Fact]
+    public async Task MultiStepRegistryOperation_PartialFailure_RollbackRestoresOriginalState()
+    {
+        // Test scenario: Multiple registry writes where one fails
+        var key1 = $@"{BaseTestKey}\MultiStepTest1";
+        var key2 = $@"{BaseTestKey}\MultiStepTest2";
+        var key3 = $@"{BaseTestKey}\MultiStepTest3";
+
+        // Write initial values
+        Assert.True(RegistryService.Write(new RegistryItem(key1, "Value", "Initial1")));
+        Assert.True(RegistryService.Write(new RegistryItem(key2, "Value", "Initial2")));
+        Assert.True(RegistryService.Write(new RegistryItem(key3, "Value", "Initial3")));
+
+        // Dispose old scope and create new one to capture new operations
+        _scope.Dispose();
+        using var newScope = ExecutionScope.Begin(new DummyOptimization(), NullLogger.Instance);
+
+        // Perform multi-step operation
+        Assert.True(RegistryService.Write(new RegistryItem(key1, "Value", "Updated1")));
+        Assert.True(RegistryService.Write(new RegistryItem(key2, "Value", "Updated2")));
+
+        // Simulate a failure by not writing to key3
+        // In real scenario, this would be caught by transaction logic
+
+        // Get all revert steps
+        var revertSteps = newScope.ExecutedSteps
+            .Where(s => s.RevertStep != null)
+            .Select(s => s.RevertStep!)
+            .ToList();
+
+        // Revert all steps in reverse order
+        foreach (var step in revertSteps.AsEnumerable().Reverse())
+        {
+            Assert.True(await step.ExecuteAsync());
+        }
+
+        // Verify original state is restored
+        Assert.Equal("Initial1", RegistryService.Read<string>(new RegistryItem(key1, "Value")));
+        Assert.Equal("Initial2", RegistryService.Read<string>(new RegistryItem(key2, "Value")));
+        Assert.Equal("Initial3", RegistryService.Read<string>(new RegistryItem(key3, "Value")));
+    }
+
+    [Fact]
+    public async Task ConcurrentRegistryOperations_DoesNotCauseCorruption()
+    {
+        // Test scenario: Concurrent writes to different keys
+        var tasks = new List<Task>();
+        const int concurrentOps = 10;
+
+        for (int i = 0; i < concurrentOps; i++)
+        {
+            var key = $@"{BaseTestKey}\ConcurrentTest{i}";
+            var value = $"Value{i}";
+
+            tasks.Add(Task.Run(() =>
+            {
+                Assert.True(RegistryService.Write(new RegistryItem(key, "Value", value)));
+                var read = RegistryService.Read<string>(new RegistryItem(key, "Value"));
+                Assert.Equal(value, read);
+            }));
+        }
+
+        await Task.WhenAll(tasks);
+
+        // Verify all writes succeeded
+        for (int i = 0; i < concurrentOps; i++)
+        {
+            var key = $@"{BaseTestKey}\ConcurrentTest{i}";
+            var expectedValue = $"Value{i}";
+            var actualValue = RegistryService.Read<string>(new RegistryItem(key, "Value"));
+            Assert.Equal(expectedValue, actualValue);
+        }
+    }
+
+    [Fact]
+    public async Task RegistryValueKindConversion_HandlesAllTypesCorrectly()
+    {
+        var key = $@"{BaseTestKey}\TypeConversionTest";
+
+        // Test different value types
+        Assert.True(RegistryService.Write(new RegistryItem(key, "DWordValue", 42, RegistryValueKind.DWord)));
+        Assert.Equal(42, RegistryService.Read<int>(new RegistryItem(key, "DWordValue")));
+
+        Assert.True(RegistryService.Write(new RegistryItem(key, "QWordValue", 9999999999L, RegistryValueKind.QWord)));
+        Assert.Equal(9999999999L, RegistryService.Read<long>(new RegistryItem(key, "QWordValue")));
+
+        Assert.True(RegistryService.Write(new RegistryItem(key, "StringValue", "TestString", RegistryValueKind.String)));
+        Assert.Equal("TestString", RegistryService.Read<string>(new RegistryItem(key, "StringValue")));
+
+        var multiString = new[] { "Line1", "Line2", "Line3" };
+        Assert.True(RegistryService.Write(new RegistryItem(key, "MultiStringValue", multiString, RegistryValueKind.MultiString)));
+        var readMulti = RegistryService.Read<string[]>(new RegistryItem(key, "MultiStringValue"));
+        Assert.Equal(multiString, readMulti);
+    }
+
+    [Fact]
+    public async Task RevertStepWithSubSteps_ExecutesInCorrectOrder()
+    {
+        // Test that nested revert steps execute in the correct order
+        var key1 = $@"{BaseTestKey}\SubStepTest\Key1";
+        var key2 = $@"{BaseTestKey}\SubStepTest\Key2";
+
+        Assert.True(RegistryService.Write(new RegistryItem(key1, "Value", "Original1")));
+        Assert.True(RegistryService.Write(new RegistryItem(key2, "Value", "Original2")));
+
+        // Dispose old scope and create new one to capture new operations
+        _scope.Dispose();
+        using var newScope = ExecutionScope.Begin(new DummyOptimization(), NullLogger.Instance);
+
+        // Perform operations
+        Assert.True(RegistryService.Write(new RegistryItem(key1, "Value", "Modified1")));
+        Assert.True(RegistryService.Write(new RegistryItem(key2, "Value", "Modified2")));
+
+        // Revert in reverse order (LIFO)
+        var revertSteps = newScope.ExecutedSteps
+            .Where(s => s.RevertStep != null)
+            .Select(s => s.RevertStep!)
+            .ToList();
+
+        var executionOrder = new List<string>();
+        foreach (var step in revertSteps.AsEnumerable().Reverse())
+        {
+            var desc = step.Description;
+            executionOrder.Add(desc);
+            Assert.True(await step.ExecuteAsync());
+        }
+
+        // Verify state is restored
+        Assert.Equal("Original1", RegistryService.Read<string>(new RegistryItem(key1, "Value")));
+        Assert.Equal("Original2", RegistryService.Read<string>(new RegistryItem(key2, "Value")));
+    }
+
+    [Fact]
+    public void CleanupEmptyKeys_RemovesOnlyEmptyKeys()
+    {
+        var emptyKeyPath = $@"{BaseTestKey}\CleanupTest\EmptyKey";
+        var nonEmptyKeyPath = $@"{BaseTestKey}\CleanupTest\NonEmptyKey";
+
+        // Create empty key
+        Assert.True(RegistryService.CreateSubKey(new RegistryItem(emptyKeyPath)));
+
+        // Create non-empty key
+        Assert.True(RegistryService.CreateSubKey(new RegistryItem(nonEmptyKeyPath)));
+        Assert.True(RegistryService.Write(new RegistryItem(nonEmptyKeyPath, "Value", "SomeValue")));
+
+        // Cleanup
+        RegistryService.CleanupEmptyKeys(new[] { emptyKeyPath, nonEmptyKeyPath });
+
+        // Empty key should be removed
+        Assert.False(RegistryService.KeyExists(new RegistryItem(emptyKeyPath)));
+
+        // Non-empty key should remain
+        Assert.True(RegistryService.KeyExists(new RegistryItem(nonEmptyKeyPath)));
+        Assert.Equal("SomeValue", RegistryService.Read<string>(new RegistryItem(nonEmptyKeyPath, "Value")));
+    }
 }

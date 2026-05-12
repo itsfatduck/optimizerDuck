@@ -33,23 +33,20 @@ public class ServiceRevertStep : IRevertStep
         );
 
     /// <inheritdoc />
-    public async Task<bool> ExecuteAsync()
+    public Task<bool> ExecuteAsync()
     {
-        return await Task.Run(() =>
-        {
-            var result = ServiceProcessService.ChangeServiceStartupType(
-                new ServiceItem { Name = ServiceName, StartupType = OriginalStartupType }
+        var result = ServiceProcessService.ChangeServiceStartupType(
+            new ServiceItem { Name = ServiceName, StartupType = OriginalStartupType }
+        );
+
+        if (!result)
+            throw new Exception(
+                string.Format(
+                    Translations.Service_Service_Error_UpdateRegistryForStartupTypeFailed
+                )
             );
 
-            if (!result)
-                throw new Exception(
-                    string.Format(
-                        Translations.Service_Service_Error_UpdateRegistryForStartupTypeFailed
-                    )
-                );
-
-            return result;
-        });
+        return Task.FromResult(result);
     }
 
     /// <inheritdoc />

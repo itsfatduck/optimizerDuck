@@ -54,7 +54,7 @@ public class ScopeBlockTextFormatter : ITextFormatter
         };
 
         //var prefix = $"{timestamp} | {ctx,-67} | {levelText,-7} | "; // byebye 67 char SourceContext truncation, we have a new design now...
-        var prefix = $"{timestamp} | {ctx, -35} | {levelText, -7} | ";
+        var prefix = $"{timestamp} | {ctx,-35} | {levelText,-7} | ";
 
         // print message
         output.WriteLine(prefix + RenderWithoutQuotes(logEvent));
@@ -119,26 +119,39 @@ public partial class App : Application
 
     public bool HasPendingChanges { get; set; }
 
-    protected override async void OnStartup(StartupEventArgs e)
+    protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
 
-        try
-        {
-            await OnStartupAsync(e);
-        }
-        catch (Exception ex)
+        // Run initialization in a background task to keep UI responsive if needed,
+        // but since we need the MainWindow to show, we'll await the async part.
+        _ = Task.Run(async () =>
         {
             try
             {
-                Log.Logger?.Fatal(ex, "Fatal error during startup");
-                await Log.CloseAndFlushAsync();
+                await OnStartupAsync(e);
             }
-            catch
+            catch (Exception ex)
             {
-                // ignore logging failures during fatal startup handling
+                await HandleStartupErrorAsync(ex);
             }
+        });
+    }
 
+    private async Task HandleStartupErrorAsync(Exception ex)
+    {
+        try
+        {
+            Log.Logger?.Fatal(ex, "Fatal error during startup");
+            await Log.CloseAndFlushAsync();
+        }
+        catch
+        {
+            // ignore logging failures during fatal startup handling
+        }
+
+        Dispatcher.Invoke(() =>
+        {
             System.Windows.MessageBox.Show(
                 $"Failed to start optimizerDuck.{Environment.NewLine}{Environment.NewLine}{ex.Message}",
                 "optimizerDuck",
@@ -146,7 +159,7 @@ public partial class App : Application
                 MessageBoxImage.Error
             );
             Shutdown(-1);
-        }
+        });
     }
 
     private async Task OnStartupAsync(StartupEventArgs e)
@@ -239,11 +252,11 @@ public partial class App : Application
             )
             .Build();
 
-        await _host.StartAsync().ConfigureAwait(false);
+        await _host.StartAsync();
 
         var config = _host.Services.GetRequiredService<ConfigManager>();
-        await config.InitializeAsync().ConfigureAwait(false);
-        await config.EnsureDefaultsAsync().ConfigureAwait(false);
+        await config.InitializeAsync();
+        await config.EnsureDefaultsAsync();
 
         var appOptionsMonitor = _host.Services.GetRequiredService<IOptionsMonitor<AppSettings>>();
 
@@ -255,7 +268,10 @@ public partial class App : Application
 
         var appSettings = appOptionsMonitor.CurrentValue;
 
-        Loc.Instance.ChangeCulture(new CultureInfo(appSettings.App.Language));
+        await Dispatcher.InvokeAsync(() =>
+        {
+            Loc.Instance.ChangeCulture(new CultureInfo(appSettings.App.Language));
+        });
 
         _logger = _host.Services.GetRequiredService<ILogger<App>>();
         _logger.LogInformation(
@@ -267,9 +283,8 @@ public partial class App : Application
 
         var optimizationRegistry = _host.Services.GetRequiredService<OptimizationRegistry>();
         _logger.LogInformation("Preloading optimizations...");
-        await optimizationRegistry.PreloadOptimizations().ConfigureAwait(false);
+        await optimizationRegistry.PreloadOptimizationsAsync();
 
-        // Apply custom accent colors and theme on UI thread
         await Dispatcher.InvokeAsync(() =>
         {
             ApplicationAccentColorManager.Apply(
@@ -320,20 +335,20 @@ public partial class App : Application
 
     protected async void MainWindow_Closing(object? sender, CancelEventArgs e)
     {
-        if (_allowClose)
-        {
-            return;
-        }
-
-        if (!HasPendingChanges)
-        {
-            return;
-        }
-
-        e.Cancel = true;
-
         try
         {
+            if (_allowClose)
+            {
+                return;
+            }
+
+            if (!HasPendingChanges)
+            {
+                return;
+            }
+
+            e.Cancel = true;
+
             _contentDialogService ??= _host!.Services.GetRequiredService<IContentDialogService>();
 
             var result = await _contentDialogService.ShowSimpleDialogAsync(
@@ -374,10 +389,11 @@ public partial class App : Application
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to show pending changes dialog.");
+            _logger.LogError(ex, "Failed to handle window closing event. Allowing close to prevent hanging.");
 
+            // Ensure we don't block close on error
             _allowClose = true;
-            Current.Shutdown();
+            e.Cancel = false;
         }
     }
 }

@@ -33,16 +33,13 @@ public class ScheduledTaskRevertStep : IRevertStep
         );
 
     /// <inheritdoc />
-    public async Task<bool> ExecuteAsync()
+    public Task<bool> ExecuteAsync()
     {
-        return await Task.Run(() =>
-        {
-            if (OriginalEnabled)
-                ScheduledTaskService.EnableTask(FullPath);
-            else
-                ScheduledTaskService.DisableTask(FullPath);
-            return true;
-        });
+        if (OriginalEnabled)
+            ScheduledTaskService.EnableTask(FullPath);
+        else
+            ScheduledTaskService.DisableTask(FullPath);
+        return Task.FromResult(true);
     }
 
     /// <inheritdoc />

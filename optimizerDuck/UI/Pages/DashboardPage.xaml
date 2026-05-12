@@ -400,7 +400,15 @@
                     FontTypography="BodyStrong"
                     Text="{ext:Loc Dashboard.SystemInfo.Storage.Header}" />
 
-                <ItemsControl ItemsSource="{Binding ViewModel.RuntimeDisk.Volumes}">
+                <ItemsControl
+                    ItemsSource="{Binding ViewModel.RuntimeDisk.Volumes}"
+                    VirtualizingStackPanel.IsVirtualizing="True"
+                    VirtualizingStackPanel.VirtualizationMode="Recycling">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <ui:CardAction
