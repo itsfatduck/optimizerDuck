@@ -18,7 +18,7 @@
 
 **[Bắt đầu](https://optimizerduck.vercel.app/docs/guides/getting-started) | [Cách nó hoạt động?](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [Câu hỏi thường gặp](https://optimizerduck.vercel.app/docs/faq/general)**
 
-[English](README.md) | **Tiếng Việt** | [繁體中文](README.zh-TW.md)
+[English](README.md) | **Tiếng Việt** | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md)
 
 <details>
 <summary>⭐ Lịch sử Star</summary>
@@ -54,7 +54,7 @@ Mỗi ngôi sao giúp tạo động lực cho những cải tiến trong tương
 > Luôn tạo một **điểm khôi phục (restore point)** trước khi thực hiện các thay đổi hệ thống.
 
 > [!NOTE]
-> Hỗ trợ tiếng Anh, tiếng Việt và tiếng Trung phồn thể (cảm ơn các cộng tác viên của chúng tôi! [@abc0922001](https://github.com/abc0922001)). Bạn muốn thêm ngôn ngữ của mình? [Đóng góp tại đây](./.github/CONTRIBUTING.md).
+> Hỗ trợ tiếng Anh, tiếng Việt và tiếng Trung phồn thể (cảm ơn các cộng tác viên của chúng tôi! [@abc0922001](https://github.com/abc0922001))、Tiếng Trung Giản thể（cảm ơn các cộng tác viên của chúng tôi [@wcxu21](https://github.com/wcxu21)）. Bạn muốn thêm ngôn ngữ của mình? [Đóng góp tại đây](./.github/CONTRIBUTING.md).
 
 ---
 

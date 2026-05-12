@@ -18,7 +18,7 @@
 
 **[Getting Started](https://optimizerduck.vercel.app/docs/guides/getting-started) | [How It Works?](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [Frequently Asked Questions](https://optimizerduck.vercel.app/docs/faq/general)**
 
-**English** | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md)
+**English** | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md)
 
 <details>
 <summary>⭐ Star History</summary>
@@ -52,7 +52,7 @@ Every star helps motivate future improvements.
 > Always create a **restore point** before making system changes.
 
 > [!NOTE]
-> Supports English, Vietnamese, and Traditional Chinese (thanks to our contributors! [@abc0922001](https://github.com/abc0922001)). Want to add your language? [Contribute here](./.github/CONTRIBUTING.md).
+> Supports English, Vietnamese, and Traditional Chinese (thanks to our contributors! [@abc0922001](https://github.com/abc0922001))、Simplified Chinese（thanks to our contributors [@wcxu21](https://github.com/wcxu21)）. Want to add your language? [Contribute here](./.github/CONTRIBUTING.md).
 
 ---
 
