@@ -106,40 +106,26 @@ public class OptimizationServiceIntegrationTests : IDisposable
         }
     }
 
+    private readonly List<Guid> _testOptimizationIds = new();
+
     public OptimizationServiceIntegrationTests()
     {
-        // Ensure clean revert directory
-        if (Directory.Exists(Shared.RevertDirectory))
-        {
-            foreach (var file in Directory.GetFiles(Shared.RevertDirectory))
-            {
-                try
-                {
-                    File.Delete(file);
-                }
-                catch
-                {
-                    // Ignore
-                }
-            }
-        }
     }
 
     public void Dispose()
     {
-        // Clean up test files
-        if (Directory.Exists(Shared.RevertDirectory))
+        // Clean up only test files created by this class
+        foreach (var id in _testOptimizationIds)
         {
-            foreach (var file in Directory.GetFiles(Shared.RevertDirectory))
+            var path = Path.Combine(Shared.RevertDirectory, id + ".json");
+            try
             {
-                try
-                {
-                    File.Delete(file);
-                }
-                catch
-                {
-                    // Ignore
-                }
+                if (File.Exists(path))
+                    File.Delete(path);
+            }
+            catch
+            {
+                // Ignore
             }
         }
     }
@@ -162,6 +148,7 @@ public class OptimizationServiceIntegrationTests : IDisposable
         );
 
         var optimization = new PartialFailureOptimization(shouldFail: false);
+        _testOptimizationIds.Add(optimization.Id);
         var progress = new Progress<ProcessingProgress>();
 
         var result = await optimizationService.ApplyAsync(optimization, progress);
@@ -171,7 +158,7 @@ public class OptimizationServiceIntegrationTests : IDisposable
         // Verify revert data was saved
         var revertData = await RevertManager.GetRevertDataAsync(optimization.Id);
         Assert.NotNull(revertData);
-        Assert.Equal(2, revertData.Steps.Count); // 2 successful steps
+        Assert.Equal(2, revertData.Steps.Count(s => s != null)); // 2 successful steps
     }
 
     [Fact]

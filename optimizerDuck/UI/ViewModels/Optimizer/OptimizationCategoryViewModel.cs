@@ -567,7 +567,10 @@ public partial class OptimizationCategoryViewModel : ViewModel
                                 remainingFailedSteps,
                                 true,
                                 _logger,
-                                progress
+                                revertManager: null,
+                                optimizationId: null,
+                                optimizationKey: null,
+                                progress: progress
                             )
                     )
                 )
@@ -590,19 +593,14 @@ public partial class OptimizationCategoryViewModel : ViewModel
                             remainingFailedSteps,
                             false,
                             _logger,
+                            _revertManager,
+                            optimization.Id,
+                            optimization.OptimizationKey,
                             progress
                         )
                 );
 
                 var newFailed = retryResult.FailedSteps.OrderBy(s => s.Index).ToList();
-
-                foreach (var s in retryResult.RecoveredSteps.Where(s => s.RevertStep != null))
-                    await _revertManager.UpsertRevertStepAtIndexAsync(
-                        optimization.Id,
-                        optimization.OptimizationKey,
-                        s.Index,
-                        s.RevertStep!
-                    );
 
                 remainingFailedSteps = newFailed;
                 if (remainingFailedSteps.Count == 0)

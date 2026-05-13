@@ -23,27 +23,33 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
 
     public async Task SaveRevertDataAsync(ExecutionScope scope)
     {
-        if (!scope.HasSuccessfulSteps)
-            return;
-
-        var steps = scope.ExecutedSteps
-            .Where(s => s.RevertStep != null)
-            .Select(s => new RevertStepData
-            {
-                Type = s.RevertStep!.Type,
-                Data = s.RevertStep.ToData(),
-            })
+        var successfulSteps = scope.ExecutedSteps
+            .Where(s => s.Success && s.RevertStep != null)
             .ToList();
 
-        if (steps.Count == 0)
+        if (successfulSteps.Count == 0)
             return;
+
+        var maxIndex = successfulSteps.Max(s => s.Index);
+        var steps = new RevertStepData?[maxIndex];
+
+        foreach (var executedStep in successfulSteps)
+        {
+            var arrayIndex = executedStep.Index - 1;
+            steps[arrayIndex] = new RevertStepData
+            {
+                Index = executedStep.Index,
+                Type = executedStep.RevertStep.Type,
+                Data = executedStep.RevertStep.ToData(),
+            };
+        }
 
         await WriteJsonAsync(
             GetFilePath(scope.OptimizationId!.Value),
             new RevertData
             {
                 OptimizationId = scope.OptimizationId!.Value,
-                OptimizationName = scope.OptimizationKey!,
+                OptimizationName = scope.OptimizationName ?? scope.OptimizationKey!,
                 AppliedAt = DateTime.Now,
                 Steps = steps,
             }
@@ -71,11 +77,14 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
             };
 
         var failedSteps = new List<OperationStepResult>();
-        var total = steps.Count;
+        var sortedSteps = steps.OrderByDescending(s => s.Index).ToList();
+        var total = sortedSteps.Count;
 
-        for (var i = total - 1; i >= 0; i--)
+        operationLogger.LogDebug("Reverting steps in reverse order (total: {Total})", total);
+
+        for (var i = 0; i < total; i++)
         {
-            var (idx, step) = steps[i];
+            var (idx, step) = sortedSteps[i];
             progress?.Report(
                 new ProcessingProgress
                 {
@@ -85,7 +94,7 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
                         total,
                         step.Type
                     ),
-                    Value = idx,
+                    Value = i + 1,
                     Total = total,
                 }
             );
@@ -142,10 +151,13 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
         IRevertStep step
     )
     {
+        if (stepIndex <= 0)
+            throw new ArgumentException("Step index must be greater than 0", nameof(stepIndex));
+
         var filePath = GetFilePath(id);
         var lockObj = _fileLocks.GetOrAdd(id, _ => new SemaphoreSlim(1, 1));
 
-        await lockObj.WaitAsync();
+        await lockObj.WaitAsync(TimeSpan.FromSeconds(30));
         try
         {
             var data =
@@ -154,17 +166,25 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
                 {
                     OptimizationId = id,
                     OptimizationName = name,
-                    Steps = [],
+                    Steps = Array.Empty<RevertStepData?>(),
                 };
 
-            while (data.Steps.Count < stepIndex)
-                data.Steps.Add(new RevertStepData { Type = "Unknown", Data = new JObject() });
+            // Expand array if needed
+            if (data.Steps.Length < stepIndex)
+            {
+                var newSteps = new RevertStepData?[stepIndex];
+                Array.Copy(data.Steps, newSteps, data.Steps.Length);
+                data.Steps = newSteps;
+            }
 
+            // Place step at correct position (0-based index)
             data.Steps[stepIndex - 1] = new RevertStepData
             {
+                Index = stepIndex,
                 Type = step.Type,
                 Data = step.ToData(),
             };
+
             await WriteJsonAsync(filePath, data);
         }
         finally
@@ -229,24 +249,44 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
     private static async Task WriteJsonAsync(string path, RevertData data)
     {
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);
-        await File.WriteAllTextAsync(path, JsonConvert.SerializeObject(data, Formatting.Indented));
+        
+        var json = JsonConvert.SerializeObject(data, Formatting.Indented);
+        await using var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize: 4096, useAsync: true);
+        await using var writer = new StreamWriter(fileStream);
+        await writer.WriteAsync(json);
     }
 
     private async Task<List<(int Index, IRevertStep Step)>> LoadStepsAsync(Guid id)
     {
         var data = await LoadAsync(GetFilePath(id));
-        if (data == null || data.Steps.Count == 0)
+        if (data == null || data.Steps.Length == 0)
             return [];
 
-        var result = new List<(int, IRevertStep)>();
-        for (var i = 0; i < data.Steps.Count; i++)
+        // Validate indexes: must be > 0, no duplicates
+        var seenIndexes = new HashSet<int>();
+        foreach (var step in data.Steps.Where(s => s != null))
         {
-            var step = DeserializeStep(data.Steps[i].Type, data.Steps[i].Data);
-            if (step != null)
-                result.Add((i + 1, step));
+            if (step.Index <= 0)
+            {
+                logger.LogWarning("Invalid index {Index} in revert data for {Id}", step.Index, id);
+                return [];
+            }
+            if (!seenIndexes.Add(step.Index))
+            {
+                logger.LogWarning("Duplicate index {Index} in revert data for {Id}", step.Index, id);
+                return [];
+            }
         }
 
-        return result;
+        var result = new List<(int, IRevertStep)>();
+        foreach (var stepData in data.Steps.Where(s => s != null))
+        {
+            var step = DeserializeStep(stepData.Type, stepData.Data);
+            if (step != null)
+                result.Add((stepData.Index, step));  // Use explicit Index
+        }
+
+        return result.OrderBy(x => x.Item1).ToList();
     }
 
     private void Remove(Guid id, string? name = null)

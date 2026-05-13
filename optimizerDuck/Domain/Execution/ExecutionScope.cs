@@ -187,6 +187,29 @@ public sealed class ExecutionScope : IDisposable
         );
     }
 
+    public static ExecutedStep? RecordStepAtIndex(
+        int index,
+        string name,
+        string description,
+        bool success,
+        IRevertStep? revertStep = null,
+        string? error = null,
+        Func<Task<bool>>? retryAction = null
+    )
+    {
+        var scope = Current;
+
+        return scope?.RecordStepInternal(
+            name,
+            description,
+            success,
+            revertStep,
+            error,
+            retryAction,
+            explicitIndex: index
+        );
+    }
+
     public static void Track(string serviceName, bool success)
     {
         var scope = Current;
@@ -248,14 +271,17 @@ public sealed class ExecutionScope : IDisposable
         bool success,
         IRevertStep? revertStep,
         string? error,
-        Func<Task<bool>>? retryAction = null
+        Func<Task<bool>>? retryAction = null,
+        int? explicitIndex = null
     )
     {
         if (LoggingOnly)
             return null;
 
+        var stepIndex = explicitIndex ?? ++_stepIndex;
+        
         var step = new ExecutedStep(
-            ++_stepIndex,
+            stepIndex,
             name,
             description,
             success,

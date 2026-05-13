@@ -8,6 +8,11 @@ namespace optimizerDuck.Domain.Revert;
 public class RevertStepData
 {
     /// <summary>
+    ///     The explicit index of this step in the execution sequence.
+    /// </summary>
+    public int Index { get; set; }
+
+    /// <summary>
     ///     The type of the revert step (e.g., "Registry", "Service", "Shell").
     /// </summary>
     public string Type { get; set; } = string.Empty;
@@ -39,7 +44,8 @@ public class RevertData
     public DateTime AppliedAt { get; set; }
 
     /// <summary>
-    ///     The list of revert steps.
+    ///     The array of revert steps. Gaps are represented as null entries.
+    ///     Example: [step1, null, null, step4] for steps at indexes 1 and 4.
     /// </summary>
-    public List<RevertStepData> Steps { get; set; } = new();
+    public RevertStepData?[] Steps { get; set; } = Array.Empty<RevertStepData?>();
 }

@@ -126,10 +126,11 @@ public class OptimizationServiceTests
                     OptimizationId = optimization.Id,
                     OptimizationName = optimization.OptimizationKey,
                     AppliedAt = DateTime.UtcNow,
-                    Steps = new List<RevertStepData>
+                    Steps = new RevertStepData?[]
                     {
                         new()
                         {
+                            Index = 1,
                             Type = "Shell",
                             Data = new ShellRevertStep
                             {
@@ -257,17 +258,17 @@ public class OptimizationServiceTests
 
                 Assert.Equal(OptimizationSuccessResult.PartialSuccess, result.Status);
                 Assert.NotNull(data);
-                Assert.Equal(3, data!.Steps.Count);
-                Assert.Equal("Shell", data.Steps[0].Type);
-                Assert.Equal("Unknown", data.Steps[1].Type);
-                Assert.Equal("Shell", data.Steps[2].Type);
+                Assert.Equal(3, data!.Steps.Length);
+                Assert.Equal("Shell", data.Steps[0]!.Type);
+                Assert.Null(data.Steps[1]);  // Gap - step 2 failed
+                Assert.Equal("Shell", data.Steps[2]!.Type);
                 Assert.Equal(
                     "exit 11",
-                    data.Steps[0].Data[nameof(ShellRevertStep.Command)]?.ToString()
+                    data.Steps[0]!.Data[nameof(ShellRevertStep.Command)]?.ToString()
                 );
                 Assert.Equal(
                     "exit 33",
-                    data.Steps[2].Data[nameof(ShellRevertStep.Command)]?.ToString()
+                    data.Steps[2]!.Data[nameof(ShellRevertStep.Command)]?.ToString()
                 );
             }
             finally
@@ -361,18 +362,18 @@ public class OptimizationServiceTests
                 var data = await RevertManager.GetRevertDataAsync(optimization.Id);
 
                 Assert.NotNull(data);
-                Assert.Equal(3, data!.Steps.Count);
+                Assert.Equal(3, data!.Steps.Length);
                 Assert.Equal(
                     "exit 11",
-                    data.Steps[0].Data[nameof(ShellRevertStep.Command)]?.ToString()
+                    data.Steps[0]!.Data[nameof(ShellRevertStep.Command)]?.ToString()
                 );
                 Assert.Equal(
                     "exit 0",
-                    data.Steps[1].Data[nameof(ShellRevertStep.Command)]?.ToString()
+                    data.Steps[1]!.Data[nameof(ShellRevertStep.Command)]?.ToString()
                 );
                 Assert.Equal(
                     "exit 33",
-                    data.Steps[2].Data[nameof(ShellRevertStep.Command)]?.ToString()
+                    data.Steps[2]!.Data[nameof(ShellRevertStep.Command)]?.ToString()
                 );
             }
             finally
@@ -491,9 +492,10 @@ public class OptimizationServiceTests
                 var data = await RevertManager.GetRevertDataAsync(optimization.Id);
 
                 Assert.NotNull(data);
-                Assert.Equal(4, data!.Steps.Count);
+                Assert.Equal(4, data!.Steps.Length);
                 var commands = data
-                    .Steps.Select(step => step.Data[nameof(ShellRevertStep.Command)]!.ToString())
+                    .Steps.Where(step => step != null)
+                    .Select(step => step!.Data[nameof(ShellRevertStep.Command)]!.ToString())
                     .ToArray();
                 Assert.Equal(["exit 11", "exit 22", "exit 33", "exit 44"], commands);
             }

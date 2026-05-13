@@ -280,11 +280,22 @@ public class OptimizationService(
         IReadOnlyList<OperationStepResult> failedSteps,
         bool reverseOrder,
         ILogger logger,
+        RevertManager? revertManager = null,
+        Guid? optimizationId = null,
+        string? optimizationKey = null,
         IProgress<ProcessingProgress>? progress = null
     )
     {
         return (
-            await RetryFailedStepsWithResultsAsync(failedSteps, reverseOrder, logger, progress)
+            await RetryFailedStepsWithResultsAsync(
+                failedSteps,
+                reverseOrder,
+                logger,
+                revertManager,
+                optimizationId,
+                optimizationKey,
+                progress
+            )
         ).FailedSteps;
     }
 
@@ -292,6 +303,9 @@ public class OptimizationService(
         IReadOnlyList<OperationStepResult> failedSteps,
         bool reverseOrder,
         ILogger logger,
+        RevertManager? revertManager = null,
+        Guid? optimizationId = null,
+        string? optimizationKey = null,
         IProgress<ProcessingProgress>? progress = null
     )
     {
@@ -348,23 +362,38 @@ public class OptimizationService(
                 if (success)
                 {
                     var retriedStep = retryScope.SuccessfulSteps.LastOrDefault();
-                    recoveredSteps.Add(
-                        retriedStep == null
-                            ? step with
-                            {
-                                Error = null,
-                            }
-                            : new OperationStepResult
-                            {
-                                Index = step.Index,
-                                Name = retriedStep.Name,
-                                Description = retriedStep.Description,
-                                Success = true,
-                                Error = null,
-                                RetryAction = null,
-                                RevertStep = retriedStep.RevertStep,
-                            }
-                    );
+                    var recoveredStep = retriedStep == null
+                        ? step with { Error = null }
+                        : new OperationStepResult
+                        {
+                            Index = step.Index,
+                            Name = retriedStep.Name,
+                            Description = retriedStep.Description,
+                            Success = true,
+                            Error = null,
+                            RetryAction = null,
+                            RevertStep = retriedStep.RevertStep,
+                        };
+                                
+                    // Auto-persist recovered revert step if revertManager is available
+                    if (retriedStep?.RevertStep != null && revertManager != null && optimizationId.HasValue)
+                    {
+                        try
+                        {
+                            await revertManager.UpsertRevertStepAtIndexAsync(
+                                optimizationId.Value,
+                                optimizationKey ?? string.Empty,
+                                step.Index,  // Use original failed step's index
+                                retriedStep.RevertStep
+                            );
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.LogError(ex, "Failed to auto-persist revert step at index {Index}", step.Index);
+                        }
+                    }
+                                
+                    recoveredSteps.Add(recoveredStep);
                 }
             }
             catch (Exception ex)

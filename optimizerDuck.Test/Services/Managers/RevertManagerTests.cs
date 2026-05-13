@@ -38,7 +38,7 @@ public class RevertManagerTests
             OptimizationId = id,
             OptimizationName = "TestOptimization",
             AppliedAt = DateTime.UtcNow,
-            Steps = new List<RevertStepData>(),
+            Steps = Array.Empty<RevertStepData?>()
         };
 
         try
@@ -99,10 +99,11 @@ public class RevertManagerTests
             OptimizationId = id,
             OptimizationName = "TestOptimization",
             AppliedAt = DateTime.UtcNow,
-            Steps = new List<RevertStepData>
+            Steps = new RevertStepData?[]
             {
                 new()
                 {
+                    Index = 1,
                     Type = "Shell",
                     Data = new ShellRevertStep
                     {
@@ -112,6 +113,7 @@ public class RevertManagerTests
                 },
                 new()
                 {
+                    Index = 2,
                     Type = "Shell",
                     Data = new ShellRevertStep
                     {
@@ -158,10 +160,11 @@ public class RevertManagerTests
             OptimizationId = id,
             OptimizationName = "TestOptimization",
             AppliedAt = DateTime.UtcNow,
-            Steps = new List<RevertStepData>
+            Steps = new RevertStepData?[]
             {
                 new()
                 {
+                    Index = 1,
                     Type = "Shell",
                     Data = new ShellRevertStep
                     {
@@ -209,10 +212,11 @@ public class RevertManagerTests
             OptimizationId = id,
             OptimizationName = "TestOptimization",
             AppliedAt = DateTime.UtcNow,
-            Steps = new List<RevertStepData>
+            Steps = new RevertStepData?[]
             {
                 new()
                 {
+                    Index = 1,
                     Type = "Shell",
                     Data = new ShellRevertStep
                     {
@@ -222,6 +226,7 @@ public class RevertManagerTests
                 },
                 new()
                 {
+                    Index = 2,
                     Type = RetryableTestRevertStep.StepType,
                     Data = new RetryableTestRevertStep
                     {
