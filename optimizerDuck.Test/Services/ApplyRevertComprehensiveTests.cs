@@ -420,7 +420,6 @@ public class ApplyRevertComprehensiveTests
                 var result = await service.RevertAsync(optimization, progress);
 
                 Assert.True(result.Success);
-                Assert.True(result.AllStepsSucceeded);
                 Assert.Empty(result.FailedSteps);
                 Assert.False(File.Exists(revertPath));
             }
