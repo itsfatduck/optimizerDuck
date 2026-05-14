@@ -88,6 +88,17 @@ public class PowerManagement : IOptimizationCategory
                         Set-CimInstance -CimInstance $d -Property @{ Enable = $false } | Out-Null
                     }
                 }
+                """,
+                $$"""
+                $states = @('{{usbStates.Stdout}}' | ConvertFrom-Json)
+                foreach ($s in $states) {
+                    $obj = Get-CimInstance -Namespace root\wmi -ClassName MSPower_DeviceEnable -ErrorAction SilentlyContinue |
+                        Where-Object { $_.InstanceName -eq $s.InstanceName }
+                    if ($obj -and $obj.Enable -ne [bool]$s.Enable) {
+                        Write-Host "Reverting $($s.InstanceName) to $([bool]$s.Enable)"
+                        Set-CimInstance -CimInstance $obj -Property @{ Enable = [bool]$s.Enable } | Out-Null
+                    }
+                }
                 """
             );
 
