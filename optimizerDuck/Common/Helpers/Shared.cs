@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.IO;
 
 namespace optimizerDuck.Common.Helpers;
@@ -145,6 +145,7 @@ public static class Shared
         );
 
     public static string ResourcesDirectory => Path.Combine(RootDirectory, "Resources");
-
+    public static string DownloadsDirectory => Path.Combine(ResourcesDirectory, "Downloads");
+    public static string AssetsDirectory => Path.Combine(ResourcesDirectory, "Assets");
     public static string RevertDirectory => Path.Combine(RootDirectory, "Revert");
 }

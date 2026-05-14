@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Features.Models;
@@ -145,47 +146,71 @@ public class Desktop : IFeatureCategory
         private const string Path =
             @"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons";
 
-        protected override bool NeedsPostAction => true;
+
+        private readonly string[] HiddenShortcutValues =
+                                [
+                                    @"%windir%\System32\shell32.dll,-50",
+                                    @"%windir%\System32\shell32.dll,50",
+                                ];
+
+        private bool IsHiddenShortcutOverlay(string value)
+        {
+            if (HiddenShortcutValues.Any(v =>
+                    string.Equals(value, v, StringComparison.OrdinalIgnoreCase)))
+            {
+                return true;
+            }
+
+            var fileName = System.IO.Path.GetFileName(value);
+
+            if (string.IsNullOrWhiteSpace(fileName))
+                return false;
+
+            return fileName.Equals(
+                       "blank.ico",
+                       StringComparison.OrdinalIgnoreCase)
+                   || fileName.Equals(
+                       "transparent.ico",
+                       StringComparison.OrdinalIgnoreCase)
+                   || fileName.Equals(
+                       "blankicon.ico",
+                       StringComparison.OrdinalIgnoreCase);
+        }
 
         public override Task<bool> GetStateAsync()
         {
-            var value = RegistryService.Read<string>(
-                new RegistryItem(Path, "29")
-            );
+            var value = RegistryService.Read<string>(new RegistryItem(Path, "29"));
 
-            return Task.FromResult(
-                !string.Equals(
-                    value,
-                    @"%windir%\System32\shell32.dll,-50",
-                    StringComparison.OrdinalIgnoreCase
-                )
-            );
+            // value doesn't exist = default Windows behavior
+            // shortcut arrow is visible
+            if (string.IsNullOrWhiteSpace(value))
+                return Task.FromResult(true);
+
+            var isHidden = IsHiddenShortcutOverlay(value);
+
+            return Task.FromResult(!isHidden);
         }
 
         public override async Task EnableAsync()
         {
-            // show arrow
-            RegistryService.DeleteValue(
-                new RegistryItem(Path, "29")
-            );
+            // restore default Windows behavior by deleting the value
+            RegistryService.DeleteValue(new RegistryItem(Path, "29"));
 
-            if (NeedsPostAction)
-                await ExecutePostActionAsync();
+            await ExecutePostActionAsync();
         }
 
         public override async Task DisableAsync()
         {
-            // hide arrow
+            // extract the blank icon to the app resources folder, then set the registry value to point to it
+            var outputPath = System.IO.Path.Combine(Shared.AssetsDirectory, nameof(Desktop), "blank.ico");
+            EmbeddedResourceHelper.TryExtract("Icons.blank.ico", outputPath);
+
+            // set the registry value to point to the blank icon, which effectively hides the shortcut arrow overlay
             RegistryService.Write(
-                new RegistryItem(
-                    Path,
-                    "29",
-                    @"%windir%\System32\shell32.dll,-50"
-                )
+                new RegistryItem(Path, "29", outputPath)
             );
 
-            if (NeedsPostAction)
-                await ExecutePostActionAsync();
+            await ExecutePostActionAsync();
         }
     }
 }

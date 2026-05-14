@@ -141,51 +141,11 @@ public class Performance : IOptimizationCategory
     }
 
     [Optimization(
-        Id = "D3E93D47-FC7E-44E2-8B58-D8626A75DB93",
-        Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Power
-    )]
-    public class GameTaskScheduling : BaseOptimization
-    {
-        public override Task<ApplyResult> ApplyAsync(
-            IProgress<ProcessingProgress> progress,
-            OptimizationContext context
-        )
-        {
-            RegistryService.Write(
-                new RegistryItem(
-                    @"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games",
-                    "Priority",
-                    2
-                ),
-                new RegistryItem(
-                    @"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games",
-                    "Scheduling Category",
-                    "High"
-                ),
-                new RegistryItem(
-                    @"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games",
-                    "SFIO Priority",
-                    "High"
-                ),
-                new RegistryItem(
-                    @"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games",
-                    "GPU Priority",
-                    8
-                )
-            );
-
-            context.Logger.LogInformation("Enabled game task scheduling with high priority");
-            return Task.FromResult(ApplyResult.True());
-        }
-    }
-
-    [Optimization(
         Id = "FFB49D94-CCA9-4591-B329-6FDA3A2758F9",
         Risk = OptimizationRisk.Safe,
         Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Latency
     )]
-    public class MultimediaResponsiveness : BaseOptimization
+    public class OptimizeMultimediaScheduler : BaseOptimization
     {
         public override Task<ApplyResult> ApplyAsync(
             IProgress<ProcessingProgress> progress,
@@ -195,17 +155,51 @@ public class Performance : IOptimizationCategory
             const string systemProfileKey =
                 @"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile";
 
+            // Parent SystemProfile settings (NoLazyMode, AlwaysOn, NetworkThrottlingIndex, SystemResponsiveness)
             RegistryService.Write(
+                new RegistryItem(systemProfileKey, "NoLazyMode", 1),
+                new RegistryItem(systemProfileKey, "AlwaysOn", 1),
                 new RegistryItem(
                     systemProfileKey,
                     "NetworkThrottlingIndex",
                     unchecked((int)0xFFFFFFFF),
                     RegistryValueKind.DWord
                 ),
-                new RegistryItem(systemProfileKey, "SystemResponsiveness", 10) // minimum possible value (Values below 10 and above 100 are clamped to 20.)
+                new RegistryItem(
+                    systemProfileKey,
+                    "SystemResponsiveness",
+                    10,
+                    RegistryValueKind.DWord
+                ) // minimum possible value (Values below 10 and above 100 are clamped to 20.)
             );
 
-            context.Logger.LogInformation("Optimized multimedia responsiveness for low latency");
+            // Games task scheduling (Priority, Scheduling Category, SFIO Priority, GPU Priority)
+            RegistryService.Write(
+                new RegistryItem(
+                    $@"{systemProfileKey}\Tasks\Games",
+                    "Priority",
+                    2
+                ),
+                new RegistryItem(
+                    $@"{systemProfileKey}\Tasks\Games",
+                    "Scheduling Category",
+                    "High"
+                ),
+                new RegistryItem(
+                    $@"{systemProfileKey}\Tasks\Games",
+                    "SFIO Priority",
+                    "High"
+                ),
+                new RegistryItem(
+                    $@"{systemProfileKey}\Tasks\Games",
+                    "GPU Priority",
+                    8
+                )
+            );
+
+            context.Logger.LogInformation(
+                "Optimized Multimedia Class Scheduler Service (MMCSS) for gaming and low latency"
+            );
             return Task.FromResult(ApplyResult.True());
         }
     }
@@ -234,7 +228,7 @@ public class Performance : IOptimizationCategory
 
     [Optimization(
         Id = "B7BB32F8-C756-47A4-83F2-F6E7EC7D45B8",
-        Risk = OptimizationRisk.Safe,
+        Risk = OptimizationRisk.Moderate,
         Tags = OptimizationTags.Latency | OptimizationTags.System
     )]
     public class DisableAccessibilityKeyboardHotkeys : BaseOptimization

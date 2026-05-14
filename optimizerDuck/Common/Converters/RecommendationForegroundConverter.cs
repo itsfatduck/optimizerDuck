@@ -10,14 +10,11 @@ namespace optimizerDuck.Common.Converters;
 
 public static class ThemeBrushes
 {
-    public static Brush Primary =>
-        Clone("TextFillColorPrimaryBrush");
+    public static Brush Primary => Clone("TextFillColorPrimaryBrush");
 
-    public static Brush Inverse =>
-        Clone("TextFillColorInverseBrush");
+    public static Brush Inverse => Clone("TextFillColorInverseBrush");
 
-    public static Brush Secondary =>
-        Clone("TextFillColorSecondaryBrush");
+    public static Brush Secondary => Clone("TextFillColorSecondaryBrush");
 
     private static Brush Clone(string key)
     {
@@ -31,11 +28,7 @@ public static class ThemeBrushes
 
 public class RecommendationForegroundConverter : IMultiValueConverter
 {
-    public object Convert(
-        object[] values,
-        Type targetType,
-        object parameter,
-        CultureInfo culture)
+    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
     {
         if (values.Length < 2)
             return ThemeBrushes.Primary;
@@ -54,12 +47,9 @@ public class RecommendationForegroundConverter : IMultiValueConverter
 
             RecommendationState.Off => ThemeBrushes.Primary,
 
-            RecommendationState.Depends =>
-                isDark ? ThemeBrushes.Inverse
-                : ThemeBrushes.Primary,
+            RecommendationState.Depends => isDark ? ThemeBrushes.Inverse : ThemeBrushes.Primary,
 
-            _ =>
-                ThemeBrushes.Inverse
+            _ => ThemeBrushes.Inverse,
         };
     }
 
@@ -67,7 +57,8 @@ public class RecommendationForegroundConverter : IMultiValueConverter
         object value,
         Type[] targetTypes,
         object parameter,
-        CultureInfo culture)
+        CultureInfo culture
+    )
     {
         throw new NotSupportedException();
     }

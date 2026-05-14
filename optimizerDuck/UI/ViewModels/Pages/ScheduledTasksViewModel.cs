@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -320,6 +320,7 @@ public partial class ScheduledTasksViewModel : ViewModel
         {
             var tasks = await Task.Run(() => ScheduledTaskService.GetAllTasks());
             _allTasks.AddRange(tasks);
+            _logger.LogInformation("Loaded {Count} scheduled tasks", _allTasks.Count);
             ApplyFilter();
         }
         catch (Exception ex)

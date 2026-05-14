@@ -159,13 +159,13 @@ public partial class SettingsViewModel(
     }
 
     [RelayCommand]
-    private async Task ClearResources()
+    private async Task ClearDownloads()
     {
         var result = await ConfirmationDialogAsync(
-            Translations.Settings_ClearResources_Description
+            Translations.Settings_ClearDownloads_Description
         );
         if (result == ContentDialogResult.Primary)
-            OptimizationService.ClearResources(logger);
+            OptimizationService.ClearDownloads(logger);
     }
 
     [RelayCommand]

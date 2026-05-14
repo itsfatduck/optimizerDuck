@@ -6,11 +6,7 @@ namespace optimizerDuck.Common.Converters;
 
 public class ProgressBarVisibilityConverter : IMultiValueConverter
 {
-    public object Convert(
-        object[] values,
-        Type targetType,
-        object parameter,
-        CultureInfo culture)
+    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
     {
         if (values.Length < 2)
             return Visibility.Collapsed;
@@ -24,16 +20,15 @@ public class ProgressBarVisibilityConverter : IMultiValueConverter
         if (values[1] is bool b)
             isIndeterminate = b;
 
-        return total > 0 || isIndeterminate
-            ? Visibility.Visible
-            : Visibility.Collapsed;
+        return total > 0 || isIndeterminate ? Visibility.Visible : Visibility.Collapsed;
     }
 
     public object[] ConvertBack(
         object value,
         Type[] targetTypes,
         object parameter,
-        CultureInfo culture)
+        CultureInfo culture
+    )
     {
         throw new NotSupportedException();
     }

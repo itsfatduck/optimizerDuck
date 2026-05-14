@@ -60,9 +60,7 @@ public partial class FeatureViewModel(IFeature feature, ILoggerFactory loggerFac
         };
 
     public string? RecommendationReason =>
-        Recommendation != null
-            ? Loc.Instance[Recommendation.ReasonTranslationKey]
-            : null;
+        Recommendation != null ? Loc.Instance[Recommendation.ReasonTranslationKey] : null;
 
     public async Task LoadStateAsync()
     {

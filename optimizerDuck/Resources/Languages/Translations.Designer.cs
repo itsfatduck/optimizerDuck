@@ -2132,6 +2132,24 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Power Settings.
+        /// </summary>
+        internal static string Features_SystemFeatures_Section_Power {
+            get {
+                return ResourceManager.GetString("Features.SystemFeatures.Section.Power", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Services.
+        /// </summary>
+        internal static string Features_SystemFeatures_Section_Services {
+            get {
+                return ResourceManager.GetString("Features.SystemFeatures.Section.Services", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Features.
         /// </summary>
         internal static string Features_Title {
@@ -2835,24 +2853,6 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Optimize Game Scheduling.
-        /// </summary>
-        internal static string Optimizer_Performance_GameTaskScheduling_Name {
-            get {
-                return ResourceManager.GetString("Optimizer.Performance.GameTaskScheduling.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Assigns high priority to gaming workloads to ensure consistent frames per second (FPS) and smoother gameplay..
-        /// </summary>
-        internal static string Optimizer_Performance_GameTaskScheduling_ShortDescription {
-            get {
-                return ResourceManager.GetString("Optimizer.Performance.GameTaskScheduling.ShortDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Optimize Keyboard Repeat.
         /// </summary>
         internal static string Optimizer_Performance_KeyboardLatencyOptimization_Name {
@@ -2871,20 +2871,20 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Multimedia &amp; Network Responsiveness.
+        ///   Looks up a localized string similar to Optimize Multimedia Scheduler.
         /// </summary>
-        internal static string Optimizer_Performance_MultimediaResponsiveness_Name {
+        internal static string Optimizer_Performance_OptimizeMultimediaScheduler_Name {
             get {
-                return ResourceManager.GetString("Optimizer.Performance.MultimediaResponsiveness.Name", resourceCulture);
+                return ResourceManager.GetString("Optimizer.Performance.OptimizeMultimediaScheduler.Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prioritizes system resources for multimedia and gaming by reducing background CPU reservation and disabling network throttling for lower latency..
+        ///   Looks up a localized string similar to Configures the Multimedia Class Scheduler Service (MMCSS) for gaming and low latency by prioritizing multimedia workloads and disabling network throttling..
         /// </summary>
-        internal static string Optimizer_Performance_MultimediaResponsiveness_ShortDescription {
+        internal static string Optimizer_Performance_OptimizeMultimediaScheduler_ShortDescription {
             get {
-                return ResourceManager.GetString("Optimizer.Performance.MultimediaResponsiveness.ShortDescription", resourceCulture);
+                return ResourceManager.GetString("Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription", resourceCulture);
             }
         }
         
@@ -2943,38 +2943,20 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable Fast Startup.
+        ///   Looks up a localized string similar to Disable Hibernation &amp; Fast Startup.
         /// </summary>
-        internal static string Optimizer_PowerManagement_DisableFastStartup_Name {
+        internal static string Optimizer_PowerManagement_DisableHibernateAndFastStartup_Name {
             get {
-                return ResourceManager.GetString("Optimizer.PowerManagement.DisableFastStartup.Name", resourceCulture);
+                return ResourceManager.GetString("Optimizer.PowerManagement.DisableHibernateAndFastStartup.Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Turns off Fast Startup to ensure a full shutdown and cleaner hardware initialization on boot..
+        ///   Looks up a localized string similar to Turns off hibernation and Fast Startup to reclaim disk space and ensure a full shutdown for cleaner hardware initialization on boot..
         /// </summary>
-        internal static string Optimizer_PowerManagement_DisableFastStartup_ShortDescription {
+        internal static string Optimizer_PowerManagement_DisableHibernateAndFastStartup_ShortDescription {
             get {
-                return ResourceManager.GetString("Optimizer.PowerManagement.DisableFastStartup.ShortDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disable Hibernation.
-        /// </summary>
-        internal static string Optimizer_PowerManagement_DisableHibernate_Name {
-            get {
-                return ResourceManager.GetString("Optimizer.PowerManagement.DisableHibernate.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Turns off hibernation to reclaim disk space used by the hiberfil.sys file..
-        /// </summary>
-        internal static string Optimizer_PowerManagement_DisableHibernate_ShortDescription {
-            get {
-                return ResourceManager.GetString("Optimizer.PowerManagement.DisableHibernate.ShortDescription", resourceCulture);
+                return ResourceManager.GetString("Optimizer.PowerManagement.DisableHibernateAndFastStartup.ShortDescription", resourceCulture);
             }
         }
         
@@ -3084,24 +3066,6 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Optimizer_PowerManagement_InstallOptimizerDuckPowerPlan_ShortDescription {
             get {
                 return ResourceManager.GetString("Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Optimize Multimedia Profile.
-        /// </summary>
-        internal static string Optimizer_PowerManagement_OptimizeMultimediaProfile_Name {
-            get {
-                return ResourceManager.GetString("Optimizer.PowerManagement.OptimizeMultimediaProfile.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Configures the multimedia system profile to prioritize performance and disable lazy mode for better responsiveness..
-        /// </summary>
-        internal static string Optimizer_PowerManagement_OptimizeMultimediaProfile_ShortDescription {
-            get {
-                return ResourceManager.GetString("Optimizer.PowerManagement.OptimizeMultimediaProfile.ShortDescription", resourceCulture);
             }
         }
         
@@ -3300,24 +3264,6 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Optimizer_SecurityAndPrivacy_DisableTelemetry_ShortDescription {
             get {
                 return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disable Admin Prompts (UAC).
-        /// </summary>
-        internal static string Optimizer_SecurityAndPrivacy_DisableUAC_Name {
-            get {
-                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableUAC.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Turns off User Account Control (UAC) windows that ask for permission when running apps as administrator..
-        /// </summary>
-        internal static string Optimizer_SecurityAndPrivacy_DisableUAC_ShortDescription {
-            get {
-                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableUAC.ShortDescription", resourceCulture);
             }
         }
         
@@ -4433,18 +4379,18 @@ namespace optimizerDuck.Resources.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Delete all files downloaded during the optimization process..
         /// </summary>
-        internal static string Settings_Advanced_ClearResources_Description {
+        internal static string Settings_Advanced_ClearDownloads_Description {
             get {
-                return ResourceManager.GetString("Settings.Advanced.ClearResources.Description", resourceCulture);
+                return ResourceManager.GetString("Settings.Advanced.ClearDownloads.Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clear resources.
+        ///   Looks up a localized string similar to Clear downloads.
         /// </summary>
-        internal static string Settings_Advanced_ClearResources_Title {
+        internal static string Settings_Advanced_ClearDownloads_Title {
             get {
-                return ResourceManager.GetString("Settings.Advanced.ClearResources.Title", resourceCulture);
+                return ResourceManager.GetString("Settings.Advanced.ClearDownloads.Title", resourceCulture);
             }
         }
         
@@ -4593,11 +4539,11 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You are about to delete all resources downloaded or generated during the optimization process. Please note that this action is permanent and cannot be undone, so make sure you are certain before proceeding..
+        ///   Looks up a localized string similar to You are about to delete all files downloaded during the optimization process. Please note that this action is permanent and cannot be undone, so make sure you are certain before proceeding..
         /// </summary>
-        internal static string Settings_ClearResources_Description {
+        internal static string Settings_ClearDownloads_Description {
             get {
-                return ResourceManager.GetString("Settings.ClearResources.Description", resourceCulture);
+                return ResourceManager.GetString("Settings.ClearDownloads.Description", resourceCulture);
             }
         }
         

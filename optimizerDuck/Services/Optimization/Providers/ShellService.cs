@@ -349,7 +349,10 @@ public static class ShellService
             catch (OperationCanceledException)
             {
                 // Process timed out, attempt cleanup
-                ExecutionScope.LogWarning("Process timed out, attempting to kill: PID {ProcessId}", process.Id);
+                ExecutionScope.LogWarning(
+                    "Process timed out, attempting to kill: PID {ProcessId}",
+                    process.Id
+                );
 
                 try
                 {
@@ -361,7 +364,11 @@ public static class ShellService
                 }
                 catch (Exception ex)
                 {
-                    ExecutionScope.LogError(ex, "Failed to kill process for timeout (async), PID: {ProcessId}", process.Id);
+                    ExecutionScope.LogError(
+                        ex,
+                        "Failed to kill process for timeout (async), PID: {ProcessId}",
+                        process.Id
+                    );
                 }
             }
 
@@ -373,7 +380,10 @@ public static class ShellService
                 // Process still running after kill attempt, wait for grace period
                 try
                 {
-                    ExecutionScope.LogWarning("Process still running after kill, waiting for grace period: PID {ProcessId}", process.Id);
+                    ExecutionScope.LogWarning(
+                        "Process still running after kill, waiting for grace period: PID {ProcessId}",
+                        process.Id
+                    );
                     process.WaitForExit(ProcessGraceDrainMs);
                 }
                 catch (Exception ex)
@@ -390,13 +400,19 @@ public static class ShellService
                 {
                     try
                     {
-                        ExecutionScope.LogWarning("Process still running after grace period, force killing: PID {ProcessId}", process.Id);
+                        ExecutionScope.LogWarning(
+                            "Process still running after grace period, force killing: PID {ProcessId}",
+                            process.Id
+                        );
                         process.Kill(entireProcessTree: true);
 
                         // Wait up to 5 seconds for force kill
                         if (!process.WaitForExit(5000))
                         {
-                            ExecutionScope.LogWarning("Process did not exit after force kill: PID {ProcessId}. User may need manual cleanup.", process.Id);
+                            ExecutionScope.LogWarning(
+                                "Process did not exit after force kill: PID {ProcessId}. User may need manual cleanup.",
+                                process.Id
+                            );
                         }
                     }
                     catch (Exception ex)
@@ -546,12 +562,31 @@ public static class ShellService
     /// <returns>The result of the command execution.</returns>
     public static Task<ShellResult> CMDAsync(
         string command,
+        string revertCommand,
+        ShellPolicy? policy = null,
+        CancellationToken ct = default
+    )
+    {
+        return RunAsync("cmd.exe", "/c", command, nameof(CMD), new ShellRevertStep { ShellType = ShellType.CMD, Command = revertCommand }, policy, ct);
+    }
+    public static Task<ShellResult> CMDAsync(
+        string command,
         ShellRevertStep? revertStep = null,
         ShellPolicy? policy = null,
         CancellationToken ct = default
     )
     {
         return RunAsync("cmd.exe", "/c", command, nameof(CMD), revertStep, policy, ct);
+    }
+
+    public static Task<ShellResult> CMDAsync(
+        string command,
+        Func<string> revertCommand,
+        ShellPolicy? policy = null,
+        CancellationToken ct = default
+    )
+    {
+        return RunAsync("cmd.exe", "/c", command, nameof(CMD), new ShellRevertStep { ShellType = ShellType.CMD, Command = revertCommand() }, policy, ct);
     }
 
     /// <summary>
@@ -648,6 +683,52 @@ public static class ShellService
             command.EncodeBase64(),
             nameof(PowerShell),
             revertStep,
+            policy,
+            ct
+        );
+    }
+
+    public static Task<ShellResult> PowerShellAsync(
+        string command,
+        string revertCommand,
+        ShellPolicy? policy = null,
+        CancellationToken ct = default
+    )
+    {
+        command =
+            "$ProgressPreference='SilentlyContinue'; "
+            + "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; "
+            + "$OutputEncoding = [System.Console]::OutputEncoding = [System.Console]::InputEncoding = [System.Text.Encoding]::UTF8; "
+            + command;
+        return RunAsync(
+            "powershell.exe",
+            "-NonInteractive -NoLogo -NoProfile -ExecutionPolicy Bypass -EncodedCommand",
+            command.EncodeBase64(),
+            nameof(PowerShell),
+            new ShellRevertStep { ShellType = ShellType.PowerShell, Command = revertCommand },
+            policy,
+            ct
+        );
+    }
+
+    public static Task<ShellResult> PowerShellAsync(
+        string command,
+        Func<string> revertFunction,
+        ShellPolicy? policy = null,
+        CancellationToken ct = default
+    )
+    {
+        command =
+            "$ProgressPreference='SilentlyContinue'; "
+            + "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; "
+            + "$OutputEncoding = [System.Console]::OutputEncoding = [System.Console]::InputEncoding = [System.Text.Encoding]::UTF8; "
+            + command;
+        return RunAsync(
+            "powershell.exe",
+            "-NonInteractive -NoLogo -NoProfile -ExecutionPolicy Bypass -EncodedCommand",
+            command.EncodeBase64(),
+            nameof(PowerShell),
+            new ShellRevertStep { ShellType = ShellType.PowerShell, Command = revertFunction() },
             policy,
             ct
         );

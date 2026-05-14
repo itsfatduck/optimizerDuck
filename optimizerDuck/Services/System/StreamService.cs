@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Net.Http;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Common.Helpers;
@@ -14,13 +14,13 @@ public class StreamService(ILogger<StreamService> logger)
         string fileName
     )
     {
-        var filePath = Path.Combine(Shared.ResourcesDirectory, fileName);
+        var filePath = Path.Combine(Shared.DownloadsDirectory, fileName);
 
         logger.LogInformation("Starting download from {Url} to {FilePath}", url, filePath);
 
         try
         {
-            Directory.CreateDirectory(Shared.ResourcesDirectory);
+            Directory.CreateDirectory(Shared.DownloadsDirectory);
             _client ??= new HttpClient();
             using var response = await _client.GetAsync(url).ConfigureAwait(false);
 

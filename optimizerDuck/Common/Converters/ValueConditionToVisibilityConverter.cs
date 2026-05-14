@@ -11,7 +11,7 @@ public enum ValueConditionType
     IsZero,
     IsNotZero,
     IsGreaterThanZero,
-    IsLessThanZero
+    IsLessThanZero,
 }
 
 public class ValueConditionToVisibilityConverter : IValueConverter

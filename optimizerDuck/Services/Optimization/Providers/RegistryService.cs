@@ -680,8 +680,9 @@ public static class RegistryService
                 int i => (T)(object)(i != 0),
                 long l => (T)(object)(l != 0),
                 string s when bool.TryParse(s, out var b) => (T)(object)b,
-                string s when s.Equals("1") || s.Equals("yes", StringComparison.OrdinalIgnoreCase) =>
-                    (T)(object)true,
+                string s
+                    when s.Equals("1") || s.Equals("yes", StringComparison.OrdinalIgnoreCase) => (T)
+                    (object)true,
                 string s when s.Equals("0") || s.Equals("no", StringComparison.OrdinalIgnoreCase) =>
                     (T)(object)false,
                 _ => default,

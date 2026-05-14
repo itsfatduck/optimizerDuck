@@ -9,8 +9,8 @@
         <Authors>fatDuck</Authors>
         <ApplicationIcon>Logo.ico</ApplicationIcon>
         <Company>fatDuck</Company>
-        <FileVersion>2.12.0</FileVersion>
-        <Version>2.12.0</Version>
+        <FileVersion>2.13.3</FileVersion>
+        <Version>2.13.3</Version>
         <Product>optimizerDuck</Product>
         <Copyright>Copyright fatDuck 2026</Copyright>
         <AssemblyTitle>optimizerDuck</AssemblyTitle>
@@ -60,6 +60,10 @@
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>Translations.Designer.cs</LastGenOutput>
         </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="Resources\Embedded\Icons\blank.ico" />
     </ItemGroup>
 
     <ItemGroup>

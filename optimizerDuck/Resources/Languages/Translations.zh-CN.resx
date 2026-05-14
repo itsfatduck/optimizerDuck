@@ -454,10 +454,10 @@
   <data name="Settings.Optimize.ShellTimeout.Description" xml:space="preserve">
     <value>每条 Shell 命令的执行超时时间（毫秒）。</value>
   </data>
-  <data name="Settings.Advanced.ClearResources.Title" xml:space="preserve">
-    <value>清理资源文件</value>
+  <data name="Settings.Advanced.ClearDownloads.Title" xml:space="preserve">
+    <value>清理下载</value>
   </data>
-  <data name="Settings.Advanced.ClearResources.Description" xml:space="preserve">
+  <data name="Settings.Advanced.ClearDownloads.Description" xml:space="preserve">
     <value>删除优化过程中下载的所有文件。</value>
   </data>
   <data name="Settings.Advanced.ClearRevertDatas.Title" xml:space="preserve">
@@ -484,8 +484,8 @@
   <data name="Dialog.AreYouSure.Title" xml:space="preserve">
     <value>确定要继续操作吗？</value>
   </data>
-  <data name="Settings.ClearResources.Description" xml:space="preserve">
-    <value>你即将删除优化过程中下载或生成的所有资源文件。请注意，此操作不可逆，请确认后再继续。</value>
+  <data name="Settings.ClearDownloads.Description" xml:space="preserve">
+    <value>你即将删除优化过程中下载的所有文件。请注意，此操作不可逆，请确认后再继续。</value>
   </data>
   <data name="Button.Cancel" xml:space="preserve">
     <value>取消</value>
@@ -589,17 +589,11 @@
   <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
     <value>为当前使用的应用分配更多 CPU 资源，提升运行速度与响应速度。</value>
   </data>
-  <data name="Optimizer.Performance.GameTaskScheduling.Name" xml:space="preserve">
-    <value>优化游戏任务调度</value>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
+    <value>优化多媒体调度</value>
   </data>
-  <data name="Optimizer.Performance.GameTaskScheduling.ShortDescription" xml:space="preserve">
-    <value>为游戏任务分配高优先级，确保帧率稳定、游戏运行更流畅。</value>
-  </data>
-  <data name="Optimizer.Performance.MultimediaResponsiveness.Name" xml:space="preserve">
-    <value>多媒体与网络响应优化</value>
-  </data>
-  <data name="Optimizer.Performance.MultimediaResponsiveness.ShortDescription" xml:space="preserve">
-    <value>减少后台 CPU 占用、关闭网络限流，优先保障多媒体与游戏的系统资源，降低延迟。</value>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
+    <value>配置多媒体类调度服务 (MMCSS) 以优化游戏和低延迟，通过优先处理多媒体工作负载和禁用网络节流。</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
     <value>优化键盘响应速度</value>
@@ -613,17 +607,11 @@
   <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription" xml:space="preserve">
     <value>禁用粘滞键、筛选键、切换键快捷键，避免游戏和打字时误触发弹窗。</value>
   </data>
-  <data name="Optimizer.PowerManagement.DisableHibernate.Name" xml:space="preserve">
-    <value>禁用休眠功能</value>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Name" xml:space="preserve">
+    <value>禁用休眠和快速启动</value>
   </data>
-  <data name="Optimizer.PowerManagement.DisableHibernate.ShortDescription" xml:space="preserve">
-    <value>关闭休眠，释放休眠文件占用的磁盘空间。</value>
-  </data>
-  <data name="Optimizer.PowerManagement.DisableFastStartup.Name" xml:space="preserve">
-    <value>禁用快速启动</value>
-  </data>
-  <data name="Optimizer.PowerManagement.DisableFastStartup.ShortDescription" xml:space="preserve">
-    <value>关闭快速启动，确保系统完全关机，开机时硬件初始化更干净。</value>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.ShortDescription" xml:space="preserve">
+    <value>关闭休眠和快速启动，释放磁盘空间并确保完全关机，以便开机时硬件初始化更干净。</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
     <value>禁用USB节能</value>
@@ -648,18 +636,6 @@
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
     <value>阻止 Windows 限制 CPU 性能，保障前台任务始终处于峰值运行状态。</value>
-  </data>
-  <data name="Optimizer.PowerManagement.OptimizeMultimediaProfile.Name" xml:space="preserve">
-    <value>优化多媒体配置</value>
-  </data>
-  <data name="Optimizer.PowerManagement.OptimizeMultimediaProfile.ShortDescription" xml:space="preserve">
-    <value>配置多媒体系统配置文件，优先保障性能、关闭延迟模式，提升响应速度。</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableUAC.Name" xml:space="preserve">
-    <value>禁用管理员权限弹窗(UAC)</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableUAC.ShortDescription" xml:space="preserve">
-    <value>关闭以管理员身份运行应用时的用户账户控制弹窗。</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
     <value>禁用数据收集(遥测)</value>
@@ -1633,6 +1609,12 @@
   </data>
   <data name="Features.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
     <value>开机启用数字小键盘，登录后即可直接使用，无需每次手动开启。</value>
+  </data>
+  <data name="Features.SystemFeatures.Section.Services" xml:space="preserve">
+    <value>系统服务</value>
+  </data>
+  <data name="Features.SystemFeatures.Section.Power" xml:space="preserve">
+    <value>电源设置</value>
   </data>
   <data name="Features.Desktop.Name" xml:space="preserve">
     <value>桌面</value>

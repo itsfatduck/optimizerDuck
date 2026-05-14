@@ -41,9 +41,7 @@ public class ServiceRevertStep : IRevertStep
 
         if (!result)
             throw new Exception(
-                string.Format(
-                    Translations.Service_Service_Error_UpdateRegistryForStartupTypeFailed
-                )
+                string.Format(Translations.Service_Service_Error_UpdateRegistryForStartupTypeFailed)
             );
 
         return Task.FromResult(result);

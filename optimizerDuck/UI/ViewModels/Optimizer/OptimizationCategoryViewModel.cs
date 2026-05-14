@@ -189,6 +189,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
                         );
 
                         await OptimizationService.UpdateOptimizationStateAsync(optimization);
+                        OnPropertyChanged(nameof(HasAppliedOptimizations));
                         return;
                     }
 
@@ -201,7 +202,11 @@ public partial class OptimizationCategoryViewModel : ViewModel
                         OptimizationOperation.Apply
                     );
 
+                    // Explicitly update state after all operations complete
                     await OptimizationService.UpdateOptimizationStateAsync(optimization);
+                    
+                    // Ensure UI reflects the correct state
+                    OnPropertyChanged(nameof(HasAppliedOptimizations));
 
                     var notificationState = ResolveApplyNotificationState(
                         applyResult,
@@ -255,7 +260,12 @@ public partial class OptimizationCategoryViewModel : ViewModel
                         revertResult.FailedSteps,
                         OptimizationOperation.Revert
                     );
+                    
+                    // Explicitly update state after revert completes
                     await OptimizationService.UpdateOptimizationStateAsync(optimization);
+                    
+                    // Ensure UI reflects the correct state
+                    OnPropertyChanged(nameof(HasAppliedOptimizations));
 
                     var notificationState = ResolveRevertNotificationState(
                         revertResult,
@@ -722,14 +732,21 @@ public partial class OptimizationCategoryViewModel : ViewModel
         };
 
         var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
-        if (result == ContentDialogResult.None) // User cancelled
+        if (result == ContentDialogResult.None)
+        { // User cancelled
+            _logger.LogInformation("User cancelled the restore point dialog");
             return (false, false);
+        }
 
-        if (result == ContentDialogResult.Secondary) // User skipped
+        if (result == ContentDialogResult.Secondary)
+        { // User skipped
+            _logger.LogInformation("User chose to skip creating a restore point");
             return (true, false);
+        }
 
         try
         {
+            _logger.LogInformation("User accepted to create a restore point, starting creation");
             var resultState = await _optimizationService.CreateRestorePointAsync();
 
             switch (resultState)
@@ -745,11 +762,16 @@ public partial class OptimizationCategoryViewModel : ViewModel
                                 Shared.RestorePointName
                             ),
                             ControlAppearance.Success,
-                            new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
+                            new SymbolIcon
+                            {
+                                Symbol = SymbolRegular.CheckmarkCircle24,
+                                Filled = true,
+                            },
                             TimeSpan.FromSeconds(5)
                         );
                         break;
                     }
+                    _logger.LogInformation("Successfully created restore point");
 
                     return (true, true);
 
@@ -761,6 +783,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
                         new SymbolIcon { Symbol = SymbolRegular.Warning24, Filled = true },
                         TimeSpan.FromSeconds(5)
                     );
+                    _logger.LogWarning("Restore point creation frequency limit reached");
                     break;
 
                 case RestorePointResult.Failed:
@@ -772,6 +795,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
                         new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
                         TimeSpan.FromSeconds(5)
                     );
+                    _logger.LogError("Failed to create restore point");
                     break;
             }
 
@@ -796,19 +820,17 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 return (true, false);
 
             return (false, false);
-
         }
-
         catch (Exception e)
         {
             _logger.LogError(e, "Failed to create restore point");
             _snackbarService.Show(
-                    Translations.RestorePoint_Snackbar_Error_Title,
-                    Translations.RestorePoint_Snackbar_Error_Message,
-                    ControlAppearance.Caution,
-                    new SymbolIcon { Symbol = SymbolRegular.Warning24, Filled = true },
-                    TimeSpan.FromSeconds(5)
-                );
+                Translations.RestorePoint_Snackbar_Error_Title,
+                Translations.RestorePoint_Snackbar_Error_Message,
+                ControlAppearance.Caution,
+                new SymbolIcon { Symbol = SymbolRegular.Warning24, Filled = true },
+                TimeSpan.FromSeconds(5)
+            );
         }
 
         return (true, false);

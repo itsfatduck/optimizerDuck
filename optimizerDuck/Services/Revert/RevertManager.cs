@@ -14,7 +14,7 @@ using optimizerDuck.Resources.Languages;
 
 namespace optimizerDuck.Services.Managers;
 
-public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerFactory)
+public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _loggerFactory)
 {
     private static readonly Lazy<Dictionary<string, Func<JObject, IRevertStep>>> _stepRegistry =
         new(BuildStepRegistry);
@@ -23,8 +23,8 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
 
     public async Task SaveRevertDataAsync(ExecutionScope scope)
     {
-        var successfulSteps = scope.ExecutedSteps
-            .Where(s => s.Success && s.RevertStep != null)
+        var successfulSteps = scope
+            .ExecutedSteps.Where(s => s.Success && s.RevertStep != null)
             .ToList();
 
         if (successfulSteps.Count == 0)
@@ -39,7 +39,7 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
             steps[arrayIndex] = new RevertStepData
             {
                 Index = executedStep.Index,
-                Type = executedStep.RevertStep.Type,
+                Type = executedStep.RevertStep!.Type,
                 Data = executedStep.RevertStep.ToData(),
             };
         }
@@ -61,7 +61,7 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
         IProgress<ProcessingProgress>? progress = null
     )
     {
-        var operationLogger = loggerFactory.CreateLogger<RevertManager>();
+        var operationLogger = _loggerFactory.CreateLogger<RevertManager>();
         using var scope = ExecutionScope.BeginForLogging(
             optimization.Id,
             optimization.OptimizationKey,
@@ -90,7 +90,7 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
                 {
                     Message = string.Format(
                         Translations.Optimization_Revert_ExecutingStep,
-                        idx,
+                        idx - 1,
                         total,
                         step.Type
                     ),
@@ -193,6 +193,8 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
         }
     }
 
+    #region Helpers
+
     public static Task<bool> IsAppliedAsync(Guid id)
     {
         return Task.FromResult(File.Exists(GetFilePath(id)));
@@ -218,8 +220,6 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
             }
     }
 
-    #region Helpers
-
     private static string GetFilePath(Guid id)
     {
         return Path.Combine(Shared.RevertDirectory, $"{id}.json");
@@ -231,9 +231,7 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
             return null;
         try
         {
-            return JsonConvert.DeserializeObject<RevertData>(
-                await File.ReadAllTextAsync(path)
-            );
+            return JsonConvert.DeserializeObject<RevertData>(await File.ReadAllTextAsync(path));
         }
         catch
         {
@@ -246,14 +244,24 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
         Remove(id, name);
     }
 
-    private static async Task WriteJsonAsync(string path, RevertData data)
+    private async Task WriteJsonAsync(string path, RevertData data)
     {
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);
-        
+
         var json = JsonConvert.SerializeObject(data, Formatting.Indented);
-        await using var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize: 4096, useAsync: true);
+        await using var fileStream = new FileStream(
+            path,
+            FileMode.Create,
+            FileAccess.Write,
+            FileShare.None,
+            bufferSize: 4096,
+            useAsync: true
+        );
         await using var writer = new StreamWriter(fileStream);
         await writer.WriteAsync(json);
+
+        var totalOperations = data.Steps.Count(s => s != null);
+        _logger.LogInformation("Saved {Total} operations to {Path}", totalOperations, path);
     }
 
     private async Task<List<(int Index, IRevertStep Step)>> LoadStepsAsync(Guid id)
@@ -266,14 +274,18 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
         var seenIndexes = new HashSet<int>();
         foreach (var step in data.Steps.Where(s => s != null))
         {
-            if (step.Index <= 0)
+            if (step!.Index <= 0)
             {
-                logger.LogWarning("Invalid index {Index} in revert data for {Id}", step.Index, id);
+                _logger.LogWarning("Invalid index {Index} in revert data for {Id}", step.Index, id);
                 return [];
             }
             if (!seenIndexes.Add(step.Index))
             {
-                logger.LogWarning("Duplicate index {Index} in revert data for {Id}", step.Index, id);
+                _logger.LogWarning(
+                    "Duplicate index {Index} in revert data for {Id}",
+                    step.Index,
+                    id
+                );
                 return [];
             }
         }
@@ -281,9 +293,9 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
         var result = new List<(int, IRevertStep)>();
         foreach (var stepData in data.Steps.Where(s => s != null))
         {
-            var step = DeserializeStep(stepData.Type, stepData.Data);
+            var step = DeserializeStep(stepData!.Type, stepData.Data);
             if (step != null)
-                result.Add((stepData.Index, step));  // Use explicit Index
+                result.Add((stepData.Index, step)); // Use explicit Index
         }
 
         return result.OrderBy(x => x.Item1).ToList();
@@ -297,12 +309,12 @@ public class RevertManager(ILogger<RevertManager> logger, ILoggerFactory loggerF
             if (File.Exists(path))
             {
                 File.Delete(path);
-                logger.LogInformation("Removed revert data for {Name}", name ?? id.ToString());
+                _logger.LogInformation("Removed revert data for {Name}", name ?? id.ToString());
             }
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Failed to remove revert data for {Id}", id);
+            _logger.LogError(ex, "Failed to remove revert data for {Id}", id);
         }
     }
 

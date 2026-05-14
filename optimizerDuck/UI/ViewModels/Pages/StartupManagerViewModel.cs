@@ -292,8 +292,7 @@ public partial class StartupManagerViewModel : ViewModel
         {
             try
             {
-                await _startupManagerService
-                    .ToggleStartupApp(app, app.IsEnabled);
+                await _startupManagerService.ToggleStartupApp(app, app.IsEnabled);
             }
             catch (Exception ex)
             {
@@ -308,8 +307,7 @@ public partial class StartupManagerViewModel : ViewModel
         {
             try
             {
-                await _startupManagerService
-                    .ToggleStartupTask(task, task.IsEnabled);
+                await _startupManagerService.ToggleStartupTask(task, task.IsEnabled);
             }
             catch (Exception ex)
             {

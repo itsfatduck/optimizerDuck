@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Management;
 using optimizerDuck.Common.Extensions;
 using optimizerDuck.Domain.Execution;
@@ -15,7 +15,7 @@ public static class ServiceProcessService
     /// <summary>
     ///     Get current startup type of a service
     /// </summary>
-    private static ServiceStartupType? GetStartupType(string serviceName)
+    public static ServiceStartupType? GetStartupType(string serviceName)
     {
         try
         {

@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
@@ -19,29 +19,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
         OptimizationCategoryOrder.SecurityAndPrivacy;
     public ObservableCollection<IOptimization> Optimizations { get; init; } = [];
 
-    [Optimization(
-        Id = "09F7CE38-93B2-4E1A-AB09-130268165B42",
-        Risk = OptimizationRisk.Risky,
-        Tags = OptimizationTags.System | OptimizationTags.Security
-    )]
-    public class DisableUAC : BaseOptimization
-    {
-        public override Task<ApplyResult> ApplyAsync(
-            IProgress<ProcessingProgress> progress,
-            OptimizationContext context
-        )
-        {
-            RegistryService.Write(
-                new RegistryItem(
-                    @"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
-                    "EnableLUA",
-                    0
-                )
-            );
-            context.Logger.LogInformation("Disabled UAC prompts");
-            return Task.FromResult(ApplyResult.True());
-        }
-    }
+
 
     [Optimization(
         Id = "74DC8DAC-1F90-4BBD-ACF7-7E626749D71C",
@@ -298,6 +276,11 @@ public class SecurityAndPrivacy : IOptimizationCategory
                     2
                 ),
                 new RegistryItem(
+                    @"HKLM\SOFTWARE\Policies\Microsoft\Dsh",
+                    "AllowNewsAndInterests",
+                    0
+                ),
+                new RegistryItem(
                     @"HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer",
                     "HideSCAMeetNow",
                     1
@@ -494,16 +477,6 @@ public class SecurityAndPrivacy : IOptimizationCategory
                 ),
                 new RegistryItem(
                     @"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DataMarket",
-                    "Start",
-                    0
-                ),
-                new RegistryItem(
-                    @"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger",
-                    "Start",
-                    0
-                ),
-                new RegistryItem(
-                    @"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderAuditLogger",
                     "Start",
                     0
                 ),

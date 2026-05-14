@@ -454,10 +454,10 @@
   <data name="Settings.Optimize.ShellTimeout.Description" xml:space="preserve">
     <value>Timeout for each shell command execution (milliseconds).</value>
   </data>
-  <data name="Settings.Advanced.ClearResources.Title" xml:space="preserve">
-    <value>Clear resources</value>
+  <data name="Settings.Advanced.ClearDownloads.Title" xml:space="preserve">
+    <value>Clear downloads</value>
   </data>
-  <data name="Settings.Advanced.ClearResources.Description" xml:space="preserve">
+  <data name="Settings.Advanced.ClearDownloads.Description" xml:space="preserve">
     <value>Delete all files downloaded during the optimization process.</value>
   </data>
   <data name="Settings.Advanced.ClearRevertDatas.Title" xml:space="preserve">
@@ -484,8 +484,8 @@
   <data name="Dialog.AreYouSure.Title" xml:space="preserve">
     <value>Do you really want to proceed?</value>
   </data>
-  <data name="Settings.ClearResources.Description" xml:space="preserve">
-    <value>You are about to delete all resources downloaded or generated during the optimization process. Please note that this action is permanent and cannot be undone, so make sure you are certain before proceeding.</value>
+  <data name="Settings.ClearDownloads.Description" xml:space="preserve">
+    <value>You are about to delete all files downloaded during the optimization process. Please note that this action is permanent and cannot be undone, so make sure you are certain before proceeding.</value>
   </data>
   <data name="Button.Cancel" xml:space="preserve">
     <value>Cancel</value>
@@ -589,17 +589,11 @@
   <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
     <value>Allocates more CPU resources to the application you are currently using for a faster, more responsive experience.</value>
   </data>
-  <data name="Optimizer.Performance.GameTaskScheduling.Name" xml:space="preserve">
-    <value>Optimize Game Scheduling</value>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
+    <value>Optimize Multimedia Scheduler</value>
   </data>
-  <data name="Optimizer.Performance.GameTaskScheduling.ShortDescription" xml:space="preserve">
-    <value>Assigns high priority to gaming workloads to ensure consistent frames per second (FPS) and smoother gameplay.</value>
-  </data>
-  <data name="Optimizer.Performance.MultimediaResponsiveness.Name" xml:space="preserve">
-    <value>Multimedia &amp; Network Responsiveness</value>
-  </data>
-  <data name="Optimizer.Performance.MultimediaResponsiveness.ShortDescription" xml:space="preserve">
-    <value>Prioritizes system resources for multimedia and gaming by reducing background CPU reservation and disabling network throttling for lower latency.</value>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
+    <value>Configures the Multimedia Class Scheduler Service (MMCSS) for gaming and low latency by prioritizing multimedia workloads and disabling network throttling.</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
     <value>Optimize Keyboard Repeat</value>
@@ -613,17 +607,11 @@
   <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription" xml:space="preserve">
     <value>Disables Sticky Keys, Filter Keys, and Toggle Keys keyboard shortcuts to prevent accidental pop-ups during gaming and typing.</value>
   </data>
-  <data name="Optimizer.PowerManagement.DisableHibernate.Name" xml:space="preserve">
-    <value>Disable Hibernation</value>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Name" xml:space="preserve">
+    <value>Disable Hibernation &amp; Fast Startup</value>
   </data>
-  <data name="Optimizer.PowerManagement.DisableHibernate.ShortDescription" xml:space="preserve">
-    <value>Turns off hibernation to reclaim disk space used by the hiberfil.sys file.</value>
-  </data>
-  <data name="Optimizer.PowerManagement.DisableFastStartup.Name" xml:space="preserve">
-    <value>Disable Fast Startup</value>
-  </data>
-  <data name="Optimizer.PowerManagement.DisableFastStartup.ShortDescription" xml:space="preserve">
-    <value>Turns off Fast Startup to ensure a full shutdown and cleaner hardware initialization on boot.</value>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.ShortDescription" xml:space="preserve">
+    <value>Turns off hibernation and Fast Startup to reclaim disk space and ensure a full shutdown for cleaner hardware initialization on boot.</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
     <value>Disable USB Power Saving</value>
@@ -648,18 +636,6 @@
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
     <value>Prevents Windows from limiting CPU performance (Power Throttling) to maintain peak power for active tasks.</value>
-  </data>
-  <data name="Optimizer.PowerManagement.OptimizeMultimediaProfile.Name" xml:space="preserve">
-    <value>Optimize Multimedia Profile</value>
-  </data>
-  <data name="Optimizer.PowerManagement.OptimizeMultimediaProfile.ShortDescription" xml:space="preserve">
-    <value>Configures the multimedia system profile to prioritize performance and disable lazy mode for better responsiveness.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableUAC.Name" xml:space="preserve">
-    <value>Disable Admin Prompts (UAC)</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableUAC.ShortDescription" xml:space="preserve">
-    <value>Turns off User Account Control (UAC) windows that ask for permission when running apps as administrator.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
     <value>Disable Data Collection (Telemetry)</value>
@@ -1634,6 +1610,12 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   </data>
   <data name="Features.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
     <value>Enabling NumLock at boot ensures the numpad is ready immediately after login, avoiding manual toggling each time.</value>
+  </data>
+  <data name="Features.SystemFeatures.Section.Services" xml:space="preserve">
+    <value>Services</value>
+  </data>
+  <data name="Features.SystemFeatures.Section.Power" xml:space="preserve">
+    <value>Power Settings</value>
   </data>
   <data name="Features.Desktop.Name" xml:space="preserve">
     <value>Desktop</value>

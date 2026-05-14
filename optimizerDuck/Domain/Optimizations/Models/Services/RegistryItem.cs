@@ -1,4 +1,4 @@
-﻿using Microsoft.Win32;
+using Microsoft.Win32;
 
 namespace optimizerDuck.Domain.Optimizations.Models.Services;
 
@@ -57,7 +57,7 @@ public record struct RegistryItem
     }
 
     /// <summary>
-    ///     Initializes a new <see cref="RegistryItem" /> for a named value without data (used for deletion).
+    ///     Initializes a new <see cref="RegistryItem" /> for a named value without data (used for deletion or reading).
     /// </summary>
     /// <param name="path">The registry key path.</param>
     /// <param name="name">The value name to target.</param>

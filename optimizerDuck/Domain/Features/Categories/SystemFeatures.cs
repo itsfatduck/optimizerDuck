@@ -15,6 +15,8 @@ public class SystemFeatures : IFeatureCategory
     private enum Sections
     {
         Input,
+        Services,
+        Power,
     }
 
     public string Name => Loc.Instance[$"Features.{nameof(SystemFeatures)}.Name"];
@@ -23,7 +25,11 @@ public class SystemFeatures : IFeatureCategory
     public FeatureCategoryOrder Order { get; init; } = FeatureCategoryOrder.System;
     public ObservableCollection<IFeature> Features { get; init; } = [];
 
-    [Feature(Section = nameof(Sections.Input), Icon = SymbolRegular.NumberSymbol24, Recommendation = RecommendationState.On)]
+    [Feature(
+        Section = nameof(Sections.Input),
+        Icon = SymbolRegular.NumberSymbol24,
+        Recommendation = RecommendationState.On
+    )]
     public class NumLockOnBoot : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>

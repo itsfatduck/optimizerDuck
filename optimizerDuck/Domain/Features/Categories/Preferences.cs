@@ -45,7 +45,11 @@ public class Preferences : IFeatureCategory
             ];
     }
 
-    [Feature(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.Grid24, Recommendation = RecommendationState.Off)]
+    [Feature(
+        Section = nameof(Sections.Taskbar),
+        Icon = SymbolRegular.Grid24,
+        Recommendation = RecommendationState.Off
+    )]
     public class TaskbarWidgets : BaseFeature
     {
         protected override bool NeedsPostAction => true;
@@ -99,7 +103,11 @@ public class Preferences : IFeatureCategory
             ];
     }
 
-    [Feature(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.WindowConsole20, Recommendation = RecommendationState.On)]
+    [Feature(
+        Section = nameof(Sections.Taskbar),
+        Icon = SymbolRegular.WindowConsole20,
+        Recommendation = RecommendationState.On
+    )]
     public class TaskbarEndTask : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
@@ -140,7 +148,11 @@ public class Preferences : IFeatureCategory
             ];
     }
 
-    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.AlertOff24, Recommendation = RecommendationState.Off)]
+    [Feature(
+        Section = nameof(Sections.Explorer),
+        Icon = SymbolRegular.AlertOff24,
+        Recommendation = RecommendationState.Off
+    )]
     public class ExplorerSyncNotifications : BaseFeature
     {
         protected override bool NeedsPostAction => true;
@@ -158,7 +170,11 @@ public class Preferences : IFeatureCategory
             ];
     }
 
-    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.Lightbulb24, Recommendation = RecommendationState.Off)]
+    [Feature(
+        Section = nameof(Sections.Explorer),
+        Icon = SymbolRegular.Lightbulb24,
+        Recommendation = RecommendationState.Off
+    )]
     public class SystemSuggestions : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
@@ -253,7 +269,11 @@ public class Preferences : IFeatureCategory
             ];
     }
 
-    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.DocumentText24, Recommendation = RecommendationState.On)]
+    [Feature(
+        Section = nameof(Sections.Explorer),
+        Icon = SymbolRegular.DocumentText24,
+        Recommendation = RecommendationState.On
+    )]
     public class ShowFileExtensions : BaseFeature
     {
         protected override bool NeedsPostAction => true;
@@ -271,7 +291,11 @@ public class Preferences : IFeatureCategory
             ];
     }
 
-    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.FolderProhibited48, Recommendation = RecommendationState.On)]
+    [Feature(
+        Section = nameof(Sections.Explorer),
+        Icon = SymbolRegular.FolderProhibited48,
+        Recommendation = RecommendationState.On
+    )]
     public class ShowHiddenFiles : BaseFeature
     {
         protected override bool NeedsPostAction => true;
@@ -289,7 +313,11 @@ public class Preferences : IFeatureCategory
             ];
     }
 
-    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.DocumentText24, Recommendation = RecommendationState.On)]
+    [Feature(
+        Section = nameof(Sections.Explorer),
+        Icon = SymbolRegular.DocumentText24,
+        Recommendation = RecommendationState.On
+    )]
     public class ClipboardHistory : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
@@ -355,7 +383,11 @@ public class Preferences : IFeatureCategory
             ];
     }
 
-    [Feature(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.Search24, Recommendation = RecommendationState.Off)]
+    [Feature(
+        Section = nameof(Sections.Taskbar),
+        Icon = SymbolRegular.Search24,
+        Recommendation = RecommendationState.Off
+    )]
     public class BingSearch : BaseFeature
     {
         protected override bool NeedsPostAction => true;
@@ -373,7 +405,11 @@ public class Preferences : IFeatureCategory
             ];
     }
 
-    [Feature(Section = nameof(Sections.Explorer), Icon = SymbolRegular.CursorClick24, Recommendation = RecommendationState.On)]
+    [Feature(
+        Section = nameof(Sections.Explorer),
+        Icon = SymbolRegular.CursorClick24,
+        Recommendation = RecommendationState.On
+    )]
     public class ClassicContextMenu : BaseFeature
     {
         private const string BasePath =

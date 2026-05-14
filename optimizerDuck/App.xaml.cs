@@ -165,8 +165,10 @@ public partial class App : Application
     private async Task OnStartupAsync(StartupEventArgs e)
     {
         // Create the required directories if they don't exist
-        Directory.CreateDirectory(Shared.ResourcesDirectory);
         Directory.CreateDirectory(Shared.RootDirectory);
+        Directory.CreateDirectory(Shared.ResourcesDirectory);
+        Directory.CreateDirectory(Shared.DownloadsDirectory);
+        Directory.CreateDirectory(Shared.AssetsDirectory);
         Directory.CreateDirectory(Shared.RevertDirectory);
 
         var logPath = Path.Combine(Shared.RootDirectory, "optimizerDuck.log");
@@ -389,7 +391,10 @@ public partial class App : Application
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to handle window closing event. Allowing close to prevent hanging.");
+            _logger.LogError(
+                ex,
+                "Failed to handle window closing event. Allowing close to prevent hanging."
+            );
 
             // Ensure we don't block close on error
             _allowClose = true;

@@ -16,44 +16,45 @@ public class OptimizationRegistry(ILoggerFactory loggerFactory)
     {
         // Run reflection work on background thread to avoid blocking startup
         var optimizationCategories = await Task.Run(() =>
-            ReflectionHelper
-                .FindImplementationsInLoadedAssemblies<IOptimizationCategory>()
-                .Select(t =>
-                {
-                    var optimizations = new ObservableCollection<IOptimization>(
-                        t.GetNestedTypes(BindingFlags.Public)
-                            .Where(nt => typeof(IOptimization).IsAssignableFrom(nt))
-                            .Select(nt =>
-                            {
-                                var opt = (IOptimization)Activator.CreateInstance(nt)!;
+                ReflectionHelper
+                    .FindImplementationsInLoadedAssemblies<IOptimizationCategory>()
+                    .Select(t =>
+                    {
+                        var optimizations = new ObservableCollection<IOptimization>(
+                            t.GetNestedTypes(BindingFlags.Public)
+                                .Where(nt => typeof(IOptimization).IsAssignableFrom(nt))
+                                .Select(nt =>
+                                {
+                                    var opt = (IOptimization)Activator.CreateInstance(nt)!;
 
-                                if (opt is BaseOptimization bo)
-                                    bo.OwnerType = t;
+                                    if (opt is BaseOptimization bo)
+                                        bo.OwnerType = t;
 
-                                return opt;
-                            })
-                            .ToList()
-                    );
+                                    return opt;
+                                })
+                                .ToList()
+                        );
 
-                    if (optimizations.Count == 0)
-                        return null;
+                        if (optimizations.Count == 0)
+                            return null;
 
-                    var instance = (IOptimizationCategory)Activator.CreateInstance(t)!;
+                        var instance = (IOptimizationCategory)Activator.CreateInstance(t)!;
 
-                    var optProp = t.GetProperty(
-                        nameof(IOptimizationCategory.Optimizations),
-                        BindingFlags.Public | BindingFlags.Instance
-                    );
-                    if (optProp != null && optProp.CanWrite)
-                        optProp.SetValue(instance, optimizations);
+                        var optProp = t.GetProperty(
+                            nameof(IOptimizationCategory.Optimizations),
+                            BindingFlags.Public | BindingFlags.Instance
+                        );
+                        if (optProp != null && optProp.CanWrite)
+                            optProp.SetValue(instance, optimizations);
 
-                    return instance;
-                })
-                .Where(c => c != null) // skip nulls
-                .Cast<IOptimizationCategory>()
-                .OrderBy(c => c.Order)
-                .ToArray()
-        ).ConfigureAwait(false);
+                        return instance;
+                    })
+                    .Where(c => c != null) // skip nulls
+                    .Cast<IOptimizationCategory>()
+                    .OrderBy(c => c.Order)
+                    .ToArray()
+            )
+            .ConfigureAwait(false);
 
         _logger.LogInformation(
             "Total {CategoryCount} categories and {OptimizationCount} optimizations found",
@@ -61,9 +62,9 @@ public class OptimizationRegistry(ILoggerFactory loggerFactory)
             optimizationCategories.Sum(c => c.Optimizations.Count)
         );
 
-        await OptimizationService.UpdateOptimizationStateAsync(
-            optimizationCategories.SelectMany(c => c.Optimizations)
-        ).ConfigureAwait(false);
+        await OptimizationService
+            .UpdateOptimizationStateAsync(optimizationCategories.SelectMany(c => c.Optimizations))
+            .ConfigureAwait(false);
 
         OptimizationCategories = optimizationCategories;
     }

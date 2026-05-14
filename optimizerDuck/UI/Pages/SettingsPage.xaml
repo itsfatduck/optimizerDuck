@@ -159,7 +159,7 @@
                     <ui:CardAction
                         Margin="0,0,0,4"
                         Padding="16,14"
-                        Command="{Binding ViewModel.ClearResourcesCommand}"
+                        Command="{Binding ViewModel.ClearDownloadsCommand}"
                         Cursor="Hand">
                         <ui:CardAction.Icon>
                             <ui:SymbolIcon Foreground="{DynamicResource SystemFillColorCriticalBrush}" Symbol="Archive24" />
@@ -168,11 +168,11 @@
                             <ui:TextBlock
                                 Margin="0"
                                 FontTypography="BodyStrong"
-                                Text="{ext:Loc Settings.Advanced.ClearResources.Title}"
+                                Text="{ext:Loc Settings.Advanced.ClearDownloads.Title}"
                                 TextWrapping="Wrap" />
                             <ui:TextBlock
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Text="{ext:Loc Settings.Advanced.ClearResources.Description}"
+                                Text="{ext:Loc Settings.Advanced.ClearDownloads.Description}"
                                 TextWrapping="Wrap" />
                         </StackPanel>
                     </ui:CardAction>

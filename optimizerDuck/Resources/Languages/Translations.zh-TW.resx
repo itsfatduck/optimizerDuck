@@ -423,10 +423,10 @@
   <data name="Settings.Optimize.ShellTimeout.Description" xml:space="preserve">
     <value>每個殼層命令執行的逾時時間（毫秒）。</value>
   </data>
-  <data name="Settings.Advanced.ClearResources.Title" xml:space="preserve">
-    <value>清除資源</value>
+  <data name="Settings.Advanced.ClearDownloads.Title" xml:space="preserve">
+    <value>清除下載</value>
   </data>
-  <data name="Settings.Advanced.ClearResources.Description" xml:space="preserve">
+  <data name="Settings.Advanced.ClearDownloads.Description" xml:space="preserve">
     <value>刪除在最佳化過程中下載的所有檔案。</value>
   </data>
   <data name="Settings.Advanced.ClearRevertDatas.Title" xml:space="preserve">
@@ -453,8 +453,8 @@
   <data name="Dialog.AreYouSure.Title" xml:space="preserve">
     <value>您真的要繼續嗎？</value>
   </data>
-  <data name="Settings.ClearResources.Description" xml:space="preserve">
-    <value>您即將刪除在最佳化過程中下載或產生的所有資源。請注意，此動作是永久的且無法復原，因此在繼續前請確認您已確定。</value>
+  <data name="Settings.ClearDownloads.Description" xml:space="preserve">
+    <value>您即將刪除在最佳化過程中下載的所有檔案。請注意，此動作是永久的且無法復原，因此在繼續前請確認您已確定。</value>
   </data>
   <data name="Button.Cancel" xml:space="preserve">
     <value>取消</value>
@@ -546,17 +546,11 @@
   <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
     <value>將更多 CPU 資源分配給您目前正在使用的應用程式，以獲得更快、反應更靈敏的體驗。</value>
   </data>
-  <data name="Optimizer.Performance.GameTaskScheduling.Name" xml:space="preserve">
-    <value>最佳化遊戲排程</value>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
+    <value>最佳化多媒體排程器</value>
   </data>
-  <data name="Optimizer.Performance.GameTaskScheduling.ShortDescription" xml:space="preserve">
-    <value>將高優先級分配給遊戲工作負載，以確保一致的每秒影格數 (FPS) 和更流暢的遊戲體驗。</value>
-  </data>
-  <data name="Optimizer.Performance.MultimediaResponsiveness.Name" xml:space="preserve">
-    <value>最佳化多媒體反應</value>
-  </data>
-  <data name="Optimizer.Performance.MultimediaResponsiveness.ShortDescription" xml:space="preserve">
-    <value>減少音訊、視訊和網路任務的延遲，以提升即時媒體和遊戲效能。</value>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
+    <value>設定多媒體類別排程器服務 (MMCSS) 以優化遊戲和低延遲，透過優先處理多媒體工作負載和停用網路節流。</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
     <value>最佳化鍵盤反應</value>
@@ -564,10 +558,10 @@
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
     <value>減少鍵盤輸入延遲並增加重複頻率，讓打字和遊戲速度更快、反應更靈敏。</value>
   </data>
-  <data name="Optimizer.PowerManagement.DisableHibernate.Name" xml:space="preserve">
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Name" xml:space="preserve">
     <value>停用休眠與快速啟動</value>
   </data>
-  <data name="Optimizer.PowerManagement.DisableHibernate.ShortDescription" xml:space="preserve">
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.ShortDescription" xml:space="preserve">
     <value>關閉休眠和快速啟動以取回數 GB 的磁碟空間，並確保系統全新開機。</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
@@ -593,12 +587,6 @@
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
     <value>防止 Windows 限制 CPU 效能 (電源限制)，以維持執行中任務的最高效能。</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableUAC.Name" xml:space="preserve">
-    <value>停用管理員提示 (UAC)</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableUAC.ShortDescription" xml:space="preserve">
-    <value>關閉在以管理員身分執行應用程式時要求權限的使用者帳戶控制 (UAC) 視窗。</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
     <value>停用資料收集 (遙測)</value>
@@ -1282,12 +1270,6 @@
   <data name="Revert.Registry.Description.DeleteKey" xml:space="preserve">
     <value>刪除登錄檔機碼：{0}</value>
   </data>
-  <data name="Optimizer.PowerManagement.OptimizeMultimediaProfile.Name" xml:space="preserve">
-    <value>最佳化多媒體設定檔</value>
-  </data>
-  <data name="Optimizer.PowerManagement.OptimizeMultimediaProfile.ShortDescription" xml:space="preserve">
-    <value>設定多媒體系統設定檔以優先考慮效能，並停用延遲模式以獲得更好的反應速度。</value>
-  </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.Name" xml:space="preserve">
     <value>停用錯誤報告</value>
   </data>
@@ -1666,12 +1648,6 @@
   <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription" xml:space="preserve">
     <value>停用黏滞鍵、篩選鍵和切換鍵的鍵盤快速鍵，以防止遊戲和打字時意外彈出視窗。</value>
   </data>
-  <data name="Optimizer.PowerManagement.DisableFastStartup.Name" xml:space="preserve">
-    <value>停用快速啟動</value>
-  </data>
-  <data name="Optimizer.PowerManagement.DisableFastStartup.ShortDescription" xml:space="preserve">
-    <value>關閉快速啟動以確保完全關機，並在開機時有更乾淨的硬體初始化。</value>
-  </data>
   <data name="StartupManager.Apps.CountSuffix" xml:space="preserve">
     <value>{0} 個項目</value>
   </data>
@@ -1755,5 +1731,11 @@
   </data>
   <data name="Features.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
     <value>開機時啟用 NumLock 可確保登入後數字鍵盤立即就緒，避免每次都要手動切換。</value>
+  </data>
+  <data name="Features.SystemFeatures.Section.Services" xml:space="preserve">
+    <value>系統服務</value>
+  </data>
+  <data name="Features.SystemFeatures.Section.Power" xml:space="preserve">
+    <value>電源設定</value>
   </data>
 </root>

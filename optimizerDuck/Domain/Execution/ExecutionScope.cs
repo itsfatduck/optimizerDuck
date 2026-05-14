@@ -1,4 +1,4 @@
-﻿using System.Collections.Concurrent;
+using System.Collections.Concurrent;
 using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Domain.Abstractions;
@@ -279,7 +279,7 @@ public sealed class ExecutionScope : IDisposable
             return null;
 
         var stepIndex = explicitIndex ?? ++_stepIndex;
-        
+
         var step = new ExecutedStep(
             stepIndex,
             name,

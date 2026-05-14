@@ -27,7 +27,11 @@ public class Gaming : IFeatureCategory
     public FeatureCategoryOrder Order { get; init; } = FeatureCategoryOrder.Gaming;
     public ObservableCollection<IFeature> Features { get; init; } = [];
 
-    [Feature(Section = nameof(Sections.GameSettings), Icon = SymbolRegular.XboxController24, Recommendation = RecommendationState.On)]
+    [Feature(
+        Section = nameof(Sections.GameSettings),
+        Icon = SymbolRegular.XboxController24,
+        Recommendation = RecommendationState.On
+    )]
     public class GameMode : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
@@ -51,7 +55,11 @@ public class Gaming : IFeatureCategory
             ];
     }
 
-    [Feature(Section = nameof(Sections.GameSettings), Icon = SymbolRegular.XboxConsole24, Recommendation = RecommendationState.Off)]
+    [Feature(
+        Section = nameof(Sections.GameSettings),
+        Icon = SymbolRegular.XboxConsole24,
+        Recommendation = RecommendationState.Off
+    )]
     public class GameBar : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
@@ -94,7 +102,11 @@ public class Gaming : IFeatureCategory
             ];
     }
 
-    [Feature(Section = nameof(Sections.GameSettings), Icon = SymbolRegular.Record24, Recommendation = RecommendationState.Off)]
+    [Feature(
+        Section = nameof(Sections.GameSettings),
+        Icon = SymbolRegular.Record24,
+        Recommendation = RecommendationState.Off
+    )]
     public class BackgroundRecording : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
@@ -144,7 +156,11 @@ public class Gaming : IFeatureCategory
             ];
     }
 
-    [Feature(Section = nameof(Sections.Input), Icon = SymbolRegular.Cursor24, Recommendation = RecommendationState.Off)]
+    [Feature(
+        Section = nameof(Sections.Input),
+        Icon = SymbolRegular.Cursor24,
+        Recommendation = RecommendationState.Off
+    )]
     public class MouseAcceleration : BaseFeature
     {
         private const string Path = @"HKCU\Control Panel\Mouse";
@@ -171,23 +187,9 @@ public class Gaming : IFeatureCategory
 
         public override async Task EnableAsync()
         {
-            RegistryService.Write(
-                new RegistryItem(Path, "MouseSpeed", "1")
-            );
-            RegistryService.Write(
-                new RegistryItem(
-                    Path,
-                    "MouseThreshold1",
-                    "6"
-                )
-            );
-            RegistryService.Write(
-                new RegistryItem(
-                    Path,
-                    "MouseThreshold2",
-                    "10"
-                )
-            );
+            RegistryService.Write(new RegistryItem(Path, "MouseSpeed", "1"));
+            RegistryService.Write(new RegistryItem(Path, "MouseThreshold1", "6"));
+            RegistryService.Write(new RegistryItem(Path, "MouseThreshold2", "10"));
 
             if (NeedsPostAction)
                 await ExecutePostActionAsync();
@@ -195,30 +197,20 @@ public class Gaming : IFeatureCategory
 
         public override async Task DisableAsync()
         {
-            RegistryService.Write(
-                new RegistryItem(Path, "MouseSpeed", "0")
-            );
-            RegistryService.Write(
-                new RegistryItem(
-                    Path,
-                    "MouseThreshold1",
-                    "0"
-                )
-            );
-            RegistryService.Write(
-                new RegistryItem(
-                    Path,
-                    "MouseThreshold2",
-                    "0"
-                )
-            );
+            RegistryService.Write(new RegistryItem(Path, "MouseSpeed", "0"));
+            RegistryService.Write(new RegistryItem(Path, "MouseThreshold1", "0"));
+            RegistryService.Write(new RegistryItem(Path, "MouseThreshold2", "0"));
 
             if (NeedsPostAction)
                 await ExecutePostActionAsync();
         }
     }
 
-    [Feature(Section = nameof(Sections.Display), Icon = SymbolRegular.FullScreenMaximize24, Recommendation = RecommendationState.Depends)]
+    [Feature(
+        Section = nameof(Sections.Display),
+        Icon = SymbolRegular.FullScreenMaximize24,
+        Recommendation = RecommendationState.Depends
+    )]
     public class FullscreenOptimizations : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
@@ -258,7 +250,11 @@ public class Gaming : IFeatureCategory
             ];
     }
 
-    [Feature(Section = nameof(Sections.Display), Icon = SymbolRegular.VideoClip24, Recommendation = RecommendationState.On)]
+    [Feature(
+        Section = nameof(Sections.Display),
+        Icon = SymbolRegular.VideoClip24,
+        Recommendation = RecommendationState.On
+    )]
     public class HardwareAcceleratedGpuScheduling : BaseFeature
     {
         protected override IEnumerable<RegistryToggle> RegistryToggles =>

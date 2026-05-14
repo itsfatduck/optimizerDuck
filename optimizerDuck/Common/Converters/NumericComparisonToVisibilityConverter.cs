@@ -11,7 +11,7 @@ public enum NumericComparisonType
     LessThan,
     LessThanOrEqual,
     Equal,
-    NotEqual
+    NotEqual,
 }
 
 public class NumericComparisonToVisibilityConverter : IValueConverter

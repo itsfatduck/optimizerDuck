@@ -448,10 +448,10 @@
   <data name="Settings.Optimize.ShellTimeout.Description" xml:space="preserve">
     <value>Thời gian chờ cho mỗi lệnh shell (tính bằng mili‑giây).</value>
   </data>
-  <data name="Settings.Advanced.ClearResources.Title" xml:space="preserve">
-    <value>Dọn dẹp tài nguyên</value>
+  <data name="Settings.Advanced.ClearDownloads.Title" xml:space="preserve">
+    <value>Dọn dẹp tải xuống</value>
   </data>
-  <data name="Settings.Advanced.ClearResources.Description" xml:space="preserve">
+  <data name="Settings.Advanced.ClearDownloads.Description" xml:space="preserve">
     <value>Xóa tất cả tệp đã tải về trong quá trình tối ưu.</value>
   </data>
   <data name="Settings.Advanced.ClearRevertDatas.Title" xml:space="preserve">
@@ -478,8 +478,8 @@
   <data name="Dialog.AreYouSure.Title" xml:space="preserve">
     <value>Bạn có chắc chắn muốn tiếp tục không?</value>
   </data>
-  <data name="Settings.ClearResources.Description" xml:space="preserve">
-    <value>Bạn sắp xóa tất cả các tài nguyên đã được tải xuống hoặc tạo ra trong quá trình tối ưu. Xin lưu ý rằng hành động này là vĩnh viễn và không thể hoàn tác, vì vậy hãy chắc chắn trước khi tiếp tục.</value>
+  <data name="Settings.ClearDownloads.Description" xml:space="preserve">
+    <value>Bạn sắp xóa tất cả các tệp đã được tải xuống trong quá trình tối ưu. Xin lưu ý rằng hành động này là vĩnh viễn và không thể hoàn tác, vì vậy hãy chắc chắn trước khi tiếp tục.</value>
   </data>
   <data name="Button.Cancel" xml:space="preserve">
     <value>Hủy</value>
@@ -571,17 +571,11 @@
   <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
     <value>Cấu hình Win32PrioritySeparation thành 38 (Short, Variable, High foreground boost), ưu tiên ứng dụng đang hoạt động và giảm độ trễ đầu vào.</value>
   </data>
-  <data name="Optimizer.Performance.GameTaskScheduling.Name" xml:space="preserve">
-    <value>Tối ưu hóa lập lịch trò chơi</value>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
+    <value>Tối ưu hóa Multimedia Scheduler</value>
   </data>
-  <data name="Optimizer.Performance.GameTaskScheduling.ShortDescription" xml:space="preserve">
-    <value>Cấu hình hồ sơ tác vụ MMCSS "Games" với danh mục lập lịch High và mức ưu tiên GPU/IO cao để đảm bảo frame pacing ổn định.</value>
-  </data>
-  <data name="Optimizer.Performance.MultimediaResponsiveness.Name" xml:space="preserve">
-    <value>Độ phản hồi Đa phương tiện &amp; Mạng</value>
-  </data>
-  <data name="Optimizer.Performance.MultimediaResponsiveness.ShortDescription" xml:space="preserve">
-    <value>Ưu tiên tài nguyên hệ thống cho đa phương tiện và trò chơi bằng cách giảm mức dự phòng CPU cho tác vụ nền và tắt giới hạn băng thông mạng để giảm độ trễ.</value>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
+    <value>Cấu hình dịch vụ Multimedia Class Scheduler Service (MMCSS) cho gaming và độ trễ thấp bằng cách ưu tiên multimedia và tắt giới hạn băng thông mạng.</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
     <value>Tối ưu lặp phím bàn phím</value>
@@ -595,17 +589,11 @@
   <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription" xml:space="preserve">
     <value>Tắt các phím tắt Sticky Keys, Filter Keys và Toggle Keys để tránh bật nhầm khi chơi game hoặc gõ phím.</value>
   </data>
-  <data name="Optimizer.PowerManagement.DisableHibernate.Name" xml:space="preserve">
-    <value>Vô hiệu hóa Chế độ ngủ đông</value>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Name" xml:space="preserve">
+    <value>Vô hiệu hóa Ngủ đông &amp; Fast Startup</value>
   </data>
-  <data name="Optimizer.PowerManagement.DisableHibernate.ShortDescription" xml:space="preserve">
-    <value>Tắt Hibernate để giải phóng dung lượng ổ đĩa do tệp hiberfil.sys sử dụng.</value>
-  </data>
-  <data name="Optimizer.PowerManagement.DisableFastStartup.Name" xml:space="preserve">
-    <value>Tắt Fast Startup</value>
-  </data>
-  <data name="Optimizer.PowerManagement.DisableFastStartup.ShortDescription" xml:space="preserve">
-    <value>Tắt Fast Startup để đảm bảo máy tắt hoàn toàn và khởi tạo phần cứng sạch hơn khi bật lại.</value>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.ShortDescription" xml:space="preserve">
+    <value>Tắt Hibernate và Fast Startup để giải phóng dung lượng ổ đĩa và đảm bảo máy tắt hoàn toàn để khởi tạo phần cứng sạch hơn khi bật lại.</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
     <value>Ngăn ngắt nguồn cổng USB</value>
@@ -630,18 +618,6 @@
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
     <value>Ngăn Windows tự động giảm hiệu năng CPU (Power Throttling) để duy trì sức mạnh tối đa cho hệ thống.</value>
-  </data>
-  <data name="Optimizer.PowerManagement.OptimizeMultimediaProfile.Name" xml:space="preserve">
-    <value>Tối ưu hóa Multimedia Profile</value>
-  </data>
-  <data name="Optimizer.PowerManagement.OptimizeMultimediaProfile.ShortDescription" xml:space="preserve">
-    <value>Cấu hình profile hệ thống multimedia để ưu tiên hiệu suất và tắt lazy mode để có độ phản hồi tốt hơn.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableUAC.Name" xml:space="preserve">
-    <value>Vô hiệu hóa xác nhận Admin (UAC)</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableUAC.ShortDescription" xml:space="preserve">
-    <value>Tắt các hộp thoại yêu cầu xác nhận khi mở ứng dụng với quyền Admin. Lưu ý: Làm giảm bảo mật.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
     <value>Vô hiệu hóa thu thập dữ liệu (Telemetry)</value>
@@ -1752,5 +1728,11 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="Features.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
     <value>Bật NumLock khi khởi động đảm bảo bàn phím số sẵn sàng ngay sau khi đăng nhập, tránh phải bật/tắt thủ công mỗi lần.</value>
+  </data>
+  <data name="Features.SystemFeatures.Section.Services" xml:space="preserve">
+    <value>Dịch vụ</value>
+  </data>
+  <data name="Features.SystemFeatures.Section.Power" xml:space="preserve">
+    <value>Cài đặt nguồn</value>
   </data>
 </root>

@@ -44,8 +44,7 @@ public abstract class BaseFeature : IFeature
 
     public SymbolRegular Icon => Meta.Icon;
 
-    public string RecommendationPrefix =>
-        $"Features.{OwnerKey}.{FeatureKey}.Recommendation";
+    public string RecommendationPrefix => $"Features.{OwnerKey}.{FeatureKey}.Recommendation";
 
     public virtual FeatureRecommendationResult? GetRecommendation()
     {

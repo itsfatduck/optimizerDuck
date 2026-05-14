@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows;
@@ -77,6 +77,8 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                 }
             );
         });
+
+        logger.LogInformation("Retrieved {Count} startup apps", apps.Count);
 
         return apps.OrderBy(a => a.Name).ToList();
     }

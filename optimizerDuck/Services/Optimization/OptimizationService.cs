@@ -50,16 +50,15 @@ public class OptimizationService(
                 new ProcessingProgress
                 {
                     Message = Translations.RestorePoint_Progress_Creating,
-                    IsIndeterminate = true
+                    IsIndeterminate = true,
                 }
             );
 
             using var scope = ExecutionScope.BeginForLogging(_logger);
 
-            var result = await ShellService
-                .PowerShellAsync(
-                    $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS"
-                );
+            var result = await ShellService.PowerShellAsync(
+                $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS"
+            );
 
             if (
                 result.Stderr.Contains(
@@ -96,8 +95,9 @@ public class OptimizationService(
                 }
             );
 
-            var enableResult = await ShellService
-                .PowerShellAsync("Enable-ComputerRestore -Drive \"$env:SystemDrive\"");
+            var enableResult = await ShellService.PowerShellAsync(
+                "Enable-ComputerRestore -Drive \"$env:SystemDrive\""
+            );
             if (enableResult.ExitCode != 0)
             {
                 _logger.LogError(
@@ -115,10 +115,9 @@ public class OptimizationService(
                 }
             );
 
-            result = await ShellService
-                .PowerShellAsync(
-                    $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS"
-                );
+            result = await ShellService.PowerShellAsync(
+                $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS"
+            );
 
             if (
                 result.Stderr.Contains(
@@ -154,16 +153,15 @@ public class OptimizationService(
 
         try
         {
-            var applyResult = await optimization
-                .ApplyAsync(
-                    progress,
-                    new OptimizationContext
-                    {
-                        Logger = optLogger,
-                        Snapshot = systemInfoService.Snapshot,
-                        StreamService = streamService,
-                    }
-                );
+            var applyResult = await optimization.ApplyAsync(
+                progress,
+                new OptimizationContext
+                {
+                    Logger = optLogger,
+                    Snapshot = systemInfoService.Snapshot,
+                    StreamService = streamService,
+                }
+            );
 
             if (!string.IsNullOrWhiteSpace(applyResult.ErrorMessage))
                 return new OptimizationResult
@@ -242,13 +240,13 @@ public class OptimizationService(
         if (optimizations.Length == 0)
             return;
 
-        // Optimization: List all files in revert directory once instead of checking File.Exists for each
         var revertFiles = await Task.Run(() =>
         {
             if (!Directory.Exists(Shared.RevertDirectory))
                 return new HashSet<string>();
 
-            return Directory.GetFiles(Shared.RevertDirectory, "*.json")
+            return Directory
+                .GetFiles(Shared.RevertDirectory, "*.json")
                 .Select(Path.GetFileNameWithoutExtension)
                 .Where(f => f != null)
                 .ToHashSet(StringComparer.OrdinalIgnoreCase)!;
@@ -362,37 +360,49 @@ public class OptimizationService(
                 if (success)
                 {
                     var retriedStep = retryScope.SuccessfulSteps.LastOrDefault();
-                    var recoveredStep = retriedStep == null
-                        ? step with { Error = null }
-                        : new OperationStepResult
-                        {
-                            Index = step.Index,
-                            Name = retriedStep.Name,
-                            Description = retriedStep.Description,
-                            Success = true,
-                            Error = null,
-                            RetryAction = null,
-                            RevertStep = retriedStep.RevertStep,
-                        };
-                                
+                    var recoveredStep =
+                        retriedStep == null
+                            ? step with
+                            {
+                                Error = null,
+                            }
+                            : new OperationStepResult
+                            {
+                                Index = step.Index,
+                                Name = retriedStep.Name,
+                                Description = retriedStep.Description,
+                                Success = true,
+                                Error = null,
+                                RetryAction = null,
+                                RevertStep = retriedStep.RevertStep,
+                            };
+
                     // Auto-persist recovered revert step if revertManager is available
-                    if (retriedStep?.RevertStep != null && revertManager != null && optimizationId.HasValue)
+                    if (
+                        retriedStep?.RevertStep != null
+                        && revertManager != null
+                        && optimizationId.HasValue
+                    )
                     {
                         try
                         {
                             await revertManager.UpsertRevertStepAtIndexAsync(
                                 optimizationId.Value,
                                 optimizationKey ?? string.Empty,
-                                step.Index,  // Use original failed step's index
+                                step.Index, // Use original failed step's index
                                 retriedStep.RevertStep
                             );
                         }
                         catch (Exception ex)
                         {
-                            logger.LogError(ex, "Failed to auto-persist revert step at index {Index}", step.Index);
+                            logger.LogError(
+                                ex,
+                                "Failed to auto-persist revert step at index {Index}",
+                                step.Index
+                            );
                         }
                     }
-                                
+
                     recoveredSteps.Add(recoveredStep);
                 }
             }
@@ -430,11 +440,11 @@ public class OptimizationService(
         }
     }
 
-    public static void ClearResources(ILogger logger)
+    public static void ClearDownloads(ILogger logger)
     {
-        if (!Directory.Exists(Shared.ResourcesDirectory))
+        if (!Directory.Exists(Shared.DownloadsDirectory))
             return;
-        foreach (var f in Directory.GetFiles(Shared.ResourcesDirectory))
+        foreach (var f in Directory.GetFiles(Shared.DownloadsDirectory))
             try
             {
                 File.Delete(f);
