@@ -52,7 +52,9 @@ Every star helps motivate future improvements.
 > Always create a **restore point** before making system changes.
 
 > [!NOTE]
-> Supports English, Vietnamese, and Traditional Chinese (thanks to our contributors! [@abc0922001](https://github.com/abc0922001))、Simplified Chinese（thanks to our contributors [@wcxu21](https://github.com/wcxu21)）. Want to add your language? [Contribute here](./.github/CONTRIBUTING.md).
+> Supports English, Vietnamese, and Traditional Chinese (contributed by [@abc0922001](https://github.com/abc0922001)), Simplified Chinese (contributed by [@wcxu21](https://github.com/wcxu21)).
+>
+> Thanks to the contributors for their efforts! Want to add your language? Please check [CONTRIBUTING.md](./.github/CONTRIBUTING.md).
 
 ---
 

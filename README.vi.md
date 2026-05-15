@@ -54,7 +54,9 @@ Mỗi ngôi sao giúp tạo động lực cho những cải tiến trong tương
 > Luôn tạo một **điểm khôi phục (restore point)** trước khi thực hiện các thay đổi hệ thống.
 
 > [!NOTE]
-> Hỗ trợ tiếng Anh, tiếng Việt và tiếng Trung phồn thể (cảm ơn các cộng tác viên của chúng tôi! [@abc0922001](https://github.com/abc0922001))、Tiếng Trung Giản thể（cảm ơn các cộng tác viên của chúng tôi [@wcxu21](https://github.com/wcxu21)）. Bạn muốn thêm ngôn ngữ của mình? [Đóng góp tại đây](./.github/CONTRIBUTING.md).
+> Hỗ trợ tiếng Anh, tiếng Việt và tiếng Trung phồn thể (được đóng góp bởi [@abc0922001](https://github.com/abc0922001)), tiếng Trung Giản thể (được đóng góp bởi [@wcxu21](https://github.com/wcxu21)).
+>
+> Cảm ơn các cộng tác viên đã nỗ lực! Bạn muốn thêm ngôn ngữ của mình? Vui lòng tham khảo [CONTRIBUTING.md](./.github/CONTRIBUTING.md).
 
 ---
 
