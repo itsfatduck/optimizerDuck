@@ -204,7 +204,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
                     // Explicitly update state after all operations complete
                     await OptimizationService.UpdateOptimizationStateAsync(optimization);
-                    
+
                     // Ensure UI reflects the correct state
                     OnPropertyChanged(nameof(HasAppliedOptimizations));
 
@@ -260,10 +260,10 @@ public partial class OptimizationCategoryViewModel : ViewModel
                         revertResult.FailedSteps,
                         OptimizationOperation.Revert
                     );
-                    
+
                     // Explicitly update state after revert completes
                     await OptimizationService.UpdateOptimizationStateAsync(optimization);
-                    
+
                     // Ensure UI reflects the correct state
                     OnPropertyChanged(nameof(HasAppliedOptimizations));
 

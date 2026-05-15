@@ -64,7 +64,8 @@ public static class EmbeddedResourceHelper
                 FileAccess.Write,
                 FileShare.None,
                 bufferSize: 8192,
-                useAsync: false);
+                useAsync: false
+            );
 
             stream.CopyTo(fileStream);
             return true;

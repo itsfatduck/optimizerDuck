@@ -20,16 +20,16 @@ public class BaseFeatureTests : IDisposable
         // The test will use the actual class name
 
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
-        [
-            new()
-            {
-                Path = TestKeyPath,
-                Name = "TestValue",
-                OnValue = 1,
-                OffValue = 0,
-                ValueKind = RegistryValueKind.DWord,
-            },
-        ];
+            [
+                new()
+                {
+                    Path = TestKeyPath,
+                    Name = "TestValue",
+                    OnValue = 1,
+                    OffValue = 0,
+                    ValueKind = RegistryValueKind.DWord,
+                },
+            ];
     }
 
     public BaseFeatureTests()
@@ -111,8 +111,10 @@ public class BaseFeatureTests : IDisposable
         stopwatch.Stop();
 
         // Should complete quickly (not blocking on UI thread equivalent)
-        Assert.True(stopwatch.ElapsedMilliseconds < 1000,
-            $"Operations took {stopwatch.ElapsedMilliseconds}ms, expected < 1000ms");
+        Assert.True(
+            stopwatch.ElapsedMilliseconds < 1000,
+            $"Operations took {stopwatch.ElapsedMilliseconds}ms, expected < 1000ms"
+        );
     }
 
     [Fact]
@@ -124,11 +126,15 @@ public class BaseFeatureTests : IDisposable
         for (int i = 0; i < 10; i++)
         {
             await feature.EnableAsync();
-            var enabledValue = RegistryService.Read<int>(new RegistryItem(TestKeyPath, "TestValue"));
+            var enabledValue = RegistryService.Read<int>(
+                new RegistryItem(TestKeyPath, "TestValue")
+            );
             Assert.Equal(1, enabledValue);
 
             await feature.DisableAsync();
-            var disabledValue = RegistryService.Read<int>(new RegistryItem(TestKeyPath, "TestValue"));
+            var disabledValue = RegistryService.Read<int>(
+                new RegistryItem(TestKeyPath, "TestValue")
+            );
             Assert.Equal(0, disabledValue);
         }
 

@@ -46,24 +46,13 @@ public class OptimizationServiceIntegrationTests : IDisposable
             _stepCount = 0;
 
             // Step 1: Always succeeds
-            ExecutionScope.RecordStep(
-                "Test",
-                "Step 1",
-                true,
-                new TestRevertStep { StepId = 1 }
-            );
+            ExecutionScope.RecordStep("Test", "Step 1", true, new TestRevertStep { StepId = 1 });
             _stepCount++;
 
             // Step 2: May fail
             if (_shouldFail)
             {
-                ExecutionScope.RecordStep(
-                    "Test",
-                    "Step 2",
-                    false,
-                    null,
-                    "Simulated failure"
-                );
+                ExecutionScope.RecordStep("Test", "Step 2", false, null, "Simulated failure");
                 _stepCount++;
             }
 
@@ -81,9 +70,7 @@ public class OptimizationServiceIntegrationTests : IDisposable
 
             var success = !_shouldFail;
             return Task.FromResult(
-                success
-                    ? ApplyResult.True()
-                    : ApplyResult.False("Step 2 failed intentionally")
+                success ? ApplyResult.True() : ApplyResult.False("Step 2 failed intentionally")
             );
         }
     }
@@ -108,9 +95,7 @@ public class OptimizationServiceIntegrationTests : IDisposable
 
     private readonly List<Guid> _testOptimizationIds = new();
 
-    public OptimizationServiceIntegrationTests()
-    {
-    }
+    public OptimizationServiceIntegrationTests() { }
 
     public void Dispose()
     {

@@ -32,13 +32,16 @@ public class PowerManagement : IOptimizationCategory
             OptimizationContext context
         )
         {
-            var wasEnabled = RegistryService.Read<int>(new RegistryItem(@"SYSTEM\CurrentControlSet\Control\Session Manager\Power", "HibernateEnabled")) != 0;
-            string revertCommand = wasEnabled
-                ? "powercfg /h on"
-                : "powercfg /h off";
+            var wasEnabled =
+                RegistryService.Read<int>(
+                    new RegistryItem(
+                        @"SYSTEM\CurrentControlSet\Control\Session Manager\Power",
+                        "HibernateEnabled"
+                    )
+                ) != 0;
+            string revertCommand = wasEnabled ? "powercfg /h on" : "powercfg /h off";
 
             await ShellService.CMDAsync("powercfg /h off", revertCommand);
-
 
             context.Logger.LogInformation(
                 "Disabled hibernation and Fast Startup. Previous state: {State}",
@@ -121,9 +124,7 @@ public class PowerManagement : IOptimizationCategory
             OptimizationContext context
         )
         {
-            var activeQuery = await ShellService.CMDAsync(
-                "powercfg /getactivescheme"
-            );
+            var activeQuery = await ShellService.CMDAsync("powercfg /getactivescheme");
             var match = Regex.Match(
                 activeQuery.Stdout,
                 @"Power Scheme GUID:\s*([a-fA-F0-9\-]{36})",
@@ -229,5 +230,4 @@ public class PowerManagement : IOptimizationCategory
             return Task.FromResult(ApplyResult.True());
         }
     }
-
 }

@@ -175,26 +175,10 @@ public class Performance : IOptimizationCategory
 
             // Games task scheduling (Priority, Scheduling Category, SFIO Priority, GPU Priority)
             RegistryService.Write(
-                new RegistryItem(
-                    $@"{systemProfileKey}\Tasks\Games",
-                    "Priority",
-                    2
-                ),
-                new RegistryItem(
-                    $@"{systemProfileKey}\Tasks\Games",
-                    "Scheduling Category",
-                    "High"
-                ),
-                new RegistryItem(
-                    $@"{systemProfileKey}\Tasks\Games",
-                    "SFIO Priority",
-                    "High"
-                ),
-                new RegistryItem(
-                    $@"{systemProfileKey}\Tasks\Games",
-                    "GPU Priority",
-                    8
-                )
+                new RegistryItem($@"{systemProfileKey}\Tasks\Games", "Priority", 2),
+                new RegistryItem($@"{systemProfileKey}\Tasks\Games", "Scheduling Category", "High"),
+                new RegistryItem($@"{systemProfileKey}\Tasks\Games", "SFIO Priority", "High"),
+                new RegistryItem($@"{systemProfileKey}\Tasks\Games", "GPU Priority", 8)
             );
 
             context.Logger.LogInformation(

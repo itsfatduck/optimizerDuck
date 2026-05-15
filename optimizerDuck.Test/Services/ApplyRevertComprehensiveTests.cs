@@ -34,19 +34,31 @@ public class ApplyRevertComprehensiveTests
                         "Shell",
                         "Step 1: Disable service",
                         true,
-                        new ShellRevertStep { ShellType = ShellType.CMD, Command = "sc config TestService start= auto" }
+                        new ShellRevertStep
+                        {
+                            ShellType = ShellType.CMD,
+                            Command = "sc config TestService start= auto",
+                        }
                     );
                     ExecutionScope.RecordStep(
                         "Shell",
                         "Step 2: Registry change",
                         true,
-                        new ShellRevertStep { ShellType = ShellType.PowerShell, Command = "Set-ItemProperty -Path 'HKLM:\\Test' -Name 'Value' -Value 0" }
+                        new ShellRevertStep
+                        {
+                            ShellType = ShellType.PowerShell,
+                            Command = "Set-ItemProperty -Path 'HKLM:\\Test' -Name 'Value' -Value 0",
+                        }
                     );
                     ExecutionScope.RecordStep(
                         "Shell",
                         "Step 3: File operation",
                         true,
-                        new ShellRevertStep { ShellType = ShellType.CMD, Command = "del C:\\test.txt" }
+                        new ShellRevertStep
+                        {
+                            ShellType = ShellType.CMD,
+                            Command = "del C:\\test.txt",
+                        }
                     );
                     return Task.FromResult(ApplyResult.True());
                 },
@@ -72,7 +84,7 @@ public class ApplyRevertComprehensiveTests
                 Assert.NotNull(data);
                 Assert.Equal(optimization.Id, data!.OptimizationId);
                 Assert.Equal(3, data.Steps.Length);
-                
+
                 // Verify all steps are present and in correct order
                 Assert.NotNull(data.Steps[0]);
                 Assert.NotNull(data.Steps[1]);
@@ -80,7 +92,7 @@ public class ApplyRevertComprehensiveTests
                 Assert.Equal("Shell", data.Steps[0]!.Type);
                 Assert.Equal("Shell", data.Steps[1]!.Type);
                 Assert.Equal("Shell", data.Steps[2]!.Type);
-                
+
                 // Verify revert commands are correct
                 Assert.Equal(
                     "sc config TestService start= auto",
@@ -102,8 +114,6 @@ public class ApplyRevertComprehensiveTests
             }
         });
     }
-
-
 
     #endregion
 
@@ -160,7 +170,7 @@ public class ApplyRevertComprehensiveTests
                 var data = await RevertManager.GetRevertDataAsync(optimization.Id);
                 Assert.NotNull(data);
                 Assert.Equal(3, data!.Steps.Length);
-                
+
                 // Step 1 should be null (failed), steps 2 and 3 should exist
                 Assert.Null(data.Steps[0]);
                 Assert.NotNull(data.Steps[1]);
@@ -189,26 +199,14 @@ public class ApplyRevertComprehensiveTests
                         true,
                         new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 11" }
                     );
-                    ExecutionScope.RecordStep(
-                        "Shell",
-                        "Step 2: Fail",
-                        false,
-                        null,
-                        "fail 2"
-                    );
+                    ExecutionScope.RecordStep("Shell", "Step 2: Fail", false, null, "fail 2");
                     ExecutionScope.RecordStep(
                         "Shell",
                         "Step 3: Success",
                         true,
                         new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 33" }
                     );
-                    ExecutionScope.RecordStep(
-                        "Shell",
-                        "Step 4: Fail",
-                        false,
-                        null,
-                        "fail 4"
-                    );
+                    ExecutionScope.RecordStep("Shell", "Step 4: Fail", false, null, "fail 4");
                     ExecutionScope.RecordStep(
                         "Shell",
                         "Step 5: Success",
@@ -238,14 +236,14 @@ public class ApplyRevertComprehensiveTests
                 var data = await RevertManager.GetRevertDataAsync(optimization.Id);
                 Assert.NotNull(data);
                 Assert.Equal(5, data!.Steps.Length);
-                
+
                 // Verify pattern: success, fail, success, fail, success
                 Assert.NotNull(data.Steps[0]);
                 Assert.Null(data.Steps[1]);
                 Assert.NotNull(data.Steps[2]);
                 Assert.Null(data.Steps[3]);
                 Assert.NotNull(data.Steps[4]);
-                
+
                 // Verify commands are at correct indices
                 Assert.Equal(
                     "exit 11",
@@ -277,20 +275,8 @@ public class ApplyRevertComprehensiveTests
             {
                 ApplyImpl = _ =>
                 {
-                    ExecutionScope.RecordStep(
-                        "Shell",
-                        "Step 1: Fail",
-                        false,
-                        null,
-                        "fail 1"
-                    );
-                    ExecutionScope.RecordStep(
-                        "Shell",
-                        "Step 2: Fail",
-                        false,
-                        null,
-                        "fail 2"
-                    );
+                    ExecutionScope.RecordStep("Shell", "Step 1: Fail", false, null, "fail 1");
+                    ExecutionScope.RecordStep("Shell", "Step 2: Fail", false, null, "fail 2");
                     return Task.FromResult(ApplyResult.False("All steps failed"));
                 },
             };
@@ -604,7 +590,7 @@ public class ApplyRevertComprehensiveTests
                 Assert.False(result.AllStepsFailed);
                 Assert.Single(result.FailedSteps);
                 Assert.False(File.Exists(revertPath)); // File deleted because not all steps failed
-                
+
                 // Failed step should have retry action
                 Assert.NotNull(result.FailedSteps[0].RetryAction);
             }
@@ -741,7 +727,9 @@ public class ApplyRevertComprehensiveTests
                 // Retry will fail because the command is still "exit 1"
                 // This is expected behavior - retry just re-executes the same command
                 // ExecuteAsync throws exception on failure, so we need to catch it
-                var exception = await Record.ExceptionAsync(async () => await failedStep.RetryAction!());
+                var exception = await Record.ExceptionAsync(async () =>
+                    await failedStep.RetryAction!()
+                );
                 Assert.NotNull(exception); // Expected to throw
                 Assert.False(File.Exists(revertPath));
             }
@@ -826,13 +814,7 @@ public class ApplyRevertComprehensiveTests
                         true,
                         new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 0" }
                     );
-                    ExecutionScope.RecordStep(
-                        "Shell",
-                        "Step 2",
-                        false,
-                        null,
-                        "Step 2 failed"
-                    );
+                    ExecutionScope.RecordStep("Shell", "Step 2", false, null, "Step 2 failed");
                     ExecutionScope.RecordStep(
                         "Shell",
                         "Step 3",
@@ -960,7 +942,7 @@ public class ApplyRevertComprehensiveTests
                 var data = await RevertManager.GetRevertDataAsync(optimization.Id);
                 Assert.NotNull(data);
                 Assert.Equal(3, data!.Steps.Length);
-                
+
                 // All steps should now have "exit 0" commands
                 Assert.Equal(
                     "exit 0",

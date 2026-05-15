@@ -38,7 +38,7 @@ public class RevertManagerTests
             OptimizationId = id,
             OptimizationName = "TestOptimization",
             AppliedAt = DateTime.UtcNow,
-            Steps = Array.Empty<RevertStepData?>()
+            Steps = Array.Empty<RevertStepData?>(),
         };
 
         try

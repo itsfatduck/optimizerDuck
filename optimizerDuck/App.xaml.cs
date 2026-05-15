@@ -54,7 +54,7 @@ public class ScopeBlockTextFormatter : ITextFormatter
         };
 
         //var prefix = $"{timestamp} | {ctx,-67} | {levelText,-7} | "; // byebye 67 char SourceContext truncation, we have a new design now...
-        var prefix = $"{timestamp} | {ctx,-35} | {levelText,-7} | ";
+        var prefix = $"{timestamp} | {ctx, -35} | {levelText, -7} | ";
 
         // print message
         output.WriteLine(prefix + RenderWithoutQuotes(logEvent));

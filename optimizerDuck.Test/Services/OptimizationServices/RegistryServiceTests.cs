@@ -238,8 +238,8 @@ public class RegistryServiceTests : IDisposable
         // In real scenario, this would be caught by transaction logic
 
         // Get all revert steps
-        var revertSteps = newScope.ExecutedSteps
-            .Where(s => s.RevertStep != null)
+        var revertSteps = newScope
+            .ExecutedSteps.Where(s => s.RevertStep != null)
             .Select(s => s.RevertStep!)
             .ToList();
 
@@ -267,12 +267,14 @@ public class RegistryServiceTests : IDisposable
             var key = $@"{BaseTestKey}\ConcurrentTest{i}";
             var value = $"Value{i}";
 
-            tasks.Add(Task.Run(() =>
-            {
-                Assert.True(RegistryService.Write(new RegistryItem(key, "Value", value)));
-                var read = RegistryService.Read<string>(new RegistryItem(key, "Value"));
-                Assert.Equal(value, read);
-            }));
+            tasks.Add(
+                Task.Run(() =>
+                {
+                    Assert.True(RegistryService.Write(new RegistryItem(key, "Value", value)));
+                    var read = RegistryService.Read<string>(new RegistryItem(key, "Value"));
+                    Assert.Equal(value, read);
+                })
+            );
         }
 
         await Task.WhenAll(tasks);
@@ -293,17 +295,39 @@ public class RegistryServiceTests : IDisposable
         var key = $@"{BaseTestKey}\TypeConversionTest";
 
         // Test different value types
-        Assert.True(RegistryService.Write(new RegistryItem(key, "DWordValue", 42, RegistryValueKind.DWord)));
+        Assert.True(
+            RegistryService.Write(new RegistryItem(key, "DWordValue", 42, RegistryValueKind.DWord))
+        );
         Assert.Equal(42, RegistryService.Read<int>(new RegistryItem(key, "DWordValue")));
 
-        Assert.True(RegistryService.Write(new RegistryItem(key, "QWordValue", 9999999999L, RegistryValueKind.QWord)));
+        Assert.True(
+            RegistryService.Write(
+                new RegistryItem(key, "QWordValue", 9999999999L, RegistryValueKind.QWord)
+            )
+        );
         Assert.Equal(9999999999L, RegistryService.Read<long>(new RegistryItem(key, "QWordValue")));
 
-        Assert.True(RegistryService.Write(new RegistryItem(key, "StringValue", "TestString", RegistryValueKind.String)));
-        Assert.Equal("TestString", RegistryService.Read<string>(new RegistryItem(key, "StringValue")));
+        Assert.True(
+            RegistryService.Write(
+                new RegistryItem(key, "StringValue", "TestString", RegistryValueKind.String)
+            )
+        );
+        Assert.Equal(
+            "TestString",
+            RegistryService.Read<string>(new RegistryItem(key, "StringValue"))
+        );
 
         var multiString = new[] { "Line1", "Line2", "Line3" };
-        Assert.True(RegistryService.Write(new RegistryItem(key, "MultiStringValue", multiString, RegistryValueKind.MultiString)));
+        Assert.True(
+            RegistryService.Write(
+                new RegistryItem(
+                    key,
+                    "MultiStringValue",
+                    multiString,
+                    RegistryValueKind.MultiString
+                )
+            )
+        );
         var readMulti = RegistryService.Read<string[]>(new RegistryItem(key, "MultiStringValue"));
         Assert.Equal(multiString, readMulti);
     }
@@ -327,8 +351,8 @@ public class RegistryServiceTests : IDisposable
         Assert.True(RegistryService.Write(new RegistryItem(key2, "Value", "Modified2")));
 
         // Revert in reverse order (LIFO)
-        var revertSteps = newScope.ExecutedSteps
-            .Where(s => s.RevertStep != null)
+        var revertSteps = newScope
+            .ExecutedSteps.Where(s => s.RevertStep != null)
             .Select(s => s.RevertStep!)
             .ToList();
 
@@ -366,6 +390,9 @@ public class RegistryServiceTests : IDisposable
 
         // Non-empty key should remain
         Assert.True(RegistryService.KeyExists(new RegistryItem(nonEmptyKeyPath)));
-        Assert.Equal("SomeValue", RegistryService.Read<string>(new RegistryItem(nonEmptyKeyPath, "Value")));
+        Assert.Equal(
+            "SomeValue",
+            RegistryService.Read<string>(new RegistryItem(nonEmptyKeyPath, "Value"))
+        );
     }
 }

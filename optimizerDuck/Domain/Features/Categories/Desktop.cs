@@ -146,17 +146,19 @@ public class Desktop : IFeatureCategory
         private const string Path =
             @"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons";
 
-
         private readonly string[] HiddenShortcutValues =
-                                [
-                                    @"%windir%\System32\shell32.dll,-50",
-                                    @"%windir%\System32\shell32.dll,50",
-                                ];
+        [
+            @"%windir%\System32\shell32.dll,-50",
+            @"%windir%\System32\shell32.dll,50",
+        ];
 
         private bool IsHiddenShortcutOverlay(string value)
         {
-            if (HiddenShortcutValues.Any(v =>
-                    string.Equals(value, v, StringComparison.OrdinalIgnoreCase)))
+            if (
+                HiddenShortcutValues.Any(v =>
+                    string.Equals(value, v, StringComparison.OrdinalIgnoreCase)
+                )
+            )
             {
                 return true;
             }
@@ -166,15 +168,9 @@ public class Desktop : IFeatureCategory
             if (string.IsNullOrWhiteSpace(fileName))
                 return false;
 
-            return fileName.Equals(
-                       "blank.ico",
-                       StringComparison.OrdinalIgnoreCase)
-                   || fileName.Equals(
-                       "transparent.ico",
-                       StringComparison.OrdinalIgnoreCase)
-                   || fileName.Equals(
-                       "blankicon.ico",
-                       StringComparison.OrdinalIgnoreCase);
+            return fileName.Equals("blank.ico", StringComparison.OrdinalIgnoreCase)
+                || fileName.Equals("transparent.ico", StringComparison.OrdinalIgnoreCase)
+                || fileName.Equals("blankicon.ico", StringComparison.OrdinalIgnoreCase);
         }
 
         public override Task<bool> GetStateAsync()
@@ -202,13 +198,15 @@ public class Desktop : IFeatureCategory
         public override async Task DisableAsync()
         {
             // extract the blank icon to the app resources folder, then set the registry value to point to it
-            var outputPath = System.IO.Path.Combine(Shared.AssetsDirectory, nameof(Desktop), "blank.ico");
+            var outputPath = System.IO.Path.Combine(
+                Shared.AssetsDirectory,
+                nameof(Desktop),
+                "blank.ico"
+            );
             EmbeddedResourceHelper.TryExtract("Icons.blank.ico", outputPath);
 
             // set the registry value to point to the blank icon, which effectively hides the shortcut arrow overlay
-            RegistryService.Write(
-                new RegistryItem(Path, "29", outputPath)
-            );
+            RegistryService.Write(new RegistryItem(Path, "29", outputPath));
 
             await ExecutePostActionAsync();
         }

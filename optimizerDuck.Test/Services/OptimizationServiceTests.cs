@@ -260,7 +260,7 @@ public class OptimizationServiceTests
                 Assert.NotNull(data);
                 Assert.Equal(3, data!.Steps.Length);
                 Assert.Equal("Shell", data.Steps[0]!.Type);
-                Assert.Null(data.Steps[1]);  // Gap - step 2 failed
+                Assert.Null(data.Steps[1]); // Gap - step 2 failed
                 Assert.Equal("Shell", data.Steps[2]!.Type);
                 Assert.Equal(
                     "exit 11",

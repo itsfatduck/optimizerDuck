@@ -567,8 +567,17 @@ public static class ShellService
         CancellationToken ct = default
     )
     {
-        return RunAsync("cmd.exe", "/c", command, nameof(CMD), new ShellRevertStep { ShellType = ShellType.CMD, Command = revertCommand }, policy, ct);
+        return RunAsync(
+            "cmd.exe",
+            "/c",
+            command,
+            nameof(CMD),
+            new ShellRevertStep { ShellType = ShellType.CMD, Command = revertCommand },
+            policy,
+            ct
+        );
     }
+
     public static Task<ShellResult> CMDAsync(
         string command,
         ShellRevertStep? revertStep = null,
@@ -586,7 +595,15 @@ public static class ShellService
         CancellationToken ct = default
     )
     {
-        return RunAsync("cmd.exe", "/c", command, nameof(CMD), new ShellRevertStep { ShellType = ShellType.CMD, Command = revertCommand() }, policy, ct);
+        return RunAsync(
+            "cmd.exe",
+            "/c",
+            command,
+            nameof(CMD),
+            new ShellRevertStep { ShellType = ShellType.CMD, Command = revertCommand() },
+            policy,
+            ct
+        );
     }
 
     /// <summary>

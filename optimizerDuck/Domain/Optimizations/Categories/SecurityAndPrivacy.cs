@@ -19,8 +19,6 @@ public class SecurityAndPrivacy : IOptimizationCategory
         OptimizationCategoryOrder.SecurityAndPrivacy;
     public ObservableCollection<IOptimization> Optimizations { get; init; } = [];
 
-
-
     [Optimization(
         Id = "74DC8DAC-1F90-4BBD-ACF7-7E626749D71C",
         Risk = OptimizationRisk.Moderate,
