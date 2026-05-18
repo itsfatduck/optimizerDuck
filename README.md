@@ -16,14 +16,14 @@
 [![.NET Latest](https://img.shields.io/badge/.NET_Runtime-Latest-ef99dd?style=flat-square)](https://dotnet.microsoft.com/en-us/download)
 [![Supported OS](https://img.shields.io/badge/Supported-Windows_10%2B_x64-0078d4?style=flat-square)](https://www.microsoft.com/en-us/software-download/)
 
-**[Getting Started](https://optimizerduck.vercel.app/docs/guides/getting-started) | [How It Works?](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [Frequently Asked Questions](https://optimizerduck.vercel.app/docs/faq/general)**
+**[Getting Started](https://optimizerduck.vercel.app/docs/guides/getting-started) | [How It Works](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [FAQ](https://optimizerduck.vercel.app/docs/faq/general)**
 
 **English** | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md)
 
 <details>
 <summary>⭐ Star History</summary>
 
-If optimizerDuck helped improve your PC, consider giving the repo a ⭐ and sharing it with others.  
+If optimizerDuck helped improve your PC, consider giving the repo a ⭐ and sharing it with others.
 Every star helps motivate future improvements.
 
 <a href="https://www.star-history.com/#itsfatduck/optimizerDuck&type=timeline&legend=top-left">
@@ -44,89 +44,89 @@ Every star helps motivate future improvements.
 
 ## Quick Start
 
-1. Download from **GitHub** → https://github.com/itsfatduck/optimizerDuck/releases/latest
-2. Run the `.exe` (no installer needed)
-3. Restart your PC after applying changes
+1. Download from **[GitHub Releases](https://github.com/itsfatduck/optimizerDuck/releases/latest)**
+2. Run the `.exe` directly, no installation required
+3. Choose the optimizations you want, apply them, and restart your PC when you're ready
 
 > [!TIP]
-> Always create a **restore point** before making system changes.
+> Always create a **system restore point** before making changes.
 
 > [!NOTE]
-> Supports English, Vietnamese, and Traditional Chinese (contributed by [@abc0922001](https://github.com/abc0922001)), Simplified Chinese (contributed by [@wcxu21](https://github.com/wcxu21)).
->
-> Thanks to the contributors for their efforts! Want to add your language? Please check [CONTRIBUTING.md](./.github/CONTRIBUTING.md).
+> Available in English, Vietnamese, Traditional Chinese (contributed by [@abc0922001](https://github.com/abc0922001)), and Simplified Chinese (contributed by [@wcxu21](https://github.com/wcxu21)).
+> Want to add your language? See [CONTRIBUTING.md](./.github/CONTRIBUTING.md).
 
 ---
 
-## Highlights
+## What optimizerDuck Does
 
-Over 35 optimizations across 6 categories, plus built-in tools to manage your system. All with clear risk indicators and one-click reverts.
+Windows ships with a lot of things you may not need: background services, telemetry, pre-installed apps, startup programs, and scheduled tasks that eat resources. optimizerDuck gives you a single interface to clean all of that up.
 
-|     | Feature                 | What it does                                                              |
-| :-- | :---------------------- | :------------------------------------------------------------------------ |
-| 🚀  | **Performance & Power** | Speed up your system, disable bloat services, tune power settings.        |
-| 🛡️  | **Privacy Protection**  | Kill telemetry, Cortana, Copilot, ads, and tracking. Take back your data. |
-| 🎮  | **GPU Tuning**          | Vendor-specific tweaks. AMD, NVIDIA, or Intel.                            |
-| 🧩  | **Features Toggle**     | Easily enable or disable various Windows features.                        |
-| 🧹  | **Disk Cleanup**        | Clear temp files, caches, old Windows installations. Reclaim disk space.  |
-| 🗑️  | **Bloatware Remover**   | Remove pre-installed Windows apps. Risk indicators help you decide.       |
-| ⚡  | **Startup Manager**     | Control which apps run at boot. Keep what you need, disable the rest.     |
-| 📋  | **Scheduled Tasks**     | View, run, stop, or delete Windows scheduled tasks. Full control.         |
-| 💻  | **System Dashboard**    | See your CPU, RAM, GPU, Storage, and OS info at a glance.                 |
-| 🔄  | **Revert Changes**      | Made a mistake? One click to undo any change.                             |
-| 🎨  | **Clean UI**            | Dark, Light, or High Contrast theme. Modern Fluent design.                |
-| 🌐  | **Multi-Language**      | English, Vietnamese, Traditional Chinese.                                 |
-| 🔒  | **Runs Offline**        | No telemetry, no ads, no data collection. Everything runs locally.        |
+It applies targeted system tweaks to reduce overhead and block unwanted behavior, and bundles several management tools so you can see what is running, remove what you do not want, and revert any change if something goes wrong.
 
----
+> [!NOTE]
+> Every optimization can be applied manually. optimizerDuck just makes it easier for you to apply these optimizations.
 
-## Optimization Categories
+### System Optimizations
 
-Built-in optimizations across 6 categories, each with clear explanations and risk levels:
+Over 30 tweaks across 6 categories, each with a clear description and risk rating so you know exactly what each change does before applying it.
 
-- **Performance**: Service host tuning, priority tweaks, keyboard speed, gaming tweaks.
-- **Security & Privacy**: Telemetry, error reporting, Cortana, Copilot, ads, location tracking.
-- **GPU**: Vendor-specific tweaks for AMD, NVIDIA, or Intel GPUs.
-- **Power Management**: Hibernate, fast startup, USB power saving, custom power plan.
-- **Bloatware & Services**: Remove pre-installed apps. Fine-tune 200+ Windows services.
-- **User Experience**: Explorer speed, visual effects, menu delays.
+| Category                 | What it covers                                                                                                                                       |
+| :----------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Performance**          | Service host tuning based on your RAM, process priority adjustments, keyboard latency reduction, and multimedia scheduler tweaks for smoother gaming |
+| **Privacy**              | Disable Windows telemetry, error reporting, advertising ID, location tracking, Cortana, Copilot, and content delivery suggestions                    |
+| **GPU**                  | Vendor-specific registry tweaks for AMD, NVIDIA, and Intel GPUs, covering power states, clock gating, and display latency                            |
+| **Power**                | Disable hibernation and fast startup, turn off USB selective suspend, install a custom high-performance power plan, and disable power throttling     |
+| **Bloatware & Services** | Block OEM app reinstall behavior and fine-tune startup types for 200+ Windows services                                                               |
+| **User Experience**      | Remove menu show delays, disable visual effects like taskbar animations and transparency for a snappier feel                                         |
 
----
+> [!IMPORTANT]
+> If you feel like there aren't many optimizations, don't assume they are ineffective or outdated. optimizerDuck focuses only on optimizations that have been tested, benchmarked, or widely trusted by the community. Some changes may not produce immediately noticeable differences, but they can still help your system run more smoothly and reliably over time.
 
-## Feature Toggles
+### Feature Toggles
 
-Not only can you apply system optimizations, but you can also easily enable or disable various Windows features. No need to dig through the registry or search endlessly on Google. Everything is available in a clean, intuitive, and user-friendly interface.
+Flip Windows settings on or off without digging through the registry or searching for guides online. Organized into four sections:
 
-- **Desktop**: Show/hide icons (This PC, Recycle Bin, Network, User Files, Control Panel), remove shortcut arrows.
-- **Taskbar**: Center alignment, widgets, Task View button, End Task button, show seconds in clock, disable Bing search.
-- **Appearance**: Dark mode for apps and system.
-- **Explorer**: File extensions, hidden files, clipboard history, compact mode, snap assist, item checkboxes, classic context menu.
-- **Gaming**: Game Mode, Game Bar, background recording, mouse acceleration, fullscreen optimizations, hardware-accelerated GPU scheduling.
-- **System**: Auto-enable Num Lock on boot.
+- **Desktop**: Show or hide icons (This PC, Recycle Bin, Network, User Files, Control Panel), remove shortcut arrow overlays
+- **Taskbar**: Center or left alignment, toggle widgets, Task View button, End Task button, clock seconds, and Bing search in Start
+- **Explorer**: File extensions, hidden files, clipboard history, compact view, snap assist, item checkboxes, classic context menu, and more
+- **Gaming**: Game Mode, Game Bar, background recording, mouse acceleration, fullscreen optimizations, hardware-accelerated GPU scheduling
+- **System**: Enable Num Lock on boot
 
----
+### Built-in Tools
 
-## Built-in Tools
-
-- **Dashboard**: Real-time hardware overview.
-- **Startup Manager**: Control boot apps. Filter, search, enable/disable.
-- **Scheduled Tasks**: Full task management.
-- **Disk Cleanup**: Scan, select, clean. Simple as that.
-- **Bloatware Remover**: List with risk levels. Filter and remove safely.
+| Tool                  | What it does                                                                                                                                     |
+| :-------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- |
+| **System Dashboard**  | View your CPU, RAM, GPU, storage drives, and OS details in one panel                                                                             |
+| **Startup Manager**   | See every app and task that launches at boot, toggle them on or off, and open their file location                                                |
+| **Scheduled Tasks**   | Browse, run, stop, enable, disable, or delete Windows scheduled tasks                                                                            |
+| **Disk Cleanup**      | Scan and clear temp files, system cache, Windows Update leftovers, prefetch, thumbnails, recycle bin, crash dumps, and old Windows installations |
+| **Bloatware Remover** | Lists all removable AppX packages with risk badges (Safe, Caution, Unknown), so you can pick what to remove                                      |
 
 ---
 
 ## Safety
 
-optimizerDuck is designed with safety in mind. We understand that modifying system settings can be risky, so we've implemented multiple safeguards.
+We know changing system settings carries risk, so the tool is built around reversibility and user control.
 
-See the [Privacy Policy](./PRIVACY.md) for details on our commitment to user privacy and data security.
+See the [Privacy Policy](./PRIVACY.md) for details on our data practices.
 
-- **Backups everything**: Every change is backed up in a local folder, allowing you to restore individual tweaks or the entire system.
-- **One-click revert**: Made a mistake? Just click "Revert" to undo the last change you made.
-- **Risk levels**: View the risk level of each tweak before applying it. We categorize them as Low, Medium, or High risk based on potential impact.
-- **No forced changes**: You choose which optimizations to apply. Nothing is enabled by default.
-- **Recommend restore point**: Always recommend creating a Windows restore point before applying changes for an extra layer of safety.
+- **Automatic backups**: Every change writes a revert file to a local folder. You can restore individual tweaks or roll back everything
+- **One-click revert**: Undo any applied optimization from the UI with a single click
+- **Risk ratings**: Each tweak is labeled Safe, Moderate, or Risky based on its potential impact
+- **No defaults applied**: Nothing runs until you select it. The tool does not enable anything on its own
+- **Restore point prompt**: Before your first optimization, the app suggests creating a Windows restore point
+
+---
+
+## Technical Details
+
+- **Framework**: WPF on .NET 10, using the WPF UI library for Fluent design
+- **Revert system**: Four revert step types (Registry, Service, Scheduled Task, Shell) with JSON-persisted state and thread-safe file I/O
+- **Theming**: Dark (default), Light, and High Contrast modes with Mica backdrop support
+- **No installer**: Runs as a single .exe, no installation required
+- **Backup system**: Local folder-based backup for every change, with one-click restore
+- **Discovery**: Optimization and Feature categories are discovered automatically via reflection + custom attributes, no manual registration needed
+- **No telemetry**: The app does not collect any user data
 
 ---
 
@@ -134,14 +134,22 @@ See the [Privacy Policy](./PRIVACY.md) for details on our commitment to user pri
 
 ### [Official Documentation](https://optimizerduck.vercel.app/docs/guides/getting-started)
 
-Step-by-step instructions, explanations of each optimization, and best practices for using optimizerDuck.
+Step-by-step guides, detailed breakdowns of each optimization, and best practices for using optimizerDuck.
+
+---
+
+## Contribute
+
+We welcome contributions from the community! Whether you're fixing bugs, adding new optimizations or features, improving documentation, or helping translate the app into other languages, your support is greatly appreciated.
+
+For more information, please see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
 
 ## Community
 
 > [!TIP]
-> Join our growing community on Discord! Get support, share your experience, and connect with other users and contributors.
+> Join our Discord server for support, tips, and discussions with other users and contributors.
 >
 > <a href="https://discord.gg/tDUBDCYw9Q"><img src="https://discord.com/api/guilds/1091675679994675240/widget.png?style=banner2" alt="Discord Banner 2"/></a>
 
@@ -159,20 +167,20 @@ If optimizerDuck helped your PC:
 - 💬 [Discord](https://discord.gg/tDUBDCYw9Q)
 - 🐞 [Issues](https://github.com/itsfatduck/optimizerDuck/issues)
 
-Every contribution helps! Whether it's a bug report, a new feature suggestion, or just sharing your experience, we appreciate it.
+Every contribution helps. Bug reports, feature suggestions, translations, and sharing your experience all matter.
 
 ---
 
 ## Disclaimer
 
-optimizerDuck is provided **"as is"**, without warranty.
+optimizerDuck is provided **"as is"**, without warranty of any kind.
 
-By using this tool, you agree the authors are not responsible for system instability, data loss, or issues from third-party software or user modifications.
+By using this tool, you agree that the authors are not liable for system instability, data loss, or issues caused by third-party software or user modifications.
 
 Always create a **restore point** before applying changes.
 
 > [!NOTE]
-> optimizerDuck modifies system settings and registry. Use at your own risk. We recommend backing up important data and creating a restore point before making changes.
+> optimizerDuck modifies system settings and the Windows registry. Use at your own risk. We recommend backing up important data and creating a restore point before making changes.
 >
 > See [Terms of Service](./TERMS.md), [Privacy Policy](./PRIVACY.md), and [Disclaimer](./DISCLAIMER.md) for more information.
 
@@ -192,7 +200,7 @@ Always create a **restore point** before applying changes.
 
 <div align="center">
 
-## Thanks to all Contributors ❤️
+## Thanks to all Contributors
 
 [![Contributors](https://contrib.rocks/image?repo=itsfatduck/optimizerDuck)](https://github.com/itsfatduck/optimizerDuck/graphs/contributors)
 
