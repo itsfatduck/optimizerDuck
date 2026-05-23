@@ -82,7 +82,11 @@ public static class ScheduledTaskService
                 false,
                 null,
                 Translations.Service_Common_Error_AccessDenied,
-                () => System.Threading.Tasks.Task.FromResult(DisableTask(fullPath))
+                () => System.Threading.Tasks.Task.FromResult(DisableTask(fullPath)),
+                string.Format(
+                    Translations.Service_ScheduledTask_ErrorDetail_AccessDeniedDisable,
+                    fullPath
+                )
             );
             return false;
         }
@@ -96,7 +100,8 @@ public static class ScheduledTaskService
                 false,
                 null,
                 ex.Message,
-                () => System.Threading.Tasks.Task.FromResult(DisableTask(fullPath))
+                () => System.Threading.Tasks.Task.FromResult(DisableTask(fullPath)),
+                ex.ToString()
             );
             return false;
         }
@@ -152,7 +157,11 @@ public static class ScheduledTaskService
                 false,
                 null,
                 Translations.Service_Common_Error_AccessDenied,
-                () => System.Threading.Tasks.Task.FromResult(EnableTask(fullPath))
+                () => System.Threading.Tasks.Task.FromResult(EnableTask(fullPath)),
+                string.Format(
+                    Translations.Service_ScheduledTask_ErrorDetail_AccessDeniedEnable,
+                    fullPath
+                )
             );
             return false;
         }
@@ -166,7 +175,8 @@ public static class ScheduledTaskService
                 false,
                 null,
                 ex.Message,
-                () => System.Threading.Tasks.Task.FromResult(EnableTask(fullPath))
+                () => System.Threading.Tasks.Task.FromResult(EnableTask(fullPath)),
+                ex.ToString()
             );
             return false;
         }

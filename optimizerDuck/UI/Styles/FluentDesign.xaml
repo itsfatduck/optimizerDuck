@@ -5,15 +5,6 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml">
 
-    <sys:Double x:Key="Space4">4</sys:Double>
-    <sys:Double x:Key="Space8">8</sys:Double>
-    <sys:Double x:Key="Space12">12</sys:Double>
-    <sys:Double x:Key="Space16">16</sys:Double>
-    <sys:Double x:Key="Space20">20</sys:Double>
-    <sys:Double x:Key="Space24">24</sys:Double>
-    <sys:Double x:Key="Space32">32</sys:Double>
-    <sys:Double x:Key="Space40">40</sys:Double>
-
     <CornerRadius x:Key="CornerRadiusSmall">4</CornerRadius>
     <CornerRadius x:Key="CornerRadiusMedium">8</CornerRadius>
     <CornerRadius x:Key="CornerRadiusLarge">12</CornerRadius>
@@ -183,8 +174,7 @@
     </Style>
 
     <Style x:Key="DialogIconStyle" TargetType="ui:SymbolIcon">
-        <Setter Property="Margin" Value="0,0,0,12" />
-        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="0,0,6,0" />
         <Setter Property="FontSize" Value="44" />
         <Setter Property="Foreground" Value="{DynamicResource AccentYellowBrush}" />
     </Style>

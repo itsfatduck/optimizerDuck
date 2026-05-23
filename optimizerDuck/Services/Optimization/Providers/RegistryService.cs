@@ -309,7 +309,12 @@ public static class RegistryService
                         false,
                         null,
                         Translations.Service_Common_Error_AccessDenied,
-                        () => Task.FromResult(Write(item))
+                        () => Task.FromResult(Write(item)),
+                        string.Format(
+                            Translations.Service_Registry_ErrorDetail_AccessDeniedWrite,
+                            item.Path,
+                            item.Name
+                        )
                     );
                     return false;
                 }
@@ -328,7 +333,8 @@ public static class RegistryService
                         false,
                         null,
                         ex.Message,
-                        () => Task.FromResult(Write(item))
+                        () => Task.FromResult(Write(item)),
+                        ex.ToString()
                     );
                     return false;
                 }
@@ -415,7 +421,12 @@ public static class RegistryService
                         false,
                         null,
                         Translations.Service_Common_Error_AccessDenied,
-                        () => Task.FromResult(DeleteValue(item))
+                        () => Task.FromResult(DeleteValue(item)),
+                        string.Format(
+                            Translations.Service_Registry_ErrorDetail_AccessDeniedDelete,
+                            item.Path,
+                            item.Name
+                        )
                     );
                     return false;
                 }
@@ -434,7 +445,8 @@ public static class RegistryService
                         false,
                         null,
                         ex.Message,
-                        () => Task.FromResult(DeleteValue(item))
+                        () => Task.FromResult(DeleteValue(item)),
+                        ex.ToString()
                     );
                     return false;
                 }
@@ -499,7 +511,11 @@ public static class RegistryService
                 false,
                 null,
                 Translations.Service_Common_Error_AccessDenied,
-                () => Task.FromResult(CreateSubKey(item))
+                () => Task.FromResult(CreateSubKey(item)),
+                string.Format(
+                    Translations.Service_Registry_ErrorDetail_AccessDeniedCreateKey,
+                    item.Path
+                )
             );
             return false;
         }
@@ -513,7 +529,8 @@ public static class RegistryService
                 false,
                 null,
                 ex.Message,
-                () => Task.FromResult(CreateSubKey(item))
+                () => Task.FromResult(CreateSubKey(item)),
+                ex.ToString()
             );
             return false;
         }
@@ -592,7 +609,11 @@ public static class RegistryService
                 false,
                 null,
                 Translations.Service_Registry_Error_AccessDeniedProtectedHive,
-                () => Task.FromResult(DeleteSubKeyTree(item))
+                () => Task.FromResult(DeleteSubKeyTree(item)),
+                string.Format(
+                    Translations.Service_Registry_ErrorDetail_AccessDeniedDeleteKeyTree,
+                    item.Path
+                )
             );
             return false;
         }
@@ -606,7 +627,8 @@ public static class RegistryService
                 false,
                 null,
                 ex.Message,
-                () => Task.FromResult(DeleteSubKeyTree(item))
+                () => Task.FromResult(DeleteSubKeyTree(item)),
+                ex.ToString()
             );
             return false;
         }

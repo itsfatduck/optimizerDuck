@@ -2519,6 +2519,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        internal static string OptimizationResultDialog_Details {
+            get {
+                return ResourceManager.GetString("OptimizationResultDialog.Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Failed steps.
         /// </summary>
         internal static string OptimizationResultDialog_Header {
@@ -4197,6 +4206,42 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Access denied writing {0}:{1}.
+        /// </summary>
+        internal static string Service_Registry_ErrorDetail_AccessDeniedWrite {
+            get {
+                return ResourceManager.GetString("Service.Registry.ErrorDetail.AccessDeniedWrite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Access denied deleting {0}:{1}.
+        /// </summary>
+        internal static string Service_Registry_ErrorDetail_AccessDeniedDelete {
+            get {
+                return ResourceManager.GetString("Service.Registry.ErrorDetail.AccessDeniedDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Access denied creating {0}.
+        /// </summary>
+        internal static string Service_Registry_ErrorDetail_AccessDeniedCreateKey {
+            get {
+                return ResourceManager.GetString("Service.Registry.ErrorDetail.AccessDeniedCreateKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Access denied deleting key tree {0}.
+        /// </summary>
+        internal static string Service_Registry_ErrorDetail_AccessDeniedDeleteKeyTree {
+            get {
+                return ResourceManager.GetString("Service.Registry.ErrorDetail.AccessDeniedDeleteKeyTree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unauthorized access.
         /// </summary>
         internal static string Service_Registry_Error_UnauthorizedAccess {
@@ -4220,6 +4265,24 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Service_ScheduledTask_Description_Disable {
             get {
                 return ResourceManager.GetString("Service.ScheduledTask.Description.Disable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Access denied disabling task {0}.
+        /// </summary>
+        internal static string Service_ScheduledTask_ErrorDetail_AccessDeniedDisable {
+            get {
+                return ResourceManager.GetString("Service.ScheduledTask.ErrorDetail.AccessDeniedDisable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Access denied enabling task {0}.
+        /// </summary>
+        internal static string Service_ScheduledTask_ErrorDetail_AccessDeniedEnable {
+            get {
+                return ResourceManager.GetString("Service.ScheduledTask.ErrorDetail.AccessDeniedEnable", resourceCulture);
             }
         }
         

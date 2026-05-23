@@ -169,9 +169,13 @@ public class OptimizationService(
                 if (scope.HasSuccessfulSteps)
                     await TrySaveRevertDataAsync(scope, optimization);
 
+                var status = scope.HasSuccessfulSteps
+                    ? OptimizationSuccessResult.PartialSuccess
+                    : OptimizationSuccessResult.Failed;
+
                 return new OptimizationResult
                 {
-                    Status = OptimizationSuccessResult.Failed,
+                    Status = status,
                     Message = applyResult.ErrorMessage,
                     FailedSteps = scope.GetStepResults().Where(step => !step.Success).ToList(),
                 };

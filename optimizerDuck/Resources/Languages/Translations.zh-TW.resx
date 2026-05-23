@@ -384,6 +384,18 @@
   <data name="Service.Registry.Error.CreateOrOpenSubkeyFailed" xml:space="preserve">
     <value>無法建立或開啟子機碼</value>
   </data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedWrite" xml:space="preserve">
+    <value>寫入 {0}:{1} 時存取被拒</value>
+  </data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedDelete" xml:space="preserve">
+    <value>刪除 {0}:{1} 時存取被拒</value>
+  </data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedCreateKey" xml:space="preserve">
+    <value>建立 {0} 時存取被拒</value>
+  </data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedDeleteKeyTree" xml:space="preserve">
+    <value>刪除登錄機碼樹 {0} 時存取被拒</value>
+  </data>
   <data name="Service.Service.Error.NotFound" xml:space="preserve">
     <value>找不到服務</value>
   </data>
@@ -410,6 +422,9 @@
   </data>
   <data name="OptimizationResultDialog.Description" xml:space="preserve">
     <value>某些步驟未成功完成。您可以只重試失敗的步驟。</value>
+  </data>
+  <data name="OptimizationResultDialog.Details" xml:space="preserve">
+    <value>詳細資訊</value>
   </data>
   <data name="Button.Retry" xml:space="preserve">
     <value>重試</value>
@@ -1218,6 +1233,12 @@
   </data>
   <data name="Service.ScheduledTask.Description.Disable" xml:space="preserve">
     <value>停用排定的工作：{0}</value>
+  </data>
+  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedDisable" xml:space="preserve">
+    <value>停用工作 {0} 時存取被拒</value>
+  </data>
+  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedEnable" xml:space="preserve">
+    <value>啟用工作 {0} 時存取被拒</value>
   </data>
   <data name="Revert.Registry.Description.Restore" xml:space="preserve">
     <value>還原登錄檔值：{0}\{1}</value>

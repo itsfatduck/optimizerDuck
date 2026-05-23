@@ -33,6 +33,11 @@ public record OperationStepResult
     public string? Error { get; init; }
 
     /// <summary>
+    ///     Detailed error information (exception details) for the step failure.
+    /// </summary>
+    public string? ErrorDetail { get; init; }
+
+    /// <summary>
     ///     An optional action to retry this step.
     /// </summary>
     public Func<Task<bool>>? RetryAction { get; init; }

@@ -164,6 +164,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 var (proceed, created) = await HandleRestorePointAsync();
                 if (!proceed)
                 {
+
                     optimization.State.IsApplied = wasApplied;
                     return;
                 }

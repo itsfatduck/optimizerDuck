@@ -358,7 +358,7 @@
                                             Command="{Binding DataContext.ViewModel.ToggleOptimizationCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                             CommandParameter="{Binding}"
                                             Cursor="Hand"
-                                            IsChecked="{Binding State.IsApplied, Mode=OneWay}"
+                                            IsChecked="{Binding State.IsApplied, Mode=TwoWay}"
                                             IsEnabled="{Binding DataContext.ViewModel.IsProcessing, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource InverseBooleanConverter}}"
                                             Style="{StaticResource ToggleSwitchStyle}" />
                                         <ui:Button

@@ -415,6 +415,18 @@
   <data name="Service.Registry.Error.CreateOrOpenSubkeyFailed" xml:space="preserve">
     <value>创建/打开子项失败</value>
   </data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedWrite" xml:space="preserve">
+    <value>写入 {0}:{1} 时权限被拒</value>
+  </data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedDelete" xml:space="preserve">
+    <value>删除 {0}:{1} 时权限被拒</value>
+  </data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedCreateKey" xml:space="preserve">
+    <value>创建 {0} 时权限被拒</value>
+  </data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedDeleteKeyTree" xml:space="preserve">
+    <value>删除注册表项树 {0} 时权限被拒</value>
+  </data>
   <data name="Service.Service.Error.NotFound" xml:space="preserve">
     <value>未找到服务</value>
   </data>
@@ -441,6 +453,9 @@
   </data>
   <data name="OptimizationResultDialog.Description" xml:space="preserve">
     <value>部分步骤未成功完成。你可以仅重试失败的步骤。</value>
+  </data>
+  <data name="OptimizationResultDialog.Details" xml:space="preserve">
+    <value>详细信息</value>
   </data>
   <data name="Button.Retry" xml:space="preserve">
     <value>重试</value>
@@ -1555,6 +1570,12 @@
   </data>
   <data name="Service.ScheduledTask.Description.Disable" xml:space="preserve">
     <value>禁用计划任务：{0}</value>
+  </data>
+  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedDisable" xml:space="preserve">
+    <value>禁用任务 {0} 时权限被拒</value>
+  </data>
+  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedEnable" xml:space="preserve">
+    <value>启用任务 {0} 时权限被拒</value>
   </data>
   <data name="Revert.Registry.Description.Restore" xml:space="preserve">
     <value>恢复注册表项：{0}\{1}</value>

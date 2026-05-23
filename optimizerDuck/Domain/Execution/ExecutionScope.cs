@@ -172,29 +172,8 @@ public sealed class ExecutionScope : IDisposable
         bool success,
         IRevertStep? revertStep = null,
         string? error = null,
-        Func<Task<bool>>? retryAction = null
-    )
-    {
-        var scope = Current;
-
-        return scope?.RecordStepInternal(
-            name,
-            description,
-            success,
-            revertStep,
-            error,
-            retryAction
-        );
-    }
-
-    public static ExecutedStep? RecordStepAtIndex(
-        int index,
-        string name,
-        string description,
-        bool success,
-        IRevertStep? revertStep = null,
-        string? error = null,
-        Func<Task<bool>>? retryAction = null
+        Func<Task<bool>>? retryAction = null,
+        string? errorDetail = null
     )
     {
         var scope = Current;
@@ -206,6 +185,31 @@ public sealed class ExecutionScope : IDisposable
             revertStep,
             error,
             retryAction,
+            errorDetail
+        );
+    }
+
+    public static ExecutedStep? RecordStepAtIndex(
+        int index,
+        string name,
+        string description,
+        bool success,
+        IRevertStep? revertStep = null,
+        string? error = null,
+        Func<Task<bool>>? retryAction = null,
+        string? errorDetail = null
+    )
+    {
+        var scope = Current;
+
+        return scope?.RecordStepInternal(
+            name,
+            description,
+            success,
+            revertStep,
+            error,
+            retryAction,
+            errorDetail,
             explicitIndex: index
         );
     }
@@ -283,6 +287,7 @@ public sealed class ExecutionScope : IDisposable
         IRevertStep? revertStep,
         string? error,
         Func<Task<bool>>? retryAction = null,
+        string? errorDetail = null,
         int? explicitIndex = null
     )
     {
@@ -298,7 +303,8 @@ public sealed class ExecutionScope : IDisposable
             success,
             revertStep,
             error,
-            retryAction
+            retryAction,
+            errorDetail
         );
 
         _executedSteps.Add(step);
@@ -328,6 +334,7 @@ public sealed class ExecutionScope : IDisposable
             Description = step.Description,
             Success = step.Success,
             Error = step.Error,
+            ErrorDetail = step.ErrorDetail,
             RetryAction = step.RetryAction,
             RevertStep = step.RevertStep,
         };
@@ -389,7 +396,8 @@ public sealed record ExecutedStep
         bool success,
         IRevertStep? revertStep,
         string? error,
-        Func<Task<bool>>? retryAction = null
+        Func<Task<bool>>? retryAction = null,
+        string? errorDetail = null
     )
     {
         Index = index;
@@ -399,6 +407,7 @@ public sealed record ExecutedStep
         RevertStep = revertStep;
         Error = error;
         RetryAction = retryAction;
+        ErrorDetail = errorDetail;
     }
 
     /// <summary>
@@ -430,6 +439,11 @@ public sealed record ExecutedStep
     ///     The error message if the step failed, or null if it succeeded.
     /// </summary>
     public string? Error { get; init; }
+
+    /// <summary>
+    ///     Detailed error information (exception details) for the step failure.
+    /// </summary>
+    public string? ErrorDetail { get; init; }
 
     /// <summary>
     ///     An optional action to retry this step if it failed.

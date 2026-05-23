@@ -412,6 +412,18 @@
   <data name="Service.Registry.Error.CreateOrOpenSubkeyFailed" xml:space="preserve">
     <value>Không thể tạo/mở khóa con (subkey)</value>
   </data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedWrite" xml:space="preserve">
+    <value>Từ chối truy cập khi ghi {0}:{1}</value>
+  </data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedDelete" xml:space="preserve">
+    <value>Từ chối truy cập khi xóa {0}:{1}</value>
+  </data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedCreateKey" xml:space="preserve">
+    <value>Từ chối truy cập khi tạo {0}</value>
+  </data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedDeleteKeyTree" xml:space="preserve">
+    <value>Từ chối truy cập khi xóa cây khóa {0}</value>
+  </data>
   <data name="Service.Service.Error.NotFound" xml:space="preserve">
     <value>Không tìm thấy dịch vụ</value>
   </data>
@@ -435,6 +447,9 @@
   </data>
   <data name="OptimizationResultDialog.Description" xml:space="preserve">
     <value>Một số bước chưa hoàn tất thành công. Bạn có thể thử lại chỉ những bước bị lỗi.</value>
+  </data>
+  <data name="OptimizationResultDialog.Details" xml:space="preserve">
+    <value>Chi tiết</value>
   </data>
   <data name="Button.Retry" xml:space="preserve">
     <value>Thử lại</value>
@@ -1458,6 +1473,12 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="Service.ScheduledTask.Description.Disable" xml:space="preserve">
     <value>Tắt tác vụ hệ thống: {0}</value>
+  </data>
+  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedDisable" xml:space="preserve">
+    <value>Từ chối truy cập khi tắt tác vụ {0}</value>
+  </data>
+  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedEnable" xml:space="preserve">
+    <value>Từ chối truy cập khi bật tác vụ {0}</value>
   </data>
   <data name="Revert.Registry.Description.Restore" xml:space="preserve">
     <value>Khôi phục giá trị registry: {0}\{1}</value>

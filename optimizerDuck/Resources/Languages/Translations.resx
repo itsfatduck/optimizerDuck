@@ -415,6 +415,18 @@
   <data name="Service.Registry.Error.CreateOrOpenSubkeyFailed" xml:space="preserve">
     <value>Failed to create/open subkey</value>
   </data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedWrite" xml:space="preserve">
+    <value>Access denied writing {0}:{1}</value>
+  </data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedDelete" xml:space="preserve">
+    <value>Access denied deleting {0}:{1}</value>
+  </data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedCreateKey" xml:space="preserve">
+    <value>Access denied creating {0}</value>
+  </data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedDeleteKeyTree" xml:space="preserve">
+    <value>Access denied deleting key tree {0}</value>
+  </data>
   <data name="Service.Service.Error.NotFound" xml:space="preserve">
     <value>Service not found</value>
   </data>
@@ -441,6 +453,9 @@
   </data>
   <data name="OptimizationResultDialog.Description" xml:space="preserve">
     <value>Some steps didn't complete successfully. You can retry only the failed steps.</value>
+  </data>
+  <data name="OptimizationResultDialog.Details" xml:space="preserve">
+    <value>Details</value>
   </data>
   <data name="Button.Retry" xml:space="preserve">
     <value>Retry</value>
@@ -1556,6 +1571,12 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   </data>
   <data name="Service.ScheduledTask.Description.Disable" xml:space="preserve">
     <value>Disable scheduled task: {0}</value>
+  </data>
+  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedDisable" xml:space="preserve">
+    <value>Access denied disabling task {0}</value>
+  </data>
+  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedEnable" xml:space="preserve">
+    <value>Access denied enabling task {0}</value>
   </data>
   <data name="Revert.Registry.Description.Restore" xml:space="preserve">
     <value>Restore registry value: {0}\{1}</value>

@@ -102,7 +102,7 @@ public class RegistryRevertStep : IRevertStep
         };
 
         if (!result)
-            throw new Exception(string.Format(Translations.Service_Common_Error_AccessDenied)); // Generic for now, but better than nothing
+            throw new Exception(string.Format(Translations.Revert_Error_StepFailed) + $": {Description}");
 
         // Cleanup empty subkeys if they were created during apply
         if (result && CreatedSubKeys?.Count > 0)
