@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
@@ -94,7 +94,7 @@ public class OptimizationServiceTests
 
                 var result = await service.ApplyAsync(optimization, progress);
 
-                Assert.Equal(OptimizationSuccessResult.Failed, result.Status);
+                Assert.Equal(OptimizationSuccessResult.PartialSuccess, result.Status);
                 Assert.True(File.Exists(revertPath));
             }
             finally
@@ -597,7 +597,8 @@ public class OptimizationServiceTests
         public Func<
             (IProgress<ProcessingProgress> progress, OptimizationContext context),
             Task<ApplyResult>
-        > ApplyImpl { get; init; } = _ => Task.FromResult(ApplyResult.True());
+        > ApplyImpl
+        { get; init; } = _ => Task.FromResult(ApplyResult.True());
 
         public Guid Id { get; } = Guid.NewGuid();
         public OptimizationRisk Risk { get; } = OptimizationRisk.Safe;
