@@ -36,7 +36,7 @@ jobs:
 
       - name: Publish Single
         run: |
-          dotnet publish optimizerDuck/optimizerDuck.csproj --nologo /p:PublishProfile=Single
+          dotnet publish optimizerDuck/optimizerDuck.csproj --nologo /p:PublishProfile=Single -o publish_output
         shell: pwsh
 
       - name: Get version from tag
@@ -50,7 +50,7 @@ jobs:
       - name: Rename output file
         run: |
           $version = "${{ steps.get_version.outputs.version }}"
-          $source = "optimizerDuck/bin/Release/Single/net10.0/publish/win-x64/optimizerDuck.exe"
+          $source = "publish_output/optimizerDuck.exe"
           $dest = "optimizerDuck-Windows-x64-$version.exe"
           Move-Item -Path $source -Destination $dest
         shell: pwsh
