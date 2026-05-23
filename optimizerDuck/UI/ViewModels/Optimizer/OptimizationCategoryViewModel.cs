@@ -34,8 +34,10 @@ public partial class OptimizationCategoryViewModel : ViewModel
         Lazy<Task<(string Content, DateTime FetchedAt)>>
     > _sourceCache = new();
     private static readonly TimeSpan SourceCacheTtl = TimeSpan.FromMinutes(5);
+    private static readonly TimeSpan FilterDebounceDelay = TimeSpan.FromMilliseconds(250);
 
     private readonly List<IOptimization> _allOptimizations = [];
+    private CancellationTokenSource? _filterDebounceCts;
 
     private readonly IOptionsMonitor<AppSettings> _appOptionsMonitor;
     private readonly IOptimizationCategory _category;
@@ -89,24 +91,43 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
     public bool HasAppliedOptimizations => _allOptimizations.Any(o => o.State.IsApplied);
 
-    partial void OnSearchTextChanged(string value)
-    {
-        ApplyFilter();
-    }
+    partial void OnSearchTextChanged(string value) => ScheduleApplyFilter();
 
-    partial void OnSelectedRiskFilterIndexChanged(int value)
-    {
-        ApplyFilter();
-    }
+    partial void OnSelectedRiskFilterIndexChanged(int value) => ApplyFilter();
 
-    partial void OnSelectedSortByIndexChanged(int value)
-    {
-        ApplyFilter();
-    }
+    partial void OnSelectedSortByIndexChanged(int value) => ApplyFilter();
 
-    partial void OnHideAppliedChanged(bool value)
+    partial void OnHideAppliedChanged(bool value) => ApplyFilter();
+
+    private void ScheduleApplyFilter()
     {
-        ApplyFilter();
+        _filterDebounceCts?.Cancel();
+        _filterDebounceCts?.Dispose();
+        _filterDebounceCts = new CancellationTokenSource();
+        var token = _filterDebounceCts.Token;
+
+        _ = Task.Run(
+            async () =>
+            {
+                try
+                {
+                    await Task.Delay(FilterDebounceDelay, token).ConfigureAwait(false);
+                    await Application.Current.Dispatcher.InvokeAsync(
+                        () =>
+                        {
+                            if (!token.IsCancellationRequested)
+                                ApplyFilter();
+                        },
+                        System.Windows.Threading.DispatcherPriority.Background
+                    );
+                }
+                catch (OperationCanceledException)
+                {
+                    // debounced
+                }
+            },
+            token
+        );
     }
 
     public override async Task OnNavigatedToAsync()

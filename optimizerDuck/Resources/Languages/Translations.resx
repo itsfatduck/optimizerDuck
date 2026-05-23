@@ -379,6 +379,12 @@
   <data name="Revert.Error.StepFailed" xml:space="preserve">
     <value>Revert step failed</value>
   </data>
+  <data name="Revert.UsbPower.Description" xml:space="preserve">
+    <value>Restore USB selective suspend power states</value>
+  </data>
+  <data name="Service.Registry.Error.BackupTruncated" xml:space="preserve">
+    <value>Registry subtree is too large to back up safely; delete aborted for {0}</value>
+  </data>
   <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
     <value>OptimizationId mismatch.</value>
   </data>

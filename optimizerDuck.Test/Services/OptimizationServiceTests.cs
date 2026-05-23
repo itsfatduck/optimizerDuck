@@ -63,7 +63,7 @@ public class OptimizationServiceTests
     }
 
     [Fact]
-    public async Task ApplyAsync_FailureMessage_DoesNotPersistRevertDataFile()
+    public async Task ApplyAsync_FailureMessage_StillPersistsSuccessfulSteps()
     {
         await RunInStaThreadAsync(async () =>
         {
@@ -95,7 +95,7 @@ public class OptimizationServiceTests
                 var result = await service.ApplyAsync(optimization, progress);
 
                 Assert.Equal(OptimizationSuccessResult.Failed, result.Status);
-                Assert.False(File.Exists(revertPath));
+                Assert.True(File.Exists(revertPath));
             }
             finally
             {

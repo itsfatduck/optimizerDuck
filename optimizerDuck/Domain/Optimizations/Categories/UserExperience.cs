@@ -40,7 +40,7 @@ public class UserExperience : IOptimizationCategory
                 new RegistryItem(@"HKCU\Control Panel\Desktop", "MenuShowDelay", "0")
             );
             context.Logger.LogInformation("Speeded up Explorer and menus");
-            return Task.FromResult(ApplyResult.True());
+            return Task.FromResult(CompleteFromScope());
         }
     }
 
@@ -75,7 +75,7 @@ public class UserExperience : IOptimizationCategory
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\DWM", "EnableAeroPeek", 0)
             );
             context.Logger.LogInformation("Disabled visual effects for better performance");
-            return Task.FromResult(ApplyResult.True());
+            return Task.FromResult(CompleteFromScope());
         }
     }
 }

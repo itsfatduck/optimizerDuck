@@ -14,11 +14,12 @@ public class OptimizeViewModel(OptimizationRegistry optimizationService) : ViewM
 
     public event Action? OptimizationsLoaded;
 
-    public override Task OnNavigatedToAsync()
+    public override async Task OnNavigatedToAsync()
     {
-        // Load optimization categories when user navigates to the page
         if (_isInitialized)
-            return Task.CompletedTask;
+            return;
+
+        await optimizationService.EnsurePreloadedAsync().ConfigureAwait(true);
 
         foreach (var category in optimizationService.OptimizationCategories)
             OptimizationCategories.Add(
@@ -34,6 +35,5 @@ public class OptimizeViewModel(OptimizationRegistry optimizationService) : ViewM
 
         OptimizationsLoaded?.Invoke();
         _isInitialized = true;
-        return Task.CompletedTask;
     }
 }

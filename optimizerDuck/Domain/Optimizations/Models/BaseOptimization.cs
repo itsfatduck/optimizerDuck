@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Managers;
@@ -71,6 +72,15 @@ public abstract class BaseOptimization : IOptimization
         IProgress<ProcessingProgress> progress,
         OptimizationContext context
     );
+
+    /// <summary>
+    ///     Returns an <see cref="ApplyResult" /> derived from steps recorded in the active <see cref="ExecutionScope" />.
+    /// </summary>
+    protected static ApplyResult CompleteFromScope()
+    {
+        return ExecutionScope.Current?.ToApplyResult()
+            ?? ApplyResult.False(Translations.Revert_Error_NoSteps);
+    }
 }
 
 /*

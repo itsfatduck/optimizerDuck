@@ -284,8 +284,6 @@ public partial class App : Application
         _logger.LogInformation("Loaded language: {Language}", appSettings.App.Language);
 
         var optimizationRegistry = _host.Services.GetRequiredService<OptimizationRegistry>();
-        _logger.LogInformation("Preloading optimizations...");
-        await optimizationRegistry.PreloadOptimizationsAsync();
 
         await Dispatcher.InvokeAsync(() =>
         {
@@ -310,6 +308,9 @@ public partial class App : Application
             mainWindow.Closing += MainWindow_Closing;
             mainWindow.Show();
         });
+
+        _logger.LogInformation("Preloading optimizations in background...");
+        optimizationRegistry.StartPreload();
     }
 
     protected override void OnExit(ExitEventArgs e)

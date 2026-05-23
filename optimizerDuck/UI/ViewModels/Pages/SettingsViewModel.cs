@@ -263,11 +263,11 @@ public partial class SettingsViewModel(
                 "bloatware:removeProvisioned",
                 (!appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned).ToString()
             );
+            RemoveProvisioned = appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned;
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "Failed to toggle RemoveProvisioned setting");
-            // Revert UI property on failure
             RemoveProvisioned = appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned;
         }
     }
@@ -283,11 +283,14 @@ public partial class SettingsViewModel(
                 "optimize:showCompletionNotification",
                 (!appOptionsMonitor.CurrentValue.Optimize.ShowCompletionNotification).ToString()
             );
+            ShowSnackbarNotificationAfterAppliedSuccessfully = appOptionsMonitor
+                .CurrentValue
+                .Optimize
+                .ShowCompletionNotification;
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "Failed to toggle ShowCompletionNotification setting");
-            // Revert UI property on failure
             ShowSnackbarNotificationAfterAppliedSuccessfully = appOptionsMonitor
                 .CurrentValue
                 .Optimize

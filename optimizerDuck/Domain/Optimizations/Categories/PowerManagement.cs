@@ -1,12 +1,17 @@
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
+using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Domain.UI;
+using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Managers;
 using optimizerDuck.Services.OptimizationServices;
 using optimizerDuck.UI.Pages.Optimizations;
@@ -35,7 +40,7 @@ public class PowerManagement : IOptimizationCategory
             var wasEnabled =
                 RegistryService.Read<int>(
                     new RegistryItem(
-                        @"SYSTEM\CurrentControlSet\Control\Session Manager\Power",
+                        @"HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power",
                         "HibernateEnabled"
                     )
                 ) != 0;
@@ -47,7 +52,7 @@ public class PowerManagement : IOptimizationCategory
                 "Disabled hibernation and Fast Startup. Previous state: {State}",
                 wasEnabled ? "Enabled" : "Disabled"
             );
-            return ApplyResult.True();
+            return CompleteFromScope();
         }
     }
 
@@ -77,11 +82,18 @@ public class PowerManagement : IOptimizationCategory
             if (string.IsNullOrWhiteSpace(usbStates.Stdout))
             {
                 context.Logger.LogInformation("No USB devices found, skipping");
-                return ApplyResult.True();
+                return CompleteFromScope();
+            }
+
+            var capturedStates = ParseUsbPowerStates(usbStates.Stdout);
+            if (capturedStates.Count == 0)
+            {
+                context.Logger.LogInformation("No USB device states parsed, skipping");
+                return CompleteFromScope();
             }
 
             context.Logger.LogInformation("Disabling USB power saving");
-            await ShellService.PowerShellAsync(
+            var disableResult = await ShellService.PowerShellAsync(
                 """
                 $devices = Get-CimInstance -Namespace root\wmi -ClassName MSPower_DeviceEnable -ErrorAction SilentlyContinue |
                 Where-Object { $_.InstanceName -match 'USB\\ROOT' }
@@ -91,21 +103,37 @@ public class PowerManagement : IOptimizationCategory
                         Set-CimInstance -CimInstance $d -Property @{ Enable = $false } | Out-Null
                     }
                 }
-                """,
-                $$"""
-                $states = @('{{usbStates.Stdout}}' | ConvertFrom-Json)
-                foreach ($s in $states) {
-                    $obj = Get-CimInstance -Namespace root\wmi -ClassName MSPower_DeviceEnable -ErrorAction SilentlyContinue |
-                        Where-Object { $_.InstanceName -eq $s.InstanceName }
-                    if ($obj -and $obj.Enable -ne [bool]$s.Enable) {
-                        Write-Host "Reverting $($s.InstanceName) to $([bool]$s.Enable)"
-                        Set-CimInstance -CimInstance $obj -Property @{ Enable = [bool]$s.Enable } | Out-Null
-                    }
-                }
                 """
             );
 
-            return ApplyResult.True();
+            var revertStep = new UsbPowerRevertStep { States = capturedStates };
+            ExecutionScope.RecordStep(
+                Translations.Service_Shell_Name,
+                Name,
+                disableResult.ExitCode == 0,
+                disableResult.ExitCode == 0 ? revertStep : null,
+                disableResult.ExitCode == 0 ? null : disableResult.Stderr
+            );
+
+            return CompleteFromScope();
+        }
+
+        private static List<UsbPowerRevertStep.DeviceState> ParseUsbPowerStates(string stdout)
+        {
+            try
+            {
+                var token = JToken.Parse(stdout.Trim());
+                return token switch
+                {
+                    JArray array => array.ToObject<List<UsbPowerRevertStep.DeviceState>>() ?? [],
+                    JObject obj => [obj.ToObject<UsbPowerRevertStep.DeviceState>()!],
+                    _ => [],
+                };
+            }
+            catch (JsonException)
+            {
+                return [];
+            }
         }
     }
 
@@ -198,7 +226,7 @@ public class PowerManagement : IOptimizationCategory
             }
 
             context.Logger.LogInformation("Installed optimizerDuck power plan successfully!");
-            return ApplyResult.True();
+            return CompleteFromScope();
         }
     }
 
@@ -227,7 +255,7 @@ public class PowerManagement : IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Disabled power saving features");
-            return Task.FromResult(ApplyResult.True());
+            return Task.FromResult(CompleteFromScope());
         }
     }
 }

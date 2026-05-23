@@ -376,6 +376,9 @@
   <data name="Revert.Error.StepFailed" xml:space="preserve">
     <value>Bước hoàn tác thất bại</value>
   </data>
+  <data name="Revert.UsbPower.Description" xml:space="preserve">
+    <value>Khôi phục trạng thái nguồn tạm ngưng chọn lọc USB</value>
+  </data>
   <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
     <value>OptimizationId không khớp.</value>
   </data>
@@ -396,6 +399,9 @@
   </data>
   <data name="Service.Common.Error.AccessDenied" xml:space="preserve">
     <value>Không có quyền truy cập</value>
+  </data>
+  <data name="Service.Registry.Error.BackupTruncated" xml:space="preserve">
+    <value>Subtree registry quá lớn để sao lưu an toàn; đã hủy xóa cho {0}</value>
   </data>
   <data name="Service.Registry.Error.AccessDeniedProtectedHive" xml:space="preserve">
     <value>Bị từ chối truy cập (registry được bảo vệ)</value>

@@ -44,7 +44,7 @@ public class Performance : IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Disabled background apps");
-            return Task.FromResult(ApplyResult.True());
+            return Task.FromResult(CompleteFromScope());
         }
     }
 
@@ -88,7 +88,7 @@ public class Performance : IOptimizationCategory
                 "Enabled service host splitting with threshold: {ThresholdKB} KB",
                 context.Snapshot.Ram.TotalKB
             );
-            return Task.FromResult(ApplyResult.True());
+            return Task.FromResult(CompleteFromScope());
         }
     }
 
@@ -136,7 +136,7 @@ public class Performance : IOptimizationCategory
                 "Enabled foreground boost with priority: {Priority}",
                 win32Priority
             );
-            return Task.FromResult(ApplyResult.True());
+            return Task.FromResult(CompleteFromScope());
         }
     }
 
@@ -184,7 +184,7 @@ public class Performance : IOptimizationCategory
             context.Logger.LogInformation(
                 "Optimized Multimedia Class Scheduler Service (MMCSS) for gaming and low latency"
             );
-            return Task.FromResult(ApplyResult.True());
+            return Task.FromResult(CompleteFromScope());
         }
     }
 
@@ -206,7 +206,7 @@ public class Performance : IOptimizationCategory
             );
 
             context.Logger.LogInformation("Optimized keyboard repeat settings");
-            return Task.FromResult(ApplyResult.True());
+            return Task.FromResult(CompleteFromScope());
         }
     }
 
@@ -241,7 +241,7 @@ public class Performance : IOptimizationCategory
             );
 
             context.Logger.LogInformation("Disabled accessibility keyboard hotkeys");
-            return Task.FromResult(ApplyResult.True());
+            return Task.FromResult(CompleteFromScope());
         }
     }
 }

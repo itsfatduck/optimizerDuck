@@ -3792,6 +3792,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Restore USB selective suspend power states.
+        /// </summary>
+        internal static string Revert_UsbPower_Description {
+            get {
+                return ResourceManager.GetString("Revert.UsbPower.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         internal static string ScheduledTasks_Action_Delete {
@@ -4166,6 +4175,15 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Service_Registry_Error_AccessDeniedProtectedHive {
             get {
                 return ResourceManager.GetString("Service.Registry.Error.AccessDeniedProtectedHive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registry subtree is too large to back up safely; delete aborted for {0}.
+        /// </summary>
+        internal static string Service_Registry_Error_BackupTruncated {
+            get {
+                return ResourceManager.GetString("Service.Registry.Error.BackupTruncated", resourceCulture);
             }
         }
         

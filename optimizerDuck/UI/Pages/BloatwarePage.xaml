@@ -258,26 +258,26 @@
                         Text="{ext:Loc Bloatware.Search.NoResults}" />
                 </StackPanel>
 
-                <ItemsControl
+                <ui:VirtualizingItemsControl
                     Grid.Row="2"
                     ItemsSource="{Binding ViewModel.AppxPackages}"
+                    VirtualizingPanel.IsVirtualizing="True"
+                    VirtualizingPanel.VirtualizationMode="Recycling"
                     Visibility="{Binding ViewModel.AppxPackages.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
-                    <ItemsControl.Template>
+                    <ui:VirtualizingItemsControl.Template>
                         <ControlTemplate TargetType="ItemsControl">
                             <ScrollViewer HorizontalScrollBarVisibility="Disabled">
                                 <ItemsPresenter Margin="0,0,12,0" />
                             </ScrollViewer>
                         </ControlTemplate>
-                    </ItemsControl.Template>
-                    <!--  Layout panel  -->
-                    <ItemsControl.ItemsPanel>
+                    </ui:VirtualizingItemsControl.Template>
+                    <ui:VirtualizingItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <VirtualizingStackPanel />
                         </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
+                    </ui:VirtualizingItemsControl.ItemsPanel>
 
-                    <!--  Item template  -->
-                    <ItemsControl.ItemTemplate>
+                    <ui:VirtualizingItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type bloatware1:AppXPackage}">
                             <Border Style="{StaticResource ListRowStyle}">
                                 <Grid>
@@ -387,8 +387,8 @@
                                 </Grid>
                             </Border>
                         </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                    </ui:VirtualizingItemsControl.ItemTemplate>
+                </ui:VirtualizingItemsControl>
             </Grid>
         </Border>
     </Grid>

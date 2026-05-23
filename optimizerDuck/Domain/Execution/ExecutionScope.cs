@@ -233,6 +233,17 @@ public sealed class ExecutionScope : IDisposable
         return _executedSteps.Select(ToOperationStepResult).ToList();
     }
 
+    /// <summary>
+    ///     Maps tracked execution steps to an <see cref="ApplyResult" /> for optimization handlers.
+    /// </summary>
+    public ApplyResult ToApplyResult()
+    {
+        var result = ToResult();
+        return result.Status == OptimizationSuccessResult.Success
+            ? ApplyResult.True()
+            : ApplyResult.False(result.Message);
+    }
+
     public OptimizationResult ToResult()
     {
         var status = ResolveStatus();

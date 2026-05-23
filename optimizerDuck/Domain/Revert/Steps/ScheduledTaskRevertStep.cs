@@ -35,11 +35,10 @@ public class ScheduledTaskRevertStep : IRevertStep
     /// <inheritdoc />
     public Task<bool> ExecuteAsync()
     {
-        if (OriginalEnabled)
-            ScheduledTaskService.EnableTask(FullPath);
-        else
-            ScheduledTaskService.DisableTask(FullPath);
-        return Task.FromResult(true);
+        var success = OriginalEnabled
+            ? ScheduledTaskService.EnableTask(FullPath)
+            : ScheduledTaskService.DisableTask(FullPath);
+        return Task.FromResult(success);
     }
 
     /// <inheritdoc />

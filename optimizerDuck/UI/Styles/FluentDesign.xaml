@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="clr-namespace:optimizerDuck.UI.Behaviors"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml">
 
@@ -111,19 +112,6 @@
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="CornerRadius" Value="{StaticResource CornerRadiusMedium}" />
         <Setter Property="Opacity" Value="1" />
-        <Style.Triggers>
-            <EventTrigger RoutedEvent="Loaded">
-                <BeginStoryboard>
-                    <Storyboard>
-                        <DoubleAnimation
-                            Storyboard.TargetProperty="Opacity"
-                            From="0"
-                            To="1"
-                            Duration="0:0:0.12" />
-                    </Storyboard>
-                </BeginStoryboard>
-            </EventTrigger>
-        </Style.Triggers>
     </Style>
 
     <Style x:Key="SubtlePillStyle" TargetType="Border">
@@ -209,6 +197,12 @@
     <Style x:Key="ContentPresenterRowStyle" TargetType="ContentPresenter">
         <Setter Property="Margin" Value="0,0,0,8" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+
+    <Style TargetType="ScrollViewer">
+        <Setter Property="behaviors:SmoothScrollBehavior.IsEnabled" Value="True" />
+        <Setter Property="behaviors:SmoothScrollBehavior.Smoothing" Value="0.20" />
+        <Setter Property="behaviors:SmoothScrollBehavior.Multiplier" Value="1.3" />
     </Style>
 
 </ResourceDictionary>

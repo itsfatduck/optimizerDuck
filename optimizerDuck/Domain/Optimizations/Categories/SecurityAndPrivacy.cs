@@ -159,7 +159,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
                     context.Logger.LogWarning(ex, "Failed to disable task {Task}", task);
                 }
 
-            return Task.FromResult(ApplyResult.True());
+            return Task.FromResult(CompleteFromScope());
         }
     }
 
@@ -216,7 +216,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
             context.Logger.LogInformation(
                 "Disabled Windows Error Reporting and Compatibility Assistant"
             );
-            return Task.FromResult(ApplyResult.True());
+            return Task.FromResult(CompleteFromScope());
         }
     }
 
@@ -323,7 +323,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
             context.Logger.LogInformation(
                 "Disabled advertising ID, consumer features and system suggestions"
             );
-            return Task.FromResult(ApplyResult.True());
+            return Task.FromResult(CompleteFromScope());
         }
     }
 
@@ -363,7 +363,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
             );
 
             context.Logger.LogInformation("Disabled activity history collection and syncing");
-            return Task.FromResult(ApplyResult.True());
+            return Task.FromResult(CompleteFromScope());
         }
     }
 
@@ -441,7 +441,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
             context.Logger.LogInformation(
                 "Disabled location tracking, sensors and offline maps updates"
             );
-            return Task.FromResult(ApplyResult.True());
+            return Task.FromResult(CompleteFromScope());
         }
     }
 
@@ -510,7 +510,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Disabled WMI AutoLogger sessions");
-            return Task.FromResult(ApplyResult.True());
+            return Task.FromResult(CompleteFromScope());
         }
     }
 
@@ -569,7 +569,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Disabled Cortana and web search");
-            return Task.FromResult(ApplyResult.True());
+            return Task.FromResult(CompleteFromScope());
         }
     }
 
@@ -629,7 +629,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
             );
 
             context.Logger.LogInformation("Disabled Windows Copilot");
-            return Task.FromResult(ApplyResult.True());
+            return Task.FromResult(CompleteFromScope());
         }
     }
 
@@ -678,7 +678,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Disabled content delivery manager");
-            return Task.FromResult(ApplyResult.True());
+            return Task.FromResult(CompleteFromScope());
         }
     }
 }

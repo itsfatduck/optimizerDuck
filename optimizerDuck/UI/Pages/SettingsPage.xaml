@@ -119,7 +119,7 @@
                         <ui:ToggleSwitch
                             Command="{Binding ViewModel.ToggleShowCompletionNotificationCommand}"
                             Cursor="Hand"
-                            IsChecked="{Binding ViewModel.ShowSnackbarNotificationAfterAppliedSuccessfully, Mode=TwoWay}"
+                            IsChecked="{Binding ViewModel.ShowSnackbarNotificationAfterAppliedSuccessfully, Mode=OneWay}"
                             OffContent="{ext:Loc Common.Toggle.Off}"
                             OnContent="{ext:Loc Common.Toggle.On}" />
                     </ui:CardControl>
@@ -147,7 +147,7 @@
                         <ui:ToggleSwitch
                             Command="{Binding ViewModel.ToggleRemoveProvisionedCommand}"
                             Cursor="Hand"
-                            IsChecked="{Binding ViewModel.RemoveProvisioned, Mode=TwoWay}"
+                            IsChecked="{Binding ViewModel.RemoveProvisioned, Mode=OneWay}"
                             OffContent="{ext:Loc Common.Toggle.Off}"
                             OnContent="{ext:Loc Common.Toggle.On}" />
                     </ui:CardControl>

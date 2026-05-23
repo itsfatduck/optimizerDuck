@@ -30,6 +30,9 @@ public partial class DashboardViewModel : ViewModel
 
     [ObservableProperty]
     private bool _isLoading;
+
+    [ObservableProperty]
+    private bool _hasSystemInfoLoadFailed;
     private bool _isUpdateInfoOpen;
 
     [ObservableProperty]
@@ -260,6 +263,7 @@ public partial class DashboardViewModel : ViewModel
     private async Task LoadSystemInfoAsync()
     {
         IsLoading = true;
+        HasSystemInfoLoadFailed = false;
 
         try
         {
@@ -270,7 +274,15 @@ public partial class DashboardViewModel : ViewModel
         }
         catch (Exception ex)
         {
+            HasSystemInfoLoadFailed = true;
             _logger.LogError(ex, "Failed to load system information");
+            _snackbarService.Show(
+                Translations.Snackbar_OpenFailed_Title,
+                Translations.Snackbar_OpenFailed_Message,
+                ControlAppearance.Danger,
+                new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
+                TimeSpan.FromSeconds(5)
+            );
         }
         finally
         {

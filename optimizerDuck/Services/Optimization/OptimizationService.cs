@@ -137,7 +137,8 @@ public class OptimizationService(
 
     public async Task<OptimizationResult> ApplyAsync(
         IOptimization optimization,
-        IProgress<ProcessingProgress> progress
+        IProgress<ProcessingProgress> progress,
+        CancellationToken cancellationToken = default
     )
     {
         var optLogger = loggerFactory.CreateLogger(optimization.GetType());
@@ -164,12 +165,17 @@ public class OptimizationService(
             );
 
             if (!string.IsNullOrWhiteSpace(applyResult.ErrorMessage))
+            {
+                if (scope.HasSuccessfulSteps)
+                    await TrySaveRevertDataAsync(scope, optimization);
+
                 return new OptimizationResult
                 {
                     Status = OptimizationSuccessResult.Failed,
                     Message = applyResult.ErrorMessage,
                     FailedSteps = scope.GetStepResults().Where(step => !step.Success).ToList(),
                 };
+            }
 
             progress.Report(
                 new ProcessingProgress
@@ -212,7 +218,8 @@ public class OptimizationService(
 
     public async Task<RevertResult> RevertAsync(
         IOptimization optimization,
-        IProgress<ProcessingProgress>? progress = null
+        IProgress<ProcessingProgress>? progress = null,
+        CancellationToken cancellationToken = default
     )
     {
         progress?.Report(

@@ -379,6 +379,9 @@
   <data name="Revert.Error.StepFailed" xml:space="preserve">
     <value>还原步骤执行失败</value>
   </data>
+  <data name="Revert.UsbPower.Description" xml:space="preserve">
+    <value>还原 USB 选择性挂起电源状态</value>
+  </data>
   <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
     <value>优化项 ID 不匹配。</value>
   </data>
@@ -399,6 +402,9 @@
   </data>
   <data name="Service.Common.Error.AccessDenied" xml:space="preserve">
     <value>权限拒绝</value>
+  </data>
+  <data name="Service.Registry.Error.BackupTruncated" xml:space="preserve">
+    <value>注册表子树太大，无法安全备份；已中止删除 {0}</value>
   </data>
   <data name="Service.Registry.Error.AccessDeniedProtectedHive" xml:space="preserve">
     <value>权限拒绝（受保护的注册表配置单元）</value>

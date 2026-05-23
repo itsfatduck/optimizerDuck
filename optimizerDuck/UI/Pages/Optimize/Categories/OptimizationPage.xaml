@@ -29,6 +29,7 @@
             ComparisonType="GreaterThan"
             Threshold="0" />
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
         <converters:BooleanToVisibilityConverter
             x:Key="InverseBooleanToVisibilityConverter"
             False="Visible"
@@ -357,7 +358,8 @@
                                             Command="{Binding DataContext.ViewModel.ToggleOptimizationCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                             CommandParameter="{Binding}"
                                             Cursor="Hand"
-                                            IsChecked="{Binding State.IsApplied, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            IsChecked="{Binding State.IsApplied, Mode=OneWay}"
+                                            IsEnabled="{Binding DataContext.ViewModel.IsProcessing, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource InverseBooleanConverter}}"
                                             Style="{StaticResource ToggleSwitchStyle}" />
                                         <ui:Button
                                             HorizontalAlignment="Right"

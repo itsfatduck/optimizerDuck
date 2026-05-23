@@ -54,7 +54,7 @@ public class BloatwareAndServices : IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Blocked preinstalled apps");
-            return Task.FromResult(ApplyResult.True());
+            return Task.FromResult(CompleteFromScope());
         }
     }
 
@@ -336,7 +336,7 @@ public class BloatwareAndServices : IOptimizationCategory
                 "Optimized service startup for {Count} services",
                 servicesToChange.Count
             );
-            return Task.FromResult(ApplyResult.True());
+            return Task.FromResult(CompleteFromScope());
         }
     }
 }

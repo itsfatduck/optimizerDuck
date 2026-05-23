@@ -461,6 +461,11 @@ public static class RegistryService
             {
                 ExecutionScope.LogInfo("Skip create registry {Path} (already exists)", item.Path);
                 ExecutionScope.Track(nameof(CreateSubKey), true);
+                ExecutionScope.RecordStep(
+                    Translations.Service_Registry_Name,
+                    description,
+                    true
+                );
                 return true;
             }
 
@@ -535,7 +540,29 @@ public static class RegistryService
                 return true;
             }
 
-            var subSteps = BackupRegistryTree(key, item.Path);
+            var (subSteps, backupComplete) = BackupRegistryTree(key, item.Path);
+            if (!backupComplete)
+            {
+                ExecutionScope.LogError(
+                    null,
+                    "Registry subtree backup truncated for {Path}",
+                    item.Path
+                );
+                ExecutionScope.Track(nameof(DeleteSubKeyTree), false);
+                ExecutionScope.RecordStep(
+                    Translations.Service_Registry_Name,
+                    description,
+                    false,
+                    null,
+                    string.Format(
+                        Translations.Service_Registry_Error_BackupTruncated,
+                        item.Path
+                    ),
+                    () => Task.FromResult(DeleteSubKeyTree(item))
+                );
+                return false;
+            }
+
             rootKey.DeleteSubKeyTree(subPath, false);
 
             var revertStep = new RegistryRevertStep
@@ -585,25 +612,30 @@ public static class RegistryService
         }
     }
 
-    private static List<RegistryRevertStep> BackupRegistryTree(RegistryKey key, string keyPath)
+    private static (List<RegistryRevertStep> Steps, bool IsComplete) BackupRegistryTree(
+        RegistryKey key,
+        string keyPath
+    )
     {
         var steps = new List<RegistryRevertStep>();
-        BackupRegistryTreeRecursive(key, keyPath, steps, 0);
-        return steps;
+        var truncated = false;
+        BackupRegistryTreeRecursive(key, keyPath, steps, 0, ref truncated);
+        return (steps, !truncated);
     }
 
     private static void BackupRegistryTreeRecursive(
         RegistryKey key,
         string keyPath,
         List<RegistryRevertStep> steps,
-        int depth
+        int depth,
+        ref bool truncated
     )
     {
-        // Guard against massive trees (e.g., HKCR\CLSID) to prevent OOM and giant JSON files
         if (depth > 15 || steps.Count > 5000)
         {
+            truncated = true;
             ExecutionScope.LogWarning(
-                "Skipping full backup of subtree {Path} (depth: {Depth}, items: {Count})",
+                "Registry subtree backup limit reached at {Path} (depth: {Depth}, items: {Count})",
                 keyPath,
                 depth,
                 steps.Count
@@ -616,7 +648,11 @@ public static class RegistryService
         foreach (var valueName in key.GetValueNames())
         {
             if (steps.Count > 5000)
-                break;
+            {
+                truncated = true;
+                return;
+            }
+
             steps.Add(
                 new RegistryRevertStep
                 {
@@ -636,10 +672,20 @@ public static class RegistryService
         foreach (var subKeyName in key.GetSubKeyNames())
         {
             if (steps.Count > 5000)
-                break;
+            {
+                truncated = true;
+                return;
+            }
+
             using var subKey = key.OpenSubKey(subKeyName, false);
             if (subKey != null)
-                BackupRegistryTreeRecursive(subKey, $@"{keyPath}\{subKeyName}", steps, depth + 1);
+                BackupRegistryTreeRecursive(
+                    subKey,
+                    $@"{keyPath}\{subKeyName}",
+                    steps,
+                    depth + 1,
+                    ref truncated
+                );
         }
     }
 

@@ -29,6 +29,11 @@ public class RevertStepData
 public class RevertData
 {
     /// <summary>
+    ///     Schema version for forward-compatible migrations. Current version is <c>1</c>.
+    /// </summary>
+    public int SchemaVersion { get; set; } = 1;
+
+    /// <summary>
     ///     The unique identifier of the optimization.
     /// </summary>
     public Guid OptimizationId { get; set; }

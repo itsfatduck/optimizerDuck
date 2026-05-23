@@ -59,6 +59,29 @@ public class RevertManagerTests
     }
 
     [Fact]
+    public async Task IsAppliedAsync_WithInvalidJson_ReturnsFalse()
+    {
+        var id = Guid.NewGuid();
+        var path = Path.Combine(Shared.RevertDirectory, id + ".json");
+        var cancellationToken = TestContext.Current.CancellationToken;
+        Directory.CreateDirectory(Shared.RevertDirectory);
+
+        try
+        {
+            await File.WriteAllTextAsync(path, "{ invalid json }", cancellationToken);
+
+            var isApplied = await RevertManager.IsAppliedAsync(id);
+
+            Assert.False(isApplied);
+        }
+        finally
+        {
+            if (File.Exists(path))
+                File.Delete(path);
+        }
+    }
+
+    [Fact]
     public async Task RevertAsync_WithInvalidJson_ReturnsFailure()
     {
         var id = Guid.NewGuid();

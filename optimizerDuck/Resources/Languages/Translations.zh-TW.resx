@@ -348,6 +348,9 @@
   <data name="Revert.Error.StepFailed" xml:space="preserve">
     <value>還原步驟失敗</value>
   </data>
+  <data name="Revert.UsbPower.Description" xml:space="preserve">
+    <value>還原 USB 選擇性暫停電源狀態</value>
+  </data>
   <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
     <value>最佳化 ID 不符。</value>
   </data>
@@ -368,6 +371,9 @@
   </data>
   <data name="Service.Common.Error.AccessDenied" xml:space="preserve">
     <value>存取被拒</value>
+  </data>
+  <data name="Service.Registry.Error.BackupTruncated" xml:space="preserve">
+    <value>登錄子樹過大，無法安全備份；已中止刪除 {0}</value>
   </data>
   <data name="Service.Registry.Error.AccessDeniedProtectedHive" xml:space="preserve">
     <value>存取被拒（受保護的登錄區）</value>

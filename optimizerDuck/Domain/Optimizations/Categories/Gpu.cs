@@ -50,7 +50,7 @@ public abstract class GpuRegistryOptimization : BaseOptimization
             );
         }
 
-        return Task.FromResult(ApplyResult.True());
+        return Task.FromResult(CompleteFromScope());
     }
 }
 
