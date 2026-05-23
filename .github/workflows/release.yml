@@ -1,6 +1,9 @@
 name: Release
 
 on:
+  push:
+    tags:
+      - "v*.*.*"
   release:
     types: [published]
 
@@ -39,7 +42,7 @@ jobs:
       - name: Get version from tag
         id: get_version
         run: |
-          $tag = "${{ github.event.release.tag_name }}"
+          $tag = "${{ github.ref_name }}"
           $version = $tag -replace '^v', ''
           echo "version=$version" >> $env:GITHUB_OUTPUT
         shell: pwsh
