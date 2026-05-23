@@ -127,7 +127,7 @@ public class PowerManagement : IOptimizationCategory
             var activeQuery = await ShellService.CMDAsync("powercfg /getactivescheme");
             var match = Regex.Match(
                 activeQuery.Stdout,
-                @"Power Scheme GUID:\s*([a-fA-F0-9\-]{36})",
+                @".*:\s*([a-fA-F0-9\-]{36})",
                 RegexOptions.IgnoreCase
             );
 
