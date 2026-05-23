@@ -33,3 +33,12 @@ jobs:
 
       - name: Test
         run: dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release --no-build
+
+      - name: Publish Portable
+        run: dotnet publish optimizerDuck/optimizerDuck.csproj -c Release -p:PublishProfile=Portable -o publish_output
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: optimizerDuck-portable
+          path: publish_output/
