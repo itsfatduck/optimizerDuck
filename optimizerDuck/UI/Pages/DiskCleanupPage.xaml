@@ -48,7 +48,7 @@
         </Style>
     </Page.Resources>
 
-    <Grid RowDefinitions="Auto,*">
+    <Grid VerticalAlignment="Stretch" RowDefinitions="Auto,*">
         <!--  Header  -->
         <StackPanel Style="{StaticResource PageHeaderStyle}">
             <ui:TextBlock Style="{StaticResource PageTitleStyle}" Text="{ext:Loc DiskCleanup.Header.Title}" />
@@ -164,21 +164,16 @@
             </Border>
 
             <!--  Items List  -->
-            <ui:VirtualizingItemsControl Grid.Row="1" ItemsSource="{Binding ViewModel.CleanupItems}">
-                <ui:VirtualizingItemsControl.Template>
+            <ItemsControl Grid.Row="1" ItemsSource="{Binding ViewModel.CleanupItems}">
+                <ItemsControl.Template>
                     <ControlTemplate TargetType="ItemsControl">
-                        <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Disabled">
+                        <ScrollViewer HorizontalScrollBarVisibility="Disabled">
                             <ItemsPresenter />
                         </ScrollViewer>
                     </ControlTemplate>
-                </ui:VirtualizingItemsControl.Template>
-                <ui:VirtualizingItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel IsVirtualizing="True" VirtualizationMode="Recycling" />
-                    </ItemsPanelTemplate>
-                </ui:VirtualizingItemsControl.ItemsPanel>
+                </ItemsControl.Template>
 
-                <ui:VirtualizingItemsControl.ItemTemplate>
+                <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type cleanup1:CleanupItem}">
                         <Border Style="{StaticResource ListRowStyle}">
                             <Grid>
@@ -341,8 +336,8 @@
                             </Grid>
                         </Border>
                     </DataTemplate>
-                </ui:VirtualizingItemsControl.ItemTemplate>
-            </ui:VirtualizingItemsControl>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Grid>
     </Grid>
 </Page>
