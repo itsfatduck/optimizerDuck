@@ -3801,11 +3801,38 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Revert command failed with exit code {0}.
+        /// </summary>
+        internal static string Revert_Shell_Error_CommandFailed {
+            get {
+                return ResourceManager.GetString("Revert.Shell.Error.CommandFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown shell type.
+        /// </summary>
+        internal static string Revert_Shell_Error_UnknownShellType {
+            get {
+                return ResourceManager.GetString("Revert.Shell.Error.UnknownShellType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Restore USB selective suspend power states.
         /// </summary>
         internal static string Revert_UsbPower_Description {
             get {
                 return ResourceManager.GetString("Revert.UsbPower.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to USB power revert failed with exit code {0}.
+        /// </summary>
+        internal static string Revert_UsbPower_Error_CommandFailed {
+            get {
+                return ResourceManager.GetString("Revert.UsbPower.Error.CommandFailed", resourceCulture);
             }
         }
         

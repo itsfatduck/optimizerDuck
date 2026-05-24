@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
+using optimizerDuck.Domain.Exceptions;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Revert;
@@ -116,6 +117,8 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
                     step.Type,
                     optimization.OptimizationKey
                 );
+
+                var stepEx = ex as StepExecutionException;
                 failedSteps.Add(
                     new OperationStepResult
                     {
@@ -123,7 +126,8 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
                         Name = step.Type,
                         Description = step.Description,
                         Success = false,
-                        Error = ex.Message,
+                        Error = stepEx?.Message ?? ex.Message,
+                        ErrorDetail = stepEx?.ErrorDetail,
                         RetryAction = () => step.ExecuteAsync(),
                     }
                 );

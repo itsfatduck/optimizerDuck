@@ -2,6 +2,7 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
+using optimizerDuck.Domain.Exceptions;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.OptimizationServices;
 
@@ -52,7 +53,16 @@ public class UsbPowerRevertStep : IRevertStep
             + "}}";
 
         var result = await ShellService.PowerShellAsync(script);
-        return result.ExitCode == 0;
+
+        if (result.ExitCode != 0)
+        {
+            var error = !string.IsNullOrWhiteSpace(result.Stderr)
+                ? result.Stderr
+                : string.Format(Translations.Revert_UsbPower_Error_CommandFailed, result.ExitCode);
+            throw new StepExecutionException(error, result.Stderr);
+        }
+
+        return true;
     }
 
     /// <inheritdoc />

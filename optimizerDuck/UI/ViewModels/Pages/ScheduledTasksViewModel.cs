@@ -149,22 +149,39 @@ public partial class ScheduledTasksViewModel : ViewModel
             return;
         try
         {
-            await Task.Run(() => ScheduledTaskService.RunTask(task.FullPath));
-            _logger.LogInformation("Ran task {Name} ({Path})", task.Name, task.FullPath);
+            var success = await Task.Run(() => ScheduledTaskService.RunTask(task.FullPath));
 
-            _snackbarService.Show(
-                Translations.ScheduledTasks_Snackbar_Run_Title,
-                string.Format(Translations.ScheduledTasks_Snackbar_Run_Message, task.Name),
-                ControlAppearance.Success,
-                new SymbolIcon { Symbol = SymbolRegular.Play24, Filled = true },
-                TimeSpan.FromSeconds(3)
-            );
+            if (success)
+            {
+                _logger.LogInformation("Ran task {Name} ({Path})", task.Name, task.FullPath);
 
-            await RefreshTaskState(task);
+                _snackbarService.Show(
+                    Translations.ScheduledTasks_Snackbar_Run_Title,
+                    string.Format(Translations.ScheduledTasks_Snackbar_Run_Message, task.Name),
+                    ControlAppearance.Success,
+                    new SymbolIcon { Symbol = SymbolRegular.Play24, Filled = true },
+                    TimeSpan.FromSeconds(3)
+                );
+
+                await RefreshTaskState(task);
+            }
+            else
+            {
+                var error = ScheduledTaskService.LastError ?? Translations.ScheduledTasks_Error_TaskNotFound;
+                _logger.LogError("Failed to run task {Name} ({Path}): {Error}", task.Name, task.FullPath, error);
+
+                _snackbarService.Show(
+                    Translations.ScheduledTasks_Snackbar_Error_Title,
+                    error,
+                    ControlAppearance.Danger,
+                    new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
+                    TimeSpan.FromSeconds(5)
+                );
+            }
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to run task {Name} ({Path})", task.Name, task.FullPath);
+            _logger.LogError(ex, "Unexpected error running task {Name} ({Path})", task.Name, task.FullPath);
 
             _snackbarService.Show(
                 Translations.ScheduledTasks_Snackbar_Error_Title,
@@ -183,22 +200,39 @@ public partial class ScheduledTasksViewModel : ViewModel
             return;
         try
         {
-            await Task.Run(() => ScheduledTaskService.StopTask(task.FullPath));
-            _logger.LogInformation("Stopped task {Name} ({Path})", task.Name, task.FullPath);
+            var success = await Task.Run(() => ScheduledTaskService.StopTask(task.FullPath));
 
-            _snackbarService.Show(
-                Translations.ScheduledTasks_Snackbar_Stop_Title,
-                string.Format(Translations.ScheduledTasks_Snackbar_Stop_Message, task.Name),
-                ControlAppearance.Success,
-                new SymbolIcon { Symbol = SymbolRegular.Stop24, Filled = true },
-                TimeSpan.FromSeconds(3)
-            );
+            if (success)
+            {
+                _logger.LogInformation("Stopped task {Name} ({Path})", task.Name, task.FullPath);
 
-            await RefreshTaskState(task);
+                _snackbarService.Show(
+                    Translations.ScheduledTasks_Snackbar_Stop_Title,
+                    string.Format(Translations.ScheduledTasks_Snackbar_Stop_Message, task.Name),
+                    ControlAppearance.Success,
+                    new SymbolIcon { Symbol = SymbolRegular.Stop24, Filled = true },
+                    TimeSpan.FromSeconds(3)
+                );
+
+                await RefreshTaskState(task);
+            }
+            else
+            {
+                var error = ScheduledTaskService.LastError ?? Translations.ScheduledTasks_Error_TaskNotFound;
+                _logger.LogError("Failed to stop task {Name} ({Path}): {Error}", task.Name, task.FullPath, error);
+
+                _snackbarService.Show(
+                    Translations.ScheduledTasks_Snackbar_Error_Title,
+                    error,
+                    ControlAppearance.Danger,
+                    new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
+                    TimeSpan.FromSeconds(5)
+                );
+            }
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to stop task {Name} ({Path})", task.Name, task.FullPath);
+            _logger.LogError(ex, "Unexpected error stopping task {Name} ({Path})", task.Name, task.FullPath);
 
             _snackbarService.Show(
                 Translations.ScheduledTasks_Snackbar_Error_Title,
@@ -230,22 +264,39 @@ public partial class ScheduledTasksViewModel : ViewModel
 
         try
         {
-            await Task.Run(() => ScheduledTaskService.DeleteTask(task.FullPath));
-            _logger.LogInformation("Deleted task {Name} ({Path})", task.Name, task.FullPath);
-            _allTasks.RemoveAll(t => t.FullPath == task.FullPath);
-            ApplyFilter();
+            var success = await Task.Run(() => ScheduledTaskService.DeleteTask(task.FullPath));
 
-            _snackbarService.Show(
-                Translations.ScheduledTasks_Snackbar_Delete_Title,
-                string.Format(Translations.ScheduledTasks_Snackbar_Delete_Message, task.Name),
-                ControlAppearance.Success,
-                new SymbolIcon { Symbol = SymbolRegular.Delete24, Filled = true },
-                TimeSpan.FromSeconds(3)
-            );
+            if (success)
+            {
+                _logger.LogInformation("Deleted task {Name} ({Path})", task.Name, task.FullPath);
+                _allTasks.RemoveAll(t => t.FullPath == task.FullPath);
+                ApplyFilter();
+
+                _snackbarService.Show(
+                    Translations.ScheduledTasks_Snackbar_Delete_Title,
+                    string.Format(Translations.ScheduledTasks_Snackbar_Delete_Message, task.Name),
+                    ControlAppearance.Success,
+                    new SymbolIcon { Symbol = SymbolRegular.Delete24, Filled = true },
+                    TimeSpan.FromSeconds(3)
+                );
+            }
+            else
+            {
+                var error = ScheduledTaskService.LastError ?? Translations.ScheduledTasks_Error_TaskNotFound;
+                _logger.LogError("Failed to delete task {Name} ({Path}): {Error}", task.Name, task.FullPath, error);
+
+                _snackbarService.Show(
+                    Translations.ScheduledTasks_Snackbar_Error_Title,
+                    error,
+                    ControlAppearance.Danger,
+                    new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
+                    TimeSpan.FromSeconds(5)
+                );
+            }
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to delete task {Name} ({Path})", task.Name, task.FullPath);
+            _logger.LogError(ex, "Unexpected error deleting task {Name} ({Path})", task.Name, task.FullPath);
 
             _snackbarService.Show(
                 Translations.ScheduledTasks_Snackbar_Error_Title,

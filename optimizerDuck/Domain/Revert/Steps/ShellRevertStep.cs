@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
+using optimizerDuck.Domain.Exceptions;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.OptimizationServices;
@@ -39,20 +40,21 @@ public class ShellRevertStep : IRevertStep
             {
                 Command = Command,
                 Stdout = "",
-                Stderr = "Unknown shell type",
+                Stderr = Translations.Revert_Shell_Error_UnknownShellType,
                 ExitCode = 1,
                 Duration = TimeSpan.Zero,
             },
         };
 
         if (result.ExitCode != 0)
-            throw new Exception(
-                !string.IsNullOrWhiteSpace(result.Stderr)
-                    ? result.Stderr
-                    : $"Command failed with exit code {result.ExitCode}"
-            );
+        {
+            var error = !string.IsNullOrWhiteSpace(result.Stderr)
+                ? result.Stderr
+                : string.Format(Translations.Revert_Shell_Error_CommandFailed, result.ExitCode);
+            throw new StepExecutionException(error, result.Stderr);
+        }
 
-        return result.ExitCode == 0;
+        return true;
     }
 
     /// <inheritdoc />

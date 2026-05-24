@@ -1,3 +1,4 @@
+using optimizerDuck.Domain.Exceptions;
 using optimizerDuck.Domain.Revert.Steps;
 
 namespace optimizerDuck.Test.Domain.Revert.Steps;
@@ -5,7 +6,7 @@ namespace optimizerDuck.Test.Domain.Revert.Steps;
 public class ScheduledTaskRevertStepTests
 {
     [Fact]
-    public async Task ExecuteAsync_WithMissingTask_ReturnsFalse()
+    public async Task ExecuteAsync_WithMissingTask_ThrowsStepExecutionException()
     {
         var step = new ScheduledTaskRevertStep
         {
@@ -13,8 +14,8 @@ public class ScheduledTaskRevertStepTests
             OriginalEnabled = true,
         };
 
-        var success = await step.ExecuteAsync();
+        var ex = await Assert.ThrowsAsync<StepExecutionException>(() => step.ExecuteAsync());
 
-        Assert.False(success);
+        Assert.Contains("NonExistent", ex.Message);
     }
 }

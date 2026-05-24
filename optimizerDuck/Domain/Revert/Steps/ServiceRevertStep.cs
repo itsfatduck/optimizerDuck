@@ -1,5 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
+using optimizerDuck.Domain.Exceptions;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.OptimizationServices;
@@ -40,11 +41,13 @@ public class ServiceRevertStep : IRevertStep
         );
 
         if (!result)
-            throw new Exception(
-                string.Format(Translations.Service_Service_Error_UpdateRegistryForStartupTypeFailed)
-            );
+        {
+            var error = ServiceProcessService.LastError
+                ?? Description;
+            throw new StepExecutionException(error, ServiceProcessService.LastErrorDetail);
+        }
 
-        return Task.FromResult(result);
+        return Task.FromResult(true);
     }
 
     /// <inheritdoc />

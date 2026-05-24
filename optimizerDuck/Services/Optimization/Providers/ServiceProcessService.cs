@@ -10,11 +10,17 @@ namespace optimizerDuck.Services.OptimizationServices;
 
 public static class ServiceProcessService
 {
+    private static readonly AsyncLocal<string?> _lastError = new();
+    private static readonly AsyncLocal<string?> _lastErrorDetail = new();
+
+    internal static string? LastError => _lastError.Value;
+    internal static string? LastErrorDetail => _lastErrorDetail.Value;
+
     private static readonly ManagementScope Scope = new(@"\\.\root\cimv2");
 
-    /// <summary>
-    ///     Get current startup type of a service
-    /// </summary>
+    /// <summary>Gets the current startup type of a Windows service from the registry.</summary>
+    /// <param name="serviceName">The name of the service.</param>
+    /// <returns>The startup type, or <see langword="null" /> if the value is unrecognized or an error occurs.</returns>
     public static ServiceStartupType? GetStartupType(string serviceName)
     {
         try
@@ -50,8 +56,13 @@ public static class ServiceProcessService
         }
     }
 
+    /// <summary>Changes a service's startup type by writing the corresponding registry values.</summary>
+    /// <param name="item">The service name and target startup type.</param>
+    /// <returns><see langword="true" /> if the change succeeded; otherwise, <see langword="false" />.</returns>
     public static bool ChangeServiceStartupType(ServiceItem item)
     {
+        _lastError.Value = _lastErrorDetail.Value = null;
+
         var description = string.Format(
             Translations.Service_Service_Description_Change,
             item.Name,
@@ -74,12 +85,13 @@ public static class ServiceProcessService
 
             var serviceKey = $@"HKLM\SYSTEM\CurrentControlSet\Services\{item.Name}";
 
-            // 1. Change the main 'Start' value
             var mainSuccess = RegistryService.Write(
                 new RegistryItem(serviceKey, "Start", startValue)
             );
+            var regError = RegistryService.LastError;
+            var regErrorDetail = RegistryService.LastErrorDetail;
 
-            // 2. Handle 'DelayedAutoStart' if necessary
+            // handle 'DelayedAutoStart' if necessary
             var delayedSuccess = true;
             if (item.StartupType == ServiceStartupType.AutomaticDelayedStart)
                 delayedSuccess = RegistryService.Write(
@@ -119,6 +131,9 @@ public static class ServiceProcessService
                 return true;
             }
 
+            _lastError.Value = regError
+                ?? Translations.Service_Service_Error_UpdateRegistryForStartupTypeFailed;
+            _lastErrorDetail.Value = regErrorDetail;
             ExecutionScope.LogInfo(
                 "[SERVICE][{Name}][FAIL][D={Duration}] startup -> {StartupType}",
                 item.Name,
@@ -131,13 +146,19 @@ public static class ServiceProcessService
                 description,
                 false,
                 null,
-                Translations.Service_Service_Error_UpdateRegistryForStartupTypeFailed,
+                _lastError.Value,
                 () => Task.FromResult(ChangeServiceStartupType(item))
             );
             return false;
         }
         catch (Exception ex)
         {
+            _lastError.Value = string.Format(
+                Translations.Service_Service_Error_ExceptionOccurred,
+                item.Name,
+                ex.Message
+            );
+            _lastErrorDetail.Value = ex.ToString();
             ExecutionScope.LogError(
                 ex,
                 "[SERVICE][{Name}][FAIL][EXCEPTION] startup -> {StartupType}",
@@ -150,17 +171,15 @@ public static class ServiceProcessService
                 description,
                 false,
                 null,
-                string.Format(
-                    Translations.Service_Service_Error_ExceptionOccurred,
-                    item.Name,
-                    ex.Message
-                ),
+                _lastError.Value,
                 () => Task.FromResult(ChangeServiceStartupType(item))
             );
             return false;
         }
     }
 
+    /// <summary>Changes the startup type for multiple services.</summary>
+    /// <param name="items">The service items to update.</param>
     public static void ChangeServiceStartupType(params ServiceItem[] items)
     {
         foreach (var item in items)

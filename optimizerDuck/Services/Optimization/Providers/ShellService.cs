@@ -10,12 +10,16 @@ using optimizerDuck.Resources.Languages;
 
 namespace optimizerDuck.Services.OptimizationServices;
 
+/// <summary>Defines success criteria and error reporting for shell command execution.</summary>
 public sealed class ShellPolicy
 {
+    /// <summary>The default policy — exit code 0 means success, error is derived from stderr or exit code.</summary>
     public static readonly ShellPolicy Default = new();
 
+    /// <summary>Gets or sets a function that determines whether a shell result indicates success.</summary>
     public Func<ShellResult, bool> IsSuccess { get; init; } = r => r.ExitCode == 0;
 
+    /// <summary>Gets or sets a function that produces an error message from a failed shell result.</summary>
     public Func<ShellResult, string?> ErrorFactory { get; init; } =
         r =>
             r.ExitCode == -1 // if timed out use Error.TimedOut
@@ -24,6 +28,10 @@ public sealed class ShellPolicy
                 ? string.Format(Translations.Service_Shell_Error_ExitCode, r.ExitCode)
             : r.Stderr;
 
+    /// <summary>Creates a policy with a custom success function and optional error factory.</summary>
+    /// <param name="isSuccess">A function that determines whether a result is successful.</param>
+    /// <param name="errorFactory">An optional function that produces an error message from a failed result. Defaults to the default error factory.</param>
+    /// <returns>A new <see cref="ShellPolicy"/> instance.</returns>
     public static ShellPolicy From(
         Func<ShellResult, bool> isSuccess,
         Func<ShellResult, string?>? errorFactory = null
@@ -36,11 +44,17 @@ public sealed class ShellPolicy
         };
     }
 
+    /// <summary>Creates a policy that treats specific exit codes as success.</summary>
+    /// <param name="okExitCodes">The exit codes considered successful.</param>
+    /// <returns>A new <see cref="ShellPolicy"/> instance.</returns>
     public static ShellPolicy SuccessExitCodes(params int[] okExitCodes)
     {
         return From(r => okExitCodes.Contains(r.ExitCode));
     }
 
+    /// <summary>Creates a policy that treats exit codes from 0 to <paramref name="maxOk"/> as success.</summary>
+    /// <param name="maxOk">The maximum exit code considered successful (inclusive).</param>
+    /// <returns>A new <see cref="ShellPolicy"/> instance.</returns>
     public static ShellPolicy SuccessExitCodeRange(int maxOk)
     {
         return From(r => r.ExitCode >= 0 && r.ExitCode <= maxOk);
@@ -54,6 +68,8 @@ public static class ShellService
 
     private static IOptionsMonitor<AppSettings>? _options;
 
+    /// <summary>Initializes the shell service with application settings.</summary>
+    /// <param name="options">The application settings monitor.</param>
     public static void Init(IOptionsMonitor<AppSettings> options)
     {
         _options = options;
@@ -578,6 +594,12 @@ public static class ShellService
         );
     }
 
+    /// <summary>Runs a command in cmd.exe asynchronously with an optional revert step.</summary>
+    /// <param name="command">The command to execute.</param>
+    /// <param name="revertStep">The revert step to record.</param>
+    /// <param name="policy">The policy for determining success.</param>
+    /// <param name="ct">The cancellation token.</param>
+    /// <returns>The result of the command execution.</returns>
     public static Task<ShellResult> CMDAsync(
         string command,
         ShellRevertStep? revertStep = null,
@@ -588,6 +610,12 @@ public static class ShellService
         return RunAsync("cmd.exe", "/c", command, nameof(CMD), revertStep, policy, ct);
     }
 
+    /// <summary>Runs a command in cmd.exe asynchronously with a lazy revert command.</summary>
+    /// <param name="command">The command to execute.</param>
+    /// <param name="revertCommand">A factory function that provides the revert command.</param>
+    /// <param name="policy">The policy for determining success.</param>
+    /// <param name="ct">The cancellation token.</param>
+    /// <returns>The result of the command execution.</returns>
     public static Task<ShellResult> CMDAsync(
         string command,
         Func<string> revertCommand,
@@ -705,6 +733,12 @@ public static class ShellService
         );
     }
 
+    /// <summary>Runs a command in PowerShell asynchronously with a specific revert command.</summary>
+    /// <param name="command">The command to execute.</param>
+    /// <param name="revertCommand">The command to execute for reverting.</param>
+    /// <param name="policy">The policy for determining success.</param>
+    /// <param name="ct">The cancellation token.</param>
+    /// <returns>The result of the command execution.</returns>
     public static Task<ShellResult> PowerShellAsync(
         string command,
         string revertCommand,
@@ -728,6 +762,12 @@ public static class ShellService
         );
     }
 
+    /// <summary>Runs a command in PowerShell asynchronously with a lazy revert command.</summary>
+    /// <param name="command">The command to execute.</param>
+    /// <param name="revertFunction">A factory function that provides the revert command.</param>
+    /// <param name="policy">The policy for determining success.</param>
+    /// <param name="ct">The cancellation token.</param>
+    /// <returns>The result of the command execution.</returns>
     public static Task<ShellResult> PowerShellAsync(
         string command,
         Func<string> revertFunction,

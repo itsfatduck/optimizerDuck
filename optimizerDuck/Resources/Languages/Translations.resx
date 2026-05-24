@@ -1596,6 +1596,15 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="Revert.Shell.Description.Run" xml:space="preserve">
     <value>Run {0} command: {1}</value>
   </data>
+  <data name="Revert.Shell.Error.UnknownShellType" xml:space="preserve">
+    <value>Unknown shell type</value>
+  </data>
+  <data name="Revert.Shell.Error.CommandFailed" xml:space="preserve">
+    <value>Revert command failed with exit code {0}</value>
+  </data>
+  <data name="Revert.UsbPower.Error.CommandFailed" xml:space="preserve">
+    <value>USB power revert failed with exit code {0}</value>
+  </data>
   <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
     <value>Show completion notification</value>
   </data>

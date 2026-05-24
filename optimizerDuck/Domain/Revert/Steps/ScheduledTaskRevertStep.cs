@@ -1,5 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
+using optimizerDuck.Domain.Exceptions;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.OptimizationServices;
 
@@ -38,7 +39,15 @@ public class ScheduledTaskRevertStep : IRevertStep
         var success = OriginalEnabled
             ? ScheduledTaskService.EnableTask(FullPath)
             : ScheduledTaskService.DisableTask(FullPath);
-        return Task.FromResult(success);
+
+        if (!success)
+        {
+            var error = ScheduledTaskService.LastError
+                ?? Description;
+            throw new StepExecutionException(error, ScheduledTaskService.LastErrorDetail);
+        }
+
+        return Task.FromResult(true);
     }
 
     /// <inheritdoc />
