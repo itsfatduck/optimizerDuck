@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +14,7 @@ public static class SmoothScrollBehavior
         public double TargetY;
         public double TargetX;
         public bool IsAnimating;
+        public bool IsAttached;
         public long LastScrollTicks;
     }
 
@@ -59,9 +61,17 @@ public static class SmoothScrollBehavior
         else if (d is FrameworkElement element)
         {
             if ((bool)e.NewValue)
+            {
                 element.Loaded += OnElementLoaded;
+                if (element.IsLoaded && FindScrollViewer(element) is { } innerSv)
+                    Attach(innerSv);
+            }
             else
+            {
                 element.Loaded -= OnElementLoaded;
+                if (FindScrollViewer(element) is { } innerSv)
+                    Detach(innerSv);
+            }
         }
     }
 
@@ -73,13 +83,22 @@ public static class SmoothScrollBehavior
 
     private static void Attach(ScrollViewer sv)
     {
-        _stateTable.GetOrCreateValue(sv);
+        var state = _stateTable.GetOrCreateValue(sv);
+        if (state.IsAttached)
+            return;
+
+        state.IsAttached = true;
         sv.PreviewMouseWheel += OnPreviewMouseWheel;
         sv.Unloaded += OnScrollViewerUnloaded;
     }
 
     private static void Detach(ScrollViewer sv)
     {
+        if (!_stateTable.TryGetValue(sv, out var state) || !state.IsAttached)
+            return;
+
+        state.IsAttached = false;
+        state.IsAnimating = false;
         sv.PreviewMouseWheel -= OnPreviewMouseWheel;
         sv.Unloaded -= OnScrollViewerUnloaded;
         RemoveActive(sv);
@@ -88,11 +107,10 @@ public static class SmoothScrollBehavior
 
     private static void OnScrollViewerUnloaded(object sender, RoutedEventArgs e)
     {
-        if (sender is ScrollViewer sv)
+        if (sender is ScrollViewer sv && _stateTable.TryGetValue(sv, out var state))
         {
+            state.IsAnimating = false;
             RemoveActive(sv);
-            if (_stateTable.TryGetValue(sv, out var state))
-                state.IsAnimating = false;
         }
     }
 
@@ -133,7 +151,6 @@ public static class SmoothScrollBehavior
             var timeSinceLastScroll = TimeSpan.FromTicks(now - state.LastScrollTicks).TotalMilliseconds;
             state.LastScrollTicks = now;
 
-            // Acceleration: apply multiplier only during rapid scrolling sequences
             var effectiveDelta = multiplier > 1.0 && timeSinceLastScroll < 400
                 ? delta * scrollDelta * multiplier
                 : delta * scrollDelta;
@@ -149,9 +166,9 @@ public static class SmoothScrollBehavior
                     state.TargetY = Math.Clamp(state.TargetY - effectiveDelta, 0, sv.ScrollableHeight);
             }
         }
-        catch
+        catch (Exception ex)
         {
-            // ScrollViewer disposed or visual tree changed mid-handler
+            Debug.WriteLine($"[SmoothScroll] PreviewMouseWheel error: {ex.Message}");
         }
     }
 
@@ -213,8 +230,9 @@ public static class SmoothScrollBehavior
                     _activeScrolls.RemoveAt(i);
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                Debug.WriteLine($"[SmoothScroll] OnRendering error at index {i}: {ex.Message}");
                 if (sv is not null && _stateTable.TryGetValue(sv, out var s))
                     s.IsAnimating = false;
                 _activeScrolls.RemoveAt(i);
@@ -251,9 +269,9 @@ public static class SmoothScrollBehavior
                 element = VisualTreeHelper.GetParent(element);
             }
         }
-        catch
+        catch (Exception ex)
         {
-            // Visual tree changed during traversal
+            Debug.WriteLine($"[SmoothScroll] IsNestedScrollViewer error: {ex.Message}");
         }
         return false;
     }
@@ -272,9 +290,9 @@ public static class SmoothScrollBehavior
                     return result;
             }
         }
-        catch
+        catch (Exception ex)
         {
-            // Visual tree changed during traversal
+            Debug.WriteLine($"[SmoothScroll] FindScrollViewer error: {ex.Message}");
         }
         return null;
     }
