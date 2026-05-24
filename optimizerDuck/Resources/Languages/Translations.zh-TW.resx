@@ -247,7 +247,7 @@
     <value>謹慎</value>
   </data>
   <data name="Optimizer.UI.Risk.Risky" xml:space="preserve">
-    <value>高風險</value>
+    <value>專家</value>
   </data>
   <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
     <value>詳細說明</value>
@@ -603,9 +603,7 @@
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
     <value>安裝專為效能設計的自訂電源計畫，確保您的系統始終以最高速度執行。</value>
   </data>
-  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Downloading" xml:space="preserve">
-    <value>正在下載電源計畫...</value>
-  </data>
+
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
     <value>正在匯入並啟用電源計畫...</value>
   </data>
@@ -1302,6 +1300,9 @@
   </data>
   <data name="Revert.Registry.Description.DeleteKey" xml:space="preserve">
     <value>刪除登錄檔機碼：{0}</value>
+  </data>
+  <data name="Revert.Registry.Description.RevertUnknown" xml:space="preserve">
+    <value>還原登錄檔：{0}</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.Name" xml:space="preserve">
     <value>停用錯誤報告</value>

@@ -266,7 +266,7 @@
     <value>Caution</value>
   </data>
   <data name="Optimizer.UI.Risk.Risky" xml:space="preserve">
-    <value>Risky</value>
+    <value>Expert</value>
   </data>
   <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
     <value>Detailed description</value>
@@ -354,6 +354,9 @@
   </data>
   <data name="Revert.Registry.Description.DeleteKey" xml:space="preserve">
     <value>Delete registry key: {0}</value>
+  </data>
+  <data name="Revert.Registry.Description.RevertUnknown" xml:space="preserve">
+    <value>Revert registry: {0}</value>
   </data>
   <data name="Revert.Error.FileNotFound" xml:space="preserve">
     <value>Revert file not found</value>
@@ -652,9 +655,7 @@
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
     <value>Installs a custom performance-focused power plan to ensure your system always runs at maximum speed.</value>
   </data>
-  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Downloading" xml:space="preserve">
-    <value>Downloading power plan...</value>
-  </data>
+
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
     <value>Importing and activating power plan...</value>
   </data>

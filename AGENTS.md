@@ -1,43 +1,58 @@
 # Repository Guidelines
 
-## Project Structure & Module Organization
-- `optimizerDuck/`: main WPF app (`net10.0-windows`), organized by responsibility:
-  - `Domain/` for models/abstractions/attributes.
-  - `Services/` for system, optimization, feature, and configuration logic.
-  - `UI/` for XAML pages, dialogs, windows, controls, and ViewModels.
-  - `Resources/` for images and localization (`Resources/Languages/*.resx`).
-- `optimizerDuck.Test/`: xUnit v3 unit tests, mirroring service/execution areas.
-- `.github/`: CI, issue templates, PR template, and project policies.
-- `publish.bat`: interactive/preset publish entry point (`Portable` or `Single`).
+## Windows-Only WPF App
+- **Windows-only**: Build/run/test only on Windows. Target framework: `net10.0-windows10.0.17763.0` with `UseWPF=true`. `CA1416` (platform compatibility) is silenced — all code is Windows-only.
+- **Runs as admin**: `app.manifest` sets `requireAdministrator` UAC level.
+- **Solution format**: `.slnx` (not `.sln`).
 
-## Build, Test, and Development Commands
-- **.NET Version**: 10.0.x (see `.github/workflows/ci.yml`)
-- `dotnet restore optimizerDuck.slnx`: restore dependencies.
-- `dotnet build optimizerDuck.slnx --configuration Release --no-restore`: CI-aligned build.
-- `dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release --no-build`: run unit tests.
-- `dotnet run --project optimizerDuck/optimizerDuck.csproj`: run locally.
-- `publish.bat portable` or `publish.bat single --skip-tests`: create release artifacts.
+## Build, Test, Run Commands
+- `dotnet restore optimizerDuck.slnx` — restore dependencies.
+- `dotnet build optimizerDuck.slnx --configuration Release --no-restore` — CI-aligned build.
+- `dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release --no-build` — run all tests.
+- `dotnet run --project optimizerDuck/optimizerDuck.csproj` — run locally.
+- `publish.bat portable` or `publish.bat single --skip-tests` — create release artifacts.
 
-## Coding Style & Naming Conventions
-- Use modern C# with nullable references enabled; prefer DI over direct service construction.
-- Indentation: 4 spaces; keep formatting consistent with existing file-scoped namespace style.
-- Naming:
-  - Types/methods/properties: `PascalCase`.
-  - Private fields: `_camelCase`.
-  - Locals/parameters: `camelCase`.
-- Do not hardcode user-facing strings; add keys to `Translations.resx` and related locale files.
+## Project Structure
+- `optimizerDuck/` — WPF app:
+  - `Domain/` — models, interfaces, attributes (no UI deps)
+  - `Services/` — business logic: `Configuration/`, `Features/`, `Optimization/`, `Revert/`, `System/`
+  - `UI/` — XAML pages, ViewModels, windows, controls, dialogs, styles
+  - `Common/` — extensions, helpers, converters
+  - `Resources/` — images, embedded assets, localization (`Resources/Languages/Translations.resx`)
+- `optimizerDuck.Test/` — xUnit v3 tests
 
-## Testing Guidelines
-- Framework: xUnit v3 (`[Fact]` tests in `optimizerDuck.Test`).
-- Name tests using behavior-focused patterns such as `ApplyAsync_Success_PersistsRevertDataFile`.
-- Add/update tests for changes in `Services/`, optimization execution flow, and revert behavior.
-- No explicit coverage gate is enforced in CI; prioritize meaningful unit coverage for changed logic.
+## Optimization & Feature Discovery (Reflection, No Manual Registration)
+- **New optimizations**: Create a **nested class** inside the relevant category class (e.g., `Domain/Optimizations/Categories/Performance.cs`), extend `BaseOptimization`, and decorate with `[Optimization(Id = "guid", Risk = ..., Tags = ...)]`.
+- **New feature toggles**: Same nesting pattern inside `Domain/Features/Categories/`, extend `BaseFeature`, decorate with `[Feature(Section = ..., Icon = ..., Recommendation = ...)]`.
+- **Category classes**: Must be decorated with `[OptimizationCategory(PageType = typeof(...))]` or `[FeatureCategory(PageType = typeof(...))]`.
+- **Discovery**: `ReflectionHelper.FindImplementationsInLoadedAssemblies<T>()` scans all `optimizerDuck.*` assemblies — no DI registration array to update.
+- **Static provider services**: `RegistryService`, `ServiceProcessService`, `ScheduledTaskService`, `ShellService` are **static classes** (not DI-registered). They capture revert steps into the ambient `ExecutionScope`.
 
-## Commit & Pull Request Guidelines
-- Follow Conventional Commits used in history: `feat:`, `fix:`, `refactor:`, `docs:`, `test:`, `i18n:`, `chore:`.
-- Branch from `master` (`feature/<name>` or `fix/<issue-id>`).
-- PRs should include: clear description, linked issue (`Closes #123`), passing `dotnet build`/`dotnet test`, and screenshot/GIF for UI changes.
+## Revert System
+- **File-based**: Each applied optimization creates `Shared.RevertDirectory/{optimizationId}.json`. Applied state is inferred from file presence on disk.
+- **Atomic writes**: `RevertManager` writes to `.tmp` then `File.Replace` for crash safety.
+- **Step types**: `RegistryRevertStep`, `ServiceRevertStep`, `ScheduledTaskRevertStep`, `ShellRevertStep`, `UsbPowerRevertStep`.
+- **`ExecutionScope`**: Uses `AsyncLocal<ExecutionScope?>` for ambient step tracking — no need to pass context through parameters.
 
-## Security & Configuration Tips
+## Coding & Style
+- Nullable enabled, file-scoped namespaces, implicit usings.
+- Indent: 4 spaces. PascalCase types/members, `_camelCase` private fields, `camelCase` locals/params.
+- **No hardcoded strings** — use `Translations.resx` keys. Access via `Loc.Instance["Key"]` or `Translations.KeyName`.
+- **Keep comments sparse** — existing code has none; do not add them.
+- DI via `Microsoft.Extensions.Hosting` + `CommunityToolkit.Mvvm`. Pages + ViewModels registered as singletons.
+- Prefer `dotnet_diagnostic.CA1416.severity = silent` in `.editorconfig` (already set). Do not add `SupportedOSPlatform` guards.
+
+## Testing (xUnit v3, Integration-Style)
+- **No mocking libraries** — all test doubles are hand-written (`FakeOptimization`, `TestOptimization`, etc.) implementing interfaces directly.
+- **Real I/O**: Tests use real filesystem (revert JSON files), real registry (`HKCU\Software\TestOptimizerDuck*`), real process execution (CMD/PowerShell).
+- **STA thread**: Tests involving `ContentDialogService` or WPF components must use `RunInStaThreadAsync` helper (STA thread + `TaskCompletionSource`).
+- **Logging**: Use `NullLogger<T>.Instance` / `NullLoggerFactory.Instance` for DI logging parameters.
+- **Test naming**: `{Method}_{Scenario}_{ExpectedResult}` (e.g., `ApplyAsync_Success_PersistsRevertDataFile`).
+- **Cleanup**: Use `try/finally` or `IDisposable` for test artifact cleanup (revert files, registry keys).
+- **Coverage**: No coverage gate enforced — prioritize meaningful unit coverage for changed logic.
+
+## Commit & PR
+- Conventional Commits: `feat:`, `fix:`, `refactor:`, `docs:`, `test:`, `i18n:`, `chore:`.
+- Branch from `master`: `feature/<name>` or `fix/<issue-id>`.
+- PRs: clear description, linked issue (`Closes #123`), passing `dotnet build` + `dotnet test`, screenshot for UI changes.
 - Never commit secrets or machine-specific paths.
-- For security issues, use private disclosure via `.github/SECURITY.md` guidance (not public issues).

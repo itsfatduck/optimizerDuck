@@ -260,7 +260,7 @@
     <value>Cẩn thận</value>
   </data>
   <data name="Optimizer.UI.Risk.Risky" xml:space="preserve">
-    <value>Nguy hiểm</value>
+    <value>Chuyên gia</value>
   </data>
   <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
     <value>Mô tả chi tiết</value>
@@ -351,6 +351,9 @@
   </data>
   <data name="Revert.Registry.Description.DeleteKey" xml:space="preserve">
     <value>Xóa registry key: {0}</value>
+  </data>
+  <data name="Revert.Registry.Description.RevertUnknown" xml:space="preserve">
+    <value>Hoàn tác registry: {0}</value>
   </data>
   <data name="Revert.Error.FileNotFound" xml:space="preserve">
     <value>Không tìm thấy tệp hoàn tác</value>
@@ -634,9 +637,7 @@
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
     <value>Kích hoạt sơ đồ năng lượng đặc biệt giúp máy luôn đạt hiệu năng cao nhất. (Có thể làm tăng nhiệt độ).</value>
   </data>
-  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Downloading" xml:space="preserve">
-    <value>Đang tải power plan...</value>
-  </data>
+
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
     <value>Đang import và set active power plan...</value>
   </data>

@@ -77,7 +77,10 @@ public class RegistryRevertStep : IRevertStep
                 Translations.Revert_Registry_Description_RestoreKey,
                 Path
             ),
-            _ => $"Revert {Path}",
+            _ => string.Format(
+                Translations.Revert_Registry_Description_RevertUnknown,
+                Path
+            ),
         };
 
     /// <inheritdoc />

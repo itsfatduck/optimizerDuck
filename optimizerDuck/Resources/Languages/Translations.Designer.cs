@@ -3025,15 +3025,6 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to download optimizerDuck&apos;s power plan..
-        /// </summary>
-        internal static string Optimizer_PowerManagement_InstallOptimizerDuckPowerPlan_Error_DownloadFailed {
-            get {
-                return ResourceManager.GetString("Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DownloadFailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Failed to import optimizerDuck&apos;s power plan..
         /// </summary>
         internal static string Optimizer_PowerManagement_InstallOptimizerDuckPowerPlan_Error_ImportFailed {
@@ -3048,15 +3039,6 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Optimizer_PowerManagement_InstallOptimizerDuckPowerPlan_Name {
             get {
                 return ResourceManager.GetString("Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Downloading power plan....
-        /// </summary>
-        internal static string Optimizer_PowerManagement_InstallOptimizerDuckPowerPlan_Progress_Downloading {
-            get {
-                return ResourceManager.GetString("Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Downloading", resourceCulture);
             }
         }
         
@@ -3295,7 +3277,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Risky.
+        ///   Looks up a localized string similar to Expert.
         /// </summary>
         internal static string Optimizer_UI_Risk_Risky {
             get {
@@ -3761,6 +3743,15 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Revert_Registry_Description_RestoreKey {
             get {
                 return ResourceManager.GetString("Revert.Registry.Description.RestoreKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revert registry: {0}.
+        /// </summary>
+        internal static string Revert_Registry_Description_RevertUnknown {
+            get {
+                return ResourceManager.GetString("Revert.Registry.Description.RevertUnknown", resourceCulture);
             }
         }
         

@@ -9,8 +9,8 @@
         <Authors>fatDuck</Authors>
         <ApplicationIcon>Logo.ico</ApplicationIcon>
         <Company>fatDuck</Company>
-        <FileVersion>2.13.3</FileVersion>
-        <Version>2.13.3</Version>
+        <FileVersion>2.14.0</FileVersion>
+        <Version>2.14.0</Version>
         <Product>optimizerDuck</Product>
         <Copyright>Copyright fatDuck 2026</Copyright>
         <AssemblyTitle>optimizerDuck</AssemblyTitle>
@@ -42,14 +42,14 @@
 
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.7" />
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.7" />
-        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.7" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.8" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.8" />
+        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.8" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
         <PackageReference Include="Serilog" Version="4.3.1" />
         <PackageReference Include="Serilog.Extensions.Hosting" Version="10.0.0" />
         <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
-        <PackageReference Include="System.Management.Automation" Version="7.6.1" />
+        <PackageReference Include="System.Management.Automation" Version="7.6.2" />
         <PackageReference Include="TaskScheduler" Version="2.12.2" />
         <PackageReference Include="WPF-UI" Version="4.3.0" />
         <PackageReference Include="WPF-UI.DependencyInjection" Version="4.3.0" />
@@ -64,6 +64,7 @@
 
     <ItemGroup>
         <EmbeddedResource Include="Resources\Embedded\Icons\blank.ico" />
+        <EmbeddedResource Include="Resources\Embedded\PowerPlans\optimizerDuck.pow" />
     </ItemGroup>
 
     <ItemGroup>

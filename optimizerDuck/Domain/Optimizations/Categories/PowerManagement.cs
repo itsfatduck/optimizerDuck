@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -142,7 +143,6 @@ public class PowerManagement : IOptimizationCategory
         Risk = OptimizationRisk.Safe,
         Tags = OptimizationTags.Latency
             | OptimizationTags.Performance
-            | OptimizationTags.NetworkRequired
             | OptimizationTags.Power
     )]
     public class InstallOptimizerDuckPowerPlan : BaseOptimization
@@ -168,28 +168,14 @@ public class PowerManagement : IOptimizationCategory
             var previousPlanGuid = match.Groups[1].Value;
             context.Logger.LogInformation("Current active power plan: {Guid}", previousPlanGuid);
 
-            progress?.Report(
-                new ProcessingProgress
-                {
-                    Message = Loc.Instance[$"{ProgressPrefix}.Downloading"],
-                    IsIndeterminate = true,
-                }
-            );
-
-            var (success, powerPlanPath) = await context.StreamService.TryDownloadAsync(
-                Shared.PowerPlanUrl,
-                "optimizerDuck.pow"
-            );
-            if (!success || string.IsNullOrWhiteSpace(powerPlanPath))
+            var powerPlanPath = Path.Combine(Shared.AssetsDirectory, "PowerPlans", "optimizerDuck.pow");
+            if (!EmbeddedResourceHelper.TryExtract("PowerPlans.optimizerDuck.pow", powerPlanPath, true))
             {
-                context.Logger.LogError("Failed to download optimizerDuck power plan");
-                return ApplyResult.False(Loc.Instance[$"{ErrorPrefix}.DownloadFailed"]);
+                context.Logger.LogError("Failed to extract embedded power plan");
+                return ApplyResult.False("Failed to extract optimizerDuck power plan from resources.");
             }
 
-            context.Logger.LogInformation(
-                "Downloaded optimizerDuck power plan to {Path}",
-                powerPlanPath
-            );
+            context.Logger.LogInformation("Extracted power plan to {Path}", powerPlanPath);
 
             progress?.Report(
                 new ProcessingProgress
