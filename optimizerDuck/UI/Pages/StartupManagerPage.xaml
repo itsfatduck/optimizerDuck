@@ -123,7 +123,7 @@
         <!--  Main Content  -->
         <Border Grid.Row="1" Visibility="{Binding ViewModel.HasData, Converter={StaticResource BooleanToVisibilityConverter}}">
             <ScrollViewer>
-                <StackPanel Margin="0,0,16,0">
+                <StackPanel>
                     <!--  ═══════════ Startup Apps Section ═══════════  -->
                     <ui:CardExpander
                         Margin="0,0,0,12"
@@ -242,8 +242,13 @@
                             </StackPanel>
 
                             <!--  Apps List  -->
-                            <ItemsControl ItemsSource="{Binding ViewModel.Apps}" Visibility="{Binding ViewModel.Apps.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
-                                <ItemsControl.ItemTemplate>
+                            <ui:VirtualizingItemsControl ItemsSource="{Binding ViewModel.Apps}" Visibility="{Binding ViewModel.Apps.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
+                                <ui:VirtualizingItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel IsVirtualizing="True" VirtualizationMode="Recycling" />
+                                    </ItemsPanelTemplate>
+                                </ui:VirtualizingItemsControl.ItemsPanel>
+                                <ui:VirtualizingItemsControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type startupManager:StartupApp}">
                                         <Grid>
                                             <ui:CardAction
@@ -307,8 +312,8 @@
                                             </ui:CardAction>
                                         </Grid>
                                     </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
+                                </ui:VirtualizingItemsControl.ItemTemplate>
+                            </ui:VirtualizingItemsControl>
                         </StackPanel>
                     </ui:CardExpander>
 
@@ -435,8 +440,13 @@
                             </StackPanel>
 
                             <!--  Tasks List  -->
-                            <ItemsControl ItemsSource="{Binding ViewModel.Tasks}" Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
-                                <ItemsControl.ItemTemplate>
+                            <ui:VirtualizingItemsControl ItemsSource="{Binding ViewModel.Tasks}" Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
+                                <ui:VirtualizingItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel IsVirtualizing="True" VirtualizationMode="Recycling" />
+                                    </ItemsPanelTemplate>
+                                </ui:VirtualizingItemsControl.ItemsPanel>
+                                <ui:VirtualizingItemsControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type startupManager:StartupTask}">
                                         <Border Style="{StaticResource ListRowStyle}">
                                             <Grid>
@@ -530,8 +540,8 @@
                                             </Grid>
                                         </Border>
                                     </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
+                                </ui:VirtualizingItemsControl.ItemTemplate>
+                            </ui:VirtualizingItemsControl>
                         </StackPanel>
                     </ui:CardExpander>
                 </StackPanel>

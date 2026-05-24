@@ -164,22 +164,21 @@
             </Border>
 
             <!--  Items List  -->
-            <ItemsControl Grid.Row="1" ItemsSource="{Binding ViewModel.CleanupItems}">
-                <ItemsControl.Template>
+            <ui:VirtualizingItemsControl Grid.Row="1" ItemsSource="{Binding ViewModel.CleanupItems}">
+                <ui:VirtualizingItemsControl.Template>
                     <ControlTemplate TargetType="ItemsControl">
-                        <ScrollViewer HorizontalScrollBarVisibility="Disabled">
-                            <ItemsPresenter Margin="0,0,12,0" />
+                        <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Disabled">
+                            <ItemsPresenter />
                         </ScrollViewer>
                     </ControlTemplate>
-                </ItemsControl.Template>
-
-                <ItemsControl.ItemsPanel>
+                </ui:VirtualizingItemsControl.Template>
+                <ui:VirtualizingItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <VirtualizingStackPanel VirtualizingStackPanel.VirtualizationMode="Recycling" />
+                        <VirtualizingStackPanel IsVirtualizing="True" VirtualizationMode="Recycling" />
                     </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
+                </ui:VirtualizingItemsControl.ItemsPanel>
 
-                <ItemsControl.ItemTemplate>
+                <ui:VirtualizingItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type cleanup1:CleanupItem}">
                         <Border Style="{StaticResource ListRowStyle}">
                             <Grid>
@@ -218,7 +217,7 @@
                                 <StackPanel Grid.Column="2" VerticalAlignment="Center">
                                     <!--  Clickable Name  -->
                                     <ui:HyperlinkButton
-                                        Command="{Binding DataContext.ViewModel.OpenFolderCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                        Command="{Binding DataContext.ViewModel.OpenFolderCommand, RelativeSource={RelativeSource AncestorType=ui:VirtualizingItemsControl}}"
                                         CommandParameter="{Binding}"
                                         IsEnabled="{Binding CanOpenFolder}"
                                         Style="{StaticResource ClickableNameStyle}">
@@ -342,8 +341,8 @@
                             </Grid>
                         </Border>
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                </ui:VirtualizingItemsControl.ItemTemplate>
+            </ui:VirtualizingItemsControl>
         </Grid>
     </Grid>
 </Page>

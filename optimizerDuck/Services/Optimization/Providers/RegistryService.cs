@@ -696,6 +696,8 @@ public static class RegistryService
         return (steps, !truncated);
     }
 
+    // walks the full subkey tree to snapshot every value before deletion
+    // depth and count limits prevent runaway recursion on massive hives
     private static void BackupRegistryTreeRecursive(
         RegistryKey key,
         string keyPath,
@@ -845,7 +847,8 @@ public static class RegistryService
         ExecutionScope.RecordStep(Translations.Service_Registry_Name, path, false, null, uiReason);
     }
 
-    /// <summary>Creates registry subkeys and tracks which ones were newly created for revert cleanup.</summary>
+    // walks each segment of the subkey path, creating missing segments one by one
+    // only tracks the keys it actually creates so revert cleanup knows what to delete
     private static RegistryKey CreateSubKeyTrack(
         RegistryKey root,
         string subPath,
@@ -899,8 +902,8 @@ public static class RegistryService
         }
     }
 
-    /// <summary>Cleans up empty registry keys that were created during the apply operation.</summary>
-    /// <remarks>Only deletes keys that were created during apply (tracked in <paramref name="createdSubKeys" />) and are now completely empty — no values and no subkeys.</remarks>
+    /// <summary>Removes empty registry keys that were created during an apply operation.</summary>
+    /// <remarks>Only deletes keys that were created during apply (tracked in <paramref name="createdSubKeys"/>) and are now completely empty — no values and no subkeys. Sorts by path depth descending so child keys are deleted before parents.</remarks>
     /// <param name="createdSubKeys">The list of registry key paths that were created.</param>
     public static void CleanupEmptyKeys(IEnumerable<string> createdSubKeys)
     {

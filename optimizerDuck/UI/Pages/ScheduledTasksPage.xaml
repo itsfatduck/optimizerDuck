@@ -193,217 +193,227 @@
             </StackPanel>
 
             <!--  Task List  -->
-            <ScrollViewer Grid.Row="1" Margin="0,0,0,0">
-                <ItemsControl ItemsSource="{Binding ViewModel.Tasks}" Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate DataType="{x:Type scheduledTask:ScheduledTaskModel}">
-                            <Border Style="{StaticResource ListRowStyle}">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
+            <ui:VirtualizingItemsControl Grid.Row="1" ItemsSource="{Binding ViewModel.Tasks}" Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
+                <ui:VirtualizingItemsControl.Template>
+                    <ControlTemplate TargetType="ItemsControl">
+                        <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Disabled">
+                            <ItemsPresenter />
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </ui:VirtualizingItemsControl.Template>
+                <ui:VirtualizingItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel IsVirtualizing="True" VirtualizationMode="Recycling" />
+                    </ItemsPanelTemplate>
+                </ui:VirtualizingItemsControl.ItemsPanel>
+                <ui:VirtualizingItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type scheduledTask:ScheduledTaskModel}">
+                        <Border Style="{StaticResource ListRowStyle}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
 
-                                    <!--  Task Logo  -->
-                                    <Image
-                                        Grid.Column="0"
-                                        Width="36"
-                                        Height="36"
-                                        Margin="0,0,12,0"
-                                        VerticalAlignment="Center"
-                                        Source="{Binding LogoImage}"
-                                        Stretch="UniformToFill" />
+                                <!--  Task Logo  -->
+                                <Image
+                                    Grid.Column="0"
+                                    Width="36"
+                                    Height="36"
+                                    Margin="0,0,12,0"
+                                    VerticalAlignment="Center"
+                                    Source="{Binding LogoImage}"
+                                    Stretch="UniformToFill" />
 
-                                    <!--  Task info  -->
-                                    <StackPanel
-                                        Grid.Column="1"
-                                        Margin="0,0,12,0"
-                                        VerticalAlignment="Center">
-                                        <!--  Row 1: Name + State badge  -->
-                                        <DockPanel LastChildFill="False">
-                                            <ui:TextBlock FontTypography="BodyStrong" Text="{Binding Name}" />
-                                            <Border
-                                                Margin="8,0,0,0"
-                                                Padding="6,1"
-                                                VerticalAlignment="Center"
-                                                CornerRadius="4">
-                                                <Border.Style>
-                                                    <Style TargetType="Border">
-                                                        <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorSecondaryBrush}" />
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding IsReady}" Value="True">
-                                                                <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding IsRunning}" Value="True">
-                                                                <Setter Property="Background" Value="{DynamicResource AccentButtonBackground}" />
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding IsDisabledState}" Value="True">
-                                                                <Setter Property="Background" Value="{DynamicResource SystemFillColorCriticalBrush}" />
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Border.Style>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <ui:SymbolIcon
-                                                        x:Name="StateIcon"
-                                                        Margin="0,0,4,0"
-                                                        FontSize="10">
-                                                        <ui:SymbolIcon.Style>
-                                                            <Style TargetType="ui:SymbolIcon">
-                                                                <Setter Property="Symbol" Value="Circle24" />
-                                                                <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
-                                                                <Style.Triggers>
-                                                                    <DataTrigger Binding="{Binding IsReady}" Value="True">
-                                                                        <Setter Property="Symbol" Value="CheckmarkCircle24" />
-                                                                        <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
-                                                                    </DataTrigger>
-                                                                    <DataTrigger Binding="{Binding IsRunning}" Value="True">
-                                                                        <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
-                                                                        <Setter Property="Symbol" Value="Play24" />
-                                                                    </DataTrigger>
-                                                                    <DataTrigger Binding="{Binding IsDisabledState}" Value="True">
-                                                                        <Setter Property="Symbol" Value="Dismiss24" />
-                                                                        <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
-                                                                    </DataTrigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </ui:SymbolIcon.Style>
-                                                    </ui:SymbolIcon>
-                                                    <ui:TextBlock
-                                                        VerticalAlignment="Center"
-                                                        FontTypography="Caption"
-                                                        Foreground="{Binding ElementName=StateIcon, Path=Foreground}"
-                                                        Text="{Binding State}" />
-                                                </StackPanel>
-                                            </Border>
-                                        </DockPanel>
-
-                                        <!--  Row 2: Description  -->
-                                        <ui:TextBlock
-                                            Margin="0,4,0,0"
-                                            FontTypography="Caption"
-                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                            Text="{Binding Description}"
-                                            TextWrapping="Wrap" />
-
-                                        <!--  Row 3: Path  -->
-                                        <ui:TextBlock
-                                            Margin="0,2,0,0"
-                                            FontTypography="Caption"
-                                            Foreground="{DynamicResource TextFillColorDisabledBrush}"
-                                            Text="{Binding FullPath}" />
-
-                                        <!--  Row 4: Trigger badges  -->
-                                        <ItemsControl Margin="0,4,0,0" ItemsSource="{Binding TriggerTypes}">
-                                            <ItemsControl.ItemsPanel>
-                                                <ItemsPanelTemplate>
-                                                    <WrapPanel Orientation="Horizontal" />
-                                                </ItemsPanelTemplate>
-                                            </ItemsControl.ItemsPanel>
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Border
-                                                        Margin="0,0,4,2"
-                                                        Padding="6,2"
-                                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                                        CornerRadius="4">
-                                                        <StackPanel Orientation="Horizontal">
-                                                            <ui:SymbolIcon
-                                                                Margin="0,0,4,0"
-                                                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                                Symbol="Timer24" />
-                                                            <ui:TextBlock
-                                                                VerticalAlignment="Center"
-                                                                FontTypography="Caption"
-                                                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                                Text="{Binding}" />
-                                                        </StackPanel>
-                                                    </Border>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-
-                                        <!--  Row 5: Action summary  -->
-                                        <ui:TextBlock
-                                            Margin="0,2,0,0"
-                                            FontTypography="Caption"
-                                            Foreground="{DynamicResource TextFillColorDisabledBrush}"
-                                            Text="{Binding ActionSummary}"
-                                            TextTrimming="CharacterEllipsis" />
-                                    </StackPanel>
-
-                                    <!--  Actions  -->
-                                    <StackPanel
-                                        Grid.Column="2"
-                                        VerticalAlignment="Center"
-                                        Orientation="Horizontal">
-                                        <ui:Button
-                                            Margin="0,0,4,0"
-                                            Padding="8"
-                                            Appearance="Transparent"
-                                            Command="{Binding DataContext.ViewModel.ViewDetailsCommand, RelativeSource={RelativeSource AncestorType=Page}}"
-                                            CommandParameter="{Binding}"
-                                            Cursor="Hand"
-                                            Icon="{ui:SymbolIcon Info24,
-                                                                 FontSize=16}"
-                                            ToolTip="{ext:Loc ScheduledTasks.Action.Details}" />
-                                        <!--  Run: visible only when not running  -->
-                                        <ui:Button
-                                            Margin="0,0,4,0"
-                                            Padding="8"
-                                            Appearance="Transparent"
-                                            Command="{Binding DataContext.ViewModel.RunTaskCommand, RelativeSource={RelativeSource AncestorType=Page}}"
-                                            CommandParameter="{Binding}"
-                                            Cursor="Hand"
-                                            Icon="{ui:SymbolIcon Play24,
-                                                                 FontSize=16}"
-                                            ToolTip="{ext:Loc ScheduledTasks.Action.Run}">
-                                            <ui:Button.Style>
-                                                <Style BasedOn="{StaticResource {x:Type ui:Button}}" TargetType="ui:Button">
-                                                    <Setter Property="Visibility" Value="Visible" />
+                                <!--  Task info  -->
+                                <StackPanel
+                                    Grid.Column="1"
+                                    Margin="0,0,12,0"
+                                    VerticalAlignment="Center">
+                                    <!--  Row 1: Name + State badge  -->
+                                    <DockPanel LastChildFill="False">
+                                        <ui:TextBlock FontTypography="BodyStrong" Text="{Binding Name}" />
+                                        <Border
+                                            Margin="8,0,0,0"
+                                            Padding="6,1"
+                                            VerticalAlignment="Center"
+                                            CornerRadius="4">
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorSecondaryBrush}" />
                                                     <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsReady}" Value="True">
+                                                            <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                                                        </DataTrigger>
                                                         <DataTrigger Binding="{Binding IsRunning}" Value="True">
-                                                            <Setter Property="Visibility" Value="Collapsed" />
+                                                            <Setter Property="Background" Value="{DynamicResource AccentButtonBackground}" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding IsDisabledState}" Value="True">
+                                                            <Setter Property="Background" Value="{DynamicResource SystemFillColorCriticalBrush}" />
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
-                                            </ui:Button.Style>
-                                        </ui:Button>
-                                        <!--  Stop: visible only when running  -->
-                                        <ui:Button
-                                            Margin="0,0,4,0"
-                                            Padding="8"
-                                            Appearance="Transparent"
-                                            Command="{Binding DataContext.ViewModel.StopTaskCommand, RelativeSource={RelativeSource AncestorType=Page}}"
-                                            CommandParameter="{Binding}"
-                                            Cursor="Hand"
-                                            Icon="{ui:SymbolIcon Stop24,
-                                                                 FontSize=16}"
-                                            ToolTip="{ext:Loc ScheduledTasks.Action.Stop}"
-                                            Visibility="{Binding IsRunning, Converter={StaticResource WpfBoolToVis}}" />
-                                        <ui:Button
-                                            Margin="0,0,8,0"
-                                            Padding="8"
-                                            Appearance="Transparent"
-                                            Command="{Binding DataContext.ViewModel.DeleteTaskCommand, RelativeSource={RelativeSource AncestorType=Page}}"
-                                            CommandParameter="{Binding}"
-                                            Cursor="Hand"
-                                            Icon="{ui:SymbolIcon Delete24,
-                                                                 FontSize=16}"
-                                            ToolTip="{ext:Loc ScheduledTasks.Action.Delete}" />
-                                        <ui:ToggleSwitch
-                                            IsChecked="{Binding IsEnabled, Mode=TwoWay}"
-                                            OffContent="{ext:Loc Common.Toggle.Off}"
-                                            OnContent="{ext:Loc Common.Toggle.On}"
-                                            Style="{StaticResource ToggleSwitchStyle}" />
-                                    </StackPanel>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
+                                            </Border.Style>
+                                            <StackPanel Orientation="Horizontal">
+                                                <ui:SymbolIcon
+                                                    x:Name="StateIcon"
+                                                    Margin="0,0,4,0"
+                                                    FontSize="10">
+                                                    <ui:SymbolIcon.Style>
+                                                        <Style TargetType="ui:SymbolIcon">
+                                                            <Setter Property="Symbol" Value="Circle24" />
+                                                            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding IsReady}" Value="True">
+                                                                    <Setter Property="Symbol" Value="CheckmarkCircle24" />
+                                                                    <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding IsRunning}" Value="True">
+                                                                    <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
+                                                                    <Setter Property="Symbol" Value="Play24" />
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding IsDisabledState}" Value="True">
+                                                                    <Setter Property="Symbol" Value="Dismiss24" />
+                                                                    <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </ui:SymbolIcon.Style>
+                                                </ui:SymbolIcon>
+                                                <ui:TextBlock
+                                                    VerticalAlignment="Center"
+                                                    FontTypography="Caption"
+                                                    Foreground="{Binding ElementName=StateIcon, Path=Foreground}"
+                                                    Text="{Binding State}" />
+                                            </StackPanel>
+                                        </Border>
+                                    </DockPanel>
+
+                                    <!--  Row 2: Description  -->
+                                    <ui:TextBlock
+                                        Margin="0,4,0,0"
+                                        FontTypography="Caption"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Text="{Binding Description}"
+                                        TextWrapping="Wrap" />
+
+                                    <!--  Row 3: Path  -->
+                                    <ui:TextBlock
+                                        Margin="0,2,0,0"
+                                        FontTypography="Caption"
+                                        Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                                        Text="{Binding FullPath}" />
+
+                                    <!--  Row 4: Trigger badges  -->
+                                    <ItemsControl Margin="0,4,0,0" ItemsSource="{Binding TriggerTypes}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel Orientation="Horizontal" />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border
+                                                    Margin="0,0,4,2"
+                                                    Padding="6,2"
+                                                    Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                                    CornerRadius="4">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ui:SymbolIcon
+                                                            Margin="0,0,4,0"
+                                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                            Symbol="Timer24" />
+                                                        <ui:TextBlock
+                                                            VerticalAlignment="Center"
+                                                            FontTypography="Caption"
+                                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                            Text="{Binding}" />
+                                                    </StackPanel>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                    <!--  Row 5: Action summary  -->
+                                    <ui:TextBlock
+                                        Margin="0,2,0,0"
+                                        FontTypography="Caption"
+                                        Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                                        Text="{Binding ActionSummary}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </StackPanel>
+
+                                <!--  Actions  -->
+                                <StackPanel
+                                    Grid.Column="2"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal">
+                                    <ui:Button
+                                        Margin="0,0,4,0"
+                                        Padding="8"
+                                        Appearance="Transparent"
+                                        Command="{Binding DataContext.ViewModel.ViewDetailsCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                        CommandParameter="{Binding}"
+                                        Cursor="Hand"
+                                        Icon="{ui:SymbolIcon Info24,
+                                                             FontSize=16}"
+                                        ToolTip="{ext:Loc ScheduledTasks.Action.Details}" />
+                                    <!--  Run: visible only when not running  -->
+                                    <ui:Button
+                                        Margin="0,0,4,0"
+                                        Padding="8"
+                                        Appearance="Transparent"
+                                        Command="{Binding DataContext.ViewModel.RunTaskCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                        CommandParameter="{Binding}"
+                                        Cursor="Hand"
+                                        Icon="{ui:SymbolIcon Play24,
+                                                             FontSize=16}"
+                                        ToolTip="{ext:Loc ScheduledTasks.Action.Run}">
+                                        <ui:Button.Style>
+                                            <Style BasedOn="{StaticResource {x:Type ui:Button}}" TargetType="ui:Button">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsRunning}" Value="True">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ui:Button.Style>
+                                    </ui:Button>
+                                    <!--  Stop: visible only when running  -->
+                                    <ui:Button
+                                        Margin="0,0,4,0"
+                                        Padding="8"
+                                        Appearance="Transparent"
+                                        Command="{Binding DataContext.ViewModel.StopTaskCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                        CommandParameter="{Binding}"
+                                        Cursor="Hand"
+                                        Icon="{ui:SymbolIcon Stop24,
+                                                             FontSize=16}"
+                                        ToolTip="{ext:Loc ScheduledTasks.Action.Stop}"
+                                        Visibility="{Binding IsRunning, Converter={StaticResource WpfBoolToVis}}" />
+                                    <ui:Button
+                                        Margin="0,0,8,0"
+                                        Padding="8"
+                                        Appearance="Transparent"
+                                        Command="{Binding DataContext.ViewModel.DeleteTaskCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                        CommandParameter="{Binding}"
+                                        Cursor="Hand"
+                                        Icon="{ui:SymbolIcon Delete24,
+                                                             FontSize=16}"
+                                        ToolTip="{ext:Loc ScheduledTasks.Action.Delete}" />
+                                    <ui:ToggleSwitch
+                                        IsChecked="{Binding IsEnabled, Mode=TwoWay}"
+                                        OffContent="{ext:Loc Common.Toggle.Off}"
+                                        OnContent="{ext:Loc Common.Toggle.On}"
+                                        Style="{StaticResource ToggleSwitchStyle}" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ui:VirtualizingItemsControl.ItemTemplate>
+            </ui:VirtualizingItemsControl>
         </Grid>
     </Grid>
 </Page>

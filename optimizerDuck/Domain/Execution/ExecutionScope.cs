@@ -18,28 +18,49 @@ public sealed class ExecutionScope : IDisposable
     private bool _disposed;
     private int _stepIndex;
 
+    /// <summary>Gets the current <see cref="ExecutionScope"/> for the ambient async context.</summary>
+    /// <remarks>
+    /// Backed by <see cref="AsyncLocal{T}"/>, this flows across async calls without requiring
+    /// dependency injection. Provider services read <see cref="Current"/> to record revert steps.
+    /// </remarks>
     public static ExecutionScope? Current => _current.Value;
 
+    /// <summary>Gets the identifier of the optimization being executed.</summary>
     public Guid? OptimizationId { get; private init; }
 
+    /// <summary>Gets the unique key of the optimization being executed.</summary>
     public string? OptimizationKey { get; private init; }
 
+    /// <summary>Gets the display name of the optimization being executed.</summary>
     public string? OptimizationName { get; init; }
 
+    /// <summary>Gets the logger instance for the current execution scope.</summary>
     public required ILogger Logger { get; init; }
 
+    /// <summary>Gets all recorded execution steps in the order they were executed.</summary>
+    /// <value>An <see cref="IReadOnlyList{T}"/> of <see cref="ExecutedStep"/> instances.</value>
     public IReadOnlyList<ExecutedStep> ExecutedSteps => _executedSteps.AsReadOnly();
 
+    /// <summary>Gets the subset of steps that completed successfully.</summary>
+    /// <value>An array of <see cref="ExecutedStep"/> instances where <see cref="ExecutedStep.Success"/> is <see langword="true"/>.</value>
     public IReadOnlyList<ExecutedStep> SuccessfulSteps =>
         _executedSteps.Where(s => s.Success).ToArray();
 
+    /// <summary>Gets the subset of steps that failed.</summary>
+    /// <value>An array of <see cref="ExecutedStep"/> instances where <see cref="ExecutedStep.Success"/> is <see langword="false"/>.</value>
     public IReadOnlyList<ExecutedStep> FailedSteps =>
         _executedSteps.Where(s => !s.Success).ToArray();
 
+    /// <summary>Gets a value that indicates whether at least one step succeeded.</summary>
+    /// <value><see langword="true"/> if any recorded step completed successfully; otherwise, <see langword="false"/>.</value>
     public bool HasSuccessfulSteps => _executedSteps.Any(s => s.Success);
 
     private bool LoggingOnly { get; init; }
 
+    /// <summary>
+    /// Releases the execution scope, logs execution statistics, and persists revert data
+    /// if the scope is associated with an optimization that has successful steps.
+    /// </summary>
     public void Dispose()
     {
         if (_disposed)
@@ -80,6 +101,11 @@ public sealed class ExecutionScope : IDisposable
         _current.Value = null;
     }
 
+    /// <summary>Creates a new execution scope for an optimization and sets it as the ambient scope.</summary>
+    /// <param name="optimization">The optimization to execute.</param>
+    /// <param name="logger">The logger instance for the scope.</param>
+    /// <returns>A new <see cref="ExecutionScope"/> instance.</returns>
+    /// <exception cref="InvalidOperationException">An execution scope is already active in the current async context.</exception>
     public static ExecutionScope Begin(IOptimization optimization, ILogger logger)
     {
         if (_current.Value != null)
@@ -103,6 +129,10 @@ public sealed class ExecutionScope : IDisposable
         return scope;
     }
 
+    /// <summary>Creates a logging-only scope that records steps but does not persist revert data.</summary>
+    /// <param name="logger">The logger instance for the scope.</param>
+    /// <returns>A new <see cref="ExecutionScope"/> instance with <see cref="LoggingOnly"/> set to <see langword="true"/>.</returns>
+    /// <exception cref="InvalidOperationException">An execution scope is already active in the current async context.</exception>
     public static ExecutionScope BeginForLogging(ILogger logger)
     {
         if (_current.Value != null)
@@ -123,6 +153,12 @@ public sealed class ExecutionScope : IDisposable
         return scope;
     }
 
+    /// <summary>Creates a logging-only scope scoped to a specific optimization for diagnostic purposes.</summary>
+    /// <param name="optimizationId">The identifier of the optimization.</param>
+    /// <param name="optimizationKey">The unique key of the optimization.</param>
+    /// <param name="logger">The logger instance for the scope.</param>
+    /// <returns>A new <see cref="ExecutionScope"/> instance with <see cref="LoggingOnly"/> set to <see langword="true"/>.</returns>
+    /// <exception cref="InvalidOperationException">An execution scope is already active in the current async context.</exception>
     public static ExecutionScope BeginForLogging(
         Guid optimizationId,
         string optimizationKey,
@@ -147,6 +183,15 @@ public sealed class ExecutionScope : IDisposable
         return scope;
     }
 
+    /// <summary>Creates a temporary scope used to re-capture revert steps during retry execution.</summary>
+    /// <remarks>
+    /// During retry, the original optimization context is not available, so
+    /// <see cref="OptimizationId"/> is set to <see cref="Guid.Empty"/>. Captured steps are later
+    /// re-assigned to the real scope via <see cref="RecordStepAtIndex"/>.
+    /// </remarks>
+    /// <param name="logger">The logger instance for the scope.</param>
+    /// <returns>A new <see cref="ExecutionScope"/> instance with an empty optimization context.</returns>
+    /// <exception cref="InvalidOperationException">An execution scope is already active in the current async context.</exception>
     public static ExecutionScope BeginForCapture(ILogger logger)
     {
         if (_current.Value != null)
@@ -166,6 +211,15 @@ public sealed class ExecutionScope : IDisposable
         return scope;
     }
 
+    /// <summary>Records an execution step onto the ambient scope with auto-incremented index.</summary>
+    /// <param name="name">The category name of the step (for example, "Registry", "Shell").</param>
+    /// <param name="description">A human-readable description of what the step does.</param>
+    /// <param name="success"><see langword="true"/> if the step completed successfully; otherwise, <see langword="false"/>.</param>
+    /// <param name="revertStep">An optional <see cref="IRevertStep"/> that can undo this operation.</param>
+    /// <param name="error">An optional error message that describes the failure.</param>
+    /// <param name="retryAction">An optional asynchronous action that retries the failed step.</param>
+    /// <param name="errorDetail">An optional detailed error string (for example, exception details).</param>
+    /// <returns>The recorded <see cref="ExecutedStep"/>, or <see langword="null"/> if no ambient scope exists or the scope is logging-only.</returns>
     public static ExecutedStep? RecordStep(
         string name,
         string description,
@@ -189,6 +243,16 @@ public sealed class ExecutionScope : IDisposable
         );
     }
 
+    /// <summary>Records an execution step at a specific index, used during retry to preserve the original index layout.</summary>
+    /// <param name="index">The explicit 1-based index for the step.</param>
+    /// <param name="name">The category name of the step (for example, "Registry", "Shell").</param>
+    /// <param name="description">A human-readable description of what the step does.</param>
+    /// <param name="success"><see langword="true"/> if the step completed successfully; otherwise, <see langword="false"/>.</param>
+    /// <param name="revertStep">An optional <see cref="IRevertStep"/> that can undo this operation.</param>
+    /// <param name="error">An optional error message that describes the failure.</param>
+    /// <param name="retryAction">An optional asynchronous action that retries the failed step.</param>
+    /// <param name="errorDetail">An optional detailed error string (for example, exception details).</param>
+    /// <returns>The recorded <see cref="ExecutedStep"/>, or <see langword="null"/> if no ambient scope exists or the scope is logging-only.</returns>
     public static ExecutedStep? RecordStepAtIndex(
         int index,
         string name,
@@ -214,6 +278,9 @@ public sealed class ExecutionScope : IDisposable
         );
     }
 
+    /// <summary>Records a service invocation in the execution statistics.</summary>
+    /// <param name="serviceName">The name of the service that was invoked.</param>
+    /// <param name="success"><see langword="true"/> if the service call succeeded; otherwise, <see langword="false"/>.</param>
     public static void Track(string serviceName, bool success)
     {
         var scope = Current;
@@ -232,14 +299,15 @@ public sealed class ExecutionScope : IDisposable
         );
     }
 
+    /// <summary>Returns the list of step results for display in the UI.</summary>
+    /// <returns>A <see cref="List{T}"/> of <see cref="OperationStepResult"/> instances.</returns>
     public List<OperationStepResult> GetStepResults()
     {
         return _executedSteps.Select(ToOperationStepResult).ToList();
     }
 
-    /// <summary>
-    ///     Maps tracked execution steps to an <see cref="ApplyResult" /> for optimization handlers.
-    /// </summary>
+    /// <summary>Maps the execution scope to a result for optimization apply handlers.</summary>
+    /// <returns>An <see cref="ApplyResult"/> with <see cref="ApplyResult.Success"/> set to <see langword="true"/> if every step succeeded; otherwise, <see langword="false"/> with a failure message.</returns>
     public ApplyResult ToApplyResult()
     {
         var result = ToResult();
@@ -248,6 +316,11 @@ public sealed class ExecutionScope : IDisposable
             : ApplyResult.False(result.Message);
     }
 
+    /// <summary>Builds an <see cref="OptimizationResult"/> from the recorded steps.</summary>
+    /// <returns>
+    /// An <see cref="OptimizationResult"/> whose <see cref="OptimizationResult.Status"/> reflects whether
+    /// all steps succeeded, some failed (partial), or all failed.
+    /// </returns>
     public OptimizationResult ToResult()
     {
         var status = ResolveStatus();
@@ -294,6 +367,8 @@ public sealed class ExecutionScope : IDisposable
         if (LoggingOnly)
             return null;
 
+        // explicitIndex is used during retry to re-record a step at its original position
+        // so the gap-and-index layout in the revert file stays consistent
         var stepIndex = explicitIndex ?? ++_stepIndex;
 
         var step = new ExecutedStep(
@@ -348,31 +423,51 @@ public sealed class ExecutionScope : IDisposable
 
     #region Logging
 
+    /// <summary>Logs a message at the specified level through the ambient scope's logger.</summary>
+    /// <param name="level">The log level.</param>
+    /// <param name="message">The message template.</param>
+    /// <param name="args">Optional format arguments.</param>
     public static void Log(LogLevel level, string message, params object[] args)
     {
         Current?.Logger.Log(level, message, args);
     }
 
+    /// <summary>Logs a debug-level message.</summary>
+    /// <param name="message">The message template.</param>
+    /// <param name="args">Optional format arguments.</param>
     public static void LogDebug(string message, params object[] args)
     {
         Log(LogLevel.Debug, message, args);
     }
 
+    /// <summary>Logs a trace-level message.</summary>
+    /// <param name="message">The message template.</param>
+    /// <param name="args">Optional format arguments.</param>
     public static void LogTrace(string message, params object[] args)
     {
         Log(LogLevel.Trace, message, args);
     }
 
+    /// <summary>Logs an informational message.</summary>
+    /// <param name="message">The message template.</param>
+    /// <param name="args">Optional format arguments.</param>
     public static void LogInfo(string message, params object[] args)
     {
         Log(LogLevel.Information, message, args);
     }
 
+    /// <summary>Logs a warning message.</summary>
+    /// <param name="message">The message template.</param>
+    /// <param name="args">Optional format arguments.</param>
     public static void LogWarning(string message, params object[] args)
     {
         Log(LogLevel.Warning, message, args);
     }
 
+    /// <summary>Logs an error message with an optional exception.</summary>
+    /// <param name="ex">An optional exception that caused the error.</param>
+    /// <param name="message">The message template.</param>
+    /// <param name="args">Optional format arguments.</param>
     public static void LogError(Exception? ex, string message, params object[] args)
     {
         Current?.Logger.LogError(ex, message, args);
@@ -381,14 +476,18 @@ public sealed class ExecutionScope : IDisposable
     #endregion Logging
 }
 
-/// <summary>
-///     Represents a single step recorded during optimization execution.
-/// </summary>
+/// <summary>Represents a single step recorded during optimization execution.</summary>
 public sealed record ExecutedStep
 {
-    /// <summary>
-    ///     Initializes a new instance of the <see cref="ExecutedStep" /> class.
-    /// </summary>
+    /// <summary>Initializes a new instance of the <see cref="ExecutedStep"/> class.</summary>
+    /// <param name="index">The 1-based index of the step in the execution sequence.</param>
+    /// <param name="name">The category name of the step (for example, "Registry", "Shell").</param>
+    /// <param name="description">A human-readable description of what the step did.</param>
+    /// <param name="success"><see langword="true"/> if the step completed successfully; otherwise, <see langword="false"/>.</param>
+    /// <param name="revertStep">An <see cref="IRevertStep"/> that can undo this operation, if applicable.</param>
+    /// <param name="error">An error message if the step failed, or <see langword="null"/>.</param>
+    /// <param name="retryAction">An optional asynchronous action to retry the step on failure.</param>
+    /// <param name="errorDetail">An optional detailed error string (for example, exception details).</param>
     public ExecutedStep(
         int index,
         string name,

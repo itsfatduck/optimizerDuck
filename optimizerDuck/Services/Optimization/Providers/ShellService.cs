@@ -63,8 +63,8 @@ public sealed class ShellPolicy
 
 public static class ShellService
 {
-    private const int DefaultShellTimeoutMs = 120000; // 2 minutes
-    private const int ProcessGraceDrainMs = 2000; // 2 seconds
+    private const int DefaultShellTimeoutMs = 120000;
+    private const int ProcessGraceDrainMs = 2000;
 
     private static IOptionsMonitor<AppSettings>? _options;
 
@@ -252,6 +252,7 @@ public static class ShellService
                 success
                     ? null
                     : () =>
+                        // wrapping sync Run in Task.Run because retry expects a Task<bool>
                         Task.Run(() =>
                             policy.IsSuccess(
                                 Run(fileName, arguments, command, serviceName, revertStep, policy)
@@ -288,6 +289,7 @@ public static class ShellService
                 revertStep,
                 ex.Message,
                 () =>
+                    // wrapping sync Run in Task.Run because retry expects a Task<bool>
                     Task.Run(() =>
                         policy.IsSuccess(
                             Run(fileName, arguments, command, serviceName, revertStep, policy)
@@ -691,6 +693,8 @@ public static class ShellService
         ShellPolicy? policy = null
     )
     {
+        // -EncodedCommand avoids quoting/escaping issues
+        // prefix forces UTF-8 output and silences progress stream clutter in stderr
         command =
             "$ProgressPreference='SilentlyContinue'; "
             + "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; "

@@ -23,7 +23,7 @@
     </Page.Resources>
 
     <ScrollViewer>
-        <StackPanel Margin="0,0,12,0">
+        <StackPanel>
             <ui:TextBlock Style="{StaticResource PageTitleStyle}" Text="{ext:Loc Settings.Header.Title}" />
 
             <StackPanel Style="{StaticResource SettingsSectionStyle}">

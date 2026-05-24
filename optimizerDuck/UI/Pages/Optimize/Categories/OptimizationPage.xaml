@@ -202,7 +202,8 @@
                 <ui:VirtualizingItemsControl.Template>
                     <ControlTemplate TargetType="ItemsControl">
                         <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Disabled">
-                            <ItemsPresenter />
+                            <!--yeah -12 because <Setter Property="Margin" Value="0,0,12,12" /> -->
+                            <ItemsPresenter Margin="0,0,-12,0" />
                         </ScrollViewer>
                     </ControlTemplate>
                 </ui:VirtualizingItemsControl.Template>

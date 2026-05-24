@@ -251,6 +251,8 @@ public class OptimizationService(
         if (optimizations.Length == 0)
             return;
 
+        // scan revert directory for which optimizations are currently applied
+        // we infer applied state from file presence, not a database
         var revertFiles = await Task.Run(() =>
         {
             if (!Directory.Exists(Shared.RevertDirectory))
@@ -390,7 +392,7 @@ public class OptimizationService(
 
                     // Auto-persist recovered revert step if revertManager is available
                     if (
-                        retriedStep?.RevertStep != null
+                        recoveredStep.RevertStep != null
                         && revertManager != null
                         && optimizationId.HasValue
                     )
@@ -401,7 +403,7 @@ public class OptimizationService(
                                 optimizationId.Value,
                                 optimizationKey ?? string.Empty,
                                 step.Index, // Use original failed step's index
-                                retriedStep.RevertStep
+                                recoveredStep.RevertStep
                             );
                         }
                         catch (Exception ex)

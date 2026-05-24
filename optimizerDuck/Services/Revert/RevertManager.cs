@@ -34,6 +34,8 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
         if (successfulSteps.Count == 0)
             return;
 
+        // rebuild the gap-and-index array from the 1-based step indexes
+        // ExecutionScope uses 1-based indexes, but the array is 0-based
         var maxIndex = successfulSteps.Max(s => s.Index);
         var steps = new RevertStepData?[maxIndex];
 
@@ -83,6 +85,7 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
                 Message = string.Format(Translations.Revert_Error_NoDataFound, optimization.Name),
             };
 
+        // revert in reverse order (LIFO) so later steps don't depend on earlier ones
         var failedSteps = new List<OperationStepResult>();
         var sortedSteps = steps.OrderByDescending(s => s.Index).ToList();
         var total = sortedSteps.Count;
@@ -134,6 +137,8 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             }
         }
 
+        // if at least one step reverted, remove the revert file so the optimization shows as not-applied
+        // if all steps failed, leave the file in place for another attempt
         if (failedSteps.Count < total)
             RemoveRevertData(optimization.Id, optimization.OptimizationKey);
 
@@ -185,6 +190,8 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
                     Steps = Array.Empty<RevertStepData?>(),
                 };
 
+            // grow the array if needed so the index slot exists
+            // gaps before this index remain null
             if (data.Steps.Length < stepIndex)
             {
                 var newSteps = new RevertStepData?[stepIndex];
@@ -292,6 +299,8 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
         }
     }
 
+    // write to .tmp then replace atomically so a crash mid-write doesn't corrupt the revert file
+    // File.Replace is the .NET atomic swap for existing files
     private static async Task WriteJsonAtomicAsync(string path, RevertData data)
     {
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);
@@ -388,6 +397,8 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
         }
     }
 
+    // discover all IRevertStep implementations via reflection and map their Type string to a factory
+    // each step type must expose a static FromData(JObject) method for deserialization
     private static Dictionary<string, Func<JObject, IRevertStep>> BuildStepRegistry()
     {
         var dict = new Dictionary<string, Func<JObject, IRevertStep>>();
