@@ -76,10 +76,7 @@ public class UsbPowerRevertStep : IRevertStep
     /// </summary>
     public static UsbPowerRevertStep FromData(JObject data)
     {
-        var states =
-            data[nameof(States)]?.ToObject<List<DeviceState>>()
-            ?? data.ToObject<List<DeviceState>>()
-            ?? [];
+        var states = data[nameof(States)]?.ToObject<List<DeviceState>>() ?? [];
 
         return new UsbPowerRevertStep { States = states };
     }

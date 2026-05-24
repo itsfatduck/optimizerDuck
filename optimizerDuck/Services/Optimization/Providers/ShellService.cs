@@ -167,7 +167,7 @@ public static class ShellService
             {
                 try
                 {
-                    process.Kill(entireProcessTree: false);
+                    process.Kill(entireProcessTree: true);
                 }
                 catch (Exception ex)
                 {
@@ -188,7 +188,7 @@ public static class ShellService
                 {
                     try
                     {
-                        process.Kill(entireProcessTree: false);
+                        process.Kill(entireProcessTree: true);
                         if (!process.HasExited)
                         {
                             process.WaitForExit(5000); // Wait up to 5 seconds for force kill

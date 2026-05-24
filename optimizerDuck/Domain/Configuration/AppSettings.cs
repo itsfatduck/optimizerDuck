@@ -1,4 +1,4 @@
-﻿using Wpf.Ui.Appearance;
+using Wpf.Ui.Appearance;
 
 namespace optimizerDuck.Domain.Configuration;
 
@@ -61,7 +61,7 @@ public sealed class AppSettings
         /// <summary>
         ///     Whether smooth scrolling is enabled globally.
         /// </summary>
-        public bool SmoothScrolling { get; set; } = true;
+        public bool SmoothScrolling { get; set; } = false;
     }
 
     /// <summary>

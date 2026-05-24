@@ -11,9 +11,21 @@ public static class SmoothScrollBehavior
 {
     /// <summary>
     ///     Global toggle for smooth scrolling. When disabled, all smooth scroll
-    ///     processing is skipped regardless of per-element IsEnabled.
+    ///     processing is skipped regardless of per-element IsEnabled, and all
+    ///     attached ScrollViewers have their CanContentScroll restored.
     /// </summary>
-    public static bool GlobalEnabled { get; set; } = true;
+    private static bool _globalEnabled = true;
+    public static bool GlobalEnabled
+    {
+        get => _globalEnabled;
+        set
+        {
+            if (_globalEnabled == value)
+                return;
+            _globalEnabled = value;
+            UpdateAllCanContentScroll();
+        }
+    }
 
     private sealed class ScrollState
     {
@@ -32,6 +44,7 @@ public static class SmoothScrollBehavior
 
     private static readonly ConditionalWeakTable<ScrollViewer, ScrollState> _stateTable = new();
     private static readonly List<WeakReference<ScrollViewer>> _activeScrolls = [];
+    private static readonly List<WeakReference<ScrollViewer>> _attachedScrolls = [];
     private static bool _renderingSubscribed;
 
     private const double SnapThreshold = 0.5;
@@ -124,6 +137,24 @@ public static class SmoothScrollBehavior
             Attach(sv);
     }
 
+    private static void UpdateAllCanContentScroll()
+    {
+        for (var i = _attachedScrolls.Count - 1; i >= 0; i--)
+        {
+            if (_attachedScrolls[i].TryGetTarget(out var sv)
+                && _stateTable.TryGetValue(sv, out var state))
+            {
+                sv.CanContentScroll = _globalEnabled
+                    ? false
+                    : state.PreviousCanContentScroll;
+            }
+            else
+            {
+                _attachedScrolls.RemoveAt(i);
+            }
+        }
+    }
+
     private static void Attach(ScrollViewer sv)
     {
         var state = _stateTable.GetOrCreateValue(sv);
@@ -132,9 +163,11 @@ public static class SmoothScrollBehavior
 
         state.IsAttached = true;
         state.PreviousCanContentScroll = sv.CanContentScroll;
-        sv.CanContentScroll = false;
+        if (GlobalEnabled)
+            sv.CanContentScroll = false;
         sv.PreviewMouseWheel += OnPreviewMouseWheel;
         sv.Unloaded += OnScrollViewerUnloaded;
+        _attachedScrolls.Add(new WeakReference<ScrollViewer>(sv));
     }
 
     private static void Detach(ScrollViewer sv)
@@ -148,6 +181,7 @@ public static class SmoothScrollBehavior
         sv.PreviewMouseWheel -= OnPreviewMouseWheel;
         sv.Unloaded -= OnScrollViewerUnloaded;
         RemoveActive(sv);
+        RemoveAttached(sv);
         _stateTable.Remove(sv);
     }
 
@@ -328,6 +362,18 @@ public static class SmoothScrollBehavior
             if (_activeScrolls[i].TryGetTarget(out var target) && target == sv)
             {
                 _activeScrolls.RemoveAt(i);
+                return;
+            }
+        }
+    }
+
+    private static void RemoveAttached(ScrollViewer sv)
+    {
+        for (var i = _attachedScrolls.Count - 1; i >= 0; i--)
+        {
+            if (_attachedScrolls[i].TryGetTarget(out var target) && target == sv)
+            {
+                _attachedScrolls.RemoveAt(i);
                 return;
             }
         }

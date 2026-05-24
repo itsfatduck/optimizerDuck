@@ -406,6 +406,9 @@
   <data name="Optimization.Apply.Error.Failed" xml:space="preserve">
     <value>Failed to apply {0}.</value>
   </data>
+  <data name="Optimization.Apply.Error.Unknown" xml:space="preserve">
+    <value>Unknown result for {0}.</value>
+  </data>
   <data name="Service.Common.Error.AccessDenied" xml:space="preserve">
     <value>Access denied</value>
   </data>

@@ -306,12 +306,13 @@ public sealed class ExecutionScope : IDisposable
         return _executedSteps.Select(ToOperationStepResult).ToList();
     }
 
-    /// <summary>Maps the execution scope to a result for optimization apply handlers.</summary>
-    /// <returns>An <see cref="ApplyResult"/> with <see cref="ApplyResult.Success"/> set to <see langword="true"/> if every step succeeded; otherwise, <see langword="false"/> with a failure message.</returns>
+    /// <summary>Maps the execution scope to an <see cref="ApplyResult"/> from the recorded steps.</summary>
+    /// <returns><see cref="ApplyResult.True"/> if every step succeeded or some succeeded (partial success); <see cref="ApplyResult.False"/> with a message if all steps failed.</returns>
     public ApplyResult ToApplyResult()
     {
         var result = ToResult();
-        return result.Status == OptimizationSuccessResult.Success
+        return result.Status is OptimizationSuccessResult.Success
+                or OptimizationSuccessResult.PartialSuccess
             ? ApplyResult.True()
             : ApplyResult.False(result.Message);
     }
@@ -347,7 +348,10 @@ public sealed class ExecutionScope : IDisposable
                         OptimizationName,
                         failedSteps.Count
                     ),
-                _ => $"Unknown result for {OptimizationName}",
+                _ => string.Format(
+                        Translations.Optimization_Apply_Error_Unknown,
+                        OptimizationName
+                    ),
             },
             FailedSteps = failedSteps,
         };

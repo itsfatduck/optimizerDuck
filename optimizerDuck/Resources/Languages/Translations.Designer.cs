@@ -2258,6 +2258,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unknown result for {0}..
+        /// </summary>
+        internal static string Optimization_Apply_Error_Unknown {
+            get {
+                return ResourceManager.GetString("Optimization.Apply.Error.Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Applied {0} with {1} failed step(s)..
         /// </summary>
         internal static string Optimization_Apply_Error_FailedWithSteps {
