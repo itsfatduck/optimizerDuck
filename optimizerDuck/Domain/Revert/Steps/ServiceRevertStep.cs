@@ -42,8 +42,7 @@ public class ServiceRevertStep : IRevertStep
 
         if (!result)
         {
-            var error = ServiceProcessService.LastError
-                ?? Description;
+            var error = ServiceProcessService.LastError ?? Description;
             throw new StepExecutionException(error, ServiceProcessService.LastErrorDetail);
         }
 

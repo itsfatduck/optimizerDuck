@@ -2,6 +2,7 @@
     x:Class="optimizerDuck.UI.Pages.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="clr-namespace:optimizerDuck.UI.Behaviors"
     xmlns:converters="clr-namespace:optimizerDuck.Common.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
@@ -66,6 +67,28 @@
                         <ComboBoxItem Content="{ext:Loc Settings.Appearance.ThemeSelector.Dark}" />
                         <ComboBoxItem Content="{ext:Loc Settings.Appearance.ThemeSelector.HighContrast}" />
                     </ComboBox>
+                </ui:CardControl>
+
+                <ui:CardControl Margin="0,0,0,4" Icon="{ui:SymbolIcon PhoneVerticalScroll24}">
+                    <ui:CardControl.Header>
+                        <StackPanel>
+                            <ui:TextBlock
+                                Margin="0"
+                                FontTypography="BodyStrong"
+                                Text="{ext:Loc Settings.Appearance.SmoothScrolling.Title}"
+                                TextWrapping="Wrap" />
+                            <ui:TextBlock
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{ext:Loc Settings.Appearance.SmoothScrolling.Description}"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                    </ui:CardControl.Header>
+                    <ui:ToggleSwitch
+                        Command="{Binding ViewModel.ToggleSmoothScrollingCommand}"
+                        Cursor="Hand"
+                        IsChecked="{Binding ViewModel.SmoothScrolling, Mode=OneWay}"
+                        OffContent="{ext:Loc Common.Toggle.Off}"
+                        OnContent="{ext:Loc Common.Toggle.On}" />
                 </ui:CardControl>
 
                 <StackPanel Style="{StaticResource SettingsSectionStyle}">

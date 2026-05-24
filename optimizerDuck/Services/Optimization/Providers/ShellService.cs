@@ -256,7 +256,8 @@ public static class ShellService
                             policy.IsSuccess(
                                 Run(fileName, arguments, command, serviceName, revertStep, policy)
                             )
-                        )
+                        ),
+                success ? null : GetShellErrorDetail(result)
             );
 
             return result;
@@ -291,7 +292,8 @@ public static class ShellService
                         policy.IsSuccess(
                             Run(fileName, arguments, command, serviceName, revertStep, policy)
                         )
-                    )
+                    ),
+                ex.ToString()
             );
 
             return result;
@@ -502,7 +504,8 @@ public static class ShellService
                                 policy,
                                 ct
                             )
-                        )
+                        ),
+                success ? null : GetShellErrorDetail(result)
             );
 
             return result;
@@ -543,7 +546,8 @@ public static class ShellService
                             policy,
                             ct
                         )
-                    )
+                    ),
+                ex.ToString()
             );
 
             return result;
@@ -829,6 +833,36 @@ public static class ShellService
             new ShellRevertStep { ShellType = ShellType.PowerShell, Command = revertCommand() },
             policy
         );
+    }
+
+    private static string GetShellErrorDetail(ShellResult result)
+    {
+        var sections = new List<string>
+        {
+            $"Command: {result.Command}",
+            $"Exit Code: {result.ExitCode}",
+            $"Duration: {result.Duration.TotalMilliseconds:F0}ms",
+        };
+
+        var details = new List<string>();
+
+        if (!string.IsNullOrWhiteSpace(result.Stdout))
+        {
+            details.Add($"STDOUT:\n{result.Stdout.Trim()}");
+        }
+
+        if (!string.IsNullOrWhiteSpace(result.Stderr))
+        {
+            details.Add($"STDERR:\n{result.Stderr.Trim()}");
+        }
+
+        if (details.Count > 0)
+        {
+            sections.Add(string.Empty);
+            sections.AddRange(details);
+        }
+
+        return string.Join("\n", sections);
     }
 
     #endregion PowerShell methods

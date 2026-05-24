@@ -9,6 +9,12 @@ namespace optimizerDuck.UI.Behaviors;
 
 public static class SmoothScrollBehavior
 {
+    /// <summary>
+    ///     Global toggle for smooth scrolling. When disabled, all smooth scroll
+    ///     processing is skipped regardless of per-element IsEnabled.
+    /// </summary>
+    public static bool GlobalEnabled { get; set; } = true;
+
     private sealed class ScrollState
     {
         public double TargetY;
@@ -16,6 +22,12 @@ public static class SmoothScrollBehavior
         public bool IsAnimating;
         public bool IsAttached;
         public long LastScrollTicks;
+        public int RapidScrollCount;
+
+        public double CachedSmoothing = 0.20;
+        public double CachedScrollDelta = 48.0;
+        public double CachedMultiplier = 1.0;
+        public bool PreviousCanContentScroll;
     }
 
     private static readonly ConditionalWeakTable<ScrollViewer, ScrollState> _stateTable = new();
@@ -23,31 +35,62 @@ public static class SmoothScrollBehavior
     private static bool _renderingSubscribed;
 
     private const double SnapThreshold = 0.5;
+    private const double MaxScrollSpeedPerFrame = 80.0;
 
-    public static readonly DependencyProperty IsEnabledProperty = DependencyProperty.RegisterAttached(
-        "IsEnabled", typeof(bool), typeof(SmoothScrollBehavior),
-        new PropertyMetadata(false, OnIsEnabledChanged));
+    public static readonly DependencyProperty IsEnabledProperty =
+        DependencyProperty.RegisterAttached(
+            "IsEnabled",
+            typeof(bool),
+            typeof(SmoothScrollBehavior),
+            new PropertyMetadata(false, OnIsEnabledChanged)
+        );
 
-    public static readonly DependencyProperty ScrollDeltaProperty = DependencyProperty.RegisterAttached(
-        "ScrollDelta", typeof(double), typeof(SmoothScrollBehavior),
-        new PropertyMetadata(48.0));
+    public static readonly DependencyProperty ScrollDeltaProperty =
+        DependencyProperty.RegisterAttached(
+            "ScrollDelta",
+            typeof(double),
+            typeof(SmoothScrollBehavior),
+            new PropertyMetadata(48.0)
+        );
 
-    public static readonly DependencyProperty MultiplierProperty = DependencyProperty.RegisterAttached(
-        "Multiplier", typeof(double), typeof(SmoothScrollBehavior),
-        new PropertyMetadata(1.0));
+    public static readonly DependencyProperty MultiplierProperty =
+        DependencyProperty.RegisterAttached(
+            "Multiplier",
+            typeof(double),
+            typeof(SmoothScrollBehavior),
+            new PropertyMetadata(1.0)
+        );
 
-    public static readonly DependencyProperty SmoothingProperty = DependencyProperty.RegisterAttached(
-        "Smoothing", typeof(double), typeof(SmoothScrollBehavior),
-        new PropertyMetadata(0.20));
+    public static readonly DependencyProperty SmoothingProperty =
+        DependencyProperty.RegisterAttached(
+            "Smoothing",
+            typeof(double),
+            typeof(SmoothScrollBehavior),
+            new PropertyMetadata(0.20)
+        );
 
     public static bool GetIsEnabled(DependencyObject obj) => (bool)obj.GetValue(IsEnabledProperty);
-    public static void SetIsEnabled(DependencyObject obj, bool value) => obj.SetValue(IsEnabledProperty, value);
-    public static double GetScrollDelta(DependencyObject obj) => (double)obj.GetValue(ScrollDeltaProperty);
-    public static void SetScrollDelta(DependencyObject obj, double value) => obj.SetValue(ScrollDeltaProperty, value);
-    public static double GetMultiplier(DependencyObject obj) => (double)obj.GetValue(MultiplierProperty);
-    public static void SetMultiplier(DependencyObject obj, double value) => obj.SetValue(MultiplierProperty, value);
-    public static double GetSmoothing(DependencyObject obj) => (double)obj.GetValue(SmoothingProperty);
-    public static void SetSmoothing(DependencyObject obj, double value) => obj.SetValue(SmoothingProperty, value);
+
+    public static void SetIsEnabled(DependencyObject obj, bool value) =>
+        obj.SetValue(IsEnabledProperty, value);
+
+    public static double GetScrollDelta(DependencyObject obj) =>
+        (double)obj.GetValue(ScrollDeltaProperty);
+
+    public static void SetScrollDelta(DependencyObject obj, double value) =>
+        obj.SetValue(ScrollDeltaProperty, value);
+
+    public static double GetMultiplier(DependencyObject obj) =>
+        (double)obj.GetValue(MultiplierProperty);
+
+    public static void SetMultiplier(DependencyObject obj, double value) =>
+        obj.SetValue(MultiplierProperty, value);
+
+    public static double GetSmoothing(DependencyObject obj) =>
+        (double)obj.GetValue(SmoothingProperty);
+
+    public static void SetSmoothing(DependencyObject obj, double value) =>
+        obj.SetValue(SmoothingProperty, value);
 
     private static void OnIsEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -88,6 +131,8 @@ public static class SmoothScrollBehavior
             return;
 
         state.IsAttached = true;
+        state.PreviousCanContentScroll = sv.CanContentScroll;
+        sv.CanContentScroll = false;
         sv.PreviewMouseWheel += OnPreviewMouseWheel;
         sv.Unloaded += OnScrollViewerUnloaded;
     }
@@ -99,6 +144,7 @@ public static class SmoothScrollBehavior
 
         state.IsAttached = false;
         state.IsAnimating = false;
+        sv.CanContentScroll = state.PreviousCanContentScroll;
         sv.PreviewMouseWheel -= OnPreviewMouseWheel;
         sv.Unloaded -= OnScrollViewerUnloaded;
         RemoveActive(sv);
@@ -118,6 +164,9 @@ public static class SmoothScrollBehavior
     {
         try
         {
+            if (!GlobalEnabled)
+                return;
+
             if (sender is not ScrollViewer sv || !_stateTable.TryGetValue(sv, out var state))
                 return;
 
@@ -130,7 +179,10 @@ public static class SmoothScrollBehavior
             e.Handled = true;
 
             var delta = e.Delta / 120.0;
-            var scrollDelta = GetScrollDelta(sv);
+
+            state.CachedScrollDelta = GetScrollDelta(sv);
+            state.CachedMultiplier = GetMultiplier(sv);
+            state.CachedSmoothing = GetSmoothing(sv);
 
             if (!state.IsAnimating)
             {
@@ -146,24 +198,38 @@ public static class SmoothScrollBehavior
                 }
             }
 
-            var multiplier = GetMultiplier(sv);
             var now = DateTime.UtcNow.Ticks;
-            var timeSinceLastScroll = TimeSpan.FromTicks(now - state.LastScrollTicks).TotalMilliseconds;
+            var timeSinceLastScroll = TimeSpan
+                .FromTicks(now - state.LastScrollTicks)
+                .TotalMilliseconds;
             state.LastScrollTicks = now;
 
-            var effectiveDelta = multiplier > 1.0 && timeSinceLastScroll < 400
-                ? delta * scrollDelta * multiplier
-                : delta * scrollDelta;
+            if (timeSinceLastScroll < 400)
+                state.RapidScrollCount++;
+            else
+                state.RapidScrollCount = 0;
+
+            var effectiveDelta = delta * state.CachedScrollDelta;
+            if (state.CachedMultiplier > 1.0 && state.RapidScrollCount >= 3)
+                effectiveDelta *= state.CachedMultiplier;
 
             if (Keyboard.Modifiers == ModifierKeys.Shift)
             {
                 if (sv.ScrollableWidth > 0)
-                    state.TargetX = Math.Clamp(state.TargetX - effectiveDelta, 0, sv.ScrollableWidth);
+                    state.TargetX = Math.Clamp(
+                        state.TargetX - effectiveDelta,
+                        0,
+                        sv.ScrollableWidth
+                    );
             }
             else
             {
                 if (sv.ScrollableHeight > 0)
-                    state.TargetY = Math.Clamp(state.TargetY - effectiveDelta, 0, sv.ScrollableHeight);
+                    state.TargetY = Math.Clamp(
+                        state.TargetY - effectiveDelta,
+                        0,
+                        sv.ScrollableHeight
+                    );
             }
         }
         catch (Exception ex)
@@ -200,12 +266,17 @@ public static class SmoothScrollBehavior
                     continue;
                 }
 
+                var smoothing = state.CachedSmoothing;
                 var active = false;
 
-                var dy = state.TargetY - sv.VerticalOffset;
+                var currentY = sv.VerticalOffset;
+                var dy = state.TargetY - currentY;
                 if (Math.Abs(dy) > SnapThreshold)
                 {
-                    sv.ScrollToVerticalOffset(sv.VerticalOffset + dy * GetSmoothing(sv));
+                    var stepY = dy * smoothing;
+                    if (Math.Abs(stepY) > MaxScrollSpeedPerFrame)
+                        stepY = Math.Sign(stepY) * MaxScrollSpeedPerFrame;
+                    sv.ScrollToVerticalOffset(currentY + stepY);
                     active = true;
                 }
                 else if (dy != 0)
@@ -213,10 +284,14 @@ public static class SmoothScrollBehavior
                     sv.ScrollToVerticalOffset(state.TargetY);
                 }
 
-                var dx = state.TargetX - sv.HorizontalOffset;
+                var currentX = sv.HorizontalOffset;
+                var dx = state.TargetX - currentX;
                 if (Math.Abs(dx) > SnapThreshold)
                 {
-                    sv.ScrollToHorizontalOffset(sv.HorizontalOffset + dx * GetSmoothing(sv));
+                    var stepX = dx * smoothing;
+                    if (Math.Abs(stepX) > MaxScrollSpeedPerFrame)
+                        stepX = Math.Sign(stepX) * MaxScrollSpeedPerFrame;
+                    sv.ScrollToHorizontalOffset(currentX + stepX);
                     active = true;
                 }
                 else if (dx != 0)
@@ -264,7 +339,11 @@ public static class SmoothScrollBehavior
         {
             while (element is not null && element != parent)
             {
-                if (element is ScrollViewer sv && sv != parent && (sv.ScrollableHeight > 0 || sv.ScrollableWidth > 0))
+                if (
+                    element is ScrollViewer sv
+                    && sv != parent
+                    && (sv.ScrollableHeight > 0 || sv.ScrollableWidth > 0)
+                )
                     return true;
                 element = VisualTreeHelper.GetParent(element);
             }

@@ -496,6 +496,12 @@
   <data name="Settings.Advanced.OpenRootDir.Description" xml:space="preserve">
     <value>Open the application's root directory, where all necessary files are stored.</value>
   </data>
+  <data name="Settings.Appearance.SmoothScrolling.Title" xml:space="preserve">
+    <value>Smooth Scrolling</value>
+  </data>
+  <data name="Settings.Appearance.SmoothScrolling.Description" xml:space="preserve">
+    <value>Enable smooth scrolling animation for a more fluid scrolling experience. Turn off if you experience lag.</value>
+  </data>
   <data name="Button.Open" xml:space="preserve">
     <value>Open</value>
   </data>

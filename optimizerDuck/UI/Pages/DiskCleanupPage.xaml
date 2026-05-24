@@ -15,7 +15,6 @@
     d:DesignWidth="800"
     ui:Design.Background="Black"
     ui:Design.Foreground="White"
-    ScrollViewer.CanContentScroll="False"
     Style="{StaticResource PageRootStyle}"
     mc:Ignorable="d">
     <Page.Resources>
@@ -176,7 +175,7 @@
 
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <VirtualizingStackPanel />
+                        <VirtualizingStackPanel VirtualizingStackPanel.VirtualizationMode="Recycling" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 

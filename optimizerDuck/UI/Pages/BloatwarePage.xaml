@@ -15,7 +15,6 @@
     d:DesignWidth="800"
     ui:Design.Background="Black"
     ui:Design.Foreground="White"
-    ScrollViewer.CanContentScroll="False"
     Style="{StaticResource PageRootStyle}"
     mc:Ignorable="d">
     <Page.Resources>
@@ -258,26 +257,24 @@
                         Text="{ext:Loc Bloatware.Search.NoResults}" />
                 </StackPanel>
 
-                <ui:VirtualizingItemsControl
+                <ItemsControl
                     Grid.Row="2"
                     ItemsSource="{Binding ViewModel.AppxPackages}"
-                    VirtualizingPanel.IsVirtualizing="True"
-                    VirtualizingPanel.VirtualizationMode="Recycling"
                     Visibility="{Binding ViewModel.AppxPackages.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
-                    <ui:VirtualizingItemsControl.Template>
+                    <ItemsControl.Template>
                         <ControlTemplate TargetType="ItemsControl">
                             <ScrollViewer HorizontalScrollBarVisibility="Disabled">
-                                <ItemsPresenter Margin="0,0,12,0" />
+                                <ItemsPresenter />
                             </ScrollViewer>
                         </ControlTemplate>
-                    </ui:VirtualizingItemsControl.Template>
-                    <ui:VirtualizingItemsControl.ItemsPanel>
+                    </ItemsControl.Template>
+                    <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <VirtualizingStackPanel />
                         </ItemsPanelTemplate>
-                    </ui:VirtualizingItemsControl.ItemsPanel>
+                    </ItemsControl.ItemsPanel>
 
-                    <ui:VirtualizingItemsControl.ItemTemplate>
+                    <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type bloatware1:AppXPackage}">
                             <Border Style="{StaticResource ListRowStyle}">
                                 <Grid>
@@ -387,8 +384,8 @@
                                 </Grid>
                             </Border>
                         </DataTemplate>
-                    </ui:VirtualizingItemsControl.ItemTemplate>
-                </ui:VirtualizingItemsControl>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </Grid>
         </Border>
     </Grid>

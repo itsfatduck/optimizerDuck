@@ -513,11 +513,7 @@ public static class RegistryService
             {
                 ExecutionScope.LogInfo("Skip create registry {Path} (already exists)", item.Path);
                 ExecutionScope.Track(nameof(CreateSubKey), true);
-                ExecutionScope.RecordStep(
-                    Translations.Service_Registry_Name,
-                    description,
-                    true
-                );
+                ExecutionScope.RecordStep(Translations.Service_Registry_Name, description, true);
                 return true;
             }
 

@@ -57,6 +57,11 @@ public sealed class AppSettings
         ///     Whether to show the success snackbar after applying an optimization.
         /// </summary>
         public bool ShowCompletionNotification { get; set; } = false;
+
+        /// <summary>
+        ///     Whether smooth scrolling is enabled globally.
+        /// </summary>
+        public bool SmoothScrolling { get; set; } = true;
     }
 
     /// <summary>

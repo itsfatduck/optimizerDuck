@@ -13,6 +13,8 @@
     Title="optimizerDuck"
     Width="1350"
     Height="800"
+    MinWidth="900"
+    MinHeight="500"
     d:DataContext="{d:DesignInstance viewmodels:MainWindowViewModel}"
     ui:Design.Background="Black"
     ui:Design.Foreground="White"

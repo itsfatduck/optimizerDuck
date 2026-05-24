@@ -9,7 +9,6 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     d:DesignHeight="760"
     d:DesignWidth="760"
-    ScrollViewer.CanContentScroll="False"
     mc:Ignorable="d">
     <UserControl.Resources>
         <converters:ValueConditionToVisibilityConverter

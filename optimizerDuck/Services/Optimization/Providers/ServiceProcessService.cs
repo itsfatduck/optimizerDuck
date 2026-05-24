@@ -131,8 +131,8 @@ public static class ServiceProcessService
                 return true;
             }
 
-            _lastError.Value = regError
-                ?? Translations.Service_Service_Error_UpdateRegistryForStartupTypeFailed;
+            _lastError.Value =
+                regError ?? Translations.Service_Service_Error_UpdateRegistryForStartupTypeFailed;
             _lastErrorDetail.Value = regErrorDetail;
             ExecutionScope.LogInfo(
                 "[SERVICE][{Name}][FAIL][D={Duration}] startup -> {StartupType}",
@@ -147,7 +147,8 @@ public static class ServiceProcessService
                 false,
                 null,
                 _lastError.Value,
-                () => Task.FromResult(ChangeServiceStartupType(item))
+                () => Task.FromResult(ChangeServiceStartupType(item)),
+                _lastErrorDetail.Value
             );
             return false;
         }
@@ -172,7 +173,8 @@ public static class ServiceProcessService
                 false,
                 null,
                 _lastError.Value,
-                () => Task.FromResult(ChangeServiceStartupType(item))
+                () => Task.FromResult(ChangeServiceStartupType(item)),
+                _lastErrorDetail.Value
             );
             return false;
         }

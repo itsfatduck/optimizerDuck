@@ -167,8 +167,15 @@ public partial class ScheduledTasksViewModel : ViewModel
             }
             else
             {
-                var error = ScheduledTaskService.LastError ?? Translations.ScheduledTasks_Error_TaskNotFound;
-                _logger.LogError("Failed to run task {Name} ({Path}): {Error}", task.Name, task.FullPath, error);
+                var error =
+                    ScheduledTaskService.LastError
+                    ?? Translations.ScheduledTasks_Error_TaskNotFound;
+                _logger.LogError(
+                    "Failed to run task {Name} ({Path}): {Error}",
+                    task.Name,
+                    task.FullPath,
+                    error
+                );
 
                 _snackbarService.Show(
                     Translations.ScheduledTasks_Snackbar_Error_Title,
@@ -181,7 +188,12 @@ public partial class ScheduledTasksViewModel : ViewModel
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Unexpected error running task {Name} ({Path})", task.Name, task.FullPath);
+            _logger.LogError(
+                ex,
+                "Unexpected error running task {Name} ({Path})",
+                task.Name,
+                task.FullPath
+            );
 
             _snackbarService.Show(
                 Translations.ScheduledTasks_Snackbar_Error_Title,
@@ -218,8 +230,15 @@ public partial class ScheduledTasksViewModel : ViewModel
             }
             else
             {
-                var error = ScheduledTaskService.LastError ?? Translations.ScheduledTasks_Error_TaskNotFound;
-                _logger.LogError("Failed to stop task {Name} ({Path}): {Error}", task.Name, task.FullPath, error);
+                var error =
+                    ScheduledTaskService.LastError
+                    ?? Translations.ScheduledTasks_Error_TaskNotFound;
+                _logger.LogError(
+                    "Failed to stop task {Name} ({Path}): {Error}",
+                    task.Name,
+                    task.FullPath,
+                    error
+                );
 
                 _snackbarService.Show(
                     Translations.ScheduledTasks_Snackbar_Error_Title,
@@ -232,7 +251,12 @@ public partial class ScheduledTasksViewModel : ViewModel
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Unexpected error stopping task {Name} ({Path})", task.Name, task.FullPath);
+            _logger.LogError(
+                ex,
+                "Unexpected error stopping task {Name} ({Path})",
+                task.Name,
+                task.FullPath
+            );
 
             _snackbarService.Show(
                 Translations.ScheduledTasks_Snackbar_Error_Title,
@@ -282,8 +306,15 @@ public partial class ScheduledTasksViewModel : ViewModel
             }
             else
             {
-                var error = ScheduledTaskService.LastError ?? Translations.ScheduledTasks_Error_TaskNotFound;
-                _logger.LogError("Failed to delete task {Name} ({Path}): {Error}", task.Name, task.FullPath, error);
+                var error =
+                    ScheduledTaskService.LastError
+                    ?? Translations.ScheduledTasks_Error_TaskNotFound;
+                _logger.LogError(
+                    "Failed to delete task {Name} ({Path}): {Error}",
+                    task.Name,
+                    task.FullPath,
+                    error
+                );
 
                 _snackbarService.Show(
                     Translations.ScheduledTasks_Snackbar_Error_Title,
@@ -296,7 +327,12 @@ public partial class ScheduledTasksViewModel : ViewModel
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Unexpected error deleting task {Name} ({Path})", task.Name, task.FullPath);
+            _logger.LogError(
+                ex,
+                "Unexpected error deleting task {Name} ({Path})",
+                task.Name,
+                task.FullPath
+            );
 
             _snackbarService.Show(
                 Translations.ScheduledTasks_Snackbar_Error_Title,

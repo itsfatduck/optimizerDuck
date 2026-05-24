@@ -42,8 +42,7 @@ public class ScheduledTaskRevertStep : IRevertStep
 
         if (!success)
         {
-            var error = ScheduledTaskService.LastError
-                ?? Description;
+            var error = ScheduledTaskService.LastError ?? Description;
             throw new StepExecutionException(error, ScheduledTaskService.LastErrorDetail);
         }
 

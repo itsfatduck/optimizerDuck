@@ -597,8 +597,7 @@ public class OptimizationServiceTests
         public Func<
             (IProgress<ProcessingProgress> progress, OptimizationContext context),
             Task<ApplyResult>
-        > ApplyImpl
-        { get; init; } = _ => Task.FromResult(ApplyResult.True());
+        > ApplyImpl { get; init; } = _ => Task.FromResult(ApplyResult.True());
 
         public Guid Id { get; } = Guid.NewGuid();
         public OptimizationRisk Risk { get; } = OptimizationRisk.Safe;

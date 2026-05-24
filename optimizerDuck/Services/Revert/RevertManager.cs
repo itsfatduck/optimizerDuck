@@ -267,11 +267,7 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
 
     private static void TraceCorruptRevertFile(string path, Exception ex)
     {
-        System.Diagnostics.Trace.TraceWarning(
-            "Corrupt revert file {0}: {1}",
-            path,
-            ex.Message
-        );
+        System.Diagnostics.Trace.TraceWarning("Corrupt revert file {0}: {1}", path, ex.Message);
     }
 
     public void RemoveRevertData(Guid id, string? name = null)
@@ -313,7 +309,11 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
     private async Task<SemaphoreSlim> AcquireFileLockAsync(Guid id)
     {
         var lockObj = _fileLocks.GetOrAdd(id, _ => new SemaphoreSlim(1, 1));
-        if (!await lockObj.WaitAsync(TimeSpan.FromSeconds(FileLockTimeoutSeconds)).ConfigureAwait(false))
+        if (
+            !await lockObj
+                .WaitAsync(TimeSpan.FromSeconds(FileLockTimeoutSeconds))
+                .ConfigureAwait(false)
+        )
             throw new TimeoutException(
                 string.Format("Timed out waiting for revert file lock ({0}).", id)
             );
@@ -371,7 +371,11 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             if (File.Exists(path))
             {
                 File.Delete(path);
-                _logger.LogInformation("Removed revert data for {Name}: {Path}", name ?? id.ToString(), path);
+                _logger.LogInformation(
+                    "Removed revert data for {Name}: {Path}",
+                    name ?? id.ToString(),
+                    path
+                );
             }
 
             var tempPath = path + ".tmp";

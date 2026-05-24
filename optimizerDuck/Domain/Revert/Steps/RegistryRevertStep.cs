@@ -104,8 +104,7 @@ public class RegistryRevertStep : IRevertStep
 
         if (!result)
         {
-            var error = RegistryService.LastError
-                ?? Description;
+            var error = RegistryService.LastError ?? Description;
             throw new StepExecutionException(error, RegistryService.LastErrorDetail);
         }
 

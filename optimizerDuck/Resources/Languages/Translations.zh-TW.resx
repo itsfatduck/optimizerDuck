@@ -216,6 +216,12 @@
   <data name="Settings.Appearance.ThemeSelector.HighContrast" xml:space="preserve">
     <value>高對比</value>
   </data>
+  <data name="Settings.Appearance.SmoothScrolling.Title" xml:space="preserve">
+    <value>平滑滾動</value>
+  </data>
+  <data name="Settings.Appearance.SmoothScrolling.Description" xml:space="preserve">
+    <value>啟用平滑滾動動畫，讓滾動體驗更流暢。如果覺得卡頓請關閉。</value>
+  </data>
   <data name="Common.AppliedSecondsAgo" xml:space="preserve">
     <value>{0} 秒前套用</value>
   </data>

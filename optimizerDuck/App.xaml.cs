@@ -15,6 +15,7 @@ using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services;
 using optimizerDuck.Services.Managers;
 using optimizerDuck.Services.OptimizationServices;
+using optimizerDuck.UI.Behaviors;
 using optimizerDuck.UI.Pages;
 using optimizerDuck.UI.ViewModels.Pages;
 using optimizerDuck.UI.ViewModels.Windows;
@@ -269,6 +270,8 @@ public partial class App : Application
         WmiHelper.Initialize();
 
         var appSettings = appOptionsMonitor.CurrentValue;
+
+        SmoothScrollBehavior.GlobalEnabled = appSettings.Optimize.SmoothScrolling;
 
         await Dispatcher.InvokeAsync(() =>
         {

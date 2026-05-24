@@ -490,6 +490,12 @@
   <data name="Settings.Advanced.OpenRootDir.Description" xml:space="preserve">
     <value>Mở thư mục gốc của ứng dụng, nơi chứa tất cả các tệp cần thiết.</value>
   </data>
+  <data name="Settings.Appearance.SmoothScrolling.Title" xml:space="preserve">
+    <value>Cuộn mượt</value>
+  </data>
+  <data name="Settings.Appearance.SmoothScrolling.Description" xml:space="preserve">
+    <value>Bật hiệu ứng cuộn mượt để trải nghiệm cuộn mượt mà hơn. Tắt nếu bạn thấy lag.</value>
+  </data>
   <data name="Button.Open" xml:space="preserve">
     <value>Mở</value>
   </data>

@@ -12,6 +12,7 @@ using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services;
 using optimizerDuck.Services.Managers;
+using optimizerDuck.UI.Behaviors;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -43,6 +44,9 @@ public partial class SettingsViewModel(
 
     [ObservableProperty]
     private bool _showSnackbarNotificationAfterAppliedSuccessfully;
+
+    [ObservableProperty]
+    private bool _smoothScrolling;
     public string Version { get; } = Shared.FileVersion;
 
     public ObservableCollection<LanguageOption> Languages { get; } =
@@ -73,6 +77,8 @@ public partial class SettingsViewModel(
             .CurrentValue
             .Optimize
             .ShowCompletionNotification;
+        SmoothScrolling = appOptionsMonitor.CurrentValue.Optimize.SmoothScrolling;
+        SmoothScrollBehavior.GlobalEnabled = SmoothScrolling;
         RemoveProvisioned = appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned;
         CurrentApplicationTheme = ApplicationThemeManager.GetAppTheme();
 
@@ -295,6 +301,27 @@ public partial class SettingsViewModel(
                 .CurrentValue
                 .Optimize
                 .ShowCompletionNotification;
+        }
+    }
+
+    [RelayCommand]
+    private async Task ToggleSmoothScrolling()
+    {
+        if (!_isInitialized)
+            return;
+        try
+        {
+            await configManager.SetAsync(
+                "optimize:smoothScrolling",
+                (!appOptionsMonitor.CurrentValue.Optimize.SmoothScrolling).ToString()
+            );
+            SmoothScrolling = appOptionsMonitor.CurrentValue.Optimize.SmoothScrolling;
+            SmoothScrollBehavior.GlobalEnabled = SmoothScrolling;
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Failed to toggle SmoothScrolling setting");
+            SmoothScrolling = appOptionsMonitor.CurrentValue.Optimize.SmoothScrolling;
         }
     }
 

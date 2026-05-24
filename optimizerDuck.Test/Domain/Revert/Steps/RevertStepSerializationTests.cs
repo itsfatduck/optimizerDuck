@@ -43,11 +43,7 @@ public class RevertStepSerializationTests
     [Fact]
     public void ShellRevertStep_WithEmptyCommand_RoundTrip()
     {
-        var original = new ShellRevertStep
-        {
-            ShellType = ShellType.CMD,
-            Command = "",
-        };
+        var original = new ShellRevertStep { ShellType = ShellType.CMD, Command = "" };
 
         var json = original.ToData();
         var restored = ShellRevertStep.FromData(json);

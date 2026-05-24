@@ -15,7 +15,6 @@
     d:DesignWidth="800"
     ui:Design.Background="Black"
     ui:Design.Foreground="White"
-    ScrollViewer.CanContentScroll="False"
     Style="{StaticResource PageRootStyle}"
     mc:Ignorable="d">
     <Page.Resources>
@@ -196,10 +195,13 @@
             <ui:VirtualizingItemsControl
                 Grid.Row="1"
                 ItemsSource="{Binding ViewModel.Optimizations}"
+                VirtualizingPanel.CacheLength="1"
+                VirtualizingPanel.CacheLengthUnit="Page"
+                VirtualizingStackPanel.VirtualizationMode="Recycling"
                 Visibility="{Binding ViewModel.Optimizations.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
                 <ui:VirtualizingItemsControl.Template>
                     <ControlTemplate TargetType="ItemsControl">
-                        <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+                        <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Disabled">
                             <ItemsPresenter />
                         </ScrollViewer>
                     </ControlTemplate>
