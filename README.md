@@ -18,7 +18,7 @@
 
 **[Getting Started](https://optimizerduck.vercel.app/docs/guides/getting-started) | [How It Works](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [FAQ](https://optimizerduck.vercel.app/docs/faq/general)**
 
-**English** | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md)
+**English** | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md)
 
 <details>
 <summary>⭐ Star History</summary>
@@ -26,11 +26,11 @@
 If optimizerDuck helped improve your PC, consider giving the repo a ⭐ and sharing it with others.
 Every star helps motivate future improvements.
 
-<a href="https://www.star-history.com/#itsfatduck/optimizerDuck&type=timeline&legend=top-left">
+<a href="https://www.star-history.com/#itsfatduck/optimizerDuck&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&type=timeline&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&type=timeline&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&type=timeline&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&legend=top-left" />
  </picture>
 </a>
 
@@ -52,7 +52,7 @@ Every star helps motivate future improvements.
 > Always create a **system restore point** before making changes.
 
 > [!NOTE]
-> Available in English, Vietnamese, Traditional Chinese (contributed by [@abc0922001](https://github.com/abc0922001)), and Simplified Chinese (contributed by [@wcxu21](https://github.com/wcxu21)).
+> Available in English, Vietnamese, Traditional Chinese (contributed by [@abc0922001](https://github.com/abc0922001)), Simplified Chinese (contributed by [@wcxu21](https://github.com/wcxu21)), and Russian (contributed by [@Foodhead](https://github.com/Foodhead)).
 > Want to add your language? See [CONTRIBUTING.md](./.github/CONTRIBUTING.md).
 
 ---

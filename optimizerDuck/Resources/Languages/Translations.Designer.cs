@@ -2258,20 +2258,20 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unknown result for {0}..
-        /// </summary>
-        internal static string Optimization_Apply_Error_Unknown {
-            get {
-                return ResourceManager.GetString("Optimization.Apply.Error.Unknown", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Applied {0} with {1} failed step(s)..
         /// </summary>
         internal static string Optimization_Apply_Error_FailedWithSteps {
             get {
                 return ResourceManager.GetString("Optimization.Apply.Error.FailedWithSteps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown result for {0}..
+        /// </summary>
+        internal static string Optimization_Apply_Error_Unknown {
+            get {
+                return ResourceManager.GetString("Optimization.Apply.Error.Unknown", resourceCulture);
             }
         }
         
@@ -3030,6 +3030,15 @@ namespace optimizerDuck.Resources.Languages {
             get {
                 return ResourceManager.GetString("Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFai" +
                         "led", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to download optimizerDuck&apos;s power plan..
+        /// </summary>
+        internal static string Optimizer_PowerManagement_InstallOptimizerDuckPowerPlan_Error_DownloadFailed {
+            get {
+                return ResourceManager.GetString("Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DownloadFailed", resourceCulture);
             }
         }
         
@@ -4233,20 +4242,11 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Access denied writing {0}:{1}.
+        ///   Looks up a localized string similar to Unauthorized access.
         /// </summary>
-        internal static string Service_Registry_ErrorDetail_AccessDeniedWrite {
+        internal static string Service_Registry_Error_UnauthorizedAccess {
             get {
-                return ResourceManager.GetString("Service.Registry.ErrorDetail.AccessDeniedWrite", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Access denied deleting {0}:{1}.
-        /// </summary>
-        internal static string Service_Registry_ErrorDetail_AccessDeniedDelete {
-            get {
-                return ResourceManager.GetString("Service.Registry.ErrorDetail.AccessDeniedDelete", resourceCulture);
+                return ResourceManager.GetString("Service.Registry.Error.UnauthorizedAccess", resourceCulture);
             }
         }
         
@@ -4260,6 +4260,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Access denied deleting {0}:{1}.
+        /// </summary>
+        internal static string Service_Registry_ErrorDetail_AccessDeniedDelete {
+            get {
+                return ResourceManager.GetString("Service.Registry.ErrorDetail.AccessDeniedDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Access denied deleting key tree {0}.
         /// </summary>
         internal static string Service_Registry_ErrorDetail_AccessDeniedDeleteKeyTree {
@@ -4269,11 +4278,11 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unauthorized access.
+        ///   Looks up a localized string similar to Access denied writing {0}:{1}.
         /// </summary>
-        internal static string Service_Registry_Error_UnauthorizedAccess {
+        internal static string Service_Registry_ErrorDetail_AccessDeniedWrite {
             get {
-                return ResourceManager.GetString("Service.Registry.Error.UnauthorizedAccess", resourceCulture);
+                return ResourceManager.GetString("Service.Registry.ErrorDetail.AccessDeniedWrite", resourceCulture);
             }
         }
         
@@ -4296,6 +4305,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable scheduled task: {0}.
+        /// </summary>
+        internal static string Service_ScheduledTask_Description_Enable {
+            get {
+                return ResourceManager.GetString("Service.ScheduledTask.Description.Enable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Access denied disabling task {0}.
         /// </summary>
         internal static string Service_ScheduledTask_ErrorDetail_AccessDeniedDisable {
@@ -4310,15 +4328,6 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Service_ScheduledTask_ErrorDetail_AccessDeniedEnable {
             get {
                 return ResourceManager.GetString("Service.ScheduledTask.ErrorDetail.AccessDeniedEnable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enable scheduled task: {0}.
-        /// </summary>
-        internal static string Service_ScheduledTask_Description_Enable {
-            get {
-                return ResourceManager.GetString("Service.ScheduledTask.Description.Enable", resourceCulture);
             }
         }
         
@@ -4571,6 +4580,24 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Settings_Appearance_LanguageSelector_Title {
             get {
                 return ResourceManager.GetString("Settings.Appearance.LanguageSelector.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable smooth scrolling animation for a more fluid scrolling experience. Turn off if you experience lag..
+        /// </summary>
+        internal static string Settings_Appearance_SmoothScrolling_Description {
+            get {
+                return ResourceManager.GetString("Settings.Appearance.SmoothScrolling.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Smooth Scrolling.
+        /// </summary>
+        internal static string Settings_Appearance_SmoothScrolling_Title {
+            get {
+                return ResourceManager.GetString("Settings.Appearance.SmoothScrolling.Title", resourceCulture);
             }
         }
         

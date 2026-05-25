@@ -18,7 +18,7 @@
 
 **[快速上手](https://optimizerduck.vercel.app/docs/guides/getting-started) | [工作原理](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [常见问题](https://optimizerduck.vercel.app/docs/faq/general)**
 
-[English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | **简体中文**
+[English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | **简体中文** | [Русский](README.ru-RU.md)
 
 <details>
 <summary>⭐ 项目星标趋势</summary>
@@ -26,11 +26,11 @@
 如果 optimizerDuck 帮你优化了电脑，不妨给项目点个 ⭐ Star，并分享给更多人。
 每一个星标都是持续更新优化的动力。
 
-<a href="https://www.star-history.com/#itsfatduck/optimizerDuck&type=timeline&legend=top-left">
+<a href="https://www.star-history.com/#itsfatduck/optimizerDuck&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&type=timeline&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&type=timeline&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&type=timeline&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&legend=top-left" />
  </picture>
 </a>
 
@@ -52,7 +52,7 @@
 > 修改系统设置前，建议**手动创建系统还原点**。
 
 > [!NOTE]
-> 目前支持英语、越南语、繁体中文（由 [@abc0922001](https://github.com/abc0922001) 贡献）、简体中文（由 [@wcxu21](https://github.com/wcxu21) 贡献）。
+> 目前支持英语、越南语、繁体中文（由 [@abc0922001](https://github.com/abc0922001) 贡献）、简体中文（由 [@wcxu21](https://github.com/wcxu21) 贡献）和俄语（由 [@Foodhead](https://github.com/Foodhead) 贡献）。
 > 想要添加其他语言？请查看[贡献指南](./.github/CONTRIBUTING.md)。
 
 ---

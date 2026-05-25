@@ -18,7 +18,7 @@
 
 **[Bắt đầu](https://optimizerduck.vercel.app/docs/guides/getting-started) | [Cách hoạt động](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [Câu hỏi thường gặp](https://optimizerduck.vercel.app/docs/faq/general)**
 
-[English](README.md) | **Tiếng Việt** | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md)
+[English](README.md) | **Tiếng Việt** | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md)
 
 <details>
 <summary>⭐ Lịch sử Star</summary>
@@ -26,11 +26,11 @@
 Nếu optimizerDuck giúp ích cho PC của bạn, hãy tặng repo một ⭐ và chia sẻ nó với người khác.
 Mỗi ngôi sao giúp tạo động lực cho những cải tiến trong tương lai.
 
-<a href="https://www.star-history.com/#itsfatduck/optimizerDuck&type=timeline&legend=top-left">
+<a href="https://www.star-history.com/#itsfatduck/optimizerDuck&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&type=timeline&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&type=timeline&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&type=timeline&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&legend=top-left" />
  </picture>
 </a>
 
@@ -52,7 +52,7 @@ Mỗi ngôi sao giúp tạo động lực cho những cải tiến trong tương
 > Luôn tạo **điểm khôi phục hệ thống** trước khi thực hiện thay đổi.
 
 > [!NOTE]
-> Hỗ trợ tiếng Anh, tiếng Việt, tiếng Trung phồn thể (đóng góp bởi [@abc0922001](https://github.com/abc0922001)) và tiếng Trung giản thể (đóng góp bởi [@wcxu21](https://github.com/wcxu21)).
+> Hỗ trợ tiếng Anh, tiếng Việt, tiếng Trung phồn thể (đóng góp bởi [@abc0922001](https://github.com/abc0922001)), tiếng Trung giản thể (đóng góp bởi [@wcxu21](https://github.com/wcxu21)) và tiếng Nga (đóng góp bởi [@Foodhead](https://github.com/Foodhead)).
 > Muốn thêm ngôn ngữ của bạn? Xem [CONTRIBUTING.md](./.github/CONTRIBUTING.md).
 
 ---
