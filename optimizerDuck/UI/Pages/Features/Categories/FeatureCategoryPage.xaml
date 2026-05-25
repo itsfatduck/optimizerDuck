@@ -79,6 +79,7 @@
             <WrapPanel Orientation="Horizontal">
                 <ui:TextBox
                     HorizontalAlignment="Left"
+                    Icon="{ui:SymbolIcon Search24}"
                     PlaceholderText="{ext:Loc Common.Search.Placeholder}"
                     Style="{StaticResource SearchBoxStyle}"
                     Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}" />

@@ -137,7 +137,6 @@
         <Setter Property="MinWidth" Value="240" />
         <Setter Property="Margin" Value="{StaticResource ControlGap}" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="Icon" Value="{ui:SymbolIcon Search24}" />
     </Style>
 
     <Style
