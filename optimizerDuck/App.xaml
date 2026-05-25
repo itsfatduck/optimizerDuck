@@ -10,6 +10,7 @@
                 <ui:ThemesDictionary Theme="Dark" />
                 <ui:ControlsDictionary />
                 <ResourceDictionary Source="pack://application:,,,/UI/Styles/FluentDesign.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/UI/Styles/NavigationViewOverride.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <Style TargetType="Image">

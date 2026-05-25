@@ -25,6 +25,7 @@
             IsPaneToggleVisible="False"
             IsTopSeparatorVisible="False"
             MenuItemsSource="{Binding ViewModel.OptimizationCategories}"
-            PaneDisplayMode="Top" />
+            PaneDisplayMode="Top"
+            Style="{StaticResource ScrollableTopNavigationViewStyle}" />
     </Grid>
 </Page>

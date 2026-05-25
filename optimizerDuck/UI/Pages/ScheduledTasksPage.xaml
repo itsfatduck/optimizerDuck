@@ -193,20 +193,18 @@
             </StackPanel>
 
             <!--  Task List  -->
-            <ui:VirtualizingItemsControl Grid.Row="1" ItemsSource="{Binding ViewModel.Tasks}" Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
-                <ui:VirtualizingItemsControl.Template>
+            <ItemsControl
+                Grid.Row="1"
+                ItemsSource="{Binding ViewModel.Tasks}"
+                Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
+                <ItemsControl.Template>
                     <ControlTemplate TargetType="ItemsControl">
                         <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Disabled">
                             <ItemsPresenter />
                         </ScrollViewer>
                     </ControlTemplate>
-                </ui:VirtualizingItemsControl.Template>
-                <ui:VirtualizingItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel IsVirtualizing="True" VirtualizationMode="Recycling" />
-                    </ItemsPanelTemplate>
-                </ui:VirtualizingItemsControl.ItemsPanel>
-                <ui:VirtualizingItemsControl.ItemTemplate>
+                </ItemsControl.Template>
+                <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type scheduledTask:ScheduledTaskModel}">
                         <Border Style="{StaticResource ListRowStyle}">
                             <Grid>
@@ -412,8 +410,8 @@
                             </Grid>
                         </Border>
                     </DataTemplate>
-                </ui:VirtualizingItemsControl.ItemTemplate>
-            </ui:VirtualizingItemsControl>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Grid>
     </Grid>
 </Page>

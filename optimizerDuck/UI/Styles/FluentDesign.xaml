@@ -25,7 +25,6 @@
     <Style x:Key="PageRootStyle" TargetType="Page">
         <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
         <Setter Property="Margin" Value="{StaticResource PageMargin}" />
-        <Setter Property="ScrollViewer.CanContentScroll" Value="False" />
         <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
     </Style>
