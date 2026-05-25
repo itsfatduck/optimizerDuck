@@ -53,7 +53,7 @@ Mỗi ngôi sao giúp tạo động lực cho những cải tiến trong tương
 
 > [!NOTE]
 > Hỗ trợ tiếng Anh, tiếng Việt, tiếng Trung phồn thể (đóng góp bởi [@abc0922001](https://github.com/abc0922001)), tiếng Trung giản thể (đóng góp bởi [@wcxu21](https://github.com/wcxu21)) và tiếng Nga (đóng góp bởi [@Foodhead](https://github.com/Foodhead)).
-> Muốn thêm ngôn ngữ của bạn? Xem [CONTRIBUTING.md](./.github/CONTRIBUTING.md).
+> Muốn thêm ngôn ngữ của bạn? Xem [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
 

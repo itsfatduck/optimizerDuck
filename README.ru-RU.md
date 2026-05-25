@@ -53,7 +53,7 @@
 
 > [!NOTE]
 > Доступно на английском, вьетнамском, традиционном китайском (спасибо [@abc0922001](https://github.com/abc0922001)), упрощённом китайском (спасибо [@wcxu21](https://github.com/wcxu21)) и русском (спасибо [@Foodhead](https://github.com/Foodhead)).
-> Хотите добавить свой язык? См. [CONTRIBUTING.md](./.github/CONTRIBUTING.md).
+> Хотите добавить свой язык? См. [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
 

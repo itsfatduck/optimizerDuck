@@ -53,7 +53,7 @@
 
 > [!NOTE]
 > 目前支持英语、越南语、繁体中文（由 [@abc0922001](https://github.com/abc0922001) 贡献）、简体中文（由 [@wcxu21](https://github.com/wcxu21) 贡献）和俄语（由 [@Foodhead](https://github.com/Foodhead) 贡献）。
-> 想要添加其他语言？请查看[贡献指南](./.github/CONTRIBUTING.md)。
+> 想要添加其他语言？请查看[贡献指南](./CONTRIBUTING.md)。
 
 ---
 

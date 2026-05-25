@@ -53,7 +53,7 @@ Every star helps motivate future improvements.
 
 > [!NOTE]
 > Available in English, Vietnamese, Traditional Chinese (contributed by [@abc0922001](https://github.com/abc0922001)), Simplified Chinese (contributed by [@wcxu21](https://github.com/wcxu21)), and Russian (contributed by [@Foodhead](https://github.com/Foodhead)).
-> Want to add your language? See [CONTRIBUTING.md](./.github/CONTRIBUTING.md).
+> Want to add your language? See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
 
