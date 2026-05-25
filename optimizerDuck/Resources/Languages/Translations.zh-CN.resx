@@ -386,7 +386,7 @@
     <value>还原 USB 选择性挂起电源状态</value>
   </data>
   <data name="Service.Registry.Error.BackupTruncated" xml:space="preserve">
-    <value>注册表子树过大，无法安全备份；删除操作已取消，删除对象为 {0} 。</value>
+    <value>注册表子树过大，无法安全备份；删除操作已取消，删除对象为 {0}</value>
   </data>
   <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
     <value>优化项 ID 不匹配。</value>
@@ -1346,16 +1346,16 @@
     <value>启动项管理</value>
   </data>
   <data name="StartupManager.Header.Description" xml:space="preserve">
-    <value>管理 Windows 开机自动运行的应用与任务</value>
+    <value>管理 Windows 开机自动运行的应用与任务。</value>
   </data>
   <data name="OptimizationDetailsDialog.Other" xml:space="preserve">
     <value>其他</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
-    <value>打开包含此优化还原数据的原始 JSON 文件</value>
+    <value>打开包含此优化还原数据的原始 JSON 文件。</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
-    <value>在浏览器中打开此优化项的源代码</value>
+    <value>在浏览器中打开此优化项的源代码。</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
     <value>在 GitHub 上查看源码</value>
@@ -1376,7 +1376,7 @@
     <value>启动应用</value>
   </data>
   <data name="StartupManager.Apps.Description" xml:space="preserve">
-    <value>Windows 开机自动运行的应用程序</value>
+    <value>Windows 开机自动运行的应用程序。</value>
   </data>
   <data name="StartupManager.Apps.CountSuffix" xml:space="preserve">
     <value>{0} 项</value>
@@ -1385,7 +1385,7 @@
     <value>计划任务（登录时）</value>
   </data>
   <data name="StartupManager.Tasks.Description" xml:space="preserve">
-    <value>设置为登录时或按计划运行的 Windows 任务</value>
+    <value>设置为登录时或按计划运行的 Windows 任务。</value>
   </data>
   <data name="StartupManager.Tasks.CountSuffix" xml:space="preserve">
     <value>{0} 个任务</value>
@@ -1608,10 +1608,10 @@
     <value>未知外壳类型</value>
   </data>
   <data name="Revert.Shell.Error.CommandFailed" xml:space="preserve">
-    <value>还原命令执行失败，返回代码为 {0} </value>
+    <value>还原命令执行失败，返回代码为 {0}</value>
   </data>
   <data name="Revert.UsbPower.Error.CommandFailed" xml:space="preserve">
-    <value>USB 电源恢复操作失败，返回代码为 {0} </value>
+    <value>USB 电源恢复操作失败，返回代码为 {0}</value>
   </data>
   <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
     <value>显示完成通知</value>
@@ -1719,16 +1719,16 @@
     <value>打开时定位到此电脑</value>
   </data>
   <data name="Features.Preferences.LaunchToThisPc.Description" xml:space="preserve">
-    <value>设置文件资源管理器默认打开位置（此电脑/快速访问）</value>
+    <value>设置文件资源管理器默认打开位置（此电脑/快速访问）。</value>
   </data>
   <data name="Features.Preferences.BingSearch.Name" xml:space="preserve">
     <value>必应搜索</value>
   </data>
   <data name="Features.Preferences.BingSearch.Description" xml:space="preserve">
-    <value>在 Windows 搜索和开始菜单结果中集成必应网页搜索</value>
+    <value>在 Windows 搜索和开始菜单结果中集成必应网页搜索。</value>
   </data>
   <data name="Features.Preferences.BingSearch.Recommendation.Reason" xml:space="preserve">
-    <value>关闭必应搜索可避免网页结果干扰本地搜索，同时提升搜索速度</value>
+    <value>关闭必应搜索可避免网页结果干扰本地搜索，同时提升搜索速度。</value>
   </data>
   <data name="Button.Accept" xml:space="preserve">
     <value>接受</value>
@@ -1737,13 +1737,13 @@
     <value>法律协议</value>
   </data>
   <data name="LegalDialog.Intro.ThankYou" xml:space="preserve">
-    <value>感谢选择 optimizerDuck</value>
+    <value>感谢选择 optimizerDuck。</value>
   </data>
   <data name="LegalDialog.Intro.Safety" xml:space="preserve">
-    <value>为保证透明性与安全性，optimizerDuck 可能会调整部分系统设置与注册表配置</value>
+    <value>为保证透明性与安全性，optimizerDuck 可能会调整部分系统设置与注册表配置。</value>
   </data>
   <data name="LegalDialog.Intro.Review" xml:space="preserve">
-    <value>请花时间阅读以下文档，继续使用即表示你同意相关条款</value>
+    <value>请花时间阅读以下文档，继续使用即表示你同意相关条款。</value>
   </data>
   <data name="LegalDialog.Link.TermsOfService" xml:space="preserve">
     <value>服务条款</value>
@@ -1758,7 +1758,7 @@
     <value>风险自担</value>
   </data>
   <data name="LegalDialog.Warning.Message" xml:space="preserve">
-    <value>我们建议你在应用任何更改前创建系统备份</value>
+    <value>我们建议你在应用任何更改前创建系统备份。</value>
   </data>
   <data name="Dialog.PendingChanges.Title" xml:space="preserve">
     <value>应用更改</value>
@@ -1779,7 +1779,7 @@
     <value>使用文档</value>
   </data>
   <data name="Settings.About.Documentation.Description" xml:space="preserve">
-    <value>查看使用说明、操作指南与常见问题</value>
+    <value>查看使用说明、操作指南与常见问题。</value>
   </data>
   <data name="TitleBar.Support" xml:space="preserve">
     <value>支持本项目</value>
