@@ -400,6 +400,9 @@
   <data name="Optimization.Apply.Error.Failed" xml:space="preserve">
     <value>Không thể áp dụng {0}.</value>
   </data>
+  <data name="Optimization.Apply.Error.Unknown" xml:space="preserve">
+    <value>Kết quả không xác định cho {0}.</value>
+  </data>
   <data name="Service.Common.Error.AccessDenied" xml:space="preserve">
     <value>Không có quyền truy cập</value>
   </data>
@@ -1504,6 +1507,15 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="Revert.Shell.Description.Run" xml:space="preserve">
     <value>Chạy lệnh {0}: {1}</value>
+  </data>
+  <data name="Revert.Shell.Error.UnknownShellType" xml:space="preserve">
+    <value>Loại shell không xác định</value>
+  </data>
+  <data name="Revert.Shell.Error.CommandFailed" xml:space="preserve">
+    <value>Lệnh hoàn tác thất bại với mã thoát {0}</value>
+  </data>
+  <data name="Revert.UsbPower.Error.CommandFailed" xml:space="preserve">
+    <value>Hoàn tác nguồn USB thất bại với mã thoát {0}</value>
   </data>
   <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
     <value>Hiển thị thông báo hoàn tất</value>

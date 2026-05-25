@@ -406,11 +406,11 @@
   <data name="Optimization.Apply.Error.Failed" xml:space="preserve">
     <value>{0} 应用失败。</value>
   </data>
+  <data name="Optimization.Apply.Error.Unknown" xml:space="preserve">
+    <value>{0} 的结果未知。</value>
+  </data>
   <data name="Service.Common.Error.AccessDenied" xml:space="preserve">
     <value>权限拒绝</value>
-  </data>
-  <data name="Service.Registry.Error.BackupTruncated" xml:space="preserve">
-    <value>注册表子树太大，无法安全备份；已中止删除 {0}</value>
   </data>
   <data name="Service.Registry.Error.AccessDeniedProtectedHive" xml:space="preserve">
     <value>权限拒绝（受保护的注册表配置单元）</value>
@@ -658,7 +658,6 @@
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
     <value>安装定制的高性能电源计划，让系统始终以最高速度运行。</value>
   </data>
-
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
     <value>正在导入并激活电源计划...</value>
   </data>

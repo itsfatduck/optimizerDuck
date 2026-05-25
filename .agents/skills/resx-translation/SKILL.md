@@ -5,138 +5,292 @@ description: Translate, extend, and create `.resx` localization files for .NET a
 
 # Resx Translation
 
-The goal of this skill is to translate `.resx` files with product-aware context, preserve the resource structure, and change only what needs to be changed.
+## Golden Rule: Use helpers, NEVER `read` the full file
 
-## When to use it
+**Do NOT use `read`/`glob`/`grep`** to discover files, check encoding, or audit translations.  
+Use the helper scripts — they return structured data in <10 lines, saving hundreds of tokens.
 
-Use this skill when the user wants to:
+**Never `read` an entire `.resx` file.** Files can exceed 100k tokens.  
+Use `(filename:line)` annotations from `audit_translations.py` to `read` only the relevant lines:
 
-- Translate a `.resx` file into another language
-- Fill in missing strings in an existing localized file
-- Add a new resource file for a language code like `vi`, `ja`, or `fr-FR`
-- Update translations for a WPF, WinForms, .NET, or any app that uses `.resx`
+```
+# audit shows: - AppTitle = 'OptimizerDuck'  (Translations.resx:42)
+read Translations.vi.resx offset=42 limit=5
+read Translations.resx offset=42 limit=5
+```
+
+Only `read` 1-5 lines around each flagged key — never the whole file.
+
+---
+
+## Helper Scripts Reference
+
+All scripts are in `<skill>\helpers\`. Replace `<skill>` with the skill base path (run `codegraph_node resx-translation` or check `.agents/skills/resx-translation`).
+
+---
+
+### `find_resx.py` — Discover `.resx` files, encoding, Designer.cs status
+
+**What it does**: Lists all `.resx` files in a directory — key count, encoding (UTF-8 with/without BOM), file size, and whether `.Designer.cs` is in sync. Use this **instead of** `glob` + `read`.
+
+**Usage**:
+```powershell
+python <skill>\helpers\find_resx.py Resources\Languages
+```
+
+**Flags**:
+| Flag | Description |
+|------|-------------|
+| `--json` | Output as JSON for programmatic use |
+| (none) | Human-readable table |
+
+**Output**:
+```
+════════════════════════
+resx discovery
+════════════════════════
+  directory: Resources\Languages
+  default  : Translations.resx
+  pattern  : Translations.*.resx
+  files    : 3
+
+  Translations.resx
+    keys    : 45
+    size    : 3200 bytes
+    encoding: UTF-8 with BOM
+    designer: Translations.Designer.cs (synced)
+
+  Translations.vi.resx
+    keys    : 30
+    size    : 2400 bytes
+    encoding: UTF-8 with BOM
+    designer: (none)
+```
+
+**Next step**:  
+- If adding a new locale → `create_locale.py`.  
+- If auditing/translating → `audit_translations.py`.
+
+---
+
+### `audit_translations.py` — Find missing / empty / untranslated keys
+
+**What it does**: Compares all locale files against the union of all keys. Reports keys that are **missing** (absent from a locale), **empty** (present but blank), or **untranslated** (identical to the default file). Use this **instead of** manually diffing files.
+
+**Usage**:
+```powershell
+python <skill>\helpers\audit_translations.py Resources\Languages --auto-detect --show-missing --show-untranslated
+```
+
+**Flags**:
+| Flag | Description |
+|------|-------------|
+| `--show-missing` | Keys absent from a locale that exist in others |
+| `--show-empty` | Keys with empty values |
+| `--show-untranslated` | Keys whose value matches the default file |
+| `--by-key` | Group results by key name instead of by locale |
+| `--fail-on-any` | Exit code 1 if any issues found (CI gate) |
+| `--auto-detect` | Auto-detect file pattern from directory |
+| `--check-designer` | Also audit `.Designer.cs` for missing/stale properties |
+| `--default-file` | Custom base filename (e.g. `Strings.resx`) |
+| `--pattern` | Custom locale glob (e.g. `Strings.*.resx`) |
+
+**Output** (with `--show-missing --show-untranslated`):
+```
+════════════════════════
+translation audit
+════════════════════════
+
+  [vi]
+    missing=15 | untranslated=5
+
+    missing keys (15):
+      - AppTitle = 'OptimizerDuck'  (Translations.resx:42)
+      - ButtonCancel = 'Cancel'  (Translations.resx:55)
+      ...
+
+    untranslated values (5):
+      - LabelStatus  (Translations.vi.resx:120)
+      - TextWelcome  (Translations.vi.resx:135)
+      ...
+
+  [ja]
+    ok
+
+════════════════════════
+summary
+════════════════════════
+  locales: 3
+  keys   : 45
+  pattern: Translations.*.resx
+  missing: 15
+  untranslated: 5
+```
+
+**Clean output** (no issues):
+```
+  all translations look good across all locales
+```
+
+**Next step**:  
+- Issues found → use `question` tool to ask user which locale → `read` that file + source → translate only flagged keys.  
+- Clean → nothing to do.
+
+---
+
+### `create_locale.py` — Add a new language file
+
+**What it does**: Duplicates the source `.resx` into a new locale file (e.g. `Translations.vi.resx`). Uses `shutil.copy2` to preserve exact encoding, BOM, metadata. **30x faster** than reading + rewriting XML.
+
+**Usage**:
+```powershell
+python <skill>\helpers\create_locale.py Resources\Languages --locale vi
+```
+
+**Flags**:
+| Flag | Description |
+|------|-------------|
+| `--locale` | **(Required)** Language code: `vi`, `ja`, `fr-FR`, `de`, etc. |
+| `--source` | Source filename (default: auto-detected base `.resx`) |
+| `--dry-run` | Preview without creating |
+
+**Output**:
+```
+Created: Translations.vi.resx (45 keys copied from Translations.resx)
+```
+
+If the file already exists:
+```
+already exists: Translations.vi.resx
+```
+
+**Next step**: Translate ALL values in the new file → run `sync_resx.py --fill-source` to catch any keys added to source after creation.
+
+---
+
+### `sync_resx.py` — Propagate new keys from source to locales
+
+**What it does**: Copies newly added keys from the source `.resx` into all (or a specific) locale files. New `<data>` elements are inserted before `</root>`, preserving XML structure and indentation.
+
+**Usage**:
+```powershell
+python <skill>\helpers\sync_resx.py Resources\Languages --fill-source
+```
+
+**Flags**:
+| Flag | Description |
+|------|-------------|
+| `--fill-source` | Copy source value as-is (English fallback) |
+| `--fill-marker "TODO"` | Fill with a marker string instead |
+| (no fill flags) | Fill with empty string |
+| `--locale vi-VN` | Target a specific locale only |
+| `--dry-run` | Preview without writing |
+| `--source` | Custom source filename |
+| `--target` | Custom locale glob pattern |
+
+**Output**:
+```
+════════════════════════
+resx sync
+════════════════════════
+  Translations.vi.resx: added 3 key(s) (vi)
+  Translations.ja.resx: ok (already up to date)
+
+════════════════════════
+result
+════════════════════════
+  total keys added: 3
+```
+
+**Next step**:  
+- `--fill-source` → those keys have English text and need translation → run `audit_translations.py --show-untranslated` to find them.  
+- `--fill-marker "TODO"` → search for and translate markers.
+
+---
+
+## Task Dispatch: Determine what the user needs
+
+| User says (Vietnamese) | Meaning | Action |
+|---|---|---|
+| *"dịch các translation còn thiếu"* / *"translate missing translations"* | Fill only missing/untranslated keys | Run `audit` → ask → translate **only flagged keys** |
+| *"dịch ngôn ngữ mới"* / *"add new language"* | Brand new locale | `create_locale.py` → translate **all keys** |
+| *"dịch các translation"* / *"translate translations"* | General translate request | Run `audit` → find untranslated → ask → translate |
+| *"cập nhật translations"* / *"update translations"* | Sync + translate new keys | `sync_resx.py` → `audit` → translate untranslated |
+
+---
 
 ## Workflow
 
-### 1. Understand the project before translating
+### 0. Always ask before translating
 
-Before editing any file, inspect the project to understand what kind of app it is, who it is for, and what domain it belongs to. Prefer reading files like `README`, project files, UI screens, settings, menus, view models, or any code that reveals domain context so the translation sounds natural.
+**Before any translation work**, use the `question` tool to:
 
-The point is to avoid overly literal translations when the domain needs more specialized language. For example:
+1. **If multiple locales have issues**: Ask which locale(s) to work on
+2. **Confirm the approach**: Describe what `audit` found and what you plan to do (how many keys, which file)
+3. **Domain context**: If the app has specialized terminology, ask about preferred translations
 
-- music apps: keep terms like playlist, mix, mastering, or equalizer when appropriate
-- configuration/system apps: prefer concise, professional, technical wording
-- business apps: prefer clarity, stability, and consistent business terminology
+This prevents wasted work. Example:
 
-### 2. Identify the source resx file and its real format
+> `audit` shows `vi` has 15 missing and 5 untranslated keys out of 45 total.  
+> `ja` is fully translated.  
+> Should I proceed with translating `vi` only?
 
-Check the default/source resx file first. Priority order:
+---
 
-1. `Translations.resx` if it exists
-2. Any `*.resx` file that does not include a language code in the filename
-3. If the project uses English as a base language, also inspect `*.en.resx` if useful
+### A. "Dịch các translation còn thiếu" — Fill Missing Translations
 
-The goal is to understand:
+1. **Run `audit_translations.py --show-missing --show-untranslated`** to find issues
+2. **Ask user** (via `question`): which locale, confirm scope
+3. **`read` only specific lines** in the locale file + source file using line numbers from the audit output (e.g., `read Translations.vi.resx offset=42 limit=5`)
+4. **Translate only flagged keys** — skip everything else
+5. Report: which file, language, how many keys translated
 
-- the filename and naming convention
-- whether the project uses patterns like `Name.resx`, `Name.vi.resx`, `Name.ja.resx`, or something else
-- XML formatting, line breaks, node order, spacing, and any existing conventions
-- the file encoding and whether it uses BOM, UTF-8, UTF-16, or another existing pattern
-- which strings are actually user-facing text and which are metadata or technical values
+---
 
-Follow the existing format. Do not regroup, reorder, reformat, add comments, or beautify the file unless the original file already does that.
+### B. "Dịch ngôn ngữ mới" — Add New Language
 
-Preserve encoding carefully. When saving `.resx` files, avoid introducing encoding changes unless there is a clear reason. Match the existing file encoding whenever possible so the XML declaration, localized characters, and tooling behavior stay stable.
+1. **Run `find_resx.py`** to see existing files and encoding
+2. **Ask user**: confirm language code + any domain-specific preferences
+3. **Run `create_locale.py --locale <code>`** to create the file
+4. **Translate ALL values** in the new file
+5. **Run `sync_resx.py --fill-source`** to catch any keys added after creation
+6. Report: file created, language, key count
 
-### 3. Check whether language support also needs code or settings updates
+---
 
-Do not stop at the `.resx` files. When the user asks to add a new language, also inspect the project for any language-selection or localization plumbing that must be updated so the new locale can actually appear and be used in the app.
+### C. "Dịch các translation" — Translate Existing Translations
 
-Look for related code such as:
+1. **Run `audit_translations.py --show-untranslated`** to find untranslated keys
+2. **Ask user** (via `question`): which locale(s), confirm scope
+3. **`read` only specific lines** in the locale file + source file using line numbers from the audit output
+4. **Translate only untranslated keys**
+5. Report: file, language, keys translated
 
-- settings pages or language dropdowns
-- supported language lists or culture registries
-- localization services, resource managers, or startup configuration
-- menu items, options screens, or app preferences tied to language selection
+---
 
-If the project requires these updates, make them together with the new `.resx` file. If the project already discovers languages automatically, avoid unnecessary code changes.
+## Translation Rules
 
-### 4. Determine the request type
+- Translate **only user-facing text**. Never change keys, node names, attributes, or XML structure.
+- Preserve exactly: `{0}`, `{1}`, `%s` placeholders; HTML/XAML fragments; product names; error codes; escaped characters.
+- Short strings (`Open`, `Save`, `Apply`, `Reset`, etc.) depend on screen context — inspect nearby code if unsure.
+- Keep English terms when they function as product language (`Playlist`, `Profile`, `Driver`, `Theme`, `Preset`) unless the app consistently localizes them.
+- Preserve original encoding (UTF-8 with/without BOM).
 
-Clearly distinguish between these two cases:
+## Editing Behavior
 
-- **Extend/fill an existing language**: update the existing localized file and translate only what is needed
-- **Create a new language**: duplicate the source file into a new file with the requested language code, then translate each entry
+- Edit the target file directly using `edit` tool.
+- No explanations, comments, translation tables, or layout changes added to the file.
+- Preserve ordering, indentation, XML declaration, surrounding nodes.
+- Report back briefly: which file was updated/created, language, key count.
 
-If the user's request is explicit, follow it. If the request is ambiguous but the files make the intent obvious, prefer the least disruptive path: extend an existing localized file if it already exists; otherwise create a new one when the requested language code does not exist.
+## Quick Reference
 
-### 5. If the task is to extend an existing language
-
-Read the existing localized file together with the source file, then translate entries that are missing, still left in the source language, or clearly wrong for the project context.
-
-Prefer targeted edits. If the localized file already exists, update only missing, source-language, or clearly incorrect entries unless the user explicitly asks for a full translation pass or a rewrite of the whole locale.
-
-When extending translations:
-
-- keep the original meaning but prefer wording that fits the product context
-- do not translate word-for-word mechanically
-- respect the tone of the existing localized file if it is already good
-- keep terminology consistent within the file and across the project
-
-### 6. If the task is to create a new language
-
-Duplicate the source `.resx` file into a new file using the requested language code. Example: `Translations.resx` -> `Translations.vi.resx`.
-
-Then translate each translatable entry in the new file while preserving the XML structure and all attributes from the source.
-
-### 7. File update strategy
-
-Apply changes in the least disruptive way that still keeps the file correct.
-
-- For small files or narrowly scoped edits, direct rewrite is fine if you can preserve the exact structure and encoding.
-- For larger files, prefer targeted updates that touch only the specific entries that need translation instead of regenerating or rewriting the whole file.
-- Avoid full-file rewrites when the task is only to fill missing entries or correct a subset of strings.
-- Preserve ordering, indentation, XML declaration, and surrounding nodes so diffs stay small and reviewable.
-
-The goal is to keep the change set precise, safe, and easy for the user to review.
-
-### 8. Translation rules
-
-Translate only the user-facing text. Do not change keys, node names, attributes, or XML structure.
-
-Preserve exactly:
-
-- placeholders such as `{0}`, `{1}`, `%s`, `%d`
-- markup, HTML, XAML fragments, newline markers, and escaped characters
-- product names, feature names, shortcuts, error codes, commands, and any terminology that should remain unchanged in context
-- empty strings or technical strings that are not user-facing, unless the source file shows they are meant to be localized
-
-Be careful with short strings like `Open`, `Save`, `Apply`, `Reset`, `Close`, `Track`, `Mix`, `Profile`, `Library`, `Device`, and `Output`, because the right translation depends heavily on the screen and domain. If needed, inspect nearby code or UI context before deciding.
-
-Keep English terms unchanged when they function more like product language, technical labels, or domain-specific jargon than ordinary UI text. This often applies to terms such as `Playlist`, `Profile`, `Output`, `Driver`, `Theme`, and `Preset` when the surrounding product language, target audience, or existing translations suggest they should stay in English. Translate them only when the app clearly treats them as normal user-facing words in the target locale and the rest of the product uses localized equivalents consistently.
-
-### 9. File editing behavior
-
-Edit the target file directly. Do not add explanations into the file. Do not add comments. Do not create translation tables. Do not regroup entries. Do not change casing style, indentation, or layout unless the original file already follows a specific pattern.
-
-If you report back to the user, keep it brief and focus on:
-
-- which file was updated
-- which file was created, if any
-- which language was added or extended
-
-## Suggested execution order
-
-1. Understand the project and domain
-2. Find the source resx file and any related localized files
-3. Check whether language settings or localization code also need updates
-4. Determine whether this is an extension task or a new-language task
-5. Update or create the correct file using the project's naming convention
-6. Translate strings with domain-aware wording while preserving format and encoding
-7. Recheck placeholders, XML integrity, terminology consistency, and any required language-selection wiring before finishing
-
-## Expected output
-
-The main output is an updated `.resx` file that preserves the original format.
-
-If you respond in chat, keep the response short and focused on the file result.
+| Need | Command |
+|---|---|
+| See all `.resx` files, encoding, Designer.cs | `find_resx.py <dir>` |
+| Find missing / untranslated keys | `audit_translations.py <dir> --show-missing --show-untranslated` |
+| Find empty values | `audit_translations.py <dir> --show-empty` |
+| Create new locale | `create_locale.py <dir> --locale <code>` |
+| Sync new keys to locales | `sync_resx.py <dir> --fill-source` |
+| Preview sync | `sync_resx.py <dir> --fill-marker "TODO" --dry-run` |
+| CI check | `audit_translations.py <dir> --fail-on-any` |

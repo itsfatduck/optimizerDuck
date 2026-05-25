@@ -375,6 +375,9 @@
   <data name="Optimization.Apply.Error.Failed" xml:space="preserve">
     <value>無法套用 {0}。</value>
   </data>
+  <data name="Optimization.Apply.Error.Unknown" xml:space="preserve">
+    <value>{0} 的結果未知。</value>
+  </data>
   <data name="Service.Common.Error.AccessDenied" xml:space="preserve">
     <value>存取被拒</value>
   </data>
@@ -1261,6 +1264,15 @@
   </data>
   <data name="Revert.Shell.Description.Run" xml:space="preserve">
     <value>執行 {0} 命令：{1}</value>
+  </data>
+  <data name="Revert.Shell.Error.UnknownShellType" xml:space="preserve">
+    <value>未知的外殼類型</value>
+  </data>
+  <data name="Revert.Shell.Error.CommandFailed" xml:space="preserve">
+    <value>還原命令執行失敗，結束代碼為 {0}</value>
+  </data>
+  <data name="Revert.UsbPower.Error.CommandFailed" xml:space="preserve">
+    <value>USB 電源還原操作失敗，結束代碼為 {0}</value>
   </data>
   <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
     <value>顯示完成通知</value>
