@@ -146,7 +146,7 @@
     <value>{0} 线程</value>
   </data>
   <data name="Dashboard.SystemInfo.Storage.System" xml:space="preserve">
-    <value>系统盘</value>
+    <value>系统</value>
   </data>
   <data name="Dashboard.SystemInfo.Storage.Header" xml:space="preserve">
     <value>存储</value>
@@ -240,12 +240,6 @@
   </data>
   <data name="Settings.Appearance.ThemeSelector.HighContrast" xml:space="preserve">
     <value>高对比度</value>
-  </data>
-  <data name="Settings.Appearance.SmoothScrolling.Title" xml:space="preserve">
-    <value>平滑滚动</value>
-  </data>
-  <data name="Settings.Appearance.SmoothScrolling.Description" xml:space="preserve">
-    <value>启用平滑滚动动画，让滚动体验更流畅。如果觉得卡顿请关闭。</value>
   </data>
   <data name="Common.AppliedSecondsAgo" xml:space="preserve">
     <value>{0} 秒前应用</value>
@@ -391,6 +385,9 @@
   <data name="Revert.UsbPower.Description" xml:space="preserve">
     <value>还原 USB 选择性挂起电源状态</value>
   </data>
+  <data name="Service.Registry.Error.BackupTruncated" xml:space="preserve">
+    <value>注册表子树过大，无法安全备份；删除操作已取消，删除对象为 {0} 。</value>
+  </data>
   <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
     <value>优化项 ID 不匹配。</value>
   </data>
@@ -504,6 +501,12 @@
   </data>
   <data name="Settings.Advanced.OpenRootDir.Description" xml:space="preserve">
     <value>打开应用根目录，所有必要文件均存储于此。</value>
+  </data>
+  <data name="Settings.Appearance.SmoothScrolling.Title" xml:space="preserve">
+    <value>平滑滚动</value>
+  </data>
+  <data name="Settings.Appearance.SmoothScrolling.Description" xml:space="preserve">
+    <value>启用流畅的滚动动画，以获得更流畅的滚动体验。如遇卡顿，请关闭此功能。</value>
   </data>
   <data name="Button.Open" xml:space="preserve">
     <value>打开</value>
@@ -644,7 +647,7 @@
     <value>关闭休眠和快速启动，释放磁盘空间并确保完全关机，以便开机时硬件初始化更干净。</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
-    <value>禁用USB节能</value>
+    <value>禁用 USB 节能</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
     <value>阻止系统关闭 USB 端口供电，消除鼠标、键盘等外设的唤醒延迟。</value>
@@ -1543,7 +1546,7 @@
     <value>{0} 已成功创建。</value>
   </data>
   <data name="ScheduledTasks.Snackbar.Error.Title" xml:space="preserve">
-    <value>操作失败</value>
+    <value>错误</value>
   </data>
   <data name="Settings.About.NeedHelp.Description" xml:space="preserve">
     <value>如果你需要优化帮助或有任何疑问，欢迎加入社区获取快速支持。</value>
@@ -1601,6 +1604,15 @@
   </data>
   <data name="Revert.Shell.Description.Run" xml:space="preserve">
     <value>执行 {0} 命令：{1}</value>
+  </data>
+  <data name="Revert.Shell.Error.UnknownShellType" xml:space="preserve">
+    <value>未知外壳类型</value>
+  </data>
+  <data name="Revert.Shell.Error.CommandFailed" xml:space="preserve">
+    <value>还原命令执行失败，返回代码为 {0} </value>
+  </data>
+  <data name="Revert.UsbPower.Error.CommandFailed" xml:space="preserve">
+    <value>USB 电源恢复操作失败，返回代码为 {0} </value>
   </data>
   <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
     <value>显示完成通知</value>
