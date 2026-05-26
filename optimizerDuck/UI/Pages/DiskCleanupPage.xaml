@@ -212,7 +212,7 @@
                                 <StackPanel Grid.Column="2" VerticalAlignment="Center">
                                     <!--  Clickable Name  -->
                                     <ui:HyperlinkButton
-                                        Command="{Binding DataContext.ViewModel.OpenFolderCommand, RelativeSource={RelativeSource AncestorType=ui:VirtualizingItemsControl}}"
+                                        Command="{Binding DataContext.ViewModel.OpenFolderCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                         CommandParameter="{Binding}"
                                         IsEnabled="{Binding CanOpenFolder}"
                                         Style="{StaticResource ClickableNameStyle}">

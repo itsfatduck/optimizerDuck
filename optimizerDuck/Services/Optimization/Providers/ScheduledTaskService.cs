@@ -3,10 +3,11 @@ using Microsoft.Win32.TaskScheduler;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.UI;
 using ScheduledTaskModel = optimizerDuck.Domain.Optimizations.Models.ScheduledTask.ScheduledTaskModel;
 using Task = Microsoft.Win32.TaskScheduler.Task;
 
-namespace optimizerDuck.Services.OptimizationServices;
+namespace optimizerDuck.Services.Optimization.Providers;
 
 public static class ScheduledTaskService
 {

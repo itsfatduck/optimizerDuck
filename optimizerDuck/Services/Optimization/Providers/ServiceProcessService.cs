@@ -6,7 +6,7 @@ using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Resources.Languages;
 
-namespace optimizerDuck.Services.OptimizationServices;
+namespace optimizerDuck.Services.Optimization.Providers;
 
 public static class ServiceProcessService
 {

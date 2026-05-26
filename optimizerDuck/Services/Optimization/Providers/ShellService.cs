@@ -8,7 +8,7 @@ using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Resources.Languages;
 
-namespace optimizerDuck.Services.OptimizationServices;
+namespace optimizerDuck.Services.Optimization.Providers;
 
 /// <summary>Defines success criteria and error reporting for shell command execution.</summary>
 public sealed class ShellPolicy

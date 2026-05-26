@@ -12,6 +12,8 @@ namespace optimizerDuck.Domain.Optimizations.Models;
 
 public abstract class BaseOptimization : IOptimization
 {
+    #region Metadata
+
     private OptimizationAttribute? _meta;
 
     private OptimizationAttribute Meta =>
@@ -26,6 +28,18 @@ public abstract class BaseOptimization : IOptimization
     public string OwnerKey =>
         OwnerType?.Name
         ?? throw new InvalidOperationException($"{GetType().Name} has no owner assigned");
+
+    #endregion
+
+    #region Identification
+
+    public Guid Id => Guid.Parse(Meta.Id);
+    public OptimizationRisk Risk => Meta.Risk;
+    public string OptimizationKey => GetType().Name;
+
+    #endregion
+
+    #region Presentation
 
     public RiskVisual RiskVisual =>
         Risk switch
@@ -54,19 +68,20 @@ public abstract class BaseOptimization : IOptimization
 
     public IEnumerable<OptimizationTagDisplay> TagDisplays => Meta.Tags.ToDisplays();
 
+    public OptimizationState State { get; set; } = new();
+
+    #endregion
+
+    #region Localization
+
     public string Prefix => Loc.Instance[$"Optimizer.{OwnerKey}.{OptimizationKey}"];
     public string ProgressPrefix => Loc.Instance[$"{Prefix}.Progress"];
     public string ErrorPrefix => Loc.Instance[$"{Prefix}.Error"];
 
-    public Guid Id => Guid.Parse(Meta.Id);
-    public OptimizationRisk Risk => Meta.Risk;
-
-    public string OptimizationKey => GetType().Name;
-
-    public OptimizationState State { get; set; } = new();
-
     public string Name => Loc.Instance[$"{Prefix}.Name"];
     public string ShortDescription => Loc.Instance[$"{Prefix}.ShortDescription"];
+
+    #endregion
 
     public abstract Task<ApplyResult> ApplyAsync(
         IProgress<ProcessingProgress> progress,

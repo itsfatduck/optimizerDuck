@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Logging.Abstractions;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
-using optimizerDuck.Services.OptimizationServices;
+using optimizerDuck.Services.Optimization.Providers;
 
 namespace optimizerDuck.Test.Domain.Optimizations;
 

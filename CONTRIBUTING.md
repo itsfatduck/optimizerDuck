@@ -67,13 +67,13 @@ dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj
 optimizerDuck/
 ├── Common/           # Shared utilities, extensions, and helpers
 ├── Domain/           # Models, interfaces, attributes (no UI dependencies)
-│   ├── Abstractions/ # IOptimization, IFeature, IRevertStep, etc.
-│   ├── Attributes/   # [Optimization], [Feature], [OptimizationCategory], etc.
+│   ├── Abstractions/ # IOptimization, ICustomizeSetting, IRevertStep, etc.
+│   ├── Attributes/   # [Optimization], [CustomizeSetting], [OptimizationCategory], etc.
 │   ├── Configuration/# AppSettings model
 │   ├── Execution/    # ExecutionScope for step tracking
-│   ├── Features/     # Feature categories (Desktop, Gaming, Preferences, System)
+│   ├── Customize/    # Customize settings (Desktop, Gaming, Preferences, System)
 │   │   ├── Categories/
-│   │   └── Models/   # BaseFeature, RegistryToggle
+│   │   └── Models/   # BaseCustomizeSetting, RegistryToggle
 │   ├── Optimizations/# Optimization categories (Performance, Privacy, GPU, etc.)
 │   │   ├── Categories/
 │   │   └── Models/   # BaseOptimization, ApplyResult, OptimizationContext
@@ -81,7 +81,7 @@ optimizerDuck/
 │   └── UI/           # Enums, risk levels, tags, order enums, LanguageOption
 ├── Services/         # Business logic and system operations
 │   ├── Configuration/# ConfigManager, LanguageManager
-│   ├── Features/     # BloatwareService, DiskCleanupService, StartupManagerService
+│   ├── Customize/    # CustomizeRegistry
 │   ├── Managers/     # FeatureManager, OptimizationManager
 │   ├── Optimization/ # Service providers (Registry, Shell, ScheduledTask, ServiceProcess)
 │   └── Revert/       # RevertManager
@@ -172,19 +172,15 @@ public class Performance : IOptimizationCategory
 
 ### Creating a New Feature
 
-Features live in `Domain/Features/Categories/`. Features are UI toggles that flip Windows settings ON or OFF.
+Customize settings live in `Domain/Customize/Categories/`. Customize settings are UI controls that flip Windows settings ON or OFF.
 
-1. **Review existing categories**: Check `Domain/Features/Categories/` for the four existing categories (`Desktop.cs`, `SystemFeatures.cs`, `Preferences.cs`, `Gaming.cs`).
-2. **Add to an existing category**:
-   - Create a nested class inside the category that inherits from `BaseFeature` (located in `Domain/Features/Models/BaseFeature.cs`).
-   - Add the `[Feature]` attribute with a `Section` name and an `Icon` (from Wpf.Ui `SymbolRegular`).
-   - For simple registry toggles, override `RegistryToggles` with a collection of `RegistryToggle` objects.
-   - For complex logic, override `EnableAsync()`, `DisableAsync()`, and `GetStateAsync()`.
-3. **Create a new category** (only if necessary):
-   - Create a new file in `Domain/Features/Categories/` that implements `IFeatureCategory`.
-   - Apply the `[FeatureCategory]` attribute.
-   - Add a new enum member to `FeatureCategoryOrder` in `Domain/UI/FeatureCategoryOrder.cs`.
-   - Register the page type in `UI/Pages/Features/Categories/FeatureCategoryPages.cs`.
+1. **Review existing categories**: Check `Domain/Customize/Categories/` for the existing categories.
+2. **Pick an existing category** or create a new one:
+   - Create a nested class inside the category that inherits from `BaseCustomizeSetting` (located in `Domain/Customize/Models/BaseCustomizeSetting.cs`).
+   - Add the `[CustomizeSetting(Section = ..., Icon = ..., Recommendation = ...)]` attribute.
+3. **Create a new category** (if needed):
+   - Create a new file in `Domain/Customize/Categories/` that implements `ICustomizeCategory`.
+   - Add `[CustomizeCategory(PageType = typeof(...))]` along with the required interface members.
 
 **Example (simple registry toggle):**
 

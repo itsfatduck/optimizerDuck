@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -8,7 +8,7 @@ using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
-using optimizerDuck.Services.OptimizationServices;
+using optimizerDuck.Services.Optimization.Providers;
 using Xunit;
 
 namespace optimizerDuck.Test.Services.OptimizationServices;

@@ -163,19 +163,19 @@
   <data name="Sidebar.Optimize" xml:space="preserve">
     <value>优化</value>
   </data>
-  <data name="Features.Description" xml:space="preserve">
-    <value>启用或禁用 Windows 功能</value>
+  <data name="Customize.Description" xml:space="preserve">
+    <value>自定义 Windows 设置和首选项</value>
   </data>
-  <data name="Features.Preferences.Name" xml:space="preserve">
+  <data name="Customize.Preferences.Name" xml:space="preserve">
     <value>首选项设置</value>
   </data>
-  <data name="Features.Preferences.Description" xml:space="preserve">
+  <data name="Customize.Preferences.Description" xml:space="preserve">
     <value>自定义视觉效果与交互设置</value>
   </data>
-  <data name="Features.Gaming.Name" xml:space="preserve">
+  <data name="Customize.Gaming.Name" xml:space="preserve">
     <value>游戏</value>
   </data>
-  <data name="Features.Gaming.Description" xml:space="preserve">
+  <data name="Customize.Gaming.Description" xml:space="preserve">
     <value>游戏相关的显示、输入与录制设置</value>
   </data>
   <data name="Dashboard.SystemInfo.Gpu.More" xml:space="preserve">
@@ -817,232 +817,232 @@
   <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
     <value>关闭自适应垂直同步，改用固定垂直同步，保证时序稳定。</value>
   </data>
-  <data name="Features.Preferences.Section.Taskbar" xml:space="preserve">
+  <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
     <value>任务栏</value>
   </data>
-  <data name="Features.Preferences.Section.Appearance" xml:space="preserve">
+  <data name="Customize.Preferences.Section.Appearance" xml:space="preserve">
     <value>外观</value>
   </data>
-  <data name="Features.Preferences.Section.Explorer" xml:space="preserve">
+  <data name="Customize.Preferences.Section.Explorer" xml:space="preserve">
     <value>文件资源管理器</value>
   </data>
-  <data name="Features.Preferences.TaskbarNewsAndInterests.Name" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarNewsAndInterests.Name" xml:space="preserve">
     <value>任务栏资讯和兴趣</value>
   </data>
-  <data name="Features.Preferences.TaskbarNewsAndInterests.Description" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarNewsAndInterests.Description" xml:space="preserve">
     <value>控制任务栏资讯小组件及 MSN 订阅源后台更新。</value>
   </data>
-  <data name="Features.Preferences.TaskbarSearchBox.Name" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarSearchBox.Name" xml:space="preserve">
     <value>任务栏搜索框</value>
   </data>
-  <data name="Features.Preferences.TaskbarSearchBox.Description" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarSearchBox.Description" xml:space="preserve">
     <value>控制任务栏搜索框的显示状态。</value>
   </data>
-  <data name="Features.Preferences.TaskbarChatButton.Name" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarChatButton.Name" xml:space="preserve">
     <value>任务栏聊天按钮</value>
   </data>
-  <data name="Features.Preferences.TaskbarChatButton.Description" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarChatButton.Description" xml:space="preserve">
     <value>控制任务栏中 Teams 聊天按钮的显示状态。</value>
   </data>
-  <data name="Features.Preferences.TaskbarWidgets.Name" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarWidgets.Name" xml:space="preserve">
     <value>任务栏小组件</value>
   </data>
-  <data name="Features.Preferences.TaskbarWidgets.Description" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarWidgets.Description" xml:space="preserve">
     <value>控制任务栏小组件按钮的显示状态。</value>
   </data>
-  <data name="Features.Preferences.TaskbarWidgets.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarWidgets.Recommendation.Reason" xml:space="preserve">
     <value>关闭小组件可移除后台新闻天气服务，减少闲置网络与内存占用。</value>
   </data>
-  <data name="Features.Preferences.TaskbarAlignment.Name" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarAlignment.Name" xml:space="preserve">
     <value>任务栏对齐方式</value>
   </data>
-  <data name="Features.Preferences.TaskbarAlignment.Description" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarAlignment.Description" xml:space="preserve">
     <value>切换任务栏对齐方式：居中/左对齐。</value>
   </data>
-  <data name="Features.Preferences.ExplorerCompactMode.Name" xml:space="preserve">
+  <data name="Customize.Preferences.ExplorerCompactMode.Name" xml:space="preserve">
     <value>文件资源管理器紧凑模式</value>
   </data>
-  <data name="Features.Preferences.ExplorerCompactMode.Description" xml:space="preserve">
+  <data name="Customize.Preferences.ExplorerCompactMode.Description" xml:space="preserve">
     <value>减小文件资源管理器项目间距，实现紧凑显示。</value>
   </data>
-  <data name="Features.Preferences.SnapAssistFlyout.Name" xml:space="preserve">
+  <data name="Customize.Preferences.SnapAssistFlyout.Name" xml:space="preserve">
     <value>窗口布局悬浮菜单</value>
   </data>
-  <data name="Features.Preferences.SnapAssistFlyout.Description" xml:space="preserve">
+  <data name="Customize.Preferences.SnapAssistFlyout.Description" xml:space="preserve">
     <value>控制鼠标悬停最大化按钮时显示的窗口布局菜单。</value>
   </data>
-  <data name="Features.Preferences.ExplorerItemCheckboxes.Name" xml:space="preserve">
+  <data name="Customize.Preferences.ExplorerItemCheckboxes.Name" xml:space="preserve">
     <value>文件资源管理器项目复选框</value>
   </data>
-  <data name="Features.Preferences.ExplorerItemCheckboxes.Description" xml:space="preserve">
+  <data name="Customize.Preferences.ExplorerItemCheckboxes.Description" xml:space="preserve">
     <value>在文件资源管理器中选择项目时显示复选框。</value>
   </data>
-  <data name="Features.Preferences.TaskbarTaskViewButton.Name" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarTaskViewButton.Name" xml:space="preserve">
     <value>任务栏任务视图按钮</value>
   </data>
-  <data name="Features.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
     <value>控制任务栏任务视图按钮的显示状态。</value>
   </data>
-  <data name="Features.Preferences.MeetNow.Name" xml:space="preserve">
+  <data name="Customize.Preferences.MeetNow.Name" xml:space="preserve">
     <value>立即开会</value>
   </data>
-  <data name="Features.Preferences.MeetNow.Description" xml:space="preserve">
+  <data name="Customize.Preferences.MeetNow.Description" xml:space="preserve">
     <value>控制任务栏通知区域中的 Skype 立即开会图标。</value>
   </data>
-  <data name="Features.Preferences.TaskbarPeople.Name" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarPeople.Name" xml:space="preserve">
     <value>任务栏人脉</value>
   </data>
-  <data name="Features.Preferences.TaskbarPeople.Description" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarPeople.Description" xml:space="preserve">
     <value>控制任务栏人脉图标，用于快速访问联系人。</value>
   </data>
-  <data name="Features.Preferences.TaskbarEndTask.Name" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarEndTask.Name" xml:space="preserve">
     <value>任务栏结束任务</value>
   </data>
-  <data name="Features.Preferences.TaskbarEndTask.Description" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarEndTask.Description" xml:space="preserve">
     <value>在任务栏右键菜单中添加结束任务选项，快速终止进程。</value>
   </data>
-  <data name="Features.Preferences.TaskbarEndTask.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarEndTask.Recommendation.Reason" xml:space="preserve">
     <value>任务栏结束任务功能可无需打开任务管理器，直接关闭卡死的应用。</value>
   </data>
-  <data name="Features.Preferences.DarkMode.Name" xml:space="preserve">
+  <data name="Customize.Preferences.DarkMode.Name" xml:space="preserve">
     <value>深色模式</value>
   </data>
-  <data name="Features.Preferences.DarkMode.Description" xml:space="preserve">
+  <data name="Customize.Preferences.DarkMode.Description" xml:space="preserve">
     <value>为系统应用、设置和界面元素启用深色模式。</value>
   </data>
-  <data name="Features.Preferences.ExplorerSyncNotifications.Name" xml:space="preserve">
+  <data name="Customize.Preferences.ExplorerSyncNotifications.Name" xml:space="preserve">
     <value>文件资源管理器同步通知</value>
   </data>
-  <data name="Features.Preferences.ExplorerSyncNotifications.Description" xml:space="preserve">
+  <data name="Customize.Preferences.ExplorerSyncNotifications.Description" xml:space="preserve">
     <value>控制文件资源管理器中的 OneDrive 与云同步通知。</value>
   </data>
-  <data name="Features.Preferences.ExplorerSyncNotifications.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Preferences.ExplorerSyncNotifications.Recommendation.Reason" xml:space="preserve">
     <value>关闭同步通知可避免 OneDrive 弹窗干扰文件浏览。</value>
   </data>
-  <data name="Features.Preferences.SystemSuggestions.Name" xml:space="preserve">
+  <data name="Customize.Preferences.SystemSuggestions.Name" xml:space="preserve">
     <value>系统建议</value>
   </data>
-  <data name="Features.Preferences.SystemSuggestions.Description" xml:space="preserve">
+  <data name="Customize.Preferences.SystemSuggestions.Description" xml:space="preserve">
     <value>控制设置面板中的 Windows 提示和应用推荐。</value>
   </data>
-  <data name="Features.Preferences.SystemSuggestions.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Preferences.SystemSuggestions.Recommendation.Reason" xml:space="preserve">
     <value>关闭系统建议可阻止 Windows 推送未请求的应用和设置推荐。</value>
   </data>
-  <data name="Features.Preferences.ToastNotifications.Name" xml:space="preserve">
+  <data name="Customize.Preferences.ToastNotifications.Name" xml:space="preserve">
     <value>弹出通知</value>
   </data>
-  <data name="Features.Preferences.ToastNotifications.Description" xml:space="preserve">
+  <data name="Customize.Preferences.ToastNotifications.Description" xml:space="preserve">
     <value>控制悬浮弹出通知和锁屏通知。</value>
   </data>
-  <data name="Features.Preferences.ShowFileExtensions.Name" xml:space="preserve">
+  <data name="Customize.Preferences.ShowFileExtensions.Name" xml:space="preserve">
     <value>显示文件扩展名</value>
   </data>
-  <data name="Features.Preferences.ShowFileExtensions.Description" xml:space="preserve">
+  <data name="Customize.Preferences.ShowFileExtensions.Description" xml:space="preserve">
     <value>在文件资源管理器中显示文件扩展名（如 .txt、.exe）。</value>
   </data>
-  <data name="Features.Preferences.ShowFileExtensions.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Preferences.ShowFileExtensions.Recommendation.Reason" xml:space="preserve">
     <value>显示文件扩展名便于识别可疑文件类型，防止恶意软件伪装图标隐藏。</value>
   </data>
-  <data name="Features.Preferences.ShowHiddenFiles.Name" xml:space="preserve">
+  <data name="Customize.Preferences.ShowHiddenFiles.Name" xml:space="preserve">
     <value>显示隐藏文件</value>
   </data>
-  <data name="Features.Preferences.ShowHiddenFiles.Description" xml:space="preserve">
+  <data name="Customize.Preferences.ShowHiddenFiles.Description" xml:space="preserve">
     <value>在文件资源管理器中显示隐藏文件和文件夹。</value>
   </data>
-  <data name="Features.Preferences.ShowHiddenFiles.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Preferences.ShowHiddenFiles.Recommendation.Reason" xml:space="preserve">
     <value>隐藏文件包含需要管理的系统和配置数据，显示它们可让你完全掌控系统。</value>
   </data>
-  <data name="Features.Preferences.ClipboardHistory.Name" xml:space="preserve">
+  <data name="Customize.Preferences.ClipboardHistory.Name" xml:space="preserve">
     <value>剪贴板历史记录</value>
   </data>
-  <data name="Features.Preferences.ClipboardHistory.Description" xml:space="preserve">
+  <data name="Customize.Preferences.ClipboardHistory.Description" xml:space="preserve">
     <value>剪贴板历史记录可保存多次复制内容，通过 Win+V 快捷键调用。</value>
   </data>
-  <data name="Features.Preferences.ClipboardHistory.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Preferences.ClipboardHistory.Recommendation.Reason" xml:space="preserve">
     <value>剪贴板历史记录支持通过 Win+V 调用历史复制内容，提升重复粘贴效率。</value>
   </data>
-  <data name="Features.Preferences.WindowShake.Name" xml:space="preserve">
+  <data name="Customize.Preferences.WindowShake.Name" xml:space="preserve">
     <value>窗口抖动最小化</value>
   </data>
-  <data name="Features.Preferences.WindowShake.Description" xml:space="preserve">
+  <data name="Customize.Preferences.WindowShake.Description" xml:space="preserve">
     <value>拖动窗口并抖动，可最小化其他所有打开的窗口。</value>
   </data>
-  <data name="Features.Preferences.ClassicContextMenu.Name" xml:space="preserve">
+  <data name="Customize.Preferences.ClassicContextMenu.Name" xml:space="preserve">
     <value>经典右键菜单</value>
   </data>
-  <data name="Features.Preferences.ClassicContextMenu.Description" xml:space="preserve">
+  <data name="Customize.Preferences.ClassicContextMenu.Description" xml:space="preserve">
     <value>在 Windows 11 中使用 Windows 10 风格的右键菜单。</value>
   </data>
-  <data name="Features.Preferences.ClassicContextMenu.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Preferences.ClassicContextMenu.Recommendation.Reason" xml:space="preserve">
     <value>经典菜单可直接显示所有选项，无需额外点击展开 Windows 11 的精简菜单。</value>
   </data>
-  <data name="Features.Preferences.ShowSecondsInSystemClock.Name" xml:space="preserve">
+  <data name="Customize.Preferences.ShowSecondsInSystemClock.Name" xml:space="preserve">
     <value>系统时钟显示秒数</value>
   </data>
-  <data name="Features.Preferences.ShowSecondsInSystemClock.Description" xml:space="preserve">
+  <data name="Customize.Preferences.ShowSecondsInSystemClock.Description" xml:space="preserve">
     <value>在任务栏时钟中显示秒数。</value>
   </data>
-  <data name="Features.Gaming.Section.GameSettings" xml:space="preserve">
+  <data name="Customize.Gaming.Section.GameSettings" xml:space="preserve">
     <value>游戏设置</value>
   </data>
-  <data name="Features.Gaming.Section.Input" xml:space="preserve">
+  <data name="Customize.Gaming.Section.Input" xml:space="preserve">
     <value>输入设备</value>
   </data>
-  <data name="Features.Gaming.Section.Display" xml:space="preserve">
+  <data name="Customize.Gaming.Section.Display" xml:space="preserve">
     <value>显示</value>
   </data>
-  <data name="Features.Gaming.GameMode.Name" xml:space="preserve">
+  <data name="Customize.Gaming.GameMode.Name" xml:space="preserve">
     <value>游戏模式</value>
   </data>
-  <data name="Features.Gaming.GameMode.Description" xml:space="preserve">
+  <data name="Customize.Gaming.GameMode.Description" xml:space="preserve">
     <value>Windows 游戏模式，优化游戏进程优先级与 Windows 更新行为。</value>
   </data>
-  <data name="Features.Gaming.GameMode.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Gaming.GameMode.Recommendation.Reason" xml:space="preserve">
     <value>游戏模式会自动优先处理游戏进程，并暂停 Windows 更新通知，提升游戏流畅度。</value>
   </data>
-  <data name="Features.Gaming.GameBar.Name" xml:space="preserve">
+  <data name="Customize.Gaming.GameBar.Name" xml:space="preserve">
     <value>Xbox 游戏栏</value>
   </data>
-  <data name="Features.Gaming.GameBar.Description" xml:space="preserve">
+  <data name="Customize.Gaming.GameBar.Description" xml:space="preserve">
     <value>控制 Xbox 游戏栏悬浮窗、启动面板及相关后台功能。</value>
   </data>
-  <data name="Features.Gaming.GameBar.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Gaming.GameBar.Recommendation.Reason" xml:space="preserve">
     <value>禁用游戏栏可释放系统资源，避免后台悬浮窗干扰游戏运行。</value>
   </data>
-  <data name="Features.Gaming.BackgroundRecording.Name" xml:space="preserve">
+  <data name="Customize.Gaming.BackgroundRecording.Name" xml:space="preserve">
     <value>后台录制(DVR)</value>
   </data>
-  <data name="Features.Gaming.BackgroundRecording.Description" xml:space="preserve">
+  <data name="Customize.Gaming.BackgroundRecording.Description" xml:space="preserve">
     <value>控制游戏后台自动录制(游戏 DVR)和应用捕获功能。</value>
   </data>
-  <data name="Features.Gaming.BackgroundRecording.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Gaming.BackgroundRecording.Recommendation.Reason" xml:space="preserve">
     <value>禁用后台录制可停止 DVR 静默录制游戏画面，节省 CPU 占用和磁盘写入。</value>
   </data>
-  <data name="Features.Gaming.MouseAcceleration.Name" xml:space="preserve">
+  <data name="Customize.Gaming.MouseAcceleration.Name" xml:space="preserve">
     <value>鼠标加速</value>
   </data>
-  <data name="Features.Gaming.MouseAcceleration.Description" xml:space="preserve">
+  <data name="Customize.Gaming.MouseAcceleration.Description" xml:space="preserve">
     <value>Windows 鼠标指针移动加速设置。</value>
   </data>
-  <data name="Features.Gaming.MouseAcceleration.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Gaming.MouseAcceleration.Recommendation.Reason" xml:space="preserve">
     <value>禁用鼠标加速可获得原始线性鼠标输入，提升瞄准精度和肌肉记忆一致性。</value>
   </data>
-  <data name="Features.Gaming.FullscreenOptimizations.Name" xml:space="preserve">
+  <data name="Customize.Gaming.FullscreenOptimizations.Name" xml:space="preserve">
     <value>全屏优化</value>
   </data>
-  <data name="Features.Gaming.FullscreenOptimizations.Description" xml:space="preserve">
+  <data name="Customize.Gaming.FullscreenOptimizations.Description" xml:space="preserve">
     <value>基于 Windows 桌面窗口管理器的全屏优化设置。</value>
   </data>
-  <data name="Features.Gaming.FullscreenOptimizations.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Gaming.FullscreenOptimizations.Recommendation.Reason" xml:space="preserve">
     <value>若游戏出现卡顿、输入延迟或黑屏（尤其竞技射击游戏），建议禁用。</value>
   </data>
-  <data name="Features.Gaming.HardwareAcceleratedGpuScheduling.Name" xml:space="preserve">
+  <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Name" xml:space="preserve">
     <value>硬件加速 GPU 调度</value>
   </data>
-  <data name="Features.Gaming.HardwareAcceleratedGpuScheduling.Description" xml:space="preserve">
+  <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Description" xml:space="preserve">
     <value>GPU 显存调度模式，需要兼容的显卡驱动支持。</value>
   </data>
-  <data name="Features.Gaming.HardwareAcceleratedGpuScheduling.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Recommendation.Reason" xml:space="preserve">
     <value>GPU 调度将帧管理从 CPU 转移到 GPU，降低显示延迟，优化帧率稳定性。</value>
   </data>
   <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
@@ -1628,106 +1628,106 @@
   <data name="Common.Other" xml:space="preserve">
     <value>其他</value>
   </data>
-  <data name="Sidebar.Features" xml:space="preserve">
-    <value>功能设置</value>
+  <data name="Sidebar.Customize" xml:space="preserve">
+    <value>自定义</value>
   </data>
-  <data name="Features.Title" xml:space="preserve">
-    <value>功能设置</value>
+  <data name="Customize.Title" xml:space="preserve">
+    <value>自定义</value>
   </data>
-  <data name="Features.SystemFeatures.Name" xml:space="preserve">
+  <data name="Customize.SystemFeatures.Name" xml:space="preserve">
     <value>系统</value>
   </data>
-  <data name="Features.SystemFeatures.Description" xml:space="preserve">
+  <data name="Customize.SystemFeatures.Description" xml:space="preserve">
     <value>核心系统功能与行为设置</value>
   </data>
-  <data name="Features.SystemFeatures.Section.Boot" xml:space="preserve">
+  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
     <value>启动设置</value>
   </data>
-  <data name="Features.SystemFeatures.Section.Input" xml:space="preserve">
+  <data name="Customize.SystemFeatures.Section.Input" xml:space="preserve">
     <value>输入设置</value>
   </data>
-  <data name="Features.SystemFeatures.NumLockOnBoot.Name" xml:space="preserve">
+  <data name="Customize.SystemFeatures.NumLockOnBoot.Name" xml:space="preserve">
     <value>开机启用数字小键盘</value>
   </data>
-  <data name="Features.SystemFeatures.NumLockOnBoot.Description" xml:space="preserve">
+  <data name="Customize.SystemFeatures.NumLockOnBoot.Description" xml:space="preserve">
     <value>设置 Windows 登录界面时数字小键盘的状态。</value>
   </data>
-  <data name="Features.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
     <value>开机启用数字小键盘，登录后即可直接使用，无需每次手动开启。</value>
   </data>
-  <data name="Features.SystemFeatures.Section.Services" xml:space="preserve">
+  <data name="Customize.SystemFeatures.Section.Services" xml:space="preserve">
     <value>系统服务</value>
   </data>
-  <data name="Features.SystemFeatures.Section.Power" xml:space="preserve">
+  <data name="Customize.SystemFeatures.Section.Power" xml:space="preserve">
     <value>电源设置</value>
   </data>
-  <data name="Features.Desktop.Name" xml:space="preserve">
+  <data name="Customize.Desktop.Name" xml:space="preserve">
     <value>桌面</value>
   </data>
-  <data name="Features.Desktop.Description" xml:space="preserve">
+  <data name="Customize.Desktop.Description" xml:space="preserve">
     <value>桌面图标与快捷方式设置</value>
   </data>
-  <data name="Features.Desktop.Section.Icons" xml:space="preserve">
+  <data name="Customize.Desktop.Section.Icons" xml:space="preserve">
     <value>桌面图标</value>
   </data>
-  <data name="Features.Desktop.Section.Behaviors" xml:space="preserve">
+  <data name="Customize.Desktop.Section.Behaviors" xml:space="preserve">
     <value>快捷方式行为</value>
   </data>
-  <data name="Features.Desktop.ShowThisPc.Name" xml:space="preserve">
+  <data name="Customize.Desktop.ShowThisPc.Name" xml:space="preserve">
     <value>此电脑</value>
   </data>
-  <data name="Features.Desktop.ShowThisPc.Description" xml:space="preserve">
+  <data name="Customize.Desktop.ShowThisPc.Description" xml:space="preserve">
     <value>在桌面显示“此电脑”图标</value>
   </data>
-  <data name="Features.Desktop.ShowRecycleBin.Name" xml:space="preserve">
+  <data name="Customize.Desktop.ShowRecycleBin.Name" xml:space="preserve">
     <value>回收站</value>
   </data>
-  <data name="Features.Desktop.ShowRecycleBin.Description" xml:space="preserve">
+  <data name="Customize.Desktop.ShowRecycleBin.Description" xml:space="preserve">
     <value>在桌面显示“回收站”图标</value>
   </data>
-  <data name="Features.Desktop.ShowUserFiles.Name" xml:space="preserve">
+  <data name="Customize.Desktop.ShowUserFiles.Name" xml:space="preserve">
     <value>用户文件</value>
   </data>
-  <data name="Features.Desktop.ShowUserFiles.Description" xml:space="preserve">
+  <data name="Customize.Desktop.ShowUserFiles.Description" xml:space="preserve">
     <value>在桌面显示用户配置文件夹图标</value>
   </data>
-  <data name="Features.Desktop.ShowNetwork.Name" xml:space="preserve">
+  <data name="Customize.Desktop.ShowNetwork.Name" xml:space="preserve">
     <value>网络</value>
   </data>
-  <data name="Features.Desktop.ShowNetwork.Description" xml:space="preserve">
+  <data name="Customize.Desktop.ShowNetwork.Description" xml:space="preserve">
     <value>在桌面显示“网络”图标</value>
   </data>
-  <data name="Features.Desktop.ShowControlPanel.Name" xml:space="preserve">
+  <data name="Customize.Desktop.ShowControlPanel.Name" xml:space="preserve">
     <value>控制面板</value>
   </data>
-  <data name="Features.Desktop.ShowControlPanel.Description" xml:space="preserve">
+  <data name="Customize.Desktop.ShowControlPanel.Description" xml:space="preserve">
     <value>在桌面显示“控制面板”图标</value>
   </data>
-  <data name="Features.Desktop.ShowDesktopIcons.Name" xml:space="preserve">
+  <data name="Customize.Desktop.ShowDesktopIcons.Name" xml:space="preserve">
     <value>桌面图标</value>
   </data>
-  <data name="Features.Desktop.ShowDesktopIcons.Description" xml:space="preserve">
+  <data name="Customize.Desktop.ShowDesktopIcons.Description" xml:space="preserve">
     <value>一键显示或隐藏所有桌面图标</value>
   </data>
-  <data name="Features.Desktop.ShortcutArrow.Name" xml:space="preserve">
+  <data name="Customize.Desktop.ShortcutArrow.Name" xml:space="preserve">
     <value>快捷方式箭头</value>
   </data>
-  <data name="Features.Desktop.ShortcutArrow.Description" xml:space="preserve">
+  <data name="Customize.Desktop.ShortcutArrow.Description" xml:space="preserve">
     <value>显示或隐藏桌面图标上的快捷方式箭头标记</value>
   </data>
-  <data name="Features.Preferences.LaunchToThisPc.Name" xml:space="preserve">
+  <data name="Customize.Preferences.LaunchToThisPc.Name" xml:space="preserve">
     <value>打开时定位到此电脑</value>
   </data>
-  <data name="Features.Preferences.LaunchToThisPc.Description" xml:space="preserve">
+  <data name="Customize.Preferences.LaunchToThisPc.Description" xml:space="preserve">
     <value>设置文件资源管理器默认打开位置（此电脑/快速访问）。</value>
   </data>
-  <data name="Features.Preferences.BingSearch.Name" xml:space="preserve">
+  <data name="Customize.Preferences.BingSearch.Name" xml:space="preserve">
     <value>必应搜索</value>
   </data>
-  <data name="Features.Preferences.BingSearch.Description" xml:space="preserve">
+  <data name="Customize.Preferences.BingSearch.Description" xml:space="preserve">
     <value>在 Windows 搜索和开始菜单结果中集成必应网页搜索。</value>
   </data>
-  <data name="Features.Preferences.BingSearch.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Preferences.BingSearch.Recommendation.Reason" xml:space="preserve">
     <value>关闭必应搜索可避免网页结果干扰本地搜索，同时提升搜索速度。</value>
   </data>
   <data name="Button.Accept" xml:space="preserve">

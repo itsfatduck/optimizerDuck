@@ -1,10 +1,10 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Resources.Languages;
-using optimizerDuck.Services;
+using optimizerDuck.Services.UI;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 using CleanupItem = optimizerDuck.Domain.Optimizations.Models.Cleanup.CleanupItem;

@@ -358,6 +358,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Apply.
+        /// </summary>
+        internal static string Common_Apply {
+            get {
+                return ResourceManager.GetString("Common.Apply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string Common_Cancel {
@@ -561,6 +570,1050 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Common_Unknown {
             get {
                 return ResourceManager.GetString("Common.Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customize Windows settings and preferences.
+        /// </summary>
+        internal static string Customize_Description {
+            get {
+                return ResourceManager.GetString("Customize.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Desktop icons and shortcut settings.
+        /// </summary>
+        internal static string Customize_Desktop_Description {
+            get {
+                return ResourceManager.GetString("Customize.Desktop.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Desktop.
+        /// </summary>
+        internal static string Customize_Desktop_Name {
+            get {
+                return ResourceManager.GetString("Customize.Desktop.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shortcut Behaviors.
+        /// </summary>
+        internal static string Customize_Desktop_Section_Behaviors {
+            get {
+                return ResourceManager.GetString("Customize.Desktop.Section.Behaviors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Desktop Icons.
+        /// </summary>
+        internal static string Customize_Desktop_Section_Icons {
+            get {
+                return ResourceManager.GetString("Customize.Desktop.Section.Icons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shows or hides the shortcut arrow overlay on desktop icons.
+        /// </summary>
+        internal static string Customize_Desktop_ShortcutArrow_Description {
+            get {
+                return ResourceManager.GetString("Customize.Desktop.ShortcutArrow.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shortcut Arrow.
+        /// </summary>
+        internal static string Customize_Desktop_ShortcutArrow_Name {
+            get {
+                return ResourceManager.GetString("Customize.Desktop.ShortcutArrow.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Displays the Control Panel icon on your desktop.
+        /// </summary>
+        internal static string Customize_Desktop_ShowControlPanel_Description {
+            get {
+                return ResourceManager.GetString("Customize.Desktop.ShowControlPanel.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Control Panel.
+        /// </summary>
+        internal static string Customize_Desktop_ShowControlPanel_Name {
+            get {
+                return ResourceManager.GetString("Customize.Desktop.ShowControlPanel.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shows or hides all desktop icons at once.
+        /// </summary>
+        internal static string Customize_Desktop_ShowDesktopIcons_Description {
+            get {
+                return ResourceManager.GetString("Customize.Desktop.ShowDesktopIcons.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Desktop Icons.
+        /// </summary>
+        internal static string Customize_Desktop_ShowDesktopIcons_Name {
+            get {
+                return ResourceManager.GetString("Customize.Desktop.ShowDesktopIcons.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Displays the Network icon on your desktop.
+        /// </summary>
+        internal static string Customize_Desktop_ShowNetwork_Description {
+            get {
+                return ResourceManager.GetString("Customize.Desktop.ShowNetwork.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Network.
+        /// </summary>
+        internal static string Customize_Desktop_ShowNetwork_Name {
+            get {
+                return ResourceManager.GetString("Customize.Desktop.ShowNetwork.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Displays the Recycle Bin icon on your desktop.
+        /// </summary>
+        internal static string Customize_Desktop_ShowRecycleBin_Description {
+            get {
+                return ResourceManager.GetString("Customize.Desktop.ShowRecycleBin.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recycle Bin.
+        /// </summary>
+        internal static string Customize_Desktop_ShowRecycleBin_Name {
+            get {
+                return ResourceManager.GetString("Customize.Desktop.ShowRecycleBin.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Displays the This PC icon on your desktop.
+        /// </summary>
+        internal static string Customize_Desktop_ShowThisPc_Description {
+            get {
+                return ResourceManager.GetString("Customize.Desktop.ShowThisPc.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This PC.
+        /// </summary>
+        internal static string Customize_Desktop_ShowThisPc_Name {
+            get {
+                return ResourceManager.GetString("Customize.Desktop.ShowThisPc.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Displays your user profile folder as a desktop icon.
+        /// </summary>
+        internal static string Customize_Desktop_ShowUserFiles_Description {
+            get {
+                return ResourceManager.GetString("Customize.Desktop.ShowUserFiles.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Files.
+        /// </summary>
+        internal static string Customize_Desktop_ShowUserFiles_Name {
+            get {
+                return ResourceManager.GetString("Customize.Desktop.ShowUserFiles.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controls automatic background game recording (Game DVR) and app capture..
+        /// </summary>
+        internal static string Customize_Gaming_BackgroundRecording_Description {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.BackgroundRecording.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Background Recording (DVR).
+        /// </summary>
+        internal static string Customize_Gaming_BackgroundRecording_Name {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.BackgroundRecording.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disabling background recording stops DVR from silently capturing gameplay, saving CPU and disk write cycles..
+        /// </summary>
+        internal static string Customize_Gaming_BackgroundRecording_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.BackgroundRecording.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game-related display, input, and recording settings.
+        /// </summary>
+        internal static string Customize_Gaming_Description {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows DWM-based full-screen optimizations setting..
+        /// </summary>
+        internal static string Customize_Gaming_FullscreenOptimizations_Description {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.FullscreenOptimizations.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fullscreen Optimizations.
+        /// </summary>
+        internal static string Customize_Gaming_FullscreenOptimizations_Name {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.FullscreenOptimizations.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable it if you experience in-game stuttering, input lag, or black screens (especially in competitive shooters)..
+        /// </summary>
+        internal static string Customize_Gaming_FullscreenOptimizations_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.FullscreenOptimizations.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controls Xbox Game Bar overlays, startup panel, and related background features..
+        /// </summary>
+        internal static string Customize_Gaming_GameBar_Description {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.GameBar.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Xbox Game Bar.
+        /// </summary>
+        internal static string Customize_Gaming_GameBar_Name {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.GameBar.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disabling Game Bar frees up system resources and prevents background overlays from interfering with your games..
+        /// </summary>
+        internal static string Customize_Gaming_GameBar_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.GameBar.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows Game Mode for gaming processes and Windows Update behavior..
+        /// </summary>
+        internal static string Customize_Gaming_GameMode_Description {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.GameMode.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game Mode.
+        /// </summary>
+        internal static string Customize_Gaming_GameMode_Name {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.GameMode.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game Mode automatically prioritizes game processes and suspends Windows Update notifications while gaming for smoother performance..
+        /// </summary>
+        internal static string Customize_Gaming_GameMode_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.GameMode.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GPU video memory scheduling mode. Requires a compatible GPU driver..
+        /// </summary>
+        internal static string Customize_Gaming_HardwareAcceleratedGpuScheduling_Description {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.HardwareAcceleratedGpuScheduling.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hardware-Accelerated GPU Scheduling.
+        /// </summary>
+        internal static string Customize_Gaming_HardwareAcceleratedGpuScheduling_Name {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.HardwareAcceleratedGpuScheduling.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GPU scheduling offloads frame management from the CPU to the GPU, cutting display latency and improving frame pacing..
+        /// </summary>
+        internal static string Customize_Gaming_HardwareAcceleratedGpuScheduling_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.HardwareAcceleratedGpuScheduling.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows mouse acceleration setting for cursor movement..
+        /// </summary>
+        internal static string Customize_Gaming_MouseAcceleration_Description {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.MouseAcceleration.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mouse Acceleration.
+        /// </summary>
+        internal static string Customize_Gaming_MouseAcceleration_Name {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.MouseAcceleration.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disabling acceleration gives you raw, linear mouse input for better aim precision and muscle memory consistency..
+        /// </summary>
+        internal static string Customize_Gaming_MouseAcceleration_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.MouseAcceleration.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gaming.
+        /// </summary>
+        internal static string Customize_Gaming_Name {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display.
+        /// </summary>
+        internal static string Customize_Gaming_Section_Display {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.Section.Display", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game Settings.
+        /// </summary>
+        internal static string Customize_Gaming_Section_GameSettings {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.Section.GameSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input.
+        /// </summary>
+        internal static string Customize_Gaming_Section_Input {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.Section.Input", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bing web search integration in Windows Search and Start menu results..
+        /// </summary>
+        internal static string Customize_Preferences_BingSearch_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.BingSearch.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bing Search.
+        /// </summary>
+        internal static string Customize_Preferences_BingSearch_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.BingSearch.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turning off Bing search prevents web queries from cluttering local search results and improves search speed..
+        /// </summary>
+        internal static string Customize_Preferences_BingSearch_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.BingSearch.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows 10-style context menu on Windows 11..
+        /// </summary>
+        internal static string Customize_Preferences_ClassicContextMenu_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.ClassicContextMenu.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Classic Context Menu.
+        /// </summary>
+        internal static string Customize_Preferences_ClassicContextMenu_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.ClassicContextMenu.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The classic menu shows all options at once without the extra click needed to expand Windows 11&apos;s condensed menu..
+        /// </summary>
+        internal static string Customize_Preferences_ClassicContextMenu_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.ClassicContextMenu.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clipboard history for multiple copied items accessible with Win+V..
+        /// </summary>
+        internal static string Customize_Preferences_ClipboardHistory_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.ClipboardHistory.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clipboard History.
+        /// </summary>
+        internal static string Customize_Preferences_ClipboardHistory_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.ClipboardHistory.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clipboard history lets you recall multiple past copies with Win+V, speeding up repetitive copy-paste workflows..
+        /// </summary>
+        internal static string Customize_Preferences_ClipboardHistory_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.ClipboardHistory.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dark mode for system apps, Settings, and shell elements..
+        /// </summary>
+        internal static string Customize_Preferences_DarkMode_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.DarkMode.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dark Mode.
+        /// </summary>
+        internal static string Customize_Preferences_DarkMode_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.DarkMode.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customize visual and interaction settings.
+        /// </summary>
+        internal static string Customize_Preferences_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Decreases spacing between items in File Explorer for a denser view..
+        /// </summary>
+        internal static string Customize_Preferences_ExplorerCompactMode_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.ExplorerCompactMode.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Explorer Compact Mode.
+        /// </summary>
+        internal static string Customize_Preferences_ExplorerCompactMode_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.ExplorerCompactMode.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shows check boxes when selecting items in File Explorer..
+        /// </summary>
+        internal static string Customize_Preferences_ExplorerItemCheckboxes_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.ExplorerItemCheckboxes.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Explorer Item Check Boxes.
+        /// </summary>
+        internal static string Customize_Preferences_ExplorerItemCheckboxes_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.ExplorerItemCheckboxes.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controls OneDrive and cloud sync provider notifications in File Explorer..
+        /// </summary>
+        internal static string Customize_Preferences_ExplorerSyncNotifications_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.ExplorerSyncNotifications.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Explorer Sync Notifications.
+        /// </summary>
+        internal static string Customize_Preferences_ExplorerSyncNotifications_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.ExplorerSyncNotifications.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disabling sync notifications stops OneDrive pop-ups from interrupting file browsing in Explorer..
+        /// </summary>
+        internal static string Customize_Preferences_ExplorerSyncNotifications_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.ExplorerSyncNotifications.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Explorer default location setting (This PC or Quick Access)..
+        /// </summary>
+        internal static string Customize_Preferences_LaunchToThisPc_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.LaunchToThisPc.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Launch to &quot;This PC&quot;.
+        /// </summary>
+        internal static string Customize_Preferences_LaunchToThisPc_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.LaunchToThisPc.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controls the Meet Now (Skype) icon in the taskbar notification area..
+        /// </summary>
+        internal static string Customize_Preferences_MeetNow_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.MeetNow.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meet Now.
+        /// </summary>
+        internal static string Customize_Preferences_MeetNow_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.MeetNow.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preferences.
+        /// </summary>
+        internal static string Customize_Preferences_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Appearance.
+        /// </summary>
+        internal static string Customize_Preferences_Section_Appearance {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.Section.Appearance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Explorer.
+        /// </summary>
+        internal static string Customize_Preferences_Section_Explorer {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.Section.Explorer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taskbar.
+        /// </summary>
+        internal static string Customize_Preferences_Section_Taskbar {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.Section.Taskbar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shows file extensions (e.g. .txt, .exe) in File Explorer..
+        /// </summary>
+        internal static string Customize_Preferences_ShowFileExtensions_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.ShowFileExtensions.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show File Extensions.
+        /// </summary>
+        internal static string Customize_Preferences_ShowFileExtensions_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.ShowFileExtensions.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing file extensions makes it easy to spot suspicious file types and prevents malware from hiding behind fake icons..
+        /// </summary>
+        internal static string Customize_Preferences_ShowFileExtensions_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.ShowFileExtensions.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shows hidden files and folders in File Explorer..
+        /// </summary>
+        internal static string Customize_Preferences_ShowHiddenFiles_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.ShowHiddenFiles.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Hidden Files.
+        /// </summary>
+        internal static string Customize_Preferences_ShowHiddenFiles_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.ShowHiddenFiles.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hidden files contain system and config data you may need to manage; showing them gives you full visibility of your system..
+        /// </summary>
+        internal static string Customize_Preferences_ShowHiddenFiles_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.ShowHiddenFiles.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Displays seconds in the taskbar clock..
+        /// </summary>
+        internal static string Customize_Preferences_ShowSecondsInSystemClock_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.ShowSecondsInSystemClock.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seconds in System Clock.
+        /// </summary>
+        internal static string Customize_Preferences_ShowSecondsInSystemClock_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.ShowSecondsInSystemClock.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controls the snap layouts menu that appears when hovering over the maximize button..
+        /// </summary>
+        internal static string Customize_Preferences_SnapAssistFlyout_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.SnapAssistFlyout.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Snap Layouts Flyout.
+        /// </summary>
+        internal static string Customize_Preferences_SnapAssistFlyout_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.SnapAssistFlyout.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controls Windows tips and app suggestions in the Settings panel..
+        /// </summary>
+        internal static string Customize_Preferences_SystemSuggestions_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.SystemSuggestions.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System Suggestions.
+        /// </summary>
+        internal static string Customize_Preferences_SystemSuggestions_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.SystemSuggestions.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turning off system suggestions stops Windows from recommending apps and settings you did not ask for..
+        /// </summary>
+        internal static string Customize_Preferences_SystemSuggestions_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.SystemSuggestions.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Switches taskbar alignment between Center and Left..
+        /// </summary>
+        internal static string Customize_Preferences_TaskbarAlignment_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.TaskbarAlignment.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taskbar Alignment.
+        /// </summary>
+        internal static string Customize_Preferences_TaskbarAlignment_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.TaskbarAlignment.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Center.
+        /// </summary>
+        internal static string Customize_Preferences_TaskbarAlignment_Options_Center {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.TaskbarAlignment.Options.Center", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left.
+        /// </summary>
+        internal static string Customize_Preferences_TaskbarAlignment_Options_Left {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.TaskbarAlignment.Options.Left", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controls visibility of the Chat (Teams) button on the taskbar..
+        /// </summary>
+        internal static string Customize_Preferences_TaskbarChatButton_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.TaskbarChatButton.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taskbar Chat Button.
+        /// </summary>
+        internal static string Customize_Preferences_TaskbarChatButton_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.TaskbarChatButton.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds an &quot;End task&quot; option to the taskbar right-click menu for quick process termination..
+        /// </summary>
+        internal static string Customize_Preferences_TaskbarEndTask_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.TaskbarEndTask.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taskbar End Task.
+        /// </summary>
+        internal static string Customize_Preferences_TaskbarEndTask_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.TaskbarEndTask.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End Task on the taskbar lets you kill frozen apps instantly without opening Task Manager..
+        /// </summary>
+        internal static string Customize_Preferences_TaskbarEndTask_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.TaskbarEndTask.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controls the News and Interests widget on the taskbar and MSN feed background updates..
+        /// </summary>
+        internal static string Customize_Preferences_TaskbarNewsAndInterests_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.TaskbarNewsAndInterests.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taskbar News &amp; Interests.
+        /// </summary>
+        internal static string Customize_Preferences_TaskbarNewsAndInterests_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.TaskbarNewsAndInterests.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controls the People icon on the taskbar for quick contacts access..
+        /// </summary>
+        internal static string Customize_Preferences_TaskbarPeople_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.TaskbarPeople.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taskbar People.
+        /// </summary>
+        internal static string Customize_Preferences_TaskbarPeople_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.TaskbarPeople.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controls visibility of the search box on the taskbar..
+        /// </summary>
+        internal static string Customize_Preferences_TaskbarSearchBox_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.TaskbarSearchBox.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taskbar Search Box.
+        /// </summary>
+        internal static string Customize_Preferences_TaskbarSearchBox_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.TaskbarSearchBox.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controls visibility of the Task View button on the taskbar..
+        /// </summary>
+        internal static string Customize_Preferences_TaskbarTaskViewButton_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.TaskbarTaskViewButton.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taskbar Task View Button.
+        /// </summary>
+        internal static string Customize_Preferences_TaskbarTaskViewButton_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.TaskbarTaskViewButton.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controls visibility of the Widgets button on the taskbar..
+        /// </summary>
+        internal static string Customize_Preferences_TaskbarWidgets_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.TaskbarWidgets.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taskbar Widgets.
+        /// </summary>
+        internal static string Customize_Preferences_TaskbarWidgets_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.TaskbarWidgets.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turning off widgets removes the background web service that fetches news and weather, reducing idle network and memory usage..
+        /// </summary>
+        internal static string Customize_Preferences_TaskbarWidgets_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.TaskbarWidgets.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controls toast popup notifications and lock screen notifications..
+        /// </summary>
+        internal static string Customize_Preferences_ToastNotifications_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.ToastNotifications.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toast Notifications.
+        /// </summary>
+        internal static string Customize_Preferences_ToastNotifications_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.ToastNotifications.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shake a window to minimize all other open windows..
+        /// </summary>
+        internal static string Customize_Preferences_WindowShake_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.WindowShake.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Window Shake.
+        /// </summary>
+        internal static string Customize_Preferences_WindowShake_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.WindowShake.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Core system features and behaviors.
+        /// </summary>
+        internal static string Customize_SystemFeatures_Description {
+            get {
+                return ResourceManager.GetString("Customize.SystemFeatures.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System.
+        /// </summary>
+        internal static string Customize_SystemFeatures_Name {
+            get {
+                return ResourceManager.GetString("Customize.SystemFeatures.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NumLock state at the Windows login screen..
+        /// </summary>
+        internal static string Customize_SystemFeatures_NumLockOnBoot_Description {
+            get {
+                return ResourceManager.GetString("Customize.SystemFeatures.NumLockOnBoot.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NumLock on Boot.
+        /// </summary>
+        internal static string Customize_SystemFeatures_NumLockOnBoot_Name {
+            get {
+                return ResourceManager.GetString("Customize.SystemFeatures.NumLockOnBoot.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enabling NumLock at boot ensures the numpad is ready immediately after login, avoiding manual toggling each time..
+        /// </summary>
+        internal static string Customize_SystemFeatures_NumLockOnBoot_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Customize.SystemFeatures.NumLockOnBoot.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boot Operations.
+        /// </summary>
+        internal static string Customize_SystemFeatures_Section_Boot {
+            get {
+                return ResourceManager.GetString("Customize.SystemFeatures.Section.Boot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input Settings.
+        /// </summary>
+        internal static string Customize_SystemFeatures_Section_Input {
+            get {
+                return ResourceManager.GetString("Customize.SystemFeatures.Section.Input", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Power Settings.
+        /// </summary>
+        internal static string Customize_SystemFeatures_Section_Power {
+            get {
+                return ResourceManager.GetString("Customize.SystemFeatures.Section.Power", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Services.
+        /// </summary>
+        internal static string Customize_SystemFeatures_Section_Services {
+            get {
+                return ResourceManager.GetString("Customize.SystemFeatures.Section.Services", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customize.
+        /// </summary>
+        internal static string Customize_Title {
+            get {
+                return ResourceManager.GetString("Customize.Title", resourceCulture);
             }
         }
         
@@ -1129,1032 +2182,6 @@ namespace optimizerDuck.Resources.Languages {
         internal static string DiskCleanup_TotalSpace {
             get {
                 return ResourceManager.GetString("DiskCleanup.TotalSpace", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enable or disable Windows features.
-        /// </summary>
-        internal static string Features_Description {
-            get {
-                return ResourceManager.GetString("Features.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Desktop icons and shortcut settings.
-        /// </summary>
-        internal static string Features_Desktop_Description {
-            get {
-                return ResourceManager.GetString("Features.Desktop.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Desktop.
-        /// </summary>
-        internal static string Features_Desktop_Name {
-            get {
-                return ResourceManager.GetString("Features.Desktop.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Shortcut Behaviors.
-        /// </summary>
-        internal static string Features_Desktop_Section_Behaviors {
-            get {
-                return ResourceManager.GetString("Features.Desktop.Section.Behaviors", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Desktop Icons.
-        /// </summary>
-        internal static string Features_Desktop_Section_Icons {
-            get {
-                return ResourceManager.GetString("Features.Desktop.Section.Icons", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Shows or hides the shortcut arrow overlay on desktop icons.
-        /// </summary>
-        internal static string Features_Desktop_ShortcutArrow_Description {
-            get {
-                return ResourceManager.GetString("Features.Desktop.ShortcutArrow.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Shortcut Arrow.
-        /// </summary>
-        internal static string Features_Desktop_ShortcutArrow_Name {
-            get {
-                return ResourceManager.GetString("Features.Desktop.ShortcutArrow.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Displays the Control Panel icon on your desktop.
-        /// </summary>
-        internal static string Features_Desktop_ShowControlPanel_Description {
-            get {
-                return ResourceManager.GetString("Features.Desktop.ShowControlPanel.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Control Panel.
-        /// </summary>
-        internal static string Features_Desktop_ShowControlPanel_Name {
-            get {
-                return ResourceManager.GetString("Features.Desktop.ShowControlPanel.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Shows or hides all desktop icons at once.
-        /// </summary>
-        internal static string Features_Desktop_ShowDesktopIcons_Description {
-            get {
-                return ResourceManager.GetString("Features.Desktop.ShowDesktopIcons.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Desktop Icons.
-        /// </summary>
-        internal static string Features_Desktop_ShowDesktopIcons_Name {
-            get {
-                return ResourceManager.GetString("Features.Desktop.ShowDesktopIcons.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Displays the Network icon on your desktop.
-        /// </summary>
-        internal static string Features_Desktop_ShowNetwork_Description {
-            get {
-                return ResourceManager.GetString("Features.Desktop.ShowNetwork.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Network.
-        /// </summary>
-        internal static string Features_Desktop_ShowNetwork_Name {
-            get {
-                return ResourceManager.GetString("Features.Desktop.ShowNetwork.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Displays the Recycle Bin icon on your desktop.
-        /// </summary>
-        internal static string Features_Desktop_ShowRecycleBin_Description {
-            get {
-                return ResourceManager.GetString("Features.Desktop.ShowRecycleBin.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Recycle Bin.
-        /// </summary>
-        internal static string Features_Desktop_ShowRecycleBin_Name {
-            get {
-                return ResourceManager.GetString("Features.Desktop.ShowRecycleBin.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Displays the This PC icon on your desktop.
-        /// </summary>
-        internal static string Features_Desktop_ShowThisPc_Description {
-            get {
-                return ResourceManager.GetString("Features.Desktop.ShowThisPc.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This PC.
-        /// </summary>
-        internal static string Features_Desktop_ShowThisPc_Name {
-            get {
-                return ResourceManager.GetString("Features.Desktop.ShowThisPc.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Displays your user profile folder as a desktop icon.
-        /// </summary>
-        internal static string Features_Desktop_ShowUserFiles_Description {
-            get {
-                return ResourceManager.GetString("Features.Desktop.ShowUserFiles.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to User Files.
-        /// </summary>
-        internal static string Features_Desktop_ShowUserFiles_Name {
-            get {
-                return ResourceManager.GetString("Features.Desktop.ShowUserFiles.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Controls automatic background game recording (Game DVR) and app capture..
-        /// </summary>
-        internal static string Features_Gaming_BackgroundRecording_Description {
-            get {
-                return ResourceManager.GetString("Features.Gaming.BackgroundRecording.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Background Recording (DVR).
-        /// </summary>
-        internal static string Features_Gaming_BackgroundRecording_Name {
-            get {
-                return ResourceManager.GetString("Features.Gaming.BackgroundRecording.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disabling background recording stops DVR from silently capturing gameplay, saving CPU and disk write cycles..
-        /// </summary>
-        internal static string Features_Gaming_BackgroundRecording_Recommendation_Reason {
-            get {
-                return ResourceManager.GetString("Features.Gaming.BackgroundRecording.Recommendation.Reason", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Game-related display, input, and recording settings.
-        /// </summary>
-        internal static string Features_Gaming_Description {
-            get {
-                return ResourceManager.GetString("Features.Gaming.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Windows DWM-based full-screen optimizations setting..
-        /// </summary>
-        internal static string Features_Gaming_FullscreenOptimizations_Description {
-            get {
-                return ResourceManager.GetString("Features.Gaming.FullscreenOptimizations.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Fullscreen Optimizations.
-        /// </summary>
-        internal static string Features_Gaming_FullscreenOptimizations_Name {
-            get {
-                return ResourceManager.GetString("Features.Gaming.FullscreenOptimizations.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disable it if you experience in-game stuttering, input lag, or black screens (especially in competitive shooters).
-        /// </summary>
-        internal static string Features_Gaming_FullscreenOptimizations_Recommendation_Reason {
-            get {
-                return ResourceManager.GetString("Features.Gaming.FullscreenOptimizations.Recommendation.Reason", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Controls Xbox Game Bar overlays, startup panel, and related background features..
-        /// </summary>
-        internal static string Features_Gaming_GameBar_Description {
-            get {
-                return ResourceManager.GetString("Features.Gaming.GameBar.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Xbox Game Bar.
-        /// </summary>
-        internal static string Features_Gaming_GameBar_Name {
-            get {
-                return ResourceManager.GetString("Features.Gaming.GameBar.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disabling Game Bar frees up system resources and prevents background overlays from interfering with your games..
-        /// </summary>
-        internal static string Features_Gaming_GameBar_Recommendation_Reason {
-            get {
-                return ResourceManager.GetString("Features.Gaming.GameBar.Recommendation.Reason", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Windows Game Mode for gaming processes and Windows Update behavior..
-        /// </summary>
-        internal static string Features_Gaming_GameMode_Description {
-            get {
-                return ResourceManager.GetString("Features.Gaming.GameMode.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Game Mode.
-        /// </summary>
-        internal static string Features_Gaming_GameMode_Name {
-            get {
-                return ResourceManager.GetString("Features.Gaming.GameMode.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Game Mode automatically prioritizes game processes and suspends Windows Update notifications while gaming for smoother performance..
-        /// </summary>
-        internal static string Features_Gaming_GameMode_Recommendation_Reason {
-            get {
-                return ResourceManager.GetString("Features.Gaming.GameMode.Recommendation.Reason", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to GPU video memory scheduling mode. Requires a compatible GPU driver..
-        /// </summary>
-        internal static string Features_Gaming_HardwareAcceleratedGpuScheduling_Description {
-            get {
-                return ResourceManager.GetString("Features.Gaming.HardwareAcceleratedGpuScheduling.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hardware-Accelerated GPU Scheduling.
-        /// </summary>
-        internal static string Features_Gaming_HardwareAcceleratedGpuScheduling_Name {
-            get {
-                return ResourceManager.GetString("Features.Gaming.HardwareAcceleratedGpuScheduling.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to GPU scheduling offloads frame management from the CPU to the GPU, cutting display latency and improving frame pacing..
-        /// </summary>
-        internal static string Features_Gaming_HardwareAcceleratedGpuScheduling_Recommendation_Reason {
-            get {
-                return ResourceManager.GetString("Features.Gaming.HardwareAcceleratedGpuScheduling.Recommendation.Reason", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Windows mouse acceleration setting for cursor movement..
-        /// </summary>
-        internal static string Features_Gaming_MouseAcceleration_Description {
-            get {
-                return ResourceManager.GetString("Features.Gaming.MouseAcceleration.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Mouse Acceleration.
-        /// </summary>
-        internal static string Features_Gaming_MouseAcceleration_Name {
-            get {
-                return ResourceManager.GetString("Features.Gaming.MouseAcceleration.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disabling acceleration gives you raw, linear mouse input for better aim precision and muscle memory consistency..
-        /// </summary>
-        internal static string Features_Gaming_MouseAcceleration_Recommendation_Reason {
-            get {
-                return ResourceManager.GetString("Features.Gaming.MouseAcceleration.Recommendation.Reason", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gaming.
-        /// </summary>
-        internal static string Features_Gaming_Name {
-            get {
-                return ResourceManager.GetString("Features.Gaming.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Display.
-        /// </summary>
-        internal static string Features_Gaming_Section_Display {
-            get {
-                return ResourceManager.GetString("Features.Gaming.Section.Display", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Game Settings.
-        /// </summary>
-        internal static string Features_Gaming_Section_GameSettings {
-            get {
-                return ResourceManager.GetString("Features.Gaming.Section.GameSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Input.
-        /// </summary>
-        internal static string Features_Gaming_Section_Input {
-            get {
-                return ResourceManager.GetString("Features.Gaming.Section.Input", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bing web search integration in Windows Search and Start menu results..
-        /// </summary>
-        internal static string Features_Preferences_BingSearch_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.BingSearch.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bing Search.
-        /// </summary>
-        internal static string Features_Preferences_BingSearch_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.BingSearch.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Turning off Bing search prevents web queries from cluttering local search results and improves search speed..
-        /// </summary>
-        internal static string Features_Preferences_BingSearch_Recommendation_Reason {
-            get {
-                return ResourceManager.GetString("Features.Preferences.BingSearch.Recommendation.Reason", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Windows 10-style context menu on Windows 11..
-        /// </summary>
-        internal static string Features_Preferences_ClassicContextMenu_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.ClassicContextMenu.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Classic Context Menu.
-        /// </summary>
-        internal static string Features_Preferences_ClassicContextMenu_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.ClassicContextMenu.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The classic menu shows all options at once without the extra click needed to expand Windows 11&apos;s condensed menu..
-        /// </summary>
-        internal static string Features_Preferences_ClassicContextMenu_Recommendation_Reason {
-            get {
-                return ResourceManager.GetString("Features.Preferences.ClassicContextMenu.Recommendation.Reason", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Clipboard history for multiple copied items accessible with Win+V..
-        /// </summary>
-        internal static string Features_Preferences_ClipboardHistory_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.ClipboardHistory.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Clipboard History.
-        /// </summary>
-        internal static string Features_Preferences_ClipboardHistory_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.ClipboardHistory.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Clipboard history lets you recall multiple past copies with Win+V, speeding up repetitive copy-paste workflows..
-        /// </summary>
-        internal static string Features_Preferences_ClipboardHistory_Recommendation_Reason {
-            get {
-                return ResourceManager.GetString("Features.Preferences.ClipboardHistory.Recommendation.Reason", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dark mode for system apps, Settings, and shell elements..
-        /// </summary>
-        internal static string Features_Preferences_DarkMode_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.DarkMode.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dark Mode.
-        /// </summary>
-        internal static string Features_Preferences_DarkMode_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.DarkMode.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Customize visual and interaction settings.
-        /// </summary>
-        internal static string Features_Preferences_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Decreases spacing between items in File Explorer for a denser view..
-        /// </summary>
-        internal static string Features_Preferences_ExplorerCompactMode_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.ExplorerCompactMode.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Explorer Compact Mode.
-        /// </summary>
-        internal static string Features_Preferences_ExplorerCompactMode_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.ExplorerCompactMode.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Shows check boxes when selecting items in File Explorer..
-        /// </summary>
-        internal static string Features_Preferences_ExplorerItemCheckboxes_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.ExplorerItemCheckboxes.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Explorer Item Check Boxes.
-        /// </summary>
-        internal static string Features_Preferences_ExplorerItemCheckboxes_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.ExplorerItemCheckboxes.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Controls OneDrive and cloud sync provider notifications in File Explorer..
-        /// </summary>
-        internal static string Features_Preferences_ExplorerSyncNotifications_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.ExplorerSyncNotifications.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Explorer Sync Notifications.
-        /// </summary>
-        internal static string Features_Preferences_ExplorerSyncNotifications_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.ExplorerSyncNotifications.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disabling sync notifications stops OneDrive pop-ups from interrupting file browsing in Explorer..
-        /// </summary>
-        internal static string Features_Preferences_ExplorerSyncNotifications_Recommendation_Reason {
-            get {
-                return ResourceManager.GetString("Features.Preferences.ExplorerSyncNotifications.Recommendation.Reason", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to File Explorer default location setting (This PC or Quick Access)..
-        /// </summary>
-        internal static string Features_Preferences_LaunchToThisPc_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.LaunchToThisPc.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Launch to &quot;This PC&quot;.
-        /// </summary>
-        internal static string Features_Preferences_LaunchToThisPc_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.LaunchToThisPc.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Controls the Meet Now (Skype) icon in the taskbar notification area..
-        /// </summary>
-        internal static string Features_Preferences_MeetNow_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.MeetNow.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Meet Now.
-        /// </summary>
-        internal static string Features_Preferences_MeetNow_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.MeetNow.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Preferences.
-        /// </summary>
-        internal static string Features_Preferences_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Appearance.
-        /// </summary>
-        internal static string Features_Preferences_Section_Appearance {
-            get {
-                return ResourceManager.GetString("Features.Preferences.Section.Appearance", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Explorer.
-        /// </summary>
-        internal static string Features_Preferences_Section_Explorer {
-            get {
-                return ResourceManager.GetString("Features.Preferences.Section.Explorer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Taskbar.
-        /// </summary>
-        internal static string Features_Preferences_Section_Taskbar {
-            get {
-                return ResourceManager.GetString("Features.Preferences.Section.Taskbar", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Shows file extensions (e.g. .txt, .exe) in File Explorer..
-        /// </summary>
-        internal static string Features_Preferences_ShowFileExtensions_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.ShowFileExtensions.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show File Extensions.
-        /// </summary>
-        internal static string Features_Preferences_ShowFileExtensions_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.ShowFileExtensions.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Showing file extensions makes it easy to spot suspicious file types and prevents malware from hiding behind fake icons..
-        /// </summary>
-        internal static string Features_Preferences_ShowFileExtensions_Recommendation_Reason {
-            get {
-                return ResourceManager.GetString("Features.Preferences.ShowFileExtensions.Recommendation.Reason", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Shows hidden files and folders in File Explorer..
-        /// </summary>
-        internal static string Features_Preferences_ShowHiddenFiles_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.ShowHiddenFiles.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show Hidden Files.
-        /// </summary>
-        internal static string Features_Preferences_ShowHiddenFiles_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.ShowHiddenFiles.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hidden files contain system and config data you may need to manage; showing them gives you full visibility of your system..
-        /// </summary>
-        internal static string Features_Preferences_ShowHiddenFiles_Recommendation_Reason {
-            get {
-                return ResourceManager.GetString("Features.Preferences.ShowHiddenFiles.Recommendation.Reason", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Displays seconds in the taskbar clock..
-        /// </summary>
-        internal static string Features_Preferences_ShowSecondsInSystemClock_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.ShowSecondsInSystemClock.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Seconds in System Clock.
-        /// </summary>
-        internal static string Features_Preferences_ShowSecondsInSystemClock_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.ShowSecondsInSystemClock.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Controls the snap layouts menu that appears when hovering over the maximize button..
-        /// </summary>
-        internal static string Features_Preferences_SnapAssistFlyout_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.SnapAssistFlyout.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Snap Layouts Flyout.
-        /// </summary>
-        internal static string Features_Preferences_SnapAssistFlyout_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.SnapAssistFlyout.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Controls Windows tips and app suggestions in the Settings panel..
-        /// </summary>
-        internal static string Features_Preferences_SystemSuggestions_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.SystemSuggestions.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to System Suggestions.
-        /// </summary>
-        internal static string Features_Preferences_SystemSuggestions_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.SystemSuggestions.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Turning off system suggestions stops Windows from recommending apps and settings you did not ask for..
-        /// </summary>
-        internal static string Features_Preferences_SystemSuggestions_Recommendation_Reason {
-            get {
-                return ResourceManager.GetString("Features.Preferences.SystemSuggestions.Recommendation.Reason", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Switches taskbar alignment between Center and Left..
-        /// </summary>
-        internal static string Features_Preferences_TaskbarAlignment_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.TaskbarAlignment.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Taskbar Alignment.
-        /// </summary>
-        internal static string Features_Preferences_TaskbarAlignment_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.TaskbarAlignment.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Controls visibility of the Chat (Teams) button on the taskbar..
-        /// </summary>
-        internal static string Features_Preferences_TaskbarChatButton_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.TaskbarChatButton.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Taskbar Chat Button.
-        /// </summary>
-        internal static string Features_Preferences_TaskbarChatButton_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.TaskbarChatButton.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adds an &quot;End task&quot; option to the taskbar right-click menu for quick process termination..
-        /// </summary>
-        internal static string Features_Preferences_TaskbarEndTask_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.TaskbarEndTask.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Taskbar End Task.
-        /// </summary>
-        internal static string Features_Preferences_TaskbarEndTask_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.TaskbarEndTask.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to End Task on the taskbar lets you kill frozen apps instantly without opening Task Manager..
-        /// </summary>
-        internal static string Features_Preferences_TaskbarEndTask_Recommendation_Reason {
-            get {
-                return ResourceManager.GetString("Features.Preferences.TaskbarEndTask.Recommendation.Reason", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Controls the News and Interests widget on the taskbar and MSN feed background updates..
-        /// </summary>
-        internal static string Features_Preferences_TaskbarNewsAndInterests_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.TaskbarNewsAndInterests.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Taskbar News &amp; Interests.
-        /// </summary>
-        internal static string Features_Preferences_TaskbarNewsAndInterests_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.TaskbarNewsAndInterests.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Controls the People icon on the taskbar for quick contacts access..
-        /// </summary>
-        internal static string Features_Preferences_TaskbarPeople_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.TaskbarPeople.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Taskbar People.
-        /// </summary>
-        internal static string Features_Preferences_TaskbarPeople_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.TaskbarPeople.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Controls visibility of the search box on the taskbar..
-        /// </summary>
-        internal static string Features_Preferences_TaskbarSearchBox_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.TaskbarSearchBox.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Taskbar Search Box.
-        /// </summary>
-        internal static string Features_Preferences_TaskbarSearchBox_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.TaskbarSearchBox.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Controls visibility of the Task View button on the taskbar..
-        /// </summary>
-        internal static string Features_Preferences_TaskbarTaskViewButton_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.TaskbarTaskViewButton.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Taskbar Task View Button.
-        /// </summary>
-        internal static string Features_Preferences_TaskbarTaskViewButton_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.TaskbarTaskViewButton.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Controls visibility of the Widgets button on the taskbar..
-        /// </summary>
-        internal static string Features_Preferences_TaskbarWidgets_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.TaskbarWidgets.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Taskbar Widgets.
-        /// </summary>
-        internal static string Features_Preferences_TaskbarWidgets_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.TaskbarWidgets.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Turning off widgets removes the background web service that fetches news and weather, reducing idle network and memory usage..
-        /// </summary>
-        internal static string Features_Preferences_TaskbarWidgets_Recommendation_Reason {
-            get {
-                return ResourceManager.GetString("Features.Preferences.TaskbarWidgets.Recommendation.Reason", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Controls toast popup notifications and lock screen notifications..
-        /// </summary>
-        internal static string Features_Preferences_ToastNotifications_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.ToastNotifications.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toast Notifications.
-        /// </summary>
-        internal static string Features_Preferences_ToastNotifications_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.ToastNotifications.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Shake a window to minimize all other open windows..
-        /// </summary>
-        internal static string Features_Preferences_WindowShake_Description {
-            get {
-                return ResourceManager.GetString("Features.Preferences.WindowShake.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Window Shake.
-        /// </summary>
-        internal static string Features_Preferences_WindowShake_Name {
-            get {
-                return ResourceManager.GetString("Features.Preferences.WindowShake.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Core system features and behaviors.
-        /// </summary>
-        internal static string Features_SystemFeatures_Description {
-            get {
-                return ResourceManager.GetString("Features.SystemFeatures.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to System.
-        /// </summary>
-        internal static string Features_SystemFeatures_Name {
-            get {
-                return ResourceManager.GetString("Features.SystemFeatures.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to NumLock state at the Windows login screen..
-        /// </summary>
-        internal static string Features_SystemFeatures_NumLockOnBoot_Description {
-            get {
-                return ResourceManager.GetString("Features.SystemFeatures.NumLockOnBoot.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to NumLock on Boot.
-        /// </summary>
-        internal static string Features_SystemFeatures_NumLockOnBoot_Name {
-            get {
-                return ResourceManager.GetString("Features.SystemFeatures.NumLockOnBoot.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enabling NumLock at boot ensures the numpad is ready immediately after login, avoiding manual toggling each time..
-        /// </summary>
-        internal static string Features_SystemFeatures_NumLockOnBoot_Recommendation_Reason {
-            get {
-                return ResourceManager.GetString("Features.SystemFeatures.NumLockOnBoot.Recommendation.Reason", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Boot Operations.
-        /// </summary>
-        internal static string Features_SystemFeatures_Section_Boot {
-            get {
-                return ResourceManager.GetString("Features.SystemFeatures.Section.Boot", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Input Settings.
-        /// </summary>
-        internal static string Features_SystemFeatures_Section_Input {
-            get {
-                return ResourceManager.GetString("Features.SystemFeatures.Section.Input", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Power Settings.
-        /// </summary>
-        internal static string Features_SystemFeatures_Section_Power {
-            get {
-                return ResourceManager.GetString("Features.SystemFeatures.Section.Power", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Services.
-        /// </summary>
-        internal static string Features_SystemFeatures_Section_Services {
-            get {
-                return ResourceManager.GetString("Features.SystemFeatures.Section.Services", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Features.
-        /// </summary>
-        internal static string Features_Title {
-            get {
-                return ResourceManager.GetString("Features.Title", resourceCulture);
             }
         }
         
@@ -4782,6 +4809,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customize.
+        /// </summary>
+        internal static string Sidebar_Customize {
+            get {
+                return ResourceManager.GetString("Sidebar.Customize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dashboard.
         /// </summary>
         internal static string Sidebar_Dashboard {
@@ -4796,15 +4832,6 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Sidebar_DiskCleanup {
             get {
                 return ResourceManager.GetString("Sidebar.DiskCleanup", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Features.
-        /// </summary>
-        internal static string Sidebar_Features {
-            get {
-                return ResourceManager.GetString("Sidebar.Features", resourceCulture);
             }
         }
         

@@ -15,7 +15,7 @@
 ## Project Structure
 - `optimizerDuck/` — WPF app:
   - `Domain/` — models, interfaces, attributes (no UI deps)
-  - `Services/` — business logic: `Configuration/`, `Features/`, `Optimization/`, `Revert/`, `System/`
+  - `Services/` — business logic: `Configuration/`, `Customize/`, `Optimization/`, `Revert/`, `System/`
   - `UI/` — XAML pages, ViewModels, windows, controls, dialogs, styles
   - `Common/` — extensions, helpers, converters
   - `Resources/` — images, embedded assets, localization (`Resources/Languages/Translations.resx`)
@@ -23,7 +23,7 @@
 
 ## Optimization & Feature Discovery (Reflection, No Manual Registration)
 - **New optimizations**: Create a **nested class** inside the relevant category class (e.g., `Domain/Optimizations/Categories/Performance.cs`), extend `BaseOptimization`, and decorate with `[Optimization(Id = "guid", Risk = ..., Tags = ...)]`.
-- **New feature toggles**: Same nesting pattern inside `Domain/Features/Categories/`, extend `BaseFeature`, decorate with `[Feature(Section = ..., Icon = ..., Recommendation = ...)]`.
+- **New customize settings**: Same nesting pattern inside `Domain/Customize/Categories/`, extend `BaseCustomizeSetting`, decorate with `[CustomizeSetting(Section = ..., Icon = ..., Recommendation = ...)]`.
 - **Category classes**: Must be decorated with `[OptimizationCategory(PageType = typeof(...))]` or `[FeatureCategory(PageType = typeof(...))]`.
 - **Discovery**: `ReflectionHelper.FindImplementationsInLoadedAssemblies<T>()` scans all `optimizerDuck.*` assemblies — no DI registration array to update.
 - **Static provider services**: `RegistryService`, `ServiceProcessService`, `ScheduledTaskService`, `ShellService` are **static classes** (not DI-registered). They capture revert steps into the ambient `ExecutionScope`.

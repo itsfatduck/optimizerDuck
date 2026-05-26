@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using optimizerDuck.Domain.Optimizations.Models.Bloatware;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
-using optimizerDuck.Services;
+using optimizerDuck.Services.UI;
 using optimizerDuck.UI.Dialogs;
 using optimizerDuck.UI.ViewModels.Dialogs;
 using Wpf.Ui;

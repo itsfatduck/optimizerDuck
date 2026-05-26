@@ -28,6 +28,8 @@ namespace optimizerDuck.UI.ViewModels.Optimizer;
 
 public partial class OptimizationCategoryViewModel : ViewModel
 {
+    #region Cache & Constants
+
     private static readonly HttpClient httpClient = new() { Timeout = TimeSpan.FromSeconds(5) };
     private static readonly ConcurrentDictionary<
         string,
@@ -35,6 +37,10 @@ public partial class OptimizationCategoryViewModel : ViewModel
     > _sourceCache = new();
     private static readonly TimeSpan SourceCacheTtl = TimeSpan.FromMinutes(5);
     private static readonly TimeSpan FilterDebounceDelay = TimeSpan.FromMilliseconds(250);
+
+    #endregion
+
+    #region Dependencies & Constructor
 
     private readonly List<IOptimization> _allOptimizations = [];
     private CancellationTokenSource? _filterDebounceCts;
@@ -46,6 +52,29 @@ public partial class OptimizationCategoryViewModel : ViewModel
     private readonly OptimizationService _optimizationService;
     private readonly RevertManager _revertManager;
     private readonly ISnackbarService _snackbarService;
+
+    public OptimizationCategoryViewModel(
+        IOptimizationCategory category,
+        OptimizationService optimizationService,
+        RevertManager revertManager,
+        ISnackbarService snackbarService,
+        IContentDialogService contentDialogService,
+        ILogger<OptimizationCategoryViewModel> logger,
+        IOptionsMonitor<AppSettings> appOptionsMonitor
+    )
+    {
+        _category = category;
+        _optimizationService = optimizationService;
+        _revertManager = revertManager;
+        _snackbarService = snackbarService;
+        _logger = logger;
+        _contentDialogService = contentDialogService;
+        _appOptionsMonitor = appOptionsMonitor;
+    }
+
+    #endregion
+
+    #region Observable Properties
 
     [ObservableProperty]
     private bool _hideApplied;
@@ -70,24 +99,9 @@ public partial class OptimizationCategoryViewModel : ViewModel
     [ObservableProperty]
     private int _selectedSortByIndex; // 0=Risk & Status, 1=Name, 2=Risk, 3=Status
 
-    public OptimizationCategoryViewModel(
-        IOptimizationCategory category,
-        OptimizationService optimizationService,
-        RevertManager revertManager,
-        ISnackbarService snackbarService,
-        IContentDialogService contentDialogService,
-        ILogger<OptimizationCategoryViewModel> logger,
-        IOptionsMonitor<AppSettings> appOptionsMonitor
-    )
-    {
-        _category = category;
-        _optimizationService = optimizationService;
-        _revertManager = revertManager;
-        _snackbarService = snackbarService;
-        _logger = logger;
-        _contentDialogService = contentDialogService;
-        _appOptionsMonitor = appOptionsMonitor;
-    }
+    #endregion
+
+    #region Filter & Search
 
     public bool HasAppliedOptimizations => _allOptimizations.Any(o => o.State.IsApplied);
 
@@ -129,6 +143,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
             token
         );
     }
+
+    #endregion
 
     public override async Task OnNavigatedToAsync()
     {

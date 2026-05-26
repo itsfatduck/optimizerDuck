@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 using optimizerDuck.Common.Helpers;
-using optimizerDuck.Domain.Features.Models;
+using optimizerDuck.Domain.Customize.Models;
 using Wpf.Ui.Appearance;
 
 namespace optimizerDuck.Common.Converters;

@@ -9,7 +9,7 @@ using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Managers;
-using optimizerDuck.Services.OptimizationServices;
+using optimizerDuck.Services.Optimization.Providers;
 using optimizerDuck.UI.Dialogs;
 using optimizerDuck.UI.ViewModels.Dialogs;
 using Wpf.Ui;

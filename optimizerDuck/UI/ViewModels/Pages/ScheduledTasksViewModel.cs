@@ -5,7 +5,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Resources.Languages;
-using optimizerDuck.Services.OptimizationServices;
+using optimizerDuck.Services.Optimization.Providers;
 using optimizerDuck.UI.Dialogs;
 using Wpf.Ui;
 using Wpf.Ui.Controls;

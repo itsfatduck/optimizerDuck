@@ -14,7 +14,8 @@ using optimizerDuck.Domain.Configuration;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services;
 using optimizerDuck.Services.Managers;
-using optimizerDuck.Services.OptimizationServices;
+using optimizerDuck.Services.Optimization.Providers;
+using optimizerDuck.Services.UI;
 using optimizerDuck.UI.Behaviors;
 using optimizerDuck.UI.Pages;
 using optimizerDuck.UI.ViewModels.Pages;
@@ -228,11 +229,11 @@ public partial class App : Application
                     services.AddSingleton<ScheduledTasksViewModel>();
                     services.AddSingleton<ScheduledTasksPage>();
 
-                    // Toggle Features
-                    services.AddSingleton<FeaturesViewModel>();
-                    services.AddSingleton<FeaturesPage>();
+                    // Customize
+                    services.AddSingleton<CustomizeViewModel>();
+                    services.AddSingleton<CustomizePage>();
 
-                    services.AddAllFeaturesCategoryPages();
+                    services.AddAllCustomizeCategoryPages();
 
                     // Optimizations
                     services.AddAllOptimizationPages();
@@ -243,7 +244,7 @@ public partial class App : Application
 
                     // Services
                     services.AddSingleton<OptimizationRegistry>();
-                    services.AddSingleton<FeatureRegistry>();
+                    services.AddSingleton<CustomizeRegistry>();
                     services.AddSingleton<OptimizationService>();
                     services.AddSingleton<BloatwareService>();
                     services.AddSingleton<DiskCleanupService>();

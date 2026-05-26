@@ -1,5 +1,5 @@
 using optimizerDuck.Domain.Optimizations.Models.Services;
-using optimizerDuck.Services.OptimizationServices;
+using optimizerDuck.Services.Optimization.Providers;
 
 namespace optimizerDuck.Test.Services.OptimizationServices;
 

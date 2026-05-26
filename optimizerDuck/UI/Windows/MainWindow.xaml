@@ -53,10 +53,12 @@
                     Icon="{ui:SymbolIcon Rocket24}"
                     TargetPageType="{x:Type pages:OptimizePage}" />
 
-                <ui:NavigationViewItem
-                    x:Name="FeaturesMenuItem"
-                    Content="{extensions:Loc Sidebar.Features}"
-                    Icon="{ui:SymbolIcon ToggleLeft24}" />
+                <controls:FilledNavigationViewItem
+                    x:Name="CustomizeMenuItem"
+                    Content="{extensions:Loc Sidebar.Customize}"
+                    Cursor="Hand"
+                    Icon="{ui:SymbolIcon Sparkle24}"
+                    TargetPageType="{x:Type pages:CustomizePage}" />
 
                 <controls:FilledNavigationViewItem
                     Content="{extensions:Loc Sidebar.Bloatware}"

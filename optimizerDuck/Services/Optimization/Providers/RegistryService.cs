@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Security;
@@ -7,9 +7,8 @@ using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Resources.Languages;
-using optimizerDuck.Services.Managers;
 
-namespace optimizerDuck.Services.OptimizationServices;
+namespace optimizerDuck.Services.Optimization.Providers;
 
 public static class RegistryService
 {

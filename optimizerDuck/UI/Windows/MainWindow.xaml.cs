@@ -28,7 +28,7 @@ public partial class MainWindow : IWindow
         INavigationViewPageProvider pageProvider,
         IOptionsMonitor<AppSettings> appOptionsMonitor,
         ISnackbarService snackbarService,
-        FeatureRegistry featureRegistry
+        CustomizeRegistry customizeRegistry
     )
     {
         _contentDialogService = contentDialogService;
@@ -43,10 +43,6 @@ public partial class MainWindow : IWindow
         navigationService.SetNavigationControl(RootNavigation);
 
         RootNavigation.SetPageProviderService(pageProvider);
-
-        var toggleItems = featureRegistry.GetNavigationItems();
-        foreach (var item in toggleItems)
-            FeaturesMenuItem.MenuItems.Add(item);
 
         RootNavigation.Loaded += OnRootNavigationLoaded;
     }

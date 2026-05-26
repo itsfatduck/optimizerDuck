@@ -163,19 +163,19 @@
   <data name="Sidebar.Optimize" xml:space="preserve">
     <value>Tối ưu</value>
   </data>
-  <data name="Features.Description" xml:space="preserve">
-    <value>Bật hoặc tắt các tính năng của Windows</value>
+  <data name="Customize.Description" xml:space="preserve">
+    <value>Tùy chỉnh cài đặt và tùy chọn Windows</value>
   </data>
-  <data name="Features.Preferences.Name" xml:space="preserve">
+  <data name="Customize.Preferences.Name" xml:space="preserve">
     <value>Tùy chỉnh giao diện</value>
   </data>
-  <data name="Features.Preferences.Description" xml:space="preserve">
+  <data name="Customize.Preferences.Description" xml:space="preserve">
     <value>Tùy chỉnh cài đặt hiển thị và tương tác</value>
   </data>
-  <data name="Features.Gaming.Name" xml:space="preserve">
+  <data name="Customize.Gaming.Name" xml:space="preserve">
     <value>Chơi game</value>
   </data>
-  <data name="Features.Gaming.Description" xml:space="preserve">
+  <data name="Customize.Gaming.Description" xml:space="preserve">
     <value>Cài đặt hiển thị, đầu vào và ghi hình liên quan đến chơi game</value>
   </data>
   <data name="Dashboard.SystemInfo.Gpu.More" xml:space="preserve">
@@ -800,160 +800,160 @@
   <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
     <value>Duy trì thời gian xuất khung hình ổn định bằng cách tắt tính năng V-Sync thích ứng của Intel.</value>
   </data>
-  <data name="Features.Preferences.Section.Taskbar" xml:space="preserve">
+  <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
     <value>Thanh tác vụ</value>
   </data>
-  <data name="Features.Preferences.Section.Appearance" xml:space="preserve">
+  <data name="Customize.Preferences.Section.Appearance" xml:space="preserve">
     <value>Giao diện</value>
   </data>
-  <data name="Features.Preferences.Section.Explorer" xml:space="preserve">
+  <data name="Customize.Preferences.Section.Explorer" xml:space="preserve">
     <value>Explorer</value>
   </data>
-  <data name="Features.Preferences.TaskbarNewsAndInterests.Name" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarNewsAndInterests.Name" xml:space="preserve">
     <value>Tin tức &amp; Sở thích trên Taskbar</value>
   </data>
-  <data name="Features.Preferences.TaskbarNewsAndInterests.Description" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarNewsAndInterests.Description" xml:space="preserve">
     <value>Kiểm soát tiện ích tin tức trên thanh tác vụ và cập nhật nền từ MSN.</value>
   </data>
-  <data name="Features.Preferences.TaskbarSearchBox.Name" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarSearchBox.Name" xml:space="preserve">
     <value>Ô tìm kiếm trên Taskbar</value>
   </data>
-  <data name="Features.Preferences.TaskbarSearchBox.Description" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarSearchBox.Description" xml:space="preserve">
     <value>Kiểm soát hiển thị ô tìm kiếm trên thanh tác vụ.</value>
   </data>
-  <data name="Features.Preferences.TaskbarChatButton.Name" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarChatButton.Name" xml:space="preserve">
     <value>Nút Chat trên Taskbar</value>
   </data>
-  <data name="Features.Preferences.TaskbarChatButton.Description" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarChatButton.Description" xml:space="preserve">
     <value>Kiểm soát hiển thị nút Chat (Teams) trên thanh tác vụ.</value>
   </data>
-  <data name="Features.Preferences.TaskbarTaskViewButton.Name" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarTaskViewButton.Name" xml:space="preserve">
     <value>Nút Task View trên Taskbar</value>
   </data>
-  <data name="Features.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
     <value>Kiểm soát hiển thị nút Task View trên thanh tác vụ.</value>
   </data>
-  <data name="Features.Preferences.MeetNow.Name" xml:space="preserve">
+  <data name="Customize.Preferences.MeetNow.Name" xml:space="preserve">
     <value>Meet Now</value>
   </data>
-  <data name="Features.Preferences.MeetNow.Description" xml:space="preserve">
+  <data name="Customize.Preferences.MeetNow.Description" xml:space="preserve">
     <value>Kiểm soát biểu tượng Meet Now (Skype) trong khu vực thông báo.</value>
   </data>
-  <data name="Features.Preferences.TaskbarPeople.Name" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarPeople.Name" xml:space="preserve">
     <value>People trên Taskbar</value>
   </data>
-  <data name="Features.Preferences.TaskbarPeople.Description" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarPeople.Description" xml:space="preserve">
     <value>Kiểm soát biểu tượng People trên thanh tác vụ để truy cập nhanh danh bạ.</value>
   </data>
-  <data name="Features.Preferences.TaskbarEndTask.Name" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarEndTask.Name" xml:space="preserve">
     <value>Kết thúc tác vụ trên Taskbar</value>
   </data>
-  <data name="Features.Preferences.TaskbarEndTask.Description" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarEndTask.Description" xml:space="preserve">
     <value>Thêm tùy chọn "Kết thúc tác vụ" vào menu chuột phải trên thanh tác vụ.</value>
   </data>
-  <data name="Features.Preferences.DarkMode.Name" xml:space="preserve">
+  <data name="Customize.Preferences.DarkMode.Name" xml:space="preserve">
     <value>Chế độ tối (Dark Mode)</value>
   </data>
-  <data name="Features.Preferences.DarkMode.Description" xml:space="preserve">
+  <data name="Customize.Preferences.DarkMode.Description" xml:space="preserve">
     <value>Chế độ tối cho ứng dụng hệ thống, Cài đặt và các thành phần shell.</value>
   </data>
-  <data name="Features.Preferences.ExplorerSyncNotifications.Name" xml:space="preserve">
+  <data name="Customize.Preferences.ExplorerSyncNotifications.Name" xml:space="preserve">
     <value>Thông báo đồng bộ Explorer</value>
   </data>
-  <data name="Features.Preferences.ExplorerSyncNotifications.Description" xml:space="preserve">
+  <data name="Customize.Preferences.ExplorerSyncNotifications.Description" xml:space="preserve">
     <value>Kiểm soát thông báo đồng bộ OneDrive và nhà cung cấp đám mây trong Explorer.</value>
   </data>
-  <data name="Features.Preferences.SystemSuggestions.Name" xml:space="preserve">
+  <data name="Customize.Preferences.SystemSuggestions.Name" xml:space="preserve">
     <value>Gợi ý hệ thống</value>
   </data>
-  <data name="Features.Preferences.SystemSuggestions.Description" xml:space="preserve">
+  <data name="Customize.Preferences.SystemSuggestions.Description" xml:space="preserve">
     <value>Kiểm soát mẹo Windows và gợi ý ứng dụng trong bảng Cài đặt.</value>
   </data>
-  <data name="Features.Preferences.ToastNotifications.Name" xml:space="preserve">
+  <data name="Customize.Preferences.ToastNotifications.Name" xml:space="preserve">
     <value>Thông báo Toast</value>
   </data>
-  <data name="Features.Preferences.ToastNotifications.Description" xml:space="preserve">
+  <data name="Customize.Preferences.ToastNotifications.Description" xml:space="preserve">
     <value>Kiểm soát thông báo popup toast và thông báo trên màn hình khóa.</value>
   </data>
-  <data name="Features.Preferences.ShowFileExtensions.Name" xml:space="preserve">
+  <data name="Customize.Preferences.ShowFileExtensions.Name" xml:space="preserve">
     <value>Hiển thị đuôi tệp</value>
   </data>
-  <data name="Features.Preferences.ShowFileExtensions.Description" xml:space="preserve">
+  <data name="Customize.Preferences.ShowFileExtensions.Description" xml:space="preserve">
     <value>Hiển thị đuôi tệp (VD: .txt, .exe) trong Explorer.</value>
   </data>
-  <data name="Features.Preferences.ShowHiddenFiles.Name" xml:space="preserve">
+  <data name="Customize.Preferences.ShowHiddenFiles.Name" xml:space="preserve">
     <value>Hiển thị tệp ẩn</value>
   </data>
-  <data name="Features.Preferences.ShowHiddenFiles.Description" xml:space="preserve">
+  <data name="Customize.Preferences.ShowHiddenFiles.Description" xml:space="preserve">
     <value>Hiển thị tệp và thư mục ẩn trong Explorer.</value>
   </data>
-  <data name="Features.Preferences.ClipboardHistory.Name" xml:space="preserve">
+  <data name="Customize.Preferences.ClipboardHistory.Name" xml:space="preserve">
     <value>Lịch sử khay nhớ tạm</value>
   </data>
-  <data name="Features.Preferences.ClipboardHistory.Description" xml:space="preserve">
+  <data name="Customize.Preferences.ClipboardHistory.Description" xml:space="preserve">
     <value>Lịch sử clipboard cho nhiều nội dung đã sao chép, truy cập bằng Win+V.</value>
   </data>
-  <data name="Features.Preferences.WindowShake.Name" xml:space="preserve">
+  <data name="Customize.Preferences.WindowShake.Name" xml:space="preserve">
     <value>Lắc cửa sổ</value>
   </data>
-  <data name="Features.Preferences.WindowShake.Description" xml:space="preserve">
+  <data name="Customize.Preferences.WindowShake.Description" xml:space="preserve">
     <value>Lắc một cửa sổ để thu nhỏ tất cả các cửa sổ khác đang mở.</value>
   </data>
-  <data name="Features.Preferences.ClassicContextMenu.Name" xml:space="preserve">
+  <data name="Customize.Preferences.ClassicContextMenu.Name" xml:space="preserve">
     <value>Menu chuột phải cổ điển</value>
   </data>
-  <data name="Features.Preferences.ClassicContextMenu.Description" xml:space="preserve">
+  <data name="Customize.Preferences.ClassicContextMenu.Description" xml:space="preserve">
     <value>Menu chuột phải kiểu Windows 10 trên Windows 11.</value>
   </data>
-  <data name="Features.Preferences.ShowSecondsInSystemClock.Name" xml:space="preserve">
+  <data name="Customize.Preferences.ShowSecondsInSystemClock.Name" xml:space="preserve">
     <value>Giây trên đồng hồ hệ thống</value>
   </data>
-  <data name="Features.Preferences.ShowSecondsInSystemClock.Description" xml:space="preserve">
+  <data name="Customize.Preferences.ShowSecondsInSystemClock.Description" xml:space="preserve">
     <value>Hiển thị giây trên đồng hồ thanh tác vụ.</value>
   </data>
-  <data name="Features.Gaming.Section.GameSettings" xml:space="preserve">
+  <data name="Customize.Gaming.Section.GameSettings" xml:space="preserve">
     <value>Cài đặt trò chơi</value>
   </data>
-  <data name="Features.Gaming.Section.Input" xml:space="preserve">
+  <data name="Customize.Gaming.Section.Input" xml:space="preserve">
     <value>Đầu vào</value>
   </data>
-  <data name="Features.Gaming.Section.Display" xml:space="preserve">
+  <data name="Customize.Gaming.Section.Display" xml:space="preserve">
     <value>Hiển thị</value>
   </data>
-  <data name="Features.Gaming.GameMode.Name" xml:space="preserve">
+  <data name="Customize.Gaming.GameMode.Name" xml:space="preserve">
     <value>Chế độ trò chơi</value>
   </data>
-  <data name="Features.Gaming.GameMode.Description" xml:space="preserve">
+  <data name="Customize.Gaming.GameMode.Description" xml:space="preserve">
     <value>Chế độ Game Mode của Windows cho tiến trình game và hành vi Windows Update.</value>
   </data>
-  <data name="Features.Gaming.GameBar.Name" xml:space="preserve">
+  <data name="Customize.Gaming.GameBar.Name" xml:space="preserve">
     <value>Xbox Game Bar</value>
   </data>
-  <data name="Features.Gaming.GameBar.Description" xml:space="preserve">
+  <data name="Customize.Gaming.GameBar.Description" xml:space="preserve">
     <value>Kiểm soát lớp phủ Xbox Game Bar, bảng khởi động và các tính năng nền liên quan.</value>
   </data>
-  <data name="Features.Gaming.BackgroundRecording.Name" xml:space="preserve">
+  <data name="Customize.Gaming.BackgroundRecording.Name" xml:space="preserve">
     <value>Ghi hình nền (DVR)</value>
   </data>
-  <data name="Features.Gaming.BackgroundRecording.Description" xml:space="preserve">
+  <data name="Customize.Gaming.BackgroundRecording.Description" xml:space="preserve">
     <value>Kiểm soát tự động ghi hình game chạy ngầm (Game DVR) và chụp ứng dụng.</value>
   </data>
-  <data name="Features.Gaming.MouseAcceleration.Name" xml:space="preserve">
+  <data name="Customize.Gaming.MouseAcceleration.Name" xml:space="preserve">
     <value>Gia tốc chuột</value>
   </data>
-  <data name="Features.Gaming.MouseAcceleration.Description" xml:space="preserve">
+  <data name="Customize.Gaming.MouseAcceleration.Description" xml:space="preserve">
     <value>Cài đặt tăng tốc chuột của Windows cho di chuyển con trỏ.</value>
   </data>
-  <data name="Features.Gaming.FullscreenOptimizations.Name" xml:space="preserve">
+  <data name="Customize.Gaming.FullscreenOptimizations.Name" xml:space="preserve">
     <value>Tối ưu hóa toàn màn hình</value>
   </data>
-  <data name="Features.Gaming.FullscreenOptimizations.Description" xml:space="preserve">
+  <data name="Customize.Gaming.FullscreenOptimizations.Description" xml:space="preserve">
     <value>Cài đặt tối ưu hóa toàn màn hình dựa trên DWM của Windows.</value>
   </data>
-  <data name="Features.Gaming.HardwareAcceleratedGpuScheduling.Name" xml:space="preserve">
+  <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Name" xml:space="preserve">
     <value>Lập lịch GPU tăng tốc phần cứng</value>
   </data>
-  <data name="Features.Gaming.HardwareAcceleratedGpuScheduling.Description" xml:space="preserve">
+  <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Description" xml:space="preserve">
     <value>Chế độ lập lịch bộ nhớ video GPU. Yêu cầu driver GPU tương thích.</value>
   </data>
   <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
@@ -1532,37 +1532,37 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Common.Other" xml:space="preserve">
     <value>Khác</value>
   </data>
-  <data name="Sidebar.Features" xml:space="preserve">
-    <value>Tính năng</value>
+  <data name="Sidebar.Customize" xml:space="preserve">
+    <value>Tùy chỉnh</value>
   </data>
-  <data name="Features.Preferences.TaskbarWidgets.Name" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarWidgets.Name" xml:space="preserve">
     <value>Tiện ích thanh tác vụ</value>
   </data>
-  <data name="Features.Preferences.TaskbarWidgets.Description" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarWidgets.Description" xml:space="preserve">
     <value>Điều khiển việc hiển thị nút Widgets trên thanh tác vụ.</value>
   </data>
-  <data name="Features.Preferences.TaskbarAlignment.Name" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarAlignment.Name" xml:space="preserve">
     <value>Căn chỉnh thanh tác vụ</value>
   </data>
-  <data name="Features.Preferences.TaskbarAlignment.Description" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarAlignment.Description" xml:space="preserve">
     <value>Chuyển vị trí căn chỉnh của thanh tác vụ giữa Giữa và Trái.</value>
   </data>
-  <data name="Features.Preferences.SnapAssistFlyout.Name" xml:space="preserve">
+  <data name="Customize.Preferences.SnapAssistFlyout.Name" xml:space="preserve">
     <value>Menu Snap Layouts</value>
   </data>
-  <data name="Features.Preferences.SnapAssistFlyout.Description" xml:space="preserve">
+  <data name="Customize.Preferences.SnapAssistFlyout.Description" xml:space="preserve">
     <value>Điều khiển menu Snap Layouts xuất hiện khi di chuột lên nút phóng to cửa sổ.</value>
   </data>
-  <data name="Features.Preferences.ExplorerItemCheckboxes.Name" xml:space="preserve">
+  <data name="Customize.Preferences.ExplorerItemCheckboxes.Name" xml:space="preserve">
     <value>Ô chọn mục trong File Explorer</value>
   </data>
-  <data name="Features.Preferences.ExplorerItemCheckboxes.Description" xml:space="preserve">
+  <data name="Customize.Preferences.ExplorerItemCheckboxes.Description" xml:space="preserve">
     <value>Hiển thị ô chọn khi chọn các mục trong File Explorer.</value>
   </data>
-  <data name="Features.Preferences.ExplorerCompactMode.Name" xml:space="preserve">
+  <data name="Customize.Preferences.ExplorerCompactMode.Name" xml:space="preserve">
     <value>Chế độ gọn trong File Explorer</value>
   </data>
-  <data name="Features.Preferences.ExplorerCompactMode.Description" xml:space="preserve">
+  <data name="Customize.Preferences.ExplorerCompactMode.Description" xml:space="preserve">
     <value>Giảm khoảng cách giữa các mục trong File Explorer để hiển thị được nhiều mục hơn.</value>
   </data>
   <data name="Service.Registry.Description.DeleteKey" xml:space="preserve">
@@ -1571,91 +1571,91 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Service.Registry.Description.CreateKey" xml:space="preserve">
     <value>Tạo key registry {0}</value>
   </data>
-  <data name="Features.Title" xml:space="preserve">
-    <value>Tính năng</value>
+  <data name="Customize.Title" xml:space="preserve">
+    <value>Tùy chỉnh</value>
   </data>
-  <data name="Features.SystemFeatures.Name" xml:space="preserve">
+  <data name="Customize.SystemFeatures.Name" xml:space="preserve">
     <value>Hệ thống</value>
   </data>
-  <data name="Features.SystemFeatures.Description" xml:space="preserve">
+  <data name="Customize.SystemFeatures.Description" xml:space="preserve">
     <value>Các tính năng và hành vi cốt lõi của hệ thống</value>
   </data>
-  <data name="Features.SystemFeatures.Section.Boot" xml:space="preserve">
+  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
     <value>Khởi động</value>
   </data>
-  <data name="Features.SystemFeatures.Section.Input" xml:space="preserve">
+  <data name="Customize.SystemFeatures.Section.Input" xml:space="preserve">
     <value>Đầu vào</value>
   </data>
-  <data name="Features.SystemFeatures.NumLockOnBoot.Name" xml:space="preserve">
+  <data name="Customize.SystemFeatures.NumLockOnBoot.Name" xml:space="preserve">
     <value>NumLock khi khởi động</value>
   </data>
-  <data name="Features.SystemFeatures.NumLockOnBoot.Description" xml:space="preserve">
+  <data name="Customize.SystemFeatures.NumLockOnBoot.Description" xml:space="preserve">
     <value>Trạng thái NumLock tại màn hình đăng nhập Windows.</value>
   </data>
-  <data name="Features.Desktop.Name" xml:space="preserve">
+  <data name="Customize.Desktop.Name" xml:space="preserve">
     <value>Màn hình chính</value>
   </data>
-  <data name="Features.Desktop.Description" xml:space="preserve">
+  <data name="Customize.Desktop.Description" xml:space="preserve">
     <value>Biểu tượng và cài đặt lối tắt trên Desktop</value>
   </data>
-  <data name="Features.Desktop.Section.Icons" xml:space="preserve">
+  <data name="Customize.Desktop.Section.Icons" xml:space="preserve">
     <value>Biểu tượng Desktop</value>
   </data>
-  <data name="Features.Desktop.Section.Behaviors" xml:space="preserve">
+  <data name="Customize.Desktop.Section.Behaviors" xml:space="preserve">
     <value>Hành vi lối tắt</value>
   </data>
-  <data name="Features.Desktop.ShowThisPc.Name" xml:space="preserve">
+  <data name="Customize.Desktop.ShowThisPc.Name" xml:space="preserve">
     <value>"This PC"</value>
   </data>
-  <data name="Features.Desktop.ShowThisPc.Description" xml:space="preserve">
+  <data name="Customize.Desktop.ShowThisPc.Description" xml:space="preserve">
     <value>Hiển thị biểu tượng This PC trên màn hình Desktop của bạn</value>
   </data>
-  <data name="Features.Desktop.ShowRecycleBin.Name" xml:space="preserve">
+  <data name="Customize.Desktop.ShowRecycleBin.Name" xml:space="preserve">
     <value>Thùng rác (Recycle Bin)</value>
   </data>
-  <data name="Features.Desktop.ShowRecycleBin.Description" xml:space="preserve">
+  <data name="Customize.Desktop.ShowRecycleBin.Description" xml:space="preserve">
     <value>Hiển thị biểu tượng Thùng rác trên màn hình Desktop của bạn</value>
   </data>
-  <data name="Features.Desktop.ShowUserFiles.Name" xml:space="preserve">
+  <data name="Customize.Desktop.ShowUserFiles.Name" xml:space="preserve">
     <value>Thư mục người dùng</value>
   </data>
-  <data name="Features.Desktop.ShowUserFiles.Description" xml:space="preserve">
+  <data name="Customize.Desktop.ShowUserFiles.Description" xml:space="preserve">
     <value>Hiển thị thư mục hồ sơ người dùng của bạn dưới dạng biểu tượng Desktop</value>
   </data>
-  <data name="Features.Desktop.ShowNetwork.Name" xml:space="preserve">
+  <data name="Customize.Desktop.ShowNetwork.Name" xml:space="preserve">
     <value>Mạng</value>
   </data>
-  <data name="Features.Desktop.ShowNetwork.Description" xml:space="preserve">
+  <data name="Customize.Desktop.ShowNetwork.Description" xml:space="preserve">
     <value>Hiển thị biểu tượng Mạng trên màn hình Desktop của bạn</value>
   </data>
-  <data name="Features.Desktop.ShowControlPanel.Name" xml:space="preserve">
+  <data name="Customize.Desktop.ShowControlPanel.Name" xml:space="preserve">
     <value>Control Panel</value>
   </data>
-  <data name="Features.Desktop.ShowControlPanel.Description" xml:space="preserve">
+  <data name="Customize.Desktop.ShowControlPanel.Description" xml:space="preserve">
     <value>Hiển thị biểu tượng Control Panel trên màn hình Desktop của bạn</value>
   </data>
-  <data name="Features.Desktop.ShowDesktopIcons.Name" xml:space="preserve">
+  <data name="Customize.Desktop.ShowDesktopIcons.Name" xml:space="preserve">
     <value>Biểu tượng Desktop</value>
   </data>
-  <data name="Features.Desktop.ShowDesktopIcons.Description" xml:space="preserve">
+  <data name="Customize.Desktop.ShowDesktopIcons.Description" xml:space="preserve">
     <value>Hiện hoặc ẩn toàn bộ biểu tượng trên Desktop cùng lúc</value>
   </data>
-  <data name="Features.Desktop.ShortcutArrow.Name" xml:space="preserve">
+  <data name="Customize.Desktop.ShortcutArrow.Name" xml:space="preserve">
     <value>Mũi tên lối tắt</value>
   </data>
-  <data name="Features.Desktop.ShortcutArrow.Description" xml:space="preserve">
+  <data name="Customize.Desktop.ShortcutArrow.Description" xml:space="preserve">
     <value>Hiện hoặc ẩn mũi tên lối tắt trên biểu tượng Desktop</value>
   </data>
-  <data name="Features.Preferences.LaunchToThisPc.Name" xml:space="preserve">
+  <data name="Customize.Preferences.LaunchToThisPc.Name" xml:space="preserve">
     <value>Mở mặc định vào "This PC"</value>
   </data>
-  <data name="Features.Preferences.LaunchToThisPc.Description" xml:space="preserve">
+  <data name="Customize.Preferences.LaunchToThisPc.Description" xml:space="preserve">
     <value>Cài đặt vị trí mặc định của File Explorer (This PC hoặc Quick Access).</value>
   </data>
-  <data name="Features.Preferences.BingSearch.Name" xml:space="preserve">
+  <data name="Customize.Preferences.BingSearch.Name" xml:space="preserve">
     <value>Tìm kiếm Bing</value>
   </data>
-  <data name="Features.Preferences.BingSearch.Description" xml:space="preserve">
+  <data name="Customize.Preferences.BingSearch.Description" xml:space="preserve">
     <value>Tích hợp tìm kiếm web Bing trong kết quả Tìm kiếm và menu Start của Windows.</value>
   </data>
   <data name="Button.Accept" xml:space="preserve">
@@ -1727,58 +1727,58 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Common.Recommendation.On" xml:space="preserve">
     <value>Khuyến nghị</value>
   </data>
-  <data name="Features.Gaming.BackgroundRecording.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Gaming.BackgroundRecording.Recommendation.Reason" xml:space="preserve">
     <value>Tắt ghi hình nền giúp DVR ngừng ghi lén gameplay, tiết kiệm CPU và giảm chu kỳ ghi đĩa.</value>
   </data>
-  <data name="Features.Gaming.FullscreenOptimizations.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Gaming.FullscreenOptimizations.Recommendation.Reason" xml:space="preserve">
     <value>Tắt nếu bạn gặp giật lag, độ trễ đầu vào hoặc màn hình đen khi chơi game (đặc biệt là game bắn súng cạnh tranh).</value>
   </data>
-  <data name="Features.Gaming.GameBar.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Gaming.GameBar.Recommendation.Reason" xml:space="preserve">
     <value>Tắt Game Bar giải phóng tài nguyên hệ thống và ngăn lớp phủ nền can thiệp vào game của bạn.</value>
   </data>
-  <data name="Features.Gaming.GameMode.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Gaming.GameMode.Recommendation.Reason" xml:space="preserve">
     <value>Game Mode tự động ưu tiên tiến trình game và tạm dừng thông báo Windows Update khi chơi game để hiệu năng mượt mà hơn.</value>
   </data>
-  <data name="Features.Gaming.HardwareAcceleratedGpuScheduling.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Recommendation.Reason" xml:space="preserve">
     <value>Lập lịch GPU chuyển quản lý khung hình từ CPU sang GPU, giảm độ trễ hiển thị và cải thiện nhịp khung hình.</value>
   </data>
-  <data name="Features.Gaming.MouseAcceleration.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Gaming.MouseAcceleration.Recommendation.Reason" xml:space="preserve">
     <value>Tắt gia tốc chuột cho bạn đầu vào chuột thô, tuyến tính để độ chính xác aim tốt hơn và nhất quán muscle memory.</value>
   </data>
-  <data name="Features.Preferences.BingSearch.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Preferences.BingSearch.Recommendation.Reason" xml:space="preserve">
     <value>Tắt tìm kiếm Bing ngăn truy vấn web làm lộn xộn kết quả tìm kiếm local và cải thiện tốc độ tìm kiếm.</value>
   </data>
-  <data name="Features.Preferences.ClassicContextMenu.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Preferences.ClassicContextMenu.Recommendation.Reason" xml:space="preserve">
     <value>Menu cổ điển hiển thị tất cả tùy chọn ngay lập tức mà không cần thêm thao tác nhấp chuột để mở rộng menu thu gọn của Windows 11.</value>
   </data>
-  <data name="Features.Preferences.ClipboardHistory.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Preferences.ClipboardHistory.Recommendation.Reason" xml:space="preserve">
     <value>Lịch sử clipboard cho phép bạn gọi lại nhiều bản sao trước đó bằng Win+V, tăng tốc quy trình sao chép-dán lặp đi lặp lại.</value>
   </data>
-  <data name="Features.Preferences.ExplorerSyncNotifications.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Preferences.ExplorerSyncNotifications.Recommendation.Reason" xml:space="preserve">
     <value>Tắt thông báo đồng bộ ngăn cửa sổ pop-up OneDrive làm gián đoạn duyệt file trong Explorer.</value>
   </data>
-  <data name="Features.Preferences.ShowFileExtensions.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Preferences.ShowFileExtensions.Recommendation.Reason" xml:space="preserve">
     <value>Hiển thị phần mở rộng file giúp dễ dàng nhận biết file đáng ngờ và ngăn malware ẩn sau icon giả mạo.</value>
   </data>
-  <data name="Features.Preferences.ShowHiddenFiles.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Preferences.ShowHiddenFiles.Recommendation.Reason" xml:space="preserve">
     <value>File ẩn chứa dữ liệu hệ thống và cấu hình bạn có thể cần quản lý; hiển thị chúng cho bạn toàn quyền kiểm soát hệ thống.</value>
   </data>
-  <data name="Features.Preferences.SystemSuggestions.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Preferences.SystemSuggestions.Recommendation.Reason" xml:space="preserve">
     <value>Tắt gợi ý hệ thống ngăn Windows đề xuất ứng dụng và cài đặt mà bạn không yêu cầu.</value>
   </data>
-  <data name="Features.Preferences.TaskbarEndTask.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarEndTask.Recommendation.Reason" xml:space="preserve">
     <value>End Task trên thanh tác vụ cho phép bạn kết thúc ứng dụng treo ngay lập tức mà không cần mở Task Manager.</value>
   </data>
-  <data name="Features.Preferences.TaskbarWidgets.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.Preferences.TaskbarWidgets.Recommendation.Reason" xml:space="preserve">
     <value>Tắt widget loại bỏ dịch vụ web nền tìm nạp tin tức và thời tiết, giảm sử dụng mạng và bộ nhớ khi ở chế độ chờ.</value>
   </data>
-  <data name="Features.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
+  <data name="Customize.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
     <value>Bật NumLock khi khởi động đảm bảo bàn phím số sẵn sàng ngay sau khi đăng nhập, tránh phải bật/tắt thủ công mỗi lần.</value>
   </data>
-  <data name="Features.SystemFeatures.Section.Services" xml:space="preserve">
+  <data name="Customize.SystemFeatures.Section.Services" xml:space="preserve">
     <value>Dịch vụ</value>
   </data>
-  <data name="Features.SystemFeatures.Section.Power" xml:space="preserve">
+  <data name="Customize.SystemFeatures.Section.Power" xml:space="preserve">
     <value>Cài đặt nguồn</value>
   </data>
 </root>
