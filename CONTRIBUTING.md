@@ -10,19 +10,14 @@
 
 # Introduction
 
-Thank you for your interest in contributing to **optimizerDuck**!
+Thanks for contributing to **optimizerDuck**.
 
-This project helps users optimize and customize Windows in a simple, transparent, and powerful way. Community contributions make the project better, more stable, and accessible to more people.
-
-There are many ways you can contribute:
-
+There are many ways you can help:
 - Reporting bugs
 - Suggesting new features or optimizations
 - Improving documentation
 - Adding translations
 - Contributing code and improvements
-
-Every contribution, big or small, is appreciated.
 
 # Getting Started
 
@@ -100,6 +95,8 @@ optimizerDuck/
 <div align="center">
 
 ## Ways to Contribute
+
+
 
 </div>
 
@@ -354,7 +351,7 @@ We maintain a modern, clean C# codebase.
    - Describe **what** changed and **why**.
    - If your PR affects the UI, **include a screenshot or GIF**.
    - Link related issues (`Closes #42`).
-4. **Code review**: A maintainer will review your changes. Be open to feedback and ready to make adjustments.
+4. **Code review**: A maintainer will review your changes.
 
 ---
 
@@ -365,7 +362,7 @@ We maintain a modern, clean C# codebase.
 </div>
 
 - **Bug reports**: Use the Bug Report template. Include steps to reproduce, expected vs. actual behavior, logs (found in `%localappdata%\optimizerDuck\optimizerDuck.log`), and your system specs.
-- **Feature requests**: Describe the use case. What problem does this solve? How should it work? The more detail, the better.
+- **Feature requests**: Describe the use case, problem it solves, and how it should work.
 - **Questions**: Use GitHub Discussions or join our [Discord server](https://discord.gg/tDUBDCYw9Q).
 
 ---
@@ -391,7 +388,7 @@ By contributing to optimizerDuck, you agree that your contributions will be lice
 ---
 
 <div align="center">
-  <p><i>Thank you for helping make optimizerDuck better for the Windows community!</i></p>
+  <p><i>Thanks for making optimizerDuck better.</i></p>
 
 [![Contributors](https://contrib.rocks/image?repo=itsfatduck/optimizerDuck)](https://github.com/itsfatduck/optimizerDuck/graphs/contributors)
 

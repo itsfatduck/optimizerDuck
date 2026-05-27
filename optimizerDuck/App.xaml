@@ -11,6 +11,7 @@
                 <ui:ControlsDictionary />
                 <ResourceDictionary Source="pack://application:,,,/UI/Styles/FluentDesign.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/UI/Styles/NavigationViewOverride.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/UI/Styles/ToolTipOverride.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <Style TargetType="Image">

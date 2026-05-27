@@ -4,7 +4,7 @@
 
 # [optimizerDuck](https://optimizerduck.vercel.app/)
 
-**optimizerDuck is a free, open-source Windows optimization tool built for performance, privacy, and simplicity.**
+**optimizerDuck is a free, open-source Windows optimization tool focused on performance, privacy, and simplicity.**
 
 [![Release](https://img.shields.io/github/release/itsfatduck/optimizerDuck?color=fed114&label=Release&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/itsfatduck/optimizerDuck/total?label=Downloads&style=flat-square&color=lightgreen)](https://github.com/itsfatduck/optimizerDuck/releases)
@@ -106,7 +106,7 @@ Flip Windows settings on or off without digging through the registry or searchin
 
 ## Safety
 
-We know changing system settings carries risk, so the tool is built around reversibility and user control.
+Changing system settings carries risk. optimizerDuck is built around reversibility and user control.
 
 See the [Privacy Policy](./PRIVACY.md) for details on our data practices.
 
@@ -134,15 +134,13 @@ See the [Privacy Policy](./PRIVACY.md) for details on our data practices.
 
 ### [Official Documentation](https://optimizerduck.vercel.app/docs/guides/getting-started)
 
-Step-by-step guides, detailed breakdowns of each optimization, and best practices for using optimizerDuck.
+Guides, optimization details, and usage tips.
 
 ---
 
 ## Contribute
 
-We welcome contributions from the community! Whether you're fixing bugs, adding new optimizations or features, improving documentation, or helping translate the app into other languages, your support is greatly appreciated.
-
-For more information, please see [CONTRIBUTING.md](./CONTRIBUTING.md).
+Bug reports, new optimizations, docs improvements, and translations are all welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
 
@@ -167,7 +165,7 @@ If optimizerDuck helped your PC:
 - 💬 [Discord](https://discord.gg/tDUBDCYw9Q)
 - 🐞 [Issues](https://github.com/itsfatduck/optimizerDuck/issues)
 
-Every contribution helps. Bug reports, feature suggestions, translations, and sharing your experience all matter.
+Bug reports, feature suggestions, translations, and sharing your experience all help the project.
 
 ---
 

@@ -1417,9 +1417,6 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="Common.Toggle.Off" xml:space="preserve">
     <value>Off</value>
   </data>
-  <data name="Common.Apply" xml:space="preserve">
-    <value>Apply</value>
-  </data>
   <data name="Common.SortBy.Status" xml:space="preserve">
     <value>Status</value>
   </data>
