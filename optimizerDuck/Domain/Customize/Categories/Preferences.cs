@@ -53,6 +53,8 @@ public class Preferences : ICustomizeCategory
         }
 
         protected override bool NeedsPostAction => true;
+
+        protected override IReadOnlyList<string> GetWatchedRegistryPaths() => [RegPath];
     }
 
     [CustomizeSetting(
@@ -428,6 +430,8 @@ public class Preferences : ICustomizeCategory
         private const string InprocPath = BasePath + @"\InprocServer32";
 
         protected override bool NeedsPostAction => true;
+
+        protected override IReadOnlyList<string> GetWatchedRegistryPaths() => [BasePath];
 
         public override Task<bool> GetStateAsync()
         {

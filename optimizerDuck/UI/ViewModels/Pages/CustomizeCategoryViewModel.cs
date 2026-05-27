@@ -9,6 +9,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
+using optimizerDuck.Services;
 using optimizerDuck.Domain.Customize.Models;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.UI.ViewModels.Customize;
@@ -60,7 +61,11 @@ public partial class CustomizeCategoryViewModel : ViewModel
     private readonly List<CustomizeItemViewModel> _allSettings = [];
     private readonly ICustomizeCategory? _currentCategory;
 
-    public CustomizeCategoryViewModel(ICustomizeCategory category, ILoggerFactory loggerFactory)
+    public CustomizeCategoryViewModel(
+        ICustomizeCategory category,
+        ILoggerFactory loggerFactory,
+        IRegistryWatcher registryWatcher
+    )
     {
         _currentCategory = category;
 
@@ -72,7 +77,7 @@ public partial class CustomizeCategoryViewModel : ViewModel
 
         _allSettings.Clear();
         foreach (var setting in _currentCategory.Features)
-            _allSettings.Add(new CustomizeItemViewModel(setting, loggerFactory));
+            _allSettings.Add(new CustomizeItemViewModel(setting, loggerFactory, registryWatcher));
 
         _ = InitializeAsync();
     }

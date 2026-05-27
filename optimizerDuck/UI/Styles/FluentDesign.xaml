@@ -146,6 +146,7 @@
         <Setter Property="Margin" Value="{StaticResource ControlGap}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="LabelPosition" Value="Left" />
     </Style>
 
     <Style

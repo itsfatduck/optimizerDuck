@@ -34,8 +34,6 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
         if (successfulSteps.Count == 0)
             return;
 
-        // rebuild the gap-and-index array from the 1-based step indexes
-        // ExecutionScope uses 1-based indexes, but the array is 0-based
         var maxIndex = successfulSteps.Max(s => s.Index);
         var steps = new RevertStepData?[maxIndex];
 
@@ -85,7 +83,6 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
                 Message = string.Format(Translations.Revert_Error_NoDataFound, optimization.Name),
             };
 
-        // revert in reverse order (LIFO) so later steps don't depend on earlier ones
         var failedSteps = new List<OperationStepResult>();
         var sortedSteps = steps.OrderByDescending(s => s.Index).ToList();
         var total = sortedSteps.Count;
@@ -137,13 +134,16 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             }
         }
 
-        // if at least one step reverted, remove the revert file so the optimization shows as not-applied
-        // if all steps failed, leave the file in place for another attempt
         if (failedSteps.Count < total)
             RemoveRevertData(optimization.Id, optimization.OptimizationKey);
 
         if (failedSteps.Count == 0)
-            _fileLocks.TryRemove(optimization.Id, out _);
+        {
+            if (_fileLocks.TryRemove(optimization.Id, out var sem))
+            {
+                sem.Dispose();
+            }
+        }
 
         return new RevertResult
         {
@@ -190,8 +190,6 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
                     Steps = Array.Empty<RevertStepData?>(),
                 };
 
-            // grow the array if needed so the index slot exists
-            // gaps before this index remain null
             if (data.Steps.Length < stepIndex)
             {
                 var newSteps = new RevertStepData?[stepIndex];
@@ -215,8 +213,6 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
         }
     }
 
-    #region Helpers
-
     public static async Task<bool> IsAppliedAsync(Guid id)
     {
         var data = await LoadAsync(GetFilePath(id));
@@ -230,17 +226,27 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
 
     public static void ClearAllRevertData(ILogger logger)
     {
-        if (!Directory.Exists(Shared.RevertDirectory))
-            return;
-        foreach (var f in Directory.GetFiles(Shared.RevertDirectory))
-            try
+        if (Directory.Exists(Shared.RevertDirectory))
+        {
+            foreach (var f in Directory.GetFiles(Shared.RevertDirectory))
             {
-                File.Delete(f);
+                try
+                {
+                    File.Delete(f);
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex, "Failed to delete {File}", f);
+                }
             }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Failed to delete {File}", f);
-            }
+        }
+
+        var semaphores = _fileLocks.Values.ToList();
+        _fileLocks.Clear();
+        foreach (var sem in semaphores)
+        {
+            sem.Dispose();
+        }
     }
 
     private static string GetFilePath(Guid id)
@@ -252,13 +258,34 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
     {
         if (!File.Exists(path))
             return null;
+
+        var id = ExtractIdFromPath(path);
+        SemaphoreSlim? lockObj = null;
+
+        if (id.HasValue)
+        {
+            lockObj = _fileLocks.GetOrAdd(id.Value, _ => new SemaphoreSlim(1, 1));
+            await lockObj.WaitAsync().ConfigureAwait(false);
+        }
+
         try
         {
-            var json = await File.ReadAllTextAsync(path);
-            if (string.IsNullOrWhiteSpace(json))
-                return null;
+            for (var i = 0; i < 3; i++)
+            {
+                try
+                {
+                    var json = await File.ReadAllTextAsync(path);
+                    if (string.IsNullOrWhiteSpace(json))
+                        return null;
 
-            return JsonConvert.DeserializeObject<RevertData>(json);
+                    return JsonConvert.DeserializeObject<RevertData>(json);
+                }
+                catch (IOException) when (i < 2)
+                {
+                    await Task.Delay(50);
+                }
+            }
+            return null;
         }
         catch (JsonException ex)
         {
@@ -270,6 +297,24 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             TraceCorruptRevertFile(path, ex);
             return null;
         }
+        finally
+        {
+            lockObj?.Release();
+        }
+    }
+
+    private static Guid? ExtractIdFromPath(string path)
+    {
+        try
+        {
+            var fileName = Path.GetFileNameWithoutExtension(path);
+            if (Guid.TryParse(fileName, out var id))
+                return id;
+        }
+        catch
+        {
+        }
+        return null;
     }
 
     private static void TraceCorruptRevertFile(string path, Exception ex)
@@ -280,7 +325,10 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
     public void RemoveRevertData(Guid id, string? name = null)
     {
         Remove(id, name);
-        _fileLocks.TryRemove(id, out _);
+        if (_fileLocks.TryRemove(id, out var sem))
+        {
+            sem.Dispose();
+        }
     }
 
     private async Task WriteJsonAsync(Guid optimizationId, string path, RevertData data)
@@ -299,8 +347,6 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
         }
     }
 
-    // write to .tmp then replace atomically so a crash mid-write doesn't corrupt the revert file
-    // File.Replace is the .NET atomic swap for existing files
     private static async Task WriteJsonAtomicAsync(string path, RevertData data)
     {
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);
@@ -315,7 +361,7 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             File.Move(tempPath, path);
     }
 
-    private async Task<SemaphoreSlim> AcquireFileLockAsync(Guid id)
+    private static async Task<SemaphoreSlim> AcquireFileLockAsync(Guid id)
     {
         var lockObj = _fileLocks.GetOrAdd(id, _ => new SemaphoreSlim(1, 1));
         if (
@@ -337,36 +383,39 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             return [];
 
         var seenIndexes = new HashSet<int>();
-        foreach (var step in data.Steps.Where(s => s != null))
-        {
-            if (step!.Index <= 0)
-            {
-                _logger.LogWarning("Invalid index {Index} in revert data for {Id}", step.Index, id);
-                return [];
-            }
-            if (!seenIndexes.Add(step.Index))
-            {
-                _logger.LogWarning(
-                    "Duplicate index {Index} in revert data for {Id}",
-                    step.Index,
-                    id
-                );
-                return [];
-            }
-        }
-
         var result = new List<(int, IRevertStep)>();
+
         foreach (var stepData in data.Steps.Where(s => s != null))
         {
-            var step = DeserializeStep(stepData!.Type, stepData.Data);
+            if (stepData!.Index <= 0)
+            {
+                _logger.LogWarning("Skipping step with invalid index {Index} in revert data for {Id}", stepData.Index, id);
+                continue;
+            }
+
+            if (!seenIndexes.Add(stepData.Index))
+            {
+                _logger.LogWarning(
+                    "Skipping step with duplicate index {Index} in revert data for {Id}",
+                    stepData.Index,
+                    id
+                );
+                continue;
+            }
+
+            var step = DeserializeStep(stepData.Type, stepData.Data);
             if (step != null)
+            {
                 result.Add((stepData.Index, step));
+            }
             else
+            {
                 _logger.LogWarning(
                     "Skipped unknown revert step type '{Type}' for optimization {Id}",
                     stepData.Type,
                     id
                 );
+            }
         }
 
         return result.OrderBy(x => x.Item1).ToList();
@@ -397,8 +446,6 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
         }
     }
 
-    // discover all IRevertStep implementations via reflection and map their Type string to a factory
-    // each step type must expose a static FromData(JObject) method for deserialization
     private static Dictionary<string, Func<JObject, IRevertStep>> BuildStepRegistry()
     {
         var dict = new Dictionary<string, Func<JObject, IRevertStep>>();
@@ -434,6 +481,4 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
         _logger.LogWarning("Unknown revert step type: {Type}", type);
         return null;
     }
-
-    #endregion
 }

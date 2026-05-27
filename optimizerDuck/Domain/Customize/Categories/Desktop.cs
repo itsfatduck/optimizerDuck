@@ -173,6 +173,8 @@ public class Desktop : ICustomizeCategory
                 || fileName.Equals("blankicon.ico", StringComparison.OrdinalIgnoreCase);
         }
 
+        protected override IReadOnlyList<string> GetWatchedRegistryPaths() => [Path];
+
         public override Task<bool> GetStateAsync()
         {
             var value = RegistryService.Read<string>(new RegistryItem(Path, "29"));

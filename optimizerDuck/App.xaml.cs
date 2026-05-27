@@ -252,6 +252,7 @@ public partial class App : Application
                     services.AddSingleton<SystemInfoService>();
                     services.AddSingleton<StreamService>();
                     services.AddSingleton<UpdaterService>();
+                    services.AddSingleton<IRegistryWatcher, RegistryWatcher>();
                 }
             )
             .Build();

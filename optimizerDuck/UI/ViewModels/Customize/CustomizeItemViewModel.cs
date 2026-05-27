@@ -5,34 +5,36 @@ using Microsoft.Extensions.Logging;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Customize.Models;
 using optimizerDuck.Domain.Execution;
+using optimizerDuck.Services;
 using optimizerDuck.Services.Managers;
 using Wpf.Ui.Controls;
 
 namespace optimizerDuck.UI.ViewModels.Customize;
 
-/// <summary>
-/// Wraps an <see cref="ICustomizeSetting"/> for the UI.
-/// Both toggle flips and value changes auto-apply immediately.
-/// </summary>
-public partial class CustomizeItemViewModel(ICustomizeSetting setting, ILoggerFactory loggerFactory)
-    : ObservableObject
+public partial class CustomizeItemViewModel(
+    ICustomizeSetting setting,
+    ILoggerFactory loggerFactory,
+    IRegistryWatcher registryWatcher
+) : ObservableObject, IDisposable
 {
     private readonly ILogger<CustomizeItemViewModel> _logger =
         loggerFactory.CreateLogger<CustomizeItemViewModel>();
 
     private bool _hasLoaded;
     private CancellationTokenSource? _debounceCts;
+    private bool _disposed;
 
-    #region Public Pass-through Properties
+    private readonly HashSet<string> _watchedPaths = new(StringComparer.OrdinalIgnoreCase);
+
+    private readonly object _applyLock = new();
+    private bool _isApplying;
+    private object? _pendingValue;
+    private bool _hasPendingValue;
 
     public ICustomizeSetting Setting => setting;
     public CustomizeControlType ControlType => setting.ControlType;
     public IReadOnlyList<SettingOption>? Options => setting.Options;
     public SymbolRegular Icon => setting.Icon;
-
-    #endregion
-
-    #region Observable Properties
 
     [ObservableProperty]
     private string _description = setting.Description;
@@ -52,16 +54,8 @@ public partial class CustomizeItemViewModel(ICustomizeSetting setting, ILoggerFa
     [ObservableProperty]
     private string _categoryName = string.Empty;
 
-    /// <summary>
-    /// Bound by every control (ToggleSwitch, ComboBox, ListBox, NumberBox, TextBox).
-    /// When the user interacts with the UI this value changes and auto-triggers apply.
-    /// </summary>
     [ObservableProperty]
     private object? _currentValue;
-
-    #endregion
-
-    #region Recommendation UI
 
     public CustomizeRecommendationResult? Recommendation => setting.GetRecommendation();
     public bool HasRecommendation => Recommendation != null;
@@ -89,10 +83,6 @@ public partial class CustomizeItemViewModel(ICustomizeSetting setting, ILoggerFa
     public string? RecommendationReason =>
         Recommendation != null ? Loc.Instance[Recommendation.ReasonTranslationKey] : null;
 
-    #endregion
-
-    #region State Management
-
     public async Task LoadStateAsync()
     {
         try
@@ -100,6 +90,8 @@ public partial class CustomizeItemViewModel(ICustomizeSetting setting, ILoggerFa
             IsEnabled = await setting.GetStateAsync();
             CurrentValue = setting.CurrentValue;
             _hasLoaded = true;
+
+            SubscribeToRegistryChanges();
         }
         catch
         {
@@ -107,44 +99,68 @@ public partial class CustomizeItemViewModel(ICustomizeSetting setting, ILoggerFa
         }
     }
 
-    /// <summary>
-    /// Called by the ToggleSwitch. Always applies the opposite of the current state.
-    /// </summary>
-    [RelayCommand]
-    private async Task ToggleAsync()
+    private void SubscribeToRegistryChanges()
     {
-        if (IsLoading)
+        if (_disposed)
             return;
 
-        var newState = !IsEnabled;
-
-        _logger.LogInformation(
-            "Apply {Action} {Setting} ({Key})",
-            newState ? "On" : "Off",
-            setting.Name,
-            setting.FeatureKey
-        );
-
-        IsLoading = true;
-        try
+        foreach (var path in setting.WatchedRegistryPaths)
         {
-            using (ExecutionScope.BeginForLogging(_logger))
+            if (_watchedPaths.Add(path))
+                registryWatcher.Watch(path);
+        }
+
+        if (_watchedPaths.Count > 0)
+            registryWatcher.RegistryKeyChanged += OnRegistryKeyChanged;
+    }
+
+    private async void OnRegistryKeyChanged(object? sender, string path)
+    {
+        if (_disposed || !_hasLoaded)
+            return;
+
+        if (!_watchedPaths.Contains(path))
+            return;
+
+        await Application.Current.Dispatcher.InvokeAsync(async () =>
+        {
+            try
             {
-                await setting.ApplyAsync(newState);
+                lock (_applyLock)
+                {
+                    if (_isApplying)
+                        return;
+                }
+
+                var state = await setting.GetStateWithRetryAsync(maxRetries: 2, delayMs: 50);
+                IsEnabled = state;
+                CurrentValue = setting.CurrentValue;
             }
-            IsEnabled = await setting.GetStateAsync();
-            CurrentValue = setting.CurrentValue;
-            ((App)Application.Current).HasPendingChanges = true;
-        }
-        catch (Exception ex)
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "RegistryWatcher: failed to refresh state for {Setting}", setting.Name);
+            }
+        });
+    }
+
+    [RelayCommand]
+    private void Toggle()
+    {
+        lock (_applyLock)
         {
-            _logger.LogError(ex, "Failed to toggle {SettingName}", setting.Name);
-            throw;
+            var currentTarget = _hasPendingValue ? (bool)_pendingValue! : IsEnabled;
+            var nextState = !currentTarget;
+
+            _pendingValue = nextState;
+            _hasPendingValue = true;
+
+            if (_isApplying)
+                return;
+
+            _isApplying = true;
         }
-        finally
-        {
-            IsLoading = false;
-        }
+
+        _ = ProcessPendingValuesAsync();
     }
 
     partial void OnCurrentValueChanged(object? value)
@@ -152,55 +168,29 @@ public partial class CustomizeItemViewModel(ICustomizeSetting setting, ILoggerFa
         if (!_hasLoaded || ControlType == CustomizeControlType.Toggle)
             return;
 
-        // Debounce for text input; immediate for discrete selections
+        if (Equals(value, setting.CurrentValue))
+            return;
+
         if (ControlType == CustomizeControlType.String)
             _ = ApplyWithDebounceAsync(value);
         else
-            _ = ApplyValueAsync(value);
+            QueueApplyValue(value);
     }
 
-    private async Task ApplyValueAsync(object? value)
+    private void QueueApplyValue(object? value)
     {
-        if (IsLoading)
-            return;
-
-        IsLoading = true;
-        try
+        lock (_applyLock)
         {
-            _logger.LogInformation(
-            "===== START applying setting {Setting} ({Key}) =====",
-            setting.Name,
-            setting.FeatureKey
-        );
-            using (ExecutionScope.BeginForLogging(_logger))
-            {
-                await setting.ApplyAsync(value);
-            }
-            IsEnabled = await setting.GetStateAsync();
-            ((App)Application.Current).HasPendingChanges = true;
+            _pendingValue = value;
+            _hasPendingValue = true;
 
-            _logger.LogInformation(
-                "Applied {Setting} ({Key}) = {Value}",
-                setting.Name,
-                setting.FeatureKey,
-                value
-            );
+            if (_isApplying)
+                return;
 
-            _logger.LogInformation(
-            "===== END applying setting {Setting} ({Key}) =====",
-            setting.Name,
-            setting.FeatureKey
-        );
+            _isApplying = true;
         }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Failed to apply {SettingName}", setting.Name);
-            throw;
-        }
-        finally
-        {
-            IsLoading = false;
-        }
+
+        _ = ProcessPendingValuesAsync();
     }
 
     private async Task ApplyWithDebounceAsync(object? value)
@@ -215,13 +205,82 @@ public partial class CustomizeItemViewModel(ICustomizeSetting setting, ILoggerFa
             if (token.IsCancellationRequested)
                 return;
 
-            await ApplyValueAsync(value);
+            QueueApplyValue(value);
         }
         catch (TaskCanceledException)
         {
-            // Expected on debounce reset
         }
     }
 
-    #endregion
+    private async Task ProcessPendingValuesAsync()
+    {
+        try
+        {
+            while (true)
+            {
+                object? valueToApply;
+                lock (_applyLock)
+                {
+                    if (!_hasPendingValue)
+                    {
+                        _isApplying = false;
+                        break;
+                    }
+
+                    valueToApply = _pendingValue;
+                    _hasPendingValue = false;
+                }
+
+                IsLoading = true;
+                try
+                {
+                    _logger.LogInformation(
+                        "Apply {Value} for {Setting} ({Key})",
+                        valueToApply,
+                        setting.Name,
+                        setting.FeatureKey
+                    );
+
+                    using (ExecutionScope.BeginForLogging(_logger))
+                    {
+                        await setting.ApplyAsync(valueToApply);
+                    }
+
+                    IsEnabled = await setting.GetStateWithRetryAsync();
+                    
+                    if (ControlType != CustomizeControlType.Toggle)
+                    {
+                        CurrentValue = setting.CurrentValue;
+                    }
+
+                    ((App)Application.Current).HasPendingChanges = true;
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Failed to apply {SettingName}", setting.Name);
+                }
+            }
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
+
+    public void Dispose()
+    {
+        if (_disposed)
+            return;
+
+        _disposed = true;
+
+        registryWatcher.RegistryKeyChanged -= OnRegistryKeyChanged;
+
+        foreach (var path in _watchedPaths)
+            registryWatcher.Unwatch(path);
+
+        _watchedPaths.Clear();
+        _debounceCts?.Cancel();
+        _debounceCts?.Dispose();
+    }
 }

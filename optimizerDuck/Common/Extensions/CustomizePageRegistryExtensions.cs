@@ -32,9 +32,10 @@ public static class CustomizePageRegistryExtensions
     {
         var registry = serviceProvider.GetRequiredService<CustomizeRegistry>();
         var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
+        var registryWatcher = serviceProvider.GetRequiredService<IRegistryWatcher>();
         var category = registry.Categories.First(c => c.GetType() == categoryType);
 
-        var viewModel = new CustomizeCategoryViewModel(category, loggerFactory);
+        var viewModel = new CustomizeCategoryViewModel(category, loggerFactory, registryWatcher);
 
         return Activator.CreateInstance(pageType, viewModel)!;
     }

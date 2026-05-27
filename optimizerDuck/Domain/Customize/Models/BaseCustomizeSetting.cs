@@ -1,4 +1,5 @@
 using System.Reflection;
+using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Services.Managers;
@@ -12,26 +13,16 @@ public abstract class BaseCustomizeSetting : ICustomizeSetting
     private CustomizeSettingAttribute? _meta;
 
     private CustomizeSettingAttribute Meta =>
-        _meta ??=
-            GetType().GetCustomAttribute<CustomizeSettingAttribute>()
-            ?? throw new InvalidOperationException(
-                $"{GetType().Name} is missing [CustomizeSetting] attribute"
-            );
-
-    #region Metadata & Identity
+        _meta ??= GetType().GetCustomAttribute<CustomizeSettingAttribute>()
+            ?? throw new InvalidOperationException($"{GetType().Name} is missing [CustomizeSetting] attribute");
 
     public Type? OwnerType { get; set; }
 
     public string OwnerKey =>
-        OwnerType?.Name
-        ?? throw new InvalidOperationException($"{GetType().Name} has no owner assigned");
+        OwnerType?.Name ?? throw new InvalidOperationException($"{GetType().Name} has no owner assigned");
 
     public string FeatureKey => GetType().Name;
     public SymbolRegular Icon => Meta.Icon;
-
-    #endregion
-
-    #region Localization
 
     public string Name => Loc.Instance[$"Customize.{OwnerKey}.{FeatureKey}.Name"];
     public string Description => Loc.Instance[$"Customize.{OwnerKey}.{FeatureKey}.Description"];
@@ -47,47 +38,46 @@ public abstract class BaseCustomizeSetting : ICustomizeSetting
         }
     }
 
-    #endregion
-
-    #region Control Configuration
-
-    /// <summary>Which UI control to render. Override for non-toggle types.</summary>
     public virtual CustomizeControlType ControlType => CustomizeControlType.Toggle;
-
-    /// <summary>Current value for Dropdown / Option / Numeric / String controls.</summary>
     public virtual object? CurrentValue => null;
-
-    /// <summary>Available choices for Dropdown / Option controls.</summary>
     public virtual IReadOnlyList<SettingOption>? Options => null;
 
-    #endregion
-
-    #region State Management
-
-    /// <summary>
-    /// Read the current system state. For toggles: true = on, false = off.
-    /// Default implementation checks all <see cref="RegistryToggles"/>.
-    /// </summary>
     public virtual Task<bool> GetStateAsync()
     {
-        var toggles = RegistryToggles.ToList();
-        if (toggles.Count == 0)
-            return Task.FromResult(false);
+        return Task.Run(() =>
+        {
+            var toggles = RegistryToggles.ToList();
+            if (toggles.Count == 0)
+                return false;
 
-        var required = toggles.Where(t => !t.IsOptional).ToList();
-        if (required.Count == 0)
-            required = toggles;
+            var required = toggles.Where(t => !t.IsOptional).ToList();
+            if (required.Count == 0)
+                required = toggles;
 
-        return Task.FromResult(required.All(t => t.GetState()));
+            return required.All(t => t.GetState());
+        });
     }
 
-    /// <summary>
-    /// Apply a value. The UI calls this on every user interaction
-    /// <para/>
-    /// Default: if <paramref name="value"/> is <c>bool</c>, writes all
-    /// <see cref="RegistryToggles"/> and runs the post-action.
-    /// Override for custom behaviour.
-    /// </summary>
+    public async Task<bool> GetStateWithRetryAsync(int maxRetries = 3, int delayMs = 80)
+    {
+        bool? previous = null;
+
+        for (var i = 0; i < maxRetries; i++)
+        {
+            if (i > 0)
+                await Task.Delay(delayMs);
+
+            var state = await GetStateAsync();
+
+            if (previous.HasValue && previous.Value == state)
+                return state;
+
+            previous = state;
+        }
+
+        return previous ?? await GetStateAsync();
+    }
+
     public virtual async Task ApplyAsync(object? value)
     {
         if (value is bool isOn)
@@ -103,32 +93,28 @@ public abstract class BaseCustomizeSetting : ICustomizeSetting
             await ExecutePostActionAsync();
     }
 
-    /// <summary>
-    /// Optional: override to provide registry key/value pairs that back a toggle.
-    /// Used by the default <see cref="GetStateAsync"/> and <see cref="ApplyAsync"/>.
-    /// Leave empty for non-toggle items.
-    /// </summary>
     protected virtual IEnumerable<RegistryToggle> RegistryToggles => [];
+
+    IReadOnlyList<string> ICustomizeSetting.WatchedRegistryPaths => GetWatchedRegistryPaths();
+
+    protected virtual IReadOnlyList<string> GetWatchedRegistryPaths() =>
+        [.. RegistryToggles.Select(t => t.Path).Distinct(StringComparer.OrdinalIgnoreCase)];
 
     protected virtual bool NeedsPostAction => false;
 
     protected virtual async Task ExecutePostActionAsync()
     {
-        await ShellService.CMDAsync("taskkill /f /im explorer.exe & start explorer.exe");
+        await Task.Run(() =>
+        {
+            SystemRefreshService.NotifySettingChange();
+            SystemRefreshService.RefreshShell();
+        });
     }
 
-    #endregion
-
-    #region Recommendation
-
-    /// <summary>
-    /// Creates a <see cref="SettingOption"/> whose <see cref="SettingOption.DisplayName"/>
-    /// is resolved from <c>"Customize.{OwnerKey}.{FeatureKey}.Options.{optionKey}"</c>.
-    /// </summary>
     protected SettingOption Option(string optionKey, object value) =>
         new(Loc.Instance[$"Customize.{OwnerKey}.{FeatureKey}.Options.{optionKey}"], value);
 
-    public string RecommendationPrefix => $"Customize.{OwnerKey}.{FeatureKey}.Recommendation";
+    protected string RecommendationPrefix => $"Customize.{OwnerKey}.{FeatureKey}.Recommendation";
 
     public virtual CustomizeRecommendationResult? GetRecommendation()
     {
@@ -138,6 +124,4 @@ public abstract class BaseCustomizeSetting : ICustomizeSetting
 
         return new CustomizeRecommendationResult(state, $"{RecommendationPrefix}.Reason");
     }
-
-    #endregion
 }

@@ -56,6 +56,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <InternalsVisibleTo Include="optimizerDuck.Test" />
+    </ItemGroup>
+
+    <ItemGroup>
         <EmbeddedResource Update="Resources\Languages\Translations.resx">
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>Translations.Designer.cs</LastGenOutput>

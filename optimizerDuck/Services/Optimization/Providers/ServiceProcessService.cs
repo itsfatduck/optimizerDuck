@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Management;
 using optimizerDuck.Common.Extensions;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
@@ -15,8 +14,6 @@ public static class ServiceProcessService
 
     internal static string? LastError => _lastError.Value;
     internal static string? LastErrorDetail => _lastErrorDetail.Value;
-
-    private static readonly ManagementScope Scope = new(@"\\.\root\cimv2");
 
     /// <summary>Gets the current startup type of a Windows service from the registry.</summary>
     /// <param name="serviceName">The name of the service.</param>

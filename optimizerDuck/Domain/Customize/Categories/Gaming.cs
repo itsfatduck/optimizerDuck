@@ -165,24 +165,31 @@ public class Gaming : ICustomizeCategory
     {
         private const string Path = @"HKCU\Control Panel\Mouse";
 
+        protected override IReadOnlyList<string> GetWatchedRegistryPaths() => [Path];
+
         public override Task<bool> GetStateAsync()
         {
-            // Mouse acceleration is ON if any of the values are non-zero
-            var mouseSpeed = RegistryService.Read<string>(new RegistryItem(Path, "MouseSpeed"));
-            var threshold1 = RegistryService.Read<string>(
-                new RegistryItem(Path, "MouseThreshold1")
-            );
-            var threshold2 = RegistryService.Read<string>(
-                new RegistryItem(Path, "MouseThreshold2")
-            );
+            return Task.Run(() =>
+            {
+                // Mouse acceleration is ON if any of the values are non-zero
+                var mouseSpeed = RegistryService.Read<string>(
+                    new RegistryItem(Path, "MouseSpeed")
+                );
+                var threshold1 = RegistryService.Read<string>(
+                    new RegistryItem(Path, "MouseThreshold1")
+                );
+                var threshold2 = RegistryService.Read<string>(
+                    new RegistryItem(Path, "MouseThreshold2")
+                );
 
-            // Check if any value is non-zero (acceleration enabled)
-            var isNonZero =
-                (int.TryParse(mouseSpeed, out var speed) && speed != 0)
-                || (int.TryParse(threshold1, out var t1) && t1 != 0)
-                || (int.TryParse(threshold2, out var t2) && t2 != 0);
+                // Check if any value is non-zero (acceleration enabled)
+                var isNonZero =
+                    (int.TryParse(mouseSpeed, out var speed) && speed != 0)
+                    || (int.TryParse(threshold1, out var t1) && t1 != 0)
+                    || (int.TryParse(threshold2, out var t2) && t2 != 0);
 
-            return Task.FromResult(isNonZero);
+                return isNonZero;
+            });
         }
 
         public override async Task ApplyAsync(object? value)
