@@ -324,7 +324,6 @@ public class BloatwareAndServices : IOptimizationCategory
                             service.Name,
                             service.StartupType
                         ),
-                        IsIndeterminate = false,
                         Value = i + 1,
                         Total = servicesToChange.Count,
                     }

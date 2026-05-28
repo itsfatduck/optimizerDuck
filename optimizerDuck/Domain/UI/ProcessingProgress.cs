@@ -1,4 +1,4 @@
-﻿namespace optimizerDuck.Domain.UI;
+namespace optimizerDuck.Domain.UI;
 
 /// <summary>
 ///     Represents the progress of a long-running operation (e.g., optimization, cleanup).
@@ -13,7 +13,7 @@ public record ProcessingProgress
     /// <summary>
     ///     Indicates whether the progress is indeterminate (unknown total).
     /// </summary>
-    public bool IsIndeterminate { get; init; } = true;
+    public bool IsIndeterminate { get; init; } = false;
 
     /// <summary>
     ///     The current progress value.

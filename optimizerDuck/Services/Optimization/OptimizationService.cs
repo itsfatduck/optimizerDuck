@@ -349,7 +349,6 @@ public class OptimizationService(
                         processedCount,
                         total
                     ),
-                    IsIndeterminate = false,
                     Value = processedCount,
                     Total = total,
                 }

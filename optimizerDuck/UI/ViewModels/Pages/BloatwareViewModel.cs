@@ -221,7 +221,6 @@ public partial class BloatwareViewModel : ViewModel
                             i + 1,
                             toRemove.Count
                         ),
-                        IsIndeterminate = false,
                         Total = toRemove.Count,
                         Value = i,
                     }

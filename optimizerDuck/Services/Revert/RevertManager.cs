@@ -90,16 +90,17 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
         for (var i = 0; i < total; i++)
         {
             var (idx, step) = sortedSteps[i];
+            var remaining = total - i;
             progress?.Report(
                 new ProcessingProgress
                 {
                     Message = string.Format(
                         Translations.Optimization_Revert_ExecutingStep,
-                        idx - 1,
+                        remaining,
                         total,
                         step.Type
                     ),
-                    Value = i + 1,
+                    Value = remaining,
                     Total = total,
                 }
             );
