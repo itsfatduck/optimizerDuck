@@ -32,4 +32,4 @@ jobs:
         run: dotnet build optimizerDuck.slnx --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release --no-build
+        run: dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release --no-build --logger "console;verbosity=detailed" --blame-hang --blame-hang-timeout 30s

@@ -181,7 +181,7 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
         try
         {
             var data =
-                await LoadAsync(filePath)
+                await LoadAsyncUnlocked(filePath)
                 ?? new RevertData
                 {
                     SchemaVersion = SchemaVersion,
@@ -270,6 +270,21 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
 
         try
         {
+            return await LoadAsyncUnlocked(path);
+        }
+        finally
+        {
+            lockObj?.Release();
+        }
+    }
+
+    private static async Task<RevertData?> LoadAsyncUnlocked(string path)
+    {
+        if (!File.Exists(path))
+            return null;
+
+        try
+        {
             for (var i = 0; i < 3; i++)
             {
                 try
@@ -296,10 +311,6 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
         {
             TraceCorruptRevertFile(path, ex);
             return null;
-        }
-        finally
-        {
-            lockObj?.Release();
         }
     }
 
