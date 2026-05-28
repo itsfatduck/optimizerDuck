@@ -227,7 +227,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
     )]
     public class DisableAdvertisingAndSuggestions : BaseOptimization
     {
-        public override async Task<ApplyResult> ApplyAsync(
+        public override Task<ApplyResult> ApplyAsync(
             IProgress<ProcessingProgress> progress,
             OptimizationContext context
         )
@@ -310,6 +310,11 @@ public class SecurityAndPrivacy : IOptimizationCategory
                     "01",
                     0
                 ),
+                /*new RegistryItem(
+                    @"HKCU\Software\Microsoft\Windows\CurrentVersion\Feeds",
+                    "ShellFeedsTaskbarViewMode",
+                    2
+                ),*/
                 new RegistryItem(
                     @"HKCU\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy",
                     "02",
@@ -321,34 +326,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
                 "Disabled advertising ID, consumer features and system suggestions"
             );
 
-            // ShellFeedsTaskbarViewMode cannot be set while explorer.exe is running
-            // it should work....
-            var feedsPath = @"HKCU:\Software\Microsoft\Windows\CurrentVersion\Feeds";
-            var feedsItem = new RegistryItem(
-                @"HKCU\Software\Microsoft\Windows\CurrentVersion\Feeds",
-                "ShellFeedsTaskbarViewMode"
-            );
-
-            // null means the value never existed
-            var currentShellFeedsValue = RegistryService.Read<int?>(feedsItem);
-
-            var restartExplorer =
-            "Stop-Process -Name explorer -Force -ErrorAction SilentlyContinue; " + // just restart the explorer
-            "Start-Sleep -Milliseconds 1500; ";
-
-            var applyCmd =
-                $"{restartExplorer}" +
-                $"Set-ItemProperty -Path '{feedsPath}' -Name 'ShellFeedsTaskbarViewMode' -Value 2 -Type DWord;";
-
-            var revertCmd = currentShellFeedsValue.HasValue
-                ? $"{restartExplorer}" +
-                  $"Set-ItemProperty -Path '{feedsPath}' -Name 'ShellFeedsTaskbarViewMode' -Value {currentShellFeedsValue.Value} -Type DWord;"
-                : $"{restartExplorer}" +
-                  $"Remove-ItemProperty -Path '{feedsPath}' -Name 'ShellFeedsTaskbarViewMode' -ErrorAction SilentlyContinue;";
-
-            await ShellService.PowerShellAsync(applyCmd, revertCmd);
-
-            return CompleteFromScope();
+            return Task.FromResult(CompleteFromScope());
         }
     }
 
