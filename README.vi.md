@@ -18,7 +18,7 @@
 
 **[Bắt đầu](https://optimizerduck.vercel.app/docs/guides/getting-started) | [Cách hoạt động](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [Câu hỏi thường gặp](https://optimizerduck.vercel.app/docs/faq/general)**
 
-[English](README.md) | **Tiếng Việt** | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md)
+[English](README.md) | **Tiếng Việt** | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md)
 
 <details>
 <summary>⭐ Lịch sử Star</summary>
@@ -52,7 +52,7 @@ Mỗi ngôi sao giúp tạo động lực cho những cải tiến trong tương
 > Luôn tạo **điểm khôi phục hệ thống** trước khi thực hiện thay đổi.
 
 > [!NOTE]
-> Hỗ trợ tiếng Anh, tiếng Việt, tiếng Trung phồn thể (đóng góp bởi [@abc0922001](https://github.com/abc0922001)), tiếng Trung giản thể (đóng góp bởi [@wcxu21](https://github.com/wcxu21)) và tiếng Nga (đóng góp bởi [@Foodhead](https://github.com/Foodhead)).
+> Hỗ trợ tiếng Anh, tiếng Việt, tiếng Trung phồn thể (đóng góp bởi [@abc0922001](https://github.com/abc0922001)), tiếng Trung giản thể (đóng góp bởi [@wcxu21](https://github.com/wcxu21)), tiếng Nga (đóng góp bởi [@Foodhead](https://github.com/Foodhead)) và tiếng Pháp (đóng góp bởi [@Robocnop](https://github.com/Robocnop)).
 > Muốn thêm ngôn ngữ của bạn? Xem [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---

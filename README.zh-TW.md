@@ -18,7 +18,7 @@
 
 **[開始使用](https://optimizerduck.vercel.app/docs/guides/getting-started) | [運作原理](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [常見問題](https://optimizerduck.vercel.app/docs/faq/general)**
 
-[English](README.md) | [Tiếng Việt](README.vi.md) | **繁體中文** | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md)
+[English](README.md) | [Tiếng Việt](README.vi.md) | **繁體中文** | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md)
 
 <details>
 <summary>⭐ 星星歷史</summary>
@@ -52,7 +52,7 @@
 > 進行系統更改前，請先建立**系統還原點**。
 
 > [!NOTE]
-> 目前支援英文、越南文、繁體中文（由 [@abc0922001](https://github.com/abc0922001) 貢獻）、簡體中文（由 [@wcxu21](https://github.com/wcxu21) 貢獻）、及俄文（由 [@Foodhead](https://github.com/Foodhead) 貢獻）。
+> 目前支援英文、越南文、繁體中文（由 [@abc0922001](https://github.com/abc0922001) 貢獻）、簡體中文（由 [@wcxu21](https://github.com/wcxu21) 貢獻）、俄文（由 [@Foodhead](https://github.com/Foodhead) 貢獻）及法文（由 [@Robocnop](https://github.com/Robocnop) 貢獻）。
 > 想加入您的語言嗎？請查看[貢獻指南](./CONTRIBUTING.md)。
 
 ---

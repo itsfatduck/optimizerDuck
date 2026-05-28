@@ -18,7 +18,7 @@
 
 **[Начало работы](https://optimizerduck.vercel.app/docs/guides/getting-started) | [Как это работает](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [FAQ](https://optimizerduck.vercel.app/docs/faq/general)**
 
-[English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | **Русский**
+[English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | **Русский** | [Français](README.fr-FR.md)
 
 <details>
 <summary>⭐ История звёзд</summary>
@@ -52,7 +52,7 @@
 > Всегда создавайте **точку восстановления системы** перед внесением изменений.
 
 > [!NOTE]
-> Доступно на английском, вьетнамском, традиционном китайском (спасибо [@abc0922001](https://github.com/abc0922001)), упрощённом китайском (спасибо [@wcxu21](https://github.com/wcxu21)) и русском (спасибо [@Foodhead](https://github.com/Foodhead)).
+> Доступно на английском, вьетнамском, традиционном китайском (спасибо [@abc0922001](https://github.com/abc0922001)), упрощённом китайском (спасибо [@wcxu21](https://github.com/wcxu21)), русском (спасибо [@Foodhead](https://github.com/Foodhead)) и французском (спасибо [@Robocnop](https://github.com/Robocnop)).
 > Хотите добавить свой язык? См. [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
