@@ -53,11 +53,11 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Style="{StaticResource PageHeaderStyle}">
-            <StackPanel Margin="0,0,0,8" Orientation="Horizontal">
+            <StackPanel Margin="0,0,0,4" Orientation="Horizontal">
                 <ui:SymbolIcon
                     Margin="0,0,12,0"
                     VerticalAlignment="Center"
-                    FontSize="24"
+                    FontSize="30"
                     Foreground="{DynamicResource AccentYellowBrush}"
                     Symbol="{Binding ViewModel.CategoryIcon}" />
                 <ui:TextBlock

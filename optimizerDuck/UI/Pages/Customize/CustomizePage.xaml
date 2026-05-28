@@ -65,30 +65,27 @@
                         Command="{Binding DataContext.ViewModel.NavigateToCategoryCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                         CommandParameter="{Binding}"
                         Cursor="Hand">
-                        <Grid RowDefinitions="Auto,Auto">
-                            <StackPanel Orientation="Horizontal">
-                                <ui:SymbolIcon
-                                    Grid.Row="0"
-                                    Margin="0,0,12,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="26"
-                                    Foreground="{DynamicResource AccentYellowBrush}"
-                                    Symbol="{Binding Icon}" />
+                        <Grid ColumnDefinitions="Auto,Auto">
+                            <ui:SymbolIcon
+                                Margin="0,0,15,0"
+                                FontSize="30"
+                                Foreground="{DynamicResource AccentYellowBrush}"
+                                Symbol="{Binding Icon}" />
 
+                            <StackPanel Grid.Column="1">
                                 <ui:TextBlock
                                     Grid.Row="0"
                                     VerticalAlignment="Center"
                                     FontTypography="Subtitle"
                                     Text="{Binding Name}"
                                     TextWrapping="Wrap" />
+                                <ui:TextBlock
+                                    Grid.Row="1"
+                                    Appearance="Secondary"
+                                    FontTypography="Body"
+                                    Text="{Binding Description}"
+                                    TextWrapping="Wrap" />
                             </StackPanel>
-
-                            <ui:TextBlock
-                                Grid.Row="1"
-                                Appearance="Secondary"
-                                FontTypography="Body"
-                                Text="{Binding Description}"
-                                TextWrapping="Wrap" />
                         </Grid>
                     </ui:CardAction>
                 </DataTemplate>
