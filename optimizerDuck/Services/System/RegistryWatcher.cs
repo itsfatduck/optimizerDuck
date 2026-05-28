@@ -229,6 +229,10 @@ internal sealed class RegistryWatcher(ILogger<RegistryWatcher> logger) : IRegist
                 ? path[..firstBackslash].ToUpperInvariant()
                 : path.ToUpperInvariant();
 
+            // Strip trailing colon for compatibility with RegistryService format (e.g. "HKLM:", "HKCU:")
+            if (root.EndsWith(":"))
+                root = root[..^1];
+
             var subKey = firstBackslash > 0 ? path[(firstBackslash + 1)..] : string.Empty;
 
             var hive = root switch

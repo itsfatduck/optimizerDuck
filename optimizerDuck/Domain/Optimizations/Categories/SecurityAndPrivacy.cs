@@ -227,11 +227,13 @@ public class SecurityAndPrivacy : IOptimizationCategory
     )]
     public class DisableAdvertisingAndSuggestions : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(
+        public override async Task<ApplyResult> ApplyAsync(
             IProgress<ProcessingProgress> progress,
             OptimizationContext context
         )
         {
+
+            // @formatter:off
             RegistryService.Write(
                 new RegistryItem(
                     @"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo",
@@ -267,11 +269,6 @@ public class SecurityAndPrivacy : IOptimizationCategory
                     @"HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent",
                     "DisableThirdPartySuggestions",
                     1
-                ),
-                new RegistryItem(
-                    @"HKCU\Software\Microsoft\Windows\CurrentVersion\Feeds",
-                    "ShellFeedsTaskbarViewMode",
-                    2
                 ),
                 new RegistryItem(
                     @"HKLM\SOFTWARE\Policies\Microsoft\Dsh",
@@ -319,11 +316,39 @@ public class SecurityAndPrivacy : IOptimizationCategory
                     0
                 )
             );
-
+            // @formatter:on
             context.Logger.LogInformation(
                 "Disabled advertising ID, consumer features and system suggestions"
             );
-            return Task.FromResult(CompleteFromScope());
+
+            // ShellFeedsTaskbarViewMode cannot be set while explorer.exe is running
+            // it should work....
+            var feedsPath = @"HKCU:\Software\Microsoft\Windows\CurrentVersion\Feeds";
+            var feedsItem = new RegistryItem(
+                @"HKCU\Software\Microsoft\Windows\CurrentVersion\Feeds",
+                "ShellFeedsTaskbarViewMode"
+            );
+
+            // null means the value never existed
+            var currentShellFeedsValue = RegistryService.Read<int?>(feedsItem);
+
+            var restartExplorer =
+            "Stop-Process -Name explorer -Force -ErrorAction SilentlyContinue; " + // just restart the explorer
+            "Start-Sleep -Milliseconds 1500; ";
+
+            var applyCmd =
+                $"{restartExplorer}" +
+                $"Set-ItemProperty -Path '{feedsPath}' -Name 'ShellFeedsTaskbarViewMode' -Value 2 -Type DWord;";
+
+            var revertCmd = currentShellFeedsValue.HasValue
+                ? $"{restartExplorer}" +
+                  $"Set-ItemProperty -Path '{feedsPath}' -Name 'ShellFeedsTaskbarViewMode' -Value {currentShellFeedsValue.Value} -Type DWord;"
+                : $"{restartExplorer}" +
+                  $"Remove-ItemProperty -Path '{feedsPath}' -Name 'ShellFeedsTaskbarViewMode' -ErrorAction SilentlyContinue;";
+
+            await ShellService.PowerShellAsync(applyCmd, revertCmd);
+
+            return CompleteFromScope();
         }
     }
 
