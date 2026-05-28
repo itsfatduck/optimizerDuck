@@ -98,7 +98,6 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
     [ObservableProperty]
     private int _selectedSortByIndex; // 0=Risk & Status, 1=Name, 2=Risk, 3=Status
-
     #endregion
 
     #region Filter & Search

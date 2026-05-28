@@ -138,7 +138,11 @@ public partial class CustomizeItemViewModel(
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "RegistryWatcher: failed to refresh state for {Setting}", setting.Name);
+                _logger.LogWarning(
+                    ex,
+                    "RegistryWatcher: failed to refresh state for {Setting}",
+                    setting.Name
+                );
             }
         });
     }
@@ -207,9 +211,7 @@ public partial class CustomizeItemViewModel(
 
             QueueApplyValue(value);
         }
-        catch (TaskCanceledException)
-        {
-        }
+        catch (TaskCanceledException) { }
     }
 
     private async Task ProcessPendingValuesAsync()
@@ -247,7 +249,7 @@ public partial class CustomizeItemViewModel(
                     }
 
                     IsEnabled = await setting.GetStateWithRetryAsync();
-                    
+
                     if (ControlType != CustomizeControlType.Toggle)
                     {
                         CurrentValue = setting.CurrentValue;

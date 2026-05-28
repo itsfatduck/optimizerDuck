@@ -150,8 +150,10 @@ public class RegistryWatcherTests : IDisposable
 
         watcher.RegistryKeyChanged += (_, path) =>
         {
-            if (path == pathA) tcsA.TrySetResult(path!);
-            if (path == pathB) tcsB.TrySetResult(path!);
+            if (path == pathA)
+                tcsA.TrySetResult(path!);
+            if (path == pathB)
+                tcsB.TrySetResult(path!);
         };
 
         watcher.Watch(pathA);

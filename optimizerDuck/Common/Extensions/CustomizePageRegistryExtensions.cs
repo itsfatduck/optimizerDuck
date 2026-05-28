@@ -28,7 +28,11 @@ public static class CustomizePageRegistryExtensions
         }
     }
 
-    private static object CreatePage(IServiceProvider serviceProvider, Type categoryType, Type pageType)
+    private static object CreatePage(
+        IServiceProvider serviceProvider,
+        Type categoryType,
+        Type pageType
+    )
     {
         var registry = serviceProvider.GetRequiredService<CustomizeRegistry>();
         var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();

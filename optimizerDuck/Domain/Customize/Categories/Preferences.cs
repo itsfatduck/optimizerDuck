@@ -27,7 +27,10 @@ public class Preferences : ICustomizeCategory
     public CustomizeOrder Order { get; init; } = CustomizeOrder.UserExperience;
     public ObservableCollection<ICustomizeSetting> Features { get; init; } = [];
 
-    [CustomizeSetting(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.TextAlignDistributedEvenly24)]
+    [CustomizeSetting(
+        Section = nameof(Sections.Taskbar),
+        Icon = SymbolRegular.TextAlignDistributedEvenly24
+    )]
     public class TaskbarAlignment : BaseCustomizeSetting
     {
         private const string RegPath =
@@ -38,10 +41,7 @@ public class Preferences : ICustomizeCategory
         public override CustomizeControlType ControlType => CustomizeControlType.Dropdown;
 
         public override IReadOnlyList<SettingOption>? Options =>
-            [
-                Option("Center", 1),
-                Option("Left", 0),
-            ];
+            [Option("Center", 1), Option("Left", 0)];
 
         public override object? CurrentValue =>
             RegistryService.Read<object>(new RegistryItem(RegPath, RegName));

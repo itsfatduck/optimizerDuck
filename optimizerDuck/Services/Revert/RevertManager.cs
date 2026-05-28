@@ -323,9 +323,7 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             if (Guid.TryParse(fileName, out var id))
                 return id;
         }
-        catch
-        {
-        }
+        catch { }
         return null;
     }
 
@@ -401,7 +399,11 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
         {
             if (stepData!.Index <= 0)
             {
-                _logger.LogWarning("Skipping step with invalid index {Index} in revert data for {Id}", stepData.Index, id);
+                _logger.LogWarning(
+                    "Skipping step with invalid index {Index} in revert data for {Id}",
+                    stepData.Index,
+                    id
+                );
                 continue;
             }
 

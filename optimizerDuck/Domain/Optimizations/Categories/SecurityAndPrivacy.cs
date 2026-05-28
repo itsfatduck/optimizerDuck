@@ -232,7 +232,6 @@ public class SecurityAndPrivacy : IOptimizationCategory
             OptimizationContext context
         )
         {
-
             // @formatter:off
             RegistryService.Write(
                 new RegistryItem(

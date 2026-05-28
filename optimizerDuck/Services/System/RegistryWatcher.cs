@@ -15,7 +15,9 @@ internal sealed class RegistryWatcher(ILogger<RegistryWatcher> logger) : IRegist
 {
     public event EventHandler<string>? RegistryKeyChanged;
 
-    private readonly ConcurrentDictionary<string, PathWatcher> _watchers = new(StringComparer.OrdinalIgnoreCase);
+    private readonly ConcurrentDictionary<string, PathWatcher> _watchers = new(
+        StringComparer.OrdinalIgnoreCase
+    );
     private bool _disposed;
 
     public void Watch(string registryPath)
@@ -116,16 +118,23 @@ internal sealed class RegistryWatcher(ILogger<RegistryWatcher> logger) : IRegist
                             return;
 
                         var (hive, subKey) = ParseRegistryPath(_path);
-                        var error = NativeMethods.RegOpenKeyEx(hive, subKey, 0, NativeMethods.KEY_NOTIFY, out _hKey);
+                        var error = NativeMethods.RegOpenKeyEx(
+                            hive,
+                            subKey,
+                            0,
+                            NativeMethods.KEY_NOTIFY,
+                            out _hKey
+                        );
 
                         if (error == 0 && _hKey != IntPtr.Zero)
                         {
                             _event = new AutoResetEvent(false);
-                            
+
                             NativeMethods.RegNotifyChangeKeyValue(
                                 _hKey,
                                 false,
-                                NativeMethods.REG_NOTIFY_CHANGE_LAST_SET | NativeMethods.REG_NOTIFY_CHANGE_NAME,
+                                NativeMethods.REG_NOTIFY_CHANGE_LAST_SET
+                                    | NativeMethods.REG_NOTIFY_CHANGE_NAME,
                                 _event.SafeWaitHandle.DangerousGetHandle(),
                                 true
                             );
@@ -146,7 +155,11 @@ internal sealed class RegistryWatcher(ILogger<RegistryWatcher> logger) : IRegist
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogWarning(ex, "RegistryWatcher: Failed to watch {Path}, retrying", _path);
+                    _logger.LogWarning(
+                        ex,
+                        "RegistryWatcher: Failed to watch {Path}, retrying",
+                        _path
+                    );
                     try
                     {
                         await Task.Delay(1000, token);
@@ -225,9 +238,10 @@ internal sealed class RegistryWatcher(ILogger<RegistryWatcher> logger) : IRegist
         private static (IntPtr hive, string subKey) ParseRegistryPath(string path)
         {
             var firstBackslash = path.IndexOf('\\');
-            var root = firstBackslash > 0
-                ? path[..firstBackslash].ToUpperInvariant()
-                : path.ToUpperInvariant();
+            var root =
+                firstBackslash > 0
+                    ? path[..firstBackslash].ToUpperInvariant()
+                    : path.ToUpperInvariant();
 
             // Strip trailing colon for compatibility with RegistryService format (e.g. "HKLM:", "HKCU:")
             if (root.EndsWith(":"))
@@ -242,7 +256,7 @@ internal sealed class RegistryWatcher(ILogger<RegistryWatcher> logger) : IRegist
                 "HKEY_CLASSES_ROOT" or "HKCR" => NativeMethods.HKEY_CLASSES_ROOT,
                 "HKEY_USERS" or "HKU" => NativeMethods.HKEY_USERS,
                 "HKEY_CURRENT_CONFIG" or "HKCC" => NativeMethods.HKEY_CURRENT_CONFIG,
-                _ => throw new ArgumentException($"Unknown registry hive: {root}", nameof(path))
+                _ => throw new ArgumentException($"Unknown registry hive: {root}", nameof(path)),
             };
 
             return (hive, subKey);

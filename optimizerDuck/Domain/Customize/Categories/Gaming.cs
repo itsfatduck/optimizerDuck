@@ -172,9 +172,7 @@ public class Gaming : ICustomizeCategory
             return Task.Run(() =>
             {
                 // Mouse acceleration is ON if any of the values are non-zero
-                var mouseSpeed = RegistryService.Read<string>(
-                    new RegistryItem(Path, "MouseSpeed")
-                );
+                var mouseSpeed = RegistryService.Read<string>(new RegistryItem(Path, "MouseSpeed"));
                 var threshold1 = RegistryService.Read<string>(
                     new RegistryItem(Path, "MouseThreshold1")
                 );

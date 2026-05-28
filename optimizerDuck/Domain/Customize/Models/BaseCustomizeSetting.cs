@@ -13,13 +13,17 @@ public abstract class BaseCustomizeSetting : ICustomizeSetting
     private CustomizeSettingAttribute? _meta;
 
     private CustomizeSettingAttribute Meta =>
-        _meta ??= GetType().GetCustomAttribute<CustomizeSettingAttribute>()
-            ?? throw new InvalidOperationException($"{GetType().Name} is missing [CustomizeSetting] attribute");
+        _meta ??=
+            GetType().GetCustomAttribute<CustomizeSettingAttribute>()
+            ?? throw new InvalidOperationException(
+                $"{GetType().Name} is missing [CustomizeSetting] attribute"
+            );
 
     public Type? OwnerType { get; set; }
 
     public string OwnerKey =>
-        OwnerType?.Name ?? throw new InvalidOperationException($"{GetType().Name} has no owner assigned");
+        OwnerType?.Name
+        ?? throw new InvalidOperationException($"{GetType().Name} has no owner assigned");
 
     public string FeatureKey => GetType().Name;
     public SymbolRegular Icon => Meta.Icon;

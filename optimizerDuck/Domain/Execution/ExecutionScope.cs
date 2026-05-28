@@ -311,8 +311,10 @@ public sealed class ExecutionScope : IDisposable
     public ApplyResult ToApplyResult()
     {
         var result = ToResult();
-        return result.Status is OptimizationSuccessResult.Success
-                or OptimizationSuccessResult.PartialSuccess
+        return
+            result.Status
+                is OptimizationSuccessResult.Success
+                    or OptimizationSuccessResult.PartialSuccess
             ? ApplyResult.True()
             : ApplyResult.False(result.Message);
     }
@@ -348,10 +350,7 @@ public sealed class ExecutionScope : IDisposable
                         OptimizationName,
                         failedSteps.Count
                     ),
-                _ => string.Format(
-                        Translations.Optimization_Apply_Error_Unknown,
-                        OptimizationName
-                    ),
+                _ => string.Format(Translations.Optimization_Apply_Error_Unknown, OptimizationName),
             },
             FailedSteps = failedSteps,
         };

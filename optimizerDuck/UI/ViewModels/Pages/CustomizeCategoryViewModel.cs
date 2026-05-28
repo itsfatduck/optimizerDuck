@@ -9,9 +9,9 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
-using optimizerDuck.Services;
 using optimizerDuck.Domain.Customize.Models;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services;
 using optimizerDuck.UI.ViewModels.Customize;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -23,7 +23,10 @@ public partial class CustomizeCategoryViewModel : ViewModel
     #region Cache & Constants
 
     private static readonly HttpClient httpClient = new() { Timeout = TimeSpan.FromSeconds(5) };
-    private static readonly ConcurrentDictionary<string, (string Content, DateTime FetchedAt)> _sourceCache = new();
+    private static readonly ConcurrentDictionary<
+        string,
+        (string Content, DateTime FetchedAt)
+    > _sourceCache = new();
     private static readonly TimeSpan SourceCacheTtl = TimeSpan.FromMinutes(5);
 
     #endregion
@@ -173,7 +176,10 @@ public partial class CustomizeCategoryViewModel : ViewModel
         if (itemViewModel is null)
             return;
 
-        if (itemViewModel.Setting is not BaseCustomizeSetting baseSetting || baseSetting.OwnerType == null)
+        if (
+            itemViewModel.Setting is not BaseCustomizeSetting baseSetting
+            || baseSetting.OwnerType == null
+        )
             return;
 
         var fileName = baseSetting.OwnerType.Name;
@@ -184,10 +190,14 @@ public partial class CustomizeCategoryViewModel : ViewModel
 
         try
         {
-            var rawUrl = $"https://raw.githubusercontent.com/itsfatduck/optimizerDuck/master/{relativePath}";
+            var rawUrl =
+                $"https://raw.githubusercontent.com/itsfatduck/optimizerDuck/master/{relativePath}";
 
             string source;
-            if (_sourceCache.TryGetValue(rawUrl, out var cached) && DateTime.UtcNow - cached.FetchedAt < SourceCacheTtl)
+            if (
+                _sourceCache.TryGetValue(rawUrl, out var cached)
+                && DateTime.UtcNow - cached.FetchedAt < SourceCacheTtl
+            )
             {
                 source = cached.Content;
             }
@@ -200,7 +210,13 @@ public partial class CustomizeCategoryViewModel : ViewModel
             var lines = source.Split('\n');
             for (var i = 0; i < lines.Length; i++)
             {
-                if (lines[i].Contains($"class {className} : {nameof(BaseCustomizeSetting)}", StringComparison.OrdinalIgnoreCase))
+                if (
+                    lines[i]
+                        .Contains(
+                            $"class {className} : {nameof(BaseCustomizeSetting)}",
+                            StringComparison.OrdinalIgnoreCase
+                        )
+                )
                 {
                     url += $"#L{i + 1}";
                     break;
@@ -209,7 +225,9 @@ public partial class CustomizeCategoryViewModel : ViewModel
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine($"Could not fetch source to find line number for {className}: {ex.Message}");
+            System.Diagnostics.Debug.WriteLine(
+                $"Could not fetch source to find line number for {className}: {ex.Message}"
+            );
         }
 
         try
@@ -218,7 +236,9 @@ public partial class CustomizeCategoryViewModel : ViewModel
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine($"Failed to open GitHub URL: {url}. Error: {ex.Message}");
+            System.Diagnostics.Debug.WriteLine(
+                $"Failed to open GitHub URL: {url}. Error: {ex.Message}"
+            );
         }
     }
 }

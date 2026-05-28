@@ -21,7 +21,12 @@ internal static class SystemRefreshService
     );
 
     [DllImport("shell32.dll", CharSet = CharSet.Auto)]
-    private static extern void SHChangeNotify(uint wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
+    private static extern void SHChangeNotify(
+        uint wEventId,
+        uint uFlags,
+        IntPtr dwItem1,
+        IntPtr dwItem2
+    );
 
     private static readonly IntPtr HWND_BROADCAST = new(0xffff);
     private const uint WM_SETTINGCHANGE = 0x001A;
@@ -61,13 +66,15 @@ internal static class SystemRefreshService
     /// </summary>
     public static void RestartExplorer()
     {
-        Process.Start(new ProcessStartInfo
-        {
-            FileName = "cmd.exe",
-            Arguments = "/c taskkill /f /im explorer.exe && start explorer.exe",
-            CreateNoWindow = true,
-            UseShellExecute = false,
-        });
+        Process.Start(
+            new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                Arguments = "/c taskkill /f /im explorer.exe && start explorer.exe",
+                CreateNoWindow = true,
+                UseShellExecute = false,
+            }
+        );
     }
 
     /// <summary>
@@ -77,13 +84,15 @@ internal static class SystemRefreshService
     {
         return Task.Run(() =>
         {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = "cmd.exe",
-                Arguments = "/c taskkill /f /im explorer.exe && start explorer.exe",
-                CreateNoWindow = true,
-                UseShellExecute = false,
-            });
+            Process.Start(
+                new ProcessStartInfo
+                {
+                    FileName = "cmd.exe",
+                    Arguments = "/c taskkill /f /im explorer.exe && start explorer.exe",
+                    CreateNoWindow = true,
+                    UseShellExecute = false,
+                }
+            );
         });
     }
 }

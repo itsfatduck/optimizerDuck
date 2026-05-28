@@ -141,12 +141,12 @@ public static class SmoothScrollBehavior
     {
         for (var i = _attachedScrolls.Count - 1; i >= 0; i--)
         {
-            if (_attachedScrolls[i].TryGetTarget(out var sv)
-                && _stateTable.TryGetValue(sv, out var state))
+            if (
+                _attachedScrolls[i].TryGetTarget(out var sv)
+                && _stateTable.TryGetValue(sv, out var state)
+            )
             {
-                sv.CanContentScroll = _globalEnabled
-                    ? false
-                    : state.PreviousCanContentScroll;
+                sv.CanContentScroll = _globalEnabled ? false : state.PreviousCanContentScroll;
             }
             else
             {

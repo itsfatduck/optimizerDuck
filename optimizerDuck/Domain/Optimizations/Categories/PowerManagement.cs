@@ -141,9 +141,7 @@ public class PowerManagement : IOptimizationCategory
     [Optimization(
         Id = "EE71E993-EE41-4449-8856-84B09B2B0C46",
         Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.Latency
-            | OptimizationTags.Performance
-            | OptimizationTags.Power
+        Tags = OptimizationTags.Latency | OptimizationTags.Performance | OptimizationTags.Power
     )]
     public class InstallOptimizerDuckPowerPlan : BaseOptimization
     {
@@ -168,11 +166,23 @@ public class PowerManagement : IOptimizationCategory
             var previousPlanGuid = match.Groups[1].Value;
             context.Logger.LogInformation("Current active power plan: {Guid}", previousPlanGuid);
 
-            var powerPlanPath = Path.Combine(Shared.AssetsDirectory, "PowerPlans", "optimizerDuck.pow");
-            if (!EmbeddedResourceHelper.TryExtract("PowerPlans.optimizerDuck.pow", powerPlanPath, true))
+            var powerPlanPath = Path.Combine(
+                Shared.AssetsDirectory,
+                "PowerPlans",
+                "optimizerDuck.pow"
+            );
+            if (
+                !EmbeddedResourceHelper.TryExtract(
+                    "PowerPlans.optimizerDuck.pow",
+                    powerPlanPath,
+                    true
+                )
+            )
             {
                 context.Logger.LogError("Failed to extract embedded power plan");
-                return ApplyResult.False("Failed to extract optimizerDuck power plan from resources.");
+                return ApplyResult.False(
+                    "Failed to extract optimizerDuck power plan from resources."
+                );
             }
 
             context.Logger.LogInformation("Extracted power plan to {Path}", powerPlanPath);
