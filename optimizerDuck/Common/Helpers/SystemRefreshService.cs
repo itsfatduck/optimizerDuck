@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace optimizerDuck.Common.Helpers;
@@ -53,5 +54,36 @@ internal static class SystemRefreshService
     public static void RefreshShell()
     {
         SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, IntPtr.Zero, IntPtr.Zero);
+    }
+
+    /// <summary>
+    /// As a last resort, if targeted refreshes don't work, we can restart Explorer
+    /// </summary>
+    public static void RestartExplorer()
+    {
+        Process.Start(new ProcessStartInfo
+        {
+            FileName = "cmd.exe",
+            Arguments = "/c taskkill /f /im explorer.exe && start explorer.exe",
+            CreateNoWindow = true,
+            UseShellExecute = false,
+        });
+    }
+
+    /// <summary>
+    /// As a last resort, if targeted refreshes don't work, we can restart Explorer
+    /// </summary>
+    public static Task RestartExplorerAsync()
+    {
+        return Task.Run(() =>
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                Arguments = "/c taskkill /f /im explorer.exe && start explorer.exe",
+                CreateNoWindow = true,
+                UseShellExecute = false,
+            });
+        });
     }
 }
