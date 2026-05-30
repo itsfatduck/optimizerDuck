@@ -82,7 +82,6 @@
 
                 <ComboBox
                     SelectedIndex="{Binding ViewModel.SelectedSortByIndex}"
-                    Style="{StaticResource ComboBoxStyle}"
                     ToolTip="{ext:Loc Common.SortBy}"
                     ToolTipService.BetweenShowDelay="160"
                     ToolTipService.Placement="Top">
@@ -215,7 +214,6 @@
                                                     IsChecked="{Binding IsEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                                     OffContent="{ext:Loc Common.Toggle.Off}"
                                                     OnContent="{ext:Loc Common.Toggle.On}"
-                                                    Style="{StaticResource ToggleSwitchStyle}"
                                                     Visibility="{Binding ControlType, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter={x:Static models:CustomizeControlType.Toggle}}" />
                                                 <!--  Dropdown Control  -->
                                                 <ComboBox

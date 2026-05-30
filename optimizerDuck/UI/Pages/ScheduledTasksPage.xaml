@@ -120,7 +120,6 @@
                     <!--  Sort By  -->
                     <ComboBox
                         SelectedIndex="{Binding ViewModel.SortByIndex}"
-                        Style="{StaticResource ComboBoxStyle}"
                         ToolTip="{ext:Loc Common.SortBy}">
                         <ComboBoxItem HorizontalContentAlignment="Left">
                             <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
@@ -177,7 +176,7 @@
                         IsChecked="{Binding ViewModel.HideMicrosoftTasks, Mode=TwoWay}"
                         OffContent="{ext:Loc ScheduledTasks.HideMicrosoft}"
                         OnContent="{ext:Loc ScheduledTasks.HideMicrosoft}"
-                        Style="{StaticResource ToggleSwitchStyle}" />
+                        />
                 </WrapPanel>
             </Border>
 
@@ -406,7 +405,7 @@
                                         IsChecked="{Binding IsEnabled, Mode=TwoWay}"
                                         OffContent="{ext:Loc Common.Toggle.Off}"
                                         OnContent="{ext:Loc Common.Toggle.On}"
-                                        Style="{StaticResource ToggleSwitchStyle}" />
+                                        />
                                 </StackPanel>
                             </Grid>
                         </Border>

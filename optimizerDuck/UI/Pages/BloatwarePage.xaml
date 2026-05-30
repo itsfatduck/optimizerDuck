@@ -111,7 +111,6 @@
                         <!--  Filter by Risk  -->
                         <ComboBox
                             SelectedIndex="{Binding ViewModel.SelectedRiskFilterIndex}"
-                            Style="{StaticResource ComboBoxStyle}"
                             ToolTip="{ext:Loc Common.Filter}"
                             ToolTipService.BetweenShowDelay="160"
                             ToolTipService.Placement="Top">
@@ -151,7 +150,6 @@
                         <!--  Sort By  -->
                         <ComboBox
                             SelectedIndex="{Binding ViewModel.SelectedSortByIndex}"
-                            Style="{StaticResource ComboBoxStyle}"
                             ToolTip="{ext:Loc Common.SortBy}"
                             ToolTipService.BetweenShowDelay="160"
                             ToolTipService.Placement="Top">

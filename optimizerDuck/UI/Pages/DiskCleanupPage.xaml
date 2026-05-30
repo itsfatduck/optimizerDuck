@@ -107,7 +107,6 @@
                         <ComboBox
                             Cursor="Hand"
                             SelectedIndex="{Binding ViewModel.SelectedSortByIndex}"
-                            Style="{StaticResource ComboBoxStyle}"
                             ToolTip="{ext:Loc Common.SortBy}">
                             <ComboBoxItem HorizontalContentAlignment="Left">
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">

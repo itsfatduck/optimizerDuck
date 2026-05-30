@@ -171,7 +171,6 @@
                                         Text="{Binding ViewModel.AppSearchText, UpdateSourceTrigger=PropertyChanged}" />
                                     <ComboBox
                                         SelectedIndex="{Binding ViewModel.AppSortByIndex}"
-                                        Style="{StaticResource ComboBoxStyle}"
                                         ToolTip="{ext:Loc Common.SortBy}">
                                         <ComboBoxItem HorizontalContentAlignment="Left">
                                             <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
@@ -306,7 +305,7 @@
                                                             IsChecked="{Binding IsEnabled, Mode=TwoWay}"
                                                             OffContent="{ext:Loc Common.Toggle.Off}"
                                                             OnContent="{ext:Loc Common.Toggle.On}"
-                                                            Style="{StaticResource ToggleSwitchStyle}" />
+                                                            />
                                                         <ui:SymbolIcon FontSize="16" Symbol="Open24" />
                                                     </StackPanel>
                                                 </Grid>
@@ -365,7 +364,6 @@
                                         Text="{Binding ViewModel.TaskSearchText, UpdateSourceTrigger=PropertyChanged}" />
                                     <ComboBox
                                         SelectedIndex="{Binding ViewModel.TaskSortByIndex}"
-                                        Style="{StaticResource ComboBoxStyle}"
                                         ToolTip="{ext:Loc Common.SortBy}">
                                         <ComboBoxItem HorizontalContentAlignment="Left">
                                             <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
@@ -408,7 +406,7 @@
                                         IsChecked="{Binding ViewModel.HideMicrosoftTasks, Mode=TwoWay}"
                                         OffContent="{ext:Loc StartupManager.Tasks.HideMicrosoft}"
                                         OnContent="{ext:Loc StartupManager.Tasks.HideMicrosoft}"
-                                        Style="{StaticResource ToggleSwitchStyle}" />
+                                       />
                                     <ui:Button
                                         Padding="8"
                                         VerticalAlignment="Center"
@@ -537,7 +535,7 @@
                                                         IsChecked="{Binding IsEnabled, Mode=TwoWay}"
                                                         OffContent="{ext:Loc Common.Toggle.Off}"
                                                         OnContent="{ext:Loc Common.Toggle.On}"
-                                                        Style="{StaticResource ToggleSwitchStyle}" />
+                                                        />
                                                 </StackPanel>
                                             </Grid>
                                         </Border>
