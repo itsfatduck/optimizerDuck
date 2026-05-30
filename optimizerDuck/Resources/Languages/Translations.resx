@@ -1330,6 +1330,9 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="DiskCleanup.ItemsSelected" xml:space="preserve">
     <value>{0} ({1} items selected)</value>
   </data>
+  <data name="DiskCleanup.Button.Clean" xml:space="preserve">
+    <value>Clean</value>
+  </data>
   <data name="DiskCleanup.Button.CleanSelected" xml:space="preserve">
     <value>Clean Selected ({0})</value>
   </data>
@@ -1631,6 +1634,9 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   </data>
   <data name="Optimizations.Loading.Hint" xml:space="preserve">
     <value>Please wait...</value>
+  </data>
+  <data name="Common.OpenFolder" xml:space="preserve">
+    <value>Open Folder</value>
   </data>
   <data name="Common.Other" xml:space="preserve">
     <value>Other</value>

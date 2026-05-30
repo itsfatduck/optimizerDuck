@@ -18,7 +18,7 @@
 
 **[快速上手](https://optimizerduck.vercel.app/docs/guides/getting-started) | [工作原理](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [常见问题](https://optimizerduck.vercel.app/docs/faq/general)**
 
-[English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | **简体中文** | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md)
+[English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | **简体中文** | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md)
 
 <details>
 <summary>⭐ 项目星标趋势</summary>

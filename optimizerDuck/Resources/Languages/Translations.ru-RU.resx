@@ -1325,6 +1325,9 @@
   <data name="DiskCleanup.ItemsSelected" xml:space="preserve">
     <value>{0} (выбрано {1} элементов)</value>
   </data>
+  <data name="DiskCleanup.Button.Clean" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
   <data name="DiskCleanup.Button.CleanSelected" xml:space="preserve">
     <value>Очистить выбранное ({0})</value>
   </data>
@@ -1626,6 +1629,9 @@
   </data>
   <data name="Optimizations.Loading.Hint" xml:space="preserve">
     <value>Пожалуйста, подождите...</value>
+  </data>
+  <data name="Common.OpenFolder" xml:space="preserve">
+    <value>Открыть папку</value>
   </data>
   <data name="Common.Other" xml:space="preserve">
     <value>Другое</value>

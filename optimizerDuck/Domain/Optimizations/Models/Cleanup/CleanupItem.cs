@@ -18,6 +18,7 @@ public partial class CleanupItem : ObservableObject
     ///     Indicates whether cleanup is in progress.
     /// </summary>
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(ShowActions))]
     private bool _isCleaning;
 
     /// <summary>
@@ -30,6 +31,7 @@ public partial class CleanupItem : ObservableObject
     ///     Indicates whether scanning is in progress.
     /// </summary>
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(ShowActions))]
     private bool _isScanning;
 
     /// <summary>
@@ -78,6 +80,11 @@ public partial class CleanupItem : ObservableObject
     ///     Whether the folder exists and can be opened.
     /// </summary>
     public bool CanOpenFolder => !IsCommand && System.IO.Directory.Exists(Path);
+
+    /// <summary>
+    ///     Whether to show the action controls (SplitButton) instead of progress rings.
+    /// </summary>
+    public bool ShowActions => !IsScanning && !IsCleaning;
 
     /// <summary>
     ///     Gets the human-readable size string (e.g., "1.5 GB").

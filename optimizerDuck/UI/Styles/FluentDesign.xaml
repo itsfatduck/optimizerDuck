@@ -139,20 +139,14 @@
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
-    <Style
-        x:Key="ToggleSwitchStyle"
-        BasedOn="{StaticResource DefaultUiToggleSwitchStyle}"
-        TargetType="ui:ToggleSwitch">
+    <Style BasedOn="{StaticResource DefaultUiToggleSwitchStyle}" TargetType="ui:ToggleSwitch">
         <Setter Property="Margin" Value="{StaticResource ControlGap}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="LabelPosition" Value="Left" />
     </Style>
 
-    <Style
-        x:Key="ComboBoxStyle"
-        BasedOn="{StaticResource DefaultComboBoxStyle}"
-        TargetType="ComboBox">
+    <Style BasedOn="{StaticResource DefaultComboBoxStyle}" TargetType="ComboBox">
         <Setter Property="Margin" Value="{StaticResource ControlGap}" />
     </Style>
 

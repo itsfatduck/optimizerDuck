@@ -1325,6 +1325,9 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
   <data name="DiskCleanup.ItemsSelected" xml:space="preserve">
     <value>{0} ({1} élément(s) sélectionné(s))</value>
   </data>
+  <data name="DiskCleanup.Button.Clean" xml:space="preserve">
+    <value>Nettoyer</value>
+  </data>
   <data name="DiskCleanup.Button.CleanSelected" xml:space="preserve">
     <value>Nettoyer la sélection ({0})</value>
   </data>
@@ -1625,6 +1628,9 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
   </data>
   <data name="Optimizations.Loading.Hint" xml:space="preserve">
     <value>Veuillez patienter...</value>
+  </data>
+  <data name="Common.OpenFolder" xml:space="preserve">
+    <value>Ouvrir le dossier</value>
   </data>
   <data name="Common.Other" xml:space="preserve">
     <value>Autre</value>

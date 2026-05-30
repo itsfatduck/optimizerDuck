@@ -128,6 +128,59 @@ public partial class DiskCleanupViewModel(
     }
 
     [RelayCommand]
+    private async Task CleanItemAsync(CleanupItem item)
+    {
+        if (item.SizeBytes <= 0)
+            return;
+
+        try
+        {
+            var sw = Stopwatch.StartNew();
+
+            var freedBytes = await diskCleanupService.CleanAsync(item);
+            sw.Stop();
+
+            snackbarService.Show(
+                Translations.DiskCleanup_Complete_Title,
+                string.Format(
+                    Translations.DiskCleanup_Complete_Message,
+                    CleanupItem.FormatBytes(freedBytes),
+                    $"{sw.Elapsed.TotalSeconds:0.0}s"
+                ),
+                ControlAppearance.Success,
+                new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
+                TimeSpan.FromSeconds(5)
+            );
+
+            item.IsSelected = false;
+
+            logger.LogInformation(
+                "Disk cleanup completed, freed {Size} in {Duration}",
+                CleanupItem.FormatBytes(freedBytes),
+                sw.Elapsed
+            );
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Failed to clean item {ItemId}", item.Id);
+            snackbarService.Show(
+                Translations.DiskCleanup_Error_Title,
+                Translations.DiskCleanup_Error_Message,
+                ControlAppearance.Danger,
+                new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
+                TimeSpan.FromSeconds(5)
+            );
+        }
+        finally
+        {
+            await diskCleanupService.ScanAllAsync(CleanupItems);
+
+            UpdateProperties();
+            ApplySort();
+        }
+    }
+
+    [RelayCommand]
     private async Task CleanSelectedAsync()
     {
         if (!CanClean)
@@ -178,6 +231,7 @@ public partial class DiskCleanupViewModel(
             IsCleaning = false;
             await diskCleanupService.ScanAllAsync(CleanupItems);
             UpdateProperties();
+            ApplySort();
         }
     }
 

@@ -56,7 +56,7 @@ public class ScopeBlockTextFormatter : ITextFormatter
         };
 
         //var prefix = $"{timestamp} | {ctx,-67} | {levelText,-7} | "; // byebye 67 char SourceContext truncation, we have a new design now...
-        var prefix = $"{timestamp} | {ctx, -35} | {levelText, -7} | ";
+        var prefix = $"{timestamp} | {ctx,-35} | {levelText,-7} | ";
 
         // print message
         output.WriteLine(prefix + RenderWithoutQuotes(logEvent));
@@ -293,10 +293,10 @@ public partial class App : Application
         await Dispatcher.InvokeAsync(() =>
         {
             ApplicationAccentColorManager.Apply(
-                Color.FromRgb(254, 209, 20),
-                Color.FromRgb(242, 124, 20),
-                Color.FromRgb(254, 209, 20),
-                Color.FromRgb(242, 124, 20)
+                systemAccent: Color.FromRgb(216, 155, 29),
+                primaryAccent: Color.FromRgb(235, 193, 94),
+                secondaryAccent: Color.FromRgb(255, 247, 200),
+                tertiaryAccent: Color.FromRgb(255, 243, 131)
             );
 
             ApplicationThemeManager.Apply(

@@ -394,6 +394,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open Folder.
+        /// </summary>
+        internal static string Common_OpenFolder {
+            get {
+                return ResourceManager.GetString("Common.OpenFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Other.
         /// </summary>
         internal static string Common_Other {
@@ -1876,6 +1885,15 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Dialog_PendingChanges_Title {
             get {
                 return ResourceManager.GetString("Dialog.PendingChanges.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clean.
+        /// </summary>
+        internal static string DiskCleanup_Button_Clean {
+            get {
+                return ResourceManager.GetString("DiskCleanup.Button.Clean", resourceCulture);
             }
         }
         

@@ -1324,6 +1324,9 @@
   <data name="DiskCleanup.ItemsSelected" xml:space="preserve">
     <value>{0}（已选 {1} 项）</value>
   </data>
+  <data name="DiskCleanup.Button.Clean" xml:space="preserve">
+    <value>清理</value>
+  </data>
   <data name="DiskCleanup.Button.CleanSelected" xml:space="preserve">
     <value>清理选中项（{0}）</value>
   </data>
@@ -1624,6 +1627,9 @@
   </data>
   <data name="Optimizations.Loading.Hint" xml:space="preserve">
     <value>请稍候...</value>
+  </data>
+  <data name="Common.OpenFolder" xml:space="preserve">
+    <value>打开文件夹</value>
   </data>
   <data name="Common.Other" xml:space="preserve">
     <value>其他</value>

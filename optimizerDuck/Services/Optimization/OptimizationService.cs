@@ -14,6 +14,7 @@ using optimizerDuck.UI.Dialogs;
 using optimizerDuck.UI.ViewModels.Dialogs;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
+using optimizerDuck.UI.Controls;
 
 namespace optimizerDuck.Services;
 

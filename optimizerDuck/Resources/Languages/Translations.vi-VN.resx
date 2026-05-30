@@ -1235,6 +1235,9 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="DiskCleanup.ItemsSelected" xml:space="preserve">
     <value>{0} (đã chọn {1} mục)</value>
   </data>
+  <data name="DiskCleanup.Button.Clean" xml:space="preserve">
+    <value>Dọn dẹp</value>
+  </data>
   <data name="DiskCleanup.Button.CleanSelected" xml:space="preserve">
     <value>Dọn dẹp đã chọn ({0})</value>
   </data>
@@ -1528,6 +1531,9 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="Optimizations.Loading.Hint" xml:space="preserve">
     <value>Vui lòng đợi...</value>
+  </data>
+  <data name="Common.OpenFolder" xml:space="preserve">
+    <value>Mở thư mục</value>
   </data>
   <data name="Common.Other" xml:space="preserve">
     <value>Khác</value>

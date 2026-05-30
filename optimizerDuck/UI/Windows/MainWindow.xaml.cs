@@ -10,6 +10,7 @@ using optimizerDuck.UI.Pages;
 using optimizerDuck.UI.ViewModels.Windows;
 using Wpf.Ui;
 using Wpf.Ui.Abstractions;
+using optimizerDuck.UI.Controls;
 using Wpf.Ui.Controls;
 
 namespace optimizerDuck.UI.Windows;

@@ -159,17 +159,15 @@
                         </ComboBoxItem>
                     </ComboBox>
 
-                    <!--  Hide Applied toggle  -->
-                    <ToggleButton
+                    <ui:ToggleSwitch
                         Margin="0,0,0,0"
                         VerticalAlignment="Stretch"
                         IsChecked="{Binding ViewModel.HideApplied}"
                         Visibility="{Binding ViewModel.HasAppliedOptimizations, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <StackPanel Orientation="Horizontal">
-                            <ui:SymbolIcon Margin="0,0,6,0" Symbol="EyeOff24" />
                             <TextBlock Text="{ext:Loc Optimizer.Menu.HideApplied}" />
                         </StackPanel>
-                    </ToggleButton>
+                    </ui:ToggleSwitch>
                 </WrapPanel>
             </Border>
 

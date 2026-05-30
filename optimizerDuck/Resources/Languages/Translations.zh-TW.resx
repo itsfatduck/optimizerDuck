@@ -997,6 +997,9 @@
   <data name="DiskCleanup.ItemsSelected" xml:space="preserve">
     <value>{0}（已選取 {1} 個項目）</value>
   </data>
+  <data name="DiskCleanup.Button.Clean" xml:space="preserve">
+    <value>清理</value>
+  </data>
   <data name="DiskCleanup.Button.CleanSelected" xml:space="preserve">
     <value>清理所選項 ({0})</value>
   </data>
@@ -1537,6 +1540,9 @@
   </data>
   <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Description" xml:space="preserve">
     <value>GPU 視訊記憶體排程模式。需要相容的 GPU 驅動程式。</value>
+  </data>
+  <data name="Common.OpenFolder" xml:space="preserve">
+    <value>開啟資料夾</value>
   </data>
   <data name="Common.Other" xml:space="preserve">
     <value>其他</value>

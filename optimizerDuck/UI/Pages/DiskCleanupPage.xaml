@@ -9,6 +9,7 @@
     xmlns:local="clr-namespace:optimizerDuck.UI.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    x:Name="ThisPage"
     Title="DiskCleanupPage"
     d:DataContext="{d:DesignInstance local:DiskCleanupPage}"
     d:DesignHeight="1200"
@@ -104,6 +105,7 @@
                         Orientation="Horizontal">
                         <!--  Sort Dropdown  -->
                         <ComboBox
+                            Cursor="Hand"
                             SelectedIndex="{Binding ViewModel.SelectedSortByIndex}"
                             Style="{StaticResource ComboBoxStyle}"
                             ToolTip="{ext:Loc Common.SortBy}">
@@ -131,6 +133,7 @@
                         <ui:Button
                             Appearance="Danger"
                             Command="{Binding ViewModel.CleanSelectedCommand}"
+                            Cursor="Hand"
                             IsEnabled="{Binding ViewModel.CanClean}">
                             <StackPanel Orientation="Horizontal">
                                 <ui:SymbolIcon
@@ -149,6 +152,7 @@
                                 Appearance="Primary"
                                 Command="{Binding ViewModel.ScanCommand}"
                                 Content="{ext:Loc DiskCleanup.Button.Scan}"
+                                Cursor="Hand"
                                 Icon="{ui:SymbolIcon Search24,
                                                      FontSize=16}"
                                 Visibility="{Binding ViewModel.IsScanning, Converter={StaticResource InverseBooleanToVisibilityConverter}}" />
@@ -316,23 +320,53 @@
                                     </Border>
                                 </StackPanel>
 
-                                <!--  Status Icons  -->
-                                <StackPanel
+                                <!--  Actions: SplitButton + Progress  -->
+                                <Grid
                                     Grid.Column="3"
                                     Margin="12,0,0,0"
                                     VerticalAlignment="Center">
+
+                                    <!--  Scanning indicator  -->
                                     <ui:ProgressRing
                                         Width="20"
                                         Height="20"
                                         IsIndeterminate="True"
                                         Visibility="{Binding IsScanning, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                                    <!--  Cleaning indicator  -->
                                     <ui:ProgressRing
                                         Width="20"
                                         Height="20"
-                                        Foreground="{DynamicResource SystemFillColorSuccessBrush}"
                                         IsIndeterminate="True"
                                         Visibility="{Binding IsCleaning, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                </StackPanel>
+
+                                    <ui:SplitButton
+                                        Command="{Binding DataContext.ViewModel.CleanItemCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                        CommandParameter="{Binding}"
+                                        Cursor="Hand"
+                                        IsEnabled="{Binding IsScanned}"
+                                        Visibility="{Binding ShowActions, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <ui:SymbolIcon
+                                                Margin="0,0,4,0"
+                                                FontSize="20"
+                                                Symbol="Delete24" />
+                                            <TextBlock VerticalAlignment="Center" Text="{ext:Loc DiskCleanup.Button.Clean}" />
+                                        </StackPanel>
+
+                                        <ui:SplitButton.Flyout>
+                                            <ContextMenu>
+                                                <MenuItem
+                                                    Command="{Binding DataContext.ViewModel.OpenFolderCommand, Source={x:Reference ThisPage}}"
+                                                    CommandParameter="{Binding}"
+                                                    Cursor="Hand"
+                                                    Header="{ext:Loc Common.OpenFolder}"
+                                                    Icon="{ui:SymbolIcon OpenFolder24}"
+                                                    IsEnabled="{Binding CanOpenFolder}" />
+                                            </ContextMenu>
+                                        </ui:SplitButton.Flyout>
+                                    </ui:SplitButton>
+                                </Grid>
                             </Grid>
                         </Border>
                     </DataTemplate>
