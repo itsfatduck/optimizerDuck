@@ -1,0 +1,1736 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:schema id="root">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xs:element name="root" ns1:IsDataSet="true">
+      <xs:complexType>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element name="metadata">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" />
+              </xs:sequence>
+              <xs:attribute name="name" use="required" type="xsd:string" />
+              <xs:attribute name="type" type="xsd:string" />
+              <xs:attribute name="mimetype" type="xsd:string" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="assembly">
+            <xs:complexType>
+              <xs:attribute name="alias" type="xsd:string" />
+              <xs:attribute name="name" type="xsd:string" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="data">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+                <xs:element name="comment" type="xsd:string" minOccurs="0" ns1:Ordinal="2" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" ns1:Ordinal="1" />
+              <xs:attribute name="type" type="xsd:string" ns1:Ordinal="3" />
+              <xs:attribute name="mimetype" type="xsd:string" ns1:Ordinal="4" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="resheader">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" />
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+  </resheader>
+  <data name="Dashboard.Header.Title" xml:space="preserve">
+  <value>대시보드</value>
+</data>
+  <data name="Sidebar.Dashboard" xml:space="preserve">
+  <value>대시보드</value>
+</data>
+  <data name="Sidebar.Settings" xml:space="preserve">
+  <value>설정</value>
+</data>
+  <data name="Button.Close" xml:space="preserve">
+  <value>닫기</value>
+</data>
+  <data name="Dashboard.SystemInfo.Cpu.Cores" xml:space="preserve">
+  <value>{0}코어</value>
+</data>
+  <data name="Dashboard.SystemInfo.Storage.DiskInfo" xml:space="preserve">
+  <value>총 {1}GB 중 {0}GB 사용 중 ({2}GB 남음)</value>
+</data>
+  <data name="Dashboard.SystemInfo.Ram.Modules" xml:space="preserve">
+  <value>{0}개 모듈</value>
+</data>
+  <data name="Dashboard.SystemInfo.Cpu.Threads" xml:space="preserve">
+  <value>{0}스레드</value>
+</data>
+  <data name="Dashboard.SystemInfo.Storage.System" xml:space="preserve">
+  <value>시스템</value>
+</data>
+  <data name="Dashboard.SystemInfo.Storage.Header" xml:space="preserve">
+  <value>저장소</value>
+</data>
+  <data name="Dashboard.SystemInfo.Ram.Used" xml:space="preserve">
+  <value>{0}GB 사용 중</value>
+</data>
+  <data name="Dashboard.SystemInfo.Ram.Available" xml:space="preserve">
+  <value>{0}GB 사용 가능</value>
+</data>
+  <data name="Dashboard.SystemInfo.Loading" xml:space="preserve">
+  <value>시스템 정보를 불러오는 중...</value>
+</data>
+  <data name="Sidebar.Optimize" xml:space="preserve">
+  <value>최적화</value>
+</data>
+  <data name="Customize.Description" xml:space="preserve">
+  <value>Windows 설정과 환경을 사용자에 맞게 조정합니다</value>
+</data>
+  <data name="Customize.Preferences.Name" xml:space="preserve">
+  <value>환경 설정</value>
+</data>
+  <data name="Customize.Preferences.Description" xml:space="preserve">
+  <value>시각 및 상호작용 설정을 사용자에 맞게 조정합니다</value>
+</data>
+  <data name="Customize.Gaming.Name" xml:space="preserve">
+  <value>게이밍</value>
+</data>
+  <data name="Customize.Gaming.Description" xml:space="preserve">
+  <value>게임 관련 디스플레이, 입력, 녹화 설정</value>
+</data>
+  <data name="Dashboard.SystemInfo.Gpu.More" xml:space="preserve">
+  <value>GPU {0}개 더</value>
+</data>
+  <data name="Dashboard.Actions.Discord.Title" xml:space="preserve">
+  <value>Discord 커뮤니티</value>
+</data>
+  <data name="Dashboard.Actions.Discord.Description" xml:space="preserve">
+  <value>Discord 커뮤니티에 참여해 지원을 받거나 함께 게임을 즐겨보세요</value>
+</data>
+  <data name="Dashboard.Actions.GitHub.Title" xml:space="preserve">
+  <value>GitHub 저장소</value>
+</data>
+  <data name="Dashboard.Actions.GitHub.Description" xml:space="preserve">
+  <value>GitHub에서 프로젝트를 살펴보고, 검토하고, 기여해보세요</value>
+</data>
+  <data name="Dashboard.Actions.SupportMe.Title" xml:space="preserve">
+  <value>후원하기</value>
+</data>
+  <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
+  <value>GitHub 저장소에 스타를 남기고, 친구들과 공유하거나 후원해 주세요. 작은 도움도 프로젝트 성장에 큰 힘이 됩니다!</value>
+</data>
+  <data name="Service.Registry.Description.CreateKey" xml:space="preserve">
+  <value>레지스트리 키 생성: {0}</value>
+</data>
+  <data name="Service.Registry.Description.DeleteKey" xml:space="preserve">
+  <value>레지스트리 키 삭제: {0}</value>
+</data>
+  <data name="Settings.LanguageChanged.Title" xml:space="preserve">
+  <value>언어 변경</value>
+</data>
+  <data name="Settings.LanguageChanged.Description" xml:space="preserve">
+  <value>새 언어를 적용하려면 앱을 다시 시작해야 합니다.</value>
+</data>
+  <data name="Button.Ok" xml:space="preserve">
+  <value>확인</value>
+</data>
+  <data name="Settings.Header.Title" xml:space="preserve">
+  <value>설정</value>
+</data>
+  <data name="Settings.Appearance.Header" xml:space="preserve">
+  <value>모양</value>
+</data>
+  <data name="Settings.Appearance.LanguageSelector.Title" xml:space="preserve">
+  <value>언어</value>
+</data>
+  <data name="Settings.Appearance.LanguageSelector.Description" xml:space="preserve">
+  <value>원하는 언어를 선택하세요.</value>
+</data>
+  <data name="Settings.Appearance.ThemeSelector.Title" xml:space="preserve">
+  <value>테마</value>
+</data>
+  <data name="Settings.Appearance.ThemeSelector.Description" xml:space="preserve">
+  <value>앱에 사용할 테마를 선택하세요.</value>
+</data>
+  <data name="Settings.Appearance.ThemeSelector.Light" xml:space="preserve">
+  <value>라이트</value>
+</data>
+  <data name="Settings.Appearance.ThemeSelector.Dark" xml:space="preserve">
+  <value>다크</value>
+</data>
+  <data name="Settings.Appearance.ThemeSelector.HighContrast" xml:space="preserve">
+  <value>고대비</value>
+</data>
+  <data name="Common.AppliedSecondsAgo" xml:space="preserve">
+  <value>{0}초 전에 적용됨</value>
+</data>
+  <data name="Common.AppliedMinutesAgo" xml:space="preserve">
+  <value>{0}분 전에 적용됨</value>
+</data>
+  <data name="Common.AppliedHoursAgo" xml:space="preserve">
+  <value>{0}시간 전에 적용됨</value>
+</data>
+  <data name="Common.AppliedDaysAgo" xml:space="preserve">
+  <value>{0}일 전에 적용됨</value>
+</data>
+  <data name="Common.AppliedMonthsAgo" xml:space="preserve">
+  <value>{0}개월 전에 적용됨</value>
+</data>
+  <data name="Common.AppliedYearsAgo" xml:space="preserve">
+  <value>{0}년 전에 적용됨</value>
+</data>
+  <data name="Optimizer.UI.Risk.Safe" xml:space="preserve">
+  <value>안전</value>
+</data>
+  <data name="Optimizer.UI.Risk.Moderate" xml:space="preserve">
+  <value>주의</value>
+</data>
+  <data name="Optimizer.UI.Risk.Risky" xml:space="preserve">
+  <value>전문가용</value>
+</data>
+  <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
+  <value>상세 설명</value>
+</data>
+  <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
+  <value>태그</value>
+</data>
+  <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
+  <value>Service Host 분리 기준을 시스템 총 RAM에 맞춰 설정하여, Windows가 서비스를 별도 프로세스로 분리하도록 해 안정성을 높입니다.</value>
+</data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
+  <value>현재 활성 전원 계획을 감지하지 못했습니다.</value>
+</data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ImportFailed" xml:space="preserve">
+  <value>optimizerDuck 전원 계획을 가져오지 못했습니다.</value>
+</data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ActivateFailed" xml:space="preserve">
+  <value>optimizerDuck 전원 계획을 활성화하지 못했습니다.</value>
+</data>
+  <data name="Optimizer.UI.Risk.Help" xml:space="preserve">
+  <value>이 값은 최적화 과정의 개입 수준과 안전성을 나타냅니다. 최적화를 적용하기 전에 충분히 주의하고 신중히 판단하세요.</value>
+</data>
+  <data name="Optimizer.UI.Tags.System" xml:space="preserve">
+  <value>시스템</value>
+</data>
+  <data name="Optimizer.UI.Tags.Ram" xml:space="preserve">
+  <value>RAM</value>
+</data>
+  <data name="Optimizer.UI.Tags.Disk" xml:space="preserve">
+  <value>디스크</value>
+</data>
+  <data name="Optimizer.UI.Tags.NetworkRequired" xml:space="preserve">
+  <value>네트워크 연결 필요</value>
+</data>
+  <data name="Optimizer.UI.Tags.Network" xml:space="preserve">
+  <value>네트워크</value>
+</data>
+  <data name="Optimizer.UI.Tags.Privacy" xml:space="preserve">
+  <value>개인정보</value>
+</data>
+  <data name="Optimizer.UI.Tags.Audio" xml:space="preserve">
+  <value>오디오</value>
+</data>
+  <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
+  <value>이 태그는 최적화가 시스템의 어느 부분에 영향을 주는지 보여줍니다.</value>
+</data>
+  <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
+  <value>NVIDIA</value>
+</data>
+  <data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
+  <value>AMD</value>
+</data>
+  <data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
+  <value>Intel</value>
+</data>
+  <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
+  <value>전원</value>
+</data>
+  <data name="Revert.Error.InvalidData" xml:space="preserve">
+  <value>{0}에 대한 복원 데이터가 올바르지 않습니다: {1}</value>
+</data>
+  <data name="Revert.Error.NoDataFound" xml:space="preserve">
+  <value>{0}에 대한 복원 데이터를 찾을 수 없습니다.</value>
+</data>
+  <data name="Optimization.Revert.Reverting" xml:space="preserve">
+  <value>복원하는 중...</value>
+</data>
+  <data name="Optimization.Revert.Success" xml:space="preserve">
+  <value>{0}을(를) 성공적으로 복원했습니다!</value>
+</data>
+  <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
+  <value>{0}을(를) 복원했지만 실패한 단계가 {1}개 있습니다.</value>
+</data>
+  <data name="Revert.Error.RevertFailed" xml:space="preserve">
+  <value>{0} 복원 실패: {1}</value>
+</data>
+  <data name="Optimization.Revert.ExecutingStep" xml:space="preserve">
+  <value>복원 단계 실행 중: {0}/{1} ({2})</value>
+</data>
+  <data name="Optimization.Revert.StepDescription" xml:space="preserve">
+  <value>복원 단계 #{0}</value>
+</data>
+  <data name="Revert.Registry.Description.RestoreKey" xml:space="preserve">
+  <value>레지스트리 키 복원: {0}</value>
+</data>
+  <data name="Revert.Registry.Description.DeleteKey" xml:space="preserve">
+  <value>레지스트리 키 삭제: {0}</value>
+</data>
+  <data name="Revert.Registry.Description.RevertUnknown" xml:space="preserve">
+  <value>레지스트리 복원: {0}</value>
+</data>
+  <data name="Revert.Error.FileNotFound" xml:space="preserve">
+  <value>복원 파일을 찾을 수 없습니다</value>
+</data>
+  <data name="Revert.Error.FileEmpty" xml:space="preserve">
+  <value>복원 파일이 비어 있습니다</value>
+</data>
+  <data name="Revert.Error.ReadFailed" xml:space="preserve">
+  <value>복원 데이터를 읽지 못했습니다: {0}</value>
+</data>
+  <data name="Revert.Error.InvalidJson" xml:space="preserve">
+  <value>복원 데이터가 올바르지 않습니다</value>
+</data>
+  <data name="Revert.Error.InvalidJsonFormat" xml:space="preserve">
+  <value>JSON 형식이 올바르지 않습니다: {0}</value>
+</data>
+  <data name="Revert.Error.NoSteps" xml:space="preserve">
+  <value>복원 단계가 없습니다.</value>
+</data>
+  <data name="Revert.Error.InvalidSteps" xml:space="preserve">
+  <value>복원 단계가 올바르지 않습니다: {0}</value>
+</data>
+  <data name="Revert.Error.StepFailed" xml:space="preserve">
+  <value>복원 단계 실패</value>
+</data>
+  <data name="Revert.UsbPower.Description" xml:space="preserve">
+  <value>USB 선택적 절전 전원 상태 복원</value>
+</data>
+  <data name="Service.Registry.Error.BackupTruncated" xml:space="preserve">
+  <value>레지스트리 하위 트리가 너무 커서 안전하게 백업할 수 없습니다. {0} 삭제를 중단했습니다</value>
+</data>
+  <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
+  <value>OptimizationId가 일치하지 않습니다.</value>
+</data>
+  <data name="Optimization.Apply.Processing" xml:space="preserve">
+  <value>변경 사항 적용 중...</value>
+</data>
+  <data name="Optimization.Apply.Completed" xml:space="preserve">
+  <value>완료됨</value>
+</data>
+  <data name="Optimization.Apply.Success" xml:space="preserve">
+  <value>{0}을(를) 성공적으로 적용했습니다.</value>
+</data>
+  <data name="Optimization.Apply.Error.FailedWithSteps" xml:space="preserve">
+  <value>{0}을(를) 적용했지만 실패한 단계가 {1}개 있습니다.</value>
+</data>
+  <data name="Optimization.Apply.Error.Failed" xml:space="preserve">
+  <value>{0} 적용에 실패했습니다.</value>
+</data>
+  <data name="Optimization.Apply.Error.Unknown" xml:space="preserve">
+  <value>{0}에 대한 알 수 없는 결과입니다.</value>
+</data>
+  <data name="Service.Common.Error.AccessDenied" xml:space="preserve">
+  <value>액세스가 거부되었습니다</value>
+</data>
+  <data name="Service.Registry.Error.AccessDeniedProtectedHive" xml:space="preserve">
+  <value>액세스가 거부되었습니다 (보호된 하이브)</value>
+</data>
+  <data name="Service.Registry.Error.UnauthorizedAccess" xml:space="preserve">
+  <value>권한이 없습니다</value>
+</data>
+  <data name="Service.Registry.Error.CreateOrOpenSubkeyFailed" xml:space="preserve">
+  <value>하위 키를 생성하거나 열지 못했습니다</value>
+</data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedWrite" xml:space="preserve">
+  <value>{0}:{1} 쓰기 권한이 없습니다</value>
+</data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedDelete" xml:space="preserve">
+  <value>{0}:{1} 삭제 권한이 없습니다</value>
+</data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedCreateKey" xml:space="preserve">
+  <value>{0} 생성 권한이 없습니다</value>
+</data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedDeleteKeyTree" xml:space="preserve">
+  <value>{0} 키 트리 삭제 권한이 없습니다</value>
+</data>
+  <data name="Service.Service.Error.NotFound" xml:space="preserve">
+  <value>서비스를 찾을 수 없습니다</value>
+</data>
+  <data name="Service.Service.Error.UpdateRegistryForStartupTypeFailed" xml:space="preserve">
+  <value>시작 유형에 대한 레지스트리 업데이트에 실패했습니다</value>
+</data>
+  <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
+  <value>ChangeStartMode 실패 (코드: {0})</value>
+</data>
+  <data name="Service.Service.Error.ExceptionOccurred" xml:space="preserve">
+  <value>서비스 '{0}' 변경 실패: {1}</value>
+</data>
+  <data name="Service.Shell.Error.ExitCode" xml:space="preserve">
+  <value>종료 코드 {0}</value>
+</data>
+  <data name="Service.Shell.Error.TimedOut" xml:space="preserve">
+  <value>시간 초과</value>
+</data>
+  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
+  <value>복원 파일</value>
+</data>
+  <data name="OptimizationResultDialog.Header" xml:space="preserve">
+  <value>실패한 단계 {0}개</value>
+</data>
+  <data name="OptimizationResultDialog.Description" xml:space="preserve">
+  <value>일부 단계가 정상적으로 완료되지 않았습니다. 실패한 단계만 다시 시도할 수 있습니다.</value>
+</data>
+  <data name="OptimizationResultDialog.Details" xml:space="preserve">
+  <value>세부 정보</value>
+</data>
+  <data name="Button.Retry" xml:space="preserve">
+  <value>다시 시도</value>
+</data>
+  <data name="Settings.About.Duck.Description" xml:space="preserve">
+  <value>현재 버전: {0}</value>
+</data>
+  <data name="Settings.Advanced.Header" xml:space="preserve">
+  <value>고급</value>
+</data>
+  <data name="Settings.Optimize.Header" xml:space="preserve">
+  <value>최적화</value>
+</data>
+  <data name="Settings.Optimize.ShellTimeout.Title" xml:space="preserve">
+  <value>셸 서비스 시간 제한</value>
+</data>
+  <data name="Settings.Optimize.ShellTimeout.Description" xml:space="preserve">
+  <value>각 셸 명령 실행의 시간 제한(밀리초)입니다.</value>
+</data>
+  <data name="Settings.Advanced.ClearDownloads.Title" xml:space="preserve">
+  <value>다운로드 정리</value>
+</data>
+  <data name="Settings.Advanced.ClearDownloads.Description" xml:space="preserve">
+  <value>최적화 과정에서 다운로드된 모든 파일을 삭제합니다.</value>
+</data>
+  <data name="Settings.Advanced.ClearRevertDatas.Title" xml:space="preserve">
+  <value>모든 복원 데이터 삭제</value>
+</data>
+  <data name="Settings.Advanced.ClearRevertDatas.Description" xml:space="preserve">
+  <value>최적화의 모든 롤백 데이터를 삭제합니다.</value>
+</data>
+  <data name="Button.Clear" xml:space="preserve">
+  <value>지우기</value>
+</data>
+  <data name="Settings.Advanced.OpenRootDir.Title" xml:space="preserve">
+  <value>루트 디렉터리 열기</value>
+</data>
+  <data name="Settings.Advanced.OpenRootDir.Description" xml:space="preserve">
+  <value>필요한 모든 파일이 저장된 애플리케이션의 루트 디렉터리를 엽니다.</value>
+</data>
+  <data name="Settings.Appearance.SmoothScrolling.Title" xml:space="preserve">
+  <value>부드러운 스크롤</value>
+</data>
+  <data name="Settings.Appearance.SmoothScrolling.Description" xml:space="preserve">
+  <value>더 부드러운 스크롤 경험을 위해 애니메이션을 활성화합니다. 버벅임이 느껴지면 끄세요.</value>
+</data>
+  <data name="Button.Open" xml:space="preserve">
+  <value>열기</value>
+</data>
+  <data name="Settings.About.Header" xml:space="preserve">
+  <value>정보</value>
+</data>
+  <data name="Dialog.AreYouSure.Title" xml:space="preserve">
+  <value>정말로 계속하시겠습니까?</value>
+</data>
+  <data name="Settings.ClearDownloads.Description" xml:space="preserve">
+  <value>최적화 과정에서 다운로드된 모든 파일을 삭제하려고 합니다. 이 작업은 영구적이며 되돌릴 수 없으니, 진행하기 전에 꼭 확인하세요.</value>
+</data>
+  <data name="Button.Cancel" xml:space="preserve">
+  <value>취소</value>
+</data>
+  <data name="Button.Skip" xml:space="preserve">
+  <value>건너뛰기</value>
+</data>
+  <data name="Settings.ClearRevertData.Description" xml:space="preserve">
+  <value>최적화 후 생성된 모든 롤백 데이터를 삭제하려고 합니다. 삭제 후에는 최적화 이전 상태로 복원할 수 없으니 신중히 결정하세요.</value>
+</data>
+  <data name="ProcessingOptimizationDialog.Warning.DontCloseAppOrRestart" xml:space="preserve">
+  <value>변경 사항을 적용하거나 복원하는 동안 앱을 닫거나 재시작하지 마세요.</value>
+</data>
+  <data name="Common.AppliedJustNow" xml:space="preserve">
+  <value>방금 적용됨</value>
+</data>
+  <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
+  <value>최적화를 완전히 적용하지 못했습니다</value>
+</data>
+  <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
+  <value>최적화를 복원하지 못했습니다</value>
+</data>
+  <data name="Optimization.Apply.Snackbar.Success.Title" xml:space="preserve">
+  <value>최적화가 성공적으로 적용되었습니다</value>
+</data>
+  <data name="Optimization.Revert.Snackbar.Success.Title" xml:space="preserve">
+  <value>최적화가 성공적으로 복원되었습니다</value>
+</data>
+  <data name="Optimization.Toggle.Snackbar.Error.Title" xml:space="preserve">
+  <value>최적화 상태를 전환하지 못했습니다</value>
+</data>
+  <data name="Optimization.Toggle.Snackbar.Error.Message" xml:space="preserve">
+  <value>오류가 발생했습니다: {0}</value>
+</data>
+  <data name="Optimization.Retry.Processing" xml:space="preserve">
+  <value>실패한 단계를 다시 시도하는 중...</value>
+</data>
+  <data name="Optimization.RetryStep.Processing" xml:space="preserve">
+  <value>{0} 단계 다시 시도 중 ({1}/{2})</value>
+</data>
+  <data name="Optimization.Revert.Error.Failed" xml:space="preserve">
+  <value>{0} 복원에 실패했습니다.</value>
+</data>
+  <data name="Dashboard.Header.Menu.Refresh" xml:space="preserve">
+  <value>새로 고침</value>
+</data>
+  <data name="Dashboard.Header.Menu.RunTaskManager" xml:space="preserve">
+  <value>작업 관리자</value>
+</data>
+  <data name="Common.Unknown" xml:space="preserve">
+  <value>알 수 없음</value>
+</data>
+  <data name="Common.Recommendation.On" xml:space="preserve">
+  <value>권장</value>
+</data>
+  <data name="Common.Recommendation.Off" xml:space="preserve">
+  <value>비권장</value>
+</data>
+  <data name="Common.Recommendation.Experimental" xml:space="preserve">
+  <value>실험적</value>
+</data>
+  <data name="Common.Recommendation.Depends" xml:space="preserve">
+  <value>상황에 따라 다름</value>
+</data>
+  <data name="Optimizer.UI.Tags.Security" xml:space="preserve">
+  <value>보안</value>
+</data>
+  <data name="Optimizer.UI.Tags.Performance" xml:space="preserve">
+  <value>성능</value>
+</data>
+  <data name="Optimizer.UI.Tags.Latency" xml:space="preserve">
+  <value>지연 시간</value>
+</data>
+  <data name="Optimizer.Performance" xml:space="preserve">
+  <value>성능</value>
+</data>
+  <data name="Optimizer.PowerManagement" xml:space="preserve">
+  <value>전원 관리</value>
+</data>
+  <data name="Optimizer.SecurityAndPrivacy" xml:space="preserve">
+  <value>보안 및 개인정보</value>
+</data>
+  <data name="Optimizer.BloatwareAndServices" xml:space="preserve">
+  <value>불필요한 앱 및 서비스</value>
+</data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.Name" xml:space="preserve">
+  <value>백그라운드 앱 비활성화</value>
+</data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
+  <value>비활성 상태의 앱이 백그라운드에서 실행되지 않도록 하여 RAM을 확보하고 CPU 부담을 줄입니다.</value>
+</data>
+  <data name="Optimizer.Performance.SvcHostSplit.Name" xml:space="preserve">
+  <value>서비스 격리 최적화</value>
+</data>
+  <data name="Optimizer.Performance.SvcHostSplit.Error.InvalidRAM" xml:space="preserve">
+  <value>잘못된 RAM 값: {0}</value>
+</data>
+  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
+  <value>활성 앱 우선 처리</value>
+</data>
+  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
+  <value>현재 사용 중인 앱에 더 많은 CPU 자원을 할당해 더 빠르고 반응성 높은 환경을 제공합니다.</value>
+</data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
+  <value>멀티미디어 스케줄러 최적화</value>
+</data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
+  <value>MMCSS를 게이밍 및 저지연 환경에 맞게 구성하여 멀티미디어 작업의 우선순위를 높이고 네트워크 스로틀링을 비활성화합니다.</value>
+</data>
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
+  <value>키보드 반복 최적화</value>
+</data>
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
+  <value>키보드 반복 지연과 반복 속도를 가장 빠르게 설정해 입력 반응성을 높입니다.</value>
+</data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.Name" xml:space="preserve">
+  <value>접근성 키보드 단축키 비활성화</value>
+</data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription" xml:space="preserve">
+  <value>고정 키, 필터 키, 토글 키 단축키를 비활성화하여 게임이나 타이핑 중 실수로 팝업이 뜨는 것을 방지합니다.</value>
+</data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Name" xml:space="preserve">
+  <value>최대 절전 모드 및 빠른 시작 비활성화</value>
+</data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.ShortDescription" xml:space="preserve">
+  <value>최대 절전 모드와 빠른 시작을 끄면 디스크 공간을 확보하고, 부팅 시 하드웨어가 더 깔끔하게 초기화되도록 완전 종료를 보장합니다.</value>
+</data>
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
+  <value>USB 절전 기능 비활성화</value>
+</data>
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
+  <value>Windows가 USB 포트 전원을 차단하지 못하게 하여 마우스, 키보드 등 주변기기의 절전 해제 지연을 없앱니다.</value>
+</data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
+  <value>최적화 전원 계획 적용</value>
+</data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
+  <value>성능 중심의 사용자 지정 전원 계획을 설치해 시스템이 항상 최대 속도로 동작하도록 합니다.</value>
+</data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
+  <value>전원 계획을 가져오고 활성화하는 중...</value>
+</data>
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
+  <value>시스템 전력 스로틀링 비활성화</value>
+</data>
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
+  <value>Windows가 활성 작업 중 CPU 성능을 제한하지 못하도록 하여 최대 성능을 유지합니다.</value>
+</data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
+  <value>데이터 수집(텔레메트리) 비활성화</value>
+</data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
+  <value>Windows 텔레메트리와 사용 추적 서비스를 비활성화해 개인정보 보호를 강화하고 백그라운드 활동을 줄입니다.</value>
+</data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
+  <value>정책 및 레지스트리 변경 사항 적용 중...</value>
+</data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableServices" xml:space="preserve">
+  <value>텔레메트리 서비스 비활성화 중...</value>
+</data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableTasks" xml:space="preserve">
+  <value>예약된 텔레메트리 작업 비활성화 중...</value>
+</data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.Name" xml:space="preserve">
+    <value>오류 보고 비활성화</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.ShortDescription" xml:space="preserve">
+    <value>Windows 오류 보고 및 프로그램 호환성 관리자 서비스를 비활성화합니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.Name" xml:space="preserve">
+    <value>광고 및 제안 비활성화</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.ShortDescription" xml:space="preserve">
+    <value>개인화된 광고, Windows 소비자 기능 및 시스템 제안을 비활성화합니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.Name" xml:space="preserve">
+    <value>활동 기록 비활성화</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.ShortDescription" xml:space="preserve">
+    <value>Windows에서 활동 기록을 수집하고 동기화하는 것을 방지합니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.Name" xml:space="preserve">
+    <value>위치 및 센서 비활성화</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.ShortDescription" xml:space="preserve">
+    <value>위치 추적, 시스템 센서 및 오프라인 지도 업데이트를 비활성화합니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.Name" xml:space="preserve">
+    <value>백그라운드 로깅 비활성화</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
+    <value>지속적인 디스크 활동을 줄이고 CPU 주기를 절약하기 위해 필수적이지 않은 시스템 이벤트 로깅을 중지합니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
+    <value>Cortana 및 웹 검색 비활성화</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
+    <value>Cortana 음성 도우미를 끄고 Windows 검색 표시줄에서 Bing 웹 결과를 제거합니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
+    <value>Windows Copilot 비활성화</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
+    <value>작업 표시줄과 시스템 셸에서 AI Copilot 도우미를 제거하여 메모리와 화면 공간을 확보합니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
+    <value>클라우드 콘텐츠 전달 비활성화</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
+    <value>시스템 팁, 추천 제안, 소비자 기능 자동 전달 등 Windows 클라우드 제공 콘텐츠를 끕니다.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
+    <value>사전 설치된 Bloatware 차단</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
+    <value>Windows가 원치 않는 타사 앱과 승격된 소프트웨어를 자동으로 다시 설치하는 것을 방지합니다.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
+    <value>시스템 서비스 최적화</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
+    <value>필수가 아닌 백그라운드 서비스를 조정하여 필요한 모든 Windows 기능을 유지하면서 리소스를 확보합니다.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType" xml:space="preserve">
+    <value>{0}의 시작 유형을 {1}(으)로 설정 중...</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Display" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Visual" xml:space="preserve">
+    <value>Visual</value>
+  </data>
+  <data name="Optimizer.Gpu" xml:space="preserve">
+    <value>GPU</value>
+  </data>
+  <data name="Optimizer.UserExperience" xml:space="preserve">
+    <value>사용자 경험</value>
+  </data>
+  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
+    <value>탐색기 및 메뉴 속도 향상</value>
+  </data>
+  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
+    <value>Explorer 시작 지연을 제거하고 메뉴 호버 지연을 최소로 줄이려면 StartupDelayInMSec=0, MenuShowDelay=0을 설정합니다.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
+    <value>시각 효과 비활성화</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
+    <value>더 나은 성능을 위해 GPU/CPU 리소스를 확보하기 위해 작업 표시줄 애니메이션, 목록 보기 그림자, 창 투명도 및 Aero Peek를 비활성화합니다.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
+    <value>AMD ULPS 비활성화</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
+    <value>초저전력 상태 깨우기 지연 및 다중 모니터 문제를 방지하려면 AMD GPU 레지스트리에서 EnableULPS=0을 설정합니다. 유휴 상태에서 절전 효과가 줄어듭니다.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
+    <value>AMD 파워 게이팅 비활성화</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
+    <value>AMD GPU 전원 상태 전환을 방지하려면 비활성화PowerGating=1, PP_GPUPowerDownEnabled=0, 비활성화DynamicPstate=1을 설정합니다. 더 높은 유휴 전력을 사용하여 일관된 클록을 유지합니다.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>AMD 비디오 클럭 게이팅 비활성화</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>인코딩/디코딩 안정성을 향상시키기 위해 AMD 비디오 엔진(VCE/UVD)에 대해DisableVCEPowerGating=1,DisableVceClockGating=1,EnableUvdClockGating=0을 설정합니다. 비디오 재생 성능을 높입니다.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
+    <value>AMD ASPM 비활성화</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
+    <value>AMD GPU에서 활성 상태 전원 관리를 비활성화하려면 EnableAspmL0s=0, EnableAspmL1=0을 설정하여 PCIe 버스 대기 시간을 줄입니다. 슬롯 전력 소비가 증가합니다.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
+    <value>NVIDIA 동적 P-State 비활성화</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
+    <value>NVIDIA GPU를 고정된 성능 상태로 잠그도록 비활성화DynamicPstate=1로 설정하여 클럭 속도 변동을 방지합니다. 유휴 전력 소모량이 증가합니다.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
+    <value>NVIDIA Async P-State 비활성화</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
+    <value>NVIDIA 비동기 전원 상태 전환을 방지하고 VR/실시간 앱에 결정적인 성능을 제공하려면 비활성화ASyncPstates=1로 설정합니다.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>Intel Async Flip 비활성화</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>Intel iGPU에서 동기식 버퍼 반전을 강제하도록 Display1_DisableAsyncFlips=1을 설정하여 입력-디스플레이 지연 시간과 화면 찢김을 줄입니다.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
+    <value>Intel Adaptive V-Sync 비활성화</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
+    <value>안정적인 타이밍 대신 고정 V-Sync를 사용하여 프레임 속도에 동적으로 조정되는 Intel의 적응형 V-Sync를 비활성화하려면 AdaptiveVsyncEnable=0을 설정합니다.</value>
+  </data>
+  <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
+    <value>작업 표시줄</value>
+  </data>
+  <data name="Customize.Preferences.Section.Appearance" xml:space="preserve">
+    <value>모양</value>
+  </data>
+  <data name="Customize.Preferences.Section.Explorer" xml:space="preserve">
+    <value>탐색기</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarNewsAndInterests.Name" xml:space="preserve">
+    <value>작업 표시줄 뉴스 및 관심분야</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarNewsAndInterests.Description" xml:space="preserve">
+    <value>작업 표시줄의 뉴스 및 관심분야 위젯과 MSN 피드 배경 업데이트를 제어합니다.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarSearchBox.Name" xml:space="preserve">
+    <value>작업 표시줄 검색 상자</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarSearchBox.Description" xml:space="preserve">
+    <value>작업 표시줄의 검색 상자 표시 여부를 제어합니다.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarChatButton.Name" xml:space="preserve">
+    <value>작업 표시줄 채팅 버튼</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarChatButton.Description" xml:space="preserve">
+    <value>작업 표시줄에서 채팅(팀) 버튼의 가시성을 제어합니다.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarWidgets.Name" xml:space="preserve">
+    <value>작업 표시줄 위젯</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarWidgets.Description" xml:space="preserve">
+    <value>작업 표시줄에 있는 위젯 버튼의 가시성을 제어합니다.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarWidgets.Recommendation.Reason" xml:space="preserve">
+    <value>위젯을 끄면 뉴스와 날씨를 가져오는 백그라운드 웹 서비스가 제거되어 유휴 네트워크 및 메모리 사용량이 줄어듭니다.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Name" xml:space="preserve">
+    <value>작업 표시줄 정렬</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Description" xml:space="preserve">
+    <value>작업 표시줄 정렬을 가운데와 왼쪽 간에 전환합니다.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Options.Center" xml:space="preserve">
+    <value>가운데</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Options.Left" xml:space="preserve">
+    <value>왼쪽</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerCompactMode.Name" xml:space="preserve">
+    <value>탐색기 컴팩트 모드</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerCompactMode.Description" xml:space="preserve">
+    <value>더 조밀하게 보기 위해 파일 탐색기에서 항목 사이의 간격을 줄입니다.</value>
+  </data>
+  <data name="Customize.Preferences.SnapAssistFlyout.Name" xml:space="preserve">
+    <value>스냅 레이아웃 플라이아웃</value>
+  </data>
+  <data name="Customize.Preferences.SnapAssistFlyout.Description" xml:space="preserve">
+    <value>최대화 버튼 위로 마우스를 가져갈 때 나타나는 스냅 레이아웃 메뉴를 제어합니다.</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerItemCheckboxes.Name" xml:space="preserve">
+    <value>탐색기 항목 확인란</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerItemCheckboxes.Description" xml:space="preserve">
+    <value>파일 탐색기에서 항목을 선택할 때 확인란을 표시합니다.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarTaskViewButton.Name" xml:space="preserve">
+    <value>작업 표시줄 작업 보기 버튼</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
+    <value>작업 표시줄에 있는 작업 보기 버튼의 가시성을 제어합니다.</value>
+  </data>
+  <data name="Customize.Preferences.MeetNow.Name" xml:space="preserve">
+    <value>지금 만나보세요</value>
+  </data>
+  <data name="Customize.Preferences.MeetNow.Description" xml:space="preserve">
+    <value>작업 표시줄 알림 영역의 지금 미팅(Skype) 아이콘을 제어합니다.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarPeople.Name" xml:space="preserve">
+    <value>작업 표시줄 사람</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarPeople.Description" xml:space="preserve">
+    <value>빠른 연락처 액세스를 위해 작업 표시줄의 사람 아이콘을 제어합니다.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarEndTask.Name" xml:space="preserve">
+    <value>작업 표시줄 작업 종료</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarEndTask.Description" xml:space="preserve">
+    <value>빠른 프로세스 종료를 위해 작업 표시줄 마우스 오른쪽 버튼 클릭 메뉴에 "작업 끝내기" 옵션을 추가합니다.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarEndTask.Recommendation.Reason" xml:space="preserve">
+    <value>작업 표시줄에서 작업 종료를 사용하면 작업 관리자를 열지 않고도 정지된 앱을 즉시 종료할 수 있습니다.</value>
+  </data>
+  <data name="Customize.Preferences.DarkMode.Name" xml:space="preserve">
+    <value>다크 모드</value>
+  </data>
+  <data name="Customize.Preferences.DarkMode.Description" xml:space="preserve">
+    <value>시스템 앱, 설정 및 셸 요소에 대한 어두운 모드입니다.</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerSyncNotifications.Name" xml:space="preserve">
+    <value>탐색기 동기화 알림</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerSyncNotifications.Description" xml:space="preserve">
+    <value>파일 탐색기에서 OneDrive 및 클라우드 동기화 공급자 알림을 제어합니다.</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerSyncNotifications.Recommendation.Reason" xml:space="preserve">
+    <value>동기화 알림을 비활성화하면 OneDrive 팝업으로 인해 Explorer에서 파일 탐색이 중단되지 않습니다.</value>
+  </data>
+  <data name="Customize.Preferences.SystemSuggestions.Name" xml:space="preserve">
+    <value>시스템 제안</value>
+  </data>
+  <data name="Customize.Preferences.SystemSuggestions.Description" xml:space="preserve">
+    <value>설정 패널에서 Windows 팁과 앱 제안을 제어합니다.</value>
+  </data>
+  <data name="Customize.Preferences.SystemSuggestions.Recommendation.Reason" xml:space="preserve">
+    <value>시스템 제안을 끄면 Windows에서 사용자가 요청하지 않은 앱 및 설정을 권장하지 않습니다.</value>
+  </data>
+  <data name="Customize.Preferences.ToastNotifications.Name" xml:space="preserve">
+    <value>토스트 알림</value>
+  </data>
+  <data name="Customize.Preferences.ToastNotifications.Description" xml:space="preserve">
+    <value>토스트 팝업 알림 및 잠금 화면 알림을 제어합니다.</value>
+  </data>
+  <data name="Customize.Preferences.ShowFileExtensions.Name" xml:space="preserve">
+    <value>파일 확장자 표시</value>
+  </data>
+  <data name="Customize.Preferences.ShowFileExtensions.Description" xml:space="preserve">
+    <value>파일 탐색기에 파일 확장자(예: .txt, .exe)를 표시합니다.</value>
+  </data>
+  <data name="Customize.Preferences.ShowFileExtensions.Recommendation.Reason" xml:space="preserve">
+    <value>파일 확장자를 표시하면 의심스러운 파일 형식을 쉽게 찾아낼 수 있으며 가짜 아이콘 뒤에 악성 코드가 숨어 있는 것을 방지할 수 있습니다.</value>
+  </data>
+  <data name="Customize.Preferences.ShowHiddenFiles.Name" xml:space="preserve">
+    <value>숨겨진 파일 표시</value>
+  </data>
+  <data name="Customize.Preferences.ShowHiddenFiles.Description" xml:space="preserve">
+    <value>파일 탐색기에 숨겨진 파일과 폴더를 표시합니다.</value>
+  </data>
+  <data name="Customize.Preferences.ShowHiddenFiles.Recommendation.Reason" xml:space="preserve">
+    <value>숨겨진 파일에는 관리해야 할 시스템 및 구성 데이터가 포함되어 있습니다. 이를 표시하면 시스템을 완전히 볼 수 있습니다.</value>
+  </data>
+  <data name="Customize.Preferences.ClipboardHistory.Name" xml:space="preserve">
+    <value>클립보드 기록</value>
+  </data>
+  <data name="Customize.Preferences.ClipboardHistory.Description" xml:space="preserve">
+    <value>Win+V로 액세스할 수 있는 여러 복사 항목의 클립보드 기록입니다.</value>
+  </data>
+  <data name="Customize.Preferences.ClipboardHistory.Recommendation.Reason" xml:space="preserve">
+    <value>클립보드 기록을 사용하면 Win+V를 통해 여러 개의 과거 복사본을 불러올 수 있어 반복적인 복사-붙여넣기 작업 과정의 속도가 빨라집니다.</value>
+  </data>
+  <data name="Customize.Preferences.WindowShake.Name" xml:space="preserve">
+    <value>창 흔들림</value>
+  </data>
+  <data name="Customize.Preferences.WindowShake.Description" xml:space="preserve">
+    <value>창을 흔들어 열려 있는 다른 모든 창을 최소화합니다.</value>
+  </data>
+  <data name="Customize.Preferences.ClassicContextMenu.Name" xml:space="preserve">
+    <value>클래식 상황에 맞는 메뉴</value>
+  </data>
+  <data name="Customize.Preferences.ClassicContextMenu.Description" xml:space="preserve">
+    <value>Windows 11의 Windows 10 스타일 컨텍스트 메뉴.</value>
+  </data>
+  <data name="Customize.Preferences.ClassicContextMenu.Recommendation.Reason" xml:space="preserve">
+    <value>클래식 메뉴는 Windows 11의 압축 메뉴를 확장하는 데 필요한 추가 클릭 없이 모든 옵션을 한 번에 표시합니다.</value>
+  </data>
+  <data name="Customize.Preferences.ShowSecondsInSystemClock.Name" xml:space="preserve">
+    <value>시스템 시계의 초</value>
+  </data>
+  <data name="Customize.Preferences.ShowSecondsInSystemClock.Description" xml:space="preserve">
+    <value>작업 표시줄 시계에 초를 표시합니다.</value>
+  </data>
+  <data name="Customize.Gaming.Section.GameSettings" xml:space="preserve">
+    <value>게임 설정</value>
+  </data>
+  <data name="Customize.Gaming.Section.Input" xml:space="preserve">
+    <value>입력</value>
+  </data>
+  <data name="Customize.Gaming.Section.Display" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="Customize.Gaming.GameMode.Name" xml:space="preserve">
+    <value>게임 모드</value>
+  </data>
+  <data name="Customize.Gaming.GameMode.Description" xml:space="preserve">
+    <value>게임 프로세스 및 Windows 업데이트 동작을 위한 Windows 게임 모드.</value>
+  </data>
+  <data name="Customize.Gaming.GameMode.Recommendation.Reason" xml:space="preserve">
+    <value>게임 모드는 원활한 성능을 위해 게임 프로세스의 우선 순위를 자동으로 지정하고 게임 중에 Windows 업데이트 알림을 일시 중단합니다.</value>
+  </data>
+  <data name="Customize.Gaming.GameBar.Name" xml:space="preserve">
+    <value>Xbox 게임 바</value>
+  </data>
+  <data name="Customize.Gaming.GameBar.Description" xml:space="preserve">
+    <value>Xbox Game Bar 오버레이, 시작 패널 및 관련 배경 기능을 제어합니다.</value>
+  </data>
+  <data name="Customize.Gaming.GameBar.Recommendation.Reason" xml:space="preserve">
+    <value>게임 바를 비활성화하면 시스템 리소스가 확보되고 배경 오버레이가 게임을 방해하는 것을 방지할 수 있습니다.</value>
+  </data>
+  <data name="Customize.Gaming.BackgroundRecording.Name" xml:space="preserve">
+    <value>백그라운드 녹화(DVR)</value>
+  </data>
+  <data name="Customize.Gaming.BackgroundRecording.Description" xml:space="preserve">
+    <value>자동 백그라운드 게임 녹화(게임 DVR) 및 앱 캡처를 제어합니다.</value>
+  </data>
+  <data name="Customize.Gaming.BackgroundRecording.Recommendation.Reason" xml:space="preserve">
+    <value>백그라운드 녹화를 비활성화하면 DVR이 게임 플레이를 자동으로 캡처하지 못하게 되어 CPU 및 디스크 쓰기 주기가 절약됩니다.</value>
+  </data>
+  <data name="Customize.Gaming.MouseAcceleration.Name" xml:space="preserve">
+    <value>마우스 가속</value>
+  </data>
+  <data name="Customize.Gaming.MouseAcceleration.Description" xml:space="preserve">
+    <value>커서 이동을 위한 Windows 마우스 가속 설정입니다.</value>
+  </data>
+  <data name="Customize.Gaming.MouseAcceleration.Recommendation.Reason" xml:space="preserve">
+    <value>가속을 비활성화하면 더 나은 조준 정밀도와 근육 기억 일관성을 위해 원시 선형 마우스 입력이 제공됩니다.</value>
+  </data>
+  <data name="Customize.Gaming.FullscreenOptimizations.Name" xml:space="preserve">
+    <value>전체 화면 최적화</value>
+  </data>
+  <data name="Customize.Gaming.FullscreenOptimizations.Description" xml:space="preserve">
+    <value>Windows DWM 기반 전체 화면 최적화 설정.</value>
+  </data>
+  <data name="Customize.Gaming.FullscreenOptimizations.Recommendation.Reason" xml:space="preserve">
+    <value>게임 내 끊김 현상, 입력 지연 또는 검은색 화면이 발생하는 경우(특히 경쟁 슈팅 게임에서) 이 기능을 비활성화하세요.</value>
+  </data>
+  <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Name" xml:space="preserve">
+    <value>하드웨어 가속 GPU 스케줄링</value>
+  </data>
+  <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Description" xml:space="preserve">
+    <value>GPU 비디오 메모리 스케줄링 모드. 호환되는 GPU 드라이버가 필요합니다.</value>
+  </data>
+  <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Recommendation.Reason" xml:space="preserve">
+    <value>GPU 스케줄링은 프레임 관리를 CPU에서 GPU로 오프로드하여 디스플레이 대기 시간을 줄이고 프레임 속도를 향상시킵니다.</value>
+  </data>
+  <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
+    <value>무엇을 하는지 정확히 알고 있을 때만 변경하세요.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DownloadFailed" xml:space="preserve">
+    <value>optimizerDuck의 전원 계획을 다운로드하지 못했습니다.</value>
+  </data>
+  <data name="Settings.About.Acknowledgements.Title" xml:space="preserve">
+    <value>감사의 말</value>
+  </data>
+  <data name="Settings.About.Acknowledgements.Description" xml:space="preserve">
+    <value>optimizerDuck은 다음 오픈 소스 소프트웨어 및 리소스를 통해 가능해졌습니다.</value>
+  </data>
+  <data name="RestorePoint.Title" xml:space="preserve">
+    <value>시스템 복원</value>
+  </data>
+  <data name="RestorePointDialog.Description" xml:space="preserve">
+    <value>복원 지점을 사용하면 시스템을 이전 상태로 되돌릴 수 있습니다.
+변경 사항을 적용하기 전에 Windows를 보호하기 위한 안전 조치입니다.</value>
+  </data>
+  <data name="RestorePointDialog.Help" xml:space="preserve">
+    <value>응용 프로그램은 자동으로 시스템 복원을 활성화하고 "optimizerDuck..."이라는 검사점을 생성합니다.
+이렇게 하면 문제가 발생하더라도 언제든지 돌아갈 수 있습니다.</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Error.Title" xml:space="preserve">
+    <value>시스템 복원을 생성하거나 활성화할 수 없습니다.</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Error.Message" xml:space="preserve">
+    <value>시스템 복원을 생성하거나 활성화하는 동안 오류가 발생했습니다. 수동으로 생성해 보세요.</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Warning.LimitReached" xml:space="preserve">
+    <value>지난 24시간 이내에 복원 지점이 이미 생성되었습니다.</value>
+  </data>
+  <data name="RestorePoint.Progress.Creating" xml:space="preserve">
+    <value>복원 지점을 만드는 중...</value>
+  </data>
+  <data name="RestorePoint.Progress.Enabling" xml:space="preserve">
+    <value>시스템 복원 활성화 중...</value>
+  </data>
+  <data name="RestorePoint.Progress.Retrying" xml:space="preserve">
+    <value>복원 지점 생성을 다시 시도하는 중...</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Success.Title" xml:space="preserve">
+    <value>복원 지점이 성공적으로 생성되었습니다.</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Success.Message" xml:space="preserve">
+    <value>이름이 {0}인 복원 지점이 생성되었습니다.</value>
+  </data>
+  <data name="Snackbar.OpenLinkFailed.Title" xml:space="preserve">
+    <value>경로를 열 수 없습니다.</value>
+  </data>
+  <data name="Snackbar.OpenLinkFailed.Message" xml:space="preserve">
+    <value>경로를 여는 동안 오류가 발생했습니다. 로그를 확인해주세요.</value>
+  </data>
+  <data name="Snackbar.OpenFailed.Message" xml:space="preserve">
+    <value>폴더나 파일을 여는 동안 오류가 발생했습니다. 로그를 확인해주세요.</value>
+  </data>
+  <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
+    <value>폴더나 파일을 열 수 없습니다</value>
+  </data>
+  <data name="Button.ViewLatestRelease" xml:space="preserve">
+    <value>최신 릴리스 보기</value>
+  </data>
+  <data name="BloatwareDialog.Title" xml:space="preserve">
+    <value>{0} AppX 패키지 제거 중</value>
+  </data>
+  <data name="BloatwareDialog.Removing" xml:space="preserve">
+    <value>{0}({1}/{2}) 제거</value>
+  </data>
+  <data name="Bloatware.Header.Title" xml:space="preserve">
+    <value>블로트웨어</value>
+  </data>
+  <data name="Bloatware.Menu.Remove" xml:space="preserve">
+    <value>제거({0})</value>
+  </data>
+  <data name="Bloatware.Menu.Refresh" xml:space="preserve">
+    <value>새로 고침</value>
+  </data>
+  <data name="Bloatware.Empty.Title" xml:space="preserve">
+    <value>불필요한 앱이 발견되지 않았습니다. ̅\_(ツ)_/̅</value>
+  </data>
+  <data name="Bloatware.Empty.Description" xml:space="preserve">
+    <value>제거할 수 있는 AppX 패키지가 없습니다. 이미 깔끔하군요!</value>
+  </data>
+  <data name="Bloatware.Loading" xml:space="preserve">
+    <value>제거 가능한 앱을 검색하는 중...</value>
+  </data>
+  <data name="Bloatware.Loading.Hint" xml:space="preserve">
+    <value>애플리케이션이 설치된 패키지를 검색하는 동안 잠시 시간이 걸릴 수 있습니다.</value>
+  </data>
+  <data name="Sidebar.Bloatware" xml:space="preserve">
+    <value>블로트웨어</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.Title" xml:space="preserve">
+    <value>{0}개의 앱을 제거하시겠습니까?</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.Message" xml:space="preserve">
+    <value>삭제하려고 합니다: {0}</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.Description" xml:space="preserve">
+    <value>제거하기 전에 선택한 앱을 검토하세요. 확실한 경우에만 진행하세요.</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.SelectedList" xml:space="preserve">
+    <value>선택된 애플리케이션</value>
+  </data>
+  <data name="Settings.Bloatware.Header" xml:space="preserve">
+    <value>블로트웨어</value>
+  </data>
+  <data name="Settings.Bloatware.RemoveProvisioned.Title" xml:space="preserve">
+    <value>프로비저닝된 패키지 제거</value>
+  </data>
+  <data name="Settings.Bloatware.RemoveProvisioned.Description" xml:space="preserve">
+    <value>설치된 AppX 패키지를 제거할 때 해당 프로비저닝된 패키지도 제거하여 새 사용자의 자동 재설치를 방지합니다.</value>
+  </data>
+  <data name="Dashboard.UpdateInfoBar.Message" xml:space="preserve">
+    <value>optimizerDuck(v{0})을 사용할 수 있습니다!
+지금 업데이트하여 최신 기능, 개선 사항, 버그 수정을 즐겨보세요.</value>
+  </data>
+  <data name="Common.Search.Placeholder" xml:space="preserve">
+    <value>검색...</value>
+  </data>
+  <data name="Common.Filter.All" xml:space="preserve">
+    <value>모두</value>
+  </data>
+  <data name="Common.SortBy.Default" xml:space="preserve">
+    <value>기본</value>
+  </data>
+  <data name="Common.SortBy.Name" xml:space="preserve">
+    <value>이름</value>
+  </data>
+  <data name="Common.SortBy.Risk" xml:space="preserve">
+    <value>위험</value>
+  </data>
+  <data name="Common.SortBy.Publisher" xml:space="preserve">
+    <value>발행자</value>
+  </data>
+  <data name="Common.SortBy.Size" xml:space="preserve">
+    <value>크기</value>
+  </data>
+  <data name="Common.SortBy.Path" xml:space="preserve">
+    <value>경로</value>
+  </data>
+  <data name="Optimizer.Menu.ApplyAllSafe" xml:space="preserve">
+    <value>모두 안전 적용</value>
+  </data>
+  <data name="Optimizer.Menu.ApplyAll" xml:space="preserve">
+    <value>모든 것을 적용</value>
+  </data>
+  <data name="Optimizer.Menu.ViewSource" xml:space="preserve">
+    <value>소스 보기</value>
+  </data>
+  <data name="Bloatware.Menu.SelectAllSafe" xml:space="preserve">
+    <value>모두 안전 선택</value>
+  </data>
+  <data name="Bloatware.Menu.DeselectAllSafe" xml:space="preserve">
+    <value>안전 모두 선택 해제</value>
+  </data>
+  <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
+    <value>적용 숨기기</value>
+  </data>
+  <data name="Optimizer.Menu.ApplyMenu" xml:space="preserve">
+    <value>적용</value>
+  </data>
+  <data name="Optimizer.Menu.BatchApply.Title" xml:space="preserve">
+    <value>최적화 적용</value>
+  </data>
+  <data name="Bloatware.Search.NoResults" xml:space="preserve">
+    <value>검색된 결과가 없습니다. 다른 검색어나 필터를 사용해 보세요.</value>
+  </data>
+  <data name="Common.Filter" xml:space="preserve">
+    <value>필터</value>
+  </data>
+  <data name="Common.SortBy" xml:space="preserve">
+    <value>정렬 기준</value>
+  </data>
+  <data name="Sidebar.DiskCleanup" xml:space="preserve">
+    <value>디스크 정리</value>
+  </data>
+  <data name="DiskCleanup.Header.Title" xml:space="preserve">
+    <value>디스크 정리</value>
+  </data>
+  <data name="DiskCleanup.Header.Description" xml:space="preserve">
+    <value>임시 파일과 캐시를 제거하여 디스크 공간을 확보하세요.</value>
+  </data>
+  <data name="DiskCleanup.TotalSpace" xml:space="preserve">
+    <value>총 회수 가능 공간</value>
+  </data>
+  <data name="DiskCleanup.Button.Scan" xml:space="preserve">
+    <value>검사</value>
+  </data>
+  <data name="DiskCleanup.Button.SelectAll" xml:space="preserve">
+    <value>모두 선택</value>
+  </data>
+  <data name="DiskCleanup.Button.DeselectAll" xml:space="preserve">
+    <value>모두 선택 취소</value>
+  </data>
+  <data name="DiskCleanup.Scanning" xml:space="preserve">
+    <value>스캐닝...</value>
+  </data>
+  <data name="DiskCleanup.Loading" xml:space="preserve">
+    <value>정리 항목 로드 중...</value>
+  </data>
+  <data name="DiskCleanup.Complete.Title" xml:space="preserve">
+    <value>정리 완료</value>
+  </data>
+  <data name="DiskCleanup.Complete.Message" xml:space="preserve">
+    <value>{1}에서 {0}의 디스크 공간을 확보했습니다.</value>
+  </data>
+  <data name="DiskCleanup.Error.Title" xml:space="preserve">
+    <value>정리 오류</value>
+  </data>
+  <data name="DiskCleanup.Error.Message" xml:space="preserve">
+    <value>일부 파일을 삭제할 수 없습니다. 다른 프로세스에서 사용 중일 수 있습니다.</value>
+  </data>
+  <data name="DiskCleanup.Item.TempFiles" xml:space="preserve">
+    <value>임시 파일</value>
+  </data>
+  <data name="DiskCleanup.Item.TempFiles.Description" xml:space="preserve">
+    <value>애플리케이션에서 생성된 사용자 임시 파일(.net temp 디렉터리 제외)</value>
+  </data>
+  <data name="DiskCleanup.Item.SystemTemp" xml:space="preserve">
+    <value>시스템 임시 파일</value>
+  </data>
+  <data name="DiskCleanup.Item.SystemTemp.Description" xml:space="preserve">
+    <value>Windows 시스템 임시 파일</value>
+  </data>
+  <data name="DiskCleanup.Item.WindowsUpdate" xml:space="preserve">
+    <value>Windows 업데이트 캐시</value>
+  </data>
+  <data name="DiskCleanup.Item.WindowsUpdate.Description" xml:space="preserve">
+    <value>더 이상 필요하지 않은 Windows 업데이트 파일을 다운로드했습니다.</value>
+  </data>
+  <data name="DiskCleanup.Item.Prefetch" xml:space="preserve">
+    <value>프리페치 파일</value>
+  </data>
+  <data name="DiskCleanup.Item.Prefetch.Description" xml:space="preserve">
+    <value>로딩 속도를 높이는 데 사용되는 애플리케이션 프리패치 데이터</value>
+  </data>
+  <data name="DiskCleanup.Item.Thumbnails" xml:space="preserve">
+    <value>썸네일 캐시</value>
+  </data>
+  <data name="DiskCleanup.Item.Thumbnails.Description" xml:space="preserve">
+    <value>Explorer 파일 미리보기를 위해 캐시된 축소판 이미지</value>
+  </data>
+  <data name="DiskCleanup.Item.RecycleBin" xml:space="preserve">
+    <value>휴지통</value>
+  </data>
+  <data name="DiskCleanup.Item.RecycleBin.Description" xml:space="preserve">
+    <value>삭제한 파일이 휴지통에 계속 남아있습니다.</value>
+  </data>
+  <data name="DiskCleanup.Item.ErrorReports" xml:space="preserve">
+    <value>오류 보고서</value>
+  </data>
+  <data name="DiskCleanup.Item.ErrorReports.Description" xml:space="preserve">
+    <value>Windows 오류 보고서 및 크래시 덤프 파일</value>
+  </data>
+  <data name="DiskCleanup.Item.OldWindowsInstallation" xml:space="preserve">
+    <value>이전 Windows 설치(Windows.old)</value>
+  </data>
+  <data name="DiskCleanup.Item.OldWindowsInstallation.Description" xml:space="preserve">
+    <value>주요 업데이트 또는 업그레이드 후에도 유지되는 이전 Windows 설치 파일</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.DeviceType.Laptop" xml:space="preserve">
+    <value>랩탑</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.DeviceType.Desktop" xml:space="preserve">
+    <value>데스크탑</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.Build" xml:space="preserve">
+    <value>{0} 빌드</value>
+  </data>
+  <data name="Bloatware.Header.Description" xml:space="preserve">
+    <value>필요하지 않은 사전 설치된 애플리케이션 관리 및 제거</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Header" xml:space="preserve">
+    <value>시스템 정보</value>
+  </data>
+  <data name="DiskCleanup.ItemsSelected" xml:space="preserve">
+    <value>{0}({1}개 항목 선택됨)</value>
+  </data>
+  <data name="DiskCleanup.Button.Clean" xml:space="preserve">
+    <value>정리</value>
+  </data>
+  <data name="DiskCleanup.Button.CleanSelected" xml:space="preserve">
+    <value>선택 항목 정리({0})</value>
+  </data>
+  <data name="DiskCleanup.EmptySize" xml:space="preserve">
+    <value>빈 크기</value>
+  </data>
+  <data name="DiskCleanup.FilesCount" xml:space="preserve">
+    <value>{0} 파일</value>
+  </data>
+  <data name="DiskCleanup.ItemsAndFilesSelected" xml:space="preserve">
+    <value>{0}개 ​​선택됨 • 항목 {1}개 • 파일 {2}개</value>
+  </data>
+  <data name="Settings.About.NeedHelp.Title" xml:space="preserve">
+    <value>도움이 필요하신가요?</value>
+  </data>
+  <data name="Sidebar.StartupManager" xml:space="preserve">
+    <value>스타트업 매니저</value>
+  </data>
+  <data name="StartupManager.Header.Title" xml:space="preserve">
+    <value>스타트업 매니저</value>
+  </data>
+  <data name="StartupManager.Header.Description" xml:space="preserve">
+    <value>Windows가 시작될 때 자동으로 실행되는 응용 프로그램과 작업을 관리합니다.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other" xml:space="preserve">
+    <value>기타</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
+    <value>이 최적화의 롤백 데이터가 담긴 JSON 파일을 엽니다.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
+    <value>브라우저에서 이 최적화를 위한 소스 코드를 엽니다.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
+    <value>GitHub에서 소스 보기</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
+    <value>위험 수준</value>
+  </data>
+  <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
+    <value>기술적인 세부사항</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Id" xml:space="preserve">
+    <value>최적화 ID</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Class" xml:space="preserve">
+    <value>클래스 이름</value>
+  </data>
+  <data name="StartupManager.Apps.Title" xml:space="preserve">
+    <value>스타트업 앱</value>
+  </data>
+  <data name="StartupManager.Apps.Description" xml:space="preserve">
+    <value>Windows가 시작될 때 자동으로 실행되는 응용 프로그램입니다.</value>
+  </data>
+  <data name="StartupManager.Apps.CountSuffix" xml:space="preserve">
+    <value>{0}개 ​​항목</value>
+  </data>
+  <data name="StartupManager.Tasks.Title" xml:space="preserve">
+    <value>예약된 작업(로그온)</value>
+  </data>
+  <data name="StartupManager.Tasks.Description" xml:space="preserve">
+    <value>로그온 시 또는 일정에 따라 실행되도록 구성된 Windows 작업입니다.</value>
+  </data>
+  <data name="StartupManager.Tasks.CountSuffix" xml:space="preserve">
+    <value>{0} 작업</value>
+  </data>
+  <data name="StartupManager.Loading" xml:space="preserve">
+    <value>시작 항목을 검색하는 중...</value>
+  </data>
+  <data name="StartupManager.Loading.Hint" xml:space="preserve">
+    <value>애플리케이션이 레지스트리 및 시작 폴더를 검색하는 동안 잠시 시간이 걸릴 수 있습니다.</value>
+  </data>
+  <data name="StartupManager.Empty.Title" xml:space="preserve">
+    <value>시작 항목 없음</value>
+  </data>
+  <data name="StartupManager.Empty.Description" xml:space="preserve">
+    <value>이 시스템에서는 시작 응용 프로그램이나 예약된 작업을 찾을 수 없습니다.</value>
+  </data>
+  <data name="StartupManager.Menu.Refresh" xml:space="preserve">
+    <value>새로 고침</value>
+  </data>
+  <data name="Common.Toggle.On" xml:space="preserve">
+    <value>~에</value>
+  </data>
+  <data name="Common.Toggle.Off" xml:space="preserve">
+    <value>끄기</value>
+  </data>
+  <data name="Common.SortBy.Status" xml:space="preserve">
+    <value>상태</value>
+  </data>
+  <data name="Common.Status.Applied" xml:space="preserve">
+    <value>적용된</value>
+  </data>
+  <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
+    <value>설정 열기</value>
+  </data>
+  <data name="StartupManager.Tasks.HideMicrosoft" xml:space="preserve">
+    <value>Microsoft 작업 숨기기</value>
+  </data>
+  <data name="Sidebar.ScheduledTasks" xml:space="preserve">
+    <value>예약된 작업</value>
+  </data>
+  <data name="ScheduledTasks.Header.Title" xml:space="preserve">
+    <value>예약된 작업</value>
+  </data>
+  <data name="ScheduledTasks.Header.Description" xml:space="preserve">
+    <value>Windows 예약 작업을 보고 관리합니다.</value>
+  </data>
+  <data name="ScheduledTasks.Loading" xml:space="preserve">
+    <value>예약된 작업 로드 중...</value>
+  </data>
+  <data name="ScheduledTasks.Loading.Hint" xml:space="preserve">
+    <value>시스템에서 예약된 모든 작업을 검색하는 동안 잠시 시간이 걸릴 수 있습니다...</value>
+  </data>
+  <data name="ScheduledTasks.HideMicrosoft" xml:space="preserve">
+    <value>Microsoft 작업 숨기기</value>
+  </data>
+  <data name="ScheduledTasks.Menu.CreateTask" xml:space="preserve">
+    <value>작업 만들기</value>
+  </data>
+  <data name="ScheduledTasks.Action.Details" xml:space="preserve">
+    <value>세부정보 보기</value>
+  </data>
+  <data name="ScheduledTasks.Action.Run" xml:space="preserve">
+    <value>실행</value>
+  </data>
+  <data name="ScheduledTasks.Action.Stop" xml:space="preserve">
+    <value>중지</value>
+  </data>
+  <data name="ScheduledTasks.Action.Delete" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="ScheduledTasks.Dialog.DeleteTitle" xml:space="preserve">
+    <value>예약된 작업 삭제</value>
+  </data>
+  <data name="ScheduledTasks.Dialog.DeleteMessage" xml:space="preserve">
+    <value>"{0}" 작업을 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.</value>
+  </data>
+  <data name="ScheduledTasks.Details.Path" xml:space="preserve">
+    <value>경로</value>
+  </data>
+  <data name="ScheduledTasks.Details.Description" xml:space="preserve">
+    <value>설명</value>
+  </data>
+  <data name="ScheduledTasks.Details.Author" xml:space="preserve">
+    <value>작성자</value>
+  </data>
+  <data name="ScheduledTasks.Details.State" xml:space="preserve">
+    <value>상태</value>
+  </data>
+  <data name="ScheduledTasks.Details.Triggers" xml:space="preserve">
+    <value>트리거</value>
+  </data>
+  <data name="ScheduledTasks.Details.Action" xml:space="preserve">
+    <value>동작</value>
+  </data>
+  <data name="ScheduledTasks.Details.LastRun" xml:space="preserve">
+    <value>마지막 실행</value>
+  </data>
+  <data name="ScheduledTasks.Details.NextRun" xml:space="preserve">
+    <value>다음 실행</value>
+  </data>
+  <data name="ScheduledTasks.Details.LastResult" xml:space="preserve">
+    <value>마지막 결과</value>
+  </data>
+  <data name="Common.Delete" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="Common.SortBy.State" xml:space="preserve">
+    <value>상태</value>
+  </data>
+  <data name="ScheduledTasks.Menu.OpenSettings" xml:space="preserve">
+    <value>작업 스케줄러 열기</value>
+  </data>
+  <data name="ScheduledTasks.Details.Name" xml:space="preserve">
+    <value>이름</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Enabled.Title" xml:space="preserve">
+    <value>작업 활성화됨</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Disabled.Title" xml:space="preserve">
+    <value>작업 비활성화됨</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Toggle.Message" xml:space="preserve">
+    <value>{0}이(가) 성공적으로 업데이트되었습니다.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Run.Title" xml:space="preserve">
+    <value>작업이 시작되었습니다</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Run.Message" xml:space="preserve">
+    <value>이제 {0}이(가) 실행 중입니다.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Stop.Title" xml:space="preserve">
+    <value>작업이 중지되었습니다</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Stop.Message" xml:space="preserve">
+    <value>{0}이(가) 중지되었습니다.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Delete.Title" xml:space="preserve">
+    <value>작업이 삭제되었습니다.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Delete.Message" xml:space="preserve">
+    <value>{0}이(가) 삭제되었습니다.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Create.Title" xml:space="preserve">
+    <value>작업이 생성되었습니다.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Create.Message" xml:space="preserve">
+    <value>{0}이(가) 성공적으로 생성되었습니다.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Error.Title" xml:space="preserve">
+    <value>오류</value>
+  </data>
+  <data name="Settings.About.NeedHelp.Description" xml:space="preserve">
+    <value>최적화에 도움이 필요하거나 질문이 있는 경우 커뮤니티에 가입하여 빠른 지원을 받으세요.</value>
+  </data>
+  <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
+    <value>작업을 찾을 수 없습니다: {0}</value>
+  </data>
+  <data name="Service.Registry.Name" xml:space="preserve">
+    <value>목록</value>
+  </data>
+  <data name="Service.Service.Name" xml:space="preserve">
+    <value>서비스</value>
+  </data>
+  <data name="Service.ScheduledTask.Name" xml:space="preserve">
+    <value>예약된 작업</value>
+  </data>
+  <data name="Service.Shell.Name" xml:space="preserve">
+    <value>셸</value>
+  </data>
+  <data name="Service.Registry.Description.Write" xml:space="preserve">
+    <value>쓰기 레지스트리 값: {0}\{1}</value>
+  </data>
+  <data name="Service.Registry.Description.Delete" xml:space="preserve">
+    <value>레지스트리 값 삭제: {0}\{1}</value>
+  </data>
+  <data name="Service.Service.Description.Change" xml:space="preserve">
+    <value>서비스 '{0}'을(를) {1} 시작으로 변경</value>
+  </data>
+  <data name="Service.ScheduledTask.Description.Enable" xml:space="preserve">
+    <value>예약된 작업 활성화: {0}</value>
+  </data>
+  <data name="Service.ScheduledTask.Description.Disable" xml:space="preserve">
+    <value>예약된 작업 비활성화: {0}</value>
+  </data>
+  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedDisable" xml:space="preserve">
+    <value>액세스가 거부되었습니다. 작업 비활성화 {0}</value>
+  </data>
+  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedEnable" xml:space="preserve">
+    <value>액세스가 거부되었습니다. 활성화 작업 {0}</value>
+  </data>
+  <data name="Revert.Registry.Description.Restore" xml:space="preserve">
+    <value>복원 레지스트리 값: {0}\{1}</value>
+  </data>
+  <data name="Revert.Registry.Description.Delete" xml:space="preserve">
+    <value>레지스트리 값 삭제: {0}\{1}</value>
+  </data>
+  <data name="Revert.Service.Description.Restore" xml:space="preserve">
+    <value>서비스 '{0}'을(를) {1} 시작으로 복원</value>
+  </data>
+  <data name="Revert.ScheduledTask.Description.Enable" xml:space="preserve">
+    <value>예약된 작업 활성화: {0}</value>
+  </data>
+  <data name="Revert.ScheduledTask.Description.Disable" xml:space="preserve">
+    <value>예약된 작업 비활성화: {0}</value>
+  </data>
+  <data name="Revert.Shell.Description.Run" xml:space="preserve">
+    <value>{0} 명령 실행: {1}</value>
+  </data>
+  <data name="Revert.Shell.Error.UnknownShellType" xml:space="preserve">
+    <value>알 수 없는 쉘 유형</value>
+  </data>
+  <data name="Revert.Shell.Error.CommandFailed" xml:space="preserve">
+    <value>종료 코드 {0}으로 인해 되돌리기 명령이 실패했습니다.</value>
+  </data>
+  <data name="Revert.UsbPower.Error.CommandFailed" xml:space="preserve">
+    <value>종료 코드 {0}으로 인해 USB 전원 복구에 실패했습니다.</value>
+  </data>
+  <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
+    <value>완료 알림 표시</value>
+  </data>
+  <data name="Settings.Optimize.ShowCompletionNotification.Description" xml:space="preserve">
+    <value>최적화가 성공적으로 적용되거나 되돌려지면 알림을 표시합니다.</value>
+  </data>
+  <data name="Optimizations.Loading" xml:space="preserve">
+    <value>최적화 로드 중...</value>
+  </data>
+  <data name="Optimizations.Loading.Hint" xml:space="preserve">
+    <value>기다리세요...</value>
+  </data>
+  <data name="Common.OpenFolder" xml:space="preserve">
+    <value>폴더 열기</value>
+  </data>
+  <data name="Common.Other" xml:space="preserve">
+    <value>기타</value>
+  </data>
+  <data name="Sidebar.Customize" xml:space="preserve">
+    <value>사용자 설정</value>
+  </data>
+  <data name="Customize.Title" xml:space="preserve">
+    <value>사용자 설정</value>
+  </data>
+  <data name="Customize.SystemFeatures.Name" xml:space="preserve">
+    <value>시스템</value>
+  </data>
+  <data name="Customize.SystemFeatures.Description" xml:space="preserve">
+    <value>핵심 시스템 기능 및 동작</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
+    <value>부팅 작업</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Input" xml:space="preserve">
+    <value>입력 설정</value>
+  </data>
+  <data name="Customize.SystemFeatures.NumLockOnBoot.Name" xml:space="preserve">
+    <value>부팅 시 NumLock</value>
+  </data>
+  <data name="Customize.SystemFeatures.NumLockOnBoot.Description" xml:space="preserve">
+    <value>Windows 로그인 화면의 NumLock 상태.</value>
+  </data>
+  <data name="Customize.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
+    <value>부팅 시 NumLock을 활성화하면 로그인 후 즉시 숫자 패드가 준비되므로 매번 수동으로 전환할 필요가 없습니다.</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Services" xml:space="preserve">
+    <value>서비스</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Power" xml:space="preserve">
+    <value>전원 설정</value>
+  </data>
+  <data name="Customize.Desktop.Name" xml:space="preserve">
+    <value>데스크탑</value>
+  </data>
+  <data name="Customize.Desktop.Description" xml:space="preserve">
+    <value>바탕화면 아이콘 및 바로가기 설정</value>
+  </data>
+  <data name="Customize.Desktop.Section.Icons" xml:space="preserve">
+    <value>데스크탑 아이콘</value>
+  </data>
+  <data name="Customize.Desktop.Section.Behaviors" xml:space="preserve">
+    <value>바로가기 동작</value>
+  </data>
+  <data name="Customize.Desktop.ShowThisPc.Name" xml:space="preserve">
+    <value>이 PC</value>
+  </data>
+  <data name="Customize.Desktop.ShowThisPc.Description" xml:space="preserve">
+    <value>바탕 화면에 이 PC 아이콘을 표시합니다.</value>
+  </data>
+  <data name="Customize.Desktop.ShowRecycleBin.Name" xml:space="preserve">
+    <value>휴지통</value>
+  </data>
+  <data name="Customize.Desktop.ShowRecycleBin.Description" xml:space="preserve">
+    <value>데스크탑에 휴지통 아이콘을 표시합니다.</value>
+  </data>
+  <data name="Customize.Desktop.ShowUserFiles.Name" xml:space="preserve">
+    <value>사용자 파일</value>
+  </data>
+  <data name="Customize.Desktop.ShowUserFiles.Description" xml:space="preserve">
+    <value>사용자 프로필 폴더를 바탕 화면 아이콘으로 표시합니다.</value>
+  </data>
+  <data name="Customize.Desktop.ShowNetwork.Name" xml:space="preserve">
+    <value>네트워크</value>
+  </data>
+  <data name="Customize.Desktop.ShowNetwork.Description" xml:space="preserve">
+    <value>데스크탑에 네트워크 아이콘을 표시합니다.</value>
+  </data>
+  <data name="Customize.Desktop.ShowControlPanel.Name" xml:space="preserve">
+    <value>제어판</value>
+  </data>
+  <data name="Customize.Desktop.ShowControlPanel.Description" xml:space="preserve">
+    <value>바탕 화면에 제어판 아이콘을 표시합니다.</value>
+  </data>
+  <data name="Customize.Desktop.ShowDesktopIcons.Name" xml:space="preserve">
+    <value>데스크탑 아이콘</value>
+  </data>
+  <data name="Customize.Desktop.ShowDesktopIcons.Description" xml:space="preserve">
+    <value>모든 바탕 화면 아이콘을 한 번에 표시하거나 숨깁니다.</value>
+  </data>
+  <data name="Customize.Desktop.ShortcutArrow.Name" xml:space="preserve">
+    <value>바로가기 화살표</value>
+  </data>
+  <data name="Customize.Desktop.ShortcutArrow.Description" xml:space="preserve">
+    <value>바탕화면 아이콘에 바로가기 화살표 오버레이를 표시하거나 숨깁니다.</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Name" xml:space="preserve">
+    <value>"이 PC"로 실행</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Description" xml:space="preserve">
+    <value>파일 탐색기 기본 위치 설정(이 PC 또는 빠른 액세스)</value>
+  </data>
+  <data name="Customize.Preferences.BingSearch.Name" xml:space="preserve">
+    <value>빙 검색</value>
+  </data>
+  <data name="Customize.Preferences.BingSearch.Description" xml:space="preserve">
+    <value>Windows 검색 및 시작 메뉴 결과에 Bing 웹 검색이 통합되었습니다.</value>
+  </data>
+  <data name="Customize.Preferences.BingSearch.Recommendation.Reason" xml:space="preserve">
+    <value>Bing 검색을 끄면 웹 쿼리가 지역 검색 결과를 복잡하게 만드는 것을 방지하고 검색 속도를 향상시킬 수 있습니다.</value>
+  </data>
+  <data name="Button.Accept" xml:space="preserve">
+    <value>동의</value>
+  </data>
+  <data name="LegalDialog.Title" xml:space="preserve">
+    <value>법적 계약</value>
+  </data>
+  <data name="LegalDialog.Intro.ThankYou" xml:space="preserve">
+    <value>optimizerDuck을 선택해 주셔서 감사합니다.</value>
+  </data>
+  <data name="LegalDialog.Intro.Safety" xml:space="preserve">
+    <value>투명성과 안전을 보장하기 위해 OptimizerDuck은 특정 시스템 설정 및 레지스트리 구성을 조정할 수 있습니다.</value>
+  </data>
+  <data name="LegalDialog.Intro.Review" xml:space="preserve">
+    <value>잠시 시간을 내어 다음 문서를 검토해 보세요. 계속하면 본 약관에 동의하는 것으로 간주됩니다.</value>
+  </data>
+  <data name="LegalDialog.Link.TermsOfService" xml:space="preserve">
+    <value>서비스 약관</value>
+  </data>
+  <data name="LegalDialog.Link.PrivacyPolicy" xml:space="preserve">
+    <value>개인 정보 보호 정책</value>
+  </data>
+  <data name="LegalDialog.Link.Disclaimer" xml:space="preserve">
+    <value>면책 조항</value>
+  </data>
+  <data name="LegalDialog.Warning.Title" xml:space="preserve">
+    <value>자신의 책임 하에 사용하세요</value>
+  </data>
+  <data name="LegalDialog.Warning.Message" xml:space="preserve">
+    <value>변경 사항을 적용하기 전에 백업을 만드는 것이 좋습니다.</value>
+  </data>
+  <data name="Dialog.PendingChanges.Title" xml:space="preserve">
+    <value>변경 사항 적용</value>
+  </data>
+  <data name="Dialog.PendingChanges.Content" xml:space="preserve">
+    <value>일부 변경 사항을 적용하려면 재시작이 필요합니다. 어떻게 하시겠습니까?</value>
+  </data>
+  <data name="Dialog.PendingChanges.CloseButton" xml:space="preserve">
+    <value>그냥 종료</value>
+  </data>
+  <data name="Dialog.PendingChanges.PrimaryButton" xml:space="preserve">
+    <value>PC 다시 시작</value>
+  </data>
+  <data name="Dialog.PendingChanges.SecondaryButton" xml:space="preserve">
+    <value>탐색기 다시 시작</value>
+  </data>
+  <data name="Settings.About.Documentation.Title" xml:space="preserve">
+    <value>문서</value>
+  </data>
+  <data name="Settings.About.Documentation.Description" xml:space="preserve">
+    <value>문서, 사용 가이드, FAQ를 확인하세요.</value>
+  </data>
+  <data name="TitleBar.Support" xml:space="preserve">
+    <value>프로젝트 지원</value>
+  </data>
+  <data name="TitleBar.Discord" xml:space="preserve">
+    <value>Discord 커뮤니티에 가입하세요</value>
+  </data>
+</root>
