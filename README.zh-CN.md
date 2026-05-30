@@ -52,7 +52,7 @@
 > 修改系统设置前，建议**手动创建系统还原点**。
 
 > [!NOTE]
-> 目前支持英语、越南语、繁体中文（由 [@abc0922001](https://github.com/abc0922001) 贡献）、简体中文（由 [@wcxu21](https://github.com/wcxu21) 贡献）、俄语（由 [@Foodhead](https://github.com/Foodhead) 贡献）和法语（由 [@Robocnop](https://github.com/Robocnop) 贡献）。
+> 目前支持英语、越南语、繁体中文（由 [@abc0922001](https://github.com/abc0922001) 贡献）、简体中文（由 [@wcxu21](https://github.com/wcxu21) 贡献）、俄语（由 [@Foodhead](https://github.com/Foodhead) 贡献）、法语（由 [@Robocnop](https://github.com/Robocnop) 贡献）和韩语（由 [@klfnn](https://github.com/klfnn) 贡献）。
 > 想要添加其他语言？请查看[贡献指南](./CONTRIBUTING.md)。
 
 ---

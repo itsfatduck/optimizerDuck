@@ -52,7 +52,7 @@ Mỗi ngôi sao giúp tạo động lực cho những cải tiến trong tương
 > Luôn tạo **điểm khôi phục hệ thống** trước khi thực hiện thay đổi.
 
 > [!NOTE]
-> Hỗ trợ tiếng Anh, tiếng Việt, tiếng Trung phồn thể (đóng góp bởi [@abc0922001](https://github.com/abc0922001)), tiếng Trung giản thể (đóng góp bởi [@wcxu21](https://github.com/wcxu21)), tiếng Nga (đóng góp bởi [@Foodhead](https://github.com/Foodhead)) và tiếng Pháp (đóng góp bởi [@Robocnop](https://github.com/Robocnop)).
+> Hỗ trợ tiếng Anh, tiếng Việt, tiếng Trung phồn thể (đóng góp bởi [@abc0922001](https://github.com/abc0922001)), tiếng Trung giản thể (đóng góp bởi [@wcxu21](https://github.com/wcxu21)), tiếng Nga (đóng góp bởi [@Foodhead](https://github.com/Foodhead)), tiếng Pháp (đóng góp bởi [@Robocnop](https://github.com/Robocnop)) và tiếng Hàn (đóng góp bởi [@klfnn](https://github.com/klfnn)).
 > Muốn thêm ngôn ngữ của bạn? Xem [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---

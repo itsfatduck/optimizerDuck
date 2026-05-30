@@ -52,7 +52,7 @@ Chaque étoile aide à motiver les améliorations futures.
 > Créez toujours un **point de restauration système** avant d'effectuer des modifications.
 
 > [!NOTE]
-> Disponible en anglais, vietnamien, chinois traditionnel (contribué par [@abc0922001](https://github.com/abc0922001)), chinois simplifié (contribué par [@wcxu21](https://github.com/wcxu21)), russe (contribué par [@Foodhead](https://github.com/Foodhead)) et français (contribué par [@Robocnop](https://github.com/Robocnop)).
+> Disponible en anglais, vietnamien, chinois traditionnel (contribué par [@abc0922001](https://github.com/abc0922001)), chinois simplifié (contribué par [@wcxu21](https://github.com/wcxu21)), russe (contribué par [@Foodhead](https://github.com/Foodhead)), français (contribué par [@Robocnop](https://github.com/Robocnop)) et coréen (contribué par [@klfnn](https://github.com/klfnn)).
 > Vous souhaitez ajouter votre langue ? Consultez [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
@@ -70,14 +70,14 @@ Il applique des tweaks système ciblés pour réduire la surcharge et bloquer le
 
 Plus de 30 tweaks répartis dans 6 catégories, chacun avec une description claire et un indice de risque pour que vous sachiez exactement ce que fait chaque modification avant de l'appliquer.
 
-| Catégorie               | Ce qu'elle couvre                                                                                                                                         |
-| :---------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Performance**         | Réglage du Service Host en fonction de votre RAM, ajustement de la priorité des processus, réduction de la latence du clavier et optimisation du planificateur multimédia pour une expérience de jeu plus fluide |
-| **Confidentialité**     | Désactiver la télémétrie Windows, le rapport d'erreurs, l'ID publicitaire, la localisation, Cortana, Copilot et les suggestions de contenu               |
-| **GPU**                 | Tweaks registre spéciques aux vendeurs pour GPU AMD, NVIDIA et Intel, couvrant les états d'alimentation, le clock gating et la latence d'affichage       |
-| **Alimentation**        | Désactiver l'hibernation et le démarrage rapide, désactiver la suspension sélective USB, installer un plan d'alimentation haute performance personnalisé et désactiver le throttling d'alimentation |
-| **Bloatware & Services**| Bloquer le comportement de réinstallation des applications OEM et affiner les types de démarrage pour plus de 200 services Windows                        |
-| **Expérience utilisateur**| Supprimer les délais d'affichage des menus, désactiver les effets visuels comme les animations de la barre des tâches et la transparence pour une réactivité accrue |
+| Catégorie                  | Ce qu'elle couvre                                                                                                                                                                                                |
+| :------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Performance**            | Réglage du Service Host en fonction de votre RAM, ajustement de la priorité des processus, réduction de la latence du clavier et optimisation du planificateur multimédia pour une expérience de jeu plus fluide |
+| **Confidentialité**        | Désactiver la télémétrie Windows, le rapport d'erreurs, l'ID publicitaire, la localisation, Cortana, Copilot et les suggestions de contenu                                                                       |
+| **GPU**                    | Tweaks registre spéciques aux vendeurs pour GPU AMD, NVIDIA et Intel, couvrant les états d'alimentation, le clock gating et la latence d'affichage                                                               |
+| **Alimentation**           | Désactiver l'hibernation et le démarrage rapide, désactiver la suspension sélective USB, installer un plan d'alimentation haute performance personnalisé et désactiver le throttling d'alimentation              |
+| **Bloatware & Services**   | Bloquer le comportement de réinstallation des applications OEM et affiner les types de démarrage pour plus de 200 services Windows                                                                               |
+| **Expérience utilisateur** | Supprimer les délais d'affichage des menus, désactiver les effets visuels comme les animations de la barre des tâches et la transparence pour une réactivité accrue                                              |
 
 > [!IMPORTANT]
 > Si vous pensez qu'il n'y a pas beaucoup d'optimisations, ne supposez pas qu'elles sont inefficaces ou obsolètes. optimizerDuck se concentre uniquement sur les optimisations qui ont été testées, mesurées ou largement approuvées par la communauté. Certains changements peuvent ne pas produire de différences immédiatement perceptibles, mais ils peuvent toujours aider votre système à fonctionner plus efficacement et de manière plus fiable au fil du temps.
@@ -94,13 +94,13 @@ Activez ou désactivez les paramètres Windows sans fouiller dans le registre ni
 
 ### Outils intégrés
 
-| Outil                 | Ce qu'il fait                                                                                                                                       |
-| :-------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **System Dashboard**  | Affiche les informations de votre CPU, RAM, GPU, disques de stockage et les détails du système d'exploitation dans un seul panneau                  |
-| **Startup Manager**   | Liste toutes les applications et tâches qui se lancent au démarrage, les active ou désactive, et ouvre leur emplacement de fichier                    |
-| **Scheduled Tasks**   | Parcourt, exécute, arrête, active, désactive ou supprime les tâches planifiées Windows                                                              |
+| Outil                 | Ce qu'il fait                                                                                                                                                                                                  |
+| :-------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **System Dashboard**  | Affiche les informations de votre CPU, RAM, GPU, disques de stockage et les détails du système d'exploitation dans un seul panneau                                                                             |
+| **Startup Manager**   | Liste toutes les applications et tâches qui se lancent au démarrage, les active ou désactive, et ouvre leur emplacement de fichier                                                                             |
+| **Scheduled Tasks**   | Parcourt, exécute, arrête, active, désactive ou supprime les tâches planifiées Windows                                                                                                                         |
 | **Disk Cleanup**      | Scanne et nettoie les fichiers temporaires, le cache système, les fichiers Windows Update inutilisés, le prefetch, les miniatures, la corbeille, les vidages de mémoire et les anciennes installations Windows |
-| **Bloatware Remover** | Liste tous les packages AppX supprimables avec des badges de risque (Sûr, Attention, Inconnu), afin que vous puissiez choisir ce que vous souhaitez supprimer |
+| **Bloatware Remover** | Liste tous les packages AppX supprimables avec des badges de risque (Sûr, Attention, Inconnu), afin que vous puissiez choisir ce que vous souhaitez supprimer                                                  |
 
 ---
 
