@@ -18,7 +18,7 @@
 
 **[Getting Started](https://optimizerduck.vercel.app/docs/guides/getting-started) | [How It Works](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [FAQ](https://optimizerduck.vercel.app/docs/faq/general)**
 
-**English** | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md)
+**English** | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md)
 
 <details>
 <summary>⭐ Star History</summary>
@@ -52,7 +52,7 @@ Every star helps motivate future improvements.
 > Always create a **system restore point** before making changes.
 
 > [!NOTE]
-> Available in English, Vietnamese, Traditional Chinese (contributed by [@abc0922001](https://github.com/abc0922001)), Simplified Chinese (contributed by [@wcxu21](https://github.com/wcxu21)), Russian (contributed by [@Foodhead](https://github.com/Foodhead)), and French (contributed by [@Robocnop](https://github.com/Robocnop)).
+> Available in English, Vietnamese, Traditional Chinese (contributed by [@abc0922001](https://github.com/abc0922001)), Simplified Chinese (contributed by [@wcxu21](https://github.com/wcxu21)), Russian (contributed by [@Foodhead](https://github.com/Foodhead)), French (contributed by [@Robocnop](https://github.com/Robocnop)), and Korean (contributed by [@klfnn](https://github.com/klfnn)).
 > Want to add your language? See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
