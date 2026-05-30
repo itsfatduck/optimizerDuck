@@ -1,4 +1,5 @@
-﻿<!--
+﻿<?xml version='1.0' encoding='utf-8'?>
+<!--
 [ 한국어 번역 가이드 / Korean Translation Guidelines ]
 1. 버튼/액션: 동사 원형 직역 대신 명사형이나 UI 표준어 사용 (예: 새로 고치다 -> 새로 고침, 달리다 -> 실행)
 2. 문장 부호: 짧은 레이블 및 제목 끝에는 마침표(.) 생략, 긴 설명문에만 사용
@@ -6,7 +7,6 @@
 4. 쉬운 표현: 어려운 외래어나 전문 용어 순화 (예: 블로트웨어 -> 불필요한 앱)
 5. 자연스러운 문체: 어색한 기계 번역투를 피하고 문맥에 맞게 의역
 -->
-<?xml version='1.0' encoding='utf-8'?>
 <root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:schema id="root">
     <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
