@@ -68,7 +68,9 @@ Every star helps motivate future improvements.
 
 ## What optimizerDuck Does
 
-Windows ships with a lot of things you may not need: background services, telemetry, pre-installed apps, startup programs, and scheduled tasks that eat resources. optimizerDuck gives you a single interface to clean all of that up.
+Windows itself is rock-solid. But a clean install also comes with services, telemetry, pre-installed apps, and scheduled tasks you've probably never heard of, all quietly running in the background, consuming your CPU, RAM, and disk. At the same time, some features that could actually help you get the most out of your hardware aren't enabled by default.
+
+optimizerDuck gives you a single interface to clean up the bloat and unlock the good stuff.
 
 It applies targeted system tweaks to reduce overhead and block unwanted behavior, and bundles several management tools so you can see what is running, remove what you do not want, and revert any change if something goes wrong.
 
@@ -88,16 +90,15 @@ Over 30 tweaks across 6 categories, each with a clear description and risk ratin
 | **Bloatware & Services** | Block OEM app reinstall behavior and fine-tune startup types for 200+ Windows services                                                               |
 | **User Experience**      | Remove menu show delays, disable visual effects like taskbar animations and transparency for a snappier feel                                         |
 
-> [!IMPORTANT]
-> If you feel like there aren't many optimizations, don't assume they are ineffective or outdated. optimizerDuck focuses only on optimizations that have been tested, benchmarked, or widely trusted by the community. Some changes may not produce immediately noticeable differences, but they can still help your system run more smoothly and reliably over time.
+> [!NOTE]
+> The optimizations here are researched from well-known tools with large user bases, nothing is AI-generated or blindly added. Every tweak is chosen for real-world impact.
 
-### Feature Toggles
+### Customize
 
-Flip Windows settings on or off without digging through the registry or searching for guides online. Organized into four sections:
+No need to dig through the registry, just toggles, dropdowns, and number inputs presented in one place. Organized into four categories:
 
 - **Desktop**: Show or hide icons (This PC, Recycle Bin, Network, User Files, Control Panel), remove shortcut arrow overlays
-- **Taskbar**: Center or left alignment, toggle widgets, Task View button, End Task button, clock seconds, and Bing search in Start
-- **Explorer**: File extensions, hidden files, clipboard history, compact view, snap assist, item checkboxes, classic context menu, and more
+- **Preferences**: Taskbar alignment, widgets, Task View and End Task buttons, clock seconds, dark mode, file extensions, hidden files, clipboard history, compact view, snap assist, item checkboxes, classic context menu, and Bing search
 - **Gaming**: Game Mode, Game Bar, background recording, mouse acceleration, fullscreen optimizations, hardware-accelerated GPU scheduling
 - **System**: Enable Num Lock on boot
 

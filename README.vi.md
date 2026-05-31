@@ -68,7 +68,9 @@ Mỗi ngôi sao giúp tạo động lực cho những cải tiến trong tương
 
 ## optimizerDuck làm gì
 
-Windows đi kèm nhiều thứ bạn có thể không cần: dịch vụ chạy nền, telemetry, ứng dụng cài sẵn, chương trình khởi động cùng máy và các tác vụ lên lịch ngốn tài nguyên. optimizerDuck cho bạn một giao diện duy nhất để dọn dẹp tất cả.
+Bản thân Windows vốn rất ổn định. Nhưng khi cài mới, Windows cũng kèm theo các dịch vụ, telemetry, ứng dụng cài sẵn và tác vụ lên lịch mà có thể bạn chưa từng nghe tới, tất cả âm thầm chạy nền, ngốn CPU, RAM và ổ cứng. Trong khi đó, một số tính năng giúp bạn tận dụng tối đa phần cứng lại không được bật sẵn.
+
+optimizerDuck cho bạn một giao diện duy nhất để dọn dẹp đồ thừa và mở khóa những thứ hữu ích.
 
 Công cụ áp dụng các tinh chỉnh hệ thống có chọn lọc nhằm giảm thiểu tài nguyên thừa và chặn hành vi không mong muốn, đồng thời tích hợp sẵn nhiều công cụ quản lý giúp bạn xem những gì đang chạy, gỡ bỏ những thứ không cần và hoàn tác bất kỳ thay đổi nào nếu có vấn đề.
 
@@ -88,16 +90,15 @@ Hơn 30 tinh chỉnh trong 6 danh mục, mỗi tinh chỉnh đều có mô tả 
 | **Bloatware & Dịch vụ** | Chặn hành vi cài lại ứng dụng OEM và tinh chỉnh chế độ khởi động cho hơn 200 dịch vụ Windows                                                                      |
 | **Trải nghiệm**         | Loại bỏ độ trễ hiển thị menu, tắt hiệu ứng hình ảnh như animation thanh taskbar và độ trong suốt để máy phản hồi nhanh hơn                                        |
 
-> [!IMPORTANT]
-> Nếu bạn cảm thấy số lượng tối ưu hóa không nhiều, đừng vội cho rằng chúng kém hiệu quả hay đã lỗi thời. optimizerDuck chỉ tập trung vào những tối ưu đã được kiểm nghiệm, đo lường hoặc cộng đồng tin dùng rộng rãi. Một số thay đổi có thể không tạo ra khác biệt rõ rệt ngay lập tức, nhưng vẫn có thể giúp hệ thống của bạn hoạt động ổn định và mượt mà hơn theo thời gian.
+> [!NOTE]
+> Các tối ưu ở đây được nghiên cứu từ những công cụ nổi tiếng có lượng người dùng lớn, không có gì do AI code hay thêm vào một cách mù quáng. Mỗi tinh chỉnh đều được chọn lọc dựa trên tác dụng thực tế.
 
-### Bật/tắt tính năng
+### Tùy chỉnh
 
-Bật hoặc tắt cài đặt Windows mà không cần mò mẫm registry hay tìm kiếm hướng dẫn online. Được chia thành bốn nhóm:
+Không cần mò registry, chỉ có toggle, dropdown và ô nhập số, tất cả trong một chỗ. Gồm bốn danh mục:
 
 - **Màn hình nền**: Hiển thị hoặc ẩn biểu tượng (This PC, Thùng rác, Mạng, Tệp người dùng, Control Panel), xóa mũi tên shortcut
-- **Thanh tác vụ**: Căn giữa hoặc trái, bật/tắt widget, nút Task View, nút End Task, hiển thị giây trên đồng hồ, tắt tìm kiếm Bing trong Start
-- **Explorer**: Hiển thị phần mở rộng file, file ẩn, lịch sử clipboard, chế độ thu gọn, snap assist, checkbox chọn file, menu chuột phải cổ điển, và nhiều hơn nữa
+- **Tùy chỉnh chung**: Căn chỉnh thanh tác vụ, widget, nút Task View và End Task, giây trên đồng hồ, chế độ tối, phần mở rộng file, file ẩn, lịch sử clipboard, chế độ thu gọn, snap assist, checkbox, menu chuột phải cổ điển và tìm kiếm Bing
 - **Chơi game**: Game Mode, Game Bar, quay nền, tăng tốc chuột, tối ưu toàn màn hình, lập lịch GPU tăng tốc phần cứng
 - **Hệ thống**: Tự bật Num Lock khi khởi động máy
 

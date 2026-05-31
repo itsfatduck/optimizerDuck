@@ -68,7 +68,9 @@ Chaque étoile aide à motiver les améliorations futures.
 
 ## Ce que fait optimizerDuck
 
-Windows est livré avec de nombreux éléments dont vous pourriez ne pas avoir besoin : services en arrière-plan, télémétrie, applications pré-installées, programmes de démarrage et tâches planifiées qui consomment des ressources. optimizerDuck vous offre une interface unique pour tout nettoyer.
+Windows en lui-même est très stable. Mais une installation propre apporte aussi des services, de la télémétrie, des applications pré-installées et des tâches planifiées dont vous n'avez peut-être jamais entendu parler — tout tourne en arrière-plan, consommant votre CPU, RAM et disque. Pendant ce temps, certaines fonctionnalités qui pourraient vous aider à tirer le meilleur de votre matériel ne sont pas activées par défaut.
+
+optimizerDuck vous offre une interface unique pour nettoyer le superflu et débloquer l'utile.
 
 Il applique des tweaks système ciblés pour réduire la surcharge et bloquer les comportements indésirables, et intègre plusieurs outils de gestion pour vous permettre de voir ce qui fonctionne, de supprimer ce que vous ne voulez pas et d'annuler toute modification en cas de problème.
 
@@ -88,16 +90,15 @@ Plus de 30 tweaks répartis dans 6 catégories, chacun avec une description clai
 | **Bloatware & Services**   | Bloquer le comportement de réinstallation des applications OEM et affiner les types de démarrage pour plus de 200 services Windows                                                                               |
 | **Expérience utilisateur** | Supprimer les délais d'affichage des menus, désactiver les effets visuels comme les animations de la barre des tâches et la transparence pour une réactivité accrue                                              |
 
-> [!IMPORTANT]
-> Si vous pensez qu'il n'y a pas beaucoup d'optimisations, ne supposez pas qu'elles sont inefficaces ou obsolètes. optimizerDuck se concentre uniquement sur les optimisations qui ont été testées, mesurées ou largement approuvées par la communauté. Certains changements peuvent ne pas produire de différences immédiatement perceptibles, mais ils peuvent toujours aider votre système à fonctionner plus efficacement et de manière plus fiable au fil du temps.
+> [!NOTE]
+> Les optimisations ici sont issues d'outils reconnus avec une large base d'utilisateurs — rien n'est généré par IA ou ajouté aveuglément. Chaque réglage est choisi pour son impact réel.
 
-### Commutateurs de fonctionnalités
+### Personnaliser
 
-Activez ou désactivez les paramètres Windows sans fouiller dans le registre ni chercher des guides en ligne. Organisés en quatre sections :
+Pas besoin de fouiller le registre — interrupteurs, listes déroulantes et champs numériques présentés au même endroit. Quatre catégories :
 
 - **Bureau** : Afficher ou masquer les icônes (Ce PC, Corbeille, Réseau, Fichiers utilisateur, Panneau de configuration), supprimer les flèches de raccourci
-- **Barre des tâches** : Alignement central ou à gauche, bascule des widgets, bouton Task View, bouton Fin de tâche, secondes sur l'horloge et recherche Bing dans Démarrer
-- **Explorateur** : Extensions de fichiers, fichiers cachés, historique du presse-papiers, vue compacte, assistance au collage, cases à cocher, menu contextuel classique, et plus encore
+- **Préférences** : Alignement de la barre des tâches, widgets, boutons Task View et Fin de tâche, secondes sur l'horloge, mode sombre, extensions de fichiers, fichiers cachés, historique du presse-papiers, vue compacte, assistance au collage, cases à cocher, menu contextuel classique et recherche Bing
 - **Jeux** : Mode Jeu, Barre de jeu, enregistrement en arrière-plan, accélération de la souris, optimisations plein écran, planification GPU accélérée par le matériel
 - **Système** : Activer Num Lock au démarrage
 
