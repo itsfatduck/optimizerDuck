@@ -68,7 +68,7 @@ Every star helps motivate future improvements.
 
 ## What optimizerDuck Does
 
-Windows itself is rock-solid. But a clean install also comes with services, telemetry, pre-installed apps, and scheduled tasks you've probably never heard of, all quietly running in the background, consuming your CPU, RAM, and disk. At the same time, some features that could actually help you get the most out of your hardware aren't enabled by default.
+Windows itself is fine. But a clean install also comes with services, telemetry, pre-installed apps, and scheduled tasks you've probably never heard of, all quietly running in the background, consuming your CPU, RAM, and disk. At the same time, some features that could actually help you get the most out of your hardware aren't enabled by default.
 
 optimizerDuck gives you a single interface to clean up the bloat and unlock the good stuff.
 
