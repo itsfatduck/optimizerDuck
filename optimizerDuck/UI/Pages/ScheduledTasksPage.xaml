@@ -51,12 +51,14 @@
                         Appearance="Secondary"
                         Command="{Binding ViewModel.OpenTaskSchedulerCommand}"
                         Content="{ext:Loc ScheduledTasks.Menu.OpenSettings}"
+                        Cursor="Hand"
                         Icon="{ui:SymbolIcon Settings24,
                                              FontSize=18}" />
                     <ui:Button
                         Appearance="Primary"
                         Command="{Binding ViewModel.RefreshCommand}"
                         Content="{ext:Loc StartupManager.Menu.Refresh}"
+                        Cursor="Hand"
                         Icon="{ui:SymbolIcon ArrowClockwise24,
                                              FontSize=18}"
                         Visibility="{Binding ViewModel.ShowRefreshButton, Converter={StaticResource BooleanToVisibilityConverter}}" />
@@ -118,9 +120,7 @@
                         Text="{Binding ViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}" />
 
                     <!--  Sort By  -->
-                    <ComboBox
-                        SelectedIndex="{Binding ViewModel.SortByIndex}"
-                        ToolTip="{ext:Loc Common.SortBy}">
+                    <ComboBox SelectedIndex="{Binding ViewModel.SortByIndex}" ToolTip="{ext:Loc Common.SortBy}">
                         <ComboBoxItem HorizontalContentAlignment="Left">
                             <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
                                 <ui:SymbolIcon
@@ -175,8 +175,7 @@
                     <ui:ToggleSwitch
                         IsChecked="{Binding ViewModel.HideMicrosoftTasks, Mode=TwoWay}"
                         OffContent="{ext:Loc ScheduledTasks.HideMicrosoft}"
-                        OnContent="{ext:Loc ScheduledTasks.HideMicrosoft}"
-                        />
+                        OnContent="{ext:Loc ScheduledTasks.HideMicrosoft}" />
                 </WrapPanel>
             </Border>
 
@@ -404,8 +403,7 @@
                                     <ui:ToggleSwitch
                                         IsChecked="{Binding IsEnabled, Mode=TwoWay}"
                                         OffContent="{ext:Loc Common.Toggle.Off}"
-                                        OnContent="{ext:Loc Common.Toggle.On}"
-                                        />
+                                        OnContent="{ext:Loc Common.Toggle.On}" />
                                 </StackPanel>
                             </Grid>
                         </Border>

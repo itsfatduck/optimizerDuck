@@ -58,18 +58,13 @@ public partial class SettingsViewModel(
         new() { DisplayName = "简体中文", Culture = new CultureInfo("zh-CN") },
         new() { DisplayName = "Русский", Culture = new CultureInfo("ru-RU") },
         new() { DisplayName = "한국어", Culture = new CultureInfo("ko-KR") },
+        new() { DisplayName = "Polski", Culture = new CultureInfo("pl-PL") },
     ];
 
     public override async Task OnNavigatedToAsync()
     {
         if (!_isInitialized)
             await InitializeViewModel();
-    }
-
-    public override Task OnNavigatedFromAsync()
-    {
-        ApplicationThemeManager.Changed -= OnThemeChanged;
-        return base.OnNavigatedFromAsync();
     }
 
     private Task InitializeViewModel()
@@ -404,6 +399,32 @@ public partial class SettingsViewModel(
         if (!_isInitialized)
             return;
         ApplicationThemeManager.Apply(newValue, updateAccent: false);
+
+        if (newValue == ApplicationTheme.Light)
+        {
+            // 2. Định nghĩa màu CHỮ ĐEN cứu cánh cho nền vàng Light
+            Color textDarkColor = Color.FromRgb(30, 30, 30); // Màu xám đen lịch lãm, không bị sắc quá như đen tuyền
+            SolidColorBrush textDarkBrush = new SolidColorBrush(textDarkColor);
+            textDarkBrush.Freeze(); // Tối ưu hóa bộ nhớ WPF
+
+            // 3. Ghi đè TẬN GỐC tất cả các biến thể chữ trên nền Accent (Cả Color lẫn Brush)
+            var appResources = Wpf.Ui.UiApplication.Current.Resources;
+
+            // Cập nhật các bản dạng Color
+            appResources["TextOnAccentFillColorPrimary"] = textDarkColor;
+            appResources["TextOnAccentFillColorSecondary"] = Color.FromArgb(0xCC, 30, 30, 30);
+            appResources["TextOnAccentFillColorDisabled"] = Color.FromArgb(0x66, 30, 30, 30);
+            appResources["TextOnAccentFillColorSelectedText"] = textDarkColor;
+
+            // Cập nhật các bản dạng Brush (Đây là thứ mà XAML thực tế đang liên kết tới)
+            appResources["TextOnAccentFillColorPrimaryBrush"] = textDarkBrush;
+            appResources["TextOnAccentFillColorSecondaryBrush"] = new SolidColorBrush(Color.FromArgb(0xCC, 30, 30, 30));
+            appResources["TextOnAccentFillColorDisabledBrush"] = new SolidColorBrush(Color.FromArgb(0x66, 30, 30, 30));
+
+            // Đảm bảo nút bấm trạng thái Default/Hover/Pressed cũng dùng chữ đen trên nền vàng nhạt
+            appResources["AccentTextFillColorPrimaryBrush"] = textDarkBrush;
+        }
+
         _ = SaveConfigAsync(
             async () =>
             {

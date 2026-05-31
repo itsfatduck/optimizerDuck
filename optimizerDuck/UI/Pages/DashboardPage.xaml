@@ -19,6 +19,7 @@
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <converters:MBToGBConverter x:Key="MBToGBConverter" />
+        <converters:ProgressBarValueToBrushConverter x:Key="ProgressBarValueToBrushConverter" />
         <converters:NumericComparisonToVisibilityConverter
             x:Key="GreaterThanOneToVisibilityConverter"
             ComparisonType="GreaterThan"
@@ -74,11 +75,14 @@
                         Command="{Binding ViewModel.RunCommand}"
                         CommandParameter="TaskManager"
                         Content="{ext:Loc Dashboard.Header.Menu.RunTaskManager}"
+                        Cursor="Hand"
                         Icon="{ui:SymbolIcon Apps24}" />
                     <ui:Button
                         Appearance="Primary"
                         Command="{Binding ViewModel.RefreshCommand}"
                         Content="{ext:Loc Dashboard.Header.Menu.Refresh}"
+                        Cursor="Hand"
+                        Foreground="{DynamicResource AccentButtonForeground}"
                         Icon="{ui:SymbolIcon ArrowClockwise24}" />
                 </WrapPanel>
             </Grid>
@@ -311,7 +315,8 @@
                                     Height="6"
                                     Margin="0,8,0,0"
                                     Maximum="100"
-                                    Value="{Binding ViewModel.RuntimeRam.UsedPercent}" />
+                                    Value="{Binding ViewModel.RuntimeRam.UsedPercent}"
+                                    Foreground="{Binding ViewModel.RuntimeRam.UsedPercent, Converter={StaticResource ProgressBarValueToBrushConverter}}" />
 
                                 <WrapPanel
                                     Grid.Row="2"
@@ -523,7 +528,8 @@
                                         Height="6"
                                         Margin="0,8,0,0"
                                         Maximum="100"
-                                        Value="{Binding UsedPercent}" />
+                                        Value="{Binding UsedPercent}"
+                                        Foreground="{Binding UsedPercent, Converter={StaticResource ProgressBarValueToBrushConverter}}" />
                                 </Grid>
                             </ui:CardAction>
                         </DataTemplate>

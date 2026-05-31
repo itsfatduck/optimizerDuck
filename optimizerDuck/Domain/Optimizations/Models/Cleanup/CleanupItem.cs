@@ -44,6 +44,7 @@ public partial class CleanupItem : ObservableObject
     ///     The size of files in bytes.
     /// </summary>
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(ShowActions))]
     private long _sizeBytes;
 
     /// <summary>
@@ -84,7 +85,7 @@ public partial class CleanupItem : ObservableObject
     /// <summary>
     ///     Whether to show the action controls (SplitButton) instead of progress rings.
     /// </summary>
-    public bool ShowActions => !IsScanning && !IsCleaning;
+    public bool ShowActions => SizeBytes > 0 && !IsScanning && !IsCleaning;
 
     /// <summary>
     ///     Gets the human-readable size string (e.g., "1.5 GB").

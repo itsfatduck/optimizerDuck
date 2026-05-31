@@ -46,6 +46,7 @@
                         Appearance="Primary"
                         Command="{Binding ViewModel.RefreshCommand}"
                         Content="{ext:Loc StartupManager.Menu.Refresh}"
+                        Cursor="Hand"
                         Icon="{ui:SymbolIcon ArrowClockwise24,
                                              FontSize=18}"
                         Visibility="{Binding ViewModel.ShowRefreshButton, Converter={StaticResource BooleanToVisibilityConverter}}" />
@@ -169,9 +170,7 @@
                                         PlaceholderText="{ext:Loc Common.Search.Placeholder}"
                                         Style="{StaticResource SearchBoxStyle}"
                                         Text="{Binding ViewModel.AppSearchText, UpdateSourceTrigger=PropertyChanged}" />
-                                    <ComboBox
-                                        SelectedIndex="{Binding ViewModel.AppSortByIndex}"
-                                        ToolTip="{ext:Loc Common.SortBy}">
+                                    <ComboBox SelectedIndex="{Binding ViewModel.AppSortByIndex}" ToolTip="{ext:Loc Common.SortBy}">
                                         <ComboBoxItem HorizontalContentAlignment="Left">
                                             <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
                                                 <ui:SymbolIcon
@@ -214,6 +213,7 @@
                                         VerticalAlignment="Center"
                                         Appearance="Secondary"
                                         Command="{Binding ViewModel.OpenStartupSettingsCommand}"
+                                        Cursor="Hand"
                                         Icon="{ui:SymbolIcon Settings24,
                                                              FontSize=16}"
                                         ToolTip="{ext:Loc StartupManager.Menu.OpenSettings}" />
@@ -304,8 +304,7 @@
                                                         <ui:ToggleSwitch
                                                             IsChecked="{Binding IsEnabled, Mode=TwoWay}"
                                                             OffContent="{ext:Loc Common.Toggle.Off}"
-                                                            OnContent="{ext:Loc Common.Toggle.On}"
-                                                            />
+                                                            OnContent="{ext:Loc Common.Toggle.On}" />
                                                         <ui:SymbolIcon FontSize="16" Symbol="Open24" />
                                                     </StackPanel>
                                                 </Grid>
@@ -362,9 +361,7 @@
                                         PlaceholderText="{ext:Loc Common.Search.Placeholder}"
                                         Style="{StaticResource SearchBoxStyle}"
                                         Text="{Binding ViewModel.TaskSearchText, UpdateSourceTrigger=PropertyChanged}" />
-                                    <ComboBox
-                                        SelectedIndex="{Binding ViewModel.TaskSortByIndex}"
-                                        ToolTip="{ext:Loc Common.SortBy}">
+                                    <ComboBox SelectedIndex="{Binding ViewModel.TaskSortByIndex}" ToolTip="{ext:Loc Common.SortBy}">
                                         <ComboBoxItem HorizontalContentAlignment="Left">
                                             <Grid HorizontalAlignment="Left" ColumnDefinitions="Auto Auto">
                                                 <ui:SymbolIcon
@@ -405,13 +402,13 @@
                                     <ui:ToggleSwitch
                                         IsChecked="{Binding ViewModel.HideMicrosoftTasks, Mode=TwoWay}"
                                         OffContent="{ext:Loc StartupManager.Tasks.HideMicrosoft}"
-                                        OnContent="{ext:Loc StartupManager.Tasks.HideMicrosoft}"
-                                       />
+                                        OnContent="{ext:Loc StartupManager.Tasks.HideMicrosoft}" />
                                     <ui:Button
                                         Padding="8"
                                         VerticalAlignment="Center"
                                         Appearance="Secondary"
                                         Command="{Binding ViewModel.OpenTaskSchedulerCommand}"
+                                        Cursor="Hand"
                                         Icon="{ui:SymbolIcon Settings24,
                                                              FontSize=16}"
                                         ToolTip="{ext:Loc ScheduledTasks.Menu.OpenSettings}" />
@@ -528,14 +525,14 @@
                                                         Appearance="Transparent"
                                                         Command="{Binding DataContext.ViewModel.ViewTaskDetailsCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                                         CommandParameter="{Binding}"
+                                                        Cursor="Hand"
                                                         Icon="{ui:SymbolIcon Info24,
                                                                              FontSize=16}"
                                                         ToolTip="{ext:Loc ScheduledTasks.Action.Details}" />
                                                     <ui:ToggleSwitch
                                                         IsChecked="{Binding IsEnabled, Mode=TwoWay}"
                                                         OffContent="{ext:Loc Common.Toggle.Off}"
-                                                        OnContent="{ext:Loc Common.Toggle.On}"
-                                                        />
+                                                        OnContent="{ext:Loc Common.Toggle.On}" />
                                                 </StackPanel>
                                             </Grid>
                                         </Border>

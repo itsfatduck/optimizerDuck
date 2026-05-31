@@ -203,12 +203,16 @@
                         Command="{Binding ViewModel.RemoveSelectedCommand}"
                         Content="{ext:Loc Bloatware.Menu.Remove,
                                           {Binding ViewModel.SelectedCount}}"
+                        Cursor="Hand"
                         Icon="{ui:SymbolIcon Delete24,
                                              FontSize=18}" />
 
                     <Separator Margin="4,0,4,0" Visibility="{Binding ViewModel.HasSafePackages, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                    <ui:Button Command="{Binding ViewModel.SelectAllSafeCommand}" Visibility="{Binding ViewModel.HasSafePackages, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <ui:Button
+                        Command="{Binding ViewModel.SelectAllSafeCommand}"
+                        Cursor="Hand"
+                        Visibility="{Binding ViewModel.HasSafePackages, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <ui:Button.Style>
                             <Style BasedOn="{StaticResource {x:Type ui:Button}}" TargetType="ui:Button">
                                 <Setter Property="Appearance" Value="Success" />
@@ -239,6 +243,7 @@
                         Appearance="Primary"
                         Command="{Binding ViewModel.RefreshCommand}"
                         Content="{ext:Loc Bloatware.Menu.Refresh}"
+                        Cursor="Hand"
                         Icon="{ui:SymbolIcon ArrowClockwise24,
                                              FontSize=18}" />
                 </StackPanel>
