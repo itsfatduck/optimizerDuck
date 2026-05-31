@@ -51,8 +51,16 @@
 > [!TIP]
 > Всегда создавайте **точку восстановления системы** перед внесением изменений.
 
-> [!NOTE]
-> Доступно на английском, вьетнамском, традиционном китайском (спасибо [@abc0922001](https://github.com/abc0922001)), упрощённом китайском (спасибо [@wcxu21](https://github.com/wcxu21)), русском (спасибо [@Foodhead](https://github.com/Foodhead)), французском (спасибо [@Robocnop](https://github.com/Robocnop)) и корейском (спасибо [@klfnn](https://github.com/klfnn)).
+> | | Язык | Название на языке | Переводчик |
+> |------|----------|-------------|------------|
+> | 🇺🇸 | English (United States) | English | Основной и рекомендуемый |
+> | 🇻🇳 | Vietnamese | Tiếng Việt | [itsfatduck](https://github.com/itsfatduck) |
+> | 🇹🇼 | Traditional Chinese | 正體中文 | [abc0922001](https://github.com/abc0922001) |
+> | 🇨🇳 | Simplified Chinese | 简体中文 | [wcxu21](https://github.com/wcxu21) |
+> | 🇷🇺 | Russian | Русский | [Foodhead](https://github.com/Foodhead) |
+> | 🇫🇷 | French | Français | [Robocnop](https://github.com/Robocnop) |
+> | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
+>
 > Хотите добавить свой язык? См. [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---

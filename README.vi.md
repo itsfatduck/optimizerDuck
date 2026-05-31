@@ -51,8 +51,16 @@ Mỗi ngôi sao giúp tạo động lực cho những cải tiến trong tương
 > [!TIP]
 > Luôn tạo **điểm khôi phục hệ thống** trước khi thực hiện thay đổi.
 
-> [!NOTE]
-> Hỗ trợ tiếng Anh, tiếng Việt, tiếng Trung phồn thể (đóng góp bởi [@abc0922001](https://github.com/abc0922001)), tiếng Trung giản thể (đóng góp bởi [@wcxu21](https://github.com/wcxu21)), tiếng Nga (đóng góp bởi [@Foodhead](https://github.com/Foodhead)), tiếng Pháp (đóng góp bởi [@Robocnop](https://github.com/Robocnop)) và tiếng Hàn (đóng góp bởi [@klfnn](https://github.com/klfnn)).
+> | | Ngôn ngữ | Tên bản địa | Người dịch |
+> |------|----------|-------------|------------|
+> | 🇺🇸 | English (United States) | English | Chính thức & khuyến nghị |
+> | 🇻🇳 | Vietnamese | Tiếng Việt | [itsfatduck](https://github.com/itsfatduck) |
+> | 🇹🇼 | Traditional Chinese | 正體中文 | [abc0922001](https://github.com/abc0922001) |
+> | 🇨🇳 | Simplified Chinese | 简体中文 | [wcxu21](https://github.com/wcxu21) |
+> | 🇷🇺 | Russian | Русский | [Foodhead](https://github.com/Foodhead) |
+> | 🇫🇷 | French | Français | [Robocnop](https://github.com/Robocnop) |
+> | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
+>
 > Muốn thêm ngôn ngữ của bạn? Xem [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---

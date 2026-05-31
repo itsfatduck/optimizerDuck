@@ -51,8 +51,16 @@ Every star helps motivate future improvements.
 > [!TIP]
 > Always create a **system restore point** before making changes.
 
-> [!NOTE]
-> Available in English, Vietnamese, Traditional Chinese (contributed by [@abc0922001](https://github.com/abc0922001)), Simplified Chinese (contributed by [@wcxu21](https://github.com/wcxu21)), Russian (contributed by [@Foodhead](https://github.com/Foodhead)), French (contributed by [@Robocnop](https://github.com/Robocnop)), and Korean (contributed by [@klfnn](https://github.com/klfnn)).
+> | | Language | Native Name | Translator |
+> |------|----------|-------------|------------|
+> | 🇺🇸 | English (United States) | English | Primary & recommended |
+> | 🇻🇳 | Vietnamese | Tiếng Việt | [itsfatduck](https://github.com/itsfatduck) |
+> | 🇹🇼 | Traditional Chinese | 正體中文 | [abc0922001](https://github.com/abc0922001) |
+> | 🇨🇳 | Simplified Chinese | 简体中文 | [wcxu21](https://github.com/wcxu21) |
+> | 🇷🇺 | Russian | Русский | [Foodhead](https://github.com/Foodhead) |
+> | 🇫🇷 | French | Français | [Robocnop](https://github.com/Robocnop) |
+> | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
+>
 > Want to add your language? See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---

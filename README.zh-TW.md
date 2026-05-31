@@ -51,8 +51,16 @@
 > [!TIP]
 > 進行系統更改前，請先建立**系統還原點**。
 
-> [!NOTE]
-> 目前支援英文、越南文、繁體中文（由 [@abc0922001](https://github.com/abc0922001) 貢獻）、簡體中文（由 [@wcxu21](https://github.com/wcxu21) 貢獻）、俄文（由 [@Foodhead](https://github.com/Foodhead) 貢獻）、法文（由 [@Robocnop](https://github.com/Robocnop) 貢獻）及韓文（由 [@klfnn](https://github.com/klfnn) 貢獻）。
+> | | 語言 | 原始名稱 | 翻譯者 |
+> |------|----------|-------------|------------|
+> | 🇺🇸 | English (United States) | English | 主要及推薦 |
+> | 🇻🇳 | Vietnamese | Tiếng Việt | [itsfatduck](https://github.com/itsfatduck) |
+> | 🇹🇼 | Traditional Chinese | 正體中文 | [abc0922001](https://github.com/abc0922001) |
+> | 🇨🇳 | Simplified Chinese | 简体中文 | [wcxu21](https://github.com/wcxu21) |
+> | 🇷🇺 | Russian | Русский | [Foodhead](https://github.com/Foodhead) |
+> | 🇫🇷 | French | Français | [Robocnop](https://github.com/Robocnop) |
+> | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
+>
 > 想加入您的語言嗎？請查看[貢獻指南](./CONTRIBUTING.md)。
 
 ---

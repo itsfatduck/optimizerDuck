@@ -51,8 +51,16 @@ Chaque étoile aide à motiver les améliorations futures.
 > [!TIP]
 > Créez toujours un **point de restauration système** avant d'effectuer des modifications.
 
-> [!NOTE]
-> Disponible en anglais, vietnamien, chinois traditionnel (contribué par [@abc0922001](https://github.com/abc0922001)), chinois simplifié (contribué par [@wcxu21](https://github.com/wcxu21)), russe (contribué par [@Foodhead](https://github.com/Foodhead)), français (contribué par [@Robocnop](https://github.com/Robocnop)) et coréen (contribué par [@klfnn](https://github.com/klfnn)).
+> | | Langue | Nom d'origine | Traducteur |
+> |------|----------|-------------|------------|
+> | 🇺🇸 | English (United States) | English | Principal et recommandé |
+> | 🇻🇳 | Vietnamese | Tiếng Việt | [itsfatduck](https://github.com/itsfatduck) |
+> | 🇹🇼 | Traditional Chinese | 正體中文 | [abc0922001](https://github.com/abc0922001) |
+> | 🇨🇳 | Simplified Chinese | 简体中文 | [wcxu21](https://github.com/wcxu21) |
+> | 🇷🇺 | Russian | Русский | [Foodhead](https://github.com/Foodhead) |
+> | 🇫🇷 | French | Français | [Robocnop](https://github.com/Robocnop) |
+> | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
+>
 > Vous souhaitez ajouter votre langue ? Consultez [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
