@@ -51,6 +51,7 @@ Mỗi ngôi sao giúp tạo động lực cho những cải tiến trong tương
 > [!TIP]
 > Luôn tạo **điểm khôi phục hệ thống** trước khi thực hiện thay đổi.
 
+> [!NOTE]
 > | | Ngôn ngữ | Tên bản địa | Người dịch |
 > |------|----------|-------------|------------|
 > | 🇺🇸 | English (United States) | English | Chính thức & khuyến nghị |

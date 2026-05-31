@@ -51,6 +51,7 @@ Every star helps motivate future improvements.
 > [!TIP]
 > Always create a **system restore point** before making changes.
 
+> [!NOTE]
 > | | Language | Native Name | Translator |
 > |------|----------|-------------|------------|
 > | 🇺🇸 | English (United States) | English | Primary & recommended |

@@ -51,6 +51,7 @@ Chaque étoile aide à motiver les améliorations futures.
 > [!TIP]
 > Créez toujours un **point de restauration système** avant d'effectuer des modifications.
 
+> [!NOTE]
 > | | Langue | Nom d'origine | Traducteur |
 > |------|----------|-------------|------------|
 > | 🇺🇸 | English (United States) | English | Principal et recommandé |
