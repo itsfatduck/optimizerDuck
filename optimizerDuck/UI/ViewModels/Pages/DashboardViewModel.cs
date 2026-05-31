@@ -66,7 +66,6 @@ public partial class DashboardViewModel : ViewModel
         _updateTimer.Tick += async (s, e) => await UpdateRuntimeInfoAsync();
 
         CurrentApplicationTheme = ApplicationThemeManager.GetAppTheme();
-        ApplicationThemeManager.Changed += OnThemeChanged;
     }
 
     public bool IsUpdateInfoOpen
@@ -103,6 +102,7 @@ public partial class DashboardViewModel : ViewModel
                 IsUpdateInfoOpen = true;
                 LatestVersion = version;
             }
+            ApplicationThemeManager.Changed += OnThemeChanged;
 
             _isInitialized = true;
         }

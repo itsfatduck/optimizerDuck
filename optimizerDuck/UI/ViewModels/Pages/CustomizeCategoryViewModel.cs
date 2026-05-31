@@ -108,12 +108,6 @@ public partial class CustomizeCategoryViewModel : ViewModel
         return base.OnNavigatedToAsync();
     }
 
-    public override Task OnNavigatedFromAsync()
-    {
-        ApplicationThemeManager.Changed -= OnThemeChanged;
-        return base.OnNavigatedFromAsync();
-    }
-
     #endregion
 
     #region Filtering & Sorting
