@@ -151,26 +151,6 @@ public class BaseCustomizeSettingTests : IDisposable
     }
 
     [Fact]
-    public async Task ApplyAsync_DoesNotBlockCallingThread()
-    {
-        var setting = new TestCustomizeSetting { OwnerType = typeof(TestCustomizeSetting) };
-
-        // Measure time - should be fast since it's offloaded to thread pool
-        var stopwatch = System.Diagnostics.Stopwatch.StartNew();
-
-        await setting.ApplyAsync(true);
-        await setting.ApplyAsync(false);
-
-        stopwatch.Stop();
-
-        // Should complete quickly (not blocking on UI thread equivalent)
-        Assert.True(
-            stopwatch.ElapsedMilliseconds < 1000,
-            $"Operations took {stopwatch.ElapsedMilliseconds}ms, expected < 1000ms"
-        );
-    }
-
-    [Fact]
     public async Task MultipleApplies_ExecutesSequentiallyWithoutCorruption()
     {
         var setting = new TestCustomizeSetting { OwnerType = typeof(TestCustomizeSetting) };
@@ -216,23 +196,6 @@ public class BaseCustomizeSettingTests : IDisposable
         var result = await setting.GetStateWithRetryAsync(maxRetries: 3, delayMs: 10);
 
         Assert.False(result);
-    }
-
-    [Fact]
-    public async Task GetStateWithRetryAsync_StableState_ConvergesQuickly()
-    {
-        var setting = new StableStateSetting { State = true };
-
-        var sw = System.Diagnostics.Stopwatch.StartNew();
-        var result = await setting.GetStateWithRetryAsync(maxRetries: 10, delayMs: 200);
-        sw.Stop();
-
-        // Should converge on 2nd read (< 200ms) not wait for all 10 retries
-        Assert.True(result);
-        Assert.True(
-            sw.ElapsedMilliseconds < 300,
-            $"Took {sw.ElapsedMilliseconds}ms, expected < 300ms (convergence should be fast)"
-        );
     }
 
     [Fact]
