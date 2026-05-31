@@ -1,35 +1,30 @@
 ---
-name: "🐛 Bug Report"
-about: Create a report to help me improve optimizerDuck
-title: 'fix: [Brief description of the bug]'
+name: "\U0001F41B Bug Report"
+about: Report a crash, error, or unexpected behavior in optimizerDuck
+title: ''
 labels: bug
 assignees: ''
 ---
 
 **Describe the bug**
-A clear and concise description of what the bug is.
+What happened? What did you expect to happen instead?
 
-**To Reproduce**
-Steps to reproduce the behavior:
+**Steps to reproduce**
 1. Go to '...'
-2. Navigate to '....'
-3. Click on '....'
+2. Click on '...'
+3. Scroll to '...'
 4. See error
 
-**Expected behavior**
-A clear and concise description of what you expected to happen vs what actually happened.
+**Screenshots**
+If applicable, add screenshots or a screen recording.
 
-**Screenshots or Video**
-If applicable, add screenshots or a screen recording to help explain your problem. Visuals are highly appreciated!
+**System info**
+- Windows version: (e.g. Windows 11 Pro 24H2, build 26100.1742)
+- optimizerDuck version: (e.g. v2.17.4 — see title bar or About page)
+- Ran as administrator? Yes / No
 
-**Desktop Environment:**
- - OS Version & Build number: [e.g. Windows 11 Pro 23H2 OS Build 22631.3296]
- - app Version: [e.g. optimizerDuck v1.0.0]
- - .NET Runtime Version (if applicable): [e.g. 10.0.103]
-
-**App Logs (Important)**
-Please attach the optimizerDuck log files if this is a crash or optimization failure. 
-Logs can usually be found at: `%localappdata%/optimizerDuck/`
+**Logs**
+Attach the log file from `%localappdata%\optimizerDuck\optimizerDuck.log`. This is especially important for crashes or optimization failures.
 
 **Additional context**
-Add any other context about the problem here (e.g., "I just ran a Windows Update" or "I was running an antivirus at the time").
+Anything else? Recent Windows updates? Antivirus? Other tools running?

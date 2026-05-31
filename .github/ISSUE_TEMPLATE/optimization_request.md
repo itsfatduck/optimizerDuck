@@ -1,43 +1,40 @@
 ---
-name: "⚡ Optimization Tweak Request"
-about: Request a new optimization or tweak to be added to optimizerDuck
-title: 'feat: add [optimization name]'
-labels: 'enhancement, optimization'
+name: "\u26A1 Optimization Tweak Request"
+about: Suggest a Windows tweak, registry change, or optimization to add
+title: ''
+labels: enhancement, optimization
 assignees: ''
 ---
 
-**Optimization Name**
-A brief, clear name for the optimization (e.g., `Disable Telemetry`, `Enable Game Mode`).
+**Tweak name**
+Short and clear (e.g. "Disable Telemetry", "Enable Game Mode").
 
-**Short Description**
-A one-sentence description of the optimization (e.g., `Disables Microsoft telemetry services to improve privacy`).
+**Description**
+What does this tweak do? One or two sentences.
 
-**Technical Details (Implementation Code)**
-Provide the exact Registry Key, PowerShell command, CMD script, or C# code required to apply this optimization.
+**Technical details**
+Provide the registry path, PowerShell command, CMD command, or service name needed.
+
 ```text
-Registry Key: 
-Value Name: 
-Value Data: 
-Type: (DWORD/QWORD/String)
---- or ---
-Script/Code:
-
+Path:
+Value name:
+Value data:
+Type: (DWORD / QWORD / String / Multi-String)
+---
+Or script/command:
 ```
 
-**Impact and Effect**
-Explain what this optimization actually does under the hood. Why would a user want to apply it? What is improved?
+**Category**
+Which category should this go in? (Performance / Security & Privacy / GPU / Power Management / Bloatware & Services / User Experience)
 
-**Category & Location**
-Where should this optimization be located in the app? (e.g., Privacy, System, Gaming, Network, Context Menu).
-
-**Risk Level**
-Please suggest a risk level for this optimization based on our `OptimizationRisk` enum:
-- [ ] Safe (Easily reversible, zero system impact)
-- [ ] Moderate (May disable certain obscure features or affect some apps)
-- [ ] Risky (Core system/registry change, could cause instability if used incorrectly)
+**Risk level**
+- [ ] Safe — easily reversible, no side effects
+- [ ] Moderate — may affect some apps or features
+- [ ] Risky — core system change, could cause instability
 
 **Tags**
-List the relevant `OptimizationTags` (e.g., Privacy, Performance, System, UI, Network, Storage, etc.)
+Any of these apply? Privacy / Performance / System / Network / Audio / Visual / Display / Power / Latency / RAM / Disk
+GPU vendor? Nvidia / AMD / Intel
 
-**References & Documentation**
-Add any links to Microsoft documentation, GitHub issues, or technical articles that validate this tweak. 
+**References**
+Links to Microsoft docs, forum posts, or articles that back this up.

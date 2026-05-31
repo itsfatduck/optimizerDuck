@@ -1,25 +1,24 @@
 ---
-name: "✨ Feature Request"
-about: Suggest a general feature, UI change, or functional addition to optimizerDuck
-title: 'feat: [Brief description of the feature]'
+name: "\U0001F4A1 App Feature Request"
+about: Suggest a new app feature, UI change, page, or tool (not a Windows tweak)
+title: ''
 labels: enhancement
 assignees: ''
 ---
 
-> [!NOTE]
-> If you are suggesting a specific Windows tweak or optimization script, please use the **"Optimization Tweak Request"** template instead!
+> For Windows-specific tweaks or optimizations (registry changes, service tweaks, etc.), use the **Optimization Tweak Request** template instead.
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...] 
+**Problem**
+What's missing or frustrating? What can't you do right now?
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen. How should it look? How should it work?
+**Solution**
+How should it work? What should the user see or interact with?
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+**Alternatives considered**
+Did you try any workarounds? Any other apps that do this well?
 
-**Mockups or Design Inspiration**
-If applicable, attach UI mockups, sketches, or screenshots from other apps that have the design/feature you want.
+**Mockups / references**
+Screenshots, sketches, or links to apps with a similar feature.
 
 **Additional context**
-Add any other context about the feature request here.
+Anything else that helps understand the request.

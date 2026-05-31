@@ -273,7 +273,8 @@ Optimizer.{CategoryName}.{OptimizationKey}.Error.{...}
 
 Where `CategoryName` is the category class name (e.g., `Performance`) and `OptimizationKey` is the nested class name.
 
-> Missing keys return the key string itself — add them in `Translations.resx`!
+> [!IMPORTANT]
+>  **Translations required**. If you skip adding these keys, the app will display raw key strings like `"Optimizer.Performance.MyNewTweak.Name"` instead of readable text. Always add entries in `Translations.resx` (English). You may also add translations for your own language in `Translations.{locale}.resx` — see [Translations section](#translations-localization).
 
 ---
 
@@ -379,6 +380,9 @@ Customize.{CategoryName}.{SettingKey}.Options.{OptionKey}    (if using SettingOp
 Customize.{CategoryName}.{SettingKey}.Recommendation.Reason   (if Recommendation != None)
 Customize.{CategoryName}.Section.{SectionName}                (for section headers)
 ```
+
+> [!IMPORTANT]
+> **Translations required**. Same rule applies — `BaseCustomizeSetting` reads `Name` and `Description` from these keys. Add them to `Translations.resx` (English) at minimum. Your own locale is welcome too — just add the keys to `Translations.{locale}.resx`.
 
 ---
 
