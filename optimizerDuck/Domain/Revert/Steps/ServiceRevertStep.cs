@@ -34,9 +34,9 @@ public class ServiceRevertStep : IRevertStep
         );
 
     /// <inheritdoc />
-    public Task<bool> ExecuteAsync()
+    public async Task<bool> ExecuteAsync()
     {
-        var result = ServiceProcessService.ChangeServiceStartupType(
+        var result = await ServiceProcessService.ChangeServiceStartupTypeAsync(
             new ServiceItem { Name = ServiceName, StartupType = OriginalStartupType }
         );
 
@@ -46,7 +46,7 @@ public class ServiceRevertStep : IRevertStep
             throw new StepExecutionException(error, ServiceProcessService.LastErrorDetail);
         }
 
-        return Task.FromResult(true);
+        return true;
     }
 
     /// <inheritdoc />

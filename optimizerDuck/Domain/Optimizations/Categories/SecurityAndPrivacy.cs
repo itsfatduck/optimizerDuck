@@ -26,7 +26,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
     )]
     public class DisableTelemetry : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(
+        public override async Task<ApplyResult> ApplyAsync(
             IProgress<ProcessingProgress> progress,
             OptimizationContext context
         )
@@ -112,7 +112,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
                     Total = 3,
                 }
             );
-            ServiceProcessService.ChangeServiceStartupType(
+            await ServiceProcessService.ChangeServiceStartupTypeAsync(
                 new ServiceItem("DiagTrack", ServiceStartupType.Disabled),
                 new ServiceItem("dmwappushservice", ServiceStartupType.Disabled),
                 new ServiceItem("DcpSvc", ServiceStartupType.Disabled),
@@ -159,7 +159,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
                     context.Logger.LogWarning(ex, "Failed to disable task {Task}", task);
                 }
 
-            return Task.FromResult(CompleteFromScope());
+            return CompleteFromScope();
         }
     }
 
@@ -170,7 +170,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
     )]
     public class DisableErrorReporting : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(
+        public override async Task<ApplyResult> ApplyAsync(
             IProgress<ProcessingProgress> progress,
             OptimizationContext context
         )
@@ -188,7 +188,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
                 )
             );
 
-            ServiceProcessService.ChangeServiceStartupType(
+            await ServiceProcessService.ChangeServiceStartupTypeAsync(
                 new ServiceItem("WerSvc", ServiceStartupType.Disabled),
                 new ServiceItem("PcaSvc", ServiceStartupType.Disabled)
             );
@@ -216,7 +216,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
             context.Logger.LogInformation(
                 "Disabled Windows Error Reporting and Compatibility Assistant"
             );
-            return Task.FromResult(CompleteFromScope());
+            return CompleteFromScope();
         }
     }
 

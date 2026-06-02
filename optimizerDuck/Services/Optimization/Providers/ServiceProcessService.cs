@@ -26,11 +26,11 @@ public static class ServiceProcessService
     internal static string? LastError => _lastError.Value;
     internal static string? LastErrorDetail => _lastErrorDetail.Value;
 
-    public static ServiceStartupType? GetStartupType(string serviceName)
+    public static async Task<ServiceStartupType?> GetStartupTypeAsync(string serviceName)
     {
         try
         {
-            var (exitCode, stdout, stderr) = RunScExe($"qc \"{serviceName}\"", 15000);
+            var (exitCode, stdout, stderr) = await RunScExeAsync($"qc \"{serviceName}\"", 15000);
 
             if (exitCode != 0)
             {
@@ -76,7 +76,7 @@ public static class ServiceProcessService
         }
     }
 
-    public static bool ChangeServiceStartupType(ServiceItem item)
+    public static async Task<bool> ChangeServiceStartupTypeAsync(ServiceItem item)
     {
         _lastError.Value = _lastErrorDetail.Value = null;
 
@@ -89,7 +89,7 @@ public static class ServiceProcessService
 
         try
         {
-            var originalStartupType = GetStartupType(item.Name);
+            var originalStartupType = await GetStartupTypeAsync(item.Name);
 
             var scType = item.StartupType switch
             {
@@ -100,7 +100,7 @@ public static class ServiceProcessService
                 _ => "demand",
             };
 
-            var (exitCode, stdout, stderr) = RunScExe(
+            var (exitCode, stdout, stderr) = await RunScExeAsync(
                 $"config \"{item.Name}\" start= {scType}",
                 30000
             );
@@ -129,7 +129,7 @@ public static class ServiceProcessService
                     item.StartupType
                 );
 
-                ExecutionScope.Track(nameof(ChangeServiceStartupType), true);
+                ExecutionScope.Track(nameof(ChangeServiceStartupTypeAsync), true);
                 ExecutionScope.RecordStep(
                     Translations.Service_Service_Name,
                     description,
@@ -147,14 +147,14 @@ public static class ServiceProcessService
                 sw.Elapsed.FormatTime(),
                 item.StartupType
             );
-            ExecutionScope.Track(nameof(ChangeServiceStartupType), false);
+            ExecutionScope.Track(nameof(ChangeServiceStartupTypeAsync), false);
             ExecutionScope.RecordStep(
                 Translations.Service_Service_Name,
                 description,
                 false,
                 null,
                 _lastError.Value,
-                () => Task.FromResult(ChangeServiceStartupType(item)),
+                () => ChangeServiceStartupTypeAsync(item),
                 _lastErrorDetail.Value
             );
             return false;
@@ -174,21 +174,21 @@ public static class ServiceProcessService
                 item.Name,
                 item.StartupType
             );
-            ExecutionScope.Track(nameof(ChangeServiceStartupType), false);
+            ExecutionScope.Track(nameof(ChangeServiceStartupTypeAsync), false);
             ExecutionScope.RecordStep(
                 Translations.Service_Service_Name,
                 description,
                 false,
                 null,
                 _lastError.Value,
-                () => Task.FromResult(ChangeServiceStartupType(item)),
+                () => ChangeServiceStartupTypeAsync(item),
                 _lastErrorDetail.Value
             );
             return false;
         }
     }
 
-    private static (int ExitCode, string Stdout, string Stderr) RunScExe(
+    private static async Task<(int ExitCode, string Stdout, string Stderr)> RunScExeAsync(
         string arguments,
         int timeoutMs)
     {
@@ -208,17 +208,27 @@ public static class ServiceProcessService
         process.Start();
         var stdoutTask = process.StandardOutput.ReadToEndAsync();
         var stderrTask = process.StandardError.ReadToEndAsync();
-        process.WaitForExit(timeoutMs);
-        Task.WaitAll(stdoutTask, stderrTask);
 
-        return (process.ExitCode, stdoutTask.Result, stderrTask.Result);
+        using var cts = new CancellationTokenSource(timeoutMs);
+        try
+        {
+            await process.WaitForExitAsync(cts.Token);
+        }
+        catch (OperationCanceledException)
+        {
+            try { process.Kill(); } catch { }
+        }
+
+        var stdout = await stdoutTask;
+        var stderr = await stderrTask;
+        return (process.ExitCode, stdout, stderr);
     }
 
     /// <summary>Changes the startup type for multiple services.</summary>
     /// <param name="items">The service items to update.</param>
-    public static void ChangeServiceStartupType(params ServiceItem[] items)
+    public static async Task ChangeServiceStartupTypeAsync(params ServiceItem[] items)
     {
         foreach (var item in items)
-            ChangeServiceStartupType(item);
+            await ChangeServiceStartupTypeAsync(item);
     }
 }

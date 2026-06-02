@@ -65,7 +65,7 @@ public class BloatwareAndServices : IOptimizationCategory
     )]
     public class ConfigureServices : BaseOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(
+        public override async Task<ApplyResult> ApplyAsync(
             IProgress<ProcessingProgress> progress,
             OptimizationContext context
         )
@@ -328,14 +328,14 @@ public class BloatwareAndServices : IOptimizationCategory
                         Total = servicesToChange.Count,
                     }
                 );
-                ServiceProcessService.ChangeServiceStartupType(service);
+                await ServiceProcessService.ChangeServiceStartupTypeAsync(service);
             }
 
             context.Logger.LogInformation(
                 "Optimized service startup for {Count} services",
                 servicesToChange.Count
             );
-            return Task.FromResult(CompleteFromScope());
+            return CompleteFromScope();
         }
     }
 }
