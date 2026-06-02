@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -20,6 +21,13 @@ public partial class OptimizationDetailsViewModel(
     ILogger logger
 ) : ObservableObject
 {
+    private static readonly HttpClient httpClient = new() { Timeout = TimeSpan.FromSeconds(5) };
+    private static readonly ConcurrentDictionary<
+        string,
+        Lazy<Task<(string Content, DateTime FetchedAt)>>
+    > _sourceCache = new();
+    private static readonly TimeSpan SourceCacheTtl = TimeSpan.FromMinutes(5);
+
     public IOptimization Optimization { get; } = optimization;
 
     [RelayCommand]
@@ -66,7 +74,8 @@ public partial class OptimizationDetailsViewModel(
 
         var fileName = baseOpt.OwnerType.Name;
         var className = Optimization.OptimizationKey;
-        var relativePath = $"optimizerDuck/Core/Optimizers/{fileName}.cs";
+        var namespacePath = (baseOpt.OwnerType.Namespace ?? string.Empty).Replace('.', '/');
+        var relativePath = $"{namespacePath}/{fileName}.cs";
         var url = $"{Shared.GitHubRepoURL}/blob/master/{relativePath}";
 
         // Fetch source from GitHub raw content to find the class line number
@@ -75,8 +84,17 @@ public partial class OptimizationDetailsViewModel(
             var rawUrl =
                 $"https://raw.githubusercontent.com/itsfatduck/optimizerDuck/master/{relativePath}";
 
-            using var httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(5) };
-            var source = await httpClient.GetStringAsync(rawUrl);
+            var cached = _sourceCache.GetOrAdd(rawUrl, CreateSourceCacheEntry);
+
+            var cachedSource = await cached.Value;
+            if (DateTime.UtcNow - cachedSource.FetchedAt >= SourceCacheTtl)
+            {
+                var refreshed = CreateSourceCacheEntry(rawUrl);
+                _sourceCache[rawUrl] = refreshed;
+                cachedSource = await refreshed.Value;
+            }
+
+            var source = cachedSource.Content;
 
             var lines = source.Split('\n');
             for (var i = 0; i < lines.Length; i++)
@@ -110,5 +128,14 @@ public partial class OptimizationDetailsViewModel(
                 TimeSpan.FromSeconds(5)
             );
         }
+    }
+
+    private static Lazy<Task<(string Content, DateTime FetchedAt)>> CreateSourceCacheEntry(
+        string rawUrl
+    )
+    {
+        return new Lazy<Task<(string Content, DateTime FetchedAt)>>(async () =>
+            (await httpClient.GetStringAsync(rawUrl), DateTime.UtcNow)
+        );
     }
 }
