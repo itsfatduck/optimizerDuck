@@ -140,7 +140,7 @@ public static class ServiceProcessService
             }
 
             _lastError.Value =
-                Translations.Service_Service_Error_UpdateRegistryForStartupTypeFailed;
+                Translations.Service_Service_Error_ChangeStartupTypeFailed;
             ExecutionScope.LogInfo(
                 "[SERVICE][{Name}][FAIL][D={Duration}] startup -> {StartupType}",
                 item.Name,

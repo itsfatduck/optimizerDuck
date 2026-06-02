@@ -4413,11 +4413,11 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to update registry for startup type.
+        ///   Looks up a localized string similar to Failed to change startup type for service.
         /// </summary>
-        internal static string Service_Service_Error_UpdateRegistryForStartupTypeFailed {
+        internal static string Service_Service_Error_ChangeStartupTypeFailed {
             get {
-                return ResourceManager.GetString("Service.Service.Error.UpdateRegistryForStartupTypeFailed", resourceCulture);
+                return ResourceManager.GetString("Service.Service.Error.ChangeStartupTypeFailed", resourceCulture);
             }
         }
         

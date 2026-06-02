@@ -433,8 +433,8 @@
   <data name="Service.Service.Error.NotFound" xml:space="preserve">
     <value>Không tìm thấy dịch vụ</value>
   </data>
-  <data name="Service.Service.Error.UpdateRegistryForStartupTypeFailed" xml:space="preserve">
-    <value>Không thể cập nhật registry cho kiểu khởi động</value>
+  <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
+    <value>Không thể thay đổi kiểu khởi động cho dịch vụ</value>
   </data>
   <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
     <value>ChangeStartMode thất bại (mã: {0})</value>

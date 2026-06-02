@@ -436,8 +436,8 @@
   <data name="Service.Service.Error.NotFound" xml:space="preserve">
     <value>未找到服务</value>
   </data>
-  <data name="Service.Service.Error.UpdateRegistryForStartupTypeFailed" xml:space="preserve">
-    <value>更新启动类型注册表失败</value>
+  <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
+    <value>更改服务启动类型失败</value>
   </data>
   <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
     <value>更改启动模式失败（错误代码：{0}）</value>

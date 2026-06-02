@@ -385,8 +385,8 @@
   <data name="Service.Service.Error.NotFound" xml:space="preserve">
   <value>서비스를 찾을 수 없습니다</value>
 </data>
-  <data name="Service.Service.Error.UpdateRegistryForStartupTypeFailed" xml:space="preserve">
-  <value>시작 유형에 대한 레지스트리 업데이트에 실패했습니다</value>
+  <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
+  <value>서비스 시작 유형을 변경하지 못했습니다</value>
 </data>
   <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
   <value>ChangeStartMode 실패 (코드: {0})</value>

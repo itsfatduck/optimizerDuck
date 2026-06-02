@@ -437,8 +437,8 @@
   <data name="Service.Service.Error.NotFound" xml:space="preserve">
     <value>Service introuvable</value>
   </data>
-  <data name="Service.Service.Error.UpdateRegistryForStartupTypeFailed" xml:space="preserve">
-    <value>Impossible de mettre à jour le registre pour le type de démarrage</value>
+  <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
+    <value>Impossible de modifier le type de démarrage du service</value>
   </data>
   <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
     <value>Échec de ChangeStartMode (code : {0})</value>

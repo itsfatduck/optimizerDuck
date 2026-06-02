@@ -408,8 +408,8 @@
   <data name="Service.Service.Error.NotFound" xml:space="preserve">
     <value>找不到服務</value>
   </data>
-  <data name="Service.Service.Error.UpdateRegistryForStartupTypeFailed" xml:space="preserve">
-    <value>無法更新啟動類型的登錄檔</value>
+  <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
+    <value>變更服務啟動類型失敗</value>
   </data>
   <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
     <value>變更啟動模式失敗（代碼：{0}）</value>

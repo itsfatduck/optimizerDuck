@@ -436,8 +436,8 @@
   <data name="Service.Service.Error.NotFound" xml:space="preserve">
     <value>Service not found</value>
   </data>
-  <data name="Service.Service.Error.UpdateRegistryForStartupTypeFailed" xml:space="preserve">
-    <value>Failed to update registry for startup type</value>
+  <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
+    <value>Failed to change startup type for service</value>
   </data>
   <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
     <value>ChangeStartMode failed (code: {0})</value>

@@ -436,8 +436,8 @@
   <data name="Service.Service.Error.NotFound" xml:space="preserve">
     <value>Служба не найдена</value>
   </data>
-  <data name="Service.Service.Error.UpdateRegistryForStartupTypeFailed" xml:space="preserve">
-    <value>Не удалось обновить реестр для типа запуска</value>
+  <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
+    <value>Не удалось изменить тип запуска службы</value>
   </data>
   <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
     <value>Сбой ChangeStartMode (код: {0})</value>
