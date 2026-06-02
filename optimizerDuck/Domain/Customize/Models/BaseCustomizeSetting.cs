@@ -3,7 +3,6 @@ using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Services.Managers;
-using optimizerDuck.Services.Optimization.Providers;
 using Wpf.Ui.Controls;
 
 namespace optimizerDuck.Domain.Customize.Models;
@@ -104,14 +103,49 @@ public abstract class BaseCustomizeSetting : ICustomizeSetting
     protected virtual IReadOnlyList<string> GetWatchedRegistryPaths() =>
         [.. RegistryToggles.Select(t => t.Path).Distinct(StringComparer.OrdinalIgnoreCase)];
 
-    protected virtual bool NeedsPostAction => false;
+    /// <summary>
+    /// Whether the setting requires a Windows refresh after <see cref="ApplyAsync"/>.
+    /// Defaults to <c>false</c>; auto-derived from <see cref="RefreshScope"/> but
+    /// can be overridden for custom behaviour.
+    /// </summary>
+    protected virtual bool NeedsPostAction => RefreshScope != CustomizeRefreshScope.None;
 
+    /// <summary>
+    /// Granular set of Windows surfaces that must be notified after
+    /// <see cref="ApplyAsync"/>. Override this to declare exactly which
+    /// refresh strategies are required (e.g. <see cref="CustomizeRefreshScope.DesktopIcons"/>
+    /// for settings that affect the desktop icon list). Default is
+    /// <see cref="CustomizeRefreshScope.None"/> - opt in by overriding.
+    /// </summary>
+    protected virtual CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.None;
+
+    /// <summary>
+    /// Runs every refresh strategy declared in <see cref="RefreshScope"/>.
+    /// Subclasses can override this to add custom Win32 work alongside or
+    /// instead of the default refresh pipeline.
+    /// </summary>
     protected virtual async Task ExecutePostActionAsync()
     {
+        var scope = RefreshScope;
+        if (scope == CustomizeRefreshScope.None)
+            return;
+
         await Task.Run(() =>
         {
-            SystemRefreshService.NotifySettingChange();
-            SystemRefreshService.RefreshShell();
+            if (scope.HasFlag(CustomizeRefreshScope.Settings))
+                SystemRefreshService.NotifySettingChange();
+            if (scope.HasFlag(CustomizeRefreshScope.Associations))
+                SystemRefreshService.RefreshShell();
+            if (scope.HasFlag(CustomizeRefreshScope.Desktop))
+                SystemRefreshService.RefreshDesktop();
+            if (scope.HasFlag(CustomizeRefreshScope.DesktopIconCache))
+                SystemRefreshService.RefreshDesktopIconVisibilityFromRegistry();
+            if (scope.HasFlag(CustomizeRefreshScope.Taskbar))
+                SystemRefreshService.NotifyTaskbarSettingChange();
+            if (scope.HasFlag(CustomizeRefreshScope.PolicyUpdate))
+                SystemRefreshService.UpdatePerUserSystemParameters();
+            if (scope.HasFlag(CustomizeRefreshScope.Theme))
+                SystemRefreshService.NotifyThemeChanged();
         });
     }
 

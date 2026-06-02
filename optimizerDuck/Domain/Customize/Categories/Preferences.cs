@@ -52,7 +52,8 @@ public class Preferences : ICustomizeCategory
             await ExecutePostActionAsync();
         }
 
-        protected override bool NeedsPostAction => true;
+        protected override CustomizeRefreshScope RefreshScope =>
+            CustomizeRefreshScope.TaskbarSettings;
 
         protected override IReadOnlyList<string> GetWatchedRegistryPaths() => [RegPath];
     }
@@ -64,7 +65,8 @@ public class Preferences : ICustomizeCategory
     )]
     public class TaskbarWidgets : BaseCustomizeSetting
     {
-        protected override bool NeedsPostAction => true;
+        protected override CustomizeRefreshScope RefreshScope =>
+            CustomizeRefreshScope.TaskbarSettings;
 
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
@@ -100,7 +102,8 @@ public class Preferences : ICustomizeCategory
     [CustomizeSetting(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.DesktopMac24)]
     public class TaskbarTaskViewButton : BaseCustomizeSetting
     {
-        protected override bool NeedsPostAction => true;
+        protected override CustomizeRefreshScope RefreshScope =>
+            CustomizeRefreshScope.TaskbarSettings;
 
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
@@ -122,6 +125,9 @@ public class Preferences : ICustomizeCategory
     )]
     public class TaskbarEndTask : BaseCustomizeSetting
     {
+        protected override CustomizeRefreshScope RefreshScope =>
+            CustomizeRefreshScope.TaskbarSettings;
+
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
                 new()
@@ -139,6 +145,9 @@ public class Preferences : ICustomizeCategory
     [CustomizeSetting(Section = nameof(Sections.Appearance), Icon = SymbolRegular.DarkTheme24)]
     public class DarkMode : BaseCustomizeSetting
     {
+        protected override CustomizeRefreshScope RefreshScope =>
+            CustomizeRefreshScope.Settings | CustomizeRefreshScope.Theme;
+
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
                 new()
@@ -167,7 +176,7 @@ public class Preferences : ICustomizeCategory
     )]
     public class ExplorerSyncNotifications : BaseCustomizeSetting
     {
-        protected override bool NeedsPostAction => true;
+        protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.Default;
 
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
@@ -189,6 +198,8 @@ public class Preferences : ICustomizeCategory
     )]
     public class SystemSuggestions : BaseCustomizeSetting
     {
+        protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.Settings;
+
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
                 new()
@@ -205,6 +216,8 @@ public class Preferences : ICustomizeCategory
     [CustomizeSetting(Section = nameof(Sections.Explorer), Icon = SymbolRegular.Alert24)]
     public class ToastNotifications : BaseCustomizeSetting
     {
+        protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.Settings;
+
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
                 new()
@@ -230,7 +243,7 @@ public class Preferences : ICustomizeCategory
     [CustomizeSetting(Section = nameof(Sections.Explorer), Icon = SymbolRegular.Table24)]
     public class ExplorerCompactMode : BaseCustomizeSetting
     {
-        protected override bool NeedsPostAction => true;
+        protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.Default;
 
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
@@ -248,7 +261,7 @@ public class Preferences : ICustomizeCategory
     [CustomizeSetting(Section = nameof(Sections.Explorer), Icon = SymbolRegular.Grid24)]
     public class SnapAssistFlyout : BaseCustomizeSetting
     {
-        protected override bool NeedsPostAction => true;
+        protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.Default;
 
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
@@ -266,7 +279,7 @@ public class Preferences : ICustomizeCategory
     [CustomizeSetting(Section = nameof(Sections.Explorer), Icon = SymbolRegular.CheckboxChecked24)]
     public class ExplorerItemCheckboxes : BaseCustomizeSetting
     {
-        protected override bool NeedsPostAction => true;
+        protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.Default;
 
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
@@ -288,7 +301,7 @@ public class Preferences : ICustomizeCategory
     )]
     public class ShowFileExtensions : BaseCustomizeSetting
     {
-        protected override bool NeedsPostAction => true;
+        protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.ExplorerView;
 
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
@@ -310,7 +323,7 @@ public class Preferences : ICustomizeCategory
     )]
     public class ShowHiddenFiles : BaseCustomizeSetting
     {
-        protected override bool NeedsPostAction => true;
+        protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.ExplorerView;
 
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
@@ -332,6 +345,8 @@ public class Preferences : ICustomizeCategory
     )]
     public class ClipboardHistory : BaseCustomizeSetting
     {
+        protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.Settings;
+
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
                 new()
@@ -348,7 +363,7 @@ public class Preferences : ICustomizeCategory
     [CustomizeSetting(Section = nameof(Sections.Explorer), Icon = SymbolRegular.CursorClick24)]
     public class WindowShake : BaseCustomizeSetting
     {
-        protected override bool NeedsPostAction => true;
+        protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.Default;
 
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
@@ -366,6 +381,9 @@ public class Preferences : ICustomizeCategory
     [CustomizeSetting(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.Clock24)]
     public class ShowSecondsInSystemClock : BaseCustomizeSetting
     {
+        protected override CustomizeRefreshScope RefreshScope =>
+            CustomizeRefreshScope.TaskbarSettings;
+
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
                 new()
@@ -382,6 +400,8 @@ public class Preferences : ICustomizeCategory
     [CustomizeSetting(Section = nameof(Sections.Explorer), Icon = SymbolRegular.Folder24)]
     public class LaunchToThisPc : BaseCustomizeSetting
     {
+        protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.Default;
+
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
                 new()
@@ -402,7 +422,8 @@ public class Preferences : ICustomizeCategory
     )]
     public class BingSearch : BaseCustomizeSetting
     {
-        protected override bool NeedsPostAction => true;
+        protected override CustomizeRefreshScope RefreshScope =>
+            CustomizeRefreshScope.TaskbarSettings;
 
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
@@ -429,7 +450,9 @@ public class Preferences : ICustomizeCategory
 
         private const string InprocPath = BasePath + @"\InprocServer32";
 
-        protected override bool NeedsPostAction => true;
+        protected override CustomizeRefreshScope RefreshScope =>
+            CustomizeRefreshScope.Default
+            | CustomizeRefreshScope.PolicyUpdate;
 
         protected override IReadOnlyList<string> GetWatchedRegistryPaths() => [BasePath];
 

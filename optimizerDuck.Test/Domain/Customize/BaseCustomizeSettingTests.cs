@@ -286,4 +286,196 @@ public class BaseCustomizeSettingTests : IDisposable
     }
 
     #endregion
+
+    #region RefreshScope tests
+
+    private static readonly System.Reflection.PropertyInfo RefreshScopeProperty =
+        typeof(BaseCustomizeSetting).GetProperty(
+            "RefreshScope",
+            System.Reflection.BindingFlags.Instance
+                | System.Reflection.BindingFlags.NonPublic
+                | System.Reflection.BindingFlags.Public
+        )!;
+
+    private static readonly System.Reflection.PropertyInfo NeedsPostActionProperty =
+        typeof(BaseCustomizeSetting).GetProperty(
+            "NeedsPostAction",
+            System.Reflection.BindingFlags.Instance
+                | System.Reflection.BindingFlags.NonPublic
+                | System.Reflection.BindingFlags.Public
+        )!;
+
+    private static CustomizeRefreshScope GetRefreshScope(BaseCustomizeSetting s) =>
+        (CustomizeRefreshScope)RefreshScopeProperty.GetValue(s)!;
+
+    private static bool GetNeedsPostAction(BaseCustomizeSetting s) =>
+        (bool)NeedsPostActionProperty.GetValue(s)!;
+
+    /// <summary>Plain setting with no overrides - must be opt-in for post-action.</summary>
+    private sealed class DefaultScopeSetting : BaseCustomizeSetting
+    {
+        public override Task<bool> GetStateAsync() => Task.FromResult(false);
+    }
+
+    /// <summary>Setting that opts into the default explorer-level refresh.</summary>
+    private sealed class DefaultExplorerScopeSetting : BaseCustomizeSetting
+    {
+        protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.Default;
+
+        public override Task<bool> GetStateAsync() => Task.FromResult(false);
+    }
+
+    /// <summary>Setting that opts into the desktop-icon refresh.</summary>
+    private sealed class DesktopIconsScopeSetting : BaseCustomizeSetting
+    {
+        protected override CustomizeRefreshScope RefreshScope =>
+            CustomizeRefreshScope.DesktopIcons;
+
+        public override Task<bool> GetStateAsync() => Task.FromResult(false);
+    }
+
+    /// <summary>Setting that opts into the global HideIcons cache refresh.</summary>
+    private sealed class HideDesktopIconsScopeSetting : BaseCustomizeSetting
+    {
+        protected override CustomizeRefreshScope RefreshScope =>
+            CustomizeRefreshScope.HideDesktopIcons;
+
+        public override Task<bool> GetStateAsync() => Task.FromResult(false);
+    }
+
+    /// <summary>Setting that opts into the taskbar refresh.</summary>
+    private sealed class TaskbarScopeSetting : BaseCustomizeSetting
+    {
+        protected override CustomizeRefreshScope RefreshScope =>
+            CustomizeRefreshScope.TaskbarSettings;
+
+        public override Task<bool> GetStateAsync() => Task.FromResult(false);
+    }
+
+    /// <summary>Setting that opts into a multi-flag custom scope.</summary>
+    private sealed class MultiScopeSetting : BaseCustomizeSetting
+    {
+        protected override CustomizeRefreshScope RefreshScope =>
+            CustomizeRefreshScope.Settings
+            | CustomizeRefreshScope.Associations
+            | CustomizeRefreshScope.PolicyUpdate;
+
+        public override Task<bool> GetStateAsync() => Task.FromResult(false);
+    }
+
+    [Fact]
+    public void RefreshScope_ByDefault_IsNone_SoPostActionDoesNotRun()
+    {
+        var setting = new DefaultScopeSetting();
+
+        Assert.Equal(CustomizeRefreshScope.None, GetRefreshScope(setting));
+        Assert.False(GetNeedsPostAction(setting));
+    }
+
+    [Fact]
+    public void NeedsPostAction_IsDerivedFromRefreshScope()
+    {
+        Assert.True(GetNeedsPostAction(new DefaultExplorerScopeSetting()));
+        Assert.True(GetNeedsPostAction(new DesktopIconsScopeSetting()));
+        Assert.True(GetNeedsPostAction(new HideDesktopIconsScopeSetting()));
+        Assert.True(GetNeedsPostAction(new TaskbarScopeSetting()));
+        Assert.True(GetNeedsPostAction(new MultiScopeSetting()));
+        Assert.False(GetNeedsPostAction(new DefaultScopeSetting()));
+    }
+
+    [Fact]
+    public void RefreshScope_OnEachSubclass_MatchesExpectedValue()
+    {
+        Assert.Equal(CustomizeRefreshScope.Default, GetRefreshScope(new DefaultExplorerScopeSetting()));
+        Assert.Equal(CustomizeRefreshScope.DesktopIcons, GetRefreshScope(new DesktopIconsScopeSetting()));
+        Assert.Equal(CustomizeRefreshScope.TaskbarSettings, GetRefreshScope(new TaskbarScopeSetting()));
+        Assert.Equal(
+            CustomizeRefreshScope.Settings
+                | CustomizeRefreshScope.Associations
+                | CustomizeRefreshScope.PolicyUpdate,
+            GetRefreshScope(new MultiScopeSetting())
+        );
+    }
+
+    [Fact]
+    public async Task ApplyAsync_WhenRefreshScopeIsNone_DoesNotCallPostAction()
+    {
+        var setting = new DefaultScopeSetting { OwnerType = typeof(DefaultScopeSetting) };
+
+        // With RefreshScope = None, the base ApplyAsync must skip
+        // ExecutePostActionAsync entirely. We confirm the gate behaviour:
+        // NeedsPostAction is false, so no refresh runs.
+        Assert.False(GetNeedsPostAction(setting));
+        await setting.ApplyAsync(false); // must not throw
+    }
+
+    [Fact]
+    public async Task ApplyAsync_WhenRefreshScopeIsSet_RunsWithoutThrowing()
+    {
+        // Smoke test: every declared scope variant must produce a working
+        // ApplyAsync that touches the registry and runs the refresh pipeline
+        // without exceptions on a real Windows host.
+        var settings = new BaseCustomizeSetting[]
+        {
+            new DefaultExplorerScopeSetting { OwnerType = typeof(DefaultExplorerScopeSetting) },
+            new DesktopIconsScopeSetting { OwnerType = typeof(DesktopIconsScopeSetting) },
+            new TaskbarScopeSetting { OwnerType = typeof(TaskbarScopeSetting) },
+            new MultiScopeSetting { OwnerType = typeof(MultiScopeSetting) },
+        };
+
+        foreach (var setting in settings)
+        {
+            await setting.ApplyAsync(true);
+            await setting.ApplyAsync(false);
+        }
+    }
+
+    [Fact]
+    public void CustomizeRefreshScope_DefaultEqualsSettingsPlusAssociations()
+    {
+        Assert.Equal(
+            CustomizeRefreshScope.Settings | CustomizeRefreshScope.Associations,
+            CustomizeRefreshScope.Default
+        );
+    }
+
+    [Fact]
+    public void CustomizeRefreshScope_DesktopIconsEqualsSettingsPlusDesktop()
+    {
+        Assert.Equal(
+            CustomizeRefreshScope.Settings | CustomizeRefreshScope.Desktop,
+            CustomizeRefreshScope.DesktopIcons
+        );
+    }
+
+    [Fact]
+    public void CustomizeRefreshScope_TaskbarSettingsEqualsSettingsPlusTaskbar()
+    {
+        Assert.Equal(
+            CustomizeRefreshScope.Settings | CustomizeRefreshScope.Taskbar,
+            CustomizeRefreshScope.TaskbarSettings
+        );
+    }
+
+    [Fact]
+    public void CustomizeRefreshScope_ExplorerViewIncludesPolicyUpdate()
+    {
+        Assert.True(CustomizeRefreshScope.ExplorerView.HasFlag(CustomizeRefreshScope.PolicyUpdate));
+    }
+
+    [Fact]
+    public void CustomizeRefreshScope_AllFlagsCanBeCombined()
+    {
+        var all = CustomizeRefreshScope.Settings
+            | CustomizeRefreshScope.Associations
+            | CustomizeRefreshScope.Desktop
+            | CustomizeRefreshScope.Taskbar
+            | CustomizeRefreshScope.PolicyUpdate
+            | CustomizeRefreshScope.Theme;
+
+        Assert.True(all.HasFlag(CustomizeRefreshScope.Settings));
+        Assert.True(all.HasFlag(CustomizeRefreshScope.Theme));
+    }
+
+    #endregion
 }

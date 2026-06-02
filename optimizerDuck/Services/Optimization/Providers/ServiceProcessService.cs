@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 using optimizerDuck.Common.Extensions;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
@@ -12,31 +13,53 @@ public static class ServiceProcessService
     private static readonly AsyncLocal<string?> _lastError = new();
     private static readonly AsyncLocal<string?> _lastErrorDetail = new();
 
+    private static readonly Regex _startTypeRegex = new(
+        @"START_TYPE\s*:\s*(\d+)",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase
+    );
+
+    private static readonly Regex _delayedRegex = new(
+        @"\(Delayed\)",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase
+    );
+
     internal static string? LastError => _lastError.Value;
     internal static string? LastErrorDetail => _lastErrorDetail.Value;
 
-    /// <summary>Gets the current startup type of a Windows service from the registry.</summary>
-    /// <param name="serviceName">The name of the service.</param>
-    /// <returns>The startup type, or <see langword="null" /> if the value is unrecognized or an error occurs.</returns>
     public static ServiceStartupType? GetStartupType(string serviceName)
     {
         try
         {
-            var serviceKey = $@"HKLM\SYSTEM\CurrentControlSet\Services\{serviceName}";
-            var start = RegistryService.Read<int>(new RegistryItem(serviceKey, "Start"));
+            var (exitCode, stdout, stderr) = RunScExe($"qc \"{serviceName}\"", 15000);
 
-            if (start == 2)
+            if (exitCode != 0)
             {
-                var isDelayed = RegistryService.Read<int>(
-                    new RegistryItem(serviceKey, "DelayedAutoStart")
+                ExecutionScope.LogWarning(
+                    "[SERVICE][{Name}] sc.exe qc failed with exit code {ExitCode}: {Stderr}",
+                    serviceName,
+                    exitCode,
+                    stderr
                 );
-                return isDelayed == 1
-                    ? ServiceStartupType.AutomaticDelayedStart
-                    : ServiceStartupType.Automatic;
+                return null;
             }
 
-            return start switch
+            var startMatch = _startTypeRegex.Match(stdout);
+            if (!startMatch.Success)
             {
+                ExecutionScope.LogWarning(
+                    "[SERVICE][{Name}] Could not parse START_TYPE from sc.exe qc output",
+                    serviceName
+                );
+                return null;
+            }
+
+            var startValue = int.Parse(startMatch.Groups[1].Value);
+
+            return startValue switch
+            {
+                2 => _delayedRegex.IsMatch(stdout)
+                    ? ServiceStartupType.AutomaticDelayedStart
+                    : ServiceStartupType.Automatic,
                 3 => ServiceStartupType.Manual,
                 4 => ServiceStartupType.Disabled,
                 _ => null,
@@ -53,9 +76,6 @@ public static class ServiceProcessService
         }
     }
 
-    /// <summary>Changes a service's startup type by writing the corresponding registry values.</summary>
-    /// <param name="item">The service name and target startup type.</param>
-    /// <returns><see langword="true" /> if the change succeeded; otherwise, <see langword="false" />.</returns>
     public static bool ChangeServiceStartupType(ServiceItem item)
     {
         _lastError.Value = _lastErrorDetail.Value = null;
@@ -71,35 +91,26 @@ public static class ServiceProcessService
         {
             var originalStartupType = GetStartupType(item.Name);
 
-            // Map ServiceStartupType to Registry 'Start' value
-            var startValue = item.StartupType switch
+            var scType = item.StartupType switch
             {
-                ServiceStartupType.Automatic or ServiceStartupType.AutomaticDelayedStart => 2,
-                ServiceStartupType.Manual => 3,
-                ServiceStartupType.Disabled => 4,
-                _ => 3,
+                ServiceStartupType.Automatic => "auto",
+                ServiceStartupType.AutomaticDelayedStart => "delayed-auto",
+                ServiceStartupType.Manual => "demand",
+                ServiceStartupType.Disabled => "disabled",
+                _ => "demand",
             };
 
-            var serviceKey = $@"HKLM\SYSTEM\CurrentControlSet\Services\{item.Name}";
-
-            var mainSuccess = RegistryService.Write(
-                new RegistryItem(serviceKey, "Start", startValue)
+            var (exitCode, stdout, stderr) = RunScExe(
+                $"config \"{item.Name}\" start= {scType}",
+                30000
             );
-            var regError = RegistryService.LastError;
-            var regErrorDetail = RegistryService.LastErrorDetail;
 
-            // handle 'DelayedAutoStart' if necessary
-            var delayedSuccess = true;
-            if (item.StartupType == ServiceStartupType.AutomaticDelayedStart)
-                delayedSuccess = RegistryService.Write(
-                    new RegistryItem(serviceKey, "DelayedAutoStart", 1)
-                );
-            else
-                // Always try to delete for consistency, but don't fail if it doesn't exist
-                RegistryService.DeleteValue(new RegistryItem(serviceKey, "DelayedAutoStart"));
-
-            var success = mainSuccess && delayedSuccess;
+            var success = exitCode == 0;
             sw.Stop();
+
+            if (!success)
+                _lastErrorDetail.Value =
+                    $"sc.exe exit code: {exitCode}\nstdout: {stdout}\nstderr: {stderr}";
 
             if (success)
             {
@@ -129,8 +140,7 @@ public static class ServiceProcessService
             }
 
             _lastError.Value =
-                regError ?? Translations.Service_Service_Error_UpdateRegistryForStartupTypeFailed;
-            _lastErrorDetail.Value = regErrorDetail;
+                Translations.Service_Service_Error_UpdateRegistryForStartupTypeFailed;
             ExecutionScope.LogInfo(
                 "[SERVICE][{Name}][FAIL][D={Duration}] startup -> {StartupType}",
                 item.Name,
@@ -157,6 +167,7 @@ public static class ServiceProcessService
                 ex.Message
             );
             _lastErrorDetail.Value = ex.ToString();
+
             ExecutionScope.LogError(
                 ex,
                 "[SERVICE][{Name}][FAIL][EXCEPTION] startup -> {StartupType}",
@@ -175,6 +186,32 @@ public static class ServiceProcessService
             );
             return false;
         }
+    }
+
+    private static (int ExitCode, string Stdout, string Stderr) RunScExe(
+        string arguments,
+        int timeoutMs)
+    {
+        using var process = new Process
+        {
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = "sc.exe",
+                Arguments = arguments,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true,
+            },
+        };
+
+        process.Start();
+        var stdoutTask = process.StandardOutput.ReadToEndAsync();
+        var stderrTask = process.StandardError.ReadToEndAsync();
+        process.WaitForExit(timeoutMs);
+        Task.WaitAll(stdoutTask, stderrTask);
+
+        return (process.ExitCode, stdoutTask.Result, stderrTask.Result);
     }
 
     /// <summary>Changes the startup type for multiple services.</summary>

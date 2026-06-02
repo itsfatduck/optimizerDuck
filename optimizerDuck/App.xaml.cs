@@ -119,7 +119,23 @@ public partial class App : Application
     private bool _allowClose;
     private IContentDialogService? _contentDialogService = null;
 
-    public bool HasPendingChanges { get; set; }
+    private bool _hasPendingChanges;
+
+    public bool HasPendingChanges
+    {
+        get => _hasPendingChanges;
+        set
+        {
+            if (_hasPendingChanges == value)
+                return;
+            _hasPendingChanges = value;
+            Dispatcher.InvokeAsync(() =>
+            {
+                if (Current.MainWindow is MainWindow mw)
+                    mw.UpdatePendingIndicator(value);
+            });
+        }
+    }
 
     protected override void OnStartup(StartupEventArgs e)
     {

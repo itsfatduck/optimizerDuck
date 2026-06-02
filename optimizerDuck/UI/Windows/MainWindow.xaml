@@ -119,6 +119,7 @@
                         VerticalAlignment="Center"
                         Source="pack://application:,,,/Resources/Images/Duck.png" />
                     <ui:TextBlock
+                        x:Name="AppTitleText"
                         Margin="0,0,6,0"
                         VerticalAlignment="Center"
                         FontTypography="Body"

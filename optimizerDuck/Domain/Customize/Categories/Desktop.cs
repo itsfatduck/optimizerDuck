@@ -30,7 +30,7 @@ public class Desktop : ICustomizeCategory
     [CustomizeSetting(Section = nameof(Sections.Icons), Icon = SymbolRegular.Laptop24)]
     public class ShowThisPc : BaseCustomizeSetting
     {
-        protected override bool NeedsPostAction => true;
+        protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.DesktopIcons;
 
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
@@ -49,7 +49,7 @@ public class Desktop : ICustomizeCategory
     [CustomizeSetting(Section = nameof(Sections.Icons), Icon = SymbolRegular.Delete24)]
     public class ShowRecycleBin : BaseCustomizeSetting
     {
-        protected override bool NeedsPostAction => true;
+        protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.DesktopIcons;
 
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
@@ -68,7 +68,7 @@ public class Desktop : ICustomizeCategory
     [CustomizeSetting(Section = nameof(Sections.Icons), Icon = SymbolRegular.Folder24)]
     public class ShowUserFiles : BaseCustomizeSetting
     {
-        protected override bool NeedsPostAction => true;
+        protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.DesktopIcons;
 
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
@@ -87,7 +87,7 @@ public class Desktop : ICustomizeCategory
     [CustomizeSetting(Section = nameof(Sections.Icons), Icon = SymbolRegular.Desktop24)]
     public class ShowNetwork : BaseCustomizeSetting
     {
-        protected override bool NeedsPostAction => true;
+        protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.DesktopIcons;
 
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
@@ -106,7 +106,7 @@ public class Desktop : ICustomizeCategory
     [CustomizeSetting(Section = nameof(Sections.Icons), Icon = SymbolRegular.Grid24)]
     public class ShowControlPanel : BaseCustomizeSetting
     {
-        protected override bool NeedsPostAction => true;
+        protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.DesktopIcons;
 
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
@@ -125,14 +125,15 @@ public class Desktop : ICustomizeCategory
     [CustomizeSetting(Section = nameof(Sections.Icons), Icon = SymbolRegular.Desktop24)]
     public class ShowDesktopIcons : BaseCustomizeSetting
     {
-        protected override bool NeedsPostAction => true;
+        protected override CustomizeRefreshScope RefreshScope =>
+            CustomizeRefreshScope.HideDesktopIcons;
 
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
                 new()
                 {
-                    Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer",
-                    Name = "NoDesktop",
+                    Path = @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+                    Name = "HideIcons",
                     OnValue = 0,
                     OffValue = 1,
                     DefaultValue = 0,
@@ -172,6 +173,9 @@ public class Desktop : ICustomizeCategory
                 || fileName.Equals("transparent.ico", StringComparison.OrdinalIgnoreCase)
                 || fileName.Equals("blankicon.ico", StringComparison.OrdinalIgnoreCase);
         }
+
+        protected override CustomizeRefreshScope RefreshScope =>
+            CustomizeRefreshScope.Associations | CustomizeRefreshScope.PolicyUpdate;
 
         protected override IReadOnlyList<string> GetWatchedRegistryPaths() => [Path];
 

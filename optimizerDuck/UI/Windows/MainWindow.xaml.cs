@@ -48,6 +48,12 @@ public partial class MainWindow : IWindow
         RootNavigation.Loaded += OnRootNavigationLoaded;
     }
 
+    internal void UpdatePendingIndicator(bool hasPending)
+    {
+        AppTitleText.Text = hasPending ? "optimizerDuck*" : "optimizerDuck";
+        Title = hasPending ? "optimizerDuck*" : "optimizerDuck";
+    }
+
     private async void OnRootNavigationLoaded(object sender, RoutedEventArgs e)
     {
         RootNavigation.Loaded -= OnRootNavigationLoaded;

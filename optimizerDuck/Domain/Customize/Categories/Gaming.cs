@@ -34,6 +34,8 @@ public class Gaming : ICustomizeCategory
     )]
     public class GameMode : BaseCustomizeSetting
     {
+        protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.Settings;
+
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
                 new()
@@ -62,6 +64,8 @@ public class Gaming : ICustomizeCategory
     )]
     public class GameBar : BaseCustomizeSetting
     {
+        protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.Settings;
+
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
                 new()
@@ -109,6 +113,9 @@ public class Gaming : ICustomizeCategory
     )]
     public class BackgroundRecording : BaseCustomizeSetting
     {
+        protected override CustomizeRefreshScope RefreshScope =>
+            CustomizeRefreshScope.Settings | CustomizeRefreshScope.PolicyUpdate;
+
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
                 new()
@@ -165,6 +172,9 @@ public class Gaming : ICustomizeCategory
     {
         private const string Path = @"HKCU\Control Panel\Mouse";
 
+        protected override CustomizeRefreshScope RefreshScope =>
+            CustomizeRefreshScope.PolicyUpdate;
+
         protected override IReadOnlyList<string> GetWatchedRegistryPaths() => [Path];
 
         public override Task<bool> GetStateAsync()
@@ -210,6 +220,8 @@ public class Gaming : ICustomizeCategory
     )]
     public class FullscreenOptimizations : BaseCustomizeSetting
     {
+        protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.Settings;
+
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
             [
                 new()

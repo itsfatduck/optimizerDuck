@@ -132,7 +132,7 @@ public partial class CustomizeItemViewModel(
                         return;
                 }
 
-                var state = await setting.GetStateWithRetryAsync(maxRetries: 2, delayMs: 50);
+                var state = await setting.GetStateWithRetryAsync(maxRetries: 4, delayMs: 80);
                 IsEnabled = state;
                 CurrentValue = setting.CurrentValue;
             }
