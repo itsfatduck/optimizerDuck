@@ -61,7 +61,8 @@ Every star helps motivate future improvements.
 > | 🇷🇺 | Russian | Русский | [Foodhead](https://github.com/Foodhead) |
 > | 🇫🇷 | French | Français | [Robocnop](https://github.com/Robocnop) |
 > | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
->
+> | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
+
 > Want to add your language? See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---

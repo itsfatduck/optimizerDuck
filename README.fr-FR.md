@@ -61,7 +61,8 @@ Chaque étoile aide à motiver les améliorations futures.
 > | 🇷🇺 | Russian | Русский | [Foodhead](https://github.com/Foodhead) |
 > | 🇫🇷 | French | Français | [Robocnop](https://github.com/Robocnop) |
 > | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
->
+> | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
+
 > Vous souhaitez ajouter votre langue ? Consultez [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---

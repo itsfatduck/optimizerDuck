@@ -61,7 +61,8 @@
 > | 🇷🇺 | Russian | Русский | [Foodhead](https://github.com/Foodhead) |
 > | 🇫🇷 | French | Français | [Robocnop](https://github.com/Robocnop) |
 > | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
->
+> | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
+
 > 想加入您的語言嗎？請查看[貢獻指南](./CONTRIBUTING.md)。
 
 ---
