@@ -59,6 +59,7 @@ public partial class SettingsViewModel(
         new() { DisplayName = "Русский", Culture = new CultureInfo("ru-RU") },
         new() { DisplayName = "한국어", Culture = new CultureInfo("ko-KR") },
         new() { DisplayName = "Polski", Culture = new CultureInfo("pl-PL") },
+        new() { DisplayName = "Español", Culture = new CultureInfo("es-ES") }
     ];
 
     public override async Task OnNavigatedToAsync()

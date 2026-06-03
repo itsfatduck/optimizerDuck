@@ -61,7 +61,8 @@ Mỗi ngôi sao giúp tạo động lực cho những cải tiến trong tương
 > | 🇷🇺 | Russian | Русский | [Foodhead](https://github.com/Foodhead) |
 > | 🇫🇷 | French | Français | [Robocnop](https://github.com/Robocnop) |
 > | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
->
+> | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
+
 > Muốn thêm ngôn ngữ của bạn? Xem [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
