@@ -46,7 +46,7 @@
 
 1. 前往 **[GitHub Releases](https://github.com/itsfatduck/optimizerDuck/releases/latest)** 下载
 2. 直接运行 `.exe` 程序，**无需安装**
-3. 挑选要应用的优化项目，套用后重启电脑
+3. 挑选要应用的优化项目，应用后重启电脑
 
 > [!TIP]
 > 修改系统设置前，建议**手动创建系统还原点**。
@@ -54,7 +54,7 @@
 > [!NOTE]
 > | | 语言 | 原始名称 | 翻译者 |
 > |------|----------|-------------|------------|
-> | 🇺🇸 | English (United States) | English | 主要及推荐 |
+> | 🇺🇸 | English (United States) | English | 原创团队<sup>1</sup> |
 > | 🇻🇳 | Vietnamese | Tiếng Việt | [itsfatduck](https://github.com/itsfatduck) |
 > | 🇹🇼 | Traditional Chinese | 正體中文 | [abc0922001](https://github.com/abc0922001) |
 > | 🇨🇳 | Simplified Chinese | 简体中文 | [wcxu21](https://github.com/wcxu21) |
@@ -64,12 +64,14 @@
 > | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
 
 > 想要添加其他语言？请查看[贡献指南](./CONTRIBUTING.md)。
+> 
+> 1: 软件开发时使用此语言，我们也推荐使用此语言以尽可能避免误解。
 
 ---
 
 ## optimizerDuck 做什么
 
-Windows 本身非常稳定。但全新安装时，也会附带一些你可能从未听过的服务、遥测、预装应用和计划任务 — 全部在后台静静运行，消耗你的 CPU、内存和磁盘。同时，一些能帮你榨干硬件性能的功能却没有默认开启。
+Windows 本身非常稳定。但即便是“全新安装”，也会附带一些你可能从未听过的服务、遥测、预装应用和计划任务 — 全部在后台静静运行，消耗你的 CPU、内存和磁盘。同时，一些能帮你榨干硬件性能的功能却没有默认开启。
 
 optimizerDuck 提供一个统一的界面来清除多余的东西、开启有用的功能。
 
@@ -92,7 +94,7 @@ optimizerDuck 提供一个统一的界面来清除多余的东西、开启有用
 | **使用体验**       | 移除菜单显示延迟、关闭任务栏动画和透明度等视觉效果，让系统响应更迅速                                    |
 
 > [!NOTE]
-> 这里的优化皆来自知名工具与大量用户的经验 — 没有 AI 自动生成或盲目添加的项目。每一项调整都是根据实际效果挑选。
+> 这里的优化皆来自知名工具与大量用户的经验 — 没有 AI 自动生成或盲目添加的项目，每一项调整都是根据实际效果挑选。
 
 ### 自定义设置
 
@@ -141,12 +143,12 @@ optimizerDuck 提供一个统一的界面来清除多余的东西、开启有用
 
 ---
 
-## 官方文档
+## 文档
 
-### [使用文档中心](https://optimizerduck.vercel.app/docs/guides/getting-started)
+**访问[官方文档](https://optimizerduck.vercel.app/docs/guides/getting-started)！<sup>2</sup>**
 
-包含分步教程、每项优化的详细说明，以及使用 optimizerDuck 的最佳实践。
-
+官方文档中包含分步教程、每项优化的详细说明，以及使用 optimizerDuck 的最佳实践。
+> 2: *官方文档部署在Vercel(截止到2026年6月3日)，因此可能需要网络优化来访问。*
 ---
 
 ## 贡献
@@ -188,10 +190,10 @@ optimizerDuck 按**现状原样**提供，不附带任何形式的保证。
 
 使用本工具即表示你同意：项目作者不对系统不稳定、数据丢失、第三方软件冲突或用户自行修改操作引发的任何问题承担责任。
 
-修改系统前请务必**创建系统还原点**并备份重要资料。
+为保护你的数据安全，修改系统前请务必**创建系统还原点**并备份重要资料。
 
 > [!NOTE]
-> 本工具会修改系统设置与 Windows 注册表。使用风险自负。
+> 本工具会修改系统设置与 Windows 注册表。使用时**风险自负**。
 > 建议提前备份数据并创建系统还原点，避免意外情况。
 >
 > 详细条款请查阅：[服务条款](./TERMS.md)、[隐私政策](./PRIVACY.md)、[免责声明](./DISCLAIMER.md)
