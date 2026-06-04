@@ -4,7 +4,7 @@
 
 # [optimizerDuck](https://optimizerduck.vercel.app/)
 
-**optimizerDuck là một công cụ tối ưu hóa Windows miễn phí, mã nguồn mở được xây dựng nhằm mục đích tối ưu hiệu suất, bảo mật và sự đơn giản.**
+**optimizerDuck là công cụ tối ưu Windows miễn phí, mã nguồn mở, tập trung vào hiệu năng, quyền riêng tư và sự đơn giản.**
 
 [![Release](https://img.shields.io/github/release/itsfatduck/optimizerDuck?color=fed114&label=Phi%C3%AAn%20b%E1%BA%A3n&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/itsfatduck/optimizerDuck/total?label=L%C6%B0%E1%BB%A3t%20t%E1%BA%A3i&style=flat-square&color=lightgreen)](https://github.com/itsfatduck/optimizerDuck/releases)
@@ -23,8 +23,8 @@
 <details>
 <summary>⭐ Lịch sử Star</summary>
 
-Nếu optimizerDuck giúp ích cho PC của bạn, hãy tặng repo một ⭐ và chia sẻ nó với người khác.
-Mỗi ngôi sao giúp tạo động lực cho những cải tiến trong tương lai.
+Nếu optimizerDuck giúp PC bạn ngon hơn, hãy cho repo một ⭐ và rủ thêm bạn bè xài cùng nhé.
+Càng nhiều sao càng có động lực cải thiện công cụ.
 
 <a href="https://www.star-history.com/#itsfatduck/optimizerDuck&legend=top-left">
  <picture>
@@ -69,18 +69,18 @@ Mỗi ngôi sao giúp tạo động lực cho những cải tiến trong tương
 
 ## optimizerDuck làm gì
 
-Bản thân Windows vốn rất ổn định. Nhưng khi cài mới, Windows cũng kèm theo các dịch vụ, telemetry, ứng dụng cài sẵn và tác vụ lên lịch mà có thể bạn chưa từng nghe tới, tất cả âm thầm chạy nền, ngốn CPU, RAM và ổ cứng. Trong khi đó, một số tính năng giúp bạn tận dụng tối đa phần cứng lại không được bật sẵn.
+Bản thân Windows vốn ổn. Nhưng cài mới xong là nó kèm theo cả đống dịch vụ, telemetry, app mặc định và tác vụ lên lịch mà chắc bạn chưa từng nghe tới, tất cả đều âm thầm chạy nền, ngốn CPU, RAM và ổ cứng. Trong khi mấy tính năng có thể giúp bạn tận dụng tối đa phần cứng lại không được bật sẵn.
 
-optimizerDuck cho bạn một giao diện duy nhất để dọn dẹp đồ thừa và mở khóa những thứ hữu ích.
+optimizerDuck gom hết vào một chỗ cho bạn quét dọn đồ thừa và bật mấy thứ hữu ích lên.
 
-Công cụ áp dụng các tinh chỉnh hệ thống có chọn lọc nhằm giảm thiểu tài nguyên thừa và chặn hành vi không mong muốn, đồng thời tích hợp sẵn nhiều công cụ quản lý giúp bạn xem những gì đang chạy, gỡ bỏ những thứ không cần và hoàn tác bất kỳ thay đổi nào nếu có vấn đề.
+Công cụ này sẽ chỉnh sửa một số cài đặt Windows để giảm tải và chặn mấy thứ linh tinh chạy ngầm, đồng thời tích hợp sẵn mấy tiện ích cho bạn xem cái gì đang chạy, gỡ mấy thứ không cần và hoàn tác nếu có vấn đề.
 
 > [!NOTE]
 > Mọi tối ưu hóa đều có thể áp dụng thủ công. optimizerDuck chỉ giúp bạn thực hiện các tối ưu này dễ dàng hơn.
 
 ### Tối ưu hệ thống
 
-Hơn 30 tinh chỉnh trong 6 danh mục, mỗi tinh chỉnh đều có mô tả rõ ràng và xếp hạng rủi ro để bạn biết chính xác thay đổi sẽ làm gì trước khi áp dụng.
+Hơn 30 tinh chỉnh chia làm 6 nhóm, cái nào cũng có mô tả rõ ràng và gắn nhãn rủi ro để bạn biết mình đang bấm vào cái gì trước khi áp dụng.
 
 | Danh mục                | Nội dung                                                                                                                                                          |
 | :---------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -92,16 +92,16 @@ Hơn 30 tinh chỉnh trong 6 danh mục, mỗi tinh chỉnh đều có mô tả 
 | **Trải nghiệm**         | Loại bỏ độ trễ hiển thị menu, tắt hiệu ứng hình ảnh như animation thanh taskbar và độ trong suốt để máy phản hồi nhanh hơn                                        |
 
 > [!NOTE]
-> Các tối ưu ở đây được nghiên cứu từ những công cụ nổi tiếng có lượng người dùng lớn, không có gì do AI code hay thêm vào một cách mù quáng. Mỗi tinh chỉnh đều được chọn lọc dựa trên tác dụng thực tế.
+> Mấy cái tối ưu ở đây đều tham khảo từ các tool nổi tiếng có nhiều người xài, không có gì do AI code hay thêm bừa bãi hết. Cái nào cũng được chọn vì có tác dụng thiệt.
 
 ### Tùy chỉnh
 
-Không cần mò registry, chỉ có toggle, dropdown và ô nhập số, tất cả trong một chỗ. Gồm bốn danh mục:
+Không cần mò registry, toàn toggle, dropdown với ô nhập số hết, tất cả gom một chỗ. Chia làm bốn nhóm:
 
-- **Màn hình nền**: Hiển thị hoặc ẩn biểu tượng (This PC, Thùng rác, Mạng, Tệp người dùng, Control Panel), xóa mũi tên shortcut
-- **Tùy chỉnh chung**: Căn chỉnh thanh tác vụ, widget, nút Task View và End Task, giây trên đồng hồ, chế độ tối, phần mở rộng file, file ẩn, lịch sử clipboard, chế độ thu gọn, snap assist, checkbox, menu chuột phải cổ điển và tìm kiếm Bing
-- **Chơi game**: Game Mode, Game Bar, quay nền, tăng tốc chuột, tối ưu toàn màn hình, lập lịch GPU tăng tốc phần cứng
-- **Hệ thống**: Tự bật Num Lock khi khởi động máy
+- **Màn hình nền**: Ẩn/hiện icon (This PC, Thùng rác, Network, User Files, Control Panel), bỏ mũi tên shortcut
+- **Tùy chỉnh chung**: Căn taskbar, widget, nút Task View và End Task, giây đồng hồ, chế độ tối, đuôi file, file ẩn, lịch sử clipboard, compact view, snap assist, checkbox, menu chuột phải cổ điển, tìm kiếm Bing
+- **Chơi game**: Game Mode, Game Bar, quay video nền, tăng tốc chuột, tối ưu toàn màn hình, lập lịch GPU
+- **Hệ thống**: Tự bật Num Lock khi khởi động
 
 ### Công cụ tích hợp
 
@@ -117,22 +117,62 @@ Không cần mò registry, chỉ có toggle, dropdown và ô nhập số, tất 
 
 ## An toàn
 
-Chúng tôi hiểu rằng thay đổi cài đặt hệ thống luôn tiềm ẩn rủi ro, nên công cụ được xây dựng dựa trên nguyên tắc hoàn tác và kiểm soát của người dùng.
+Thay đổi cài đặt hệ thống có rủi ro, nên tụi mình xây dựng công cụ này với ưu tiên hàng đầu là an toàn và dễ hoàn tác.
 
 Xem [Chính sách bảo mật](./PRIVACY.md) để biết chi tiết về cách chúng tôi xử lý dữ liệu.
 
-- **Tự động sao lưu**: Mỗi thay đổi đều ghi file hoàn tác vào thư mục cục bộ. Bạn có thể khôi phục từng tinh chỉnh hoặc rollback toàn bộ
-- **Hoàn tác một cú nhấp**: Undo bất kỳ tối ưu nào đã áp dụng trực tiếp từ giao diện
-- **Xếp hạng rủi ro**: Mỗi tinh chỉnh được dán nhãn An toàn, Trung bình hoặc Rủi ro cao dựa trên mức độ ảnh hưởng
-- **Không áp dụng mặc định**: Không có gì chạy cho đến khi bạn chọn. Công cụ không tự bật bất kỳ thay đổi nào
-- **Gợi ý tạo restore point**: Trước khi tối ưu đầu tiên, ứng dụng nhắc bạn tạo một điểm khôi phục Windows
+- **Tự động backup**: Mỗi thay đổi đều ghi file hoàn tác vào thư mục riêng. Bạn có thể phục hồi từng cái hoặc rollback hết
+- **Hoàn tác một click**: Undo cái nào đã áp dụng thẳng từ giao diện
+- **Gắn nhãn rủi ro**: Mỗi tinh chỉnh có nhãn An toàn, Trung bình hoặc Rủi ro tùy mức ảnh hưởng
+- **Không tự ý áp dụng**: Bạn chọn thì mới chạy, tool không tự động bật gì hết
+- **Nhắc tạo restore point**: Lần đầu tối ưu, app sẽ gợi ý bạn tạo điểm khôi phục Windows
+
+---
+
+## Câu hỏi thường gặp
+
+### Dùng optimizerDuck có an toàn không?
+
+Có chứ. optimizerDuck là **mã nguồn mở** (GPL v3), nghĩa là ai cũng có thể tự xem code, kiểm tra hoặc tự build được. Mỗi bản release đều được **GitHub Actions** build tự động từ source công khai, không có vụ giấu giếm hay nhét file lạ vào sau khi build. Nếu không yên tâm thì bạn clone repo về, gõ `dotnet build` là ra file `.exe` ngay.
+
+Ứng dụng **hoàn toàn không** thu thập telemetry, thông tin sử dụng hay dữ liệu cá nhân gì hết. Xem thêm [Chính sách bảo mật](./PRIVACY.md).
+
+### optimizerDuck có thực sự giúp máy chạy nhanh hơn, giảm lag hay tăng tốc mạng không?
+
+Có thể giúp được. Mấy cái tinh chỉnh trong optimizerDuck đều **tham khảo từ các tool nổi tiếng, hướng dẫn trong cộng đồng và khuyến nghị từ hãng phần cứng**, chứ không phải AI bịa ra hay thêm đại cho có. Mỗi cái đều canh vào một cài đặt thật mà Windows để ở mức an toàn quá mức (ví dụ như nhóm service host, chế độ nguồn GPU, bóp băng thông mạng, lập lịch tiến trình).
+
+Không có mấy món registry hãm vô đây, cái nào cũng có mục đích rõ ràng và đã được kiểm chứng qua cộng đồng với tài liệu từ hãng.
+
+### Sao Windows SmartScreen / Defender lại báo động khi tải về?
+
+Tại optimizerDuck không có ký số (code-sign) — vì cái chứng chỉ ký số mắc khủng khiếp với dự án mã nguồn mở. Windows mà gặp file `.exe` chưa ký tải từ mạng về thì SmartScreen mặc định hiện cảnh báo. Chuyện bình thường thôi, **không** có nghĩa là file độc hại đâu.
+
+Để qua mặt thì bấm **"Thông tin khác" > "Chạy anyway"**. Nếu vẫn còn lo:
+- Tự build `.exe` từ [source](https://github.com/itsfatduck/optimizerDuck)
+- Gửi file lên mấy trang sandbox như ANY.RUN kiểm tra độc lập
+
+### Bị lỗi có hoàn tác được không?
+
+Được. Trước khi áp dụng cái gì optimizerDuck cũng tạo file để hoàn tác hết. Bạn có thể undo từng cái riêng lẻ hoặc quăng hết từ giao diện chỉ một cú bấm. Trước lần tinh chỉnh đầu tiên app cũng sẽ gợi ý tạo điểm khôi phục Windows luôn.
+
+### Xài được trên Windows 10 và Windows 11 không?
+
+Được. optimizerDuck hỗ trợ cả **Windows 10 (x64)** và **Windows 11 (x64)**.
+
+### Cần quyền admin không?
+
+Cần. Vì nó can thiệp vào cài đặt hệ thống với registry Windows, nên bắt buộc phải chạy với quyền quản trị viên.
+
+### optimizerDuck có thu thập dữ liệu của mình không?
+
+Không. Trong app không có cái gì gọi là telemetry, phân tích hay gửi dữ liệu về đâu hết. Nó chạy ngoại tuyến hoàn toàn, không gửi gì đi cả.
 
 ---
 
 ## Chi tiết kỹ thuật
 
 - **Framework**: WPF trên .NET 10, sử dụng thư viện WPF UI cho thiết kế Fluent
-- **Hệ thống hoàn tác**: Bốn loại bước hoàn tác (Registry, Service, Scheduled Task, Shell) với trạng thái lưu JSON và file I/O an toàn luồng
+- **Hệ thống hoàn tác**: Bốn loại bước hoàn tác (Registry, Service, Scheduled Task, Shell) với trạng thái lưu JSON, xử lý file an toàn đa luồng
 - **Giao diện**: Chế độ Tối (mặc định), Sáng và Tương phản cao, hỗ trợ Mica backdrop
 - **Không cần cài đặt**: Chạy dưới dạng file .exe duy nhất, không cần cài đặt
 - **Hệ thống sao lưu**: Thư mục cục bộ sao lưu cho mọi thay đổi, khôi phục một cú nhấp
@@ -145,31 +185,29 @@ Xem [Chính sách bảo mật](./PRIVACY.md) để biết chi tiết về cách 
 
 ### [Tài liệu chính thức](https://optimizerduck.vercel.app/docs/guides/getting-started)
 
-Hướng dẫn từng bước, giải thích chi tiết từng tối ưu hóa và các phương pháp hay nhất khi sử dụng optimizerDuck.
+Hướng dẫn từng bước, chi tiết các tối ưu và mẹo xài optimizerDuck hiệu quả.
 
 ---
 
 ## Đóng góp
 
-Chúng tôi luôn chào đón mọi đóng góp từ cộng đồng! Cho dù bạn sửa lỗi, thêm tối ưu hóa hoặc tính năng mới, cải thiện tài liệu, hay hỗ trợ dịch ứng dụng sang ngôn ngữ khác, sự giúp đỡ của bạn đều rất đáng trân trọng.
-
-Để biết thêm thông tin, vui lòng xem [CONTRIBUTING.md](./CONTRIBUTING.md).
+Báo bug, thêm tối ưu mới, cải thiện tài liệu hay đóng góp bản dịch — tất cả đều welcome. Xem [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
 
 ## Cộng đồng
 
 > [!TIP]
-> Tham gia Discord để được hỗ trợ, chia sẻ mẹo và thảo luận với người dùng và đóng góp viên khác.
+> Vào Discord để được hỗ trợ, chia sẻ mẹo và tám chuyện với người dùng khác cùng contributor.
 >
 > <a href="https://discord.gg/tDUBDCYw9Q"><img src="https://discord.com/api/guilds/1091675679994675240/widget.png?style=banner2" alt="Discord Banner 2"/></a>
 
-Nếu optimizerDuck đã giúp ích cho máy tính của bạn:
+Nếu optimizerDuck có ích cho PC của bạn:
 
-- ⭐ Tặng sao cho repo
-- 💬 Tham gia Discord để trao đổi
-- 🐞 Báo lỗi trên GitHub
-- 🎁 Hỗ trợ dự án [tại đây](https://optimizerduck.vercel.app/docs/contribute/support-me)
+- ⭐ Star repo
+- 💬 Vào Discord trao đổi
+- 🐞 Báo bug trên GitHub
+- 🎁 Ủng hộ dự án [tại đây](https://optimizerduck.vercel.app/docs/contribute/support-me)
 
 ### Liên kết
 
@@ -178,7 +216,7 @@ Nếu optimizerDuck đã giúp ích cho máy tính của bạn:
 - 💬 [Discord](https://discord.gg/tDUBDCYw9Q)
 - 🐞 [Issues](https://github.com/itsfatduck/optimizerDuck/issues)
 
-Mọi đóng góp đều có ý nghĩa. Báo lỗi, gợi ý tính năng, dịch thuật hay chỉ đơn giản là chia sẻ trải nghiệm, tất cả đều giúp dự án phát triển.
+Báo lỗi, góp ý tính năng, dịch thuật hay kể cả chỉ là kể trải nghiệm xài — tất cả đều giúp dự án tiến xa hơn.
 
 ---
 

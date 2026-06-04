@@ -129,6 +129,46 @@ See the [Privacy Policy](./PRIVACY.md) for details on our data practices.
 
 ---
 
+## FAQ
+
+### Is optimizerDuck safe to use?
+
+Yes. optimizerDuck is fully **open-source** (GPL v3), meaning anyone can inspect, audit, or build the source code themselves. Every release is built automatically by **GitHub Actions** from the public source; no hidden modifications, no unsigned binaries injected after build. If you prefer, you can clone the repo and build the `.exe` yourself with a single `dotnet build`.
+
+The app does **not** collect any telemetry, usage data, or personal information. See the [Privacy Policy](./PRIVACY.md).
+
+### Does optimizerDuck actually improve performance, reduce latency, or speed up my network?
+
+It can help. Every optimization in optimizerDuck is **researched from well-known tools, community guides, and hardware vendor recommendations**, nothing is AI-generated, blindly added, or made up. Each tweak addresses a real setting that Windows configures conservatively by default (e.g., service host grouping, GPU power states, network throttling, process scheduling).
+
+There are no fake registry hacks here, every change has a documented purpose and real-world impact backed by community testing and vendor documentation.
+
+### Why does Windows SmartScreen / Defender flag the download?
+
+optimizerDuck is not code-signed because code signing certificates are expensive for open-source projects. When Windows encounters an unsigned executable downloaded from the internet, SmartScreen displays a warning by default. This is normal and does **not** mean the file is unsafe.
+
+To bypass, click **"More info" > "Run anyway"**. If you are still concerned:
+- Build the `.exe` yourself from [source](https://github.com/itsfatduck/optimizerDuck)
+- Submit the binary to online sandboxes like ANY.RUN for independent verification
+
+### Can I revert changes if something goes wrong?
+
+Yes. Every optimization creates a revert file before applying. You can undo individual tweaks or roll back everything from the UI with one click. The app also suggests creating a Windows System Restore point before your first optimization.
+
+### Does this work on Windows 10 and Windows 11?
+
+Yes. optimizerDuck supports **Windows 10 (x64)** and **Windows 11 (x64)**.
+
+### Do I need administrator rights?
+
+Yes. optimizerDuck modifies system settings and the Windows registry, so it requires administrator privileges to run.
+
+### Does optimizerDuck collect my data?
+
+No. The app contains zero telemetry, analytics, or phone-home functionality. It runs entirely offline and does not send any data anywhere.
+
+---
+
 ## Technical Details
 
 - **Framework**: WPF on .NET 10, using the WPF UI library for Fluent design

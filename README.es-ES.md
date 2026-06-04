@@ -129,6 +129,46 @@ Consulta la [Política de Privacidad](./PRIVACY.md) para más detalles sobre có
 
 ---
 
+## FAQ
+
+### ¿Es seguro usar optimizerDuck?
+
+Sí, claro. optimizerDuck es **código abierto** (GPL v3), así que cualquiera puede revisar el código, auditarlo o compilarlo por su cuenta. Cada versión la construye **GitHub Actions** automáticamente desde el código fuente público — sin modificaciones ocultas, sin binarios extraños inyectados después. Si no te fías, clona el repo y compila el `.exe` tú mismo con un solo `dotnet build`.
+
+La app **no** recolecta telemetría, datos de uso ni información personal. Mira la [Política de Privacidad](./PRIVACY.md).
+
+### ¿optimizerDuck realmente mejora el rendimiento, reduce la latencia o acelera la red?
+
+Puede ayudar. Cada ajuste en optimizerDuck está **sacado de herramientas conocidas, guías de la comunidad y recomendaciones de fabricantes** — nada generado por IA, añadido al tuntún o inventado. Cada cambio toca una configuración real que Windows deja demasiado conservadora por defecto (agrupación de servicios host, estados de energía de la GPU, limitación de red, planificación de procesos).
+
+No hay trucos falsos de registro aquí, cada modificación tiene un propósito documentado y un impacto real respaldado por la comunidad y los fabricantes.
+
+### ¿Por qué Windows SmartScreen / Defender marca la descarga?
+
+Porque optimizerDuck no tiene firma digital — los certificados de firma de código son carísimos para proyectos open-source. Cuando Windows se encuentra un ejecutable sin firmar bajado de Internet, SmartScreen muestra una advertencia por defecto. Es normal y **no** significa que el archivo sea peligroso.
+
+Para saltarlo, haz clic en **"Más información" > "Ejecutar de todas formas"**. Si sigues preocupado:
+- Compila el `.exe` tú mismo desde el [código fuente](https://github.com/itsfatduck/optimizerDuck)
+- Pásalo por un sandbox online como ANY.RUN para que lo verifiquen
+
+### ¿Se pueden revertir los cambios si algo sale mal?
+
+Sí. Cada optimización crea un archivo de reversión antes de aplicarse. Puedes deshacer ajustes individuales o revertirlo todo desde la interfaz con un solo clic. La app también te sugerirá crear un punto de restauración de Windows antes de tu primera optimización.
+
+### ¿Funciona en Windows 10 y Windows 11?
+
+Sí. optimizerDuck es compatible con **Windows 10 (x64)** y **Windows 11 (x64)**.
+
+### ¿Necesito permisos de administrador?
+
+Sí. Como modifica configuraciones del sistema y el registro de Windows, necesita ejecutarse como administrador.
+
+### ¿optimizerDuck recopila mis datos?
+
+No. La app no tiene telemetría, ni analíticas, ni nada que llame a casa. Funciona completamente offline y no envía datos a ningún sitio.
+
+---
+
 ## Detalles Técnicos
 
 - **Framework**: Construido en WPF con .NET 10, usando la biblioteca WPF UI para el diseño Fluent.
