@@ -147,7 +147,7 @@ Không có mấy món registry hãm vô đây, cái nào cũng có mục đích 
 
 Tại optimizerDuck không có ký số (code-sign) — vì cái chứng chỉ ký số mắc khủng khiếp với dự án mã nguồn mở. Windows mà gặp file `.exe` chưa ký tải từ mạng về thì SmartScreen mặc định hiện cảnh báo. Chuyện bình thường thôi, **không** có nghĩa là file độc hại đâu.
 
-Để qua mặt thì bấm **"Thông tin khác" > "Chạy anyway"**. Nếu vẫn còn lo:
+Để qua mặt thì bấm **"Thông tin khác" > "Chạy"**. Nếu vẫn còn lo:
 - Tự build `.exe` từ [source](https://github.com/itsfatduck/optimizerDuck)
 - Gửi file lên mấy trang sandbox như ANY.RUN kiểm tra độc lập
 
