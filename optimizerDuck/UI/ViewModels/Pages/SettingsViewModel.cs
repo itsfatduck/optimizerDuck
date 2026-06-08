@@ -58,6 +58,7 @@ public partial class SettingsViewModel(
         new() { DisplayName = "简体中文", Culture = new CultureInfo("zh-CN") },
         new() { DisplayName = "Русский", Culture = new CultureInfo("ru-RU") },
         new() { DisplayName = "한국어", Culture = new CultureInfo("ko-KR") },
+        new() { DisplayName = "日本語", Culture = new CultureInfo("ja-JP") },
         new() { DisplayName = "Polski", Culture = new CultureInfo("pl-PL") },
         new() { DisplayName = "Español", Culture = new CultureInfo("es-ES") }
     ];
