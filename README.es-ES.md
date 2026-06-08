@@ -61,9 +61,9 @@ Cada estrella nos motiva a realizar futuras mejoras.
 > | 🇷🇺 | Ruso | Русский | [Foodhead](https://github.com/Foodhead) |
 > | 🇫🇷 | Francés | Français | [Robocnop](https://github.com/Robocnop) |
 > | 🇰🇷 | Coreano | 한국어 | [klfnn](https://github.com/klfnn) |
-> | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
-> | 🇯🇵 | Japanese | 日本語 | [zerofrip](https://github.com/zerofrip) |
-> | 🇵🇱 | Polish | Polski | [dudus2000](https://github.com/dudus2000) |
+> | 🇪🇸 | Español | Español | [thexxtt](https://github.com/thexxtt) |
+> | 🇯🇵 | Japonés | 日本語 | [zerofrip](https://github.com/zerofrip) |
+> | 🇵🇱 | Polaco | Polski | [dudus2000](https://github.com/dudus2000) |
 
 > ¿Quieres añadir tu idioma? Consulta [CONTRIBUTING.md](./CONTRIBUTING.md) ([versión en japonés](./CONTRIBUTING.ja-JP.md)).
 
