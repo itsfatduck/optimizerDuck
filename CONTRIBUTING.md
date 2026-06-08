@@ -2,6 +2,8 @@
 
 <a href="https://optimizerduck.vercel.app/"><img src="./.github/assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/></a>
 
+**English** | [日本語](CONTRIBUTING.ja-JP.md)
+
 [Introduction](#introduction) • [Getting Started](#getting-started) • [Architecture Overview](#architecture-overview) • [Ways to Contribute](#ways-to-contribute) • [Creating an Optimization](#creating-an-optimization) • [Creating a Customize Setting](#creating-a-customize-setting) • [The Refresh Scope System](#the-refresh-scope-system) • [Building New Features](#building-new-features) • [Revert System](#revert-system) • [Testing](#testing) • [Coding Standards](#coding-standards) • [Localization](#localization) • [Pull Request Process](#pull-request-process) • [Issue Guidelines](#issue-guidelines) • [FAQ & Troubleshooting](#faq--troubleshooting) • [License](#license)
 
 </div>
@@ -838,6 +840,7 @@ All user-facing strings live in `Resources/Languages/Translations.resx`. Use the
 | Simplified Chinese | `Translations.zh-CN.resx` |
 | Russian | `Translations.ru-RU.resx` |
 | Korean | `Translations.ko-KR.resx` |
+| Japanese | `Translations.ja-JP.resx` |
 | Polish | `Translations.pl-PL.resx` |
 
 ### Adding a New Language

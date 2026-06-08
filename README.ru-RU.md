@@ -63,7 +63,7 @@
 > | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
 > | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
 
-> Хотите добавить свой язык? См. [CONTRIBUTING.md](./CONTRIBUTING.md).
+> Хотите добавить свой язык? См. [CONTRIBUTING.md](./CONTRIBUTING.md) ([японская версия](./CONTRIBUTING.ja-JP.md)).
 
 ---
 
@@ -193,7 +193,7 @@ optimizerDuck даёт вам единый интерфейс, чтобы убр
 
 Мы приветствуем вклад сообщества! Будь то исправление ошибок, добавление новых оптимизаций или функций, улучшение документации или помощь в переводе приложения на другие языки — ваша поддержка очень ценится.
 
-Для получения дополнительной информации см. [CONTRIBUTING.md](./CONTRIBUTING.md).
+Для получения дополнительной информации см. [CONTRIBUTING.md](./CONTRIBUTING.md) ([японская версия](./CONTRIBUTING.ja-JP.md)).
 
 ---
 

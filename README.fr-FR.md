@@ -63,7 +63,7 @@ Chaque étoile aide à motiver les améliorations futures.
 > | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
 > | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
 
-> Vous souhaitez ajouter votre langue ? Consultez [CONTRIBUTING.md](./CONTRIBUTING.md).
+> Vous souhaitez ajouter votre langue ? Consultez [CONTRIBUTING.md](./CONTRIBUTING.md) ([version japonaise](./CONTRIBUTING.ja-JP.md)).
 
 ---
 
@@ -191,7 +191,7 @@ Guides, détails des optimisations et conseils d'utilisation.
 
 ## Contribuer
 
-Les rapports de bugs, les nouvelles optimisations, les améliorations de documentation et les traductions sont tous les bienvenus. Consultez [CONTRIBUTING.md](./CONTRIBUTING.md).
+Les rapports de bugs, les nouvelles optimisations, les améliorations de documentation et les traductions sont tous les bienvenus. Consultez [CONTRIBUTING.md](./CONTRIBUTING.md) ([version japonaise](./CONTRIBUTING.ja-JP.md)).
 
 ---
 

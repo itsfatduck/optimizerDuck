@@ -63,7 +63,7 @@
 > | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
 > | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
 
-> 想加入您的語言嗎？請查看[貢獻指南](./CONTRIBUTING.md)。
+> 想加入您的語言嗎？請查看[貢獻指南](./CONTRIBUTING.md)（[日文版](./CONTRIBUTING.ja-JP.md)）。
 
 ---
 
@@ -193,7 +193,7 @@ optimizerDuck 提供一個統一的介面來清除多餘的東西、開啟有用
 
 我們歡迎來自社群的任何貢獻！無論您是修復錯誤、新增最佳化項目或功能、改善文件，還是協助將應用程式翻譯成其他語言，您的支持都讓我們非常感激。
 
-如需更多資訊，請參閱 [CONTRIBUTING.md](./CONTRIBUTING.md)。
+如需更多資訊，請參閱 [CONTRIBUTING.md](./CONTRIBUTING.md)（[日文版](./CONTRIBUTING.ja-JP.md)）。
 
 ---
 

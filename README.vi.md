@@ -63,7 +63,7 @@ Càng nhiều sao càng có động lực cải thiện công cụ.
 > | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
 > | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
 
-> Muốn thêm ngôn ngữ của bạn? Xem [CONTRIBUTING.md](./CONTRIBUTING.md).
+> Muốn thêm ngôn ngữ của bạn? Xem [CONTRIBUTING.md](./CONTRIBUTING.md) ([bản tiếng Nhật](./CONTRIBUTING.ja-JP.md)).
 
 ---
 
@@ -191,7 +191,7 @@ Hướng dẫn từng bước, chi tiết các tối ưu và mẹo xài optimize
 
 ## Đóng góp
 
-Báo bug, thêm tối ưu mới, cải thiện tài liệu hay đóng góp bản dịch — tất cả đều welcome. Xem [CONTRIBUTING.md](./CONTRIBUTING.md).
+Báo bug, thêm tối ưu mới, cải thiện tài liệu hay đóng góp bản dịch — tất cả đều welcome. Xem [CONTRIBUTING.md](./CONTRIBUTING.md) ([bản tiếng Nhật](./CONTRIBUTING.ja-JP.md)).
 
 ---
 
