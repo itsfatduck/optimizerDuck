@@ -656,7 +656,7 @@
     <value>Aplicar Plan de Energía Optimizado</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
-    <value>Instala un plan de energía personalizado centrado en el rendimiento para asegurar que el sistema funcione siempre a máxima velocidad.</value>
+    <value>Instala un plan de energía personalizado centrado en el rendimiento para asegurar que el sistema funcione siempre a máxima velocidad. Advertencia: Puede provocar que el Administrador de tareas muestre incorrectamente un 100% de uso de CPU en algunos sistemas, la carga real de CPU no se ve afectada.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
     <value>Importando y activando el plan de energía...</value>

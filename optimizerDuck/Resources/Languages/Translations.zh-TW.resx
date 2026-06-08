@@ -604,7 +604,7 @@
     <value>套用最佳化的電源計畫</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
-    <value>安裝專為效能設計的自訂電源計畫，確保您的系統始終以最高速度執行。</value>
+    <value>安裝專為效能設計的自訂電源計畫，確保您的系統始終以最高速度執行。警告：在某些系統上可能導致工作管理員錯誤顯示 100% CPU 使用率，實際 CPU 負載不受影響。</value>
   </data>
 
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">

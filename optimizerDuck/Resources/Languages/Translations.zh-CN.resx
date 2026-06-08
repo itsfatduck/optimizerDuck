@@ -656,7 +656,7 @@
     <value>应用高性能电源计划</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
-    <value>安装定制的高性能电源计划，让系统始终以最高速度运行。</value>
+    <value>安装定制的高性能电源计划，让系统始终以最高速度运行。警告：在某些系统上可能导致任务管理器错误显示 100% CPU 使用率，实际 CPU 负载不受影响。</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
     <value>正在导入并激活电源计划...</value>

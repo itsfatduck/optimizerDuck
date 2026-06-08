@@ -5,12 +5,12 @@ using optimizerDuck.Domain.Configuration;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services;
 using optimizerDuck.Services.Managers;
+using optimizerDuck.UI.Controls;
 using optimizerDuck.UI.Dialogs;
 using optimizerDuck.UI.Pages;
 using optimizerDuck.UI.ViewModels.Windows;
 using Wpf.Ui;
 using Wpf.Ui.Abstractions;
-using optimizerDuck.UI.Controls;
 using Wpf.Ui.Controls;
 
 namespace optimizerDuck.UI.Windows;

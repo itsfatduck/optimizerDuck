@@ -18,12 +18,7 @@ internal static class SystemRefreshService
     );
 
     [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-    private static extern IntPtr SendMessage(
-        IntPtr hWnd,
-        uint Msg,
-        IntPtr wParam,
-        IntPtr lParam
-    );
+    private static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
 
     [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
     private static extern IntPtr FindWindow(string? lpClassName, string? lpWindowName);
@@ -38,7 +33,11 @@ internal static class SystemRefreshService
 
     [DllImport("user32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool InvalidateRect(IntPtr hWnd, IntPtr lpRect, [MarshalAs(UnmanagedType.Bool)] bool bErase);
+    private static extern bool InvalidateRect(
+        IntPtr hWnd,
+        IntPtr lpRect,
+        [MarshalAs(UnmanagedType.Bool)] bool bErase
+    );
 
     [DllImport("user32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
@@ -172,15 +171,9 @@ internal static class SystemRefreshService
             };
             showIcons = value == 0;
         }
-        catch (System.Security.SecurityException)
-        {
-        }
-        catch (System.IO.IOException)
-        {
-        }
-        catch (UnauthorizedAccessException)
-        {
-        }
+        catch (System.Security.SecurityException) { }
+        catch (System.IO.IOException) { }
+        catch (UnauthorizedAccessException) { }
 
         SetDesktopIconsVisible(showIcons);
     }

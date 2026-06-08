@@ -139,8 +139,7 @@ public static class ServiceProcessService
                 return true;
             }
 
-            _lastError.Value =
-                Translations.Service_Service_Error_ChangeStartupTypeFailed;
+            _lastError.Value = Translations.Service_Service_Error_ChangeStartupTypeFailed;
             ExecutionScope.LogInfo(
                 "[SERVICE][{Name}][FAIL][D={Duration}] startup -> {StartupType}",
                 item.Name,
@@ -190,7 +189,8 @@ public static class ServiceProcessService
 
     private static async Task<(int ExitCode, string Stdout, string Stderr)> RunScExeAsync(
         string arguments,
-        int timeoutMs)
+        int timeoutMs
+    )
     {
         using var process = new Process
         {
@@ -216,7 +216,11 @@ public static class ServiceProcessService
         }
         catch (OperationCanceledException)
         {
-            try { process.Kill(); } catch { }
+            try
+            {
+                process.Kill();
+            }
+            catch { }
         }
 
         var stdout = await stdoutTask;

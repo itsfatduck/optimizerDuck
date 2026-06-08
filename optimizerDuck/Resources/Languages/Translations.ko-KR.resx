@@ -605,7 +605,7 @@
   <value>최적화 전원 계획 적용</value>
 </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
-  <value>성능 중심의 사용자 지정 전원 계획을 설치해 시스템이 항상 최대 속도로 동작하도록 합니다</value>
+  <value>성능 중심의 사용자 지정 전원 계획을 설치해 시스템이 항상 최대 속도로 동작하도록 합니다. 경고: 일부 시스템에서 작업 관리자가 CPU 사용률을 100%로 잘못 표시할 수 있으며, 실제 CPU 부하는 영향을 받지 않습니다.</value>
 </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
   <value>전원 계획을 가져오고 활성화하는 중...</value>

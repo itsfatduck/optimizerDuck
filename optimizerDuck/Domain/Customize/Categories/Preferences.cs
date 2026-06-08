@@ -451,8 +451,7 @@ public class Preferences : ICustomizeCategory
         private const string InprocPath = BasePath + @"\InprocServer32";
 
         protected override CustomizeRefreshScope RefreshScope =>
-            CustomizeRefreshScope.Default
-            | CustomizeRefreshScope.PolicyUpdate;
+            CustomizeRefreshScope.Default | CustomizeRefreshScope.PolicyUpdate;
 
         protected override IReadOnlyList<string> GetWatchedRegistryPaths() => [BasePath];
 

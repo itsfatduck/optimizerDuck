@@ -638,7 +638,7 @@
     <value>Cài đặt Sơ đồ năng lượng tối ưu</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
-    <value>Kích hoạt sơ đồ năng lượng đặc biệt giúp máy luôn đạt hiệu năng cao nhất. (Có thể làm tăng nhiệt độ).</value>
+    <value>Kích hoạt sơ đồ năng lượng đặc biệt giúp máy luôn đạt hiệu năng cao nhất. Cảnh báo: Có thể khiến Task Manager hiển thị sai 100% CPU trên một số hệ thống, mức sử dụng CPU thực tế không bị ảnh hưởng.</value>
   </data>
 
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">

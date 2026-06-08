@@ -328,8 +328,7 @@ public class BaseCustomizeSettingTests : IDisposable
     /// <summary>Setting that opts into the desktop-icon refresh.</summary>
     private sealed class DesktopIconsScopeSetting : BaseCustomizeSetting
     {
-        protected override CustomizeRefreshScope RefreshScope =>
-            CustomizeRefreshScope.DesktopIcons;
+        protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.DesktopIcons;
 
         public override Task<bool> GetStateAsync() => Task.FromResult(false);
     }
@@ -386,9 +385,18 @@ public class BaseCustomizeSettingTests : IDisposable
     [Fact]
     public void RefreshScope_OnEachSubclass_MatchesExpectedValue()
     {
-        Assert.Equal(CustomizeRefreshScope.Default, GetRefreshScope(new DefaultExplorerScopeSetting()));
-        Assert.Equal(CustomizeRefreshScope.DesktopIcons, GetRefreshScope(new DesktopIconsScopeSetting()));
-        Assert.Equal(CustomizeRefreshScope.TaskbarSettings, GetRefreshScope(new TaskbarScopeSetting()));
+        Assert.Equal(
+            CustomizeRefreshScope.Default,
+            GetRefreshScope(new DefaultExplorerScopeSetting())
+        );
+        Assert.Equal(
+            CustomizeRefreshScope.DesktopIcons,
+            GetRefreshScope(new DesktopIconsScopeSetting())
+        );
+        Assert.Equal(
+            CustomizeRefreshScope.TaskbarSettings,
+            GetRefreshScope(new TaskbarScopeSetting())
+        );
         Assert.Equal(
             CustomizeRefreshScope.Settings
                 | CustomizeRefreshScope.Associations
@@ -466,7 +474,8 @@ public class BaseCustomizeSettingTests : IDisposable
     [Fact]
     public void CustomizeRefreshScope_AllFlagsCanBeCombined()
     {
-        var all = CustomizeRefreshScope.Settings
+        var all =
+            CustomizeRefreshScope.Settings
             | CustomizeRefreshScope.Associations
             | CustomizeRefreshScope.Desktop
             | CustomizeRefreshScope.Taskbar

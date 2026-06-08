@@ -656,7 +656,7 @@
     <value>Zastosuj zoptymalizowany plan zasilania</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
-    <value>Instaluje niestandardowy plan zasilania nastawiony na wydajność, aby system zawsze działał z maksymalną prędkością.</value>
+    <value>Instaluje niestandardowy plan zasilania nastawiony na wydajność, aby system zawsze działał z maksymalną prędkością. Ostrzeżenie: Może spowodować nieprawidłowe wyświetlanie 100% użycia CPU w Menedżerze zadań na niektórych systemach, rzeczywiste obciążenie CPU pozostaje bez zmian.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
     <value>Importowanie i aktywowanie planu zasilania...</value>

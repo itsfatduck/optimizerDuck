@@ -18,7 +18,7 @@
 
 **[Getting Started](https://optimizerduck.vercel.app/docs/guides/getting-started) | [How It Works](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [FAQ](https://optimizerduck.vercel.app/docs/faq/general)**
 
-**English** | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [Español](README.es-ES.md) | [한국어](README.ko-KR.md)
+**English** | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [Español](README.es-ES.md) | [한국어](README.ko-KR.md) | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md)
 
 <details>
 <summary>⭐ Star History</summary>
@@ -62,6 +62,8 @@ Every star helps motivate future improvements.
 > | 🇫🇷 | French | Français | [Robocnop](https://github.com/Robocnop) |
 > | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
 > | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
+> | 🇯🇵 | Japanese | 日本語 | [zerofrip](https://github.com/zerofrip) |
+> | 🇵🇱 | Polish | Polski | [dudus2000](https://github.com/dudus2000) |
 
 > Want to add your language? See [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japanese](./CONTRIBUTING.ja-JP.md)).
 
@@ -166,6 +168,10 @@ Yes. optimizerDuck modifies system settings and the Windows registry, so it requ
 ### Does optimizerDuck collect my data?
 
 No. The app contains zero telemetry, analytics, or phone-home functionality. It runs entirely offline and does not send any data anywhere.
+
+### Why does Task Manager show 100% CPU after applying the power plan? ([#29](https://github.com/itsfatduck/optimizerDuck/issues/29))
+
+A known Task Manager display bug triggered by non-default power plans, it incorrectly reports 100% CPU on some systems while actual load is normal. Visual only, does **not** affect real performance or cause overheating. If unwanted, simply toggle off this optimization.
 
 ---
 

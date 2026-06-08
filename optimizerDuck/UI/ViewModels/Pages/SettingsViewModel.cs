@@ -60,7 +60,7 @@ public partial class SettingsViewModel(
         new() { DisplayName = "한국어", Culture = new CultureInfo("ko-KR") },
         new() { DisplayName = "日本語", Culture = new CultureInfo("ja-JP") },
         new() { DisplayName = "Polski", Culture = new CultureInfo("pl-PL") },
-        new() { DisplayName = "Español", Culture = new CultureInfo("es-ES") }
+        new() { DisplayName = "Español", Culture = new CultureInfo("es-ES") },
     ];
 
     public override async Task OnNavigatedToAsync()

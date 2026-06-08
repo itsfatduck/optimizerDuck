@@ -18,7 +18,7 @@
 
 **[快速上手](https://optimizerduck.vercel.app/docs/guides/getting-started) | [工作原理](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [常见问题](https://optimizerduck.vercel.app/docs/faq/general)**
 
-[English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | **简体中文** | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [Español](README.es-ES.md) | [한국어](README.ko-KR.md)
+[English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | **简体中文** | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [Español](README.es-ES.md) | [한국어](README.ko-KR.md) | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md)
 
 <details>
 <summary>⭐ 项目星标趋势</summary>
@@ -62,6 +62,8 @@
 > | 🇫🇷 | French | Français | [Robocnop](https://github.com/Robocnop) |
 > | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
 > | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
+> | 🇯🇵 | Japanese | 日本語 | [zerofrip](https://github.com/zerofrip) |
+> | 🇵🇱 | Polish | Polski | [dudus2000](https://github.com/dudus2000) |
 
 > 想要添加其他语言？请查看[贡献指南](./CONTRIBUTING.md)（[日文版](./CONTRIBUTING.ja-JP.md)）。
 > 
@@ -168,6 +170,10 @@ optimizerDuck 提供一个统一的界面来清除多余的东西、开启有用
 ### optimizerDuck 会收集我的数据吗？
 
 不会。这个程序没有任何遥测、分析或回传功能，完全离线运行，啥数据也不会发出去。
+
+### 应用电源计划后，任务管理器显示 100% CPU 使用率？([#29](https://github.com/itsfatduck/optimizerDuck/issues/29))
+
+任务管理器在非默认电源计划下的已知显示错误，在某些系统上错误显示 100% CPU 使用率，实际负载正常。仅影响显示，**不**影响实际性能或导致过热。如果不希望这样，只需关闭此优化。
 
 ---
 

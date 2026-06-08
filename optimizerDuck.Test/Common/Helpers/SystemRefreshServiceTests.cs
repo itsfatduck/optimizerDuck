@@ -41,9 +41,7 @@ public class SystemRefreshServiceTests
     [Fact]
     public void NotifyTaskbarSettingChange_DoesNotThrow()
     {
-        var exception = Record.Exception(() =>
-            SystemRefreshService.NotifyTaskbarSettingChange()
-        );
+        var exception = Record.Exception(() => SystemRefreshService.NotifyTaskbarSettingChange());
         Assert.Null(exception);
     }
 

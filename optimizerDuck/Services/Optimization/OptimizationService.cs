@@ -10,11 +10,11 @@ using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Managers;
 using optimizerDuck.Services.Optimization.Providers;
+using optimizerDuck.UI.Controls;
 using optimizerDuck.UI.Dialogs;
 using optimizerDuck.UI.ViewModels.Dialogs;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
-using optimizerDuck.UI.Controls;
 
 namespace optimizerDuck.Services;
 

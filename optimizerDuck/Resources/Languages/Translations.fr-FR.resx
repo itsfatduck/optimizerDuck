@@ -657,7 +657,7 @@
     <value>Appliquer le plan d'alimentation optimisé</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
-    <value>Installe un plan d'alimentation personnalisé axé sur les performances pour garantir que votre système fonctionne toujours à vitesse maximale.</value>
+    <value>Installe un plan d'alimentation personnalisé axé sur les performances pour garantir que votre système fonctionne toujours à vitesse maximale. Avertissement : Peut provoquer un affichage incorrect de 100% d'utilisation du CPU dans le Gestionnaire des tâches sur certains systèmes, la charge réelle du CPU n'est pas affectée.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
     <value>Importation et activation du plan d'alimentation...</value>

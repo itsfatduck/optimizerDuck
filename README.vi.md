@@ -18,7 +18,7 @@
 
 **[Bắt đầu](https://optimizerduck.vercel.app/docs/guides/getting-started) | [Cách hoạt động](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [Câu hỏi thường gặp](https://optimizerduck.vercel.app/docs/faq/general)**
 
-[English](README.md) | **Tiếng Việt** | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [Español](README.es-ES.md) | [한국어](README.ko-KR.md)
+[English](README.md) | **Tiếng Việt** | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [Español](README.es-ES.md) | [한국어](README.ko-KR.md) | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md)
 
 <details>
 <summary>⭐ Lịch sử Star</summary>
@@ -62,6 +62,8 @@ Càng nhiều sao càng có động lực cải thiện công cụ.
 > | 🇫🇷 | French | Français | [Robocnop](https://github.com/Robocnop) |
 > | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
 > | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
+> | 🇯🇵 | Japanese | 日本語 | [zerofrip](https://github.com/zerofrip) |
+> | 🇵🇱 | Polish | Polski | [dudus2000](https://github.com/dudus2000) |
 
 > Muốn thêm ngôn ngữ của bạn? Xem [CONTRIBUTING.md](./CONTRIBUTING.md) ([bản tiếng Nhật](./CONTRIBUTING.ja-JP.md)).
 
@@ -166,6 +168,10 @@ Cần. Vì nó can thiệp vào cài đặt hệ thống với registry Windows,
 ### optimizerDuck có thu thập dữ liệu của mình không?
 
 Không. Trong app không có cái gì gọi là telemetry, phân tích hay gửi dữ liệu về đâu hết. Nó chạy ngoại tuyến hoàn toàn, không gửi gì đi cả.
+
+### Sao Task Manager lại hiện 100% CPU sau khi áp dụng power plan? ([#29](https://github.com/itsfatduck/optimizerDuck/issues/29))
+
+Lỗi hiển thị của Task Manager khi gặp power plan không mặc định, báo sai 100% CPU trên một số hệ thống dù tải thực tế bình thường. Chỉ ảnh hưởng visual, **không** ảnh hưởng hiệu năng hoặc gây quá nhiệt. Nếu không muốn, chỉ cần tắt optimization này.
 
 ---
 

@@ -606,7 +606,7 @@
     <value>最適化された電源プランを適用</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
-    <value>パフォーマンス重視のカスタム電源プランをインストールし、システムが常に最大速度で動作するようにします</value>
+    <value>パフォーマンス重視のカスタム電源プランをインストールし、システムが常に最大速度で動作するようにします。警告：一部のシステムでタスクマネージャーが CPU 使用率を 100% と誤表示する可能性がありますが、実際の CPU 負荷に影響はありません。</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
     <value>電源プランをインポートして有効化しています…</value>

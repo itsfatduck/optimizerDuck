@@ -656,7 +656,7 @@
     <value>Применить оптимизированную схему питания</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
-    <value>Устанавливает пользовательскую схему питания, ориентированную на максимальную производительность.</value>
+    <value>Устанавливает пользовательскую схему питания, ориентированную на максимальную производительность. Предупреждение: Может вызвать некорректное отображение 100% загрузки ЦП в Диспетчере задач на некоторых системах, фактическая нагрузка не изменяется.</value>
   </data>
 
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">

@@ -18,7 +18,7 @@
 
 **[Guía de Inicio](https://optimizerduck.vercel.app/docs/guides/getting-started) | [Cómo Funciona](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [Preguntas Frecuentes](https://optimizerduck.vercel.app/docs/faq/general)**
 
-**Español** | [English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md)
+**Español** | [English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md) | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md)
 
 <details>
 <summary>⭐ Historial de Estrellas</summary>
@@ -62,6 +62,8 @@ Cada estrella nos motiva a realizar futuras mejoras.
 > | 🇫🇷 | Francés | Français | [Robocnop](https://github.com/Robocnop) |
 > | 🇰🇷 | Coreano | 한국어 | [klfnn](https://github.com/klfnn) |
 > | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
+> | 🇯🇵 | Japanese | 日本語 | [zerofrip](https://github.com/zerofrip) |
+> | 🇵🇱 | Polish | Polski | [dudus2000](https://github.com/dudus2000) |
 
 > ¿Quieres añadir tu idioma? Consulta [CONTRIBUTING.md](./CONTRIBUTING.md) ([versión en japonés](./CONTRIBUTING.ja-JP.md)).
 
@@ -166,6 +168,10 @@ Sí. Como modifica configuraciones del sistema y el registro de Windows, necesit
 ### ¿optimizerDuck recopila mis datos?
 
 No. La app no tiene telemetría, ni analíticas, ni nada que llame a casa. Funciona completamente offline y no envía datos a ningún sitio.
+
+### ¿Por qué el Administrador de tareas muestra 100 % de CPU después de aplicar el plan de energía? ([#29](https://github.com/itsfatduck/optimizerDuck/issues/29))
+
+Un error conocido de visualización del Administrador de tareas con planes no predeterminados, muestra incorrectamente 100 % de CPU en algunos sistemas con carga real normal. Solo visual, **no** afecta al rendimiento real ni causa sobrecalentamiento. Si no lo desea, simplemente desactive esta optimización.
 
 ---
 
