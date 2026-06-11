@@ -5,7 +5,7 @@ using optimizerDuck.Common.Helpers;
 
 namespace optimizerDuck.Services;
 
-public class StreamService(ILogger<StreamService> logger)
+public class StreamService(ILogger<StreamService> logger) : IDisposable
 {
     private HttpClient? _client;
 
@@ -66,5 +66,10 @@ public class StreamService(ILogger<StreamService> logger)
             logger.LogError(ex, "Unexpected error downloading {Url} to {FilePath}", url, filePath);
             return (false, null);
         }
+    }
+
+    public void Dispose()
+    {
+        _client?.Dispose();
     }
 }

@@ -139,8 +139,8 @@ public partial class CustomizeCategoryViewModel : ViewModel
 
         var sortedSettings = SelectedSortByIndex switch
         {
-            1 => filtered.OrderByDescending(f => f.IsEnabled).ThenBy(f => f.Name).ToList(),
-            _ => filtered.OrderBy(f => f.Name).ToList(),
+            1 => filtered.OrderByDescending(f => f.IsEnabled).ThenBy(f => f.Name),
+            _ => filtered.OrderBy(f => f.Name),
         };
 
         var grouped = sortedSettings

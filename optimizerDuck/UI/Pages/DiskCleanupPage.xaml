@@ -192,7 +192,18 @@
                                     Grid.Column="0"
                                     Margin="0,0,12,0"
                                     VerticalAlignment="Center"
-                                    IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+                                    IsChecked="{Binding IsSelected, Mode=TwoWay}">
+                                    <CheckBox.Style>
+                                        <Style BasedOn="{StaticResource DefaultCheckBoxStyle}" TargetType="CheckBox">
+                                            <Setter Property="IsEnabled" Value="True" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding SizeBytes}" Value="0">
+                                                    <Setter Property="IsEnabled" Value="False" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </CheckBox.Style>
+                                </CheckBox>
 
                                 <!--  Icon  -->
                                 <Border
@@ -355,6 +366,12 @@
 
                                         <ui:SplitButton.Flyout>
                                             <ContextMenu>
+                                                <MenuItem
+                                                    Command="{Binding DataContext.ViewModel.RefreshItemCommand, Source={x:Reference ThisPage}}"
+                                                    CommandParameter="{Binding}"
+                                                    Cursor="Hand"
+                                                    Header="{ext:Loc StartupManager.Menu.Refresh}"
+                                                    Icon="{ui:SymbolIcon ArrowClockwise24}" />
                                                 <MenuItem
                                                     Command="{Binding DataContext.ViewModel.OpenFolderCommand, Source={x:Reference ThisPage}}"
                                                     CommandParameter="{Binding}"

@@ -34,6 +34,14 @@ optimizerDuck が PC の改善に役立ったなら、リポジトリに ⭐ を
  </picture>
 </a>
 
+<a href="https://starmapper.bruniaux.com/itsfatduck/optimizerDuck">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://starmapper.bruniaux.com/api/map-image/itsfatduck/optimizerDuck?theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://starmapper.bruniaux.com/api/map-image/itsfatduck/optimizerDuck?theme=light" />
+    <img alt="StarMapper" src="https://starmapper.bruniaux.com/api/map-image/itsfatduck/optimizerDuck" />
+  </picture>
+</a>
+
 </details>
 
 <img src="./.github/assets/app.png" alt="optimizerDuck ダークモード" title="optimizerDuck ダークモード" width="800"/>

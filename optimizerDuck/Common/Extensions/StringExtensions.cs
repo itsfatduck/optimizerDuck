@@ -28,7 +28,7 @@ public static class TextExtensions
             {
                 IEnumerable<object> list => string.Join(
                     Environment.NewLine,
-                    list.Where(_ => true).Select(o => o.ToString()?.Trim() ?? string.Empty)
+                    list.Select(o => o.ToString()?.Trim() ?? string.Empty)
                 ),
                 _ => deserialized?.ToString()?.Trim() ?? string.Empty,
             };

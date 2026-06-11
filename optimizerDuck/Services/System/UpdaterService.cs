@@ -6,7 +6,7 @@ using optimizerDuck.Common.Helpers;
 
 namespace optimizerDuck.Services;
 
-public class UpdaterService
+public class UpdaterService : IDisposable
 {
     private const string Owner = "itsfatduck";
     private const string Repo = "optimizerDuck";
@@ -99,6 +99,10 @@ public class UpdaterService
             _logger.LogError(ex, "Error checking for updates");
             return (false, null);
         }
+    }
+    public void Dispose()
+    {
+        _httpClient.Dispose();
     }
 }
 

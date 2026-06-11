@@ -41,7 +41,7 @@ public static class Shared
 
     public static readonly HashSet<string> SafeApps = new()
     {
-        // Bing / MSN
+        // Bing / MSN / News
         "Microsoft.BingWeather",
         "Microsoft.BingNews",
         "Microsoft.BingSearch",
@@ -51,25 +51,30 @@ public static class Shared
         "Microsoft.BingHealthAndFitness",
         "Microsoft.BingTravel",
         "Microsoft.MicrosoftNews",
-        // Utilities & Services
+        // Help, Tips & Feedback
         "Microsoft.GetHelp",
         "Microsoft.GetStarted",
+        "Microsoft.WindowsFeedbackHub",
+        "Microsoft.WindowsTips",
+        "MicrosoftCorporationII.QuickAssist",
+        // Communications (Legacy/Web Wrappers)
         "Microsoft.Messaging",
         "Microsoft.OneConnect",
         "Microsoft.People",
-        "Microsoft.WindowsFeedbackHub",
-        "Microsoft.WindowsMaps",
         "Microsoft.YourPhone",
+        "Microsoft.SkypeApp",
+        "MicrosoftTeams",
+        // Office (Web Wrappers & Legacy)
         "Microsoft.OneNote",
         "Microsoft.Todos",
         "Microsoft.MicrosoftOfficeHub",
         "Microsoft.Office.OneNote",
         "Microsoft.Office.Sway",
-        "Microsoft.SkypeApp",
+        "Microsoft.OutlookForWindows",
+        "Microsoft.MicrosoftJournal",
+        // Social & Wallet
         "Microsoft.Wallet",
         "Microsoft.MSWallet",
-        "Microsoft.RemoteDesktop",
-        "Microsoft.OutlookForWindows",
         "Microsoft.LinkedInForWindows",
         // Mixed Reality & 3D
         "Microsoft.Microsoft3DViewer",
@@ -82,10 +87,14 @@ public static class Shared
         "Microsoft.ZuneVideo",
         "Microsoft.Sway",
         "Microsoft.WindowsSoundRecorder",
-        // Entertainment & Games
+        "Microsoft.StickyNotes",
+        "Microsoft.MicrosoftStickyNotes",
+        // Entertainment, Games & Widgets
         "Microsoft.MicrosoftSolitaireCollection",
         "Microsoft.WindowsAlarms",
         "Microsoft.549981C3F5F10", // Cortana
+        "Microsoft.Windows.DevHome",
+        "Microsoft.StartExperiencesApp",
         // Third-party (often pre-installed by MS)
         "SpotifyAB.SpotifyMusic",
         "Disney.DisneyPlus",
@@ -95,6 +104,8 @@ public static class Shared
         "WindowsPhone",
         "CommsPhone",
         "Microsoft.DrawboardPDF",
+        // Windows 11 Widgets
+        "MicrosoftWindows.Client.WebExperience",
     };
 
     public static readonly HashSet<string> CautionApps = new()
@@ -103,23 +114,25 @@ public static class Shared
         "Microsoft.WindowsCalculator",
         "Microsoft.WindowsPhotos",
         "Microsoft.MSPaint",
+        "Microsoft.Paint",
         "Microsoft.WindowsNotepad",
         "Microsoft.WindowsCamera",
         "Microsoft.ScreenSketch",
+        "Microsoft.WindowsMaps",
         // System Tools
         "Microsoft.WindowsStore",
         "Microsoft.StorePurchaseApp",
         "Microsoft.DesktopAppInstaller",
         "Microsoft.WindowsTerminal",
         "Microsoft.WindowsTerminalPreview",
+        "Microsoft.RemoteDesktop",
         "Microsoft.PowerAutomateDesktop",
-        // Communication
-        "MicrosoftTeams",
+        // Communication & Collaboration
         "Microsoft.WindowsCommunicationsApps",
         // Security & Family
         "MicrosoftCorporationII.MicrosoftFamily",
         "MicrosoftCorporationII.MicrosoftSupportDiagnosticTool",
-        // Extensions (Essential for files)
+        // Media Extensions (Essential for file format support)
         "Microsoft.HEIFImageExtension",
         "Microsoft.WebMediaExtensions",
         "Microsoft.WebpImageExtension",

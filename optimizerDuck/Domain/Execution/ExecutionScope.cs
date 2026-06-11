@@ -94,8 +94,8 @@ public sealed class ExecutionScope : IDisposable
             Logger.LogInformation(
                 "Steps: {Total} ({Success} success, {Failed} failed)",
                 _executedSteps.Count,
-                SuccessfulSteps.Count,
-                FailedSteps.Count
+                _executedSteps.Count(s => s.Success),
+                _executedSteps.Count(s => !s.Success)
             );
 
         _current.Value = null;
@@ -395,7 +395,7 @@ public sealed class ExecutionScope : IDisposable
         if (_executedSteps.Count == 0)
             return OptimizationSuccessResult.Failed;
 
-        var failed = FailedSteps.Count;
+        var failed = _executedSteps.Count(s => !s.Success);
         var total = ExecutedSteps.Count;
 
         return failed == 0 ? OptimizationSuccessResult.Success

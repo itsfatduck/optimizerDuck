@@ -10,7 +10,6 @@ using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Managers;
 using optimizerDuck.Services.Optimization.Providers;
-using optimizerDuck.UI.Controls;
 using optimizerDuck.UI.Dialogs;
 using optimizerDuck.UI.ViewModels.Dialogs;
 using Wpf.Ui;
@@ -31,15 +30,18 @@ public class OptimizationService(
 
     public bool WasRequestedRestorePoint { get; set; } = false;
 
+    private static readonly Regex _restorePointDisabledRegex = new(
+        @"\b(is\s+disabled|system\s+restore\s+is\s+disabled|disabled\s+by\s+group\s+policy|disableconfig|disablesr|protection\s+is\s+off)\b",
+        RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled
+    );
+
     public async Task<RestorePointResult> CreateRestorePointAsync()
     {
         var dialogViewModel = new ProcessingViewModel();
-        var dialogContent = new ProcessingDialog { DataContext = dialogViewModel };
-
         var dialog = new ContentDialog
         {
             Title = Translations.RestorePoint_Title,
-            Content = dialogContent,
+            Content = new ProcessingDialog { DataContext = dialogViewModel },
             IsFooterVisible = false,
         };
 
@@ -61,33 +63,25 @@ public class OptimizationService(
                 $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS"
             );
 
-            if (
-                result.Stderr.Contains(
-                    "already been created within the past",
-                    StringComparison.OrdinalIgnoreCase
-                )
-            )
+            if (IsFrequencyLimited(result.Stderr))
             {
                 _logger.LogWarning("Restore point creation skipped: frequency limit reached.");
                 return RestorePointResult.FrequencyLimitReached;
             }
 
             if (result.ExitCode == 0)
+            {
+                _logger.LogInformation("Restore point created successfully.");
                 return RestorePointResult.Success;
+            }
 
-            if (
-                !Regex.IsMatch(
-                    result.Stderr,
-                    @"\b(is\s+disabled|system\s+restore\s+is\s+disabled|disabled\s+by\s+group\s+policy|disableconfig|disablesr|protection\s+is\s+off)\b",
-                    RegexOptions.IgnoreCase | RegexOptions.CultureInvariant
-                )
-            )
+            if (!_restorePointDisabledRegex.IsMatch(result.Stderr))
             {
                 _logger.LogError("Failed to create restore point: {Message}", result.Stderr);
                 return RestorePointResult.Failed;
             }
 
-            _logger.LogInformation("Enabling System Protection...");
+            _logger.LogInformation("System Protection is disabled. Enabling...");
             dialogViewModel.ProgressReporter.Report(
                 new ProcessingProgress
                 {
@@ -99,6 +93,7 @@ public class OptimizationService(
             var enableResult = await ShellService.PowerShellAsync(
                 "Enable-ComputerRestore -Drive \"$env:SystemDrive\""
             );
+
             if (enableResult.ExitCode != 0)
             {
                 _logger.LogError(
@@ -120,12 +115,7 @@ public class OptimizationService(
                 $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS"
             );
 
-            if (
-                result.Stderr.Contains(
-                    "already been created within the past",
-                    StringComparison.OrdinalIgnoreCase
-                )
-            )
+            if (IsFrequencyLimited(result.Stderr))
                 return RestorePointResult.FrequencyLimitReached;
 
             return result.ExitCode == 0 ? RestorePointResult.Success : RestorePointResult.Failed;
@@ -134,6 +124,14 @@ public class OptimizationService(
         {
             dialog?.Hide();
         }
+    }
+
+    private static bool IsFrequencyLimited(string? stderr)
+    {
+        return stderr?.Contains(
+            "already been created within the past",
+            StringComparison.OrdinalIgnoreCase
+        ) == true;
     }
 
     public async Task<OptimizationResult> ApplyAsync(

@@ -788,7 +788,6 @@ public partial class OptimizationCategoryViewModel : ViewModel
             switch (resultState)
             {
                 case RestorePointResult.Success:
-                    // if setting show snackbar after applied successfully was off, so show it and applied snackbar wont conflict this
                     if (!_appOptionsMonitor.CurrentValue.Optimize.ShowCompletionNotification)
                     {
                         _snackbarService.Show(
@@ -805,8 +804,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
                             },
                             TimeSpan.FromSeconds(5)
                         );
-                        break;
                     }
+
                     _logger.LogInformation("Successfully created restore point");
 
                     return (true, true);

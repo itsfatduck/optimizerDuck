@@ -236,6 +236,21 @@ public partial class DiskCleanupViewModel(
     }
 
     [RelayCommand]
+    private async Task RefreshItemAsync(CleanupItem item)
+    {
+        if (item is null)
+            return;
+
+        await diskCleanupService.ScanAsync(item);
+
+        if (item.SizeBytes == 0)
+            item.IsSelected = false;
+
+        UpdateProperties();
+        ApplySort();
+    }
+
+    [RelayCommand]
     private void OpenFolder(CleanupItem item)
     {
         if (item?.CanOpenFolder != true)

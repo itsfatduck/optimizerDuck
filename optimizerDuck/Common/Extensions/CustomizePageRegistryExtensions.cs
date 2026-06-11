@@ -14,8 +14,7 @@ public static class CustomizePageRegistryExtensions
     public static void AddAllCustomizeCategoryPages(this IServiceCollection services)
     {
         var categoryTypes = ReflectionHelper
-            .FindImplementationsInLoadedAssemblies<ICustomizeCategory>()
-            .ToList();
+            .FindImplementationsInLoadedAssemblies<ICustomizeCategory>();
 
         foreach (var categoryType in categoryTypes)
         {

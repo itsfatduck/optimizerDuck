@@ -465,18 +465,22 @@ public static class ScheduledTaskService
         var triggers = def.Triggers;
         var actions = def.Actions;
 
-        var triggerDescriptions = triggers
-            .Select(t => t.ToString() ?? t.TriggerType.ToString())
-            .ToList();
+        var triggerDescriptions = new List<string>();
+        var hasLogon = false;
+        var hasBoot = false;
+
+        foreach (var t in triggers)
+        {
+            triggerDescriptions.Add(t.ToString() ?? t.TriggerType.ToString());
+            if (t.TriggerType == TaskTriggerType.Logon) hasLogon = true;
+            if (t.TriggerType == TaskTriggerType.Boot) hasBoot = true;
+        }
 
         var actionSummary = string.Empty;
         if (actions.Count > 0 && actions[0] is ExecAction exec)
             actionSummary = string.IsNullOrWhiteSpace(exec.Arguments)
                 ? exec.Path ?? string.Empty
                 : $"{exec.Path} {exec.Arguments}";
-
-        var hasLogon = triggers.Any(t => t.TriggerType == TaskTriggerType.Logon);
-        var hasBoot = triggers.Any(t => t.TriggerType == TaskTriggerType.Boot);
 
         return new ScheduledTaskModel
         {

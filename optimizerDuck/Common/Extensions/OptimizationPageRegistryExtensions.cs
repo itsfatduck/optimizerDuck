@@ -18,8 +18,7 @@ public static class OptimizationPageRegistryExtensions
     public static void AddAllOptimizationPages(this IServiceCollection services)
     {
         var categoryTypes = ReflectionHelper
-            .FindImplementationsInLoadedAssemblies<IOptimizationCategory>()
-            .ToList();
+            .FindImplementationsInLoadedAssemblies<IOptimizationCategory>();
 
         foreach (var categoryType in categoryTypes)
         {

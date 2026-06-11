@@ -64,59 +64,62 @@ public class PowerManagement : IOptimizationCategory
     )]
     public class DisableUSBPowerSaving : BaseOptimization
     {
-        public override async Task<ApplyResult> ApplyAsync(
+        public override Task<ApplyResult> ApplyAsync(
             IProgress<ProcessingProgress> progress,
             OptimizationContext context
         )
         {
-            context.Logger.LogInformation("Saving current USB power state");
-            var usbStates = await ShellService.PowerShellAsync(
-                """
-                $states = Get-CimInstance -Namespace root\wmi -ClassName MSPower_DeviceEnable -ErrorAction SilentlyContinue |
-                Where-Object { $_.InstanceName -match 'USB\\ROOT' } |
-                Select-Object InstanceName, Enable
-
-                $states | ConvertTo-Json -Compress
-                """
-            );
-
-            if (string.IsNullOrWhiteSpace(usbStates.Stdout))
+            return Task.Run(async () =>
             {
-                context.Logger.LogInformation("No USB devices found, skipping");
-                return CompleteFromScope();
-            }
+                context.Logger.LogInformation("Saving current USB power state");
+                var usbStates = await ShellService.PowerShellAsync(
+                    """
+                    $states = Get-CimInstance -Namespace root\wmi -ClassName MSPower_DeviceEnable -ErrorAction SilentlyContinue |
+                    Where-Object { $_.InstanceName -match 'USB\\ROOT' } |
+                    Select-Object InstanceName, Enable
 
-            var capturedStates = ParseUsbPowerStates(usbStates.Stdout);
-            if (capturedStates.Count == 0)
-            {
-                context.Logger.LogInformation("No USB device states parsed, skipping");
-                return CompleteFromScope();
-            }
+                    $states | ConvertTo-Json -Compress
+                    """
+                );
 
-            context.Logger.LogInformation("Disabling USB power saving");
-            var disableResult = await ShellService.PowerShellAsync(
-                """
-                $devices = Get-CimInstance -Namespace root\wmi -ClassName MSPower_DeviceEnable -ErrorAction SilentlyContinue |
-                Where-Object { $_.InstanceName -match 'USB\\ROOT' }
-
-                foreach ($d in $devices) {
-                    if ($d.Enable -ne $false) {
-                        Set-CimInstance -CimInstance $d -Property @{ Enable = $false } | Out-Null
-                    }
+                if (string.IsNullOrWhiteSpace(usbStates.Stdout))
+                {
+                    context.Logger.LogInformation("No USB devices found, skipping");
+                    return CompleteFromScope();
                 }
-                """
-            );
 
-            var revertStep = new UsbPowerRevertStep { States = capturedStates };
-            ExecutionScope.RecordStep(
-                Translations.Service_Shell_Name,
-                Name,
-                disableResult.ExitCode == 0,
-                disableResult.ExitCode == 0 ? revertStep : null,
-                disableResult.ExitCode == 0 ? null : disableResult.Stderr
-            );
+                var capturedStates = ParseUsbPowerStates(usbStates.Stdout);
+                if (capturedStates.Count == 0)
+                {
+                    context.Logger.LogInformation("No USB device states parsed, skipping");
+                    return CompleteFromScope();
+                }
 
-            return CompleteFromScope();
+                context.Logger.LogInformation("Disabling USB power saving");
+                var disableResult = await ShellService.PowerShellAsync(
+                    """
+                    $devices = Get-CimInstance -Namespace root\wmi -ClassName MSPower_DeviceEnable -ErrorAction SilentlyContinue |
+                    Where-Object { $_.InstanceName -match 'USB\\ROOT' }
+
+                    foreach ($d in $devices) {
+                        if ($d.Enable -ne $false) {
+                            Set-CimInstance -CimInstance $d -Property @{ Enable = $false } | Out-Null
+                        }
+                    }
+                    """
+                );
+
+                var revertStep = new UsbPowerRevertStep { States = capturedStates };
+                ExecutionScope.RecordStep(
+                    Translations.Service_Shell_Name,
+                    Name,
+                    disableResult.ExitCode == 0,
+                    disableResult.ExitCode == 0 ? revertStep : null,
+                    disableResult.ExitCode == 0 ? null : disableResult.Stderr
+                );
+
+                return CompleteFromScope();
+            });
         }
 
         private static List<UsbPowerRevertStep.DeviceState> ParseUsbPowerStates(string stdout)
@@ -138,6 +141,11 @@ public class PowerManagement : IOptimizationCategory
         }
     }
 
+    private static readonly Regex _activePlanGuidRegex = new(
+        @".*:\s*([a-fA-F0-9\-]{36})",
+        RegexOptions.IgnoreCase | RegexOptions.Compiled
+    );
+
     [Optimization(
         Id = "EE71E993-EE41-4449-8856-84B09B2B0C46",
         Risk = OptimizationRisk.Safe,
@@ -151,11 +159,7 @@ public class PowerManagement : IOptimizationCategory
         )
         {
             var activeQuery = await ShellService.CMDAsync("powercfg /getactivescheme");
-            var match = Regex.Match(
-                activeQuery.Stdout,
-                @".*:\s*([a-fA-F0-9\-]{36})",
-                RegexOptions.IgnoreCase
-            );
+            var match = _activePlanGuidRegex.Match(activeQuery.Stdout);
 
             if (!match.Success)
             {
@@ -237,19 +241,20 @@ public class PowerManagement : IOptimizationCategory
             IProgress<ProcessingProgress> progress,
             OptimizationContext context
         )
-        {
-            RegistryService.Write(
-                new RegistryItem(
-                    @"HKLM\SYSTEM\CurrentControlSet\Control\USB\AutomaticSurpriseRemoval",
-                    "AttemptRecoveryFromUsbPowerDrain",
-                    0
-                ),
-                new RegistryItem(
-                    @"HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling",
-                    "PowerThrottlingOff",
-                    1
-                )
-            );
+            {
+                RegistryService.Write(
+                    new RegistryItem(
+                        @"HKLM\SYSTEM\CurrentControlSet\Control\USB\AutomaticSurpriseRemoval",
+                        "AttemptRecoveryFromUsbPowerDrain",
+                        0
+                    ),
+                    new RegistryItem(
+                        @"HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling",
+                        "PowerThrottlingOff",
+                        1
+                    )
+                );
+
             context.Logger.LogInformation("Disabled power saving features");
             return Task.FromResult(CompleteFromScope());
         }

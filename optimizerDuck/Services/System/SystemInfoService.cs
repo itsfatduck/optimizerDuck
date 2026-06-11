@@ -560,7 +560,8 @@ internal static class WmiHelper
         {
             var scope = GetScope(namespacePath);
             using var searcher = new ManagementObjectSearcher(scope, new ObjectQuery(query));
-            return searcher.Get().Cast<ManagementObject>().ToArray();
+            using var results = searcher.Get();
+            return results.Cast<ManagementObject>().ToArray();
         }
         catch
         {
@@ -636,7 +637,17 @@ internal static class WmiHelper
 
     public static ManagementObject? GetFirst(string query, string namespacePath = @"root\cimv2")
     {
-        return Query(query, namespacePath).FirstOrDefault();
+        try
+        {
+            var scope = GetScope(namespacePath);
+            using var searcher = new ManagementObjectSearcher(scope, new ObjectQuery(query));
+            using var results = searcher.Get();
+            return results.Cast<ManagementObject>().FirstOrDefault();
+        }
+        catch
+        {
+            return null;
+        }
     }
 }
 
@@ -1529,10 +1540,31 @@ internal static class GpuProvider
         if (gpus.Count == 1)
             return gpus[0];
 
-        return gpus.OrderByDescending(g => g.MemoryMB ?? 0)
-            .ThenByDescending(g => g.Vendor == GpuVendor.NVIDIA)
-            .ThenByDescending(g => g.Vendor == GpuVendor.AMD)
-            .First();
+        GpuInfo? best = null;
+        foreach (var g in gpus)
+        {
+            if (best is null)
+            {
+                best = g;
+                continue;
+            }
+
+            var memG = g.MemoryMB ?? 0;
+            var memBest = best.MemoryMB ?? 0;
+            if (memG != memBest)
+            {
+                if (memG > memBest) best = g;
+                continue;
+            }
+
+            var gScore = g.Vendor == GpuVendor.NVIDIA ? 2
+                : g.Vendor == GpuVendor.AMD ? 1 : 0;
+            var bestScore = best.Vendor == GpuVendor.NVIDIA ? 2
+                : best.Vendor == GpuVendor.AMD ? 1 : 0;
+            if (gScore > bestScore) best = g;
+        }
+
+        return best;
     }
 
     // ── DXGI path ──────────────────────────────────────────────────────────
@@ -1990,7 +2022,7 @@ internal static class BiosProvider
 // MAIN SERVICE (Public API)
 // ============================================================================
 
-public sealed class SystemInfoService
+public sealed class SystemInfoService : IDisposable
 {
     private readonly ILogger<SystemInfoService> _logger;
     private readonly SemaphoreSlim _semaphore = new(1, 1);
@@ -2192,5 +2224,10 @@ public sealed class SystemInfoService
 
             _logger.LogInformation("Total GPUs : {GpuCount}", gpuCount);
         }
+    }
+
+    public void Dispose()
+    {
+        _semaphore.Dispose();
     }
 }

@@ -198,7 +198,7 @@
                 Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
                 <ItemsControl.Template>
                     <ControlTemplate TargetType="ItemsControl">
-                        <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Disabled">
+                        <ScrollViewer CanContentScroll="False" HorizontalScrollBarVisibility="Disabled">
                             <ItemsPresenter />
                         </ScrollViewer>
                     </ControlTemplate>
