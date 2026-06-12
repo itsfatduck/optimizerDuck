@@ -934,6 +934,9 @@ public static class DiskHelper
         IntPtr lpOverlapped
     );
 
+    /// <summary>Detects the storage media type for the given drive letter using a combination of seek-penalty detection and WMI queries.</summary>
+    /// <param name="driveLetter">The drive letter (e.g., "C:" or "C:\").</param>
+    /// <returns>A string describing the media type (e.g., "SSD", "HDD"), or "Unknown" if detection fails.</returns>
     public static string DetectMediaType(string driveLetter)
     {
         // Try multiple detection methods
@@ -1074,6 +1077,9 @@ public static class DiskHelper
         return "Unknown";
     }
 
+    /// <summary>Determines whether the specified drive letter is the system drive (where Windows is installed).</summary>
+    /// <param name="driveLetter">The drive letter to check.</param>
+    /// <returns><see langword="true"/> if the drive is the system drive, otherwise <see langword="false"/>.</returns>
     public static bool IsSystemDrive(string driveLetter)
     {
         var systemDrive = Path.GetPathRoot(Environment.SystemDirectory)?.TrimEnd('\\') ?? "C:";

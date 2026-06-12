@@ -12,8 +12,10 @@ public class OptimizationRegistry(ILoggerFactory loggerFactory)
     private readonly ILogger _logger = loggerFactory.CreateLogger<OptimizationRegistry>();
     private Task? _preloadTask;
 
+    /// <summary>Gets or sets the discovered optimization categories after preloading. Each category contains its child optimizations.</summary>
     public IOptimizationCategory[] OptimizationCategories { get; set; } = [];
 
+    /// <summary>Gets a value that indicates whether the optimizations have been fully discovered and their applied states loaded.</summary>
     public bool IsPreloaded { get; private set; }
 
     /// <summary>
@@ -32,6 +34,7 @@ public class OptimizationRegistry(ILoggerFactory loggerFactory)
         return _preloadTask ??= PreloadOptimizationsAsync();
     }
 
+    /// <summary>Discovers all optimization categories and their optimizations via reflection, then loads the applied state from revert data on disk.</summary>
     public async Task PreloadOptimizationsAsync()
     {
         // Run reflection work on background thread to avoid blocking startup
@@ -90,6 +93,9 @@ public class OptimizationRegistry(ILoggerFactory loggerFactory)
         IsPreloaded = true;
     }
 
+    /// <summary>Gets a category by its runtime type. Categories must have been preloaded first.</summary>
+    /// <param name="type">The runtime type of the category to retrieve.</param>
+    /// <returns>The matching <see cref="IOptimizationCategory"/> instance.</returns>
     public IOptimizationCategory GetCategory(Type type)
     {
         return OptimizationCategories.First(c => c.GetType() == type);

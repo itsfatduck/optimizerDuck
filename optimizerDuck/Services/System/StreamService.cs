@@ -9,6 +9,15 @@ public class StreamService(ILogger<StreamService> logger) : IDisposable
 {
     private HttpClient? _client;
 
+    /// <summary>Downloads a file from the specified URL and saves it to the local downloads directory.</summary>
+    /// <param name="url">The URL to download from.</param>
+    /// <param name="fileName">The target file name (not path) to save as.</param>
+    /// <returns>A tuple where <c>Success</c> indicates whether the download completed, and <c>FilePath</c> is the full local path on success.</returns>
+    /// <example>
+    /// <code language="csharp">
+    /// var (success, path) = await streamService.TryDownloadAsync("https://example.com/file.zip", "file.zip");
+    /// </code>
+    /// </example>
     public async Task<(bool Success, string? FilePath)> TryDownloadAsync(
         string url,
         string fileName
@@ -68,6 +77,7 @@ public class StreamService(ILogger<StreamService> logger) : IDisposable
         }
     }
 
+    /// <summary>Releases the underlying <see cref="HttpClient"/> resources.</summary>
     public void Dispose()
     {
         _client?.Dispose();

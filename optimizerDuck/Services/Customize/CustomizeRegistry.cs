@@ -10,8 +10,10 @@ namespace optimizerDuck.Services;
 
 public class CustomizeRegistry
 {
+    /// <summary>Gets the registered customize categories. Each category contains its child customize settings. Populated after calling <see cref="RegisterCategories"/>.</summary>
     public ICustomizeCategory[] Categories { get; private set; } = [];
 
+    /// <summary>Discovers all customize setting categories and their child settings via reflection, then populates <see cref="Categories"/>.</summary>
     public void RegisterCategories()
     {
         var categories = ReflectionHelper
@@ -55,6 +57,8 @@ public class CustomizeRegistry
         Categories = categories;
     }
 
+    /// <summary>Builds the navigation items for the UI from the registered categories. Calls <see cref="RegisterCategories"/> if not yet registered.</summary>
+    /// <returns>A sequence of <see cref="NavigationViewItem"/> instances mapped to customize pages.</returns>
     public IEnumerable<NavigationViewItem> GetNavigationItems()
     {
         if (Categories.Length == 0)

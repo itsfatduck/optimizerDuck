@@ -15,6 +15,8 @@ namespace optimizerDuck.Services.UI;
 
 public class StartupManagerService(ILogger<StartupManagerService> logger)
 {
+    /// <summary>Retrieves all startup applications from registry Run/RunOnce keys and startup folders, including their enabled state and icons.</summary>
+    /// <returns>A list of <see cref="StartupApp"/> instances sorted by name.</returns>
     public async Task<List<StartupApp>> GetStartupAppsAsync()
     {
         var apps = new List<StartupApp>();
@@ -201,6 +203,9 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         }
     }
 
+    /// <summary>Enables or disables a startup application by writing the StartupApproved registry flag.</summary>
+    /// <param name="app">The startup app to toggle.</param>
+    /// <param name="enable"><see langword="true"/> to enable, <see langword="false"/> to disable.</param>
     public async Task ToggleStartupApp(StartupApp app, bool enable)
     {
         await Task.Run(() =>
@@ -281,6 +286,8 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         approvedKey.SetValue(app.OriginalValueNameOrFileName, data, RegistryValueKind.Binary);
     }
 
+    /// <summary>Retrieves all startup scheduled tasks from the Windows Task Scheduler, including their enabled state and icons.</summary>
+    /// <returns>A list of <see cref="StartupTask"/> instances sorted by name.</returns>
     public Task<List<StartupTask>> GetStartupTasksAsync()
     {
         return Task.Run(() =>
@@ -323,6 +330,9 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         });
     }
 
+    /// <summary>Enables or disables a startup scheduled task using the Task Scheduler API.</summary>
+    /// <param name="task">The startup task to toggle.</param>
+    /// <param name="enable"><see langword="true"/> to enable, <see langword="false"/> to disable.</param>
     public Task ToggleStartupTask(StartupTask task, bool enable)
     {
         return Task.Run(() =>
@@ -348,6 +358,14 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         });
     }
 
+    /// <summary>Extracts the associated icon from an executable path or command string. Expands environment variables and searches PATH if needed.</summary>
+    /// <param name="command">The command or file path to extract the icon from.</param>
+    /// <returns>A frozen <see cref="BitmapSource"/> suitable for cross-thread UI binding, or <see langword="null"/> if the icon cannot be extracted.</returns>
+    /// <example>
+    /// <code language="csharp">
+    /// var icon = StartupManagerService.ExtractIcon(@"C:\Windows\System32\notepad.exe");
+    /// </code>
+    /// </example>
     public static BitmapSource? ExtractIcon(string command)
     {
         try
@@ -396,6 +414,9 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         return null;
     }
 
+    /// <summary>Resolves a file name to its full path by searching the directories listed in the PATH environment variable.</summary>
+    /// <param name="fileName">The file name (e.g., "notepad.exe") to resolve.</param>
+    /// <returns>The full path if found, otherwise <see langword="null"/>.</returns>
     public static string? GetFullPathFromEnvironment(string fileName)
     {
         if (File.Exists(fileName))

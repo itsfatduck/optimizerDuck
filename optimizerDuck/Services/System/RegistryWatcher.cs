@@ -4,10 +4,18 @@ using Microsoft.Extensions.Logging;
 
 namespace optimizerDuck.Services;
 
+/// <summary>Monitors Windows registry keys for changes using RegNotifyChangeKeyValue.</summary>
 public interface IRegistryWatcher : IDisposable
 {
+    /// <summary>Raised when a watched registry key or its values change. The event argument is the registry path that changed.</summary>
     event EventHandler<string>? RegistryKeyChanged;
+
+    /// <summary>Starts watching the specified registry path for changes. Multiple paths can be watched simultaneously.</summary>
+    /// <param name="registryPath">The full registry path (e.g., "HKCU\Software\Microsoft\Windows\CurrentVersion\Run").</param>
     void Watch(string registryPath);
+
+    /// <summary>Stops watching the specified registry path.</summary>
+    /// <param name="registryPath">The registry path to stop watching.</param>
     void Unwatch(string registryPath);
 }
 

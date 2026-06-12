@@ -26,6 +26,9 @@ public static class ServiceProcessService
     internal static string? LastError => _lastError.Value;
     internal static string? LastErrorDetail => _lastErrorDetail.Value;
 
+    /// <summary>Retrieves the current startup type of a Windows service by running <c>sc.exe qc</c>.</summary>
+    /// <param name="serviceName">The internal service name.</param>
+    /// <returns>The <see cref="ServiceStartupType"/> if parsed successfully, otherwise <see langword="null"/>.</returns>
     public static async Task<ServiceStartupType?> GetStartupTypeAsync(string serviceName)
     {
         try
@@ -76,6 +79,9 @@ public static class ServiceProcessService
         }
     }
 
+    /// <summary>Changes the startup type of a single Windows service via <c>sc.exe config</c>. Records a revert step if the original type differs.</summary>
+    /// <param name="item">The service item with the target startup type.</param>
+    /// <returns><see langword="true"/> if the change succeeded, otherwise <see langword="false"/>.</returns>
     public static async Task<bool> ChangeServiceStartupTypeAsync(ServiceItem item)
     {
         _lastError.Value = _lastErrorDetail.Value = null;
