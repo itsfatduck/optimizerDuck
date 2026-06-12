@@ -36,7 +36,8 @@ public static class ServiceProcessService
     /// <see langword="false"/> for other errors.
     /// </returns>
     public static async Task<(ServiceStartupType? StartupType, bool NotFound)> GetStartupTypeAsync(
-        string serviceName)
+        string serviceName
+    )
     {
         try
         {
@@ -113,10 +114,7 @@ public static class ServiceProcessService
                     Translations.Service_Service_Info_SkippedNotFound,
                     item.Name
                 );
-                ExecutionScope.LogInfo(
-                    "[SERVICE][{Name}] not found, skipping",
-                    item.Name
-                );
+                ExecutionScope.LogInfo("[SERVICE][{Name}] not found, skipping", item.Name);
                 ExecutionScope.Track(nameof(ChangeServiceStartupTypeAsync), true);
                 ExecutionScope.RecordStep(
                     Translations.Service_Service_Name,

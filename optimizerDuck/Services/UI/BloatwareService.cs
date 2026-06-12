@@ -83,8 +83,7 @@ public class BloatwareService(
                 Converters = { new JsonStringEnumConverter() },
             };
 
-            var apps = JsonSerializer
-                .Deserialize<List<AppXPackage>>(result.Stdout, options)!;
+            var apps = JsonSerializer.Deserialize<List<AppXPackage>>(result.Stdout, options)!;
 
             apps.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.OrdinalIgnoreCase));
 

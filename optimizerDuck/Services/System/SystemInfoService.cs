@@ -1559,15 +1559,21 @@ internal static class GpuProvider
             var memBest = best.MemoryMB ?? 0;
             if (memG != memBest)
             {
-                if (memG > memBest) best = g;
+                if (memG > memBest)
+                    best = g;
                 continue;
             }
 
-            var gScore = g.Vendor == GpuVendor.NVIDIA ? 2
-                : g.Vendor == GpuVendor.AMD ? 1 : 0;
-            var bestScore = best.Vendor == GpuVendor.NVIDIA ? 2
-                : best.Vendor == GpuVendor.AMD ? 1 : 0;
-            if (gScore > bestScore) best = g;
+            var gScore =
+                g.Vendor == GpuVendor.NVIDIA ? 2
+                : g.Vendor == GpuVendor.AMD ? 1
+                : 0;
+            var bestScore =
+                best.Vendor == GpuVendor.NVIDIA ? 2
+                : best.Vendor == GpuVendor.AMD ? 1
+                : 0;
+            if (gScore > bestScore)
+                best = g;
         }
 
         return best;

@@ -105,6 +105,7 @@ public class UpdaterService : IDisposable
             return (false, null);
         }
     }
+
     /// <summary>Releases the underlying <see cref="HttpClient"/> resources.</summary>
     public void Dispose()
     {

@@ -136,7 +136,11 @@ public class OptimizationServiceIntegrationTests : IDisposable
         _testOptimizationIds.Add(optimization.Id);
         var progress = new Progress<ProcessingProgress>();
 
-        var result = await optimizationService.ApplyAsync(optimization, progress, TestContext.Current.CancellationToken);
+        var result = await optimizationService.ApplyAsync(
+            optimization,
+            progress,
+            TestContext.Current.CancellationToken
+        );
 
         Assert.Equal(OptimizationSuccessResult.Success, result.Status);
 

@@ -472,8 +472,10 @@ public static class ScheduledTaskService
         foreach (var t in triggers)
         {
             triggerDescriptions.Add(t.ToString() ?? t.TriggerType.ToString());
-            if (t.TriggerType == TaskTriggerType.Logon) hasLogon = true;
-            if (t.TriggerType == TaskTriggerType.Boot) hasBoot = true;
+            if (t.TriggerType == TaskTriggerType.Logon)
+                hasLogon = true;
+            if (t.TriggerType == TaskTriggerType.Boot)
+                hasBoot = true;
         }
 
         var actionSummary = string.Empty;

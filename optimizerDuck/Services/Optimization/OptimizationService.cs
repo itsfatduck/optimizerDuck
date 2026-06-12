@@ -132,9 +132,9 @@ public class OptimizationService(
     private static bool IsFrequencyLimited(string? stderr)
     {
         return stderr?.Contains(
-            "already been created within the past",
-            StringComparison.OrdinalIgnoreCase
-        ) == true;
+                "already been created within the past",
+                StringComparison.OrdinalIgnoreCase
+            ) == true;
     }
 
     /// <summary>Applies the specified optimization, captures revert steps into an execution scope, and persists revert data on any successful steps.</summary>

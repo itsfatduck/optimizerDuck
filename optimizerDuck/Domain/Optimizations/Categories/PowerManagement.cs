@@ -241,19 +241,19 @@ public class PowerManagement : IOptimizationCategory
             IProgress<ProcessingProgress> progress,
             OptimizationContext context
         )
-            {
-                RegistryService.Write(
-                    new RegistryItem(
-                        @"HKLM\SYSTEM\CurrentControlSet\Control\USB\AutomaticSurpriseRemoval",
-                        "AttemptRecoveryFromUsbPowerDrain",
-                        0
-                    ),
-                    new RegistryItem(
-                        @"HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling",
-                        "PowerThrottlingOff",
-                        1
-                    )
-                );
+        {
+            RegistryService.Write(
+                new RegistryItem(
+                    @"HKLM\SYSTEM\CurrentControlSet\Control\USB\AutomaticSurpriseRemoval",
+                    "AttemptRecoveryFromUsbPowerDrain",
+                    0
+                ),
+                new RegistryItem(
+                    @"HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling",
+                    "PowerThrottlingOff",
+                    1
+                )
+            );
 
             context.Logger.LogInformation("Disabled power saving features");
             return Task.FromResult(CompleteFromScope());

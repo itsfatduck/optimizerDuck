@@ -93,7 +93,10 @@ public class RegistryWatcherTests : IDisposable
         key.SetValue("TestValue", 42);
 
         // Wait for the event with a timeout
-        var completed = await Task.WhenAny(tcs.Task, Task.Delay(5000, TestContext.Current.CancellationToken));
+        var completed = await Task.WhenAny(
+            tcs.Task,
+            Task.Delay(5000, TestContext.Current.CancellationToken)
+        );
         Assert.Equal(tcs.Task, completed);
 
         var firedPath = await tcs.Task;
@@ -176,8 +179,14 @@ public class RegistryWatcherTests : IDisposable
             keyB.SetValue("Val", 2);
         }
 
-        var completedA = await Task.WhenAny(tcsA.Task, Task.Delay(5000, TestContext.Current.CancellationToken));
-        var completedB = await Task.WhenAny(tcsB.Task, Task.Delay(5000, TestContext.Current.CancellationToken));
+        var completedA = await Task.WhenAny(
+            tcsA.Task,
+            Task.Delay(5000, TestContext.Current.CancellationToken)
+        );
+        var completedB = await Task.WhenAny(
+            tcsB.Task,
+            Task.Delay(5000, TestContext.Current.CancellationToken)
+        );
 
         Assert.Equal(tcsA.Task, completedA);
         Assert.Equal(tcsB.Task, completedB);

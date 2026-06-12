@@ -162,7 +162,11 @@ public partial class App : Application
     {
         var ex = e.ExceptionObject as Exception ?? new Exception(e.ExceptionObject?.ToString());
         LogExceptionToFile("AppDomain.UnhandledException", ex);
-        Log.Logger?.Fatal(ex, "Unhandled AppDomain exception. IsTerminating={IsTerminating}", e.IsTerminating);
+        Log.Logger?.Fatal(
+            ex,
+            "Unhandled AppDomain exception. IsTerminating={IsTerminating}",
+            e.IsTerminating
+        );
     }
 
     private void OnUnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
@@ -172,7 +176,10 @@ public partial class App : Application
         e.SetObserved();
     }
 
-    private void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+    private void OnDispatcherUnhandledException(
+        object sender,
+        System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e
+    )
     {
         LogExceptionToFile("DispatcherUnhandledException", e.Exception);
         Log.Logger?.Error(e.Exception, "Unhandled UI dispatcher exception");
@@ -192,14 +199,14 @@ public partial class App : Application
             File.WriteAllText(
                 crashFile,
                 $"""
-                 [{category}] {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}
-                 Type: {ex.GetType().FullName}
-                 Message: {ex.Message}
-                 StackTrace:
-                 {ex.StackTrace}
+                [{category}] {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}
+                Type: {ex.GetType().FullName}
+                Message: {ex.Message}
+                StackTrace:
+                {ex.StackTrace}
 
-                 {(ex.InnerException is not null ? $"Inner: {ex.InnerException}" : "")}
-                 """
+                {(ex.InnerException is not null ? $"Inner: {ex.InnerException}" : "")}
+                """
             );
         }
         catch
