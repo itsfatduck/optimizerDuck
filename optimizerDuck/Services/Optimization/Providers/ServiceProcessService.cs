@@ -140,7 +140,7 @@ public static class ServiceProcessService
                     Translations.Service_Service_Name,
                     description,
                     false,
-                    null,
+                    null
                 );
                 return false;
             }
