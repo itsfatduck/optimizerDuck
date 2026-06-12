@@ -436,6 +436,9 @@
   <data name="Service.Service.Error.NotFound" xml:space="preserve">
     <value>未找到服务</value>
   </data>
+  <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
+    <value>未找到服务 '{0}'（已跳过）</value>
+  </data>
   <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
     <value>更改服务启动类型失败</value>
   </data>

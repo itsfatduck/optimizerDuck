@@ -4413,6 +4413,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Service '{0}' not found (skipped).
+        /// </summary>
+        internal static string Service_Service_Info_SkippedNotFound {
+            get {
+                return ResourceManager.GetString("Service.Service.Info.SkippedNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to change startup type for service.
         /// </summary>
         internal static string Service_Service_Error_ChangeStartupTypeFailed {

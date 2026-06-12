@@ -437,6 +437,9 @@
   <data name="Service.Service.Error.NotFound" xml:space="preserve">
     <value>Service introuvable</value>
   </data>
+  <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
+    <value>Service '{0}' introuvable (ignoré)</value>
+  </data>
   <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
     <value>Impossible de modifier le type de démarrage du service</value>
   </data>

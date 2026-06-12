@@ -408,6 +408,9 @@
   <data name="Service.Service.Error.NotFound" xml:space="preserve">
     <value>找不到服務</value>
   </data>
+  <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
+    <value>找不到服務 '{0}'（已跳過）</value>
+  </data>
   <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
     <value>變更服務啟動類型失敗</value>
   </data>

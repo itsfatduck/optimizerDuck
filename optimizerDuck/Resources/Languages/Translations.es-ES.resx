@@ -436,6 +436,9 @@
   <data name="Service.Service.Error.NotFound" xml:space="preserve">
     <value>Servicio no encontrado</value>
   </data>
+  <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
+    <value>Servicio '{0}' no encontrado (omitido)</value>
+  </data>
   <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
     <value>No se pudo aplicar el tipo de inicio de servicio</value>
   </data>

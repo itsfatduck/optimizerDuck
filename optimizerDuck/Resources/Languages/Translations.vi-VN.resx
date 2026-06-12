@@ -433,6 +433,9 @@
   <data name="Service.Service.Error.NotFound" xml:space="preserve">
     <value>Không tìm thấy dịch vụ</value>
   </data>
+  <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
+    <value>Không tìm thấy dịch vụ '{0}' (đã bỏ qua)</value>
+  </data>
   <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
     <value>Không thể thay đổi kiểu khởi động cho dịch vụ</value>
   </data>
