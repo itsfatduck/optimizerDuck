@@ -61,6 +61,7 @@ public partial class SettingsViewModel(
         new() { DisplayName = "日本語", Culture = new CultureInfo("ja-JP") },
         new() { DisplayName = "Polski", Culture = new CultureInfo("pl-PL") },
         new() { DisplayName = "Español", Culture = new CultureInfo("es-ES") },
+        new() { DisplayName = "Português (BR)", Culture = new CultureInfo("pt-BR") },
     ];
 
     public override async Task OnNavigatedToAsync()
