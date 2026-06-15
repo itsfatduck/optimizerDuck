@@ -6,6 +6,8 @@
 
 **optimizerDuck — это бесплатный инструмент с открытым исходным кодом для оптимизации Windows, созданный для производительности, конфиденциальности и простоты.**
 
+<a href="https://trendshift.io/repositories/36187" target="_blank"><img src="https://trendshift.io/api/badge/repositories/36187" alt="itsfatduck%2FoptimizerDuck | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+<br>
 [![Release](https://img.shields.io/github/release/itsfatduck/optimizerDuck?color=fed114&label=%D0%A0%D0%B5%D0%BB%D0%B8%D0%B7&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/itsfatduck/optimizerDuck/total?label=%D0%A1%D0%BA%D0%B0%D1%87%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F&style=flat-square&color=lightgreen)](https://github.com/itsfatduck/optimizerDuck/releases)
 [![Stars](https://img.shields.io/endpoint?url=https://api.pinstudios.net/api/badges/stars/itsfatduck/optimizerDuck&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/stargazers)
@@ -158,6 +160,7 @@ optimizerDuck даёт вам единый интерфейс, чтобы убр
 Потому что у optimizerDuck нет цифровой подписи — сертификаты подписи кода стоят бешеных денег для open-source проектов. Когда Windows видит неподписанный exe, скачанный из интернета, SmartScreen по умолчанию паникует. Это нормально, и это **не** значит, что файл опасен.
 
 Чтобы запустить, нажмите **"Подробнее" > "Выполнить в любом случае"**. Если всё ещё сомневаетесь:
+
 - Соберите `.exe` сами из [исходников](https://github.com/itsfatduck/optimizerDuck)
 - Закиньте файл в ANY.RUN или другой online-песочник для проверки
 

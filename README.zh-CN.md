@@ -6,6 +6,8 @@
 
 **optimizerDuck 是一款免费开源的 Windows 优化工具，主打性能提升、隐私保护与简洁易用。**
 
+<a href="https://trendshift.io/repositories/36187" target="_blank"><img src="https://trendshift.io/api/badge/repositories/36187" alt="itsfatduck%2FoptimizerDuck | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+<br>
 [![Release](https://img.shields.io/github/release/itsfatduck/optimizerDuck?color=fed114&label=%E5%8F%91%E5%B8%83&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/itsfatduck/optimizerDuck/total?label=%E4%B8%8B%E8%BD%BD%E9%87%8F&style=flat-square&color=lightgreen)](https://github.com/itsfatduck/optimizerDuck/releases)
 [![Stars](https://img.shields.io/endpoint?url=https://api.pinstudios.net/api/badges/stars/itsfatduck/optimizerDuck&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/stargazers)
@@ -74,7 +76,7 @@
 > | 🇵🇱 | Polish | Polski | [dudus2000](https://github.com/dudus2000) |
 
 > 想要添加其他语言？请查看[贡献指南](./CONTRIBUTING.md)（[日文版](./CONTRIBUTING.ja-JP.md)）。
-> 
+>
 > 1: 软件开发时使用此语言，我们也推荐使用此语言以尽可能避免误解。
 
 ---
@@ -160,6 +162,7 @@ optimizerDuck 提供一个统一的界面来清除多余的东西、开启有用
 因为 optimizerDuck 没有买代码签名证书 — 那玩意儿对开源项目来说太贵了。Windows 从网上下载到没有签名的 exe，SmartScreen 默认就会弹警告。这很正常，并**不是**说文件有问题。
 
 要跳过的话，点 **"更多信息" > "仍要运行"**。如果还是不放心：
+
 - 自己从[源码](https://github.com/itsfatduck/optimizerDuck)编译 `.exe`
 - 把文件丢到 ANY.RUN 这类在线沙箱去验证
 
@@ -202,7 +205,9 @@ optimizerDuck 提供一个统一的界面来清除多余的东西、开启有用
 **访问[官方文档](https://optimizerduck.vercel.app/docs/guides/getting-started)！<sup>2</sup>**
 
 官方文档中包含分步教程、每项优化的详细说明，以及使用 optimizerDuck 的最佳实践。
-> 2: *官方文档部署在Vercel(截止到2026年6月3日)，因此可能需要网络优化来访问。*
+
+> 2: _官方文档部署在Vercel(截止到2026年6月3日)，因此可能需要网络优化来访问。_
+
 ---
 
 ## 贡献

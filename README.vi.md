@@ -6,6 +6,8 @@
 
 **optimizerDuck là công cụ tối ưu Windows miễn phí, mã nguồn mở, tập trung vào hiệu năng, quyền riêng tư và sự đơn giản.**
 
+<a href="https://trendshift.io/repositories/36187" target="_blank"><img src="https://trendshift.io/api/badge/repositories/36187" alt="itsfatduck%2FoptimizerDuck | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+<br>
 [![Release](https://img.shields.io/github/release/itsfatduck/optimizerDuck?color=fed114&label=Phi%C3%AAn%20b%E1%BA%A3n&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/itsfatduck/optimizerDuck/total?label=L%C6%B0%E1%BB%A3t%20t%E1%BA%A3i&style=flat-square&color=lightgreen)](https://github.com/itsfatduck/optimizerDuck/releases)
 [![Stars](https://img.shields.io/endpoint?url=https://api.pinstudios.net/api/badges/stars/itsfatduck/optimizerDuck&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/stargazers)
@@ -158,6 +160,7 @@ Không có mấy món registry hãm vô đây, cái nào cũng có mục đích 
 Tại optimizerDuck không có ký số (code-sign) — vì cái chứng chỉ ký số mắc khủng khiếp với dự án mã nguồn mở. Windows mà gặp file `.exe` chưa ký tải từ mạng về thì SmartScreen mặc định hiện cảnh báo. Chuyện bình thường thôi, **không** có nghĩa là file độc hại đâu.
 
 Để qua mặt thì bấm **"Thông tin khác" > "Chạy"**. Nếu vẫn còn lo:
+
 - Tự build `.exe` từ [source](https://github.com/itsfatduck/optimizerDuck)
 - Gửi file lên mấy trang sandbox như ANY.RUN kiểm tra độc lập
 

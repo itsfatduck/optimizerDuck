@@ -6,6 +6,8 @@
 
 **optimizerDuck는 성능, 개인정보 보호, 단순성에 중점을 둔 무료 오픈소스 Windows 최적화 도구입니다**
 
+<a href="https://trendshift.io/repositories/36187" target="_blank"><img src="https://trendshift.io/api/badge/repositories/36187" alt="itsfatduck%2FoptimizerDuck | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+<br>
 [![Release](https://img.shields.io/github/release/itsfatduck/optimizerDuck?color=fed114&label=Release&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/itsfatduck/optimizerDuck/total?label=Downloads&style=flat-square&color=lightgreen)](https://github.com/itsfatduck/optimizerDuck/releases)
 [![Stars](https://img.shields.io/endpoint?url=https://api.pinstudios.net/api/badges/stars/itsfatduck/optimizerDuck&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/stargazers)
@@ -158,6 +160,7 @@ optimizerDuck은 이런 불필요한 요소를 정리하고 유용한 기능을 
 optimizerDuck은 코드 서명이 안 돼 있어요 — 코드 서명 인증서는 오픈소스 프로젝트한테는 너무 비싸거든요. Windows가 인터넷에서 받은 서명 없는 exe를 만나면 SmartScreen이 기본적으로 경고를 띄웁니다. 정상적인 현상이고, 파일이 위험하다는 뜻이 **아닙니다**.
 
 우회하려면 **"추가 정보" > "실행"** 을 누르세요. 그래도 불안하다면:
+
 - [소스](https://github.com/itsfatduck/optimizerDuck)에서 직접 `.exe`를 빌드해보세요
 - ANY.RUN 같은 온라인 샌드박스에 파일을 올려서 확인해보세요
 

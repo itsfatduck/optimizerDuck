@@ -6,6 +6,8 @@
 
 **optimizerDuck est un outil d'optimisation Windows gratuit et open-source axé sur la performance, la confidentialité et la simplicité.**
 
+<a href="https://trendshift.io/repositories/36187" target="_blank"><img src="https://trendshift.io/api/badge/repositories/36187" alt="itsfatduck%2FoptimizerDuck | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+<br>
 [![Release](https://img.shields.io/github/release/itsfatduck/optimizerDuck?color=fed114&label=Version&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/itsfatduck/optimizerDuck/total?label=T%C3%A9l%C3%A9chargements&style=flat-square&color=lightgreen)](https://github.com/itsfatduck/optimizerDuck/releases)
 [![Stars](https://img.shields.io/endpoint?url=https://api.pinstudios.net/api/badges/stars/itsfatduck/optimizerDuck&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/stargazers)
@@ -158,6 +160,7 @@ Y'a pas de faux hacks de registre ici, chaque modif a un but documenté et un im
 Parce qu'optimizerDuck n'est pas signé numériquement — les certificats de signature de code coûtent une blinde pour un projet open-source. Quand Windows rencontre un exe non signé téléchargé depuis Internet, SmartScreen affiche un avertissement par défaut. C'est normal, ça **veut pas dire** que le fichier est dangereux.
 
 Pour passer : clique sur **"Plus d'informations" > "Exécuter quand même"**. Si tu flippes encore :
+
 - Compile le `.exe` toi-même depuis les [sources](https://github.com/itsfatduck/optimizerDuck)
 - Balance le binaire dans un sandbox en ligne comme ANY.RUN pour vérifier
 

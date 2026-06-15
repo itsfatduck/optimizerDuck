@@ -6,6 +6,8 @@
 
 **optimizerDuck es una herramienta de optimización para Windows gratuita y de código abierto enfocada en el rendimiento, la privacidad y la simplicidad.**
 
+<a href="https://trendshift.io/repositories/36187" target="_blank"><img src="https://trendshift.io/api/badge/repositories/36187" alt="itsfatduck%2FoptimizerDuck | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+<br>
 [![Release](https://img.shields.io/github/release/itsfatduck/optimizerDuck?color=fed114&label=Release&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/itsfatduck/optimizerDuck/total?label=Downloads&style=flat-square&color=lightgreen)](https://github.com/itsfatduck/optimizerDuck/releases)
 [![Stars](https://img.shields.io/endpoint?url=https://api.pinstudios.net/api/badges/stars/itsfatduck/optimizerDuck&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/stargazers)
@@ -92,14 +94,14 @@ Aplica ajustes específicos para reducir la sobrecarga y bloquear comportamiento
 
 Más de 30 ajustes distribuidos en 6 categorías, cada uno con una descripción clara y una calificación de riesgo para que sepas exactamente qué hace cada cambio antes de aplicarlo.
 
-| Categoría                | Qué abarca                                                                                                                                           |
-| :----------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Rendimiento**          | Ajuste de servicios según tu RAM, prioridad de procesos, reducción de latencia del teclado y configuración del programador multimedia para jugar más fluido |
-| **Privacidad**           | Desactiva la telemetría, el informe de errores, la publicidad personalizada, el rastreo de ubicación, Cortana, Copilot y sugerencias del sistema     |
-| **GPU**                  | Ajustes del registro específicos para GPUs AMD, NVIDIA e Intel, abarcando estados de energía, velocidades de reloj y latencia de pantalla              |
-| **Energía**              | Desactiva la hibernación y el inicio rápido, evita la suspensión de puertos USB, instala un plan de energía de alto rendimiento y desactiva el estrangulamiento de energía |
-| **Bloatware y Servicios**| Bloquea la reinstalación automática de apps y ajusta los tipos de inicio de más de 200 servicios de Windows                                          |
-| **Experiencia de Usuario**| Elimina los retrasos al mostrar menús y desactiva efectos visuales (animaciones, transparencias) para una respuesta más instantánea del sistema        |
+| Categoría                  | Qué abarca                                                                                                                                                                 |
+| :------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Rendimiento**            | Ajuste de servicios según tu RAM, prioridad de procesos, reducción de latencia del teclado y configuración del programador multimedia para jugar más fluido                |
+| **Privacidad**             | Desactiva la telemetría, el informe de errores, la publicidad personalizada, el rastreo de ubicación, Cortana, Copilot y sugerencias del sistema                           |
+| **GPU**                    | Ajustes del registro específicos para GPUs AMD, NVIDIA e Intel, abarcando estados de energía, velocidades de reloj y latencia de pantalla                                  |
+| **Energía**                | Desactiva la hibernación y el inicio rápido, evita la suspensión de puertos USB, instala un plan de energía de alto rendimiento y desactiva el estrangulamiento de energía |
+| **Bloatware y Servicios**  | Bloquea la reinstalación automática de apps y ajusta los tipos de inicio de más de 200 servicios de Windows                                                                |
+| **Experiencia de Usuario** | Elimina los retrasos al mostrar menús y desactiva efectos visuales (animaciones, transparencias) para una respuesta más instantánea del sistema                            |
 
 > [!NOTE]
 > Las optimizaciones han sido investigadas a partir de herramientas reconocidas con amplias bases de usuarios; nada se ha generado por IA ni añadido a ciegas. Cada ajuste está elegido por su impacto real.
@@ -115,13 +117,13 @@ No hay necesidad de buscar en el registro; simplemente usa interruptores y menú
 
 ### Herramientas Integradas
 
-| Herramienta           | Qué hace                                                                                                                                         |
-| :-------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Panel del Sistema** | Visualiza detalles de tu CPU, RAM, GPU, unidades de almacenamiento y del sistema operativo en un solo lugar.                                     |
-| **Gestor de Inicio**  | Mira cada aplicación y tarea que se inicia al encender tu PC, actívalas, desactívalas o abre su ubicación.                                       |
-| **Tareas Programadas**| Navega, ejecuta, detén, habilita, deshabilita o elimina tareas programadas de Windows.                                                           |
-| **Limpieza de Disco** | Escanea y borra archivos temporales, caché del sistema, restos de Windows Update, prefetch, miniaturas, papelera de reciclaje y volcados de errores. |
-| **Eliminador de Bloatware** | Lista todos los paquetes AppX removibles con insignias de riesgo (Seguro, Precaución, Desconocido), para que decidas qué eliminar.               |
+| Herramienta                 | Qué hace                                                                                                                                             |
+| :-------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Panel del Sistema**       | Visualiza detalles de tu CPU, RAM, GPU, unidades de almacenamiento y del sistema operativo en un solo lugar.                                         |
+| **Gestor de Inicio**        | Mira cada aplicación y tarea que se inicia al encender tu PC, actívalas, desactívalas o abre su ubicación.                                           |
+| **Tareas Programadas**      | Navega, ejecuta, detén, habilita, deshabilita o elimina tareas programadas de Windows.                                                               |
+| **Limpieza de Disco**       | Escanea y borra archivos temporales, caché del sistema, restos de Windows Update, prefetch, miniaturas, papelera de reciclaje y volcados de errores. |
+| **Eliminador de Bloatware** | Lista todos los paquetes AppX removibles con insignias de riesgo (Seguro, Precaución, Desconocido), para que decidas qué eliminar.                   |
 
 ---
 
@@ -158,6 +160,7 @@ No hay trucos falsos de registro aquí, cada modificación tiene un propósito d
 Porque optimizerDuck no tiene firma digital — los certificados de firma de código son carísimos para proyectos open-source. Cuando Windows se encuentra un ejecutable sin firmar bajado de Internet, SmartScreen muestra una advertencia por defecto. Es normal y **no** significa que el archivo sea peligroso.
 
 Para saltarlo, haz clic en **"Más información" > "Ejecutar de todas formas"**. Si sigues preocupado:
+
 - Compila el `.exe` tú mismo desde el [código fuente](https://github.com/itsfatduck/optimizerDuck)
 - Pásalo por un sandbox online como ANY.RUN para que lo verifiquen
 

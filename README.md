@@ -6,6 +6,8 @@
 
 **optimizerDuck is a free, open-source Windows optimization tool focused on performance, privacy, and simplicity.**
 
+<a href="https://trendshift.io/repositories/36187" target="_blank"><img src="https://trendshift.io/api/badge/repositories/36187" alt="itsfatduck%2FoptimizerDuck | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+<br>
 [![Release](https://img.shields.io/github/release/itsfatduck/optimizerDuck?color=fed114&label=Release&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/itsfatduck/optimizerDuck/total?label=Downloads&style=flat-square&color=lightgreen)](https://github.com/itsfatduck/optimizerDuck/releases)
 [![Stars](https://img.shields.io/endpoint?url=https://api.pinstudios.net/api/badges/stars/itsfatduck/optimizerDuck&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/stargazers)
@@ -158,6 +160,7 @@ There are no fake registry hacks here, every change has a documented purpose and
 optimizerDuck is not code-signed because code signing certificates are expensive for open-source projects. When Windows encounters an unsigned executable downloaded from the internet, SmartScreen displays a warning by default. This is normal and does **not** mean the file is unsafe.
 
 To bypass, click **"More info" > "Run anyway"**. If you are still concerned:
+
 - Build the `.exe` yourself from [source](https://github.com/itsfatduck/optimizerDuck)
 - Submit the binary to online sandboxes like ANY.RUN for independent verification
 
