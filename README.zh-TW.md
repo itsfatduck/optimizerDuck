@@ -6,6 +6,8 @@
 
 **optimizerDuck 是一款免費、開源的 Windows 優化工具，旨在提供性能、隱私和簡單性。**
 
+<a href="https://trendshift.io/repositories/36187" target="_blank"><img src="https://trendshift.io/api/badge/repositories/36187" alt="itsfatduck%2FoptimizerDuck | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+<br>
 [![Release](https://img.shields.io/github/release/itsfatduck/optimizerDuck?color=fed114&label=%E7%99%BC%E4%BD%88&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/itsfatduck/optimizerDuck/total?label=%E4%B8%8B%E8%BC%89%E9%87%8F&style=flat-square&color=lightgreen)](https://github.com/itsfatduck/optimizerDuck/releases)
 [![Stars](https://img.shields.io/endpoint?url=https://api.pinstudios.net/api/badges/stars/itsfatduck/optimizerDuck&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/stargazers)
@@ -18,7 +20,7 @@
 
 **[開始使用](https://optimizerduck.vercel.app/docs/guides/getting-started) | [運作原理](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [常見問題](https://optimizerduck.vercel.app/docs/faq/general)**
 
-[English](README.md) | [Tiếng Việt](README.vi.md) | **繁體中文** | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md)
+[English](README.md) | [Tiếng Việt](README.vi.md) | **繁體中文** | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md) | [Português (BR)](README.pt-BR.md)
 
 <details>
 <summary>⭐ 星星歷史</summary>
@@ -72,6 +74,7 @@
 > | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
 > | 🇯🇵 | Japanese | 日本語 | [zerofrip](https://github.com/zerofrip) |
 > | 🇵🇱 | Polish | Polski | [dudus2000](https://github.com/dudus2000) |
+> | 🇧🇷 | 葡萄牙語（巴西） | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
 
 > 想加入您的語言嗎？請查看[貢獻指南](./CONTRIBUTING.md)（[日文版](./CONTRIBUTING.ja-JP.md)）。
 
@@ -158,6 +161,7 @@ optimizerDuck 提供一個統一的介面來清除多餘的東西、開啟有用
 因為 optimizerDuck 沒有買代碼簽章憑證 — 那東西對開源專案來說貴到不行。Windows 從網路抓到沒簽章的執行檔，SmartScreen 預設就會跳出警告。這很正常，並**不是**說檔案有問題。
 
 要繞過的話，按 **「更多資訊」>「仍要執行」**。如果不放心：
+
 - 自己從[原始碼](https://github.com/itsfatduck/optimizerDuck)編譯 `.exe`
 - 把檔案丟到 ANY.RUN 這類線上沙箱讓它幫你驗證
 

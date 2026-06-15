@@ -20,7 +20,7 @@
 
 **[Guía de Inicio](https://optimizerduck.vercel.app/docs/guides/getting-started) | [Cómo Funciona](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [Preguntas Frecuentes](https://optimizerduck.vercel.app/docs/faq/general)**
 
-**Español** | [English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md) | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md)
+**Español** | [English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md) | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md) | [Português (BR)](README.pt-BR.md)
 
 <details>
 <summary>⭐ Historial de Estrellas</summary>
@@ -74,6 +74,7 @@ Cada estrella nos motiva a realizar futuras mejoras.
 > | 🇪🇸 | Español | Español | [thexxtt](https://github.com/thexxtt) |
 > | 🇯🇵 | Japonés | 日本語 | [zerofrip](https://github.com/zerofrip) |
 > | 🇵🇱 | Polaco | Polski | [dudus2000](https://github.com/dudus2000) |
+> | 🇧🇷 | Portugués (Brasil) | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
 
 > ¿Quieres añadir tu idioma? Consulta [CONTRIBUTING.md](./CONTRIBUTING.md) ([versión en japonés](./CONTRIBUTING.ja-JP.md)).
 
