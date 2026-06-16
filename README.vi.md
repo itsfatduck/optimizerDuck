@@ -75,7 +75,7 @@ Càng nhiều sao càng có động lực cải thiện công cụ.
 > | 🇯🇵 | Japanese | 日本語 | [zerofrip](https://github.com/zerofrip) |
 > | 🇵🇱 | Polish | Polski | [dudus2000](https://github.com/dudus2000) |
 > | 🇧🇷 | Tiếng Bồ Đào Nha (Brazil) | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
-| 🇹🇷 | Turkish | Türkçe | [MarkesrBetter](https://github.com/MarkesrBetter) |
+| 🇹🇷 | Turkish | Türkçe | [Markesr](https://github.com/MarkesrBetter) |
 
 > Muốn thêm ngôn ngữ của bạn? Xem [CONTRIBUTING.md](./CONTRIBUTING.md) ([bản tiếng Nhật](./CONTRIBUTING.ja-JP.md)).
 

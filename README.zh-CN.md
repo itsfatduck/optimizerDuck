@@ -75,7 +75,7 @@
 > | 🇯🇵 | Japanese | 日本語 | [zerofrip](https://github.com/zerofrip) |
 > | 🇵🇱 | Polish | Polski | [dudus2000](https://github.com/dudus2000) |
 > | 🇧🇷 | 葡萄牙语（巴西） | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
-| 🇹🇷 | Turkish | Türkçe | [MarkesrBetter](https://github.com/MarkesrBetter) |
+| 🇹🇷 | Turkish | Türkçe | [Markesr](https://github.com/MarkesrBetter) |
 
 > 想要添加其他语言？请查看[贡献指南](./CONTRIBUTING.md)（[日文版](./CONTRIBUTING.ja-JP.md)）。
 >
