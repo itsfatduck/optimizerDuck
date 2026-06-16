@@ -75,7 +75,7 @@ Cada estrella nos motiva a realizar futuras mejoras.
 > | 🇯🇵 | Japonés | 日本語 | [zerofrip](https://github.com/zerofrip) |
 > | 🇵🇱 | Polaco | Polski | [dudus2000](https://github.com/dudus2000) |
 > | 🇧🇷 | Portugués (Brasil) | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
-| 🇹🇷 | Turkish | Türkçe | [Markesr](https://github.com/MarkesrBetter) |
+> | 🇹🇷 | Turkish | Türkçe | [Markesr](https://github.com/MarkesrBetter) |
 
 > ¿Quieres añadir tu idioma? Consulta [CONTRIBUTING.md](./CONTRIBUTING.md) ([versión en japonés](./CONTRIBUTING.ja-JP.md)).
 
