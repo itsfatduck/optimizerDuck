@@ -20,7 +20,8 @@
 
 **[Getting Started](https://optimizerduck.vercel.app/docs/guides/getting-started) | [How It Works](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [FAQ](https://optimizerduck.vercel.app/docs/faq/general)**
 
-**English** | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md) | [Português (BR)](README.pt-BR.md)
+<!-- Keep these links, translations synced daily. -->
+**English** | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [Deutsch](https://zdoc.app/de/itsfatduck/optimizerDuck) | [Español](https://zdoc.app/es/itsfatduck/optimizerDuck) | [français](https://zdoc.app/fr/itsfatduck/optimizerDuck) | [日本語](https://zdoc.app/ja/itsfatduck/optimizerDuck) | [한국어](https://zdoc.app/ko/itsfatduck/optimizerDuck) | [Português](https://zdoc.app/pt/itsfatduck/optimizerDuck) | [Русский](https://zdoc.app/ru/itsfatduck/optimizerDuck) | [中文](https://zdoc.app/zh/itsfatduck/optimizerDuck) | [Polski](README.pl-PL.md)
 
 <details>
 <summary>⭐ Star History</summary>
