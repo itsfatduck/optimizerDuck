@@ -1,0 +1,1739 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root" xmlns="">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+  </resheader>
+  <data name="Dashboard.Header.Title" xml:space="preserve">
+    <value>Gösterge Paneli</value>
+  </data>
+  <data name="Sidebar.Dashboard" xml:space="preserve">
+    <value>Gösterge Paneli</value>
+  </data>
+  <data name="Sidebar.Settings" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
+  <data name="Button.Close" xml:space="preserve">
+    <value>Kapat</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Cpu.Cores" xml:space="preserve">
+    <value>{0} Çekirdek</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Storage.DiskInfo" xml:space="preserve">
+    <value>{1} GB'ın {0} GB'ı kullanılıyor ({2} GB boş)</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Ram.Modules" xml:space="preserve">
+    <value>{0} Modül</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Cpu.Threads" xml:space="preserve">
+    <value>{0} İş Parçacığı</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Storage.System" xml:space="preserve">
+    <value>SİSTEM</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Storage.Header" xml:space="preserve">
+    <value>Depolama</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Ram.Used" xml:space="preserve">
+    <value>{0} GB Kullanılıyor</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Ram.Available" xml:space="preserve">
+    <value>{0} GB Mevcut</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Loading" xml:space="preserve">
+    <value>Sistem bilgileri alınıyor...</value>
+  </data>
+  <data name="Sidebar.Optimize" xml:space="preserve">
+    <value>Optimize Et</value>
+  </data>
+  <data name="Customize.Description" xml:space="preserve">
+    <value>Windows ayarlarını ve tercihlerini özelleştir</value>
+  </data>
+  <data name="Customize.Preferences.Name" xml:space="preserve">
+    <value>Tercihler</value>
+  </data>
+  <data name="Customize.Preferences.Description" xml:space="preserve">
+    <value>Görsel ve etkileşim ayarlarını özelleştir</value>
+  </data>
+  <data name="Customize.Gaming.Name" xml:space="preserve">
+    <value>Oyun</value>
+  </data>
+  <data name="Customize.Gaming.Description" xml:space="preserve">
+    <value>Oyunla ilgili ekran, giriş ve kayıt ayarları</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Gpu.More" xml:space="preserve">
+    <value>+ {0} GPU daha</value>
+  </data>
+  <data name="Dashboard.Actions.Discord.Title" xml:space="preserve">
+    <value>Discord Topluluğu</value>
+  </data>
+  <data name="Dashboard.Actions.Discord.Description" xml:space="preserve">
+    <value>Discord topluluğuma katıl... destek al veya benimle oyun oyna</value>
+  </data>
+  <data name="Dashboard.Actions.GitHub.Title" xml:space="preserve">
+    <value>GitHub Deposu</value>
+  </data>
+  <data name="Dashboard.Actions.GitHub.Description" xml:space="preserve">
+    <value>GitHub üzerinden projeyi keşfet, incele ve katkıda bulun</value>
+  </data>
+  <data name="Dashboard.Actions.SupportMe.Title" xml:space="preserve">
+    <value>Katkıda Bulun</value>
+  </data>
+  <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
+    <value>GitHub'da depoyu yıldızla, arkadaşlarınla paylaş veya bağış yap — her şey bu projenin büyümesine yardımcı olur!</value>
+  </data>
+  <data name="Service.Registry.Description.CreateKey" xml:space="preserve">
+    <value>Kayıt defteri anahtarı oluştur: {0}</value>
+  </data>
+  <data name="Service.Registry.Description.DeleteKey" xml:space="preserve">
+    <value>Kayıt defteri anahtarını sil: {0}</value>
+  </data>
+  <data name="Settings.LanguageChanged.Title" xml:space="preserve">
+    <value>Dil değiştirildi</value>
+  </data>
+  <data name="Settings.LanguageChanged.Description" xml:space="preserve">
+    <value>Yeni dili uygulamak için uygulamayı yeniden başlatmanız gerekiyor.</value>
+  </data>
+  <data name="Button.Ok" xml:space="preserve">
+    <value>Tamam</value>
+  </data>
+  <data name="Settings.Header.Title" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
+  <data name="Settings.Appearance.Header" xml:space="preserve">
+    <value>Görünüm</value>
+  </data>
+  <data name="Settings.Appearance.LanguageSelector.Title" xml:space="preserve">
+    <value>Dil</value>
+  </data>
+  <data name="Settings.Appearance.LanguageSelector.Description" xml:space="preserve">
+    <value>Tercih ettiğiniz dili seçin.</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.Title" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.Description" xml:space="preserve">
+    <value>Uygulama için tercih ettiğiniz temayı seçin.</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.Light" xml:space="preserve">
+    <value>Açık</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.Dark" xml:space="preserve">
+    <value>Koyu</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.HighContrast" xml:space="preserve">
+    <value>Yüksek Kontrast</value>
+  </data>
+  <data name="Common.AppliedSecondsAgo" xml:space="preserve">
+    <value>{0} saniye önce uygulandı</value>
+  </data>
+  <data name="Common.AppliedMinutesAgo" xml:space="preserve">
+    <value>{0} dakika önce uygulandı</value>
+  </data>
+  <data name="Common.AppliedHoursAgo" xml:space="preserve">
+    <value>{0} saat önce uygulandı</value>
+  </data>
+  <data name="Common.AppliedDaysAgo" xml:space="preserve">
+    <value>{0} gün önce uygulandı</value>
+  </data>
+  <data name="Common.AppliedMonthsAgo" xml:space="preserve">
+    <value>{0} ay önce uygulandı</value>
+  </data>
+  <data name="Common.AppliedYearsAgo" xml:space="preserve">
+    <value>{0} yıl önce uygulandı</value>
+  </data>
+  <data name="Optimizer.UI.Risk.Safe" xml:space="preserve">
+    <value>Güvenli</value>
+  </data>
+  <data name="Optimizer.UI.Risk.Moderate" xml:space="preserve">
+    <value>Dikkatli</value>
+  </data>
+  <data name="Optimizer.UI.Risk.Risky" xml:space="preserve">
+    <value>Uzman</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
+    <value>Ayrıntılı açıklama</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
+    <value>Etiketler</value>
+  </data>
+  <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
+    <value>Hizmet Ana Bilgisayarı bölme eşiğini toplam sistem RAM'iyle eşleştirerek Windows'un servisleri ayrı işlemlere izole etmesini sağlar, böylece kararlılık artar.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
+    <value>Mevcut aktif güç planı algılanamadı.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ImportFailed" xml:space="preserve">
+    <value>optimizerDuck güç planı içe aktarılamadı.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ActivateFailed" xml:space="preserve">
+    <value>optimizerDuck güç planı etkinleştirilemedi.</value>
+  </data>
+  <data name="Optimizer.UI.Risk.Help" xml:space="preserve">
+    <value>Bu değer müdahalenin düzeyini ve optimizasyon sürecinin güvenliğini yansıtır. Herhangi bir optimizasyon uygulamadan önce lütfen dikkatli olun ve dikkatlice düşünün.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.System" xml:space="preserve">
+    <value>Sistem</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Ram" xml:space="preserve">
+    <value>RAM</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Disk" xml:space="preserve">
+    <value>Disk</value>
+  </data>
+  <data name="Optimizer.UI.Tags.NetworkRequired" xml:space="preserve">
+    <value>İnternet bağlantısı gerekli</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Network" xml:space="preserve">
+    <value>Ağ</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Privacy" xml:space="preserve">
+    <value>Gizlilik</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Audio" xml:space="preserve">
+    <value>Ses</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
+    <value>Bu etiketler, optimizasyonun sistemin hangi bölümlerini etkileyeceğini gösterir.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
+    <value>NVIDIA</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
+    <value>AMD</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
+    <value>Intel</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
+    <value>Güç</value>
+  </data>
+  <data name="Revert.Error.InvalidData" xml:space="preserve">
+    <value>{0} için geçersiz geri alma verisi: {1}</value>
+  </data>
+  <data name="Revert.Error.NoDataFound" xml:space="preserve">
+    <value>{0} için geri alma verisi bulunamadı.</value>
+  </data>
+  <data name="Optimization.Revert.Reverting" xml:space="preserve">
+    <value>Geri alınıyor...</value>
+  </data>
+  <data name="Optimization.Revert.Success" xml:space="preserve">
+    <value>{0} başarıyla geri alındı!</value>
+  </data>
+  <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
+    <value>{0} geri alındı, {1} adım başarısız oldu.</value>
+  </data>
+  <data name="Revert.Error.RevertFailed" xml:space="preserve">
+    <value>{0} geri alınamadı: {1}</value>
+  </data>
+  <data name="Optimization.Revert.ExecutingStep" xml:space="preserve">
+    <value>Geri alma adımı çalıştırılıyor: {0}/{1} ({2})</value>
+  </data>
+  <data name="Optimization.Revert.StepDescription" xml:space="preserve">
+    <value>Geri alma adımı #{0}</value>
+  </data>
+  <data name="Revert.Registry.Description.RestoreKey" xml:space="preserve">
+    <value>Kayıt defteri anahtarını geri yükle: {0}</value>
+  </data>
+  <data name="Revert.Registry.Description.DeleteKey" xml:space="preserve">
+    <value>Kayıt defteri anahtarını sil: {0}</value>
+  </data>
+  <data name="Revert.Registry.Description.RevertUnknown" xml:space="preserve">
+    <value>Kayıt defterini geri al: {0}</value>
+  </data>
+  <data name="Revert.Error.FileNotFound" xml:space="preserve">
+    <value>Geri alma dosyası bulunamadı</value>
+  </data>
+  <data name="Revert.Error.FileEmpty" xml:space="preserve">
+    <value>Geri alma dosyası boş</value>
+  </data>
+  <data name="Revert.Error.ReadFailed" xml:space="preserve">
+    <value>Geri alma verisi okunamadı: {0}</value>
+  </data>
+  <data name="Revert.Error.InvalidJson" xml:space="preserve">
+    <value>Geçersiz geri alma verisi</value>
+  </data>
+  <data name="Revert.Error.InvalidJsonFormat" xml:space="preserve">
+    <value>Geçersiz JSON biçimi: {0}</value>
+  </data>
+  <data name="Revert.Error.NoSteps" xml:space="preserve">
+    <value>Geri alma adımı bulunamadı.</value>
+  </data>
+  <data name="Revert.Error.InvalidSteps" xml:space="preserve">
+    <value>Geçersiz geri alma adımları: {0}</value>
+  </data>
+  <data name="Revert.Error.StepFailed" xml:space="preserve">
+    <value>Geri alma adımı başarısız oldu</value>
+  </data>
+  <data name="Revert.UsbPower.Description" xml:space="preserve">
+    <value>USB seçici askıya alma güç durumlarını geri yükle</value>
+  </data>
+  <data name="Service.Registry.Error.BackupTruncated" xml:space="preserve">
+    <value>Kayıt defteri alt ağacı yedeklemek için çok büyük; {0} için silme işlemi iptal edildi</value>
+  </data>
+  <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
+    <value>Optimizasyon kimliği eşleşmiyor.</value>
+  </data>
+  <data name="Optimization.Apply.Processing" xml:space="preserve">
+    <value>Değişiklikler uygulanıyor...</value>
+  </data>
+  <data name="Optimization.Apply.Completed" xml:space="preserve">
+    <value>Tamamlandı</value>
+  </data>
+  <data name="Optimization.Apply.Success" xml:space="preserve">
+    <value>{0} başarıyla uygulandı.</value>
+  </data>
+  <data name="Optimization.Apply.Error.FailedWithSteps" xml:space="preserve">
+    <value>{0} uygulandı, {1} adım başarısız oldu.</value>
+  </data>
+  <data name="Optimization.Apply.Error.Failed" xml:space="preserve">
+    <value>{0} uygulanamadı.</value>
+  </data>
+  <data name="Optimization.Apply.Error.Unknown" xml:space="preserve">
+    <value>{0} için bilinmeyen sonuç.</value>
+  </data>
+  <data name="Service.Common.Error.AccessDenied" xml:space="preserve">
+    <value>Erişim reddedildi</value>
+  </data>
+  <data name="Service.Registry.Error.AccessDeniedProtectedHive" xml:space="preserve">
+    <value>Erişim reddedildi (korumalı kovan)</value>
+  </data>
+  <data name="Service.Registry.Error.UnauthorizedAccess" xml:space="preserve">
+    <value>Yetkisiz erişim</value>
+  </data>
+  <data name="Service.Registry.Error.CreateOrOpenSubkeyFailed" xml:space="preserve">
+    <value>Alt anahtar oluşturulamadı/açılamadı</value>
+  </data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedWrite" xml:space="preserve">
+    <value>{0}:{1} yazılırken erişim reddedildi</value>
+  </data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedDelete" xml:space="preserve">
+    <value>{0}:{1} silinirken erişim reddedildi</value>
+  </data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedCreateKey" xml:space="preserve">
+    <value>{0} oluşturulurken erişim reddedildi</value>
+  </data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedDeleteKeyTree" xml:space="preserve">
+    <value>{0} anahtar ağacı silinirken erişim reddedildi</value>
+  </data>
+  <data name="Service.Service.Error.NotFound" xml:space="preserve">
+    <value>Servis bulunamadı</value>
+  </data>
+  <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
+    <value>'{0}' servisi bulunamadı (atlandı)</value>
+  </data>
+  <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
+    <value>Servis başlangıç türü değiştirilemedi</value>
+  </data>
+  <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
+    <value>ChangeStartMode başarısız oldu (kod: {0})</value>
+  </data>
+  <data name="Service.Service.Error.ExceptionOccurred" xml:space="preserve">
+    <value>'{0}' servisi değiştirilemedi: {1}</value>
+  </data>
+  <data name="Service.Shell.Error.ExitCode" xml:space="preserve">
+    <value>Çıkış kodu {0}</value>
+  </data>
+  <data name="Service.Shell.Error.TimedOut" xml:space="preserve">
+    <value>Zaman aşımına uğradı</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
+    <value>Geri alma dosyası</value>
+  </data>
+  <data name="OptimizationResultDialog.Header" xml:space="preserve">
+    <value>{0} Başarısız Adım</value>
+  </data>
+  <data name="OptimizationResultDialog.Description" xml:space="preserve">
+    <value>Bazı adımlar başarıyla tamamlanamadı. Yalnızca başarısız adımları yeniden deneyebilirsiniz.</value>
+  </data>
+  <data name="OptimizationResultDialog.Details" xml:space="preserve">
+    <value>Ayrıntılar</value>
+  </data>
+  <data name="Button.Retry" xml:space="preserve">
+    <value>Yeniden Dene</value>
+  </data>
+  <data name="Settings.About.Duck.Description" xml:space="preserve">
+    <value>Mevcut sürüm: {0}</value>
+  </data>
+  <data name="Settings.Advanced.Header" xml:space="preserve">
+    <value>Gelişmiş</value>
+  </data>
+  <data name="Settings.Optimize.Header" xml:space="preserve">
+    <value>Optimize Et</value>
+  </data>
+  <data name="Settings.Optimize.ShellTimeout.Title" xml:space="preserve">
+    <value>Kabuk servisi zaman aşımı</value>
+  </data>
+  <data name="Settings.Optimize.ShellTimeout.Description" xml:space="preserve">
+    <value>Her kabuk komutunun yürütülmesi için zaman aşımı (milisaniye).</value>
+  </data>
+  <data name="Settings.Advanced.ClearDownloads.Title" xml:space="preserve">
+    <value>İndirmeleri temizle</value>
+  </data>
+  <data name="Settings.Advanced.ClearDownloads.Description" xml:space="preserve">
+    <value>Optimizasyon süreci sırasında indirilen tüm dosyaları sil.</value>
+  </data>
+  <data name="Settings.Advanced.ClearRevertDatas.Title" xml:space="preserve">
+    <value>Tüm geri alma verilerini temizle</value>
+  </data>
+  <data name="Settings.Advanced.ClearRevertDatas.Description" xml:space="preserve">
+    <value>Optimizasyonlardan elde edilen tüm geri alma verilerini temizle.</value>
+  </data>
+  <data name="Button.Clear" xml:space="preserve">
+    <value>Temizle</value>
+  </data>
+  <data name="Settings.Advanced.OpenRootDir.Title" xml:space="preserve">
+    <value>Kök dizini aç</value>
+  </data>
+  <data name="Settings.Advanced.OpenRootDir.Description" xml:space="preserve">
+    <value>Gerekli tüm dosyaların saklandığı uygulamanın kök dizinini aç.</value>
+  </data>
+  <data name="Settings.Appearance.SmoothScrolling.Title" xml:space="preserve">
+    <value>Akıcı Kaydırma</value>
+  </data>
+  <data name="Settings.Appearance.SmoothScrolling.Description" xml:space="preserve">
+    <value>Daha akıcı bir kaydırma deneyimi için yumuşak kaydırma animasyonunu etkinleştir. Gecikme yaşarsanız kapatın.</value>
+  </data>
+  <data name="Button.Open" xml:space="preserve">
+    <value>Aç</value>
+  </data>
+  <data name="Settings.About.Header" xml:space="preserve">
+    <value>Hakkında</value>
+  </data>
+  <data name="Dialog.AreYouSure.Title" xml:space="preserve">
+    <value>Devam etmek istediğinizden emin misiniz?</value>
+  </data>
+  <data name="Settings.ClearDownloads.Description" xml:space="preserve">
+    <value>Optimizasyon süreci sırasında indirilen tüm dosyaları silmek üzeresiniz. Bu işlem kalıcıdır ve geri alınamaz; devam etmeden önce emin olduğunuzdan emin olun.</value>
+  </data>
+  <data name="Button.Cancel" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="Button.Skip" xml:space="preserve">
+    <value>Atla</value>
+  </data>
+  <data name="Settings.ClearRevertData.Description" xml:space="preserve">
+    <value>Optimizasyon sonrası oluşturulan tüm geri alma verilerini silmek üzeresiniz. Bu, optimizasyon öncesi duruma artık geri dönemeyeceğiniz anlamına gelir; onaylamadan önce dikkatlice düşünün.</value>
+  </data>
+  <data name="ProcessingOptimizationDialog.Warning.DontCloseAppOrRestart" xml:space="preserve">
+    <value>Değişiklikler uygulanırken veya geri alınırken lütfen uygulamayı kapatmayın veya yeniden başlatmayın.</value>
+  </data>
+  <data name="Common.AppliedJustNow" xml:space="preserve">
+    <value>Az önce uygulandı</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
+    <value>Optimizasyon tam olarak uygulanamadı</value>
+  </data>
+  <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
+    <value>Optimizasyon geri alınamadı</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.Success.Title" xml:space="preserve">
+    <value>Optimizasyon başarıyla uygulandı</value>
+  </data>
+  <data name="Optimization.Revert.Snackbar.Success.Title" xml:space="preserve">
+    <value>Optimizasyon başarıyla geri alındı</value>
+  </data>
+  <data name="Optimization.Toggle.Snackbar.Error.Title" xml:space="preserve">
+    <value>Optimizasyon değiştirilemedi</value>
+  </data>
+  <data name="Optimization.Toggle.Snackbar.Error.Message" xml:space="preserve">
+    <value>Bir hata oluştu: {0}</value>
+  </data>
+  <data name="Optimization.Retry.Processing" xml:space="preserve">
+    <value>Başarısız adımlar yeniden deneniyor...</value>
+  </data>
+  <data name="Optimization.RetryStep.Processing" xml:space="preserve">
+    <value>{0} adımı yeniden deneniyor ({1}/{2} adım)</value>
+  </data>
+  <data name="Optimization.Revert.Error.Failed" xml:space="preserve">
+    <value>{0} geri alınamadı.</value>
+  </data>
+  <data name="Dashboard.Header.Menu.Refresh" xml:space="preserve">
+    <value>Yenile</value>
+  </data>
+  <data name="Dashboard.Header.Menu.RunTaskManager" xml:space="preserve">
+    <value>Görev Yöneticisi</value>
+  </data>
+  <data name="Common.Unknown" xml:space="preserve">
+    <value>Bilinmiyor</value>
+  </data>
+  <data name="Common.Recommendation.On" xml:space="preserve">
+    <value>Önerilen</value>
+  </data>
+  <data name="Common.Recommendation.Off" xml:space="preserve">
+    <value>Önerilmez</value>
+  </data>
+  <data name="Common.Recommendation.Experimental" xml:space="preserve">
+    <value>Deneysel</value>
+  </data>
+  <data name="Common.Recommendation.Depends" xml:space="preserve">
+    <value>Duruma Göre</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Security" xml:space="preserve">
+    <value>Güvenlik</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Performance" xml:space="preserve">
+    <value>Performans</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Latency" xml:space="preserve">
+    <value>Gecikme</value>
+  </data>
+  <data name="Optimizer.Performance" xml:space="preserve">
+    <value>Performans</value>
+  </data>
+  <data name="Optimizer.PowerManagement" xml:space="preserve">
+    <value>Güç Yönetimi</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy" xml:space="preserve">
+    <value>Güvenlik &amp; Gizlilik</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices" xml:space="preserve">
+    <value>Şişirilmiş Yazılım &amp; Servisler</value>
+  </data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.Name" xml:space="preserve">
+    <value>Arka Plan Uygulamalarını Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
+    <value>Etkin olmayan uygulamaların arka planda çalışmasını önler, böylece RAM serbest kalır ve CPU yükü azalır.</value>
+  </data>
+  <data name="Optimizer.Performance.SvcHostSplit.Name" xml:space="preserve">
+    <value>Servis İzolasyonunu Optimize Et</value>
+  </data>
+  <data name="Optimizer.Performance.SvcHostSplit.Error.InvalidRAM" xml:space="preserve">
+    <value>Geçersiz RAM: {0}</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
+    <value>Aktif Uygulamalara Öncelik Ver</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
+    <value>Daha hızlı ve daha duyarlı bir deneyim için o anda kullandığınız uygulamaya daha fazla CPU kaynağı ayırır.</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
+    <value>Multimedya Zamanlayıcısını Optimize Et</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
+    <value>Multimedya iş yüklerine öncelik vererek ve ağ kısıtlamasını devre dışı bırakarak Multimedya Sınıf Zamanlayıcı Servisi'ni (MMCSS) oyun ve düşük gecikme için yapılandırır.</value>
+  </data>
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
+    <value>Klavye Tekrarını Optimize Et</value>
+  </data>
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
+    <value>Daha duyarlı yazma ve tekrarlanan tuş basışları için en hızlı klavye tekrar gecikmesini ve tekrar hızını ayarlar.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.Name" xml:space="preserve">
+    <value>Erişilebilirlik Klavye Kısayollarını Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription" xml:space="preserve">
+    <value>Oyun ve yazma sırasında yanlışlıkla açılır pencere çıkmasını önlemek için Yapışkan Tuşlar, Filtre Tuşları ve Değiştirme Tuşları klavye kısayollarını devre dışı bırakır.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Name" xml:space="preserve">
+    <value>Hazırda Bekletme ve Hızlı Başlatmayı Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.ShortDescription" xml:space="preserve">
+    <value>Disk alanını geri kazanmak ve önyükleme sırasında daha temiz donanım başlatma için tam kapatmayı sağlamak amacıyla hazırda bekletmeyi ve Hızlı Başlatmayı kapatır.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
+    <value>USB Güç Tasarrufunu Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
+    <value>Windows'un USB portlarını kapatmasını önler; böylece fare, klavye ve diğer çevre birimlerinde uyanma gecikmeleri ortadan kalkar.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
+    <value>Optimize Edilmiş Güç Planını Uygula</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
+    <value>Sisteminizin her zaman maksimum hızda çalışmasını sağlamak için özel performans odaklı bir güç planı yükler. Uyarı: Bazı sistemlerde Görev Yöneticisinde yanlışlıkla %100 CPU kullanımı gösterilebilir, ancak gerçek CPU yükü etkilenmez.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
+    <value>Güç planı içe aktarılıyor ve etkinleştiriliyor...</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
+    <value>Sistem Güç Kısıtlamasını Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
+    <value>Windows'un aktif görevler için en yüksek gücü korumak adına CPU performansını (Güç Kısıtlama) sınırlamasını önler.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
+    <value>Veri Toplamayı Devre Dışı Bırak (Telemetri)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
+    <value>Kişisel gizliliğinizi artırmak ve arka plan etkinliğini azaltmak için Windows telemetri ve kullanım izleme servislerini devre dışı bırakır.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
+    <value>İlke ve kayıt defteri değişiklikleri uygulanıyor...</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableServices" xml:space="preserve">
+    <value>Telemetri servisleri devre dışı bırakılıyor...</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableTasks" xml:space="preserve">
+    <value>Zamanlanmış telemetri görevleri devre dışı bırakılıyor...</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.Name" xml:space="preserve">
+    <value>Hata Raporlamayı Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.ShortDescription" xml:space="preserve">
+    <value>Windows Hata Raporlama ve Program Uyumluluğu Yardımcısı servislerini devre dışı bırakır.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.Name" xml:space="preserve">
+    <value>Reklam ve Önerileri Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.ShortDescription" xml:space="preserve">
+    <value>Kişiselleştirilmiş reklamları, Windows tüketici özelliklerini ve sistem önerilerini devre dışı bırakır.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.Name" xml:space="preserve">
+    <value>Etkinlik Geçmişini Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.ShortDescription" xml:space="preserve">
+    <value>Windows'un etkinlik geçmişinizi toplamasını ve eşitlemesini önler.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.Name" xml:space="preserve">
+    <value>Konum ve Sensörleri Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.ShortDescription" xml:space="preserve">
+    <value>Konum takibini, sistem sensörlerini ve çevrimdışı harita güncellemelerini devre dışı bırakır.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.Name" xml:space="preserve">
+    <value>Arka Plan Günlüğünü Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
+    <value>Sürekli disk etkinliğini azaltmak ve CPU döngülerinden tasarruf etmek için temel olmayan sistem olay günlüğünü durdurur.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
+    <value>Cortana ve Web Aramayı Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
+    <value>Cortana sesli asistanını kapatır ve Windows Arama çubuğundan Bing web sonuçlarını kaldırır.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
+    <value>Windows Copilot'ı Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
+    <value>Belleği ve ekran alanını boşaltmak için AI Copilot asistanını görev çubuğundan ve sistem kabuğundan kaldırır.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
+    <value>Bulut İçerik Dağıtımını Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
+    <value>Sistem ipuçları, spotlight önerileri ve tüketici özelliklerinin otomatik dağıtımı dahil olmak üzere Windows bulut tabanlı içeriği kapatır.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
+    <value>Önceden Yüklenmiş Yazılımları Engelle</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
+    <value>Windows'un istenmeyen üçüncü taraf uygulamaları ve tanıtılan yazılımları otomatik olarak yeniden yüklemesini önler.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
+    <value>Sistem Servislerini Optimize Et</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
+    <value>Tüm gerekli Windows işlevselliğini korurken kaynakları boşaltmak için temel olmayan arka plan servislerini ayarlar.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType" xml:space="preserve">
+    <value>{0} için başlangıç türü {1} olarak ayarlanıyor...</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Display" xml:space="preserve">
+    <value>Ekran</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Visual" xml:space="preserve">
+    <value>Görsel</value>
+  </data>
+  <data name="Optimizer.Gpu" xml:space="preserve">
+    <value>GPU</value>
+  </data>
+  <data name="Optimizer.UserExperience" xml:space="preserve">
+    <value>Kullanıcı Deneyimi</value>
+  </data>
+  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
+    <value>Explorer ve Menüleri Hızlandır</value>
+  </data>
+  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
+    <value>Explorer başlangıç gecikmesini ortadan kaldırmak ve menü fareyle üzerine gelme gecikmesini minimuma indirmek için StartupDelayInMSec=0, MenuShowDelay=0 değerlerini ayarlar.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
+    <value>Görsel Efektleri Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
+    <value>Daha iyi performans için GPU/CPU kaynaklarını serbest bırakmak amacıyla görev çubuğu animasyonlarını, liste görünümü gölgelerini, pencere şeffaflığını ve Aero Peek'i devre dışı bırakır.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
+    <value>AMD ULPS'yi Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
+    <value>Ultra Düşük Güç Durumu uyanma gecikmelerini ve çoklu monitör sorunlarını önlemek için AMD GPU kayıt defterinde EnableULPS=0 değerini ayarlar. Boştayken güç tasarrufunu azaltır.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
+    <value>AMD Güç Kapılamasını Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
+    <value>AMD GPU güç durumu geçişlerini önlemek için DisablePowerGating=1, PP_GPUPowerDownEnabled=0, DisableDynamicPstate=1 değerlerini ayarlar. Daha yüksek boşta güç tüketimi karşılığında tutarlı saat hızları sağlar.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>AMD Video Saat Kapılamasını Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>Kodlama/kod çözme kararlılığını artırmak için AMD video motorları (VCE/UVD) için DisableVCEPowerGating=1, DisableVceClockGating=1, EnableUvdClockGating=0 değerlerini ayarlar. Video oynatma güç tüketimini artırır.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
+    <value>AMD ASPM'yi Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
+    <value>AMD GPU'larda PCIe veri yolu gecikmesini azaltmak için Aktif Durum Güç Yönetimi'ni devre dışı bırakmak amacıyla EnableAspmL0s=0, EnableAspmL1=0 değerlerini ayarlar. Yuva güç tüketimini artırır.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
+    <value>NVIDIA Dinamik P-State'i Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
+    <value>Saat hızı dalgalanmalarını önlemek için NVIDIA GPU'yu sabit performans durumunda kilitlemek amacıyla DisableDynamicPstate=1 değerini ayarlar. Boştaki güç tüketimini artırır.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
+    <value>NVIDIA Asenkron P-State'leri Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
+    <value>VR/gerçek zamanlı uygulamalar için belirleyici performans sağlamak amacıyla NVIDIA asenkron güç durumu geçişini önlemek için DisableASyncPstates=1 değerini ayarlar.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>Intel Asenkron Çevirmelerini Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>Intel iGPU'da girişten ekrana gecikmeyi ve ekran yırtılmasını azaltmak için senkron tampon geçişlerini zorlamak amacıyla Display1_DisableAsyncFlips=1 değerini ayarlar.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
+    <value>Intel Uyarlamalı V-Sync'i Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
+    <value>Kararlı zamanlama için sabit V-Sync kullanmak amacıyla kare hızına göre dinamik olarak ayarlanan Intel uyarlamalı V-Sync'i devre dışı bırakmak için AdaptiveVsyncEnable=0 değerini ayarlar.</value>
+  </data>
+  <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
+    <value>Görev Çubuğu</value>
+  </data>
+  <data name="Customize.Preferences.Section.Appearance" xml:space="preserve">
+    <value>Görünüm</value>
+  </data>
+  <data name="Customize.Preferences.Section.Explorer" xml:space="preserve">
+    <value>Dosya Gezgini</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarNewsAndInterests.Name" xml:space="preserve">
+    <value>Görev Çubuğu Haber ve İlgi Alanları</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarNewsAndInterests.Description" xml:space="preserve">
+    <value>Görev çubuğundaki Haber ve İlgi Alanları widget'ını ve MSN besleme arka plan güncellemelerini kontrol eder.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarSearchBox.Name" xml:space="preserve">
+    <value>Görev Çubuğu Arama Kutusu</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarSearchBox.Description" xml:space="preserve">
+    <value>Görev çubuğundaki arama kutusunun görünürlüğünü kontrol eder.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarChatButton.Name" xml:space="preserve">
+    <value>Görev Çubuğu Sohbet Düğmesi</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarChatButton.Description" xml:space="preserve">
+    <value>Görev çubuğundaki Sohbet (Teams) düğmesinin görünürlüğünü kontrol eder.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarWidgets.Name" xml:space="preserve">
+    <value>Görev Çubuğu Widget'ları</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarWidgets.Description" xml:space="preserve">
+    <value>Görev çubuğundaki Widget'lar düğmesinin görünürlüğünü kontrol eder.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarWidgets.Recommendation.Reason" xml:space="preserve">
+    <value>Widget'ları kapatmak, haber ve hava durumu getiren arka plan web servisini kaldırır, boştaki ağ ve bellek kullanımını azaltır.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Name" xml:space="preserve">
+    <value>Görev Çubuğu Hizalaması</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Description" xml:space="preserve">
+    <value>Görev çubuğu hizalamasını Orta ve Sol arasında değiştirir.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Options.Center" xml:space="preserve">
+    <value>Orta</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Options.Left" xml:space="preserve">
+    <value>Sol</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerCompactMode.Name" xml:space="preserve">
+    <value>Gezgin Kompakt Modu</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerCompactMode.Description" xml:space="preserve">
+    <value>Daha yoğun bir görünüm için Dosya Gezgini'nde öğeler arasındaki boşluğu azaltır.</value>
+  </data>
+  <data name="Customize.Preferences.SnapAssistFlyout.Name" xml:space="preserve">
+    <value>Yapış Düzenleri Açılır Menüsü</value>
+  </data>
+  <data name="Customize.Preferences.SnapAssistFlyout.Description" xml:space="preserve">
+    <value>Ekranı büyüt düğmesinin üzerine gelindiğinde görünen yapış düzenleri menüsünü kontrol eder.</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerItemCheckboxes.Name" xml:space="preserve">
+    <value>Gezgin Öğe Onay Kutuları</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerItemCheckboxes.Description" xml:space="preserve">
+    <value>Dosya Gezgini'nde öğeler seçildiğinde onay kutularını gösterir.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarTaskViewButton.Name" xml:space="preserve">
+    <value>Görev Çubuğu Görev Görünümü Düğmesi</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
+    <value>Görev çubuğundaki Görev Görünümü düğmesinin görünürlüğünü kontrol eder.</value>
+  </data>
+  <data name="Customize.Preferences.MeetNow.Name" xml:space="preserve">
+    <value>Şimdi Buluş</value>
+  </data>
+  <data name="Customize.Preferences.MeetNow.Description" xml:space="preserve">
+    <value>Görev çubuğu bildirim alanındaki Şimdi Buluş (Skype) simgesini kontrol eder.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarPeople.Name" xml:space="preserve">
+    <value>Görev Çubuğu Kişiler</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarPeople.Description" xml:space="preserve">
+    <value>Hızlı kişi erişimi için görev çubuğundaki Kişiler simgesini kontrol eder.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarEndTask.Name" xml:space="preserve">
+    <value>Görev Çubuğu Görevi Sonlandır</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarEndTask.Description" xml:space="preserve">
+    <value>Hızlı işlem sonlandırma için görev çubuğu sağ tık menüsüne "Görevi sonlandır" seçeneği ekler.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarEndTask.Recommendation.Reason" xml:space="preserve">
+    <value>Görev çubuğundaki Görevi Sonlandır, Görev Yöneticisi'ni açmadan donmuş uygulamaları anında kapatmanızı sağlar.</value>
+  </data>
+  <data name="Customize.Preferences.DarkMode.Name" xml:space="preserve">
+    <value>Koyu Mod</value>
+  </data>
+  <data name="Customize.Preferences.DarkMode.Description" xml:space="preserve">
+    <value>Sistem uygulamaları, Ayarlar ve kabuk öğeleri için koyu mod.</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerSyncNotifications.Name" xml:space="preserve">
+    <value>Gezgin Eşitleme Bildirimleri</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerSyncNotifications.Description" xml:space="preserve">
+    <value>Dosya Gezgini'ndeki OneDrive ve bulut eşitleme sağlayıcısı bildirimlerini kontrol eder.</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerSyncNotifications.Recommendation.Reason" xml:space="preserve">
+    <value>Eşitleme bildirimlerini devre dışı bırakmak, Gezgin'de dosyalara göz atarken OneDrive açılır pencerelerinin engellenmesini durdurur.</value>
+  </data>
+  <data name="Customize.Preferences.SystemSuggestions.Name" xml:space="preserve">
+    <value>Sistem Önerileri</value>
+  </data>
+  <data name="Customize.Preferences.SystemSuggestions.Description" xml:space="preserve">
+    <value>Ayarlar panelindeki Windows ipuçlarını ve uygulama önerilerini kontrol eder.</value>
+  </data>
+  <data name="Customize.Preferences.SystemSuggestions.Recommendation.Reason" xml:space="preserve">
+    <value>Sistem önerilerini kapatmak, Windows'un istemediğiniz uygulama ve ayarlar önermesini durdurur.</value>
+  </data>
+  <data name="Customize.Preferences.ToastNotifications.Name" xml:space="preserve">
+    <value>Bildirim Açılır Pencereleri</value>
+  </data>
+  <data name="Customize.Preferences.ToastNotifications.Description" xml:space="preserve">
+    <value>Bildirim açılır pencerelerini ve kilit ekranı bildirimlerini kontrol eder.</value>
+  </data>
+  <data name="Customize.Preferences.ShowFileExtensions.Name" xml:space="preserve">
+    <value>Dosya Uzantılarını Göster</value>
+  </data>
+  <data name="Customize.Preferences.ShowFileExtensions.Description" xml:space="preserve">
+    <value>Dosya Gezgini'nde dosya uzantılarını gösterir (ör. .txt, .exe).</value>
+  </data>
+  <data name="Customize.Preferences.ShowFileExtensions.Recommendation.Reason" xml:space="preserve">
+    <value>Dosya uzantılarını göstermek, şüpheli dosya türlerini tespit etmeyi kolaylaştırır ve kötü amaçlı yazılımların sahte simgelerin arkasına gizlenmesini önler.</value>
+  </data>
+  <data name="Customize.Preferences.ShowHiddenFiles.Name" xml:space="preserve">
+    <value>Gizli Dosyaları Göster</value>
+  </data>
+  <data name="Customize.Preferences.ShowHiddenFiles.Description" xml:space="preserve">
+    <value>Dosya Gezgini'nde gizli dosya ve klasörleri gösterir.</value>
+  </data>
+  <data name="Customize.Preferences.ShowHiddenFiles.Recommendation.Reason" xml:space="preserve">
+    <value>Gizli dosyalar, yönetmeniz gerekebilecek sistem ve yapılandırma verilerini içerir; bunları göstermek sisteminize tam görünürlük sağlar.</value>
+  </data>
+  <data name="Customize.Preferences.ClipboardHistory.Name" xml:space="preserve">
+    <value>Pano Geçmişi</value>
+  </data>
+  <data name="Customize.Preferences.ClipboardHistory.Description" xml:space="preserve">
+    <value>Win+V ile erişilebilen birden fazla kopyalanan öğe için pano geçmişi.</value>
+  </data>
+  <data name="Customize.Preferences.ClipboardHistory.Recommendation.Reason" xml:space="preserve">
+    <value>Pano geçmişi, Win+V ile birden fazla önceki kopyayı hatırlamanızı sağlar ve tekrarlayan kopyala-yapıştır işlemlerini hızlandırır.</value>
+  </data>
+  <data name="Customize.Preferences.WindowShake.Name" xml:space="preserve">
+    <value>Pencere Sallama</value>
+  </data>
+  <data name="Customize.Preferences.WindowShake.Description" xml:space="preserve">
+    <value>Bir pencereyi sallayarak diğer tüm açık pencereleri küçültür.</value>
+  </data>
+  <data name="Customize.Preferences.ClassicContextMenu.Name" xml:space="preserve">
+    <value>Klasik Bağlam Menüsü</value>
+  </data>
+  <data name="Customize.Preferences.ClassicContextMenu.Description" xml:space="preserve">
+    <value>Windows 11'de Windows 10 tarzı bağlam menüsü.</value>
+  </data>
+  <data name="Customize.Preferences.ClassicContextMenu.Recommendation.Reason" xml:space="preserve">
+    <value>Klasik menü, Windows 11'in daraltılmış menüsünü genişletmek için gereken ekstra tıklamaya gerek kalmadan tüm seçenekleri bir arada gösterir.</value>
+  </data>
+  <data name="Customize.Preferences.ShowSecondsInSystemClock.Name" xml:space="preserve">
+    <value>Sistem Saatinde Saniyeler</value>
+  </data>
+  <data name="Customize.Preferences.ShowSecondsInSystemClock.Description" xml:space="preserve">
+    <value>Görev çubuğu saatinde saniyeleri gösterir.</value>
+  </data>
+  <data name="Customize.Gaming.Section.GameSettings" xml:space="preserve">
+    <value>Oyun Ayarları</value>
+  </data>
+  <data name="Customize.Gaming.Section.Input" xml:space="preserve">
+    <value>Giriş</value>
+  </data>
+  <data name="Customize.Gaming.Section.Display" xml:space="preserve">
+    <value>Ekran</value>
+  </data>
+  <data name="Customize.Gaming.GameMode.Name" xml:space="preserve">
+    <value>Oyun Modu</value>
+  </data>
+  <data name="Customize.Gaming.GameMode.Description" xml:space="preserve">
+    <value>Oyun süreçleri ve Windows Update davranışı için Windows Oyun Modu.</value>
+  </data>
+  <data name="Customize.Gaming.GameMode.Recommendation.Reason" xml:space="preserve">
+    <value>Oyun Modu, oyun süreçlerini otomatik olarak önceliklendirir ve daha akıcı performans için oyun sırasında Windows Update bildirimlerini askıya alır.</value>
+  </data>
+  <data name="Customize.Gaming.GameBar.Name" xml:space="preserve">
+    <value>Xbox Oyun Çubuğu</value>
+  </data>
+  <data name="Customize.Gaming.GameBar.Description" xml:space="preserve">
+    <value>Xbox Oyun Çubuğu katmanlarını, başlangıç panelini ve ilgili arka plan özelliklerini kontrol eder.</value>
+  </data>
+  <data name="Customize.Gaming.GameBar.Recommendation.Reason" xml:space="preserve">
+    <value>Oyun Çubuğu'nu devre dışı bırakmak sistem kaynaklarını serbest bırakır ve arka plan katmanlarının oyunlarınıza müdahale etmesini önler.</value>
+  </data>
+  <data name="Customize.Gaming.BackgroundRecording.Name" xml:space="preserve">
+    <value>Arka Plan Kaydı (DVR)</value>
+  </data>
+  <data name="Customize.Gaming.BackgroundRecording.Description" xml:space="preserve">
+    <value>Otomatik arka plan oyun kaydını (Oyun DVR) ve uygulama yakalamayı kontrol eder.</value>
+  </data>
+  <data name="Customize.Gaming.BackgroundRecording.Recommendation.Reason" xml:space="preserve">
+    <value>Arka plan kaydını devre dışı bırakmak, DVR'nin sessizce oyun görüntüsü yakalamasını durdurur, CPU ve disk yazma döngülerinden tasarruf sağlar.</value>
+  </data>
+  <data name="Customize.Gaming.MouseAcceleration.Name" xml:space="preserve">
+    <value>Fare Hızlandırma</value>
+  </data>
+  <data name="Customize.Gaming.MouseAcceleration.Description" xml:space="preserve">
+    <value>İmleç hareketi için Windows fare hızlandırma ayarı.</value>
+  </data>
+  <data name="Customize.Gaming.MouseAcceleration.Recommendation.Reason" xml:space="preserve">
+    <value>Hızlandırmayı devre dışı bırakmak, daha iyi nişan alma hassasiyeti ve kas hafızası tutarlılığı için ham, doğrusal fare girişi sağlar.</value>
+  </data>
+  <data name="Customize.Gaming.FullscreenOptimizations.Name" xml:space="preserve">
+    <value>Tam Ekran Optimizasyonları</value>
+  </data>
+  <data name="Customize.Gaming.FullscreenOptimizations.Description" xml:space="preserve">
+    <value>Windows DWM tabanlı tam ekran optimizasyonları ayarı.</value>
+  </data>
+  <data name="Customize.Gaming.FullscreenOptimizations.Recommendation.Reason" xml:space="preserve">
+    <value>Oyun içi takılma, giriş gecikmesi veya siyah ekran yaşarsanız devre dışı bırakın (özellikle rekabetçi nişancı oyunlarında).</value>
+  </data>
+  <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Name" xml:space="preserve">
+    <value>Donanım Hızlandırmalı GPU Zamanlaması</value>
+  </data>
+  <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Description" xml:space="preserve">
+    <value>GPU video belleği zamanlama modu. Uyumlu bir GPU sürücüsü gerektirir.</value>
+  </data>
+  <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Recommendation.Reason" xml:space="preserve">
+    <value>GPU zamanlaması, kare yönetimini CPU'dan GPU'ya devreder, görüntü gecikmesini azaltır ve kare ritmi iyileşir.</value>
+  </data>
+  <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
+    <value>Tam olarak ne yaptığınızı bilmiyorsanız DEĞİŞTİRMEYİN</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DownloadFailed" xml:space="preserve">
+    <value>optimizerDuck güç planı indirilemedi.</value>
+  </data>
+  <data name="Settings.About.Acknowledgements.Title" xml:space="preserve">
+    <value>Teşekkürler</value>
+  </data>
+  <data name="Settings.About.Acknowledgements.Description" xml:space="preserve">
+    <value>optimizerDuck, aşağıdaki açık kaynaklı yazılım ve kaynaklar sayesinde mümkün olmuştur.</value>
+  </data>
+  <data name="RestorePoint.Title" xml:space="preserve">
+    <value>Sistem Geri Yükleme</value>
+  </data>
+  <data name="RestorePointDialog.Description" xml:space="preserve">
+    <value>Geri Yükleme Noktası, sisteminizi önceki bir duruma döndürmenizi sağlar.
+Değişiklikleri uygulamadan önce Windows'unuzu korumak için bir güvenlik önlemidir.</value>
+  </data>
+  <data name="RestorePointDialog.Help" xml:space="preserve">
+    <value>Uygulama, Sistem Geri Yükleme'yi otomatik olarak etkinleştirecek ve "optimizerDuck..." adlı bir kontrol noktası oluşturacaktır.
+Bu, bir şeyler ters giderse her zaman geri dönebilmenizi sağlar.</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Error.Title" xml:space="preserve">
+    <value>Sistem Geri Yükleme oluşturulamadı veya etkinleştirilemedi.</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Error.Message" xml:space="preserve">
+    <value>Sistem Geri Yükleme oluşturulurken veya etkinleştirilirken bir hata oluştu. Lütfen manuel olarak oluşturmayı deneyin.</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Warning.LimitReached" xml:space="preserve">
+    <value>Son 24 saat içinde zaten bir geri yükleme noktası oluşturuldu.</value>
+  </data>
+  <data name="RestorePoint.Progress.Creating" xml:space="preserve">
+    <value>Geri yükleme noktası oluşturuluyor...</value>
+  </data>
+  <data name="RestorePoint.Progress.Enabling" xml:space="preserve">
+    <value>Sistem Geri Yükleme etkinleştiriliyor...</value>
+  </data>
+  <data name="RestorePoint.Progress.Retrying" xml:space="preserve">
+    <value>Geri yükleme noktası oluşturma yeniden deneniyor...</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Success.Title" xml:space="preserve">
+    <value>Geri yükleme noktası başarıyla oluşturuldu</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Success.Message" xml:space="preserve">
+    <value>Şu adla bir geri yükleme noktası oluşturuldu: {0}.</value>
+  </data>
+  <data name="Snackbar.OpenLinkFailed.Title" xml:space="preserve">
+    <value>Yol açılamadı</value>
+  </data>
+  <data name="Snackbar.OpenLinkFailed.Message" xml:space="preserve">
+    <value>Yol açılırken bir hata oluştu. Lütfen günlüğü kontrol edin.</value>
+  </data>
+  <data name="Snackbar.OpenFailed.Message" xml:space="preserve">
+    <value>Klasör veya dosya açılırken bir hata oluştu. Lütfen günlüğü kontrol edin.</value>
+  </data>
+  <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
+    <value>Klasör veya dosya açılamadı</value>
+  </data>
+  <data name="Button.ViewLatestRelease" xml:space="preserve">
+    <value>En son sürümü görüntüle</value>
+  </data>
+  <data name="BloatwareDialog.Title" xml:space="preserve">
+    <value>{0} AppX Paketi Kaldırılıyor</value>
+  </data>
+  <data name="BloatwareDialog.Removing" xml:space="preserve">
+    <value>{0} kaldırılıyor ({1}/{2})</value>
+  </data>
+  <data name="Bloatware.Header.Title" xml:space="preserve">
+    <value>Şişirilmiş Yazılım</value>
+  </data>
+  <data name="Bloatware.Menu.Remove" xml:space="preserve">
+    <value>Kaldır ({0})</value>
+  </data>
+  <data name="Bloatware.Menu.Refresh" xml:space="preserve">
+    <value>Yenile</value>
+  </data>
+  <data name="Bloatware.Empty.Title" xml:space="preserve">
+    <value>Gereksiz uygulama bulunamadı ¯\_(ツ)_/¯</value>
+  </data>
+  <data name="Bloatware.Empty.Description" xml:space="preserve">
+    <value>optimizerDuck kaldırılabilir AppX paketi bulamadı. Boş bir uzay gibi...</value>
+  </data>
+  <data name="Bloatware.Loading" xml:space="preserve">
+    <value>Kaldırılabilir uygulamalar aranıyor...</value>
+  </data>
+  <data name="Bloatware.Loading.Hint" xml:space="preserve">
+    <value>Uygulama yüklü paketleri tararken bu biraz zaman alabilir.</value>
+  </data>
+  <data name="Sidebar.Bloatware" xml:space="preserve">
+    <value>Şişirilmiş Yazılım</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.Title" xml:space="preserve">
+    <value>{0} Uygulama Kaldırılsın mı?</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.Message" xml:space="preserve">
+    <value>Şunları kaldırmak üzeresiniz: {0}</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.Description" xml:space="preserve">
+    <value>Kaldırmadan önce seçili uygulamaları gözden geçirin. Yalnızca emin olduğunuzda devam edin.</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.SelectedList" xml:space="preserve">
+    <value>Seçili uygulamalar</value>
+  </data>
+  <data name="Settings.Bloatware.Header" xml:space="preserve">
+    <value>Şişirilmiş Yazılım</value>
+  </data>
+  <data name="Settings.Bloatware.RemoveProvisioned.Title" xml:space="preserve">
+    <value>Sağlanan paketleri kaldır</value>
+  </data>
+  <data name="Settings.Bloatware.RemoveProvisioned.Description" xml:space="preserve">
+    <value>Yüklü AppX paketleri kaldırılırken, yeni kullanıcılar için otomatik yeniden yüklemeyi önlemek amacıyla ilgili Sağlanan paketleri de kaldır.</value>
+  </data>
+  <data name="Dashboard.UpdateInfoBar.Message" xml:space="preserve">
+    <value>optimizerDuck (v{0}) mevcut!
+En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak için şimdi güncelleyin.</value>
+  </data>
+  <data name="Common.Search.Placeholder" xml:space="preserve">
+    <value>Ara...</value>
+  </data>
+  <data name="Common.Filter.All" xml:space="preserve">
+    <value>Tümü</value>
+  </data>
+  <data name="Common.SortBy.Default" xml:space="preserve">
+    <value>Varsayılan</value>
+  </data>
+  <data name="Common.SortBy.Name" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="Common.SortBy.Risk" xml:space="preserve">
+    <value>Risk</value>
+  </data>
+  <data name="Common.SortBy.Publisher" xml:space="preserve">
+    <value>Yayıncı</value>
+  </data>
+  <data name="Common.SortBy.Size" xml:space="preserve">
+    <value>Boyut</value>
+  </data>
+  <data name="Common.SortBy.Path" xml:space="preserve">
+    <value>Yol</value>
+  </data>
+  <data name="Optimizer.Menu.ApplyAllSafe" xml:space="preserve">
+    <value>Tüm Güvenli Olanları Uygula</value>
+  </data>
+  <data name="Optimizer.Menu.ApplyAll" xml:space="preserve">
+    <value>Hepsini Uygula</value>
+  </data>
+  <data name="Optimizer.Menu.ViewSource" xml:space="preserve">
+    <value>Kaynak Kodu Görüntüle</value>
+  </data>
+  <data name="Bloatware.Menu.SelectAllSafe" xml:space="preserve">
+    <value>Tüm Güvenli Olanları Seç</value>
+  </data>
+  <data name="Bloatware.Menu.DeselectAllSafe" xml:space="preserve">
+    <value>Tüm Güvenli Olanların Seçimini Kaldır</value>
+  </data>
+  <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
+    <value>Uygulanmışları Gizle</value>
+  </data>
+  <data name="Optimizer.Menu.ApplyMenu" xml:space="preserve">
+    <value>Uygula</value>
+  </data>
+  <data name="Optimizer.Menu.BatchApply.Title" xml:space="preserve">
+    <value>Optimizasyonlar Uygulanıyor</value>
+  </data>
+  <data name="Bloatware.Search.NoResults" xml:space="preserve">
+    <value>Sonuç bulunamadı. Farklı bir arama terimi veya filtre deneyin.</value>
+  </data>
+  <data name="Common.Filter" xml:space="preserve">
+    <value>Filtre</value>
+  </data>
+  <data name="Common.SortBy" xml:space="preserve">
+    <value>Sırala</value>
+  </data>
+  <data name="Sidebar.DiskCleanup" xml:space="preserve">
+    <value>Disk Temizleme</value>
+  </data>
+  <data name="DiskCleanup.Header.Title" xml:space="preserve">
+    <value>Disk Temizleme</value>
+  </data>
+  <data name="DiskCleanup.Header.Description" xml:space="preserve">
+    <value>Geçici dosyaları ve önbelleği kaldırarak disk alanı boşalt</value>
+  </data>
+  <data name="DiskCleanup.TotalSpace" xml:space="preserve">
+    <value>Toplam kurtarılabilir alan</value>
+  </data>
+  <data name="DiskCleanup.Button.Scan" xml:space="preserve">
+    <value>Tara</value>
+  </data>
+  <data name="DiskCleanup.Button.SelectAll" xml:space="preserve">
+    <value>Tümünü Seç</value>
+  </data>
+  <data name="DiskCleanup.Button.DeselectAll" xml:space="preserve">
+    <value>Tümünün Seçimini Kaldır</value>
+  </data>
+  <data name="DiskCleanup.Scanning" xml:space="preserve">
+    <value>Taranıyor...</value>
+  </data>
+  <data name="DiskCleanup.Loading" xml:space="preserve">
+    <value>Temizleme öğeleri yükleniyor...</value>
+  </data>
+  <data name="DiskCleanup.Complete.Title" xml:space="preserve">
+    <value>Temizleme Tamamlandı</value>
+  </data>
+  <data name="DiskCleanup.Complete.Message" xml:space="preserve">
+    <value>{1} içinde {0} disk alanı başarıyla boşaltıldı</value>
+  </data>
+  <data name="DiskCleanup.Error.Title" xml:space="preserve">
+    <value>Temizleme Hatası</value>
+  </data>
+  <data name="DiskCleanup.Error.Message" xml:space="preserve">
+    <value>Bazı dosyalar silinemedi. Başka bir işlem tarafından kullanılıyor olabilir.</value>
+  </data>
+  <data name="DiskCleanup.Item.TempFiles" xml:space="preserve">
+    <value>Geçici Dosyalar</value>
+  </data>
+  <data name="DiskCleanup.Item.TempFiles.Description" xml:space="preserve">
+    <value>Uygulamalar tarafından oluşturulan kullanıcı geçici dosyaları (.net temp dizini hariç)</value>
+  </data>
+  <data name="DiskCleanup.Item.SystemTemp" xml:space="preserve">
+    <value>Sistem Geçici Dosyaları</value>
+  </data>
+  <data name="DiskCleanup.Item.SystemTemp.Description" xml:space="preserve">
+    <value>Windows sistem geçici dosyaları</value>
+  </data>
+  <data name="DiskCleanup.Item.WindowsUpdate" xml:space="preserve">
+    <value>Windows Update Önbelleği</value>
+  </data>
+  <data name="DiskCleanup.Item.WindowsUpdate.Description" xml:space="preserve">
+    <value>Artık gerekli olmayan indirilmiş Windows Update dosyaları</value>
+  </data>
+  <data name="DiskCleanup.Item.Prefetch" xml:space="preserve">
+    <value>Ön Getirme Dosyaları</value>
+  </data>
+  <data name="DiskCleanup.Item.Prefetch.Description" xml:space="preserve">
+    <value>Yüklemeyi hızlandırmak için kullanılan uygulama ön getirme verileri</value>
+  </data>
+  <data name="DiskCleanup.Item.Thumbnails" xml:space="preserve">
+    <value>Küçük Resim Önbelleği</value>
+  </data>
+  <data name="DiskCleanup.Item.Thumbnails.Description" xml:space="preserve">
+    <value>Gezgin dosya önizlemeleri için önbelleğe alınmış küçük resim görüntüleri</value>
+  </data>
+  <data name="DiskCleanup.Item.RecycleBin" xml:space="preserve">
+    <value>Geri Dönüşüm Kutusu</value>
+  </data>
+  <data name="DiskCleanup.Item.RecycleBin.Description" xml:space="preserve">
+    <value>Geri Dönüşüm Kutusu'nda hâlâ saklanan silinen dosyalar</value>
+  </data>
+  <data name="DiskCleanup.Item.ErrorReports" xml:space="preserve">
+    <value>Hata Raporları</value>
+  </data>
+  <data name="DiskCleanup.Item.ErrorReports.Description" xml:space="preserve">
+    <value>Windows hata raporları ve kilitlenme döküm dosyaları</value>
+  </data>
+  <data name="DiskCleanup.Item.OldWindowsInstallation" xml:space="preserve">
+    <value>Eski Windows Kurulumu (Windows.old)</value>
+  </data>
+  <data name="DiskCleanup.Item.OldWindowsInstallation.Description" xml:space="preserve">
+    <value>Büyük bir güncelleme veya yükseltmeden sonra saklanan önceki Windows kurulum dosyaları</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.DeviceType.Laptop" xml:space="preserve">
+    <value>Dizüstü Bilgisayar</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.DeviceType.Desktop" xml:space="preserve">
+    <value>Masaüstü Bilgisayar</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.Build" xml:space="preserve">
+    <value>Derleme {0}</value>
+  </data>
+  <data name="Bloatware.Header.Description" xml:space="preserve">
+    <value>İhtiyacınız olmayan önceden yüklenmiş uygulamaları yönet ve kaldır</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Header" xml:space="preserve">
+    <value>Sistem Bilgileri</value>
+  </data>
+  <data name="DiskCleanup.ItemsSelected" xml:space="preserve">
+    <value>{0} ({1} öğe seçili)</value>
+  </data>
+  <data name="DiskCleanup.Button.Clean" xml:space="preserve">
+    <value>Temizle</value>
+  </data>
+  <data name="DiskCleanup.Button.CleanSelected" xml:space="preserve">
+    <value>Seçilenleri Temizle ({0})</value>
+  </data>
+  <data name="DiskCleanup.EmptySize" xml:space="preserve">
+    <value>Boş boyut</value>
+  </data>
+  <data name="DiskCleanup.FilesCount" xml:space="preserve">
+    <value>{0} dosya</value>
+  </data>
+  <data name="DiskCleanup.ItemsAndFilesSelected" xml:space="preserve">
+    <value>{0} seçili • {1} öğe • {2} dosya</value>
+  </data>
+  <data name="Settings.About.NeedHelp.Title" xml:space="preserve">
+    <value>Yardıma mı ihtiyacınız var?</value>
+  </data>
+  <data name="Sidebar.StartupManager" xml:space="preserve">
+    <value>Başlangıç Yöneticisi</value>
+  </data>
+  <data name="StartupManager.Header.Title" xml:space="preserve">
+    <value>Başlangıç Yöneticisi</value>
+  </data>
+  <data name="StartupManager.Header.Description" xml:space="preserve">
+    <value>Windows başlarken otomatik olarak çalışan uygulamaları ve görevleri yönetin.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other" xml:space="preserve">
+    <value>Diğer</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
+    <value>Bu optimizasyon için geri alma verilerini içeren ham JSON dosyasını aç.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
+    <value>Bu optimizasyonun kaynak kodunu tarayıcınızda açın.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
+    <value>GitHub'da Kaynak Kodu Görüntüle</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
+    <value>Risk Düzeyi</value>
+  </data>
+  <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
+    <value>Teknik Ayrıntılar</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Id" xml:space="preserve">
+    <value>Optimizasyon Kimliği</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Class" xml:space="preserve">
+    <value>Sınıf Adı</value>
+  </data>
+  <data name="StartupManager.Apps.Title" xml:space="preserve">
+    <value>Başlangıç Uygulamaları</value>
+  </data>
+  <data name="StartupManager.Apps.Description" xml:space="preserve">
+    <value>Windows başlarken otomatik olarak çalışan uygulamalar.</value>
+  </data>
+  <data name="StartupManager.Apps.CountSuffix" xml:space="preserve">
+    <value>{0} öğe</value>
+  </data>
+  <data name="StartupManager.Tasks.Title" xml:space="preserve">
+    <value>Zamanlanmış Görevler (Oturum Açma)</value>
+  </data>
+  <data name="StartupManager.Tasks.Description" xml:space="preserve">
+    <value>Oturum açıldığında veya belirli bir zamanda çalışacak şekilde yapılandırılmış Windows görevleri.</value>
+  </data>
+  <data name="StartupManager.Tasks.CountSuffix" xml:space="preserve">
+    <value>{0} görev</value>
+  </data>
+  <data name="StartupManager.Loading" xml:space="preserve">
+    <value>Başlangıç öğeleri taranıyor...</value>
+  </data>
+  <data name="StartupManager.Loading.Hint" xml:space="preserve">
+    <value>Uygulama kayıt defterini ve başlangıç klasörlerini tararken bu biraz zaman alabilir.</value>
+  </data>
+  <data name="StartupManager.Empty.Title" xml:space="preserve">
+    <value>Başlangıç öğesi yok</value>
+  </data>
+  <data name="StartupManager.Empty.Description" xml:space="preserve">
+    <value>Bu sistemde başlangıç uygulaması veya zamanlanmış görev bulunamadı.</value>
+  </data>
+  <data name="StartupManager.Menu.Refresh" xml:space="preserve">
+    <value>Yenile</value>
+  </data>
+  <data name="Common.Toggle.On" xml:space="preserve">
+    <value>Açık</value>
+  </data>
+  <data name="Common.Toggle.Off" xml:space="preserve">
+    <value>Kapalı</value>
+  </data>
+  <data name="Common.SortBy.Status" xml:space="preserve">
+    <value>Durum</value>
+  </data>
+  <data name="Common.Status.Applied" xml:space="preserve">
+    <value>Uygulandı</value>
+  </data>
+  <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
+    <value>Ayarları Aç</value>
+  </data>
+  <data name="StartupManager.Tasks.HideMicrosoft" xml:space="preserve">
+    <value>Microsoft görevlerini gizle</value>
+  </data>
+  <data name="Sidebar.ScheduledTasks" xml:space="preserve">
+    <value>Zamanlanmış Görevler</value>
+  </data>
+  <data name="ScheduledTasks.Header.Title" xml:space="preserve">
+    <value>Zamanlanmış Görevler</value>
+  </data>
+  <data name="ScheduledTasks.Header.Description" xml:space="preserve">
+    <value>Windows zamanlanmış görevlerini görüntüleyin ve yönetin.</value>
+  </data>
+  <data name="ScheduledTasks.Loading" xml:space="preserve">
+    <value>Zamanlanmış görevler yükleniyor...</value>
+  </data>
+  <data name="ScheduledTasks.Loading.Hint" xml:space="preserve">
+    <value>Sisteminizdeki tüm zamanlanmış görevler taranırken bu biraz zaman alabilir...</value>
+  </data>
+  <data name="ScheduledTasks.HideMicrosoft" xml:space="preserve">
+    <value>Microsoft görevlerini gizle</value>
+  </data>
+  <data name="ScheduledTasks.Menu.CreateTask" xml:space="preserve">
+    <value>Görev Oluştur</value>
+  </data>
+  <data name="ScheduledTasks.Action.Details" xml:space="preserve">
+    <value>Ayrıntıları Görüntüle</value>
+  </data>
+  <data name="ScheduledTasks.Action.Run" xml:space="preserve">
+    <value>Çalıştır</value>
+  </data>
+  <data name="ScheduledTasks.Action.Stop" xml:space="preserve">
+    <value>Durdur</value>
+  </data>
+  <data name="ScheduledTasks.Action.Delete" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="ScheduledTasks.Dialog.DeleteTitle" xml:space="preserve">
+    <value>Zamanlanmış Görevi Sil</value>
+  </data>
+  <data name="ScheduledTasks.Dialog.DeleteMessage" xml:space="preserve">
+    <value>"{0}" görevini silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.</value>
+  </data>
+  <data name="ScheduledTasks.Details.Path" xml:space="preserve">
+    <value>Yol</value>
+  </data>
+  <data name="ScheduledTasks.Details.Description" xml:space="preserve">
+    <value>Açıklama</value>
+  </data>
+  <data name="ScheduledTasks.Details.Author" xml:space="preserve">
+    <value>Yazar</value>
+  </data>
+  <data name="ScheduledTasks.Details.State" xml:space="preserve">
+    <value>Durum</value>
+  </data>
+  <data name="ScheduledTasks.Details.Triggers" xml:space="preserve">
+    <value>Tetikleyiciler</value>
+  </data>
+  <data name="ScheduledTasks.Details.Action" xml:space="preserve">
+    <value>Eylem</value>
+  </data>
+  <data name="ScheduledTasks.Details.LastRun" xml:space="preserve">
+    <value>Son Çalışma</value>
+  </data>
+  <data name="ScheduledTasks.Details.NextRun" xml:space="preserve">
+    <value>Sonraki Çalışma</value>
+  </data>
+  <data name="ScheduledTasks.Details.LastResult" xml:space="preserve">
+    <value>Son Sonuç</value>
+  </data>
+  <data name="Common.Delete" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="Common.SortBy.State" xml:space="preserve">
+    <value>Durum</value>
+  </data>
+  <data name="ScheduledTasks.Menu.OpenSettings" xml:space="preserve">
+    <value>Görev Zamanlayıcısını Aç</value>
+  </data>
+  <data name="ScheduledTasks.Details.Name" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Enabled.Title" xml:space="preserve">
+    <value>Görev Etkinleştirildi</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Disabled.Title" xml:space="preserve">
+    <value>Görev Devre Dışı Bırakıldı</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Toggle.Message" xml:space="preserve">
+    <value>{0} başarıyla güncellendi.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Run.Title" xml:space="preserve">
+    <value>Görev Başlatıldı</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Run.Message" xml:space="preserve">
+    <value>{0} şu anda çalışıyor.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Stop.Title" xml:space="preserve">
+    <value>Görev Durduruldu</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Stop.Message" xml:space="preserve">
+    <value>{0} durduruldu.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Delete.Title" xml:space="preserve">
+    <value>Görev Silindi</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Delete.Message" xml:space="preserve">
+    <value>{0} silindi.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Create.Title" xml:space="preserve">
+    <value>Görev Oluşturuldu</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Create.Message" xml:space="preserve">
+    <value>{0} başarıyla oluşturuldu.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Error.Title" xml:space="preserve">
+    <value>Hata</value>
+  </data>
+  <data name="Settings.About.NeedHelp.Description" xml:space="preserve">
+    <value>Optimizasyon konusunda yardıma ihtiyacınız varsa veya sorularınız varsa, hızlı destek için topluluğumuza katılın.</value>
+  </data>
+  <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
+    <value>Görev bulunamadı: {0}</value>
+  </data>
+  <data name="Service.Registry.Name" xml:space="preserve">
+    <value>Kayıt Defteri</value>
+  </data>
+  <data name="Service.Service.Name" xml:space="preserve">
+    <value>Servis</value>
+  </data>
+  <data name="Service.ScheduledTask.Name" xml:space="preserve">
+    <value>Zamanlanmış Görev</value>
+  </data>
+  <data name="Service.Shell.Name" xml:space="preserve">
+    <value>Kabuk</value>
+  </data>
+  <data name="Service.Registry.Description.Write" xml:space="preserve">
+    <value>Kayıt defteri değeri yaz: {0}\{1}</value>
+  </data>
+  <data name="Service.Registry.Description.Delete" xml:space="preserve">
+    <value>Kayıt defteri değerini sil: {0}\{1}</value>
+  </data>
+  <data name="Service.Service.Description.Change" xml:space="preserve">
+    <value>'{0}' servisini {1} başlangıç olarak değiştir</value>
+  </data>
+  <data name="Service.ScheduledTask.Description.Enable" xml:space="preserve">
+    <value>Zamanlanmış görevi etkinleştir: {0}</value>
+  </data>
+  <data name="Service.ScheduledTask.Description.Disable" xml:space="preserve">
+    <value>Zamanlanmış görevi devre dışı bırak: {0}</value>
+  </data>
+  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedDisable" xml:space="preserve">
+    <value>{0} görevi devre dışı bırakılırken erişim reddedildi</value>
+  </data>
+  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedEnable" xml:space="preserve">
+    <value>{0} görevi etkinleştirilirken erişim reddedildi</value>
+  </data>
+  <data name="Revert.Registry.Description.Restore" xml:space="preserve">
+    <value>Kayıt defteri değerini geri yükle: {0}\{1}</value>
+  </data>
+  <data name="Revert.Registry.Description.Delete" xml:space="preserve">
+    <value>Kayıt defteri değerini sil: {0}\{1}</value>
+  </data>
+  <data name="Revert.Service.Description.Restore" xml:space="preserve">
+    <value>'{0}' servisini {1} başlangıcına geri yükle</value>
+  </data>
+  <data name="Revert.ScheduledTask.Description.Enable" xml:space="preserve">
+    <value>Zamanlanmış görevi etkinleştir: {0}</value>
+  </data>
+  <data name="Revert.ScheduledTask.Description.Disable" xml:space="preserve">
+    <value>Zamanlanmış görevi devre dışı bırak: {0}</value>
+  </data>
+  <data name="Revert.Shell.Description.Run" xml:space="preserve">
+    <value>{0} komutu çalıştır: {1}</value>
+  </data>
+  <data name="Revert.Shell.Error.UnknownShellType" xml:space="preserve">
+    <value>Bilinmeyen kabuk türü</value>
+  </data>
+  <data name="Revert.Shell.Error.CommandFailed" xml:space="preserve">
+    <value>Geri alma komutu {0} çıkış koduyla başarısız oldu</value>
+  </data>
+  <data name="Revert.UsbPower.Error.CommandFailed" xml:space="preserve">
+    <value>USB güç geri alması {0} çıkış koduyla başarısız oldu</value>
+  </data>
+  <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
+    <value>Tamamlanma bildirimi göster</value>
+  </data>
+  <data name="Settings.Optimize.ShowCompletionNotification.Description" xml:space="preserve">
+    <value>Optimizasyonlar başarıyla uygulandığında veya geri alındığında bir bildirim gösterir.</value>
+  </data>
+  <data name="Optimizations.Loading" xml:space="preserve">
+    <value>Optimizasyonlar yükleniyor...</value>
+  </data>
+  <data name="Optimizations.Loading.Hint" xml:space="preserve">
+    <value>Lütfen bekleyin...</value>
+  </data>
+  <data name="Common.OpenFolder" xml:space="preserve">
+    <value>Klasörü Aç</value>
+  </data>
+  <data name="Common.Other" xml:space="preserve">
+    <value>Diğer</value>
+  </data>
+  <data name="Sidebar.Customize" xml:space="preserve">
+    <value>Özelleştir</value>
+  </data>
+  <data name="Customize.Title" xml:space="preserve">
+    <value>Özelleştir</value>
+  </data>
+  <data name="Customize.SystemFeatures.Name" xml:space="preserve">
+    <value>Sistem</value>
+  </data>
+  <data name="Customize.SystemFeatures.Description" xml:space="preserve">
+    <value>Temel sistem özellikleri ve davranışları</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
+    <value>Önyükleme İşlemleri</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Input" xml:space="preserve">
+    <value>Giriş Ayarları</value>
+  </data>
+  <data name="Customize.SystemFeatures.NumLockOnBoot.Name" xml:space="preserve">
+    <value>Önyüklemede NumLock</value>
+  </data>
+  <data name="Customize.SystemFeatures.NumLockOnBoot.Description" xml:space="preserve">
+    <value>Windows giriş ekranındaki NumLock durumu.</value>
+  </data>
+  <data name="Customize.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
+    <value>Önyüklemede NumLock'ı etkinleştirmek, her defasında manuel olarak açmaya gerek kalmadan sayısal tuş takımının oturum açıldıktan hemen sonra hazır olmasını sağlar.</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Services" xml:space="preserve">
+    <value>Servisler</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Power" xml:space="preserve">
+    <value>Güç Ayarları</value>
+  </data>
+  <data name="Customize.Desktop.Name" xml:space="preserve">
+    <value>Masaüstü</value>
+  </data>
+  <data name="Customize.Desktop.Description" xml:space="preserve">
+    <value>Masaüstü simgeleri ve kısayol ayarları</value>
+  </data>
+  <data name="Customize.Desktop.Section.Icons" xml:space="preserve">
+    <value>Masaüstü Simgeleri</value>
+  </data>
+  <data name="Customize.Desktop.Section.Behaviors" xml:space="preserve">
+    <value>Kısayol Davranışları</value>
+  </data>
+  <data name="Customize.Desktop.ShowThisPc.Name" xml:space="preserve">
+    <value>Bu Bilgisayar</value>
+  </data>
+  <data name="Customize.Desktop.ShowThisPc.Description" xml:space="preserve">
+    <value>Masaüstünüzde Bu Bilgisayar simgesini gösterir</value>
+  </data>
+  <data name="Customize.Desktop.ShowRecycleBin.Name" xml:space="preserve">
+    <value>Geri Dönüşüm Kutusu</value>
+  </data>
+  <data name="Customize.Desktop.ShowRecycleBin.Description" xml:space="preserve">
+    <value>Masaüstünüzde Geri Dönüşüm Kutusu simgesini gösterir</value>
+  </data>
+  <data name="Customize.Desktop.ShowUserFiles.Name" xml:space="preserve">
+    <value>Kullanıcı Dosyaları</value>
+  </data>
+  <data name="Customize.Desktop.ShowUserFiles.Description" xml:space="preserve">
+    <value>Kullanıcı profil klasörünüzü masaüstü simgesi olarak gösterir</value>
+  </data>
+  <data name="Customize.Desktop.ShowNetwork.Name" xml:space="preserve">
+    <value>Ağ</value>
+  </data>
+  <data name="Customize.Desktop.ShowNetwork.Description" xml:space="preserve">
+    <value>Masaüstünüzde Ağ simgesini gösterir</value>
+  </data>
+  <data name="Customize.Desktop.ShowControlPanel.Name" xml:space="preserve">
+    <value>Denetim Masası</value>
+  </data>
+  <data name="Customize.Desktop.ShowControlPanel.Description" xml:space="preserve">
+    <value>Masaüstünüzde Denetim Masası simgesini gösterir</value>
+  </data>
+  <data name="Customize.Desktop.ShowDesktopIcons.Name" xml:space="preserve">
+    <value>Masaüstü Simgeleri</value>
+  </data>
+  <data name="Customize.Desktop.ShowDesktopIcons.Description" xml:space="preserve">
+    <value>Tüm masaüstü simgelerini aynı anda gösterir veya gizler</value>
+  </data>
+  <data name="Customize.Desktop.ShortcutArrow.Name" xml:space="preserve">
+    <value>Kısayol Oku</value>
+  </data>
+  <data name="Customize.Desktop.ShortcutArrow.Description" xml:space="preserve">
+    <value>Masaüstü simgelerindeki kısayol oku bindirmesini gösterir veya gizler</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Name" xml:space="preserve">
+    <value>"Bu Bilgisayar"a Başlat</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Description" xml:space="preserve">
+    <value>Dosya Gezgini varsayılan konum ayarı (Bu Bilgisayar veya Hızlı Erişim).</value>
+  </data>
+  <data name="Customize.Preferences.BingSearch.Name" xml:space="preserve">
+    <value>Bing Arama</value>
+  </data>
+  <data name="Customize.Preferences.BingSearch.Description" xml:space="preserve">
+    <value>Windows Arama ve Başlat menüsü sonuçlarında Bing web arama entegrasyonu.</value>
+  </data>
+  <data name="Customize.Preferences.BingSearch.Recommendation.Reason" xml:space="preserve">
+    <value>Bing aramasını kapatmak, web sorgularının yerel arama sonuçlarını karıştırmasını önler ve arama hızını artırır.</value>
+  </data>
+  <data name="Button.Accept" xml:space="preserve">
+    <value>Kabul Et</value>
+  </data>
+  <data name="LegalDialog.Title" xml:space="preserve">
+    <value>Hukuki Sözleşme</value>
+  </data>
+  <data name="LegalDialog.Intro.ThankYou" xml:space="preserve">
+    <value>optimizerDuck'ı tercih ettiğiniz için teşekkür ederiz.</value>
+  </data>
+  <data name="LegalDialog.Intro.Safety" xml:space="preserve">
+    <value>Şeffaflığı ve güvenliğinizi sağlamak için optimizerDuck bazı sistem ayarlarını ve kayıt defteri yapılandırmalarını değiştirebilir.</value>
+  </data>
+  <data name="LegalDialog.Intro.Review" xml:space="preserve">
+    <value>Lütfen aşağıdaki belgeleri incelemek için bir dakikanızı ayırın. Devam ederek bu koşulları kabul etmiş olursunuz.</value>
+  </data>
+  <data name="LegalDialog.Link.TermsOfService" xml:space="preserve">
+    <value>Hizmet Koşulları</value>
+  </data>
+  <data name="LegalDialog.Link.PrivacyPolicy" xml:space="preserve">
+    <value>Gizlilik Politikası</value>
+  </data>
+  <data name="LegalDialog.Link.Disclaimer" xml:space="preserve">
+    <value>Sorumluluk Reddi</value>
+  </data>
+  <data name="LegalDialog.Warning.Title" xml:space="preserve">
+    <value>Riski size ait</value>
+  </data>
+  <data name="LegalDialog.Warning.Message" xml:space="preserve">
+    <value>Herhangi bir değişiklik uygulamadan önce yedek oluşturmanızı öneririz.</value>
+  </data>
+  <data name="Dialog.PendingChanges.Title" xml:space="preserve">
+    <value>Değişiklikleri Uygula</value>
+  </data>
+  <data name="Dialog.PendingChanges.Content" xml:space="preserve">
+    <value>Bazı değişikliklerin etkili olması için yeniden başlatma gerekiyor. Çıkmadan önce ne yapmak istersiniz?</value>
+  </data>
+  <data name="Dialog.PendingChanges.CloseButton" xml:space="preserve">
+    <value>Yine de Çık</value>
+  </data>
+  <data name="Dialog.PendingChanges.PrimaryButton" xml:space="preserve">
+    <value>Bilgisayarı Yeniden Başlat</value>
+  </data>
+  <data name="Dialog.PendingChanges.SecondaryButton" xml:space="preserve">
+    <value>Explorer'ı Yeniden Başlat</value>
+  </data>
+  <data name="Settings.About.Documentation.Title" xml:space="preserve">
+    <value>Belgeler</value>
+  </data>
+  <data name="Settings.About.Documentation.Description" xml:space="preserve">
+    <value>Belgeleri, kullanım kılavuzlarını ve SSS'yi görüntüleyin.</value>
+  </data>
+  <data name="TitleBar.Support" xml:space="preserve">
+    <value>Projeyi Destekle</value>
+  </data>
+  <data name="TitleBar.Discord" xml:space="preserve">
+    <value>Discord topluluğuna katıl</value>
+  </data>
+</root>
