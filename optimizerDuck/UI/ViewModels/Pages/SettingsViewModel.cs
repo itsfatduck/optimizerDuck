@@ -61,6 +61,7 @@ public partial class SettingsViewModel(
         new() { DisplayName = "Polski", Culture = new CultureInfo("pl-PL") },
         new() { DisplayName = "Español", Culture = new CultureInfo("es-ES") },
         new() { DisplayName = "Português (BR)", Culture = new CultureInfo("pt-BR") },
+        new() { DisplayName = "Türkçe", Culture = new CultureInfo("tr-TR") },
     ];
 
     protected override Task InitializeOnceAsync()
