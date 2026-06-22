@@ -75,7 +75,7 @@ optimizerDuck が PC の改善に役立ったなら、リポジトリに ⭐ を
 > | 🇯🇵 | Japanese | 日本語 | [zerofrip](https://github.com/zerofrip) |
 > | 🇵🇱 | Polish | Polski | [dudus2000](https://github.com/dudus2000) |
 > | 🇧🇷 | ポルトガル語（ブラジル） | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
-> | 🇹🇷 | Turkish | Türkçe | [Markesr](https://github.com/MarkesrBetter) |
+> | 🇹🇷 | Turkish | Türkçe | [amhunter1](https://github.com/amhunter1) |
 
 > 言語を追加したいですか？ [CONTRIBUTING.md](./CONTRIBUTING.md) をご覧ください。
 
