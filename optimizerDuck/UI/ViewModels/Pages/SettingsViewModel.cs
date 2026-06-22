@@ -31,7 +31,6 @@ public partial class SettingsViewModel(
 {
     [ObservableProperty]
     private ApplicationTheme _currentApplicationTheme = ApplicationTheme.Unknown;
-    private bool _isInitialized;
 
     [ObservableProperty]
     private bool _removeProvisioned;
@@ -64,13 +63,7 @@ public partial class SettingsViewModel(
         new() { DisplayName = "Português (BR)", Culture = new CultureInfo("pt-BR") },
     ];
 
-    public override async Task OnNavigatedToAsync()
-    {
-        if (!_isInitialized)
-            await InitializeViewModel();
-    }
-
-    private Task InitializeViewModel()
+    protected override Task InitializeOnceAsync()
     {
         SelectedCultureName = appOptionsMonitor.CurrentValue.App.Language;
         ShellTimeoutMs = appOptionsMonitor.CurrentValue.Optimize.ShellTimeoutMs;
@@ -85,7 +78,6 @@ public partial class SettingsViewModel(
 
         ApplicationThemeManager.Changed += OnThemeChanged;
 
-        _isInitialized = true;
         return Task.CompletedTask;
     }
 
@@ -262,7 +254,7 @@ public partial class SettingsViewModel(
     [RelayCommand]
     private async Task ToggleRemoveProvisioned()
     {
-        if (!_isInitialized)
+        if (!IsInitialized)
             return;
         try
         {
@@ -282,7 +274,7 @@ public partial class SettingsViewModel(
     [RelayCommand]
     private async Task ToggleShowCompletionNotification()
     {
-        if (!_isInitialized)
+        if (!IsInitialized)
             return;
         try
         {
@@ -308,7 +300,7 @@ public partial class SettingsViewModel(
     [RelayCommand]
     private async Task ToggleSmoothScrolling()
     {
-        if (!_isInitialized)
+        if (!IsInitialized)
             return;
         try
         {
@@ -362,7 +354,7 @@ public partial class SettingsViewModel(
 
     partial void OnSelectedCultureNameChanged(string value)
     {
-        if (!_isInitialized)
+        if (!IsInitialized)
             return;
         if (string.IsNullOrEmpty(value))
             return;
@@ -399,7 +391,7 @@ public partial class SettingsViewModel(
         ApplicationTheme newValue
     )
     {
-        if (!_isInitialized)
+        if (!IsInitialized)
             return;
         ApplicationThemeManager.Apply(newValue, updateAccent: false);
 
@@ -417,7 +409,7 @@ public partial class SettingsViewModel(
 
     partial void OnShellTimeoutMsChanged(int value)
     {
-        if (!_isInitialized)
+        if (!IsInitialized)
             return;
         if (value <= 0)
             return;

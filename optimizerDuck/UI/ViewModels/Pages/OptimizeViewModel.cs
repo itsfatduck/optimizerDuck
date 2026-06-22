@@ -8,17 +8,13 @@ namespace optimizerDuck.UI.ViewModels.Pages;
 
 public class OptimizeViewModel(OptimizationRegistry optimizationService) : ViewModel
 {
-    private bool _isInitialized;
 
     public ObservableCollection<NavigationViewItem> OptimizationCategories { get; } = [];
 
     public event Action? OptimizationsLoaded;
 
-    public override async Task OnNavigatedToAsync()
+    protected override async Task InitializeOnceAsync()
     {
-        if (_isInitialized)
-            return;
-
         await optimizationService.EnsurePreloadedAsync().ConfigureAwait(true);
 
         foreach (var category in optimizationService.OptimizationCategories)
@@ -34,6 +30,5 @@ public class OptimizeViewModel(OptimizationRegistry optimizationService) : ViewM
             );
 
         OptimizationsLoaded?.Invoke();
-        _isInitialized = true;
     }
 }

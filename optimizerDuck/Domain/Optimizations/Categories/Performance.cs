@@ -51,7 +51,7 @@ public class Performance : IOptimizationCategory
     [Optimization(
         Id = "CD436A05-51F1-46E9-B4DE-5262EE7F812A",
         Risk = OptimizationRisk.Moderate,
-        Tags = OptimizationTags.System | OptimizationTags.Performance
+        Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Ram
     )]
     public class SvcHostSplit : BaseOptimization
     {
@@ -95,7 +95,7 @@ public class Performance : IOptimizationCategory
     [Optimization(
         Id = "C51E4187-BE49-4376-A97D-46C967A033B5",
         Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Power
+        Tags = OptimizationTags.System | OptimizationTags.Performance
     )]
     public class ProcessPriority : BaseOptimization
     {
@@ -143,7 +143,7 @@ public class Performance : IOptimizationCategory
     [Optimization(
         Id = "FFB49D94-CCA9-4591-B329-6FDA3A2758F9",
         Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Latency
+        Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Latency | OptimizationTags.Audio | OptimizationTags.Display
     )]
     public class OptimizeMultimediaScheduler : BaseOptimization
     {
@@ -191,7 +191,7 @@ public class Performance : IOptimizationCategory
     [Optimization(
         Id = "613FE85C-770D-441C-B97A-147B89B99028",
         Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.Latency
+        Tags = OptimizationTags.Latency | OptimizationTags.System | OptimizationTags.Performance
     )]
     public class KeyboardLatencyOptimization : BaseOptimization
     {
@@ -226,17 +226,17 @@ public class Performance : IOptimizationCategory
                 new RegistryItem(
                     @"HKEY_CURRENT_USER\Control Panel\Accessibility\StickyKeys",
                     "Flags",
-                    "510"
+                    "508"
                 ),
                 new RegistryItem(
                     @"HKEY_CURRENT_USER\Control Panel\Accessibility\Keyboard Response",
                     "Flags",
-                    "122"
+                    "120"
                 ),
                 new RegistryItem(
                     @"HKEY_CURRENT_USER\Control Panel\Accessibility\ToggleKeys",
                     "Flags",
-                    "58"
+                    "56"
                 )
             );
 

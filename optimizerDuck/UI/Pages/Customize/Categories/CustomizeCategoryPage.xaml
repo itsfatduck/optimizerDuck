@@ -120,7 +120,9 @@
             <ui:VirtualizingItemsControl ItemsSource="{Binding ViewModel.Sections}" Style="{x:Null}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <VirtualizingStackPanel IsVirtualizing="True" VirtualizationMode="Recycling" />
+                        <VirtualizingStackPanel
+                            Margin="0,0,0,-20"
+                            IsVirtualizing="True" VirtualizationMode="Recycling" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 

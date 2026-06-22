@@ -14,11 +14,21 @@ namespace optimizerDuck.UI.ViewModels;
 /// </remarks>
 public abstract class ViewModel : ObservableValidator, INavigationAware
 {
-    public virtual Task OnNavigatedToAsync()
-    {
-        OnNavigatedTo();
+    private bool _isInitialized;
 
-        return Task.CompletedTask;
+    protected bool IsInitialized => _isInitialized;
+
+    protected virtual Task InitializeOnceAsync() => Task.CompletedTask;
+
+    public virtual async Task OnNavigatedToAsync()
+    {
+        if (!_isInitialized)
+        {
+            await InitializeOnceAsync();
+            _isInitialized = true;
+        }
+
+        OnNavigatedTo();
     }
 
     public virtual Task OnNavigatedFromAsync()

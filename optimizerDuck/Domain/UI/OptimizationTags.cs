@@ -11,35 +11,39 @@ public enum OptimizationTags
 {
     None = 0,
 
+    // System & Security (highest priority)
+    Security = 1 << 6,
+    Privacy = 1 << 5,
+    System = 1 << 7,
+
+    // Performance
+    Performance = 1 << 14,
+    Latency = 1 << 15,
+
     // Hardware
+    Disk = 1 << 2,
     Ram = 1 << 0,
     Display = 1 << 1,
-    Disk = 1 << 2,
+
+    // Power
+    Power = 1 << 13,
 
     // Network
     Network = 1 << 3,
     NetworkRequired = 1 << 4,
-
-    // System & Security
-    Privacy = 1 << 5,
-    Security = 1 << 6,
-    System = 1 << 7,
-
-    // User Experience
-    Audio = 1 << 8,
-    Visual = 1 << 9,
 
     // GPU Vendors
     Nvidia = 1 << 10,
     Amd = 1 << 11,
     Intel = 1 << 12,
 
-    // Power
-    Power = 1 << 13,
+    // User Experience
+    Audio = 1 << 8,
+    Visual = 1 << 9,
 
-    // Performance
-    Performance = 1 << 14,
-    Latency = 1 << 15,
+    // Platform (lowest priority)
+    Windows10Only = 1 << 16,
+    Windows11Only = 1 << 17,
 }
 
 /// <summary>
@@ -72,46 +76,10 @@ public static class OptimizationTagsToDisplay
         {
             return tags switch
             {
-                OptimizationTags.Ram => new OptimizationTagDisplay
+                OptimizationTags.Security => new OptimizationTagDisplay
                 {
-                    Icon = SymbolRegular.Memory16,
-                    Display = Translations.Optimizer_UI_Tags_Ram,
-                },
-
-                OptimizationTags.Disk => new OptimizationTagDisplay
-                {
-                    Icon = SymbolRegular.HardDrive20,
-                    Display = Translations.Optimizer_UI_Tags_Disk,
-                },
-
-                OptimizationTags.Latency => new OptimizationTagDisplay
-                {
-                    Icon = SymbolRegular.Clock24,
-                    Display = Translations.Optimizer_UI_Tags_Latency,
-                },
-
-                OptimizationTags.Visual => new OptimizationTagDisplay
-                {
-                    Icon = SymbolRegular.VideoClip24,
-                    Display = Translations.Optimizer_UI_Tags_Visual,
-                },
-
-                OptimizationTags.Display => new OptimizationTagDisplay
-                {
-                    Icon = SymbolRegular.VideoClip24,
-                    Display = Translations.Optimizer_UI_Tags_Display,
-                },
-
-                OptimizationTags.Network => new OptimizationTagDisplay
-                {
-                    Icon = SymbolRegular.NetworkAdapter16,
-                    Display = Translations.Optimizer_UI_Tags_Network,
-                },
-
-                OptimizationTags.Performance => new OptimizationTagDisplay
-                {
-                    Icon = SymbolRegular.Gauge24,
-                    Display = Translations.Optimizer_UI_Tags_Performance,
+                    Icon = SymbolRegular.LockClosed24,
+                    Display = Translations.Optimizer_UI_Tags_Security,
                 },
 
                 OptimizationTags.Privacy => new OptimizationTagDisplay
@@ -120,22 +88,52 @@ public static class OptimizationTagsToDisplay
                     Display = Translations.Optimizer_UI_Tags_Privacy,
                 },
 
-                OptimizationTags.Audio => new OptimizationTagDisplay
-                {
-                    Icon = SymbolRegular.Headphones24,
-                    Display = Translations.Optimizer_UI_Tags_Audio,
-                },
-
                 OptimizationTags.System => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.Desktop24,
                     Display = Translations.Optimizer_UI_Tags_System,
                 },
 
-                OptimizationTags.Security => new OptimizationTagDisplay
+                OptimizationTags.Performance => new OptimizationTagDisplay
                 {
-                    Icon = SymbolRegular.LockClosed24,
-                    Display = Translations.Optimizer_UI_Tags_Security,
+                    Icon = SymbolRegular.Gauge24,
+                    Display = Translations.Optimizer_UI_Tags_Performance,
+                },
+
+                OptimizationTags.Latency => new OptimizationTagDisplay
+                {
+                    Icon = SymbolRegular.Clock24,
+                    Display = Translations.Optimizer_UI_Tags_Latency,
+                },
+
+                OptimizationTags.Disk => new OptimizationTagDisplay
+                {
+                    Icon = SymbolRegular.HardDrive20,
+                    Display = Translations.Optimizer_UI_Tags_Disk,
+                },
+
+                OptimizationTags.Ram => new OptimizationTagDisplay
+                {
+                    Icon = SymbolRegular.Memory16,
+                    Display = Translations.Optimizer_UI_Tags_Ram,
+                },
+
+                OptimizationTags.Display => new OptimizationTagDisplay
+                {
+                    Icon = SymbolRegular.VideoClip24,
+                    Display = Translations.Optimizer_UI_Tags_Display,
+                },
+
+                OptimizationTags.Power => new OptimizationTagDisplay
+                {
+                    Icon = SymbolRegular.BatteryCharge24,
+                    Display = Translations.Optimizer_UI_Tags_Power,
+                },
+
+                OptimizationTags.Network => new OptimizationTagDisplay
+                {
+                    Icon = SymbolRegular.NetworkAdapter16,
+                    Display = Translations.Optimizer_UI_Tags_Network,
                 },
 
                 OptimizationTags.NetworkRequired => new OptimizationTagDisplay
@@ -162,10 +160,28 @@ public static class OptimizationTagsToDisplay
                     Display = Translations.Optimizer_UI_Tags_Intel,
                 },
 
-                OptimizationTags.Power => new OptimizationTagDisplay
+                OptimizationTags.Audio => new OptimizationTagDisplay
                 {
-                    Icon = SymbolRegular.BatteryCharge24,
-                    Display = Translations.Optimizer_UI_Tags_Power,
+                    Icon = SymbolRegular.Headphones24,
+                    Display = Translations.Optimizer_UI_Tags_Audio,
+                },
+
+                OptimizationTags.Visual => new OptimizationTagDisplay
+                {
+                    Icon = SymbolRegular.VideoClip24,
+                    Display = Translations.Optimizer_UI_Tags_Visual,
+                },
+
+                OptimizationTags.Windows10Only => new OptimizationTagDisplay
+                {
+                    Icon = SymbolRegular.Window16,
+                    Display = Translations.Optimizer_UI_Tags_Windows10Only,
+                },
+
+                OptimizationTags.Windows11Only => new OptimizationTagDisplay
+                {
+                    Icon = SymbolRegular.Window16,
+                    Display = Translations.Optimizer_UI_Tags_Windows11Only,
                 },
 
                 _ => throw new ArgumentOutOfRangeException(nameof(tags)),

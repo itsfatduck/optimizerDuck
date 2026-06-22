@@ -22,7 +22,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
     [Optimization(
         Id = "74DC8DAC-1F90-4BBD-ACF7-7E626749D71C",
         Risk = OptimizationRisk.Moderate,
-        Tags = OptimizationTags.Security | OptimizationTags.Privacy
+        Tags = OptimizationTags.Security | OptimizationTags.Privacy | OptimizationTags.System
     )]
     public class DisableTelemetry : BaseOptimization
     {
@@ -165,7 +165,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
 
     [Optimization(
         Id = "097B1C61-F372-4B9E-A1C9-D5E6F7A8B9C0",
-        Risk = OptimizationRisk.Safe,
+        Risk = OptimizationRisk.Moderate,
         Tags = OptimizationTags.System | OptimizationTags.Privacy
     )]
     public class DisableErrorReporting : BaseOptimization
@@ -223,7 +223,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
     [Optimization(
         Id = "B1C2D3E4-F5A6-4B7C-8D9E-0F1A2B3C4D5E",
         Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.Privacy
+        Tags = OptimizationTags.Privacy | OptimizationTags.Windows10Only | OptimizationTags.System
     )]
     public class DisableAdvertisingAndSuggestions : BaseOptimization
     {
@@ -332,7 +332,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
     [Optimization(
         Id = "A1B2C3D4-E5F6-4A7B-8C9D-0E1F2A3B4C5D",
         Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.Privacy
+        Tags = OptimizationTags.Privacy | OptimizationTags.System
     )]
     public class DisableActivityHistory : BaseOptimization
     {
@@ -372,7 +372,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
     [Optimization(
         Id = "C1D2E3F4-A5B6-4C7D-8E9F-0A1B2C3D4E5F",
         Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.Privacy
+        Tags = OptimizationTags.Privacy | OptimizationTags.System
     )]
     public class DisableLocationAndSensors : BaseOptimization
     {
@@ -450,7 +450,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
     [Optimization(
         Id = "4107430C-0074-4380-90E7-3662572E4720",
         Risk = OptimizationRisk.Moderate,
-        Tags = OptimizationTags.Privacy
+        Tags = OptimizationTags.Privacy | OptimizationTags.System | OptimizationTags.Performance
     )]
     public class DisableAutoLogger : BaseOptimization
     {
@@ -578,7 +578,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
     [Optimization(
         Id = "64C6BEC3-B58C-4E57-830A-1DE1F4650542",
         Risk = OptimizationRisk.Moderate,
-        Tags = OptimizationTags.Privacy | OptimizationTags.System
+        Tags = OptimizationTags.Privacy | OptimizationTags.System | OptimizationTags.Windows11Only | OptimizationTags.Visual
     )]
     public class DisableCopilot : BaseOptimization
     {
@@ -638,7 +638,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
     [Optimization(
         Id = "00C997FE-1CB7-41BD-B473-65A81333AEE9",
         Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.System | OptimizationTags.Latency | OptimizationTags.Privacy
+        Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Privacy
     )]
     public class DisableContentDeliveryManager : BaseOptimization
     {

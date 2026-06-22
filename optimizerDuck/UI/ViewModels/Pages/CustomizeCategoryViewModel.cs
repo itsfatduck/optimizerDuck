@@ -1,7 +1,4 @@
-using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Net.Http;
 using System.Windows;
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -20,17 +17,6 @@ namespace optimizerDuck.UI.ViewModels.Pages;
 
 public partial class CustomizeCategoryViewModel : ViewModel
 {
-    #region Cache & Constants
-
-    private static readonly HttpClient httpClient = new() { Timeout = TimeSpan.FromSeconds(5) };
-    private static readonly ConcurrentDictionary<
-        string,
-        (string Content, DateTime FetchedAt)
-    > _sourceCache = new();
-    private static readonly TimeSpan SourceCacheTtl = TimeSpan.FromMinutes(5);
-
-    #endregion
-
     #region Observable Properties
 
     [ObservableProperty]
@@ -176,63 +162,9 @@ public partial class CustomizeCategoryViewModel : ViewModel
         )
             return;
 
-        var fileName = baseSetting.OwnerType.Name;
-        var className = baseSetting.FeatureKey;
-        var namespacePath = (baseSetting.OwnerType.Namespace ?? string.Empty).Replace('.', '/');
-        var relativePath = $"{namespacePath}/{fileName}.cs";
-        var url = $"{Shared.GitHubRepoURL}/blob/master/{relativePath}";
-
-        try
-        {
-            var rawUrl =
-                $"https://raw.githubusercontent.com/itsfatduck/optimizerDuck/master/{relativePath}";
-
-            string source;
-            if (
-                _sourceCache.TryGetValue(rawUrl, out var cached)
-                && DateTime.UtcNow - cached.FetchedAt < SourceCacheTtl
-            )
-            {
-                source = cached.Content;
-            }
-            else
-            {
-                source = await httpClient.GetStringAsync(rawUrl);
-                _sourceCache[rawUrl] = (source, DateTime.UtcNow);
-            }
-
-            var lines = source.Split('\n');
-            for (var i = 0; i < lines.Length; i++)
-            {
-                if (
-                    lines[i]
-                        .Contains(
-                            $"class {className} : {nameof(BaseCustomizeSetting)}",
-                            StringComparison.OrdinalIgnoreCase
-                        )
-                )
-                {
-                    url += $"#L{i + 1}";
-                    break;
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine(
-                $"Could not fetch source to find line number for {className}: {ex.Message}"
-            );
-        }
-
-        try
-        {
-            Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
-        }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine(
-                $"Failed to open GitHub URL: {url}. Error: {ex.Message}"
-            );
-        }
+        await GitHubSourceHelper.OpenSourceOnGitHubAsync(
+            baseSetting.OwnerType,
+            baseSetting.FeatureKey,
+            nameof(BaseCustomizeSetting));
     }
 }

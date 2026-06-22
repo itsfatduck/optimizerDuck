@@ -31,7 +31,6 @@ public partial class StartupManagerViewModel : ViewModel
 
     [ObservableProperty]
     private bool _hideMicrosoftTasks = true;
-    private bool _isInitialized;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsNotLoading))]
@@ -68,12 +67,8 @@ public partial class StartupManagerViewModel : ViewModel
     public bool HasResults => Apps.Count > 0 || Tasks.Count > 0;
     public bool ShowRefreshButton => IsNotLoading && HasResults;
 
-    public override async Task OnNavigatedToAsync()
+    protected override async Task InitializeOnceAsync()
     {
-        if (_isInitialized)
-            return;
-
-        _isInitialized = true;
         await LoadDataAsync();
     }
 

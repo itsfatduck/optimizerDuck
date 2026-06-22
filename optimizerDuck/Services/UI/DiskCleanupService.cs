@@ -12,6 +12,9 @@ namespace optimizerDuck.Services.UI;
 /// </summary>
 public class DiskCleanupService(ILogger<DiskCleanupService> logger)
 {
+    private static readonly string DotNetTempPath =
+        Path.GetFullPath(Path.Combine(Path.GetTempPath(), ".net"))
+            .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
     /// <summary>
     ///     Gets the available cleanup items.
     /// </summary>
@@ -244,9 +247,6 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
             };
 
             var dirInfo = new DirectoryInfo(path);
-            var dotNetTempPath =
-                Path.GetFullPath(Path.Combine(Path.GetTempPath(), ".net"))
-                    .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
 
             foreach (var fileInfo in dirInfo.EnumerateFiles(searchPattern, options))
                 try
@@ -261,7 +261,7 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
 
                         if (
                             fullDirPath.StartsWith(
-                                dotNetTempPath,
+                                DotNetTempPath,
                                 StringComparison.OrdinalIgnoreCase
                             )
                         )
@@ -291,9 +291,6 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
             return 0;
 
         long freed = 0;
-        var dotNetTempPath =
-            Path.GetFullPath(Path.Combine(Path.GetTempPath(), ".net"))
-                .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
         var searchPattern = itemId == "Thumbnails" ? "thumbcache_*" : "*";
         var options = new EnumerationOptions
         {
@@ -315,7 +312,7 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                         fullDirPath.TrimEnd(Path.DirectorySeparatorChar)
                         + Path.DirectorySeparatorChar;
 
-                    if (fullDirPath.StartsWith(dotNetTempPath, StringComparison.OrdinalIgnoreCase))
+                    if (fullDirPath.StartsWith(DotNetTempPath, StringComparison.OrdinalIgnoreCase))
                         continue;
                 }
 
@@ -350,7 +347,7 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                     var fullDir =
                         dir.FullName.TrimEnd(Path.DirectorySeparatorChar)
                         + Path.DirectorySeparatorChar;
-                    if (fullDir.StartsWith(dotNetTempPath, StringComparison.OrdinalIgnoreCase))
+                    if (fullDir.StartsWith(DotNetTempPath, StringComparison.OrdinalIgnoreCase))
                         continue;
 
                     dir.Delete(false); // Only delete if empty

@@ -22,7 +22,6 @@ public partial class BloatwareViewModel : ViewModel
     private readonly BloatwareService _bloatwareService;
     private readonly IContentDialogService _contentDialogService;
     private readonly ILogger<BloatwareViewModel> _logger;
-    private bool _isInitialized;
 
     // Search, Filter, Sort
     [ObservableProperty]
@@ -89,13 +88,8 @@ public partial class BloatwareViewModel : ViewModel
         ApplyFilter();
     }
 
-    public override async Task OnNavigatedToAsync()
+    protected override async Task InitializeOnceAsync()
     {
-        if (_isInitialized)
-            return;
-
-        _isInitialized = true;
-
         IsLoading = true;
         var appxPackages = await _bloatwareService.GetAppXPackagesAsync();
         _allPackages.AddRange(appxPackages);

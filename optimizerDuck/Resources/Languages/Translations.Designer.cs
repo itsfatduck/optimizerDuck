@@ -3502,6 +3502,24 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Windows 10 only.
+        /// </summary>
+        internal static string Optimizer_UI_Tags_Windows10Only {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Tags.Windows10Only", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows 11 only.
+        /// </summary>
+        internal static string Optimizer_UI_Tags_Windows11Only {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Tags.Windows11Only", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User Experience.
         /// </summary>
         internal static string Optimizer_UserExperience {

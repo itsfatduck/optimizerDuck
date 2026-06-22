@@ -58,3 +58,67 @@ jobs:
           files: ./optimizerDuck-Windows-x64-${{ steps.get_version.outputs.version }}.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Wait for asset to be ready
+        id: verify_asset
+        shell: pwsh
+        run: |
+          $releaseId = "${{ github.event.release.id }}"
+          $owner = "${{ github.repository_owner }}"
+          $repo = "optimizerDuck"
+          $targetAsset = "optimizerDuck-Windows-x64-${{ steps.get_version.outputs.version }}.exe"
+
+          $maxRetries = 60
+          $retryDelay = 2
+
+          for ($i = 0; $i -lt $maxRetries; $i++) {
+            try {
+              $response = Invoke-RestMethod -Uri "https://api.github.com/repos/$owner/$repo/releases/$releaseId" `
+                -Headers @{
+                  "Authorization" = "Bearer $env:GITHUB_TOKEN"
+                  "Accept"        = "application/vnd.github+json"
+                }
+
+              $asset = $response.assets | Where-Object {
+                $_.name -eq $targetAsset -and $_.name -like "*.exe"
+              }
+
+              if ($asset) {
+                Write-Host "::notice::Asset '$targetAsset' found and ready!"
+                Write-Host "verified=true" >> $env:GITHUB_OUTPUT
+                exit 0
+              }
+            } catch {
+              Write-Host "API call failed (attempt $($i+1)): $_"
+            }
+
+            Write-Host "Waiting for asset... attempt $($i+1)/$maxRetries"
+            Start-Sleep -Seconds $retryDelay
+          }
+
+          Write-Host "::error::Asset verification failed after $maxRetries attempts"
+          exit 1
+
+      - name: Send webhook notify
+        if: steps.verify_asset.outputs.verified == 'true'
+        shell: pwsh
+        run: |
+          $webhookUrl = "https://api.botghost.com/webhook/1124234779194298438/${{ secrets.BOTGHOST_WEBHOOK_RELEASE_EVENT_ID }}"
+          $body = @{
+            variables = @(
+              @{ name = "Release Tag";    variable = "{release_tag}";   value = "${{ github.event.release.tag_name }}" }
+              @{ name = "Release Owner";  variable = "{release_owner}"; value = "${{ github.repository_owner }}" }
+              @{ name = "Release Repo";   variable = "{release_repo}";  value = "optimizerDuck" }
+            )
+          } | ConvertTo-Json
+
+          Write-Host "Sending webhook to BotGhost..."
+          Invoke-RestMethod -Uri $webhookUrl `
+            -Method POST `
+            -Headers @{
+              "Authorization" = "${{ secrets.BOTGHOST_WEBHOOK_API_KEY }}"
+              "Content-Type"  = "application/json"
+            } `
+            -Body $body
+
+          Write-Host "::notice::Webhook sent successfully!"

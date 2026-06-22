@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Customize.Models;
@@ -474,4 +475,72 @@ public class Preferences : ICustomizeCategory
                 await ExecutePostActionAsync();
         }
     }
+
+    [CustomizeSetting(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.Search24)]
+    public class SearchBoxTaskbarMode : BaseCustomizeSetting
+    {
+        private const string RegPath = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Search";
+        private const string RegName = "SearchboxTaskbarMode";
+
+        public override CustomizeControlType ControlType => CustomizeControlType.Dropdown;
+
+        public override IReadOnlyList<SettingOption>? Options
+        {
+            get
+            {
+                if (Shared.IsWindows11OrGreater)
+                    return
+                    [
+                        Option("Hidden", 0),
+                        Option("Icon", 1),
+                        Option("IconAndLabel", 2),
+                        Option("SearchBox", 3),
+                    ];
+                return
+                [
+                    Option("Hidden", 0),
+                    Option("Icon", 1),
+                    Option("SearchBox", 2),
+                ];
+            }
+        }
+
+        public override object? CurrentValue =>
+            RegistryService.Read<object>(new RegistryItem(RegPath, RegName));
+
+        public override async Task ApplyAsync(object? value)
+        {
+            RegistryService.Write(new RegistryItem(RegPath, RegName, value ?? 0));
+            await ExecutePostActionAsync();
+        }
+
+        protected override CustomizeRefreshScope RefreshScope =>
+            CustomizeRefreshScope.TaskbarSettings;
+
+        protected override IReadOnlyList<string> GetWatchedRegistryPaths() => [RegPath];
+    }
+
+    [CustomizeSetting(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.CursorClick24)]
+    public class TaskbarLastActiveClick : BaseCustomizeSetting
+    {
+        private const string RegPath =
+            @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
+        private const string RegName = "LastActiveClick";
+
+        protected override CustomizeRefreshScope RefreshScope =>
+            CustomizeRefreshScope.TaskbarSettings;
+
+        protected override IEnumerable<RegistryToggle> RegistryToggles =>
+            [
+                new()
+                {
+                    Path = RegPath,
+                    Name = RegName,
+                    OnValue = 1,
+                    OffValue = 0,
+                    DefaultValue = 0,
+                },
+            ];
+    }
+
 }

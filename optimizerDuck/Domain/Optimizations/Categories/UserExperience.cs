@@ -47,7 +47,7 @@ public class UserExperience : IOptimizationCategory
     [Optimization(
         Id = "A3D1E8F2-7B4C-4A5D-9E62-8F3A1B7C4D59",
         Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.Performance | OptimizationTags.Visual
+        Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Visual
     )]
     public sealed class DisableVisualEffects : BaseOptimization
     {

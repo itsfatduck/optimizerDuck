@@ -26,8 +26,6 @@ public partial class DashboardViewModel : ViewModel
     [ObservableProperty]
     private ApplicationTheme _currentApplicationTheme = ApplicationTheme.Unknown;
 
-    private bool _isInitialized;
-
     [ObservableProperty]
     private bool _isLoading;
 
@@ -84,30 +82,27 @@ public partial class DashboardViewModel : ViewModel
         }
     }
 
+    protected override async Task InitializeOnceAsync()
+    {
+        _systemInfoService.LogSummary();
+        var (result, version) = await _updaterService.CheckForUpdatesAsync();
+        if (result)
+        {
+            _updateNotified = true;
+            IsUpdateInfoOpen = true;
+            LatestVersion = version;
+        }
+        ApplicationThemeManager.Changed += OnThemeChanged;
+    }
+
     public override async Task OnNavigatedToAsync()
     {
+        await base.OnNavigatedToAsync();
+
         if (IsLoading)
             return;
 
-        // Load system information when user navigates to the page
-        // This will also update the runtime RAM info
         await LoadSystemInfoAsync();
-        if (!_isInitialized)
-        {
-            _systemInfoService.LogSummary();
-            var (result, version) = await _updaterService.CheckForUpdatesAsync();
-            if (result)
-            {
-                _updateNotified = true;
-                IsUpdateInfoOpen = true;
-                LatestVersion = version;
-            }
-            ApplicationThemeManager.Changed += OnThemeChanged;
-
-            _isInitialized = true;
-        }
-
-        // Start the timer to update runtime infos
         _updateTimer.Start();
     }
 

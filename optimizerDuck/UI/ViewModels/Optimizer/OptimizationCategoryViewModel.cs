@@ -1,7 +1,4 @@
-using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -30,12 +27,6 @@ public partial class OptimizationCategoryViewModel : ViewModel
 {
     #region Cache & Constants
 
-    private static readonly HttpClient httpClient = new() { Timeout = TimeSpan.FromSeconds(5) };
-    private static readonly ConcurrentDictionary<
-        string,
-        Lazy<Task<(string Content, DateTime FetchedAt)>>
-    > _sourceCache = new();
-    private static readonly TimeSpan SourceCacheTtl = TimeSpan.FromMinutes(5);
     private static readonly TimeSpan FilterDebounceDelay = TimeSpan.FromMilliseconds(250);
 
     #endregion
@@ -388,68 +379,12 @@ public partial class OptimizationCategoryViewModel : ViewModel
         if (optimization is not BaseOptimization baseOpt || baseOpt.OwnerType == null)
             return;
 
-        var fileName = baseOpt.OwnerType.Name;
-        var className = optimization.OptimizationKey;
-        var namespacePath = (baseOpt.OwnerType.Namespace ?? string.Empty).Replace('.', '/');
-        var relativePath = $"{namespacePath}/{fileName}.cs";
-        var url = $"{Shared.GitHubRepoURL}/blob/master/{relativePath}";
-
-        // Fetch source from GitHub raw content to find the class line number
-        try
-        {
-            var rawUrl =
-                $"https://raw.githubusercontent.com/itsfatduck/optimizerDuck/master/{relativePath}";
-
-            var cached = _sourceCache.GetOrAdd(rawUrl, CreateSourceCacheEntry);
-
-            var cachedSource = await cached.Value;
-            if (DateTime.UtcNow - cachedSource.FetchedAt >= SourceCacheTtl)
-            {
-                var refreshed = CreateSourceCacheEntry(rawUrl);
-                _sourceCache[rawUrl] = refreshed;
-                cachedSource = await refreshed.Value;
-            }
-
-            var source = cachedSource.Content;
-
-            var lines = source.Split('\n');
-            for (var i = 0; i < lines.Length; i++)
-                if (
-                    lines[i]
-                        .Contains(
-                            $"class {className} : {nameof(BaseOptimization)}",
-                            StringComparison.OrdinalIgnoreCase
-                        )
-                )
-                {
-                    url += $"#L{i + 1}";
-                    break;
-                }
-        }
-        catch (Exception ex)
-        {
-            _logger.LogWarning(
-                ex,
-                "Could not fetch source to find line number for {Class}",
-                className
-            );
-        }
-
-        try
-        {
-            Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Failed to open GitHub URL: {Url}", url);
-            _snackbarService.Show(
-                Translations.Snackbar_OpenLinkFailed_Title,
-                Translations.Snackbar_OpenLinkFailed_Message,
-                ControlAppearance.Danger,
-                new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                TimeSpan.FromSeconds(5)
-            );
-        }
+        await GitHubSourceHelper.OpenSourceOnGitHubAsync(
+            baseOpt.OwnerType,
+            optimization.OptimizationKey,
+            nameof(BaseOptimization),
+            _logger,
+            _snackbarService);
     }
 
     #endregion Commands
@@ -480,15 +415,6 @@ public partial class OptimizationCategoryViewModel : ViewModel
         {
             IsLoading = false;
         }
-    }
-
-    private static Lazy<Task<(string Content, DateTime FetchedAt)>> CreateSourceCacheEntry(
-        string rawUrl
-    )
-    {
-        return new Lazy<Task<(string Content, DateTime FetchedAt)>>(async () =>
-            (await httpClient.GetStringAsync(rawUrl), DateTime.UtcNow)
-        );
     }
 
     /// <summary>

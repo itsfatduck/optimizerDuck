@@ -161,4 +161,7 @@ public static class Shared
     public static string DownloadsDirectory => Path.Combine(ResourcesDirectory, "Downloads");
     public static string AssetsDirectory => Path.Combine(ResourcesDirectory, "Assets");
     public static string RevertDirectory => Path.Combine(RootDirectory, "Revert");
+
+    public static bool IsWindows11OrGreater =>
+        OperatingSystem.IsWindowsVersionAtLeast(10, 0, 22000);
 }

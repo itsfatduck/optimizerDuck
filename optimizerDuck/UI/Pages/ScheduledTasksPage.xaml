@@ -346,6 +346,10 @@
                                     Grid.Column="2"
                                     VerticalAlignment="Center"
                                     Orientation="Horizontal">
+                                    <ui:ToggleSwitch
+                                         IsChecked="{Binding IsEnabled, Mode=TwoWay}"
+                                         OffContent="{ext:Loc Common.Toggle.Off}"
+                                         OnContent="{ext:Loc Common.Toggle.On}" />
                                     <ui:Button
                                         Margin="0,0,4,0"
                                         Padding="8"
@@ -374,11 +378,15 @@
                                                     <DataTrigger Binding="{Binding IsRunning}" Value="True">
                                                         <Setter Property="Visibility" Value="Collapsed" />
                                                     </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsEnabled}" Value="False">
+                                                        <Setter Property="IsEnabled" Value="False" />
+                                                    </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
                                         </ui:Button.Style>
                                     </ui:Button>
                                     <!--  Stop: visible only when running  -->
+                                    
                                     <ui:Button
                                         Margin="0,0,4,0"
                                         Padding="8"
@@ -400,10 +408,7 @@
                                         Icon="{ui:SymbolIcon Delete24,
                                                              FontSize=16}"
                                         ToolTip="{ext:Loc ScheduledTasks.Action.Delete}" />
-                                    <ui:ToggleSwitch
-                                        IsChecked="{Binding IsEnabled, Mode=TwoWay}"
-                                        OffContent="{ext:Loc Common.Toggle.Off}"
-                                        OnContent="{ext:Loc Common.Toggle.On}" />
+                                   
                                 </StackPanel>
                             </Grid>
                         </Border>

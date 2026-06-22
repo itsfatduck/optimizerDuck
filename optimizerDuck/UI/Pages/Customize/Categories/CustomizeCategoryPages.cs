@@ -37,3 +37,4 @@ public sealed class DesktopFeatureCategory : CustomizeCategoryPage
         InitializeComponent();
     }
 }
+

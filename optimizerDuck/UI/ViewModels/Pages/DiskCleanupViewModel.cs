@@ -20,8 +20,6 @@ public partial class DiskCleanupViewModel(
     [ObservableProperty]
     private ObservableCollection<CleanupItem> _cleanupItems = [];
 
-    private bool _initialized;
-
     [ObservableProperty]
     private bool _isCleaning;
 
@@ -56,12 +54,8 @@ public partial class DiskCleanupViewModel(
         ApplySort();
     }
 
-    public override async Task OnNavigatedToAsync()
+    protected override async Task InitializeOnceAsync()
     {
-        if (_initialized)
-            return;
-        _initialized = true;
-
         IsLoading = true;
         try
         {
@@ -90,6 +84,11 @@ public partial class DiskCleanupViewModel(
             IsLoading = false;
             UpdateProperties();
         }
+    }
+
+    public override async Task OnNavigatedToAsync()
+    {
+        await base.OnNavigatedToAsync();
 
         await ScanAsync();
 
@@ -97,7 +96,6 @@ public partial class DiskCleanupViewModel(
             CleanupItems.OrderByDescending(i => i.SizeBytes).ToArray()
         );
 
-        // only select items with size > 0
         foreach (var item in CleanupItems)
             if (item.SizeBytes == 0)
                 item.IsSelected = false;

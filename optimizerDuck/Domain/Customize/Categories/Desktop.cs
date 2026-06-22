@@ -133,7 +133,7 @@ public class Desktop : ICustomizeCategory
                 new()
                 {
                     Path =
-                        @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+                        @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
                     Name = "HideIcons",
                     OnValue = 0,
                     OffValue = 1,

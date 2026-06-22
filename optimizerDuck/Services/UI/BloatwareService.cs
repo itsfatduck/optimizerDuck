@@ -34,7 +34,7 @@ public class BloatwareService(
         @"(?:^|[._])targetsize-(\d+)",
         RegexOptions.IgnoreCase | RegexOptions.Compiled
     );
-    private static readonly string[] SupportedImageExtensions = [".png", ".jpg", ".jpeg"];
+    private static readonly string[] SupportedImageExtensions = [".png", ".jpg", ".jpeg", ".ico"];
 
     /// <summary>
     ///     Gets all removable AppX packages on the system.
@@ -232,30 +232,66 @@ public class BloatwareService(
             }
 
             var assetsDir = Path.Combine(installLocation, "Assets");
-            if (!Directory.Exists(assetsDir))
-                return null;
-
-            // Per Microsoft guidance, AppList/Square44x44 assets are a better primary app icon source than StoreLogo.
-            var fallbackCandidates = new[]
+            if (Directory.Exists(assetsDir))
             {
-                @"Assets\AppList.png",
-                @"Assets\Square44x44Logo.png",
-                @"Assets\SmallTile.png",
-                @"Assets\MedTile.png",
-                @"Assets\Square150x150Logo.png",
-                @"Assets\Logo.png",
-                @"Assets\StoreLogo.png",
-            };
+                // Per Microsoft guidance, AppList/Square44x44 assets are a better primary app icon source than StoreLogo.
+                var fallbackCandidates = new[]
+                {
+                    @"Assets\AppList.png",
+                    @"Assets\Square44x44Logo.png",
+                    @"Assets\SmallTile.png",
+                    @"Assets\MedTile.png",
+                    @"Assets\Square150x150Logo.png",
+                    @"Assets\Logo.png",
+                    @"Assets\StoreLogo.png",
+                };
 
-            foreach (var fallbackCandidate in fallbackCandidates)
-            {
-                var bestFallback = ResolveBestQualifiedVariant(
-                    installLocation,
-                    fallbackCandidate,
-                    includeThemeSpecific: true
-                );
-                if (!string.IsNullOrWhiteSpace(bestFallback))
-                    return bestFallback;
+                foreach (var fallbackCandidate in fallbackCandidates)
+                {
+                    var bestFallback = ResolveBestQualifiedVariant(
+                        installLocation,
+                        fallbackCandidate,
+                        includeThemeSpecific: true
+                    );
+                    if (!string.IsNullOrWhiteSpace(bestFallback))
+                        return bestFallback;
+                }
+
+                var allImageFiles = Directory
+                    .EnumerateFiles(assetsDir, "*.*", SearchOption.AllDirectories)
+                    .Where(path =>
+                        SupportedImageExtensions.Contains(
+                            Path.GetExtension(path),
+                            StringComparer.OrdinalIgnoreCase
+                        )
+                    )
+                    .ToList();
+
+                if (allImageFiles.Count != 0)
+                {
+                    var groups = allImageFiles
+                        .GroupBy(path =>
+                        {
+                            var name = Path.GetFileNameWithoutExtension(path);
+                            return StripKnownQualifiers(name);
+                        }, StringComparer.OrdinalIgnoreCase)
+                        .OrderByDescending(g => g.Key.Contains("applist", StringComparison.OrdinalIgnoreCase) ? 2
+                                             : g.Key.Contains("square44x44", StringComparison.OrdinalIgnoreCase) ? 2
+                                             : g.Key.Contains("square150x150", StringComparison.OrdinalIgnoreCase) ? 1
+                                             : g.Key.Contains("storelogo", StringComparison.OrdinalIgnoreCase) ? -1
+                                             : 0)
+                        .ThenByDescending(g => g.Count());
+
+                    foreach (var group in groups)
+                    {
+                        var preferredSize = GuessLogicalBaseSize(group.Key);
+                        var best = group
+                            .Select(path => new LogoVariant(path, preferredSize, true))
+                            .MaxBy(v => v.SortScore);
+                        if (best != null)
+                            return best.Path;
+                    }
+                }
             }
         }
         catch
@@ -341,8 +377,31 @@ public class BloatwareService(
         var baseNameWithoutQualifiers = StripKnownQualifiers(baseResourceName);
         var preferredLogicalSize = GuessLogicalBaseSize(baseNameWithoutQualifiers);
 
-        return Directory
+        var best = Directory
             .EnumerateFiles(candidateDirectory, "*.*", SearchOption.TopDirectoryOnly)
+            .Where(path =>
+                SupportedImageExtensions.Contains(
+                    Path.GetExtension(path),
+                    StringComparer.OrdinalIgnoreCase
+                )
+            )
+            .Where(path =>
+            {
+                var fileName = Path.GetFileNameWithoutExtension(path);
+                var stripped = StripKnownQualifiers(fileName);
+                return stripped.Equals(
+                    baseNameWithoutQualifiers,
+                    StringComparison.OrdinalIgnoreCase
+                );
+            })
+            .Select(path => new LogoVariant(path, preferredLogicalSize, includeThemeSpecific))
+            .MaxBy(v => v.SortScore);
+
+        if (best != null)
+            return best.Path;
+
+        return Directory
+            .EnumerateFiles(candidateDirectory, "*.*", SearchOption.AllDirectories)
             .Where(path =>
                 SupportedImageExtensions.Contains(
                     Path.GetExtension(path),
@@ -423,16 +482,19 @@ public class BloatwareService(
                 ?? (scale.HasValue ? logicalBaseSize * scale.Value / 100 : logicalBaseSize);
 
             var score = 0;
-            score += resolvedPixelSize >= 48 ? 600 : 0;
-            score += resolvedPixelSize >= 64 ? 350 : 0;
-            score += resolvedPixelSize >= 96 ? 100 : 0;
-            score -= Math.Abs(64 - resolvedPixelSize);
+
+            score += Math.Min(resolvedPixelSize * 5, 1500);
+
+            if (resolvedPixelSize >= 256) score += 600;
+            else if (resolvedPixelSize >= 96) score += 400;
+            else if (resolvedPixelSize >= 64) score += 200;
+            else if (resolvedPixelSize >= 48) score += 100;
 
             if (targetSize.HasValue)
-                score += 220;
+                score += Math.Min(targetSize.Value * 3, 800);
 
             if (scale.HasValue)
-                score += Math.Min(scale.Value, 400);
+                score += Math.Min(scale.Value * 2, 800);
 
             if (includeThemeSpecific)
             {
@@ -442,18 +504,18 @@ public class BloatwareService(
                         StringComparison.OrdinalIgnoreCase
                     )
                 )
-                    score += 120;
+                    score += 200;
                 if (
                     fileNameWithoutExtension.Contains(
                         "_altform-lightunplated",
                         StringComparison.OrdinalIgnoreCase
                     )
                 )
-                    score += 110;
+                    score += 180;
             }
 
             if (fileNameWithoutExtension.Contains("storelogo", StringComparison.OrdinalIgnoreCase))
-                score -= 300;
+                score -= 500;
 
             SortScore = score;
         }
