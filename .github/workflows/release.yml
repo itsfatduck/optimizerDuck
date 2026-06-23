@@ -61,6 +61,8 @@ jobs:
 
       - name: Wait for asset to be ready
         id: verify_asset
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: pwsh
         run: |
           $releaseId = "${{ github.event.release.id }}"
