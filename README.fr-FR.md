@@ -186,6 +186,9 @@ Non. L'app contient zéro télémétrie, zéro analytique, zéro fonction qui t�
 
 Un bug d'affichage connu du Gestionnaire des tâches avec les plans non standard, il affiche incorrectement 100 % du CPU sur certains systèmes alors que la charge réelle est normale. Uniquement visuel, **n'affecte pas** les performances réelles ni la surchauffe. Si vous ne le souhaitez pas, désactivez simplement cette optimisation.
 
+> [!TIP]
+> Consultez la [FAQ sur notre site Web](https://optimizerduck.vercel.app/docs/faq/general) pour plus de questions et réponses.
+
 ---
 
 ## Détails techniques

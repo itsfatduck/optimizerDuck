@@ -186,6 +186,9 @@ Hayır. Uygulama sıfır telemetri, analitik veya telefon-ev işlevselliği içe
 
 Varsayılan olmayan güç planlarının tetiklediği bilinen bir Görev Yöneticisi görüntü hatası; gerçek yük normal olmasına rağmen bazı sistemlerde yanlış biçimde %100 CPU raporlar. Yalnızca görseldir, gerçek performansı **etkilemez** veya aşırı ısınmaya neden olmaz. İstenilmiyorsa, bu optimizasyonu kapatmanız yeterlidir.
 
+> [!TIP]
+> Daha fazla soru ve cevap için [Web Sitesi SSS](https://optimizerduck.vercel.app/docs/faq/general) sayfasını ziyaret edin.
+
 ---
 
 ## Teknik Detaylar
@@ -210,7 +213,7 @@ Rehberler, optimizasyon ayrıntıları ve kullanım ipuçları.
 
 ## Katkıda Bulunun
 
-Hata raporları, yeni optimizasyonlar, belge iyileştirmeleri ve çeviriler memnuniyetle karşılanır. Bkz. [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japonca](./CONTRIBUTING.ja-JP.md)).
+Hata raporları, yeni optimizasyonlar, belge iyileştirmeleri ve çeviriler memnuniyetle karşılanır. Bkz. [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japonca](./CONTRIBUTING.ja-JP.md), [Türkçe](./CONTRIBUTING.tr-TR.md)).
 
 ---
 

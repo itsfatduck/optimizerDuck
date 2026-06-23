@@ -2,7 +2,7 @@
 
 <a href="https://optimizerduck.vercel.app/"><img src="./.github/assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/></a>
 
-[English](CONTRIBUTING.md) | **日本語**
+[English](CONTRIBUTING.md) | **日本語** | [Türkçe](CONTRIBUTING.tr-TR.md)
 
 [はじめに](#introduction) • [セットアップ](#getting-started) • [アーキテクチャ概要](#architecture-overview) • [貢献の方法](#ways-to-contribute) • [最適化の作成](#creating-an-optimization) • [カスタマイズ設定の作成](#creating-a-customize-setting) • [リフレッシュスコープシステム](#the-refresh-scope-system) • [新機能の構築](#building-new-features) • [リバートシステム](#revert-system) • [テスト](#testing) • [コーディング規約](#coding-standards) • [ローカライズ](#localization) • [プルリクエストの手順](#pull-request-process) • [Issue ガイドライン](#issue-guidelines) • [FAQ とトラブルシューティング](#faq--troubleshooting) • [ライセンス](#license)
 

@@ -186,6 +186,9 @@ No. La app no tiene telemetría, ni analíticas, ni nada que llame a casa. Funci
 
 Un error conocido de visualización del Administrador de tareas con planes no predeterminados, muestra incorrectamente 100 % de CPU en algunos sistemas con carga real normal. Solo visual, **no** afecta al rendimiento real ni causa sobrecalentamiento. Si no lo desea, simplemente desactive esta optimización.
 
+> [!TIP]
+> Visite las [Preguntas frecuentes en nuestro sitio web](https://optimizerduck.vercel.app/docs/faq/general) para obtener más preguntas y respuestas.
+
 ---
 
 ## Detalles Técnicos

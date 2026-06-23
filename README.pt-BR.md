@@ -186,6 +186,9 @@ Não. O aplicativo contém zero telemetria, análise ou funcionalidades de rastr
 
 Um bug conhecido de exibição do Gerenciador de Tarefas acionado por planos de energia não padrão, que relata incorretamente 100% de CPU em alguns sistemas enquanto a carga real está normal. É apenas visual, **não** afeta o desempenho real nem causa superaquecimento. Se indesejado, basta desativar esta otimização.
 
+> [!TIP]
+> Visite as [Perguntas frequentes em nosso site](https://optimizerduck.vercel.app/docs/faq/general) para mais perguntas e respostas.
+
 ---
 
 ## Detalhes Técnicos

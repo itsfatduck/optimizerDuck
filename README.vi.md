@@ -186,6 +186,9 @@ Không. Trong app không có cái gì gọi là telemetry, phân tích hay gửi
 
 Lỗi hiển thị của Task Manager khi gặp power plan không mặc định, báo sai 100% CPU trên một số hệ thống dù tải thực tế bình thường. Chỉ ảnh hưởng visual, **không** ảnh hưởng hiệu năng hoặc gây quá nhiệt. Nếu không muốn, chỉ cần tắt optimization này.
 
+> [!TIP]
+> Truy cập [FAQ trên Website](https://optimizerduck.vercel.app/docs/faq/general) để xem thêm câu hỏi và câu trả lời.
+
 ---
 
 ## Chi tiết kỹ thuật

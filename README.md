@@ -186,6 +186,9 @@ No. The app contains zero telemetry, analytics, or phone-home functionality. It 
 
 A known Task Manager display bug triggered by non-default power plans, it incorrectly reports 100% CPU on some systems while actual load is normal. Visual only, does **not** affect real performance or cause overheating. If unwanted, simply toggle off this optimization.
 
+> [!TIP]
+> Visit our [Website FAQ](https://optimizerduck.vercel.app/docs/faq/general) for more questions and answers.
+
 ---
 
 ## Technical Details
@@ -210,7 +213,7 @@ Guides, optimization details, and usage tips.
 
 ## Contribute
 
-Bug reports, new optimizations, docs improvements, and translations are all welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japanese](./CONTRIBUTING.ja-JP.md)).
+Bug reports, new optimizations, docs improvements, and translations are all welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japanese](./CONTRIBUTING.ja-JP.md), [Turkish](./CONTRIBUTING.tr-TR.md)).
 
 ---
 
