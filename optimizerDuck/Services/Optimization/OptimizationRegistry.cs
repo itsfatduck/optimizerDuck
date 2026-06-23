@@ -5,7 +5,7 @@ using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Optimizations.Models;
 
-namespace optimizerDuck.Services;
+namespace optimizerDuck.Services.Optimization;
 
 public class OptimizationRegistry(ILoggerFactory loggerFactory)
 {

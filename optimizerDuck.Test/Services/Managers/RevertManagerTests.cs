@@ -7,7 +7,7 @@ using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Domain.UI;
-using optimizerDuck.Services.Managers;
+using optimizerDuck.Services.Revert;
 
 namespace optimizerDuck.Test.Services.Managers;
 

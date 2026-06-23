@@ -13,7 +13,7 @@ using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
 
-namespace optimizerDuck.Services.Managers;
+namespace optimizerDuck.Services.Revert;
 
 public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _loggerFactory)
 {
@@ -329,7 +329,11 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
 
     private static void TraceCorruptRevertFile(string path, Exception ex)
     {
-        System.Diagnostics.Trace.TraceWarning("Corrupt revert file {0}: {1}", path, ex.Message);
+        global::System.Diagnostics.Trace.TraceWarning(
+            "Corrupt revert file {0}: {1}",
+            path,
+            ex.Message
+        );
     }
 
     public void RemoveRevertData(Guid id, string? name = null)
@@ -474,7 +478,7 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Trace.TraceWarning(
+                global::System.Diagnostics.Trace.TraceWarning(
                     "Failed to register revert step {Type}: {Message}",
                     type.FullName,
                     ex.Message

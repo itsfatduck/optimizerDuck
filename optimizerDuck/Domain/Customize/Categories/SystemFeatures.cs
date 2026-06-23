@@ -2,11 +2,9 @@ using System.Collections.ObjectModel;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Customize.Models;
-using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
-using optimizerDuck.Services.Managers;
-using optimizerDuck.Services.Optimization.Providers;
-using optimizerDuck.UI.Pages.Customize;
+using optimizerDuck.Services.Configuration;
+using optimizerDuck.UI.Pages.Customize.Categories;
 using Wpf.Ui.Controls;
 
 namespace optimizerDuck.Domain.Customize.Categories;
@@ -54,8 +52,6 @@ public class SystemFeatures : ICustomizeCategory
                 },
             ];
     }
-
-
 
     #region Developer
 
@@ -129,7 +125,7 @@ public class SystemFeatures : ICustomizeCategory
 
     #endregion
 
-[CustomizeSetting(Section = nameof(Sections.Power), Icon = SymbolRegular.BatteryCharge24)]
+    [CustomizeSetting(Section = nameof(Sections.Power), Icon = SymbolRegular.BatteryCharge24)]
     public class ShowBatteryPercentage : BaseCustomizeSetting
     {
         private const string RegPath =

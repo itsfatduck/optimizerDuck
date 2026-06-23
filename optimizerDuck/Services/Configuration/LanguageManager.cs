@@ -1,7 +1,7 @@
 using System.Globalization;
 using optimizerDuck.Resources.Languages;
 
-namespace optimizerDuck.Services.Managers;
+namespace optimizerDuck.Services.Configuration;
 
 /// <summary>
 ///     Provides localization and culture management for the application.

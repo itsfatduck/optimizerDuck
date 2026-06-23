@@ -3,7 +3,7 @@ using System.Net.Http;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Common.Helpers;
 
-namespace optimizerDuck.Services;
+namespace optimizerDuck.Services.System;
 
 public class StreamService(ILogger<StreamService> logger) : IDisposable
 {

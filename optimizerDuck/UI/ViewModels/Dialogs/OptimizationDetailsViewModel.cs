@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -7,7 +7,7 @@ using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Resources.Languages;
-using optimizerDuck.Services.Managers;
+using optimizerDuck.Services.Revert;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 
@@ -67,6 +67,7 @@ public partial class OptimizationDetailsViewModel(
             baseOpt.OwnerType,
             Optimization.OptimizationKey,
             logger: logger,
-            snackbarService: snackbarService);
+            snackbarService: snackbarService
+        );
     }
 }

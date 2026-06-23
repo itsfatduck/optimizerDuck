@@ -94,7 +94,7 @@ public static class ScheduledTaskService
                 false,
                 null,
                 _lastError.Value,
-                () => System.Threading.Tasks.Task.FromResult(DisableTask(fullPath)),
+                () => global::System.Threading.Tasks.Task.FromResult(DisableTask(fullPath)),
                 _lastErrorDetail.Value
             );
             return false;
@@ -111,7 +111,7 @@ public static class ScheduledTaskService
                 false,
                 null,
                 _lastError.Value,
-                () => System.Threading.Tasks.Task.FromResult(DisableTask(fullPath)),
+                () => global::System.Threading.Tasks.Task.FromResult(DisableTask(fullPath)),
                 _lastErrorDetail.Value
             );
             return false;
@@ -175,7 +175,7 @@ public static class ScheduledTaskService
                 false,
                 null,
                 _lastError.Value,
-                () => System.Threading.Tasks.Task.FromResult(EnableTask(fullPath)),
+                () => global::System.Threading.Tasks.Task.FromResult(EnableTask(fullPath)),
                 _lastErrorDetail.Value
             );
             return false;
@@ -192,7 +192,7 @@ public static class ScheduledTaskService
                 false,
                 null,
                 _lastError.Value,
-                () => System.Threading.Tasks.Task.FromResult(EnableTask(fullPath)),
+                () => global::System.Threading.Tasks.Task.FromResult(EnableTask(fullPath)),
                 _lastErrorDetail.Value
             );
             return false;

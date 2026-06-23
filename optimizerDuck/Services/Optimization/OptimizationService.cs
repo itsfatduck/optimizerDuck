@@ -8,14 +8,15 @@ using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
-using optimizerDuck.Services.Managers;
 using optimizerDuck.Services.Optimization.Providers;
+using optimizerDuck.Services.Revert;
+using optimizerDuck.Services.System;
 using optimizerDuck.UI.Dialogs;
 using optimizerDuck.UI.ViewModels.Dialogs;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 
-namespace optimizerDuck.Services;
+namespace optimizerDuck.Services.Optimization;
 
 public class OptimizationService(
     RevertManager revertManager,

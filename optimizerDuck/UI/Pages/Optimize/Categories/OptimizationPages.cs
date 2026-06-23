@@ -1,6 +1,7 @@
-﻿using optimizerDuck.UI.ViewModels.Optimizer;
+using optimizerDuck.UI.Pages.Optimizations;
+using optimizerDuck.UI.ViewModels.Optimizer;
 
-namespace optimizerDuck.UI.Pages.Optimizations;
+namespace optimizerDuck.UI.Pages.Optimize.Categories;
 
 public sealed class PowerManagementOptimizerPage : OptimizationPage
 {

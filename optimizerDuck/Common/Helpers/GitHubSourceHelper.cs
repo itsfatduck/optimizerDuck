@@ -3,9 +3,9 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
+using optimizerDuck.Resources.Languages;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
-using optimizerDuck.Resources.Languages;
 
 namespace optimizerDuck.Common.Helpers;
 
@@ -16,7 +16,10 @@ namespace optimizerDuck.Common.Helpers;
 public static class GitHubSourceHelper
 {
     private static readonly HttpClient HttpClient = new() { Timeout = TimeSpan.FromSeconds(5) };
-    private static readonly ConcurrentDictionary<string, Lazy<Task<(string Content, DateTime FetchedAt)>>> SourceCache = new();
+    private static readonly ConcurrentDictionary<
+        string,
+        Lazy<Task<(string Content, DateTime FetchedAt)>>
+    > SourceCache = new();
     private static readonly TimeSpan SourceCacheTtl = TimeSpan.FromMinutes(5);
 
     /// <summary>
@@ -32,7 +35,8 @@ public static class GitHubSourceHelper
         string className,
         string? baseClassPattern = null,
         ILogger? logger = null,
-        ISnackbarService? snackbarService = null)
+        ISnackbarService? snackbarService = null
+    )
     {
         var fileName = ownerType.Name;
         var namespacePath = (ownerType.Namespace ?? string.Empty).Replace('.', '/');
@@ -42,7 +46,8 @@ public static class GitHubSourceHelper
         // Fetch source from GitHub raw content to find the class line number
         try
         {
-            var rawUrl = $"https://raw.githubusercontent.com/itsfatduck/optimizerDuck/master/{relativePath}";
+            var rawUrl =
+                $"https://raw.githubusercontent.com/itsfatduck/optimizerDuck/master/{relativePath}";
 
             var cached = SourceCache.GetOrAdd(rawUrl, CreateSourceCacheEntry);
             var cachedSource = await cached.Value;
@@ -58,9 +63,10 @@ public static class GitHubSourceHelper
 
             // Use regex with word boundaries to avoid false-positive substring matches
             var classNameEscaped = Regex.Escape(className);
-            var pattern = baseClassPattern != null
-                ? $@"class\s+{classNameEscaped}\s*:\s*{Regex.Escape(baseClassPattern)}\b"
-                : $@"class\s+{classNameEscaped}\b";
+            var pattern =
+                baseClassPattern != null
+                    ? $@"class\s+{classNameEscaped}\s*:\s*{Regex.Escape(baseClassPattern)}\b"
+                    : $@"class\s+{classNameEscaped}\b";
 
             var lineIndex = -1;
             var lines = source.Split('\n');
@@ -78,7 +84,11 @@ public static class GitHubSourceHelper
         }
         catch (Exception ex)
         {
-            logger?.LogWarning(ex, "Could not fetch source to find line number for {Class}", className);
+            logger?.LogWarning(
+                ex,
+                "Could not fetch source to find line number for {Class}",
+                className
+            );
         }
 
         try
@@ -93,13 +103,17 @@ public static class GitHubSourceHelper
                 Translations.Snackbar_OpenLinkFailed_Message,
                 ControlAppearance.Danger,
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                TimeSpan.FromSeconds(5));
+                TimeSpan.FromSeconds(5)
+            );
         }
     }
 
-    private static Lazy<Task<(string Content, DateTime FetchedAt)>> CreateSourceCacheEntry(string rawUrl)
+    private static Lazy<Task<(string Content, DateTime FetchedAt)>> CreateSourceCacheEntry(
+        string rawUrl
+    )
     {
         return new Lazy<Task<(string Content, DateTime FetchedAt)>>(async () =>
-            (await HttpClient.GetStringAsync(rawUrl), DateTime.UtcNow));
+            (await HttpClient.GetStringAsync(rawUrl), DateTime.UtcNow)
+        );
     }
 }

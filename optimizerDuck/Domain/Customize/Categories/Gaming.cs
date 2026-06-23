@@ -4,9 +4,9 @@ using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Customize.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
-using optimizerDuck.Services.Managers;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.Optimization.Providers;
-using optimizerDuck.UI.Pages.Customize;
+using optimizerDuck.UI.Pages.Customize.Categories;
 using Wpf.Ui.Controls;
 
 namespace optimizerDuck.Domain.Customize.Categories;
@@ -277,5 +277,4 @@ public class Gaming : ICustomizeCategory
                 },
             ];
     }
-
 }

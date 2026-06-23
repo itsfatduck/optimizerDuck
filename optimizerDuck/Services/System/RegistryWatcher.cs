@@ -2,7 +2,7 @@ using System.Collections.Concurrent;
 using System.Runtime.InteropServices;
 using Microsoft.Extensions.Logging;
 
-namespace optimizerDuck.Services;
+namespace optimizerDuck.Services.System;
 
 /// <summary>Monitors Windows registry keys for changes using RegNotifyChangeKeyValue.</summary>
 public interface IRegistryWatcher : IDisposable

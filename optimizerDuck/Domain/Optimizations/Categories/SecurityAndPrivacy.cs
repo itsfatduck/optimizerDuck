@@ -5,9 +5,9 @@ using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
-using optimizerDuck.Services.Managers;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.Optimization.Providers;
-using optimizerDuck.UI.Pages.Optimizations;
+using optimizerDuck.UI.Pages.Optimize.Categories;
 
 namespace optimizerDuck.Domain.Optimizations.Categories;
 
@@ -578,7 +578,10 @@ public class SecurityAndPrivacy : IOptimizationCategory
     [Optimization(
         Id = "64C6BEC3-B58C-4E57-830A-1DE1F4650542",
         Risk = OptimizationRisk.Moderate,
-        Tags = OptimizationTags.Privacy | OptimizationTags.System | OptimizationTags.Windows11Only | OptimizationTags.Visual
+        Tags = OptimizationTags.Privacy
+            | OptimizationTags.System
+            | OptimizationTags.Windows11Only
+            | OptimizationTags.Visual
     )]
     public class DisableCopilot : BaseOptimization
     {

@@ -3,7 +3,7 @@ using System.Reflection;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using optimizerDuck.Domain.Attributes;
-using optimizerDuck.Services;
+using optimizerDuck.Services.Customize;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 

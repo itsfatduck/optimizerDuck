@@ -15,6 +15,7 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
     private static readonly string DotNetTempPath =
         Path.GetFullPath(Path.Combine(Path.GetTempPath(), ".net"))
             .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+
     /// <summary>
     ///     Gets the available cleanup items.
     /// </summary>

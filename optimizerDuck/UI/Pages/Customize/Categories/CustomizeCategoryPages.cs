@@ -1,6 +1,6 @@
 using optimizerDuck.UI.ViewModels.Pages;
 
-namespace optimizerDuck.UI.Pages.Customize;
+namespace optimizerDuck.UI.Pages.Customize.Categories;
 
 public sealed class PreferencesFeatureCategory : CustomizeCategoryPage
 {
@@ -37,4 +37,3 @@ public sealed class DesktopFeatureCategory : CustomizeCategoryPage
         InitializeComponent();
     }
 }
-

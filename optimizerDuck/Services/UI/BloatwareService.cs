@@ -270,16 +270,22 @@ public class BloatwareService(
                 if (allImageFiles.Count != 0)
                 {
                     var groups = allImageFiles
-                        .GroupBy(path =>
-                        {
-                            var name = Path.GetFileNameWithoutExtension(path);
-                            return StripKnownQualifiers(name);
-                        }, StringComparer.OrdinalIgnoreCase)
-                        .OrderByDescending(g => g.Key.Contains("applist", StringComparison.OrdinalIgnoreCase) ? 2
-                                             : g.Key.Contains("square44x44", StringComparison.OrdinalIgnoreCase) ? 2
-                                             : g.Key.Contains("square150x150", StringComparison.OrdinalIgnoreCase) ? 1
-                                             : g.Key.Contains("storelogo", StringComparison.OrdinalIgnoreCase) ? -1
-                                             : 0)
+                        .GroupBy(
+                            path =>
+                            {
+                                var name = Path.GetFileNameWithoutExtension(path);
+                                return StripKnownQualifiers(name);
+                            },
+                            StringComparer.OrdinalIgnoreCase
+                        )
+                        .OrderByDescending(g =>
+                            g.Key.Contains("applist", StringComparison.OrdinalIgnoreCase) ? 2
+                            : g.Key.Contains("square44x44", StringComparison.OrdinalIgnoreCase) ? 2
+                            : g.Key.Contains("square150x150", StringComparison.OrdinalIgnoreCase)
+                                ? 1
+                            : g.Key.Contains("storelogo", StringComparison.OrdinalIgnoreCase) ? -1
+                            : 0
+                        )
                         .ThenByDescending(g => g.Count());
 
                     foreach (var group in groups)
@@ -472,7 +478,7 @@ public class BloatwareService(
         public LogoVariant(string path, int logicalBaseSize, bool includeThemeSpecific)
         {
             Path = path;
-            var fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(path);
+            var fileNameWithoutExtension = global::System.IO.Path.GetFileNameWithoutExtension(path);
 
             var targetSize = TryGetQualifierNumber(TargetSizeRegex, fileNameWithoutExtension);
             var scale = TryGetQualifierNumber(ScaleRegex, fileNameWithoutExtension);
@@ -485,10 +491,14 @@ public class BloatwareService(
 
             score += Math.Min(resolvedPixelSize * 5, 1500);
 
-            if (resolvedPixelSize >= 256) score += 600;
-            else if (resolvedPixelSize >= 96) score += 400;
-            else if (resolvedPixelSize >= 64) score += 200;
-            else if (resolvedPixelSize >= 48) score += 100;
+            if (resolvedPixelSize >= 256)
+                score += 600;
+            else if (resolvedPixelSize >= 96)
+                score += 400;
+            else if (resolvedPixelSize >= 64)
+                score += 200;
+            else if (resolvedPixelSize >= 48)
+                score += 100;
 
             if (targetSize.HasValue)
                 score += Math.Min(targetSize.Value * 3, 800);

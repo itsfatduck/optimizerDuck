@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using System.IO;
 using System.Management;
 using System.Runtime.InteropServices;
@@ -7,7 +7,7 @@ using Microsoft.Win32;
 using Microsoft.Win32.SafeHandles;
 using optimizerDuck.Resources.Languages;
 
-namespace optimizerDuck.Services;
+namespace optimizerDuck.Services.System;
 
 // ============================================================================
 // MODELS (Immutable Records)

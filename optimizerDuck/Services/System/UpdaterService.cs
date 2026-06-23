@@ -1,10 +1,10 @@
-﻿using System.Net.Http;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using optimizerDuck.Common.Helpers;
 
-namespace optimizerDuck.Services;
+namespace optimizerDuck.Services.System;
 
 public class UpdaterService : IDisposable
 {

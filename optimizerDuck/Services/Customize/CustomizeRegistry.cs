@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using System.Reflection;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
@@ -6,7 +6,7 @@ using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Customize.Models;
 using Wpf.Ui.Controls;
 
-namespace optimizerDuck.Services;
+namespace optimizerDuck.Services.Customize;
 
 public class CustomizeRegistry
 {

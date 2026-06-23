@@ -1,10 +1,10 @@
-﻿using System.Windows;
+using System.Windows;
 using Microsoft.Extensions.Options;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Configuration;
 using optimizerDuck.Resources.Languages;
-using optimizerDuck.Services;
-using optimizerDuck.Services.Managers;
+using optimizerDuck.Services.Configuration;
+using optimizerDuck.Services.Customize;
 using optimizerDuck.UI.Controls;
 using optimizerDuck.UI.Dialogs;
 using optimizerDuck.UI.Pages;

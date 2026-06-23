@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Linq.Expressions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Configuration;
 
-namespace optimizerDuck.Services.Managers;
+namespace optimizerDuck.Services.Configuration;
 
 /// <summary>
 ///     Manages application configuration settings stored in appsettings.json.

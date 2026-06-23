@@ -5,10 +5,10 @@ using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
-using optimizerDuck.Services;
-using optimizerDuck.Services.Managers;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.Optimization.Providers;
-using optimizerDuck.UI.Pages.Optimizations;
+using optimizerDuck.Services.System;
+using optimizerDuck.UI.Pages.Optimize.Categories;
 
 namespace optimizerDuck.Domain.Optimizations.Categories;
 

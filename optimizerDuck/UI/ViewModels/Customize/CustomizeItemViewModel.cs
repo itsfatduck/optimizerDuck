@@ -5,8 +5,8 @@ using Microsoft.Extensions.Logging;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Customize.Models;
 using optimizerDuck.Domain.Execution;
-using optimizerDuck.Services;
-using optimizerDuck.Services.Managers;
+using optimizerDuck.Services.Configuration;
+using optimizerDuck.Services.System;
 using Wpf.Ui.Controls;
 
 namespace optimizerDuck.UI.ViewModels.Customize;

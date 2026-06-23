@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Win32;
-using optimizerDuck.Services;
+using optimizerDuck.Services.System;
 
 namespace optimizerDuck.Test.Services;
 

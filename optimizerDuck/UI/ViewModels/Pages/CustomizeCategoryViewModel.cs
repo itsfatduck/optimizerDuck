@@ -8,7 +8,7 @@ using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Customize.Models;
 using optimizerDuck.Resources.Languages;
-using optimizerDuck.Services;
+using optimizerDuck.Services.System;
 using optimizerDuck.UI.ViewModels.Customize;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -165,6 +165,7 @@ public partial class CustomizeCategoryViewModel : ViewModel
         await GitHubSourceHelper.OpenSourceOnGitHubAsync(
             baseSetting.OwnerType,
             baseSetting.FeatureKey,
-            nameof(BaseCustomizeSetting));
+            nameof(BaseCustomizeSetting)
+        );
     }
 }

@@ -4,7 +4,8 @@ using Microsoft.Extensions.Logging;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
-using optimizerDuck.Services;
+using optimizerDuck.Services.Customize;
+using optimizerDuck.Services.System;
 using optimizerDuck.UI.ViewModels.Pages;
 
 namespace optimizerDuck.Common.Extensions;

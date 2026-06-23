@@ -1,14 +1,13 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using System.Reflection;
 using optimizerDuck.Domain.Attributes;
-using optimizerDuck.Services;
+using optimizerDuck.Services.Optimization;
 using Wpf.Ui.Controls;
 
 namespace optimizerDuck.UI.ViewModels.Pages;
 
 public class OptimizeViewModel(OptimizationRegistry optimizationService) : ViewModel
 {
-
     public ObservableCollection<NavigationViewItem> OptimizationCategories { get; } = [];
 
     public event Action? OptimizationsLoaded;

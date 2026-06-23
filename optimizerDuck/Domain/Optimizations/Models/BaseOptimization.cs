@@ -1,10 +1,10 @@
-﻿using System.Reflection;
+using System.Reflection;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
-using optimizerDuck.Services.Managers;
+using optimizerDuck.Services.Configuration;
 using Wpf.Ui.Controls;
 using OptimizationState = optimizerDuck.Domain.UI.OptimizationState;
 

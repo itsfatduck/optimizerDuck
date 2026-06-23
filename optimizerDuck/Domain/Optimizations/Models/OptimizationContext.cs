@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
-using optimizerDuck.Services;
+using Microsoft.Extensions.Logging;
+using optimizerDuck.Services.System;
 
 namespace optimizerDuck.Domain.Optimizations.Models;
 

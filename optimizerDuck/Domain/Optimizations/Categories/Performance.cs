@@ -6,9 +6,9 @@ using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
-using optimizerDuck.Services.Managers;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.Optimization.Providers;
-using optimizerDuck.UI.Pages.Optimizations;
+using optimizerDuck.UI.Pages.Optimize.Categories;
 
 namespace optimizerDuck.Domain.Optimizations.Categories;
 
@@ -143,7 +143,11 @@ public class Performance : IOptimizationCategory
     [Optimization(
         Id = "FFB49D94-CCA9-4591-B329-6FDA3A2758F9",
         Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Latency | OptimizationTags.Audio | OptimizationTags.Display
+        Tags = OptimizationTags.System
+            | OptimizationTags.Performance
+            | OptimizationTags.Latency
+            | OptimizationTags.Audio
+            | OptimizationTags.Display
     )]
     public class OptimizeMultimediaScheduler : BaseOptimization
     {

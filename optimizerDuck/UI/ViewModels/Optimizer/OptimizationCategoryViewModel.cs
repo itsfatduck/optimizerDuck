@@ -12,8 +12,8 @@ using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
-using optimizerDuck.Services;
-using optimizerDuck.Services.Managers;
+using optimizerDuck.Services.Optimization;
+using optimizerDuck.Services.Revert;
 using optimizerDuck.UI.Dialogs;
 using optimizerDuck.UI.ViewModels.Dialogs;
 using Wpf.Ui;
@@ -384,7 +384,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
             optimization.OptimizationKey,
             nameof(BaseOptimization),
             _logger,
-            _snackbarService);
+            _snackbarService
+        );
     }
 
     #endregion Commands

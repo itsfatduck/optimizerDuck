@@ -13,9 +13,9 @@ using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
-using optimizerDuck.Services.Managers;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.Optimization.Providers;
-using optimizerDuck.UI.Pages.Optimizations;
+using optimizerDuck.UI.Pages.Optimize.Categories;
 
 namespace optimizerDuck.Domain.Optimizations.Categories;
 

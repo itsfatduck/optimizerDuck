@@ -7,8 +7,9 @@ using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Domain.UI;
-using optimizerDuck.Services;
-using optimizerDuck.Services.Managers;
+using optimizerDuck.Services.Optimization;
+using optimizerDuck.Services.Revert;
+using optimizerDuck.Services.System;
 using Wpf.Ui;
 
 namespace optimizerDuck.Test.Services;
