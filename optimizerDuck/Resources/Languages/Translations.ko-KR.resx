@@ -1,59 +1,51 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
-<!--
-[ 한국어 번역 가이드 / Korean Translation Guidelines ]
-1. 버튼/액션: 동사 원형 직역 대신 명사형이나 UI 표준어 사용 (예: 새로 고치다 -> 새로 고침, 달리다 -> 실행)
-2. 문장 부호: 짧은 레이블 및 제목 끝에는 마침표(.) 생략, 긴 설명문에만 사용
-3. 윈도우 표준: 기계적 직역 대신 OS 표준 용어 사용 (예: 껍데기 -> 셸, 탐침 -> 탐색기, 시작 항목 -> 시작 프로그램)
-4. 쉬운 표현: 어려운 외래어나 전문 용어 순화 (예: 블로트웨어 -> 불필요한 앱)
-5. 자연스러운 문체: 어색한 기계 번역투를 피하고 문맥에 맞게 의역
--->
-<root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:schema id="root">
-    <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xs:element name="root" ns1:IsDataSet="true">
-      <xs:complexType>
-        <xs:choice maxOccurs="unbounded">
-          <xs:element name="metadata">
-            <xs:complexType>
-              <xs:sequence>
-                <xs:element name="value" type="xsd:string" minOccurs="0" />
-              </xs:sequence>
-              <xs:attribute name="name" use="required" type="xsd:string" />
-              <xs:attribute name="type" type="xsd:string" />
-              <xs:attribute name="mimetype" type="xsd:string" />
-              <xs:attribute ref="xml:space" />
-            </xs:complexType>
-          </xs:element>
-          <xs:element name="assembly">
-            <xs:complexType>
-              <xs:attribute name="alias" type="xsd:string" />
-              <xs:attribute name="name" type="xsd:string" />
-            </xs:complexType>
-          </xs:element>
-          <xs:element name="data">
-            <xs:complexType>
-              <xs:sequence>
-                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
-                <xs:element name="comment" type="xsd:string" minOccurs="0" ns1:Ordinal="2" />
-              </xs:sequence>
-              <xs:attribute name="name" type="xsd:string" use="required" ns1:Ordinal="1" />
-              <xs:attribute name="type" type="xsd:string" ns1:Ordinal="3" />
-              <xs:attribute name="mimetype" type="xsd:string" ns1:Ordinal="4" />
-              <xs:attribute ref="xml:space" />
-            </xs:complexType>
-          </xs:element>
-          <xs:element name="resheader">
-            <xs:complexType>
-              <xs:sequence>
-                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
-              </xs:sequence>
-              <xs:attribute name="name" type="xsd:string" use="required" />
-            </xs:complexType>
-          </xs:element>
-        </xs:choice>
-      </xs:complexType>
-    </xs:element>
-  </xs:schema>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:schema id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
   </resheader>
@@ -778,24 +770,6 @@
   <data name="Customize.Preferences.Section.Explorer" xml:space="preserve">
     <value>탐색기</value>
   </data>
-  <data name="Customize.Preferences.TaskbarNewsAndInterests.Name" xml:space="preserve">
-    <value>작업 표시줄 뉴스 및 관심분야</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarNewsAndInterests.Description" xml:space="preserve">
-    <value>작업 표시줄의 뉴스 및 관심분야 위젯과 MSN 피드 배경 업데이트를 제어합니다</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarSearchBox.Name" xml:space="preserve">
-    <value>작업 표시줄 검색 상자</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarSearchBox.Description" xml:space="preserve">
-    <value>작업 표시줄의 검색 상자 표시 여부를 제어합니다</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarChatButton.Name" xml:space="preserve">
-    <value>작업 표시줄 채팅 버튼</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarChatButton.Description" xml:space="preserve">
-    <value>작업 표시줄에서 채팅(팀) 버튼의 가시성을 제어합니다</value>
-  </data>
   <data name="Customize.Preferences.TaskbarWidgets.Name" xml:space="preserve">
     <value>작업 표시줄 위젯</value>
   </data>
@@ -840,18 +814,6 @@
   </data>
   <data name="Customize.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
     <value>작업 표시줄에 있는 작업 보기 버튼의 가시성을 제어합니다</value>
-  </data>
-  <data name="Customize.Preferences.MeetNow.Name" xml:space="preserve">
-    <value>지금 만나보세요</value>
-  </data>
-  <data name="Customize.Preferences.MeetNow.Description" xml:space="preserve">
-    <value>작업 표시줄 알림 영역의 지금 미팅(Skype) 아이콘을 제어합니다</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarPeople.Name" xml:space="preserve">
-    <value>작업 표시줄 사람</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarPeople.Description" xml:space="preserve">
-    <value>빠른 연락처 액세스를 위해 작업 표시줄의 사람 아이콘을 제어합니다</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Name" xml:space="preserve">
     <value>작업 표시줄 작업 종료</value>
@@ -1597,9 +1559,6 @@
   <data name="Customize.SystemFeatures.Description" xml:space="preserve">
     <value>핵심 시스템 기능 및 동작</value>
   </data>
-  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
-    <value>부팅 작업</value>
-  </data>
   <data name="Customize.SystemFeatures.Section.Input" xml:space="preserve">
     <value>입력 설정</value>
   </data>
@@ -1611,9 +1570,6 @@
   </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
     <value>부팅 시 NumLock을 활성화하면 로그인 후 즉시 숫자 패드가 준비되므로 매번 수동으로 전환할 필요가 없습니다</value>
-  </data>
-  <data name="Customize.SystemFeatures.Section.Services" xml:space="preserve">
-    <value>서비스</value>
   </data>
   <data name="Customize.SystemFeatures.Section.Power" xml:space="preserve">
     <value>전원 설정</value>
@@ -1743,5 +1699,71 @@
   </data>
   <data name="TitleBar.Discord" xml:space="preserve">
     <value>Discord 커뮤니티에 가입하세요</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows10Only" xml:space="preserve">
+    <value>Windows 10 전용</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows11Only" xml:space="preserve">
+    <value>Windows 11 전용</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Developer" xml:space="preserve">
+    <value>개발자</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Name" xml:space="preserve">
+    <value>개발자 모드</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Description" xml:space="preserve">
+    <value>사이드로딩 앱, 장치 포털, SSH 서버 및 개발 기능을 위해 Windows 개발자 모드를 활성화합니다.</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Recommendation.Reason" xml:space="preserve">
+    <value>개발자 모드는 앱 개발 및 디버깅에 필수적인 사이드로딩 및 진단 기능을 활성화합니다.</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Name" xml:space="preserve">
+    <value>모든 신뢰할 수 있는 앱 허용</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Description" xml:space="preserve">
+    <value>개발자 모드를 활성화하지 않고도 신뢰할 수 있는 Windows 스토어 앱을 설치할 수 있습니다.</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Recommendation.Reason" xml:space="preserve">
+    <value>신뢰할 수 있는 모든 앱을 허용하면 개발자 모드 없이 사이드로딩이 가능합니다. 비활성화하면 Microsoft 스토어 설치로 제한됩니다.</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Name" xml:space="preserve">
+    <value>긴 경로 지원 (&gt;260자)</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Description" xml:space="preserve">
+    <value>파일 탐색기에서 Win32 긴 경로 지원을 활성화하여 기존 260자 제한을 초과하는 파일 경로를 허용합니다.</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Recommendation.Reason" xml:space="preserve">
+    <value>긴 경로 지원을 통해 깊게 중첩된 디렉터리나 긴 이름의 프로젝트 작업 시 파일 액세스 오류를 방지합니다.</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Name" xml:space="preserve">
+    <value>검색 상자 표시</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Description" xml:space="preserve">
+    <value>작업 표시줄에 검색 버튼과 상자가 표시되는 방식을 제어합니다.</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Hidden" xml:space="preserve">
+    <value>숨김</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Icon" xml:space="preserve">
+    <value>아이콘만</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.IconAndLabel" xml:space="preserve">
+    <value>아이콘 + 레이블</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.SearchBox" xml:space="preserve">
+    <value>검색 상자</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarLastActiveClick.Name" xml:space="preserve">
+    <value>마지막 활성 클릭</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarLastActiveClick.Description" xml:space="preserve">
+    <value>작업 표시줄 아이콘을 클릭하면 해당 앱의 가장 최근에 활성화된 창이 즉시 열립니다.</value>
+  </data>
+  <data name="Customize.SystemFeatures.ShowBatteryPercentage.Name" xml:space="preserve">
+    <value>배터리 백분율 표시</value>
+  </data>
+  <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
+    <value>시스템 트레이의 배터리 아이콘 옆에 배터리 백분율을 표시합니다.</value>
   </data>
 </root>

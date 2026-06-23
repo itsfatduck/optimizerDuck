@@ -1,60 +1,51 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
-<!--
-[ 日本語翻訳ガイドライン / Japanese Translation Guidelines ]
-1. ボタン/アクション: 動詞の直訳ではなく、UI標準の名詞形や慣用表現を使用（例: 更新する → 更新、実行する → 実行）
-2. 句読点: 短いラベルや見出しの末尾では句点（。）を省略、長い説明文にのみ使用
-3. Windows標準: 機械的直訳ではなくOS標準用語を使用（例: シェル、エクスプローラー、スタートアップ）
-4. 平易な表現: 難しい外来語や専門用語を分かりやすく（例: ブロートウェア → 不要なアプリ）
-5. 自然な文体: 不自然な機械翻訳調を避け、文脈に合わせて意訳
--->
-<root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  
-  <xs:schema id="root">
-    <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xs:element name="root" ns1:IsDataSet="true">
-      <xs:complexType>
-        <xs:choice maxOccurs="unbounded">
-          <xs:element name="metadata">
-            <xs:complexType>
-              <xs:sequence>
-                <xs:element name="value" type="xsd:string" minOccurs="0" />
-              </xs:sequence>
-              <xs:attribute name="name" use="required" type="xsd:string" />
-              <xs:attribute name="type" type="xsd:string" />
-              <xs:attribute name="mimetype" type="xsd:string" />
-              <xs:attribute ref="xml:space" />
-            </xs:complexType>
-          </xs:element>
-          <xs:element name="assembly">
-            <xs:complexType>
-              <xs:attribute name="alias" type="xsd:string" />
-              <xs:attribute name="name" type="xsd:string" />
-            </xs:complexType>
-          </xs:element>
-          <xs:element name="data">
-            <xs:complexType>
-              <xs:sequence>
-                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
-                <xs:element name="comment" type="xsd:string" minOccurs="0" ns1:Ordinal="2" />
-              </xs:sequence>
-              <xs:attribute name="name" type="xsd:string" use="required" ns1:Ordinal="1" />
-              <xs:attribute name="type" type="xsd:string" ns1:Ordinal="3" />
-              <xs:attribute name="mimetype" type="xsd:string" ns1:Ordinal="4" />
-              <xs:attribute ref="xml:space" />
-            </xs:complexType>
-          </xs:element>
-          <xs:element name="resheader">
-            <xs:complexType>
-              <xs:sequence>
-                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
-              </xs:sequence>
-              <xs:attribute name="name" type="xsd:string" use="required" />
-            </xs:complexType>
-          </xs:element>
-        </xs:choice>
-      </xs:complexType>
-    </xs:element>
-  </xs:schema>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:schema id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
   </resheader>
@@ -779,24 +770,6 @@
   <data name="Customize.Preferences.Section.Explorer" xml:space="preserve">
     <value>エクスプローラー</value>
   </data>
-  <data name="Customize.Preferences.TaskbarNewsAndInterests.Name" xml:space="preserve">
-    <value>タスクバーのニュースと関心ごと</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarNewsAndInterests.Description" xml:space="preserve">
-    <value>タスクバーのニュースと関心ごとウィジェット、および MSN フィードのバックグラウンド更新を制御します</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarSearchBox.Name" xml:space="preserve">
-    <value>タスクバーの検索ボックス</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarSearchBox.Description" xml:space="preserve">
-    <value>タスクバーの検索ボックスの表示を制御します</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarChatButton.Name" xml:space="preserve">
-    <value>タスクバーのチャット ボタン</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarChatButton.Description" xml:space="preserve">
-    <value>タスクバーのチャット（Teams）ボタンの表示を制御します</value>
-  </data>
   <data name="Customize.Preferences.TaskbarWidgets.Name" xml:space="preserve">
     <value>タスクバーのウィジェット</value>
   </data>
@@ -841,18 +814,6 @@
   </data>
   <data name="Customize.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
     <value>タスクバーのタスク ビュー ボタンの表示を制御します</value>
-  </data>
-  <data name="Customize.Preferences.MeetNow.Name" xml:space="preserve">
-    <value>今すぐ会議</value>
-  </data>
-  <data name="Customize.Preferences.MeetNow.Description" xml:space="preserve">
-    <value>タスクバーの通知領域の Meet Now（Skype）アイコンを制御します</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarPeople.Name" xml:space="preserve">
-    <value>タスクバーの People</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarPeople.Description" xml:space="preserve">
-    <value>連絡先への素早いアクセスのため、タスクバーの「People」アイコンを制御します</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Name" xml:space="preserve">
     <value>タスクバーのタスク終了</value>
@@ -1382,15 +1343,12 @@
   <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
     <value>設定を開く</value>
   </data>
-  
   <data name="StartupManager.Tasks.HideMicrosoft" xml:space="preserve">
     <value>Microsoft タスクを非表示</value>
   </data>
-  
   <data name="Sidebar.ScheduledTasks" xml:space="preserve">
     <value>スケジュールされたタスク</value>
   </data>
-  
   <data name="ScheduledTasks.Header.Title" xml:space="preserve">
     <value>スケジュールされたタスク</value>
   </data>
@@ -1409,7 +1367,6 @@
   <data name="ScheduledTasks.Menu.CreateTask" xml:space="preserve">
     <value>タスクの作成</value>
   </data>
-  
   <data name="ScheduledTasks.Action.Details" xml:space="preserve">
     <value>詳細を表示</value>
   </data>
@@ -1422,14 +1379,12 @@
   <data name="ScheduledTasks.Action.Delete" xml:space="preserve">
     <value>削除</value>
   </data>
-  
   <data name="ScheduledTasks.Dialog.DeleteTitle" xml:space="preserve">
     <value>スケジュールされたタスクの削除</value>
   </data>
   <data name="ScheduledTasks.Dialog.DeleteMessage" xml:space="preserve">
     <value>タスク「{0}」を削除しますか？この操作は元に戻せません</value>
   </data>
-  
   <data name="ScheduledTasks.Details.Path" xml:space="preserve">
     <value>パス</value>
   </data>
@@ -1457,7 +1412,6 @@
   <data name="ScheduledTasks.Details.LastResult" xml:space="preserve">
     <value>前回の結果</value>
   </data>
-  
   <data name="Common.Delete" xml:space="preserve">
     <value>削除</value>
   </data>
@@ -1606,9 +1560,6 @@
   <data name="Customize.SystemFeatures.Description" xml:space="preserve">
     <value>コア システム機能と動作</value>
   </data>
-  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
-    <value>起動操作</value>
-  </data>
   <data name="Customize.SystemFeatures.Section.Input" xml:space="preserve">
     <value>入力設定</value>
   </data>
@@ -1620,9 +1571,6 @@
   </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
     <value>起動時に NumLock を有効にすると、ログイン後すぐにテンキーが使えるようになり、毎回手動で切り替える必要がなくなります</value>
-  </data>
-  <data name="Customize.SystemFeatures.Section.Services" xml:space="preserve">
-    <value>サービス</value>
   </data>
   <data name="Customize.SystemFeatures.Section.Power" xml:space="preserve">
     <value>電源設定</value>
@@ -1752,5 +1700,71 @@
   </data>
   <data name="TitleBar.Discord" xml:space="preserve">
     <value>Discord コミュニティに参加</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows10Only" xml:space="preserve">
+    <value>Windows 10のみ</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows11Only" xml:space="preserve">
+    <value>Windows 11のみ</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Developer" xml:space="preserve">
+    <value>開発者</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Name" xml:space="preserve">
+    <value>開発者モード</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Description" xml:space="preserve">
+    <value>サイドローディングアプリ、デバイスポータル、SSHサーバー、開発機能のためにWindows開発者モードを有効にします。</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Recommendation.Reason" xml:space="preserve">
+    <value>開発者モードは、アプリ開発とデバッグに不可欠なサイドローディングおよび診断機能を有効にします。</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Name" xml:space="preserve">
+    <value>すべての信頼できるアプリを許可</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Description" xml:space="preserve">
+    <value>開発者モードを有効にしなくても、信頼できるWindowsストアアプリのインストールを許可します。</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Recommendation.Reason" xml:space="preserve">
+    <value>信頼できるアプリをすべて許可すると、開発者モードなしでサイドローディングが可能になります。無効にすると、Microsoftストアのみのインストールに制限されます。</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Name" xml:space="preserve">
+    <value>長いパスのサポート（260文字以上）</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Description" xml:space="preserve">
+    <value>エクスプローラーでWin32長いパスのサポートを有効にし、従来の260文字制限を超えるファイルパスを許可します。</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Recommendation.Reason" xml:space="preserve">
+    <value>長いパスのサポートにより、深くネストされたディレクトリや長い名前のプロジェクトを扱う際のファイルアクセスエラーを防ぎます。</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Name" xml:space="preserve">
+    <value>検索ボックスの表示</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Description" xml:space="preserve">
+    <value>タスクバーに検索ボタンとボックスを表示する方法を制御します。</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Hidden" xml:space="preserve">
+    <value>非表示</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Icon" xml:space="preserve">
+    <value>アイコンのみ</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.IconAndLabel" xml:space="preserve">
+    <value>アイコン＋ラベル</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.SearchBox" xml:space="preserve">
+    <value>検索ボックス</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarLastActiveClick.Name" xml:space="preserve">
+    <value>最後にアクティブなクリック</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarLastActiveClick.Description" xml:space="preserve">
+    <value>タスクバーのアイコンをクリックすると、そのアプリの最後にアクティブだったウィンドウが即座に開きます。</value>
+  </data>
+  <data name="Customize.SystemFeatures.ShowBatteryPercentage.Name" xml:space="preserve">
+    <value>バッテリー残量を表示</value>
+  </data>
+  <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
+    <value>システムトレイのバッテリーアイコンの横にバッテリー残量を表示します。</value>
   </data>
 </root>

@@ -1141,29 +1141,65 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Controls the Meet Now (Skype) icon in the taskbar notification area..
-        /// </summary>
-        internal static string Customize_Preferences_MeetNow_Description {
-            get {
-                return ResourceManager.GetString("Customize.Preferences.MeetNow.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Meet Now.
-        /// </summary>
-        internal static string Customize_Preferences_MeetNow_Name {
-            get {
-                return ResourceManager.GetString("Customize.Preferences.MeetNow.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Preferences.
         /// </summary>
         internal static string Customize_Preferences_Name {
             get {
                 return ResourceManager.GetString("Customize.Preferences.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controls how the search button and box are displayed on the taskbar..
+        /// </summary>
+        internal static string Customize_Preferences_SearchBoxTaskbarMode_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.SearchBoxTaskbarMode.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search Box Display.
+        /// </summary>
+        internal static string Customize_Preferences_SearchBoxTaskbarMode_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.SearchBoxTaskbarMode.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hidden.
+        /// </summary>
+        internal static string Customize_Preferences_SearchBoxTaskbarMode_Options_Hidden {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.SearchBoxTaskbarMode.Options.Hidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Icon Only.
+        /// </summary>
+        internal static string Customize_Preferences_SearchBoxTaskbarMode_Options_Icon {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.SearchBoxTaskbarMode.Options.Icon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Icon + Label.
+        /// </summary>
+        internal static string Customize_Preferences_SearchBoxTaskbarMode_Options_IconAndLabel {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.SearchBoxTaskbarMode.Options.IconAndLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search Box.
+        /// </summary>
+        internal static string Customize_Preferences_SearchBoxTaskbarMode_Options_SearchBox {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.SearchBoxTaskbarMode.Options.SearchBox", resourceCulture);
             }
         }
         
@@ -1348,24 +1384,6 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Controls visibility of the Chat (Teams) button on the taskbar..
-        /// </summary>
-        internal static string Customize_Preferences_TaskbarChatButton_Description {
-            get {
-                return ResourceManager.GetString("Customize.Preferences.TaskbarChatButton.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Taskbar Chat Button.
-        /// </summary>
-        internal static string Customize_Preferences_TaskbarChatButton_Name {
-            get {
-                return ResourceManager.GetString("Customize.Preferences.TaskbarChatButton.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Adds an &quot;End task&quot; option to the taskbar right-click menu for quick process termination..
         /// </summary>
         internal static string Customize_Preferences_TaskbarEndTask_Description {
@@ -1393,56 +1411,20 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Controls the News and Interests widget on the taskbar and MSN feed background updates..
+        ///   Looks up a localized string similar to Clicking a taskbar icon opens the most recently active window of that app instantly..
         /// </summary>
-        internal static string Customize_Preferences_TaskbarNewsAndInterests_Description {
+        internal static string Customize_Preferences_TaskbarLastActiveClick_Description {
             get {
-                return ResourceManager.GetString("Customize.Preferences.TaskbarNewsAndInterests.Description", resourceCulture);
+                return ResourceManager.GetString("Customize.Preferences.TaskbarLastActiveClick.Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Taskbar News &amp; Interests.
+        ///   Looks up a localized string similar to Last Active Click.
         /// </summary>
-        internal static string Customize_Preferences_TaskbarNewsAndInterests_Name {
+        internal static string Customize_Preferences_TaskbarLastActiveClick_Name {
             get {
-                return ResourceManager.GetString("Customize.Preferences.TaskbarNewsAndInterests.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Controls the People icon on the taskbar for quick contacts access..
-        /// </summary>
-        internal static string Customize_Preferences_TaskbarPeople_Description {
-            get {
-                return ResourceManager.GetString("Customize.Preferences.TaskbarPeople.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Taskbar People.
-        /// </summary>
-        internal static string Customize_Preferences_TaskbarPeople_Name {
-            get {
-                return ResourceManager.GetString("Customize.Preferences.TaskbarPeople.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Controls visibility of the search box on the taskbar..
-        /// </summary>
-        internal static string Customize_Preferences_TaskbarSearchBox_Description {
-            get {
-                return ResourceManager.GetString("Customize.Preferences.TaskbarSearchBox.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Taskbar Search Box.
-        /// </summary>
-        internal static string Customize_Preferences_TaskbarSearchBox_Name {
-            get {
-                return ResourceManager.GetString("Customize.Preferences.TaskbarSearchBox.Name", resourceCulture);
+                return ResourceManager.GetString("Customize.Preferences.TaskbarLastActiveClick.Name", resourceCulture);
             }
         }
         
@@ -1528,11 +1510,92 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Allows all trusted Windows Store apps to be installed without requiring Developer Mode to be enabled..
+        /// </summary>
+        internal static string Customize_SystemFeatures_AllowAllTrustedApps_Description {
+            get {
+                return ResourceManager.GetString("Customize.SystemFeatures.AllowAllTrustedApps.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow All Trusted Apps.
+        /// </summary>
+        internal static string Customize_SystemFeatures_AllowAllTrustedApps_Name {
+            get {
+                return ResourceManager.GetString("Customize.SystemFeatures.AllowAllTrustedApps.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allowing all trusted apps enables sideloading without Developer Mode; disabling restricts installations to the Microsoft Store..
+        /// </summary>
+        internal static string Customize_SystemFeatures_AllowAllTrustedApps_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Customize.SystemFeatures.AllowAllTrustedApps.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Core system features and behaviors.
         /// </summary>
         internal static string Customize_SystemFeatures_Description {
             get {
                 return ResourceManager.GetString("Customize.SystemFeatures.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enables Windows Developer Mode for sideloading apps, device portal, SSH server, and development features..
+        /// </summary>
+        internal static string Customize_SystemFeatures_DeveloperMode_Description {
+            get {
+                return ResourceManager.GetString("Customize.SystemFeatures.DeveloperMode.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Developer Mode.
+        /// </summary>
+        internal static string Customize_SystemFeatures_DeveloperMode_Name {
+            get {
+                return ResourceManager.GetString("Customize.SystemFeatures.DeveloperMode.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Developer Mode enables sideloading and diagnostic features essential for app development and debugging..
+        /// </summary>
+        internal static string Customize_SystemFeatures_DeveloperMode_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Customize.SystemFeatures.DeveloperMode.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enables Win32 long path support in File Explorer, allowing file paths longer than the traditional 260-character limit..
+        /// </summary>
+        internal static string Customize_SystemFeatures_LongPathsEnabled_Description {
+            get {
+                return ResourceManager.GetString("Customize.SystemFeatures.LongPathsEnabled.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Long Path Support (&gt;260 chars).
+        /// </summary>
+        internal static string Customize_SystemFeatures_LongPathsEnabled_Name {
+            get {
+                return ResourceManager.GetString("Customize.SystemFeatures.LongPathsEnabled.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Long path support prevents file-access errors when working with deeply nested directories or projects with long names..
+        /// </summary>
+        internal static string Customize_SystemFeatures_LongPathsEnabled_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Customize.SystemFeatures.LongPathsEnabled.Recommendation.Reason", resourceCulture);
             }
         }
         
@@ -1573,11 +1636,11 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Boot Operations.
+        ///   Looks up a localized string similar to Developer.
         /// </summary>
-        internal static string Customize_SystemFeatures_Section_Boot {
+        internal static string Customize_SystemFeatures_Section_Developer {
             get {
-                return ResourceManager.GetString("Customize.SystemFeatures.Section.Boot", resourceCulture);
+                return ResourceManager.GetString("Customize.SystemFeatures.Section.Developer", resourceCulture);
             }
         }
         
@@ -1600,11 +1663,20 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Services.
+        ///   Looks up a localized string similar to Shows the battery percentage next to the battery icon in the system tray..
         /// </summary>
-        internal static string Customize_SystemFeatures_Section_Services {
+        internal static string Customize_SystemFeatures_ShowBatteryPercentage_Description {
             get {
-                return ResourceManager.GetString("Customize.SystemFeatures.Section.Services", resourceCulture);
+                return ResourceManager.GetString("Customize.SystemFeatures.ShowBatteryPercentage.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Battery Percentage.
+        /// </summary>
+        internal static string Customize_SystemFeatures_ShowBatteryPercentage_Name {
+            get {
+                return ResourceManager.GetString("Customize.SystemFeatures.ShowBatteryPercentage.Name", resourceCulture);
             }
         }
         
@@ -3106,7 +3178,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Installs a custom performance-focused power plan to ensure your system always runs at maximum speed..
+        ///   Looks up a localized string similar to Installs a custom performance-focused power plan to ensure your system always runs at maximum speed. Warning: May cause Task Manager to incorrectly show 100% CPU usage on some systems, actual CPU load is unaffected..
         /// </summary>
         internal static string Optimizer_PowerManagement_InstallOptimizerDuckPowerPlan_ShortDescription {
             get {
@@ -4413,6 +4485,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to change startup type for service.
+        /// </summary>
+        internal static string Service_Service_Error_ChangeStartupTypeFailed {
+            get {
+                return ResourceManager.GetString("Service.Service.Error.ChangeStartupTypeFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to change service &apos;{0}&apos;: {1}.
         /// </summary>
         internal static string Service_Service_Error_ExceptionOccurred {
@@ -4431,20 +4512,11 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Service '{0}' not found (skipped).
+        ///   Looks up a localized string similar to Service &apos;{0}&apos; not found (skipped).
         /// </summary>
         internal static string Service_Service_Info_SkippedNotFound {
             get {
                 return ResourceManager.GetString("Service.Service.Info.SkippedNotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to change startup type for service.
-        /// </summary>
-        internal static string Service_Service_Error_ChangeStartupTypeFailed {
-            get {
-                return ResourceManager.GetString("Service.Service.Error.ChangeStartupTypeFailed", resourceCulture);
             }
         }
         

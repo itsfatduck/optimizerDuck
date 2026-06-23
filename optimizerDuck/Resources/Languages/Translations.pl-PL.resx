@@ -1,110 +1,52 @@
-<?xml version='1.0' encoding='utf-8'?>
-<root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <!-- 
-        Microsoft ResX Schema 
-        
-        Version 2.0
-        
-        The primary goals of this format is to allow a simple XML format 
-        that is mostly human readable. The generation and parsing of the 
-        various data types are done through the TypeConverter classes 
-        associated with the data types.
-        
-        Example:
-        
-        ... ado.net/XML headers & schema ...
-        <resheader name="resmimetype">text/microsoft-resx</resheader>
-        <resheader name="version">2.0</resheader>
-        <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-        <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-        <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-        <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-        <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-            <value>[base64 mime encoded serialized .NET Framework object]</value>
-        </data>
-        <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-            <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-            <comment>This is a comment</comment>
-        </data>
-                    
-        There are any number of "resheader" rows that contain simple 
-        name/value pairs.
-        
-        Each data row contains a name, and value. The row also contains a 
-        type or mimetype. Type corresponds to a .NET class that support 
-        text/value conversion through the TypeConverter architecture. 
-        Classes that don't support this are serialized and stored with the 
-        mimetype set.
-        
-        The mimetype is used for serialized objects, and tells the 
-        ResXResourceReader how to depersist the object. This is currently not 
-        extensible. For a given mimetype the value must be set accordingly:
-        
-        Note - application/x-microsoft.net.object.binary.base64 is the format 
-        that the ResXResourceWriter will generate, however the reader can 
-        read any of the formats listed below.
-        
-        mimetype: application/x-microsoft.net.object.binary.base64
-        value   : The object must be serialized with 
-                : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-                : and then encoded with base64 encoding.
-        
-        mimetype: application/x-microsoft.net.object.soap.base64
-        value   : The object must be serialized with 
-                : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-                : and then encoded with base64 encoding.
-    
-        mimetype: application/x-microsoft.net.object.bytearray.base64
-        value   : The object must be serialized into a byte array 
-                : using a System.ComponentModel.TypeConverter
-                : and then encoded with base64 encoding.
-        -->
-  <xs:schema id="root">
-    <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xs:element name="root" ns1:IsDataSet="true">
-      <xs:complexType>
-        <xs:choice maxOccurs="unbounded">
-          <xs:element name="metadata">
-            <xs:complexType>
-              <xs:sequence>
-                <xs:element name="value" type="xsd:string" minOccurs="0" />
-              </xs:sequence>
-              <xs:attribute name="name" use="required" type="xsd:string" />
-              <xs:attribute name="type" type="xsd:string" />
-              <xs:attribute name="mimetype" type="xsd:string" />
-              <xs:attribute ref="xml:space" />
-            </xs:complexType>
-          </xs:element>
-          <xs:element name="assembly">
-            <xs:complexType>
-              <xs:attribute name="alias" type="xsd:string" />
-              <xs:attribute name="name" type="xsd:string" />
-            </xs:complexType>
-          </xs:element>
-          <xs:element name="data">
-            <xs:complexType>
-              <xs:sequence>
-                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
-                <xs:element name="comment" type="xsd:string" minOccurs="0" ns1:Ordinal="2" />
-              </xs:sequence>
-              <xs:attribute name="name" type="xsd:string" use="required" ns1:Ordinal="1" />
-              <xs:attribute name="type" type="xsd:string" ns1:Ordinal="3" />
-              <xs:attribute name="mimetype" type="xsd:string" ns1:Ordinal="4" />
-              <xs:attribute ref="xml:space" />
-            </xs:complexType>
-          </xs:element>
-          <xs:element name="resheader">
-            <xs:complexType>
-              <xs:sequence>
-                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
-              </xs:sequence>
-              <xs:attribute name="name" type="xsd:string" use="required" />
-            </xs:complexType>
-          </xs:element>
-        </xs:choice>
-      </xs:complexType>
-    </xs:element>
-  </xs:schema>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  
+  <xsd:schema id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
   </resheader>
@@ -829,24 +771,6 @@
   <data name="Customize.Preferences.Section.Explorer" xml:space="preserve">
     <value>Eksplorator</value>
   </data>
-  <data name="Customize.Preferences.TaskbarNewsAndInterests.Name" xml:space="preserve">
-    <value>Wiadomości i zainteresowania na pasku zadań</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarNewsAndInterests.Description" xml:space="preserve">
-    <value>Steruje widżetem Wiadomości i zainteresowania na pasku zadań oraz aktualizacjami kanału MSN w tle.</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarSearchBox.Name" xml:space="preserve">
-    <value>Pole wyszukiwania na pasku zadań</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarSearchBox.Description" xml:space="preserve">
-    <value>Steruje widocznością pola wyszukiwania na pasku zadań.</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarChatButton.Name" xml:space="preserve">
-    <value>Przycisk Czat na pasku zadań</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarChatButton.Description" xml:space="preserve">
-    <value>Steruje widocznością przycisku Czat (Teams) na pasku zadań.</value>
-  </data>
   <data name="Customize.Preferences.TaskbarWidgets.Name" xml:space="preserve">
     <value>Widżety na pasku zadań</value>
   </data>
@@ -891,18 +815,6 @@
   </data>
   <data name="Customize.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
     <value>Steruje widocznością przycisku Widok zadań na pasku zadań.</value>
-  </data>
-  <data name="Customize.Preferences.MeetNow.Name" xml:space="preserve">
-    <value>Spotkaj się teraz</value>
-  </data>
-  <data name="Customize.Preferences.MeetNow.Description" xml:space="preserve">
-    <value>Steruje ikoną Spotkaj się teraz (Skype) w obszarze powiadomień paska zadań.</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarPeople.Name" xml:space="preserve">
-    <value>Osoby na pasku zadań</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarPeople.Description" xml:space="preserve">
-    <value>Steruje ikoną Osoby na pasku zadań zapewniającą szybki dostęp do kontaktów.</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Name" xml:space="preserve">
     <value>Zakończ zadanie na pasku zadań</value>
@@ -1432,15 +1344,15 @@ Zaktualizuj teraz, aby korzystać z najnowszych funkcji, ulepszeń i poprawek b�
   <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
     <value>Otwórz Ustawienia</value>
   </data>
-  <!-- Scheduled Tasks (Startup Manager) -->
+  
   <data name="StartupManager.Tasks.HideMicrosoft" xml:space="preserve">
     <value>Ukryj zadania Microsoft</value>
   </data>
-  <!-- Sidebar -->
+  
   <data name="Sidebar.ScheduledTasks" xml:space="preserve">
     <value>Zaplanowane zadania</value>
   </data>
-  <!-- Scheduled Tasks Page -->
+  
   <data name="ScheduledTasks.Header.Title" xml:space="preserve">
     <value>Zaplanowane zadania</value>
   </data>
@@ -1459,7 +1371,7 @@ Zaktualizuj teraz, aby korzystać z najnowszych funkcji, ulepszeń i poprawek b�
   <data name="ScheduledTasks.Menu.CreateTask" xml:space="preserve">
     <value>Utwórz zadanie</value>
   </data>
-  <!-- Scheduled Tasks Actions -->
+  
   <data name="ScheduledTasks.Action.Details" xml:space="preserve">
     <value>Zobacz szczegóły</value>
   </data>
@@ -1472,14 +1384,14 @@ Zaktualizuj teraz, aby korzystać z najnowszych funkcji, ulepszeń i poprawek b�
   <data name="ScheduledTasks.Action.Delete" xml:space="preserve">
     <value>Usuń</value>
   </data>
-  <!-- Scheduled Tasks Dialogs -->
+  
   <data name="ScheduledTasks.Dialog.DeleteTitle" xml:space="preserve">
     <value>Usuń zaplanowane zadanie</value>
   </data>
   <data name="ScheduledTasks.Dialog.DeleteMessage" xml:space="preserve">
     <value>Czy na pewno chcesz usunąć zadanie „{0}”? Tej operacji nie można cofnąć.</value>
   </data>
-  <!-- Scheduled Tasks Details -->
+  
   <data name="ScheduledTasks.Details.Path" xml:space="preserve">
     <value>Ścieżka</value>
   </data>
@@ -1507,7 +1419,7 @@ Zaktualizuj teraz, aby korzystać z najnowszych funkcji, ulepszeń i poprawek b�
   <data name="ScheduledTasks.Details.LastResult" xml:space="preserve">
     <value>Ostatni wynik</value>
   </data>
-  <!-- Common -->
+  
   <data name="Common.Delete" xml:space="preserve">
     <value>Usuń</value>
   </data>
@@ -1656,9 +1568,6 @@ Zaktualizuj teraz, aby korzystać z najnowszych funkcji, ulepszeń i poprawek b�
   <data name="Customize.SystemFeatures.Description" xml:space="preserve">
     <value>Podstawowe funkcje i zachowania systemu</value>
   </data>
-  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
-    <value>Operacje rozruchu</value>
-  </data>
   <data name="Customize.SystemFeatures.Section.Input" xml:space="preserve">
     <value>Ustawienia wprowadzania</value>
   </data>
@@ -1670,9 +1579,6 @@ Zaktualizuj teraz, aby korzystać z najnowszych funkcji, ulepszeń i poprawek b�
   </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
     <value>Włączenie NumLock przy rozruchu sprawia, że klawiatura numeryczna jest gotowa od razu po zalogowaniu, bez ręcznego przełączania za każdym razem.</value>
-  </data>
-  <data name="Customize.SystemFeatures.Section.Services" xml:space="preserve">
-    <value>Usługi</value>
   </data>
   <data name="Customize.SystemFeatures.Section.Power" xml:space="preserve">
     <value>Ustawienia zasilania</value>
@@ -1802,5 +1708,71 @@ Zaktualizuj teraz, aby korzystać z najnowszych funkcji, ulepszeń i poprawek b�
   </data>
   <data name="TitleBar.Discord" xml:space="preserve">
     <value>Dołącz do społeczności Discord</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows10Only" xml:space="preserve">
+    <value>Tylko Windows 10</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows11Only" xml:space="preserve">
+    <value>Tylko Windows 11</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Developer" xml:space="preserve">
+    <value>Programista</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Name" xml:space="preserve">
+    <value>Tryb programisty</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Description" xml:space="preserve">
+    <value>Włącza tryb programisty Windows do sideloadingu aplikacji, portalu urządzeń, serwera SSH i funkcji programistycznych.</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Recommendation.Reason" xml:space="preserve">
+    <value>Tryb programisty umożliwia sideloading i funkcje diagnostyczne niezbędne do tworzenia i debugowania aplikacji.</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Name" xml:space="preserve">
+    <value>Zezwalaj na wszystkie zaufane aplikacje</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Description" xml:space="preserve">
+    <value>Umożliwia instalację wszystkich zaufanych aplikacji ze Sklepu Windows bez konieczności włączania trybu programisty.</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Recommendation.Reason" xml:space="preserve">
+    <value>Zezwolenie na wszystkie zaufane aplikacje umożliwia sideloading bez trybu programisty; wyłączenie ogranicza instalacje do Sklepu Microsoft.</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Name" xml:space="preserve">
+    <value>Obsługa długich ścieżek (&gt;260 znaków)</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Description" xml:space="preserve">
+    <value>Włącza obsługę długich ścieżek Win32 w Eksploratorze plików, umożliwiając ścieżki dłuższe niż tradycyjny limit 260 znaków.</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Recommendation.Reason" xml:space="preserve">
+    <value>Obsługa długich ścieżek zapobiega błędom dostępu do plików podczas pracy z głęboko zagnieżdżonymi katalogami lub projektami o długich nazwach.</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Name" xml:space="preserve">
+    <value>Wyświetlanie pola wyszukiwania</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Description" xml:space="preserve">
+    <value>Kontroluje sposób wyświetlania przycisku i pola wyszukiwania na pasku zadań.</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Hidden" xml:space="preserve">
+    <value>Ukryty</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Icon" xml:space="preserve">
+    <value>Tylko ikona</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.IconAndLabel" xml:space="preserve">
+    <value>Ikona + Etykieta</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.SearchBox" xml:space="preserve">
+    <value>Pole wyszukiwania</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarLastActiveClick.Name" xml:space="preserve">
+    <value>Ostatnie aktywne kliknięcie</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarLastActiveClick.Description" xml:space="preserve">
+    <value>Kliknięcie ikony na pasku zadań natychmiast otwiera ostatnio aktywne okno tej aplikacji.</value>
+  </data>
+  <data name="Customize.SystemFeatures.ShowBatteryPercentage.Name" xml:space="preserve">
+    <value>Pokaż procent baterii</value>
+  </data>
+  <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
+    <value>Pokazuje procent baterii obok ikony baterii w zasobniku systemowym.</value>
   </data>
 </root>

@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<root>
-  <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root" xmlns="">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:schema id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -770,24 +770,6 @@
   <data name="Customize.Preferences.Section.Explorer" xml:space="preserve">
     <value>Dosya Gezgini</value>
   </data>
-  <data name="Customize.Preferences.TaskbarNewsAndInterests.Name" xml:space="preserve">
-    <value>Görev Çubuğu Haber ve İlgi Alanları</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarNewsAndInterests.Description" xml:space="preserve">
-    <value>Görev çubuğundaki Haber ve İlgi Alanları widget'ını ve MSN besleme arka plan güncellemelerini kontrol eder.</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarSearchBox.Name" xml:space="preserve">
-    <value>Görev Çubuğu Arama Kutusu</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarSearchBox.Description" xml:space="preserve">
-    <value>Görev çubuğundaki arama kutusunun görünürlüğünü kontrol eder.</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarChatButton.Name" xml:space="preserve">
-    <value>Görev Çubuğu Sohbet Düğmesi</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarChatButton.Description" xml:space="preserve">
-    <value>Görev çubuğundaki Sohbet (Teams) düğmesinin görünürlüğünü kontrol eder.</value>
-  </data>
   <data name="Customize.Preferences.TaskbarWidgets.Name" xml:space="preserve">
     <value>Görev Çubuğu Widget'ları</value>
   </data>
@@ -832,18 +814,6 @@
   </data>
   <data name="Customize.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
     <value>Görev çubuğundaki Görev Görünümü düğmesinin görünürlüğünü kontrol eder.</value>
-  </data>
-  <data name="Customize.Preferences.MeetNow.Name" xml:space="preserve">
-    <value>Şimdi Buluş</value>
-  </data>
-  <data name="Customize.Preferences.MeetNow.Description" xml:space="preserve">
-    <value>Görev çubuğu bildirim alanındaki Şimdi Buluş (Skype) simgesini kontrol eder.</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarPeople.Name" xml:space="preserve">
-    <value>Görev Çubuğu Kişiler</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarPeople.Description" xml:space="preserve">
-    <value>Hızlı kişi erişimi için görev çubuğundaki Kişiler simgesini kontrol eder.</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Name" xml:space="preserve">
     <value>Görev Çubuğu Görevi Sonlandır</value>
@@ -1589,9 +1559,6 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   <data name="Customize.SystemFeatures.Description" xml:space="preserve">
     <value>Temel sistem özellikleri ve davranışları</value>
   </data>
-  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
-    <value>Önyükleme İşlemleri</value>
-  </data>
   <data name="Customize.SystemFeatures.Section.Input" xml:space="preserve">
     <value>Giriş Ayarları</value>
   </data>
@@ -1603,9 +1570,6 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
     <value>Önyüklemede NumLock'ı etkinleştirmek, her defasında manuel olarak açmaya gerek kalmadan sayısal tuş takımının oturum açıldıktan hemen sonra hazır olmasını sağlar.</value>
-  </data>
-  <data name="Customize.SystemFeatures.Section.Services" xml:space="preserve">
-    <value>Servisler</value>
   </data>
   <data name="Customize.SystemFeatures.Section.Power" xml:space="preserve">
     <value>Güç Ayarları</value>
@@ -1735,5 +1699,71 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   </data>
   <data name="TitleBar.Discord" xml:space="preserve">
     <value>Discord topluluğuna katıl</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows10Only" xml:space="preserve">
+    <value>Yalnızca Windows 10</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows11Only" xml:space="preserve">
+    <value>Yalnızca Windows 11</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Developer" xml:space="preserve">
+    <value>Geliştirici</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Name" xml:space="preserve">
+    <value>Geliştirici Modu</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Description" xml:space="preserve">
+    <value>Uygulamaların yandan yüklenmesi, cihaz portalı, SSH sunucusu ve geliştirme özellikleri için Windows Geliştirici Modu'nu etkinleştirir.</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Recommendation.Reason" xml:space="preserve">
+    <value>Geliştirici Modu, uygulama geliştirme ve hata ayıklama için gerekli olan yandan yükleme ve tanılama özelliklerini etkinleştirir.</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Name" xml:space="preserve">
+    <value>Tüm Güvenilir Uygulamalara İzin Ver</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Description" xml:space="preserve">
+    <value>Geliştirici Modu'nu etkinleştirmeye gerek kalmadan tüm güvenilir Windows Mağazası uygulamalarının yüklenmesine izin verir.</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Recommendation.Reason" xml:space="preserve">
+    <value>Tüm güvenilir uygulamalara izin vermek, Geliştirici Modu olmadan yandan yüklemeyi sağlar; devre dışı bırakmak yüklemeleri Microsoft Mağazası ile sınırlar.</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Name" xml:space="preserve">
+    <value>Uzun Yol Desteği (&gt;260 karakter)</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Description" xml:space="preserve">
+    <value>Dosya Gezgini'nde Win32 uzun yol desteğini etkinleştirerek geleneksel 260 karakterlik sınırın ötesinde dosya yollarına izin verir.</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Recommendation.Reason" xml:space="preserve">
+    <value>Uzun yol desteği, derin iç içe geçmiş dizinler veya uzun adlı projelerle çalışırken dosya erişim hatalarını önler.</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Name" xml:space="preserve">
+    <value>Arama Kutusu Görünümü</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Description" xml:space="preserve">
+    <value>Arama düğmesinin ve kutusunun görev çubuğunda nasıl görüntüleneceğini kontrol eder.</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Hidden" xml:space="preserve">
+    <value>Gizli</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Icon" xml:space="preserve">
+    <value>Yalnızca Simge</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.IconAndLabel" xml:space="preserve">
+    <value>Simge + Etiket</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.SearchBox" xml:space="preserve">
+    <value>Arama Kutusu</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarLastActiveClick.Name" xml:space="preserve">
+    <value>Son Aktif Tıklama</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarLastActiveClick.Description" xml:space="preserve">
+    <value>Görev çubuğundaki bir simgeye tıklamak, o uygulamanın en son aktif olan penceresini anında açar.</value>
+  </data>
+  <data name="Customize.SystemFeatures.ShowBatteryPercentage.Name" xml:space="preserve">
+    <value>Pil Yüzdesini Göster</value>
+  </data>
+  <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
+    <value>Sistem tepsisindeki pil simgesinin yanında pil yüzdesini gösterir.</value>
   </data>
 </root>

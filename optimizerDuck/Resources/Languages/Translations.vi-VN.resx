@@ -1,65 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<root>
-  <!-- 
-          Microsoft ResX Schema 
-          
-          Version 2.0
-          
-          The primary goals of this format is to allow a simple XML format 
-          that is mostly human readable. The generation and parsing of the 
-          various data types are done through the TypeConverter classes 
-          associated with the data types.
-          
-          Example:
-          
-          ... ado.net/XML headers & schema ...
-          <resheader name="resmimetype">text/microsoft-resx</resheader>
-          <resheader name="version">2.0</resheader>
-          <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-          <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-          <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-          <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-          <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-              <value>[base64 mime encoded serialized .NET Framework object]</value>
-          </data>
-          <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-              <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-              <comment>This is a comment</comment>
-          </data>
-                      
-          There are any number of "resheader" rows that contain simple 
-          name/value pairs.
-          
-          Each data row contains a name, and value. The row also contains a 
-          type or mimetype. Type corresponds to a .NET class that support 
-          text/value conversion through the TypeConverter architecture. 
-          Classes that don't support this are serialized and stored with the 
-          mimetype set.
-          
-          The mimetype is used for serialized objects, and tells the 
-          ResXResourceReader how to depersist the object. This is currently not 
-          extensible. For a given mimetype the value must be set accordingly:
-          
-          Note - application/x-microsoft.net.object.binary.base64 is the format 
-          that the ResXResourceWriter will generate, however the reader can 
-          read any of the formats listed below.
-          
-          mimetype: application/x-microsoft.net.object.binary.base64
-          value   : The object must be serialized with 
-                  : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-                  : and then encoded with base64 encoding.
-          
-          mimetype: application/x-microsoft.net.object.soap.base64
-          value   : The object must be serialized with 
-                  : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-                  : and then encoded with base64 encoding.
-      
-          mimetype: application/x-microsoft.net.object.bytearray.base64
-          value   : The object must be serialized into a byte array 
-                  : using a System.ComponentModel.TypeConverter
-                  : and then encoded with base64 encoding.
-          -->
-  <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root" xmlns="">
+<root xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  
+  <xsd:schema id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -643,7 +585,6 @@
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
     <value>Kích hoạt sơ đồ năng lượng đặc biệt giúp máy luôn đạt hiệu năng cao nhất. Cảnh báo: Có thể khiến Task Manager hiển thị sai 100% CPU trên một số hệ thống, mức sử dụng CPU thực tế không bị ảnh hưởng.</value>
   </data>
-
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
     <value>Đang import và set active power plan...</value>
   </data>
@@ -812,41 +753,11 @@
   <data name="Customize.Preferences.Section.Explorer" xml:space="preserve">
     <value>Explorer</value>
   </data>
-  <data name="Customize.Preferences.TaskbarNewsAndInterests.Name" xml:space="preserve">
-    <value>Tin tức &amp; Sở thích trên Taskbar</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarNewsAndInterests.Description" xml:space="preserve">
-    <value>Kiểm soát tiện ích tin tức trên thanh tác vụ và cập nhật nền từ MSN.</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarSearchBox.Name" xml:space="preserve">
-    <value>Ô tìm kiếm trên Taskbar</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarSearchBox.Description" xml:space="preserve">
-    <value>Kiểm soát hiển thị ô tìm kiếm trên thanh tác vụ.</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarChatButton.Name" xml:space="preserve">
-    <value>Nút Chat trên Taskbar</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarChatButton.Description" xml:space="preserve">
-    <value>Kiểm soát hiển thị nút Chat (Teams) trên thanh tác vụ.</value>
-  </data>
   <data name="Customize.Preferences.TaskbarTaskViewButton.Name" xml:space="preserve">
     <value>Nút Task View trên Taskbar</value>
   </data>
   <data name="Customize.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
     <value>Kiểm soát hiển thị nút Task View trên thanh tác vụ.</value>
-  </data>
-  <data name="Customize.Preferences.MeetNow.Name" xml:space="preserve">
-    <value>Meet Now</value>
-  </data>
-  <data name="Customize.Preferences.MeetNow.Description" xml:space="preserve">
-    <value>Kiểm soát biểu tượng Meet Now (Skype) trong khu vực thông báo.</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarPeople.Name" xml:space="preserve">
-    <value>People trên Taskbar</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarPeople.Description" xml:space="preserve">
-    <value>Kiểm soát biểu tượng People trên thanh tác vụ để truy cập nhanh danh bạ.</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Name" xml:space="preserve">
     <value>Kết thúc tác vụ trên Taskbar</value>
@@ -1589,9 +1500,6 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Customize.SystemFeatures.Description" xml:space="preserve">
     <value>Các tính năng và hành vi cốt lõi của hệ thống</value>
   </data>
-  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
-    <value>Khởi động</value>
-  </data>
   <data name="Customize.SystemFeatures.Section.Input" xml:space="preserve">
     <value>Đầu vào</value>
   </data>
@@ -1784,9 +1692,6 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Customize.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
     <value>Bật NumLock khi khởi động đảm bảo bàn phím số sẵn sàng ngay sau khi đăng nhập, tránh phải bật/tắt thủ công mỗi lần.</value>
   </data>
-  <data name="Customize.SystemFeatures.Section.Services" xml:space="preserve">
-    <value>Dịch vụ</value>
-  </data>
   <data name="Customize.SystemFeatures.Section.Power" xml:space="preserve">
     <value>Cài đặt nguồn</value>
   </data>
@@ -1795,5 +1700,71 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="Customize.Preferences.TaskbarAlignment.Options.Left" xml:space="preserve">
     <value>Trái</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows10Only" xml:space="preserve">
+    <value>Chỉ Windows 10</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows11Only" xml:space="preserve">
+    <value>Chỉ Windows 11</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Developer" xml:space="preserve">
+    <value>Nhà phát triển</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Name" xml:space="preserve">
+    <value>Chế độ Nhà phát triển</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Description" xml:space="preserve">
+    <value>Bật Chế độ Nhà phát triển Windows để tải ứng dụng bên lề, cổng thiết bị, máy chủ SSH và các tính năng phát triển.</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Recommendation.Reason" xml:space="preserve">
+    <value>Chế độ Nhà phát triển cho phép tải ứng dụng bên lề và các tính năng chẩn đoán cần thiết cho việc phát triển và gỡ lỗi ứng dụng.</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Name" xml:space="preserve">
+    <value>Cho phép tất cả ứng dụng đáng tin cậy</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Description" xml:space="preserve">
+    <value>Cho phép cài đặt tất cả ứng dụng Windows Store đáng tin cậy mà không cần bật Chế độ Nhà phát triển.</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Recommendation.Reason" xml:space="preserve">
+    <value>Cho phép tất cả ứng dụng đáng tin cậy cho phép tải bên lề mà không cần Chế độ Nhà phát triển; vô hiệu hóa sẽ giới hạn cài đặt từ Microsoft Store.</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Name" xml:space="preserve">
+    <value>Hỗ trợ đường dẫn dài (&gt;260 ký tự)</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Description" xml:space="preserve">
+    <value>Bật hỗ trợ đường dẫn dài Win32 trong File Explorer, cho phép đường dẫn tệp dài hơn giới hạn 260 ký tự truyền thống.</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Recommendation.Reason" xml:space="preserve">
+    <value>Hỗ trợ đường dẫn dài ngăn lỗi truy cập tệp khi làm việc với các thư mục lồng nhau sâu hoặc dự án có tên dài.</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Name" xml:space="preserve">
+    <value>Hiển thị hộp tìm kiếm</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Description" xml:space="preserve">
+    <value>Kiểm soát cách nút và hộp tìm kiếm được hiển thị trên thanh tác vụ.</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Hidden" xml:space="preserve">
+    <value>Ẩn</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Icon" xml:space="preserve">
+    <value>Chỉ biểu tượng</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.IconAndLabel" xml:space="preserve">
+    <value>Biểu tượng + Nhãn</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.SearchBox" xml:space="preserve">
+    <value>Hộp tìm kiếm</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarLastActiveClick.Name" xml:space="preserve">
+    <value>Nhấp cửa sổ hoạt động gần đây</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarLastActiveClick.Description" xml:space="preserve">
+    <value>Nhấp vào biểu tượng trên thanh tác vụ sẽ mở ngay cửa sổ hoạt động gần đây nhất của ứng dụng đó.</value>
+  </data>
+  <data name="Customize.SystemFeatures.ShowBatteryPercentage.Name" xml:space="preserve">
+    <value>Hiển thị phần trăm pin</value>
+  </data>
+  <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
+    <value>Hiển thị phần trăm pin bên cạnh biểu tượng pin trên khay hệ thống.</value>
   </data>
 </root>

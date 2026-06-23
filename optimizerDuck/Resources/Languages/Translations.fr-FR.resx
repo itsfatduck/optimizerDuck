@@ -1,65 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<root>
-  <!--
-        Microsoft ResX Schema
-
-        Version 2.0
-
-        The primary goals of this format is to allow a simple XML format
-        that is mostly human readable. The generation and parsing of the
-        various data types are done through the TypeConverter classes
-        associated with the data types.
-
-        Example:
-
-        ... ado.net/XML headers & schema ...
-        <resheader name="resmimetype">text/microsoft-resx</resheader>
-        <resheader name="version">2.0</resheader>
-        <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-        <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-        <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-        <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-        <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-            <value>[base64 mime encoded serialized .NET Framework object]</value>
-        </data>
-        <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-            <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-            <comment>This is a comment</comment>
-        </data>
-
-        There are any number of "resheader" rows that contain simple
-        name/value pairs.
-
-        Each data row contains a name, and value. The row also contains a
-        type or mimetype. Type corresponds to a .NET class that support
-        text/value conversion through the TypeConverter architecture.
-        Classes that don't support this are serialized and stored with the
-        mimetype set.
-
-        The mimetype is used for serialized objects, and tells the
-        ResXResourceReader how to depersist the object. This is currently not
-        extensible. For a given mimetype the value must be set accordingly:
-
-        Note - application/x-microsoft.net.object.binary.base64 is the format
-        that the ResXResourceWriter will generate, however the reader can
-        read any of the formats listed below.
-
-        mimetype: application/x-microsoft.net.object.binary.base64
-        value   : The object must be serialized with
-                : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-                : and then encoded with base64 encoding.
-
-        mimetype: application/x-microsoft.net.object.soap.base64
-        value   : The object must be serialized with
-                : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-                : and then encoded with base64 encoding.
-
-        mimetype: application/x-microsoft.net.object.bytearray.base64
-        value   : The object must be serialized into a byte array
-                : using a System.ComponentModel.TypeConverter
-                : and then encoded with base64 encoding.
-        -->
-  <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root" xmlns="">
+<root xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  
+  <xsd:schema id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -121,7 +63,7 @@
             PublicKeyToken=b77a5c561934e089
         </value>
   </resheader>
-  <!-- Translation: Robocnop (https://github.com/Robocnop) -->
+  
   <data name="Dashboard.Header.Title" xml:space="preserve">
     <value>Tableau de bord</value>
   </data>
@@ -830,24 +772,6 @@
   <data name="Customize.Preferences.Section.Explorer" xml:space="preserve">
     <value>Explorateur</value>
   </data>
-  <data name="Customize.Preferences.TaskbarNewsAndInterests.Name" xml:space="preserve">
-    <value>Actualités &amp; centres d'intérêt</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarNewsAndInterests.Description" xml:space="preserve">
-    <value>Contrôle le widget Actualités et centres d'intérêt dans la barre des tâches et les mises à jour en arrière-plan du flux MSN.</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarSearchBox.Name" xml:space="preserve">
-    <value>Zone de recherche de la barre des tâches</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarSearchBox.Description" xml:space="preserve">
-    <value>Contrôle la visibilité de la zone de recherche dans la barre des tâches.</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarChatButton.Name" xml:space="preserve">
-    <value>Bouton de conversation de la barre des tâches</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarChatButton.Description" xml:space="preserve">
-    <value>Contrôle la visibilité du bouton de conversation (Teams) dans la barre des tâches.</value>
-  </data>
   <data name="Customize.Preferences.TaskbarWidgets.Name" xml:space="preserve">
     <value>Widgets de la barre des tâches</value>
   </data>
@@ -886,18 +810,6 @@
   </data>
   <data name="Customize.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
     <value>Contrôle la visibilité du bouton Vue des tâches dans la barre des tâches.</value>
-  </data>
-  <data name="Customize.Preferences.MeetNow.Name" xml:space="preserve">
-    <value>Meet Now</value>
-  </data>
-  <data name="Customize.Preferences.MeetNow.Description" xml:space="preserve">
-    <value>Contrôle l'icône Meet Now (Skype) dans la zone de notification de la barre des tâches.</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarPeople.Name" xml:space="preserve">
-    <value>Contacts de la barre des tâches</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarPeople.Description" xml:space="preserve">
-    <value>Contrôle l'icône Contacts dans la barre des tâches pour un accès rapide.</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Name" xml:space="preserve">
     <value>Fin de tâche depuis la barre des tâches</value>
@@ -1427,15 +1339,15 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
   <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
     <value>Ouvrir les Paramètres</value>
   </data>
-  <!-- Tâches planifiées (Gestionnaire de démarrage) -->
+  
   <data name="StartupManager.Tasks.HideMicrosoft" xml:space="preserve">
     <value>Masquer les tâches Microsoft</value>
   </data>
-  <!-- Barre latérale -->
+  
   <data name="Sidebar.ScheduledTasks" xml:space="preserve">
     <value>Tâches planifiées</value>
   </data>
-  <!-- Page Tâches planifiées -->
+  
   <data name="ScheduledTasks.Header.Title" xml:space="preserve">
     <value>Tâches planifiées</value>
   </data>
@@ -1454,7 +1366,7 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
   <data name="ScheduledTasks.Menu.CreateTask" xml:space="preserve">
     <value>Créer une tâche</value>
   </data>
-  <!-- Actions sur les tâches planifiées -->
+  
   <data name="ScheduledTasks.Action.Details" xml:space="preserve">
     <value>Voir les détails</value>
   </data>
@@ -1467,14 +1379,14 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
   <data name="ScheduledTasks.Action.Delete" xml:space="preserve">
     <value>Supprimer</value>
   </data>
-  <!-- Dialogues des tâches planifiées -->
+  
   <data name="ScheduledTasks.Dialog.DeleteTitle" xml:space="preserve">
     <value>Supprimer la tâche planifiée</value>
   </data>
   <data name="ScheduledTasks.Dialog.DeleteMessage" xml:space="preserve">
     <value>Êtes-vous sûr de vouloir supprimer la tâche « {0} » ? Cette action est irréversible.</value>
   </data>
-  <!-- Détails des tâches planifiées -->
+  
   <data name="ScheduledTasks.Details.Path" xml:space="preserve">
     <value>Chemin</value>
   </data>
@@ -1502,7 +1414,7 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
   <data name="ScheduledTasks.Details.LastResult" xml:space="preserve">
     <value>Dernier résultat</value>
   </data>
-  <!-- Commun -->
+  
   <data name="Common.Delete" xml:space="preserve">
     <value>Supprimer</value>
   </data>
@@ -1650,9 +1562,6 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
   <data name="Customize.SystemFeatures.Description" xml:space="preserve">
     <value>Fonctionnalités et comportements fondamentaux du système</value>
   </data>
-  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
-    <value>Opérations de démarrage</value>
-  </data>
   <data name="Customize.SystemFeatures.Section.Input" xml:space="preserve">
     <value>Paramètres de saisie</value>
   </data>
@@ -1664,9 +1573,6 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
   </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
     <value>Activer Verr. Num au démarrage garantit que le pavé numérique est prêt immédiatement après la connexion, évitant de l'activer manuellement à chaque fois.</value>
-  </data>
-  <data name="Customize.SystemFeatures.Section.Services" xml:space="preserve">
-    <value>Services</value>
   </data>
   <data name="Customize.SystemFeatures.Section.Power" xml:space="preserve">
     <value>Paramètres d'alimentation</value>
@@ -1802,5 +1708,71 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
   </data>
   <data name="Customize.Preferences.TaskbarAlignment.Options.Left" xml:space="preserve">
     <value>Gauche</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows10Only" xml:space="preserve">
+    <value>Windows 10 uniquement</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows11Only" xml:space="preserve">
+    <value>Windows 11 uniquement</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Developer" xml:space="preserve">
+    <value>Développeur</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Name" xml:space="preserve">
+    <value>Mode Développeur</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Description" xml:space="preserve">
+    <value>Active le Mode Développeur Windows pour le sideloading d'applications, le portail appareil, le serveur SSH et les fonctionnalités de développement.</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Recommendation.Reason" xml:space="preserve">
+    <value>Le Mode Développeur permet le sideloading et les fonctionnalités de diagnostic essentielles au développement et au débogage d'applications.</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Name" xml:space="preserve">
+    <value>Autoriser toutes les applications de confiance</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Description" xml:space="preserve">
+    <value>Permet d'installer toutes les applications de confiance du Windows Store sans nécessiter l'activation du Mode Développeur.</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Recommendation.Reason" xml:space="preserve">
+    <value>Autoriser toutes les applications de confiance permet le sideloading sans Mode Développeur ; désactiver limite les installations au Microsoft Store.</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Name" xml:space="preserve">
+    <value>Prise en charge des chemins longs (&gt;260 car.)</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Description" xml:space="preserve">
+    <value>Active la prise en charge des chemins longs Win32 dans l'Explorateur de fichiers, permettant des chemins plus longs que la limite traditionnelle de 260 caractères.</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Recommendation.Reason" xml:space="preserve">
+    <value>La prise en charge des chemins longs évite les erreurs d'accès aux fichiers lors du travail avec des répertoires profondément imbriqués ou des projets aux noms longs.</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Name" xml:space="preserve">
+    <value>Affichage de la zone de recherche</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Description" xml:space="preserve">
+    <value>Contrôle la façon dont le bouton et la zone de recherche sont affichés dans la barre des tâches.</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Hidden" xml:space="preserve">
+    <value>Masqué</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Icon" xml:space="preserve">
+    <value>Icône uniquement</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.IconAndLabel" xml:space="preserve">
+    <value>Icône + Libellé</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.SearchBox" xml:space="preserve">
+    <value>Zone de recherche</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarLastActiveClick.Name" xml:space="preserve">
+    <value>Dernière fenêtre active</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarLastActiveClick.Description" xml:space="preserve">
+    <value>Cliquer sur une icône de la barre des tâches ouvre instantanément la fenêtre la plus récemment active de cette application.</value>
+  </data>
+  <data name="Customize.SystemFeatures.ShowBatteryPercentage.Name" xml:space="preserve">
+    <value>Afficher le pourcentage de batterie</value>
+  </data>
+  <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
+    <value>Affiche le pourcentage de batterie à côté de l'icône de batterie dans la zone de notification.</value>
   </data>
 </root>

@@ -1,65 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<root>
-  <!-- 
-        Microsoft ResX Schema 
-        
-        Version 2.0
-        
-        The primary goals of this format is to allow a simple XML format 
-        that is mostly human readable. The generation and parsing of the 
-        various data types are done through the TypeConverter classes 
-        associated with the data types.
-        
-        Example:
-        
-        ... ado.net/XML headers & schema ...
-        <resheader name="resmimetype">text/microsoft-resx</resheader>
-        <resheader name="version">2.0</resheader>
-        <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-        <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-        <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-        <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-        <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-            <value>[base64 mime encoded serialized .NET Framework object]</value>
-        </data>
-        <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-            <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-            <comment>This is a comment</comment>
-        </data>
-                    
-        There are any number of "resheader" rows that contain simple 
-        name/value pairs.
-        
-        Each data row contains a name, and value. The row also contains a 
-        type or mimetype. Type corresponds to a .NET class that support 
-        text/value conversion through the TypeConverter architecture. 
-        Classes that don't support this are serialized and stored with the 
-        mimetype set.
-        
-        The mimetype is used for serialized objects, and tells the 
-        ResXResourceReader how to depersist the object. This is currently not 
-        extensible. For a given mimetype the value must be set accordingly:
-        
-        Note - application/x-microsoft.net.object.binary.base64 is the format 
-        that the ResXResourceWriter will generate, however the reader can 
-        read any of the formats listed below.
-        
-        mimetype: application/x-microsoft.net.object.binary.base64
-        value   : The object must be serialized with 
-                : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-                : and then encoded with base64 encoding.
-        
-        mimetype: application/x-microsoft.net.object.soap.base64
-        value   : The object must be serialized with 
-                : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-                : and then encoded with base64 encoding.
-    
-        mimetype: application/x-microsoft.net.object.bytearray.base64
-        value   : The object must be serialized into a byte array 
-                : using a System.ComponentModel.TypeConverter
-                : and then encoded with base64 encoding.
-        -->
-  <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root" xmlns="">
+<root xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  
+  <xsd:schema id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -661,7 +603,6 @@
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
     <value>Устанавливает пользовательскую схему питания, ориентированную на максимальную производительность. Предупреждение: Может вызвать некорректное отображение 100% загрузки ЦП в Диспетчере задач на некоторых системах, фактическая нагрузка не изменяется.</value>
   </data>
-
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
     <value>Импорт и активация схемы питания...</value>
   </data>
@@ -830,24 +771,6 @@
   <data name="Customize.Preferences.Section.Explorer" xml:space="preserve">
     <value>Проводник</value>
   </data>
-  <data name="Customize.Preferences.TaskbarNewsAndInterests.Name" xml:space="preserve">
-    <value>Новости и интересы на панели задач</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarNewsAndInterests.Description" xml:space="preserve">
-    <value>Управляет виджетом новостей и интересов и фоновыми обновлениями MSN.</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarSearchBox.Name" xml:space="preserve">
-    <value>Поле поиска на панели задач</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarSearchBox.Description" xml:space="preserve">
-    <value>Управляет видимостью поля поиска на панели задач.</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarChatButton.Name" xml:space="preserve">
-    <value>Кнопка чата на панели задач</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarChatButton.Description" xml:space="preserve">
-    <value>Управляет видимостью кнопки Чата (Teams) на панели задач.</value>
-  </data>
   <data name="Customize.Preferences.TaskbarWidgets.Name" xml:space="preserve">
     <value>Виджеты на панели задач</value>
   </data>
@@ -886,18 +809,6 @@
   </data>
   <data name="Customize.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
     <value>Управляет видимостью кнопки Представления задач на панели.</value>
-  </data>
-  <data name="Customize.Preferences.MeetNow.Name" xml:space="preserve">
-    <value>Meet Now</value>
-  </data>
-  <data name="Customize.Preferences.MeetNow.Description" xml:space="preserve">
-    <value>Управляет иконкой Meet Now (Skype) в области уведомлений.</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarPeople.Name" xml:space="preserve">
-    <value>Люди на панели задач</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarPeople.Description" xml:space="preserve">
-    <value>Управляет иконкой «Люди» для быстрого доступа к контактам.</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Name" xml:space="preserve">
     <value>Снять задачу с панели</value>
@@ -1427,15 +1338,15 @@
   <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
     <value>Открыть Параметры</value>
   </data>
-  <!-- Scheduled Tasks (Startup Manager) -->
+  
   <data name="StartupManager.Tasks.HideMicrosoft" xml:space="preserve">
     <value>Скрыть задачи Microsoft</value>
   </data>
-  <!-- Sidebar -->
+  
   <data name="Sidebar.ScheduledTasks" xml:space="preserve">
     <value>Запланированные задачи</value>
   </data>
-  <!-- Scheduled Tasks Page -->
+  
   <data name="ScheduledTasks.Header.Title" xml:space="preserve">
     <value>Запланированные задачи</value>
   </data>
@@ -1454,7 +1365,7 @@
   <data name="ScheduledTasks.Menu.CreateTask" xml:space="preserve">
     <value>Создать задачу</value>
   </data>
-  <!-- Scheduled Tasks Actions -->
+  
   <data name="ScheduledTasks.Action.Details" xml:space="preserve">
     <value>Подробности</value>
   </data>
@@ -1467,14 +1378,14 @@
   <data name="ScheduledTasks.Action.Delete" xml:space="preserve">
     <value>Удалить</value>
   </data>
-  <!-- Scheduled Tasks Dialogs -->
+  
   <data name="ScheduledTasks.Dialog.DeleteTitle" xml:space="preserve">
     <value>Удалить задачу</value>
   </data>
   <data name="ScheduledTasks.Dialog.DeleteMessage" xml:space="preserve">
     <value>Вы уверены, что хотите удалить задачу "{0}"? Это действие необратимо.</value>
   </data>
-  <!-- Scheduled Tasks Details -->
+  
   <data name="ScheduledTasks.Details.Path" xml:space="preserve">
     <value>Путь</value>
   </data>
@@ -1502,7 +1413,7 @@
   <data name="ScheduledTasks.Details.LastResult" xml:space="preserve">
     <value>Последний результат</value>
   </data>
-  <!-- Common -->
+  
   <data name="Common.Delete" xml:space="preserve">
     <value>Удалить</value>
   </data>
@@ -1651,9 +1562,6 @@
   <data name="Customize.SystemFeatures.Description" xml:space="preserve">
     <value>Основные системные функции и поведение</value>
   </data>
-  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
-    <value>Операции загрузки</value>
-  </data>
   <data name="Customize.SystemFeatures.Section.Input" xml:space="preserve">
     <value>Настройки ввода</value>
   </data>
@@ -1665,9 +1573,6 @@
   </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
     <value>Включение NumLock при загрузке гарантирует готовность цифровой панели сразу после входа.</value>
-  </data>
-  <data name="Customize.SystemFeatures.Section.Services" xml:space="preserve">
-    <value>Службы</value>
   </data>
   <data name="Customize.SystemFeatures.Section.Power" xml:space="preserve">
     <value>Настройки питания</value>
@@ -1803,5 +1708,71 @@
   </data>
   <data name="Customize.Preferences.TaskbarAlignment.Options.Left" xml:space="preserve">
     <value>Слева</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows10Only" xml:space="preserve">
+    <value>Только Windows 10</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows11Only" xml:space="preserve">
+    <value>Только Windows 11</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Developer" xml:space="preserve">
+    <value>Разработчик</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Name" xml:space="preserve">
+    <value>Режим разработчика</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Description" xml:space="preserve">
+    <value>Включает режим разработчика Windows для боковой загрузки приложений, портала устройств, SSH-сервера и функций разработки.</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Recommendation.Reason" xml:space="preserve">
+    <value>Режим разработчика включает боковую загрузку и диагностические функции, необходимые для разработки и отладки приложений.</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Name" xml:space="preserve">
+    <value>Разрешить все доверенные приложения</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Description" xml:space="preserve">
+    <value>Позволяет устанавливать все доверенные приложения из Магазина Windows без включения режима разработчика.</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Recommendation.Reason" xml:space="preserve">
+    <value>Разрешение всех доверенных приложений включает боковую загрузку без режима разработчика; отключение ограничивает установки Магазином Microsoft.</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Name" xml:space="preserve">
+    <value>Поддержка длинных путей (&gt;260 симв.)</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Description" xml:space="preserve">
+    <value>Включает поддержку длинных путей Win32 в Проводнике, позволяя использовать пути длиннее традиционного ограничения в 260 символов.</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Recommendation.Reason" xml:space="preserve">
+    <value>Поддержка длинных путей предотвращает ошибки доступа к файлам при работе с глубоко вложенными каталогами или проектами с длинными именами.</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Name" xml:space="preserve">
+    <value>Отображение поля поиска</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Description" xml:space="preserve">
+    <value>Управляет отображением кнопки и поля поиска на панели задач.</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Hidden" xml:space="preserve">
+    <value>Скрыто</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Icon" xml:space="preserve">
+    <value>Только значок</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.IconAndLabel" xml:space="preserve">
+    <value>Значок + Надпись</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.SearchBox" xml:space="preserve">
+    <value>Поле поиска</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarLastActiveClick.Name" xml:space="preserve">
+    <value>Последнее активное окно</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarLastActiveClick.Description" xml:space="preserve">
+    <value>Щелчок по значку на панели задач мгновенно открывает последнее активное окно этого приложения.</value>
+  </data>
+  <data name="Customize.SystemFeatures.ShowBatteryPercentage.Name" xml:space="preserve">
+    <value>Показывать процент заряда</value>
+  </data>
+  <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
+    <value>Показывает процент заряда батареи рядом со значком батареи в системном трее.</value>
   </data>
 </root>
