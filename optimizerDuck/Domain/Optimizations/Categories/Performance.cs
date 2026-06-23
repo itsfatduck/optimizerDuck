@@ -230,17 +230,17 @@ public class Performance : IOptimizationCategory
                 new RegistryItem(
                     @"HKEY_CURRENT_USER\Control Panel\Accessibility\StickyKeys",
                     "Flags",
-                    "508"
+                    "26"
                 ),
                 new RegistryItem(
                     @"HKEY_CURRENT_USER\Control Panel\Accessibility\Keyboard Response",
                     "Flags",
-                    "120"
+                    "2"
                 ),
                 new RegistryItem(
                     @"HKEY_CURRENT_USER\Control Panel\Accessibility\ToggleKeys",
                     "Flags",
-                    "56"
+                    "34"
                 )
             );
 
