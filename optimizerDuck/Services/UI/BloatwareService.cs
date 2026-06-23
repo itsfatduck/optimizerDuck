@@ -383,49 +383,24 @@ public class BloatwareService(
         var baseNameWithoutQualifiers = StripKnownQualifiers(baseResourceName);
         var preferredLogicalSize = GuessLogicalBaseSize(baseNameWithoutQualifiers);
 
-        var best = Directory
-            .EnumerateFiles(candidateDirectory, "*.*", SearchOption.TopDirectoryOnly)
-            .Where(path =>
-                SupportedImageExtensions.Contains(
-                    Path.GetExtension(path),
-                    StringComparer.OrdinalIgnoreCase
-                )
-            )
-            .Where(path =>
-            {
-                var fileName = Path.GetFileNameWithoutExtension(path);
-                var stripped = StripKnownQualifiers(fileName);
-                return stripped.Equals(
-                    baseNameWithoutQualifiers,
-                    StringComparison.OrdinalIgnoreCase
-                );
-            })
-            .Select(path => new LogoVariant(path, preferredLogicalSize, includeThemeSpecific))
-            .MaxBy(v => v.SortScore);
+        var best = FindBestLogoVariant(
+            candidateDirectory,
+            baseNameWithoutQualifiers,
+            preferredLogicalSize,
+            includeThemeSpecific,
+            SearchOption.TopDirectoryOnly
+        );
 
         if (best != null)
             return best.Path;
 
-        return Directory
-            .EnumerateFiles(candidateDirectory, "*.*", SearchOption.AllDirectories)
-            .Where(path =>
-                SupportedImageExtensions.Contains(
-                    Path.GetExtension(path),
-                    StringComparer.OrdinalIgnoreCase
-                )
-            )
-            .Where(path =>
-            {
-                var fileName = Path.GetFileNameWithoutExtension(path);
-                var stripped = StripKnownQualifiers(fileName);
-                return stripped.Equals(
-                    baseNameWithoutQualifiers,
-                    StringComparison.OrdinalIgnoreCase
-                );
-            })
-            .Select(path => new LogoVariant(path, preferredLogicalSize, includeThemeSpecific))
-            .MaxBy(v => v.SortScore)
-            ?.Path;
+        return FindBestLogoVariant(
+            candidateDirectory,
+            baseNameWithoutQualifiers,
+            preferredLogicalSize,
+            includeThemeSpecific,
+            SearchOption.AllDirectories
+        )?.Path;
     }
 
     private static string StripKnownQualifiers(string fileNameWithoutExtension)
@@ -548,5 +523,34 @@ public class BloatwareService(
         var val = el.Attribute(name)?.Value;
         if (!string.IsNullOrWhiteSpace(val))
             list.Add(val);
+    }
+
+    private static LogoVariant? FindBestLogoVariant(
+        string directory,
+        string baseNameWithoutQualifiers,
+        int preferredLogicalSize,
+        bool includeThemeSpecific,
+        SearchOption searchOption
+    )
+    {
+        return Directory
+            .EnumerateFiles(directory, "*.*", searchOption)
+            .Where(path =>
+                SupportedImageExtensions.Contains(
+                    Path.GetExtension(path),
+                    StringComparer.OrdinalIgnoreCase
+                )
+            )
+            .Where(path =>
+            {
+                var fileName = Path.GetFileNameWithoutExtension(path);
+                var stripped = StripKnownQualifiers(fileName);
+                return stripped.Equals(
+                    baseNameWithoutQualifiers,
+                    StringComparison.OrdinalIgnoreCase
+                );
+            })
+            .Select(path => new LogoVariant(path, preferredLogicalSize, includeThemeSpecific))
+            .MaxBy(v => v.SortScore);
     }
 }

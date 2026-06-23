@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Threading;
+﻿using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using optimizerDuck.Resources.Languages;
 
@@ -11,8 +10,9 @@ namespace optimizerDuck.Domain.UI;
 /// </summary>
 public partial class OptimizationState : ObservableObject
 {
-    private static readonly DispatcherTimer _globalTimer;
+    private static DispatcherTimer? _globalTimer;
     private static readonly List<WeakReference<OptimizationState>> _instances = [];
+    private static readonly object _lock = new();
 
     private int _lastDisplayedSeconds = -1;
 
@@ -40,34 +40,54 @@ public partial class OptimizationState : ObservableObject
     [ObservableProperty]
     private OptimizationRisk risk;
 
-    static OptimizationState()
-    {
-        _globalTimer = new DispatcherTimer(
-            TimeSpan.FromSeconds(1),
-            DispatcherPriority.Render,
-            (s, e) => UpdateAllRelativeTimes(),
-            Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher
-        );
-        _globalTimer.Start();
-    }
-
     public OptimizationState()
     {
-        lock (_instances)
+        EnsureTimerRunning();
+        lock (_lock)
         {
             _instances.Add(new WeakReference<OptimizationState>(this));
         }
     }
 
+    private static void EnsureTimerRunning()
+    {
+        if (_globalTimer != null)
+            return;
+
+        // Defer timer creation to avoid accessing dispatcher during static init
+        _ = System.Windows.Application.Current?.Dispatcher.InvokeAsync(() =>
+        {
+            lock (_lock)
+            {
+                if (_globalTimer != null)
+                    return;
+                _globalTimer = new DispatcherTimer(
+                    TimeSpan.FromSeconds(1),
+                    DispatcherPriority.Render,
+                    (s, e) => UpdateAllRelativeTimes(),
+                    System.Windows.Application.Current.Dispatcher
+                );
+                _globalTimer.Start();
+            }
+        });
+    }
+
     private static void UpdateAllRelativeTimes()
     {
-        lock (_instances)
+        lock (_lock)
         {
             for (var i = _instances.Count - 1; i >= 0; i--)
                 if (_instances[i].TryGetTarget(out var instance))
                     instance.UpdateRelativeTime();
                 else
                     _instances.RemoveAt(i);
+
+            // Stop the timer when no live instances remain
+            if (_instances.Count == 0 && _globalTimer != null)
+            {
+                _globalTimer.Stop();
+                _globalTimer = null;
+            }
         }
     }
 
