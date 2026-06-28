@@ -1775,4 +1775,10 @@ Zaktualizuj teraz, aby korzystać z najnowszych funkcji, ulepszeń i poprawek b�
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
     <value>Pokazuje procent baterii obok ikony baterii w zasobniku systemowym.</value>
   </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>Wyłącz wyszukiwanie internetowe w menu Start</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>Wyłącz wyszukiwanie w sieci w menu Start systemu Windows, aby szybciej ładować lokalne wyniki wyszukiwania.</value>
+  </data>
 </root>

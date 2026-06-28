@@ -1766,4 +1766,10 @@
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
     <value>시스템 트레이의 배터리 아이콘 옆에 배터리 백분율을 표시합니다.</value>
   </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>시작 메뉴 웹 검색 비활성화</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>Windows 시작 메뉴의 웹 검색을 끄면 로컬 검색 결과를 더 빠르게 불러올 수 있습니다.</value>
+  </data>
 </root>

@@ -1774,4 +1774,10 @@
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
     <value>在系统托盘的电池图标旁边显示电池百分比。</value>
   </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>禁用“开始”菜单的网络搜索</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>关闭 Windows 开始 菜单的网络搜索，以便更快加载本地搜索结果。</value>
+  </data>
 </root>

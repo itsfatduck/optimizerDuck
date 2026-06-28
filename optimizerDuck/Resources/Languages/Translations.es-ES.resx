@@ -1774,5 +1774,17 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
   </data>
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
     <value>Muestra el porcentaje de batería junto al icono de batería en la bandeja del sistema.</value>
+  </data>
+  
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+
+    <value>Desactivar búsqueda web en el menú Inicio</value>
+
+  </data>
+
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+
+    <value>Desactiva la búsqueda web en el menú Inicio de Windows para cargar más rápido los resultados de búsqueda locales.</value>
+
   </data>
 </root>

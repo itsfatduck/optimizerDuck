@@ -1770,4 +1770,10 @@
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
     <value>在系統匣的電池圖示旁邊顯示電池百分比。</value>
   </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>停用「開始」功能表的網路搜尋</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>關閉 Windows 「開始」功能表的網路搜尋，以更快載入本機搜尋結果。</value>
+  </data>
 </root>

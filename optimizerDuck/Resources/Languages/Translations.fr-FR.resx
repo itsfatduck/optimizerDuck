@@ -1775,4 +1775,10 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
     <value>Affiche le pourcentage de batterie à côté de l'icône de batterie dans la zone de notification.</value>
   </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>Désactiver la recherche Web du menu Démarrer</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>Désactive la recherche Web dans le menu Démarrer de Windows pour charger plus rapidement les résultats de recherche locaux.</value>
+  </data>
 </root>
