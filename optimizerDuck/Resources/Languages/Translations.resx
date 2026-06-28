@@ -772,6 +772,12 @@
   <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
     <value>Sets StartupDelayInMSec=0, MenuShowDelay=0 to eliminate Explorer startup delay and reduce menu hover delay to minimum.</value>
   </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>Disable Start Menu Web Search</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>Turn off web search for Windows Start Menu to load the local search results faster.</value>
+  </data>
   <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
     <value>Disable Visual Effects</value>
   </data>
