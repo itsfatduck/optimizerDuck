@@ -1767,4 +1767,10 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
     <value>Hiển thị phần trăm pin bên cạnh biểu tượng pin trên khay hệ thống.</value>
   </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>Tắt tìm kiếm web trên Start Menu</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>Tắt tìm kiếm web trên Start Menu của Windows để tải kết quả tìm kiếm cục bộ nhanh hơn.</value>
+  </data>
 </root>

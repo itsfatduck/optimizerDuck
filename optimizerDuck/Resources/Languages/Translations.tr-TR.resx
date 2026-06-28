@@ -1766,4 +1766,10 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
     <value>Sistem tepsisindeki pil simgesinin yanında pil yüzdesini gösterir.</value>
   </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>Başlat Menüsü Web Aramasını Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>Windows Başlat Menüsü için web aramasını kapatır; yerel arama sonuçlarını daha hızlı yükler.</value>
+  </data>
 </root>

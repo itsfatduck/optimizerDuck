@@ -1775,4 +1775,10 @@
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
     <value>Показывает процент заряда батареи рядом со значком батареи в системном трее.</value>
   </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>Отключить веб-поиск в меню Пуск</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>Отключает веб-поиск в меню Пуск Windows, чтобы быстрее загружать локальные результаты поиска.</value>
+  </data>
 </root>

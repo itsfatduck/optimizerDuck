@@ -1767,4 +1767,10 @@
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
     <value>システムトレイのバッテリーアイコンの横にバッテリー残量を表示します。</value>
   </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>スタートメニューのウェブ検索を無効化</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>Windows のスタートメニューのウェブ検索をオフにして、ローカル検索結果の読み込みを高速化します。</value>
+  </data>
 </root>
