@@ -78,4 +78,28 @@ public class UserExperience : IOptimizationCategory
             return Task.FromResult(CompleteFromScope());
         }
     }
+
+    [Optimization(
+        Id = "950cd979-7483-400b-a207-abd4741a1270",
+        Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Latency
+    )]
+    public sealed class DisableStartMenuWebSearch : BaseOptimization
+    {
+        public override Task<ApplyResult> ApplyAsync(
+            IProgress<ProcessingProgress> progress,
+            OptimizationContext context
+        )
+        {
+            RegistryService.Write(
+                new RegistryItem(
+                    @"HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\Explorer",
+                    "DisableSearchBoxSuggestions",
+                    1
+                )
+            );
+            context.Logger.LogInformation("Disabled web search for Start Menu");
+            return Task.FromResult(CompleteFromScope());
+        }
+    }
 }
