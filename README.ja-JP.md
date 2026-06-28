@@ -1,4 +1,4 @@
-<div align="center">
+﻿<div align="center">
 
 <a href="https://optimizerduck.vercel.app/"><img src="./.github/assets/optimizerDuck.png" alt="optimizerDuck バナー" title="optimizerDuck"/></a>
 
@@ -145,6 +145,9 @@ optimizerDuck は、ブロートウェアをクリーンアップし、有用な
 
 ## よくある質問
 
+> [!TIP]
+> その他の質問と回答については、[ウェブサイトのFAQ](https://optimizerduck.vercel.app/docs/faq/general)をご覧ください。
+
 ### optimizerDuck は安全ですか？
 
 はい。optimizerDuck は完全に**オープンソース**（GPL v3）であり、誰でもソースコードを検査、監査、ビルドできます。すべてのリリースは **GitHub Actions** が公開ソースから自動ビルドしており、隠された変更やビルド後に注入された未署名のバイナリはありません。ご希望であれば、リポジトリをクローンして、`dotnet build` 一発で自分で `.exe` をビルドすることもできます。
@@ -186,9 +189,32 @@ optimizerDuck はコード署名されていません。コード署名証明書
 
 デフォルト以外の電源プランで発生するタスクマネージャーの既知の表示バグ，一部のシステムで実際の負荷は正常にもかかわらず CPU 100% と誤表示します。視覚的な問題のみで、実際のパフォーマンスには**影響せず**、過熱の原因にもなりません。不要であれば、この最適化をオフにしてください。
 
-> [!TIP]
-> その他の質問と回答については、[ウェブサイトのFAQ](https://optimizerduck.vercel.app/docs/faq/general)をご覧ください。
+---
 
+## トラブルシューティング
+
+> [!TIP]
+> 詳細なガイダンスと既知の問題の回避策については、[トラブルシューティングページ](https://optimizerduck.vercel.app/docs/faq/troubleshooting)をご覧ください。
+
+### アプリが起動しない、または起動時にクラッシュする
+
+**管理者として実行**していることを確認してください。optimizerDuck は昇格された権限を必要とします。それでもクラッシュする場合は、[Releases](https://github.com/itsfatduck/optimizerDuck/releases/latest) から最新バージョンをダウンロードしてください。古いビルドがお使いの Windows バージョンと互換性がない可能性があります。
+
+### 変更を適用しても効果がないように見える
+
+一部の最適化は、完全に適用されるまでに**システムの再起動**が必要です。再起動後も効果がない場合は、再度適用するか、元に戻すセクションで変更が保存されていることを確認してください。
+
+### 元に戻すファイルがない、または壊れている
+
+元に戻すファイルは %LocalAppData%\optimizerDuck\Revert\ に保存されています。ファイルが誤って削除されたり破損した場合は、バックアップから復元するか、事前に**システムの復元ポイント**を作成しておいてください。
+
+### Windows Update で設定がリセットされる
+
+Windows の機能更新プログラムによって、レジストリ値やサービス構成がデフォルトにリセットされることがあります。大型アップデート後は、アプリから以前の最適化を再適用するだけで元に戻ります。
+
+### バグを見つけた / 機能をリクエストしたい
+
+GitHub で [issue](https://github.com/itsfatduck/optimizerDuck/issues) を開き、お使いの Windows バージョン、適用した最適化、発生した問題をできるだけ詳しくお知らせください。機能リクエストも歓迎します。
 ---
 
 ## 技術詳細

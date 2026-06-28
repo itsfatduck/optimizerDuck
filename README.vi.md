@@ -20,7 +20,7 @@
 
 **[Bắt đầu](https://optimizerduck.vercel.app/docs/guides/getting-started) | [Cách hoạt động](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [Câu hỏi thường gặp](https://optimizerduck.vercel.app/docs/faq/general)**
 
-[English](README.md) | **Tiếng Việt** | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md) | [Português (BR)](README.pt-BR.md)
+[English](README.md) | **Tiếng Việt** | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md) | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md)
 
 <details>
 <summary>⭐ Lịch sử Star</summary>
@@ -145,6 +145,9 @@ Xem [Chính sách bảo mật](./PRIVACY.md) để biết chi tiết về cách 
 
 ## Câu hỏi thường gặp
 
+> [!TIP]
+> Truy cập [FAQ trên Website](https://optimizerduck.vercel.app/docs/faq/general) để xem thêm câu hỏi và câu trả lời.
+
 ### Dùng optimizerDuck có an toàn không?
 
 Có chứ. optimizerDuck là **mã nguồn mở** (GPL v3), nghĩa là ai cũng có thể tự xem code, kiểm tra hoặc tự build được. Mỗi bản release đều được **GitHub Actions** build tự động từ source công khai, không có vụ giấu giếm hay nhét file lạ vào sau khi build. Nếu không yên tâm thì bạn clone repo về, gõ `dotnet build` là ra file `.exe` ngay.
@@ -159,7 +162,7 @@ Không có mấy món registry hãm vô đây, cái nào cũng có mục đích 
 
 ### Sao Windows SmartScreen / Defender lại báo động khi tải về?
 
-Tại optimizerDuck không có ký số (code-sign) — vì cái chứng chỉ ký số mắc khủng khiếp với dự án mã nguồn mở. Windows mà gặp file `.exe` chưa ký tải từ mạng về thì SmartScreen mặc định hiện cảnh báo. Chuyện bình thường thôi, **không** có nghĩa là file độc hại đâu.
+Tại optimizerDuck không có ký số (code-sign), vì cái chứng chỉ ký số mắc khủng khiếp với dự án mã nguồn mở. Windows mà gặp file `.exe` chưa ký tải từ mạng về thì SmartScreen mặc định hiện cảnh báo. Chuyện bình thường thôi, **không** có nghĩa là file độc hại đâu.
 
 Để qua mặt thì bấm **"Thông tin khác" > "Chạy"**. Nếu vẫn còn lo:
 
@@ -186,8 +189,32 @@ Không. Trong app không có cái gì gọi là telemetry, phân tích hay gửi
 
 Lỗi hiển thị của Task Manager khi gặp power plan không mặc định, báo sai 100% CPU trên một số hệ thống dù tải thực tế bình thường. Chỉ ảnh hưởng visual, **không** ảnh hưởng hiệu năng hoặc gây quá nhiệt. Nếu không muốn, chỉ cần tắt optimization này.
 
+---
+
+## Khắc phục sự cố
+
 > [!TIP]
-> Truy cập [FAQ trên Website](https://optimizerduck.vercel.app/docs/faq/general) để xem thêm câu hỏi và câu trả lời.
+> Truy cập [Trang khắc phục sự cố](https://optimizerduck.vercel.app/docs/faq/troubleshooting) để xem hướng dẫn chi tiết và giải pháp cho các sự cố đã biết.
+
+### Ứng dụng không khởi động được hoặc bị treo khi mở
+
+Hãy chắc chắn bạn đang chạy với quyền **Quản trị viên (Administrator)**. optimizerDuck yêu cầu quyền cao để hoạt động. Nếu vẫn bị treo, hãy tải bản mới nhất từ [Releases](https://github.com/itsfatduck/optimizerDuck/releases/latest); bản cũ có thể không tương thích với phiên bản Windows của bạn.
+
+### Thay đổi không có hiệu lực sau khi áp dụng
+
+Một số tối ưu yêu cầu **khởi động lại hệ thống** để áp dụng đầy đủ. Nếu một tùy chỉnh vẫn chưa có tác dụng sau khi khởi động lại, hãy thử áp dụng lại hoặc kiểm tra phần hoàn tác để xác nhận thay đổi đã được lưu.
+
+### File hoàn tác bị thiếu hoặc hỏng
+
+File hoàn tác được lưu trong `%LocalAppData%\optimizerDuck\Revert\`. Nếu file vô tình bị xóa hoặc hỏng, bạn có thể khôi phục từ bản sao lưu hoặc tạo **Điểm khôi phục hệ thống (System Restore Point)** từ trước để dự phòng.
+
+### Windows Update đặt lại cài đặt của tôi
+
+Các bản cập nhật tính năng Windows đôi khi đặt lại một số giá trị registry và cấu hình dịch vụ về mặc định. Chỉ cần áp dụng lại các tối ưu trước đó từ ứng dụng sau khi cập nhật lớn.
+
+### Tôi tìm thấy lỗi / muốn yêu cầu tính năng
+
+Hãy mở một [issue](https://github.com/itsfatduck/optimizerDuck/issues) trên GitHub với càng nhiều chi tiết càng tốt: phiên bản Windows của bạn, bạn đã áp dụng tối ưu nào và đã gặp vấn đề gì. Yêu cầu tính năng cũng luôn được hoan nghênh.
 
 ---
 
@@ -213,7 +240,7 @@ Hướng dẫn từng bước, chi tiết các tối ưu và mẹo xài optimize
 
 ## Đóng góp
 
-Báo bug, thêm tối ưu mới, cải thiện tài liệu hay đóng góp bản dịch — tất cả đều welcome. Xem [CONTRIBUTING.md](./CONTRIBUTING.md) ([bản tiếng Nhật](./CONTRIBUTING.ja-JP.md)).
+Báo bug, thêm tối ưu mới, cải thiện tài liệu hay đóng góp bản dịch: tất cả đều welcome. Xem [CONTRIBUTING.md](./CONTRIBUTING.md) ([bản tiếng Nhật](./CONTRIBUTING.ja-JP.md)).
 
 ---
 
@@ -238,7 +265,7 @@ Nếu optimizerDuck có ích cho PC của bạn:
 - 💬 [Discord](https://discord.gg/tDUBDCYw9Q)
 - 🐞 [Issues](https://github.com/itsfatduck/optimizerDuck/issues)
 
-Báo lỗi, góp ý tính năng, dịch thuật hay kể cả chỉ là kể trải nghiệm xài — tất cả đều giúp dự án tiến xa hơn.
+Báo lỗi, góp ý tính năng, dịch thuật hay kể cả chỉ là kể trải nghiệm xài: tất cả đều giúp dự án tiến xa hơn.
 
 ---
 

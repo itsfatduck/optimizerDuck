@@ -20,7 +20,7 @@
 
 **[Guía de Inicio](https://optimizerduck.vercel.app/docs/guides/getting-started) | [Cómo Funciona](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [Preguntas Frecuentes](https://optimizerduck.vercel.app/docs/faq/general)**
 
-**Español** | [English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md) | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md) | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md)
+[English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md) | **Español** | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md) | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md)
 
 <details>
 <summary>⭐ Historial de Estrellas</summary>
@@ -145,21 +145,24 @@ Consulta la [Política de Privacidad](./PRIVACY.md) para más detalles sobre có
 
 ## FAQ
 
+> [!TIP]
+> Visite las [Preguntas frecuentes en nuestro sitio web](https://optimizerduck.vercel.app/docs/faq/general) para obtener más preguntas y respuestas.
+
 ### ¿Es seguro usar optimizerDuck?
 
-Sí, claro. optimizerDuck es **código abierto** (GPL v3), así que cualquiera puede revisar el código, auditarlo o compilarlo por su cuenta. Cada versión la construye **GitHub Actions** automáticamente desde el código fuente público — sin modificaciones ocultas, sin binarios extraños inyectados después. Si no te fías, clona el repo y compila el `.exe` tú mismo con un solo `dotnet build`.
+Sí, claro. optimizerDuck es **código abierto** (GPL v3), así que cualquiera puede revisar el código, auditarlo o compilarlo por su cuenta. Cada versión la construye **GitHub Actions** automáticamente desde el código fuente público : sin modificaciones ocultas, sin binarios extraños inyectados después. Si no te fías, clona el repo y compila el `.exe` tú mismo con un solo `dotnet build`.
 
 La app **no** recolecta telemetría, datos de uso ni información personal. Mira la [Política de Privacidad](./PRIVACY.md).
 
 ### ¿optimizerDuck realmente mejora el rendimiento, reduce la latencia o acelera la red?
 
-Puede ayudar. Cada ajuste en optimizerDuck está **sacado de herramientas conocidas, guías de la comunidad y recomendaciones de fabricantes** — nada generado por IA, añadido al tuntún o inventado. Cada cambio toca una configuración real que Windows deja demasiado conservadora por defecto (agrupación de servicios host, estados de energía de la GPU, limitación de red, planificación de procesos).
+Puede ayudar. Cada ajuste en optimizerDuck está **sacado de herramientas conocidas, guías de la comunidad y recomendaciones de fabricantes** : nada generado por IA, añadido al tuntún o inventado. Cada cambio toca una configuración real que Windows deja demasiado conservadora por defecto (agrupación de servicios host, estados de energía de la GPU, limitación de red, planificación de procesos).
 
 No hay trucos falsos de registro aquí, cada modificación tiene un propósito documentado y un impacto real respaldado por la comunidad y los fabricantes.
 
 ### ¿Por qué Windows SmartScreen / Defender marca la descarga?
 
-Porque optimizerDuck no tiene firma digital — los certificados de firma de código son carísimos para proyectos open-source. Cuando Windows se encuentra un ejecutable sin firmar bajado de Internet, SmartScreen muestra una advertencia por defecto. Es normal y **no** significa que el archivo sea peligroso.
+Porque optimizerDuck no tiene firma digital : los certificados de firma de código son carísimos para proyectos open-source. Cuando Windows se encuentra un ejecutable sin firmar bajado de Internet, SmartScreen muestra una advertencia por defecto. Es normal y **no** significa que el archivo sea peligroso.
 
 Para saltarlo, haz clic en **"Más información" > "Ejecutar de todas formas"**. Si sigues preocupado:
 
@@ -186,8 +189,32 @@ No. La app no tiene telemetría, ni analíticas, ni nada que llame a casa. Funci
 
 Un error conocido de visualización del Administrador de tareas con planes no predeterminados, muestra incorrectamente 100 % de CPU en algunos sistemas con carga real normal. Solo visual, **no** afecta al rendimiento real ni causa sobrecalentamiento. Si no lo desea, simplemente desactive esta optimización.
 
+---
+
+## Solución de problemas
+
 > [!TIP]
-> Visite las [Preguntas frecuentes en nuestro sitio web](https://optimizerduck.vercel.app/docs/faq/general) para obtener más preguntas y respuestas.
+> Visite la [página de solución de problemas](https://optimizerduck.vercel.app/docs/faq/troubleshooting) para obtener orientación más detallada y soluciones a problemas conocidos.
+
+### La aplicación no se inicia o falla al abrirse
+
+Asegúrese de ejecutarla como **Administrador**. optimizerDuck requiere privilegios elevados. Si sigue fallando, descargue la última versión desde [Releases](https://github.com/itsfatduck/optimizerDuck/releases/latest); una versión antigua puede ser incompatible con su versión de Windows.
+
+### Los cambios no parecen surtir efecto después de aplicarlos
+
+Algunas optimizaciones requieren un **reinicio del sistema** para aplicarse por completo. Si un ajuste no funciona después de reiniciar, intente aplicarlo nuevamente o revise la sección de reversión para verificar que el cambio se haya guardado.
+
+### El archivo de reversión falta o está dañado
+
+Los archivos de reversión se almacenan en `%LocalAppData%\optimizerDuck\Revert\`. Si un archivo se elimina accidentalmente o se daña, puede restaurarlo desde una copia de seguridad o crear un **Punto de restauración del sistema** como respaldo.
+
+### Windows Update restablece mi configuración
+
+Las actualizaciones de funciones de Windows ocasionalmente restablecen ciertos valores del registro y configuraciones de servicios a los valores predeterminados. Simplemente vuelva a aplicar sus optimizaciones anteriores desde la aplicación después de una actualización importante.
+
+### Encontré un error / Quiero solicitar una función
+
+Abra un [issue](https://github.com/itsfatduck/optimizerDuck/issues) en GitHub con la mayor cantidad de detalles posible: su versión de Windows, qué optimizaciones aplicó y qué salió mal. Las solicitudes de funciones también son bienvenidas.
 
 ---
 

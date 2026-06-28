@@ -20,7 +20,7 @@
 
 **[Primeiros Passos](https://optimizerduck.vercel.app/docs/guides/getting-started) | [Como Funciona](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [Perguntas Frequentes (FAQ)](https://optimizerduck.vercel.app/docs/faq/general)**
 
-[English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md) | **Português (BR)**
+[English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md) | **Português (BR)** | [Türkçe](README.tr-TR.md)
 
 <details>
 <summary>⭐ Star History</summary>
@@ -145,6 +145,9 @@ Consulte a [Política de Privacidade](./PRIVACY.md) para detalhes sobre nossas p
 
 ## Perguntas Frequentes (FAQ)
 
+> [!TIP]
+> Visite as [Perguntas frequentes em nosso site](https://optimizerduck.vercel.app/docs/faq/general) para mais perguntas e respostas.
+
 ### O optimizerDuck é seguro para usar?
 
 Sim. O optimizerDuck é totalmente **código aberto** (GPL v3), o que significa que qualquer pessoa pode inspecionar, auditar ou compilar o próprio código-fonte. Cada versão é compilada automaticamente pelo **GitHub Actions** a partir do código-fonte público; sem modificações ocultas, sem binários não assinados injetados após a compilação. Se preferir, você pode clonar o repositório e compilar o `.exe` você mesmo com um simples `dotnet build`.
@@ -186,8 +189,32 @@ Não. O aplicativo contém zero telemetria, análise ou funcionalidades de rastr
 
 Um bug conhecido de exibição do Gerenciador de Tarefas acionado por planos de energia não padrão, que relata incorretamente 100% de CPU em alguns sistemas enquanto a carga real está normal. É apenas visual, **não** afeta o desempenho real nem causa superaquecimento. Se indesejado, basta desativar esta otimização.
 
+---
+
+## Solução de problemas
+
 > [!TIP]
-> Visite as [Perguntas frequentes em nosso site](https://optimizerduck.vercel.app/docs/faq/general) para mais perguntas e respostas.
+> Visite a [página de solução de problemas](https://optimizerduck.vercel.app/docs/faq/troubleshooting) para obter orientações mais detalhadas e soluções para problemas conhecidos.
+
+### O aplicativo não inicia ou trava ao abrir
+
+Certifique-se de estar executando como **Administrador**. O optimizerDuck requer privilégios elevados. Se ainda travar, baixe a versão mais recente do [Releases](https://github.com/itsfatduck/optimizerDuck/releases/latest); uma versão antiga pode ser incompatível com sua versão do Windows.
+
+### As alterações não parecem surtir efeito após a aplicação
+
+Algumas otimizações exigem uma **reinicialização do sistema** para serem aplicadas completamente. Se uma configuração não funcionar após a reinicialização, tente aplicá-la novamente ou verifique a seção de reversão para confirmar se a alteração foi salva.
+
+### O arquivo de reversão está ausente ou corrompido
+
+Os arquivos de reversão são armazenados em `%LocalAppData%\optimizerDuck\Revert\`. Se um arquivo for excluído acidentalmente ou corrompido, você pode restaurá-lo a partir de um backup ou criar um **Ponto de Restauração do Sistema** antecipadamente como garantia.
+
+### O Windows Update redefine minhas configurações
+
+As atualizações de recursos do Windows ocasionalmente redefinem certos valores do registro e configurações de serviços para os padrões. Basta reaplicar suas otimizações anteriores no aplicativo após uma grande atualização.
+
+### Encontrei um bug / Quero solicitar um recurso
+
+Abra uma [issue](https://github.com/itsfatduck/optimizerDuck/issues) no GitHub com o máximo de detalhes possível: sua versão do Windows, quais otimizações você aplicou e o que deu errado. Solicitações de recursos também são bem-vindas.
 
 ---
 

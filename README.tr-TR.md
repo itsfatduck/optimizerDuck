@@ -145,6 +145,9 @@ Veri uygulamalarımızla ilgili ayrıntılar için [Gizlilik Politikası'na](./P
 
 ## SSS (Sıkça Sorulan Sorular)
 
+> [!TIP]
+> Daha fazla soru ve cevap için [Web Sitesi SSS](https://optimizerduck.vercel.app/docs/faq/general) sayfasını ziyaret edin.
+
 ### optimizerDuck kullanmak güvenli mi?
 
 Evet. optimizerDuck tamamen **açık kaynaklıdır** (GPL v3); yani herkes kaynak kodu inceleyebilir, denetleyebilir veya kendisi derleyebilir. Her sürüm, genel kaynaktan **GitHub Actions** tarafından otomatik olarak derlenir; gizli değişiklik yok, derleme sonrasında enjekte edilmiş imzasız ikili yok. Tercih ederseniz, depoyu klonlayıp tek bir `dotnet build` komutuyla `.exe` dosyasını kendiniz derleyebilirsiniz.
@@ -186,8 +189,32 @@ Hayır. Uygulama sıfır telemetri, analitik veya telefon-ev işlevselliği içe
 
 Varsayılan olmayan güç planlarının tetiklediği bilinen bir Görev Yöneticisi görüntü hatası; gerçek yük normal olmasına rağmen bazı sistemlerde yanlış biçimde %100 CPU raporlar. Yalnızca görseldir, gerçek performansı **etkilemez** veya aşırı ısınmaya neden olmaz. İstenilmiyorsa, bu optimizasyonu kapatmanız yeterlidir.
 
+---
+
+## Sorun Giderme
+
 > [!TIP]
-> Daha fazla soru ve cevap için [Web Sitesi SSS](https://optimizerduck.vercel.app/docs/faq/general) sayfasını ziyaret edin.
+> Daha ayrıntılı rehberlik ve bilinen sorun çözümleri için [Sorun Giderme sayfasını](https://optimizerduck.vercel.app/docs/faq/troubleshooting) ziyaret edin.
+
+### Uygulama başlatılamıyor veya açılırken çöküyor
+
+**Yönetici** olarak çalıştırdığınızdan emin olun. optimizerDuck yükseltilmiş ayrıcalıklar gerektirir. Hala çöküyorsa, [Releases](https://github.com/itsfatduck/optimizerDuck/releases/latest) sayfasından en son sürümü indirin; eski bir yapı Windows sürümünüzle uyumsuz olabilir.
+
+### Değişiklikler uygulandıktan sonra etkili olmuyor
+
+Bazı optimizasyonların tam olarak uygulanması için **sistemi yeniden başlatmanız** gerekir. Yeniden başlattıktan sonra bir ayar çalışmazsa, tekrar uygulamayı deneyin veya değişikliğin kaydedildiğini doğrulamak için geri alma bölümünü kontrol edin.
+
+### Geri alma dosyası eksik veya bozuk
+
+Geri alma dosyaları `%LocalAppData%\optimizerDuck\Revert\` konumunda saklanır. Bir dosya yanlışlıkla silinir veya bozulursa, dosyayı yedekten geri yükleyebilir veya önceden bir **Sistem Geri Yükleme Noktası** oluşturarak yedek alabilirsiniz.
+
+### Windows Update ayarlarımı sıfırlıyor
+
+Windows özellik güncellemeleri bazen kayıt defteri değerlerini ve hizmet yapılandırmalarını varsayılana sıfırlar. Büyük bir güncellemeden sonra uygulamadan önceki optimizasyonlarınızı yeniden uygulamanız yeterlidir.
+
+### Bir hata buldum / özellik talep etmek istiyorum
+
+GitHub'da mümkün olduğunca ayrıntılı bir [issue](https://github.com/itsfatduck/optimizerDuck/issues) açın: Windows sürümünüz, hangi optimizasyonları uyguladığınız ve neyin yanlış gittiği. Özellik talepleri de memnuniyetle karşılanır.
 
 ---
 

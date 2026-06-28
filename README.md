@@ -145,6 +145,9 @@ See the [Privacy Policy](./PRIVACY.md) for details on our data practices.
 
 ## FAQ
 
+> [!TIP]
+> Visit our [Website FAQ](https://optimizerduck.vercel.app/docs/faq/general) for more questions and answers.
+
 ### Is optimizerDuck safe to use?
 
 Yes. optimizerDuck is fully **open-source** (GPL v3), meaning anyone can inspect, audit, or build the source code themselves. Every release is built automatically by **GitHub Actions** from the public source; no hidden modifications, no unsigned binaries injected after build. If you prefer, you can clone the repo and build the `.exe` yourself with a single `dotnet build`.
@@ -186,8 +189,32 @@ No. The app contains zero telemetry, analytics, or phone-home functionality. It 
 
 A known Task Manager display bug triggered by non-default power plans, it incorrectly reports 100% CPU on some systems while actual load is normal. Visual only, does **not** affect real performance or cause overheating. If unwanted, simply toggle off this optimization.
 
+---
+
+## Troubleshooting
+
 > [!TIP]
-> Visit our [Website FAQ](https://optimizerduck.vercel.app/docs/faq/general) for more questions and answers.
+> Visit our [Troubleshooting page](https://optimizerduck.vercel.app/docs/faq/troubleshooting) for more detailed guidance and known issue workarounds.
+
+### The app fails to start or crashes on launch
+
+Make sure you are running as **Administrator**. optimizerDuck requires elevated privileges. If it still crashes, download the latest version from [Releases](https://github.com/itsfatduck/optimizerDuck/releases/latest); an outdated build may be incompatible with your Windows version.
+
+### Changes don't seem to take effect after applying
+
+Some optimizations require a **system restart** to apply fully. If a tweak doesn't appear to work after restarting, try applying it again or check the revert section to verify the change was saved.
+
+### Revert file is missing or corrupted
+
+Revert files are stored in `%LocalAppData%\optimizerDuck\Revert\`. If a file is accidentally deleted or corrupted, you can restore it from a backup or create a **System Restore Point** beforehand as a fallback.
+
+### Windows Update resets my settings
+
+Windows feature updates occasionally reset certain registry values and service configurations to defaults. Simply re-apply your previous optimizations from the app after a major update.
+
+### I found a bug / want to request a feature
+
+Open an [issue](https://github.com/itsfatduck/optimizerDuck/issues) on GitHub with as much detail as possible: your Windows version, what you applied, and what went wrong. Feature requests are also welcome.
 
 ---
 

@@ -83,7 +83,7 @@ Chaque étoile aide à motiver les améliorations futures.
 
 ## Ce que fait optimizerDuck
 
-Windows en lui-même est très stable. Mais une installation propre apporte aussi des services, de la télémétrie, des applications pré-installées et des tâches planifiées dont vous n'avez peut-être jamais entendu parler — tout tourne en arrière-plan, consommant votre CPU, RAM et disque. Pendant ce temps, certaines fonctionnalités qui pourraient vous aider à tirer le meilleur de votre matériel ne sont pas activées par défaut.
+Windows en lui-même est très stable. Mais une installation propre apporte aussi des services, de la télémétrie, des applications pré-installées et des tâches planifiées dont vous n'avez peut-être jamais entendu parler : tout tourne en arrière-plan, consommant votre CPU, RAM et disque. Pendant ce temps, certaines fonctionnalités qui pourraient vous aider à tirer le meilleur de votre matériel ne sont pas activées par défaut.
 
 optimizerDuck vous offre une interface unique pour nettoyer le superflu et débloquer l'utile.
 
@@ -106,11 +106,11 @@ Plus de 30 tweaks répartis dans 6 catégories, chacun avec une description clai
 | **Expérience utilisateur** | Supprimer les délais d'affichage des menus, désactiver les effets visuels comme les animations de la barre des tâches et la transparence pour une réactivité accrue                                              |
 
 > [!NOTE]
-> Les optimisations ici sont issues d'outils reconnus avec une large base d'utilisateurs — rien n'est généré par IA ou ajouté aveuglément. Chaque réglage est choisi pour son impact réel.
+> Les optimisations ici sont issues d'outils reconnus avec une large base d'utilisateurs : rien n'est généré par IA ou ajouté aveuglément. Chaque réglage est choisi pour son impact réel.
 
 ### Personnaliser
 
-Pas besoin de fouiller le registre — interrupteurs, listes déroulantes et champs numériques présentés au même endroit. Quatre catégories :
+Pas besoin de fouiller le registre : interrupteurs, listes déroulantes et champs numériques présentés au même endroit. Quatre catégories :
 
 - **Bureau** : Afficher ou masquer les icônes (Ce PC, Corbeille, Réseau, Fichiers utilisateur, Panneau de configuration), supprimer les flèches de raccourci
 - **Préférences** : Alignement de la barre des tâches, widgets, boutons Task View et Fin de tâche, secondes sur l'horloge, mode sombre, extensions de fichiers, fichiers cachés, historique du presse-papiers, vue compacte, assistance au collage, cases à cocher, menu contextuel classique et recherche Bing
@@ -145,21 +145,24 @@ Consultez la [Politique de confidentialité](./PRIVACY.md) pour plus de détails
 
 ## FAQ
 
+> [!TIP]
+> Consultez la [FAQ sur notre site Web](https://optimizerduck.vercel.app/docs/faq/general) pour plus de questions et réponses.
+
 ### C'est sûr d'utiliser optimizerDuck ?
 
-Oui. optimizerDuck est complètement **open-source** (GPL v3), donc n'importe qui peut inspecter le code, l'auditer ou le compiler lui-même. Chaque version est compilée automatiquement par **GitHub Actions** à partir du code source public — pas de modifs cachées, pas de binaire non signé injecté après la compilation. Si tu veux, tu peux cloner le repo et builder le `.exe` toi-même avec une simple commande `dotnet build`.
+Oui. optimizerDuck est complètement **open-source** (GPL v3), donc n'importe qui peut inspecter le code, l'auditer ou le compiler lui-même. Chaque version est compilée automatiquement par **GitHub Actions** à partir du code source public : pas de modifs cachées, pas de binaire non signé injecté après la compilation. Si tu veux, tu peux cloner le repo et builder le `.exe` toi-même avec une simple commande `dotnet build`.
 
 L'app **ne collecte rien** : pas de télémétrie, pas de données d'utilisation, pas d'infos personnelles. Voir la [Politique de confidentialité](./PRIVACY.md).
 
 ### optimizerDuck améliore vraiment les perfs, réduit la latence ou accélère le réseau ?
 
-Ça peut aider. Chaque optimisation dans optimizerDuck est **tirée d'outils connus, de guides communautaires et de recommandations des fabricants** — rien n'est généré par IA, ajouté au hasard ou inventé. Chaque réglage touche un vrai paramètre que Windows configure trop prudemment par défaut (groupement des services hôtes, états d'alimentation GPU, limitation réseau, ordonnancement des processus).
+Ça peut aider. Chaque optimisation dans optimizerDuck est **tirée d'outils connus, de guides communautaires et de recommandations des fabricants** : rien n'est généré par IA, ajouté au hasard ou inventé. Chaque réglage touche un vrai paramètre que Windows configure trop prudemment par défaut (groupement des services hôtes, états d'alimentation GPU, limitation réseau, ordonnancement des processus).
 
 Y'a pas de faux hacks de registre ici, chaque modif a un but documenté et un impact réel confirmé par la communauté et les specs constructeurs.
 
 ### Pourquoi Windows SmartScreen / Defender bloque le téléchargement ?
 
-Parce qu'optimizerDuck n'est pas signé numériquement — les certificats de signature de code coûtent une blinde pour un projet open-source. Quand Windows rencontre un exe non signé téléchargé depuis Internet, SmartScreen affiche un avertissement par défaut. C'est normal, ça **veut pas dire** que le fichier est dangereux.
+Parce qu'optimizerDuck n'est pas signé numériquement : les certificats de signature de code coûtent une blinde pour un projet open-source. Quand Windows rencontre un exe non signé téléchargé depuis Internet, SmartScreen affiche un avertissement par défaut. C'est normal, ça **veut pas dire** que le fichier est dangereux.
 
 Pour passer : clique sur **"Plus d'informations" > "Exécuter quand même"**. Si tu flippes encore :
 
@@ -186,8 +189,32 @@ Non. L'app contient zéro télémétrie, zéro analytique, zéro fonction qui t�
 
 Un bug d'affichage connu du Gestionnaire des tâches avec les plans non standard, il affiche incorrectement 100 % du CPU sur certains systèmes alors que la charge réelle est normale. Uniquement visuel, **n'affecte pas** les performances réelles ni la surchauffe. Si vous ne le souhaitez pas, désactivez simplement cette optimisation.
 
+---
+
+## Dépannage
+
 > [!TIP]
-> Consultez la [FAQ sur notre site Web](https://optimizerduck.vercel.app/docs/faq/general) pour plus de questions et réponses.
+> Consultez la [page de dépannage](https://optimizerduck.vercel.app/docs/faq/troubleshooting) pour des conseils plus détaillés et des solutions aux problèmes connus.
+
+### L'application ne démarre pas ou plante au lancement
+
+Assurez-vous de l'exécuter en tant qu'**Administrateur**. optimizerDuck nécessite des privilèges élevés. Si elle plante toujours, téléchargez la dernière version depuis [Releases](https://github.com/itsfatduck/optimizerDuck/releases/latest) ; une ancienne version peut être incompatible avec votre version de Windows.
+
+### Les modifications ne semblent pas prendre effet après application
+
+Certaines optimisations nécessitent un **redémarrage du système** pour s'appliquer complètement. Si un réglage ne fonctionne toujours pas après redémarrage, réappliquez-le ou vérifiez la section d'annulation pour confirmer que la modification a été sauvegardée.
+
+### Le fichier d'annulation est manquant ou corrompu
+
+Les fichiers d'annulation sont stockés dans `%LocalAppData%\optimizerDuck\Revert\`. Si un fichier est accidentellement supprimé ou corrompu, vous pouvez le restaurer à partir d'une sauvegarde ou créer un **Point de restauration système** au préalable pour vous prémunir.
+
+### Windows Update réinitialise mes paramètres
+
+Les mises à jour de fonctionnalités Windows réinitialisent parfois certaines valeurs du registre et configurations de services aux valeurs par défaut. Il suffit de réappliquer vos optimisations précédentes depuis l'application après une mise à jour majeure.
+
+### J'ai trouvé un bug / Je veux demander une fonctionnalité
+
+Ouvrez une [issue](https://github.com/itsfatduck/optimizerDuck/issues) sur GitHub avec autant de détails que possible : votre version de Windows, les optimisations appliquées et ce qui s'est mal passé. Les demandes de fonctionnalités sont également les bienvenues.
 
 ---
 
