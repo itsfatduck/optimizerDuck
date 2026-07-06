@@ -15,18 +15,64 @@ public static class ServiceProcessService
     private static readonly AsyncLocal<string?> _lastError = new();
     private static readonly AsyncLocal<string?> _lastErrorDetail = new();
 
-    private static readonly Regex _startTypeRegex = new(
-        @"START_TYPE\s*:\s*(\d+)",
-        RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase
+    /// <summary>
+    ///     Matches the START_TYPE line in <c>sc qc</c> output.
+    ///     Format: <c>FIELD_NAME    : &lt;0-4&gt;   DESCRIPTION</c>
+    ///     Uses <c>[0-4]</c> to match all possible START_TYPE values
+    ///     (0=Boot, 1=System, 2=Auto, 3=Demand, 4=Disabled).
+    ///     The first matching line is always START_TYPE because it appears
+    ///     before ERROR_CONTROL and TAG in the fixed output order.
+    ///     The field name is locale-dependent, so structural matching only.
+    ///     Group 1 = numeric start value (0-4), Group 2 = description text
+    ///     (used for delayed-auto detection on value 2).
+    /// </summary>
+    private static readonly Regex _startTypeLineRegex = new(
+        @"^\s*\S+\s*:\s*([0-4])\s(.+)$",
+        RegexOptions.Compiled
     );
 
     private static readonly Regex _delayedRegex = new(
-        @"\(Delayed\)",
-        RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase
+        @"\([^)]+\)",
+        RegexOptions.Compiled | RegexOptions.IgnoreCase
     );
 
     internal static string? LastError => _lastError.Value;
     internal static string? LastErrorDetail => _lastErrorDetail.Value;
+
+    /// <summary>
+    ///     Parses the START_TYPE from raw <c>sc qc</c> stdout.
+    ///     Exposed as internal for unit testing.
+    /// </summary>
+    internal static (ServiceStartupType? StartupType, bool ParseFailed) ParseScStartType(
+        string stdout
+    )
+    {
+        var lines = stdout.Split([ '\r', '\n' ], StringSplitOptions.RemoveEmptyEntries);
+
+        foreach (var line in lines)
+        {
+            var match = _startTypeLineRegex.Match(line);
+            if (!match.Success)
+                continue;
+
+            var startValue = int.Parse(match.Groups[1].Value);
+            var valueText = match.Groups[2].Value;
+            var isDelayed = _delayedRegex.IsMatch(valueText);
+
+            var result = startValue switch
+            {
+                2 => isDelayed
+                    ? ServiceStartupType.AutomaticDelayedStart
+                    : ServiceStartupType.Automatic,
+                3 => ServiceStartupType.Manual,
+                4 => ServiceStartupType.Disabled,
+                _ => (ServiceStartupType?)null,
+            };
+            return (result, false);
+        }
+
+        return (null, true);
+    }
 
     /// <summary>Retrieves the current startup type of a Windows service by running <c>sc.exe qc</c>.</summary>
     /// <param name="serviceName">The internal service name.</param>
@@ -55,27 +101,18 @@ public static class ServiceProcessService
                 return (null, notFound);
             }
 
-            var startMatch = _startTypeRegex.Match(stdout);
-            if (!startMatch.Success)
+            var (result, parseError) = ParseScStartType(stdout);
+
+            if (parseError)
             {
                 ExecutionScope.LogWarning(
-                    "[SERVICE][{Name}] Could not parse START_TYPE from sc.exe qc output",
-                    serviceName
+                    "[SERVICE][{Name}] Could not parse START_TYPE from sc.exe qc output:\n{Output}",
+                    serviceName,
+                    stdout
                 );
                 return (null, false);
             }
 
-            var startValue = int.Parse(startMatch.Groups[1].Value);
-
-            var result = startValue switch
-            {
-                2 => _delayedRegex.IsMatch(stdout)
-                    ? ServiceStartupType.AutomaticDelayedStart
-                    : ServiceStartupType.Automatic,
-                3 => ServiceStartupType.Manual,
-                4 => ServiceStartupType.Disabled,
-                _ => (ServiceStartupType?)null,
-            };
             return (result, false);
         }
         catch (Exception ex)
