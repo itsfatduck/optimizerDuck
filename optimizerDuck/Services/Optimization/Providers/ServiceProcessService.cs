@@ -47,7 +47,7 @@ public static class ServiceProcessService
         string stdout
     )
     {
-        var lines = stdout.Split([ '\r', '\n' ], StringSplitOptions.RemoveEmptyEntries);
+        var lines = stdout.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries);
 
         foreach (var line in lines)
         {

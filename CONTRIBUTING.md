@@ -87,7 +87,7 @@ publish.bat single --skip-tests   # Skip tests for quick iteration
 publish.bat portable --no-pause   # Don't pause at the end (CI-friendly)
 ```
 
-Publish profiles are defined in `Properties/PublishProfiles/`.
+Publishing uses built-in dotnet publish profiles. The `publish.bat` script handles the workflow: it runs tests first (unless `--skip-tests`), then calls `dotnet publish` with the chosen profile.
 
 ### 5. Quick Start Checklist
 
@@ -95,7 +95,7 @@ Before your first contribution:
 
 - [ ] Fork + clone the repo
 - [ ] `dotnet build` succeeds (0 errors)
-- [ ] `dotnet test` passes (all 166+ tests green)
+- [ ] `dotnet test` passes (all tests green)
 - [ ] `dotnet csharpier .` formats without errors
 - [ ] Read the [Architecture Overview](#architecture-overview) below
 
@@ -110,59 +110,71 @@ optimizerDuck.slnx                          # Solution file (.slnx format)
 ├── optimizerDuck/                          # Main WPF app (net10.0-windows)
 │   ├── App.xaml.cs                         # DI registration, startup, theme, logging
 │   ├── optimizerDuck.csproj                # TFM: net10.0-windows10.0.17763.0, UseWPF=true
+│   ├── app.manifest                        # requireAdministrator UAC level
 │   │
 │   ├── Domain/                             # Pure models, interfaces, attributes (no WPF deps)
-│   │   ├── Abstractions/                   # IOptimization, ICustomizeSetting, IRevertStep, etc.
-│   │   ├── Attributes/                     # [Optimization], [CustomizeSetting], [OptimizationCategory]
+│   │   ├── Abstractions/                   # IOptimization, ICustomizeSetting, IRevertStep, IWindow, ICustomizeCategory, IOptimizationCategory
+│   │   ├── Attributes/                     # [Optimization], [CustomizeSetting], [OptimizationCategory], [CustomizeCategory]
 │   │   ├── Configuration/                  # AppSettings model
 │   │   ├── Execution/                      # ExecutionScope — ambient step tracking via AsyncLocal
 │   │   ├── Customize/                      # Customize settings (Desktop, Gaming, Preferences, System)
 │   │   │   ├── Categories/                 # Category classes with nested setting classes
-│   │   │   └── Models/                     # BaseCustomizeSetting, RegistryToggle, RefreshScope
+│   │   │   └── Models/                     # BaseCustomizeSetting, RegistryToggle, RefreshScope, SettingOption, CustomizeControlType, RecommendationState
 │   │   ├── Optimizations/                  # Optimizations (Performance, Privacy, GPU, etc.)
 │   │   │   ├── Categories/                 # Category classes with nested optimization classes
-│   │   │   └── Models/                     # BaseOptimization, ApplyResult, OptimizationContext
+│   │   │   └── Models/                     # BaseOptimization, ApplyResult, OptimizationContext, ServiceItem, RegistryItem
+│   │   │       ├── Bloatware/              # AppXPackage model for preinstalled apps
+│   │   │       ├── Cleanup/                # CleanupItem for disk cleanup
+│   │   │       ├── ScheduledTask/          # ScheduledTaskModel
+│   │   │       ├── Services/               # RegistryItem, ServiceItem, ShellResult, ServiceStartupType
+│   │   │       └── StartupManager/         # StartupApp, StartupTask models
 │   │   ├── Revert/                         # RevertData, RevertResult, revert step types
-│   │   │   └── Steps/                      # RegistryRevertStep, ServiceRevertStep, etc.
-│   │   └── UI/                             # Enums: OptimizationRisk, OptimizationTags, CategoryOrder
+│   │   │   └── Steps/                      # RegistryRevertStep, ServiceRevertStep, ScheduledTaskRevertStep, ShellRevertStep, UsbPowerRevertStep
+│   │   └── UI/                             # Enums: OptimizationRisk, OptimizationTags, OptimizationCategoryOrder, CustomizeOrder, LanguageOption, OptimizationState, RiskVisual, ProcessingProgress
 │   │
 │   ├── Common/                             # Shared helpers, extensions, converters
-│   │   ├── Extensions/                     # StringExtensions, CustomizePageRegistryExtensions
-│   │   ├── Converters/                     # WPF value converters
-│   │   └── Helpers/                        # Shared.cs, ReflectionHelper.cs, SystemRefreshService.cs
+│   │   ├── Converters/                     # 20+ WPF value converters (BooleanToVisibility, InverseBoolean, MBToGB, etc.)
+│   │   ├── Extensions/                     # StringExtensions, CustomizePageRegistryExtensions, OptimizationPageRegistryExtensions, LanguageExtensions
+│   │   ├── Helpers/                        # Shared.cs, ReflectionHelper.cs, SystemRefreshService.cs, EmbeddedResourceHelper.cs, GitHubSourceHelper.cs, WmiHelper.cs, ThemeResource.cs
+│   │   └── Native/                         # Native interop helpers (currently available for future use)
 │   │
-│   ├── Services/                           # Business logic
+│   ├── Services/                           # Business logic layer
 │   │   ├── Configuration/                  # ConfigManager, LanguageManager
-│   │   ├── Customize/                      # CustomizeRegistry (discovery via reflection)
-│   │   ├── Managers/                       # BloatwareService, DiskCleanupService,
-│   │   │                                   # StartupManagerService, SystemInfoService,
-│   │   │                                   # StreamService, UpdaterService
+│   │   ├── Customize/                      # CustomizeRegistry (reflection-based discovery of customize settings)
 │   │   ├── Optimization/                   # OptimizationRegistry, OptimizationService
-│   │   │   └── Providers/                  # Static: RegistryService, ShellService,
-│   │   │                                   # ScheduledTaskService, ServiceProcessService
-│   │   ├── Revert/                         # RevertManager (writes/reads revert JSON files)
-│   │   ├── System/                         # RegistryWatcher
-│   │   └── UI/                             # ContentDialogService, etc.
+│   │   │   └── Providers/                  # Static: RegistryService, ShellService, ScheduledTaskService, ServiceProcessService
+│   │   ├── Revert/                         # RevertManager (atomic write/read of revert JSON files)
+│   │   ├── System/                         # RegistryWatcher, StreamService, SystemInfoService, UpdaterService
+│   │   └── UI/                             # BloatwareService, DiskCleanupService, StartupManagerService
 │   │
 │   ├── UI/                                 # WPF pages, ViewModels, controls, styles
-│   │   ├── Controls/                       # Custom WPF controls
-│   │   ├── Dialogs/                        # Dialog windows (ProcessingDialog, OptimizationResultDialog)
-│   │   ├── Pages/                          # App pages + sub-folders (Optimize/, Customize/)
-│   │   ├── Styles/                         # Fluent design styles
+│   │   ├── Behaviors/                      # SmoothScrollBehavior
+│   │   ├── Controls/                       # FilledNavigationViewItem (custom nav control)
+│   │   ├── Dialogs/                        # ProcessingDialog, OptimizationDetailsDialog, OptimizationResultDialog, RestorePointDialog, LegalDialog, BloatwareConfirmationDialog, ScheduledTaskCreateDialog, ScheduledTaskDetailsDialog, StartupTaskDetailsPanel
+│   │   ├── Pages/                          # App pages + sub-folders
+│   │   │   ├── Customize/                  # CustomizePage + Categories/ (auto-registered category pages)
+│   │   │   ├── Optimize/                   # OptimizePage + Categories/ (auto-registered category pages)
+│   │   │   ├── DashboardPage
+│   │   │   ├── SettingsPage
+│   │   │   ├── BloatwarePage
+│   │   │   ├── DiskCleanupPage
+│   │   │   ├── StartupManagerPage
+│   │   │   └── ScheduledTasksPage
+│   │   ├── Styles/                         # FluentDesign.xaml, NavigationViewOverride.xaml, ToolTipOverride.xaml
 │   │   ├── ViewModels/                     # Page and dialog ViewModels
-│   │   │   ├── Customize/                  # CustomizeItemViewModel, CustomizeGroupViewModel
-│   │   │   ├── Dialogs/                    # ProcessingViewModel, OptimizationResultDialogViewModel
+│   │   │   ├── Customize/                  # CustomizeItemViewModel, CustomizeCategoryViewModel
+│   │   │   ├── Dialogs/                    # ProcessingViewModel, OptimizationDetailsViewModel, OptimizationResultDialogViewModel, BloatwareConfirmationDialogViewModel
 │   │   │   ├── Optimizer/                  # OptimizationCategoryViewModel
-│   │   │   ├── Pages/                      # Dashboard, Optimize, Customize, Settings, etc.
+│   │   │   ├── Pages/                      # DashboardViewModel, OptimizeViewModel, CustomizeViewModel, SettingsViewModel, BloatwareViewModel, DiskCleanupViewModel, StartupManagerViewModel, ScheduledTasksViewModel
 │   │   │   └── Windows/                    # MainWindowViewModel
 │   │   └── Windows/                        # MainWindow
 │   │
 │   └── Resources/                          # Images, embedded assets, localization
-│       ├── Embedded/                       # Power plans, icons
-│       ├── Images/                         # Duck.png, logos
-│       └── Languages/                      # Translations.resx + 7 locale variants
+│       ├── Embedded/                       # Power plans (optimizerDuck.pow), Icons (blank.ico)
+│       ├── Images/                         # Duck.png, GitHubLogo, DiscordLogo
+│       └── Languages/                      # Translations.resx + 11 locale variants
 │
-└── optimizerDuck.Test/                     # xUnit v3 test project (166+ tests)
+└── optimizerDuck.Test/                     # xUnit v3 test project
     ├── Common/Helpers/
     ├── Domain/
     │   ├── Customize/
@@ -171,7 +183,8 @@ optimizerDuck.slnx                          # Solution file (.slnx format)
     │   └── Revert/Steps/
     └── Services/
         ├── Managers/
-        └── OptimizationServices/
+        ├── OptimizationServices/
+        └── ApplyRevertComprehensiveTests.cs
 ```
 
 ### Key Design Decisions
@@ -183,6 +196,8 @@ optimizerDuck.slnx                          # Solution file (.slnx format)
 | **File-based revert tracking** | Applied state = file exists on disk (`%localappdata%\optimizerDuck\Revert\{id}.json`). No database. Atomic writes via `File.Replace()`. |
 | **Integration-style tests** | Real filesystem, real registry (under `HKCU\Software\TestOptimizerDuck*`), real process execution. No mocking libraries — hand-written test doubles only. |
 | **Async service methods** | Provider methods that run external processes are async (`*Async` suffix). Optimization `ApplyAsync` methods should use `async`/`await` to keep the UI responsive. |
+| **Static WMI helper** | `WmiHelper.Initialize()` runs at startup to register WMI event cleanup handlers for abnormal process termination. |
+| **Pending changes tracking** | `App.HasPendingChanges` property tracks whether applied optimizations haven't been reverted. The app warns on close with options to restart PC/Explorer or exit. |
 
 ---
 
@@ -191,11 +206,12 @@ optimizerDuck.slnx                          # Solution file (.slnx format)
 | Contribution Type | Description | Where to Start |
 |---|---|---|
 | **New Optimizations** | Registry tweaks, service changes, system tweaks | `Domain/Optimizations/Categories/*.cs` |
-| **New Customize Settings** | UI toggles for Windows settings (Game Mode, Mouse Acceleration, etc.) | `Domain/Customize/Categories/*.cs` |
+| **New Customize Settings** | UI toggles for Windows settings (Game Mode, Mouse Acceleration, Taskbar, etc.) | `Domain/Customize/Categories/*.cs` |
 | **New App Features** | New pages, tools, or functionality | Open an issue first |
 | **Bug Fixes** | Crash fixes, logic errors, UI issues | Anywhere |
 | **Translations** | New languages or fixing existing translations | `Resources/Languages/Translations.*.resx` |
 | **Documentation** | README, CONTRIBUTING, etc. | `*.md` files |
+| **Testing** | Adding/reviewing tests for existing or new optimizations | `optimizerDuck.Test/` |
 
 ---
 
@@ -209,6 +225,8 @@ At startup:
 2. It finds every class implementing `IOptimizationCategory`
 3. For each category, it scans **nested public classes** implementing `IOptimization`
 4. All discovered optimizations are instantiated and `OwnerType` is assigned automatically
+5. `OptimizationService.UpdateOptimizationStateAsync` scans revert files on disk to mark each optimization as Applied or not
+6. `OptimizationRegistry.StartPreload()` runs this on a background thread at startup for non-blocking loading
 
 **Your job**: Create a nested class inside a category, extend `BaseOptimization`, decorate with `[Optimization]`. That's it.
 
@@ -218,12 +236,12 @@ Current categories (in `Domain/Optimizations/Categories/`):
 
 | File | Attribute | Focus |
 |---|---|---|
-| `Performance.cs` | `[OptimizationCategory(typeof(PerformanceOptimizerPage))]` | RAM tuning, process priority, keyboard latency, multimedia scheduler |
-| `SecurityAndPrivacy.cs` | `[OptimizationCategory(typeof(SecurityAndPrivacyOptimizerPage))]` | Telemetry, error reporting, advertising ID, location, Cortana, Copilot |
-| `Gpu.cs` | `[OptimizationCategory(typeof(GpuOptimizerPage))]` | AMD/NVIDIA/Intel registry tweaks, power states, clock gating |
-| `PowerManagement.cs` | `[OptimizationCategory(typeof(PowerManagementOptimizerPage))]` | Hibernation, fast startup, USB selective suspend, custom power plans |
-| `BloatwareAndServices.cs` | `[OptimizationCategory(typeof(BloatwareAndServicesOptimizerPage))]` | OEM reinstall blocking, 200+ Windows service startup types |
-| `UserExperience.cs` | `[OptimizationCategory(typeof(UserExperienceOptimizerPage))]` | Menu delays, visual effects, taskbar animations, transparency |
+| `Performance.cs` | `[OptimizationCategory(typeof(PerformanceOptimizerPage))]` | RAM tuning, process priority, keyboard latency, multimedia scheduler, accessibility keyboard hotkeys |
+| `SecurityAndPrivacy.cs` | `[OptimizationCategory(typeof(SecurityAndPrivacyOptimizerPage))]` | Telemetry, error reporting, advertising ID, location, Cortana, Copilot, content delivery manager, activity history, auto-logger |
+| `Gpu.cs` | `[OptimizationCategory(typeof(GpuOptimizerPage))]` | AMD/NVIDIA/Intel registry tweaks, power states, clock gating, ASPM, async flips |
+| `PowerManagement.cs` | `[OptimizationCategory(typeof(PowerManagementOptimizerPage))]` | Hibernation, fast startup, USB selective suspend, custom power plan installation, power saving disable |
+| `BloatwareAndServices.cs` | `[OptimizationCategory(typeof(BloatwareAndServicesOptimizerPage))]` | OEM preinstalled app blocking, 170+ Windows service startup type optimization |
+| `UserExperience.cs` | `[OptimizationCategory(typeof(UserExperienceOptimizerPage))]` | Menu delays, visual effects, taskbar animations, transparency, Start Menu web search |
 
 ### Step-by-Step: Add to an Existing Category
 
@@ -274,6 +292,8 @@ public class Performance : IOptimizationCategory
 | **Report progress** | Use `progress.Report(new ProcessingProgress { ... })` to update the UI dialog |
 | **Don't catch all exceptions** | Let them bubble up. `ExecutionScope` tracks success/failure. The `OptimizationService` layer handles exceptions. |
 | **Don't manually create revert steps** | Static provider services do this automatically via `ExecutionScope.RecordStep()` |
+| **Use `context.Logger`** | The optimization context provides a logger — use it for important diagnostic info |
+| **Check `context.Snapshot`** | `OptimizationContext.Snapshot` (a `SystemSnapshot`) gives you system info: RAM, GPU info, CPU. Use it for conditional logic (e.g., skip if insufficient RAM). |
 
 ### Available Service Providers
 
@@ -281,26 +301,64 @@ These **static** classes handle logging, error handling, and automatic revert st
 
 | Service | Key Methods | Why It's Used |
 |---|---|---|
-| **`RegistryService`** | `Write()`, `Read<T>()`, `DeleteValue()`, `CreateSubKey()`, `DeleteSubKeyTree()` | Read/write/delete registry keys. Backs up original values for revert. |
-| **`ShellService`** | `CMDAsync()`**, `PowerShellAsync()`** | Run CMD or PowerShell commands. Always use async variants. |
+| **`RegistryService`** | `Write()`, `Read<T>()`, `DeleteValue()`, `CreateSubKey()`, `DeleteSubKeyTree()`, `KeyExists()` | Read/write/delete registry keys. Backs up original values for revert. Supports writing multiple RegistryItem entries in one call via params array. |
+| **`ShellService`** | `CMDAsync()`, `PowerShellAsync()`, `CMD()` (sync), `PowerShell()` (sync) | Run CMD or PowerShell commands. Prefer async variants. Both sync and async methods accept an optional `revertCommand` parameter. |
 | **`ScheduledTaskService`** | `DisableTask()`, `EnableTask()`, `IsTaskEnabled()`, `DeleteTask()` | Manage Windows Scheduled Tasks. |
-| **`ServiceProcessService`** | `ChangeServiceStartupTypeAsync()`**, `GetStartupTypeAsync()`** | Manage Windows Services. Always use async variants. |
+| **`ServiceProcessService`** | `ChangeServiceStartupTypeAsync()`, `GetStartupTypeAsync()` | Manage Windows Services. Always use async variants. Supports changing multiple services at once via params array. |
 
-> **Methods marked with `**` are async.** Call them with `await` inside your optimization's `ApplyAsync`.
+> **Methods accepting multiple items via params**: Most write/change methods accept a params array of items (e.g., `RegistryService.Write(item1, item2, item3)`). This is more efficient than multiple individual calls.
 
 Example usage:
 
 ```csharp
-// Sync registry writes
-RegistryService.Write(new RegistryItem(@"HKLM\...", "Value", 1));
+// Sync registry writes — multiple items at once
+RegistryService.Write(
+    new RegistryItem(@"HKLM\...", "Value1", 1),
+    new RegistryItem(@"HKLM\...", "Value2", 0)
+);
 RegistryService.DeleteValue(new RegistryItem(@"HKCU\...", "OldValue"));
 
-// Async service changes
+// Async service changes — multiple services at once
 await ServiceProcessService.ChangeServiceStartupTypeAsync(
-    new ServiceItem("DiagTrack", ServiceStartupType.Disabled));
+    new ServiceItem("DiagTrack", ServiceStartupType.Disabled),
+    new ServiceItem("dmwappushservice", ServiceStartupType.Disabled)
+);
 
-// Async shell commands
-var result = await ShellService.PowerShellAsync("Some-Command");
+// Async shell commands with revert command
+var result = await ShellService.CMDAsync(
+    "powercfg /h off",
+    "powercfg /h on"     // revert command stored for undo
+);
+
+// Async PowerShell
+var usbStates = await ShellService.PowerShellAsync(
+    "Get-CimInstance -Namespace root\\wmi -ClassName MSPower_DeviceEnable"
+);
+```
+
+### Handling Asynchronous Operations
+
+Not all optimizations need `async`/`await`. If your optimization only does synchronous registry writes (no async calls), you can return `Task.FromResult()`:
+
+```csharp
+public override Task<ApplyResult> ApplyAsync(
+    IProgress<ProcessingProgress> progress,
+    OptimizationContext context)
+{
+    RegistryService.Write(new RegistryItem(@"HKLM\...", "Value", 1));
+    context.Logger.LogInformation("Applied tweak");
+    return Task.FromResult(CompleteFromScope());
+}
+```
+
+But if you use any async provider (service, shell, task), always `await` them:
+
+```csharp
+public override async Task<ApplyResult> ApplyAsync(...)
+{
+    await ServiceProcessService.ChangeServiceStartupTypeAsync(...);
+    return CompleteFromScope();
+}
 ```
 
 ### Create a New Category
@@ -312,6 +370,30 @@ Only if your optimizations don't fit any existing category. Avoid hyper-specific
 3. Apply `[OptimizationCategory(PageType = typeof(YourPage))]` — you'll also need a XAML page
 4. Add a member to `OptimizationCategoryOrder` enum in `Domain/UI/OptimizationCategoryOrder.cs`
 5. The XAML page auto-registers via `services.AddAllOptimizationPages()` in `App.xaml.cs`
+
+### Create an Optimization Helper Base Class
+
+If you have multiple optimizations that share the same structure (like GPU tweaks that all iterate over detected GPUs), create an abstract intermediate class:
+
+```csharp
+public abstract class GpuRegistryOptimization : BaseOptimization
+{
+    protected abstract GpuVendor Vendor { get; }
+    protected abstract IReadOnlyList<RegistryItem> CreateItems(string registryPath);
+
+    public override Task<ApplyResult> ApplyAsync(...)
+    {
+        foreach (var gpu in context.Snapshot.Gpus.Where(g => g.Vendor == Vendor))
+        {
+            var path = $@"HKLM\...\{index:D4}";
+            RegistryService.Write(CreateItems(path).ToArray());
+        }
+        return Task.FromResult(CompleteFromScope());
+    }
+}
+```
+
+See `Gpu.cs` for a real example with AMD, NVIDIA, and Intel subclasses.
 
 ### Localization Keys
 
@@ -339,10 +421,10 @@ Customize settings are UI controls (toggle switches, dropdowns, number inputs) t
 
 | File | Attribute | Focus |
 |---|---|---|
-| `Desktop.cs` | `[CustomizeCategory(PageType = typeof(DesktopFeatureCategory))]` | Desktop icons (This PC, Recycle Bin, Network), shortcut overlays |
-| `Preferences.cs` | `[CustomizeCategory(PageType = typeof(PreferencesFeatureCategory))]` | Taskbar alignment, widgets, dark mode, file extensions, hidden files, etc. |
-| `Gaming.cs` | `[CustomizeCategory(PageType = typeof(GamingFeatureCategory))]` | Game Mode, Game Bar, mouse acceleration, fullscreen optimizations, GPU scheduling |
-| `SystemFeatures.cs` | `[CustomizeCategory(PageType = typeof(SystemFeatureCategory))]` | Num Lock on boot |
+| `Desktop.cs` | `[CustomizeCategory(PageType = typeof(DesktopFeatureCategory))]` | Desktop icons (This PC, Recycle Bin, Network, User Files, Control Panel), global show/hide icons, shortcut arrow visibility |
+| `Preferences.cs` | `[CustomizeCategory(PageType = typeof(PreferencesFeatureCategory))]` | Taskbar alignment, widgets, task view button, end task, dark mode, file extensions, hidden files, clipboard history, search mode, seconds in clock, Bing search, classic context menu |
+| `Gaming.cs` | `[CustomizeCategory(PageType = typeof(GamingFeatureCategory))]` | Game Mode, Game Bar, background recording, mouse acceleration, fullscreen optimizations, GPU scheduling |
+| `SystemFeatures.cs` | `[CustomizeCategory(PageType = typeof(SystemFeatureCategory))]` | Num Lock on boot, Developer Mode, allow all trusted apps, long paths enabled, battery percentage |
 
 ### Step-by-Step: Simple Registry Toggle
 
@@ -396,7 +478,7 @@ public class TaskbarAlignment : BaseCustomizeSetting
 | Type | Rendered As | Used For |
 |---|---|---|
 | `Toggle` | On/off switch | Most settings (default) |
-| `Dropdown` | ComboBox | Multiple choice (e.g., power plan) |
+| `Dropdown` | ComboBox | Multiple choice (e.g., power plan, search box mode, taskbar alignment) |
 | `Option` | Radio button group | Mutually exclusive visual options (e.g., left/center alignment) |
 | `NumberInt` | Integer text input | Numeric values (e.g., seconds) |
 | `NumberFloat` | Decimal text input | Precision values |
@@ -419,7 +501,7 @@ public override IReadOnlyList<SettingOption>? Options =>
     [
         Option("Never", 0),      // Option() helper reads from Translations.resx:
         Option("Battery", 1),    //   Customize.{Category}.{Feature}.Options.Never
-        Option("Always", 2),     //   Customize.{Category}.{Feature}.Options.Battery
+        Option("Always", 2),     //   Customize.{Category}.{Feature}.Options.Always
     ];
 
 public override async Task ApplyAsync(object? value)
@@ -428,6 +510,31 @@ public override async Task ApplyAsync(object? value)
     RegistryService.Write(new RegistryItem(Path, "ValueName", intValue));
     await ExecutePostActionAsync();  // MUST call when overriding ApplyAsync
 }
+```
+
+### Dynamic Options (Platform-Aware)
+
+You can conditionally show options based on the Windows version:
+
+```csharp
+public override IReadOnlyList<SettingOption>? Options
+{
+    get
+    {
+        if (Shared.IsWindows11OrGreater)
+            return [Option("Hidden", 0), Option("Icon", 1), Option("IconAndLabel", 2), Option("SearchBox", 3)];
+        return [Option("Hidden", 0), Option("Icon", 1), Option("SearchBox", 2)];
+    }
+}
+```
+
+### CurrentValue for Dropdowns
+
+For dropdowns and option-based controls, implement `CurrentValue` so the UI shows the current system state:
+
+```csharp
+public override object? CurrentValue =>
+    RegistryService.Read<object>(new RegistryItem(RegPath, RegName));
 ```
 
 ### Custom Logic (Override GetStateAsync / ApplyAsync)
@@ -473,16 +580,72 @@ public class MouseAcceleration : BaseCustomizeSetting
 }
 ```
 
+### State Detection with Retry
+
+After applying a value, the UI calls `GetStateWithRetryAsync()` (not `GetStateAsync()`). This method:
+1. Reads state up to `maxRetries` (default 3) times with `delayMs` (default 80ms) between attempts
+2. Returns when two consecutive reads agree on the same value (convergence check)
+3. Falls back to the last read value after exhausting retries
+
+This prevents the UI from showing stale values while the registry settles after a write.
+
+### Custom Logic with Non-Registry Dependencies
+
+For settings that involve embedded resource extraction (like replacing shortcut arrows with a blank icon):
+
+```csharp
+public override async Task ApplyAsync(object? value)
+{
+    var isOn = value is bool b && b;
+    if (isOn)
+    {
+        RegistryService.DeleteValue(new RegistryItem(Path, "29"));
+    }
+    else
+    {
+        var outputPath = Path.Combine(Shared.AssetsDirectory, nameof(Desktop), "blank.ico");
+        EmbeddedResourceHelper.TryExtract("Icons.blank.ico", outputPath);
+        RegistryService.Write(new RegistryItem(Path, "29", outputPath));
+    }
+    await ExecutePostActionAsync();
+}
+```
+
+Use `EmbeddedResourceHelper.TryExtract(resourceName, outputPath)` to extract embedded resources from the assembly to disk.
+
+### The Recommendation System
+
+Each customize setting can declare a recommendation:
+
+```csharp
+[CustomizeSetting(
+    ...,
+    Recommendation = RecommendationState.On    // or Off, Depends, Experimental, None
+)]
+```
+
+Available states:
+- **`On`**: Recommended to turn ON — improves system
+- **`Off`**: Recommended to turn OFF — improves system
+- **`Depends`**: Depends on user's specific needs/configuration
+- **`Experimental`**: May be unstable, use with caution
+- **`None`** (default): No recommendation displayed
+
+You can also add a recommendation reason via localization key: `Customize.{Category}.{Feature}.Recommendation.Reason`.
+
 ### What to Override per Pattern
 
 | Scenario | Override |
 |---|---|
 | Simple registry toggle | `RegistryToggles` + `RefreshScope` |
-| Multiple registry toggles | `RegistryToggles` (list them all) |
-| Dropdown/Options | `ControlType` → `Dropdown`, `Options`, custom `ApplyAsync` |
-| Multi-value logic (e.g., mouse accel) | `GetStateAsync()` + `ApplyAsync()` + `GetWatchedRegistryPaths()` |
+| Multiple registry toggles (e.g., Game Mode: 2 values) | `RegistryToggles` (list them all) |
+| Dropdown/Options | `ControlType` → `Dropdown`, `Options`, custom `ApplyAsync`, `CurrentValue` |
+| Multi-value logic (e.g., mouse accel: 3 registry values) | `GetStateAsync()` + `ApplyAsync()` + `GetWatchedRegistryPaths()` |
 | Setting with no registry interaction | `GetStateAsync()` + `ApplyAsync()` (full custom) |
 | Custom refresh behavior | `RefreshScope` (if only changing flags) or `ExecutePostActionAsync()` (full override) |
+| State detection with convergence | Use `GetStateWithRetryAsync()` (built-in — don't override) |
+| Dynamic options per Windows version | Override `Options` getter with conditional logic |
+| Embedded resource extraction | `EmbeddedResourceHelper.TryExtract()` in custom `ApplyAsync` |
 
 ### Create a New Category
 
@@ -555,7 +718,7 @@ If you want to add a new page or tool (e.g., a "Network Monitor"):
 2. **Implementation order**:
 
 ```csharp
-// 1. Service layer in Services/Managers/YourService.cs
+// 1. Service layer in Services/UI or Services/System/YourService.cs
 public class YourService(ILogger<YourService> logger) { ... }
 
 // 2. ViewModel in UI/ViewModels/Pages/YourViewModel.cs
@@ -570,7 +733,7 @@ services.AddSingleton<YourPage>();
 
 - ViewModels and Pages **must** be registered as singletons in `App.xaml.cs`
 - Navigation is handled by WPF UI (`INavigationService`)
-- Follow the existing patterns — check `DashboardPage`, `OptimizePage`, etc.
+- Follow the existing patterns — check `DashboardPage`, `OptimizePage`, `BloatwarePage`, `DiskCleanupPage`, `ScheduledTasksPage`, `StartupManagerPage`, etc.
 
 ### DI Registration Pattern (from App.xaml.cs)
 
@@ -582,6 +745,29 @@ services.AddSingleton<DashboardPage>();
 services.AddSingleton<OptimizeViewModel>();
 services.AddSingleton<OptimizePage>();
 
+services.AddSingleton<SettingsViewModel>();
+services.AddSingleton<SettingsPage>();
+
+services.AddSingleton<BloatwareViewModel>();
+services.AddSingleton<BloatwarePage>();
+
+services.AddSingleton<DiskCleanupViewModel>();
+services.AddSingleton<DiskCleanupPage>();
+
+services.AddSingleton<StartupManagerViewModel>();
+services.AddSingleton<StartupManagerPage>();
+
+services.AddSingleton<ScheduledTasksViewModel>();
+services.AddSingleton<ScheduledTasksPage>();
+
+// Customize
+services.AddSingleton<CustomizeViewModel>();
+services.AddSingleton<CustomizePage>();
+
+// Automatic page registration (category pages using reflection)
+services.AddAllCustomizeCategoryPages();   // scans [CustomizeCategory] attributes
+services.AddAllOptimizationPages();        // scans [OptimizationCategory] attributes
+
 // Managers
 services.AddSingleton<ConfigManager>();
 services.AddSingleton<RevertManager>();
@@ -590,13 +776,28 @@ services.AddSingleton<RevertManager>();
 services.AddSingleton<OptimizationRegistry>();
 services.AddSingleton<CustomizeRegistry>();
 services.AddSingleton<OptimizationService>();
+services.AddSingleton<BloatwareService>();
+services.AddSingleton<DiskCleanupService>();
+services.AddSingleton<StartupManagerService>();
+services.AddSingleton<SystemInfoService>();
+services.AddSingleton<StreamService>();
 services.AddSingleton<UpdaterService>();
 services.AddSingleton<IRegistryWatcher, RegistryWatcher>();
-
-// Automatic page registration (category pages only)
-services.AddAllCustomizeCategoryPages();   // scans [CustomizeCategory] attributes
-services.AddAllOptimizationPages();        // scans [OptimizationCategory] attributes
 ```
+
+### System Services Reference
+
+Additional services available for feature development:
+
+| Service | Purpose |
+|---|---|
+| `SystemInfoService` | Provides `Snapshot` property (`SystemSnapshot`) with CPU, RAM, GPU info via WMI. Used in optimization context. |
+| `StreamService` | Downloads remote resources (e.g., updated power plan files). Used via `OptimizationContext.StreamService`. |
+| `UpdaterService` | Checks GitHub releases for updates. Shows update prompt on Dashboard. |
+| `RegistryWatcher` | Monitors registry keys for external changes and notifies the UI to refresh. Implements `IRegistryWatcher`. |
+| `BloatwareService` | Lists preinstalled AppX packages, categorizes them as Safe/Caution/Dangerous. |
+| `DiskCleanupService` | Scans disks for cleanup opportunities (temp files, caches, logs). |
+| `StartupManagerService` | Lists and manages startup applications and scheduled tasks. |
 
 ---
 
@@ -627,8 +828,17 @@ ApplyAsync()
 | **`RegistryRevertStep`** | Original registry value before change | `RegistryService.Write()`, `RegistryService.DeleteValue()`, `RegistryService.CreateSubKey()`, `RegistryService.DeleteSubKeyTree()` |
 | **`ServiceRevertStep`** | Original service startup type | `ServiceProcessService.ChangeServiceStartupTypeAsync()` |
 | **`ScheduledTaskRevertStep`** | Original task state (enabled/disabled) | `ScheduledTaskService.DisableTask()`, `ScheduledTaskService.EnableTask()` |
-| **`ShellRevertStep`** | Shell command to reverse the change | `ShellService.CMDAsync()`, `ShellService.PowerShellAsync()` |
-| **`UsbPowerRevertStep`** | USB power settings | USB-related optimizations |
+| **`ShellRevertStep`** | Shell command to reverse the change | `ShellService.CMDAsync()`, `ShellService.PowerShellAsync()` — pass a `revertCommand` parameter |
+| **`UsbPowerRevertStep`** | USB power settings (per-device) | USB-related optimizations (manual via `ExecutionScope.RecordStep()`) |
+
+### Adding a Revert Command to Shell Calls
+
+When calling `CMDAsync` or `PowerShellAsync`, you can optionally pass a `revertCommand` parameter that gets saved for undo:
+
+```csharp
+// The revert command "powercfg /h on" will be stored to reverse this change
+await ShellService.CMDAsync("powercfg /h off", "powercfg /h on");
+```
 
 ### Revert Data Format
 
@@ -650,12 +860,16 @@ ApplyAsync()
 
 - **Applied state** is inferred from file presence on disk (`RevertManager.IsAppliedAsync(id)`)
 - **Atomic writes**: writes to `.tmp` then `File.Replace()` — crash-safe
+- **Concurrent access**: per-file `SemaphoreSlim` locks prevent race conditions; 30-second timeout
+- **File locking**: `_fileLocks` dictionary (`ConcurrentDictionary<Guid, SemaphoreSlim>`) protects each revert file
 - **`ExecutionScope`** uses `AsyncLocal<ExecutionScope?>` for ambient step tracking. No need to pass context through parameters
 - **Revert executes steps in reverse order** (last applied = first reverted)
 - **Partial success**: revert continues even if some steps fail. Failed steps get retry actions recorded
 - **Retry**: `OptimizationService.RetryFailedStepsAsync()` can retry individual failed steps
+- **Upsert**: `RevertManager.UpsertRevertStepAtIndexAsync()` can add/replace revert steps at specific indices (used during retry)
+- **Step registry**: Revert step deserialization uses reflection-based `_stepRegistry` — new step types auto-register by implementing `IRevertStep` with a static `FromData(JObject)` method
 
-> **Important**: When you call provider services (`RegistryService.Write`, `ShellService.CMDAsync`, etc.), revert steps are recorded automatically. Do NOT manually create revert steps.
+> **Important**: When you call provider services (`RegistryService.Write`, `ShellService.CMDAsync`, etc.), revert steps are recorded automatically. Do NOT manually create revert steps unless you're implementing a custom provider (like `UsbPowerRevertStep`).
 
 ---
 
@@ -686,11 +900,12 @@ optimizerDuck.Test/
 │   ├── Exceptions/
 │   │   └── StepExecutionExceptionTests.cs
 │   ├── Optimizations/
-│   │   ├── PowerManagementTests.cs
-│   │   └── Models/Services/RegistryItemKindDetectionTests.cs
+│   │   ├── Models/
+│   │   │   └── Services/RegistryItemKindDetectionTests.cs
+│   │   └── PowerManagementTests.cs
 │   └── Revert/Steps/
-│       ├── ScheduledTaskRevertStepTests.cs
-│       └── RevertStepSerializationTests.cs
+│       ├── RevertStepSerializationTests.cs
+│       └── ScheduledTaskRevertStepTests.cs
 └── Services/
     ├── ApplyRevertComprehensiveTests.cs
     ├── OptimizationServiceTests.cs
@@ -698,6 +913,7 @@ optimizerDuck.Test/
     ├── OptimizationExecutionContextTests.cs
     ├── OptimizationServices/
     │   ├── RegistryServiceTests.cs
+    │   ├── ServiceProcessServiceTests.cs
     │   ├── ShellServiceTests.cs
     │   └── ShellPolicyTests.cs
     ├── Managers/
@@ -715,6 +931,18 @@ dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release
 # Build + test in one step
 dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release
 ```
+
+### CI Integration
+
+The CI pipeline (`ci.yml`) runs:
+
+```bash
+dotnet restore optimizerDuck.slnx
+dotnet build optimizerDuck.slnx --configuration Release --no-restore
+dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release --no-build --blame-hang --blame-hang-timeout 30s
+```
+
+The `--blame-hang --blame-hang-timeout 30s` flags ensure tests don't hang longer than 30 seconds, which is critical for integration-style tests that interact with real Windows services.
 
 ### Writing Tests for Provider Services
 
@@ -752,6 +980,10 @@ public class MyOptimizationTests
     }
 }
 ```
+
+### Registering New Tests
+
+When adding tests for a new optimization or service, follow the existing directory structure. Tests for `OptimizationServices/` go in `Services/OptimizationServices/`, and tests for domain models go in the matching `Domain/` subdirectory.
 
 ---
 
@@ -796,15 +1028,17 @@ public class MyOptimizationTests
 
 - **No hardcoded strings** — always use `Translations.KeyName` or `Loc.Instance["Key"]`
 - **Keep comments sparse** — existing code has almost none. Don't add unnecessary comments.
-- **No type error suppression** — no equivalent of `as any` / `@ts-ignore` in C#. Handle types properly.
+- **No type error suppression** — handle types properly.
 - **Prefer existing libraries** over new dependencies.
 - **Prefer small, focused changes** over large refactors.
+- **Use `@formatter:off` / `@formatter:on`** comments around large, structured registry write blocks when needed to suppress automatic reformatting.
+- **Never commit machine-specific paths or secrets.**
 
 ### Dependency Injection
 
 - Services, ViewModels, and Pages are registered as singletons in `App.xaml.cs`
-- Use constructor injection: `public class Foo(Bar bar, Baz baz)`
-- Static provider services (`RegistryService`, `ShellService`, etc.) are NOT injected — access them directly
+- Use constructor injection: `public class Foo(Bar bar, Baz baz)` or `public class Foo(ILogger<Foo> logger)`
+- Static provider services (`RegistryService`, `ShellService`, `ScheduledTaskService`, `ServiceProcessService`) are NOT injected — access them directly
 - Test doubles are hand-written (no mocking libraries like Moq)
 
 ### Error Handling
@@ -815,6 +1049,16 @@ public class MyOptimizationTests
 | **Provider services** | Use try/catch around system calls, log errors via `ExecutionScope.LogError`. Record failed steps with retry actions. |
 | **ViewModels** | Catch exceptions in command handlers, show user-friendly snackbars. |
 | **Don't** | Catch exceptions you can't handle. Don't silently swallow all exceptions. |
+
+### Global Error Handling
+
+The `App.xaml.cs` registers three global exception handlers:
+
+- `AppDomain.CurrentDomain.UnhandledException` — catches fatal exceptions
+- `TaskScheduler.UnobservedTaskException` — catches unobserved task exceptions
+- `DispatcherUnhandledException` — catches unhandled UI thread exceptions
+
+All crash details are logged to `%localappdata%\optimizerDuck\Crashes\crash_*.log`.
 
 ---
 
@@ -835,6 +1079,7 @@ All user-facing strings live in `Resources/Languages/Translations.resx`. Use the
 |---|---|
 | English | `Translations.resx` (default) |
 | Vietnamese | `Translations.vi-VN.resx` |
+| Spanish | `Translations.es-ES.resx` |
 | French | `Translations.fr-FR.resx` |
 | Traditional Chinese | `Translations.zh-TW.resx` |
 | Simplified Chinese | `Translations.zh-CN.resx` |
@@ -842,14 +1087,18 @@ All user-facing strings live in `Resources/Languages/Translations.resx`. Use the
 | Korean | `Translations.ko-KR.resx` |
 | Japanese | `Translations.ja-JP.resx` |
 | Polish | `Translations.pl-PL.resx` |
+| Turkish | `Translations.tr-TR.resx` |
+| Portuguese (Brazil) | `Translations.pt-BR.resx` |
+
+> **Note**: 11 locale variants total, plus English as the default fallback.
 
 ### Adding a New Language
 
-1. Create `Translations.{locale}.resx` (e.g., `Translations.ja-JP.resx`) with all the same keys as `Translations.resx`
+1. Create `Translations.{locale}.resx` (e.g., `Translations.de-DE.resx`) with all the same keys as `Translations.resx`
 2. Register the language in `UI/ViewModels/Pages/SettingsViewModel.cs`:
 
 ```csharp
-new() { DisplayName = "日本語", Culture = new CultureInfo("ja-JP") },
+new() { DisplayName = "Deutsch", Culture = new CultureInfo("de-DE") },
 ```
 
 ### Hardcoded String Rule
@@ -962,12 +1211,14 @@ Checklist:
 - Does the optimization class extend `BaseOptimization`?
 - Does it have `[Optimization(Id = "...", ...)]` attribute?
 - Are the localization keys added to `Translations.resx`?
+- Has the optimization category been preloaded? (Check `OptimizationRegistry.IsPreloaded`)
 
 ### My customize setting isn't showing up
 
 Same checks as above but for `ICustomizeCategory` / `BaseCustomizeSetting`.
 - Does it have `[CustomizeSetting(Section = ..., Icon = ...)]`?
 - Is the `Section` enum value correctly spelled?
+- Does the category class use the correct `[CustomizeCategory(PageType = ...)]` attribute?
 
 ### No revert data file after testing
 
@@ -996,6 +1247,20 @@ You missed adding localization keys to `Translations.resx`. Check the [Localizat
 ### "No revert data" error when reverting
 
 Check that the optimization's `Id` GUID hasn't changed. Revert files are keyed by `Id`. If you regenerate the GUID, previously applied optimizations won't have matching revert files.
+
+### How do I add a new revert step type?
+
+1. Create a new class in `Domain/Revert/Steps/` that implements `IRevertStep`
+2. Add a static `FromData(JObject data)` method for deserialization
+3. The `RevertManager`'s reflection-based `_stepRegistry` will auto-discover it
+4. Record it via `ExecutionScope.RecordStep()` with your step as the `revertStep` parameter
+
+### How does the app handle crash safety?
+
+- Revert files use atomic writes (`.tmp` + `File.Replace`)
+- Crash logging writes to `%localappdata%\optimizerDuck\Crashes\crash_*.log`
+- `WmiHelper.Initialize()` at startup registers WMI cleanup for abnormal termination
+- App.xaml.cs registers 3 global exception handlers
 
 ---
 

@@ -15,11 +15,12 @@
 .NET 10 üzerinde WPF ile oluşturulmuş ücretsiz, açık kaynaklı bir Windows optimizasyon aracı olan **optimizerDuck**'a katkıda bulunduğunuz için teşekkür ederiz.
 
 Birçok şekilde yardımcı olabilirsiniz:
-- Açık yeniden üretme adımlarıyla hataları (bug) bildirmek
-- Yeni optimizasyonlar veya özellikler önermek (önce bir sorun (issue) açın)
+- Açık yeniden üretme adımlarıyla hataları bildirmek
+- Yeni optimizasyonlar veya özellikler önermek (önce bir sorun açın)
 - Dokümantasyonu ve kılavuzları geliştirmek
 - Çeviriler eklemek veya düzeltmek
 - Kod katkısında bulunmak: optimizasyonlar, özelleştirme ayarları, hizmetler, kullanıcı arayüzü iyileştirmeleri
+- Test eklemek veya mevcut testleri gözden geçirmek
 
 ---
 
@@ -57,7 +58,7 @@ git checkout -b feature/sizin-ozellik-adiniz
 
 ### 3. Geri Yükleme, Derleme ve Test
 
-Çözüm (solution), `.slnx` formatını kullanır (XML tabanlı çözüm dosyası, `.sln` değil).
+Çözüm, `.slnx` formatını kullanır (XML tabanlı çözüm dosyası, `.sln` değil).
 
 ```bash
 # Bağımlılıkları geri yükle
@@ -87,15 +88,13 @@ publish.bat single --skip-tests   # Hızlı yineleme için testleri atlar
 publish.bat portable --no-pause   # Sonunda duraklamaz (CI dostu)
 ```
 
-Yayımlama profilleri `Properties/PublishProfiles/` içinde tanımlanmıştır.
-
 ### 5. Hızlı Başlangıç Kontrol Listesi
 
 İlk katkınızdan önce:
 
 - [ ] Depoyu forkladınız ve klonladınız
 - [ ] `dotnet build` başarılı oldu (0 hata)
-- [ ] `dotnet test` geçer (166+ testin tamamı yeşil)
+- [ ] `dotnet test` geçer (tüm testler yeşil)
 - [ ] `dotnet csharpier .` hatasız şekilde kodunuzu biçimlendiriyor
 - [ ] Aşağıdaki [Mimariye Genel Bakış](#mimariye-genel-bakış) bölümünü okudunuz
 
@@ -110,70 +109,65 @@ optimizerDuck.slnx                          # Çözüm dosyası (.slnx formatı)
 ├── optimizerDuck/                          # Ana WPF uygulaması (net10.0-windows)
 │   ├── App.xaml.cs                         # DI kaydı, başlangıç, tema, loglama
 │   ├── optimizerDuck.csproj                # TFM: net10.0-windows10.0.17763.0, UseWPF=true
+│   ├── app.manifest                        # requireAdministrator UAC seviyesi
 │   │
 │   ├── Domain/                             # Saf modeller, arayüzler, özellikler (WPF bağımlılığı yok)
-│   │   ├── Abstractions/                   # IOptimization, ICustomizeSetting, IRevertStep, vs.
-│   │   ├── Attributes/                     # [Optimization], [CustomizeSetting], [OptimizationCategory]
+│   │   ├── Abstractions/                   # IOptimization, ICustomizeSetting, IRevertStep, IWindow, ICustomizeCategory, IOptimizationCategory
+│   │   ├── Attributes/                     # [Optimization], [CustomizeSetting], [OptimizationCategory], [CustomizeCategory]
 │   │   ├── Configuration/                  # AppSettings modeli
-│   │   ├── Execution/                      # ExecutionScope — AsyncLocal üzerinden çevresel (ambient) adım takibi
+│   │   ├── Execution/                      # ExecutionScope — AsyncLocal ile çevresel adım takibi
 │   │   ├── Customize/                      # Özelleştirme ayarları (Desktop, Gaming, Preferences, System)
 │   │   │   ├── Categories/                 # İçi içe ayar sınıflarına sahip kategori sınıfları
-│   │   │   └── Models/                     # BaseCustomizeSetting, RegistryToggle, RefreshScope
-│   │   ├── Optimizations/                  # Optimizasyonlar (Performance, Privacy, GPU, vs.)
+│   │   │   └── Models/                     # BaseCustomizeSetting, RegistryToggle, RefreshScope, SettingOption, RecommendationState
+│   │   ├── Optimizations/                  # Optimizasyonlar (Performance, Privacy, GPU, vb.)
 │   │   │   ├── Categories/                 # İçi içe optimizasyon sınıflarına sahip kategori sınıfları
-│   │   │   └── Models/                     # BaseOptimization, ApplyResult, OptimizationContext
+│   │   │   └── Models/                     # BaseOptimization, ApplyResult, OptimizationContext, ServiceItem, RegistryItem
 │   │   ├── Revert/                         # RevertData, RevertResult, geri alma adımı türleri
-│   │   │   └── Steps/                      # RegistryRevertStep, ServiceRevertStep, vs.
-│   │   └── UI/                             # Enumlar: OptimizationRisk, OptimizationTags, CategoryOrder
+│   │   │   └── Steps/                      # RegistryRevertStep, ServiceRevertStep, ScheduledTaskRevertStep, ShellRevertStep, UsbPowerRevertStep
+│   │   └── UI/                             # Enumlar: OptimizationRisk, OptimizationTags, OptimizationCategoryOrder, CustomizeOrder, LanguageOption, OptimizationState
 │   │
-│   ├── Common/                             # Ortak yardımcılar, eklentiler (extensions), dönüştürücüler
-│   │   ├── Extensions/                     # StringExtensions, CustomizePageRegistryExtensions
-│   │   ├── Converters/                     # WPF veri dönüştürücüleri
-│   │   └── Helpers/                        # Shared.cs, ReflectionHelper.cs, SystemRefreshService.cs
+│   ├── Common/                             # Ortak yardımcılar, eklentiler, dönüştürücüler
+│   │   ├── Converters/                     # 20+ WPF değer dönüştürücüsü
+│   │   ├── Extensions/                     # StringExtensions, CustomizePageRegistryExtensions, OptimizationPageRegistryExtensions
+│   │   ├── Helpers/                        # Shared.cs, ReflectionHelper.cs, SystemRefreshService.cs, EmbeddedResourceHelper.cs, WmiHelper.cs
+│   │   └── Native/                         # Yerel işletim sistemi yardımcıları
 │   │
-│   ├── Services/                           # İş mantığı (Business logic)
+│   ├── Services/                           # İş mantığı katmanı
 │   │   ├── Configuration/                  # ConfigManager, LanguageManager
-│   │   ├── Customize/                      # CustomizeRegistry (Yansıma ile otomatik keşif)
-│   │   ├── Managers/                       # BloatwareService, DiskCleanupService,
-│   │   │                                   # StartupManagerService, SystemInfoService,
-│   │   │                                   # StreamService, UpdaterService
+│   │   ├── Customize/                      # CustomizeRegistry (yansıma tabanlı keşif)
 │   │   ├── Optimization/                   # OptimizationRegistry, OptimizationService
-│   │   │   └── Providers/                  # Statik: RegistryService, ShellService,
-│   │   │                                   # ScheduledTaskService, ServiceProcessService
-│   │   ├── Revert/                         # RevertManager (geri alma JSON dosyalarını okur/yazar)
-│   │   ├── System/                         # RegistryWatcher
-│   │   └── UI/                             # ContentDialogService, vs.
+│   │   │   └── Providers/                  # Statik: RegistryService, ShellService, ScheduledTaskService, ServiceProcessService
+│   │   ├── Revert/                         # RevertManager (atomik JSON okuma/yazma)
+│   │   ├── System/                         # RegistryWatcher, StreamService, SystemInfoService, UpdaterService
+│   │   └── UI/                             # BloatwareService, DiskCleanupService, StartupManagerService
 │   │
-│   ├── UI/                                 # WPF sayfaları, ViewModels, kontroller, stiller
-│   │   ├── Controls/                       # Özel WPF kontrolleri
-│   │   ├── Dialogs/                        # Diyalog pencereleri (ProcessingDialog, OptimizationResultDialog)
-│   │   ├── Pages/                          # Uygulama sayfaları + alt klasörler (Optimize/, Customize/)
-│   │   ├── Styles/                         # Fluent tasarım stilleri
+│   ├── UI/                                 # WPF sayfaları, ViewModel'ler, kontroller, stiller
+│   │   ├── Behaviors/                      # SmoothScrollBehavior
+│   │   ├── Controls/                       # FilledNavigationViewItem
+│   │   ├── Dialogs/                        # ProcessingDialog, OptimizationDetailsDialog, RestorePointDialog, LegalDialog, BloatwareConfirmationDialog, ScheduledTaskCreateDialog
+│   │   ├── Pages/                          # Dashboard, Optimize, Customize, Settings, Bloatware, DiskCleanup, StartupManager, ScheduledTasks
+│   │   ├── Styles/                         # FluentDesign.xaml, NavigationViewOverride.xaml
 │   │   ├── ViewModels/                     # Sayfa ve diyalog ViewModel'leri
-│   │   │   ├── Customize/                  # CustomizeItemViewModel, CustomizeGroupViewModel
-│   │   │   ├── Dialogs/                    # ProcessingViewModel, OptimizationResultDialogViewModel
-│   │   │   ├── Optimizer/                  # OptimizationCategoryViewModel
-│   │   │   ├── Pages/                      # Dashboard, Optimize, Customize, Settings, vs.
-│   │   │   └── Windows/                    # MainWindowViewModel
 │   │   └── Windows/                        # MainWindow
 │   │
 │   └── Resources/                          # Resimler, gömülü dosyalar, yerelleştirme
 │       ├── Embedded/                       # Güç planları, simgeler
 │       ├── Images/                         # Duck.png, logolar
-│       └── Languages/                      # Translations.resx + dil varyantları
+│       └── Languages/                      # Translations.resx + 11 dil varyantı
 │
-└── optimizerDuck.Test/                     # xUnit v3 test projesi (166+ test)
+└── optimizerDuck.Test/                     # xUnit v3 test projesi
 ```
 
 ### Önemli Tasarım Kararları
 
 | Karar | Gerekçesi |
 |---|---|
-| **Yansıma tabanlı keşif (Reflection)** | Güncellenecek DI kayıt dizileri yoktur. `ReflectionHelper.FindImplementationsInLoadedAssemblies<T>()` başlangıçta `optimizerDuck.*` derlemelerini tarar. Yeni optimizasyonlar/ayarlar otomatik olarak keşfedilir. |
-| **Statik sağlayıcı hizmetler** | `RegistryService`, `ShellService`, `ScheduledTaskService`, `ServiceProcessService` statik sınıflardır. Geri alma adımlarını çevresel (ambient) `ExecutionScope`'a yakalarlar — enjekte etmeye veya bağlam aktarmaya gerek yoktur. |
-| **Dosya tabanlı geri alma takibi** | Uygulanan durum = diskte dosyanın var olmasıdır (`%localappdata%\optimizerDuck\Revert\{id}.json`). Veritabanı yoktur. Atomik yazmalar `File.Replace()` üzerinden yapılır. |
-| **Entegrasyon tarzı testler** | Gerçek dosya sistemi, gerçek kayıt defteri (Registry'de `HKCU\Software\TestOptimizerDuck*` altında), gerçek işlem yürütme. Mocking (taklit) kütüphanesi yok — sadece elle yazılmış test double'ları. |
-| **Zaman uyumsuz (Async) servis metotları** | Harici işlemleri yürüten sağlayıcı yöntemleri asenkrondur (`*Async` son eki). Optimizasyon `ApplyAsync` yöntemleri, kullanıcı arayüzünü duyarlı tutmak için `async`/`await` kullanmalıdır. |
+| **Yansıma tabanlı keşif** | Güncellenecek DI kayıt dizileri yok. `ReflectionHelper.FindImplementationsInLoadedAssemblies<T>()` başlangıçta `optimizerDuck.*` derlemelerini tarar. Yeni optimizasyonlar/ayarlar otomatik keşfedilir. |
+| **Statik sağlayıcı hizmetler** | `RegistryService`, `ShellService`, `ScheduledTaskService`, `ServiceProcessService` statik sınıflardır. Geri alma adımlarını `ExecutionScope`'a otomatik kaydederler. |
+| **Dosya tabanlı geri alma takibi** | Uygulanan durum = diskte dosyanın var olması (`%localappdata%\optimizerDuck\Revert\{id}.json`). Veritabanı yok. Atomik yazmalar `File.Replace()` ile yapılır. |
+| **Entegrasyon tarzı testler** | Gerçek dosya sistemi, gerçek kayıt defteri, gerçek işlem yürütme. Mock kütüphanesi yok — elle yazılmış test double'ları. |
+| **Zaman uyumsuz servis metotları** | Harici işlemleri yürüten yöntemler asenkrondur (`*Async` son eki). |
+| **Statik WMI yardımcısı** | `WmiHelper.Initialize()` başlangıçta çalışır, anormal sonlanma için WMI temizleme işleyicilerini kaydeder. |
 
 ---
 
@@ -183,10 +177,11 @@ optimizerDuck.slnx                          # Çözüm dosyası (.slnx formatı)
 |---|---|---|
 | **Yeni Optimizasyonlar** | Kayıt defteri ayarları, servis değişiklikleri, sistem ayarları | `Domain/Optimizations/Categories/*.cs` |
 | **Yeni Özelleştirme Ayarları** | Windows ayarları için kullanıcı arayüzü anahtarları | `Domain/Customize/Categories/*.cs` |
-| **Yeni Uygulama Özellikleri** | Yeni sayfalar, araçlar veya işlevsellikler | Önce bir Issue (sorun) açın |
-| **Hata Düzeltmeleri (Bug Fixes)** | Çökme düzeltmeleri, mantık hataları, UI sorunları | Herhangi bir yer |
+| **Yeni Uygulama Özellikleri** | Yeni sayfalar, araçlar veya işlevsellikler | Önce bir sorun (Issue) açın |
+| **Hata Düzeltmeleri** | Çökme düzeltmeleri, mantık hataları, UI sorunları | Herhangi bir yer |
 | **Çeviriler** | Yeni diller veya mevcut çevirileri düzeltme | `Resources/Languages/Translations.*.resx` |
 | **Dokümantasyon** | README, CONTRIBUTING vb. | `*.md` dosyaları |
+| **Test** | Yeni/mevcut testleri ekleme veya gözden geçirme | `optimizerDuck.Test/` |
 
 ---
 
@@ -199,22 +194,24 @@ Başlangıçta:
 1. `ReflectionHelper.FindImplementationsInLoadedAssemblies<IOptimizationCategory>()` tüm `optimizerDuck.*` derlemelerini tarar.
 2. `IOptimizationCategory` uygulayan her sınıfı bulur.
 3. Her kategori için, `IOptimization` uygulayan **iç içe geçmiş public sınıfları** tarar.
-4. Keşfedilen tüm optimizasyonların örneği oluşturulur ve `OwnerType` otomatik olarak atanır.
+4. Keşfedilen tüm optimizasyonlar örneklenir ve `OwnerType` otomatik olarak atanır.
+5. `OptimizationService.UpdateOptimizationStateAsync` diskteki geri alma dosyalarını tarar.
+6. `OptimizationRegistry.StartPreload()` bunu başlangıçta arka planda çalıştırır.
 
-**Sizin göreviniz**: Bir kategorinin içine yerleştirilmiş (nested) bir sınıf oluşturun, `BaseOptimization`'dan türetin ve `[Optimization]` ile işaretleyin. Hepsi bu kadar.
+**Sizin göreviniz**: Bir kategorinin içine yerleştirilmiş bir sınıf oluşturun, `BaseOptimization`'dan türetin ve `[Optimization]` ile işaretleyin. Hepsi bu kadar.
 
 ### Optimizasyon Kategorileri
 
 Mevcut kategoriler (`Domain/Optimizations/Categories/` içinde):
 
-| Dosya | Öznitelik (Attribute) | Odak Noktası |
+| Dosya | Öznitelik | Odak Noktası |
 |---|---|---|
-| `Performance.cs` | `[OptimizationCategory(typeof(PerformanceOptimizerPage))]` | RAM ayarı, süreç önceliği, klavye gecikmesi, multimedya zamanlayıcısı |
-| `SecurityAndPrivacy.cs` | `[OptimizationCategory(typeof(SecurityAndPrivacyOptimizerPage))]` | Telemetri, hata bildirimleri, reklam kimliği, konum, Cortana, Copilot |
-| `Gpu.cs` | `[OptimizationCategory(typeof(GpuOptimizerPage))]` | AMD/NVIDIA/Intel kayıt defteri ince ayarları, güç durumları, clock gating |
-| `PowerManagement.cs` | `[OptimizationCategory(typeof(PowerManagementOptimizerPage))]` | Hazırda bekletme, hızlı başlatma, USB seçmeli askıya alma, güç planları |
-| `BloatwareAndServices.cs` | `[OptimizationCategory(typeof(BloatwareAndServicesOptimizerPage))]` | OEM uygulama engellemesi, 200+ Windows servisi |
-| `UserExperience.cs` | `[OptimizationCategory(typeof(UserExperienceOptimizerPage))]` | Menü gecikmeleri, görsel efektler, görev çubuğu animasyonları, saydamlık |
+| `Performance.cs` | `[OptimizationCategory(typeof(PerformanceOptimizerPage))]` | RAM ayarı, süreç önceliği, klavye gecikmesi, multimedya zamanlayıcısı, erişilebilirlik kısayol tuşları |
+| `SecurityAndPrivacy.cs` | `[OptimizationCategory(typeof(SecurityAndPrivacyOptimizerPage))]` | Telemetri, hata bildirimleri, reklam kimliği, konum, Cortana, Copilot, içerik dağıtım yöneticisi, etkinlik geçmişi |
+| `Gpu.cs` | `[OptimizationCategory(typeof(GpuOptimizerPage))]` | AMD/NVIDIA/Intel kayıt defteri ayarları, güç durumları, clock gating, ASPM, async flips |
+| `PowerManagement.cs` | `[OptimizationCategory(typeof(PowerManagementOptimizerPage))]` | Hazırda bekletme, hızlı başlatma, USB seçmeli askıya alma, özel güç planı kurulumu |
+| `BloatwareAndServices.cs` | `[OptimizationCategory(typeof(BloatwareAndServicesOptimizerPage))]` | OEM uygulama engellemesi, 170+ Windows servis başlatma türü optimizasyonu |
+| `UserExperience.cs` | `[OptimizationCategory(typeof(UserExperienceOptimizerPage))]` | Menü gecikmeleri, görsel efektler, görev çubuğu animasyonları, şeffaflık, Başlat Menüsü web araması |
 
 ### Adım Adım: Mevcut Bir Kategoriye Ekleme
 
@@ -243,7 +240,7 @@ public class Performance : IOptimizationCategory
             RegistryService.Write(new RegistryItem(
                 @"HKLM\SOFTWARE\Something", "ValueName", 1));
 
-            // 2. Async işlemleri await ile bekleyin — bu UI iş parçacığını rahatlatır
+            // 2. Async işlemleri await ile bekleyin
             await ServiceProcessService.ChangeServiceStartupTypeAsync(
                 new ServiceItem("SomeService", ServiceStartupType.Disabled));
 
@@ -258,54 +255,62 @@ public class Performance : IOptimizationCategory
 
 | Kural | Detay |
 |---|---|
-| **`Id` yeni bir GUID olmalıdır** | Geri alma dosyasının adlandırılmasında kullanılır. PowerShell'de `[guid]::NewGuid()` ile oluşturabilirsiniz. |
-| **`BaseOptimization`'ı genişletin** | `Name`, `ShortDescription`, `Prefix`, `RiskVisual`, `TagDisplays` gibi özellikleri öznitelik ve çeviri anahtarlarından otomatik sağlar. |
-| **`async Task<ApplyResult>` kullanın** | `Task.FromResult()` DEĞİL. Servis sağlayıcıları asenkrondur — arayüzün kilitlenmemesi için `await` kullanın. |
-| **`CompleteFromScope()` döndürün** | `ApplyResult` sonucunu, ortam `ExecutionScope`'una kaydedilen adımlardan türetir. |
-| **İlerlemeyi raporlayın** | İletişim kutusunu güncellemek için `progress.Report(new ProcessingProgress { ... })` kullanın. |
-| **Tüm istisnaları (exception) yakalamayın** | Yukarı fırlatılmasına izin verin. Başarı/başarısızlık durumunu `ExecutionScope` izler. |
-| **Manuel olarak geri alma adımları oluşturmayın** | Statik sağlayıcı hizmetler bunu `ExecutionScope.RecordStep()` ile otomatik yapar. |
+| **`Id` yeni bir GUID olmalıdır** | Geri alma dosyası adlandırmasında kullanılır. PowerShell'de `[guid]::NewGuid()` ile oluşturun. |
+| **`BaseOptimization`'ı genişletin** | `Name`, `ShortDescription`, `RiskVisual`, `TagDisplays`'i otomatik sağlar |
+| **`async Task<ApplyResult>` kullanın** | Servis sağlayıcıları asenkrondur — `await` kullanın |
+| **`CompleteFromScope()` döndürün** | `ApplyResult`'u kaydedilen adımlardan türetir |
+| **İlerlemeyi raporlayın** | `progress.Report(new ProcessingProgress { ... })` |
+| **Tüm istisnaları yakalamayın** | `ExecutionScope` başarı/başarısızlığı izler |
+| **Manuel geri alma adımı oluşturmayın** | Statik sağlayıcılar bunu `ExecutionScope.RecordStep()` ile otomatik yapar |
+| **`context.Logger` kullanın** | Tanılama bilgilerini kaydetmek için |
+| **`context.Snapshot`'ı kontrol edin** | `SystemSnapshot` RAM, GPU, CPU bilgisi sağlar |
+
 ### Mevcut Servis Sağlayıcıları
 
-Bu **statik** sınıflar loglama, hata işleme ve geri alma adımlarının otomatik olarak kaydedilmesini yönetir.
-
-| Servis | Önemli Metotlar | Neden Kullanılır? |
+| Servis | Önemli Metotlar | Açıklama |
 |---|---|---|
-| **`RegistryService`** | `Write()`, `Read<T>()`, `DeleteValue()`, `CreateSubKey()`, `DeleteSubKeyTree()` | Kayıt defteri okuma/yazma/silme işlemleri. Geri alma için orijinal değerleri yedekler. |
-| **`ShellService`** | `CMDAsync()`**, `PowerShellAsync()`** | CMD veya PowerShell komutları çalıştırmak için. Daima asenkron varyantları kullanın. |
-| **`ScheduledTaskService`** | `DisableTask()`, `EnableTask()`, `IsTaskEnabled()`, `DeleteTask()` | Windows Zamanlanmış Görevlerini (Scheduled Tasks) yönetir. |
-| **`ServiceProcessService`** | `ChangeServiceStartupTypeAsync()`**, `GetStartupTypeAsync()`** | Windows Hizmetlerini yönetir. Daima asenkron varyantları kullanın. |
+| **`RegistryService`** | `Write()`, `Read<T>()`, `DeleteValue()`, `CreateSubKey()`, `DeleteSubKeyTree()`, `KeyExists()` | Kayıt defteri okuma/yazma/silme. Orijinal değerleri yedekler. |
+| **`ShellService`** | `CMDAsync()`, `PowerShellAsync()`, `CMD()`, `PowerShell()` | CMD/PowerShell komutları. `revertCommand` parametresi alabilir. |
+| **`ScheduledTaskService`** | `DisableTask()`, `EnableTask()`, `IsTaskEnabled()`, `DeleteTask()` | Windows Zamanlanmış Görevlerini yönetir. |
+| **`ServiceProcessService`** | `ChangeServiceStartupTypeAsync()`, `GetStartupTypeAsync()` | Windows Hizmetlerini yönetir. |
 
-> **`**` ile işaretlenen yöntemler asenkrondur.** Optimizasyonunuzun `ApplyAsync` metodu içinde bunları `await` ile çağırın.
-
-Örnek kullanım:
+Kullanım örnekleri:
 
 ```csharp
-// Senkron kayıt defteri yazma
-RegistryService.Write(new RegistryItem(@"HKLM\...", "Value", 1));
-RegistryService.DeleteValue(new RegistryItem(@"HKCU\...", "OldValue"));
+// Çoklu kayıt defteri yazma
+RegistryService.Write(
+    new RegistryItem(@"HKLM\...", "Value1", 1),
+    new RegistryItem(@"HKLM\...", "Value2", 0)
+);
 
-// Asenkron servis değişiklikleri
+// Çoklu asenkron servis değişikliği
 await ServiceProcessService.ChangeServiceStartupTypeAsync(
-    new ServiceItem("DiagTrack", ServiceStartupType.Disabled));
+    new ServiceItem("DiagTrack", ServiceStartupType.Disabled),
+    new ServiceItem("dmwappushservice", ServiceStartupType.Disabled)
+);
 
-// Asenkron komut dosyası çalıştırma
-var result = await ShellService.PowerShellAsync("Some-Command");
+// Geri alma komutu ile shell komutu
+var result = await ShellService.CMDAsync(
+    "powercfg /h off",
+    "powercfg /h on"     // geri alma için saklanır
+);
 ```
 
-### Yeni Bir Kategori Oluşturma
+### Yeni Kategori Oluşturma ve Yardımcı Sınıflar
 
-Sadece optimizasyonlarınız mevcut kategorilerden hiçbirine uymuyorsa. Aşırı spesifik kategorilerden kaçının.
+Yalnızca optimizasyonlarınız mevcut kategorilere uymuyorsa. Aşırı spesifik kategorilerden kaçının.
 
-1. `Domain/Optimizations/Categories/YourCategory.cs` dosyasını oluşturun.
-2. `IOptimizationCategory` arayüzünü (interface) uygulayın.
-3. `[OptimizationCategory(PageType = typeof(YourPage))]` ekleyin — aynı zamanda bir XAML sayfasına ihtiyacınız olacak.
-4. `Domain/UI/OptimizationCategoryOrder.cs` içindeki `OptimizationCategoryOrder` enum'una yeni bir üye ekleyin.
-5. XAML sayfası, `App.xaml.cs` dosyasındaki `services.AddAllOptimizationPages()` aracılığıyla otomatik olarak kaydedilir.
+1. `Domain/Optimizations/Categories/YourCategory.cs` oluşturun
+2. `IOptimizationCategory` uygulayın
+3. `[OptimizationCategory(PageType = typeof(YourPage))]` ekleyin
+4. `Domain/UI/OptimizationCategoryOrder.cs`'e yeni üye ekleyin
+5. XAML sayfası `App.xaml.cs`'deki `services.AddAllOptimizationPages()` ile otomatik kaydedilir
 
-### Yerelleştirme Anahtarları (Localization Keys)
+Birden fazla optimizasyon aynı yapıyı paylaşıyorsa soyut bir ara sınıf oluşturun (örn. `Gpu.cs`'deki `GpuRegistryOptimization`).
 
-Her optimizasyon `Translations.resx` içinde yer alan girdilere ihtiyaç duyar. Anahtarlar (keys) katı bir standardı takip eder:
+### Yerelleştirme Anahtarları
+
+Her optimizasyon `Translations.resx` içinde girdilere ihtiyaç duyar:
 
 ```
 Optimizer.{KategoriAdı}.{OptimizasyonAnahtarı}.Name
@@ -314,115 +319,431 @@ Optimizer.{KategoriAdı}.{OptimizasyonAnahtarı}.Progress.{ÖzelAnahtar}
 Optimizer.{KategoriAdı}.{OptimizasyonAnahtarı}.Error.{ÖzelAnahtar}
 ```
 
-Örneğin `KategoriAdı` = kategori sınıfının adı (`Performance`) ve `OptimizasyonAnahtarı` = içiçe sınıfın adı (`MyNewTweak`).
-
 > [!IMPORTANT]
-> **Çeviriler zorunludur**. Eğer bu anahtarları eklemezseniz, uygulama ham anahtar adını görüntüler, örn. `"Optimizer.Performance.MyNewTweak.Name"`. En azından `Translations.resx` (İngilizce) dosyasına daima girdileri ekleyin.
+> **Çeviriler zorunludur**. En azından `Translations.resx`'e (İngilizce) giriş ekleyin.
 
 ---
 
 # Özelleştirme Ayarı Oluşturma
 
-Özelleştirme ayarları, Windows ayarlarını AÇIK veya KAPALI olarak değiştiren kullanıcı arabirimi kontrolleridir (geçiş anahtarları, açılır menüler, sayı girişleri). `Domain/Customize/Categories/` dizininde bulunurlar.
+Özelleştirme ayarları, Windows ayarlarını AÇIK/KAPALI yapan UI kontrolleridir. `Domain/Customize/Categories/` dizininde bulunurlar.
 
 ### Özelleştirme Kategorileri
 
-| Dosya | Öznitelik (Attribute) | Odak Noktası |
+| Dosya | Öznitelik | Odak Noktası |
 |---|---|---|
-| `Desktop.cs` | `[CustomizeCategory(PageType = typeof(DesktopFeatureCategory))]` | Masaüstü simgeleri (Bu Bilgisayar, Ağ vb.), kısayol okları |
-| `Preferences.cs` | `[CustomizeCategory(PageType = typeof(PreferencesFeatureCategory))]` | Görev çubuğu hizalaması, widget'lar, karanlık mod, gizli dosyalar |
+| `Desktop.cs` | `[CustomizeCategory(PageType = typeof(DesktopFeatureCategory))]` | Masaüstü simgeleri, kısayol okları |
+| `Preferences.cs` | `[CustomizeCategory(PageType = typeof(PreferencesFeatureCategory))]` | Görev çubuğu, widget'lar, karanlık mod, dosya uzantıları, gizli dosyalar, pano geçmişi |
 | `Gaming.cs` | `[CustomizeCategory(PageType = typeof(GamingFeatureCategory))]` | Oyun Modu, Game Bar, fare ivmesi, GPU zamanlaması |
-| `SystemFeatures.cs` | `[CustomizeCategory(PageType = typeof(SystemFeatureCategory))]` | Önyükleme sırasında Num Lock durumu |
+| `SystemFeatures.cs` | `[CustomizeCategory(PageType = typeof(SystemFeatureCategory))]` | Num Lock, Geliştirici Modu, Uzun Yollar, pil yüzdesi |
 
-### Adım Adım: Basit Bir Kayıt Defteri Anahtarı
-
-Aç/kapat (toggle) şeklindeki basit bir kayıt defteri değişikliği için temel sınıf (base class) tüm işi yapar:
+### Basit Kayıt Defteri Anahtarı
 
 ```csharp
-private enum Sections { Taskbar, Widgets, Advanced }
-
 [CustomizeSetting(
-    Section = nameof(Sections.Taskbar),        // Arayüzde ayarları gruplandırır
-    Icon = SymbolRegular.AlignCenter24,         // Wpf.Ui.Controls.SymbolRegular'dan
-    Recommendation = RecommendationState.On     // On / Off / Depends / Experimental / None
+    Section = nameof(Sections.Taskbar),
+    Icon = SymbolRegular.AlignCenter24,
+    Recommendation = RecommendationState.On
 )]
 public class TaskbarAlignment : BaseCustomizeSetting
 {
     protected override IEnumerable<RegistryToggle> RegistryToggles =>
-        [
-            new()
-            {
-                Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
-                Name = "TaskbarAl",
-                OnValue = 0,            // Anahtar AÇIK olduğunda değer
-                OffValue = 1,           // Anahtar KAPALI olduğunda değer
-                DefaultValue = 1,       // değer = varsayılan durum (anahtar yoksa)
-            },
-        ];
+        [new()
+        {
+            Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+            Name = "TaskbarAl",
+            OnValue = 0,
+            OffValue = 1,
+            DefaultValue = 1,
+        }];
 
-    // Bu ayar değiştiğinde nelerin yenilenmesi gerektiğini beyan edin
     protected override CustomizeRefreshScope RefreshScope =>
         CustomizeRefreshScope.TaskbarSettings;
 }
 ```
 
-*(Kalan kısımlar da yapısal olarak mevcuttur, katkıda bulunanlar GitHub üzerinden doğrudan rehberlere bakarak ilerleyebilirler.)*
+### RegistryToggle Özellikleri
+
+| Özellik | Tür | Varsayılan | Açıklama |
+|---|---|---|---|
+| `Path` | `string` | zorunlu | Tam kayıt defteri yolu |
+| `Name` | `string` | zorunlu | Kayıt defteri değer adı |
+| `OnValue` | `object?` | `1` | "Açık" durumu değeri |
+| `OffValue` | `object?` | `0` | "Kapalı" durumu değeri |
+| `DefaultValue` | `object?` | `0` | Anahtar yoksa kullanılacak değer |
+| `IsOptional` | `bool` | `false` | Durum tespiti için gerekli değilse `true` |
+| `ValueKind` | `RegistryValueKind` | `DWord` | Kayıt defteri değer türü |
+
+### Kontrol Türleri
+
+| Tür | Görüntü | Kullanım |
+|---|---|---|
+| `Toggle` | Aç/Kapat anahtarı | Çoğu ayar (varsayılan) |
+| `Dropdown` | Açılır menü | Çoklu seçim |
+| `Option` | Radyo düğmesi | Birbirini dışlayan seçenekler |
+| `NumberInt` | Sayı girişi | Tamsayı değerleri |
+| `NumberFloat` | Ondalık giriş | Hassas değerler |
+| `String` | Metin girişi | Serbest metin |
+
+### Özel Mantık (GetStateAsync / ApplyAsync)
+
+```csharp
+[CustomizeSetting(
+    Section = nameof(Sections.Input),
+    Icon = SymbolRegular.Cursor24,
+    Recommendation = RecommendationState.Off
+)]
+public class MouseAcceleration : BaseCustomizeSetting
+{
+    private const string Path = @"HKCU\Control Panel\Mouse";
+
+    protected override IReadOnlyList<string> GetWatchedRegistryPaths() => [Path];
+
+    public override Task<bool> GetStateAsync()
+    {
+        return Task.Run(() =>
+        {
+            var speed = RegistryService.Read<string>(new RegistryItem(Path, "MouseSpeed"));
+            var t1 = RegistryService.Read<string>(new RegistryItem(Path, "MouseThreshold1"));
+            var t2 = RegistryService.Read<string>(new RegistryItem(Path, "MouseThreshold2"));
+            return (int.TryParse(speed, out var s) && s != 0)
+                || (int.TryParse(t1, out var a) && a != 0)
+                || (int.TryParse(t2, out var b) && b != 0);
+        });
+    }
+
+    public override async Task ApplyAsync(object? value)
+    {
+        var isOn = value is bool b && b;
+        RegistryService.Write(new RegistryItem(Path, "MouseSpeed", isOn ? "1" : "0"));
+        RegistryService.Write(new RegistryItem(Path, "MouseThreshold1", isOn ? "6" : "0"));
+        RegistryService.Write(new RegistryItem(Path, "MouseThreshold2", isOn ? "10" : "0"));
+        await ExecutePostActionAsync();
+    }
+
+    protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.Default;
+}
+```
+
+### Öneri Sistemi
+
+Her özelleştirme ayarı bir öneri bildirebilir:
+
+```csharp
+[CustomizeSetting(
+    ...,
+    Recommendation = RecommendationState.On   // On / Off / Depends / Experimental / None
+)]
+```
+
+| Durum | Anlamı |
+|---|---|
+| `On` | AÇILMASI önerilir — sistemi iyileştirir |
+| `Off` | KAPATILMASI önerilir — sistemi iyileştirir |
+| `Depends` | Kullanıcının ihtiyaçlarına bağlıdır |
+| `Experimental` | Kararsız olabilir, dikkatli kullanın |
+| `None` (varsayılan) | Öneri gösterilmez |
+
+### Ne Zaman Ne Geçersiz Kılınır
+
+| Senaryo | Geçersiz Kıl |
+|---|---|
+| Basit kayıt defteri anahtarı | `RegistryToggles` + `RefreshScope` |
+| Çoklu kayıt defteri | `RegistryToggles` (hepsini listele) |
+| Açılır menü/Seçenekler | `ControlType`, `Options`, `ApplyAsync`, `CurrentValue` |
+| Çoklu değer mantığı | `GetStateAsync()` + `ApplyAsync()` + `GetWatchedRegistryPaths()` |
+| Kayıt defteri olmayan ayar | `GetStateAsync()` + `ApplyAsync()` (tamamen özel) |
+| Dinamik seçenekler | `Options` getter'ını koşullu yap |
+| Yakınsama ile durum tespiti | `GetStateWithRetryAsync()` (yerleşik — geçersiz kılmayın) |
+| Gömülü kaynak çıkarma | `EmbeddedResourceHelper.TryExtract()` içinde `ApplyAsync` |
+
+### Yerelleştirme Anahtarları (Özelleştirme)
+
+```
+Customize.{KategoriAdı}.{AyarAnahtarı}.Name
+Customize.{KategoriAdı}.{AyarAnahtarı}.Description
+Customize.{KategoriAdı}.{AyarAnahtarı}.Options.{SeçenekAnahtarı}
+Customize.{KategoriAdı}.{AyarAnahtarı}.Recommendation.Reason
+Customize.{KategoriAdı}.Section.{BölümAdı}
+```
 
 ---
 
 # Yenileme Kapsamı Sistemi
 
-Bir özelleştirme ayarı değiştiğinde, farklı Windows yüzeyleri farklı yenileme stratejilerine ihtiyaç duyar. `CustomizeRefreshScope` [Flags] enum'u bunu kontrol eder. Çoğu durumda `Default` (Varsayılan) kullanabilirsiniz.
+`CustomizeRefreshScope` [Flags] enum'u Windows yüzeylerinin nasıl yenileneceğini kontrol eder.
+
+| Üye | Değer | Etki |
+|---|---|---|
+| `None` | `0` | Yenileme yok |
+| `Settings` | `1 << 0` | `WM_SETTINGCHANGE` yayınla |
+| `Associations` | `1 << 1` | Dosya ilişkilendirme değişikliklerini bildir |
+| `Desktop` | `1 << 2` | Masaüstü simge listesini yenile |
+| `Taskbar` | `1 << 3` | Görev çubuğu `WM_SETTINGCHANGE` yayınla |
+| `PolicyUpdate` | `1 << 4` | `SystemParametersInfo` gönder |
+| `Theme` | `1 << 5` | `WM_THEMECHANGED` yayınla |
+| `DesktopIconCache` | `1 << 6` | Masaüstü simge önbelleğini yenile |
+
+**Bileşikler**: `Default` (`Settings | Associations`), `DesktopIcons` (`Settings | Desktop`), `TaskbarSettings` (`Settings | Taskbar`), `ExplorerView` (`Settings | Associations | PolicyUpdate`).
+
+`ApplyAsync`'i geçersiz kılarsanız, `await ExecutePostActionAsync()` çağırmayı unutmayın.
 
 ---
 
 # Yeni Özellikler Geliştirme
 
-Yeni bir sayfa veya araç eklemek istiyorsanız (örneğin, bir "Ağ İzleyicisi"):
+1. **Önce GitHub Sorunu (Issue) açın**
+2. **Uygulama sırası**: Service → ViewModel → XAML Page → `App.xaml.cs`'e kaydet
 
-1. **Önce bir GitHub Sorunu (Issue) açın** — özelliği, kullanım durumunu ve tasarımı açıklayın. Geliştiriciden geri bildirim bekleyin.
-2. ViewModels ve Pages `App.xaml.cs` içinde singleton olarak kaydedilmelidir.
+```csharp
+// DI Kayıt Deseni
+services.AddSingleton<YourViewModel>();
+services.AddSingleton<YourPage>();
+services.AddSingleton<ConfigManager>();
+services.AddSingleton<RevertManager>();
+services.AddSingleton<OptimizationRegistry>();
+services.AddSingleton<OptimizationService>();
+services.AddSingleton<SystemInfoService>();
+services.AddSingleton<StreamService>();
+services.AddSingleton<UpdaterService>();
+```
+
+### Sistem Servisleri
+
+| Servis | Amaç |
+|---|---|
+| `SystemInfoService` | `SystemSnapshot` ile CPU, RAM, GPU bilgisi |
+| `StreamService` | Uzak kaynakları indirme |
+| `UpdaterService` | GitHub sürümlerini kontrol etme |
+| `RegistryWatcher` | Kayıt defteri değişikliklerini izleme |
+| `BloatwareService` | Ön yüklemeli AppX paketlerini listeleme |
+| `DiskCleanupService` | Disk temizlik taraması |
+| `StartupManagerService` | Başlangıç uygulamalarını yönetme |
 
 ---
 
 # Geri Alma Sistemi
 
-Uygulanan her optimizasyon `%localappdata%\optimizerDuck\Revert\{optimizationId}.json` yolunda bir JSON dosyası oluşturur. Sistem, atomik değişiklikler yapar ve işlemleri hatasız geri almaya olanak sağlar. Statik sağlayıcıları kullanırsanız geri alma adımları otomatik olarak JSON'a kaydedilir, manuel olarak bir geri alma adımı oluşturmayın.
+Her uygulanan optimizasyon `%localappdata%\optimizerDuck\Revert\{optimizationId}.json` yolunda bir JSON dosyası oluşturur.
+
+### Nasıl Çalışır
+
+```
+ApplyAsync() → ExecutionScope.Begin() → Provider çağrıları otomatik adım kaydeder → CompleteFromScope() → RevertManager.SaveRevertDataAsync()
+```
+
+### Adım Türleri
+
+| Adım Türü | Kaydedilen | Otomatik Oluşturan |
+|---|---|---|
+| **`RegistryRevertStep`** | Orijinal kayıt defteri değeri | `RegistryService.Write()`, `DeleteValue()`, vb. |
+| **`ServiceRevertStep`** | Orijinal servis başlatma türü | `ServiceProcessService.ChangeServiceStartupTypeAsync()` |
+| **`ScheduledTaskRevertStep`** | Orijinal görev durumu | `ScheduledTaskService.DisableTask()`, `EnableTask()` |
+| **`ShellRevertStep`** | Geri alma komutu | `ShellService.CMDAsync()` — `revertCommand` parametresi |
+| **`UsbPowerRevertStep`** | USB güç ayarları | USB optimizasyonları (manuel `ExecutionScope.RecordStep()`) |
+
+Geri alma komutu ekleme:
+
+```csharp
+await ShellService.CMDAsync("powercfg /h off", "powercfg /h on");  // revertCommand
+```
+
+### Önemli Detaylar
+
+- **Uygulanma durumu**: Dosyanın diskteki varlığından çıkarılır
+- **Atomik yazma**: `.tmp` + `File.Replace()`
+- **Eşzamanlı erişim**: Dosya başına `SemaphoreSlim` kilitleri, 30 saniye zaman aşımı
+- **Ters sırada geri alma**: Son uygulanan = ilk geri alınan
+- **Kısmi başarı**: Bazı adımlar başarısız olsa bile devam eder
+- **Yeniden deneme**: `OptimizationService.RetryFailedStepsAsync()`
+- **Yeni adım türü ekleme**: `Domain/Revert/Steps/`'e `IRevertStep` uygulayan sınıf + `FromData(JObject)` metodu
 
 ---
 
 # Test Etme
 
-Testler **xUnit v3** kullanır ve gerçek G/Ç ile entegrasyon tarzı bir yaklaşımı benimser. Hiçbir "mock" veya "fake" kütüphanesi kullanılmamıştır. Test çalıştırmak için:
-`dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release`
+Testler **xUnit v3** kullanır ve gerçek G/Ç ile entegrasyon tarzı bir yaklaşım benimser.
+
+### Test Kalıpları
+
+| Kalıp | Detay |
+|---|---|
+| **Mock kütüphanesi yok** | Tüm test double'ları elle yazılmıştır |
+| **Gerçek G/Ç** | Gerçek dosya sistemi, kayıt defteri, süreç yürütme |
+| **Temizlik** | `try/finally` veya `IDisposable` |
+| **İsimlendirme** | `{Method}_{Scenario}_{ExpectedResult}` |
+| **Loglama** | `NullLogger<T>.Instance` |
+
+```bash
+dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release
+```
+
+### Test Yapısı
+
+```
+optimizerDuck.Test/
+├── Common/Helpers/
+│   └── SystemRefreshServiceTests.cs
+├── Domain/
+│   ├── Customize/BaseCustomizeSettingTests.cs
+│   ├── Exceptions/StepExecutionExceptionTests.cs
+│   └── Revert/Steps/RevertStepSerializationTests.cs, ScheduledTaskRevertStepTests.cs
+└── Services/
+    ├── ApplyRevertComprehensiveTests.cs
+    ├── OptimizationServiceTests.cs, OptimizationServiceIntegrationTests.cs
+    ├── RevertManagerTests.cs
+    ├── RegistryServiceTests.cs, ServiceProcessServiceTests.cs, ShellServiceTests.cs
+    └── RegistryWatcherTests.cs, SystemInfoServiceTests.cs
+```
+
+### CI Entegrasyonu
+
+```bash
+dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release --no-build --blame-hang --blame-hang-timeout 30s
+```
 
 ---
 
 # Kodlama Standartları
 
-- `PascalCase` sınıf, enum, metot adları için.
-- `_camelCase` özel (private) alanlar için.
-- `camelCase` yerel değişkenler için.
-- Girinti: 4 boşluk, Maksimum satır uzunluğu 100 karakter. `dotnet csharpier .` komutu kodu otomatik formatlar.
-- Kesinlikle string (metin) ifadeleri hardcode yazmayın. Daima `Translations.KeyName` kullanın.
+| Kural | Değer |
+|---|---|
+| Sınıflar, metotlar, özellikler | `PascalCase` |
+| Private alanlar | `_camelCase` |
+| Yerel değişkenler | `camelCase` |
+| Async metotlar | `*Async` soneki |
+| Girinti | 4 boşluk |
+| Maksimum satır uzunluğu | 100 karakter |
+| Biçimlendirici | **CSharpier** — `dotnet csharpier .` |
+| **String'leri hardcode etmeyin** | `Translations.KeyName` veya `Loc.Instance["Key"]` kullanın |
+| **Yorumları minimumda tutun** | |
+| **Null yapılabilir referans türleri** | Etkin (`<Nullable>enable</Nullable>`) |
+
+### Hata Yönetimi
+
+| Katman | Uygulama |
+|---|---|
+| **Optimizasyonlar** | `ApplyResult.False("sebep")` döndürün, fırlatmayın |
+| **Sağlayıcı servisler** | try/catch + `ExecutionScope.LogError` |
+| **ViewModel'ler** | Komut işleyicilerinde yakalayın, snackbar gösterin |
+| **Genel** | App.xaml.cs'de 3 genel hata işleyici. Çökmeler `%localappdata%\optimizerDuck\Crashes\crash_*.log`'a kaydedilir |
 
 ---
 
 # Yerelleştirme
 
-Uygulama metinleri `Resources/Languages/Translations.resx` içinde bulunur. Lütfen yeni bir dil eklerken `Translations.{locale}.resx` dosyası oluşturun ve `SettingsViewModel.cs` içinden dili uygulamaya ekleyin. Her zaman yerelleştirme (Localization) kurallarına sadık kalın.
+Tüm kullanıcı metinleri `Resources/Languages/Translations.resx` içindedir.
+
+### Mevcut Diller (11 dil + İngilizce)
+
+| Dil | Dosya |
+|---|---|
+| English | `Translations.resx` (varsayılan) |
+| Vietnamese | `Translations.vi-VN.resx` |
+| Spanish | `Translations.es-ES.resx` |
+| French | `Translations.fr-FR.resx` |
+| Geleneksel Çince | `Translations.zh-TW.resx` |
+| Basitleştirilmiş Çince | `Translations.zh-CN.resx` |
+| Russian | `Translations.ru-RU.resx` |
+| Korean | `Translations.ko-KR.resx` |
+| Japanese | `Translations.ja-JP.resx` |
+| Polish | `Translations.pl-PL.resx` |
+| Turkish | `Translations.tr-TR.resx` |
+| Portuguese (Brazil) | `Translations.pt-BR.resx` |
+
+### Yeni Dil Ekleme
+
+1. `Translations.{locale}.resx` dosyasını oluşturun (tüm anahtarlarla)
+2. `SettingsViewModel.cs`'e kaydedin:
+```csharp
+new() { DisplayName = "Deutsch", Culture = new CultureInfo("de-DE") },
+```
+
+XAML'de:
+```xml
+<ui:TextBlock Text="{ext:Loc Dashboard.Header.Title}" />
+```
 
 ---
 
 # Çekme İsteği Süreci (Pull Request Process)
 
-1. Her zaman `master` üzerinden yeni bir dal (branch) açın: `feature/adiniz` veya `fix/issue-id`.
-2. Commit mesajlarınızı kurallara uygun (`feat:`, `fix:`, `docs:`) şekilde yazın.
-3. Kodu derleyin, testleri çalıştırın ve `csharpier` ile formatlayın.
-4. Yeni bir optimizasyon eklediyseniz, ekran görüntüsünü (screenshot) PR açıklamasına ekleyin.
-5. Yorumları takip edin ve takım arkadaşlarının geribildirimlerine açık olun.
+1. **`master`'dan dal açın**: `feature/adiniz` veya `fix/issue-id`
+2. **Conventional Commits**: `feat:` (yeni özellik), `fix:` (hata düzeltme), `refactor:` (yeniden düzenleme), `docs:` (dokümantasyon), `test:` (test), `i18n:` (çeviri), `chore:` (bakım)
+3. **Göndermeden önce doğrulayın**:
 
-*(Katkınız için tekrardan teşekkür ederiz!)*
+```bash
+dotnet build optimizerDuck.slnx --configuration Release
+dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release --no-build
+dotnet csharpier .
+```
+
+4. **PR açın**: Ne ve neden değişti? UI değişiklikleri varsa ekran görüntüsü ekleyin. İlgili Issue'ları `Closes #42` ile bağlayın.
+
+### PR Kontrol Listesi
+
+- [ ] Kod mevcut kalıpları takip ediyor
+- [ ] Yerelleştirme anahtarları `Translations.resx`'e eklendi
+- [ ] `dotnet build` başarılı (0 hata)
+- [ ] `dotnet test` başarılı
+- [ ] `dotnet csharpier .` çalıştırıldı
+- [ ] Hardcode string yok
+- [ ] Geri alma adımları kaydedildi (varsa)
+- [ ] UI değişiklikleri için ekran görüntüsü eklendi
+
+---
+
+# Sorun (Issue) Yönergeleri
+
+- **Hata raporları**: Yeniden üretme adımları, beklenen/gerçek davranış, `%localappdata%\optimizerDuck\optimizerDuck.log` + sistem özellikleri
+- **Özellik istekleri**: Kullanım durumu, çözdüğü sorun, nasıl çalışması gerektiği
+- **Optimizasyon önerileri**: Kayıt defteri yolları, servis adları, CLI komutları, güvenilir kaynaklar
+- **Sorular**: GitHub Discussions veya [Discord](https://discord.gg/tDUBDCYw9Q)
+
+---
+
+# SSS ve Sorun Giderme
+
+### Derleme "CA1416" hatasıyla başarısız oluyor
+`.editorconfig` CA1416'yı susturur. Proje Windows'a özeldir.
+
+### Optimizasyon UI'da görünmüyor
+- Kategori içinde **iç içe public sınıf** mı?
+- Kategori `IOptimizationCategory` uyguluyor mu?
+- `BaseOptimization`'dan türetilmiş mi?
+- `[Optimization(Id = "...")]` özniteliği var mı?
+- Yerelleştirme anahtarları `Translations.resx`'e eklendi mi?
+
+### Özelleştirme ayarı görünmüyor
+- `[CustomizeSetting(Section = ..., Icon = ...)]` var mı?
+- `Section` yazımı doğru mu?
+- `[CustomizeCategory(PageType = ...)]` var mı?
+
+### UI donuyor
+`ApplyAsync`'te `async`/`await` kullandığınızdan emin olun. `.Result`/`.Wait()` UI'ı dondurur.
+
+### GUID nasıl oluşturulur?
+```powershell
+[guid]::NewGuid()
+```
+
+### Çeviriler anahtar adı olarak görünüyor
+`Translations.resx`'e yerelleştirme anahtarları eklemeyi unuttunuz.
+
+### "Geri alma verisi yok" hatası
+Optimizasyonun `Id` GUID'inin değişmediğinden emin olun.
+
+### Yeni geri alma adım türü ekleme
+1. `Domain/Revert/Steps/`'e `IRevertStep` uygulayan sınıf oluşturun
+2. Statik `FromData(JObject data)` metodu ekleyin
+3. `ExecutionScope.RecordStep()` ile kaydedin
+
+### Çökme güvenliği
+- Geri alma dosyaları atomik yazma kullanır (`.tmp` + `File.Replace`)
+- Çökme günlükleri: `%localappdata%\optimizerDuck\Crashes\crash_*.log`
+- App.xaml.cs'de 3 genel hata işleyici
+
+---
 
 <div align="center">
 

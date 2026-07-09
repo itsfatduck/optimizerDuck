@@ -20,6 +20,7 @@
 - ドキュメントやガイドの改善
 - 翻訳の追加や修正
 - コードの貢献：最適化、カスタマイズ設定、サービス、UI の改善
+- テストの追加や既存テストのレビュー
 
 ---
 
@@ -87,15 +88,13 @@ publish.bat single --skip-tests   # Skip tests for quick iteration
 publish.bat portable --no-pause   # Don't pause at the end (CI-friendly)
 ```
 
-公開プロファイルは `Properties/PublishProfiles/` で定義されています。
-
 <h3 id="quick-start-checklist">5. クイックスタートチェックリスト</h3>
 
 初めて貢献する前に：
 
 - [ ] リポジトリをフォークしてクローンする
 - [ ] `dotnet build` が成功する（エラー 0 件）
-- [ ] `dotnet test` が通る（166 件以上のテストがすべて成功）
+- [ ] `dotnet test` が通る（すべてのテストが成功）
 - [ ] `dotnet csharpier .` がエラーなくフォーマットできる
 - [ ] 下記の [アーキテクチャ概要](#architecture-overview) を読む
 
@@ -110,48 +109,54 @@ optimizerDuck.slnx                          # Solution file (.slnx format)
 ├── optimizerDuck/                          # Main WPF app (net10.0-windows)
 │   ├── App.xaml.cs                         # DI registration, startup, theme, logging
 │   ├── optimizerDuck.csproj                # TFM: net10.0-windows10.0.17763.0, UseWPF=true
+│   ├── app.manifest                        # requireAdministrator UAC level
 │   │
 │   ├── Domain/                             # Pure models, interfaces, attributes (no WPF deps)
-│   │   ├── Abstractions/                   # IOptimization, ICustomizeSetting, IRevertStep, etc.
-│   │   ├── Attributes/                     # [Optimization], [CustomizeSetting], [OptimizationCategory]
+│   │   ├── Abstractions/                   # IOptimization, ICustomizeSetting, IRevertStep, IWindow, ICustomizeCategory, IOptimizationCategory
+│   │   ├── Attributes/                     # [Optimization], [CustomizeSetting], [OptimizationCategory], [CustomizeCategory]
 │   │   ├── Configuration/                  # AppSettings model
 │   │   ├── Execution/                      # ExecutionScope — ambient step tracking via AsyncLocal
 │   │   ├── Customize/                      # Customize settings (Desktop, Gaming, Preferences, System)
 │   │   │   ├── Categories/                 # Category classes with nested setting classes
-│   │   │   └── Models/                     # BaseCustomizeSetting, RegistryToggle, RefreshScope
+│   │   │   └── Models/                     # BaseCustomizeSetting, RegistryToggle, RefreshScope, SettingOption, CustomizeControlType, RecommendationState
 │   │   ├── Optimizations/                  # Optimizations (Performance, Privacy, GPU, etc.)
 │   │   │   ├── Categories/                 # Category classes with nested optimization classes
-│   │   │   └── Models/                     # BaseOptimization, ApplyResult, OptimizationContext
+│   │   │   └── Models/                     # BaseOptimization, ApplyResult, OptimizationContext, ServiceItem, RegistryItem
+│   │   │       ├── Bloatware/              # AppXPackage model
+│   │   │       ├── Cleanup/                # CleanupItem
+│   │   │       ├── ScheduledTask/          # ScheduledTaskModel
+│   │   │       ├── Services/               # RegistryItem, ServiceItem, ShellResult, ServiceStartupType
+│   │   │       └── StartupManager/         # StartupApp, StartupTask
 │   │   ├── Revert/                         # RevertData, RevertResult, revert step types
-│   │   │   └── Steps/                      # RegistryRevertStep, ServiceRevertStep, etc.
-│   │   └── UI/                             # Enums: OptimizationRisk, OptimizationTags, CategoryOrder
+│   │   │   └── Steps/                      # RegistryRevertStep, ServiceRevertStep, ScheduledTaskRevertStep, ShellRevertStep, UsbPowerRevertStep
+│   │   └── UI/                             # Enums: OptimizationRisk, OptimizationTags, OptimizationCategoryOrder, CustomizeOrder, LanguageOption, OptimizationState, RiskVisual, ProcessingProgress
 │   │
 │   ├── Common/                             # Shared helpers, extensions, converters
-│   │   ├── Extensions/                     # StringExtensions, CustomizePageRegistryExtensions
-│   │   ├── Converters/                     # WPF value converters
-│   │   └── Helpers/                        # Shared.cs, ReflectionHelper.cs, SystemRefreshService.cs
+│   │   ├── Converters/                     # 20+ WPF value converters
+│   │   ├── Extensions/                     # StringExtensions, CustomizePageRegistryExtensions, OptimizationPageRegistryExtensions, LanguageExtensions
+│   │   ├── Helpers/                        # Shared.cs, ReflectionHelper.cs, SystemRefreshService.cs, EmbeddedResourceHelper.cs, GitHubSourceHelper.cs, WmiHelper.cs, ThemeResource.cs
+│   │   └── Native/                         # Native interop helpers
 │   │
-│   ├── Services/                           # Business logic
+│   ├── Services/                           # Business logic layer
 │   │   ├── Configuration/                  # ConfigManager, LanguageManager
-│   │   ├── Customize/                      # CustomizeRegistry (discovery via reflection)
-│   │   ├── Managers/                       # BloatwareService, DiskCleanupService,
-│   │   │                                   # StartupManagerService, SystemInfoService,
-│   │   │                                   # StreamService, UpdaterService
+│   │   ├── Customize/                      # CustomizeRegistry (reflection-based discovery)
 │   │   ├── Optimization/                   # OptimizationRegistry, OptimizationService
-│   │   │   └── Providers/                  # Static: RegistryService, ShellService,
-│   │   │                                   # ScheduledTaskService, ServiceProcessService
-│   │   ├── Revert/                         # RevertManager (writes/reads revert JSON files)
-│   │   ├── System/                         # RegistryWatcher
-│   │   └── UI/                             # ContentDialogService, etc.
+│   │   │   └── Providers/                  # Static: RegistryService, ShellService, ScheduledTaskService, ServiceProcessService
+│   │   ├── Revert/                         # RevertManager (atomic write/read of revert JSON files)
+│   │   ├── System/                         # RegistryWatcher, StreamService, SystemInfoService, UpdaterService
+│   │   └── UI/                             # BloatwareService, DiskCleanupService, StartupManagerService
 │   │
 │   ├── UI/                                 # WPF pages, ViewModels, controls, styles
-│   │   ├── Controls/                       # Custom WPF controls
-│   │   ├── Dialogs/                        # Dialog windows (ProcessingDialog, OptimizationResultDialog)
-│   │   ├── Pages/                          # App pages + sub-folders (Optimize/, Customize/)
-│   │   ├── Styles/                         # Fluent design styles
+│   │   ├── Behaviors/                      # SmoothScrollBehavior
+│   │   ├── Controls/                       # FilledNavigationViewItem
+│   │   ├── Dialogs/                        # ProcessingDialog, OptimizationDetailsDialog, OptimizationResultDialog, RestorePointDialog, LegalDialog, BloatwareConfirmationDialog, ScheduledTaskCreateDialog, ScheduledTaskDetailsDialog, StartupTaskDetailsPanel
+│   │   ├── Pages/                          # Dashboard, Optimize, Customize, Settings, Bloatware, DiskCleanup, StartupManager, ScheduledTasks + sub-folders
+│   │   │   ├── Customize/                  # CustomizePage + Categories/
+│   │   │   └── Optimize/                   # OptimizePage + Categories/
+│   │   ├── Styles/                         # FluentDesign.xaml, NavigationViewOverride.xaml, ToolTipOverride.xaml
 │   │   ├── ViewModels/                     # Page and dialog ViewModels
-│   │   │   ├── Customize/                  # CustomizeItemViewModel, CustomizeGroupViewModel
-│   │   │   ├── Dialogs/                    # ProcessingViewModel, OptimizationResultDialogViewModel
+│   │   │   ├── Customize/                  # CustomizeItemViewModel, CustomizeCategoryViewModel
+│   │   │   ├── Dialogs/                    # ProcessingViewModel, OptimizationDetailsViewModel, etc.
 │   │   │   ├── Optimizer/                  # OptimizationCategoryViewModel
 │   │   │   ├── Pages/                      # Dashboard, Optimize, Customize, Settings, etc.
 │   │   │   └── Windows/                    # MainWindowViewModel
@@ -160,18 +165,9 @@ optimizerDuck.slnx                          # Solution file (.slnx format)
 │   └── Resources/                          # Images, embedded assets, localization
 │       ├── Embedded/                       # Power plans, icons
 │       ├── Images/                         # Duck.png, logos
-│       └── Languages/                      # Translations.resx + 7 locale variants
+│       └── Languages/                      # Translations.resx + 11 locale variants
 │
-└── optimizerDuck.Test/                     # xUnit v3 test project (166+ tests)
-    ├── Common/Helpers/
-    ├── Domain/
-    │   ├── Customize/
-    │   ├── Exceptions/
-    │   ├── Optimizations/
-    │   └── Revert/Steps/
-    └── Services/
-        ├── Managers/
-        └── OptimizationServices/
+└── optimizerDuck.Test/                     # xUnit v3 test project
 ```
 
 <h3 id="key-design-decisions">主要な設計判断</h3>
@@ -183,6 +179,8 @@ optimizerDuck.slnx                          # Solution file (.slnx format)
 | **ファイルベースのリバート追跡** | 適用状態 = ディスク上にファイルが存在する（`%localappdata%\optimizerDuck\Revert\{id}.json`）。データベースは使用しません。`File.Replace()` によるアトミック書き込み。 |
 | **統合スタイルのテスト** | 実際のファイルシステム、実際のレジストリ（`HKCU\Software\TestOptimizerDuck*` 配下）、実際のプロセス実行。モックライブラリは使用せず、手書きのテストダブルのみ。 |
 | **非同期サービスメソッド** | 外部プロセスを実行するプロバイダーメソッドは非同期（`*Async` サフィックス）です。最適化の `ApplyAsync` メソッドでは `async`/`await` を使用して UI の応答性を保ってください。 |
+| **静的な WMI ヘルパー** | `WmiHelper.Initialize()` が起動時に実行され、異常終了時の WMI イベントクリーンアップハンドラを登録します。 |
+| **保留中の変更トラッキング** | `App.HasPendingChanges` プロパティが未リバートの最適化を追跡します。アプリ終了時に PC/Explorer 再起動または終了のオプションを表示します。 |
 
 ---
 
@@ -196,6 +194,7 @@ optimizerDuck.slnx                          # Solution file (.slnx format)
 | **バグ修正** | クラッシュ修正、ロジックエラー、UI の問題 | 任意の場所 |
 | **翻訳** | 新しい言語の追加や既存翻訳の修正 | `Resources/Languages/Translations.*.resx` |
 | **ドキュメント** | README、CONTRIBUTING など | `*.md` ファイル |
+| **テスト** | 新規・既存のテストの追加・レビュー | `optimizerDuck.Test/` |
 
 ---
 
@@ -209,6 +208,8 @@ optimizerDuck.slnx                          # Solution file (.slnx format)
 2. `IOptimizationCategory` を実装するすべてのクラスを見つける
 3. 各カテゴリについて、`IOptimization` を実装する**ネストされた public クラス**をスキャンする
 4. 検出されたすべての最適化がインスタンス化され、`OwnerType` が自動的に割り当てられる
+5. `OptimizationService.UpdateOptimizationStateAsync` がディスク上のリバートファイルをスキャンし、各最適化を適用済み/未適用としてマークする
+6. `OptimizationRegistry.StartPreload()` が起動時にバックグラウンドスレッドでこれを実行する
 
 **あなたの作業**：カテゴリ内にネストされたクラスを作成し、`BaseOptimization` を継承し、`[Optimization]` を付与する。以上です。
 
@@ -218,12 +219,12 @@ optimizerDuck.slnx                          # Solution file (.slnx format)
 
 | ファイル | 属性 | 対象 |
 |---|---|---|
-| `Performance.cs` | `[OptimizationCategory(typeof(PerformanceOptimizerPage))]` | RAM 調整、プロセス優先度、キーボードレイテンシ、マルチメディアスケジューラ |
-| `SecurityAndPrivacy.cs` | `[OptimizationCategory(typeof(SecurityAndPrivacyOptimizerPage))]` | テレメトリ、エラー報告、広告 ID、位置情報、Cortana、Copilot |
-| `Gpu.cs` | `[OptimizationCategory(typeof(GpuOptimizerPage))]` | AMD/NVIDIA/Intel レジストリ調整、電源状態、クロックゲーティング |
-| `PowerManagement.cs` | `[OptimizationCategory(typeof(PowerManagementOptimizerPage))]` | 休止状態、高速スタートアップ、USB 選択的サスペンド、カスタム電源プラン |
-| `BloatwareAndServices.cs` | `[OptimizationCategory(typeof(BloatwareAndServicesOptimizerPage))]` | OEM 再インストールのブロック、200 以上の Windows サービス起動タイプ |
-| `UserExperience.cs` | `[OptimizationCategory(typeof(UserExperienceOptimizerPage))]` | メニュー遅延、視覚効果、タスクバーアニメーション、透明度 |
+| `Performance.cs` | `[OptimizationCategory(typeof(PerformanceOptimizerPage))]` | RAM 調整、プロセス優先度、キーボードレイテンシ、マルチメディアスケジューラ、アクセシビリティホットキー |
+| `SecurityAndPrivacy.cs` | `[OptimizationCategory(typeof(SecurityAndPrivacyOptimizerPage))]` | テレメトリ、エラー報告、広告 ID、位置情報、Cortana、Copilot、コンテンツ配信マネージャー、アクティビティ履歴、AutoLogger |
+| `Gpu.cs` | `[OptimizationCategory(typeof(GpuOptimizerPage))]` | AMD/NVIDIA/Intel レジストリ調整、電源状態、クロックゲーティング、ASPM、非同期フリップ |
+| `PowerManagement.cs` | `[OptimizationCategory(typeof(PowerManagementOptimizerPage))]` | 休止状態、高速スタートアップ、USB 選択的サスペンド、カスタム電源プランのインストール、省電力設定の無効化 |
+| `BloatwareAndServices.cs` | `[OptimizationCategory(typeof(BloatwareAndServicesOptimizerPage))]` | OEM プリインストールアプリのブロック、170 以上の Windows サービス起動タイプ最適化 |
+| `UserExperience.cs` | `[OptimizationCategory(typeof(UserExperienceOptimizerPage))]` | メニュー遅延、視覚効果、タスクバーアニメーション、透明度、スタートメニューの Web 検索 |
 
 <h3 id="step-by-step-add-to-existing-category">ステップバイステップ：既存カテゴリへの追加</h3>
 
@@ -274,6 +275,8 @@ public class Performance : IOptimizationCategory
 | **進捗を報告する** | `progress.Report(new ProcessingProgress { ... })` を使用して UI ダイアログを更新する |
 | **すべての例外をキャッチしない** | 例外は上位に伝播させる。`ExecutionScope` が成功/失敗を追跡する。`OptimizationService` レイヤーが例外を処理する |
 | **リバートステップを手動で作成しない** | 静的プロバイダーサービスが `ExecutionScope.RecordStep()` 経由で自動的に行う |
+| **`context.Logger` を使用する** | 最適化コンテキストはロガーを提供します。重要な診断情報の記録に使用します |
+| **`context.Snapshot` をチェックする** | `OptimizationContext.Snapshot` がシステム情報（RAM、GPU、CPU）を提供します。条件付きロジックに使用できます |
 
 <h3 id="available-service-providers">利用可能なサービスプロバイダー</h3>
 
@@ -281,29 +284,40 @@ public class Performance : IOptimizationCategory
 
 | サービス | 主要メソッド | 使用理由 |
 |---|---|---|
-| **`RegistryService`** | `Write()`、`Read<T>()`、`DeleteValue()`、`CreateSubKey()`、`DeleteSubKeyTree()` | レジストリキーの読み書き/削除。リバート用に元の値をバックアップする。 |
-| **`ShellService`** | `CMDAsync()`**、`PowerShellAsync()`** | CMD または PowerShell コマンドの実行。常に非同期バリアントを使用する。 |
+| **`RegistryService`** | `Write()`、`Read<T>()`、`DeleteValue()`、`CreateSubKey()`、`DeleteSubKeyTree()`、`KeyExists()` | レジストリキーの読み書き/削除。リバート用に元の値をバックアップする。複数の RegistryItem を一度に書き込み可能。 |
+| **`ShellService`** | `CMDAsync()`、`PowerShellAsync()`、`CMD()`（同期）、`PowerShell()`（同期） | CMD または PowerShell コマンドの実行。常に非同期バリアントを使用する。`revertCommand` パラメータで元に戻すコマンドを指定可能。 |
 | **`ScheduledTaskService`** | `DisableTask()`、`EnableTask()`、`IsTaskEnabled()`、`DeleteTask()` | Windows スケジュールタスクの管理。 |
-| **`ServiceProcessService`** | `ChangeServiceStartupTypeAsync()`**、`GetStartupTypeAsync()`** | Windows サービスの管理。常に非同期バリアントを使用する。 |
-
-> **`**` が付いたメソッドは非同期です。** 最適化の `ApplyAsync` 内で `await` を使用して呼び出してください。
+| **`ServiceProcessService`** | `ChangeServiceStartupTypeAsync()`、`GetStartupTypeAsync()` | Windows サービスの管理。常に非同期バリアントを使用する。複数のサービスを一度に変更可能。 |
 
 使用例：
 
 ```csharp
-// Sync registry writes
-RegistryService.Write(new RegistryItem(@"HKLM\...", "Value", 1));
+// Sync registry writes — multiple items at once
+RegistryService.Write(
+    new RegistryItem(@"HKLM\...", "Value1", 1),
+    new RegistryItem(@"HKLM\...", "Value2", 0)
+);
 RegistryService.DeleteValue(new RegistryItem(@"HKCU\...", "OldValue"));
 
-// Async service changes
+// Async service changes — multiple services at once
 await ServiceProcessService.ChangeServiceStartupTypeAsync(
-    new ServiceItem("DiagTrack", ServiceStartupType.Disabled));
+    new ServiceItem("DiagTrack", ServiceStartupType.Disabled),
+    new ServiceItem("dmwappushservice", ServiceStartupType.Disabled)
+);
 
-// Async shell commands
-var result = await ShellService.PowerShellAsync("Some-Command");
+// Async shell commands with revert command
+var result = await ShellService.CMDAsync(
+    "powercfg /h off",
+    "powercfg /h on"     // revert command stored for undo
+);
+
+// Async PowerShell
+var usbStates = await ShellService.PowerShellAsync(
+    "Get-CimInstance -Namespace root\\wmi -ClassName MSPower_DeviceEnable"
+);
 ```
 
-<h3 id="create-a-new-category">新しいカテゴリの作成</h3>
+<h3 id="new-category-and-helper-class">新しいカテゴリとヘルパーベースクラスの作成</h3>
 
 最適化が既存のカテゴリに当てはまらない場合のみ。過度に細かいカテゴリは避けてください。
 
@@ -312,6 +326,26 @@ var result = await ShellService.PowerShellAsync("Some-Command");
 3. `[OptimizationCategory(PageType = typeof(YourPage))]` を適用する — XAML ページも必要です
 4. `Domain/UI/OptimizationCategoryOrder.cs` の `OptimizationCategoryOrder` 列挙型にメンバーを追加する
 5. XAML ページは `App.xaml.cs` の `services.AddAllOptimizationPages()` 経由で自動登録される
+
+複数の最適化が同じ構造を共有する場合（例：GPU ツイーク）、抽象中間クラスを作成します：
+
+```csharp
+public abstract class GpuRegistryOptimization : BaseOptimization
+{
+    protected abstract GpuVendor Vendor { get; }
+    protected abstract IReadOnlyList<RegistryItem> CreateItems(string registryPath);
+
+    public override Task<ApplyResult> ApplyAsync(...)
+    {
+        foreach (var gpu in context.Snapshot.Gpus.Where(g => g.Vendor == Vendor))
+        {
+            var path = $@"HKLM\...\{index:D4}";
+            RegistryService.Write(CreateItems(path).ToArray());
+        }
+        return Task.FromResult(CompleteFromScope());
+    }
+}
+```
 
 <h3 id="localization-keys-optimization">ローカライズキー</h3>
 
@@ -339,10 +373,10 @@ Optimizer.{CategoryName}.{OptimizationKey}.Error.{CustomKey}
 
 | ファイル | 属性 | 対象 |
 |---|---|---|
-| `Desktop.cs` | `[CustomizeCategory(PageType = typeof(DesktopFeatureCategory))]` | デスクトップアイコン（PC、ごみ箱、ネットワーク）、ショートカットオーバーレイ |
-| `Preferences.cs` | `[CustomizeCategory(PageType = typeof(PreferencesFeatureCategory))]` | タスクバーの配置、ウィジェット、ダークモード、ファイル拡張子、隠しファイルなど |
-| `Gaming.cs` | `[CustomizeCategory(PageType = typeof(GamingFeatureCategory))]` | ゲームモード、ゲームバー、マウス加速度、フルスクリーン最適化、GPU スケジューリング |
-| `SystemFeatures.cs` | `[CustomizeCategory(PageType = typeof(SystemFeatureCategory))]` | 起動時の Num Lock |
+| `Desktop.cs` | `[CustomizeCategory(PageType = typeof(DesktopFeatureCategory))]` | デスクトップアイコン（PC、ごみ箱、ネットワーク、ユーザーファイル）、ショートカットオーバーレイ |
+| `Preferences.cs` | `[CustomizeCategory(PageType = typeof(PreferencesFeatureCategory))]` | タスクバーの配置、ウィジェット、ダークモード、ファイル拡張子、隠しファイル、クリップボード履歴、検索モード、秒表示、Bing 検索、クラシックコンテキストメニュー |
+| `Gaming.cs` | `[CustomizeCategory(PageType = typeof(GamingFeatureCategory))]` | ゲームモード、ゲームバー、バックグラウンド録画、マウス加速度、フルスクリーン最適化、GPU スケジューリング |
+| `SystemFeatures.cs` | `[CustomizeCategory(PageType = typeof(SystemFeatureCategory))]` | 起動時の Num Lock、開発者モード、LongPaths、バッテリー残量表示 |
 
 <h3 id="step-by-step-simple-registry-toggle">ステップバイステップ：シンプルなレジストリトグル</h3>
 
@@ -389,37 +423,27 @@ public class TaskbarAlignment : BaseCustomizeSetting
 | `TreatMissingAsDefault` | `bool` | `false` | `true` の場合、キーが存在しないときは「オフ」ではなく `DefaultValue` を使用 |
 | `ValueKind` | `RegistryValueKind` | `DWord` | レジストリ値の型（DWord、String など） |
 
-**状態検出ロジック**：`GetState()`（`BaseCustomizeSetting` 内）がすべての非オプションの `RegistryToggles` を収集し、**すべて**の必須トグルが `OnValue` と一致する場合にのみ `true` を返します。
-
 <h3 id="control-types">コントロールタイプ</h3>
 
 | 型 | 表示形式 | 用途 |
 |---|---|---|
 | `Toggle` | ON/OFF スイッチ | ほとんどの設定（デフォルト） |
-| `Dropdown` | コンボボックス | 複数選択（例：電源プラン） |
+| `Dropdown` | コンボボックス | 複数選択（例：電源プラン、検索ボックスモード） |
 | `Option` | ラジオボタングループ | 排他的な視覚オプション（例：左/中央揃え） |
 | `NumberInt` | 整数テキスト入力 | 数値（例：秒数） |
 | `NumberFloat` | 小数テキスト入力 | 精度の高い値 |
 | `String` | テキスト入力 | 自由形式のテキスト |
 
-`ControlType` をオーバーライドして UI コントロールを変更します：
-
-```csharp
-public override CustomizeControlType ControlType => CustomizeControlType.Dropdown;
-```
-
 <h3 id="dropdown-with-options">オプション付きドロップダウン</h3>
-
-複数の選択肢がある設定の場合：
 
 ```csharp
 public override CustomizeControlType ControlType => CustomizeControlType.Dropdown;
 
 public override IReadOnlyList<SettingOption>? Options =>
     [
-        Option("Never", 0),      // Option() helper reads from Translations.resx:
-        Option("Battery", 1),    //   Customize.{Category}.{Feature}.Options.Never
-        Option("Always", 2),     //   Customize.{Category}.{Feature}.Options.Battery
+        Option("Never", 0),      // Option() helper reads from Translations.resx
+        Option("Battery", 1),
+        Option("Always", 2),
     ];
 
 public override async Task ApplyAsync(object? value)
@@ -430,9 +454,23 @@ public override async Task ApplyAsync(object? value)
 }
 ```
 
-<h3 id="custom-logic-override">カスタムロジック（GetStateAsync / ApplyAsync のオーバーライド）</h3>
+<h3 id="dynamic-options">動的オプション（プラットフォーム対応）</h3>
 
-シンプルなレジストリトグルではない設定の場合（例：マウス加速度は 3 つのレジストリ値を組み合わせる）：
+Windows バージョンに応じてオプションを条件付きで表示できます：
+
+```csharp
+public override IReadOnlyList<SettingOption>? Options
+{
+    get
+    {
+        if (Shared.IsWindows11OrGreater)
+            return [Option("Hidden", 0), Option("Icon", 1), Option("IconAndLabel", 2), Option("SearchBox", 3)];
+        return [Option("Hidden", 0), Option("Icon", 1), Option("SearchBox", 2)];
+    }
+}
+```
+
+<h3 id="custom-logic-override">カスタムロジック（GetStateAsync / ApplyAsync のオーバーライド）</h3>
 
 ```csharp
 [CustomizeSetting(
@@ -444,7 +482,6 @@ public class MouseAcceleration : BaseCustomizeSetting
 {
     private const string Path = @"HKCU\Control Panel\Mouse";
 
-    // Watched paths let the UI auto-refresh when external changes occur
     protected override IReadOnlyList<string> GetWatchedRegistryPaths() => [Path];
 
     public override Task<bool> GetStateAsync()
@@ -473,16 +510,40 @@ public class MouseAcceleration : BaseCustomizeSetting
 }
 ```
 
+<h3 id="recommendation-system">レコメンデーションシステム</h3>
+
+各カスタマイズ設定はレコメンデーションを宣言できます：
+
+```csharp
+[CustomizeSetting(..., Recommendation = RecommendationState.On)]
+// Available: On, Off, Depends, Experimental, None
+```
+
+レコメンデーションの理由はローカライズキーで追加：`Customize.{Category}.{Feature}.Recommendation.Reason`
+
+<h3 id="embedded-resource-extraction">埋め込みリソースの抽出</h3>
+
+設定によってはアセンブリから埋め込みリソースを抽出する必要があります：
+
+```csharp
+var outputPath = Path.Combine(Shared.AssetsDirectory, nameof(Desktop), "blank.ico");
+EmbeddedResourceHelper.TryExtract("Icons.blank.ico", outputPath);
+RegistryService.Write(new RegistryItem(Path, "29", outputPath));
+```
+
 <h3 id="what-to-override-per-pattern">パターンごとのオーバーライド</h3>
 
 | シナリオ | オーバーライド |
 |---|---|
 | シンプルなレジストリトグル | `RegistryToggles` + `RefreshScope` |
 | 複数のレジストリトグル | `RegistryToggles`（すべてリストする） |
-| ドロップダウン/オプション | `ControlType` → `Dropdown`、`Options`、カスタム `ApplyAsync` |
-| 複数値ロジック（例：マウス加速度） | `GetStateAsync()` + `ApplyAsync()` + `GetWatchedRegistryPaths()` |
+| ドロップダウン/オプション | `ControlType` → `Dropdown`、`Options`、カスタム `ApplyAsync`、`CurrentValue` |
+| 複数値ロジック | `GetStateAsync()` + `ApplyAsync()` + `GetWatchedRegistryPaths()` |
 | レジストリ操作のない設定 | `GetStateAsync()` + `ApplyAsync()`（完全カスタム） |
-| カスタムリフレッシュ動作 | `RefreshScope`（フラグのみ変更の場合）または `ExecutePostActionAsync()`（完全オーバーライド） |
+| カスタムリフレッシュ動作 | `RefreshScope` または `ExecutePostActionAsync()` |
+| 収束チェック付き状態検出 | `GetStateWithRetryAsync()`（組み込み — オーバーライド不要） |
+| Windows バージョンごとの動的オプション | `Options` ゲッターを条件付きでオーバーライド |
+| 埋め込みリソース抽出 | `EmbeddedResourceHelper.TryExtract()` |
 
 <h3 id="create-a-new-customize-category">新しいカテゴリの作成</h3>
 
@@ -506,44 +567,28 @@ Customize.{CategoryName}.Section.{SectionName}                (for section heade
 
 <h1 id="the-refresh-scope-system">リフレッシュスコープシステム</h1>
 
-カスタマイズ設定の状態が変更されると、異なる Windows サーフェスに異なるリフレッシュ戦略が必要になります。`CustomizeRefreshScope` [Flags] 列挙型がこれを細かく制御します。
-
 <h3 id="available-flags">利用可能なフラグ</h3>
 
 | メンバー | 値 | 効果 | P/Invoke |
 |---|---|---|---|
 | `None` | `0` | リフレッシュなし | — |
-| `Settings` | `1 << 0` | `WM_SETTINGCHANGE` をブロードキャストしてアプリがレジストリを再読み込み | `SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE)` |
-| `Associations` | `1 << 1` | ファイル関連付けやアイコンキャッシュの変更をシェルに通知 | `SHChangeNotify(SHCNE_ASSOCCHANGED)` |
-| `Desktop` | `1 << 2` | デスクトップアイコンリスト（`SysListView32`）の再描画を強制 | `LVM_REFRESH` + `LVM_UPDATE` |
-| `Taskbar` | `1 << 3` | タスクバー向けの `WM_SETTINGCHANGE`（"TraySettings"）をブロードキャスト | `SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE, "TraySettings")` |
-| `PolicyUpdate` | `1 << 4` | ユーザーごとのパラメータに `SPIF_SENDCHANGE` 付きで `SystemParametersInfo` をプッシュ | `SystemParametersInfo(SPI_SETDESKWALLPAPER)` |
-| `Theme` | `1 << 5` | テーマ/視覚調整用に `WM_THEMECHANGED` をブロードキャスト | `SendMessageTimeout(HWND_BROADCAST, WM_THEMECHANGED)` |
-| `DesktopIconCache` | `1 << 6` | HideIcons レジストリを切り替え + デスクトップに `WM_COMMAND 0x7402` を送信 | Registry read + `SendMessage(Progman, WM_COMMAND)` |
+| `Settings` | `1 << 0` | `WM_SETTINGCHANGE` をブロードキャスト | `SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE)` |
+| `Associations` | `1 << 1` | ファイル関連付け変更をシェルに通知 | `SHChangeNotify(SHCNE_ASSOCCHANGED)` |
+| `Desktop` | `1 << 2` | デスクトップアイコンリストの再描画を強制 | `LVM_REFRESH` + `LVM_UPDATE` |
+| `Taskbar` | `1 << 3` | タスクバー向け `WM_SETTINGCHANGE` | `SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE, "TraySettings")` |
+| `PolicyUpdate` | `1 << 4` | `SystemParametersInfo` をプッシュ | `SystemParametersInfo(SPI_SETDESKWALLPAPER)` |
+| `Theme` | `1 << 5` | `WM_THEMECHANGED` をブロードキャスト | `SendMessageTimeout(HWND_BROADCAST, WM_THEMECHANGED)` |
+| `DesktopIconCache` | `1 << 6` | HideIcons レジストリ + `WM_COMMAND 0x7402` | Registry read + `SendMessage(Progman, WM_COMMAND)` |
 
 <h3 id="named-composites">名前付きコンポジット</h3>
 
 | 名前 | 構成 | 使用例 |
 |---|---|---|
 | `Default` | `Settings \| Associations` | 一般的なエクスプローラーレベルの設定 |
-| `DesktopIcons` | `Settings \| Desktop` | 個別のデスクトップアイコンの表示/非表示（PC、ごみ箱） |
-| `HideDesktopIcons` | `Settings \| DesktopIconCache` | グローバルな「すべてのデスクトップアイコンを非表示」トグル |
-| `TaskbarSettings` | `Settings \| Taskbar` | タスクバーの配置、ウィジェット、タスクビュー、タスクの終了 |
-| `ExplorerView` | `Settings \| Associations \| PolicyUpdate` | ファイル拡張子、隠しファイル、コンパクト表示 |
-
-<h3 id="how-refresh-flows">リフレッシュの流れ</h3>
-
-```
-Setting toggle → BaseCustomizeSetting.ApplyAsync(value)
-  ├─ Writes RegistryToggles (if any)
-  ├─ Checks NeedsPostAction (true if RefreshScope != None)
-  └─ Task.Run → ExecutePostActionAsync()
-       ├─ Checks each CustomizeRefreshScope flag
-       ├─ Calls SystemRefreshService methods (P/Invoke)
-       └─ Win32 notifications sent to Windows
-```
-
-`ApplyAsync` をオーバーライドする場合、リフレッシュをトリガーするために**必ず** `await ExecutePostActionAsync()` を自分で呼び出してください。基底クラスは、デフォルトの `RegistryToggles` ベースの適用を使用する場合にのみ自動的にこれを行います。
+| `DesktopIcons` | `Settings \| Desktop` | 個別のデスクトップアイコンの表示/非表示 |
+| `HideDesktopIcons` | `Settings \| DesktopIconCache` | 「すべてのデスクトップアイコンを非表示」トグル |
+| `TaskbarSettings` | `Settings \| Taskbar` | タスクバー設定 |
+| `ExplorerView` | `Settings \| Associations \| PolicyUpdate` | ファイル拡張子、隠しファイル |
 
 ---
 
@@ -551,60 +596,44 @@ Setting toggle → BaseCustomizeSetting.ApplyAsync(value)
 
 新しいページやツール（例：「ネットワークモニター」）を追加する場合：
 
-1. **まず GitHub Issue を作成する** — 機能、ユースケース、設計を説明する。メンテナーのフィードバックを待つ。
-2. **実装順序**：
+1. **まず GitHub Issue を作成する** — 機能、ユースケース、設計を説明する。
+2. **実装順序**：Service → ViewModel → XAML Page → App.xaml.cs に登録
 
 ```csharp
-// 1. Service layer in Services/Managers/YourService.cs
-public class YourService(ILogger<YourService> logger) { ... }
-
-// 2. ViewModel in UI/ViewModels/Pages/YourViewModel.cs
-//    Extends ViewModel (which extends ObservableValidator + INavigationAware)
-
-// 3. XAML Page in UI/Pages/YourPage.xaml (+ code-behind)
-
-// 4. Register as singletons in App.xaml.cs
+// DI Registration Pattern (from App.xaml.cs)
 services.AddSingleton<YourViewModel>();
 services.AddSingleton<YourPage>();
-```
-
-- ViewModel と Page は `App.xaml.cs` で**シングルトンとして登録する必要があります**
-- ナビゲーションは WPF UI（`INavigationService`）が処理します
-- 既存のパターンに従う — `DashboardPage`、`OptimizePage` などを参照してください
-
-<h3 id="di-registration-pattern">DI 登録パターン（App.xaml.cs より）</h3>
-
-```csharp
-// Pages + ViewModels — one pair per feature
-services.AddSingleton<DashboardViewModel>();
-services.AddSingleton<DashboardPage>();
-
-services.AddSingleton<OptimizeViewModel>();
-services.AddSingleton<OptimizePage>();
-
-// Managers
 services.AddSingleton<ConfigManager>();
 services.AddSingleton<RevertManager>();
-
-// Services
 services.AddSingleton<OptimizationRegistry>();
 services.AddSingleton<CustomizeRegistry>();
 services.AddSingleton<OptimizationService>();
+services.AddSingleton<BloatwareService>();
+services.AddSingleton<DiskCleanupService>();
+services.AddSingleton<StartupManagerService>();
+services.AddSingleton<SystemInfoService>();
+services.AddSingleton<StreamService>();
 services.AddSingleton<UpdaterService>();
 services.AddSingleton<IRegistryWatcher, RegistryWatcher>();
-
-// Automatic page registration (category pages only)
-services.AddAllCustomizeCategoryPages();   // scans [CustomizeCategory] attributes
-services.AddAllOptimizationPages();        // scans [OptimizationCategory] attributes
 ```
+
+<h3 id="system-services">システムサービスリファレンス</h3>
+
+| サービス | 目的 |
+|---|---|
+| `SystemInfoService` | CPU、RAM、GPU 情報を含む `SystemSnapshot` を提供 |
+| `StreamService` | リモートリソースのダウンロード |
+| `UpdaterService` | GitHub リリースの更新確認 |
+| `RegistryWatcher` | レジストリキーの監視と UI 更新 |
+| `BloatwareService` | プリインストール AppX パッケージの一覧表示 |
+| `DiskCleanupService` | ディスククリーンアップのスキャン |
+| `StartupManagerService` | スタートアップアプリとタスクの管理 |
 
 ---
 
 <h1 id="revert-system">リバートシステム</h1>
 
-適用されたすべての最適化は、`%localappdata%\optimizerDuck\Revert\{optimizationId}.json` に JSON ファイルを作成します。
-
-<h3 id="how-it-works">仕組み</h3>
+<h3 id="how-it-works-jp">仕組み</h3>
 
 ```
 ApplyAsync()
@@ -620,382 +649,235 @@ ApplyAsync()
   └─ ExecutionScope disposes → RevertManager.SaveRevertDataAsync()
 ```
 
-<h3 id="step-types">ステップタイプ</h3>
+<h3 id="step-types-jp">ステップタイプ</h3>
 
 | ステップタイプ | 記録内容 | 自動作成元 |
 |---|---|---|
-| **`RegistryRevertStep`** | 変更前の元のレジストリ値 | `RegistryService.Write()`、`RegistryService.DeleteValue()`、`RegistryService.CreateSubKey()`、`RegistryService.DeleteSubKeyTree()` |
+| **`RegistryRevertStep`** | 変更前の元のレジストリ値 | `RegistryService.Write()`、`DeleteValue()`、`CreateSubKey()`、`DeleteSubKeyTree()` |
 | **`ServiceRevertStep`** | 元のサービス起動タイプ | `ServiceProcessService.ChangeServiceStartupTypeAsync()` |
-| **`ScheduledTaskRevertStep`** | 元のタスク状態（有効/無効） | `ScheduledTaskService.DisableTask()`、`ScheduledTaskService.EnableTask()` |
-| **`ShellRevertStep`** | 変更を元に戻すシェルコマンド | `ShellService.CMDAsync()`、`ShellService.PowerShellAsync()` |
-| **`UsbPowerRevertStep`** | USB 電源設定 | USB 関連の最適化 |
+| **`ScheduledTaskRevertStep`** | 元のタスク状態（有効/無効） | `ScheduledTaskService.DisableTask()`、`EnableTask()` |
+| **`ShellRevertStep`** | 元に戻すシェルコマンド | `ShellService.CMDAsync()`、`PowerShellAsync()` — `revertCommand` パラメータを渡す |
+| **`UsbPowerRevertStep`** | USB 電源設定（デバイス別） | USB 関連の最適化（手動で `ExecutionScope.RecordStep()`） |
 
-<h3 id="revert-data-format">リバートデータ形式</h3>
+リバートコマンドをシェル呼び出しに追加する：
 
-```json
-{
-  "SchemaVersion": 1,
-  "OptimizationId": "guid",
-  "OptimizationName": "DisableTelemetry",
-  "AppliedAt": "2026-06-02T12:00:00Z",
-  "Steps": [
-    { "Index": 0, "Type": "Registry", "Data": { ... } },
-    null,                    // null gap = failed step at this index
-    { "Index": 2, "Type": "Service", "Data": { ... } }
-  ]
-}
+```csharp
+await ShellService.CMDAsync("powercfg /h off", "powercfg /h on");  // revertCommand
 ```
 
-<h3 id="key-details">重要な詳細</h3>
+<h3 id="key-details-jp">重要な詳細</h3>
 
-- **適用状態**はディスク上のファイルの存在から推論される（`RevertManager.IsAppliedAsync(id)`）
-- **アトミック書き込み**：`.tmp` に書き込んでから `File.Replace()` — クラッシュに安全
-- **`ExecutionScope`** はアンビエントなステップ追跡に `AsyncLocal<ExecutionScope?>` を使用。パラメータ経由でコンテキストを渡す必要はない
-- **リバートは逆順でステップを実行する**（最後に適用されたものが最初にリバートされる）
-- **部分的成功**：一部のステップが失敗してもリバートは続行される。失敗したステップにはリトライアクションが記録される
-- **リトライ**：`OptimizationService.RetryFailedStepsAsync()` で個別の失敗ステップをリトライできる
-
-> **重要**：プロバイダーサービス（`RegistryService.Write`、`ShellService.CMDAsync` など）を呼び出すと、リバートステップは自動的に記録されます。リバートステップを手動で作成しないでください。
+- **適用状態**はディスク上のファイルの存在から推論される
+- **アトミック書き込み**：`.tmp` に書き込んでから `File.Replace()`
+- **同時アクセス**：ファイルごとの `SemaphoreSlim` ロック、30秒タイムアウト
+- **リバートは逆順で実行**（最後に適用 = 最初にリバート）
+- **部分的成功**：一部のステップが失敗しても続行
+- **リトライ**：`OptimizationService.RetryFailedStepsAsync()`
+- **Upsert**：`RevertManager.UpsertRevertStepAtIndexAsync()` で特定インデックスのリバートステップを追加/置換
+- **ステップレジストリ**：`IRevertStep` を実装 + 静的な `FromData(JObject)` メソッドで自動登録
 
 ---
 
 <h1 id="testing">テスト</h1>
 
-テストは **xUnit v3** を使用し、実際の I/O を伴う統合スタイルのアプローチに従います。
-
-<h3 id="test-patterns">テストパターン</h3>
+<h3 id="test-patterns-jp">テストパターン</h3>
 
 | パターン | 詳細 |
 |---|---|
-| **モックライブラリなし** | すべてのテストダブルはインターフェースを実装する手書きクラス |
-| **実際の I/O** | 実際のファイルシステム（リバート JSON ファイル）、実際のレジストリ（`HKCU\Software\TestOptimizerDuck*`）、実際のプロセス実行（CMD、PowerShell） |
-| **クリーンアップ** | テスト成果物のクリーンアップに `try/finally` または `IDisposable` を使用 |
-| **命名** | `{Method}_{Scenario}_{ExpectedResult}` — 例：`ApplyAsync_Success_PersistsRevertDataFile` |
-| **ログ記録** | DI ログパラメータに `NullLogger<T>.Instance` / `NullLoggerFactory.Instance` を使用 |
-| **STA スレッド** | `ContentDialogService` や WPF コンポーネントを含むテストは `RunInStaThreadAsync` ヘルパーを使用する必要がある |
-
-<h3 id="test-structure">テスト構成</h3>
-
-```
-optimizerDuck.Test/
-├── Common/Helpers/
-│   └── SystemRefreshServiceTests.cs
-├── Domain/
-│   ├── Customize/
-│   │   └── BaseCustomizeSettingTests.cs
-│   ├── Exceptions/
-│   │   └── StepExecutionExceptionTests.cs
-│   ├── Optimizations/
-│   │   ├── PowerManagementTests.cs
-│   │   └── Models/Services/RegistryItemKindDetectionTests.cs
-│   └── Revert/Steps/
-│       ├── ScheduledTaskRevertStepTests.cs
-│       └── RevertStepSerializationTests.cs
-└── Services/
-    ├── ApplyRevertComprehensiveTests.cs
-    ├── OptimizationServiceTests.cs
-    ├── OptimizationServiceIntegrationTests.cs
-    ├── OptimizationExecutionContextTests.cs
-    ├── OptimizationServices/
-    │   ├── RegistryServiceTests.cs
-    │   ├── ShellServiceTests.cs
-    │   └── ShellPolicyTests.cs
-    ├── Managers/
-    │   └── RevertManagerTests.cs
-    ├── RegistryWatcherTests.cs
-    └── SystemInfoServiceTests.cs
-```
-
-<h3 id="running-tests">テストの実行</h3>
+| **モックライブラリなし** | すべてのテストダブルは手書きクラス |
+| **実際の I/O** | 実際のファイルシステム、レジストリ、プロセス実行 |
+| **クリーンアップ** | `try/finally` または `IDisposable` |
+| **命名** | `{Method}_{Scenario}_{ExpectedResult}` |
+| **ログ記録** | `NullLogger<T>.Instance` |
+| **STA スレッド** | WPF コンポーネントを含むテストは `RunInStaThreadAsync` ヘルパーを使用 |
 
 ```bash
-# After building
+# Running tests
 dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release --no-build
-
-# Build + test in one step
-dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release
 ```
 
-<h3 id="writing-tests-for-provider-services">プロバイダーサービスのテスト作成</h3>
+<h3 id="ci-integration-jp">CI 統合</h3>
 
-```csharp
-public class MyOptimizationTests
-{
-    [Fact]
-    public async Task ApplyAsync_Success_PersistsRevertDataFile()
-    {
-        var optimization = new TestOptimization
-        {
-            ApplyImpl = _ =>
-            {
-                ExecutionScope.RecordStep("Test", "Step 1", true, ...);
-                return Task.FromResult(ApplyResult.True());
-            },
-        };
+CI パイプライン（`ci.yml`）は以下のコマンドを実行します：
 
-        var service = CreateService();
-        var result = await service.ApplyAsync(optimization, new Progress<ProcessingProgress>());
-
-        Assert.Equal(OptimizationSuccessResult.Success, result.Status);
-    }
-
-    private static OptimizationService CreateService()
-    {
-        return new OptimizationService(
-            new RevertManager(NullLogger<RevertManager>.Instance, NullLoggerFactory.Instance),
-            NullLoggerFactory.Instance,
-            new SystemInfoService(NullLogger<SystemInfoService>.Instance),
-            new StreamService(NullLogger<StreamService>.Instance),
-            null!,
-            NullLogger<OptimizationService>.Instance
-        );
-    }
-}
+```bash
+dotnet restore optimizerDuck.slnx
+dotnet build optimizerDuck.slnx --configuration Release --no-restore
+dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release --no-build --blame-hang --blame-hang-timeout 30s
 ```
 
 ---
 
 <h1 id="coding-standards">コーディング規約</h1>
 
-<h3 id="language-features">言語機能</h3>
+<h3 id="language-features-jp">言語機能</h3>
 
 | 機能 | 使用 | 備考 |
 |---|---|---|
 | ファイルスコープ名前空間 | はい | `namespace X.Y;` |
-| コレクション式 | はい | 空は `[]`、リストは `[item1, item2]` |
+| コレクション式 | はい | `[]`、`[item1, item2]` |
 | プライマリコンストラクタ | 一部 | シンプルな型で使用 |
 | 暗黙的 using | はい | `.csproj` で有効 |
-| Null 許容参照型 | はい | `<Nullable>enable</Nullable>` — null を適切に処理する |
-| 拡張メソッド（`extension(T type)`） | はい | C# 13 機能、`OptimizationTagsToDisplay` で使用 |
+| Null 許容参照型 | はい | `<Nullable>enable</Nullable>` |
+| 拡張メソッド（`extension(T type)`） | はい | C# 13 機能 |
 
-<h3 id="naming-conventions">命名規則</h3>
+<h3 id="naming-conventions-jp">命名規則</h3>
 
 | 要素 | 規則 | 例 |
 |---|---|---|
-| クラス、列挙型、インターフェース、メソッド、プロパティ | `PascalCase` | `RegistryService`、`ApplyAsync` |
-| プライベートフィールド | `_camelCase` | `_lastError`、`registryService` |
-| ローカル変数、パラメータ | `camelCase` | `progress`、`serviceName` |
-| 非同期メソッド | `*Async` サフィックス | `ChangeServiceStartupTypeAsync`、`CMDAsync` |
-| public 定数 | `PascalCase` | `MaxRetries` |
-| private 定数 | `_PascalCase` | `_defaultTimeout` |
+| クラス、列挙型、メソッド、プロパティ | `PascalCase` | `RegistryService` |
+| プライベートフィールド | `_camelCase` | `_lastError` |
+| ローカル変数、パラメータ | `camelCase` | `progress` |
+| 非同期メソッド | `*Async` サフィックス | `ChangeServiceStartupTypeAsync` |
+| 定数 | `PascalCase` / `_PascalCase` | `MaxRetries` / `_defaultTimeout` |
 
-<h3 id="formatting">フォーマット</h3>
+<h3 id="formatting-jp">フォーマット</h3>
 
 | 設定 | 値 |
 |---|---|
-| インデント | 4 スペース（タブなし） |
-| 改行コード | LF |
-| エンコーディング | UTF-8 |
+| インデント | 4 スペース |
 | 最大行長 | 100 文字 |
-| 末尾の空白 | トリミング |
-| 最終改行 | 必須 |
-| フォーマッター | **CSharpier** — コミット前に `dotnet csharpier .` を実行 |
-| CA1416 | `.editorconfig` で抑制 — すべてのコードは Windows 専用 |
+| フォーマッター | **CSharpier** — `dotnet csharpier .` |
 
-<h3 id="code-style">コードスタイル</h3>
+<h3 id="code-style-jp">コードスタイル</h3>
 
-- **ハードコードされた文字列は禁止** — 常に `Translations.KeyName` または `Loc.Instance["Key"]` を使用する
-- **コメントは最小限に** — 既存のコードにはほとんどコメントがない。不要なコメントは追加しない
-- **型エラーの抑制は禁止** — C# には `as any` / `@ts-ignore` に相当するものはない。型を適切に処理する
-- **新しい依存関係より既存のライブラリを優先する**
-- **大規模なリファクタリングより小さく焦点を絞った変更を優先する**
+- **ハードコードされた文字列は禁止** — 常に `Translations.KeyName` または `Loc.Instance["Key"]`
+- **コメントは最小限に**
+- **既存のライブラリを優先**
+- **`@formatter:off` / `@formatter:on`** を使用して大きなレジストリ書き込みブロックの自動フォーマットを抑制可能
 
-<h3 id="dependency-injection">依存性注入</h3>
-
-- サービス、ViewModel、Page は `App.xaml.cs` でシングルトンとして登録される
-- コンストラクタインジェクションを使用する：`public class Foo(Bar bar, Baz baz)`
-- 静的プロバイダーサービス（`RegistryService`、`ShellService` など）は注入されない — 直接アクセスする
-- テストダブルは手書き（Moq などのモックライブラリは使用しない）
-
-<h3 id="error-handling">エラー処理</h3>
+<h3 id="error-handling-jp">エラー処理</h3>
 
 | レイヤー | プラクティス |
 |---|---|
-| **最適化** | 例外をスローする代わりに `ApplyResult.False("reason")` を返す。ステップレベルの失敗追跡は `ExecutionScope` に任せる |
-| **プロバイダーサービス** | システム呼び出しの周りに try/catch を使用し、`ExecutionScope.LogError` 経由でエラーをログに記録する。リトライアクション付きで失敗ステップを記録する |
-| **ViewModel** | コマンドハンドラーで例外をキャッチし、ユーザーフレンドリーなスナックバーを表示する |
-| **禁止事項** | 処理できない例外をキャッチしない。すべての例外を黙って飲み込まない |
+| **最適化** | `ApplyResult.False("reason")` を返す。例外はスローしない |
+| **プロバイダーサービス** | try/catch + `ExecutionScope.LogError` |
+| **ViewModel** | コマンドハンドラーで例外をキャッチ、スナックバー表示 |
+| **グローバル** | App.xaml.cs で 3 つのグローバル例外ハンドラを登録。クラッシュは `%localappdata%\optimizerDuck\Crashes\crash_*.log` に記録 |
 
 ---
 
 <h1 id="localization">ローカライズ</h1>
 
-<h3 id="resx-files">RESX ファイル</h3>
+<h3 id="resx-files-jp">RESX ファイル</h3>
 
-すべてのユーザー向け文字列は `Resources/Languages/Translations.resx` に格納されています。C# では型安全な `Translations` クラス、または動的ルックアップには `Loc.Instance["Key"]` を使用します。
+すべてのユーザー向け文字列は `Resources/Languages/Translations.resx` に格納されています。
 
-- `Translations.Designer.cs` は自動生成されるため、**直接編集しない**
-- [ResXManager](https://marketplace.visualstudio.com/items?itemName=TomEnglert.ResXManager)（VS）または Rider の組み込みリソースエディターを使用する
+- `Translations.Designer.cs` は直接編集しない
 - `{0}`、`{1}` などのフォーマットパラメータは正確に保持する
-- 文字列は簡潔に — 一部の UI カードには幅の制限がある
 
-<h3 id="available-locales">利用可能なロケール</h3>
+<h3 id="available-locales-jp">利用可能なロケール（11 言語 + 英語）</h3>
 
 | 言語 | ファイル |
 |---|---|
 | English | `Translations.resx` (default) |
 | Vietnamese | `Translations.vi-VN.resx` |
+| Spanish | `Translations.es-ES.resx` |
 | French | `Translations.fr-FR.resx` |
 | Traditional Chinese | `Translations.zh-TW.resx` |
 | Simplified Chinese | `Translations.zh-CN.resx` |
 | Russian | `Translations.ru-RU.resx` |
 | Korean | `Translations.ko-KR.resx` |
-| Polish | `Translations.pl-PL.resx` |
 | Japanese | `Translations.ja-JP.resx` |
+| Polish | `Translations.pl-PL.resx` |
+| Turkish | `Translations.tr-TR.resx` |
+| Portuguese (Brazil) | `Translations.pt-BR.resx` |
 
-<h3 id="adding-a-new-language">新しい言語の追加</h3>
-
-1. `Translations.{locale}.resx`（例：`Translations.ja-JP.resx`）を作成し、`Translations.resx` と同じキーをすべて含める
-2. `UI/ViewModels/Pages/SettingsViewModel.cs` で言語を登録する：
-
-```csharp
-new() { DisplayName = "日本語", Culture = new CultureInfo("ja-JP") },
-```
-
-<h3 id="hardcoded-string-rule">ハードコード文字列のルール</h3>
-
-**文字列をハードコードしない**。常に以下を使用する：
+<h3 id="hardcoded-string-rule-jp">文字列ハードコードの禁止</h3>
 
 ```csharp
-// Strongly typed (recommended)
 string title = Translations.Features_Desktop_Name;
-
-// With format args
-string msg = string.Format(Translations.Dashboard_SystemInfo_Storage_DiskInfo, used, total, percent);
-
-// Dynamic key lookup (for convention-based keys)
 string title = Loc.Instance[$"Optimizer.{category}.{key}.Name"];
 ```
 
-XAML では：
+XAML：
 
 ```xml
-<!-- Without args -->
 <ui:TextBlock Text="{ext:Loc Dashboard.Header.Title}" />
-
-<!-- With bound args -->
-<ui:TextBlock Text="{ext:Loc Dashboard.UpdateInfoBar.Message, {Binding ViewModel.LatestVersion}}" />
 ```
 
 ---
 
 <h1 id="pull-request-process">プルリクエストの手順</h1>
 
-1. **`master` からブランチを作成する** — master で直接作業しない：
+1. `master` からブランチを作成：`feature/name` または `fix/issue-id`
+2. Conventional Commits：`feat:`、`fix:`、`refactor:`、`docs:`、`test:`、`i18n:`、`chore:`
+3. プッシュ前に確認：
 
-   ```bash
-   git checkout -b feature/your-feature-name
-   # or
-   git checkout -b fix/issue-number
-   ```
+```bash
+dotnet build optimizerDuck.slnx --configuration Release
+dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release --no-build
+dotnet csharpier .
+```
 
-2. **Conventional Commits でコミットする**：
+4. PR を作成：変更内容と理由を説明、UI 変更のスクリーンショットを含める、関連 Issue を `Closes #42` でリンク
 
-   | プレフィックス | 使用タイミング |
-   |---|---|
-   | `feat:` | 新しい最適化や機能 |
-   | `fix:` | バグ修正 |
-   | `refactor:` | 動作変更のないコード再構成 |
-   | `docs:` | ドキュメントの更新 |
-   | `test:` | テストの追加や修正 |
-   | `i18n:` | 翻訳の更新 |
-   | `chore:` | メンテナンス、ビルド設定、依存関係 |
+<h3 id="pr-checklist-jp">PR チェックリスト</h3>
 
-3. **プッシュ前に確認する**：
-
-   ```bash
-   # 1. Build
-   dotnet build optimizerDuck.slnx --configuration Release
-
-   # 2. Test
-   dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release --no-build
-
-   # 3. Format
-   dotnet csharpier .
-
-   # 4. Check git status — make sure only intended files are staged
-   git status
-   git diff --cached
-   ```
-
-4. **PR を作成する**：
-   - **何が**変更され、**なぜ**変更されたかを説明する
-   - UI の変更がある場合は、**スクリーンショットを含める**
-   - 関連 Issue をリンクする：`Closes #42`
-   - 作業中の場合はドラフトとしてマークする
-
-5. **レビュー**：メンテナーがレビューします。フィードバックを受け入れ、迅速に対応してください。
-
-<h3 id="pr-checklist">PR チェックリスト</h3>
-
-- [ ] コードが既存のパターンに従っている（検出、属性、非同期命名）
-- [ ] 最低限 `Translations.resx` にローカライズキーが追加されている
-- [ ] `dotnet build` が成功する（エラー 0 件）
-- [ ] `dotnet test` が通る（すべてのテストが成功）
-- [ ] `dotnet csharpier .` が実行されている
-- [ ] ハードコードされた文字列がない
-- [ ] リバートステップが適切に記録されている（該当する場合）
-- [ ] UI の変更にスクリーンショットが含まれている
+- [ ] 既存のパターンに従っている
+- [ ] ローカライズキーが `Translations.resx` に追加されている
+- [ ] `dotnet build` 成功
+- [ ] `dotnet test` 成功
+- [ ] `dotnet csharpier .` 実行済み
+- [ ] ハードコード文字列なし
+- [ ] リバートステップが記録されている（該当する場合）
+- [ ] UI 変更のスクリーンショットあり
 
 ---
 
 <h1 id="issue-guidelines">Issue ガイドライン</h1>
 
-- **バグ報告**：バグ報告テンプレートを使用する。再現手順、期待される動作と実際の動作、`%localappdata%\optimizerDuck\optimizerDuck.log` のログ + システム仕様を含める。
-- **機能リクエスト**：ユースケース、解決する問題、動作の仕方を説明する。
-- **最適化の提案**：レジストリパス、サービス名、CLI コマンドを含める。ドキュメントや信頼できる情報源へのリンクを添える。
-- **質問**：GitHub Discussions を使用するか、[Discord サーバー](https://discord.gg/tDUBDCYw9Q) に参加する。
+- **バグ報告**：再現手順、期待/実際の動作、`%localappdata%\optimizerDuck\optimizerDuck.log` のログ + システム仕様
+- **機能リクエスト**：ユースケース、解決する問題、動作
+- **最適化の提案**：レジストリパス、サービス名、CLI コマンド、情報源へのリンク
+- **質問**：GitHub Discussions または [Discord](https://discord.gg/tDUBDCYw9Q)
 
 ---
 
 <h1 id="faq--troubleshooting">FAQ とトラブルシューティング</h1>
 
-<h3 id="build-fails-ca1416">ビルドが「CA1416」エラーで失敗する</h3>
+<h3>ビルドが CA1416 エラーで失敗する</h3>
+`.editorconfig` が CA1416 を抑制。最新の `.editorconfig` を確認。
 
-`.editorconfig` が CA1416 を抑制します。まだ表示される場合は、master から最新の `.editorconfig` を取得していることを確認してください。本プロジェクトは Windows 専用です — `SupportedOSPlatform` ガードは追加しないでください。
+<h3>最適化が UI に表示されない</h3>
+- カテゴリクラス内のネストされた public クラス？
+- カテゴリが `IOptimizationCategory` を実装？
+- `BaseOptimization` を継承？
+- `[Optimization(Id = "...")]` 属性？
+- ローカライズキーが `Translations.resx` に追加されている？
+- `OptimizationRegistry.IsPreloaded` を確認？
 
-<h3 id="optimization-not-showing">最適化が UI に表示されない</h3>
+<h3>カスタマイズ設定が表示されない</h3>
+- `[CustomizeSetting(Section = ..., Icon = ...)]` 属性？
+- `Section` のスペルは正しい？
+- `[CustomizeCategory(PageType = ...)]` 属性？
 
-チェックリスト：
-- カテゴリクラス内の**ネストされた public クラス**になっているか？
-- カテゴリクラスは `IOptimizationCategory` を実装しているか？
-- 最適化クラスは `BaseOptimization` を継承しているか？
-- `[Optimization(Id = "...", ...)]` 属性があるか？
-- ローカライズキーが `Translations.resx` に追加されているか？
+<h3>UI がフリーズする</h3>
+`async`/`await` を使用していることを確認。`.Result` / `.Wait()` はフリーズの原因。
 
-<h3 id="customize-setting-not-showing">カスタマイズ設定が表示されない</h3>
-
-上記と同様のチェックを `ICustomizeCategory` / `BaseCustomizeSetting` について行う。
-- `[CustomizeSetting(Section = ..., Icon = ...)]` があるか？
-- `Section` 列挙型の値のスペルは正しいか？
-
-<h3 id="no-revert-data-after-testing">テスト後にリバートデータファイルがない</h3>
-
-リバートデータを確認するテストは `%localappdata%\optimizerDuck\Revert\` 内のファイルを期待します。テストのクリーンアップは `finally` ブロックで実行されます — アサーションがクリーンアップの前に実行されることを確認してください。
-
-<h3 id="ui-freezes">最適化の適用時に UI がフリーズする</h3>
-
-非同期のプロバイダー呼び出し（`ChangeServiceStartupTypeAsync`、`CMDAsync`、`PowerShellAsync`）には `ApplyAsync` で `async`/`await` を使用していることを確認してください。`Task.FromResult` を使用したり、`.Result` / `.Wait()` でブロックしたりすると、UI スレッドがフリーズします。
-
-<h3 id="generate-guid">GUID の生成方法</h3>
+<h3>GUID の生成</h3>
 
 ```powershell
-# PowerShell
 [guid]::NewGuid()
 ```
 
-```bash
-# Command line (if uuidgen is available)
-uuidgen
-```
+<h3>翻訳がキー名として表示される</h3>
+`Translations.resx` へのローカライズキーの追加を忘れている。
 
-<h3 id="translations-showing-key-names">UI に翻訳ではなくキー名が表示される</h3>
+<h3>「No revert data」エラー</h3>
+最適化の `Id` GUID が変更されていないことを確認。
 
-`Translations.resx` へのローカライズキーの追加を忘れています。期待されるキーパターンについては [ローカライズ](#localization) セクションを確認してください。
+<h3>新しいリバートステップタイプの追加</h3>
+1. `Domain/Revert/Steps/` に `IRevertStep` を実装する新しいクラスを作成
+2. 静的な `FromData(JObject data)` メソッドを追加（デシリアライズ用）
+3. `RevertManager` のリフレクションベースの `_stepRegistry` が自動検出
+4. `ExecutionScope.RecordStep()` で記録
 
-<h3 id="no-revert-data-error">リバート時に「No revert data」エラーが出る</h3>
-
-最適化の `Id` GUID が変更されていないことを確認してください。リバートファイルは `Id` でキー付けされます。GUID を再生成すると、以前適用した最適化に一致するリバートファイルがなくなります。
+<h3>クラッシュセーフティ</h3>
+- リバートファイル：アトミック書き込み（`.tmp` + `File.Replace`）
+- クラッシュログ：`%localappdata%\optimizerDuck\Crashes\crash_*.log`
+- `WmiHelper.Initialize()` が起動時に異常終了クリーンアップを登録
+- App.xaml.cs に 3 つのグローバル例外ハンドラ
 
 ---
 
@@ -1003,7 +885,7 @@ uuidgen
 
 <h2 id="credits">クレジット</h2>
 
-マージされた PR の貢献者はリリースノートに記載されます。モジュールに大きく貢献した場合は、ファイルヘッダーの上部に著者タグを追加できます。
+マージされた PR の貢献者はリリースノートに記載されます。
 
 ---
 
