@@ -64,18 +64,18 @@ optimizerDuck が PC の改善に役立ったなら、リポジトリに ⭐ を
 > [!NOTE]
 > | | 言語 | 現地名称 | 翻訳者 |
 > |------|----------|-------------|------------|
-> | 🇺🇸 | English (United States) | English | 基本 (推奨) |
-> | 🇻🇳 | Vietnamese | Tiếng Việt | [itsfatduck](https://github.com/itsfatduck) |
-> | 🇹🇼 | Traditional Chinese | 正體中文 | [abc0922001](https://github.com/abc0922001) |
-> | 🇨🇳 | Simplified Chinese | 简体中文 | [wcxu21](https://github.com/wcxu21) |
-> | 🇷🇺 | Russian | Русский | [Foodhead](https://github.com/Foodhead) |
-> | 🇫🇷 | French | Français | [Robocnop](https://github.com/Robocnop) |
-> | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
-> | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
-> | 🇯🇵 | Japanese | 日本語 | [zerofrip](https://github.com/zerofrip) |
-> | 🇵🇱 | Polish | Polski | [dudus2000](https://github.com/dudus2000) |
+> | 🇺🇸 | 英語 (アメリカ合衆国) | English | 基本 (推奨) |
+> | 🇻🇳 | ベトナム語 | Tiếng Việt | [itsfatduck](https://github.com/itsfatduck) |
+> | 🇹🇼 | 繁体字中国語 | 正體中文 | [abc0922001](https://github.com/abc0922001) |
+> | 🇨🇳 | 簡体字中国語 | 简体中文 | [wcxu21](https://github.com/wcxu21) |
+> | 🇷🇺 | ロシア語 | Русский | [Foodhead](https://github.com/Foodhead) |
+> | 🇫🇷 | フランス語 | Français | [Robocnop](https://github.com/Robocnop) |
+> | 🇰🇷 | 韓国語 | 한국어 | [klfnn](https://github.com/klfnn) |
+> | 🇪🇸 | スペイン語 | Español | [thexxtt](https://github.com/thexxtt) |
+> | 🇯🇵 | 日本語 | 日本語 | [zerofrip](https://github.com/zerofrip) |
+> | 🇵🇱 | ポーランド語 | Polski | [dudus2000](https://github.com/dudus2000) |
 > | 🇧🇷 | ポルトガル語（ブラジル） | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
-> | 🇹🇷 | Turkish | Türkçe | [amhunter1](https://github.com/amhunter1) |
+> | 🇹🇷 | トルコ語 | Türkçe | [amhunter1](https://github.com/amhunter1) |
 
 > 言語を追加したいですか？ [CONTRIBUTING.md](./CONTRIBUTING.md)（[トルコ語](./CONTRIBUTING.tr-TR.md)）をご覧ください。
 

@@ -64,18 +64,18 @@ Chaque étoile aide à motiver les améliorations futures.
 > [!NOTE]
 > | | Langue | Nom d'origine | Traducteur |
 > |------|----------|-------------|------------|
-> | 🇺🇸 | English (United States) | English | Principal et recommandé |
-> | 🇻🇳 | Vietnamese | Tiếng Việt | [itsfatduck](https://github.com/itsfatduck) |
-> | 🇹🇼 | Traditional Chinese | 正體中文 | [abc0922001](https://github.com/abc0922001) |
-> | 🇨🇳 | Simplified Chinese | 简体中文 | [wcxu21](https://github.com/wcxu21) |
-> | 🇷🇺 | Russian | Русский | [Foodhead](https://github.com/Foodhead) |
-> | 🇫🇷 | French | Français | [Robocnop](https://github.com/Robocnop) |
-> | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
-> | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
-> | 🇯🇵 | Japanese | 日本語 | [zerofrip](https://github.com/zerofrip) |
-> | 🇵🇱 | Polish | Polski | [dudus2000](https://github.com/dudus2000) |
+> | 🇺🇸 | Anglais (États-Unis) | English | Principal et recommandé |
+> | 🇻🇳 | Vietnamien | Tiếng Việt | [itsfatduck](https://github.com/itsfatduck) |
+> | 🇹🇼 | Chinois traditionnel | 正體中文 | [abc0922001](https://github.com/abc0922001) |
+> | 🇨🇳 | Chinois simplifié | 简体中文 | [wcxu21](https://github.com/wcxu21) |
+> | 🇷🇺 | Russe | Русский | [Foodhead](https://github.com/Foodhead) |
+> | 🇫🇷 | Français | Français | [Robocnop](https://github.com/Robocnop) |
+> | 🇰🇷 | Coréen | 한국어 | [klfnn](https://github.com/klfnn) |
+> | 🇪🇸 | Espagnol | Español | [thexxtt](https://github.com/thexxtt) |
+> | 🇯🇵 | Japonais | 日本語 | [zerofrip](https://github.com/zerofrip) |
+> | 🇵🇱 | Polonais | Polski | [dudus2000](https://github.com/dudus2000) |
 > | 🇧🇷 | Portugais (Brésil) | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
-> | 🇹🇷 | Turkish | Türkçe | [amhunter1](https://github.com/amhunter1) |
+> | 🇹🇷 | Turc | Türkçe | [amhunter1](https://github.com/amhunter1) |
 
 > Vous souhaitez ajouter votre langue ? Consultez [CONTRIBUTING.md](./CONTRIBUTING.md) ([version japonaise](./CONTRIBUTING.ja-JP.md), [version turque](./CONTRIBUTING.tr-TR.md)).
 

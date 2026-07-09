@@ -64,18 +64,18 @@
 > [!NOTE]
 > | | 語言 | 原始名稱 | 翻譯者 |
 > |------|----------|-------------|------------|
-> | 🇺🇸 | English (United States) | English | 主要及推薦 |
-> | 🇻🇳 | Vietnamese | Tiếng Việt | [itsfatduck](https://github.com/itsfatduck) |
-> | 🇹🇼 | Traditional Chinese | 正體中文 | [abc0922001](https://github.com/abc0922001) |
-> | 🇨🇳 | Simplified Chinese | 简体中文 | [wcxu21](https://github.com/wcxu21) |
-> | 🇷🇺 | Russian | Русский | [Foodhead](https://github.com/Foodhead) |
-> | 🇫🇷 | French | Français | [Robocnop](https://github.com/Robocnop) |
-> | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
-> | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
-> | 🇯🇵 | Japanese | 日本語 | [zerofrip](https://github.com/zerofrip) |
-> | 🇵🇱 | Polish | Polski | [dudus2000](https://github.com/dudus2000) |
+> | 🇺🇸 | 英語（美國） | English | 主要及推薦 |
+> | 🇻🇳 | 越南語 | Tiếng Việt | [itsfatduck](https://github.com/itsfatduck) |
+> | 🇹🇼 | 繁體中文 | 正體中文 | [abc0922001](https://github.com/abc0922001) |
+> | 🇨🇳 | 簡體中文 | 简体中文 | [wcxu21](https://github.com/wcxu21) |
+> | 🇷🇺 | 俄語 | Русский | [Foodhead](https://github.com/Foodhead) |
+> | 🇫🇷 | 法語 | Français | [Robocnop](https://github.com/Robocnop) |
+> | 🇰🇷 | 韓語 | 한국어 | [klfnn](https://github.com/klfnn) |
+> | 🇪🇸 | 西班牙語 | Español | [thexxtt](https://github.com/thexxtt) |
+> | 🇯🇵 | 日語 | 日本語 | [zerofrip](https://github.com/zerofrip) |
+> | 🇵🇱 | 波蘭語 | Polski | [dudus2000](https://github.com/dudus2000) |
 > | 🇧🇷 | 葡萄牙語（巴西） | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
-> | 🇹🇷 | Turkish | Türkçe | [amhunter1](https://github.com/amhunter1) |
+> | 🇹🇷 | 土耳其語 | Türkçe | [amhunter1](https://github.com/amhunter1) |
 
 > 想加入您的語言嗎？請查看[貢獻指南](./CONTRIBUTING.md)（[日文版](./CONTRIBUTING.ja-JP.md)、[土耳其語版](./CONTRIBUTING.tr-TR.md)）。
 

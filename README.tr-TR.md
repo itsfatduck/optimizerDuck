@@ -64,18 +64,18 @@ Her yıldız gelecekteki geliştirmelere motivasyon katıyor.
 > [!NOTE]
 > | | Dil | Yerel Ad | Çevirmen |
 > |------|----------|-------------|------------|
-> | 🇺🇸 | English (United States) | English | Birincil & önerilen |
-> | 🇻🇳 | Vietnamese | Tiếng Việt | [itsfatduck](https://github.com/itsfatduck) |
-> | 🇹🇼 | Traditional Chinese | 正體中文 | [abc0922001](https://github.com/abc0922001) |
-> | 🇨🇳 | Simplified Chinese | 简体中文 | [wcxu21](https://github.com/wcxu21) |
-> | 🇷🇺 | Russian | Русский | [Foodhead](https://github.com/Foodhead) |
-> | 🇫🇷 | French | Français | [Robocnop](https://github.com/Robocnop) |
-> | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
-> | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
-> | 🇯🇵 | Japanese | 日本語 | [zerofrip](https://github.com/zerofrip) |
-> | 🇵🇱 | Polish | Polski | [dudus2000](https://github.com/dudus2000) |
-> | 🇧🇷 | Portuguese (Brazil) | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
-> | 🇹🇷 | Turkish | Türkçe | [amhunter1](https://github.com/amhunter1) |
+> | 🇺🇸 | İngilizce (Amerika Birleşik Devletleri) | English | Birincil & önerilen |
+> | 🇻🇳 | Vietnamca | Tiếng Việt | [itsfatduck](https://github.com/itsfatduck) |
+> | 🇹🇼 | Geleneksel Çince | 正體中文 | [abc0922001](https://github.com/abc0922001) |
+> | 🇨🇳 | Basitleştirilmiş Çince | 简体中文 | [wcxu21](https://github.com/wcxu21) |
+> | 🇷🇺 | Rusça | Русский | [Foodhead](https://github.com/Foodhead) |
+> | 🇫🇷 | Fransızca | Français | [Robocnop](https://github.com/Robocnop) |
+> | 🇰🇷 | Korece | 한국어 | [klfnn](https://github.com/klfnn) |
+> | 🇪🇸 | İspanyolca | Español | [thexxtt](https://github.com/thexxtt) |
+> | 🇯🇵 | Japonca | 日本語 | [zerofrip](https://github.com/zerofrip) |
+> | 🇵🇱 | Lehçe | Polski | [dudus2000](https://github.com/dudus2000) |
+> | 🇧🇷 | Portekizce (Brezilya) | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
+> | 🇹🇷 | Türkçe | Türkçe | [amhunter1](https://github.com/amhunter1) |
 
 > Dilinizi eklemek ister misiniz? Bkz. [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japonca](./CONTRIBUTING.ja-JP.md), [Türkçe](./CONTRIBUTING.tr-TR.md)).
 

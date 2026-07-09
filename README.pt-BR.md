@@ -64,18 +64,18 @@ Cada estrela ajuda a motivar melhorias futuras.
 > [!NOTE]
 > | | Idioma | Nome nativo | Tradutor |
 > |------|----------|-------------|------------|
-> | 🇺🇸 | English (United States) | English | Principal & recomendado |
-> | 🇻🇳 | Vietnamese | Tiếng Việt | [itsfatduck](https://github.com/itsfatduck) |
-> | 🇹🇼 | Traditional Chinese | 正體中文 | [abc0922001](https://github.com/abc0922001) |
-> | 🇨🇳 | Simplified Chinese | 简体中文 | [wcxu21](https://github.com/wcxu21) |
-> | 🇷🇺 | Russian | Русский | [Foodhead](https://github.com/Foodhead) |
-> | 🇫🇷 | French | Français | [Robocnop](https://github.com/Robocnop) |
-> | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
-> | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
-> | 🇯🇵 | Japanese | 日本語 | [zerofrip](https://github.com/zerofrip) |
-> | 🇵🇱 | Polish | Polski | [dudus2000](https://github.com/dudus2000) |
+> | 🇺🇸 | Inglês (Estados Unidos) | English | Principal & recomendado |
+> | 🇻🇳 | Vietnamita | Tiếng Việt | [itsfatduck](https://github.com/itsfatduck) |
+> | 🇹🇼 | Chinês Tradicional | 正體中文 | [abc0922001](https://github.com/abc0922001) |
+> | 🇨🇳 | Chinês Simplificado | 简体中文 | [wcxu21](https://github.com/wcxu21) |
+> | 🇷🇺 | Russo | Русский | [Foodhead](https://github.com/Foodhead) |
+> | 🇫🇷 | Francês | Français | [Robocnop](https://github.com/Robocnop) |
+> | 🇰🇷 | Coreano | 한국어 | [klfnn](https://github.com/klfnn) |
+> | 🇪🇸 | Espanhol | Español | [thexxtt](https://github.com/thexxtt) |
+> | 🇯🇵 | Japonês | 日本語 | [zerofrip](https://github.com/zerofrip) |
+> | 🇵🇱 | Polonês | Polski | [dudus2000](https://github.com/dudus2000) |
 > | 🇧🇷 | Portuguese (Brazil) | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
-> | 🇹🇷 | Turkish | Türkçe | [amhunter1](https://github.com/amhunter1) |
+> | 🇹🇷 | Turco | Türkçe | [amhunter1](https://github.com/amhunter1) |
 
 > Quer adicionar seu idioma? Veja [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japonês](./CONTRIBUTING.ja-JP.md), [Turco](./CONTRIBUTING.tr-TR.md)).
 

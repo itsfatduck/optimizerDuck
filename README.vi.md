@@ -64,18 +64,18 @@ Càng nhiều sao càng có động lực cải thiện công cụ.
 > [!NOTE]
 > | | Ngôn ngữ | Tên bản địa | Người dịch |
 > |------|----------|-------------|------------|
-> | 🇺🇸 | English (United States) | English | Chính thức & khuyến nghị |
+> | 🇺🇸 | Tiếng Anh (Hoa Kỳ) | English | Chính thức & khuyến nghị |
 > | 🇻🇳 | Vietnamese | Tiếng Việt | [itsfatduck](https://github.com/itsfatduck) |
-> | 🇹🇼 | Traditional Chinese | 正體中文 | [abc0922001](https://github.com/abc0922001) |
-> | 🇨🇳 | Simplified Chinese | 简体中文 | [wcxu21](https://github.com/wcxu21) |
-> | 🇷🇺 | Russian | Русский | [Foodhead](https://github.com/Foodhead) |
-> | 🇫🇷 | French | Français | [Robocnop](https://github.com/Robocnop) |
-> | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
-> | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
-> | 🇯🇵 | Japanese | 日本語 | [zerofrip](https://github.com/zerofrip) |
-> | 🇵🇱 | Polish | Polski | [dudus2000](https://github.com/dudus2000) |
+> | 🇹🇼 | Tiếng Trung Phồn thể | 正體中文 | [abc0922001](https://github.com/abc0922001) |
+> | 🇨🇳 | Tiếng Trung Giản thể | 简体中文 | [wcxu21](https://github.com/wcxu21) |
+> | 🇷🇺 | Tiếng Nga | Русский | [Foodhead](https://github.com/Foodhead) |
+> | 🇫🇷 | Tiếng Pháp | Français | [Robocnop](https://github.com/Robocnop) |
+> | 🇰🇷 | Tiếng Hàn | 한국어 | [klfnn](https://github.com/klfnn) |
+> | 🇪🇸 | Tiếng Tây Ban Nha | Español | [thexxtt](https://github.com/thexxtt) |
+> | 🇯🇵 | Tiếng Nhật | 日本語 | [zerofrip](https://github.com/zerofrip) |
+> | 🇵🇱 | Tiếng Ba Lan | Polski | [dudus2000](https://github.com/dudus2000) |
 > | 🇧🇷 | Tiếng Bồ Đào Nha (Brazil) | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
-> | 🇹🇷 | Turkish | Türkçe | [amhunter1](https://github.com/amhunter1) |
+> | 🇹🇷 | Tiếng Thổ Nhĩ Kỳ | Türkçe | [amhunter1](https://github.com/amhunter1) |
 
 > Muốn thêm ngôn ngữ của bạn? Xem [CONTRIBUTING.md](./CONTRIBUTING.md) ([bản tiếng Nhật](./CONTRIBUTING.ja-JP.md), [bản tiếng Thổ Nhĩ Kỳ](./CONTRIBUTING.tr-TR.md)).
 
