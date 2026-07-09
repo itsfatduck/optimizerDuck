@@ -208,7 +208,7 @@ public class ServiceProcessServiceTests
     [Fact]
     public async Task GetStartupTypeAsync_ExistingDemandService_ReturnsManual()
     {
-        var (result, notFound) = await ServiceProcessService.GetStartupTypeAsync("BITS");
+        var (result, notFound) = await ServiceProcessService.GetStartupTypeAsync("msiserver");
 
         Assert.False(notFound);
         Assert.NotNull(result);
