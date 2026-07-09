@@ -65,12 +65,12 @@ Every star helps motivate future improvements.
 > | | Language | Native Name | Translator |
 > |------|----------|-------------|------------|
 > | 🇺🇸 | English (United States) | English | Primary & recommended |
-> | 🇩🇪 | German | Deutsch | Community contribution |
 > | 🇻🇳 | Vietnamese | Tiếng Việt | [itsfatduck](https://github.com/itsfatduck) |
 > | 🇹🇼 | Traditional Chinese | 正體中文 | [abc0922001](https://github.com/abc0922001) |
 > | 🇨🇳 | Simplified Chinese | 简体中文 | [wcxu21](https://github.com/wcxu21) |
 > | 🇷🇺 | Russian | Русский | [Foodhead](https://github.com/Foodhead) |
 > | 🇫🇷 | French | Français | [Robocnop](https://github.com/Robocnop) |
+> | 🇩🇪 | German | Deutsch | [pixeldepartment](https://github.com/pixeldepartment) |
 > | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
 > | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
 > | 🇯🇵 | Japanese | 日本語 | [zerofrip](https://github.com/zerofrip) |
