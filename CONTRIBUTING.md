@@ -172,7 +172,7 @@ optimizerDuck.slnx                          # Solution file (.slnx format)
 │   └── Resources/                          # Images, embedded assets, localization
 │       ├── Embedded/                       # Power plans (optimizerDuck.pow), Icons (blank.ico)
 │       ├── Images/                         # Duck.png, GitHubLogo, DiscordLogo
-│       └── Languages/                      # Translations.resx + 11 locale variants
+│       └── Languages/                      # Translations.resx + 12 locale variants
 │
 └── optimizerDuck.Test/                     # xUnit v3 test project
     ├── Common/Helpers/
@@ -1078,6 +1078,7 @@ All user-facing strings live in `Resources/Languages/Translations.resx`. Use the
 | Language | File |
 |---|---|
 | English | `Translations.resx` (default) |
+| German | `Translations.de-DE.resx` |
 | Vietnamese | `Translations.vi-VN.resx` |
 | Spanish | `Translations.es-ES.resx` |
 | French | `Translations.fr-FR.resx` |
@@ -1090,7 +1091,7 @@ All user-facing strings live in `Resources/Languages/Translations.resx`. Use the
 | Turkish | `Translations.tr-TR.resx` |
 | Portuguese (Brazil) | `Translations.pt-BR.resx` |
 
-> **Note**: 11 locale variants total, plus English as the default fallback.
+> **Note**: 12 locale variants total, plus English as the default fallback.
 
 ### Adding a New Language
 

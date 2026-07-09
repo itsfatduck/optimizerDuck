@@ -65,6 +65,7 @@ Every star helps motivate future improvements.
 > | | Language | Native Name | Translator |
 > |------|----------|-------------|------------|
 > | 🇺🇸 | English (United States) | English | Primary & recommended |
+> | 🇩🇪 | German | Deutsch | Community contribution |
 > | 🇻🇳 | Vietnamese | Tiếng Việt | [itsfatduck](https://github.com/itsfatduck) |
 > | 🇹🇼 | Traditional Chinese | 正體中文 | [abc0922001](https://github.com/abc0922001) |
 > | 🇨🇳 | Simplified Chinese | 简体中文 | [wcxu21](https://github.com/wcxu21) |
