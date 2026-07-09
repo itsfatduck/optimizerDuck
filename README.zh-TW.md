@@ -77,7 +77,7 @@
 > | 🇧🇷 | 葡萄牙語（巴西） | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
 > | 🇹🇷 | Turkish | Türkçe | [amhunter1](https://github.com/amhunter1) |
 
-> 想加入您的語言嗎？請查看[貢獻指南](./CONTRIBUTING.md)（[日文版](./CONTRIBUTING.ja-JP.md)）。
+> 想加入您的語言嗎？請查看[貢獻指南](./CONTRIBUTING.md)（[日文版](./CONTRIBUTING.ja-JP.md)、[土耳其語版](./CONTRIBUTING.tr-TR.md)）。
 
 ---
 
@@ -242,7 +242,7 @@ Windows 功能更新偶爾會將某些登錄值與服務設定重設為預設值
 
 我們歡迎來自社群的任何貢獻！無論您是修復錯誤、新增最佳化項目或功能、改善文件，還是協助將應用程式翻譯成其他語言，您的支持都讓我們非常感激。
 
-如需更多資訊，請參閱 [CONTRIBUTING.md](./CONTRIBUTING.md)（[日文版](./CONTRIBUTING.ja-JP.md)）。
+如需更多資訊，請參閱 [CONTRIBUTING.md](./CONTRIBUTING.md)（[日文版](./CONTRIBUTING.ja-JP.md)、[土耳其語版](./CONTRIBUTING.tr-TR.md)）。
 
 ---
 

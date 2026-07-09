@@ -77,7 +77,7 @@ Càng nhiều sao càng có động lực cải thiện công cụ.
 > | 🇧🇷 | Tiếng Bồ Đào Nha (Brazil) | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
 > | 🇹🇷 | Turkish | Türkçe | [amhunter1](https://github.com/amhunter1) |
 
-> Muốn thêm ngôn ngữ của bạn? Xem [CONTRIBUTING.md](./CONTRIBUTING.md) ([bản tiếng Nhật](./CONTRIBUTING.ja-JP.md)).
+> Muốn thêm ngôn ngữ của bạn? Xem [CONTRIBUTING.md](./CONTRIBUTING.md) ([bản tiếng Nhật](./CONTRIBUTING.ja-JP.md), [bản tiếng Thổ Nhĩ Kỳ](./CONTRIBUTING.tr-TR.md)).
 
 ---
 
@@ -240,7 +240,7 @@ Hướng dẫn từng bước, chi tiết các tối ưu và mẹo xài optimize
 
 ## Đóng góp
 
-Báo bug, thêm tối ưu mới, cải thiện tài liệu hay đóng góp bản dịch: tất cả đều welcome. Xem [CONTRIBUTING.md](./CONTRIBUTING.md) ([bản tiếng Nhật](./CONTRIBUTING.ja-JP.md)).
+Báo bug, thêm tối ưu mới, cải thiện tài liệu hay đóng góp bản dịch: tất cả đều welcome. Xem [CONTRIBUTING.md](./CONTRIBUTING.md) ([bản tiếng Nhật](./CONTRIBUTING.ja-JP.md), [bản tiếng Thổ Nhĩ Kỳ](./CONTRIBUTING.tr-TR.md)).
 
 ---
 

@@ -77,7 +77,7 @@ Every star helps motivate future improvements.
 > | 🇧🇷 | Portuguese (Brazil) | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
 > | 🇹🇷 | Turkish | Türkçe | [amhunter1](https://github.com/amhunter1) |
 
-> Want to add your language? See [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japanese](./CONTRIBUTING.ja-JP.md)).
+> Want to add your language? See [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japanese](./CONTRIBUTING.ja-JP.md), [Turkish](./CONTRIBUTING.tr-TR.md)).
 
 ---
 

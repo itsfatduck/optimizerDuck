@@ -77,7 +77,7 @@
 > | 🇧🇷 | 葡萄牙语（巴西） | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
 > | 🇹🇷 | Turkish | Türkçe | [amhunter1](https://github.com/amhunter1) |
 
-> 想要添加其他语言？请查看[贡献指南](./CONTRIBUTING.md)（[日文版](./CONTRIBUTING.ja-JP.md)）。
+> 想要添加其他语言？请查看[贡献指南](./CONTRIBUTING.md)（[日文版](./CONTRIBUTING.ja-JP.md)、[土耳其语版](./CONTRIBUTING.tr-TR.md)）。
 >
 > 1: 软件开发时使用此语言，我们也推荐使用此语言以尽可能避免误解。
 
@@ -246,7 +246,7 @@ Windows 功能更新偶尔会将某些注册表值和服务配置重置为默认
 
 我们欢迎来自社区的每一份贡献！无论你是修复 bug、添加新的优化或功能、完善文档，还是协助将应用翻译成其他语言，你的支持都让我们非常感激。
 
-如需更多信息，请查阅 [CONTRIBUTING.md](./CONTRIBUTING.md)（[日文版](./CONTRIBUTING.ja-JP.md)）。
+如需更多信息，请查阅 [CONTRIBUTING.md](./CONTRIBUTING.md)（[日文版](./CONTRIBUTING.ja-JP.md)、[土耳其语版](./CONTRIBUTING.tr-TR.md)）。
 
 ---
 

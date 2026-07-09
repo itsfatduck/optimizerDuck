@@ -77,7 +77,7 @@
 > | 🇧🇷 | Португальский (Бразилия) | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
 > | 🇹🇷 | Turkish | Türkçe | [amhunter1](https://github.com/amhunter1) |
 
-> Хотите добавить свой язык? См. [CONTRIBUTING.md](./CONTRIBUTING.md) ([японская версия](./CONTRIBUTING.ja-JP.md)).
+> Хотите добавить свой язык? См. [CONTRIBUTING.md](./CONTRIBUTING.md) ([японская версия](./CONTRIBUTING.ja-JP.md), [турецкая версия](./CONTRIBUTING.tr-TR.md)).
 
 ---
 
@@ -242,7 +242,7 @@ optimizerDuck даёт вам единый интерфейс, чтобы убр
 
 Мы приветствуем вклад сообщества! Будь то исправление ошибок, добавление новых оптимизаций или функций, улучшение документации или помощь в переводе приложения на другие языки, ваша поддержка очень ценится.
 
-Для получения дополнительной информации см. [CONTRIBUTING.md](./CONTRIBUTING.md) ([японская версия](./CONTRIBUTING.ja-JP.md)).
+Для получения дополнительной информации см. [CONTRIBUTING.md](./CONTRIBUTING.md) ([японская версия](./CONTRIBUTING.ja-JP.md), [турецкая версия](./CONTRIBUTING.tr-TR.md)).
 
 ---
 

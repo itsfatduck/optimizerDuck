@@ -77,7 +77,7 @@ Cada estrela ajuda a motivar melhorias futuras.
 > | 🇧🇷 | Portuguese (Brazil) | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
 > | 🇹🇷 | Turkish | Türkçe | [amhunter1](https://github.com/amhunter1) |
 
-> Quer adicionar seu idioma? Veja [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japonês](./CONTRIBUTING.ja-JP.md)).
+> Quer adicionar seu idioma? Veja [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japonês](./CONTRIBUTING.ja-JP.md), [Turco](./CONTRIBUTING.tr-TR.md)).
 
 ---
 
@@ -240,7 +240,7 @@ Guias, detalhes de otimização e dicas de uso.
 
 ## Contribuir
 
-Relatórios de bugs, novas otimizações, melhorias na documentação e traduções são todos bem-vindos. Veja [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japonês](./CONTRIBUTING.ja-JP.md)).
+Relatórios de bugs, novas otimizações, melhorias na documentação e traduções são todos bem-vindos. Veja [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japonês](./CONTRIBUTING.ja-JP.md), [Turco](./CONTRIBUTING.tr-TR.md)).
 
 ---
 

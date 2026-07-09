@@ -77,7 +77,7 @@ Her yıldız gelecekteki geliştirmelere motivasyon katıyor.
 > | 🇧🇷 | Portuguese (Brazil) | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
 > | 🇹🇷 | Turkish | Türkçe | [amhunter1](https://github.com/amhunter1) |
 
-> Dilinizi eklemek ister misiniz? Bkz. [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japonca](./CONTRIBUTING.ja-JP.md)).
+> Dilinizi eklemek ister misiniz? Bkz. [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japonca](./CONTRIBUTING.ja-JP.md), [Türkçe](./CONTRIBUTING.tr-TR.md)).
 
 ---
 

@@ -77,7 +77,7 @@ optimizerDuck が PC の改善に役立ったなら、リポジトリに ⭐ を
 > | 🇧🇷 | ポルトガル語（ブラジル） | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
 > | 🇹🇷 | Turkish | Türkçe | [amhunter1](https://github.com/amhunter1) |
 
-> 言語を追加したいですか？ [CONTRIBUTING.md](./CONTRIBUTING.md) をご覧ください。
+> 言語を追加したいですか？ [CONTRIBUTING.md](./CONTRIBUTING.md)（[トルコ語](./CONTRIBUTING.tr-TR.md)）をご覧ください。
 
 ---
 
@@ -239,7 +239,7 @@ GitHub で [issue](https://github.com/itsfatduck/optimizerDuck/issues) を開き
 
 ## コントリビューション
 
-バグ報告、新しい最適化、ドキュメントの改善、翻訳など、すべて歓迎します。[CONTRIBUTING.md](./CONTRIBUTING.md) をご覧ください。
+バグ報告、新しい最適化、ドキュメントの改善、翻訳など、すべて歓迎します。[CONTRIBUTING.md](./CONTRIBUTING.md)（[トルコ語](./CONTRIBUTING.tr-TR.md)）をご覧ください。
 
 ---
 
