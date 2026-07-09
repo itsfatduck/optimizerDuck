@@ -1089,8 +1089,9 @@ All user-facing strings live in `Resources/Languages/Translations.resx`. Use the
 | Polish | `Translations.pl-PL.resx` |
 | Turkish | `Translations.tr-TR.resx` |
 | Portuguese (Brazil) | `Translations.pt-BR.resx` |
+| Hebrew | `Translations.he-IL.resx` |
 
-> **Note**: 11 locale variants total, plus English as the default fallback.
+> **Note**: 12 locale variants total, plus English as the default fallback.
 
 ### Adding a New Language
 
