@@ -1,12 +1,15 @@
+using System.ComponentModel;
 using System.Globalization;
+using System.Windows;
 using optimizerDuck.Resources.Languages;
 
 namespace optimizerDuck.Services.Configuration;
 
 /// <summary>
 ///     Provides localization and culture management for the application.
+///     Implements <see cref="INotifyPropertyChanged" /> so UI bindings (e.g., FlowDirection) update on culture change.
 /// </summary>
-public class Loc
+public class Loc : INotifyPropertyChanged
 {
     /// <summary>
     ///     Gets the singleton instance of the localization manager.
@@ -17,6 +20,17 @@ public class Loc
     ///     Gets the current culture information.
     /// </summary>
     public static CultureInfo CurrentCulture => Translations.Culture;
+
+    /// <summary>
+    ///     Gets whether the current culture uses a right-to-left writing system.
+    /// </summary>
+    public bool IsRtl => Translations.Culture.TextInfo.IsRightToLeft;
+
+    /// <summary>
+    ///     Gets the <see cref="FlowDirection" /> corresponding to the current culture.
+    ///     Returns <see cref="FlowDirection.RightToLeft" /> for RTL languages, otherwise <see cref="FlowDirection.LeftToRight" />.
+    /// </summary>
+    public FlowDirection Direction => IsRtl ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
 
     /// <summary>
     ///     Gets the localized string for the specified key.
@@ -33,5 +47,19 @@ public class Loc
     public void ChangeCulture(CultureInfo culture)
     {
         Translations.Culture = culture;
+        OnPropertyChanged(nameof(IsRtl));
+        OnPropertyChanged(nameof(Direction));
+    }
+
+    /// <inheritdoc />
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    /// <summary>
+    ///     Raises the <see cref="PropertyChanged" /> event.
+    /// </summary>
+    /// <param name="propertyName">The name of the property that changed.</param>
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

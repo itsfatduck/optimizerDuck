@@ -5,6 +5,7 @@
     xmlns:controls="clr-namespace:optimizerDuck.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:extensions="clr-namespace:optimizerDuck.Common.Extensions"
+    xmlns:config="clr-namespace:optimizerDuck.Services.Configuration"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pages="clr-namespace:optimizerDuck.UI.Pages"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
@@ -26,7 +27,7 @@
     WindowCornerPreference="Round"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <Grid>
+    <Grid FlowDirection="{Binding Direction, Source={x:Static config:Loc.Instance}}">
         <ui:NavigationView
             x:Name="RootNavigation"
             Margin="0"
