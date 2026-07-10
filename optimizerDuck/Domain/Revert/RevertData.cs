@@ -8,17 +8,19 @@ namespace optimizerDuck.Domain.Revert;
 public class RevertStepData
 {
     /// <summary>
-    ///     The explicit index of this step in the execution sequence.
+    ///     Gets or sets the explicit 1-based index of this step in the execution sequence.
     /// </summary>
     public int Index { get; set; }
 
     /// <summary>
-    ///     The type of the revert step (e.g., "Registry", "Service", "Shell").
+    ///     Gets or sets the type of the revert step (e.g., "Registry", "Service", "Shell").
+    ///     Used for deserialization of the correct step type.
     /// </summary>
     public string Type { get; set; } = string.Empty;
 
     /// <summary>
-    ///     The serialized data for the step.
+    ///     Gets or sets the serialized JSON data for the revert step.
+    ///     The structure of this object depends on <see cref="Type"/>.
     /// </summary>
     public JObject Data { get; set; } = new();
 }

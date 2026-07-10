@@ -153,7 +153,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
     #region Commands
 
     /// <summary>
-    ///     Toggles the optimization.
+    ///     Toggles the optimization (apply if not applied, revert if applied).
     /// </summary>
     /// <param name="optimization">The optimization to toggle.</param>
     [RelayCommand(CanExecute = nameof(CanToggleOptimization))]
@@ -161,173 +161,25 @@ public partial class OptimizationCategoryViewModel : ViewModel
     {
         try
         {
-            // Keep a stable reference to the previous state in case we need to roll back UI changes.
             var wasApplied = await RevertManager.IsAppliedAsync(optimization.Id);
 
-            var restorePointCreated = false;
-            if (!_optimizationService.WasRequestedRestorePoint)
-            {
-                var (proceed, created) = await HandleRestorePointAsync();
-                if (!proceed)
-                {
-                    optimization.State.IsApplied = wasApplied;
-                    return;
-                }
-
-                restorePointCreated = created;
-                _optimizationService.WasRequestedRestorePoint = true;
-            }
+            var (canProceed, restorePointCreated) = await EnsureRestorePointAsync(
+                optimization,
+                wasApplied
+            );
+            if (!canProceed)
+                return;
 
             try
             {
-                // Apply optimization if not already applied
                 if (!wasApplied)
-                {
-                    _logger.LogInformation(
-                        "===== START applying optimization {OptimizationName} ({OptimizationId}) =====",
-                        optimization.OptimizationKey,
-                        optimization.Id
-                    );
-                    var applyResult = await RunWithProcessingDialogAsync(
-                        optimization,
-                        progress => _optimizationService.ApplyAsync(optimization, progress)
-                    );
-
-                    // If result status is completely Failed, we can't retry it
-                    if (applyResult.Status == OptimizationSuccessResult.Failed)
-                    {
-                        ShowOperationOutcomeSnackbar(
-                            OperationNotificationState.Failed,
-                            OptimizationOperation.Apply,
-                            applyResult.Message,
-                            restorePointCreated
-                        );
-
-                        _logger.LogWarning(
-                            "Apply failed {Name} optimization: {Message}",
-                            optimization.OptimizationKey,
-                            applyResult.Message
-                        );
-
-                        _logger.LogInformation(
-                            "===== END applying optimization {OptimizationName} ({OptimizationId}) =====",
-                            optimization.OptimizationKey,
-                            optimization.Id
-                        );
-
-                        await OptimizationService.UpdateOptimizationStateAsync(optimization);
-                        OnPropertyChanged(nameof(HasAppliedOptimizations));
-                        return;
-                    }
-
-                    ((App)Application.Current).HasPendingChanges = true;
-
-                    // Retry only if there are some successful steps and some failed steps
-                    var retryOutcome = await HandleRetryableFailuresAsync(
-                        optimization,
-                        applyResult.FailedSteps,
-                        OptimizationOperation.Apply
-                    );
-
-                    // Explicitly update state after all operations complete
-                    await OptimizationService.UpdateOptimizationStateAsync(optimization);
-
-                    // Ensure UI reflects the correct state
-                    OnPropertyChanged(nameof(HasAppliedOptimizations));
-
-                    var notificationState = ResolveApplyNotificationState(
-                        applyResult,
-                        retryOutcome
-                    );
-
-                    ShowOperationOutcomeSnackbar(
-                        notificationState,
-                        OptimizationOperation.Apply,
-                        applyResult.Message,
-                        restorePointCreated
-                    );
-
-                    if (notificationState == OperationNotificationState.Success)
-                        _logger.LogInformation(
-                            "Successfully applied {Name}",
-                            optimization.OptimizationKey
-                        );
-                    else if (notificationState == OperationNotificationState.Partial)
-                        _logger.LogWarning(
-                            "Partially applied {Name}",
-                            optimization.OptimizationKey
-                        );
-                    else
-                        _logger.LogWarning("Failed to apply {Name}", optimization.OptimizationKey);
-
-                    _logger.LogInformation(
-                        "===== END applying optimization {OptimizationName} ({OptimizationId}) =====",
-                        optimization.OptimizationKey,
-                        optimization.Id
-                    );
-                }
+                    await ApplyOptimizationAsync(optimization, restorePointCreated);
                 else
-                {
-                    // Revert optimization if already applied
-                    _logger.LogInformation(
-                        "===== START reverting optimization {OptimizationName} ({OptimizationId}) =====",
-                        optimization.OptimizationKey,
-                        optimization.Id
-                    );
-
-                    var revertResult = await RunWithProcessingDialogAsync(
-                        optimization,
-                        progress => _optimizationService.RevertAsync(optimization, progress)
-                    );
-
-                    ((App)Application.Current).HasPendingChanges = true;
-
-                    var retryOutcome = await HandleRetryableFailuresAsync(
-                        optimization,
-                        revertResult.FailedSteps,
-                        OptimizationOperation.Revert
-                    );
-
-                    // Explicitly update state after revert completes
-                    await OptimizationService.UpdateOptimizationStateAsync(optimization);
-
-                    // Ensure UI reflects the correct state
-                    OnPropertyChanged(nameof(HasAppliedOptimizations));
-
-                    var notificationState = ResolveRevertNotificationState(
-                        revertResult,
-                        retryOutcome
-                    );
-
-                    ShowOperationOutcomeSnackbar(
-                        notificationState,
-                        OptimizationOperation.Revert,
-                        revertResult.Message,
-                        restorePointCreated
-                    );
-
-                    if (notificationState == OperationNotificationState.Success)
-                        _logger.LogInformation(
-                            "Successfully reverted {Name}",
-                            optimization.OptimizationKey
-                        );
-                    else if (notificationState == OperationNotificationState.Partial)
-                        _logger.LogWarning(
-                            "Partially reverted {Name}",
-                            optimization.OptimizationKey
-                        );
-                    else
-                        _logger.LogWarning("Failed to revert {Name}", optimization.OptimizationKey);
-                    _logger.LogInformation(
-                        "===== END reverting optimization {OptimizationName} ({OptimizationId}) =====",
-                        optimization.OptimizationKey,
-                        optimization.Id
-                    );
-                }
+                    await RevertOptimizationAsync(optimization, restorePointCreated);
             }
             catch (Exception ex)
             {
-                optimization.State.IsApplied = wasApplied; // revert UI state on failure
+                optimization.State.IsApplied = wasApplied;
                 _logger.LogError(
                     ex,
                     "Failed to toggle optimization {Name}",
@@ -352,9 +204,157 @@ public partial class OptimizationCategoryViewModel : ViewModel
     }
 
     /// <summary>
-    ///     Shows the details of an optimization.
+    ///     Ensures a restore point is created before modifying system settings.
     /// </summary>
-    /// <param name="optimization">The optimization to show details for.</param>
+    /// <returns>(canProceed, restorePointCreated).</returns>
+    private async Task<(bool Proceed, bool RestorePointCreated)> EnsureRestorePointAsync(
+        IOptimization optimization,
+        bool wasApplied
+    )
+    {
+        if (_optimizationService.WasRequestedRestorePoint)
+            return (true, false);
+
+        var (proceed, created) = await HandleRestorePointAsync();
+        if (!proceed)
+        {
+            optimization.State.IsApplied = wasApplied;
+            return (false, false);
+        }
+
+        _optimizationService.WasRequestedRestorePoint = true;
+        return (true, created);
+    }
+
+    /// <summary>
+    ///     Applies an optimization with progress reporting and retry handling.
+    /// </summary>
+    /// <param name="optimization">The optimization to apply.</param>
+    /// <param name="restorePointCreated">Whether a system restore point was created beforehand.</param>
+    private async Task ApplyOptimizationAsync(IOptimization optimization, bool restorePointCreated)
+    {
+        _logger.LogInformation(
+            "===== START applying {Name} ({Id}) =====",
+            optimization.OptimizationKey,
+            optimization.Id
+        );
+
+        var applyResult = await RunWithProcessingDialogAsync(
+            optimization,
+            p => _optimizationService.ApplyAsync(optimization, p)
+        );
+
+        // Complete failure: can't retry
+        if (applyResult.Status == OptimizationSuccessResult.Failed)
+        {
+            ShowOperationOutcomeSnackbar(
+                OperationNotificationState.Failed,
+                OptimizationOperation.Apply,
+                applyResult.Message,
+                restorePointCreated
+            );
+            _logger.LogWarning("Apply failed: {Message}", applyResult.Message);
+            await FinalizeOperationAsync(optimization);
+            return;
+        }
+
+        ((App)Application.Current).HasPendingChanges = true;
+
+        var retryOutcome = await HandleRetryableFailuresAsync(
+            optimization,
+            applyResult.FailedSteps,
+            OptimizationOperation.Apply
+        );
+
+        var notificationState = ResolveApplyNotificationState(applyResult, retryOutcome);
+        await FinalizeOperationAsync(optimization);
+        ShowOperationOutcomeSnackbar(
+            notificationState,
+            OptimizationOperation.Apply,
+            applyResult.Message,
+            restorePointCreated
+        );
+
+        LogOperationOutcome(notificationState, "apply", optimization);
+        _logger.LogInformation(
+            "===== END applying {Name} ({Id}) =====",
+            optimization.OptimizationKey,
+            optimization.Id
+        );
+    }
+
+    /// <summary>
+    ///     Reverts an optimization with progress reporting and retry handling.
+    /// </summary>
+    /// <param name="optimization">The optimization to revert.</param>
+    /// <param name="restorePointCreated">Whether a system restore point was created beforehand.</param>
+    private async Task RevertOptimizationAsync(IOptimization optimization, bool restorePointCreated)
+    {
+        _logger.LogInformation(
+            "===== START reverting {Name} ({Id}) =====",
+            optimization.OptimizationKey,
+            optimization.Id
+        );
+
+        var revertResult = await RunWithProcessingDialogAsync(
+            optimization,
+            p => _optimizationService.RevertAsync(optimization, p)
+        );
+
+        ((App)Application.Current).HasPendingChanges = true;
+
+        var retryOutcome = await HandleRetryableFailuresAsync(
+            optimization,
+            revertResult.FailedSteps,
+            OptimizationOperation.Revert
+        );
+
+        var notificationState = ResolveRevertNotificationState(revertResult, retryOutcome);
+        await FinalizeOperationAsync(optimization);
+        ShowOperationOutcomeSnackbar(
+            notificationState,
+            OptimizationOperation.Revert,
+            revertResult.Message,
+            restorePointCreated
+        );
+
+        LogOperationOutcome(notificationState, "revert", optimization);
+        _logger.LogInformation(
+            "===== END reverting {Name} ({Id}) =====",
+            optimization.OptimizationKey,
+            optimization.Id
+        );
+    }
+
+    /// <summary>
+    ///     Updates optimization state and notifies the UI.
+    /// </summary>
+    private static async Task FinalizeOperationAsync(IOptimization optimization)
+    {
+        await OptimizationService.UpdateOptimizationStateAsync(optimization);
+    }
+
+    private void LogOperationOutcome(
+        OperationNotificationState notificationState,
+        string operationName,
+        IOptimization optimization
+    )
+    {
+        var level =
+            notificationState == OperationNotificationState.Success ? LogLevel.Information
+            : notificationState == OperationNotificationState.Partial ? LogLevel.Warning
+            : LogLevel.Warning;
+
+        var message =
+            notificationState == OperationNotificationState.Success
+                ? $"Successfully {operationName}d"
+            : notificationState == OperationNotificationState.Partial
+                ? $"Partially {operationName}d"
+            : $"Failed to {operationName}";
+
+        _logger.Log(level, "{Message}: {Name}", message, optimization.OptimizationKey);
+    }
+
     [RelayCommand]
     private async Task ShowDetailsAsync(IOptimization optimization)
     {

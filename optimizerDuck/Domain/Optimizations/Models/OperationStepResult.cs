@@ -8,42 +8,42 @@ namespace optimizerDuck.Domain.Optimizations.Models;
 public record OperationStepResult
 {
     /// <summary>
-    ///     The one-based index of this step in the execution order.
+    ///     Gets the one-based index of this step in the execution order.
     /// </summary>
     public int Index { get; init; }
 
     /// <summary>
-    ///     The name of the step.
+    ///     Gets the name of the step.
     /// </summary>
     public string Name { get; init; } = string.Empty;
 
     /// <summary>
-    ///     A description of what this step does.
+    ///     Gets a description of what this step does.
     /// </summary>
     public string Description { get; init; } = string.Empty;
 
     /// <summary>
-    ///     Indicates whether the step completed successfully.
+    ///     Gets a value that indicates whether the step completed successfully.
     /// </summary>
     public bool Success { get; init; }
 
     /// <summary>
-    ///     The error message if the step failed.
+    ///     Gets the error message if the step failed, or <see langword="null"/> if it succeeded.
     /// </summary>
     public string? Error { get; init; }
 
     /// <summary>
-    ///     Detailed error information (exception details) for the step failure.
+    ///     Gets detailed error information (exception details) for the step failure.
     /// </summary>
     public string? ErrorDetail { get; init; }
 
     /// <summary>
-    ///     An optional action to retry this step.
+    ///     Gets an optional action to retry this step.
     /// </summary>
     public Func<Task<bool>>? RetryAction { get; init; }
 
     /// <summary>
-    ///     The revert data generated when applying this step, used to support retry synchronization.
+    ///     Gets the revert data generated when applying this step, used to support retry synchronization.
     /// </summary>
     public IRevertStep? RevertStep { get; init; }
 }

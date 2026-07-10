@@ -691,7 +691,10 @@ internal static class NativeMemory
 
 internal static class CpuProvider
 {
-    private static CpuInfo? _cachedStatic;
+    private static readonly Lazy<CpuInfo> _cached = new(
+        Load,
+        LazyThreadSafetyMode.ExecutionAndPublication
+    );
 
     /// <summary>
     ///     Gets CPU info using Registry (fast) + targeted WMI (only for cache sizes).
@@ -699,13 +702,11 @@ internal static class CpuProvider
     /// </summary>
     public static CpuInfo Get()
     {
-        if (_cachedStatic != null)
-        {
-            // Only current clock speed changes, but we'll stick to max/registry value for stability
-            // unless we really need real-time tracking (which WMI isn't great for anyway)
-            return _cachedStatic;
-        }
+        return _cached.Value;
+    }
 
+    private static CpuInfo Load()
+    {
         try
         {
             // ── Fast path: Registry ──────────────────────────────────────
@@ -733,7 +734,7 @@ internal static class CpuProvider
 
             // ── Targeted WMI: only fields not available in Registry ──────
             var cores = 0;
-            var maxMHz = currentMHz; // fallback to registry MHz
+            var maxMHz = currentMHz;
             var l2kb = 0;
             var l3kb = 0;
 
@@ -749,12 +750,12 @@ internal static class CpuProvider
             }
 
             if (cores == 0)
-                cores = threads; // fallback
+                cores = threads;
 
             var vendor = DetectCpuVendor(manufacturer);
             var architecture = Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit";
 
-            _cachedStatic = new CpuInfo
+            return new CpuInfo
             {
                 Name = name,
                 Manufacturer = manufacturer,
@@ -767,8 +768,6 @@ internal static class CpuProvider
                 L2CacheKB = l2kb,
                 L3CacheKB = l3kb,
             };
-
-            return _cachedStatic;
         }
         catch
         {
@@ -789,7 +788,10 @@ internal static class CpuProvider
 
 internal static class RamProvider
 {
-    private static List<RamModule>? _cachedModules;
+    private static readonly Lazy<List<RamModule>> _cachedModules = new(
+        LoadPhysicalModules,
+        LazyThreadSafetyMode.ExecutionAndPublication
+    );
 
     /// <summary>
     ///     Gets RAM info using GlobalMemoryStatusEx (same API as Task Manager)
@@ -799,7 +801,7 @@ internal static class RamProvider
     {
         try
         {
-            var modules = GetPhysicalModules();
+            var modules = _cachedModules.Value;
             var (totalGB, totalMB, totalKB, availableGB, usedPercent, usedGB) = GetMemoryStats(
                 modules
             );
@@ -821,11 +823,8 @@ internal static class RamProvider
         }
     }
 
-    private static List<RamModule> GetPhysicalModules()
+    private static List<RamModule> LoadPhysicalModules()
     {
-        if (_cachedModules != null)
-            return _cachedModules;
-
         var modules = new List<RamModule>();
         var physicalMemory = WmiHelper.Query(
             "SELECT Capacity, Speed, Manufacturer, PartNumber, DeviceLocator FROM Win32_PhysicalMemory"
@@ -852,7 +851,6 @@ internal static class RamProvider
             );
         }
 
-        _cachedModules = modules;
         return modules;
     }
 

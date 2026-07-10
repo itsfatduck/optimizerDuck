@@ -260,23 +260,10 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
         if (!File.Exists(path))
             return null;
 
-        var id = ExtractIdFromPath(path);
-        SemaphoreSlim? lockObj = null;
-
-        if (id.HasValue)
-        {
-            lockObj = _fileLocks.GetOrAdd(id.Value, _ => new SemaphoreSlim(1, 1));
-            await lockObj.WaitAsync().ConfigureAwait(false);
-        }
-
-        try
-        {
-            return await LoadAsyncUnlocked(path);
-        }
-        finally
-        {
-            lockObj?.Release();
-        }
+        // Static reads are inherently safe with atomic writes (WriteJsonAtomicAsync uses temp+replace),
+        // so we avoid allocating a SemaphoreSlim in the global dictionary for read-only operations.
+        // This prevents unbounded dictionary growth from one-off reads that never call RemoveRevertData.
+        return await LoadAsyncUnlocked(path);
     }
 
     private static async Task<RevertData?> LoadAsyncUnlocked(string path)

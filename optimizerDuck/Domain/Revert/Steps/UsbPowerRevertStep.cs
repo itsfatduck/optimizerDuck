@@ -14,14 +14,24 @@ namespace optimizerDuck.Domain.Revert.Steps;
 public class UsbPowerRevertStep : IRevertStep
 {
     /// <summary>
-    ///     A single device instance and its original enabled flag.
+    ///     Represents a single USB device instance and its original <c>MSPower_DeviceEnable</c> state.
     /// </summary>
     public sealed class DeviceState
     {
+        /// <summary>
+        ///     Gets or sets the WMI <c>InstanceName</c> of the USB device.
+        /// </summary>
         public string InstanceName { get; set; } = string.Empty;
+
+        /// <summary>
+        ///     Gets or sets a value that indicates whether the device was originally enabled.
+        /// </summary>
         public bool Enable { get; set; }
     }
 
+    /// <summary>
+    ///     Gets or sets the list of USB device states to restore.
+    /// </summary>
     public IList<DeviceState> States { get; set; } = [];
 
     /// <inheritdoc />

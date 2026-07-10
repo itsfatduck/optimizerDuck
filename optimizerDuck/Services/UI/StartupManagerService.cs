@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
@@ -361,39 +362,24 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
     /// <summary>Extracts the associated icon from an executable path or command string. Expands environment variables and searches PATH if needed.</summary>
     /// <param name="command">The command or file path to extract the icon from.</param>
     /// <returns>A frozen <see cref="BitmapSource"/> suitable for cross-thread UI binding, or <see langword="null"/> if the icon cannot be extracted.</returns>
-    /// <example>
-    /// <code language="csharp">
-    /// var icon = StartupManagerService.ExtractIcon(@"C:\Windows\System32\notepad.exe");
-    /// </code>
-    /// </example>
+    /// <remarks>
+    ///     Uses <c>SHGetFileInfo</c> with <c>SHGFI_LARGEICON</c> (48x48) for higher quality icons
+    ///     where possible, falling back to <see cref="Icon.ExtractAssociatedIcon"/> (32x32) if the
+    ///     P/Invoke approach fails.
+    /// </remarks>
     public static BitmapSource? ExtractIcon(string command)
     {
         try
         {
-            var path = command.Trim('\"');
+            var path = ResolveExecutablePath(command);
+            if (path == null)
+                return null;
 
-            // Expand environment variables (e.g., %USERPROFILE%, %ProgramFiles%) so that
-            // shortcut/command paths using them can be resolved to the actual executable for icon extraction.
-            path = Environment.ExpandEnvironmentVariables(path);
-            var exeIdx = path.IndexOf(".exe", StringComparison.OrdinalIgnoreCase);
-            if (exeIdx > 0)
-                path = path[..(exeIdx + 4)].Trim('\"', ' ', '\'');
+            var iconSource = ExtractIconWithShGetFileInfo(path);
+            if (iconSource != null)
+                return iconSource;
 
-            if (!File.Exists(path))
-            {
-                // try to see if it is in PATH
-                if (!path.Contains('\\') && !path.Contains('/'))
-                {
-                    path = GetFullPathFromEnvironment(path);
-                    if (string.IsNullOrEmpty(path) || !File.Exists(path))
-                        return null;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-
+            // fallback to ExtractAssociatedIcon (32x32)
             using var icon = Icon.ExtractAssociatedIcon(path);
             if (icon != null)
             {
@@ -402,16 +388,108 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                     Int32Rect.Empty,
                     BitmapSizeOptions.FromEmptyOptions()
                 );
-                imageSource.Freeze(); // Crucial for cross-thread access
+                imageSource.Freeze();
                 return imageSource;
             }
         }
         catch
         {
-            // Ignored, fallback to generic or null
+            // ignored, fallback to generic or null
         }
 
         return null;
+    }
+
+    private static string? ResolveExecutablePath(string command)
+    {
+        var path = command.Trim('\"');
+
+        // expand environment variables (e.g., %USERPROFILE%, %ProgramFiles%)
+        path = Environment.ExpandEnvironmentVariables(path);
+        var exeIdx = path.IndexOf(".exe", StringComparison.OrdinalIgnoreCase);
+        if (exeIdx > 0)
+            path = path[..(exeIdx + 4)].Trim('\"', ' ', '\'');
+
+        if (!File.Exists(path))
+        {
+            // try to see if it is in PATH
+            if (!path.Contains('\\') && !path.Contains('/'))
+            {
+                path = GetFullPathFromEnvironment(path);
+                if (string.IsNullOrEmpty(path) || !File.Exists(path))
+                    return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        return path;
+    }
+
+    [DllImport("shell32.dll", CharSet = CharSet.Auto)]
+    private static extern IntPtr SHGetFileInfo(
+        string pszPath,
+        uint dwFileAttributes,
+        ref SHFILEINFO psfi,
+        uint cbFileInfo,
+        uint uFlags
+    );
+
+    private const uint SHGFI_ICON = 0x000000100;
+    private const uint SHGFI_LARGEICON = 0x000000000; // 48x48
+
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+    private struct SHFILEINFO
+    {
+        public IntPtr hIcon;
+        public int iIcon;
+        public uint dwAttributes;
+
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
+        public string szDisplayName;
+
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]
+        public string szTypeName;
+    }
+
+    private static BitmapSource? ExtractIconWithShGetFileInfo(string path)
+    {
+        var shfi = new SHFILEINFO();
+        var result = SHGetFileInfo(
+            path,
+            0,
+            ref shfi,
+            (uint)Marshal.SizeOf<SHFILEINFO>(),
+            SHGFI_ICON | SHGFI_LARGEICON
+        );
+
+        if (result != IntPtr.Zero && shfi.hIcon != IntPtr.Zero)
+        {
+            try
+            {
+                var imageSource = Imaging.CreateBitmapSourceFromHIcon(
+                    shfi.hIcon,
+                    Int32Rect.Empty,
+                    BitmapSizeOptions.FromEmptyOptions()
+                );
+                imageSource.Freeze();
+                return imageSource;
+            }
+            finally
+            {
+                NativeMethods.DestroyIcon(shfi.hIcon);
+            }
+        }
+
+        return null;
+    }
+
+    private static class NativeMethods
+    {
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern bool DestroyIcon(IntPtr hIcon);
     }
 
     /// <summary>Resolves a file name to its full path by searching the directories listed in the PATH environment variable.</summary>

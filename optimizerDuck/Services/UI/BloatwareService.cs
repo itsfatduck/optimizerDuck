@@ -15,9 +15,6 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace optimizerDuck.Services.UI;
 
-/// <summary>
-///     Provides services for discovering and removing AppX bloatware packages.
-/// </summary>
 public class BloatwareService(
     ILogger<BloatwareService> logger,
     IOptionsMonitor<AppSettings> appOptionsMonitor
@@ -288,8 +285,13 @@ public class BloatwareService(
                         )
                         .ThenByDescending(g => g.Count());
 
+                    // Limit to first 10 groups to avoid excessive I/O for packages with many files
+                    var groupCount = 0;
                     foreach (var group in groups)
                     {
+                        if (++groupCount > 10)
+                            break;
+
                         var preferredSize = GuessLogicalBaseSize(group.Key);
                         var best = group
                             .Select(path => new LogoVariant(path, preferredSize, true))

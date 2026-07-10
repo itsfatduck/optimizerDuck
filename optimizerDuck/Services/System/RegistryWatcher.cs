@@ -118,56 +118,89 @@ internal sealed class RegistryWatcher(ILogger<RegistryWatcher> logger) : IRegist
         {
             while (!token.IsCancellationRequested)
             {
+                IntPtr hKey = IntPtr.Zero;
+                AutoResetEvent? evt = null;
+                RegisteredWaitHandle? registeredWait = null;
+
                 try
                 {
+                    var (hive, subKey) = ParseRegistryPath(_path);
+                    var error = NativeMethods.RegOpenKeyEx(
+                        hive,
+                        subKey,
+                        0,
+                        NativeMethods.KEY_NOTIFY,
+                        out hKey
+                    );
+
+                    if (error != 0 || hKey == IntPtr.Zero)
+                    {
+                        await Task.Delay(1000, token);
+                        continue;
+                    }
+
+                    evt = new AutoResetEvent(false);
+
+                    var notifyError = NativeMethods.RegNotifyChangeKeyValue(
+                        hKey,
+                        false,
+                        NativeMethods.REG_NOTIFY_CHANGE_LAST_SET
+                            | NativeMethods.REG_NOTIFY_CHANGE_NAME,
+                        evt.SafeWaitHandle.DangerousGetHandle(),
+                        true
+                    );
+
+                    if (notifyError != 0)
+                    {
+                        NativeMethods.RegCloseKey(hKey);
+                        hKey = IntPtr.Zero;
+                        evt.Dispose();
+                        evt = null;
+                        await Task.Delay(1000, token);
+                        continue;
+                    }
+
+                    registeredWait = ThreadPool.RegisterWaitForSingleObject(
+                        evt,
+                        OnKeyChangedCallback,
+                        null,
+                        Timeout.Infinite,
+                        true
+                    );
+
+                    // Store handles only after ALL setup steps succeed
                     lock (_lock)
                     {
                         if (_disposed || token.IsCancellationRequested)
-                            return;
-
-                        var (hive, subKey) = ParseRegistryPath(_path);
-                        var error = NativeMethods.RegOpenKeyEx(
-                            hive,
-                            subKey,
-                            0,
-                            NativeMethods.KEY_NOTIFY,
-                            out _hKey
-                        );
-
-                        if (error == 0 && _hKey != IntPtr.Zero)
                         {
-                            _event = new AutoResetEvent(false);
-
-                            NativeMethods.RegNotifyChangeKeyValue(
-                                _hKey,
-                                false,
-                                NativeMethods.REG_NOTIFY_CHANGE_LAST_SET
-                                    | NativeMethods.REG_NOTIFY_CHANGE_NAME,
-                                _event.SafeWaitHandle.DangerousGetHandle(),
-                                true
-                            );
-
-                            _registeredWait = ThreadPool.RegisterWaitForSingleObject(
-                                _event,
-                                OnKeyChangedCallback,
-                                null,
-                                Timeout.Infinite,
-                                true
-                            );
-
+                            registeredWait.Unregister(null);
+                            NativeMethods.RegCloseKey(hKey);
+                            evt.Dispose();
                             return;
                         }
+
+                        _hKey = hKey;
+                        _event = evt;
+                        _registeredWait = registeredWait;
                     }
 
-                    await Task.Delay(1000, token);
+                    return; // Successfully armed
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (!token.IsCancellationRequested)
                 {
+                    // Cleanup local resources on failure before retry
+                    if (registeredWait != null)
+                        registeredWait.Unregister(null);
+                    if (hKey != IntPtr.Zero)
+                        NativeMethods.RegCloseKey(hKey);
+                    evt?.Dispose();
+
                     _logger.LogWarning(
                         ex,
                         "RegistryWatcher: Failed to watch {Path}, retrying",
                         _path
                     );
+
                     try
                     {
                         await Task.Delay(1000, token);

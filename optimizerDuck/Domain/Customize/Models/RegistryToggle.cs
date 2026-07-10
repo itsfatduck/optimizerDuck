@@ -4,17 +4,43 @@ using optimizerDuck.Services.Optimization.Providers;
 
 namespace optimizerDuck.Domain.Customize.Models;
 
+/// <summary>
+///     Represents a single registry key-value pair that can be toggled on or off.
+/// </summary>
 public class RegistryToggle
 {
+    /// <summary>Gets the full registry key path (e.g., <c>HKCU\Software\MyApp</c>).</summary>
     public required string Path { get; init; }
+
+    /// <summary>Gets the name of the registry value.</summary>
     public required string Name { get; init; }
+
+    /// <summary>Gets the value to write when toggling on. Default is <c>1</c>.</summary>
     public object? OnValue { get; init; } = 1;
+
+    /// <summary>Gets the value to write when toggling off. Default is <c>0</c>.</summary>
     public object? OffValue { get; init; } = 0;
+
+    /// <summary>Gets the default state value when the key is missing. Default is <c>0</c>.</summary>
     public object? DefaultValue { get; init; } = 0;
+
+    /// <summary>
+    ///     Gets a value that indicates whether a missing registry value should be treated as <see cref="DefaultValue"/>.
+    ///     Default is <see langword="false"/>.
+    /// </summary>
     public bool TreatMissingAsDefault { get; init; } = false;
+
+    /// <summary>
+    ///     Gets a value that indicates whether this toggle is optional (non-required for state detection).
+    ///     Default is <see langword="false"/>.
+    /// </summary>
     public bool IsOptional { get; init; } = false;
+
+    /// <summary>Gets the registry value type. Default is <see cref="RegistryValueKind.DWord"/>.</summary>
     public RegistryValueKind ValueKind { get; init; } = RegistryValueKind.DWord;
 
+    /// <summary>Reads the registry and returns whether the toggle is currently on.</summary>
+    /// <returns><see langword="true"/> if the registry value matches <see cref="OnValue"/>; otherwise <see langword="false"/>.</returns>
     public bool GetState()
     {
         var value = GetRawValue();

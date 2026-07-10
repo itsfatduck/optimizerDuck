@@ -7,9 +7,6 @@ using CleanupItem = optimizerDuck.Domain.Optimizations.Models.Cleanup.CleanupIte
 
 namespace optimizerDuck.Services.UI;
 
-/// <summary>
-///     Provides services for cleaning up disk space (temp files, caches, etc.).
-/// </summary>
 public class DiskCleanupService(ILogger<DiskCleanupService> logger)
 {
     private static readonly string DotNetTempPath =
@@ -240,20 +237,29 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
         try
         {
             var searchPattern = itemId == "Thumbnails" ? "thumbcache_*" : "*";
+            var isRecursive = itemId != "Thumbnails";
             var options = new EnumerationOptions
             {
                 IgnoreInaccessible = true,
-                RecurseSubdirectories = itemId != "Thumbnails",
+                RecurseSubdirectories = isRecursive,
                 ReturnSpecialDirectories = false,
             };
 
             var dirInfo = new DirectoryInfo(path);
 
+            // Pre-check: only filter .net path if the .net temp directory is a descendant of the scan root
+            var needsDotNetFilter =
+                isRecursive
+                && DotNetTempPath.StartsWith(
+                    path.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar,
+                    StringComparison.OrdinalIgnoreCase
+                );
+
             foreach (var fileInfo in dirInfo.EnumerateFiles(searchPattern, options))
                 try
                 {
-                    // Skip .net temp files if we are doing recursive search
-                    if (options.RecurseSubdirectories)
+                    // Skip .net temp files (only when necessary)
+                    if (needsDotNetFilter)
                     {
                         var fullDirPath = fileInfo.DirectoryName ?? string.Empty;
                         fullDirPath =
@@ -293,20 +299,29 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
 
         long freed = 0;
         var searchPattern = itemId == "Thumbnails" ? "thumbcache_*" : "*";
+        var isRecursive = itemId != "Thumbnails";
         var options = new EnumerationOptions
         {
             IgnoreInaccessible = true,
-            RecurseSubdirectories = itemId != "Thumbnails",
+            RecurseSubdirectories = isRecursive,
             ReturnSpecialDirectories = false,
         };
 
         var dirInfo = new DirectoryInfo(path);
 
+        // Pre-check: only filter .net path if the root path itself is related
+        var needsDotNetFilter =
+            isRecursive
+            && path.StartsWith(
+                DotNetTempPath.TrimEnd(Path.DirectorySeparatorChar),
+                StringComparison.OrdinalIgnoreCase
+            );
+
         // Delete files
         foreach (var fileInfo in dirInfo.EnumerateFiles(searchPattern, options))
             try
             {
-                if (options.RecurseSubdirectories)
+                if (needsDotNetFilter)
                 {
                     var fullDirPath = fileInfo.DirectoryName ?? string.Empty;
                     fullDirPath =

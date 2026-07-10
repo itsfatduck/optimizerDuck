@@ -56,32 +56,41 @@ public partial class MainWindow : IWindow
 
     private async void OnRootNavigationLoaded(object sender, RoutedEventArgs e)
     {
-        RootNavigation.Loaded -= OnRootNavigationLoaded;
-
-        if (!_appOptionsMonitor.CurrentValue.App.LegalAccepted)
+        try
         {
-            var legalDialog = new LegalDialog();
-            var dialog = new ContentDialog
-            {
-                Title = Translations.LegalDialog_Title,
-                Content = legalDialog,
-                PrimaryButtonText = Translations.Button_Accept,
-                CloseButtonText = Translations.Button_Close,
-                DefaultButton = ContentDialogButton.Primary,
-            };
+            RootNavigation.Loaded -= OnRootNavigationLoaded;
 
-            var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
-            if (result == ContentDialogResult.Primary)
+            if (!_appOptionsMonitor.CurrentValue.App.LegalAccepted)
             {
-                await _configManager.SetAsync(x => x.App.LegalAccepted, true);
+                var legalDialog = new LegalDialog();
+                var dialog = new ContentDialog
+                {
+                    Title = Translations.LegalDialog_Title,
+                    Content = legalDialog,
+                    PrimaryButtonText = Translations.Button_Accept,
+                    CloseButtonText = Translations.Button_Close,
+                    DefaultButton = ContentDialogButton.Primary,
+                };
+
+                var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
+                if (result == ContentDialogResult.Primary)
+                {
+                    await _configManager.SetAsync(x => x.App.LegalAccepted, true);
+                }
+                else
+                {
+                    Close();
+                    return;
+                }
             }
-            else
-            {
-                Close();
-                return;
-            }
+
+            RootNavigation.Navigate(typeof(DashboardPage));
         }
-
-        RootNavigation.Navigate(typeof(DashboardPage));
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine(
+                $"Error during navigation initialization: {ex.Message}"
+            );
+        }
     }
 }

@@ -14,37 +14,38 @@ namespace optimizerDuck.Domain.Revert.Steps;
 public class RegistryRevertStep : IRevertStep
 {
     /// <summary>
-    ///     The action to perform (restore previous value or delete).
+    ///     Gets the action to perform (e.g., restore previous value, delete value, restore key tree).
     /// </summary>
     public RevertAction Action { get; init; }
 
     /// <summary>
-    ///     The registry key path.
+    ///     Gets the registry key path (e.g., <c>HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer</c>).
     /// </summary>
     public string Path { get; init; } = string.Empty;
 
     /// <summary>
-    ///     The registry value name, or <c>null</c> for the default value.
+    ///     Gets the registry value name, or <see langword="null"/> for the default value.
     /// </summary>
     public string? Name { get; init; }
 
     /// <summary>
-    ///     List of subkeys that were created during the apply operation (in order of creation, deepest first for cleanup)
+    ///     Gets the list of subkeys that were created during the apply operation.
+    ///     Ordered deepest first for correct cleanup order.
     /// </summary>
     public IReadOnlyList<string>? CreatedSubKeys { get; init; }
 
     /// <summary>
-    ///     Nested sub-steps to perform a complex action like restoring a full registry tree.
+    ///     Gets nested sub-steps to perform a complex action like restoring a full registry tree.
     /// </summary>
     public IReadOnlyList<RegistryRevertStep>? SubSteps { get; init; }
 
     /// <summary>
-    ///     The original registry value to restore.
+    ///     Gets the original registry value to restore, or <see langword="null"/> if the value did not exist.
     /// </summary>
     public object? Value { get; init; }
 
     /// <summary>
-    ///     The registry value kind (DWord, String, etc.).
+    ///     Gets the registry value kind (DWord, QWord, String, Binary, MultiString, ExpandString).
     /// </summary>
     public RegistryValueKind Kind { get; init; }
 

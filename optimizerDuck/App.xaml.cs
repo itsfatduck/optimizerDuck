@@ -148,16 +148,52 @@ public partial class App : Application
         TaskScheduler.UnobservedTaskException += OnUnobservedTaskException;
         DispatcherUnhandledException += OnDispatcherUnhandledException;
 
-        _ = Task.Run(async () =>
+        _ = SafeFireAndForgetAsync(() => OnStartupAsync(e));
+    }
+
+    private static async Task SafeFireAndForgetAsync(Func<Task> taskFactory)
+    {
+        try
+        {
+            await taskFactory();
+        }
+        catch (Exception ex)
         {
             try
             {
-                await OnStartupAsync(e);
+                await HandleStartupErrorStaticAsync(ex);
             }
-            catch (Exception ex)
+            catch
             {
-                await HandleStartupErrorAsync(ex);
+                // what you expect
             }
+        }
+    }
+
+
+    private static async Task HandleStartupErrorStaticAsync(Exception ex)
+    {
+        LogExceptionToFile("App.Startup", ex);
+
+        try
+        {
+            Log.Logger?.Fatal(ex, "Fatal error during startup");
+            await Log.CloseAndFlushAsync();
+        }
+        catch
+        {
+            // ignore logging failures during fatal startup handling
+        }
+
+        await Application.Current.Dispatcher.InvokeAsync(() =>
+        {
+            System.Windows.MessageBox.Show(
+                $"Failed to start optimizerDuck.{Environment.NewLine}{Environment.NewLine}{ex.Message}",
+                "optimizerDuck",
+                System.Windows.MessageBoxButton.OK,
+                MessageBoxImage.Error
+            );
+            Application.Current.Shutdown(-1);
         });
     }
 

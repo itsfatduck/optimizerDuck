@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -365,30 +366,38 @@ public partial class SettingsViewModel(
             return;
 
         var oldValue = appOptionsMonitor.CurrentValue.App.Language;
-        _ = SaveConfigAsync(
+        _ = SafeFireAndForgetAsync(
             async () =>
             {
                 await configManager.SetAsync(x => x.App.Language, value);
             },
             async () =>
             {
-                SelectedCultureName = oldValue;
+                await Application.Current.Dispatcher.InvokeAsync(() =>
+                    SelectedCultureName = oldValue
+                );
             }
         );
 
         if (value == Loc.CurrentCulture.Name)
             return;
-        _ = contentDialogService
-            .ShowAlertAsync(
-                Translations.Settings_LanguageChanged_Title,
-                Translations.Settings_LanguageChanged_Description,
-                Translations.Button_Ok,
-                CancellationToken.None
-            )
-            .ContinueWith(
-                t => logger.LogError(t.Exception, "Failed to show language changed dialog"),
-                TaskContinuationOptions.OnlyOnFaulted
-            );
+
+        _ = SafeFireAndForgetAsync(async () =>
+        {
+            try
+            {
+                await contentDialogService.ShowAlertAsync(
+                    Translations.Settings_LanguageChanged_Title,
+                    Translations.Settings_LanguageChanged_Description,
+                    Translations.Button_Ok,
+                    CancellationToken.None
+                );
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Failed to show language changed dialog");
+            }
+        });
     }
 
     partial void OnCurrentApplicationThemeChanged(
@@ -433,4 +442,33 @@ public partial class SettingsViewModel(
     }
 
     #endregion Property Changed
+
+    /// <summary>
+    ///     Fires an async task without awaiting it, but catches all exceptions
+    /// </summary>
+    private async Task SafeFireAndForgetAsync(
+        Func<Task> taskFactory,
+        Func<Task>? revertAction = null
+    )
+    {
+        try
+        {
+            await taskFactory();
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "An error occurred in a fire-and-forget operation");
+            if (revertAction != null)
+            {
+                try
+                {
+                    await revertAction();
+                }
+                catch (Exception revertEx)
+                {
+                    logger.LogError(revertEx, "Failed to revert after error");
+                }
+            }
+        }
+    }
 }

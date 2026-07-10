@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Optimization.Providers;
+using optimizerDuck.Services.System;
 using optimizerDuck.UI.Dialogs;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
@@ -52,6 +53,14 @@ public partial class ScheduledTasksViewModel : ViewModel
 
     public bool HasResults => Tasks.Count > 0;
     public bool ShowRefreshButton => IsNotLoading && HasResults;
+
+    public override async Task OnNavigatedToAsync()
+    {
+        await base.OnNavigatedToAsync();
+
+        if (CrossPageEventBus.HasPendingRefresh<StartupAppsChanged>())
+            await LoadDataAsync();
+    }
 
     protected override async Task InitializeOnceAsync()
     {
@@ -470,6 +479,7 @@ public partial class ScheduledTasksViewModel : ViewModel
             try
             {
                 await ToggleTask(task);
+                CrossPageEventBus.NotifyDataChanged<ScheduledTasksChanged>();
             }
             catch (Exception ex)
             {

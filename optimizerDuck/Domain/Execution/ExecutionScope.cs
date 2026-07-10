@@ -8,6 +8,11 @@ using optimizerDuck.Resources.Languages;
 
 namespace optimizerDuck.Domain.Execution;
 
+/// <summary>
+///     Tracks the execution of optimization steps within an ambient async context.
+///     Provider services use <see cref="Current"/> to record revert steps without
+///     requiring explicit dependency injection.
+/// </summary>
 public sealed class ExecutionScope : IDisposable
 {
     private static readonly AsyncLocal<ExecutionScope?> _current = new();

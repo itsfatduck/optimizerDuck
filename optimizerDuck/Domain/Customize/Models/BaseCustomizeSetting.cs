@@ -7,6 +7,12 @@ using Wpf.Ui.Controls;
 
 namespace optimizerDuck.Domain.Customize.Models;
 
+/// <summary>
+///     Base class for customize settings that read from and write to the Windows registry.
+///     Subclasses declare <see cref="RegistryToggles"/> to define which registry values
+///     are controlled, and may override <see cref="RefreshScope"/> to specify which
+///     Windows surfaces should be refreshed after applying.
+/// </summary>
 public abstract class BaseCustomizeSetting : ICustomizeSetting
 {
     private CustomizeSettingAttribute? _meta;

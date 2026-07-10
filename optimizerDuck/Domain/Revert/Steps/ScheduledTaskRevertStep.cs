@@ -12,12 +12,12 @@ namespace optimizerDuck.Domain.Revert.Steps;
 public class ScheduledTaskRevertStep : IRevertStep
 {
     /// <summary>
-    ///     The full path of the scheduled task (e.g., \Microsoft\Windows\...).
+    ///     Gets or sets the full path of the scheduled task (e.g., <c>\Microsoft\Windows\...</c>).
     /// </summary>
     public string FullPath { get; set; } = string.Empty;
 
     /// <summary>
-    ///     Whether the task was originally enabled before the optimization.
+    ///     Gets or sets a value that indicates whether the task was originally enabled before the optimization.
     /// </summary>
     public bool OriginalEnabled { get; set; }
 

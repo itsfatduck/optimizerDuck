@@ -13,12 +13,12 @@ namespace optimizerDuck.Domain.Revert.Steps;
 public class ServiceRevertStep : IRevertStep
 {
     /// <summary>
-    ///     The name of the Windows service to restore.
+    ///     Gets or sets the name of the Windows service to restore.
     /// </summary>
     public string ServiceName { get; set; } = string.Empty;
 
     /// <summary>
-    ///     The original startup type to restore the service to.
+    ///     Gets or sets the original startup type to restore the service to.
     /// </summary>
     public ServiceStartupType OriginalStartupType { get; set; }
 

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using optimizerDuck.Domain.Optimizations.Models.Bloatware;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.System;
 using optimizerDuck.Services.UI;
 using optimizerDuck.UI.Dialogs;
 using optimizerDuck.UI.ViewModels.Dialogs;
@@ -88,13 +89,27 @@ public partial class BloatwareViewModel : ViewModel
         ApplyFilter();
     }
 
+    public override async Task OnNavigatedToAsync()
+    {
+        await base.OnNavigatedToAsync();
+
+        if (CrossPageEventBus.HasPendingRefresh<BloatwareChanged>())
+            await Refresh();
+    }
+
     protected override async Task InitializeOnceAsync()
     {
         IsLoading = true;
-        var appxPackages = await _bloatwareService.GetAppXPackagesAsync();
-        _allPackages.AddRange(appxPackages);
-        ApplyFilter();
-        IsLoading = false;
+        try
+        {
+            var appxPackages = await _bloatwareService.GetAppXPackagesAsync();
+            _allPackages.AddRange(appxPackages);
+            ApplyFilter();
+        }
+        finally
+        {
+            IsLoading = false;
+        }
     }
 
     private void ApplyFilter()
@@ -243,6 +258,7 @@ public partial class BloatwareViewModel : ViewModel
             );
             dialog.Hide();
             await Refresh();
+            CrossPageEventBus.NotifyDataChanged<BloatwareChanged>();
         }
     }
 
@@ -259,10 +275,16 @@ public partial class BloatwareViewModel : ViewModel
         AppxPackages.Clear();
         UpdateProperties();
 
-        var appxPackages = await _bloatwareService.GetAppXPackagesAsync();
-        _allPackages.AddRange(appxPackages);
-        ApplyFilter();
-        IsLoading = false;
+        try
+        {
+            var appxPackages = await _bloatwareService.GetAppXPackagesAsync();
+            _allPackages.AddRange(appxPackages);
+            ApplyFilter();
+        }
+        finally
+        {
+            IsLoading = false;
+        }
     }
 
     [RelayCommand]

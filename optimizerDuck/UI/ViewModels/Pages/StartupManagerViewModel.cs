@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.System;
 using optimizerDuck.Services.UI;
 using optimizerDuck.UI.Dialogs;
 using Wpf.Ui;
@@ -66,6 +67,19 @@ public partial class StartupManagerViewModel : ViewModel
 
     public bool HasResults => Apps.Count > 0 || Tasks.Count > 0;
     public bool ShowRefreshButton => IsNotLoading && HasResults;
+
+    public override async Task OnNavigatedToAsync()
+    {
+        await base.OnNavigatedToAsync();
+
+        if (
+            CrossPageEventBus.HasPendingRefresh<ScheduledTasksChanged>()
+            || CrossPageEventBus.HasPendingRefresh<BloatwareChanged>()
+        )
+        {
+            await ReloadTasksAsync();
+        }
+    }
 
     protected override async Task InitializeOnceAsync()
     {
@@ -303,11 +317,30 @@ public partial class StartupManagerViewModel : ViewModel
             try
             {
                 await _startupManagerService.ToggleStartupTask(task, task.IsEnabled);
+                CrossPageEventBus.NotifyDataChanged<StartupAppsChanged>();
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Failed to toggle startup task {Name}", task.TaskName);
             }
+        }
+    }
+
+    private async Task ReloadTasksAsync()
+    {
+        try
+        {
+            foreach (var task in Tasks)
+                task.PropertyChanged -= Task_PropertyChanged;
+
+            var tasks = await _startupManagerService.GetStartupTasksAsync();
+            _allTasks.Clear();
+            _allTasks.AddRange(tasks);
+            ApplyTaskFilter();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to reload startup tasks");
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace optimizerDuck.Domain.Attributes;
+namespace optimizerDuck.Domain.Attributes;
 
 [AttributeUsage(AttributeTargets.Class, Inherited = false)]
 public class CustomizeCategoryAttribute : Attribute
