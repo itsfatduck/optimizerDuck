@@ -70,27 +70,30 @@ Cada estrella nos motiva a realizar futuras mejoras.
 > | 🇨🇳 | Chino Simplificado | 简体中文 | [wcxu21](https://github.com/wcxu21) |
 > | 🇷🇺 | Ruso | Русский | [Foodhead](https://github.com/Foodhead) |
 > | 🇫🇷 | Francés | Français | [Robocnop](https://github.com/Robocnop) |
+> | 🇩🇪 | Alemán | Deutsch | [pixeldepartment](https://github.com/pixeldepartment) |
+> | 🇮🇱 | Hebreo | עברית | [yosef-chai](https://github.com/yosef-chai) |
 > | 🇰🇷 | Coreano | 한국어 | [klfnn](https://github.com/klfnn) |
 > | 🇪🇸 | Español | Español | [thexxtt](https://github.com/thexxtt) |
 > | 🇯🇵 | Japonés | 日本語 | [zerofrip](https://github.com/zerofrip) |
 > | 🇵🇱 | Polaco | Polski | [dudus2000](https://github.com/dudus2000) |
 > | 🇧🇷 | Portugués (Brasil) | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
 > | 🇹🇷 | Turco | Türkçe | [amhunter1](https://github.com/amhunter1) |
-
+> 
 > ¿Quieres añadir tu idioma? Consulta [CONTRIBUTING.md](./CONTRIBUTING.md) ([versión en japonés](./CONTRIBUTING.ja-JP.md), [versión en turco](./CONTRIBUTING.tr-TR.md)).
 
 ---
 
-## Qué hace optimizerDuck
+## Qué hace optimizerDuck y por qué es importante
 
-Windows de por sí está bien. Pero incluso una instalación limpia viene con servicios, telemetría, aplicaciones preinstaladas y tareas programadas de las que probablemente nunca hayas oído hablar, ejecutándose silenciosamente en segundo plano y consumiendo tu CPU, RAM y disco. Al mismo tiempo, algunas funciones que podrían ayudarte a sacar el máximo provecho de tu hardware no están habilitadas por defecto.
+Windows funciona muy bien desde el primer momento. Sin embargo, una instalación nueva también incluye servicios en segundo plano, telemetría, aplicaciones preinstaladas y tareas programadas que siguen ejecutándose aunque nunca las uses. Todo esto consume recursos del sistema como CPU, RAM, disco y red en segundo plano.
 
-optimizerDuck te ofrece una única interfaz para limpiar el bloatware y desbloquear lo mejor del sistema.
+Al mismo tiempo, muchos ajustes que pueden mejorar el rendimiento, reducir la latencia o brindar una experiencia más fluida no están activados por defecto.
 
-Aplica ajustes específicos para reducir la sobrecarga y bloquear comportamientos no deseados. Además, incluye varias herramientas de gestión para que puedas ver qué se está ejecutando, eliminar lo que no quieres y revertir cualquier cambio si algo sale mal.
+optimizerDuck lo reúne todo en un solo lugar. Te ayuda a optimizar Windows, eliminar componentes innecesarios, personalizar la configuración del sistema y gestionar funciones comunes de Windows sin tener que hurgar en el Registro, las Directivas de Grupo o PowerShell.
 
-> [!NOTE]
-> Todas las optimizaciones pueden aplicarse de forma manual. optimizerDuck simplemente facilita este proceso.
+También incluye herramientas de gestión integradas que te permiten ver qué se está ejecutando, eliminar lo que no necesitas y restaurar los cambios cuando quieras.
+
+**[¿Por qué optimizar Windows?](#por-qué-optimizar-windows-en-lugar-de-actualizar-tu-hardware)**
 
 ### Optimizaciones del Sistema
 
@@ -126,6 +129,47 @@ No hay necesidad de buscar en el registro; simplemente usa interruptores y menú
 | **Tareas Programadas**      | Navega, ejecuta, detén, habilita, deshabilita o elimina tareas programadas de Windows.                                                               |
 | **Limpieza de Disco**       | Escanea y borra archivos temporales, caché del sistema, restos de Windows Update, prefetch, miniaturas, papelera de reciclaje y volcados de errores. |
 | **Eliminador de Bloatware** | Lista todos los paquetes AppX removibles con insignias de riesgo (Seguro, Precaución, Desconocido), para que decidas qué eliminar.                   |
+
+### ¿Por qué optimizar Windows en lugar de actualizar tu hardware?
+
+La forma más rápida de mejorar el rendimiento siempre es actualizar tu hardware. Un mejor CPU, GPU, más RAM o un SSD más rápido suelen proporcionar mejoras mucho mayores que los ajustes de software por sí solos.
+
+Pero el hardware es solo una parte del panorama.
+
+Windows está diseñado para cientos de millones de PCs con diferentes configuraciones, cargas de trabajo y usuarios. Por eso, Microsoft distribuye Windows con ajustes que priorizan la compatibilidad, la estabilidad, la duración de la batería y la facilidad de uso en lugar del máximo rendimiento.
+
+Como resultado, una instalación predeterminada de Windows incluye muchos servicios en segundo plano, tareas programadas, telemetría, funciones de ahorro de energía y aplicaciones preinstaladas que muchos usuarios nunca necesitarán.
+
+Esto es especialmente cierto después de reinstalar Windows. Incluso después de instalar todos los controladores y actualizaciones, muchos ajustes útiles relacionados con el rendimiento permanecen intactos, mientras que los componentes innecesarios en segundo plano siguen funcionando.
+
+Optimizar Windows consiste simplemente en reducir la sobrecarga innecesaria para que tu PC pueda dedicar más recursos a lo que realmente importa: juegos, programación, creación de contenido o trabajo diario.
+
+No duplicará mágicamente tus FPS, pero puede reducir la actividad en segundo plano, disminuir la latencia del sistema, mejorar la capacidad de respuesta y ayudar a que tu hardware funcione de manera más consistente.
+
+Esta es también una de las razones por las que muchas personas recomiendan Linux para obtener un mejor rendimiento y una menor carga del sistema. Si prefieres quedarte en Windows por su compatibilidad de software y su experiencia familiar, optimizerDuck te ayuda a obtener la mejor experiencia posible sin cambiar de sistema operativo.
+
+### ¿Cuándo debería optimizar Windows?
+
+El mejor momento es **después de instalar Windows desde cero**.
+
+Recomendamos este orden:
+
+1. Instala Windows.
+2. Instala todos los controladores de hardware (chipset, GPU, red, audio, etc.).
+3. Ejecuta **Windows Update** hasta que no haya más actualizaciones disponibles.
+4. Instala todas las **actualizaciones opcionales**.
+5. Abre **Microsoft Store** y actualiza todas las aplicaciones integradas.
+6. Instala el software y los juegos que usas normalmente.
+7. Aplica las optimizaciones de optimizerDuck que prefieras.
+8. Usa las herramientas integradas de optimizerDuck para eliminar aplicaciones innecesarias, limpiar Windows y administrar los programas de inicio.
+
+Seguir este orden ayuda a evitar que las actualizaciones posteriores de Windows o los controladores sobrescriban tus optimizaciones.
+
+> [!TIP]
+> Muchos usuarios avanzados optan por desactivar temporalmente las actualizaciones automáticas de Windows después de completar su configuración. Las actualizaciones importantes de Windows pueden restaurar la configuración predeterminada, reinstalar ciertos componentes o deshacer algunas optimizaciones. Si haces esto, recuerda volver a activar Windows Update periódicamente para instalar actualizaciones de seguridad importantes antes de desactivarlo nuevamente.
+
+> [!NOTE]
+> Cada optimización proporcionada por optimizerDuck también se puede realizar manualmente. El objetivo de optimizerDuck es simplemente hacer que la optimización de Windows sea más fácil, segura y conveniente.
 
 ---
 
@@ -301,5 +345,7 @@ Siempre crea un **punto de restauración** antes de aplicar cambios.
 ## Agradecimientos a todos los Colaboradores
 
 [![Colaboradores](https://contrib.rocks/image?repo=itsfatduck/optimizerDuck)](https://github.com/itsfatduck/optimizerDuck/graphs/contributors)
+<br>
+[Volver arriba](#optimizerduck)
 
 </div>

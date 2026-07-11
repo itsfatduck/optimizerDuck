@@ -71,27 +71,29 @@ Every star helps motivate future improvements.
 > | 🇷🇺 | Russian | Русский | [Foodhead](https://github.com/Foodhead) |
 > | 🇫🇷 | French | Français | [Robocnop](https://github.com/Robocnop) |
 > | 🇩🇪 | German | Deutsch | [pixeldepartment](https://github.com/pixeldepartment) |
+> | 🇮🇱 | Hebrew | עברית | [yosef-chai](https://github.com/yosef-chai) |
 > | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
 > | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
 > | 🇯🇵 | Japanese | 日本語 | [zerofrip](https://github.com/zerofrip) |
 > | 🇵🇱 | Polish | Polski | [dudus2000](https://github.com/dudus2000) |
 > | 🇧🇷 | Portuguese (Brazil) | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
 > | 🇹🇷 | Turkish | Türkçe | [amhunter1](https://github.com/amhunter1) |
-
+> 
 > Want to add your language? See [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japanese](./CONTRIBUTING.ja-JP.md), [Turkish](./CONTRIBUTING.tr-TR.md)).
 
 ---
 
-## What optimizerDuck Does
+## What optimizerDuck Does & Why It Matters
 
-Windows itself is fine. But a clean install also comes with services, telemetry, pre-installed apps, and scheduled tasks you've probably never heard of, all quietly running in the background, consuming your CPU, RAM, and disk. At the same time, some features that could actually help you get the most out of your hardware aren't enabled by default.
+Windows works great out of the box. However, a fresh installation also includes background services, telemetry, pre-installed apps, and scheduled tasks that continue running even if you never use them. These consume system resources such as CPU, RAM, disk, and network in the background.
 
-optimizerDuck gives you a single interface to clean up the bloat and unlock the good stuff.
+At the same time, many settings that can improve performance, reduce latency, or provide a smoother experience are not enabled by default.
 
-It applies targeted system tweaks to reduce overhead and block unwanted behavior, and bundles several management tools so you can see what is running, remove what you do not want, and revert any change if something goes wrong.
+optimizerDuck brings everything together in one place. It helps you optimize Windows, remove unnecessary components, customize system settings, and manage common Windows features without digging through the Registry, Group Policy, or PowerShell.
 
-> [!NOTE]
-> Every optimization can be applied manually. optimizerDuck just makes it easier for you to apply these optimizations.
+It also includes built-in management tools, allowing you to see what is running, remove what you don't need, and restore changes whenever necessary.
+
+**[Why optimize Windows?](#why-optimize-windows-instead-of-just-upgrading-your-hardware)**
 
 ### System Optimizations
 
@@ -127,6 +129,47 @@ No need to dig through the registry, just toggles, dropdowns, and number inputs 
 | **Scheduled Tasks**   | Browse, run, stop, enable, disable, or delete Windows scheduled tasks                                                                            |
 | **Disk Cleanup**      | Scan and clear temp files, system cache, Windows Update leftovers, prefetch, thumbnails, recycle bin, crash dumps, and old Windows installations |
 | **Bloatware Remover** | Lists all removable AppX packages with risk badges (Safe, Caution, Unknown), so you can pick what to remove                                      |
+
+### Why optimize Windows instead of just upgrading your hardware?
+
+The fastest way to improve performance is always upgrading your hardware. A better CPU, GPU, more RAM, or a faster SSD will usually provide much larger improvements than software tweaks alone.
+
+But hardware is only one part of the picture.
+
+Windows is designed for hundreds of millions of PCs with different hardware, workloads, and users. Because of that, Microsoft ships Windows with settings that prioritize compatibility, stability, battery life, and ease of use instead of maximum performance.
+
+As a result, a default Windows installation includes many background services, scheduled tasks, telemetry, power-saving features, and pre-installed apps that many users may never need.
+
+This is especially true after reinstalling Windows. Even after installing all drivers and updates, many useful performance-related settings remain untouched, while unnecessary background components continue running.
+
+Optimizing Windows is simply about reducing unnecessary overhead so your PC can spend more of its resources on what actually matters, whether that's gaming, programming, content creation, or everyday work.
+
+It won't magically double your FPS, but it can reduce background activity, lower system latency, improve responsiveness, and help your hardware perform more consistently.
+
+This is also one reason why many people recommend Linux for better performance and lower system overhead. If you prefer staying on Windows for its software compatibility and familiar experience, optimizerDuck helps you get the best possible experience without switching operating systems.
+
+### When should I optimize Windows?
+
+The best time is **after setting up a fresh Windows installation**.
+
+We recommend this order:
+
+1. Install Windows.
+2. Install all hardware drivers (chipset, GPU, network, audio, etc.).
+3. Run **Windows Update** until no more updates are available.
+4. Install all **Optional Updates**.
+5. Open the **Microsoft Store** and update all built-in applications.
+6. Install the software and games you normally use.
+7. Apply your preferred optimizerDuck optimizations.
+8. Use optimizerDuck's built-in tools to remove unnecessary apps, clean up Windows, and manage startup programs.
+
+Following this order helps avoid Windows or driver updates overwriting your optimizations later.
+
+> [!TIP]
+> Many advanced users choose to temporarily disable automatic Windows Updates after finishing their setup. Large Windows updates may restore default settings, reinstall certain components, or undo some optimizations. If you do this, remember to periodically enable Windows Update again to install important security updates before disabling it again.
+
+> [!NOTE]
+> Every optimization provided by optimizerDuck can also be performed manually. The goal of optimizerDuck is simply to make Windows optimization easier, safer, and more convenient.
 
 ---
 
@@ -302,5 +345,7 @@ Always create a **restore point** before applying changes.
 ## Thanks to all Contributors
 
 [![Contributors](https://contrib.rocks/image?repo=itsfatduck/optimizerDuck)](https://github.com/itsfatduck/optimizerDuck/graphs/contributors)
+<br>
+[Back to top](#optimizerduck)
 
 </div>

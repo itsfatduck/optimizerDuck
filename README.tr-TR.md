@@ -70,27 +70,30 @@ Her yıldız gelecekteki geliştirmelere motivasyon katıyor.
 > | 🇨🇳 | Basitleştirilmiş Çince | 简体中文 | [wcxu21](https://github.com/wcxu21) |
 > | 🇷🇺 | Rusça | Русский | [Foodhead](https://github.com/Foodhead) |
 > | 🇫🇷 | Fransızca | Français | [Robocnop](https://github.com/Robocnop) |
+> | 🇩🇪 | Almanca | Deutsch | [pixeldepartment](https://github.com/pixeldepartment) |
+> | 🇮🇱 | İbranice | עברית | [yosef-chai](https://github.com/yosef-chai) |
 > | 🇰🇷 | Korece | 한국어 | [klfnn](https://github.com/klfnn) |
 > | 🇪🇸 | İspanyolca | Español | [thexxtt](https://github.com/thexxtt) |
 > | 🇯🇵 | Japonca | 日本語 | [zerofrip](https://github.com/zerofrip) |
 > | 🇵🇱 | Lehçe | Polski | [dudus2000](https://github.com/dudus2000) |
 > | 🇧🇷 | Portekizce (Brezilya) | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
 > | 🇹🇷 | Türkçe | Türkçe | [amhunter1](https://github.com/amhunter1) |
-
+> 
 > Dilinizi eklemek ister misiniz? Bkz. [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japonca](./CONTRIBUTING.ja-JP.md), [Türkçe](./CONTRIBUTING.tr-TR.md)).
 
 ---
 
-## optimizerDuck Ne Yapar?
+## optimizerDuck Ne Yapar & Neden Önemlidir?
 
-Windows'un kendisi iyidir. Ancak temiz bir kurulum; hakkında hiç duymadığınız servisler, telemetri, önceden yüklenmiş uygulamalar ve zamanlanmış görevlerle birlikte gelir; bunların hepsi arka planda sessizce çalışarak CPU'nuz, RAM'iniz ve diskinizi tüketir. Aynı zamanda, donanımınızdan en iyi şekilde yararlanmanıza yardımcı olabilecek bazı özellikler varsayılan olarak etkin değildir.
+Windows kutudan çıktığı gibi gayet iyi çalışır. Ancak yeni bir kurulum, siz hiç kullanmasanız bile çalışmaya devam eden arka plan servisleri, telemetri, önceden yüklenmiş uygulamalar ve zamanlanmış görevleri de beraberinde getirir. Bunlar arka planda CPU, RAM, disk ve ağ gibi sistem kaynaklarını tüketir.
 
-optimizerDuck, gereksizlikleri temizlemek ve iyi şeylerin kilidini açmak için size tek bir arayüz sunar.
+Aynı zamanda, performansı artırabilecek, gecikmeyi azaltabilecek veya daha akıcı bir deneyim sağlayabilecek birçok ayar varsayılan olarak etkin değildir.
 
-Yükü azaltmak ve istenmeyen davranışları engellemek için hedeflenmiş sistem düzenlemeleri uygular; ayrıca neyin çalıştığını görmenizi, istemediğinizi kaldırmanızı ve bir şeyler yanlış giderse herhangi bir değişikliği geri almanızı sağlayan çeşitli yönetim araçlarını bir arada sunar.
+optimizerDuck her şeyi tek bir yerde toplar. Kayıt Defteri, Grup İlkesi veya PowerShell ile uğraşmadan Windows'u optimize etmenize, gereksiz bileşenleri kaldırmanıza, sistem ayarlarını özelleştirmenize ve yaygın Windows özelliklerini yönetmenize yardımcı olur.
 
-> [!NOTE]
-> Her optimizasyon manuel olarak uygulanabilir. optimizerDuck yalnızca bu optimizasyonları sizin için uygulamayı kolaylaştırır.
+Ayrıca, neyin çalıştığını görmenize, ihtiyacınız olmayanı kaldırmanıza ve gerektiğinde değişiklikleri geri yüklemenize olanak tanıyan yerleşik yönetim araçları içerir.
+
+**[Windows neden optimize edilmeli?](#neden-sadece-donanımı-yükseltmek-yerine-windowsu-optimize-etmelisiniz)**
 
 ### Sistem Optimizasyonları
 
@@ -126,6 +129,47 @@ Kayıt defterinde aramanıza gerek yok; geçiş düğmeleri, açılır menüler 
 | **Zamanlanmış Görevler** | Windows zamanlanmış görevlerine göz atın, çalıştırın, durdurun, etkinleştirin, devre dışı bırakın veya silin |
 | **Disk Temizleme** | Geçici dosyaları, sistem önbelleğini, Windows Update artıklarını, prefetch'i, küçük resimleri, geri dönüşüm kutusunu, kilitlenme dökümlerini ve eski Windows kurulumlarını tarayıp temizleyin |
 | **Şişirilmiş Yazılım Kaldırıcı** | Risk rozetleriyle (Güvenli, Dikkatli, Bilinmiyor) tüm kaldırılabilir AppX paketlerini listeler; neyi kaldıracağınızı seçin |
+
+### Neden sadece donanımı yükseltmek yerine Windows'u optimize etmelisiniz?
+
+Performansı artırmanın en hızlı yolu her zaman donanımınızı yükseltmektir. Daha iyi bir CPU, GPU, daha fazla RAM veya daha hızlı bir SSD, genellikle tek başına yazılım ayarlarından çok daha büyük iyileştirmeler sağlar.
+
+Ancak donanım, resmin yalnızca bir parçasıdır.
+
+Windows, farklı donanım, iş yükü ve kullanıcılara sahip yüz milyonlarca PC için tasarlanmıştır. Bu nedenle Microsoft, Windows'u maksimum performans yerine uyumluluk, kararlılık, pil ömrü ve kullanım kolaylığına öncelik veren ayarlarla sunar.
+
+Sonuç olarak, varsayılan bir Windows kurulumu, birçok kullanıcının asla ihtiyaç duymayacağı arka plan servisleri, zamanlanmış görevler, telemetri, güç tasarrufu özellikleri ve önceden yüklenmiş uygulamalar içerir.
+
+Bu, özellikle Windows'u yeniden yükledikten sonra geçerlidir. Tüm sürücüleri ve güncellemeleri yükledikten sonra bile, birçok kullanışlı performans ayarına dokunulmazken, gereksiz arka plan bileşenleri çalışmaya devam eder.
+
+Windows'u optimize etmek, PC'nizin oyun, programlama, içerik oluşturma veya günlük işler gibi gerçekten önemli olan şeylere daha fazla kaynak ayırabilmesi için gereksiz yükü azaltmaktan ibarettir.
+
+FPS'nizi sihirli bir şekilde ikiye katlamaz, ancak arka plan etkinliğini azaltabilir, sistem gecikmesini düşürebilir, yanıt verme hızını iyileştirebilir ve donanımınızın daha tutarlı çalışmasına yardımcı olabilir.
+
+Bu aynı zamanda birçok kişinin daha iyi performans ve daha düşük sistem yükü için Linux'u önermesinin nedenlerinden biridir. Yazılım uyumluluğu ve tanıdık deneyimi için Windows'ta kalmayı tercih ediyorsanız, optimizerDuck işletim sistemini değiştirmeden mümkün olan en iyi deneyimi elde etmenize yardımcı olur.
+
+### Windows'u ne zaman optimize etmeliyim?
+
+En iyi zaman **yeni bir Windows kurulumu yaptıktan sonra**dır.
+
+Bu sırayı öneriyoruz:
+
+1. Windows'u kurun.
+2. Tüm donanım sürücülerini yükleyin (yonga seti, GPU, ağ, ses vb.).
+3. **Windows Update**'i kullanılabilir güncelleme kalmayana kadar çalıştırın.
+4. Tüm **isteğe bağlı güncellemeleri** yükleyin.
+5. **Microsoft Store**'u açın ve tüm yerleşik uygulamaları güncelleyin.
+6. Normalde kullandığınız yazılımları ve oyunları yükleyin.
+7. Tercih ettiğiniz optimizerDuck optimizasyonlarını uygulayın.
+8. optimizerDuck'ın yerleşik araçlarını kullanarak gereksiz uygulamaları kaldırın, Windows'u temizleyin ve başlangıç programlarını yönetin.
+
+Bu sırayı takip etmek, sonraki Windows veya sürücü güncellemelerinin optimizasyonlarınızı üzerine yazmasını önlemeye yardımcı olur.
+
+> [!TIP]
+> Birçok ileri düzey kullanıcı, kurulumu tamamladıktan sonra Windows otomatik güncellemelerini geçici olarak devre dışı bırakmayı seçer. Büyük Windows güncellemeleri varsayılan ayarları geri yükleyebilir, belirli bileşenleri yeniden yükleyebilir veya bazı optimizasyonları geri alabilir. Bunu yaparsanız, önemli güvenlik güncellemelerini yüklemek için Windows Update'i periyodik olarak yeniden etkinleştirmeyi ve ardından tekrar devre dışı bırakmayı unutmayın.
+
+> [!NOTE]
+> optimizerDuck tarafından sağlanan her optimizasyon manuel olarak da gerçekleştirilebilir. optimizerDuck'ın amacı, Windows optimizasyonunu daha kolay, daha güvenli ve daha kullanışlı hale getirmektir.
 
 ---
 
@@ -301,5 +345,7 @@ Değişiklik uygulamadan önce her zaman bir **geri yükleme noktası** oluştur
 ## Tüm Katkıda Bulunanlara Teşekkürler
 
 [![Contributors](https://contrib.rocks/image?repo=itsfatduck/optimizerDuck)](https://github.com/itsfatduck/optimizerDuck/graphs/contributors)
+<br>
+[Başa dön](#optimizerduck)
 
 </div>

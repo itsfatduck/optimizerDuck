@@ -70,27 +70,30 @@
 > | 🇨🇳 | 簡體中文 | 简体中文 | [wcxu21](https://github.com/wcxu21) |
 > | 🇷🇺 | 俄語 | Русский | [Foodhead](https://github.com/Foodhead) |
 > | 🇫🇷 | 法語 | Français | [Robocnop](https://github.com/Robocnop) |
+> | 🇩🇪 | 德語 | Deutsch | [pixeldepartment](https://github.com/pixeldepartment) |
+> | 🇮🇱 | 希伯來語 | עברית | [yosef-chai](https://github.com/yosef-chai) |
 > | 🇰🇷 | 韓語 | 한국어 | [klfnn](https://github.com/klfnn) |
 > | 🇪🇸 | 西班牙語 | Español | [thexxtt](https://github.com/thexxtt) |
 > | 🇯🇵 | 日語 | 日本語 | [zerofrip](https://github.com/zerofrip) |
 > | 🇵🇱 | 波蘭語 | Polski | [dudus2000](https://github.com/dudus2000) |
 > | 🇧🇷 | 葡萄牙語（巴西） | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
 > | 🇹🇷 | 土耳其語 | Türkçe | [amhunter1](https://github.com/amhunter1) |
-
+> 
 > 想加入您的語言嗎？請查看[貢獻指南](./CONTRIBUTING.md)（[日文版](./CONTRIBUTING.ja-JP.md)、[土耳其語版](./CONTRIBUTING.tr-TR.md)）。
 
 ---
 
-## optimizerDuck 做什麼
+## optimizerDuck 做什麼 & 為什麼重要
 
-Windows 本身非常穩定。但全新安裝時，也會附帶一些您可能從未聽過的服務、遙測、預裝應用程式和排程工作：全部在背景靜靜運行，消耗您的 CPU、RAM 和磁碟。同時，一些能幫助您榨乾硬體效能的功能卻沒有預設開啟。
+Windows 開箱即用，表現本就不錯。但即便是全新安裝的 Windows，也會附帶背景服務、遙測、預裝應用程式和排程工作，這些你也許從未用過的東西卻在背景一直運行，持續消耗 CPU、記憶體、磁碟和網路資源。
 
-optimizerDuck 提供一個統一的介面來清除多餘的東西、開啟有用的功能。
+與此同時，很多可以提升效能、降低延遲、帶來更流暢體驗的設定，預設並沒有開啟。
 
-它套用針對性的系統調整來減少資源消耗和阻擋不需要的行為，同時內建多款管理工具，讓您掌握執行中的程式、移除不需要的內容，並在出問題時還原任何變更。
+optimizerDuck 把這一切集於一身。它幫你優化 Windows、移除不必要的元件、自訂系統設定、管理常見的 Windows 功能，無需折騰登錄檔、群組原則或 PowerShell。
 
-> [!NOTE]
-> 所有最佳化均可手動執行。optimizerDuck 只是讓您更輕鬆地套用這些最佳化。
+它還內建了多種管理工具，讓你清楚看到什麼在執行、刪除不需要的內容，並隨時復原更改。
+
+**[為什麼需要優化 Windows？](#為什麼不直接升級硬體而要優化-windows)**
 
 ### 系統最佳化
 
@@ -126,6 +129,47 @@ optimizerDuck 提供一個統一的介面來清除多餘的東西、開啟有用
 | **排程工作**     | 瀏覽、執行、停止、啟用、停用或刪除 Windows 排程工作                                                                  |
 | **磁碟清理**     | 掃描並清理暫存檔、系統快取、Windows Update 殘留檔案、Prefetch、縮圖快取、資源回收筒、當機傾印檔及舊版 Windows 安裝檔 |
 | **冗餘軟體卸載** | 列出所有可移除的 AppX 套件並附上風險標籤（安全、謹慎、未知），讓您自行選擇要刪除的內容                               |
+
+### 為什麼不直接升級硬體，而要優化 Windows？
+
+提升效能最快的方法永遠是升級硬體。更好的 CPU、GPU、更大的記憶體或更快的 SSD 通常比純軟體最佳化帶來的提升大得多。
+
+但硬體只是問題的一部分。
+
+Windows 是為數億台配備不同、任務不同、使用者不同的 PC 設計的。因此，微軟在 Windows 的預設設定中優先考慮相容性、穩定性、續航和易用性，而不是最大效能。
+
+結果就是，預設的 Windows 安裝包含了許多背景服務、排程工作、遙測、省電功能和預裝應用程式，而絕大多數使用者可能根本不需要它們。
+
+這在重灌 Windows 後尤其明顯。即使已經安裝了所有驅動和更新，很多有用的效能設定依然沒有開啟，而不必要的背景元件仍在執行。
+
+優化 Windows 其實就是減少不必要的負擔，讓 PC 把更多資源用在真正重要的事情上，無論是打遊戲、寫程式、做設計還是日常工作。
+
+它不會奇蹟般讓你的 FPS 翻倍，但它可以減少背景活動、降低系統延遲、提高回應速度，讓硬體發揮更穩定。
+
+這也是為什麼很多人推薦 Linux 以獲得更好的效能和更低的系統開銷。如果你更習慣 Windows 的軟體相容性和熟悉的體驗，optimizerDuck 能幫你獲得最好的 Windows 體驗，無需切換系統。
+
+### 什麼時候該優化 Windows？
+
+最佳時機是**在裝好全新 Windows 之後**。
+
+我們推薦的順序如下：
+
+1. 安裝 Windows。
+2. 安裝所有硬體驅動（晶片組、顯示卡、網卡、音效卡等）。
+3. 執行 **Windows Update** 直到沒有可用更新。
+4. 安裝所有 **選用更新**。
+5. 打開 **Microsoft Store** 更新所有內建應用程式。
+6. 安裝你常用的軟體和遊戲。
+7. 套用你喜歡的 optimizerDuck 最佳化項目。
+8. 使用 optimizerDuck 內建工具刪除不需要的 App、清理 Windows、管理啟動項目。
+
+按此順序操作有助於避免後續 Windows 或驅動更新覆蓋你的最佳化。
+
+> [!TIP]
+> 許多進階使用者會在完成設定後暫時停用 Windows 自動更新。大版本 Windows 更新可能恢復預設設定、重新安裝某些元件或撤銷部分最佳化。如果你這樣做，請記得定期重新啟用 Windows Update 安裝重要的安全性更新，然後再停用它。
+
+> [!NOTE]
+> optimizerDuck 提供的所有最佳化也都可以手動完成。optimizerDuck 的目標只是讓 Windows 最佳化變得更簡單、更安全、更便捷。
 
 ---
 
@@ -303,5 +347,7 @@ optimizerDuck 按**「現況」**提供，不附帶任何形式的保證。
 ## 感謝所有貢獻者
 
 [![Contributors](https://contrib.rocks/image?repo=itsfatduck/optimizerDuck)](https://github.com/itsfatduck/optimizerDuck/graphs/contributors)
+<br>
+[回到頂部](#optimizerduck)
 
 </div>

@@ -70,29 +70,32 @@
 > | 🇨🇳 | 简体中文 | 简体中文 | [wcxu21](https://github.com/wcxu21) |
 > | 🇷🇺 | 俄语 | Русский | [Foodhead](https://github.com/Foodhead) |
 > | 🇫🇷 | 法语 | Français | [Robocnop](https://github.com/Robocnop) |
+> | 🇩🇪 | 德语 | Deutsch | [pixeldepartment](https://github.com/pixeldepartment) |
+> | 🇮🇱 | 希伯来语 | עברית | [yosef-chai](https://github.com/yosef-chai) |
 > | 🇰🇷 | 韩语 | 한국어 | [klfnn](https://github.com/klfnn) |
 > | 🇪🇸 | 西班牙语 | Español | [thexxtt](https://github.com/thexxtt) |
 > | 🇯🇵 | 日语 | 日本語 | [zerofrip](https://github.com/zerofrip) |
 > | 🇵🇱 | 波兰语 | Polski | [dudus2000](https://github.com/dudus2000) |
 > | 🇧🇷 | 葡萄牙语（巴西） | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
 > | 🇹🇷 | 土耳其语 | Türkçe | [amhunter1](https://github.com/amhunter1) |
-
+> 
 > 想要添加其他语言？请查看[贡献指南](./CONTRIBUTING.md)（[日文版](./CONTRIBUTING.ja-JP.md)、[土耳其语版](./CONTRIBUTING.tr-TR.md)）。
 >
 > 1: 软件开发时使用此语言，我们也推荐使用此语言以尽可能避免误解。
 
 ---
 
-## optimizerDuck 做什么
+## optimizerDuck 做什么 & 为什么重要
 
-Windows 本身非常稳定。但即便是“全新安装”，也会附带一些你可能从未听过的服务、遥测、预装应用和计划任务：全部在后台静静运行，消耗你的 CPU、内存和磁盘。同时，一些能帮你榨干硬件性能的功能却没有默认开启。
+Windows 开箱即用，表现本就不错。但即便是全新安装的 Windows，也会附带后台服务、遥测、预装应用和计划任务，这些你也许从未用过的东西却在后台一直运行，持续消耗 CPU、内存、磁盘和网络资源。
 
-optimizerDuck 提供一个统一的界面来清除多余的东西、开启有用的功能。
+与此同时，很多可以提升性能、降低延迟、带来更流畅体验的设置，默认并没有开启。
 
-它通过有针对性的系统调整来减少资源占用和阻止不需要的行为，同时内置多款管理工具，让你清楚知道哪些程序在运行、哪些可以移除，并在出现问题时还原任何更改。
+optimizerDuck 把这一切集于一身。它帮你优化 Windows、移除不必要的组件、自定义系统设置、管理常见的 Windows 功能，无需折腾注册表、组策略或 PowerShell。
 
-> [!NOTE]
-> 所有优化均可手动执行。optimizerDuck 只是让你更轻松地套用这些优化。
+它还内置了多种管理工具，让你清楚看到什么在运行、删除不需要的内容，并随时恢复更改。
+
+**[为什么需要优化 Windows？](#为什么不直接升级硬件而要优化-windows)**
 
 ### 系统优化
 
@@ -128,6 +131,47 @@ optimizerDuck 提供一个统一的界面来清除多余的东西、开启有用
 | **计划任务**     | 浏览、运行、停止、启用、禁用或删除 Windows 计划任务                                                                      |
 | **磁盘清理**     | 扫描并清理临时文件、系统缓存、Windows Update 残留文件、Prefetch、缩略图缓存、回收站、崩溃转储文件及旧版 Windows 安装文件 |
 | **预装软件卸载** | 列出所有可移除的 AppX 包并附带风险标签（安全、谨慎、未知），让你自行选择要删除的内容                                     |
+
+### 为什么不直接升级硬件，而要优化 Windows？
+
+提升性能最快的方法永远是升级硬件。更好的 CPU、GPU、更大的内存或更快的 SSD 通常比纯软件优化带来的提升大得多。
+
+但硬件只是问题的一部分。
+
+Windows 是为数亿台配置不同、任务不同、用户不同的 PC 设计的。因此，微软在 Windows 的默认设置中优先考虑兼容性、稳定性、续航和易用性，而不是最大性能。
+
+结果就是，默认的 Windows 安装包含了许多后台服务、计划任务、遥测、省电功能和预装应用，而绝大多数用户可能根本不需要它们。
+
+这在重装 Windows 后尤其明显。即使已经安装了所有驱动和更新，很多有用的性能设置依然没有打开，而不必要的后台组件仍在运行。
+
+优化 Windows 其实就是减少不必要的负担，让 PC 把更多资源用在真正重要的事情上，无论是打游戏、写代码、做设计还是日常办公。
+
+它不会奇迹般让你的 FPS 翻倍，但它可以减少后台活动、降低系统延迟、提高响应速度，让硬件发挥更稳定。
+
+这也是为什么很多人推荐 Linux 以获得更好的性能和更低的系统开销。如果你更习惯 Windows 的软件兼容性和熟悉的体验，optimizerDuck 能帮你获得最好的 Windows 体验，无需切换系统。
+
+### 什么时候该优化 Windows？
+
+最佳时机是**在装好全新 Windows 之后**。
+
+我们推荐的顺序如下：
+
+1. 安装 Windows。
+2. 安装所有硬件驱动（芯片组、显卡、网卡、声卡等）。
+3. 运行 **Windows Update** 直到没有可用更新。
+4. 安装所有 **可选更新**。
+5. 打开 **Microsoft Store** 更新所有内置应用。
+6. 安装你常用的软件和游戏。
+7. 应用你喜欢的 optimizerDuck 优化项。
+8. 使用 optimizerDuck 内置工具删除不需要的 App、清理 Windows、管理启动项。
+
+按此顺序操作有助于避免后续 Windows 或驱动更新覆盖你的优化。
+
+> [!TIP]
+> 许多高级用户会在完成设置后暂时禁用 Windows 自动更新。大版本 Windows 更新可能恢复默认设置、重新安装某些组件或撤销部分优化。如果你这样做，请记得定期重新启用 Windows Update 安装重要的安全更新，然后再禁用它。
+
+> [!NOTE]
+> optimizerDuck 提供的所有优化也都可以手动完成。optimizerDuck 的目标只是让 Windows 优化变得更简单、更安全、更便捷。
 
 ---
 
@@ -308,5 +352,7 @@ optimizerDuck 按**现状原样**提供，不附带任何形式的保证。
 ## 致敬所有项目贡献者
 
 [![贡献者列表](https://contrib.rocks/image?repo=itsfatduck/optimizerDuck)](https://github.com/itsfatduck/optimizerDuck/graphs/contributors)
+<br>
+[回到顶部](#optimizerduck)
 
 </div>
