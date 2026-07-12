@@ -430,8 +430,14 @@ public partial class App : Application
             mainWindow.Show();
         });
 
-        _logger.LogInformation("Preloading optimizations in background...");
-        optimizationRegistry.StartPreload();
+        _logger.LogInformation("Preloading optimizations...");
+        await optimizationRegistry.PreloadOptimizationsAsync().ConfigureAwait(false);
+
+        _logger.LogInformation("Preloading customize settings...");
+        var customizeRegistry = _host.Services.GetRequiredService<CustomizeRegistry>();
+        await customizeRegistry.PreloadCategoriesAsync().ConfigureAwait(false);
+
+        _logger.LogInformation("Preloading completed.");
     }
 
     protected override async void OnExit(ExitEventArgs e)

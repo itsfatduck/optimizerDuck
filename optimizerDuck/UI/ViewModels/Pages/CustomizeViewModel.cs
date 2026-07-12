@@ -9,7 +9,7 @@ using Wpf.Ui.Controls;
 
 namespace optimizerDuck.UI.ViewModels.Pages;
 
-public partial class CustomizeViewModel : ObservableObject
+public partial class CustomizeViewModel : ViewModel
 {
     private readonly INavigationService _navigationService;
     private readonly CustomizeRegistry _registry;
@@ -26,12 +26,12 @@ public partial class CustomizeViewModel : ObservableObject
         _registry = registry;
     }
 
-    public async Task InitializeAsync()
+
+    protected override async Task InitializeOnceAsync()
     {
         IsLoading = true;
 
-        if (_registry.Categories.Length == 0)
-            _registry.RegisterCategories();
+        await _registry.EnsurePreloadedAsync().ConfigureAwait(false);
 
         var categoryViewModels = new ObservableCollection<CustomizeCategoryItemViewModel>();
 
@@ -52,8 +52,6 @@ public partial class CustomizeViewModel : ObservableObject
 
         Categories = categoryViewModels;
         IsLoading = false;
-
-        await Task.CompletedTask;
     }
 
     [RelayCommand]

@@ -67,11 +67,9 @@ public partial class CustomizeCategoryViewModel : ViewModel
         _allSettings.Clear();
         foreach (var setting in _currentCategory.Features)
             _allSettings.Add(new CustomizeItemViewModel(setting, loggerFactory, registryWatcher));
-
-        _ = InitializeAsync();
     }
 
-    private async Task InitializeAsync()
+    protected override async Task InitializeOnceAsync()
     {
         await Task.WhenAll(_allSettings.Select(s => s.LoadStateAsync()));
         ApplyFilters();

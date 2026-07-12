@@ -10,7 +10,6 @@ namespace optimizerDuck.Services.Optimization;
 public class OptimizationRegistry(ILoggerFactory loggerFactory)
 {
     private readonly ILogger _logger = loggerFactory.CreateLogger<OptimizationRegistry>();
-    private Task? _preloadTask;
 
     /// <summary>Gets or sets the discovered optimization categories after preloading. Each category contains its child optimizations.</summary>
     public IOptimizationCategory[] OptimizationCategories { get; set; } = [];
@@ -19,19 +18,14 @@ public class OptimizationRegistry(ILoggerFactory loggerFactory)
     public bool IsPreloaded { get; private set; }
 
     /// <summary>
-    ///     Starts optimization discovery on a background thread (non-blocking).
-    /// </summary>
-    public void StartPreload()
-    {
-        _preloadTask ??= PreloadOptimizationsAsync();
-    }
-
-    /// <summary>
     ///     Ensures categories and applied-state are loaded before the optimize UI binds.
+    ///     If preloading has already completed, returns a completed task.
     /// </summary>
     public Task EnsurePreloadedAsync()
     {
-        return _preloadTask ??= PreloadOptimizationsAsync();
+        if (IsPreloaded)
+            return Task.CompletedTask;
+        return PreloadOptimizationsAsync();
     }
 
     /// <summary>Discovers all optimization categories and their optimizations via reflection, then loads the applied state from revert data on disk.</summary>
