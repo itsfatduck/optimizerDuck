@@ -112,6 +112,32 @@ public class BloatwareService(
         }
     }
 
+    // Validates an AppX package name/identifier to prevent PowerShell injection.
+    // AppX names follow: Publisher.PackageName (alphanumeric, dots, dashes)
+    // PackageFullName follows: Name_Version_Architecture__ResourceId
+    private static readonly Regex AppXNameValidationRegex = new(
+        @"^[a-zA-Z0-9._\-]+$",
+        RegexOptions.Compiled
+    );
+
+    private static readonly Regex AppXPackageFullNameValidationRegex = new(
+        @"^[a-zA-Z0-9._\-]+_[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+_[a-zA-Z0-9_]+__[a-zA-Z0-9_]+$",
+        RegexOptions.Compiled
+    );
+
+    /// <summary>
+    ///     Escapes a string value for safe embedding in a PowerShell double-quoted string.
+    ///     Replaces <c>"</c> with <c>`"</c> and <c>$</c> with <c>`$</c> to prevent
+    ///     string break-out and variable expansion.
+    /// </summary>
+    private static string EscapeForPowerShell(string value)
+    {
+        return value
+            .Replace("`", "``")
+            .Replace("$", "`$")
+            .Replace("\"", "`\"");
+    }
+
     /// <summary>
     ///     Removes an AppX package from the system.
     /// </summary>
@@ -130,6 +156,22 @@ public class BloatwareService(
                 return;
             }
 
+            // Validate AppX identifiers to prevent PowerShell injection
+            var safeName = EscapeForPowerShell(appXPackage.Name ?? string.Empty);
+            var safePackageFullName = EscapeForPowerShell(appXPackage.PackageFullName);
+
+            if (!AppXNameValidationRegex.IsMatch(appXPackage.Name ?? string.Empty))
+                logger.LogWarning(
+                    "AppX package name contains unusual characters: {Name}",
+                    appXPackage.Name
+                );
+
+            if (!AppXPackageFullNameValidationRegex.IsMatch(appXPackage.PackageFullName))
+                logger.LogWarning(
+                    "AppX PackageFullName has unexpected format: {PackageFullName}",
+                    appXPackage.PackageFullName
+                );
+
             logger.LogInformation(
                 "Removing AppX package {Name} ({Package})",
                 appXPackage.Name,
@@ -137,8 +179,8 @@ public class BloatwareService(
             );
 
             var script = $$"""
-                $pkgFull = "{{appXPackage.PackageFullName}}"
-                $name = "{{appXPackage.Name}}"
+                $pkgFull = "{{safePackageFullName}}"
+                $name = "{{safeName}}"
 
                 $installed = Get-AppxPackage -PackageTypeFilter Main,Bundle,Resource |
                              Where-Object { $_.PackageFullName -eq $pkgFull -or $_.Name -eq $name }

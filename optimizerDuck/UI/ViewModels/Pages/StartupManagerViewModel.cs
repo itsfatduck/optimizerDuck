@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
@@ -123,15 +124,22 @@ public partial class StartupManagerViewModel : ViewModel
     [RelayCommand]
     private void OpenLocation(StartupApp? app)
     {
-        if (app?.CanOpenLocation == true)
-            try
-            {
-                Process.Start("explorer.exe", $"/select,\"{app.FilePath}\"");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Failed to open location for {Name}", app.Name);
-            }
+        if (app?.CanOpenLocation != true || app.FilePath == null)
+            return;
+
+        try
+        {
+            // Canonicalize and sanitize the file path to prevent argument injection
+            // into explorer.exe's /select command.
+            var safePath = app.FilePath.Replace("\"", string.Empty);
+            safePath = Path.GetFullPath(safePath);
+
+            Process.Start("explorer.exe", $"/select,\"{safePath}\"");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to open location for {Name}", app.Name);
+        }
     }
 
     [RelayCommand]
