@@ -253,7 +253,7 @@ public partial class SettingsViewModel(
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
                 TimeSpan.FromSeconds(5)
             );
-            logger.LogError(ex, "Failed to open page");
+            logger.LogWarning(ex, "Failed to open page");
         }
     }
 

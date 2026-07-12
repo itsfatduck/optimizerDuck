@@ -147,17 +147,11 @@ public class SecurityAndPrivacy : IOptimizationCategory
             // @formatter:on
 
             foreach (var task in tasksToDelete)
-                try
-                {
-                    if (!ScheduledTaskService.IsTaskEnabled(task))
-                        continue;
-                    ScheduledTaskService.DisableTask(task);
-                    context.Logger.LogInformation("Disabled task {Task}", task);
-                }
-                catch (Exception ex)
-                {
-                    context.Logger.LogWarning(ex, "Failed to disable task {Task}", task);
-                }
+            {
+                if (!ScheduledTaskService.IsTaskEnabled(task))
+                    continue;
+                ScheduledTaskService.DisableTask(task);
+            }
 
             return CompleteFromScope();
         }
@@ -202,16 +196,11 @@ public class SecurityAndPrivacy : IOptimizationCategory
             };
 
             foreach (var task in tasksToDelete)
-                try
-                {
-                    if (!ScheduledTaskService.IsTaskEnabled(task))
-                        continue;
-                    ScheduledTaskService.DisableTask(task);
-                }
-                catch (Exception ex)
-                {
-                    context.Logger.LogWarning(ex, "Failed to disable task {Task}", task);
-                }
+            {
+                if (!ScheduledTaskService.IsTaskEnabled(task))
+                    continue;
+                ScheduledTaskService.DisableTask(task);
+            }
 
             context.Logger.LogInformation(
                 "Disabled Windows Error Reporting and Compatibility Assistant"
@@ -430,15 +419,8 @@ public class SecurityAndPrivacy : IOptimizationCategory
                 )
             );
 
-            try
-            {
-                if (ScheduledTaskService.IsTaskEnabled(@"\Microsoft\Windows\Maps\MapsUpdateTask"))
-                    ScheduledTaskService.DisableTask(@"\Microsoft\Windows\Maps\MapsUpdateTask");
-            }
-            catch (Exception ex)
-            {
-                context.Logger.LogWarning(ex, "Failed to disable maps update task");
-            }
+            if (ScheduledTaskService.IsTaskEnabled(@"\Microsoft\Windows\Maps\MapsUpdateTask"))
+                ScheduledTaskService.DisableTask(@"\Microsoft\Windows\Maps\MapsUpdateTask");
 
             context.Logger.LogInformation(
                 "Disabled location tracking, sensors and offline maps updates"

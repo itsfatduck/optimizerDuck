@@ -225,6 +225,7 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
 
             SetValueIgnoreCase(current, parts[^1], value);
             await SaveConfigAsync().ConfigureAwait(false);
+            logger.LogInformation("Config key {Key} set to {Value}", key, value);
         }
         finally
         {
@@ -254,6 +255,7 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
 
             RemoveIgnoreCase(current, parts[^1]);
             await SaveConfigAsync().ConfigureAwait(false);
+            logger.LogInformation("Config key {Key} removed", key);
         }
         finally
         {
@@ -274,13 +276,32 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
                 Directory.CreateDirectory(configDir);
 
             if (!File.Exists(_configPath))
+            {
+                logger.LogInformation("Config file not found, starting with empty config");
                 return new JObject();
+            }
 
             var content = await File.ReadAllTextAsync(_configPath).ConfigureAwait(false);
 
-            return string.IsNullOrWhiteSpace(content)
-                ? new JObject()
-                : JsonConvert.DeserializeObject<JObject>(content) ?? new JObject();
+            if (string.IsNullOrWhiteSpace(content))
+            {
+                logger.LogInformation("Config file is empty, starting with empty config");
+                return new JObject();
+            }
+
+            var config = JsonConvert.DeserializeObject<JObject>(content);
+            if (config == null)
+            {
+                logger.LogInformation("Config file is invalid, starting with empty config");
+                return new JObject();
+            }
+
+            var propertyCount = config.Properties().Count();
+            logger.LogInformation(
+                "Loaded config with {Count} top-level sections",
+                propertyCount
+            );
+            return config;
         }
         catch (Exception ex)
         {
@@ -401,6 +422,10 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
             if (!File.Exists(configPath))
             {
                 File.WriteAllText(configPath, "{}");
+                global::System.Diagnostics.Trace.TraceInformation(
+                    "Created default empty config file: {Path}",
+                    configPath
+                );
                 return;
             }
 
@@ -408,6 +433,10 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
             if (string.IsNullOrWhiteSpace(content))
             {
                 File.WriteAllText(configPath, "{}");
+                global::System.Diagnostics.Trace.TraceWarning(
+                    "Config file was empty, reset to empty: {Path}",
+                    configPath
+                );
                 return;
             }
 
@@ -416,6 +445,10 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
             if (!trimmed.StartsWith('{') || !trimmed.EndsWith('}'))
             {
                 File.WriteAllText(configPath, "{}");
+                global::System.Diagnostics.Trace.TraceWarning(
+                    "Config file was not valid JSON, reset to empty: {Path}",
+                    configPath
+                );
                 return;
             }
 
@@ -424,6 +457,10 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
         catch
         {
             File.WriteAllText(configPath, "{}");
+            global::System.Diagnostics.Trace.TraceWarning(
+                "Config file was corrupted, reset to empty: {Path}",
+                configPath
+            );
         }
     }
 }

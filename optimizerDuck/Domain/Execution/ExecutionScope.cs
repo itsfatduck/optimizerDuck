@@ -76,7 +76,7 @@ public sealed class ExecutionScope : IDisposable
 
         if (_stats.IsEmpty)
         {
-            Logger.LogInformation(
+            Logger.LogDebug(
                 "Completed in {Time} (no operations tracked)",
                 _stopwatch.Elapsed.ToString(@"mm\:ss\.fff")
             );
@@ -88,7 +88,7 @@ public sealed class ExecutionScope : IDisposable
                 _stats.Select(kv => $"{kv.Key}: +({kv.Value.Success}) -({kv.Value.Fail})")
             );
 
-            Logger.LogInformation(
+            Logger.LogDebug(
                 "Completed in {Time} | {Summary}",
                 _stopwatch.Elapsed.ToString(@"mm\:ss\.fff"),
                 summary
@@ -96,7 +96,7 @@ public sealed class ExecutionScope : IDisposable
         }
 
         if (!LoggingOnly)
-            Logger.LogInformation(
+            Logger.LogDebug(
                 "Steps: {Total} ({Success} success, {Failed} failed)",
                 _executedSteps.Count,
                 _executedSteps.Count(s => s.Success),

@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Reflection;
+using Microsoft.Extensions.Logging;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
@@ -10,12 +11,21 @@ namespace optimizerDuck.Services.Customize;
 
 public class CustomizeRegistry
 {
+    private readonly ILogger<CustomizeRegistry> _logger;
+
+    public CustomizeRegistry(ILogger<CustomizeRegistry> logger)
+    {
+        _logger = logger;
+    }
+
     /// <summary>Gets the registered customize categories. Each category contains its child customize settings. Populated after calling <see cref="RegisterCategories"/>.</summary>
     public ICustomizeCategory[] Categories { get; private set; } = [];
 
     /// <summary>Discovers all customize setting categories and their child settings via reflection, then populates <see cref="Categories"/>.</summary>
     public void RegisterCategories()
     {
+        _logger.LogInformation("Discovering customize setting categories...");
+
         var categories = ReflectionHelper
             .FindImplementationsInLoadedAssemblies<ICustomizeCategory>()
             .Select(t =>
@@ -55,6 +65,12 @@ public class CustomizeRegistry
             .ToArray();
 
         Categories = categories;
+
+        _logger.LogInformation(
+            "Registered {CategoryCount} customize categories with {SettingCount} total settings",
+            categories.Length,
+            categories.Sum(c => c.Features.Count)
+        );
     }
 
     /// <summary>Builds the navigation items for the UI from the registered categories. Calls <see cref="RegisterCategories"/> if not yet registered.</summary>

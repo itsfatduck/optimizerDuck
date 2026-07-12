@@ -165,13 +165,23 @@ public static class ShellService
 
             if (timedOut)
             {
+                ExecutionScope.LogWarning(
+                    "Process timed out, attempting to kill: PID {ProcessId}",
+                    process.Id
+                );
+
                 try
                 {
                     process.Kill(entireProcessTree: true);
+                    ExecutionScope.LogInfo("Killed process: PID {ProcessId}", process.Id);
                 }
                 catch (Exception ex)
                 {
-                    ExecutionScope.LogError(ex, "Failed to kill process for timeout");
+                    ExecutionScope.LogError(
+                        ex,
+                        "Failed to kill process for timeout (sync), PID: {ProcessId}",
+                        process.Id
+                    );
                 }
 
                 try
@@ -180,7 +190,11 @@ public static class ShellService
                 }
                 catch (Exception ex)
                 {
-                    ExecutionScope.LogError(ex, "Failed to wait for process exit after kill");
+                    ExecutionScope.LogError(
+                        ex,
+                        "Failed to wait for process exit after kill (sync), PID: {ProcessId}",
+                        process.Id
+                    );
                 }
 
                 // Force kill if still running after grace period
@@ -188,6 +202,10 @@ public static class ShellService
                 {
                     try
                     {
+                        ExecutionScope.LogWarning(
+                            "Process still running after grace period, force killing: PID {ProcessId}",
+                            process.Id
+                        );
                         process.Kill(entireProcessTree: true);
                         if (!process.HasExited)
                         {
@@ -196,7 +214,11 @@ public static class ShellService
                     }
                     catch (Exception ex)
                     {
-                        ExecutionScope.LogError(ex, "Failed to force kill process after timeout");
+                        ExecutionScope.LogError(
+                            ex,
+                            "Failed to force kill process after timeout (sync), PID: {ProcessId}",
+                            process.Id
+                        );
                     }
                 }
             }

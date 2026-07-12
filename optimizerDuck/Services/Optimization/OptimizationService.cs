@@ -152,6 +152,13 @@ public class OptimizationService(
         var optLogger = loggerFactory.CreateLogger(optimization.GetType());
         using var scope = ExecutionScope.Begin(optimization, optLogger);
 
+        _logger.LogInformation(
+            "Starting apply of {Name} ({Key}) with ID {Id}",
+            optimization.Name,
+            optimization.OptimizationKey,
+            optimization.Id
+        );
+
         progress.Report(
             new ProcessingProgress
             {
@@ -237,6 +244,13 @@ public class OptimizationService(
         CancellationToken cancellationToken = default
     )
     {
+        _logger.LogInformation(
+            "Starting revert of {Name} ({Key}) with ID {Id}",
+            optimization.Name,
+            optimization.OptimizationKey,
+            optimization.Id
+        );
+
         progress?.Report(
             new ProcessingProgress
             {

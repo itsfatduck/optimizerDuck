@@ -207,6 +207,14 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
 
             data.SchemaVersion = SchemaVersion;
             await WriteJsonAtomicAsync(filePath, data);
+
+            var totalSteps = data.Steps.Count(s => s != null);
+            _logger.LogInformation(
+                "Upserted revert step at index {Index} for {Id} (total: {Total} steps)",
+                stepIndex,
+                id,
+                totalSteps
+            );
         }
         finally
         {
