@@ -21,7 +21,7 @@ public class UpdaterService : IDisposable
     /// <param name="logger">The logger for update diagnostics.</param>
     public UpdaterService(ILogger<UpdaterService> logger)
     {
-        _httpClient = new HttpClient();
+        _httpClient = HttpClientFactory.CreateClient(logger: logger);
         _httpClient.DefaultRequestHeaders.UserAgent.Add(
             new ProductInfoHeaderValue("optimizerDuck", "1.0")
         );

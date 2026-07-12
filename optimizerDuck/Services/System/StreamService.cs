@@ -30,7 +30,7 @@ public class StreamService(ILogger<StreamService> logger) : IDisposable
         try
         {
             Directory.CreateDirectory(Shared.DownloadsDirectory);
-            _client ??= new HttpClient();
+            _client ??= HttpClientFactory.CreateClient(logger: logger);
             using var response = await _client.GetAsync(url).ConfigureAwait(false);
 
             logger.LogDebug("Received HTTP {StatusCode} from {Url}", response.StatusCode, url);
