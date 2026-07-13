@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   
   <xsd:schema id="root">
@@ -1772,5 +1772,26 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
     <value>Tắt tìm kiếm web trên Start Menu của Windows để tải kết quả tìm kiếm cục bộ nhanh hơn.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Warning" xml:space="preserve">
+    <value>Các tệp sẽ bị xóa vĩnh viễn. Hành động này không thể hoàn tác.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Title" xml:space="preserve">
+    <value>Dọn dẹp {0} mục đã chọn</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Summary" xml:space="preserve">
+    <value>Bạn sắp xóa {0} trong tổng số {1} mục ({2} tệp). Vui lòng xem xét các mục bên dưới.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.SingleTitle" xml:space="preserve">
+    <value>Dọn dẹp mục</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.SingleItem" xml:space="preserve">
+    <value>Bạn sắp xóa {0} ({1}). Vui lòng xác nhận.</value>
+  </data>
+  <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
+    <value>Việc xóa tác vụ định kỳ là vĩnh viễn. Tác vụ sẽ không còn chạy tự động nữa.</value>
+  </data>
+  <data name="Common.Empty" xml:space="preserve">
+    <value>Trống</value>
   </data>
 </root>

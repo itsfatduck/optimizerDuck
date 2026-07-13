@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   
   <xsd:schema id="root">
@@ -1775,5 +1775,26 @@
   </data>
   <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
     <value>關閉 Windows 「開始」功能表的網路搜尋，以更快載入本機搜尋結果。</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Warning" xml:space="preserve">
+    <value>檔案將被永久刪除。此操作無法復原。</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Title" xml:space="preserve">
+    <value>清理 {0} 個選取項目</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Summary" xml:space="preserve">
+    <value>您即將從 {1} 個項目（{2} 個檔案）中刪除 {0} 個。請查看以下項目。</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.SingleTitle" xml:space="preserve">
+    <value>清理項目</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.SingleItem" xml:space="preserve">
+    <value>您即將刪除 {0}（{1}）。請確認。</value>
+  </data>
+  <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
+    <value>刪除排程工作是永久性的。工作將不再自動執行。</value>
+  </data>
+  <data name="Common.Empty" xml:space="preserve">
+    <value>空</value>
   </data>
 </root>

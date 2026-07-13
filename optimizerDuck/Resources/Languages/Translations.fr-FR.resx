@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   
   <xsd:schema id="root">
@@ -1780,5 +1780,26 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
   </data>
   <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
     <value>Désactive la recherche Web dans le menu Démarrer de Windows pour charger plus rapidement les résultats de recherche locaux.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Warning" xml:space="preserve">
+    <value>Les fichiers seront définitivement supprimés. Cette action est irréversible.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Title" xml:space="preserve">
+    <value>Nettoyer {0} élément(s) sélectionné(s)</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Summary" xml:space="preserve">
+    <value>Vous êtes sur le point de supprimer {0} sur {1} élément(s) ({2} fichier(s)). Veuillez vérifier les éléments ci-dessous.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.SingleTitle" xml:space="preserve">
+    <value>Nettoyer l'élément</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.SingleItem" xml:space="preserve">
+    <value>Vous êtes sur le point de supprimer {0} ({1}). Veuillez confirmer.</value>
+  </data>
+  <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
+    <value>La suppression d'une tâche planifiée est définitive. La tâche ne s'exécutera plus automatiquement.</value>
+  </data>
+  <data name="Common.Empty" xml:space="preserve">
+    <value>Vide</value>
   </data>
 </root>

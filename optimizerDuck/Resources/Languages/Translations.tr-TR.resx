@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <xsd:schema id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -1771,5 +1771,26 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   </data>
   <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
     <value>Windows Başlat Menüsü için web aramasını kapatır; yerel arama sonuçlarını daha hızlı yükler.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Warning" xml:space="preserve">
+    <value>Dosyalar kalıcı olarak silinecektir. Bu işlem geri alınamaz.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Title" xml:space="preserve">
+    <value>{0} seçili öğeyi temizle</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Summary" xml:space="preserve">
+    <value>{1} öğeden {0} tanesini ({2} dosya) silmek üzeresiniz. Lütfen aşağıdaki öğeleri inceleyin.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.SingleTitle" xml:space="preserve">
+    <value>Öğeyi temizle</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.SingleItem" xml:space="preserve">
+    <value>{0} ({1}) silmek üzeresiniz. Lütfen onaylayın.</value>
+  </data>
+  <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
+    <value>Zamanlanmış bir görevi silme işlemi kalıcıdır. Görev artık otomatik olarak çalışmayacaktır.</value>
+  </data>
+  <data name="Common.Empty" xml:space="preserve">
+    <value>Boş</value>
   </data>
 </root>

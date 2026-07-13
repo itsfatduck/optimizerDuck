@@ -1787,4 +1787,25 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
     <value>Desactiva la búsqueda web en el menú Inicio de Windows para cargar más rápido los resultados de búsqueda locales.</value>
 
   </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Warning" xml:space="preserve">
+    <value>Los archivos se eliminarán permanentemente. Esta acción no se puede deshacer.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Title" xml:space="preserve">
+    <value>Limpiar {0} elementos seleccionados</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Summary" xml:space="preserve">
+    <value>Está a punto de eliminar {0} de {1} elemento(s) ({2} archivo(s)). Revise los elementos a continuación.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.SingleTitle" xml:space="preserve">
+    <value>Limpiar elemento</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.SingleItem" xml:space="preserve">
+    <value>Está a punto de eliminar {0} ({1}). Confirme por favor.</value>
+  </data>
+  <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
+    <value>Eliminar una tarea programada es permanente. La tarea ya no se ejecutará automáticamente.</value>
+  </data>
+  <data name="Common.Empty" xml:space="preserve">
+    <value>Vacío</value>
+  </data>
 </root>

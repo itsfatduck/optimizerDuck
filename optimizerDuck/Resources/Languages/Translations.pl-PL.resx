@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   
   <xsd:schema id="root">
@@ -1780,5 +1780,26 @@ Zaktualizuj teraz, aby korzystać z najnowszych funkcji, ulepszeń i poprawek b�
   </data>
   <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
     <value>Wyłącz wyszukiwanie w sieci w menu Start systemu Windows, aby szybciej ładować lokalne wyniki wyszukiwania.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Warning" xml:space="preserve">
+    <value>Pliki zostaną trwale usunięte. Tej operacji nie można cofnąć.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Title" xml:space="preserve">
+    <value>Wyczyść {0} wybranych elementów</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Summary" xml:space="preserve">
+    <value>Zamierzasz usunąć {0} z {1} elementów ({2} plików). Sprawdź poniższe elementy.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.SingleTitle" xml:space="preserve">
+    <value>Wyczyść element</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.SingleItem" xml:space="preserve">
+    <value>Zamierzasz usunąć {0} ({1}). Potwierdź.</value>
+  </data>
+  <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
+    <value>Usunięcie zaplanowanego zadania jest trwałe. Zadanie nie będzie już uruchamiane automatycznie.</value>
+  </data>
+  <data name="Common.Empty" xml:space="preserve">
+    <value>Puste</value>
   </data>
 </root>

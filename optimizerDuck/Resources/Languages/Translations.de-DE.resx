@@ -1842,4 +1842,25 @@ Aktualisiere jetzt, um die neuesten Funktionen, Verbesserungen und Fehlerbehebun
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
     <value>Zeigt die Akkuladung in Prozent neben dem Akkusymbol im Infobereich an.</value>
   </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Warning" xml:space="preserve">
+    <value>Dateien werden dauerhaft gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Title" xml:space="preserve">
+    <value>{0} ausgewählte Elemente bereinigen</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Summary" xml:space="preserve">
+    <value>Sie sind dabei, {0} von {1} Element(en) ({2} Datei(en)) zu löschen. Bitte überprüfen Sie die folgenden Elemente.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.SingleTitle" xml:space="preserve">
+    <value>Element bereinigen</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.SingleItem" xml:space="preserve">
+    <value>Sie sind dabei, {0} ({1}) zu löschen. Bitte bestätigen Sie.</value>
+  </data>
+  <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
+    <value>Das Löschen einer geplanten Aufgabe ist dauerhaft. Die Aufgabe wird nicht mehr automatisch ausgeführt.</value>
+  </data>
+  <data name="Common.Empty" xml:space="preserve">
+    <value>Leer</value>
+  </data>
 </root>

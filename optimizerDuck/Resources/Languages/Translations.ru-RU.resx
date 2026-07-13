@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   
   <xsd:schema id="root">
@@ -1780,5 +1780,26 @@
   </data>
   <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
     <value>Отключает веб-поиск в меню Пуск Windows, чтобы быстрее загружать локальные результаты поиска.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Warning" xml:space="preserve">
+    <value>Файлы будут удалены безвозвратно. Это действие невозможно отменить.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Title" xml:space="preserve">
+    <value>Очистить {0} выбранных элементов</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Summary" xml:space="preserve">
+    <value>Вы собираетесь удалить {0} из {1} элемент(ов) ({2} файл(ов)). Пожалуйста, проверьте элементы ниже.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.SingleTitle" xml:space="preserve">
+    <value>Очистить элемент</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.SingleItem" xml:space="preserve">
+    <value>Вы собираетесь удалить {0} ({1}). Пожалуйста, подтвердите.</value>
+  </data>
+  <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
+    <value>Удаление запланированной задачи является необратимым. Задача больше не будет выполняться автоматически.</value>
+  </data>
+  <data name="Common.Empty" xml:space="preserve">
+    <value>Пусто</value>
   </data>
 </root>
