@@ -496,10 +496,9 @@ public sealed record SystemSnapshot
 
 internal static class WmiHelper
 {
-    private static readonly Dictionary<string, ManagementScope> ScopeCache = new(
+    private static readonly ConcurrentDictionary<string, ManagementScope> ScopeCache = new(
         StringComparer.OrdinalIgnoreCase
     );
-    private static readonly Lock ScopeLock = new();
 
     private static readonly WmiEnumerationOptions DefaultOptions = new()
     {
@@ -526,24 +525,20 @@ internal static class WmiHelper
 
     private static ManagementScope GetScope(string namespacePath = @"root\cimv2")
     {
-        lock (ScopeLock)
-        {
-            if (ScopeCache.TryGetValue(namespacePath, out var cached))
-                return cached;
-
-            var scope = new ManagementScope(namespacePath);
-            scope.Connect();
-            ScopeCache[namespacePath] = scope;
-            return scope;
-        }
+        return ScopeCache.GetOrAdd(
+            namespacePath,
+            static ns =>
+            {
+                var scope = new ManagementScope(ns);
+                scope.Connect();
+                return scope;
+            }
+        );
     }
 
     public static void DisposeScopes()
     {
-        lock (ScopeLock)
-        {
-            ScopeCache.Clear();
-        }
+        ScopeCache.Clear();
     }
 
     public static IEnumerable<ManagementObject> Query(
@@ -571,8 +566,9 @@ internal static class WmiHelper
     /// <summary>
     ///     Executes a WMI query and passes results to a selector.
     ///     All ManagementObject items are disposed after the selector completes.
+    ///     Returns <c>default(T)</c> if the query fails or throws — callers must null-check for reference types.
     /// </summary>
-    public static T Query<T>(
+    public static T? Query<T>(
         string query,
         Func<IEnumerable<ManagementObject>, T> selector,
         string namespacePath = @"root\cimv2"
@@ -593,7 +589,7 @@ internal static class WmiHelper
         }
         catch
         {
-            return default!;
+            return default;
         }
         finally
         {
@@ -645,6 +641,14 @@ internal static class WmiHelper
         {
             return fallback;
         }
+    }
+
+    /// <summary>
+    ///     Escapes a value for safe use in WQL string literals (doubles single quotes).
+    /// </summary>
+    public static string EscapeWql(string value)
+    {
+        return value.Replace("'", "''");
     }
 
     public static ManagementObject? GetFirst(string query, string namespacePath = @"root\cimv2")
@@ -709,7 +713,7 @@ internal static class CpuProvider
 {
     private static readonly Lazy<CpuInfo> _cached = new(
         Load,
-        LazyThreadSafetyMode.ExecutionAndPublication
+        LazyThreadSafetyMode.PublicationOnly
     );
 
     /// <summary>
@@ -813,7 +817,7 @@ internal static class RamProvider
 {
     private static readonly Lazy<List<RamModule>> _cachedModules = new(
         LoadPhysicalModules,
-        LazyThreadSafetyMode.ExecutionAndPublication
+        LazyThreadSafetyMode.PublicationOnly
     );
 
     /// <summary>
@@ -1063,7 +1067,7 @@ public static class DiskHelper
         try
         {
             var partitions = WmiHelper.Query(
-                $"ASSOCIATORS OF {{Win32_LogicalDisk.DeviceID='{driveLetter.TrimEnd('\\')}' }} WHERE AssocClass=Win32_LogicalDiskToPartition"
+                $"ASSOCIATORS OF {{Win32_LogicalDisk.DeviceID='{WmiHelper.EscapeWql(driveLetter.TrimEnd('\\'))}' }} WHERE AssocClass=Win32_LogicalDiskToPartition"
             );
 
             foreach (var partition in partitions)
@@ -1071,7 +1075,7 @@ public static class DiskHelper
                 try
                 {
                     var diskDrives = WmiHelper.Query(
-                        $"ASSOCIATORS OF {{Win32_DiskPartition.DeviceID='{partition["DeviceID"]}'}} WHERE AssocClass=Win32_DiskDriveToDiskPartition"
+                        $"ASSOCIATORS OF {{Win32_DiskPartition.DeviceID='{WmiHelper.EscapeWql(partition["DeviceID"]?.ToString() ?? "")}'}} WHERE AssocClass=Win32_DiskDriveToDiskPartition"
                     );
 
                     foreach (var disk in diskDrives)
@@ -1405,7 +1409,7 @@ internal static class DiskProvider
             var letter = driveLetter.TrimEnd('\\');
 
             var classicPartitions = WmiHelper.Query(
-                $"ASSOCIATORS OF {{Win32_LogicalDisk.DeviceID='{letter}'}} WHERE AssocClass=Win32_LogicalDiskToPartition"
+                $"ASSOCIATORS OF {{Win32_LogicalDisk.DeviceID='{WmiHelper.EscapeWql(letter)}'}} WHERE AssocClass=Win32_LogicalDiskToPartition"
             );
 
             foreach (var partition in classicPartitions)
@@ -1413,7 +1417,7 @@ internal static class DiskProvider
                 try
                 {
                     var diskDrives = WmiHelper.Query(
-                        $"ASSOCIATORS OF {{Win32_DiskPartition.DeviceID='{partition["DeviceID"]}'}} WHERE AssocClass=Win32_DiskDriveToDiskPartition"
+                        $"ASSOCIATORS OF {{Win32_DiskPartition.DeviceID='{WmiHelper.EscapeWql(partition["DeviceID"]?.ToString() ?? "")}'}} WHERE AssocClass=Win32_DiskDriveToDiskPartition"
                     );
 
                     foreach (var disk in diskDrives)
@@ -1676,23 +1680,23 @@ internal static class GpuProvider
 
     private static IReadOnlyList<GpuInfo> GetAllViaDxgi()
     {
-        var factory = DxgiHelper.CreateFactory();
-        var wmiLookup = BuildWmiLookup(); // lightweight WMI for DriverVersion + DeviceID
-        var gpus = new List<GpuInfo>();
-
+        DxgiHelper.IDXGIFactory1? factory = null;
         try
         {
+            factory = DxgiHelper.CreateFactory();
+            var wmiLookup = BuildWmiLookup();
+            var gpus = new List<GpuInfo>();
+
             for (uint i = 0; ; i++)
             {
                 var hr = factory.EnumAdapters1(i, out var adapter);
                 if (hr != 0 || adapter == null)
-                    break; // DXGI_ERROR_NOT_FOUND
+                    break;
 
                 try
                 {
                     adapter.GetDesc1(out var desc);
 
-                    // Skip software / virtual adapters
                     if (DxgiHelper.IsSoftwareAdapter(desc))
                         continue;
 
@@ -1703,14 +1707,14 @@ internal static class GpuProvider
                     var vendor = DetectGpuVendorById(desc.VendorId);
                     var memoryMB = (int)((long)desc.DedicatedVideoMemory / (1024 * 1024));
 
-                    // Match to WMI entry for DriverVersion and DeviceID
                     var wmiMatch = FindWmiMatch(name, desc.VendorId, desc.DeviceId, wmiLookup);
 
                     gpus.Add(
                         new GpuInfo
                         {
                             Name = name,
-                            DriverVersion = wmiMatch?.DriverVersion ?? Translations.Common_Unknown,
+                            DriverVersion =
+                                wmiMatch?.DriverVersion ?? Translations.Common_Unknown,
                             Vendor = vendor,
                             MemoryMB = memoryMB > 0 ? memoryMB : null,
                             DeviceId = wmiMatch?.DeviceId,
@@ -1723,14 +1727,14 @@ internal static class GpuProvider
                     Marshal.ReleaseComObject(adapter);
                 }
             }
+
+            return gpus.Count > 0 ? gpus : [GpuInfo.Unknown];
         }
         finally
         {
             if (factory != null)
                 Marshal.ReleaseComObject(factory);
         }
-
-        return gpus.Count > 0 ? gpus : [GpuInfo.Unknown];
     }
 
     // ── WMI fallback path ──────────────────────────────────────────────────
@@ -2241,6 +2245,10 @@ public sealed class SystemInfoService : IDisposable
             }
 
             return Snapshot;
+        }
+        catch (OperationCanceledException)
+        {
+            throw;
         }
         catch (Exception ex)
         {

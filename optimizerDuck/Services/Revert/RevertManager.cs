@@ -182,7 +182,7 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
         try
         {
             var data =
-                await LoadAsyncUnlocked(filePath)
+                await LoadAsync(filePath)
                 ?? new RevertData
                 {
                     SchemaVersion = SchemaVersion,
@@ -268,17 +268,6 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
         if (!File.Exists(path))
             return null;
 
-        // Static reads are inherently safe with atomic writes (WriteJsonAtomicAsync uses temp+replace),
-        // so we avoid allocating a SemaphoreSlim in the global dictionary for read-only operations.
-        // This prevents unbounded dictionary growth from one-off reads that never call RemoveRevertData.
-        return await LoadAsyncUnlocked(path);
-    }
-
-    private static async Task<RevertData?> LoadAsyncUnlocked(string path)
-    {
-        if (!File.Exists(path))
-            return null;
-
         try
         {
             for (var i = 0; i < 3; i++)
@@ -289,7 +278,35 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
                     if (string.IsNullOrWhiteSpace(json))
                         return null;
 
-                    return JsonConvert.DeserializeObject<RevertData>(json);
+                    var data = JsonConvert.DeserializeObject<RevertData>(json);
+                    if (data == null)
+                        return null;
+
+                    // Validate the file is within the expected revert directory (path traversal guard)
+                    var resolvedPath = Path.GetFullPath(path);
+                    var revertDir = Path.GetFullPath(Shared.RevertDirectory);
+                    if (!resolvedPath.StartsWith(revertDir, StringComparison.OrdinalIgnoreCase))
+                    {
+                        TraceCorruptRevertFile(
+                            path,
+                            new InvalidOperationException("Revert file path outside expected directory")
+                        );
+                        return null;
+                    }
+
+                    // Validate schema version
+                    if (data.SchemaVersion != SchemaVersion)
+                    {
+                        TraceCorruptRevertFile(
+                            path,
+                            new InvalidOperationException(
+                                $"Unsupported schema version {data.SchemaVersion} (expected {SchemaVersion})"
+                            )
+                        );
+                        return null;
+                    }
+
+                    return data;
                 }
                 catch (IOException) when (i < 2)
                 {
