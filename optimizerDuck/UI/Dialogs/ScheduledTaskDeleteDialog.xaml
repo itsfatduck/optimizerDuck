@@ -5,11 +5,11 @@
     xmlns:controls="clr-namespace:optimizerDuck.UI.Controls"
     xmlns:converters="clr-namespace:optimizerDuck.Common.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:dialogs="clr-namespace:optimizerDuck.UI.ViewModels.Dialogs"
     xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:optimizerDuck.Domain.Optimizations.Models.ScheduledTask"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    d:DataContext="{d:DesignInstance Type=dialogs:ScheduledTaskDeleteDialogViewModel}"
+    d:DataContext="{d:DesignInstance Type=models:ScheduledTaskModel}"
     d:DesignHeight="400"
     d:DesignWidth="600"
     mc:Ignorable="d">
@@ -54,12 +54,12 @@
                     Height="40"
                     Margin="0,0,12,0"
                     VerticalAlignment="Center"
-                    Source="{Binding Task.LogoImage}"
+                    Source="{Binding LogoImage}"
                     Stretch="UniformToFill" />
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
                     <DockPanel LastChildFill="False">
-                        <ui:TextBlock FontTypography="BodyStrong" Text="{Binding Task.Name}" />
+                        <ui:TextBlock FontTypography="BodyStrong" Text="{Binding Name}" />
                         <Border
                             Margin="8,0,0,0"
                             Padding="6,1"
@@ -69,13 +69,13 @@
                                 <Style TargetType="Border">
                                     <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorSecondaryBrush}" />
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Task.IsReady}" Value="True">
+                                        <DataTrigger Binding="{Binding IsReady}" Value="True">
                                             <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding Task.IsRunning}" Value="True">
+                                        <DataTrigger Binding="{Binding IsRunning}" Value="True">
                                             <Setter Property="Background" Value="{DynamicResource AccentButtonBackground}" />
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding Task.IsDisabledState}" Value="True">
+                                        <DataTrigger Binding="{Binding IsDisabledState}" Value="True">
                                             <Setter Property="Background" Value="{DynamicResource SystemFillColorCriticalBrush}" />
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -91,15 +91,15 @@
                                             <Setter Property="Symbol" Value="Circle24" />
                                             <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Task.IsReady}" Value="True">
+                                                <DataTrigger Binding="{Binding IsReady}" Value="True">
                                                     <Setter Property="Symbol" Value="CheckmarkCircle24" />
                                                     <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
                                                 </DataTrigger>
-                                                <DataTrigger Binding="{Binding Task.IsRunning}" Value="True">
+                                                <DataTrigger Binding="{Binding IsRunning}" Value="True">
                                                     <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
                                                     <Setter Property="Symbol" Value="Play24" />
                                                 </DataTrigger>
-                                                <DataTrigger Binding="{Binding Task.IsDisabledState}" Value="True">
+                                                <DataTrigger Binding="{Binding IsDisabledState}" Value="True">
                                                     <Setter Property="Symbol" Value="Dismiss24" />
                                                     <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
                                                 </DataTrigger>
@@ -110,7 +110,7 @@
                                 <ui:TextBlock
                                     FontTypography="Caption"
                                     Foreground="{Binding ElementName=StateIcon, Path=Foreground}"
-                                    Text="{Binding Task.State}" />
+                                    Text="{Binding State}" />
                             </StackPanel>
                         </Border>
                     </DockPanel>
@@ -119,14 +119,14 @@
                         Margin="0,4,0,0"
                         FontTypography="Caption"
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Text="{Binding Task.Description}"
+                        Text="{Binding Description}"
                         TextWrapping="Wrap" />
 
                     <ui:TextBlock
                         Margin="0,2,0,0"
                         FontTypography="Caption"
                         Foreground="{DynamicResource TextFillColorDisabledBrush}"
-                        Text="{Binding Task.FullPath}"
+                        Text="{Binding FullPath}"
                         TextTrimming="CharacterEllipsis" />
                 </StackPanel>
             </Grid>
@@ -172,9 +172,11 @@
                     <ui:TextBlock
                         Margin="0,2,0,0"
                         FontTypography="Body"
-                        Text="{Binding Task.Author}"
-                        Visibility="{Binding Task.IsAuthorEmpty, Converter={StaticResource InverseBoolToVis}}" />
-                    <controls:EmptyBadge Margin="0,2,0,0" Visibility="{Binding Task.IsAuthorEmpty, Converter={StaticResource BoolToVis}}" />
+                        Text="{Binding Author}"
+                        Visibility="{Binding IsAuthorEmpty, Converter={StaticResource InverseBoolToVis}}" />
+                    <controls:EmptyBadge
+                        Margin="0,2,0,0"
+                        Visibility="{Binding IsAuthorEmpty, Converter={StaticResource BoolToVis}}" />
                 </StackPanel>
 
                 <!--  Triggers  -->
@@ -194,10 +196,12 @@
                     <ui:TextBlock
                         Margin="0,2,0,0"
                         FontTypography="Body"
-                        Text="{Binding Task.TriggerSummary}"
+                        Text="{Binding TriggerSummary}"
                         TextWrapping="Wrap"
-                        Visibility="{Binding Task.IsTriggersEmpty, Converter={StaticResource InverseBoolToVis}}" />
-                    <controls:EmptyBadge Margin="0,2,0,0" Visibility="{Binding Task.IsTriggersEmpty, Converter={StaticResource BoolToVis}}" />
+                        Visibility="{Binding IsTriggersEmpty, Converter={StaticResource InverseBoolToVis}}" />
+                    <controls:EmptyBadge
+                        Margin="0,2,0,0"
+                        Visibility="{Binding IsTriggersEmpty, Converter={StaticResource BoolToVis}}" />
                 </StackPanel>
 
                 <!--  Action  -->
@@ -222,10 +226,12 @@
                         Margin="0,2,0,0"
                         FontFamily="Consolas"
                         FontTypography="Body"
-                        Text="{Binding Task.ActionSummary}"
+                        Text="{Binding ActionSummary}"
                         TextWrapping="Wrap"
-                        Visibility="{Binding Task.IsActionEmpty, Converter={StaticResource InverseBoolToVis}}" />
-                    <controls:EmptyBadge Margin="0,2,0,0" Visibility="{Binding Task.IsActionEmpty, Converter={StaticResource BoolToVis}}" />
+                        Visibility="{Binding IsActionEmpty, Converter={StaticResource InverseBoolToVis}}" />
+                    <controls:EmptyBadge
+                        Margin="0,2,0,0"
+                        Visibility="{Binding IsActionEmpty, Converter={StaticResource BoolToVis}}" />
                 </StackPanel>
             </Grid>
         </Border>

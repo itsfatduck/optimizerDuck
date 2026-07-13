@@ -1,5 +1,4 @@
-﻿using System.Windows.Controls;
-using optimizerDuck.UI.ViewModels.Dialogs;
+using System.Windows.Controls;
 
 namespace optimizerDuck.UI.Dialogs;
 
@@ -12,6 +11,4 @@ public partial class ProcessingDialog : UserControl
     {
         InitializeComponent();
     }
-
-    public ProcessingViewModel? ViewModel => DataContext as ProcessingViewModel;
 }
