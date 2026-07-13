@@ -297,10 +297,7 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
             }
 
             var propertyCount = config.Properties().Count();
-            logger.LogInformation(
-                "Loaded config with {Count} top-level sections",
-                propertyCount
-            );
+            logger.LogInformation("Loaded config with {Count} top-level sections", propertyCount);
             return config;
         }
         catch (Exception ex)

@@ -10,7 +10,6 @@ using OptimizationState = optimizerDuck.Domain.UI.OptimizationState;
 
 namespace optimizerDuck.Domain.Optimizations.Models;
 
-
 /// <summary>
 ///     Base class for all optimizations. Subclasses implement <see cref="ApplyAsync"/> and are
 ///     decorated with <see cref="OptimizationAttribute"/> to provide metadata. The category

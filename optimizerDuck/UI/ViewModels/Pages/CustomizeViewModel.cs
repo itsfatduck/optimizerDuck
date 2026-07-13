@@ -26,7 +26,6 @@ public partial class CustomizeViewModel : ViewModel
         _registry = registry;
     }
 
-
     protected override async Task InitializeOnceAsync()
     {
         IsLoading = true;

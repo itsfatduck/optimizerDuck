@@ -170,7 +170,6 @@ public partial class App : Application
         }
     }
 
-
     private static async Task HandleStartupErrorStaticAsync(Exception ex)
     {
         LogExceptionToFile("App.Startup", ex);

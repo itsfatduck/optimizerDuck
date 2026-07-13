@@ -711,10 +711,7 @@ internal static class NativeMemory
 
 internal static class CpuProvider
 {
-    private static readonly Lazy<CpuInfo> _cached = new(
-        Load,
-        LazyThreadSafetyMode.PublicationOnly
-    );
+    private static readonly Lazy<CpuInfo> _cached = new(Load, LazyThreadSafetyMode.PublicationOnly);
 
     /// <summary>
     ///     Gets CPU info using Registry (fast) + targeted WMI (only for cache sizes).
@@ -862,8 +859,7 @@ internal static class RamProvider
             try
             {
                 var capacityBytes = WmiHelper.GetLong(mem, "Capacity");
-                var capacityGB =
-                    capacityBytes > 0 ? capacityBytes / (1024.0 * 1024.0 * 1024.0) : 0;
+                var capacityGB = capacityBytes > 0 ? capacityBytes / (1024.0 * 1024.0 * 1024.0) : 0;
                 var speed = WmiHelper.GetString(mem, "Speed");
                 var manufacturer = WmiHelper.GetString(mem, "Manufacturer");
                 var partNumber = WmiHelper.GetString(mem, "PartNumber");
@@ -1082,7 +1078,8 @@ public static class DiskHelper
                     {
                         try
                         {
-                            var mediaType = WmiHelper.GetString(disk, "MediaType", "")
+                            var mediaType = WmiHelper
+                                .GetString(disk, "MediaType", "")
                                 .ToLowerInvariant();
                             var model = WmiHelper.GetString(disk, "Model", "").ToLowerInvariant();
 
@@ -1484,7 +1481,7 @@ internal static class DxgiHelper
     [DllImport("dxgi.dll", PreserveSig = false)]
     private static extern void CreateDXGIFactory1(
         [In] ref Guid riid,
-        [Out][MarshalAs(UnmanagedType.Interface)] out IDXGIFactory1 factory
+        [Out] [MarshalAs(UnmanagedType.Interface)] out IDXGIFactory1 factory
     );
 
     public static IDXGIFactory1 CreateFactory()
@@ -1713,8 +1710,7 @@ internal static class GpuProvider
                         new GpuInfo
                         {
                             Name = name,
-                            DriverVersion =
-                                wmiMatch?.DriverVersion ?? Translations.Common_Unknown,
+                            DriverVersion = wmiMatch?.DriverVersion ?? Translations.Common_Unknown,
                             Vendor = vendor,
                             MemoryMB = memoryMB > 0 ? memoryMB : null,
                             DeviceId = wmiMatch?.DeviceId,

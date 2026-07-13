@@ -15,7 +15,9 @@ namespace optimizerDuck.Common.Helpers;
 /// </summary>
 public static class GitHubSourceHelper
 {
-    private static readonly HttpClient HttpClient = HttpClientFactory.CreateClient(timeout: TimeSpan.FromSeconds(5));
+    private static readonly HttpClient HttpClient = HttpClientFactory.CreateClient(
+        timeout: TimeSpan.FromSeconds(5)
+    );
     private static readonly ConcurrentDictionary<
         string,
         Lazy<Task<(string Content, DateTime FetchedAt)>>

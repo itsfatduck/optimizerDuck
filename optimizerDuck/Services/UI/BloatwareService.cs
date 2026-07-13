@@ -132,10 +132,7 @@ public class BloatwareService(
     /// </summary>
     private static string EscapeForPowerShell(string value)
     {
-        return value
-            .Replace("`", "``")
-            .Replace("$", "`$")
-            .Replace("\"", "`\"");
+        return value.Replace("`", "``").Replace("$", "`$").Replace("\"", "`\"");
     }
 
     /// <summary>

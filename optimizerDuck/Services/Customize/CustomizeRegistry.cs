@@ -48,7 +48,9 @@ public class CustomizeRegistry
                     .Select(t =>
                     {
                         var featureTypes = t.GetNestedTypes(BindingFlags.Public)
-                            .Where(nt => typeof(ICustomizeSetting).IsAssignableFrom(nt) && !nt.IsAbstract)
+                            .Where(nt =>
+                                typeof(ICustomizeSetting).IsAssignableFrom(nt) && !nt.IsAbstract
+                            )
                             .Select(nt =>
                             {
                                 var opt = (ICustomizeSetting)Activator.CreateInstance(nt)!;

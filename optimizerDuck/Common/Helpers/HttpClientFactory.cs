@@ -32,10 +32,11 @@ public static class HttpClientFactory
                     if (errors == SslPolicyErrors.None)
                         return true;
 
-                    var certInfo = certificate != null
-                        ? $"Subject: {certificate.Subject}, Issuer: {certificate.Issuer}, "
-                          + $"Expires: {certificate.GetExpirationDateString()}"
-                        : "No certificate presented";
+                    var certInfo =
+                        certificate != null
+                            ? $"Subject: {certificate.Subject}, Issuer: {certificate.Issuer}, "
+                                + $"Expires: {certificate.GetExpirationDateString()}"
+                            : "No certificate presented";
 
                     var remoteEndpoint = GetRemoteEndpoint(sender);
 
@@ -59,8 +60,8 @@ public static class HttpClientFactory
                     }
 
                     return false;
-                }
-            }
+                },
+            },
         };
 
         var client = new HttpClient(handler, disposeHandler: true);

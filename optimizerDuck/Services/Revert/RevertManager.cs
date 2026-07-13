@@ -289,7 +289,9 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
                     {
                         TraceCorruptRevertFile(
                             path,
-                            new InvalidOperationException("Revert file path outside expected directory")
+                            new InvalidOperationException(
+                                "Revert file path outside expected directory"
+                            )
                         );
                         return null;
                     }

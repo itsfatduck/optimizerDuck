@@ -52,7 +52,8 @@ public partial class DiskCleanupViewModel(
     public bool CanClean =>
         SelectedCount > 0 && TotalSelectedSizeBytes > 0 && !IsCleaning && !IsScanning;
     public bool IsAllSelected =>
-        CleanupItems.Count > 0 && CleanupItems.All(i => !i.IsScanned || i.SizeBytes == 0 || i.IsSelected);
+        CleanupItems.Count > 0
+        && CleanupItems.All(i => !i.IsScanned || i.SizeBytes == 0 || i.IsSelected);
 
     partial void OnSelectedSortByIndexChanged(int value)
     {
@@ -200,12 +201,21 @@ public partial class DiskCleanupViewModel(
             TotalSelectedFileCount
         );
 
-        var dialogViewModel = new DiskCleanupConfirmationDialogViewModel(selectedItems, summaryText);
+        var dialogViewModel = new DiskCleanupConfirmationDialogViewModel(
+            selectedItems,
+            summaryText
+        );
         var dialog = new ContentDialog
         {
-            Title = string.Format(Translations.DiskCleanup_Dialog_Confirmation_Title, SelectedCount),
+            Title = string.Format(
+                Translations.DiskCleanup_Dialog_Confirmation_Title,
+                SelectedCount
+            ),
             Content = new DiskCleanupConfirmationDialog { DataContext = dialogViewModel },
-            PrimaryButtonText = string.Format(Translations.DiskCleanup_Button_CleanSelected, TotalSelectedSizeFormatted),
+            PrimaryButtonText = string.Format(
+                Translations.DiskCleanup_Button_CleanSelected,
+                TotalSelectedSizeFormatted
+            ),
             CloseButtonText = Translations.Common_Cancel,
         };
 
