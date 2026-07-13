@@ -1,0 +1,136 @@
+<UserControl
+    x:Class="optimizerDuck.UI.Dialogs.DiskCleanupConfirmationDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:optimizerDuck.Common.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dialogVm="clr-namespace:optimizerDuck.UI.ViewModels.Dialogs"
+    xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    d:DataContext="{d:DesignInstance Type=dialogVm:DiskCleanupConfirmationDialogViewModel}"
+    d:DesignHeight="500"
+    d:DesignWidth="700"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:NumericComparisonToVisibilityConverter
+            x:Key="GreaterThanZeroToVisibilityConverter"
+            ComparisonType="GreaterThan"
+            Threshold="0" />
+        <converters:SizeToBrushConverter x:Key="SizeToBrushConverter" />
+    </UserControl.Resources>
+
+    <Grid MinWidth="560">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  Warning banner  -->
+        <ui:InfoBar
+            Grid.Row="0"
+            Margin="0,0,0,12"
+            IsClosable="False"
+            IsOpen="True"
+            Message="{ext:Loc DiskCleanup.Dialog.Confirmation.Warning}"
+            Severity="Warning" />
+
+        <!--  Summary  -->
+        <ui:TextBlock
+            Grid.Row="1"
+            Margin="0,0,0,8"
+            FontTypography="BodyStrong"
+            Text="{Binding SummaryText}"
+            TextWrapping="Wrap" />
+
+        <!--  Item list  -->
+        <ScrollViewer
+            Grid.Row="2"
+            MaxHeight="380"
+            VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Items}" Visibility="{Binding Items.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource ListRowStyle}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <!--  Index  -->
+                                <Border
+                                    Grid.Column="0"
+                                    MinWidth="34"
+                                    Margin="0,0,12,0"
+                                    Padding="6,2"
+                                    VerticalAlignment="Top"
+                                    Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                    CornerRadius="{StaticResource CornerRadiusSmall}">
+                                    <ui:TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontTypography="Caption"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Text="{Binding Index, StringFormat=#{0}}" />
+                                </Border>
+
+                                <!--  Info  -->
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <ui:TextBlock FontTypography="BodyStrong" Text="{Binding Name}" />
+                                    <ui:TextBlock
+                                        Margin="0,2,0,0"
+                                        FontTypography="Caption"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Text="{Binding Description}"
+                                        TextWrapping="Wrap" />
+                                    <ui:TextBlock
+                                        Margin="0,2,0,0"
+                                        FontTypography="Caption"
+                                        Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                                        Text="{Binding Path}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </StackPanel>
+
+                                <!--  Size badge  -->
+                                <Border
+                                    Grid.Column="2"
+                                    Margin="8,0,0,0"
+                                    Padding="8,4"
+                                    VerticalAlignment="Center"
+                                    Background="{Binding SizeBytes, Converter={StaticResource SizeToBrushConverter}}"
+                                    CornerRadius="{StaticResource CornerRadiusSmall}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <ui:TextBlock
+                                            FontTypography="Caption"
+                                            FontWeight="SemiBold"
+                                            Foreground="{DynamicResource TextFillColorInverseBrush}"
+                                            Text="{Binding FormattedSize}" />
+                                        <ui:TextBlock
+                                            Margin="6,0"
+                                            FontTypography="Caption"
+                                            Foreground="{DynamicResource TextFillColorInverseBrush}"
+                                            Opacity="0.7"
+                                            Text="•" />
+                                        <ui:TextBlock
+                                            FontTypography="Caption"
+                                            Foreground="{DynamicResource TextFillColorInverseBrush}"
+                                            Text="{ext:Loc DiskCleanup.FilesCount, {Binding FileCount}}" />
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

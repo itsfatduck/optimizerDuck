@@ -1,23 +1,17 @@
-using System.Windows.Controls;
 using System.Windows.Media;
 using optimizerDuck.Resources.Languages;
+using Wpf.Ui.Controls;
 using StartupTask = optimizerDuck.Domain.Optimizations.Models.StartupManager.StartupTask;
 
 namespace optimizerDuck.UI.Dialogs;
 
-public partial class StartupTaskDetailsPanel : UserControl
+public partial class StartupTaskDetailsPanel : System.Windows.Controls.UserControl
 {
     public StartupTaskDetailsPanel(StartupTask task)
     {
         InitializeComponent();
 
-        NameText.Text = task.TaskName;
-        DescriptionText.Text = task.Description ?? "—";
-        PathText.Text = task.TaskPath;
-        TriggersText.Text = task.TriggerSummary ?? "—";
-        ActionText.Text = task.ActionSummary ?? "—";
-        LogoImageControl.Source = task.LogoImage;
-        TriggerBadgesItems.ItemsSource = task.TriggerTypes;
+        DataContext = task;
 
         TaskStateText.Text = task.IsEnabled
             ? Translations.Common_Toggle_On

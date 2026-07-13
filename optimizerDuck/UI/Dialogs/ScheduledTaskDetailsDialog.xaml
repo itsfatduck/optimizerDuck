@@ -2,14 +2,22 @@
     x:Class="optimizerDuck.UI.Dialogs.ScheduledTaskDetailsDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:optimizerDuck.UI.Controls"
+    xmlns:converters="clr-namespace:optimizerDuck.Common.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:optimizerDuck.Domain.Optimizations.Models.ScheduledTask"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    d:DataContext="{d:DesignInstance Type=models:ScheduledTaskModel}"
     d:DesignHeight="700"
     d:DesignWidth="760"
     mc:Ignorable="d">
-    <StackPanel >
+    <UserControl.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BoolToVis" />
+        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBoolToVis" />
+    </UserControl.Resources>
+    <StackPanel>
         <Border
                 Margin="0,0,0,12"
                 Padding="{StaticResource CardPadding}"
@@ -24,20 +32,19 @@
                 </Grid.ColumnDefinitions>
 
                 <Image
-                        x:Name="TaskLogoImage"
                         Grid.Column="0"
                         Width="40"
                         Height="40"
                         Margin="0,0,12,0"
                         VerticalAlignment="Center"
+                        Source="{Binding LogoImage}"
                         Stretch="UniformToFill" />
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
                     <DockPanel LastChildFill="False">
                         <ui:TextBlock
-                                x:Name="TaskNameText"
                                 FontTypography="BodyStrong"
-                                Text=""
+                                Text="{Binding Name}"
                                 TextWrapping="Wrap" />
                         <Border
                                 Margin="8,0,0,0"
@@ -64,31 +71,32 @@
                                         FontSize="10"
                                         Symbol="Circle24" />
                                 <ui:TextBlock
-                                        x:Name="StateText"
                                         VerticalAlignment="Center"
                                         FontTypography="Caption"
                                         Foreground="{Binding ElementName=StateIcon, Path=Foreground}"
-                                        Text="" />
+                                        Text="{Binding State}" />
                             </StackPanel>
                         </Border>
                     </DockPanel>
 
                     <ui:TextBlock
-                            x:Name="DescriptionText"
                             Margin="0,4,0,0"
                             Appearance="Secondary"
                             FontTypography="Caption"
-                            Text=""
-                            TextWrapping="Wrap" />
+                            Text="{Binding Description}"
+                            TextWrapping="Wrap"
+                            Visibility="{Binding IsDescriptionEmpty, Converter={StaticResource InverseBoolToVis}}" />
+                    <controls:EmptyBadge
+                            Margin="0,2,0,0"
+                            Visibility="{Binding IsDescriptionEmpty, Converter={StaticResource BoolToVis}}" />
                     <ui:TextBlock
-                            x:Name="PathText"
                             Margin="0,2,0,0"
                             Appearance="Disabled"
                             FontTypography="Caption"
-                            Text=""
+                            Text="{Binding FullPath}"
                             TextTrimming="CharacterEllipsis" />
 
-                    <ItemsControl x:Name="TriggerBadgesItems" Margin="0,6,0,0">
+                    <ItemsControl ItemsSource="{Binding TriggerTypes}" Margin="0,6,0,0">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel Orientation="Horizontal" />
@@ -145,10 +153,13 @@
                                 FontTypography="Caption"
                                 Text="{ext:Loc ScheduledTasks.Details.Author}" />
                         <ui:TextBlock
-                                x:Name="AuthorText"
                                 Margin="0,2,0,0"
                                 FontTypography="Body"
-                                Text="" />
+                                Text="{Binding Author}"
+                                Visibility="{Binding IsAuthorEmpty, Converter={StaticResource InverseBoolToVis}}" />
+                        <controls:EmptyBadge
+                                Margin="0,2,0,0"
+                                Visibility="{Binding IsAuthorEmpty, Converter={StaticResource BoolToVis}}" />
                     </StackPanel>
                 </Grid>
                 <Separator Margin="14,0" />
@@ -170,11 +181,14 @@
                                 FontTypography="Caption"
                                 Text="{ext:Loc ScheduledTasks.Details.Triggers}" />
                         <ui:TextBlock
-                                x:Name="TriggersText"
                                 Margin="0,2,0,0"
                                 FontTypography="Body"
-                                Text=""
-                                TextWrapping="Wrap" />
+                                Text="{Binding TriggerSummary}"
+                                TextWrapping="Wrap"
+                                Visibility="{Binding IsTriggersEmpty, Converter={StaticResource InverseBoolToVis}}" />
+                        <controls:EmptyBadge
+                                Margin="0,2,0,0"
+                                Visibility="{Binding IsTriggersEmpty, Converter={StaticResource BoolToVis}}" />
                     </StackPanel>
                 </Grid>
                 <Separator Margin="14,0" />
@@ -196,12 +210,15 @@
                                 FontTypography="Caption"
                                 Text="{ext:Loc ScheduledTasks.Details.Action}" />
                         <ui:TextBlock
-                                x:Name="ActionText"
                                 Margin="0,2,0,0"
                                 FontFamily="Consolas"
                                 FontTypography="Body"
-                                Text=""
-                                TextWrapping="Wrap" />
+                                Text="{Binding ActionSummary}"
+                                TextWrapping="Wrap"
+                                Visibility="{Binding IsActionEmpty, Converter={StaticResource InverseBoolToVis}}" />
+                        <controls:EmptyBadge
+                                Margin="0,2,0,0"
+                                Visibility="{Binding IsActionEmpty, Converter={StaticResource BoolToVis}}" />
                     </StackPanel>
                 </Grid>
             </StackPanel>
@@ -233,10 +250,13 @@
                                 FontTypography="Caption"
                                 Text="{ext:Loc ScheduledTasks.Details.LastRun}" />
                         <ui:TextBlock
-                                x:Name="LastRunText"
                                 Margin="0,2,0,0"
                                 FontTypography="Body"
-                                Text="" />
+                                Text="{Binding LastRunTime, StringFormat=g}"
+                                Visibility="{Binding IsLastRunEmpty, Converter={StaticResource InverseBoolToVis}}" />
+                        <controls:EmptyBadge
+                                Margin="0,2,0,0"
+                                Visibility="{Binding IsLastRunEmpty, Converter={StaticResource BoolToVis}}" />
                     </StackPanel>
                     <ui:SymbolIcon
                             Grid.Column="2"
@@ -251,10 +271,13 @@
                                 FontTypography="Caption"
                                 Text="{ext:Loc ScheduledTasks.Details.NextRun}" />
                         <ui:TextBlock
-                                x:Name="NextRunText"
                                 Margin="0,2,0,0"
                                 FontTypography="Body"
-                                Text="" />
+                                Text="{Binding NextRunTime, StringFormat=g}"
+                                Visibility="{Binding IsNextRunEmpty, Converter={StaticResource InverseBoolToVis}}" />
+                        <controls:EmptyBadge
+                                Margin="0,2,0,0"
+                                Visibility="{Binding IsNextRunEmpty, Converter={StaticResource BoolToVis}}" />
                     </StackPanel>
                 </Grid>
                 <Separator Margin="14,0" />
@@ -275,10 +298,13 @@
                                 FontTypography="Caption"
                                 Text="{ext:Loc ScheduledTasks.Details.LastResult}" />
                         <ui:TextBlock
-                                x:Name="LastResultText"
                                 Margin="0,2,0,0"
                                 FontTypography="Body"
-                                Text="" />
+                                Text="{Binding LastRunResult}"
+                                Visibility="{Binding IsLastResultEmpty, Converter={StaticResource InverseBoolToVis}}" />
+                        <controls:EmptyBadge
+                                Margin="0,2,0,0"
+                                Visibility="{Binding IsLastResultEmpty, Converter={StaticResource BoolToVis}}" />
                     </StackPanel>
                 </Grid>
             </StackPanel>

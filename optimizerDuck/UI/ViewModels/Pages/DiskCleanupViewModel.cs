@@ -5,6 +5,8 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.UI;
+using optimizerDuck.UI.Dialogs;
+using optimizerDuck.UI.ViewModels.Dialogs;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 using CleanupItem = optimizerDuck.Domain.Optimizations.Models.Cleanup.CleanupItem;
@@ -14,6 +16,7 @@ namespace optimizerDuck.UI.ViewModels.Pages;
 public partial class DiskCleanupViewModel(
     DiskCleanupService diskCleanupService,
     ISnackbarService snackbarService,
+    IContentDialogService contentDialogService,
     ILogger<DiskCleanupViewModel> logger
 ) : ViewModel
 {
@@ -48,6 +51,8 @@ public partial class DiskCleanupViewModel(
     public long TotalFileCount => CleanupItems.Sum(i => i.FileCount);
     public bool CanClean =>
         SelectedCount > 0 && TotalSelectedSizeBytes > 0 && !IsCleaning && !IsScanning;
+    public bool IsAllSelected =>
+        CleanupItems.Count > 0 && CleanupItems.All(i => !i.IsScanned || i.SizeBytes == 0 || i.IsSelected);
 
     partial void OnSelectedSortByIndexChanged(int value)
     {
@@ -184,6 +189,30 @@ public partial class DiskCleanupViewModel(
         if (!CanClean)
             return;
 
+        var selectedItems = CleanupItems.Where(i => i.IsSelected && i.SizeBytes > 0).ToList();
+        if (selectedItems.Count == 0)
+            return;
+
+        var summaryText = string.Format(
+            Translations.DiskCleanup_Dialog_Confirmation_Summary,
+            TotalSelectedSizeFormatted,
+            SelectedCount,
+            TotalSelectedFileCount
+        );
+
+        var dialogViewModel = new DiskCleanupConfirmationDialogViewModel(selectedItems, summaryText);
+        var dialog = new ContentDialog
+        {
+            Title = string.Format(Translations.DiskCleanup_Dialog_Confirmation_Title, SelectedCount),
+            Content = new DiskCleanupConfirmationDialog { DataContext = dialogViewModel },
+            PrimaryButtonText = string.Format(Translations.DiskCleanup_Button_CleanSelected, TotalSelectedSizeFormatted),
+            CloseButtonText = Translations.Common_Cancel,
+        };
+
+        var result = await contentDialogService.ShowAsync(dialog, CancellationToken.None);
+        if (result != ContentDialogResult.Primary)
+            return;
+
         IsCleaning = true;
         try
         {
@@ -249,6 +278,34 @@ public partial class DiskCleanupViewModel(
     }
 
     [RelayCommand]
+    private void ToggleSelectAll()
+    {
+        if (IsAllSelected)
+            DeselectAll();
+        else
+            SelectAll();
+    }
+
+    [RelayCommand]
+    private void SelectAll()
+    {
+        foreach (var item in CleanupItems)
+            if (item.IsScanned && item.SizeBytes > 0)
+                item.IsSelected = true;
+
+        UpdateProperties();
+    }
+
+    [RelayCommand]
+    private void DeselectAll()
+    {
+        foreach (var item in CleanupItems)
+            item.IsSelected = false;
+
+        UpdateProperties();
+    }
+
+    [RelayCommand]
     private void OpenFolder(CleanupItem item)
     {
         if (item?.CanOpenFolder != true)
@@ -302,5 +359,6 @@ public partial class DiskCleanupViewModel(
         OnPropertyChanged(nameof(TotalSizeFormatted));
         OnPropertyChanged(nameof(TotalFileCount));
         OnPropertyChanged(nameof(CanClean));
+        OnPropertyChanged(nameof(IsAllSelected));
     }
 }

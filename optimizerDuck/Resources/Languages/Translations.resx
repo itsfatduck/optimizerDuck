@@ -1330,6 +1330,21 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="DiskCleanup.ItemsAndFilesSelected" xml:space="preserve">
     <value>{0} selected • {1} items • {2} files</value>
   </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Warning" xml:space="preserve">
+    <value>Files will be permanently deleted. This action cannot be undone.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Title" xml:space="preserve">
+    <value>Clean {0} Selected Items</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Summary" xml:space="preserve">
+    <value>You are about to delete {0} from {1} item(s) ({2} file(s)). Please review the items below.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.SingleTitle" xml:space="preserve">
+    <value>Clean Item</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.SingleItem" xml:space="preserve">
+    <value>You are about to delete {0} ({1}). Please confirm.</value>
+  </data>
   <data name="Settings.About.NeedHelp.Title" xml:space="preserve">
       <value>Need help?</value>
     </data>
@@ -1461,6 +1476,9 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="ScheduledTasks.Dialog.DeleteMessage" xml:space="preserve">
     <value>Are you sure you want to delete the task "{0}"? This action cannot be undone.</value>
   </data>
+  <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
+    <value>Deleting a scheduled task is permanent. The task will no longer run automatically.</value>
+  </data>
   <!-- Scheduled Tasks Details -->
   <data name="ScheduledTasks.Details.Path" xml:space="preserve">
     <value>Path</value>
@@ -1495,6 +1513,9 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Cancel</value>
+  </data>
+  <data name="Common.Empty" xml:space="preserve">
+    <value>Empty</value>
   </data>
   <data name="Common.SortBy.State" xml:space="preserve">
     <value>State</value>

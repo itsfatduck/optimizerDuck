@@ -1,11 +1,10 @@
-using System.Windows.Controls;
 using System.Windows.Media;
 using Wpf.Ui.Controls;
 using ScheduledTaskModel = optimizerDuck.Domain.Optimizations.Models.ScheduledTask.ScheduledTaskModel;
 
 namespace optimizerDuck.UI.Dialogs;
 
-public partial class ScheduledTaskDetailsDialog : UserControl
+public partial class ScheduledTaskDetailsDialog : System.Windows.Controls.UserControl
 {
     private ScheduledTaskModel? _taskModel;
 
@@ -23,22 +22,7 @@ public partial class ScheduledTaskDetailsDialog : UserControl
             if (value == null)
                 return;
 
-            TaskLogoImage.Source = value.LogoImage;
-            TaskNameText.Text = value.Name;
-            PathText.Text = value.FullPath;
-            DescriptionText.Text = value.Description ?? "—";
-            AuthorText.Text = value.Author ?? "—";
-            StateText.Text = value.State;
-            TriggersText.Text = string.IsNullOrWhiteSpace(value.TriggerSummary)
-                ? "—"
-                : value.TriggerSummary;
-            ActionText.Text = string.IsNullOrWhiteSpace(value.ActionSummary)
-                ? "—"
-                : value.ActionSummary;
-            LastRunText.Text = value.LastRunTime?.ToString("g") ?? "—";
-            NextRunText.Text = value.NextRunTime?.ToString("g") ?? "—";
-            LastResultText.Text = value.LastRunResult?.ToString() ?? "—";
-            TriggerBadgesItems.ItemsSource = value.TriggerTypes;
+            DataContext = value;
 
             var backgroundBrushKey = value.State switch
             {

@@ -436,8 +436,6 @@ public partial class App : Application
         _logger.LogInformation("Preloading customize settings...");
         var customizeRegistry = _host.Services.GetRequiredService<CustomizeRegistry>();
         await customizeRegistry.PreloadCategoriesAsync().ConfigureAwait(false);
-
-        _logger.LogInformation("Preloading completed.");
     }
 
     protected override async void OnExit(ExitEventArgs e)

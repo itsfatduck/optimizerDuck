@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -164,4 +164,12 @@ public partial class ScheduledTaskModel : ObservableObject
         OnPropertyChanged(nameof(IsReady));
         OnPropertyChanged(nameof(IsDisabledState));
     }
+
+    public bool IsDescriptionEmpty => string.IsNullOrWhiteSpace(Description);
+    public bool IsAuthorEmpty => string.IsNullOrWhiteSpace(Author);
+    public bool IsTriggersEmpty => string.IsNullOrWhiteSpace(TriggerSummary);
+    public bool IsActionEmpty => string.IsNullOrWhiteSpace(ActionSummary);
+    public bool IsLastRunEmpty => LastRunTime is null;
+    public bool IsNextRunEmpty => NextRunTime is null;
+    public bool IsLastResultEmpty => LastRunResult is null;
 }

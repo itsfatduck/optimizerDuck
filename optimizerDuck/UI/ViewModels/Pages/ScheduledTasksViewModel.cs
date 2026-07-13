@@ -8,6 +8,7 @@ using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Optimization.Providers;
 using optimizerDuck.Services.System;
 using optimizerDuck.UI.Dialogs;
+using optimizerDuck.UI.ViewModels.Dialogs;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 using ScheduledTaskModel = optimizerDuck.Domain.Optimizations.Models.ScheduledTask.ScheduledTaskModel;
@@ -278,10 +279,11 @@ public partial class ScheduledTasksViewModel : ViewModel
         if (task == null)
             return;
 
+        var dialogViewModel = new ScheduledTaskDeleteDialogViewModel(task);
         var dialog = new ContentDialog
         {
             Title = Translations.ScheduledTasks_Dialog_DeleteTitle,
-            Content = string.Format(Translations.ScheduledTasks_Dialog_DeleteMessage, task.Name),
+            Content = new ScheduledTaskDeleteDialog { DataContext = dialogViewModel },
             PrimaryButtonText = Translations.Common_Delete,
             CloseButtonText = Translations.Common_Cancel,
         };

@@ -1,4 +1,4 @@
-﻿<Page
+<Page
     x:Class="optimizerDuck.UI.Pages.DiskCleanupPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -103,6 +103,36 @@
                         Grid.Column="2"
                         VerticalAlignment="Center"
                         Orientation="Horizontal">
+                        <!--  Select All / Deselect All  -->
+                        <ui:Button
+                            Cursor="Hand"
+                            Command="{Binding ViewModel.ToggleSelectAllCommand}">
+                            <ui:Button.Style>
+                                <Style BasedOn="{StaticResource {x:Type ui:Button}}" TargetType="ui:Button">
+                                    <Setter Property="Appearance" Value="Success" />
+                                    <Setter Property="Content" Value="{ext:Loc DiskCleanup.Button.SelectAll}" />
+                                    <Setter Property="Icon">
+                                        <Setter.Value>
+                                            <ui:SymbolIcon FontSize="16" Symbol="Checkmark24" />
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ViewModel.IsAllSelected}" Value="True">
+                                            <Setter Property="Appearance" Value="Danger" />
+                                            <Setter Property="Content" Value="{ext:Loc DiskCleanup.Button.DeselectAll}" />
+                                            <Setter Property="Icon">
+                                                <Setter.Value>
+                                                    <ui:SymbolIcon FontSize="16" Symbol="CheckboxUnchecked24" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ui:Button.Style>
+                        </ui:Button>
+
+                        <Separator Margin="4,0,4,0" />
+
                         <!--  Sort Dropdown  -->
                         <ComboBox
                             Cursor="Hand"

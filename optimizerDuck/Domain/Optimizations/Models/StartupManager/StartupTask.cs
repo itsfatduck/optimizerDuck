@@ -1,4 +1,4 @@
-﻿using System.Windows.Media;
+using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace optimizerDuck.Domain.Optimizations.Models.StartupManager;
@@ -55,4 +55,8 @@ public partial class StartupTask : ObservableObject
     /// </summary>
     public bool IsMicrosoftTask =>
         TaskPath.StartsWith(@"\Microsoft\", StringComparison.OrdinalIgnoreCase);
+
+    public bool IsDescriptionEmpty => string.IsNullOrWhiteSpace(Description);
+    public bool IsTriggersEmpty => string.IsNullOrWhiteSpace(TriggerSummary);
+    public bool IsActionEmpty => string.IsNullOrWhiteSpace(ActionSummary);
 }
