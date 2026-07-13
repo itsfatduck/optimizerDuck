@@ -136,11 +136,6 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
     #endregion
 
-    public override async Task OnNavigatedToAsync()
-    {
-        await LoadOptimizationStatesAsync();
-    }
-
     #region CanExecutes
 
     private bool CanToggleOptimization(IOptimization optimization)
@@ -392,11 +387,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
     #region Helpers
 
-    private async Task LoadOptimizationStatesAsync()
+    protected override Task InitializeOnceAsync()
     {
-        if (_allOptimizations.Count > 0)
-            return;
-
         IsLoading = true;
         try
         {
@@ -416,6 +408,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
         {
             IsLoading = false;
         }
+
+        return Task.CompletedTask;
     }
 
     /// <summary>

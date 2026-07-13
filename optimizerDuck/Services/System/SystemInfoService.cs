@@ -1385,7 +1385,7 @@ internal static class DxgiHelper
     [DllImport("dxgi.dll", PreserveSig = false)]
     private static extern void CreateDXGIFactory1(
         [In] ref Guid riid,
-        [Out] [MarshalAs(UnmanagedType.Interface)] out IDXGIFactory1 factory
+        [Out][MarshalAs(UnmanagedType.Interface)] out IDXGIFactory1 factory
     );
 
     public static IDXGIFactory1 CreateFactory()
