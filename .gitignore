@@ -19,6 +19,7 @@
 
 # Mono auto generated files
 mono_crash.*
+.mimocode
 
 # Build results
 [Dd]ebug/

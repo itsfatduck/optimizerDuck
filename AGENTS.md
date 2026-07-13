@@ -158,8 +158,8 @@
 - Branch from `master`: `feature/<name>` or `fix/<issue-id>`.
 - PRs: clear description, linked issue (`Closes #123`), passing CI (build + test), screenshot for UI changes.
 - Never commit secrets or machine-specific paths.
-- Run `dotnet csharpier .` before committing.
-- Verify with: `dotnet build`, `dotnet test`, `dotnet csharpier .` before push.
+- Run `csharpier format .` before committing.
+- Verify with: `dotnet build`, `dotnet test`, `csharpier format .` before push.
 
 <!-- rtk-instructions v2 -->
 # RTK — Always Prefix Shell Commands with `rtk`

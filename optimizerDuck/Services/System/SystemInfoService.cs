@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Globalization;
 using System.IO;
 using System.Management;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using Microsoft.Win32.SafeHandles;
 using optimizerDuck.Resources.Languages;
+using WmiEnumerationOptions = System.Management.EnumerationOptions;
 
 namespace optimizerDuck.Services.System;
 
@@ -499,19 +501,19 @@ internal static class WmiHelper
     );
     private static readonly Lock ScopeLock = new();
 
-    /// <summary>
-    ///     Initializes the WMI helper by registering the process exit handler.
-    ///     Call this during application startup to enable cleanup on abnormal termination.
-    /// </summary>
+    private static readonly WmiEnumerationOptions DefaultOptions = new()
+    {
+        Timeout = TimeSpan.FromSeconds(15),
+        ReturnImmediately = false,
+    };
+
     public static void Initialize()
     {
-        // Register process exit handler as a fallback for crash/force-kill scenarios
         AppDomain.CurrentDomain.ProcessExit += OnProcessExit;
     }
 
     private static void OnProcessExit(object? sender, EventArgs e)
     {
-        // Best-effort cleanup during process exit
         try
         {
             DisposeScopes();
@@ -522,14 +524,11 @@ internal static class WmiHelper
         }
     }
 
-    /// <summary>
-    ///     Gets or creates a cached ManagementScope for the given namespace.
-    /// </summary>
     private static ManagementScope GetScope(string namespacePath = @"root\cimv2")
     {
         lock (ScopeLock)
         {
-            if (ScopeCache.TryGetValue(namespacePath, out var cached) && cached.IsConnected)
+            if (ScopeCache.TryGetValue(namespacePath, out var cached))
                 return cached;
 
             var scope = new ManagementScope(namespacePath);
@@ -539,10 +538,6 @@ internal static class WmiHelper
         }
     }
 
-    /// <summary>
-    ///     Clears all cached ManagementScope objects.
-    ///     Note: ManagementScope does not implement IDisposable, so we only clear the cache.
-    /// </summary>
     public static void DisposeScopes()
     {
         lock (ScopeLock)
@@ -559,7 +554,11 @@ internal static class WmiHelper
         try
         {
             var scope = GetScope(namespacePath);
-            using var searcher = new ManagementObjectSearcher(scope, new ObjectQuery(query));
+            using var searcher = new ManagementObjectSearcher(
+                scope,
+                new ObjectQuery(query),
+                DefaultOptions
+            );
             using var results = searcher.Get();
             return results.Cast<ManagementObject>().ToArray();
         }
@@ -570,12 +569,39 @@ internal static class WmiHelper
     }
 
     /// <summary>
-    ///     Gets an string property from a ManagementObject with fallback.
+    ///     Executes a WMI query and passes results to a selector.
+    ///     All ManagementObject items are disposed after the selector completes.
     /// </summary>
-    /// <param name="mo">The ManagementObject to query.</param>
-    /// <param name="property">The property name to retrieve.</param>
-    /// <param name="fallback">The fallback value if property is null or missing.</param>
-    /// <returns>The property value or fallback.</returns>
+    public static T Query<T>(
+        string query,
+        Func<IEnumerable<ManagementObject>, T> selector,
+        string namespacePath = @"root\cimv2"
+    )
+    {
+        ManagementObject[] items = [];
+        try
+        {
+            var scope = GetScope(namespacePath);
+            using var searcher = new ManagementObjectSearcher(
+                scope,
+                new ObjectQuery(query),
+                DefaultOptions
+            );
+            using var results = searcher.Get();
+            items = results.Cast<ManagementObject>().ToArray();
+            return selector(items);
+        }
+        catch
+        {
+            return default!;
+        }
+        finally
+        {
+            foreach (var item in items)
+                item.Dispose();
+        }
+    }
+
     public static string GetString(ManagementObject mo, string property, string? fallback = null)
     {
         fallback ??= Translations.Common_Unknown;
@@ -595,13 +621,6 @@ internal static class WmiHelper
         }
     }
 
-    /// <summary>
-    ///     Gets an integer property from a ManagementObject with fallback.
-    /// </summary>
-    /// <param name="mo">The ManagementObject to query.</param>
-    /// <param name="property">The property name to retrieve.</param>
-    /// <param name="fallback">The fallback value if property is null or missing.</param>
-    /// <returns>The property value or fallback.</returns>
     public static int GetInt(ManagementObject mo, string property, int fallback = 0)
     {
         try
@@ -615,13 +634,6 @@ internal static class WmiHelper
         }
     }
 
-    /// <summary>
-    ///     Gets a long integer property from a ManagementObject with fallback.
-    /// </summary>
-    /// <param name="mo">The ManagementObject to query.</param>
-    /// <param name="property">The property name to retrieve.</param>
-    /// <param name="fallback">The fallback value if property is null or missing.</param>
-    /// <returns>The property value or fallback.</returns>
     public static long GetLong(ManagementObject mo, string property, long fallback = 0)
     {
         try
@@ -640,7 +652,11 @@ internal static class WmiHelper
         try
         {
             var scope = GetScope(namespacePath);
-            using var searcher = new ManagementObjectSearcher(scope, new ObjectQuery(query));
+            using var searcher = new ManagementObjectSearcher(
+                scope,
+                new ObjectQuery(query),
+                DefaultOptions
+            );
             using var results = searcher.Get();
             return results.Cast<ManagementObject>().FirstOrDefault();
         }
@@ -743,10 +759,17 @@ internal static class CpuProvider
             );
             if (cpu != null)
             {
-                cores = WmiHelper.GetInt(cpu, "NumberOfCores");
-                maxMHz = WmiHelper.GetInt(cpu, "MaxClockSpeed", maxMHz);
-                l2kb = WmiHelper.GetInt(cpu, "L2CacheSize");
-                l3kb = WmiHelper.GetInt(cpu, "L3CacheSize");
+                try
+                {
+                    cores = WmiHelper.GetInt(cpu, "NumberOfCores");
+                    maxMHz = WmiHelper.GetInt(cpu, "MaxClockSpeed", maxMHz);
+                    l2kb = WmiHelper.GetInt(cpu, "L2CacheSize");
+                    l3kb = WmiHelper.GetInt(cpu, "L3CacheSize");
+                }
+                finally
+                {
+                    cpu.Dispose();
+                }
             }
 
             if (cores == 0)
@@ -832,23 +855,31 @@ internal static class RamProvider
 
         foreach (var mem in physicalMemory)
         {
-            var capacityBytes = WmiHelper.GetLong(mem, "Capacity");
-            var capacityGB = capacityBytes > 0 ? capacityBytes / (1024.0 * 1024.0 * 1024.0) : 0;
-            var speed = WmiHelper.GetString(mem, "Speed");
-            var manufacturer = WmiHelper.GetString(mem, "Manufacturer");
-            var partNumber = WmiHelper.GetString(mem, "PartNumber");
-            var deviceLocator = WmiHelper.GetString(mem, "DeviceLocator");
+            try
+            {
+                var capacityBytes = WmiHelper.GetLong(mem, "Capacity");
+                var capacityGB =
+                    capacityBytes > 0 ? capacityBytes / (1024.0 * 1024.0 * 1024.0) : 0;
+                var speed = WmiHelper.GetString(mem, "Speed");
+                var manufacturer = WmiHelper.GetString(mem, "Manufacturer");
+                var partNumber = WmiHelper.GetString(mem, "PartNumber");
+                var deviceLocator = WmiHelper.GetString(mem, "DeviceLocator");
 
-            modules.Add(
-                new RamModule
-                {
-                    CapacityGB = Math.Round(capacityGB, 2),
-                    SpeedMHz = speed,
-                    Manufacturer = manufacturer,
-                    PartNumber = partNumber,
-                    DeviceLocator = deviceLocator,
-                }
-            );
+                modules.Add(
+                    new RamModule
+                    {
+                        CapacityGB = Math.Round(capacityGB, 2),
+                        SpeedMHz = speed,
+                        Manufacturer = manufacturer,
+                        PartNumber = partNumber,
+                        DeviceLocator = deviceLocator,
+                    }
+                );
+            }
+            finally
+            {
+                mem.Dispose();
+            }
         }
 
         return modules;
@@ -901,13 +932,12 @@ public static class DiskHelper
     private const uint FILE_SHARE_WRITE = 0x00000002;
     private const uint OPEN_EXISTING = 3;
     private const uint FILE_ATTRIBUTE_NORMAL = 0x80;
-
-    // Using 0 (FILE_READ_ATTRIBUTES or NULL access) allows us to query
-    // device metadata without requiring Administrator privileges.
-    // i know admin rights is required by default when open app but this just a fallback at least
-    private const uint GENERIC_READ = 0x0; // No access requested; allows querying info without Admin rights
-
+    private const uint GENERIC_READ = 0x0;
     private const uint IOCTL_STORAGE_QUERY_PROPERTY = 0x2D1400;
+
+    private static readonly ConcurrentDictionary<string, string> MediaTypeCache = new(
+        StringComparer.OrdinalIgnoreCase
+    );
 
     [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
     private static extern SafeFileHandle CreateFile(
@@ -937,16 +967,22 @@ public static class DiskHelper
     /// <returns>A string describing the media type (e.g., "SSD", "HDD"), or "Unknown" if detection fails.</returns>
     public static string DetectMediaType(string driveLetter)
     {
-        // Try multiple detection methods
-        var seekPenalty = DetectViaSSDSeekPenalty(driveLetter);
-        if (seekPenalty != "Unknown")
-            return seekPenalty;
+        var key = driveLetter.TrimEnd('\\', '/').ToUpperInvariant();
+        return MediaTypeCache.GetOrAdd(
+            key,
+            static lk =>
+            {
+                var seekPenalty = DetectViaSSDSeekPenalty(lk);
+                if (seekPenalty != "Unknown")
+                    return seekPenalty;
 
-        var wmiType = DetectViaWMI(driveLetter);
-        if (wmiType != "Unknown")
-            return wmiType;
+                var wmiType = DetectViaWMI(lk);
+                if (wmiType != "Unknown")
+                    return wmiType;
 
-        return "Unknown";
+                return "Unknown";
+            }
+        );
     }
 
     private static string DetectViaSSDSeekPenalty(string driveLetter)
@@ -1026,44 +1062,54 @@ public static class DiskHelper
     {
         try
         {
-            // Get physical disk number from logical drive
             var partitions = WmiHelper.Query(
                 $"ASSOCIATORS OF {{Win32_LogicalDisk.DeviceID='{driveLetter.TrimEnd('\\')}' }} WHERE AssocClass=Win32_LogicalDiskToPartition"
             );
 
             foreach (var partition in partitions)
             {
-                var diskDrives = WmiHelper.Query(
-                    $"ASSOCIATORS OF {{Win32_DiskPartition.DeviceID='{partition["DeviceID"]}'}} WHERE AssocClass=Win32_DiskDriveToDiskPartition"
-                );
-
-                foreach (var disk in diskDrives)
+                try
                 {
-                    var mediaType = WmiHelper.GetString(disk, "MediaType", "").ToLowerInvariant();
-                    var model = WmiHelper.GetString(disk, "Model", "").ToLowerInvariant();
+                    var diskDrives = WmiHelper.Query(
+                        $"ASSOCIATORS OF {{Win32_DiskPartition.DeviceID='{partition["DeviceID"]}'}} WHERE AssocClass=Win32_DiskDriveToDiskPartition"
+                    );
 
-                    // Check for SSD indicators
-                    if (
-                        mediaType.Contains("ssd")
-                        || model.Contains("ssd")
-                        || model.Contains("nvme")
-                        || mediaType.Contains("fixed hard disk media")
-                    )
+                    foreach (var disk in diskDrives)
                     {
-                        // Additional check for rotational rate
-                        var capabilities = disk["Capabilities"];
-                        if (capabilities != null && capabilities is ushort[] caps)
-                            // Check if non-rotational (3 = Rotational, 4 = SSD)
-                            if (caps.Contains((ushort)4))
-                                return "SSD";
+                        try
+                        {
+                            var mediaType = WmiHelper.GetString(disk, "MediaType", "")
+                                .ToLowerInvariant();
+                            var model = WmiHelper.GetString(disk, "Model", "").ToLowerInvariant();
 
-                        // Fallback to model name check
-                        if (model.Contains("ssd") || model.Contains("nvme"))
-                            return "SSD";
+                            if (
+                                mediaType.Contains("ssd")
+                                || model.Contains("ssd")
+                                || model.Contains("nvme")
+                                || mediaType.Contains("fixed hard disk media")
+                            )
+                            {
+                                var capabilities = disk["Capabilities"];
+                                if (capabilities != null && capabilities is ushort[] caps)
+                                    if (caps.Contains((ushort)4))
+                                        return "SSD";
+
+                                if (model.Contains("ssd") || model.Contains("nvme"))
+                                    return "SSD";
+                            }
+
+                            if (mediaType.Contains("removable"))
+                                return "Unknown";
+                        }
+                        finally
+                        {
+                            disk.Dispose();
+                        }
                     }
-
-                    if (mediaType.Contains("removable"))
-                        return "Unknown"; // Could be USB drive
+                }
+                finally
+                {
+                    partition.Dispose();
                 }
             }
         }
@@ -1121,10 +1167,6 @@ public static class DiskHelper
 
 internal static class DiskProvider
 {
-    /// <summary>
-    ///     Gets disk info using MSFT_PhysicalDisk (modern Storage namespace) for
-    ///     accurate media type detection, with Win32_DiskDrive as fallback.
-    /// </summary>
     public static DiskInfo Get()
     {
         try
@@ -1134,10 +1176,11 @@ internal static class DiskProvider
                 return Math.Round(bytes / (1024.0 * 1024.0 * 1024.0), 2);
             }
 
-            // Build physical disk info using modern MSFT_PhysicalDisk (preferred)
-            // then fallback to Win32_DiskDrive if needed
             var physicalDisks = GetPhysicalDiskInfo();
             var diskNumberToInfo = BuildDiskNumberMap(physicalDisks);
+
+            // Batch: single WMI query maps all drive letters → PhysicalDiskInfo
+            var driveToDisk = BuildDriveToDiskMap(diskNumberToInfo);
 
             var volumes = DriveInfo
                 .GetDrives()
@@ -1151,15 +1194,23 @@ internal static class DiskProvider
                     var isSystemDrive = DiskHelper.IsSystemDrive(drive.Name);
                     var isRemovable = drive.DriveType == DriveType.Removable;
 
-                    // Try to get disk info for this drive (model, serial, media type)
-                    var diskInfo = GetDiskInfoForDrive(drive.Name, diskNumberToInfo);
+                    var letter = drive.Name.TrimEnd('\\');
+                    var driveLetterKey = letter.TrimEnd(':');
 
-                    // Media type priority: PhysicalDisk info > seek penalty P/Invoke > WMI fallback
+                    PhysicalDiskInfo? diskInfo = null;
+                    if (
+                        !driveToDisk.TryGetValue(driveLetterKey, out diskInfo)
+                        && diskNumberToInfo.Count > 0
+                    )
+                    {
+                        diskInfo = GetDiskInfoForDriveFallback(drive.Name, diskNumberToInfo);
+                    }
+
                     var mediaType = diskInfo?.MediaType ?? DiskHelper.DetectMediaType(drive.Name);
 
                     return new DiskVolume
                     {
-                        DriveLetter = drive.Name.TrimEnd('\\'),
+                        DriveLetter = letter,
                         IsSystemDrive = isSystemDrive,
                         DriveFormat = drive.DriveFormat,
                         DriveType = drive.DriveType.ToString(),
@@ -1188,23 +1239,61 @@ internal static class DiskProvider
     }
 
     /// <summary>
-    ///     Gets physical disk info, preferring MSFT_PhysicalDisk (accurate SSD/HDD)
-    ///     with Win32_DiskDrive as fallback.
+    ///     Batch-queries MSFT_Partition to map drive letters → disk numbers,
+    ///     then resolves to PhysicalDiskInfo. Single WMI call for all drives.
     /// </summary>
+    private static Dictionary<string, PhysicalDiskInfo> BuildDriveToDiskMap(
+        Dictionary<int, PhysicalDiskInfo> diskNumberMap
+    )
+    {
+        var map = new Dictionary<string, PhysicalDiskInfo>(StringComparer.OrdinalIgnoreCase);
+        if (diskNumberMap.Count == 0)
+            return map;
+
+        try
+        {
+            var partitions = WmiHelper.Query(
+                "SELECT DriveLetter, DiskNumber FROM MSFT_Partition WHERE DriveLetter IS NOT NULL",
+                @"root\Microsoft\Windows\Storage"
+            );
+
+            foreach (var partition in partitions)
+            {
+                try
+                {
+                    var driveLetter = WmiHelper.GetString(partition, "DriveLetter", "");
+                    var diskNumber = WmiHelper.GetInt(partition, "DiskNumber", -1);
+
+                    if (
+                        !string.IsNullOrEmpty(driveLetter)
+                        && diskNumber >= 0
+                        && diskNumberMap.TryGetValue(diskNumber, out var info)
+                    )
+                        map.TryAdd(driveLetter, info);
+                }
+                finally
+                {
+                    partition.Dispose();
+                }
+            }
+        }
+        catch
+        {
+            // Storage namespace not available (older OS)
+        }
+
+        return map;
+    }
+
     private static List<PhysicalDiskInfo> GetPhysicalDiskInfo()
     {
         var disks = GetViaMsftPhysicalDisk();
         if (disks.Count > 0)
             return disks;
 
-        // Fallback to Win32_DiskDrive
         return GetViaWin32DiskDrive();
     }
 
-    /// <summary>
-    ///     Uses MSFT_PhysicalDisk from the modern Storage namespace.
-    ///     MediaType: 3 = HDD, 4 = SSD (matches Task Manager's disk type display).
-    /// </summary>
     private static List<PhysicalDiskInfo> GetViaMsftPhysicalDisk()
     {
         var disks = new List<PhysicalDiskInfo>();
@@ -1217,25 +1306,32 @@ internal static class DiskProvider
 
             foreach (var disk in physicalDisks)
             {
-                var mediaTypeValue = WmiHelper.GetInt(disk, "MediaType");
-                var mediaType = mediaTypeValue switch
+                try
                 {
-                    3 => "HDD",
-                    4 => "SSD",
-                    5 => "SCM", // Storage Class Memory
-                    _ => "Unknown",
-                };
-
-                disks.Add(
-                    new PhysicalDiskInfo
+                    var mediaTypeValue = WmiHelper.GetInt(disk, "MediaType");
+                    var mediaType = mediaTypeValue switch
                     {
-                        DiskNumber = WmiHelper.GetString(disk, "DeviceId", "-1"),
-                        Model = WmiHelper.GetString(disk, "FriendlyName"),
-                        SerialNumber = WmiHelper.GetString(disk, "SerialNumber").Trim(),
-                        MediaType = mediaType,
-                        DeviceID = "", // Not available from MSFT_PhysicalDisk
-                    }
-                );
+                        3 => "HDD",
+                        4 => "SSD",
+                        5 => "SCM",
+                        _ => "Unknown",
+                    };
+
+                    disks.Add(
+                        new PhysicalDiskInfo
+                        {
+                            DiskNumber = WmiHelper.GetString(disk, "DeviceId", "-1"),
+                            Model = WmiHelper.GetString(disk, "FriendlyName"),
+                            SerialNumber = WmiHelper.GetString(disk, "SerialNumber").Trim(),
+                            MediaType = mediaType,
+                            DeviceID = "",
+                        }
+                    );
+                }
+                finally
+                {
+                    disk.Dispose();
+                }
             }
         }
         catch
@@ -1246,9 +1342,6 @@ internal static class DiskProvider
         return disks;
     }
 
-    /// <summary>
-    ///     Fallback: classic Win32_DiskDrive WMI provider.
-    /// </summary>
     private static List<PhysicalDiskInfo> GetViaWin32DiskDrive()
     {
         var disks = new List<PhysicalDiskInfo>();
@@ -1258,16 +1351,25 @@ internal static class DiskProvider
                 "SELECT DeviceID, Model, SerialNumber, MediaType, Index FROM Win32_DiskDrive"
             );
             foreach (var disk in diskDrives)
-                disks.Add(
-                    new PhysicalDiskInfo
-                    {
-                        DeviceID = WmiHelper.GetString(disk, "DeviceID"),
-                        DiskNumber = WmiHelper.GetInt(disk, "Index").ToString(),
-                        Model = WmiHelper.GetString(disk, "Model"),
-                        SerialNumber = WmiHelper.GetString(disk, "SerialNumber").Trim(),
-                        MediaType = "", // Win32_DiskDrive MediaType is unreliable
-                    }
-                );
+            {
+                try
+                {
+                    disks.Add(
+                        new PhysicalDiskInfo
+                        {
+                            DeviceID = WmiHelper.GetString(disk, "DeviceID"),
+                            DiskNumber = WmiHelper.GetInt(disk, "Index").ToString(),
+                            Model = WmiHelper.GetString(disk, "Model"),
+                            SerialNumber = WmiHelper.GetString(disk, "SerialNumber").Trim(),
+                            MediaType = "",
+                        }
+                    );
+                }
+                finally
+                {
+                    disk.Dispose();
+                }
+            }
         }
         catch
         {
@@ -1277,9 +1379,6 @@ internal static class DiskProvider
         return disks;
     }
 
-    /// <summary>
-    ///     Builds a lookup from disk number to PhysicalDiskInfo.
-    /// </summary>
     private static Dictionary<int, PhysicalDiskInfo> BuildDiskNumberMap(
         List<PhysicalDiskInfo> disks
     )
@@ -1293,55 +1392,52 @@ internal static class DiskProvider
     }
 
     /// <summary>
-    ///     Maps a logical drive letter to a physical disk using Win32 associations.
+    ///     Fallback for drives not resolved by the batched MSFT_Partition query.
+    ///     Uses classic ASSOCIATORS path (slower, per-drive).
     /// </summary>
-    private static PhysicalDiskInfo? GetDiskInfoForDrive(
+    private static PhysicalDiskInfo? GetDiskInfoForDriveFallback(
         string driveLetter,
         Dictionary<int, PhysicalDiskInfo> diskNumberMap
     )
     {
-        if (diskNumberMap.Count == 0)
-            return null;
-
         try
         {
             var letter = driveLetter.TrimEnd('\\');
 
-            // Try MSFT_Partition to get DiskNumber for this drive letter
-            var partitions = WmiHelper.Query(
-                $"SELECT DiskNumber FROM MSFT_Partition WHERE DriveLetter = '{letter.TrimEnd(':')}'",
-                @"root\Microsoft\Windows\Storage"
-            );
-
-            foreach (var partition in partitions)
-            {
-                var diskNum = WmiHelper.GetInt(partition, "DiskNumber", -1);
-                if (diskNum >= 0 && diskNumberMap.TryGetValue(diskNum, out var info))
-                    return info;
-            }
-
-            // Fallback: classic WMI ASSOCIATORS path
             var classicPartitions = WmiHelper.Query(
                 $"ASSOCIATORS OF {{Win32_LogicalDisk.DeviceID='{letter}'}} WHERE AssocClass=Win32_LogicalDiskToPartition"
             );
 
             foreach (var partition in classicPartitions)
             {
-                var diskDrives = WmiHelper.Query(
-                    $"ASSOCIATORS OF {{Win32_DiskPartition.DeviceID='{partition["DeviceID"]}'}} WHERE AssocClass=Win32_DiskDriveToDiskPartition"
-                );
-
-                foreach (var disk in diskDrives)
+                try
                 {
-                    var index = WmiHelper.GetInt(disk, "Index", -1);
-                    if (index >= 0 && diskNumberMap.TryGetValue(index, out var info))
-                        return info;
+                    var diskDrives = WmiHelper.Query(
+                        $"ASSOCIATORS OF {{Win32_DiskPartition.DeviceID='{partition["DeviceID"]}'}} WHERE AssocClass=Win32_DiskDriveToDiskPartition"
+                    );
 
-                    // Direct match by DeviceID
-                    var deviceId = WmiHelper.GetString(disk, "DeviceID");
-                    foreach (var entry in diskNumberMap.Values)
-                        if (entry.DeviceID == deviceId)
-                            return entry;
+                    foreach (var disk in diskDrives)
+                    {
+                        try
+                        {
+                            var index = WmiHelper.GetInt(disk, "Index", -1);
+                            if (index >= 0 && diskNumberMap.TryGetValue(index, out var info))
+                                return info;
+
+                            var deviceId = WmiHelper.GetString(disk, "DeviceID");
+                            foreach (var entry in diskNumberMap.Values)
+                                if (entry.DeviceID == deviceId)
+                                    return entry;
+                        }
+                        finally
+                        {
+                            disk.Dispose();
+                        }
+                    }
+                }
+                finally
+                {
+                    partition.Dispose();
                 }
             }
         }
@@ -1350,7 +1446,6 @@ internal static class DiskProvider
             // Ignore errors
         }
 
-        // If only one physical disk, assume it's the one
         if (diskNumberMap.Count == 1)
             return diskNumberMap.Values.First();
 
@@ -1649,29 +1744,36 @@ internal static class GpuProvider
 
         foreach (var controller in controllers)
         {
-            var name = WmiHelper.GetString(controller, "Name", "");
-            if (string.IsNullOrWhiteSpace(name) || IsVirtualAdapter(name))
-                continue;
+            try
+            {
+                var name = WmiHelper.GetString(controller, "Name", "");
+                if (string.IsNullOrWhiteSpace(name) || IsVirtualAdapter(name))
+                    continue;
 
-            var driver = WmiHelper.GetString(controller, "DriverVersion");
-            var deviceId = WmiHelper.GetString(controller, "DeviceID");
-            var pnpId = WmiHelper.GetString(controller, "PNPDeviceID");
-            var adapterRam = WmiHelper.GetLong(controller, "AdapterRAM");
+                var driver = WmiHelper.GetString(controller, "DriverVersion");
+                var deviceId = WmiHelper.GetString(controller, "DeviceID");
+                var pnpId = WmiHelper.GetString(controller, "PNPDeviceID");
+                var adapterRam = WmiHelper.GetLong(controller, "AdapterRAM");
 
-            int? memoryMB = adapterRam > 0 ? (int)(adapterRam / (1024 * 1024)) : null;
-            var vendor = DetectGpuVendor(name, pnpId);
+                int? memoryMB = adapterRam > 0 ? (int)(adapterRam / (1024 * 1024)) : null;
+                var vendor = DetectGpuVendor(name, pnpId);
 
-            gpus.Add(
-                new GpuInfo
-                {
-                    Name = name,
-                    DriverVersion = driver,
-                    Vendor = vendor,
-                    MemoryMB = memoryMB,
-                    DeviceId = deviceId,
-                    PnpDeviceId = pnpId,
-                }
-            );
+                gpus.Add(
+                    new GpuInfo
+                    {
+                        Name = name,
+                        DriverVersion = driver,
+                        Vendor = vendor,
+                        MemoryMB = memoryMB,
+                        DeviceId = deviceId,
+                        PnpDeviceId = pnpId,
+                    }
+                );
+            }
+            finally
+            {
+                controller.Dispose();
+            }
         }
 
         return gpus.Count > 0 ? gpus : [GpuInfo.Unknown];
@@ -1692,22 +1794,28 @@ internal static class GpuProvider
 
             foreach (var controller in controllers)
             {
-                var name = WmiHelper.GetString(controller, "Name", "");
-                var driver = WmiHelper.GetString(controller, "DriverVersion");
-                var deviceId = WmiHelper.GetString(controller, "DeviceID");
-                var pnpId = WmiHelper.GetString(controller, "PNPDeviceID");
+                try
+                {
+                    var name = WmiHelper.GetString(controller, "Name", "");
+                    var driver = WmiHelper.GetString(controller, "DriverVersion");
+                    var deviceId = WmiHelper.GetString(controller, "DeviceID");
+                    var pnpId = WmiHelper.GetString(controller, "PNPDeviceID");
 
-                // Extract VendorId and DeviceId from PNP DeviceID (e.g., PCI\VEN_10DE&DEV_2684&...)
-                ParsePnpIds(pnpId, out var vendorId, out var hardwareDeviceId);
+                    ParsePnpIds(pnpId, out var vendorId, out var hardwareDeviceId);
 
-                entries.Add(
-                    new WmiGpuEntry(name, driver, deviceId, pnpId, vendorId, hardwareDeviceId)
-                );
+                    entries.Add(
+                        new WmiGpuEntry(name, driver, deviceId, pnpId, vendorId, hardwareDeviceId)
+                    );
+                }
+                finally
+                {
+                    controller.Dispose();
+                }
             }
         }
         catch
         {
-            // WMI unavailable — driver info won't be available
+            // WMI unavailable
         }
 
         return entries;
@@ -1902,7 +2010,16 @@ internal static class OsProvider
             var lastBoot = Translations.Common_Unknown;
             var os = WmiHelper.GetFirst("SELECT LastBootUpTime FROM Win32_OperatingSystem");
             if (os != null)
-                lastBoot = FormatWmiDateTime(WmiHelper.GetString(os, "LastBootUpTime", ""));
+            {
+                try
+                {
+                    lastBoot = FormatWmiDateTime(WmiHelper.GetString(os, "LastBootUpTime", ""));
+                }
+                finally
+                {
+                    os.Dispose();
+                }
+            }
 
             return new OsInfo
             {
@@ -1955,6 +2072,10 @@ internal static class OsProvider
         {
             return "Unknown";
         }
+        finally
+        {
+            chassis.Dispose();
+        }
     }
 
     private static string MapChassisType(IEnumerable<ushort> types)
@@ -1999,20 +2120,27 @@ internal static class BiosProvider
             if (bios == null)
                 return BiosInfo.Unknown;
 
-            var manufacturer = WmiHelper.GetString(bios, "Manufacturer");
-            var version = WmiHelper.GetString(bios, "BIOSVersion");
-            var smbiosVersion = WmiHelper.GetString(bios, "SMBIOSBIOSVersion");
-            var serialNumber = WmiHelper.GetString(bios, "SerialNumber");
-            var releaseDate = FormatWmiDate(WmiHelper.GetString(bios, "ReleaseDate", ""));
-
-            return new BiosInfo
+            try
             {
-                Manufacturer = manufacturer,
-                Version = version,
-                ReleaseDate = releaseDate,
-                SmbiosVersion = smbiosVersion,
-                SerialNumber = serialNumber,
-            };
+                var manufacturer = WmiHelper.GetString(bios, "Manufacturer");
+                var version = WmiHelper.GetString(bios, "BIOSVersion");
+                var smbiosVersion = WmiHelper.GetString(bios, "SMBIOSBIOSVersion");
+                var serialNumber = WmiHelper.GetString(bios, "SerialNumber");
+                var releaseDate = FormatWmiDate(WmiHelper.GetString(bios, "ReleaseDate", ""));
+
+                return new BiosInfo
+                {
+                    Manufacturer = manufacturer,
+                    Version = version,
+                    ReleaseDate = releaseDate,
+                    SmbiosVersion = smbiosVersion,
+                    SerialNumber = serialNumber,
+                };
+            }
+            finally
+            {
+                bios.Dispose();
+            }
         }
         catch
         {
