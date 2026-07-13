@@ -1,4 +1,4 @@
-﻿<div align="center">
+<div align="center">
 
 <a href="https://optimizerduck.vercel.app/"><img src="./.github/assets/optimizerDuck.png" alt="optimizerDuck 배너" title="optimizerDuck"/></a>
 
@@ -28,11 +28,21 @@
 optimizerDuck이 PC 성능을 개선하는 데 도움이 되었다면, 이 저장소에 스타를 눌러 다른 사람들과 공유해 주세요
 여러분이 눌러주신 스타는 향후 프로젝트를 개선해 나가는 데 큰 원동력이 됩니다
 
-<a href="https://www.star-history.com/#itsfatduck/optimizerDuck&legend=top-left">
+<p align="center">
+ <a href="https://www.star-history.com/itsfatduck/optimizerduck">
+  <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/badge?repo=itsfatduck/optimizerDuck&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/badge?repo=itsfatduck/optimizerDuck" />
+   <img alt="Star History Rank" src="https://api.star-history.com/badge?repo=itsfatduck/optimizerDuck" />
+  </picture>
+ </a>
+</p>
+
+<a href="https://www.star-history.com/?repos=itsfatduck%2FoptimizerDuck&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=itsfatduck/optimizerDuck&type=date&theme=dark&legend=top-left&sealed_token=UNXQhgyDBTZTQe1TE_Amu7Y7vpRg39O9VlDWdODQoVZHQMYgQvez_20mmRYsz_G_4P0WqF9EcECI9q3FgCwrudjZ0tvJ6st0cC6W0H6RPKncHmlV1RtXn1ys51oMBWeTQ8nkSmR9huOtNdEp4jh_wiWqmmc7j6HgfHRK9WlbIoHnGgLyskwm6agLLmWR" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=itsfatduck/optimizerDuck&type=date&legend=top-left&sealed_token=UNXQhgyDBTZTQe1TE_Amu7Y7vpRg39O9VlDWdODQoVZHQMYgQvez_20mmRYsz_G_4P0WqF9EcECI9q3FgCwrudjZ0tvJ6st0cC6W0H6RPKncHmlV1RtXn1ys51oMBWeTQ8nkSmR9huOtNdEp4jh_wiWqmmc7j6HgfHRK9WlbIoHnGgLyskwm6agLLmWR" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=itsfatduck/optimizerDuck&type=date&legend=top-left&sealed_token=UNXQhgyDBTZTQe1TE_Amu7Y7vpRg39O9VlDWdODQoVZHQMYgQvez_20mmRYsz_G_4P0WqF9EcECI9q3FgCwrudjZ0tvJ6st0cC6W0H6RPKncHmlV1RtXn1ys51oMBWeTQ8nkSmR9huOtNdEp4jh_wiWqmmc7j6HgfHRK9WlbIoHnGgLyskwm6agLLmWR" />
  </picture>
 </a>
 

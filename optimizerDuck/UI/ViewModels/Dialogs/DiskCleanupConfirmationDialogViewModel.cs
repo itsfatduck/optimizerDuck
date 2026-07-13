@@ -1,4 +1,4 @@
-using optimizerDuck.Domain.Optimizations.Models.Cleanup;
+    using optimizerDuck.Domain.Optimizations.Models.Cleanup;
 
 namespace optimizerDuck.UI.ViewModels.Dialogs;
 

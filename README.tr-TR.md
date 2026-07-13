@@ -28,11 +28,21 @@
 optimizerDuck bilgisayarınızı iyileştirmeye yardımcı olduysa, depoyu ⭐ yıldızlamayı ve başkalarıyla paylaşmayı düşünün.
 Her yıldız gelecekteki geliştirmelere motivasyon katıyor.
 
-<a href="https://www.star-history.com/#itsfatduck/optimizerDuck&legend=top-left">
+<p align="center">
+ <a href="https://www.star-history.com/itsfatduck/optimizerduck">
+  <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/badge?repo=itsfatduck/optimizerDuck&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/badge?repo=itsfatduck/optimizerDuck" />
+   <img alt="Star History Rank" src="https://api.star-history.com/badge?repo=itsfatduck/optimizerDuck" />
+  </picture>
+ </a>
+</p>
+
+<a href="https://www.star-history.com/?repos=itsfatduck%2FoptimizerDuck&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=itsfatduck/optimizerDuck&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=itsfatduck/optimizerDuck&type=date&theme=dark&legend=top-left&sealed_token=UNXQhgyDBTZTQe1TE_Amu7Y7vpRg39O9VlDWdODQoVZHQMYgQvez_20mmRYsz_G_4P0WqF9EcECI9q3FgCwrudjZ0tvJ6st0cC6W0H6RPKncHmlV1RtXn1ys51oMBWeTQ8nkSmR9huOtNdEp4jh_wiWqmmc7j6HgfHRK9WlbIoHnGgLyskwm6agLLmWR" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=itsfatduck/optimizerDuck&type=date&legend=top-left&sealed_token=UNXQhgyDBTZTQe1TE_Amu7Y7vpRg39O9VlDWdODQoVZHQMYgQvez_20mmRYsz_G_4P0WqF9EcECI9q3FgCwrudjZ0tvJ6st0cC6W0H6RPKncHmlV1RtXn1ys51oMBWeTQ8nkSmR9huOtNdEp4jh_wiWqmmc7j6HgfHRK9WlbIoHnGgLyskwm6agLLmWR" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=itsfatduck/optimizerDuck&type=date&legend=top-left&sealed_token=UNXQhgyDBTZTQe1TE_Amu7Y7vpRg39O9VlDWdODQoVZHQMYgQvez_20mmRYsz_G_4P0WqF9EcECI9q3FgCwrudjZ0tvJ6st0cC6W0H6RPKncHmlV1RtXn1ys51oMBWeTQ8nkSmR9huOtNdEp4jh_wiWqmmc7j6HgfHRK9WlbIoHnGgLyskwm6agLLmWR" />
  </picture>
 </a>
 
