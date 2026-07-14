@@ -1,4 +1,5 @@
 using System.Windows;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Configuration;
@@ -17,6 +18,7 @@ namespace optimizerDuck.UI.Windows;
 
 public partial class MainWindow : IWindow
 {
+    private readonly ILogger<MainWindow> _logger;
     private readonly IContentDialogService _contentDialogService;
     private readonly IOptionsMonitor<AppSettings> _appOptionsMonitor;
     private readonly ConfigManager _configManager;
@@ -29,9 +31,11 @@ public partial class MainWindow : IWindow
         INavigationViewPageProvider pageProvider,
         IOptionsMonitor<AppSettings> appOptionsMonitor,
         ISnackbarService snackbarService,
-        CustomizeRegistry customizeRegistry
+        CustomizeRegistry customizeRegistry,
+        ILogger<MainWindow> logger
     )
     {
+        _logger = logger;
         _contentDialogService = contentDialogService;
         _appOptionsMonitor = appOptionsMonitor;
         _configManager = configManager;
@@ -88,9 +92,7 @@ public partial class MainWindow : IWindow
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine(
-                $"Error during navigation initialization: {ex.Message}"
-            );
+            _logger.LogError(ex, "Error during navigation initialization");
         }
     }
 }
