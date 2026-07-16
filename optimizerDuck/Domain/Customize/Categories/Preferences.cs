@@ -41,22 +41,11 @@ public class Preferences : ICustomizeCategory
 
         public override CustomizeControlType ControlType => CustomizeControlType.Dropdown;
 
-        public override IReadOnlyList<SettingOption>? Options =>
-            [Option("Center", 1), Option("Left", 0)];
-
-        public override object? CurrentValue =>
-            RegistryService.Read<object>(new RegistryItem(RegPath, RegName));
-
-        public override async Task ApplyAsync(object? value)
-        {
-            RegistryService.Write(new RegistryItem(RegPath, RegName, value ?? 1));
-            await ExecutePostActionAsync();
-        }
+        protected override IReadOnlyList<SettingOption>? GetOptions() =>
+            [Option("Center", RegPath, RegName, 1), Option("Left", RegPath, RegName, 0)];
 
         protected override CustomizeRefreshScope RefreshScope =>
             CustomizeRefreshScope.TaskbarSettings;
-
-        protected override IReadOnlyList<string> GetWatchedRegistryPaths() => [RegPath];
     }
 
     [CustomizeSetting(
@@ -75,16 +64,16 @@ public class Preferences : ICustomizeCategory
                 {
                     Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
                     Name = "TaskbarDa",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 1,
                 },
                 new()
                 {
                     Path = @"HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Feeds",
                     Name = "EnableFeeds",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 1,
                     IsOptional = true,
                 },
@@ -92,8 +81,8 @@ public class Preferences : ICustomizeCategory
                 {
                     Path = @"HKLM\SOFTWARE\Policies\Microsoft\Dsh",
                     Name = "AllowNewsAndInterests",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 1,
                     IsOptional = true,
                 },
@@ -112,8 +101,8 @@ public class Preferences : ICustomizeCategory
                 {
                     Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
                     Name = "ShowTaskViewButton",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 1,
                 },
             ];
@@ -136,8 +125,8 @@ public class Preferences : ICustomizeCategory
                     Path =
                         @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\TaskbarDeveloperSettings",
                     Name = "TaskbarEndTask",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 0,
                 },
             ];
@@ -155,16 +144,16 @@ public class Preferences : ICustomizeCategory
                 {
                     Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
                     Name = "AppsUseLightTheme",
-                    OnValue = 0,
-                    OffValue = 1,
+                    OnValues = [0],
+                    OffValues = [1],
                     DefaultValue = 1,
                 },
                 new()
                 {
                     Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
                     Name = "SystemUsesLightTheme",
-                    OnValue = 0,
-                    OffValue = 1,
+                    OnValues = [0],
+                    OffValues = [1],
                     DefaultValue = 1,
                 },
             ];
@@ -185,8 +174,8 @@ public class Preferences : ICustomizeCategory
                 {
                     Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
                     Name = "ShowSyncProviderNotifications",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 1,
                 },
             ];
@@ -207,8 +196,8 @@ public class Preferences : ICustomizeCategory
                 {
                     Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager",
                     Name = "SystemPaneSuggestionsEnabled",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 1,
                 },
             ];
@@ -225,16 +214,16 @@ public class Preferences : ICustomizeCategory
                 {
                     Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\PushNotifications",
                     Name = "ToastEnabled",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 1,
                 },
                 new()
                 {
                     Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\PushNotifications",
                     Name = "LockScreenToastEnabled",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 1,
                     IsOptional = true,
                 },
@@ -252,8 +241,8 @@ public class Preferences : ICustomizeCategory
                 {
                     Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
                     Name = "UseCompactMode",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 0,
                 },
             ];
@@ -270,8 +259,8 @@ public class Preferences : ICustomizeCategory
                 {
                     Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
                     Name = "EnableSnapAssistFlyout",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 1,
                 },
             ];
@@ -288,8 +277,8 @@ public class Preferences : ICustomizeCategory
                 {
                     Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
                     Name = "AutoCheckSelect",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 0,
                 },
             ];
@@ -310,8 +299,8 @@ public class Preferences : ICustomizeCategory
                 {
                     Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
                     Name = "HideFileExt",
-                    OnValue = 0,
-                    OffValue = 1,
+                    OnValues = [0],
+                    OffValues = [1],
                     DefaultValue = 1,
                 },
             ];
@@ -332,8 +321,8 @@ public class Preferences : ICustomizeCategory
                 {
                     Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
                     Name = "Hidden",
-                    OnValue = 1,
-                    OffValue = 2,
+                    OnValues = [1],
+                    OffValues = [2],
                     DefaultValue = 2,
                 },
             ];
@@ -354,8 +343,8 @@ public class Preferences : ICustomizeCategory
                 {
                     Path = @"HKCU\Software\Microsoft\Clipboard",
                     Name = "EnableClipboardHistory",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 0,
                 },
             ];
@@ -372,8 +361,8 @@ public class Preferences : ICustomizeCategory
                 {
                     Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
                     Name = "DisallowShaking",
-                    OnValue = 0,
-                    OffValue = 1,
+                    OnValues = [0],
+                    OffValues = [1],
                     DefaultValue = 0,
                 },
             ];
@@ -391,8 +380,8 @@ public class Preferences : ICustomizeCategory
                 {
                     Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
                     Name = "ShowSecondsInSystemClock",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 0,
                 },
             ];
@@ -409,8 +398,8 @@ public class Preferences : ICustomizeCategory
                 {
                     Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
                     Name = "LaunchTo",
-                    OnValue = 1,
-                    OffValue = 2,
+                    OnValues = [1],
+                    OffValues = [2],
                     DefaultValue = 2,
                 },
             ];
@@ -432,8 +421,8 @@ public class Preferences : ICustomizeCategory
                 {
                     Path = @"HKCU\Software\Policies\Microsoft\Windows\Explorer",
                     Name = "DisableSearchBoxSuggestions",
-                    OnValue = 0,
-                    OffValue = 1,
+                    OnValues = [0],
+                    OffValues = [1],
                     DefaultValue = 0,
                 },
             ];
@@ -484,35 +473,26 @@ public class Preferences : ICustomizeCategory
 
         public override CustomizeControlType ControlType => CustomizeControlType.Dropdown;
 
-        public override IReadOnlyList<SettingOption>? Options
+        protected override IReadOnlyList<SettingOption>? GetOptions()
         {
-            get
-            {
-                if (Shared.IsWindows11OrGreater)
-                    return
-                    [
-                        Option("Hidden", 0),
-                        Option("Icon", 1),
-                        Option("IconAndLabel", 2),
-                        Option("SearchBox", 3),
-                    ];
-                return [Option("Hidden", 0), Option("Icon", 1), Option("SearchBox", 2)];
-            }
-        }
-
-        public override object? CurrentValue =>
-            RegistryService.Read<object>(new RegistryItem(RegPath, RegName));
-
-        public override async Task ApplyAsync(object? value)
-        {
-            RegistryService.Write(new RegistryItem(RegPath, RegName, value ?? 0));
-            await ExecutePostActionAsync();
+            if (Shared.IsWindows11OrGreater)
+                return
+                [
+                    Option("Hidden", RegPath, RegName, 0),
+                    Option("Icon", RegPath, RegName, 1),
+                    Option("IconAndLabel", RegPath, RegName, 2),
+                    Option("SearchBox", RegPath, RegName, 3),
+                ];
+            return
+            [
+                Option("Hidden", RegPath, RegName, 0),
+                Option("Icon", RegPath, RegName, 1),
+                Option("SearchBox", RegPath, RegName, 2),
+            ];
         }
 
         protected override CustomizeRefreshScope RefreshScope =>
             CustomizeRefreshScope.TaskbarSettings;
-
-        protected override IReadOnlyList<string> GetWatchedRegistryPaths() => [RegPath];
     }
 
     [CustomizeSetting(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.CursorClick24)]
@@ -531,8 +511,8 @@ public class Preferences : ICustomizeCategory
                 {
                     Path = RegPath,
                     Name = RegName,
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 0,
                 },
             ];

@@ -42,16 +42,16 @@ public class Gaming : ICustomizeCategory
                 {
                     Path = @"HKCU\Software\Microsoft\GameBar",
                     Name = "AllowAutoGameMode",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 1,
                 },
                 new()
                 {
                     Path = @"HKCU\Software\Microsoft\GameBar",
                     Name = "AutoGameModeEnabled",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 1,
                 },
             ];
@@ -72,16 +72,16 @@ public class Gaming : ICustomizeCategory
                 {
                     Path = @"HKCU\System\GameConfigStore",
                     Name = "GameBarEnabled",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 1,
                 },
                 new()
                 {
                     Path = @"HKCU\Software\Microsoft\GameBar",
                     Name = "ShowStartupPanel",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 1,
                     IsOptional = true,
                 },
@@ -89,8 +89,8 @@ public class Gaming : ICustomizeCategory
                 {
                     Path = @"HKCU\Software\Microsoft\GameBar",
                     Name = "UseNexusForGameBarEnabled",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 1,
                     IsOptional = true,
                 },
@@ -98,8 +98,8 @@ public class Gaming : ICustomizeCategory
                 {
                     Path = @"HKCU\Software\Microsoft\GameBar",
                     Name = "GamePanelStartupTipIndex",
-                    OnValue = 3,
-                    OffValue = 0,
+                    OnValues = [3],
+                    OffValues = [0],
                     DefaultValue = 3,
                     IsOptional = true,
                 },
@@ -122,16 +122,16 @@ public class Gaming : ICustomizeCategory
                 {
                     Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\GameDVR",
                     Name = "AppCaptureEnabled",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 1,
                 },
                 new()
                 {
                     Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\GameDVR",
                     Name = "HistoricalCaptureEnabled",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 0,
                     IsOptional = true,
                 },
@@ -139,16 +139,16 @@ public class Gaming : ICustomizeCategory
                 {
                     Path = @"HKCU\System\GameConfigStore",
                     Name = "GameDVR_Enabled",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 1,
                 },
                 new()
                 {
                     Path = @"HKCU\System\GameConfigStore",
                     Name = "GameDVR_HistoricalCaptureEnabled",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 0,
                     IsOptional = true,
                 },
@@ -156,8 +156,8 @@ public class Gaming : ICustomizeCategory
                 {
                     Path = @"HKLM\SOFTWARE\Policies\Microsoft\Windows\GameDVR",
                     Name = "AllowGameDVR",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 1,
                 },
             ];
@@ -227,32 +227,32 @@ public class Gaming : ICustomizeCategory
                 {
                     Path = @"HKCU\System\GameConfigStore",
                     Name = "GameDVR_DXGIHonorFSEWindowsCompatible",
-                    OnValue = 0,
-                    OffValue = 1,
+                    OnValues = [0],
+                    OffValues = [1],
                     DefaultValue = 0,
                 },
                 new()
                 {
                     Path = @"HKCU\System\GameConfigStore",
                     Name = "GameDVR_FSEBehavior",
-                    OnValue = 0,
-                    OffValue = 2,
+                    OnValues = [0],
+                    OffValues = [2],
                     DefaultValue = 0,
                 },
                 new()
                 {
                     Path = @"HKCU\System\GameConfigStore",
                     Name = "GameDVR_FSEBehaviorMode",
-                    OnValue = 0,
-                    OffValue = 2,
+                    OnValues = [0],
+                    OffValues = [2],
                     DefaultValue = 0,
                 },
                 new()
                 {
                     Path = @"HKCU\System\GameConfigStore",
                     Name = "GameDVR_HonorUserFSEBehaviorMode",
-                    OnValue = 0,
-                    OffValue = 1,
+                    OnValues = [0],
+                    OffValues = [1],
                     DefaultValue = 0,
                 },
             ];
@@ -271,8 +271,8 @@ public class Gaming : ICustomizeCategory
                 {
                     Path = @"HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers",
                     Name = "HwSchMode",
-                    OnValue = 2,
-                    OffValue = 1,
+                    OnValues = [2],
+                    OffValues = [1],
                     DefaultValue = 1,
                 },
             ];

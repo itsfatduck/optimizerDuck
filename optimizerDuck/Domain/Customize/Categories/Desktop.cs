@@ -39,8 +39,8 @@ public class Desktop : ICustomizeCategory
                     Path =
                         @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel",
                     Name = "{20D04FE0-3AEA-1069-A2D8-08002B30309D}",
-                    OnValue = 0,
-                    OffValue = 1,
+                    OnValues = [0],
+                    OffValues = [1],
                     DefaultValue = 0,
                 },
             ];
@@ -58,8 +58,8 @@ public class Desktop : ICustomizeCategory
                     Path =
                         @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel",
                     Name = "{645FF040-5081-101B-9F08-00AA002F954E}",
-                    OnValue = 0,
-                    OffValue = 1,
+                    OnValues = [0],
+                    OffValues = [1],
                     DefaultValue = 0,
                 },
             ];
@@ -77,8 +77,8 @@ public class Desktop : ICustomizeCategory
                     Path =
                         @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel",
                     Name = "{59031a47-3f72-44a7-89c5-5595fe6b30ee}",
-                    OnValue = 0,
-                    OffValue = 1,
+                    OnValues = [0],
+                    OffValues = [1],
                     DefaultValue = 1,
                 },
             ];
@@ -96,8 +96,8 @@ public class Desktop : ICustomizeCategory
                     Path =
                         @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel",
                     Name = "{F02C1A0D-BE21-4350-88B0-7367FC96EF3C}",
-                    OnValue = 0,
-                    OffValue = 1,
+                    OnValues = [0],
+                    OffValues = [1],
                     DefaultValue = 1,
                 },
             ];
@@ -115,8 +115,8 @@ public class Desktop : ICustomizeCategory
                     Path =
                         @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel",
                     Name = "{5399E694-6CE5-4D6C-8FCE-1D8870FDCBA0}",
-                    OnValue = 0,
-                    OffValue = 1,
+                    OnValues = [0],
+                    OffValues = [1],
                     DefaultValue = 1,
                 },
             ];
@@ -134,8 +134,8 @@ public class Desktop : ICustomizeCategory
                 {
                     Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
                     Name = "HideIcons",
-                    OnValue = 0,
-                    OffValue = 1,
+                    OnValues = [0],
+                    OffValues = [1],
                     DefaultValue = 0,
                 },
             ];

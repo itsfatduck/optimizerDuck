@@ -38,16 +38,16 @@ public class SystemFeatures : ICustomizeCategory
                 {
                     Path = @"HKU\.DEFAULT\Control Panel\Keyboard",
                     Name = "InitialKeyboardIndicators",
-                    OnValue = 2,
-                    OffValue = 0,
+                    OnValues = [2],
+                    OffValues = [0],
                     DefaultValue = 0,
                 },
                 new()
                 {
                     Path = @"HKCU\Control Panel\Keyboard",
                     Name = "InitialKeyboardIndicators",
-                    OnValue = 2,
-                    OffValue = 0,
+                    OnValues = [2],
+                    OffValues = [0],
                     DefaultValue = 0,
                 },
             ];
@@ -70,8 +70,8 @@ public class SystemFeatures : ICustomizeCategory
                 {
                     Path = @"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock",
                     Name = "AllowDevelopmentWithoutDevLicense",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 0,
                 },
             ];
@@ -92,8 +92,8 @@ public class SystemFeatures : ICustomizeCategory
                 {
                     Path = @"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock",
                     Name = "AllowAllTrustedApps",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 0,
                 },
             ];
@@ -116,8 +116,8 @@ public class SystemFeatures : ICustomizeCategory
                 {
                     Path = Path,
                     Name = "LongPathsEnabled",
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 0,
                 },
             ];
@@ -140,8 +140,8 @@ public class SystemFeatures : ICustomizeCategory
                 {
                     Path = RegPath,
                     Name = RegName,
-                    OnValue = 1,
-                    OffValue = 0,
+                    OnValues = [1],
+                    OffValues = [0],
                     DefaultValue = 0,
                 },
             ];
