@@ -410,7 +410,7 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
     /// <summary>
     ///     Validates and ensures the config file exists and is valid JSON.
     /// </summary>
-    public static void ValidateConfig()
+    public static void ValidateConfig(ILogger logger)
     {
         var configPath = Path.Combine(Shared.RootDirectory, "appsettings.json");
 
@@ -419,10 +419,7 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
             if (!File.Exists(configPath))
             {
                 File.WriteAllText(configPath, "{}");
-                global::System.Diagnostics.Trace.TraceInformation(
-                    "Created default empty config file: {Path}",
-                    configPath
-                );
+                logger.LogInformation("Created default empty config file: {Path}", configPath);
                 return;
             }
 
@@ -430,10 +427,7 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
             if (string.IsNullOrWhiteSpace(content))
             {
                 File.WriteAllText(configPath, "{}");
-                global::System.Diagnostics.Trace.TraceWarning(
-                    "Config file was empty, reset to empty: {Path}",
-                    configPath
-                );
+                logger.LogWarning("Config file was empty, reset to empty: {Path}", configPath);
                 return;
             }
 
@@ -442,7 +436,7 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
             if (!trimmed.StartsWith('{') || !trimmed.EndsWith('}'))
             {
                 File.WriteAllText(configPath, "{}");
-                global::System.Diagnostics.Trace.TraceWarning(
+                logger.LogWarning(
                     "Config file was not valid JSON, reset to empty: {Path}",
                     configPath
                 );
@@ -454,10 +448,7 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
         catch
         {
             File.WriteAllText(configPath, "{}");
-            global::System.Diagnostics.Trace.TraceWarning(
-                "Config file was corrupted, reset to empty: {Path}",
-                configPath
-            );
+            logger.LogWarning("Config file was corrupted, reset to empty: {Path}", configPath);
         }
     }
 }

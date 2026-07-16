@@ -84,6 +84,7 @@ public partial class DashboardViewModel : ViewModel
 
     protected override async Task InitializeOnceAsync()
     {
+        await LoadSystemInfoAsync();
         _systemInfoService.LogSummary();
         var (result, version) = await _updaterService.CheckForUpdatesAsync();
         if (result)

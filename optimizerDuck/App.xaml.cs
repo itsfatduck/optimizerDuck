@@ -304,7 +304,10 @@ public partial class App : Application
             .UseSerilog()
             .ConfigureAppConfiguration(c =>
             {
-                ConfigManager.ValidateConfig();
+                using var loggerFactory = LoggerFactory.Create(b => b.AddSerilog(Log.Logger));
+                ConfigManager.ValidateConfig(
+                    loggerFactory.CreateLogger(typeof(ConfigManager))
+                );
                 c.AddJsonFile(Path.Combine(Shared.RootDirectory, "appsettings.json"), false, true);
             })
             .ConfigureServices(
