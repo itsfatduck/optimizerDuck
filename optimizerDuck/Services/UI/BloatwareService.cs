@@ -74,13 +74,27 @@ public class BloatwareService(
                 )
                 .ConfigureAwait(false);
 
+            if (string.IsNullOrWhiteSpace(result.Stdout))
+            {
+                if (!string.IsNullOrWhiteSpace(result.Stderr))
+                    logger.LogWarning("Get-AppxPackage stderr: {Error}", result.Stderr);
+
+                return [];
+            }
+
             var options = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true,
                 Converters = { new JsonStringEnumConverter() },
             };
 
-            var apps = JsonSerializer.Deserialize<List<AppXPackage>>(result.Stdout, options)!;
+            var apps = JsonSerializer.Deserialize<List<AppXPackage>>(result.Stdout, options);
+
+            if (apps == null || apps.Count == 0)
+            {
+                logger.LogInformation("No removable AppX packages found");
+                return [];
+            }
 
             apps.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.OrdinalIgnoreCase));
 
