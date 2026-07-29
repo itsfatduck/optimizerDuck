@@ -211,7 +211,7 @@
     <value>专家</value>
   </data>
   <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
-    <value>详细说明</value>
+    <value>详细描述</value>
   </data>
   <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
     <value>标签</value>
@@ -696,6 +696,12 @@
   <data name="Optimizer.UI.Tags.Visual" xml:space="preserve">
     <value>视觉效果</value>
   </data>
+  <data name="Optimizer.UI.Tags.Windows10Only" xml:space="preserve">
+    <value>仅 Windows 10</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows11Only" xml:space="preserve">
+    <value>仅 Windows 11</value>
+  </data>
   <data name="Optimizer.Gpu" xml:space="preserve">
     <value>显卡优化</value>
   </data>
@@ -706,7 +712,13 @@
     <value>加速文件资源管理器与菜单</value>
   </data>
   <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
-    <value>设置启动延迟与菜单显示延迟为 0，消除资源管理器启动卡顿，最小化菜单悬浮延迟。</value>
+    <value>将 StartupDelayInMSec 和 MenuShowDelay 均设为 0，以消除资源管理器启动延迟，并将菜单悬停延迟降至最低。</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>禁用开始菜单网络搜索</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>关闭 Windows 开始菜单的网页搜索功能，以便更快地加载本地搜索结果。</value>
   </data>
   <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
     <value>禁用视觉特效</value>
@@ -785,6 +797,12 @@
   </data>
   <data name="Customize.Preferences.TaskbarAlignment.Description" xml:space="preserve">
     <value>切换任务栏对齐方式：居中/左对齐。</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Options.Center" xml:space="preserve">
+    <value>居中</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Options.Left" xml:space="preserve">
+    <value>左侧</value>
   </data>
   <data name="Customize.Preferences.ExplorerCompactMode.Name" xml:space="preserve">
     <value>文件资源管理器紧凑模式</value>
@@ -1254,6 +1272,21 @@
   <data name="DiskCleanup.ItemsAndFilesSelected" xml:space="preserve">
     <value>已选：{0} • {1} 项 • {2} 个文件</value>
   </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Warning" xml:space="preserve">
+    <value>文件将被永久删除。此操作无法撤销。</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Title" xml:space="preserve">
+    <value>清理 {0} 个所选项目</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Summary" xml:space="preserve">
+    <value>您即将从 {1} 个项目（{2} 个文件）中删除 {0}。请查看以下项目。</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.SingleTitle" xml:space="preserve">
+    <value>清理项目</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.SingleItem" xml:space="preserve">
+    <value>您即将删除 {0} ({1})。请确认。</value>
+  </data>
   <data name="Settings.About.NeedHelp.Title" xml:space="preserve">
       <value>需要帮助？</value>
     </data>
@@ -1385,7 +1418,10 @@
   <data name="ScheduledTasks.Dialog.DeleteMessage" xml:space="preserve">
     <value>确定要删除任务“{0}”吗？此操作无法撤销。</value>
   </data>
-  
+  <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
+    <value>删除计划任务是永久性的操作。该任务将不再自动运行。</value>
+  </data>
+
   <data name="ScheduledTasks.Details.Path" xml:space="preserve">
     <value>路径</value>
   </data>
@@ -1419,6 +1455,9 @@
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>取消</value>
+  </data>
+  <data name="Common.Empty" xml:space="preserve">
+    <value>空的</value>
   </data>
   <data name="Common.SortBy.State" xml:space="preserve">
     <value>状态</value>
@@ -1463,6 +1502,7 @@
     <value>{0} 已成功创建。</value>
   </data>
   <data name="ScheduledTasks.Snackbar.Error.Title" xml:space="preserve">
+
     <value>错误</value>
   </data>
   <data name="Settings.About.NeedHelp.Description" xml:space="preserve">
@@ -1702,44 +1742,40 @@
   <data name="TitleBar.Discord" xml:space="preserve">
     <value>加入 Discord 社区</value>
   </data>
-  <data name="Customize.Preferences.TaskbarAlignment.Options.Center" xml:space="preserve">
-    <value>居中</value>
-  </data>
-  <data name="Customize.Preferences.TaskbarAlignment.Options.Left" xml:space="preserve">
-    <value>靠左</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Windows10Only" xml:space="preserve">
-    <value>仅Windows 10</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Windows11Only" xml:space="preserve">
-    <value>仅Windows 11</value>
-  </data>
+
   <data name="Customize.SystemFeatures.Section.Developer" xml:space="preserve">
     <value>开发人员</value>
   </data>
+
+
+
   <data name="Customize.SystemFeatures.DeveloperMode.Name" xml:space="preserve">
     <value>开发人员模式</value>
   </data>
   <data name="Customize.SystemFeatures.DeveloperMode.Description" xml:space="preserve">
-    <value>启用Windows开发人员模式，用于旁加载应用、设备门户、SSH服务器和开发功能。</value>
+    <value>启用 Windows 开发人员模式，用于旁加载应用、设备门户、SSH 服务器和开发功能。</value>
   </data>
   <data name="Customize.SystemFeatures.DeveloperMode.Recommendation.Reason" xml:space="preserve">
     <value>开发人员模式启用了应用开发和调试所需的旁加载和诊断功能。</value>
   </data>
+
+
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Name" xml:space="preserve">
     <value>允许所有受信任的应用</value>
   </data>
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Description" xml:space="preserve">
-    <value>允许安装所有受信任的Windows Store应用，无需启用开发人员模式。</value>
+    <value>允许安装所有受信任的 Windows Store 应用，无需启用开发人员模式。</value>
   </data>
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Recommendation.Reason" xml:space="preserve">
-    <value>允许所有受信任的应用可在没有开发人员模式的情况下进行旁加载；禁用将安装限制为Microsoft Store。</value>
+    <value>允许所有受信任的应用可在没有开发人员模式的情况下进行旁加载；禁用将安装限制为 Microsoft Store。</value>
   </data>
+
+
   <data name="Customize.SystemFeatures.LongPathsEnabled.Name" xml:space="preserve">
     <value>长路径支持（&gt;260个字符）</value>
   </data>
   <data name="Customize.SystemFeatures.LongPathsEnabled.Description" xml:space="preserve">
-    <value>在文件资源管理器中启用Win32长路径支持，允许超过传统260个字符限制的文件路径。</value>
+    <value>在文件资源管理器中启用 Win32 长路径支持，允许超过传统 260 个字符限制的文件路径。</value>
   </data>
   <data name="Customize.SystemFeatures.LongPathsEnabled.Recommendation.Reason" xml:space="preserve">
     <value>长路径支持可防止在处理深度嵌套的目录或名称较长的项目时出现文件访问错误。</value>
@@ -1773,32 +1809,5 @@
   </data>
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
     <value>在系统托盘的电池图标旁边显示电池百分比。</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
-    <value>禁用“开始”菜单的网络搜索</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
-    <value>关闭 Windows 开始 菜单的网络搜索，以便更快加载本地搜索结果。</value>
-  </data>
-  <data name="DiskCleanup.Dialog.Confirmation.Warning" xml:space="preserve">
-    <value>文件将被永久删除。此操作无法撤销。</value>
-  </data>
-  <data name="DiskCleanup.Dialog.Confirmation.Title" xml:space="preserve">
-    <value>清理 {0} 个选中项目</value>
-  </data>
-  <data name="DiskCleanup.Dialog.Confirmation.Summary" xml:space="preserve">
-    <value>您即将从 {1} 个项目（{2} 个文件）中删除 {0} 个。请查看以下项目。</value>
-  </data>
-  <data name="DiskCleanup.Dialog.Confirmation.SingleTitle" xml:space="preserve">
-    <value>清理项目</value>
-  </data>
-  <data name="DiskCleanup.Dialog.Confirmation.SingleItem" xml:space="preserve">
-    <value>您即将删除 {0}（{1}）。请确认。</value>
-  </data>
-  <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
-    <value>删除计划任务是永久性的。任务将不再自动运行。</value>
-  </data>
-  <data name="Common.Empty" xml:space="preserve">
-    <value>空</value>
   </data>
 </root>
