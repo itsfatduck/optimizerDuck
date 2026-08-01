@@ -583,7 +583,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Customize Windows settings and preferences.
+        ///   Looks up a localized string similar to Personalize Windows settings and everyday behavior..
         /// </summary>
         internal static string Customize_Description {
             get {
@@ -592,7 +592,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Desktop icons and shortcut settings.
+        ///   Looks up a localized string similar to Desktop icons and shortcut appearance..
         /// </summary>
         internal static string Customize_Desktop_Description {
             get {
@@ -628,7 +628,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shows or hides the shortcut arrow overlay on desktop icons.
+        ///   Looks up a localized string similar to Shows or hides the arrow overlay on desktop shortcuts..
         /// </summary>
         internal static string Customize_Desktop_ShortcutArrow_Description {
             get {
@@ -646,7 +646,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Displays the Control Panel icon on your desktop.
+        ///   Looks up a localized string similar to Shows or hides the Control Panel icon on the desktop..
         /// </summary>
         internal static string Customize_Desktop_ShowControlPanel_Description {
             get {
@@ -664,7 +664,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shows or hides all desktop icons at once.
+        ///   Looks up a localized string similar to Shows or hides all desktop icons at once..
         /// </summary>
         internal static string Customize_Desktop_ShowDesktopIcons_Description {
             get {
@@ -682,7 +682,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Displays the Network icon on your desktop.
+        ///   Looks up a localized string similar to Shows or hides the Network icon on the desktop..
         /// </summary>
         internal static string Customize_Desktop_ShowNetwork_Description {
             get {
@@ -700,7 +700,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Displays the Recycle Bin icon on your desktop.
+        ///   Looks up a localized string similar to Shows or hides the Recycle Bin icon on the desktop..
         /// </summary>
         internal static string Customize_Desktop_ShowRecycleBin_Description {
             get {
@@ -718,7 +718,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Displays the This PC icon on your desktop.
+        ///   Looks up a localized string similar to Shows or hides the This PC icon on the desktop..
         /// </summary>
         internal static string Customize_Desktop_ShowThisPc_Description {
             get {
@@ -736,7 +736,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Displays your user profile folder as a desktop icon.
+        ///   Looks up a localized string similar to Shows or hides your user folder on the desktop..
         /// </summary>
         internal static string Customize_Desktop_ShowUserFiles_Description {
             get {
@@ -754,7 +754,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Controls automatic background game recording (Game DVR) and app capture..
+        ///   Looks up a localized string similar to Records gameplay and app activity in the background through Game DVR..
         /// </summary>
         internal static string Customize_Gaming_BackgroundRecording_Description {
             get {
@@ -781,7 +781,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Game-related display, input, and recording settings.
+        ///   Looks up a localized string similar to Gaming options for graphics, input, and capture..
         /// </summary>
         internal static string Customize_Gaming_Description {
             get {
@@ -790,7 +790,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Windows DWM-based full-screen optimizations setting..
+        ///   Looks up a localized string similar to Applies Windows' fullscreen optimizations, which can improve compatibility for some games..
         /// </summary>
         internal static string Customize_Gaming_FullscreenOptimizations_Description {
             get {
@@ -817,7 +817,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Controls Xbox Game Bar overlays, startup panel, and related background features..
+        ///   Looks up a localized string similar to Shows the Xbox Game Bar and its related overlays and background features..
         /// </summary>
         internal static string Customize_Gaming_GameBar_Description {
             get {
@@ -844,7 +844,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Windows Game Mode for gaming processes and Windows Update behavior..
+        ///   Looks up a localized string similar to Gives games priority for system resources and changes how Windows Update behaves while you play..
         /// </summary>
         internal static string Customize_Gaming_GameMode_Description {
             get {
@@ -871,7 +871,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GPU video memory scheduling mode. Requires a compatible GPU driver..
+        ///   Looks up a localized string similar to Lets the GPU handle more video-memory scheduling work. A compatible graphics driver is required..
         /// </summary>
         internal static string Customize_Gaming_HardwareAcceleratedGpuScheduling_Description {
             get {
@@ -898,7 +898,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Windows mouse acceleration setting for cursor movement..
+        ///   Looks up a localized string similar to Adjusts how cursor movement responds to the speed of your mouse..
         /// </summary>
         internal static string Customize_Gaming_MouseAcceleration_Description {
             get {
@@ -961,7 +961,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bing web search integration in Windows Search and Start menu results..
+        ///   Looks up a localized string similar to Includes Bing web results alongside local results in Windows Search and the Start menu..
         /// </summary>
         internal static string Customize_Preferences_BingSearch_Description {
             get {
@@ -988,7 +988,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Windows 10-style context menu on Windows 11..
+        ///   Looks up a localized string similar to Uses the classic Windows 10-style context menu instead of the condensed Windows 11 menu..
         /// </summary>
         internal static string Customize_Preferences_ClassicContextMenu_Description {
             get {
@@ -1015,7 +1015,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clipboard history for multiple copied items accessible with Win+V..
+        ///   Looks up a localized string similar to Keeps a history of copied items that you can browse with Win+V..
         /// </summary>
         internal static string Customize_Preferences_ClipboardHistory_Description {
             get {
@@ -1042,7 +1042,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dark mode for system apps, Settings, and shell elements..
+        ///   Looks up a localized string similar to Applies dark colors to Windows apps, Settings, and other shell elements..
         /// </summary>
         internal static string Customize_Preferences_DarkMode_Description {
             get {
@@ -1060,7 +1060,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Customize visual and interaction settings.
+        ///   Looks up a localized string similar to Fine-tune the way Windows looks and feels..
         /// </summary>
         internal static string Customize_Preferences_Description {
             get {
@@ -1069,7 +1069,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Decreases spacing between items in File Explorer for a denser view..
+        ///   Looks up a localized string similar to Tightens the spacing between items in File Explorer for a more compact view..
         /// </summary>
         internal static string Customize_Preferences_ExplorerCompactMode_Description {
             get {
@@ -1087,7 +1087,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shows check boxes when selecting items in File Explorer..
+        ///   Looks up a localized string similar to Shows check boxes next to items in File Explorer, making it easier to select several files at once..
         /// </summary>
         internal static string Customize_Preferences_ExplorerItemCheckboxes_Description {
             get {
@@ -1105,7 +1105,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Controls OneDrive and cloud sync provider notifications in File Explorer..
+        ///   Looks up a localized string similar to Shows or hides notifications from OneDrive and other cloud sync providers in File Explorer..
         /// </summary>
         internal static string Customize_Preferences_ExplorerSyncNotifications_Description {
             get {
@@ -1132,7 +1132,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File Explorer default location setting (This PC or Quick Access)..
+        ///   Looks up a localized string similar to Choose whether File Explorer opens to This PC or Quick access..
         /// </summary>
         internal static string Customize_Preferences_LaunchToThisPc_Description {
             get {
@@ -1159,7 +1159,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Controls how the search button and box are displayed on the taskbar..
+        ///   Looks up a localized string similar to Choose whether the taskbar shows a search box, a search icon, or no search control..
         /// </summary>
         internal static string Customize_Preferences_SearchBoxTaskbarMode_Description {
             get {
@@ -1240,7 +1240,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shows file extensions (e.g. .txt, .exe) in File Explorer..
+        ///   Looks up a localized string similar to Shows or hides file extensions such as .txt and .exe in File Explorer..
         /// </summary>
         internal static string Customize_Preferences_ShowFileExtensions_Description {
             get {
@@ -1267,7 +1267,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shows hidden files and folders in File Explorer..
+        ///   Looks up a localized string similar to Shows or hides hidden files and folders in File Explorer..
         /// </summary>
         internal static string Customize_Preferences_ShowHiddenFiles_Description {
             get {
@@ -1294,7 +1294,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Displays seconds in the taskbar clock..
+        ///   Looks up a localized string similar to Shows seconds in the taskbar clock..
         /// </summary>
         internal static string Customize_Preferences_ShowSecondsInSystemClock_Description {
             get {
@@ -1312,7 +1312,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Controls the snap layouts menu that appears when hovering over the maximize button..
+        ///   Looks up a localized string similar to Shows or hides the Snap Layouts menu when you hover over a window's maximize button..
         /// </summary>
         internal static string Customize_Preferences_SnapAssistFlyout_Description {
             get {
@@ -1330,7 +1330,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Controls Windows tips and app suggestions in the Settings panel..
+        ///   Looks up a localized string similar to Shows or hides Windows tips and app suggestions in Settings..
         /// </summary>
         internal static string Customize_Preferences_SystemSuggestions_Description {
             get {
@@ -1357,7 +1357,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Switches taskbar alignment between Center and Left..
+        ///   Looks up a localized string similar to Choose whether taskbar icons sit in the center or align to the left..
         /// </summary>
         internal static string Customize_Preferences_TaskbarAlignment_Description {
             get {
@@ -1393,7 +1393,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds an &quot;End task&quot; option to the taskbar right-click menu for quick process termination..
+        ///   Looks up a localized string similar to Adds an End task command to the taskbar context menu, so you can close an unresponsive app without opening Task Manager..
         /// </summary>
         internal static string Customize_Preferences_TaskbarEndTask_Description {
             get {
@@ -1420,7 +1420,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clicking a taskbar icon opens the most recently active window of that app instantly..
+        ///   Looks up a localized string similar to Makes a taskbar click open the most recently used window for that app..
         /// </summary>
         internal static string Customize_Preferences_TaskbarLastActiveClick_Description {
             get {
@@ -1438,7 +1438,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Controls visibility of the Task View button on the taskbar..
+        ///   Looks up a localized string similar to Shows or hides the Task View button on the taskbar..
         /// </summary>
         internal static string Customize_Preferences_TaskbarTaskViewButton_Description {
             get {
@@ -1456,7 +1456,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Controls visibility of the Widgets button on the taskbar..
+        ///   Looks up a localized string similar to Shows or hides the Widgets button on the taskbar. Widgets provide quick access to news, weather, and other updates..
         /// </summary>
         internal static string Customize_Preferences_TaskbarWidgets_Description {
             get {
@@ -1483,7 +1483,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Controls toast popup notifications and lock screen notifications..
+        ///   Looks up a localized string similar to Controls toast notifications, including alerts that appear on the desktop or lock screen..
         /// </summary>
         internal static string Customize_Preferences_ToastNotifications_Description {
             get {
@@ -1501,7 +1501,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shake a window to minimize all other open windows..
+        ///   Looks up a localized string similar to Shake the active window to minimize the others, or turn this behavior off..
         /// </summary>
         internal static string Customize_Preferences_WindowShake_Description {
             get {
@@ -1519,7 +1519,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Allows all trusted Windows Store apps to be installed without requiring Developer Mode to be enabled..
+        ///   Looks up a localized string similar to Lets trusted Windows apps install without requiring Developer Mode..
         /// </summary>
         internal static string Customize_SystemFeatures_AllowAllTrustedApps_Description {
             get {
@@ -1546,7 +1546,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Core system features and behaviors.
+        ///   Looks up a localized string similar to Useful Windows features and system behavior..
         /// </summary>
         internal static string Customize_SystemFeatures_Description {
             get {
@@ -1555,7 +1555,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enables Windows Developer Mode for sideloading apps, device portal, SSH server, and development features..
+        ///   Looks up a localized string similar to Provides tools for app sideloading, Device Portal, SSH, and other development tasks..
         /// </summary>
         internal static string Customize_SystemFeatures_DeveloperMode_Description {
             get {
@@ -1582,7 +1582,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enables Win32 long path support in File Explorer, allowing file paths longer than the traditional 260-character limit..
+        ///   Looks up a localized string similar to Allows compatible apps to work with file paths longer than the traditional 260-character limit..
         /// </summary>
         internal static string Customize_SystemFeatures_LongPathsEnabled_Description {
             get {
@@ -1618,7 +1618,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to NumLock state at the Windows login screen..
+        ///   Looks up a localized string similar to Sets whether Num Lock is on when Windows reaches the sign-in screen..
         /// </summary>
         internal static string Customize_SystemFeatures_NumLockOnBoot_Description {
             get {
@@ -1672,7 +1672,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shows the battery percentage next to the battery icon in the system tray..
+        ///   Looks up a localized string similar to Shows the current battery percentage next to the battery icon in the system tray..
         /// </summary>
         internal static string Customize_SystemFeatures_ShowBatteryPercentage_Description {
             get {

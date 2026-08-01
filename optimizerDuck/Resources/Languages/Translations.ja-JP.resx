@@ -105,19 +105,19 @@
     <value>最適化</value>
   </data>
   <data name="Customize.Description" xml:space="preserve">
-    <value>Windows の設定と環境をカスタマイズします</value>
+    <value>Windows の設定と日常的な動作をカスタマイズします。</value>
   </data>
   <data name="Customize.Preferences.Name" xml:space="preserve">
     <value>環境設定</value>
   </data>
   <data name="Customize.Preferences.Description" xml:space="preserve">
-    <value>表示と操作の設定をカスタマイズします</value>
+    <value>Windows の見た目と操作感を調整します。</value>
   </data>
   <data name="Customize.Gaming.Name" xml:space="preserve">
     <value>ゲーム</value>
   </data>
   <data name="Customize.Gaming.Description" xml:space="preserve">
-    <value>ゲーム関連の表示、入力、録画の設定</value>
+    <value>ゲーム向けのグラフィック、入力、録画の設定です。</value>
   </data>
   <data name="Dashboard.SystemInfo.Gpu.More" xml:space="preserve">
     <value>GPU あと {0} 個</value>
@@ -774,7 +774,7 @@
     <value>タスクバーのウィジェット</value>
   </data>
   <data name="Customize.Preferences.TaskbarWidgets.Description" xml:space="preserve">
-    <value>タスクバーのウィジェット ボタンの表示を制御します</value>
+    <value>タスクバーのウィジェット ボタンを表示または非表示にします。ニュース、天気、更新情報などをすばやく確認できます。</value>
   </data>
   <data name="Customize.Preferences.TaskbarWidgets.Recommendation.Reason" xml:space="preserve">
     <value>ウィジェットをオフにすると、ニュースや天気を取得するバックグラウンド Web サービスが削除され、アイドル時のネットワークとメモリ使用量が減ります</value>
@@ -783,7 +783,7 @@
     <value>タスクバーの配置</value>
   </data>
   <data name="Customize.Preferences.TaskbarAlignment.Description" xml:space="preserve">
-    <value>タスクバーの配置を中央と左の間で切り替えます</value>
+    <value>タスクバーのアイコンを中央に配置するか、左揃えにするかを選びます。</value>
   </data>
   <data name="Customize.Preferences.TaskbarAlignment.Options.Center" xml:space="preserve">
     <value>中央</value>
@@ -795,31 +795,31 @@
     <value>エクスプローラー コンパクト モード</value>
   </data>
   <data name="Customize.Preferences.ExplorerCompactMode.Description" xml:space="preserve">
-    <value>エクスプローラー内の項目間隔を狭めて、より密な表示にします</value>
+    <value>エクスプローラーの項目間隔を狭くして、よりコンパクトに表示します。</value>
   </data>
   <data name="Customize.Preferences.SnapAssistFlyout.Name" xml:space="preserve">
     <value>スナップ レイアウト フライアウト</value>
   </data>
   <data name="Customize.Preferences.SnapAssistFlyout.Description" xml:space="preserve">
-    <value>最大化ボタンにマウスを合わせたときに表示されるスナップ レイアウト メニューを制御します</value>
+    <value>最大化ボタンにカーソルを合わせたときのスナップ レイアウト メニューを表示または非表示にします。</value>
   </data>
   <data name="Customize.Preferences.ExplorerItemCheckboxes.Name" xml:space="preserve">
     <value>エクスプローラーの項目チェック ボックス</value>
   </data>
   <data name="Customize.Preferences.ExplorerItemCheckboxes.Description" xml:space="preserve">
-    <value>エクスプローラーで項目を選択するときにチェック ボックスを表示します</value>
+    <value>エクスプローラーの項目にチェック ボックスを表示し、複数のファイルを選びやすくします。</value>
   </data>
   <data name="Customize.Preferences.TaskbarTaskViewButton.Name" xml:space="preserve">
     <value>タスクバーのタスク ビュー ボタン</value>
   </data>
   <data name="Customize.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
-    <value>タスクバーのタスク ビュー ボタンの表示を制御します</value>
+    <value>タスクバーのタスク ビュー ボタンを表示または非表示にします。</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Name" xml:space="preserve">
     <value>タスクバーのタスク終了</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Description" xml:space="preserve">
-    <value>プロセスを素早く終了するため、タスクバーの右クリック メニューに「タスクの終了」オプションを追加します</value>
+    <value>タスクバーの右クリック メニューに「タスクの終了」を追加し、タスク マネージャーを開かずに応答しないアプリを閉じられるようにします。</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Recommendation.Reason" xml:space="preserve">
     <value>タスクバーのタスク終了を使うと、タスク マネージャーを開かずにフリーズしたアプリを即座に終了できます</value>
@@ -828,13 +828,13 @@
     <value>ダーク モード</value>
   </data>
   <data name="Customize.Preferences.DarkMode.Description" xml:space="preserve">
-    <value>システム アプリ、設定、シェル要素のダーク モード</value>
+    <value>Windows アプリ、設定、その他のシェル要素をダーク カラーで表示します。</value>
   </data>
   <data name="Customize.Preferences.ExplorerSyncNotifications.Name" xml:space="preserve">
     <value>エクスプローラーの同期通知</value>
   </data>
   <data name="Customize.Preferences.ExplorerSyncNotifications.Description" xml:space="preserve">
-    <value>エクスプローラー内の OneDrive とクラウド同期プロバイダーの通知を制御します</value>
+    <value>エクスプローラーで OneDrive などのクラウド同期サービスからの通知を表示または非表示にします。</value>
   </data>
   <data name="Customize.Preferences.ExplorerSyncNotifications.Recommendation.Reason" xml:space="preserve">
     <value>同期通知を無効にすると、OneDrive のポップアップがエクスプローラーでのファイル閲覧を中断しなくなります</value>
@@ -843,7 +843,7 @@
     <value>システムの提案</value>
   </data>
   <data name="Customize.Preferences.SystemSuggestions.Description" xml:space="preserve">
-    <value>設定パネル内の Windows のヒントとアプリの提案を制御します</value>
+    <value>設定に表示される Windows のヒントやアプリのおすすめを表示または非表示にします。</value>
   </data>
   <data name="Customize.Preferences.SystemSuggestions.Recommendation.Reason" xml:space="preserve">
     <value>システムの提案をオフにすると、Windows が求めていないアプリや設定を推奨しなくなります</value>
@@ -852,22 +852,22 @@
     <value>トースト通知</value>
   </data>
   <data name="Customize.Preferences.ToastNotifications.Description" xml:space="preserve">
-    <value>トースト ポップアップ通知とロック画面の通知を制御します</value>
+    <value>デスクトップやロック画面に表示される通知を管理します。</value>
   </data>
   <data name="Customize.Preferences.ShowFileExtensions.Name" xml:space="preserve">
-    <value>ファイル拡張子を表示</value>
+    <value>ファイル拡張子</value>
   </data>
   <data name="Customize.Preferences.ShowFileExtensions.Description" xml:space="preserve">
-    <value>エクスプローラーでファイル拡張子（例: .txt、.exe）を表示します</value>
+    <value>エクスプローラーで .txt や .exe などの拡張子を表示または非表示にします。</value>
   </data>
   <data name="Customize.Preferences.ShowFileExtensions.Recommendation.Reason" xml:space="preserve">
     <value>ファイル拡張子を表示すると、不審なファイル形式を見つけやすく、偽アイコンの背後にマルウェアが隠れるのを防げます</value>
   </data>
   <data name="Customize.Preferences.ShowHiddenFiles.Name" xml:space="preserve">
-    <value>隠しファイルを表示</value>
+    <value>隠しファイル</value>
   </data>
   <data name="Customize.Preferences.ShowHiddenFiles.Description" xml:space="preserve">
-    <value>エクスプローラーで隠しファイルとフォルダーを表示します</value>
+    <value>エクスプローラーで隠しファイルと隠しフォルダーを表示または非表示にします。</value>
   </data>
   <data name="Customize.Preferences.ShowHiddenFiles.Recommendation.Reason" xml:space="preserve">
     <value>隠しファイルには管理が必要なシステムと構成データが含まれます。表示するとシステム全体を把握できます</value>
@@ -876,7 +876,7 @@
     <value>クリップボード履歴</value>
   </data>
   <data name="Customize.Preferences.ClipboardHistory.Description" xml:space="preserve">
-    <value>Win+V でアクセスできる複数のコピー項目のクリップボード履歴</value>
+    <value>Win+V で確認できるコピー項目の履歴を保存します。</value>
   </data>
   <data name="Customize.Preferences.ClipboardHistory.Recommendation.Reason" xml:space="preserve">
     <value>クリップボード履歴を使うと Win+V で過去のコピーを呼び出せ、反復的なコピー＆ペースト作業が効率化されます</value>
@@ -885,13 +885,13 @@
     <value>ウィンドウ シェイク</value>
   </data>
   <data name="Customize.Preferences.WindowShake.Description" xml:space="preserve">
-    <value>ウィンドウを振ると、他のすべての開いているウィンドウを最小化します</value>
+    <value>アクティブなウィンドウを振って他のウィンドウを最小化する動作を、オンまたはオフにします。</value>
   </data>
   <data name="Customize.Preferences.ClassicContextMenu.Name" xml:space="preserve">
     <value>クラシック コンテキスト メニュー</value>
   </data>
   <data name="Customize.Preferences.ClassicContextMenu.Description" xml:space="preserve">
-    <value>Windows 11 で Windows 10 スタイルのコンテキスト メニューを使用</value>
+    <value>Windows 11 の簡略化されたメニューの代わりに、Windows 10 スタイルの従来のコンテキスト メニューを使います。</value>
   </data>
   <data name="Customize.Preferences.ClassicContextMenu.Recommendation.Reason" xml:space="preserve">
     <value>クラシック メニューは、Windows 11 の省略メニューを展開するための追加クリックなしですべてのオプションを一度に表示します</value>
@@ -900,7 +900,7 @@
     <value>システム時計の秒表示</value>
   </data>
   <data name="Customize.Preferences.ShowSecondsInSystemClock.Description" xml:space="preserve">
-    <value>タスクバーの時計に秒を表示します</value>
+    <value>タスクバーの時計に秒を表示します。</value>
   </data>
   <data name="Customize.Gaming.Section.GameSettings" xml:space="preserve">
     <value>ゲーム設定</value>
@@ -915,7 +915,7 @@
     <value>ゲーム モード</value>
   </data>
   <data name="Customize.Gaming.GameMode.Description" xml:space="preserve">
-    <value>ゲーム プロセスと Windows Update の動作のための Windows ゲーム モード</value>
+    <value>ゲームにシステム リソースの優先権を与え、プレイ中の Windows Update の動作を調整します。</value>
   </data>
   <data name="Customize.Gaming.GameMode.Recommendation.Reason" xml:space="preserve">
     <value>ゲーム モードはゲーム プロセスを自動的に優先し、ゲーム中の Windows Update 通知を一時停止してスムーズなパフォーマンスを実現します</value>
@@ -924,7 +924,7 @@
     <value>Xbox ゲーム バー</value>
   </data>
   <data name="Customize.Gaming.GameBar.Description" xml:space="preserve">
-    <value>Xbox Game Bar のオーバーレイ、起動パネル、関連するバックグラウンド機能を制御します</value>
+    <value>Xbox Game Bar と関連するオーバーレイやバックグラウンド機能を表示します。</value>
   </data>
   <data name="Customize.Gaming.GameBar.Recommendation.Reason" xml:space="preserve">
     <value>Game Bar を無効にするとシステム リソースが解放され、バックグラウンド オーバーレイがゲームを妨げなくなります</value>
@@ -933,7 +933,7 @@
     <value>バックグラウンド録画 (DVR)</value>
   </data>
   <data name="Customize.Gaming.BackgroundRecording.Description" xml:space="preserve">
-    <value>バックグラウンドでのゲーム自動録画（Game DVR）とアプリ キャプチャを制御します</value>
+    <value>Game DVR を使ってゲームやアプリの動作をバックグラウンドで録画します。</value>
   </data>
   <data name="Customize.Gaming.BackgroundRecording.Recommendation.Reason" xml:space="preserve">
     <value>バックグラウンド録画を無効にすると、DVR がゲームプレイを静かにキャプチャしなくなり、CPU とディスク書き込みを節約できます</value>
@@ -942,7 +942,7 @@
     <value>マウス加速</value>
   </data>
   <data name="Customize.Gaming.MouseAcceleration.Description" xml:space="preserve">
-    <value>カーソル移動のための Windows マウス加速設定</value>
+    <value>マウスの速度に応じたカーソルの動き方を調整します。</value>
   </data>
   <data name="Customize.Gaming.MouseAcceleration.Recommendation.Reason" xml:space="preserve">
     <value>加速を無効にすると、より正確なエイムと筋肉記憶の一貫性のために生の線形マウス入力が得られます</value>
@@ -951,7 +951,7 @@
     <value>全画面最適化</value>
   </data>
   <data name="Customize.Gaming.FullscreenOptimizations.Description" xml:space="preserve">
-    <value>Windows DWM ベースの全画面最適化の設定</value>
+    <value>Windows の全画面最適化を適用します。一部のゲームで互換性が向上する場合があります。</value>
   </data>
   <data name="Customize.Gaming.FullscreenOptimizations.Recommendation.Reason" xml:space="preserve">
     <value>ゲーム内のカクつき、入力遅延、黒画面（特に競技系シューティング）が発生する場合は無効にしてください</value>
@@ -960,7 +960,7 @@
     <value>ハードウェア アクセラレータ付き GPU スケジューリング</value>
   </data>
   <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Description" xml:space="preserve">
-    <value>GPU ビデオ メモリのスケジューリング モード。互換性のある GPU ドライバーが必要です</value>
+    <value>ビデオ メモリのスケジュール処理を GPU に任せます。対応するグラフィック ドライバーが必要です。</value>
   </data>
   <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Recommendation.Reason" xml:space="preserve">
     <value>GPU スケジューリングはフレーム管理を CPU から GPU にオフロードし、表示遅延を削減してフレーム配分を改善します</value>
@@ -1558,7 +1558,7 @@
     <value>システム</value>
   </data>
   <data name="Customize.SystemFeatures.Description" xml:space="preserve">
-    <value>コア システム機能と動作</value>
+    <value>便利な Windows 機能とシステム動作の設定です。</value>
   </data>
   <data name="Customize.SystemFeatures.Section.Input" xml:space="preserve">
     <value>入力設定</value>
@@ -1567,7 +1567,7 @@
     <value>起動時の NumLock</value>
   </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Description" xml:space="preserve">
-    <value>Windows ログイン画面での NumLock の状態</value>
+    <value>Windows のサインイン画面で Num Lock をオンにするかどうかを設定します。</value>
   </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
     <value>起動時に NumLock を有効にすると、ログイン後すぐにテンキーが使えるようになり、毎回手動で切り替える必要がなくなります</value>
@@ -1579,7 +1579,7 @@
     <value>デスクトップ</value>
   </data>
   <data name="Customize.Desktop.Description" xml:space="preserve">
-    <value>デスクトップのアイコンとショートカット設定</value>
+    <value>デスクトップ アイコンとショートカットの表示を調整します。</value>
   </data>
   <data name="Customize.Desktop.Section.Icons" xml:space="preserve">
     <value>デスクトップのアイコン</value>
@@ -1591,55 +1591,55 @@
     <value>PC</value>
   </data>
   <data name="Customize.Desktop.ShowThisPc.Description" xml:space="preserve">
-    <value>デスクトップに「PC」のアイコンを表示します</value>
+    <value>デスクトップの「PC」を表示または非表示にします。</value>
   </data>
   <data name="Customize.Desktop.ShowRecycleBin.Name" xml:space="preserve">
     <value>ごみ箱</value>
   </data>
   <data name="Customize.Desktop.ShowRecycleBin.Description" xml:space="preserve">
-    <value>デスクトップにごみ箱のアイコンを表示します</value>
+    <value>デスクトップのごみ箱を表示または非表示にします。</value>
   </data>
   <data name="Customize.Desktop.ShowUserFiles.Name" xml:space="preserve">
     <value>ユーザーのファイル</value>
   </data>
   <data name="Customize.Desktop.ShowUserFiles.Description" xml:space="preserve">
-    <value>ユーザーのプロファイル フォルダーをデスクトップのアイコンとして表示します</value>
+    <value>デスクトップにユーザーフォルダーを表示または非表示にします。</value>
   </data>
   <data name="Customize.Desktop.ShowNetwork.Name" xml:space="preserve">
     <value>ネットワーク</value>
   </data>
   <data name="Customize.Desktop.ShowNetwork.Description" xml:space="preserve">
-    <value>デスクトップにネットワークのアイコンを表示します</value>
+    <value>デスクトップのネットワーク アイコンを表示または非表示にします。</value>
   </data>
   <data name="Customize.Desktop.ShowControlPanel.Name" xml:space="preserve">
     <value>コントロール パネル</value>
   </data>
   <data name="Customize.Desktop.ShowControlPanel.Description" xml:space="preserve">
-    <value>デスクトップにコントロール パネルのアイコンを表示します</value>
+    <value>デスクトップのコントロール パネルを表示または非表示にします。</value>
   </data>
   <data name="Customize.Desktop.ShowDesktopIcons.Name" xml:space="preserve">
-    <value>デスクトップのアイコン</value>
+    <value>デスクトップ アイコン</value>
   </data>
   <data name="Customize.Desktop.ShowDesktopIcons.Description" xml:space="preserve">
-    <value>すべてのデスクトップ アイコンを一括で表示または非表示にします</value>
+    <value>デスクトップ アイコンをまとめて表示または非表示にします。</value>
   </data>
   <data name="Customize.Desktop.ShortcutArrow.Name" xml:space="preserve">
     <value>ショートカット矢印</value>
   </data>
   <data name="Customize.Desktop.ShortcutArrow.Description" xml:space="preserve">
-    <value>デスクトップのアイコンにショートカット矢印のオーバーレイを表示または非表示にします</value>
+    <value>デスクトップのショートカットに付く矢印を表示または非表示にします。</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Name" xml:space="preserve">
-    <value>「PC」で開く</value>
+    <value>エクスプローラーの起動場所</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Description" xml:space="preserve">
-    <value>エクスプローラーの既定の開く場所の設定（PC またはクイック アクセス）</value>
+    <value>エクスプローラーを「PC」とクイック アクセスのどちらで開くかを選びます。</value>
   </data>
   <data name="Customize.Preferences.BingSearch.Name" xml:space="preserve">
     <value>Bing 検索</value>
   </data>
   <data name="Customize.Preferences.BingSearch.Description" xml:space="preserve">
-    <value>Windows 検索とスタート メニューの結果への Bing Web 検索の統合</value>
+    <value>Windows 検索やスタート メニューのローカル検索結果に Bing のウェブ結果を含めます。</value>
   </data>
   <data name="Customize.Preferences.BingSearch.Recommendation.Reason" xml:space="preserve">
     <value>Bing 検索をオフにすると、Web クエリがローカル検索結果を乱さず、検索速度が向上します</value>
@@ -1714,16 +1714,16 @@
     <value>開発者モード</value>
   </data>
   <data name="Customize.SystemFeatures.DeveloperMode.Description" xml:space="preserve">
-    <value>サイドローディングアプリ、デバイスポータル、SSHサーバー、開発機能のためにWindows開発者モードを有効にします。</value>
+    <value>アプリのサイドロード、デバイス ポータル、SSH など、開発に役立つ機能を利用できます。</value>
   </data>
   <data name="Customize.SystemFeatures.DeveloperMode.Recommendation.Reason" xml:space="preserve">
     <value>開発者モードは、アプリ開発とデバッグに不可欠なサイドローディングおよび診断機能を有効にします。</value>
   </data>
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Name" xml:space="preserve">
-    <value>すべての信頼できるアプリを許可</value>
+    <value>信頼されたアプリ</value>
   </data>
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Description" xml:space="preserve">
-    <value>開発者モードを有効にしなくても、信頼できるWindowsストアアプリのインストールを許可します。</value>
+    <value>開発者モードを有効にしなくても、信頼できる Windows アプリをインストールできます。</value>
   </data>
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Recommendation.Reason" xml:space="preserve">
     <value>信頼できるアプリをすべて許可すると、開発者モードなしでサイドローディングが可能になります。無効にすると、Microsoftストアのみのインストールに制限されます。</value>
@@ -1732,7 +1732,7 @@
     <value>長いパスのサポート（260文字以上）</value>
   </data>
   <data name="Customize.SystemFeatures.LongPathsEnabled.Description" xml:space="preserve">
-    <value>エクスプローラーでWin32長いパスのサポートを有効にし、従来の260文字制限を超えるファイルパスを許可します。</value>
+    <value>対応アプリで、従来の260文字制限を超えるファイル パスを扱えるようにします。</value>
   </data>
   <data name="Customize.SystemFeatures.LongPathsEnabled.Recommendation.Reason" xml:space="preserve">
     <value>長いパスのサポートにより、深くネストされたディレクトリや長い名前のプロジェクトを扱う際のファイルアクセスエラーを防ぎます。</value>
@@ -1741,7 +1741,7 @@
     <value>検索ボックスの表示</value>
   </data>
   <data name="Customize.Preferences.SearchBoxTaskbarMode.Description" xml:space="preserve">
-    <value>タスクバーに検索ボタンとボックスを表示する方法を制御します。</value>
+    <value>タスクバーに検索ボックス、検索アイコン、または検索コントロールなしのどれを表示するか選びます。</value>
   </data>
   <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Hidden" xml:space="preserve">
     <value>非表示</value>
@@ -1759,13 +1759,13 @@
     <value>最後にアクティブなクリック</value>
   </data>
   <data name="Customize.Preferences.TaskbarLastActiveClick.Description" xml:space="preserve">
-    <value>タスクバーのアイコンをクリックすると、そのアプリの最後にアクティブだったウィンドウが即座に開きます。</value>
+    <value>タスクバーのアプリ アイコンをクリックしたとき、そのアプリで最後に使ったウィンドウを開きます。</value>
   </data>
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Name" xml:space="preserve">
-    <value>バッテリー残量を表示</value>
+    <value>バッテリー残量</value>
   </data>
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
-    <value>システムトレイのバッテリーアイコンの横にバッテリー残量を表示します。</value>
+    <value>通知領域のバッテリー アイコンの横に現在の残量を表示します。</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
     <value>スタートメニューのウェブ検索を無効化</value>

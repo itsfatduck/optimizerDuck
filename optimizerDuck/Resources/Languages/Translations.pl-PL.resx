@@ -106,19 +106,19 @@
     <value>Optymalizacja</value>
   </data>
   <data name="Customize.Description" xml:space="preserve">
-    <value>Dostosuj ustawienia i preferencje systemu Windows</value>
+    <value>Dostosuj ustawienia Windows i jego codzienne działanie.</value>
   </data>
   <data name="Customize.Preferences.Name" xml:space="preserve">
     <value>Preferencje</value>
   </data>
   <data name="Customize.Preferences.Description" xml:space="preserve">
-    <value>Dostosuj ustawienia wyglądu i interakcji</value>
+    <value>Dopasuj wygląd i sposób działania systemu Windows.</value>
   </data>
   <data name="Customize.Gaming.Name" xml:space="preserve">
     <value>Gry</value>
   </data>
   <data name="Customize.Gaming.Description" xml:space="preserve">
-    <value>Ustawienia obrazu, sterowania i nagrywania związane z grami</value>
+    <value>Opcje grafiki, obsługi wejścia i nagrywania podczas grania.</value>
   </data>
   <data name="Dashboard.SystemInfo.Gpu.More" xml:space="preserve">
     <value>+ {0} więcej GPU</value>
@@ -775,7 +775,7 @@
     <value>Widżety na pasku zadań</value>
   </data>
   <data name="Customize.Preferences.TaskbarWidgets.Description" xml:space="preserve">
-    <value>Steruje widocznością przycisku Widżety na pasku zadań.</value>
+    <value>Pokazuje lub ukrywa przycisk Widżety na pasku zadań. Widżety zapewniają szybki dostęp do wiadomości, pogody i aktualizacji.</value>
   </data>
   <data name="Customize.Preferences.TaskbarWidgets.Recommendation.Reason" xml:space="preserve">
     <value>Wyłączenie widżetów usuwa działającą w tle usługę sieciową pobierającą wiadomości i pogodę, zmniejszając zużycie sieci i pamięci w bezczynności.</value>
@@ -784,7 +784,7 @@
     <value>Wyrównanie paska zadań</value>
   </data>
   <data name="Customize.Preferences.TaskbarAlignment.Description" xml:space="preserve">
-    <value>Przełącza wyrównanie paska zadań między Wyśrodkowanym a Do lewej.</value>
+    <value>Wybierz, czy ikony paska zadań mają być wyśrodkowane, czy wyrównane do lewej.</value>
   </data>
   <data name="Customize.Preferences.TaskbarAlignment.Options.Center" xml:space="preserve">
     <value>Wyśrodkowane</value>
@@ -796,31 +796,31 @@
     <value>Tryb kompaktowy Eksploratora</value>
   </data>
   <data name="Customize.Preferences.ExplorerCompactMode.Description" xml:space="preserve">
-    <value>Zmniejsza odstępy między elementami w Eksploratorze plików dla gęstszego widoku.</value>
+    <value>Zmniejsza odstępy między elementami w Eksploratorze plików, zapewniając bardziej zwarty widok.</value>
   </data>
   <data name="Customize.Preferences.SnapAssistFlyout.Name" xml:space="preserve">
     <value>Wysuwane układy przyciągania</value>
   </data>
   <data name="Customize.Preferences.SnapAssistFlyout.Description" xml:space="preserve">
-    <value>Steruje menu układów przyciągania pojawiającym się po najechaniu na przycisk maksymalizacji.</value>
+    <value>Pokazuje lub ukrywa menu Układy przyciągania po najechaniu na przycisk maksymalizacji.</value>
   </data>
   <data name="Customize.Preferences.ExplorerItemCheckboxes.Name" xml:space="preserve">
     <value>Pola wyboru elementów w Eksploratorze</value>
   </data>
   <data name="Customize.Preferences.ExplorerItemCheckboxes.Description" xml:space="preserve">
-    <value>Pokazuje pola wyboru przy zaznaczaniu elementów w Eksploratorze plików.</value>
+    <value>Pokazuje pola wyboru obok elementów w Eksploratorze plików, ułatwiając zaznaczanie wielu plików.</value>
   </data>
   <data name="Customize.Preferences.TaskbarTaskViewButton.Name" xml:space="preserve">
     <value>Przycisk Widok zadań na pasku zadań</value>
   </data>
   <data name="Customize.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
-    <value>Steruje widocznością przycisku Widok zadań na pasku zadań.</value>
+    <value>Pokazuje lub ukrywa przycisk Widok zadań na pasku zadań.</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Name" xml:space="preserve">
     <value>Zakończ zadanie na pasku zadań</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Description" xml:space="preserve">
-    <value>Dodaje opcję „Zakończ zadanie” do menu prawego przycisku myszy na pasku zadań w celu szybkiego zakończenia procesu.</value>
+    <value>Dodaje polecenie Zakończ zadanie do menu paska zadań, aby zamknąć zawieszoną aplikację bez otwierania Menedżera zadań.</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Recommendation.Reason" xml:space="preserve">
     <value>Zakończ zadanie na pasku zadań pozwala natychmiast zamknąć zawieszone aplikacje bez otwierania Menedżera zadań.</value>
@@ -829,13 +829,13 @@
     <value>Tryb ciemny</value>
   </data>
   <data name="Customize.Preferences.DarkMode.Description" xml:space="preserve">
-    <value>Tryb ciemny dla aplikacji systemowych, Ustawień i elementów powłoki.</value>
+    <value>Stosuje ciemne kolory w aplikacjach Windows, Ustawieniach i innych elementach powłoki.</value>
   </data>
   <data name="Customize.Preferences.ExplorerSyncNotifications.Name" xml:space="preserve">
     <value>Powiadomienia synchronizacji w Eksploratorze</value>
   </data>
   <data name="Customize.Preferences.ExplorerSyncNotifications.Description" xml:space="preserve">
-    <value>Steruje powiadomieniami dostawców synchronizacji OneDrive i chmury w Eksploratorze plików.</value>
+    <value>Pokazuje lub ukrywa powiadomienia usługi OneDrive i innych dostawców synchronizacji w Eksploratorze plików.</value>
   </data>
   <data name="Customize.Preferences.ExplorerSyncNotifications.Recommendation.Reason" xml:space="preserve">
     <value>Wyłączenie powiadomień synchronizacji zatrzymuje wyskakujące okienka OneDrive przerywające przeglądanie plików w Eksploratorze.</value>
@@ -844,7 +844,7 @@
     <value>Sugestie systemowe</value>
   </data>
   <data name="Customize.Preferences.SystemSuggestions.Description" xml:space="preserve">
-    <value>Steruje poradami systemu Windows i sugestiami aplikacji w panelu Ustawień.</value>
+    <value>Pokazuje lub ukrywa porady systemu Windows i sugestie aplikacji w Ustawieniach.</value>
   </data>
   <data name="Customize.Preferences.SystemSuggestions.Recommendation.Reason" xml:space="preserve">
     <value>Wyłączenie sugestii systemowych powstrzymuje system Windows od polecania aplikacji i ustawień, o które nie prosiłeś.</value>
@@ -853,22 +853,22 @@
     <value>Powiadomienia wyskakujące</value>
   </data>
   <data name="Customize.Preferences.ToastNotifications.Description" xml:space="preserve">
-    <value>Steruje wyskakującymi powiadomieniami toast oraz powiadomieniami na ekranie blokady.</value>
+    <value>Obsługuje powiadomienia toast, w tym alerty wyświetlane na pulpicie i ekranie blokady.</value>
   </data>
   <data name="Customize.Preferences.ShowFileExtensions.Name" xml:space="preserve">
-    <value>Pokaż rozszerzenia plików</value>
+    <value>Rozszerzenia plików</value>
   </data>
   <data name="Customize.Preferences.ShowFileExtensions.Description" xml:space="preserve">
-    <value>Pokazuje rozszerzenia plików (np. .txt, .exe) w Eksploratorze plików.</value>
+    <value>Pokazuje lub ukrywa rozszerzenia, takie jak .txt i .exe, w Eksploratorze plików.</value>
   </data>
   <data name="Customize.Preferences.ShowFileExtensions.Recommendation.Reason" xml:space="preserve">
     <value>Pokazywanie rozszerzeń plików ułatwia rozpoznanie podejrzanych typów plików i zapobiega ukrywaniu się złośliwego oprogramowania pod fałszywymi ikonami.</value>
   </data>
   <data name="Customize.Preferences.ShowHiddenFiles.Name" xml:space="preserve">
-    <value>Pokaż ukryte pliki</value>
+    <value>Ukryte pliki</value>
   </data>
   <data name="Customize.Preferences.ShowHiddenFiles.Description" xml:space="preserve">
-    <value>Pokazuje ukryte pliki i foldery w Eksploratorze plików.</value>
+    <value>Pokazuje lub ukrywa ukryte pliki i foldery w Eksploratorze plików.</value>
   </data>
   <data name="Customize.Preferences.ShowHiddenFiles.Recommendation.Reason" xml:space="preserve">
     <value>Ukryte pliki zawierają dane systemowe i konfiguracyjne, którymi możesz potrzebować zarządzać; ich pokazanie daje pełny wgląd w system.</value>
@@ -877,7 +877,7 @@
     <value>Historia schowka</value>
   </data>
   <data name="Customize.Preferences.ClipboardHistory.Description" xml:space="preserve">
-    <value>Historia schowka dla wielu skopiowanych elementów dostępna za pomocą Win+V.</value>
+    <value>Zachowuje historię skopiowanych elementów dostępną za pomocą Win+V.</value>
   </data>
   <data name="Customize.Preferences.ClipboardHistory.Recommendation.Reason" xml:space="preserve">
     <value>Historia schowka pozwala przywołać wiele wcześniejszych kopii za pomocą Win+V, przyspieszając powtarzalne operacje kopiowania i wklejania.</value>
@@ -886,22 +886,22 @@
     <value>Potrząśnięcie oknem</value>
   </data>
   <data name="Customize.Preferences.WindowShake.Description" xml:space="preserve">
-    <value>Potrząśnij oknem, aby zminimalizować wszystkie pozostałe otwarte okna.</value>
+    <value>Potrząśnij aktywnym oknem, aby zminimalizować pozostałe, albo wyłącz tę funkcję.</value>
   </data>
   <data name="Customize.Preferences.ClassicContextMenu.Name" xml:space="preserve">
     <value>Klasyczne menu kontekstowe</value>
   </data>
   <data name="Customize.Preferences.ClassicContextMenu.Description" xml:space="preserve">
-    <value>Menu kontekstowe w stylu Windows 10 w systemie Windows 11.</value>
+    <value>Używa klasycznego menu kontekstowego w stylu Windows 10 zamiast skróconego menu Windows 11.</value>
   </data>
   <data name="Customize.Preferences.ClassicContextMenu.Recommendation.Reason" xml:space="preserve">
     <value>Klasyczne menu pokazuje wszystkie opcje naraz, bez dodatkowego kliknięcia potrzebnego do rozwinięcia skróconego menu Windows 11.</value>
   </data>
   <data name="Customize.Preferences.ShowSecondsInSystemClock.Name" xml:space="preserve">
-    <value>Sekundy w zegarze systemowym</value>
+    <value>Sekundy na zegarze systemowym</value>
   </data>
   <data name="Customize.Preferences.ShowSecondsInSystemClock.Description" xml:space="preserve">
-    <value>Wyświetla sekundy w zegarze na pasku zadań.</value>
+    <value>Pokazuje sekundy na zegarze paska zadań.</value>
   </data>
   <data name="Customize.Gaming.Section.GameSettings" xml:space="preserve">
     <value>Ustawienia gier</value>
@@ -916,7 +916,7 @@
     <value>Tryb gry</value>
   </data>
   <data name="Customize.Gaming.GameMode.Description" xml:space="preserve">
-    <value>Tryb gry systemu Windows dla procesów gier i zachowania usługi Windows Update.</value>
+    <value>Nadaje grom priorytet zasobów systemowych i zmienia działanie usługi Windows Update podczas gry.</value>
   </data>
   <data name="Customize.Gaming.GameMode.Recommendation.Reason" xml:space="preserve">
     <value>Tryb gry automatycznie priorytetyzuje procesy gier i wstrzymuje powiadomienia Windows Update podczas grania dla płynniejszego działania.</value>
@@ -925,7 +925,7 @@
     <value>Pasek gier Xbox</value>
   </data>
   <data name="Customize.Gaming.GameBar.Description" xml:space="preserve">
-    <value>Steruje nakładkami paska gier Xbox, panelem startowym i powiązanymi funkcjami działającymi w tle.</value>
+    <value>Pokazuje pasek Xbox Game Bar, jego nakładki i powiązane funkcje działające w tle.</value>
   </data>
   <data name="Customize.Gaming.GameBar.Recommendation.Reason" xml:space="preserve">
     <value>Wyłączenie paska gier zwalnia zasoby systemowe i zapobiega zakłócaniu gier przez nakładki działające w tle.</value>
@@ -934,7 +934,7 @@
     <value>Nagrywanie w tle (DVR)</value>
   </data>
   <data name="Customize.Gaming.BackgroundRecording.Description" xml:space="preserve">
-    <value>Steruje automatycznym nagrywaniem gry w tle (Game DVR) i przechwytywaniem aplikacji.</value>
+    <value>Nagrywa gry i aktywność aplikacji w tle za pomocą funkcji Game DVR.</value>
   </data>
   <data name="Customize.Gaming.BackgroundRecording.Recommendation.Reason" xml:space="preserve">
     <value>Wyłączenie nagrywania w tle powstrzymuje DVR od cichego przechwytywania rozgrywki, oszczędzając procesor i cykle zapisu dysku.</value>
@@ -943,7 +943,7 @@
     <value>Akceleracja myszy</value>
   </data>
   <data name="Customize.Gaming.MouseAcceleration.Description" xml:space="preserve">
-    <value>Ustawienie akceleracji myszy systemu Windows dla ruchu kursora.</value>
+    <value>Dostosowuje reakcję ruchu kursora do szybkości poruszania myszą.</value>
   </data>
   <data name="Customize.Gaming.MouseAcceleration.Recommendation.Reason" xml:space="preserve">
     <value>Wyłączenie akceleracji zapewnia surowy, liniowy sygnał z myszy dla lepszej precyzji celowania i spójności pamięci mięśniowej.</value>
@@ -952,7 +952,7 @@
     <value>Optymalizacje pełnoekranowe</value>
   </data>
   <data name="Customize.Gaming.FullscreenOptimizations.Description" xml:space="preserve">
-    <value>Ustawienie optymalizacji pełnoekranowych systemu Windows opartych na DWM.</value>
+    <value>Stosuje optymalizacje pełnego ekranu systemu Windows, które mogą poprawić zgodność niektórych gier.</value>
   </data>
   <data name="Customize.Gaming.FullscreenOptimizations.Recommendation.Reason" xml:space="preserve">
     <value>Wyłącz, jeśli doświadczasz przycięć w grach, opóźnień sterowania lub czarnych ekranów (zwłaszcza w grach rywalizacyjnych).</value>
@@ -961,7 +961,7 @@
     <value>Sprzętowe przyspieszanie harmonogramowania GPU</value>
   </data>
   <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Description" xml:space="preserve">
-    <value>Tryb harmonogramowania pamięci wideo GPU. Wymaga zgodnego sterownika GPU.</value>
+    <value>Przekazuje GPU więcej zadań związanych z planowaniem pamięci wideo. Wymagany jest zgodny sterownik grafiki.</value>
   </data>
   <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Recommendation.Reason" xml:space="preserve">
     <value>Harmonogramowanie GPU przenosi zarządzanie klatkami z procesora na GPU, zmniejszając opóźnienie obrazu i poprawiając równomierność klatek.</value>
@@ -1566,7 +1566,7 @@ Zaktualizuj teraz, aby korzystać z najnowszych funkcji, ulepszeń i poprawek b�
     <value>System</value>
   </data>
   <data name="Customize.SystemFeatures.Description" xml:space="preserve">
-    <value>Podstawowe funkcje i zachowania systemu</value>
+    <value>Przydatne funkcje Windows i zachowanie systemu.</value>
   </data>
   <data name="Customize.SystemFeatures.Section.Input" xml:space="preserve">
     <value>Ustawienia wprowadzania</value>
@@ -1575,7 +1575,7 @@ Zaktualizuj teraz, aby korzystać z najnowszych funkcji, ulepszeń i poprawek b�
     <value>NumLock przy rozruchu</value>
   </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Description" xml:space="preserve">
-    <value>Stan NumLock na ekranie logowania systemu Windows.</value>
+    <value>Ustawia, czy klawisz Num Lock ma być włączony na ekranie logowania do systemu Windows.</value>
   </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
     <value>Włączenie NumLock przy rozruchu sprawia, że klawiatura numeryczna jest gotowa od razu po zalogowaniu, bez ręcznego przełączania za każdym razem.</value>
@@ -1587,7 +1587,7 @@ Zaktualizuj teraz, aby korzystać z najnowszych funkcji, ulepszeń i poprawek b�
     <value>Pulpit</value>
   </data>
   <data name="Customize.Desktop.Description" xml:space="preserve">
-    <value>Ustawienia ikon pulpitu i skrótów</value>
+    <value>Ikony pulpitu i wygląd skrótów.</value>
   </data>
   <data name="Customize.Desktop.Section.Icons" xml:space="preserve">
     <value>Ikony pulpitu</value>
@@ -1599,55 +1599,55 @@ Zaktualizuj teraz, aby korzystać z najnowszych funkcji, ulepszeń i poprawek b�
     <value>Ten komputer</value>
   </data>
   <data name="Customize.Desktop.ShowThisPc.Description" xml:space="preserve">
-    <value>Wyświetla ikonę Ten komputer na pulpicie</value>
+    <value>Pokazuje lub ukrywa ikonę Ten komputer na pulpicie.</value>
   </data>
   <data name="Customize.Desktop.ShowRecycleBin.Name" xml:space="preserve">
     <value>Kosz</value>
   </data>
   <data name="Customize.Desktop.ShowRecycleBin.Description" xml:space="preserve">
-    <value>Wyświetla ikonę Kosz na pulpicie</value>
+    <value>Pokazuje lub ukrywa Kosz na pulpicie.</value>
   </data>
   <data name="Customize.Desktop.ShowUserFiles.Name" xml:space="preserve">
     <value>Pliki użytkownika</value>
   </data>
   <data name="Customize.Desktop.ShowUserFiles.Description" xml:space="preserve">
-    <value>Wyświetla folder profilu użytkownika jako ikonę na pulpicie</value>
+    <value>Pokazuje lub ukrywa folder użytkownika na pulpicie.</value>
   </data>
   <data name="Customize.Desktop.ShowNetwork.Name" xml:space="preserve">
     <value>Sieć</value>
   </data>
   <data name="Customize.Desktop.ShowNetwork.Description" xml:space="preserve">
-    <value>Wyświetla ikonę Sieć na pulpicie</value>
+    <value>Pokazuje lub ukrywa ikonę Sieć na pulpicie.</value>
   </data>
   <data name="Customize.Desktop.ShowControlPanel.Name" xml:space="preserve">
     <value>Panel sterowania</value>
   </data>
   <data name="Customize.Desktop.ShowControlPanel.Description" xml:space="preserve">
-    <value>Wyświetla ikonę Panel sterowania na pulpicie</value>
+    <value>Pokazuje lub ukrywa ikonę Panelu sterowania na pulpicie.</value>
   </data>
   <data name="Customize.Desktop.ShowDesktopIcons.Name" xml:space="preserve">
     <value>Ikony pulpitu</value>
   </data>
   <data name="Customize.Desktop.ShowDesktopIcons.Description" xml:space="preserve">
-    <value>Pokazuje lub ukrywa wszystkie ikony pulpitu naraz</value>
+    <value>Pokazuje lub ukrywa wszystkie ikony pulpitu jednocześnie.</value>
   </data>
   <data name="Customize.Desktop.ShortcutArrow.Name" xml:space="preserve">
     <value>Strzałka skrótu</value>
   </data>
   <data name="Customize.Desktop.ShortcutArrow.Description" xml:space="preserve">
-    <value>Pokazuje lub ukrywa nakładkę strzałki skrótu na ikonach pulpitu</value>
+    <value>Pokazuje lub ukrywa strzałkę na skrótach pulpitu.</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Name" xml:space="preserve">
-    <value>Otwieraj w „Tym komputerze”</value>
+    <value>Lokalizacja uruchamiania Eksploratora plików</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Description" xml:space="preserve">
-    <value>Ustawienie domyślnej lokalizacji Eksploratora plików (Ten komputer lub Szybki dostęp).</value>
+    <value>Wybierz, czy Eksplorator plików ma otwierać Ten komputer, czy Szybki dostęp.</value>
   </data>
   <data name="Customize.Preferences.BingSearch.Name" xml:space="preserve">
     <value>Wyszukiwanie Bing</value>
   </data>
   <data name="Customize.Preferences.BingSearch.Description" xml:space="preserve">
-    <value>Integracja wyszukiwania internetowego Bing w wyszukiwaniu Windows i wynikach menu Start.</value>
+    <value>Dodaje wyniki internetowe Bing do lokalnych wyników wyszukiwania Windows i menu Start.</value>
   </data>
   <data name="Customize.Preferences.BingSearch.Recommendation.Reason" xml:space="preserve">
     <value>Wyłączenie wyszukiwania Bing zapobiega zaśmiecaniu lokalnych wyników wyszukiwania zapytaniami internetowymi i przyspiesza wyszukiwanie.</value>
@@ -1722,16 +1722,16 @@ Zaktualizuj teraz, aby korzystać z najnowszych funkcji, ulepszeń i poprawek b�
     <value>Tryb programisty</value>
   </data>
   <data name="Customize.SystemFeatures.DeveloperMode.Description" xml:space="preserve">
-    <value>Włącza tryb programisty Windows do sideloadingu aplikacji, portalu urządzeń, serwera SSH i funkcji programistycznych.</value>
+    <value>Udostępnia narzędzia do instalowania aplikacji spoza sklepu, Portalu urządzeń, SSH i innych zadań programistycznych.</value>
   </data>
   <data name="Customize.SystemFeatures.DeveloperMode.Recommendation.Reason" xml:space="preserve">
     <value>Tryb programisty umożliwia sideloading i funkcje diagnostyczne niezbędne do tworzenia i debugowania aplikacji.</value>
   </data>
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Name" xml:space="preserve">
-    <value>Zezwalaj na wszystkie zaufane aplikacje</value>
+    <value>Zaufane aplikacje</value>
   </data>
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Description" xml:space="preserve">
-    <value>Umożliwia instalację wszystkich zaufanych aplikacji ze Sklepu Windows bez konieczności włączania trybu programisty.</value>
+    <value>Pozwala instalować zaufane aplikacje systemu Windows bez włączania trybu dewelopera.</value>
   </data>
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Recommendation.Reason" xml:space="preserve">
     <value>Zezwolenie na wszystkie zaufane aplikacje umożliwia sideloading bez trybu programisty; wyłączenie ogranicza instalacje do Sklepu Microsoft.</value>
@@ -1740,7 +1740,7 @@ Zaktualizuj teraz, aby korzystać z najnowszych funkcji, ulepszeń i poprawek b�
     <value>Obsługa długich ścieżek (&gt;260 znaków)</value>
   </data>
   <data name="Customize.SystemFeatures.LongPathsEnabled.Description" xml:space="preserve">
-    <value>Włącza obsługę długich ścieżek Win32 w Eksploratorze plików, umożliwiając ścieżki dłuższe niż tradycyjny limit 260 znaków.</value>
+    <value>Umożliwia zgodnym aplikacjom pracę ze ścieżkami dłuższymi niż tradycyjny limit 260 znaków.</value>
   </data>
   <data name="Customize.SystemFeatures.LongPathsEnabled.Recommendation.Reason" xml:space="preserve">
     <value>Obsługa długich ścieżek zapobiega błędom dostępu do plików podczas pracy z głęboko zagnieżdżonymi katalogami lub projektami o długich nazwach.</value>
@@ -1749,7 +1749,7 @@ Zaktualizuj teraz, aby korzystać z najnowszych funkcji, ulepszeń i poprawek b�
     <value>Wyświetlanie pola wyszukiwania</value>
   </data>
   <data name="Customize.Preferences.SearchBoxTaskbarMode.Description" xml:space="preserve">
-    <value>Kontroluje sposób wyświetlania przycisku i pola wyszukiwania na pasku zadań.</value>
+    <value>Wybierz, czy pasek zadań ma pokazywać pole wyszukiwania, ikonę wyszukiwania czy żaden element wyszukiwania.</value>
   </data>
   <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Hidden" xml:space="preserve">
     <value>Ukryty</value>
@@ -1767,13 +1767,13 @@ Zaktualizuj teraz, aby korzystać z najnowszych funkcji, ulepszeń i poprawek b�
     <value>Ostatnie aktywne kliknięcie</value>
   </data>
   <data name="Customize.Preferences.TaskbarLastActiveClick.Description" xml:space="preserve">
-    <value>Kliknięcie ikony na pasku zadań natychmiast otwiera ostatnio aktywne okno tej aplikacji.</value>
+    <value>Kliknięcie ikony aplikacji na pasku zadań otwiera ostatnio używane okno tej aplikacji.</value>
   </data>
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Name" xml:space="preserve">
-    <value>Pokaż procent baterii</value>
+    <value>Procent baterii</value>
   </data>
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
-    <value>Pokazuje procent baterii obok ikony baterii w zasobniku systemowym.</value>
+    <value>Pokazuje bieżący procent baterii obok ikony baterii w obszarze powiadomień.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
     <value>Wyłącz wyszukiwanie internetowe w menu Start</value>

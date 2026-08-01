@@ -106,19 +106,19 @@
     <value>优化</value>
   </data>
   <data name="Customize.Description" xml:space="preserve">
-    <value>自定义 Windows 设置和首选项</value>
+    <value>自定义 Windows 设置和日常行为。</value>
   </data>
   <data name="Customize.Preferences.Name" xml:space="preserve">
     <value>首选项设置</value>
   </data>
   <data name="Customize.Preferences.Description" xml:space="preserve">
-    <value>自定义视觉效果与交互设置</value>
+    <value>调整 Windows 的外观和交互方式。</value>
   </data>
   <data name="Customize.Gaming.Name" xml:space="preserve">
     <value>游戏</value>
   </data>
   <data name="Customize.Gaming.Description" xml:space="preserve">
-    <value>游戏相关的显示、输入与录制设置</value>
+    <value>游戏相关的图形、输入和录制选项。</value>
   </data>
   <data name="Dashboard.SystemInfo.Gpu.More" xml:space="preserve">
     <value>另有 {0} 张显卡</value>
@@ -787,7 +787,7 @@
     <value>任务栏小组件</value>
   </data>
   <data name="Customize.Preferences.TaskbarWidgets.Description" xml:space="preserve">
-    <value>控制任务栏小组件按钮的显示状态。</value>
+    <value>显示或隐藏任务栏上的小组件按钮。小组件可快速查看新闻、天气和更新。</value>
   </data>
   <data name="Customize.Preferences.TaskbarWidgets.Recommendation.Reason" xml:space="preserve">
     <value>关闭小组件可移除后台新闻天气服务，减少闲置网络与内存占用。</value>
@@ -796,7 +796,7 @@
     <value>任务栏对齐方式</value>
   </data>
   <data name="Customize.Preferences.TaskbarAlignment.Description" xml:space="preserve">
-    <value>切换任务栏对齐方式：居中/左对齐。</value>
+    <value>选择任务栏图标居中显示还是左对齐。</value>
   </data>
   <data name="Customize.Preferences.TaskbarAlignment.Options.Center" xml:space="preserve">
     <value>居中</value>
@@ -808,31 +808,31 @@
     <value>文件资源管理器紧凑模式</value>
   </data>
   <data name="Customize.Preferences.ExplorerCompactMode.Description" xml:space="preserve">
-    <value>减小文件资源管理器项目间距，实现紧凑显示。</value>
+    <value>缩小文件资源管理器项目之间的间距，让布局更加紧凑。</value>
   </data>
   <data name="Customize.Preferences.SnapAssistFlyout.Name" xml:space="preserve">
     <value>窗口布局悬浮菜单</value>
   </data>
   <data name="Customize.Preferences.SnapAssistFlyout.Description" xml:space="preserve">
-    <value>控制鼠标悬停最大化按钮时显示的窗口布局菜单。</value>
+    <value>将鼠标悬停在最大化按钮上时，显示或隐藏贴靠布局菜单。</value>
   </data>
   <data name="Customize.Preferences.ExplorerItemCheckboxes.Name" xml:space="preserve">
     <value>文件资源管理器项目复选框</value>
   </data>
   <data name="Customize.Preferences.ExplorerItemCheckboxes.Description" xml:space="preserve">
-    <value>在文件资源管理器中选择项目时显示复选框。</value>
+    <value>在文件资源管理器项目旁显示复选框，方便一次选择多个文件。</value>
   </data>
   <data name="Customize.Preferences.TaskbarTaskViewButton.Name" xml:space="preserve">
     <value>任务栏任务视图按钮</value>
   </data>
   <data name="Customize.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
-    <value>控制任务栏任务视图按钮的显示状态。</value>
+    <value>显示或隐藏任务栏上的任务视图按钮。</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Name" xml:space="preserve">
     <value>任务栏结束任务</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Description" xml:space="preserve">
-    <value>在任务栏右键菜单中添加结束任务选项，快速终止进程。</value>
+    <value>在任务栏菜单中添加“结束任务”命令，无需打开任务管理器即可关闭无响应的应用。</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Recommendation.Reason" xml:space="preserve">
     <value>任务栏结束任务功能可无需打开任务管理器，直接关闭卡死的应用。</value>
@@ -841,13 +841,13 @@
     <value>深色模式</value>
   </data>
   <data name="Customize.Preferences.DarkMode.Description" xml:space="preserve">
-    <value>为系统应用、设置和界面元素启用深色模式。</value>
+    <value>为 Windows 应用、设置和其他系统界面元素应用深色配色。</value>
   </data>
   <data name="Customize.Preferences.ExplorerSyncNotifications.Name" xml:space="preserve">
     <value>文件资源管理器同步通知</value>
   </data>
   <data name="Customize.Preferences.ExplorerSyncNotifications.Description" xml:space="preserve">
-    <value>控制文件资源管理器中的 OneDrive 与云同步通知。</value>
+    <value>在文件资源管理器中显示或隐藏 OneDrive 及其他云同步服务的通知。</value>
   </data>
   <data name="Customize.Preferences.ExplorerSyncNotifications.Recommendation.Reason" xml:space="preserve">
     <value>关闭同步通知可避免 OneDrive 弹窗干扰文件浏览。</value>
@@ -856,7 +856,7 @@
     <value>系统建议</value>
   </data>
   <data name="Customize.Preferences.SystemSuggestions.Description" xml:space="preserve">
-    <value>控制设置面板中的 Windows 提示和应用推荐。</value>
+    <value>显示或隐藏设置中的 Windows 提示和应用建议。</value>
   </data>
   <data name="Customize.Preferences.SystemSuggestions.Recommendation.Reason" xml:space="preserve">
     <value>关闭系统建议可阻止 Windows 推送未请求的应用和设置推荐。</value>
@@ -865,22 +865,22 @@
     <value>弹出通知</value>
   </data>
   <data name="Customize.Preferences.ToastNotifications.Description" xml:space="preserve">
-    <value>控制悬浮弹出通知和锁屏通知。</value>
+    <value>管理桌面或锁屏上显示的弹窗通知。</value>
   </data>
   <data name="Customize.Preferences.ShowFileExtensions.Name" xml:space="preserve">
-    <value>显示文件扩展名</value>
+    <value>文件扩展名</value>
   </data>
   <data name="Customize.Preferences.ShowFileExtensions.Description" xml:space="preserve">
-    <value>在文件资源管理器中显示文件扩展名（如 .txt、.exe）。</value>
+    <value>在文件资源管理器中显示或隐藏 .txt、.exe 等文件扩展名。</value>
   </data>
   <data name="Customize.Preferences.ShowFileExtensions.Recommendation.Reason" xml:space="preserve">
     <value>显示文件扩展名便于识别可疑文件类型，防止恶意软件伪装图标隐藏。</value>
   </data>
   <data name="Customize.Preferences.ShowHiddenFiles.Name" xml:space="preserve">
-    <value>显示隐藏文件</value>
+    <value>隐藏文件</value>
   </data>
   <data name="Customize.Preferences.ShowHiddenFiles.Description" xml:space="preserve">
-    <value>在文件资源管理器中显示隐藏文件和文件夹。</value>
+    <value>在文件资源管理器中显示或隐藏隐藏文件和文件夹。</value>
   </data>
   <data name="Customize.Preferences.ShowHiddenFiles.Recommendation.Reason" xml:space="preserve">
     <value>隐藏文件包含需要管理的系统和配置数据，显示它们可让你完全掌控系统。</value>
@@ -889,7 +889,7 @@
     <value>剪贴板历史记录</value>
   </data>
   <data name="Customize.Preferences.ClipboardHistory.Description" xml:space="preserve">
-    <value>剪贴板历史记录可保存多次复制内容，通过 Win+V 快捷键调用。</value>
+    <value>保存复制项目的历史记录，可使用 Win+V 浏览。</value>
   </data>
   <data name="Customize.Preferences.ClipboardHistory.Recommendation.Reason" xml:space="preserve">
     <value>剪贴板历史记录支持通过 Win+V 调用历史复制内容，提升重复粘贴效率。</value>
@@ -898,19 +898,19 @@
     <value>窗口抖动最小化</value>
   </data>
   <data name="Customize.Preferences.WindowShake.Description" xml:space="preserve">
-    <value>拖动窗口并抖动，可最小化其他所有打开的窗口。</value>
+    <value>摇动当前窗口即可最小化其他窗口，也可以关闭此操作。</value>
   </data>
   <data name="Customize.Preferences.ClassicContextMenu.Name" xml:space="preserve">
     <value>经典右键菜单</value>
   </data>
   <data name="Customize.Preferences.ClassicContextMenu.Description" xml:space="preserve">
-    <value>在 Windows 11 中使用 Windows 10 风格的右键菜单。</value>
+    <value>使用 Windows 10 风格的经典右键菜单，而不是 Windows 11 的精简菜单。</value>
   </data>
   <data name="Customize.Preferences.ClassicContextMenu.Recommendation.Reason" xml:space="preserve">
     <value>经典菜单可直接显示所有选项，无需额外点击展开 Windows 11 的精简菜单。</value>
   </data>
   <data name="Customize.Preferences.ShowSecondsInSystemClock.Name" xml:space="preserve">
-    <value>系统时钟显示秒数</value>
+    <value>系统时钟秒数</value>
   </data>
   <data name="Customize.Preferences.ShowSecondsInSystemClock.Description" xml:space="preserve">
     <value>在任务栏时钟中显示秒数。</value>
@@ -928,7 +928,7 @@
     <value>游戏模式</value>
   </data>
   <data name="Customize.Gaming.GameMode.Description" xml:space="preserve">
-    <value>Windows 游戏模式，优化游戏进程优先级与 Windows 更新行为。</value>
+    <value>在游戏过程中优先分配系统资源，并调整 Windows Update 的行为。</value>
   </data>
   <data name="Customize.Gaming.GameMode.Recommendation.Reason" xml:space="preserve">
     <value>游戏模式会自动优先处理游戏进程，并暂停 Windows 更新通知，提升游戏流畅度。</value>
@@ -937,7 +937,7 @@
     <value>Xbox 游戏栏</value>
   </data>
   <data name="Customize.Gaming.GameBar.Description" xml:space="preserve">
-    <value>控制 Xbox 游戏栏悬浮窗、启动面板及相关后台功能。</value>
+    <value>显示 Xbox Game Bar 及其相关悬浮层和后台功能。</value>
   </data>
   <data name="Customize.Gaming.GameBar.Recommendation.Reason" xml:space="preserve">
     <value>禁用游戏栏可释放系统资源，避免后台悬浮窗干扰游戏运行。</value>
@@ -946,7 +946,7 @@
     <value>后台录制(DVR)</value>
   </data>
   <data name="Customize.Gaming.BackgroundRecording.Description" xml:space="preserve">
-    <value>控制游戏后台自动录制(游戏 DVR)和应用捕获功能。</value>
+    <value>通过 Game DVR 在后台录制游戏和应用活动。</value>
   </data>
   <data name="Customize.Gaming.BackgroundRecording.Recommendation.Reason" xml:space="preserve">
     <value>禁用后台录制可停止 DVR 静默录制游戏画面，节省 CPU 占用和磁盘写入。</value>
@@ -955,7 +955,7 @@
     <value>鼠标加速</value>
   </data>
   <data name="Customize.Gaming.MouseAcceleration.Description" xml:space="preserve">
-    <value>Windows 鼠标指针移动加速设置。</value>
+    <value>调整鼠标速度对光标移动的影响方式。</value>
   </data>
   <data name="Customize.Gaming.MouseAcceleration.Recommendation.Reason" xml:space="preserve">
     <value>禁用鼠标加速可获得原始线性鼠标输入，提升瞄准精度和肌肉记忆一致性。</value>
@@ -964,7 +964,7 @@
     <value>全屏优化</value>
   </data>
   <data name="Customize.Gaming.FullscreenOptimizations.Description" xml:space="preserve">
-    <value>基于 Windows 桌面窗口管理器的全屏优化设置。</value>
+    <value>应用 Windows 全屏优化，可能改善部分游戏的兼容性。</value>
   </data>
   <data name="Customize.Gaming.FullscreenOptimizations.Recommendation.Reason" xml:space="preserve">
     <value>若游戏出现卡顿、输入延迟或黑屏（尤其竞技射击游戏），建议禁用。</value>
@@ -973,7 +973,7 @@
     <value>硬件加速 GPU 调度</value>
   </data>
   <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Description" xml:space="preserve">
-    <value>GPU 显存调度模式，需要兼容的显卡驱动支持。</value>
+    <value>让 GPU 处理更多视频内存调度工作，需要兼容的显卡驱动。</value>
   </data>
   <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Recommendation.Reason" xml:space="preserve">
     <value>GPU 调度将帧管理从 CPU 转移到 GPU，降低显示延迟，优化帧率稳定性。</value>
@@ -1599,7 +1599,7 @@
     <value>系统</value>
   </data>
   <data name="Customize.SystemFeatures.Description" xml:space="preserve">
-    <value>核心系统功能与行为设置</value>
+    <value>实用的 Windows 功能和系统行为。</value>
   </data>
   <data name="Customize.SystemFeatures.Section.Input" xml:space="preserve">
     <value>输入设置</value>
@@ -1608,7 +1608,7 @@
     <value>开机启用数字小键盘</value>
   </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Description" xml:space="preserve">
-    <value>设置 Windows 登录界面时数字小键盘的状态。</value>
+    <value>设置进入 Windows 登录界面时是否开启 Num Lock。</value>
   </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
     <value>开机启用数字小键盘，登录后即可直接使用，无需每次手动开启。</value>
@@ -1620,7 +1620,7 @@
     <value>桌面</value>
   </data>
   <data name="Customize.Desktop.Description" xml:space="preserve">
-    <value>桌面图标与快捷方式设置</value>
+    <value>桌面图标和快捷方式外观。</value>
   </data>
   <data name="Customize.Desktop.Section.Icons" xml:space="preserve">
     <value>桌面图标</value>
@@ -1632,55 +1632,55 @@
     <value>此电脑</value>
   </data>
   <data name="Customize.Desktop.ShowThisPc.Description" xml:space="preserve">
-    <value>在桌面显示“此电脑”图标</value>
+    <value>在桌面上显示或隐藏“此电脑”图标。</value>
   </data>
   <data name="Customize.Desktop.ShowRecycleBin.Name" xml:space="preserve">
     <value>回收站</value>
   </data>
   <data name="Customize.Desktop.ShowRecycleBin.Description" xml:space="preserve">
-    <value>在桌面显示“回收站”图标</value>
+    <value>在桌面上显示或隐藏“回收站”。</value>
   </data>
   <data name="Customize.Desktop.ShowUserFiles.Name" xml:space="preserve">
     <value>用户文件</value>
   </data>
   <data name="Customize.Desktop.ShowUserFiles.Description" xml:space="preserve">
-    <value>在桌面显示用户配置文件夹图标</value>
+    <value>在桌面上显示或隐藏用户文件夹。</value>
   </data>
   <data name="Customize.Desktop.ShowNetwork.Name" xml:space="preserve">
     <value>网络</value>
   </data>
   <data name="Customize.Desktop.ShowNetwork.Description" xml:space="preserve">
-    <value>在桌面显示“网络”图标</value>
+    <value>在桌面上显示或隐藏“网络”图标。</value>
   </data>
   <data name="Customize.Desktop.ShowControlPanel.Name" xml:space="preserve">
     <value>控制面板</value>
   </data>
   <data name="Customize.Desktop.ShowControlPanel.Description" xml:space="preserve">
-    <value>在桌面显示“控制面板”图标</value>
+    <value>在桌面上显示或隐藏“控制面板”图标。</value>
   </data>
   <data name="Customize.Desktop.ShowDesktopIcons.Name" xml:space="preserve">
     <value>桌面图标</value>
   </data>
   <data name="Customize.Desktop.ShowDesktopIcons.Description" xml:space="preserve">
-    <value>一键显示或隐藏所有桌面图标</value>
+    <value>一次性显示或隐藏所有桌面图标。</value>
   </data>
   <data name="Customize.Desktop.ShortcutArrow.Name" xml:space="preserve">
     <value>快捷方式箭头</value>
   </data>
   <data name="Customize.Desktop.ShortcutArrow.Description" xml:space="preserve">
-    <value>显示或隐藏桌面图标上的快捷方式箭头标记</value>
+    <value>显示或隐藏桌面快捷方式上的箭头。</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Name" xml:space="preserve">
-    <value>打开时定位到此电脑</value>
+    <value>文件资源管理器启动位置</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Description" xml:space="preserve">
-    <value>设置文件资源管理器默认打开位置（此电脑/快速访问）。</value>
+    <value>选择文件资源管理器打开“此电脑”还是“快速访问”。</value>
   </data>
   <data name="Customize.Preferences.BingSearch.Name" xml:space="preserve">
     <value>必应搜索</value>
   </data>
   <data name="Customize.Preferences.BingSearch.Description" xml:space="preserve">
-    <value>在 Windows 搜索和开始菜单结果中集成必应网页搜索。</value>
+    <value>在 Windows 搜索和开始菜单的本地结果中加入 Bing 网页结果。</value>
   </data>
   <data name="Customize.Preferences.BingSearch.Recommendation.Reason" xml:space="preserve">
     <value>关闭必应搜索可避免网页结果干扰本地搜索，同时提升搜索速度。</value>
@@ -1753,7 +1753,7 @@
     <value>开发人员模式</value>
   </data>
   <data name="Customize.SystemFeatures.DeveloperMode.Description" xml:space="preserve">
-    <value>启用 Windows 开发人员模式，用于旁加载应用、设备门户、SSH 服务器和开发功能。</value>
+    <value>提供应用旁加载、设备门户、SSH 以及其他开发任务所需的工具。</value>
   </data>
   <data name="Customize.SystemFeatures.DeveloperMode.Recommendation.Reason" xml:space="preserve">
     <value>开发人员模式启用了应用开发和调试所需的旁加载和诊断功能。</value>
@@ -1761,10 +1761,10 @@
 
 
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Name" xml:space="preserve">
-    <value>允许所有受信任的应用</value>
+    <value>受信任的应用</value>
   </data>
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Description" xml:space="preserve">
-    <value>允许安装所有受信任的 Windows Store 应用，无需启用开发人员模式。</value>
+    <value>无需开启开发者模式即可安装受信任的 Windows 应用。</value>
   </data>
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Recommendation.Reason" xml:space="preserve">
     <value>允许所有受信任的应用可在没有开发人员模式的情况下进行旁加载；禁用将安装限制为 Microsoft Store。</value>
@@ -1775,7 +1775,7 @@
     <value>长路径支持（&gt;260个字符）</value>
   </data>
   <data name="Customize.SystemFeatures.LongPathsEnabled.Description" xml:space="preserve">
-    <value>在文件资源管理器中启用 Win32 长路径支持，允许超过传统 260 个字符限制的文件路径。</value>
+    <value>允许兼容的应用使用超过传统 260 个字符限制的文件路径。</value>
   </data>
   <data name="Customize.SystemFeatures.LongPathsEnabled.Recommendation.Reason" xml:space="preserve">
     <value>长路径支持可防止在处理深度嵌套的目录或名称较长的项目时出现文件访问错误。</value>
@@ -1784,7 +1784,7 @@
     <value>搜索框显示</value>
   </data>
   <data name="Customize.Preferences.SearchBoxTaskbarMode.Description" xml:space="preserve">
-    <value>控制搜索按钮和框在任务栏上的显示方式。</value>
+    <value>选择任务栏显示搜索框、搜索图标，还是不显示搜索控件。</value>
   </data>
   <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Hidden" xml:space="preserve">
     <value>隐藏</value>
@@ -1802,12 +1802,12 @@
     <value>最后活动点击</value>
   </data>
   <data name="Customize.Preferences.TaskbarLastActiveClick.Description" xml:space="preserve">
-    <value>单击任务栏图标可立即打开该应用程序最近活动的窗口。</value>
+    <value>点击任务栏上的应用图标时，打开该应用最近使用的窗口。</value>
   </data>
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Name" xml:space="preserve">
-    <value>显示电池百分比</value>
+    <value>电池百分比</value>
   </data>
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
-    <value>在系统托盘的电池图标旁边显示电池百分比。</value>
+    <value>在通知区域的电池图标旁显示当前电池百分比。</value>
   </data>
 </root>

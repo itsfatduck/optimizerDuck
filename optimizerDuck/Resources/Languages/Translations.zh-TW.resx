@@ -1234,19 +1234,19 @@
     <value>請稍候...</value>
   </data>
   <data name="Customize.Description" xml:space="preserve">
-    <value>自訂 Windows 設定和偏好</value>
+    <value>自訂 Windows 設定和日常行為。</value>
   </data>
   <data name="Customize.Preferences.Name" xml:space="preserve">
     <value>偏好設定</value>
   </data>
   <data name="Customize.Preferences.Description" xml:space="preserve">
-    <value>自訂視覺與互動設定</value>
+    <value>調整 Windows 的外觀和互動方式。</value>
   </data>
   <data name="Customize.Gaming.Name" xml:space="preserve">
     <value>遊戲</value>
   </data>
   <data name="Customize.Gaming.Description" xml:space="preserve">
-    <value>遊戲相關顯示、輸入與錄影設定</value>
+    <value>遊戲相關的圖形、輸入和錄製選項。</value>
   </data>
   <data name="Service.Registry.Description.CreateKey" xml:space="preserve">
     <value>建立登錄檔機碼 {0}</value>
@@ -1312,100 +1312,100 @@
     <value>工作列小工具</value>
   </data>
   <data name="Customize.Preferences.TaskbarWidgets.Description" xml:space="preserve">
-    <value>控制工作列上小工具按鈕的可見性。</value>
+    <value>顯示或隱藏工作列上的小工具按鈕。小工具可快速查看新聞、天氣和更新。</value>
   </data>
   <data name="Customize.Preferences.TaskbarAlignment.Name" xml:space="preserve">
     <value>工作列對齊</value>
   </data>
   <data name="Customize.Preferences.TaskbarAlignment.Description" xml:space="preserve">
-    <value>切換工作列對齊方式為置中或靠左。</value>
+    <value>選擇工作列圖示要置中顯示還是靠左對齊。</value>
   </data>
   <data name="Customize.Preferences.ExplorerCompactMode.Name" xml:space="preserve">
     <value>檔案總管緊湊模式</value>
   </data>
   <data name="Customize.Preferences.ExplorerCompactMode.Description" xml:space="preserve">
-    <value>減少檔案總管中項目之間的間距，以獲得更密集的檢視。</value>
+    <value>縮小檔案總管項目之間的間距，讓版面更緊湊。</value>
   </data>
   <data name="Customize.Preferences.SnapAssistFlyout.Name" xml:space="preserve">
     <value>貼齊版面配置飛出視窗</value>
   </data>
   <data name="Customize.Preferences.SnapAssistFlyout.Description" xml:space="preserve">
-    <value>控制將游標暫留在最大化按鈕上時出現的貼齊版面配置選單。</value>
+    <value>將滑鼠停留在最大化按鈕上時，顯示或隱藏貼齊版面配置選單。</value>
   </data>
   <data name="Customize.Preferences.ExplorerItemCheckboxes.Name" xml:space="preserve">
     <value>檔案總管項目核取方塊</value>
   </data>
   <data name="Customize.Preferences.ExplorerItemCheckboxes.Description" xml:space="preserve">
-    <value>在檔案總管中選取項目時顯示核取方塊。</value>
+    <value>在檔案總管項目旁顯示核取方塊，方便一次選取多個檔案。</value>
   </data>
   <data name="Customize.Preferences.TaskbarTaskViewButton.Name" xml:space="preserve">
     <value>工作列工作檢視按鈕</value>
   </data>
   <data name="Customize.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
-    <value>控制工作列上工作檢視按鈕的可見性。</value>
+    <value>顯示或隱藏工作列上的工作檢視按鈕。</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Name" xml:space="preserve">
     <value>工作列結束工作</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Description" xml:space="preserve">
-    <value>在工作列右鍵選單中加入「結束工作」選項，以便快速終止處理程序。</value>
+    <value>在工作列選單中加入「結束工作」命令，不必開啟工作管理員即可關閉沒有回應的應用程式。</value>
   </data>
   <data name="Customize.Preferences.DarkMode.Name" xml:space="preserve">
     <value>深色模式</value>
   </data>
   <data name="Customize.Preferences.DarkMode.Description" xml:space="preserve">
-    <value>系統應用程式、設定與介面元素的深色模式。</value>
+    <value>為 Windows 應用程式、設定和其他系統介面元素套用深色配色。</value>
   </data>
   <data name="Customize.Preferences.ExplorerSyncNotifications.Name" xml:space="preserve">
     <value>檔案總管同步通知</value>
   </data>
   <data name="Customize.Preferences.ExplorerSyncNotifications.Description" xml:space="preserve">
-    <value>控制檔案總管中的 OneDrive 與雲端同步提供者通知。</value>
+    <value>在檔案總管中顯示或隱藏 OneDrive 和其他雲端同步服務的通知。</value>
   </data>
   <data name="Customize.Preferences.SystemSuggestions.Name" xml:space="preserve">
     <value>系統建議</value>
   </data>
   <data name="Customize.Preferences.SystemSuggestions.Description" xml:space="preserve">
-    <value>控制設定面板中的 Windows 提示與應用程式建議。</value>
+    <value>顯示或隱藏設定中的 Windows 提示和應用程式建議。</value>
   </data>
   <data name="Customize.Preferences.ToastNotifications.Name" xml:space="preserve">
     <value>快顯通知</value>
   </data>
   <data name="Customize.Preferences.ToastNotifications.Description" xml:space="preserve">
-    <value>控制快顯通知與鎖定畫面通知。</value>
+    <value>管理桌面或鎖定畫面上顯示的快顯通知。</value>
   </data>
   <data name="Customize.Preferences.ShowFileExtensions.Name" xml:space="preserve">
-    <value>顯示副檔名</value>
+    <value>檔案副檔名</value>
   </data>
   <data name="Customize.Preferences.ShowFileExtensions.Description" xml:space="preserve">
-    <value>在檔案總管中顯示副檔名 (例如 .txt、.exe)。</value>
+    <value>在檔案總管中顯示或隱藏 .txt、.exe 等檔案副檔名。</value>
   </data>
   <data name="Customize.Preferences.ShowHiddenFiles.Name" xml:space="preserve">
-    <value>顯示隱藏的檔案</value>
+    <value>隱藏檔案</value>
   </data>
   <data name="Customize.Preferences.ShowHiddenFiles.Description" xml:space="preserve">
-    <value>在檔案總管中顯示隱藏的檔案與資料夾。</value>
+    <value>在檔案總管中顯示或隱藏隱藏檔案和資料夾。</value>
   </data>
   <data name="Customize.Preferences.ClipboardHistory.Name" xml:space="preserve">
     <value>剪貼簿歷程記錄</value>
   </data>
   <data name="Customize.Preferences.ClipboardHistory.Description" xml:space="preserve">
-    <value>剪貼簿歷史記錄，可使用 Win+V 存取多個複製的項目。</value>
+    <value>保存複製項目的歷程記錄，可使用 Win+V 瀏覽。</value>
   </data>
   <data name="Customize.Preferences.WindowShake.Name" xml:space="preserve">
     <value>視窗搖晃</value>
   </data>
   <data name="Customize.Preferences.WindowShake.Description" xml:space="preserve">
-    <value>搖晃視窗以將所有其他開啟的視窗縮到最小。</value>
+    <value>搖動目前視窗即可最小化其他視窗，也可以關閉此操作。</value>
   </data>
   <data name="Customize.Preferences.ClassicContextMenu.Name" xml:space="preserve">
     <value>傳統右鍵選單</value>
   </data>
   <data name="Customize.Preferences.ClassicContextMenu.Description" xml:space="preserve">
-    <value>Windows 11 上的 Windows 10 樣式右鍵選單。</value>
+    <value>使用 Windows 10 風格的傳統快顯功能表，而不是 Windows 11 的精簡功能表。</value>
   </data>
   <data name="Customize.Preferences.ShowSecondsInSystemClock.Name" xml:space="preserve">
-    <value>系統時鐘顯示秒數</value>
+    <value>系統時鐘秒數</value>
   </data>
   <data name="Customize.Preferences.ShowSecondsInSystemClock.Description" xml:space="preserve">
     <value>在工作列時鐘中顯示秒數。</value>
@@ -1423,37 +1423,37 @@
     <value>遊戲模式</value>
   </data>
   <data name="Customize.Gaming.GameMode.Description" xml:space="preserve">
-    <value>Windows 遊戲模式用於遊戲程序和 Windows Update 行為。</value>
+    <value>遊玩時優先分配系統資源給遊戲，並調整 Windows Update 的行為。</value>
   </data>
   <data name="Customize.Gaming.GameBar.Name" xml:space="preserve">
     <value>Xbox Game Bar</value>
   </data>
   <data name="Customize.Gaming.GameBar.Description" xml:space="preserve">
-    <value>控制 Xbox Game Bar 重疊介面、啟動面板與相關背景功能。</value>
+    <value>顯示 Xbox Game Bar 及其相關重疊畫面和背景功能。</value>
   </data>
   <data name="Customize.Gaming.BackgroundRecording.Name" xml:space="preserve">
     <value>背景錄影 (DVR)</value>
   </data>
   <data name="Customize.Gaming.BackgroundRecording.Description" xml:space="preserve">
-    <value>控制自動背景遊戲錄影 (Game DVR) 與應用程式擷取。</value>
+    <value>透過 Game DVR 在背景錄製遊戲和應用程式活動。</value>
   </data>
   <data name="Customize.Gaming.MouseAcceleration.Name" xml:space="preserve">
     <value>滑鼠加速</value>
   </data>
   <data name="Customize.Gaming.MouseAcceleration.Description" xml:space="preserve">
-    <value>Windows 滑鼠加速設定用於游標移動。</value>
+    <value>調整滑鼠速度對游標移動的影響方式。</value>
   </data>
   <data name="Customize.Gaming.FullscreenOptimizations.Name" xml:space="preserve">
     <value>全螢幕最佳化</value>
   </data>
   <data name="Customize.Gaming.FullscreenOptimizations.Description" xml:space="preserve">
-    <value>基於 Windows DWM 的全螢幕最佳化設定。</value>
+    <value>套用 Windows 全螢幕最佳化，可能改善部分遊戲的相容性。</value>
   </data>
   <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Name" xml:space="preserve">
     <value>硬體加速 GPU 排程</value>
   </data>
   <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Description" xml:space="preserve">
-    <value>GPU 視訊記憶體排程模式。需要相容的 GPU 驅動程式。</value>
+    <value>讓 GPU 處理更多視訊記憶體排程工作，需要相容的顯示卡驅動程式。</value>
   </data>
   <data name="Common.OpenFolder" xml:space="preserve">
     <value>開啟資料夾</value>
@@ -1471,7 +1471,7 @@
     <value>系統</value>
   </data>
   <data name="Customize.SystemFeatures.Description" xml:space="preserve">
-    <value>核心系統功能與行為</value>
+    <value>實用的 Windows 功能和系統行為。</value>
   </data>
   <data name="Customize.SystemFeatures.Section.Input" xml:space="preserve">
     <value>輸入設定</value>
@@ -1480,13 +1480,13 @@
     <value>開機時的 NumLock</value>
   </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Description" xml:space="preserve">
-    <value>Windows 登入畫面的 NumLock 狀態。</value>
+    <value>設定進入 Windows 登入畫面時是否開啟 Num Lock。</value>
   </data>
   <data name="Customize.Desktop.Name" xml:space="preserve">
     <value>桌面</value>
   </data>
   <data name="Customize.Desktop.Description" xml:space="preserve">
-    <value>桌面圖示與捷徑設定</value>
+    <value>桌面圖示和捷徑外觀。</value>
   </data>
   <data name="Customize.Desktop.Section.Icons" xml:space="preserve">
     <value>桌面圖示</value>
@@ -1498,55 +1498,55 @@
     <value>本機</value>
   </data>
   <data name="Customize.Desktop.ShowThisPc.Description" xml:space="preserve">
-    <value>在您的桌面上顯示本機圖示</value>
+    <value>在桌面上顯示或隱藏「本機」圖示。</value>
   </data>
   <data name="Customize.Desktop.ShowRecycleBin.Name" xml:space="preserve">
     <value>資源回收筒</value>
   </data>
   <data name="Customize.Desktop.ShowRecycleBin.Description" xml:space="preserve">
-    <value>在您的桌面上顯示資源回收筒圖示</value>
+    <value>在桌面上顯示或隱藏「資源回收筒」。</value>
   </data>
   <data name="Customize.Desktop.ShowUserFiles.Name" xml:space="preserve">
     <value>使用者檔案</value>
   </data>
   <data name="Customize.Desktop.ShowUserFiles.Description" xml:space="preserve">
-    <value>將您的使用者設定檔資料夾顯示為桌面圖示</value>
+    <value>在桌面上顯示或隱藏使用者資料夾。</value>
   </data>
   <data name="Customize.Desktop.ShowNetwork.Name" xml:space="preserve">
     <value>網路</value>
   </data>
   <data name="Customize.Desktop.ShowNetwork.Description" xml:space="preserve">
-    <value>在您的桌面上顯示網路圖示</value>
+    <value>在桌面上顯示或隱藏「網路」圖示。</value>
   </data>
   <data name="Customize.Desktop.ShowControlPanel.Name" xml:space="preserve">
     <value>控制台</value>
   </data>
   <data name="Customize.Desktop.ShowControlPanel.Description" xml:space="preserve">
-    <value>在您的桌面上顯示控制台圖示</value>
+    <value>在桌面上顯示或隱藏「控制台」圖示。</value>
   </data>
   <data name="Customize.Desktop.ShowDesktopIcons.Name" xml:space="preserve">
     <value>桌面圖示</value>
   </data>
   <data name="Customize.Desktop.ShowDesktopIcons.Description" xml:space="preserve">
-    <value>一次顯示或隱藏所有桌面圖示</value>
+    <value>一次顯示或隱藏所有桌面圖示。</value>
   </data>
   <data name="Customize.Desktop.ShortcutArrow.Name" xml:space="preserve">
     <value>捷徑箭頭</value>
   </data>
   <data name="Customize.Desktop.ShortcutArrow.Description" xml:space="preserve">
-    <value>顯示或隱藏桌面圖示上的捷徑箭頭覆疊</value>
+    <value>顯示或隱藏桌面捷徑上的箭頭。</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Name" xml:space="preserve">
-    <value>啟動至「本機」</value>
+    <value>檔案總管啟動位置</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Description" xml:space="preserve">
-    <value>檔案總管預設位置設定 (本機或快速存取)。</value>
+    <value>選擇檔案總管要開啟「本機」還是「快速存取」。</value>
   </data>
   <data name="Customize.Preferences.BingSearch.Name" xml:space="preserve">
     <value>Bing 搜尋</value>
   </data>
   <data name="Customize.Preferences.BingSearch.Description" xml:space="preserve">
-    <value>Windows 搜尋與開始功能表結果中的 Bing 網頁搜尋整合功能。</value>
+    <value>在 Windows 搜尋和開始功能表的本機結果中加入 Bing 網頁結果。</value>
   </data>
   <data name="Dialog.PendingChanges.Title" xml:space="preserve">
     <value>套用變更</value>
@@ -1717,16 +1717,16 @@
     <value>開發人員模式</value>
   </data>
   <data name="Customize.SystemFeatures.DeveloperMode.Description" xml:space="preserve">
-    <value>啟用Windows開發人員模式，用於側載應用程式、裝置入口網站、SSH伺服器和開發功能。</value>
+    <value>提供應用程式側載、裝置入口網站、SSH 及其他開發工作所需的工具。</value>
   </data>
   <data name="Customize.SystemFeatures.DeveloperMode.Recommendation.Reason" xml:space="preserve">
     <value>開發人員模式啟用了應用程式開發和偵錯所需的側載和診斷功能。</value>
   </data>
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Name" xml:space="preserve">
-    <value>允許所有受信任的應用程式</value>
+    <value>受信任的應用程式</value>
   </data>
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Description" xml:space="preserve">
-    <value>允許安裝所有受信任的Windows Store應用程式，無需啟用開發人員模式。</value>
+    <value>不必開啟開發人員模式即可安裝受信任的 Windows 應用程式。</value>
   </data>
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Recommendation.Reason" xml:space="preserve">
     <value>允許所有受信任的應用程式可在沒有開發人員模式的情況下進行側載；停用將安裝限制為Microsoft Store。</value>
@@ -1735,7 +1735,7 @@
     <value>長路徑支援（&gt;260個字元）</value>
   </data>
   <data name="Customize.SystemFeatures.LongPathsEnabled.Description" xml:space="preserve">
-    <value>在檔案總管中啟用Win32長路徑支援，允許超過傳統260個字元限制的檔案路徑。</value>
+    <value>允許相容的應用程式使用超過傳統 260 個字元限制的檔案路徑。</value>
   </data>
   <data name="Customize.SystemFeatures.LongPathsEnabled.Recommendation.Reason" xml:space="preserve">
     <value>長路徑支援可防止在處理深度巢狀目錄或名稱較長的專案時出現檔案存取錯誤。</value>
@@ -1744,7 +1744,7 @@
     <value>搜尋方塊顯示</value>
   </data>
   <data name="Customize.Preferences.SearchBoxTaskbarMode.Description" xml:space="preserve">
-    <value>控制搜尋按鈕和方塊在工作列上的顯示方式。</value>
+    <value>選擇工作列顯示搜尋方塊、搜尋圖示，還是不顯示搜尋控制項。</value>
   </data>
   <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Hidden" xml:space="preserve">
     <value>隱藏</value>
@@ -1762,13 +1762,13 @@
     <value>最後活動點擊</value>
   </data>
   <data name="Customize.Preferences.TaskbarLastActiveClick.Description" xml:space="preserve">
-    <value>按一下工作列圖示可立即開啟該應用程式最近活動的視窗。</value>
+    <value>按一下工作列上的應用程式圖示時，開啟該應用程式最近使用的視窗。</value>
   </data>
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Name" xml:space="preserve">
-    <value>顯示電池百分比</value>
+    <value>電池百分比</value>
   </data>
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
-    <value>在系統匣的電池圖示旁邊顯示電池百分比。</value>
+    <value>在通知區域的電池圖示旁顯示目前的電池百分比。</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
     <value>停用「開始」功能表的網路搜尋</value>

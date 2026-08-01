@@ -296,10 +296,10 @@
     <value>غير معروف</value>
   </data>
   <data name="Customize.Description" xml:space="preserve">
-    <value>خصّص إعدادات ويندوز وتفضيلاته</value>
+    <value>خصّص إعدادات Windows وسلوكه اليومي.</value>
   </data>
   <data name="Customize.Desktop.Description" xml:space="preserve">
-    <value>إعدادات أيقونات سطح المكتب والاختصارات</value>
+    <value>أيقونات سطح المكتب ومظهر الاختصارات.</value>
   </data>
   <data name="Customize.Desktop.Name" xml:space="preserve">
     <value>سطح المكتب</value>
@@ -311,49 +311,49 @@
     <value>أيقونات سطح المكتب</value>
   </data>
   <data name="Customize.Desktop.ShortcutArrow.Description" xml:space="preserve">
-    <value>يُظهر أو يخفي سهم الاختصار المتراكب على أيقونات سطح المكتب</value>
+    <value>يعرض سهم الاختصار على أيقونات سطح المكتب أو يخفيه.</value>
   </data>
   <data name="Customize.Desktop.ShortcutArrow.Name" xml:space="preserve">
     <value>سهم الاختصار</value>
   </data>
   <data name="Customize.Desktop.ShowControlPanel.Description" xml:space="preserve">
-    <value>يعرض أيقونة لوحة التحكم على سطح المكتب</value>
+    <value>يعرض أيقونة لوحة التحكم على سطح المكتب أو يخفيها.</value>
   </data>
   <data name="Customize.Desktop.ShowControlPanel.Name" xml:space="preserve">
     <value>لوحة التحكم</value>
   </data>
   <data name="Customize.Desktop.ShowDesktopIcons.Description" xml:space="preserve">
-    <value>يُظهر أو يخفي جميع أيقونات سطح المكتب دفعةً واحدة</value>
+    <value>يعرض جميع أيقونات سطح المكتب أو يخفيها دفعة واحدة.</value>
   </data>
   <data name="Customize.Desktop.ShowDesktopIcons.Name" xml:space="preserve">
     <value>أيقونات سطح المكتب</value>
   </data>
   <data name="Customize.Desktop.ShowNetwork.Description" xml:space="preserve">
-    <value>يعرض أيقونة الشبكة على سطح المكتب</value>
+    <value>يعرض أيقونة الشبكة على سطح المكتب أو يخفيها.</value>
   </data>
   <data name="Customize.Desktop.ShowNetwork.Name" xml:space="preserve">
     <value>الشبكة</value>
   </data>
   <data name="Customize.Desktop.ShowRecycleBin.Description" xml:space="preserve">
-    <value>يعرض أيقونة سلة المحذوفات على سطح المكتب</value>
+    <value>يعرض أيقونة سلة المحذوفات على سطح المكتب أو يخفيها.</value>
   </data>
   <data name="Customize.Desktop.ShowRecycleBin.Name" xml:space="preserve">
     <value>سلة المحذوفات</value>
   </data>
   <data name="Customize.Desktop.ShowThisPc.Description" xml:space="preserve">
-    <value>يعرض أيقونة «هذا الكمبيوتر» على سطح المكتب</value>
+    <value>يعرض أيقونة «هذا الكمبيوتر» على سطح المكتب أو يخفيها.</value>
   </data>
   <data name="Customize.Desktop.ShowThisPc.Name" xml:space="preserve">
     <value>هذا الكمبيوتر</value>
   </data>
   <data name="Customize.Desktop.ShowUserFiles.Description" xml:space="preserve">
-    <value>يعرض مجلد ملف تعريف المستخدم كأيقونة على سطح المكتب</value>
+    <value>يعرض مجلد المستخدم على سطح المكتب أو يخفيه.</value>
   </data>
   <data name="Customize.Desktop.ShowUserFiles.Name" xml:space="preserve">
     <value>ملفات المستخدم</value>
   </data>
   <data name="Customize.Gaming.BackgroundRecording.Description" xml:space="preserve">
-    <value>يتحكم في التسجيل التلقائي للألعاب في الخلفية (‎Game DVR‎) والتقاط التطبيقات.</value>
+    <value>يسجل اللعب ونشاط التطبيقات في الخلفية باستخدام Game DVR.</value>
   </data>
   <data name="Customize.Gaming.BackgroundRecording.Name" xml:space="preserve">
     <value>التسجيل في الخلفية (DVR)</value>
@@ -362,10 +362,10 @@
     <value>تعطيل التسجيل في الخلفية يمنع ‎DVR‎ من التقاط اللعب بصمت، ما يوفر موارد المعالج ودورات الكتابة على القرص.</value>
   </data>
   <data name="Customize.Gaming.Description" xml:space="preserve">
-    <value>إعدادات العرض والإدخال والتسجيل المتعلقة بالألعاب</value>
+    <value>خيارات الرسومات والإدخال والتسجيل أثناء اللعب.</value>
   </data>
   <data name="Customize.Gaming.FullscreenOptimizations.Description" xml:space="preserve">
-    <value>إعداد تحسينات ملء الشاشة المعتمدة على ‎DWM‎ في ويندوز.</value>
+    <value>يطبّق تحسينات ملء الشاشة في Windows، وقد يساعد ذلك بعض الألعاب على العمل بتوافق أفضل.</value>
   </data>
   <data name="Customize.Gaming.FullscreenOptimizations.Name" xml:space="preserve">
     <value>تحسينات ملء الشاشة</value>
@@ -374,7 +374,7 @@
     <value>عطّله إذا واجهت تقطّعًا داخل اللعبة أو تأخيرًا في الاستجابة أو شاشات سوداء (خصوصًا في ألعاب التصويب التنافسية).</value>
   </data>
   <data name="Customize.Gaming.GameBar.Description" xml:space="preserve">
-    <value>يتحكم في طبقات ‎Xbox Game Bar‎ ولوحة بدء التشغيل والميزات المرتبطة بها في الخلفية.</value>
+    <value>يعرض Xbox Game Bar وتراكباته وميزاته المرتبطة التي تعمل في الخلفية.</value>
   </data>
   <data name="Customize.Gaming.GameBar.Name" xml:space="preserve">
     <value>‎Xbox Game Bar‎</value>
@@ -383,7 +383,7 @@
     <value>تعطيل ‎Game Bar‎ يحرر موارد النظام ويمنع الطبقات العاملة في الخلفية من التداخل مع ألعابك.</value>
   </data>
   <data name="Customize.Gaming.GameMode.Description" xml:space="preserve">
-    <value>وضع الألعاب في ويندوز، ويؤثر على عمليات الألعاب وسلوك تحديثات ويندوز.</value>
+    <value>يمنح الألعاب أولوية في موارد النظام ويغيّر سلوك Windows Update أثناء اللعب.</value>
   </data>
   <data name="Customize.Gaming.GameMode.Name" xml:space="preserve">
     <value>وضع الألعاب</value>
@@ -392,7 +392,7 @@
     <value>يعطي وضع الألعاب الأولوية تلقائيًا لعمليات اللعبة ويؤجل إشعارات تحديثات ويندوز أثناء اللعب للحصول على أداء أكثر سلاسة.</value>
   </data>
   <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Description" xml:space="preserve">
-    <value>وضع جدولة ذاكرة الفيديو في معالج الرسومات. يتطلب تعريفًا متوافقًا.</value>
+    <value>يتيح لمعالج الرسومات تنفيذ المزيد من أعمال جدولة ذاكرة الفيديو، ويتطلب برنامج تشغيل متوافقًا.</value>
   </data>
   <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Name" xml:space="preserve">
     <value>جدولة معالج الرسومات المُسرَّعة بالعتاد</value>
@@ -401,7 +401,7 @@
     <value>تنقل جدولة معالج الرسومات إدارة الإطارات من المعالج إلى كرت الشاشة، ما يقلل زمن استجابة العرض ويحسّن انتظام الإطارات.</value>
   </data>
   <data name="Customize.Gaming.MouseAcceleration.Description" xml:space="preserve">
-    <value>إعداد تسريع الفأرة في ويندوز لحركة المؤشر.</value>
+    <value>يضبط استجابة حركة المؤشر وفق سرعة تحريك الفأرة.</value>
   </data>
   <data name="Customize.Gaming.MouseAcceleration.Name" xml:space="preserve">
     <value>تسريع الفأرة</value>
@@ -422,7 +422,7 @@
     <value>الإدخال</value>
   </data>
   <data name="Customize.Preferences.BingSearch.Description" xml:space="preserve">
-    <value>دمج بحث الويب من ‎Bing‎ في نتائج بحث ويندوز وقائمة ابدأ.</value>
+    <value>يضمّن نتائج الويب من Bing إلى جانب النتائج المحلية في بحث Windows وقائمة ابدأ.</value>
   </data>
   <data name="Customize.Preferences.BingSearch.Name" xml:space="preserve">
     <value>بحث ‎Bing‎</value>
@@ -431,7 +431,7 @@
     <value>إيقاف بحث ‎Bing‎ يمنع استعلامات الويب من ازدحام نتائج البحث المحلية ويحسّن سرعة البحث.</value>
   </data>
   <data name="Customize.Preferences.ClassicContextMenu.Description" xml:space="preserve">
-    <value>قائمة السياق بنمط ويندوز 10 على ويندوز 11.</value>
+    <value>يستخدم قائمة السياق الكلاسيكية بنمط Windows 10 بدل قائمة Windows 11 المختصرة.</value>
   </data>
   <data name="Customize.Preferences.ClassicContextMenu.Name" xml:space="preserve">
     <value>قائمة السياق الكلاسيكية</value>
@@ -440,7 +440,7 @@
     <value>تعرض القائمة الكلاسيكية كل الخيارات دفعةً واحدة دون النقرة الإضافية اللازمة لتوسيع قائمة ويندوز 11 المختصرة.</value>
   </data>
   <data name="Customize.Preferences.ClipboardHistory.Description" xml:space="preserve">
-    <value>سجل الحافظة لعدة عناصر منسوخة يمكن الوصول إليه بمفتاحَي ‎Win+V‎.</value>
+    <value>يحفظ العناصر المنسوخة لتتمكن من تصفحها باستخدام Win+V.</value>
   </data>
   <data name="Customize.Preferences.ClipboardHistory.Name" xml:space="preserve">
     <value>سجل الحافظة</value>
@@ -449,28 +449,28 @@
     <value>يتيح سجل الحافظة استرجاع عدة نسخ سابقة عبر ‎Win+V‎، ما يسرّع مهام النسخ واللصق المتكررة.</value>
   </data>
   <data name="Customize.Preferences.DarkMode.Description" xml:space="preserve">
-    <value>الوضع الداكن لتطبيقات النظام والإعدادات وعناصر الواجهة.</value>
+    <value>يستخدم ألوانًا داكنة لتطبيقات Windows والإعدادات وعناصر الواجهة الأخرى.</value>
   </data>
   <data name="Customize.Preferences.DarkMode.Name" xml:space="preserve">
     <value>الوضع الداكن</value>
   </data>
   <data name="Customize.Preferences.Description" xml:space="preserve">
-    <value>خصّص إعدادات المظهر والتفاعل</value>
+    <value>اضبط مظهر Windows وطريقة تفاعله.</value>
   </data>
   <data name="Customize.Preferences.ExplorerCompactMode.Description" xml:space="preserve">
-    <value>يقلل المسافات بين العناصر في مستكشف الملفات لعرض أكثف.</value>
+    <value>يقلل المسافات بين العناصر في مستكشف الملفات لعرض أكثر كثافة.</value>
   </data>
   <data name="Customize.Preferences.ExplorerCompactMode.Name" xml:space="preserve">
     <value>العرض المضغوط في المستكشف</value>
   </data>
   <data name="Customize.Preferences.ExplorerItemCheckboxes.Description" xml:space="preserve">
-    <value>يعرض مربعات اختيار عند تحديد العناصر في مستكشف الملفات.</value>
+    <value>يعرض مربعات اختيار بجانب العناصر في مستكشف الملفات، لتسهيل تحديد عدة ملفات معًا.</value>
   </data>
   <data name="Customize.Preferences.ExplorerItemCheckboxes.Name" xml:space="preserve">
     <value>مربعات اختيار العناصر</value>
   </data>
   <data name="Customize.Preferences.ExplorerSyncNotifications.Description" xml:space="preserve">
-    <value>يتحكم في إشعارات ‎OneDrive‎ وموفّري المزامنة السحابية داخل مستكشف الملفات.</value>
+    <value>يعرض إشعارات OneDrive وموفّري المزامنة السحابية في مستكشف الملفات أو يخفيها.</value>
   </data>
   <data name="Customize.Preferences.ExplorerSyncNotifications.Name" xml:space="preserve">
     <value>إشعارات المزامنة في المستكشف</value>
@@ -479,16 +479,16 @@
     <value>تعطيل إشعارات المزامنة يوقف نوافذ ‎OneDrive‎ المنبثقة عن مقاطعة تصفح الملفات.</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Description" xml:space="preserve">
-    <value>إعداد الموقع الافتراضي لمستكشف الملفات (هذا الكمبيوتر أو الوصول السريع).</value>
+    <value>اختر ما إذا كان مستكشف الملفات سيفتح على «هذا الكمبيوتر» أو «الوصول السريع».</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Name" xml:space="preserve">
-    <value>الفتح على «هذا الكمبيوتر»</value>
+    <value>موقع بدء مستكشف الملفات</value>
   </data>
   <data name="Customize.Preferences.Name" xml:space="preserve">
     <value>التفضيلات</value>
   </data>
   <data name="Customize.Preferences.SearchBoxTaskbarMode.Description" xml:space="preserve">
-    <value>يتحكم في طريقة عرض زر البحث ومربعه على شريط المهام.</value>
+    <value>اختر ما إذا كان شريط المهام سيعرض مربع بحث أو أيقونة بحث أو لا يعرض أداة بحث.</value>
   </data>
   <data name="Customize.Preferences.SearchBoxTaskbarMode.Name" xml:space="preserve">
     <value>عرض مربع البحث</value>
@@ -515,19 +515,19 @@
     <value>شريط المهام</value>
   </data>
   <data name="Customize.Preferences.ShowFileExtensions.Description" xml:space="preserve">
-    <value>يعرض امتدادات الملفات (مثل ‎.txt‎ و‎.exe‎) في مستكشف الملفات.</value>
+    <value>يعرض امتدادات الملفات مثل ‎.txt‎ و‎.exe‎ في مستكشف الملفات أو يخفيها.</value>
   </data>
   <data name="Customize.Preferences.ShowFileExtensions.Name" xml:space="preserve">
-    <value>إظهار امتدادات الملفات</value>
+    <value>امتدادات الملفات</value>
   </data>
   <data name="Customize.Preferences.ShowFileExtensions.Recommendation.Reason" xml:space="preserve">
     <value>إظهار الامتدادات يسهّل اكتشاف أنواع الملفات المشبوهة ويمنع البرمجيات الخبيثة من التخفي خلف أيقونات مزيفة.</value>
   </data>
   <data name="Customize.Preferences.ShowHiddenFiles.Description" xml:space="preserve">
-    <value>يعرض الملفات والمجلدات المخفية في مستكشف الملفات.</value>
+    <value>يعرض الملفات والمجلدات المخفية في مستكشف الملفات أو يخفيها.</value>
   </data>
   <data name="Customize.Preferences.ShowHiddenFiles.Name" xml:space="preserve">
-    <value>إظهار الملفات المخفية</value>
+    <value>الملفات المخفية</value>
   </data>
   <data name="Customize.Preferences.ShowHiddenFiles.Recommendation.Reason" xml:space="preserve">
     <value>تحتوي الملفات المخفية على بيانات نظام وإعدادات قد تحتاج إدارتها؛ إظهارها يمنحك رؤية كاملة لنظامك.</value>
@@ -539,13 +539,13 @@
     <value>الثواني في ساعة النظام</value>
   </data>
   <data name="Customize.Preferences.SnapAssistFlyout.Description" xml:space="preserve">
-    <value>يتحكم في قائمة تخطيطات الإرساء التي تظهر عند تمرير المؤشر فوق زر التكبير.</value>
+    <value>يعرض قائمة تخطيطات النوافذ عند تمرير المؤشر فوق زر التكبير أو يخفيها.</value>
   </data>
   <data name="Customize.Preferences.SnapAssistFlyout.Name" xml:space="preserve">
     <value>قائمة تخطيطات الإرساء</value>
   </data>
   <data name="Customize.Preferences.SystemSuggestions.Description" xml:space="preserve">
-    <value>يتحكم في تلميحات ويندوز واقتراحات التطبيقات داخل لوحة الإعدادات.</value>
+    <value>يعرض تلميحات Windows واقتراحات التطبيقات في الإعدادات أو يخفيها.</value>
   </data>
   <data name="Customize.Preferences.SystemSuggestions.Name" xml:space="preserve">
     <value>اقتراحات النظام</value>
@@ -554,7 +554,7 @@
     <value>إيقاف اقتراحات النظام يمنع ويندوز من ترشيح تطبيقات وإعدادات لم تطلبها.</value>
   </data>
   <data name="Customize.Preferences.TaskbarAlignment.Description" xml:space="preserve">
-    <value>يبدّل محاذاة شريط المهام بين الوسط واليسار.</value>
+    <value>اختر ما إذا كانت أيقونات شريط المهام ستظهر في الوسط أو بمحاذاة اليسار.</value>
   </data>
   <data name="Customize.Preferences.TaskbarAlignment.Name" xml:space="preserve">
     <value>محاذاة شريط المهام</value>
@@ -566,7 +566,7 @@
     <value>اليسار</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Description" xml:space="preserve">
-    <value>يضيف خيار «إنهاء المهمة» إلى قائمة النقر الأيمن على شريط المهام لإنهاء العمليات بسرعة.</value>
+    <value>يضيف أمر إنهاء المهمة إلى قائمة شريط المهام، لتتمكن من إغلاق التطبيق المتوقف دون فتح إدارة المهام.</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Name" xml:space="preserve">
     <value>إنهاء المهمة من شريط المهام</value>
@@ -575,19 +575,19 @@
     <value>يتيح لك «إنهاء المهمة» من شريط المهام إغلاق التطبيقات المتوقفة فورًا دون فتح إدارة المهام.</value>
   </data>
   <data name="Customize.Preferences.TaskbarLastActiveClick.Description" xml:space="preserve">
-    <value>النقر على أيقونة في شريط المهام يفتح آخر نافذة نشطة لذلك التطبيق مباشرة.</value>
+    <value>يفتح النقر على أيقونة شريط المهام النافذة المستخدمة مؤخرًا لذلك التطبيق.</value>
   </data>
   <data name="Customize.Preferences.TaskbarLastActiveClick.Name" xml:space="preserve">
     <value>النقر على آخر نافذة نشطة</value>
   </data>
   <data name="Customize.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
-    <value>يتحكم في إظهار زر عرض المهام على شريط المهام.</value>
+    <value>يعرض زر عرض المهام على شريط المهام أو يخفيه.</value>
   </data>
   <data name="Customize.Preferences.TaskbarTaskViewButton.Name" xml:space="preserve">
     <value>زر عرض المهام</value>
   </data>
   <data name="Customize.Preferences.TaskbarWidgets.Description" xml:space="preserve">
-    <value>يتحكم في إظهار زر الأدوات المصغّرة على شريط المهام.</value>
+    <value>يعرض زر الأدوات على شريط المهام أو يخفيه، مع إمكانية الوصول السريع إلى الأخبار والطقس والتحديثات.</value>
   </data>
   <data name="Customize.Preferences.TaskbarWidgets.Name" xml:space="preserve">
     <value>الأدوات المصغّرة</value>
@@ -596,31 +596,31 @@
     <value>إيقاف الأدوات المصغّرة يزيل خدمة الويب التي تجلب الأخبار والطقس في الخلفية، ما يقلل استهلاك الشبكة والذاكرة أثناء الخمول.</value>
   </data>
   <data name="Customize.Preferences.ToastNotifications.Description" xml:space="preserve">
-    <value>يتحكم في الإشعارات المنبثقة وإشعارات شاشة القفل.</value>
+    <value>يتحكم في إشعارات سطح المكتب، بما في ذلك التنبيهات التي تظهر على شاشة القفل.</value>
   </data>
   <data name="Customize.Preferences.ToastNotifications.Name" xml:space="preserve">
     <value>الإشعارات المنبثقة</value>
   </data>
   <data name="Customize.Preferences.WindowShake.Description" xml:space="preserve">
-    <value>هزّ نافذة لتصغير جميع النوافذ المفتوحة الأخرى.</value>
+    <value>هزّ النافذة النشطة لتصغير النوافذ الأخرى، أو أوقف هذا السلوك.</value>
   </data>
   <data name="Customize.Preferences.WindowShake.Name" xml:space="preserve">
     <value>هزّ النافذة</value>
   </data>
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Description" xml:space="preserve">
-    <value>يسمح بتثبيت جميع تطبيقات متجر ويندوز الموثوقة دون الحاجة إلى تفعيل وضع المطوّر.</value>
+    <value>يسمح بتثبيت تطبيقات Windows الموثوقة من دون الحاجة إلى وضع المطور.</value>
   </data>
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Name" xml:space="preserve">
-    <value>السماح بجميع التطبيقات الموثوقة</value>
+    <value>التطبيقات الموثوقة</value>
   </data>
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Recommendation.Reason" xml:space="preserve">
     <value>السماح بجميع التطبيقات الموثوقة يتيح التثبيت الجانبي دون وضع المطوّر؛ وتعطيله يقصر التثبيت على ‎Microsoft Store‎.</value>
   </data>
   <data name="Customize.SystemFeatures.Description" xml:space="preserve">
-    <value>ميزات النظام الأساسية وسلوكياته</value>
+    <value>ميزات Windows المفيدة وسلوك النظام.</value>
   </data>
   <data name="Customize.SystemFeatures.DeveloperMode.Description" xml:space="preserve">
-    <value>يفعّل وضع المطوّر في ويندوز للتثبيت الجانبي للتطبيقات وبوابة الأجهزة وخادم ‎SSH‎ وميزات التطوير.</value>
+    <value>يوفر أدوات لتثبيت التطبيقات من خارج المتجر، وبوابة الأجهزة، وSSH، ومهام التطوير الأخرى.</value>
   </data>
   <data name="Customize.SystemFeatures.DeveloperMode.Name" xml:space="preserve">
     <value>وضع المطوّر</value>
@@ -629,7 +629,7 @@
     <value>يتيح وضع المطوّر التثبيت الجانبي وميزات التشخيص الضرورية لتطوير التطبيقات وتصحيحها.</value>
   </data>
   <data name="Customize.SystemFeatures.LongPathsEnabled.Description" xml:space="preserve">
-    <value>يفعّل دعم المسارات الطويلة في ‎Win32‎ داخل مستكشف الملفات، ما يسمح بمسارات تتجاوز الحد التقليدي البالغ 260 حرفًا.</value>
+    <value>يسمح للتطبيقات المتوافقة باستخدام مسارات ملفات أطول من الحد التقليدي البالغ 260 حرفًا.</value>
   </data>
   <data name="Customize.SystemFeatures.LongPathsEnabled.Name" xml:space="preserve">
     <value>دعم المسارات الطويلة (أكثر من 260 حرفًا)</value>
@@ -641,7 +641,7 @@
     <value>النظام</value>
   </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Description" xml:space="preserve">
-    <value>حالة مفتاح ‎NumLock‎ في شاشة تسجيل الدخول إلى ويندوز.</value>
+    <value>يحدد ما إذا كان Num Lock مفعّلًا عند ظهور شاشة تسجيل الدخول إلى Windows.</value>
   </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Name" xml:space="preserve">
     <value>تفعيل ‎NumLock‎ عند الإقلاع</value>
@@ -659,10 +659,10 @@
     <value>إعدادات الطاقة</value>
   </data>
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
-    <value>يعرض نسبة البطارية بجوار أيقونة البطارية في منطقة الإعلام.</value>
+    <value>يعرض نسبة البطارية الحالية بجوار أيقونة البطارية في منطقة الإعلام.</value>
   </data>
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Name" xml:space="preserve">
-    <value>إظهار نسبة البطارية</value>
+    <value>نسبة البطارية</value>
   </data>
   <data name="Customize.Title" xml:space="preserve">
     <value>التخصيص</value>

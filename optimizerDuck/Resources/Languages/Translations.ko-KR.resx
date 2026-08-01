@@ -105,19 +105,19 @@
   <value>최적화</value>
 </data>
   <data name="Customize.Description" xml:space="preserve">
-  <value>Windows 설정과 환경을 사용자에 맞게 조정합니다</value>
+  <value>Windows 설정과 일상적인 동작을 사용자 지정합니다.</value>
 </data>
   <data name="Customize.Preferences.Name" xml:space="preserve">
   <value>환경 설정</value>
 </data>
   <data name="Customize.Preferences.Description" xml:space="preserve">
-  <value>시각 및 상호작용 설정을 사용자에 맞게 조정합니다</value>
+  <value>Windows의 모양과 상호 작용 방식을 조정합니다.</value>
 </data>
   <data name="Customize.Gaming.Name" xml:space="preserve">
   <value>게이밍</value>
 </data>
   <data name="Customize.Gaming.Description" xml:space="preserve">
-  <value>게임 관련 디스플레이, 입력, 녹화 설정</value>
+  <value>게임을 위한 그래픽, 입력 및 녹화 옵션입니다.</value>
 </data>
   <data name="Dashboard.SystemInfo.Gpu.More" xml:space="preserve">
   <value>GPU {0}개 더</value>
@@ -774,7 +774,7 @@
     <value>작업 표시줄 위젯</value>
   </data>
   <data name="Customize.Preferences.TaskbarWidgets.Description" xml:space="preserve">
-    <value>작업 표시줄에 있는 위젯 버튼의 가시성을 제어합니다</value>
+    <value>작업 표시줄의 위젯 단추를 표시하거나 숨깁니다. 위젯에서 뉴스, 날씨 및 업데이트를 빠르게 확인할 수 있습니다.</value>
   </data>
   <data name="Customize.Preferences.TaskbarWidgets.Recommendation.Reason" xml:space="preserve">
     <value>위젯을 끄면 뉴스와 날씨를 가져오는 백그라운드 웹 서비스가 제거되어 유휴 네트워크 및 메모리 사용량이 줄어듭니다</value>
@@ -783,7 +783,7 @@
     <value>작업 표시줄 정렬</value>
   </data>
   <data name="Customize.Preferences.TaskbarAlignment.Description" xml:space="preserve">
-    <value>작업 표시줄 정렬을 가운데와 왼쪽 간에 전환합니다</value>
+    <value>작업 표시줄 아이콘을 가운데에 배치할지 왼쪽에 맞출지 선택합니다.</value>
   </data>
   <data name="Customize.Preferences.TaskbarAlignment.Options.Center" xml:space="preserve">
     <value>가운데</value>
@@ -795,31 +795,31 @@
     <value>탐색기 컴팩트 모드</value>
   </data>
   <data name="Customize.Preferences.ExplorerCompactMode.Description" xml:space="preserve">
-    <value>더 조밀하게 보기 위해 파일 탐색기에서 항목 사이의 간격을 줄입니다</value>
+    <value>파일 탐색기 항목 사이의 간격을 줄여 더 조밀하게 표시합니다.</value>
   </data>
   <data name="Customize.Preferences.SnapAssistFlyout.Name" xml:space="preserve">
     <value>스냅 레이아웃 플라이아웃</value>
   </data>
   <data name="Customize.Preferences.SnapAssistFlyout.Description" xml:space="preserve">
-    <value>최대화 버튼 위로 마우스를 가져갈 때 나타나는 스냅 레이아웃 메뉴를 제어합니다</value>
+    <value>최대화 단추에 마우스를 올렸을 때 나타나는 스냅 레이아웃 메뉴를 표시하거나 숨깁니다.</value>
   </data>
   <data name="Customize.Preferences.ExplorerItemCheckboxes.Name" xml:space="preserve">
     <value>탐색기 항목 확인란</value>
   </data>
   <data name="Customize.Preferences.ExplorerItemCheckboxes.Description" xml:space="preserve">
-    <value>파일 탐색기에서 항목을 선택할 때 확인란을 표시합니다</value>
+    <value>파일 탐색기 항목 옆에 확인란을 표시하여 여러 파일을 쉽게 선택할 수 있습니다.</value>
   </data>
   <data name="Customize.Preferences.TaskbarTaskViewButton.Name" xml:space="preserve">
     <value>작업 표시줄 작업 보기 버튼</value>
   </data>
   <data name="Customize.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
-    <value>작업 표시줄에 있는 작업 보기 버튼의 가시성을 제어합니다</value>
+    <value>작업 표시줄의 작업 보기 단추를 표시하거나 숨깁니다.</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Name" xml:space="preserve">
     <value>작업 표시줄 작업 종료</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Description" xml:space="preserve">
-    <value>빠른 프로세스 종료를 위해 작업 표시줄 마우스 오른쪽 버튼 클릭 메뉴에 "작업 끝내기" 옵션을 추가합니다</value>
+    <value>작업 표시줄 메뉴에 작업 끝내기 명령을 추가하여 작업 관리자를 열지 않고 응답하지 않는 앱을 닫을 수 있습니다.</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Recommendation.Reason" xml:space="preserve">
     <value>작업 표시줄에서 작업 종료를 사용하면 작업 관리자를 열지 않고도 정지된 앱을 즉시 종료할 수 있습니다</value>
@@ -828,13 +828,13 @@
     <value>다크 모드</value>
   </data>
   <data name="Customize.Preferences.DarkMode.Description" xml:space="preserve">
-    <value>시스템 앱, 설정 및 셸 요소에 대한 어두운 모드입니다</value>
+    <value>Windows 앱, 설정 및 기타 셸 요소에 어두운 색상을 적용합니다.</value>
   </data>
   <data name="Customize.Preferences.ExplorerSyncNotifications.Name" xml:space="preserve">
     <value>탐색기 동기화 알림</value>
   </data>
   <data name="Customize.Preferences.ExplorerSyncNotifications.Description" xml:space="preserve">
-    <value>파일 탐색기에서 OneDrive 및 클라우드 동기화 공급자 알림을 제어합니다</value>
+    <value>파일 탐색기에서 OneDrive 및 다른 클라우드 동기화 공급자의 알림을 표시하거나 숨깁니다.</value>
   </data>
   <data name="Customize.Preferences.ExplorerSyncNotifications.Recommendation.Reason" xml:space="preserve">
     <value>동기화 알림을 비활성화하면 OneDrive 팝업으로 인해 Explorer에서 파일 탐색이 중단되지 않습니다</value>
@@ -843,7 +843,7 @@
     <value>시스템 제안</value>
   </data>
   <data name="Customize.Preferences.SystemSuggestions.Description" xml:space="preserve">
-    <value>설정 패널에서 Windows 팁과 앱 제안을 제어합니다</value>
+    <value>설정에 표시되는 Windows 팁과 앱 추천을 표시하거나 숨깁니다.</value>
   </data>
   <data name="Customize.Preferences.SystemSuggestions.Recommendation.Reason" xml:space="preserve">
     <value>시스템 제안을 끄면 Windows에서 사용자가 요청하지 않은 앱 및 설정을 권장하지 않습니다</value>
@@ -852,22 +852,22 @@
     <value>토스트 알림</value>
   </data>
   <data name="Customize.Preferences.ToastNotifications.Description" xml:space="preserve">
-    <value>토스트 팝업 알림 및 잠금 화면 알림을 제어합니다</value>
+    <value>바탕 화면이나 잠금 화면에 표시되는 토스트 알림을 관리합니다.</value>
   </data>
   <data name="Customize.Preferences.ShowFileExtensions.Name" xml:space="preserve">
-    <value>파일 확장자 표시</value>
+    <value>파일 확장명</value>
   </data>
   <data name="Customize.Preferences.ShowFileExtensions.Description" xml:space="preserve">
-    <value>파일 탐색기에 파일 확장자(예: .txt, .exe)를 표시합니다</value>
+    <value>파일 탐색기에서 .txt, .exe 같은 파일 확장명을 표시하거나 숨깁니다.</value>
   </data>
   <data name="Customize.Preferences.ShowFileExtensions.Recommendation.Reason" xml:space="preserve">
     <value>파일 확장자를 표시하면 의심스러운 파일 형식을 쉽게 찾아낼 수 있으며 가짜 아이콘 뒤에 악성 코드가 숨어 있는 것을 방지할 수 있습니다</value>
   </data>
   <data name="Customize.Preferences.ShowHiddenFiles.Name" xml:space="preserve">
-    <value>숨겨진 파일 표시</value>
+    <value>숨김 파일</value>
   </data>
   <data name="Customize.Preferences.ShowHiddenFiles.Description" xml:space="preserve">
-    <value>파일 탐색기에 숨겨진 파일과 폴더를 표시합니다</value>
+    <value>파일 탐색기에서 숨김 파일과 폴더를 표시하거나 숨깁니다.</value>
   </data>
   <data name="Customize.Preferences.ShowHiddenFiles.Recommendation.Reason" xml:space="preserve">
     <value>숨겨진 파일에는 관리해야 할 시스템 및 구성 데이터가 포함되어 있습니다 이를 표시하면 시스템을 완전히 볼 수 있습니다</value>
@@ -876,7 +876,7 @@
     <value>클립보드 기록</value>
   </data>
   <data name="Customize.Preferences.ClipboardHistory.Description" xml:space="preserve">
-    <value>Win+V로 액세스할 수 있는 여러 복사 항목의 클립보드 기록입니다</value>
+    <value>Win+V에서 확인할 수 있도록 복사한 항목의 기록을 저장합니다.</value>
   </data>
   <data name="Customize.Preferences.ClipboardHistory.Recommendation.Reason" xml:space="preserve">
     <value>클립보드 기록을 사용하면 Win+V를 통해 여러 개의 과거 복사본을 불러올 수 있어 반복적인 복사-붙여넣기 작업 과정의 속도가 빨라집니다</value>
@@ -885,22 +885,22 @@
     <value>창 흔들림</value>
   </data>
   <data name="Customize.Preferences.WindowShake.Description" xml:space="preserve">
-    <value>창을 흔들어 열려 있는 다른 모든 창을 최소화합니다</value>
+    <value>활성 창을 흔들어 다른 창을 최소화하는 동작을 켜거나 끕니다.</value>
   </data>
   <data name="Customize.Preferences.ClassicContextMenu.Name" xml:space="preserve">
     <value>클래식 상황에 맞는 메뉴</value>
   </data>
   <data name="Customize.Preferences.ClassicContextMenu.Description" xml:space="preserve">
-    <value>Windows 11의 Windows 10 스타일 컨텍스트 메뉴.</value>
+    <value>Windows 11의 간소화된 메뉴 대신 Windows 10 스타일의 클래식 컨텍스트 메뉴를 사용합니다.</value>
   </data>
   <data name="Customize.Preferences.ClassicContextMenu.Recommendation.Reason" xml:space="preserve">
     <value>클래식 메뉴는 Windows 11의 압축 메뉴를 확장하는 데 필요한 추가 클릭 없이 모든 옵션을 한 번에 표시합니다</value>
   </data>
   <data name="Customize.Preferences.ShowSecondsInSystemClock.Name" xml:space="preserve">
-    <value>시스템 시계의 초</value>
+    <value>시스템 시계의 초 표시</value>
   </data>
   <data name="Customize.Preferences.ShowSecondsInSystemClock.Description" xml:space="preserve">
-    <value>작업 표시줄 시계에 초를 표시합니다</value>
+    <value>작업 표시줄 시계에 초를 표시합니다.</value>
   </data>
   <data name="Customize.Gaming.Section.GameSettings" xml:space="preserve">
     <value>게임 설정</value>
@@ -915,7 +915,7 @@
     <value>게임 모드</value>
   </data>
   <data name="Customize.Gaming.GameMode.Description" xml:space="preserve">
-    <value>게임 프로세스 및 Windows 업데이트 동작을 위한 Windows 게임 모드.</value>
+    <value>플레이하는 동안 게임에 시스템 리소스 우선 순위를 부여하고 Windows Update 동작을 조정합니다.</value>
   </data>
   <data name="Customize.Gaming.GameMode.Recommendation.Reason" xml:space="preserve">
     <value>게임 모드는 원활한 성능을 위해 게임 프로세스의 우선 순위를 자동으로 지정하고 게임 중에 Windows 업데이트 알림을 일시 중단합니다</value>
@@ -924,7 +924,7 @@
     <value>Xbox 게임 바</value>
   </data>
   <data name="Customize.Gaming.GameBar.Description" xml:space="preserve">
-    <value>Xbox Game Bar 오버레이, 시작 패널 및 관련 배경 기능을 제어합니다</value>
+    <value>Xbox Game Bar와 관련 오버레이 및 백그라운드 기능을 표시합니다.</value>
   </data>
   <data name="Customize.Gaming.GameBar.Recommendation.Reason" xml:space="preserve">
     <value>게임 바를 비활성화하면 시스템 리소스가 확보되고 배경 오버레이가 게임을 방해하는 것을 방지할 수 있습니다</value>
@@ -933,7 +933,7 @@
     <value>백그라운드 녹화(DVR)</value>
   </data>
   <data name="Customize.Gaming.BackgroundRecording.Description" xml:space="preserve">
-    <value>자동 백그라운드 게임 녹화(게임 DVR) 및 앱 캡처를 제어합니다</value>
+    <value>Game DVR을 사용하여 게임과 앱 활동을 백그라운드에서 녹화합니다.</value>
   </data>
   <data name="Customize.Gaming.BackgroundRecording.Recommendation.Reason" xml:space="preserve">
     <value>백그라운드 녹화를 비활성화하면 DVR이 게임 플레이를 자동으로 캡처하지 못하게 되어 CPU 및 디스크 쓰기 주기가 절약됩니다</value>
@@ -942,7 +942,7 @@
     <value>마우스 가속</value>
   </data>
   <data name="Customize.Gaming.MouseAcceleration.Description" xml:space="preserve">
-    <value>커서 이동을 위한 Windows 마우스 가속 설정입니다</value>
+    <value>마우스 속도에 따라 커서가 움직이는 방식을 조정합니다.</value>
   </data>
   <data name="Customize.Gaming.MouseAcceleration.Recommendation.Reason" xml:space="preserve">
     <value>가속을 비활성화하면 더 나은 조준 정밀도와 근육 기억 일관성을 위해 원시 선형 마우스 입력이 제공됩니다</value>
@@ -951,7 +951,7 @@
     <value>전체 화면 최적화</value>
   </data>
   <data name="Customize.Gaming.FullscreenOptimizations.Description" xml:space="preserve">
-    <value>Windows DWM 기반 전체 화면 최적화 설정.</value>
+    <value>Windows 전체 화면 최적화를 적용하며 일부 게임의 호환성이 향상될 수 있습니다.</value>
   </data>
   <data name="Customize.Gaming.FullscreenOptimizations.Recommendation.Reason" xml:space="preserve">
     <value>게임 내 끊김 현상, 입력 지연 또는 검은색 화면이 발생하는 경우(특히 경쟁 슈팅 게임에서) 이 기능을 비활성화하세요</value>
@@ -960,7 +960,7 @@
     <value>하드웨어 가속 GPU 스케줄링</value>
   </data>
   <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Description" xml:space="preserve">
-    <value>GPU 비디오 메모리 스케줄링 모드. 호환되는 GPU 드라이버가 필요합니다</value>
+    <value>GPU가 비디오 메모리 예약 작업을 더 많이 처리하도록 합니다. 호환되는 그래픽 드라이버가 필요합니다.</value>
   </data>
   <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Recommendation.Reason" xml:space="preserve">
     <value>GPU 스케줄링은 프레임 관리를 CPU에서 GPU로 오프로드하여 디스플레이 대기 시간을 줄이고 프레임 속도를 향상시킵니다</value>
@@ -1557,7 +1557,7 @@
     <value>시스템</value>
   </data>
   <data name="Customize.SystemFeatures.Description" xml:space="preserve">
-    <value>핵심 시스템 기능 및 동작</value>
+    <value>유용한 Windows 기능과 시스템 동작을 설정합니다.</value>
   </data>
   <data name="Customize.SystemFeatures.Section.Input" xml:space="preserve">
     <value>입력 설정</value>
@@ -1566,7 +1566,7 @@
     <value>부팅 시 NumLock</value>
   </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Description" xml:space="preserve">
-    <value>Windows 로그인 화면의 NumLock 상태.</value>
+    <value>Windows 로그인 화면에서 Num Lock을 켤지 설정합니다.</value>
   </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
     <value>부팅 시 NumLock을 활성화하면 로그인 후 즉시 숫자 패드가 준비되므로 매번 수동으로 전환할 필요가 없습니다</value>
@@ -1578,7 +1578,7 @@
     <value>데스크탑</value>
   </data>
   <data name="Customize.Desktop.Description" xml:space="preserve">
-    <value>바탕화면 아이콘 및 바로가기 설정</value>
+    <value>바탕 화면 아이콘과 바로 가기의 모양을 조정합니다.</value>
   </data>
   <data name="Customize.Desktop.Section.Icons" xml:space="preserve">
     <value>데스크탑 아이콘</value>
@@ -1590,55 +1590,55 @@
     <value>이 PC</value>
   </data>
   <data name="Customize.Desktop.ShowThisPc.Description" xml:space="preserve">
-    <value>바탕 화면에 이 PC 아이콘을 표시합니다</value>
+    <value>바탕 화면에 내 PC 아이콘을 표시하거나 숨깁니다.</value>
   </data>
   <data name="Customize.Desktop.ShowRecycleBin.Name" xml:space="preserve">
     <value>휴지통</value>
   </data>
   <data name="Customize.Desktop.ShowRecycleBin.Description" xml:space="preserve">
-    <value>데스크탑에 휴지통 아이콘을 표시합니다</value>
+    <value>바탕 화면에 휴지통을 표시하거나 숨깁니다.</value>
   </data>
   <data name="Customize.Desktop.ShowUserFiles.Name" xml:space="preserve">
     <value>사용자 파일</value>
   </data>
   <data name="Customize.Desktop.ShowUserFiles.Description" xml:space="preserve">
-    <value>사용자 프로필 폴더를 바탕 화면 아이콘으로 표시합니다</value>
+    <value>바탕 화면에 사용자 폴더를 표시하거나 숨깁니다.</value>
   </data>
   <data name="Customize.Desktop.ShowNetwork.Name" xml:space="preserve">
     <value>네트워크</value>
   </data>
   <data name="Customize.Desktop.ShowNetwork.Description" xml:space="preserve">
-    <value>데스크탑에 네트워크 아이콘을 표시합니다</value>
+    <value>바탕 화면에 네트워크 아이콘을 표시하거나 숨깁니다.</value>
   </data>
   <data name="Customize.Desktop.ShowControlPanel.Name" xml:space="preserve">
     <value>제어판</value>
   </data>
   <data name="Customize.Desktop.ShowControlPanel.Description" xml:space="preserve">
-    <value>바탕 화면에 제어판 아이콘을 표시합니다</value>
+    <value>바탕 화면에 제어판 아이콘을 표시하거나 숨깁니다.</value>
   </data>
   <data name="Customize.Desktop.ShowDesktopIcons.Name" xml:space="preserve">
-    <value>데스크탑 아이콘</value>
+    <value>바탕 화면 아이콘</value>
   </data>
   <data name="Customize.Desktop.ShowDesktopIcons.Description" xml:space="preserve">
-    <value>모든 바탕 화면 아이콘을 한 번에 표시하거나 숨깁니다</value>
+    <value>바탕 화면 아이콘을 한 번에 표시하거나 숨깁니다.</value>
   </data>
   <data name="Customize.Desktop.ShortcutArrow.Name" xml:space="preserve">
     <value>바로가기 화살표</value>
   </data>
   <data name="Customize.Desktop.ShortcutArrow.Description" xml:space="preserve">
-    <value>바탕화면 아이콘에 바로가기 화살표 오버레이를 표시하거나 숨깁니다</value>
+    <value>바탕 화면 바로 가기에 표시되는 화살표를 표시하거나 숨깁니다.</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Name" xml:space="preserve">
-    <value>"이 PC"로 실행</value>
+    <value>파일 탐색기 시작 위치</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Description" xml:space="preserve">
-    <value>파일 탐색기 기본 위치 설정(이 PC 또는 빠른 액세스)</value>
+    <value>파일 탐색기를 내 PC와 빠른 실행 중 어디에서 열지 선택합니다.</value>
   </data>
   <data name="Customize.Preferences.BingSearch.Name" xml:space="preserve">
     <value>빙 검색</value>
   </data>
   <data name="Customize.Preferences.BingSearch.Description" xml:space="preserve">
-    <value>Windows 검색 및 시작 메뉴 결과에 Bing 웹 검색이 통합되었습니다</value>
+    <value>Windows 검색과 시작 메뉴의 로컬 결과에 Bing 웹 결과를 함께 표시합니다.</value>
   </data>
   <data name="Customize.Preferences.BingSearch.Recommendation.Reason" xml:space="preserve">
     <value>Bing 검색을 끄면 웹 쿼리가 지역 검색 결과를 복잡하게 만드는 것을 방지하고 검색 속도를 향상시킬 수 있습니다</value>
@@ -1713,16 +1713,16 @@
     <value>개발자 모드</value>
   </data>
   <data name="Customize.SystemFeatures.DeveloperMode.Description" xml:space="preserve">
-    <value>사이드로딩 앱, 장치 포털, SSH 서버 및 개발 기능을 위해 Windows 개발자 모드를 활성화합니다.</value>
+    <value>앱 사이드로드, 디바이스 포털, SSH 등 개발 작업에 필요한 기능을 제공합니다.</value>
   </data>
   <data name="Customize.SystemFeatures.DeveloperMode.Recommendation.Reason" xml:space="preserve">
     <value>개발자 모드는 앱 개발 및 디버깅에 필수적인 사이드로딩 및 진단 기능을 활성화합니다.</value>
   </data>
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Name" xml:space="preserve">
-    <value>모든 신뢰할 수 있는 앱 허용</value>
+    <value>신뢰할 수 있는 앱</value>
   </data>
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Description" xml:space="preserve">
-    <value>개발자 모드를 활성화하지 않고도 신뢰할 수 있는 Windows 스토어 앱을 설치할 수 있습니다.</value>
+    <value>개발자 모드를 켜지 않아도 신뢰할 수 있는 Windows 앱을 설치할 수 있습니다.</value>
   </data>
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Recommendation.Reason" xml:space="preserve">
     <value>신뢰할 수 있는 모든 앱을 허용하면 개발자 모드 없이 사이드로딩이 가능합니다. 비활성화하면 Microsoft 스토어 설치로 제한됩니다.</value>
@@ -1731,7 +1731,7 @@
     <value>긴 경로 지원 (&gt;260자)</value>
   </data>
   <data name="Customize.SystemFeatures.LongPathsEnabled.Description" xml:space="preserve">
-    <value>파일 탐색기에서 Win32 긴 경로 지원을 활성화하여 기존 260자 제한을 초과하는 파일 경로를 허용합니다.</value>
+    <value>호환되는 앱에서 기존 260자 제한보다 긴 파일 경로를 사용할 수 있게 합니다.</value>
   </data>
   <data name="Customize.SystemFeatures.LongPathsEnabled.Recommendation.Reason" xml:space="preserve">
     <value>긴 경로 지원을 통해 깊게 중첩된 디렉터리나 긴 이름의 프로젝트 작업 시 파일 액세스 오류를 방지합니다.</value>
@@ -1740,7 +1740,7 @@
     <value>검색 상자 표시</value>
   </data>
   <data name="Customize.Preferences.SearchBoxTaskbarMode.Description" xml:space="preserve">
-    <value>작업 표시줄에 검색 버튼과 상자가 표시되는 방식을 제어합니다.</value>
+    <value>작업 표시줄에 검색 상자, 검색 아이콘 또는 검색 컨트롤 없음을 표시할지 선택합니다.</value>
   </data>
   <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Hidden" xml:space="preserve">
     <value>숨김</value>
@@ -1758,13 +1758,13 @@
     <value>마지막 활성 클릭</value>
   </data>
   <data name="Customize.Preferences.TaskbarLastActiveClick.Description" xml:space="preserve">
-    <value>작업 표시줄 아이콘을 클릭하면 해당 앱의 가장 최근에 활성화된 창이 즉시 열립니다.</value>
+    <value>작업 표시줄의 앱 아이콘을 클릭하면 해당 앱에서 가장 최근에 사용한 창을 엽니다.</value>
   </data>
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Name" xml:space="preserve">
-    <value>배터리 백분율 표시</value>
+    <value>배터리 백분율</value>
   </data>
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
-    <value>시스템 트레이의 배터리 아이콘 옆에 배터리 백분율을 표시합니다.</value>
+    <value>알림 영역의 배터리 아이콘 옆에 현재 배터리 백분율을 표시합니다.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
     <value>시작 메뉴 웹 검색 비활성화</value>

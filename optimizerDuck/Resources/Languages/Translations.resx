@@ -164,19 +164,19 @@
     <value>Optimize</value>
   </data>
   <data name="Customize.Description" xml:space="preserve">
-    <value>Customize Windows settings and preferences</value>
+    <value>Personalize Windows settings and everyday behavior.</value>
   </data>
   <data name="Customize.Preferences.Name" xml:space="preserve">
     <value>Preferences</value>
   </data>
   <data name="Customize.Preferences.Description" xml:space="preserve">
-    <value>Customize visual and interaction settings</value>
+    <value>Fine-tune the way Windows looks and feels.</value>
   </data>
   <data name="Customize.Gaming.Name" xml:space="preserve">
     <value>Gaming</value>
   </data>
   <data name="Customize.Gaming.Description" xml:space="preserve">
-    <value>Game-related display, input, and recording settings</value>
+    <value>Gaming options for graphics, input, and capture.</value>
   </data>
   <data name="Dashboard.SystemInfo.Gpu.More" xml:space="preserve">
     <value>+ {0} more GPU</value>
@@ -845,16 +845,16 @@
     <value>Taskbar Widgets</value>
   </data>
   <data name="Customize.Preferences.TaskbarWidgets.Description" xml:space="preserve">
-    <value>Controls visibility of the Widgets button on the taskbar.</value>
+    <value>Shows or hides the Widgets button on the taskbar. Widgets provide quick access to news, weather, and other updates.</value>
   </data>
   <data name="Customize.Preferences.TaskbarWidgets.Recommendation.Reason" xml:space="preserve">
-    <value>Turning off widgets removes the background web service that fetches news and weather, reducing idle network and memory usage.</value>
+    <value>The Widgets feature can fetch news and weather in the background, which may increase idle network and memory usage.</value>
   </data>
   <data name="Customize.Preferences.TaskbarAlignment.Name" xml:space="preserve">
     <value>Taskbar Alignment</value>
   </data>
   <data name="Customize.Preferences.TaskbarAlignment.Description" xml:space="preserve">
-    <value>Switches taskbar alignment between Center and Left.</value>
+    <value>Choose whether taskbar icons sit in the center or align to the left.</value>
   </data>
   <data name="Customize.Preferences.TaskbarAlignment.Options.Center" xml:space="preserve">
     <value>Center</value>
@@ -866,31 +866,31 @@
     <value>Explorer Compact Mode</value>
   </data>
   <data name="Customize.Preferences.ExplorerCompactMode.Description" xml:space="preserve">
-    <value>Decreases spacing between items in File Explorer for a denser view.</value>
+    <value>Tightens the spacing between items in File Explorer for a more compact view.</value>
   </data>
   <data name="Customize.Preferences.SnapAssistFlyout.Name" xml:space="preserve">
     <value>Snap Layouts Flyout</value>
   </data>
   <data name="Customize.Preferences.SnapAssistFlyout.Description" xml:space="preserve">
-    <value>Controls the snap layouts menu that appears when hovering over the maximize button.</value>
+    <value>Shows or hides the Snap Layouts menu when you hover over a window's maximize button.</value>
   </data>
   <data name="Customize.Preferences.ExplorerItemCheckboxes.Name" xml:space="preserve">
     <value>Explorer Item Check Boxes</value>
   </data>
   <data name="Customize.Preferences.ExplorerItemCheckboxes.Description" xml:space="preserve">
-    <value>Shows check boxes when selecting items in File Explorer.</value>
+    <value>Shows check boxes next to items in File Explorer, making it easier to select several files at once.</value>
   </data>
   <data name="Customize.Preferences.TaskbarTaskViewButton.Name" xml:space="preserve">
     <value>Taskbar Task View Button</value>
   </data>
   <data name="Customize.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
-    <value>Controls visibility of the Task View button on the taskbar.</value>
+    <value>Shows or hides the Task View button on the taskbar.</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Name" xml:space="preserve">
     <value>Taskbar End Task</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Description" xml:space="preserve">
-    <value>Adds an "End task" option to the taskbar right-click menu for quick process termination.</value>
+    <value>Adds an End task command to the taskbar context menu, so you can close an unresponsive app without opening Task Manager.</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Recommendation.Reason" xml:space="preserve">
     <value>End Task on the taskbar lets you kill frozen apps instantly without opening Task Manager.</value>
@@ -899,55 +899,55 @@
     <value>Dark Mode</value>
   </data>
   <data name="Customize.Preferences.DarkMode.Description" xml:space="preserve">
-    <value>Dark mode for system apps, Settings, and shell elements.</value>
+    <value>Applies dark colors to Windows apps, Settings, and other shell elements.</value>
   </data>
   <data name="Customize.Preferences.ExplorerSyncNotifications.Name" xml:space="preserve">
     <value>Explorer Sync Notifications</value>
   </data>
   <data name="Customize.Preferences.ExplorerSyncNotifications.Description" xml:space="preserve">
-    <value>Controls OneDrive and cloud sync provider notifications in File Explorer.</value>
+    <value>Shows or hides notifications from OneDrive and other cloud sync providers in File Explorer.</value>
   </data>
   <data name="Customize.Preferences.ExplorerSyncNotifications.Recommendation.Reason" xml:space="preserve">
-    <value>Disabling sync notifications stops OneDrive pop-ups from interrupting file browsing in Explorer.</value>
+    <value>The Explorer Sync Notifications feature controls OneDrive and cloud-sync pop-ups while browsing files.</value>
   </data>
   <data name="Customize.Preferences.SystemSuggestions.Name" xml:space="preserve">
     <value>System Suggestions</value>
   </data>
   <data name="Customize.Preferences.SystemSuggestions.Description" xml:space="preserve">
-    <value>Controls Windows tips and app suggestions in the Settings panel.</value>
+    <value>Shows or hides Windows tips and app suggestions in Settings.</value>
   </data>
   <data name="Customize.Preferences.SystemSuggestions.Recommendation.Reason" xml:space="preserve">
-    <value>Turning off system suggestions stops Windows from recommending apps and settings you did not ask for.</value>
+    <value>The System Suggestions feature controls Windows recommendations for apps and settings.</value>
   </data>
   <data name="Customize.Preferences.ToastNotifications.Name" xml:space="preserve">
     <value>Toast Notifications</value>
   </data>
   <data name="Customize.Preferences.ToastNotifications.Description" xml:space="preserve">
-    <value>Controls toast popup notifications and lock screen notifications.</value>
+    <value>Controls toast notifications, including alerts that appear on the desktop or lock screen.</value>
   </data>
   <data name="Customize.Preferences.ShowFileExtensions.Name" xml:space="preserve">
-    <value>Show File Extensions</value>
+    <value>File Extensions</value>
   </data>
   <data name="Customize.Preferences.ShowFileExtensions.Description" xml:space="preserve">
-    <value>Shows file extensions (e.g. .txt, .exe) in File Explorer.</value>
+    <value>Shows or hides file extensions such as .txt and .exe in File Explorer.</value>
   </data>
   <data name="Customize.Preferences.ShowFileExtensions.Recommendation.Reason" xml:space="preserve">
-    <value>Showing file extensions makes it easy to spot suspicious file types and prevents malware from hiding behind fake icons.</value>
+    <value>File extensions make suspicious file types easier to spot and prevent malware from hiding behind misleading icons.</value>
   </data>
   <data name="Customize.Preferences.ShowHiddenFiles.Name" xml:space="preserve">
-    <value>Show Hidden Files</value>
+    <value>Hidden Files</value>
   </data>
   <data name="Customize.Preferences.ShowHiddenFiles.Description" xml:space="preserve">
-    <value>Shows hidden files and folders in File Explorer.</value>
+    <value>Shows or hides hidden files and folders in File Explorer.</value>
   </data>
   <data name="Customize.Preferences.ShowHiddenFiles.Recommendation.Reason" xml:space="preserve">
-    <value>Hidden files contain system and config data you may need to manage; showing them gives you full visibility of your system.</value>
+    <value>Hidden files contain system and configuration data that may be needed for administration and troubleshooting.</value>
   </data>
   <data name="Customize.Preferences.ClipboardHistory.Name" xml:space="preserve">
     <value>Clipboard History</value>
   </data>
   <data name="Customize.Preferences.ClipboardHistory.Description" xml:space="preserve">
-    <value>Clipboard history for multiple copied items accessible with Win+V.</value>
+    <value>Keeps a history of copied items that you can browse with Win+V.</value>
   </data>
   <data name="Customize.Preferences.ClipboardHistory.Recommendation.Reason" xml:space="preserve">
     <value>Clipboard history lets you recall multiple past copies with Win+V, speeding up repetitive copy-paste workflows.</value>
@@ -956,13 +956,13 @@
     <value>Window Shake</value>
   </data>
   <data name="Customize.Preferences.WindowShake.Description" xml:space="preserve">
-    <value>Shake a window to minimize all other open windows.</value>
+    <value>Shake the active window to minimize the others, or turn this behavior off.</value>
   </data>
   <data name="Customize.Preferences.ClassicContextMenu.Name" xml:space="preserve">
     <value>Classic Context Menu</value>
   </data>
   <data name="Customize.Preferences.ClassicContextMenu.Description" xml:space="preserve">
-    <value>Windows 10-style context menu on Windows 11.</value>
+    <value>Uses the classic Windows 10-style context menu instead of the condensed Windows 11 menu.</value>
   </data>
   <data name="Customize.Preferences.ClassicContextMenu.Recommendation.Reason" xml:space="preserve">
     <value>The classic menu shows all options at once without the extra click needed to expand Windows 11's condensed menu.</value>
@@ -971,7 +971,7 @@
     <value>Seconds in System Clock</value>
   </data>
   <data name="Customize.Preferences.ShowSecondsInSystemClock.Description" xml:space="preserve">
-    <value>Displays seconds in the taskbar clock.</value>
+    <value>Shows seconds in the taskbar clock.</value>
   </data>
   <data name="Customize.Gaming.Section.GameSettings" xml:space="preserve">
     <value>Game Settings</value>
@@ -986,7 +986,7 @@
     <value>Game Mode</value>
   </data>
   <data name="Customize.Gaming.GameMode.Description" xml:space="preserve">
-    <value>Windows Game Mode for gaming processes and Windows Update behavior.</value>
+    <value>Gives games priority for system resources and changes how Windows Update behaves while you play.</value>
   </data>
   <data name="Customize.Gaming.GameMode.Recommendation.Reason" xml:space="preserve">
     <value>Game Mode automatically prioritizes game processes and suspends Windows Update notifications while gaming for smoother performance.</value>
@@ -995,34 +995,34 @@
     <value>Xbox Game Bar</value>
   </data>
   <data name="Customize.Gaming.GameBar.Description" xml:space="preserve">
-    <value>Controls Xbox Game Bar overlays, startup panel, and related background features.</value>
+    <value>Shows the Xbox Game Bar and its related overlays and background features.</value>
   </data>
   <data name="Customize.Gaming.GameBar.Recommendation.Reason" xml:space="preserve">
-    <value>Disabling Game Bar frees up system resources and prevents background overlays from interfering with your games.</value>
+    <value>The Xbox Game Bar feature provides overlays and background gaming tools that may use system resources.</value>
   </data>
   <data name="Customize.Gaming.BackgroundRecording.Name" xml:space="preserve">
     <value>Background Recording (DVR)</value>
   </data>
   <data name="Customize.Gaming.BackgroundRecording.Description" xml:space="preserve">
-    <value>Controls automatic background game recording (Game DVR) and app capture.</value>
+    <value>Records gameplay and app activity in the background through Game DVR.</value>
   </data>
   <data name="Customize.Gaming.BackgroundRecording.Recommendation.Reason" xml:space="preserve">
-    <value>Disabling background recording stops DVR from silently capturing gameplay, saving CPU and disk write cycles.</value>
+    <value>The Background Recording feature captures gameplay in the background, which can use CPU resources and create disk writes.</value>
   </data>
   <data name="Customize.Gaming.MouseAcceleration.Name" xml:space="preserve">
     <value>Mouse Acceleration</value>
   </data>
   <data name="Customize.Gaming.MouseAcceleration.Description" xml:space="preserve">
-    <value>Windows mouse acceleration setting for cursor movement.</value>
+    <value>Adjusts how cursor movement responds to the speed of your mouse.</value>
   </data>
   <data name="Customize.Gaming.MouseAcceleration.Recommendation.Reason" xml:space="preserve">
-    <value>Disabling acceleration gives you raw, linear mouse input for better aim precision and muscle memory consistency.</value>
+    <value>The Mouse Acceleration feature changes cursor movement based on speed; raw linear input can improve aim consistency.</value>
   </data>
   <data name="Customize.Gaming.FullscreenOptimizations.Name" xml:space="preserve">
     <value>Fullscreen Optimizations</value>
   </data>
   <data name="Customize.Gaming.FullscreenOptimizations.Description" xml:space="preserve">
-    <value>Windows DWM-based full-screen optimizations setting.</value>
+    <value>Applies Windows' fullscreen optimizations, which can improve compatibility for some games.</value>
   </data>
   <data name="Customize.Gaming.FullscreenOptimizations.Recommendation.Reason" xml:space="preserve">
     <value>Disable it if you experience in-game stuttering, input lag, or black screens (especially in competitive shooters).</value>
@@ -1031,7 +1031,7 @@
     <value>Hardware-Accelerated GPU Scheduling</value>
   </data>
   <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Description" xml:space="preserve">
-    <value>GPU video memory scheduling mode. Requires a compatible GPU driver.</value>
+    <value>Lets the GPU handle more video-memory scheduling work. A compatible graphics driver is required.</value>
   </data>
   <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Recommendation.Reason" xml:space="preserve">
     <value>GPU scheduling offloads frame management from the CPU to the GPU, cutting display latency and improving frame pacing.</value>
@@ -1657,7 +1657,7 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
     <value>System</value>
   </data>
   <data name="Customize.SystemFeatures.Description" xml:space="preserve">
-    <value>Core system features and behaviors</value>
+    <value>Useful Windows features and system behavior.</value>
   </data>
   <data name="Customize.SystemFeatures.Section.Input" xml:space="preserve">
     <value>Input Settings</value>
@@ -1666,7 +1666,7 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
     <value>NumLock on Boot</value>
   </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Description" xml:space="preserve">
-    <value>NumLock state at the Windows login screen.</value>
+    <value>Sets whether Num Lock is on when Windows reaches the sign-in screen.</value>
   </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
     <value>Enabling NumLock at boot ensures the numpad is ready immediately after login, avoiding manual toggling each time.</value>
@@ -1678,7 +1678,7 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
     <value>Desktop</value>
   </data>
   <data name="Customize.Desktop.Description" xml:space="preserve">
-    <value>Desktop icons and shortcut settings</value>
+    <value>Desktop icons and shortcut appearance.</value>
   </data>
   <data name="Customize.Desktop.Section.Icons" xml:space="preserve">
     <value>Desktop Icons</value>
@@ -1690,55 +1690,55 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
     <value>This PC</value>
   </data>
   <data name="Customize.Desktop.ShowThisPc.Description" xml:space="preserve">
-    <value>Displays the This PC icon on your desktop</value>
+    <value>Shows or hides the This PC icon on the desktop.</value>
   </data>
   <data name="Customize.Desktop.ShowRecycleBin.Name" xml:space="preserve">
     <value>Recycle Bin</value>
   </data>
   <data name="Customize.Desktop.ShowRecycleBin.Description" xml:space="preserve">
-    <value>Displays the Recycle Bin icon on your desktop</value>
+    <value>Shows or hides the Recycle Bin icon on the desktop.</value>
   </data>
   <data name="Customize.Desktop.ShowUserFiles.Name" xml:space="preserve">
     <value>User Files</value>
   </data>
   <data name="Customize.Desktop.ShowUserFiles.Description" xml:space="preserve">
-    <value>Displays your user profile folder as a desktop icon</value>
+    <value>Shows or hides your user folder on the desktop.</value>
   </data>
   <data name="Customize.Desktop.ShowNetwork.Name" xml:space="preserve">
     <value>Network</value>
   </data>
   <data name="Customize.Desktop.ShowNetwork.Description" xml:space="preserve">
-    <value>Displays the Network icon on your desktop</value>
+    <value>Shows or hides the Network icon on the desktop.</value>
   </data>
   <data name="Customize.Desktop.ShowControlPanel.Name" xml:space="preserve">
     <value>Control Panel</value>
   </data>
   <data name="Customize.Desktop.ShowControlPanel.Description" xml:space="preserve">
-    <value>Displays the Control Panel icon on your desktop</value>
+    <value>Shows or hides the Control Panel icon on the desktop.</value>
   </data>
   <data name="Customize.Desktop.ShowDesktopIcons.Name" xml:space="preserve">
     <value>Desktop Icons</value>
   </data>
   <data name="Customize.Desktop.ShowDesktopIcons.Description" xml:space="preserve">
-    <value>Shows or hides all desktop icons at once</value>
+    <value>Shows or hides all desktop icons at once.</value>
   </data>
   <data name="Customize.Desktop.ShortcutArrow.Name" xml:space="preserve">
     <value>Shortcut Arrow</value>
   </data>
   <data name="Customize.Desktop.ShortcutArrow.Description" xml:space="preserve">
-    <value>Shows or hides the shortcut arrow overlay on desktop icons</value>
+    <value>Shows or hides the arrow overlay on desktop shortcuts.</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Name" xml:space="preserve">
-    <value>Launch to "This PC"</value>
+    <value>File Explorer Startup Location</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Description" xml:space="preserve">
-    <value>File Explorer default location setting (This PC or Quick Access).</value>
+    <value>Choose whether File Explorer opens to This PC or Quick access.</value>
   </data>
   <data name="Customize.Preferences.BingSearch.Name" xml:space="preserve">
     <value>Bing Search</value>
   </data>
   <data name="Customize.Preferences.BingSearch.Description" xml:space="preserve">
-    <value>Bing web search integration in Windows Search and Start menu results.</value>
+    <value>Includes Bing web results alongside local results in Windows Search and the Start menu.</value>
   </data>
   <data name="Customize.Preferences.BingSearch.Recommendation.Reason" xml:space="preserve">
     <value>Turning off Bing search prevents web queries from cluttering local search results and improves search speed.</value>
@@ -1811,7 +1811,7 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
     <value>Developer Mode</value>
   </data>
   <data name="Customize.SystemFeatures.DeveloperMode.Description" xml:space="preserve">
-    <value>Enables Windows Developer Mode for sideloading apps, device portal, SSH server, and development features.</value>
+    <value>Provides tools for app sideloading, Device Portal, SSH, and other development tasks.</value>
   </data>
   <data name="Customize.SystemFeatures.DeveloperMode.Recommendation.Reason" xml:space="preserve">
     <value>Developer Mode enables sideloading and diagnostic features essential for app development and debugging.</value>
@@ -1819,10 +1819,10 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
 
   <!-- Allow All Trusted Apps -->
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Name" xml:space="preserve">
-    <value>Allow All Trusted Apps</value>
+    <value>Trusted Apps</value>
   </data>
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Description" xml:space="preserve">
-    <value>Allows all trusted Windows Store apps to be installed without requiring Developer Mode to be enabled.</value>
+    <value>Lets trusted Windows apps install without requiring Developer Mode.</value>
   </data>
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Recommendation.Reason" xml:space="preserve">
     <value>Allowing all trusted apps enables sideloading without Developer Mode; disabling restricts installations to the Microsoft Store.</value>
@@ -1833,7 +1833,7 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
     <value>Long Path Support (&gt;260 chars)</value>
   </data>
   <data name="Customize.SystemFeatures.LongPathsEnabled.Description" xml:space="preserve">
-    <value>Enables Win32 long path support in File Explorer, allowing file paths longer than the traditional 260-character limit.</value>
+    <value>Allows compatible apps to work with file paths longer than the traditional 260-character limit.</value>
   </data>
   <data name="Customize.SystemFeatures.LongPathsEnabled.Recommendation.Reason" xml:space="preserve">
     <value>Long path support prevents file-access errors when working with deeply nested directories or projects with long names.</value>
@@ -1842,7 +1842,7 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
     <value>Search Box Display</value>
   </data>
   <data name="Customize.Preferences.SearchBoxTaskbarMode.Description" xml:space="preserve">
-    <value>Controls how the search button and box are displayed on the taskbar.</value>
+    <value>Choose whether the taskbar shows a search box, a search icon, or no search control.</value>
   </data>
   <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Hidden" xml:space="preserve">
     <value>Hidden</value>
@@ -1860,12 +1860,12 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
     <value>Last Active Click</value>
   </data>
   <data name="Customize.Preferences.TaskbarLastActiveClick.Description" xml:space="preserve">
-    <value>Clicking a taskbar icon opens the most recently active window of that app instantly.</value>
+    <value>Makes a taskbar click open the most recently used window for that app.</value>
   </data>
 <data name="Customize.SystemFeatures.ShowBatteryPercentage.Name" xml:space="preserve">
-    <value>Show Battery Percentage</value>
+    <value>Battery Percentage</value>
   </data>
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
-    <value>Shows the battery percentage next to the battery icon in the system tray.</value>
+    <value>Shows the current battery percentage next to the battery icon in the system tray.</value>
   </data>
 </root>

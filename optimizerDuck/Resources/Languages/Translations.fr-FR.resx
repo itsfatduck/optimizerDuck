@@ -107,19 +107,19 @@
     <value>Optimiser</value>
   </data>
   <data name="Customize.Description" xml:space="preserve">
-    <value>Personnaliser les paramètres Windows</value>
+    <value>Personnalisez les réglages et le comportement quotidien de Windows.</value>
   </data>
   <data name="Customize.Preferences.Name" xml:space="preserve">
     <value>Préférences</value>
   </data>
   <data name="Customize.Preferences.Description" xml:space="preserve">
-    <value>Personnaliser les paramètres visuels et d'interaction</value>
+    <value>Ajustez l’apparence et la façon dont Windows réagit.</value>
   </data>
   <data name="Customize.Gaming.Name" xml:space="preserve">
     <value>Jeux</value>
   </data>
   <data name="Customize.Gaming.Description" xml:space="preserve">
-    <value>Paramètres d'affichage, de saisie et d'enregistrement liés aux jeux</value>
+    <value>Options de graphismes, de saisie et d’enregistrement pour le jeu.</value>
   </data>
   <data name="Dashboard.SystemInfo.Gpu.More" xml:space="preserve">
     <value>+ {0} GPU supplémentaire(s)</value>
@@ -776,7 +776,7 @@
     <value>Widgets de la barre des tâches</value>
   </data>
   <data name="Customize.Preferences.TaskbarWidgets.Description" xml:space="preserve">
-    <value>Contrôle la visibilité du bouton Widgets dans la barre des tâches.</value>
+    <value>Affiche ou masque le bouton Widgets dans la barre des tâches. Les Widgets donnent rapidement accès aux actualités, à la météo et aux mises à jour.</value>
   </data>
   <data name="Customize.Preferences.TaskbarWidgets.Recommendation.Reason" xml:space="preserve">
     <value>Désactiver les widgets supprime le service web en arrière-plan qui récupère les actualités et la météo, réduisant l'utilisation réseau et mémoire au repos.</value>
@@ -785,37 +785,37 @@
     <value>Alignement de la barre des tâches</value>
   </data>
   <data name="Customize.Preferences.TaskbarAlignment.Description" xml:space="preserve">
-    <value>Bascule l'alignement de la barre des tâches entre Centre et Gauche.</value>
+    <value>Choisissez si les icônes de la barre des tâches sont centrées ou alignées à gauche.</value>
   </data>
   <data name="Customize.Preferences.ExplorerCompactMode.Name" xml:space="preserve">
     <value>Mode compact de l'Explorateur</value>
   </data>
   <data name="Customize.Preferences.ExplorerCompactMode.Description" xml:space="preserve">
-    <value>Réduit l'espacement entre les éléments de l'Explorateur de fichiers pour une vue plus dense.</value>
+    <value>Réduit l’espace entre les éléments de l’Explorateur de fichiers pour une vue plus compacte.</value>
   </data>
   <data name="Customize.Preferences.SnapAssistFlyout.Name" xml:space="preserve">
     <value>Menu d'ancrage des fenêtres</value>
   </data>
   <data name="Customize.Preferences.SnapAssistFlyout.Description" xml:space="preserve">
-    <value>Contrôle le menu de disposition qui apparaît en survolant le bouton Agrandir.</value>
+    <value>Affiche ou masque le menu Dispositions de capture au survol du bouton Agrandir.</value>
   </data>
   <data name="Customize.Preferences.ExplorerItemCheckboxes.Name" xml:space="preserve">
     <value>Cases à cocher dans l'Explorateur</value>
   </data>
   <data name="Customize.Preferences.ExplorerItemCheckboxes.Description" xml:space="preserve">
-    <value>Affiche des cases à cocher lors de la sélection d'éléments dans l'Explorateur de fichiers.</value>
+    <value>Affiche des cases à cocher à côté des éléments de l’Explorateur pour sélectionner plusieurs fichiers plus facilement.</value>
   </data>
   <data name="Customize.Preferences.TaskbarTaskViewButton.Name" xml:space="preserve">
     <value>Bouton Vue des tâches</value>
   </data>
   <data name="Customize.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
-    <value>Contrôle la visibilité du bouton Vue des tâches dans la barre des tâches.</value>
+    <value>Affiche ou masque le bouton Vue des tâches dans la barre des tâches.</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Name" xml:space="preserve">
     <value>Fin de tâche depuis la barre des tâches</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Description" xml:space="preserve">
-    <value>Ajoute une option « Fin de tâche » dans le menu contextuel de la barre des tâches pour terminer rapidement un processus.</value>
+    <value>Ajoute la commande Terminer la tâche au menu contextuel de la barre des tâches pour fermer une application bloquée sans ouvrir le Gestionnaire des tâches.</value>
   </data>
   <data name="Customize.Preferences.TaskbarEndTask.Recommendation.Reason" xml:space="preserve">
     <value>La fin de tâche depuis la barre des tâches permet de fermer instantanément les applications bloquées sans ouvrir le Gestionnaire des tâches.</value>
@@ -824,13 +824,13 @@
     <value>Mode sombre</value>
   </data>
   <data name="Customize.Preferences.DarkMode.Description" xml:space="preserve">
-    <value>Mode sombre pour les applications système, les Paramètres et les éléments du shell.</value>
+    <value>Applique des couleurs sombres aux applications Windows, aux Paramètres et aux autres éléments de l’interface.</value>
   </data>
   <data name="Customize.Preferences.ExplorerSyncNotifications.Name" xml:space="preserve">
     <value>Notifications de synchronisation de l'Explorateur</value>
   </data>
   <data name="Customize.Preferences.ExplorerSyncNotifications.Description" xml:space="preserve">
-    <value>Contrôle les notifications OneDrive et des fournisseurs de synchronisation cloud dans l'Explorateur de fichiers.</value>
+    <value>Affiche ou masque les notifications de OneDrive et des autres fournisseurs de synchronisation dans l’Explorateur.</value>
   </data>
   <data name="Customize.Preferences.ExplorerSyncNotifications.Recommendation.Reason" xml:space="preserve">
     <value>Désactiver les notifications de synchronisation évite que les pop-ups OneDrive interrompent la navigation dans l'Explorateur.</value>
@@ -839,7 +839,7 @@
     <value>Suggestions système</value>
   </data>
   <data name="Customize.Preferences.SystemSuggestions.Description" xml:space="preserve">
-    <value>Contrôle les conseils Windows et les suggestions d'applications dans le panneau Paramètres.</value>
+    <value>Affiche ou masque les conseils Windows et les suggestions d’applications dans les Paramètres.</value>
   </data>
   <data name="Customize.Preferences.SystemSuggestions.Recommendation.Reason" xml:space="preserve">
     <value>Désactiver les suggestions système empêche Windows de recommander des applications et des paramètres que vous n'avez pas sollicités.</value>
@@ -848,22 +848,22 @@
     <value>Notifications toast</value>
   </data>
   <data name="Customize.Preferences.ToastNotifications.Description" xml:space="preserve">
-    <value>Contrôle les notifications pop-up et les notifications sur l'écran de verrouillage.</value>
+    <value>Contrôle les notifications toast, y compris les alertes du bureau et de l’écran de verrouillage.</value>
   </data>
   <data name="Customize.Preferences.ShowFileExtensions.Name" xml:space="preserve">
-    <value>Afficher les extensions de fichiers</value>
+    <value>Extensions de fichiers</value>
   </data>
   <data name="Customize.Preferences.ShowFileExtensions.Description" xml:space="preserve">
-    <value>Affiche les extensions de fichiers (ex. : .txt, .exe) dans l'Explorateur.</value>
+    <value>Affiche ou masque les extensions telles que .txt et .exe dans l’Explorateur de fichiers.</value>
   </data>
   <data name="Customize.Preferences.ShowFileExtensions.Recommendation.Reason" xml:space="preserve">
     <value>Afficher les extensions permet de repérer facilement les types de fichiers suspects et empêche les logiciels malveillants de se cacher derrière de fausses icônes.</value>
   </data>
   <data name="Customize.Preferences.ShowHiddenFiles.Name" xml:space="preserve">
-    <value>Afficher les fichiers cachés</value>
+    <value>Fichiers masqués</value>
   </data>
   <data name="Customize.Preferences.ShowHiddenFiles.Description" xml:space="preserve">
-    <value>Affiche les fichiers et dossiers cachés dans l'Explorateur de fichiers.</value>
+    <value>Affiche ou masque les fichiers et dossiers masqués dans l’Explorateur de fichiers.</value>
   </data>
   <data name="Customize.Preferences.ShowHiddenFiles.Recommendation.Reason" xml:space="preserve">
     <value>Les fichiers cachés contiennent des données système et de configuration que vous pourriez avoir à gérer ; les afficher vous donne une visibilité complète sur votre système.</value>
@@ -872,7 +872,7 @@
     <value>Historique du presse-papiers</value>
   </data>
   <data name="Customize.Preferences.ClipboardHistory.Description" xml:space="preserve">
-    <value>Historique du presse-papiers pour plusieurs éléments copiés, accessible avec Win+V.</value>
+    <value>Conserve un historique des éléments copiés, consultable avec Win+V.</value>
   </data>
   <data name="Customize.Preferences.ClipboardHistory.Recommendation.Reason" xml:space="preserve">
     <value>L'historique du presse-papiers vous permet de retrouver plusieurs copies passées avec Win+V, accélérant les flux de travail répétitifs de copier-coller.</value>
@@ -881,22 +881,22 @@
     <value>Secousse de fenêtre</value>
   </data>
   <data name="Customize.Preferences.WindowShake.Description" xml:space="preserve">
-    <value>Secouez une fenêtre pour réduire toutes les autres fenêtres ouvertes.</value>
+    <value>Secouez la fenêtre active pour réduire les autres fenêtres, ou désactivez ce comportement.</value>
   </data>
   <data name="Customize.Preferences.ClassicContextMenu.Name" xml:space="preserve">
     <value>Menu contextuel classique</value>
   </data>
   <data name="Customize.Preferences.ClassicContextMenu.Description" xml:space="preserve">
-    <value>Menu contextuel de style Windows 10 sur Windows 11.</value>
+    <value>Utilise le menu contextuel classique de Windows 10 à la place du menu condensé de Windows 11.</value>
   </data>
   <data name="Customize.Preferences.ClassicContextMenu.Recommendation.Reason" xml:space="preserve">
     <value>Le menu classique affiche toutes les options en une seule fois, sans le clic supplémentaire nécessaire pour développer le menu condensé de Windows 11.</value>
   </data>
   <data name="Customize.Preferences.ShowSecondsInSystemClock.Name" xml:space="preserve">
-    <value>Secondes dans l'horloge système</value>
+    <value>Secondes dans l’horloge système</value>
   </data>
   <data name="Customize.Preferences.ShowSecondsInSystemClock.Description" xml:space="preserve">
-    <value>Affiche les secondes dans l'horloge de la barre des tâches.</value>
+    <value>Affiche les secondes dans l’horloge de la barre des tâches.</value>
   </data>
   <data name="Customize.Gaming.Section.GameSettings" xml:space="preserve">
     <value>Paramètres de jeu</value>
@@ -911,7 +911,7 @@
     <value>Mode Jeu</value>
   </data>
   <data name="Customize.Gaming.GameMode.Description" xml:space="preserve">
-    <value>Mode Jeu Windows pour les processus de jeu et le comportement des mises à jour Windows.</value>
+    <value>Donne la priorité aux jeux pour les ressources système et modifie le comportement de Windows Update pendant le jeu.</value>
   </data>
   <data name="Customize.Gaming.GameMode.Recommendation.Reason" xml:space="preserve">
     <value>Le Mode Jeu priorise automatiquement les processus de jeu et suspend les notifications Windows Update pendant les sessions pour des performances plus fluides.</value>
@@ -920,7 +920,7 @@
     <value>Xbox Game Bar</value>
   </data>
   <data name="Customize.Gaming.GameBar.Description" xml:space="preserve">
-    <value>Contrôle les superpositions Xbox Game Bar, le panneau de démarrage et les fonctionnalités associées en arrière-plan.</value>
+    <value>Affiche la Xbox Game Bar, ses superpositions et ses fonctions associées en arrière-plan.</value>
   </data>
   <data name="Customize.Gaming.GameBar.Recommendation.Reason" xml:space="preserve">
     <value>Désactiver le Game Bar libère des ressources système et empêche les superpositions en arrière-plan d'interférer avec vos jeux.</value>
@@ -929,7 +929,7 @@
     <value>Enregistrement en arrière-plan (DVR)</value>
   </data>
   <data name="Customize.Gaming.BackgroundRecording.Description" xml:space="preserve">
-    <value>Contrôle l'enregistrement automatique des jeux en arrière-plan (Game DVR) et la capture d'applications.</value>
+    <value>Enregistre les jeux et l’activité des applications en arrière-plan avec Game DVR.</value>
   </data>
   <data name="Customize.Gaming.BackgroundRecording.Recommendation.Reason" xml:space="preserve">
     <value>Désactiver l'enregistrement en arrière-plan empêche le DVR de capturer silencieusement le gameplay, économisant des cycles CPU et des écritures disque.</value>
@@ -938,7 +938,7 @@
     <value>Accélération de la souris</value>
   </data>
   <data name="Customize.Gaming.MouseAcceleration.Description" xml:space="preserve">
-    <value>Paramètre d'accélération de la souris Windows pour le mouvement du curseur.</value>
+    <value>Règle la façon dont la vitesse de la souris influence le déplacement du curseur.</value>
   </data>
   <data name="Customize.Gaming.MouseAcceleration.Recommendation.Reason" xml:space="preserve">
     <value>Désactiver l'accélération vous donne un mouvement de souris brut et linéaire pour une meilleure précision de visée et une cohérence de la mémoire musculaire.</value>
@@ -947,7 +947,7 @@
     <value>Optimisations plein écran</value>
   </data>
   <data name="Customize.Gaming.FullscreenOptimizations.Description" xml:space="preserve">
-    <value>Paramètre d'optimisations plein écran basé sur le DWM de Windows.</value>
+    <value>Applique les optimisations plein écran de Windows, qui peuvent améliorer la compatibilité de certains jeux.</value>
   </data>
   <data name="Customize.Gaming.FullscreenOptimizations.Recommendation.Reason" xml:space="preserve">
     <value>Désactivez si vous subissez des saccades en jeu, des problèmes de latence ou des écrans noirs (notamment dans les jeux de tir compétitifs).</value>
@@ -956,7 +956,7 @@
     <value>Planification GPU accélérée matériellement</value>
   </data>
   <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Description" xml:space="preserve">
-    <value>Mode de planification de la mémoire vidéo du GPU. Nécessite un pilote GPU compatible.</value>
+    <value>Confie davantage de tâches de planification de la mémoire vidéo au GPU. Un pilote graphique compatible est requis.</value>
   </data>
   <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Recommendation.Reason" xml:space="preserve">
     <value>La planification GPU décharge la gestion des trames du CPU vers le GPU, réduisant la latence d'affichage et améliorant le rythme des images.</value>
@@ -1560,7 +1560,7 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
     <value>Système</value>
   </data>
   <data name="Customize.SystemFeatures.Description" xml:space="preserve">
-    <value>Fonctionnalités et comportements fondamentaux du système</value>
+    <value>Fonctions Windows utiles et comportement du système.</value>
   </data>
   <data name="Customize.SystemFeatures.Section.Input" xml:space="preserve">
     <value>Paramètres de saisie</value>
@@ -1569,7 +1569,7 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
     <value>Verr. Num au démarrage</value>
   </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Description" xml:space="preserve">
-    <value>État de la touche Verr. Num à l'écran de connexion Windows.</value>
+    <value>Définit si le verrouillage numérique est activé à l’écran de connexion Windows.</value>
   </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
     <value>Activer Verr. Num au démarrage garantit que le pavé numérique est prêt immédiatement après la connexion, évitant de l'activer manuellement à chaque fois.</value>
@@ -1581,7 +1581,7 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
     <value>Bureau</value>
   </data>
   <data name="Customize.Desktop.Description" xml:space="preserve">
-    <value>Icônes du bureau et paramètres de raccourcis</value>
+    <value>Icônes du bureau et apparence des raccourcis.</value>
   </data>
   <data name="Customize.Desktop.Section.Icons" xml:space="preserve">
     <value>Icônes du bureau</value>
@@ -1593,55 +1593,55 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
     <value>Ce PC</value>
   </data>
   <data name="Customize.Desktop.ShowThisPc.Description" xml:space="preserve">
-    <value>Affiche l'icône Ce PC sur votre bureau</value>
+    <value>Affiche ou masque l’icône Ce PC sur le bureau.</value>
   </data>
   <data name="Customize.Desktop.ShowRecycleBin.Name" xml:space="preserve">
     <value>Corbeille</value>
   </data>
   <data name="Customize.Desktop.ShowRecycleBin.Description" xml:space="preserve">
-    <value>Affiche l'icône Corbeille sur votre bureau</value>
+    <value>Affiche ou masque la Corbeille sur le bureau.</value>
   </data>
   <data name="Customize.Desktop.ShowUserFiles.Name" xml:space="preserve">
     <value>Fichiers utilisateur</value>
   </data>
   <data name="Customize.Desktop.ShowUserFiles.Description" xml:space="preserve">
-    <value>Affiche votre dossier de profil utilisateur comme icône sur le bureau</value>
+    <value>Affiche ou masque votre dossier utilisateur sur le bureau.</value>
   </data>
   <data name="Customize.Desktop.ShowNetwork.Name" xml:space="preserve">
     <value>Réseau</value>
   </data>
   <data name="Customize.Desktop.ShowNetwork.Description" xml:space="preserve">
-    <value>Affiche l'icône Réseau sur votre bureau</value>
+    <value>Affiche ou masque l’icône Réseau sur le bureau.</value>
   </data>
   <data name="Customize.Desktop.ShowControlPanel.Name" xml:space="preserve">
     <value>Panneau de configuration</value>
   </data>
   <data name="Customize.Desktop.ShowControlPanel.Description" xml:space="preserve">
-    <value>Affiche l'icône Panneau de configuration sur votre bureau</value>
+    <value>Affiche ou masque l’icône du Panneau de configuration sur le bureau.</value>
   </data>
   <data name="Customize.Desktop.ShowDesktopIcons.Name" xml:space="preserve">
     <value>Icônes du bureau</value>
   </data>
   <data name="Customize.Desktop.ShowDesktopIcons.Description" xml:space="preserve">
-    <value>Affiche ou masque toutes les icônes du bureau en une seule fois</value>
+    <value>Affiche ou masque toutes les icônes du bureau en une seule fois.</value>
   </data>
   <data name="Customize.Desktop.ShortcutArrow.Name" xml:space="preserve">
     <value>Flèche de raccourci</value>
   </data>
   <data name="Customize.Desktop.ShortcutArrow.Description" xml:space="preserve">
-    <value>Affiche ou masque la flèche de raccourci sur les icônes du bureau</value>
+    <value>Affiche ou masque la flèche sur les raccourcis du bureau.</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Name" xml:space="preserve">
-    <value>Ouvrir sur « Ce PC »</value>
+    <value>Emplacement de démarrage de l’Explorateur de fichiers</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Description" xml:space="preserve">
-    <value>Emplacement par défaut de l'Explorateur de fichiers (Ce PC ou Accès rapide).</value>
+    <value>Choisissez si l’Explorateur s’ouvre sur Ce PC ou sur Accès rapide.</value>
   </data>
   <data name="Customize.Preferences.BingSearch.Name" xml:space="preserve">
     <value>Recherche Bing</value>
   </data>
   <data name="Customize.Preferences.BingSearch.Description" xml:space="preserve">
-    <value>Intégration de la recherche web Bing dans la recherche Windows et les résultats du menu Démarrer.</value>
+    <value>Ajoute les résultats web Bing aux résultats locaux de la recherche Windows et du menu Démarrer.</value>
   </data>
   <data name="Customize.Preferences.BingSearch.Recommendation.Reason" xml:space="preserve">
     <value>Désactiver la recherche Bing empêche les requêtes web d'encombrer les résultats locaux et améliore la vitesse de recherche.</value>
@@ -1722,16 +1722,16 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
     <value>Mode Développeur</value>
   </data>
   <data name="Customize.SystemFeatures.DeveloperMode.Description" xml:space="preserve">
-    <value>Active le Mode Développeur Windows pour le sideloading d'applications, le portail appareil, le serveur SSH et les fonctionnalités de développement.</value>
+    <value>Fournit des outils pour le chargement indépendant d’applications, le Portail des appareils, SSH et d’autres tâches de développement.</value>
   </data>
   <data name="Customize.SystemFeatures.DeveloperMode.Recommendation.Reason" xml:space="preserve">
     <value>Le Mode Développeur permet le sideloading et les fonctionnalités de diagnostic essentielles au développement et au débogage d'applications.</value>
   </data>
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Name" xml:space="preserve">
-    <value>Autoriser toutes les applications de confiance</value>
+    <value>Applications approuvées</value>
   </data>
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Description" xml:space="preserve">
-    <value>Permet d'installer toutes les applications de confiance du Windows Store sans nécessiter l'activation du Mode Développeur.</value>
+    <value>Permet d’installer des applications Windows approuvées sans activer le Mode développeur.</value>
   </data>
   <data name="Customize.SystemFeatures.AllowAllTrustedApps.Recommendation.Reason" xml:space="preserve">
     <value>Autoriser toutes les applications de confiance permet le sideloading sans Mode Développeur ; désactiver limite les installations au Microsoft Store.</value>
@@ -1740,7 +1740,7 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
     <value>Prise en charge des chemins longs (&gt;260 car.)</value>
   </data>
   <data name="Customize.SystemFeatures.LongPathsEnabled.Description" xml:space="preserve">
-    <value>Active la prise en charge des chemins longs Win32 dans l'Explorateur de fichiers, permettant des chemins plus longs que la limite traditionnelle de 260 caractères.</value>
+    <value>Permet aux applications compatibles d’utiliser des chemins de fichiers dépassant la limite traditionnelle de 260 caractères.</value>
   </data>
   <data name="Customize.SystemFeatures.LongPathsEnabled.Recommendation.Reason" xml:space="preserve">
     <value>La prise en charge des chemins longs évite les erreurs d'accès aux fichiers lors du travail avec des répertoires profondément imbriqués ou des projets aux noms longs.</value>
@@ -1749,7 +1749,7 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
     <value>Affichage de la zone de recherche</value>
   </data>
   <data name="Customize.Preferences.SearchBoxTaskbarMode.Description" xml:space="preserve">
-    <value>Contrôle la façon dont le bouton et la zone de recherche sont affichés dans la barre des tâches.</value>
+    <value>Choisissez si la barre des tâches affiche une zone de recherche, une icône de recherche ou aucun contrôle de recherche.</value>
   </data>
   <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Hidden" xml:space="preserve">
     <value>Masqué</value>
@@ -1767,13 +1767,13 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
     <value>Dernière fenêtre active</value>
   </data>
   <data name="Customize.Preferences.TaskbarLastActiveClick.Description" xml:space="preserve">
-    <value>Cliquer sur une icône de la barre des tâches ouvre instantanément la fenêtre la plus récemment active de cette application.</value>
+    <value>Ouvre la fenêtre la plus récemment utilisée de l’application lorsque vous cliquez sur son icône dans la barre des tâches.</value>
   </data>
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Name" xml:space="preserve">
-    <value>Afficher le pourcentage de batterie</value>
+    <value>Pourcentage de batterie</value>
   </data>
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
-    <value>Affiche le pourcentage de batterie à côté de l'icône de batterie dans la zone de notification.</value>
+    <value>Affiche le pourcentage actuel à côté de l’icône de batterie dans la zone de notification.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
     <value>Désactiver la recherche Web du menu Démarrer</value>
