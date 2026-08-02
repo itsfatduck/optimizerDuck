@@ -1,4 +1,4 @@
-<div align="center">
+﻿<div align="center">
 
 <a href="https://optimizerduck.vercel.app/"><img src="./.github/assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/></a>
 
@@ -20,7 +20,7 @@
 
 **[البداية السريعة](https://optimizerduck.vercel.app/docs/guides/getting-started) | [كيف يعمل](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [الأسئلة الشائعة](https://optimizerduck.vercel.app/docs/faq/general)**
 
-[English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md) | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md) | **العربية**
+[English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md) | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md) | **العربية** | [Bahasa Indonesia](README.id-ID.md)
 
 <details>
 <summary>⭐ سجل النجوم</summary>
@@ -91,6 +91,7 @@
 > | 🇧🇷 | البرتغالية (البرازيل) | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
 > | 🇹🇷 | التركية | Türkçe | [amhunter1](https://github.com/amhunter1) |
 > | 🇸🇦 | العربية | العربية | [s5xx5s](https://github.com/s5xx5s) |
+> | 🇮🇩 | الإندونيسية | Bahasa Indonesia | [nekowawolf](https://github.com/nekowawolf) |
 >
 > تريد إضافة لغتك؟ راجع [CONTRIBUTING.md](./CONTRIBUTING.md) ([اليابانية](./CONTRIBUTING.ja-JP.md)، [التركية](./CONTRIBUTING.tr-TR.md)).
 

@@ -1,4 +1,4 @@
-<div align="center">
+﻿<div align="center">
 
 <a href="https://optimizerduck.vercel.app/"><img src="./.github/assets/optimizerDuck.png" alt="optimizerDuck バナー" title="optimizerDuck"/></a>
 
@@ -20,7 +20,7 @@
 
 **[はじめ方](https://optimizerduck.vercel.app/docs/guides/getting-started) | [仕組み](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [よくある質問](https://optimizerduck.vercel.app/docs/faq/general)**
 
-[English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | **日本語** | [Polski](README.pl-PL.md) | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md) | [العربية](README.ar-SA.md)
+[English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | **日本語** | [Polski](README.pl-PL.md) | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md) | [العربية](README.ar-SA.md) | [Bahasa Indonesia](README.id-ID.md)
 
 <details>
 <summary>⭐ スター履歴</summary>
@@ -88,6 +88,8 @@ optimizerDuck が PC の改善に役立ったなら、リポジトリに ⭐ を
 > | 🇵🇱 | ポーランド語 | Polski | [dudus2000](https://github.com/dudus2000) |
 > | 🇧🇷 | ポルトガル語（ブラジル） | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
 > | 🇹🇷 | トルコ語 | Türkçe | [amhunter1](https://github.com/amhunter1) |
+> | 🇸🇦 | アラビア語 | العربية | [s5xx5s](https://github.com/s5xx5s) |
+> | 🇮🇩 | インドネシア語 | Bahasa Indonesia | [nekowawolf](https://github.com/nekowawolf) |
 > 
 > 言語を追加したいですか？ [CONTRIBUTING.md](./CONTRIBUTING.md)（[日本語版](./CONTRIBUTING.ja-JP.md)、[トルコ語版](./CONTRIBUTING.tr-TR.md)）をご覧ください。
 
