@@ -4,6 +4,7 @@ using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.UI;
+using optimizerDuck.Test.TestDoubles;
 using OptimizationState = optimizerDuck.Domain.UI.OptimizationState;
 
 namespace optimizerDuck.Test.Services;
@@ -171,16 +172,13 @@ public class ExecutionScopeTests
     }
 }
 
-public class MockOptimization : IOptimization
+public class MockOptimization : StubOptimization
 {
-    public Guid Id { get; } = Guid.NewGuid();
-    public OptimizationRisk Risk => OptimizationRisk.Safe;
-    public string OptimizationKey => "MockOptimization";
-    public string Name => "Mock Optimization";
-    public string ShortDescription => "Mock description";
-    public OptimizationState State { get; set; } = new();
+    public override string OptimizationKey => "MockOptimization";
+    public override string Name => "Mock Optimization";
+    public override string ShortDescription => "Mock description";
 
-    public Task<ApplyResult> ApplyAsync(
+    public override Task<ApplyResult> ApplyAsync(
         IProgress<ProcessingProgress> progress,
         OptimizationContext context
     )

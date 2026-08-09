@@ -1,6 +1,8 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
@@ -12,8 +14,11 @@ using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Conditions;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.Optimization;
 using optimizerDuck.Services.Revert;
+using optimizerDuck.Services.System;
 using optimizerDuck.UI.Dialogs;
 using optimizerDuck.UI.ViewModels.Dialogs;
 using Wpf.Ui;
@@ -40,6 +45,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
     private readonly IOptimizationCategory _category;
     private readonly IContentDialogService _contentDialogService;
     private readonly ILogger<OptimizationCategoryViewModel> _logger;
+    private readonly SystemInfoService _systemInfoService;
     private readonly OptimizationService _optimizationService;
     private readonly RevertManager _revertManager;
     private readonly ISnackbarService _snackbarService;
@@ -50,6 +56,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
         RevertManager revertManager,
         ISnackbarService snackbarService,
         IContentDialogService contentDialogService,
+        SystemInfoService systemInfoService,
         ILogger<OptimizationCategoryViewModel> logger,
         IOptionsMonitor<AppSettings> appOptionsMonitor
     )
@@ -60,6 +67,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
         _snackbarService = snackbarService;
         _logger = logger;
         _contentDialogService = contentDialogService;
+        _systemInfoService = systemInfoService;
         _appOptionsMonitor = appOptionsMonitor;
     }
 
@@ -116,14 +124,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 try
                 {
                     await Task.Delay(FilterDebounceDelay, token).ConfigureAwait(false);
-                    await Application.Current.Dispatcher.InvokeAsync(
-                        () =>
-                        {
-                            if (!token.IsCancellationRequested)
-                                ApplyFilter();
-                        },
-                        System.Windows.Threading.DispatcherPriority.Background
-                    );
+                    if (!token.IsCancellationRequested)
+                        await UiThread.InvokeAsync(ApplyFilter, DispatcherPriority.Background);
                 }
                 catch (OperationCanceledException)
                 {
@@ -253,7 +255,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
             return;
         }
 
-        ((App)Application.Current).HasPendingChanges = true;
+        if (Application.Current is App app)
+            app.HasPendingChanges = true;
 
         var retryOutcome = await HandleRetryableFailuresAsync(
             optimization,
@@ -296,7 +299,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
             p => _optimizationService.RevertAsync(optimization, p)
         );
 
-        ((App)Application.Current).HasPendingChanges = true;
+        if (Application.Current is App app)
+            app.HasPendingChanges = true;
 
         var retryOutcome = await HandleRetryableFailuresAsync(
             optimization,
@@ -350,6 +354,18 @@ public partial class OptimizationCategoryViewModel : ViewModel
         _logger.Log(level, "{Message}: {Name}", message, optimization.OptimizationKey);
     }
 
+    /// <summary>
+    ///     Hides the unsupported condition state for this session, returning the
+    ///     optimization to its normal card so the user can apply it anyway.
+    ///     The hide choice is not persisted.
+    /// </summary>
+    [RelayCommand]
+    private void HideCondition(IOptimization optimization)
+    {
+        if (optimization is BaseOptimization baseOptimization)
+            baseOptimization.IsConditionHidden = true;
+    }
+
     [RelayCommand]
     private async Task ShowDetailsAsync(IOptimization optimization)
     {
@@ -387,29 +403,95 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
     #region Helpers
 
-    protected override Task InitializeOnceAsync()
+    protected override async Task InitializeOnceAsync()
     {
         IsLoading = true;
         try
         {
             foreach (var optimization in _category.Optimizations)
             {
-                optimization.State.PropertyChanged += (_, e) =>
-                {
-                    if (e.PropertyName == nameof(OptimizationState.IsApplied))
-                        OnPropertyChanged(nameof(HasAppliedOptimizations));
-                };
+                // Listen to the optimization's own PropertyChanged instead of the nested
+                // State instance so a replaced State (BaseOptimization re-raises the
+                // change) can never orphan this subscription.
+                if (optimization is INotifyPropertyChanged notify)
+                    notify.PropertyChanged += OnOptimizationStateChanged;
                 _allOptimizations.Add(optimization);
             }
 
-            ApplyFilter();
+            var snapshot = await _systemInfoService.EnsureSnapshotAsync();
+            if (ReferenceEquals(snapshot, SystemSnapshot.Unknown))
+                _logger.LogWarning(
+                    "System snapshot is unavailable; conditions fail open for this session"
+                );
+
+            await UiThread.InvokeAsync(() =>
+            {
+                EvaluateConditions(snapshot);
+                ApplyFilter();
+            });
         }
         finally
         {
             IsLoading = false;
         }
+    }
 
-        return Task.CompletedTask;
+    /// <summary>
+    ///     Re-evaluates every optimization's condition and re-applies the filter when the
+    ///     system snapshot is refreshed (e.g. hardware changed) or the UI language changes.
+    ///     Marshalled to the UI thread by <see cref="UiThread"/>.
+    /// </summary>
+    private void OnSnapshotRefreshed(object? sender, SystemSnapshot snapshot) =>
+        ReEvaluateConditions(snapshot);
+
+    private void OnCultureChanged(object? sender, PropertyChangedEventArgs e) =>
+        ReEvaluateConditions(_systemInfoService.Snapshot);
+
+    private void ReEvaluateConditions(SystemSnapshot snapshot)
+    {
+        _ = UiThread.InvokeAsync(() =>
+        {
+            EvaluateConditions(snapshot);
+            ApplyFilter();
+        });
+    }
+
+    /// <summary>
+    ///     Keeps <see cref="HasAppliedOptimizations"/> in sync when any optimization's
+    ///     <see cref="IOptimization.State"/> changes (applied status or instance swap).
+    /// </summary>
+    private void OnOptimizationStateChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(IOptimization.State))
+            OnPropertyChanged(nameof(HasAppliedOptimizations));
+    }
+
+    public override Task OnNavigatedToAsync()
+    {
+        _systemInfoService.SnapshotRefreshed += OnSnapshotRefreshed;
+        Loc.Instance.PropertyChanged += OnCultureChanged;
+        return base.OnNavigatedToAsync();
+    }
+
+    public override Task OnNavigatedFromAsync()
+    {
+        _systemInfoService.SnapshotRefreshed -= OnSnapshotRefreshed;
+        Loc.Instance.PropertyChanged -= OnCultureChanged;
+        return base.OnNavigatedFromAsync();
+    }
+
+    /// <summary>
+    ///     Re-evaluates every optimization's condition against the system snapshot.
+    /// </summary>
+    private void EvaluateConditions(SystemSnapshot snapshot)
+    {
+        ConditionEvaluator.EvaluateAll(
+            _allOptimizations,
+            o => o.ConditionType,
+            (o, r) => o.ConditionResult = r,
+            snapshot,
+            _logger
+        );
     }
 
     /// <summary>

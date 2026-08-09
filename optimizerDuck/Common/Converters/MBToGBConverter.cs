@@ -3,6 +3,7 @@ using System.Windows.Data;
 
 namespace optimizerDuck.Common.Converters;
 
+/// <summary>Converts a megabyte value to a formatted gigabyte string, or "N/A" when invalid.</summary>
 public class MBToGBConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)

@@ -66,6 +66,12 @@
   <data name="Dashboard.Header.Title" xml:space="preserve">
     <value>Главная</value>
   </data>
+  <data name="Optimizer.AI.DisableRecall.ShortDescription" xml:space="preserve">
+    <value>Отключает функцию ИИ Windows Recall, которая захватывает и индексирует снимки экрана. Также удаляет компонент Recall и удаляет ранее сохранённые снимки; для вступления в силу требуется перезагрузка.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
+    <value>Отключает ленту новостей и интересов и скрывает её кнопку на панели задач (Windows 10), а также отключает панель виджетов (Windows 11).</value>
+  </data>
   <data name="Sidebar.Dashboard" xml:space="preserve">
     <value>Главная</value>
   </data>
@@ -216,8 +222,8 @@
   <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
     <value>Теги</value>
   </data>
-  <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
-    <value>Устанавливает порог разделения Service Host в соответствии с общим объемом ОЗУ, заставляя Windows изолировать службы в отдельные процессы для повышения стабильности.</value>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
+    <value>Повышает порог разделения узла служб до общего объёма ОЗУ системы, сохраняя службы объединёнными в меньшем числе процессов для снижения потребления памяти и количества процессов.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
     <value>Не удалось определить текущую активную схему электропитания.</value>
@@ -254,15 +260,6 @@
   </data>
   <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
     <value>Эти теги показывают, на какие части системы повлияет оптимизация.</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
-    <value>NVIDIA</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
-    <value>AMD</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
-    <value>Intel</value>
   </data>
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
     <value>Питание</value>
@@ -555,10 +552,10 @@
   <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
     <value>Запрещает неактивным приложениям работать в фоне, освобождая ОЗУ и снижая нагрузку на ЦП.</value>
   </data>
-  <data name="Optimizer.Performance.SvcHostSplit.Name" xml:space="preserve">
-    <value>Оптимизировать изоляцию служб</value>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.Name" xml:space="preserve">
+    <value>Консолидация узлов служб</value>
   </data>
-  <data name="Optimizer.Performance.SvcHostSplit.Error.InvalidRAM" xml:space="preserve">
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.Error.InvalidRAM" xml:space="preserve">
     <value>Некорректное значение ОЗУ: {0}</value>
   </data>
   <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
@@ -655,13 +652,13 @@
     <value>Отключить фоновое логирование</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
-    <value>Останавливает ненужное журналирование системных событий для снижения нагрузки на диск и ЦП.</value>
+    <value>Предотвращает запуск необязательных сеансов WMI/ETW AutoLogger (Diagtrack-Listener, SQMLogger и др.) при загрузке системы, снижая фоновую нагрузку на диск и ЦП. Примечание: антивирусные программы могут помечать изменения AutoLogger, поскольку они изменяют диагностическую трассировку.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
     <value>Отключить Cortana и веб-поиск</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
-    <value>Отключает голосового помощника Cortana и убирает результаты из Bing из панели поиска Windows.</value>
+    <value>Отключает голосового помощника Cortana и отключает облачный поиск и веб-результаты в поиске Windows (только Windows 10).</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
     <value>Отключить Windows Copilot</value>
@@ -696,9 +693,6 @@
   <data name="Optimizer.UI.Tags.Visual" xml:space="preserve">
     <value>Визуальные</value>
   </data>
-  <data name="Optimizer.Gpu" xml:space="preserve">
-    <value>GPU</value>
-  </data>
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>Пользовательский опыт</value>
   </data>
@@ -713,54 +707,6 @@
   </data>
   <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
     <value>Отключает анимации панели задач, тени, прозрачность и Aero Peek для освобождения ресурсов GPU/CPU.</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
-    <value>Отключить AMD ULPS</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
-    <value>Устанавливает EnableULPS=0 в реестре AMD, предотвращая задержки пробуждения и проблемы с мульти-монитором.</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
-    <value>Отключить AMD Power Gating</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
-    <value>Предотвращает переключение состояний питания AMD GPU. Поддерживает стабильные частоты ценой большего энергопотребления в простое.</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
-    <value>Отключить AMD Video Clock Gating</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-    <value>Настраивает видео-движки AMD (VCE/UVD) для улучшения стабильности кодирования/декодирования. Увеличивает энергопотребление при видео.</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
-    <value>Отключить AMD ASPM</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
-    <value>Отключает Active State Power Management на AMD GPU, снижая задержку шины PCIe. Увеличивает потребление слота.</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
-    <value>Отключить NVIDIA Dynamic P-State</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
-    <value>Фиксирует NVIDIA GPU в состоянии производительности, предотвращая скачки частот. Увеличивает потребление в простое.</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
-    <value>Отключить NVIDIA Async P-States</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
-    <value>Предотвращает асинхронное переключение состояний питания NVIDIA, обеспечивая детерминированную производительность для VR.</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
-    <value>Отключить Intel Async Flips</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
-    <value>Принудительно использует синхронное переключение буферов на Intel iGPU, снижая задержку ввода и разрывы кадра.</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
-    <value>Отключить Intel Adaptive V-Sync</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
-    <value>Отключает адаптивную V-Sync от Intel, используя фиксированную V-Sync для стабильного тайминга.</value>
   </data>
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
     <value>Панель задач</value>

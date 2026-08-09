@@ -66,6 +66,12 @@
   <data name="Dashboard.Header.Title" xml:space="preserve">
     <value>Dashboard</value>
   </data>
+  <data name="Optimizer.AI.DisableRecall.ShortDescription" xml:space="preserve">
+    <value>Tắt tính năng AI Windows Recall — tính năng chụp và lập chỉ mục ảnh chụp màn hình. Đồng thời gỡ bỏ thành phần Recall và xóa các ảnh chụp đã lưu trữ trước đó; cần khởi động lại máy để có hiệu lực.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
+    <value>Tắt nguồn cấp tin tức và sở thích (News and Interests) và ẩn nút của nó trên thanh tác vụ (Windows 10), đồng thời vô hiệu hóa bảng Widgets (Windows 11).</value>
+  </data>
   <data name="Sidebar.Dashboard" xml:space="preserve">
     <value>Dashboard</value>
   </data>
@@ -213,8 +219,8 @@
   <data name="OptimizationDetailsDialog.Other" xml:space="preserve">
     <value>Khác</value>
   </data>
-  <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
-    <value>Chia nhỏ các dịch vụ hệ thống thành các tiến trình riêng biệt để tăng đáng kể độ ổn định.</value>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
+    <value>Nâng ngưỡng phân tách Service Host lên bằng tổng RAM hệ thống, giữ các dịch vụ gộp trong ít tiến trình hơn để giảm mức sử dụng bộ nhớ và số tiến trình.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
     <value>Không thể phát hiện power plan đang hoạt động hiện tại.</value>
@@ -251,15 +257,6 @@
   </data>
   <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
     <value>Các thẻ này cho biết tối ưu sẽ ảnh hưởng đến phần nào trong hệ thống.</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
-    <value>NVIDIA</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
-    <value>AMD</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
-    <value>Intel</value>
   </data>
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
     <value>Công suất/Điện năng</value>
@@ -537,10 +534,10 @@
   <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
     <value>Ngăn các ứng dụng chạy ngầm khi không sử dụng để giải phóng RAM và giảm tải cho CPU.</value>
   </data>
-  <data name="Optimizer.Performance.SvcHostSplit.Name" xml:space="preserve">
-    <value>Tối ưu hóa cô lập dịch vụ</value>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.Name" xml:space="preserve">
+    <value>Hợp nhất các tiến trình dịch vụ</value>
   </data>
-  <data name="Optimizer.Performance.SvcHostSplit.Error.InvalidRAM" xml:space="preserve">
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.Error.InvalidRAM" xml:space="preserve">
     <value>RAM không hợp lệ: {0}</value>
   </data>
   <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
@@ -637,13 +634,13 @@
     <value>Vô hiệu hóa nhật ký hệ thống</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
-    <value>Ngăn việc ghi lại các nhật ký chẩn đoán chạy ngầm không cần thiết để tiết kiệm tài nguyên CPU/Ổ cứng.</value>
+    <value>Ngăn các phiên WMI/ETW AutoLogger không thiết yếu (Diagtrack-Listener, SQMLogger, v.v.) khởi động cùng hệ thống để giảm hoạt động đĩa và CPU nền. Lưu ý: phần mềm bảo mật có thể cảnh báo các thay đổi AutoLogger vì chúng làm thay đổi quá trình theo dõi chẩn đoán.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
     <value>Vô hiệu hóa Cortana &amp; Tìm kiếm</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
-    <value>Tắt trợ lý ảo Cortana và ngăn Windows Search tìm kiếm trực tuyến để có kết quả nhanh hơn.</value>
+    <value>Tắt trợ lý giọng nói Cortana và vô hiệu hóa tìm kiếm đám mây cũng như kết quả web trong Windows Search (chỉ dành cho Windows 10).</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
     <value>Vô hiệu hóa Windows Copilot</value>
@@ -678,9 +675,6 @@
   <data name="Optimizer.UI.Tags.Visual" xml:space="preserve">
     <value>Giao diện</value>
   </data>
-  <data name="Optimizer.Gpu" xml:space="preserve">
-    <value>GPU</value>
-  </data>
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>Trải nghiệm người dùng</value>
   </data>
@@ -695,54 +689,6 @@
   </data>
   <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
     <value>Tắt hiệu ứng chuyển động, bóng đổ, độ trong suốt và Aero Peek để giải phóng tài nguyên GPU/CPU cho hiệu suất tốt hơn.</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
-    <value>Vô hiệu hóa AMD ULPS</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
-    <value>Tắt chế độ siêu tiết kiệm điện của AMD để tránh hiện tượng GPU bị khựng hoặc trễ khi thức dậy.</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
-    <value>Tắt AMD Power Gating</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
-    <value>Duy trì hiệu năng GPU ổn định bằng cách ngăn việc tự động ngắt nguồn các thành phần bên trong.</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
-    <value>Tắt AMD Video Clock Gating</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-    <value>Tăng cường độ ổn định cho quá trình xử lý video bằng cách giữ xung nhịp engine video luôn sẵn sàng.</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
-    <value>Vô hiệu hóa AMD ASPM</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
-    <value>Giảm độ trễ giao tiếp PCIe cho card đồ họa AMD, giúp tăng tốc độ phản hồi.</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
-    <value>Khóa trạng thái năng lượng NVIDIA</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
-    <value>Ngăn NVIDIA GPU tự động thay đổi mức năng lượng để duy trì mức hiệu năng nhất quán nhất.</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
-    <value>Vô hiệu hóa Async P-States</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
-    <value>Tắt việc chuyển đổi trạng thái hiệu năng không đồng bộ để đạt được sự ổn định cao nhất.</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
-    <value>Bật đồng bộ hình ảnh Intel</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
-    <value>Sử dụng cơ chế làm mới khung hình đồng bộ để giảm độ trễ hiển thị và hạn chế xé hình.</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
-    <value>Vô hiệu hóa Adaptive V-Sync</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
-    <value>Duy trì thời gian xuất khung hình ổn định bằng cách tắt tính năng V-Sync thích ứng của Intel.</value>
   </data>
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
     <value>Thanh tác vụ</value>

@@ -22,4 +22,11 @@ public sealed class OptimizationAttribute : Attribute
     ///     The tags that categorize the system areas this optimization affects.
     /// </summary>
     public required OptimizationTags Tags { get; init; }
+
+    /// <summary>
+    ///     The compatibility condition type (implementing <see cref="ICondition"/>)
+    ///     that determines whether this optimization is supported on the current system.
+    ///     When <c>null</c>, the optimization is always available.
+    /// </summary>
+    public Type? Condition { get; init; }
 }

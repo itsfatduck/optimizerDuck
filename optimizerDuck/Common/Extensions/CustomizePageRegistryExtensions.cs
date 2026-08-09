@@ -37,6 +37,7 @@ public static class CustomizePageRegistryExtensions
         var registry = serviceProvider.GetRequiredService<CustomizeRegistry>();
         var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
         var registryWatcher = serviceProvider.GetRequiredService<IRegistryWatcher>();
+        var systemInfoService = serviceProvider.GetRequiredService<SystemInfoService>();
 
         // Fall back to synchronous registration if preloading hasn't completed yet.
         // RegisterCategories is a no-op if already preloaded.
@@ -44,7 +45,12 @@ public static class CustomizePageRegistryExtensions
 
         var category = registry.Categories.First(c => c.GetType() == categoryType);
 
-        var viewModel = new CustomizeCategoryViewModel(category, loggerFactory, registryWatcher);
+        var viewModel = new CustomizeCategoryViewModel(
+            category,
+            loggerFactory,
+            registryWatcher,
+            systemInfoService
+        );
 
         return Activator.CreateInstance(pageType, viewModel)!;
     }

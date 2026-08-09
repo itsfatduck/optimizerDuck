@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
+using optimizerDuck.Domain.Conditions;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
@@ -97,6 +98,16 @@ public class SecurityAndPrivacy : IOptimizationCategory
                     @"HKLM\SOFTWARE\Policies\Microsoft\Assistance\Client\1.0",
                     "NoActiveHelp",
                     1
+                ),
+                new RegistryItem(
+                    @"HKCU\SOFTWARE\Microsoft\Speech_OneCore\Settings\OnlineSpeechPrivacy",
+                    "HasAccepted",
+                    0
+                ),
+                new RegistryItem(
+                    @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+                    "Start_TrackProgs",
+                    0
                 )
             );
             RegistryService.DeleteValue([
@@ -119,8 +130,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
                 new ServiceItem(
                     "diagnosticshub.standardcollector.service",
                     ServiceStartupType.Disabled
-                ),
-                new ServiceItem("DusmSvc", ServiceStartupType.Disabled)
+                )
             );
 
             progress?.Report(
@@ -212,7 +222,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
     [Optimization(
         Id = "B1C2D3E4-F5A6-4B7C-8D9E-0F1A2B3C4D5E",
         Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.Privacy | OptimizationTags.Windows10Only | OptimizationTags.System
+        Tags = OptimizationTags.Privacy | OptimizationTags.System
     )]
     public class DisableAdvertisingAndSuggestions : BaseOptimization
     {
@@ -259,16 +269,6 @@ public class SecurityAndPrivacy : IOptimizationCategory
                     1
                 ),
                 new RegistryItem(
-                    @"HKLM\SOFTWARE\Policies\Microsoft\Dsh",
-                    "AllowNewsAndInterests",
-                    0
-                ),
-                new RegistryItem(
-                    @"HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer",
-                    "HideSCAMeetNow",
-                    1
-                ),
-                new RegistryItem(
                     @"HKCU\Software\Microsoft\Windows\CurrentVersion\UserProfileEngagement",
                     "ScoobeSystemSettingEnabled",
                     0
@@ -292,21 +292,6 @@ public class SecurityAndPrivacy : IOptimizationCategory
                     @"HKCU\Control Panel\International\User Profile",
                     "HttpAcceptLanguageOptOut",
                     1
-                ),
-                new RegistryItem(
-                    @"HKCU\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy",
-                    "01",
-                    0
-                ),
-                /*new RegistryItem(
-                    @"HKCU\Software\Microsoft\Windows\CurrentVersion\Feeds",
-                    "ShellFeedsTaskbarViewMode",
-                    2
-                ),*/
-                new RegistryItem(
-                    @"HKCU\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy",
-                    "02",
-                    0
                 )
             );
             // @formatter:on
@@ -314,6 +299,62 @@ public class SecurityAndPrivacy : IOptimizationCategory
                 "Disabled advertising ID, consumer features and system suggestions"
             );
 
+            return Task.FromResult(CompleteFromScope());
+        }
+    }
+
+    [Optimization(
+        Id = "26F3AE39-4EAA-45D4-9375-B244159D5EB3",
+        Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.Privacy | OptimizationTags.System
+    )]
+    public class DisableNewsAndInterests : BaseOptimization
+    {
+        public override Task<ApplyResult> ApplyAsync(
+            IProgress<ProcessingProgress> progress,
+            OptimizationContext context
+        )
+        {
+            RegistryService.Write(
+                new RegistryItem(
+                    @"HKLM\SOFTWARE\Policies\Microsoft\Dsh",
+                    "AllowNewsAndInterests",
+                    0
+                ),
+                new RegistryItem(
+                    @"HKCU\Software\Microsoft\Windows\CurrentVersion\Feeds",
+                    "ShellFeedsTaskbarViewMode",
+                    0
+                )
+            );
+
+            context.Logger.LogInformation("Disabled News and Interests feed");
+            return Task.FromResult(CompleteFromScope());
+        }
+    }
+
+    [Optimization(
+        Id = "6D217B90-0957-4861-B3F5-58ECF3E236EE",
+        Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.Privacy | OptimizationTags.Windows10Only | OptimizationTags.System,
+        Condition = typeof(Windows10Condition)
+    )]
+    public class HideMeetNowButton : BaseOptimization
+    {
+        public override Task<ApplyResult> ApplyAsync(
+            IProgress<ProcessingProgress> progress,
+            OptimizationContext context
+        )
+        {
+            RegistryService.Write(
+                new RegistryItem(
+                    @"HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer",
+                    "HideSCAMeetNow",
+                    1
+                )
+            );
+
+            context.Logger.LogInformation("Hidden Meet Now button from the taskbar");
             return Task.FromResult(CompleteFromScope());
         }
     }
@@ -501,7 +542,10 @@ public class SecurityAndPrivacy : IOptimizationCategory
     [Optimization(
         Id = "6856782A-B530-4623-BD89-942D73FB82FD",
         Risk = OptimizationRisk.Moderate,
-        Tags = OptimizationTags.Privacy | OptimizationTags.System
+        Tags = OptimizationTags.Privacy
+            | OptimizationTags.System
+            | OptimizationTags.Windows10Only,
+        Condition = typeof(Windows10Condition)
     )]
     public class DisableCortana : BaseOptimization
     {
@@ -537,11 +581,6 @@ public class SecurityAndPrivacy : IOptimizationCategory
                     0
                 ),
                 new RegistryItem(
-                    @"HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search",
-                    "DisableWebSearch",
-                    1
-                ),
-                new RegistryItem(
                     @"HKCU\Software\Microsoft\Windows\CurrentVersion\Search",
                     "CortanaConsent",
                     0
@@ -563,7 +602,8 @@ public class SecurityAndPrivacy : IOptimizationCategory
         Tags = OptimizationTags.Privacy
             | OptimizationTags.System
             | OptimizationTags.Windows11Only
-            | OptimizationTags.Visual
+            | OptimizationTags.Visual,
+        Condition = typeof(Windows11Condition)
     )]
     public class DisableCopilot : BaseOptimization
     {
@@ -589,29 +629,9 @@ public class SecurityAndPrivacy : IOptimizationCategory
                     0
                 ),
                 new RegistryItem(
-                    @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Shell\Copilot",
-                    "IsCopilotAvailable",
-                    0
-                ),
-                new RegistryItem(
-                    @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Shell\Copilot",
-                    "CopilotDisabledReason",
-                    "IsEnabledForGeographicRegionFailed"
-                ),
-                new RegistryItem(
-                    @"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsCopilot",
-                    "AllowCopilotRuntime",
-                    0
-                ),
-                new RegistryItem(
                     @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked",
                     "{CB3B0003-8088-4EDE-8769-8B354AB2FF8C}",
                     ""
-                ),
-                new RegistryItem(
-                    @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Shell\Copilot\BingChat",
-                    "IsUserEligible",
-                    0
                 )
             );
 
@@ -668,4 +688,55 @@ public class SecurityAndPrivacy : IOptimizationCategory
             return Task.FromResult(CompleteFromScope());
         }
     }
+
+    [Optimization(
+        Id = "A4823C34-0BDD-4418-83A0-4968102D1771",
+        Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.Privacy | OptimizationTags.System
+    )]
+    public class DisableFindMyDevice : BaseOptimization
+    {
+        public override Task<ApplyResult> ApplyAsync(
+            IProgress<ProcessingProgress> progress,
+            OptimizationContext context
+        )
+        {
+            RegistryService.Write(
+                new RegistryItem(
+                    @"HKLM\SOFTWARE\Policies\Microsoft\FindMyDevice",
+                    "AllowFindMyDevice",
+                    0
+                )
+            );
+            context.Logger.LogInformation("Disabled Find My Device location tracking");
+            return Task.FromResult(CompleteFromScope());
+        }
+    }
+
+    [Optimization(
+        Id = "6F242AD6-4717-4161-A7BF-A2AF5F0C9BDD",
+        Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.Network | OptimizationTags.Privacy
+    )]
+    public class DisableDeliveryOptimization : BaseOptimization
+    {
+        public override Task<ApplyResult> ApplyAsync(
+            IProgress<ProcessingProgress> progress,
+            OptimizationContext context
+        )
+        {
+            RegistryService.Write(
+                new RegistryItem(
+                    @"HKLM\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization",
+                    "DODownloadMode",
+                    0
+                )
+            );
+            context.Logger.LogInformation(
+                "Disabled peer-to-peer Delivery Optimization sharing"
+            );
+            return Task.FromResult(CompleteFromScope());
+        }
+    }
+
 }

@@ -7,8 +7,8 @@ public sealed record SettingOption(
 )
 {
     /// <summary>
-    ///     Primary binding — the first binding in the list, or null.
-    ///     Used by base class for single-key auto-read/write.
+    ///     The first binding in the list, or <c>null</c>. Used by the base class for
+    ///     single-key auto-read/write.
     /// </summary>
     public RegistryBinding? PrimaryBinding => Bindings is { Count: > 0 } ? Bindings[0] : null;
 }

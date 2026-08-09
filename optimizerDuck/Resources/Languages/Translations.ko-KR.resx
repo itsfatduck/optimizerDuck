@@ -65,6 +65,12 @@
   <data name="Dashboard.Header.Title" xml:space="preserve">
   <value>대시보드</value>
 </data>
+  <data name="Optimizer.AI.DisableRecall.ShortDescription" xml:space="preserve">
+    <value>화면 스냅샷을 캡처하고 인덱싱하는 Windows Recall AI 기능을 사용하지 않도록 설정합니다. 또한 Recall 구성 요소를 제거하고 이전에 저장된 스냅샷을 삭제합니다. 적용하려면 다시 시작해야 합니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
+    <value>뉴스 및 관심사 피드를 끄고 작업 표시줄 버튼을 숨기며(Windows 10), 위젯 보드를 사용하지 않도록 설정합니다(Windows 11).</value>
+  </data>
   <data name="Sidebar.Dashboard" xml:space="preserve">
   <value>대시보드</value>
 </data>
@@ -215,8 +221,8 @@
   <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
   <value>태그</value>
 </data>
-  <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
-  <value>Service Host 분리 기준을 시스템 총 RAM에 맞춰 설정하여, Windows가 서비스를 별도 프로세스로 분리하도록 해 안정성을 높입니다</value>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
+  <value>서비스 호스트 분할 임계값을 시스템 총 RAM으로 높여 서비스를 더 적은 프로세스에 통합된 상태로 유지하여 메모리 사용량과 프로세스 수를 줄입니다.</value>
 </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
   <value>현재 활성 전원 계획을 감지하지 못했습니다</value>
@@ -253,15 +259,6 @@
 </data>
   <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
   <value>이 태그는 최적화가 시스템의 어느 부분에 영향을 주는지 보여줍니다</value>
-</data>
-  <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
-  <value>NVIDIA</value>
-</data>
-  <data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
-  <value>AMD</value>
-</data>
-  <data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
-  <value>Intel</value>
 </data>
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
   <value>전원</value>
@@ -554,10 +551,10 @@
   <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
   <value>비활성 상태의 앱이 백그라운드에서 실행되지 않도록 하여 RAM을 확보하고 CPU 부담을 줄입니다</value>
 </data>
-  <data name="Optimizer.Performance.SvcHostSplit.Name" xml:space="preserve">
-  <value>서비스 격리 최적화</value>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.Name" xml:space="preserve">
+  <value>서비스 호스트 통합</value>
 </data>
-  <data name="Optimizer.Performance.SvcHostSplit.Error.InvalidRAM" xml:space="preserve">
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.Error.InvalidRAM" xml:space="preserve">
   <value>잘못된 RAM 값: {0}</value>
 </data>
   <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
@@ -654,13 +651,13 @@
     <value>백그라운드 로깅 비활성화</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
-    <value>지속적인 디스크 활동을 줄이고 CPU 주기를 절약하기 위해 필수적이지 않은 시스템 이벤트 로깅을 중지합니다</value>
+    <value>필수적이지 않은 WMI/ETW AutoLogger 세션(Diagtrack-Listener, SQMLogger 등)이 부팅 시 시작되지 않도록 하여 백그라운드 디스크 및 CPU 활동을 줄입니다. 참고: 보안 소프트웨어는 진단 추적을 변경하므로 AutoLogger 변경 사항을 플래그로 표시할 수 있습니다.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
     <value>Cortana 및 웹 검색 비활성화</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
-    <value>Cortana 음성 도우미를 끄고 Windows 검색 표시줄에서 Bing 웹 결과를 제거합니다</value>
+    <value>Cortana 음성 도우미를 끄고 Windows 검색에서 클라우드 검색 및 웹 결과를 사용하지 않도록 설정합니다(Windows 10 전용).</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
     <value>Windows Copilot 비활성화</value>
@@ -695,9 +692,6 @@
   <data name="Optimizer.UI.Tags.Visual" xml:space="preserve">
     <value>Visual</value>
   </data>
-  <data name="Optimizer.Gpu" xml:space="preserve">
-    <value>GPU</value>
-  </data>
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>사용자 경험</value>
   </data>
@@ -712,54 +706,6 @@
   </data>
   <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
     <value>더 나은 성능을 위해 GPU/CPU 리소스를 확보하기 위해 작업 표시줄 애니메이션, 목록 보기 그림자, 창 투명도 및 Aero Peek를 비활성화합니다</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
-    <value>AMD ULPS 비활성화</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
-    <value>초저전력 상태 깨우기 지연 및 다중 모니터 문제를 방지하려면 AMD GPU 레지스트리에서 EnableULPS=0을 설정합니다 유휴 상태에서 절전 효과가 줄어듭니다</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
-    <value>AMD 파워 게이팅 비활성화</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
-    <value>AMD GPU 전원 상태 전환을 방지하려면 비활성화PowerGating=1, PP_GPUPowerDownEnabled=0, 비활성화DynamicPstate=1을 설정합니다 더 높은 유휴 전력을 사용하여 일관된 클록을 유지합니다</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
-    <value>AMD 비디오 클럭 게이팅 비활성화</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-    <value>인코딩/디코딩 안정성을 향상시키기 위해 AMD 비디오 엔진(VCE/UVD)에 대해DisableVCEPowerGating=1,DisableVceClockGating=1,EnableUvdClockGating=0을 설정합니다 비디오 재생 성능을 높입니다</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
-    <value>AMD ASPM 비활성화</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
-    <value>AMD GPU에서 활성 상태 전원 관리를 비활성화하려면 EnableAspmL0s=0, EnableAspmL1=0을 설정하여 PCIe 버스 대기 시간을 줄입니다 슬롯 전력 소비가 증가합니다</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
-    <value>NVIDIA 동적 P-State 비활성화</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
-    <value>NVIDIA GPU를 고정된 성능 상태로 잠그도록 비활성화DynamicPstate=1로 설정하여 클럭 속도 변동을 방지합니다 유휴 전력 소모량이 증가합니다</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
-    <value>NVIDIA Async P-State 비활성화</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
-    <value>NVIDIA 비동기 전원 상태 전환을 방지하고 VR/실시간 앱에 결정적인 성능을 제공하려면 비활성화ASyncPstates=1로 설정합니다</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
-    <value>Intel Async Flip 비활성화</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
-    <value>Intel iGPU에서 동기식 버퍼 반전을 강제하도록 Display1_DisableAsyncFlips=1을 설정하여 입력-디스플레이 지연 시간과 화면 찢김을 줄입니다</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
-    <value>Intel Adaptive V-Sync 비활성화</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
-    <value>안정적인 타이밍 대신 고정 V-Sync를 사용하여 프레임 속도에 동적으로 조정되는 Intel의 적응형 V-Sync를 비활성화하려면 AdaptiveVsyncEnable=0을 설정합니다</value>
   </data>
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
     <value>작업 표시줄</value>

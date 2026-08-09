@@ -3,6 +3,7 @@ using System.Windows.Data;
 
 namespace optimizerDuck.Common.Converters;
 
+/// <summary>Subtracts a fixed amount (default 1) from an integer value.</summary>
 public class MinusNumberConverter : IValueConverter
 {
     public int NumberToMinus { get; set; } = 1;

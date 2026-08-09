@@ -4,6 +4,7 @@ using System.Windows.Data;
 
 namespace optimizerDuck.Common.Converters;
 
+/// <summary>Value checks supported by <see cref="ValueConditionToVisibilityConverter"/>.</summary>
 public enum ValueConditionType
 {
     IsNull,
@@ -14,6 +15,7 @@ public enum ValueConditionType
     IsLessThanZero,
 }
 
+/// <summary>Shows or hides a control based on a value condition (null, zero, or sign).</summary>
 public class ValueConditionToVisibilityConverter : IValueConverter
 {
     public ValueConditionType ConditionType { get; set; } = ValueConditionType.IsNull;

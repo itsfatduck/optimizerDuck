@@ -43,6 +43,175 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <!--  Shared setting card used by both the main category content and the Unsupported Settings expander  -->
+        <DataTemplate x:Key="SettingCardTemplate">
+            <ui:CardControl Margin="0,0,0,4">
+                <ui:CardControl.Icon>
+                    <ui:SymbolIcon Symbol="{Binding Icon}" />
+                </ui:CardControl.Icon>
+                <ui:CardControl.Header>
+                    <StackPanel VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <ui:TextBlock
+                                Margin="0,0,10,0"
+                                FontTypography="Body"
+                                Text="{Binding Name}"
+                                TextWrapping="Wrap" />
+                            <Border
+                                Padding="6,2"
+                                HorizontalAlignment="Left"
+                                CornerRadius="{StaticResource CornerRadiusSmall}"
+                                Cursor="Help"
+                                ToolTip="{Binding RecommendationReason}"
+                                ToolTipService.HasDropShadow="True"
+                                ToolTipService.InitialShowDelay="50"
+                                ToolTipService.Placement="Top"
+                                Visibility="{Binding HasRecommendation, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Recommendation.State}" Value="{x:Static models:RecommendationState.On}">
+                                                <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Recommendation.State}" Value="{x:Static models:RecommendationState.Off}">
+                                                <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Recommendation.State}" Value="{x:Static models:RecommendationState.Experimental}">
+                                                <Setter Property="Background" Value="{DynamicResource SystemFillColorCautionBrush}" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Recommendation.State}" Value="{x:Static models:RecommendationState.Depends}">
+                                                <Setter Property="Background" Value="{DynamicResource SystemFillColorAttentionBrush}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:TextBlock
+                                        Margin="0,0,5,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontTypography="Caption"
+                                        Style="{StaticResource RecommendationForegroundTextBlockStyle}"
+                                        Text="{Binding RecommendationStateDisplay}"
+                                        TextWrapping="Wrap" />
+                                    <ui:SymbolIcon
+                                        Margin="0,0,4,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource RecommendationForegroundSymbolStyle}"
+                                        Symbol="{Binding RecommendationIcon}" />
+                                    <ui:SymbolIcon
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource RecommendationForegroundSymbolStyle}"
+                                        Symbol="QuestionCircle24" />
+                                </StackPanel>
+                            </Border>
+
+                        </StackPanel>
+                        <ui:TextBlock
+                            Margin="0,4,0,0"
+                            FontTypography="Caption"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="{Binding Description}"
+                            TextTrimming="WordEllipsis"
+                            TextWrapping="Wrap" />
+                        <!--  Unsupported explanation  -->
+                        <StackPanel
+                            Margin="0,4,0,0"
+                            Orientation="Horizontal"
+                            Visibility="{Binding IsUnsupported, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <ui:SymbolIcon
+                                Margin="0,0,6,0"
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                                Symbol="Warning24" />
+                            <ui:TextBlock
+                                VerticalAlignment="Center"
+                                FontTypography="Caption"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{Binding ConditionDescription}"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                    </StackPanel>
+                </ui:CardControl.Header>
+                <StackPanel
+                    Margin="0,0,0,0"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <!--  Toggle Control  -->
+                    <ui:ToggleSwitch
+                        Command="{Binding ToggleCommand}"
+                        Cursor="Hand"
+                        IsChecked="{Binding IsEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        OffContent="{ext:Loc Common.Toggle.Off}"
+                        OnContent="{ext:Loc Common.Toggle.On}"
+                        Visibility="{Binding ControlType, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter={x:Static models:CustomizeControlType.Toggle}}" />
+                    <!--  Dropdown Control  -->
+                    <ComboBox
+                        MinWidth="140"
+                        VerticalAlignment="Center"
+                        Cursor="Hand"
+                        DisplayMemberPath="DisplayName"
+                        ItemsSource="{Binding Options}"
+                        SelectedValue="{Binding CurrentValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedValuePath="Value"
+                        Visibility="{Binding ControlType, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter={x:Static models:CustomizeControlType.Dropdown}}" />
+                    <!--  Option Control  -->
+                    <ListBox
+                        MinWidth="140"
+                        VerticalAlignment="Center"
+                        DisplayMemberPath="DisplayName"
+                        ItemsSource="{Binding Options}"
+                        SelectedValue="{Binding CurrentValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedValuePath="Value"
+                        Visibility="{Binding ControlType, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter={x:Static models:CustomizeControlType.Option}}">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                    </ListBox>
+                    <!--  Number Control  -->
+                    <ui:NumberBox
+                        MinWidth="120"
+                        VerticalAlignment="Center"
+                        Visibility="{Binding ControlType, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter={x:Static models:CustomizeControlType.NumberInt}}"
+                        Value="{Binding CurrentValue, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                    <ui:NumberBox
+                        MinWidth="120"
+                        VerticalAlignment="Center"
+                        Visibility="{Binding ControlType, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter={x:Static models:CustomizeControlType.NumberFloat}}"
+                        Value="{Binding CurrentValue, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                    <!--  String Control  -->
+                    <TextBox
+                        MinWidth="160"
+                        VerticalAlignment="Center"
+                        Text="{Binding CurrentValue, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                        Visibility="{Binding ControlType, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter={x:Static models:CustomizeControlType.String}}" />
+                    <ui:Button
+                        Margin="8,0,0,0"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        Command="{Binding DataContext.ViewModel.ViewSourceOnGitHubCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                        CommandParameter="{Binding}"
+                        Cursor="Hand"
+                        Icon="{ui:SymbolIcon Code24}"
+                        ToolTip="{ext:Loc Optimizer.Menu.ViewSource}" />
+                </StackPanel>
+            </ui:CardControl>
+        </DataTemplate>
+
+        <!--  Shared section template used by both the main list and the Unsupported Settings expander  -->
+        <DataTemplate x:Key="SettingSectionTemplate">
+            <StackPanel Margin="0,0,0,20">
+                <ui:TextBlock Style="{StaticResource SectionHeaderStyle}" Text="{Binding Name}" />
+                <ItemsControl ItemTemplate="{StaticResource SettingCardTemplate}" ItemsSource="{Binding Features}" />
+            </StackPanel>
+        </DataTemplate>
     </Page.Resources>
 
     <Grid>
@@ -117,167 +286,61 @@
             Grid.Row="2"
             HorizontalScrollBarVisibility="Disabled"
             VerticalScrollBarVisibility="Auto">
-            <ui:VirtualizingItemsControl ItemsSource="{Binding ViewModel.Sections}" Style="{x:Null}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel
-                            Margin="0,0,0,-20"
-                            IsVirtualizing="True" VirtualizationMode="Recycling" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
+            <StackPanel>
+                <!--  Main category content (unsupported settings are excluded)  -->
+                <ui:VirtualizingItemsControl
+                    ItemTemplate="{StaticResource SettingSectionTemplate}"
+                    ItemsSource="{Binding ViewModel.Sections}"
+                    Style="{x:Null}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel
+                                Margin="0,0,0,-20"
+                                IsVirtualizing="True"
+                                VirtualizationMode="Recycling" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ui:VirtualizingItemsControl>
 
-                <ui:VirtualizingItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Margin="0,0,0,20">
-                            <ui:TextBlock Style="{StaticResource SectionHeaderStyle}" Text="{Binding Name}" />
-                            <ItemsControl ItemsSource="{Binding Features}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <ui:CardControl Margin="0,0,0,4">
-                                            <ui:CardControl.Icon>
-                                                <ui:SymbolIcon Symbol="{Binding Icon}" />
-                                            </ui:CardControl.Icon>
-                                            <ui:CardControl.Header>
-                                                <StackPanel VerticalAlignment="Center">
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <ui:TextBlock
-                                                            Margin="0,0,10,0"
-                                                            FontTypography="Body"
-                                                            Text="{Binding Name}"
-                                                            TextWrapping="Wrap" />
-                                                        <Border
-                                                            Padding="6,2"
-                                                            HorizontalAlignment="Left"
-                                                            CornerRadius="{StaticResource CornerRadiusSmall}"
-                                                            ToolTip="{Binding RecommendationReason}"
-                                                            ToolTipService.HasDropShadow="True"
-                                                            ToolTipService.InitialShowDelay="50"
-                                                            ToolTipService.Placement="Top"
-                                                            Visibility="{Binding HasRecommendation, Converter={StaticResource BoolToVisibilityConverter}}">
-                                                            <Border.Style>
-                                                                <Style TargetType="Border">
-                                                                    <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
-                                                                    <Style.Triggers>
-                                                                        <DataTrigger Binding="{Binding Recommendation.State}" Value="{x:Static models:RecommendationState.On}">
-                                                                            <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
-                                                                        </DataTrigger>
-                                                                        <DataTrigger Binding="{Binding Recommendation.State}" Value="{x:Static models:RecommendationState.Off}">
-                                                                            <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
-                                                                        </DataTrigger>
-                                                                        <DataTrigger Binding="{Binding Recommendation.State}" Value="{x:Static models:RecommendationState.Experimental}">
-                                                                            <Setter Property="Background" Value="{DynamicResource SystemFillColorCautionBrush}" />
-                                                                        </DataTrigger>
-                                                                        <DataTrigger Binding="{Binding Recommendation.State}" Value="{x:Static models:RecommendationState.Depends}">
-                                                                            <Setter Property="Background" Value="{DynamicResource SystemFillColorAttentionBrush}" />
-                                                                        </DataTrigger>
-                                                                    </Style.Triggers>
-                                                                </Style>
-                                                            </Border.Style>
-                                                            <StackPanel Orientation="Horizontal">
-                                                                <ui:TextBlock
-                                                                    Margin="0,0,5,0"
-                                                                    HorizontalAlignment="Center"
-                                                                    VerticalAlignment="Center"
-                                                                    FontTypography="Caption"
-                                                                    Style="{StaticResource RecommendationForegroundTextBlockStyle}"
-                                                                    Text="{Binding RecommendationStateDisplay}"
-                                                                    TextWrapping="Wrap" />
-                                                                <ui:SymbolIcon
-                                                                    Margin="0,0,4,0"
-                                                                    HorizontalAlignment="Center"
-                                                                    VerticalAlignment="Center"
-                                                                    Style="{StaticResource RecommendationForegroundSymbolStyle}"
-                                                                    Symbol="{Binding RecommendationIcon}" />
-                                                                <ui:SymbolIcon
-                                                                    HorizontalAlignment="Center"
-                                                                    VerticalAlignment="Center"
-                                                                    Style="{StaticResource RecommendationForegroundSymbolStyle}"
-                                                                    Symbol="QuestionCircle24" />
-                                                            </StackPanel>
-                                                        </Border>
-                                                    </StackPanel>
-                                                    <ui:TextBlock
-                                                        Margin="0,4,0,0"
-                                                        FontTypography="Caption"
-                                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                        Text="{Binding Description}"
-                                                        TextTrimming="WordEllipsis"
-                                                        TextWrapping="Wrap" />
-                                                </StackPanel>
-                                            </ui:CardControl.Header>
-                                            <StackPanel
-                                                Margin="0,0,0,0"
-                                                HorizontalAlignment="Right"
-                                                Orientation="Horizontal">
-                                                <!--  Toggle Control  -->
-                                                <ui:ToggleSwitch
-                                                    Command="{Binding ToggleCommand}"
-                                                    Cursor="Hand"
-                                                    IsChecked="{Binding IsEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    OffContent="{ext:Loc Common.Toggle.Off}"
-                                                    OnContent="{ext:Loc Common.Toggle.On}"
-                                                    Visibility="{Binding ControlType, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter={x:Static models:CustomizeControlType.Toggle}}" />
-                                                <!--  Dropdown Control  -->
-                                                <ComboBox
-                                                    MinWidth="140"
-                                                    VerticalAlignment="Center"
-                                                    Cursor="Hand"
-                                                    DisplayMemberPath="DisplayName"
-                                                    ItemsSource="{Binding Options}"
-                                                    SelectedValue="{Binding CurrentValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    SelectedValuePath="Value"
-                                                    Visibility="{Binding ControlType, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter={x:Static models:CustomizeControlType.Dropdown}}" />
-                                                <!--  Option Control  -->
-                                                <ListBox
-                                                    MinWidth="140"
-                                                    VerticalAlignment="Center"
-                                                    DisplayMemberPath="DisplayName"
-                                                    ItemsSource="{Binding Options}"
-                                                    SelectedValue="{Binding CurrentValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    SelectedValuePath="Value"
-                                                    Visibility="{Binding ControlType, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter={x:Static models:CustomizeControlType.Option}}">
-                                                    <ListBox.ItemsPanel>
-                                                        <ItemsPanelTemplate>
-                                                            <StackPanel Orientation="Horizontal" />
-                                                        </ItemsPanelTemplate>
-                                                    </ListBox.ItemsPanel>
-                                                </ListBox>
-                                                <!--  Number Control  -->
-                                                <ui:NumberBox
-                                                    MinWidth="120"
-                                                    VerticalAlignment="Center"
-                                                    Visibility="{Binding ControlType, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter={x:Static models:CustomizeControlType.NumberInt}}"
-                                                    Value="{Binding CurrentValue, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
-                                                <ui:NumberBox
-                                                    MinWidth="120"
-                                                    VerticalAlignment="Center"
-                                                    Visibility="{Binding ControlType, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter={x:Static models:CustomizeControlType.NumberFloat}}"
-                                                    Value="{Binding CurrentValue, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
-                                                <!--  String Control  -->
-                                                <TextBox
-                                                    MinWidth="160"
-                                                    VerticalAlignment="Center"
-                                                    Text="{Binding CurrentValue, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                                                    Visibility="{Binding ControlType, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter={x:Static models:CustomizeControlType.String}}" />
-                                                <ui:Button
-                                                    Margin="8,0,0,0"
-                                                    VerticalAlignment="Center"
-                                                    Background="Transparent"
-                                                    BorderBrush="Transparent"
-                                                    Command="{Binding DataContext.ViewModel.ViewSourceOnGitHubCommand, RelativeSource={RelativeSource AncestorType=Page}}"
-                                                    CommandParameter="{Binding}"
-                                                    Cursor="Hand"
-                                                    Icon="{ui:SymbolIcon Code24}"
-                                                    ToolTip="{ext:Loc Optimizer.Menu.ViewSource}" />
-                                            </StackPanel>
-                                        </ui:CardControl>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
+                <!--  Unsupported Settings expander  -->
+                <ui:CardExpander Margin="0,0,0,20" Visibility="{Binding ViewModel.HasUnsupportedSettings, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <ui:CardExpander.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <ui:SymbolIcon
+                                Margin="0,0,12,0"
+                                FontSize="24"
+                                Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                                Symbol="Warning24" />
+                            <StackPanel VerticalAlignment="Center">
+                                <ui:TextBlock
+                                    VerticalAlignment="Center"
+                                    FontTypography="BodyStrong"
+                                    Text="{Binding ViewModel.UnsupportedSettingsHeader}"
+                                    TextWrapping="Wrap" />
+                                <ui:TextBlock
+                                    Margin="0,2,0,0"
+                                    FontTypography="Caption"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="{ext:Loc Customize.UI.UnsupportedSettings.Description}"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
                         </StackPanel>
-                    </DataTemplate>
-                </ui:VirtualizingItemsControl.ItemTemplate>
-            </ui:VirtualizingItemsControl>
+                    </ui:CardExpander.Header>
+                    <ui:VirtualizingItemsControl
+                        ItemTemplate="{StaticResource SettingSectionTemplate}"
+                        ItemsSource="{Binding ViewModel.UnsupportedSections}"
+                        Style="{x:Null}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel
+                                    Margin="0,0,0,-20"
+                                    IsVirtualizing="True"
+                                    VirtualizationMode="Recycling" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ui:VirtualizingItemsControl>
+                </ui:CardExpander>
+            </StackPanel>
         </ScrollViewer>
 
         <Border Grid.Row="2" Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource BoolToVisibilityConverter}}">

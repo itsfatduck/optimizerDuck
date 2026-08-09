@@ -6,6 +6,7 @@ using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.Revert.Steps;
+using optimizerDuck.Test.TestDoubles;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Services.Optimization;
 using optimizerDuck.Services.Revert;
@@ -1107,21 +1108,17 @@ public class ApplyRevertComprehensiveTests
         return tcs.Task;
     }
 
-    private sealed class TestOptimization : IOptimization
+    private sealed class TestOptimization : StubOptimization
     {
-        public Guid Id { get; init; } = Guid.NewGuid();
-        public OptimizationRisk Risk => OptimizationRisk.Safe;
-        public string OptimizationKey => "TestOptimization";
-        public string Name => "Test Optimization";
-        public string ShortDescription => "Test optimization for comprehensive testing";
-        public OptimizationState State { get; set; } = new();
+        public override string Name => "Test Optimization";
+        public override string ShortDescription => "Test optimization for comprehensive testing";
 
         public Func<
             (IProgress<ProcessingProgress> progress, OptimizationContext context),
             Task<ApplyResult>
         > ApplyImpl { get; init; } = _ => Task.FromResult(ApplyResult.True());
 
-        public Task<ApplyResult> ApplyAsync(
+        public override Task<ApplyResult> ApplyAsync(
             IProgress<ProcessingProgress> progress,
             OptimizationContext context
         )

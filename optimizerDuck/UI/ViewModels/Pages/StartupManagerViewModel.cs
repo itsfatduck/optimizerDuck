@@ -129,7 +129,7 @@ public partial class StartupManagerViewModel : ViewModel
 
         try
         {
-            // Canonicalize and sanitize the file path to prevent argument injection
+            // Clean up the file path to prevent argument injection
             // into explorer.exe's /select command.
             var safePath = app.FilePath.Replace("\"", string.Empty);
             safePath = Path.GetFullPath(safePath);

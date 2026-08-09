@@ -12,6 +12,7 @@ using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.UI;
+using optimizerDuck.Test.TestDoubles;
 using optimizerDuck.Services.Optimization;
 using optimizerDuck.Services.Revert;
 using optimizerDuck.Services.System;
@@ -21,24 +22,21 @@ namespace optimizerDuck.Test.Services;
 
 public class OptimizationServiceIntegrationTests : IDisposable
 {
-    private class PartialFailureOptimization : IOptimization
+    private class PartialFailureOptimization : StubOptimization
     {
         private int _stepCount;
         private readonly bool _shouldFail;
 
-        public Guid Id { get; } = Guid.NewGuid();
-        public OptimizationRisk Risk => OptimizationRisk.Safe;
-        public string OptimizationKey => "PartialFailureTest";
-        public string Name => "Partial Failure Test";
-        public string ShortDescription => "Tests partial failure scenarios";
-        public OptimizationState State { get; set; } = new();
+        public override string OptimizationKey => "PartialFailureTest";
+        public override string Name => "Partial Failure Test";
+        public override string ShortDescription => "Tests partial failure scenarios";
 
         public PartialFailureOptimization(bool shouldFail = false)
         {
             _shouldFail = shouldFail;
         }
 
-        public Task<ApplyResult> ApplyAsync(
+        public override Task<ApplyResult> ApplyAsync(
             IProgress<ProcessingProgress> progress,
             OptimizationContext context
         )

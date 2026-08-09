@@ -32,11 +32,6 @@ public enum OptimizationTags
     Network = 1 << 3,
     NetworkRequired = 1 << 4,
 
-    // GPU Vendors
-    Nvidia = 1 << 10,
-    Amd = 1 << 11,
-    Intel = 1 << 12,
-
     // User Experience
     Audio = 1 << 8,
     Visual = 1 << 9,
@@ -140,24 +135,6 @@ public static class OptimizationTagsToDisplay
                 {
                     Icon = SymbolRegular.Wifi120,
                     Display = Translations.Optimizer_UI_Tags_NetworkRequired,
-                },
-
-                OptimizationTags.Nvidia => new OptimizationTagDisplay
-                {
-                    Icon = SymbolRegular.VideoClip24,
-                    Display = Translations.Optimizer_UI_Tags_Nvidia,
-                },
-
-                OptimizationTags.Amd => new OptimizationTagDisplay
-                {
-                    Icon = SymbolRegular.VideoClip24,
-                    Display = Translations.Optimizer_UI_Tags_Amd,
-                },
-
-                OptimizationTags.Intel => new OptimizationTagDisplay
-                {
-                    Icon = SymbolRegular.VideoClip24,
-                    Display = Translations.Optimizer_UI_Tags_Intel,
                 },
 
                 OptimizationTags.Audio => new OptimizationTagDisplay

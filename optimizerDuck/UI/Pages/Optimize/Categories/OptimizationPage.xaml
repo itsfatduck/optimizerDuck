@@ -224,163 +224,254 @@
                             BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1"
                             CornerRadius="{StaticResource CornerRadiusMedium}">
-                            <Grid RowDefinitions="Auto,Auto,Auto,Auto,*">
-                                <ui:TextBlock
-                                    Grid.Row="0"
-                                    FontTypography="Caption"
-                                    Foreground="{DynamicResource TextFillColorDisabledBrush}"
-                                    Text="{Binding Id}"
-                                    TextWrapping="Wrap" />
-                                <ui:TextBlock
-                                    Grid.Row="1"
-                                    FontTypography="Subtitle"
-                                    Text="{Binding Name}"
-                                    TextWrapping="Wrap" />
+                            <Grid>
+                                <!--  Unsupported compatibility state  -->
+                                <Grid RowDefinitions="Auto, Auto, Auto, Auto, *" Visibility="{Binding IsConditionBlocked, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <StackPanel Margin="0,0,0,8" Orientation="Horizontal">
+                                        <ui:SymbolIcon
+                                            Margin="0,0,8,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="24"
+                                            Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                                            Symbol="Warning24" />
+                                        <ui:TextBlock
+                                            VerticalAlignment="Center"
+                                            FontTypography="Subtitle"
+                                            Text="{ext:Loc Optimizer.Condition.BlockedTitle}" />
+                                    </StackPanel>
+                                    <ui:TextBlock
+                                        Grid.Row="1"
+                                        FontTypography="Caption"
+                                        Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                                        Text="{Binding Id}"
+                                        TextWrapping="Wrap" />
+                                    <ui:TextBlock
+                                        Grid.Row="2"
+                                        FontTypography="Subtitle"
+                                        Text="{Binding Name}"
+                                        TextWrapping="Wrap" />
 
-                                <ui:VirtualizingItemsControl
-                                    Grid.Row="2"
-                                    Margin="0,2,0,2"
-                                    ItemsSource="{Binding TagDisplays}">
-                                    <ui:VirtualizingItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" />
-                                        </ItemsPanelTemplate>
-                                    </ui:VirtualizingItemsControl.ItemsPanel>
-                                    <ui:VirtualizingItemsControl.ItemContainerStyle>
-                                        <Style TargetType="ContentPresenter">
-                                            <Setter Property="Margin" Value="0,0,2,2" />
-                                            <Setter Property="HorizontalAlignment" Value="Left" />
-                                        </Style>
-                                    </ui:VirtualizingItemsControl.ItemContainerStyle>
-                                    <ui:VirtualizingItemsControl.ItemTemplate>
-                                        <DataTemplate>
+                                    <Border
+                                        Grid.Row="3"
+                                        Margin="0,12,0,0"
+                                        Padding="10,8"
+                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                        CornerRadius="{StaticResource CornerRadiusSmall}">
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <ui:SymbolIcon
+                                                    Margin="0,0,6,0"
+                                                    VerticalAlignment="Center"
+                                                    Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                                                    Symbol="Warning24" />
+                                                <ui:TextBlock
+                                                    VerticalAlignment="Center"
+                                                    FontTypography="Caption"
+                                                    FontWeight="SemiBold"
+                                                    Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                                                    Text="{ext:Loc Optimizer.Condition.FailedTitle}" />
+                                            </StackPanel>
+                                            <ui:TextBlock
+                                                Margin="0,6,0,0"
+                                                FontTypography="BodyStrong"
+                                                Text="{Binding ConditionResult.Title}"
+                                                TextWrapping="Wrap" />
+                                            <ui:TextBlock
+                                                Margin="0,2,0,0"
+                                                FontTypography="Body"
+                                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                Text="{Binding ConditionResult.Description}"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </Border>
+
+                                    <StackPanel
+                                        Grid.Row="4"
+                                        Margin="0,12,0,0"
+                                        VerticalAlignment="Bottom"
+                                        Orientation="Horizontal">
+                                        <ui:Button
+                                            Margin="0,0,8,0"
+                                            Command="{Binding DataContext.ViewModel.HideConditionCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                            CommandParameter="{Binding}"
+                                            Content="{ext:Loc Optimizer.Condition.Hide}"
+                                            Cursor="Hand"
+                                            ToolTip="{ext:Loc Optimizer.Condition.Hide.Tooltip}" />
+                                        <Border
+                                            Cursor="Help"
+                                            ToolTip="{ext:Loc Optimizer.Condition.WhatIsThis.Tooltip}"
+                                            ToolTipService.InitialShowDelay="150"
+                                            ToolTipService.Placement="Top">
+                                            <StackPanel Orientation="Horizontal">
+                                                <ui:SymbolIcon Margin="0,0,4,0" Symbol="QuestionCircle24" />
+                                                <ui:TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Text="{ext:Loc Optimizer.Condition.WhatIsThis}" />
+                                            </StackPanel>
+                                        </Border>
+                                    </StackPanel>
+                                </Grid>
+
+                                <!--  Normal state  -->
+                                <Grid RowDefinitions="Auto,Auto,Auto,Auto,*" Visibility="{Binding IsConditionBlocked, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+                                    <ui:TextBlock
+                                        Grid.Row="0"
+                                        FontTypography="Caption"
+                                        Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                                        Text="{Binding Id}"
+                                        TextWrapping="Wrap" />
+                                    <ui:TextBlock
+                                        Grid.Row="1"
+                                        FontTypography="Subtitle"
+                                        Text="{Binding Name}"
+                                        TextWrapping="Wrap" />
+
+                                    <ui:VirtualizingItemsControl
+                                        Grid.Row="2"
+                                        Margin="0,2,0,2"
+                                        ItemsSource="{Binding TagDisplays}">
+                                        <ui:VirtualizingItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                            </ItemsPanelTemplate>
+                                        </ui:VirtualizingItemsControl.ItemsPanel>
+                                        <ui:VirtualizingItemsControl.ItemContainerStyle>
+                                            <Style TargetType="ContentPresenter">
+                                                <Setter Property="Margin" Value="0,0,2,2" />
+                                                <Setter Property="HorizontalAlignment" Value="Left" />
+                                            </Style>
+                                        </ui:VirtualizingItemsControl.ItemContainerStyle>
+                                        <ui:VirtualizingItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border
+                                                    Padding="6,2"
+                                                    HorizontalAlignment="Left"
+                                                    Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                                    CornerRadius="{StaticResource CornerRadiusSmall}">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ui:SymbolIcon
+                                                            Margin="0,0,6,0"
+                                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                            Symbol="{Binding Icon}" />
+
+                                                        <ui:TextBlock
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            FontTypography="Caption"
+                                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                            Text="{Binding Display}"
+                                                            TextWrapping="Wrap" />
+                                                    </StackPanel>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ui:VirtualizingItemsControl.ItemTemplate>
+                                    </ui:VirtualizingItemsControl>
+
+                                    <ui:TextBlock
+                                        Grid.Row="3"
+                                        Margin="0,10,0,0"
+                                        FontTypography="Body"
+                                        Text="{Binding ShortDescription}"
+                                        TextTrimming="WordEllipsis"
+                                        TextWrapping="Wrap" />
+
+                                    <Grid
+                                        Grid.Row="4"
+                                        Margin="0,10,0,0"
+                                        VerticalAlignment="Bottom"
+                                        ColumnDefinitions="*,Auto">
+                                        <Grid RowDefinitions="Auto,Auto">
                                             <Border
                                                 Padding="6,2"
                                                 HorizontalAlignment="Left"
-                                                Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
                                                 CornerRadius="{StaticResource CornerRadiusSmall}">
+                                                <Border.Style>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Risk}" Value="Moderate">
+                                                                <Setter Property="Background" Value="{DynamicResource SystemFillColorCautionBrush}" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Risk}" Value="Risky">
+                                                                <Setter Property="Background" Value="{DynamicResource SystemFillColorCriticalBrush}" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Border.Style>
                                                 <StackPanel Orientation="Horizontal">
                                                     <ui:SymbolIcon
                                                         Margin="0,0,6,0"
-                                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                        Symbol="{Binding Icon}" />
+                                                        Foreground="{DynamicResource TextFillColorInverseBrush}"
+                                                        Symbol="{Binding RiskVisual.Icon}" />
 
                                                     <ui:TextBlock
                                                         HorizontalAlignment="Center"
                                                         VerticalAlignment="Center"
                                                         FontTypography="Caption"
-                                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                        Text="{Binding Display}"
+                                                        Foreground="{DynamicResource TextFillColorInverseBrush}"
+                                                        Text="{Binding RiskVisual.Display}"
                                                         TextWrapping="Wrap" />
                                                 </StackPanel>
                                             </Border>
-                                        </DataTemplate>
-                                    </ui:VirtualizingItemsControl.ItemTemplate>
-                                </ui:VirtualizingItemsControl>
 
-                                <ui:TextBlock
-                                    Grid.Row="3"
-                                    Margin="0,10,0,0"
-                                    FontTypography="Body"
-                                    Text="{Binding ShortDescription}"
-                                    TextTrimming="WordEllipsis"
-                                    TextWrapping="Wrap" />
+                                            <Border
+                                                Grid.Row="1"
+                                                Margin="0,8,0,0"
+                                                Padding="6,2"
+                                                HorizontalAlignment="Left"
+                                                Background="{DynamicResource CardBackgroundDisabled}"
+                                                CornerRadius="{StaticResource CornerRadiusSmall}"
+                                                ToolTip="{Binding State.AppliedAt}"
+                                                ToolTipService.InitialShowDelay="150"
+                                                ToolTipService.Placement="Top"
+                                                Visibility="{Binding State.AppliedAt, Converter={StaticResource NullToVisibilityConverter}}">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <ui:SymbolIcon Margin="0,0,6,0" Symbol="CheckmarkCircle24" />
+                                                    <ui:TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        FontTypography="Caption"
+                                                        Text="{Binding State.RelativeTime}"
+                                                        TextWrapping="Wrap" />
+                                                </StackPanel>
+                                            </Border>
+                                        </Grid>
 
-                                <Grid
-                                    Grid.Row="4"
-                                    Margin="0,10,0,0"
-                                    VerticalAlignment="Bottom"
-                                    ColumnDefinitions="*,Auto">
-                                    <Grid RowDefinitions="Auto,Auto">
-                                        <Border
-                                            Padding="6,2"
-                                            HorizontalAlignment="Left"
-                                            CornerRadius="{StaticResource CornerRadiusSmall}">
-                                            <Border.Style>
-                                                <Style TargetType="Border">
-                                                    <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding Risk}" Value="Moderate">
-                                                            <Setter Property="Background" Value="{DynamicResource SystemFillColorCautionBrush}" />
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding Risk}" Value="Risky">
-                                                            <Setter Property="Background" Value="{DynamicResource SystemFillColorCriticalBrush}" />
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Border.Style>
-                                            <StackPanel Orientation="Horizontal">
-                                                <ui:SymbolIcon
-                                                    Margin="0,0,6,0"
-                                                    Foreground="{DynamicResource TextFillColorInverseBrush}"
-                                                    Symbol="{Binding RiskVisual.Icon}" />
-
-                                                <ui:TextBlock
-                                                    HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center"
-                                                    FontTypography="Caption"
-                                                    Foreground="{DynamicResource TextFillColorInverseBrush}"
-                                                    Text="{Binding RiskVisual.Display}"
-                                                    TextWrapping="Wrap" />
-                                            </StackPanel>
-                                        </Border>
-
-                                        <Border
-                                            Grid.Row="1"
-                                            Margin="0,8,0,0"
-                                            Padding="6,2"
-                                            HorizontalAlignment="Left"
-                                            Background="{DynamicResource CardBackgroundDisabled}"
-                                            CornerRadius="{StaticResource CornerRadiusSmall}"
-                                            ToolTip="{Binding State.AppliedAt}"
-                                            ToolTipService.InitialShowDelay="150"
-                                            ToolTipService.Placement="Top"
-                                            Visibility="{Binding State.AppliedAt, Converter={StaticResource NullToVisibilityConverter}}">
-                                            <StackPanel Orientation="Horizontal">
-                                                <ui:SymbolIcon Margin="0,0,6,0" Symbol="CheckmarkCircle24" />
-                                                <ui:TextBlock
-                                                    HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center"
-                                                    FontTypography="Caption"
-                                                    Text="{Binding State.RelativeTime}"
-                                                    TextWrapping="Wrap" />
-                                            </StackPanel>
-                                        </Border>
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            Margin="10,0,0,0"
+                                            VerticalAlignment="Bottom"
+                                            Orientation="Horizontal">
+                                            <ui:ToggleSwitch
+                                                HorizontalAlignment="Right"
+                                                Command="{Binding DataContext.ViewModel.ToggleOptimizationCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                CommandParameter="{Binding}"
+                                                Cursor="Hand"
+                                                IsChecked="{Binding State.IsApplied, Mode=TwoWay}"
+                                                IsEnabled="{Binding DataContext.ViewModel.IsProcessing, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource InverseBooleanConverter}}" />
+                                            <ui:Button
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Bottom"
+                                                Background="Transparent"
+                                                BorderBrush="Transparent"
+                                                Command="{Binding DataContext.ViewModel.ViewSourceOnGitHubCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                CommandParameter="{Binding}"
+                                                Cursor="Hand"
+                                                Icon="{ui:SymbolIcon Code24}"
+                                                ToolTip="{ext:Loc Optimizer.Menu.ViewSource}" />
+                                            <ui:Button
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Bottom"
+                                                Appearance="Transparent"
+                                                Background="Transparent"
+                                                BorderBrush="Transparent"
+                                                Command="{Binding DataContext.ViewModel.ShowDetailsCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                CommandParameter="{Binding}"
+                                                Cursor="Hand"
+                                                Icon="{ui:SymbolIcon MoreVertical24}" />
+                                        </StackPanel>
                                     </Grid>
-
-                                    <StackPanel
-                                        Grid.Column="1"
-                                        Margin="10,0,0,0"
-                                        VerticalAlignment="Bottom"
-                                        Orientation="Horizontal">
-                                        <ui:ToggleSwitch
-                                            HorizontalAlignment="Right"
-                                            Command="{Binding DataContext.ViewModel.ToggleOptimizationCommand, RelativeSource={RelativeSource AncestorType=Page}}"
-                                            CommandParameter="{Binding}"
-                                            Cursor="Hand"
-                                            IsChecked="{Binding State.IsApplied, Mode=TwoWay}"
-                                            IsEnabled="{Binding DataContext.ViewModel.IsProcessing, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource InverseBooleanConverter}}" />
-                                        <ui:Button
-                                            HorizontalAlignment="Right"
-                                            VerticalAlignment="Bottom"
-                                            Background="Transparent"
-                                            BorderBrush="Transparent"
-                                            Command="{Binding DataContext.ViewModel.ViewSourceOnGitHubCommand, RelativeSource={RelativeSource AncestorType=Page}}"
-                                            CommandParameter="{Binding}"
-                                            Cursor="Hand"
-                                            Icon="{ui:SymbolIcon Code24}"
-                                            ToolTip="{ext:Loc Optimizer.Menu.ViewSource}" />
-                                        <ui:Button
-                                            HorizontalAlignment="Right"
-                                            VerticalAlignment="Bottom"
-                                            Appearance="Transparent"
-                                            Background="Transparent"
-                                            BorderBrush="Transparent"
-                                            Command="{Binding DataContext.ViewModel.ShowDetailsCommand, RelativeSource={RelativeSource AncestorType=Page}}"
-                                            CommandParameter="{Binding}"
-                                            Cursor="Hand"
-                                            Icon="{ui:SymbolIcon MoreVertical24}" />
-                                    </StackPanel>
                                 </Grid>
                             </Grid>
                         </Border>

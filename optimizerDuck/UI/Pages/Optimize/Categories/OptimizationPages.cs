@@ -30,15 +30,6 @@ public sealed class BloatwareAndServicesOptimizerPage : OptimizationPage
     }
 }
 
-public sealed class GpuOptimizerPage : OptimizationPage
-{
-    public GpuOptimizerPage(OptimizationCategoryViewModel viewModel)
-        : base(viewModel)
-    {
-        InitializeComponent();
-    }
-}
-
 public sealed class PerformanceOptimizerPage : OptimizationPage
 {
     public PerformanceOptimizerPage(OptimizationCategoryViewModel viewModel)
@@ -51,6 +42,15 @@ public sealed class PerformanceOptimizerPage : OptimizationPage
 public sealed class SecurityAndPrivacyOptimizerPage : OptimizationPage
 {
     public SecurityAndPrivacyOptimizerPage(OptimizationCategoryViewModel viewModel)
+        : base(viewModel)
+    {
+        InitializeComponent();
+    }
+}
+
+public sealed class AIOptimizerPage : OptimizationPage
+{
+    public AIOptimizerPage(OptimizationCategoryViewModel viewModel)
         : base(viewModel)
     {
         InitializeComponent();

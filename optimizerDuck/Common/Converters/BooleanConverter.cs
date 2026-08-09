@@ -7,6 +7,7 @@ namespace optimizerDuck.Common.Converters;
 // Posted by Atif Aziz, modified by community. See post 'Timeline' for change history
 // Retrieved 2026-01-21, License - CC BY-SA 2.5
 
+/// <summary>Maps a <see cref="bool"/> to one of two configured values of type <typeparamref name="T"/>.</summary>
 public class BooleanConverter<T>(T trueValue, T falseValue) : IValueConverter
 {
     public T True { get; set; } = trueValue;

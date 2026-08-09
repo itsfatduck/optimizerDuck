@@ -4,6 +4,7 @@ using System.Windows.Data;
 
 namespace optimizerDuck.Common.Converters;
 
+/// <summary>Shows or hides a control based on whether the value equals the converter parameter.</summary>
 public class EqualityToVisibilityConverter : IValueConverter
 {
     public Visibility True { get; set; } = Visibility.Visible;

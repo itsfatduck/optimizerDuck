@@ -10,6 +10,13 @@ public sealed class CustomizeSettingAttribute : Attribute
     public required SymbolRegular Icon { get; init; }
     public RecommendationState Recommendation { get; init; } = RecommendationState.None;
 
+    /// <summary>
+    ///     The compatibility condition type (implementing <see cref="ICondition"/>)
+    ///     that determines whether this setting is supported on the current system.
+    ///     When <c>null</c>, the setting is always available.
+    /// </summary>
+    public Type? Condition { get; init; }
+
     public string GetSectionName()
     {
         if (Section == null)

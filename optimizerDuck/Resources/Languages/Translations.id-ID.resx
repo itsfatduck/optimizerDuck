@@ -1,0 +1,1871 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+        Microsoft ResX Schema 
+        
+        Version 2.0
+        
+        The primary goals of this format is to allow a simple XML format 
+        that is mostly human readable. The generation and parsing of the 
+        various data types are done through the TypeConverter classes 
+        associated with the data types.
+        
+        Example:
+        
+        ... ado.net/XML headers & schema ...
+        <resheader name="resmimetype">text/microsoft-resx</resheader>
+        <resheader name="version">2.0</resheader>
+        <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+        <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+        <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+        <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+        <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+            <value>[base64 mime encoded serialized .NET Framework object]</value>
+        </data>
+        <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+            <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+            <comment>This is a comment</comment>
+        </data>
+                    
+        There are any number of "resheader" rows that contain simple 
+        name/value pairs.
+        
+        Each data row contains a name, and value. The row also contains a 
+        type or mimetype. Type corresponds to a .NET class that support 
+        text/value conversion through the TypeConverter architecture. 
+        Classes that don't support this are serialized and stored with the 
+        mimetype set.
+        
+        The mimetype is used for serialized objects, and tells the 
+        ResXResourceReader how to depersist the object. This is currently not 
+        extensible. For a given mimetype the value must be set accordingly:
+        
+        Note - application/x-microsoft.net.object.binary.base64 is the format 
+        that the ResXResourceWriter will generate, however the reader can 
+        read any of the formats listed below.
+        
+        mimetype: application/x-microsoft.net.object.binary.base64
+        value   : The object must be serialized with 
+                : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+                : and then encoded with base64 encoding.
+        
+        mimetype: application/x-microsoft.net.object.soap.base64
+        value   : The object must be serialized with 
+                : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+                : and then encoded with base64 encoding.
+    
+        mimetype: application/x-microsoft.net.object.bytearray.base64
+        value   : The object must be serialized into a byte array 
+                : using a System.ComponentModel.TypeConverter
+                : and then encoded with base64 encoding.
+        -->
+  <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root" xmlns="">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+  </resheader>
+  <data name="Dashboard.Header.Title" xml:space="preserve">
+    <value>Dasbor</value>
+  </data>
+  <data name="Sidebar.Dashboard" xml:space="preserve">
+    <value>Dasbor</value>
+  </data>
+  <data name="Sidebar.Settings" xml:space="preserve">
+    <value>Pengaturan</value>
+  </data>
+  <data name="Button.Close" xml:space="preserve">
+    <value>Tutup</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Cpu.Cores" xml:space="preserve">
+    <value>{0} Inti</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Storage.DiskInfo" xml:space="preserve">
+    <value>{0} GB digunakan dari {1} GB ({2} GB tersedia)</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Ram.Modules" xml:space="preserve">
+    <value>{0} Modul</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Cpu.Threads" xml:space="preserve">
+    <value>{0} Thread</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Storage.System" xml:space="preserve">
+    <value>SISTEM</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Storage.Header" xml:space="preserve">
+    <value>Penyimpanan</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Ram.Used" xml:space="preserve">
+    <value>{0} GB Digunakan</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Ram.Available" xml:space="preserve">
+    <value>{0} GB Tersedia</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Loading" xml:space="preserve">
+    <value>Mengambil Informasi Sistem...</value>
+  </data>
+  <data name="Sidebar.Optimize" xml:space="preserve">
+    <value>Optimasi</value>
+  </data>
+  <data name="Customize.Description" xml:space="preserve">
+    <value>Personalisasi pengaturan Windows dan perilaku sehari-hari.</value>
+  </data>
+  <data name="Customize.Preferences.Name" xml:space="preserve">
+    <value>Preferensi</value>
+  </data>
+  <data name="Customize.Preferences.Description" xml:space="preserve">
+    <value>Atur tampilan dan nuansa Windows sesuai keinginan Anda.</value>
+  </data>
+  <data name="Customize.Gaming.Name" xml:space="preserve">
+    <value>Gaming</value>
+  </data>
+  <data name="Customize.Gaming.Description" xml:space="preserve">
+    <value>Opsi gaming untuk grafis, input, dan perekaman.</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Gpu.More" xml:space="preserve">
+    <value>+ {0} GPU lainnya</value>
+  </data>
+  <data name="Dashboard.Actions.Discord.Title" xml:space="preserve">
+    <value>Komunitas Discord</value>
+  </data>
+  <data name="Dashboard.Actions.Discord.Description" xml:space="preserve">
+    <value>Bergabunglah dengan komunitas Discord saya untuk... mendapatkan dukungan atau bermain game bersama saya</value>
+  </data>
+  <data name="Dashboard.Actions.GitHub.Title" xml:space="preserve">
+    <value>Repositori GitHub</value>
+  </data>
+  <data name="Dashboard.Actions.GitHub.Description" xml:space="preserve">
+    <value>Jelajahi, tinjau, dan berkontribusi pada proyek saya melalui GitHub</value>
+  </data>
+  <data name="Dashboard.Actions.SupportMe.Title" xml:space="preserve">
+    <value>Kontribusi</value>
+  </data>
+  <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
+    <value>Beri bintang di GitHub, bagikan dengan teman, atau donasi—setiap bantuan sangat berarti untuk pengembangan proyek ini!</value>
+  </data>
+  <data name="Service.Registry.Description.CreateKey" xml:space="preserve">
+    <value>Membuat kunci registri {0}</value>
+  </data>
+  <data name="Service.Registry.Description.DeleteKey" xml:space="preserve">
+    <value>Menghapus kunci registri {0}</value>
+  </data>
+  <data name="Settings.LanguageChanged.Title" xml:space="preserve">
+    <value>Perubahan bahasa</value>
+  </data>
+  <data name="Settings.LanguageChanged.Description" xml:space="preserve">
+    <value>Anda perlu memulai ulang aplikasi untuk menerapkan bahasa baru.</value>
+  </data>
+  <data name="Button.Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Settings.Header.Title" xml:space="preserve">
+    <value>Pengaturan</value>
+  </data>
+  <data name="Settings.Appearance.Header" xml:space="preserve">
+    <value>Tampilan</value>
+  </data>
+  <data name="Settings.Appearance.LanguageSelector.Title" xml:space="preserve">
+    <value>Bahasa</value>
+  </data>
+  <data name="Settings.Appearance.LanguageSelector.Description" xml:space="preserve">
+    <value>Pilih bahasa yang Anda inginkan.</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.Title" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.Description" xml:space="preserve">
+    <value>Pilih tema yang Anda inginkan untuk aplikasi.</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.Light" xml:space="preserve">
+    <value>Terang</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.Dark" xml:space="preserve">
+    <value>Gelap</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.HighContrast" xml:space="preserve">
+    <value>Kontras Tinggi</value>
+  </data>
+  <data name="Common.AppliedSecondsAgo" xml:space="preserve">
+    <value>Diterapkan {0} detik yang lalu</value>
+  </data>
+  <data name="Common.AppliedMinutesAgo" xml:space="preserve">
+    <value>Diterapkan {0} menit yang lalu</value>
+  </data>
+  <data name="Common.AppliedHoursAgo" xml:space="preserve">
+    <value>Diterapkan {0} jam yang lalu</value>
+  </data>
+  <data name="Common.AppliedDaysAgo" xml:space="preserve">
+    <value>Diterapkan {0} hari yang lalu</value>
+  </data>
+  <data name="Common.AppliedMonthsAgo" xml:space="preserve">
+    <value>Diterapkan {0} bulan yang lalu</value>
+  </data>
+  <data name="Common.AppliedYearsAgo" xml:space="preserve">
+    <value>Diterapkan {0} tahun yang lalu</value>
+  </data>
+  <data name="Optimizer.UI.Risk.Safe" xml:space="preserve">
+    <value>Aman</value>
+  </data>
+  <data name="Optimizer.UI.Risk.Moderate" xml:space="preserve">
+    <value>Hati-hati</value>
+  </data>
+  <data name="Optimizer.UI.Risk.Risky" xml:space="preserve">
+    <value>Ahli</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
+    <value>Deskripsi detail</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
+    <value>Mengatur ambang batas pemisahan Service Host agar sesuai dengan total RAM sistem, memaksa Windows mengisolasi layanan ke proses terpisah untuk stabilitas yang lebih baik.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
+    <value>Gagal mendeteksi paket daya aktif saat ini.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ImportFailed" xml:space="preserve">
+    <value>Gagal mengimpor paket daya optimizerDuck.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ActivateFailed" xml:space="preserve">
+    <value>Gagal mengaktifkan paket daya optimizerDuck.</value>
+  </data>
+  <data name="Optimizer.UI.Risk.Help" xml:space="preserve">
+    <value>Nilai ini mencerminkan tingkat intervensi dan keamanan proses optimasi. Harap berhati-hati dan pertimbangkan dengan matang sebelum menerapkan optimasi apa pun.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.System" xml:space="preserve">
+    <value>Sistem</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Ram" xml:space="preserve">
+    <value>RAM</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Disk" xml:space="preserve">
+    <value>Disk</value>
+  </data>
+  <data name="Optimizer.UI.Tags.NetworkRequired" xml:space="preserve">
+    <value>Membutuhkan koneksi jaringan</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Network" xml:space="preserve">
+    <value>Jaringan</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Privacy" xml:space="preserve">
+    <value>Privasi</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Audio" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
+    <value>Tag ini menunjukkan bagian sistem mana yang akan terpengaruh oleh optimasi.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
+    <value>NVIDIA</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
+    <value>AMD</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
+    <value>Intel</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
+    <value>Daya</value>
+  </data>
+  <data name="Revert.Error.InvalidData" xml:space="preserve">
+    <value>Data revert tidak valid untuk {0}: {1}</value>
+  </data>
+  <data name="Revert.Error.NoDataFound" xml:space="preserve">
+    <value>Data revert tidak ditemukan untuk {0}.</value>
+  </data>
+  <data name="Optimization.Revert.Reverting" xml:space="preserve">
+    <value>Mengembalikan...</value>
+  </data>
+  <data name="Optimization.Revert.Success" xml:space="preserve">
+    <value>Berhasil mengembalikan {0}!</value>
+  </data>
+  <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
+    <value>Mengembalikan {0} dengan {1} langkah yang gagal.</value>
+  </data>
+  <data name="Revert.Error.RevertFailed" xml:space="preserve">
+    <value>Gagal mengembalikan {0}: {1}</value>
+  </data>
+  <data name="Optimization.Revert.ExecutingStep" xml:space="preserve">
+    <value>Menjalankan langkah revert: {0}/{1} ({2})</value>
+  </data>
+  <data name="Optimization.Revert.StepDescription" xml:space="preserve">
+    <value>Langkah revert #{0}</value>
+  </data>
+  <data name="Revert.Registry.Description.RestoreKey" xml:space="preserve">
+    <value>Memulihkan kunci registri: {0}</value>
+  </data>
+  <data name="Revert.Registry.Description.DeleteKey" xml:space="preserve">
+    <value>Menghapus kunci registri: {0}</value>
+  </data>
+  <data name="Revert.Registry.Description.RevertUnknown" xml:space="preserve">
+    <value>Revert registri: {0}</value>
+  </data>
+  <data name="Revert.Error.FileNotFound" xml:space="preserve">
+    <value>File revert tidak ditemukan</value>
+  </data>
+  <data name="Revert.Error.FileEmpty" xml:space="preserve">
+    <value>File revert kosong</value>
+  </data>
+  <data name="Revert.Error.ReadFailed" xml:space="preserve">
+    <value>Gagal membaca data revert: {0}</value>
+  </data>
+  <data name="Revert.Error.InvalidJson" xml:space="preserve">
+    <value>Data revert tidak valid</value>
+  </data>
+  <data name="Revert.Error.InvalidJsonFormat" xml:space="preserve">
+    <value>Format JSON tidak valid: {0}</value>
+  </data>
+  <data name="Revert.Error.NoSteps" xml:space="preserve">
+    <value>Tidak ada langkah revert yang ditemukan.</value>
+  </data>
+  <data name="Revert.Error.InvalidSteps" xml:space="preserve">
+    <value>Langkah revert tidak valid: {0}</value>
+  </data>
+  <data name="Revert.Error.StepFailed" xml:space="preserve">
+    <value>Langkah revert gagal</value>
+  </data>
+  <data name="Revert.UsbPower.Description" xml:space="preserve">
+    <value>Memulihkan status daya suspend selektif USB</value>
+  </data>
+  <data name="Service.Registry.Error.BackupTruncated" xml:space="preserve">
+    <value>Subtree registri terlalu besar untuk dicadangkan dengan aman; penghapusan dibatalkan untuk {0}</value>
+  </data>
+  <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
+    <value>OptimizationId tidak cocok.</value>
+  </data>
+  <data name="Optimization.Apply.Processing" xml:space="preserve">
+    <value>Menerapkan perubahan...</value>
+  </data>
+  <data name="Optimization.Apply.Completed" xml:space="preserve">
+    <value>Selesai</value>
+  </data>
+  <data name="Optimization.Apply.Success" xml:space="preserve">
+    <value>Berhasil menerapkan {0}.</value>
+  </data>
+  <data name="Optimization.Apply.Error.FailedWithSteps" xml:space="preserve">
+    <value>Menerapkan {0} dengan {1} langkah yang gagal.</value>
+  </data>
+  <data name="Optimization.Apply.Error.Failed" xml:space="preserve">
+    <value>Gagal menerapkan {0}.</value>
+  </data>
+  <data name="Optimization.Apply.Error.Unknown" xml:space="preserve">
+    <value>Hasil tidak diketahui untuk {0}.</value>
+  </data>
+  <data name="Service.Common.Error.AccessDenied" xml:space="preserve">
+    <value>Akses ditolak</value>
+  </data>
+  <data name="Service.Registry.Error.AccessDeniedProtectedHive" xml:space="preserve">
+    <value>Akses ditolak (hive terlindungi)</value>
+  </data>
+  <data name="Service.Registry.Error.UnauthorizedAccess" xml:space="preserve">
+    <value>Akses tidak sah</value>
+  </data>
+  <data name="Service.Registry.Error.CreateOrOpenSubkeyFailed" xml:space="preserve">
+    <value>Gagal membuat/membuka subkey</value>
+  </data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedWrite" xml:space="preserve">
+    <value>Akses ditolak saat menulis {0}:{1}</value>
+  </data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedDelete" xml:space="preserve">
+    <value>Akses ditolak saat menghapus {0}:{1}</value>
+  </data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedCreateKey" xml:space="preserve">
+    <value>Akses ditolak saat membuat {0}</value>
+  </data>
+  <data name="Service.Registry.ErrorDetail.AccessDeniedDeleteKeyTree" xml:space="preserve">
+    <value>Akses ditolak saat menghapus tree kunci {0}</value>
+  </data>
+  <data name="Service.Service.Error.NotFound" xml:space="preserve">
+    <value>Layanan tidak ditemukan</value>
+  </data>
+  <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
+    <value>Layanan '{0}' tidak ditemukan (dilewati)</value>
+  </data>
+  <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
+    <value>Gagal mengubah tipe startup untuk layanan</value>
+  </data>
+  <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
+    <value>ChangeStartMode gagal (kode: {0})</value>
+  </data>
+  <data name="Service.Service.Error.ExceptionOccurred" xml:space="preserve">
+    <value>Gagal mengubah layanan '{0}': {1}</value>
+  </data>
+  <data name="Service.Shell.Error.ExitCode" xml:space="preserve">
+    <value>Kode keluar {0}</value>
+  </data>
+  <data name="Service.Shell.Error.TimedOut" xml:space="preserve">
+    <value>Waktu habis</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
+    <value>File revert</value>
+  </data>
+  <data name="OptimizationResultDialog.Header" xml:space="preserve">
+    <value>{0} Langkah gagal</value>
+  </data>
+  <data name="OptimizationResultDialog.Description" xml:space="preserve">
+    <value>Beberapa langkah tidak berhasil diselesaikan. Anda dapat mencoba ulang hanya langkah yang gagal.</value>
+  </data>
+  <data name="OptimizationResultDialog.Details" xml:space="preserve">
+    <value>Detail</value>
+  </data>
+  <data name="Button.Retry" xml:space="preserve">
+    <value>Coba Lagi</value>
+  </data>
+  <data name="Settings.About.Duck.Description" xml:space="preserve">
+    <value>Versi saat ini: {0}</value>
+  </data>
+  <data name="Settings.Advanced.Header" xml:space="preserve">
+    <value>Lanjutan</value>
+  </data>
+  <data name="Settings.Optimize.Header" xml:space="preserve">
+    <value>Optimasi</value>
+  </data>
+  <data name="Settings.Optimize.ShellTimeout.Title" xml:space="preserve">
+    <value>Batas waktu layanan shell</value>
+  </data>
+  <data name="Settings.Optimize.ShellTimeout.Description" xml:space="preserve">
+    <value>Batas waktu untuk setiap eksekusi perintah shell (milidetik).</value>
+  </data>
+  <data name="Settings.Advanced.ClearDownloads.Title" xml:space="preserve">
+    <value>Hapus unduhan</value>
+  </data>
+  <data name="Settings.Advanced.ClearDownloads.Description" xml:space="preserve">
+    <value>Hapus semua file yang diunduh selama proses optimasi.</value>
+  </data>
+  <data name="Settings.Advanced.ClearRevertDatas.Title" xml:space="preserve">
+    <value>Hapus semua data revert</value>
+  </data>
+  <data name="Settings.Advanced.ClearRevertDatas.Description" xml:space="preserve">
+    <value>Hapus semua data rollback dari optimasi.</value>
+  </data>
+  <data name="Button.Clear" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <data name="Settings.Advanced.OpenRootDir.Title" xml:space="preserve">
+    <value>Buka direktori utama</value>
+  </data>
+  <data name="Settings.Advanced.OpenRootDir.Description" xml:space="preserve">
+    <value>Buka direktori utama aplikasi, tempat semua file yang diperlukan disimpan.</value>
+  </data>
+  <data name="Settings.Appearance.SmoothScrolling.Title" xml:space="preserve">
+    <value>Gulir Halus</value>
+  </data>
+  <data name="Settings.Appearance.SmoothScrolling.Description" xml:space="preserve">
+    <value>Aktifkan animasi gulir halus untuk pengalaman gulir yang lebih mulus. Matikan jika Anda mengalami lag.</value>
+  </data>
+  <data name="Button.Open" xml:space="preserve">
+    <value>Buka</value>
+  </data>
+  <data name="Settings.About.Header" xml:space="preserve">
+    <value>Tentang</value>
+  </data>
+  <data name="Dialog.AreYouSure.Title" xml:space="preserve">
+    <value>Apakah Anda yakin ingin melanjutkan?</value>
+  </data>
+  <data name="Settings.ClearDownloads.Description" xml:space="preserve">
+    <value>Anda akan menghapus semua file yang diunduh selama proses optimasi. Harap dicatat bahwa tindakan ini bersifat permanen dan tidak dapat dibatalkan, jadi pastikan Anda yakin sebelum melanjutkan.</value>
+  </data>
+  <data name="Button.Cancel" xml:space="preserve">
+    <value>Batal</value>
+  </data>
+  <data name="Button.Skip" xml:space="preserve">
+    <value>Lewati</value>
+  </data>
+  <data name="Settings.ClearRevertData.Description" xml:space="preserve">
+    <value>Anda akan menghapus semua data rollback yang dihasilkan setelah proses optimasi. Ini berarti Anda tidak akan lagi dapat memulihkan keadaan sebelum optimasi, jadi harap pertimbangkan dengan matang sebelum mengonfirmasi.</value>
+  </data>
+  <data name="ProcessingOptimizationDialog.Warning.DontCloseAppOrRestart" xml:space="preserve">
+    <value>Harap jangan tutup aplikasi atau restart selagi perubahan sedang diterapkan atau dikembalikan.</value>
+  </data>
+  <data name="Common.AppliedJustNow" xml:space="preserve">
+    <value>Baru saja diterapkan</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
+      <value>Tidak dapat menerapkan optimasi sepenuhnya</value>
+    </data>
+  <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
+    <value>Tidak dapat mengembalikan optimasi</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.Success.Title" xml:space="preserve">
+    <value>Optimasi berhasil diterapkan</value>
+  </data>
+  <data name="Optimization.Revert.Snackbar.Success.Title" xml:space="preserve">
+    <value>Optimasi berhasil dikembalikan</value>
+  </data>
+  <data name="Optimization.Toggle.Snackbar.Error.Title" xml:space="preserve">
+    <value>Tidak dapat mengalihkan optimasi</value>
+  </data>
+  <data name="Optimization.Toggle.Snackbar.Error.Message" xml:space="preserve">
+    <value>Terjadi kesalahan: {0}</value>
+  </data>
+  <data name="Optimization.Retry.Processing" xml:space="preserve">
+    <value>Mencoba ulang langkah yang gagal...</value>
+  </data>
+  <data name="Optimization.RetryStep.Processing" xml:space="preserve">
+    <value>Mencoba ulang langkah {0} ({1}/{2} langkah)</value>
+  </data>
+  <data name="Optimization.Revert.Error.Failed" xml:space="preserve">
+    <value>Gagal mengembalikan {0}.</value>
+  </data>
+  <data name="Dashboard.Header.Menu.Refresh" xml:space="preserve">
+    <value>Segarkan</value>
+  </data>
+  <data name="Dashboard.Header.Menu.RunTaskManager" xml:space="preserve">
+    <value>Pengelola Tugas</value>
+  </data>
+  <data name="Common.Unknown" xml:space="preserve">
+    <value>Tidak diketahui</value>
+  </data>
+  <data name="Common.Recommendation.On" xml:space="preserve">
+    <value>Direkomendasikan</value>
+  </data>
+  <data name="Common.Recommendation.Off" xml:space="preserve">
+    <value>Tidak Direkomendasikan</value>
+  </data>
+  <data name="Common.Recommendation.Experimental" xml:space="preserve">
+    <value>Eksperimental</value>
+  </data>
+  <data name="Common.Recommendation.Depends" xml:space="preserve">
+    <value>Tergantung</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Security" xml:space="preserve">
+    <value>Keamanan</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Performance" xml:space="preserve">
+    <value>Performa</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Latency" xml:space="preserve">
+    <value>Latensi</value>
+  </data>
+  <data name="Optimizer.Performance" xml:space="preserve">
+    <value>Performa</value>
+  </data>
+  <data name="Optimizer.PowerManagement" xml:space="preserve">
+    <value>Manajemen Daya</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy" xml:space="preserve">
+    <value>Keamanan &amp; Privasi</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices" xml:space="preserve">
+    <value>Bloatware &amp; Layanan</value>
+  </data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.Name" xml:space="preserve">
+    <value>Nonaktifkan Aplikasi Latar Belakang</value>
+  </data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
+    <value>Mencegah aplikasi yang tidak aktif berjalan di latar belakang untuk membebaskan RAM dan mengurangi beban CPU.</value>
+  </data>
+  <data name="Optimizer.Performance.SvcHostSplit.Name" xml:space="preserve">
+    <value>Optimalkan Isolasi Layanan</value>
+  </data>
+  <data name="Optimizer.Performance.SvcHostSplit.Error.InvalidRAM" xml:space="preserve">
+    <value>RAM tidak valid: {0}</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
+    <value>Prioritaskan Aplikasi Aktif</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
+    <value>Mengalokasikan lebih banyak sumber daya CPU ke aplikasi yang sedang Anda gunakan untuk pengalaman yang lebih cepat dan responsif.</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
+    <value>Optimalkan Penjadwal Multimedia</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
+    <value>Mengonfigurasi Layanan Penjadwal Kelas Multimedia (MMCSS) untuk gaming dan latensi rendah dengan memprioritaskan beban kerja multimedia dan menonaktifkan pembatasan jaringan.</value>
+  </data>
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
+    <value>Optimalkan Pengulangan Keyboard</value>
+  </data>
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
+    <value>Mengatur jeda pengulangan keyboard dan kecepatan pengulangan tercepat untuk pengetikan yang lebih responsif dan penekanan tombol berulang.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.Name" xml:space="preserve">
+    <value>Nonaktifkan Hotkey Aksesibilitas Keyboard</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription" xml:space="preserve">
+    <value>Menonaktifkan pintasan keyboard Sticky Keys, Filter Keys, dan Toggle Keys untuk mencegah pop-up yang tidak disengaja saat bermain game dan mengetik.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Name" xml:space="preserve">
+    <value>Nonaktifkan Hibernasi &amp; Fast Startup</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.ShortDescription" xml:space="preserve">
+    <value>Menonaktifkan hibernasi dan Fast Startup untuk mengklaim kembali ruang disk dan memastikan shutdown penuh untuk inisialisasi perangkat keras yang lebih bersih saat boot.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
+    <value>Nonaktifkan Penghematan Daya USB</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
+    <value>Mencegah Windows mematikan port USB, menghilangkan jeda bangun (wake-up) untuk mouse, keyboard, dan periferal lainnya.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
+    <value>Terapkan Paket Daya yang Dioptimalkan</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
+    <value>Menginstal paket daya kustom yang berfokus pada performa untuk memastikan sistem Anda selalu berjalan pada kecepatan maksimum. Peringatan: Mungkin menyebabkan Task Manager menampilkan penggunaan CPU 100% secara tidak benar pada beberapa sistem, beban CPU sebenarnya tidak terpengaruh.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
+    <value>Mengimpor dan mengaktifkan paket daya...</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
+    <value>Nonaktifkan Pembatasan Daya Sistem</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
+    <value>Mencegah Windows membatasi performa CPU (Power Throttling) untuk mempertahankan daya puncak untuk tugas aktif.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
+    <value>Nonaktifkan Pengumpulan Data (Telemetri)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
+    <value>Menonaktifkan telemetri Windows dan layanan pelacakan penggunaan untuk meningkatkan privasi pribadi Anda dan mengurangi aktivitas latar belakang.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
+    <value>Menerapkan perubahan kebijakan dan registri...</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableServices" xml:space="preserve">
+    <value>Menonaktifkan layanan telemetri...</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableTasks" xml:space="preserve">
+    <value>Menonaktifkan tugas terjadwal telemetri...</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.Name" xml:space="preserve">
+    <value>Nonaktifkan Pelaporan Kesalahan</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.ShortDescription" xml:space="preserve">
+    <value>Menonaktifkan layanan Windows Error Reporting dan Program Compatibility Assistant.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.Name" xml:space="preserve">
+    <value>Nonaktifkan Iklan dan Saran</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.ShortDescription" xml:space="preserve">
+    <value>Menonaktifkan iklan yang dipersonalisasi, fitur konsumen Windows, dan saran sistem.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.Name" xml:space="preserve">
+    <value>Nonaktifkan Riwayat Aktivitas</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.ShortDescription" xml:space="preserve">
+    <value>Mencegah Windows mengumpulkan dan menyinkronkan riwayat aktivitas Anda.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.Name" xml:space="preserve">
+    <value>Nonaktifkan Lokasi dan Sensor</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.ShortDescription" xml:space="preserve">
+    <value>Menonaktifkan pelacakan lokasi, sensor sistem, dan pembaruan peta offline.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.Name" xml:space="preserve">
+    <value>Nonaktifkan Pencatatan Latar Belakang</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
+    <value>Menghentikan pencatatan peristiwa sistem yang tidak penting untuk mengurangi aktivitas disk berkelanjutan dan menghemat siklus CPU.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
+    <value>Nonaktifkan Cortana &amp; Pencarian Web</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
+    <value>Menonaktifkan asisten suara Cortana dan menghapus hasil web Bing dari bilah Pencarian Windows.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
+    <value>Nonaktifkan Windows Copilot</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
+    <value>Menghapus asisten AI Copilot dari taskbar dan shell sistem untuk membebaskan memori dan ruang layar.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
+    <value>Nonaktifkan Pengiriman Konten Cloud</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
+    <value>Menonaktifkan konten yang dikirim melalui cloud Windows, termasuk tips sistem, saran spotlight, dan pengiriman otomatis fitur konsumen.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
+    <value>Blokir Bloatware Bawaan</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
+    <value>Mencegah Windows menginstal ulang secara otomatis aplikasi pihak ketiga yang tidak diinginkan dan perangkat lunak yang dipromosikan.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
+    <value>Optimalkan Layanan Sistem</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
+    <value>Menyesuaikan layanan latar belakang yang tidak penting untuk membebaskan sumber daya sambil mempertahankan semua fungsionalitas Windows yang diperlukan.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType" xml:space="preserve">
+    <value>Mengatur tipe startup untuk {0} menjadi {1}...</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Display" xml:space="preserve">
+    <value>Layar</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Visual" xml:space="preserve">
+    <value>Visual</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows10Only" xml:space="preserve">
+    <value>Khusus Windows 10</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows11Only" xml:space="preserve">
+    <value>Khusus Windows 11</value>
+  </data>
+  <data name="Optimizer.Gpu" xml:space="preserve">
+    <value>GPU</value>
+  </data>
+  <data name="Optimizer.UserExperience" xml:space="preserve">
+    <value>Pengalaman Pengguna</value>
+  </data>
+  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
+    <value>Percepat Explorer &amp; Menu</value>
+  </data>
+  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
+    <value>Mengatur StartupDelayInMSec=0, MenuShowDelay=0 untuk menghilangkan jeda startup Explorer dan mempercepat animasi pembukaan menu.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>Nonaktifkan Pencarian Web Menu Start</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>Matikan pencarian web pada Menu Start Windows agar hasil pencarian lokal dimuat lebih cepat.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
+    <value>Nonaktifkan Efek Visual</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
+    <value>Menonaktifkan animasi taskbar, bayangan listview, transparansi jendela, dan Aero Peek untuk membebaskan sumber daya GPU/CPU demi performa yang lebih baik.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
+    <value>Nonaktifkan AMD ULPS</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
+    <value>Mengatur EnableULPS=0 di registri GPU AMD untuk mencegah jeda bangun (wake-up delay) Ultra Low Power State yang dapat menyebabkan layar hitam atau stuttering.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
+    <value>Nonaktifkan AMD Power Gating</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
+    <value>Mengatur DisablePowerGating=1, PP_GPUPowerDownEnabled=0, DisableDynamicPstate=1 untuk mencegah AMD GPU masuk ke mode hemat daya yang dapat menyebabkan penurunan performa.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>Nonaktifkan AMD Video Clock Gating</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>Mengatur DisableVCEPowerGating=1, DisableVceClockGating=1, EnableUvdClockGating=0 untuk menjaga blok video encode/decode AMD tetap aktif penuh.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
+    <value>Nonaktifkan AMD ASPM</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
+    <value>Mengatur EnableAspmL0s=0, EnableAspmL1=0 untuk menonaktifkan Active State Power Management pada tautan PCIe AMD GPU demi latensi yang lebih rendah.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
+    <value>Nonaktifkan NVIDIA Dynamic P-State</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
+    <value>Mengatur DisableDynamicPstate=1 untuk mengunci GPU NVIDIA ke status performa tetap, mencegah penurunan clock otomatis selama beban kerja rendah.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
+    <value>Nonaktifkan NVIDIA Async P-States</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
+    <value>Mengatur DisableASyncPstates=1 untuk mencegah perpindahan status daya asinkron NVIDIA, mengurangi stuttering yang disebabkan oleh transisi clock yang terlambat.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>Nonaktifkan Intel Async Flips</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>Mengatur Display1_DisableAsyncFlips=1 untuk memaksa buffer flip sinkron pada iGPU Intel, mengurangi robekan layar (tearing) dan ketidakrataan frame.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
+    <value>Nonaktifkan Intel Adaptive V-Sync</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
+    <value>Mengatur AdaptiveVsyncEnable=0 untuk menonaktifkan V-Sync adaptif Intel yang secara dinamis menyesuaikan laju refresh, demi kontrol tampilan yang lebih konsisten.</value>
+  </data>
+  <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
+    <value>Taskbar</value>
+  </data>
+  <data name="Customize.Preferences.Section.Appearance" xml:space="preserve">
+    <value>Tampilan</value>
+  </data>
+  <data name="Customize.Preferences.Section.Explorer" xml:space="preserve">
+    <value>Explorer</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarWidgets.Name" xml:space="preserve">
+    <value>Widget Taskbar</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarWidgets.Description" xml:space="preserve">
+    <value>Menampilkan atau menyembunyikan tombol Widget di taskbar. Widget menyediakan akses cepat ke berita, cuaca, dan pembaruan lainnya.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarWidgets.Recommendation.Reason" xml:space="preserve">
+    <value>Fitur Widget dapat mengambil berita dan cuaca di latar belakang, yang dapat meningkatkan penggunaan jaringan dan memori saat idle.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Name" xml:space="preserve">
+    <value>Perataan Taskbar</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Description" xml:space="preserve">
+    <value>Pilih apakah ikon taskbar berada di tengah atau rata kiri.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Options.Center" xml:space="preserve">
+    <value>Tengah</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Options.Left" xml:space="preserve">
+    <value>Kiri</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerCompactMode.Name" xml:space="preserve">
+    <value>Mode Kompak Explorer</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerCompactMode.Description" xml:space="preserve">
+    <value>Memperkecil jarak antar item di File Explorer untuk tampilan yang lebih kompak.</value>
+  </data>
+  <data name="Customize.Preferences.SnapAssistFlyout.Name" xml:space="preserve">
+    <value>Menu Tata Letak Snap</value>
+  </data>
+  <data name="Customize.Preferences.SnapAssistFlyout.Description" xml:space="preserve">
+    <value>Menampilkan atau menyembunyikan menu Tata Letak Snap saat Anda mengarahkan kursor ke tombol maksimalkan jendela.</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerItemCheckboxes.Name" xml:space="preserve">
+    <value>Kotak Centang Item Explorer</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerItemCheckboxes.Description" xml:space="preserve">
+    <value>Menampilkan kotak centang di samping item di File Explorer, memudahkan untuk memilih beberapa file sekaligus.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarTaskViewButton.Name" xml:space="preserve">
+    <value>Tombol Tampilan Tugas di Taskbar</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
+    <value>Menampilkan atau menyembunyikan tombol Tampilan Tugas (Task View) di taskbar.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarEndTask.Name" xml:space="preserve">
+    <value>Akhiri Tugas di Taskbar</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarEndTask.Description" xml:space="preserve">
+    <value>Menambahkan perintah Akhiri Tugas pada menu konteks taskbar, sehingga Anda dapat menutup aplikasi yang tidak responsif tanpa membuka Pengelola Tugas.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarEndTask.Recommendation.Reason" xml:space="preserve">
+    <value>Akhiri Tugas di taskbar memungkinkan Anda mematikan aplikasi yang macet secara instan tanpa membuka Pengelola Tugas.</value>
+  </data>
+  <data name="Customize.Preferences.DarkMode.Name" xml:space="preserve">
+    <value>Mode Gelap</value>
+  </data>
+  <data name="Customize.Preferences.DarkMode.Description" xml:space="preserve">
+    <value>Menerapkan warna gelap ke aplikasi Windows, Pengaturan, dan elemen shell lainnya.</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerSyncNotifications.Name" xml:space="preserve">
+    <value>Notifikasi Sinkronisasi Explorer</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerSyncNotifications.Description" xml:space="preserve">
+    <value>Menampilkan atau menyembunyikan notifikasi dari OneDrive dan penyedia sinkronisasi cloud lainnya di File Explorer.</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerSyncNotifications.Recommendation.Reason" xml:space="preserve">
+    <value>Fitur Notifikasi Sinkronisasi Explorer mengontrol pop-up OneDrive dan sinkronisasi cloud saat menjelajahi file.</value>
+  </data>
+  <data name="Customize.Preferences.SystemSuggestions.Name" xml:space="preserve">
+    <value>Saran Sistem</value>
+  </data>
+  <data name="Customize.Preferences.SystemSuggestions.Description" xml:space="preserve">
+    <value>Menampilkan atau menyembunyikan tips Windows dan saran aplikasi di Pengaturan.</value>
+  </data>
+  <data name="Customize.Preferences.SystemSuggestions.Recommendation.Reason" xml:space="preserve">
+    <value>Fitur Saran Sistem mengontrol rekomendasi Windows untuk aplikasi dan pengaturan.</value>
+  </data>
+  <data name="Customize.Preferences.ToastNotifications.Name" xml:space="preserve">
+    <value>Notifikasi Toast</value>
+  </data>
+  <data name="Customize.Preferences.ToastNotifications.Description" xml:space="preserve">
+    <value>Mengontrol notifikasi toast, termasuk peringatan yang muncul di desktop atau layar kunci.</value>
+  </data>
+  <data name="Customize.Preferences.ShowFileExtensions.Name" xml:space="preserve">
+    <value>Ekstensi File</value>
+  </data>
+  <data name="Customize.Preferences.ShowFileExtensions.Description" xml:space="preserve">
+    <value>Menampilkan atau menyembunyikan ekstensi file seperti .txt dan .exe di File Explorer.</value>
+  </data>
+  <data name="Customize.Preferences.ShowFileExtensions.Recommendation.Reason" xml:space="preserve">
+    <value>Ekstensi file memudahkan untuk mendeteksi jenis file mencurigakan dan mencegah malware bersembunyi di balik ikon yang menyesatkan.</value>
+  </data>
+  <data name="Customize.Preferences.ShowHiddenFiles.Name" xml:space="preserve">
+    <value>File Tersembunyi</value>
+  </data>
+  <data name="Customize.Preferences.ShowHiddenFiles.Description" xml:space="preserve">
+    <value>Menampilkan atau menyembunyikan file dan folder tersembunyi di File Explorer.</value>
+  </data>
+  <data name="Customize.Preferences.ShowHiddenFiles.Recommendation.Reason" xml:space="preserve">
+    <value>File tersembunyi berisi data sistem dan konfigurasi yang mungkin diperlukan untuk administrasi dan pemecahan masalah.</value>
+  </data>
+  <data name="Customize.Preferences.ClipboardHistory.Name" xml:space="preserve">
+    <value>Riwayat Clipboard</value>
+  </data>
+  <data name="Customize.Preferences.ClipboardHistory.Description" xml:space="preserve">
+    <value>Menyimpan riwayat item yang disalin yang dapat Anda telusuri dengan Win+V.</value>
+  </data>
+  <data name="Customize.Preferences.ClipboardHistory.Recommendation.Reason" xml:space="preserve">
+    <value>Riwayat clipboard memungkinkan Anda mengingat kembali beberapa salinan sebelumnya dengan Win+V, mempercepat alur kerja salin-tempel yang berulang.</value>
+  </data>
+  <data name="Customize.Preferences.WindowShake.Name" xml:space="preserve">
+    <value>Goyangan Jendela</value>
+  </data>
+  <data name="Customize.Preferences.WindowShake.Description" xml:space="preserve">
+    <value>Goyangkan jendela aktif untuk meminimalkan jendela lainnya, atau matikan perilaku ini.</value>
+  </data>
+  <data name="Customize.Preferences.ClassicContextMenu.Name" xml:space="preserve">
+    <value>Menu Konteks Klasik</value>
+  </data>
+  <data name="Customize.Preferences.ClassicContextMenu.Description" xml:space="preserve">
+    <value>Menggunakan menu konteks bergaya Windows 10 klasik alih-alih menu ringkas Windows 11.</value>
+  </data>
+  <data name="Customize.Preferences.ClassicContextMenu.Recommendation.Reason" xml:space="preserve">
+    <value>Menu klasik menampilkan semua opsi sekaligus tanpa klik tambahan yang diperlukan untuk membuka menu ringkas Windows 11.</value>
+  </data>
+  <data name="Customize.Preferences.ShowSecondsInSystemClock.Name" xml:space="preserve">
+    <value>Detik pada Jam Sistem</value>
+  </data>
+  <data name="Customize.Preferences.ShowSecondsInSystemClock.Description" xml:space="preserve">
+    <value>Menampilkan detik pada jam taskbar.</value>
+  </data>
+  <data name="Customize.Gaming.Section.GameSettings" xml:space="preserve">
+    <value>Pengaturan Game</value>
+  </data>
+  <data name="Customize.Gaming.Section.Input" xml:space="preserve">
+    <value>Masukan</value>
+  </data>
+  <data name="Customize.Gaming.Section.Display" xml:space="preserve">
+    <value>Layar</value>
+  </data>
+  <data name="Customize.Gaming.GameMode.Name" xml:space="preserve">
+    <value>Mode Game</value>
+  </data>
+  <data name="Customize.Gaming.GameMode.Description" xml:space="preserve">
+    <value>Memberikan prioritas sumber daya sistem untuk game dan mengubah perilaku Windows Update saat Anda bermain.</value>
+  </data>
+  <data name="Customize.Gaming.GameMode.Recommendation.Reason" xml:space="preserve">
+    <value>Mode Game secara otomatis memprioritaskan proses game dan menangguhkan notifikasi Windows Update saat bermain game untuk performa yang lebih mulus.</value>
+  </data>
+  <data name="Customize.Gaming.GameBar.Name" xml:space="preserve">
+    <value>Xbox Game Bar</value>
+  </data>
+  <data name="Customize.Gaming.GameBar.Description" xml:space="preserve">
+    <value>Menampilkan Xbox Game Bar dan overlay serta fitur latar belakang terkait.</value>
+  </data>
+  <data name="Customize.Gaming.GameBar.Recommendation.Reason" xml:space="preserve">
+    <value>Fitur Xbox Game Bar menyediakan overlay dan alat gaming latar belakang yang mungkin menggunakan sumber daya sistem.</value>
+  </data>
+  <data name="Customize.Gaming.BackgroundRecording.Name" xml:space="preserve">
+    <value>Perekaman Latar Belakang (DVR)</value>
+  </data>
+  <data name="Customize.Gaming.BackgroundRecording.Description" xml:space="preserve">
+    <value>Merekam gameplay dan aktivitas aplikasi di latar belakang melalui Game DVR.</value>
+  </data>
+  <data name="Customize.Gaming.BackgroundRecording.Recommendation.Reason" xml:space="preserve">
+    <value>Fitur Perekaman Latar Belakang merekam gameplay di latar belakang, yang dapat menggunakan sumber daya CPU dan membuat penulisan disk.</value>
+  </data>
+  <data name="Customize.Gaming.MouseAcceleration.Name" xml:space="preserve">
+    <value>Akselerasi Mouse</value>
+  </data>
+  <data name="Customize.Gaming.MouseAcceleration.Description" xml:space="preserve">
+    <value>Mengatur bagaimana pergerakan kursor merespons kecepatan mouse Anda.</value>
+  </data>
+  <data name="Customize.Gaming.MouseAcceleration.Recommendation.Reason" xml:space="preserve">
+    <value>Fitur Akselerasi Mouse mengubah pergerakan kursor berdasarkan kecepatan; input linier mentah dapat meningkatkan konsistensi bidikan.</value>
+  </data>
+  <data name="Customize.Gaming.FullscreenOptimizations.Name" xml:space="preserve">
+    <value>Optimasi Layar Penuh</value>
+  </data>
+  <data name="Customize.Gaming.FullscreenOptimizations.Description" xml:space="preserve">
+    <value>Menerapkan optimasi layar penuh Windows, yang dapat meningkatkan kompatibilitas untuk beberapa game.</value>
+  </data>
+  <data name="Customize.Gaming.FullscreenOptimizations.Recommendation.Reason" xml:space="preserve">
+    <value>Nonaktifkan jika Anda mengalami stuttering dalam game, input lag, atau layar hitam (terutama di game shooter kompetitif).</value>
+  </data>
+  <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Name" xml:space="preserve">
+    <value>Penjadwalan GPU yang Dipercepat Perangkat Keras</value>
+  </data>
+  <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Description" xml:space="preserve">
+    <value>Memungkinkan GPU menangani lebih banyak pekerjaan penjadwalan memori video. Diperlukan driver grafis yang kompatibel.</value>
+  </data>
+  <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Recommendation.Reason" xml:space="preserve">
+    <value>Penjadwalan GPU mengalihkan manajemen frame dari CPU ke GPU, mengurangi latensi tampilan dan meningkatkan pacing frame.</value>
+  </data>
+  <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
+    <value>JANGAN ubah kecuali Anda tahu persis apa yang Anda lakukan</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DownloadFailed" xml:space="preserve">
+    <value>Gagal mengunduh paket daya optimizerDuck.</value>
+  </data>
+  <data name="Settings.About.Acknowledgements.Title" xml:space="preserve">
+    <value>Penghargaan</value>
+  </data>
+  <data name="Settings.About.Acknowledgements.Description" xml:space="preserve">
+    <value>optimizerDuck dimungkinkan oleh perangkat lunak dan sumber daya sumber terbuka berikut.</value>
+  </data>
+  <data name="RestorePoint.Title" xml:space="preserve">
+    <value>Pemulihan Sistem</value>
+  </data>
+  <data name="RestorePointDialog.Description" xml:space="preserve">
+    <value>Titik Pemulihan memungkinkan Anda mengembalikan sistem ke kondisi sebelumnya.
+Ini adalah langkah keamanan untuk melindungi Windows Anda sebelum menerapkan perubahan.</value>
+  </data>
+  <data name="RestorePointDialog.Help" xml:space="preserve">
+    <value>Aplikasi akan secara otomatis mengaktifkan Pemulihan Sistem dan membuat titik pemulihan bernama &quot;optimizerDuck...&quot;.
+Ini memastikan Anda selalu dapat kembali jika terjadi kesalahan.</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Error.Title" xml:space="preserve">
+    <value>Tidak dapat membuat atau mengaktifkan Pemulihan Sistem.</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Error.Message" xml:space="preserve">
+    <value>Terjadi kesalahan saat membuat atau mengaktifkan Pemulihan Sistem. Silakan coba buat secara manual.</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Warning.LimitReached" xml:space="preserve">
+    <value>Titik pemulihan telah dibuat dalam 24 jam terakhir.</value>
+  </data>
+  <data name="RestorePoint.Progress.Creating" xml:space="preserve">
+    <value>Membuat titik pemulihan...</value>
+  </data>
+  <data name="RestorePoint.Progress.Enabling" xml:space="preserve">
+    <value>Mengaktifkan Pemulihan Sistem...</value>
+  </data>
+  <data name="RestorePoint.Progress.Retrying" xml:space="preserve">
+    <value>Mencoba ulang membuat titik pemulihan...</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Success.Title" xml:space="preserve">
+    <value>Titik pemulihan berhasil dibuat</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Success.Message" xml:space="preserve">
+    <value>Titik pemulihan telah dibuat dengan nama: {0}.</value>
+  </data>
+  <data name="Snackbar.OpenLinkFailed.Title" xml:space="preserve">
+    <value>Tidak dapat membuka jalur</value>
+  </data>
+  <data name="Snackbar.OpenLinkFailed.Message" xml:space="preserve">
+    <value>Terjadi kesalahan saat membuka jalur. Silakan periksa log.</value>
+  </data>
+  <data name="Snackbar.OpenFailed.Message" xml:space="preserve">
+    <value>Terjadi kesalahan saat membuka folder atau file. Silakan periksa log.</value>
+  </data>
+  <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
+    <value>Tidak dapat membuka folder atau file</value>
+  </data>
+  <data name="Button.ViewLatestRelease" xml:space="preserve">
+    <value>Lihat rilis terbaru</value>
+  </data>
+  <data name="BloatwareDialog.Title" xml:space="preserve">
+    <value>Menghapus {0} Paket AppX</value>
+  </data>
+  <data name="BloatwareDialog.Removing" xml:space="preserve">
+    <value>Menghapus {0} ({1}/{2})</value>
+  </data>
+  <data name="Bloatware.Header.Title" xml:space="preserve">
+    <value>Bloatware</value>
+  </data>
+  <data name="Bloatware.Menu.Remove" xml:space="preserve">
+    <value>Hapus ({0})</value>
+  </data>
+  <data name="Bloatware.Menu.Refresh" xml:space="preserve">
+    <value>Segarkan</value>
+  </data>
+  <data name="Bloatware.Empty.Title" xml:space="preserve">
+    <value>Tidak ada aplikasi yang tidak diperlukan ditemukan ¯\_(ツ)_/¯</value>
+  </data>
+  <data name="Bloatware.Empty.Description" xml:space="preserve">
+    <value>optimizerDuck tidak menemukan paket AppX yang dapat dihapus. Kosong melompong...</value>
+  </data>
+  <data name="Bloatware.Loading" xml:space="preserve">
+    <value>Mencari aplikasi yang dapat dihapus...</value>
+  </data>
+  <data name="Bloatware.Loading.Hint" xml:space="preserve">
+    <value>Ini mungkin memakan waktu beberapa saat selagi aplikasi memindai paket yang terinstal.</value>
+  </data>
+  <data name="Sidebar.Bloatware" xml:space="preserve">
+    <value>Bloatware</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.Title" xml:space="preserve">
+    <value>Hapus {0} Aplikasi?</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.Message" xml:space="preserve">
+    <value>Anda akan menghapus: {0}</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.Description" xml:space="preserve">
+    <value>Tinjau aplikasi yang dipilih sebelum menghapus. Lanjutkan hanya jika Anda yakin.</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.SelectedList" xml:space="preserve">
+    <value>Aplikasi yang dipilih</value>
+  </data>
+  <data name="Settings.Bloatware.Header" xml:space="preserve">
+    <value>Bloatware</value>
+  </data>
+  <data name="Settings.Bloatware.RemoveProvisioned.Title" xml:space="preserve">
+    <value>Hapus Paket yang Disediakan (Provisioned)</value>
+  </data>
+  <data name="Settings.Bloatware.RemoveProvisioned.Description" xml:space="preserve">
+    <value>Saat menghapus paket AppX yang terinstal, hapus juga paket Provisioned terkait untuk mencegah instalasi ulang otomatis pada pengguna baru.</value>
+  </data>
+  <data name="Dashboard.UpdateInfoBar.Message" xml:space="preserve">
+    <value>optimizerDuck (v{0}) telah tersedia!
+Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.</value>
+  </data>
+  <data name="Common.Search.Placeholder" xml:space="preserve">
+    <value>Cari...</value>
+  </data>
+  <data name="Common.Filter.All" xml:space="preserve">
+    <value>Semua</value>
+  </data>
+  <data name="Common.SortBy.Default" xml:space="preserve">
+    <value>Bawaan</value>
+  </data>
+  <data name="Common.SortBy.Name" xml:space="preserve">
+    <value>Nama</value>
+  </data>
+  <data name="Common.SortBy.Risk" xml:space="preserve">
+    <value>Risiko</value>
+  </data>
+  <data name="Common.SortBy.Publisher" xml:space="preserve">
+    <value>Penerbit</value>
+  </data>
+  <data name="Common.SortBy.Size" xml:space="preserve">
+    <value>Ukuran</value>
+  </data>
+  <data name="Common.SortBy.Path" xml:space="preserve">
+    <value>Jalur</value>
+  </data>
+  <data name="Optimizer.Menu.ApplyAllSafe" xml:space="preserve">
+    <value>Terapkan Semua (Aman)</value>
+  </data>
+  <data name="Optimizer.Menu.ApplyAll" xml:space="preserve">
+    <value>Terapkan Semuanya</value>
+  </data>
+  <data name="Optimizer.Menu.ViewSource" xml:space="preserve">
+    <value>Lihat Sumber</value>
+  </data>
+  <data name="Bloatware.Menu.SelectAllSafe" xml:space="preserve">
+    <value>Pilih Semua (Aman)</value>
+  </data>
+  <data name="Bloatware.Menu.DeselectAllSafe" xml:space="preserve">
+    <value>Batal Pilih Semua (Aman)</value>
+  </data>
+  <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
+    <value>Sembunyikan yang Diterapkan</value>
+  </data>
+  <data name="Optimizer.Menu.ApplyMenu" xml:space="preserve">
+    <value>Terapkan</value>
+  </data>
+  <data name="Optimizer.Menu.BatchApply.Title" xml:space="preserve">
+    <value>Menerapkan Optimasi</value>
+  </data>
+  <data name="Bloatware.Search.NoResults" xml:space="preserve">
+    <value>Tidak ada hasil yang ditemukan. Coba kata kunci pencarian atau filter yang berbeda.</value>
+  </data>
+  <data name="Common.Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="Common.SortBy" xml:space="preserve">
+    <value>Urutkan berdasarkan</value>
+  </data>
+  <data name="Sidebar.DiskCleanup" xml:space="preserve">
+    <value>Pembersihan Disk</value>
+  </data>
+  <data name="DiskCleanup.Header.Title" xml:space="preserve">
+    <value>Pembersihan Disk</value>
+  </data>
+  <data name="DiskCleanup.Header.Description" xml:space="preserve">
+    <value>Kosongkan ruang disk dengan menghapus file sementara dan cache</value>
+  </data>
+  <data name="DiskCleanup.TotalSpace" xml:space="preserve">
+    <value>Total ruang yang dapat diklaim</value>
+  </data>
+  <data name="DiskCleanup.Button.Scan" xml:space="preserve">
+    <value>Pindai</value>
+  </data>
+  <data name="DiskCleanup.Button.SelectAll" xml:space="preserve">
+    <value>Pilih Semua</value>
+  </data>
+  <data name="DiskCleanup.Button.DeselectAll" xml:space="preserve">
+    <value>Batal Pilih Semua</value>
+  </data>
+  <data name="DiskCleanup.Scanning" xml:space="preserve">
+    <value>Memindai...</value>
+  </data>
+  <data name="DiskCleanup.Loading" xml:space="preserve">
+    <value>Memuat item pembersihan...</value>
+  </data>
+  <data name="DiskCleanup.Complete.Title" xml:space="preserve">
+    <value>Pembersihan Selesai</value>
+  </data>
+  <data name="DiskCleanup.Complete.Message" xml:space="preserve">
+    <value>Berhasil mengosongkan {0} ruang disk dalam {1}</value>
+  </data>
+  <data name="DiskCleanup.Error.Title" xml:space="preserve">
+    <value>Kesalahan Pembersihan</value>
+  </data>
+  <data name="DiskCleanup.Error.Message" xml:space="preserve">
+    <value>Beberapa file tidak dapat dihapus. Mungkin sedang digunakan oleh proses lain.</value>
+  </data>
+  <data name="DiskCleanup.Item.TempFiles" xml:space="preserve">
+    <value>File Sementara</value>
+  </data>
+  <data name="DiskCleanup.Item.TempFiles.Description" xml:space="preserve">
+    <value>File sementara pengguna yang dibuat oleh aplikasi (tidak termasuk direktori temp .net)</value>
+  </data>
+  <data name="DiskCleanup.Item.SystemTemp" xml:space="preserve">
+    <value>File Sementara Sistem</value>
+  </data>
+  <data name="DiskCleanup.Item.SystemTemp.Description" xml:space="preserve">
+    <value>File sementara sistem Windows</value>
+  </data>
+  <data name="DiskCleanup.Item.WindowsUpdate" xml:space="preserve">
+    <value>Cache Pembaruan Windows</value>
+  </data>
+  <data name="DiskCleanup.Item.WindowsUpdate.Description" xml:space="preserve">
+    <value>File Pembaruan Windows yang diunduh yang tidak lagi diperlukan</value>
+  </data>
+  <data name="DiskCleanup.Item.Prefetch" xml:space="preserve">
+    <value>File Prefetch</value>
+  </data>
+  <data name="DiskCleanup.Item.Prefetch.Description" xml:space="preserve">
+    <value>Data prefetch aplikasi yang digunakan untuk mempercepat pemuatan</value>
+  </data>
+  <data name="DiskCleanup.Item.Thumbnails" xml:space="preserve">
+    <value>Cache Thumbnail</value>
+  </data>
+  <data name="DiskCleanup.Item.Thumbnails.Description" xml:space="preserve">
+    <value>Gambar thumbnail yang di-cache untuk pratinjau file Explorer</value>
+  </data>
+  <data name="DiskCleanup.Item.RecycleBin" xml:space="preserve">
+    <value>Keranjang Sampah</value>
+  </data>
+  <data name="DiskCleanup.Item.RecycleBin.Description" xml:space="preserve">
+    <value>File yang dihapus masih tersimpan di Keranjang Sampah</value>
+  </data>
+  <data name="DiskCleanup.Item.ErrorReports" xml:space="preserve">
+    <value>Laporan Kesalahan</value>
+  </data>
+  <data name="DiskCleanup.Item.ErrorReports.Description" xml:space="preserve">
+    <value>Laporan kesalahan Windows dan file crash dump</value>
+  </data>
+  <data name="DiskCleanup.Item.OldWindowsInstallation" xml:space="preserve">
+    <value>Instalasi Windows Lama (Windows.old)</value>
+  </data>
+  <data name="DiskCleanup.Item.OldWindowsInstallation.Description" xml:space="preserve">
+    <value>File instalasi Windows sebelumnya yang disimpan setelah pembaruan atau peningkatan besar</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.DeviceType.Laptop" xml:space="preserve">
+    <value>Laptop</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.DeviceType.Desktop" xml:space="preserve">
+    <value>Desktop</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.Build" xml:space="preserve">
+    <value>Build {0}</value>
+  </data>
+  <data name="Bloatware.Header.Description" xml:space="preserve">
+    <value>Kelola dan hapus aplikasi bawaan yang tidak Anda perlukan</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Header" xml:space="preserve">
+    <value>Informasi Sistem</value>
+  </data>
+  <data name="DiskCleanup.ItemsSelected" xml:space="preserve">
+    <value>{0} ({1} item dipilih)</value>
+  </data>
+  <data name="DiskCleanup.Button.Clean" xml:space="preserve">
+    <value>Bersihkan</value>
+  </data>
+  <data name="DiskCleanup.Button.CleanSelected" xml:space="preserve">
+    <value>Bersihkan Pilihan ({0})</value>
+  </data>
+  <data name="DiskCleanup.EmptySize" xml:space="preserve">
+    <value>Ukuran kosong</value>
+  </data>
+  <data name="DiskCleanup.FilesCount" xml:space="preserve">
+    <value>{0} file</value>
+  </data>
+  <data name="DiskCleanup.ItemsAndFilesSelected" xml:space="preserve">
+    <value>{0} dipilih • {1} item • {2} file</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Warning" xml:space="preserve">
+    <value>File akan dihapus permanen. Tindakan ini tidak dapat dibatalkan.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Title" xml:space="preserve">
+    <value>Bersihkan {0} Item Terpilih</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Summary" xml:space="preserve">
+    <value>Anda akan menghapus {0} dari {1} item ({2} file). Harap tinjau item di bawah ini.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.SingleTitle" xml:space="preserve">
+    <value>Bersihkan Item</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.SingleItem" xml:space="preserve">
+    <value>Anda akan menghapus {0} ({1}). Harap konfirmasi.</value>
+  </data>
+  <data name="Settings.About.NeedHelp.Title" xml:space="preserve">
+      <value>Butuh bantuan?</value>
+    </data>
+  <data name="Sidebar.StartupManager" xml:space="preserve">
+    <value>Pengelola Startup</value>
+  </data>
+  <data name="StartupManager.Header.Title" xml:space="preserve">
+    <value>Pengelola Startup</value>
+  </data>
+  <data name="StartupManager.Header.Description" xml:space="preserve">
+    <value>Kelola aplikasi dan tugas yang berjalan otomatis saat Windows dimulai.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other" xml:space="preserve">
+    <value>Lainnya</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
+    <value>Buka file json mentah yang berisi data revert untuk optimasi ini.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
+    <value>Buka kode sumber untuk optimasi ini di browser Anda.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
+    <value>Lihat Sumber di GitHub</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
+    <value>Tingkat Risiko</value>
+  </data>
+  <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
+    <value>Detail Teknis</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Id" xml:space="preserve">
+    <value>ID Optimasi</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Class" xml:space="preserve">
+    <value>Nama Kelas</value>
+  </data>
+  <data name="StartupManager.Apps.Title" xml:space="preserve">
+    <value>Aplikasi Startup</value>
+  </data>
+  <data name="StartupManager.Apps.Description" xml:space="preserve">
+    <value>Aplikasi yang berjalan otomatis saat Windows dimulai.</value>
+  </data>
+  <data name="StartupManager.Apps.CountSuffix" xml:space="preserve">
+    <value>{0} item</value>
+  </data>
+  <data name="StartupManager.Tasks.Title" xml:space="preserve">
+    <value>Tugas Terjadwal (Logon)</value>
+  </data>
+  <data name="StartupManager.Tasks.Description" xml:space="preserve">
+    <value>Tugas Windows yang dikonfigurasi untuk berjalan saat masuk atau pada jadwal tertentu.</value>
+  </data>
+  <data name="StartupManager.Tasks.CountSuffix" xml:space="preserve">
+    <value>{0} tugas</value>
+  </data>
+  <data name="StartupManager.Loading" xml:space="preserve">
+    <value>Memindai item startup...</value>
+  </data>
+  <data name="StartupManager.Loading.Hint" xml:space="preserve">
+    <value>Ini mungkin memakan waktu beberapa saat selagi aplikasi memindai registri dan folder startup.</value>
+  </data>
+  <data name="StartupManager.Empty.Title" xml:space="preserve">
+    <value>Tidak ada item startup</value>
+  </data>
+  <data name="StartupManager.Empty.Description" xml:space="preserve">
+    <value>Tidak ada aplikasi startup atau tugas terjadwal yang ditemukan pada sistem ini.</value>
+  </data>
+  <data name="StartupManager.Menu.Refresh" xml:space="preserve">
+    <value>Segarkan</value>
+  </data>
+  <data name="Common.Toggle.On" xml:space="preserve">
+    <value>Aktif</value>
+  </data>
+  <data name="Common.Toggle.Off" xml:space="preserve">
+    <value>Mati</value>
+  </data>
+  <data name="Common.SortBy.Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Common.Status.Applied" xml:space="preserve">
+    <value>Diterapkan</value>
+  </data>
+  <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
+    <value>Buka Pengaturan</value>
+  </data>
+  <!-- Scheduled Tasks (Startup Manager) -->
+  <data name="StartupManager.Tasks.HideMicrosoft" xml:space="preserve">
+    <value>Sembunyikan tugas Microsoft</value>
+  </data>
+  <!-- Sidebar -->
+  <data name="Sidebar.ScheduledTasks" xml:space="preserve">
+    <value>Tugas Terjadwal</value>
+  </data>
+  <!-- Scheduled Tasks Page -->
+  <data name="ScheduledTasks.Header.Title" xml:space="preserve">
+    <value>Tugas Terjadwal</value>
+  </data>
+  <data name="ScheduledTasks.Header.Description" xml:space="preserve">
+    <value>Lihat dan kelola tugas terjadwal Windows.</value>
+  </data>
+  <data name="ScheduledTasks.Loading" xml:space="preserve">
+    <value>Memuat tugas terjadwal...</value>
+  </data>
+  <data name="ScheduledTasks.Loading.Hint" xml:space="preserve">
+    <value>Ini mungkin memakan waktu beberapa saat selagi memindai semua tugas terjadwal di sistem Anda...</value>
+  </data>
+  <data name="ScheduledTasks.HideMicrosoft" xml:space="preserve">
+    <value>Sembunyikan tugas Microsoft</value>
+  </data>
+  <data name="ScheduledTasks.Menu.CreateTask" xml:space="preserve">
+    <value>Buat Tugas</value>
+  </data>
+  <!-- Scheduled Tasks Actions -->
+  <data name="ScheduledTasks.Action.Details" xml:space="preserve">
+    <value>Lihat Detail</value>
+  </data>
+  <data name="ScheduledTasks.Action.Run" xml:space="preserve">
+    <value>Jalankan</value>
+  </data>
+  <data name="ScheduledTasks.Action.Stop" xml:space="preserve">
+    <value>Hentikan</value>
+  </data>
+  <data name="ScheduledTasks.Action.Delete" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <!-- Scheduled Tasks Dialogs -->
+  <data name="ScheduledTasks.Dialog.DeleteTitle" xml:space="preserve">
+    <value>Hapus Tugas Terjadwal</value>
+  </data>
+  <data name="ScheduledTasks.Dialog.DeleteMessage" xml:space="preserve">
+    <value>Apakah Anda yakin ingin menghapus tugas &quot;{0}&quot;? Tindakan ini tidak dapat dibatalkan.</value>
+  </data>
+  <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
+    <value>Menghapus tugas terjadwal bersifat permanen. Tugas tidak akan lagi berjalan otomatis.</value>
+  </data>
+  <!-- Scheduled Tasks Details -->
+  <data name="ScheduledTasks.Details.Path" xml:space="preserve">
+    <value>Jalur</value>
+  </data>
+  <data name="ScheduledTasks.Details.Description" xml:space="preserve">
+    <value>Deskripsi</value>
+  </data>
+  <data name="ScheduledTasks.Details.Author" xml:space="preserve">
+    <value>Penulis</value>
+  </data>
+  <data name="ScheduledTasks.Details.State" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="ScheduledTasks.Details.Triggers" xml:space="preserve">
+    <value>Pemicu</value>
+  </data>
+  <data name="ScheduledTasks.Details.Action" xml:space="preserve">
+    <value>Aksi</value>
+  </data>
+  <data name="ScheduledTasks.Details.LastRun" xml:space="preserve">
+    <value>Terakhir Dijalankan</value>
+  </data>
+  <data name="ScheduledTasks.Details.NextRun" xml:space="preserve">
+    <value>Jalankan Berikutnya</value>
+  </data>
+  <data name="ScheduledTasks.Details.LastResult" xml:space="preserve">
+    <value>Hasil Terakhir</value>
+  </data>
+  <!-- Common -->
+  <data name="Common.Delete" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Batal</value>
+  </data>
+  <data name="Common.Empty" xml:space="preserve">
+    <value>Kosong</value>
+  </data>
+  <data name="Common.SortBy.State" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="ScheduledTasks.Menu.OpenSettings" xml:space="preserve">
+    <value>Buka Penjadwal Tugas</value>
+  </data>
+  <data name="ScheduledTasks.Details.Name" xml:space="preserve">
+    <value>Nama</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Enabled.Title" xml:space="preserve">
+    <value>Tugas Diaktifkan</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Disabled.Title" xml:space="preserve">
+    <value>Tugas Dinonaktifkan</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Toggle.Message" xml:space="preserve">
+    <value>{0} telah berhasil diperbarui.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Run.Title" xml:space="preserve">
+    <value>Tugas Dimulai</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Run.Message" xml:space="preserve">
+    <value>{0} sekarang sedang berjalan.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Stop.Title" xml:space="preserve">
+    <value>Tugas Dihentikan</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Stop.Message" xml:space="preserve">
+    <value>{0} telah dihentikan.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Delete.Title" xml:space="preserve">
+    <value>Tugas Dihapus</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Delete.Message" xml:space="preserve">
+    <value>{0} telah dihapus.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Create.Title" xml:space="preserve">
+    <value>Tugas Dibuat</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Create.Message" xml:space="preserve">
+    <value>{0} telah berhasil dibuat.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Error.Title" xml:space="preserve">
+
+    <value>Kesalahan</value>
+  </data>
+  <data name="Settings.About.NeedHelp.Description" xml:space="preserve">
+      <value>Jika Anda membutuhkan bantuan terkait optimasi atau memiliki pertanyaan, silakan bergabung dengan komunitas kami untuk dukungan cepat.</value>
+    </data>
+  <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
+      <value>Tugas tidak ditemukan: {0}</value>
+    </data>
+  <data name="Service.Registry.Name" xml:space="preserve">
+    <value>Registri</value>
+  </data>
+  <data name="Service.Service.Name" xml:space="preserve">
+    <value>Layanan</value>
+  </data>
+  <data name="Service.ScheduledTask.Name" xml:space="preserve">
+    <value>Tugas Terjadwal</value>
+  </data>
+  <data name="Service.Shell.Name" xml:space="preserve">
+    <value>Shell</value>
+  </data>
+  <data name="Service.Registry.Description.Write" xml:space="preserve">
+    <value>Menulis nilai registri: {0}\{1}</value>
+  </data>
+  <data name="Service.Registry.Description.Delete" xml:space="preserve">
+    <value>Menghapus nilai registri: {0}\{1}</value>
+  </data>
+  <data name="Service.Service.Description.Change" xml:space="preserve">
+    <value>Mengubah layanan &apos;{0}&apos; menjadi startup {1}</value>
+  </data>
+  <data name="Service.ScheduledTask.Description.Enable" xml:space="preserve">
+    <value>Mengaktifkan tugas terjadwal: {0}</value>
+  </data>
+  <data name="Service.ScheduledTask.Description.Disable" xml:space="preserve">
+    <value>Menonaktifkan tugas terjadwal: {0}</value>
+  </data>
+  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedDisable" xml:space="preserve">
+    <value>Akses ditolak saat menonaktifkan tugas {0}</value>
+  </data>
+  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedEnable" xml:space="preserve">
+    <value>Akses ditolak saat mengaktifkan tugas {0}</value>
+  </data>
+  <data name="Revert.Registry.Description.Restore" xml:space="preserve">
+    <value>Memulihkan nilai registri: {0}\{1}</value>
+  </data>
+  <data name="Revert.Registry.Description.Delete" xml:space="preserve">
+    <value>Menghapus nilai registri: {0}\{1}</value>
+  </data>
+  <data name="Revert.Service.Description.Restore" xml:space="preserve">
+    <value>Memulihkan layanan &apos;{0}&apos; ke startup {1}</value>
+  </data>
+  <data name="Revert.ScheduledTask.Description.Enable" xml:space="preserve">
+    <value>Mengaktifkan tugas terjadwal: {0}</value>
+  </data>
+  <data name="Revert.ScheduledTask.Description.Disable" xml:space="preserve">
+    <value>Menonaktifkan tugas terjadwal: {0}</value>
+  </data>
+  <data name="Revert.Shell.Description.Run" xml:space="preserve">
+    <value>Menjalankan perintah {0}: {1}</value>
+  </data>
+  <data name="Revert.Shell.Error.UnknownShellType" xml:space="preserve">
+    <value>Jenis shell tidak diketahui</value>
+  </data>
+  <data name="Revert.Shell.Error.CommandFailed" xml:space="preserve">
+    <value>Perintah revert gagal dengan kode keluar {0}</value>
+  </data>
+  <data name="Revert.UsbPower.Error.CommandFailed" xml:space="preserve">
+    <value>Revert daya USB gagal dengan kode keluar {0}</value>
+  </data>
+  <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
+    <value>Tampilkan notifikasi penyelesaian</value>
+  </data>
+  <data name="Settings.Optimize.ShowCompletionNotification.Description" xml:space="preserve">
+    <value>Menampilkan notifikasi ketika optimasi telah berhasil diterapkan atau dikembalikan (revert).</value>
+  </data>
+  <data name="Optimizations.Loading" xml:space="preserve">
+    <value>Memuat optimasi...</value>
+  </data>
+  <data name="Optimizations.Loading.Hint" xml:space="preserve">
+    <value>Mohon tunggu...</value>
+  </data>
+  <data name="Common.OpenFolder" xml:space="preserve">
+    <value>Buka Folder</value>
+  </data>
+  <data name="Common.Other" xml:space="preserve">
+    <value>Lainnya</value>
+  </data>
+  <data name="Sidebar.Customize" xml:space="preserve">
+    <value>Kustomisasi</value>
+  </data>
+  <data name="Customize.Title" xml:space="preserve">
+    <value>Kustomisasi</value>
+  </data>
+  <data name="Customize.SystemFeatures.Name" xml:space="preserve">
+    <value>Sistem</value>
+  </data>
+  <data name="Customize.SystemFeatures.Description" xml:space="preserve">
+    <value>Fitur Windows yang berguna dan perilaku sistem.</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Input" xml:space="preserve">
+    <value>Pengaturan Masukan</value>
+  </data>
+  <data name="Customize.SystemFeatures.NumLockOnBoot.Name" xml:space="preserve">
+    <value>NumLock saat Boot</value>
+  </data>
+  <data name="Customize.SystemFeatures.NumLockOnBoot.Description" xml:space="preserve">
+    <value>Mengatur apakah Num Lock aktif saat Windows mencapai layar masuk (sign-in).</value>
+  </data>
+  <data name="Customize.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
+    <value>Mengaktifkan NumLock saat boot memastikan numpad langsung siap digunakan setelah login, menghindari penyalaan manual setiap kali.</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Power" xml:space="preserve">
+    <value>Pengaturan Daya</value>
+  </data>
+  <data name="Customize.Desktop.Name" xml:space="preserve">
+    <value>Desktop</value>
+  </data>
+  <data name="Customize.Desktop.Description" xml:space="preserve">
+    <value>Ikon desktop dan tampilan pintasan (shortcut).</value>
+  </data>
+  <data name="Customize.Desktop.Section.Icons" xml:space="preserve">
+    <value>Ikon Desktop</value>
+  </data>
+  <data name="Customize.Desktop.Section.Behaviors" xml:space="preserve">
+    <value>Perilaku Pintasan</value>
+  </data>
+  <data name="Customize.Desktop.ShowThisPc.Name" xml:space="preserve">
+    <value>PC Ini (This PC)</value>
+  </data>
+  <data name="Customize.Desktop.ShowThisPc.Description" xml:space="preserve">
+    <value>Menampilkan atau menyembunyikan ikon This PC di desktop.</value>
+  </data>
+  <data name="Customize.Desktop.ShowRecycleBin.Name" xml:space="preserve">
+    <value>Keranjang Sampah</value>
+  </data>
+  <data name="Customize.Desktop.ShowRecycleBin.Description" xml:space="preserve">
+    <value>Menampilkan atau menyembunyikan ikon Keranjang Sampah di desktop.</value>
+  </data>
+  <data name="Customize.Desktop.ShowUserFiles.Name" xml:space="preserve">
+    <value>File Pengguna</value>
+  </data>
+  <data name="Customize.Desktop.ShowUserFiles.Description" xml:space="preserve">
+    <value>Menampilkan atau menyembunyikan folder pengguna Anda di desktop.</value>
+  </data>
+  <data name="Customize.Desktop.ShowNetwork.Name" xml:space="preserve">
+    <value>Jaringan</value>
+  </data>
+  <data name="Customize.Desktop.ShowNetwork.Description" xml:space="preserve">
+    <value>Menampilkan atau menyembunyikan ikon Jaringan di desktop.</value>
+  </data>
+  <data name="Customize.Desktop.ShowControlPanel.Name" xml:space="preserve">
+    <value>Control Panel</value>
+  </data>
+  <data name="Customize.Desktop.ShowControlPanel.Description" xml:space="preserve">
+    <value>Menampilkan atau menyembunyikan ikon Control Panel di desktop.</value>
+  </data>
+  <data name="Customize.Desktop.ShowDesktopIcons.Name" xml:space="preserve">
+    <value>Ikon Desktop</value>
+  </data>
+  <data name="Customize.Desktop.ShowDesktopIcons.Description" xml:space="preserve">
+    <value>Menampilkan atau menyembunyikan semua ikon desktop sekaligus.</value>
+  </data>
+  <data name="Customize.Desktop.ShortcutArrow.Name" xml:space="preserve">
+    <value>Panah Pintasan (Shortcut)</value>
+  </data>
+  <data name="Customize.Desktop.ShortcutArrow.Description" xml:space="preserve">
+    <value>Menghapus tanda panah melengkung dari ikon pintasan desktop.</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Name" xml:space="preserve">
+    <value>Lokasi Awal File Explorer</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Description" xml:space="preserve">
+    <value>Pilih apakah File Explorer membuka ke PC Ini atau Akses Cepat.</value>
+  </data>
+  <data name="Customize.Preferences.BingSearch.Name" xml:space="preserve">
+    <value>Pencarian Bing</value>
+  </data>
+  <data name="Customize.Preferences.BingSearch.Description" xml:space="preserve">
+    <value>Menyertakan hasil web Bing bersama hasil lokal di Pencarian Windows dan menu Start.</value>
+  </data>
+  <data name="Customize.Preferences.BingSearch.Recommendation.Reason" xml:space="preserve">
+    <value>Menonaktifkan pencarian Bing mencegah kueri web mengacaukan hasil pencarian lokal dan meningkatkan kecepatan pencarian.</value>
+  </data>
+  <data name="Button.Accept" xml:space="preserve">
+    <value>Terima</value>
+  </data>
+  <data name="LegalDialog.Title" xml:space="preserve">
+    <value>Perjanjian Hukum</value>
+  </data>
+  <data name="LegalDialog.Intro.ThankYou" xml:space="preserve">
+    <value>Terima kasih telah memilih optimizerDuck.</value>
+  </data>
+  <data name="LegalDialog.Intro.Safety" xml:space="preserve">
+    <value>Demi transparansi dan keamanan Anda, optimizerDuck mungkin menyesuaikan pengaturan sistem dan konfigurasi registri tertentu.</value>
+  </data>
+  <data name="LegalDialog.Intro.Review" xml:space="preserve">
+    <value>Harap luangkan waktu untuk meninjau dokumen berikut. Dengan melanjutkan, Anda menyetujui ketentuan ini.</value>
+  </data>
+  <data name="LegalDialog.Link.TermsOfService" xml:space="preserve">
+    <value>Ketentuan Layanan</value>
+  </data>
+  <data name="LegalDialog.Link.PrivacyPolicy" xml:space="preserve">
+    <value>Kebijakan Privasi</value>
+  </data>
+  <data name="LegalDialog.Link.Disclaimer" xml:space="preserve">
+    <value>Penafian</value>
+  </data>
+  <data name="LegalDialog.Warning.Title" xml:space="preserve">
+    <value>Gunakan dengan risiko Anda sendiri</value>
+  </data>
+  <data name="LegalDialog.Warning.Message" xml:space="preserve">
+    <value>Kami menyarankan untuk membuat cadangan sebelum menerapkan perubahan apa pun.</value>
+  </data>
+  <data name="Dialog.PendingChanges.Title" xml:space="preserve">
+    <value>Terapkan Perubahan</value>
+  </data>
+  <data name="Dialog.PendingChanges.Content" xml:space="preserve">
+    <value>Beberapa perubahan memerlukan restart agar berlaku. Apa yang ingin Anda lakukan sebelum keluar?</value>
+  </data>
+  <data name="Dialog.PendingChanges.CloseButton" xml:space="preserve">
+    <value>Keluar Saja</value>
+  </data>
+  <data name="Dialog.PendingChanges.PrimaryButton" xml:space="preserve">
+    <value>Restart PC</value>
+  </data>
+  <data name="Dialog.PendingChanges.SecondaryButton" xml:space="preserve">
+    <value>Restart Explorer</value>
+  </data>
+  <data name="Settings.About.Documentation.Title" xml:space="preserve">
+    <value>Dokumentasi</value>
+  </data>
+  <data name="Settings.About.Documentation.Description" xml:space="preserve">
+    <value>Lihat dokumentasi, panduan penggunaan, dan FAQ.</value>
+  </data>
+  <data name="TitleBar.Support" xml:space="preserve">
+    <value>Dukung Proyek Ini</value>
+  </data>
+  <data name="TitleBar.Discord" xml:space="preserve">
+    <value>Bergabung dengan komunitas Discord</value>
+  </data>
+
+  <data name="Customize.SystemFeatures.Section.Developer" xml:space="preserve">
+    <value>Pengembang</value>
+  </data>
+
+
+  <!-- Developer Mode -->
+  <data name="Customize.SystemFeatures.DeveloperMode.Name" xml:space="preserve">
+    <value>Mode Pengembang</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Description" xml:space="preserve">
+    <value>Menyediakan alat untuk sideloading aplikasi, Device Portal, SSH, dan tugas pengembangan lainnya.</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Recommendation.Reason" xml:space="preserve">
+    <value>Mode Pengembang mengaktifkan fitur sideloading dan diagnostik yang penting untuk pengembangan dan debugging aplikasi.</value>
+  </data>
+
+  <!-- Allow All Trusted Apps -->
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Name" xml:space="preserve">
+    <value>Aplikasi Tepercaya</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Description" xml:space="preserve">
+    <value>Mengizinkan aplikasi Windows tepercaya untuk diinstal tanpa memerlukan Mode Pengembang.</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Recommendation.Reason" xml:space="preserve">
+    <value>Mengizinkan semua aplikasi tepercaya memungkinkan sideloading tanpa Mode Pengembang; menonaktifkan membatasi instalasi hanya ke Microsoft Store.</value>
+  </data>
+
+  <!-- Long Paths -->
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Name" xml:space="preserve">
+    <value>Dukungan Jalur Panjang (&gt;260 karakter)</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Description" xml:space="preserve">
+    <value>Mengizinkan aplikasi yang kompatibel untuk bekerja dengan jalur file lebih panjang dari batas tradisional 260 karakter.</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Recommendation.Reason" xml:space="preserve">
+    <value>Dukungan jalur panjang mencegah kesalahan akses file saat bekerja dengan direktori yang sangat bersarang atau proyek dengan nama panjang.</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Name" xml:space="preserve">
+    <value>Tampilan Kotak Pencarian</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Description" xml:space="preserve">
+    <value>Pilih apakah taskbar menampilkan kotak pencarian, ikon pencarian, atau tanpa kontrol pencarian.</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Hidden" xml:space="preserve">
+    <value>Tersembunyi</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Icon" xml:space="preserve">
+    <value>Ikon Saja</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.IconAndLabel" xml:space="preserve">
+    <value>Ikon + Label</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.SearchBox" xml:space="preserve">
+    <value>Kotak Pencarian</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarLastActiveClick.Name" xml:space="preserve">
+    <value>Klik Aktif Terakhir</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarLastActiveClick.Description" xml:space="preserve">
+    <value>Membuat klik taskbar membuka jendela yang terakhir digunakan untuk aplikasi tersebut.</value>
+  </data>
+<data name="Customize.SystemFeatures.ShowBatteryPercentage.Name" xml:space="preserve">
+    <value>Persentase Baterai</value>
+  </data>
+  <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
+    <value>Menampilkan persentase baterai saat ini di samping ikon baterai di system tray.</value>
+  </data>
+</root>

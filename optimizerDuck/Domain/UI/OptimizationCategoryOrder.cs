@@ -11,9 +11,6 @@ public enum OptimizationCategoryOrder
     /// <summary>Security and privacy optimizations.</summary>
     SecurityAndPrivacy,
 
-    /// <summary>GPU-specific optimizations.</summary>
-    Gpu,
-
     /// <summary>Power management optimizations.</summary>
     Power,
 
@@ -22,4 +19,7 @@ public enum OptimizationCategoryOrder
 
     /// <summary>User experience and visual optimizations.</summary>
     UserExperience,
+
+    /// <summary>AI-related optimizations.</summary>
+    AI,
 }
