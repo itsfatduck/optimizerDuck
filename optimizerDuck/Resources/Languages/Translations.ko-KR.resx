@@ -1329,10 +1329,10 @@
     <value>새로 고침</value>
   </data>
   <data name="Common.Toggle.On" xml:space="preserve">
-    <value>~에</value>
+    <value>켜짐</value>
   </data>
   <data name="Common.Toggle.Off" xml:space="preserve">
-    <value>끄기</value>
+    <value>꺼짐</value>
   </data>
   <data name="Common.SortBy.Status" xml:space="preserve">
     <value>상태</value>
