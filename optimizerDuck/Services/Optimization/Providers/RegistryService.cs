@@ -902,7 +902,11 @@ public static class RegistryService
     }
 
     /// <summary>Removes empty registry keys that were created during an apply operation.</summary>
-    /// <remarks>Only deletes keys that were created during apply (tracked in <paramref name="createdSubKeys"/>) and are now completely empty — no values and no subkeys. Sorts by path depth descending so child keys are deleted before parents.</remarks>
+    /// <remarks>
+    ///     Only deletes keys that were created during apply (tracked in
+    ///     <paramref name="createdSubKeys" />) and are now completely empty (no values, no
+    ///     subkeys). Sorts by path depth descending so child keys are deleted before parents.
+    /// </remarks>
     /// <param name="createdSubKeys">The list of registry key paths that were created.</param>
     public static void CleanupEmptyKeys(IEnumerable<string> createdSubKeys)
     {

@@ -4,6 +4,7 @@ using System.Windows.Data;
 
 namespace optimizerDuck.Common.Converters;
 
+/// <summary>Comparison operators supported by <see cref="NumericComparisonToVisibilityConverter"/>.</summary>
 public enum NumericComparisonType
 {
     GreaterThan,
@@ -14,6 +15,7 @@ public enum NumericComparisonType
     NotEqual,
 }
 
+/// <summary>Shows or hides a control based on how an integer compares to a threshold.</summary>
 public class NumericComparisonToVisibilityConverter : IValueConverter
 {
     public NumericComparisonType ComparisonType { get; set; } = NumericComparisonType.GreaterThan;

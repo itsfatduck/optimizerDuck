@@ -3,6 +3,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Domain.Abstractions;
+using optimizerDuck.Domain.Conditions;
+using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Customize.Models;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Services.Configuration;
@@ -33,7 +35,12 @@ public partial class CustomizeItemViewModel(
 
     public ICustomizeSetting Setting => setting;
     public CustomizeControlType ControlType => setting.ControlType;
-    public IReadOnlyList<SettingOption>? Options => setting.Options;
+
+    // Populated by LoadStateAsync: materializing Options here would perform registry
+    // I/O on the UI thread during construction.
+    [ObservableProperty]
+    private IReadOnlyList<SettingOption>? _options;
+
     public SymbolRegular Icon => setting.Icon;
 
     [ObservableProperty]
@@ -57,8 +64,24 @@ public partial class CustomizeItemViewModel(
     [ObservableProperty]
     private object? _currentValue;
 
+    /// <summary>Gets or sets the evaluated compatibility result for this setting.</summary>
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsUnsupported))]
+    [NotifyPropertyChangedFor(nameof(ConditionTitle))]
+    [NotifyPropertyChangedFor(nameof(ConditionDescription))]
+    private ConditionResult _conditionResult = ConditionResult.Available;
+
     public CustomizeRecommendationResult? Recommendation => setting.GetRecommendation();
     public bool HasRecommendation => Recommendation != null;
+
+    /// <summary>Gets whether this setting is unsupported on the current system.</summary>
+    public bool IsUnsupported => ConditionResult.IsBlocking;
+
+    /// <summary>Gets the localized condition failure title, or <c>null</c>.</summary>
+    public string? ConditionTitle => ConditionResult.Title;
+
+    /// <summary>Gets the localized condition failure description, or <c>null</c>.</summary>
+    public string? ConditionDescription => ConditionResult.Description;
 
     public string? RecommendationStateDisplay =>
         Recommendation?.State switch
@@ -83,12 +106,24 @@ public partial class CustomizeItemViewModel(
     public string? RecommendationReason =>
         Recommendation != null ? Loc.Instance[Recommendation.ReasonTranslationKey] : null;
 
+    /// <summary>
+    ///     Loads the setting's current state, effective options and value, then subscribes
+    ///     to registry changes. Registry I/O runs on the thread pool.
+    /// </summary>
     public async Task LoadStateAsync()
     {
         try
         {
-            IsEnabled = await setting.GetStateAsync();
-            CurrentValue = setting.CurrentValue;
+            // Registry I/O (state query, options, current value) runs on the thread pool
+            // so page load never blocks the UI thread.
+            IsEnabled = await Task.Run(() => setting.GetStateAsync());
+
+            // Publish the effective options before the selection value so the ComboBox
+            // item list already contains the value when the SelectedValue binding resolves.
+            var options = await Task.Run(() => setting.Options);
+            UpdateOptions(options);
+
+            CurrentValue = await Task.Run(() => setting.CurrentValue);
             _hasLoaded = true;
 
             SubscribeToRegistryChanges();
@@ -97,6 +132,36 @@ public partial class CustomizeItemViewModel(
         {
             IsEnabled = false;
         }
+    }
+
+    /// <summary>
+    ///     Publishes the given options only when the list actually changed, so the ComboBox
+    ///     isn't needlessly rebuilt.
+    /// </summary>
+    private void UpdateOptions(IReadOnlyList<SettingOption>? options)
+    {
+        if (HasSameOptionValues(Options, options))
+            return;
+
+        Options = options;
+    }
+
+    private static bool HasSameOptionValues(
+        IReadOnlyList<SettingOption>? a,
+        IReadOnlyList<SettingOption>? b
+    )
+    {
+        if (a is null || b is null)
+            return a is null && b is null;
+
+        if (a.Count != b.Count)
+            return false;
+
+        for (var i = 0; i < a.Count; i++)
+            if (!Equals(a[i].Value, b[i].Value))
+                return false;
+
+        return true;
     }
 
     private void SubscribeToRegistryChanges()
@@ -114,7 +179,7 @@ public partial class CustomizeItemViewModel(
             registryWatcher.RegistryKeyChanged += OnRegistryKeyChanged;
     }
 
-    private async void OnRegistryKeyChanged(object? sender, string path)
+    private void OnRegistryKeyChanged(object? sender, string path)
     {
         if (_disposed || !_hasLoaded)
             return;
@@ -122,29 +187,44 @@ public partial class CustomizeItemViewModel(
         if (!_watchedPaths.Contains(path))
             return;
 
-        await Application.Current.Dispatcher.InvokeAsync(async () =>
-        {
-            try
-            {
-                lock (_applyLock)
-                {
-                    if (_isApplying)
-                        return;
-                }
+        // The watcher raises on a background thread, so run the refresh on the UI thread.
+        // UiThread.InvokeAsync resolves to the Func<Task> overload (the method returns
+        // Task), so the refresh task is observed rather than fire-and-forgotten. When no
+        // WPF Application exists (unit tests), it runs inline instead.
+        _ = UiThread.InvokeAsync(RefreshFromRegistryAsync);
+    }
 
-                var state = await setting.GetStateWithRetryAsync(maxRetries: 4, delayMs: 80);
-                IsEnabled = state;
-                CurrentValue = setting.CurrentValue;
-            }
-            catch (Exception ex)
+    /// <summary>
+    ///     Re-reads the live registry state and republishes the effective options and the
+    ///     selection value. Marshalled to the UI thread by <see cref="OnRegistryKeyChanged"/>
+    ///     when a watched key changes; also called directly from tests.
+    /// </summary>
+    internal async Task RefreshFromRegistryAsync()
+    {
+        try
+        {
+            lock (_applyLock)
             {
-                _logger.LogWarning(
-                    ex,
-                    "RegistryWatcher: failed to refresh state for {Setting}",
-                    setting.Name
-                );
+                if (_isApplying)
+                    return;
             }
-        });
+
+            // Only the refresh bookkeeping runs on the UI thread; the reads stay off it.
+            IsEnabled = await Task.Run(
+                () => setting.GetStateWithRetryAsync(maxRetries: 4, delayMs: 80)
+            );
+            var options = await Task.Run(() => setting.Options);
+            UpdateOptions(options);
+            CurrentValue = await Task.Run(() => setting.CurrentValue);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(
+                ex,
+                "RegistryWatcher: failed to refresh state for {Setting}",
+                setting.Name
+            );
+        }
     }
 
     [RelayCommand]
@@ -248,14 +328,19 @@ public partial class CustomizeItemViewModel(
                         await setting.ApplyAsync(valueToApply);
                     }
 
-                    IsEnabled = await setting.GetStateWithRetryAsync();
+                    IsEnabled = await Task.Run(() => setting.GetStateWithRetryAsync());
 
                     if (ControlType != CustomizeControlType.Toggle)
                     {
-                        CurrentValue = setting.CurrentValue;
+                        var (options, current) = await Task.Run(
+                            () => (setting.Options, setting.CurrentValue)
+                        );
+                        UpdateOptions(options);
+                        CurrentValue = current;
                     }
 
-                    ((App)Application.Current).HasPendingChanges = true;
+                    if (Application.Current is App app)
+                        app.HasPendingChanges = true;
                 }
                 catch (Exception ex)
                 {

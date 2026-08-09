@@ -18,13 +18,12 @@ public static class ServiceProcessService
     /// <summary>
     ///     Matches the START_TYPE line in <c>sc qc</c> output.
     ///     Format: <c>FIELD_NAME    : &lt;0-4&gt;   DESCRIPTION</c>
-    ///     Uses <c>[0-4]</c> to match all possible START_TYPE values
+    ///     Uses <c>[0-4]</c> to cover every START_TYPE value
     ///     (0=Boot, 1=System, 2=Auto, 3=Demand, 4=Disabled).
-    ///     The first matching line is always START_TYPE because it appears
-    ///     before ERROR_CONTROL and TAG in the fixed output order.
-    ///     The field name is locale-dependent, so structural matching only.
-    ///     Group 1 = numeric start value (0-4), Group 2 = description text
-    ///     (used for delayed-auto detection on value 2).
+    ///     START_TYPE is the first matching line: it appears before ERROR_CONTROL and
+    ///     TAG in the fixed output order. The field name is locale-dependent, so we
+    ///     match structurally only. Group 1 = numeric start value (0-4); Group 2 =
+    ///     description text (used for delayed-auto detection on value 2).
     /// </summary>
     private static readonly Regex _startTypeLineRegex = new(
         @"^\s*\S+\s*:\s*([0-4])\s(.+)$",

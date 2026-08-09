@@ -22,7 +22,7 @@ public static class CrossPageEventBus
     /// <typeparam name="T">An event type that implements <see cref="ICrossPageEvent"/>.</typeparam>
     /// <remarks>
     ///     The target page picks up this notification the next time it navigates to.
-    ///     Multiple notifications for the same type are coalesced into one.
+    ///     Multiple notifications for the same type are merged into one.
     /// </remarks>
     public static void NotifyDataChanged<T>()
         where T : ICrossPageEvent

@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
+using optimizerDuck.Domain.Conditions;
 using optimizerDuck.Domain.Customize.Models;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Services.Configuration;
@@ -125,7 +126,11 @@ public class SystemFeatures : ICustomizeCategory
 
     #endregion
 
-    [CustomizeSetting(Section = nameof(Sections.Power), Icon = SymbolRegular.BatteryCharge24)]
+    [CustomizeSetting(
+        Section = nameof(Sections.Power),
+        Icon = SymbolRegular.BatteryCharge24,
+        Condition = typeof(Windows11Condition)
+    )]
     public class ShowBatteryPercentage : BaseCustomizeSetting
     {
         private const string RegPath =

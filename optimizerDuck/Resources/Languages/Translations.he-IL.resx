@@ -124,6 +124,12 @@
   <data name="Dashboard.Header.Title" xml:space="preserve">
     <value>לוח בקרה</value>
   </data>
+  <data name="Optimizer.AI.DisableRecall.ShortDescription" xml:space="preserve">
+    <value>משבית את תכונת הבינה המלאכותית Windows Recall, הלוכדת ומבנה אינדקס של צילומי מסך. כמו כן מסיר את רכיב Recall ומוחק צילומים שנשמרו בעבר; נדרשת הפעלה מחדש כדי שהשינוי ייכנס לתוקף.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
+    <value>מכבה את עדכון החדשות והעניינים ומסתיר את הכפתור שלו בשורת המשימות (Windows 10), ומשבית את לוח הווידג'טים (Windows 11).</value>
+  </data>
   <data name="Sidebar.Dashboard" xml:space="preserve">
     <value>לוח בקרה</value>
   </data>
@@ -274,8 +280,8 @@
   <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
     <value>תגיות</value>
   </data>
-  <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
-    <value>מגדיר את סף הפיצול של Service Host כך שיתאים לכלל זיכרון ה-RAM במערכת, ומאלץ את Windows לבודד שירותים לתהליכים נפרדים לשיפור היציבות.</value>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
+    <value>מעלה את סף פיצול מארח השירותים לסך הזיכרון של המערכת, ושומר על שירותים מאוחדים בפחות תהליכים כדי להפחית את צריכת הזיכרון ואת מספר התהליכים.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
     <value>זיהוי תוכנית צריכת החשמל הפעילה הנוכחית נכשל.</value>
@@ -312,15 +318,6 @@
   </data>
   <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
     <value>תגיות אלה מציינות אילו חלקים במערכת יושפעו מהמיטוב.</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
-    <value>NVIDIA</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
-    <value>AMD</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
-    <value>Intel</value>
   </data>
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
     <value>צריכת חשמל</value>
@@ -613,10 +610,10 @@
   <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
     <value>מונע מאפליקציות לא פעילות לרוץ ברקע כדי לפנות זיכרון RAM ולהפחית עומס על המעבד.</value>
   </data>
-  <data name="Optimizer.Performance.SvcHostSplit.Name" xml:space="preserve">
-    <value>מיטוב בידוד שירותים</value>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.Name" xml:space="preserve">
+    <value>איחוד מארחי שירותים</value>
   </data>
-  <data name="Optimizer.Performance.SvcHostSplit.Error.InvalidRAM" xml:space="preserve">
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.Error.InvalidRAM" xml:space="preserve">
     <value>זיכרון RAM לא תקין: {0}</value>
   </data>
   <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
@@ -713,13 +710,13 @@
     <value>השבתת רישום פעילות ברקע</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
-    <value>עוצר רישום אירועי מערכת לא חיוני כדי להפחית פעילות דיסק מתמשכת ולחסוך במחזורי מעבד.</value>
+    <value>מונע הפעלת מושבי WMI/ETW AutoLogger שאינם חיוניים (Diagtrack-Listener, SQMLogger וכו') בעת האתחול כדי להפחית פעילות דיסק ומעבד ברקע. הערה: תוכנת אבטחה עשויה לסמן שינויים ב-AutoLogger מכיוון שהם משנים את מעקב האבחון.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
     <value>השבתת Cortana וחיפוש באינטרנט</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
-    <value>מכבה את עוזרת הקול Cortana ומסיר את תוצאות האינטרנט של Bing משורת החיפוש של Windows.</value>
+    <value>מכבה את העוזרת הקולית Cortana ומשבית חיפוש ענן ותוצאות אינטרנט בחיפוש Windows (Windows 10 בלבד).</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
     <value>השבתת Windows Copilot</value>
@@ -760,9 +757,6 @@
   <data name="Optimizer.UI.Tags.Windows11Only" xml:space="preserve">
     <value>Windows 11 בלבד</value>
   </data>
-  <data name="Optimizer.Gpu" xml:space="preserve">
-    <value>מעבד גרפי (GPU)</value>
-  </data>
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>חוויית משתמש</value>
   </data>
@@ -783,54 +777,6 @@
   </data>
   <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
     <value>משבית אנימציות של שורת המשימות, צללים ברשימות, שקיפות חלונות ו-Aero Peek כדי לפנות משאבי מעבד גרפי/מעבד לשיפור הביצועים.</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
-    <value>השבתת AMD ULPS</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
-    <value>מגדיר EnableULPS=0 ברישום של מעבד גרפי AMD כדי למנוע השהיות התעוררות ממצב Ultra Low Power ובעיות ריבוי מסכים. מפחית חיסכון בחשמל במצב סרק.</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
-    <value>השבתת AMD Power Gating</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
-    <value>מגדיר DisablePowerGating=1, PP_GPUPowerDownEnabled=0, DisableDynamicPstate=1 כדי למנוע מעברי מצב חשמל של מעבד גרפי AMD. שומר על תדרים עקביים במחיר צריכת חשמל גבוהה יותר בסרק.</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
-    <value>השבתת AMD Video Clock Gating</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-    <value>מגדיר DisableVCEPowerGating=1, DisableVceClockGating=1, EnableUvdClockGating=0 עבור מנועי הווידאו של AMD‏ (VCE/UVD) לשיפור יציבות הקידוד/פענוח. מגדיל את צריכת החשמל בהפעלת וידאו.</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
-    <value>השבתת AMD ASPM</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
-    <value>מגדיר EnableAspmL0s=0, EnableAspmL1=0 כדי להשבית ניהול צריכת חשמל לפי מצב פעיל (ASPM) במעבדים גרפיים של AMD, ומפחית את השהיית אפיק ה-PCIe. מגדיל את צריכת החשמל של החריץ.</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
-    <value>השבתת NVIDIA Dynamic P-State</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
-    <value>מגדיר DisableDynamicPstate=1 כדי לנעול את המעבד הגרפי של NVIDIA למצב ביצועים קבוע ולמנוע תנודות במהירות השעון. מגדיל את צריכת החשמל בסרק.</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
-    <value>השבתת NVIDIA Async P-States</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
-    <value>מגדיר DisableASyncPstates=1 כדי למנוע החלפת מצבי חשמל אסינכרונית של NVIDIA, ומספק ביצועים דטרמיניסטיים לאפליקציות VR/זמן-אמת.</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
-    <value>השבתת Intel Async Flips</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
-    <value>מגדיר Display1_DisableAsyncFlips=1 כדי לאלץ החלפות מאגר סינכרוניות במעבד הגרפי המשולב של Intel, ומפחית את ההשהיה מקלט לתצוגה וקרעי מסך.</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
-    <value>השבתת Intel Adaptive V-Sync</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
-    <value>מגדיר AdaptiveVsyncEnable=0 כדי להשבית את ה-V-Sync המסתגל של Intel שמתאים את עצמו דינמית לקצב הפריימים, ומשתמש ב-V-Sync קבוע במקום לתזמון יציב.</value>
   </data>
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
     <value>שורת המשימות</value>
@@ -1841,7 +1787,7 @@
   <data name="Customize.Preferences.TaskbarLastActiveClick.Description" xml:space="preserve">
     <value>פותח את החלון האחרון שהיה בשימוש באפליקציה בעת לחיצה על הסמל שלה בשורת המשימות.</value>
   </data>
-<data name="Customize.SystemFeatures.ShowBatteryPercentage.Name" xml:space="preserve">
+  <data name="Customize.SystemFeatures.ShowBatteryPercentage.Name" xml:space="preserve">
     <value>אחוז הסוללה</value>
   </data>
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">

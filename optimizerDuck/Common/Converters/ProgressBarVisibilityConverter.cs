@@ -4,6 +4,7 @@ using System.Windows.Data;
 
 namespace optimizerDuck.Common.Converters;
 
+/// <summary>Shows the progress bar when there is work to display or it is indeterminate.</summary>
 public class ProgressBarVisibilityConverter : IMultiValueConverter
 {
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)

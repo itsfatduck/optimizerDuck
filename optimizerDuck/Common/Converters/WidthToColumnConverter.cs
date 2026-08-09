@@ -3,6 +3,7 @@ using System.Windows.Data;
 
 namespace optimizerDuck.Common.Converters;
 
+/// <summary>Maps a container width to a responsive column count (1 to 4).</summary>
 public class WidthToColumnConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)

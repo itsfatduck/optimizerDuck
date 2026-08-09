@@ -66,6 +66,12 @@
   <data name="Dashboard.Header.Title" xml:space="preserve">
     <value>Panel</value>
   </data>
+  <data name="Optimizer.AI.DisableRecall.ShortDescription" xml:space="preserve">
+    <value>Desactiva la función de IA Windows Recall, que captura e indexa instantáneas de la pantalla. También elimina el componente Recall y borra las instantáneas guardadas anteriormente; es necesario reiniciar para que surta efecto.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
+    <value>Desactiva el feed de Noticias e intereses y oculta su botón de la barra de tareas (Windows 10) y deshabilita el panel de Widgets (Windows 11).</value>
+  </data>
   <data name="Sidebar.Dashboard" xml:space="preserve">
     <value>Panel</value>
   </data>
@@ -216,8 +222,8 @@
   <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
     <value>Etiquetas</value>
   </data>
-  <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
-    <value>Establece el umbral de división del Host de servicio para que coincida con la RAM total del sistema, obligando a Windows a aislar los servicios en procesos separados para mejorar la estabilidad.</value>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
+    <value>Eleva el umbral de división del host de servicios al total de RAM del sistema, manteniendo los servicios consolidados en menos procesos para reducir el uso de memoria y el número de procesos.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
     <value>No se pudo detectar el plan de energia activo.</value>
@@ -254,15 +260,6 @@
   </data>
   <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
     <value>Estas etiquetas indican qué partes del sistema afectará la optimización.</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
-    <value>NVIDIA</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
-    <value>AMD</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
-    <value>Intel</value>
   </data>
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
     <value>Energia</value>
@@ -555,10 +552,10 @@
   <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
     <value>Evita que las aplicaciones inactivas se ejecuten en segundo plano para liberar RAM y reducir el consumo de CPU.</value>
   </data>
-  <data name="Optimizer.Performance.SvcHostSplit.Name" xml:space="preserve">
-    <value>Optimizar aislamiento de servicios</value>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.Name" xml:space="preserve">
+    <value>Consolidar hosts de servicios</value>
   </data>
-  <data name="Optimizer.Performance.SvcHostSplit.Error.InvalidRAM" xml:space="preserve">
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.Error.InvalidRAM" xml:space="preserve">
     <value>RAM no válida: {0}</value>
   </data>
   <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
@@ -655,13 +652,13 @@
     <value>Desactivar Registros en Segundo Plano</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
-    <value>Detiene el registro de eventos del sistema no esenciales para reducir la actividad continua en el disco y ahorrar ciclos de CPU.</value>
+    <value>Impide que las sesiones WMI/ETW AutoLogger no esenciales (Diagtrack-Listener, SQMLogger, etc.) se inicien al arrancar para reducir la actividad de disco y CPU en segundo plano. Nota: el software de seguridad puede marcar los cambios de AutoLogger, ya que alteran el seguimiento de diagnóstico.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
     <value>Desactivar Cortana y Búsqueda Web</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
-    <value>Desactiva el asistente de voz Cortana y elimina los resultados web de Bing en la barra de búsqueda de Windows.</value>
+    <value>Desactiva el asistente de voz Cortana y deshabilita la búsqueda en la nube y los resultados web en la búsqueda de Windows (solo Windows 10).</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
     <value>Desactivar Windows Copilot</value>
@@ -696,9 +693,6 @@
   <data name="Optimizer.UI.Tags.Visual" xml:space="preserve">
     <value>Visual</value>
   </data>
-  <data name="Optimizer.Gpu" xml:space="preserve">
-    <value>GPU</value>
-  </data>
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>Experiencia de Usuario</value>
   </data>
@@ -713,54 +707,6 @@
   </data>
   <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
     <value>Desactiva las animaciones de la barra de tareas, sombras de listas y transparencia para liberar recursos de CPU/GPU.</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
-    <value>Desactivar AMD ULPS</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
-    <value>Evita los retrasos al despertar del Estado de Ultra Bajo Consumo (ULPS) y problemas con múltiples monitores. Reduce el ahorro de energía en inactividad.</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
-    <value>Desactivar Control de Energía AMD</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
-    <value>Evita las transiciones de estado de energía en la GPU AMD, manteniendo frecuencias consistentes a costa de un mayor consumo.</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
-    <value>Desactivar Control de Reloj de Video AMD</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-    <value>Desactiva el control de energía de los motores de video AMD (VCE/UVD) para mejorar la estabilidad de codificación/decodificación.</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
-    <value>Desactivar ASPM AMD</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
-    <value>Desactiva el Active State Power Management (ASPM) en GPUs AMD, reduciendo la latencia del bus PCIe.</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
-    <value>Desactivar P-State Dinámico NVIDIA</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
-    <value>Bloquea la GPU NVIDIA en un estado de rendimiento fijo, evitando fluctuaciones de frecuencia. Aumenta el consumo inactivo.</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
-    <value>Desactivar P-States Asíncronos NVIDIA</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
-    <value>Previene el cambio asíncrono de estado de energía, proporcionando un rendimiento determinista en aplicaciones en tiempo real y RV.</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
-    <value>Desactivar Volteos Asíncronos Intel</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
-    <value>Fuerza volteos de búfer síncronos en la iGPU de Intel, reduciendo el desgarro de pantalla (tearing) y la latencia.</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
-    <value>Desactivar V-Sync Adaptativo Intel</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
-    <value>Desactiva el V-Sync adaptativo de Intel para usar V-Sync fijo, asegurando una tasa de fotogramas estable.</value>
   </data>
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
     <value>Barra de Tareas</value>

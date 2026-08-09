@@ -4,6 +4,7 @@ using Wpf.Ui.Appearance;
 
 namespace optimizerDuck.Common.Converters;
 
+/// <summary>Base class for converters that map an <see cref="ApplicationTheme"/> to a value.</summary>
 public abstract class ThemeConverterBase<T> : IValueConverter
 {
     public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)

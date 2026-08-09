@@ -1,4 +1,5 @@
-﻿using optimizerDuck.Domain.Optimizations.Models;
+using optimizerDuck.Domain.Conditions;
+using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.UI;
 using OptimizationState = optimizerDuck.Domain.UI.OptimizationState;
 
@@ -38,6 +39,16 @@ public interface IOptimization
     ///     The current applied state and timing information.
     /// </summary>
     OptimizationState State { get; set; }
+
+    /// <summary>
+    ///     The compatibility condition type (implementing <see cref="ICondition"/>)
+    ///     that determines whether this optimization is supported on the current system,
+    ///     or <c>null</c> when it is always available.
+    /// </summary>
+    Type? ConditionType { get; }
+
+    /// <summary>Gets or sets the evaluated compatibility result.</summary>
+    ConditionResult ConditionResult { get; set; }
 
     /// <summary>
     ///     Applies this optimization to the system.

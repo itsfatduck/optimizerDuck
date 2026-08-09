@@ -65,6 +65,12 @@
   <data name="Dashboard.Header.Title" xml:space="preserve">
     <value>ダッシュボード</value>
   </data>
+  <data name="Optimizer.AI.DisableRecall.ShortDescription" xml:space="preserve">
+    <value>画面のスナップショットをキャプチャしてインデックス化する Windows Recall AI 機能を無効にします。また、Recall コンポーネントを削除し、以前に保存されたスナップショットを削除します。有効にするには再起動が必要です。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
+    <value>ニュースと関心事項フィードをオフにしてタスクバー ボタンを非表示にし (Windows 10)、ウィジェット ボードを無効にします (Windows 11)。</value>
+  </data>
   <data name="Sidebar.Dashboard" xml:space="preserve">
     <value>ダッシュボード</value>
   </data>
@@ -215,8 +221,8 @@
   <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
     <value>タグ</value>
   </data>
-  <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
-    <value>Service Host の分割しきい値をシステム RAM の合計に合わせ、Windows がサービスを個別プロセスに分離して安定性を向上させます</value>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
+    <value>サービス ホストの分割しきい値をシステムの合計 RAM に引き上げ、サービスをより少ないプロセスに統合したままにすることで、メモリ使用量とプロセス数を削減します。</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
     <value>現在のアクティブな電源プランを検出できませんでした</value>
@@ -253,15 +259,6 @@
   </data>
   <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
     <value>これらのタグは、最適化がシステムのどの部分に影響するかを示します</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
-    <value>NVIDIA 向け</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
-    <value>AMD 向け</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
-    <value>Intel 向け</value>
   </data>
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
     <value>電源</value>
@@ -554,10 +551,10 @@
   <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
     <value>非アクティブなアプリケーションがバックグラウンドで実行されないようにして RAM を解放し、CPU オーバーヘッドを削減します</value>
   </data>
-  <data name="Optimizer.Performance.SvcHostSplit.Name" xml:space="preserve">
-    <value>サービス分離を最適化</value>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.Name" xml:space="preserve">
+    <value>サービス ホストの統合</value>
   </data>
-  <data name="Optimizer.Performance.SvcHostSplit.Error.InvalidRAM" xml:space="preserve">
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.Error.InvalidRAM" xml:space="preserve">
     <value>無効な RAM: {0}</value>
   </data>
   <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
@@ -654,13 +651,13 @@
     <value>バックグラウンド ロギングを無効化</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
-    <value>非必須のシステム イベント ロギングを停止して、継続的なディスク アクティビティを削減し CPU サイクルを節約します</value>
+    <value>必須ではない WMI/ETW AutoLogger セッション (Diagtrack-Listener、SQMLogger など) が起動時に開始されないようにして、バックグラウンドのディスクと CPU のアクティビティを削減します。注: AutoLogger の変更は診断トレースを変更するため、セキュリティ ソフトウェアが警告する可能性があります。</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
     <value>Cortana と Web 検索を無効化</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
-    <value>Cortana 音声アシスタントをオフにし、Windows 検索バーから Bing Web 結果を削除します</value>
+    <value>Cortana 音声アシスタントをオフにし、Windows 検索のクラウド検索と Web 結果を無効にします (Windows 10 のみ)。</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
     <value>Windows Copilot を無効化</value>
@@ -695,9 +692,6 @@
   <data name="Optimizer.UI.Tags.Visual" xml:space="preserve">
     <value>ビジュアル</value>
   </data>
-  <data name="Optimizer.Gpu" xml:space="preserve">
-    <value>グラフィックス</value>
-  </data>
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>ユーザー エクスペリエンス</value>
   </data>
@@ -712,54 +706,6 @@
   </data>
   <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
     <value>タスクバー アニメーション、リスト ビューの影、ウィンドウの透明度、Aero Peek を無効化して GPU/CPU リソースを解放し、パフォーマンスを向上させます</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
-    <value>AMD ULPS を無効化</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
-    <value>AMD GPU レジストリで EnableULPS=0 を設定し、Ultra Low Power State のウェイクアップ遅延とマルチモニター問題を防ぎます。アイドル時の省電力は減少します</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
-    <value>AMD パワー ゲーティングを無効化</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
-    <value>DisablePowerGating=1、PP_GPUPowerDownEnabled=0、DisableDynamicPstate=1 を設定して AMD GPU の電源状態遷移を防ぎます。アイドル電力は増加しますが、クロックは安定します</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
-    <value>AMD ビデオ クロック ゲーティングを無効化</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-    <value>AMD ビデオ エンジン (VCE/UVD) に DisableVCEPowerGating=1、DisableVceClockGating=1、EnableUvdClockGating=0 を設定してエンコード/デコードの安定性を向上します。ビデオ再生時の電力消費が増加します</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
-    <value>AMD ASPM を無効化</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
-    <value>EnableAspmL0s=0、EnableAspmL1=0 を設定して AMD GPU の Active State Power Management を無効化し、PCIe バスの遅延を削減します。スロットの電力消費が増加します</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
-    <value>NVIDIA Dynamic P-State を無効化</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
-    <value>DisableDynamicPstate=1 を設定して NVIDIA GPU を固定パフォーマンス状態にロックし、クロック速度の変動を防ぎます。アイドル時の電力消費が増加します</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
-    <value>NVIDIA Async P-State を無効化</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
-    <value>DisableASyncPstates=1 を設定して NVIDIA の非同期電源状態切り替えを防ぎ、VR/リアルタイム アプリに決定論的なパフォーマンスを提供します</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
-    <value>Intel Async Flip を無効化</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
-    <value>Display1_DisableAsyncFlips=1 を設定して Intel iGPU で同期バッファ フリップを強制し、入力から表示までの遅延と画面のちらつきを削減します</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
-    <value>Intel Adaptive V-Sync を無効化</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
-    <value>AdaptiveVsyncEnable=0 を設定して、フレーム レートに動的に調整される Intel の Adaptive V-Sync を無効化し、安定したタイミングのため固定 V-Sync を使用します</value>
   </data>
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
     <value>タスクバー</value>

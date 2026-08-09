@@ -1,4 +1,5 @@
 using System.Reflection;
+using CommunityToolkit.Mvvm.ComponentModel;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
@@ -16,7 +17,7 @@ namespace optimizerDuck.Domain.Customize.Models;
 ///     Windows surfaces should be refreshed after applying.
 ///     For Dropdown settings, options can carry <see cref="RegistryBinding"/> to auto-read/write.
 /// </summary>
-public abstract class BaseCustomizeSetting : ICustomizeSetting
+public abstract partial class BaseCustomizeSetting : ObservableObject, ICustomizeSetting
 {
     private CustomizeSettingAttribute? _meta;
 
@@ -39,6 +40,13 @@ public abstract class BaseCustomizeSetting : ICustomizeSetting
     public string Name => Loc.Instance[$"Customize.{OwnerKey}.{FeatureKey}.Name"];
     public string Description => Loc.Instance[$"Customize.{OwnerKey}.{FeatureKey}.Description"];
 
+    /// <summary>
+    ///     Gets the compatibility condition type declared in the
+    ///     <see cref="CustomizeSettingAttribute"/> (implementing <see cref="ICondition"/>),
+    ///     or <c>null</c> when the setting is always available.
+    /// </summary>
+    public Type? ConditionType => Meta.Condition;
+
     public string Section
     {
         get
@@ -52,6 +60,12 @@ public abstract class BaseCustomizeSetting : ICustomizeSetting
 
     public virtual CustomizeControlType ControlType => CustomizeControlType.Toggle;
 
+    /// <summary>
+    ///     For Dropdown settings: the matched option's value, the raw registry value when
+    ///     out of scope, or <see cref="MissingValueSentinel"/> when the value is missing.
+    ///     Never interpret <c>null</c> as "unset" for Dropdown settings; use
+    ///     <see cref="MissingValueSentinel"/> instead.
+    /// </summary>
     public virtual object? CurrentValue
     {
         get
@@ -60,29 +74,78 @@ public abstract class BaseCustomizeSetting : ICustomizeSetting
             if (ControlType != CustomizeControlType.Dropdown || options == null)
                 return null;
 
-            foreach (var option in options)
-            {
-                if (option.Bindings is not { Count: > 0 })
-                    continue;
-
-                var allMatch = option.Bindings.All(b =>
-                {
-                    var actual = RegistryService.Read<object>(new RegistryItem(b.Path, b.Name));
-                    return ValuesEqual(actual, b.Value);
-                });
-
-                if (allMatch)
-                    return option.Value;
-            }
-
-            return ReadPrimaryRawValue(options);
+            var resolution = ResolveDropdownValue(options);
+            return resolution.Matched ? resolution.Value : resolution.Value ?? MissingValueSentinel;
         }
     }
 
-    public virtual IReadOnlyList<SettingOption>? Options => GetOptions();
+    /// <summary>
+    ///     Gets the options displayed for a Dropdown setting: the declared options plus,
+    ///     when the current registry value falls outside them, a memory-only "Custom"/"Not
+    ///     set" option reflecting the actual value. It is derived from the live registry
+    ///     state and never persisted; it disappears once the value returns to a declared
+    ///     option.
+    /// </summary>
+    public virtual IReadOnlyList<SettingOption>? Options
+    {
+        get
+        {
+            var options = GetOptions();
+            if (ControlType != CustomizeControlType.Dropdown || options == null)
+                return options;
+
+            var resolution = ResolveDropdownValue(options);
+            if (resolution.Matched)
+                return options;
+
+            // A partial multi-binding match can surface a raw value that already equals a
+            // declared option's Value. Appending "Custom" then would duplicate that Value,
+            // which makes SelectedValuePath="Value" selection ambiguous, so skip it.
+            var displayValue = resolution.Value ?? MissingValueSentinel;
+            if (options.Any(o => ValuesEqual(o.Value, displayValue)))
+                return options;
+
+            return [.. options, CreateCustomOption(displayValue)];
+        }
+    }
+
+    /// <summary>
+    ///     Stable, non-null sentinel used as the fallback option's value when the registry
+    ///     value is missing entirely, so WPF can render a selection (null values cannot be
+    ///     matched by <c>SelectedValuePath</c>).
+    /// </summary>
+    internal static readonly object MissingValueSentinel = new();
+
+    /// <summary>
+    ///     Creates the fallback option shown when the current registry value is outside
+    ///     the declared options. When the value is missing entirely
+    ///     (<paramref name="rawValue"/> is <see cref="MissingValueSentinel"/>), a distinct
+    ///     "Not set" label is used; otherwise the generic "Custom" label shows the actual
+    ///     out-of-scope value.
+    /// </summary>
+    private static SettingOption CreateCustomOption(object rawValue) =>
+        new(
+            ReferenceEquals(rawValue, MissingValueSentinel)
+                ? Loc.Instance[CustomOptionNotSetTranslationKey]
+                : Loc.Instance[CustomOptionTranslationKey],
+            rawValue
+        );
+
+    /// <summary>The translation key used for the synthetic "Custom" option label.</summary>
+    public const string CustomOptionTranslationKey = "Customize.CustomOption";
+
+    /// <summary>
+    ///     The translation key used for the synthetic fallback label when the registry
+    ///     value is missing entirely (see <see cref="MissingValueSentinel"/>).
+    /// </summary>
+    public const string CustomOptionNotSetTranslationKey = "Customize.CustomOption.NotSet";
 
     protected virtual IReadOnlyList<SettingOption>? GetOptions() => null;
 
+    /// <summary>
+    ///     Reads the current registry state. For toggles: <c>true</c> when all required
+    ///     toggles are on, <c>false</c> otherwise.
+    /// </summary>
     public virtual Task<bool> GetStateAsync()
     {
         return Task.Run(() =>
@@ -99,6 +162,12 @@ public abstract class BaseCustomizeSetting : ICustomizeSetting
         });
     }
 
+    /// <summary>
+    ///     Reads state until two consecutive reads agree or retries run out. Use after
+    ///     <see cref="ApplyAsync"/> to let the registry settle.
+    /// </summary>
+    /// <param name="maxRetries">The number of read attempts.</param>
+    /// <param name="delayMs">The delay between attempts.</param>
     public async Task<bool> GetStateWithRetryAsync(int maxRetries = 3, int delayMs = 80)
     {
         bool? previous = null;
@@ -119,6 +188,13 @@ public abstract class BaseCustomizeSetting : ICustomizeSetting
         return previous ?? await GetStateAsync();
     }
 
+    /// <summary>
+    ///     Applies the value to the registry: for toggles a <see cref="bool"/>, for
+    ///     dropdowns the matching declared option's bindings. Then runs any post-apply
+    ///     Windows refresh declared by <see cref="RefreshScope"/>.
+    /// </summary>
+    /// <param name="value">The value to apply. The synthetic "Custom"/"Not set" fallback
+    ///     value is a safe no-op.</param>
     public virtual async Task ApplyAsync(object? value)
     {
         if (value is bool isOn)
@@ -129,10 +205,12 @@ public abstract class BaseCustomizeSetting : ICustomizeSetting
                     toggle.SetState(isOn);
             });
         }
-        else if (ControlType == CustomizeControlType.Dropdown && Options != null)
+        else if (ControlType == CustomizeControlType.Dropdown && GetOptions() is { } options)
         {
-            // Find matching option and apply all its bindings
-            var option = Options.FirstOrDefault(o => Equals(o.Value, value));
+            // Find the matching declared option and apply all its bindings. The
+            // "Custom"/"Not set" fallback is never a declared option, so applying it
+            // is a safe no-op.
+            var option = options.FirstOrDefault(o => Equals(o.Value, value));
             if (option?.Bindings is { Count: > 0 })
             {
                 foreach (var binding in option.Bindings)
@@ -244,6 +322,10 @@ public abstract class BaseCustomizeSetting : ICustomizeSetting
 
     protected string RecommendationPrefix => $"Customize.{OwnerKey}.{FeatureKey}.Recommendation";
 
+    /// <summary>
+    ///     Returns the recommendation declared in the <see cref="CustomizeSettingAttribute"/>,
+    ///     or <c>null</c> when the setting has none.
+    /// </summary>
     public virtual CustomizeRecommendationResult? GetRecommendation()
     {
         var state = Meta.Recommendation;
@@ -314,6 +396,33 @@ public abstract class BaseCustomizeSetting : ICustomizeSetting
         var strA = a.ToString();
         var strB = b.ToString();
         return strA != null && strB != null && strA.Equals(strB, StringComparison.Ordinal);
+    }
+
+    /// <summary>
+    ///     Matches the live registry values against the declared options. When every
+    ///     binding of an option matches, the option is returned; otherwise the raw value
+    ///     of the primary binding is returned so out-of-scope values stay visible.
+    /// </summary>
+    private static (bool Matched, object? Value) ResolveDropdownValue(
+        IReadOnlyList<SettingOption> options
+    )
+    {
+        foreach (var option in options)
+        {
+            if (option.Bindings is not { Count: > 0 })
+                continue;
+
+            var allMatch = option.Bindings.All(b =>
+            {
+                var actual = RegistryService.Read<object>(new RegistryItem(b.Path, b.Name));
+                return ValuesEqual(actual, b.Value);
+            });
+
+            if (allMatch)
+                return (true, option.Value);
+        }
+
+        return (false, ReadPrimaryRawValue(options));
     }
 
     private static object? ReadPrimaryRawValue(IReadOnlyList<SettingOption> options)

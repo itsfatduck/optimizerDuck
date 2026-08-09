@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
+using optimizerDuck.Domain.Conditions;
 using optimizerDuck.Domain.Customize.Models;
 using Wpf.Ui.Controls;
 
@@ -56,7 +57,10 @@ public class CustomizeRegistry
                                 var opt = (ICustomizeSetting)Activator.CreateInstance(nt)!;
 
                                 if (opt is BaseCustomizeSetting bo)
+                                {
                                     bo.OwnerType = t;
+                                    ConditionValidation.Validate(bo.ConditionType, bo.FeatureKey);
+                                }
 
                                 return opt;
                             })

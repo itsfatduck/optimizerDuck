@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
+using optimizerDuck.Domain.Conditions;
 using optimizerDuck.Domain.Customize.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
@@ -30,7 +31,8 @@ public class Preferences : ICustomizeCategory
 
     [CustomizeSetting(
         Section = nameof(Sections.Taskbar),
-        Icon = SymbolRegular.TextAlignDistributedEvenly24
+        Icon = SymbolRegular.TextAlignDistributedEvenly24,
+        Condition = typeof(Windows11Condition)
     )]
     public class TaskbarAlignment : BaseCustomizeSetting
     {
@@ -51,7 +53,8 @@ public class Preferences : ICustomizeCategory
     [CustomizeSetting(
         Section = nameof(Sections.Taskbar),
         Icon = SymbolRegular.Grid24,
-        Recommendation = RecommendationState.Off
+        Recommendation = RecommendationState.Off,
+        Condition = typeof(Windows11Condition)
     )]
     public class TaskbarWidgets : BaseCustomizeSetting
     {
@@ -111,7 +114,8 @@ public class Preferences : ICustomizeCategory
     [CustomizeSetting(
         Section = nameof(Sections.Taskbar),
         Icon = SymbolRegular.WindowConsole20,
-        Recommendation = RecommendationState.On
+        Recommendation = RecommendationState.On,
+        Condition = typeof(Windows11Condition)
     )]
     public class TaskbarEndTask : BaseCustomizeSetting
     {
@@ -230,7 +234,11 @@ public class Preferences : ICustomizeCategory
             ];
     }
 
-    [CustomizeSetting(Section = nameof(Sections.Explorer), Icon = SymbolRegular.Table24)]
+    [CustomizeSetting(
+        Section = nameof(Sections.Explorer),
+        Icon = SymbolRegular.Table24,
+        Condition = typeof(Windows11Condition)
+    )]
     public class ExplorerCompactMode : BaseCustomizeSetting
     {
         protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.Default;
@@ -248,7 +256,11 @@ public class Preferences : ICustomizeCategory
             ];
     }
 
-    [CustomizeSetting(Section = nameof(Sections.Explorer), Icon = SymbolRegular.Grid24)]
+    [CustomizeSetting(
+        Section = nameof(Sections.Explorer),
+        Icon = SymbolRegular.Grid24,
+        Condition = typeof(Windows11Condition)
+    )]
     public class SnapAssistFlyout : BaseCustomizeSetting
     {
         protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.Default;
@@ -390,19 +402,17 @@ public class Preferences : ICustomizeCategory
     [CustomizeSetting(Section = nameof(Sections.Explorer), Icon = SymbolRegular.Folder24)]
     public class LaunchToThisPc : BaseCustomizeSetting
     {
-        protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.Default;
+        private const string RegPath =
+            @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
 
-        protected override IEnumerable<RegistryToggle> RegistryToggles =>
-            [
-                new()
-                {
-                    Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
-                    Name = "LaunchTo",
-                    OnValues = [1],
-                    OffValues = [2],
-                    DefaultValue = 2,
-                },
-            ];
+        private const string RegName = "LaunchTo";
+
+        public override CustomizeControlType ControlType => CustomizeControlType.Dropdown;
+
+        protected override IReadOnlyList<SettingOption>? GetOptions() =>
+            [Option("ThisPc", RegPath, RegName, 1), Option("QuickAccess", RegPath, RegName, 2)];
+
+        protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.Default;
     }
 
     [CustomizeSetting(
@@ -431,7 +441,8 @@ public class Preferences : ICustomizeCategory
     [CustomizeSetting(
         Section = nameof(Sections.Explorer),
         Icon = SymbolRegular.CursorClick24,
-        Recommendation = RecommendationState.On
+        Recommendation = RecommendationState.On,
+        Condition = typeof(Windows11Condition)
     )]
     public class ClassicContextMenu : BaseCustomizeSetting
     {
@@ -495,7 +506,10 @@ public class Preferences : ICustomizeCategory
             CustomizeRefreshScope.TaskbarSettings;
     }
 
-    [CustomizeSetting(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.CursorClick24)]
+    [CustomizeSetting(
+        Section = nameof(Sections.Taskbar),
+        Icon = SymbolRegular.CursorClick24
+    )]
     public class TaskbarLastActiveClick : BaseCustomizeSetting
     {
         private const string RegPath =

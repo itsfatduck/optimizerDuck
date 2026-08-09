@@ -3,6 +3,7 @@ using System.Reflection;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
+using optimizerDuck.Domain.Conditions;
 using optimizerDuck.Domain.Optimizations.Models;
 
 namespace optimizerDuck.Services.Optimization;
@@ -45,7 +46,10 @@ public class OptimizationRegistry(ILoggerFactory loggerFactory)
                                     var opt = (IOptimization)Activator.CreateInstance(nt)!;
 
                                     if (opt is BaseOptimization bo)
+                                    {
                                         bo.OwnerType = t;
+                                        ConditionValidation.Validate(bo.ConditionType, bo.OptimizationKey);
+                                    }
 
                                     return opt;
                                 })

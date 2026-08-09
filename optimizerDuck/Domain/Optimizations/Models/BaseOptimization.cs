@@ -1,6 +1,9 @@
+using System.ComponentModel;
 using System.Reflection;
+using CommunityToolkit.Mvvm.ComponentModel;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
+using optimizerDuck.Domain.Conditions;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
@@ -15,8 +18,13 @@ namespace optimizerDuck.Domain.Optimizations.Models;
 ///     decorated with <see cref="OptimizationAttribute"/> to provide metadata. The category
 ///     (<see cref="OwnerType"/>) is assigned automatically during reflection-based discovery.
 /// </summary>
-public abstract class BaseOptimization : IOptimization
+public abstract partial class BaseOptimization : ObservableObject, IOptimization
 {
+    protected BaseOptimization()
+    {
+        _state.PropertyChanged += OnStateChanged;
+    }
+
     #region Metadata
 
     private OptimizationAttribute? _meta;
@@ -86,8 +94,37 @@ public abstract class BaseOptimization : IOptimization
     /// <summary>Gets the collection of tag displays for the UI, derived from <see cref="OptimizationTags"/>.</summary>
     public IEnumerable<OptimizationTagDisplay> TagDisplays => Meta.Tags.ToDisplays();
 
+    private OptimizationState _state = new();
+
     /// <summary>Gets or sets the current applied state and timing information for this optimization.</summary>
-    public OptimizationState State { get; set; } = new();
+    public OptimizationState State
+    {
+        get => _state;
+        set
+        {
+            if (ReferenceEquals(_state, value))
+                return;
+
+            // Re-subscribe so IsConditionBlocked stays in sync even when State is replaced.
+            _state.PropertyChanged -= OnStateChanged;
+            _state = value;
+            _state.PropertyChanged += OnStateChanged;
+            OnPropertyChanged(nameof(State));
+            OnPropertyChanged(nameof(IsConditionBlocked));
+        }
+    }
+
+    private void OnStateChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName != nameof(OptimizationState.IsApplied))
+            return;
+
+        // Forward IsApplied mutations as a State change so external subscribers that
+        // listen to the optimization (not the nested State) stay in sync even when the
+        // State instance is swapped out later.
+        OnPropertyChanged(nameof(State));
+        OnPropertyChanged(nameof(IsConditionBlocked));
+    }
 
     #endregion
 
@@ -110,6 +147,38 @@ public abstract class BaseOptimization : IOptimization
 
     #endregion
 
+    #region Condition
+
+    /// <summary>
+    ///     Gets the compatibility condition type declared in the <see cref="OptimizationAttribute"/>
+    ///     (implementing <see cref="ICondition"/>), or <c>null</c> when always available.
+    /// </summary>
+    public Type? ConditionType => Meta.Condition;
+
+    /// <summary>Gets or sets the evaluated compatibility result.</summary>
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsConditionBlocked))]
+    private ConditionResult _conditionResult = ConditionResult.Available;
+
+    /// <summary>
+    ///     Gets or sets a value indicating that the user chose to hide the unsupported
+    ///     state for this session and show the normal card instead. Not persisted.
+    /// </summary>
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsConditionBlocked))]
+    private bool _isConditionHidden;
+
+    /// <summary>
+    ///     Gets whether this optimization should be presented in the unsupported state.
+    ///     The block only applies on first open when the item is <em>not</em> applied;
+    ///     once applied (or hidden by the user) the normal card is shown.
+    /// </summary>
+    public bool IsConditionBlocked =>
+        ConditionResult.IsBlocking && !State.IsApplied && !IsConditionHidden;
+
+    #endregion
+
+    /// <inheritdoc />
     public abstract Task<ApplyResult> ApplyAsync(
         IProgress<ProcessingProgress> progress,
         OptimizationContext context
@@ -125,34 +194,3 @@ public abstract class BaseOptimization : IOptimization
     }
 }
 
-/*
-using Microsoft.Extensions.Logging;
-using System.Collections.ObjectModel;
-using optimizerDuck.Domain.Abstractions;
-using optimizerDuck.Domain.Attributes;
-using optimizerDuck.Domain.Optimizations.Models;
-using optimizerDuck.Domain.UI;
-using optimizerDuck.Services.Managers;
-using optimizerDuck.UI.Pages.Optimizations;
-
-namespace optimizerDuck.Domain.Optimizations.Categories;
-
-[OptimizationCategory(typeof(PAGE))]
-public class OPTIMIZER : IOptimizationCategory
-{
-    public string Name { get; init; } = Loc.Instance[$"Optimizer.{nameof(OPTIMIZER)}"];
-    public OptimizationCategoryOrder Order { get; init; } = OptimizationCategoryOrder.OPTIMIZER_ORDER;
-    public ObservableCollection<IOptimization> Optimizations { get; init; } = [];
-
-    [Optimization(Id = "OPTIMIZATION_ID", Risk = OptimizationRisk.RISK,
-        Tags = OptimizationTags.TAG)]
-    public class OPTIMIZATION_NAME : BaseOptimization
-    {
-        public override Task<ApplyResult> ApplyAsync(IProgress<ProcessingProgress> progress, OptimizationContext context)
-        {
-            // ... Optimization logic here ...
-            return Task.FromResult(ApplyResult.True());
-        }
-    }
-}
- */

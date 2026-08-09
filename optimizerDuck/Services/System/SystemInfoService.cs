@@ -34,13 +34,26 @@ public enum GpuVendor
 }
 
 /// <summary>
+///     Specifies the CPU vendor manufacturer.
+/// </summary>
+public enum CpuVendor
+{
+    /// <summary>Unknown or unrecognized CPU vendor.</summary>
+    Unknown,
+
+    /// <summary>Intel Corporation.</summary>
+    Intel,
+
+    /// <summary>Advanced Micro Devices (AMD).</summary>
+    AMD,
+}
+
+/// <summary>
 ///     Represents information about a GPU.
 /// </summary>
 public sealed record GpuInfo
 {
-    /// <summary>
-    ///     A sentinel value representing an unknown GPU.
-    /// </summary>
+    /// <summary>A sentinel value representing an unknown GPU.</summary>
     public static readonly GpuInfo Unknown = new()
     {
         Name = Translations.Common_Unknown,
@@ -90,14 +103,12 @@ public sealed record GpuInfo
 /// </summary>
 public sealed record CpuInfo
 {
-    /// <summary>
-    ///     A sentinel value representing an unknown CPU.
-    /// </summary>
+    /// <summary>A sentinel value representing an unknown CPU.</summary>
     public static readonly CpuInfo Unknown = new()
     {
         Name = Translations.Common_Unknown,
         Manufacturer = Translations.Common_Unknown,
-        Vendor = Translations.Common_Unknown,
+        Vendor = CpuVendor.Unknown,
         Architecture = Translations.Common_Unknown,
         Cores = 0,
         Threads = 0,
@@ -118,9 +129,9 @@ public sealed record CpuInfo
     public required string Manufacturer { get; init; }
 
     /// <summary>
-    ///     The detected vendor string (e.g., "Intel", "AMD").
+    ///     The detected CPU vendor (e.g., <see cref="CpuVendor.Intel"/>).
     /// </summary>
-    public required string Vendor { get; init; }
+    public required CpuVendor Vendor { get; init; }
 
     /// <summary>
     ///     The processor architecture (e.g., "64-bit").
@@ -234,9 +245,7 @@ public sealed record DiskVolume
 /// </summary>
 public sealed record DiskInfo
 {
-    /// <summary>
-    ///     A sentinel value representing unknown disk information.
-    /// </summary>
+    /// <summary>A sentinel value representing unknown disk information.</summary>
     public static readonly DiskInfo Unknown = new() { Volumes = [] };
 
     /// <summary>
@@ -281,9 +290,7 @@ public sealed record RamModule
 /// </summary>
 public sealed record RamInfo
 {
-    /// <summary>
-    ///     A sentinel value representing unknown RAM information.
-    /// </summary>
+    /// <summary>A sentinel value representing unknown RAM information.</summary>
     public static readonly RamInfo Unknown = new()
     {
         TotalGB = 0,
@@ -336,9 +343,7 @@ public sealed record RamInfo
 /// </summary>
 public sealed record OsInfo
 {
-    /// <summary>
-    ///     A sentinel value representing unknown OS information.
-    /// </summary>
+    /// <summary>A sentinel value representing unknown OS information.</summary>
     public static readonly OsInfo Unknown = new()
     {
         Name = Translations.Common_Unknown,
@@ -397,9 +402,7 @@ public sealed record OsInfo
 /// </summary>
 public sealed record BiosInfo
 {
-    /// <summary>
-    ///     A sentinel value representing unknown BIOS information.
-    /// </summary>
+    /// <summary>A sentinel value representing unknown BIOS information.</summary>
     public static readonly BiosInfo Unknown = new()
     {
         Manufacturer = Translations.Common_Unknown,
@@ -440,9 +443,7 @@ public sealed record BiosInfo
 /// </summary>
 public sealed record SystemSnapshot
 {
-    /// <summary>
-    ///     A sentinel value representing a completely unknown system.
-    /// </summary>
+    /// <summary>A sentinel value representing a completely unknown system.</summary>
     public static readonly SystemSnapshot Unknown = new()
     {
         Cpu = CpuInfo.Unknown,
@@ -566,7 +567,8 @@ internal static class WmiHelper
     /// <summary>
     ///     Executes a WMI query and passes results to a selector.
     ///     All ManagementObject items are disposed after the selector completes.
-    ///     Returns <c>default(T)</c> if the query fails or throws — callers must null-check for reference types.
+    ///     Returns <c>default(T)</c> if the query fails or throws; callers must null-check
+    ///     the result for reference types.
     /// </summary>
     public static T? Query<T>(
         string query,
@@ -799,14 +801,14 @@ internal static class CpuProvider
         }
     }
 
-    private static string DetectCpuVendor(string manufacturer)
+    private static CpuVendor DetectCpuVendor(string manufacturer)
     {
         var lower = manufacturer.ToLowerInvariant();
         if (lower.Contains("intel") || lower.Contains("genuineintel"))
-            return "Intel";
+            return CpuVendor.Intel;
         if (lower.Contains("amd") || lower.Contains("authenticamd"))
-            return "AMD";
-        return "Unknown";
+            return CpuVendor.AMD;
+        return CpuVendor.Unknown;
     }
 }
 
@@ -1622,7 +1624,7 @@ internal static class GpuProvider
         }
         catch
         {
-            // DXGI unavailable (e.g., ancient OS or headless server) — fall back to WMI
+            // DXGI unavailable (e.g., old OS or headless server), so fall back to WMI
             return GetAllViaWmi();
         }
     }
@@ -2179,6 +2181,26 @@ public sealed class SystemInfoService : IDisposable
 
     public SystemSnapshot Snapshot { get; private set; } = SystemSnapshot.Unknown;
 
+    /// <summary>
+    ///     Raised whenever a refresh completes with a new snapshot. Fires on the thread
+    ///     that finished the refresh (usually a thread-pool thread), so subscribers must
+    ///     marshal back to the UI thread before touching the UI.
+    /// </summary>
+    public event EventHandler<SystemSnapshot>? SnapshotRefreshed;
+
+    /// <summary>
+    ///     Returns the current snapshot, refreshing it first when it has not been loaded yet.
+    ///     Callers that need hardware/OS facts (e.g. compatibility conditions) use this to
+    ///     guarantee a populated snapshot before reading it.
+    /// </summary>
+    public async Task<SystemSnapshot> EnsureSnapshotAsync(CancellationToken ct = default)
+    {
+        if (!ReferenceEquals(Snapshot, SystemSnapshot.Unknown))
+            return Snapshot;
+
+        return await RefreshAsync(ct).ConfigureAwait(false);
+    }
+
     public async Task<SystemSnapshot> RefreshAsync(CancellationToken ct = default)
     {
         await _semaphore.WaitAsync(ct).ConfigureAwait(false);
@@ -2239,8 +2261,6 @@ public sealed class SystemInfoService : IDisposable
                     Disk = await diskTask,
                 };
             }
-
-            return Snapshot;
         }
         catch (OperationCanceledException)
         {
@@ -2255,6 +2275,20 @@ public sealed class SystemInfoService : IDisposable
         {
             _semaphore.Release();
         }
+
+        // Raised after the semaphore is released so subscribers can safely call back
+        // into RefreshAsync; handler exceptions are isolated and logged so a failing
+        // subscriber never corrupts the refresh result.
+        try
+        {
+            SnapshotRefreshed?.Invoke(this, Snapshot);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Snapshot refresh notification handler failed");
+        }
+
+        return Snapshot;
     }
 
     public void LogSummary()

@@ -44,24 +44,20 @@ public static class Shared
         // Bing / MSN / News
         "Microsoft.BingWeather",
         "Microsoft.BingNews",
-        "Microsoft.BingSearch",
+        "Microsoft.MicrosoftNews",
         "Microsoft.BingFinance",
         "Microsoft.BingSports",
         "Microsoft.BingFoodAndDrink",
         "Microsoft.BingHealthAndFitness",
         "Microsoft.BingTravel",
-        "Microsoft.MicrosoftNews",
         // Help, Tips & Feedback
-        "Microsoft.GetHelp",
         "Microsoft.GetStarted",
-        "Microsoft.WindowsFeedbackHub",
         "Microsoft.WindowsTips",
-        "MicrosoftCorporationII.QuickAssist",
-        // Communications (Legacy/Web Wrappers)
+        "Microsoft.WindowsFeedbackHub",
+        // Communications (Legacy/Discontinued)
         "Microsoft.Messaging",
         "Microsoft.OneConnect",
         "Microsoft.People",
-        "Microsoft.YourPhone",
         "Microsoft.SkypeApp",
         "MicrosoftTeams",
         // Office (Web Wrappers & Legacy)
@@ -70,68 +66,108 @@ public static class Shared
         "Microsoft.MicrosoftOfficeHub",
         "Microsoft.Office.OneNote",
         "Microsoft.Office.Sway",
-        "Microsoft.OutlookForWindows",
         "Microsoft.MicrosoftJournal",
-        // Social & Wallet
+        // Social & Wallet (Legacy)
         "Microsoft.Wallet",
         "Microsoft.MSWallet",
-        "Microsoft.LinkedInForWindows",
-        // Mixed Reality & 3D
+        // Mixed Reality & 3D (Legacy, not in Win11 images)
         "Microsoft.Microsoft3DViewer",
         "Microsoft.MixedReality.Portal",
         "Microsoft.Print3D",
         "Microsoft.3DBuilder",
-        "Microsoft.Paint3D",
-        // Multimedia (Legacy/Redundant)
-        "Microsoft.ZuneMusic",
+        // Multimedia & Entertainment
         "Microsoft.ZuneVideo",
-        "Microsoft.Sway",
         "Microsoft.WindowsSoundRecorder",
         "Microsoft.StickyNotes",
         "Microsoft.MicrosoftStickyNotes",
-        // Entertainment, Games & Widgets
         "Microsoft.MicrosoftSolitaireCollection",
         "Microsoft.WindowsAlarms",
         "Microsoft.549981C3F5F10", // Cortana
+        // Legacy & Redundant Utilities
         "Microsoft.Windows.DevHome",
-        "Microsoft.StartExperiencesApp",
-        // Third-party (often pre-installed by MS)
+        "Microsoft.WindowsMaps",
+        "Microsoft.XboxApp", // Old Xbox Console Companion (Discontinued)
+        "Microsoft.Windows.AIHub", // Copilot+ AI Hub (Copilot+ PCs)
+        "Drawboard.DrawboardPDF",
+        // Third-party (commonly pre-installed on OEM machines)
         "SpotifyAB.SpotifyMusic",
-        "Disney.DisneyPlus",
-        "Amazon.Amazon",
         "Clipchamp.Clipchamp",
-        // Legacy / Others
-        "WindowsPhone",
-        "CommsPhone",
-        "Microsoft.DrawboardPDF",
-        // Windows 11 Widgets
-        "MicrosoftWindows.Client.WebExperience",
+        "Disney.37853FC22B2CE",
+        "Amazon.com.Amazon",
+        "4DF9E0F8.Netflix",
+        "BytedancePte.Ltd.TikTok",
+        "king.com.CandyCrushSaga",
+        "king.com.CandyCrushSodaSaga",
+        "king.com.BubbleWitch3Saga",
+        "AmazonVideo.PrimeVideo",
+        "Facebook.Instagram",
+        "FACEBOOK.FACEBOOK",
+        "7EE7776C.LinkedInforWindows",
+        "Flipboard",
+        "iHeartRadio",
+        "PandoraMediaInc",
+        "TuneInRadio",
+        "Duolingo-LearnLanguagesforFree",
+        "PicsArt-PhotoStudio",
+        "WinZipUniversal",
+        "AdobeSystemsIncorporated.AdobePhotoshopExpress",
+        "OneCalendar",
+        "NYTCrossword",
+        "MarchofEmpires",
+        "flaregamesGmbH.RoyalRevolt",
+        "Asphalt8Airborne",
+        "FarmVille2CountryEscape",
+        "HiddenCity",
+        "CaesarsSlotsFreeCasino",
+        "COOKINGFEVER",
+        "DisneyMagicKingdoms",
+        "PhototasticCollage",
+        "AutodeskSketchBook",
+        "PolarrPhotoEditorAcademicEdition",
+        "Sidia.LiveWallpaper",
+        "HULULLC.HULUPLUS",
+        "SlingTV",
     };
 
     public static readonly HashSet<string> CautionApps = new()
     {
-        // Core Utilities
+        // Core Utilities (default handlers for common file types)
         "Microsoft.WindowsCalculator",
         "Microsoft.WindowsPhotos",
-        "Microsoft.MSPaint",
+        "Microsoft.MSPaint", // Paint 3D
         "Microsoft.Paint",
         "Microsoft.WindowsNotepad",
         "Microsoft.WindowsCamera",
-        "Microsoft.ScreenSketch",
-        "Microsoft.WindowsMaps",
+        "Microsoft.ScreenSketch", // Snipping Tool
         // System Tools
         "Microsoft.WindowsStore",
         "Microsoft.StorePurchaseApp",
-        "Microsoft.DesktopAppInstaller",
+        "Microsoft.DesktopAppInstaller", // winget
         "Microsoft.WindowsTerminal",
         "Microsoft.WindowsTerminalPreview",
         "Microsoft.RemoteDesktop",
         "Microsoft.PowerAutomateDesktop",
         // Communication & Collaboration
-        "Microsoft.WindowsCommunicationsApps",
-        // Security & Family
-        "MicrosoftCorporationII.MicrosoftFamily",
+        "Microsoft.WindowsCommunicationsApps", // Mail & Calendar
+        "Microsoft.OutlookForWindows", // New Outlook
+        "Microsoft.YourPhone", // Phone Link
+        "MicrosoftWindows.CrossDevice", // Phone Link features in Explorer
+        // Widgets & Search integration
+        "Microsoft.StartExperiencesApp",
+        "MicrosoftWindows.Client.WebExperience",
+        "Microsoft.WidgetsPlatformRuntime",
+        "Microsoft.BingSearch",
+        // Default media handler
+        "Microsoft.ZuneMusic", // Media Player
+        // Security, Family & Support
+        "MicrosoftCorporationII.MicrosoftFamily", // parental controls
         "MicrosoftCorporationII.MicrosoftSupportDiagnosticTool",
+        "MicrosoftCorporationII.QuickAssist",
+        "Microsoft.GetHelp", // Required by some Windows 11 Troubleshooters
+        // Cloud & Productivity
+        "Microsoft.OneDrive",
+        "Microsoft.Whiteboard",
+        "Microsoft.M365Companions",
         // Media Extensions (Essential for file format support)
         "Microsoft.HEIFImageExtension",
         "Microsoft.WebMediaExtensions",
@@ -146,9 +182,39 @@ public static class Shared
         "Microsoft.XboxSpeechToTextOverlay",
         "Microsoft.XboxGameOverlay",
         "Microsoft.XboxGamingOverlay",
-        "Microsoft.XboxApp",
         "Microsoft.Xbox.TCUI",
         "Microsoft.GamingApp",
+        // OEM Software (drivers, updates & support from the hardware vendor)
+        "AD2F1837.HPAIExperienceCenter",
+        "AD2F1837.HPConnectedMusic",
+        "AD2F1837.HPConnectedPhotopoweredbySnapfish",
+        "AD2F1837.HPDesktopSupportUtilities",
+        "AD2F1837.HPEasyClean",
+        "AD2F1837.HPFileViewer",
+        "AD2F1837.HPJumpStarts",
+        "AD2F1837.HPPCHardwareDiagnosticsWindows",
+        "AD2F1837.HPPowerManager",
+        "AD2F1837.HPPrinterControl",
+        "AD2F1837.HPPrivacySettings",
+        "AD2F1837.HPQuickDrop",
+        "AD2F1837.HPQuickTouch",
+        "AD2F1837.HPRegistration",
+        "AD2F1837.HPSupportAssistant",
+        "AD2F1837.HPSureShieldAI",
+        "AD2F1837.HPSystemInformation",
+        "AD2F1837.HPWelcome",
+        "AD2F1837.HPWorkWell",
+        "AD2F1837.myHP",
+        "DellInc.DellSupportAssistforPCs",
+        "DellInc.DellDigitalDelivery",
+        "DellInc.DellMobileConnect",
+        "E046963F.LenovoCompanion",
+        "LenovoCompanyLimited.LenovoVantageService",
+        "LGElectronics.LGMonitorApp",
+        "EclipseManager", // Dell OEM
+        "ACGMediaPlayer", // OEM media player
+        "ActiproSoftwareLLC", // OEM-bundled UI components
+        "CyberLinkMediaSuiteEssentials", // OEM media suite
     };
 
     public static string RootDirectory =>

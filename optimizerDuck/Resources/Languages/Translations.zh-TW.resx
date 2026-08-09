@@ -62,6 +62,12 @@
   <data name="Dashboard.Header.Title" xml:space="preserve">
     <value>儀表板</value>
   </data>
+  <data name="Optimizer.AI.DisableRecall.ShortDescription" xml:space="preserve">
+    <value>停用會擷取並建立螢幕快照索引的 Windows Recall AI 功能。同時移除 Recall 元件並刪除先前儲存的快照；需要重新啟動才能生效。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
+    <value>關閉新聞與興趣摘要並隱藏其工作列按鈕（Windows 10），同時停用小工具面板（Windows 11）。</value>
+  </data>
   <data name="Sidebar.Dashboard" xml:space="preserve">
     <value>儀表板</value>
   </data>
@@ -197,8 +203,8 @@
   <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
     <value>標籤</value>
   </data>
-  <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
-    <value>將服務主機分割閾值設定為符合系統總 RAM，強制 Windows 將服務隔離到獨立處理程序中以提升穩定性。</value>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
+    <value>將服務主機分割閾值提高到系統總記憶體，讓服務整合在較少的處理程序中，以減少記憶體佔用與處理程序數量。</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
     <value>無法偵測目前啟用的電源計畫。</value>
@@ -235,15 +241,6 @@
   </data>
   <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
     <value>這些標籤指示最佳化將影響系統的哪些部分。</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
-    <value>NVIDIA</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
-    <value>AMD</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
-    <value>Intel</value>
   </data>
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
     <value>電源</value>
@@ -509,10 +506,10 @@
   <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
     <value>防止閒置的應用程式在背景執行，以釋放 RAM 並減少 CPU 負擔。</value>
   </data>
-  <data name="Optimizer.Performance.SvcHostSplit.Name" xml:space="preserve">
-    <value>最佳化服務隔離</value>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.Name" xml:space="preserve">
+    <value>整合服務主機</value>
   </data>
-  <data name="Optimizer.Performance.SvcHostSplit.Error.InvalidRAM" xml:space="preserve">
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.Error.InvalidRAM" xml:space="preserve">
     <value>無效的 RAM：{0}</value>
   </data>
   <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
@@ -579,13 +576,13 @@
     <value>停用背景記錄</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
-    <value>停止非必要的系統事件記錄，以減少持續的磁碟活動並節省 CPU 週期。</value>
+    <value>阻止非必要的 WMI/ETW AutoLogger 工作階段（Diagtrack-Listener、SQMLogger 等）在開機時啟動，以減少背景磁碟與 CPU 活動。注意：安全性軟體可能會標記 AutoLogger 變更，因為這些變更會改變診斷追蹤。</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
     <value>停用 Cortana 與網頁搜尋</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
-    <value>關閉 Cortana 語音助理，並從 Windows 搜尋列中移除 Bing 網頁搜尋結果。</value>
+    <value>關閉 Cortana 語音助理，並停用 Windows 搜尋中的雲端搜尋與網頁結果（僅適用於 Windows 10）。</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
     <value>停用 Windows Copilot</value>
@@ -620,59 +617,8 @@
   <data name="Optimizer.UI.Tags.Visual" xml:space="preserve">
     <value>視覺效果</value>
   </data>
-  <data name="Optimizer.Gpu" xml:space="preserve">
-    <value>GPU</value>
-  </data>
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>使用者體驗</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
-    <value>停用 AMD ULPS</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
-    <value>將 AMD GPU 登錄檔中的 EnableULPS 設為 0，以防止超低功耗狀態的喚醒延遲和多顯示器問題。會降低閒置時的省電效果。</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
-    <value>停用 AMD 電源閘控</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
-    <value>將 DisablePowerGating=1、PP_GPUPowerDownEnabled=0、DisableDynamicPstate=1 設定以防止 AMD GPU 的電源狀態轉換。維持一致的時脈，代價是較高的閒置功耗。</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
-    <value>停用 AMD 視訊時脈閘控</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-    <value>針對 AMD 視訊引擎 (VCE/UVD) 設定 DisableVCEPowerGating=1、DisableVceClockGating=1、EnableUvdClockGating=0，以改善編碼/解碼穩定性。會增加視訊播放時的功耗。</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
-    <value>停用 AMD ASPM</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
-    <value>設定 EnableAspmL0s=0、EnableAspmL1=0 以停用 AMD GPU 上的活動狀態電源管理 (ASPM)，從而降低 PCIe 匯流排延遲。會增加插槽功耗。</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
-    <value>停用 NVIDIA 動態 P-State</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
-    <value>設定 DisableDynamicPstate=1 以將 NVIDIA GPU 鎖定在固定的效能狀態，防止時脈波動。會增加閒置時的耗電量。</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
-    <value>停用 NVIDIA 非同步 P-States</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
-    <value>設定 DisableASyncPstates=1 以防止 NVIDIA 非同步電源狀態切換，為 VR / 即時應用程式提供確定的效能。</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
-    <value>停用 Intel 非同步翻轉</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
-    <value>設定 Display1_DisableAsyncFlips=1 以在 Intel iGPU 上強制同步緩衝區翻轉，減少輸入到顯示的延遲和畫面撕裂。</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
-    <value>停用 Intel 自適應垂直同步</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
-    <value>設定 AdaptiveVsyncEnable=0 以停用會根據影格率動態調整的 Intel 自適應垂直同步，改用固定的垂直同步以獲得穩定的時序。</value>
   </data>
   <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
     <value>除非您非常清楚自己在做什麼，否則請勿變更</value>

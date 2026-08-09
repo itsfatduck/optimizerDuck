@@ -13,7 +13,7 @@ namespace optimizerDuck.Services.Optimization.Providers;
 /// <summary>Defines success criteria and error reporting for shell command execution.</summary>
 public sealed class ShellPolicy
 {
-    /// <summary>The default policy — exit code 0 means success, error is derived from stderr or exit code.</summary>
+    /// <summary>Default policy: exit code 0 means success; error text is taken from stderr or the exit code.</summary>
     public static readonly ShellPolicy Default = new();
 
     /// <summary>Gets or sets a function that determines whether a shell result indicates success.</summary>

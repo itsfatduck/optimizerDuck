@@ -7,6 +7,7 @@ using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Domain.UI;
+using optimizerDuck.Test.TestDoubles;
 using optimizerDuck.Services.Optimization;
 using optimizerDuck.Services.Revert;
 using optimizerDuck.Services.System;
@@ -585,7 +586,7 @@ public class OptimizationServiceTests
         return tcs.Task;
     }
 
-    private sealed class FakeOptimization : IOptimization
+    private sealed class FakeOptimization : StubOptimization
     {
         public Type? OwnerType { get; set; }
         public string OwnerKey { get; } = "Test";
@@ -600,15 +601,10 @@ public class OptimizationServiceTests
             Task<ApplyResult>
         > ApplyImpl { get; init; } = _ => Task.FromResult(ApplyResult.True());
 
-        public Guid Id { get; } = Guid.NewGuid();
-        public OptimizationRisk Risk { get; } = OptimizationRisk.Safe;
-        public string OptimizationKey { get; } = "TestOptimization";
+        public override string Name => "Test";
+        public override string ShortDescription => "Test";
 
-        public string Name { get; } = "Test";
-        public string ShortDescription { get; } = "Test";
-        public OptimizationState State { get; set; } = new();
-
-        public Task<ApplyResult> ApplyAsync(
+        public override Task<ApplyResult> ApplyAsync(
             IProgress<ProcessingProgress> progress,
             OptimizationContext context
         )

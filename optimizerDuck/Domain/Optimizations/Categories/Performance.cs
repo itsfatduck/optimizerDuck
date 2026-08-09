@@ -53,7 +53,7 @@ public class Performance : IOptimizationCategory
         Risk = OptimizationRisk.Moderate,
         Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Ram
     )]
-    public class SvcHostSplit : BaseOptimization
+    public class ConsolidateServiceHosts : BaseOptimization
     {
         public override Task<ApplyResult> ApplyAsync(
             IProgress<ProcessingProgress> progress,
@@ -85,7 +85,7 @@ public class Performance : IOptimizationCategory
                 )
             );
             context.Logger.LogInformation(
-                "Enabled service host splitting with threshold: {ThresholdKB} KB",
+                "Consolidated service hosts with threshold: {ThresholdKB} KB",
                 context.Snapshot.Ram.TotalKB
             );
             return Task.FromResult(CompleteFromScope());

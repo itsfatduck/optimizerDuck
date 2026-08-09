@@ -120,7 +120,7 @@ public class RegistryWatcherTests : IDisposable
         // Give cancellation time to interrupt any in-flight delay/operation
         await Task.Delay(500, TestContext.Current.CancellationToken);
 
-        // Create key and write — at this point the watcher should be stopped
+        // Create the key and write; the watcher should be stopped by now
         using var key = Registry.CurrentUser.CreateSubKey(TestRootNative);
         Assert.NotNull(key);
         key.SetValue("TestValue", 99);

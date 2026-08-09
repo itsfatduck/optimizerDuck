@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
+using optimizerDuck.Domain.Conditions;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
@@ -99,6 +100,55 @@ public class UserExperience : IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Disabled web search for Start Menu");
+            return Task.FromResult(CompleteFromScope());
+        }
+    }
+
+    [Optimization(
+        Id = "31A6274C-AD37-4FFA-A32E-727FB71AD085",
+        Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.Privacy | OptimizationTags.Visual | OptimizationTags.Windows11Only,
+        Condition = typeof(Windows11Condition)
+    )]
+    public sealed class DisableStartRecommended : BaseOptimization
+    {
+        public override Task<ApplyResult> ApplyAsync(
+            IProgress<ProcessingProgress> progress,
+            OptimizationContext context
+        )
+        {
+            RegistryService.Write(
+                new RegistryItem(
+                    @"HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Windows\Explorer",
+                    "HideRecommendedSection",
+                    1
+                )
+            );
+            context.Logger.LogInformation("Disabled Recommended section in Start Menu");
+            return Task.FromResult(CompleteFromScope());
+        }
+    }
+
+    [Optimization(
+        Id = "B36652B1-D094-4D39-BEB8-7961E6094A2E",
+        Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.Visual | OptimizationTags.Privacy
+    )]
+    public sealed class DisableSettings365Ads : BaseOptimization
+    {
+        public override Task<ApplyResult> ApplyAsync(
+            IProgress<ProcessingProgress> progress,
+            OptimizationContext context
+        )
+        {
+            RegistryService.Write(
+                new RegistryItem(
+                    @"HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent",
+                    "DisableConsumerAccountStateContent",
+                    1
+                )
+            );
+            context.Logger.LogInformation("Disabled Microsoft 365 ads in Settings");
             return Task.FromResult(CompleteFromScope());
         }
     }

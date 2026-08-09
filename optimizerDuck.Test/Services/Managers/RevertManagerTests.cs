@@ -6,6 +6,7 @@ using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.Revert.Steps;
+using optimizerDuck.Test.TestDoubles;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Services.Revert;
 
@@ -287,16 +288,14 @@ public class RevertManagerTests
     }
 }
 
-public class MockOptimization(Guid id) : IOptimization
+public class MockOptimization(Guid id) : StubOptimization
 {
-    public Guid Id { get; } = id;
-    public OptimizationRisk Risk => OptimizationRisk.Safe;
-    public string OptimizationKey => "TestOptimization";
-    public string Name => "TestOptimization";
-    public string ShortDescription => "Mock description";
-    public OptimizationState State { get; set; } = new();
+    public override Guid Id => id;
+    public override string OptimizationKey => "TestOptimization";
+    public override string Name => "TestOptimization";
+    public override string ShortDescription => "Mock description";
 
-    public Task<ApplyResult> ApplyAsync(
+    public override Task<ApplyResult> ApplyAsync(
         IProgress<ProcessingProgress> progress,
         OptimizationContext context
     )

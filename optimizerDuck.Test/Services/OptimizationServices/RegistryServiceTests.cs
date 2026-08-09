@@ -8,6 +8,7 @@ using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
+using optimizerDuck.Test.TestDoubles;
 using optimizerDuck.Services.Optimization.Providers;
 using Xunit;
 
@@ -18,16 +19,13 @@ public class RegistryServiceTests : IDisposable
     private const string BaseTestKey = @"HKCU\Software\TestOptimizerDuck";
     private readonly ExecutionScope _scope;
 
-    private class DummyOptimization : IOptimization
+    private class DummyOptimization : StubOptimization
     {
-        public Guid Id { get; } = Guid.NewGuid();
-        public OptimizationRisk Risk => OptimizationRisk.Safe;
-        public string OptimizationKey => "TestOpt";
-        public string Name => "Test";
-        public string ShortDescription => "";
-        public OptimizationState State { get; set; } = new();
+        public override string OptimizationKey => "TestOpt";
+        public override string Name => "Test";
+        public override string ShortDescription => "";
 
-        public Task<ApplyResult> ApplyAsync(
+        public override Task<ApplyResult> ApplyAsync(
             IProgress<ProcessingProgress> progress,
             OptimizationContext context
         ) => Task.FromResult(ApplyResult.True());

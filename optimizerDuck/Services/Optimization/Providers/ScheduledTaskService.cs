@@ -228,7 +228,7 @@ public static class ScheduledTaskService
         return results;
     }
 
-    /// <summary>Returns startup-related tasks — those with a LogonTrigger or BootTrigger.</summary>
+    /// <summary>Returns startup-related tasks: those with a LogonTrigger or BootTrigger.</summary>
     /// <returns>A list of startup-related tasks ordered by name.</returns>
     public static List<ScheduledTaskModel> GetStartupTasks()
     {
