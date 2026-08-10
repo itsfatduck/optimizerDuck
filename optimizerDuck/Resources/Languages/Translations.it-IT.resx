@@ -216,8 +216,8 @@
   <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
     <value>Tag</value>
   </data>
-  <data name="Optimizer.Performance.SvcHostSplit.ShortDescription" xml:space="preserve">
-    <value>Imposta la soglia di suddivisione Service Host in base alla RAM totale, forzando Windows a isolare i servizi in processi separati per maggiore stabilità.</value>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
+    <value>Raises the Service Host split threshold to total system RAM, keeping services consolidated in fewer processes to reduce memory overhead and process count.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
     <value>Impossibile rilevare il piano di alimentazione attivo corrente.</value>
@@ -254,15 +254,6 @@
   </data>
   <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
     <value>Questi tag indicano quali parti del sistema verranno interessate dall'ottimizzazione.</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
-    <value>NVIDIA</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
-    <value>AMD</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
-    <value>Intel</value>
   </data>
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
     <value>Alimentazione</value>
@@ -555,10 +546,10 @@
   <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
     <value>Impedisce alle app inattive di funzionare in background per liberare RAM e ridurre il carico CPU.</value>
   </data>
-  <data name="Optimizer.Performance.SvcHostSplit.Name" xml:space="preserve">
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.Name" xml:space="preserve">
     <value>Ottimizza isolamento servizi</value>
   </data>
-  <data name="Optimizer.Performance.SvcHostSplit.Error.InvalidRAM" xml:space="preserve">
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.Error.InvalidRAM" xml:space="preserve">
     <value>RAM non valida: {0}</value>
   </data>
   <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
@@ -702,9 +693,6 @@
   <data name="Optimizer.UI.Tags.Windows11Only" xml:space="preserve">
     <value>Solo Windows 11</value>
   </data>
-  <data name="Optimizer.Gpu" xml:space="preserve">
-    <value>GPU</value>
-  </data>
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>Esperienza utente</value>
   </data>
@@ -725,54 +713,6 @@
   </data>
   <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
     <value>Disabilita animazioni barra delle applicazioni, ombre listview, trasparenza finestre e Aero Peek per liberare risorse GPU/CPU e migliorare le prestazioni.</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
-    <value>Disabilita AMD ULPS</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
-    <value>Imposta EnableULPS=0 nel registro GPU AMD per prevenire ritardi di risveglio e problemi multi-monitor. Riduce il risparmio energetico in idle.</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
-    <value>Disabilita Power Gating AMD</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
-    <value>Imposta DisablePowerGating=1, PP_GPUPowerDownEnabled=0, DisableDynamicPstate=1 per impedire transizioni di alimentazione GPU AMD. Mantiene clock costanti a costo di maggiore consumo in idle.</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
-    <value>Disabilita Clock Gating video AMD</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-    <value>Imposta DisableVCEPowerGating=1, DisableVceClockGating=1, EnableUvdClockGating=0 per i motori video AMD (VCE/UVD) per migliorare stabilità codifica/decodifica. Aumenta consumo in riproduzione video.</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
-    <value>Disabilita ASPM AMD</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
-    <value>Imposta EnableAspmL0s=0, EnableAspmL1=0 per disabilitare Active State Power Management sulle GPU AMD, riducendo latenza bus PCIe. Aumenta consumo slot.</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
-    <value>Disabilita P-State dinamico NVIDIA</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
-    <value>Imposta DisableDynamicPstate=1 per bloccare la GPU NVIDIA in stato prestazionale fisso, impedendo fluttuazioni clock. Aumenta consumo in idle.</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
-    <value>Disabilita P-State asincroni NVIDIA</value>
-  </data>
-  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
-    <value>Imposta DisableASyncPstates=1 per impedire il cambio asincrono di stato alimentazione NVIDIA, fornendo prestazioni deterministiche per VR/app real-time.</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
-    <value>Disabilita Async Flips Intel</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
-    <value>Imposta Display1_DisableAsyncFlips=1 per forzare flip sincroni del buffer su iGPU Intel, riducendo latenza input-display e tearing.</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
-    <value>Disabilita V-Sync adattivo Intel</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
-    <value>Imposta AdaptiveVsyncEnable=0 per disabilitare V-Sync adattivo Intel che si adatta al frame rate, usando V-Sync fisso per timing stabile.</value>
   </data>
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
     <value>Barra delle applicazioni</value>
@@ -1809,5 +1749,161 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   </data>
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
     <value>Mostra la percentuale attuale della batteria accanto all'icona batteria nella system tray.</value>
+  </data>
+  <data name="Customize.CustomOption" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="Customize.CustomOption.NotSet" xml:space="preserve">
+    <value>Not set</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
+    <value>Disable News &amp; Interests</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
+    <value>Turns off the News and Interests feed and hides its taskbar button (Windows 10), and disables the Widgets board (Windows 11).</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.Name" xml:space="preserve">
+    <value>Hide Meet Now Button</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
+    <value>Hides the Meet Now (Skype) button from the taskbar notification area. Windows 10 only.</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Options.QuickAccess" xml:space="preserve">
+    <value>Quick Access</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Options.ThisPc" xml:space="preserve">
+    <value>This PC</value>
+  </data>
+  <data name="Optimizer.AI" xml:space="preserve">
+    <value>AI</value>
+  </data>
+  <data name="Optimizer.AI.DisableClickToDo.Name" xml:space="preserve">
+    <value>Disable Click To Do</value>
+  </data>
+  <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
+    <value>Turns off the AI-powered Click To Do overlay that analyzes text and images on your screen.</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
+    <value>Disable Windows Recall</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.ShortDescription" xml:space="preserve">
+    <value>Disables the Windows Recall AI feature that captures and indexes snapshots of your screen. Also removes the Recall component and deletes previously saved snapshots on Windows 11 24H2+ (Build 26100.3915+); a restart is required to take effect.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.Name" xml:space="preserve">
+    <value>Disable Delivery Optimization (P2P)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
+    <value>Stops Windows from sharing or downloading update files from other PCs over peer-to-peer, so updates only come from Microsoft servers.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
+    <value>Disable Find My Device</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
+    <value>Disables the Find My Device feature that periodically reports your device's location to Microsoft.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
+    <value>Disable Microsoft 365 Ads in Settings</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
+    <value>Removes the Microsoft 365 and Copilot promotional content from the Settings Home page.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartRecommended.Name" xml:space="preserve">
+    <value>Hide Recommended Section in Start</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
+    <value>Hides the Recommended section from the Start menu to reduce clutter and stop recent files and apps from being shown.</value>
+  </data>
+  <data name="Condition.Error.Title" xml:space="preserve">
+    <value>Compatibility check failed</value>
+  </data>
+  <data name="Condition.Error.Description" xml:space="preserve">
+    <value>optimizerDuck could not determine whether this item is supported on your system.</value>
+  </data>
+  <data name="Condition.Windows11.Title" xml:space="preserve">
+    <value>Windows 11 required</value>
+  </data>
+  <data name="Condition.Windows11.Description" xml:space="preserve">
+    <value>This item requires Windows 11.</value>
+  </data>
+  <data name="Condition.Windows10.Title" xml:space="preserve">
+    <value>Windows 10 required</value>
+  </data>
+  <data name="Condition.Windows10.Description" xml:space="preserve">
+    <value>This item requires Windows 10.</value>
+  </data>
+  <data name="Condition.Windows11_24H2.Title" xml:space="preserve">
+    <value>Windows 11 24H2 or newer required</value>
+  </data>
+  <data name="Condition.Windows11_24H2.Description" xml:space="preserve">
+    <value>This item requires Windows 11 24H2 (build 26100) or later.</value>
+  </data>
+  <data name="Condition.Cpu.Intel.Title" xml:space="preserve">
+    <value>Intel CPU required</value>
+  </data>
+  <data name="Condition.Cpu.Intel.Description" xml:space="preserve">
+    <value>This item only works on systems with an Intel processor.</value>
+  </data>
+  <data name="Condition.Cpu.Amd.Title" xml:space="preserve">
+    <value>AMD CPU required</value>
+  </data>
+  <data name="Condition.Cpu.Amd.Description" xml:space="preserve">
+    <value>This item only works on systems with an AMD processor.</value>
+  </data>
+  <data name="Condition.Gpu.Nvidia.Title" xml:space="preserve">
+    <value>NVIDIA GPU required</value>
+  </data>
+  <data name="Condition.Gpu.Nvidia.Description" xml:space="preserve">
+    <value>This item only works on systems with an NVIDIA graphics card.</value>
+  </data>
+  <data name="Condition.Gpu.Amd.Title" xml:space="preserve">
+    <value>AMD GPU required</value>
+  </data>
+  <data name="Condition.Gpu.Amd.Description" xml:space="preserve">
+    <value>This item only works on systems with an AMD graphics card.</value>
+  </data>
+  <data name="Condition.Gpu.Intel.Title" xml:space="preserve">
+    <value>Intel GPU required</value>
+  </data>
+  <data name="Condition.Gpu.Intel.Description" xml:space="preserve">
+    <value>This item only works on systems with an Intel graphics card.</value>
+  </data>
+  <data name="Condition.Ram.16.Title" xml:space="preserve">
+    <value>16 GB RAM required</value>
+  </data>
+  <data name="Condition.Ram.16.Description" xml:space="preserve">
+    <value>This item requires at least 16 GB of installed RAM.</value>
+  </data>
+  <data name="Condition.Recall.Title" xml:space="preserve">
+    <value>Windows Recall not available</value>
+  </data>
+  <data name="Condition.Recall.Description" xml:space="preserve">
+    <value>Windows Recall requires Windows 11 24H2 or later with the Windows AI components installed.</value>
+  </data>
+  <data name="Optimizer.Condition.BlockedTitle" xml:space="preserve">
+    <value>Not supported on this system</value>
+  </data>
+  <data name="Optimizer.Condition.FailedTitle" xml:space="preserve">
+    <value>Condition failed</value>
+  </data>
+  <data name="Optimizer.Condition.Hide" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="Optimizer.Condition.Hide.Tooltip" xml:space="preserve">
+    <value>Show this optimization again and allow applying it anyway.</value>
+  </data>
+  <data name="Optimizer.Condition.WhatIsThis" xml:space="preserve">
+    <value>What is this?</value>
+  </data>
+  <data name="Optimizer.Condition.WhatIsThis.Tooltip" xml:space="preserve">
+    <value>Compatibility conditions check whether an item is supported on your system, e.g. which Windows version or which GPU is installed. When a condition fails, the item is hidden by default because it may not work. If you know what you are doing, you can hide this warning and apply the item anyway.</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Header" xml:space="preserve">
+    <value>Unsupported Settings ({0})</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Badge" xml:space="preserve">
+    <value>Not supported</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
+    <value>Some settings are unavailable on your current system.</value>
   </data>
 </root>
