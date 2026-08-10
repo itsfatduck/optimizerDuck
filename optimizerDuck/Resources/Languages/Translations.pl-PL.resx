@@ -1776,7 +1776,7 @@ Zaktualizuj teraz, aby korzystać z najnowszych funkcji, ulepszeń i poprawek b�
     <value>Wyłącz Click To Do</value>
   </data>
   <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
-    <value>Wyłącza nakładkę Click To Do opartą na AI, która analizuje tekst i obrazy na ekranie.</value>
+    <value>Wyłącza nakładkę Click To Do napędzaną AI, która analizuje tekst i obrazy na ekranie.</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
     <value>Wyłącz Windows Recall</value>
@@ -1803,7 +1803,7 @@ Zaktualizuj teraz, aby korzystać z najnowszych funkcji, ulepszeń i poprawek b�
     <value>Ukryj sekcję Polecane w menu Start</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>Ukrywa sekcję Polecane w menu Start, aby zmniejszyć bałagan i uniemożliwić wyświetlanie ostatnich plików i aplikacji.</value>
+    <value>Ukrywa sekcję Polecane w menu Start, aby menu było czystsze i nie pokazywało ostatnich plików i aplikacji.</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
     <value>Sprawdzenie zgodności nie powiodło się</value>

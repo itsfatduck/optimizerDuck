@@ -1785,7 +1785,7 @@ Atualize agora para desfrutar das últimas funcionalidades, melhorias e correç�
     <value>Desativar Otimização de Entrega (P2P)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
-    <value>Impede que o Windows compartilhe ou baixe arquivos de atualização de outros PCs via peer-to-peer, de modo que as atualizações venham apenas dos servidores da Microsoft.</value>
+    <value>Impede que o Windows compartilhe ou baixe arquivos de atualização de outros PCs via peer-to-peer, para que as atualizações venham apenas dos servidores da Microsoft.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
     <value>Desativar Encontrar Meu Dispositivo</value>
@@ -1803,7 +1803,7 @@ Atualize agora para desfrutar das últimas funcionalidades, melhorias e correç�
     <value>Ocultar seção Recomendados no Menu Iniciar</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>Oculta a seção Recomendados do menu Iniciar para reduzir a poluição visual e impedir a exibição de arquivos e aplicativos recentes.</value>
+    <value>Oculta a seção Recomendados do menu Iniciar para deixar o menu mais limpo e impedir que arquivos e aplicativos recentes apareçam.</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
     <value>Falha na verificação de compatibilidade</value>

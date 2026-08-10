@@ -1753,13 +1753,13 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
     <value>Ẩn nút Meet Now</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
-    <value>Ẩn nút Meet Now (Skype) khỏi khu vực thông báo trên thanh tác vụ. Chỉ dành cho Windows 10.</value>
+    <value>Ẩn nút Meet Now (Skype) khỏi vùng thông báo trên thanh tác vụ. Chỉ dành cho Windows 10.</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Options.QuickAccess" xml:space="preserve">
     <value>Truy cập nhanh</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Options.ThisPc" xml:space="preserve">
-    <value>PC này</value>
+    <value>This PC</value>
   </data>
   <data name="Optimizer.AI" xml:space="preserve">
     <value>AI</value>
@@ -1768,7 +1768,7 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
     <value>Tắt Click To Do</value>
   </data>
   <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
-    <value>Tắt lớp phủ Click To Do hỗ trợ AI phân tích văn bản và hình ảnh trên màn hình của bạn.</value>
+    <value>Tắt lớp phủ Click To Do (tính năng AI phân tích văn bản và hình ảnh trên màn hình).</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
     <value>Tắt Windows Recall</value>
@@ -1777,28 +1777,28 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
     <value>Tắt Tối ưu hóa phân phối (P2P)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
-    <value>Ngăn Windows chia sẻ hoặc tải tệp cập nhật từ các PC khác qua mạng ngang hàng, để bản cập nhật chỉ đến từ máy chủ Microsoft.</value>
+    <value>Ngăn Windows chia sẻ hoặc tải tệp cập nhật từ các PC khác qua mạng ngang hàng (P2P); bản cập nhật chỉ tải trực tiếp từ máy chủ Microsoft.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
     <value>Tắt Tìm thiết bị của tôi</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
-    <value>Tắt tính năng Tìm thiết bị của tôi vốn định kỳ báo cáo vị trí thiết bị của bạn cho Microsoft.</value>
+    <value>Tắt tính năng Tìm thiết bị của tôi – tính năng định kỳ gửi vị trí thiết bị của bạn cho Microsoft.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
     <value>Tắt quảng cáo Microsoft 365 trong Cài đặt</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
-    <value>Xóa nội dung quảng bá Microsoft 365 và Copilot khỏi trang chủ Cài đặt.</value>
+    <value>Gỡ nội dung quảng bá Microsoft 365 và Copilot khỏi trang chủ Cài đặt.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.Name" xml:space="preserve">
     <value>Ẩn mục Đề xuất trong Start</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>Ẩn mục Đề xuất khỏi menu Start để giảm rối mắt và ngăn hiển thị các tệp cùng ứng dụng gần đây.</value>
+    <value>Ẩn mục Đề xuất trong menu Start để giao diện gọn gàng hơn và không hiện các tệp/ứng dụng gần đây.</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
-    <value>Kiểm tra tương thích thất bại</value>
+    <value>Kiểm tra tương thích không thành công</value>
   </data>
   <data name="Condition.Error.Description" xml:space="preserve">
     <value>optimizerDuck không thể xác định mục này có được hỗ trợ trên hệ thống của bạn hay không.</value>
@@ -1825,37 +1825,37 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
     <value>Yêu cầu CPU Intel</value>
   </data>
   <data name="Condition.Cpu.Intel.Description" xml:space="preserve">
-    <value>Mục này chỉ hoạt động trên hệ thống có bộ xử lý Intel.</value>
+    <value>Mục này chỉ hoạt động trên máy dùng CPU Intel.</value>
   </data>
   <data name="Condition.Cpu.Amd.Title" xml:space="preserve">
     <value>Yêu cầu CPU AMD</value>
   </data>
   <data name="Condition.Cpu.Amd.Description" xml:space="preserve">
-    <value>Mục này chỉ hoạt động trên hệ thống có bộ xử lý AMD.</value>
+    <value>Mục này chỉ hoạt động trên máy dùng CPU AMD.</value>
   </data>
   <data name="Condition.Gpu.Nvidia.Title" xml:space="preserve">
     <value>Yêu cầu GPU NVIDIA</value>
   </data>
   <data name="Condition.Gpu.Nvidia.Description" xml:space="preserve">
-    <value>Mục này chỉ hoạt động trên hệ thống có card đồ họa NVIDIA.</value>
+    <value>Mục này chỉ hoạt động trên máy có card đồ họa NVIDIA.</value>
   </data>
   <data name="Condition.Gpu.Amd.Title" xml:space="preserve">
     <value>Yêu cầu GPU AMD</value>
   </data>
   <data name="Condition.Gpu.Amd.Description" xml:space="preserve">
-    <value>Mục này chỉ hoạt động trên hệ thống có card đồ họa AMD.</value>
+    <value>Mục này chỉ hoạt động trên máy có card đồ họa AMD.</value>
   </data>
   <data name="Condition.Gpu.Intel.Title" xml:space="preserve">
     <value>Yêu cầu GPU Intel</value>
   </data>
   <data name="Condition.Gpu.Intel.Description" xml:space="preserve">
-    <value>Mục này chỉ hoạt động trên hệ thống có card đồ họa Intel.</value>
+    <value>Mục này chỉ hoạt động trên máy có card đồ họa Intel.</value>
   </data>
   <data name="Condition.Ram.16.Title" xml:space="preserve">
     <value>Yêu cầu 16 GB RAM</value>
   </data>
   <data name="Condition.Ram.16.Description" xml:space="preserve">
-    <value>Mục này yêu cầu ít nhất 16 GB RAM đã lắp đặt.</value>
+    <value>Mục này yêu cầu ít nhất 16 GB RAM.</value>
   </data>
   <data name="Condition.Recall.Title" xml:space="preserve">
     <value>Windows Recall không khả dụng</value>
@@ -1867,19 +1867,19 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
     <value>Không được hỗ trợ trên hệ thống này</value>
   </data>
   <data name="Optimizer.Condition.FailedTitle" xml:space="preserve">
-    <value>Không thỏa điều kiện</value>
+    <value>Không đạt điều kiện</value>
   </data>
   <data name="Optimizer.Condition.Hide" xml:space="preserve">
     <value>Ẩn</value>
   </data>
   <data name="Optimizer.Condition.Hide.Tooltip" xml:space="preserve">
-    <value>Hiện lại tối ưu này và cho phép áp dụng nó dù sao đi nữa.</value>
+    <value>Hiện lại mục tối ưu này và cho phép áp dụng dù không đạt điều kiện.</value>
   </data>
   <data name="Optimizer.Condition.WhatIsThis" xml:space="preserve">
     <value>Đây là gì?</value>
   </data>
   <data name="Optimizer.Condition.WhatIsThis.Tooltip" xml:space="preserve">
-    <value>Các điều kiện tương thích kiểm tra xem một mục có được hỗ trợ trên hệ thống của bạn hay không, ví dụ phiên bản Windows hoặc GPU nào đang được cài đặt. Khi một điều kiện không đạt, mục đó bị ẩn theo mặc định vì có thể không hoạt động. Nếu bạn biết mình đang làm gì, bạn có thể ẩn cảnh báo này và vẫn áp dụng mục đó.</value>
+    <value>Các điều kiện tương thích kiểm tra xem một mục có được hỗ trợ trên hệ thống của bạn hay không, ví dụ như phiên bản Windows hoặc GPU trên máy. Khi không đạt điều kiện, mục bị ẩn theo mặc định vì có thể không hoạt động. Nếu bạn biết mình đang làm gì, có thể ẩn cảnh báo này và vẫn áp dụng mục đó.</value>
   </data>
   <data name="Customize.UI.UnsupportedSettings.Header" xml:space="preserve">
     <value>Cài đặt không được hỗ trợ ({0})</value>

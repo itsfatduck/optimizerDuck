@@ -1776,7 +1776,7 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
     <value>Désactiver Click To Do</value>
   </data>
   <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
-    <value>Désactive la superposition Click To Do basée sur l'IA qui analyse le texte et les images à l'écran.</value>
+    <value>Désactive la superposition Click To Do, propulsée par l'IA, qui analyse le texte et les images à l'écran.</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
     <value>Désactiver Windows Recall</value>
@@ -1785,7 +1785,7 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
     <value>Désactiver l'optimisation de la livraison (P2P)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
-    <value>Empêche Windows de partager ou de télécharger des fichiers de mise à jour depuis d'autres PC en peer-to-peer, afin que les mises à jour ne proviennent que des serveurs Microsoft.</value>
+    <value>Empêche Windows de partager ou de télécharger des fichiers de mise à jour depuis d'autres PC en peer-to-peer, pour que les mises à jour ne viennent que des serveurs Microsoft.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
     <value>Désactiver Localiser mon appareil</value>
@@ -1803,7 +1803,7 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
     <value>Masquer la section Recommandé dans le menu Démarrer</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>Masque la section Recommandé du menu Démarrer pour réduire l'encombrement et empêcher l'affichage des fichiers et applications récents.</value>
+    <value>Masque la section Recommandé du menu Démarrer pour désencombrer le menu et éviter d'afficher les fichiers et applications récents.</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
     <value>Échec de la vérification de compatibilité</value>

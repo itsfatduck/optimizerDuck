@@ -1811,7 +1811,7 @@
     <value>隐藏开始菜单中的推荐部分</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>隐藏开始菜单中的“推荐”部分，减少干扰并避免显示最近使用的文件和应用。</value>
+    <value>隐藏开始菜单中的“推荐”部分，让菜单更简洁，也不再显示最近使用的文件和应用。</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
     <value>兼容性检查失败</value>

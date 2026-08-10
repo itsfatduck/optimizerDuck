@@ -1795,7 +1795,7 @@
     <value>スタート メニューのおすすめセクションを非表示にする</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>スタート メニューからおすすめセクションを非表示にし、最近使ったファイルやアプリが表示されないようにして、見た目をすっきりさせます。</value>
+    <value>スタート メニューのおすすめセクションを非表示にしてスッキリさせ、最近使ったファイルやアプリも表示されないようにします。</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
     <value>互換性チェックに失敗しました</value>

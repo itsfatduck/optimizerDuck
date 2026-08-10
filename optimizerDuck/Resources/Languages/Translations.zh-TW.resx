@@ -1798,7 +1798,7 @@
     <value>隱藏開始功能表中的推薦區段</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>隱藏開始功能表中的「推薦」區段，以減少雜亂並避免顯示最近使用的檔案和應用程式。</value>
+    <value>隱藏開始功能表中的「推薦」區段，讓功能表更簡潔，也不再顯示最近使用的檔案和應用程式。</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
     <value>相容性檢查失敗</value>

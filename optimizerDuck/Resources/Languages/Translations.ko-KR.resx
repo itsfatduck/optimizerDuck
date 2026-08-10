@@ -1794,7 +1794,7 @@
     <value>시작 메뉴의 권장 섹션 숨기기</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>시작 메뉴에서 권장 섹션을 숨겨 정리를 유지하고 최근 파일과 앱이 표시되지 않도록 합니다.</value>
+    <value>권장 섹션을 숨겨 시작 메뉴를 깔끔하게 유지하고, 최근 파일과 앱이 표시되지 않도록 합니다.</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
     <value>호환성 확인 실패</value>
@@ -1866,7 +1866,7 @@
     <value>이 시스템에서 지원되지 않음</value>
   </data>
   <data name="Optimizer.Condition.FailedTitle" xml:space="preserve">
-    <value>조건 충족 실패</value>
+    <value>조건을 충족하지 못함</value>
   </data>
   <data name="Optimizer.Condition.Hide" xml:space="preserve">
     <value>숨기기</value>

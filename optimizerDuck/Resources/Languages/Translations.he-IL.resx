@@ -1842,7 +1842,7 @@
     <value>השבתת Click To Do</value>
   </data>
   <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
-    <value>מכבה את שכבת-העל Click To Do המופעלת בבינה מלאכותית, שמנתחת טקסט ותמונות על המסך שלך.</value>
+    <value>מכבה את שכבת-העל Click To Do המבוססת על בינה מלאכותית ומנתחת טקסט ותמונות על המסך.</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
     <value>השבתת Windows Recall</value>
@@ -1869,7 +1869,7 @@
     <value>הסתרת קטע מומלצים בתפריט התחל</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>מסתיר את קטע מומלצים מתפריט התחל כדי להפחית עומס ולמנוע הצגת קבצים ואפליקציות אחרונים.</value>
+    <value>מסתיר את קטע מומלצים מתפריט התחל כדי לשמור על תפריט נקי ולמנוע הצגת קבצים ואפליקציות אחרונים.</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
     <value>בדיקת התאימות נכשלה</value>
@@ -1941,7 +1941,7 @@
     <value>לא נתמך במערכת זו</value>
   </data>
   <data name="Optimizer.Condition.FailedTitle" xml:space="preserve">
-    <value>התנאי נכשל</value>
+    <value>התנאי לא התקיים</value>
   </data>
   <data name="Optimizer.Condition.Hide" xml:space="preserve">
     <value>הסתר</value>

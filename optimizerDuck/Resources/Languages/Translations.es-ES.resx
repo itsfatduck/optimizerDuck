@@ -1782,7 +1782,7 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
     <value>Desactivar Click To Do</value>
   </data>
   <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
-    <value>Desactiva la superposición Click To Do impulsada por IA que analiza texto e imágenes en tu pantalla.</value>
+    <value>Desactiva la superposición Click To Do con IA que analiza texto e imágenes en pantalla.</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
     <value>Desactivar Windows Recall</value>
@@ -1791,7 +1791,7 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
     <value>Desactivar Optimización de entrega (P2P)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
-    <value>Impide que Windows comparta o descargue archivos de actualización de otros PC mediante red entre pares, de modo que las actualizaciones solo provengan de los servidores de Microsoft.</value>
+    <value>Impide que Windows comparta o descargue archivos de actualización desde otros PC mediante P2P, para que las actualizaciones solo lleguen de los servidores de Microsoft.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
     <value>Desactivar Buscar mi dispositivo</value>
@@ -1809,7 +1809,7 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
     <value>Ocultar la sección Recomendados en Inicio</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>Oculta la sección Recomendados del menú Inicio para reducir el desorden y evitar que se muestren archivos y aplicaciones recientes.</value>
+    <value>Oculta la sección Recomendados del menú Inicio para dejar el menú más limpio y evitar que se muestren archivos y aplicaciones recientes.</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
     <value>Error en la comprobación de compatibilidad</value>
@@ -1881,7 +1881,7 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
     <value>No compatible con este sistema</value>
   </data>
   <data name="Optimizer.Condition.FailedTitle" xml:space="preserve">
-    <value>Condición fallida</value>
+    <value>Condición no cumplida</value>
   </data>
   <data name="Optimizer.Condition.Hide" xml:space="preserve">
     <value>Ocultar</value>

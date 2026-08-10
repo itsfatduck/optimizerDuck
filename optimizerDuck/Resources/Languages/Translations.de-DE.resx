@@ -1846,7 +1846,7 @@ Aktualisiere jetzt, um die neuesten Funktionen, Verbesserungen und Fehlerbehebun
     <value>Übermittlungsoptimierung deaktivieren (P2P)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
-    <value>Verhindert, dass Windows Update-Dateien über Peer-to-Peer von anderen PCs teilt oder herunterlädt, sodass Updates nur von Microsoft-Servern kommen.</value>
+    <value>Verhindert, dass Windows Update-Dateien per Peer-to-Peer mit anderen PCs teilt oder von ihnen lädt. Updates kommen dann nur noch direkt von Microsoft-Servern.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
     <value>Gerät suchen deaktivieren</value>
@@ -1864,7 +1864,7 @@ Aktualisiere jetzt, um die neuesten Funktionen, Verbesserungen und Fehlerbehebun
     <value>Empfohlene Sektion im Startmenü ausblenden</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>Blendet den Abschnitt „Empfohlen“ im Startmenü aus, um Unordnung zu reduzieren und das Anzeigen zuletzt verwendeter Dateien und Apps zu verhindern.</value>
+    <value>Blendet den Bereich „Empfohlen“ im Startmenü aus – für ein aufgeräumteres Startmenü, ohne zuletzt verwendete Dateien und Apps.</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
     <value>Kompatibilitätsprüfung fehlgeschlagen</value>
@@ -1936,7 +1936,7 @@ Aktualisiere jetzt, um die neuesten Funktionen, Verbesserungen und Fehlerbehebun
     <value>Auf diesem System nicht unterstützt</value>
   </data>
   <data name="Optimizer.Condition.FailedTitle" xml:space="preserve">
-    <value>Bedingung fehlgeschlagen</value>
+    <value>Bedingung nicht erfüllt</value>
   </data>
   <data name="Optimizer.Condition.Hide" xml:space="preserve">
     <value>Ausblenden</value>

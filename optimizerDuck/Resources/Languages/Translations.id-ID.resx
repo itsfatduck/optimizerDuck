@@ -1869,7 +1869,7 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
     <value>Sembunyikan Bagian Recommended di Start</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>Menyembunyikan bagian Recommended dari menu Start untuk mengurangi kekacauan dan menghentikan tampilnya file serta aplikasi terbaru.</value>
+    <value>Menyembunyikan bagian Recommended dari menu Start agar menu lebih rapi dan file serta aplikasi terbaru tidak muncul.</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
     <value>Pemeriksaan kompatibilitas gagal</value>
@@ -1941,7 +1941,7 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
     <value>Tidak didukung pada sistem ini</value>
   </data>
   <data name="Optimizer.Condition.FailedTitle" xml:space="preserve">
-    <value>Kondisi gagal</value>
+    <value>Kondisi tidak terpenuhi</value>
   </data>
   <data name="Optimizer.Condition.Hide" xml:space="preserve">
     <value>Sembunyikan</value>

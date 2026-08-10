@@ -1776,7 +1776,7 @@
     <value>Отключить Click To Do</value>
   </data>
   <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
-    <value>Отключает наложение Click To Do на основе ИИ, которое анализирует текст и изображения на экране.</value>
+    <value>Отключает наложение Click To Do с ИИ, анализирующее текст и изображения на экране.</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
     <value>Отключить Windows Recall</value>
@@ -1785,7 +1785,7 @@
     <value>Отключить оптимизацию доставки (P2P)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
-    <value>Запрещает Windows делиться или загружать файлы обновлений с других ПК через одноранговую сеть, чтобы обновления поступали только с серверов Microsoft.</value>
+    <value>Запрещает Windows делиться или загружать файлы обновлений с других ПК через одноранговую сеть, чтобы обновления приходили только с серверов Microsoft.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
     <value>Отключить «Поиск устройства»</value>
@@ -1803,7 +1803,7 @@
     <value>Скрыть раздел «Рекомендуемые» в меню «Пуск»</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>Скрывает раздел «Рекомендуемые» в меню «Пуск», чтобы уменьшить беспорядок и предотвратить показ последних файлов и приложений.</value>
+    <value>Скрывает раздел «Рекомендуемые» в меню «Пуск»: меню выглядит опрятнее, а последние файлы и приложения не показываются.</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
     <value>Проверка совместимости не удалась</value>

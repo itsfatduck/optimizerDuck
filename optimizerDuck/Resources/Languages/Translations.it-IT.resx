@@ -1811,7 +1811,7 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
     <value>Nascondi sezione Consigliati nel menu Start</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>Nasconde la sezione Consigliati dal menu Start per ridurre il disordine ed evitare la visualizzazione di file e app recenti.</value>
+    <value>Nasconde la sezione Consigliati dal menu Start per un menu più ordinato ed evitare che vengano mostrati file e app recenti.</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
     <value>Controllo di compatibilità non riuscito</value>

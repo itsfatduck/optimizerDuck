@@ -1794,7 +1794,7 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
     <value>Başlat Menüsünde Önerilenler Bölümünü Gizle</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>Başlat menüsündeki Önerilenler bölümünü gizleyerek karışıklığı azaltır ve son dosyalar ile uygulamaların gösterilmesini engeller.</value>
+    <value>Başlat menüsündeki Önerilenler bölümünü gizleyerek menüyü sadeleştirir ve son dosyalar ile uygulamaların görünmesini engeller.</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
     <value>Uyumluluk denetimi başarısız oldu</value>
