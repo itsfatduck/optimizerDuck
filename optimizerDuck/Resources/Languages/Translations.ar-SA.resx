@@ -1798,5 +1798,155 @@
   <data name="TitleBar.Support" xml:space="preserve">
     <value>ادعم المشروع</value>
   </data>
+  <data name="Customize.CustomOption" xml:space="preserve">
+    <value>مخصص</value>
+  </data>
+  <data name="Customize.CustomOption.NotSet" xml:space="preserve">
+    <value>غير مضبوط</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
+    <value>تعطيل الأخبار والاهتمامات</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.Name" xml:space="preserve">
+    <value>إخفاء زر Meet Now</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
+    <value>يخفي زر Meet Now (Skype) من منطقة الإعلام في شريط المهام. خاص بـ Windows 10 فقط.</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Options.QuickAccess" xml:space="preserve">
+    <value>الوصول السريع</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Options.ThisPc" xml:space="preserve">
+    <value>هذا الكمبيوتر</value>
+  </data>
+  <data name="Optimizer.AI" xml:space="preserve">
+    <value>الذكاء الاصطناعي</value>
+  </data>
+  <data name="Optimizer.AI.DisableClickToDo.Name" xml:space="preserve">
+    <value>تعطيل ميزة Click To Do</value>
+  </data>
+  <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
+    <value>يُوقف تراكب Click To Do المدعوم بالذكاء الاصطناعي الذي يحلل النصوص والصور على شاشتك.</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
+    <value>تعطيل Windows Recall</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.Name" xml:space="preserve">
+    <value>تعطيل تحسين التسليم (P2P)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
+    <value>يمنع Windows من مشاركة ملفات التحديث أو تنزيلها من أجهزة أخرى عبر نظير-لنظير، بحيث تأتي التحديثات من خوادم Microsoft فقط.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
+    <value>تعطيل العثور على جهازي</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
+    <value>يعطّل ميزة العثور على جهازي التي تُبلغ عن موقع جهازك إلى Microsoft بشكل دوري.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
+    <value>تعطيل إعلانات Microsoft 365 في الإعدادات</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
+    <value>يزيل المحتوى الترويجي لـ Microsoft 365 وCopilot من الصفحة الرئيسية للإعدادات.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartRecommended.Name" xml:space="preserve">
+    <value>إخفاء قسم الموصى به في قائمة ابدأ</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
+    <value>يخفي قسم الموصى به من قائمة ابدأ لتقليل الفوضى ومنع عرض الملفات والتطبيقات الحديثة.</value>
+  </data>
+  <data name="Condition.Error.Title" xml:space="preserve">
+    <value>فشل فحص التوافق</value>
+  </data>
+  <data name="Condition.Error.Description" xml:space="preserve">
+    <value>تعذّر على optimizerDuck تحديد ما إذا كان هذا العنصر مدعومًا على نظامك.</value>
+  </data>
+  <data name="Condition.Windows11.Title" xml:space="preserve">
+    <value>يتطلب Windows 11</value>
+  </data>
+  <data name="Condition.Windows11.Description" xml:space="preserve">
+    <value>يتطلب هذا العنصر نظام Windows 11.</value>
+  </data>
+  <data name="Condition.Windows10.Title" xml:space="preserve">
+    <value>يتطلب Windows 10</value>
+  </data>
+  <data name="Condition.Windows10.Description" xml:space="preserve">
+    <value>يتطلب هذا العنصر نظام Windows 10.</value>
+  </data>
+  <data name="Condition.Windows11_24H2.Title" xml:space="preserve">
+    <value>يتطلب Windows 11 24H2 أو أحدث</value>
+  </data>
+  <data name="Condition.Windows11_24H2.Description" xml:space="preserve">
+    <value>يتطلب هذا العنصر Windows 11 24H2 (البناء 26100) أو أحدث.</value>
+  </data>
+  <data name="Condition.Cpu.Intel.Title" xml:space="preserve">
+    <value>يتطلب معالج Intel</value>
+  </data>
+  <data name="Condition.Cpu.Intel.Description" xml:space="preserve">
+    <value>يعمل هذا العنصر فقط على الأنظمة المزودة بمعالج Intel.</value>
+  </data>
+  <data name="Condition.Cpu.Amd.Title" xml:space="preserve">
+    <value>يتطلب معالج AMD</value>
+  </data>
+  <data name="Condition.Cpu.Amd.Description" xml:space="preserve">
+    <value>يعمل هذا العنصر فقط على الأنظمة المزودة بمعالج AMD.</value>
+  </data>
+  <data name="Condition.Gpu.Nvidia.Title" xml:space="preserve">
+    <value>يتطلب بطاقة رسوميات NVIDIA</value>
+  </data>
+  <data name="Condition.Gpu.Nvidia.Description" xml:space="preserve">
+    <value>يعمل هذا العنصر فقط على الأنظمة المزودة ببطاقة رسوميات NVIDIA.</value>
+  </data>
+  <data name="Condition.Gpu.Amd.Title" xml:space="preserve">
+    <value>يتطلب بطاقة رسوميات AMD</value>
+  </data>
+  <data name="Condition.Gpu.Amd.Description" xml:space="preserve">
+    <value>يعمل هذا العنصر فقط على الأنظمة المزودة ببطاقة رسوميات AMD.</value>
+  </data>
+  <data name="Condition.Gpu.Intel.Title" xml:space="preserve">
+    <value>يتطلب بطاقة رسوميات Intel</value>
+  </data>
+  <data name="Condition.Gpu.Intel.Description" xml:space="preserve">
+    <value>يعمل هذا العنصر فقط على الأنظمة المزودة ببطاقة رسوميات Intel.</value>
+  </data>
+  <data name="Condition.Ram.16.Title" xml:space="preserve">
+    <value>يتطلب 16 جيجابايت من الذاكرة</value>
+  </data>
+  <data name="Condition.Ram.16.Description" xml:space="preserve">
+    <value>يتطلب هذا العنصر 16 جيجابايت على الأقل من الذاكرة المثبتة.</value>
+  </data>
+  <data name="Condition.Recall.Title" xml:space="preserve">
+    <value>Windows Recall غير متوفر</value>
+  </data>
+  <data name="Condition.Recall.Description" xml:space="preserve">
+    <value>يتطلب Windows Recall إصدار Windows 11 24H2 أو أحدث مع تثبيت مكونات الذكاء الاصطناعي الخاصة بنظام Windows.</value>
+  </data>
+  <data name="Optimizer.Condition.BlockedTitle" xml:space="preserve">
+    <value>غير مدعوم على هذا النظام</value>
+  </data>
+  <data name="Optimizer.Condition.FailedTitle" xml:space="preserve">
+    <value>فشل التحقق من الشرط</value>
+  </data>
+  <data name="Optimizer.Condition.Hide" xml:space="preserve">
+    <value>إخفاء</value>
+  </data>
+  <data name="Optimizer.Condition.Hide.Tooltip" xml:space="preserve">
+    <value>أعد إظهار هذا التحسين واسمح بتطبيقه على أي حال.</value>
+  </data>
+  <data name="Optimizer.Condition.WhatIsThis" xml:space="preserve">
+    <value>ما هذا؟</value>
+  </data>
+  <data name="Optimizer.Condition.WhatIsThis.Tooltip" xml:space="preserve">
+    <value>تتحقق شروط التوافق مما إذا كان العنصر مدعومًا على نظامك، مثل إصدار Windows أو نوع بطاقة الرسوميات المثبتة. عند فشل شرط ما، يُخفى العنصر افتراضيًا لأنه قد لا يعمل. إذا كنت تعرف ما تفعله، يمكنك إخفاء هذا التحذير وتطبيق العنصر على أي حال.</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Header" xml:space="preserve">
+    <value>إعدادات غير مدعومة ({0})</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Badge" xml:space="preserve">
+    <value>غير مدعوم</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
+    <value>بعض الإعدادات غير متوفرة على نظامك الحالي.</value>
+  </data>
 </root>
 

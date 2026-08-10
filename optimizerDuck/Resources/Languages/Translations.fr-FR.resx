@@ -1748,4 +1748,154 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
   <data name="Common.Empty" xml:space="preserve">
     <value>Vide</value>
   </data>
+  <data name="Customize.CustomOption" xml:space="preserve">
+    <value>Personnalisé</value>
+  </data>
+  <data name="Customize.CustomOption.NotSet" xml:space="preserve">
+    <value>Non défini</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
+    <value>Désactiver Actualités et intérêts</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.Name" xml:space="preserve">
+    <value>Masquer le bouton Meet Now</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
+    <value>Masque le bouton Meet Now (Skype) de la zone de notification de la barre des tâches. Windows 10 uniquement.</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Options.QuickAccess" xml:space="preserve">
+    <value>Accès rapide</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Options.ThisPc" xml:space="preserve">
+    <value>Ce PC</value>
+  </data>
+  <data name="Optimizer.AI" xml:space="preserve">
+    <value>IA</value>
+  </data>
+  <data name="Optimizer.AI.DisableClickToDo.Name" xml:space="preserve">
+    <value>Désactiver Click To Do</value>
+  </data>
+  <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
+    <value>Désactive la superposition Click To Do basée sur l'IA qui analyse le texte et les images à l'écran.</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
+    <value>Désactiver Windows Recall</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.Name" xml:space="preserve">
+    <value>Désactiver l'optimisation de la livraison (P2P)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
+    <value>Empêche Windows de partager ou de télécharger des fichiers de mise à jour depuis d'autres PC en peer-to-peer, afin que les mises à jour ne proviennent que des serveurs Microsoft.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
+    <value>Désactiver Localiser mon appareil</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
+    <value>Désactive la fonctionnalité Localiser mon appareil qui signale périodiquement la position de votre appareil à Microsoft.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
+    <value>Désactiver les publicités Microsoft 365 dans les paramètres</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
+    <value>Supprime le contenu promotionnel de Microsoft 365 et Copilot de la page d'accueil des paramètres.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartRecommended.Name" xml:space="preserve">
+    <value>Masquer la section Recommandé dans le menu Démarrer</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
+    <value>Masque la section Recommandé du menu Démarrer pour réduire l'encombrement et empêcher l'affichage des fichiers et applications récents.</value>
+  </data>
+  <data name="Condition.Error.Title" xml:space="preserve">
+    <value>Échec de la vérification de compatibilité</value>
+  </data>
+  <data name="Condition.Error.Description" xml:space="preserve">
+    <value>optimizerDuck n'a pas pu déterminer si cet élément est pris en charge sur votre système.</value>
+  </data>
+  <data name="Condition.Windows11.Title" xml:space="preserve">
+    <value>Windows 11 requis</value>
+  </data>
+  <data name="Condition.Windows11.Description" xml:space="preserve">
+    <value>Cet élément nécessite Windows 11.</value>
+  </data>
+  <data name="Condition.Windows10.Title" xml:space="preserve">
+    <value>Windows 10 requis</value>
+  </data>
+  <data name="Condition.Windows10.Description" xml:space="preserve">
+    <value>Cet élément nécessite Windows 10.</value>
+  </data>
+  <data name="Condition.Windows11_24H2.Title" xml:space="preserve">
+    <value>Windows 11 24H2 ou version ultérieure requis</value>
+  </data>
+  <data name="Condition.Windows11_24H2.Description" xml:space="preserve">
+    <value>Cet élément nécessite Windows 11 24H2 (build 26100) ou version ultérieure.</value>
+  </data>
+  <data name="Condition.Cpu.Intel.Title" xml:space="preserve">
+    <value>Processeur Intel requis</value>
+  </data>
+  <data name="Condition.Cpu.Intel.Description" xml:space="preserve">
+    <value>Cet élément fonctionne uniquement sur les systèmes équipés d'un processeur Intel.</value>
+  </data>
+  <data name="Condition.Cpu.Amd.Title" xml:space="preserve">
+    <value>Processeur AMD requis</value>
+  </data>
+  <data name="Condition.Cpu.Amd.Description" xml:space="preserve">
+    <value>Cet élément fonctionne uniquement sur les systèmes équipés d'un processeur AMD.</value>
+  </data>
+  <data name="Condition.Gpu.Nvidia.Title" xml:space="preserve">
+    <value>GPU NVIDIA requis</value>
+  </data>
+  <data name="Condition.Gpu.Nvidia.Description" xml:space="preserve">
+    <value>Cet élément fonctionne uniquement sur les systèmes équipés d'une carte graphique NVIDIA.</value>
+  </data>
+  <data name="Condition.Gpu.Amd.Title" xml:space="preserve">
+    <value>GPU AMD requis</value>
+  </data>
+  <data name="Condition.Gpu.Amd.Description" xml:space="preserve">
+    <value>Cet élément fonctionne uniquement sur les systèmes équipés d'une carte graphique AMD.</value>
+  </data>
+  <data name="Condition.Gpu.Intel.Title" xml:space="preserve">
+    <value>GPU Intel requis</value>
+  </data>
+  <data name="Condition.Gpu.Intel.Description" xml:space="preserve">
+    <value>Cet élément fonctionne uniquement sur les systèmes équipés d'une carte graphique Intel.</value>
+  </data>
+  <data name="Condition.Ram.16.Title" xml:space="preserve">
+    <value>16 Go de RAM requis</value>
+  </data>
+  <data name="Condition.Ram.16.Description" xml:space="preserve">
+    <value>Cet élément nécessite au moins 16 Go de RAM installée.</value>
+  </data>
+  <data name="Condition.Recall.Title" xml:space="preserve">
+    <value>Windows Recall indisponible</value>
+  </data>
+  <data name="Condition.Recall.Description" xml:space="preserve">
+    <value>Windows Recall nécessite Windows 11 24H2 ou version ultérieure avec les composants d'IA de Windows installés.</value>
+  </data>
+  <data name="Optimizer.Condition.BlockedTitle" xml:space="preserve">
+    <value>Non pris en charge sur ce système</value>
+  </data>
+  <data name="Optimizer.Condition.FailedTitle" xml:space="preserve">
+    <value>Condition non satisfaite</value>
+  </data>
+  <data name="Optimizer.Condition.Hide" xml:space="preserve">
+    <value>Masquer</value>
+  </data>
+  <data name="Optimizer.Condition.Hide.Tooltip" xml:space="preserve">
+    <value>Réafficher cette optimisation et autoriser son application quand même.</value>
+  </data>
+  <data name="Optimizer.Condition.WhatIsThis" xml:space="preserve">
+    <value>Qu'est-ce que c'est ?</value>
+  </data>
+  <data name="Optimizer.Condition.WhatIsThis.Tooltip" xml:space="preserve">
+    <value>Les conditions de compatibilité vérifient si un élément est pris en charge sur votre système, par exemple la version de Windows ou la carte graphique installée. Lorsqu'une condition échoue, l'élément est masqué par défaut car il risque de ne pas fonctionner. Si vous savez ce que vous faites, vous pouvez masquer cet avertissement et appliquer l'élément quand même.</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Header" xml:space="preserve">
+    <value>Paramètres non pris en charge ({0})</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Badge" xml:space="preserve">
+    <value>Non pris en charge</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
+    <value>Certains paramètres ne sont pas disponibles sur votre système actuel.</value>
+  </data>
 </root>

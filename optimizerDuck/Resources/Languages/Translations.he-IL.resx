@@ -1814,4 +1814,154 @@
   <data name="Common.Empty" xml:space="preserve">
     <value>ריק</value>
   </data>
+  <data name="Customize.CustomOption" xml:space="preserve">
+    <value>מותאם אישית</value>
+  </data>
+  <data name="Customize.CustomOption.NotSet" xml:space="preserve">
+    <value>לא מוגדר</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
+    <value>השבתת חדשות ותחומי עניין</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.Name" xml:space="preserve">
+    <value>הסתרת כפתור Meet Now</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
+    <value>מסתיר את כפתור Meet Now (Skype) מאזור ההודעות בשורת המשימות. רק ב-Windows 10.</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Options.QuickAccess" xml:space="preserve">
+    <value>גישה מהירה</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Options.ThisPc" xml:space="preserve">
+    <value>מחשב זה</value>
+  </data>
+  <data name="Optimizer.AI" xml:space="preserve">
+    <value>בינה מלאכותית</value>
+  </data>
+  <data name="Optimizer.AI.DisableClickToDo.Name" xml:space="preserve">
+    <value>השבתת Click To Do</value>
+  </data>
+  <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
+    <value>מכבה את שכבת-העל Click To Do המופעלת בבינה מלאכותית, שמנתחת טקסט ותמונות על המסך שלך.</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
+    <value>השבתת Windows Recall</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.Name" xml:space="preserve">
+    <value>השבתת אופטימיזציית מסירה (P2P)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
+    <value>מונע מ-Windows לשתף או להוריד קבצי עדכון ממחשבים אחרים בעמית-לעמית, כך שעדכונים מגיעים רק משרתי Microsoft.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
+    <value>השבתת איתור המכשיר שלי</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
+    <value>משבית את תכונת איתור המכשיר שלי המדווחת מעת לעת על מיקום המכשיר שלך ל-Microsoft.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
+    <value>השבתת פרסומות Microsoft 365 בהגדרות</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
+    <value>מסיר את התוכן השיווקי של Microsoft 365 ו-Copilot מדף הבית של ההגדרות.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartRecommended.Name" xml:space="preserve">
+    <value>הסתרת קטע מומלצים בתפריט התחל</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
+    <value>מסתיר את קטע מומלצים מתפריט התחל כדי להפחית עומס ולמנוע הצגת קבצים ואפליקציות אחרונים.</value>
+  </data>
+  <data name="Condition.Error.Title" xml:space="preserve">
+    <value>בדיקת התאימות נכשלה</value>
+  </data>
+  <data name="Condition.Error.Description" xml:space="preserve">
+    <value>optimizerDuck לא הצליח לקבוע אם פריט זה נתמך במערכת שלך.</value>
+  </data>
+  <data name="Condition.Windows11.Title" xml:space="preserve">
+    <value>נדרש Windows 11</value>
+  </data>
+  <data name="Condition.Windows11.Description" xml:space="preserve">
+    <value>פריט זה דורש Windows 11.</value>
+  </data>
+  <data name="Condition.Windows10.Title" xml:space="preserve">
+    <value>נדרש Windows 10</value>
+  </data>
+  <data name="Condition.Windows10.Description" xml:space="preserve">
+    <value>פריט זה דורש Windows 10.</value>
+  </data>
+  <data name="Condition.Windows11_24H2.Title" xml:space="preserve">
+    <value>נדרש Windows 11 24H2 או חדש יותר</value>
+  </data>
+  <data name="Condition.Windows11_24H2.Description" xml:space="preserve">
+    <value>פריט זה דורש Windows 11 24H2 (build 26100) או חדש יותר.</value>
+  </data>
+  <data name="Condition.Cpu.Intel.Title" xml:space="preserve">
+    <value>נדרש מעבד Intel</value>
+  </data>
+  <data name="Condition.Cpu.Intel.Description" xml:space="preserve">
+    <value>פריט זה פועל רק על מערכות עם מעבד Intel.</value>
+  </data>
+  <data name="Condition.Cpu.Amd.Title" xml:space="preserve">
+    <value>נדרש מעבד AMD</value>
+  </data>
+  <data name="Condition.Cpu.Amd.Description" xml:space="preserve">
+    <value>פריט זה פועל רק על מערכות עם מעבד AMD.</value>
+  </data>
+  <data name="Condition.Gpu.Nvidia.Title" xml:space="preserve">
+    <value>נדרש GPU של NVIDIA</value>
+  </data>
+  <data name="Condition.Gpu.Nvidia.Description" xml:space="preserve">
+    <value>פריט זה פועל רק על מערכות עם כרטיס מסך NVIDIA.</value>
+  </data>
+  <data name="Condition.Gpu.Amd.Title" xml:space="preserve">
+    <value>נדרש GPU של AMD</value>
+  </data>
+  <data name="Condition.Gpu.Amd.Description" xml:space="preserve">
+    <value>פריט זה פועל רק על מערכות עם כרטיס מסך AMD.</value>
+  </data>
+  <data name="Condition.Gpu.Intel.Title" xml:space="preserve">
+    <value>נדרש GPU של Intel</value>
+  </data>
+  <data name="Condition.Gpu.Intel.Description" xml:space="preserve">
+    <value>פריט זה פועל רק על מערכות עם כרטיס מסך Intel.</value>
+  </data>
+  <data name="Condition.Ram.16.Title" xml:space="preserve">
+    <value>נדרש 16 GB של זיכרון RAM</value>
+  </data>
+  <data name="Condition.Ram.16.Description" xml:space="preserve">
+    <value>פריט זה דורש לפחות 16 GB של זיכרון RAM מותקן.</value>
+  </data>
+  <data name="Condition.Recall.Title" xml:space="preserve">
+    <value>Windows Recall אינו זמין</value>
+  </data>
+  <data name="Condition.Recall.Description" xml:space="preserve">
+    <value>Windows Recall דורש Windows 11 24H2 או חדש יותר עם רכיבי הבינה המלאכותית של Windows מותקנים.</value>
+  </data>
+  <data name="Optimizer.Condition.BlockedTitle" xml:space="preserve">
+    <value>לא נתמך במערכת זו</value>
+  </data>
+  <data name="Optimizer.Condition.FailedTitle" xml:space="preserve">
+    <value>התנאי נכשל</value>
+  </data>
+  <data name="Optimizer.Condition.Hide" xml:space="preserve">
+    <value>הסתר</value>
+  </data>
+  <data name="Optimizer.Condition.Hide.Tooltip" xml:space="preserve">
+    <value>הצג שוב אופטימיזציה זו ואפשר להחיל אותה בכל זאת.</value>
+  </data>
+  <data name="Optimizer.Condition.WhatIsThis" xml:space="preserve">
+    <value>מה זה?</value>
+  </data>
+  <data name="Optimizer.Condition.WhatIsThis.Tooltip" xml:space="preserve">
+    <value>תנאי תאימות בודקים אם פריט נתמך במערכת שלך, למשל איזו גרסת Windows או איזה GPU מותקן. כאשר תנאי נכשל, הפריט מוסתר כברירת מחדל כי ייתכן שלא יעבוד. אם אתה יודע מה אתה עושה, תוכל להסתיר את האזהרה ולהחיל את הפריט בכל זאת.</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Header" xml:space="preserve">
+    <value>הגדרות לא נתמכות ({0})</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Badge" xml:space="preserve">
+    <value>לא נתמך</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
+    <value>חלק מההגדרות אינן זמינות במערכת הנוכחית שלך.</value>
+  </data>
 </root>

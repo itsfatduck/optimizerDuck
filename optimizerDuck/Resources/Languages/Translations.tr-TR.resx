@@ -1739,4 +1739,154 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   <data name="Common.Empty" xml:space="preserve">
     <value>Boş</value>
   </data>
+  <data name="Customize.CustomOption" xml:space="preserve">
+    <value>Özel</value>
+  </data>
+  <data name="Customize.CustomOption.NotSet" xml:space="preserve">
+    <value>Ayarlanmadı</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
+    <value>Haberler ve İlgi Alanlarını Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.Name" xml:space="preserve">
+    <value>Meet Now Düğmesini Gizle</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
+    <value>Meet Now (Skype) düğmesini görev çubuğu bildirim alanından gizler. Yalnızca Windows 10.</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Options.QuickAccess" xml:space="preserve">
+    <value>Hızlı Erişim</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Options.ThisPc" xml:space="preserve">
+    <value>Bu Bilgisayar</value>
+  </data>
+  <data name="Optimizer.AI" xml:space="preserve">
+    <value>Yapay Zekâ</value>
+  </data>
+  <data name="Optimizer.AI.DisableClickToDo.Name" xml:space="preserve">
+    <value>Click To Do'yu Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
+    <value>Ekranınızdaki metin ve görselleri analiz eden, yapay zekâ destekli Click To Do katmanını kapatır.</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
+    <value>Windows Recall'ı Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.Name" xml:space="preserve">
+    <value>Teslimat İyileştirmesini Devre Dışı Bırak (P2P)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
+    <value>Windows'un güncelleme dosyalarını diğer bilgisayarlarla eşler arası (P2P) paylaşmasını veya indirmesini durdurur; böylece güncellemeler yalnızca Microsoft sunucularından gelir.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
+    <value>Cihazımı Bul'u Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
+    <value>Cihazınızın konumunu düzenli olarak Microsoft'a bildiren Cihazımı Bul özelliğini devre dışı bırakır.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
+    <value>Ayarlar'daki Microsoft 365 Reklamlarını Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
+    <value>Ayarlar ana sayfasındaki Microsoft 365 ve Copilot tanıtım içeriklerini kaldırır.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartRecommended.Name" xml:space="preserve">
+    <value>Başlat Menüsünde Önerilenler Bölümünü Gizle</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
+    <value>Başlat menüsündeki Önerilenler bölümünü gizleyerek karışıklığı azaltır ve son dosyalar ile uygulamaların gösterilmesini engeller.</value>
+  </data>
+  <data name="Condition.Error.Title" xml:space="preserve">
+    <value>Uyumluluk denetimi başarısız oldu</value>
+  </data>
+  <data name="Condition.Error.Description" xml:space="preserve">
+    <value>optimizerDuck, bu öğenin sisteminizde desteklenip desteklenmediğini belirleyemedi.</value>
+  </data>
+  <data name="Condition.Windows11.Title" xml:space="preserve">
+    <value>Windows 11 gerekli</value>
+  </data>
+  <data name="Condition.Windows11.Description" xml:space="preserve">
+    <value>Bu öğe Windows 11 gerektirir.</value>
+  </data>
+  <data name="Condition.Windows10.Title" xml:space="preserve">
+    <value>Windows 10 gerekli</value>
+  </data>
+  <data name="Condition.Windows10.Description" xml:space="preserve">
+    <value>Bu öğe Windows 10 gerektirir.</value>
+  </data>
+  <data name="Condition.Windows11_24H2.Title" xml:space="preserve">
+    <value>Windows 11 24H2 veya daha yenisi gerekli</value>
+  </data>
+  <data name="Condition.Windows11_24H2.Description" xml:space="preserve">
+    <value>Bu öğe, Windows 11 24H2 (build 26100) veya daha yenisini gerektirir.</value>
+  </data>
+  <data name="Condition.Cpu.Intel.Title" xml:space="preserve">
+    <value>Intel CPU gerekli</value>
+  </data>
+  <data name="Condition.Cpu.Intel.Description" xml:space="preserve">
+    <value>Bu öğe yalnızca Intel işlemcili sistemlerde çalışır.</value>
+  </data>
+  <data name="Condition.Cpu.Amd.Title" xml:space="preserve">
+    <value>AMD CPU gerekli</value>
+  </data>
+  <data name="Condition.Cpu.Amd.Description" xml:space="preserve">
+    <value>Bu öğe yalnızca AMD işlemcili sistemlerde çalışır.</value>
+  </data>
+  <data name="Condition.Gpu.Nvidia.Title" xml:space="preserve">
+    <value>NVIDIA GPU gerekli</value>
+  </data>
+  <data name="Condition.Gpu.Nvidia.Description" xml:space="preserve">
+    <value>Bu öğe yalnızca NVIDIA ekran kartına sahip sistemlerde çalışır.</value>
+  </data>
+  <data name="Condition.Gpu.Amd.Title" xml:space="preserve">
+    <value>AMD GPU gerekli</value>
+  </data>
+  <data name="Condition.Gpu.Amd.Description" xml:space="preserve">
+    <value>Bu öğe yalnızca AMD ekran kartına sahip sistemlerde çalışır.</value>
+  </data>
+  <data name="Condition.Gpu.Intel.Title" xml:space="preserve">
+    <value>Intel GPU gerekli</value>
+  </data>
+  <data name="Condition.Gpu.Intel.Description" xml:space="preserve">
+    <value>Bu öğe yalnızca Intel ekran kartına sahip sistemlerde çalışır.</value>
+  </data>
+  <data name="Condition.Ram.16.Title" xml:space="preserve">
+    <value>16 GB RAM gerekli</value>
+  </data>
+  <data name="Condition.Ram.16.Description" xml:space="preserve">
+    <value>Bu öğe en az 16 GB kurulu RAM gerektirir.</value>
+  </data>
+  <data name="Condition.Recall.Title" xml:space="preserve">
+    <value>Windows Recall kullanılamıyor</value>
+  </data>
+  <data name="Condition.Recall.Description" xml:space="preserve">
+    <value>Windows Recall, Windows AI bileşenlerinin yüklü olduğu Windows 11 24H2 veya daha yenisini gerektirir.</value>
+  </data>
+  <data name="Optimizer.Condition.BlockedTitle" xml:space="preserve">
+    <value>Bu sistemde desteklenmiyor</value>
+  </data>
+  <data name="Optimizer.Condition.FailedTitle" xml:space="preserve">
+    <value>Koşul sağlanamadı</value>
+  </data>
+  <data name="Optimizer.Condition.Hide" xml:space="preserve">
+    <value>Gizle</value>
+  </data>
+  <data name="Optimizer.Condition.Hide.Tooltip" xml:space="preserve">
+    <value>Bu iyileştirmeyi yeniden göster ve yine de uygulanmasına izin ver.</value>
+  </data>
+  <data name="Optimizer.Condition.WhatIsThis" xml:space="preserve">
+    <value>Bu nedir?</value>
+  </data>
+  <data name="Optimizer.Condition.WhatIsThis.Tooltip" xml:space="preserve">
+    <value>Uyumluluk koşulları, bir öğenin sisteminizde desteklenip desteklenmediğini denetler (ör. hangi Windows sürümünün veya hangi GPU'nun yüklü olduğu). Bir koşul sağlanamazsa öğe, çalışmayabileceği için varsayılan olarak gizlenir. Ne yaptığınızı biliyorsanız bu uyarıyı gizleyip öğeyi yine de uygulayabilirsiniz.</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Header" xml:space="preserve">
+    <value>Desteklenmeyen Ayarlar ({0})</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Badge" xml:space="preserve">
+    <value>Desteklenmiyor</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
+    <value>Bazı ayarlar mevcut sisteminizde kullanılamıyor.</value>
+  </data>
 </root>

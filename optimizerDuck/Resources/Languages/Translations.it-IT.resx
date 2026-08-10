@@ -217,7 +217,7 @@
     <value>Tag</value>
   </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
-    <value>Raises the Service Host split threshold to total system RAM, keeping services consolidated in fewer processes to reduce memory overhead and process count.</value>
+    <value>Alza la soglia di suddivisione del Service Host alla RAM totale del sistema, mantenendo i servizi consolidati in meno processi per ridurre l'uso di memoria e il numero di processi.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
     <value>Impossibile rilevare il piano di alimentazione attivo corrente.</value>
@@ -1751,159 +1751,159 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
     <value>Mostra la percentuale attuale della batteria accanto all'icona batteria nella system tray.</value>
   </data>
   <data name="Customize.CustomOption" xml:space="preserve">
-    <value>Custom</value>
+    <value>Personalizzato</value>
   </data>
   <data name="Customize.CustomOption.NotSet" xml:space="preserve">
-    <value>Not set</value>
+    <value>Non impostato</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
-    <value>Disable News &amp; Interests</value>
+    <value>Disabilita Notizie e interessi</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
-    <value>Turns off the News and Interests feed and hides its taskbar button (Windows 10), and disables the Widgets board (Windows 11).</value>
+    <value>Disattiva il feed Notizie e interessi e nasconde il suo pulsante nella barra delle applicazioni (Windows 10), e disabilita il pannello Widget (Windows 11).</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.Name" xml:space="preserve">
-    <value>Hide Meet Now Button</value>
+    <value>Nascondi pulsante Meet Now</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
-    <value>Hides the Meet Now (Skype) button from the taskbar notification area. Windows 10 only.</value>
+    <value>Nasconde il pulsante Meet Now (Skype) dall'area di notifica della barra delle applicazioni. Solo Windows 10.</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Options.QuickAccess" xml:space="preserve">
-    <value>Quick Access</value>
+    <value>Accesso rapido</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Options.ThisPc" xml:space="preserve">
-    <value>This PC</value>
+    <value>Questo PC</value>
   </data>
   <data name="Optimizer.AI" xml:space="preserve">
-    <value>AI</value>
+    <value>IA</value>
   </data>
   <data name="Optimizer.AI.DisableClickToDo.Name" xml:space="preserve">
-    <value>Disable Click To Do</value>
+    <value>Disabilita Click To Do</value>
   </data>
   <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
-    <value>Turns off the AI-powered Click To Do overlay that analyzes text and images on your screen.</value>
+    <value>Disattiva la sovrapposizione Click To Do basata sull'IA che analizza testo e immagini sullo schermo.</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
-    <value>Disable Windows Recall</value>
+    <value>Disabilita Windows Recall</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.ShortDescription" xml:space="preserve">
-    <value>Disables the Windows Recall AI feature that captures and indexes snapshots of your screen. Also removes the Recall component and deletes previously saved snapshots on Windows 11 24H2+ (Build 26100.3915+); a restart is required to take effect.</value>
+    <value>Disabilita la funzione IA Windows Recall che cattura e indicizza istantanee dello schermo. Rimuove anche il componente Recall ed elimina le istantanee salvate in precedenza su Windows 11 24H2+ (Build 26100.3915+); è necessario riavviare per applicare la modifica.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.Name" xml:space="preserve">
-    <value>Disable Delivery Optimization (P2P)</value>
+    <value>Disabilita Ottimizzazione recapito (P2P)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
-    <value>Stops Windows from sharing or downloading update files from other PCs over peer-to-peer, so updates only come from Microsoft servers.</value>
+    <value>Impedisce a Windows di condividere o scaricare file di aggiornamento da altri PC tramite peer-to-peer, così gli aggiornamenti provengono solo dai server Microsoft.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
-    <value>Disable Find My Device</value>
+    <value>Disabilita Trova il mio dispositivo</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
-    <value>Disables the Find My Device feature that periodically reports your device's location to Microsoft.</value>
+    <value>Disabilita la funzione Trova il mio dispositivo che segnala periodicamente a Microsoft la posizione del tuo dispositivo.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
-    <value>Disable Microsoft 365 Ads in Settings</value>
+    <value>Disabilita pubblicità Microsoft 365 nelle Impostazioni</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
-    <value>Removes the Microsoft 365 and Copilot promotional content from the Settings Home page.</value>
+    <value>Rimuove i contenuti promozionali di Microsoft 365 e Copilot dalla home page delle Impostazioni.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.Name" xml:space="preserve">
-    <value>Hide Recommended Section in Start</value>
+    <value>Nascondi sezione Consigliati nel menu Start</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>Hides the Recommended section from the Start menu to reduce clutter and stop recent files and apps from being shown.</value>
+    <value>Nasconde la sezione Consigliati dal menu Start per ridurre il disordine ed evitare la visualizzazione di file e app recenti.</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
-    <value>Compatibility check failed</value>
+    <value>Controllo di compatibilità non riuscito</value>
   </data>
   <data name="Condition.Error.Description" xml:space="preserve">
-    <value>optimizerDuck could not determine whether this item is supported on your system.</value>
+    <value>optimizerDuck non è riuscito a determinare se questo elemento è supportato sul tuo sistema.</value>
   </data>
   <data name="Condition.Windows11.Title" xml:space="preserve">
-    <value>Windows 11 required</value>
+    <value>Richiesto Windows 11</value>
   </data>
   <data name="Condition.Windows11.Description" xml:space="preserve">
-    <value>This item requires Windows 11.</value>
+    <value>Questo elemento richiede Windows 11.</value>
   </data>
   <data name="Condition.Windows10.Title" xml:space="preserve">
-    <value>Windows 10 required</value>
+    <value>Richiesto Windows 10</value>
   </data>
   <data name="Condition.Windows10.Description" xml:space="preserve">
-    <value>This item requires Windows 10.</value>
+    <value>Questo elemento richiede Windows 10.</value>
   </data>
   <data name="Condition.Windows11_24H2.Title" xml:space="preserve">
-    <value>Windows 11 24H2 or newer required</value>
+    <value>Richiesto Windows 11 24H2 o versione successiva</value>
   </data>
   <data name="Condition.Windows11_24H2.Description" xml:space="preserve">
-    <value>This item requires Windows 11 24H2 (build 26100) or later.</value>
+    <value>Questo elemento richiede Windows 11 24H2 (build 26100) o versione successiva.</value>
   </data>
   <data name="Condition.Cpu.Intel.Title" xml:space="preserve">
-    <value>Intel CPU required</value>
+    <value>Richiesta CPU Intel</value>
   </data>
   <data name="Condition.Cpu.Intel.Description" xml:space="preserve">
-    <value>This item only works on systems with an Intel processor.</value>
+    <value>Questo elemento funziona solo su sistemi con processore Intel.</value>
   </data>
   <data name="Condition.Cpu.Amd.Title" xml:space="preserve">
-    <value>AMD CPU required</value>
+    <value>Richiesta CPU AMD</value>
   </data>
   <data name="Condition.Cpu.Amd.Description" xml:space="preserve">
-    <value>This item only works on systems with an AMD processor.</value>
+    <value>Questo elemento funziona solo su sistemi con processore AMD.</value>
   </data>
   <data name="Condition.Gpu.Nvidia.Title" xml:space="preserve">
-    <value>NVIDIA GPU required</value>
+    <value>Richiesta GPU NVIDIA</value>
   </data>
   <data name="Condition.Gpu.Nvidia.Description" xml:space="preserve">
-    <value>This item only works on systems with an NVIDIA graphics card.</value>
+    <value>Questo elemento funziona solo su sistemi con scheda grafica NVIDIA.</value>
   </data>
   <data name="Condition.Gpu.Amd.Title" xml:space="preserve">
-    <value>AMD GPU required</value>
+    <value>Richiesta GPU AMD</value>
   </data>
   <data name="Condition.Gpu.Amd.Description" xml:space="preserve">
-    <value>This item only works on systems with an AMD graphics card.</value>
+    <value>Questo elemento funziona solo su sistemi con scheda grafica AMD.</value>
   </data>
   <data name="Condition.Gpu.Intel.Title" xml:space="preserve">
-    <value>Intel GPU required</value>
+    <value>Richiesta GPU Intel</value>
   </data>
   <data name="Condition.Gpu.Intel.Description" xml:space="preserve">
-    <value>This item only works on systems with an Intel graphics card.</value>
+    <value>Questo elemento funziona solo su sistemi con scheda grafica Intel.</value>
   </data>
   <data name="Condition.Ram.16.Title" xml:space="preserve">
-    <value>16 GB RAM required</value>
+    <value>Richiesti 16 GB di RAM</value>
   </data>
   <data name="Condition.Ram.16.Description" xml:space="preserve">
-    <value>This item requires at least 16 GB of installed RAM.</value>
+    <value>Questo elemento richiede almeno 16 GB di RAM installata.</value>
   </data>
   <data name="Condition.Recall.Title" xml:space="preserve">
-    <value>Windows Recall not available</value>
+    <value>Windows Recall non disponibile</value>
   </data>
   <data name="Condition.Recall.Description" xml:space="preserve">
-    <value>Windows Recall requires Windows 11 24H2 or later with the Windows AI components installed.</value>
+    <value>Windows Recall richiede Windows 11 24H2 o versione successiva con i componenti IA di Windows installati.</value>
   </data>
   <data name="Optimizer.Condition.BlockedTitle" xml:space="preserve">
-    <value>Not supported on this system</value>
+    <value>Non supportato su questo sistema</value>
   </data>
   <data name="Optimizer.Condition.FailedTitle" xml:space="preserve">
-    <value>Condition failed</value>
+    <value>Condizione non soddisfatta</value>
   </data>
   <data name="Optimizer.Condition.Hide" xml:space="preserve">
-    <value>Hide</value>
+    <value>Nascondi</value>
   </data>
   <data name="Optimizer.Condition.Hide.Tooltip" xml:space="preserve">
-    <value>Show this optimization again and allow applying it anyway.</value>
+    <value>Mostra di nuovo questa ottimizzazione e consenti di applicarla comunque.</value>
   </data>
   <data name="Optimizer.Condition.WhatIsThis" xml:space="preserve">
-    <value>What is this?</value>
+    <value>Cos'è questo?</value>
   </data>
   <data name="Optimizer.Condition.WhatIsThis.Tooltip" xml:space="preserve">
-    <value>Compatibility conditions check whether an item is supported on your system, e.g. which Windows version or which GPU is installed. When a condition fails, the item is hidden by default because it may not work. If you know what you are doing, you can hide this warning and apply the item anyway.</value>
+    <value>Le condizioni di compatibilità verificano se un elemento è supportato sul tuo sistema, ad esempio quale versione di Windows o quale GPU è installata. Quando una condizione non è soddisfatta, l'elemento viene nascosto per impostazione predefinita perché potrebbe non funzionare. Se sai cosa stai facendo, puoi nascondere questo avviso e applicare comunque l'elemento.</value>
   </data>
   <data name="Customize.UI.UnsupportedSettings.Header" xml:space="preserve">
-    <value>Unsupported Settings ({0})</value>
+    <value>Impostazioni non supportate ({0})</value>
   </data>
   <data name="Customize.UI.UnsupportedSettings.Badge" xml:space="preserve">
-    <value>Not supported</value>
+    <value>Non supportato</value>
   </data>
   <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
-    <value>Some settings are unavailable on your current system.</value>
+    <value>Alcune impostazioni non sono disponibili sul sistema corrente.</value>
   </data>
 </root>

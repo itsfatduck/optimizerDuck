@@ -1740,4 +1740,154 @@
   <data name="Common.Empty" xml:space="preserve">
     <value>空</value>
   </data>
+  <data name="Customize.CustomOption" xml:space="preserve">
+    <value>カスタム</value>
+  </data>
+  <data name="Customize.CustomOption.NotSet" xml:space="preserve">
+    <value>未設定</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
+    <value>ニュースと関心事項を無効にする</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.Name" xml:space="preserve">
+    <value>Meet Now ボタンを非表示にする</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
+    <value>タスクバーの通知領域から Meet Now (Skype) ボタンを非表示にします。Windows 10 のみ。</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Options.QuickAccess" xml:space="preserve">
+    <value>クイック アクセス</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Options.ThisPc" xml:space="preserve">
+    <value>PC</value>
+  </data>
+  <data name="Optimizer.AI" xml:space="preserve">
+    <value>AI</value>
+  </data>
+  <data name="Optimizer.AI.DisableClickToDo.Name" xml:space="preserve">
+    <value>Click To Do を無効にする</value>
+  </data>
+  <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
+    <value>画面上のテキストや画像を分析する AI 搭載の Click To Do オーバーレイをオフにします。</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
+    <value>Windows Recall を無効にする</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.Name" xml:space="preserve">
+    <value>配信の最適化 (P2P) を無効にする</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
+    <value>Windows が他の PC とピアツーピアで更新ファイルを共有またはダウンロードするのを止め、更新が Microsoft サーバーからのみ配信されるようにします。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
+    <value>デバイスの検索を無効にする</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
+    <value>デバイスの位置情報を定期的に Microsoft に報告する「デバイスの検索」機能を無効にします。</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
+    <value>設定の Microsoft 365 広告を無効にする</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
+    <value>設定のホーム ページから Microsoft 365 と Copilot のプロモーション コンテンツを削除します。</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartRecommended.Name" xml:space="preserve">
+    <value>スタート メニューのおすすめセクションを非表示にする</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
+    <value>スタート メニューからおすすめセクションを非表示にし、最近使ったファイルやアプリが表示されないようにして、見た目をすっきりさせます。</value>
+  </data>
+  <data name="Condition.Error.Title" xml:space="preserve">
+    <value>互換性チェックに失敗しました</value>
+  </data>
+  <data name="Condition.Error.Description" xml:space="preserve">
+    <value>optimizerDuck は、この項目がシステムでサポートされているかどうかを判断できませんでした。</value>
+  </data>
+  <data name="Condition.Windows11.Title" xml:space="preserve">
+    <value>Windows 11 が必要です</value>
+  </data>
+  <data name="Condition.Windows11.Description" xml:space="preserve">
+    <value>この項目には Windows 11 が必要です。</value>
+  </data>
+  <data name="Condition.Windows10.Title" xml:space="preserve">
+    <value>Windows 10 が必要です</value>
+  </data>
+  <data name="Condition.Windows10.Description" xml:space="preserve">
+    <value>この項目には Windows 10 が必要です。</value>
+  </data>
+  <data name="Condition.Windows11_24H2.Title" xml:space="preserve">
+    <value>Windows 11 24H2 以降が必要です</value>
+  </data>
+  <data name="Condition.Windows11_24H2.Description" xml:space="preserve">
+    <value>この項目には Windows 11 24H2 (ビルド 26100) 以降が必要です。</value>
+  </data>
+  <data name="Condition.Cpu.Intel.Title" xml:space="preserve">
+    <value>Intel CPU が必要です</value>
+  </data>
+  <data name="Condition.Cpu.Intel.Description" xml:space="preserve">
+    <value>この項目は Intel プロセッサ搭載システムでのみ動作します。</value>
+  </data>
+  <data name="Condition.Cpu.Amd.Title" xml:space="preserve">
+    <value>AMD CPU が必要です</value>
+  </data>
+  <data name="Condition.Cpu.Amd.Description" xml:space="preserve">
+    <value>この項目は AMD プロセッサ搭載システムでのみ動作します。</value>
+  </data>
+  <data name="Condition.Gpu.Nvidia.Title" xml:space="preserve">
+    <value>NVIDIA GPU が必要です</value>
+  </data>
+  <data name="Condition.Gpu.Nvidia.Description" xml:space="preserve">
+    <value>この項目は NVIDIA グラフィックス カード搭載システムでのみ動作します。</value>
+  </data>
+  <data name="Condition.Gpu.Amd.Title" xml:space="preserve">
+    <value>AMD GPU が必要です</value>
+  </data>
+  <data name="Condition.Gpu.Amd.Description" xml:space="preserve">
+    <value>この項目は AMD グラフィックス カード搭載システムでのみ動作します。</value>
+  </data>
+  <data name="Condition.Gpu.Intel.Title" xml:space="preserve">
+    <value>Intel GPU が必要です</value>
+  </data>
+  <data name="Condition.Gpu.Intel.Description" xml:space="preserve">
+    <value>この項目は Intel グラフィックス カード搭載システムでのみ動作します。</value>
+  </data>
+  <data name="Condition.Ram.16.Title" xml:space="preserve">
+    <value>16 GB の RAM が必要です</value>
+  </data>
+  <data name="Condition.Ram.16.Description" xml:space="preserve">
+    <value>この項目には 16 GB 以上の RAM が必要です。</value>
+  </data>
+  <data name="Condition.Recall.Title" xml:space="preserve">
+    <value>Windows Recall を利用できません</value>
+  </data>
+  <data name="Condition.Recall.Description" xml:space="preserve">
+    <value>Windows Recall には、Windows の AI コンポーネントがインストールされた Windows 11 24H2 以降が必要です。</value>
+  </data>
+  <data name="Optimizer.Condition.BlockedTitle" xml:space="preserve">
+    <value>このシステムではサポートされていません</value>
+  </data>
+  <data name="Optimizer.Condition.FailedTitle" xml:space="preserve">
+    <value>条件を満たしていません</value>
+  </data>
+  <data name="Optimizer.Condition.Hide" xml:space="preserve">
+    <value>非表示</value>
+  </data>
+  <data name="Optimizer.Condition.Hide.Tooltip" xml:space="preserve">
+    <value>この最適化を再度表示し、強制的に適用できるようにします。</value>
+  </data>
+  <data name="Optimizer.Condition.WhatIsThis" xml:space="preserve">
+    <value>これは何ですか?</value>
+  </data>
+  <data name="Optimizer.Condition.WhatIsThis.Tooltip" xml:space="preserve">
+    <value>互換性条件は、項目がシステムでサポートされているかどうか(Windows のバージョンやインストールされている GPU など)を確認します。条件を満たさない場合、機能しない可能性があるため、項目は既定で非表示になります。操作に慣れている場合は、この警告を非表示にして項目を適用できます。</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Header" xml:space="preserve">
+    <value>サポートされていない設定 ({0})</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Badge" xml:space="preserve">
+    <value>サポートされていません</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
+    <value>一部の設定は、現在のシステムでは利用できません。</value>
+  </data>
 </root>

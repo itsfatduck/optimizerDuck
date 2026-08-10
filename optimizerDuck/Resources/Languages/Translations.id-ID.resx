@@ -275,7 +275,7 @@
     <value>Tag</value>
   </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
-    <value>Raises the Service Host split threshold to total system RAM, keeping services consolidated in fewer processes to reduce memory overhead and process count.</value>
+    <value>Menaikkan ambang pemisahan Service Host ke total RAM sistem, menjaga layanan tetap terkonsolidasi dalam lebih sedikit proses untuk mengurangi penggunaan memori dan jumlah proses.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
     <value>Gagal mendeteksi paket daya aktif saat ini.</value>
@@ -1809,159 +1809,159 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
     <value>Menampilkan persentase baterai saat ini di samping ikon baterai di system tray.</value>
   </data>
   <data name="Customize.CustomOption" xml:space="preserve">
-    <value>Custom</value>
+    <value>Kustom</value>
   </data>
   <data name="Customize.CustomOption.NotSet" xml:space="preserve">
-    <value>Not set</value>
+    <value>Belum diatur</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
-    <value>Disable News &amp; Interests</value>
+    <value>Nonaktifkan Berita &amp; Minat</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
-    <value>Turns off the News and Interests feed and hides its taskbar button (Windows 10), and disables the Widgets board (Windows 11).</value>
+    <value>Mematikan feed Berita &amp; Minat dan menyembunyikan tombol taskbar-nya (Windows 10), serta menonaktifkan papan Widget (Windows 11).</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.Name" xml:space="preserve">
-    <value>Hide Meet Now Button</value>
+    <value>Sembunyikan Tombol Meet Now</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
-    <value>Hides the Meet Now (Skype) button from the taskbar notification area. Windows 10 only.</value>
+    <value>Menyembunyikan tombol Meet Now (Skype) dari area notifikasi taskbar. Khusus Windows 10.</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Options.QuickAccess" xml:space="preserve">
-    <value>Quick Access</value>
+    <value>Akses Cepat</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Options.ThisPc" xml:space="preserve">
-    <value>This PC</value>
+    <value>PC Ini</value>
   </data>
   <data name="Optimizer.AI" xml:space="preserve">
     <value>AI</value>
   </data>
   <data name="Optimizer.AI.DisableClickToDo.Name" xml:space="preserve">
-    <value>Disable Click To Do</value>
+    <value>Nonaktifkan Click To Do</value>
   </data>
   <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
-    <value>Turns off the AI-powered Click To Do overlay that analyzes text and images on your screen.</value>
+    <value>Menonaktifkan overlay Click To Do bertenaga AI yang menganalisis teks dan gambar di layar Anda.</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
-    <value>Disable Windows Recall</value>
+    <value>Nonaktifkan Windows Recall</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.ShortDescription" xml:space="preserve">
-    <value>Disables the Windows Recall AI feature that captures and indexes snapshots of your screen. Also removes the Recall component and deletes previously saved snapshots on Windows 11 24H2+ (Build 26100.3915+); a restart is required to take effect.</value>
+    <value>Menonaktifkan fitur AI Windows Recall yang menangkap dan mengindeks cuplikan layar Anda. Juga menghapus komponen Recall dan menghapus cuplikan yang tersimpan sebelumnya di Windows 11 24H2+ (Build 26100.3915+); restart diperlukan agar perubahan berlaku.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.Name" xml:space="preserve">
-    <value>Disable Delivery Optimization (P2P)</value>
+    <value>Nonaktifkan Delivery Optimization (P2P)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
-    <value>Stops Windows from sharing or downloading update files from other PCs over peer-to-peer, so updates only come from Microsoft servers.</value>
+    <value>Menghentikan Windows berbagi atau mengunduh file pembaruan dari PC lain melalui peer-to-peer, sehingga pembaruan hanya berasal dari server Microsoft.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
-    <value>Disable Find My Device</value>
+    <value>Nonaktifkan Find My Device</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
-    <value>Disables the Find My Device feature that periodically reports your device's location to Microsoft.</value>
+    <value>Menonaktifkan fitur Find My Device yang secara berkala melaporkan lokasi perangkat Anda ke Microsoft.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
-    <value>Disable Microsoft 365 Ads in Settings</value>
+    <value>Nonaktifkan Iklan Microsoft 365 di Pengaturan</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
-    <value>Removes the Microsoft 365 and Copilot promotional content from the Settings Home page.</value>
+    <value>Menghapus konten promosi Microsoft 365 dan Copilot dari halaman Beranda Pengaturan.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.Name" xml:space="preserve">
-    <value>Hide Recommended Section in Start</value>
+    <value>Sembunyikan Bagian Recommended di Start</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>Hides the Recommended section from the Start menu to reduce clutter and stop recent files and apps from being shown.</value>
+    <value>Menyembunyikan bagian Recommended dari menu Start untuk mengurangi kekacauan dan menghentikan tampilnya file serta aplikasi terbaru.</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
-    <value>Compatibility check failed</value>
+    <value>Pemeriksaan kompatibilitas gagal</value>
   </data>
   <data name="Condition.Error.Description" xml:space="preserve">
-    <value>optimizerDuck could not determine whether this item is supported on your system.</value>
+    <value>optimizerDuck tidak dapat menentukan apakah item ini didukung pada sistem Anda.</value>
   </data>
   <data name="Condition.Windows11.Title" xml:space="preserve">
-    <value>Windows 11 required</value>
+    <value>Windows 11 diperlukan</value>
   </data>
   <data name="Condition.Windows11.Description" xml:space="preserve">
-    <value>This item requires Windows 11.</value>
+    <value>Item ini memerlukan Windows 11.</value>
   </data>
   <data name="Condition.Windows10.Title" xml:space="preserve">
-    <value>Windows 10 required</value>
+    <value>Windows 10 diperlukan</value>
   </data>
   <data name="Condition.Windows10.Description" xml:space="preserve">
-    <value>This item requires Windows 10.</value>
+    <value>Item ini memerlukan Windows 10.</value>
   </data>
   <data name="Condition.Windows11_24H2.Title" xml:space="preserve">
-    <value>Windows 11 24H2 or newer required</value>
+    <value>Windows 11 24H2 atau lebih baru diperlukan</value>
   </data>
   <data name="Condition.Windows11_24H2.Description" xml:space="preserve">
-    <value>This item requires Windows 11 24H2 (build 26100) or later.</value>
+    <value>Item ini memerlukan Windows 11 24H2 (build 26100) atau lebih baru.</value>
   </data>
   <data name="Condition.Cpu.Intel.Title" xml:space="preserve">
-    <value>Intel CPU required</value>
+    <value>CPU Intel diperlukan</value>
   </data>
   <data name="Condition.Cpu.Intel.Description" xml:space="preserve">
-    <value>This item only works on systems with an Intel processor.</value>
+    <value>Item ini hanya berfungsi pada sistem dengan prosesor Intel.</value>
   </data>
   <data name="Condition.Cpu.Amd.Title" xml:space="preserve">
-    <value>AMD CPU required</value>
+    <value>CPU AMD diperlukan</value>
   </data>
   <data name="Condition.Cpu.Amd.Description" xml:space="preserve">
-    <value>This item only works on systems with an AMD processor.</value>
+    <value>Item ini hanya berfungsi pada sistem dengan prosesor AMD.</value>
   </data>
   <data name="Condition.Gpu.Nvidia.Title" xml:space="preserve">
-    <value>NVIDIA GPU required</value>
+    <value>GPU NVIDIA diperlukan</value>
   </data>
   <data name="Condition.Gpu.Nvidia.Description" xml:space="preserve">
-    <value>This item only works on systems with an NVIDIA graphics card.</value>
+    <value>Item ini hanya berfungsi pada sistem dengan kartu grafis NVIDIA.</value>
   </data>
   <data name="Condition.Gpu.Amd.Title" xml:space="preserve">
-    <value>AMD GPU required</value>
+    <value>GPU AMD diperlukan</value>
   </data>
   <data name="Condition.Gpu.Amd.Description" xml:space="preserve">
-    <value>This item only works on systems with an AMD graphics card.</value>
+    <value>Item ini hanya berfungsi pada sistem dengan kartu grafis AMD.</value>
   </data>
   <data name="Condition.Gpu.Intel.Title" xml:space="preserve">
-    <value>Intel GPU required</value>
+    <value>GPU Intel diperlukan</value>
   </data>
   <data name="Condition.Gpu.Intel.Description" xml:space="preserve">
-    <value>This item only works on systems with an Intel graphics card.</value>
+    <value>Item ini hanya berfungsi pada sistem dengan kartu grafis Intel.</value>
   </data>
   <data name="Condition.Ram.16.Title" xml:space="preserve">
-    <value>16 GB RAM required</value>
+    <value>RAM 16 GB diperlukan</value>
   </data>
   <data name="Condition.Ram.16.Description" xml:space="preserve">
-    <value>This item requires at least 16 GB of installed RAM.</value>
+    <value>Item ini memerlukan setidaknya 16 GB RAM terpasang.</value>
   </data>
   <data name="Condition.Recall.Title" xml:space="preserve">
-    <value>Windows Recall not available</value>
+    <value>Windows Recall tidak tersedia</value>
   </data>
   <data name="Condition.Recall.Description" xml:space="preserve">
-    <value>Windows Recall requires Windows 11 24H2 or later with the Windows AI components installed.</value>
+    <value>Windows Recall memerlukan Windows 11 24H2 atau lebih baru dengan komponen AI Windows terpasang.</value>
   </data>
   <data name="Optimizer.Condition.BlockedTitle" xml:space="preserve">
-    <value>Not supported on this system</value>
+    <value>Tidak didukung pada sistem ini</value>
   </data>
   <data name="Optimizer.Condition.FailedTitle" xml:space="preserve">
-    <value>Condition failed</value>
+    <value>Kondisi gagal</value>
   </data>
   <data name="Optimizer.Condition.Hide" xml:space="preserve">
-    <value>Hide</value>
+    <value>Sembunyikan</value>
   </data>
   <data name="Optimizer.Condition.Hide.Tooltip" xml:space="preserve">
-    <value>Show this optimization again and allow applying it anyway.</value>
+    <value>Tampilkan kembali optimasi ini dan izinkan untuk tetap diterapkan.</value>
   </data>
   <data name="Optimizer.Condition.WhatIsThis" xml:space="preserve">
-    <value>What is this?</value>
+    <value>Apa ini?</value>
   </data>
   <data name="Optimizer.Condition.WhatIsThis.Tooltip" xml:space="preserve">
-    <value>Compatibility conditions check whether an item is supported on your system, e.g. which Windows version or which GPU is installed. When a condition fails, the item is hidden by default because it may not work. If you know what you are doing, you can hide this warning and apply the item anyway.</value>
+    <value>Kondisi kompatibilitas memeriksa apakah suatu item didukung pada sistem Anda, misalnya versi Windows atau GPU yang terpasang. Saat suatu kondisi gagal, item disembunyikan secara default karena mungkin tidak berfungsi. Jika Anda tahu apa yang Anda lakukan, Anda dapat menyembunyikan peringatan ini dan tetap menerapkan item tersebut.</value>
   </data>
   <data name="Customize.UI.UnsupportedSettings.Header" xml:space="preserve">
-    <value>Unsupported Settings ({0})</value>
+    <value>Pengaturan Tidak Didukung ({0})</value>
   </data>
   <data name="Customize.UI.UnsupportedSettings.Badge" xml:space="preserve">
-    <value>Not supported</value>
+    <value>Tidak didukung</value>
   </data>
   <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
-    <value>Some settings are unavailable on your current system.</value>
+    <value>Beberapa pengaturan tidak tersedia pada sistem Anda saat ini.</value>
   </data>
 </root>

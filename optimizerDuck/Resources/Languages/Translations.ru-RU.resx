@@ -1748,4 +1748,154 @@
   <data name="Common.Empty" xml:space="preserve">
     <value>Пусто</value>
   </data>
+  <data name="Customize.CustomOption" xml:space="preserve">
+    <value>Пользовательский</value>
+  </data>
+  <data name="Customize.CustomOption.NotSet" xml:space="preserve">
+    <value>Не задано</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
+    <value>Отключить «Новости и интересы»</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.Name" xml:space="preserve">
+    <value>Скрыть кнопку Meet Now</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
+    <value>Скрывает кнопку Meet Now (Skype) из области уведомлений панели задач. Только Windows 10.</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Options.QuickAccess" xml:space="preserve">
+    <value>Быстрый доступ</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Options.ThisPc" xml:space="preserve">
+    <value>Этот компьютер</value>
+  </data>
+  <data name="Optimizer.AI" xml:space="preserve">
+    <value>ИИ</value>
+  </data>
+  <data name="Optimizer.AI.DisableClickToDo.Name" xml:space="preserve">
+    <value>Отключить Click To Do</value>
+  </data>
+  <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
+    <value>Отключает наложение Click To Do на основе ИИ, которое анализирует текст и изображения на экране.</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
+    <value>Отключить Windows Recall</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.Name" xml:space="preserve">
+    <value>Отключить оптимизацию доставки (P2P)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
+    <value>Запрещает Windows делиться или загружать файлы обновлений с других ПК через одноранговую сеть, чтобы обновления поступали только с серверов Microsoft.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
+    <value>Отключить «Поиск устройства»</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
+    <value>Отключает функцию «Поиск устройства», которая периодически сообщает о местоположении вашего устройства в Microsoft.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
+    <value>Отключить рекламу Microsoft 365 в настройках</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
+    <value>Удаляет рекламный контент Microsoft 365 и Copilot с главной страницы настроек.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartRecommended.Name" xml:space="preserve">
+    <value>Скрыть раздел «Рекомендуемые» в меню «Пуск»</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
+    <value>Скрывает раздел «Рекомендуемые» в меню «Пуск», чтобы уменьшить беспорядок и предотвратить показ последних файлов и приложений.</value>
+  </data>
+  <data name="Condition.Error.Title" xml:space="preserve">
+    <value>Проверка совместимости не удалась</value>
+  </data>
+  <data name="Condition.Error.Description" xml:space="preserve">
+    <value>optimizerDuck не смог определить, поддерживается ли этот элемент в вашей системе.</value>
+  </data>
+  <data name="Condition.Windows11.Title" xml:space="preserve">
+    <value>Требуется Windows 11</value>
+  </data>
+  <data name="Condition.Windows11.Description" xml:space="preserve">
+    <value>Для этого элемента требуется Windows 11.</value>
+  </data>
+  <data name="Condition.Windows10.Title" xml:space="preserve">
+    <value>Требуется Windows 10</value>
+  </data>
+  <data name="Condition.Windows10.Description" xml:space="preserve">
+    <value>Для этого элемента требуется Windows 10.</value>
+  </data>
+  <data name="Condition.Windows11_24H2.Title" xml:space="preserve">
+    <value>Требуется Windows 11 24H2 или новее</value>
+  </data>
+  <data name="Condition.Windows11_24H2.Description" xml:space="preserve">
+    <value>Для этого элемента требуется Windows 11 24H2 (сборка 26100) или новее.</value>
+  </data>
+  <data name="Condition.Cpu.Intel.Title" xml:space="preserve">
+    <value>Требуется процессор Intel</value>
+  </data>
+  <data name="Condition.Cpu.Intel.Description" xml:space="preserve">
+    <value>Этот элемент работает только в системах с процессором Intel.</value>
+  </data>
+  <data name="Condition.Cpu.Amd.Title" xml:space="preserve">
+    <value>Требуется процессор AMD</value>
+  </data>
+  <data name="Condition.Cpu.Amd.Description" xml:space="preserve">
+    <value>Этот элемент работает только в системах с процессором AMD.</value>
+  </data>
+  <data name="Condition.Gpu.Nvidia.Title" xml:space="preserve">
+    <value>Требуется видеокарта NVIDIA</value>
+  </data>
+  <data name="Condition.Gpu.Nvidia.Description" xml:space="preserve">
+    <value>Этот элемент работает только в системах с видеокартой NVIDIA.</value>
+  </data>
+  <data name="Condition.Gpu.Amd.Title" xml:space="preserve">
+    <value>Требуется видеокарта AMD</value>
+  </data>
+  <data name="Condition.Gpu.Amd.Description" xml:space="preserve">
+    <value>Этот элемент работает только в системах с видеокартой AMD.</value>
+  </data>
+  <data name="Condition.Gpu.Intel.Title" xml:space="preserve">
+    <value>Требуется видеокарта Intel</value>
+  </data>
+  <data name="Condition.Gpu.Intel.Description" xml:space="preserve">
+    <value>Этот элемент работает только в системах с видеокартой Intel.</value>
+  </data>
+  <data name="Condition.Ram.16.Title" xml:space="preserve">
+    <value>Требуется 16 ГБ ОЗУ</value>
+  </data>
+  <data name="Condition.Ram.16.Description" xml:space="preserve">
+    <value>Для этого элемента требуется не менее 16 ГБ установленной оперативной памяти.</value>
+  </data>
+  <data name="Condition.Recall.Title" xml:space="preserve">
+    <value>Windows Recall недоступен</value>
+  </data>
+  <data name="Condition.Recall.Description" xml:space="preserve">
+    <value>Для Windows Recall требуется Windows 11 24H2 или новее с установленными компонентами ИИ Windows.</value>
+  </data>
+  <data name="Optimizer.Condition.BlockedTitle" xml:space="preserve">
+    <value>Не поддерживается в этой системе</value>
+  </data>
+  <data name="Optimizer.Condition.FailedTitle" xml:space="preserve">
+    <value>Условие не выполнено</value>
+  </data>
+  <data name="Optimizer.Condition.Hide" xml:space="preserve">
+    <value>Скрыть</value>
+  </data>
+  <data name="Optimizer.Condition.Hide.Tooltip" xml:space="preserve">
+    <value>Снова показать эту оптимизацию и разрешить её применение в любом случае.</value>
+  </data>
+  <data name="Optimizer.Condition.WhatIsThis" xml:space="preserve">
+    <value>Что это?</value>
+  </data>
+  <data name="Optimizer.Condition.WhatIsThis.Tooltip" xml:space="preserve">
+    <value>Условия совместимости проверяют, поддерживается ли элемент в вашей системе, например, какая версия Windows или какой GPU установлен. Если условие не выполнено, элемент по умолчанию скрыт, так как может не работать. Если вы знаете, что делаете, вы можете скрыть это предупреждение и применить элемент в любом случае.</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Header" xml:space="preserve">
+    <value>Неподдерживаемые параметры ({0})</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Badge" xml:space="preserve">
+    <value>Не поддерживается</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
+    <value>Некоторые параметры недоступны в вашей текущей системе.</value>
+  </data>
 </root>

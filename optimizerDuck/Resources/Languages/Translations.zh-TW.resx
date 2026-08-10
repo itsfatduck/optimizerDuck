@@ -1743,4 +1743,154 @@
   <data name="Common.Empty" xml:space="preserve">
     <value>空</value>
   </data>
+  <data name="Customize.CustomOption" xml:space="preserve">
+    <value>自訂</value>
+  </data>
+  <data name="Customize.CustomOption.NotSet" xml:space="preserve">
+    <value>未設定</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
+    <value>停用新聞與興趣</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.Name" xml:space="preserve">
+    <value>隱藏 Meet Now 按鈕</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
+    <value>從工作列通知區域隱藏 Meet Now（Skype）按鈕。僅限 Windows 10。</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Options.QuickAccess" xml:space="preserve">
+    <value>快速存取</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Options.ThisPc" xml:space="preserve">
+    <value>本機</value>
+  </data>
+  <data name="Optimizer.AI" xml:space="preserve">
+    <value>AI</value>
+  </data>
+  <data name="Optimizer.AI.DisableClickToDo.Name" xml:space="preserve">
+    <value>停用 Click To Do</value>
+  </data>
+  <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
+    <value>關閉由 AI 驅動、可分析螢幕上文字和圖片的 Click To Do 覆疊層。</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
+    <value>停用 Windows Recall</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.Name" xml:space="preserve">
+    <value>停用傳遞最佳化 (P2P)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
+    <value>阻止 Windows 透過點對點方式與其他電腦共用或下載更新檔案，使更新僅來自 Microsoft 伺服器。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
+    <value>停用尋找我的裝置</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
+    <value>停用會定期向 Microsoft 回報裝置位置的「尋找我的裝置」功能。</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
+    <value>停用設定中的 Microsoft 365 廣告</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
+    <value>從設定首頁移除 Microsoft 365 和 Copilot 的促銷內容。</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartRecommended.Name" xml:space="preserve">
+    <value>隱藏開始功能表中的推薦區段</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
+    <value>隱藏開始功能表中的「推薦」區段，以減少雜亂並避免顯示最近使用的檔案和應用程式。</value>
+  </data>
+  <data name="Condition.Error.Title" xml:space="preserve">
+    <value>相容性檢查失敗</value>
+  </data>
+  <data name="Condition.Error.Description" xml:space="preserve">
+    <value>optimizerDuck 無法判斷此項目是否受到您的系統支援。</value>
+  </data>
+  <data name="Condition.Windows11.Title" xml:space="preserve">
+    <value>需要 Windows 11</value>
+  </data>
+  <data name="Condition.Windows11.Description" xml:space="preserve">
+    <value>此項目需要 Windows 11。</value>
+  </data>
+  <data name="Condition.Windows10.Title" xml:space="preserve">
+    <value>需要 Windows 10</value>
+  </data>
+  <data name="Condition.Windows10.Description" xml:space="preserve">
+    <value>此項目需要 Windows 10。</value>
+  </data>
+  <data name="Condition.Windows11_24H2.Title" xml:space="preserve">
+    <value>需要 Windows 11 24H2 或更新版本</value>
+  </data>
+  <data name="Condition.Windows11_24H2.Description" xml:space="preserve">
+    <value>此項目需要 Windows 11 24H2（組建 26100）或更新版本。</value>
+  </data>
+  <data name="Condition.Cpu.Intel.Title" xml:space="preserve">
+    <value>需要 Intel CPU</value>
+  </data>
+  <data name="Condition.Cpu.Intel.Description" xml:space="preserve">
+    <value>此項目僅適用於配備 Intel 處理器的系統。</value>
+  </data>
+  <data name="Condition.Cpu.Amd.Title" xml:space="preserve">
+    <value>需要 AMD CPU</value>
+  </data>
+  <data name="Condition.Cpu.Amd.Description" xml:space="preserve">
+    <value>此項目僅適用於配備 AMD 處理器的系統。</value>
+  </data>
+  <data name="Condition.Gpu.Nvidia.Title" xml:space="preserve">
+    <value>需要 NVIDIA GPU</value>
+  </data>
+  <data name="Condition.Gpu.Nvidia.Description" xml:space="preserve">
+    <value>此項目僅適用於配備 NVIDIA 顯示卡的系統。</value>
+  </data>
+  <data name="Condition.Gpu.Amd.Title" xml:space="preserve">
+    <value>需要 AMD GPU</value>
+  </data>
+  <data name="Condition.Gpu.Amd.Description" xml:space="preserve">
+    <value>此項目僅適用於配備 AMD 顯示卡的系統。</value>
+  </data>
+  <data name="Condition.Gpu.Intel.Title" xml:space="preserve">
+    <value>需要 Intel GPU</value>
+  </data>
+  <data name="Condition.Gpu.Intel.Description" xml:space="preserve">
+    <value>此項目僅適用於配備 Intel 顯示卡的系統。</value>
+  </data>
+  <data name="Condition.Ram.16.Title" xml:space="preserve">
+    <value>需要 16 GB 記憶體</value>
+  </data>
+  <data name="Condition.Ram.16.Description" xml:space="preserve">
+    <value>此項目至少需要安裝 16 GB 記憶體。</value>
+  </data>
+  <data name="Condition.Recall.Title" xml:space="preserve">
+    <value>Windows Recall 無法使用</value>
+  </data>
+  <data name="Condition.Recall.Description" xml:space="preserve">
+    <value>Windows Recall 需要 Windows 11 24H2 或更新版本，並已安裝 Windows AI 元件。</value>
+  </data>
+  <data name="Optimizer.Condition.BlockedTitle" xml:space="preserve">
+    <value>此系統不支援</value>
+  </data>
+  <data name="Optimizer.Condition.FailedTitle" xml:space="preserve">
+    <value>條件不符</value>
+  </data>
+  <data name="Optimizer.Condition.Hide" xml:space="preserve">
+    <value>隱藏</value>
+  </data>
+  <data name="Optimizer.Condition.Hide.Tooltip" xml:space="preserve">
+    <value>重新顯示此最佳化，並允許照常套用。</value>
+  </data>
+  <data name="Optimizer.Condition.WhatIsThis" xml:space="preserve">
+    <value>這是什麼？</value>
+  </data>
+  <data name="Optimizer.Condition.WhatIsThis.Tooltip" xml:space="preserve">
+    <value>相容性條件會檢查某個項目是否受到您的系統支援，例如安裝的 Windows 版本或 GPU。當條件不符時，該項目預設會隱藏，因為它可能無法正常運作。如果您清楚自己在做什麼，可以隱藏此警告並照常套用該項目。</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Header" xml:space="preserve">
+    <value>不支援的設定 ({0})</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Badge" xml:space="preserve">
+    <value>不支援</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
+    <value>某些設定目前無法在您的系統上使用。</value>
+  </data>
 </root>

@@ -1748,4 +1748,154 @@ Zaktualizuj teraz, aby korzystać z najnowszych funkcji, ulepszeń i poprawek b�
   <data name="Common.Empty" xml:space="preserve">
     <value>Puste</value>
   </data>
+  <data name="Customize.CustomOption" xml:space="preserve">
+    <value>Własne</value>
+  </data>
+  <data name="Customize.CustomOption.NotSet" xml:space="preserve">
+    <value>Nie ustawiono</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
+    <value>Wyłącz Wiadomości i zainteresowania</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.Name" xml:space="preserve">
+    <value>Ukryj przycisk Meet Now</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
+    <value>Ukrywa przycisk Meet Now (Skype) z obszaru powiadomień paska zadań. Tylko Windows 10.</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Options.QuickAccess" xml:space="preserve">
+    <value>Szybki dostęp</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Options.ThisPc" xml:space="preserve">
+    <value>Ten komputer</value>
+  </data>
+  <data name="Optimizer.AI" xml:space="preserve">
+    <value>AI</value>
+  </data>
+  <data name="Optimizer.AI.DisableClickToDo.Name" xml:space="preserve">
+    <value>Wyłącz Click To Do</value>
+  </data>
+  <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
+    <value>Wyłącza nakładkę Click To Do opartą na AI, która analizuje tekst i obrazy na ekranie.</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
+    <value>Wyłącz Windows Recall</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.Name" xml:space="preserve">
+    <value>Wyłącz optymalizację dostarczania (P2P)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
+    <value>Zatrzymuje udostępnianie i pobieranie plików aktualizacji przez Windows z innych komputerów w sieci peer-to-peer, dzięki czemu aktualizacje pochodzą wyłącznie z serwerów Microsoft.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
+    <value>Wyłącz Znajdź moje urządzenie</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
+    <value>Wyłącza funkcję Znajdź moje urządzenie, która okresowo zgłasza lokalizację urządzenia firmie Microsoft.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
+    <value>Wyłącz reklamy Microsoft 365 w Ustawieniach</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
+    <value>Usuwa treści promocyjne Microsoft 365 i Copilot ze strony głównej Ustawień.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartRecommended.Name" xml:space="preserve">
+    <value>Ukryj sekcję Polecane w menu Start</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
+    <value>Ukrywa sekcję Polecane w menu Start, aby zmniejszyć bałagan i uniemożliwić wyświetlanie ostatnich plików i aplikacji.</value>
+  </data>
+  <data name="Condition.Error.Title" xml:space="preserve">
+    <value>Sprawdzenie zgodności nie powiodło się</value>
+  </data>
+  <data name="Condition.Error.Description" xml:space="preserve">
+    <value>optimizerDuck nie mógł ustalić, czy ten element jest obsługiwany w Twoim systemie.</value>
+  </data>
+  <data name="Condition.Windows11.Title" xml:space="preserve">
+    <value>Wymagany system Windows 11</value>
+  </data>
+  <data name="Condition.Windows11.Description" xml:space="preserve">
+    <value>Ten element wymaga systemu Windows 11.</value>
+  </data>
+  <data name="Condition.Windows10.Title" xml:space="preserve">
+    <value>Wymagany system Windows 10</value>
+  </data>
+  <data name="Condition.Windows10.Description" xml:space="preserve">
+    <value>Ten element wymaga systemu Windows 10.</value>
+  </data>
+  <data name="Condition.Windows11_24H2.Title" xml:space="preserve">
+    <value>Wymagany system Windows 11 24H2 lub nowszy</value>
+  </data>
+  <data name="Condition.Windows11_24H2.Description" xml:space="preserve">
+    <value>Ten element wymaga systemu Windows 11 24H2 (kompilacja 26100) lub nowszego.</value>
+  </data>
+  <data name="Condition.Cpu.Intel.Title" xml:space="preserve">
+    <value>Wymagany procesor Intel</value>
+  </data>
+  <data name="Condition.Cpu.Intel.Description" xml:space="preserve">
+    <value>Ten element działa tylko w systemach z procesorem Intel.</value>
+  </data>
+  <data name="Condition.Cpu.Amd.Title" xml:space="preserve">
+    <value>Wymagany procesor AMD</value>
+  </data>
+  <data name="Condition.Cpu.Amd.Description" xml:space="preserve">
+    <value>Ten element działa tylko w systemach z procesorem AMD.</value>
+  </data>
+  <data name="Condition.Gpu.Nvidia.Title" xml:space="preserve">
+    <value>Wymagana karta graficzna NVIDIA</value>
+  </data>
+  <data name="Condition.Gpu.Nvidia.Description" xml:space="preserve">
+    <value>Ten element działa tylko w systemach z kartą graficzną NVIDIA.</value>
+  </data>
+  <data name="Condition.Gpu.Amd.Title" xml:space="preserve">
+    <value>Wymagana karta graficzna AMD</value>
+  </data>
+  <data name="Condition.Gpu.Amd.Description" xml:space="preserve">
+    <value>Ten element działa tylko w systemach z kartą graficzną AMD.</value>
+  </data>
+  <data name="Condition.Gpu.Intel.Title" xml:space="preserve">
+    <value>Wymagana karta graficzna Intel</value>
+  </data>
+  <data name="Condition.Gpu.Intel.Description" xml:space="preserve">
+    <value>Ten element działa tylko w systemach z kartą graficzną Intel.</value>
+  </data>
+  <data name="Condition.Ram.16.Title" xml:space="preserve">
+    <value>Wymagane 16 GB pamięci RAM</value>
+  </data>
+  <data name="Condition.Ram.16.Description" xml:space="preserve">
+    <value>Ten element wymaga co najmniej 16 GB zainstalowanej pamięci RAM.</value>
+  </data>
+  <data name="Condition.Recall.Title" xml:space="preserve">
+    <value>Windows Recall niedostępny</value>
+  </data>
+  <data name="Condition.Recall.Description" xml:space="preserve">
+    <value>Windows Recall wymaga systemu Windows 11 24H2 lub nowszego z zainstalowanymi składnikami AI systemu Windows.</value>
+  </data>
+  <data name="Optimizer.Condition.BlockedTitle" xml:space="preserve">
+    <value>Nieobsługiwane w tym systemie</value>
+  </data>
+  <data name="Optimizer.Condition.FailedTitle" xml:space="preserve">
+    <value>Warunek nie został spełniony</value>
+  </data>
+  <data name="Optimizer.Condition.Hide" xml:space="preserve">
+    <value>Ukryj</value>
+  </data>
+  <data name="Optimizer.Condition.Hide.Tooltip" xml:space="preserve">
+    <value>Ponownie pokaż tę optymalizację i zezwól na jej zastosowanie mimo wszystko.</value>
+  </data>
+  <data name="Optimizer.Condition.WhatIsThis" xml:space="preserve">
+    <value>Co to jest?</value>
+  </data>
+  <data name="Optimizer.Condition.WhatIsThis.Tooltip" xml:space="preserve">
+    <value>Warunki zgodności sprawdzają, czy element jest obsługiwany w Twoim systemie, np. jaka wersja systemu Windows lub jaka karta graficzna jest zainstalowana. Gdy warunek nie zostanie spełniony, element jest domyślnie ukrywany, ponieważ może nie działać. Jeśli wiesz, co robisz, możesz ukryć to ostrzeżenie i zastosować element mimo wszystko.</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Header" xml:space="preserve">
+    <value>Nieobsługiwane ustawienia ({0})</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Badge" xml:space="preserve">
+    <value>Nieobsługiwane</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
+    <value>Niektóre ustawienia są niedostępne w bieżącym systemie.</value>
+  </data>
 </root>
