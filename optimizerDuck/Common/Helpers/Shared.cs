@@ -44,12 +44,14 @@ public static class Shared
         // Bing / MSN / News
         "Microsoft.BingWeather",
         "Microsoft.BingNews",
-        "Microsoft.MicrosoftNews",
+        "Microsoft.News", // Microsoft News
+        "MicrosoftStart", // Microsoft Start (Win11 22H2+)
         "Microsoft.BingFinance",
         "Microsoft.BingSports",
         "Microsoft.BingFoodAndDrink",
         "Microsoft.BingHealthAndFitness",
         "Microsoft.BingTravel",
+        "Microsoft.BingTranslator", // Win10
         // Help, Tips & Feedback
         "Microsoft.GetStarted",
         "Microsoft.WindowsTips",
@@ -59,7 +61,8 @@ public static class Shared
         "Microsoft.OneConnect",
         "Microsoft.People",
         "Microsoft.SkypeApp",
-        "MicrosoftTeams",
+        "MicrosoftTeams", // Old Teams (personal)
+        "MSTeams", // New Teams
         // Office (Web Wrappers & Legacy)
         "Microsoft.OneNote",
         "Microsoft.Todos",
@@ -67,6 +70,7 @@ public static class Shared
         "Microsoft.Office.OneNote",
         "Microsoft.Office.Sway",
         "Microsoft.MicrosoftJournal",
+        "Microsoft.MicrosoftPowerBIForWindows", // Power BI
         // Social & Wallet (Legacy)
         "Microsoft.Wallet",
         "Microsoft.MSWallet",
@@ -75,6 +79,7 @@ public static class Shared
         "Microsoft.MixedReality.Portal",
         "Microsoft.Print3D",
         "Microsoft.3DBuilder",
+        "Microsoft.Paint3D", // Paint 3D (Win10 only)
         // Multimedia & Entertainment
         "Microsoft.ZuneVideo",
         "Microsoft.WindowsSoundRecorder",
@@ -88,6 +93,8 @@ public static class Shared
         "Microsoft.WindowsMaps",
         "Microsoft.XboxApp", // Old Xbox Console Companion (Discontinued)
         "Microsoft.Windows.AIHub", // Copilot+ AI Hub (Copilot+ PCs)
+        "Microsoft.MinecraftUWP", // Minecraft (Win10 consumer images)
+        "Microsoft.NetworkSpeedTest", // Win10
         "Drawboard.DrawboardPDF",
         // Third-party (commonly pre-installed on OEM machines)
         "SpotifyAB.SpotifyMusic",
@@ -127,6 +134,7 @@ public static class Shared
         "Sidia.LiveWallpaper",
         "HULULLC.HULUPLUS",
         "SlingTV",
+        "DolbyLaboratories.DolbyAccess", // OEM audio app
     };
 
     public static readonly HashSet<string> CautionApps = new()
@@ -134,11 +142,14 @@ public static class Shared
         // Core Utilities (default handlers for common file types)
         "Microsoft.WindowsCalculator",
         "Microsoft.WindowsPhotos",
-        "Microsoft.MSPaint", // Paint 3D
+        "Microsoft.MSPaint", // Classic Paint (Win10)
         "Microsoft.Paint",
         "Microsoft.WindowsNotepad",
         "Microsoft.WindowsCamera",
         "Microsoft.ScreenSketch", // Snipping Tool
+        // Default browser (tied to WebView2-based apps and Windows features)
+        "Microsoft.MicrosoftEdge",
+        "Microsoft.MicrosoftEdge.Stable",
         // System Tools
         "Microsoft.WindowsStore",
         "Microsoft.StorePurchaseApp",
