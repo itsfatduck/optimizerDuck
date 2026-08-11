@@ -258,6 +258,16 @@
   <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
     <value>Các thẻ này cho biết tối ưu sẽ ảnh hưởng đến phần nào trong hệ thống.</value>
   </data>
+<data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
+    <value>NVIDIA</value>
+  </data>
+<data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
+    <value>AMD</value>
+  </data>
+<data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
+    <value>Intel</value>
+  </data>
+
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
     <value>Công suất/Điện năng</value>
   </data>
@@ -675,6 +685,10 @@
   <data name="Optimizer.UI.Tags.Visual" xml:space="preserve">
     <value>Giao diện</value>
   </data>
+<data name="Optimizer.Gpu" xml:space="preserve">
+    <value>GPU</value>
+  </data>
+
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>Trải nghiệm người dùng</value>
   </data>
@@ -690,6 +704,55 @@
   <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
     <value>Tắt hiệu ứng chuyển động, bóng đổ, độ trong suốt và Aero Peek để giải phóng tài nguyên GPU/CPU cho hiệu suất tốt hơn.</value>
   </data>
+<data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
+    <value>Vô hiệu hóa AMD ULPS</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
+    <value>Tắt chế độ siêu tiết kiệm điện của AMD để tránh hiện tượng GPU bị khựng hoặc trễ khi thức dậy.</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
+    <value>Tắt AMD Power Gating</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
+    <value>Duy trì hiệu năng GPU ổn định bằng cách ngăn việc tự động ngắt nguồn các thành phần bên trong.</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>Tắt AMD Video Clock Gating</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>Tăng cường độ ổn định cho quá trình xử lý video bằng cách giữ xung nhịp engine video luôn sẵn sàng.</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
+    <value>Vô hiệu hóa AMD ASPM</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
+    <value>Giảm độ trễ giao tiếp PCIe cho card đồ họa AMD, giúp tăng tốc độ phản hồi.</value>
+  </data>
+<data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
+    <value>Khóa trạng thái năng lượng NVIDIA</value>
+  </data>
+<data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
+    <value>Ngăn NVIDIA GPU tự động thay đổi mức năng lượng để duy trì mức hiệu năng nhất quán nhất.</value>
+  </data>
+<data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
+    <value>Vô hiệu hóa Async P-States</value>
+  </data>
+<data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
+    <value>Tắt việc chuyển đổi trạng thái hiệu năng không đồng bộ để đạt được sự ổn định cao nhất.</value>
+  </data>
+<data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>Bật đồng bộ hình ảnh Intel</value>
+  </data>
+<data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>Sử dụng cơ chế làm mới khung hình đồng bộ để giảm độ trễ hiển thị và hạn chế xé hình.</value>
+  </data>
+<data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
+    <value>Vô hiệu hóa Adaptive V-Sync</value>
+  </data>
+<data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
+    <value>Duy trì thời gian xuất khung hình ổn định bằng cách tắt tính năng V-Sync thích ứng của Intel.</value>
+  </data>
+
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
     <value>Thanh tác vụ</value>
   </data>

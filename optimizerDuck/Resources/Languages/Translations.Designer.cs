@@ -3141,6 +3141,159 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GPU.
+        /// </summary>
+        internal static string Optimizer_Gpu {
+            get {
+                return ResourceManager.GetString("Optimizer.Gpu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable AMD ASPM.
+        /// </summary>
+        internal static string Optimizer_Gpu_AmdDisableAspm_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.Gpu.AmdDisableAspm.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sets EnableAspmL0s=0, EnableAspmL1=0 to disable Active State Power Management on AMD GPUs, reducing PCIe bus latency. Increases slot power consumption..
+        /// </summary>
+        internal static string Optimizer_Gpu_AmdDisableAspm_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.Gpu.AmdDisableAspm.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable AMD Power Gating.
+        /// </summary>
+        internal static string Optimizer_Gpu_AmdDisablePowerGating_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.Gpu.AmdDisablePowerGating.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sets DisablePowerGating=1, PP_GPUPowerDownEnabled=0, DisableDynamicPstate=1 to prevent AMD GPU power state transitions. Maintains consistent clocks at cost of higher idle power..
+        /// </summary>
+        internal static string Optimizer_Gpu_AmdDisablePowerGating_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.Gpu.AmdDisablePowerGating.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable AMD ULPS.
+        /// </summary>
+        internal static string Optimizer_Gpu_AmdDisableUlps_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.Gpu.AmdDisableUlps.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sets EnableULPS=0 in AMD GPU registry to prevent Ultra Low Power State wake-up delays and multi-monitor issues. Reduces power saving on idle..
+        /// </summary>
+        internal static string Optimizer_Gpu_AmdDisableUlps_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.Gpu.AmdDisableUlps.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable AMD Video Clock Gating.
+        /// </summary>
+        internal static string Optimizer_Gpu_AmdDisableVideoClockGating_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.Gpu.AmdDisableVideoClockGating.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sets DisableVCEPowerGating=1, DisableVceClockGating=1, EnableUvdClockGating=0 for AMD video engines (VCE/UVD) to improve encode/decode stability. Increases video playback power..
+        /// </summary>
+        internal static string Optimizer_Gpu_AmdDisableVideoClockGating_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable Intel Adaptive V-Sync.
+        /// </summary>
+        internal static string Optimizer_Gpu_IntelDisableAdaptiveVsync_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.Gpu.IntelDisableAdaptiveVsync.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sets AdaptiveVsyncEnable=0 to disable Intel&apos;s adaptive V-Sync that dynamically adjusts to frame rate, using fixed V-Sync instead for stable timing..
+        /// </summary>
+        internal static string Optimizer_Gpu_IntelDisableAdaptiveVsync_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable Intel Async Flips.
+        /// </summary>
+        internal static string Optimizer_Gpu_IntelDisableAsyncFlips_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.Gpu.IntelDisableAsyncFlips.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sets Display1_DisableAsyncFlips=1 to force synchronous buffer flips on Intel iGPU, reducing input-to-display latency and screen tearing..
+        /// </summary>
+        internal static string Optimizer_Gpu_IntelDisableAsyncFlips_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable NVIDIA Async P-States.
+        /// </summary>
+        internal static string Optimizer_Gpu_NvidiaDisableAsyncPstates_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.Gpu.NvidiaDisableAsyncPstates.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sets DisableASyncPstates=1 to prevent NVIDIA asynchronous power state switching, providing deterministic performance for VR/real-time apps..
+        /// </summary>
+        internal static string Optimizer_Gpu_NvidiaDisableAsyncPstates_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable NVIDIA Dynamic P-State.
+        /// </summary>
+        internal static string Optimizer_Gpu_NvidiaDisableDynamicPstate_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.Gpu.NvidiaDisableDynamicPstate.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sets DisableDynamicPstate=1 to lock NVIDIA GPU into fixed performance state, preventing clock speed fluctuations. Increases idle power draw..
+        /// </summary>
+        internal static string Optimizer_Gpu_NvidiaDisableDynamicPstate_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Apply Everything.
         /// </summary>
         internal static string Optimizer_Menu_ApplyAll {
@@ -3754,6 +3907,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AMD.
+        /// </summary>
+        internal static string Optimizer_UI_Tags_Amd {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Tags.Amd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Audio.
         /// </summary>
         internal static string Optimizer_UI_Tags_Audio {
@@ -3790,6 +3952,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Intel.
+        /// </summary>
+        internal static string Optimizer_UI_Tags_Intel {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Tags.Intel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Latency.
         /// </summary>
         internal static string Optimizer_UI_Tags_Latency {
@@ -3813,6 +3984,15 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Optimizer_UI_Tags_NetworkRequired {
             get {
                 return ResourceManager.GetString("Optimizer.UI.Tags.NetworkRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NVIDIA.
+        /// </summary>
+        internal static string Optimizer_UI_Tags_Nvidia {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Tags.Nvidia", resourceCulture);
             }
         }
         

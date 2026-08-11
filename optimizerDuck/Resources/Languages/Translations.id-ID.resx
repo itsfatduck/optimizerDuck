@@ -313,6 +313,16 @@
   <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
     <value>Tag ini menunjukkan bagian sistem mana yang akan terpengaruh oleh optimasi.</value>
   </data>
+  <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
+    <value>NVIDIA</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
+    <value>AMD</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
+    <value>Intel</value>
+  </data>
+
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
     <value>Daya</value>
   </data>
@@ -751,6 +761,10 @@
   <data name="Optimizer.UI.Tags.Windows11Only" xml:space="preserve">
     <value>Khusus Windows 11</value>
   </data>
+  <data name="Optimizer.Gpu" xml:space="preserve">
+    <value>GPU</value>
+  </data>
+
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>Pengalaman Pengguna</value>
   </data>
@@ -772,6 +786,55 @@
   <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
     <value>Menonaktifkan animasi taskbar, bayangan listview, transparansi jendela, dan Aero Peek untuk membebaskan sumber daya GPU/CPU demi performa yang lebih baik.</value>
   </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
+    <value>Nonaktifkan ULPS AMD</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
+    <value>Menyetel EnableULPS=0 di registri GPU AMD untuk mencegah penundaan bangun dari Ultra Low Power State dan masalah multi-monitor. Mengurangi penghematan daya saat idle.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
+    <value>Nonaktifkan Power Gating AMD</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
+    <value>Menyetel DisablePowerGating=1, PP_GPUPowerDownEnabled=0, DisableDynamicPstate=1 untuk mencegah transisi status daya GPU AMD. Menjaga clock tetap konsisten dengan mengorbankan daya idle yang lebih tinggi.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>Nonaktifkan Video Clock Gating AMD</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>Menyetel DisableVCEPowerGating=1, DisableVceClockGating=1, EnableUvdClockGating=0 untuk mesin video AMD (VCE/UVD) agar stabilitas encode/decode lebih baik. Meningkatkan daya pemutaran video.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
+    <value>Nonaktifkan ASPM AMD</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
+    <value>Menyetel EnableAspmL0s=0, EnableAspmL1=0 untuk menonaktifkan Active State Power Management pada GPU AMD, mengurangi latensi bus PCIe. Meningkatkan konsumsi daya slot.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
+    <value>Nonaktifkan P-State Dinamis NVIDIA</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
+    <value>Menyetel DisableDynamicPstate=1 untuk mengunci GPU NVIDIA pada status performa tetap, mencegah fluktuasi kecepatan clock. Meningkatkan konsumsi daya idle.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
+    <value>Nonaktifkan Async P-States NVIDIA</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
+    <value>Menyetel DisableASyncPstates=1 untuk mencegah peralihan status daya asinkron NVIDIA, memberikan performa deterministik untuk aplikasi VR/real-time.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>Nonaktifkan Async Flips Intel</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>Menyetel Display1_DisableAsyncFlips=1 untuk memaksa pembalikan buffer sinkron pada iGPU Intel, mengurangi latensi input-ke-tampilan dan screen tearing.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
+    <value>Nonaktifkan Adaptive V-Sync Intel</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
+    <value>Menyetel AdaptiveVsyncEnable=0 untuk menonaktifkan V-Sync adaptif Intel yang menyesuaikan dengan frame rate, menggunakan V-Sync tetap untuk timing yang stabil.</value>
+  </data>
+
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
     <value>Taskbar</value>
   </data>

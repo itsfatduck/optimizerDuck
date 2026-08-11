@@ -260,6 +260,16 @@
   <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
     <value>これらのタグは、最適化がシステムのどの部分に影響するかを示します</value>
   </data>
+<data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
+    <value>NVIDIA 向け</value>
+  </data>
+<data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
+    <value>AMD 向け</value>
+  </data>
+<data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
+    <value>Intel 向け</value>
+  </data>
+
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
     <value>電源</value>
   </data>
@@ -692,6 +702,10 @@
   <data name="Optimizer.UI.Tags.Visual" xml:space="preserve">
     <value>ビジュアル</value>
   </data>
+<data name="Optimizer.Gpu" xml:space="preserve">
+    <value>グラフィックス</value>
+  </data>
+
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>ユーザー エクスペリエンス</value>
   </data>
@@ -707,6 +721,55 @@
   <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
     <value>タスクバー アニメーション、リスト ビューの影、ウィンドウの透明度、Aero Peek を無効化して GPU/CPU リソースを解放し、パフォーマンスを向上させます</value>
   </data>
+<data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
+    <value>AMD ULPS を無効化</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
+    <value>AMD GPU レジストリで EnableULPS=0 を設定し、Ultra Low Power State のウェイクアップ遅延とマルチモニター問題を防ぎます。アイドル時の省電力は減少します</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
+    <value>AMD パワー ゲーティングを無効化</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
+    <value>DisablePowerGating=1、PP_GPUPowerDownEnabled=0、DisableDynamicPstate=1 を設定して AMD GPU の電源状態遷移を防ぎます。アイドル電力は増加しますが、クロックは安定します</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>AMD ビデオ クロック ゲーティングを無効化</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>AMD ビデオ エンジン (VCE/UVD) に DisableVCEPowerGating=1、DisableVceClockGating=1、EnableUvdClockGating=0 を設定してエンコード/デコードの安定性を向上します。ビデオ再生時の電力消費が増加します</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
+    <value>AMD ASPM を無効化</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
+    <value>EnableAspmL0s=0、EnableAspmL1=0 を設定して AMD GPU の Active State Power Management を無効化し、PCIe バスの遅延を削減します。スロットの電力消費が増加します</value>
+  </data>
+<data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
+    <value>NVIDIA Dynamic P-State を無効化</value>
+  </data>
+<data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
+    <value>DisableDynamicPstate=1 を設定して NVIDIA GPU を固定パフォーマンス状態にロックし、クロック速度の変動を防ぎます。アイドル時の電力消費が増加します</value>
+  </data>
+<data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
+    <value>NVIDIA Async P-State を無効化</value>
+  </data>
+<data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
+    <value>DisableASyncPstates=1 を設定して NVIDIA の非同期電源状態切り替えを防ぎ、VR/リアルタイム アプリに決定論的なパフォーマンスを提供します</value>
+  </data>
+<data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>Intel Async Flip を無効化</value>
+  </data>
+<data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>Display1_DisableAsyncFlips=1 を設定して Intel iGPU で同期バッファ フリップを強制し、入力から表示までの遅延と画面のちらつきを削減します</value>
+  </data>
+<data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
+    <value>Intel Adaptive V-Sync を無効化</value>
+  </data>
+<data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
+    <value>AdaptiveVsyncEnable=0 を設定して、フレーム レートに動的に調整される Intel の Adaptive V-Sync を無効化し、安定したタイミングのため固定 V-Sync を使用します</value>
+  </data>
+
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
     <value>タスクバー</value>
   </data>

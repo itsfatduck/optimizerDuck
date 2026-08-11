@@ -260,6 +260,16 @@
   <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
     <value>Bu etiketler, optimizasyonun sistemin hangi bölümlerini etkileyeceğini gösterir.</value>
   </data>
+<data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
+    <value>NVIDIA</value>
+  </data>
+<data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
+    <value>AMD</value>
+  </data>
+<data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
+    <value>Intel</value>
+  </data>
+
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
     <value>Güç</value>
   </data>
@@ -692,6 +702,10 @@
   <data name="Optimizer.UI.Tags.Visual" xml:space="preserve">
     <value>Görsel</value>
   </data>
+<data name="Optimizer.Gpu" xml:space="preserve">
+    <value>GPU</value>
+  </data>
+
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>Kullanıcı Deneyimi</value>
   </data>
@@ -707,6 +721,55 @@
   <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
     <value>Daha iyi performans için GPU/CPU kaynaklarını serbest bırakmak amacıyla görev çubuğu animasyonlarını, liste görünümü gölgelerini, pencere şeffaflığını ve Aero Peek'i devre dışı bırakır.</value>
   </data>
+<data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
+    <value>AMD ULPS'yi Devre Dışı Bırak</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
+    <value>Ultra Düşük Güç Durumu uyanma gecikmelerini ve çoklu monitör sorunlarını önlemek için AMD GPU kayıt defterinde EnableULPS=0 değerini ayarlar. Boştayken güç tasarrufunu azaltır.</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
+    <value>AMD Güç Kapılamasını Devre Dışı Bırak</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
+    <value>AMD GPU güç durumu geçişlerini önlemek için DisablePowerGating=1, PP_GPUPowerDownEnabled=0, DisableDynamicPstate=1 değerlerini ayarlar. Daha yüksek boşta güç tüketimi karşılığında tutarlı saat hızları sağlar.</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>AMD Video Saat Kapılamasını Devre Dışı Bırak</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>Kodlama/kod çözme kararlılığını artırmak için AMD video motorları (VCE/UVD) için DisableVCEPowerGating=1, DisableVceClockGating=1, EnableUvdClockGating=0 değerlerini ayarlar. Video oynatma güç tüketimini artırır.</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
+    <value>AMD ASPM'yi Devre Dışı Bırak</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
+    <value>AMD GPU'larda PCIe veri yolu gecikmesini azaltmak için Aktif Durum Güç Yönetimi'ni devre dışı bırakmak amacıyla EnableAspmL0s=0, EnableAspmL1=0 değerlerini ayarlar. Yuva güç tüketimini artırır.</value>
+  </data>
+<data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
+    <value>NVIDIA Dinamik P-State'i Devre Dışı Bırak</value>
+  </data>
+<data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
+    <value>Saat hızı dalgalanmalarını önlemek için NVIDIA GPU'yu sabit performans durumunda kilitlemek amacıyla DisableDynamicPstate=1 değerini ayarlar. Boştaki güç tüketimini artırır.</value>
+  </data>
+<data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
+    <value>NVIDIA Asenkron P-State'leri Devre Dışı Bırak</value>
+  </data>
+<data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
+    <value>VR/gerçek zamanlı uygulamalar için belirleyici performans sağlamak amacıyla NVIDIA asenkron güç durumu geçişini önlemek için DisableASyncPstates=1 değerini ayarlar.</value>
+  </data>
+<data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>Intel Asenkron Çevirmelerini Devre Dışı Bırak</value>
+  </data>
+<data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>Intel iGPU'da girişten ekrana gecikmeyi ve ekran yırtılmasını azaltmak için senkron tampon geçişlerini zorlamak amacıyla Display1_DisableAsyncFlips=1 değerini ayarlar.</value>
+  </data>
+<data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
+    <value>Intel Uyarlamalı V-Sync'i Devre Dışı Bırak</value>
+  </data>
+<data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
+    <value>Kararlı zamanlama için sabit V-Sync kullanmak amacıyla kare hızına göre dinamik olarak ayarlanan Intel uyarlamalı V-Sync'i devre dışı bırakmak için AdaptiveVsyncEnable=0 değerini ayarlar.</value>
+  </data>
+
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
     <value>Görev Çubuğu</value>
   </data>

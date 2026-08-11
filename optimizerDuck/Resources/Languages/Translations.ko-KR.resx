@@ -260,6 +260,16 @@
   <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
   <value>이 태그는 최적화가 시스템의 어느 부분에 영향을 주는지 보여줍니다</value>
 </data>
+<data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
+  <value>NVIDIA</value>
+</data>
+<data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
+  <value>AMD</value>
+</data>
+<data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
+  <value>Intel</value>
+</data>
+
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
   <value>전원</value>
 </data>
@@ -692,6 +702,10 @@
   <data name="Optimizer.UI.Tags.Visual" xml:space="preserve">
     <value>Visual</value>
   </data>
+<data name="Optimizer.Gpu" xml:space="preserve">
+    <value>GPU</value>
+  </data>
+
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>사용자 경험</value>
   </data>
@@ -707,6 +721,55 @@
   <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
     <value>더 나은 성능을 위해 GPU/CPU 리소스를 확보하기 위해 작업 표시줄 애니메이션, 목록 보기 그림자, 창 투명도 및 Aero Peek를 비활성화합니다</value>
   </data>
+<data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
+    <value>AMD ULPS 비활성화</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
+    <value>초저전력 상태 깨우기 지연 및 다중 모니터 문제를 방지하려면 AMD GPU 레지스트리에서 EnableULPS=0을 설정합니다 유휴 상태에서 절전 효과가 줄어듭니다</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
+    <value>AMD 파워 게이팅 비활성화</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
+    <value>AMD GPU 전원 상태 전환을 방지하려면 비활성화PowerGating=1, PP_GPUPowerDownEnabled=0, 비활성화DynamicPstate=1을 설정합니다 더 높은 유휴 전력을 사용하여 일관된 클록을 유지합니다</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>AMD 비디오 클럭 게이팅 비활성화</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>인코딩/디코딩 안정성을 향상시키기 위해 AMD 비디오 엔진(VCE/UVD)에 대해DisableVCEPowerGating=1,DisableVceClockGating=1,EnableUvdClockGating=0을 설정합니다 비디오 재생 성능을 높입니다</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
+    <value>AMD ASPM 비활성화</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
+    <value>AMD GPU에서 활성 상태 전원 관리를 비활성화하려면 EnableAspmL0s=0, EnableAspmL1=0을 설정하여 PCIe 버스 대기 시간을 줄입니다 슬롯 전력 소비가 증가합니다</value>
+  </data>
+<data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
+    <value>NVIDIA 동적 P-State 비활성화</value>
+  </data>
+<data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
+    <value>NVIDIA GPU를 고정된 성능 상태로 잠그도록 비활성화DynamicPstate=1로 설정하여 클럭 속도 변동을 방지합니다 유휴 전력 소모량이 증가합니다</value>
+  </data>
+<data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
+    <value>NVIDIA Async P-State 비활성화</value>
+  </data>
+<data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
+    <value>NVIDIA 비동기 전원 상태 전환을 방지하고 VR/실시간 앱에 결정적인 성능을 제공하려면 비활성화ASyncPstates=1로 설정합니다</value>
+  </data>
+<data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>Intel Async Flip 비활성화</value>
+  </data>
+<data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>Intel iGPU에서 동기식 버퍼 반전을 강제하도록 Display1_DisableAsyncFlips=1을 설정하여 입력-디스플레이 지연 시간과 화면 찢김을 줄입니다</value>
+  </data>
+<data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
+    <value>Intel Adaptive V-Sync 비활성화</value>
+  </data>
+<data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
+    <value>안정적인 타이밍 대신 고정 V-Sync를 사용하여 프레임 속도에 동적으로 조정되는 Intel의 적응형 V-Sync를 비활성화하려면 AdaptiveVsyncEnable=0을 설정합니다</value>
+  </data>
+
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
     <value>작업 표시줄</value>
   </data>

@@ -261,6 +261,16 @@
   <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
     <value>这些标签标识优化操作将影响系统的哪些部分。</value>
   </data>
+<data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
+    <value>英伟达</value>
+  </data>
+<data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
+    <value>AMD</value>
+  </data>
+<data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
+    <value>Intel</value>
+  </data>
+
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
     <value>电源</value>
   </data>
@@ -699,6 +709,10 @@
   <data name="Optimizer.UI.Tags.Windows11Only" xml:space="preserve">
     <value>仅 Windows 11</value>
   </data>
+<data name="Optimizer.Gpu" xml:space="preserve">
+    <value>显卡优化</value>
+  </data>
+
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>用户体验</value>
   </data>
@@ -720,6 +734,55 @@
   <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
     <value>关闭任务栏动画、列表阴影、窗口透明和 Aero 预览，释放显卡与 CPU 资源提升性能。</value>
   </data>
+<data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
+    <value>禁用 AMD 超低功耗状态</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
+    <value>修改 AMD 显卡注册表关闭超低功耗模式，避免唤醒延迟与多显示器问题，降低闲置节能效果。</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
+    <value>禁用 AMD 电源门控</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
+    <value>关闭 AMD 显卡功耗切换功能，保持频率稳定，代价是闲置功耗会升高。</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>禁用 AMD 视频时钟门控</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>优化 AMD 显卡视频引擎功耗设置，提升编码解码稳定性，代价是视频播放功耗增加。</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
+    <value>禁用 AMD 主动电源管理</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
+    <value>设置关闭 AMD 显卡 PCIe 总线主动电源管理，降低延迟，代价是插槽功耗增加。</value>
+  </data>
+<data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
+    <value>禁用 NVIDIA 动态性能状态</value>
+  </data>
+<data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
+    <value>锁定 NVIDIA 显卡为固定性能状态，防止频率波动，代价是闲置功耗增加。</value>
+  </data>
+<data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
+    <value>禁用 NVIDIA 异步性能状态切换</value>
+  </data>
+<data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
+    <value>关闭 NVIDIA 异步功耗切换，为 VR/实时应用提供稳定性能。</value>
+  </data>
+<data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>禁用英特尔异步画面翻转</value>
+  </data>
+<data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>强制英特尔核显同步缓冲翻转，降低输入延迟与画面撕裂。</value>
+  </data>
+<data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
+    <value>禁用英特尔自适应垂直同步</value>
+  </data>
+<data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
+    <value>关闭自适应垂直同步，改用固定垂直同步，保证时序稳定。</value>
+  </data>
+
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
     <value>任务栏</value>
   </data>

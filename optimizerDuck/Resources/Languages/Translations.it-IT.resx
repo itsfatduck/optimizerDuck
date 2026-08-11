@@ -255,6 +255,16 @@
   <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
     <value>Questi tag indicano quali parti del sistema verranno interessate dall'ottimizzazione.</value>
   </data>
+  <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
+    <value>NVIDIA</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
+    <value>AMD</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
+    <value>Intel</value>
+  </data>
+
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
     <value>Alimentazione</value>
   </data>
@@ -693,6 +703,10 @@
   <data name="Optimizer.UI.Tags.Windows11Only" xml:space="preserve">
     <value>Solo Windows 11</value>
   </data>
+  <data name="Optimizer.Gpu" xml:space="preserve">
+    <value>GPU</value>
+  </data>
+
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>Esperienza utente</value>
   </data>
@@ -714,6 +728,55 @@
   <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
     <value>Disabilita animazioni barra delle applicazioni, ombre listview, trasparenza finestre e Aero Peek per liberare risorse GPU/CPU e migliorare le prestazioni.</value>
   </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
+    <value>Disabilita ULPS AMD</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
+    <value>Imposta EnableULPS=0 nel registro GPU AMD per prevenire ritardi di risveglio dell'Ultra Low Power State e problemi multi-monitor. Riduce il risparmio energetico in idle.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
+    <value>Disabilita Power Gating AMD</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
+    <value>Imposta DisablePowerGating=1, PP_GPUPowerDownEnabled=0, DisableDynamicPstate=1 per prevenire transizioni di stato di alimentazione della GPU AMD. Mantiene clock costanti a scapito di un maggior consumo in idle.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>Disabilita Video Clock Gating AMD</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>Imposta DisableVCEPowerGating=1, DisableVceClockGating=1, EnableUvdClockGating=0 per i motori video AMD (VCE/UVD) per migliorare la stabilità di codifica/decodifica. Aumenta i consumi durante la riproduzione video.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
+    <value>Disabilita ASPM AMD</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
+    <value>Imposta EnableAspmL0s=0, EnableAspmL1=0 per disabilitare l'Active State Power Management sulle GPU AMD, riducendo la latenza del bus PCIe. Aumenta il consumo dello slot.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
+    <value>Disabilita P-State dinamico NVIDIA</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
+    <value>Imposta DisableDynamicPstate=1 per bloccare la GPU NVIDIA in uno stato di prestazioni fisso, prevenendo fluttuazioni di clock. Aumenta i consumi in idle.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
+    <value>Disabilita Async P-States NVIDIA</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
+    <value>Imposta DisableASyncPstates=1 per prevenire il cambio asincrono di stato di alimentazione NVIDIA, garantendo prestazioni deterministiche per app VR/real-time.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>Disabilita Async Flips Intel</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>Imposta Display1_DisableAsyncFlips=1 per forzare flip di buffer sincroni sulla iGPU Intel, riducendo la latenza input-display e lo screen tearing.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
+    <value>Disabilita V-Sync adattivo Intel</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
+    <value>Imposta AdaptiveVsyncEnable=0 per disabilitare il V-Sync adattivo Intel che si regola sul frame rate, usando V-Sync fisso per un timing stabile.</value>
+  </data>
+
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
     <value>Barra delle applicazioni</value>
   </data>

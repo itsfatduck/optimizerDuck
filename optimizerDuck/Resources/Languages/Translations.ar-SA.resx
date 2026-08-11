@@ -1031,6 +1031,58 @@
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
     <value>يمنع ويندوز من إعادة تثبيت تطبيقات الطرف الثالث غير المرغوبة والبرامج المروَّجة تلقائيًا.</value>
   </data>
+  <data name="Optimizer.Gpu" xml:space="preserve">
+    <value>معالج الرسومات</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
+    <value>تعطيل ‎ASPM‎ لكروت ‎AMD‎</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
+    <value>يضبط ‎EnableAspmL0s=0, EnableAspmL1=0‎ لتعطيل إدارة طاقة الحالة النشطة (ASPM) على كروت ‎AMD‎، ما يقلل زمن استجابة ناقل ‎PCIe‎. يزيد استهلاك الطاقة في المنفذ.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
+    <value>تعطيل ‎Power Gating‎ لكروت ‎AMD‎</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
+    <value>يضبط ‎DisablePowerGating=1, PP_GPUPowerDownEnabled=0, DisableDynamicPstate=1‎ لمنع انتقالات حالة الطاقة في كروت ‎AMD‎. يحافظ على ترددات ثابتة مقابل استهلاك أعلى في الخمول.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
+    <value>تعطيل ‎ULPS‎ لكروت ‎AMD‎</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
+    <value>يضبط ‎EnableULPS=0‎ في ريجستري كرت ‎AMD‎ لمنع تأخير الاستيقاظ من حالة الطاقة فائقة الانخفاض (ULPS) ومشاكل الشاشات المتعددة. يقلل توفير الطاقة أثناء الخمول.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>تعطيل ‎Video Clock Gating‎ لكروت ‎AMD‎</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>يضبط ‎DisableVCEPowerGating=1, DisableVceClockGating=1, EnableUvdClockGating=0‎ لمحركات الفيديو في ‎AMD‎ (‎VCE/UVD‎) لتحسين استقرار الترميز وفك الترميز. يزيد استهلاك الطاقة أثناء تشغيل الفيديو.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
+    <value>تعطيل ‎Adaptive V-Sync‎ لكروت ‎Intel‎</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
+    <value>يضبط ‎AdaptiveVsyncEnable=0‎ لتعطيل التزامن الرأسي التكيّفي في ‎Intel‎ الذي يتغيّر حسب معدل الإطارات، ويستخدم تزامنًا ثابتًا بدلًا منه لتوقيت مستقر.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>تعطيل ‎Async Flips‎ لكروت ‎Intel‎</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>يضبط ‎Display1_DisableAsyncFlips=1‎ لفرض تبديل المخازن المتزامن على كرت ‎Intel‎ المدمج، ما يقلل زمن الاستجابة وتمزّق الصورة.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
+    <value>تعطيل ‎Async P-States‎ لكروت ‎NVIDIA‎</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
+    <value>يضبط ‎DisableASyncPstates=1‎ لمنع التبديل غير المتزامن لحالات الطاقة في ‎NVIDIA‎، ما يوفر أداءً ثابتًا لتطبيقات الواقع الافتراضي والزمن الحقيقي.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
+    <value>تعطيل ‎Dynamic P-State‎ لكروت ‎NVIDIA‎</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
+    <value>يضبط ‎DisableDynamicPstate=1‎ لتثبيت كرت ‎NVIDIA‎ على حالة أداء ثابتة ومنع تذبذب الترددات. يزيد استهلاك الطاقة في الخمول.</value>
+  </data>
+
   <data name="Optimizer.Menu.ApplyAll" xml:space="preserve">
     <value>تطبيق الكل</value>
   </data>
@@ -1214,6 +1266,10 @@
   <data name="Optimizer.UI.Risk.Safe" xml:space="preserve">
     <value>آمن</value>
   </data>
+  <data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
+    <value>AMD</value>
+  </data>
+
   <data name="Optimizer.UI.Tags.Audio" xml:space="preserve">
     <value>الصوت</value>
   </data>
@@ -1226,6 +1282,10 @@
   <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
     <value>تشير هذه الوسوم إلى أجزاء النظام التي سيؤثر عليها التحسين.</value>
   </data>
+  <data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
+    <value>Intel</value>
+  </data>
+
   <data name="Optimizer.UI.Tags.Latency" xml:space="preserve">
     <value>زمن الاستجابة</value>
   </data>
@@ -1235,6 +1295,10 @@
   <data name="Optimizer.UI.Tags.NetworkRequired" xml:space="preserve">
     <value>يتطلب اتصالًا بالإنترنت</value>
   </data>
+  <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
+    <value>NVIDIA</value>
+  </data>
+
   <data name="Optimizer.UI.Tags.Performance" xml:space="preserve">
     <value>الأداء</value>
   </data>

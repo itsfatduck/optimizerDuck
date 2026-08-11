@@ -25,6 +25,11 @@ public enum OptimizationTags
     Ram = 1 << 0,
     Display = 1 << 1,
 
+    // GPU Vendors
+    Nvidia = 1 << 10,
+    Amd = 1 << 11,
+    Intel = 1 << 12,
+
     // Power
     Power = 1 << 13,
 
@@ -117,6 +122,24 @@ public static class OptimizationTagsToDisplay
                 {
                     Icon = SymbolRegular.VideoClip24,
                     Display = Translations.Optimizer_UI_Tags_Display,
+                },
+
+                OptimizationTags.Nvidia => new OptimizationTagDisplay
+                {
+                    Icon = SymbolRegular.VideoClip24,
+                    Display = Translations.Optimizer_UI_Tags_Nvidia,
+                },
+
+                OptimizationTags.Amd => new OptimizationTagDisplay
+                {
+                    Icon = SymbolRegular.VideoClip24,
+                    Display = Translations.Optimizer_UI_Tags_Amd,
+                },
+
+                OptimizationTags.Intel => new OptimizationTagDisplay
+                {
+                    Icon = SymbolRegular.VideoClip24,
+                    Display = Translations.Optimizer_UI_Tags_Intel,
                 },
 
                 OptimizationTags.Power => new OptimizationTagDisplay

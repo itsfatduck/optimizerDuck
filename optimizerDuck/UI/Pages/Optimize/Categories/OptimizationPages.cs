@@ -30,6 +30,15 @@ public sealed class BloatwareAndServicesOptimizerPage : OptimizationPage
     }
 }
 
+public sealed class GpuOptimizerPage : OptimizationPage
+{
+    public GpuOptimizerPage(OptimizationCategoryViewModel viewModel)
+        : base(viewModel)
+    {
+        InitializeComponent();
+    }
+}
+
 public sealed class PerformanceOptimizerPage : OptimizationPage
 {
     public PerformanceOptimizerPage(OptimizationCategoryViewModel viewModel)

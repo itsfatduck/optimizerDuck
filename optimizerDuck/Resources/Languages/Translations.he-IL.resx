@@ -319,6 +319,16 @@
   <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
     <value>תגיות אלה מציינות אילו חלקים במערכת יושפעו מהמיטוב.</value>
   </data>
+<data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
+    <value>NVIDIA</value>
+  </data>
+<data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
+    <value>AMD</value>
+  </data>
+<data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
+    <value>Intel</value>
+  </data>
+
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
     <value>צריכת חשמל</value>
   </data>
@@ -757,6 +767,10 @@
   <data name="Optimizer.UI.Tags.Windows11Only" xml:space="preserve">
     <value>Windows 11 בלבד</value>
   </data>
+<data name="Optimizer.Gpu" xml:space="preserve">
+    <value>מעבד גרפי (GPU)</value>
+  </data>
+
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>חוויית משתמש</value>
   </data>
@@ -778,6 +792,55 @@
   <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
     <value>משבית אנימציות של שורת המשימות, צללים ברשימות, שקיפות חלונות ו-Aero Peek כדי לפנות משאבי מעבד גרפי/מעבד לשיפור הביצועים.</value>
   </data>
+<data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
+    <value>השבתת AMD ULPS</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
+    <value>מגדיר EnableULPS=0 ברישום של מעבד גרפי AMD כדי למנוע השהיות התעוררות ממצב Ultra Low Power ובעיות ריבוי מסכים. מפחית חיסכון בחשמל במצב סרק.</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
+    <value>השבתת AMD Power Gating</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
+    <value>מגדיר DisablePowerGating=1, PP_GPUPowerDownEnabled=0, DisableDynamicPstate=1 כדי למנוע מעברי מצב חשמל של מעבד גרפי AMD. שומר על תדרים עקביים במחיר צריכת חשמל גבוהה יותר בסרק.</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>השבתת AMD Video Clock Gating</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>מגדיר DisableVCEPowerGating=1, DisableVceClockGating=1, EnableUvdClockGating=0 עבור מנועי הווידאו של AMD‏ (VCE/UVD) לשיפור יציבות הקידוד/פענוח. מגדיל את צריכת החשמל בהפעלת וידאו.</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
+    <value>השבתת AMD ASPM</value>
+  </data>
+<data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
+    <value>מגדיר EnableAspmL0s=0, EnableAspmL1=0 כדי להשבית ניהול צריכת חשמל לפי מצב פעיל (ASPM) במעבדים גרפיים של AMD, ומפחית את השהיית אפיק ה-PCIe. מגדיל את צריכת החשמל של החריץ.</value>
+  </data>
+<data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
+    <value>השבתת NVIDIA Dynamic P-State</value>
+  </data>
+<data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
+    <value>מגדיר DisableDynamicPstate=1 כדי לנעול את המעבד הגרפי של NVIDIA למצב ביצועים קבוע ולמנוע תנודות במהירות השעון. מגדיל את צריכת החשמל בסרק.</value>
+  </data>
+<data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
+    <value>השבתת NVIDIA Async P-States</value>
+  </data>
+<data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
+    <value>מגדיר DisableASyncPstates=1 כדי למנוע החלפת מצבי חשמל אסינכרונית של NVIDIA, ומספק ביצועים דטרמיניסטיים לאפליקציות VR/זמן-אמת.</value>
+  </data>
+<data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>השבתת Intel Async Flips</value>
+  </data>
+<data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>מגדיר Display1_DisableAsyncFlips=1 כדי לאלץ החלפות מאגר סינכרוניות במעבד הגרפי המשולב של Intel, ומפחית את ההשהיה מקלט לתצוגה וקרעי מסך.</value>
+  </data>
+<data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
+    <value>השבתת Intel Adaptive V-Sync</value>
+  </data>
+<data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
+    <value>מגדיר AdaptiveVsyncEnable=0 כדי להשבית את ה-V-Sync המסתגל של Intel שמתאים את עצמו דינמית לקצב הפריימים, ומשתמש ב-V-Sync קבוע במקום לתזמון יציב.</value>
+  </data>
+
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
     <value>שורת המשימות</value>
   </data>
