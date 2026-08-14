@@ -1,6 +1,6 @@
 ﻿<div align="center">
 
-<a href="https://optimizerduck.vercel.app/"><img src="./.github/assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/></a>
+<a href="https://optimizerduck.vercel.app/"><img src="../assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/></a>
 
 # [optimizerDuck](https://optimizerduck.vercel.app/)
 
@@ -11,7 +11,7 @@
 [![Release](https://img.shields.io/github/release/itsfatduck/optimizerDuck?color=fed114&label=%D0%A0%D0%B5%D0%BB%D0%B8%D0%B7&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/itsfatduck/optimizerDuck/total?label=%D0%A1%D0%BA%D0%B0%D1%87%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F&style=flat-square&color=lightgreen)](https://github.com/itsfatduck/optimizerDuck/releases)
 [![Stars](https://img.shields.io/endpoint?url=https://api.pinstudios.net/api/badges/stars/itsfatduck/optimizerDuck&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/stargazers)
-[![License](https://img.shields.io/badge/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F-GPL_v3-red?style=flat-square)](./LICENSE)
+[![License](https://img.shields.io/badge/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F-GPL_v3-red?style=flat-square)](../../LICENSE)
 [![Discord](https://img.shields.io/discord/1091675679994675240?color=5865f2&label=Discord&style=flat-square)](https://discord.gg/tDUBDCYw9Q)
 <br>
 [![CI](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml/badge.svg)](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml)
@@ -20,7 +20,7 @@
 
 **[Начало работы](https://optimizerduck.vercel.app/docs/guides/getting-started) | [Как это работает](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [FAQ](https://optimizerduck.vercel.app/docs/faq/general)**
 
-[English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | **Русский** | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md) | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md) | [العربية](README.ar-SA.md) | [Bahasa Indonesia](README.id-ID.md)
+[English](../../README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | **Русский** | [Français](README.fr-FR.md) | Deutsch | עברית | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | Polski | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md) | [العربية](README.ar-SA.md) | [Bahasa Indonesia](README.id-ID.md) | [Italiano](README.it-IT.md)
 
 <details>
 <summary>⭐ История звёзд</summary>
@@ -56,7 +56,7 @@
 
 </details>
 
-<img src="./.github/assets/app.png" alt="optimizerDuck Тёмная тема" title="optimizerDuck Тёмная тема" width="800"/>
+<img src="../assets/app.png" alt="optimizerDuck Тёмная тема" title="optimizerDuck Тёмная тема" width="800"/>
 
 </div>
 
@@ -90,8 +90,9 @@
 > | 🇹🇷 | Турецкий | Türkçe | [amhunter1](https://github.com/amhunter1) |
 > | 🇸🇦 | Арабский | العربية | [s5xx5s](https://github.com/s5xx5s) |
 > | 🇮🇩 | Индонезийский | Bahasa Indonesia | [nekowawolf](https://github.com/nekowawolf) |
+> | 🇮🇹 | Итальянский | Italiano | [bandrea83](https://github.com/bandrea83) |
 > 
-> Хотите добавить свой язык? См. [CONTRIBUTING.md](./CONTRIBUTING.md) ([японская версия](./CONTRIBUTING.ja-JP.md), [турецкая версия](./CONTRIBUTING.tr-TR.md)).
+> Хотите добавить свой язык? См. [CONTRIBUTING.md](../../CONTRIBUTING.md) ([японская версия](../contributing/CONTRIBUTING.ja-JP.md), [турецкая версия](../contributing/CONTRIBUTING.tr-TR.md)).
 
 ---
 
@@ -189,7 +190,7 @@ Windows разработана для сотен миллионов ПК с ра
 
 Мы знаем, что изменение системных настроек сопряжено с риском, поэтому инструмент построен на принципах отката и контроля пользователя.
 
-См. [Политику конфиденциальности](./PRIVACY.md) для получения подробной информации о нашей работе с данными.
+См. [Политику конфиденциальности](../../PRIVACY.md) для получения подробной информации о нашей работе с данными.
 
 - **Автоматическое резервирование**: Каждое изменение записывает файл отката в локальную папку. Вы можете восстановить отдельные настройки или откатить всё
 - **Откат в один клик**: Отмените любую применённую оптимизацию из интерфейса одним нажатием
@@ -208,7 +209,7 @@ Windows разработана для сотен миллионов ПК с ра
 
 Да. optimizerDuck, полностью **открытый исходный код** (GPL v3), так что любой может глянуть код, проверить или сам собрать программу. Каждый релиз собирается **GitHub Actions** из публичного исходника: никаких скрытых правок, никаких левых DLL после сборки. Если сомневаетесь, клонируйте репозиторий и соберите `.exe` одной командой `dotnet build`.
 
-Приложение **вообще не собирает** телеметрию, данные об использовании или личную информацию. Подробнее в [Политике конфиденциальности](./PRIVACY.md).
+Приложение **вообще не собирает** телеметрию, данные об использовании или личную информацию. Подробнее в [Политике конфиденциальности](../../PRIVACY.md).
 
 ### optimizerDuck правда ускоряет систему, снижает лаги или разгоняет сеть?
 
@@ -298,7 +299,7 @@ Windows разработана для сотен миллионов ПК с ра
 
 Мы приветствуем вклад сообщества! Будь то исправление ошибок, добавление новых оптимизаций или функций, улучшение документации или помощь в переводе приложения на другие языки, ваша поддержка очень ценится.
 
-Для получения дополнительной информации см. [CONTRIBUTING.md](./CONTRIBUTING.md) ([японская версия](./CONTRIBUTING.ja-JP.md), [турецкая версия](./CONTRIBUTING.tr-TR.md)).
+Для получения дополнительной информации см. [CONTRIBUTING.md](../../CONTRIBUTING.md) ([японская версия](../contributing/CONTRIBUTING.ja-JP.md), [турецкая версия](../contributing/CONTRIBUTING.tr-TR.md)).
 
 ---
 
@@ -338,7 +339,7 @@ optimizerDuck предоставляется **«как есть»**, без к�
 > [!NOTE]
 > optimizerDuck изменяет системные настройки и реестр Windows. Используйте на свой страх и риск. Мы рекомендуем создавать резервную копию важных данных и точку восстановления перед внесением изменений.
 >
-> См. [Условия использования](./TERMS.md), [Политику конфиденциальности](./PRIVACY.md) и [Отказ от ответственности](./DISCLAIMER.md) для получения дополнительной информации.
+> См. [Условия использования](../../TERMS.md), [Политику конфиденциальности](../../PRIVACY.md) и [Отказ от ответственности](../../DISCLAIMER.md) для получения дополнительной информации.
 
 ---
 
@@ -346,11 +347,11 @@ optimizerDuck предоставляется **«как есть»**, без к�
 
 <div align="center">
 
-<a href="./LICENSE">
+<a href="../../LICENSE">
 <img src=".github/assets/gplv3.png" alt="GPL v3 License" title="GPL v3 License"/>
 </a>
 
-**[Лицензия GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html)**<br>См. [LICENSE](./LICENSE).
+**[Лицензия GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html)**<br>См. [LICENSE](../../LICENSE).
 
 </div>
 

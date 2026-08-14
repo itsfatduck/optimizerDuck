@@ -1,6 +1,6 @@
 ﻿<div align="center">
 
-<a href="https://optimizerduck.vercel.app/"><img src="./.github/assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/></a>
+<a href="https://optimizerduck.vercel.app/"><img src="../assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/></a>
 
 # [optimizerDuck](https://optimizerduck.vercel.app/)
 
@@ -11,7 +11,7 @@
 [![Release](https://img.shields.io/github/release/itsfatduck/optimizerDuck?color=fed114&label=Phi%C3%AAn%20b%E1%BA%A3n&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/itsfatduck/optimizerDuck/total?label=L%C6%B0%E1%BB%A3t%20t%E1%BA%A3i&style=flat-square&color=lightgreen)](https://github.com/itsfatduck/optimizerDuck/releases)
 [![Stars](https://img.shields.io/endpoint?url=https://api.pinstudios.net/api/badges/stars/itsfatduck/optimizerDuck&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/stargazers)
-[![License](https://img.shields.io/badge/Gi%E1%BA%A5y%20ph%C3%A9p-GPL_v3-red?style=flat-square)](./LICENSE)
+[![License](https://img.shields.io/badge/Gi%E1%BA%A5y%20ph%C3%A9p-GPL_v3-red?style=flat-square)](../../LICENSE)
 [![Discord](https://img.shields.io/discord/1091675679994675240?color=5865f2&label=Discord&style=flat-square)](https://discord.gg/tDUBDCYw9Q)
 <br>
 [![CI](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml/badge.svg)](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml)
@@ -20,7 +20,7 @@
 
 **[Bắt đầu](https://optimizerduck.vercel.app/docs/guides/getting-started) | [Cách hoạt động](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [Câu hỏi thường gặp](https://optimizerduck.vercel.app/docs/faq/general)**
 
-[English](README.md) | **Tiếng Việt** | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md) | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md) | [العربية](README.ar-SA.md) | [Bahasa Indonesia](README.id-ID.md)
+[English](../../README.md) | **Tiếng Việt** | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | Deutsch | עברית | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | Polski | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md) | [العربية](README.ar-SA.md) | [Bahasa Indonesia](README.id-ID.md) | [Italiano](README.it-IT.md)
 
 <details>
 <summary>⭐ Lịch sử Star</summary>
@@ -56,7 +56,7 @@ Càng nhiều sao càng có động lực cải thiện công cụ.
 
 </details>
 
-<img src="./.github/assets/app.png" alt="optimizerDuck Chế độ tối" title="optimizerDuck Chế độ tối" width="800"/>
+<img src="../assets/app.png" alt="optimizerDuck Chế độ tối" title="optimizerDuck Chế độ tối" width="800"/>
 
 </div>
 
@@ -90,8 +90,9 @@ Càng nhiều sao càng có động lực cải thiện công cụ.
 > | 🇹🇷 | Tiếng Thổ Nhĩ Kỳ | Türkçe | [amhunter1](https://github.com/amhunter1) |
 > | 🇸🇦 | Tiếng Ả Rập | العربية | [s5xx5s](https://github.com/s5xx5s) |
 > | 🇮🇩 | Tiếng Indonesia | Bahasa Indonesia | [nekowawolf](https://github.com/nekowawolf) |
+> | 🇮🇹 | Tiếng Ý | Italiano | [bandrea83](https://github.com/bandrea83) |
 > 
-> Muốn thêm ngôn ngữ của bạn? Xem [CONTRIBUTING.md](./CONTRIBUTING.md) ([bản tiếng Nhật](./CONTRIBUTING.ja-JP.md), [bản tiếng Thổ Nhĩ Kỳ](./CONTRIBUTING.tr-TR.md)).
+> Muốn thêm ngôn ngữ của bạn? Xem [CONTRIBUTING.md](../../CONTRIBUTING.md) ([bản tiếng Nhật](../contributing/CONTRIBUTING.ja-JP.md), [bản tiếng Thổ Nhĩ Kỳ](../contributing/CONTRIBUTING.tr-TR.md)).
 
 ---
 
@@ -189,7 +190,7 @@ Làm theo thứ tự này giúp tránh Windows hay driver tự động ghi đè 
 
 Thay đổi cài đặt hệ thống có rủi ro, nên tụi mình xây dựng công cụ này với ưu tiên hàng đầu là an toàn và dễ hoàn tác.
 
-Xem [Chính sách bảo mật](./PRIVACY.md) để biết chi tiết về cách chúng tôi xử lý dữ liệu.
+Xem [Chính sách bảo mật](../../PRIVACY.md) để biết chi tiết về cách chúng tôi xử lý dữ liệu.
 
 - **Tự động backup**: Mỗi thay đổi đều ghi file hoàn tác vào thư mục riêng. Bạn có thể phục hồi từng cái hoặc rollback hết
 - **Hoàn tác một click**: Undo cái nào đã áp dụng thẳng từ giao diện
@@ -208,7 +209,7 @@ Xem [Chính sách bảo mật](./PRIVACY.md) để biết chi tiết về cách 
 
 Có chứ. optimizerDuck là **mã nguồn mở** (GPL v3), nghĩa là ai cũng có thể tự xem code, kiểm tra hoặc tự build được. Mỗi bản release đều được **GitHub Actions** build tự động từ source công khai, không có vụ giấu giếm hay nhét file lạ vào sau khi build. Nếu không yên tâm thì bạn clone repo về, gõ `dotnet build` là ra file `.exe` ngay.
 
-Ứng dụng **hoàn toàn không** thu thập telemetry, thông tin sử dụng hay dữ liệu cá nhân gì hết. Xem thêm [Chính sách bảo mật](./PRIVACY.md).
+Ứng dụng **hoàn toàn không** thu thập telemetry, thông tin sử dụng hay dữ liệu cá nhân gì hết. Xem thêm [Chính sách bảo mật](../../PRIVACY.md).
 
 ### optimizerDuck có thực sự giúp máy chạy nhanh hơn, giảm lag hay tăng tốc mạng không?
 
@@ -296,7 +297,7 @@ Hướng dẫn từng bước, chi tiết các tối ưu và mẹo xài optimize
 
 ## Đóng góp
 
-Báo bug, thêm tối ưu mới, cải thiện tài liệu hay đóng góp bản dịch: tất cả đều welcome. Xem [CONTRIBUTING.md](./CONTRIBUTING.md) ([bản tiếng Nhật](./CONTRIBUTING.ja-JP.md), [bản tiếng Thổ Nhĩ Kỳ](./CONTRIBUTING.tr-TR.md)).
+Báo bug, thêm tối ưu mới, cải thiện tài liệu hay đóng góp bản dịch: tất cả đều welcome. Xem [CONTRIBUTING.md](../../CONTRIBUTING.md) ([bản tiếng Nhật](../contributing/CONTRIBUTING.ja-JP.md), [bản tiếng Thổ Nhĩ Kỳ](../contributing/CONTRIBUTING.tr-TR.md)).
 
 ---
 
@@ -336,7 +337,7 @@ Luôn tạo **điểm khôi phục** trước khi áp dụng thay đổi.
 > [!NOTE]
 > optimizerDuck sửa đổi cài đặt hệ thống và registry Windows. Tự chịu rủi ro khi sử dụng. Chúng tôi khuyến nghị sao lưu dữ liệu quan trọng và tạo điểm khôi phục trước khi thực hiện thay đổi.
 >
-> Xem [Điều khoản dịch vụ](./TERMS.md), [Chính sách bảo mật](./PRIVACY.md) và [Tuyên bố miễn trừ](./DISCLAIMER.md) để biết thêm.
+> Xem [Điều khoản dịch vụ](../../TERMS.md), [Chính sách bảo mật](../../PRIVACY.md) và [Tuyên bố miễn trừ](../../DISCLAIMER.md) để biết thêm.
 
 ---
 
@@ -344,11 +345,11 @@ Luôn tạo **điểm khôi phục** trước khi áp dụng thay đổi.
 
 <div align="center">
 
-<a href="./LICENSE">
+<a href="../../LICENSE">
 <img src=".github/assets/gplv3.png" alt="GPL v3 License" title="GPL v3 License"/>
 </a>
 
-**[Giấy phép GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html)**<br>Xem [LICENSE](./LICENSE).
+**[Giấy phép GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html)**<br>Xem [LICENSE](../../LICENSE).
 
 </div>
 

@@ -1,6 +1,6 @@
 ﻿<div align="center">
 
-<a href="https://optimizerduck.vercel.app/"><img src="./.github/assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/></a>
+<a href="https://optimizerduck.vercel.app/"><img src="../assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/></a>
 
 # [optimizerDuck](https://optimizerduck.vercel.app/)
 
@@ -11,7 +11,7 @@
 [![Release](https://img.shields.io/github/release/itsfatduck/optimizerDuck?color=fed114&label=%E5%8F%91%E5%B8%83&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/itsfatduck/optimizerDuck/total?label=%E4%B8%8B%E8%BD%BD%E9%87%8F&style=flat-square&color=lightgreen)](https://github.com/itsfatduck/optimizerDuck/releases)
 [![Stars](https://img.shields.io/endpoint?url=https://api.pinstudios.net/api/badges/stars/itsfatduck/optimizerDuck&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/stargazers)
-[![License](https://img.shields.io/badge/%E6%8E%88%E6%9D%83-GPL_v3-red?style=flat-square)](./LICENSE)
+[![License](https://img.shields.io/badge/%E6%8E%88%E6%9D%83-GPL_v3-red?style=flat-square)](../../LICENSE)
 [![Discord](https://img.shields.io/discord/1091675679994675240?color=5865f2&label=Discord&style=flat-square)](https://discord.gg/tDUBDCYw9Q)
 <br>
 [![CI](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml/badge.svg)](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml)
@@ -20,7 +20,7 @@
 
 **[快速上手](https://optimizerduck.vercel.app/docs/guides/getting-started) | [工作原理](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [常见问题](https://optimizerduck.vercel.app/docs/faq/general)**
 
-[English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | **简体中文** | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md) | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md) | [العربية](README.ar-SA.md) | [Bahasa Indonesia](README.id-ID.md)
+[English](../../README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | **简体中文** | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | Deutsch | עברית | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | Polski | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md) | [العربية](README.ar-SA.md) | [Bahasa Indonesia](README.id-ID.md) | [Italiano](README.it-IT.md)
 
 <details>
 <summary>⭐ 项目星标趋势</summary>
@@ -56,7 +56,7 @@
 
 </details>
 
-<img src="./.github/assets/app.png" alt="optimizerDuck 深色模式" title="optimizerDuck 深色模式" width="800"/>
+<img src="../assets/app.png" alt="optimizerDuck 深色模式" title="optimizerDuck 深色模式" width="800"/>
 
 </div>
 
@@ -90,8 +90,9 @@
 > | 🇹🇷 | 土耳其语 | Türkçe | [amhunter1](https://github.com/amhunter1) |
 > | 🇸🇦 | 阿拉伯语 | العربية | [s5xx5s](https://github.com/s5xx5s) |
 > | 🇮🇩 | 印尼语 | Bahasa Indonesia | [nekowawolf](https://github.com/nekowawolf) |
+> | 🇮🇹 | 意大利语 | Italiano | [bandrea83](https://github.com/bandrea83) |
 > 
-> 想要添加其他语言？请查看[贡献指南](./CONTRIBUTING.md)（[日文版](./CONTRIBUTING.ja-JP.md)、[土耳其语版](./CONTRIBUTING.tr-TR.md)）。
+> 想要添加其他语言？请查看[贡献指南](../../CONTRIBUTING.md)（[日文版](../contributing/CONTRIBUTING.ja-JP.md)、[土耳其语版](../contributing/CONTRIBUTING.tr-TR.md)）。
 >
 > 1: 软件开发时使用此语言，我们也推荐使用此语言以尽可能避免误解。
 
@@ -191,7 +192,7 @@ Windows 是为数亿台配置不同、任务不同、用户不同的 PC 设计�
 
 我们深知修改系统设置存在风险，因此工具的设计核心围绕在可还原性和用户控制权。
 
-有关数据处理方式的详细信息，请参阅[隐私政策](./PRIVACY.md)。
+有关数据处理方式的详细信息，请参阅[隐私政策](../../PRIVACY.md)。
 
 - **自动备份**：每次更改都会将还原文件写入本地文件夹。你可以还原单项调整或全部回滚
 - **一键还原**：从界面直接点击即可撤销已套用的任何优化
@@ -210,7 +211,7 @@ Windows 是为数亿台配置不同、任务不同、用户不同的 PC 设计�
 
 安全的。optimizerDuck 完全**开源**（GPL v3），谁都可以检查、审计或自己编译源码。每个版本都由 **GitHub Actions** 从公开源码自动构建，没有隐藏修改，也不会在构建后塞入未签名的文件。不放心的话，你也可以自己 clone 仓库，一条 `dotnet build` 命令就搞定。
 
-这个程序**不会**收集任何遥测、使用数据或个人隐私。详见[隐私政策](./PRIVACY.md)。
+这个程序**不会**收集任何遥测、使用数据或个人隐私。详见[隐私政策](../../PRIVACY.md)。
 
 ### optimizerDuck 真能提升性能、降低延迟或加速网络吗？
 
@@ -302,7 +303,7 @@ Windows 功能更新偶尔会将某些注册表值和服务配置重置为默认
 
 我们欢迎来自社区的每一份贡献！无论你是修复 bug、添加新的优化或功能、完善文档，还是协助将应用翻译成其他语言，你的支持都让我们非常感激。
 
-如需更多信息，请查阅 [CONTRIBUTING.md](./CONTRIBUTING.md)（[日文版](./CONTRIBUTING.ja-JP.md)、[土耳其语版](./CONTRIBUTING.tr-TR.md)）。
+如需更多信息，请查阅 [CONTRIBUTING.md](../../CONTRIBUTING.md)（[日文版](../contributing/CONTRIBUTING.ja-JP.md)、[土耳其语版](../contributing/CONTRIBUTING.tr-TR.md)）。
 
 ---
 
@@ -343,7 +344,7 @@ optimizerDuck 按**现状原样**提供，不附带任何形式的保证。
 > 本工具会修改系统设置与 Windows 注册表。使用时**风险自负**。
 > 建议提前备份数据并创建系统还原点，避免意外情况。
 >
-> 详细条款请查阅：[服务条款](./TERMS.md)、[隐私政策](./PRIVACY.md)、[免责声明](./DISCLAIMER.md)
+> 详细条款请查阅：[服务条款](../../TERMS.md)、[隐私政策](../../PRIVACY.md)、[免责声明](../../DISCLAIMER.md)
 
 ---
 
@@ -351,11 +352,11 @@ optimizerDuck 按**现状原样**提供，不附带任何形式的保证。
 
 <div align="center">
 
-<a href="./LICENSE">
+<a href="../../LICENSE">
 <img src=".github/assets/gplv3.png" alt="GPL v3 开源协议" title="GPL v3 开源协议"/>
 </a>
 
-**[GPL v3 开源协议](https://www.gnu.org/licenses/gpl-3.0.en.html)**<br>详见 [LICENSE](./LICENSE) 文件。
+**[GPL v3 开源协议](https://www.gnu.org/licenses/gpl-3.0.en.html)**<br>详见 [LICENSE](../../LICENSE) 文件。
 
 </div>
 

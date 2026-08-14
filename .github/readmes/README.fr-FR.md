@@ -1,6 +1,6 @@
 ﻿<div align="center">
 
-<a href="https://optimizerduck.vercel.app/"><img src="./.github/assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/></a>
+<a href="https://optimizerduck.vercel.app/"><img src="../assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/></a>
 
 # [optimizerDuck](https://optimizerduck.vercel.app/)
 
@@ -11,7 +11,7 @@
 [![Release](https://img.shields.io/github/release/itsfatduck/optimizerDuck?color=fed114&label=Version&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/itsfatduck/optimizerDuck/total?label=T%C3%A9l%C3%A9chargements&style=flat-square&color=lightgreen)](https://github.com/itsfatduck/optimizerDuck/releases)
 [![Stars](https://img.shields.io/endpoint?url=https://api.pinstudios.net/api/badges/stars/itsfatduck/optimizerDuck&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/stargazers)
-[![License](https://img.shields.io/badge/Licence-GPL_v3-red?style=flat-square)](./LICENSE)
+[![License](https://img.shields.io/badge/Licence-GPL_v3-red?style=flat-square)](../../LICENSE)
 [![Discord](https://img.shields.io/discord/1091675679994675240?color=5865f2&label=Discord&style=flat-square)](https://discord.gg/tDUBDCYw9Q)
 <br>
 [![CI](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml/badge.svg)](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml)
@@ -20,7 +20,7 @@
 
 **[Démarrage](https://optimizerduck.vercel.app/docs/guides/getting-started) | [Comment ça marche](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [FAQ](https://optimizerduck.vercel.app/docs/faq/general)**
 
-[English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | **Français** | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md) | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md) | [العربية](README.ar-SA.md) | [Bahasa Indonesia](README.id-ID.md)
+[English](../../README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | **Français** | Deutsch | עברית | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | Polski | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md) | [العربية](README.ar-SA.md) | [Bahasa Indonesia](README.id-ID.md) | [Italiano](README.it-IT.md)
 
 <details>
 <summary>⭐ Historique des étoiles</summary>
@@ -56,7 +56,7 @@ Chaque étoile aide à motiver les améliorations futures.
 
 </details>
 
-<img src="./.github/assets/app.png" alt="optimizerDuck Mode sombre" title="optimizerDuck Mode sombre" width="800"/>
+<img src="../assets/app.png" alt="optimizerDuck Mode sombre" title="optimizerDuck Mode sombre" width="800"/>
 
 </div>
 
@@ -90,8 +90,9 @@ Chaque étoile aide à motiver les améliorations futures.
 > | 🇹🇷 | Turc | Türkçe | [amhunter1](https://github.com/amhunter1) |
 > | 🇸🇦 | Arabe | العربية | [s5xx5s](https://github.com/s5xx5s) |
 > | 🇮🇩 | Indonésien | Bahasa Indonesia | [nekowawolf](https://github.com/nekowawolf) |
+> | 🇮🇹 | Italien | Italiano | [bandrea83](https://github.com/bandrea83) |
 > 
-> Vous souhaitez ajouter votre langue ? Consultez [CONTRIBUTING.md](./CONTRIBUTING.md) ([version japonaise](./CONTRIBUTING.ja-JP.md), [version turque](./CONTRIBUTING.tr-TR.md)).
+> Vous souhaitez ajouter votre langue ? Consultez [CONTRIBUTING.md](../../CONTRIBUTING.md) ([version japonaise](../contributing/CONTRIBUTING.ja-JP.md), [version turque](../contributing/CONTRIBUTING.tr-TR.md)).
 
 ---
 
@@ -189,7 +190,7 @@ Suivre cet ordre permet d'éviter que des mises à jour ultérieures de Windows 
 
 Modifier les paramètres système comporte des risques. optimizerDuck est construit autour de la réversibilité et du contrôle utilisateur.
 
-Consultez la [Politique de confidentialité](./PRIVACY.md) pour plus de détails sur nos pratiques de données.
+Consultez la [Politique de confidentialité](../../PRIVACY.md) pour plus de détails sur nos pratiques de données.
 
 - **Sauvegardes automatiques** : Chaque modification écrit un fichier d'annulation dans un dossier local. Vous pouvez restaurer des tweaks individuels ou tout rétablir
 - **Annulation en un clic** : Annulez toute optimisation appliquée directement depuis l'interface
@@ -208,7 +209,7 @@ Consultez la [Politique de confidentialité](./PRIVACY.md) pour plus de détails
 
 Oui. optimizerDuck est complètement **open-source** (GPL v3), donc n'importe qui peut inspecter le code, l'auditer ou le compiler lui-même. Chaque version est compilée automatiquement par **GitHub Actions** à partir du code source public : pas de modifs cachées, pas de binaire non signé injecté après la compilation. Si tu veux, tu peux cloner le repo et builder le `.exe` toi-même avec une simple commande `dotnet build`.
 
-L'app **ne collecte rien** : pas de télémétrie, pas de données d'utilisation, pas d'infos personnelles. Voir la [Politique de confidentialité](./PRIVACY.md).
+L'app **ne collecte rien** : pas de télémétrie, pas de données d'utilisation, pas d'infos personnelles. Voir la [Politique de confidentialité](../../PRIVACY.md).
 
 ### optimizerDuck améliore vraiment les perfs, réduit la latence ou accélère le réseau ?
 
@@ -296,7 +297,7 @@ Guides, détails des optimisations et conseils d'utilisation.
 
 ## Contribuer
 
-Les rapports de bugs, les nouvelles optimisations, les améliorations de documentation et les traductions sont tous les bienvenus. Consultez [CONTRIBUTING.md](./CONTRIBUTING.md) ([version japonaise](./CONTRIBUTING.ja-JP.md), [version turque](./CONTRIBUTING.tr-TR.md)).
+Les rapports de bugs, les nouvelles optimisations, les améliorations de documentation et les traductions sont tous les bienvenus. Consultez [CONTRIBUTING.md](../../CONTRIBUTING.md) ([version japonaise](../contributing/CONTRIBUTING.ja-JP.md), [version turque](../contributing/CONTRIBUTING.tr-TR.md)).
 
 ---
 
@@ -336,7 +337,7 @@ Créez toujours un **point de restauration** avant d'appliquer des modifications
 > [!NOTE]
 > optimizerDuck modifie les paramètres système et le registre Windows. Utilisez à vos propres risques. Nous recommandons de sauvegarder vos données importantes et de créer un point de restauration avant d'effectuer des modifications.
 >
-> Consultez [Conditions d'utilisation](./TERMS.md), [Politique de confidentialité](./PRIVACY.md) et [Avertissement](./DISCLAIMER.md) pour plus d'informations.
+> Consultez [Conditions d'utilisation](../../TERMS.md), [Politique de confidentialité](../../PRIVACY.md) et [Avertissement](../../DISCLAIMER.md) pour plus d'informations.
 
 ---
 
@@ -344,11 +345,11 @@ Créez toujours un **point de restauration** avant d'appliquer des modifications
 
 <div align="center">
 
-<a href="./LICENSE">
+<a href="../../LICENSE">
 <img src=".github/assets/gplv3.png" alt="Licence GPL v3" title="Licence GPL v3"/>
 </a>
 
-**[Licence GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html)**<br>Voir [LICENSE](./LICENSE).
+**[Licence GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html)**<br>Voir [LICENSE](../../LICENSE).
 
 </div>
 

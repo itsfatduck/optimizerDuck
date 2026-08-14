@@ -1,6 +1,6 @@
 <div align="center">
 
-<a href="https://optimizerduck.vercel.app/"><img src="./.github/assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/></a>
+<a href="https://optimizerduck.vercel.app/"><img src="../assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/></a>
 
 # [optimizerDuck](https://optimizerduck.vercel.app/)
 
@@ -11,7 +11,7 @@
 [![Release](https://img.shields.io/github/release/itsfatduck/optimizerDuck?color=fed114&label=Release&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/itsfatduck/optimizerDuck/total?label=Downloads&style=flat-square&color=lightgreen)](https://github.com/itsfatduck/optimizerDuck/releases)
 [![Stars](https://img.shields.io/endpoint?url=https://api.pinstudios.net/api/badges/stars/itsfatduck/optimizerDuck&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/stargazers)
-[![License](https://img.shields.io/badge/License-GPL_v3-red?style=flat-square)](./LICENSE)
+[![License](https://img.shields.io/badge/License-GPL_v3-red?style=flat-square)](../../LICENSE)
 [![Discord](https://img.shields.io/discord/1091675679994675240?color=5865f2&label=Discord&style=flat-square)](https://discord.gg/tDUBDCYw9Q)
 <br>
 [![CI](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml/badge.svg)](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml)
@@ -20,7 +20,7 @@
 
 **[Mulai Cepat](https://optimizerduck.vercel.app/docs/guides/getting-started) | [Cara Kerja](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [FAQ](https://optimizerduck.vercel.app/docs/faq/general)**
 
-[English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md) | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md) | [العربية](README.ar-SA.md) | **Bahasa Indonesia**
+[English](../../README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | Deutsch | עברית | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | Polski | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md) | [العربية](README.ar-SA.md) | **Bahasa Indonesia** | [Italiano](README.it-IT.md)
 
 <details>
 <summary>⭐ Riwayat Bintang (Star History)</summary>
@@ -56,7 +56,7 @@ Setiap bintang membantu memotivasi peningkatan di masa mendatang.
 
 </details>
 
-<img src="./.github/assets/app.png" alt="optimizerDuck Dark Mode" title="optimizerDuck Dark Mode" width="800"/>
+<img src="../assets/app.png" alt="optimizerDuck Dark Mode" title="optimizerDuck Dark Mode" width="800"/>
 
 </div>
 
@@ -90,8 +90,9 @@ Setiap bintang membantu memotivasi peningkatan di masa mendatang.
 > | 🇹🇷 | Turki | Türkçe | [amhunter1](https://github.com/amhunter1) |
 > | 🇸🇦 | Arab | العربية | [s5xx5s](https://github.com/s5xx5s) |
 > | 🇮🇩 | Indonesia | Bahasa Indonesia | [nekowawolf](https://github.com/nekowawolf) |
+> | 🇮🇹 | Italia | Italiano | [bandrea83](https://github.com/bandrea83) |
 > 
-> Ingin menambahkan bahasa Anda? Lihat [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japanese](./CONTRIBUTING.ja-JP.md), [Turkish](./CONTRIBUTING.tr-TR.md)).
+> Ingin menambahkan bahasa Anda? Lihat [CONTRIBUTING.md](../../CONTRIBUTING.md) ([Japanese](../contributing/CONTRIBUTING.ja-JP.md), [Turkish](../contributing/CONTRIBUTING.tr-TR.md)).
 
 ---
 
@@ -189,7 +190,7 @@ Mengikuti urutan ini membantu menghindari pembaruan Windows atau driver menimpa 
 
 Mengubah pengaturan sistem membawa risiko. optimizerDuck dibangun di seputar kemampuan untuk dipulihkan dan kendali pengguna.
 
-Lihat [Kebijakan Privasi (Privacy Policy)](./PRIVACY.md) untuk detail tentang praktik data kami.
+Lihat [Kebijakan Privasi (Privacy Policy)](../../PRIVACY.md) untuk detail tentang praktik data kami.
 
 - **Pencadangan otomatis**: Setiap perubahan menulis file pengembalian (revert) ke folder lokal. Anda dapat memulihkan penyesuaian individual atau membatalkan semuanya
 - **Pengembalian sekali klik (One-click revert)**: Batalkan optimasi apa pun yang diterapkan dari UI dengan satu klik
@@ -208,7 +209,7 @@ Lihat [Kebijakan Privasi (Privacy Policy)](./PRIVACY.md) untuk detail tentang pr
 
 Ya. optimizerDuck sepenuhnya **open-source** (GPL v3), yang berarti siapa pun dapat memeriksa, mengaudit, atau membuat kode sumbernya sendiri. Setiap rilis dibuat secara otomatis oleh **GitHub Actions** dari sumber publik; tidak ada modifikasi tersembunyi, tidak ada binari tidak bertanda tangan yang disuntikkan setelah proses build. Jika Anda mau, Anda dapat mengkloning repo dan mem-build `.exe` sendiri dengan satu perintah `dotnet build`.
 
-Aplikasi ini **tidak** mengumpulkan telemetri, data penggunaan, atau informasi pribadi apa pun. Lihat [Kebijakan Privasi](./PRIVACY.md).
+Aplikasi ini **tidak** mengumpulkan telemetri, data penggunaan, atau informasi pribadi apa pun. Lihat [Kebijakan Privasi](../../PRIVACY.md).
 
 ### Apakah optimizerDuck benar-benar meningkatkan performa, mengurangi latensi, atau mempercepat jaringan saya?
 
@@ -296,7 +297,7 @@ Panduan, detail optimasi, dan tips penggunaan.
 
 ## Berkontribusi
 
-Laporan bug, optimasi baru, peningkatan dokumentasi, dan terjemahan semuanya disambut baik. Lihat [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japanese](./CONTRIBUTING.ja-JP.md), [Turkish](./CONTRIBUTING.tr-TR.md)).
+Laporan bug, optimasi baru, peningkatan dokumentasi, dan terjemahan semuanya disambut baik. Lihat [CONTRIBUTING.md](../../CONTRIBUTING.md) ([Japanese](../contributing/CONTRIBUTING.ja-JP.md), [Turkish](../contributing/CONTRIBUTING.tr-TR.md)).
 
 ---
 
@@ -336,7 +337,7 @@ Selalu buat **titik pemulihan (restore point)** sebelum menerapkan perubahan.
 > [!NOTE]
 > optimizerDuck mengubah pengaturan sistem dan registri Windows. Gunakan dengan risiko Anda sendiri. Kami menyarankan untuk mencadangkan data penting dan membuat titik pemulihan sebelum membuat perubahan.
 >
-> Lihat [Ketentuan Layanan](./TERMS.md), [Kebijakan Privasi](./PRIVACY.md), dan [Penafian](./DISCLAIMER.md) untuk informasi lebih lanjut.
+> Lihat [Ketentuan Layanan](../../TERMS.md), [Kebijakan Privasi](../../PRIVACY.md), dan [Penafian](../../DISCLAIMER.md) untuk informasi lebih lanjut.
 
 ---
 
@@ -344,11 +345,11 @@ Selalu buat **titik pemulihan (restore point)** sebelum menerapkan perubahan.
 
 <div align="center">
 
-<a href="./LICENSE">
+<a href="../../LICENSE">
 <img src=".github/assets/gplv3.png" alt="GPL v3 License" title="GPL v3 License"/>
 </a>
 
-**[Lisensi GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html)**<br>Lihat [LICENSE](./LICENSE).
+**[Lisensi GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html)**<br>Lihat [LICENSE](../../LICENSE).
 
 </div>
 

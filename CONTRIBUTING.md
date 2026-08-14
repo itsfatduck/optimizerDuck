@@ -2,7 +2,7 @@
 
 <a href="https://optimizerduck.vercel.app/"><img src="./.github/assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/></a>
 
-**English** | [日本語](CONTRIBUTING.ja-JP.md) | [Türkçe](CONTRIBUTING.tr-TR.md)
+**English** | [日本語](.github/contributing/CONTRIBUTING.ja-JP.md) | [Türkçe](.github/contributing/CONTRIBUTING.tr-TR.md)
 
 [Introduction](#introduction) • [Getting Started](#getting-started) • [Architecture Overview](#architecture-overview) • [Ways to Contribute](#ways-to-contribute) • [Creating an Optimization](#creating-an-optimization) • [Creating a Customize Setting](#creating-a-customize-setting) • [The Refresh Scope System](#the-refresh-scope-system) • [Building New Features](#building-new-features) • [Revert System](#revert-system) • [Testing](#testing) • [Coding Standards](#coding-standards) • [Localization](#localization) • [Pull Request Process](#pull-request-process) • [Issue Guidelines](#issue-guidelines) • [FAQ & Troubleshooting](#faq--troubleshooting) • [License](#license)
 
@@ -1276,7 +1276,7 @@ Contributors with merged PRs are listed in release notes. If you contribute sign
 
 ## License
 
-By contributing to optimizerDuck, you agree that your contributions will be licensed under the project's [GPL v3 License](../LICENSE).
+By contributing to optimizerDuck, you agree that your contributions will be licensed under the project's [GPL v3 License](./LICENSE).
 
 ---
 

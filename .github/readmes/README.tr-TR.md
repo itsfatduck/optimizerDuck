@@ -1,6 +1,6 @@
 ﻿<div align="center">
 
-<a href="https://optimizerduck.vercel.app/"><img src="./.github/assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/></a>
+<a href="https://optimizerduck.vercel.app/"><img src="../assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/></a>
 
 # [optimizerDuck](https://optimizerduck.vercel.app/)
 
@@ -11,7 +11,7 @@
 [![Release](https://img.shields.io/github/release/itsfatduck/optimizerDuck?color=fed114&label=Release&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/itsfatduck/optimizerDuck/total?label=Downloads&style=flat-square&color=lightgreen)](https://github.com/itsfatduck/optimizerDuck/releases)
 [![Stars](https://img.shields.io/endpoint?url=https://api.pinstudios.net/api/badges/stars/itsfatduck/optimizerDuck&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/stargazers)
-[![License](https://img.shields.io/badge/License-GPL_v3-red?style=flat-square)](./LICENSE)
+[![License](https://img.shields.io/badge/License-GPL_v3-red?style=flat-square)](../../LICENSE)
 [![Discord](https://img.shields.io/discord/1091675679994675240?color=5865f2&label=Discord&style=flat-square)](https://discord.gg/tDUBDCYw9Q)
 <br>
 [![CI](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml/badge.svg)](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml)
@@ -20,7 +20,7 @@
 
 **[Başlarken](https://optimizerduck.vercel.app/docs/guides/getting-started) | [Nasıl Çalışır](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [SSS](https://optimizerduck.vercel.app/docs/faq/general)**
 
-[English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md) | [Português (BR)](README.pt-BR.md) | **Türkçe** | [العربية](README.ar-SA.md) | [Bahasa Indonesia](README.id-ID.md)
+[English](../../README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | Deutsch | עברית | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | Polski | [Português (BR)](README.pt-BR.md) | **Türkçe** | [العربية](README.ar-SA.md) | [Bahasa Indonesia](README.id-ID.md) | [Italiano](README.it-IT.md)
 
 <details>
 <summary>⭐ Yıldız Geçmişi</summary>
@@ -56,7 +56,7 @@ Her yıldız gelecekteki geliştirmelere motivasyon katıyor.
 
 </details>
 
-<img src="./.github/assets/app.png" alt="optimizerDuck Karanlık Mod" title="optimizerDuck Karanlık Mod" width="800"/>
+<img src="../assets/app.png" alt="optimizerDuck Karanlık Mod" title="optimizerDuck Karanlık Mod" width="800"/>
 
 </div>
 
@@ -90,8 +90,9 @@ Her yıldız gelecekteki geliştirmelere motivasyon katıyor.
 > | 🇹🇷 | Türkçe | Türkçe | [amhunter1](https://github.com/amhunter1) |
 > | 🇸🇦 | Arapça | العربية | [s5xx5s](https://github.com/s5xx5s) |
 > | 🇮🇩 | Endonezce | Bahasa Indonesia | [nekowawolf](https://github.com/nekowawolf) |
+> | 🇮🇹 | İtalyanca | Italiano | [bandrea83](https://github.com/bandrea83) |
 > 
-> Dilinizi eklemek ister misiniz? Bkz. [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japonca](./CONTRIBUTING.ja-JP.md), [Türkçe](./CONTRIBUTING.tr-TR.md)).
+> Dilinizi eklemek ister misiniz? Bkz. [CONTRIBUTING.md](../../CONTRIBUTING.md) ([Japonca](../contributing/CONTRIBUTING.ja-JP.md), [Türkçe](../contributing/CONTRIBUTING.tr-TR.md)).
 
 ---
 
@@ -189,7 +190,7 @@ Bu sırayı takip etmek, sonraki Windows veya sürücü güncellemelerinin optim
 
 Sistem ayarlarını değiştirmek risk taşır. optimizerDuck, geri alınabilirlik ve kullanıcı denetimi üzerine inşa edilmiştir.
 
-Veri uygulamalarımızla ilgili ayrıntılar için [Gizlilik Politikası'na](./PRIVACY.md) bakın.
+Veri uygulamalarımızla ilgili ayrıntılar için [Gizlilik Politikası'na](../../PRIVACY.md) bakın.
 
 - **Otomatik yedekler**: Her değişiklik yerel bir klasöre geri alma dosyası yazar. Bireysel düzenlemeleri geri yükleyebilir veya her şeyi geri alabilirsiniz
 - **Tek tıkla geri alma**: Arayüzden tek tıklamayla uygulanan herhangi bir optimizasyonu geri alın
@@ -208,7 +209,7 @@ Veri uygulamalarımızla ilgili ayrıntılar için [Gizlilik Politikası'na](./P
 
 Evet. optimizerDuck tamamen **açık kaynaklıdır** (GPL v3); yani herkes kaynak kodu inceleyebilir, denetleyebilir veya kendisi derleyebilir. Her sürüm, genel kaynaktan **GitHub Actions** tarafından otomatik olarak derlenir; gizli değişiklik yok, derleme sonrasında enjekte edilmiş imzasız ikili yok. Tercih ederseniz, depoyu klonlayıp tek bir `dotnet build` komutuyla `.exe` dosyasını kendiniz derleyebilirsiniz.
 
-Uygulama herhangi bir telemetri, kullanım verisi veya kişisel bilgi **toplamaz**. Bkz. [Gizlilik Politikası](./PRIVACY.md).
+Uygulama herhangi bir telemetri, kullanım verisi veya kişisel bilgi **toplamaz**. Bkz. [Gizlilik Politikası](../../PRIVACY.md).
 
 ### optimizerDuck gerçekten performansı artırıyor, gecikmeyi azaltıyor veya ağımı hızlandırıyor mu?
 
@@ -296,7 +297,7 @@ Rehberler, optimizasyon ayrıntıları ve kullanım ipuçları.
 
 ## Katkıda Bulunun
 
-Hata raporları, yeni optimizasyonlar, belge iyileştirmeleri ve çeviriler memnuniyetle karşılanır. Bkz. [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japonca](./CONTRIBUTING.ja-JP.md), [Türkçe](./CONTRIBUTING.tr-TR.md)).
+Hata raporları, yeni optimizasyonlar, belge iyileştirmeleri ve çeviriler memnuniyetle karşılanır. Bkz. [CONTRIBUTING.md](../../CONTRIBUTING.md) ([Japonca](../contributing/CONTRIBUTING.ja-JP.md), [Türkçe](../contributing/CONTRIBUTING.tr-TR.md)).
 
 ---
 
@@ -336,7 +337,7 @@ Değişiklik uygulamadan önce her zaman bir **geri yükleme noktası** oluştur
 > [!NOTE]
 > optimizerDuck sistem ayarlarını ve Windows kayıt defterini değiştirir. Riski size aittir. Değişiklik yapmadan önce önemli verilerinizi yedeklemenizi ve bir geri yükleme noktası oluşturmanızı öneririz.
 >
-> Daha fazla bilgi için [Kullanım Koşulları](./TERMS.md), [Gizlilik Politikası](./PRIVACY.md) ve [Sorumluluk Reddi](./DISCLAIMER.md) belgelerine bakın.
+> Daha fazla bilgi için [Kullanım Koşulları](../../TERMS.md), [Gizlilik Politikası](../../PRIVACY.md) ve [Sorumluluk Reddi](../../DISCLAIMER.md) belgelerine bakın.
 
 ---
 
@@ -344,11 +345,11 @@ Değişiklik uygulamadan önce her zaman bir **geri yükleme noktası** oluştur
 
 <div align="center">
 
-<a href="./LICENSE">
+<a href="../../LICENSE">
 <img src=".github/assets/gplv3.png" alt="GPL v3 Lisansı" title="GPL v3 Lisansı"/>
 </a>
 
-**[GPL v3 Lisansı](https://www.gnu.org/licenses/gpl-3.0.en.html)**<br>Bkz. [LICENSE](./LICENSE).
+**[GPL v3 Lisansı](https://www.gnu.org/licenses/gpl-3.0.en.html)**<br>Bkz. [LICENSE](../../LICENSE).
 
 </div>
 

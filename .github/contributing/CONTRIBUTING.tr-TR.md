@@ -2,7 +2,7 @@
 
 <a href="https://optimizerduck.vercel.app/"><img src="./.github/assets/optimizerDuck.png" alt="optimizerDuck Afişi" title="optimizerDuck"/></a>
 
-[English](CONTRIBUTING.md) | [日本語](CONTRIBUTING.ja-JP.md) | **Türkçe**
+[English](../CONTRIBUTING.md) | [日本語](CONTRIBUTING.ja-JP.md) | **Türkçe**
 
 [Giriş](#giriş) • [Başlangıç](#başlangıç) • [Mimariye Genel Bakış](#mimariye-genel-bakış) • [Katkıda Bulunma Yolları](#katkıda-bulunma-yolları) • [Optimizasyon Oluşturma](#optimizasyon-oluşturma) • [Özelleştirme Ayarı Oluşturma](#özelleştirme-ayarı-oluşturma) • [Yenileme Kapsamı Sistemi](#yenileme-kapsamı-sistemi) • [Yeni Özellikler Geliştirme](#yeni-özellikler-geliştirme) • [Geri Alma Sistemi](#geri-alma-sistemi) • [Test Etme](#test-etme) • [Kodlama Standartları](#kodlama-standartları) • [Yerelleştirme](#yerelleştirme) • [Çekme İsteği Süreci](#çekme-isteği-süreci) • [Sorun (Issue) Yönergeleri](#sorun-issue-yönergeleri) • [SSS ve Sorun Giderme](#sss-ve-sorun-giderme) • [Lisans](#lisans)
 

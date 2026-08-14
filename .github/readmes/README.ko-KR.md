@@ -1,6 +1,6 @@
 ﻿<div align="center">
 
-<a href="https://optimizerduck.vercel.app/"><img src="./.github/assets/optimizerDuck.png" alt="optimizerDuck 배너" title="optimizerDuck"/></a>
+<a href="https://optimizerduck.vercel.app/"><img src="../assets/optimizerDuck.png" alt="optimizerDuck 배너" title="optimizerDuck"/></a>
 
 # [optimizerDuck](https://optimizerduck.vercel.app/)
 
@@ -11,7 +11,7 @@
 [![Release](https://img.shields.io/github/release/itsfatduck/optimizerDuck?color=fed114&label=Release&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/itsfatduck/optimizerDuck/total?label=Downloads&style=flat-square&color=lightgreen)](https://github.com/itsfatduck/optimizerDuck/releases)
 [![Stars](https://img.shields.io/endpoint?url=https://api.pinstudios.net/api/badges/stars/itsfatduck/optimizerDuck&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/stargazers)
-[![License](https://img.shields.io/badge/License-GPL_v3-red?style=flat-square)](./LICENSE)
+[![License](https://img.shields.io/badge/License-GPL_v3-red?style=flat-square)](../../LICENSE)
 [![Discord](https://img.shields.io/discord/1091675679994675240?color=5865f2&label=Discord&style=flat-square)](https://discord.gg/tDUBDCYw9Q)
 <br>
 [![CI](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml/badge.svg)](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml)
@@ -20,7 +20,7 @@
 
 **[시작하기](https://optimizerduck.vercel.app/docs/guides/getting-started) | [작동 원리](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [FAQ](https://optimizerduck.vercel.app/docs/faq/general)**
 
-[English](README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | **한국어** | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md) | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md) | [العربية](README.ar-SA.md) | [Bahasa Indonesia](README.id-ID.md)
+[English](../../README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | Deutsch | עברית | **한국어** | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | Polski | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md) | [العربية](README.ar-SA.md) | [Bahasa Indonesia](README.id-ID.md) | [Italiano](README.it-IT.md)
 
 <details>
 <summary>⭐ 스타 동향</summary>
@@ -56,7 +56,7 @@ optimizerDuck이 PC 성능을 개선하는 데 도움이 되었다면, 이 저�
 
 </details>
 
-<img src="./.github/assets/app.png" alt="optimizerDuck 다크 모드" title="optimizerDuck 다크 모드" width="800"/>
+<img src="../assets/app.png" alt="optimizerDuck 다크 모드" title="optimizerDuck 다크 모드" width="800"/>
 
 </div>
 
@@ -90,8 +90,9 @@ optimizerDuck이 PC 성능을 개선하는 데 도움이 되었다면, 이 저�
 > | 🇹🇷 | 터키어 | Türkçe | [amhunter1](https://github.com/amhunter1) |
 > | 🇸🇦 | 아랍어 | العربية | [s5xx5s](https://github.com/s5xx5s) |
 > | 🇮🇩 | 인도네시아어 | Bahasa Indonesia | [nekowawolf](https://github.com/nekowawolf) |
+> | 🇮🇹 | 이탈리아어 | Italiano | [bandrea83](https://github.com/bandrea83) |
 > 
-> 새로운 언어 번역에 기여하고 싶으신가요? [CONTRIBUTING.md](./CONTRIBUTING.md)([日本語版](./CONTRIBUTING.ja-JP.md), [터키어판](./CONTRIBUTING.tr-TR.md))를 참고해 주세요
+> 새로운 언어 번역에 기여하고 싶으신가요? [CONTRIBUTING.md](../../CONTRIBUTING.md)([日本語版](../contributing/CONTRIBUTING.ja-JP.md), [터키어판](../contributing/CONTRIBUTING.tr-TR.md))를 참고해 주세요
 
 ---
 
@@ -189,7 +190,7 @@ Windows 최적화는 단순히 불필요한 오버헤드를 줄여 PC가 게임,
 
 시스템 설정을 변경하면 위험이 따릅니다 optimizerDuck은 역변환성과 사용자 제어를 중심으로 구축되었습니다
 
-데이터 관행에 대한 자세한 내용은 [개인정보 보호 정책](./PRIVACY.md)을 참고하세요
+데이터 관행에 대한 자세한 내용은 [개인정보 보호 정책](../../PRIVACY.md)을 참고하세요
 
 - **자동 백업**: 모든 변경 사항은 로컬 폴더에 되돌리기 파일을 작성합니다 개별 조정을 복원하거나 모든 것을 되돌릴 수 있습니다
 - **한 클릭 되돌리기**: UI에서 한 번의 클릭으로 적용된 최적화를 취소합니다
@@ -208,7 +209,7 @@ Windows 최적화는 단순히 불필요한 오버헤드를 줄여 PC가 게임,
 
 네, 안전합니다. optimizerDuck은 완전 **오픈소스**(GPL v3)라서 누구나 소스 코드를 들여다보고, 감사하고, 직접 빌드할 수 있어요. 모든 릴리즈는 **GitHub Actions**가 공개 소스에서 자동으로 빌드합니다. 숨겨진 수정 같은 건 없고, 빌드 후에 이상한 파일이 끼어들 일도 없어요. 불안하면 repo를 클론해서 `dotnet build` 한 방이면 `.exe` 뚝딱입니다.
 
-이 앱은 **어떤** 원격 측정, 사용 데이터, 개인 정보도 수집하지 **않습니다**. [개인정보 보호 정책](./PRIVACY.md) 참고하세요.
+이 앱은 **어떤** 원격 측정, 사용 데이터, 개인 정보도 수집하지 **않습니다**. [개인정보 보호 정책](../../PRIVACY.md) 참고하세요.
 
 ### optimizerDuck이 진짜 성능 향상, 지연 시간 감소, 네트워크 속도 향상에 도움이 되나요?
 
@@ -297,7 +298,7 @@ Windows 기능 업데이트는 가끔 레지스트리 값과 서비스 구성을
 
 ## 기여하기
 
-버그 보고, 새로운 최적화, 문서 개선, 번역이 모두 환영합니다 [CONTRIBUTING.md](./CONTRIBUTING.md)([日本語版](./CONTRIBUTING.ja-JP.md), [터키어판](./CONTRIBUTING.tr-TR.md))를 참고해 주세요
+버그 보고, 새로운 최적화, 문서 개선, 번역이 모두 환영합니다 [CONTRIBUTING.md](../../CONTRIBUTING.md)([日本語版](../contributing/CONTRIBUTING.ja-JP.md), [터키어판](../contributing/CONTRIBUTING.tr-TR.md))를 참고해 주세요
 
 ---
 
@@ -337,7 +338,7 @@ optimizerDuck은 어떠한 보증도 없이 **"있는 그대로"** 제공됩니�
 > [!NOTE]
 > optimizerDuck은 시스템 설정과 Windows 레지스트리를 수정합니다 모든 사용 결정과 그로 인한 책임은 사용자 본인에게 있습니다 설정 변경 전에는 반드시 중요한 데이터를 백업하고 시스템 복원 지점을 만드시길 권장합니다
 >
-> 자세한 내용은 [서비스 약관](./TERMS.md), [개인정보 보호 정책](./PRIVACY.md), [면책 조항](./DISCLAIMER.md)을 참고해 주세요
+> 자세한 내용은 [서비스 약관](../../TERMS.md), [개인정보 보호 정책](../../PRIVACY.md), [면책 조항](../../DISCLAIMER.md)을 참고해 주세요
 
 ---
 
@@ -345,11 +346,11 @@ optimizerDuck은 어떠한 보증도 없이 **"있는 그대로"** 제공됩니�
 
 <div align="center">
 
-<a href="./LICENSE">
+<a href="../../LICENSE">
 <img src=".github/assets/gplv3.png" alt="GPL v3 라이선스" title="GPL v3 라이선스"/>
 </a>
 
-**[GPL v3 라이선스](https://www.gnu.org/licenses/gpl-3.0.en.html)**<br>[LICENSE](./LICENSE)를 참고하세요
+**[GPL v3 라이선스](https://www.gnu.org/licenses/gpl-3.0.en.html)**<br>[LICENSE](../../LICENSE)를 참고하세요
 
 </div>
 

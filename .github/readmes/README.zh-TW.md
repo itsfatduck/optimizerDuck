@@ -1,6 +1,6 @@
 ﻿<div align="center">
 
-<a href="https://optimizerduck.vercel.app/"><img src="./.github/assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/></a>
+<a href="https://optimizerduck.vercel.app/"><img src="../assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/></a>
 
 # [optimizerDuck](https://optimizerduck.vercel.app/)
 
@@ -11,7 +11,7 @@
 [![Release](https://img.shields.io/github/release/itsfatduck/optimizerDuck?color=fed114&label=%E7%99%BC%E4%BD%88&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/itsfatduck/optimizerDuck/total?label=%E4%B8%8B%E8%BC%89%E9%87%8F&style=flat-square&color=lightgreen)](https://github.com/itsfatduck/optimizerDuck/releases)
 [![Stars](https://img.shields.io/endpoint?url=https://api.pinstudios.net/api/badges/stars/itsfatduck/optimizerDuck&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/stargazers)
-[![License](https://img.shields.io/badge/%E6%8E%88%E6%AC%8A-GPL_v3-red?style=flat-square)](./LICENSE)
+[![License](https://img.shields.io/badge/%E6%8E%88%E6%AC%8A-GPL_v3-red?style=flat-square)](../../LICENSE)
 [![Discord](https://img.shields.io/discord/1091675679994675240?color=5865f2&label=Discord&style=flat-square)](https://discord.gg/tDUBDCYw9Q)
 <br>
 [![CI](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml/badge.svg)](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml)
@@ -20,7 +20,7 @@
 
 **[開始使用](https://optimizerduck.vercel.app/docs/guides/getting-started) | [運作原理](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [常見問題](https://optimizerduck.vercel.app/docs/faq/general)**
 
-[English](README.md) | [Tiếng Việt](README.vi.md) | **繁體中文** | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md) | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md) | [العربية](README.ar-SA.md) | [Bahasa Indonesia](README.id-ID.md)
+[English](../../README.md) | [Tiếng Việt](README.vi.md) | **繁體中文** | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | Deutsch | עברית | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | Polski | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md) | [العربية](README.ar-SA.md) | [Bahasa Indonesia](README.id-ID.md) | [Italiano](README.it-IT.md)
 
 <details>
 <summary>⭐ 星星歷史</summary>
@@ -56,7 +56,7 @@
 
 </details>
 
-<img src="./.github/assets/app.png" alt="optimizerDuck 深色模式" title="optimizerDuck 深色模式" width="800"/>
+<img src="../assets/app.png" alt="optimizerDuck 深色模式" title="optimizerDuck 深色模式" width="800"/>
 
 </div>
 
@@ -90,8 +90,9 @@
 > | 🇹🇷 | 土耳其語 | Türkçe | [amhunter1](https://github.com/amhunter1) |
 > | 🇸🇦 | 阿拉伯語 | العربية | [s5xx5s](https://github.com/s5xx5s) |
 > | 🇮🇩 | 印尼語 | Bahasa Indonesia | [nekowawolf](https://github.com/nekowawolf) |
+> | 🇮🇹 | 義大利語 | Italiano | [bandrea83](https://github.com/bandrea83) |
 > 
-> 想加入您的語言嗎？請查看[貢獻指南](./CONTRIBUTING.md)（[日文版](./CONTRIBUTING.ja-JP.md)、[土耳其語版](./CONTRIBUTING.tr-TR.md)）。
+> 想加入您的語言嗎？請查看[貢獻指南](../../CONTRIBUTING.md)（[日文版](../contributing/CONTRIBUTING.ja-JP.md)、[土耳其語版](../contributing/CONTRIBUTING.tr-TR.md)）。
 
 ---
 
@@ -189,7 +190,7 @@ Windows 是為數億台配備不同、任務不同、使用者不同的 PC 設�
 
 我們了解修改系統設定存在風險，因此工具的設計核心圍繞在可還原性和使用者控制權。
 
-有關資料處理方式的詳細資訊，請參閱[隱私權政策](./PRIVACY.md)。
+有關資料處理方式的詳細資訊，請參閱[隱私權政策](../../PRIVACY.md)。
 
 - **自動備份**：每次變更都會將還原檔案寫入本機資料夾。您可以還原單一調整或全部復原
 - **一鍵還原**：從介面直接點擊即可撤銷已套用的任何最佳化
@@ -208,7 +209,7 @@ Windows 是為數億台配備不同、任務不同、使用者不同的 PC 設�
 
 安全。optimizerDuck 完全是**開源**的（GPL v3），意思是任何人都能檢查、審計或自己編譯原始碼。每個版本都由 **GitHub Actions** 從公開的原始碼自動建置；沒有隱藏修改，也不會在建置後塞入未簽署的執行檔。不放心的話，你也可以自己 clone 倉庫，下個 `dotnet build` 就搞定了。
 
-這支程式**不會**收集任何遙測資料、使用習慣或個人資訊。詳見[隱私權政策](./PRIVACY.md)。
+這支程式**不會**收集任何遙測資料、使用習慣或個人資訊。詳見[隱私權政策](../../PRIVACY.md)。
 
 ### optimizerDuck 真的能讓電腦變快、降低延遲或加快網路嗎？
 
@@ -298,7 +299,7 @@ Windows 功能更新偶爾會將某些登錄值與服務設定重設為預設值
 
 我們歡迎來自社群的任何貢獻！無論您是修復錯誤、新增最佳化項目或功能、改善文件，還是協助將應用程式翻譯成其他語言，您的支持都讓我們非常感激。
 
-如需更多資訊，請參閱 [CONTRIBUTING.md](./CONTRIBUTING.md)（[日文版](./CONTRIBUTING.ja-JP.md)、[土耳其語版](./CONTRIBUTING.tr-TR.md)）。
+如需更多資訊，請參閱 [CONTRIBUTING.md](../../CONTRIBUTING.md)（[日文版](../contributing/CONTRIBUTING.ja-JP.md)、[土耳其語版](../contributing/CONTRIBUTING.tr-TR.md)）。
 
 ---
 
@@ -338,7 +339,7 @@ optimizerDuck 按**「現況」**提供，不附帶任何形式的保證。
 > [!NOTE]
 > optimizerDuck 會修改系統設定與 Windows 登錄檔。使用風險自負。我們建議在進行變更前備份重要資料並建立還原點。
 >
-> 詳細資訊請參閱[服務條款](./TERMS.md)、[隱私權政策](./PRIVACY.md)和[免責聲明](./DISCLAIMER.md)。
+> 詳細資訊請參閱[服務條款](../../TERMS.md)、[隱私權政策](../../PRIVACY.md)和[免責聲明](../../DISCLAIMER.md)。
 
 ---
 
@@ -346,11 +347,11 @@ optimizerDuck 按**「現況」**提供，不附帶任何形式的保證。
 
 <div align="center">
 
-<a href="./LICENSE">
+<a href="../../LICENSE">
 <img src=".github/assets/gplv3.png" alt="GPL v3 License" title="GPL v3 License"/>
 </a>
 
-**[GPL v3 授權](https://www.gnu.org/licenses/gpl-3.0.en.html)**<br>參見 [LICENSE](./LICENSE)。
+**[GPL v3 授權](https://www.gnu.org/licenses/gpl-3.0.en.html)**<br>參見 [LICENSE](../../LICENSE)。
 
 </div>
 

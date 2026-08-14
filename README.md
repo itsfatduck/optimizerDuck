@@ -20,7 +20,7 @@
 
 **[Getting Started](https://optimizerduck.vercel.app/docs/guides/getting-started) | [How It Works](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [FAQ](https://optimizerduck.vercel.app/docs/faq/general)**
 
-**English** | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | [Polski](README.pl-PL.md) | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md) | [العربية](README.ar-SA.md) | [Bahasa Indonesia](README.id-ID.md)
+**English** | [Tiếng Việt](.github/readmes/README.vi.md) | [繁體中文](.github/readmes/README.zh-TW.md) | [简体中文](.github/readmes/README.zh-CN.md) | [Русский](.github/readmes/README.ru-RU.md) | [Français](.github/readmes/README.fr-FR.md) | Deutsch | עברית | [한국어](.github/readmes/README.ko-KR.md) | [Español](.github/readmes/README.es-ES.md) | [日本語](.github/readmes/README.ja-JP.md) | Polski | [Português (BR)](.github/readmes/README.pt-BR.md) | [Türkçe](.github/readmes/README.tr-TR.md) | [العربية](.github/readmes/README.ar-SA.md) | [Bahasa Indonesia](.github/readmes/README.id-ID.md) | [Italiano](.github/readmes/README.it-IT.md)
 
 <details>
 <summary>⭐ Star History</summary>
@@ -90,8 +90,9 @@ Every star helps motivate future improvements.
 > | 🇹🇷 | Turkish | Türkçe | [amhunter1](https://github.com/amhunter1) |
 > | 🇸🇦 | Arabic | العربية | [s5xx5s](https://github.com/s5xx5s) |
 > | 🇮🇩 | Indonesian | Bahasa Indonesia | [nekowawolf](https://github.com/nekowawolf) |
+> | 🇮🇹 | Italian | Italiano | [bandrea83](https://github.com/bandrea83) |
 > 
-> Want to add your language? See [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japanese](./CONTRIBUTING.ja-JP.md), [Turkish](./CONTRIBUTING.tr-TR.md)).
+> Want to add your language? See [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japanese](.github/contributing/CONTRIBUTING.ja-JP.md), [Turkish](.github/contributing/CONTRIBUTING.tr-TR.md)).
 
 ---
 
@@ -296,7 +297,7 @@ Guides, optimization details, and usage tips.
 
 ## Contribute
 
-Bug reports, new optimizations, docs improvements, and translations are all welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japanese](./CONTRIBUTING.ja-JP.md), [Turkish](./CONTRIBUTING.tr-TR.md)).
+Bug reports, new optimizations, docs improvements, and translations are all welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japanese](.github/contributing/CONTRIBUTING.ja-JP.md), [Turkish](.github/contributing/CONTRIBUTING.tr-TR.md)).
 
 ---
 
