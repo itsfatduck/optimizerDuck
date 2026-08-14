@@ -5,7 +5,7 @@
 - **Runs as admin**: `app.manifest` sets `requireAdministrator` UAC level. Tests that modify system settings or registry need admin too.
 - **Solution format**: `.slnx` (not `.sln`).
 - **Data directory**: `%LocalAppData%\optimizerDuck\` — holds revert files (`Revert/`), resources (`Resources/`), downloads (`Resources/Downloads/`), assets (`Resources/Assets/`), crash logs (`Crashes/`).
-- **Version**: Currently 2.24.2 (defined in `optimizerDuck.csproj`).
+- **Version**: Defined in `optimizerDuck.csproj` (`<Version>`). Don't hardcode it elsewhere; read it from the project file.
 
 ## Build, Test, Run Commands
 - `dotnet restore optimizerDuck.slnx` — restore dependencies.
@@ -21,57 +21,68 @@
   - `Domain/` — models, interfaces, attributes (no UI deps)
     - `Abstractions/` — `IOptimization`, `ICustomizeSetting`, `IRevertStep`, `ICustomizeCategory`, `IOptimizationCategory`, `IWindow`
     - `Attributes/` — `[Optimization]`, `[CustomizeSetting]`, `[OptimizationCategory]`, `[CustomizeCategory]`
+    - `Conditions/` — compatibility condition system: `ICondition`, `ConditionBase`, `ConditionResult`, `ConditionState`, `ConditionValidation`, `WindowsBuilds`, and `BuiltIn/` (Windows version, CPU/GPU brand, min RAM, registry-key/service existence conditions)
+    - `Exceptions/` — `StepExecutionException`
     - `Execution/` — `ExecutionScope` (ambient `AsyncLocal`-based step tracking)
     - `Customize/Categories/` — Desktop, Gaming, Preferences, SystemFeatures (nested setting classes)
-    - `Optimizations/Categories/` — Performance, SecurityAndPrivacy, Gpu, PowerManagement, BloatwareAndServices, UserExperience (nested optimization classes)
-    - `Optimizations/Models/` — `BaseOptimization`, `ApplyResult`, `OptimizationContext`
+    - `Optimizations/Categories/` — Performance, SecurityAndPrivacy, Gpu, PowerManagement, BloatwareAndServices, UserExperience, AI (nested optimization classes)
+    - `Optimizations/Models/` — `BaseOptimization`, `ApplyResult`, `OptimizationContext`, `OptimizationResult`, `OperationStepResult`
     - `Optimizations/Models/Services/` — `RegistryItem`, `ServiceItem` (+ `ServiceStartupType`), `ShellResult`
     - `Optimizations/Models/Bloatware/` — `AppXPackage`
     - `Optimizations/Models/Cleanup/` — `CleanupItem`
     - `Optimizations/Models/ScheduledTask/` — `ScheduledTaskModel`
     - `Optimizations/Models/StartupManager/` — `StartupApp`, `StartupTask`
-    - `Customize/Models/` — `BaseCustomizeSetting`, `RegistryToggle`, `CustomizeRefreshScope`, `SettingOption`, `CustomizeControlType`, `RecommendationState`, `CustomizeRecommendationResult`
+    - `Customize/Models/` — `BaseCustomizeSetting`, `RegistryToggle`, `RegistryBinding`, `CustomizeRefreshScope`, `SettingOption`, `CustomizeControlType`, `RecommendationState`, `CustomizeRecommendationResult`
     - `Revert/` — `RevertData`, `RevertResult`
     - `Revert/Steps/` — `RegistryRevertStep`, `ServiceRevertStep`, `ScheduledTaskRevertStep`, `ShellRevertStep`, `UsbPowerRevertStep`
     - `Configuration/` — `AppSettings`
     - `UI/` — enums: `OptimizationRisk`, `OptimizationTags` (flags), `OptimizationCategoryOrder`, `CustomizeOrder`, `OptimizationSuccessResult`, `OptimizationState` (ObservableObject with relative-time display), `RiskVisual`, `ProcessingProgress`, `LanguageOption`
   - `Services/` — business logic:
+    - `Conditions/` — `ConditionEvaluator` (static, fail-open evaluation)
     - `Configuration/` — `ConfigManager`, `LanguageManager`
     - `Customize/` — `CustomizeRegistry` (reflection-based discovery)
     - `Optimization/` — `OptimizationRegistry`, `OptimizationService`
     - `Optimization/Providers/` — static: `RegistryService`, `ShellService` (+ `ShellPolicy`), `ScheduledTaskService`, `ServiceProcessService`
     - `Revert/` — `RevertManager` (atomic file-based revert data persistence)
-    - `System/` — `RegistryWatcher` (+ `IRegistryWatcher`), `SystemInfoService`, `StreamService`, `UpdaterService`
+    - `System/` — `RegistryWatcher` (+ `IRegistryWatcher`), `SystemInfoService` (defines `SystemSnapshot` + models), `StreamService`, `UpdaterService`, `CrossPageEventBus`, `CrossPageEvents`
     - `UI/` — `BloatwareService`, `DiskCleanupService`, `StartupManagerService`
   - `UI/` — XAML pages, ViewModels, windows, controls, dialogs, styles
   - `Common/` — extensions, helpers, converters:
-    - `Helpers/` — `Shared.cs` (constants, paths, SafeApps/CautionApps sets), `ReflectionHelper.cs`, `SystemRefreshService.cs` (P/Invoke for Windows refresh), `EmbeddedResourceHelper.cs`, `WmiHelper.cs`, `GitHubSourceHelper.cs`, `ThemeResource.cs`
-    - `Converters/` — 20+ WPF value converters
+    - `Helpers/` — `Shared.cs` (constants, paths, SafeApps/CautionApps sets), `ReflectionHelper.cs`, `SystemRefreshService.cs` (P/Invoke for Windows refresh), `EmbeddedResourceHelper.cs`, `WmiHelper.cs`, `GitHubSourceHelper.cs`, `ThemeResource.cs`, `HttpClientFactory.cs`, `UiThread.cs`
+    - `Converters/` — WPF value converters (BooleanToVisibility, MBToGB, ...)
     - `Extensions/` — `StringExtensions`, `CustomizePageRegistryExtensions`, `OptimizationPageRegistryExtensions`, `LanguageExtensions`
   - `Resources/` — images, embedded assets, locale files
-    - `Languages/` — `Translations.resx` (default) + 11 locale variants (vi-VN, es-ES, fr-FR, zh-TW, zh-CN, ru-RU, ko-KR, ja-JP, pl-PL, tr-TR, pt-BR)
+    - `Languages/` — `Translations.resx` (default English) + locale variants. Do **not** hardcode the list of languages; the authoritative lists are the files in this folder and `Languages` in `UI/ViewModels/Pages/SettingsViewModel.cs`.
 - `optimizerDuck.Test/` — xUnit v3 tests (single test project with `InternalsVisibleTo`)
 - Do **not** create top-level directories outside these two project folders.
 
 ## Key NuGet Packages
 - `CommunityToolkit.Mvvm` 8.4.2 — MVVM source generators (`[ObservableProperty]`, `[RelayCommand]`)
 - `WPF-UI` + `WPF-UI.DependencyInjection` 4.3.0 — Fluent Design controls + navigation
-- `Microsoft.Extensions.Hosting` 10.0.9 — DI / hosted service wiring
+- `Microsoft.Extensions.Hosting` + `Microsoft.Extensions.DependencyInjection` 10.0.10 — DI / hosted service wiring
 - `Newtonsoft.Json` 13.0.4 — JSON serialization for revert data
-- `Serilog` 4.3.1 + sinks — structured logging
+- `Serilog` 4.4.0 + `Serilog.Extensions.Hosting` + `Serilog.Sinks.File` — structured logging
 - `TaskScheduler` 2.12.2 — Windows scheduled task management
-- `System.Management.Automation` 7.6.3 — PowerShell host integration
+- `System.Management.Automation` 7.6.4 — PowerShell host integration
 - `xunit.v3` 3.2.2 — test framework (with global using `Xunit` in test csproj)
 
+> Package versions live in `optimizerDuck.csproj` / `optimizerDuck.Test.csproj` — verify there rather than trusting this snapshot.
+
 ## Optimization & Customize Discovery (Reflection, No Manual Registration)
-- **New optimizations**: Create a **nested class** inside the relevant category class (e.g., `Domain/Optimizations/Categories/Performance.cs`), extend `BaseOptimization`, decorate with `[Optimization(Id = "guid", Risk = ..., Tags = ...)]`.
-- **New customize settings**: Same nesting pattern inside `Domain/Customize/Categories/`, extend `BaseCustomizeSetting`, decorate with `[CustomizeSetting(Section = ..., Icon = ..., Recommendation = ...)]`. `Icon` is required (`SymbolRegular` enum). `Section` can be a string or enum value. `Recommendation` can be `On`, `Off`, `Depends`, `Experimental`, or `None`.
+- **New optimizations**: Create a **nested class** inside the relevant category class (e.g., `Domain/Optimizations/Categories/Performance.cs`), extend `BaseOptimization`, decorate with `[Optimization(Id = "guid", Risk = ..., Tags = ..., Condition = typeof(...)?)]`.
+- **New customize settings**: Same nesting pattern inside `Domain/Customize/Categories/`, extend `BaseCustomizeSetting`, decorate with `[CustomizeSetting(Section = ..., Icon = ..., Recommendation = ..., Condition = typeof(...)?)]`. `Icon` is required (`SymbolRegular` enum). `Section` can be a string or enum value. `Recommendation` can be `On`, `Off`, `Depends`, `Experimental`, or `None`.
 - **Category classes**: Decorate with `[OptimizationCategory(typeof(PageClass))]` or `[CustomizeCategory(PageType = typeof(PageClass))]`.
 - **Discovery**: `ReflectionHelper.FindImplementationsInLoadedAssemblies<T>()` scans assemblies whose name starts with `optimizerDuck` — no DI registration array to update. Results are cached in `_implementationCache`.
 - **Static provider services**: `RegistryService`, `ServiceProcessService`, `ScheduledTaskService`, `ShellService` are **static classes** (not DI-registered). They capture revert steps into the ambient `ExecutionScope`.
 - **`CompleteFromScope()`**: Optimizations call `BaseOptimization.CompleteFromScope()` to build the `ApplyResult` from steps recorded in the ambient `ExecutionScope`. Do not manually construct `ApplyResult`.
-- **Preloading**: `OptimizationRegistry.StartPreload()` runs discovery on a background thread at startup. The Optimizations page calls `EnsurePreloadedAsync()` before binding.
-- **Customize discovery**: `CustomizeRegistry` uses the same reflection pattern for `ICustomizeSetting` implementations nested inside `ICustomizeCategory` classes.
+- **Preloading**: `OptimizationRegistry.PreloadOptimizationsAsync()` / `EnsurePreloadedAsync()` (and `CustomizeRegistry.PreloadCategoriesAsync()` / `EnsurePreloadedAsync()`) run reflection discovery on a background thread. `App.xaml.cs` preloads at startup; the Optimize/Customize pages call `EnsurePreloadedAsync()` before binding.
+
+## Condition System (Compatibility Gating)
+- Conditions live in `Domain/Conditions/` (`ICondition`, `ConditionBase`, `ConditionResult`, `ConditionState`, `ConditionValidation`, `WindowsBuilds`, `BuiltIn/`). They're evaluated by the static `Services/Conditions/ConditionEvaluator.cs`.
+- `[Optimization]` and `[CustomizeSetting]` both accept an optional `Condition = typeof(SomeCondition)` where the type implements `ICondition` with a public parameterless constructor.
+- `ConditionState` = `Available` | `Unsupported` | `Error`. Only `Unsupported` blocks an item, and only when the item isn't already applied (or hidden by the user). `Error` and an unpopulated `SystemSnapshot` **fail open** (never hide).
+- `ConditionValidation.Validate(...)` runs at discovery time to fail fast on misconfigured condition metadata.
+- Custom conditions return `ConditionResult.Available` / `ConditionResult.Unsupported(titleProvider, descriptionProvider)` / `ConditionResult.Error()`. User-facing text must go behind localization providers (`() => Loc.Instance[...]`).
 
 ## Revert System
 - **File-based**: Each applied optimization creates `%LocalAppData%\optimizerDuck\Revert\{optimizationId}.json`. Applied state is inferred from file presence on disk.
@@ -87,6 +98,11 @@
 - **Upsert**: `RevertManager.UpsertRevertStepAtIndexAsync()` can add/replace revert steps at specific indices (used during retry to persist recovered steps).
 - **Key methods**: `SaveRevertDataAsync()`, `RevertAsync()`, `IsAppliedAsync(id)`, `GetRevertDataAsync(id)`, `ClearAllRevertData()`.
 
+## Customize Setting API Notes
+- `RegistryToggle` uses `OnValues` / `OffValues` (lists; `null` = key absent) + `DefaultValue`, `IsOptional`, `ValueKind`. There is no `OnValue`/`OffValue`/`TreatMissingAsDefault`.
+- Dropdown settings override `ControlType => CustomizeControlType.Dropdown` and `GetOptions()` returning `SettingOption`s built with `Option(key, regPath, regName, value)` or `Option(key, value, params RegistryBinding[])`. The base class auto-reads/auto-writes via bindings and shows a "Custom"/"Not set" fallback for out-of-scope values.
+- When overriding `ApplyAsync`, call `await ExecutePostActionAsync()` (guarded by `NeedsPostAction`) yourself.
+
 ## Coding & Style
 - Nullable enabled, file-scoped namespaces, implicit usings.
 - Indent: 4 spaces. PascalCase types/members, `_camelCase` private fields, `camelCase` locals/params.
@@ -97,6 +113,7 @@
 - `optimizerDuck.csproj` has `<InternalsVisibleTo Include="optimizerDuck.Test" />` — test project can access internal members.
 - Category pages auto-register via `services.AddAllCustomizeCategoryPages()` and `services.AddAllOptimizationPages()`.
 - ShellService must be initialized at startup: `ShellService.Init(appOptionsMonitor)`.
+- `WmiHelper.Initialize()` registers WMI cleanup for abnormal termination.
 
 ## Testing (xUnit v3, Integration-Style)
 - **No mocking libraries** — all test doubles are hand-written (`FakeOptimization`, `TestOptimization`, etc.) implementing interfaces directly.
