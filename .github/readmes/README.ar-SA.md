@@ -20,7 +20,7 @@
 
 **[البداية السريعة](https://optimizerduck.vercel.app/docs/guides/getting-started) | [كيف يعمل](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [الأسئلة الشائعة](https://optimizerduck.vercel.app/docs/faq/general)**
 
-[English](../../README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | Deutsch | עברית | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | Polski | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md) | **العربية** | [Bahasa Indonesia](README.id-ID.md) | [Italiano](README.it-IT.md)
+[English](../../README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md) | [Español](README.es-ES.md) | [日本語](README.ja-JP.md) | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md) | **العربية** | [Bahasa Indonesia](README.id-ID.md) | [Italiano](README.it-IT.md)
 
 <details>
 <summary>⭐ سجل النجوم</summary>

@@ -20,7 +20,7 @@
 
 **[Guía de Inicio](https://optimizerduck.vercel.app/docs/guides/getting-started) | [Cómo Funciona](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [Preguntas Frecuentes](https://optimizerduck.vercel.app/docs/faq/general)**
 
-[English](../../README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | Deutsch | עברית | [한국어](README.ko-KR.md) | **Español** | [日本語](README.ja-JP.md) | Polski | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md) | [العربية](README.ar-SA.md) | [Bahasa Indonesia](README.id-ID.md) | [Italiano](README.it-IT.md)
+[English](../../README.md) | [Tiếng Việt](README.vi.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | [Русский](README.ru-RU.md) | [Français](README.fr-FR.md) | [한국어](README.ko-KR.md) | **Español** | [日本語](README.ja-JP.md) | [Português (BR)](README.pt-BR.md) | [Türkçe](README.tr-TR.md) | [العربية](README.ar-SA.md) | [Bahasa Indonesia](README.id-ID.md) | [Italiano](README.it-IT.md)
 
 <details>
 <summary>⭐ Historial de Estrellas</summary>

@@ -20,7 +20,7 @@
 
 **[Getting Started](https://optimizerduck.vercel.app/docs/guides/getting-started) | [How It Works](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [FAQ](https://optimizerduck.vercel.app/docs/faq/general)**
 
-**English** | [Tiếng Việt](.github/readmes/README.vi.md) | [繁體中文](.github/readmes/README.zh-TW.md) | [简体中文](.github/readmes/README.zh-CN.md) | [Русский](.github/readmes/README.ru-RU.md) | [Français](.github/readmes/README.fr-FR.md) | Deutsch | עברית | [한국어](.github/readmes/README.ko-KR.md) | [Español](.github/readmes/README.es-ES.md) | [日本語](.github/readmes/README.ja-JP.md) | Polski | [Português (BR)](.github/readmes/README.pt-BR.md) | [Türkçe](.github/readmes/README.tr-TR.md) | [العربية](.github/readmes/README.ar-SA.md) | [Bahasa Indonesia](.github/readmes/README.id-ID.md) | [Italiano](.github/readmes/README.it-IT.md)
+**English** | [Tiếng Việt](.github/readmes/README.vi.md) | [繁體中文](.github/readmes/README.zh-TW.md) | [简体中文](.github/readmes/README.zh-CN.md) | [Русский](.github/readmes/README.ru-RU.md) | [Français](.github/readmes/README.fr-FR.md) | [한국어](.github/readmes/README.ko-KR.md) | [Español](.github/readmes/README.es-ES.md) | [日本語](.github/readmes/README.ja-JP.md) | [Português (BR)](.github/readmes/README.pt-BR.md) | [Türkçe](.github/readmes/README.tr-TR.md) | [العربية](.github/readmes/README.ar-SA.md) | [Bahasa Indonesia](.github/readmes/README.id-ID.md) | [Italiano](.github/readmes/README.it-IT.md)
 
 <details>
 <summary>⭐ Star History</summary>
