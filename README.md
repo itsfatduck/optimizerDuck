@@ -110,7 +110,7 @@ It also includes built-in management tools, allowing you to see what is running,
 
 ### System Optimizations
 
-Over 30 tweaks across 6 categories, each with a clear description and risk rating so you know exactly what each change does before applying it.
+Over 40 tweaks across 7 categories, each with a clear description and risk rating so you know exactly what each change does before applying it.
 
 | Category                 | What it covers                                                                                                                                       |
 | :----------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -120,6 +120,7 @@ Over 30 tweaks across 6 categories, each with a clear description and risk ratin
 | **Power**                | Disable hibernation and fast startup, turn off USB selective suspend, install a custom high-performance power plan, and disable power throttling     |
 | **Bloatware & Services** | Block OEM app reinstall behavior and fine-tune startup types for 200+ Windows services                                                               |
 | **User Experience**      | Remove menu show delays, disable visual effects like taskbar animations and transparency for a snappier feel                                         |
+| **AI**                   | Disable Windows Recall snapshots and the Click To Do AI overlay (Windows 11)                                                                         |
 
 > [!NOTE]
 > The optimizations here are researched from well-known tools with large user bases, nothing is AI-generated or blindly added. Every tweak is chosen for real-world impact.
@@ -128,10 +129,10 @@ Over 30 tweaks across 6 categories, each with a clear description and risk ratin
 
 No need to dig through the registry, just toggles, dropdowns, and number inputs presented in one place. Organized into four categories:
 
-- **Desktop**: Show or hide icons (This PC, Recycle Bin, Network, User Files, Control Panel), remove shortcut arrow overlays
-- **Preferences**: Taskbar alignment, widgets, Task View and End Task buttons, clock seconds, dark mode, file extensions, hidden files, clipboard history, compact view, snap assist, item checkboxes, classic context menu, and Bing search
+- **Desktop**: Show or hide icons (This PC, Recycle Bin, Network, User Files, Control Panel, all desktop icons), remove shortcut arrow overlays
+- **Preferences**: Taskbar alignment, widgets, Task View, End Task and last active click buttons, search box display, clock seconds, dark mode, file extensions, hidden files, clipboard history, compact view, snap assist, item checkboxes, classic context menu, Bing search, toast and sync notifications, system suggestions, window shake, and launching File Explorer to This PC
 - **Gaming**: Game Mode, Game Bar, background recording, mouse acceleration, fullscreen optimizations, hardware-accelerated GPU scheduling
-- **System**: Enable Num Lock on boot
+- **System**: Num Lock on boot, Developer Mode, sideloading trusted apps, long paths, and battery percentage
 
 ### Built-in Tools
 

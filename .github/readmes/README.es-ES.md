@@ -110,7 +110,7 @@ También incluye herramientas de gestión integradas que te permiten ver qué se
 
 ### Optimizaciones del Sistema
 
-Más de 30 ajustes distribuidos en 6 categorías, cada uno con una descripción clara y una calificación de riesgo para que sepas exactamente qué hace cada cambio antes de aplicarlo.
+Más de 40 ajustes distribuidos en 7 categorías, cada uno con una descripción clara y una calificación de riesgo para que sepas exactamente qué hace cada cambio antes de aplicarlo.
 
 | Categoría                  | Qué abarca                                                                                                                                                                 |
 | :------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -120,6 +120,7 @@ Más de 30 ajustes distribuidos en 6 categorías, cada uno con una descripción 
 | **Energía**                | Desactiva la hibernación y el inicio rápido, evita la suspensión de puertos USB, instala un plan de energía de alto rendimiento y desactiva el estrangulamiento de energía |
 | **Bloatware y Servicios**  | Bloquea la reinstalación automática de apps y ajusta los tipos de inicio de más de 200 servicios de Windows                                                                |
 | **Experiencia de Usuario** | Elimina los retrasos al mostrar menús y desactiva efectos visuales (animaciones, transparencias) para una respuesta más instantánea del sistema                            |
+| **IA**                     | Desactiva las instantáneas de Windows Recall y la superposición de IA de Click To Do (Windows 11)                                                                          |
 
 > [!NOTE]
 > Las optimizaciones han sido investigadas a partir de herramientas reconocidas con amplias bases de usuarios; nada se ha generado por IA ni añadido a ciegas. Cada ajuste está elegido por su impacto real.
@@ -128,10 +129,10 @@ Más de 30 ajustes distribuidos en 6 categorías, cada uno con una descripción 
 
 No hay necesidad de buscar en el registro; simplemente usa interruptores y menús desplegables reunidos en un solo lugar. Organizado en cuatro categorías:
 
-- **Escritorio**: Muestra u oculta íconos (Este Equipo, Papelera de reciclaje, Red, Archivos de usuario, Panel de control), elimina las flechas de acceso directo.
-- **Preferencias**: Alineación de la barra de tareas, widgets, botones de Vista de tareas y Finalizar tarea, segundos en el reloj, modo oscuro, extensiones de archivos, archivos ocultos, historial del portapapeles, vista compacta, menús clásicos contextuales y búsqueda de Bing.
+- **Escritorio**: Muestra u oculta íconos (Este Equipo, Papelera de reciclaje, Red, Archivos de usuario, Panel de control, todos los íconos del escritorio), elimina las flechas de acceso directo.
+- **Preferencias**: Alineación de la barra de tareas, widgets, botones de Vista de tareas, Finalizar tarea y última ventana activa, visualización del cuadro de búsqueda, segundos en el reloj, modo oscuro, extensiones de archivos, archivos ocultos, historial del portapapeles, vista compacta, asistente de ajuste, casillas de verificación de elementos, menú contextual clásico, búsqueda de Bing, notificaciones emergentes y de sincronización, sugerencias del sistema, agitar ventana y ubicación de inicio del Explorador de archivos.
 - **Juegos**: Modo de juego, Xbox Game Bar, grabación en segundo plano, aceleración del ratón, optimizaciones de pantalla completa, programación de GPU acelerada por hardware.
-- **Sistema**: Activar Bloqueo Numérico al inicio.
+- **Sistema**: Activar Bloqueo Numérico al inicio, Modo Desarrollador, aplicaciones de confianza, soporte de rutas largas y porcentaje de batería.
 
 ### Herramientas Integradas
 

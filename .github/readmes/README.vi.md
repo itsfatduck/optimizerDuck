@@ -110,7 +110,7 @@ Nó cũng tích hợp sẵn các công cụ quản lý, cho bạn thấy cái g�
 
 ### Tối ưu hệ thống
 
-Hơn 30 tinh chỉnh chia làm 6 nhóm, cái nào cũng có mô tả rõ ràng và gắn nhãn rủi ro để bạn biết mình đang bấm vào cái gì trước khi áp dụng.
+Hơn 40 tinh chỉnh chia làm 7 nhóm, cái nào cũng có mô tả rõ ràng và gắn nhãn rủi ro để bạn biết mình đang bấm vào cái gì trước khi áp dụng.
 
 | Danh mục                | Nội dung                                                                                                                                                          |
 | :---------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -120,6 +120,7 @@ Hơn 30 tinh chỉnh chia làm 6 nhóm, cái nào cũng có mô tả rõ ràng v
 | **Nguồn điện**          | Tắt chế độ ngủ đông và khởi động nhanh, tắt USB selective suspend, cài đặt power plan hiệu năng cao tùy chỉnh, vô hiệu hóa power throttling                       |
 | **Bloatware & Dịch vụ** | Chặn hành vi cài lại ứng dụng OEM và tinh chỉnh chế độ khởi động cho hơn 200 dịch vụ Windows                                                                      |
 | **Trải nghiệm**         | Loại bỏ độ trễ hiển thị menu, tắt hiệu ứng hình ảnh như animation thanh taskbar và độ trong suốt để máy phản hồi nhanh hơn                                        |
+| **AI**                  | Tắt ảnh chụp Windows Recall và lớp phủ AI Click To Do (Windows 11)                                                                                                 |
 
 > [!NOTE]
 > Các tối ưu ở đây được tham khảo từ các công cụ nổi tiếng và đông người dùng, không có gì do AI tạo ra hay thêm vào mù quáng. Mỗi tinh chỉnh đều được chọn vì có tác dụng thực tế.
@@ -128,10 +129,10 @@ Hơn 30 tinh chỉnh chia làm 6 nhóm, cái nào cũng có mô tả rõ ràng v
 
 Không cần mò registry, toàn toggle, dropdown với ô nhập số hết, tất cả gom một chỗ. Chia làm bốn nhóm:
 
-- **Màn hình nền**: Ẩn/hiện icon (This PC, Thùng rác, Network, User Files, Control Panel), bỏ mũi tên shortcut
-- **Tùy chỉnh chung**: Căn taskbar, widget, nút Task View và End Task, giây đồng hồ, chế độ tối, đuôi file, file ẩn, lịch sử clipboard, compact view, snap assist, checkbox, menu chuột phải cổ điển, tìm kiếm Bing
+- **Màn hình nền**: Ẩn/hiện icon (This PC, Thùng rác, Network, User Files, Control Panel, tất cả icon màn hình nền), bỏ mũi tên shortcut
+- **Tùy chỉnh chung**: Căn taskbar, widget, nút Task View, End Task và nhấp cửa sổ hoạt động gần đây, hiển thị hộp tìm kiếm, giây đồng hồ, chế độ tối, đuôi file, file ẩn, lịch sử clipboard, compact view, snap assist, checkbox, menu chuột phải cổ điển, tìm kiếm Bing, thông báo Toast và đồng bộ Explorer, gợi ý hệ thống, lắc cửa sổ, vị trí khởi động File Explorer
 - **Chơi game**: Game Mode, Game Bar, quay video nền, tăng tốc chuột, tối ưu toàn màn hình, lập lịch GPU
-- **Hệ thống**: Tự bật Num Lock khi khởi động
+- **Hệ thống**: Tự bật Num Lock khi khởi động, Chế độ Nhà phát triển, ứng dụng đáng tin cậy, hỗ trợ đường dẫn dài, phần trăm pin
 
 ### Công cụ tích hợp
 

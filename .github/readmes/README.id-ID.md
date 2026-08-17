@@ -110,7 +110,7 @@ Alat ini juga dilengkapi dengan fungsi manajemen bawaan, memungkinkan Anda melih
 
 ### Optimasi Sistem
 
-Lebih dari 30 penyesuaian di 6 kategori, masing-masing dengan deskripsi jelas dan peringkat risiko sehingga Anda tahu persis apa yang dilakukan setiap perubahan sebelum menerapkannya.
+Lebih dari 40 penyesuaian di 7 kategori, masing-masing dengan deskripsi jelas dan peringkat risiko sehingga Anda tahu persis apa yang dilakukan setiap perubahan sebelum menerapkannya.
 
 | Kategori                 | Apa yang dicakup                                                                                                                                     |
 | :----------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -120,6 +120,7 @@ Lebih dari 30 penyesuaian di 6 kategori, masing-masing dengan deskripsi jelas da
 | **Power**                | Menonaktifkan hibernasi dan fast startup, mematikan penangguhan selektif USB, menginstal paket daya kustom berkinerja tinggi, dan menonaktifkan power throttling     |
 | **Bloatware & Services** | Memblokir perilaku instal ulang aplikasi OEM dan menyesuaikan jenis startup untuk 200+ layanan Windows                                                               |
 | **User Experience**      | Menghilangkan jeda penampilan menu, menonaktifkan efek visual seperti animasi taskbar dan transparansi agar terasa lebih responsif                                         |
+| **AI**                   | Menonaktifkan snapshot Windows Recall dan overlay AI Click To Do (Windows 11)                                                                                           |
 
 > [!NOTE]
 > Optimasi di sini diteliti dari alat-alat terkenal dengan basis pengguna yang besar, tidak ada yang dibuat oleh AI atau ditambahkan secara asal. Setiap penyesuaian dipilih karena dampaknya di dunia nyata.
@@ -128,10 +129,10 @@ Lebih dari 30 penyesuaian di 6 kategori, masing-masing dengan deskripsi jelas da
 
 Tidak perlu lagi mencari-cari di registri, cukup tombol sakelar (toggle), menu tarik-turun (dropdown), dan input angka yang disajikan di satu tempat. Terbagi menjadi empat kategori:
 
-- **Desktop**: Menampilkan atau menyembunyikan ikon (This PC, Recycle Bin, Network, User Files, Control Panel), menghapus overlay tanda panah pintasan (shortcut)
-- **Preferences**: Perataan taskbar, widget, tombol Task View dan End Task, detik pada jam, mode gelap (dark mode), ekstensi file, file tersembunyi, riwayat clipboard, tampilan ringkas (compact view), snap assist, kotak centang item, menu konteks klasik, dan pencarian Bing
+- **Desktop**: Menampilkan atau menyembunyikan ikon (This PC, Recycle Bin, Network, User Files, Control Panel, semua ikon desktop), menghapus overlay tanda panah pintasan (shortcut)
+- **Preferences**: Perataan taskbar, widget, tombol Task View, End Task, dan Klik Aktif Terakhir, tampilan kotak pencarian, detik pada jam, mode gelap (dark mode), ekstensi file, file tersembunyi, riwayat clipboard, tampilan ringkas (compact view), snap assist, kotak centang item, menu konteks klasik, pencarian Bing, notifikasi toast dan sinkronisasi Explorer, saran sistem, goyangan jendela, dan lokasi awal File Explorer
 - **Gaming**: Game Mode, Game Bar, perekaman latar belakang, akselerasi mouse, optimasi layar penuh (fullscreen), penjadwalan GPU yang dipercepat perangkat keras
-- **System**: Mengaktifkan Num Lock saat boot
+- **System**: Mengaktifkan Num Lock saat boot, Mode Pengembang, aplikasi tepercaya, dukungan jalur panjang, dan persentase baterai
 
 ### Alat Bawaan
 

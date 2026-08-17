@@ -110,7 +110,7 @@ Il comprend également des outils de gestion intégrés qui vous permettent de v
 
 ### Optimisations système
 
-Plus de 30 tweaks répartis dans 6 catégories, chacun avec une description claire et un indice de risque pour que vous sachiez exactement ce que fait chaque modification avant de l'appliquer.
+Plus de 40 tweaks répartis dans 7 catégories, chacun avec une description claire et un indice de risque pour que vous sachiez exactement ce que fait chaque modification avant de l'appliquer.
 
 | Catégorie                  | Ce qu'elle couvre                                                                                                                                                                                                |
 | :------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -120,6 +120,7 @@ Plus de 30 tweaks répartis dans 6 catégories, chacun avec une description clai
 | **Alimentation**           | Désactiver l'hibernation et le démarrage rapide, désactiver la suspension sélective USB, installer un plan d'alimentation haute performance personnalisé et désactiver le throttling d'alimentation              |
 | **Bloatware & Services**   | Bloquer le comportement de réinstallation des applications OEM et affiner les types de démarrage pour plus de 200 services Windows                                                                               |
 | **Expérience utilisateur** | Supprimer les délais d'affichage des menus, désactiver les effets visuels comme les animations de la barre des tâches et la transparence pour une réactivité accrue                                              |
+| **IA**                     | Désactiver les instantanés de Windows Recall et l'overlay IA de Click To Do (Windows 11)                                                                                                                        |
 
 > [!NOTE]
 > Les optimisations ici sont issues d'outils reconnus avec une large base d'utilisateurs : rien n'est généré par IA ou ajouté aveuglément. Chaque réglage est choisi pour son impact réel.
@@ -128,10 +129,10 @@ Plus de 30 tweaks répartis dans 6 catégories, chacun avec une description clai
 
 Pas besoin de fouiller le registre : interrupteurs, listes déroulantes et champs numériques présentés au même endroit. Quatre catégories :
 
-- **Bureau** : Afficher ou masquer les icônes (Ce PC, Corbeille, Réseau, Fichiers utilisateur, Panneau de configuration), supprimer les flèches de raccourci
-- **Préférences** : Alignement de la barre des tâches, widgets, boutons Task View et Fin de tâche, secondes sur l'horloge, mode sombre, extensions de fichiers, fichiers cachés, historique du presse-papiers, vue compacte, assistance au collage, cases à cocher, menu contextuel classique et recherche Bing
+- **Bureau** : Afficher ou masquer les icônes (Ce PC, Corbeille, Réseau, Fichiers utilisateur, Panneau de configuration, toutes les icônes du bureau), supprimer les flèches de raccourci
+- **Préférences** : Alignement de la barre des tâches, widgets, boutons Task View, Fin de tâche et dernière fenêtre active, affichage de la zone de recherche, secondes sur l'horloge, mode sombre, extensions de fichiers, fichiers cachés, historique du presse-papiers, vue compacte, assistance au collage, cases à cocher, menu contextuel classique, recherche Bing, notifications toast et de synchronisation, suggestions système, secousse de fenêtre et emplacement de démarrage de l'Explorateur de fichiers
 - **Jeux** : Mode Jeu, Barre de jeu, enregistrement en arrière-plan, accélération de la souris, optimisations plein écran, planification GPU accélérée par le matériel
-- **Système** : Activer Num Lock au démarrage
+- **Système** : Activer Num Lock au démarrage, Mode Développeur, applications approuvées, prise en charge des chemins longs et pourcentage de batterie
 
 ### Outils intégrés
 

@@ -110,7 +110,7 @@ Ayrıca, neyin çalıştığını görmenize, ihtiyacınız olmayanı kaldırman
 
 ### Sistem Optimizasyonları
 
-6 kategoride 30'dan fazla düzenleme; her biri açık bir açıklama ve risk derecesiyle birlikte sunulur, böylece uygulamadan önce her değişikliğin tam olarak ne yaptığını bilirsiniz.
+7 kategoride 40'tan fazla düzenleme; her biri açık bir açıklama ve risk derecesiyle birlikte sunulur, böylece uygulamadan önce her değişikliğin tam olarak ne yaptığını bilirsiniz.
 
 | Kategori | Kapsam |
 | :----------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -120,6 +120,7 @@ Ayrıca, neyin çalıştığını görmenize, ihtiyacınız olmayanı kaldırman
 | **Güç** | Hazırda bekletme ve hızlı başlatmayı devre dışı bırakma, USB seçici askıya almayı kapatma, özel yüksek performanslı güç planı kurma ve güç kısıtlamayı devre dışı bırakma |
 | **Şişirilmiş Yazılım & Servisler** | OEM uygulama yeniden yükleme davranışını engelleme ve 200'den fazla Windows servisi için başlangıç türlerini ince ayar |
 | **Kullanıcı Deneyimi** | Menü gösterme gecikmelerini kaldırma, görev çubuğu animasyonları ve şeffaflık gibi görsel efektleri devre dışı bırakarak daha hızlı bir his |
+| **Yapay Zeka** | Windows Recall anlık görüntülerini ve Click To Do yapay zeka katmanını devre dışı bırakma (Windows 11) |
 
 > [!NOTE]
 > Buradaki optimizasyonlar, büyük kullanıcı tabanına sahip tanınmış araçlardan araştırılmıştır; hiçbiri yapay zeka tarafından üretilmemiş veya körce eklenilmemiştir. Her düzenleme gerçek dünya etkisi gözetilerek seçilmiştir.
@@ -128,10 +129,10 @@ Ayrıca, neyin çalıştığını görmenize, ihtiyacınız olmayanı kaldırman
 
 Kayıt defterinde aramanıza gerek yok; geçiş düğmeleri, açılır menüler ve sayı girdileri tek bir yerde sunulmuştur. Dört kategoride düzenlenmiştir:
 
-- **Masaüstü**: Simgeleri göster veya gizle (Bu Bilgisayar, Geri Dönüşüm Kutusu, Ağ, Kullanıcı Dosyaları, Denetim Masası), kısayol ok işaretlerini kaldır
-- **Tercihler**: Görev çubuğu hizalaması, widget'lar, Görev Görünümü ve Görevi Sonlandır düğmeleri, saat saniyeleri, karanlık mod, dosya uzantıları, gizli dosyalar, pano geçmişi, kompakt görünüm, yapış yardımcısı, öğe onay kutuları, klasik bağlam menüsü ve Bing arama
+- **Masaüstü**: Simgeleri göster veya gizle (Bu Bilgisayar, Geri Dönüşüm Kutusu, Ağ, Kullanıcı Dosyaları, Denetim Masası, tüm masaüstü simgeleri), kısayol ok işaretlerini kaldır
+- **Tercihler**: Görev çubuğu hizalaması, widget'lar, Görev Görünümü, Görevi Sonlandır ve son aktif tıklama düğmeleri, arama kutusu görünümü, saat saniyeleri, karanlık mod, dosya uzantıları, gizli dosyalar, pano geçmişi, kompakt görünüm, yapış yardımcısı, öğe onay kutuları, klasik bağlam menüsü, Bing arama, bildirim ve eşitleme bildirimleri, sistem önerileri, pencere sallama ve Dosya Gezgini başlangıç konumu
 - **Oyun**: Oyun Modu, Game Bar, arka plan kaydı, fare ivmesi, tam ekran optimizasyonları, donanım hızlandırmalı GPU zamanlaması
-- **Sistem**: Önyüklemede Num Lock'u etkinleştir
+- **Sistem**: Önyüklemede Num Lock'u etkinleştir, Geliştirici Modu, güvenilen uygulamalar, uzun yol desteği ve pil yüzdesi
 
 ### Yerleşik Araçlar
 

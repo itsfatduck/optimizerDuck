@@ -110,7 +110,7 @@ Ele também inclui ferramentas de gerenciamento integradas, permitindo que você
 
 ### Otimizações do Sistema
 
-Mais de 30 ajustes em 6 categorias, cada um com uma descrição clara e classificação de risco para você saber exatamente o que cada alteração faz antes de aplicá-la.
+Mais de 40 ajustes em 7 categorias, cada um com uma descrição clara e classificação de risco para você saber exatamente o que cada alteração faz antes de aplicá-la.
 
 | Categoria | O que cobre |
 | :----------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -120,6 +120,7 @@ Mais de 30 ajustes em 6 categorias, cada um com uma descrição clara e classifi
 | **Energia** | Desativar hibernação e inicialização rápida, desligar a suspensão seletiva de USB, instalar um plano de energia personalizado de alto desempenho e desativar a limitação de energia (power throttling) |
 | **Bloatware e Serviços** | Bloquear o comportamento de reinstalação de aplicativos OEM e ajustar os tipos de inicialização para mais de 200 serviços do Windows |
 | **Experiência do Usuário**| Remover atrasos de exibição de menus, desativar efeitos visuais como animações da barra de tarefas e transparência para uma sensação de maior rapidez |
+| **IA** | Desativar as capturas de IA do Windows Recall e a sobreposição de IA do Click To Do (Windows 11) |
 
 > [!NOTE]
 > As otimizações apresentadas aqui são pesquisadas de ferramentas conhecidas com grande base de usuários, nada é gerado por IA ou adicionado cegamente. Cada ajuste é escolhido pelo seu impacto no mundo real.
@@ -128,10 +129,10 @@ Mais de 30 ajustes em 6 categorias, cada um com uma descrição clara e classifi
 
 Sem necessidade de vasculhar o registro, apenas interruptores, menus suspensos e campos numéricos apresentados em um só lugar. Organizado em quatro categorias:
 
-- **Área de Trabalho**: Exibir ou ocultar ícones (Este Computador, Lixeira, Rede, Arquivos do Usuário, Painel de Controle), remover setas de atalhos
-- **Preferências**: Alinhamento da barra de tarefas, widgets, botões Visão de Tarefas e Finalizar Tarefa, segundos no relógio, modo escuro, extensões de arquivos, arquivos ocultos, histórico da área de transferência, visualização compacta, assistente de alinhamento, caixas de seleção de itens, menu de contexto clássico e pesquisa do Bing
+- **Área de Trabalho**: Exibir ou ocultar ícones (Este Computador, Lixeira, Rede, Arquivos do Usuário, Painel de Controle, todos os ícones da área de trabalho), remover setas de atalhos
+- **Preferências**: Alinhamento da barra de tarefas, widgets, botões Visão de Tarefas, Finalizar Tarefa e clique da última janela ativa, exibição da caixa de pesquisa, segundos no relógio, modo escuro, extensões de arquivos, arquivos ocultos, histórico da área de transferência, visualização compacta, assistente de alinhamento, caixas de seleção de itens, menu de contexto clássico, pesquisa do Bing, notificações de toast e de sincronização, sugestões do sistema, agitar janela e local de inicialização do Explorador de Arquivos
 - **Jogos**: Modo de Jogo, Game Bar, gravação em segundo plano, aceleração do mouse, otimizações de tela inteira, agendamento de GPU acelerado por hardware
-- **Sistema**: Ativar Num Lock na inicialização
+- **Sistema**: Ativar Num Lock na inicialização, Modo Desenvolvedor, aplicativos confiáveis, suporte a caminhos longos e porcentagem da bateria
 
 ### Ferramentas Integradas
 

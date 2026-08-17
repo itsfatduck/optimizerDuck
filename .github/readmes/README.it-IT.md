@@ -110,7 +110,7 @@ Include anche strumenti di gestione integrati, che ti permettono di vedere cosa 
 
 ### Ottimizzazioni di Sistema
 
-Oltre 30 ottimizzazioni in 6 categorie, ognuna con una descrizione chiara e un livello di rischio, così sai esattamente cosa fa ogni modifica prima di applicarla.
+Oltre 40 ottimizzazioni in 7 categorie, ognuna con una descrizione chiara e un livello di rischio, così sai esattamente cosa fa ogni modifica prima di applicarla.
 
 | Categoria | Cosa copre |
 | :----------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -120,6 +120,7 @@ Oltre 30 ottimizzazioni in 6 categorie, ognuna con una descrizione chiara e un l
 | **Alimentazione** | Disabilitazione di ibernazione e avvio rapido, disattivazione della sospensione selettiva USB, installazione di un piano di alimentazione personalizzato ad alte prestazioni e disabilitazione del throttling energetico |
 | **Bloatware e Servizi** | Blocco del comportamento di reinstallazione delle app OEM e ottimizzazione del tipo di avvio per oltre 200 servizi di Windows |
 | **Esperienza Utente** | Rimozione dei ritardi di visualizzazione dei menu, disabilitazione di effetti visivi come animazioni della barra delle applicazioni e trasparenza per una sensazione più reattiva |
+| **IA** | Disattiva gli snapshot di Windows Recall e l'overlay IA di Click To Do (Windows 11) |
 
 > [!NOTE]
 > Le ottimizzazioni qui sono state ricercate da strumenti noti con una vasta base di utenti, nulla è generato dall'IA o aggiunto alla cieca. Ogni modifica è scelta per il suo impatto reale.
@@ -128,10 +129,10 @@ Oltre 30 ottimizzazioni in 6 categorie, ognuna con una descrizione chiara e un l
 
 Non c'è bisogno di frugare nel registro, solo interruttori, menu a tendina e campi numerici presentati in un unico posto. Organizzato in quattro categorie:
 
-- **Desktop**: Mostra o nascondi icone (Questo PC, Cestino, Rete, File utente, Pannello di controllo), rimuovi l'overlay della freccia dei collegamenti
-- **Preferenze**: Allineamento della barra delle applicazioni, widget, pulsanti Visualizzazione attività e Termina attività, secondi dell'orologio, modalità scura, estensioni dei file, file nascosti, cronologia appunti, visualizzazione compatta, assistenza allo snap, caselle di controllo elementi, menu contestuale classico e ricerca Bing
+- **Desktop**: Mostra o nascondi icone (Questo PC, Cestino, Rete, File utente, Pannello di controllo, tutte le icone del desktop), rimuovi l'overlay della freccia dei collegamenti
+- **Preferenze**: Allineamento della barra delle applicazioni, widget, pulsanti Visualizzazione attività, Termina attività e ultimo clic attivo, visualizzazione casella di ricerca, secondi dell'orologio, modalità scura, estensioni dei file, file nascosti, cronologia appunti, visualizzazione compatta, assistenza allo snap, caselle di controllo elementi, menu contestuale classico, ricerca Bing, notifiche toast e di sincronizzazione, suggerimenti di sistema, agita finestra e posizione avvio Esplora file
 - **Gaming**: Modalità Gioco, Barra dei giochi, registrazione in background, accelerazione del mouse, ottimizzazioni schermo intero, pianificazione GPU con accelerazione hardware
-- **Sistema**: Abilita Bloc Num all'avvio
+- **Sistema**: Abilita Bloc Num all'avvio, Modalità sviluppatore, app attendibili, supporto percorsi lunghi e percentuale batteria
 
 ### Strumenti Integrati
 
