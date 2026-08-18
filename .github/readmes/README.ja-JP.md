@@ -17,6 +17,8 @@
 [![CI](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml/badge.svg)](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml)
 [![.NET Latest](https://img.shields.io/badge/.NET_Runtime-最新-ef99dd?style=flat-square)](https://dotnet.microsoft.com/en-us/download)
 [![Supported OS](https://img.shields.io/badge/対応_OS-Windows_10%2B_x64-0078d4?style=flat-square)](https://www.microsoft.com/en-us/software-download/)
+<br>
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/itsfatduck)
 
 **[はじめ方](https://optimizerduck.vercel.app/docs/guides/getting-started) | [仕組み](https://optimizerduck.vercel.app/docs/guides/how-it-works) | [よくある質問](https://optimizerduck.vercel.app/docs/faq/general)**
 
