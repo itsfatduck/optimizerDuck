@@ -528,12 +528,26 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         // Write the flag; 32-bit entries use the dedicated Run32/RunOnce32 subkeys
         var approvedSubKeyPath = GetApprovedSubKeyPath(app.Location);
 
-        // Binary format: 12 bytes. First 4 bytes = status flag, rest = timestamp (zeros for manual toggle)
+        using var rootKey = RegistryKey.OpenBaseKey(hive.Value, RegistryView.Default);
+        WriteApprovedFlag(
+            rootKey,
+            approvedSubKeyPath,
+            app.OriginalValueNameOrFileName,
+            BuildApprovedData(enable)
+        );
+    }
+
+    /// <summary>
+    ///     Builds the 12-byte StartupApproved value Task Manager writes: first 4 bytes = status flag
+    ///     (02 enabled / 03 disabled), trailing 8 bytes = FILETIME of the change (shown as the
+    ///     disable date in Task Manager).
+    /// </summary>
+    private static byte[] BuildApprovedData(bool enable)
+    {
         var data = new byte[12];
         data[0] = enable ? (byte)0x02 : (byte)0x03;
-
-        using var rootKey = RegistryKey.OpenBaseKey(hive.Value, RegistryView.Default);
-        WriteApprovedFlag(rootKey, approvedSubKeyPath, app.OriginalValueNameOrFileName, data);
+        BitConverter.GetBytes(DateTime.UtcNow.ToFileTime()).CopyTo(data, 4);
+        return data;
     }
 
     private static void WriteApprovedFlag(
@@ -576,9 +590,11 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
             rootKey.OpenSubKey(approvedSubKeyPath, true)
             ?? rootKey.CreateSubKey(approvedSubKeyPath, true);
 
-        var data = new byte[12];
-        data[0] = enable ? (byte)0x02 : (byte)0x03;
-        approvedKey.SetValue(app.OriginalValueNameOrFileName, data, RegistryValueKind.Binary);
+        approvedKey.SetValue(
+            app.OriginalValueNameOrFileName,
+            BuildApprovedData(enable),
+            RegistryValueKind.Binary
+        );
     }
 
     /// <summary>Retrieves all startup scheduled tasks from the Windows Task Scheduler, including their enabled state and icons.</summary>
