@@ -13,8 +13,18 @@ public enum StartupAppLocation
     RegistryHKLMRun,
     RegistryHKCURunOnce,
     RegistryHKLMRunOnce,
+
+    /// <summary>32-bit registry view of HKLM Run (Wow6432Node).</summary>
+    RegistryHKLMRun32,
+
+    /// <summary>32-bit registry view of HKLM RunOnce (Wow6432Node).</summary>
+    RegistryHKLMRunOnce32,
+
     UserStartupFolder,
     CommonStartupFolder,
+
+    /// <summary>Startup task declared by a packaged (UWP / MSIX) app.</summary>
+    UwpStartupTask,
 }
 
 /// <summary>
@@ -43,7 +53,7 @@ public partial class StartupApp : ObservableObject
     private ImageSource? _logoImage;
 
     /// <summary>
-    ///     The original value name (registry) or file name (folder).
+    ///     The original value name (registry), file name (folder), or task id (packaged app).
     /// </summary>
     [ObservableProperty]
     private string _originalValueNameOrFileName = string.Empty;
@@ -97,8 +107,11 @@ public partial class StartupApp : ObservableObject
             StartupAppLocation.RegistryHKLMRun => "Registry (Local Machine)",
             StartupAppLocation.RegistryHKCURunOnce => "Registry RunOnce (Current User)",
             StartupAppLocation.RegistryHKLMRunOnce => "Registry RunOnce (Local Machine)",
+            StartupAppLocation.RegistryHKLMRun32 => "Registry (Local Machine, 32-bit)",
+            StartupAppLocation.RegistryHKLMRunOnce32 => "Registry RunOnce (Local Machine, 32-bit)",
             StartupAppLocation.UserStartupFolder => "Startup Folder (Current User)",
             StartupAppLocation.CommonStartupFolder => "Startup Folder (All Users)",
+            StartupAppLocation.UwpStartupTask => "Microsoft Store App",
             _ => PathOrKey,
         };
 }

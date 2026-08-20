@@ -2,13 +2,17 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Security.Principal;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+using System.Xml.Linq;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using optimizerDuck.Domain.Optimizations.Models.StartupManager;
 using optimizerDuck.Services.Optimization.Providers;
+using Windows.ApplicationModel;
+using Windows.Management.Deployment;
 using StartupApp = optimizerDuck.Domain.Optimizations.Models.StartupManager.StartupApp;
 using StartupTask = optimizerDuck.Domain.Optimizations.Models.StartupManager.StartupTask;
 
@@ -16,7 +20,11 @@ namespace optimizerDuck.Services.UI;
 
 public class StartupManagerService(ILogger<StartupManagerService> logger)
 {
-    /// <summary>Retrieves all startup applications from registry Run/RunOnce keys and startup folders, including their enabled state and icons.</summary>
+    /// <summary>
+    ///     Retrieves all startup applications from registry Run/RunOnce keys (including the 32-bit
+    ///     Wow6432Node view), startup folders, and packaged (UWP / MSIX) apps with StartupTask
+    ///     declarations, including their enabled state and icons.
+    /// </summary>
     /// <returns>A list of <see cref="StartupApp"/> instances sorted by name.</returns>
     public async Task<List<StartupApp>> GetStartupAppsAsync()
     {
@@ -24,7 +32,7 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
 
         await Task.Run(() =>
         {
-            // 1. Registry
+            // 1. Registry (default view)
             ScanRegistryKey(
                 Registry.CurrentUser,
                 @"Software\Microsoft\Windows\CurrentVersion\Run",
@@ -50,12 +58,34 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                 apps
             );
 
-            // 2. Startup Folders
+            // 2. Registry (32-bit view, redirected to Wow6432Node) — where 32-bit installers register
+            using var hklm32 = RegistryKey.OpenBaseKey(
+                RegistryHive.LocalMachine,
+                RegistryView.Registry32
+            );
+            ScanRegistryKey(
+                hklm32,
+                @"Software\Microsoft\Windows\CurrentVersion\Run",
+                StartupAppLocation.RegistryHKLMRun32,
+                apps
+            );
+            ScanRegistryKey(
+                hklm32,
+                @"Software\Microsoft\Windows\CurrentVersion\RunOnce",
+                StartupAppLocation.RegistryHKLMRunOnce32,
+                apps
+            );
+
+            // 3. Startup Folders
             var userStartup = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
             var commonStartup = Environment.GetFolderPath(Environment.SpecialFolder.CommonStartup);
 
             ScanDirectory(userStartup, StartupAppLocation.UserStartupFolder, apps);
             ScanDirectory(commonStartup, StartupAppLocation.CommonStartupFolder, apps);
+
+            // 4. Packaged (UWP / MSIX) apps declaring a StartupTask
+            var uwpEntries = ScanUwpStartupTasks();
+            apps.AddRange(uwpEntries.Select(e => e.App));
 
             // Parallel fetch expensive info (Icons, File version info)
             Parallel.ForEach(
@@ -68,16 +98,25 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                         ? appInfo.Publisher
                         : appInfo.Description;
                     if (string.IsNullOrWhiteSpace(publisher))
-                        publisher = app.Location
-                            is StartupAppLocation.UserStartupFolder
-                                or StartupAppLocation.CommonStartupFolder
-                            ? "Folder Shortcut"
-                            : "Registry";
+                        publisher = app.Location switch
+                        {
+                            StartupAppLocation.UserStartupFolder
+                            or StartupAppLocation.CommonStartupFolder => "Folder Shortcut",
+                            StartupAppLocation.UwpStartupTask => app.Publisher, // preset from package identity
+                            _ => "Registry",
+                        };
 
                     app.Publisher = publisher;
-                    app.FilePath = appInfo.FilePath;
-                    app.LogoImage = ExtractIcon(app.Command);
+                    app.FilePath ??= appInfo.FilePath;
+                    app.LogoImage ??= ExtractIcon(app.Command);
                 }
+            );
+
+            // Fill remaining packaged-app icons from the package logo PNG (apps without a win32 exe)
+            Parallel.ForEach(
+                uwpEntries.Where(e => e.App.LogoImage == null && e.LogoPath != null),
+                new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
+                e => e.App.LogoImage = LoadFrozenBitmapImage(e.LogoPath!)
             );
         });
 
@@ -99,20 +138,23 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
             if (key == null)
                 return;
 
-            // Determine the StartupApproved path based on Run vs RunOnce
-            var approvedSubKeyPath = subKeyPath.Contains(
-                "RunOnce",
-                StringComparison.OrdinalIgnoreCase
-            )
-                ? @"Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\RunOnce"
-                : @"Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run";
+            // 32-bit Run entries keep their approved flags in the dedicated Run32/RunOnce32
+            // subkeys (default view), and Windows 11 treats them as disabled until an explicit
+            // enable flag exists — unlike 64-bit entries, where a missing flag means enabled.
+            var is32Bit =
+                location
+                is StartupAppLocation.RegistryHKLMRun32
+                    or StartupAppLocation.RegistryHKLMRunOnce32;
+            var approvedSubKeyPath = GetApprovedSubKeyPath(location);
 
-            using var approvedKey = rootKey.OpenSubKey(approvedSubKeyPath);
+            using var approvedKey = (is32Bit ? Registry.LocalMachine : rootKey).OpenSubKey(
+                approvedSubKeyPath
+            );
 
             foreach (var valueName in key.GetValueNames())
             {
                 var command = key.GetValue(valueName)?.ToString() ?? string.Empty;
-                var isEnabled = IsStartupApproved(approvedKey, valueName);
+                var isEnabled = IsStartupApproved(approvedKey, valueName, !is32Bit);
 
                 apps.Add(
                     new StartupApp
@@ -133,15 +175,32 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         }
     }
 
+    private static string GetApprovedSubKeyPath(StartupAppLocation location) =>
+        location switch
+        {
+            StartupAppLocation.RegistryHKLMRun32 =>
+                @"Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run32",
+            StartupAppLocation.RegistryHKLMRunOnce32 =>
+                @"Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\RunOnce32",
+            StartupAppLocation.RegistryHKCURunOnce or StartupAppLocation.RegistryHKLMRunOnce =>
+                @"Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\RunOnce",
+            _ => @"Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run",
+        };
+
     /// <summary>
     ///     Checks the StartupApproved registry to determine if an item is enabled.
     ///     The binary data format: bytes[0] == 02 or 06 means enabled; 03 or 07 means disabled.
-    ///     If no entry exists in StartupApproved, assume enabled (item is present in Run key).
+    ///     If no entry exists in StartupApproved, fall back to <paramref name="defaultEnabled"/>
+    ///     (64-bit/folder entries default to enabled; 32-bit Run entries default to disabled).
     /// </summary>
-    private static bool IsStartupApproved(RegistryKey? approvedKey, string valueName)
+    private static bool IsStartupApproved(
+        RegistryKey? approvedKey,
+        string valueName,
+        bool defaultEnabled
+    )
     {
         if (approvedKey == null)
-            return true;
+            return defaultEnabled;
 
         try
         {
@@ -151,10 +210,10 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         }
         catch
         {
-            // Ignore read errors, fall back to enabled
+            // Ignore read errors, fall back to the default state
         }
 
-        return true;
+        return defaultEnabled;
     }
 
     private void ScanDirectory(string dirPath, StartupAppLocation location, List<StartupApp> apps)
@@ -182,7 +241,7 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                 if (fileName.Equals("desktop.ini", StringComparison.OrdinalIgnoreCase))
                     continue;
 
-                var isEnabled = IsStartupApproved(approvedKey, fileName);
+                var isEnabled = IsStartupApproved(approvedKey, fileName, defaultEnabled: true);
                 var name = Path.GetFileNameWithoutExtension(fileName);
 
                 apps.Add(
@@ -204,6 +263,218 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         }
     }
 
+    private sealed record UwpStartupEntry(StartupApp App, string? LogoPath);
+
+    private const string SystemAppDataRoot =
+        @"Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\SystemAppData";
+
+    /// <summary>
+    ///     Enumerates packaged (UWP / MSIX) apps that declare a StartupTask in their manifest.
+    ///     The enable state comes from <c>HKCU\...\AppModel\SystemAppData\{FamilyName}\{TaskId}\State</c>
+    ///     (0=Disabled, 1=DisabledByUser, 2=Enabled, 4=EnabledByPolicy); when no state exists yet,
+    ///     the manifest's Enabled attribute decides.
+    /// </summary>
+    private List<UwpStartupEntry> ScanUwpStartupTasks()
+    {
+        var entries = new List<UwpStartupEntry>();
+
+        try
+        {
+            var sid = WindowsIdentity.GetCurrent().User?.Value;
+            if (sid == null)
+                return entries;
+
+            var packages = new PackageManager().FindPackagesForUser(sid);
+
+            foreach (var package in packages)
+            {
+                try
+                {
+                    var manifestPath = Path.Combine(
+                        package.InstalledLocation.Path,
+                        "AppxManifest.xml"
+                    );
+                    if (!File.Exists(manifestPath))
+                        continue;
+
+                    var manifest = XDocument.Load(manifestPath);
+                    var startupTasks = manifest
+                        .Descendants()
+                        .Where(e => e.Name.LocalName == "StartupTask")
+                        .ToList();
+                    if (startupTasks.Count == 0)
+                        continue;
+
+                    var displayName = ResolvePackageName(package);
+                    var publisher = package.Id.Publisher;
+                    if (publisher.StartsWith("CN=", StringComparison.OrdinalIgnoreCase))
+                        publisher = publisher[3..];
+                    var exePath = ResolvePackageExecutable(
+                        manifest,
+                        package.InstalledLocation.Path
+                    );
+                    var logoPath = ResolvePackageLogoPath(package);
+
+                    foreach (var task in startupTasks)
+                    {
+                        var taskId = (string?)task.Attribute("TaskId");
+                        if (string.IsNullOrWhiteSpace(taskId))
+                            continue;
+
+                        var manifestEnabled = string.Equals(
+                            (string?)task.Attribute("Enabled"),
+                            "true",
+                            StringComparison.OrdinalIgnoreCase
+                        );
+
+                        using var stateKey = Registry.CurrentUser.OpenSubKey(
+                            $"{SystemAppDataRoot}\\{package.Id.FamilyName}\\{taskId}"
+                        );
+                        var state = stateKey?.GetValue("State") as int?;
+                        var isEnabled = state.HasValue ? state is 2 or 4 : manifestEnabled;
+
+                        entries.Add(
+                            new UwpStartupEntry(
+                                new StartupApp
+                                {
+                                    Name =
+                                        startupTasks.Count > 1
+                                            ? $"{displayName} ({taskId})"
+                                            : displayName,
+                                    Command = exePath ?? package.Id.FamilyName,
+                                    Location = StartupAppLocation.UwpStartupTask,
+                                    PathOrKey =
+                                        $@"{Registry.CurrentUser.Name}\{SystemAppDataRoot}\{package.Id.FamilyName}",
+                                    OriginalValueNameOrFileName = taskId,
+                                    IsEnabled = isEnabled,
+                                    Publisher = publisher,
+                                    FilePath =
+                                        exePath != null && File.Exists(exePath) ? exePath : null,
+                                },
+                                logoPath
+                            )
+                        );
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.LogWarning(
+                        ex,
+                        "Failed to scan startup task of package {Package}",
+                        package.Id.FullName
+                    );
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Failed to scan packaged app startup tasks");
+        }
+
+        return entries;
+    }
+
+    private static string ResolvePackageName(Package package)
+    {
+        var name = package.DisplayName?.Trim();
+        if (
+            !string.IsNullOrWhiteSpace(name)
+            && !name.StartsWith("ms-resource:", StringComparison.OrdinalIgnoreCase)
+        )
+            return name;
+
+        return package.Id.Name;
+    }
+
+    private static string? ResolvePackageExecutable(XDocument manifest, string installPath)
+    {
+        var exe = manifest
+            .Descendants()
+            .Where(e => e.Name.LocalName == "Application")
+            .Select(e => (string?)e.Attribute("Executable"))
+            .FirstOrDefault(e => !string.IsNullOrWhiteSpace(e));
+        if (exe == null)
+            return null;
+
+        return Path.IsPathRooted(exe) ? exe : Path.Combine(installPath, exe);
+    }
+
+    private static string? ResolvePackageLogoPath(Package package)
+    {
+        try
+        {
+            var logo = package.Logo;
+            if (logo == null)
+                return null;
+
+            string path;
+            if (logo.IsAbsoluteUri && logo.IsFile)
+                path = logo.LocalPath;
+            else if (
+                logo.IsAbsoluteUri
+                && logo.Scheme.Equals("ms-appx", StringComparison.OrdinalIgnoreCase)
+            )
+                path = Path.Combine(
+                    package.InstalledLocation.Path,
+                    logo.AbsolutePath.TrimStart('/')
+                );
+            else
+                return null;
+
+            if (File.Exists(path))
+                return path;
+
+            // The logo may be declared without a scale qualifier; probe the usual variants
+            var dir = Path.GetDirectoryName(path);
+            if (dir == null)
+                return null;
+            var baseName = Path.GetFileNameWithoutExtension(path);
+            var ext = Path.GetExtension(path);
+            foreach (
+                var suffix in new[]
+                {
+                    ".scale-200",
+                    ".scale-150",
+                    ".scale-125",
+                    ".scale-100",
+                    ".targetsize-48",
+                    ".targetsize-36",
+                }
+            )
+            {
+                var candidate = Path.Combine(dir, baseName + suffix + ext);
+                if (File.Exists(candidate))
+                    return candidate;
+            }
+        }
+        catch
+        {
+            // ignored, no logo for this package
+        }
+
+        return null;
+    }
+
+    private static BitmapImage? LoadFrozenBitmapImage(string path)
+    {
+        try
+        {
+            var image = new BitmapImage();
+            image.BeginInit();
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.UriSource = new Uri(path);
+            image.EndInit();
+            image.Freeze();
+            return image;
+        }
+        catch
+        {
+            // ignored, fall back to no icon
+        }
+
+        return null;
+    }
+
     /// <summary>Enables or disables a startup application by writing the StartupApproved registry flag.</summary>
     /// <param name="app">The startup app to toggle.</param>
     /// <param name="enable"><see langword="true"/> to enable, <see langword="false"/> to disable.</param>
@@ -219,8 +490,12 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                         or StartupAppLocation.RegistryHKLMRun
                         or StartupAppLocation.RegistryHKCURunOnce
                         or StartupAppLocation.RegistryHKLMRunOnce
+                        or StartupAppLocation.RegistryHKLMRun32
+                        or StartupAppLocation.RegistryHKLMRunOnce32
                 )
                     ToggleRegistryStartupApp(app, enable);
+                else if (app.Location == StartupAppLocation.UwpStartupTask)
+                    ToggleUwpStartupApp(app, enable);
                 else // Folders
                     ToggleFolderStartupApp(app, enable);
 
@@ -241,32 +516,51 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
             return;
 
         var rootKeyStr = app.PathOrKey[..firstSlash];
-        var rootKey = rootKeyStr switch
+        var hive = rootKeyStr switch
         {
-            "HKEY_CURRENT_USER" => Registry.CurrentUser,
-            "HKEY_LOCAL_MACHINE" => Registry.LocalMachine,
+            "HKEY_CURRENT_USER" => (RegistryHive?)RegistryHive.CurrentUser,
+            "HKEY_LOCAL_MACHINE" => RegistryHive.LocalMachine,
             _ => null,
         };
-        if (rootKey == null)
+        if (hive == null)
             return;
 
-        // Write enable/disable to StartupApproved\Run
-        var isRunOnce =
-            app.Location
-            is StartupAppLocation.RegistryHKCURunOnce
-                or StartupAppLocation.RegistryHKLMRunOnce;
-        var approvedSubKeyPath = isRunOnce
-            ? @"Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\RunOnce"
-            : @"Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run";
-
-        using var approvedKey =
-            rootKey.OpenSubKey(approvedSubKeyPath, true)
-            ?? rootKey.CreateSubKey(approvedSubKeyPath, true);
+        // Write the flag; 32-bit entries use the dedicated Run32/RunOnce32 subkeys
+        var approvedSubKeyPath = GetApprovedSubKeyPath(app.Location);
 
         // Binary format: 12 bytes. First 4 bytes = status flag, rest = timestamp (zeros for manual toggle)
         var data = new byte[12];
         data[0] = enable ? (byte)0x02 : (byte)0x03;
-        approvedKey.SetValue(app.OriginalValueNameOrFileName, data, RegistryValueKind.Binary);
+
+        using var rootKey = RegistryKey.OpenBaseKey(hive.Value, RegistryView.Default);
+        WriteApprovedFlag(rootKey, approvedSubKeyPath, app.OriginalValueNameOrFileName, data);
+    }
+
+    private static void WriteApprovedFlag(
+        RegistryKey rootKey,
+        string subKeyPath,
+        string valueName,
+        byte[] data
+    )
+    {
+        using var approvedKey =
+            rootKey.OpenSubKey(subKeyPath, true) ?? rootKey.CreateSubKey(subKeyPath, true);
+        approvedKey.SetValue(valueName, data, RegistryValueKind.Binary);
+    }
+
+    private static void ToggleUwpStartupApp(StartupApp app, bool enable)
+    {
+        // Packaged-app startup state: 2 = Enabled, 1 = DisabledByUser
+        var firstSlash = app.PathOrKey.IndexOf('\\');
+        if (firstSlash < 0)
+            return;
+
+        var subKeyPath = app.PathOrKey[(firstSlash + 1)..];
+        using var taskKey = Registry.CurrentUser.CreateSubKey(
+            $@"{subKeyPath}\{app.OriginalValueNameOrFileName}",
+            true
+        );
+        taskKey.SetValue("State", enable ? 2 : 1, RegistryValueKind.DWord);
     }
 
     private static void ToggleFolderStartupApp(StartupApp app, bool enable)
