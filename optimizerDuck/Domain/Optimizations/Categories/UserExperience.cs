@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using Microsoft.Extensions.Logging;
+using Microsoft.Win32;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Conditions;
@@ -149,6 +150,33 @@ public class UserExperience : IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Disabled Microsoft 365 ads in Settings");
+            return Task.FromResult(CompleteFromScope());
+        }
+    }
+
+    [Optimization(
+        Id = "3F8B91D2-6A47-4E05-9C2B-E70D14F8A5C6",
+        Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.System | OptimizationTags.Network
+    )]
+    public sealed class MaximizeUpdatePauseLimit : BaseOptimization
+    {
+        public override Task<ApplyResult> ApplyAsync(
+            IProgress<ProcessingProgress> progress,
+            OptimizationContext context
+        )
+        {
+            // DWORD maximum; only honored by Windows versions that still support this setting
+            RegistryService.Write(
+                new RegistryItem(
+                    @"HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings",
+                    "FlightSettingsMaxPauseDays",
+                    unchecked((int)0xFFFFFFFF),
+                    RegistryValueKind.DWord
+                )
+            );
+
+            context.Logger.LogInformation("Maximized the Windows Update pause limit");
             return Task.FromResult(CompleteFromScope());
         }
     }

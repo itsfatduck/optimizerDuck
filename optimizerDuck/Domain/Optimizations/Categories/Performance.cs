@@ -248,4 +248,30 @@ public class Performance : IOptimizationCategory
             return Task.FromResult(CompleteFromScope());
         }
     }
+
+    [Optimization(
+        Id = "D5A2F7C4-1E8B-4C93-B6D0-8F41AE92C7E3",
+        Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.System | OptimizationTags.Network | OptimizationTags.Performance
+    )]
+    public class LiftWebDavFileSizeLimit : BaseOptimization
+    {
+        public override Task<ApplyResult> ApplyAsync(
+            IProgress<ProcessingProgress> progress,
+            OptimizationContext context
+        )
+        {
+            RegistryService.Write(
+                new RegistryItem(
+                    @"HKLM\SYSTEM\CurrentControlSet\Services\WebClient\Parameters",
+                    "FileSizeLimitInBytes",
+                    unchecked((int)0xFFFFFFFF),
+                    RegistryValueKind.DWord
+                )
+            );
+
+            context.Logger.LogInformation("Lifted the WebDAV file size limit to 4 GB");
+            return Task.FromResult(CompleteFromScope());
+        }
+    }
 }

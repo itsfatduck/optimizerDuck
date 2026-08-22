@@ -429,6 +429,15 @@ public class Preferences : ICustomizeCategory
             [
                 new()
                 {
+                    Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Search",
+                    Name = "BingSearchEnabled",
+                    // null = value absent, which is Windows' default (Bing search on)
+                    OnValues = [1, null],
+                    OffValues = [0],
+                    DefaultValue = 1,
+                },
+                new()
+                {
                     Path = @"HKCU\Software\Policies\Microsoft\Windows\Explorer",
                     Name = "DisableSearchBoxSuggestions",
                     OnValues = [0],
@@ -436,6 +445,10 @@ public class Preferences : ICustomizeCategory
                     DefaultValue = 0,
                 },
             ];
+
+        // Either mechanism active means Bing search is on
+        public override Task<bool> GetStateAsync() =>
+            Task.Run(() => RegistryToggles.Any(t => t.GetState()));
     }
 
     [CustomizeSetting(

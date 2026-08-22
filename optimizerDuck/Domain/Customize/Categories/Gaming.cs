@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
+using optimizerDuck.Domain.Conditions;
 using optimizerDuck.Domain.Customize.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
@@ -275,6 +276,26 @@ public class Gaming : ICustomizeCategory
                     OffValues = [1],
                     DefaultValue = 1,
                 },
+            ];
+    }
+
+    [CustomizeSetting(
+        Section = nameof(Sections.Display),
+        Icon = SymbolRegular.Eye24,
+        Recommendation = RecommendationState.Depends,
+        Condition = typeof(NvidiaGpuCondition)
+    )]
+    public class DlssIndicator : BaseCustomizeSetting
+    {
+        private const string RegPath = @"HKLM\SOFTWARE\NVIDIA Corporation\Global\NGXCore";
+
+        public override CustomizeControlType ControlType => CustomizeControlType.Dropdown;
+
+        protected override IReadOnlyList<SettingOption> GetOptions() =>
+            [
+                Option("Off", RegPath, "ShowDlssIndicator", 0),
+                Option("DebugOnly", RegPath, "ShowDlssIndicator", 1),
+                Option("AllVersions", RegPath, "ShowDlssIndicator", 1024),
             ];
     }
 }

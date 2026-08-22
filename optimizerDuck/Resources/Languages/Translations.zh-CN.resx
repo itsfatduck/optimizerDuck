@@ -580,6 +580,12 @@
   <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
     <value>配置多媒体类调度服务 (MMCSS) 以优化游戏和低延迟，通过优先处理多媒体工作负载和禁用网络节流。</value>
   </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
+    <value>解除 WebDAV 50MB 限制</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
+    <value>把 WebClient 对 WebDAV 挂载的文件大小限制从 50MB 抬到 4GB，网络位置上的大文件不再传输失败。</value>
+  </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
     <value>优化键盘响应速度</value>
   </data>
@@ -721,6 +727,12 @@
   </data>
   <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
     <value>将 StartupDelayInMSec 和 MenuShowDelay 均设为 0，以消除资源管理器启动延迟，并将菜单悬停延迟降至最低。</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>更新暂停上限拉满</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>把 Windows 更新的可暂停天数抬到支持的最大值。仅在仍支持该设置的旧版 Windows 上生效，生效期间安全更新同样暂停。</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
     <value>禁用开始菜单网络搜索</value>
@@ -986,6 +998,24 @@
   </data>
   <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Recommendation.Reason" xml:space="preserve">
     <value>GPU 调度将帧管理从 CPU 转移到 GPU，降低显示延迟，优化帧率稳定性。</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Name" xml:space="preserve">
+    <value>DLSS 指示器叠加层</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Description" xml:space="preserve">
+    <value>控制屏幕上的 DLSS 指示器叠加层，用于确认游戏实际渲染使用的 DLSS 版本。</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Recommendation.Reason" xml:space="preserve">
+    <value>诊断用叠加层，不查 DLSS 行为时保持关闭即可。</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.Off" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.DebugOnly" xml:space="preserve">
+    <value>仅调试版 DLL</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.AllVersions" xml:space="preserve">
+    <value>所有 DLSS 版本</value>
   </data>
   <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
     <value>若非完全了解用途，请勿修改此项</value>
@@ -1613,6 +1643,12 @@
   <data name="Customize.SystemFeatures.Section.Input" xml:space="preserve">
     <value>输入设置</value>
   </data>
+  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
+    <value>启动设置</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Network" xml:space="preserve">
+    <value>网络设置</value>
+  </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Name" xml:space="preserve">
     <value>开机启用数字小键盘</value>
   </data>
@@ -1621,6 +1657,27 @@
   </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
     <value>开机启用数字小键盘，登录后即可直接使用，无需每次手动开启。</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Name" xml:space="preserve">
+    <value>详细启动状态</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Description" xml:space="preserve">
+    <value>开机、关机、更新时显示正在处理的具体服务、驱动和步骤，而不是笼统的转圈提示。</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Name" xml:space="preserve">
+    <value>硬件时钟使用 UTC</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Description" xml:space="preserve">
+    <value>把硬件时钟按 UTC 解释。Windows/Linux 双系统必须开启，否则两边时间互相打架；单系统开启后时间会偏差一个时区，需要再关掉。</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Recommendation.Reason" xml:space="preserve">
+    <value>只在机器上还有另一个把硬件时钟当 UTC 的系统时开启。</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Name" xml:space="preserve">
+    <value>DNS 防泄露</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Description" xml:space="preserve">
+    <value>关闭智能多宿主名称解析，DNS 查询不再同时从所有网卡抢发。使用 VPN 时可防止查询绕过隧道造成 DNS 泄露。</value>
   </data>
   <data name="Customize.SystemFeatures.Section.Power" xml:space="preserve">
     <value>电源设置</value>
