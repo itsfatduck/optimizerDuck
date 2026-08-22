@@ -534,6 +534,12 @@
   <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
     <value>設定多媒體類別排程器服務 (MMCSS) 以優化遊戲和低延遲，透過優先處理多媒體工作負載和停用網路節流。</value>
   </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
+    <value>解除 WebDAV 50MB 限制</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
+    <value>把 WebClient 對 WebDAV 掛載的檔案大小限制從 50MB 抬到 4GB，網路位置上的大檔案不再傳輸失敗。</value>
+  </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
     <value>最佳化鍵盤反應</value>
   </data>
@@ -1302,6 +1308,12 @@
   <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
     <value>將 StartupDelayInMSec 與 MenuShowDelay 設為 0，以消除檔案總管啟動延遲並將選單懸停延遲降至最低。</value>
   </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>更新暫停上限拉滿</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>把 Windows 更新的可暫停天數抬到支援的最大值。僅在仍支援此設定的舊版 Windows 上生效，生效期間安全性更新同樣暫停。</value>
+  </data>
   <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
     <value>停用視覺效果</value>
   </data>
@@ -1464,6 +1476,24 @@
   <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Description" xml:space="preserve">
     <value>讓 GPU 處理更多視訊記憶體排程工作，需要相容的顯示卡驅動程式。</value>
   </data>
+  <data name="Customize.Gaming.DlssIndicator.Name" xml:space="preserve">
+    <value>DLSS 指示器疊加層</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Description" xml:space="preserve">
+    <value>控制螢幕上的 DLSS 指示器疊加層，用於確認遊戲實際渲染使用的 DLSS 版本。</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Recommendation.Reason" xml:space="preserve">
+    <value>診斷用疊加層，不查 DLSS 行為時保持關閉即可。</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.Off" xml:space="preserve">
+    <value>關閉</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.DebugOnly" xml:space="preserve">
+    <value>僅偵錯版 DLL</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.AllVersions" xml:space="preserve">
+    <value>所有 DLSS 版本</value>
+  </data>
   <data name="Common.OpenFolder" xml:space="preserve">
     <value>開啟資料夾</value>
   </data>
@@ -1485,11 +1515,38 @@
   <data name="Customize.SystemFeatures.Section.Input" xml:space="preserve">
     <value>輸入設定</value>
   </data>
+  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
+    <value>開機設定</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Network" xml:space="preserve">
+    <value>網路設定</value>
+  </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Name" xml:space="preserve">
     <value>開機時的 NumLock</value>
   </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Description" xml:space="preserve">
     <value>設定進入 Windows 登入畫面時是否開啟 Num Lock。</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Name" xml:space="preserve">
+    <value>詳細開機狀態</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Description" xml:space="preserve">
+    <value>開機、關機、更新時顯示正在處理的具體服務、驅動程式和步驟，而不是籠統的轉圈提示。</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Name" xml:space="preserve">
+    <value>硬體時鐘使用 UTC</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Description" xml:space="preserve">
+    <value>把硬體時鐘按 UTC 解釋。Windows/Linux 雙系統必須開啟，否則兩邊時間互相打架；單系統開啟後時間會偏差一個時區，需要再關掉。</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Recommendation.Reason" xml:space="preserve">
+    <value>只在機器上還有另一個把硬體時鐘當 UTC 的系統時開啟。</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Name" xml:space="preserve">
+    <value>DNS 防洩漏</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Description" xml:space="preserve">
+    <value>關閉智慧多宿主名稱解析，DNS 查詢不再同時從所有網卡搶發。使用 VPN 時可防止查詢繞過通道造成 DNS 洩漏。</value>
   </data>
   <data name="Customize.Desktop.Name" xml:space="preserve">
     <value>桌面</value>

@@ -18,6 +18,8 @@ public class SystemFeatures : ICustomizeCategory
         Input,
         Power,
         Developer,
+        Boot,
+        Network,
     }
 
     public string Name => Loc.Instance[$"Customize.{nameof(SystemFeatures)}.Name"];
@@ -53,6 +55,66 @@ public class SystemFeatures : ICustomizeCategory
                 },
             ];
     }
+
+    #region Boot
+
+    [CustomizeSetting(Section = nameof(Sections.Boot), Icon = SymbolRegular.Info24)]
+    public class VerboseStatus : BaseCustomizeSetting
+    {
+        protected override IEnumerable<RegistryToggle> RegistryToggles =>
+            [
+                new()
+                {
+                    Path = @"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System",
+                    Name = "VerboseStatus",
+                    OnValues = [1],
+                    OffValues = [0],
+                    DefaultValue = 0,
+                },
+            ];
+    }
+
+    [CustomizeSetting(
+        Section = nameof(Sections.Boot),
+        Icon = SymbolRegular.Clock24,
+        Recommendation = RecommendationState.Depends
+    )]
+    public class UtcHardwareClock : BaseCustomizeSetting
+    {
+        protected override IEnumerable<RegistryToggle> RegistryToggles =>
+            [
+                new()
+                {
+                    Path = @"HKLM\SYSTEM\CurrentControlSet\Control\TimeZoneInformation",
+                    Name = "RealTimeIsUniversal",
+                    OnValues = [1],
+                    OffValues = [0],
+                    DefaultValue = 0,
+                },
+            ];
+    }
+
+    #endregion
+
+    #region Network
+
+    [CustomizeSetting(Section = nameof(Sections.Network), Icon = SymbolRegular.Globe24)]
+    public class DisableSmartNameResolution : BaseCustomizeSetting
+    {
+        protected override IEnumerable<RegistryToggle> RegistryToggles =>
+            [
+                new()
+                {
+                    Path = @"HKLM\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient",
+                    Name = "DisableSmartNameResolution",
+                    OnValues = [1],
+                    OffValues = [0],
+                    DefaultValue = 0,
+                },
+            ];
+    }
+
+    #endregion
 
     #region Developer
 

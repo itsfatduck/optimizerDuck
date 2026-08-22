@@ -638,6 +638,12 @@
   <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
     <value>Configures the Multimedia Class Scheduler Service (MMCSS) for gaming and low latency by prioritizing multimedia workloads and disabling network throttling.</value>
   </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
+    <value>Lift WebDAV 50 MB limit</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
+    <value>Raises the WebClient file size limit for WebDAV mounts from 50 MB to 4 GB so large files stop failing on network locations.</value>
+  </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
     <value>Optimize Keyboard Repeat</value>
   </data>
@@ -791,6 +797,12 @@
   </data>
   <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
     <value>Sets StartupDelayInMSec=0, MenuShowDelay=0 to eliminate Explorer startup delay and reduce menu hover delay to minimum.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>Maximize update pause limit</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>Sets the Windows Update pause ceiling to the largest supported value. Only honored by Windows versions that still support this setting; security updates stay paused while it is active.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
     <value>Disable Start Menu Web Search</value>
@@ -1056,6 +1068,24 @@
   </data>
   <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Recommendation.Reason" xml:space="preserve">
     <value>GPU scheduling offloads frame management from the CPU to the GPU, cutting display latency and improving frame pacing.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Name" xml:space="preserve">
+    <value>DLSS overlay indicator</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Description" xml:space="preserve">
+    <value>Controls the on-screen DLSS indicator overlay used to verify which DLSS version a game actually renders with.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Recommendation.Reason" xml:space="preserve">
+    <value>A diagnostic overlay; leave off unless you are checking DLSS behavior.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.Off" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.DebugOnly" xml:space="preserve">
+    <value>Debug DLLs only</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.AllVersions" xml:space="preserve">
+    <value>All DLSS versions</value>
   </data>
   <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
     <value>Do NOT change unless you know exactly what you are doing</value>
@@ -1683,6 +1713,12 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="Customize.SystemFeatures.Section.Input" xml:space="preserve">
     <value>Input Settings</value>
   </data>
+  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
+    <value>Boot Settings</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Network" xml:space="preserve">
+    <value>Network Settings</value>
+  </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Name" xml:space="preserve">
     <value>NumLock on Boot</value>
   </data>
@@ -1691,6 +1727,27 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   </data>
   <data name="Customize.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
     <value>Enabling NumLock at boot ensures the numpad is ready immediately after login, avoiding manual toggling each time.</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Name" xml:space="preserve">
+    <value>Verbose status messages</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Description" xml:space="preserve">
+    <value>Show the exact service, driver, or step being processed during startup, shutdown, and updates instead of a generic spinner.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Name" xml:space="preserve">
+    <value>Hardware clock uses UTC</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Description" xml:space="preserve">
+    <value>Interpret the hardware clock as UTC. Required on Windows/Linux dual-boot so both systems agree on the clock; on single-boot machines the time jumps by your timezone offset until this is turned back off.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Recommendation.Reason" xml:space="preserve">
+    <value>Enable only when another OS on this machine also treats the hardware clock as UTC.</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Name" xml:space="preserve">
+    <value>DNS leak protection</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Description" xml:space="preserve">
+    <value>Disables Smart Multi-Homed Name Resolution so DNS queries stop racing out of every network adapter at once. Prevents queries from bypassing the tunnel when a VPN is in use.</value>
   </data>
   <data name="Customize.SystemFeatures.Section.Power" xml:space="preserve">
     <value>Power Settings</value>
