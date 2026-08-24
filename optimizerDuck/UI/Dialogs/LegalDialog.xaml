@@ -37,22 +37,26 @@
             Grid.Row="1"
             Margin="0,12,0,12"
             Style="{StaticResource ToolbarSurfaceStyle}">
-            <StackPanel>
+            <StackPanel Orientation="Horizontal">
                 <ui:HyperlinkButton
                     Content="{ext:Loc Key=LegalDialog.Link.TermsOfService}"
-                    Icon="{ui:SymbolIcon DocumentText24}"
+                    FontWeight="SemiBold"
+                    VerticalContentAlignment="Center"
+                    Icon="{ui:SymbolIcon DocumentText24, FontSize=18, Filled=True}"
                     NavigateUri="https://github.com/itsfatduck/optimizerDuck/blob/master/TERMS.md" />
 
                 <ui:HyperlinkButton
                     Margin="0,4,0,0"
+                    FontWeight="SemiBold"
                     Content="{ext:Loc Key=LegalDialog.Link.PrivacyPolicy}"
-                    Icon="{ui:SymbolIcon ShieldLock24}"
+                    Icon="{ui:SymbolIcon ShieldLock24, FontSize=18, Filled=True}"
                     NavigateUri="https://github.com/itsfatduck/optimizerDuck/blob/master/PRIVACY.md" />
 
                 <ui:HyperlinkButton
+                    FontWeight="SemiBold"
                     Margin="0,4,0,0"
                     Content="{ext:Loc Key=LegalDialog.Link.Disclaimer}"
-                    Icon="{ui:SymbolIcon Warning24}"
+                    Icon="{ui:SymbolIcon Warning24, FontSize=18, Filled=True}"
                     NavigateUri="https://github.com/itsfatduck/optimizerDuck/blob/master/DISCLAIMER.md" />
             </StackPanel>
         </Border>

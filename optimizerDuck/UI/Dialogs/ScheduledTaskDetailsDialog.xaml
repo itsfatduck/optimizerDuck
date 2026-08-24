@@ -19,12 +19,12 @@
     </UserControl.Resources>
     <StackPanel>
         <Border
-                Margin="0,0,0,12"
-                Padding="{StaticResource CardPadding}"
-                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-                BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
-                BorderThickness="1"
-                CornerRadius="{StaticResource CornerRadiusMedium}">
+            Margin="0,0,0,12"
+            Padding="{StaticResource CardPadding}"
+            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="{StaticResource CornerRadiusMedium}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -32,71 +32,69 @@
                 </Grid.ColumnDefinitions>
 
                 <Image
-                        Grid.Column="0"
-                        Width="40"
-                        Height="40"
-                        Margin="0,0,12,0"
-                        VerticalAlignment="Center"
-                        Source="{Binding LogoImage}"
-                        Stretch="UniformToFill" />
+                    Grid.Column="0"
+                    Width="40"
+                    Height="40"
+                    Margin="0,0,12,0"
+                    VerticalAlignment="Center"
+                    Source="{Binding LogoImage}"
+                    Stretch="UniformToFill" />
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
                     <DockPanel LastChildFill="False">
                         <ui:TextBlock
-                                FontTypography="BodyStrong"
-                                Text="{Binding Name}"
-                                TextWrapping="Wrap" />
+                            FontTypography="BodyStrong"
+                            Text="{Binding Name}"
+                            TextWrapping="Wrap" />
                         <Border
-                                Margin="8,0,0,0"
-                                Padding="6,1"
-                                VerticalAlignment="Center"
-                                Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                CornerRadius="4">
+                            Margin="8,0,0,0"
+                            Padding="6,1"
+                            VerticalAlignment="Center"
+                            Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                            CornerRadius="4">
                             <ui:TextBlock
-                                    VerticalAlignment="Center"
-                                    Appearance="Tertiary"
-                                    FontTypography="Caption"
-                                    Text="{ext:Loc ScheduledTasks.Header.Title}" />
+                                VerticalAlignment="Center"
+                                Appearance="Tertiary"
+                                FontTypography="Caption"
+                                Text="{ext:Loc ScheduledTasks.Header.Title}" />
                         </Border>
                         <Border
-                                x:Name="StateBorder"
-                                Margin="8,0,0,0"
-                                Padding="6,1"
-                                VerticalAlignment="Center"
-                                CornerRadius="4">
+                            x:Name="StateBorder"
+                            Margin="8,0,0,0"
+                            Padding="6,1"
+                            VerticalAlignment="Center"
+                            CornerRadius="4">
                             <StackPanel Orientation="Horizontal">
                                 <ui:SymbolIcon
-                                        x:Name="StateIcon"
-                                        Margin="0,0,4,0"
-                                        FontSize="10"
-                                        Symbol="Circle24" />
+                                    x:Name="StateIcon"
+                                    Margin="0,0,4,0"
+                                    FontSize="10"
+                                    Symbol="Circle24" />
                                 <ui:TextBlock
-                                        VerticalAlignment="Center"
-                                        FontTypography="Caption"
-                                        Foreground="{Binding ElementName=StateIcon, Path=Foreground}"
-                                        Text="{Binding State}" />
+                                    VerticalAlignment="Center"
+                                    FontTypography="Caption"
+                                    Foreground="{Binding ElementName=StateIcon, Path=Foreground}"
+                                    Text="{Binding State}" />
                             </StackPanel>
                         </Border>
                     </DockPanel>
 
                     <ui:TextBlock
-                            Margin="0,4,0,0"
-                            Appearance="Secondary"
-                            FontTypography="Caption"
-                            Text="{Binding Description}"
-                            TextWrapping="Wrap"
-                            Visibility="{Binding IsDescriptionEmpty, Converter={StaticResource InverseBoolToVis}}" />
-                    <controls:EmptyBadge
-                            Margin="0,2,0,0"
-                            Visibility="{Binding IsDescriptionEmpty, Converter={StaticResource BoolToVis}}" />
+                        Margin="0,4,0,0"
+                        Appearance="Secondary"
+                        FontTypography="Caption"
+                        Text="{Binding Description}"
+                        TextWrapping="Wrap"
+                        Visibility="{Binding IsDescriptionEmpty, Converter={StaticResource InverseBoolToVis}}" />
+                    <controls:EmptyBadge Margin="0,2,0,0" Visibility="{Binding IsDescriptionEmpty, Converter={StaticResource BoolToVis}}" />
                     <ui:TextBlock
-                            Margin="0,2,0,0"
-                            Appearance="Disabled"
-                            FontTypography="Caption"
-                            Text="{Binding FullPath}"
-                            TextTrimming="CharacterEllipsis" />
+                        Margin="0,2,0,0"
+                        Appearance="Disabled"
+                        FontTypography="Caption"
+                        Text="{Binding FullPath}"
+                        TextTrimming="CharacterEllipsis" />
 
-                    <ItemsControl ItemsSource="{Binding TriggerTypes}" Margin="0,6,0,0">
+                    <ItemsControl Margin="0,6,0,0" ItemsSource="{Binding TriggerTypes}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel Orientation="Horizontal" />
@@ -105,20 +103,20 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border
-                                        Margin="0,0,4,2"
-                                        Padding="6,2"
-                                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="4">
+                                    Margin="0,0,4,2"
+                                    Padding="6,2"
+                                    Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                    CornerRadius="4">
                                     <StackPanel Orientation="Horizontal">
                                         <ui:SymbolIcon
-                                                Margin="0,0,4,0"
-                                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                Symbol="Timer24" />
+                                            Margin="0,0,4,0"
+                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                            Symbol="Timer24" />
                                         <ui:TextBlock
-                                                VerticalAlignment="Center"
-                                                FontTypography="Caption"
-                                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                Text="{Binding}" />
+                                            VerticalAlignment="Center"
+                                            FontTypography="Caption"
+                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                            Text="{Binding}" />
                                     </StackPanel>
                                 </Border>
                             </DataTemplate>
@@ -129,12 +127,12 @@
         </Border>
 
         <Border
-                Margin="0,0,0,12"
-                Padding="0"
-                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-                BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
-                BorderThickness="1"
-                CornerRadius="{StaticResource CornerRadiusMedium}">
+            Margin="0,0,0,12"
+            Padding="0"
+            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="{StaticResource CornerRadiusMedium}">
             <StackPanel>
                 <Grid Margin="14,12">
                     <Grid.ColumnDefinitions>
@@ -142,24 +140,22 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <ui:SymbolIcon
-                            Margin="0,0,10,0"
-                            VerticalAlignment="Top"
-                            FontSize="14"
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Symbol="Person24" />
+                        Margin="0,0,10,0"
+                        VerticalAlignment="Center"
+                        FontSize="24"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Symbol="Person24" />
                     <StackPanel Grid.Column="1">
                         <ui:TextBlock
-                                Appearance="Secondary"
-                                FontTypography="Caption"
-                                Text="{ext:Loc ScheduledTasks.Details.Author}" />
+                            Appearance="Secondary"
+                            FontTypography="Caption"
+                            Text="{ext:Loc ScheduledTasks.Details.Author}" />
                         <ui:TextBlock
-                                Margin="0,2,0,0"
-                                FontTypography="Body"
-                                Text="{Binding Author}"
-                                Visibility="{Binding IsAuthorEmpty, Converter={StaticResource InverseBoolToVis}}" />
-                        <controls:EmptyBadge
-                                Margin="0,2,0,0"
-                                Visibility="{Binding IsAuthorEmpty, Converter={StaticResource BoolToVis}}" />
+                            Margin="0,2,0,0"
+                            FontTypography="Body"
+                            Text="{Binding Author}"
+                            Visibility="{Binding IsAuthorEmpty, Converter={StaticResource InverseBoolToVis}}" />
+                        <controls:EmptyBadge Margin="0,2,0,0" Visibility="{Binding IsAuthorEmpty, Converter={StaticResource BoolToVis}}" />
                     </StackPanel>
                 </Grid>
                 <Separator Margin="14,0" />
@@ -170,25 +166,23 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <ui:SymbolIcon
-                            Margin="0,0,10,0"
-                            VerticalAlignment="Top"
-                            FontSize="14"
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Symbol="Timer24" />
+                        Margin="0,0,10,0"
+                        VerticalAlignment="Center"
+                        FontSize="24"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Symbol="Timer24" />
                     <StackPanel Grid.Column="1">
                         <ui:TextBlock
-                                Appearance="Secondary"
-                                FontTypography="Caption"
-                                Text="{ext:Loc ScheduledTasks.Details.Triggers}" />
+                            Appearance="Secondary"
+                            FontTypography="Caption"
+                            Text="{ext:Loc ScheduledTasks.Details.Triggers}" />
                         <ui:TextBlock
-                                Margin="0,2,0,0"
-                                FontTypography="Body"
-                                Text="{Binding TriggerSummary}"
-                                TextWrapping="Wrap"
-                                Visibility="{Binding IsTriggersEmpty, Converter={StaticResource InverseBoolToVis}}" />
-                        <controls:EmptyBadge
-                                Margin="0,2,0,0"
-                                Visibility="{Binding IsTriggersEmpty, Converter={StaticResource BoolToVis}}" />
+                            Margin="0,2,0,0"
+                            FontTypography="Body"
+                            Text="{Binding TriggerSummary}"
+                            TextWrapping="Wrap"
+                            Visibility="{Binding IsTriggersEmpty, Converter={StaticResource InverseBoolToVis}}" />
+                        <controls:EmptyBadge Margin="0,2,0,0" Visibility="{Binding IsTriggersEmpty, Converter={StaticResource BoolToVis}}" />
                     </StackPanel>
                 </Grid>
                 <Separator Margin="14,0" />
@@ -199,37 +193,35 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <ui:SymbolIcon
-                            Margin="0,0,10,0"
-                            VerticalAlignment="Top"
-                            FontSize="14"
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Symbol="Play24" />
+                        Margin="0,0,10,0"
+                        VerticalAlignment="Center"
+                        FontSize="24"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Symbol="Play24" />
                     <StackPanel Grid.Column="1">
                         <ui:TextBlock
-                                Appearance="Secondary"
-                                FontTypography="Caption"
-                                Text="{ext:Loc ScheduledTasks.Details.Action}" />
+                            Appearance="Secondary"
+                            FontTypography="Caption"
+                            Text="{ext:Loc ScheduledTasks.Details.Action}" />
                         <ui:TextBlock
-                                Margin="0,2,0,0"
-                                FontFamily="Consolas"
-                                FontTypography="Body"
-                                Text="{Binding ActionSummary}"
-                                TextWrapping="Wrap"
-                                Visibility="{Binding IsActionEmpty, Converter={StaticResource InverseBoolToVis}}" />
-                        <controls:EmptyBadge
-                                Margin="0,2,0,0"
-                                Visibility="{Binding IsActionEmpty, Converter={StaticResource BoolToVis}}" />
+                            Margin="0,2,0,0"
+                            FontFamily="Consolas"
+                            FontTypography="Body"
+                            Text="{Binding ActionSummary}"
+                            TextWrapping="Wrap"
+                            Visibility="{Binding IsActionEmpty, Converter={StaticResource InverseBoolToVis}}" />
+                        <controls:EmptyBadge Margin="0,2,0,0" Visibility="{Binding IsActionEmpty, Converter={StaticResource BoolToVis}}" />
                     </StackPanel>
                 </Grid>
             </StackPanel>
         </Border>
 
         <Border
-                Padding="0"
-                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-                BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
-                BorderThickness="1"
-                CornerRadius="{StaticResource CornerRadiusMedium}">
+            Padding="0"
+            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="{StaticResource CornerRadiusMedium}">
             <StackPanel>
                 <Grid Margin="14,12">
                     <Grid.ColumnDefinitions>
@@ -239,45 +231,41 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <ui:SymbolIcon
-                            Margin="0,0,10,0"
-                            VerticalAlignment="Top"
-                            FontSize="14"
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Symbol="History24" />
+                        Margin="0,0,10,0"
+                        VerticalAlignment="Center"
+                        FontSize="24"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Symbol="History24" />
                     <StackPanel Grid.Column="1" Margin="0,0,16,0">
                         <ui:TextBlock
-                                Appearance="Secondary"
-                                FontTypography="Caption"
-                                Text="{ext:Loc ScheduledTasks.Details.LastRun}" />
+                            Appearance="Secondary"
+                            FontTypography="Caption"
+                            Text="{ext:Loc ScheduledTasks.Details.LastRun}" />
                         <ui:TextBlock
-                                Margin="0,2,0,0"
-                                FontTypography="Body"
-                                Text="{Binding LastRunTime, StringFormat=g}"
-                                Visibility="{Binding IsLastRunEmpty, Converter={StaticResource InverseBoolToVis}}" />
-                        <controls:EmptyBadge
-                                Margin="0,2,0,0"
-                                Visibility="{Binding IsLastRunEmpty, Converter={StaticResource BoolToVis}}" />
+                            Margin="0,2,0,0"
+                            FontTypography="Body"
+                            Text="{Binding LastRunTime, StringFormat=g}"
+                            Visibility="{Binding IsLastRunEmpty, Converter={StaticResource InverseBoolToVis}}" />
+                        <controls:EmptyBadge Margin="0,2,0,0" Visibility="{Binding IsLastRunEmpty, Converter={StaticResource BoolToVis}}" />
                     </StackPanel>
                     <ui:SymbolIcon
-                            Grid.Column="2"
-                            Margin="0,0,10,0"
-                            VerticalAlignment="Top"
-                            FontSize="14"
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Symbol="CalendarArrowRight24" />
+                        Grid.Column="2"
+                        Margin="0,0,10,0"
+                        VerticalAlignment="Center"
+                        FontSize="24"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Symbol="CalendarArrowRight24" />
                     <StackPanel Grid.Column="3">
                         <ui:TextBlock
-                                Appearance="Secondary"
-                                FontTypography="Caption"
-                                Text="{ext:Loc ScheduledTasks.Details.NextRun}" />
+                            Appearance="Secondary"
+                            FontTypography="Caption"
+                            Text="{ext:Loc ScheduledTasks.Details.NextRun}" />
                         <ui:TextBlock
-                                Margin="0,2,0,0"
-                                FontTypography="Body"
-                                Text="{Binding NextRunTime, StringFormat=g}"
-                                Visibility="{Binding IsNextRunEmpty, Converter={StaticResource InverseBoolToVis}}" />
-                        <controls:EmptyBadge
-                                Margin="0,2,0,0"
-                                Visibility="{Binding IsNextRunEmpty, Converter={StaticResource BoolToVis}}" />
+                            Margin="0,2,0,0"
+                            FontTypography="Body"
+                            Text="{Binding NextRunTime, StringFormat=g}"
+                            Visibility="{Binding IsNextRunEmpty, Converter={StaticResource InverseBoolToVis}}" />
+                        <controls:EmptyBadge Margin="0,2,0,0" Visibility="{Binding IsNextRunEmpty, Converter={StaticResource BoolToVis}}" />
                     </StackPanel>
                 </Grid>
                 <Separator Margin="14,0" />
@@ -287,24 +275,22 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <ui:SymbolIcon
-                            Margin="0,0,10,0"
-                            VerticalAlignment="Top"
-                            FontSize="14"
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Symbol="CheckmarkCircle24" />
+                        Margin="0,0,10,0"
+                        VerticalAlignment="Center"
+                        FontSize="24"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Symbol="CheckmarkCircle24" />
                     <StackPanel Grid.Column="1">
                         <ui:TextBlock
-                                Appearance="Secondary"
-                                FontTypography="Caption"
-                                Text="{ext:Loc ScheduledTasks.Details.LastResult}" />
+                            Appearance="Secondary"
+                            FontTypography="Caption"
+                            Text="{ext:Loc ScheduledTasks.Details.LastResult}" />
                         <ui:TextBlock
-                                Margin="0,2,0,0"
-                                FontTypography="Body"
-                                Text="{Binding LastRunResult}"
-                                Visibility="{Binding IsLastResultEmpty, Converter={StaticResource InverseBoolToVis}}" />
-                        <controls:EmptyBadge
-                                Margin="0,2,0,0"
-                                Visibility="{Binding IsLastResultEmpty, Converter={StaticResource BoolToVis}}" />
+                            Margin="0,2,0,0"
+                            FontTypography="Body"
+                            Text="{Binding LastRunResult}"
+                            Visibility="{Binding IsLastResultEmpty, Converter={StaticResource InverseBoolToVis}}" />
+                        <controls:EmptyBadge Margin="0,2,0,0" Visibility="{Binding IsLastResultEmpty, Converter={StaticResource BoolToVis}}" />
                     </StackPanel>
                 </Grid>
             </StackPanel>

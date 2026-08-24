@@ -100,22 +100,15 @@ public class CustomizeRegistry
         Categories = categories;
         IsPreloaded = true;
     }
-
-    /// <summary>Synchronous fallback for registration (used when preloading hasn't started yet, e.g., during DI page creation).</summary>
-    public void RegisterCategories()
-    {
-        if (IsPreloaded)
-            return;
-
-        PreloadCategoriesAsync().GetAwaiter().GetResult();
-    }
-
     /// <summary>Builds the navigation items for the UI from the registered categories.</summary>
     /// <returns>A sequence of <see cref="NavigationViewItem"/> instances mapped to customize pages.</returns>
     public IEnumerable<NavigationViewItem> GetNavigationItems()
     {
-        if (Categories.Length == 0)
-            RegisterCategories();
+        if (Categories.Length == 0 && !IsPreloaded)
+            _logger.LogWarning(
+                "GetNavigationItems() called before categories were preloaded, returning empty. "
+                    + "Ensure EnsurePreloadedAsync() was awaited during startup."
+            );
 
         return Categories
             .Select(c => new NavigationViewItem

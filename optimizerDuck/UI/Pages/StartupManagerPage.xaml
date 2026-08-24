@@ -143,7 +143,7 @@
                                         Padding="8,2"
                                         VerticalAlignment="Center"
                                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                        CornerRadius="10">
+                                        CornerRadius="4">
                                         <ui:TextBlock
                                             VerticalAlignment="Center"
                                             Appearance="Tertiary"
@@ -319,7 +319,7 @@
                     <!--  ═══════════ Scheduled Tasks Section ═══════════  -->
                     <ui:CardExpander
                         Margin="0,0,0,12"
-                        Icon="{ui:SymbolIcon CalculatorArrowClockwise24}"
+                        Icon="{ui:SymbolIcon TabDesktopArrowClockwise24}"
                         IsExpanded="True"
                         Visibility="{Binding ViewModel.HasTasks, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <ui:CardExpander.Header>
@@ -533,7 +533,7 @@
                                                         Icon="{ui:SymbolIcon Info24,
                                                                              FontSize=16}"
                                                         ToolTip="{ext:Loc ScheduledTasks.Action.Details}" />
-                                                    
+
                                                 </StackPanel>
                                             </Grid>
                                         </Border>

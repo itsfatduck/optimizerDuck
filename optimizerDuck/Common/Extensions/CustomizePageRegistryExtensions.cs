@@ -39,9 +39,6 @@ public static class CustomizePageRegistryExtensions
         var registryWatcher = serviceProvider.GetRequiredService<IRegistryWatcher>();
         var systemInfoService = serviceProvider.GetRequiredService<SystemInfoService>();
 
-        // Fall back to synchronous registration if preloading hasn't completed yet.
-        // RegisterCategories is a no-op if already preloaded.
-        registry.RegisterCategories();
 
         var category = registry.Categories.First(c => c.GetType() == categoryType);
 

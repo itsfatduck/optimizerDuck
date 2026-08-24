@@ -2218,24 +2218,24 @@ public sealed class SystemInfoService : IDisposable
                 var osTask = Task.Run(OsProvider.Get, ct);
                 var biosTask = Task.Run(BiosProvider.Get, ct);
 
-                await Task.WhenAll(cpuTask, ramTask, gpusTask, diskTask, osTask, biosTask);
+                await Task.WhenAll(cpuTask, ramTask, gpusTask, diskTask, osTask, biosTask).ConfigureAwait(false);
 
-                _cachedCpu = await cpuTask;
-                _cachedOs = await osTask;
-                _cachedBios = await biosTask;
-                _cachedGpus = await gpusTask;
+                _cachedCpu = await cpuTask.ConfigureAwait(false);
+                _cachedOs = await osTask.ConfigureAwait(false);
+                _cachedBios = await biosTask.ConfigureAwait(false);
+                _cachedGpus = await gpusTask.ConfigureAwait(false);
 
                 var primaryGpu = GpuProvider.GetPrimary(_cachedGpus);
 
                 Snapshot = new SystemSnapshot
                 {
                     Cpu = _cachedCpu,
-                    Ram = await ramTask,
+                    Ram = await ramTask.ConfigureAwait(false),
                     Os = _cachedOs,
                     Bios = _cachedBios,
                     Gpus = _cachedGpus,
                     PrimaryGpu = primaryGpu,
-                    Disk = await diskTask,
+                    Disk = await diskTask.ConfigureAwait(false),
                 };
             }
             else
@@ -2245,7 +2245,7 @@ public sealed class SystemInfoService : IDisposable
                 var ramTask = Task.Run(RamProvider.Get, ct);
                 var diskTask = Task.Run(DiskProvider.Get, ct);
 
-                await Task.WhenAll(ramTask, diskTask);
+                await Task.WhenAll(ramTask, diskTask).ConfigureAwait(false);
 
                 var gpus = _cachedGpus!;
                 var primaryGpu = GpuProvider.GetPrimary(gpus);
@@ -2253,12 +2253,12 @@ public sealed class SystemInfoService : IDisposable
                 Snapshot = new SystemSnapshot
                 {
                     Cpu = _cachedCpu!,
-                    Ram = await ramTask,
+                    Ram = await ramTask.ConfigureAwait(false),
                     Os = _cachedOs!,
                     Bios = _cachedBios!,
                     Gpus = gpus,
                     PrimaryGpu = primaryGpu,
-                    Disk = await diskTask,
+                    Disk = await diskTask.ConfigureAwait(false),
                 };
             }
         }

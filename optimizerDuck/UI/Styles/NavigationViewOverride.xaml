@@ -47,7 +47,7 @@
                             VerticalAlignment="Center"
                             Content="{TemplateBinding Icon}"
                             Focusable="False"
-                            TextElement.FontSize="16"
+                            TextElement.FontSize="20"
                             TextElement.Foreground="{DynamicResource NavigationViewItemForeground}" />
                     </Grid>
 

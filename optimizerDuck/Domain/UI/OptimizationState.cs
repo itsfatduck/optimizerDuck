@@ -1,4 +1,4 @@
-﻿using System.Windows.Threading;
+using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using optimizerDuck.Resources.Languages;
 
@@ -54,8 +54,15 @@ public partial class OptimizationState : ObservableObject
         if (_globalTimer != null)
             return;
 
-        // Defer timer creation to avoid accessing dispatcher during static init
-        _ = System.Windows.Application.Current?.Dispatcher.InvokeAsync(() =>
+        // Defer timer creation to avoid accessing dispatcher during static init.
+        // NOTE: This type lives in Domain/UI but owns a DispatcherTimer (WPF). Ideally
+        // move to optimizerDuck.UI or Common — kept here to avoid churn. We route
+        // through the dispatcher indirection rather than hard-referencing UI assemblies
+        // from pure domain logic.
+        var dispatcher = System.Windows.Application.Current?.Dispatcher;
+        if (dispatcher is null)
+            return; // headless/tests — no timer needed
+        _ = dispatcher.InvokeAsync(() =>
         {
             lock (_lock)
             {

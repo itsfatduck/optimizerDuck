@@ -256,7 +256,7 @@
                                                 <ui:SymbolIcon
                                                     x:Name="StateIcon"
                                                     Margin="0,0,4,0"
-                                                    FontSize="10">
+                                                    FontSize="14">
                                                     <ui:SymbolIcon.Style>
                                                         <Style TargetType="ui:SymbolIcon">
                                                             <Setter Property="Symbol" Value="Circle24" />
@@ -347,9 +347,9 @@
                                     VerticalAlignment="Center"
                                     Orientation="Horizontal">
                                     <ui:ToggleSwitch
-                                         IsChecked="{Binding IsEnabled, Mode=TwoWay}"
-                                         OffContent="{ext:Loc Common.Toggle.Off}"
-                                         OnContent="{ext:Loc Common.Toggle.On}" />
+                                        IsChecked="{Binding IsEnabled, Mode=TwoWay}"
+                                        OffContent="{ext:Loc Common.Toggle.Off}"
+                                        OnContent="{ext:Loc Common.Toggle.On}" />
                                     <ui:Button
                                         Margin="0,0,4,0"
                                         Padding="8"
@@ -386,7 +386,7 @@
                                         </ui:Button.Style>
                                     </ui:Button>
                                     <!--  Stop: visible only when running  -->
-                                    
+
                                     <ui:Button
                                         Margin="0,0,4,0"
                                         Padding="8"
@@ -408,7 +408,7 @@
                                         Icon="{ui:SymbolIcon Delete24,
                                                              FontSize=16}"
                                         ToolTip="{ext:Loc ScheduledTasks.Action.Delete}" />
-                                   
+
                                 </StackPanel>
                             </Grid>
                         </Border>

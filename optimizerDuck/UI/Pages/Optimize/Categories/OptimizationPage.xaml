@@ -44,7 +44,7 @@
         <!--  Main Content  -->
         <Grid RowDefinitions="Auto,*" Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
             <!--  Toolbar  -->
-            <Border Grid.Row="0" Style="{StaticResource ToolbarSurfaceStyle}">
+            <Border Grid.Row="0" Style="{StaticResource ToolbarSurfaceStyle}" Padding="8,6">
                 <WrapPanel VerticalAlignment="Center" Orientation="Horizontal">
                     <!--  Search  -->
                     <ui:TextBox
@@ -111,7 +111,7 @@
                                 <ui:SymbolIcon
                                     Margin="0,0,6,0"
                                     HorizontalAlignment="Left"
-                                    Symbol="Filter24" />
+                                    Symbol="ArrowSort24" />
                                 <TextBlock Grid.Column="1" HorizontalAlignment="Left">
                                     <Run Text="{ext:Loc Common.SortBy.Risk}" />
                                     <Run Text=" &amp; " />
@@ -402,6 +402,7 @@
                                                 <StackPanel Orientation="Horizontal">
                                                     <ui:SymbolIcon
                                                         Margin="0,0,6,0"
+                                                        Filled="True"
                                                         Foreground="{DynamicResource TextFillColorInverseBrush}"
                                                         Symbol="{Binding RiskVisual.Icon}" />
 

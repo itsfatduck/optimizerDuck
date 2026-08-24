@@ -42,7 +42,7 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
     /// </summary>
     public async Task EnsureDefaultsAsync()
     {
-        await _lock.WaitAsync();
+        await _lock.WaitAsync().ConfigureAwait(false);
         try
         {
             var defaults = new AppSettings();
@@ -204,7 +204,7 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
         }
         var key = string.Join(":", keyParts);
 
-        await SetAsync(key, value?.ToString() ?? "");
+        await SetAsync(key, value?.ToString() ?? "").ConfigureAwait(false);
     }
 
     /// <summary>
@@ -214,7 +214,7 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
     /// <param name="value">The value to set.</param>
     public async Task SetAsync(string key, string value)
     {
-        await _lock.WaitAsync();
+        await _lock.WaitAsync().ConfigureAwait(false);
         try
         {
             var parts = key.Split(':');
@@ -239,7 +239,7 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
     /// <param name="key">The configuration key to remove.</param>
     public async Task RemoveAsync(string key)
     {
-        await _lock.WaitAsync();
+        await _lock.WaitAsync().ConfigureAwait(false);
         try
         {
             var parts = key.Split(':');

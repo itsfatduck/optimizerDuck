@@ -60,7 +60,7 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
                 AppliedAt = DateTime.Now,
                 Steps = steps,
             }
-        );
+        ).ConfigureAwait(false);
     }
 
     public async Task<RevertResult> RevertAsync(
@@ -75,7 +75,7 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             operationLogger
         );
 
-        var steps = await LoadStepsAsync(optimization.Id);
+        var steps = await LoadStepsAsync(optimization.Id).ConfigureAwait(false);
         if (steps.Count == 0)
             return new RevertResult
             {
@@ -107,7 +107,7 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
 
             try
             {
-                if (!await step.ExecuteAsync())
+                if (!await step.ExecuteAsync().ConfigureAwait(false))
                     throw new Exception(Translations.Revert_Error_StepFailed);
             }
             catch (Exception ex)
@@ -178,11 +178,11 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             throw new ArgumentException("Step index must be greater than 0", nameof(stepIndex));
 
         var filePath = GetFilePath(id);
-        var lockObj = await AcquireFileLockAsync(id);
+        var lockObj = await AcquireFileLockAsync(id).ConfigureAwait(false);
         try
         {
             var data =
-                await LoadAsync(filePath)
+                await LoadAsync(filePath).ConfigureAwait(false)
                 ?? new RevertData
                 {
                     SchemaVersion = SchemaVersion,
@@ -206,7 +206,7 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             };
 
             data.SchemaVersion = SchemaVersion;
-            await WriteJsonAtomicAsync(filePath, data);
+            await WriteJsonAtomicAsync(filePath, data).ConfigureAwait(false);
 
             var totalSteps = data.Steps.Count(s => s != null);
             _logger.LogInformation(
@@ -224,13 +224,13 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
 
     public static async Task<bool> IsAppliedAsync(Guid id)
     {
-        var data = await LoadAsync(GetFilePath(id));
+        var data = await LoadAsync(GetFilePath(id)).ConfigureAwait(false);
         return data is { Steps.Length: > 0 };
     }
 
     public static async Task<RevertData?> GetRevertDataAsync(Guid id)
     {
-        return await LoadAsync(GetFilePath(id));
+        return await LoadAsync(GetFilePath(id)).ConfigureAwait(false);
     }
 
     public static void ClearAllRevertData(ILogger logger)
@@ -274,7 +274,7 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             {
                 try
                 {
-                    var json = await File.ReadAllTextAsync(path);
+                    var json = await File.ReadAllTextAsync(path).ConfigureAwait(false);
                     if (string.IsNullOrWhiteSpace(json))
                         return null;
 
@@ -312,7 +312,7 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
                 }
                 catch (IOException) when (i < 2)
                 {
-                    await Task.Delay(50);
+                    await Task.Delay(50).ConfigureAwait(false);
                 }
             }
             return null;
@@ -362,10 +362,10 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
     private async Task WriteJsonAsync(Guid optimizationId, string path, RevertData data)
     {
         data.SchemaVersion = SchemaVersion;
-        var lockObj = await AcquireFileLockAsync(optimizationId);
+        var lockObj = await AcquireFileLockAsync(optimizationId).ConfigureAwait(false);
         try
         {
-            await WriteJsonAtomicAsync(path, data);
+            await WriteJsonAtomicAsync(path, data).ConfigureAwait(false);
             var totalOperations = data.Steps.Count(s => s != null);
             _logger.LogInformation("Saved {Total} operations to {Path}", totalOperations, path);
         }
@@ -406,7 +406,7 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
 
     private async Task<List<(int Index, IRevertStep Step)>> LoadStepsAsync(Guid id)
     {
-        var data = await LoadAsync(GetFilePath(id));
+        var data = await LoadAsync(GetFilePath(id)).ConfigureAwait(false);
         if (data == null || data.Steps.Length == 0)
             return [];
 

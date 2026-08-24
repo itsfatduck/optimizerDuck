@@ -1,6 +1,8 @@
 using System.Collections.Concurrent;
 using System.Diagnostics;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Resources.Languages;
@@ -10,22 +12,36 @@ using Wpf.Ui.Controls;
 namespace optimizerDuck.Common.Helpers;
 
 /// <summary>
-///     Provides shared logic for opening source files on GitHub, with built-in caching
-///     of raw content to avoid repeated network requests.
+///     Provides shared logic for opening source files on GitHub pinned to the release tag
+///     matching the running version (fallback: <c>master</c>). Raw contents are cached
+///     permanently per immutable ref, so repeated views cost no extra requests, and a
+///     missing version tag is remembered to skip its probe on later views.
 /// </summary>
 public static class GitHubSourceHelper
 {
-    private static readonly HttpClient HttpClient = HttpClientFactory.CreateClient(
-        timeout: TimeSpan.FromSeconds(5)
-    );
-    private static readonly ConcurrentDictionary<
-        string,
-        Lazy<Task<(string Content, DateTime FetchedAt)>>
-    > SourceCache = new();
-    private static readonly TimeSpan SourceCacheTtl = TimeSpan.FromMinutes(5);
+    private const string MasterRef = "master";
+    private const string GitHubComPrefix = "https://github.com/";
+
+    private static readonly TimeSpan RequestTimeout = TimeSpan.FromSeconds(5);
+
+    private static readonly string RepoSlug = Shared.GitHubRepoURL.StartsWith(
+        GitHubComPrefix,
+        StringComparison.Ordinal
+    )
+        ? Shared.GitHubRepoURL[GitHubComPrefix.Length..].TrimEnd('/')
+        : string.Empty;
+
+    private static readonly HttpClient HttpClient = CreateClient();
+
+    /// <summary>Raw file contents keyed by ref/path; tag refs are immutable, so entries never expire.</summary>
+    private static readonly ConcurrentDictionary<string, Lazy<Task<string>>> SourceCache = new();
+
+    /// <summary>Tags known missing upstream; skips one wasted probe per view until the app restarts.</summary>
+    private static readonly ConcurrentDictionary<string, byte> MissingTagCache = new();
 
     /// <summary>
-    ///     Opens the GitHub source file for the given type at the class definition line.
+    ///     Opens the GitHub source file for the given type at the class definition line,
+    ///     viewed at the release tag matching the running application version.
     /// </summary>
     /// <param name="ownerType">The type that owns the source file (e.g., the category class).</param>
     /// <param name="className">The class name to find within the source file.</param>
@@ -43,54 +59,15 @@ public static class GitHubSourceHelper
         var fileName = ownerType.Name;
         var namespacePath = (ownerType.Namespace ?? string.Empty).Replace('.', '/');
         var relativePath = $"{namespacePath}/{fileName}.cs";
-        var url = $"{Shared.GitHubRepoURL}/blob/master/{relativePath}";
 
-        // Fetch source from GitHub raw content to find the class line number
-        try
+        var (source, resolvedRef) = await TryGetSourceAsync(relativePath, logger);
+        var url = $"{Shared.GitHubRepoURL}/blob/{resolvedRef}/{relativePath}";
+
+        if (source != null)
         {
-            var rawUrl =
-                $"https://raw.githubusercontent.com/itsfatduck/optimizerDuck/master/{relativePath}";
-
-            var cached = SourceCache.GetOrAdd(rawUrl, CreateSourceCacheEntry);
-            var cachedSource = await cached.Value;
-
-            if (DateTime.UtcNow - cachedSource.FetchedAt >= SourceCacheTtl)
-            {
-                var refreshed = CreateSourceCacheEntry(rawUrl);
-                SourceCache[rawUrl] = refreshed;
-                cachedSource = await refreshed.Value;
-            }
-
-            var source = cachedSource.Content;
-
-            // Use regex with word boundaries to avoid false-positive substring matches
-            var classNameEscaped = Regex.Escape(className);
-            var pattern =
-                baseClassPattern != null
-                    ? $@"class\s+{classNameEscaped}\s*:\s*{Regex.Escape(baseClassPattern)}\b"
-                    : $@"class\s+{classNameEscaped}\b";
-
-            var lineIndex = -1;
-            var lines = source.Split('\n');
-            for (var i = 0; i < lines.Length; i++)
-            {
-                if (Regex.IsMatch(lines[i], pattern, RegexOptions.IgnoreCase))
-                {
-                    lineIndex = i;
-                    break;
-                }
-            }
-
+            var lineIndex = FindClassLineNumber(source, className, baseClassPattern);
             if (lineIndex >= 0)
                 url += $"#L{lineIndex + 1}";
-        }
-        catch (Exception ex)
-        {
-            logger?.LogWarning(
-                ex,
-                "Could not fetch source to find line number for {Class}",
-                className
-            );
         }
 
         try
@@ -110,12 +87,99 @@ public static class GitHubSourceHelper
         }
     }
 
-    private static Lazy<Task<(string Content, DateTime FetchedAt)>> CreateSourceCacheEntry(
-        string rawUrl
+    /// <summary>Maps the running file version to its release tag (e.g., "2.26.2" -> "v2.26.2").</summary>
+    internal static string? GetTagForVersion(string? FileVersion)
+    {
+        if (!Version.TryParse(FileVersion, out var version))
+            return null;
+
+        return version.Build >= 0
+            ? $"v{version.Major}.{version.Minor}.{version.Build}"
+            : $"v{version.Major}.{version.Minor}";
+    }
+
+    /// <summary>Finds the zero-based line of the class declaration, or -1 when absent.</summary>
+    internal static int FindClassLineNumber(
+        string source,
+        string className,
+        string? baseClassPattern = null
     )
     {
-        return new Lazy<Task<(string Content, DateTime FetchedAt)>>(async () =>
-            (await HttpClient.GetStringAsync(rawUrl), DateTime.UtcNow)
+        var classNameEscaped = Regex.Escape(className);
+        var pattern =
+            baseClassPattern != null
+                ? $@"class\s+{classNameEscaped}\s*:\s*{Regex.Escape(baseClassPattern)}\b"
+                : $@"class\s+{classNameEscaped}\b";
+
+        var lines = source.Split('\n');
+        for (var i = 0; i < lines.Length; i++)
+        {
+            if (Regex.IsMatch(lines[i], pattern, RegexOptions.IgnoreCase))
+                return i;
+        }
+
+        return -1;
+    }
+
+    private static async Task<(string? Content, string ResolvedRef)> TryGetSourceAsync(
+        string relativePath,
+        ILogger? logger
+    )
+    {
+        var tag = GetTagForVersion(Shared.FileVersion);
+        if (tag != null && !MissingTagCache.ContainsKey(tag))
+        {
+            var pinned = await FetchAsync(BuildRawUrl(tag, relativePath), logger, tag);
+            if (pinned != null)
+                return (pinned, tag);
+        }
+
+        return (await FetchAsync(BuildRawUrl(MasterRef, relativePath), logger), MasterRef);
+    }
+
+    private static async Task<string?> FetchAsync(
+        string rawUrl,
+        ILogger? logger,
+        string? tag = null
+    )
+    {
+        var entry = SourceCache.GetOrAdd(rawUrl, CreateCacheEntry);
+        try
+        {
+            return await entry.Value;
+        }
+        catch (Exception ex)
+        {
+            // Evict so a transient failure (or a not-yet-published tag) is retried
+            // later instead of poisoning the cache entry forever.
+            SourceCache.TryRemove(KeyValuePair.Create(rawUrl, entry));
+
+            // A pinned-tag miss usually means the tag is not published (yet); remember
+            // it so later views skip straight to master instead of re-probing.
+            if (
+                tag != null
+                && ex is HttpRequestException hrex
+                && hrex.StatusCode == HttpStatusCode.NotFound
+            )
+                MissingTagCache.TryAdd(tag, 0);
+
+            logger?.LogWarning(ex, "Could not fetch GitHub source: {Url}", rawUrl);
+            return null;
+        }
+    }
+
+    private static string BuildRawUrl(string @ref, string relativePath) =>
+        $"https://raw.githubusercontent.com/{RepoSlug}/{@ref}/{relativePath}";
+
+    private static Lazy<Task<string>> CreateCacheEntry(string rawUrl) =>
+        new(() => HttpClient.GetStringAsync(rawUrl));
+
+    private static HttpClient CreateClient()
+    {
+        var client = HttpClientFactory.CreateClient(timeout: RequestTimeout);
+        client.DefaultRequestHeaders.UserAgent.Add(
+            new ProductInfoHeaderValue("optimizerDuck", Shared.FileVersion)
         );
+        return client;
     }
 }
