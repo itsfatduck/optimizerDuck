@@ -20,6 +20,7 @@
     <Page.Resources>
         <converters:ThemeToGitHubIconConverter x:Key="ThemeToGitHubIconConverter" />
         <converters:ThemeToIndexConverter x:Key="ThemeToIndexConverter" />
+        <converters:ObjectToNullableDoubleConverter x:Key="ObjectToNullableDoubleConverter" />
     </Page.Resources>
 
     <ScrollViewer>
@@ -120,7 +121,7 @@
                         <ui:NumberBox
                             Minimum="1000"
                             SmallChange="1000"
-                            Value="{Binding ViewModel.ShellTimeoutMs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            Value="{Binding ViewModel.ShellTimeoutMs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ObjectToNullableDoubleConverter}, ConverterParameter=Int}" />
                     </ui:CardControl>
 
                     <ui:CardControl Margin="0,0,0,4" Icon="{ui:SymbolIcon Alert24}">

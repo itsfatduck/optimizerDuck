@@ -44,7 +44,7 @@
         <!--  Main Content  -->
         <Grid RowDefinitions="Auto,*" Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
             <!--  Toolbar  -->
-            <Border Grid.Row="0" Style="{StaticResource ToolbarSurfaceStyle}" Padding="8,6">
+            <Border Grid.Row="0" Style="{StaticResource ToolbarSurfaceStyle}">
                 <WrapPanel VerticalAlignment="Center" Orientation="Horizontal">
                     <!--  Search  -->
                     <ui:TextBox
@@ -223,7 +223,7 @@
                             Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
                             BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1"
-                            CornerRadius="{StaticResource CornerRadiusMedium}">
+                            CornerRadius="{StaticResource CornerRadiusSmall}">
                             <Grid>
                                 <!--  Unsupported compatibility state  -->
                                 <Grid RowDefinitions="Auto, Auto, Auto, Auto, *" Visibility="{Binding IsConditionBlocked, Converter={StaticResource BooleanToVisibilityConverter}}">

@@ -153,6 +153,11 @@
             </StackPanel>
         </Border>
 
+        <ui:TextBlock
+            Margin="0,0,0,8"
+            FontTypography="BodyStrong"
+            Text="{ext:Loc OptimizationDetailsDialog.TechnicalDetails}" />
+
         <Border
             Margin="0,0,0,12"
             Padding="0"

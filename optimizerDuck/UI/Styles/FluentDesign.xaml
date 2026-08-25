@@ -14,7 +14,7 @@
     <Thickness x:Key="SectionTopMargin">0,12,0,0</Thickness>
     <Thickness x:Key="CardPadding">16,14</Thickness>
     <Thickness x:Key="ListRowPadding">16,12</Thickness>
-    <Thickness x:Key="ToolbarPadding">16,12</Thickness>
+    <Thickness x:Key="ToolbarPadding">8,6</Thickness>
     <Thickness x:Key="ControlGap">0,0,8,0</Thickness>
     <Thickness x:Key="RowGap">0,0,0,8</Thickness>
 
@@ -68,7 +68,7 @@
         <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorSecondaryBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="CornerRadius" Value="{StaticResource CornerRadiusLarge}" />
+        <Setter Property="CornerRadius" Value="{StaticResource CornerRadiusSmall}" />
     </Style>
 
     <Style x:Key="CardSurfaceStyle" TargetType="Border">

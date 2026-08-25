@@ -21,6 +21,7 @@
         <converters:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <converters:EqualityToVisibilityConverter x:Key="EqualityToVisibilityConverter" />
         <converters:RecommendationForegroundConverter x:Key="RecommendationForegroundConverter" />
+        <converters:ObjectToNullableDoubleConverter x:Key="ObjectToNullableDoubleConverter" />
 
         <Style x:Key="RecommendationForegroundTextBlockStyle" TargetType="ui:TextBlock">
             <Setter Property="Foreground">
@@ -179,12 +180,12 @@
                         MinWidth="120"
                         VerticalAlignment="Center"
                         Visibility="{Binding ControlType, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter={x:Static models:CustomizeControlType.NumberInt}}"
-                        Value="{Binding CurrentValue, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                        Value="{Binding CurrentValue, Mode=TwoWay, UpdateSourceTrigger=LostFocus, Converter={StaticResource ObjectToNullableDoubleConverter}, ConverterParameter=Int}" />
                     <ui:NumberBox
                         MinWidth="120"
                         VerticalAlignment="Center"
                         Visibility="{Binding ControlType, Converter={StaticResource EqualityToVisibilityConverter}, ConverterParameter={x:Static models:CustomizeControlType.NumberFloat}}"
-                        Value="{Binding CurrentValue, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                        Value="{Binding CurrentValue, Mode=TwoWay, UpdateSourceTrigger=LostFocus, Converter={StaticResource ObjectToNullableDoubleConverter}}" />
                     <!--  String Control  -->
                     <TextBox
                         MinWidth="160"
