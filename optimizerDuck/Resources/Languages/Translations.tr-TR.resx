@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <xsd:schema id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -1951,5 +1951,62 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   </data>
   <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
     <value>Bazı ayarlar mevcut sisteminizde kullanılamıyor.</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
+    <value>WebDAV 50 MB sınırını kaldır</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
+    <value>Ağ konumlarındaki büyük dosyaların aktarımında hata oluşmaması için WebClient dosya boyutu sınırını 50 MB'tan 4 GB'a yükseltir.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>Güncelleme duraklatma sınırını en üst düzeye çıkar</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>Windows Update duraklatma tavanını desteklenen en büyük değere ayarlar. Yalnızca bu ayarı destekleyen Windows sürümlerinde geçerlidir; etkinken güvenlik güncellemeleri de duraklatılır.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Name" xml:space="preserve">
+    <value>DLSS yer paylaşımı göstergesi</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Description" xml:space="preserve">
+    <value>Bir oyunun gerçekte hangi DLSS sürümüyle işlendiğini doğrulamak için kullanılan ekrandaki DLSS gösterge yer paylaşımını kontrol eder.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Recommendation.Reason" xml:space="preserve">
+    <value>Tanılama yer paylaşımıdır; DLSS davranışını kontrol etmediğiniz sürece kapalı bırakın.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.Off" xml:space="preserve">
+    <value>Kapalı</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.DebugOnly" xml:space="preserve">
+    <value>Yalnızca Hata Ayıklama DLL'leri</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.AllVersions" xml:space="preserve">
+    <value>Tüm DLSS sürümleri</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
+    <value>Önyükleme Ayarları</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Network" xml:space="preserve">
+    <value>Ağ Ayarları</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Name" xml:space="preserve">
+    <value>Ayrıntılı durum iletileri</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Description" xml:space="preserve">
+    <value>Başlatma, kapatma ve güncellemeler sırasında genel bir yükleme simgesi yerine tam olarak işlenen hizmeti, sürücüyü veya adımı gösterir.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Name" xml:space="preserve">
+    <value>Donanım saati UTC kullanır</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Description" xml:space="preserve">
+    <value>Donanım saatini UTC olarak yorumlar. Windows/Linux çift önyüklemesinde her iki sistemin de aynı saati göstermesi için gereklidir; tek sistemli makinelerde kapatılana kadar saat dilimi farkı kadar kayma olur.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Recommendation.Reason" xml:space="preserve">
+    <value>Yalnızca bu makinedeki başka bir işletim sistemi de donanım saatini UTC olarak ele aldığında etkinleştirin.</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Name" xml:space="preserve">
+    <value>DNS sızıntısı koruması</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Description" xml:space="preserve">
+    <value>DNS sorgularının tüm ağ bağdaştırıcılarından aynı anda yarışmasını önlemek için Akıllı Çoklu Girişli Ad Çözümlemesini devre dışı bırakır. VPN kullanımında sorguların tüneli atlamasını engeller.</value>
   </data>
 </root>

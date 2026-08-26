@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   
   <xsd:schema id="root">
@@ -1952,5 +1952,62 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
     <value>Một số cài đặt không khả dụng trên hệ thống hiện tại của bạn.</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
+    <value>Bỏ giới hạn 50 MB của WebDAV</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
+    <value>Tăng giới hạn dung lượng tệp của WebClient cho ổ đĩa WebDAV từ 50 MB lên 4 GB để các tệp lớn không bị lỗi truyền qua mạng.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>Tối đa hóa thời gian tạm dừng cập nhật</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>Đặt mức trần thời gian tạm dừng Windows Update lên giá trị lớn nhất được hỗ trợ. Chỉ có hiệu lực trên các phiên bản Windows còn hỗ trợ thiết lập này; cập nhật bảo mật cũng sẽ tạm dừng khi đang bật.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Name" xml:space="preserve">
+    <value>Lớp phủ hiển thị DLSS</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Description" xml:space="preserve">
+    <value>Điều khiển lớp phủ hiển thị chỉ báo DLSS trên màn hình để kiểm tra phiên bản DLSS mà trò chơi đang thực sự kết xuất.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Recommendation.Reason" xml:space="preserve">
+    <value>Lớp phủ chẩn đoán; nên tắt trừ khi bạn đang kiểm tra hoạt động của DLSS.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.Off" xml:space="preserve">
+    <value>Tắt</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.DebugOnly" xml:space="preserve">
+    <value>Chỉ DLL gỡ lỗi (Debug)</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.AllVersions" xml:space="preserve">
+    <value>Tất cả phiên bản DLSS</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
+    <value>Cài đặt khởi động</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Network" xml:space="preserve">
+    <value>Cài đặt mạng</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Name" xml:space="preserve">
+    <value>Thông báo trạng thái chi tiết</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Description" xml:space="preserve">
+    <value>Hiển thị chính xác dịch vụ, driver hoặc bước đang được xử lý trong khi khởi động, tắt máy và cập nhật thay vì vòng quay chờ chung chung.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Name" xml:space="preserve">
+    <value>Đồng hồ phần cứng sử dụng UTC</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Description" xml:space="preserve">
+    <value>Quy định đồng hồ phần cứng theo giờ UTC. Cần thiết khi chạy song song Windows/Linux để cả hai hệ điều hành khớp giờ; trên máy chỉ cài một hệ điều hành giờ sẽ bị lệch theo múi giờ cho đến khi tắt tính năng này.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Recommendation.Reason" xml:space="preserve">
+    <value>Chỉ bật khi một hệ điều hành khác trên máy cũng coi đồng hồ phần cứng là giờ UTC.</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Name" xml:space="preserve">
+    <value>Bảo vệ chống rò rỉ DNS</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Description" xml:space="preserve">
+    <value>Vô hiệu hóa Smart Multi-Homed Name Resolution để các truy vấn DNS không gửi đồng loạt qua mọi card mạng. Ngăn truy vấn bỏ qua đường hầm khi đang sử dụng VPN.</value>
   </data>
 </root>

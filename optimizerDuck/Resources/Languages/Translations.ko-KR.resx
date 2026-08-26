@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <xsd:schema id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -1951,5 +1951,62 @@
   </data>
   <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
     <value>일부 설정은 현재 시스템에서 사용할 수 없습니다.</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
+    <value>WebDAV 50MB 제한 해제</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
+    <value>WebDAV 마운트에 대한 WebClient 파일 크기 제한을 50MB에서 4GB로 늘려 네트워크 위치의 대용량 파일 전송 실패를 방지합니다.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>업데이트 일시 중지 한도 최대화</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>Windows 업데이트 일시 중지 상한을 지원되는 최대값으로 설정합니다. 이 설정을 계속 지원하는 Windows 버전에서만 적용되며, 활성화되어 있는 동안 보안 업데이트도 일시 중지됩니다.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Name" xml:space="preserve">
+    <value>DLSS 오버레이 표시기</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Description" xml:space="preserve">
+    <value>게임이 실제로 어떤 DLSS 버전으로 렌더링되는지 확인하는 데 사용되는 화면상의 DLSS 표시기 오버레이를 제어합니다.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Recommendation.Reason" xml:space="preserve">
+    <value>진단용 오버레이입니다. DLSS 동작을 확인할 때가 아니면 꺼두십시오.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.Off" xml:space="preserve">
+    <value>꺼짐</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.DebugOnly" xml:space="preserve">
+    <value>디버그 DLL 전용</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.AllVersions" xml:space="preserve">
+    <value>모든 DLSS 버전</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
+    <value>부팅 설정</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Network" xml:space="preserve">
+    <value>네트워크 설정</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Name" xml:space="preserve">
+    <value>자세한 상태 메시지</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Description" xml:space="preserve">
+    <value>시작, 종료 및 업데이트 중에 일반적인 회전 아이콘 대신 처리 중인 정확한 서비스, 드라이버 또는 단계를 표시합니다.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Name" xml:space="preserve">
+    <value>하드웨어 시계에 UTC 사용</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Description" xml:space="preserve">
+    <value>하드웨어 시계를 UTC로 해석합니다. Windows/Linux 듀얼 부팅 시 두 시스템의 시계를 일치시키는 데 필요합니다. 단일 부팅 시스템에서는 이를 끌 때까지 시간대가 오프셋만큼 어긋납니다.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Recommendation.Reason" xml:space="preserve">
+    <value>이 컴퓨터의 다른 OS도 하드웨어 시계를 UTC로 처리하는 경우에만 활성화하십시오.</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Name" xml:space="preserve">
+    <value>DNS 유출 방지</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Description" xml:space="preserve">
+    <value>스마트 다중 홈 이름 확인을 비활성화하여 모든 네트워크 어댑터에서 DNS 쿼리가 동시에 경쟁하며 전송되지 않도록 합니다. VPN 사용 시 쿼리가 터널을 우회하는 것을 방지합니다.</value>
   </data>
 </root>

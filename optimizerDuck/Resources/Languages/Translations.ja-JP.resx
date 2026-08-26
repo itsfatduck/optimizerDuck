@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <xsd:schema id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -1952,5 +1952,62 @@
   </data>
   <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
     <value>一部の設定は、現在のシステムでは利用できません。</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
+    <value>WebDAV 50MB 制限を解除</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
+    <value>WebDAV マウントの WebClient ファイルサイズ制限を 50MB から 4GB に引き上げ、ネットワーク上の大容量ファイル転送の失敗を防止します。</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>更新プログラムの一時停止上限を最大化</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>Windows Update の一時停止上限をサポートされている最大値に設定します。この設定をサポートしている Windows バージョンでのみ有効です。有効期間中はセキュリティ更新プログラムも停止されます。</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Name" xml:space="preserve">
+    <value>DLSS オーバーレイ インジケーター</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Description" xml:space="preserve">
+    <value>ゲームが実際にどの DLSS バージョンでレンダリングされているかを確認するための画面上の DLSS インジケーター オーバーレイを制御します。</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Recommendation.Reason" xml:space="preserve">
+    <value>診断用オーバーレイです。DLSS の動作を確認する場合以外はオフのままにしてください。</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.Off" xml:space="preserve">
+    <value>オフ</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.DebugOnly" xml:space="preserve">
+    <value>デバッグ DLL のみ</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.AllVersions" xml:space="preserve">
+    <value>すべての DLSS バージョン</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
+    <value>ブート設定</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Network" xml:space="preserve">
+    <value>ネットワーク設定</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Name" xml:space="preserve">
+    <value>詳細なステータス メッセージ</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Description" xml:space="preserve">
+    <value>起動、シャットダウン、更新時に、一般的なスピナーの代わりに処理中の正確なサービス、ドライバー、または手順を表示します。</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Name" xml:space="preserve">
+    <value>ハードウェア クロックで UTC を使用</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Description" xml:space="preserve">
+    <value>ハードウェア クロックを UTC として解釈します。Windows/Linux のデュアルブートで両システムの時刻を一致させるために必要です。シングルブート環境では無効にするまでタイムゾーンのオフセット分ずれます。</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Recommendation.Reason" xml:space="preserve">
+    <value>このマシンの別の OS でもハードウェア クロックを UTC として扱っている場合にのみ有効にしてください。</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Name" xml:space="preserve">
+    <value>DNS リーク保護</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Description" xml:space="preserve">
+    <value>スマート マルチホーム名前解決を無効にし、すべてのネットワーク アダプターから同時に DNS クエリが送信されるのを防ぎます。VPN 使用時にクエリがトンネルをバイパスするのを防止します。</value>
   </data>
 </root>

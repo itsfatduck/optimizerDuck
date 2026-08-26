@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   
   <xsd:schema id="root">
@@ -1960,5 +1960,62 @@
   </data>
   <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
     <value>Некоторые параметры недоступны в вашей текущей системе.</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
+    <value>Снять ограничение 50 МБ для WebDAV</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
+    <value>Увеличивает ограничение размера файлов WebClient для WebDAV с 50 МБ до 4 ГБ, чтобы передача больших файлов по сети не завершалась ошибкой.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>Максимальный срок приостановки обновлений</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>Устанавливает максимальный поддерживаемый период приостановки Центра обновления Windows. Работает только в версиях Windows, поддерживающих этот параметр; обновления безопасности также приостанавливаются.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Name" xml:space="preserve">
+    <value>Оверлей-индикатор DLSS</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Description" xml:space="preserve">
+    <value>Управляет экранным оверлеем-индикатором DLSS, позволяющим проверить, какая именно версия DLSS используется в игре.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Recommendation.Reason" xml:space="preserve">
+    <value>Диагностический оверлей; держите выключенным, если не проверяете работу DLSS.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.Off" xml:space="preserve">
+    <value>Выкл</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.DebugOnly" xml:space="preserve">
+    <value>Только отладочные DLL</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.AllVersions" xml:space="preserve">
+    <value>Все версии DLSS</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
+    <value>Параметры загрузки</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Network" xml:space="preserve">
+    <value>Параметры сети</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Name" xml:space="preserve">
+    <value>Подробные сообщения о состоянии</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Description" xml:space="preserve">
+    <value>Отображает точное имя службы, драйвера или выполняемого шага при загрузке, выключении и обновлении вместо стандартной анимации ожидания.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Name" xml:space="preserve">
+    <value>Аппаратные часы в формате UTC</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Description" xml:space="preserve">
+    <value>Интерпретирует аппаратные часы как время UTC. Необходимо при dual-boot Windows/Linux для синхронизации времени; на системе с одной ОС время сместится на часовой пояс до отключения этого параметра.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Recommendation.Reason" xml:space="preserve">
+    <value>Включайте только в том случае, если другая ОС на этом компьютере также использует аппаратные часы в формате UTC.</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Name" xml:space="preserve">
+    <value>Защита от утечек DNS</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Description" xml:space="preserve">
+    <value>Отключает интеллектуальное разрешение многосетевых имен, предотвращая одновременную отправку DNS-запросов через все сетевые адаптеры. Исключает утечку DNS в обход туннеля VPN.</value>
   </data>
 </root>

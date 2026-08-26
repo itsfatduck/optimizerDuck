@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
         Microsoft ResX Schema 
@@ -2011,6 +2011,63 @@
   </data>
   <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
     <value>بعض الإعدادات غير متوفرة على نظامك الحالي.</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
+    <value>رفع حد 50 ميغابايت لـ WebDAV</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
+    <value>يرفع حد حجم ملفات WebClient لوحدات تخزين WebDAV من 50 ميغابايت إلى 4 غيغابايت لتجنب فشل نقل الملفات الكبيرة عبر الشبكة.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>زيادة الحد الأقصى لإيقاف التحديثات مؤقتاً</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>يضبط سقف إيقاف Windows Update مؤقتاً على أكبر قيمة مدعومة. يعمل فقط في إصدارات Windows التي لا تزال تدعم هذا الإعداد؛ تظل تحديثات الأمان متوقفة مؤقتاً أثناء تفعيله.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Name" xml:space="preserve">
+    <value>مؤشر تراكب DLSS</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Description" xml:space="preserve">
+    <value>يتحكم في مؤشر DLSS الظاهر على الشاشة للتحقق من إصدار DLSS الفعلي المستخدم في تشغيل اللعبة.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Recommendation.Reason" xml:space="preserve">
+    <value>تراكب تشخيصي؛ اتركه معطلاً إلا إذا كنت تتحقق من أداء DLSS.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.Off" xml:space="preserve">
+    <value>إيقاف</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.DebugOnly" xml:space="preserve">
+    <value>ملفات DLL الخاصة بتصحيح الأخطاء فقط</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.AllVersions" xml:space="preserve">
+    <value>جميع إصدارات DLSS</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
+    <value>إعدادات الإقلاع</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Network" xml:space="preserve">
+    <value>إعدادات الشبكة</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Name" xml:space="preserve">
+    <value>رسائل الحالة المفصلة</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Description" xml:space="preserve">
+    <value>يعرض الخدمة أو برنامج التشغيل أو الخطوة الدقيقة التي تتم معالجتها أثناء بدء التشغيل وإيقاف التشغيل والتحديثات بدلاً من رمز الانتظار العام.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Name" xml:space="preserve">
+    <value>ساعة العتاد تستخدم توقيت UTC</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Description" xml:space="preserve">
+    <value>تفسير ساعة العتاد كتوقيت UTC. مطلوب في الإقلاع المزدوج Windows/Linux ليتوافق كلا النظامين في الوقت؛ في الأنظمة الفردية سيتغير الوقت حسب فارق المنطقة الزمنية حتى يتم إيقاف هذا الخيار.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Recommendation.Reason" xml:space="preserve">
+    <value>قم بالتمكين فقط عندما يتعامل نظام تشغيل آخر على هذا الجهاز مع ساعة العتاد كتوقيت UTC أيضاً.</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Name" xml:space="preserve">
+    <value>الحماية من تسرب DNS</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Description" xml:space="preserve">
+    <value>يعطل دقة الأسماء الذكية متعددة الشبكات لمنع إرسال استعلامات DNS عبر جميع محولات الشبكة في وقت واحد. يمنع الاستعلامات من تجاوز نفق VPN.</value>
   </data>
 </root>
 

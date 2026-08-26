@@ -2027,4 +2027,61 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
     <value>Beberapa pengaturan tidak tersedia pada sistem Anda saat ini.</value>
   </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
+    <value>Buka batas 50 MB WebDAV</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
+    <value>Meningkatkan batas ukuran file WebClient untuk mount WebDAV dari 50 MB menjadi 4 GB agar transfer file besar di lokasi jaringan tidak gagal.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>Maksimalkan batas jeda pembaruan</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>Mengatur batas jeda Windows Update ke nilai maksimum yang didukung. Hanya berlaku pada versi Windows yang masih mendukung pengaturan ini; pembaruan keamanan tetap dijeda saat aktif.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Name" xml:space="preserve">
+    <value>Indikator overlay DLSS</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Description" xml:space="preserve">
+    <value>Mengontrol overlay indikator DLSS di layar untuk memverifikasi versi DLSS mana yang benar-benar digunakan game saat me-render.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Recommendation.Reason" xml:space="preserve">
+    <value>Overlay diagnostik; biarkan mati kecuali Anda sedang memeriksa perilaku DLSS.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.Off" xml:space="preserve">
+    <value>Mati</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.DebugOnly" xml:space="preserve">
+    <value>Hanya DLL Debug</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.AllVersions" xml:space="preserve">
+    <value>Semua versi DLSS</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
+    <value>Pengaturan Boot</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Network" xml:space="preserve">
+    <value>Pengaturan Jaringan</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Name" xml:space="preserve">
+    <value>Pesan status terperinci</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Description" xml:space="preserve">
+    <value>Menampilkan layanan, driver, atau langkah yang sedang diproses selama startup, shutdown, dan pembaruan, alih-alih ikon animasi umum.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Name" xml:space="preserve">
+    <value>Jam perangkat keras menggunakan UTC</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Description" xml:space="preserve">
+    <value>Menafsirkan jam perangkat keras sebagai UTC. Diperlukan pada dual-boot Windows/Linux agar kedua sistem memiliki waktu yang sama; pada mesin single-boot waktu akan bergeser sesuai zona waktu sampai dinonaktifkan.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Recommendation.Reason" xml:space="preserve">
+    <value>Aktifkan hanya jika OS lain di komputer ini juga memperlakukan jam perangkat keras sebagai UTC.</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Name" xml:space="preserve">
+    <value>Perlindungan kebocoran DNS</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Description" xml:space="preserve">
+    <value>Menonaktifkan Smart Multi-Homed Name Resolution agar kueri DNS tidak dikirimkan secara bersamaan dari semua adaptor jaringan. Mencegah kueri melewati terowongan saat menggunakan VPN.</value>
+  </data>
 </root>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   
   <xsd:schema id="root">
@@ -1960,5 +1960,62 @@ Atualize agora para desfrutar das últimas funcionalidades, melhorias e correç�
   </data>
   <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
     <value>Algumas configurações não estão disponíveis no seu sistema atual.</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
+    <value>Remover limite de 50 MB do WebDAV</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
+    <value>Aumenta o limite de tamanho de arquivo do WebClient para montagens WebDAV de 50 MB para 4 GB para que arquivos grandes não falhem em locais de rede.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>Maximizar limite de pausa de atualizações</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>Define o limite de pausa do Windows Update para o maior valor suportado. Aplicado apenas em versões do Windows que ainda suportam esta configuração; as atualizações de segurança permanecem pausadas enquanto estiver ativo.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Name" xml:space="preserve">
+    <value>Indicador de sobreposição DLSS</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Description" xml:space="preserve">
+    <value>Controla o indicador de sobreposição DLSS na tela usado para verificar com qual versão do DLSS um jogo realmente renderiza.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Recommendation.Reason" xml:space="preserve">
+    <value>Uma sobreposição de diagnóstico; deixe desativado a menos que esteja verificando o comportamento do DLSS.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.Off" xml:space="preserve">
+    <value>Desligado</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.DebugOnly" xml:space="preserve">
+    <value>Apenas DLLs de depuração</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.AllVersions" xml:space="preserve">
+    <value>Todas as versões do DLSS</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
+    <value>Configurações de Inicialização</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Network" xml:space="preserve">
+    <value>Configurações de Rede</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Name" xml:space="preserve">
+    <value>Mensagens de status detalhadas</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Description" xml:space="preserve">
+    <value>Mostra o serviço, driver ou etapa exata sendo processada durante a inicialização, desligamento e atualizações em vez de um indicador genérico.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Name" xml:space="preserve">
+    <value>Relógio de hardware usa UTC</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Description" xml:space="preserve">
+    <value>Interpreta o relógio de hardware como UTC. Necessário em dual-boot Windows/Linux para que ambos os sistemas sincronizem o relógio; em computadores com sistema único, a hora mudará pelo deslocamento do fuso horário até ser desativado.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Recommendation.Reason" xml:space="preserve">
+    <value>Ative apenas quando outro sistema operacional nesta máquina também tratar o relógio de hardware como UTC.</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Name" xml:space="preserve">
+    <value>Proteção contra vazamento de DNS</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Description" xml:space="preserve">
+    <value>Desativa a Resolução Inteligente de Nomes Multihomed para que as consultas DNS não concorram por todos os adaptadores de rede de uma vez. Impede que consultas contornem o túnel quando uma VPN estiver em uso.</value>
   </data>
 </root>

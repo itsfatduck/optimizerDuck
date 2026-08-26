@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   
   <xsd:schema id="root">
@@ -1960,5 +1960,62 @@ Zaktualizuj teraz, aby korzystać z najnowszych funkcji, ulepszeń i poprawek b�
   </data>
   <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
     <value>Niektóre ustawienia są niedostępne w bieżącym systemie.</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
+    <value>Znieś limit 50 MB dla WebDAV</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
+    <value>Zwiększa limit rozmiaru plików usługi WebClient dla WebDAV z 50 MB do 4 GB, zapobiegając błędom przy przesyłaniu dużych plików w lokalizacjach sieciowych.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>Maksymalizuj limit wstrzymania aktualizacji</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>Ustawia limit wstrzymania usługi Windows Update na najwyższą obsługiwaną wartość. Działa tylko w wersjach systemu Windows, które nadal obsługują to ustawienie; aktualizacje zabezpieczeń również pozostają wstrzymane.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Name" xml:space="preserve">
+    <value>Wskaźnik nakładki DLSS</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Description" xml:space="preserve">
+    <value>Steruje ekranową nakładką ze wskaźnikiem DLSS, służącą do weryfikacji, z którą wersją DLSS gra jest rzeczywiście renderowana.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Recommendation.Reason" xml:space="preserve">
+    <value>Nakładka diagnostyczna; pozostaw wyłączoną, chyba że testujesz zachowanie DLSS.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.Off" xml:space="preserve">
+    <value>Wył.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.DebugOnly" xml:space="preserve">
+    <value>Tylko biblioteki DLL debugowania</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.AllVersions" xml:space="preserve">
+    <value>Wszystkie wersje DLSS</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
+    <value>Ustawienia rozruchu</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Network" xml:space="preserve">
+    <value>Ustawienia sieci</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Name" xml:space="preserve">
+    <value>Szczegółowe komunikaty o stanie</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Description" xml:space="preserve">
+    <value>Pokazuje dokładną usługę, sterownik lub krok przetwarzany podczas uruchamiania, zamykania i aktualizacji zamiast standardowego wskaźnika ładowania.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Name" xml:space="preserve">
+    <value>Zegar sprzętowy używa czasu UTC</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Description" xml:space="preserve">
+    <value>Interpretuje zegar sprzętowy jako UTC. Wymagane w konfiguracji dual-boot Windows/Linux, aby oba systemy miały ten sam czas; w konfiguracji z jednym systemem czas zostanie przesunięty o strefę czasową do momentu wyłączenia.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Recommendation.Reason" xml:space="preserve">
+    <value>Włączaj tylko wtedy, gdy inny system operacyjny na tym komputerze również traktuje zegar sprzętowy jako UTC.</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Name" xml:space="preserve">
+    <value>Ochrona przed wyciekiem DNS</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Description" xml:space="preserve">
+    <value>Wyłącza inteligentne rozpoznawanie nazw w wielu sieciach, aby zapytania DNS nie były wysyłane jednocześnie ze wszystkich kart sieciowych. Zapobiega omijaniu tunelu podczas korzystania z VPN.</value>
   </data>
 </root>

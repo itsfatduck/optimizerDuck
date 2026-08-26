@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
         Microsoft ResX Schema 
@@ -2021,5 +2021,62 @@ Aktualisiere jetzt, um die neuesten Funktionen, Verbesserungen und Fehlerbehebun
   </data>
   <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
     <value>Einige Einstellungen sind auf Ihrem aktuellen System nicht verfügbar.</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
+    <value>WebDAV 50-MB-Limit aufheben</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
+    <value>Erhöht das Dateigrößenlimit des WebClient für WebDAV-Freigaben von 50 MB auf 4 GB, damit große Dateien an Netzwerkorten nicht mehr fehlschlagen.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>Pause-Limit für Updates maximieren</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>Setzt die Obergrenze für das Anhalten von Windows Update auf den maximal unterstützten Wert. Gilt nur für Windows-Versionen, die diese Einstellung noch unterstützen; Sicherheitsupdates bleiben währenddessen ebenfalls pausiert.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Name" xml:space="preserve">
+    <value>DLSS-Overlay-Anzeige</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Description" xml:space="preserve">
+    <value>Steuert die DLSS-Overlay-Anzeige auf dem Bildschirm, um zu überprüfen, mit welcher DLSS-Version ein Spiel tatsächlich gerendert wird.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Recommendation.Reason" xml:space="preserve">
+    <value>Ein Diagnose-Overlay; ausgeschaltet lassen, es sei denn, Sie testen das DLSS-Verhalten.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.Off" xml:space="preserve">
+    <value>Aus</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.DebugOnly" xml:space="preserve">
+    <value>Nur Debug-DLLs</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.AllVersions" xml:space="preserve">
+    <value>Alle DLSS-Versionen</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
+    <value>Start-Einstellungen</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Network" xml:space="preserve">
+    <value>Netzwerk-Einstellungen</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Name" xml:space="preserve">
+    <value>Detaillierte Statusmeldungen</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Description" xml:space="preserve">
+    <value>Zeigt beim Starten, Herunterfahren und Aktualisieren den genauen Dienst, Treiber oder Verarbeitungsschritt anstelle eines allgemeinen Ladezeichens an.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Name" xml:space="preserve">
+    <value>Hardware-Uhr verwendet UTC</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Description" xml:space="preserve">
+    <value>Interpretiert die Hardware-Uhr als UTC. Erforderlich für Windows/Linux-Dual-Boot, damit beide Systeme die gleiche Uhrzeit anzeigen; auf Einzel-Boot-Systemen weicht die Zeit um den Zeitzonenversatz ab, bis dies deaktiviert wird.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Recommendation.Reason" xml:space="preserve">
+    <value>Nur aktivieren, wenn ein anderes Betriebssystem auf diesem Rechner die Hardware-Uhr ebenfalls als UTC behandelt.</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Name" xml:space="preserve">
+    <value>DNS-Leak-Schutz</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Description" xml:space="preserve">
+    <value>Deaktiviert die intelligente Multihomed-Namensauflösung, damit DNS-Anfragen nicht gleichzeitig über jeden Netzwerkadapter gesendet werden. Verhindert das Umgehen des VPN-Tunnels bei DNS-Abfragen.</value>
   </data>
 </root>
