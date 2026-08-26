@@ -1,0 +1,5 @@
+# Exclude agent tooling from the code knowledge graph:
+# Python helper scripts under .agents/skills pollute entry_points
+# (the indexer treats any Function named `main` as an entry point)
+# and are not part of the WPF application itself.
+.agents/
