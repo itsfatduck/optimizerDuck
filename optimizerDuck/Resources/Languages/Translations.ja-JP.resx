@@ -2010,4 +2010,28 @@
   <data name="Customize.SystemFeatures.DisableSmartNameResolution.Description" xml:space="preserve">
     <value>スマート マルチホーム名前解決を無効にし、すべてのネットワーク アダプターから同時に DNS クエリが送信されるのを防ぎます。VPN 使用時にクエリがトンネルをバイパスするのを防止します。</value>
   </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Name" xml:space="preserve">
+    <value>タスクバーボタンを結合する</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Description" xml:space="preserve">
+    <value>すべてのディスプレイでタスクバーボタンをいつ結合し、ラベルを非表示にするかを選択します。</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.Always" xml:space="preserve">
+    <value>常に</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.WhenFull" xml:space="preserve">
+    <value>タスクバーがいっぱいになったとき</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.Never" xml:space="preserve">
+    <value>結合しない</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.Title" xml:space="preserve">
+    <value>警告:パッケージ名が異常です</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.Description" xml:space="preserve">
+    <value>次のパッケージは識別子が異常であるか、名前形式が未検証です。異常な名前のパッケージを削除すると、エラーが発生したり意図しないファイルが削除されたりする可能性があります。続行する前に慎重に確認してください。</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.SelectedList" xml:space="preserve">
+    <value>異常なパッケージが検出されました</value>
+  </data>
 </root>

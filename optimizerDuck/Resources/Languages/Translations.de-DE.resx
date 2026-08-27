@@ -2079,4 +2079,28 @@ Aktualisiere jetzt, um die neuesten Funktionen, Verbesserungen und Fehlerbehebun
   <data name="Customize.SystemFeatures.DisableSmartNameResolution.Description" xml:space="preserve">
     <value>Deaktiviert die intelligente Multihomed-Namensauflösung, damit DNS-Anfragen nicht gleichzeitig über jeden Netzwerkadapter gesendet werden. Verhindert das Umgehen des VPN-Tunnels bei DNS-Abfragen.</value>
   </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Name" xml:space="preserve">
+    <value>Taskleistenschaltflächen kombinieren</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Description" xml:space="preserve">
+    <value>Wählen Sie, wann Taskleistenschaltflächen kombiniert und Beschriftungen auf allen Anzeigen ausgeblendet werden sollen.</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.Always" xml:space="preserve">
+    <value>Immer</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.WhenFull" xml:space="preserve">
+    <value>Wenn Taskleiste voll ist</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.Never" xml:space="preserve">
+    <value>Nie</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.Title" xml:space="preserve">
+    <value>Warnung:Ungewöhnlicher Paketname</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.Description" xml:space="preserve">
+    <value>Die folgenden Pakete haben ungewöhnliche Bezeichner oder nicht überprüfte Namensformate. Das Entfernen von Paketen mit ungewöhnlichen Namen kann Fehler verursachen oder unbeabsichtigte Dateien entfernen. Bitte überprüfen Sie sorgfältig, bevor Sie fortfahren.</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.SelectedList" xml:space="preserve">
+    <value>Ungewöhnliche(s) Paket(e) erkannt</value>
+  </data>
 </root>

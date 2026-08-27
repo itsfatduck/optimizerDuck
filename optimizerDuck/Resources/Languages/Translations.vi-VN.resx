@@ -2010,4 +2010,28 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Customize.SystemFeatures.DisableSmartNameResolution.Description" xml:space="preserve">
     <value>Vô hiệu hóa Smart Multi-Homed Name Resolution để các truy vấn DNS không gửi đồng loạt qua mọi card mạng. Ngăn truy vấn bỏ qua đường hầm khi đang sử dụng VPN.</value>
   </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Name" xml:space="preserve">
+    <value>Gộp nút thanh tác vụ</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Description" xml:space="preserve">
+    <value>Chọn thời điểm gộp các nút trên thanh tác vụ và ẩn nhãn trên tất cả các màn hình.</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.Always" xml:space="preserve">
+    <value>Luôn luôn</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.WhenFull" xml:space="preserve">
+    <value>Khi thanh tác vụ đầy</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.Never" xml:space="preserve">
+    <value>Không bao giờ</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.Title" xml:space="preserve">
+    <value>Cảnh báo: Tên gói bất thường</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.Description" xml:space="preserve">
+    <value>Các gói sau có tên định danh bất thường hoặc định dạng chưa được xác minh. Việc gỡ các gói có tên bất thường có thể gây lỗi hoặc xóa nhầm tệp không mong muốn. Vui lòng xem xét kỹ trước khi tiếp tục.</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.SelectedList" xml:space="preserve">
+    <value>Phát hiện (các) gói bất thường</value>
+  </data>
 </root>

@@ -2009,4 +2009,28 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   <data name="Customize.SystemFeatures.DisableSmartNameResolution.Description" xml:space="preserve">
     <value>DNS sorgularının tüm ağ bağdaştırıcılarından aynı anda yarışmasını önlemek için Akıllı Çoklu Girişli Ad Çözümlemesini devre dışı bırakır. VPN kullanımında sorguların tüneli atlamasını engeller.</value>
   </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Name" xml:space="preserve">
+    <value>Görev çubuğu düğmelerini birleştir</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Description" xml:space="preserve">
+    <value>Tüm ekranlarda görev çubuğu düğmelerinin ne zaman birleştirileceğini ve etiketlerin ne zaman gizleneceğini seçin.</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.Always" xml:space="preserve">
+    <value>Her zaman</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.WhenFull" xml:space="preserve">
+    <value>Görev çubuğu dolduğunda</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.Never" xml:space="preserve">
+    <value>Asla</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.Title" xml:space="preserve">
+    <value>Uyarı:Sıra dışı paket adı</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.Description" xml:space="preserve">
+    <value>Aşağıdaki paket(ler) sıra dışı tanımlayıcılara veya doğrulanmamış ad biçimlerine sahip. Sıra dışı adlara sahip paketlerin kaldırılması hatalara neden olabilir veya istenmeyen dosyaları kaldırabilir. Lütfen devam etmeden önce dikkatlice inceleyin.</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.SelectedList" xml:space="preserve">
+    <value>Sıra dışı paket(ler) tespit edildi</value>
+  </data>
 </root>

@@ -2009,4 +2009,28 @@
   <data name="Customize.SystemFeatures.DisableSmartNameResolution.Description" xml:space="preserve">
     <value>스마트 다중 홈 이름 확인을 비활성화하여 모든 네트워크 어댑터에서 DNS 쿼리가 동시에 경쟁하며 전송되지 않도록 합니다. VPN 사용 시 쿼리가 터널을 우회하는 것을 방지합니다.</value>
   </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Name" xml:space="preserve">
+    <value>작업 표시줄 단추 결합</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Description" xml:space="preserve">
+    <value>모든 디스플레이에서 작업 표시줄 단추를 결합하고 레이블을 숨길 시점을 선택합니다.</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.Always" xml:space="preserve">
+    <value>항상</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.WhenFull" xml:space="preserve">
+    <value>작업 표시줄이 가득 찼을 때</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.Never" xml:space="preserve">
+    <value>사용 안 함</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.Title" xml:space="preserve">
+    <value>경고:비정상적인 패키지 이름</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.Description" xml:space="preserve">
+    <value>다음 패키지는 비정상적인 식별자나 검증되지 않은 이름 형식을 가지고 있습니다. 비정상적인 이름의 패키지를 제거하면 오류가 발생하거나 의도하지 않은 파일이 제거될 수 있습니다. 계속하기 전에 주의 깊게 검토해 주세요.</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.SelectedList" xml:space="preserve">
+    <value>비정상적인 패키지가 감지되었습니다</value>
+  </data>
 </root>

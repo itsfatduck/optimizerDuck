@@ -2018,4 +2018,28 @@ Atualize agora para desfrutar das últimas funcionalidades, melhorias e correç�
   <data name="Customize.SystemFeatures.DisableSmartNameResolution.Description" xml:space="preserve">
     <value>Desativa a Resolução Inteligente de Nomes Multihomed para que as consultas DNS não concorram por todos os adaptadores de rede de uma vez. Impede que consultas contornem o túnel quando uma VPN estiver em uso.</value>
   </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Name" xml:space="preserve">
+    <value>Combinar botões da barra de tarefas</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Description" xml:space="preserve">
+    <value>Escolha quando combinar os botões da barra de tarefas e ocultar rótulos em todos os monitores.</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.Always" xml:space="preserve">
+    <value>Sempre</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.WhenFull" xml:space="preserve">
+    <value>Quando a barra estiver cheia</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.Never" xml:space="preserve">
+    <value>Nunca</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.Title" xml:space="preserve">
+    <value>Aviso:Nome de pacote incomum</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.Description" xml:space="preserve">
+    <value>O(s) pacote(s) a seguir possui(em) identificadores incomuns ou formatos de nome não verificados. Remover pacotes com nomes incomuns pode causar erros ou remover arquivos não intencionais. Revise cuidadosamente antes de continuar.</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.SelectedList" xml:space="preserve">
+    <value>Pacote(s) incomum(is) detectado(s)</value>
+  </data>
 </root>
