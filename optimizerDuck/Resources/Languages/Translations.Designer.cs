@@ -214,6 +214,24 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Warning: Unusual Package Name.
+        /// </summary>
+        internal static string BloatwareDialog_UnusualWarning_Title {
+            get {
+                return ResourceManager.GetString("BloatwareDialog.UnusualWarning.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The following package has an unusual name or format:...
+        /// </summary>
+        internal static string BloatwareDialog_UnusualWarning_Message {
+            get {
+                return ResourceManager.GetString("BloatwareDialog.UnusualWarning.Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Accept.
         /// </summary>
         internal static string Button_Accept {

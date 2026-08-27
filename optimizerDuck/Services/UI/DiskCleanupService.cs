@@ -309,11 +309,11 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
 
         var dirInfo = new DirectoryInfo(path);
 
-        // Pre-check: only filter .net path if the root path itself is related
+        // Pre-check: only filter .net path if the .net temp directory is a descendant of the scan root
         var needsDotNetFilter =
             isRecursive
-            && path.StartsWith(
-                DotNetTempPath.TrimEnd(Path.DirectorySeparatorChar),
+            && DotNetTempPath.StartsWith(
+                path.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar,
                 StringComparison.OrdinalIgnoreCase
             );
 

@@ -608,24 +608,30 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
             if (operation == OptimizationOperation.Revert)
             {
-                remainingFailedSteps = (
-                    await RunWithProcessingDialogAsync(
-                        optimization,
-                        progress =>
-                            OptimizationService.RetryFailedStepsAsync(
-                                remainingFailedSteps,
-                                true,
-                                _logger,
-                                revertManager: null,
-                                optimizationId: null,
-                                optimizationKey: null,
-                                progress: progress
-                            )
-                    )
-                )
-                    .OrderBy(s => s.Index)
-                    .ToList();
+                var retryResult = await RunWithProcessingDialogAsync(
+                    optimization,
+                    progress =>
+                        OptimizationService.RetryFailedStepsWithResultsAsync(
+                            remainingFailedSteps,
+                            true,
+                            _logger,
+                            revertManager: null,
+                            optimizationId: null,
+                            optimizationKey: null,
+                            progress: progress
+                        )
+                );
 
+                foreach (var recoveredStep in retryResult.RecoveredSteps)
+                {
+                    await _revertManager.RemoveRevertStepAtIndexAsync(
+                        optimization.Id,
+                        optimization.OptimizationKey,
+                        recoveredStep.Index
+                    );
+                }
+
+                remainingFailedSteps = retryResult.FailedSteps.OrderBy(s => s.Index).ToList();
                 if (remainingFailedSteps.Count == 0)
                 {
                     _revertManager.RemoveRevertData(optimization.Id, optimization.OptimizationKey);

@@ -124,17 +124,40 @@ public partial class StartupManagerViewModel : ViewModel
     [RelayCommand]
     private void OpenLocation(StartupApp? app)
     {
-        if (app?.CanOpenLocation != true || app.FilePath == null)
+        if (app?.CanOpenLocation != true || string.IsNullOrWhiteSpace(app.FilePath))
             return;
 
         try
         {
-            // Clean up the file path to prevent argument injection
-            // into explorer.exe's /select command.
-            var safePath = app.FilePath.Replace("\"", string.Empty);
-            safePath = Path.GetFullPath(safePath);
+            var rawPath = app.FilePath.Trim().Trim('"');
+            if (!File.Exists(rawPath) && !Directory.Exists(rawPath))
+            {
+                var match = System.Text.RegularExpressions.Regex.Match(
+                    app.FilePath,
+                    @"^(?:""([^""]+)""|([^\s]+))"
+                );
+                if (match.Success)
+                {
+                    var extracted = match.Groups[1].Success
+                        ? match.Groups[1].Value
+                        : match.Groups[2].Value;
+                    if (File.Exists(extracted) || Directory.Exists(extracted))
+                        rawPath = extracted;
+                }
+            }
 
-            Process.Start("explorer.exe", $"/select,\"{safePath}\"");
+            var safePath = Path.GetFullPath(rawPath);
+            if (!File.Exists(safePath) && !Directory.Exists(safePath))
+                return;
+
+            Process.Start(
+                new ProcessStartInfo
+                {
+                    FileName = "explorer.exe",
+                    Arguments = $"/select,\"{safePath}\"",
+                    UseShellExecute = false,
+                }
+            );
         }
         catch (Exception ex)
         {

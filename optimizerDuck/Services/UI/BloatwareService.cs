@@ -115,6 +115,21 @@ public class BloatwareService(
                 }
             }
 
+#if DEBUG
+            // Mock AppX package with unusual characters for testing warning dialog in UI
+            apps.Add(
+                new AppXPackage
+                {
+                    Name = "Test.MockUnusualPackage$(whoami)",
+                    PackageFullName =
+                        "Test.MockUnusualPackage$(whoami)_1.0.0.0_neutral__invalid!format",
+                    Publisher = "CN=TestMockPublisher",
+                    Version = "1.0.0.0",
+                    InstallLocation = string.Empty,
+                    Risk = AppRisk.Caution,
+                }
+            );
+#endif
             logger.LogInformation("Found {AppCount} AppX packages", apps.Count);
 
             return apps;
@@ -138,15 +153,28 @@ public class BloatwareService(
         @"^[a-zA-Z0-9._\-]+_[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+_[a-zA-Z0-9_]+__[a-zA-Z0-9_]+$",
         RegexOptions.Compiled
     );
+    /// <summary>
+    ///     Validates whether an AppX package has standard, safe identifiers.
+    /// </summary>
+    public static bool IsValidPackage(AppXPackage package)
+    {
+        if (string.IsNullOrWhiteSpace(package.PackageFullName))
+            return false;
+
+        var nameValid =
+            string.IsNullOrEmpty(package.Name) || AppXNameValidationRegex.IsMatch(package.Name);
+        var fullNameValid = AppXPackageFullNameValidationRegex.IsMatch(package.PackageFullName);
+        return nameValid && fullNameValid;
+    }
+
 
     /// <summary>
-    ///     Escapes a string value for safe embedding in a PowerShell double-quoted string.
-    ///     Replaces <c>"</c> with <c>`"</c> and <c>$</c> with <c>`$</c> to prevent
-    ///     string break-out and variable expansion.
+    ///     Escapes a string value for safe embedding in a PowerShell single-quoted string literal.
+    ///     Single quotes in PowerShell do not evaluate variables or subexpressions.
     /// </summary>
-    private static string EscapeForPowerShell(string value)
+    private static string EscapeForPowerShellLiteral(string value)
     {
-        return value.Replace("`", "``").Replace("$", "`$").Replace("\"", "`\"");
+        return value.Replace("'", "''");
     }
 
     /// <summary>
@@ -167,10 +195,9 @@ public class BloatwareService(
                 return;
             }
 
-            // Validate AppX identifiers to prevent PowerShell injection
-            var safeName = EscapeForPowerShell(appXPackage.Name ?? string.Empty);
-            var safePackageFullName = EscapeForPowerShell(appXPackage.PackageFullName);
-
+            // Safe string literal escaping for PowerShell
+            var safeName = EscapeForPowerShellLiteral(appXPackage.Name ?? string.Empty);
+            var safePackageFullName = EscapeForPowerShellLiteral(appXPackage.PackageFullName);
             if (!AppXNameValidationRegex.IsMatch(appXPackage.Name ?? string.Empty))
                 logger.LogWarning(
                     "AppX package name contains unusual characters: {Name}",
@@ -190,8 +217,8 @@ public class BloatwareService(
             );
 
             var script = $$"""
-                $pkgFull = "{{safePackageFullName}}"
-                $name = "{{safeName}}"
+                $pkgFull = '{{safePackageFullName}}'
+                $name = '{{safeName}}'
 
                 $installed = Get-AppxPackage -PackageTypeFilter Main,Bundle,Resource |
                              Where-Object { $_.PackageFullName -eq $pkgFull -or $_.Name -eq $name }

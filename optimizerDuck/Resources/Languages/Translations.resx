@@ -1191,6 +1191,17 @@ This ensures you can always go back if anything goes wrong.</value>
   <data name="BloatwareDialog.Confirmation.SelectedList" xml:space="preserve">
     <value>Selected applications</value>
   </data>
+  <data name="BloatwareDialog.UnusualWarning.Title" xml:space="preserve">
+    <value>Warning: Unusual Package Name</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.Message" xml:space="preserve">
+    <value>The following package has an unusual name or format:
+{0}
+
+Removing packages with unusual names might cause errors or remove unintended files.
+
+Do you want to continue removing this package?</value>
+  </data>
   <data name="Settings.Bloatware.Header" xml:space="preserve">
     <value>Bloatware</value>
   </data>

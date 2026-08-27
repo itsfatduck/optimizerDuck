@@ -111,7 +111,7 @@ public class RevertManagerTests
     }
 
     [Fact]
-    public async Task RevertAsync_WithPartialStepFailures_ReturnsFailure_And_DeletesFile()
+    public async Task RevertAsync_WithPartialStepFailures_ReturnsFailure_And_KeepsRemainingFailedStepsInFile()
     {
         var id = Guid.NewGuid();
         var path = Path.Combine(Shared.RevertDirectory, id + ".json");
@@ -160,9 +160,15 @@ public class RevertManagerTests
             var result = await manager.RevertAsync(new MockOptimization(id));
 
             Assert.False(result.Success);
-            Assert.False(File.Exists(path));
+            Assert.True(File.Exists(path));
             var failedStep = Assert.Single(result.FailedSteps);
+            Assert.Equal(2, failedStep.Index);
             Assert.NotNull(failedStep.RetryAction);
+
+            var updatedData = await RevertManager.GetRevertDataAsync(id);
+            Assert.NotNull(updatedData);
+            Assert.Null(updatedData!.Steps[0]);
+            Assert.NotNull(updatedData.Steps[1]);
         }
         finally
         {
@@ -224,7 +230,7 @@ public class RevertManagerTests
     }
 
     [Fact]
-    public async Task RevertAsync_WithPartialFailures_RetryActionSucceedsAfterRevertDataIsDeleted()
+    public async Task RevertAsync_WithPartialFailures_RetryingFailedStep_RemovesStepFromRevertData()
     {
         var id = Guid.NewGuid();
         var path = Path.Combine(Shared.RevertDirectory, id + ".json");
@@ -273,17 +279,58 @@ public class RevertManagerTests
             var result = await manager.RevertAsync(new MockOptimization(id));
 
             Assert.False(result.Success);
-            Assert.False(File.Exists(path));
+            Assert.True(File.Exists(path));
 
             var failedStep = Assert.Single(result.FailedSteps);
             Assert.NotNull(failedStep.RetryAction);
             Assert.True(await failedStep.RetryAction!());
+
+            await manager.RemoveRevertStepAtIndexAsync(id, "TestOptimization", failedStep.Index);
             Assert.False(File.Exists(path));
         }
         finally
         {
             if (File.Exists(path))
                 File.Delete(path);
+        }
+    }
+
+    [Fact]
+    public async Task LoadAsync_PathTraversalSiblingDirectory_ReturnsNull()
+    {
+        var siblingDir = Shared.RevertDirectory.TrimEnd(Path.DirectorySeparatorChar) + "Sibling";
+        Directory.CreateDirectory(siblingDir);
+        var siblingFile = Path.Combine(siblingDir, $"{Guid.NewGuid()}.json");
+        var cancellationToken = TestContext.Current.CancellationToken;
+
+        try
+        {
+            var payload = new RevertData
+            {
+                OptimizationId = Guid.NewGuid(),
+                OptimizationName = "Test",
+                AppliedAt = DateTime.UtcNow,
+                Steps = [],
+            };
+            await File.WriteAllTextAsync(siblingFile, JsonConvert.SerializeObject(payload), cancellationToken);
+
+            var loadMethod = typeof(RevertManager).GetMethod(
+                "LoadAsync",
+                System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic
+            );
+            Assert.NotNull(loadMethod);
+
+            var task = (Task<RevertData?>)loadMethod!.Invoke(null, [siblingFile, null])!;
+            var result = await task;
+
+            Assert.Null(result);
+        }
+        finally
+        {
+            if (File.Exists(siblingFile))
+                File.Delete(siblingFile);
+            if (Directory.Exists(siblingDir))
+                Directory.Delete(siblingDir);
         }
     }
 }

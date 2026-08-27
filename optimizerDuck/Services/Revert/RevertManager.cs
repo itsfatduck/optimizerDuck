@@ -135,14 +135,23 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             }
         }
 
-        if (failedSteps.Count < total)
-            RemoveRevertData(optimization.Id, optimization.OptimizationKey);
-
         if (failedSteps.Count == 0)
         {
-            if (_fileLocks.TryRemove(optimization.Id, out var sem))
+            RemoveRevertData(optimization.Id, optimization.OptimizationKey);
+        }
+        else if (failedSteps.Count < total)
+        {
+            var failedIndexes = failedSteps.Select(s => s.Index).ToHashSet();
+            foreach (var (idx, _) in sortedSteps)
             {
-                sem.Dispose();
+                if (!failedIndexes.Contains(idx))
+                {
+                    await RemoveRevertStepAtIndexAsync(
+                        optimization.Id,
+                        optimization.OptimizationKey,
+                        idx
+                    ).ConfigureAwait(false);
+                }
             }
         }
 
@@ -182,7 +191,7 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
         try
         {
             var data =
-                await LoadAsync(filePath).ConfigureAwait(false)
+                await LoadAsync(filePath, _logger).ConfigureAwait(false)
                 ?? new RevertData
                 {
                     SchemaVersion = SchemaVersion,
@@ -221,6 +230,51 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             lockObj.Release();
         }
     }
+    public async Task RemoveRevertStepAtIndexAsync(
+        Guid id,
+        string? name,
+        int stepIndex
+    )
+    {
+        if (stepIndex <= 0)
+            return;
+
+        var filePath = GetFilePath(id);
+        var lockObj = await AcquireFileLockAsync(id).ConfigureAwait(false);
+        try
+        {
+            var data = await LoadAsync(filePath, _logger).ConfigureAwait(false);
+            if (data == null || data.Steps.Length == 0)
+                return;
+
+            if (stepIndex <= data.Steps.Length)
+            {
+                data.Steps[stepIndex - 1] = null;
+            }
+
+            if (data.Steps.All(s => s == null))
+            {
+                Remove(id, name);
+                return;
+            }
+
+            data.SchemaVersion = SchemaVersion;
+            await WriteJsonAtomicAsync(filePath, data).ConfigureAwait(false);
+
+            var remainingSteps = data.Steps.Count(s => s != null);
+            _logger.LogInformation(
+                "Removed revert step at index {Index} for {Id} (remaining: {Remaining} steps)",
+                stepIndex,
+                id,
+                remainingSteps
+            );
+        }
+        finally
+        {
+            lockObj.Release();
+        }
+    }
+
 
     public static async Task<bool> IsAppliedAsync(Guid id)
     {
@@ -263,7 +317,7 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
         return Path.Combine(Shared.RevertDirectory, $"{id}.json");
     }
 
-    private static async Task<RevertData?> LoadAsync(string path)
+    private static async Task<RevertData?> LoadAsync(string path, ILogger? logger = null)
     {
         if (!File.Exists(path))
             return null;
@@ -285,9 +339,13 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
                     // Validate the file is within the expected revert directory (path traversal guard)
                     var resolvedPath = Path.GetFullPath(path);
                     var revertDir = Path.GetFullPath(Shared.RevertDirectory);
+                    if (!revertDir.EndsWith(Path.DirectorySeparatorChar))
+                        revertDir += Path.DirectorySeparatorChar;
+
                     if (!resolvedPath.StartsWith(revertDir, StringComparison.OrdinalIgnoreCase))
                     {
-                        TraceCorruptRevertFile(
+                        LogCorruptRevertFile(
+                            logger,
                             path,
                             new InvalidOperationException(
                                 "Revert file path outside expected directory"
@@ -296,10 +354,25 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
                         return null;
                     }
 
+                    var canonicalRevertDir = Path.GetFullPath(revertDir).TrimEnd(Path.DirectorySeparatorChar);
+                    var canonicalPath = Path.GetFullPath(resolvedPath);
+                    if (!canonicalPath.StartsWith(canonicalRevertDir + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)
+                        && !string.Equals(canonicalPath, canonicalRevertDir, StringComparison.OrdinalIgnoreCase))
+                    {
+                        LogCorruptRevertFile(
+                            logger,
+                            path,
+                            new InvalidOperationException(
+                                "Revert file path escapes canonical revert directory"
+                            )
+                        );
+                        return null;
+                    }
                     // Validate schema version
                     if (data.SchemaVersion != SchemaVersion)
                     {
-                        TraceCorruptRevertFile(
+                        LogCorruptRevertFile(
+                            logger,
                             path,
                             new InvalidOperationException(
                                 $"Unsupported schema version {data.SchemaVersion} (expected {SchemaVersion})"
@@ -319,35 +392,37 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
         }
         catch (JsonException ex)
         {
-            TraceCorruptRevertFile(path, ex);
+            LogCorruptRevertFile(logger, path, ex);
             return null;
         }
         catch (Exception ex)
         {
-            TraceCorruptRevertFile(path, ex);
+            LogCorruptRevertFile(logger, path, ex);
             return null;
         }
     }
 
-    private static Guid? ExtractIdFromPath(string path)
+    private static void LogCorruptRevertFile(ILogger? logger, string path, Exception ex)
     {
-        try
+        if (logger != null)
         {
-            var fileName = Path.GetFileNameWithoutExtension(path);
-            if (Guid.TryParse(fileName, out var id))
-                return id;
+            logger.LogWarning(
+                ex,
+                "Corrupt or invalid revert file {Path}: {Message}",
+                path,
+                ex.Message
+            );
         }
-        catch { }
-        return null;
-    }
-
-    private static void TraceCorruptRevertFile(string path, Exception ex)
-    {
-        global::System.Diagnostics.Trace.TraceWarning(
-            "Corrupt revert file {0}: {1}",
-            path,
-            ex.Message
-        );
+        else
+        {
+            Serilog.Log.ForContext<RevertManager>()
+                .Warning(
+                    ex,
+                    "Corrupt or invalid revert file {Path}: {Message}",
+                    path,
+                    ex.Message
+                );
+        }
     }
 
     public void RemoveRevertData(Guid id, string? name = null)
@@ -383,10 +458,28 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
         var tempPath = path + ".tmp";
         await File.WriteAllTextAsync(tempPath, json).ConfigureAwait(false);
 
-        if (File.Exists(path))
-            File.Replace(tempPath, path, destinationBackupFileName: null);
-        else
-            File.Move(tempPath, path);
+        try
+        {
+            if (File.Exists(path))
+                File.Replace(tempPath, path, destinationBackupFileName: null);
+            else
+                File.Move(tempPath, path);
+        }
+        catch
+        {
+            if (File.Exists(tempPath))
+            {
+                try
+                {
+                    File.Delete(tempPath);
+                }
+                catch
+                {
+                    // Best-effort cleanup
+                }
+            }
+            throw;
+        }
     }
 
     private static async Task<SemaphoreSlim> AcquireFileLockAsync(Guid id)
@@ -406,7 +499,7 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
 
     private async Task<List<(int Index, IRevertStep Step)>> LoadStepsAsync(Guid id)
     {
-        var data = await LoadAsync(GetFilePath(id)).ConfigureAwait(false);
+        var data = await LoadAsync(GetFilePath(id), _logger).ConfigureAwait(false);
         if (data == null || data.Steps.Length == 0)
             return [];
 
@@ -492,11 +585,13 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             }
             catch (Exception ex)
             {
-                global::System.Diagnostics.Trace.TraceWarning(
-                    "Failed to register revert step {Type}: {Message}",
-                    type.FullName,
-                    ex.Message
-                );
+                Serilog.Log.ForContext<RevertManager>()
+                    .Warning(
+                        ex,
+                        "Failed to register revert step {Type}: {Message}",
+                        type.FullName,
+                        ex.Message
+                    );
             }
         }
 

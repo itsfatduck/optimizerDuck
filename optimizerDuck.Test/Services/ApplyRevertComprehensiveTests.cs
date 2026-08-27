@@ -538,7 +538,7 @@ public class ApplyRevertComprehensiveTests
     #region Revert Partial Failure Scenarios
 
     [Fact]
-    public async Task RevertAsync_LastStepFails_PartialFailureWithFileDeleted()
+    public async Task RevertAsync_LastStepFails_PartialFailureWithFilePreserved()
     {
         await RunInStaThreadAsync(async () =>
         {
@@ -591,7 +591,12 @@ public class ApplyRevertComprehensiveTests
                 Assert.False(result.Success);
                 Assert.False(result.AllStepsFailed);
                 Assert.Single(result.FailedSteps);
-                Assert.False(File.Exists(revertPath)); // File deleted because not all steps failed
+                Assert.True(File.Exists(revertPath)); // File preserved with remaining failed steps
+
+                var updatedData = await RevertManager.GetRevertDataAsync(optimization.Id);
+                Assert.NotNull(updatedData);
+                Assert.Null(updatedData!.Steps[0]); // Step 1 succeeded and was removed
+                Assert.NotNull(updatedData.Steps[1]); // Step 2 failed and is preserved
 
                 // Failed step should have retry action
                 Assert.NotNull(result.FailedSteps[0].RetryAction);
@@ -719,7 +724,7 @@ public class ApplyRevertComprehensiveTests
                 var result = await manager.RevertAsync(optimization);
 
                 Assert.False(result.Success);
-                Assert.False(File.Exists(revertPath));
+                Assert.True(File.Exists(revertPath)); // Preserved because step 2 failed
 
                 // Retry the failed step - note: retry will also fail because it's still "exit 1"
                 var failedStep = result.FailedSteps.FirstOrDefault();
@@ -733,7 +738,7 @@ public class ApplyRevertComprehensiveTests
                     await failedStep.RetryAction!()
                 );
                 Assert.NotNull(exception); // Expected to throw
-                Assert.False(File.Exists(revertPath));
+                Assert.True(File.Exists(revertPath)); // Still preserved
             }
             finally
             {
