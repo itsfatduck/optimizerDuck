@@ -311,6 +311,27 @@ public abstract partial class BaseCustomizeSetting : ObservableObject, ICustomiz
 
     protected SettingOption Option(
         string optionKey,
+        string regPath,
+        string regName,
+        object value,
+        bool matchMissingAsDefault
+    ) =>
+        new(
+            Loc.Instance[$"Customize.{OwnerKey}.{FeatureKey}.Options.{optionKey}"],
+            value,
+            [
+                new RegistryBinding(
+                    regPath,
+                    regName,
+                    value,
+                    Microsoft.Win32.RegistryValueKind.DWord,
+                    matchMissingAsDefault ? [value, null] : null
+                ),
+            ]
+        );
+
+    protected SettingOption Option(
+        string optionKey,
         object value,
         params RegistryBinding[] bindings
     ) =>
@@ -318,6 +339,48 @@ public abstract partial class BaseCustomizeSetting : ObservableObject, ICustomiz
             Loc.Instance[$"Customize.{OwnerKey}.{FeatureKey}.Options.{optionKey}"],
             value,
             bindings
+        );
+
+    protected RegistryBinding Bind(
+        string regPath,
+        string? regName,
+        object? value,
+        params object?[] additionalMatchValues
+    ) =>
+        new(
+            regPath,
+            regName,
+            value,
+            Microsoft.Win32.RegistryValueKind.DWord,
+            additionalMatchValues.Length > 0 ? [value, .. additionalMatchValues] : null
+        );
+
+    protected RegistryBinding Bind(
+        string regPath,
+        string? regName,
+        object? value,
+        Microsoft.Win32.RegistryValueKind valueKind,
+        params object?[] additionalMatchValues
+    ) =>
+        new(
+            regPath,
+            regName,
+            value,
+            valueKind,
+            additionalMatchValues.Length > 0 ? [value, .. additionalMatchValues] : null
+        );
+
+    protected RegistryBinding BindWithDefault(
+        string regPath,
+        string? regName,
+        object value
+    ) =>
+        new(
+            regPath,
+            regName,
+            value,
+            Microsoft.Win32.RegistryValueKind.DWord,
+            [value, null]
         );
 
     protected string RecommendationPrefix => $"Customize.{OwnerKey}.{FeatureKey}.Recommendation";
@@ -335,7 +398,7 @@ public abstract partial class BaseCustomizeSetting : ObservableObject, ICustomiz
         return new CustomizeRecommendationResult(state, $"{RecommendationPrefix}.Reason");
     }
 
-    private static bool ValuesEqual(object? a, object? b)
+    public static bool ValuesEqual(object? a, object? b)
     {
         if (a == null && b == null)
             return true;
@@ -415,7 +478,7 @@ public abstract partial class BaseCustomizeSetting : ObservableObject, ICustomiz
             var allMatch = option.Bindings.All(b =>
             {
                 var actual = RegistryService.Read<object>(new RegistryItem(b.Path, b.Name));
-                return ValuesEqual(actual, b.Value);
+                return b.Matches(actual);
             });
 
             if (allMatch)

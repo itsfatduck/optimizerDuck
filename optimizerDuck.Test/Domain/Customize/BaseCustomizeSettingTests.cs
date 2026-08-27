@@ -1063,5 +1063,80 @@ public class BaseCustomizeSettingTests : IDisposable
         Assert.Equal("custom", setting.CurrentValue);
     }
 
+    private class TestMatchMissingDropdown : BaseCustomizeSetting
+    {
+        public override CustomizeControlType ControlType => CustomizeControlType.Dropdown;
+
+        protected override IReadOnlyList<SettingOption>? GetOptions() =>
+            [
+                Option("Center", TestKeyPath, "AlignTestKey", 1, matchMissingAsDefault: true),
+                Option("Left", TestKeyPath, "AlignTestKey", 0),
+            ];
+    }
+
+    [Fact]
+    public void Dropdown_MatchMissingAsDefault_MatchesWhenKeyAbsent()
+    {
+        var setting = new TestMatchMissingDropdown { OwnerType = typeof(TestMatchMissingDropdown) };
+
+        // Ensure key is deleted (absent)
+        RegistryService.DeleteValue(new RegistryItem(TestKeyPath, "AlignTestKey"));
+
+        // Must match "Center" (value 1) without creating synthetic "Not set" fallback
+        Assert.Equal(1, setting.CurrentValue);
+        Assert.Equal(2, setting.Options?.Count);
+
+        CleanupTestKeys();
+    }
+
+    private class TestMultiBindingWithDefaultDropdown : BaseCustomizeSetting
+    {
+        private const string RegPathA = @"HKCU\Software\TestOptimizerDuckCustomize";
+        private const string RegPathB = @"HKCU\Software\TestOptimizerDuckMultiKey";
+
+        public override CustomizeControlType ControlType => CustomizeControlType.Dropdown;
+
+        protected override IReadOnlyList<SettingOption>? GetOptions() =>
+            [
+                Option(
+                    "Always",
+                    0,
+                    BindWithDefault(RegPathA, "Glom1", 0),
+                    BindWithDefault(RegPathB, "Glom2", 0)
+                ),
+                Option("WhenFull", 1, Bind(RegPathA, "Glom1", 1), Bind(RegPathB, "Glom2", 1)),
+                Option("Never", 2, Bind(RegPathA, "Glom1", 2), Bind(RegPathB, "Glom2", 2)),
+            ];
+    }
+
+    [Fact]
+    public async Task Dropdown_MultiBinding_WithDefault_MatchesWhenKeysAbsent()
+    {
+        var setting = new TestMultiBindingWithDefaultDropdown
+        {
+            OwnerType = typeof(TestMultiBindingWithDefaultDropdown),
+        };
+
+        // Both absent -> matches Always (0)
+        RegistryService.DeleteValue(new RegistryItem(TestKeyPath, "Glom1"));
+        RegistryService.DeleteValue(new RegistryItem(@"HKCU\Software\TestOptimizerDuckMultiKey", "Glom2"));
+
+        Assert.Equal(0, setting.CurrentValue);
+
+        // Apply Never (2) -> writes both keys
+        await setting.ApplyAsync(2);
+        Assert.Equal(2, setting.CurrentValue);
+        Assert.Equal(2, RegistryService.Read<int>(new RegistryItem(TestKeyPath, "Glom1")));
+        Assert.Equal(2, RegistryService.Read<int>(new RegistryItem(@"HKCU\Software\TestOptimizerDuckMultiKey", "Glom2")));
+
+        CleanupTestKeys();
+        try
+        {
+            using var hkcu = Microsoft.Win32.Registry.CurrentUser;
+            hkcu.DeleteSubKeyTree(@"Software\TestOptimizerDuckMultiKey", false);
+        }
+        catch { }
+    }
+
     #endregion
 }

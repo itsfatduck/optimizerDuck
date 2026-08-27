@@ -895,6 +895,21 @@
   <data name="Customize.Preferences.TaskbarAlignment.Options.Left" xml:space="preserve">
     <value>Left</value>
   </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Name" xml:space="preserve">
+    <value>Combine Taskbar Buttons</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Description" xml:space="preserve">
+    <value>Choose when to combine taskbar buttons and hide labels across all displays.</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.Always" xml:space="preserve">
+    <value>Always</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.WhenFull" xml:space="preserve">
+    <value>When taskbar is full</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.Never" xml:space="preserve">
+    <value>Never</value>
+  </data>
   <data name="Customize.Preferences.ExplorerCompactMode.Name" xml:space="preserve">
     <value>Explorer Compact Mode</value>
   </data>

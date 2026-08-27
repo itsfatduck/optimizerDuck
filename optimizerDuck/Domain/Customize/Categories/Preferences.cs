@@ -44,7 +44,46 @@ public class Preferences : ICustomizeCategory
         public override CustomizeControlType ControlType => CustomizeControlType.Dropdown;
 
         protected override IReadOnlyList<SettingOption>? GetOptions() =>
-            [Option("Center", RegPath, RegName, 1), Option("Left", RegPath, RegName, 0)];
+            [
+                Option("Center", RegPath, RegName, 1, matchMissingAsDefault: true),
+                Option("Left", RegPath, RegName, 0),
+            ];
+        protected override CustomizeRefreshScope RefreshScope =>
+            CustomizeRefreshScope.TaskbarSettings;
+    }
+    [CustomizeSetting(
+        Section = nameof(Sections.Taskbar),
+        Icon = SymbolRegular.AppGeneric24,
+        Condition = typeof(Windows11Condition)
+    )]
+    public class CombineTaskbarButtons : BaseCustomizeSetting
+    {
+        private const string RegPath =
+            @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
+
+        public override CustomizeControlType ControlType => CustomizeControlType.Dropdown;
+
+        protected override IReadOnlyList<SettingOption>? GetOptions() =>
+            [
+                Option(
+                    "Always",
+                    0,
+                    BindWithDefault(RegPath, "TaskbarGlomLevel", 0),
+                    BindWithDefault(RegPath, "MMTaskbarGlomLevel", 0)
+                ),
+                Option(
+                    "WhenFull",
+                    1,
+                    Bind(RegPath, "TaskbarGlomLevel", 1),
+                    Bind(RegPath, "MMTaskbarGlomLevel", 1)
+                ),
+                Option(
+                    "Never",
+                    2,
+                    Bind(RegPath, "TaskbarGlomLevel", 2),
+                    Bind(RegPath, "MMTaskbarGlomLevel", 2)
+                ),
+            ];
 
         protected override CustomizeRefreshScope RefreshScope =>
             CustomizeRefreshScope.TaskbarSettings;
