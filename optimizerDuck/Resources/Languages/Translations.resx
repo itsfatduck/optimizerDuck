@@ -1194,13 +1194,11 @@ This ensures you can always go back if anything goes wrong.</value>
   <data name="BloatwareDialog.UnusualWarning.Title" xml:space="preserve">
     <value>Warning: Unusual Package Name</value>
   </data>
-  <data name="BloatwareDialog.UnusualWarning.Message" xml:space="preserve">
-    <value>The following package has an unusual name or format:
-{0}
-
-Removing packages with unusual names might cause errors or remove unintended files.
-
-Do you want to continue removing this package?</value>
+  <data name="BloatwareDialog.UnusualWarning.Description" xml:space="preserve">
+    <value>The following package(s) have unusual identifiers or unverified name formats. Removing packages with unusual names might cause errors or remove unintended files. Please review carefully before proceeding.</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.SelectedList" xml:space="preserve">
+    <value>Unusual package(s) detected</value>
   </data>
   <data name="Settings.Bloatware.Header" xml:space="preserve">
     <value>Bloatware</value>

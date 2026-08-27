@@ -214,20 +214,29 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The following package(s) have unusual identifiers or unverified name formats. Removing packages with unusual names might cause errors or remove unintended files. Please review carefully before proceeding..
+        /// </summary>
+        internal static string BloatwareDialog_UnusualWarning_Description {
+            get {
+                return ResourceManager.GetString("BloatwareDialog.UnusualWarning.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unusual package(s) detected.
+        /// </summary>
+        internal static string BloatwareDialog_UnusualWarning_SelectedList {
+            get {
+                return ResourceManager.GetString("BloatwareDialog.UnusualWarning.SelectedList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Warning: Unusual Package Name.
         /// </summary>
         internal static string BloatwareDialog_UnusualWarning_Title {
             get {
                 return ResourceManager.GetString("BloatwareDialog.UnusualWarning.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The following package has an unusual name or format:...
-        /// </summary>
-        internal static string BloatwareDialog_UnusualWarning_Message {
-            get {
-                return ResourceManager.GetString("BloatwareDialog.UnusualWarning.Message", resourceCulture);
             }
         }
         

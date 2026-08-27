@@ -216,22 +216,11 @@ public partial class BloatwareViewModel : ViewModel
         var unusualPackages = toRemove.Where(p => !BloatwareService.IsValidPackage(p)).ToList();
         if (unusualPackages.Count > 0)
         {
-            var packageNames = string.Join(
-                "\n",
-                unusualPackages.Select(p => $"• {p.Name ?? p.PackageFullName}")
-            );
+            var warningViewModel = new BloatwareConfirmationDialogViewModel(unusualPackages);
             var warningDialog = new ContentDialog
             {
                 Title = Translations.BloatwareDialog_UnusualWarning_Title,
-                Content = new System.Windows.Controls.TextBlock
-                {
-                    Text = string.Format(
-                        Translations.BloatwareDialog_UnusualWarning_Message,
-                        packageNames
-                    ),
-                    TextWrapping = System.Windows.TextWrapping.Wrap,
-                    Margin = new System.Windows.Thickness(0, 8, 0, 8),
-                },
+                Content = new BloatwareWarningDialog { DataContext = warningViewModel },
                 PrimaryButtonText = Translations.Button_Ok,
                 CloseButtonText = Translations.Button_Cancel,
             };
