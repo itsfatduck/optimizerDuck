@@ -33,7 +33,7 @@
             IsClosable="False"
             IsOpen="True"
             Message="{ext:Loc BloatwareDialog.UnusualWarning.Description}"
-            Severity="Caution" />
+            Severity="Warning" />
 
         <ui:TextBlock
             Grid.Row="1"
