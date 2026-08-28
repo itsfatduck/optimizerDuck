@@ -67,7 +67,7 @@
     <value>Dashboard</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.ShortDescription" xml:space="preserve">
-    <value>Tắt tính năng AI Windows Recall — tính năng chụp và lập chỉ mục ảnh chụp màn hình. Đồng thời gỡ bỏ thành phần Recall và xóa các ảnh chụp đã lưu trữ trước đó; cần khởi động lại máy để có hiệu lực.</value>
+    <value>Tắt tính năng AI Windows Recall, tính năng chụp và lập chỉ mục ảnh chụp màn hình. Đồng thời gỡ bỏ thành phần Recall và xóa các ảnh chụp đã lưu trữ trước đó; cần khởi động lại máy để có hiệu lực.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
     <value>Tắt nguồn cấp tin tức và sở thích (News and Interests) và ẩn nút của nó trên thanh tác vụ (Windows 10), đồng thời vô hiệu hóa bảng Widgets (Windows 11).</value>
