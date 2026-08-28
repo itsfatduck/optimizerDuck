@@ -53,8 +53,7 @@ public class Preferences : ICustomizeCategory
     }
     [CustomizeSetting(
         Section = nameof(Sections.Taskbar),
-        Icon = SymbolRegular.AppGeneric24,
-        Condition = typeof(Windows11Condition)
+        Icon = SymbolRegular.AppGeneric24
     )]
     public class CombineTaskbarButtons : BaseCustomizeSetting
     {
