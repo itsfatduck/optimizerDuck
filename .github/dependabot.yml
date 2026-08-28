@@ -1,0 +1,52 @@
+# Dependabot configuration
+# Keeps dependencies and GitHub Actions up-to-date with grouped PRs to reduce noise.
+# See: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates
+
+version: 2
+
+updates:
+  # NuGet: scan main + test projects so the entire solution is covered.
+  # .NET 10 solution-level package management is fine; Dependabot reads both csproj.
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Ho_Chi_Minh"
+    # Group minor + patch into one PR; majors stay isolated for visibility.
+    groups:
+      nuget-minor-and-patch:
+        applies-to: version-updates
+        update-types:
+          - "minor"
+          - "patch"
+      nuget-major:
+        applies-to: version-updates
+        update-types:
+          - "major"
+    # Limit open PRs to keep the queue manageable.
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "deps"
+      prefix-development: "chore(deps)"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "nuget"
+
+  # GitHub Actions: pin to new SHAs (Dependabot resolves tag→commit and opens update PRs).
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Ho_Chi_Minh"
+    commit-message:
+      prefix: "ci"
+      prefix-development: "chore(ci)"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "github-actions"
