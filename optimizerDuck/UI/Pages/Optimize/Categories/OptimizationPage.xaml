@@ -402,7 +402,6 @@
                                                 <StackPanel Orientation="Horizontal">
                                                     <ui:SymbolIcon
                                                         Margin="0,0,6,0"
-                                                        Filled="True"
                                                         Foreground="{DynamicResource TextFillColorInverseBrush}"
                                                         Symbol="{Binding RiskVisual.Icon}" />
 
