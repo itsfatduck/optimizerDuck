@@ -12,10 +12,10 @@ using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.UI;
-using optimizerDuck.Test.TestDoubles;
 using optimizerDuck.Services.Optimization;
 using optimizerDuck.Services.Revert;
 using optimizerDuck.Services.System;
+using optimizerDuck.Test.TestDoubles;
 using Xunit;
 
 namespace optimizerDuck.Test.Services;

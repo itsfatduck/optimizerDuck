@@ -305,9 +305,7 @@ public partial class App : Application
             .ConfigureAppConfiguration(c =>
             {
                 using var loggerFactory = LoggerFactory.Create(b => b.AddSerilog(Log.Logger));
-                ConfigManager.ValidateConfig(
-                    loggerFactory.CreateLogger(typeof(ConfigManager))
-                );
+                ConfigManager.ValidateConfig(loggerFactory.CreateLogger(typeof(ConfigManager)));
                 c.AddJsonFile(Path.Combine(Shared.RootDirectory, "appsettings.json"), false, true);
             })
             .ConfigureServices(

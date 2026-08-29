@@ -34,7 +34,8 @@ public sealed class IntelCpuCondition : CpuBrandCondition
 {
     protected override CpuVendor RequiredVendor => CpuVendor.Intel;
     protected override Func<string> Title => () => Translations.Condition_Cpu_Intel_Title;
-    protected override Func<string> Description => () => Translations.Condition_Cpu_Intel_Description;
+    protected override Func<string> Description =>
+        () => Translations.Condition_Cpu_Intel_Description;
 }
 
 /// <summary>Requires an AMD CPU.</summary>

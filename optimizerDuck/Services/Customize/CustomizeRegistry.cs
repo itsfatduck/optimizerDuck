@@ -100,6 +100,7 @@ public class CustomizeRegistry
         Categories = categories;
         IsPreloaded = true;
     }
+
     /// <summary>Builds the navigation items for the UI from the registered categories.</summary>
     /// <returns>A sequence of <see cref="NavigationViewItem"/> instances mapped to customize pages.</returns>
     public IEnumerable<NavigationViewItem> GetNavigationItems()

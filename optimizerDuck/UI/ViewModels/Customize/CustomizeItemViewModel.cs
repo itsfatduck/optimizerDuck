@@ -2,9 +2,9 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
+using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Conditions;
-using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Customize.Models;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Services.Configuration;
@@ -210,8 +210,8 @@ public partial class CustomizeItemViewModel(
             }
 
             // Only the refresh bookkeeping runs on the UI thread; the reads stay off it.
-            IsEnabled = await Task.Run(
-                () => setting.GetStateWithRetryAsync(maxRetries: 4, delayMs: 80)
+            IsEnabled = await Task.Run(() =>
+                setting.GetStateWithRetryAsync(maxRetries: 4, delayMs: 80)
             );
             var options = await Task.Run(() => setting.Options);
             UpdateOptions(options);
@@ -332,8 +332,8 @@ public partial class CustomizeItemViewModel(
 
                     if (ControlType != CustomizeControlType.Toggle)
                     {
-                        var (options, current) = await Task.Run(
-                            () => (setting.Options, setting.CurrentValue)
+                        var (options, current) = await Task.Run(() =>
+                            (setting.Options, setting.CurrentValue)
                         );
                         UpdateOptions(options);
                         CurrentValue = current;

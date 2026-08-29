@@ -646,20 +646,15 @@ public class BaseCustomizeSettingTests : IDisposable
 
     private class TestDropdownSetting : BaseCustomizeSetting
     {
-        private const string RegPath =
-            @"HKCU\Software\TestOptimizerDuckCustomize";
+        private const string RegPath = @"HKCU\Software\TestOptimizerDuckCustomize";
         private const string RegName = "DropdownTest";
 
         public override CustomizeControlType ControlType => CustomizeControlType.Dropdown;
 
         protected override IReadOnlyList<SettingOption>? GetOptions() =>
-        [
-            Option("OptionA", RegPath, RegName, 1),
-            Option("OptionB", RegPath, RegName, 2),
-        ];
+            [Option("OptionA", RegPath, RegName, 1), Option("OptionB", RegPath, RegName, 2)];
 
-        protected override CustomizeRefreshScope RefreshScope =>
-            CustomizeRefreshScope.Settings;
+        protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.Settings;
     }
 
     [Fact]
@@ -733,7 +728,10 @@ public class BaseCustomizeSettingTests : IDisposable
         Assert.NotNull(effective);
         Assert.Equal(3, effective!.Count);
         Assert.Equal(99, effective[2].Value);
-        Assert.Equal(Loc.Instance[BaseCustomizeSetting.CustomOptionTranslationKey], effective[2].DisplayName);
+        Assert.Equal(
+            Loc.Instance[BaseCustomizeSetting.CustomOptionTranslationKey],
+            effective[2].DisplayName
+        );
         Assert.Null(effective[2].Bindings);
         Assert.Equal(99, setting.CurrentValue);
 
@@ -856,7 +854,9 @@ public class BaseCustomizeSettingTests : IDisposable
         // Key A = 1 (matches "On" primary) but Key B = 0 → no full match; the raw primary
         // value (1) already equals the declared "On" value, so no "Custom" duplicate.
         RegistryService.Write(new RegistryItem(TestKeyPath, "Key1", 1));
-        RegistryService.Write(new RegistryItem(@"HKCU\Software\TestOptimizerDuckMultiKey", "Key2", 0));
+        RegistryService.Write(
+            new RegistryItem(@"HKCU\Software\TestOptimizerDuckMultiKey", "Key2", 0)
+        );
 
         var effective = setting.Options;
 
@@ -905,11 +905,15 @@ public class BaseCustomizeSettingTests : IDisposable
         public override CustomizeControlType ControlType => CustomizeControlType.Dropdown;
 
         protected override IReadOnlyList<SettingOption>? GetOptions() =>
-        [
-            new SettingOption("Off", 0, [new RegistryBinding(RegPath, RegName, 0)]),
-            new SettingOption("On", 1, [new RegistryBinding(RegPath, RegName, 1)]),
-            new SettingOption("NotSet", "notset", [new RegistryBinding(RegPath, RegName, null)]),
-        ];
+            [
+                new SettingOption("Off", 0, [new RegistryBinding(RegPath, RegName, 0)]),
+                new SettingOption("On", 1, [new RegistryBinding(RegPath, RegName, 1)]),
+                new SettingOption(
+                    "NotSet",
+                    "notset",
+                    [new RegistryBinding(RegPath, RegName, null)]
+                ),
+            ];
     }
 
     [Fact]
@@ -945,9 +949,7 @@ public class BaseCustomizeSettingTests : IDisposable
         // Selecting the declared "NotSet" option deletes the registry value (binding null).
         await setting.ApplyAsync("notset");
 
-        var value = RegistryService.Read<object>(
-            new RegistryItem(TestKeyPath, "NotSetOptionTest")
-        );
+        var value = RegistryService.Read<object>(new RegistryItem(TestKeyPath, "NotSetOptionTest"));
         Assert.Null(value);
         Assert.Equal("notset", setting.CurrentValue);
 
@@ -967,9 +969,7 @@ public class BaseCustomizeSettingTests : IDisposable
         Assert.Equal(1, setting.CurrentValue);
 
         await setting.ApplyAsync("notset");
-        var value = RegistryService.Read<object>(
-            new RegistryItem(TestKeyPath, "NotSetOptionTest")
-        );
+        var value = RegistryService.Read<object>(new RegistryItem(TestKeyPath, "NotSetOptionTest"));
         Assert.Null(value);
         Assert.Equal("notset", setting.CurrentValue);
 
@@ -984,10 +984,24 @@ public class BaseCustomizeSettingTests : IDisposable
         public override CustomizeControlType ControlType => CustomizeControlType.Dropdown;
 
         protected override IReadOnlyList<SettingOption>? GetOptions() =>
-        [
-            new SettingOption("Off", 0, [new RegistryBinding(RegPathA, "Key1", 0), new RegistryBinding(RegPathB, "Key2", 0)]),
-            new SettingOption("On", 1, [new RegistryBinding(RegPathA, "Key1", 1), new RegistryBinding(RegPathB, "Key2", 1)]),
-        ];
+            [
+                new SettingOption(
+                    "Off",
+                    0,
+                    [
+                        new RegistryBinding(RegPathA, "Key1", 0),
+                        new RegistryBinding(RegPathB, "Key2", 0),
+                    ]
+                ),
+                new SettingOption(
+                    "On",
+                    1,
+                    [
+                        new RegistryBinding(RegPathA, "Key1", 1),
+                        new RegistryBinding(RegPathB, "Key2", 1),
+                    ]
+                ),
+            ];
 
         protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.Settings;
     }
@@ -1000,7 +1014,9 @@ public class BaseCustomizeSettingTests : IDisposable
         await setting.ApplyAsync(1);
 
         var valA = RegistryService.Read<int>(new RegistryItem(TestKeyPath, "Key1"));
-        var valB = RegistryService.Read<int>(new RegistryItem(@"HKCU\Software\TestOptimizerDuckMultiKey", "Key2"));
+        var valB = RegistryService.Read<int>(
+            new RegistryItem(@"HKCU\Software\TestOptimizerDuckMultiKey", "Key2")
+        );
         Assert.Equal(1, valA);
         Assert.Equal(1, valB);
 
@@ -1020,12 +1036,16 @@ public class BaseCustomizeSettingTests : IDisposable
 
         // Both keys = 1 → option "On" matches
         RegistryService.Write(new RegistryItem(TestKeyPath, "Key1", 1));
-        RegistryService.Write(new RegistryItem(@"HKCU\Software\TestOptimizerDuckMultiKey", "Key2", 1));
+        RegistryService.Write(
+            new RegistryItem(@"HKCU\Software\TestOptimizerDuckMultiKey", "Key2", 1)
+        );
         Assert.Equal(1, setting.CurrentValue);
 
         // Key A = 1, Key B = 0 → no match → returns primary binding raw value
         RegistryService.Write(new RegistryItem(TestKeyPath, "Key1", 1));
-        RegistryService.Write(new RegistryItem(@"HKCU\Software\TestOptimizerDuckMultiKey", "Key2", 0));
+        RegistryService.Write(
+            new RegistryItem(@"HKCU\Software\TestOptimizerDuckMultiKey", "Key2", 0)
+        );
         Assert.Equal(1, setting.CurrentValue);
 
         CleanupTestKeys();
@@ -1052,7 +1072,9 @@ public class BaseCustomizeSettingTests : IDisposable
     private class OverrideWinsSetting : BaseCustomizeSetting
     {
         public override object? CurrentValue => "custom";
+
         public override Task ApplyAsync(object? value) => Task.CompletedTask;
+
         public override Task<bool> GetStateAsync() => Task.FromResult(true);
     }
 
@@ -1119,7 +1141,9 @@ public class BaseCustomizeSettingTests : IDisposable
 
         // Both absent -> matches Always (0)
         RegistryService.DeleteValue(new RegistryItem(TestKeyPath, "Glom1"));
-        RegistryService.DeleteValue(new RegistryItem(@"HKCU\Software\TestOptimizerDuckMultiKey", "Glom2"));
+        RegistryService.DeleteValue(
+            new RegistryItem(@"HKCU\Software\TestOptimizerDuckMultiKey", "Glom2")
+        );
 
         Assert.Equal(0, setting.CurrentValue);
 
@@ -1127,7 +1151,12 @@ public class BaseCustomizeSettingTests : IDisposable
         await setting.ApplyAsync(2);
         Assert.Equal(2, setting.CurrentValue);
         Assert.Equal(2, RegistryService.Read<int>(new RegistryItem(TestKeyPath, "Glom1")));
-        Assert.Equal(2, RegistryService.Read<int>(new RegistryItem(@"HKCU\Software\TestOptimizerDuckMultiKey", "Glom2")));
+        Assert.Equal(
+            2,
+            RegistryService.Read<int>(
+                new RegistryItem(@"HKCU\Software\TestOptimizerDuckMultiKey", "Glom2")
+            )
+        );
 
         CleanupTestKeys();
         try

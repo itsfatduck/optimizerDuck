@@ -2,6 +2,7 @@
     x:Class="optimizerDuck.UI.Pages.Customize.CustomizeCategoryPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:optimizerDuck.UI.Controls"
     xmlns:converters="clr-namespace:optimizerDuck.Common.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
@@ -18,7 +19,6 @@
     Style="{StaticResource PageRootStyle}"
     mc:Ignorable="d">
     <Page.Resources>
-        <converters:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <converters:EqualityToVisibilityConverter x:Key="EqualityToVisibilityConverter" />
         <converters:RecommendationForegroundConverter x:Key="RecommendationForegroundConverter" />
         <converters:ObjectToNullableDoubleConverter x:Key="ObjectToNullableDoubleConverter" />
@@ -68,7 +68,7 @@
                                 ToolTipService.HasDropShadow="True"
                                 ToolTipService.InitialShowDelay="50"
                                 ToolTipService.Placement="Top"
-                                Visibility="{Binding HasRecommendation, Converter={StaticResource BoolToVisibilityConverter}}">
+                                Visibility="{Binding HasRecommendation, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <Border.Style>
                                     <Style TargetType="Border">
                                         <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
@@ -123,7 +123,7 @@
                         <StackPanel
                             Margin="0,4,0,0"
                             Orientation="Horizontal"
-                            Visibility="{Binding IsUnsupported, Converter={StaticResource BoolToVisibilityConverter}}">
+                            Visibility="{Binding IsUnsupported, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <ui:SymbolIcon
                                 Margin="0,0,6,0"
                                 VerticalAlignment="Center"
@@ -195,12 +195,11 @@
                     <ui:Button
                         Margin="8,0,0,0"
                         VerticalAlignment="Center"
-                        Background="Transparent"
-                        BorderBrush="Transparent"
                         Command="{Binding DataContext.ViewModel.ViewSourceOnGitHubCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                         CommandParameter="{Binding}"
                         Cursor="Hand"
                         Icon="{ui:SymbolIcon Code24}"
+                        Style="{StaticResource TransparentButtonStyle}"
                         ToolTip="{ext:Loc Optimizer.Menu.ViewSource}" />
                 </StackPanel>
             </ui:CardControl>
@@ -304,7 +303,7 @@
                 </ui:VirtualizingItemsControl>
 
                 <!--  Unsupported Settings expander  -->
-                <ui:CardExpander Margin="0,0,0,20" Visibility="{Binding ViewModel.HasUnsupportedSettings, Converter={StaticResource BoolToVisibilityConverter}}">
+                <ui:CardExpander Margin="0,0,0,20" Visibility="{Binding ViewModel.HasUnsupportedSettings, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <ui:CardExpander.Header>
                         <StackPanel Orientation="Horizontal">
                             <ui:SymbolIcon
@@ -344,20 +343,9 @@
             </StackPanel>
         </ScrollViewer>
 
-        <Border Grid.Row="2" Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource BoolToVisibilityConverter}}">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <ui:ProgressRing
-                    Width="48"
-                    Height="48"
-                    Margin="0,0,0,16"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    IsIndeterminate="True" />
-                <ui:TextBlock
-                    HorizontalAlignment="Center"
-                    FontTypography="BodyStrong"
-                    Text="{ext:Loc Customize.Loading}" />
-            </StackPanel>
-        </Border>
+        <controls:LoadingStateOverlay
+            Grid.Row="2"
+            IsLoading="{Binding ViewModel.IsLoading}"
+            Title="{ext:Loc Customize.Loading}" />
     </Grid>
 </Page>

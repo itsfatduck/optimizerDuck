@@ -48,7 +48,10 @@ public class OptimizationRegistry(ILoggerFactory loggerFactory)
                                     if (opt is BaseOptimization bo)
                                     {
                                         bo.OwnerType = t;
-                                        ConditionValidation.Validate(bo.ConditionType, bo.OptimizationKey);
+                                        ConditionValidation.Validate(
+                                            bo.ConditionType,
+                                            bo.OptimizationKey
+                                        );
                                     }
 
                                     return opt;

@@ -49,10 +49,10 @@ public class CustomizeItemViewModelTests : IDisposable
         public override CustomizeControlType ControlType => CustomizeControlType.Dropdown;
 
         protected override IReadOnlyList<SettingOption>? GetOptions() =>
-        [
-            Option("OptionA", TestKeyPath, RegName, 1),
-            Option("OptionB", TestKeyPath, RegName, 2),
-        ];
+            [
+                Option("OptionA", TestKeyPath, RegName, 1),
+                Option("OptionB", TestKeyPath, RegName, 2),
+            ];
 
         public override async Task ApplyAsync(object? value)
         {
@@ -77,8 +77,11 @@ public class CustomizeItemViewModelTests : IDisposable
         public void Dispose() { }
     }
 
-    private static (TestDropdownVmSetting setting, FakeRegistryWatcher watcher, CustomizeItemViewModel vm)
-        CreateVm()
+    private static (
+        TestDropdownVmSetting setting,
+        FakeRegistryWatcher watcher,
+        CustomizeItemViewModel vm
+    ) CreateVm()
     {
         var setting = new TestDropdownVmSetting { OwnerType = typeof(TestDropdownVmSetting) };
         var watcher = new FakeRegistryWatcher();
@@ -322,10 +325,9 @@ public class CustomizeItemViewModelTests : IDisposable
         DeleteValue();
         watcher.Raise(TestKeyPath);
 
-        await WaitUntilAsync(
-            () =>
-                ReferenceEquals(vm.CurrentValue, BaseCustomizeSetting.MissingValueSentinel)
-                && vm.Options!.Count == 3
+        await WaitUntilAsync(() =>
+            ReferenceEquals(vm.CurrentValue, BaseCustomizeSetting.MissingValueSentinel)
+            && vm.Options!.Count == 3
         );
 
         Assert.Equal(
@@ -367,7 +369,9 @@ public class CustomizeItemViewModelTests : IDisposable
         WriteValue(123);
         watcher.Raise(TestKeyPath);
 
-        await WaitUntilAsync(() => Equals(vm.CurrentValue, 123) && Equals(vm.Options[2].Value, 123));
+        await WaitUntilAsync(() =>
+            Equals(vm.CurrentValue, 123) && Equals(vm.Options[2].Value, 123)
+        );
 
         Assert.Equal(3, vm.Options.Count);
         Assert.Equal(
@@ -425,10 +429,9 @@ public class CustomizeItemViewModelTests : IDisposable
         DeleteValue();
         watcher.Raise(TestKeyPath);
 
-        await WaitUntilAsync(
-            () =>
-                ReferenceEquals(vm.CurrentValue, BaseCustomizeSetting.MissingValueSentinel)
-                && vm.Options!.Count == 3
+        await WaitUntilAsync(() =>
+            ReferenceEquals(vm.CurrentValue, BaseCustomizeSetting.MissingValueSentinel)
+            && vm.Options!.Count == 3
         );
 
         Assert.Equal(1, vm.Options![0].Value);
@@ -451,7 +454,10 @@ public class CustomizeItemViewModelTests : IDisposable
 
         vm.Dispose();
 
-        Assert.Equal(watcher.WatchedPaths.OrderBy(p => p).ToArray(), watcher.UnwatchedPaths.OrderBy(p => p).ToArray());
+        Assert.Equal(
+            watcher.WatchedPaths.OrderBy(p => p).ToArray(),
+            watcher.UnwatchedPaths.OrderBy(p => p).ToArray()
+        );
     }
 
     #endregion

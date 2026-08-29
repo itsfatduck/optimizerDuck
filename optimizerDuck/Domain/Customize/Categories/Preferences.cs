@@ -48,13 +48,12 @@ public class Preferences : ICustomizeCategory
                 Option("Center", RegPath, RegName, 1, matchMissingAsDefault: true),
                 Option("Left", RegPath, RegName, 0),
             ];
+
         protected override CustomizeRefreshScope RefreshScope =>
             CustomizeRefreshScope.TaskbarSettings;
     }
-    [CustomizeSetting(
-        Section = nameof(Sections.Taskbar),
-        Icon = SymbolRegular.AppGeneric24
-    )]
+
+    [CustomizeSetting(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.AppGeneric24)]
     public class CombineTaskbarButtons : BaseCustomizeSetting
     {
         private const string RegPath =
@@ -557,10 +556,7 @@ public class Preferences : ICustomizeCategory
             CustomizeRefreshScope.TaskbarSettings;
     }
 
-    [CustomizeSetting(
-        Section = nameof(Sections.Taskbar),
-        Icon = SymbolRegular.CursorClick24
-    )]
+    [CustomizeSetting(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.CursorClick24)]
     public class TaskbarLastActiveClick : BaseCustomizeSetting
     {
         private const string RegPath =

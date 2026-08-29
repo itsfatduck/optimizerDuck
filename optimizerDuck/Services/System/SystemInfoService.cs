@@ -2218,7 +2218,8 @@ public sealed class SystemInfoService : IDisposable
                 var osTask = Task.Run(OsProvider.Get, ct);
                 var biosTask = Task.Run(BiosProvider.Get, ct);
 
-                await Task.WhenAll(cpuTask, ramTask, gpusTask, diskTask, osTask, biosTask).ConfigureAwait(false);
+                await Task.WhenAll(cpuTask, ramTask, gpusTask, diskTask, osTask, biosTask)
+                    .ConfigureAwait(false);
 
                 _cachedCpu = await cpuTask.ConfigureAwait(false);
                 _cachedOs = await osTask.ConfigureAwait(false);

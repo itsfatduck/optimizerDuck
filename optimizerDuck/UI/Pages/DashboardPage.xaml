@@ -1,8 +1,8 @@
-﻿<Page
+<Page
     x:Class="optimizerDuck.UI.Pages.DashboardPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converters="clr-namespace:optimizerDuck.Common.Converters"
+    xmlns:controls="clr-namespace:optimizerDuck.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -16,43 +16,15 @@
     ui:Design.Foreground="White"
     Style="{StaticResource PageRootStyle}"
     mc:Ignorable="d">
-    <Page.Resources>
-        <converters:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-        <converters:MBToGBConverter x:Key="MBToGBConverter" />
-        <converters:ProgressBarValueToBrushConverter x:Key="ProgressBarValueToBrushConverter" />
-        <converters:NumericComparisonToVisibilityConverter
-            x:Key="GreaterThanOneToVisibilityConverter"
-            ComparisonType="GreaterThan"
-            Threshold="1" />
-        <converters:MinusNumberConverter x:Key="MinusOneConverter" NumberToMinus="1" />
-        <converters:ThemeToGitHubIconConverter x:Key="ThemeToGitHubIconConverter" />
-        <converters:ValueConditionToVisibilityConverter
-            x:Key="NullToVisibilityConverter"
-            ConditionType="IsNull"
-            False="Visible"
-            True="Collapsed" />
-    </Page.Resources>
 
     <Grid RowDefinitions="Auto,Auto,*">
         <!--  Loading Overlay  -->
-        <Grid
+        <controls:LoadingStateOverlay
             Grid.RowSpan="3"
             Panel.ZIndex="1000"
-            Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource BoolToVisibilityConverter}}">
-            <Border Background="{DynamicResource ApplicationBackgroundBrush}" Opacity="0.8" />
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <ui:ProgressRing
-                    Width="60"
-                    Height="60"
-                    IsIndeterminate="True" />
-                <ui:TextBlock
-                    Margin="0,16,0,0"
-                    HorizontalAlignment="Center"
-                    FontTypography="Subtitle"
-                    Text="{ext:Loc Dashboard.SystemInfo.Loading}"
-                    TextWrapping="Wrap" />
-            </StackPanel>
-        </Grid>
+            DimBackground="True"
+            IsLoading="{Binding ViewModel.IsLoading}"
+            Title="{ext:Loc Dashboard.SystemInfo.Loading}" />
 
         <!--  Header  -->
         <StackPanel Style="{StaticResource PageHeaderStyle}">
@@ -460,10 +432,10 @@
                                             VerticalAlignment="Center"
                                             Background="{DynamicResource SystemFillColorAttentionBrush}"
                                             CornerRadius="{StaticResource CornerRadiusSmall}"
-                                            Visibility="{Binding IsSystemDrive, Converter={StaticResource BoolToVisibilityConverter}}">
+                                            Visibility="{Binding IsSystemDrive, Converter={StaticResource BooleanToVisibilityConverter}}">
                                             <ui:TextBlock
                                                 FontTypography="Caption"
-                                                Foreground="Black"
+                                                Foreground="{DynamicResource TextFillColorInverseBrush}"
                                                 Text="{ext:Loc Dashboard.SystemInfo.Storage.System}" />
                                         </Border>
 

@@ -1,8 +1,8 @@
-﻿<Page
+<Page
     x:Class="optimizerDuck.UI.Pages.ScheduledTasksPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converters="clr-namespace:optimizerDuck.Common.Converters"
+    xmlns:controls="clr-namespace:optimizerDuck.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
     xmlns:local="clr-namespace:optimizerDuck.UI.Pages"
@@ -17,18 +17,6 @@
     ui:Design.Foreground="White"
     Style="{StaticResource PageRootStyle}"
     mc:Ignorable="d">
-    <Page.Resources>
-        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-        <BooleanToVisibilityConverter x:Key="WpfBoolToVis" />
-        <converters:NumericComparisonToVisibilityConverter
-            x:Key="ZeroToVisibilityConverter"
-            ComparisonType="Equal"
-            Threshold="0" />
-        <converters:NumericComparisonToVisibilityConverter
-            x:Key="GreaterThanZeroToVisibilityConverter"
-            ComparisonType="GreaterThan"
-            Threshold="0" />
-    </Page.Resources>
 
     <Grid RowDefinitions="Auto, *">
         <!--  Header  -->
@@ -67,27 +55,11 @@
         </StackPanel>
 
         <!--  Loading Indicator  -->
-        <Border Grid.Row="1" Visibility="{Binding ViewModel.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <ui:ProgressRing
-                    Width="48"
-                    Height="48"
-                    Margin="0,0,0,16"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    IsIndeterminate="True" />
-                <ui:TextBlock
-                    HorizontalAlignment="Center"
-                    FontTypography="BodyStrong"
-                    Text="{ext:Loc ScheduledTasks.Loading}" />
-                <ui:TextBlock
-                    Margin="0,4,0,0"
-                    HorizontalAlignment="Center"
-                    FontTypography="Caption"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Text="{ext:Loc ScheduledTasks.Loading.Hint}" />
-            </StackPanel>
-        </Border>
+        <controls:LoadingStateOverlay
+            Grid.Row="1"
+            IsLoading="{Binding ViewModel.IsLoading}"
+            Subtitle="{ext:Loc ScheduledTasks.Loading.Hint}"
+            Title="{ext:Loc ScheduledTasks.Loading}" />
 
         <!--  Main Content  -->
         <Grid Grid.Row="1">
@@ -180,16 +152,11 @@
             </Border>
 
             <!--  No search results  -->
-            <StackPanel
+            <controls:EmptyStateView
                 Grid.Row="1"
-                Style="{StaticResource EmptyStatePanelStyle}"
-                Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource ZeroToVisibilityConverter}}">
-                <ui:SymbolIcon Style="{StaticResource EmptyStateIconStyle}" Symbol="SearchInfo24" />
-                <ui:TextBlock
-                    HorizontalAlignment="Center"
-                    Style="{StaticResource SecondaryTextStyle}"
-                    Text="{ext:Loc Bloatware.Search.NoResults}" />
-            </StackPanel>
+                Description="{ext:Loc Bloatware.Search.NoResults}"
+                Symbol="SearchInfo24"
+                Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource ZeroToVisibilityConverter}}" />
 
             <!--  Task List  -->
             <ItemsControl
@@ -231,60 +198,12 @@
                                     <!--  Row 1: Name + State badge  -->
                                     <DockPanel LastChildFill="False">
                                         <ui:TextBlock FontTypography="BodyStrong" Text="{Binding Name}" />
-                                        <Border
+                                        <controls:TaskStateBadge
                                             Margin="8,0,0,0"
-                                            Padding="6,1"
-                                            VerticalAlignment="Center"
-                                            CornerRadius="4">
-                                            <Border.Style>
-                                                <Style TargetType="Border">
-                                                    <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorSecondaryBrush}" />
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding IsReady}" Value="True">
-                                                            <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding IsRunning}" Value="True">
-                                                            <Setter Property="Background" Value="{DynamicResource AccentButtonBackground}" />
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding IsDisabledState}" Value="True">
-                                                            <Setter Property="Background" Value="{DynamicResource SystemFillColorCriticalBrush}" />
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Border.Style>
-                                            <StackPanel Orientation="Horizontal">
-                                                <ui:SymbolIcon
-                                                    x:Name="StateIcon"
-                                                    Margin="0,0,4,0"
-                                                    FontSize="14">
-                                                    <ui:SymbolIcon.Style>
-                                                        <Style TargetType="ui:SymbolIcon">
-                                                            <Setter Property="Symbol" Value="Circle24" />
-                                                            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
-                                                            <Style.Triggers>
-                                                                <DataTrigger Binding="{Binding IsReady}" Value="True">
-                                                                    <Setter Property="Symbol" Value="CheckmarkCircle24" />
-                                                                    <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
-                                                                </DataTrigger>
-                                                                <DataTrigger Binding="{Binding IsRunning}" Value="True">
-                                                                    <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
-                                                                    <Setter Property="Symbol" Value="Play24" />
-                                                                </DataTrigger>
-                                                                <DataTrigger Binding="{Binding IsDisabledState}" Value="True">
-                                                                    <Setter Property="Symbol" Value="Dismiss24" />
-                                                                    <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
-                                                                </DataTrigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </ui:SymbolIcon.Style>
-                                                </ui:SymbolIcon>
-                                                <ui:TextBlock
-                                                    VerticalAlignment="Center"
-                                                    FontTypography="Caption"
-                                                    Foreground="{Binding ElementName=StateIcon, Path=Foreground}"
-                                                    Text="{Binding State}" />
-                                            </StackPanel>
-                                        </Border>
+                                            IsDisabledState="{Binding IsDisabledState}"
+                                            IsReady="{Binding IsReady}"
+                                            IsRunning="{Binding IsRunning}"
+                                            State="{Binding State}" />
                                     </DockPanel>
 
                                     <!--  Row 2: Description  -->
@@ -303,34 +222,7 @@
                                         Text="{Binding FullPath}" />
 
                                     <!--  Row 4: Trigger badges  -->
-                                    <ItemsControl Margin="0,4,0,0" ItemsSource="{Binding TriggerTypes}">
-                                        <ItemsControl.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <WrapPanel Orientation="Horizontal" />
-                                            </ItemsPanelTemplate>
-                                        </ItemsControl.ItemsPanel>
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <Border
-                                                    Margin="0,0,4,2"
-                                                    Padding="6,2"
-                                                    Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                                    CornerRadius="4">
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <ui:SymbolIcon
-                                                            Margin="0,0,4,0"
-                                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                            Symbol="Timer24" />
-                                                        <ui:TextBlock
-                                                            VerticalAlignment="Center"
-                                                            FontTypography="Caption"
-                                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                            Text="{Binding}" />
-                                                    </StackPanel>
-                                                </Border>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
+                                    <controls:TriggerBadgeList Margin="0,4,0,0" ItemsSource="{Binding TriggerTypes}" />
 
                                     <!--  Row 5: Action summary  -->
                                     <ui:TextBlock
@@ -397,7 +289,7 @@
                                         Icon="{ui:SymbolIcon Stop24,
                                                              FontSize=16}"
                                         ToolTip="{ext:Loc ScheduledTasks.Action.Stop}"
-                                        Visibility="{Binding IsRunning, Converter={StaticResource WpfBoolToVis}}" />
+                                        Visibility="{Binding IsRunning, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     <ui:Button
                                         Margin="0,0,8,0"
                                         Padding="8"

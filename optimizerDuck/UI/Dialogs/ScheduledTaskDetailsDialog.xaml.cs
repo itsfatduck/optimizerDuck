@@ -1,10 +1,9 @@
-using System.Windows.Media;
-using Wpf.Ui.Controls;
+using System.Windows.Controls;
 using ScheduledTaskModel = optimizerDuck.Domain.Optimizations.Models.ScheduledTask.ScheduledTaskModel;
 
 namespace optimizerDuck.UI.Dialogs;
 
-public partial class ScheduledTaskDetailsDialog : System.Windows.Controls.UserControl
+public partial class ScheduledTaskDetailsDialog : UserControl
 {
     private ScheduledTaskModel? _taskModel;
 
@@ -19,42 +18,7 @@ public partial class ScheduledTaskDetailsDialog : System.Windows.Controls.UserCo
         set
         {
             _taskModel = value;
-            if (value == null)
-                return;
-
             DataContext = value;
-
-            var backgroundBrushKey = value.State switch
-            {
-                "Ready" => "SystemFillColorSuccessBrush",
-                "Running" => "AccentButtonBackground",
-                "Disabled" => "SystemFillColorCautionBrush",
-                _ => "CardBackgroundFillColorSecondaryBrush",
-            };
-
-            var iconSymbol = value.State switch
-            {
-                "Ready" => SymbolRegular.CheckmarkCircle24,
-                "Running" => SymbolRegular.Play24,
-                "Disabled" => SymbolRegular.Dismiss24,
-                _ => SymbolRegular.Circle24,
-            };
-
-            var iconBrushKey = value.State switch
-            {
-                "Ready" => "TextFillColorInverseBrush",
-                "Running" => "TextFillColorInverseBrush",
-                "Disabled" => "TextFillColorInverseBrush",
-                _ => "TextFillColorPrimaryBrush",
-            };
-
-            if (TryFindResource(backgroundBrushKey) is Brush backgroundBrush)
-                StateBorder.Background = backgroundBrush;
-
-            StateIcon.Symbol = iconSymbol;
-
-            if (TryFindResource(iconBrushKey) is Brush iconBrush)
-                StateIcon.Foreground = iconBrush;
         }
     }
 }

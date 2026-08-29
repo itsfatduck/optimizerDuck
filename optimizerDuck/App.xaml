@@ -1,4 +1,4 @@
-﻿<Application
+<Application
     x:Class="optimizerDuck.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
@@ -10,6 +10,7 @@
                 <ui:ThemesDictionary Theme="Dark" />
                 <ui:ControlsDictionary />
                 <ResourceDictionary Source="pack://application:,,,/UI/Styles/FluentDesign.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/UI/Styles/Converters.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/UI/Styles/NavigationViewOverride.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/UI/Styles/ToolTipOverride.xaml" />
             </ResourceDictionary.MergedDictionaries>

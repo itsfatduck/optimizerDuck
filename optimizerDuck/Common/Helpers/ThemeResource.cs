@@ -7,6 +7,9 @@ public static class ThemeResource
     public static T? Get<T>(string key)
         where T : class
     {
-        return Application.Current.Resources[key] as T;
+        if (Application.Current is null)
+            return null;
+
+        return Application.Current.TryFindResource(key) as T;
     }
 }

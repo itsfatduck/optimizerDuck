@@ -1,0 +1,34 @@
+<UserControl
+    x:Class="optimizerDuck.UI.Controls.EmptyStateView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    x:Name="EmptyRoot">
+    <StackPanel Style="{StaticResource EmptyStatePanelStyle}">
+        <ui:SymbolIcon
+            Style="{StaticResource EmptyStateIconStyle}"
+            Symbol="{Binding Symbol, ElementName=EmptyRoot}" />
+        <ui:TextBlock
+            HorizontalAlignment="Center"
+            Style="{StaticResource SecondaryTextStyle}"
+            Text="{Binding Title, ElementName=EmptyRoot}"
+            TextAlignment="Center"
+            TextWrapping="Wrap"
+            Visibility="{Binding Title, ElementName=EmptyRoot, Converter={StaticResource NotNullToVisibilityConverter}}" />
+        <ui:TextBlock
+            Margin="0,6,0,0"
+            HorizontalAlignment="Center"
+            Style="{StaticResource CaptionTextStyle}"
+            Text="{Binding Description, ElementName=EmptyRoot}"
+            TextAlignment="Center"
+            TextWrapping="Wrap"
+            Visibility="{Binding Description, ElementName=EmptyRoot, Converter={StaticResource NotNullToVisibilityConverter}}" />
+        <ui:Button
+            Margin="0,12,0,0"
+            HorizontalAlignment="Center"
+            Command="{Binding ActionCommand, ElementName=EmptyRoot}"
+            CommandParameter="{Binding ActionCommandParameter, ElementName=EmptyRoot}"
+            Content="{Binding ActionButtonText, ElementName=EmptyRoot}"
+            Visibility="{Binding ActionButtonText, ElementName=EmptyRoot, Converter={StaticResource NotNullToVisibilityConverter}}" />
+    </StackPanel>
+</UserControl>

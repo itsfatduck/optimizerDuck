@@ -68,7 +68,7 @@ public partial class SettingsViewModel(
         new() { DisplayName = "Türkçe", Culture = new CultureInfo("tr-TR") },
         new() { DisplayName = "עברית", Culture = new CultureInfo("he-IL") },
         new() { DisplayName = "العربية", Culture = new CultureInfo("ar-SA") },
-        new() { DisplayName = "Italiano", Culture = new CultureInfo("it-IT") },  
+        new() { DisplayName = "Italiano", Culture = new CultureInfo("it-IT") },
         new() { DisplayName = "Bahasa Indonesia", Culture = new CultureInfo("id-ID") },
     ];
 

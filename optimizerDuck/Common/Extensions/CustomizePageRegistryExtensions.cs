@@ -39,7 +39,6 @@ public static class CustomizePageRegistryExtensions
         var registryWatcher = serviceProvider.GetRequiredService<IRegistryWatcher>();
         var systemInfoService = serviceProvider.GetRequiredService<SystemInfoService>();
 
-
         var category = registry.Categories.First(c => c.GetType() == categoryType);
 
         var viewModel = new CustomizeCategoryViewModel(

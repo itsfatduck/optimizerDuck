@@ -11,20 +11,14 @@ namespace optimizerDuck.Common.Converters;
 /// <summary>Provides theme-aware text brushes for converter use.</summary>
 public static class ThemeBrushes
 {
-    public static Brush Primary => Clone("TextFillColorPrimaryBrush");
+    public static Brush Primary =>
+        ThemeResource.Get<Brush>("TextFillColorPrimaryBrush") ?? Brushes.White;
 
-    public static Brush Inverse => Clone("TextFillColorInverseBrush");
+    public static Brush Inverse =>
+        ThemeResource.Get<Brush>("TextFillColorInverseBrush") ?? Brushes.White;
 
-    public static Brush Secondary => Clone("TextFillColorSecondaryBrush");
-
-    private static Brush Clone(string key)
-    {
-        var brush = ThemeResource.Get<SolidColorBrush>(key);
-        if (brush != null)
-            return brush.Clone();
-
-        return Brushes.White;
-    }
+    public static Brush Secondary =>
+        ThemeResource.Get<Brush>("TextFillColorSecondaryBrush") ?? Brushes.Gray;
 }
 
 /// <summary>Picks a foreground brush for a recommendation state based on the current app theme.</summary>

@@ -1,0 +1,42 @@
+<UserControl
+    x:Class="optimizerDuck.UI.Controls.RiskBadge"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    x:Name="BadgeRoot">
+    <Border
+        Padding="6,2"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Center"
+        CornerRadius="{StaticResource CornerRadiusSmall}">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Risk, ElementName=BadgeRoot}" Value="Moderate">
+                        <Setter Property="Background" Value="{DynamicResource SystemFillColorCautionBrush}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Risk, ElementName=BadgeRoot}" Value="Caution">
+                        <Setter Property="Background" Value="{DynamicResource SystemFillColorCautionBrush}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Risk, ElementName=BadgeRoot}" Value="Risky">
+                        <Setter Property="Background" Value="{DynamicResource SystemFillColorCriticalBrush}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+        <StackPanel Orientation="Horizontal">
+            <ui:SymbolIcon
+                Margin="0,0,6,0"
+                Foreground="{DynamicResource TextFillColorInverseBrush}"
+                Symbol="{Binding RiskVisual.Icon, ElementName=BadgeRoot}" />
+            <ui:TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontTypography="Caption"
+                Foreground="{DynamicResource TextFillColorInverseBrush}"
+                Text="{Binding RiskVisual.Display, ElementName=BadgeRoot}"
+                TextWrapping="Wrap" />
+        </StackPanel>
+    </Border>
+</UserControl>

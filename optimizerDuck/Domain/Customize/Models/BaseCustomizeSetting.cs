@@ -239,16 +239,13 @@ public abstract partial class BaseCustomizeSetting : ObservableObject, ICustomiz
         // From ALL Dropdown option bindings (not just primary)
         var fromOptions =
             ControlType == CustomizeControlType.Dropdown && Options != null
-                ? Options.Where(o => o.Bindings != null)
+                ? Options
+                    .Where(o => o.Bindings != null)
                     .SelectMany(o => o.Bindings!)
                     .Select(b => b.Path)
                 : [];
 
-        return [
-            .. fromToggles
-                .Concat(fromOptions)
-                .Distinct(StringComparer.OrdinalIgnoreCase),
-        ];
+        return [.. fromToggles.Concat(fromOptions).Distinct(StringComparer.OrdinalIgnoreCase)];
     }
 
     /// <summary>
@@ -370,18 +367,8 @@ public abstract partial class BaseCustomizeSetting : ObservableObject, ICustomiz
             additionalMatchValues.Length > 0 ? [value, .. additionalMatchValues] : null
         );
 
-    protected RegistryBinding BindWithDefault(
-        string regPath,
-        string? regName,
-        object value
-    ) =>
-        new(
-            regPath,
-            regName,
-            value,
-            Microsoft.Win32.RegistryValueKind.DWord,
-            [value, null]
-        );
+    protected RegistryBinding BindWithDefault(string regPath, string? regName, object value) =>
+        new(regPath, regName, value, Microsoft.Win32.RegistryValueKind.DWord, [value, null]);
 
     protected string RecommendationPrefix => $"Customize.{OwnerKey}.{FeatureKey}.Recommendation";
 

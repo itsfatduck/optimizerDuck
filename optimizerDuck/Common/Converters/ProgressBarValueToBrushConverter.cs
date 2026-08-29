@@ -8,18 +8,6 @@ namespace optimizerDuck.Common.Converters;
 /// <summary>Maps a progress percentage to a theme brush: green under 50%, yellow under 80%, red above.</summary>
 public class ProgressBarValueToBrushConverter : IValueConverter
 {
-    private static readonly SolidColorBrush GreenBrush =
-        ThemeResource.Get<SolidColorBrush>("SystemFillColorSuccessBrush")
-        ?? new SolidColorBrush(Color.FromRgb(0, 180, 0));
-
-    private static readonly SolidColorBrush YellowBrush =
-        ThemeResource.Get<SolidColorBrush>("SystemFillColorCautionBrush")
-        ?? new SolidColorBrush(Color.FromRgb(255, 140, 0));
-
-    private static readonly SolidColorBrush RedBrush =
-        ThemeResource.Get<SolidColorBrush>("SystemFillColorCriticalBrush")
-        ?? new SolidColorBrush(Color.FromRgb(220, 0, 0));
-
     private static readonly SolidColorBrush DefaultBrush = new(Color.FromArgb(0x0, 0x0, 0x0, 0x0));
 
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
@@ -30,9 +18,12 @@ public class ProgressBarValueToBrushConverter : IValueConverter
         return percent switch
         {
             < 0 => DefaultBrush,
-            < 50 => GreenBrush,
-            < 80 => YellowBrush,
-            _ => RedBrush,
+            < 50 => ThemeResource.Get<Brush>("SystemFillColorSuccessBrush")
+                ?? new SolidColorBrush(Color.FromRgb(0, 180, 0)),
+            < 80 => ThemeResource.Get<Brush>("SystemFillColorCautionBrush")
+                ?? new SolidColorBrush(Color.FromRgb(255, 140, 0)),
+            _ => ThemeResource.Get<Brush>("SystemFillColorCriticalBrush")
+                ?? new SolidColorBrush(Color.FromRgb(220, 0, 0)),
         };
     }
 

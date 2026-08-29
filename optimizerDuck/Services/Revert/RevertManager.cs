@@ -50,17 +50,18 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
 
         var optimizationId = scope.OptimizationId!.Value;
         await WriteJsonAsync(
-            optimizationId,
-            GetFilePath(optimizationId),
-            new RevertData
-            {
-                SchemaVersion = SchemaVersion,
-                OptimizationId = optimizationId,
-                OptimizationName = scope.OptimizationName ?? scope.OptimizationKey!,
-                AppliedAt = DateTime.Now,
-                Steps = steps,
-            }
-        ).ConfigureAwait(false);
+                optimizationId,
+                GetFilePath(optimizationId),
+                new RevertData
+                {
+                    SchemaVersion = SchemaVersion,
+                    OptimizationId = optimizationId,
+                    OptimizationName = scope.OptimizationName ?? scope.OptimizationKey!,
+                    AppliedAt = DateTime.Now,
+                    Steps = steps,
+                }
+            )
+            .ConfigureAwait(false);
     }
 
     public async Task<RevertResult> RevertAsync(
@@ -147,10 +148,11 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
                 if (!failedIndexes.Contains(idx))
                 {
                     await RemoveRevertStepAtIndexAsync(
-                        optimization.Id,
-                        optimization.OptimizationKey,
-                        idx
-                    ).ConfigureAwait(false);
+                            optimization.Id,
+                            optimization.OptimizationKey,
+                            idx
+                        )
+                        .ConfigureAwait(false);
                 }
             }
         }
@@ -230,11 +232,8 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             lockObj.Release();
         }
     }
-    public async Task RemoveRevertStepAtIndexAsync(
-        Guid id,
-        string? name,
-        int stepIndex
-    )
+
+    public async Task RemoveRevertStepAtIndexAsync(Guid id, string? name, int stepIndex)
     {
         if (stepIndex <= 0)
             return;
@@ -274,7 +273,6 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             lockObj.Release();
         }
     }
-
 
     public static async Task<bool> IsAppliedAsync(Guid id)
     {
@@ -354,10 +352,20 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
                         return null;
                     }
 
-                    var canonicalRevertDir = Path.GetFullPath(revertDir).TrimEnd(Path.DirectorySeparatorChar);
+                    var canonicalRevertDir = Path.GetFullPath(revertDir)
+                        .TrimEnd(Path.DirectorySeparatorChar);
                     var canonicalPath = Path.GetFullPath(resolvedPath);
-                    if (!canonicalPath.StartsWith(canonicalRevertDir + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)
-                        && !string.Equals(canonicalPath, canonicalRevertDir, StringComparison.OrdinalIgnoreCase))
+                    if (
+                        !canonicalPath.StartsWith(
+                            canonicalRevertDir + Path.DirectorySeparatorChar,
+                            StringComparison.OrdinalIgnoreCase
+                        )
+                        && !string.Equals(
+                            canonicalPath,
+                            canonicalRevertDir,
+                            StringComparison.OrdinalIgnoreCase
+                        )
+                    )
                     {
                         LogCorruptRevertFile(
                             logger,
@@ -415,13 +423,9 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
         }
         else
         {
-            Serilog.Log.ForContext<RevertManager>()
-                .Warning(
-                    ex,
-                    "Corrupt or invalid revert file {Path}: {Message}",
-                    path,
-                    ex.Message
-                );
+            Serilog
+                .Log.ForContext<RevertManager>()
+                .Warning(ex, "Corrupt or invalid revert file {Path}: {Message}", path, ex.Message);
         }
     }
 
@@ -585,7 +589,8 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             }
             catch (Exception ex)
             {
-                Serilog.Log.ForContext<RevertManager>()
+                Serilog
+                    .Log.ForContext<RevertManager>()
                     .Warning(
                         ex,
                         "Failed to register revert step {Type}: {Message}",

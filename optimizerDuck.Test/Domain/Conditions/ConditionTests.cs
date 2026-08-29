@@ -19,59 +19,60 @@ public class ConditionTests
         GpuVendor gpuVendor = GpuVendor.Unknown,
         CpuVendor cpuVendor = CpuVendor.Unknown,
         double ramGb = 0
-    ) => new()
-    {
-        Cpu = new CpuInfo
+    ) =>
+        new()
         {
-            Name = "Test CPU",
-            Manufacturer = "TestManufacturer",
-            Vendor = cpuVendor,
-            Architecture = "64-bit",
-            Cores = 8,
-            Threads = 16,
-            MaxClockMHz = 4000,
-            CurrentClockMHz = 4000,
-            L2CacheKB = 0,
-            L3CacheKB = 0,
-        },
-        Ram = new RamInfo
-        {
-            TotalGB = ramGb,
-            TotalMB = (long)(ramGb * 1024),
-            TotalKB = (long)(ramGb * 1024 * 1024),
-            AvailableGB = ramGb,
-            UsedPercent = 0,
-            UsedGB = 0,
-            Modules = [],
-        },
-        Os = new OsInfo
-        {
-            Name = "Microsoft Windows 11 Pro",
-            Version = "11",
-            BuildNumber = build,
-            Edition = "Pro",
-            Architecture = "64-bit",
-            DeviceType = "Desktop",
-            InstallDate = "2024-01-01",
-            LastBootUpTime = "2024-01-01 00:00",
-        },
-        Bios = BiosInfo.Unknown,
-        Gpus =
-            gpuVendor == GpuVendor.Unknown
-                ? []
-                :
-                [
-                    new GpuInfo
-                    {
-                        Name = "Test GPU",
-                        DriverVersion = "1.0",
-                        Vendor = gpuVendor,
-                        MemoryMB = 8192,
-                    },
-                ],
-        PrimaryGpu = null,
-        Disk = DiskInfo.Unknown,
-    };
+            Cpu = new CpuInfo
+            {
+                Name = "Test CPU",
+                Manufacturer = "TestManufacturer",
+                Vendor = cpuVendor,
+                Architecture = "64-bit",
+                Cores = 8,
+                Threads = 16,
+                MaxClockMHz = 4000,
+                CurrentClockMHz = 4000,
+                L2CacheKB = 0,
+                L3CacheKB = 0,
+            },
+            Ram = new RamInfo
+            {
+                TotalGB = ramGb,
+                TotalMB = (long)(ramGb * 1024),
+                TotalKB = (long)(ramGb * 1024 * 1024),
+                AvailableGB = ramGb,
+                UsedPercent = 0,
+                UsedGB = 0,
+                Modules = [],
+            },
+            Os = new OsInfo
+            {
+                Name = "Microsoft Windows 11 Pro",
+                Version = "11",
+                BuildNumber = build,
+                Edition = "Pro",
+                Architecture = "64-bit",
+                DeviceType = "Desktop",
+                InstallDate = "2024-01-01",
+                LastBootUpTime = "2024-01-01 00:00",
+            },
+            Bios = BiosInfo.Unknown,
+            Gpus =
+                gpuVendor == GpuVendor.Unknown
+                    ? []
+                    :
+                    [
+                        new GpuInfo
+                        {
+                            Name = "Test GPU",
+                            DriverVersion = "1.0",
+                            Vendor = gpuVendor,
+                            MemoryMB = 8192,
+                        },
+                    ],
+            PrimaryGpu = null,
+            Disk = DiskInfo.Unknown,
+        };
 
     #endregion
 
@@ -365,11 +366,26 @@ public class ConditionTests
     public void ConditionEvaluator_UnknownSnapshot_FailOpenToAvailable()
     {
         // An unpopulated snapshot (detection not finished/failed) never hides an item.
-        Assert.Equal(ConditionState.Available, Evaluate(typeof(Windows11Condition), SystemSnapshot.Unknown).State);
-        Assert.Equal(ConditionState.Available, Evaluate(typeof(Windows11_24H2OrGreaterCondition), SystemSnapshot.Unknown).State);
-        Assert.Equal(ConditionState.Available, Evaluate(typeof(NvidiaGpuCondition), SystemSnapshot.Unknown).State);
-        Assert.Equal(ConditionState.Available, Evaluate(typeof(SixteenGbRamCondition), SystemSnapshot.Unknown).State);
-        Assert.Equal(ConditionState.Available, Evaluate(typeof(IntelCpuCondition), SystemSnapshot.Unknown).State);
+        Assert.Equal(
+            ConditionState.Available,
+            Evaluate(typeof(Windows11Condition), SystemSnapshot.Unknown).State
+        );
+        Assert.Equal(
+            ConditionState.Available,
+            Evaluate(typeof(Windows11_24H2OrGreaterCondition), SystemSnapshot.Unknown).State
+        );
+        Assert.Equal(
+            ConditionState.Available,
+            Evaluate(typeof(NvidiaGpuCondition), SystemSnapshot.Unknown).State
+        );
+        Assert.Equal(
+            ConditionState.Available,
+            Evaluate(typeof(SixteenGbRamCondition), SystemSnapshot.Unknown).State
+        );
+        Assert.Equal(
+            ConditionState.Available,
+            Evaluate(typeof(IntelCpuCondition), SystemSnapshot.Unknown).State
+        );
     }
 
     [Fact]

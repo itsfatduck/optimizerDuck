@@ -72,7 +72,7 @@ public partial class OptimizationState : ObservableObject
                     TimeSpan.FromSeconds(1),
                     DispatcherPriority.Render,
                     (s, e) => UpdateAllRelativeTimes(),
-                    System.Windows.Application.Current.Dispatcher
+                    dispatcher
                 );
                 _globalTimer.Start();
             }

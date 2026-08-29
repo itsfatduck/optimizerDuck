@@ -6,9 +6,9 @@ using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.Revert.Steps;
-using optimizerDuck.Test.TestDoubles;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Services.Revert;
+using optimizerDuck.Test.TestDoubles;
 
 namespace optimizerDuck.Test.Services.Managers;
 
@@ -312,7 +312,11 @@ public class RevertManagerTests
                 AppliedAt = DateTime.UtcNow,
                 Steps = [],
             };
-            await File.WriteAllTextAsync(siblingFile, JsonConvert.SerializeObject(payload), cancellationToken);
+            await File.WriteAllTextAsync(
+                siblingFile,
+                JsonConvert.SerializeObject(payload),
+                cancellationToken
+            );
 
             var loadMethod = typeof(RevertManager).GetMethod(
                 "LoadAsync",

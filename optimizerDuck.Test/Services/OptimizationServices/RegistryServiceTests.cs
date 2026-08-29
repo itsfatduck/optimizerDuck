@@ -8,8 +8,8 @@ using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
-using optimizerDuck.Test.TestDoubles;
 using optimizerDuck.Services.Optimization.Providers;
+using optimizerDuck.Test.TestDoubles;
 using Xunit;
 
 namespace optimizerDuck.Test.Services.OptimizationServices;

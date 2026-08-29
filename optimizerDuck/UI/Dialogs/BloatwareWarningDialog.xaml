@@ -2,7 +2,7 @@
     x:Class="optimizerDuck.UI.Dialogs.BloatwareWarningDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converters="clr-namespace:optimizerDuck.Common.Converters"
+    xmlns:controls="clr-namespace:optimizerDuck.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dialogVm="clr-namespace:optimizerDuck.UI.ViewModels.Dialogs"
     xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
@@ -12,13 +12,6 @@
     d:DesignHeight="520"
     d:DesignWidth="900"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <converters:NumericComparisonToVisibilityConverter
-            x:Key="GreaterThanZeroToVisibilityConverter"
-            ComparisonType="GreaterThan"
-            Threshold="0" />
-        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-    </UserControl.Resources>
 
     <Grid MinWidth="720">
         <Grid.RowDefinitions>
@@ -63,14 +56,7 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <Border
-                                    Grid.Column="0"
-                                    MinWidth="34"
-                                    Margin="0,0,12,0"
-                                    Padding="6,2"
-                                    VerticalAlignment="Top"
-                                    Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                    CornerRadius="{StaticResource CornerRadiusSmall}">
+                                <Border Grid.Column="0" Style="{StaticResource IndexBadgeStyle}">
                                     <ui:TextBlock
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
@@ -97,8 +83,7 @@
                                             Padding="4,1"
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
-                                            Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                            CornerRadius="{StaticResource CornerRadiusSmall}">
+                                            Style="{StaticResource SubtlePillStyle}">
                                             <ui:TextBlock
                                                 VerticalAlignment="Center"
                                                 Appearance="Tertiary"
@@ -106,37 +91,11 @@
                                                 Text="{Binding Package.Version}" />
                                         </Border>
 
-                                        <Border
+                                        <controls:RiskBadge
                                             Margin="8,0,0,0"
-                                            Padding="6,2"
-                                            HorizontalAlignment="Left"
-                                            CornerRadius="{StaticResource CornerRadiusSmall}"
-                                            Visibility="{Binding Package.ShouldVisibleRisk, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                            <Border.Style>
-                                                <Style TargetType="Border">
-                                                    <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding Package.Risk}" Value="Caution">
-                                                            <Setter Property="Background" Value="{DynamicResource SystemFillColorCautionBrush}" />
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Border.Style>
-                                            <StackPanel Orientation="Horizontal">
-                                                <ui:SymbolIcon
-                                                    Margin="0,0,8,0"
-                                                    Foreground="{DynamicResource TextFillColorInverseBrush}"
-                                                    Symbol="{Binding Package.RiskVisual.Icon}" />
-
-                                                <ui:TextBlock
-                                                    HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center"
-                                                    FontTypography="Caption"
-                                                    Foreground="{DynamicResource TextFillColorInverseBrush}"
-                                                    Text="{Binding Package.RiskVisual.Display}"
-                                                    TextWrapping="Wrap" />
-                                            </StackPanel>
-                                        </Border>
+                                            Risk="{Binding Package.Risk}"
+                                            RiskVisual="{Binding Package.RiskVisual}"
+                                            Visibility="{Binding Package.ShouldVisibleRisk, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </DockPanel>
 
                                     <ui:TextBlock

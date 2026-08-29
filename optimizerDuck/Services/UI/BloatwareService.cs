@@ -154,6 +154,7 @@ public class BloatwareService(
         @"^[a-zA-Z0-9._\-]+_[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+_[a-zA-Z0-9_]+__[a-zA-Z0-9_]+$",
         RegexOptions.Compiled
     );
+
     /// <summary>
     ///     Validates whether an AppX package has standard, safe identifiers.
     /// </summary>
@@ -167,7 +168,6 @@ public class BloatwareService(
         var fullNameValid = AppXPackageFullNameValidationRegex.IsMatch(package.PackageFullName);
         return nameValid && fullNameValid;
     }
-
 
     /// <summary>
     ///     Escapes a string value for safe embedding in a PowerShell single-quoted string literal.

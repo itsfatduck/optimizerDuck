@@ -193,4 +193,3 @@ public abstract partial class BaseOptimization : ObservableObject, IOptimization
             ?? ApplyResult.False(Translations.Revert_Error_NoSteps);
     }
 }
-

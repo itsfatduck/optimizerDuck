@@ -63,9 +63,11 @@ public class OptimizationService(
 
             using var scope = ExecutionScope.BeginForLogging(_logger);
 
-            var result = await ShellService.PowerShellAsync(
-                $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS"
-            ).ConfigureAwait(false);
+            var result = await ShellService
+                .PowerShellAsync(
+                    $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS"
+                )
+                .ConfigureAwait(false);
 
             if (IsFrequencyLimited(result.Stderr))
             {
@@ -94,9 +96,9 @@ public class OptimizationService(
                 }
             );
 
-            var enableResult = await ShellService.PowerShellAsync(
-                "Enable-ComputerRestore -Drive \"$env:SystemDrive\""
-            ).ConfigureAwait(false);
+            var enableResult = await ShellService
+                .PowerShellAsync("Enable-ComputerRestore -Drive \"$env:SystemDrive\"")
+                .ConfigureAwait(false);
 
             if (enableResult.ExitCode != 0)
             {
@@ -115,9 +117,11 @@ public class OptimizationService(
                 }
             );
 
-            result = await ShellService.PowerShellAsync(
-                $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS"
-            ).ConfigureAwait(false);
+            result = await ShellService
+                .PowerShellAsync(
+                    $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS"
+                )
+                .ConfigureAwait(false);
 
             if (IsFrequencyLimited(result.Stderr))
                 return RestorePointResult.FrequencyLimitReached;
@@ -169,15 +173,17 @@ public class OptimizationService(
 
         try
         {
-            var applyResult = await optimization.ApplyAsync(
-                progress,
-                new OptimizationContext
-                {
-                    Logger = optLogger,
-                    Snapshot = systemInfoService.Snapshot,
-                    StreamService = streamService,
-                }
-            ).ConfigureAwait(false);
+            var applyResult = await optimization
+                .ApplyAsync(
+                    progress,
+                    new OptimizationContext
+                    {
+                        Logger = optLogger,
+                        Snapshot = systemInfoService.Snapshot,
+                        StreamService = streamService,
+                    }
+                )
+                .ConfigureAwait(false);
 
             if (!string.IsNullOrWhiteSpace(applyResult.ErrorMessage))
             {
@@ -281,16 +287,17 @@ public class OptimizationService(
         // scan revert directory for which optimizations are currently applied
         // we infer applied state from file presence, not a database
         var revertFiles = await Task.Run(() =>
-        {
-            if (!Directory.Exists(Shared.RevertDirectory))
-                return new HashSet<string>();
+            {
+                if (!Directory.Exists(Shared.RevertDirectory))
+                    return new HashSet<string>();
 
-            return Directory
-                .GetFiles(Shared.RevertDirectory, "*.json")
-                .Select(Path.GetFileNameWithoutExtension)
-                .Where(f => f != null)
-                .ToHashSet(StringComparer.OrdinalIgnoreCase)!;
-        }).ConfigureAwait(false);
+                return Directory
+                    .GetFiles(Shared.RevertDirectory, "*.json")
+                    .Select(Path.GetFileNameWithoutExtension)
+                    .Where(f => f != null)
+                    .ToHashSet(StringComparer.OrdinalIgnoreCase)!;
+            })
+            .ConfigureAwait(false);
 
         foreach (var opt in optimizations)
         {
@@ -337,14 +344,15 @@ public class OptimizationService(
     {
         return (
             await RetryFailedStepsWithResultsAsync(
-                failedSteps,
-                reverseOrder,
-                logger,
-                revertManager,
-                optimizationId,
-                optimizationKey,
-                progress
-            ).ConfigureAwait(false)
+                    failedSteps,
+                    reverseOrder,
+                    logger,
+                    revertManager,
+                    optimizationId,
+                    optimizationKey,
+                    progress
+                )
+                .ConfigureAwait(false)
         ).FailedSteps;
     }
 
@@ -445,12 +453,14 @@ public class OptimizationService(
                     {
                         try
                         {
-                            await revertManager.UpsertRevertStepAtIndexAsync(
-                                optimizationId.Value,
-                                optimizationKey ?? string.Empty,
-                                step.Index, // Use original failed step's index
-                                recoveredStep.RevertStep
-                            ).ConfigureAwait(false);
+                            await revertManager
+                                .UpsertRevertStepAtIndexAsync(
+                                    optimizationId.Value,
+                                    optimizationKey ?? string.Empty,
+                                    step.Index, // Use original failed step's index
+                                    recoveredStep.RevertStep
+                                )
+                                .ConfigureAwait(false);
                         }
                         catch (Exception ex)
                         {

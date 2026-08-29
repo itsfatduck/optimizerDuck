@@ -38,7 +38,8 @@ public sealed class NvidiaGpuCondition : GpuBrandCondition
 {
     protected override GpuVendor RequiredVendor => GpuVendor.NVIDIA;
     protected override Func<string> Title => () => Translations.Condition_Gpu_Nvidia_Title;
-    protected override Func<string> Description => () => Translations.Condition_Gpu_Nvidia_Description;
+    protected override Func<string> Description =>
+        () => Translations.Condition_Gpu_Nvidia_Description;
 }
 
 /// <summary>Requires an AMD GPU.</summary>
@@ -54,5 +55,6 @@ public sealed class IntelGpuCondition : GpuBrandCondition
 {
     protected override GpuVendor RequiredVendor => GpuVendor.Intel;
     protected override Func<string> Title => () => Translations.Condition_Gpu_Intel_Title;
-    protected override Func<string> Description => () => Translations.Condition_Gpu_Intel_Description;
+    protected override Func<string> Description =>
+        () => Translations.Condition_Gpu_Intel_Description;
 }

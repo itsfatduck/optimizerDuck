@@ -1,0 +1,89 @@
+<UserControl
+    x:Class="optimizerDuck.UI.Controls.TaskStateBadge"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    x:Name="TaskStateRoot">
+    <Border
+        Padding="6,1"
+        VerticalAlignment="Center"
+        CornerRadius="{StaticResource CornerRadiusSmall}">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorSecondaryBrush}" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsReady, ElementName=TaskStateRoot}" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsRunning, ElementName=TaskStateRoot}" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource AccentButtonBackground}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsEnabledState, ElementName=TaskStateRoot}" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsEnabledState, ElementName=TaskStateRoot}" Value="False">
+                        <Setter Property="Background" Value="{DynamicResource SystemFillColorCriticalBrush}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding State, ElementName=TaskStateRoot}" Value="Ready">
+                        <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding State, ElementName=TaskStateRoot}" Value="Running">
+                        <Setter Property="Background" Value="{DynamicResource AccentButtonBackground}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding State, ElementName=TaskStateRoot}" Value="Disabled">
+                        <Setter Property="Background" Value="{DynamicResource SystemFillColorCriticalBrush}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+        <StackPanel Orientation="Horizontal">
+            <ui:SymbolIcon
+                x:Name="StateIcon"
+                Margin="0,0,4,0"
+                FontSize="14">
+                <ui:SymbolIcon.Style>
+                    <Style TargetType="ui:SymbolIcon">
+                        <Setter Property="Symbol" Value="Circle24" />
+                        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsReady, ElementName=TaskStateRoot}" Value="True">
+                                <Setter Property="Symbol" Value="CheckmarkCircle24" />
+                                <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsRunning, ElementName=TaskStateRoot}" Value="True">
+                                <Setter Property="Symbol" Value="Play24" />
+                                <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsEnabledState, ElementName=TaskStateRoot}" Value="True">
+                                <Setter Property="Symbol" Value="CheckmarkCircle24" />
+                                <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsEnabledState, ElementName=TaskStateRoot}" Value="False">
+                                <Setter Property="Symbol" Value="Dismiss24" />
+                                <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding State, ElementName=TaskStateRoot}" Value="Ready">
+                                <Setter Property="Symbol" Value="CheckmarkCircle24" />
+                                <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding State, ElementName=TaskStateRoot}" Value="Running">
+                                <Setter Property="Symbol" Value="Play24" />
+                                <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding State, ElementName=TaskStateRoot}" Value="Disabled">
+                                <Setter Property="Symbol" Value="Dismiss24" />
+                                <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ui:SymbolIcon.Style>
+            </ui:SymbolIcon>
+            <ui:TextBlock
+                VerticalAlignment="Center"
+                FontTypography="Caption"
+                Foreground="{Binding ElementName=StateIcon, Path=Foreground}"
+                Text="{Binding EffectiveStateDisplay, ElementName=TaskStateRoot}" />
+        </StackPanel>
+    </Border>
+</UserControl>

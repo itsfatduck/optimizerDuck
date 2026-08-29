@@ -3,7 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:optimizerDuck.UI.Controls"
-    xmlns:converters="clr-namespace:optimizerDuck.Common.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -13,10 +12,6 @@
     d:DesignHeight="700"
     d:DesignWidth="760"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <converters:BooleanToVisibilityConverter x:Key="BoolToVis" />
-        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBoolToVis" />
-    </UserControl.Resources>
     <StackPanel>
         <Border
             Margin="0,0,0,12"
@@ -50,33 +45,19 @@
                             Margin="8,0,0,0"
                             Padding="6,1"
                             VerticalAlignment="Center"
-                            Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                            CornerRadius="4">
+                            Style="{StaticResource SubtlePillStyle}">
                             <ui:TextBlock
                                 VerticalAlignment="Center"
                                 Appearance="Tertiary"
                                 FontTypography="Caption"
                                 Text="{ext:Loc ScheduledTasks.Header.Title}" />
                         </Border>
-                        <Border
-                            x:Name="StateBorder"
+                        <controls:TaskStateBadge
                             Margin="8,0,0,0"
-                            Padding="6,1"
-                            VerticalAlignment="Center"
-                            CornerRadius="4">
-                            <StackPanel Orientation="Horizontal">
-                                <ui:SymbolIcon
-                                    x:Name="StateIcon"
-                                    Margin="0,0,4,0"
-                                    FontSize="10"
-                                    Symbol="Circle24" />
-                                <ui:TextBlock
-                                    VerticalAlignment="Center"
-                                    FontTypography="Caption"
-                                    Foreground="{Binding ElementName=StateIcon, Path=Foreground}"
-                                    Text="{Binding State}" />
-                            </StackPanel>
-                        </Border>
+                            IsDisabledState="{Binding IsDisabledState}"
+                            IsReady="{Binding IsReady}"
+                            IsRunning="{Binding IsRunning}"
+                            State="{Binding State}" />
                     </DockPanel>
 
                     <ui:TextBlock
@@ -94,34 +75,7 @@
                         Text="{Binding FullPath}"
                         TextTrimming="CharacterEllipsis" />
 
-                    <ItemsControl Margin="0,6,0,0" ItemsSource="{Binding TriggerTypes}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border
-                                    Margin="0,0,4,2"
-                                    Padding="6,2"
-                                    Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                    CornerRadius="4">
-                                    <StackPanel Orientation="Horizontal">
-                                        <ui:SymbolIcon
-                                            Margin="0,0,4,0"
-                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                            Symbol="Timer24" />
-                                        <ui:TextBlock
-                                            VerticalAlignment="Center"
-                                            FontTypography="Caption"
-                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                            Text="{Binding}" />
-                                    </StackPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                    <controls:TriggerBadgeList Margin="0,6,0,0" ItemsSource="{Binding TriggerTypes}" />
                 </StackPanel>
             </Grid>
         </Border>

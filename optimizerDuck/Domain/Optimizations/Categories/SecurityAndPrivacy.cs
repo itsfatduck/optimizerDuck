@@ -542,9 +542,7 @@ public class SecurityAndPrivacy : IOptimizationCategory
     [Optimization(
         Id = "6856782A-B530-4623-BD89-942D73FB82FD",
         Risk = OptimizationRisk.Moderate,
-        Tags = OptimizationTags.Privacy
-            | OptimizationTags.System
-            | OptimizationTags.Windows10Only,
+        Tags = OptimizationTags.Privacy | OptimizationTags.System | OptimizationTags.Windows10Only,
         Condition = typeof(Windows10Condition)
     )]
     public class DisableCortana : BaseOptimization
@@ -732,11 +730,8 @@ public class SecurityAndPrivacy : IOptimizationCategory
                     0
                 )
             );
-            context.Logger.LogInformation(
-                "Disabled peer-to-peer Delivery Optimization sharing"
-            );
+            context.Logger.LogInformation("Disabled peer-to-peer Delivery Optimization sharing");
             return Task.FromResult(CompleteFromScope());
         }
     }
-
 }

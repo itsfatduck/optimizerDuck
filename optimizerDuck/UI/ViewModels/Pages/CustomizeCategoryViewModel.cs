@@ -162,7 +162,9 @@ public partial class CustomizeCategoryViewModel : ViewModel
     {
         return new ObservableCollection<CustomizeSection>(
             settings
-                .GroupBy(f => string.IsNullOrEmpty(f.Section) ? Translations.Common_Other : f.Section)
+                .GroupBy(f =>
+                    string.IsNullOrEmpty(f.Section) ? Translations.Common_Other : f.Section
+                )
                 .OrderBy(g => g.Key == Translations.Common_Other ? 1 : 0)
                 .ThenBy(g => g.Key)
                 .Select(g => new CustomizeSection

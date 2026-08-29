@@ -60,13 +60,17 @@ public sealed class ObjectToNullableDoubleConverter : IValueConverter
         return DependencyProperty.UnsetValue;
     }
 
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public object? ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture
+    )
     {
         if (value is null)
             return null;
 
-        var isInt =
-            parameter is string p && p.Equals("Int", StringComparison.OrdinalIgnoreCase);
+        var isInt = parameter is string p && p.Equals("Int", StringComparison.OrdinalIgnoreCase);
 
         if (value is double db)
             return isInt ? (int)Math.Round(db) : db;

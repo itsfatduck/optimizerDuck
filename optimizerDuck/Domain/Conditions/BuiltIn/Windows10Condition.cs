@@ -7,7 +7,8 @@ namespace optimizerDuck.Domain.Conditions;
 public sealed class Windows10Condition : ConditionBase
 {
     public override ConditionResult Evaluate(SystemSnapshot snapshot) =>
-        TryGetOsBuild(snapshot, out var build) && build is >= WindowsBuilds.Windows10 and < WindowsBuilds.Windows11
+        TryGetOsBuild(snapshot, out var build)
+        && build is >= WindowsBuilds.Windows10 and < WindowsBuilds.Windows11
             ? ConditionResult.Available
             : ConditionResult.Unsupported(
                 () => Translations.Condition_Windows10_Title,

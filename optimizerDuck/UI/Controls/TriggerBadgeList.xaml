@@ -1,0 +1,36 @@
+<UserControl
+    x:Class="optimizerDuck.UI.Controls.TriggerBadgeList"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    x:Name="TriggerListRoot">
+    <ItemsControl ItemsSource="{Binding ItemsSource, ElementName=TriggerListRoot}">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <WrapPanel Orientation="Horizontal" />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <Border
+                    Margin="0,0,4,2"
+                    Padding="6,2"
+                    Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                    CornerRadius="{StaticResource CornerRadiusSmall}">
+                    <StackPanel Orientation="Horizontal">
+                        <ui:SymbolIcon
+                            Margin="0,0,4,0"
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Symbol="Timer24" />
+                        <ui:TextBlock
+                            VerticalAlignment="Center"
+                            FontTypography="Caption"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="{Binding}" />
+                    </StackPanel>
+                </Border>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+</UserControl>
