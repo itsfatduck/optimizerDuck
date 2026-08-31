@@ -5,6 +5,7 @@ using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 
 namespace optimizerDuck.Domain.Execution;
 
@@ -341,21 +342,11 @@ public sealed class ExecutionScope : IDisposable
             Status = status,
             Message = status switch
             {
-                OptimizationSuccessResult.Success => string.Format(
-                    Translations.Optimization_Apply_Success,
-                    OptimizationName
-                ),
-                OptimizationSuccessResult.Failed when allFailed => string.Format(
-                    Translations.Optimization_Apply_Error_Failed,
-                    OptimizationName
-                ),
+                OptimizationSuccessResult.Success => Loc.Instance["Optimization.Apply.Success", OptimizationName],
+                OptimizationSuccessResult.Failed when allFailed => Loc.Instance["Optimization.Apply.Error.Failed", OptimizationName],
                 OptimizationSuccessResult.PartialSuccess or OptimizationSuccessResult.Failed =>
-                    string.Format(
-                        Translations.Optimization_Apply_Error_FailedWithSteps,
-                        OptimizationName,
-                        failedSteps.Count
-                    ),
-                _ => string.Format(Translations.Optimization_Apply_Error_Unknown, OptimizationName),
+                    Loc.Instance["Optimization.Apply.Error.FailedWithSteps", OptimizationName, failedSteps.Count],
+                _ => Loc.Instance["Optimization.Apply.Error.Unknown", OptimizationName],
             },
             FailedSteps = failedSteps,
         };

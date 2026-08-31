@@ -183,11 +183,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
                     optimization.OptimizationKey
                 );
                 _snackbarService.Show(
-                    Translations.Optimization_Toggle_Snackbar_Error_Title,
-                    string.Format(
-                        Translations.Optimization_Toggle_Snackbar_Error_Message,
-                        ex.Message
-                    ),
+                    Loc.Instance["Optimization.Toggle.Snackbar.Error.Title"],
+                    Loc.Instance["Optimization.Toggle.Snackbar.Error.Message", ex.Message],
                     ControlAppearance.Danger,
                     new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
                     TimeSpan.FromSeconds(5)
@@ -379,7 +376,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
         {
             Title = BuildDialogTitle(optimization),
             Content = dialogContent,
-            CloseButtonText = Translations.Button_Ok,
+            CloseButtonText = Loc.Instance["Button.Ok"],
         };
         var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
     }
@@ -598,8 +595,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
             {
                 Title = BuildDialogTitle(optimization),
                 Content = dialogContent,
-                PrimaryButtonText = Translations.Button_Retry,
-                CloseButtonText = Translations.Button_Cancel,
+                PrimaryButtonText = Loc.Instance["Button.Retry"],
+                CloseButtonText = Loc.Instance["Button.Cancel"],
             };
 
             var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
@@ -715,18 +712,15 @@ public partial class OptimizationCategoryViewModel : ViewModel
         if (restorePointCreated && showSuccess)
             finalMessage +=
                 "\n"
-                + string.Format(
-                    Translations.RestorePoint_Snackbar_Success_Message,
-                    Shared.RestorePointName
-                );
+                + Loc.Instance["RestorePoint.Snackbar.Success.Message", Shared.RestorePointName];
 
         if (notificationState == OperationNotificationState.Success)
         {
             if (showSuccess)
                 _snackbarService.Show(
                     operation == OptimizationOperation.Apply
-                        ? Translations.Optimization_Apply_Snackbar_Success_Title
-                        : Translations.Optimization_Revert_Snackbar_Success_Title,
+                        ? Loc.Instance["Optimization.Apply.Snackbar.Success.Title"]
+                        : Loc.Instance["Optimization.Revert.Snackbar.Success.Title"],
                     finalMessage,
                     ControlAppearance.Success,
                     new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
@@ -737,8 +731,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
         {
             _snackbarService.Show(
                 operation == OptimizationOperation.Apply
-                    ? Translations.Optimization_Apply_Snackbar_Error_Title
-                    : Translations.Optimization_Revert_Snackbar_Error_Title,
+                    ? Loc.Instance["Optimization.Apply.Snackbar.Error.Title"]
+                    : Loc.Instance["Optimization.Revert.Snackbar.Error.Title"],
                 finalMessage,
                 ControlAppearance.Caution,
                 new SymbolIcon { Symbol = SymbolRegular.Warning24, Filled = true },
@@ -749,8 +743,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
         {
             _snackbarService.Show(
                 operation == OptimizationOperation.Apply
-                    ? Translations.Optimization_Apply_Snackbar_Error_Title
-                    : Translations.Optimization_Revert_Snackbar_Error_Title,
+                    ? Loc.Instance["Optimization.Apply.Snackbar.Error.Title"]
+                    : Loc.Instance["Optimization.Revert.Snackbar.Error.Title"],
                 finalMessage,
                 ControlAppearance.Danger,
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
@@ -768,12 +762,12 @@ public partial class OptimizationCategoryViewModel : ViewModel
         var dialogContent = new RestorePointDialog();
         var dialog = new ContentDialog
         {
-            Title = Translations.RestorePoint_Title,
+            Title = Loc.Instance["RestorePoint.Title"],
             Content = dialogContent,
 
-            PrimaryButtonText = Translations.Button_Ok,
-            SecondaryButtonText = Translations.Button_Skip,
-            CloseButtonText = Translations.Button_Cancel,
+            PrimaryButtonText = Loc.Instance["Button.Ok"],
+            SecondaryButtonText = Loc.Instance["Button.Skip"],
+            CloseButtonText = Loc.Instance["Button.Cancel"],
         };
 
         var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
@@ -800,11 +794,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
                     if (!_appOptionsMonitor.CurrentValue.Optimize.ShowCompletionNotification)
                     {
                         _snackbarService.Show(
-                            Translations.RestorePoint_Snackbar_Success_Title,
-                            string.Format(
-                                Translations.RestorePoint_Snackbar_Success_Message,
-                                Shared.RestorePointName
-                            ),
+                            Loc.Instance["RestorePoint.Snackbar.Success.Title"],
+                            Loc.Instance["RestorePoint.Snackbar.Success.Message", Shared.RestorePointName],
                             ControlAppearance.Success,
                             new SymbolIcon
                             {
@@ -821,8 +812,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
                 case RestorePointResult.FrequencyLimitReached:
                     _snackbarService.Show(
-                        Translations.RestorePoint_Snackbar_Error_Title,
-                        Translations.RestorePoint_Snackbar_Warning_LimitReached,
+                        Loc.Instance["RestorePoint.Snackbar.Error.Title"],
+                        Loc.Instance["RestorePoint.Snackbar.Warning.LimitReached"],
                         ControlAppearance.Caution,
                         new SymbolIcon { Symbol = SymbolRegular.Warning24, Filled = true },
                         TimeSpan.FromSeconds(5)
@@ -833,8 +824,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 case RestorePointResult.Failed:
                 default:
                     _snackbarService.Show(
-                        Translations.RestorePoint_Snackbar_Error_Title,
-                        Translations.RestorePoint_Snackbar_Error_Message,
+                        Loc.Instance["RestorePoint.Snackbar.Error.Title"],
+                        Loc.Instance["RestorePoint.Snackbar.Error.Message"],
                         ControlAppearance.Danger,
                         new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
                         TimeSpan.FromSeconds(5)
@@ -845,17 +836,17 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
             var failedMessage =
                 resultState == RestorePointResult.FrequencyLimitReached
-                    ? Translations.RestorePoint_Snackbar_Warning_LimitReached
+                    ? Loc.Instance["RestorePoint.Snackbar.Warning.LimitReached"]
                     : "";
             var failedResult = await _contentDialogService.ShowSimpleDialogAsync(
                 new SimpleContentDialogCreateOptions
                 {
-                    Title = Translations.RestorePoint_Snackbar_Error_Title,
+                    Title = Loc.Instance["RestorePoint.Snackbar.Error.Title"],
                     Content =
-                        failedMessage + $"\n{Translations.RestorePoint_Snackbar_Error_Message}",
+                        failedMessage + $"\n{Loc.Instance["RestorePoint.Snackbar.Error.Message"]}",
 
-                    PrimaryButtonText = Translations.Button_Skip,
-                    CloseButtonText = Translations.Button_Cancel,
+                    PrimaryButtonText = Loc.Instance["Button.Skip"],
+                    CloseButtonText = Loc.Instance["Button.Cancel"],
                 },
                 CancellationToken.None
             );
@@ -869,8 +860,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
         {
             _logger.LogError(e, "Failed to create restore point");
             _snackbarService.Show(
-                Translations.RestorePoint_Snackbar_Error_Title,
-                Translations.RestorePoint_Snackbar_Error_Message,
+                Loc.Instance["RestorePoint.Snackbar.Error.Title"],
+                Loc.Instance["RestorePoint.Snackbar.Error.Message"],
                 ControlAppearance.Caution,
                 new SymbolIcon { Symbol = SymbolRegular.Warning24, Filled = true },
                 TimeSpan.FromSeconds(5)

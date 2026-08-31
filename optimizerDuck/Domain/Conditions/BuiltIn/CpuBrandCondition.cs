@@ -1,4 +1,5 @@
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.System;
 
 namespace optimizerDuck.Domain.Conditions;
@@ -33,15 +34,16 @@ public abstract class CpuBrandCondition : ConditionBase
 public sealed class IntelCpuCondition : CpuBrandCondition
 {
     protected override CpuVendor RequiredVendor => CpuVendor.Intel;
-    protected override Func<string> Title => () => Translations.Condition_Cpu_Intel_Title;
+    protected override Func<string> Title => () => Loc.Instance["Condition.Cpu.Intel.Title"];
     protected override Func<string> Description =>
-        () => Translations.Condition_Cpu_Intel_Description;
+        () => Loc.Instance["Condition.Cpu.Intel.Description"];
 }
 
 /// <summary>Requires an AMD CPU.</summary>
 public sealed class AmdCpuCondition : CpuBrandCondition
 {
     protected override CpuVendor RequiredVendor => CpuVendor.AMD;
-    protected override Func<string> Title => () => Translations.Condition_Cpu_Amd_Title;
-    protected override Func<string> Description => () => Translations.Condition_Cpu_Amd_Description;
+    protected override Func<string> Title => () => Loc.Instance["Condition.Cpu.Amd.Title"];
+    protected override Func<string> Description =>
+        () => Loc.Instance["Condition.Cpu.Amd.Description"];
 }

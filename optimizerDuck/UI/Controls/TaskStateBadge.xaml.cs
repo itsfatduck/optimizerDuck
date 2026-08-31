@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
+using optimizerDuck.Services.Configuration;
 
 namespace optimizerDuck.UI.Controls;
 
@@ -51,7 +52,15 @@ public partial class TaskStateBadge : UserControl
     public TaskStateBadge()
     {
         InitializeComponent();
+
+        // The effective state text is cached in a DependencyProperty, so it must be
+        // recomputed when the UI language changes. Weak subscription avoids keeping
+        // the control alive through the Loc singleton.
+        Loc.AddWeakLanguageChangedHandler(OnLanguageChanged);
     }
+
+    private void OnLanguageChanged(object? sender, LanguageChangedEventArgs e) =>
+        UpdateEffectiveStateDisplay();
 
     public string? State
     {
@@ -103,8 +112,8 @@ public partial class TaskStateBadge : UserControl
         if (IsEnabledState.HasValue)
         {
             EffectiveStateDisplay = IsEnabledState.Value
-                ? optimizerDuck.Resources.Languages.Translations.Common_Toggle_On
-                : optimizerDuck.Resources.Languages.Translations.Common_Toggle_Off;
+                ? Loc.Instance["Common.Toggle.On"]
+                : Loc.Instance["Common.Toggle.Off"];
         }
         else
         {

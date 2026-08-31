@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using Microsoft.Extensions.Logging;
+using optimizerDuck.Common.Extensions;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Conditions;
@@ -56,7 +57,7 @@ public abstract class GpuRegistryOptimization : BaseOptimization
 }
 
 [OptimizationCategory(typeof(GpuOptimizerPage))]
-public class Gpu : IOptimizationCategory
+public class Gpu : LocalizedObject, IOptimizationCategory
 {
     public string Name => Loc.Instance[$"Optimizer.{nameof(Gpu)}"];
     public OptimizationCategoryOrder Order { get; init; } = OptimizationCategoryOrder.Gpu;

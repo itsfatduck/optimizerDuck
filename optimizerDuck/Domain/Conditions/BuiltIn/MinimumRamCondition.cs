@@ -1,4 +1,5 @@
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.System;
 
 namespace optimizerDuck.Domain.Conditions;
@@ -25,6 +26,7 @@ public abstract class MinimumRamCondition : ConditionBase
 public sealed class SixteenGbRamCondition : MinimumRamCondition
 {
     protected override double MinimumGb => 16;
-    protected override Func<string> Title => () => Translations.Condition_Ram_16_Title;
-    protected override Func<string> Description => () => Translations.Condition_Ram_16_Description;
+    protected override Func<string> Title => () => Loc.Instance["Condition.Ram.16.Title"];
+    protected override Func<string> Description =>
+        () => Loc.Instance["Condition.Ram.16.Description"];
 }

@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 
@@ -78,8 +79,8 @@ public static class GitHubSourceHelper
         {
             logger?.LogError(ex, "Failed to open GitHub URL: {Url}", url);
             snackbarService?.Show(
-                Translations.Snackbar_OpenLinkFailed_Title,
-                Translations.Snackbar_OpenLinkFailed_Message,
+                Loc.Instance["Snackbar.OpenLinkFailed.Title"],
+                Loc.Instance["Snackbar.OpenLinkFailed.Message"],
                 ControlAppearance.Danger,
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
                 TimeSpan.FromSeconds(5)

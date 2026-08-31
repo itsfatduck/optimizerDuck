@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.Optimization.Providers;
 using optimizerDuck.Services.System;
 using optimizerDuck.UI.Dialogs;
@@ -117,9 +118,9 @@ public partial class ScheduledTasksViewModel : ViewModel
 
             _snackbarService.Show(
                 task.IsEnabled
-                    ? Translations.ScheduledTasks_Snackbar_Enabled_Title
-                    : Translations.ScheduledTasks_Snackbar_Disabled_Title,
-                string.Format(Translations.ScheduledTasks_Snackbar_Toggle_Message, task.Name),
+                    ? Loc.Instance["ScheduledTasks.Snackbar.Enabled.Title"]
+                    : Loc.Instance["ScheduledTasks.Snackbar.Disabled.Title"],
+                Loc.Instance["ScheduledTasks.Snackbar.Toggle.Message", task.Name],
                 ControlAppearance.Success,
                 new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
                 TimeSpan.FromSeconds(3)
@@ -137,7 +138,7 @@ public partial class ScheduledTasksViewModel : ViewModel
             task.PropertyChanged += Task_PropertyChanged;
 
             _snackbarService.Show(
-                Translations.ScheduledTasks_Snackbar_Error_Title,
+                Loc.Instance["ScheduledTasks.Snackbar.Error.Title"],
                 ex.Message,
                 ControlAppearance.Danger,
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
@@ -160,8 +161,8 @@ public partial class ScheduledTasksViewModel : ViewModel
                 _logger.LogInformation("Ran task {Name} ({Path})", task.Name, task.FullPath);
 
                 _snackbarService.Show(
-                    Translations.ScheduledTasks_Snackbar_Run_Title,
-                    string.Format(Translations.ScheduledTasks_Snackbar_Run_Message, task.Name),
+                    Loc.Instance["ScheduledTasks.Snackbar.Run.Title"],
+                    Loc.Instance["ScheduledTasks.Snackbar.Run.Message", task.Name],
                     ControlAppearance.Success,
                     new SymbolIcon { Symbol = SymbolRegular.Play24, Filled = true },
                     TimeSpan.FromSeconds(3)
@@ -173,7 +174,7 @@ public partial class ScheduledTasksViewModel : ViewModel
             {
                 var error =
                     ScheduledTaskService.LastError
-                    ?? Translations.ScheduledTasks_Error_TaskNotFound;
+                    ?? Loc.Instance["ScheduledTasks.Error.TaskNotFound"];
                 _logger.LogError(
                     "Failed to run task {Name} ({Path}): {Error}",
                     task.Name,
@@ -182,7 +183,7 @@ public partial class ScheduledTasksViewModel : ViewModel
                 );
 
                 _snackbarService.Show(
-                    Translations.ScheduledTasks_Snackbar_Error_Title,
+                    Loc.Instance["ScheduledTasks.Snackbar.Error.Title"],
                     error,
                     ControlAppearance.Danger,
                     new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
@@ -200,7 +201,7 @@ public partial class ScheduledTasksViewModel : ViewModel
             );
 
             _snackbarService.Show(
-                Translations.ScheduledTasks_Snackbar_Error_Title,
+                Loc.Instance["ScheduledTasks.Snackbar.Error.Title"],
                 ex.Message,
                 ControlAppearance.Danger,
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
@@ -223,8 +224,8 @@ public partial class ScheduledTasksViewModel : ViewModel
                 _logger.LogInformation("Stopped task {Name} ({Path})", task.Name, task.FullPath);
 
                 _snackbarService.Show(
-                    Translations.ScheduledTasks_Snackbar_Stop_Title,
-                    string.Format(Translations.ScheduledTasks_Snackbar_Stop_Message, task.Name),
+                    Loc.Instance["ScheduledTasks.Snackbar.Stop.Title"],
+                    Loc.Instance["ScheduledTasks.Snackbar.Stop.Message", task.Name],
                     ControlAppearance.Success,
                     new SymbolIcon { Symbol = SymbolRegular.Stop24, Filled = true },
                     TimeSpan.FromSeconds(3)
@@ -236,7 +237,7 @@ public partial class ScheduledTasksViewModel : ViewModel
             {
                 var error =
                     ScheduledTaskService.LastError
-                    ?? Translations.ScheduledTasks_Error_TaskNotFound;
+                    ?? Loc.Instance["ScheduledTasks.Error.TaskNotFound"];
                 _logger.LogError(
                     "Failed to stop task {Name} ({Path}): {Error}",
                     task.Name,
@@ -245,7 +246,7 @@ public partial class ScheduledTasksViewModel : ViewModel
                 );
 
                 _snackbarService.Show(
-                    Translations.ScheduledTasks_Snackbar_Error_Title,
+                    Loc.Instance["ScheduledTasks.Snackbar.Error.Title"],
                     error,
                     ControlAppearance.Danger,
                     new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
@@ -263,7 +264,7 @@ public partial class ScheduledTasksViewModel : ViewModel
             );
 
             _snackbarService.Show(
-                Translations.ScheduledTasks_Snackbar_Error_Title,
+                Loc.Instance["ScheduledTasks.Snackbar.Error.Title"],
                 ex.Message,
                 ControlAppearance.Danger,
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
@@ -280,10 +281,10 @@ public partial class ScheduledTasksViewModel : ViewModel
 
         var dialog = new ContentDialog
         {
-            Title = Translations.ScheduledTasks_Dialog_DeleteTitle,
+            Title = Loc.Instance["ScheduledTasks.Dialog.DeleteTitle"],
             Content = new ScheduledTaskDeleteDialog { DataContext = task },
-            PrimaryButtonText = Translations.Common_Delete,
-            CloseButtonText = Translations.Common_Cancel,
+            PrimaryButtonText = Loc.Instance["Common.Delete"],
+            CloseButtonText = Loc.Instance["Common.Cancel"],
         };
 
         var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
@@ -301,8 +302,8 @@ public partial class ScheduledTasksViewModel : ViewModel
                 ApplyFilter();
 
                 _snackbarService.Show(
-                    Translations.ScheduledTasks_Snackbar_Delete_Title,
-                    string.Format(Translations.ScheduledTasks_Snackbar_Delete_Message, task.Name),
+                    Loc.Instance["ScheduledTasks.Snackbar.Delete.Title"],
+                    Loc.Instance["ScheduledTasks.Snackbar.Delete.Message", task.Name],
                     ControlAppearance.Success,
                     new SymbolIcon { Symbol = SymbolRegular.Delete24, Filled = true },
                     TimeSpan.FromSeconds(3)
@@ -312,7 +313,7 @@ public partial class ScheduledTasksViewModel : ViewModel
             {
                 var error =
                     ScheduledTaskService.LastError
-                    ?? Translations.ScheduledTasks_Error_TaskNotFound;
+                    ?? Loc.Instance["ScheduledTasks.Error.TaskNotFound"];
                 _logger.LogError(
                     "Failed to delete task {Name} ({Path}): {Error}",
                     task.Name,
@@ -321,7 +322,7 @@ public partial class ScheduledTasksViewModel : ViewModel
                 );
 
                 _snackbarService.Show(
-                    Translations.ScheduledTasks_Snackbar_Error_Title,
+                    Loc.Instance["ScheduledTasks.Snackbar.Error.Title"],
                     error,
                     ControlAppearance.Danger,
                     new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
@@ -339,7 +340,7 @@ public partial class ScheduledTasksViewModel : ViewModel
             );
 
             _snackbarService.Show(
-                Translations.ScheduledTasks_Snackbar_Error_Title,
+                Loc.Instance["ScheduledTasks.Snackbar.Error.Title"],
                 ex.Message,
                 ControlAppearance.Danger,
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
@@ -359,7 +360,7 @@ public partial class ScheduledTasksViewModel : ViewModel
         {
             Title = task.Name,
             Content = dialogContent,
-            CloseButtonText = Translations.Button_Ok,
+            CloseButtonText = Loc.Instance["Button.Ok"],
         };
 
         await _contentDialogService.ShowAsync(dialog, CancellationToken.None);

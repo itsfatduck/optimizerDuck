@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using optimizerDuck.Domain.Optimizations.Models.Bloatware;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.System;
 using optimizerDuck.Services.UI;
 using optimizerDuck.UI.Dialogs;
@@ -200,10 +201,10 @@ public partial class BloatwareViewModel : ViewModel
 
         var askForConfirmationDialog = new ContentDialog
         {
-            Title = string.Format(Translations.BloatwareDialog_Confirmation_Title, SelectedCount),
+            Title = Loc.Instance["BloatwareDialog.Confirmation.Title", SelectedCount],
             Content = new BloatwareConfirmationDialog { DataContext = confirmationViewModel },
-            PrimaryButtonText = Translations.Button_Ok,
-            CloseButtonText = Translations.Button_Cancel,
+            PrimaryButtonText = Loc.Instance["Button.Ok"],
+            CloseButtonText = Loc.Instance["Button.Cancel"],
         };
 
         var result = await _contentDialogService.ShowAsync(
@@ -219,10 +220,10 @@ public partial class BloatwareViewModel : ViewModel
             var warningViewModel = new BloatwareConfirmationDialogViewModel(unusualPackages);
             var warningDialog = new ContentDialog
             {
-                Title = Translations.BloatwareDialog_UnusualWarning_Title,
+                Title = Loc.Instance["BloatwareDialog.UnusualWarning.Title"],
                 Content = new BloatwareWarningDialog { DataContext = warningViewModel },
-                PrimaryButtonText = Translations.Button_Ok,
-                CloseButtonText = Translations.Button_Cancel,
+                PrimaryButtonText = Loc.Instance["Button.Ok"],
+                CloseButtonText = Loc.Instance["Button.Cancel"],
             };
 
             var warningResult = await _contentDialogService.ShowAsync(
@@ -236,7 +237,7 @@ public partial class BloatwareViewModel : ViewModel
         var viewModel = new ProcessingViewModel();
         var dialog = new ContentDialog
         {
-            Title = string.Format(Translations.BloatwareDialog_Title, toRemove.Count),
+            Title = Loc.Instance["BloatwareDialog.Title", toRemove.Count],
             Content = new ProcessingDialog { DataContext = viewModel },
             IsFooterVisible = false,
         };
@@ -256,12 +257,7 @@ public partial class BloatwareViewModel : ViewModel
                 viewModel.ProgressReporter.Report(
                     new ProcessingProgress
                     {
-                        Message = string.Format(
-                            Translations.BloatwareDialog_Removing,
-                            item.Name,
-                            i + 1,
-                            toRemove.Count
-                        ),
+                        Message = Loc.Instance["BloatwareDialog.Removing", item.Name, i + 1, toRemove.Count],
                         Total = toRemove.Count,
                         Value = i,
                     }

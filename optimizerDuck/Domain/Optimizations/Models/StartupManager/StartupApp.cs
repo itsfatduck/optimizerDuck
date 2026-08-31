@@ -1,6 +1,8 @@
 ﻿using System.IO;
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
+using optimizerDuck.Common.Extensions;
+using optimizerDuck.Services.Configuration;
 
 namespace optimizerDuck.Domain.Optimizations.Models.StartupManager;
 
@@ -30,7 +32,7 @@ public enum StartupAppLocation
 /// <summary>
 ///     Represents an application that runs at Windows startup.
 /// </summary>
-public partial class StartupApp : ObservableObject
+public partial class StartupApp : LocalizedObject
 {
     /// <summary>
     ///     The command that runs the application.
@@ -101,17 +103,18 @@ public partial class StartupApp : ObservableObject
     ///     Gets a human-readable string for the location.
     /// </summary>
     public string LocationDisplay =>
-        Location switch
-        {
-            StartupAppLocation.RegistryHKCURun => "Registry (Current User)",
-            StartupAppLocation.RegistryHKLMRun => "Registry (Local Machine)",
-            StartupAppLocation.RegistryHKCURunOnce => "Registry RunOnce (Current User)",
-            StartupAppLocation.RegistryHKLMRunOnce => "Registry RunOnce (Local Machine)",
-            StartupAppLocation.RegistryHKLMRun32 => "Registry (Local Machine, 32-bit)",
-            StartupAppLocation.RegistryHKLMRunOnce32 => "Registry RunOnce (Local Machine, 32-bit)",
-            StartupAppLocation.UserStartupFolder => "Startup Folder (Current User)",
-            StartupAppLocation.CommonStartupFolder => "Startup Folder (All Users)",
-            StartupAppLocation.UwpStartupTask => "Microsoft Store App",
-            _ => PathOrKey,
-        };
+        LocationDisplayKeys.TryGetValue(Location, out var key) ? Loc.Instance[key] : PathOrKey;
+
+    private static readonly Dictionary<StartupAppLocation, string> LocationDisplayKeys = new()
+    {
+        [StartupAppLocation.RegistryHKCURun] = "Startup.Location.RegistryHKCURun",
+        [StartupAppLocation.RegistryHKLMRun] = "Startup.Location.RegistryHKLMRun",
+        [StartupAppLocation.RegistryHKCURunOnce] = "Startup.Location.RegistryHKCURunOnce",
+        [StartupAppLocation.RegistryHKLMRunOnce] = "Startup.Location.RegistryHKLMRunOnce",
+        [StartupAppLocation.RegistryHKLMRun32] = "Startup.Location.RegistryHKLMRun32",
+        [StartupAppLocation.RegistryHKLMRunOnce32] = "Startup.Location.RegistryHKLMRunOnce32",
+        [StartupAppLocation.UserStartupFolder] = "Startup.Location.UserStartupFolder",
+        [StartupAppLocation.CommonStartupFolder] = "Startup.Location.CommonStartupFolder",
+        [StartupAppLocation.UwpStartupTask] = "Startup.Location.UwpStartupTask",
+    };
 }

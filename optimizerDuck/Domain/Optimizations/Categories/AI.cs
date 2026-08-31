@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using Microsoft.Extensions.Logging;
+using optimizerDuck.Common.Extensions;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Conditions;
@@ -13,7 +14,7 @@ using optimizerDuck.UI.Pages.Optimize.Categories;
 namespace optimizerDuck.Domain.Optimizations.Categories;
 
 [OptimizationCategory(typeof(AIOptimizerPage))]
-public class AI : IOptimizationCategory
+public class AI : LocalizedObject, IOptimizationCategory
 {
     public string Name => Loc.Instance[$"Optimizer.{nameof(AI)}"];
     public OptimizationCategoryOrder Order { get; init; } = OptimizationCategoryOrder.AI;

@@ -1,4 +1,5 @@
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 
 namespace optimizerDuck.Domain.Conditions;
 
@@ -44,8 +45,8 @@ public sealed class ConditionResult
     public static ConditionResult Error() =>
         new(
             ConditionState.Error,
-            () => Translations.Condition_Error_Title,
-            () => Translations.Condition_Error_Description
+            () => Loc.Instance["Condition.Error.Title"],
+            () => Loc.Instance["Condition.Error.Description"]
         );
 
     /// <summary>Gets the outcome state of the check.</summary>

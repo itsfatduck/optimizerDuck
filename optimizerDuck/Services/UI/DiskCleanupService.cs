@@ -1,6 +1,7 @@
 using System.IO;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.Optimization.Providers;
 using Wpf.Ui.Controls;
 using CleanupItem = optimizerDuck.Domain.Optimizations.Models.Cleanup.CleanupItem;
@@ -30,48 +31,48 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
             new CleanupItem
             {
                 Id = "TempFiles",
-                Name = Translations.DiskCleanup_Item_TempFiles,
-                Description = Translations.DiskCleanup_Item_TempFiles_Description,
+                NameKey = "DiskCleanup.Item.TempFiles",
+                DescriptionKey = "DiskCleanup.Item.TempFiles.Description",
                 Path = Path.GetTempPath(),
                 Icon = SymbolRegular.Document24,
             },
             new CleanupItem
             {
                 Id = "SystemTemp",
-                Name = Translations.DiskCleanup_Item_SystemTemp,
-                Description = Translations.DiskCleanup_Item_SystemTemp_Description,
+                NameKey = "DiskCleanup.Item.SystemTemp",
+                DescriptionKey = "DiskCleanup.Item.SystemTemp.Description",
                 Path = Path.Combine(windowsDir, "Temp"),
                 Icon = SymbolRegular.DocumentError24,
             },
             new CleanupItem
             {
                 Id = "WindowsUpdate",
-                Name = Translations.DiskCleanup_Item_WindowsUpdate,
-                Description = Translations.DiskCleanup_Item_WindowsUpdate_Description,
+                NameKey = "DiskCleanup.Item.WindowsUpdate",
+                DescriptionKey = "DiskCleanup.Item.WindowsUpdate.Description",
                 Path = Path.Combine(windowsDir, @"SoftwareDistribution\Download"),
                 Icon = SymbolRegular.ArrowDownload24,
             },
             new CleanupItem
             {
                 Id = "Prefetch",
-                Name = Translations.DiskCleanup_Item_Prefetch,
-                Description = Translations.DiskCleanup_Item_Prefetch_Description,
+                NameKey = "DiskCleanup.Item.Prefetch",
+                DescriptionKey = "DiskCleanup.Item.Prefetch.Description",
                 Path = Path.Combine(windowsDir, "Prefetch"),
                 Icon = SymbolRegular.Flash24,
             },
             new CleanupItem
             {
                 Id = "Thumbnails",
-                Name = Translations.DiskCleanup_Item_Thumbnails,
-                Description = Translations.DiskCleanup_Item_Thumbnails_Description,
+                NameKey = "DiskCleanup.Item.Thumbnails",
+                DescriptionKey = "DiskCleanup.Item.Thumbnails.Description",
                 Path = Path.Combine(localAppData, @"Microsoft\Windows\Explorer"),
                 Icon = SymbolRegular.Image24,
             },
             new CleanupItem
             {
                 Id = "RecycleBin",
-                Name = Translations.DiskCleanup_Item_RecycleBin,
-                Description = Translations.DiskCleanup_Item_RecycleBin_Description,
+                NameKey = "DiskCleanup.Item.RecycleBin",
+                DescriptionKey = "DiskCleanup.Item.RecycleBin.Description",
                 Path = "Clear-RecycleBin -Force -ErrorAction SilentlyContinue",
                 Icon = SymbolRegular.Delete24,
                 IsCommand = true,
@@ -79,16 +80,16 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
             new CleanupItem
             {
                 Id = "ErrorReports",
-                Name = Translations.DiskCleanup_Item_ErrorReports,
-                Description = Translations.DiskCleanup_Item_ErrorReports_Description,
+                NameKey = "DiskCleanup.Item.ErrorReports",
+                DescriptionKey = "DiskCleanup.Item.ErrorReports.Description",
                 Path = Path.Combine(localAppData, "CrashDumps"),
                 Icon = SymbolRegular.Bug24,
             },
             new CleanupItem
             {
                 Id = "OldWindowsInstallation",
-                Name = Translations.DiskCleanup_Item_OldWindowsInstallation,
-                Description = Translations.DiskCleanup_Item_OldWindowsInstallation_Description,
+                NameKey = "DiskCleanup.Item.OldWindowsInstallation",
+                DescriptionKey = "DiskCleanup.Item.OldWindowsInstallation.Description",
                 Path = Path.Combine(systemDrive, "Windows.old"),
                 Icon = SymbolRegular.Building24,
             },

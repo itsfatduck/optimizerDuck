@@ -3,6 +3,7 @@ using Microsoft.Win32.TaskScheduler;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.UI;
 using ScheduledTaskModel = optimizerDuck.Domain.Optimizations.Models.ScheduledTask.ScheduledTaskModel;
 using Task = Microsoft.Win32.TaskScheduler.Task;
@@ -44,17 +45,14 @@ public static class ScheduledTaskService
     {
         _lastError.Value = _lastErrorDetail.Value = null;
 
-        var description = string.Format(
-            Translations.Service_ScheduledTask_Description_Disable,
-            fullPath
-        );
+        var description = Loc.Invariant["Service.ScheduledTask.Description.Disable", fullPath];
         try
         {
             using var ts = new TaskService();
             var task =
                 ts.GetTask(fullPath)
                 ?? throw new InvalidOperationException(
-                    string.Format(Translations.ScheduledTasks_Error_TaskNotFound, fullPath)
+                    Loc.Instance["ScheduledTasks.Error.TaskNotFound", fullPath]
                 );
 
             var wasEnabled = task.Enabled;
@@ -72,7 +70,7 @@ public static class ScheduledTaskService
             ExecutionScope.LogInfo("Disabled task {Path}", fullPath);
             ExecutionScope.Track(nameof(DisableTask), true);
             ExecutionScope.RecordStep(
-                Translations.Service_ScheduledTask_Name,
+                Loc.Invariant["Service.ScheduledTask.Name"],
                 description,
                 true,
                 revertStep
@@ -81,15 +79,12 @@ public static class ScheduledTaskService
         }
         catch (UnauthorizedAccessException)
         {
-            _lastError.Value = Translations.Service_Common_Error_AccessDenied;
-            _lastErrorDetail.Value = string.Format(
-                Translations.Service_ScheduledTask_ErrorDetail_AccessDeniedDisable,
-                fullPath
-            );
+            _lastError.Value = Loc.Invariant["Service.Common.Error.AccessDenied"];
+            _lastErrorDetail.Value = Loc.Invariant["Service.ScheduledTask.ErrorDetail.AccessDeniedDisable", fullPath];
             ExecutionScope.LogError(null, "Access denied disabling task {Path}", fullPath);
             ExecutionScope.Track(nameof(DisableTask), false);
             ExecutionScope.RecordStep(
-                Translations.Service_ScheduledTask_Name,
+                Loc.Invariant["Service.ScheduledTask.Name"],
                 description,
                 false,
                 null,
@@ -106,7 +101,7 @@ public static class ScheduledTaskService
             ExecutionScope.LogError(ex, "Failed to disable task {Path}", fullPath);
             ExecutionScope.Track(nameof(DisableTask), false);
             ExecutionScope.RecordStep(
-                Translations.Service_ScheduledTask_Name,
+                Loc.Invariant["Service.ScheduledTask.Name"],
                 description,
                 false,
                 null,
@@ -125,17 +120,14 @@ public static class ScheduledTaskService
     {
         _lastError.Value = _lastErrorDetail.Value = null;
 
-        var description = string.Format(
-            Translations.Service_ScheduledTask_Description_Enable,
-            fullPath
-        );
+        var description = Loc.Invariant["Service.ScheduledTask.Description.Enable", fullPath];
         try
         {
             using var ts = new TaskService();
             var task =
                 ts.GetTask(fullPath)
                 ?? throw new InvalidOperationException(
-                    string.Format(Translations.ScheduledTasks_Error_TaskNotFound, fullPath)
+                    Loc.Instance["ScheduledTasks.Error.TaskNotFound", fullPath]
                 );
 
             var wasEnabled = task.Enabled;
@@ -153,7 +145,7 @@ public static class ScheduledTaskService
             ExecutionScope.LogInfo("Enabled task {Path}", fullPath);
             ExecutionScope.Track(nameof(EnableTask), true);
             ExecutionScope.RecordStep(
-                Translations.Service_ScheduledTask_Name,
+                Loc.Invariant["Service.ScheduledTask.Name"],
                 description,
                 true,
                 revertStep
@@ -162,15 +154,12 @@ public static class ScheduledTaskService
         }
         catch (UnauthorizedAccessException)
         {
-            _lastError.Value = Translations.Service_Common_Error_AccessDenied;
-            _lastErrorDetail.Value = string.Format(
-                Translations.Service_ScheduledTask_ErrorDetail_AccessDeniedEnable,
-                fullPath
-            );
+            _lastError.Value = Loc.Invariant["Service.Common.Error.AccessDenied"];
+            _lastErrorDetail.Value = Loc.Invariant["Service.ScheduledTask.ErrorDetail.AccessDeniedEnable", fullPath];
             ExecutionScope.LogError(null, "Access denied enabling task {Path}", fullPath);
             ExecutionScope.Track(nameof(EnableTask), false);
             ExecutionScope.RecordStep(
-                Translations.Service_ScheduledTask_Name,
+                Loc.Invariant["Service.ScheduledTask.Name"],
                 description,
                 false,
                 null,
@@ -187,7 +176,7 @@ public static class ScheduledTaskService
             ExecutionScope.LogError(ex, "Failed to enable task {Path}", fullPath);
             ExecutionScope.Track(nameof(EnableTask), false);
             ExecutionScope.RecordStep(
-                Translations.Service_ScheduledTask_Name,
+                Loc.Invariant["Service.ScheduledTask.Name"],
                 description,
                 false,
                 null,
@@ -251,7 +240,7 @@ public static class ScheduledTaskService
             var task =
                 ts.GetTask(fullPath)
                 ?? throw new InvalidOperationException(
-                    string.Format(Translations.ScheduledTasks_Error_TaskNotFound, fullPath)
+                    Loc.Instance["ScheduledTasks.Error.TaskNotFound", fullPath]
                 );
             task.Run();
             ExecutionScope.LogInfo("Started task {Path}", fullPath);
@@ -279,7 +268,7 @@ public static class ScheduledTaskService
             var task =
                 ts.GetTask(fullPath)
                 ?? throw new InvalidOperationException(
-                    string.Format(Translations.ScheduledTasks_Error_TaskNotFound, fullPath)
+                    Loc.Instance["ScheduledTasks.Error.TaskNotFound", fullPath]
                 );
             task.Stop();
             ExecutionScope.LogInfo("Stopped task {Path}", fullPath);
@@ -329,7 +318,7 @@ public static class ScheduledTaskService
             var task =
                 ts.GetTask(fullPath)
                 ?? throw new InvalidOperationException(
-                    string.Format(Translations.ScheduledTasks_Error_TaskNotFound, fullPath)
+                    Loc.Instance["ScheduledTasks.Error.TaskNotFound", fullPath]
                 );
             var folderPath = task.Folder.Path;
             ts.GetFolder(folderPath).DeleteTask(task.Name);

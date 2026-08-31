@@ -5,6 +5,7 @@ using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 
 namespace optimizerDuck.Services.Optimization.Providers;
 
@@ -132,11 +133,7 @@ public static class ServiceProcessService
     {
         _lastError.Value = _lastErrorDetail.Value = null;
 
-        var description = string.Format(
-            Translations.Service_Service_Description_Change,
-            item.Name,
-            item.StartupType
-        );
+        var description = Loc.Invariant["Service.Service.Description.Change", item.Name, item.StartupType];
         var sw = Stopwatch.StartNew();
 
         try
@@ -146,14 +143,11 @@ public static class ServiceProcessService
             if (notFound)
             {
                 sw.Stop();
-                var skipDescription = string.Format(
-                    Translations.Service_Service_Info_SkippedNotFound,
-                    item.Name
-                );
+                var skipDescription = Loc.Invariant["Service.Service.Info.SkippedNotFound", item.Name];
                 ExecutionScope.LogInfo("[SERVICE][{Name}] not found, skipping", item.Name);
                 ExecutionScope.Track(nameof(ChangeServiceStartupTypeAsync), true);
                 ExecutionScope.RecordStep(
-                    Translations.Service_Service_Name,
+                    Loc.Invariant["Service.Service.Name"],
                     skipDescription,
                     true,
                     null
@@ -171,7 +165,7 @@ public static class ServiceProcessService
                 );
                 ExecutionScope.Track(nameof(ChangeServiceStartupTypeAsync), false);
                 ExecutionScope.RecordStep(
-                    Translations.Service_Service_Name,
+                    Loc.Invariant["Service.Service.Name"],
                     description,
                     false,
                     null
@@ -219,7 +213,7 @@ public static class ServiceProcessService
 
                 ExecutionScope.Track(nameof(ChangeServiceStartupTypeAsync), true);
                 ExecutionScope.RecordStep(
-                    Translations.Service_Service_Name,
+                    Loc.Invariant["Service.Service.Name"],
                     description,
                     true,
                     revertStep
@@ -227,7 +221,7 @@ public static class ServiceProcessService
                 return true;
             }
 
-            _lastError.Value = Translations.Service_Service_Error_ChangeStartupTypeFailed;
+            _lastError.Value = Loc.Invariant["Service.Service.Error.ChangeStartupTypeFailed"];
             ExecutionScope.LogInfo(
                 "[SERVICE][{Name}][FAIL][D={Duration}] startup -> {StartupType}",
                 item.Name,
@@ -236,7 +230,7 @@ public static class ServiceProcessService
             );
             ExecutionScope.Track(nameof(ChangeServiceStartupTypeAsync), false);
             ExecutionScope.RecordStep(
-                Translations.Service_Service_Name,
+                Loc.Invariant["Service.Service.Name"],
                 description,
                 false,
                 null,
@@ -248,11 +242,7 @@ public static class ServiceProcessService
         }
         catch (Exception ex)
         {
-            _lastError.Value = string.Format(
-                Translations.Service_Service_Error_ExceptionOccurred,
-                item.Name,
-                ex.Message
-            );
+            _lastError.Value = Loc.Invariant["Service.Service.Error.ExceptionOccurred", item.Name, ex.Message];
             _lastErrorDetail.Value = ex.ToString();
 
             ExecutionScope.LogError(
@@ -263,7 +253,7 @@ public static class ServiceProcessService
             );
             ExecutionScope.Track(nameof(ChangeServiceStartupTypeAsync), false);
             ExecutionScope.RecordStep(
-                Translations.Service_Service_Name,
+                Loc.Invariant["Service.Service.Name"],
                 description,
                 false,
                 null,

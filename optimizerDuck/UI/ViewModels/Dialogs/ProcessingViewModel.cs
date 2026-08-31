@@ -1,9 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using optimizerDuck.Common.Extensions;
 using optimizerDuck.Domain.UI;
 
 namespace optimizerDuck.UI.ViewModels.Dialogs;
 
-public partial class ProcessingViewModel : ObservableObject
+public partial class ProcessingViewModel : LocalizedObject
 {
     [ObservableProperty]
     private bool _isIndeterminate;

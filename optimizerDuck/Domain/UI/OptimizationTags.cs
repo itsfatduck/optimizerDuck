@@ -1,4 +1,5 @@
 ﻿using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 using Wpf.Ui.Controls;
 
 namespace optimizerDuck.Domain.UI;
@@ -79,109 +80,109 @@ public static class OptimizationTagsToDisplay
                 OptimizationTags.Security => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.LockClosed24,
-                    Display = Translations.Optimizer_UI_Tags_Security,
+                    Display = Loc.Instance["Optimizer.UI.Tags.Security"],
                 },
 
                 OptimizationTags.Privacy => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.LockOpen24,
-                    Display = Translations.Optimizer_UI_Tags_Privacy,
+                    Display = Loc.Instance["Optimizer.UI.Tags.Privacy"],
                 },
 
                 OptimizationTags.System => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.Desktop24,
-                    Display = Translations.Optimizer_UI_Tags_System,
+                    Display = Loc.Instance["Optimizer.UI.Tags.System"],
                 },
 
                 OptimizationTags.Performance => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.Gauge24,
-                    Display = Translations.Optimizer_UI_Tags_Performance,
+                    Display = Loc.Instance["Optimizer.UI.Tags.Performance"],
                 },
 
                 OptimizationTags.Latency => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.Clock24,
-                    Display = Translations.Optimizer_UI_Tags_Latency,
+                    Display = Loc.Instance["Optimizer.UI.Tags.Latency"],
                 },
 
                 OptimizationTags.Disk => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.HardDrive20,
-                    Display = Translations.Optimizer_UI_Tags_Disk,
+                    Display = Loc.Instance["Optimizer.UI.Tags.Disk"],
                 },
 
                 OptimizationTags.Ram => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.Memory16,
-                    Display = Translations.Optimizer_UI_Tags_Ram,
+                    Display = Loc.Instance["Optimizer.UI.Tags.Ram"],
                 },
 
                 OptimizationTags.Display => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.VideoClip24,
-                    Display = Translations.Optimizer_UI_Tags_Display,
+                    Display = Loc.Instance["Optimizer.UI.Tags.Display"],
                 },
 
                 OptimizationTags.Nvidia => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.VideoClip24,
-                    Display = Translations.Optimizer_UI_Tags_Nvidia,
+                    Display = Loc.Instance["Optimizer.UI.Tags.Nvidia"],
                 },
 
                 OptimizationTags.Amd => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.VideoClip24,
-                    Display = Translations.Optimizer_UI_Tags_Amd,
+                    Display = Loc.Instance["Optimizer.UI.Tags.Amd"],
                 },
 
                 OptimizationTags.Intel => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.VideoClip24,
-                    Display = Translations.Optimizer_UI_Tags_Intel,
+                    Display = Loc.Instance["Optimizer.UI.Tags.Intel"],
                 },
 
                 OptimizationTags.Power => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.BatteryCharge24,
-                    Display = Translations.Optimizer_UI_Tags_Power,
+                    Display = Loc.Instance["Optimizer.UI.Tags.Power"],
                 },
 
                 OptimizationTags.Network => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.NetworkAdapter16,
-                    Display = Translations.Optimizer_UI_Tags_Network,
+                    Display = Loc.Instance["Optimizer.UI.Tags.Network"],
                 },
 
                 OptimizationTags.NetworkRequired => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.Wifi120,
-                    Display = Translations.Optimizer_UI_Tags_NetworkRequired,
+                    Display = Loc.Instance["Optimizer.UI.Tags.NetworkRequired"],
                 },
 
                 OptimizationTags.Audio => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.Headphones24,
-                    Display = Translations.Optimizer_UI_Tags_Audio,
+                    Display = Loc.Instance["Optimizer.UI.Tags.Audio"],
                 },
 
                 OptimizationTags.Visual => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.VideoClip24,
-                    Display = Translations.Optimizer_UI_Tags_Visual,
+                    Display = Loc.Instance["Optimizer.UI.Tags.Visual"],
                 },
 
                 OptimizationTags.Windows10Only => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.Window16,
-                    Display = Translations.Optimizer_UI_Tags_Windows10Only,
+                    Display = Loc.Instance["Optimizer.UI.Tags.Windows10Only"],
                 },
 
                 OptimizationTags.Windows11Only => new OptimizationTagDisplay
                 {
                     Icon = SymbolRegular.Window16,
-                    Display = Translations.Optimizer_UI_Tags_Windows11Only,
+                    Display = Loc.Instance["Optimizer.UI.Tags.Windows11Only"],
                 },
 
                 _ => throw new ArgumentOutOfRangeException(nameof(tags)),

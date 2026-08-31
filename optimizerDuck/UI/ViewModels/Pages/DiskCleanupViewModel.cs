@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.UI;
 using optimizerDuck.UI.Dialogs;
 using optimizerDuck.UI.ViewModels.Dialogs;
@@ -145,12 +146,8 @@ public partial class DiskCleanupViewModel(
             sw.Stop();
 
             snackbarService.Show(
-                Translations.DiskCleanup_Complete_Title,
-                string.Format(
-                    Translations.DiskCleanup_Complete_Message,
-                    CleanupItem.FormatBytes(freedBytes),
-                    $"{sw.Elapsed.TotalSeconds:0.0}s"
-                ),
+                Loc.Instance["DiskCleanup.Complete.Title"],
+                Loc.Instance["DiskCleanup.Complete.Message", CleanupItem.FormatBytes(freedBytes), $"{sw.Elapsed.TotalSeconds:0.0}s"],
                 ControlAppearance.Success,
                 new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
                 TimeSpan.FromSeconds(5)
@@ -168,8 +165,8 @@ public partial class DiskCleanupViewModel(
         {
             logger.LogError(ex, "Failed to clean item {ItemId}", item.Id);
             snackbarService.Show(
-                Translations.DiskCleanup_Error_Title,
-                Translations.DiskCleanup_Error_Message,
+                Loc.Instance["DiskCleanup.Error.Title"],
+                Loc.Instance["DiskCleanup.Error.Message"],
                 ControlAppearance.Danger,
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
                 TimeSpan.FromSeconds(5)
@@ -194,12 +191,7 @@ public partial class DiskCleanupViewModel(
         if (selectedItems.Count == 0)
             return;
 
-        var summaryText = string.Format(
-            Translations.DiskCleanup_Dialog_Confirmation_Summary,
-            TotalSelectedSizeFormatted,
-            SelectedCount,
-            TotalSelectedFileCount
-        );
+        var summaryText = Loc.Instance["DiskCleanup.Dialog.Confirmation.Summary", TotalSelectedSizeFormatted, SelectedCount, TotalSelectedFileCount];
 
         var dialogViewModel = new DiskCleanupConfirmationDialogViewModel(
             selectedItems,
@@ -207,16 +199,10 @@ public partial class DiskCleanupViewModel(
         );
         var dialog = new ContentDialog
         {
-            Title = string.Format(
-                Translations.DiskCleanup_Dialog_Confirmation_Title,
-                SelectedCount
-            ),
+            Title = Loc.Instance["DiskCleanup.Dialog.Confirmation.Title", SelectedCount],
             Content = new DiskCleanupConfirmationDialog { DataContext = dialogViewModel },
-            PrimaryButtonText = string.Format(
-                Translations.DiskCleanup_Button_CleanSelected,
-                TotalSelectedSizeFormatted
-            ),
-            CloseButtonText = Translations.Common_Cancel,
+            PrimaryButtonText = Loc.Instance["DiskCleanup.Button.CleanSelected", TotalSelectedSizeFormatted],
+            CloseButtonText = Loc.Instance["Common.Cancel"],
         };
 
         var result = await contentDialogService.ShowAsync(dialog, CancellationToken.None);
@@ -235,12 +221,8 @@ public partial class DiskCleanupViewModel(
                 item.IsSelected = false;
 
             snackbarService.Show(
-                Translations.DiskCleanup_Complete_Title,
-                string.Format(
-                    Translations.DiskCleanup_Complete_Message,
-                    CleanupItem.FormatBytes(freedBytes),
-                    $"{sw.Elapsed.TotalSeconds:0.0}s"
-                ),
+                Loc.Instance["DiskCleanup.Complete.Title"],
+                Loc.Instance["DiskCleanup.Complete.Message", CleanupItem.FormatBytes(freedBytes), $"{sw.Elapsed.TotalSeconds:0.0}s"],
                 ControlAppearance.Success,
                 new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
                 TimeSpan.FromSeconds(5)
@@ -256,8 +238,8 @@ public partial class DiskCleanupViewModel(
         {
             logger.LogError(ex, "Failed to clean selected items");
             snackbarService.Show(
-                Translations.DiskCleanup_Error_Title,
-                Translations.DiskCleanup_Error_Message,
+                Loc.Instance["DiskCleanup.Error.Title"],
+                Loc.Instance["DiskCleanup.Error.Message"],
                 ControlAppearance.Danger,
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
                 TimeSpan.FromSeconds(5)
@@ -330,8 +312,8 @@ public partial class DiskCleanupViewModel(
         {
             logger.LogError(ex, "Failed to open folder: {Path}", item.Path);
             snackbarService.Show(
-                Translations.Snackbar_OpenFailed_Title,
-                Translations.Snackbar_OpenFailed_Message,
+                Loc.Instance["Snackbar.OpenFailed.Title"],
+                Loc.Instance["Snackbar.OpenFailed.Message"],
                 ControlAppearance.Danger,
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
                 TimeSpan.FromSeconds(3)

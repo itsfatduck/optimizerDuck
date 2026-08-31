@@ -69,10 +69,10 @@ public partial class MainWindow : IWindow
                 var legalDialog = new LegalDialog();
                 var dialog = new ContentDialog
                 {
-                    Title = Translations.LegalDialog_Title,
+                    Title = Loc.Instance["LegalDialog.Title"],
                     Content = legalDialog,
-                    PrimaryButtonText = Translations.Button_Accept,
-                    CloseButtonText = Translations.Button_Close,
+                    PrimaryButtonText = Loc.Instance["Button.Accept"],
+                    CloseButtonText = Loc.Instance["Button.Close"],
                     DefaultButton = ContentDialogButton.Primary,
                 };
 

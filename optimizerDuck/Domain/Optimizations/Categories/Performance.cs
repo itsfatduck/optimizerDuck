@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
+using optimizerDuck.Common.Extensions;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Optimizations.Models;
@@ -13,7 +14,7 @@ using optimizerDuck.UI.Pages.Optimize.Categories;
 namespace optimizerDuck.Domain.Optimizations.Categories;
 
 [OptimizationCategory(typeof(PerformanceOptimizerPage))]
-public class Performance : IOptimizationCategory
+public class Performance : LocalizedObject, IOptimizationCategory
 {
     public string Name => Loc.Instance[$"Optimizer.{nameof(Performance)}"];
     public OptimizationCategoryOrder Order { get; init; } = OptimizationCategoryOrder.Performance;
@@ -68,10 +69,7 @@ public class Performance : IOptimizationCategory
                 );
                 return Task.FromResult(
                     ApplyResult.False(
-                        string.Format(
-                            Loc.Instance[$"{ErrorPrefix}.InvalidRAM"],
-                            context.Snapshot.Ram.TotalKB
-                        )
+                        Loc.Instance[$"{ErrorPrefix}.InvalidRAM", context.Snapshot.Ram.TotalKB]
                     )
                 );
             }

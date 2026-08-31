@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.System;
 using optimizerDuck.Services.UI;
 using optimizerDuck.UI.Dialogs;
@@ -175,7 +176,7 @@ public partial class StartupManagerViewModel : ViewModel
         {
             Title = task.TaskName,
             Content = new StartupTaskDetailsPanel(task),
-            CloseButtonText = Translations.Button_Ok,
+            CloseButtonText = Loc.Instance["Button.Ok"],
         };
 
         await _contentDialogService.ShowAsync(dialog, CancellationToken.None);

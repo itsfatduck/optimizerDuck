@@ -3,6 +3,7 @@ using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Exceptions;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.Optimization.Providers;
 
 namespace optimizerDuck.Domain.Revert.Steps;
@@ -27,7 +28,7 @@ public class ShellRevertStep : IRevertStep
 
     /// <inheritdoc />
     public string Description =>
-        string.Format(Translations.Revert_Shell_Description_Run, ShellType, Command);
+        Loc.Instance["Revert.Shell.Description.Run", ShellType, Command];
 
     /// <inheritdoc />
     public async Task<bool> ExecuteAsync()
@@ -40,7 +41,7 @@ public class ShellRevertStep : IRevertStep
             {
                 Command = Command,
                 Stdout = "",
-                Stderr = Translations.Revert_Shell_Error_UnknownShellType,
+                Stderr = Loc.Instance["Revert.Shell.Error.UnknownShellType"],
                 ExitCode = 1,
                 Duration = TimeSpan.Zero,
             },
@@ -50,7 +51,7 @@ public class ShellRevertStep : IRevertStep
         {
             var error = !string.IsNullOrWhiteSpace(result.Stderr)
                 ? result.Stderr
-                : string.Format(Translations.Revert_Shell_Error_CommandFailed, result.ExitCode);
+                : Loc.Instance["Revert.Shell.Error.CommandFailed", result.ExitCode];
             throw new StepExecutionException(error, result.Stderr);
         }
 

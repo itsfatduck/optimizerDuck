@@ -2,6 +2,7 @@ using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Exceptions;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.Optimization.Providers;
 
 namespace optimizerDuck.Domain.Revert.Steps;
@@ -26,12 +27,7 @@ public class ScheduledTaskRevertStep : IRevertStep
 
     /// <inheritdoc />
     public string Description =>
-        string.Format(
-            OriginalEnabled
-                ? Translations.Revert_ScheduledTask_Description_Enable
-                : Translations.Revert_ScheduledTask_Description_Disable,
-            FullPath
-        );
+        OriginalEnabled ? Loc.Instance["Revert.ScheduledTask.Description.Enable", FullPath] : Loc.Instance["Revert.ScheduledTask.Description.Disable", FullPath];
 
     /// <inheritdoc />
     public Task<bool> ExecuteAsync()

@@ -3,10 +3,12 @@ using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
+using optimizerDuck.Common.Extensions;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.Revert;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
@@ -17,7 +19,7 @@ public partial class OptimizationDetailsViewModel(
     IOptimization optimization,
     ISnackbarService snackbarService,
     ILogger logger
-) : ObservableObject
+) : LocalizedObject
 {
     public IOptimization Optimization { get; } = optimization;
 
@@ -43,8 +45,8 @@ public partial class OptimizationDetailsViewModel(
         catch (Exception ex)
         {
             snackbarService.Show(
-                Translations.Snackbar_OpenFailed_Title,
-                Translations.Snackbar_OpenFailed_Message,
+                Loc.Instance["Snackbar.OpenFailed.Title"],
+                Loc.Instance["Snackbar.OpenFailed.Message"],
                 ControlAppearance.Danger,
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
                 TimeSpan.FromSeconds(5)

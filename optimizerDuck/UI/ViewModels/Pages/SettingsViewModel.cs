@@ -103,12 +103,12 @@ public partial class SettingsViewModel(
     {
         var dialog = new ContentDialog
         {
-            Title = Translations.Dialog_AreYouSure_Title,
+            Title = Loc.Instance["Dialog.AreYouSure.Title"],
             Content = content,
-            PrimaryButtonText = Translations.Button_Clear,
+            PrimaryButtonText = Loc.Instance["Button.Clear"],
             PrimaryButtonAppearance = ControlAppearance.Danger,
 
-            CloseButtonText = Translations.Button_Cancel,
+            CloseButtonText = Loc.Instance["Button.Cancel"],
 
             DefaultButton = ContentDialogButton.Close,
             MaxWidth = 500,
@@ -156,8 +156,8 @@ public partial class SettingsViewModel(
         catch (Exception ex)
         {
             snackbarService.Show(
-                Translations.Snackbar_OpenFailed_Title,
-                Translations.Snackbar_OpenFailed_Message,
+                Loc.Instance["Snackbar.OpenFailed.Title"],
+                Loc.Instance["Snackbar.OpenFailed.Message"],
                 ControlAppearance.Danger,
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
                 TimeSpan.FromSeconds(5)
@@ -170,7 +170,7 @@ public partial class SettingsViewModel(
     private async Task ClearDownloads()
     {
         var result = await ConfirmationDialogAsync(
-            Translations.Settings_ClearDownloads_Description
+            Loc.Instance["Settings.ClearDownloads.Description"]
         );
         if (result == ContentDialogResult.Primary)
             OptimizationService.ClearDownloads(logger);
@@ -180,7 +180,7 @@ public partial class SettingsViewModel(
     private async Task ClearAllRevertData()
     {
         var result = await ConfirmationDialogAsync(
-            Translations.Settings_ClearRevertData_Description
+            Loc.Instance["Settings.ClearRevertData.Description"]
         );
         if (result == ContentDialogResult.Primary)
         {
@@ -250,8 +250,8 @@ public partial class SettingsViewModel(
         catch (Exception ex)
         {
             snackbarService.Show(
-                Translations.Snackbar_OpenLinkFailed_Title,
-                Translations.Snackbar_OpenLinkFailed_Message,
+                Loc.Instance["Snackbar.OpenLinkFailed.Title"],
+                Loc.Instance["Snackbar.OpenLinkFailed.Message"],
                 ControlAppearance.Danger,
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
                 TimeSpan.FromSeconds(5)
@@ -347,8 +347,8 @@ public partial class SettingsViewModel(
         catch (Exception ex)
         {
             snackbarService.Show(
-                Translations.Snackbar_OpenLinkFailed_Title,
-                Translations.Snackbar_OpenLinkFailed_Message,
+                Loc.Instance["Snackbar.OpenLinkFailed.Title"],
+                Loc.Instance["Snackbar.OpenLinkFailed.Message"],
                 ControlAppearance.Danger,
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
                 TimeSpan.FromSeconds(5)
@@ -385,22 +385,8 @@ public partial class SettingsViewModel(
         if (value == Loc.CurrentCulture.Name)
             return;
 
-        _ = SafeFireAndForgetAsync(async () =>
-        {
-            try
-            {
-                await contentDialogService.ShowAlertAsync(
-                    Translations.Settings_LanguageChanged_Title,
-                    Translations.Settings_LanguageChanged_Description,
-                    Translations.Button_Ok,
-                    CancellationToken.None
-                );
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Failed to show language changed dialog");
-            }
-        });
+        // Apply the new culture immediately so the entire UI refreshes without restart.
+        Loc.Instance.ChangeCulture(new CultureInfo(value));
     }
 
     partial void OnCurrentApplicationThemeChanged(

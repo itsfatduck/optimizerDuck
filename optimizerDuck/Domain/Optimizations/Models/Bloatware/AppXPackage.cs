@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using optimizerDuck.Common.Extensions;
 using optimizerDuck.Domain.UI;
-using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 using Wpf.Ui.Controls;
 
 namespace optimizerDuck.Domain.Optimizations.Models.Bloatware;
@@ -18,7 +19,11 @@ public enum AppRisk
 /// <summary>
 ///     Represents an AppX package (UWP app) that can be removed.
 /// </summary>
-public partial class AppXPackage : ObservableObject
+/// <remarks>
+///     Derives from <see cref="LocalizedObject" /> so the computed <see cref="RiskVisual" />
+///     binding re-resolves when the UI language changes at runtime.
+/// </remarks>
+public partial class AppXPackage : LocalizedObject
 {
     /// <summary>
     ///     Indicates whether this package is selected for removal.
@@ -69,17 +74,17 @@ public partial class AppXPackage : ObservableObject
         {
             AppRisk.Safe => new RiskVisual
             {
-                Display = Translations.Optimizer_UI_Risk_Safe,
+                Display = Loc.Instance["Optimizer.UI.Risk.Safe"],
                 Icon = SymbolRegular.ShieldCheckmark24,
             },
             AppRisk.Caution => new RiskVisual
             {
-                Display = Translations.Optimizer_UI_Risk_Moderate,
+                Display = Loc.Instance["Optimizer.UI.Risk.Moderate"],
                 Icon = SymbolRegular.Warning24,
             },
             _ => new RiskVisual
             {
-                Display = Translations.Optimizer_UI_Risk_Safe,
+                Display = Loc.Instance["Optimizer.UI.Risk.Safe"],
                 Icon = SymbolRegular.ShieldCheckmark24,
             },
         };

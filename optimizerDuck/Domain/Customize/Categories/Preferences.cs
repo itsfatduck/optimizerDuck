@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using optimizerDuck.Common.Extensions;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
@@ -14,7 +15,7 @@ using Wpf.Ui.Controls;
 namespace optimizerDuck.Domain.Customize.Categories;
 
 [CustomizeCategory(PageType = typeof(PreferencesFeatureCategory))]
-public class Preferences : ICustomizeCategory
+public class Preferences : LocalizedObject, ICustomizeCategory
 {
     private enum Sections
     {

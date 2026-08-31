@@ -1,6 +1,7 @@
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 
 namespace optimizerDuck.Domain.UI;
 
@@ -15,6 +16,30 @@ public partial class OptimizationState : ObservableObject
     private static readonly object _lock = new();
 
     private int _lastDisplayedSeconds = -1;
+
+    static OptimizationState()
+    {
+        // Static handler held by the Loc singleton: references no instance, so the
+        // WeakReference tracking above still allows instances to be collected.
+        Loc.Instance.LanguageChanged += OnLanguageChanged;
+    }
+
+    private static void OnLanguageChanged(object? sender, LanguageChangedEventArgs e)
+    {
+        lock (_lock)
+        {
+            for (var i = _instances.Count - 1; i >= 0; i--)
+            {
+                if (!_instances[i].TryGetTarget(out var instance))
+                {
+                    _instances.RemoveAt(i);
+                    continue;
+                }
+
+                instance.ForceUpdateRelativeTime();
+            }
+        }
+    }
 
     /// <summary>
     ///     The date and time when the optimization was applied.
@@ -100,44 +125,48 @@ public partial class OptimizationState : ObservableObject
 
     private void UpdateRelativeTime()
     {
+        RelativeTime = ComputeRelativeTime();
+    }
+
+    private void ForceUpdateRelativeTime()
+    {
+        _lastDisplayedSeconds = -1;
+        UpdateRelativeTime();
+    }
+
+    private string ComputeRelativeTime()
+    {
         if (AppliedAt == null)
-        {
-            RelativeTime = string.Empty;
-            _lastDisplayedSeconds = -1;
-            return;
-        }
+            return string.Empty;
 
         var ts = DateTime.UtcNow - AppliedAt.Value.ToUniversalTime();
         var totalSeconds = (int)Math.Floor(ts.TotalSeconds);
         if (totalSeconds == _lastDisplayedSeconds)
-            return;
+            return RelativeTime ?? string.Empty;
 
         _lastDisplayedSeconds = totalSeconds;
 
-        RelativeTime = ts switch
+        return ts switch
         {
-            _ when totalSeconds < 15 => Translations.Common_AppliedJustNow,
-            _ when totalSeconds < 60 => string.Format(
-                Translations.Common_AppliedSecondsAgo,
-                totalSeconds
-            ),
-            _ when ts.TotalMinutes < 60 => string.Format(
-                Translations.Common_AppliedMinutesAgo,
+            _ when totalSeconds < 15 => Loc.Instance["Common.AppliedJustNow"],
+            _ when totalSeconds < 60 => Loc.Instance["Common.AppliedSecondsAgo", totalSeconds],
+            _ when ts.TotalMinutes < 60 => Loc.Instance[
+                "Common.AppliedMinutesAgo",
                 (int)Math.Floor(ts.TotalMinutes)
-            ),
-            _ when ts.TotalHours < 24 => string.Format(
-                Translations.Common_AppliedHoursAgo,
+            ],
+            _ when ts.TotalHours < 24 => Loc.Instance[
+                "Common.AppliedHoursAgo",
                 (int)Math.Floor(ts.TotalHours)
-            ),
-            _ when ts.TotalDays < 30 => string.Format(
-                Translations.Common_AppliedDaysAgo,
+            ],
+            _ when ts.TotalDays < 30 => Loc.Instance[
+                "Common.AppliedDaysAgo",
                 (int)Math.Floor(ts.TotalDays)
-            ),
-            _ when ts.TotalDays < 365 => string.Format(
-                Translations.Common_AppliedMonthsAgo,
+            ],
+            _ when ts.TotalDays < 365 => Loc.Instance[
+                "Common.AppliedMonthsAgo",
                 (int)(ts.TotalDays / 30)
-            ),
-            _ => string.Format(Translations.Common_AppliedYearsAgo, (int)(ts.TotalDays / 365)),
+            ],
+            _ => Loc.Instance["Common.AppliedYearsAgo", (int)(ts.TotalDays / 365)],
         };
     }
 

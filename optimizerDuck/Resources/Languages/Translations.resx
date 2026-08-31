@@ -2108,4 +2108,46 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
     <value>Some settings are unavailable on your current system.</value>
   </data>
+  <data name="Startup.Location.RegistryHKCURun" xml:space="preserve">
+    <value>Registry (Current User)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRun" xml:space="preserve">
+    <value>Registry (Local Machine)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKCURunOnce" xml:space="preserve">
+    <value>Registry RunOnce (Current User)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRunOnce" xml:space="preserve">
+    <value>Registry RunOnce (Local Machine)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRun32" xml:space="preserve">
+    <value>Registry (Local Machine, 32-bit)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRunOnce32" xml:space="preserve">
+    <value>Registry RunOnce (Local Machine, 32-bit)</value>
+  </data>
+  <data name="Startup.Location.UserStartupFolder" xml:space="preserve">
+    <value>Startup Folder (Current User)</value>
+  </data>
+  <data name="Startup.Location.CommonStartupFolder" xml:space="preserve">
+    <value>Startup Folder (All Users)</value>
+  </data>
+  <data name="Startup.Location.UwpStartupTask" xml:space="preserve">
+    <value>Microsoft Store App</value>
+  </data>
+  <data name="ScheduledTasks.Dialog.Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="ScheduledTasks.State.Running" xml:space="preserve">
+    <value>Running</value>
+  </data>
+  <data name="ScheduledTasks.State.Ready" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="ScheduledTasks.State.Disabled" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="ScheduledTasks.State.Queued" xml:space="preserve">
+    <value>Queued</value>
+  </data>
 </root>

@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using Microsoft.Win32.SafeHandles;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 using WmiEnumerationOptions = System.Management.EnumerationOptions;
 
 namespace optimizerDuck.Services.System;
@@ -56,8 +57,8 @@ public sealed record GpuInfo
     /// <summary>A sentinel value representing an unknown GPU.</summary>
     public static readonly GpuInfo Unknown = new()
     {
-        Name = Translations.Common_Unknown,
-        DriverVersion = Translations.Common_Unknown,
+        Name = Loc.Instance["Common.Unknown"],
+        DriverVersion = Loc.Instance["Common.Unknown"],
         Vendor = GpuVendor.Unknown,
     };
 
@@ -106,10 +107,10 @@ public sealed record CpuInfo
     /// <summary>A sentinel value representing an unknown CPU.</summary>
     public static readonly CpuInfo Unknown = new()
     {
-        Name = Translations.Common_Unknown,
-        Manufacturer = Translations.Common_Unknown,
+        Name = Loc.Instance["Common.Unknown"],
+        Manufacturer = Loc.Instance["Common.Unknown"],
         Vendor = CpuVendor.Unknown,
-        Architecture = Translations.Common_Unknown,
+        Architecture = Loc.Instance["Common.Unknown"],
         Cores = 0,
         Threads = 0,
         MaxClockMHz = 0,
@@ -346,14 +347,14 @@ public sealed record OsInfo
     /// <summary>A sentinel value representing unknown OS information.</summary>
     public static readonly OsInfo Unknown = new()
     {
-        Name = Translations.Common_Unknown,
-        Version = Translations.Common_Unknown,
-        BuildNumber = Translations.Common_Unknown,
-        Edition = Translations.Common_Unknown,
-        Architecture = Translations.Common_Unknown,
-        DeviceType = Translations.Common_Unknown,
-        InstallDate = Translations.Common_Unknown,
-        LastBootUpTime = Translations.Common_Unknown,
+        Name = Loc.Instance["Common.Unknown"],
+        Version = Loc.Instance["Common.Unknown"],
+        BuildNumber = Loc.Instance["Common.Unknown"],
+        Edition = Loc.Instance["Common.Unknown"],
+        Architecture = Loc.Instance["Common.Unknown"],
+        DeviceType = Loc.Instance["Common.Unknown"],
+        InstallDate = Loc.Instance["Common.Unknown"],
+        LastBootUpTime = Loc.Instance["Common.Unknown"],
     };
 
     /// <summary>
@@ -405,11 +406,11 @@ public sealed record BiosInfo
     /// <summary>A sentinel value representing unknown BIOS information.</summary>
     public static readonly BiosInfo Unknown = new()
     {
-        Manufacturer = Translations.Common_Unknown,
-        Version = Translations.Common_Unknown,
-        ReleaseDate = Translations.Common_Unknown,
-        SmbiosVersion = Translations.Common_Unknown,
-        SerialNumber = Translations.Common_Unknown,
+        Manufacturer = Loc.Instance["Common.Unknown"],
+        Version = Loc.Instance["Common.Unknown"],
+        ReleaseDate = Loc.Instance["Common.Unknown"],
+        SmbiosVersion = Loc.Instance["Common.Unknown"],
+        SerialNumber = Loc.Instance["Common.Unknown"],
     };
 
     /// <summary>
@@ -602,7 +603,7 @@ internal static class WmiHelper
 
     public static string GetString(ManagementObject mo, string property, string? fallback = null)
     {
-        fallback ??= Translations.Common_Unknown;
+        fallback ??= Loc.Instance["Common.Unknown"];
         try
         {
             var value = mo[property];
@@ -729,8 +730,8 @@ internal static class CpuProvider
         try
         {
             // ── Fast path: Registry ──────────────────────────────────────
-            var name = Translations.Common_Unknown;
-            var manufacturer = Translations.Common_Unknown;
+            var name = Loc.Instance["Common.Unknown"];
+            var manufacturer = Loc.Instance["Common.Unknown"];
             var currentMHz = 0;
 
             using (
@@ -1712,7 +1713,8 @@ internal static class GpuProvider
                         new GpuInfo
                         {
                             Name = name,
-                            DriverVersion = wmiMatch?.DriverVersion ?? Translations.Common_Unknown,
+                            DriverVersion =
+                                wmiMatch?.DriverVersion ?? Loc.Instance["Common.Unknown"],
                             Vendor = vendor,
                             MemoryMB = memoryMB > 0 ? memoryMB : null,
                             DeviceId = wmiMatch?.DeviceId,
@@ -1970,9 +1972,9 @@ internal static class OsProvider
         try
         {
             // ── Fast path: Registry ──────────────────────────────────────
-            var buildNumber = Translations.Common_Unknown;
-            var edition = Translations.Common_Unknown;
-            var installDate = Translations.Common_Unknown;
+            var buildNumber = Loc.Instance["Common.Unknown"];
+            var edition = Loc.Instance["Common.Unknown"];
+            var installDate = Loc.Instance["Common.Unknown"];
             var displayVersion = "";
 
             using (
@@ -2009,7 +2011,7 @@ internal static class OsProvider
             var name = $"Windows {version}";
 
             // ── Targeted WMI: only for LastBootUpTime ────────────────────
-            var lastBoot = Translations.Common_Unknown;
+            var lastBoot = Loc.Instance["Common.Unknown"];
             var os = WmiHelper.GetFirst("SELECT LastBootUpTime FROM Win32_OperatingSystem");
             if (os != null)
             {
@@ -2086,7 +2088,7 @@ internal static class OsProvider
             switch (type)
             {
                 case 8 or 9 or 10 or 11 or 14 or 30 or 31 or 32:
-                    return Translations.Dashboard_SystemInfo_Os_DeviceType_Laptop;
+                    return Loc.Instance["Dashboard.SystemInfo.Os.DeviceType.Laptop"];
 
                 case >= 1
                 and <= 7
@@ -2096,10 +2098,10 @@ internal static class OsProvider
                 and <= 29
                 or >= 33
                 and <= 36:
-                    return Translations.Dashboard_SystemInfo_Os_DeviceType_Desktop;
+                    return Loc.Instance["Dashboard.SystemInfo.Os.DeviceType.Desktop"];
             }
 
-        return Translations.Common_Unknown;
+        return Loc.Instance["Common.Unknown"];
     }
 
     private static string FormatWmiDateTime(string wmiDate)

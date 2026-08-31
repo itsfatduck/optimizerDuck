@@ -1,5 +1,6 @@
 using System.Reflection;
 using CommunityToolkit.Mvvm.ComponentModel;
+using optimizerDuck.Common.Extensions;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
@@ -17,7 +18,7 @@ namespace optimizerDuck.Domain.Customize.Models;
 ///     Windows surfaces should be refreshed after applying.
 ///     For Dropdown settings, options can carry <see cref="RegistryBinding"/> to auto-read/write.
 /// </summary>
-public abstract partial class BaseCustomizeSetting : ObservableObject, ICustomizeSetting
+public abstract partial class BaseCustomizeSetting : LocalizedObject, ICustomizeSetting
 {
     private CustomizeSettingAttribute? _meta;
 
@@ -39,6 +40,12 @@ public abstract partial class BaseCustomizeSetting : ObservableObject, ICustomiz
 
     public string Name => Loc.Instance[$"Customize.{OwnerKey}.{FeatureKey}.Name"];
     public string Description => Loc.Instance[$"Customize.{OwnerKey}.{FeatureKey}.Description"];
+
+    /// <summary>English name for log (always English, not translated).</summary>
+    public string LogName => Loc.Invariant[$"Customize.{OwnerKey}.{FeatureKey}.Name"];
+
+    /// <summary>English description for log (always English).</summary>
+    public string LogDescription => Loc.Invariant[$"Customize.{OwnerKey}.{FeatureKey}.Description"];
 
     /// <summary>
     ///     Gets the compatibility condition type declared in the

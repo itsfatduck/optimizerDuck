@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Exceptions;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.Optimization.Providers;
 
 namespace optimizerDuck.Domain.Revert.Steps;
@@ -38,7 +39,7 @@ public class UsbPowerRevertStep : IRevertStep
     public string Type => "UsbPower";
 
     /// <inheritdoc />
-    public string Description => Translations.Revert_UsbPower_Description;
+    public string Description => Loc.Instance["Revert.UsbPower.Description"];
 
     /// <inheritdoc />
     public async Task<bool> ExecuteAsync()
@@ -68,7 +69,7 @@ public class UsbPowerRevertStep : IRevertStep
         {
             var error = !string.IsNullOrWhiteSpace(result.Stderr)
                 ? result.Stderr
-                : string.Format(Translations.Revert_UsbPower_Error_CommandFailed, result.ExitCode);
+                : Loc.Instance["Revert.UsbPower.Error.CommandFailed", result.ExitCode];
             throw new StepExecutionException(error, result.Stderr);
         }
 

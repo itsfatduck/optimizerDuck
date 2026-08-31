@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using Microsoft.Extensions.Logging;
+using optimizerDuck.Common.Extensions;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Conditions;
@@ -13,7 +14,7 @@ using optimizerDuck.UI.Pages.Optimize.Categories;
 namespace optimizerDuck.Domain.Optimizations.Categories;
 
 [OptimizationCategory(typeof(SecurityAndPrivacyOptimizerPage))]
-public class SecurityAndPrivacy : IOptimizationCategory
+public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
 {
     public string Name => Loc.Instance[$"Optimizer.{nameof(SecurityAndPrivacy)}"];
     public OptimizationCategoryOrder Order { get; init; } =

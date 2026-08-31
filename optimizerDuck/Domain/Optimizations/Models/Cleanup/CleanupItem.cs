@@ -1,12 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using optimizerDuck.Common.Extensions;
+using optimizerDuck.Services.Configuration;
 using Wpf.Ui.Controls;
 
 namespace optimizerDuck.Domain.Optimizations.Models.Cleanup;
 
 /// <summary>
 ///     Represents a disk cleanup item (e.g., temp files, Windows Update cache).
-/// </summary>
-public partial class CleanupItem : ObservableObject
+public partial class CleanupItem : LocalizedObject
 {
     /// <summary>
     ///     The number of files in this cleanup item.
@@ -53,14 +54,29 @@ public partial class CleanupItem : ObservableObject
     public required string Id { get; init; }
 
     /// <summary>
-    ///     Display name of the cleanup item.
+    ///     Display name of the cleanup item. Returns the localized string for the
+    ///     current culture by looking up the resource key set at construction time.
     /// </summary>
-    public required string Name { get; init; }
+    public string Name => Loc.Instance[NameKey];
 
     /// <summary>
-    ///     Description of what this cleanup item contains.
+    ///     Description of what this cleanup item contains. Returns the localized string
+    ///     for the current culture by looking up the resource key set at construction time.
     /// </summary>
-    public required string Description { get; init; }
+    public string Description => Loc.Instance[DescriptionKey];
+
+    /// <summary>
+    ///     Resource key used to localize <see cref="Name" />. Set at construction time so
+    ///     that the localized value can be re-resolved whenever the UI language changes.
+    /// </summary>
+    public string NameKey { get; init; } = string.Empty;
+
+    /// <summary>
+    ///     Resource key used to localize <see cref="Description" />. Set at construction
+    ///     time so that the localized value can be re-resolved whenever the UI language
+    ///     changes.
+    /// </summary>
+    public string DescriptionKey { get; init; } = string.Empty;
 
     /// <summary>
     ///     The file path or folder to clean.

@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using Microsoft.Extensions.Logging;
+using optimizerDuck.Common.Extensions;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Optimizations.Models;
@@ -12,7 +13,7 @@ using optimizerDuck.UI.Pages.Optimize.Categories;
 namespace optimizerDuck.Domain.Optimizations.Categories;
 
 [OptimizationCategory(typeof(BloatwareAndServicesOptimizerPage))]
-public class BloatwareAndServices : IOptimizationCategory
+public class BloatwareAndServices : LocalizedObject, IOptimizationCategory
 {
     public string Name => Loc.Instance[$"Optimizer.{nameof(BloatwareAndServices)}"];
     public OptimizationCategoryOrder Order { get; init; } =
@@ -319,11 +320,7 @@ public class BloatwareAndServices : IOptimizationCategory
                 progress?.Report(
                     new ProcessingProgress
                     {
-                        Message = string.Format(
-                            Loc.Instance[$"{ProgressPrefix}.ChangeServiceStartupType"],
-                            service.Name,
-                            service.StartupType
-                        ),
+                        Message = Loc.Instance[$"{ProgressPrefix}.ChangeServiceStartupType", service.Name, service.StartupType],
                         Value = i + 1,
                         Total = servicesToChange.Count,
                     }

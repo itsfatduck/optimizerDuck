@@ -1,6 +1,7 @@
 using System.IO;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
+using optimizerDuck.Common.Extensions;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Execution;
@@ -8,6 +9,7 @@ using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.Optimization.Providers;
 using optimizerDuck.Services.Revert;
 using optimizerDuck.Services.System;
@@ -44,7 +46,7 @@ public class OptimizationService(
         var dialogViewModel = new ProcessingViewModel();
         var dialog = new ContentDialog
         {
-            Title = Translations.RestorePoint_Title,
+            Title = Loc.Instance["RestorePoint.Title"],
             Content = new ProcessingDialog { DataContext = dialogViewModel },
             IsFooterVisible = false,
         };
@@ -56,7 +58,7 @@ public class OptimizationService(
             dialogViewModel.ProgressReporter.Report(
                 new ProcessingProgress
                 {
-                    Message = Translations.RestorePoint_Progress_Creating,
+                    Message = Loc.Instance["RestorePoint.Progress.Creating"],
                     IsIndeterminate = true,
                 }
             );
@@ -91,7 +93,7 @@ public class OptimizationService(
             dialogViewModel.ProgressReporter.Report(
                 new ProcessingProgress
                 {
-                    Message = Translations.RestorePoint_Progress_Enabling,
+                    Message = Loc.Instance["RestorePoint.Progress.Enabling"],
                     IsIndeterminate = true,
                 }
             );
@@ -112,7 +114,7 @@ public class OptimizationService(
             dialogViewModel.ProgressReporter.Report(
                 new ProcessingProgress
                 {
-                    Message = Translations.RestorePoint_Progress_Retrying,
+                    Message = Loc.Instance["RestorePoint.Progress.Retrying"],
                     IsIndeterminate = true,
                 }
             );
@@ -158,7 +160,7 @@ public class OptimizationService(
 
         _logger.LogInformation(
             "Starting apply of {Name} ({Key}) with ID {Id}",
-            optimization.Name,
+            optimization.LogName(),
             optimization.OptimizationKey,
             optimization.Id
         );
@@ -166,7 +168,7 @@ public class OptimizationService(
         progress.Report(
             new ProcessingProgress
             {
-                Message = Translations.Optimization_Apply_Processing,
+                Message = Loc.Instance["Optimization.Apply.Processing"],
                 IsIndeterminate = true,
             }
         );
@@ -203,7 +205,7 @@ public class OptimizationService(
             progress.Report(
                 new ProcessingProgress
                 {
-                    Message = Translations.Optimization_Apply_Completed,
+                    Message = Loc.Instance["Optimization.Apply.Completed"],
                     IsIndeterminate = false,
                     Value = 1,
                     Total = 1,
@@ -225,10 +227,7 @@ public class OptimizationService(
             var result = new OptimizationResult
             {
                 Status = status,
-                Message = string.Format(
-                    Translations.Optimization_Apply_Error_Failed,
-                    optimization.Name
-                ),
+                Message = Loc.Instance["Optimization.Apply.Error.Failed", optimization.Name],
                 Exception = ex,
                 FailedSteps = failedSteps,
             };
@@ -252,7 +251,7 @@ public class OptimizationService(
     {
         _logger.LogInformation(
             "Starting revert of {Name} ({Key}) with ID {Id}",
-            optimization.Name,
+            optimization.LogName(),
             optimization.OptimizationKey,
             optimization.Id
         );
@@ -260,7 +259,7 @@ public class OptimizationService(
         progress?.Report(
             new ProcessingProgress
             {
-                Message = Translations.Optimization_Revert_Reverting,
+                Message = Loc.Instance["Optimization.Revert.Reverting"],
                 IsIndeterminate = true,
             }
         );
@@ -389,7 +388,7 @@ public class OptimizationService(
         progress?.Report(
             new ProcessingProgress
             {
-                Message = Translations.Optimization_Retry_Processing,
+                Message = Loc.Instance["Optimization.Retry.Processing"],
                 IsIndeterminate = true,
             }
         );
@@ -400,12 +399,7 @@ public class OptimizationService(
             progress?.Report(
                 new ProcessingProgress
                 {
-                    Message = string.Format(
-                        Translations.Optimization_RetryStep_Processing,
-                        step.Name,
-                        processedCount,
-                        total
-                    ),
+                    Message = Loc.Instance["Optimization.RetryStep.Processing", step.Name, processedCount, total],
                     Value = processedCount,
                     Total = total,
                 }

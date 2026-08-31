@@ -1,5 +1,5 @@
 using System.Collections.ObjectModel;
-using System.ComponentModel;
+using System.Globalization;
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -25,14 +25,12 @@ public partial class CustomizeCategoryViewModel : ViewModel
     [ObservableProperty]
     private ApplicationTheme _currentApplicationTheme = ApplicationTheme.Unknown;
 
-    [ObservableProperty]
-    private string _categoryDescription = string.Empty;
+    public string CategoryDescription => _currentCategory?.Description ?? string.Empty;
 
     [ObservableProperty]
     private SymbolRegular _categoryIcon;
 
-    [ObservableProperty]
-    private string _categoryName = string.Empty;
+    public string CategoryName => _currentCategory?.Name ?? string.Empty;
 
     [ObservableProperty]
     private bool _isLoading = true;
@@ -52,8 +50,8 @@ public partial class CustomizeCategoryViewModel : ViewModel
     [ObservableProperty]
     private int _unsupportedSettingsCount;
 
-    [ObservableProperty]
-    private string _unsupportedSettingsHeader = string.Empty;
+    public string UnsupportedSettingsHeader =>
+        Loc.Instance["Customize.UI.UnsupportedSettings.Header", UnsupportedSettingsCount];
 
     [ObservableProperty]
     private int _selectedSortByIndex;
@@ -79,8 +77,6 @@ public partial class CustomizeCategoryViewModel : ViewModel
         _systemInfoService = systemInfoService;
         _logger = loggerFactory.CreateLogger<CustomizeCategoryViewModel>();
 
-        CategoryName = _currentCategory.Name;
-        CategoryDescription = _currentCategory.Description;
         CategoryIcon = _currentCategory.Icon;
 
         CurrentApplicationTheme = ApplicationThemeManager.GetAppTheme();
@@ -146,10 +142,6 @@ public partial class CustomizeCategoryViewModel : ViewModel
         UnsupportedSections = GroupIntoSections(_unsupportedSettings);
         UnsupportedSettingsCount = _unsupportedSettings.Count;
         HasUnsupportedSettings = _unsupportedSettings.Count > 0;
-        UnsupportedSettingsHeader = string.Format(
-            Loc.Instance["Customize.UI.UnsupportedSettings.Header"],
-            UnsupportedSettingsCount
-        );
     }
 
     /// <summary>
@@ -163,9 +155,9 @@ public partial class CustomizeCategoryViewModel : ViewModel
         return new ObservableCollection<CustomizeSection>(
             settings
                 .GroupBy(f =>
-                    string.IsNullOrEmpty(f.Section) ? Translations.Common_Other : f.Section
+                    string.IsNullOrEmpty(f.Section) ? Loc.Instance["Common.Other"] : f.Section
                 )
-                .OrderBy(g => g.Key == Translations.Common_Other ? 1 : 0)
+                .OrderBy(g => g.Key == Loc.Instance["Common.Other"] ? 1 : 0)
                 .ThenBy(g => g.Key)
                 .Select(g => new CustomizeSection
                 {
@@ -190,7 +182,6 @@ public partial class CustomizeCategoryViewModel : ViewModel
         ApplicationThemeManager.Changed += OnThemeChanged;
 
         _systemInfoService.SnapshotRefreshed += OnSnapshotRefreshed;
-        Loc.Instance.PropertyChanged += OnCultureChanged;
 
         return base.OnNavigatedToAsync();
     }
@@ -199,7 +190,6 @@ public partial class CustomizeCategoryViewModel : ViewModel
     {
         ApplicationThemeManager.Changed -= OnThemeChanged;
         _systemInfoService.SnapshotRefreshed -= OnSnapshotRefreshed;
-        Loc.Instance.PropertyChanged -= OnCultureChanged;
 
         return base.OnNavigatedFromAsync();
     }
@@ -212,7 +202,11 @@ public partial class CustomizeCategoryViewModel : ViewModel
     private void OnSnapshotRefreshed(object? sender, SystemSnapshot snapshot) =>
         ReEvaluateConditions(snapshot);
 
-    private void OnCultureChanged(object? sender, PropertyChangedEventArgs e) =>
+    /// <summary>
+    ///     Re-evaluates every condition and rebuilds the filtered/unsupported partitions
+    ///     when the UI language changes. Marshalled to the UI thread by <see cref="UiThread"/>.
+    /// </summary>
+    protected override void OnLanguageChanged(CultureInfo newCulture) =>
         ReEvaluateConditions(_systemInfoService.Snapshot);
 
     private void ReEvaluateConditions(SystemSnapshot snapshot)

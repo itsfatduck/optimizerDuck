@@ -5,59 +5,75 @@ using optimizerDuck.Resources.Languages;
 
 namespace optimizerDuck.Services.Configuration;
 
-/// <summary>
-///     Provides localization and culture management for the application.
-///     Implements <see cref="INotifyPropertyChanged" /> so UI bindings (e.g., FlowDirection) update on culture change.
-/// </summary>
+/// <summary>Language change event data.</summary>
+public sealed class LanguageChangedEventArgs(CultureInfo newCulture) : EventArgs
+{
+    /// <summary>New language that was applied.</summary>
+    public CultureInfo NewCulture { get; } = newCulture;
+}
+
+/// <summary>App language manager. Singleton that updates UI when language changes.</summary>
 public class Loc : INotifyPropertyChanged
 {
-    /// <summary>
-    ///     Gets the singleton instance of the localization manager.
-    /// </summary>
+    /// <summary>Single instance used everywhere (Loc.Instance["Key"]). </summary>
     public static Loc Instance { get; } = new();
 
-    /// <summary>
-    ///     Gets the current culture information.
-    /// </summary>
+    /// <summary>Current UI language.</summary>
     public static CultureInfo CurrentCulture => Translations.Culture;
 
-    /// <summary>
-    ///     Gets whether the current culture uses a right-to-left writing system.
-    /// </summary>
+    /// <summary>True if current language is right-to-left (Arabic, Hebrew).</summary>
     public bool IsRtl => Translations.Culture.TextInfo.IsRightToLeft;
 
-    /// <summary>
-    ///     Gets the <see cref="FlowDirection" /> corresponding to the current culture.
-    ///     Returns <see cref="FlowDirection.RightToLeft" /> for RTL languages, otherwise <see cref="FlowDirection.LeftToRight" />.
-    /// </summary>
+    /// <summary>Layout direction for current language (LeftToRight or RightToLeft).</summary>
     public FlowDirection Direction => IsRtl ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
 
-    /// <summary>
-    ///     Gets the localized string for the specified key.
-    /// </summary>
-    /// <param name="key">The resource key to look up.</param>
-    /// <returns>The localized string or the key itself if not found.</returns>
+    /// <summary>Get text for key in current language. Returns key if not found.</summary>
     public string this[string key] =>
         Translations.ResourceManager.GetString(key, Translations.Culture) ?? key;
 
-    /// <summary>
-    ///     Changes the current culture for localization.
-    /// </summary>
-    /// <param name="culture">The new culture to apply.</param>
+    /// <summary>Always English, even when UI language changes. Use for logs.</summary>
+    public static InvariantStrings Invariant { get; } = new();
+
+    /// <summary>English-only text (neutral resources). Not affected by ChangeCulture.</summary>
+    public sealed class InvariantStrings
+    {
+        /// <summary>Get English text for key.</summary>
+        public string this[string key] =>
+            Translations.ResourceManager.GetString(key, CultureInfo.InvariantCulture) ?? key;
+
+        /// <summary>Get English text with formatting (string.Format).</summary>
+        public string this[string key, params object?[] args] => string.Format(this[key], args);
+    }
+
+    /// <summary>Get text with formatting, e.g. Loc.Instance["Key", value].</summary>
+    public string this[string key, params object?[] args] => string.Format(this[key], args);
+
+    /// <summary>Occurs when language changes. ViewModels refresh cached text here.</summary>
+    public event EventHandler<LanguageChangedEventArgs>? LanguageChanged;
+
+    /// <summary>Subscribe without keeping object alive. Use for ViewModels that can be closed.</summary>
+    public static void AddWeakLanguageChangedHandler(
+        EventHandler<LanguageChangedEventArgs> handler
+    ) =>
+        WeakEventManager<Loc, LanguageChangedEventArgs>.AddHandler(
+            Instance,
+            nameof(LanguageChanged),
+            handler
+        );
+
+    /// <summary>Change UI language and refresh all text and layout.</summary>
     public void ChangeCulture(CultureInfo culture)
     {
         Translations.Culture = culture;
         OnPropertyChanged(nameof(IsRtl));
         OnPropertyChanged(nameof(Direction));
+        OnPropertyChanged("Item[]");
+        LanguageChanged?.Invoke(this, new LanguageChangedEventArgs(culture));
     }
 
     /// <inheritdoc />
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    /// <summary>
-    ///     Raises the <see cref="PropertyChanged" /> event.
-    /// </summary>
-    /// <param name="propertyName">The name of the property that changed.</param>
     protected virtual void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

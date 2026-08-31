@@ -1,10 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+using optimizerDuck.Common.Extensions;
 using optimizerDuck.Domain.Optimizations.Models;
 
 namespace optimizerDuck.UI.ViewModels.Dialogs;
 
-public class OptimizationResultDialogViewModel : ObservableObject
+public class OptimizationResultDialogViewModel : LocalizedObject
 {
     public OptimizationResultDialogViewModel(IEnumerable<OperationStepResult> failedSteps)
     {

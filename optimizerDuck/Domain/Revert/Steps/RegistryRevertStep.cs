@@ -4,6 +4,7 @@ using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Exceptions;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.Optimization.Providers;
 
 namespace optimizerDuck.Domain.Revert.Steps;
@@ -56,29 +57,12 @@ public class RegistryRevertStep : IRevertStep
     public string Description =>
         Action switch
         {
-            RevertAction.RestorePrevious => string.Format(
-                Translations.Revert_Registry_Description_Restore,
-                Path,
-                Name ?? "(Default)"
-            ),
-            RevertAction.NoPreviousValue => string.Format(
-                Translations.Revert_Registry_Description_Delete,
-                Path,
-                Name ?? "(Default)"
-            ),
-            RevertAction.RestoreKey => string.Format(
-                Translations.Revert_Registry_Description_RestoreKey,
-                Path
-            ),
-            RevertAction.DeleteKey => string.Format(
-                Translations.Revert_Registry_Description_DeleteKey,
-                Path
-            ),
-            RevertAction.RestoreKeyTree => string.Format(
-                Translations.Revert_Registry_Description_RestoreKey,
-                Path
-            ),
-            _ => string.Format(Translations.Revert_Registry_Description_RevertUnknown, Path),
+            RevertAction.RestorePrevious => Loc.Instance["Revert.Registry.Description.Restore", Path, Name ?? "(Default)"],
+            RevertAction.NoPreviousValue => Loc.Instance["Revert.Registry.Description.Delete", Path, Name ?? "(Default)"],
+            RevertAction.RestoreKey => Loc.Instance["Revert.Registry.Description.RestoreKey", Path],
+            RevertAction.DeleteKey => Loc.Instance["Revert.Registry.Description.DeleteKey", Path],
+            RevertAction.RestoreKeyTree => Loc.Instance["Revert.Registry.Description.RestoreKey", Path],
+            _ => Loc.Instance["Revert.Registry.Description.RevertUnknown", Path],
         };
 
     /// <inheritdoc />

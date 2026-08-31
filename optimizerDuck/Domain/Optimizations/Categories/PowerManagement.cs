@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using optimizerDuck.Common.Extensions;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
@@ -20,7 +21,7 @@ using optimizerDuck.UI.Pages.Optimize.Categories;
 namespace optimizerDuck.Domain.Optimizations.Categories;
 
 [OptimizationCategory(typeof(PowerManagementOptimizerPage))]
-public class PowerManagement : IOptimizationCategory
+public class PowerManagement : LocalizedObject, IOptimizationCategory
 {
     public string Name => Loc.Instance[$"Optimizer.{nameof(PowerManagement)}"];
     public OptimizationCategoryOrder Order { get; init; } = OptimizationCategoryOrder.Power;
@@ -111,8 +112,8 @@ public class PowerManagement : IOptimizationCategory
 
                 var revertStep = new UsbPowerRevertStep { States = capturedStates };
                 ExecutionScope.RecordStep(
-                    Translations.Service_Shell_Name,
-                    Name,
+                    Loc.Invariant["Service.Shell.Name"],
+                    Loc.Invariant[$"Optimizer.{nameof(PowerManagement)}"],
                     disableResult.ExitCode == 0,
                     disableResult.ExitCode == 0 ? revertStep : null,
                     disableResult.ExitCode == 0 ? null : disableResult.Stderr

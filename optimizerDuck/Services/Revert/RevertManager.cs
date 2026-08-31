@@ -12,6 +12,7 @@ using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 
 namespace optimizerDuck.Services.Revert;
 
@@ -81,7 +82,7 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             return new RevertResult
             {
                 Success = false,
-                Message = string.Format(Translations.Revert_Error_NoDataFound, optimization.Name),
+                Message = Loc.Instance["Revert.Error.NoDataFound", optimization.Name],
             };
 
         var failedSteps = new List<OperationStepResult>();
@@ -95,12 +96,7 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             progress?.Report(
                 new ProcessingProgress
                 {
-                    Message = string.Format(
-                        Translations.Optimization_Revert_ExecutingStep,
-                        remaining,
-                        total,
-                        step.Type
-                    ),
+                    Message = Loc.Instance["Optimization.Revert.ExecutingStep", remaining, total, step.Type],
                     Value = remaining,
                     Total = total,
                 }
@@ -109,7 +105,7 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             try
             {
                 if (!await step.ExecuteAsync().ConfigureAwait(false))
-                    throw new Exception(Translations.Revert_Error_StepFailed);
+                    throw new Exception(Loc.Instance["Revert.Error.StepFailed"]);
             }
             catch (Exception ex)
             {
@@ -163,17 +159,10 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             AllStepsFailed = failedSteps.Count == total,
             Message =
                 failedSteps.Count == total
-                    ? string.Format(
-                        Translations.Optimization_Revert_Error_Failed,
-                        optimization.Name
-                    )
+                    ? Loc.Instance["Optimization.Revert.Error.Failed", optimization.Name]
                 : failedSteps.Count > 0
-                    ? string.Format(
-                        Translations.Optimization_Revert_Error_FailedWithSteps,
-                        optimization.Name,
-                        failedSteps.Count
-                    )
-                : string.Format(Translations.Optimization_Revert_Success, optimization.Name),
+                    ? Loc.Instance["Optimization.Revert.Error.FailedWithSteps", optimization.Name, failedSteps.Count]
+                : Loc.Instance["Optimization.Revert.Success", optimization.Name],
             FailedSteps = failedSteps,
         };
     }

@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using optimizerDuck.Common.Extensions;
 using Wpf.Ui.Abstractions.Controls;
 
 namespace optimizerDuck.UI.ViewModels;
@@ -16,7 +17,7 @@ namespace optimizerDuck.UI.ViewModels;
 ///         to react to page transitions.
 ///     </para>
 /// </remarks>
-public abstract class ViewModel : ObservableValidator, INavigationAware
+public abstract class ViewModel : LocalizedObject, INavigationAware
 {
     private bool _isInitialized;
 

@@ -30,8 +30,8 @@ public class DiskCleanupServiceTests
             var item = new CleanupItem
             {
                 Id = "TempFiles",
-                Name = "Temp Files",
-                Description = "Temp Description",
+                NameKey = "Temp Files",
+                DescriptionKey = "Temp Description",
                 Path = tempRoot,
                 Icon = SymbolRegular.Document24,
             };
@@ -87,8 +87,8 @@ public class DiskCleanupServiceTests
             var item = new CleanupItem
             {
                 Id = "TempFiles",
-                Name = "Temp Files",
-                Description = "Temp Description",
+                NameKey = "Temp Files",
+                DescriptionKey = "Temp Description",
                 Path = tempRoot,
                 Icon = SymbolRegular.Document24,
             };

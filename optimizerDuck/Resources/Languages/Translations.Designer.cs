@@ -1339,6 +1339,51 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose when to combine taskbar buttons and hide labels across all displays..
+        /// </summary>
+        internal static string Customize_Preferences_CombineTaskbarButtons_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.CombineTaskbarButtons.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Combine Taskbar Buttons.
+        /// </summary>
+        internal static string Customize_Preferences_CombineTaskbarButtons_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.CombineTaskbarButtons.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Always.
+        /// </summary>
+        internal static string Customize_Preferences_CombineTaskbarButtons_Options_Always {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.CombineTaskbarButtons.Options.Always", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Never.
+        /// </summary>
+        internal static string Customize_Preferences_CombineTaskbarButtons_Options_Never {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.CombineTaskbarButtons.Options.Never", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When taskbar is full.
+        /// </summary>
+        internal static string Customize_Preferences_CombineTaskbarButtons_Options_WhenFull {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.CombineTaskbarButtons.Options.WhenFull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Applies dark colors to Windows apps, Settings, and other shell elements..
         /// </summary>
         internal static string Customize_Preferences_DarkMode_Description {
@@ -5759,6 +5804,87 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Snackbar_OpenLinkFailed_Title {
             get {
                 return ResourceManager.GetString("Snackbar.OpenLinkFailed.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Startup Folder (All Users).
+        /// </summary>
+        internal static string Startup_Location_CommonStartupFolder {
+            get {
+                return ResourceManager.GetString("Startup.Location.CommonStartupFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registry (Current User).
+        /// </summary>
+        internal static string Startup_Location_RegistryHKCURun {
+            get {
+                return ResourceManager.GetString("Startup.Location.RegistryHKCURun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registry RunOnce (Current User).
+        /// </summary>
+        internal static string Startup_Location_RegistryHKCURunOnce {
+            get {
+                return ResourceManager.GetString("Startup.Location.RegistryHKCURunOnce", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registry (Local Machine).
+        /// </summary>
+        internal static string Startup_Location_RegistryHKLMRun {
+            get {
+                return ResourceManager.GetString("Startup.Location.RegistryHKLMRun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registry (Local Machine, 32-bit).
+        /// </summary>
+        internal static string Startup_Location_RegistryHKLMRun32 {
+            get {
+                return ResourceManager.GetString("Startup.Location.RegistryHKLMRun32", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registry RunOnce (Local Machine).
+        /// </summary>
+        internal static string Startup_Location_RegistryHKLMRunOnce {
+            get {
+                return ResourceManager.GetString("Startup.Location.RegistryHKLMRunOnce", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registry RunOnce (Local Machine, 32-bit).
+        /// </summary>
+        internal static string Startup_Location_RegistryHKLMRunOnce32 {
+            get {
+                return ResourceManager.GetString("Startup.Location.RegistryHKLMRunOnce32", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Startup Folder (Current User).
+        /// </summary>
+        internal static string Startup_Location_UserStartupFolder {
+            get {
+                return ResourceManager.GetString("Startup.Location.UserStartupFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Microsoft Store App.
+        /// </summary>
+        internal static string Startup_Location_UwpStartupTask {
+            get {
+                return ResourceManager.GetString("Startup.Location.UwpStartupTask", resourceCulture);
             }
         }
         

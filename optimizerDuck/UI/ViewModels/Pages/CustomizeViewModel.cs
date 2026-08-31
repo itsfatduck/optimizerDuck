@@ -2,6 +2,8 @@ using System.Collections.ObjectModel;
 using System.Reflection;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using optimizerDuck.Common.Extensions;
+using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Services.Customize;
 using Wpf.Ui;
@@ -32,25 +34,30 @@ public partial class CustomizeViewModel : ViewModel
 
         await _registry.EnsurePreloadedAsync().ConfigureAwait(false);
 
-        var categoryViewModels = new ObservableCollection<CustomizeCategoryItemViewModel>();
+        ReloadCategories();
+        IsLoading = false;
+    }
 
+    private void ReloadCategories()
+    {
+        var categoryViewModels = new ObservableCollection<CustomizeCategoryItemViewModel>();
         foreach (var category in _registry.Categories)
+        {
             categoryViewModels.Add(
                 new CustomizeCategoryItemViewModel
                 {
-                    Name = category.Name,
-                    Description = category.Description,
-                    Icon = category.Icon,
+                    Source = category,
                     CategoryType = category.GetType(),
+                    Icon = category.Icon,
                     PageType = category
                         .GetType()
                         .GetCustomAttribute<CustomizeCategoryAttribute>()
                         ?.PageType,
                 }
             );
+        }
 
         Categories = categoryViewModels;
-        IsLoading = false;
     }
 
     [RelayCommand]
@@ -61,19 +68,23 @@ public partial class CustomizeViewModel : ViewModel
     }
 }
 
-public partial class CustomizeCategoryItemViewModel : ObservableObject
+public partial class CustomizeCategoryItemViewModel : LocalizedObject
 {
     [ObservableProperty]
     private Type? _categoryType;
 
-    [ObservableProperty]
-    private string _description = string.Empty;
+    /// <summary>
+    ///     The category whose display strings this card forwards. Set at construction
+    ///     time; <see cref="Name" /> and <see cref="Description" /> re-resolve on every
+    ///     culture change.
+    /// </summary>
+    public ICustomizeCategory? Source { get; set; }
+
+    public string Description => Source?.Description ?? string.Empty;
+    public string Name => Source?.Name ?? string.Empty;
 
     [ObservableProperty]
     private SymbolRegular _icon;
-
-    [ObservableProperty]
-    private string _name = string.Empty;
 
     [ObservableProperty]
     private Type? _pageType;

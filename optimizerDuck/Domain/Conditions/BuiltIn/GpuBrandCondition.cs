@@ -1,4 +1,5 @@
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.System;
 
 namespace optimizerDuck.Domain.Conditions;
@@ -37,24 +38,25 @@ public abstract class GpuBrandCondition : ConditionBase
 public sealed class NvidiaGpuCondition : GpuBrandCondition
 {
     protected override GpuVendor RequiredVendor => GpuVendor.NVIDIA;
-    protected override Func<string> Title => () => Translations.Condition_Gpu_Nvidia_Title;
+    protected override Func<string> Title => () => Loc.Instance["Condition.Gpu.Nvidia.Title"];
     protected override Func<string> Description =>
-        () => Translations.Condition_Gpu_Nvidia_Description;
+        () => Loc.Instance["Condition.Gpu.Nvidia.Description"];
 }
 
 /// <summary>Requires an AMD GPU.</summary>
 public sealed class AmdGpuCondition : GpuBrandCondition
 {
     protected override GpuVendor RequiredVendor => GpuVendor.AMD;
-    protected override Func<string> Title => () => Translations.Condition_Gpu_Amd_Title;
-    protected override Func<string> Description => () => Translations.Condition_Gpu_Amd_Description;
+    protected override Func<string> Title => () => Loc.Instance["Condition.Gpu.Amd.Title"];
+    protected override Func<string> Description =>
+        () => Loc.Instance["Condition.Gpu.Amd.Description"];
 }
 
 /// <summary>Requires an Intel GPU.</summary>
 public sealed class IntelGpuCondition : GpuBrandCondition
 {
     protected override GpuVendor RequiredVendor => GpuVendor.Intel;
-    protected override Func<string> Title => () => Translations.Condition_Gpu_Intel_Title;
+    protected override Func<string> Title => () => Loc.Instance["Condition.Gpu.Intel.Title"];
     protected override Func<string> Description =>
-        () => Translations.Condition_Gpu_Intel_Description;
+        () => Loc.Instance["Condition.Gpu.Intel.Description"];
 }

@@ -57,7 +57,7 @@
                             IsDisabledState="{Binding IsDisabledState}"
                             IsReady="{Binding IsReady}"
                             IsRunning="{Binding IsRunning}"
-                            State="{Binding State}" />
+                            State="{Binding StateDisplay}" />
                     </DockPanel>
 
                     <ui:TextBlock

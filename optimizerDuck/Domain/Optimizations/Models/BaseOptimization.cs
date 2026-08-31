@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Reflection;
 using CommunityToolkit.Mvvm.ComponentModel;
+using optimizerDuck.Common.Extensions;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Conditions;
@@ -18,7 +19,7 @@ namespace optimizerDuck.Domain.Optimizations.Models;
 ///     decorated with <see cref="OptimizationAttribute"/> to provide metadata. The category
 ///     (<see cref="OwnerType"/>) is assigned automatically during reflection-based discovery.
 /// </summary>
-public abstract partial class BaseOptimization : ObservableObject, IOptimization
+public abstract partial class BaseOptimization : LocalizedObject, IOptimization
 {
     protected BaseOptimization()
     {
@@ -71,22 +72,22 @@ public abstract partial class BaseOptimization : ObservableObject, IOptimization
         {
             OptimizationRisk.Safe => new RiskVisual
             {
-                Display = Translations.Optimizer_UI_Risk_Safe,
+                Display = Loc.Instance["Optimizer.UI.Risk.Safe"],
                 Icon = SymbolRegular.ShieldCheckmark24,
             },
             OptimizationRisk.Moderate => new RiskVisual
             {
-                Display = Translations.Optimizer_UI_Risk_Moderate,
+                Display = Loc.Instance["Optimizer.UI.Risk.Moderate"],
                 Icon = SymbolRegular.Warning24,
             },
             OptimizationRisk.Risky => new RiskVisual
             {
-                Display = Translations.Optimizer_UI_Risk_Risky,
+                Display = Loc.Instance["Optimizer.UI.Risk.Risky"],
                 Icon = SymbolRegular.ShieldError24,
             },
             _ => new RiskVisual
             {
-                Display = Translations.Optimizer_UI_Risk_Safe,
+                Display = Loc.Instance["Optimizer.UI.Risk.Safe"],
                 Icon = SymbolRegular.ShieldCheckmark24,
             },
         };
@@ -129,7 +130,6 @@ public abstract partial class BaseOptimization : ObservableObject, IOptimization
     #endregion
 
     #region Localization
-
     /// <summary>Gets the full localization prefix for this optimization.</summary>
     public string Prefix => Loc.Instance[$"Optimizer.{OwnerKey}.{OptimizationKey}"];
 
@@ -144,6 +144,13 @@ public abstract partial class BaseOptimization : ObservableObject, IOptimization
 
     /// <summary>Gets the localized short description of what this optimization does.</summary>
     public string ShortDescription => Loc.Instance[$"{Prefix}.ShortDescription"];
+
+    /// <summary>English name for log (always English).</summary>
+    public string LogName => Loc.Invariant[$"Optimizer.{OwnerKey}.{OptimizationKey}.Name"];
+
+    /// <summary>English short description for log (always English).</summary>
+    public string LogShortDescription =>
+        Loc.Invariant[$"Optimizer.{OwnerKey}.{OptimizationKey}.ShortDescription"];
 
     #endregion
 
@@ -190,6 +197,6 @@ public abstract partial class BaseOptimization : ObservableObject, IOptimization
     protected static ApplyResult CompleteFromScope()
     {
         return ExecutionScope.Current?.ToApplyResult()
-            ?? ApplyResult.False(Translations.Revert_Error_NoSteps);
+            ?? ApplyResult.False(Loc.Instance["Revert.Error.NoSteps"]);
     }
 }

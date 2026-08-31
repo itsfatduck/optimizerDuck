@@ -1,5 +1,6 @@
 using System.IO;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.System;
 
 namespace optimizerDuck.Domain.Conditions;
@@ -26,8 +27,8 @@ public sealed class RecallInstalledCondition : ConditionBase
         return isSupported
             ? ConditionResult.Available
             : ConditionResult.Unsupported(
-                () => Translations.Condition_Recall_Title,
-                () => Translations.Condition_Recall_Description
+                () => Loc.Instance["Condition.Recall.Title"],
+                () => Loc.Instance["Condition.Recall.Description"]
             );
     }
 }

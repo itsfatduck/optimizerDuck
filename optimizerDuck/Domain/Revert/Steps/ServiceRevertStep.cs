@@ -3,6 +3,7 @@ using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Exceptions;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.Optimization.Providers;
 
 namespace optimizerDuck.Domain.Revert.Steps;
@@ -27,11 +28,7 @@ public class ServiceRevertStep : IRevertStep
 
     /// <inheritdoc />
     public string Description =>
-        string.Format(
-            Translations.Revert_Service_Description_Restore,
-            ServiceName,
-            OriginalStartupType
-        );
+        Loc.Instance["Revert.Service.Description.Restore", ServiceName, OriginalStartupType];
 
     /// <inheritdoc />
     public async Task<bool> ExecuteAsync()

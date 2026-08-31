@@ -1,4 +1,5 @@
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.System;
 
 namespace optimizerDuck.Domain.Conditions;
@@ -11,7 +12,7 @@ public sealed class Windows10Condition : ConditionBase
         && build is >= WindowsBuilds.Windows10 and < WindowsBuilds.Windows11
             ? ConditionResult.Available
             : ConditionResult.Unsupported(
-                () => Translations.Condition_Windows10_Title,
-                () => Translations.Condition_Windows10_Description
+                () => Loc.Instance["Condition.Windows10.Title"],
+                () => Loc.Instance["Condition.Windows10.Description"]
             );
 }

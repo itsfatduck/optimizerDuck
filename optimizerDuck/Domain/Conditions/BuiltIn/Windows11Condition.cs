@@ -1,4 +1,5 @@
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.System;
 
 namespace optimizerDuck.Domain.Conditions;
@@ -10,7 +11,7 @@ public sealed class Windows11Condition : ConditionBase
         TryGetOsBuild(snapshot, out var build) && build >= WindowsBuilds.Windows11
             ? ConditionResult.Available
             : ConditionResult.Unsupported(
-                () => Translations.Condition_Windows11_Title,
-                () => Translations.Condition_Windows11_Description
+                () => Loc.Instance["Condition.Windows11.Title"],
+                () => Loc.Instance["Condition.Windows11.Description"]
             );
 }

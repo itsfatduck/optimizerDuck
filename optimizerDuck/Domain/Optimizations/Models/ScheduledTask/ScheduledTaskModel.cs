@@ -1,13 +1,15 @@
 using System.Collections.ObjectModel;
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
+using optimizerDuck.Common.Extensions;
+using optimizerDuck.Services.Configuration;
 
 namespace optimizerDuck.Domain.Optimizations.Models.ScheduledTask;
 
 /// <summary>
 ///     Represents a Windows Scheduled Task.
 /// </summary>
-public partial class ScheduledTaskModel : ObservableObject
+public partial class ScheduledTaskModel : LocalizedObject
 {
     /// <summary>
     ///     Indicates whether the task is enabled.
@@ -26,6 +28,21 @@ public partial class ScheduledTaskModel : ObservableObject
     /// </summary>
     [ObservableProperty]
     private string _state = string.Empty;
+
+    /// <summary>
+    ///     The localized state label for UI display. Raw Windows states ("Ready",
+    ///     "Running", ...) are mapped through translations; unknown values are shown
+    ///     as-is. Computed so it re-resolves when the UI language changes.
+    /// </summary>
+    public string StateDisplay =>
+        State?.ToLowerInvariant() switch
+        {
+            "running" => Loc.Instance["ScheduledTasks.State.Running"],
+            "ready" => Loc.Instance["ScheduledTasks.State.Ready"],
+            "disabled" => Loc.Instance["ScheduledTasks.State.Disabled"],
+            "queued" => Loc.Instance["ScheduledTasks.State.Queued"],
+            _ => State ?? string.Empty,
+        };
 
     /// <summary>
     ///     The name of the task.

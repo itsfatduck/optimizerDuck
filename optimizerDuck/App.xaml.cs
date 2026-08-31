@@ -480,11 +480,11 @@ public partial class App : Application
             var result = await _contentDialogService.ShowSimpleDialogAsync(
                 new SimpleContentDialogCreateOptions
                 {
-                    Title = Translations.Dialog_PendingChanges_Title,
-                    Content = Translations.Dialog_PendingChanges_Content,
-                    CloseButtonText = Translations.Dialog_PendingChanges_CloseButton,
-                    PrimaryButtonText = Translations.Dialog_PendingChanges_PrimaryButton,
-                    SecondaryButtonText = Translations.Dialog_PendingChanges_SecondaryButton,
+                    Title = Loc.Instance["Dialog.PendingChanges.Title"],
+                    Content = Loc.Instance["Dialog.PendingChanges.Content"],
+                    CloseButtonText = Loc.Instance["Dialog.PendingChanges.CloseButton"],
+                    PrimaryButtonText = Loc.Instance["Dialog.PendingChanges.PrimaryButton"],
+                    SecondaryButtonText = Loc.Instance["Dialog.PendingChanges.SecondaryButton"],
                 }
             );
 

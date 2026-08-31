@@ -2,6 +2,7 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
+using optimizerDuck.Common.Extensions;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Conditions;
@@ -17,7 +18,7 @@ public partial class CustomizeItemViewModel(
     ICustomizeSetting setting,
     ILoggerFactory loggerFactory,
     IRegistryWatcher registryWatcher
-) : ObservableObject, IDisposable
+) : LocalizedObject, IDisposable
 {
     private readonly ILogger<CustomizeItemViewModel> _logger =
         loggerFactory.CreateLogger<CustomizeItemViewModel>();
@@ -43,8 +44,12 @@ public partial class CustomizeItemViewModel(
 
     public SymbolRegular Icon => setting.Icon;
 
-    [ObservableProperty]
-    private string _description = setting.Description;
+    /// <summary>
+    ///     Computed so grouped section headers, filters and bindings always re-resolve
+    ///     against the current culture, even when a parent handler rebuilds sections
+    ///     before this item is notified.
+    /// </summary>
+    public string Description => setting.Description;
 
     [ObservableProperty]
     private bool _isEnabled;
@@ -52,14 +57,9 @@ public partial class CustomizeItemViewModel(
     [ObservableProperty]
     private bool _isLoading;
 
-    [ObservableProperty]
-    private string _name = setting.Name;
+    public string Name => setting.Name;
 
-    [ObservableProperty]
-    private string _section = setting.Section;
-
-    [ObservableProperty]
-    private string _categoryName = string.Empty;
+    public string Section => setting.Section;
 
     [ObservableProperty]
     private object? _currentValue;
@@ -222,7 +222,7 @@ public partial class CustomizeItemViewModel(
             _logger.LogWarning(
                 ex,
                 "RegistryWatcher: failed to refresh state for {Setting}",
-                setting.Name
+                setting.LogName()
             );
         }
     }
@@ -319,7 +319,7 @@ public partial class CustomizeItemViewModel(
                     _logger.LogInformation(
                         "Apply {Value} for {Setting} ({Key})",
                         valueToApply,
-                        setting.Name,
+                        setting.LogName(),
                         setting.FeatureKey
                     );
 
@@ -344,7 +344,7 @@ public partial class CustomizeItemViewModel(
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Failed to apply {SettingName}", setting.Name);
+                    _logger.LogError(ex, "Failed to apply {SettingName}", setting.LogName());
                 }
             }
         }

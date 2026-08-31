@@ -7,6 +7,7 @@ using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Resources.Languages;
+using optimizerDuck.Services.Configuration;
 
 namespace optimizerDuck.Services.Optimization.Providers;
 
@@ -23,9 +24,9 @@ public sealed class ShellPolicy
     public Func<ShellResult, string?> ErrorFactory { get; init; } =
         r =>
             r.ExitCode == -1 // if timed out use Error.TimedOut
-                ? Translations.Service_Shell_Error_TimedOut
+                ? Loc.Instance["Service.Shell.Error.TimedOut"]
             : string.IsNullOrWhiteSpace(r.Stderr) // else check stderr, if empty use exitcode, else use raw stderr
-                ? string.Format(Translations.Service_Shell_Error_ExitCode, r.ExitCode)
+                ? Loc.Instance["Service.Shell.Error.ExitCode", r.ExitCode]
             : r.Stderr;
 
     /// <summary>Creates a policy with a custom success function and optional error factory.</summary>
@@ -266,7 +267,7 @@ public static class ShellService
             var error = success ? null : policy.ErrorFactory(result);
 
             ExecutionScope.RecordStep(
-                Translations.Service_Shell_Name,
+                Loc.Invariant["Service.Shell.Name"],
                 fullCommandForUser,
                 success,
                 revertStep,
@@ -305,7 +306,7 @@ public static class ShellService
             };
 
             ExecutionScope.RecordStep(
-                Translations.Service_Shell_Name,
+                Loc.Invariant["Service.Shell.Name"],
                 fullCommandForUser,
                 false,
                 revertStep,
@@ -510,7 +511,7 @@ public static class ShellService
             var error = success ? null : policy.ErrorFactory(result);
 
             ExecutionScope.RecordStep(
-                Translations.Service_Shell_Name,
+                Loc.Invariant["Service.Shell.Name"],
                 fullCommandForUser,
                 success,
                 revertStep,
@@ -554,7 +555,7 @@ public static class ShellService
             };
 
             ExecutionScope.RecordStep(
-                Translations.Service_Shell_Name,
+                Loc.Invariant["Service.Shell.Name"],
                 fullCommandForUser,
                 false,
                 revertStep,
