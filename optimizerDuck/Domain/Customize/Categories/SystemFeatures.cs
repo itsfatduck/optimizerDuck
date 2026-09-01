@@ -1,11 +1,15 @@
 using System.Collections.ObjectModel;
+using System.Globalization;
+using Microsoft.Win32;
 using optimizerDuck.Common.Extensions;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Conditions;
 using optimizerDuck.Domain.Customize.Models;
+using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Services.Configuration;
+using optimizerDuck.Services.Optimization.Providers;
 using optimizerDuck.UI.Pages.Customize.Categories;
 using Wpf.Ui.Controls;
 
@@ -28,7 +32,6 @@ public class SystemFeatures : LocalizedObject, ICustomizeCategory
     public SymbolRegular Icon { get; init; } = SymbolRegular.WindowSettings20;
     public CustomizeOrder Order { get; init; } = CustomizeOrder.System;
     public ObservableCollection<ICustomizeSetting> Features { get; init; } = [];
-
     [CustomizeSetting(
         Section = nameof(Sections.Input),
         Icon = SymbolRegular.NumberSymbol24,
@@ -36,25 +39,57 @@ public class SystemFeatures : LocalizedObject, ICustomizeCategory
     )]
     public class NumLockOnBoot : BaseCustomizeSetting
     {
-        protected override IEnumerable<RegistryToggle> RegistryToggles =>
-            [
-                new()
+        private const string PathDefault = @"HKU\.DEFAULT\Control Panel\Keyboard";
+        private const string PathCurrent = @"HKCU\Control Panel\Keyboard";
+        private const string ValueName = "InitialKeyboardIndicators";
+
+        protected override IReadOnlyList<string> GetWatchedRegistryPaths() => [PathDefault, PathCurrent];
+
+        public override Task<bool> GetStateAsync()
+        {
+            return Task.Run(() =>
+            {
+                bool IsNumLockOn(string path)
                 {
-                    Path = @"HKU\.DEFAULT\Control Panel\Keyboard",
-                    Name = "InitialKeyboardIndicators",
-                    OnValues = [2],
-                    OffValues = [0],
-                    DefaultValue = 0,
-                },
-                new()
-                {
-                    Path = @"HKCU\Control Panel\Keyboard",
-                    Name = "InitialKeyboardIndicators",
-                    OnValues = [2],
-                    OffValues = [0],
-                    DefaultValue = 0,
-                },
-            ];
+                    var raw = RegistryService.Read<object?>(new RegistryItem(path, ValueName));
+                    if (raw == null)
+                        return false;
+                    if (int.TryParse(raw.ToString(), NumberStyles.Integer, CultureInfo.InvariantCulture, out var v))
+                        return (v & 2) == 2;
+                    return false;
+                }
+
+                return IsNumLockOn(PathDefault) && IsNumLockOn(PathCurrent);
+            });
+        }
+
+        public override async Task ApplyAsync(object? value)
+        {
+            var isOn = value is bool b && b;
+
+            var currentRaw = RegistryService.Read<object?>(new RegistryItem(PathCurrent, ValueName));
+            var defaultRaw = RegistryService.Read<object?>(new RegistryItem(PathDefault, ValueName));
+
+            RegistryService.Write(
+                new RegistryItem(PathCurrent, ValueName, SetNumLockBit(currentRaw, isOn), RegistryValueKind.String));
+            RegistryService.Write(
+                new RegistryItem(PathDefault, ValueName, SetNumLockBit(defaultRaw, isOn), RegistryValueKind.String));
+
+            if (NeedsPostAction)
+                await ExecutePostActionAsync();
+        }
+
+        private static string SetNumLockBit(object? raw, bool enabled)
+        {
+            if (!int.TryParse(raw?.ToString(), NumberStyles.Integer, CultureInfo.InvariantCulture, out var value))
+            {
+                value = 0;
+            }
+
+            value = enabled ? value | 2 : value & ~2;
+
+            return value.ToString(CultureInfo.InvariantCulture);
+        }
     }
 
     #region Boot
