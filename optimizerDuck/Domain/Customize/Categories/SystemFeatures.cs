@@ -54,7 +54,7 @@ public class SystemFeatures : LocalizedObject, ICustomizeCategory
                     var raw = RegistryService.Read<object?>(new RegistryItem(path, ValueName));
                     if (raw == null)
                         return false;
-                    if (int.TryParse(raw.ToString(), NumberStyles.Integer, CultureInfo.InvariantCulture, out var v))
+                    if (long.TryParse(raw.ToString(), NumberStyles.Integer, CultureInfo.InvariantCulture, out var v))
                         return (v & 2) == 2;
                     return false;
                 }
@@ -81,7 +81,7 @@ public class SystemFeatures : LocalizedObject, ICustomizeCategory
 
         private static string SetNumLockBit(object? raw, bool enabled)
         {
-            if (!int.TryParse(raw?.ToString(), NumberStyles.Integer, CultureInfo.InvariantCulture, out var value))
+            if (!long.TryParse(raw?.ToString(), NumberStyles.Integer, CultureInfo.InvariantCulture, out var value))
             {
                 value = 0;
             }
