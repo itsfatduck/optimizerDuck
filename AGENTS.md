@@ -14,7 +14,7 @@
 - `dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release --no-build --filter "FullyQualifiedName~TestName"` — run a single test.
 - `dotnet run --project optimizerDuck/optimizerDuck.csproj` — run locally (needs admin).
 - `publish.bat portable` or `publish.bat single --skip-tests` — create release artifacts.
-- `dotnet csharpier .` — format all code with CSharpier.
+- `csharpier format .` — format all code with CSharpier (`csharpier check .` to verify without writing).
 
 ## Project Structure
 - `optimizerDuck/` — WPF app (single project, no sub-projects):

@@ -77,7 +77,7 @@ dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release
 dotnet run --project optimizerDuck/optimizerDuck.csproj
 
 # CSharpier ile kodu biçimlendir
-dotnet csharpier .
+csharpier format .
 ```
 
 > Yeni NuGet bağımlılıkları eklerseniz, `dotnet restore` komutunu tekrar çalıştırın (sonraki derlemelerde `--no-restore` kullanabilirsiniz).
@@ -100,7 +100,7 @@ publish.bat portable --no-pause   # Sonunda duraklamaz (CI dostu)
 - [ ] Depoyu forkladınız ve klonladınız
 - [ ] `dotnet build` başarılı oldu (0 hata)
 - [ ] `dotnet test` geçer (tüm testler yeşil)
-- [ ] `dotnet csharpier .` hatasız şekilde kodunuzu biçimlendiriyor
+- [ ] `csharpier format .` hatasız şekilde kodunuzu biçimlendiriyor (`csharpier check .` ile doğrulayın)
 - [ ] Aşağıdaki [Mimariye Genel Bakış](#architecture-overview) bölümünü okudunuz
 
 ---
@@ -1159,7 +1159,7 @@ public class MyOptimizationTests
 | Maksimum satır uzunluğu | 100 karakter |
 | Sondaki boşluk | Kırpılır |
 | Sondaki yeni satır | Zorunlu |
-| Biçimlendirici | **CSharpier** — commit öncesi `dotnet csharpier .` çalıştırın |
+| Biçimlendirici | **CSharpier** — commit öncesi `csharpier format .` çalıştırın (`csharpier check .` ile doğrulayın) |
 | CA1416 | `.editorconfig` ile susturulur — tüm kod Windows'a özeldir |
 
 <h3 id="code-style-tr">Kod Stili</h3>
@@ -1312,7 +1312,7 @@ XAML içinde:
    dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release --no-build
 
    # 3. Biçimlendir
-   dotnet csharpier .
+   csharpier format .
 
    # 4. git status'u kontrol edin — yalnızca amaçlanan dosyaların aşamalandığından emin olun
    git status
@@ -1334,7 +1334,7 @@ XAML içinde:
 - [ ] İlgiliyse koşullar bildirildi ([Koşul Sistemi](#the-condition-system) bölümüne bakın)
 - [ ] `dotnet build` başarılı (0 hata)
 - [ ] `dotnet test` geçiyor (tüm testler yeşil)
-- [ ] `dotnet csharpier .` çalıştırıldı
+- [ ] `csharpier format .` çalıştırıldı (`csharpier check .` ile doğrulayın)
 - [ ] Sabit kodlanmış dize yok
 - [ ] Geri alma adımları düzgün kaydedildi (geçerliyse)
 - [ ] UI değişiklikleri bir ekran görüntüsü içeriyor

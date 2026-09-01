@@ -77,7 +77,7 @@ dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release
 dotnet run --project optimizerDuck/optimizerDuck.csproj
 
 # CSharpier でコードを整形
-dotnet csharpier .
+csharpier format .
 ```
 
 > 新しい NuGet 依存関係を追加した場合は、再度 `dotnet restore` を実行してください（以降のビルドでは `--no-restore` を使用します）。
@@ -100,7 +100,7 @@ publish.bat portable --no-pause   # 最後に一時停止しない（CI 向け�
 - [ ] リポジトリをフォークしてクローンする
 - [ ] `dotnet build` が成功する（エラー 0 件）
 - [ ] `dotnet test` が通る（すべてのテストが成功）
-- [ ] `dotnet csharpier .` がエラーなく整形できる
+- [ ] `csharpier format .` がエラーなく整形できる（`csharpier check .` で検証）
 - [ ] 下記の [アーキテクチャ概要](#architecture-overview) を読む
 
 ---
@@ -1158,7 +1158,7 @@ public class MyOptimizationTests
 | 最大行長 | 100 文字 |
 | 末尾の空白 | 削除 |
 | 末尾の改行 | 必須 |
-| フォーマッター | **CSharpier** — コミット前に `dotnet csharpier .` |
+| フォーマッター | **CSharpier** — コミット前に `csharpier format .`（`csharpier check .` で検証） |
 | CA1416 | `.editorconfig` で抑制 — すべて Windows 専用 |
 
 <h3 id="code-style-jp">コードスタイル</h3>
@@ -1311,7 +1311,7 @@ XAML：
    dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release --no-build
 
    # 3. 整形
-   dotnet csharpier .
+   csharpier format .
 
    # 4. git status を確認 — 意図したファイルだけがステージされていることを確認
    git status
@@ -1333,7 +1333,7 @@ XAML：
 - [ ] 関連する場合は条件が宣言されている（[条件システム](#the-condition-system) を参照）
 - [ ] `dotnet build` が成功（エラー 0 件）
 - [ ] `dotnet test` が成功（全テスト緑）
-- [ ] `dotnet csharpier .` を実行済み
+- [ ] `csharpier format .` を実行済み（`csharpier check .` で検証）
 - [ ] ハードコード文字列なし
 - [ ] リバートステップが適切に記録されている（該当する場合）
 - [ ] UI 変更のスクリーンショットあり

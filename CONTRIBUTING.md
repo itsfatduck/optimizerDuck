@@ -77,7 +77,7 @@ dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release
 dotnet run --project optimizerDuck/optimizerDuck.csproj
 
 # Format code with CSharpier
-dotnet csharpier .
+csharpier format .
 ```
 
 > If you add new NuGet dependencies, run `dotnet restore` again (then `--no-restore` for subsequent builds).
@@ -100,7 +100,7 @@ Before your first contribution:
 - [ ] Fork + clone the repo
 - [ ] `dotnet build` succeeds (0 errors)
 - [ ] `dotnet test` passes (all tests green)
-- [ ] `dotnet csharpier .` formats without errors
+- [ ] `csharpier format .` formats without errors (`csharpier check .` to verify)
 - [ ] Read the [Architecture Overview](#architecture-overview) below
 
 ---
@@ -1157,7 +1157,7 @@ public class MyOptimizationTests
 | Max line length | 100 characters |
 | Trailing whitespace | Trimmed |
 | Final newline | Required |
-| Formatter | **CSharpier** — run `dotnet csharpier .` before committing |
+| Formatter | **CSharpier** — run `csharpier format .` before committing (`csharpier check .` to verify) |
 | CA1416 | Silenced via `.editorconfig` — all code is Windows-only |
 
 ### Code Style
@@ -1310,7 +1310,7 @@ In XAML:
    dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release --no-build
 
    # 3. Format
-   dotnet csharpier .
+   csharpier format .
 
    # 4. Check git status — make sure only intended files are staged
    git status
@@ -1332,7 +1332,7 @@ In XAML:
 - [ ] Conditions declared where relevant (see [The Condition System](#the-condition-system))
 - [ ] `dotnet build` succeeds (0 errors)
 - [ ] `dotnet test` passes (all tests green)
-- [ ] `dotnet csharpier .` has been run
+- [ ] `csharpier format .` has been run (`csharpier check .` to verify)
 - [ ] No hardcoded strings
 - [ ] Revert steps are properly recorded (if applicable)
 - [ ] UI changes include a screenshot
