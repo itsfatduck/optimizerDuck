@@ -149,13 +149,13 @@ optimizerDuck.slnx                          # Solution file (.slnx format)
 │   │   ├── Revert/                         # RevertData, RevertResult, revert step types
 │   │   │   └── Steps/                      # RegistryRevertStep, ServiceRevertStep,
 │   │   │                                   #   ScheduledTaskRevertStep, ShellRevertStep, UsbPowerRevertStep
-│   │   └── UI/                             # Enums: OptimizationRisk, OptimizationTags,
+│   │   └── UI/                             # Enums & helpers: OptimizationRisk, OptimizationTags,
 │   │                                       #   OptimizationCategoryOrder, CustomizeOrder,
-│   │                                       #   LanguageOption, OptimizationState, RiskVisual,
-│   │                                       #   ProcessingProgress, ...
+│   │                                       #   LanguageOption, SupportedLanguages (single source of truth, 17 locales),
+│   │                                       #   OptimizationState, RiskVisual, ProcessingProgress, ...
 │   │
 │   ├── Common/                             # Shared helpers, extensions, converters
-│   │   ├── Converters/                     # WPF value converters (BooleanToVisibility, MBToGB, ...)
+│   │   ├── Converters/                     # WPF value converters (BooleanToVisibility, MBToGB, ThemeToIndexConverter, ThemeToGitHubIconConverter, ...)
 │   │   ├── Extensions/                     # StringExtensions, page-registry extensions,
 │   │   │                                   #   LanguageExtensions
 │   │   └── Helpers/                        # Shared.cs, ReflectionHelper.cs, SystemRefreshService.cs,
@@ -178,7 +178,7 @@ optimizerDuck.slnx                          # Solution file (.slnx format)
 │   │   ├── Behaviors/                      # SmoothScrollBehavior
 │   │   ├── Controls/                       # FilledNavigationViewItem, EmptyBadge
 │   │   ├── Dialogs/                        # ProcessingDialog, OptimizationDetailsDialog,
-│   │   │                                   #   OptimizationResultDialog, RestorePointDialog, LegalDialog,
+│   │   │                                   #   OptimizationResultDialog, RestorePointDialog, LegalDialog (+ ViewModel),
 │   │   │                                   #   BloatwareConfirmationDialog, ScheduledTask dialogs, ...
 │   │   ├── Pages/                          # Dashboard, Optimize, Customize, Settings, Bloatware,
 │   │   │   ├── Customize/                  # CustomizePage + Categories/ (auto-registered pages)
@@ -188,6 +188,8 @@ optimizerDuck.slnx                          # Solution file (.slnx format)
 │   │   │   └── ScheduledTasksPage
 │   │   ├── Styles/                         # FluentDesign.xaml, NavigationViewOverride.xaml, ToolTipOverride.xaml
 │   │   ├── ViewModels/                     # Page, dialog and window ViewModels
+│   │   │   ├── Dialogs/                    # LegalDialogViewModel (transient, runtime language/theme)
+│   │   │   ├── Pages/                      # DashboardViewModel, SettingsViewModel, ...
 │   │   └── Windows/                        # MainWindow
 │   │
 │   └── Resources/                          # Images, embedded assets, localization
@@ -846,8 +848,6 @@ Setting toggle → BaseCustomizeSetting.ApplyAsync(value)
 
 If you override `ApplyAsync`, you **must** call `await ExecutePostActionAsync()` yourself (see the examples above). The base class only does this automatically when using the default `RegistryToggles`-based or dropdown-binding-based apply.
 
----
-
 # Building New Features
 
 If you want to add a new page or tool (e.g., a "Network Monitor"):
@@ -867,16 +867,20 @@ public class YourService(ILogger<YourService> logger) { ... }
 // 4. Register as singletons in App.xaml.cs
 services.AddSingleton<YourViewModel>();
 services.AddSingleton<YourPage>();
+
+// 4b. Dialogs are transient (fresh instance per show, supports runtime language/theme)
+services.AddTransient<YourDialogViewModel>();
+services.AddTransient<YourDialog>();
 ```
 
-- ViewModels and Pages **must** be registered as singletons in `App.xaml.cs`.
-- Navigation is handled by WPF UI (`INavigationService`).
-- Follow the existing patterns — check `DashboardPage`, `OptimizePage`, `BloatwarePage`, `DiskCleanupPage`, `ScheduledTasksPage`, `StartupManagerPage`, etc.
+- ViewModels and Pages **must** be registered as singletons in `App.xaml.cs`. Dialogs **must** be transient.
+- Navigation is handled by WPF UI (`INavigationService`). Dialogs are resolved via `App.AppHost.Services.GetRequiredService<T>()` (see `MainWindow.xaml.cs` → `LegalDialog`).
+- Follow the existing patterns — check `DashboardPage`, `OptimizePage`, `BloatwarePage`, `DiskCleanupPage`, `ScheduledTasksPage`, `StartupManagerPage`, and `LegalDialog` (ViewModel + transient registration) etc.
 
 ### DI Registration Pattern (from App.xaml.cs)
 
 ```csharp
-// Pages + ViewModels — one pair per feature
+// Pages + ViewModels — one pair per feature (singletons)
 services.AddSingleton<DashboardViewModel>();
 services.AddSingleton<DashboardPage>();
 
@@ -897,6 +901,10 @@ services.AddSingleton<StartupManagerPage>();
 
 services.AddSingleton<ScheduledTasksViewModel>();
 services.AddSingleton<ScheduledTasksPage>();
+
+// Dialogs — transient (fresh instance per show)
+services.AddTransient<LegalDialogViewModel>();
+services.AddTransient<LegalDialog>();
 
 // Customize
 services.AddSingleton<CustomizeViewModel>();
@@ -923,7 +931,7 @@ services.AddSingleton<UpdaterService>();
 services.AddSingleton<IRegistryWatcher, RegistryWatcher>();
 ```
 
-> This is a snapshot for orientation — `App.xaml.cs` is the source of truth for the current registrations. Also note the startup calls: `ShellService.Init(appOptionsMonitor)` and `WmiHelper.Initialize()`.
+> This is a snapshot for orientation — `App.xaml.cs` is the source of truth for the current registrations. Also note the startup calls: `ShellService.Init(appOptionsMonitor)` and `WmiHelper.Initialize()`, and the exposed `App.AppHost` property used to resolve transient dialogs.
 
 ### System Services Reference
 
@@ -1202,19 +1210,43 @@ All user-facing strings live in `Resources/Languages/Translations.resx` (the Eng
 
 ### Available Locales
 
-The app ships with **more than 15 languages**, and the list keeps growing. Instead of listing them here (which would go stale), check:
+The app ships with **17 languages** and the list keeps growing. Instead of listing them here (which would go stale), check:
 
 - **The locale files themselves**: `optimizerDuck/Resources/Languages/` — one `Translations.{locale}.resx` per language, plus `Translations.resx` as the English default.
-- **The registration list**: `Languages` in `UI/ViewModels/Pages/SettingsViewModel.cs` — this is the authoritative list of languages shown in the UI.
+- **The single source of truth**: `Domain/UI/SupportedLanguages.cs` — `SupportedLanguages.All` is the authoritative list shown in the UI (used by `SettingsViewModel` and `LegalDialogViewModel`). Do not duplicate the list.
 
 ### Adding a New Language
 
 1. Create `Translations.{locale}.resx` (e.g., `Translations.de-DE.resx`) with all the same keys as `Translations.resx`.
-2. Register the language in `UI/ViewModels/Pages/SettingsViewModel.cs`:
+2. Register the language in `Domain/UI/SupportedLanguages.cs`:
 
 ```csharp
 new() { DisplayName = "Deutsch", Culture = new CultureInfo("de-DE") },
 ```
+
+Settings and dialogs automatically pick it up via `SupportedLanguages.All` — no other file needs updating.
+
+### Runtime Language Switching
+
+The app supports switching language without restart (`Loc.Instance.ChangeCulture`). Best practices:
+
+- Use `Loc.Instance["Key"]` or `Loc.Instance["Key", arg0, arg1]` (which internally does `string.Format`) for C# strings that must update at runtime.
+- Persist the choice via `ConfigManager.SetAsync(x => x.App.Language, cultureName)` with a fire-and-forget + revert-on-failure pattern (see `SettingsViewModel` and `LegalDialogViewModel`).
+- For dialogs that stay open while language changes, bind `ContentDialog` properties to `Loc.Instance` so the title/buttons update live:
+
+```csharp
+dialog.SetBinding(ContentDialog.TitleProperty,
+    new Binding("[LegalDialog.Title]") { Source = Loc.Instance, Mode = BindingMode.OneWay });
+dialog.SetBinding(ContentDialog.PrimaryButtonTextProperty,
+    new Binding("[Button.Accept]") { Source = Loc.Instance, Mode = BindingMode.OneWay });
+```
+
+- Reuse `SupportedLanguages.All` for the language picker (`ComboBox` with `DisplayMemberPath="DisplayName"`, `SelectedValuePath="Culture.Name"`, `SelectedValue="{Binding SelectedCultureName}"`).
+- Show a subtle tip that English is most accurate: `LegalDialog.Language.Tip` / `LegalDialog.Theme.Tip` — `Caption` + `Italic` + `TextFillColorTertiaryBrush`.
+
+### Dialog Localization
+
+Dialogs like `LegalDialog` are `Transient` and recreate their `ViewModel` per show. They load the current `App.Language`/`App.Theme` in `InitializeOnceAsync` and expose `SelectedCultureName`/`CurrentApplicationTheme` for two-way binding. Theme uses `ApplicationThemeManager.Apply` + `ThemeToIndexConverter`; GitHub icon uses `ThemeToGitHubIconConverter` for light/dark assets.
 
 ### Hardcoded String Rule
 
@@ -1224,8 +1256,8 @@ new() { DisplayName = "Deutsch", Culture = new CultureInfo("de-DE") },
 // Strongly typed (recommended)
 string title = Translations.Features_Desktop_Name;
 
-// With format args
-string msg = string.Format(Translations.Dashboard_SystemInfo_Storage_DiskInfo, used, total, percent);
+// With format args — prefer Loc indexer over string.Format
+string msg = Loc.Instance["Dashboard.SystemInfo.Storage.DiskInfo", used, total, percent];
 
 // Dynamic key lookup (for convention-based keys)
 string title = Loc.Instance[$"Optimizer.{category}.{key}.Name"];
@@ -1239,6 +1271,9 @@ In XAML:
 
 <!-- With bound args -->
 <ui:TextBlock Text="{ext:Loc Dashboard.UpdateInfoBar.Message, {Binding ViewModel.LatestVersion}}" />
+
+<!-- Live dialog binding (updates when Loc changes) -->
+<ui:TextBlock Text="{ext:Loc LegalDialog.Intro.Title}" />
 ```
 
 ---

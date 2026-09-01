@@ -110,92 +110,94 @@ publish.bat portable --no-pause   # Sonunda duraklamaz (CI dostu)
 <h3 id="solution-structure">Çözüm Yapısı</h3>
 
 ```
-optimizerDuck.slnx                          # Çözüm dosyası (.slnx formatı)
-├── optimizerDuck/                          # Ana WPF uygulaması (net10.0-windows)
-│   ├── App.xaml.cs                         # DI kaydı, başlangıç, tema, loglama
+optimizerDuck.slnx                          # Solution file (.slnx format)
+├── optimizerDuck/                          # Main WPF app (net10.0-windows)
+│   ├── App.xaml.cs                         # DI registration, startup, theme, logging
 │   ├── optimizerDuck.csproj                # TFM: net10.0-windows10.0.17763.0, UseWPF=true
-│   ├── app.manifest                        # requireAdministrator UAC seviyesi
+│   ├── app.manifest                        # requireAdministrator UAC level
 │   │
-│   ├── Domain/                             # Saf modeller, arayüzler, özellikler (WPF bağımlılığı yok)
+│   ├── Domain/                             # Pure models, interfaces, attributes (no WPF deps)
 │   │   ├── Abstractions/                   # IOptimization, ICustomizeSetting, IRevertStep, IWindow,
 │   │   │                                   #   ICustomizeCategory, IOptimizationCategory
 │   │   ├── Attributes/                     # [Optimization], [CustomizeSetting],
 │   │   │                                   #   [OptimizationCategory], [CustomizeCategory]
-│   │   ├── Conditions/                     # Uyumluluk koşul sistemi ("Koşul Sistemi" bölümüne bakın)
-│   │   │   ├── BuiltIn/                    # Hazır koşullar (Windows sürümü, GPU/CPU markası,
-│   │   │   │                               #   minimum RAM, kayıt defteri anahtarı / hizmet varlığı, ...)
-│   │   │   ├── ICondition.cs               # Koşul sözleşmesi
-│   │   │   ├── ConditionBase.cs            # Paylaşılan yardımcılar (örn. OS derleme ayrıştırma)
-│   │   │   ├── ConditionResult.cs          # Available / Unsupported / Error sonucu
-│   │   │   ├── ConditionState.cs           # Sonuç enum'u
-│   │   │   ├── ConditionValidation.cs      # Keşif sırasında meta veri doğrulama
-│   │   │   └── WindowsBuilds.cs            # OS derleme numarası sabitleri
-│   │   ├── Configuration/                  # AppSettings modeli
+│   │   ├── Conditions/                     # Compatibility condition system (see "The Condition System")
+│   │   │   ├── BuiltIn/                    # Ready-made conditions (Windows version, GPU/CPU brand,
+│   │   │   │                               #   min RAM, registry key / service existence, ...)
+│   │   │   ├── ICondition.cs               # Condition contract
+│   │   │   ├── ConditionBase.cs            # Shared helpers (e.g. OS build parsing)
+│   │   │   ├── ConditionResult.cs          # Available / Unsupported / Error outcome
+│   │   │   ├── ConditionState.cs           # Outcome enum
+│   │   │   ├── ConditionValidation.cs      # Discovery-time metadata validation
+│   │   │   └── WindowsBuilds.cs            # OS build number constants
+│   │   ├── Configuration/                  # AppSettings model
 │   │   ├── Exceptions/                     # StepExecutionException
-│   │   ├── Execution/                      # ExecutionScope — AsyncLocal ile çevresel adım takibi
-│   │   ├── Customize/                      # Özelleştirme ayarları
-│   │   │   ├── Categories/                 # İç içe ayar sınıflarına sahip kategori sınıfları
+│   │   ├── Execution/                      # ExecutionScope — ambient step tracking via AsyncLocal
+│   │   ├── Customize/                      # Customize settings
+│   │   │   ├── Categories/                 # Category classes with nested setting classes
 │   │   │   └── Models/                     # BaseCustomizeSetting, RegistryToggle, RegistryBinding,
 │   │   │                                   #   CustomizeRefreshScope, SettingOption,
 │   │   │                                   #   CustomizeControlType, RecommendationState, ...
-│   │   ├── Optimizations/                  # Optimizasyonlar
-│   │   │   ├── Categories/                 # İç içe optimizasyon sınıflarına sahip kategori sınıfları
+│   │   ├── Optimizations/                  # Optimizations
+│   │   │   ├── Categories/                 # Category classes with nested optimization classes
 │   │   │   └── Models/                     # BaseOptimization, ApplyResult, OptimizationContext,
-│   │   │       ├── Bloatware/              # Önceden yüklü uygulamalar için AppXPackage modeli
-│   │   │       ├── Cleanup/                # Disk temizliği için CleanupItem
+│   │   │       ├── Bloatware/              # AppXPackage model for preinstalled apps
+│   │   │       ├── Cleanup/                # CleanupItem for disk cleanup
 │   │   │       ├── ScheduledTask/          # ScheduledTaskModel
 │   │   │       ├── Services/               # RegistryItem, ServiceItem, ShellResult, ServiceStartupType
-│   │   │       └── StartupManager/         # StartupApp, StartupTask modelleri
-│   │   ├── Revert/                         # RevertData, RevertResult, geri alma adımı türleri
+│   │   │       └── StartupManager/         # StartupApp, StartupTask models
+│   │   ├── Revert/                         # RevertData, RevertResult, revert step types
 │   │   │   └── Steps/                      # RegistryRevertStep, ServiceRevertStep,
 │   │   │                                   #   ScheduledTaskRevertStep, ShellRevertStep, UsbPowerRevertStep
-│   │   └── UI/                             # Enumlar: OptimizationRisk, OptimizationTags,
+│   │   └── UI/                             # Enums & helpers: OptimizationRisk, OptimizationTags,
 │   │                                       #   OptimizationCategoryOrder, CustomizeOrder,
-│   │                                       #   LanguageOption, OptimizationState, RiskVisual,
-│   │                                       #   ProcessingProgress, ...
+│   │                                       #   LanguageOption, SupportedLanguages (single source of truth, 17 locales),
+│   │                                       #   OptimizationState, RiskVisual, ProcessingProgress, ...
 │   │
-│   ├── Common/                             # Ortak yardımcılar, eklentiler, dönüştürücüler
-│   │   ├── Converters/                     # WPF değer dönüştürücüleri (BooleanToVisibility, MBToGB, ...)
-│   │   ├── Extensions/                     # StringExtensions, sayfa-kayıt eklentileri,
+│   ├── Common/                             # Shared helpers, extensions, converters
+│   │   ├── Converters/                     # WPF value converters (BooleanToVisibility, MBToGB, ThemeToIndexConverter, ThemeToGitHubIconConverter, ...)
+│   │   ├── Extensions/                     # StringExtensions, page-registry extensions,
 │   │   │                                   #   LanguageExtensions
 │   │   └── Helpers/                        # Shared.cs, ReflectionHelper.cs, SystemRefreshService.cs,
 │   │                                       #   EmbeddedResourceHelper.cs, WmiHelper.cs,
 │   │                                       #   GitHubSourceHelper.cs, ThemeResource.cs, ...
 │   │
-│   ├── Services/                           # İş mantığı katmanı
-│   │   ├── Conditions/                     # ConditionEvaluator (statik değerlendirme giriş noktası)
+│   ├── Services/                           # Business logic layer
+│   │   ├── Conditions/                     # ConditionEvaluator (static evaluation entry point)
 │   │   ├── Configuration/                  # ConfigManager, LanguageManager
-│   │   ├── Customize/                      # CustomizeRegistry (yansıma tabanlı keşif)
+│   │   ├── Customize/                      # CustomizeRegistry (reflection-based discovery)
 │   │   ├── Optimization/                   # OptimizationRegistry, OptimizationService
-│   │   │   └── Providers/                  # Statik: RegistryService, ShellService (+ ShellPolicy),
+│   │   │   └── Providers/                  # Static: RegistryService, ShellService (+ ShellPolicy),
 │   │   │                                   #   ScheduledTaskService, ServiceProcessService
-│   │   ├── Revert/                         # RevertManager (geri alma JSON'unun atomik okuma/yazması)
+│   │   ├── Revert/                         # RevertManager (atomic write/read of revert JSON files)
 │   │   ├── System/                         # RegistryWatcher (+ IRegistryWatcher), SystemInfoService,
 │   │   │                                   #   StreamService, UpdaterService, CrossPageEventBus
 │   │   └── UI/                             # BloatwareService, DiskCleanupService, StartupManagerService
 │   │
-│   ├── UI/                                 # WPF sayfaları, ViewModel'ler, kontroller, stiller
+│   ├── UI/                                 # WPF pages, ViewModels, controls, styles
 │   │   ├── Behaviors/                      # SmoothScrollBehavior
 │   │   ├── Controls/                       # FilledNavigationViewItem, EmptyBadge
 │   │   ├── Dialogs/                        # ProcessingDialog, OptimizationDetailsDialog,
-│   │   │                                   #   OptimizationResultDialog, RestorePointDialog, LegalDialog,
-│   │   │                                   #   BloatwareConfirmationDialog, ScheduledTask diyalogları, ...
+│   │   │                                   #   OptimizationResultDialog, RestorePointDialog, LegalDialog (+ ViewModel),
+│   │   │                                   #   BloatwareConfirmationDialog, ScheduledTask dialogs, ...
 │   │   ├── Pages/                          # Dashboard, Optimize, Customize, Settings, Bloatware,
-│   │   │   ├── Customize/                  # CustomizePage + Categories/ (otomatik kayıtlı sayfalar)
-│   │   │   ├── Optimize/                   # OptimizePage + Categories/ (otomatik kayıtlı sayfalar)
+│   │   │   ├── Customize/                  # CustomizePage + Categories/ (auto-registered pages)
+│   │   │   ├── Optimize/                   # OptimizePage + Categories/ (auto-registered pages)
 │   │   │   ├── DiskCleanupPage
 │   │   │   ├── StartupManagerPage
 │   │   │   └── ScheduledTasksPage
 │   │   ├── Styles/                         # FluentDesign.xaml, NavigationViewOverride.xaml, ToolTipOverride.xaml
-│   │   ├── ViewModels/                     # Sayfa, diyalog ve pencere ViewModel'leri
+│   │   ├── ViewModels/                     # Page, dialog and window ViewModels
+│   │   │   ├── Dialogs/                    # LegalDialogViewModel (transient, runtime language/theme)
+│   │   │   ├── Pages/                      # DashboardViewModel, SettingsViewModel, ...
 │   │   └── Windows/                        # MainWindow
 │   │
-│   └── Resources/                          # Resimler, gömülü dosyalar, yerelleştirme
-│       ├── Embedded/                       # Icons/ ve PowerPlans/ (optimizerDuck.pow)
-│       ├── Images/                         # Duck.png, GitHub logoları, Discord logosu
-│       └── Languages/                      # Translations.resx (varsayılan) + yerel ayar sürümleri
+│   └── Resources/                          # Images, embedded assets, localization
+│       ├── Embedded/                       # Icons/ and PowerPlans/ (optimizerDuck.pow)
+│       ├── Images/                         # Duck.png, GitHub logos, Discord logo
+│       └── Languages/                      # Translations.resx (default) + locale variants
 │
-└── optimizerDuck.Test/                     # xUnit v3 test projesi (InternalsVisibleTo)
+└── optimizerDuck.Test/                     # xUnit v3 test project (InternalsVisibleTo)
 ```
 
 > **Yukarıdaki ağacı katı bir referans olarak almayın.** Bu bir haritadır, şartname değildir — klasörler ve dosyalar gelişir. Şüpheye düştüğünüzde gerçek klasörlere bakın. Bu bölümün sonundaki [Proje Yapısı](#project-structure) notuna da bakın.
@@ -856,27 +858,31 @@ Yeni bir sayfa veya araç eklemek istiyorsanız (örn. bir "Ağ Monitörü"):
 2. **Uygulama sırası**:
 
 ```csharp
-// 1. Hizmet katmanı: Services/UI veya Services/System/YourService.cs
+// 1. Service layer in Services/UI or Services/System/YourService.cs
 public class YourService(ILogger<YourService> logger) { ... }
 
-// 2. ViewModel: UI/ViewModels/Pages/YourViewModel.cs
-//    ViewModel'i genişletir (ObservableValidator + INavigationAware)
+// 2. ViewModel in UI/ViewModels/Pages/YourViewModel.cs
+//    Extends ViewModel (which extends ObservableValidator + INavigationAware)
 
-// 3. XAML Sayfası: UI/Pages/YourPage.xaml (+ kod arkası)
+// 3. XAML Page in UI/Pages/YourPage.xaml (+ code-behind)
 
-// 4. App.xaml.cs'e singleton olarak kaydet
+// 4. Register as singletons in App.xaml.cs
 services.AddSingleton<YourViewModel>();
 services.AddSingleton<YourPage>();
+
+// 4b. Dialogs are transient (fresh instance per show, supports runtime language/theme)
+services.AddTransient<YourDialogViewModel>();
+services.AddTransient<YourDialog>();
 ```
 
-- ViewModel'ler ve Sayfalar `App.xaml.cs` içinde **singleton olarak kaydedilmelidir**.
-- Gezinme WPF UI (`INavigationService`) tarafından yönetilir.
-- Mevcut desenleri izleyin — `DashboardPage`, `OptimizePage`, `BloatwarePage`, `DiskCleanupPage`, `ScheduledTasksPage`, `StartupManagerPage` vb.'ye bakın.
+- ViewModel'ler ve Sayfalar `App.xaml.cs` içinde **singleton olarak kaydedilmelidir**. Diyaloglar **transient olmalıdır**.
+- Gezinme WPF UI (`INavigationService`) tarafından yönetilir. Diyaloglar `App.AppHost.Services.GetRequiredService<T>()` ile çözülür (`MainWindow.xaml.cs` → `LegalDialog`'a bakın).
+- Mevcut desenleri izleyin — `DashboardPage`, `OptimizePage`, `BloatwarePage`, `DiskCleanupPage`, `ScheduledTasksPage`, `StartupManagerPage` ve `LegalDialog` (ViewModel + transient kaydı) vb.'ye bakın.
 
 <h3 id="di-registration-pattern">DI Kayıt Deseni (App.xaml.cs'ten)</h3>
 
 ```csharp
-// Sayfalar + ViewModel'ler — özellik başına bir çift
+// Sayfalar + ViewModel'ler — özellik başına bir çift (singleton)
 services.AddSingleton<DashboardViewModel>();
 services.AddSingleton<DashboardPage>();
 
@@ -897,6 +903,10 @@ services.AddSingleton<StartupManagerPage>();
 
 services.AddSingleton<ScheduledTasksViewModel>();
 services.AddSingleton<ScheduledTasksPage>();
+
+// Diyaloglar — transient (her gösterimde taze örnek)
+services.AddTransient<LegalDialogViewModel>();
+services.AddTransient<LegalDialog>();
 
 // Customize
 services.AddSingleton<CustomizeViewModel>();
@@ -923,7 +933,7 @@ services.AddSingleton<UpdaterService>();
 services.AddSingleton<IRegistryWatcher, RegistryWatcher>();
 ```
 
-> Bu, oryantasyon için bir anlık görüntüdür — güncel kayıtlar için `App.xaml.cs` kaynaktır. Ayrıca başlangıç çağrılarına dikkat edin: `ShellService.Init(appOptionsMonitor)` ve `WmiHelper.Initialize()`.
+> Bu, oryantasyon için bir anlık görüntüdür — güncel kayıtlar için `App.xaml.cs` kaynaktır. Ayrıca başlangıç çağrılarına dikkat edin: `ShellService.Init(appOptionsMonitor)` ve `WmiHelper.Initialize()`, ve transient diyalogları çözmek için kullanılan `App.AppHost` özelliği.
 
 <h3 id="system-services">Sistem Hizmetleri Referansı</h3>
 
@@ -1202,19 +1212,43 @@ Kullanıcıya dönük tüm dizeler `Resources/Languages/Translations.resx` (İng
 
 <h3 id="available-locales-tr">Mevcut Yerel Ayar</h3>
 
-Uygulama **15'ten fazla dil** ile gelir ve liste büyümeye devam eder. Burada listelemek (bayatlayacağı için) yerine şunlara bakın:
+Uygulama **17 dil** ile gelir ve liste büyümeye devam eder. Burada listelemek yerine şunlara bakın:
 
 - **Yerel ayar dosyalarının kendisi**: `optimizerDuck/Resources/Languages/` — her dil için bir `Translations.{locale}.resx`, İngilizce varsayılan olarak da `Translations.resx`.
-- **Kayıt listesi**: `UI/ViewModels/Pages/SettingsViewModel.cs` içindeki `Languages` — UI'da gösterilen dillerin yetkili listesidir.
+- **Tek doğruluk kaynağı**: `Domain/UI/SupportedLanguages.cs` — `SupportedLanguages.All` UI'da gösterilen dillerin yetkili listesidir (`SettingsViewModel` ve `LegalDialogViewModel` tarafından kullanılır). Listeyi çoğaltmayın.
 
 <h3 id="adding-a-new-language-tr">Yeni Dil Ekleme</h3>
 
 1. `Translations.{locale}.resx` (örn. `Translations.de-DE.resx`) dosyasını, `Translations.resx` ile aynı tüm anahtarlarla oluşturun.
-2. Dili `UI/ViewModels/Pages/SettingsViewModel.cs` içine kaydedin:
+2. Dili `Domain/UI/SupportedLanguages.cs` içine kaydedin:
 
 ```csharp
 new() { DisplayName = "Deutsch", Culture = new CultureInfo("de-DE") },
 ```
+
+Settings ve diyaloglar `SupportedLanguages.All` üzerinden otomatik olarak alır — başka dosyayı güncellemeye gerek yok.
+
+<h3 id="runtime-language-switching-tr">Çalışma Anında Dil Değiştirme</h3>
+
+Uygulama yeniden başlatmadan dil değiştirmeyi destekler (`Loc.Instance.ChangeCulture`). En iyi uygulamalar:
+
+- Çalışma anında güncellenmesi gereken C# dizeleri için `Loc.Instance["Key"]` veya `Loc.Instance["Key", arg0, arg1]` (dahili olarak `string.Format`) kullanın.
+- Seçimi `ConfigManager.SetAsync(x => x.App.Language, cultureName)` ile kalıcılaştırın ve fire-and-forget + hata durumunda geri alma desenini kullanın (`SettingsViewModel` ve `LegalDialogViewModel`'e bakın).
+- Dil değişirken açık kalan diyaloglar için `ContentDialog` özelliklerini `Loc.Instance`'a bağlayın, böylece başlık/düğmeler canlı güncellenir:
+
+```csharp
+dialog.SetBinding(ContentDialog.TitleProperty,
+    new Binding("[LegalDialog.Title]") { Source = Loc.Instance, Mode = BindingMode.OneWay });
+dialog.SetBinding(ContentDialog.PrimaryButtonTextProperty,
+    new Binding("[Button.Accept]") { Source = Loc.Instance, Mode = BindingMode.OneWay });
+```
+
+- Dil seçici için `SupportedLanguages.All`'ı yeniden kullanın (`ComboBox` içinde `DisplayMemberPath="DisplayName"`, `SelectedValuePath="Culture.Name"`, `SelectedValue="{Binding SelectedCultureName}"`).
+- İngilizcenin en doğru olduğuna dair ipucu gösterin: `LegalDialog.Language.Tip` / `LegalDialog.Theme.Tip` — `Caption` + `Italic` + `TextFillColorTertiaryBrush`.
+
+<h3 id="dialog-localization-tr">Diyalog Yerelleştirmesi</h3>
+
+`LegalDialog` gibi diyaloglar `Transient`'tir ve her gösterimde `ViewModel` yeniden oluşturulur. `InitializeOnceAsync` içinde mevcut `App.Language`/`App.Theme`'i yükler ve `SelectedCultureName`/`CurrentApplicationTheme`'i iki yönlü bağlama için sunar. Tema `ApplicationThemeManager.Apply` + `ThemeToIndexConverter`, GitHub ikonu `ThemeToGitHubIconConverter` ile açık/koyu varlıkları değiştirir.
 
 <h3 id="hardcoded-string-rule-tr">Sabit Dize Kuralı</h3>
 
@@ -1224,8 +1258,8 @@ new() { DisplayName = "Deutsch", Culture = new CultureInfo("de-DE") },
 // Güçlü tipli (önerilir)
 string title = Translations.Features_Desktop_Name;
 
-// Biçim argümanlarıyla
-string msg = string.Format(Translations.Dashboard_SystemInfo_Storage_DiskInfo, used, total, percent);
+// Biçim argümanlarıyla — string.Format yerine Loc indeksini tercih edin
+string msg = Loc.Instance["Dashboard.SystemInfo.Storage.DiskInfo", used, total, percent];
 
 // Dinamik anahtar arama (kural tabanlı anahtarlar için)
 string title = Loc.Instance[$"Optimizer.{category}.{key}.Name"];
@@ -1239,6 +1273,9 @@ XAML içinde:
 
 <!-- Bağlı argümanlarla -->
 <ui:TextBlock Text="{ext:Loc Dashboard.UpdateInfoBar.Message, {Binding ViewModel.LatestVersion}}" />
+
+<!-- Canlı diyalog bağlaması (Loc değiştiğinde güncellenir) -->
+<ui:TextBlock Text="{ext:Loc LegalDialog.Intro.Title}" />
 ```
 
 ---

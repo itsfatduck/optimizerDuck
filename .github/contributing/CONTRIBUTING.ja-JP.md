@@ -149,14 +149,14 @@ optimizerDuck.slnx                          # ソリューションファイル�
 │   │   ├── Revert/                         # RevertData, RevertResult, リバートステップ型
 │   │   │   └── Steps/                      # RegistryRevertStep, ServiceRevertStep,
 │   │   │                                   #   ScheduledTaskRevertStep, ShellRevertStep, UsbPowerRevertStep
-│   │   └── UI/                             # 列挙型: OptimizationRisk, OptimizationTags,
+│   │   └── UI/                             # Enums & helpers: OptimizationRisk, OptimizationTags,
 │   │                                       #   OptimizationCategoryOrder, CustomizeOrder,
-│   │                                       #   LanguageOption, OptimizationState, RiskVisual,
-│   │                                       #   ProcessingProgress など
+│   │                                       #   LanguageOption, SupportedLanguages (single source of truth, 17 locales),
+│   │                                       #   OptimizationState, RiskVisual, ProcessingProgress, ...
 │   │
-│   ├── Common/                             # 共有ヘルパー、拡張、コンバーター
-│   │   ├── Converters/                     # WPF 値コンバーター（BooleanToVisibility, MBToGB など）
-│   │   ├── Extensions/                     # StringExtensions, ページレジストリ拡張,
+│   ├── Common/                             # Shared helpers, extensions, converters
+│   │   ├── Converters/                     # WPF value converters (BooleanToVisibility, MBToGB, ThemeToIndexConverter, ThemeToGitHubIconConverter, ...)
+│   │   ├── Extensions/                     # StringExtensions, page-registry extensions,
 │   │   │                                   #   LanguageExtensions
 │   │   └── Helpers/                        # Shared.cs, ReflectionHelper.cs, SystemRefreshService.cs,
 │   │                                       #   EmbeddedResourceHelper.cs, WmiHelper.cs,
@@ -178,16 +178,18 @@ optimizerDuck.slnx                          # ソリューションファイル�
 │   │   ├── Behaviors/                      # SmoothScrollBehavior
 │   │   ├── Controls/                       # FilledNavigationViewItem, EmptyBadge
 │   │   ├── Dialogs/                        # ProcessingDialog, OptimizationDetailsDialog,
-│   │   │                                   #   OptimizationResultDialog, RestorePointDialog, LegalDialog,
-│   │   │                                   #   BloatwareConfirmationDialog, ScheduledTask ダイアログなど
+│   │   │                                   #   OptimizationResultDialog, RestorePointDialog, LegalDialog (+ ViewModel),
+│   │   │                                   #   BloatwareConfirmationDialog, ScheduledTask dialogs, ...
 │   │   ├── Pages/                          # Dashboard, Optimize, Customize, Settings, Bloatware,
-│   │   │   ├── Customize/                  # CustomizePage + Categories/（自動登録ページ）
-│   │   │   ├── Optimize/                   # OptimizePage + Categories/（自動登録ページ）
+│   │   │   ├── Customize/                  # CustomizePage + Categories/ (auto-registered pages)
+│   │   │   ├── Optimize/                   # OptimizePage + Categories/ (auto-registered pages)
 │   │   │   ├── DiskCleanupPage
 │   │   │   ├── StartupManagerPage
 │   │   │   └── ScheduledTasksPage
 │   │   ├── Styles/                         # FluentDesign.xaml, NavigationViewOverride.xaml, ToolTipOverride.xaml
-│   │   ├── ViewModels/                     # ページ、ダイアログ、ウィンドウの ViewModel
+│   │   ├── ViewModels/                     # Page, dialog and window ViewModels
+│   │   │   ├── Dialogs/                    # LegalDialogViewModel (transient, runtime language/theme)
+│   │   │   ├── Pages/                      # DashboardViewModel, SettingsViewModel, ...
 │   │   └── Windows/                        # MainWindow
 │   │
 │   └── Resources/                          # 画像、埋め込みアセット、ローカライズ
@@ -856,27 +858,30 @@ public sealed class MyCondition : ConditionBase
 2. **実装順序**：
 
 ```csharp
-// 1. サービス層: Services/UI または Services/System/YourService.cs
+// 1. Service layer in Services/UI or Services/System/YourService.cs
 public class YourService(ILogger<YourService> logger) { ... }
 
-// 2. ViewModel: UI/ViewModels/Pages/YourViewModel.cs
-//    ViewModel（ObservableValidator + INavigationAware を継承）を拡張
+// 2. ViewModel in UI/ViewModels/Pages/YourViewModel.cs
+//    Extends ViewModel (which extends ObservableValidator + INavigationAware)
 
-// 3. XAML ページ: UI/Pages/YourPage.xaml（+ コードビハインド）
+// 3. XAML Page in UI/Pages/YourPage.xaml (+ code-behind)
 
-// 4. App.xaml.cs にシングルトン登録
+// 4. Register as singletons in App.xaml.cs
 services.AddSingleton<YourViewModel>();
 services.AddSingleton<YourPage>();
+
+// 4b. Dialogs are transient (fresh instance per show, supports runtime language/theme)
+services.AddTransient<YourDialogViewModel>();
+services.AddTransient<YourDialog>();
 ```
 
-- ViewModel とページは `App.xaml.cs` に**シングルトンとして登録する必要があります**。
-- ナビゲーションは WPF UI（`INavigationService`）が処理します。
-- 既存のパターンに従ってください — `DashboardPage`、`OptimizePage`、`BloatwarePage`、`DiskCleanupPage`、`ScheduledTasksPage`、`StartupManagerPage` などを参照。
+- ViewModel とページは `App.xaml.cs` にシングルトンとして登録する必要があり、ダイアログはトランジェント（`AddTransient`）で登録する必要があります。シングルトンとトランジェントの使い分けに注意し、`App.AppHost` 経由で解決されることに留意してください。
+- ナビゲーションは WPF UI（`INavigationService`）が処理します。ダイアログは `App.AppHost.Services.GetRequiredService<T>()` で解決されます（`MainWindow.xaml.cs` → `LegalDialog` を参照）。
+- 既存のパターンに従ってください — `DashboardPage`、`OptimizePage`、`BloatwarePage`、`DiskCleanupPage`、`ScheduledTasksPage`、`StartupManagerPage`、および `LegalDialog`（ViewModel + トランジェント登録）などを参照。
 
 <h3 id="di-registration-pattern">DI 登録パターン（App.xaml.cs より）</h3>
-
 ```csharp
-// ページ + ViewModel — 機能ごとに 1 ペア
+// ページ + ViewModel — 機能ごとに 1 ペア（シングルトン）
 services.AddSingleton<DashboardViewModel>();
 services.AddSingleton<DashboardPage>();
 
@@ -897,6 +902,10 @@ services.AddSingleton<StartupManagerPage>();
 
 services.AddSingleton<ScheduledTasksViewModel>();
 services.AddSingleton<ScheduledTasksPage>();
+
+// Dialogs — transient (fresh instance per show)
+services.AddTransient<LegalDialogViewModel>();
+services.AddTransient<LegalDialog>();
 
 // Customize
 services.AddSingleton<CustomizeViewModel>();
@@ -923,7 +932,7 @@ services.AddSingleton<UpdaterService>();
 services.AddSingleton<IRegistryWatcher, RegistryWatcher>();
 ```
 
-> これは把握のためのスナップショットです — 現在の登録は `App.xaml.cs` が正です。また、起動時の呼び出し `ShellService.Init(appOptionsMonitor)` と `WmiHelper.Initialize()` にも注意してください。
+> これは把握のためのスナップショットです — 現在の登録は `App.xaml.cs` が正です。また、起動時の呼び出し `ShellService.Init(appOptionsMonitor)` と `WmiHelper.Initialize()`、およびトランジェントなダイアログの解決に使われる公開プロパティ `App.AppHost` にも注意してください。
 
 <h3 id="system-services">システムサービスリファレンス</h3>
 
@@ -1202,19 +1211,43 @@ public class MyOptimizationTests
 
 <h3 id="available-locales-jp">利用可能なロケール</h3>
 
-アプリは**15 を超える言語**を同梱しており、その数は増え続けています。ここに列挙すると古くなってしまうため、代わりに次を確認してください：
+アプリは**17言語**を同梱しており、その数は増え続けています。ここに列挙すると古くなってしまうため、代わりに次を確認してください：
 
 - **ロケールファイル自体**：`optimizerDuck/Resources/Languages/` — 言語ごとに `Translations.{locale}.resx` が 1 つ、英語のデフォルトとして `Translations.resx` があります。
-- **登録リスト**：`UI/ViewModels/Pages/SettingsViewModel.cs` の `Languages` — UI に表示される言語の正式なリストです。
+- **単一の真実の情報源**：`Domain/UI/SupportedLanguages.cs` — `SupportedLanguages.All` が UI に表示される言語の正式なリストです（`SettingsViewModel` と `LegalDialogViewModel` が使用）。リストを重複させないでください。
 
 <h3 id="adding-a-new-language-jp">新しい言語の追加</h3>
 
 1. `Translations.{locale}.resx`（例：`Translations.de-DE.resx`）を `Translations.resx` と同じすべてのキーで作成します。
-2. `UI/ViewModels/Pages/SettingsViewModel.cs` に言語を登録します：
+2. 言語を `Domain/UI/SupportedLanguages.cs` に登録します：
 
 ```csharp
 new() { DisplayName = "Deutsch", Culture = new CultureInfo("de-DE") },
 ```
+
+Settings とダイアログは `SupportedLanguages.All` 経由で自動的に反映されます — 他のファイルを更新する必要はありません。
+
+<h3 id="runtime-language-switching-jp">ランタイム言語切り替え</h3>
+
+アプリは再起動なしで言語を切り替えできます（`Loc.Instance.ChangeCulture`）。ベストプラクティス：
+
+- ランタイムで更新すべき C# 文字列には `Loc.Instance["Key"]` または `Loc.Instance["Key", arg0, arg1]`（内部で `string.Format`）を使用します。
+- 選択を `ConfigManager.SetAsync(x => x.App.Language, cultureName)` で永続化し、fire-and-forget + 失敗時リバートパターンを使います（`SettingsViewModel` と `LegalDialogViewModel` を参照）。
+- 開いたまま言語が変わるダイアログでは、`ContentDialog` のプロパティを `Loc.Instance` にバインドしてタイトル/ボタンがライブ更新されるようにします：
+
+```csharp
+dialog.SetBinding(ContentDialog.TitleProperty,
+    new Binding("[LegalDialog.Title]") { Source = Loc.Instance, Mode = BindingMode.OneWay });
+dialog.SetBinding(ContentDialog.PrimaryButtonTextProperty,
+    new Binding("[Button.Accept]") { Source = Loc.Instance, Mode = BindingMode.OneWay });
+```
+
+- 言語ピッカーには `SupportedLanguages.All` を再利用します（`ComboBox` で `DisplayMemberPath="DisplayName"`、`SelectedValuePath="Culture.Name"`、`SelectedValue="{Binding SelectedCultureName}"`）。
+- 英語が最も正確である旨のヒントを表示します：`LegalDialog.Language.Tip` / `LegalDialog.Theme.Tip` — `Caption` + `Italic` + `TextFillColorTertiaryBrush`。
+
+<h3 id="dialog-localization-jp">ダイアログのローカライズ</h3>
+
+`LegalDialog` のようなダイアログは `Transient` で、表示ごとに `ViewModel` が再生成されます。`InitializeOnceAsync` で現在の `App.Language`/`App.Theme` を読み込み、`SelectedCultureName`/`CurrentApplicationTheme` を双方向バインディングで公開します。テーマは `ApplicationThemeManager.Apply` + `ThemeToIndexConverter`、GitHub アイコンは `ThemeToGitHubIconConverter` でライト/ダークを切り替えます。
 
 <h3 id="hardcoded-string-rule-jp">文字列ハードコードの禁止</h3>
 
@@ -1224,8 +1257,8 @@ new() { DisplayName = "Deutsch", Culture = new CultureInfo("de-DE") },
 // 型付き（推奨）
 string title = Translations.Features_Desktop_Name;
 
-// フォーマット引数付き
-string msg = string.Format(Translations.Dashboard_SystemInfo_Storage_DiskInfo, used, total, percent);
+// フォーマット引数付き — string.Format より Loc インデクサを推奨
+string msg = Loc.Instance["Dashboard.SystemInfo.Storage.DiskInfo", used, total, percent];
 
 // 動的キールックアップ（規則ベースのキー用）
 string title = Loc.Instance[$"Optimizer.{category}.{key}.Name"];
@@ -1239,6 +1272,9 @@ XAML：
 
 <!-- バインドされた引数付き -->
 <ui:TextBlock Text="{ext:Loc Dashboard.UpdateInfoBar.Message, {Binding ViewModel.LatestVersion}}" />
+
+<!-- ライブダイアログバインディング（Loc 変更時に更新） -->
+<ui:TextBlock Text="{ext:Loc LegalDialog.Intro.Title}" />
 ```
 
 ---
