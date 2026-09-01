@@ -112,7 +112,7 @@ Ayrıca, neyin çalıştığını görmenize, ihtiyacınız olmayanı kaldırman
 
 ### Sistem Optimizasyonları
 
-7 kategoride 40'tan fazla düzenleme; her biri açık bir açıklama ve risk derecesiyle birlikte sunulur, böylece uygulamadan önce her değişikliğin tam olarak ne yaptığını bilirsiniz.
+7 kategoride 49'tan fazla düzenleme; her biri açık bir açıklama ve risk derecesiyle birlikte sunulur, böylece uygulamadan önce her değişikliğin tam olarak ne yaptığını bilirsiniz.
 
 | Kategori | Kapsam |
 | :----------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |

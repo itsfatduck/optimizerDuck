@@ -112,7 +112,7 @@ Il comprend également des outils de gestion intégrés qui vous permettent de v
 
 ### Optimisations système
 
-Plus de 40 tweaks répartis dans 7 catégories, chacun avec une description claire et un indice de risque pour que vous sachiez exactement ce que fait chaque modification avant de l'appliquer.
+Plus de 49 tweaks répartis dans 7 catégories, chacun avec une description claire et un indice de risque pour que vous sachiez exactement ce que fait chaque modification avant de l'appliquer.
 
 | Catégorie                  | Ce qu'elle couvre                                                                                                                                                                                                |
 | :------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

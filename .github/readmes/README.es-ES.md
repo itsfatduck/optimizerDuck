@@ -112,7 +112,7 @@ También incluye herramientas de gestión integradas que te permiten ver qué se
 
 ### Optimizaciones del Sistema
 
-Más de 40 ajustes distribuidos en 7 categorías, cada uno con una descripción clara y una calificación de riesgo para que sepas exactamente qué hace cada cambio antes de aplicarlo.
+Más de 49 ajustes distribuidos en 7 categorías, cada uno con una descripción clara y una calificación de riesgo para que sepas exactamente qué hace cada cambio antes de aplicarlo.
 
 | Categoría                  | Qué abarca                                                                                                                                                                 |
 | :------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

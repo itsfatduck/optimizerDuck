@@ -112,7 +112,7 @@ It also includes built-in management tools, allowing you to see what is running,
 
 ### System Optimizations
 
-Over 40 tweaks across 7 categories, each with a clear description and risk rating so you know exactly what each change does before applying it.
+49 tweaks across 7 categories, each with a clear description and risk rating so you know exactly what each change does before applying it.
 
 | Category                 | What it covers                                                                                                                                       |
 | :----------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -129,7 +129,7 @@ Over 40 tweaks across 7 categories, each with a clear description and risk ratin
 
 ### Customize
 
-No need to dig through the registry, just toggles, dropdowns, and number inputs presented in one place. Organized into four categories:
+44 settings across 4 categories. No need to dig through the registry, just toggles, dropdowns, and number inputs presented in one place:
 
 - **Desktop**: Show or hide icons (This PC, Recycle Bin, Network, User Files, Control Panel, all desktop icons), remove shortcut arrow overlays
 - **Preferences**: Taskbar alignment, widgets, Task View, End Task and last active click buttons, search box display, clock seconds, dark mode, file extensions, hidden files, clipboard history, compact view, snap assist, item checkboxes, classic context menu, Bing search, toast and sync notifications, system suggestions, window shake, and launching File Explorer to This PC

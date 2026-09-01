@@ -112,7 +112,7 @@ Nó cũng tích hợp sẵn các công cụ quản lý, cho bạn thấy cái g�
 
 ### Tối ưu hệ thống
 
-Hơn 40 tinh chỉnh chia làm 7 nhóm, cái nào cũng có mô tả rõ ràng và gắn nhãn rủi ro để bạn biết mình đang bấm vào cái gì trước khi áp dụng.
+49 tinh chỉnh chia làm 7 nhóm, cái nào cũng có mô tả rõ ràng và gắn nhãn rủi ro để bạn biết mình đang bấm vào cái gì trước khi áp dụng.
 
 | Danh mục                | Nội dung                                                                                                                                                          |
 | :---------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
