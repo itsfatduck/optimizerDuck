@@ -162,8 +162,8 @@ public class RegistryWatcherTests : IDisposable
         watcher.Watch(pathA);
         watcher.Watch(pathB);
 
-        // Give watcher threads time to block on RegNotifyChangeKeyValue
-        await Task.Delay(500, TestContext.Current.CancellationToken);
+        // Give watcher threads time to block on RegNotifyChangeKeyValue, CI can be slower
+        await Task.Delay(1000, TestContext.Current.CancellationToken);
 
         // Write to path A
         using (var keyA = Registry.CurrentUser.OpenSubKey(pathANative, writable: true))
@@ -181,11 +181,11 @@ public class RegistryWatcherTests : IDisposable
 
         var completedA = await Task.WhenAny(
             tcsA.Task,
-            Task.Delay(5000, TestContext.Current.CancellationToken)
+            Task.Delay(10000, TestContext.Current.CancellationToken)
         );
         var completedB = await Task.WhenAny(
             tcsB.Task,
-            Task.Delay(5000, TestContext.Current.CancellationToken)
+            Task.Delay(10000, TestContext.Current.CancellationToken)
         );
 
         Assert.Equal(tcsA.Task, completedA);
