@@ -27,7 +27,9 @@ public class ScheduledTaskRevertStep : IRevertStep
 
     /// <inheritdoc />
     public string Description =>
-        OriginalEnabled ? Loc.Instance["Revert.ScheduledTask.Description.Enable", FullPath] : Loc.Instance["Revert.ScheduledTask.Description.Disable", FullPath];
+        OriginalEnabled
+            ? Loc.Instance["Revert.ScheduledTask.Description.Enable", FullPath]
+            : Loc.Instance["Revert.ScheduledTask.Description.Disable", FullPath];
 
     /// <inheritdoc />
     public Task<bool> ExecuteAsync()

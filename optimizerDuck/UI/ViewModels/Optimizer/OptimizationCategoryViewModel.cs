@@ -795,7 +795,10 @@ public partial class OptimizationCategoryViewModel : ViewModel
                     {
                         _snackbarService.Show(
                             Loc.Instance["RestorePoint.Snackbar.Success.Title"],
-                            Loc.Instance["RestorePoint.Snackbar.Success.Message", Shared.RestorePointName],
+                            Loc.Instance[
+                                "RestorePoint.Snackbar.Success.Message",
+                                Shared.RestorePointName
+                            ],
                             ControlAppearance.Success,
                             new SymbolIcon
                             {

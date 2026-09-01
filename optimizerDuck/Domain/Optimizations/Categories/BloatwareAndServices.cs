@@ -320,7 +320,11 @@ public class BloatwareAndServices : LocalizedObject, IOptimizationCategory
                 progress?.Report(
                     new ProcessingProgress
                     {
-                        Message = Loc.Instance[$"{ProgressPrefix}.ChangeServiceStartupType", service.Name, service.StartupType],
+                        Message = Loc.Instance[
+                            $"{ProgressPrefix}.ChangeServiceStartupType",
+                            service.Name,
+                            service.StartupType
+                        ],
                         Value = i + 1,
                         Total = servicesToChange.Count,
                     }

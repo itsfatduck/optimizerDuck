@@ -257,7 +257,12 @@ public partial class BloatwareViewModel : ViewModel
                 viewModel.ProgressReporter.Report(
                     new ProcessingProgress
                     {
-                        Message = Loc.Instance["BloatwareDialog.Removing", item.Name, i + 1, toRemove.Count],
+                        Message = Loc.Instance[
+                            "BloatwareDialog.Removing",
+                            item.Name,
+                            i + 1,
+                            toRemove.Count
+                        ],
                         Total = toRemove.Count,
                         Value = i,
                     }

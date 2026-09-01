@@ -342,10 +342,20 @@ public sealed class ExecutionScope : IDisposable
             Status = status,
             Message = status switch
             {
-                OptimizationSuccessResult.Success => Loc.Instance["Optimization.Apply.Success", OptimizationName],
-                OptimizationSuccessResult.Failed when allFailed => Loc.Instance["Optimization.Apply.Error.Failed", OptimizationName],
+                OptimizationSuccessResult.Success => Loc.Instance[
+                    "Optimization.Apply.Success",
+                    OptimizationName
+                ],
+                OptimizationSuccessResult.Failed when allFailed => Loc.Instance[
+                    "Optimization.Apply.Error.Failed",
+                    OptimizationName
+                ],
                 OptimizationSuccessResult.PartialSuccess or OptimizationSuccessResult.Failed =>
-                    Loc.Instance["Optimization.Apply.Error.FailedWithSteps", OptimizationName, failedSteps.Count],
+                    Loc.Instance[
+                        "Optimization.Apply.Error.FailedWithSteps",
+                        OptimizationName,
+                        failedSteps.Count
+                    ],
                 _ => Loc.Instance["Optimization.Apply.Error.Unknown", OptimizationName],
             },
             FailedSteps = failedSteps,

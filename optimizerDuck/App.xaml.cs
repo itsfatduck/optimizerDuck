@@ -302,7 +302,8 @@ public partial class App : Application
             )
             .CreateLogger();
 
-        _host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
+        _host = Microsoft
+            .Extensions.Hosting.Host.CreateDefaultBuilder()
             .UseSerilog()
             .ConfigureAppConfiguration(c =>
             {

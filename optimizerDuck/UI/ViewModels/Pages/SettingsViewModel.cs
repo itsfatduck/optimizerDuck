@@ -51,8 +51,7 @@ public partial class SettingsViewModel(
     private bool _smoothScrolling;
     public string Version { get; } = Shared.FileVersion;
 
-    public ObservableCollection<LanguageOption> Languages { get; } =
-        new(SupportedLanguages.All);
+    public ObservableCollection<LanguageOption> Languages { get; } = new(SupportedLanguages.All);
 
     protected override Task InitializeOnceAsync()
     {

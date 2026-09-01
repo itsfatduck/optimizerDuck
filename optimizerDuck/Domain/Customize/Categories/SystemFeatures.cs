@@ -32,6 +32,7 @@ public class SystemFeatures : LocalizedObject, ICustomizeCategory
     public SymbolRegular Icon { get; init; } = SymbolRegular.WindowSettings20;
     public CustomizeOrder Order { get; init; } = CustomizeOrder.System;
     public ObservableCollection<ICustomizeSetting> Features { get; init; } = [];
+
     [CustomizeSetting(
         Section = nameof(Sections.Input),
         Icon = SymbolRegular.NumberSymbol24,
@@ -43,7 +44,8 @@ public class SystemFeatures : LocalizedObject, ICustomizeCategory
         private const string PathCurrent = @"HKCU\Control Panel\Keyboard";
         private const string ValueName = "InitialKeyboardIndicators";
 
-        protected override IReadOnlyList<string> GetWatchedRegistryPaths() => [PathDefault, PathCurrent];
+        protected override IReadOnlyList<string> GetWatchedRegistryPaths() =>
+            [PathDefault, PathCurrent];
 
         public override Task<bool> GetStateAsync()
         {
@@ -54,7 +56,14 @@ public class SystemFeatures : LocalizedObject, ICustomizeCategory
                     var raw = RegistryService.Read<object?>(new RegistryItem(path, ValueName));
                     if (raw == null)
                         return false;
-                    if (long.TryParse(raw.ToString(), NumberStyles.Integer, CultureInfo.InvariantCulture, out var v))
+                    if (
+                        long.TryParse(
+                            raw.ToString(),
+                            NumberStyles.Integer,
+                            CultureInfo.InvariantCulture,
+                            out var v
+                        )
+                    )
                         return (v & 2) == 2;
                     return false;
                 }
@@ -67,13 +76,29 @@ public class SystemFeatures : LocalizedObject, ICustomizeCategory
         {
             var isOn = value is bool b && b;
 
-            var currentRaw = RegistryService.Read<object?>(new RegistryItem(PathCurrent, ValueName));
-            var defaultRaw = RegistryService.Read<object?>(new RegistryItem(PathDefault, ValueName));
+            var currentRaw = RegistryService.Read<object?>(
+                new RegistryItem(PathCurrent, ValueName)
+            );
+            var defaultRaw = RegistryService.Read<object?>(
+                new RegistryItem(PathDefault, ValueName)
+            );
 
             RegistryService.Write(
-                new RegistryItem(PathCurrent, ValueName, SetNumLockBit(currentRaw, isOn), RegistryValueKind.String));
+                new RegistryItem(
+                    PathCurrent,
+                    ValueName,
+                    SetNumLockBit(currentRaw, isOn),
+                    RegistryValueKind.String
+                )
+            );
             RegistryService.Write(
-                new RegistryItem(PathDefault, ValueName, SetNumLockBit(defaultRaw, isOn), RegistryValueKind.String));
+                new RegistryItem(
+                    PathDefault,
+                    ValueName,
+                    SetNumLockBit(defaultRaw, isOn),
+                    RegistryValueKind.String
+                )
+            );
 
             if (NeedsPostAction)
                 await ExecutePostActionAsync();
@@ -81,7 +106,14 @@ public class SystemFeatures : LocalizedObject, ICustomizeCategory
 
         private static string SetNumLockBit(object? raw, bool enabled)
         {
-            if (!long.TryParse(raw?.ToString(), NumberStyles.Integer, CultureInfo.InvariantCulture, out var value))
+            if (
+                !long.TryParse(
+                    raw?.ToString(),
+                    NumberStyles.Integer,
+                    CultureInfo.InvariantCulture,
+                    out var value
+                )
+            )
             {
                 value = 0;
             }

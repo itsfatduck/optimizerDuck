@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Diagnostics;
+using System.Globalization;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -8,9 +8,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Configuration;
-using Wpf.Ui.Appearance;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Services.Configuration;
+using Wpf.Ui.Appearance;
 
 namespace optimizerDuck.UI.ViewModels.Dialogs;
 
@@ -26,8 +26,7 @@ public partial class LegalDialogViewModel(
     [ObservableProperty]
     private string _selectedCultureName = string.Empty;
 
-    public ObservableCollection<LanguageOption> Languages { get; } =
-        new(SupportedLanguages.All);
+    public ObservableCollection<LanguageOption> Languages { get; } = new(SupportedLanguages.All);
 
     protected override Task InitializeOnceAsync()
     {
@@ -37,7 +36,10 @@ public partial class LegalDialogViewModel(
         return Task.CompletedTask;
     }
 
-    private void OnThemeChanged(ApplicationTheme currentApplicationTheme, System.Windows.Media.Color systemAccent)
+    private void OnThemeChanged(
+        ApplicationTheme currentApplicationTheme,
+        System.Windows.Media.Color systemAccent
+    )
     {
         if (CurrentApplicationTheme != currentApplicationTheme)
             CurrentApplicationTheme = currentApplicationTheme;
@@ -63,6 +65,7 @@ public partial class LegalDialogViewModel(
         Loc.Instance.ChangeCulture(new CultureInfo(value));
         logger.LogInformation("Language changed to {Language} from LegalDialog", value);
     }
+
     partial void OnCurrentApplicationThemeChanged(
         ApplicationTheme oldValue,
         ApplicationTheme newValue
@@ -73,7 +76,10 @@ public partial class LegalDialogViewModel(
         ApplicationThemeManager.Apply(newValue, updateAccent: false);
         _ = SafeFireAndForgetAsync(
             async () => await configManager.SetAsync(x => x.App.Theme, newValue),
-            async () => await Application.Current.Dispatcher.InvokeAsync(() => CurrentApplicationTheme = oldValue)
+            async () =>
+                await Application.Current.Dispatcher.InvokeAsync(() =>
+                    CurrentApplicationTheme = oldValue
+                )
         );
     }
 

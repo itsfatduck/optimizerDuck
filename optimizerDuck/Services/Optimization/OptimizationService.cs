@@ -399,7 +399,12 @@ public class OptimizationService(
             progress?.Report(
                 new ProcessingProgress
                 {
-                    Message = Loc.Instance["Optimization.RetryStep.Processing", step.Name, processedCount, total],
+                    Message = Loc.Instance[
+                        "Optimization.RetryStep.Processing",
+                        step.Name,
+                        processedCount,
+                        total
+                    ],
                     Value = processedCount,
                     Total = total,
                 }

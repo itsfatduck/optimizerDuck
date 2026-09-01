@@ -265,7 +265,11 @@ public static class RegistryService
             item,
             key =>
             {
-                var description = Loc.Invariant["Service.Registry.Description.Write", item.Path, item.Name];
+                var description = Loc.Invariant[
+                    "Service.Registry.Description.Write",
+                    item.Path,
+                    item.Name
+                ];
                 try
                 {
                     var valueName = NormalizeValueName(item.Name);
@@ -315,7 +319,11 @@ public static class RegistryService
                 catch (UnauthorizedAccessException)
                 {
                     _lastError.Value = Loc.Invariant["Service.Common.Error.AccessDenied"];
-                    _lastErrorDetail.Value = Loc.Invariant["Service.Registry.ErrorDetail.AccessDeniedWrite", item.Path, item.Name];
+                    _lastErrorDetail.Value = Loc.Invariant[
+                        "Service.Registry.ErrorDetail.AccessDeniedWrite",
+                        item.Path,
+                        item.Name
+                    ];
                     ExecutionScope.LogError(
                         null,
                         "Access denied writing {Path}:{Name}",
@@ -374,7 +382,11 @@ public static class RegistryService
             item,
             key =>
             {
-                var description = Loc.Invariant["Service.Registry.Description.Delete", item.Path, item.Name ?? "(Default)"];
+                var description = Loc.Invariant[
+                    "Service.Registry.Description.Delete",
+                    item.Path,
+                    item.Name ?? "(Default)"
+                ];
                 try
                 {
                     var valueName = NormalizeValueName(item.Name);
@@ -428,7 +440,11 @@ public static class RegistryService
                 catch (UnauthorizedAccessException)
                 {
                     _lastError.Value = Loc.Invariant["Service.Common.Error.AccessDenied"];
-                    _lastErrorDetail.Value = Loc.Invariant["Service.Registry.ErrorDetail.AccessDeniedDelete", item.Path, item.Name];
+                    _lastErrorDetail.Value = Loc.Invariant[
+                        "Service.Registry.ErrorDetail.AccessDeniedDelete",
+                        item.Path,
+                        item.Name
+                    ];
                     ExecutionScope.LogError(
                         null,
                         "Access denied deleting {Path}:{Name}",
@@ -525,7 +541,10 @@ public static class RegistryService
         catch (UnauthorizedAccessException)
         {
             _lastError.Value = Loc.Invariant["Service.Common.Error.AccessDenied"];
-            _lastErrorDetail.Value = Loc.Invariant["Service.Registry.ErrorDetail.AccessDeniedCreateKey", item.Path];
+            _lastErrorDetail.Value = Loc.Invariant[
+                "Service.Registry.ErrorDetail.AccessDeniedCreateKey",
+                item.Path
+            ];
             ExecutionScope.LogError(null, "Access denied creating {Path}", item.Path);
             ExecutionScope.Track(nameof(CreateSubKey), false);
             ExecutionScope.RecordStep(
@@ -629,7 +648,10 @@ public static class RegistryService
         catch (UnauthorizedAccessException)
         {
             _lastError.Value = Loc.Invariant["Service.Registry.Error.AccessDeniedProtectedHive"];
-            _lastErrorDetail.Value = Loc.Invariant["Service.Registry.ErrorDetail.AccessDeniedDeleteKeyTree", item.Path];
+            _lastErrorDetail.Value = Loc.Invariant[
+                "Service.Registry.ErrorDetail.AccessDeniedDeleteKeyTree",
+                item.Path
+            ];
             ExecutionScope.LogError(null, "Access denied deleting {Path}", item.Path);
             ExecutionScope.Track(nameof(DeleteSubKeyTree), false);
             ExecutionScope.RecordStep(

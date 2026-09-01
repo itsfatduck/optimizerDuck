@@ -80,7 +80,10 @@ public static class ScheduledTaskService
         catch (UnauthorizedAccessException)
         {
             _lastError.Value = Loc.Invariant["Service.Common.Error.AccessDenied"];
-            _lastErrorDetail.Value = Loc.Invariant["Service.ScheduledTask.ErrorDetail.AccessDeniedDisable", fullPath];
+            _lastErrorDetail.Value = Loc.Invariant[
+                "Service.ScheduledTask.ErrorDetail.AccessDeniedDisable",
+                fullPath
+            ];
             ExecutionScope.LogError(null, "Access denied disabling task {Path}", fullPath);
             ExecutionScope.Track(nameof(DisableTask), false);
             ExecutionScope.RecordStep(
@@ -155,7 +158,10 @@ public static class ScheduledTaskService
         catch (UnauthorizedAccessException)
         {
             _lastError.Value = Loc.Invariant["Service.Common.Error.AccessDenied"];
-            _lastErrorDetail.Value = Loc.Invariant["Service.ScheduledTask.ErrorDetail.AccessDeniedEnable", fullPath];
+            _lastErrorDetail.Value = Loc.Invariant[
+                "Service.ScheduledTask.ErrorDetail.AccessDeniedEnable",
+                fullPath
+            ];
             ExecutionScope.LogError(null, "Access denied enabling task {Path}", fullPath);
             ExecutionScope.Track(nameof(EnableTask), false);
             ExecutionScope.RecordStep(

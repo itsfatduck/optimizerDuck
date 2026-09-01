@@ -57,11 +57,22 @@ public class RegistryRevertStep : IRevertStep
     public string Description =>
         Action switch
         {
-            RevertAction.RestorePrevious => Loc.Instance["Revert.Registry.Description.Restore", Path, Name ?? "(Default)"],
-            RevertAction.NoPreviousValue => Loc.Instance["Revert.Registry.Description.Delete", Path, Name ?? "(Default)"],
+            RevertAction.RestorePrevious => Loc.Instance[
+                "Revert.Registry.Description.Restore",
+                Path,
+                Name ?? "(Default)"
+            ],
+            RevertAction.NoPreviousValue => Loc.Instance[
+                "Revert.Registry.Description.Delete",
+                Path,
+                Name ?? "(Default)"
+            ],
             RevertAction.RestoreKey => Loc.Instance["Revert.Registry.Description.RestoreKey", Path],
             RevertAction.DeleteKey => Loc.Instance["Revert.Registry.Description.DeleteKey", Path],
-            RevertAction.RestoreKeyTree => Loc.Instance["Revert.Registry.Description.RestoreKey", Path],
+            RevertAction.RestoreKeyTree => Loc.Instance[
+                "Revert.Registry.Description.RestoreKey",
+                Path
+            ],
             _ => Loc.Instance["Revert.Registry.Description.RevertUnknown", Path],
         };
 

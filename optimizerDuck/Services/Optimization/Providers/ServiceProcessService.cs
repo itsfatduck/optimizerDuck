@@ -133,7 +133,11 @@ public static class ServiceProcessService
     {
         _lastError.Value = _lastErrorDetail.Value = null;
 
-        var description = Loc.Invariant["Service.Service.Description.Change", item.Name, item.StartupType];
+        var description = Loc.Invariant[
+            "Service.Service.Description.Change",
+            item.Name,
+            item.StartupType
+        ];
         var sw = Stopwatch.StartNew();
 
         try
@@ -143,7 +147,10 @@ public static class ServiceProcessService
             if (notFound)
             {
                 sw.Stop();
-                var skipDescription = Loc.Invariant["Service.Service.Info.SkippedNotFound", item.Name];
+                var skipDescription = Loc.Invariant[
+                    "Service.Service.Info.SkippedNotFound",
+                    item.Name
+                ];
                 ExecutionScope.LogInfo("[SERVICE][{Name}] not found, skipping", item.Name);
                 ExecutionScope.Track(nameof(ChangeServiceStartupTypeAsync), true);
                 ExecutionScope.RecordStep(
@@ -242,7 +249,11 @@ public static class ServiceProcessService
         }
         catch (Exception ex)
         {
-            _lastError.Value = Loc.Invariant["Service.Service.Error.ExceptionOccurred", item.Name, ex.Message];
+            _lastError.Value = Loc.Invariant[
+                "Service.Service.Error.ExceptionOccurred",
+                item.Name,
+                ex.Message
+            ];
             _lastErrorDetail.Value = ex.ToString();
 
             ExecutionScope.LogError(

@@ -96,7 +96,12 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             progress?.Report(
                 new ProcessingProgress
                 {
-                    Message = Loc.Instance["Optimization.Revert.ExecutingStep", remaining, total, step.Type],
+                    Message = Loc.Instance[
+                        "Optimization.Revert.ExecutingStep",
+                        remaining,
+                        total,
+                        step.Type
+                    ],
                     Value = remaining,
                     Total = total,
                 }
@@ -161,7 +166,11 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
                 failedSteps.Count == total
                     ? Loc.Instance["Optimization.Revert.Error.Failed", optimization.Name]
                 : failedSteps.Count > 0
-                    ? Loc.Instance["Optimization.Revert.Error.FailedWithSteps", optimization.Name, failedSteps.Count]
+                    ? Loc.Instance[
+                        "Optimization.Revert.Error.FailedWithSteps",
+                        optimization.Name,
+                        failedSteps.Count
+                    ]
                 : Loc.Instance["Optimization.Revert.Success", optimization.Name],
             FailedSteps = failedSteps,
         };

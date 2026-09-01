@@ -147,7 +147,11 @@ public partial class DiskCleanupViewModel(
 
             snackbarService.Show(
                 Loc.Instance["DiskCleanup.Complete.Title"],
-                Loc.Instance["DiskCleanup.Complete.Message", CleanupItem.FormatBytes(freedBytes), $"{sw.Elapsed.TotalSeconds:0.0}s"],
+                Loc.Instance[
+                    "DiskCleanup.Complete.Message",
+                    CleanupItem.FormatBytes(freedBytes),
+                    $"{sw.Elapsed.TotalSeconds:0.0}s"
+                ],
                 ControlAppearance.Success,
                 new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
                 TimeSpan.FromSeconds(5)
@@ -191,7 +195,12 @@ public partial class DiskCleanupViewModel(
         if (selectedItems.Count == 0)
             return;
 
-        var summaryText = Loc.Instance["DiskCleanup.Dialog.Confirmation.Summary", TotalSelectedSizeFormatted, SelectedCount, TotalSelectedFileCount];
+        var summaryText = Loc.Instance[
+            "DiskCleanup.Dialog.Confirmation.Summary",
+            TotalSelectedSizeFormatted,
+            SelectedCount,
+            TotalSelectedFileCount
+        ];
 
         var dialogViewModel = new DiskCleanupConfirmationDialogViewModel(
             selectedItems,
@@ -201,7 +210,10 @@ public partial class DiskCleanupViewModel(
         {
             Title = Loc.Instance["DiskCleanup.Dialog.Confirmation.Title", SelectedCount],
             Content = new DiskCleanupConfirmationDialog { DataContext = dialogViewModel },
-            PrimaryButtonText = Loc.Instance["DiskCleanup.Button.CleanSelected", TotalSelectedSizeFormatted],
+            PrimaryButtonText = Loc.Instance[
+                "DiskCleanup.Button.CleanSelected",
+                TotalSelectedSizeFormatted
+            ],
             CloseButtonText = Loc.Instance["Common.Cancel"],
         };
 
@@ -222,7 +234,11 @@ public partial class DiskCleanupViewModel(
 
             snackbarService.Show(
                 Loc.Instance["DiskCleanup.Complete.Title"],
-                Loc.Instance["DiskCleanup.Complete.Message", CleanupItem.FormatBytes(freedBytes), $"{sw.Elapsed.TotalSeconds:0.0}s"],
+                Loc.Instance[
+                    "DiskCleanup.Complete.Message",
+                    CleanupItem.FormatBytes(freedBytes),
+                    $"{sw.Elapsed.TotalSeconds:0.0}s"
+                ],
                 ControlAppearance.Success,
                 new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
                 TimeSpan.FromSeconds(5)

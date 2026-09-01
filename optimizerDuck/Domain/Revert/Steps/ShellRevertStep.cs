@@ -27,8 +27,7 @@ public class ShellRevertStep : IRevertStep
     public string Type => "Shell";
 
     /// <inheritdoc />
-    public string Description =>
-        Loc.Instance["Revert.Shell.Description.Run", ShellType, Command];
+    public string Description => Loc.Instance["Revert.Shell.Description.Run", ShellType, Command];
 
     /// <inheritdoc />
     public async Task<bool> ExecuteAsync()
