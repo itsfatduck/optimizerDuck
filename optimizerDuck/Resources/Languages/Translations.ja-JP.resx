@@ -144,7 +144,7 @@
     <value>貢献する</value>
   </data>
   <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
-    <value>GitHub でスターを付けたり、友達と共有したり、寄付したり — どんな小さな支援もプロジェクトの成長に役立ちます！</value>
+    <value>GitHub でスターを付けたり、友達と共有したり、寄付したり - どんな小さな支援もプロジェクトの成長に役立ちます！</value>
   </data>
   <data name="Service.Registry.Description.CreateKey" xml:space="preserve">
     <value>レジストリ キーを作成: {0}</value>
@@ -1668,6 +1668,12 @@
   <data name="LegalDialog.Intro.Review" xml:space="preserve">
     <value>以下のドキュメントをご確認ください。続行すると、これらの条件に同意したものとみなされます</value>
   </data>
+  <data name="LegalDialog.Intro.Title" xml:space="preserve">
+    <value>optimizerDuckへようこそ！</value>
+  </data>
+  <data name="LegalDialog.Intro.Description" xml:space="preserve">
+    <value>言語とテーマを選択し、利用規約、プライバシーポリシー、免責事項をご確認のうえ、準備完了です。</value>
+  </data>
   <data name="LegalDialog.Link.TermsOfService" xml:space="preserve">
     <value>利用規約</value>
   </data>
@@ -1676,6 +1682,54 @@
   </data>
   <data name="LegalDialog.Link.Disclaimer" xml:space="preserve">
     <value>免責事項</value>
+  </data>
+  <data name="LegalDialog.Language.Title" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="LegalDialog.Language.Description" xml:space="preserve">
+    <value>Choose your preferred language</value>
+  </data>
+  <data name="LegalDialog.Language.Tip" xml:space="preserve">
+    <value>Tip: English is the most accurate. Feel free to choose your preferred language.</value>
+  </data>
+  <data name="LegalDialog.Theme.Title" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="LegalDialog.Theme.Description" xml:space="preserve">
+    <value>Choose your preferred theme</value>
+  </data>
+  <data name="LegalDialog.Theme.Tip" xml:space="preserve">
+    <value>Tip: Dark is recommended, best supported and avoids UI issues.</value>
+  </data>
+  <data name="LegalDialog.Preferences.Header" xml:space="preserve">
+    <value>Preferences</value>
+  </data>
+  <data name="LegalDialog.Extras.Header" xml:space="preserve">
+    <value>Explore</value>
+  </data>
+  <data name="LegalDialog.Extras.GitHub.Title" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="LegalDialog.Extras.GitHub.Description" xml:space="preserve">
+    <value>Source code &amp; issues</value>
+  </data>
+  <data name="LegalDialog.Extras.Docs.Title" xml:space="preserve">
+    <value>Documentation</value>
+  </data>
+  <data name="LegalDialog.Extras.Docs.Description" xml:space="preserve">
+    <value>Guides &amp; getting started</value>
+  </data>
+  <data name="LegalDialog.Extras.Discord.Title" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="LegalDialog.Extras.Discord.Description" xml:space="preserve">
+    <value>Community &amp; support</value>
+  </data>
+  <data name="LegalDialog.Extras.Acknowledgements.Title" xml:space="preserve">
+    <value>Acknowledgements</value>
+  </data>
+  <data name="LegalDialog.Extras.Acknowledgements.Description" xml:space="preserve">
+    <value>Third-party notices</value>
   </data>
   <data name="LegalDialog.Warning.Title" xml:space="preserve">
     <value>自己責任でご利用ください</value>

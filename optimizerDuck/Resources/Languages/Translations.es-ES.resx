@@ -3346,6 +3346,12 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
     <value>Por favor, tómate un momento para revisar los siguientes documentos. Al continuar, aceptas estos términos.</value>
 
   </data>
+  <data name="LegalDialog.Intro.Title" xml:space="preserve">
+    <value>¡Bienvenido a optimizerDuck!</value>
+  </data>
+  <data name="LegalDialog.Intro.Description" xml:space="preserve">
+    <value>Elige tu idioma y tema, tómate un momento para revisar nuestros Términos, Política de privacidad y Aviso legal, y estarás listo para continuar.</value>
+  </data>
 
   <data name="LegalDialog.Link.TermsOfService" xml:space="preserve">
 
@@ -3365,6 +3371,54 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
 
   </data>
 
+  <data name="LegalDialog.Language.Title" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="LegalDialog.Language.Description" xml:space="preserve">
+    <value>Choose your preferred language</value>
+  </data>
+  <data name="LegalDialog.Language.Tip" xml:space="preserve">
+    <value>Tip: English is the most accurate. Feel free to choose your preferred language.</value>
+  </data>
+  <data name="LegalDialog.Theme.Title" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="LegalDialog.Theme.Description" xml:space="preserve">
+    <value>Choose your preferred theme</value>
+  </data>
+  <data name="LegalDialog.Theme.Tip" xml:space="preserve">
+    <value>Tip: Dark is recommended, best supported and avoids UI issues.</value>
+  </data>
+  <data name="LegalDialog.Preferences.Header" xml:space="preserve">
+    <value>Preferences</value>
+  </data>
+  <data name="LegalDialog.Extras.Header" xml:space="preserve">
+    <value>Explore</value>
+  </data>
+  <data name="LegalDialog.Extras.GitHub.Title" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="LegalDialog.Extras.GitHub.Description" xml:space="preserve">
+    <value>Source code &amp; issues</value>
+  </data>
+  <data name="LegalDialog.Extras.Docs.Title" xml:space="preserve">
+    <value>Documentation</value>
+  </data>
+  <data name="LegalDialog.Extras.Docs.Description" xml:space="preserve">
+    <value>Guides &amp; getting started</value>
+  </data>
+  <data name="LegalDialog.Extras.Discord.Title" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="LegalDialog.Extras.Discord.Description" xml:space="preserve">
+    <value>Community &amp; support</value>
+  </data>
+  <data name="LegalDialog.Extras.Acknowledgements.Title" xml:space="preserve">
+    <value>Acknowledgements</value>
+  </data>
+  <data name="LegalDialog.Extras.Acknowledgements.Description" xml:space="preserve">
+    <value>Third-party notices</value>
+  </data>
   <data name="LegalDialog.Warning.Title" xml:space="preserve">
 
     <value>Úsalo bajo tu propio riesgo</value>

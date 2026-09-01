@@ -2789,6 +2789,96 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Third-party notices.
+        /// </summary>
+        internal static string LegalDialog_Extras_Acknowledgements_Description {
+            get {
+                return ResourceManager.GetString("LegalDialog.Extras.Acknowledgements.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Acknowledgements.
+        /// </summary>
+        internal static string LegalDialog_Extras_Acknowledgements_Title {
+            get {
+                return ResourceManager.GetString("LegalDialog.Extras.Acknowledgements.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Community &amp; support.
+        /// </summary>
+        internal static string LegalDialog_Extras_Discord_Description {
+            get {
+                return ResourceManager.GetString("LegalDialog.Extras.Discord.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discord.
+        /// </summary>
+        internal static string LegalDialog_Extras_Discord_Title {
+            get {
+                return ResourceManager.GetString("LegalDialog.Extras.Discord.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Guides &amp; getting started.
+        /// </summary>
+        internal static string LegalDialog_Extras_Docs_Description {
+            get {
+                return ResourceManager.GetString("LegalDialog.Extras.Docs.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Documentation.
+        /// </summary>
+        internal static string LegalDialog_Extras_Docs_Title {
+            get {
+                return ResourceManager.GetString("LegalDialog.Extras.Docs.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source code &amp; issues.
+        /// </summary>
+        internal static string LegalDialog_Extras_GitHub_Description {
+            get {
+                return ResourceManager.GetString("LegalDialog.Extras.GitHub.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GitHub.
+        /// </summary>
+        internal static string LegalDialog_Extras_GitHub_Title {
+            get {
+                return ResourceManager.GetString("LegalDialog.Extras.GitHub.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Explore.
+        /// </summary>
+        internal static string LegalDialog_Extras_Header {
+            get {
+                return ResourceManager.GetString("LegalDialog.Extras.Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose your language and theme, take a moment to review our Terms, Privacy Policy, and Disclaimer, then you&apos;re ready to go..
+        /// </summary>
+        internal static string LegalDialog_Intro_Description {
+            get {
+                return ResourceManager.GetString("LegalDialog.Intro.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please take a moment to review the following documents. By continuing, you agree to these terms..
         /// </summary>
         internal static string LegalDialog_Intro_Review {
@@ -2816,6 +2906,42 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Welcome to optimizerDuck!.
+        /// </summary>
+        internal static string LegalDialog_Intro_Title {
+            get {
+                return ResourceManager.GetString("LegalDialog.Intro.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose your preferred language.
+        /// </summary>
+        internal static string LegalDialog_Language_Description {
+            get {
+                return ResourceManager.GetString("LegalDialog.Language.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tip: English is the most accurate. Feel free to choose your preferred language..
+        /// </summary>
+        internal static string LegalDialog_Language_Tip {
+            get {
+                return ResourceManager.GetString("LegalDialog.Language.Tip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        internal static string LegalDialog_Language_Title {
+            get {
+                return ResourceManager.GetString("LegalDialog.Language.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disclaimer.
         /// </summary>
         internal static string LegalDialog_Link_Disclaimer {
@@ -2839,6 +2965,42 @@ namespace optimizerDuck.Resources.Languages {
         internal static string LegalDialog_Link_TermsOfService {
             get {
                 return ResourceManager.GetString("LegalDialog.Link.TermsOfService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preferences.
+        /// </summary>
+        internal static string LegalDialog_Preferences_Header {
+            get {
+                return ResourceManager.GetString("LegalDialog.Preferences.Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose your preferred theme.
+        /// </summary>
+        internal static string LegalDialog_Theme_Description {
+            get {
+                return ResourceManager.GetString("LegalDialog.Theme.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tip: Dark is recommended, best supported and avoids UI issues..
+        /// </summary>
+        internal static string LegalDialog_Theme_Tip {
+            get {
+                return ResourceManager.GetString("LegalDialog.Theme.Tip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme.
+        /// </summary>
+        internal static string LegalDialog_Theme_Title {
+            get {
+                return ResourceManager.GetString("LegalDialog.Theme.Title", resourceCulture);
             }
         }
         
@@ -4908,6 +5070,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string ScheduledTasks_Dialog_Settings {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Dialog.Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Task not found: {0}.
         /// </summary>
         internal static string ScheduledTasks_Error_TaskNotFound {
@@ -5084,6 +5255,42 @@ namespace optimizerDuck.Resources.Languages {
         internal static string ScheduledTasks_Snackbar_Toggle_Message {
             get {
                 return ResourceManager.GetString("ScheduledTasks.Snackbar.Toggle.Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disabled.
+        /// </summary>
+        internal static string ScheduledTasks_State_Disabled {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.State.Disabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Queued.
+        /// </summary>
+        internal static string ScheduledTasks_State_Queued {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.State.Queued", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ready.
+        /// </summary>
+        internal static string ScheduledTasks_State_Ready {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.State.Ready", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Running.
+        /// </summary>
+        internal static string ScheduledTasks_State_Running {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.State.Running", resourceCulture);
             }
         }
         

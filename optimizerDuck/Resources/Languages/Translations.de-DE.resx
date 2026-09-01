@@ -1746,6 +1746,12 @@ Aktualisiere jetzt, um die neuesten Funktionen, Verbesserungen und Fehlerbehebun
   <data name="LegalDialog.Intro.Review" xml:space="preserve">
     <value>Bitte nimm dir einen Moment Zeit, um die folgenden Dokumente zu prüfen. Wenn du fortfährst, stimmst du diesen Bedingungen zu.</value>
   </data>
+  <data name="LegalDialog.Intro.Title" xml:space="preserve">
+    <value>Willkommen bei optimizerDuck!</value>
+  </data>
+  <data name="LegalDialog.Intro.Description" xml:space="preserve">
+    <value>Wählen Sie Ihre Sprache und Ihr Design, nehmen Sie sich einen Moment Zeit, um unsere Nutzungsbedingungen, Datenschutzrichtlinie und den Haftungsausschluss zu prüfen, dann kann es losgehen.</value>
+  </data>
   <data name="LegalDialog.Link.TermsOfService" xml:space="preserve">
     <value>Nutzungsbedingungen</value>
   </data>
@@ -1754,6 +1760,54 @@ Aktualisiere jetzt, um die neuesten Funktionen, Verbesserungen und Fehlerbehebun
   </data>
   <data name="LegalDialog.Link.Disclaimer" xml:space="preserve">
     <value>Haftungsausschluss</value>
+  </data>
+  <data name="LegalDialog.Language.Title" xml:space="preserve">
+    <value>Sprache</value>
+  </data>
+  <data name="LegalDialog.Language.Description" xml:space="preserve">
+    <value>Wählen Sie Ihre bevorzugte Sprache</value>
+  </data>
+  <data name="LegalDialog.Language.Tip" xml:space="preserve">
+    <value>Tipp: Englisch ist am genauesten. Wählen Sie gerne Ihre bevorzugte Sprache.</value>
+  </data>
+  <data name="LegalDialog.Theme.Title" xml:space="preserve">
+    <value>Design</value>
+  </data>
+  <data name="LegalDialog.Theme.Description" xml:space="preserve">
+    <value>Wählen Sie Ihr bevorzugtes Design</value>
+  </data>
+  <data name="LegalDialog.Theme.Tip" xml:space="preserve">
+    <value>Tipp: Dunkel wird empfohlen, am besten unterstützt und vermeidet UI-Fehler.</value>
+  </data>
+  <data name="LegalDialog.Preferences.Header" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+  <data name="LegalDialog.Extras.Header" xml:space="preserve">
+    <value>Entdecken</value>
+  </data>
+  <data name="LegalDialog.Extras.GitHub.Title" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="LegalDialog.Extras.GitHub.Description" xml:space="preserve">
+    <value>Quellcode &amp; Probleme</value>
+  </data>
+  <data name="LegalDialog.Extras.Docs.Title" xml:space="preserve">
+    <value>Dokumentation</value>
+  </data>
+  <data name="LegalDialog.Extras.Docs.Description" xml:space="preserve">
+    <value>Anleitungen &amp; erste Schritte</value>
+  </data>
+  <data name="LegalDialog.Extras.Discord.Title" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="LegalDialog.Extras.Discord.Description" xml:space="preserve">
+    <value>Community &amp; Support</value>
+  </data>
+  <data name="LegalDialog.Extras.Acknowledgements.Title" xml:space="preserve">
+    <value>Danksagungen</value>
+  </data>
+  <data name="LegalDialog.Extras.Acknowledgements.Description" xml:space="preserve">
+    <value>Hinweise zu Drittanbietern</value>
   </data>
   <data name="LegalDialog.Warning.Title" xml:space="preserve">
     <value>Nutzung auf eigene Gefahr</value>
@@ -1927,7 +1981,7 @@ Aktualisiere jetzt, um die neuesten Funktionen, Verbesserungen und Fehlerbehebun
     <value>Empfohlene Sektion im Startmenü ausblenden</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>Blendet den Bereich „Empfohlen“ im Startmenü aus – für ein aufgeräumteres Startmenü, ohne zuletzt verwendete Dateien und Apps.</value>
+    <value>Blendet den Bereich „Empfohlen“ im Startmenü aus - für ein aufgeräumteres Startmenü, ohne zuletzt verwendete Dateien und Apps.</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
     <value>Kompatibilitätsprüfung fehlgeschlagen</value>

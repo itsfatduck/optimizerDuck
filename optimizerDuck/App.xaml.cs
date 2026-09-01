@@ -118,6 +118,8 @@ public class ScopeBlockTextFormatter : ITextFormatter
 public partial class App : Application
 {
     private IHost? _host;
+
+    public IHost? AppHost => _host;
     private ILogger<App> _logger = null!;
     private bool _allowClose;
     private IContentDialogService? _contentDialogService = null;
@@ -300,7 +302,7 @@ public partial class App : Application
             )
             .CreateLogger();
 
-        _host = Host.CreateDefaultBuilder()
+        _host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
             .UseSerilog()
             .ConfigureAppConfiguration(c =>
             {
@@ -344,6 +346,10 @@ public partial class App : Application
 
                     services.AddSingleton<ScheduledTasksViewModel>();
                     services.AddSingleton<ScheduledTasksPage>();
+
+                    // Dialogs
+                    services.AddTransient<optimizerDuck.UI.ViewModels.Dialogs.LegalDialogViewModel>();
+                    services.AddTransient<optimizerDuck.UI.Dialogs.LegalDialog>();
 
                     // Customize
                     services.AddSingleton<CustomizeViewModel>();

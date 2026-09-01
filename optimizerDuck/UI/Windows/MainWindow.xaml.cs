@@ -1,4 +1,5 @@
 using System.Windows;
+using System.Windows.Data;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using optimizerDuck.Domain.Abstractions;
@@ -12,6 +13,8 @@ using optimizerDuck.UI.Pages;
 using optimizerDuck.UI.ViewModels.Windows;
 using Wpf.Ui;
 using Wpf.Ui.Abstractions;
+using System.Windows.Controls;
+using Microsoft.Extensions.DependencyInjection;
 using Wpf.Ui.Controls;
 
 namespace optimizerDuck.UI.Windows;
@@ -66,15 +69,19 @@ public partial class MainWindow : IWindow
 
             if (!_appOptionsMonitor.CurrentValue.App.LegalAccepted)
             {
-                var legalDialog = new LegalDialog();
+                var legalDialog = (Application.Current as App)?.AppHost?.Services.GetService<LegalDialog>()
+                    ?? new LegalDialog();
+
                 var dialog = new ContentDialog
                 {
-                    Title = Loc.Instance["LegalDialog.Title"],
                     Content = legalDialog,
-                    PrimaryButtonText = Loc.Instance["Button.Accept"],
-                    CloseButtonText = Loc.Instance["Button.Close"],
                     DefaultButton = ContentDialogButton.Primary,
                 };
+
+                // Bind to Loc so title/buttons update when language changes inside the dialog
+                dialog.SetBinding(ContentDialog.TitleProperty, new Binding("[LegalDialog.Title]") { Source = Loc.Instance, Mode = BindingMode.OneWay });
+                dialog.SetBinding(ContentDialog.PrimaryButtonTextProperty, new Binding("[Button.Accept]") { Source = Loc.Instance, Mode = BindingMode.OneWay });
+                dialog.SetBinding(ContentDialog.CloseButtonTextProperty, new Binding("[Button.Close]") { Source = Loc.Instance, Mode = BindingMode.OneWay });
 
                 var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
                 if (result == ContentDialogResult.Primary)

@@ -1599,6 +1599,12 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="LegalDialog.Intro.Review" xml:space="preserve">
     <value>Vui lòng dành chút thời gian xem xét các tài liệu sau. Bằng việc tiếp tục, bạn đồng ý với các điều khoản này.</value>
   </data>
+  <data name="LegalDialog.Intro.Title" xml:space="preserve">
+    <value>Chào mừng đến với optimizerDuck!</value>
+  </data>
+  <data name="LegalDialog.Intro.Description" xml:space="preserve">
+    <value>Chọn ngôn ngữ và giao diện của bạn, dành chút thời gian xem qua Điều khoản, Chính sách Bảo mật và Tuyên bố miễn trừ trách nhiệm, sau đó bạn đã sẵn sàng.</value>
+  </data>
   <data name="LegalDialog.Link.TermsOfService" xml:space="preserve">
     <value>Điều khoản dịch vụ</value>
   </data>
@@ -1607,6 +1613,54 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="LegalDialog.Link.Disclaimer" xml:space="preserve">
     <value>Tuyên bố miễn trách</value>
+  </data>
+  <data name="LegalDialog.Language.Title" xml:space="preserve">
+    <value>Ngôn ngữ</value>
+  </data>
+  <data name="LegalDialog.Language.Description" xml:space="preserve">
+    <value>Chọn ngôn ngữ bạn muốn</value>
+  </data>
+  <data name="LegalDialog.Language.Tip" xml:space="preserve">
+    <value>Mẹo: Tiếng Anh là chính xác nhất. Hãy chọn ngôn ngữ bạn thông thạo nhất nếu muốn.</value>
+  </data>
+  <data name="LegalDialog.Theme.Title" xml:space="preserve">
+    <value>Giao diện</value>
+  </data>
+  <data name="LegalDialog.Theme.Description" xml:space="preserve">
+    <value>Chọn giao diện bạn muốn</value>
+  </data>
+  <data name="LegalDialog.Theme.Tip" xml:space="preserve">
+    <value>Mẹo: Nên dùng Dark, được hỗ trợ tốt nhất và tránh lỗi giao diện.</value>
+  </data>
+  <data name="LegalDialog.Preferences.Header" xml:space="preserve">
+    <value>Tùy chọn</value>
+  </data>
+  <data name="LegalDialog.Extras.Header" xml:space="preserve">
+    <value>Khám phá</value>
+  </data>
+  <data name="LegalDialog.Extras.GitHub.Title" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="LegalDialog.Extras.GitHub.Description" xml:space="preserve">
+    <value>Mã nguồn &amp; vấn đề</value>
+  </data>
+  <data name="LegalDialog.Extras.Docs.Title" xml:space="preserve">
+    <value>Tài liệu</value>
+  </data>
+  <data name="LegalDialog.Extras.Docs.Description" xml:space="preserve">
+    <value>Hướng dẫn &amp; bắt đầu</value>
+  </data>
+  <data name="LegalDialog.Extras.Discord.Title" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="LegalDialog.Extras.Discord.Description" xml:space="preserve">
+    <value>Cộng đồng &amp; hỗ trợ</value>
+  </data>
+  <data name="LegalDialog.Extras.Acknowledgements.Title" xml:space="preserve">
+    <value>Ghi nhận</value>
+  </data>
+  <data name="LegalDialog.Extras.Acknowledgements.Description" xml:space="preserve">
+    <value>Thông báo bên thứ ba</value>
   </data>
   <data name="LegalDialog.Warning.Title" xml:space="preserve">
     <value>Sử dụng có rủi ro</value>
@@ -1846,7 +1900,7 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
     <value>Tắt Tìm thiết bị của tôi</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
-    <value>Tắt tính năng Tìm thiết bị của tôi – tính năng định kỳ gửi vị trí thiết bị của bạn cho Microsoft.</value>
+    <value>Tắt tính năng Tìm thiết bị của tôi - tính năng định kỳ gửi vị trí thiết bị của bạn cho Microsoft.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
     <value>Tắt quảng cáo Microsoft 365 trong Cài đặt</value>
