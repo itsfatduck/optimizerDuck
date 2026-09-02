@@ -112,7 +112,7 @@ Alat ini juga dilengkapi dengan fungsi manajemen bawaan, memungkinkan Anda melih
 
 ### Optimasi Sistem
 
-Lebih dari 49 penyesuaian di 7 kategori, masing-masing dengan deskripsi jelas dan peringkat risiko sehingga Anda tahu persis apa yang dilakukan setiap perubahan sebelum menerapkannya.
+42 penyesuaian di 7 kategori, masing-masing dengan deskripsi jelas dan peringkat risiko sehingga Anda tahu persis apa yang dilakukan setiap perubahan sebelum menerapkannya.
 
 | Kategori                 | Apa yang dicakup                                                                                                                                     |
 | :----------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |

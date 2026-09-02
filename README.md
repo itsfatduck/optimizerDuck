@@ -112,7 +112,7 @@ It also includes built-in management tools, allowing you to see what is running,
 
 ### System Optimizations
 
-49 tweaks across 7 categories, each with a clear description and risk rating so you know exactly what each change does before applying it.
+42 tweaks across 7 categories, each with a clear description and risk rating so you know exactly what each change does before applying it.
 
 | Category                 | What it covers                                                                                                                                       |
 | :----------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |

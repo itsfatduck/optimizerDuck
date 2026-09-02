@@ -112,7 +112,7 @@ Ele também inclui ferramentas de gerenciamento integradas, permitindo que você
 
 ### Otimizações do Sistema
 
-Mais de 49 ajustes em 7 categorias, cada um com uma descrição clara e classificação de risco para você saber exatamente o que cada alteração faz antes de aplicá-la.
+42 ajustes em 7 categorias, cada um com uma descrição clara e classificação de risco para você saber exatamente o que cada alteração faz antes de aplicá-la.
 
 | Categoria | O que cobre |
 | :----------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |

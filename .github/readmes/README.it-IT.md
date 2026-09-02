@@ -112,7 +112,7 @@ Include anche strumenti di gestione integrati, che ti permettono di vedere cosa 
 
 ### Ottimizzazioni di Sistema
 
-Oltre 49 ottimizzazioni in 7 categorie, ognuna con una descrizione chiara e un livello di rischio, così sai esattamente cosa fa ogni modifica prima di applicarla.
+42 ottimizzazioni in 7 categorie, ognuna con una descrizione chiara e un livello di rischio, così sai esattamente cosa fa ogni modifica prima di applicarla.
 
 | Categoria | Cosa copre |
 | :----------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
