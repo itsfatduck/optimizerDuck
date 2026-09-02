@@ -4,6 +4,7 @@ using System.Windows.Data;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Configuration;
 using optimizerDuck.Resources.Languages;
@@ -43,6 +44,13 @@ public partial class MainWindow : IWindow
         _appOptionsMonitor = appOptionsMonitor;
         _configManager = configManager;
         InitializeComponent();
+
+        // Mica needs Windows 11; on older systems WPF-UI leaves a full-window
+        // glass frame that renders white on virtualized display stacks (#71).
+        if (Shared.IsWindows11OrGreater)
+        {
+            WindowBackdropType = WindowBackdropType.Mica;
+        }
 
         DataContext = viewModel;
 

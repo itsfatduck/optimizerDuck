@@ -23,7 +23,6 @@
     SnapsToDevicePixels="True"
     TextOptions.TextRenderingMode="ClearType"
     UseLayoutRounding="True"
-    WindowBackdropType="Mica"
     WindowCornerPreference="Round"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
