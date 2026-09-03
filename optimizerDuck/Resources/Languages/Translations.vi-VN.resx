@@ -385,6 +385,12 @@
   <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
     <value>Không tìm thấy dịch vụ '{0}' (đã bỏ qua)</value>
   </data>
+  <data name="Service.Service.Info.AlreadyConfigured" xml:space="preserve">
+    <value>Dịch vụ '{0}' đã có kiểu khởi động {1} (bỏ qua)</value>
+  </data>
+  <data name="Service.Service.Info.SkippedAccessDenied" xml:space="preserve">
+    <value>Truy cập vào dịch vụ '{0}' bị Windows từ chối (đã bỏ qua)</value>
+  </data>
   <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
     <value>Không thể thay đổi kiểu khởi động cho dịch vụ</value>
   </data>

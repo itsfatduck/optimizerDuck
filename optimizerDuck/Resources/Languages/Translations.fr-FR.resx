@@ -389,6 +389,12 @@
   <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
     <value>Service '{0}' introuvable (ignoré)</value>
   </data>
+  <data name="Service.Service.Info.AlreadyConfigured" xml:space="preserve">
+    <value>Le service '{0}' est déjà défini sur {1} (ignoré)</value>
+  </data>
+  <data name="Service.Service.Info.SkippedAccessDenied" xml:space="preserve">
+    <value>L'accès au service '{0}' est refusé par Windows (ignoré)</value>
+  </data>
   <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
     <value>Impossible de modifier le type de démarrage du service</value>
   </data>

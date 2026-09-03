@@ -388,6 +388,12 @@
   <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
     <value>未找到服务 '{0}'（已跳过）</value>
   </data>
+  <data name="Service.Service.Info.AlreadyConfigured" xml:space="preserve">
+    <value>服务 '{0}' 已是 {1}（已跳过）</value>
+  </data>
+  <data name="Service.Service.Info.SkippedAccessDenied" xml:space="preserve">
+    <value>Windows 拒绝访问服务 '{0}'（已跳过）</value>
+  </data>
   <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
     <value>更改服务启动类型失败</value>
   </data>

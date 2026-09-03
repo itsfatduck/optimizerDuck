@@ -388,6 +388,12 @@
   <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
     <value>Служба '{0}' не найдена (пропущена)</value>
   </data>
+  <data name="Service.Service.Info.AlreadyConfigured" xml:space="preserve">
+    <value>Служба '{0}' уже имеет тип запуска {1} (пропущена)</value>
+  </data>
+  <data name="Service.Service.Info.SkippedAccessDenied" xml:space="preserve">
+    <value>Доступ к службе '{0}' запрещен Windows (пропущена)</value>
+  </data>
   <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
     <value>Не удалось изменить тип запуска службы</value>
   </data>

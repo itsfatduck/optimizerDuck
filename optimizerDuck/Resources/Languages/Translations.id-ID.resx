@@ -440,6 +440,12 @@
   <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
     <value>Layanan '{0}' tidak ditemukan (dilewati)</value>
   </data>
+  <data name="Service.Service.Info.AlreadyConfigured" xml:space="preserve">
+    <value>Layanan '{0}' sudah diatur ke {1} (dilewati)</value>
+  </data>
+  <data name="Service.Service.Info.SkippedAccessDenied" xml:space="preserve">
+    <value>Akses ke layanan '{0}' ditolak oleh Windows (dilewati)</value>
+  </data>
   <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
     <value>Gagal mengubah tipe startup untuk layanan</value>
   </data>

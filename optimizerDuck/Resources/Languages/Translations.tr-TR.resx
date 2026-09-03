@@ -387,6 +387,12 @@
   <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
     <value>'{0}' servisi bulunamadı (atlandı)</value>
   </data>
+  <data name="Service.Service.Info.AlreadyConfigured" xml:space="preserve">
+    <value>'{0}' servisi zaten {1} olarak ayarlı (atlandı)</value>
+  </data>
+  <data name="Service.Service.Info.SkippedAccessDenied" xml:space="preserve">
+    <value>Windows, '{0}' servisine erişimi reddetti (atlandı)</value>
+  </data>
   <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
     <value>Servis başlangıç türü değiştirilemedi</value>
   </data>

@@ -387,6 +387,12 @@
   <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
   <value>'{0}' 서비스를 찾을 수 없습니다 (건너뜀)</value>
 </data>
+  <data name="Service.Service.Info.AlreadyConfigured" xml:space="preserve">
+    <value>'{0}' 서비스가 이미 {1}로 설정되어 있습니다 (건너뜀)</value>
+  </data>
+  <data name="Service.Service.Info.SkippedAccessDenied" xml:space="preserve">
+    <value>Windows에서 '{0}' 서비스에 대한 액세스를 거부했습니다 (건너뜀)</value>
+  </data>
   <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
   <value>서비스 시작 유형을 변경하지 못했습니다</value>
 </data>

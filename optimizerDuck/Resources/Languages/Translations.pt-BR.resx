@@ -388,6 +388,12 @@
   <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
     <value>Serviço '{0}' não encontrado (pulado)</value>
   </data>
+  <data name="Service.Service.Info.AlreadyConfigured" xml:space="preserve">
+    <value>O serviço '{0}' já está definido como {1} (pulado)</value>
+  </data>
+  <data name="Service.Service.Info.SkippedAccessDenied" xml:space="preserve">
+    <value>O acesso ao serviço '{0}' foi negado pelo Windows (pulado)</value>
+  </data>
   <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
     <value>Falha ao mudar o tipo de inicialização para o serviço</value>
   </data>

@@ -446,6 +446,12 @@
   <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
     <value>Dienst "{0}" nicht gefunden (übersprungen)</value>
   </data>
+  <data name="Service.Service.Info.AlreadyConfigured" xml:space="preserve">
+    <value>Dienst '{0}' ist bereits auf {1} festgelegt (übersprungen)</value>
+  </data>
+  <data name="Service.Service.Info.SkippedAccessDenied" xml:space="preserve">
+    <value>Der Zugriff auf Dienst '{0}' wird von Windows verweigert (übersprungen)</value>
+  </data>
   <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
     <value>Starttyp für Dienst konnte nicht geändert werden</value>
   </data>

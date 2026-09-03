@@ -5511,6 +5511,24 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Service &apos;{0}&apos; is already set to {1} (skipped).
+        /// </summary>
+        internal static string Service_Service_Info_AlreadyConfigured {
+            get {
+                return ResourceManager.GetString("Service.Service.Info.AlreadyConfigured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Access to service &apos;{0}&apos; is denied by Windows (skipped).
+        /// </summary>
+        internal static string Service_Service_Info_SkippedAccessDenied {
+            get {
+                return ResourceManager.GetString("Service.Service.Info.SkippedAccessDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Service &apos;{0}&apos; not found (skipped).
         /// </summary>
         internal static string Service_Service_Info_SkippedNotFound {

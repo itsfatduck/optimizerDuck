@@ -387,6 +387,12 @@
   <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
     <value>サービス '{0}' が見つかりません（スキップ）</value>
   </data>
+  <data name="Service.Service.Info.AlreadyConfigured" xml:space="preserve">
+    <value>サービス '{0}' は既に {1} に設定されています（スキップ）</value>
+  </data>
+  <data name="Service.Service.Info.SkippedAccessDenied" xml:space="preserve">
+    <value>サービス '{0}' へのアクセスが Windows によって拒否されました（スキップ）</value>
+  </data>
   <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
     <value>サービスの開始タイプを変更できませんでした</value>
   </data>

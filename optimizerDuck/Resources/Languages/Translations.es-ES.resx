@@ -770,6 +770,12 @@
     <value>Servicio '{0}' no encontrado (omitido)</value>
 
   </data>
+  <data name="Service.Service.Info.AlreadyConfigured" xml:space="preserve">
+    <value>El servicio '{0}' ya está configurado como {1} (omitido)</value>
+  </data>
+  <data name="Service.Service.Info.SkippedAccessDenied" xml:space="preserve">
+    <value>Windows denegó el acceso al servicio '{0}' (omitido)</value>
+  </data>
 
   <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
 

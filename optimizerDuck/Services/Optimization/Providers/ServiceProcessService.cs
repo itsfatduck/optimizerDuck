@@ -13,6 +13,8 @@ public static class ServiceProcessService
 {
     private const int ErrorServiceDoesNotExist = 1060;
 
+    private const int ErrorAccessDenied = 5;
+
     private static readonly AsyncLocal<string?> _lastError = new();
     private static readonly AsyncLocal<string?> _lastErrorDetail = new();
 
@@ -128,8 +130,8 @@ public static class ServiceProcessService
 
     /// <summary>Changes the startup type of a single Windows service via <c>sc.exe config</c>. Records a revert step if the original type differs.</summary>
     /// <param name="item">The service item with the target startup type.</param>
-    /// <returns><see langword="true"/> if the change succeeded, otherwise <see langword="false"/>.</returns>
-    public static async Task<bool> ChangeServiceStartupTypeAsync(ServiceItem item)
+    /// <returns>The outcome of the change request.</returns>
+    public static async Task<ServiceChangeResult> ChangeServiceStartupTypeAsync(ServiceItem item)
     {
         _lastError.Value = _lastErrorDetail.Value = null;
 
@@ -159,7 +161,7 @@ public static class ServiceProcessService
                     true,
                     null
                 );
-                return true;
+                return ServiceChangeResult.NotFound;
             }
 
             if (originalStartupType == null)
@@ -175,9 +177,35 @@ public static class ServiceProcessService
                     Loc.Invariant["Service.Service.Name"],
                     description,
                     false,
+                    null,
+                    _lastError.Value,
+                    () => RetryChangeServiceStartupTypeAsync(item),
+                    _lastErrorDetail.Value
+                );
+                return ServiceChangeResult.Failed;
+            }
+
+            if (originalStartupType.Value == item.StartupType)
+            {
+                sw.Stop();
+                var alreadyDescription = Loc.Invariant[
+                    "Service.Service.Info.AlreadyConfigured",
+                    item.Name,
+                    item.StartupType
+                ];
+                ExecutionScope.LogInfo(
+                    "[SERVICE][{Name}] already {StartupType}, skipping",
+                    item.Name,
+                    item.StartupType
+                );
+                ExecutionScope.Track(nameof(ChangeServiceStartupTypeAsync), true);
+                ExecutionScope.RecordStep(
+                    Loc.Invariant["Service.Service.Name"],
+                    alreadyDescription,
+                    true,
                     null
                 );
-                return false;
+                return ServiceChangeResult.AlreadyConfigured;
             }
 
             var scType = item.StartupType switch
@@ -225,7 +253,28 @@ public static class ServiceProcessService
                     true,
                     revertStep
                 );
-                return true;
+                return ServiceChangeResult.Success;
+            }
+
+            if (exitCode == ErrorAccessDenied)
+            {
+                _lastError.Value = Loc.Invariant[
+                    "Service.Service.Info.SkippedAccessDenied",
+                    item.Name
+                ];
+                ExecutionScope.LogInfo(
+                    "[SERVICE][{Name}][SKIP][D={Duration}] access denied, Windows protects this service",
+                    item.Name,
+                    sw.Elapsed.FormatTime()
+                );
+                ExecutionScope.Track(nameof(ChangeServiceStartupTypeAsync), true);
+                ExecutionScope.RecordStep(
+                    Loc.Invariant["Service.Service.Name"],
+                    _lastError.Value,
+                    true,
+                    null
+                );
+                return ServiceChangeResult.AccessDenied;
             }
 
             _lastError.Value = Loc.Invariant["Service.Service.Error.ChangeStartupTypeFailed"];
@@ -242,10 +291,10 @@ public static class ServiceProcessService
                 false,
                 null,
                 _lastError.Value,
-                () => ChangeServiceStartupTypeAsync(item),
+                () => RetryChangeServiceStartupTypeAsync(item),
                 _lastErrorDetail.Value
             );
-            return false;
+            return ServiceChangeResult.Failed;
         }
         catch (Exception ex)
         {
@@ -269,11 +318,17 @@ public static class ServiceProcessService
                 false,
                 null,
                 _lastError.Value,
-                () => ChangeServiceStartupTypeAsync(item),
+                () => RetryChangeServiceStartupTypeAsync(item),
                 _lastErrorDetail.Value
             );
-            return false;
+            return ServiceChangeResult.Failed;
         }
+    }
+
+    private static async Task<bool> RetryChangeServiceStartupTypeAsync(ServiceItem item)
+    {
+        var result = await ChangeServiceStartupTypeAsync(item);
+        return result != ServiceChangeResult.Failed;
     }
 
     private static async Task<(int ExitCode, string Stdout, string Stderr)> RunScExeAsync(

@@ -446,6 +446,12 @@
   <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
     <value>השירות '{0}' לא נמצא (דילוג)</value>
   </data>
+  <data name="Service.Service.Info.AlreadyConfigured" xml:space="preserve">
+    <value>השירות '{0}' כבר מוגדר ל-{1} (דילוג)</value>
+  </data>
+  <data name="Service.Service.Info.SkippedAccessDenied" xml:space="preserve">
+    <value>הגישה לשירות '{0}' נדחתה על ידי Windows (דילוג)</value>
+  </data>
   <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
     <value>שינוי סוג ההפעלה של השירות נכשל</value>
   </data>

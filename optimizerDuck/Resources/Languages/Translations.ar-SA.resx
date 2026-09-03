@@ -1700,6 +1700,12 @@
   <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
     <value>الخدمة «{0}» غير موجودة (تم تخطّيها)</value>
   </data>
+  <data name="Service.Service.Info.AlreadyConfigured" xml:space="preserve">
+    <value>الخدمة '{0}' مضبوطة بالفعل على {1} (تم التخطي)</value>
+  </data>
+  <data name="Service.Service.Info.SkippedAccessDenied" xml:space="preserve">
+    <value>تم رفض الوصول إلى الخدمة '{0}' من قبل Windows (تم التخطي)</value>
+  </data>
   <data name="Service.Service.Name" xml:space="preserve">
     <value>خدمة</value>
   </data>

@@ -388,6 +388,12 @@
   <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
     <value>Nie znaleziono usługi '{0}' (pominięto)</value>
   </data>
+  <data name="Service.Service.Info.AlreadyConfigured" xml:space="preserve">
+    <value>Usługa '{0}' jest już ustawiona na {1} (pominięto)</value>
+  </data>
+  <data name="Service.Service.Info.SkippedAccessDenied" xml:space="preserve">
+    <value>Dostęp do usługi '{0}' został zablokowany przez Windows (pominięto)</value>
+  </data>
   <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
     <value>Nie udało się zmienić typu uruchamiania usługi</value>
   </data>

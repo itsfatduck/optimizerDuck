@@ -314,6 +314,7 @@ public class BloatwareAndServices : LocalizedObject, IOptimizationCategory
                 new("wuauserv", ServiceStartupType.Manual),
             };
 
+            var tally = new Dictionary<ServiceChangeResult, int>();
             for (var i = 0; i < servicesToChange.Count; i++)
             {
                 var service = servicesToChange[i];
@@ -329,12 +330,18 @@ public class BloatwareAndServices : LocalizedObject, IOptimizationCategory
                         Total = servicesToChange.Count,
                     }
                 );
-                await ServiceProcessService.ChangeServiceStartupTypeAsync(service);
+                var result = await ServiceProcessService.ChangeServiceStartupTypeAsync(service);
+                tally[result] = tally.GetValueOrDefault(result) + 1;
             }
 
             context.Logger.LogInformation(
-                "Optimized service startup for {Count} services",
-                servicesToChange.Count
+                "Service startup configuration: {Total} services, {Changed} changed, {AlreadyConfigured} already configured, {NotFound} not found, {AccessDenied} access denied, {Failed} failed",
+                servicesToChange.Count,
+                tally.GetValueOrDefault(ServiceChangeResult.Success),
+                tally.GetValueOrDefault(ServiceChangeResult.AlreadyConfigured),
+                tally.GetValueOrDefault(ServiceChangeResult.NotFound),
+                tally.GetValueOrDefault(ServiceChangeResult.AccessDenied),
+                tally.GetValueOrDefault(ServiceChangeResult.Failed)
             );
             return CompleteFromScope();
         }

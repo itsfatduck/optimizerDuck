@@ -446,6 +446,12 @@
   <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
     <value>Service '{0}' not found (skipped)</value>
   </data>
+  <data name="Service.Service.Info.AlreadyConfigured" xml:space="preserve">
+    <value>Service '{0}' is already set to {1} (skipped)</value>
+  </data>
+  <data name="Service.Service.Info.SkippedAccessDenied" xml:space="preserve">
+    <value>Access to service '{0}' is denied by Windows (skipped)</value>
+  </data>
   <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
     <value>Failed to change startup type for service</value>
   </data>

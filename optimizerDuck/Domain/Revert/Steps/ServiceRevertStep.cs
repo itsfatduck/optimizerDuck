@@ -37,13 +37,17 @@ public class ServiceRevertStep : IRevertStep
             new ServiceItem { Name = ServiceName, StartupType = OriginalStartupType }
         );
 
-        if (!result)
-        {
-            var error = ServiceProcessService.LastError ?? Description;
-            throw new StepExecutionException(error, ServiceProcessService.LastErrorDetail);
-        }
+        if (
+            result
+            is ServiceChangeResult.Success
+                or ServiceChangeResult.NotFound
+                or ServiceChangeResult.AlreadyConfigured
+                or ServiceChangeResult.AccessDenied
+        )
+            return true;
 
-        return true;
+        var error = ServiceProcessService.LastError ?? Description;
+        throw new StepExecutionException(error, ServiceProcessService.LastErrorDetail);
     }
 
     /// <inheritdoc />
