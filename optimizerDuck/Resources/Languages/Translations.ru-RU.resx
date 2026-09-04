@@ -1886,6 +1886,9 @@
   <data name="Customize.Preferences.CombineTaskbarButtons.Options.Never" xml:space="preserve">
     <value>Никогда</value>
   </data>
+  <data name="Customize.Loading" xml:space="preserve">
+    <value>Загрузка настроек...</value>
+  </data>
   <data name="BloatwareDialog.UnusualWarning.Title" xml:space="preserve">
     <value>Предупреждение:необычное имя пакета</value>
   </data>

@@ -1886,6 +1886,9 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
   <data name="Customize.Preferences.CombineTaskbarButtons.Options.Never" xml:space="preserve">
     <value>Jamais</value>
   </data>
+  <data name="Customize.Loading" xml:space="preserve">
+    <value>Chargement des paramètres...</value>
+  </data>
   <data name="BloatwareDialog.UnusualWarning.Title" xml:space="preserve">
     <value>Avertissement:Nom de package inhabituel</value>
   </data>

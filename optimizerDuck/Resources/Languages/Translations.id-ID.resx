@@ -1952,6 +1952,9 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   <data name="Customize.Preferences.CombineTaskbarButtons.Options.Never" xml:space="preserve">
     <value>Jangan pernah</value>
   </data>
+  <data name="Customize.Loading" xml:space="preserve">
+    <value>Memuat pengaturan...</value>
+  </data>
   <data name="BloatwareDialog.UnusualWarning.Title" xml:space="preserve">
     <value>Peringatan:Nama paket tidak biasa</value>
   </data>

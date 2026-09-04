@@ -1877,6 +1877,9 @@
   <data name="Customize.Preferences.CombineTaskbarButtons.Options.Never" xml:space="preserve">
     <value>사용 안 함</value>
   </data>
+  <data name="Customize.Loading" xml:space="preserve">
+    <value>설정 로드 중...</value>
+  </data>
   <data name="BloatwareDialog.UnusualWarning.Title" xml:space="preserve">
     <value>경고:비정상적인 패키지 이름</value>
   </data>

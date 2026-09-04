@@ -1937,6 +1937,9 @@
   <data name="Customize.Preferences.CombineTaskbarButtons.Options.Never" xml:space="preserve">
     <value>أبدًا</value>
   </data>
+  <data name="Customize.Loading" xml:space="preserve">
+    <value>جارٍ تحميل الإعدادات...</value>
+  </data>
   <data name="BloatwareDialog.UnusualWarning.Title" xml:space="preserve">
     <value>تحذير:اسم حزمة غير معتاد</value>
   </data>

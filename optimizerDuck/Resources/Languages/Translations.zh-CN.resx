@@ -1894,6 +1894,9 @@
   <data name="Customize.Preferences.CombineTaskbarButtons.Options.Never" xml:space="preserve">
     <value>从不</value>
   </data>
+  <data name="Customize.Loading" xml:space="preserve">
+    <value>正在加载设置...</value>
+  </data>
   <data name="BloatwareDialog.UnusualWarning.Title" xml:space="preserve">
     <value>警告:包名称异常</value>
   </data>

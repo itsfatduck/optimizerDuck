@@ -1952,6 +1952,9 @@
   <data name="Customize.Preferences.CombineTaskbarButtons.Options.Never" xml:space="preserve">
     <value>אף פעם</value>
   </data>
+  <data name="Customize.Loading" xml:space="preserve">
+    <value>טוען הגדרות...</value>
+  </data>
   <data name="BloatwareDialog.UnusualWarning.Title" xml:space="preserve">
     <value>אזהרה:שם חבילה חריג</value>
   </data>
