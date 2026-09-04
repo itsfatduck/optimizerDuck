@@ -175,9 +175,9 @@ public partial class App : Application
 
         ApplicationAccentColorManager.Apply(
             systemAccent: Color.FromRgb(138, 94, 0),
-            primaryAccent: Color.FromRgb(154, 107, 0),
-            secondaryAccent: Color.FromRgb(166, 124, 0),
-            tertiaryAccent: Color.FromRgb(192, 138, 0)
+            primaryAccent: Color.FromRgb(192, 138, 0),
+            secondaryAccent: Color.FromRgb(255, 247, 200),
+            tertiaryAccent: Color.FromRgb(255, 243, 131)
         );
         RefreshToggleSwitchBrushes();
     }
@@ -194,9 +194,7 @@ public partial class App : Application
         var primary = GetColor("SystemAccentColorPrimary", Color.FromRgb(235, 193, 94));
         var secondary = GetColor("AccentFillColorSecondary", Color.FromRgb(255, 247, 200));
         var tertiary = GetColor("AccentFillColorTertiary", Color.FromRgb(255, 243, 131));
-        var knobOn = app.Resources["ToggleSwitchKnobFillOn"] is SolidColorBrush knob
-            ? knob.Color
-            : Colors.White;
+        var knobOn = GetColor("TextOnAccentFillColorPrimary", Colors.White);
 
         app.Resources["ToggleSwitchFillOn"] = new SolidColorBrush(primary);
         app.Resources["ToggleSwitchFillOnPointerOver"] = new SolidColorBrush(secondary);
