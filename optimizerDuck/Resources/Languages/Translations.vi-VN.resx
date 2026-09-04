@@ -1618,7 +1618,7 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
     <value>Chính sách bảo mật</value>
   </data>
   <data name="LegalDialog.Link.Disclaimer" xml:space="preserve">
-    <value>Tuyên bố miễn trách</value>
+    <value>Tuyên bố miễn trừ trách nhiệm</value>
   </data>
   <data name="LegalDialog.Language.Title" xml:space="preserve">
     <value>Ngôn ngữ</value>
