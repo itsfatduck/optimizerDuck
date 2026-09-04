@@ -378,8 +378,10 @@ public partial class SettingsViewModel(
     {
         if (!IsInitialized)
             return;
-        App.ApplyAccentFor(newValue);
+        // Theme first: ApplyAccentFor reads GetAppTheme() cache to pick
+        // AccentFillColorDefault (secondary for Dark, primary for Light).
         ApplicationThemeManager.Apply(newValue, updateAccent: false);
+        App.ApplyAccentFor(newValue);
 
         _ = SaveConfigAsync(
             async () =>

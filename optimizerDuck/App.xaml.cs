@@ -444,8 +444,8 @@ public partial class App : Application
 
         await Dispatcher.InvokeAsync(() =>
         {
-            ApplyAccentFor(appSettings.App.Theme);
-
+            // Theme first: ApplyAccentFor reads GetAppTheme() cache to pick
+            // AccentFillColorDefault (secondary for Dark, primary for Light).
             ApplicationThemeManager.Apply(
                 appSettings.App.Theme switch
                 {
@@ -455,6 +455,7 @@ public partial class App : Application
                 },
                 updateAccent: false
             );
+            ApplyAccentFor(appSettings.App.Theme);
 
             var mainWindow = _host.Services.GetRequiredService<MainWindow>();
             mainWindow.Closing += MainWindow_Closing;
