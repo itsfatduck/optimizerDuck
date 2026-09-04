@@ -385,6 +385,7 @@ public partial class SettingsViewModel(
     {
         if (!IsInitialized)
             return;
+        App.ApplyAccentFor(newValue);
         ApplicationThemeManager.Apply(newValue, updateAccent: false);
 
         _ = SaveConfigAsync(

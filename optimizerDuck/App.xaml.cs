@@ -153,6 +153,35 @@ public partial class App : Application
         _ = SafeFireAndForgetAsync(() => OnStartupAsync(e));
     }
 
+    /// <summary>
+    ///     Applies the duck-yellow accent palette tuned for the given theme. Light
+    ///     uses deeper honey tones so accent text and fills stay readable on white;
+    ///     dark keeps the brighter golden tones. Centralized so startup and theme
+    ///     switches always use the same palettes.
+    /// </summary>
+    internal static void ApplyAccentFor(ApplicationTheme theme)
+    {
+        if (theme == ApplicationTheme.Dark)
+        {
+            ApplicationAccentColorManager.Apply(
+                systemAccent: Color.FromRgb(216, 155, 29),
+                primaryAccent: Color.FromRgb(235, 193, 94),
+                secondaryAccent: Color.FromRgb(255, 247, 200),
+                tertiaryAccent: Color.FromRgb(255, 243, 131)
+            );
+            return;
+        }
+
+        // Light: same honey family, pushed darker so white text on accent
+        // passes contrast and buttons/fills read on white backgrounds.
+        ApplicationAccentColorManager.Apply(
+            systemAccent: Color.FromRgb(138, 94, 0),
+            primaryAccent: Color.FromRgb(154, 107, 0),
+            secondaryAccent: Color.FromRgb(166, 124, 0),
+            tertiaryAccent: Color.FromRgb(192, 138, 0)
+        );
+    }
+
     private static async Task SafeFireAndForgetAsync(Func<Task> taskFactory)
     {
         try
@@ -415,12 +444,7 @@ public partial class App : Application
 
         await Dispatcher.InvokeAsync(() =>
         {
-            ApplicationAccentColorManager.Apply(
-                systemAccent: Color.FromRgb(216, 155, 29),
-                primaryAccent: Color.FromRgb(235, 193, 94),
-                secondaryAccent: Color.FromRgb(255, 247, 200),
-                tertiaryAccent: Color.FromRgb(255, 243, 131)
-            );
+            ApplyAccentFor(appSettings.App.Theme);
 
             ApplicationThemeManager.Apply(
                 appSettings.App.Theme switch

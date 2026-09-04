@@ -82,6 +82,7 @@ public partial class LegalDialogViewModel(
     {
         if (!IsInitialized)
             return;
+        App.ApplyAccentFor(newValue);
         ApplicationThemeManager.Apply(newValue, updateAccent: false);
         _ = SafeFireAndForgetAsync(
             async () => await configManager.SetAsync(x => x.App.Theme, newValue),
