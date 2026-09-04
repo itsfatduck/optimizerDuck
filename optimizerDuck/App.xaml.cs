@@ -169,17 +169,44 @@ public partial class App : Application
                 secondaryAccent: Color.FromRgb(255, 247, 200),
                 tertiaryAccent: Color.FromRgb(255, 243, 131)
             );
+            RefreshToggleSwitchBrushes();
             return;
         }
 
-        // Light: same honey family, pushed darker so white text on accent
-        // passes contrast and buttons/fills read on white backgrounds.
         ApplicationAccentColorManager.Apply(
             systemAccent: Color.FromRgb(138, 94, 0),
             primaryAccent: Color.FromRgb(154, 107, 0),
             secondaryAccent: Color.FromRgb(166, 124, 0),
             tertiaryAccent: Color.FromRgb(192, 138, 0)
         );
+        RefreshToggleSwitchBrushes();
+    }
+
+    private static void RefreshToggleSwitchBrushes()
+    {
+        var app = Application.Current;
+        if (app == null)
+            return;
+
+        Color GetColor(string key, Color fallback) =>
+            app.Resources[key] is Color color ? color : fallback;
+
+        var primary = GetColor("SystemAccentColorPrimary", Color.FromRgb(235, 193, 94));
+        var secondary = GetColor("AccentFillColorSecondary", Color.FromRgb(255, 247, 200));
+        var tertiary = GetColor("AccentFillColorTertiary", Color.FromRgb(255, 243, 131));
+        var knobOn = app.Resources["ToggleSwitchKnobFillOn"] is SolidColorBrush knob
+            ? knob.Color
+            : Colors.White;
+
+        app.Resources["ToggleSwitchFillOn"] = new SolidColorBrush(primary);
+        app.Resources["ToggleSwitchFillOnPointerOver"] = new SolidColorBrush(secondary);
+        app.Resources["ToggleSwitchFillOnPressed"] = new SolidColorBrush(tertiary);
+        app.Resources["ToggleSwitchStrokeOn"] = new SolidColorBrush(primary);
+        app.Resources["ToggleSwitchStrokeOnPointerOver"] = new SolidColorBrush(secondary);
+        app.Resources["ToggleSwitchStrokeOnPressed"] = new SolidColorBrush(tertiary);
+        app.Resources["ToggleSwitchKnobFillOn"] = new SolidColorBrush(knobOn);
+        app.Resources["ToggleSwitchKnobFillOnPointerOver"] = new SolidColorBrush(knobOn);
+        app.Resources["ToggleSwitchKnobFillOnPressed"] = new SolidColorBrush(knobOn);
     }
 
     private static async Task SafeFireAndForgetAsync(Func<Task> taskFactory)
