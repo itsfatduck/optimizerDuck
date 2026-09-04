@@ -52,7 +52,7 @@ public class ConditionTests
                 BuildNumber = build,
                 Edition = "Pro",
                 Architecture = "64-bit",
-                DeviceType = "Desktop",
+                DeviceType = DeviceKind.Desktop,
                 InstallDate = "2024-01-01",
                 LastBootUpTime = "2024-01-01 00:00",
             },

@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -366,8 +367,15 @@ public partial class SettingsViewModel(
         if (value == Loc.CurrentCulture.Name)
             return;
 
-        // Apply the new culture immediately so the entire UI refreshes without restart.
-        Loc.Instance.ChangeCulture(new CultureInfo(value));
+        Mouse.OverrideCursor = Cursors.Wait;
+        try
+        {
+            Loc.Instance.ChangeCulture(new CultureInfo(value));
+        }
+        finally
+        {
+            Mouse.OverrideCursor = null;
+        }
     }
 
     partial void OnCurrentApplicationThemeChanged(

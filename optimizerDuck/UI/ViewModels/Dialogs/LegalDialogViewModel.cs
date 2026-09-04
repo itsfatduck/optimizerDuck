@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
+using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
@@ -62,8 +63,16 @@ public partial class LegalDialogViewModel(
         if (value == Loc.CurrentCulture.Name)
             return;
 
-        Loc.Instance.ChangeCulture(new CultureInfo(value));
-        logger.LogInformation("Language changed to {Language} from LegalDialog", value);
+        Mouse.OverrideCursor = Cursors.Wait;
+        try
+        {
+            Loc.Instance.ChangeCulture(new CultureInfo(value));
+            logger.LogInformation("Language changed to {Language} from LegalDialog", value);
+        }
+        finally
+        {
+            Mouse.OverrideCursor = null;
+        }
     }
 
     partial void OnCurrentApplicationThemeChanged(

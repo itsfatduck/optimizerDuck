@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -144,6 +145,24 @@ public partial class CustomizeItemViewModel(
             return;
 
         Options = options;
+    }
+
+    /// <summary>
+    ///     Re-publishes dropdown options so their display text re-resolves in the
+    ///     new language. Option values are unchanged; only <c>Display</c> refreshes.
+    /// </summary>
+    protected override void OnLanguageChanged(CultureInfo newCulture)
+    {
+        if (!_hasLoaded)
+            return;
+        try
+        {
+            Options = setting.Options;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Failed to refresh options after language change");
+        }
     }
 
     private static bool HasSameOptionValues(

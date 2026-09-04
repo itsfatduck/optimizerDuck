@@ -176,7 +176,7 @@
                                         Padding="6,2"
                                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
                                         CornerRadius="{StaticResource CornerRadiusSmall}">
-                                        <ui:TextBlock FontTypography="Caption" Text="{Binding ViewModel.SystemInfo.Os.DeviceType}" />
+                                        <ui:TextBlock FontTypography="Caption" Text="{Binding ViewModel.SystemInfo.Os.DeviceType, Converter={StaticResource DeviceKindConverter}}" />
                                     </Border>
                                     <Border
                                         Margin="0,0,4,4"

@@ -50,6 +50,22 @@ public enum CpuVendor
 }
 
 /// <summary>
+///     Specifies the device form factor inferred from chassis information.
+///     Stored raw (never localized) so the display text can re-resolve on language change.
+/// </summary>
+public enum DeviceKind
+{
+    /// <summary>Unknown or unrecognized device type.</summary>
+    Unknown,
+
+    /// <summary>Desktop, tower, or other stationary machine.</summary>
+    Desktop,
+
+    /// <summary>Laptop, notebook, or other portable machine.</summary>
+    Laptop,
+}
+
+/// <summary>
 ///     Represents information about a GPU.
 /// </summary>
 public sealed record GpuInfo
@@ -352,7 +368,7 @@ public sealed record OsInfo
         BuildNumber = Loc.Instance["Common.Unknown"],
         Edition = Loc.Instance["Common.Unknown"],
         Architecture = Loc.Instance["Common.Unknown"],
-        DeviceType = Loc.Instance["Common.Unknown"],
+        DeviceType = DeviceKind.Unknown,
         InstallDate = Loc.Instance["Common.Unknown"],
         LastBootUpTime = Loc.Instance["Common.Unknown"],
     };
@@ -383,9 +399,9 @@ public sealed record OsInfo
     public required string Architecture { get; init; }
 
     /// <summary>
-    ///     The device type inferred from chassis information (e.g., "Desktop", "Laptop").
+    ///     The device form factor inferred from chassis information.
     /// </summary>
-    public required string DeviceType { get; init; }
+    public required DeviceKind DeviceType { get; init; }
 
     /// <summary>
     ///     The OS install date.
@@ -2060,21 +2076,21 @@ internal static class OsProvider
         };
     }
 
-    private static string GetDeviceType()
+    private static DeviceKind GetDeviceType()
     {
         var chassis = WmiHelper.GetFirst("SELECT ChassisTypes FROM Win32_SystemEnclosure");
         if (chassis == null)
-            return "Unknown";
+            return DeviceKind.Unknown;
 
         try
         {
             return chassis["ChassisTypes"] is ushort[] { Length: > 0 } types
                 ? MapChassisType(types)
-                : "Unknown";
+                : DeviceKind.Unknown;
         }
         catch
         {
-            return "Unknown";
+            return DeviceKind.Unknown;
         }
         finally
         {
@@ -2082,13 +2098,13 @@ internal static class OsProvider
         }
     }
 
-    private static string MapChassisType(IEnumerable<ushort> types)
+    private static DeviceKind MapChassisType(IEnumerable<ushort> types)
     {
         foreach (var type in types)
             switch (type)
             {
                 case 8 or 9 or 10 or 11 or 14 or 30 or 31 or 32:
-                    return Loc.Instance["Dashboard.SystemInfo.Os.DeviceType.Laptop"];
+                    return DeviceKind.Laptop;
 
                 case >= 1
                 and <= 7
@@ -2098,10 +2114,10 @@ internal static class OsProvider
                 and <= 29
                 or >= 33
                 and <= 36:
-                    return Loc.Instance["Dashboard.SystemInfo.Os.DeviceType.Desktop"];
+                    return DeviceKind.Desktop;
             }
 
-        return Loc.Instance["Common.Unknown"];
+        return DeviceKind.Unknown;
     }
 
     private static string FormatWmiDateTime(string wmiDate)

@@ -41,6 +41,7 @@
     <converters:MBToGBConverter x:Key="MBToGBConverter" />
     <converters:MinusNumberConverter x:Key="MinusNumberConverter" />
     <converters:MinusNumberConverter x:Key="MinusOneConverter" NumberToMinus="1" />
+    <converters:DeviceKindConverter x:Key="DeviceKindConverter" />
 
     <!--  Theme & Recommendation Converters  -->
     <converters:ThemeToGitHubIconConverter x:Key="ThemeToGitHubIconConverter" />
