@@ -23,7 +23,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!-- Greeting, friendly, compact -->
+        <!--  Greeting, friendly, compact  -->
         <StackPanel Grid.Row="0">
             <ui:TextBlock
                 FontTypography="Subtitle"
@@ -31,24 +31,20 @@
                 TextWrapping="Wrap" />
             <ui:TextBlock
                 Margin="0,6,0,0"
-                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                 FontTypography="Body"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                 Text="{ext:Loc LegalDialog.Intro.Description}"
                 TextWrapping="Wrap" />
         </StackPanel>
 
-        <!-- Preferences: Language + Theme, reuse Settings cards (CardControl) -->
-        <StackPanel
-            Grid.Row="1"
-            Margin="0,16,0,0">
+        <!--  Preferences: Language + Theme, reuse Settings cards (CardControl)  -->
+        <StackPanel Grid.Row="1" Margin="0,16,0,0">
             <ui:TextBlock
                 Margin="0,0,0,8"
                 FontTypography="BodyStrong"
                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                 Text="{ext:Loc LegalDialog.Preferences.Header}" />
-            <ui:CardControl
-                Margin="0,0,0,4"
-                Icon="{ui:SymbolIcon Globe24}">
+            <ui:CardControl Margin="0,0,0,4" Icon="{ui:SymbolIcon Globe24}">
                 <ui:CardControl.Header>
                     <StackPanel>
                         <ui:TextBlock
@@ -61,8 +57,8 @@
                             TextWrapping="Wrap" />
                         <ui:TextBlock
                             Margin="0,4,0,0"
-                            FontTypography="Caption"
                             FontStyle="Italic"
+                            FontTypography="Caption"
                             Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                             Text="{ext:Loc LegalDialog.Language.Tip}"
                             TextWrapping="Wrap" />
@@ -76,9 +72,7 @@
                     SelectedValuePath="Culture.Name" />
             </ui:CardControl>
 
-            <ui:CardControl
-                Margin="0,0,0,4"
-                Icon="{ui:SymbolIcon Color24}">
+            <ui:CardControl Margin="0,0,0,4" Icon="{ui:SymbolIcon Color24}">
                 <ui:CardControl.Header>
                     <StackPanel>
                         <ui:TextBlock
@@ -91,8 +85,8 @@
                             TextWrapping="Wrap" />
                         <ui:TextBlock
                             Margin="0,4,0,0"
-                            FontTypography="Caption"
                             FontStyle="Italic"
+                            FontTypography="Caption"
                             Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                             Text="{ext:Loc LegalDialog.Theme.Tip}"
                             TextWrapping="Wrap" />
@@ -106,7 +100,7 @@
             </ui:CardControl>
         </StackPanel>
 
-        <!-- Legal links, compact toolbar style -->
+        <!--  Legal links, compact toolbar style  -->
         <Border
             Grid.Row="2"
             Margin="0,12,0,0"
@@ -117,23 +111,29 @@
                     VerticalContentAlignment="Center"
                     Content="{ext:Loc LegalDialog.Link.TermsOfService}"
                     FontWeight="SemiBold"
-                    Icon="{ui:SymbolIcon DocumentText24, FontSize=18, Filled=True}"
+                    Icon="{ui:SymbolIcon DocumentText24,
+                                         FontSize=18,
+                                         Filled=True}"
                     NavigateUri="https://github.com/itsfatduck/optimizerDuck/blob/master/TERMS.md" />
                 <ui:HyperlinkButton
                     Margin="0,0,8,0"
                     Content="{ext:Loc LegalDialog.Link.PrivacyPolicy}"
                     FontWeight="SemiBold"
-                    Icon="{ui:SymbolIcon ShieldLock24, FontSize=18, Filled=True}"
+                    Icon="{ui:SymbolIcon ShieldLock24,
+                                         FontSize=18,
+                                         Filled=True}"
                     NavigateUri="https://github.com/itsfatduck/optimizerDuck/blob/master/PRIVACY.md" />
                 <ui:HyperlinkButton
                     Content="{ext:Loc LegalDialog.Link.Disclaimer}"
                     FontWeight="SemiBold"
-                    Icon="{ui:SymbolIcon Warning24, FontSize=18, Filled=True}"
+                    Icon="{ui:SymbolIcon Warning24,
+                                         FontSize=18,
+                                         Filled=True}"
                     NavigateUri="https://github.com/itsfatduck/optimizerDuck/blob/master/DISCLAIMER.md" />
             </WrapPanel>
         </Border>
 
-        <!-- Extras, small, fluent supplements (compact like Settings About) -->
+        <!--  Extras, small, fluent supplements (compact like Settings About)  -->
         <Border
             Grid.Row="3"
             Margin="0,12,0,0"
@@ -146,9 +146,7 @@
                     FontTypography="Caption"
                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                     Text="{ext:Loc LegalDialog.Extras.Header}" />
-                <UniformGrid
-                    Columns="2"
-                    Rows="1">
+                <UniformGrid Columns="2" Rows="1">
                     <ui:CardAction
                         Margin="0,0,4,0"
                         Padding="12,10"
@@ -157,7 +155,7 @@
                         Cursor="Hand"
                         IsChevronVisible="False">
                         <ui:CardAction.Icon>
-                            <ui:ImageIcon Height="16" Source="{Binding CurrentApplicationTheme, Converter={StaticResource ThemeToGitHubIconConverter}}" />
+                            <ui:ImageIcon Height="20" Source="{Binding CurrentApplicationTheme, Converter={StaticResource ThemeToGitHubIconConverter}}" />
                         </ui:CardAction.Icon>
                         <StackPanel>
                             <ui:TextBlock
@@ -204,9 +202,7 @@
                         Cursor="Hand"
                         IsChevronVisible="False">
                         <ui:CardAction.Icon>
-                            <ui:ImageIcon
-                                Height="16"
-                                Source="pack://application:,,,/Resources/Images/DiscordLogo.png" />
+                            <ui:ImageIcon Height="16" Source="pack://application:,,,/Resources/Images/DiscordLogo.png" />
                         </ui:CardAction.Icon>
                         <StackPanel>
                             <ui:TextBlock
