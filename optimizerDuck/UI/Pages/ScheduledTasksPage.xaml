@@ -197,9 +197,12 @@
                                     VerticalAlignment="Center">
                                     <!--  Row 1: Name + State badge  -->
                                     <DockPanel LastChildFill="False">
-                                        <ui:TextBlock FontTypography="BodyStrong" Text="{Binding Name}" />
+                                        <ui:TextBlock FontTypography="BodyStrong"
+                                            VerticalAlignment="Center"
+                                                      Text="{Binding Name}" />
                                         <controls:TaskStateBadge
                                             Margin="8,0,0,0"
+                                            VerticalAlignment="Bottom"
                                             IsDisabledState="{Binding IsDisabledState}"
                                             IsReady="{Binding IsReady}"
                                             IsRunning="{Binding IsRunning}"

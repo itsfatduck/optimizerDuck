@@ -6,7 +6,7 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     x:Name="TaskStateRoot">
     <Border
-        Padding="6,1"
+        Padding="6,2"
         VerticalAlignment="Center"
         CornerRadius="{StaticResource CornerRadiusSmall}">
         <Border.Style>
