@@ -48,7 +48,7 @@
                             Style="{StaticResource SubtlePillStyle}">
                             <ui:TextBlock
                                 VerticalAlignment="Center"
-                                Appearance="Tertiary"
+                                Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                                 FontTypography="Caption"
                                 Text="{ext:Loc ScheduledTasks.Header.Title}" />
                         </Border>
@@ -62,7 +62,7 @@
 
                     <ui:TextBlock
                         Margin="0,4,0,0"
-                        Appearance="Secondary"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                         FontTypography="Caption"
                         Text="{Binding Description}"
                         TextWrapping="Wrap"
@@ -101,7 +101,7 @@
                         Symbol="Person24" />
                     <StackPanel Grid.Column="1">
                         <ui:TextBlock
-                            Appearance="Secondary"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                             FontTypography="Caption"
                             Text="{ext:Loc ScheduledTasks.Details.Author}" />
                         <ui:TextBlock
@@ -127,7 +127,7 @@
                         Symbol="Timer24" />
                     <StackPanel Grid.Column="1">
                         <ui:TextBlock
-                            Appearance="Secondary"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                             FontTypography="Caption"
                             Text="{ext:Loc ScheduledTasks.Details.Triggers}" />
                         <ui:TextBlock
@@ -154,7 +154,7 @@
                         Symbol="Play24" />
                     <StackPanel Grid.Column="1">
                         <ui:TextBlock
-                            Appearance="Secondary"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                             FontTypography="Caption"
                             Text="{ext:Loc ScheduledTasks.Details.Action}" />
                         <ui:TextBlock
@@ -192,7 +192,7 @@
                         Symbol="History24" />
                     <StackPanel Grid.Column="1" Margin="0,0,16,0">
                         <ui:TextBlock
-                            Appearance="Secondary"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                             FontTypography="Caption"
                             Text="{ext:Loc ScheduledTasks.Details.LastRun}" />
                         <ui:TextBlock
@@ -211,7 +211,7 @@
                         Symbol="CalendarArrowRight24" />
                     <StackPanel Grid.Column="3">
                         <ui:TextBlock
-                            Appearance="Secondary"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                             FontTypography="Caption"
                             Text="{ext:Loc ScheduledTasks.Details.NextRun}" />
                         <ui:TextBlock
@@ -236,7 +236,7 @@
                         Symbol="CheckmarkCircle24" />
                     <StackPanel Grid.Column="1">
                         <ui:TextBlock
-                            Appearance="Secondary"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                             FontTypography="Caption"
                             Text="{ext:Loc ScheduledTasks.Details.LastResult}" />
                         <ui:TextBlock

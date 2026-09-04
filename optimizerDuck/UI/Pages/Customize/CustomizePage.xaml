@@ -77,8 +77,8 @@
                                     TextWrapping="Wrap" />
                                 <ui:TextBlock
                                     Grid.Row="1"
-                                    Appearance="Secondary"
                                     FontTypography="Body"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                     Text="{Binding Description}"
                                     TextWrapping="Wrap" />
                             </StackPanel>

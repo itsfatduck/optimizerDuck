@@ -85,7 +85,7 @@
                                             Style="{StaticResource SubtlePillStyle}">
                                             <ui:TextBlock
                                                 VerticalAlignment="Center"
-                                                Appearance="Tertiary"
+                                                Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                                                 FontTypography="Body"
                                                 Text="{Binding Package.Version}" />
                                         </Border>

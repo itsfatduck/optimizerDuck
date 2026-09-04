@@ -102,7 +102,7 @@
                                         CornerRadius="4">
                                         <ui:TextBlock
                                             VerticalAlignment="Center"
-                                            Appearance="Tertiary"
+                                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                                             FontTypography="Caption"
                                             Text="{ext:Loc StartupManager.Apps.CountSuffix,
                                                            {Binding ViewModel.Apps.Count}}" />
@@ -227,7 +227,7 @@
                                                                 Style="{StaticResource SubtlePillStyle}">
                                                                 <ui:TextBlock
                                                                     VerticalAlignment="Center"
-                                                                    Appearance="Tertiary"
+                                                                    Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                                                                     FontTypography="Caption"
                                                                     Text="{Binding LocationDisplay}" />
                                                             </Border>
@@ -280,7 +280,7 @@
                                         Style="{StaticResource SubtlePillStyle}">
                                         <ui:TextBlock
                                             VerticalAlignment="Center"
-                                            Appearance="Tertiary"
+                                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                                             FontTypography="Caption"
                                             Text="{ext:Loc StartupManager.Tasks.CountSuffix,
                                                            {Binding ViewModel.Tasks.Count}}" />

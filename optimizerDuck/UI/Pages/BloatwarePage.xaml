@@ -275,7 +275,7 @@
                                                 <!--  Version  -->
                                                 <ui:TextBlock
                                                     VerticalAlignment="Center"
-                                                    Appearance="Tertiary"
+                                                    Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                                                     FontTypography="Body"
                                                     Text="{Binding Version}" />
                                             </Border>

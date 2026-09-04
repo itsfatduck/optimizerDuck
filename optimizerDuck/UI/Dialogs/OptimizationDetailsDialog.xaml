@@ -57,7 +57,7 @@
                                         Symbol="{Binding Icon}" />
                                     <ui:TextBlock
                                         VerticalAlignment="Center"
-                                        Appearance="Secondary"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                         FontTypography="Caption"
                                         Text="{Binding Display}" />
                                 </StackPanel>
@@ -110,7 +110,7 @@
                     FontTypography="BodyStrong"
                     Text="{ext:Loc OptimizationDetailsDialog.DetailedDescription}" />
                 <ui:TextBlock
-                    Appearance="Secondary"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                     FontTypography="Body"
                     Text="{Binding Optimization.ShortDescription}"
                     TextWrapping="Wrap" />
@@ -138,7 +138,7 @@
                     <ui:TextBlock
                         Grid.Column="0"
                         VerticalAlignment="Center"
-                        Appearance="Secondary"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                         Text="{ext:Loc OptimizationDetailsDialog.Id}" />
                     <ui:TextBlock
                         Grid.Column="1"
@@ -156,7 +156,7 @@
                     <ui:TextBlock
                         Grid.Column="0"
                         VerticalAlignment="Center"
-                        Appearance="Secondary"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                         Text="{ext:Loc OptimizationDetailsDialog.Class}" />
                     <ui:TextBlock
                         Grid.Column="1"
@@ -184,7 +184,7 @@
                     Text="{ext:Loc OptimizationDetailsDialog.Other.ViewSource.Title}"
                     TextWrapping="Wrap" />
                 <ui:TextBlock
-                    Appearance="Secondary"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                     FontTypography="Body"
                     Text="{ext:Loc OptimizationDetailsDialog.Other.ViewSource.Description}"
                     TextWrapping="Wrap" />
@@ -202,7 +202,7 @@
                     Text="{ext:Loc OptimizationDetailsDialog.Other.OpenRevertFile.Title}"
                     TextWrapping="Wrap" />
                 <ui:TextBlock
-                    Appearance="Secondary"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                     FontTypography="Body"
                     Text="{ext:Loc OptimizationDetailsDialog.Other.OpenRevertFile.Description}"
                     TextWrapping="Wrap" />

@@ -33,7 +33,7 @@
 
             <ui:TextBlock
                 Margin="0,4,0,12"
-                Appearance="Secondary"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                 FontTypography="Body"
                 Text="{ext:Loc OptimizationResultDialog.Description}"
                 TextWrapping="Wrap" />
