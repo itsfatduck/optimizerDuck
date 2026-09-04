@@ -4,8 +4,6 @@ using optimizerDuck.Common.Extensions;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.Revert.Steps;
-using optimizerDuck.Resources.Languages;
-using optimizerDuck.Services.Configuration;
 
 namespace optimizerDuck.Services.Optimization.Providers;
 
@@ -135,11 +133,11 @@ public static class ServiceProcessService
     {
         _lastError.Value = _lastErrorDetail.Value = null;
 
-        var description = Loc.Invariant[
-            "Service.Service.Description.Change",
+        var description = ServiceStrings.Format(
+            ServiceStrings.ServiceDescriptionChange,
             item.Name,
             item.StartupType
-        ];
+        );
         var sw = Stopwatch.StartNew();
 
         try
@@ -149,18 +147,13 @@ public static class ServiceProcessService
             if (notFound)
             {
                 sw.Stop();
-                var skipDescription = Loc.Invariant[
-                    "Service.Service.Info.SkippedNotFound",
+                var skipDescription = ServiceStrings.Format(
+                    ServiceStrings.ServiceInfoSkippedNotFound,
                     item.Name
-                ];
+                );
                 ExecutionScope.LogInfo("[SERVICE][{Name}] not found, skipping", item.Name);
                 ExecutionScope.Track(nameof(ChangeServiceStartupTypeAsync), true);
-                ExecutionScope.RecordStep(
-                    Loc.Invariant["Service.Service.Name"],
-                    skipDescription,
-                    true,
-                    null
-                );
+                ExecutionScope.RecordStep(ServiceStrings.ServiceName, skipDescription, true, null);
                 return ServiceChangeResult.NotFound;
             }
 
@@ -174,7 +167,7 @@ public static class ServiceProcessService
                 );
                 ExecutionScope.Track(nameof(ChangeServiceStartupTypeAsync), false);
                 ExecutionScope.RecordStep(
-                    Loc.Invariant["Service.Service.Name"],
+                    ServiceStrings.ServiceName,
                     description,
                     false,
                     null,
@@ -188,11 +181,11 @@ public static class ServiceProcessService
             if (originalStartupType.Value == item.StartupType)
             {
                 sw.Stop();
-                var alreadyDescription = Loc.Invariant[
-                    "Service.Service.Info.AlreadyConfigured",
+                var alreadyDescription = ServiceStrings.Format(
+                    ServiceStrings.ServiceInfoAlreadyConfigured,
                     item.Name,
                     item.StartupType
-                ];
+                );
                 ExecutionScope.LogInfo(
                     "[SERVICE][{Name}] already {StartupType}, skipping",
                     item.Name,
@@ -200,7 +193,7 @@ public static class ServiceProcessService
                 );
                 ExecutionScope.Track(nameof(ChangeServiceStartupTypeAsync), true);
                 ExecutionScope.RecordStep(
-                    Loc.Invariant["Service.Service.Name"],
+                    ServiceStrings.ServiceName,
                     alreadyDescription,
                     true,
                     null
@@ -248,7 +241,7 @@ public static class ServiceProcessService
 
                 ExecutionScope.Track(nameof(ChangeServiceStartupTypeAsync), true);
                 ExecutionScope.RecordStep(
-                    Loc.Invariant["Service.Service.Name"],
+                    ServiceStrings.ServiceName,
                     description,
                     true,
                     revertStep
@@ -258,26 +251,21 @@ public static class ServiceProcessService
 
             if (exitCode == ErrorAccessDenied)
             {
-                _lastError.Value = Loc.Invariant[
-                    "Service.Service.Info.SkippedAccessDenied",
+                _lastError.Value = ServiceStrings.Format(
+                    ServiceStrings.ServiceInfoSkippedAccessDenied,
                     item.Name
-                ];
+                );
                 ExecutionScope.LogInfo(
                     "[SERVICE][{Name}][SKIP][D={Duration}] access denied, Windows protects this service",
                     item.Name,
                     sw.Elapsed.FormatTime()
                 );
                 ExecutionScope.Track(nameof(ChangeServiceStartupTypeAsync), true);
-                ExecutionScope.RecordStep(
-                    Loc.Invariant["Service.Service.Name"],
-                    _lastError.Value,
-                    true,
-                    null
-                );
+                ExecutionScope.RecordStep(ServiceStrings.ServiceName, _lastError.Value, true, null);
                 return ServiceChangeResult.AccessDenied;
             }
 
-            _lastError.Value = Loc.Invariant["Service.Service.Error.ChangeStartupTypeFailed"];
+            _lastError.Value = ServiceStrings.ServiceErrorChangeStartupTypeFailed;
             ExecutionScope.LogInfo(
                 "[SERVICE][{Name}][FAIL][D={Duration}] startup -> {StartupType}",
                 item.Name,
@@ -286,7 +274,7 @@ public static class ServiceProcessService
             );
             ExecutionScope.Track(nameof(ChangeServiceStartupTypeAsync), false);
             ExecutionScope.RecordStep(
-                Loc.Invariant["Service.Service.Name"],
+                ServiceStrings.ServiceName,
                 description,
                 false,
                 null,
@@ -298,11 +286,11 @@ public static class ServiceProcessService
         }
         catch (Exception ex)
         {
-            _lastError.Value = Loc.Invariant[
-                "Service.Service.Error.ExceptionOccurred",
+            _lastError.Value = ServiceStrings.Format(
+                ServiceStrings.ServiceErrorExceptionOccurred,
                 item.Name,
                 ex.Message
-            ];
+            );
             _lastErrorDetail.Value = ex.ToString();
 
             ExecutionScope.LogError(
@@ -313,7 +301,7 @@ public static class ServiceProcessService
             );
             ExecutionScope.Track(nameof(ChangeServiceStartupTypeAsync), false);
             ExecutionScope.RecordStep(
-                Loc.Invariant["Service.Service.Name"],
+                ServiceStrings.ServiceName,
                 description,
                 false,
                 null,

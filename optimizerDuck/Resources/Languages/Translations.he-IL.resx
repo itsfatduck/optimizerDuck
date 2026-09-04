@@ -205,18 +205,6 @@
   <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
     <value>תנו כוכב למאגר ב-GitHub, שתפו אותו עם חברים או תרמו - כל תרומה עוזרת לפרויקט לצמוח!</value>
   </data>
-  <data name="Service.Registry.Description.CreateKey" xml:space="preserve">
-    <value>יצירת מפתח רישום {0}</value>
-  </data>
-  <data name="Service.Registry.Description.DeleteKey" xml:space="preserve">
-    <value>מחיקת מפתח רישום {0}</value>
-  </data>
-  <data name="Settings.LanguageChanged.Title" xml:space="preserve">
-    <value>שינוי שפה</value>
-  </data>
-  <data name="Settings.LanguageChanged.Description" xml:space="preserve">
-    <value>יש להפעיל מחדש את היישום כדי להחיל את השפה החדשה.</value>
-  </data>
   <data name="Button.Ok" xml:space="preserve">
     <value>אישור</value>
   </data>
@@ -277,9 +265,6 @@
   <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
     <value>תיאור מפורט</value>
   </data>
-  <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
-    <value>תגיות</value>
-  </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
     <value>מעלה את סף פיצול מארח השירותים לסך הזיכרון של המערכת, ושומר על שירותים מאוחדים בפחות תהליכים כדי להפחית את צריכת הזיכרון ואת מספר התהליכים.</value>
   </data>
@@ -291,9 +276,6 @@
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ActivateFailed" xml:space="preserve">
     <value>הפעלת תוכנית צריכת החשמל של optimizerDuck נכשלה.</value>
-  </data>
-  <data name="Optimizer.UI.Risk.Help" xml:space="preserve">
-    <value>ערך זה משקף את רמת ההתערבות ואת מידת הבטיחות של תהליך המיטוב. יש לנהוג בזהירות ולשקול היטב לפני החלת מיטוב כלשהו.</value>
   </data>
   <data name="Optimizer.UI.Tags.System" xml:space="preserve">
     <value>מערכת</value>
@@ -316,9 +298,6 @@
   <data name="Optimizer.UI.Tags.Audio" xml:space="preserve">
     <value>שמע</value>
   </data>
-  <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
-    <value>תגיות אלה מציינות אילו חלקים במערכת יושפעו מהמיטוב.</value>
-  </data>
 <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
     <value>NVIDIA</value>
   </data>
@@ -332,9 +311,6 @@
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
     <value>צריכת חשמל</value>
   </data>
-  <data name="Revert.Error.InvalidData" xml:space="preserve">
-    <value>נתוני ביטול לא תקינים עבור {0}: {1}</value>
-  </data>
   <data name="Revert.Error.NoDataFound" xml:space="preserve">
     <value>לא נמצאו נתוני ביטול עבור {0}.</value>
   </data>
@@ -347,14 +323,8 @@
   <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
     <value>{0} בוטל עם {1} שלבים שנכשלו.</value>
   </data>
-  <data name="Revert.Error.RevertFailed" xml:space="preserve">
-    <value>ביטול {0} נכשל: {1}</value>
-  </data>
   <data name="Optimization.Revert.ExecutingStep" xml:space="preserve">
     <value>מבצע שלב ביטול: {0}/{1} ({2})</value>
-  </data>
-  <data name="Optimization.Revert.StepDescription" xml:space="preserve">
-    <value>שלב ביטול מס' {0}</value>
   </data>
   <data name="Revert.Registry.Description.RestoreKey" xml:space="preserve">
     <value>שחזור מפתח רישום: {0}</value>
@@ -365,38 +335,14 @@
   <data name="Revert.Registry.Description.RevertUnknown" xml:space="preserve">
     <value>ביטול רישום: {0}</value>
   </data>
-  <data name="Revert.Error.FileNotFound" xml:space="preserve">
-    <value>קובץ הביטול לא נמצא</value>
-  </data>
-  <data name="Revert.Error.FileEmpty" xml:space="preserve">
-    <value>קובץ הביטול ריק</value>
-  </data>
-  <data name="Revert.Error.ReadFailed" xml:space="preserve">
-    <value>קריאת נתוני הביטול נכשלה: {0}</value>
-  </data>
-  <data name="Revert.Error.InvalidJson" xml:space="preserve">
-    <value>נתוני ביטול לא תקינים</value>
-  </data>
-  <data name="Revert.Error.InvalidJsonFormat" xml:space="preserve">
-    <value>תבנית JSON לא תקינה: {0}</value>
-  </data>
   <data name="Revert.Error.NoSteps" xml:space="preserve">
     <value>לא נמצאו שלבי ביטול.</value>
-  </data>
-  <data name="Revert.Error.InvalidSteps" xml:space="preserve">
-    <value>שלבי ביטול לא תקינים: {0}</value>
   </data>
   <data name="Revert.Error.StepFailed" xml:space="preserve">
     <value>שלב הביטול נכשל</value>
   </data>
   <data name="Revert.UsbPower.Description" xml:space="preserve">
     <value>שחזור מצבי צריכת החשמל של USB selective suspend</value>
-  </data>
-  <data name="Service.Registry.Error.BackupTruncated" xml:space="preserve">
-    <value>תת-עץ הרישום גדול מדי לגיבוי בטוח; המחיקה בוטלה עבור {0}</value>
-  </data>
-  <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
-    <value>אי-התאמה במזהה המיטוב (OptimizationId).</value>
   </data>
   <data name="Optimization.Apply.Processing" xml:space="preserve">
     <value>מחיל שינויים...</value>
@@ -415,51 +361,6 @@
   </data>
   <data name="Optimization.Apply.Error.Unknown" xml:space="preserve">
     <value>תוצאה לא ידועה עבור {0}.</value>
-  </data>
-  <data name="Service.Common.Error.AccessDenied" xml:space="preserve">
-    <value>הגישה נדחתה</value>
-  </data>
-  <data name="Service.Registry.Error.AccessDeniedProtectedHive" xml:space="preserve">
-    <value>הגישה נדחתה (hive מוגן)</value>
-  </data>
-  <data name="Service.Registry.Error.UnauthorizedAccess" xml:space="preserve">
-    <value>גישה לא מורשית</value>
-  </data>
-  <data name="Service.Registry.Error.CreateOrOpenSubkeyFailed" xml:space="preserve">
-    <value>יצירת/פתיחת מפתח משנה נכשלה</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedWrite" xml:space="preserve">
-    <value>הגישה נדחתה בכתיבת {0}:{1}</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedDelete" xml:space="preserve">
-    <value>הגישה נדחתה במחיקת {0}:{1}</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedCreateKey" xml:space="preserve">
-    <value>הגישה נדחתה ביצירת {0}</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedDeleteKeyTree" xml:space="preserve">
-    <value>הגישה נדחתה במחיקת עץ המפתחות {0}</value>
-  </data>
-  <data name="Service.Service.Error.NotFound" xml:space="preserve">
-    <value>השירות לא נמצא</value>
-  </data>
-  <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
-    <value>השירות '{0}' לא נמצא (דילוג)</value>
-  </data>
-  <data name="Service.Service.Info.AlreadyConfigured" xml:space="preserve">
-    <value>השירות '{0}' כבר מוגדר ל-{1} (דילוג)</value>
-  </data>
-  <data name="Service.Service.Info.SkippedAccessDenied" xml:space="preserve">
-    <value>הגישה לשירות '{0}' נדחתה על ידי Windows (דילוג)</value>
-  </data>
-  <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
-    <value>שינוי סוג ההפעלה של השירות נכשל</value>
-  </data>
-  <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
-    <value>ChangeStartMode נכשל (קוד: {0})</value>
-  </data>
-  <data name="Service.Service.Error.ExceptionOccurred" xml:space="preserve">
-    <value>שינוי השירות '{0}' נכשל: {1}</value>
   </data>
   <data name="Service.Shell.Error.ExitCode" xml:space="preserve">
     <value>קוד יציאה {0}</value>
@@ -523,9 +424,6 @@
   </data>
   <data name="Settings.Appearance.SmoothScrolling.Description" xml:space="preserve">
     <value>הפעלת אנימציית גלילה חלקה לחוויית גלילה זורמת יותר. יש לכבות אם מורגשת השהיה.</value>
-  </data>
-  <data name="Button.Open" xml:space="preserve">
-    <value>פתח</value>
   </data>
   <data name="Settings.About.Header" xml:space="preserve">
     <value>אודות</value>
@@ -1054,9 +952,6 @@
   <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
     <value>אין לשנות אלא אם ידוע לך בדיוק מה אתה עושה</value>
   </data>
-  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DownloadFailed" xml:space="preserve">
-    <value>הורדת תוכנית צריכת החשמל של optimizerDuck נכשלה.</value>
-  </data>
   <data name="Settings.About.Acknowledgements.Title" xml:space="preserve">
     <value>תודות</value>
   </data>
@@ -1110,9 +1005,6 @@
   <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
     <value>לא ניתן לפתוח את התיקייה או הקובץ</value>
   </data>
-  <data name="Button.ViewLatestRelease" xml:space="preserve">
-    <value>הצג את הגרסה האחרונה</value>
-  </data>
   <data name="BloatwareDialog.Title" xml:space="preserve">
     <value>מסיר {0} חבילות AppX</value>
   </data>
@@ -1146,9 +1038,6 @@
   <data name="BloatwareDialog.Confirmation.Title" xml:space="preserve">
     <value>להסיר {0} אפליקציות?</value>
   </data>
-  <data name="BloatwareDialog.Confirmation.Message" xml:space="preserve">
-    <value>עומדים להסיר: {0}</value>
-  </data>
   <data name="BloatwareDialog.Confirmation.Description" xml:space="preserve">
     <value>יש לעיין באפליקציות שנבחרו לפני ההסרה. יש להמשיך רק אם אתה בטוח.</value>
   </data>
@@ -1174,9 +1063,6 @@
   <data name="Common.Filter.All" xml:space="preserve">
     <value>הכול</value>
   </data>
-  <data name="Common.SortBy.Default" xml:space="preserve">
-    <value>ברירת מחדל</value>
-  </data>
   <data name="Common.SortBy.Name" xml:space="preserve">
     <value>שם</value>
   </data>
@@ -1192,12 +1078,6 @@
   <data name="Common.SortBy.Path" xml:space="preserve">
     <value>נתיב</value>
   </data>
-  <data name="Optimizer.Menu.ApplyAllSafe" xml:space="preserve">
-    <value>החל את כל הבטוחים</value>
-  </data>
-  <data name="Optimizer.Menu.ApplyAll" xml:space="preserve">
-    <value>החל הכול</value>
-  </data>
   <data name="Optimizer.Menu.ViewSource" xml:space="preserve">
     <value>הצג מקור</value>
   </data>
@@ -1209,12 +1089,6 @@
   </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
     <value>הסתר שהוחלו</value>
-  </data>
-  <data name="Optimizer.Menu.ApplyMenu" xml:space="preserve">
-    <value>החל</value>
-  </data>
-  <data name="Optimizer.Menu.BatchApply.Title" xml:space="preserve">
-    <value>מחיל מיטובים</value>
   </data>
   <data name="Bloatware.Search.NoResults" xml:space="preserve">
     <value>לא נמצאו תוצאות. יש לנסות מונח חיפוש או מסנן אחר.</value>
@@ -1245,9 +1119,6 @@
   </data>
   <data name="DiskCleanup.Button.DeselectAll" xml:space="preserve">
     <value>בטל בחירת הכול</value>
-  </data>
-  <data name="DiskCleanup.Scanning" xml:space="preserve">
-    <value>סורק...</value>
   </data>
   <data name="DiskCleanup.Loading" xml:space="preserve">
     <value>טוען פריטי ניקוי...</value>
@@ -1324,12 +1195,6 @@
   <data name="Bloatware.Header.Description" xml:space="preserve">
     <value>ניהול והסרה של אפליקציות מותקנות מראש שאינך צריך</value>
   </data>
-  <data name="Dashboard.SystemInfo.Header" xml:space="preserve">
-    <value>פרטי מערכת</value>
-  </data>
-  <data name="DiskCleanup.ItemsSelected" xml:space="preserve">
-    <value>{0} ({1} פריטים נבחרו)</value>
-  </data>
   <data name="DiskCleanup.Button.Clean" xml:space="preserve">
     <value>נקה</value>
   </data>
@@ -1368,9 +1233,6 @@
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
     <value>הצג מקור ב-GitHub</value>
-  </data>
-  <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
-    <value>רמת סיכון</value>
   </data>
   <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
     <value>פרטים טכניים</value>
@@ -1423,9 +1285,6 @@
   <data name="Common.SortBy.Status" xml:space="preserve">
     <value>סטטוס</value>
   </data>
-  <data name="Common.Status.Applied" xml:space="preserve">
-    <value>הוחל</value>
-  </data>
   <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
     <value>פתח הגדרות</value>
   </data>
@@ -1453,9 +1312,6 @@
   <data name="ScheduledTasks.HideMicrosoft" xml:space="preserve">
     <value>הסתר משימות Microsoft</value>
   </data>
-  <data name="ScheduledTasks.Menu.CreateTask" xml:space="preserve">
-    <value>צור משימה</value>
-  </data>
   <!-- Scheduled Tasks Actions -->
   <data name="ScheduledTasks.Action.Details" xml:space="preserve">
     <value>הצג פרטים</value>
@@ -1473,9 +1329,6 @@
   <data name="ScheduledTasks.Dialog.DeleteTitle" xml:space="preserve">
     <value>מחיקת משימה מתוזמנת</value>
   </data>
-  <data name="ScheduledTasks.Dialog.DeleteMessage" xml:space="preserve">
-    <value>האם אתה בטוח שברצונך למחוק את המשימה "{0}"? לא ניתן לבטל פעולה זו.</value>
-  </data>
   <!-- Scheduled Tasks Details -->
   <data name="ScheduledTasks.Details.Path" xml:space="preserve">
     <value>נתיב</value>
@@ -1485,9 +1338,6 @@
   </data>
   <data name="ScheduledTasks.Details.Author" xml:space="preserve">
     <value>יוצר</value>
-  </data>
-  <data name="ScheduledTasks.Details.State" xml:space="preserve">
-    <value>מצב</value>
   </data>
   <data name="ScheduledTasks.Details.Triggers" xml:space="preserve">
     <value>מפעילים</value>
@@ -1547,12 +1397,6 @@
   <data name="ScheduledTasks.Snackbar.Delete.Message" xml:space="preserve">
     <value>{0} נמחקה.</value>
   </data>
-  <data name="ScheduledTasks.Snackbar.Create.Title" xml:space="preserve">
-    <value>המשימה נוצרה</value>
-  </data>
-  <data name="ScheduledTasks.Snackbar.Create.Message" xml:space="preserve">
-    <value>{0} נוצרה בהצלחה.</value>
-  </data>
   <data name="ScheduledTasks.Snackbar.Error.Title" xml:space="preserve">
 
     <value>שגיאה</value>
@@ -1563,39 +1407,6 @@
   <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
       <value>המשימה לא נמצאה: {0}</value>
     </data>
-  <data name="Service.Registry.Name" xml:space="preserve">
-    <value>רישום</value>
-  </data>
-  <data name="Service.Service.Name" xml:space="preserve">
-    <value>שירות</value>
-  </data>
-  <data name="Service.ScheduledTask.Name" xml:space="preserve">
-    <value>משימה מתוזמנת</value>
-  </data>
-  <data name="Service.Shell.Name" xml:space="preserve">
-    <value>Shell</value>
-  </data>
-  <data name="Service.Registry.Description.Write" xml:space="preserve">
-    <value>כתיבת ערך רישום: {0}\{1}</value>
-  </data>
-  <data name="Service.Registry.Description.Delete" xml:space="preserve">
-    <value>מחיקת ערך רישום: {0}\{1}</value>
-  </data>
-  <data name="Service.Service.Description.Change" xml:space="preserve">
-    <value>שינוי הפעלת השירות '{0}' ל-{1}</value>
-  </data>
-  <data name="Service.ScheduledTask.Description.Enable" xml:space="preserve">
-    <value>הפעלת משימה מתוזמנת: {0}</value>
-  </data>
-  <data name="Service.ScheduledTask.Description.Disable" xml:space="preserve">
-    <value>השבתת משימה מתוזמנת: {0}</value>
-  </data>
-  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedDisable" xml:space="preserve">
-    <value>הגישה נדחתה בהשבתת המשימה {0}</value>
-  </data>
-  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedEnable" xml:space="preserve">
-    <value>הגישה נדחתה בהפעלת המשימה {0}</value>
-  </data>
   <data name="Revert.Registry.Description.Restore" xml:space="preserve">
     <value>שחזור ערך רישום: {0}\{1}</value>
   </data>
@@ -1742,15 +1553,6 @@
   </data>
   <data name="LegalDialog.Title" xml:space="preserve">
     <value>הסכם משפטי</value>
-  </data>
-  <data name="LegalDialog.Intro.ThankYou" xml:space="preserve">
-    <value>תודה שבחרת ב-optimizerDuck.</value>
-  </data>
-  <data name="LegalDialog.Intro.Safety" xml:space="preserve">
-    <value>כדי להבטיח שקיפות ואת בטיחותך, optimizerDuck עשוי לשנות הגדרות מערכת ותצורות רישום מסוימות.</value>
-  </data>
-  <data name="LegalDialog.Intro.Review" xml:space="preserve">
-    <value>אנא הקדש רגע לעיון במסמכים הבאים. המשך השימוש מהווה הסכמה לתנאים אלה.</value>
   </data>
   <data name="LegalDialog.Intro.Title" xml:space="preserve">
     <value>ברוכים הבאים ל-optimizerDuck!</value>
@@ -1925,12 +1727,6 @@
   <data name="DiskCleanup.Dialog.Confirmation.Summary" xml:space="preserve">
     <value>אתה עומד למחוק {0} מתוך {1} פריט(ים) ({2} קבצים). אנא בדוק את הפריטים למטה.</value>
   </data>
-  <data name="DiskCleanup.Dialog.Confirmation.SingleTitle" xml:space="preserve">
-    <value>ניקוי פריט</value>
-  </data>
-  <data name="DiskCleanup.Dialog.Confirmation.SingleItem" xml:space="preserve">
-    <value>אתה עומד למחוק {0} ({1}). אנא אשר.</value>
-  </data>
   <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
     <value>מחיקת משימה מתוזמנת היא לצמיתות. המשימה לא תתבצע יותר באופן אוטומטי.</value>
   </data>
@@ -2080,9 +1876,6 @@
   </data>
   <data name="Customize.UI.UnsupportedSettings.Header" xml:space="preserve">
     <value>הגדרות לא נתמכות ({0})</value>
-  </data>
-  <data name="Customize.UI.UnsupportedSettings.Badge" xml:space="preserve">
-    <value>לא נתמך</value>
   </data>
   <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
     <value>חלק מההגדרות אינן זמינות במערכת הנוכחית שלך.</value>

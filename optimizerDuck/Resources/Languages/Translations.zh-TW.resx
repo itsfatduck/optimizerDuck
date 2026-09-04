@@ -128,12 +128,6 @@
   <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
     <value>在 GitHub 上給這專案星星，與朋友分享，或是贊助，每一點幫助都能讓這個專案成長！</value>
   </data>
-  <data name="Settings.LanguageChanged.Title" xml:space="preserve">
-    <value>語言變更</value>
-  </data>
-  <data name="Settings.LanguageChanged.Description" xml:space="preserve">
-    <value>您需要重新啟動應用程式以套用新語言。</value>
-  </data>
   <data name="Button.Ok" xml:space="preserve">
     <value>確定</value>
   </data>
@@ -200,9 +194,6 @@
   <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
     <value>詳細說明</value>
   </data>
-  <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
-    <value>標籤</value>
-  </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
     <value>將服務主機分割閾值提高到系統總記憶體，讓服務整合在較少的處理程序中，以減少記憶體佔用與處理程序數量。</value>
   </data>
@@ -214,9 +205,6 @@
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ActivateFailed" xml:space="preserve">
     <value>無法啟用 optimizerDuck 的電源計畫。</value>
-  </data>
-  <data name="Optimizer.UI.Risk.Help" xml:space="preserve">
-    <value>此數值反映介入程度及最佳化過程的安全性。在套用任何最佳化前，請謹慎考量。</value>
   </data>
   <data name="Optimizer.UI.Tags.System" xml:space="preserve">
     <value>系統</value>
@@ -239,9 +227,6 @@
   <data name="Optimizer.UI.Tags.Audio" xml:space="preserve">
     <value>音訊</value>
   </data>
-  <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
-    <value>這些標籤指示最佳化將影響系統的哪些部分。</value>
-  </data>
 <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
     <value>NVIDIA</value>
   </data>
@@ -255,9 +240,6 @@
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
     <value>電源</value>
   </data>
-  <data name="Revert.Error.InvalidData" xml:space="preserve">
-    <value>{0} 的還原資料無效：{1}</value>
-  </data>
   <data name="Revert.Error.NoDataFound" xml:space="preserve">
     <value>找不到 {0} 的還原資料。</value>
   </data>
@@ -270,44 +252,17 @@
   <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
     <value>已還原 {0}，其中有 {1} 個步驟失敗。</value>
   </data>
-  <data name="Revert.Error.RevertFailed" xml:space="preserve">
-    <value>無法還原 {0}：{1}</value>
-  </data>
   <data name="Optimization.Revert.ExecutingStep" xml:space="preserve">
     <value>正在執行還原步驟：{0}/{1} ({2})</value>
   </data>
-  <data name="Optimization.Revert.StepDescription" xml:space="preserve">
-    <value>還原步驟 #{0}</value>
-  </data>
-  <data name="Revert.Error.FileNotFound" xml:space="preserve">
-    <value>找不到還原檔案</value>
-  </data>
-  <data name="Revert.Error.FileEmpty" xml:space="preserve">
-    <value>還原檔案為空</value>
-  </data>
-  <data name="Revert.Error.ReadFailed" xml:space="preserve">
-    <value>無法讀取還原資料：{0}</value>
-  </data>
-  <data name="Revert.Error.InvalidJson" xml:space="preserve">
-    <value>還原資料無效</value>
-  </data>
-  <data name="Revert.Error.InvalidJsonFormat" xml:space="preserve">
-    <value>JSON 格式無效：{0}</value>
-  </data>
   <data name="Revert.Error.NoSteps" xml:space="preserve">
     <value>找不到還原步驟。</value>
-  </data>
-  <data name="Revert.Error.InvalidSteps" xml:space="preserve">
-    <value>還原步驟無效：{0}</value>
   </data>
   <data name="Revert.Error.StepFailed" xml:space="preserve">
     <value>還原步驟失敗</value>
   </data>
   <data name="Revert.UsbPower.Description" xml:space="preserve">
     <value>還原 USB 選擇性暫停電源狀態</value>
-  </data>
-  <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
-    <value>最佳化 ID 不符。</value>
   </data>
   <data name="Optimization.Apply.Processing" xml:space="preserve">
     <value>正在套用變更...</value>
@@ -326,54 +281,6 @@
   </data>
   <data name="Optimization.Apply.Error.Unknown" xml:space="preserve">
     <value>{0} 的結果未知。</value>
-  </data>
-  <data name="Service.Common.Error.AccessDenied" xml:space="preserve">
-    <value>存取被拒</value>
-  </data>
-  <data name="Service.Registry.Error.BackupTruncated" xml:space="preserve">
-    <value>登錄子樹過大，無法安全備份；已中止刪除 {0}</value>
-  </data>
-  <data name="Service.Registry.Error.AccessDeniedProtectedHive" xml:space="preserve">
-    <value>存取被拒（受保護的登錄區）</value>
-  </data>
-  <data name="Service.Registry.Error.UnauthorizedAccess" xml:space="preserve">
-    <value>未經授權的存取</value>
-  </data>
-  <data name="Service.Registry.Error.CreateOrOpenSubkeyFailed" xml:space="preserve">
-    <value>無法建立或開啟子機碼</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedWrite" xml:space="preserve">
-    <value>寫入 {0}:{1} 時存取被拒</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedDelete" xml:space="preserve">
-    <value>刪除 {0}:{1} 時存取被拒</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedCreateKey" xml:space="preserve">
-    <value>建立 {0} 時存取被拒</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedDeleteKeyTree" xml:space="preserve">
-    <value>刪除登錄機碼樹 {0} 時存取被拒</value>
-  </data>
-  <data name="Service.Service.Error.NotFound" xml:space="preserve">
-    <value>找不到服務</value>
-  </data>
-  <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
-    <value>找不到服務 '{0}'（已跳過）</value>
-  </data>
-  <data name="Service.Service.Info.AlreadyConfigured" xml:space="preserve">
-    <value>服務 '{0}' 已是 {1}（已跳過）</value>
-  </data>
-  <data name="Service.Service.Info.SkippedAccessDenied" xml:space="preserve">
-    <value>Windows 拒絕存取服務 '{0}'（已跳過）</value>
-  </data>
-  <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
-    <value>變更服務啟動類型失敗</value>
-  </data>
-  <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
-    <value>變更啟動模式失敗（代碼：{0}）</value>
-  </data>
-  <data name="Service.Service.Error.ExceptionOccurred" xml:space="preserve">
-    <value>無法變更服務 '{0}'：{1}</value>
   </data>
   <data name="Service.Shell.Error.ExitCode" xml:space="preserve">
     <value>結束代碼 {0}</value>
@@ -431,9 +338,6 @@
   </data>
   <data name="Settings.Advanced.OpenRootDir.Description" xml:space="preserve">
     <value>開啟應用程式的根目錄，所有必要的檔案都儲存在這裡。</value>
-  </data>
-  <data name="Button.Open" xml:space="preserve">
-    <value>開啟</value>
   </data>
   <data name="Settings.About.Header" xml:space="preserve">
     <value>關於</value>
@@ -698,9 +602,6 @@
   <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
     <value>除非您非常清楚自己在做什麼，否則請勿變更</value>
   </data>
-  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DownloadFailed" xml:space="preserve">
-    <value>無法下載 optimizerDuck 的電源計畫。</value>
-  </data>
   <data name="Settings.About.Acknowledgements.Title" xml:space="preserve">
     <value>鳴謝</value>
   </data>
@@ -754,9 +655,6 @@
   <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
     <value>無法開啟資料夾或檔案</value>
   </data>
-  <data name="Button.ViewLatestRelease" xml:space="preserve">
-    <value>檢視最新發行版本</value>
-  </data>
   <data name="BloatwareDialog.Title" xml:space="preserve">
     <value>正在刪除 {0} 個 AppX 套件</value>
   </data>
@@ -790,9 +688,6 @@
   <data name="BloatwareDialog.Confirmation.Title" xml:space="preserve">
     <value>要刪除 {0} 個應用程式嗎？</value>
   </data>
-  <data name="BloatwareDialog.Confirmation.Message" xml:space="preserve">
-    <value>您即將刪除：{0}</value>
-  </data>
   <data name="Settings.Bloatware.Header" xml:space="preserve">
     <value>膨脹軟體</value>
   </data>
@@ -812,9 +707,6 @@
   <data name="Common.Filter.All" xml:space="preserve">
     <value>全部</value>
   </data>
-  <data name="Common.SortBy.Default" xml:space="preserve">
-    <value>預設</value>
-  </data>
   <data name="Common.SortBy.Name" xml:space="preserve">
     <value>名稱</value>
   </data>
@@ -830,12 +722,6 @@
   <data name="Common.SortBy.Path" xml:space="preserve">
     <value>路徑</value>
   </data>
-  <data name="Optimizer.Menu.ApplyAllSafe" xml:space="preserve">
-    <value>套用所有安全項目</value>
-  </data>
-  <data name="Optimizer.Menu.ApplyAll" xml:space="preserve">
-    <value>套用全部項目</value>
-  </data>
   <data name="Optimizer.Menu.ViewSource" xml:space="preserve">
     <value>檢視原始碼</value>
   </data>
@@ -847,12 +733,6 @@
   </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
     <value>隱藏已套用</value>
-  </data>
-  <data name="Optimizer.Menu.ApplyMenu" xml:space="preserve">
-    <value>套用</value>
-  </data>
-  <data name="Optimizer.Menu.BatchApply.Title" xml:space="preserve">
-    <value>正在套用最佳化</value>
   </data>
   <data name="Bloatware.Search.NoResults" xml:space="preserve">
     <value>找不到結果。請嘗試其他搜尋詞或過濾器。</value>
@@ -883,9 +763,6 @@
   </data>
   <data name="DiskCleanup.Button.DeselectAll" xml:space="preserve">
     <value>取消全選</value>
-  </data>
-  <data name="DiskCleanup.Scanning" xml:space="preserve">
-    <value>正在掃描...</value>
   </data>
   <data name="DiskCleanup.Loading" xml:space="preserve">
     <value>正在載入清理項目...</value>
@@ -956,12 +833,6 @@
   <data name="Bloatware.Header.Description" xml:space="preserve">
     <value>管理和刪除您不需要的預先安裝應用程式</value>
   </data>
-  <data name="Dashboard.SystemInfo.Header" xml:space="preserve">
-    <value>系統資訊</value>
-  </data>
-  <data name="DiskCleanup.ItemsSelected" xml:space="preserve">
-    <value>{0}（已選取 {1} 個項目）</value>
-  </data>
   <data name="DiskCleanup.Button.Clean" xml:space="preserve">
     <value>清理</value>
   </data>
@@ -1000,9 +871,6 @@
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
     <value>在 GitHub 上檢視原始碼</value>
-  </data>
-  <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
-    <value>風險等級</value>
   </data>
   <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
     <value>技術詳細資訊</value>
@@ -1043,9 +911,6 @@
   <data name="Common.SortBy.Status" xml:space="preserve">
     <value>狀態</value>
   </data>
-  <data name="Common.Status.Applied" xml:space="preserve">
-    <value>已套用</value>
-  </data>
   <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
     <value>開啟設定</value>
   </data>
@@ -1073,9 +938,6 @@
   <data name="ScheduledTasks.HideMicrosoft" xml:space="preserve">
     <value>隱藏 Microsoft 工作</value>
   </data>
-  <data name="ScheduledTasks.Menu.CreateTask" xml:space="preserve">
-    <value>建立工作</value>
-  </data>
   
   <data name="ScheduledTasks.Action.Details" xml:space="preserve">
     <value>檢視詳細資料</value>
@@ -1093,9 +955,6 @@
   <data name="ScheduledTasks.Dialog.DeleteTitle" xml:space="preserve">
     <value>刪除排定的工作</value>
   </data>
-  <data name="ScheduledTasks.Dialog.DeleteMessage" xml:space="preserve">
-    <value>您確定要刪除工作「{0}」嗎？此動作無法復原。</value>
-  </data>
   
   <data name="ScheduledTasks.Details.Path" xml:space="preserve">
     <value>路徑</value>
@@ -1105,9 +964,6 @@
   </data>
   <data name="ScheduledTasks.Details.Author" xml:space="preserve">
     <value>作者</value>
-  </data>
-  <data name="ScheduledTasks.Details.State" xml:space="preserve">
-    <value>狀態</value>
   </data>
   <data name="ScheduledTasks.Details.Triggers" xml:space="preserve">
     <value>觸發程序</value>
@@ -1167,12 +1023,6 @@
   <data name="ScheduledTasks.Snackbar.Delete.Message" xml:space="preserve">
     <value>{0} 已刪除。</value>
   </data>
-  <data name="ScheduledTasks.Snackbar.Create.Title" xml:space="preserve">
-    <value>工作已建立</value>
-  </data>
-  <data name="ScheduledTasks.Snackbar.Create.Message" xml:space="preserve">
-    <value>{0} 已成功建立。</value>
-  </data>
   <data name="ScheduledTasks.Snackbar.Error.Title" xml:space="preserve">
     <value>錯誤</value>
   </data>
@@ -1182,39 +1032,6 @@
   <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
       <value>找不到工作：{0}</value>
     </data>
-  <data name="Service.Registry.Name" xml:space="preserve">
-    <value>登錄檔</value>
-  </data>
-  <data name="Service.Service.Name" xml:space="preserve">
-    <value>服務</value>
-  </data>
-  <data name="Service.ScheduledTask.Name" xml:space="preserve">
-    <value>排定的工作</value>
-  </data>
-  <data name="Service.Shell.Name" xml:space="preserve">
-    <value>殼層</value>
-  </data>
-  <data name="Service.Registry.Description.Write" xml:space="preserve">
-    <value>寫入登錄檔值：{0}\{1}</value>
-  </data>
-  <data name="Service.Registry.Description.Delete" xml:space="preserve">
-    <value>刪除登錄檔值：{0}\{1}</value>
-  </data>
-  <data name="Service.Service.Description.Change" xml:space="preserve">
-    <value>將服務 '{0}' 變更為 {1} 啟動</value>
-  </data>
-  <data name="Service.ScheduledTask.Description.Enable" xml:space="preserve">
-    <value>啟用排定的工作：{0}</value>
-  </data>
-  <data name="Service.ScheduledTask.Description.Disable" xml:space="preserve">
-    <value>停用排定的工作：{0}</value>
-  </data>
-  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedDisable" xml:space="preserve">
-    <value>停用工作 {0} 時存取被拒</value>
-  </data>
-  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedEnable" xml:space="preserve">
-    <value>啟用工作 {0} 時存取被拒</value>
-  </data>
   <data name="Revert.Registry.Description.Restore" xml:space="preserve">
     <value>還原登錄檔值：{0}\{1}</value>
   </data>
@@ -1268,12 +1085,6 @@
   </data>
   <data name="Customize.Gaming.Description" xml:space="preserve">
     <value>遊戲相關的圖形、輸入和錄製選項。</value>
-  </data>
-  <data name="Service.Registry.Description.CreateKey" xml:space="preserve">
-    <value>建立登錄檔機碼 {0}</value>
-  </data>
-  <data name="Service.Registry.Description.DeleteKey" xml:space="preserve">
-    <value>刪除登錄檔機碼 {0}</value>
   </data>
   <data name="Revert.Registry.Description.RestoreKey" xml:space="preserve">
     <value>還原登錄檔機碼：{0}</value>
@@ -1650,20 +1461,11 @@
   <data name="DiskCleanup.Item.OldWindowsInstallation.Description" xml:space="preserve">
     <value>主要更新或升級後保留的舊 Windows 安裝檔案</value>
   </data>
-  <data name="LegalDialog.Intro.Review" xml:space="preserve">
-    <value>請花點時間審閱下列文件。繼續即表示您同意這些條款。</value>
-  </data>
   <data name="LegalDialog.Intro.Title" xml:space="preserve">
     <value>歡迎使用 optimizerDuck！</value>
   </data>
   <data name="LegalDialog.Intro.Description" xml:space="preserve">
     <value>選擇您的語言和主題，花點時間查看我們的服務條款、隱私政策和免責聲明，然後就可以開始了。</value>
-  </data>
-  <data name="LegalDialog.Intro.Safety" xml:space="preserve">
-    <value>為確保透明度與您的安全，optimizerDuck 可能會調整部分系統設定與登錄檔設定。</value>
-  </data>
-  <data name="LegalDialog.Intro.ThankYou" xml:space="preserve">
-    <value>感謝您選擇 optimizerDuck。</value>
   </data>
   <data name="LegalDialog.Link.Disclaimer" xml:space="preserve">
     <value>免責聲明</value>
@@ -1911,12 +1713,6 @@
   <data name="DiskCleanup.Dialog.Confirmation.Summary" xml:space="preserve">
     <value>您即將從 {1} 個項目（{2} 個檔案）中刪除 {0} 個。請查看以下項目。</value>
   </data>
-  <data name="DiskCleanup.Dialog.Confirmation.SingleTitle" xml:space="preserve">
-    <value>清理項目</value>
-  </data>
-  <data name="DiskCleanup.Dialog.Confirmation.SingleItem" xml:space="preserve">
-    <value>您即將刪除 {0}（{1}）。請確認。</value>
-  </data>
   <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
     <value>刪除排程工作是永久性的。工作將不再自動執行。</value>
   </data>
@@ -2066,9 +1862,6 @@
   </data>
   <data name="Customize.UI.UnsupportedSettings.Header" xml:space="preserve">
     <value>不支援的設定 ({0})</value>
-  </data>
-  <data name="Customize.UI.UnsupportedSettings.Badge" xml:space="preserve">
-    <value>不支援</value>
   </data>
   <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
     <value>某些設定目前無法在您的系統上使用。</value>

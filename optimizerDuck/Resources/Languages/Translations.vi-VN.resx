@@ -147,12 +147,6 @@
   <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
     <value>Star repository trên GitHub, chia sẻ với bạn bè hoặc ủng hộ dự án mỗi sự giúp đỡ đều giúp dự án phát triển!</value>
   </data>
-  <data name="Settings.LanguageChanged.Title" xml:space="preserve">
-    <value>Thay đổi ngôn ngữ</value>
-  </data>
-  <data name="Settings.LanguageChanged.Description" xml:space="preserve">
-    <value>Bạn cần phải khởi động lại ứng dụng để áp dụng ngôn ngữ mới.</value>
-  </data>
   <data name="Button.Ok" xml:space="preserve">
     <value>OK</value>
   </data>
@@ -213,9 +207,6 @@
   <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
     <value>Mô tả chi tiết</value>
   </data>
-  <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
-    <value>Thẻ</value>
-  </data>
   <data name="OptimizationDetailsDialog.Other" xml:space="preserve">
     <value>Khác</value>
   </data>
@@ -230,9 +221,6 @@
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ActivateFailed" xml:space="preserve">
     <value>Không thể kích hoạt power plan của optimizerDuck.</value>
-  </data>
-  <data name="Optimizer.UI.Risk.Help" xml:space="preserve">
-    <value>Giá trị này thể hiện mức độ can thiệp và mức độ an toàn của quá trình tối ưu hóa. Vui lòng thận trọng và xem xét kỹ lưỡng trước khi áp dụng bất kỳ tối ưu nào.</value>
   </data>
   <data name="Optimizer.UI.Tags.System" xml:space="preserve">
     <value>Hệ thống</value>
@@ -255,9 +243,6 @@
   <data name="Optimizer.UI.Tags.Audio" xml:space="preserve">
     <value>Âm thanh</value>
   </data>
-  <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
-    <value>Các thẻ này cho biết tối ưu sẽ ảnh hưởng đến phần nào trong hệ thống.</value>
-  </data>
 <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
     <value>NVIDIA</value>
   </data>
@@ -271,9 +256,6 @@
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
     <value>Công suất/Điện năng</value>
   </data>
-  <data name="Revert.Error.InvalidData" xml:space="preserve">
-    <value>Dữ liệu hoàn tác không hợp lệ cho {0}: {1}</value>
-  </data>
   <data name="Revert.Error.NoDataFound" xml:space="preserve">
     <value>Không tìm thấy dữ liệu hoàn tác cho {0}.</value>
   </data>
@@ -286,14 +268,8 @@
   <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
     <value>Hoàn tác {0} nhưng có {1} bước thất bại.</value>
   </data>
-  <data name="Revert.Error.RevertFailed" xml:space="preserve">
-    <value>Không thể hoàn tác {0}: {1}</value>
-  </data>
   <data name="Optimization.Revert.ExecutingStep" xml:space="preserve">
     <value>Đang thực hiện bước hoàn tác: {0}/{1} ({2})</value>
-  </data>
-  <data name="Optimization.Revert.StepDescription" xml:space="preserve">
-    <value>Đang hoàn tác bước #{0}</value>
   </data>
   <data name="Revert.Registry.Description.RestoreKey" xml:space="preserve">
     <value>Khôi phục registry key: {0}</value>
@@ -304,35 +280,14 @@
   <data name="Revert.Registry.Description.RevertUnknown" xml:space="preserve">
     <value>Hoàn tác registry: {0}</value>
   </data>
-  <data name="Revert.Error.FileNotFound" xml:space="preserve">
-    <value>Không tìm thấy tệp hoàn tác</value>
-  </data>
-  <data name="Revert.Error.FileEmpty" xml:space="preserve">
-    <value>Tệp hoàn tác trống</value>
-  </data>
-  <data name="Revert.Error.ReadFailed" xml:space="preserve">
-    <value>Không thể đọc dữ liệu hoàn tác: {0}</value>
-  </data>
-  <data name="Revert.Error.InvalidJson" xml:space="preserve">
-    <value>Dữ liệu hoàn tác không hợp lệ</value>
-  </data>
-  <data name="Revert.Error.InvalidJsonFormat" xml:space="preserve">
-    <value>Định dạng JSON không hợp lệ: {0}</value>
-  </data>
   <data name="Revert.Error.NoSteps" xml:space="preserve">
     <value>Không có bước hoàn tác.</value>
-  </data>
-  <data name="Revert.Error.InvalidSteps" xml:space="preserve">
-    <value>Các bước hoàn tác không hợp lệ: {0}</value>
   </data>
   <data name="Revert.Error.StepFailed" xml:space="preserve">
     <value>Bước hoàn tác thất bại</value>
   </data>
   <data name="Revert.UsbPower.Description" xml:space="preserve">
     <value>Khôi phục trạng thái nguồn tạm ngưng chọn lọc USB</value>
-  </data>
-  <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
-    <value>OptimizationId không khớp.</value>
   </data>
   <data name="Optimization.Apply.Processing" xml:space="preserve">
     <value>Đang áp dụng...</value>
@@ -351,54 +306,6 @@
   </data>
   <data name="Optimization.Apply.Error.Unknown" xml:space="preserve">
     <value>Kết quả không xác định cho {0}.</value>
-  </data>
-  <data name="Service.Common.Error.AccessDenied" xml:space="preserve">
-    <value>Không có quyền truy cập</value>
-  </data>
-  <data name="Service.Registry.Error.BackupTruncated" xml:space="preserve">
-    <value>Subtree registry quá lớn để sao lưu an toàn; đã hủy xóa cho {0}</value>
-  </data>
-  <data name="Service.Registry.Error.AccessDeniedProtectedHive" xml:space="preserve">
-    <value>Bị từ chối truy cập (registry được bảo vệ)</value>
-  </data>
-  <data name="Service.Registry.Error.UnauthorizedAccess" xml:space="preserve">
-    <value>Không có quyền truy cập</value>
-  </data>
-  <data name="Service.Registry.Error.CreateOrOpenSubkeyFailed" xml:space="preserve">
-    <value>Không thể tạo/mở khóa con (subkey)</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedWrite" xml:space="preserve">
-    <value>Từ chối truy cập khi ghi {0}:{1}</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedDelete" xml:space="preserve">
-    <value>Từ chối truy cập khi xóa {0}:{1}</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedCreateKey" xml:space="preserve">
-    <value>Từ chối truy cập khi tạo {0}</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedDeleteKeyTree" xml:space="preserve">
-    <value>Từ chối truy cập khi xóa cây khóa {0}</value>
-  </data>
-  <data name="Service.Service.Error.NotFound" xml:space="preserve">
-    <value>Không tìm thấy dịch vụ</value>
-  </data>
-  <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
-    <value>Không tìm thấy dịch vụ '{0}' (đã bỏ qua)</value>
-  </data>
-  <data name="Service.Service.Info.AlreadyConfigured" xml:space="preserve">
-    <value>Dịch vụ '{0}' đã có kiểu khởi động {1} (bỏ qua)</value>
-  </data>
-  <data name="Service.Service.Info.SkippedAccessDenied" xml:space="preserve">
-    <value>Truy cập vào dịch vụ '{0}' bị Windows từ chối (đã bỏ qua)</value>
-  </data>
-  <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
-    <value>Không thể thay đổi kiểu khởi động cho dịch vụ</value>
-  </data>
-  <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
-    <value>ChangeStartMode thất bại (mã: {0})</value>
-  </data>
-  <data name="Service.Service.Error.ExceptionOccurred" xml:space="preserve">
-    <value>Không thể thay đổi dịch vụ '{0}': {1}</value>
   </data>
   <data name="Service.Shell.Error.ExitCode" xml:space="preserve">
     <value>Mã thoát {0}</value>
@@ -459,9 +366,6 @@
   </data>
   <data name="Settings.Appearance.SmoothScrolling.Description" xml:space="preserve">
     <value>Bật hiệu ứng cuộn mượt để trải nghiệm cuộn mượt mà hơn. Tắt nếu bạn thấy lag.</value>
-  </data>
-  <data name="Button.Open" xml:space="preserve">
-    <value>Mở</value>
   </data>
   <data name="Settings.About.Header" xml:space="preserve">
     <value>Giới thiệu</value>
@@ -888,9 +792,6 @@
   <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
     <value>ĐỪNG thay đổi trừ khi bạn biết chính xác mình đang làm gì</value>
   </data>
-  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DownloadFailed" xml:space="preserve">
-    <value>Không thể tải xuống power plan của optimizerDuck.</value>
-  </data>
   <data name="Settings.About.Acknowledgements.Title" xml:space="preserve">
     <value>Ghi nhận đóng góp</value>
   </data>
@@ -944,9 +845,6 @@ Hãy yên tâm rằng hệ thống của bạn luôn có đường lui nếu có
   <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
     <value>Không thể mở thư mục hoặc tệp</value>
   </data>
-  <data name="Button.ViewLatestRelease" xml:space="preserve">
-    <value>Xem bản phát hành mới nhất</value>
-  </data>
   <data name="BloatwareDialog.Title" xml:space="preserve">
     <value>Đang gỡ {0} Gói AppX</value>
   </data>
@@ -980,9 +878,6 @@ Hãy yên tâm rằng hệ thống của bạn luôn có đường lui nếu có
   <data name="BloatwareDialog.Confirmation.Title" xml:space="preserve">
     <value>Bạn có muốn xóa {0} ứng dụng?</value>
   </data>
-  <data name="BloatwareDialog.Confirmation.Message" xml:space="preserve">
-    <value>Bạn chuẩn bị sẽ xóa: {0}</value>
-  </data>
   <data name="BloatwareDialog.Confirmation.Description" xml:space="preserve">
     <value>Hãy kiểm tra lại các ứng dụng đã chọn trước khi gỡ. Chỉ tiếp tục khi bạn chắc chắn.</value>
   </data>
@@ -1008,9 +903,6 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Common.Filter.All" xml:space="preserve">
     <value>Tất cả</value>
   </data>
-  <data name="Common.SortBy.Default" xml:space="preserve">
-    <value>Mặc định</value>
-  </data>
   <data name="Common.SortBy.Name" xml:space="preserve">
     <value>Tên</value>
   </data>
@@ -1026,12 +918,6 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Common.SortBy.Path" xml:space="preserve">
     <value>Đường dẫn</value>
   </data>
-  <data name="Optimizer.Menu.ApplyAllSafe" xml:space="preserve">
-    <value>Áp dụng tất cả an toàn</value>
-  </data>
-  <data name="Optimizer.Menu.ApplyAll" xml:space="preserve">
-    <value>Áp dụng tất cả</value>
-  </data>
   <data name="Optimizer.Menu.ViewSource" xml:space="preserve">
     <value>Xem mã nguồn</value>
   </data>
@@ -1043,12 +929,6 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
     <value>Ẩn đã áp dụng</value>
-  </data>
-  <data name="Optimizer.Menu.ApplyMenu" xml:space="preserve">
-    <value>Áp dụng</value>
-  </data>
-  <data name="Optimizer.Menu.BatchApply.Title" xml:space="preserve">
-    <value>Đang áp dụng các tối ưu</value>
   </data>
   <data name="Bloatware.Search.NoResults" xml:space="preserve">
     <value>Không tìm thấy kết quả. Hãy thử từ khóa hoặc bộ lọc khác.</value>
@@ -1079,9 +959,6 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="DiskCleanup.Button.DeselectAll" xml:space="preserve">
     <value>Bỏ chọn tất cả</value>
-  </data>
-  <data name="DiskCleanup.Scanning" xml:space="preserve">
-    <value>Đang quét...</value>
   </data>
   <data name="DiskCleanup.Loading" xml:space="preserve">
     <value>Đang tải danh sách dọn dẹp...</value>
@@ -1158,12 +1035,6 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Bloatware.Header.Description" xml:space="preserve">
     <value>Quản lý và gỡ bỏ các ứng dụng cài sẵn không cần thiết</value>
   </data>
-  <data name="Dashboard.SystemInfo.Header" xml:space="preserve">
-    <value>Thông tin hệ thống</value>
-  </data>
-  <data name="DiskCleanup.ItemsSelected" xml:space="preserve">
-    <value>{0} (đã chọn {1} mục)</value>
-  </data>
   <data name="DiskCleanup.Button.Clean" xml:space="preserve">
     <value>Dọn dẹp</value>
   </data>
@@ -1205,9 +1076,6 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
     <value>Xem mã nguồn trên GitHub</value>
-  </data>
-  <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
-    <value>Mức độ rủi ro</value>
   </data>
   <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
     <value>Chi tiết kỹ thuật</value>
@@ -1269,9 +1137,6 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Common.SortBy.Status" xml:space="preserve">
     <value>Trạng thái</value>
   </data>
-  <data name="Common.Status.Applied" xml:space="preserve">
-    <value>Đã áp dụng</value>
-  </data>
   <data name="Common.SortBy.State" xml:space="preserve">
     <value>Trạng thái</value>
   </data>
@@ -1293,9 +1158,6 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="ScheduledTasks.HideMicrosoft" xml:space="preserve">
     <value>Ẩn tác vụ Microsoft</value>
   </data>
-  <data name="ScheduledTasks.Menu.CreateTask" xml:space="preserve">
-    <value>Tạo Tác Vụ</value>
-  </data>
   <data name="ScheduledTasks.Menu.OpenSettings" xml:space="preserve">
     <value>Mở Trình Lập Lịch Tác Vụ</value>
   </data>
@@ -1314,9 +1176,6 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="ScheduledTasks.Dialog.DeleteTitle" xml:space="preserve">
     <value>Xóa Tác Vụ Đã Lên Lịch</value>
   </data>
-  <data name="ScheduledTasks.Dialog.DeleteMessage" xml:space="preserve">
-    <value>Bạn có chắc chắn muốn xóa tác vụ "{0}" không? Hành động này không thể hoàn tác.</value>
-  </data>
   <data name="ScheduledTasks.Details.Path" xml:space="preserve">
     <value>Đường Dẫn</value>
   </data>
@@ -1325,9 +1184,6 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="ScheduledTasks.Details.Author" xml:space="preserve">
     <value>Tác Giả</value>
-  </data>
-  <data name="ScheduledTasks.Details.State" xml:space="preserve">
-    <value>Trạng Thái</value>
   </data>
   <data name="ScheduledTasks.Details.Triggers" xml:space="preserve">
     <value>Kích Hoạt</value>
@@ -1374,12 +1230,6 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="ScheduledTasks.Snackbar.Delete.Message" xml:space="preserve">
     <value>{0} đã xóa.</value>
   </data>
-  <data name="ScheduledTasks.Snackbar.Create.Title" xml:space="preserve">
-    <value>Tác Vụ Đã Tạo</value>
-  </data>
-  <data name="ScheduledTasks.Snackbar.Create.Message" xml:space="preserve">
-    <value>{0} đã tạo thành công.</value>
-  </data>
   <data name="ScheduledTasks.Snackbar.Error.Title" xml:space="preserve">
     <value>Lỗi</value>
   </data>
@@ -1388,39 +1238,6 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
     <value>Không tìm thấy task: {0}</value>
-  </data>
-  <data name="Service.Registry.Name" xml:space="preserve">
-    <value>Registry</value>
-  </data>
-  <data name="Service.Service.Name" xml:space="preserve">
-    <value>Dịch vụ</value>
-  </data>
-  <data name="Service.ScheduledTask.Name" xml:space="preserve">
-    <value>Tác vụ hệ thống</value>
-  </data>
-  <data name="Service.Shell.Name" xml:space="preserve">
-    <value>Lệnh hệ thống</value>
-  </data>
-  <data name="Service.Registry.Description.Write" xml:space="preserve">
-    <value>Ghi giá trị registry: {0}\{1}</value>
-  </data>
-  <data name="Service.Registry.Description.Delete" xml:space="preserve">
-    <value>Xóa giá trị registry: {0}\{1}</value>
-  </data>
-  <data name="Service.Service.Description.Change" xml:space="preserve">
-    <value>Thay đổi dịch vụ '{0}' sang kiểu khởi động {1}</value>
-  </data>
-  <data name="Service.ScheduledTask.Description.Enable" xml:space="preserve">
-    <value>Bật tác vụ hệ thống: {0}</value>
-  </data>
-  <data name="Service.ScheduledTask.Description.Disable" xml:space="preserve">
-    <value>Tắt tác vụ hệ thống: {0}</value>
-  </data>
-  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedDisable" xml:space="preserve">
-    <value>Từ chối truy cập khi tắt tác vụ {0}</value>
-  </data>
-  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedEnable" xml:space="preserve">
-    <value>Từ chối truy cập khi bật tác vụ {0}</value>
   </data>
   <data name="Revert.Registry.Description.Restore" xml:space="preserve">
     <value>Khôi phục giá trị registry: {0}\{1}</value>
@@ -1499,12 +1316,6 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="Customize.Preferences.ExplorerCompactMode.Description" xml:space="preserve">
     <value>Thu hẹp khoảng cách giữa các mục trong File Explorer để có bố cục gọn hơn.</value>
-  </data>
-  <data name="Service.Registry.Description.DeleteKey" xml:space="preserve">
-    <value>Xóa key registry {0}</value>
-  </data>
-  <data name="Service.Registry.Description.CreateKey" xml:space="preserve">
-    <value>Tạo key registry {0}</value>
   </data>
   <data name="Customize.Title" xml:space="preserve">
     <value>Tùy chỉnh</value>
@@ -1595,15 +1406,6 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="LegalDialog.Title" xml:space="preserve">
     <value>Thỏa thuận pháp lý</value>
-  </data>
-  <data name="LegalDialog.Intro.ThankYou" xml:space="preserve">
-    <value>Cảm ơn bạn đã chọn optimizerDuck.</value>
-  </data>
-  <data name="LegalDialog.Intro.Safety" xml:space="preserve">
-    <value>Để đảm bảo tính minh bạch và an toàn cho bạn, optimizerDuck có thể điều chỉnh một số cài đặt hệ thống và cấu hình registry.</value>
-  </data>
-  <data name="LegalDialog.Intro.Review" xml:space="preserve">
-    <value>Vui lòng dành chút thời gian xem xét các tài liệu sau. Bằng việc tiếp tục, bạn đồng ý với các điều khoản này.</value>
   </data>
   <data name="LegalDialog.Intro.Title" xml:space="preserve">
     <value>Chào mừng đến với optimizerDuck!</value>
@@ -1851,12 +1653,6 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="DiskCleanup.Dialog.Confirmation.Summary" xml:space="preserve">
     <value>Bạn sắp xóa {0} trong tổng số {1} mục ({2} tệp). Vui lòng xem xét các mục bên dưới.</value>
   </data>
-  <data name="DiskCleanup.Dialog.Confirmation.SingleTitle" xml:space="preserve">
-    <value>Dọn dẹp mục</value>
-  </data>
-  <data name="DiskCleanup.Dialog.Confirmation.SingleItem" xml:space="preserve">
-    <value>Bạn sắp xóa {0} ({1}). Vui lòng xác nhận.</value>
-  </data>
   <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
     <value>Việc xóa tác vụ định kỳ là vĩnh viễn. Tác vụ sẽ không còn chạy tự động nữa.</value>
   </data>
@@ -2007,9 +1803,6 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Customize.UI.UnsupportedSettings.Header" xml:space="preserve">
     <value>Cài đặt không được hỗ trợ ({0})</value>
   </data>
-  <data name="Customize.UI.UnsupportedSettings.Badge" xml:space="preserve">
-    <value>Không được hỗ trợ</value>
-  </data>
   <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
     <value>Một số cài đặt không khả dụng trên hệ thống hiện tại của bạn.</value>
   </data>
@@ -2084,6 +1877,9 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="Customize.Preferences.CombineTaskbarButtons.Options.Never" xml:space="preserve">
     <value>Không bao giờ</value>
+  </data>
+  <data name="Customize.Loading" xml:space="preserve">
+    <value>Đang tải cài đặt...</value>
   </data>
   <data name="BloatwareDialog.UnusualWarning.Title" xml:space="preserve">
     <value>Cảnh báo: Tên gói bất thường</value>

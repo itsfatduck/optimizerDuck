@@ -112,7 +112,7 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
 
                 var revertStep = new UsbPowerRevertStep { States = capturedStates };
                 ExecutionScope.RecordStep(
-                    Loc.Invariant["Service.Shell.Name"],
+                    ServiceStrings.ShellName,
                     Loc.Invariant[$"Optimizer.{nameof(PowerManagement)}"],
                     disableResult.ExitCode == 0,
                     disableResult.ExitCode == 0 ? revertStep : null,

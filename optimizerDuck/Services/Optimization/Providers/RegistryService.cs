@@ -6,8 +6,6 @@ using Microsoft.Win32;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.Revert.Steps;
-using optimizerDuck.Resources.Languages;
-using optimizerDuck.Services.Configuration;
 
 namespace optimizerDuck.Services.Optimization.Providers;
 
@@ -114,7 +112,7 @@ public static class RegistryService
         catch (SecurityException ex)
         {
             TrackRegistryError(
-                Loc.Invariant["Service.Registry.Error.AccessDeniedProtectedHive"],
+                ServiceStrings.RegistryErrorAccessDeniedProtectedHive,
                 "Access denied (protected hive)",
                 rootKey,
                 subPath,
@@ -125,7 +123,7 @@ public static class RegistryService
         catch (UnauthorizedAccessException ex)
         {
             TrackRegistryError(
-                Loc.Invariant["Service.Registry.Error.UnauthorizedAccess"],
+                ServiceStrings.RegistryErrorUnauthorizedAccess,
                 "Unauthorized access",
                 rootKey,
                 subPath,
@@ -136,7 +134,7 @@ public static class RegistryService
         catch (Exception ex)
         {
             TrackRegistryError(
-                Loc.Invariant["Service.Registry.Error.CreateOrOpenSubkeyFailed"],
+                ServiceStrings.RegistryErrorCreateOrOpenSubkeyFailed,
                 "Failed to create/open subkey",
                 rootKey,
                 subPath,
@@ -265,11 +263,11 @@ public static class RegistryService
             item,
             key =>
             {
-                var description = Loc.Invariant[
-                    "Service.Registry.Description.Write",
+                var description = ServiceStrings.Format(
+                    ServiceStrings.RegistryDescriptionWrite,
                     item.Path,
                     item.Name
-                ];
+                );
                 try
                 {
                     var valueName = NormalizeValueName(item.Name);
@@ -309,7 +307,7 @@ public static class RegistryService
                     );
                     ExecutionScope.Track(nameof(Write), true);
                     ExecutionScope.RecordStep(
-                        Loc.Invariant["Service.Registry.Name"],
+                        ServiceStrings.RegistryName,
                         description,
                         true,
                         revertStep
@@ -318,12 +316,12 @@ public static class RegistryService
                 }
                 catch (UnauthorizedAccessException)
                 {
-                    _lastError.Value = Loc.Invariant["Service.Common.Error.AccessDenied"];
-                    _lastErrorDetail.Value = Loc.Invariant[
-                        "Service.Registry.ErrorDetail.AccessDeniedWrite",
+                    _lastError.Value = ServiceStrings.CommonErrorAccessDenied;
+                    _lastErrorDetail.Value = ServiceStrings.Format(
+                        ServiceStrings.RegistryErrorDetailAccessDeniedWrite,
                         item.Path,
                         item.Name
-                    ];
+                    );
                     ExecutionScope.LogError(
                         null,
                         "Access denied writing {Path}:{Name}",
@@ -332,7 +330,7 @@ public static class RegistryService
                     );
                     ExecutionScope.Track(nameof(Write), false);
                     ExecutionScope.RecordStep(
-                        Loc.Invariant["Service.Registry.Name"],
+                        ServiceStrings.RegistryName,
                         description,
                         false,
                         null,
@@ -354,7 +352,7 @@ public static class RegistryService
                     );
                     ExecutionScope.Track(nameof(Write), false);
                     ExecutionScope.RecordStep(
-                        Loc.Invariant["Service.Registry.Name"],
+                        ServiceStrings.RegistryName,
                         description,
                         false,
                         null,
@@ -382,11 +380,11 @@ public static class RegistryService
             item,
             key =>
             {
-                var description = Loc.Invariant[
-                    "Service.Registry.Description.Delete",
+                var description = ServiceStrings.Format(
+                    ServiceStrings.RegistryDescriptionDelete,
                     item.Path,
                     item.Name ?? "(Default)"
-                ];
+                );
                 try
                 {
                     var valueName = NormalizeValueName(item.Name);
@@ -407,11 +405,7 @@ public static class RegistryService
                             item.Name!
                         );
                         ExecutionScope.Track(nameof(DeleteValue), true);
-                        ExecutionScope.RecordStep(
-                            Loc.Invariant["Service.Registry.Name"],
-                            description,
-                            true
-                        );
+                        ExecutionScope.RecordStep(ServiceStrings.RegistryName, description, true);
                         return true;
                     }
 
@@ -430,7 +424,7 @@ public static class RegistryService
                     ExecutionScope.LogInfo("Deleted registry {Path}:{Name}", item.Path, item.Name!);
                     ExecutionScope.Track(nameof(DeleteValue), true);
                     ExecutionScope.RecordStep(
-                        Loc.Invariant["Service.Registry.Name"],
+                        ServiceStrings.RegistryName,
                         description,
                         true,
                         revertStep
@@ -439,12 +433,12 @@ public static class RegistryService
                 }
                 catch (UnauthorizedAccessException)
                 {
-                    _lastError.Value = Loc.Invariant["Service.Common.Error.AccessDenied"];
-                    _lastErrorDetail.Value = Loc.Invariant[
-                        "Service.Registry.ErrorDetail.AccessDeniedDelete",
+                    _lastError.Value = ServiceStrings.CommonErrorAccessDenied;
+                    _lastErrorDetail.Value = ServiceStrings.Format(
+                        ServiceStrings.RegistryErrorDetailAccessDeniedDelete,
                         item.Path,
                         item.Name
-                    ];
+                    );
                     ExecutionScope.LogError(
                         null,
                         "Access denied deleting {Path}:{Name}",
@@ -453,7 +447,7 @@ public static class RegistryService
                     );
                     ExecutionScope.Track(nameof(DeleteValue), false);
                     ExecutionScope.RecordStep(
-                        Loc.Invariant["Service.Registry.Name"],
+                        ServiceStrings.RegistryName,
                         description,
                         false,
                         null,
@@ -475,7 +469,7 @@ public static class RegistryService
                     );
                     ExecutionScope.Track(nameof(DeleteValue), false);
                     ExecutionScope.RecordStep(
-                        Loc.Invariant["Service.Registry.Name"],
+                        ServiceStrings.RegistryName,
                         description,
                         false,
                         null,
@@ -500,7 +494,10 @@ public static class RegistryService
         if (!TryParsePath(item.Path, out var rootKey, out var subPath))
             return false;
 
-        var description = Loc.Invariant["Service.Registry.Description.CreateKey", item.Path];
+        var description = ServiceStrings.Format(
+            ServiceStrings.RegistryDescriptionCreateKey,
+            item.Path
+        );
         var createdSubKeys = new List<string>();
 
         try
@@ -510,11 +507,7 @@ public static class RegistryService
             {
                 ExecutionScope.LogInfo("Skip create registry {Path} (already exists)", item.Path);
                 ExecutionScope.Track(nameof(CreateSubKey), true);
-                ExecutionScope.RecordStep(
-                    Loc.Invariant["Service.Registry.Name"],
-                    description,
-                    true
-                );
+                ExecutionScope.RecordStep(ServiceStrings.RegistryName, description, true);
                 return true;
             }
 
@@ -530,25 +523,20 @@ public static class RegistryService
 
             ExecutionScope.LogInfo("Created registry key {Path}", item.Path);
             ExecutionScope.Track(nameof(CreateSubKey), true);
-            ExecutionScope.RecordStep(
-                Loc.Invariant["Service.Registry.Name"],
-                description,
-                true,
-                revertStep
-            );
+            ExecutionScope.RecordStep(ServiceStrings.RegistryName, description, true, revertStep);
             return true;
         }
         catch (UnauthorizedAccessException)
         {
-            _lastError.Value = Loc.Invariant["Service.Common.Error.AccessDenied"];
-            _lastErrorDetail.Value = Loc.Invariant[
-                "Service.Registry.ErrorDetail.AccessDeniedCreateKey",
+            _lastError.Value = ServiceStrings.CommonErrorAccessDenied;
+            _lastErrorDetail.Value = ServiceStrings.Format(
+                ServiceStrings.RegistryErrorDetailAccessDeniedCreateKey,
                 item.Path
-            ];
+            );
             ExecutionScope.LogError(null, "Access denied creating {Path}", item.Path);
             ExecutionScope.Track(nameof(CreateSubKey), false);
             ExecutionScope.RecordStep(
-                Loc.Invariant["Service.Registry.Name"],
+                ServiceStrings.RegistryName,
                 description,
                 false,
                 null,
@@ -565,7 +553,7 @@ public static class RegistryService
             ExecutionScope.LogError(ex, "Failed to create registry {Path}", item.Path);
             ExecutionScope.Track(nameof(CreateSubKey), false);
             ExecutionScope.RecordStep(
-                Loc.Invariant["Service.Registry.Name"],
+                ServiceStrings.RegistryName,
                 description,
                 false,
                 null,
@@ -587,7 +575,10 @@ public static class RegistryService
         if (!TryParsePath(item.Path, out var rootKey, out var subPath))
             return false;
 
-        var description = Loc.Invariant["Service.Registry.Description.DeleteKey", item.Path];
+        var description = ServiceStrings.Format(
+            ServiceStrings.RegistryDescriptionDeleteKey,
+            item.Path
+        );
 
         try
         {
@@ -596,18 +587,17 @@ public static class RegistryService
             {
                 ExecutionScope.LogInfo("Skip delete registry key {Path} (not found)", item.Path);
                 ExecutionScope.Track(nameof(DeleteSubKeyTree), true);
-                ExecutionScope.RecordStep(
-                    Loc.Invariant["Service.Registry.Name"],
-                    description,
-                    true
-                );
+                ExecutionScope.RecordStep(ServiceStrings.RegistryName, description, true);
                 return true;
             }
 
             var (subSteps, backupComplete) = BackupRegistryTree(key, item.Path);
             if (!backupComplete)
             {
-                var msg = Loc.Invariant["Service.Registry.Error.BackupTruncated", item.Path];
+                var msg = ServiceStrings.Format(
+                    ServiceStrings.RegistryErrorBackupTruncated,
+                    item.Path
+                );
                 _lastError.Value = _lastErrorDetail.Value = msg;
                 ExecutionScope.LogError(
                     null,
@@ -616,7 +606,7 @@ public static class RegistryService
                 );
                 ExecutionScope.Track(nameof(DeleteSubKeyTree), false);
                 ExecutionScope.RecordStep(
-                    Loc.Invariant["Service.Registry.Name"],
+                    ServiceStrings.RegistryName,
                     description,
                     false,
                     null,
@@ -637,25 +627,20 @@ public static class RegistryService
 
             ExecutionScope.LogInfo("Deleted registry key tree {Path}", item.Path);
             ExecutionScope.Track(nameof(DeleteSubKeyTree), true);
-            ExecutionScope.RecordStep(
-                Loc.Invariant["Service.Registry.Name"],
-                description,
-                true,
-                revertStep
-            );
+            ExecutionScope.RecordStep(ServiceStrings.RegistryName, description, true, revertStep);
             return true;
         }
         catch (UnauthorizedAccessException)
         {
-            _lastError.Value = Loc.Invariant["Service.Registry.Error.AccessDeniedProtectedHive"];
-            _lastErrorDetail.Value = Loc.Invariant[
-                "Service.Registry.ErrorDetail.AccessDeniedDeleteKeyTree",
+            _lastError.Value = ServiceStrings.RegistryErrorAccessDeniedProtectedHive;
+            _lastErrorDetail.Value = ServiceStrings.Format(
+                ServiceStrings.RegistryErrorDetailAccessDeniedDeleteKeyTree,
                 item.Path
-            ];
+            );
             ExecutionScope.LogError(null, "Access denied deleting {Path}", item.Path);
             ExecutionScope.Track(nameof(DeleteSubKeyTree), false);
             ExecutionScope.RecordStep(
-                Loc.Invariant["Service.Registry.Name"],
+                ServiceStrings.RegistryName,
                 description,
                 false,
                 null,
@@ -672,7 +657,7 @@ public static class RegistryService
             ExecutionScope.LogError(ex, "Failed to delete subkey tree {Path}", item.Path);
             ExecutionScope.Track(nameof(DeleteSubKeyTree), false);
             ExecutionScope.RecordStep(
-                Loc.Invariant["Service.Registry.Name"],
+                ServiceStrings.RegistryName,
                 description,
                 false,
                 null,
@@ -843,13 +828,7 @@ public static class RegistryService
 
         ExecutionScope.Track(nameof(RegistryService), false);
 
-        ExecutionScope.RecordStep(
-            Loc.Invariant["Service.Registry.Name"],
-            path,
-            false,
-            null,
-            uiReason
-        );
+        ExecutionScope.RecordStep(ServiceStrings.RegistryName, path, false, null, uiReason);
     }
 
     // walks each segment of the subkey path, creating missing segments one by one

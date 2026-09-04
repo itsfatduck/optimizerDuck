@@ -45,7 +45,10 @@ public static class ScheduledTaskService
     {
         _lastError.Value = _lastErrorDetail.Value = null;
 
-        var description = Loc.Invariant["Service.ScheduledTask.Description.Disable", fullPath];
+        var description = ServiceStrings.Format(
+            ServiceStrings.ScheduledTaskDescriptionDisable,
+            fullPath
+        );
         try
         {
             using var ts = new TaskService();
@@ -70,7 +73,7 @@ public static class ScheduledTaskService
             ExecutionScope.LogInfo("Disabled task {Path}", fullPath);
             ExecutionScope.Track(nameof(DisableTask), true);
             ExecutionScope.RecordStep(
-                Loc.Invariant["Service.ScheduledTask.Name"],
+                ServiceStrings.ScheduledTaskName,
                 description,
                 true,
                 revertStep
@@ -79,15 +82,15 @@ public static class ScheduledTaskService
         }
         catch (UnauthorizedAccessException)
         {
-            _lastError.Value = Loc.Invariant["Service.Common.Error.AccessDenied"];
-            _lastErrorDetail.Value = Loc.Invariant[
-                "Service.ScheduledTask.ErrorDetail.AccessDeniedDisable",
+            _lastError.Value = ServiceStrings.CommonErrorAccessDenied;
+            _lastErrorDetail.Value = ServiceStrings.Format(
+                ServiceStrings.ScheduledTaskErrorDetailAccessDeniedDisable,
                 fullPath
-            ];
+            );
             ExecutionScope.LogError(null, "Access denied disabling task {Path}", fullPath);
             ExecutionScope.Track(nameof(DisableTask), false);
             ExecutionScope.RecordStep(
-                Loc.Invariant["Service.ScheduledTask.Name"],
+                ServiceStrings.ScheduledTaskName,
                 description,
                 false,
                 null,
@@ -104,7 +107,7 @@ public static class ScheduledTaskService
             ExecutionScope.LogError(ex, "Failed to disable task {Path}", fullPath);
             ExecutionScope.Track(nameof(DisableTask), false);
             ExecutionScope.RecordStep(
-                Loc.Invariant["Service.ScheduledTask.Name"],
+                ServiceStrings.ScheduledTaskName,
                 description,
                 false,
                 null,
@@ -123,7 +126,10 @@ public static class ScheduledTaskService
     {
         _lastError.Value = _lastErrorDetail.Value = null;
 
-        var description = Loc.Invariant["Service.ScheduledTask.Description.Enable", fullPath];
+        var description = ServiceStrings.Format(
+            ServiceStrings.ScheduledTaskDescriptionEnable,
+            fullPath
+        );
         try
         {
             using var ts = new TaskService();
@@ -148,7 +154,7 @@ public static class ScheduledTaskService
             ExecutionScope.LogInfo("Enabled task {Path}", fullPath);
             ExecutionScope.Track(nameof(EnableTask), true);
             ExecutionScope.RecordStep(
-                Loc.Invariant["Service.ScheduledTask.Name"],
+                ServiceStrings.ScheduledTaskName,
                 description,
                 true,
                 revertStep
@@ -157,15 +163,15 @@ public static class ScheduledTaskService
         }
         catch (UnauthorizedAccessException)
         {
-            _lastError.Value = Loc.Invariant["Service.Common.Error.AccessDenied"];
-            _lastErrorDetail.Value = Loc.Invariant[
-                "Service.ScheduledTask.ErrorDetail.AccessDeniedEnable",
+            _lastError.Value = ServiceStrings.CommonErrorAccessDenied;
+            _lastErrorDetail.Value = ServiceStrings.Format(
+                ServiceStrings.ScheduledTaskErrorDetailAccessDeniedEnable,
                 fullPath
-            ];
+            );
             ExecutionScope.LogError(null, "Access denied enabling task {Path}", fullPath);
             ExecutionScope.Track(nameof(EnableTask), false);
             ExecutionScope.RecordStep(
-                Loc.Invariant["Service.ScheduledTask.Name"],
+                ServiceStrings.ScheduledTaskName,
                 description,
                 false,
                 null,
@@ -182,7 +188,7 @@ public static class ScheduledTaskService
             ExecutionScope.LogError(ex, "Failed to enable task {Path}", fullPath);
             ExecutionScope.Track(nameof(EnableTask), false);
             ExecutionScope.RecordStep(
-                Loc.Invariant["Service.ScheduledTask.Name"],
+                ServiceStrings.ScheduledTaskName,
                 description,
                 false,
                 null,

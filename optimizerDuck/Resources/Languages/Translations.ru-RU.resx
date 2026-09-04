@@ -147,18 +147,6 @@
   <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
     <value>Поставьте звезду на GitHub, поделитесь с друзьями или поддержите донатом - это поможет проекту расти!</value>
   </data>
-  <data name="Service.Registry.Description.CreateKey" xml:space="preserve">
-    <value>Создать раздел реестра {0}</value>
-  </data>
-  <data name="Service.Registry.Description.DeleteKey" xml:space="preserve">
-    <value>Удалить раздел реестра {0}</value>
-  </data>
-  <data name="Settings.LanguageChanged.Title" xml:space="preserve">
-    <value>Смена языка</value>
-  </data>
-  <data name="Settings.LanguageChanged.Description" xml:space="preserve">
-    <value>Необходимо перезапустить приложение для применения нового языка.</value>
-  </data>
   <data name="Button.Ok" xml:space="preserve">
     <value>ОК</value>
   </data>
@@ -219,9 +207,6 @@
   <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
     <value>Подробное описание</value>
   </data>
-  <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
-    <value>Теги</value>
-  </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
     <value>Повышает порог разделения узла служб до общего объёма ОЗУ системы, сохраняя службы объединёнными в меньшем числе процессов для снижения потребления памяти и количества процессов.</value>
   </data>
@@ -233,9 +218,6 @@
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ActivateFailed" xml:space="preserve">
     <value>Не удалось активировать схему электропитания optimizerDuck.</value>
-  </data>
-  <data name="Optimizer.UI.Risk.Help" xml:space="preserve">
-    <value>Это значение отражает уровень вмешательства и безопасность процесса оптимизации. Пожалуйста, соблюдайте осторожность и внимательно оценивайте риски перед применением.</value>
   </data>
   <data name="Optimizer.UI.Tags.System" xml:space="preserve">
     <value>Система</value>
@@ -258,9 +240,6 @@
   <data name="Optimizer.UI.Tags.Audio" xml:space="preserve">
     <value>Аудио</value>
   </data>
-  <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
-    <value>Эти теги показывают, на какие части системы повлияет оптимизация.</value>
-  </data>
 <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
     <value>NVIDIA</value>
   </data>
@@ -274,9 +253,6 @@
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
     <value>Питание</value>
   </data>
-  <data name="Revert.Error.InvalidData" xml:space="preserve">
-    <value>Некорректные данные отката для {0}: {1}</value>
-  </data>
   <data name="Revert.Error.NoDataFound" xml:space="preserve">
     <value>Данные отката для {0} не найдены.</value>
   </data>
@@ -289,14 +265,8 @@
   <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
     <value>Откачено {0}, но {1} шаг(ов) завершились сбоем.</value>
   </data>
-  <data name="Revert.Error.RevertFailed" xml:space="preserve">
-    <value>Не удалось откатить {0}: {1}</value>
-  </data>
   <data name="Optimization.Revert.ExecutingStep" xml:space="preserve">
     <value>Выполнение шага отката: {0}/{1} ({2})</value>
-  </data>
-  <data name="Optimization.Revert.StepDescription" xml:space="preserve">
-    <value>Шаг отката #{0}</value>
   </data>
   <data name="Revert.Registry.Description.RestoreKey" xml:space="preserve">
     <value>Восстановить раздел реестра: {0}</value>
@@ -307,38 +277,14 @@
   <data name="Revert.Registry.Description.RevertUnknown" xml:space="preserve">
     <value>Откат реестра: {0}</value>
   </data>
-  <data name="Revert.Error.FileNotFound" xml:space="preserve">
-    <value>Файл отката не найден</value>
-  </data>
-  <data name="Revert.Error.FileEmpty" xml:space="preserve">
-    <value>Файл отката пуст</value>
-  </data>
-  <data name="Revert.Error.ReadFailed" xml:space="preserve">
-    <value>Не удалось прочитать данные отката: {0}</value>
-  </data>
-  <data name="Revert.Error.InvalidJson" xml:space="preserve">
-    <value>Некорректные данные отката</value>
-  </data>
-  <data name="Revert.Error.InvalidJsonFormat" xml:space="preserve">
-    <value>Некорректный формат JSON: {0}</value>
-  </data>
   <data name="Revert.Error.NoSteps" xml:space="preserve">
     <value>Шаги отката не найдены.</value>
-  </data>
-  <data name="Revert.Error.InvalidSteps" xml:space="preserve">
-    <value>Некорректные шаги отката: {0}</value>
   </data>
   <data name="Revert.Error.StepFailed" xml:space="preserve">
     <value>Сбой шага отката</value>
   </data>
   <data name="Revert.UsbPower.Description" xml:space="preserve">
     <value>Восстановить параметры выборочной приостановки USB</value>
-  </data>
-  <data name="Service.Registry.Error.BackupTruncated" xml:space="preserve">
-    <value>Ветвь реестра слишком велика для безопасного резервного копирования; удаление прервано для {0}</value>
-  </data>
-  <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
-    <value>Несоответствие OptimizationId.</value>
   </data>
   <data name="Optimization.Apply.Processing" xml:space="preserve">
     <value>Применение изменений...</value>
@@ -357,51 +303,6 @@
   </data>
   <data name="Optimization.Apply.Error.Unknown" xml:space="preserve">
     <value>Неизвестный результат для {0}.</value>
-  </data>
-  <data name="Service.Common.Error.AccessDenied" xml:space="preserve">
-    <value>Доступ запрещен</value>
-  </data>
-  <data name="Service.Registry.Error.AccessDeniedProtectedHive" xml:space="preserve">
-    <value>Доступ запрещен (защищенный куст)</value>
-  </data>
-  <data name="Service.Registry.Error.UnauthorizedAccess" xml:space="preserve">
-    <value>Несанкционированный доступ</value>
-  </data>
-  <data name="Service.Registry.Error.CreateOrOpenSubkeyFailed" xml:space="preserve">
-    <value>Не удалось создать/открыть подключ</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedWrite" xml:space="preserve">
-    <value>Доступ запрещен для записи {0}:{1}</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedDelete" xml:space="preserve">
-    <value>Доступ запрещен для удаления {0}:{1}</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedCreateKey" xml:space="preserve">
-    <value>Доступ запрещен для создания {0}</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedDeleteKeyTree" xml:space="preserve">
-    <value>Доступ запрещен для удаления дерева {0}</value>
-  </data>
-  <data name="Service.Service.Error.NotFound" xml:space="preserve">
-    <value>Служба не найдена</value>
-  </data>
-  <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
-    <value>Служба '{0}' не найдена (пропущена)</value>
-  </data>
-  <data name="Service.Service.Info.AlreadyConfigured" xml:space="preserve">
-    <value>Служба '{0}' уже имеет тип запуска {1} (пропущена)</value>
-  </data>
-  <data name="Service.Service.Info.SkippedAccessDenied" xml:space="preserve">
-    <value>Доступ к службе '{0}' запрещен Windows (пропущена)</value>
-  </data>
-  <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
-    <value>Не удалось изменить тип запуска службы</value>
-  </data>
-  <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
-    <value>Сбой ChangeStartMode (код: {0})</value>
-  </data>
-  <data name="Service.Service.Error.ExceptionOccurred" xml:space="preserve">
-    <value>Сбой при изменении службы '{0}': {1}</value>
   </data>
   <data name="Service.Shell.Error.ExitCode" xml:space="preserve">
     <value>Код выхода {0}</value>
@@ -465,9 +366,6 @@
   </data>
   <data name="Settings.Appearance.SmoothScrolling.Description" xml:space="preserve">
     <value>Включить анимацию плавной прокрутки. Отключите, если замечаете тормоза.</value>
-  </data>
-  <data name="Button.Open" xml:space="preserve">
-    <value>Открыть</value>
   </data>
   <data name="Settings.About.Header" xml:space="preserve">
     <value>О программе</value>
@@ -978,9 +876,6 @@
   <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
     <value>НЕ меняйте, если точно не знаете, что делаете</value>
   </data>
-  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DownloadFailed" xml:space="preserve">
-    <value>Не удалось загрузить схему электропитания optimizerDuck.</value>
-  </data>
   <data name="Settings.About.Acknowledgements.Title" xml:space="preserve">
     <value>Благодарности</value>
   </data>
@@ -1034,9 +929,6 @@
   <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
     <value>Не удалось открыть папку или файл</value>
   </data>
-  <data name="Button.ViewLatestRelease" xml:space="preserve">
-    <value>Последний релиз</value>
-  </data>
   <data name="BloatwareDialog.Title" xml:space="preserve">
     <value>Удаление {0} пакетов AppX</value>
   </data>
@@ -1070,9 +962,6 @@
   <data name="BloatwareDialog.Confirmation.Title" xml:space="preserve">
     <value>Удалить {0} приложений?</value>
   </data>
-  <data name="BloatwareDialog.Confirmation.Message" xml:space="preserve">
-    <value>Вы собираетесь удалить: {0}</value>
-  </data>
   <data name="BloatwareDialog.Confirmation.Description" xml:space="preserve">
     <value>Проверьте выбранные приложения. Продолжайте, только если уверены.</value>
   </data>
@@ -1098,9 +987,6 @@
   <data name="Common.Filter.All" xml:space="preserve">
     <value>Все</value>
   </data>
-  <data name="Common.SortBy.Default" xml:space="preserve">
-    <value>По умолчанию</value>
-  </data>
   <data name="Common.SortBy.Name" xml:space="preserve">
     <value>Имя</value>
   </data>
@@ -1116,12 +1002,6 @@
   <data name="Common.SortBy.Path" xml:space="preserve">
     <value>Путь</value>
   </data>
-  <data name="Optimizer.Menu.ApplyAllSafe" xml:space="preserve">
-    <value>Применить все безопасные</value>
-  </data>
-  <data name="Optimizer.Menu.ApplyAll" xml:space="preserve">
-    <value>Применить все</value>
-  </data>
   <data name="Optimizer.Menu.ViewSource" xml:space="preserve">
     <value>Исходный код</value>
   </data>
@@ -1133,12 +1013,6 @@
   </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
     <value>Скрыть примененные</value>
-  </data>
-  <data name="Optimizer.Menu.ApplyMenu" xml:space="preserve">
-    <value>Применить</value>
-  </data>
-  <data name="Optimizer.Menu.BatchApply.Title" xml:space="preserve">
-    <value>Применение оптимизаций</value>
   </data>
   <data name="Bloatware.Search.NoResults" xml:space="preserve">
     <value>Ничего не найдено. Попробуйте другой запрос или фильтр.</value>
@@ -1169,9 +1043,6 @@
   </data>
   <data name="DiskCleanup.Button.DeselectAll" xml:space="preserve">
     <value>Снять все</value>
-  </data>
-  <data name="DiskCleanup.Scanning" xml:space="preserve">
-    <value>Сканирование...</value>
   </data>
   <data name="DiskCleanup.Loading" xml:space="preserve">
     <value>Загрузка элементов очистки...</value>
@@ -1248,12 +1119,6 @@
   <data name="Bloatware.Header.Description" xml:space="preserve">
     <value>Управляйте и удаляйте предустановленные приложения, которые вам не нужны</value>
   </data>
-  <data name="Dashboard.SystemInfo.Header" xml:space="preserve">
-    <value>Информация о системе</value>
-  </data>
-  <data name="DiskCleanup.ItemsSelected" xml:space="preserve">
-    <value>{0} (выбрано {1} элементов)</value>
-  </data>
   <data name="DiskCleanup.Button.Clean" xml:space="preserve">
     <value>Очистить</value>
   </data>
@@ -1292,9 +1157,6 @@
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
     <value>Исходный код на GitHub</value>
-  </data>
-  <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
-    <value>Уровень риска</value>
   </data>
   <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
     <value>Технические детали</value>
@@ -1347,9 +1209,6 @@
   <data name="Common.SortBy.Status" xml:space="preserve">
     <value>Статус</value>
   </data>
-  <data name="Common.Status.Applied" xml:space="preserve">
-    <value>Применено</value>
-  </data>
   <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
     <value>Открыть Параметры</value>
   </data>
@@ -1377,9 +1236,6 @@
   <data name="ScheduledTasks.HideMicrosoft" xml:space="preserve">
     <value>Скрыть задачи Microsoft</value>
   </data>
-  <data name="ScheduledTasks.Menu.CreateTask" xml:space="preserve">
-    <value>Создать задачу</value>
-  </data>
   
   <data name="ScheduledTasks.Action.Details" xml:space="preserve">
     <value>Подробности</value>
@@ -1397,9 +1253,6 @@
   <data name="ScheduledTasks.Dialog.DeleteTitle" xml:space="preserve">
     <value>Удалить задачу</value>
   </data>
-  <data name="ScheduledTasks.Dialog.DeleteMessage" xml:space="preserve">
-    <value>Вы уверены, что хотите удалить задачу "{0}"? Это действие необратимо.</value>
-  </data>
   
   <data name="ScheduledTasks.Details.Path" xml:space="preserve">
     <value>Путь</value>
@@ -1409,9 +1262,6 @@
   </data>
   <data name="ScheduledTasks.Details.Author" xml:space="preserve">
     <value>Автор</value>
-  </data>
-  <data name="ScheduledTasks.Details.State" xml:space="preserve">
-    <value>Состояние</value>
   </data>
   <data name="ScheduledTasks.Details.Triggers" xml:space="preserve">
     <value>Триггеры</value>
@@ -1471,12 +1321,6 @@
   <data name="ScheduledTasks.Snackbar.Delete.Message" xml:space="preserve">
     <value>{0} удалена.</value>
   </data>
-  <data name="ScheduledTasks.Snackbar.Create.Title" xml:space="preserve">
-    <value>Задача создана</value>
-  </data>
-  <data name="ScheduledTasks.Snackbar.Create.Message" xml:space="preserve">
-    <value>{0} успешно создана.</value>
-  </data>
   <data name="ScheduledTasks.Snackbar.Error.Title" xml:space="preserve">
 
     <value>Ошибка</value>
@@ -1487,39 +1331,6 @@
   <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
       <value>Задача не найдена: {0}</value>
     </data>
-  <data name="Service.Registry.Name" xml:space="preserve">
-    <value>Реестр</value>
-  </data>
-  <data name="Service.Service.Name" xml:space="preserve">
-    <value>Служба</value>
-  </data>
-  <data name="Service.ScheduledTask.Name" xml:space="preserve">
-    <value>Запланированная задача</value>
-  </data>
-  <data name="Service.Shell.Name" xml:space="preserve">
-    <value>Оболочка</value>
-  </data>
-  <data name="Service.Registry.Description.Write" xml:space="preserve">
-    <value>Записать значение реестра: {0}\{1}</value>
-  </data>
-  <data name="Service.Registry.Description.Delete" xml:space="preserve">
-    <value>Удалить значение реестра: {0}\{1}</value>
-  </data>
-  <data name="Service.Service.Description.Change" xml:space="preserve">
-    <value>Изменить запуск службы '{0}' на {1}</value>
-  </data>
-  <data name="Service.ScheduledTask.Description.Enable" xml:space="preserve">
-    <value>Включить задачу: {0}</value>
-  </data>
-  <data name="Service.ScheduledTask.Description.Disable" xml:space="preserve">
-    <value>Отключить задачу: {0}</value>
-  </data>
-  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedDisable" xml:space="preserve">
-    <value>Доступ запрещен для отключения задачи {0}</value>
-  </data>
-  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedEnable" xml:space="preserve">
-    <value>Доступ запрещен для включения задачи {0}</value>
-  </data>
   <data name="Revert.Registry.Description.Restore" xml:space="preserve">
     <value>Восстановить значение реестра: {0}\{1}</value>
   </data>
@@ -1666,15 +1477,6 @@
   </data>
   <data name="LegalDialog.Title" xml:space="preserve">
     <value>Юридическое соглашение</value>
-  </data>
-  <data name="LegalDialog.Intro.ThankYou" xml:space="preserve">
-    <value>Спасибо, что выбрали optimizerDuck.</value>
-  </data>
-  <data name="LegalDialog.Intro.Safety" xml:space="preserve">
-    <value>Для обеспечения прозрачности и вашей безопасности optimizerDuck может изменять некоторые системные настройки и конфигурации реестра.</value>
-  </data>
-  <data name="LegalDialog.Intro.Review" xml:space="preserve">
-    <value>Пожалуйста, ознакомьтесь со следующими документами. Продолжая, вы соглашаетесь с этими условиями.</value>
   </data>
   <data name="LegalDialog.Intro.Title" xml:space="preserve">
     <value>Добро пожаловать в optimizerDuck!</value>
@@ -1859,12 +1661,6 @@
   <data name="DiskCleanup.Dialog.Confirmation.Summary" xml:space="preserve">
     <value>Вы собираетесь удалить {0} из {1} элемент(ов) ({2} файл(ов)). Пожалуйста, проверьте элементы ниже.</value>
   </data>
-  <data name="DiskCleanup.Dialog.Confirmation.SingleTitle" xml:space="preserve">
-    <value>Очистить элемент</value>
-  </data>
-  <data name="DiskCleanup.Dialog.Confirmation.SingleItem" xml:space="preserve">
-    <value>Вы собираетесь удалить {0} ({1}). Пожалуйста, подтвердите.</value>
-  </data>
   <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
     <value>Удаление запланированной задачи является необратимым. Задача больше не будет выполняться автоматически.</value>
   </data>
@@ -2014,9 +1810,6 @@
   </data>
   <data name="Customize.UI.UnsupportedSettings.Header" xml:space="preserve">
     <value>Неподдерживаемые параметры ({0})</value>
-  </data>
-  <data name="Customize.UI.UnsupportedSettings.Badge" xml:space="preserve">
-    <value>Не поддерживается</value>
   </data>
   <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
     <value>Некоторые параметры недоступны в вашей текущей системе.</value>

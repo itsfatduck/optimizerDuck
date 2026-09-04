@@ -157,9 +157,6 @@
   <data name="BloatwareDialog.Confirmation.Description" xml:space="preserve">
     <value>راجع التطبيقات المحددة قبل الإزالة. تابع فقط إذا كنت متأكدًا.</value>
   </data>
-  <data name="BloatwareDialog.Confirmation.Message" xml:space="preserve">
-    <value>أنت على وشك إزالة: {0}</value>
-  </data>
   <data name="BloatwareDialog.Confirmation.SelectedList" xml:space="preserve">
     <value>التطبيقات المحددة</value>
   </data>
@@ -187,17 +184,11 @@
   <data name="Button.Ok" xml:space="preserve">
     <value>موافق</value>
   </data>
-  <data name="Button.Open" xml:space="preserve">
-    <value>فتح</value>
-  </data>
   <data name="Button.Retry" xml:space="preserve">
     <value>إعادة المحاولة</value>
   </data>
   <data name="Button.Skip" xml:space="preserve">
     <value>تخطّي</value>
-  </data>
-  <data name="Button.ViewLatestRelease" xml:space="preserve">
-    <value>عرض أحدث إصدار</value>
   </data>
   <data name="Common.AppliedDaysAgo" xml:space="preserve">
     <value>طُبِّق منذ {0} يوم</value>
@@ -259,9 +250,6 @@
   <data name="Common.SortBy" xml:space="preserve">
     <value>ترتيب حسب</value>
   </data>
-  <data name="Common.SortBy.Default" xml:space="preserve">
-    <value>الافتراضي</value>
-  </data>
   <data name="Common.SortBy.Name" xml:space="preserve">
     <value>الاسم</value>
   </data>
@@ -282,9 +270,6 @@
   </data>
   <data name="Common.SortBy.Status" xml:space="preserve">
     <value>الحالة</value>
-  </data>
-  <data name="Common.Status.Applied" xml:space="preserve">
-    <value>مُطبَّق</value>
   </data>
   <data name="Common.Toggle.Off" xml:space="preserve">
     <value>إيقاف</value>
@@ -703,9 +688,6 @@
   <data name="Dashboard.SystemInfo.Gpu.More" xml:space="preserve">
     <value>‎+ {0} معالج رسومات إضافي</value>
   </data>
-  <data name="Dashboard.SystemInfo.Header" xml:space="preserve">
-    <value>معلومات النظام</value>
-  </data>
   <data name="Dashboard.SystemInfo.Loading" xml:space="preserve">
     <value>جارٍ جلب معلومات النظام...</value>
   </data>
@@ -778,12 +760,6 @@
   </data>
   <data name="DiskCleanup.Complete.Title" xml:space="preserve">
     <value>اكتمل التنظيف</value>
-  </data>
-  <data name="DiskCleanup.Dialog.Confirmation.SingleItem" xml:space="preserve">
-    <value>أنت على وشك حذف {0} ({1}). يُرجى التأكيد.</value>
-  </data>
-  <data name="DiskCleanup.Dialog.Confirmation.SingleTitle" xml:space="preserve">
-    <value>تنظيف عنصر</value>
   </data>
   <data name="DiskCleanup.Dialog.Confirmation.Summary" xml:space="preserve">
     <value>أنت على وشك حذف {0}‎ من {1} عنصر ({2} ملف). يُرجى مراجعة العناصر أدناه.</value>
@@ -863,32 +839,17 @@
   <data name="DiskCleanup.ItemsAndFilesSelected" xml:space="preserve">
     <value>محدد {0}‎ • {1} عنصر • {2} ملف</value>
   </data>
-  <data name="DiskCleanup.ItemsSelected" xml:space="preserve">
-    <value>{0}‎ (تم تحديد {1} عنصر)</value>
-  </data>
   <data name="DiskCleanup.Loading" xml:space="preserve">
     <value>جارٍ تحميل عناصر التنظيف...</value>
   </data>
-  <data name="DiskCleanup.Scanning" xml:space="preserve">
-    <value>جارٍ الفحص...</value>
-  </data>
   <data name="DiskCleanup.TotalSpace" xml:space="preserve">
     <value>إجمالي المساحة القابلة للاستعادة</value>
-  </data>
-  <data name="LegalDialog.Intro.Review" xml:space="preserve">
-    <value>يُرجى أخذ لحظة لمراجعة المستندات التالية. بمتابعتك فإنك توافق على هذه الشروط.</value>
   </data>
   <data name="LegalDialog.Intro.Title" xml:space="preserve">
     <value>مرحباً بك في optimizerDuck!</value>
   </data>
   <data name="LegalDialog.Intro.Description" xml:space="preserve">
     <value>اختر لغتك والمظهر الخاص بك، وخذ لحظة لمراجعة شروط الخدمة وسياسة الخصوصية وإخلاء المسؤولية، ثم ستكون جاهزًا للانطلاق.</value>
-  </data>
-  <data name="LegalDialog.Intro.Safety" xml:space="preserve">
-    <value>لضمان الشفافية وسلامتك، قد يعدّل ‎optimizerDuck‎ بعض إعدادات النظام وتهيئات الريجستري.</value>
-  </data>
-  <data name="LegalDialog.Intro.ThankYou" xml:space="preserve">
-    <value>شكرًا لاختيارك ‎optimizerDuck‎.</value>
   </data>
   <data name="LegalDialog.Link.Disclaimer" xml:space="preserve">
     <value>إخلاء المسؤولية</value>
@@ -1004,9 +965,6 @@
   <data name="Optimization.Revert.Snackbar.Success.Title" xml:space="preserve">
     <value>تم التراجع عن التحسين بنجاح</value>
   </data>
-  <data name="Optimization.Revert.StepDescription" xml:space="preserve">
-    <value>خطوة التراجع رقم {0}</value>
-  </data>
   <data name="Optimization.Revert.Success" xml:space="preserve">
     <value>تم التراجع عن {0} بنجاح!</value>
   </data>
@@ -1039,12 +997,6 @@
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
     <value>عرض الكود المصدري على GitHub</value>
-  </data>
-  <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
-    <value>مستوى الخطورة</value>
-  </data>
-  <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
-    <value>الوسوم</value>
   </data>
   <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
     <value>التفاصيل التقنية</value>
@@ -1137,18 +1089,6 @@
     <value>يضبط ‎DisableDynamicPstate=1‎ لتثبيت كرت ‎NVIDIA‎ على حالة أداء ثابتة ومنع تذبذب الترددات. يزيد استهلاك الطاقة في الخمول.</value>
   </data>
 
-  <data name="Optimizer.Menu.ApplyAll" xml:space="preserve">
-    <value>تطبيق الكل</value>
-  </data>
-  <data name="Optimizer.Menu.ApplyAllSafe" xml:space="preserve">
-    <value>تطبيق الآمن فقط</value>
-  </data>
-  <data name="Optimizer.Menu.ApplyMenu" xml:space="preserve">
-    <value>تطبيق</value>
-  </data>
-  <data name="Optimizer.Menu.BatchApply.Title" xml:space="preserve">
-    <value>جارٍ تطبيق التحسينات</value>
-  </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
     <value>إخفاء المُطبَّق</value>
   </data>
@@ -1223,9 +1163,6 @@
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
     <value>فشل تحديد خطة الطاقة النشطة حاليًا.</value>
-  </data>
-  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DownloadFailed" xml:space="preserve">
-    <value>فشل تنزيل خطة الطاقة الخاصة بـ‎optimizerDuck‎.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ImportFailed" xml:space="preserve">
     <value>فشل استيراد خطة الطاقة الخاصة بـ‎optimizerDuck‎.</value>
@@ -1308,9 +1245,6 @@
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
     <value>يعطّل خدمات القياس عن بُعد (Telemetry) وتتبّع الاستخدام في ويندوز لتعزيز خصوصيتك وتقليل النشاط في الخلفية.</value>
   </data>
-  <data name="Optimizer.UI.Risk.Help" xml:space="preserve">
-    <value>تعكس هذه القيمة مدى تدخّل التحسين في النظام ودرجة أمانه. توخَّ الحذر وفكّر جيدًا قبل تطبيق أي تحسين.</value>
-  </data>
   <data name="Optimizer.UI.Risk.Moderate" xml:space="preserve">
     <value>بحذر</value>
   </data>
@@ -1332,9 +1266,6 @@
   </data>
   <data name="Optimizer.UI.Tags.Display" xml:space="preserve">
     <value>العرض</value>
-  </data>
-  <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
-    <value>تشير هذه الوسوم إلى أجزاء النظام التي سيؤثر عليها التحسين.</value>
   </data>
   <data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
     <value>Intel</value>
@@ -1439,38 +1370,11 @@
     <value>سيفعّل التطبيق استعادة النظام تلقائيًا وينشئ نقطة تحقق باسم «‎optimizerDuck...‎».
 هذا يضمن إمكانية الرجوع دائمًا إذا حدث خطأ ما.</value>
   </data>
-  <data name="Revert.Error.FileEmpty" xml:space="preserve">
-    <value>ملف التراجع فارغ</value>
-  </data>
-  <data name="Revert.Error.FileNotFound" xml:space="preserve">
-    <value>ملف التراجع غير موجود</value>
-  </data>
-  <data name="Revert.Error.InvalidData" xml:space="preserve">
-    <value>بيانات تراجع غير صالحة لـ {0}: {1}</value>
-  </data>
-  <data name="Revert.Error.InvalidJson" xml:space="preserve">
-    <value>بيانات تراجع غير صالحة</value>
-  </data>
-  <data name="Revert.Error.InvalidJsonFormat" xml:space="preserve">
-    <value>صيغة ‎JSON‎ غير صالحة: {0}</value>
-  </data>
-  <data name="Revert.Error.InvalidSteps" xml:space="preserve">
-    <value>خطوات تراجع غير صالحة: {0}</value>
-  </data>
   <data name="Revert.Error.NoDataFound" xml:space="preserve">
     <value>لا توجد بيانات تراجع لـ {0}‎.</value>
   </data>
   <data name="Revert.Error.NoSteps" xml:space="preserve">
     <value>لم يتم العثور على خطوات تراجع.</value>
-  </data>
-  <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
-    <value>عدم تطابق معرّف التحسين.</value>
-  </data>
-  <data name="Revert.Error.ReadFailed" xml:space="preserve">
-    <value>فشل قراءة بيانات التراجع: {0}</value>
-  </data>
-  <data name="Revert.Error.RevertFailed" xml:space="preserve">
-    <value>فشل التراجع عن {0}: {1}</value>
   </data>
   <data name="Revert.Error.StepFailed" xml:space="preserve">
     <value>فشلت خطوة التراجع</value>
@@ -1550,14 +1454,8 @@
   <data name="ScheduledTasks.Details.Path" xml:space="preserve">
     <value>المسار</value>
   </data>
-  <data name="ScheduledTasks.Details.State" xml:space="preserve">
-    <value>الحالة</value>
-  </data>
   <data name="ScheduledTasks.Details.Triggers" xml:space="preserve">
     <value>المشغّلات</value>
-  </data>
-  <data name="ScheduledTasks.Dialog.DeleteMessage" xml:space="preserve">
-    <value>هل أنت متأكد من حذف المهمة «{0}»؟ لا يمكن التراجع عن هذا الإجراء.</value>
   </data>
   <data name="ScheduledTasks.Dialog.DeleteTitle" xml:space="preserve">
     <value>حذف مهمة مجدولة</value>
@@ -1583,17 +1481,8 @@
   <data name="ScheduledTasks.Loading.Hint" xml:space="preserve">
     <value>قد يستغرق هذا لحظة أثناء فحص جميع المهام المجدولة على نظامك...</value>
   </data>
-  <data name="ScheduledTasks.Menu.CreateTask" xml:space="preserve">
-    <value>إنشاء مهمة</value>
-  </data>
   <data name="ScheduledTasks.Menu.OpenSettings" xml:space="preserve">
     <value>فتح برنامج جدولة المهام</value>
-  </data>
-  <data name="ScheduledTasks.Snackbar.Create.Message" xml:space="preserve">
-    <value>تم إنشاء {0} بنجاح.</value>
-  </data>
-  <data name="ScheduledTasks.Snackbar.Create.Title" xml:space="preserve">
-    <value>أُنشئت المهمة</value>
   </data>
   <data name="ScheduledTasks.Snackbar.Delete.Message" xml:space="preserve">
     <value>تم حذف {0}‎.</value>
@@ -1625,98 +1514,11 @@
   <data name="ScheduledTasks.Snackbar.Toggle.Message" xml:space="preserve">
     <value>تم تحديث {0} بنجاح.</value>
   </data>
-  <data name="Service.Common.Error.AccessDenied" xml:space="preserve">
-    <value>تم رفض الوصول</value>
-  </data>
-  <data name="Service.Registry.Description.CreateKey" xml:space="preserve">
-    <value>إنشاء مفتاح الريجستري ‎{0}‎</value>
-  </data>
-  <data name="Service.Registry.Description.Delete" xml:space="preserve">
-    <value>حذف قيمة الريجستري: ‎{0}\{1}‎</value>
-  </data>
-  <data name="Service.Registry.Description.DeleteKey" xml:space="preserve">
-    <value>حذف مفتاح الريجستري ‎{0}‎</value>
-  </data>
-  <data name="Service.Registry.Description.Write" xml:space="preserve">
-    <value>كتابة قيمة الريجستري: ‎{0}\{1}‎</value>
-  </data>
-  <data name="Service.Registry.Error.AccessDeniedProtectedHive" xml:space="preserve">
-    <value>تم رفض الوصول (خلية محمية)</value>
-  </data>
-  <data name="Service.Registry.Error.BackupTruncated" xml:space="preserve">
-    <value>شجرة الريجستري الفرعية أكبر من أن تُنسخ احتياطيًا بأمان؛ أُلغي الحذف لـ ‎{0}‎</value>
-  </data>
-  <data name="Service.Registry.Error.CreateOrOpenSubkeyFailed" xml:space="preserve">
-    <value>فشل إنشاء المفتاح الفرعي أو فتحه</value>
-  </data>
-  <data name="Service.Registry.Error.UnauthorizedAccess" xml:space="preserve">
-    <value>وصول غير مصرّح به</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedCreateKey" xml:space="preserve">
-    <value>تم رفض الوصول عند إنشاء ‎{0}‎</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedDelete" xml:space="preserve">
-    <value>تم رفض الوصول عند حذف ‎{0}:{1}‎</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedDeleteKeyTree" xml:space="preserve">
-    <value>تم رفض الوصول عند حذف شجرة المفتاح ‎{0}‎</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedWrite" xml:space="preserve">
-    <value>تم رفض الوصول عند كتابة ‎{0}:{1}‎</value>
-  </data>
-  <data name="Service.Registry.Name" xml:space="preserve">
-    <value>الريجستري</value>
-  </data>
-  <data name="Service.ScheduledTask.Description.Disable" xml:space="preserve">
-    <value>تعطيل المهمة المجدولة: ‎{0}‎</value>
-  </data>
-  <data name="Service.ScheduledTask.Description.Enable" xml:space="preserve">
-    <value>تفعيل المهمة المجدولة: ‎{0}‎</value>
-  </data>
-  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedDisable" xml:space="preserve">
-    <value>تم رفض الوصول عند تعطيل المهمة ‎{0}‎</value>
-  </data>
-  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedEnable" xml:space="preserve">
-    <value>تم رفض الوصول عند تفعيل المهمة ‎{0}‎</value>
-  </data>
-  <data name="Service.ScheduledTask.Name" xml:space="preserve">
-    <value>مهمة مجدولة</value>
-  </data>
-  <data name="Service.Service.Description.Change" xml:space="preserve">
-    <value>تغيير بدء تشغيل الخدمة «{0}» إلى {1}</value>
-  </data>
-  <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
-    <value>فشل ‎ChangeStartMode‎ (الرمز: {0})</value>
-  </data>
-  <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
-    <value>فشل تغيير نوع بدء تشغيل الخدمة</value>
-  </data>
-  <data name="Service.Service.Error.ExceptionOccurred" xml:space="preserve">
-    <value>فشل تغيير الخدمة «{0}»: {1}</value>
-  </data>
-  <data name="Service.Service.Error.NotFound" xml:space="preserve">
-    <value>الخدمة غير موجودة</value>
-  </data>
-  <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
-    <value>الخدمة «{0}» غير موجودة (تم تخطّيها)</value>
-  </data>
-  <data name="Service.Service.Info.AlreadyConfigured" xml:space="preserve">
-    <value>الخدمة '{0}' مضبوطة بالفعل على {1} (تم التخطي)</value>
-  </data>
-  <data name="Service.Service.Info.SkippedAccessDenied" xml:space="preserve">
-    <value>تم رفض الوصول إلى الخدمة '{0}' من قبل Windows (تم التخطي)</value>
-  </data>
-  <data name="Service.Service.Name" xml:space="preserve">
-    <value>خدمة</value>
-  </data>
   <data name="Service.Shell.Error.ExitCode" xml:space="preserve">
     <value>رمز الخروج {0}</value>
   </data>
   <data name="Service.Shell.Error.TimedOut" xml:space="preserve">
     <value>انتهت المهلة</value>
-  </data>
-  <data name="Service.Shell.Name" xml:space="preserve">
-    <value>الأوامر</value>
   </data>
   <data name="Settings.About.Acknowledgements.Description" xml:space="preserve">
     <value>تحقّق optimizerDuck بفضل البرمجيات والموارد مفتوحة المصدر التالية.</value>
@@ -1810,12 +1612,6 @@
   </data>
   <data name="Settings.Header.Title" xml:space="preserve">
     <value>الإعدادات</value>
-  </data>
-  <data name="Settings.LanguageChanged.Description" xml:space="preserve">
-    <value>يجب إعادة تشغيل التطبيق لتطبيق اللغة الجديدة.</value>
-  </data>
-  <data name="Settings.LanguageChanged.Title" xml:space="preserve">
-    <value>تغيير اللغة</value>
   </data>
   <data name="Settings.Optimize.Header" xml:space="preserve">
     <value>التحسين</value>
@@ -2065,9 +1861,6 @@
   </data>
   <data name="Customize.UI.UnsupportedSettings.Header" xml:space="preserve">
     <value>إعدادات غير مدعومة ({0})</value>
-  </data>
-  <data name="Customize.UI.UnsupportedSettings.Badge" xml:space="preserve">
-    <value>غير مدعوم</value>
   </data>
   <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
     <value>بعض الإعدادات غير متوفرة على نظامك الحالي.</value>

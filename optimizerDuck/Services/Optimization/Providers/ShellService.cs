@@ -267,7 +267,7 @@ public static class ShellService
             var error = success ? null : policy.ErrorFactory(result);
 
             ExecutionScope.RecordStep(
-                Loc.Invariant["Service.Shell.Name"],
+                ServiceStrings.ShellName,
                 fullCommandForUser,
                 success,
                 revertStep,
@@ -306,7 +306,7 @@ public static class ShellService
             };
 
             ExecutionScope.RecordStep(
-                Loc.Invariant["Service.Shell.Name"],
+                ServiceStrings.ShellName,
                 fullCommandForUser,
                 false,
                 revertStep,
@@ -511,7 +511,7 @@ public static class ShellService
             var error = success ? null : policy.ErrorFactory(result);
 
             ExecutionScope.RecordStep(
-                Loc.Invariant["Service.Shell.Name"],
+                ServiceStrings.ShellName,
                 fullCommandForUser,
                 success,
                 revertStep,
@@ -555,7 +555,7 @@ public static class ShellService
             };
 
             ExecutionScope.RecordStep(
-                Loc.Invariant["Service.Shell.Name"],
+                ServiceStrings.ShellName,
                 fullCommandForUser,
                 false,
                 revertStep,

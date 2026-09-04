@@ -199,18 +199,6 @@
   <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
     <value>Beri bintang di GitHub, bagikan dengan teman, atau donasi-setiap bantuan sangat berarti untuk pengembangan proyek ini!</value>
   </data>
-  <data name="Service.Registry.Description.CreateKey" xml:space="preserve">
-    <value>Membuat kunci registri {0}</value>
-  </data>
-  <data name="Service.Registry.Description.DeleteKey" xml:space="preserve">
-    <value>Menghapus kunci registri {0}</value>
-  </data>
-  <data name="Settings.LanguageChanged.Title" xml:space="preserve">
-    <value>Perubahan bahasa</value>
-  </data>
-  <data name="Settings.LanguageChanged.Description" xml:space="preserve">
-    <value>Anda perlu memulai ulang aplikasi untuk menerapkan bahasa baru.</value>
-  </data>
   <data name="Button.Ok" xml:space="preserve">
     <value>OK</value>
   </data>
@@ -271,9 +259,6 @@
   <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
     <value>Deskripsi detail</value>
   </data>
-  <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
-    <value>Tag</value>
-  </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
     <value>Menaikkan ambang pemisahan Service Host ke total RAM sistem, menjaga layanan tetap terkonsolidasi dalam lebih sedikit proses untuk mengurangi penggunaan memori dan jumlah proses.</value>
   </data>
@@ -285,9 +270,6 @@
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ActivateFailed" xml:space="preserve">
     <value>Gagal mengaktifkan paket daya optimizerDuck.</value>
-  </data>
-  <data name="Optimizer.UI.Risk.Help" xml:space="preserve">
-    <value>Nilai ini mencerminkan tingkat intervensi dan keamanan proses optimasi. Harap berhati-hati dan pertimbangkan dengan matang sebelum menerapkan optimasi apa pun.</value>
   </data>
   <data name="Optimizer.UI.Tags.System" xml:space="preserve">
     <value>Sistem</value>
@@ -310,9 +292,6 @@
   <data name="Optimizer.UI.Tags.Audio" xml:space="preserve">
     <value>Audio</value>
   </data>
-  <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
-    <value>Tag ini menunjukkan bagian sistem mana yang akan terpengaruh oleh optimasi.</value>
-  </data>
   <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
     <value>NVIDIA</value>
   </data>
@@ -326,9 +305,6 @@
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
     <value>Daya</value>
   </data>
-  <data name="Revert.Error.InvalidData" xml:space="preserve">
-    <value>Data revert tidak valid untuk {0}: {1}</value>
-  </data>
   <data name="Revert.Error.NoDataFound" xml:space="preserve">
     <value>Data revert tidak ditemukan untuk {0}.</value>
   </data>
@@ -341,14 +317,8 @@
   <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
     <value>Mengembalikan {0} dengan {1} langkah yang gagal.</value>
   </data>
-  <data name="Revert.Error.RevertFailed" xml:space="preserve">
-    <value>Gagal mengembalikan {0}: {1}</value>
-  </data>
   <data name="Optimization.Revert.ExecutingStep" xml:space="preserve">
     <value>Menjalankan langkah revert: {0}/{1} ({2})</value>
-  </data>
-  <data name="Optimization.Revert.StepDescription" xml:space="preserve">
-    <value>Langkah revert #{0}</value>
   </data>
   <data name="Revert.Registry.Description.RestoreKey" xml:space="preserve">
     <value>Memulihkan kunci registri: {0}</value>
@@ -359,38 +329,14 @@
   <data name="Revert.Registry.Description.RevertUnknown" xml:space="preserve">
     <value>Revert registri: {0}</value>
   </data>
-  <data name="Revert.Error.FileNotFound" xml:space="preserve">
-    <value>File revert tidak ditemukan</value>
-  </data>
-  <data name="Revert.Error.FileEmpty" xml:space="preserve">
-    <value>File revert kosong</value>
-  </data>
-  <data name="Revert.Error.ReadFailed" xml:space="preserve">
-    <value>Gagal membaca data revert: {0}</value>
-  </data>
-  <data name="Revert.Error.InvalidJson" xml:space="preserve">
-    <value>Data revert tidak valid</value>
-  </data>
-  <data name="Revert.Error.InvalidJsonFormat" xml:space="preserve">
-    <value>Format JSON tidak valid: {0}</value>
-  </data>
   <data name="Revert.Error.NoSteps" xml:space="preserve">
     <value>Tidak ada langkah revert yang ditemukan.</value>
-  </data>
-  <data name="Revert.Error.InvalidSteps" xml:space="preserve">
-    <value>Langkah revert tidak valid: {0}</value>
   </data>
   <data name="Revert.Error.StepFailed" xml:space="preserve">
     <value>Langkah revert gagal</value>
   </data>
   <data name="Revert.UsbPower.Description" xml:space="preserve">
     <value>Memulihkan status daya suspend selektif USB</value>
-  </data>
-  <data name="Service.Registry.Error.BackupTruncated" xml:space="preserve">
-    <value>Subtree registri terlalu besar untuk dicadangkan dengan aman; penghapusan dibatalkan untuk {0}</value>
-  </data>
-  <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
-    <value>OptimizationId tidak cocok.</value>
   </data>
   <data name="Optimization.Apply.Processing" xml:space="preserve">
     <value>Menerapkan perubahan...</value>
@@ -409,51 +355,6 @@
   </data>
   <data name="Optimization.Apply.Error.Unknown" xml:space="preserve">
     <value>Hasil tidak diketahui untuk {0}.</value>
-  </data>
-  <data name="Service.Common.Error.AccessDenied" xml:space="preserve">
-    <value>Akses ditolak</value>
-  </data>
-  <data name="Service.Registry.Error.AccessDeniedProtectedHive" xml:space="preserve">
-    <value>Akses ditolak (hive terlindungi)</value>
-  </data>
-  <data name="Service.Registry.Error.UnauthorizedAccess" xml:space="preserve">
-    <value>Akses tidak sah</value>
-  </data>
-  <data name="Service.Registry.Error.CreateOrOpenSubkeyFailed" xml:space="preserve">
-    <value>Gagal membuat/membuka subkey</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedWrite" xml:space="preserve">
-    <value>Akses ditolak saat menulis {0}:{1}</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedDelete" xml:space="preserve">
-    <value>Akses ditolak saat menghapus {0}:{1}</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedCreateKey" xml:space="preserve">
-    <value>Akses ditolak saat membuat {0}</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedDeleteKeyTree" xml:space="preserve">
-    <value>Akses ditolak saat menghapus tree kunci {0}</value>
-  </data>
-  <data name="Service.Service.Error.NotFound" xml:space="preserve">
-    <value>Layanan tidak ditemukan</value>
-  </data>
-  <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
-    <value>Layanan '{0}' tidak ditemukan (dilewati)</value>
-  </data>
-  <data name="Service.Service.Info.AlreadyConfigured" xml:space="preserve">
-    <value>Layanan '{0}' sudah diatur ke {1} (dilewati)</value>
-  </data>
-  <data name="Service.Service.Info.SkippedAccessDenied" xml:space="preserve">
-    <value>Akses ke layanan '{0}' ditolak oleh Windows (dilewati)</value>
-  </data>
-  <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
-    <value>Gagal mengubah tipe startup untuk layanan</value>
-  </data>
-  <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
-    <value>ChangeStartMode gagal (kode: {0})</value>
-  </data>
-  <data name="Service.Service.Error.ExceptionOccurred" xml:space="preserve">
-    <value>Gagal mengubah layanan '{0}': {1}</value>
   </data>
   <data name="Service.Shell.Error.ExitCode" xml:space="preserve">
     <value>Kode keluar {0}</value>
@@ -517,9 +418,6 @@
   </data>
   <data name="Settings.Appearance.SmoothScrolling.Description" xml:space="preserve">
     <value>Aktifkan animasi gulir halus untuk pengalaman gulir yang lebih mulus. Matikan jika Anda mengalami lag.</value>
-  </data>
-  <data name="Button.Open" xml:space="preserve">
-    <value>Buka</value>
   </data>
   <data name="Settings.About.Header" xml:space="preserve">
     <value>Tentang</value>
@@ -1048,9 +946,6 @@
   <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
     <value>JANGAN ubah kecuali Anda tahu persis apa yang Anda lakukan</value>
   </data>
-  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DownloadFailed" xml:space="preserve">
-    <value>Gagal mengunduh paket daya optimizerDuck.</value>
-  </data>
   <data name="Settings.About.Acknowledgements.Title" xml:space="preserve">
     <value>Penghargaan</value>
   </data>
@@ -1104,9 +999,6 @@ Ini memastikan Anda selalu dapat kembali jika terjadi kesalahan.</value>
   <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
     <value>Tidak dapat membuka folder atau file</value>
   </data>
-  <data name="Button.ViewLatestRelease" xml:space="preserve">
-    <value>Lihat rilis terbaru</value>
-  </data>
   <data name="BloatwareDialog.Title" xml:space="preserve">
     <value>Menghapus {0} Paket AppX</value>
   </data>
@@ -1140,9 +1032,6 @@ Ini memastikan Anda selalu dapat kembali jika terjadi kesalahan.</value>
   <data name="BloatwareDialog.Confirmation.Title" xml:space="preserve">
     <value>Hapus {0} Aplikasi?</value>
   </data>
-  <data name="BloatwareDialog.Confirmation.Message" xml:space="preserve">
-    <value>Anda akan menghapus: {0}</value>
-  </data>
   <data name="BloatwareDialog.Confirmation.Description" xml:space="preserve">
     <value>Tinjau aplikasi yang dipilih sebelum menghapus. Lanjutkan hanya jika Anda yakin.</value>
   </data>
@@ -1168,9 +1057,6 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   <data name="Common.Filter.All" xml:space="preserve">
     <value>Semua</value>
   </data>
-  <data name="Common.SortBy.Default" xml:space="preserve">
-    <value>Bawaan</value>
-  </data>
   <data name="Common.SortBy.Name" xml:space="preserve">
     <value>Nama</value>
   </data>
@@ -1186,12 +1072,6 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   <data name="Common.SortBy.Path" xml:space="preserve">
     <value>Jalur</value>
   </data>
-  <data name="Optimizer.Menu.ApplyAllSafe" xml:space="preserve">
-    <value>Terapkan Semua (Aman)</value>
-  </data>
-  <data name="Optimizer.Menu.ApplyAll" xml:space="preserve">
-    <value>Terapkan Semuanya</value>
-  </data>
   <data name="Optimizer.Menu.ViewSource" xml:space="preserve">
     <value>Lihat Sumber</value>
   </data>
@@ -1203,12 +1083,6 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
     <value>Sembunyikan yang Diterapkan</value>
-  </data>
-  <data name="Optimizer.Menu.ApplyMenu" xml:space="preserve">
-    <value>Terapkan</value>
-  </data>
-  <data name="Optimizer.Menu.BatchApply.Title" xml:space="preserve">
-    <value>Menerapkan Optimasi</value>
   </data>
   <data name="Bloatware.Search.NoResults" xml:space="preserve">
     <value>Tidak ada hasil yang ditemukan. Coba kata kunci pencarian atau filter yang berbeda.</value>
@@ -1239,9 +1113,6 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   </data>
   <data name="DiskCleanup.Button.DeselectAll" xml:space="preserve">
     <value>Batal Pilih Semua</value>
-  </data>
-  <data name="DiskCleanup.Scanning" xml:space="preserve">
-    <value>Memindai...</value>
   </data>
   <data name="DiskCleanup.Loading" xml:space="preserve">
     <value>Memuat item pembersihan...</value>
@@ -1318,12 +1189,6 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   <data name="Bloatware.Header.Description" xml:space="preserve">
     <value>Kelola dan hapus aplikasi bawaan yang tidak Anda perlukan</value>
   </data>
-  <data name="Dashboard.SystemInfo.Header" xml:space="preserve">
-    <value>Informasi Sistem</value>
-  </data>
-  <data name="DiskCleanup.ItemsSelected" xml:space="preserve">
-    <value>{0} ({1} item dipilih)</value>
-  </data>
   <data name="DiskCleanup.Button.Clean" xml:space="preserve">
     <value>Bersihkan</value>
   </data>
@@ -1348,12 +1213,6 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   <data name="DiskCleanup.Dialog.Confirmation.Summary" xml:space="preserve">
     <value>Anda akan menghapus {0} dari {1} item ({2} file). Harap tinjau item di bawah ini.</value>
   </data>
-  <data name="DiskCleanup.Dialog.Confirmation.SingleTitle" xml:space="preserve">
-    <value>Bersihkan Item</value>
-  </data>
-  <data name="DiskCleanup.Dialog.Confirmation.SingleItem" xml:space="preserve">
-    <value>Anda akan menghapus {0} ({1}). Harap konfirmasi.</value>
-  </data>
   <data name="Settings.About.NeedHelp.Title" xml:space="preserve">
       <value>Butuh bantuan?</value>
     </data>
@@ -1377,9 +1236,6 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
     <value>Lihat Sumber di GitHub</value>
-  </data>
-  <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
-    <value>Tingkat Risiko</value>
   </data>
   <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
     <value>Detail Teknis</value>
@@ -1432,9 +1288,6 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   <data name="Common.SortBy.Status" xml:space="preserve">
     <value>Status</value>
   </data>
-  <data name="Common.Status.Applied" xml:space="preserve">
-    <value>Diterapkan</value>
-  </data>
   <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
     <value>Buka Pengaturan</value>
   </data>
@@ -1462,9 +1315,6 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   <data name="ScheduledTasks.HideMicrosoft" xml:space="preserve">
     <value>Sembunyikan tugas Microsoft</value>
   </data>
-  <data name="ScheduledTasks.Menu.CreateTask" xml:space="preserve">
-    <value>Buat Tugas</value>
-  </data>
   <!-- Scheduled Tasks Actions -->
   <data name="ScheduledTasks.Action.Details" xml:space="preserve">
     <value>Lihat Detail</value>
@@ -1482,9 +1332,6 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   <data name="ScheduledTasks.Dialog.DeleteTitle" xml:space="preserve">
     <value>Hapus Tugas Terjadwal</value>
   </data>
-  <data name="ScheduledTasks.Dialog.DeleteMessage" xml:space="preserve">
-    <value>Apakah Anda yakin ingin menghapus tugas &quot;{0}&quot;? Tindakan ini tidak dapat dibatalkan.</value>
-  </data>
   <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
     <value>Menghapus tugas terjadwal bersifat permanen. Tugas tidak akan lagi berjalan otomatis.</value>
   </data>
@@ -1497,9 +1344,6 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   </data>
   <data name="ScheduledTasks.Details.Author" xml:space="preserve">
     <value>Penulis</value>
-  </data>
-  <data name="ScheduledTasks.Details.State" xml:space="preserve">
-    <value>Status</value>
   </data>
   <data name="ScheduledTasks.Details.Triggers" xml:space="preserve">
     <value>Pemicu</value>
@@ -1562,12 +1406,6 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   <data name="ScheduledTasks.Snackbar.Delete.Message" xml:space="preserve">
     <value>{0} telah dihapus.</value>
   </data>
-  <data name="ScheduledTasks.Snackbar.Create.Title" xml:space="preserve">
-    <value>Tugas Dibuat</value>
-  </data>
-  <data name="ScheduledTasks.Snackbar.Create.Message" xml:space="preserve">
-    <value>{0} telah berhasil dibuat.</value>
-  </data>
   <data name="ScheduledTasks.Snackbar.Error.Title" xml:space="preserve">
 
     <value>Kesalahan</value>
@@ -1578,39 +1416,6 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
       <value>Tugas tidak ditemukan: {0}</value>
     </data>
-  <data name="Service.Registry.Name" xml:space="preserve">
-    <value>Registri</value>
-  </data>
-  <data name="Service.Service.Name" xml:space="preserve">
-    <value>Layanan</value>
-  </data>
-  <data name="Service.ScheduledTask.Name" xml:space="preserve">
-    <value>Tugas Terjadwal</value>
-  </data>
-  <data name="Service.Shell.Name" xml:space="preserve">
-    <value>Shell</value>
-  </data>
-  <data name="Service.Registry.Description.Write" xml:space="preserve">
-    <value>Menulis nilai registri: {0}\{1}</value>
-  </data>
-  <data name="Service.Registry.Description.Delete" xml:space="preserve">
-    <value>Menghapus nilai registri: {0}\{1}</value>
-  </data>
-  <data name="Service.Service.Description.Change" xml:space="preserve">
-    <value>Mengubah layanan &apos;{0}&apos; menjadi startup {1}</value>
-  </data>
-  <data name="Service.ScheduledTask.Description.Enable" xml:space="preserve">
-    <value>Mengaktifkan tugas terjadwal: {0}</value>
-  </data>
-  <data name="Service.ScheduledTask.Description.Disable" xml:space="preserve">
-    <value>Menonaktifkan tugas terjadwal: {0}</value>
-  </data>
-  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedDisable" xml:space="preserve">
-    <value>Akses ditolak saat menonaktifkan tugas {0}</value>
-  </data>
-  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedEnable" xml:space="preserve">
-    <value>Akses ditolak saat mengaktifkan tugas {0}</value>
-  </data>
   <data name="Revert.Registry.Description.Restore" xml:space="preserve">
     <value>Memulihkan nilai registri: {0}\{1}</value>
   </data>
@@ -1757,15 +1562,6 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   </data>
   <data name="LegalDialog.Title" xml:space="preserve">
     <value>Perjanjian Hukum</value>
-  </data>
-  <data name="LegalDialog.Intro.ThankYou" xml:space="preserve">
-    <value>Terima kasih telah memilih optimizerDuck.</value>
-  </data>
-  <data name="LegalDialog.Intro.Safety" xml:space="preserve">
-    <value>Demi transparansi dan keamanan Anda, optimizerDuck mungkin menyesuaikan pengaturan sistem dan konfigurasi registri tertentu.</value>
-  </data>
-  <data name="LegalDialog.Intro.Review" xml:space="preserve">
-    <value>Harap luangkan waktu untuk meninjau dokumen berikut. Dengan melanjutkan, Anda menyetujui ketentuan ini.</value>
   </data>
   <data name="LegalDialog.Intro.Title" xml:space="preserve">
     <value>Selamat datang di optimizerDuck!</value>
@@ -2080,9 +1876,6 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   </data>
   <data name="Customize.UI.UnsupportedSettings.Header" xml:space="preserve">
     <value>Pengaturan Tidak Didukung ({0})</value>
-  </data>
-  <data name="Customize.UI.UnsupportedSettings.Badge" xml:space="preserve">
-    <value>Tidak didukung</value>
   </data>
   <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
     <value>Beberapa pengaturan tidak tersedia pada sistem Anda saat ini.</value>

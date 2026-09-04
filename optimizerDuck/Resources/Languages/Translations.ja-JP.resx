@@ -146,18 +146,6 @@
   <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
     <value>GitHub でスターを付けたり、友達と共有したり、寄付したり - どんな小さな支援もプロジェクトの成長に役立ちます！</value>
   </data>
-  <data name="Service.Registry.Description.CreateKey" xml:space="preserve">
-    <value>レジストリ キーを作成: {0}</value>
-  </data>
-  <data name="Service.Registry.Description.DeleteKey" xml:space="preserve">
-    <value>レジストリ キーを削除: {0}</value>
-  </data>
-  <data name="Settings.LanguageChanged.Title" xml:space="preserve">
-    <value>言語の変更</value>
-  </data>
-  <data name="Settings.LanguageChanged.Description" xml:space="preserve">
-    <value>新しい言語を適用するには、アプリケーションを再起動する必要があります</value>
-  </data>
   <data name="Button.Ok" xml:space="preserve">
     <value>ＯＫ</value>
   </data>
@@ -218,9 +206,6 @@
   <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
     <value>詳細な説明</value>
   </data>
-  <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
-    <value>タグ</value>
-  </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
     <value>サービス ホストの分割しきい値をシステムの合計 RAM に引き上げ、サービスをより少ないプロセスに統合したままにすることで、メモリ使用量とプロセス数を削減します。</value>
   </data>
@@ -232,9 +217,6 @@
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ActivateFailed" xml:space="preserve">
     <value>optimizerDuck の電源プランを有効化できませんでした</value>
-  </data>
-  <data name="Optimizer.UI.Risk.Help" xml:space="preserve">
-    <value>この値は、最適化プロセスの介入レベルと安全性を反映しています。最適化を適用する前に十分注意し、慎重に検討してください</value>
   </data>
   <data name="Optimizer.UI.Tags.System" xml:space="preserve">
     <value>システム</value>
@@ -257,9 +239,6 @@
   <data name="Optimizer.UI.Tags.Audio" xml:space="preserve">
     <value>オーディオ</value>
   </data>
-  <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
-    <value>これらのタグは、最適化がシステムのどの部分に影響するかを示します</value>
-  </data>
 <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
     <value>NVIDIA 向け</value>
   </data>
@@ -273,9 +252,6 @@
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
     <value>電源</value>
   </data>
-  <data name="Revert.Error.InvalidData" xml:space="preserve">
-    <value>{0} の元に戻すデータが無効です: {1}</value>
-  </data>
   <data name="Revert.Error.NoDataFound" xml:space="preserve">
     <value>{0} の元に戻すデータが見つかりません</value>
   </data>
@@ -288,14 +264,8 @@
   <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
     <value>{0} を元に戻しましたが、{1} 個のステップが失敗しました</value>
   </data>
-  <data name="Revert.Error.RevertFailed" xml:space="preserve">
-    <value>{0} の元に戻す操作に失敗しました: {1}</value>
-  </data>
   <data name="Optimization.Revert.ExecutingStep" xml:space="preserve">
     <value>元に戻すステップを実行中: {0}/{1} ({2})</value>
-  </data>
-  <data name="Optimization.Revert.StepDescription" xml:space="preserve">
-    <value>元に戻すステップ #{0}</value>
   </data>
   <data name="Revert.Registry.Description.RestoreKey" xml:space="preserve">
     <value>レジストリ キーを復元: {0}</value>
@@ -306,38 +276,14 @@
   <data name="Revert.Registry.Description.RevertUnknown" xml:space="preserve">
     <value>レジストリを元に戻す: {0}</value>
   </data>
-  <data name="Revert.Error.FileNotFound" xml:space="preserve">
-    <value>元に戻すファイルが見つかりません</value>
-  </data>
-  <data name="Revert.Error.FileEmpty" xml:space="preserve">
-    <value>元に戻すファイルが空です</value>
-  </data>
-  <data name="Revert.Error.ReadFailed" xml:space="preserve">
-    <value>元に戻すデータの読み取りに失敗しました: {0}</value>
-  </data>
-  <data name="Revert.Error.InvalidJson" xml:space="preserve">
-    <value>元に戻すデータが無効です</value>
-  </data>
-  <data name="Revert.Error.InvalidJsonFormat" xml:space="preserve">
-    <value>JSON 形式が無効です: {0}</value>
-  </data>
   <data name="Revert.Error.NoSteps" xml:space="preserve">
     <value>元に戻すステップが見つかりません</value>
-  </data>
-  <data name="Revert.Error.InvalidSteps" xml:space="preserve">
-    <value>元に戻すステップが無効です: {0}</value>
   </data>
   <data name="Revert.Error.StepFailed" xml:space="preserve">
     <value>元に戻すステップが失敗しました</value>
   </data>
   <data name="Revert.UsbPower.Description" xml:space="preserve">
     <value>USB 選択的サスペンドの電源状態を復元</value>
-  </data>
-  <data name="Service.Registry.Error.BackupTruncated" xml:space="preserve">
-    <value>レジストリ サブツリーが大きすぎて安全にバックアップできません。{0} の削除を中止しました</value>
-  </data>
-  <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
-    <value>OptimizationId が一致しません</value>
   </data>
   <data name="Optimization.Apply.Processing" xml:space="preserve">
     <value>変更を適用しています…</value>
@@ -356,51 +302,6 @@
   </data>
   <data name="Optimization.Apply.Error.Unknown" xml:space="preserve">
     <value>{0} の結果が不明です</value>
-  </data>
-  <data name="Service.Common.Error.AccessDenied" xml:space="preserve">
-    <value>アクセスが拒否されました</value>
-  </data>
-  <data name="Service.Registry.Error.AccessDeniedProtectedHive" xml:space="preserve">
-    <value>アクセスが拒否されました（保護されたハイブ）</value>
-  </data>
-  <data name="Service.Registry.Error.UnauthorizedAccess" xml:space="preserve">
-    <value>権限がありません</value>
-  </data>
-  <data name="Service.Registry.Error.CreateOrOpenSubkeyFailed" xml:space="preserve">
-    <value>サブキーの作成またはオープンに失敗しました</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedWrite" xml:space="preserve">
-    <value>{0}:{1} への書き込みが拒否されました</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedDelete" xml:space="preserve">
-    <value>{0}:{1} の削除が拒否されました</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedCreateKey" xml:space="preserve">
-    <value>{0} の作成が拒否されました</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedDeleteKeyTree" xml:space="preserve">
-    <value>{0} のキー ツリーの削除が拒否されました</value>
-  </data>
-  <data name="Service.Service.Error.NotFound" xml:space="preserve">
-    <value>サービスが見つかりません</value>
-  </data>
-  <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
-    <value>サービス '{0}' が見つかりません（スキップ）</value>
-  </data>
-  <data name="Service.Service.Info.AlreadyConfigured" xml:space="preserve">
-    <value>サービス '{0}' は既に {1} に設定されています（スキップ）</value>
-  </data>
-  <data name="Service.Service.Info.SkippedAccessDenied" xml:space="preserve">
-    <value>サービス '{0}' へのアクセスが Windows によって拒否されました（スキップ）</value>
-  </data>
-  <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
-    <value>サービスの開始タイプを変更できませんでした</value>
-  </data>
-  <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
-    <value>ChangeStartMode が失敗しました（コード: {0}）</value>
-  </data>
-  <data name="Service.Service.Error.ExceptionOccurred" xml:space="preserve">
-    <value>サービス '{0}' の変更に失敗しました: {1}</value>
   </data>
   <data name="Service.Shell.Error.ExitCode" xml:space="preserve">
     <value>終了コード {0}</value>
@@ -464,9 +365,6 @@
   </data>
   <data name="Settings.Appearance.SmoothScrolling.Description" xml:space="preserve">
     <value>より滑らかなスクロール体験のためにスムーズ スクロール アニメーションを有効にします。遅延を感じる場合はオフにしてください</value>
-  </data>
-  <data name="Button.Open" xml:space="preserve">
-    <value>開く</value>
   </data>
   <data name="Settings.About.Header" xml:space="preserve">
     <value>バージョン情報</value>
@@ -983,9 +881,6 @@
   <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
     <value>何をしているか正確に理解している場合のみ変更してください</value>
   </data>
-  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DownloadFailed" xml:space="preserve">
-    <value>optimizerDuck の電源プランをダウンロードできませんでした</value>
-  </data>
   <data name="Settings.About.Acknowledgements.Title" xml:space="preserve">
     <value>謝辞</value>
   </data>
@@ -1039,9 +934,6 @@
   <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
     <value>フォルダーまたはファイルを開けません</value>
   </data>
-  <data name="Button.ViewLatestRelease" xml:space="preserve">
-    <value>最新リリースを表示</value>
-  </data>
   <data name="BloatwareDialog.Title" xml:space="preserve">
     <value>AppX パッケージ {0} 個を削除中</value>
   </data>
@@ -1075,9 +967,6 @@
   <data name="BloatwareDialog.Confirmation.Title" xml:space="preserve">
     <value>{0} 個のアプリを削除しますか？</value>
   </data>
-  <data name="BloatwareDialog.Confirmation.Message" xml:space="preserve">
-    <value>次のアプリを削除しようとしています: {0}</value>
-  </data>
   <data name="BloatwareDialog.Confirmation.Description" xml:space="preserve">
     <value>削除前に選択したアプリを確認してください。確信がある場合のみ続行してください</value>
   </data>
@@ -1103,9 +992,6 @@
   <data name="Common.Filter.All" xml:space="preserve">
     <value>すべて</value>
   </data>
-  <data name="Common.SortBy.Default" xml:space="preserve">
-    <value>既定</value>
-  </data>
   <data name="Common.SortBy.Name" xml:space="preserve">
     <value>名前</value>
   </data>
@@ -1121,12 +1007,6 @@
   <data name="Common.SortBy.Path" xml:space="preserve">
     <value>パス</value>
   </data>
-  <data name="Optimizer.Menu.ApplyAllSafe" xml:space="preserve">
-    <value>安全な項目をすべて適用</value>
-  </data>
-  <data name="Optimizer.Menu.ApplyAll" xml:space="preserve">
-    <value>すべて適用</value>
-  </data>
   <data name="Optimizer.Menu.ViewSource" xml:space="preserve">
     <value>ソースを表示</value>
   </data>
@@ -1138,12 +1018,6 @@
   </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
     <value>適用済みを非表示</value>
-  </data>
-  <data name="Optimizer.Menu.ApplyMenu" xml:space="preserve">
-    <value>適用</value>
-  </data>
-  <data name="Optimizer.Menu.BatchApply.Title" xml:space="preserve">
-    <value>最適化を適用中</value>
   </data>
   <data name="Bloatware.Search.NoResults" xml:space="preserve">
     <value>結果が見つかりません。別の検索語またはフィルターをお試しください</value>
@@ -1174,9 +1048,6 @@
   </data>
   <data name="DiskCleanup.Button.DeselectAll" xml:space="preserve">
     <value>すべて選択解除</value>
-  </data>
-  <data name="DiskCleanup.Scanning" xml:space="preserve">
-    <value>スキャン中…</value>
   </data>
   <data name="DiskCleanup.Loading" xml:space="preserve">
     <value>クリーンアップ項目を読み込んでいます…</value>
@@ -1253,12 +1124,6 @@
   <data name="Bloatware.Header.Description" xml:space="preserve">
     <value>不要なプリインストール アプリを管理・削除します</value>
   </data>
-  <data name="Dashboard.SystemInfo.Header" xml:space="preserve">
-    <value>システム情報</value>
-  </data>
-  <data name="DiskCleanup.ItemsSelected" xml:space="preserve">
-    <value>{0}（{1} 項目選択）</value>
-  </data>
   <data name="DiskCleanup.Button.Clean" xml:space="preserve">
     <value>クリーンアップ</value>
   </data>
@@ -1297,9 +1162,6 @@
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
     <value>GitHub でソースを表示</value>
-  </data>
-  <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
-    <value>リスク レベル</value>
   </data>
   <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
     <value>技術的な詳細</value>
@@ -1352,9 +1214,6 @@
   <data name="Common.SortBy.Status" xml:space="preserve">
     <value>状態</value>
   </data>
-  <data name="Common.Status.Applied" xml:space="preserve">
-    <value>適用済み</value>
-  </data>
   <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
     <value>設定を開く</value>
   </data>
@@ -1379,9 +1238,6 @@
   <data name="ScheduledTasks.HideMicrosoft" xml:space="preserve">
     <value>Microsoft タスクを非表示</value>
   </data>
-  <data name="ScheduledTasks.Menu.CreateTask" xml:space="preserve">
-    <value>タスクの作成</value>
-  </data>
   <data name="ScheduledTasks.Action.Details" xml:space="preserve">
     <value>詳細を表示</value>
   </data>
@@ -1397,9 +1253,6 @@
   <data name="ScheduledTasks.Dialog.DeleteTitle" xml:space="preserve">
     <value>スケジュールされたタスクの削除</value>
   </data>
-  <data name="ScheduledTasks.Dialog.DeleteMessage" xml:space="preserve">
-    <value>タスク「{0}」を削除しますか？この操作は元に戻せません</value>
-  </data>
   <data name="ScheduledTasks.Details.Path" xml:space="preserve">
     <value>パス</value>
   </data>
@@ -1408,9 +1261,6 @@
   </data>
   <data name="ScheduledTasks.Details.Author" xml:space="preserve">
     <value>作成者</value>
-  </data>
-  <data name="ScheduledTasks.Details.State" xml:space="preserve">
-    <value>状態</value>
   </data>
   <data name="ScheduledTasks.Details.Triggers" xml:space="preserve">
     <value>トリガー</value>
@@ -1469,12 +1319,6 @@
   <data name="ScheduledTasks.Snackbar.Delete.Message" xml:space="preserve">
     <value>{0} が削除されました</value>
   </data>
-  <data name="ScheduledTasks.Snackbar.Create.Title" xml:space="preserve">
-    <value>タスクが作成されました</value>
-  </data>
-  <data name="ScheduledTasks.Snackbar.Create.Message" xml:space="preserve">
-    <value>{0} が正常に作成されました</value>
-  </data>
   <data name="ScheduledTasks.Snackbar.Error.Title" xml:space="preserve">
 
     <value>エラー</value>
@@ -1485,39 +1329,6 @@
   <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
       <value>タスクが見つかりません: {0}</value>
     </data>
-  <data name="Service.Registry.Name" xml:space="preserve">
-    <value>レジストリ</value>
-  </data>
-  <data name="Service.Service.Name" xml:space="preserve">
-    <value>サービス</value>
-  </data>
-  <data name="Service.ScheduledTask.Name" xml:space="preserve">
-    <value>スケジュールされたタスク</value>
-  </data>
-  <data name="Service.Shell.Name" xml:space="preserve">
-    <value>シェル</value>
-  </data>
-  <data name="Service.Registry.Description.Write" xml:space="preserve">
-    <value>レジストリ値を書き込み: {0}\{1}</value>
-  </data>
-  <data name="Service.Registry.Description.Delete" xml:space="preserve">
-    <value>レジストリ値を削除: {0}\{1}</value>
-  </data>
-  <data name="Service.Service.Description.Change" xml:space="preserve">
-    <value>サービス '{0}' を {1} 開始に変更</value>
-  </data>
-  <data name="Service.ScheduledTask.Description.Enable" xml:space="preserve">
-    <value>スケジュールされたタスクを有効化: {0}</value>
-  </data>
-  <data name="Service.ScheduledTask.Description.Disable" xml:space="preserve">
-    <value>スケジュールされたタスクを無効化: {0}</value>
-  </data>
-  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedDisable" xml:space="preserve">
-    <value>タスク {0} の無効化が拒否されました</value>
-  </data>
-  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedEnable" xml:space="preserve">
-    <value>タスク {0} の有効化が拒否されました</value>
-  </data>
   <data name="Revert.Registry.Description.Restore" xml:space="preserve">
     <value>レジストリ値を復元: {0}\{1}</value>
   </data>
@@ -1664,15 +1475,6 @@
   </data>
   <data name="LegalDialog.Title" xml:space="preserve">
     <value>法的同意</value>
-  </data>
-  <data name="LegalDialog.Intro.ThankYou" xml:space="preserve">
-    <value>optimizerDuck をお選びいただきありがとうございます</value>
-  </data>
-  <data name="LegalDialog.Intro.Safety" xml:space="preserve">
-    <value>透明性と安全性を確保するため、optimizerDuck は特定のシステム設定とレジストリ構成を調整する場合があります</value>
-  </data>
-  <data name="LegalDialog.Intro.Review" xml:space="preserve">
-    <value>以下のドキュメントをご確認ください。続行すると、これらの条件に同意したものとみなされます</value>
   </data>
   <data name="LegalDialog.Intro.Title" xml:space="preserve">
     <value>optimizerDuckへようこそ！</value>
@@ -1851,12 +1653,6 @@
   <data name="DiskCleanup.Dialog.Confirmation.Summary" xml:space="preserve">
     <value>{1}件中{0}件（{2}ファイル）を削除しようとしています。以下の項目を確認してください。</value>
   </data>
-  <data name="DiskCleanup.Dialog.Confirmation.SingleTitle" xml:space="preserve">
-    <value>項目をクリーンアップ</value>
-  </data>
-  <data name="DiskCleanup.Dialog.Confirmation.SingleItem" xml:space="preserve">
-    <value>{0}（{1}）を削除しようとしています。確認してください。</value>
-  </data>
   <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
     <value>スケジュールタスクの削除は永続的です。タスクは自動的に実行されなくなります。</value>
   </data>
@@ -2006,9 +1802,6 @@
   </data>
   <data name="Customize.UI.UnsupportedSettings.Header" xml:space="preserve">
     <value>サポートされていない設定 ({0})</value>
-  </data>
-  <data name="Customize.UI.UnsupportedSettings.Badge" xml:space="preserve">
-    <value>サポートされていません</value>
   </data>
   <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
     <value>一部の設定は、現在のシステムでは利用できません。</value>

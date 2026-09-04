@@ -141,18 +141,6 @@
   <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
     <value>Metti una stella al repo su GitHub, condividilo con gli amici o fai una donazione, ogni aiuto fa crescere il progetto!</value>
   </data>
-  <data name="Service.Registry.Description.CreateKey" xml:space="preserve">
-    <value>Crea chiave di registro {0}</value>
-  </data>
-  <data name="Service.Registry.Description.DeleteKey" xml:space="preserve">
-    <value>Elimina chiave di registro {0}</value>
-  </data>
-  <data name="Settings.LanguageChanged.Title" xml:space="preserve">
-    <value>Cambio lingua</value>
-  </data>
-  <data name="Settings.LanguageChanged.Description" xml:space="preserve">
-    <value>Devi riavviare l'applicazione per applicare la nuova lingua.</value>
-  </data>
   <data name="Button.Ok" xml:space="preserve">
     <value>OK</value>
   </data>
@@ -213,9 +201,6 @@
   <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
     <value>Descrizione dettagliata</value>
   </data>
-  <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
-    <value>Tag</value>
-  </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
     <value>Alza la soglia di suddivisione del Service Host alla RAM totale del sistema, mantenendo i servizi consolidati in meno processi per ridurre l'uso di memoria e il numero di processi.</value>
   </data>
@@ -227,9 +212,6 @@
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ActivateFailed" xml:space="preserve">
     <value>Impossibile attivare il piano di alimentazione di optimizerDuck.</value>
-  </data>
-  <data name="Optimizer.UI.Risk.Help" xml:space="preserve">
-    <value>Questo valore riflette il livello di intervento e la sicurezza del processo di ottimizzazione. Presta attenzione e valuta attentamente prima di applicare qualsiasi ottimizzazione.</value>
   </data>
   <data name="Optimizer.UI.Tags.System" xml:space="preserve">
     <value>Sistema</value>
@@ -252,9 +234,6 @@
   <data name="Optimizer.UI.Tags.Audio" xml:space="preserve">
     <value>Audio</value>
   </data>
-  <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
-    <value>Questi tag indicano quali parti del sistema verranno interessate dall'ottimizzazione.</value>
-  </data>
   <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
     <value>NVIDIA</value>
   </data>
@@ -268,9 +247,6 @@
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
     <value>Alimentazione</value>
   </data>
-  <data name="Revert.Error.InvalidData" xml:space="preserve">
-    <value>Dati di ripristino non validi per {0}: {1}</value>
-  </data>
   <data name="Revert.Error.NoDataFound" xml:space="preserve">
     <value>Nessun dato di ripristino trovato per {0}.</value>
   </data>
@@ -283,14 +259,8 @@
   <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
     <value>{0} ripristinato con {1} passaggio/i fallito/i.</value>
   </data>
-  <data name="Revert.Error.RevertFailed" xml:space="preserve">
-    <value>Impossibile ripristinare {0}: {1}</value>
-  </data>
   <data name="Optimization.Revert.ExecutingStep" xml:space="preserve">
     <value>Esecuzione passaggio di ripristino: {0}/{1} ({2})</value>
-  </data>
-  <data name="Optimization.Revert.StepDescription" xml:space="preserve">
-    <value>Passaggio di ripristino n. {0}</value>
   </data>
   <data name="Revert.Registry.Description.RestoreKey" xml:space="preserve">
     <value>Ripristina chiave di registro: {0}</value>
@@ -301,38 +271,14 @@
   <data name="Revert.Registry.Description.RevertUnknown" xml:space="preserve">
     <value>Ripristina registro: {0}</value>
   </data>
-  <data name="Revert.Error.FileNotFound" xml:space="preserve">
-    <value>File di ripristino non trovato</value>
-  </data>
-  <data name="Revert.Error.FileEmpty" xml:space="preserve">
-    <value>Il file di ripristino è vuoto</value>
-  </data>
-  <data name="Revert.Error.ReadFailed" xml:space="preserve">
-    <value>Impossibile leggere i dati di ripristino: {0}</value>
-  </data>
-  <data name="Revert.Error.InvalidJson" xml:space="preserve">
-    <value>Dati di ripristino non validi</value>
-  </data>
-  <data name="Revert.Error.InvalidJsonFormat" xml:space="preserve">
-    <value>Formato JSON non valido: {0}</value>
-  </data>
   <data name="Revert.Error.NoSteps" xml:space="preserve">
     <value>Nessun passaggio di ripristino trovato.</value>
-  </data>
-  <data name="Revert.Error.InvalidSteps" xml:space="preserve">
-    <value>Passaggi di ripristino non validi: {0}</value>
   </data>
   <data name="Revert.Error.StepFailed" xml:space="preserve">
     <value>Passaggio di ripristino fallito</value>
   </data>
   <data name="Revert.UsbPower.Description" xml:space="preserve">
     <value>Ripristina stati di alimentazione sospensione selettiva USB</value>
-  </data>
-  <data name="Service.Registry.Error.BackupTruncated" xml:space="preserve">
-    <value>Il sottoalbero del registro è troppo grande per essere salvato in sicurezza; eliminazione annullata per {0}</value>
-  </data>
-  <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
-    <value>Discrepanza OptimizationId.</value>
   </data>
   <data name="Optimization.Apply.Processing" xml:space="preserve">
     <value>Applicazione modifiche in corso...</value>
@@ -351,51 +297,6 @@
   </data>
   <data name="Optimization.Apply.Error.Unknown" xml:space="preserve">
     <value>Risultato sconosciuto per {0}.</value>
-  </data>
-  <data name="Service.Common.Error.AccessDenied" xml:space="preserve">
-    <value>Accesso negato</value>
-  </data>
-  <data name="Service.Registry.Error.AccessDeniedProtectedHive" xml:space="preserve">
-    <value>Accesso negato (hive protetto)</value>
-  </data>
-  <data name="Service.Registry.Error.UnauthorizedAccess" xml:space="preserve">
-    <value>Accesso non autorizzato</value>
-  </data>
-  <data name="Service.Registry.Error.CreateOrOpenSubkeyFailed" xml:space="preserve">
-    <value>Impossibile creare/aprire sottochiave</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedWrite" xml:space="preserve">
-    <value>Accesso negato in scrittura {0}:{1}</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedDelete" xml:space="preserve">
-    <value>Accesso negato in eliminazione {0}:{1}</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedCreateKey" xml:space="preserve">
-    <value>Accesso negato durante la creazione di {0}</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedDeleteKeyTree" xml:space="preserve">
-    <value>Accesso negato durante l'eliminazione dell'albero chiavi {0}</value>
-  </data>
-  <data name="Service.Service.Error.NotFound" xml:space="preserve">
-    <value>Servizio non trovato</value>
-  </data>
-  <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
-    <value>Servizio '{0}' non trovato (ignorato)</value>
-  </data>
-  <data name="Service.Service.Info.AlreadyConfigured" xml:space="preserve">
-    <value>Il servizio '{0}' è già impostato su {1} (ignorato)</value>
-  </data>
-  <data name="Service.Service.Info.SkippedAccessDenied" xml:space="preserve">
-    <value>L'accesso al servizio '{0}' è negato da Windows (ignorato)</value>
-  </data>
-  <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
-    <value>Impossibile modificare il tipo di avvio del servizio</value>
-  </data>
-  <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
-    <value>ChangeStartMode fallito (codice: {0})</value>
-  </data>
-  <data name="Service.Service.Error.ExceptionOccurred" xml:space="preserve">
-    <value>Impossibile modificare il servizio '{0}': {1}</value>
   </data>
   <data name="Service.Shell.Error.ExitCode" xml:space="preserve">
     <value>Codice di uscita {0}</value>
@@ -459,9 +360,6 @@
   </data>
   <data name="Settings.Appearance.SmoothScrolling.Description" xml:space="preserve">
     <value>Abilita l'animazione di scorrimento fluido per un'esperienza più scorrevole. Disattiva se riscontri lag.</value>
-  </data>
-  <data name="Button.Open" xml:space="preserve">
-    <value>Apri</value>
   </data>
   <data name="Settings.About.Header" xml:space="preserve">
     <value>Informazioni</value>
@@ -990,9 +888,6 @@
   <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
     <value>NON modificare a meno che tu non sappia esattamente cosa stai facendo</value>
   </data>
-  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DownloadFailed" xml:space="preserve">
-    <value>Impossibile scaricare il piano di alimentazione di optimizerDuck.</value>
-  </data>
   <data name="Settings.About.Acknowledgements.Title" xml:space="preserve">
     <value>Ringraziamenti</value>
   </data>
@@ -1046,9 +941,6 @@ Questo ti assicura di poter sempre tornare indietro se qualcosa va storto.</valu
   <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
     <value>Impossibile aprire cartella o file</value>
   </data>
-  <data name="Button.ViewLatestRelease" xml:space="preserve">
-    <value>Vedi ultima release</value>
-  </data>
   <data name="BloatwareDialog.Title" xml:space="preserve">
     <value>Rimozione di {0} pacchetto/i AppX</value>
   </data>
@@ -1082,9 +974,6 @@ Questo ti assicura di poter sempre tornare indietro se qualcosa va storto.</valu
   <data name="BloatwareDialog.Confirmation.Title" xml:space="preserve">
     <value>Rimuovere {0} app?</value>
   </data>
-  <data name="BloatwareDialog.Confirmation.Message" xml:space="preserve">
-    <value>Stai per rimuovere: {0}</value>
-  </data>
   <data name="BloatwareDialog.Confirmation.Description" xml:space="preserve">
     <value>Rivedi le app selezionate prima della rimozione. Procedi solo se sei sicuro.</value>
   </data>
@@ -1110,9 +999,6 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   <data name="Common.Filter.All" xml:space="preserve">
     <value>Tutti</value>
   </data>
-  <data name="Common.SortBy.Default" xml:space="preserve">
-    <value>Predefinito</value>
-  </data>
   <data name="Common.SortBy.Name" xml:space="preserve">
     <value>Nome</value>
   </data>
@@ -1128,12 +1014,6 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   <data name="Common.SortBy.Path" xml:space="preserve">
     <value>Percorso</value>
   </data>
-  <data name="Optimizer.Menu.ApplyAllSafe" xml:space="preserve">
-    <value>Applica tutti i sicuri</value>
-  </data>
-  <data name="Optimizer.Menu.ApplyAll" xml:space="preserve">
-    <value>Applica tutto</value>
-  </data>
   <data name="Optimizer.Menu.ViewSource" xml:space="preserve">
     <value>Vedi sorgente</value>
   </data>
@@ -1145,12 +1025,6 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
     <value>Nascondi applicati</value>
-  </data>
-  <data name="Optimizer.Menu.ApplyMenu" xml:space="preserve">
-    <value>Applica</value>
-  </data>
-  <data name="Optimizer.Menu.BatchApply.Title" xml:space="preserve">
-    <value>Applicazione ottimizzazioni in corso</value>
   </data>
   <data name="Bloatware.Search.NoResults" xml:space="preserve">
     <value>Nessun risultato trovato. Prova un termine di ricerca o filtro diverso.</value>
@@ -1181,9 +1055,6 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   </data>
   <data name="DiskCleanup.Button.DeselectAll" xml:space="preserve">
     <value>Deseleziona tutto</value>
-  </data>
-  <data name="DiskCleanup.Scanning" xml:space="preserve">
-    <value>Scansione in corso...</value>
   </data>
   <data name="DiskCleanup.Loading" xml:space="preserve">
     <value>Caricamento elementi di pulizia in corso...</value>
@@ -1260,12 +1131,6 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   <data name="Bloatware.Header.Description" xml:space="preserve">
     <value>Gestisci e rimuovi applicazioni preinstallate di cui non hai bisogno</value>
   </data>
-  <data name="Dashboard.SystemInfo.Header" xml:space="preserve">
-    <value>Informazioni di sistema</value>
-  </data>
-  <data name="DiskCleanup.ItemsSelected" xml:space="preserve">
-    <value>{0} ({1} elementi selezionati)</value>
-  </data>
   <data name="DiskCleanup.Button.Clean" xml:space="preserve">
     <value>Pulisci</value>
   </data>
@@ -1290,12 +1155,6 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   <data name="DiskCleanup.Dialog.Confirmation.Summary" xml:space="preserve">
     <value>Stai per eliminare {0} da {1} elemento/i ({2} file). Rivedi gli elementi qui sotto.</value>
   </data>
-  <data name="DiskCleanup.Dialog.Confirmation.SingleTitle" xml:space="preserve">
-    <value>Pulisci elemento</value>
-  </data>
-  <data name="DiskCleanup.Dialog.Confirmation.SingleItem" xml:space="preserve">
-    <value>Stai per eliminare {0} ({1}). Conferma.</value>
-  </data>
   <data name="Settings.About.NeedHelp.Title" xml:space="preserve">
       <value>Serve aiuto?</value>
     </data>
@@ -1319,9 +1178,6 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
     <value>Vedi sorgente su GitHub</value>
-  </data>
-  <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
-    <value>Livello di rischio</value>
   </data>
   <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
     <value>Dettagli tecnici</value>
@@ -1374,9 +1230,6 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   <data name="Common.SortBy.Status" xml:space="preserve">
     <value>Stato</value>
   </data>
-  <data name="Common.Status.Applied" xml:space="preserve">
-    <value>Applicato</value>
-  </data>
   <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
     <value>Apri Impostazioni</value>
   </data>
@@ -1404,9 +1257,6 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   <data name="ScheduledTasks.HideMicrosoft" xml:space="preserve">
     <value>Nascondi attività Microsoft</value>
   </data>
-  <data name="ScheduledTasks.Menu.CreateTask" xml:space="preserve">
-    <value>Crea attività</value>
-  </data>
   
   <data name="ScheduledTasks.Action.Details" xml:space="preserve">
     <value>Vedi dettagli</value>
@@ -1424,9 +1274,6 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   <data name="ScheduledTasks.Dialog.DeleteTitle" xml:space="preserve">
     <value>Elimina attività pianificata</value>
   </data>
-  <data name="ScheduledTasks.Dialog.DeleteMessage" xml:space="preserve">
-    <value>Sei sicuro di voler eliminare l'attività "{0}"? Questa azione non può essere annullata.</value>
-  </data>
   <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
     <value>Eliminare un'attività pianificata è permanente. L'attività non verrà più eseguita automaticamente.</value>
   </data>
@@ -1439,9 +1286,6 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   </data>
   <data name="ScheduledTasks.Details.Author" xml:space="preserve">
     <value>Autore</value>
-  </data>
-  <data name="ScheduledTasks.Details.State" xml:space="preserve">
-    <value>Stato</value>
   </data>
   <data name="ScheduledTasks.Details.Triggers" xml:space="preserve">
     <value>Trigger</value>
@@ -1504,12 +1348,6 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   <data name="ScheduledTasks.Snackbar.Delete.Message" xml:space="preserve">
     <value>{0} è stata eliminata.</value>
   </data>
-  <data name="ScheduledTasks.Snackbar.Create.Title" xml:space="preserve">
-    <value>Attività creata</value>
-  </data>
-  <data name="ScheduledTasks.Snackbar.Create.Message" xml:space="preserve">
-    <value>{0} è stata creata con successo.</value>
-  </data>
   <data name="ScheduledTasks.Snackbar.Error.Title" xml:space="preserve">
 
     <value>Errore</value>
@@ -1520,39 +1358,6 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
       <value>Attività non trovata: {0}</value>
     </data>
-  <data name="Service.Registry.Name" xml:space="preserve">
-    <value>Registro</value>
-  </data>
-  <data name="Service.Service.Name" xml:space="preserve">
-    <value>Servizio</value>
-  </data>
-  <data name="Service.ScheduledTask.Name" xml:space="preserve">
-    <value>Attività pianificata</value>
-  </data>
-  <data name="Service.Shell.Name" xml:space="preserve">
-    <value>Shell</value>
-  </data>
-  <data name="Service.Registry.Description.Write" xml:space="preserve">
-    <value>Scrivi valore di registro: {0}\{1}</value>
-  </data>
-  <data name="Service.Registry.Description.Delete" xml:space="preserve">
-    <value>Elimina valore di registro: {0}\{1}</value>
-  </data>
-  <data name="Service.Service.Description.Change" xml:space="preserve">
-    <value>Cambia servizio '{0}' in avvio {1}</value>
-  </data>
-  <data name="Service.ScheduledTask.Description.Enable" xml:space="preserve">
-    <value>Abilita attività pianificata: {0}</value>
-  </data>
-  <data name="Service.ScheduledTask.Description.Disable" xml:space="preserve">
-    <value>Disabilita attività pianificata: {0}</value>
-  </data>
-  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedDisable" xml:space="preserve">
-    <value>Accesso negato durante disabilitazione attività {0}</value>
-  </data>
-  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedEnable" xml:space="preserve">
-    <value>Accesso negato durante abilitazione attività {0}</value>
-  </data>
   <data name="Revert.Registry.Description.Restore" xml:space="preserve">
     <value>Ripristina valore di registro: {0}\{1}</value>
   </data>
@@ -1699,15 +1504,6 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   </data>
   <data name="LegalDialog.Title" xml:space="preserve">
     <value>Accordo legale</value>
-  </data>
-  <data name="LegalDialog.Intro.ThankYou" xml:space="preserve">
-    <value>Grazie per aver scelto optimizerDuck.</value>
-  </data>
-  <data name="LegalDialog.Intro.Safety" xml:space="preserve">
-    <value>Per garantire trasparenza e sicurezza, optimizerDuck potrebbe modificare alcune impostazioni di sistema e configurazioni del registro.</value>
-  </data>
-  <data name="LegalDialog.Intro.Review" xml:space="preserve">
-    <value>Prenditi un momento per rivedere i seguenti documenti. Continuando, accetti questi termini.</value>
   </data>
   <data name="LegalDialog.Intro.Title" xml:space="preserve">
     <value>Benvenuto in optimizerDuck!</value>
@@ -2022,9 +1818,6 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   </data>
   <data name="Customize.UI.UnsupportedSettings.Header" xml:space="preserve">
     <value>Impostazioni non supportate ({0})</value>
-  </data>
-  <data name="Customize.UI.UnsupportedSettings.Badge" xml:space="preserve">
-    <value>Non supportato</value>
   </data>
   <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
     <value>Alcune impostazioni non sono disponibili sul sistema corrente.</value>

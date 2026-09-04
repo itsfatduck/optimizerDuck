@@ -146,18 +146,6 @@
   <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
   <value>GitHub 저장소에 스타를 남기고, 친구들과 공유하거나 후원해 주세요 작은 도움도 프로젝트 성장에 큰 힘이 됩니다!</value>
 </data>
-  <data name="Service.Registry.Description.CreateKey" xml:space="preserve">
-  <value>레지스트리 키 생성: {0}</value>
-</data>
-  <data name="Service.Registry.Description.DeleteKey" xml:space="preserve">
-  <value>레지스트리 키 삭제: {0}</value>
-</data>
-  <data name="Settings.LanguageChanged.Title" xml:space="preserve">
-  <value>언어 변경</value>
-</data>
-  <data name="Settings.LanguageChanged.Description" xml:space="preserve">
-  <value>새 언어를 적용하려면 앱을 다시 시작해야 합니다</value>
-</data>
   <data name="Button.Ok" xml:space="preserve">
   <value>확인</value>
 </data>
@@ -218,9 +206,6 @@
   <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
   <value>상세 설명</value>
 </data>
-  <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
-  <value>태그</value>
-</data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
   <value>서비스 호스트 분할 임계값을 시스템 총 RAM으로 높여 서비스를 더 적은 프로세스에 통합된 상태로 유지하여 메모리 사용량과 프로세스 수를 줄입니다.</value>
 </data>
@@ -232,9 +217,6 @@
 </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ActivateFailed" xml:space="preserve">
   <value>optimizerDuck 전원 계획을 활성화하지 못했습니다</value>
-</data>
-  <data name="Optimizer.UI.Risk.Help" xml:space="preserve">
-  <value>이 값은 최적화 과정의 개입 수준과 안전성을 나타냅니다 최적화를 적용하기 전에 충분히 주의하고 신중히 판단하세요</value>
 </data>
   <data name="Optimizer.UI.Tags.System" xml:space="preserve">
   <value>시스템</value>
@@ -257,9 +239,6 @@
   <data name="Optimizer.UI.Tags.Audio" xml:space="preserve">
   <value>오디오</value>
 </data>
-  <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
-  <value>이 태그는 최적화가 시스템의 어느 부분에 영향을 주는지 보여줍니다</value>
-</data>
 <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
   <value>NVIDIA</value>
 </data>
@@ -273,9 +252,6 @@
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
   <value>전원</value>
 </data>
-  <data name="Revert.Error.InvalidData" xml:space="preserve">
-  <value>{0}에 대한 복원 데이터가 올바르지 않습니다: {1}</value>
-</data>
   <data name="Revert.Error.NoDataFound" xml:space="preserve">
   <value>{0}에 대한 복원 데이터를 찾을 수 없습니다</value>
 </data>
@@ -288,14 +264,8 @@
   <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
   <value>{0}을(를) 복원했지만 실패한 단계가 {1}개 있습니다</value>
 </data>
-  <data name="Revert.Error.RevertFailed" xml:space="preserve">
-  <value>{0} 복원 실패: {1}</value>
-</data>
   <data name="Optimization.Revert.ExecutingStep" xml:space="preserve">
   <value>복원 단계 실행 중: {0}/{1} ({2})</value>
-</data>
-  <data name="Optimization.Revert.StepDescription" xml:space="preserve">
-  <value>복원 단계 #{0}</value>
 </data>
   <data name="Revert.Registry.Description.RestoreKey" xml:space="preserve">
   <value>레지스트리 키 복원: {0}</value>
@@ -306,38 +276,14 @@
   <data name="Revert.Registry.Description.RevertUnknown" xml:space="preserve">
   <value>레지스트리 복원: {0}</value>
 </data>
-  <data name="Revert.Error.FileNotFound" xml:space="preserve">
-  <value>복원 파일을 찾을 수 없습니다</value>
-</data>
-  <data name="Revert.Error.FileEmpty" xml:space="preserve">
-  <value>복원 파일이 비어 있습니다</value>
-</data>
-  <data name="Revert.Error.ReadFailed" xml:space="preserve">
-  <value>복원 데이터를 읽지 못했습니다: {0}</value>
-</data>
-  <data name="Revert.Error.InvalidJson" xml:space="preserve">
-  <value>복원 데이터가 올바르지 않습니다</value>
-</data>
-  <data name="Revert.Error.InvalidJsonFormat" xml:space="preserve">
-  <value>JSON 형식이 올바르지 않습니다: {0}</value>
-</data>
   <data name="Revert.Error.NoSteps" xml:space="preserve">
   <value>복원 단계가 없습니다</value>
-</data>
-  <data name="Revert.Error.InvalidSteps" xml:space="preserve">
-  <value>복원 단계가 올바르지 않습니다: {0}</value>
 </data>
   <data name="Revert.Error.StepFailed" xml:space="preserve">
   <value>복원 단계 실패</value>
 </data>
   <data name="Revert.UsbPower.Description" xml:space="preserve">
   <value>USB 선택적 절전 전원 상태 복원</value>
-</data>
-  <data name="Service.Registry.Error.BackupTruncated" xml:space="preserve">
-  <value>레지스트리 하위 트리가 너무 커서 안전하게 백업할 수 없습니다 {0} 삭제를 중단했습니다</value>
-</data>
-  <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
-  <value>OptimizationId가 일치하지 않습니다</value>
 </data>
   <data name="Optimization.Apply.Processing" xml:space="preserve">
   <value>변경 사항 적용 중...</value>
@@ -356,51 +302,6 @@
 </data>
   <data name="Optimization.Apply.Error.Unknown" xml:space="preserve">
   <value>{0}에 대한 알 수 없는 결과입니다</value>
-</data>
-  <data name="Service.Common.Error.AccessDenied" xml:space="preserve">
-  <value>액세스가 거부되었습니다</value>
-</data>
-  <data name="Service.Registry.Error.AccessDeniedProtectedHive" xml:space="preserve">
-  <value>액세스가 거부되었습니다 (보호된 하이브)</value>
-</data>
-  <data name="Service.Registry.Error.UnauthorizedAccess" xml:space="preserve">
-  <value>권한이 없습니다</value>
-</data>
-  <data name="Service.Registry.Error.CreateOrOpenSubkeyFailed" xml:space="preserve">
-  <value>하위 키를 생성하거나 열지 못했습니다</value>
-</data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedWrite" xml:space="preserve">
-  <value>{0}:{1} 쓰기 권한이 없습니다</value>
-</data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedDelete" xml:space="preserve">
-  <value>{0}:{1} 삭제 권한이 없습니다</value>
-</data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedCreateKey" xml:space="preserve">
-  <value>{0} 생성 권한이 없습니다</value>
-</data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedDeleteKeyTree" xml:space="preserve">
-  <value>{0} 키 트리 삭제 권한이 없습니다</value>
-</data>
-  <data name="Service.Service.Error.NotFound" xml:space="preserve">
-  <value>서비스를 찾을 수 없습니다</value>
-</data>
-  <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
-  <value>'{0}' 서비스를 찾을 수 없습니다 (건너뜀)</value>
-</data>
-  <data name="Service.Service.Info.AlreadyConfigured" xml:space="preserve">
-    <value>'{0}' 서비스가 이미 {1}로 설정되어 있습니다 (건너뜀)</value>
-  </data>
-  <data name="Service.Service.Info.SkippedAccessDenied" xml:space="preserve">
-    <value>Windows에서 '{0}' 서비스에 대한 액세스를 거부했습니다 (건너뜀)</value>
-  </data>
-  <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
-  <value>서비스 시작 유형을 변경하지 못했습니다</value>
-</data>
-  <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
-  <value>ChangeStartMode 실패 (코드: {0})</value>
-</data>
-  <data name="Service.Service.Error.ExceptionOccurred" xml:space="preserve">
-  <value>서비스 '{0}' 변경 실패: {1}</value>
 </data>
   <data name="Service.Shell.Error.ExitCode" xml:space="preserve">
   <value>종료 코드 {0}</value>
@@ -464,9 +365,6 @@
 </data>
   <data name="Settings.Appearance.SmoothScrolling.Description" xml:space="preserve">
   <value>더 부드러운 스크롤 경험을 위해 애니메이션을 활성화합니다 버벅임이 느껴지면 끄세요</value>
-</data>
-  <data name="Button.Open" xml:space="preserve">
-  <value>열기</value>
 </data>
   <data name="Settings.About.Header" xml:space="preserve">
   <value>정보</value>
@@ -983,9 +881,6 @@
   <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
     <value>무엇을 하는지 정확히 알고 있을 때만 변경하세요</value>
   </data>
-  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DownloadFailed" xml:space="preserve">
-    <value>optimizerDuck의 전원 계획을 다운로드하지 못했습니다</value>
-  </data>
   <data name="Settings.About.Acknowledgements.Title" xml:space="preserve">
     <value>감사의 말</value>
   </data>
@@ -1039,9 +934,6 @@
   <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
     <value>폴더나 파일을 열 수 없습니다</value>
   </data>
-  <data name="Button.ViewLatestRelease" xml:space="preserve">
-    <value>최신 릴리스 보기</value>
-  </data>
   <data name="BloatwareDialog.Title" xml:space="preserve">
     <value>{0} AppX 패키지 제거 중</value>
   </data>
@@ -1075,9 +967,6 @@
   <data name="BloatwareDialog.Confirmation.Title" xml:space="preserve">
     <value>{0}개의 앱을 제거하시겠습니까?</value>
   </data>
-  <data name="BloatwareDialog.Confirmation.Message" xml:space="preserve">
-    <value>삭제하려고 합니다: {0}</value>
-  </data>
   <data name="BloatwareDialog.Confirmation.Description" xml:space="preserve">
     <value>제거하기 전에 선택한 앱을 검토하세요 확실한 경우에만 진행하세요</value>
   </data>
@@ -1103,9 +992,6 @@
   <data name="Common.Filter.All" xml:space="preserve">
     <value>모두</value>
   </data>
-  <data name="Common.SortBy.Default" xml:space="preserve">
-    <value>기본</value>
-  </data>
   <data name="Common.SortBy.Name" xml:space="preserve">
     <value>이름</value>
   </data>
@@ -1121,12 +1007,6 @@
   <data name="Common.SortBy.Path" xml:space="preserve">
     <value>경로</value>
   </data>
-  <data name="Optimizer.Menu.ApplyAllSafe" xml:space="preserve">
-    <value>모두 안전 적용</value>
-  </data>
-  <data name="Optimizer.Menu.ApplyAll" xml:space="preserve">
-    <value>모든 것을 적용</value>
-  </data>
   <data name="Optimizer.Menu.ViewSource" xml:space="preserve">
     <value>소스 보기</value>
   </data>
@@ -1138,12 +1018,6 @@
   </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
     <value>적용 숨기기</value>
-  </data>
-  <data name="Optimizer.Menu.ApplyMenu" xml:space="preserve">
-    <value>적용</value>
-  </data>
-  <data name="Optimizer.Menu.BatchApply.Title" xml:space="preserve">
-    <value>최적화 적용</value>
   </data>
   <data name="Bloatware.Search.NoResults" xml:space="preserve">
     <value>검색된 결과가 없습니다 다른 검색어나 필터를 사용해 보세요</value>
@@ -1174,9 +1048,6 @@
   </data>
   <data name="DiskCleanup.Button.DeselectAll" xml:space="preserve">
     <value>모두 선택 취소</value>
-  </data>
-  <data name="DiskCleanup.Scanning" xml:space="preserve">
-    <value>스캐닝...</value>
   </data>
   <data name="DiskCleanup.Loading" xml:space="preserve">
     <value>정리 항목 로드 중...</value>
@@ -1253,12 +1124,6 @@
   <data name="Bloatware.Header.Description" xml:space="preserve">
     <value>필요하지 않은 사전 설치된 애플리케이션을 관리 및 제거합니다</value>
   </data>
-  <data name="Dashboard.SystemInfo.Header" xml:space="preserve">
-    <value>시스템 정보</value>
-  </data>
-  <data name="DiskCleanup.ItemsSelected" xml:space="preserve">
-    <value>{0}({1}개 항목 선택됨)</value>
-  </data>
   <data name="DiskCleanup.Button.Clean" xml:space="preserve">
     <value>정리</value>
   </data>
@@ -1297,9 +1162,6 @@
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
     <value>GitHub에서 소스 보기</value>
-  </data>
-  <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
-    <value>위험 수준</value>
   </data>
   <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
     <value>기술적인 세부사항</value>
@@ -1352,9 +1214,6 @@
   <data name="Common.SortBy.Status" xml:space="preserve">
     <value>상태</value>
   </data>
-  <data name="Common.Status.Applied" xml:space="preserve">
-    <value>적용된</value>
-  </data>
   <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
     <value>설정 열기</value>
   </data>
@@ -1379,9 +1238,6 @@
   <data name="ScheduledTasks.HideMicrosoft" xml:space="preserve">
     <value>Microsoft 작업 숨기기</value>
   </data>
-  <data name="ScheduledTasks.Menu.CreateTask" xml:space="preserve">
-    <value>작업 만들기</value>
-  </data>
   <data name="ScheduledTasks.Action.Details" xml:space="preserve">
     <value>세부정보 보기</value>
   </data>
@@ -1397,9 +1253,6 @@
   <data name="ScheduledTasks.Dialog.DeleteTitle" xml:space="preserve">
     <value>예약된 작업 삭제</value>
   </data>
-  <data name="ScheduledTasks.Dialog.DeleteMessage" xml:space="preserve">
-    <value>"{0}" 작업을 삭제하시겠습니까? 이 작업은 취소할 수 없습니다</value>
-  </data>
   <data name="ScheduledTasks.Details.Path" xml:space="preserve">
     <value>경로</value>
   </data>
@@ -1408,9 +1261,6 @@
   </data>
   <data name="ScheduledTasks.Details.Author" xml:space="preserve">
     <value>작성자</value>
-  </data>
-  <data name="ScheduledTasks.Details.State" xml:space="preserve">
-    <value>상태</value>
   </data>
   <data name="ScheduledTasks.Details.Triggers" xml:space="preserve">
     <value>트리거</value>
@@ -1469,12 +1319,6 @@
   <data name="ScheduledTasks.Snackbar.Delete.Message" xml:space="preserve">
     <value>{0}이(가) 삭제되었습니다</value>
   </data>
-  <data name="ScheduledTasks.Snackbar.Create.Title" xml:space="preserve">
-    <value>작업이 생성되었습니다</value>
-  </data>
-  <data name="ScheduledTasks.Snackbar.Create.Message" xml:space="preserve">
-    <value>{0}이(가) 성공적으로 생성되었습니다</value>
-  </data>
   <data name="ScheduledTasks.Snackbar.Error.Title" xml:space="preserve">
     <value>오류</value>
   </data>
@@ -1483,39 +1327,6 @@
   </data>
   <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
     <value>작업을 찾을 수 없습니다: {0}</value>
-  </data>
-  <data name="Service.Registry.Name" xml:space="preserve">
-    <value>목록</value>
-  </data>
-  <data name="Service.Service.Name" xml:space="preserve">
-    <value>서비스</value>
-  </data>
-  <data name="Service.ScheduledTask.Name" xml:space="preserve">
-    <value>예약된 작업</value>
-  </data>
-  <data name="Service.Shell.Name" xml:space="preserve">
-    <value>셸</value>
-  </data>
-  <data name="Service.Registry.Description.Write" xml:space="preserve">
-    <value>쓰기 레지스트리 값: {0}\{1}</value>
-  </data>
-  <data name="Service.Registry.Description.Delete" xml:space="preserve">
-    <value>레지스트리 값 삭제: {0}\{1}</value>
-  </data>
-  <data name="Service.Service.Description.Change" xml:space="preserve">
-    <value>서비스 '{0}'을(를) {1} 시작으로 변경</value>
-  </data>
-  <data name="Service.ScheduledTask.Description.Enable" xml:space="preserve">
-    <value>예약된 작업 활성화: {0}</value>
-  </data>
-  <data name="Service.ScheduledTask.Description.Disable" xml:space="preserve">
-    <value>예약된 작업 비활성화: {0}</value>
-  </data>
-  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedDisable" xml:space="preserve">
-    <value>액세스가 거부되었습니다 작업 비활성화 {0}</value>
-  </data>
-  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedEnable" xml:space="preserve">
-    <value>액세스가 거부되었습니다 활성화 작업 {0}</value>
   </data>
   <data name="Revert.Registry.Description.Restore" xml:space="preserve">
     <value>복원 레지스트리 값: {0}\{1}</value>
@@ -1663,15 +1474,6 @@
   </data>
   <data name="LegalDialog.Title" xml:space="preserve">
     <value>법적 계약</value>
-  </data>
-  <data name="LegalDialog.Intro.ThankYou" xml:space="preserve">
-    <value>optimizerDuck을 선택해 주셔서 감사합니다</value>
-  </data>
-  <data name="LegalDialog.Intro.Safety" xml:space="preserve">
-    <value>투명성과 안전을 보장하기 위해 OptimizerDuck은 특정 시스템 설정 및 레지스트리 구성을 조정할 수 있습니다</value>
-  </data>
-  <data name="LegalDialog.Intro.Review" xml:space="preserve">
-    <value>잠시 시간을 내어 다음 문서를 검토해 보세요 계속하면 본 약관에 동의하는 것으로 간주됩니다</value>
   </data>
   <data name="LegalDialog.Intro.Title" xml:space="preserve">
     <value>optimizerDuck에 오신 것을 환영합니다!</value>
@@ -1850,12 +1652,6 @@
   <data name="DiskCleanup.Dialog.Confirmation.Summary" xml:space="preserve">
     <value>{1}개 항목 중 {0}개({2}개 파일)를 삭제하려고 합니다. 아래 항목을 확인하세요.</value>
   </data>
-  <data name="DiskCleanup.Dialog.Confirmation.SingleTitle" xml:space="preserve">
-    <value>항목 정리</value>
-  </data>
-  <data name="DiskCleanup.Dialog.Confirmation.SingleItem" xml:space="preserve">
-    <value>{0}({1})을(를) 삭제하려고 합니다. 확인하세요.</value>
-  </data>
   <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
     <value>예약 작업을 삭제하면 영구적으로 제거됩니다. 작업이 더 이상 자동으로 실행되지 않습니다.</value>
   </data>
@@ -2005,9 +1801,6 @@
   </data>
   <data name="Customize.UI.UnsupportedSettings.Header" xml:space="preserve">
     <value>지원되지 않는 설정 ({0})</value>
-  </data>
-  <data name="Customize.UI.UnsupportedSettings.Badge" xml:space="preserve">
-    <value>지원되지 않음</value>
   </data>
   <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
     <value>일부 설정은 현재 시스템에서 사용할 수 없습니다.</value>

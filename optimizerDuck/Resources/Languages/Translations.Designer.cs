@@ -169,15 +169,6 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You are about to remove: {0}.
-        /// </summary>
-        internal static string BloatwareDialog_Confirmation_Message {
-            get {
-                return ResourceManager.GetString("BloatwareDialog.Confirmation.Message", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Selected applications.
         /// </summary>
         internal static string BloatwareDialog_Confirmation_SelectedList {
@@ -286,15 +277,6 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open.
-        /// </summary>
-        internal static string Button_Open {
-            get {
-                return ResourceManager.GetString("Button.Open", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Retry.
         /// </summary>
         internal static string Button_Retry {
@@ -309,15 +291,6 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Button_Skip {
             get {
                 return ResourceManager.GetString("Button.Skip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to View latest release.
-        /// </summary>
-        internal static string Button_ViewLatestRelease {
-            get {
-                return ResourceManager.GetString("Button.ViewLatestRelease", resourceCulture);
             }
         }
         
@@ -502,15 +475,6 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Default.
-        /// </summary>
-        internal static string Common_SortBy_Default {
-            get {
-                return ResourceManager.GetString("Common.SortBy.Default", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         internal static string Common_SortBy_Name {
@@ -570,15 +534,6 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Common_SortBy_Status {
             get {
                 return ResourceManager.GetString("Common.SortBy.Status", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Applied.
-        /// </summary>
-        internal static string Common_Status_Applied {
-            get {
-                return ResourceManager.GetString("Common.Status.Applied", resourceCulture);
             }
         }
         
@@ -1254,6 +1209,15 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Customize_Gaming_Section_Input {
             get {
                 return ResourceManager.GetString("Customize.Gaming.Section.Input", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading settings....
+        /// </summary>
+        internal static string Customize_Loading {
+            get {
+                return ResourceManager.GetString("Customize.Loading", resourceCulture);
             }
         }
         
@@ -2140,15 +2104,6 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Not supported.
-        /// </summary>
-        internal static string Customize_UI_UnsupportedSettings_Badge {
-            get {
-                return ResourceManager.GetString("Customize.UI.UnsupportedSettings.Badge", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Some settings are unavailable on your current system..
         /// </summary>
         internal static string Customize_UI_UnsupportedSettings_Description {
@@ -2271,15 +2226,6 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Dashboard_SystemInfo_Gpu_More {
             get {
                 return ResourceManager.GetString("Dashboard.SystemInfo.Gpu.More", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to System Information.
-        /// </summary>
-        internal static string Dashboard_SystemInfo_Header {
-            get {
-                return ResourceManager.GetString("Dashboard.SystemInfo.Header", resourceCulture);
             }
         }
         
@@ -2497,24 +2443,6 @@ namespace optimizerDuck.Resources.Languages {
         internal static string DiskCleanup_Complete_Title {
             get {
                 return ResourceManager.GetString("DiskCleanup.Complete.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You are about to delete {0} ({1}). Please confirm..
-        /// </summary>
-        internal static string DiskCleanup_Dialog_Confirmation_SingleItem {
-            get {
-                return ResourceManager.GetString("DiskCleanup.Dialog.Confirmation.SingleItem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Clean Item.
-        /// </summary>
-        internal static string DiskCleanup_Dialog_Confirmation_SingleTitle {
-            get {
-                return ResourceManager.GetString("DiskCleanup.Dialog.Confirmation.SingleTitle", resourceCulture);
             }
         }
         
@@ -2753,29 +2681,11 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} ({1} items selected).
-        /// </summary>
-        internal static string DiskCleanup_ItemsSelected {
-            get {
-                return ResourceManager.GetString("DiskCleanup.ItemsSelected", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Loading cleanup items....
         /// </summary>
         internal static string DiskCleanup_Loading {
             get {
                 return ResourceManager.GetString("DiskCleanup.Loading", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scanning....
-        /// </summary>
-        internal static string DiskCleanup_Scanning {
-            get {
-                return ResourceManager.GetString("DiskCleanup.Scanning", resourceCulture);
             }
         }
         
@@ -2875,33 +2785,6 @@ namespace optimizerDuck.Resources.Languages {
         internal static string LegalDialog_Intro_Description {
             get {
                 return ResourceManager.GetString("LegalDialog.Intro.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please take a moment to review the following documents. By continuing, you agree to these terms..
-        /// </summary>
-        internal static string LegalDialog_Intro_Review {
-            get {
-                return ResourceManager.GetString("LegalDialog.Intro.Review", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to To ensure transparency and your safety, optimizerDuck may adjust certain system settings and registry configurations..
-        /// </summary>
-        internal static string LegalDialog_Intro_Safety {
-            get {
-                return ResourceManager.GetString("LegalDialog.Intro.Safety", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Thank you for choosing optimizerDuck..
-        /// </summary>
-        internal static string LegalDialog_Intro_ThankYou {
-            get {
-                return ResourceManager.GetString("LegalDialog.Intro.ThankYou", resourceCulture);
             }
         }
         
@@ -3176,15 +3059,6 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Revert step #{0}.
-        /// </summary>
-        internal static string Optimization_Revert_StepDescription {
-            get {
-                return ResourceManager.GetString("Optimization.Revert.StepDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Successfully reverted {0}!.
         /// </summary>
         internal static string Optimization_Revert_Success {
@@ -3280,24 +3154,6 @@ namespace optimizerDuck.Resources.Languages {
         internal static string OptimizationDetailsDialog_Other_ViewSource_Title {
             get {
                 return ResourceManager.GetString("OptimizationDetailsDialog.Other.ViewSource.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Risk Level.
-        /// </summary>
-        internal static string OptimizationDetailsDialog_Risk {
-            get {
-                return ResourceManager.GetString("OptimizationDetailsDialog.Risk", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tags.
-        /// </summary>
-        internal static string OptimizationDetailsDialog_Tags {
-            get {
-                return ResourceManager.GetString("OptimizationDetailsDialog.Tags", resourceCulture);
             }
         }
         
@@ -3663,42 +3519,6 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apply Everything.
-        /// </summary>
-        internal static string Optimizer_Menu_ApplyAll {
-            get {
-                return ResourceManager.GetString("Optimizer.Menu.ApplyAll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Apply All Safe.
-        /// </summary>
-        internal static string Optimizer_Menu_ApplyAllSafe {
-            get {
-                return ResourceManager.GetString("Optimizer.Menu.ApplyAllSafe", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Apply.
-        /// </summary>
-        internal static string Optimizer_Menu_ApplyMenu {
-            get {
-                return ResourceManager.GetString("Optimizer.Menu.ApplyMenu", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Applying Optimizations.
-        /// </summary>
-        internal static string Optimizer_Menu_BatchApply_Title {
-            get {
-                return ResourceManager.GetString("Optimizer.Menu.BatchApply.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hide Applied.
         /// </summary>
         internal static string Optimizer_Menu_HideApplied {
@@ -3939,15 +3759,6 @@ namespace optimizerDuck.Resources.Languages {
             get {
                 return ResourceManager.GetString("Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFai" +
                         "led", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to download optimizerDuck&apos;s power plan..
-        /// </summary>
-        internal static string Optimizer_PowerManagement_InstallOptimizerDuckPowerPlan_Error_DownloadFailed {
-            get {
-                return ResourceManager.GetString("Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DownloadFailed", resourceCulture);
             }
         }
         
@@ -4258,15 +4069,6 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This value reflects the level of intervention and the safety of the optimization process. Please exercise caution and consider carefully before applying any optimization..
-        /// </summary>
-        internal static string Optimizer_UI_Risk_Help {
-            get {
-                return ResourceManager.GetString("Optimizer.UI.Risk.Help", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Caution.
         /// </summary>
         internal static string Optimizer_UI_Risk_Moderate {
@@ -4326,15 +4128,6 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Optimizer_UI_Tags_Display {
             get {
                 return ResourceManager.GetString("Optimizer.UI.Tags.Display", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to These tags indicate which parts of the system the optimization will affect..
-        /// </summary>
-        internal static string Optimizer_UI_Tags_Help {
-            get {
-                return ResourceManager.GetString("Optimizer.UI.Tags.Help", resourceCulture);
             }
         }
         
@@ -4692,60 +4485,6 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Revert file is empty.
-        /// </summary>
-        internal static string Revert_Error_FileEmpty {
-            get {
-                return ResourceManager.GetString("Revert.Error.FileEmpty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Revert file not found.
-        /// </summary>
-        internal static string Revert_Error_FileNotFound {
-            get {
-                return ResourceManager.GetString("Revert.Error.FileNotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid revert data for {0}: {1}.
-        /// </summary>
-        internal static string Revert_Error_InvalidData {
-            get {
-                return ResourceManager.GetString("Revert.Error.InvalidData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid revert data.
-        /// </summary>
-        internal static string Revert_Error_InvalidJson {
-            get {
-                return ResourceManager.GetString("Revert.Error.InvalidJson", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid JSON format: {0}.
-        /// </summary>
-        internal static string Revert_Error_InvalidJsonFormat {
-            get {
-                return ResourceManager.GetString("Revert.Error.InvalidJsonFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid revert steps: {0}.
-        /// </summary>
-        internal static string Revert_Error_InvalidSteps {
-            get {
-                return ResourceManager.GetString("Revert.Error.InvalidSteps", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No revert data found for {0}..
         /// </summary>
         internal static string Revert_Error_NoDataFound {
@@ -4760,33 +4499,6 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Revert_Error_NoSteps {
             get {
                 return ResourceManager.GetString("Revert.Error.NoSteps", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to OptimizationId mismatch..
-        /// </summary>
-        internal static string Revert_Error_OptimizationIdMismatch {
-            get {
-                return ResourceManager.GetString("Revert.Error.OptimizationIdMismatch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to read revert data: {0}.
-        /// </summary>
-        internal static string Revert_Error_ReadFailed {
-            get {
-                return ResourceManager.GetString("Revert.Error.ReadFailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to revert {0}: {1}.
-        /// </summary>
-        internal static string Revert_Error_RevertFailed {
-            get {
-                return ResourceManager.GetString("Revert.Error.RevertFailed", resourceCulture);
             }
         }
         
@@ -5025,29 +4737,11 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to State.
-        /// </summary>
-        internal static string ScheduledTasks_Details_State {
-            get {
-                return ResourceManager.GetString("ScheduledTasks.Details.State", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Triggers.
         /// </summary>
         internal static string ScheduledTasks_Details_Triggers {
             get {
                 return ResourceManager.GetString("ScheduledTasks.Details.Triggers", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete the task &quot;{0}&quot;? This action cannot be undone..
-        /// </summary>
-        internal static string ScheduledTasks_Dialog_DeleteMessage {
-            get {
-                return ResourceManager.GetString("ScheduledTasks.Dialog.DeleteMessage", resourceCulture);
             }
         }
         
@@ -5133,38 +4827,11 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create Task.
-        /// </summary>
-        internal static string ScheduledTasks_Menu_CreateTask {
-            get {
-                return ResourceManager.GetString("ScheduledTasks.Menu.CreateTask", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Open Task Scheduler.
         /// </summary>
         internal static string ScheduledTasks_Menu_OpenSettings {
             get {
                 return ResourceManager.GetString("ScheduledTasks.Menu.OpenSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} has been created successfully..
-        /// </summary>
-        internal static string ScheduledTasks_Snackbar_Create_Message {
-            get {
-                return ResourceManager.GetString("ScheduledTasks.Snackbar.Create.Message", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Task Created.
-        /// </summary>
-        internal static string ScheduledTasks_Snackbar_Create_Title {
-            get {
-                return ResourceManager.GetString("ScheduledTasks.Snackbar.Create.Title", resourceCulture);
             }
         }
         
@@ -5295,258 +4962,6 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Access denied.
-        /// </summary>
-        internal static string Service_Common_Error_AccessDenied {
-            get {
-                return ResourceManager.GetString("Service.Common.Error.AccessDenied", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create registry key {0}.
-        /// </summary>
-        internal static string Service_Registry_Description_CreateKey {
-            get {
-                return ResourceManager.GetString("Service.Registry.Description.CreateKey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delete registry value: {0}\{1}.
-        /// </summary>
-        internal static string Service_Registry_Description_Delete {
-            get {
-                return ResourceManager.GetString("Service.Registry.Description.Delete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delete registry key {0}.
-        /// </summary>
-        internal static string Service_Registry_Description_DeleteKey {
-            get {
-                return ResourceManager.GetString("Service.Registry.Description.DeleteKey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Write registry value: {0}\{1}.
-        /// </summary>
-        internal static string Service_Registry_Description_Write {
-            get {
-                return ResourceManager.GetString("Service.Registry.Description.Write", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Access denied (protected hive).
-        /// </summary>
-        internal static string Service_Registry_Error_AccessDeniedProtectedHive {
-            get {
-                return ResourceManager.GetString("Service.Registry.Error.AccessDeniedProtectedHive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Registry subtree is too large to back up safely; delete aborted for {0}.
-        /// </summary>
-        internal static string Service_Registry_Error_BackupTruncated {
-            get {
-                return ResourceManager.GetString("Service.Registry.Error.BackupTruncated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to create/open subkey.
-        /// </summary>
-        internal static string Service_Registry_Error_CreateOrOpenSubkeyFailed {
-            get {
-                return ResourceManager.GetString("Service.Registry.Error.CreateOrOpenSubkeyFailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unauthorized access.
-        /// </summary>
-        internal static string Service_Registry_Error_UnauthorizedAccess {
-            get {
-                return ResourceManager.GetString("Service.Registry.Error.UnauthorizedAccess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Access denied creating {0}.
-        /// </summary>
-        internal static string Service_Registry_ErrorDetail_AccessDeniedCreateKey {
-            get {
-                return ResourceManager.GetString("Service.Registry.ErrorDetail.AccessDeniedCreateKey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Access denied deleting {0}:{1}.
-        /// </summary>
-        internal static string Service_Registry_ErrorDetail_AccessDeniedDelete {
-            get {
-                return ResourceManager.GetString("Service.Registry.ErrorDetail.AccessDeniedDelete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Access denied deleting key tree {0}.
-        /// </summary>
-        internal static string Service_Registry_ErrorDetail_AccessDeniedDeleteKeyTree {
-            get {
-                return ResourceManager.GetString("Service.Registry.ErrorDetail.AccessDeniedDeleteKeyTree", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Access denied writing {0}:{1}.
-        /// </summary>
-        internal static string Service_Registry_ErrorDetail_AccessDeniedWrite {
-            get {
-                return ResourceManager.GetString("Service.Registry.ErrorDetail.AccessDeniedWrite", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Registry.
-        /// </summary>
-        internal static string Service_Registry_Name {
-            get {
-                return ResourceManager.GetString("Service.Registry.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disable scheduled task: {0}.
-        /// </summary>
-        internal static string Service_ScheduledTask_Description_Disable {
-            get {
-                return ResourceManager.GetString("Service.ScheduledTask.Description.Disable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enable scheduled task: {0}.
-        /// </summary>
-        internal static string Service_ScheduledTask_Description_Enable {
-            get {
-                return ResourceManager.GetString("Service.ScheduledTask.Description.Enable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Access denied disabling task {0}.
-        /// </summary>
-        internal static string Service_ScheduledTask_ErrorDetail_AccessDeniedDisable {
-            get {
-                return ResourceManager.GetString("Service.ScheduledTask.ErrorDetail.AccessDeniedDisable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Access denied enabling task {0}.
-        /// </summary>
-        internal static string Service_ScheduledTask_ErrorDetail_AccessDeniedEnable {
-            get {
-                return ResourceManager.GetString("Service.ScheduledTask.ErrorDetail.AccessDeniedEnable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scheduled Task.
-        /// </summary>
-        internal static string Service_ScheduledTask_Name {
-            get {
-                return ResourceManager.GetString("Service.ScheduledTask.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Change service &apos;{0}&apos; to {1} startup.
-        /// </summary>
-        internal static string Service_Service_Description_Change {
-            get {
-                return ResourceManager.GetString("Service.Service.Description.Change", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ChangeStartMode failed (code: {0}).
-        /// </summary>
-        internal static string Service_Service_Error_ChangeStartModeFailedWithCode {
-            get {
-                return ResourceManager.GetString("Service.Service.Error.ChangeStartModeFailedWithCode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to change startup type for service.
-        /// </summary>
-        internal static string Service_Service_Error_ChangeStartupTypeFailed {
-            get {
-                return ResourceManager.GetString("Service.Service.Error.ChangeStartupTypeFailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to change service &apos;{0}&apos;: {1}.
-        /// </summary>
-        internal static string Service_Service_Error_ExceptionOccurred {
-            get {
-                return ResourceManager.GetString("Service.Service.Error.ExceptionOccurred", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Service not found.
-        /// </summary>
-        internal static string Service_Service_Error_NotFound {
-            get {
-                return ResourceManager.GetString("Service.Service.Error.NotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Service &apos;{0}&apos; is already set to {1} (skipped).
-        /// </summary>
-        internal static string Service_Service_Info_AlreadyConfigured {
-            get {
-                return ResourceManager.GetString("Service.Service.Info.AlreadyConfigured", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Access to service &apos;{0}&apos; is denied by Windows (skipped).
-        /// </summary>
-        internal static string Service_Service_Info_SkippedAccessDenied {
-            get {
-                return ResourceManager.GetString("Service.Service.Info.SkippedAccessDenied", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Service &apos;{0}&apos; not found (skipped).
-        /// </summary>
-        internal static string Service_Service_Info_SkippedNotFound {
-            get {
-                return ResourceManager.GetString("Service.Service.Info.SkippedNotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Service.
-        /// </summary>
-        internal static string Service_Service_Name {
-            get {
-                return ResourceManager.GetString("Service.Service.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Exit code {0}.
         /// </summary>
         internal static string Service_Shell_Error_ExitCode {
@@ -5561,15 +4976,6 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Service_Shell_Error_TimedOut {
             get {
                 return ResourceManager.GetString("Service.Shell.Error.TimedOut", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Shell.
-        /// </summary>
-        internal static string Service_Shell_Name {
-            get {
-                return ResourceManager.GetString("Service.Shell.Name", resourceCulture);
             }
         }
         
@@ -5849,24 +5255,6 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Settings_Header_Title {
             get {
                 return ResourceManager.GetString("Settings.Header.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You need to restart the application to apply the new language..
-        /// </summary>
-        internal static string Settings_LanguageChanged_Description {
-            get {
-                return ResourceManager.GetString("Settings.LanguageChanged.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Language change.
-        /// </summary>
-        internal static string Settings_LanguageChanged_Title {
-            get {
-                return ResourceManager.GetString("Settings.LanguageChanged.Title", resourceCulture);
             }
         }
         

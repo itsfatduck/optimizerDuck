@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Globalization;
 using optimizerDuck.Services.Configuration;
+using optimizerDuck.Services.Optimization.Providers;
 
 namespace optimizerDuck.Test.Services.Configuration;
 
@@ -145,11 +146,9 @@ public class LanguageManagerTests : IDisposable
     [Fact]
     public void Invariant_FormatsArguments()
     {
-        Loc.Instance.ChangeCulture(new CultureInfo("vi-VN"));
-
         Assert.Equal(
             "Delete registry key Foo",
-            Loc.Invariant["Service.Registry.Description.DeleteKey", "Foo"]
+            ServiceStrings.Format(ServiceStrings.RegistryDescriptionDeleteKey, "Foo")
         );
     }
 

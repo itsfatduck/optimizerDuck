@@ -146,18 +146,6 @@
   <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
     <value>GitHub'da depoyu yıldızla, arkadaşlarınla paylaş veya bağış yap - her şey bu projenin büyümesine yardımcı olur!</value>
   </data>
-  <data name="Service.Registry.Description.CreateKey" xml:space="preserve">
-    <value>Kayıt defteri anahtarı oluştur: {0}</value>
-  </data>
-  <data name="Service.Registry.Description.DeleteKey" xml:space="preserve">
-    <value>Kayıt defteri anahtarını sil: {0}</value>
-  </data>
-  <data name="Settings.LanguageChanged.Title" xml:space="preserve">
-    <value>Dil değiştirildi</value>
-  </data>
-  <data name="Settings.LanguageChanged.Description" xml:space="preserve">
-    <value>Yeni dili uygulamak için uygulamayı yeniden başlatmanız gerekiyor.</value>
-  </data>
   <data name="Button.Ok" xml:space="preserve">
     <value>Tamam</value>
   </data>
@@ -218,9 +206,6 @@
   <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
     <value>Ayrıntılı açıklama</value>
   </data>
-  <data name="OptimizationDetailsDialog.Tags" xml:space="preserve">
-    <value>Etiketler</value>
-  </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
     <value>Hizmet ana bilgisayarı bölme eşiğini toplam sistem RAM'ine yükseltir, hizmetleri daha az işlemde birleşik tutarak bellek kullanımını ve işlem sayısını azaltır.</value>
   </data>
@@ -232,9 +217,6 @@
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ActivateFailed" xml:space="preserve">
     <value>optimizerDuck güç planı etkinleştirilemedi.</value>
-  </data>
-  <data name="Optimizer.UI.Risk.Help" xml:space="preserve">
-    <value>Bu değer müdahalenin düzeyini ve optimizasyon sürecinin güvenliğini yansıtır. Herhangi bir optimizasyon uygulamadan önce lütfen dikkatli olun ve dikkatlice düşünün.</value>
   </data>
   <data name="Optimizer.UI.Tags.System" xml:space="preserve">
     <value>Sistem</value>
@@ -257,9 +239,6 @@
   <data name="Optimizer.UI.Tags.Audio" xml:space="preserve">
     <value>Ses</value>
   </data>
-  <data name="Optimizer.UI.Tags.Help" xml:space="preserve">
-    <value>Bu etiketler, optimizasyonun sistemin hangi bölümlerini etkileyeceğini gösterir.</value>
-  </data>
 <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
     <value>NVIDIA</value>
   </data>
@@ -273,9 +252,6 @@
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
     <value>Güç</value>
   </data>
-  <data name="Revert.Error.InvalidData" xml:space="preserve">
-    <value>{0} için geçersiz geri alma verisi: {1}</value>
-  </data>
   <data name="Revert.Error.NoDataFound" xml:space="preserve">
     <value>{0} için geri alma verisi bulunamadı.</value>
   </data>
@@ -288,14 +264,8 @@
   <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
     <value>{0} geri alındı, {1} adım başarısız oldu.</value>
   </data>
-  <data name="Revert.Error.RevertFailed" xml:space="preserve">
-    <value>{0} geri alınamadı: {1}</value>
-  </data>
   <data name="Optimization.Revert.ExecutingStep" xml:space="preserve">
     <value>Geri alma adımı çalıştırılıyor: {0}/{1} ({2})</value>
-  </data>
-  <data name="Optimization.Revert.StepDescription" xml:space="preserve">
-    <value>Geri alma adımı #{0}</value>
   </data>
   <data name="Revert.Registry.Description.RestoreKey" xml:space="preserve">
     <value>Kayıt defteri anahtarını geri yükle: {0}</value>
@@ -306,38 +276,14 @@
   <data name="Revert.Registry.Description.RevertUnknown" xml:space="preserve">
     <value>Kayıt defterini geri al: {0}</value>
   </data>
-  <data name="Revert.Error.FileNotFound" xml:space="preserve">
-    <value>Geri alma dosyası bulunamadı</value>
-  </data>
-  <data name="Revert.Error.FileEmpty" xml:space="preserve">
-    <value>Geri alma dosyası boş</value>
-  </data>
-  <data name="Revert.Error.ReadFailed" xml:space="preserve">
-    <value>Geri alma verisi okunamadı: {0}</value>
-  </data>
-  <data name="Revert.Error.InvalidJson" xml:space="preserve">
-    <value>Geçersiz geri alma verisi</value>
-  </data>
-  <data name="Revert.Error.InvalidJsonFormat" xml:space="preserve">
-    <value>Geçersiz JSON biçimi: {0}</value>
-  </data>
   <data name="Revert.Error.NoSteps" xml:space="preserve">
     <value>Geri alma adımı bulunamadı.</value>
-  </data>
-  <data name="Revert.Error.InvalidSteps" xml:space="preserve">
-    <value>Geçersiz geri alma adımları: {0}</value>
   </data>
   <data name="Revert.Error.StepFailed" xml:space="preserve">
     <value>Geri alma adımı başarısız oldu</value>
   </data>
   <data name="Revert.UsbPower.Description" xml:space="preserve">
     <value>USB seçici askıya alma güç durumlarını geri yükle</value>
-  </data>
-  <data name="Service.Registry.Error.BackupTruncated" xml:space="preserve">
-    <value>Kayıt defteri alt ağacı yedeklemek için çok büyük; {0} için silme işlemi iptal edildi</value>
-  </data>
-  <data name="Revert.Error.OptimizationIdMismatch" xml:space="preserve">
-    <value>Optimizasyon kimliği eşleşmiyor.</value>
   </data>
   <data name="Optimization.Apply.Processing" xml:space="preserve">
     <value>Değişiklikler uygulanıyor...</value>
@@ -356,51 +302,6 @@
   </data>
   <data name="Optimization.Apply.Error.Unknown" xml:space="preserve">
     <value>{0} için bilinmeyen sonuç.</value>
-  </data>
-  <data name="Service.Common.Error.AccessDenied" xml:space="preserve">
-    <value>Erişim reddedildi</value>
-  </data>
-  <data name="Service.Registry.Error.AccessDeniedProtectedHive" xml:space="preserve">
-    <value>Erişim reddedildi (korumalı kovan)</value>
-  </data>
-  <data name="Service.Registry.Error.UnauthorizedAccess" xml:space="preserve">
-    <value>Yetkisiz erişim</value>
-  </data>
-  <data name="Service.Registry.Error.CreateOrOpenSubkeyFailed" xml:space="preserve">
-    <value>Alt anahtar oluşturulamadı/açılamadı</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedWrite" xml:space="preserve">
-    <value>{0}:{1} yazılırken erişim reddedildi</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedDelete" xml:space="preserve">
-    <value>{0}:{1} silinirken erişim reddedildi</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedCreateKey" xml:space="preserve">
-    <value>{0} oluşturulurken erişim reddedildi</value>
-  </data>
-  <data name="Service.Registry.ErrorDetail.AccessDeniedDeleteKeyTree" xml:space="preserve">
-    <value>{0} anahtar ağacı silinirken erişim reddedildi</value>
-  </data>
-  <data name="Service.Service.Error.NotFound" xml:space="preserve">
-    <value>Servis bulunamadı</value>
-  </data>
-  <data name="Service.Service.Info.SkippedNotFound" xml:space="preserve">
-    <value>'{0}' servisi bulunamadı (atlandı)</value>
-  </data>
-  <data name="Service.Service.Info.AlreadyConfigured" xml:space="preserve">
-    <value>'{0}' servisi zaten {1} olarak ayarlı (atlandı)</value>
-  </data>
-  <data name="Service.Service.Info.SkippedAccessDenied" xml:space="preserve">
-    <value>Windows, '{0}' servisine erişimi reddetti (atlandı)</value>
-  </data>
-  <data name="Service.Service.Error.ChangeStartupTypeFailed" xml:space="preserve">
-    <value>Servis başlangıç türü değiştirilemedi</value>
-  </data>
-  <data name="Service.Service.Error.ChangeStartModeFailedWithCode" xml:space="preserve">
-    <value>ChangeStartMode başarısız oldu (kod: {0})</value>
-  </data>
-  <data name="Service.Service.Error.ExceptionOccurred" xml:space="preserve">
-    <value>'{0}' servisi değiştirilemedi: {1}</value>
   </data>
   <data name="Service.Shell.Error.ExitCode" xml:space="preserve">
     <value>Çıkış kodu {0}</value>
@@ -464,9 +365,6 @@
   </data>
   <data name="Settings.Appearance.SmoothScrolling.Description" xml:space="preserve">
     <value>Daha akıcı bir kaydırma deneyimi için yumuşak kaydırma animasyonunu etkinleştir. Gecikme yaşarsanız kapatın.</value>
-  </data>
-  <data name="Button.Open" xml:space="preserve">
-    <value>Aç</value>
   </data>
   <data name="Settings.About.Header" xml:space="preserve">
     <value>Hakkında</value>
@@ -983,9 +881,6 @@
   <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
     <value>Tam olarak ne yaptığınızı bilmiyorsanız DEĞİŞTİRMEYİN</value>
   </data>
-  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DownloadFailed" xml:space="preserve">
-    <value>optimizerDuck güç planı indirilemedi.</value>
-  </data>
   <data name="Settings.About.Acknowledgements.Title" xml:space="preserve">
     <value>Teşekkürler</value>
   </data>
@@ -1039,9 +934,6 @@ Bu, bir şeyler ters giderse her zaman geri dönebilmenizi sağlar.</value>
   <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
     <value>Klasör veya dosya açılamadı</value>
   </data>
-  <data name="Button.ViewLatestRelease" xml:space="preserve">
-    <value>En son sürümü görüntüle</value>
-  </data>
   <data name="BloatwareDialog.Title" xml:space="preserve">
     <value>{0} AppX Paketi Kaldırılıyor</value>
   </data>
@@ -1075,9 +967,6 @@ Bu, bir şeyler ters giderse her zaman geri dönebilmenizi sağlar.</value>
   <data name="BloatwareDialog.Confirmation.Title" xml:space="preserve">
     <value>{0} Uygulama Kaldırılsın mı?</value>
   </data>
-  <data name="BloatwareDialog.Confirmation.Message" xml:space="preserve">
-    <value>Şunları kaldırmak üzeresiniz: {0}</value>
-  </data>
   <data name="BloatwareDialog.Confirmation.Description" xml:space="preserve">
     <value>Kaldırmadan önce seçili uygulamaları gözden geçirin. Yalnızca emin olduğunuzda devam edin.</value>
   </data>
@@ -1103,9 +992,6 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   <data name="Common.Filter.All" xml:space="preserve">
     <value>Tümü</value>
   </data>
-  <data name="Common.SortBy.Default" xml:space="preserve">
-    <value>Varsayılan</value>
-  </data>
   <data name="Common.SortBy.Name" xml:space="preserve">
     <value>Ad</value>
   </data>
@@ -1121,12 +1007,6 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   <data name="Common.SortBy.Path" xml:space="preserve">
     <value>Yol</value>
   </data>
-  <data name="Optimizer.Menu.ApplyAllSafe" xml:space="preserve">
-    <value>Tüm Güvenli Olanları Uygula</value>
-  </data>
-  <data name="Optimizer.Menu.ApplyAll" xml:space="preserve">
-    <value>Hepsini Uygula</value>
-  </data>
   <data name="Optimizer.Menu.ViewSource" xml:space="preserve">
     <value>Kaynak Kodu Görüntüle</value>
   </data>
@@ -1138,12 +1018,6 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
     <value>Uygulanmışları Gizle</value>
-  </data>
-  <data name="Optimizer.Menu.ApplyMenu" xml:space="preserve">
-    <value>Uygula</value>
-  </data>
-  <data name="Optimizer.Menu.BatchApply.Title" xml:space="preserve">
-    <value>Optimizasyonlar Uygulanıyor</value>
   </data>
   <data name="Bloatware.Search.NoResults" xml:space="preserve">
     <value>Sonuç bulunamadı. Farklı bir arama terimi veya filtre deneyin.</value>
@@ -1174,9 +1048,6 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   </data>
   <data name="DiskCleanup.Button.DeselectAll" xml:space="preserve">
     <value>Tümünün Seçimini Kaldır</value>
-  </data>
-  <data name="DiskCleanup.Scanning" xml:space="preserve">
-    <value>Taranıyor...</value>
   </data>
   <data name="DiskCleanup.Loading" xml:space="preserve">
     <value>Temizleme öğeleri yükleniyor...</value>
@@ -1253,12 +1124,6 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   <data name="Bloatware.Header.Description" xml:space="preserve">
     <value>İhtiyacınız olmayan önceden yüklenmiş uygulamaları yönet ve kaldır</value>
   </data>
-  <data name="Dashboard.SystemInfo.Header" xml:space="preserve">
-    <value>Sistem Bilgileri</value>
-  </data>
-  <data name="DiskCleanup.ItemsSelected" xml:space="preserve">
-    <value>{0} ({1} öğe seçili)</value>
-  </data>
   <data name="DiskCleanup.Button.Clean" xml:space="preserve">
     <value>Temizle</value>
   </data>
@@ -1297,9 +1162,6 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
     <value>GitHub'da Kaynak Kodu Görüntüle</value>
-  </data>
-  <data name="OptimizationDetailsDialog.Risk" xml:space="preserve">
-    <value>Risk Düzeyi</value>
   </data>
   <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
     <value>Teknik Ayrıntılar</value>
@@ -1352,9 +1214,6 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   <data name="Common.SortBy.Status" xml:space="preserve">
     <value>Durum</value>
   </data>
-  <data name="Common.Status.Applied" xml:space="preserve">
-    <value>Uygulandı</value>
-  </data>
   <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
     <value>Ayarları Aç</value>
   </data>
@@ -1379,9 +1238,6 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   <data name="ScheduledTasks.HideMicrosoft" xml:space="preserve">
     <value>Microsoft görevlerini gizle</value>
   </data>
-  <data name="ScheduledTasks.Menu.CreateTask" xml:space="preserve">
-    <value>Görev Oluştur</value>
-  </data>
   <data name="ScheduledTasks.Action.Details" xml:space="preserve">
     <value>Ayrıntıları Görüntüle</value>
   </data>
@@ -1397,9 +1253,6 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   <data name="ScheduledTasks.Dialog.DeleteTitle" xml:space="preserve">
     <value>Zamanlanmış Görevi Sil</value>
   </data>
-  <data name="ScheduledTasks.Dialog.DeleteMessage" xml:space="preserve">
-    <value>"{0}" görevini silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.</value>
-  </data>
   <data name="ScheduledTasks.Details.Path" xml:space="preserve">
     <value>Yol</value>
   </data>
@@ -1408,9 +1261,6 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   </data>
   <data name="ScheduledTasks.Details.Author" xml:space="preserve">
     <value>Yazar</value>
-  </data>
-  <data name="ScheduledTasks.Details.State" xml:space="preserve">
-    <value>Durum</value>
   </data>
   <data name="ScheduledTasks.Details.Triggers" xml:space="preserve">
     <value>Tetikleyiciler</value>
@@ -1469,12 +1319,6 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   <data name="ScheduledTasks.Snackbar.Delete.Message" xml:space="preserve">
     <value>{0} silindi.</value>
   </data>
-  <data name="ScheduledTasks.Snackbar.Create.Title" xml:space="preserve">
-    <value>Görev Oluşturuldu</value>
-  </data>
-  <data name="ScheduledTasks.Snackbar.Create.Message" xml:space="preserve">
-    <value>{0} başarıyla oluşturuldu.</value>
-  </data>
   <data name="ScheduledTasks.Snackbar.Error.Title" xml:space="preserve">
     <value>Hata</value>
   </data>
@@ -1483,39 +1327,6 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   </data>
   <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
     <value>Görev bulunamadı: {0}</value>
-  </data>
-  <data name="Service.Registry.Name" xml:space="preserve">
-    <value>Kayıt Defteri</value>
-  </data>
-  <data name="Service.Service.Name" xml:space="preserve">
-    <value>Servis</value>
-  </data>
-  <data name="Service.ScheduledTask.Name" xml:space="preserve">
-    <value>Zamanlanmış Görev</value>
-  </data>
-  <data name="Service.Shell.Name" xml:space="preserve">
-    <value>Kabuk</value>
-  </data>
-  <data name="Service.Registry.Description.Write" xml:space="preserve">
-    <value>Kayıt defteri değeri yaz: {0}\{1}</value>
-  </data>
-  <data name="Service.Registry.Description.Delete" xml:space="preserve">
-    <value>Kayıt defteri değerini sil: {0}\{1}</value>
-  </data>
-  <data name="Service.Service.Description.Change" xml:space="preserve">
-    <value>'{0}' servisini {1} başlangıç olarak değiştir</value>
-  </data>
-  <data name="Service.ScheduledTask.Description.Enable" xml:space="preserve">
-    <value>Zamanlanmış görevi etkinleştir: {0}</value>
-  </data>
-  <data name="Service.ScheduledTask.Description.Disable" xml:space="preserve">
-    <value>Zamanlanmış görevi devre dışı bırak: {0}</value>
-  </data>
-  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedDisable" xml:space="preserve">
-    <value>{0} görevi devre dışı bırakılırken erişim reddedildi</value>
-  </data>
-  <data name="Service.ScheduledTask.ErrorDetail.AccessDeniedEnable" xml:space="preserve">
-    <value>{0} görevi etkinleştirilirken erişim reddedildi</value>
   </data>
   <data name="Revert.Registry.Description.Restore" xml:space="preserve">
     <value>Kayıt defteri değerini geri yükle: {0}\{1}</value>
@@ -1663,15 +1474,6 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   </data>
   <data name="LegalDialog.Title" xml:space="preserve">
     <value>Hukuki Sözleşme</value>
-  </data>
-  <data name="LegalDialog.Intro.ThankYou" xml:space="preserve">
-    <value>optimizerDuck'ı tercih ettiğiniz için teşekkür ederiz.</value>
-  </data>
-  <data name="LegalDialog.Intro.Safety" xml:space="preserve">
-    <value>Şeffaflığı ve güvenliğinizi sağlamak için optimizerDuck bazı sistem ayarlarını ve kayıt defteri yapılandırmalarını değiştirebilir.</value>
-  </data>
-  <data name="LegalDialog.Intro.Review" xml:space="preserve">
-    <value>Lütfen aşağıdaki belgeleri incelemek için bir dakikanızı ayırın. Devam ederek bu koşulları kabul etmiş olursunuz.</value>
   </data>
   <data name="LegalDialog.Intro.Title" xml:space="preserve">
     <value>optimizerDuck'a hoş geldiniz!</value>
@@ -1850,12 +1652,6 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   <data name="DiskCleanup.Dialog.Confirmation.Summary" xml:space="preserve">
     <value>{1} öğeden {0} tanesini ({2} dosya) silmek üzeresiniz. Lütfen aşağıdaki öğeleri inceleyin.</value>
   </data>
-  <data name="DiskCleanup.Dialog.Confirmation.SingleTitle" xml:space="preserve">
-    <value>Öğeyi temizle</value>
-  </data>
-  <data name="DiskCleanup.Dialog.Confirmation.SingleItem" xml:space="preserve">
-    <value>{0} ({1}) silmek üzeresiniz. Lütfen onaylayın.</value>
-  </data>
   <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
     <value>Zamanlanmış bir görevi silme işlemi kalıcıdır. Görev artık otomatik olarak çalışmayacaktır.</value>
   </data>
@@ -2005,9 +1801,6 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   </data>
   <data name="Customize.UI.UnsupportedSettings.Header" xml:space="preserve">
     <value>Desteklenmeyen Ayarlar ({0})</value>
-  </data>
-  <data name="Customize.UI.UnsupportedSettings.Badge" xml:space="preserve">
-    <value>Desteklenmiyor</value>
   </data>
   <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
     <value>Bazı ayarlar mevcut sisteminizde kullanılamıyor.</value>
