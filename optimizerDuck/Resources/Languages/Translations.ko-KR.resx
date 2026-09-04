@@ -604,7 +604,7 @@
     <value>Display</value>
   </data>
   <data name="Optimizer.UI.Tags.Visual" xml:space="preserve">
-    <value>Visual</value>
+    <value>비주얼</value>
   </data>
 <data name="Optimizer.Gpu" xml:space="preserve">
     <value>GPU</value>
@@ -822,7 +822,7 @@
     <value>입력</value>
   </data>
   <data name="Customize.Gaming.Section.Display" xml:space="preserve">
-    <value>Display</value>
+    <value>디스플레이</value>
   </data>
   <data name="Customize.Gaming.GameMode.Name" xml:space="preserve">
     <value>게임 모드</value>
@@ -1491,52 +1491,52 @@
     <value>면책 조항</value>
   </data>
   <data name="LegalDialog.Language.Title" xml:space="preserve">
-    <value>Language</value>
+    <value>언어</value>
   </data>
   <data name="LegalDialog.Language.Description" xml:space="preserve">
-    <value>Choose your preferred language</value>
+    <value>선호하는 언어를 선택하세요</value>
   </data>
   <data name="LegalDialog.Language.Tip" xml:space="preserve">
-    <value>Tip: English is the most accurate. Feel free to choose your preferred language.</value>
+    <value>팁: 영어가 가장 정확합니다. 선호하는 언어를 선택하세요.</value>
   </data>
   <data name="LegalDialog.Theme.Title" xml:space="preserve">
-    <value>Theme</value>
+    <value>테마</value>
   </data>
   <data name="LegalDialog.Theme.Description" xml:space="preserve">
-    <value>Choose your preferred theme</value>
+    <value>선호하는 테마를 선택하세요</value>
   </data>
   <data name="LegalDialog.Theme.Tip" xml:space="preserve">
-    <value>Tip: Dark is recommended, best supported and avoids UI issues.</value>
+    <value>팁: 다크 모드를 권장합니다. 가장 잘 지원되며 UI 문제를 방지합니다.</value>
   </data>
   <data name="LegalDialog.Preferences.Header" xml:space="preserve">
-    <value>Preferences</value>
+    <value>기본 설정</value>
   </data>
   <data name="LegalDialog.Extras.Header" xml:space="preserve">
-    <value>Explore</value>
+    <value>탐색</value>
   </data>
   <data name="LegalDialog.Extras.GitHub.Title" xml:space="preserve">
     <value>GitHub</value>
   </data>
   <data name="LegalDialog.Extras.GitHub.Description" xml:space="preserve">
-    <value>Source code &amp; issues</value>
+    <value>소스 코드 및 이슈</value>
   </data>
   <data name="LegalDialog.Extras.Docs.Title" xml:space="preserve">
-    <value>Documentation</value>
+    <value>문서</value>
   </data>
   <data name="LegalDialog.Extras.Docs.Description" xml:space="preserve">
-    <value>Guides &amp; getting started</value>
+    <value>가이드 및 시작하기</value>
   </data>
   <data name="LegalDialog.Extras.Discord.Title" xml:space="preserve">
     <value>Discord</value>
   </data>
   <data name="LegalDialog.Extras.Discord.Description" xml:space="preserve">
-    <value>Community &amp; support</value>
+    <value>커뮤니티 및 지원</value>
   </data>
   <data name="LegalDialog.Extras.Acknowledgements.Title" xml:space="preserve">
-    <value>Acknowledgements</value>
+    <value>감사의 말</value>
   </data>
   <data name="LegalDialog.Extras.Acknowledgements.Description" xml:space="preserve">
-    <value>Third-party notices</value>
+    <value>타사 고지</value>
   </data>
   <data name="LegalDialog.Warning.Title" xml:space="preserve">
     <value>자신의 책임 하에 사용하세요</value>
@@ -1654,6 +1654,21 @@
   </data>
   <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
     <value>예약 작업을 삭제하면 영구적으로 제거됩니다. 작업이 더 이상 자동으로 실행되지 않습니다.</value>
+  </data>
+  <data name="ScheduledTasks.Dialog.Settings" xml:space="preserve">
+    <value>설정</value>
+  </data>
+  <data name="ScheduledTasks.State.Disabled" xml:space="preserve">
+    <value>사용 안 함</value>
+  </data>
+  <data name="ScheduledTasks.State.Queued" xml:space="preserve">
+    <value>대기 중</value>
+  </data>
+  <data name="ScheduledTasks.State.Ready" xml:space="preserve">
+    <value>준비됨</value>
+  </data>
+  <data name="ScheduledTasks.State.Running" xml:space="preserve">
+    <value>실행 중</value>
   </data>
   <data name="Common.Empty" xml:space="preserve">
     <value>비어 있음</value>
@@ -1888,5 +1903,32 @@
   </data>
   <data name="BloatwareDialog.UnusualWarning.SelectedList" xml:space="preserve">
     <value>비정상적인 패키지가 감지되었습니다</value>
+  </data>
+  <data name="Startup.Location.CommonStartupFolder" xml:space="preserve">
+    <value>시작 폴더(모든 사용자)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKCURun" xml:space="preserve">
+    <value>레지스트리(현재 사용자)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKCURunOnce" xml:space="preserve">
+    <value>레지스트리 RunOnce(현재 사용자)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRun" xml:space="preserve">
+    <value>레지스트리(로컬 컴퓨터)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRun32" xml:space="preserve">
+    <value>레지스트리(로컬 컴퓨터, 32비트)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRunOnce" xml:space="preserve">
+    <value>레지스트리 RunOnce(로컬 컴퓨터)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRunOnce32" xml:space="preserve">
+    <value>레지스트리 RunOnce(로컬 컴퓨터, 32비트)</value>
+  </data>
+  <data name="Startup.Location.UserStartupFolder" xml:space="preserve">
+    <value>시작 폴더(현재 사용자)</value>
+  </data>
+  <data name="Startup.Location.UwpStartupTask" xml:space="preserve">
+    <value>Microsoft Store 앱</value>
   </data>
 </root>

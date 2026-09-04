@@ -1725,6 +1725,21 @@ Aktualisiere jetzt, um die neuesten Funktionen, Verbesserungen und Fehlerbehebun
   <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
     <value>Das Löschen einer geplanten Aufgabe ist dauerhaft. Die Aufgabe wird nicht mehr automatisch ausgeführt.</value>
   </data>
+  <data name="ScheduledTasks.Dialog.Settings" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+  <data name="ScheduledTasks.State.Disabled" xml:space="preserve">
+    <value>Deaktiviert</value>
+  </data>
+  <data name="ScheduledTasks.State.Queued" xml:space="preserve">
+    <value>In Warteschlange</value>
+  </data>
+  <data name="ScheduledTasks.State.Ready" xml:space="preserve">
+    <value>Bereit</value>
+  </data>
+  <data name="ScheduledTasks.State.Running" xml:space="preserve">
+    <value>Wird ausgeführt</value>
+  </data>
   <data name="Common.Empty" xml:space="preserve">
     <value>Leer</value>
   </data>
@@ -1958,5 +1973,32 @@ Aktualisiere jetzt, um die neuesten Funktionen, Verbesserungen und Fehlerbehebun
   </data>
   <data name="BloatwareDialog.UnusualWarning.SelectedList" xml:space="preserve">
     <value>Ungewöhnliche(s) Paket(e) erkannt</value>
+  </data>
+  <data name="Startup.Location.CommonStartupFolder" xml:space="preserve">
+    <value>Autostart-Ordner (Alle Benutzer)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKCURun" xml:space="preserve">
+    <value>Registrierung (Aktueller Benutzer)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKCURunOnce" xml:space="preserve">
+    <value>Registrierung RunOnce (Aktueller Benutzer)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRun" xml:space="preserve">
+    <value>Registrierung (Lokaler Computer)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRun32" xml:space="preserve">
+    <value>Registrierung (Lokaler Computer, 32 Bit)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRunOnce" xml:space="preserve">
+    <value>Registrierung RunOnce (Lokaler Computer)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRunOnce32" xml:space="preserve">
+    <value>Registrierung RunOnce (Lokaler Computer, 32 Bit)</value>
+  </data>
+  <data name="Startup.Location.UserStartupFolder" xml:space="preserve">
+    <value>Autostart-Ordner (Aktueller Benutzer)</value>
+  </data>
+  <data name="Startup.Location.UwpStartupTask" xml:space="preserve">
+    <value>Microsoft Store-App</value>
   </data>
 </root>

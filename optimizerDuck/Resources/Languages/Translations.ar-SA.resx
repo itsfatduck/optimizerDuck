@@ -867,52 +867,52 @@
     <value>نوصي بإنشاء نسخة احتياطية قبل تطبيق أي تغييرات.</value>
   </data>
   <data name="LegalDialog.Language.Title" xml:space="preserve">
-    <value>Language</value>
+    <value>اللغة</value>
   </data>
   <data name="LegalDialog.Language.Description" xml:space="preserve">
-    <value>Choose your preferred language</value>
+    <value>اختر لغتك المفضلة</value>
   </data>
   <data name="LegalDialog.Language.Tip" xml:space="preserve">
-    <value>Tip: English is the most accurate. Feel free to choose your preferred language.</value>
+    <value>تلميح: الإنجليزية هي الأكثر دقة. لا تتردد في اختيار لغتك المفضلة.</value>
   </data>
   <data name="LegalDialog.Theme.Title" xml:space="preserve">
-    <value>Theme</value>
+    <value>السمة</value>
   </data>
   <data name="LegalDialog.Theme.Description" xml:space="preserve">
-    <value>Choose your preferred theme</value>
+    <value>اختر السمة المفضلة لديك</value>
   </data>
   <data name="LegalDialog.Theme.Tip" xml:space="preserve">
-    <value>Tip: Dark is recommended, best supported and avoids UI issues.</value>
+    <value>تلميح: يُنصح بالوضع الداكن، فهو الأكثر دعمًا ويتجنب مشاكل الواجهة.</value>
   </data>
   <data name="LegalDialog.Preferences.Header" xml:space="preserve">
-    <value>Preferences</value>
+    <value>التفضيلات</value>
   </data>
   <data name="LegalDialog.Extras.Header" xml:space="preserve">
-    <value>Explore</value>
+    <value>استكشف</value>
   </data>
   <data name="LegalDialog.Extras.GitHub.Title" xml:space="preserve">
     <value>GitHub</value>
   </data>
   <data name="LegalDialog.Extras.GitHub.Description" xml:space="preserve">
-    <value>Source code &amp; issues</value>
+    <value>الكود المصدري والمشاكل</value>
   </data>
   <data name="LegalDialog.Extras.Docs.Title" xml:space="preserve">
-    <value>Documentation</value>
+    <value>التوثيق</value>
   </data>
   <data name="LegalDialog.Extras.Docs.Description" xml:space="preserve">
-    <value>Guides &amp; getting started</value>
+    <value>أدلة وبداية العمل</value>
   </data>
   <data name="LegalDialog.Extras.Discord.Title" xml:space="preserve">
     <value>Discord</value>
   </data>
   <data name="LegalDialog.Extras.Discord.Description" xml:space="preserve">
-    <value>Community &amp; support</value>
+    <value>المجتمع والدعم</value>
   </data>
   <data name="LegalDialog.Extras.Acknowledgements.Title" xml:space="preserve">
-    <value>Acknowledgements</value>
+    <value>شكر وتقدير</value>
   </data>
   <data name="LegalDialog.Extras.Acknowledgements.Description" xml:space="preserve">
-    <value>Third-party notices</value>
+    <value>إشعارات الجهات الخارجية</value>
   </data>
   <data name="LegalDialog.Warning.Title" xml:space="preserve">
     <value>الاستخدام على مسؤوليتك</value>
@@ -1463,6 +1463,9 @@
   <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
     <value>حذف المهمة المجدولة نهائي. لن تعمل المهمة تلقائيًا بعد الآن.</value>
   </data>
+  <data name="ScheduledTasks.Dialog.Settings" xml:space="preserve">
+    <value>الإعدادات</value>
+  </data>
   <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
     <value>لم يتم العثور على المهمة: {0}</value>
   </data>
@@ -1513,6 +1516,18 @@
   </data>
   <data name="ScheduledTasks.Snackbar.Toggle.Message" xml:space="preserve">
     <value>تم تحديث {0} بنجاح.</value>
+  </data>
+  <data name="ScheduledTasks.State.Disabled" xml:space="preserve">
+    <value>معطلة</value>
+  </data>
+  <data name="ScheduledTasks.State.Queued" xml:space="preserve">
+    <value>في الانتظار</value>
+  </data>
+  <data name="ScheduledTasks.State.Ready" xml:space="preserve">
+    <value>جاهزة</value>
+  </data>
+  <data name="ScheduledTasks.State.Running" xml:space="preserve">
+    <value>قيد التشغيل</value>
   </data>
   <data name="Service.Shell.Error.ExitCode" xml:space="preserve">
     <value>رمز الخروج {0}</value>
@@ -1948,6 +1963,33 @@
   </data>
   <data name="BloatwareDialog.UnusualWarning.SelectedList" xml:space="preserve">
     <value>تم اكتشاف حزمة (حزم) غير معتادة</value>
+  </data>
+  <data name="Startup.Location.CommonStartupFolder" xml:space="preserve">
+    <value>مجلد بدء التشغيل (كل المستخدمين)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKCURun" xml:space="preserve">
+    <value>السجل (المستخدم الحالي)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKCURunOnce" xml:space="preserve">
+    <value>السجل RunOnce (المستخدم الحالي)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRun" xml:space="preserve">
+    <value>السجل (الجهاز المحلي)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRun32" xml:space="preserve">
+    <value>السجل (الجهاز المحلي، 32 بت)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRunOnce" xml:space="preserve">
+    <value>السجل RunOnce (الجهاز المحلي)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRunOnce32" xml:space="preserve">
+    <value>السجل RunOnce (الجهاز المحلي، 32 بت)</value>
+  </data>
+  <data name="Startup.Location.UserStartupFolder" xml:space="preserve">
+    <value>مجلد بدء التشغيل (المستخدم الحالي)</value>
+  </data>
+  <data name="Startup.Location.UwpStartupTask" xml:space="preserve">
+    <value>تطبيق متجر Microsoft</value>
   </data>
 </root>
 

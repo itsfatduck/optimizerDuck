@@ -1313,6 +1313,9 @@
   <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
     <value>删除计划任务是永久性的操作。该任务将不再自动运行。</value>
   </data>
+  <data name="ScheduledTasks.Dialog.Settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
 
   <data name="ScheduledTasks.Details.Path" xml:space="preserve">
     <value>路径</value>
@@ -1394,6 +1397,18 @@
   <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
       <value>未找到任务：{0}</value>
     </data>
+  <data name="ScheduledTasks.State.Disabled" xml:space="preserve">
+    <value>已禁用</value>
+  </data>
+  <data name="ScheduledTasks.State.Queued" xml:space="preserve">
+    <value>已排队</value>
+  </data>
+  <data name="ScheduledTasks.State.Ready" xml:space="preserve">
+    <value>就绪</value>
+  </data>
+  <data name="ScheduledTasks.State.Running" xml:space="preserve">
+    <value>正在运行</value>
+  </data>
   <data name="Revert.Registry.Description.Restore" xml:space="preserve">
     <value>恢复注册表项：{0}\{1}</value>
   </data>
@@ -1584,52 +1599,52 @@
     <value>免责声明</value>
   </data>
   <data name="LegalDialog.Language.Title" xml:space="preserve">
-    <value>Language</value>
+    <value>语言</value>
   </data>
   <data name="LegalDialog.Language.Description" xml:space="preserve">
-    <value>Choose your preferred language</value>
+    <value>选择您的首选语言</value>
   </data>
   <data name="LegalDialog.Language.Tip" xml:space="preserve">
-    <value>Tip: English is the most accurate. Feel free to choose your preferred language.</value>
+    <value>提示：英语最准确。欢迎选择您的首选语言。</value>
   </data>
   <data name="LegalDialog.Theme.Title" xml:space="preserve">
-    <value>Theme</value>
+    <value>主题</value>
   </data>
   <data name="LegalDialog.Theme.Description" xml:space="preserve">
-    <value>Choose your preferred theme</value>
+    <value>选择您的首选主题</value>
   </data>
   <data name="LegalDialog.Theme.Tip" xml:space="preserve">
-    <value>Tip: Dark is recommended, best supported and avoids UI issues.</value>
+    <value>提示：建议使用深色模式，支持最好并可避免界面问题。</value>
   </data>
   <data name="LegalDialog.Preferences.Header" xml:space="preserve">
-    <value>Preferences</value>
+    <value>偏好设置</value>
   </data>
   <data name="LegalDialog.Extras.Header" xml:space="preserve">
-    <value>Explore</value>
+    <value>探索</value>
   </data>
   <data name="LegalDialog.Extras.GitHub.Title" xml:space="preserve">
     <value>GitHub</value>
   </data>
   <data name="LegalDialog.Extras.GitHub.Description" xml:space="preserve">
-    <value>Source code &amp; issues</value>
+    <value>源代码与议题</value>
   </data>
   <data name="LegalDialog.Extras.Docs.Title" xml:space="preserve">
-    <value>Documentation</value>
+    <value>文档</value>
   </data>
   <data name="LegalDialog.Extras.Docs.Description" xml:space="preserve">
-    <value>Guides &amp; getting started</value>
+    <value>指南与入门</value>
   </data>
   <data name="LegalDialog.Extras.Discord.Title" xml:space="preserve">
     <value>Discord</value>
   </data>
   <data name="LegalDialog.Extras.Discord.Description" xml:space="preserve">
-    <value>Community &amp; support</value>
+    <value>社区与支持</value>
   </data>
   <data name="LegalDialog.Extras.Acknowledgements.Title" xml:space="preserve">
-    <value>Acknowledgements</value>
+    <value>致谢</value>
   </data>
   <data name="LegalDialog.Extras.Acknowledgements.Description" xml:space="preserve">
-    <value>Third-party notices</value>
+    <value>第三方声明</value>
   </data>
   <data name="LegalDialog.Warning.Title" xml:space="preserve">
     <value>风险自担</value>
@@ -1905,5 +1920,32 @@
   </data>
   <data name="BloatwareDialog.UnusualWarning.SelectedList" xml:space="preserve">
     <value>检测到异常软件包</value>
+  </data>
+  <data name="Startup.Location.CommonStartupFolder" xml:space="preserve">
+    <value>启动文件夹(所有用户)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKCURun" xml:space="preserve">
+    <value>注册表(当前用户)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKCURunOnce" xml:space="preserve">
+    <value>注册表 RunOnce(当前用户)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRun" xml:space="preserve">
+    <value>注册表(本地计算机)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRun32" xml:space="preserve">
+    <value>注册表(本地计算机, 32 位)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRunOnce" xml:space="preserve">
+    <value>注册表 RunOnce(本地计算机)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRunOnce32" xml:space="preserve">
+    <value>注册表 RunOnce(本地计算机, 32 位)</value>
+  </data>
+  <data name="Startup.Location.UserStartupFolder" xml:space="preserve">
+    <value>启动文件夹(当前用户)</value>
+  </data>
+  <data name="Startup.Location.UwpStartupTask" xml:space="preserve">
+    <value>Microsoft Store 应用</value>
   </data>
 </root>

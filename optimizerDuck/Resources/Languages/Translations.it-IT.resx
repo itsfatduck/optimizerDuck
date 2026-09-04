@@ -1277,6 +1277,9 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
     <value>Eliminare un'attività pianificata è permanente. L'attività non verrà più eseguita automaticamente.</value>
   </data>
+  <data name="ScheduledTasks.Dialog.Settings" xml:space="preserve">
+    <value>Impostazioni</value>
+  </data>
   
   <data name="ScheduledTasks.Details.Path" xml:space="preserve">
     <value>Percorso</value>
@@ -1358,6 +1361,18 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
       <value>Attività non trovata: {0}</value>
     </data>
+  <data name="ScheduledTasks.State.Disabled" xml:space="preserve">
+    <value>Disabilitata</value>
+  </data>
+  <data name="ScheduledTasks.State.Queued" xml:space="preserve">
+    <value>In coda</value>
+  </data>
+  <data name="ScheduledTasks.State.Ready" xml:space="preserve">
+    <value>Pronta</value>
+  </data>
+  <data name="ScheduledTasks.State.Running" xml:space="preserve">
+    <value>In esecuzione</value>
+  </data>
   <data name="Revert.Registry.Description.Restore" xml:space="preserve">
     <value>Ripristina valore di registro: {0}\{1}</value>
   </data>
@@ -1521,52 +1536,52 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
     <value>Disclaimer</value>
   </data>
   <data name="LegalDialog.Language.Title" xml:space="preserve">
-    <value>Language</value>
+    <value>Lingua</value>
   </data>
   <data name="LegalDialog.Language.Description" xml:space="preserve">
-    <value>Choose your preferred language</value>
+    <value>Scegli la tua lingua preferita</value>
   </data>
   <data name="LegalDialog.Language.Tip" xml:space="preserve">
-    <value>Tip: English is the most accurate. Feel free to choose your preferred language.</value>
+    <value>Suggerimento: l'inglese è il più preciso. Scegli pure la tua lingua preferita.</value>
   </data>
   <data name="LegalDialog.Theme.Title" xml:space="preserve">
-    <value>Theme</value>
+    <value>Tema</value>
   </data>
   <data name="LegalDialog.Theme.Description" xml:space="preserve">
-    <value>Choose your preferred theme</value>
+    <value>Scegli il tuo tema preferito</value>
   </data>
   <data name="LegalDialog.Theme.Tip" xml:space="preserve">
-    <value>Tip: Dark is recommended, best supported and avoids UI issues.</value>
+    <value>Suggerimento: consigliata la modalità scura, la più supportata ed evita problemi di interfaccia.</value>
   </data>
   <data name="LegalDialog.Preferences.Header" xml:space="preserve">
-    <value>Preferences</value>
+    <value>Preferenze</value>
   </data>
   <data name="LegalDialog.Extras.Header" xml:space="preserve">
-    <value>Explore</value>
+    <value>Esplora</value>
   </data>
   <data name="LegalDialog.Extras.GitHub.Title" xml:space="preserve">
     <value>GitHub</value>
   </data>
   <data name="LegalDialog.Extras.GitHub.Description" xml:space="preserve">
-    <value>Source code &amp; issues</value>
+    <value>Codice sorgente e problemi</value>
   </data>
   <data name="LegalDialog.Extras.Docs.Title" xml:space="preserve">
-    <value>Documentation</value>
+    <value>Documentazione</value>
   </data>
   <data name="LegalDialog.Extras.Docs.Description" xml:space="preserve">
-    <value>Guides &amp; getting started</value>
+    <value>Guide e primi passi</value>
   </data>
   <data name="LegalDialog.Extras.Discord.Title" xml:space="preserve">
     <value>Discord</value>
   </data>
   <data name="LegalDialog.Extras.Discord.Description" xml:space="preserve">
-    <value>Community &amp; support</value>
+    <value>Comunità e supporto</value>
   </data>
   <data name="LegalDialog.Extras.Acknowledgements.Title" xml:space="preserve">
-    <value>Acknowledgements</value>
+    <value>Ringraziamenti</value>
   </data>
   <data name="LegalDialog.Extras.Acknowledgements.Description" xml:space="preserve">
-    <value>Third-party notices</value>
+    <value>Avvisi di terze parti</value>
   </data>
   <data name="LegalDialog.Warning.Title" xml:space="preserve">
     <value>Usa a tuo rischio e pericolo</value>
@@ -1905,5 +1920,32 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   </data>
   <data name="BloatwareDialog.UnusualWarning.SelectedList" xml:space="preserve">
     <value>Rilevato/i pacchetto/i insolito/i</value>
+  </data>
+  <data name="Startup.Location.CommonStartupFolder" xml:space="preserve">
+    <value>Cartella Esecuzione automatica (Tutti gli utenti)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKCURun" xml:space="preserve">
+    <value>Registro (Utente corrente)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKCURunOnce" xml:space="preserve">
+    <value>Registro RunOnce (Utente corrente)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRun" xml:space="preserve">
+    <value>Registro (Computer locale)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRun32" xml:space="preserve">
+    <value>Registro (Computer locale, 32 bit)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRunOnce" xml:space="preserve">
+    <value>Registro RunOnce (Computer locale)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRunOnce32" xml:space="preserve">
+    <value>Registro RunOnce (Computer locale, 32 bit)</value>
+  </data>
+  <data name="Startup.Location.UserStartupFolder" xml:space="preserve">
+    <value>Cartella Esecuzione automatica (Utente corrente)</value>
+  </data>
+  <data name="Startup.Location.UwpStartupTask" xml:space="preserve">
+    <value>App di Microsoft Store</value>
   </data>
 </root>

@@ -740,7 +740,7 @@
   </data>
 
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
-    <value>Taskbar</value>
+    <value>Bilah tugas</value>
   </data>
   <data name="Customize.Preferences.Section.Appearance" xml:space="preserve">
     <value>Tampilan</value>
@@ -1335,6 +1335,9 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
     <value>Menghapus tugas terjadwal bersifat permanen. Tugas tidak akan lagi berjalan otomatis.</value>
   </data>
+  <data name="ScheduledTasks.Dialog.Settings" xml:space="preserve">
+    <value>Pengaturan</value>
+  </data>
   <!-- Scheduled Tasks Details -->
   <data name="ScheduledTasks.Details.Path" xml:space="preserve">
     <value>Jalur</value>
@@ -1416,6 +1419,18 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
       <value>Tugas tidak ditemukan: {0}</value>
     </data>
+  <data name="ScheduledTasks.State.Disabled" xml:space="preserve">
+    <value>Dinonaktifkan</value>
+  </data>
+  <data name="ScheduledTasks.State.Queued" xml:space="preserve">
+    <value>Dalam Antrean</value>
+  </data>
+  <data name="ScheduledTasks.State.Ready" xml:space="preserve">
+    <value>Siap</value>
+  </data>
+  <data name="ScheduledTasks.State.Running" xml:space="preserve">
+    <value>Berjalan</value>
+  </data>
   <data name="Revert.Registry.Description.Restore" xml:space="preserve">
     <value>Memulihkan nilai registri: {0}\{1}</value>
   </data>
@@ -1525,7 +1540,7 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
     <value>Menampilkan atau menyembunyikan ikon Jaringan di desktop.</value>
   </data>
   <data name="Customize.Desktop.ShowControlPanel.Name" xml:space="preserve">
-    <value>Control Panel</value>
+    <value>Panel Kontrol</value>
   </data>
   <data name="Customize.Desktop.ShowControlPanel.Description" xml:space="preserve">
     <value>Menampilkan atau menyembunyikan ikon Control Panel di desktop.</value>
@@ -1579,52 +1594,52 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
     <value>Penafian</value>
   </data>
   <data name="LegalDialog.Language.Title" xml:space="preserve">
-    <value>Language</value>
+    <value>Bahasa</value>
   </data>
   <data name="LegalDialog.Language.Description" xml:space="preserve">
-    <value>Choose your preferred language</value>
+    <value>Pilih bahasa pilihan Anda</value>
   </data>
   <data name="LegalDialog.Language.Tip" xml:space="preserve">
-    <value>Tip: English is the most accurate. Feel free to choose your preferred language.</value>
+    <value>Tips: Bahasa Inggris paling akurat. Silakan pilih bahasa pilihan Anda.</value>
   </data>
   <data name="LegalDialog.Theme.Title" xml:space="preserve">
-    <value>Theme</value>
+    <value>Tema</value>
   </data>
   <data name="LegalDialog.Theme.Description" xml:space="preserve">
-    <value>Choose your preferred theme</value>
+    <value>Pilih tema pilihan Anda</value>
   </data>
   <data name="LegalDialog.Theme.Tip" xml:space="preserve">
-    <value>Tip: Dark is recommended, best supported and avoids UI issues.</value>
+    <value>Tips: Disarankan mode gelap, paling didukung dan menghindari masalah UI.</value>
   </data>
   <data name="LegalDialog.Preferences.Header" xml:space="preserve">
-    <value>Preferences</value>
+    <value>Preferensi</value>
   </data>
   <data name="LegalDialog.Extras.Header" xml:space="preserve">
-    <value>Explore</value>
+    <value>Jelajahi</value>
   </data>
   <data name="LegalDialog.Extras.GitHub.Title" xml:space="preserve">
     <value>GitHub</value>
   </data>
   <data name="LegalDialog.Extras.GitHub.Description" xml:space="preserve">
-    <value>Source code &amp; issues</value>
+    <value>Kode sumber &amp; masalah</value>
   </data>
   <data name="LegalDialog.Extras.Docs.Title" xml:space="preserve">
-    <value>Documentation</value>
+    <value>Dokumentasi</value>
   </data>
   <data name="LegalDialog.Extras.Docs.Description" xml:space="preserve">
-    <value>Guides &amp; getting started</value>
+    <value>Panduan &amp; memulai</value>
   </data>
   <data name="LegalDialog.Extras.Discord.Title" xml:space="preserve">
     <value>Discord</value>
   </data>
   <data name="LegalDialog.Extras.Discord.Description" xml:space="preserve">
-    <value>Community &amp; support</value>
+    <value>Komunitas &amp; dukungan</value>
   </data>
   <data name="LegalDialog.Extras.Acknowledgements.Title" xml:space="preserve">
-    <value>Acknowledgements</value>
+    <value>Ucapan Terima Kasih</value>
   </data>
   <data name="LegalDialog.Extras.Acknowledgements.Description" xml:space="preserve">
-    <value>Third-party notices</value>
+    <value>Pemberitahuan pihak ketiga</value>
   </data>
   <data name="LegalDialog.Warning.Title" xml:space="preserve">
     <value>Gunakan dengan risiko Anda sendiri</value>
@@ -1642,10 +1657,10 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
     <value>Keluar Saja</value>
   </data>
   <data name="Dialog.PendingChanges.PrimaryButton" xml:space="preserve">
-    <value>Restart PC</value>
+    <value>Mulai Ulang PC</value>
   </data>
   <data name="Dialog.PendingChanges.SecondaryButton" xml:space="preserve">
-    <value>Restart Explorer</value>
+    <value>Mulai Ulang Explorer</value>
   </data>
   <data name="Settings.About.Documentation.Title" xml:space="preserve">
     <value>Dokumentasi</value>
@@ -1963,5 +1978,32 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   </data>
   <data name="BloatwareDialog.UnusualWarning.SelectedList" xml:space="preserve">
     <value>Paket tidak biasa terdeteksi</value>
+  </data>
+  <data name="Startup.Location.CommonStartupFolder" xml:space="preserve">
+    <value>Folder Startup (Semua Pengguna)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKCURun" xml:space="preserve">
+    <value>Registri (Pengguna Saat Ini)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKCURunOnce" xml:space="preserve">
+    <value>Registri RunOnce (Pengguna Saat Ini)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRun" xml:space="preserve">
+    <value>Registri (Komputer Lokal)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRun32" xml:space="preserve">
+    <value>Registri (Komputer Lokal, 32-bit)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRunOnce" xml:space="preserve">
+    <value>Registri RunOnce (Komputer Lokal)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRunOnce32" xml:space="preserve">
+    <value>Registri RunOnce (Komputer Lokal, 32-bit)</value>
+  </data>
+  <data name="Startup.Location.UserStartupFolder" xml:space="preserve">
+    <value>Folder Startup (Pengguna Saat Ini)</value>
+  </data>
+  <data name="Startup.Location.UwpStartupTask" xml:space="preserve">
+    <value>Aplikasi Microsoft Store</value>
   </data>
 </root>

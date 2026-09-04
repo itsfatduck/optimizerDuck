@@ -1656,6 +1656,21 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
     <value>Việc xóa tác vụ định kỳ là vĩnh viễn. Tác vụ sẽ không còn chạy tự động nữa.</value>
   </data>
+  <data name="ScheduledTasks.Dialog.Settings" xml:space="preserve">
+    <value>Cài đặt</value>
+  </data>
+  <data name="ScheduledTasks.State.Disabled" xml:space="preserve">
+    <value>Đã tắt</value>
+  </data>
+  <data name="ScheduledTasks.State.Queued" xml:space="preserve">
+    <value>Đang xếp hàng</value>
+  </data>
+  <data name="ScheduledTasks.State.Ready" xml:space="preserve">
+    <value>Sẵn sàng</value>
+  </data>
+  <data name="ScheduledTasks.State.Running" xml:space="preserve">
+    <value>Đang chạy</value>
+  </data>
   <data name="Common.Empty" xml:space="preserve">
     <value>Trống</value>
   </data>
@@ -1889,5 +1904,32 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="BloatwareDialog.UnusualWarning.SelectedList" xml:space="preserve">
     <value>Phát hiện (các) gói bất thường</value>
+  </data>
+  <data name="Startup.Location.CommonStartupFolder" xml:space="preserve">
+    <value>Thư mục Khởi động (Mọi người dùng)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKCURun" xml:space="preserve">
+    <value>Registry (Người dùng hiện tại)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKCURunOnce" xml:space="preserve">
+    <value>Registry RunOnce (Người dùng hiện tại)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRun" xml:space="preserve">
+    <value>Registry (Máy cục bộ)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRun32" xml:space="preserve">
+    <value>Registry (Máy cục bộ, 32-bit)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRunOnce" xml:space="preserve">
+    <value>Registry RunOnce (Máy cục bộ)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRunOnce32" xml:space="preserve">
+    <value>Registry RunOnce (Máy cục bộ, 32-bit)</value>
+  </data>
+  <data name="Startup.Location.UserStartupFolder" xml:space="preserve">
+    <value>Thư mục Khởi động (Người dùng hiện tại)</value>
+  </data>
+  <data name="Startup.Location.UwpStartupTask" xml:space="preserve">
+    <value>Ứng dụng Microsoft Store</value>
   </data>
 </root>

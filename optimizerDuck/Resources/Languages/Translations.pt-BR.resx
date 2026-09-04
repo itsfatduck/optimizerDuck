@@ -642,7 +642,7 @@
     <value>Desativar Controle de Clock de Vídeo AMD</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-    <value>Sets DisableVCEPowerGating=1, DisableVceClockGating=1, EnableUvdClockGating=0 for AMD video engines (VCE/UVD) to improve encode/decode stability. Increases video playback power.</value>
+    <value>Define DisableVCEPowerGating=1, DisableVceClockGating=1, EnableUvdClockGating=0 para a AMD</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
     <value>Desativar AMD ASPM</value>
@@ -685,7 +685,7 @@
     <value>Explorer</value>
   </data>
   <data name="Customize.Preferences.TaskbarWidgets.Name" xml:space="preserve">
-    <value>Taskbar Widgets</value>
+    <value>Widgets da barra de tarefas</value>
   </data>
   <data name="Customize.Preferences.TaskbarWidgets.Description" xml:space="preserve">
     <value>Mostra ou oculta o botão Widgets na barra de tarefas. Os Widgets dão acesso rápido a notícias, clima e atualizações.</value>
@@ -1270,7 +1270,7 @@ Atualize agora para desfrutar das últimas funcionalidades, melhorias e correç�
     <value>Autor</value>
   </data>
   <data name="ScheduledTasks.Details.Triggers" xml:space="preserve">
-    <value>Triggers</value>
+    <value>Disparadores</value>
   </data>
   <data name="ScheduledTasks.Details.Action" xml:space="preserve">
     <value>Ação</value>
@@ -1500,52 +1500,52 @@ Atualize agora para desfrutar das últimas funcionalidades, melhorias e correç�
     <value>Aviso de Isenção de Responsabilidade</value>
   </data>
   <data name="LegalDialog.Language.Title" xml:space="preserve">
-    <value>Language</value>
+    <value>Idioma</value>
   </data>
   <data name="LegalDialog.Language.Description" xml:space="preserve">
-    <value>Choose your preferred language</value>
+    <value>Escolha seu idioma preferido</value>
   </data>
   <data name="LegalDialog.Language.Tip" xml:space="preserve">
-    <value>Tip: English is the most accurate. Feel free to choose your preferred language.</value>
+    <value>Dica: o inglês é o mais preciso. Fique à vontade para escolher seu idioma preferido.</value>
   </data>
   <data name="LegalDialog.Theme.Title" xml:space="preserve">
-    <value>Theme</value>
+    <value>Tema</value>
   </data>
   <data name="LegalDialog.Theme.Description" xml:space="preserve">
-    <value>Choose your preferred theme</value>
+    <value>Escolha seu tema preferido</value>
   </data>
   <data name="LegalDialog.Theme.Tip" xml:space="preserve">
-    <value>Tip: Dark is recommended, best supported and avoids UI issues.</value>
+    <value>Dica: o modo escuro é recomendado, tem o melhor suporte e evita problemas de interface.</value>
   </data>
   <data name="LegalDialog.Preferences.Header" xml:space="preserve">
-    <value>Preferences</value>
+    <value>Preferências</value>
   </data>
   <data name="LegalDialog.Extras.Header" xml:space="preserve">
-    <value>Explore</value>
+    <value>Explorar</value>
   </data>
   <data name="LegalDialog.Extras.GitHub.Title" xml:space="preserve">
     <value>GitHub</value>
   </data>
   <data name="LegalDialog.Extras.GitHub.Description" xml:space="preserve">
-    <value>Source code &amp; issues</value>
+    <value>Código-fonte e problemas</value>
   </data>
   <data name="LegalDialog.Extras.Docs.Title" xml:space="preserve">
-    <value>Documentation</value>
+    <value>Documentação</value>
   </data>
   <data name="LegalDialog.Extras.Docs.Description" xml:space="preserve">
-    <value>Guides &amp; getting started</value>
+    <value>Guias e primeiros passos</value>
   </data>
   <data name="LegalDialog.Extras.Discord.Title" xml:space="preserve">
     <value>Discord</value>
   </data>
   <data name="LegalDialog.Extras.Discord.Description" xml:space="preserve">
-    <value>Community &amp; support</value>
+    <value>Comunidade e suporte</value>
   </data>
   <data name="LegalDialog.Extras.Acknowledgements.Title" xml:space="preserve">
-    <value>Acknowledgements</value>
+    <value>Agradecimentos</value>
   </data>
   <data name="LegalDialog.Extras.Acknowledgements.Description" xml:space="preserve">
-    <value>Third-party notices</value>
+    <value>Avisos de terceiros</value>
   </data>
   <data name="LegalDialog.Warning.Title" xml:space="preserve">
     <value>Use por sua conta e risco</value>
@@ -1663,6 +1663,21 @@ Atualize agora para desfrutar das últimas funcionalidades, melhorias e correç�
   </data>
   <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
     <value>Excluir uma tarefa agendada é permanente. A tarefa não será mais executada automaticamente.</value>
+  </data>
+  <data name="ScheduledTasks.Dialog.Settings" xml:space="preserve">
+    <value>Configurações</value>
+  </data>
+  <data name="ScheduledTasks.State.Disabled" xml:space="preserve">
+    <value>Desabilitada</value>
+  </data>
+  <data name="ScheduledTasks.State.Queued" xml:space="preserve">
+    <value>Na fila</value>
+  </data>
+  <data name="ScheduledTasks.State.Ready" xml:space="preserve">
+    <value>Pronta</value>
+  </data>
+  <data name="ScheduledTasks.State.Running" xml:space="preserve">
+    <value>Em execução</value>
   </data>
   <data name="Common.Empty" xml:space="preserve">
     <value>Vazio</value>
@@ -1897,5 +1912,32 @@ Atualize agora para desfrutar das últimas funcionalidades, melhorias e correç�
   </data>
   <data name="BloatwareDialog.UnusualWarning.SelectedList" xml:space="preserve">
     <value>Pacote(s) incomum(is) detectado(s)</value>
+  </data>
+  <data name="Startup.Location.CommonStartupFolder" xml:space="preserve">
+    <value>Pasta de Inicialização (Todos os usuários)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKCURun" xml:space="preserve">
+    <value>Registro (Usuário atual)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKCURunOnce" xml:space="preserve">
+    <value>Registro RunOnce (Usuário atual)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRun" xml:space="preserve">
+    <value>Registro (Computador local)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRun32" xml:space="preserve">
+    <value>Registro (Computador local, 32 bits)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRunOnce" xml:space="preserve">
+    <value>Registro RunOnce (Computador local)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRunOnce32" xml:space="preserve">
+    <value>Registro RunOnce (Computador local, 32 bits)</value>
+  </data>
+  <data name="Startup.Location.UserStartupFolder" xml:space="preserve">
+    <value>Pasta de Inicialização (Usuário atual)</value>
+  </data>
+  <data name="Startup.Location.UwpStartupTask" xml:space="preserve">
+    <value>Aplicativo da Microsoft Store</value>
   </data>
 </root>
