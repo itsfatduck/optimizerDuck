@@ -250,8 +250,8 @@ public partial class SettingsViewModel(
         try
         {
             await configManager.SetAsync(
-                "bloatware:removeProvisioned",
-                (!appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned).ToString()
+                x => x.Bloatware.RemoveProvisioned,
+                !appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned
             );
             RemoveProvisioned = appOptionsMonitor.CurrentValue.Bloatware.RemoveProvisioned;
         }
@@ -269,14 +269,9 @@ public partial class SettingsViewModel(
             return;
         try
         {
-            await configManager.SetAsync(
-                "optimize:showCompletionNotification",
-                (!appOptionsMonitor.CurrentValue.Optimize.ShowCompletionNotification).ToString()
-            );
-            ShowSnackbarNotificationAfterAppliedSuccessfully = appOptionsMonitor
-                .CurrentValue
-                .Optimize
-                .ShowCompletionNotification;
+            var newValue = !appOptionsMonitor.CurrentValue.Optimize.ShowCompletionNotification;
+            await configManager.SetAsync(x => x.Optimize.ShowCompletionNotification, newValue);
+            ShowSnackbarNotificationAfterAppliedSuccessfully = newValue;
         }
         catch (Exception ex)
         {
@@ -295,11 +290,9 @@ public partial class SettingsViewModel(
             return;
         try
         {
-            await configManager.SetAsync(
-                "optimize:smoothScrolling",
-                (!appOptionsMonitor.CurrentValue.Optimize.SmoothScrolling).ToString()
-            );
-            SmoothScrolling = appOptionsMonitor.CurrentValue.Optimize.SmoothScrolling;
+            var newValue = !appOptionsMonitor.CurrentValue.Optimize.SmoothScrolling;
+            await configManager.SetAsync(x => x.Optimize.SmoothScrolling, newValue);
+            SmoothScrolling = newValue;
             SmoothScrollBehavior.GlobalEnabled = SmoothScrolling;
         }
         catch (Exception ex)
