@@ -188,7 +188,6 @@ public partial class CustomizeCategoryViewModel : ViewModel
 
     public override Task OnNavigatedFromAsync()
     {
-        ApplicationThemeManager.Changed -= OnThemeChanged;
         _systemInfoService.SnapshotRefreshed -= OnSnapshotRefreshed;
 
         return base.OnNavigatedFromAsync();
