@@ -1541,17 +1541,11 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   <data name="LegalDialog.Language.Description" xml:space="preserve">
     <value>Scegli la tua lingua preferita</value>
   </data>
-  <data name="LegalDialog.Language.Tip" xml:space="preserve">
-    <value>Suggerimento: l'inglese è il più preciso. Scegli pure la tua lingua preferita.</value>
-  </data>
   <data name="LegalDialog.Theme.Title" xml:space="preserve">
     <value>Tema</value>
   </data>
   <data name="LegalDialog.Theme.Description" xml:space="preserve">
     <value>Scegli il tuo tema preferito</value>
-  </data>
-  <data name="LegalDialog.Theme.Tip" xml:space="preserve">
-    <value>Suggerimento: consigliata la modalità scura, la più supportata ed evita problemi di interfaccia.</value>
   </data>
   <data name="LegalDialog.Preferences.Header" xml:space="preserve">
     <value>Preferenze</value>

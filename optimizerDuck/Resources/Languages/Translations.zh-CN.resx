@@ -1604,17 +1604,11 @@
   <data name="LegalDialog.Language.Description" xml:space="preserve">
     <value>选择您的首选语言</value>
   </data>
-  <data name="LegalDialog.Language.Tip" xml:space="preserve">
-    <value>提示：英语最准确。欢迎选择您的首选语言。</value>
-  </data>
   <data name="LegalDialog.Theme.Title" xml:space="preserve">
     <value>主题</value>
   </data>
   <data name="LegalDialog.Theme.Description" xml:space="preserve">
     <value>选择您的首选主题</value>
-  </data>
-  <data name="LegalDialog.Theme.Tip" xml:space="preserve">
-    <value>提示：建议使用深色模式，支持最好并可避免界面问题。</value>
   </data>
   <data name="LegalDialog.Preferences.Header" xml:space="preserve">
     <value>偏好设置</value>

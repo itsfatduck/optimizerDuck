@@ -1689,17 +1689,11 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="LegalDialog.Language.Description" xml:space="preserve">
     <value>Choose your preferred language</value>
   </data>
-  <data name="LegalDialog.Language.Tip" xml:space="preserve">
-    <value>Tip: English is the most accurate. Feel free to choose your preferred language.</value>
-  </data>
   <data name="LegalDialog.Theme.Title" xml:space="preserve">
     <value>Theme</value>
   </data>
   <data name="LegalDialog.Theme.Description" xml:space="preserve">
     <value>Choose your preferred theme</value>
-  </data>
-  <data name="LegalDialog.Theme.Tip" xml:space="preserve">
-    <value>Tip: Dark is recommended, best supported and avoids UI issues.</value>
   </data>
   <data name="LegalDialog.Preferences.Header" xml:space="preserve">
     <value>Preferences</value>

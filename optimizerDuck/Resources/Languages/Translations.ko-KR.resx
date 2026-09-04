@@ -1496,17 +1496,11 @@
   <data name="LegalDialog.Language.Description" xml:space="preserve">
     <value>선호하는 언어를 선택하세요</value>
   </data>
-  <data name="LegalDialog.Language.Tip" xml:space="preserve">
-    <value>팁: 영어가 가장 정확합니다. 선호하는 언어를 선택하세요.</value>
-  </data>
   <data name="LegalDialog.Theme.Title" xml:space="preserve">
     <value>테마</value>
   </data>
   <data name="LegalDialog.Theme.Description" xml:space="preserve">
     <value>선호하는 테마를 선택하세요</value>
-  </data>
-  <data name="LegalDialog.Theme.Tip" xml:space="preserve">
-    <value>팁: 다크 모드를 권장합니다. 가장 잘 지원되며 UI 문제를 방지합니다.</value>
   </data>
   <data name="LegalDialog.Preferences.Header" xml:space="preserve">
     <value>기본 설정</value>

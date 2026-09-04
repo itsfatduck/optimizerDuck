@@ -3057,17 +3057,11 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
   <data name="LegalDialog.Language.Description" xml:space="preserve">
     <value>Elige tu idioma preferido</value>
   </data>
-  <data name="LegalDialog.Language.Tip" xml:space="preserve">
-    <value>Consejo: el inglés es el más preciso. Elige tu idioma preferido.</value>
-  </data>
   <data name="LegalDialog.Theme.Title" xml:space="preserve">
     <value>Tema</value>
   </data>
   <data name="LegalDialog.Theme.Description" xml:space="preserve">
     <value>Elige tu tema preferido</value>
-  </data>
-  <data name="LegalDialog.Theme.Tip" xml:space="preserve">
-    <value>Consejo: se recomienda el modo oscuro, es el más compatible y evita problemas de interfaz.</value>
   </data>
   <data name="LegalDialog.Preferences.Header" xml:space="preserve">
     <value>Preferencias</value>

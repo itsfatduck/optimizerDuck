@@ -55,13 +55,6 @@
                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                             Text="{ext:Loc LegalDialog.Language.Description}"
                             TextWrapping="Wrap" />
-                        <ui:TextBlock
-                            Margin="0,4,0,0"
-                            FontStyle="Italic"
-                            FontTypography="Caption"
-                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"
-                            Text="{ext:Loc LegalDialog.Language.Tip}"
-                            TextWrapping="Wrap" />
                     </StackPanel>
                 </ui:CardControl.Header>
                 <ComboBox
@@ -82,13 +75,6 @@
                         <ui:TextBlock
                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                             Text="{ext:Loc LegalDialog.Theme.Description}"
-                            TextWrapping="Wrap" />
-                        <ui:TextBlock
-                            Margin="0,4,0,0"
-                            FontStyle="Italic"
-                            FontTypography="Caption"
-                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"
-                            Text="{ext:Loc LegalDialog.Theme.Tip}"
                             TextWrapping="Wrap" />
                     </StackPanel>
                 </ui:CardControl.Header>

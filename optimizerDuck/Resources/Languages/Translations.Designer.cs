@@ -2807,15 +2807,6 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tip: English is the most accurate. Feel free to choose your preferred language..
-        /// </summary>
-        internal static string LegalDialog_Language_Tip {
-            get {
-                return ResourceManager.GetString("LegalDialog.Language.Tip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         internal static string LegalDialog_Language_Title {
@@ -2866,15 +2857,6 @@ namespace optimizerDuck.Resources.Languages {
         internal static string LegalDialog_Theme_Description {
             get {
                 return ResourceManager.GetString("LegalDialog.Theme.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tip: Dark is recommended, best supported and avoids UI issues..
-        /// </summary>
-        internal static string LegalDialog_Theme_Tip {
-            get {
-                return ResourceManager.GetString("LegalDialog.Theme.Tip", resourceCulture);
             }
         }
         

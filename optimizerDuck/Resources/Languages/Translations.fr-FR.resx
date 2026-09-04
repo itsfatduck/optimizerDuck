@@ -1499,17 +1499,11 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
   <data name="LegalDialog.Language.Description" xml:space="preserve">
     <value>Choisissez votre langue préférée</value>
   </data>
-  <data name="LegalDialog.Language.Tip" xml:space="preserve">
-    <value>Astuce : l'anglais est le plus précis. N'hésitez pas à choisir votre langue préférée.</value>
-  </data>
   <data name="LegalDialog.Theme.Title" xml:space="preserve">
     <value>Thème</value>
   </data>
   <data name="LegalDialog.Theme.Description" xml:space="preserve">
     <value>Choisissez votre thème préféré</value>
-  </data>
-  <data name="LegalDialog.Theme.Tip" xml:space="preserve">
-    <value>Astuce : le thème sombre est recommandé, le mieux pris en charge et évite les problèmes d'interface.</value>
   </data>
   <data name="LegalDialog.Preferences.Header" xml:space="preserve">
     <value>Préférences</value>

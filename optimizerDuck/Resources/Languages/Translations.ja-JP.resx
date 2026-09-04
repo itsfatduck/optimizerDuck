@@ -1497,17 +1497,11 @@
   <data name="LegalDialog.Language.Description" xml:space="preserve">
     <value>お好みの言語を選択してください</value>
   </data>
-  <data name="LegalDialog.Language.Tip" xml:space="preserve">
-    <value>ヒント：英語が最も正確です。お好みの言語をお選びください。</value>
-  </data>
   <data name="LegalDialog.Theme.Title" xml:space="preserve">
     <value>テーマ</value>
   </data>
   <data name="LegalDialog.Theme.Description" xml:space="preserve">
     <value>お好みのテーマを選択してください</value>
-  </data>
-  <data name="LegalDialog.Theme.Tip" xml:space="preserve">
-    <value>ヒント：ダークモードを推奨します。最もサポートが充実し、UI の問題を回避できます。</value>
   </data>
   <data name="LegalDialog.Preferences.Header" xml:space="preserve">
     <value>設定</value>
