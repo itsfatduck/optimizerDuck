@@ -175,9 +175,9 @@ public partial class App : Application
 
         ApplicationAccentColorManager.Apply(
             systemAccent: Color.FromRgb(138, 94, 0),
-            primaryAccent: Color.FromRgb(192, 138, 0),
-            secondaryAccent: Color.FromRgb(255, 247, 200),
-            tertiaryAccent: Color.FromRgb(255, 243, 131)
+            primaryAccent: Color.FromRgb(138, 94, 0),
+            secondaryAccent: Color.FromRgb(122, 88, 0),
+            tertiaryAccent: Color.FromRgb(110, 75, 0)
         );
         RefreshToggleSwitchBrushes();
     }
