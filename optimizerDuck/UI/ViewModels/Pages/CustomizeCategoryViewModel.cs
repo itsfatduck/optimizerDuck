@@ -48,6 +48,7 @@ public partial class CustomizeCategoryViewModel : ViewModel
     private bool _hasUnsupportedSettings;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(UnsupportedSettingsHeader))]
     private int _unsupportedSettingsCount;
 
     public string UnsupportedSettingsHeader =>
