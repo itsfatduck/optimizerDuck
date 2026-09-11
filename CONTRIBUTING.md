@@ -338,7 +338,7 @@ All of them handle logging, error handling, and revert recording through the exp
 |---|---|---|
 | **`RegistryService`** (static) | `Write()`, `Read<T>()`, `DeleteValue()`, `CreateSubKey()`, `DeleteSubKeyTree()`, `KeyExists()`, `CleanupEmptyKeys()` | Read/write/delete registry keys. Backs up original values for revert. Supports batch writes via params array. |
 | **`context.Shell`** (`ShellService`) | `CMDAsync()`, `PowerShellAsync()` (record a change), `QueryCMDAsync()`, `QueryPowerShellAsync()` (read-only) | Run CMD or PowerShell commands. Prefer the async variants. Pass a `revertCommand` string, or an `IRevertStep`, for undo. See `ShellPolicy` for non-standard exit codes. |
-| **`ScheduledTaskService`** (static) | `DisableTask()`, `EnableTask()`, `IsTaskEnabled()`, `DeleteTask()`, `GetAllTasks()`, `RegisterTask()`, `RunTask()`, `StopTask()` | Manage Windows Scheduled Tasks. |
+| **`ScheduledTaskService`** (static) | `DisableTask()`, `EnableTask()`, `GetTaskEnabledState()`, `DeleteTask()`, `GetAllTasks()`, `RegisterTask()`, `RunTask()`, `StopTask()` | Manage Windows Scheduled Tasks. |
 | **`ServiceProcessService`** (static) | `ChangeServiceStartupTypeAsync()`, `GetStartupTypeAsync()` | Manage Windows Services. Always use async variants. Supports batch changes via array overload. |
 
 > **Methods accepting multiple items via params**: Most write/change methods accept a params array of items (e.g., `RegistryService.Write(context, item1, item2, item3)`). This is more efficient than multiple individual calls.

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -88,12 +89,12 @@ public partial class OptimizationCategoryViewModel
             };
             if (canRetry)
             {
-                dialog.PrimaryButtonText = Loc.Instance["Button.Retry"];
-                dialog.CloseButtonText = Loc.Instance["Button.Cancel"];
+                BindLocalized(dialog, ContentDialog.PrimaryButtonTextProperty, "Button.Retry");
+                BindLocalized(dialog, ContentDialog.CloseButtonTextProperty, "Button.Cancel");
             }
             else
             {
-                dialog.CloseButtonText = Loc.Instance["Button.Ok"];
+                BindLocalized(dialog, ContentDialog.CloseButtonTextProperty, "Button.Ok");
             }
 
             var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
@@ -252,14 +253,11 @@ public partial class OptimizationCategoryViewModel
     private async Task<(bool Proceed, bool RestorePointCreated)> HandleRestorePointAsync()
     {
         var dialogContent = new RestorePointDialog();
-        var dialog = new ContentDialog
-        {
-            Title = Loc.Instance["RestorePoint.Title"],
-            Content = dialogContent,
-            PrimaryButtonText = Loc.Instance["Button.Ok"],
-            SecondaryButtonText = Loc.Instance["Button.Skip"],
-            CloseButtonText = Loc.Instance["Button.Cancel"],
-        };
+        var dialog = new ContentDialog { Content = dialogContent };
+        BindLocalized(dialog, ContentDialog.TitleProperty, "RestorePoint.Title");
+        BindLocalized(dialog, ContentDialog.PrimaryButtonTextProperty, "Button.Ok");
+        BindLocalized(dialog, ContentDialog.SecondaryButtonTextProperty, "Button.Skip");
+        BindLocalized(dialog, ContentDialog.CloseButtonTextProperty, "Button.Cancel");
 
         var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
         if (result == ContentDialogResult.None)
@@ -361,6 +359,15 @@ public partial class OptimizationCategoryViewModel
         }
 
         return (true, false);
+    }
+
+    /// <summary>Binds a dialog property to a localization key so it follows runtime language changes.</summary>
+    private static void BindLocalized(ContentDialog dialog, DependencyProperty property, string key)
+    {
+        dialog.SetBinding(
+            property,
+            new Binding($"[{key}]") { Source = Loc.Instance, Mode = BindingMode.OneWay }
+        );
     }
 
     /// <summary>

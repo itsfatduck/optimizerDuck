@@ -121,4 +121,24 @@ public class DiskCleanupServiceTests
             }
         }
     }
+
+    [Fact]
+    public async Task CleanAsync_FailingCommand_ReportsNoFreedBytes()
+    {
+        var service = NewService();
+        var item = new CleanupItem
+        {
+            Id = "Command",
+            NameKey = "Temp Files",
+            DescriptionKey = "Temp Description",
+            Path = "exit 1",
+            Icon = SymbolRegular.Document24,
+            IsCommand = true,
+            SizeBytes = 4096,
+        };
+
+        var freed = await service.CleanAsync(item);
+
+        Assert.Equal(0, freed);
+    }
 }

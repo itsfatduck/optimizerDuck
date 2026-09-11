@@ -323,25 +323,53 @@ public static class ServiceProcessService
         };
 
         process.Start();
+        // drain both pipes concurrently so a chatty child can never block on a full pipe.
         var stdoutTask = process.StandardOutput.ReadToEndAsync();
         var stderrTask = process.StandardError.ReadToEndAsync();
 
         using var cts = new CancellationTokenSource(timeoutMs);
+        var timedOut = false;
         try
         {
-            await process.WaitForExitAsync(cts.Token);
+            await process.WaitForExitAsync(cts.Token).ConfigureAwait(false);
         }
         catch (OperationCanceledException)
         {
+            timedOut = true;
             try
             {
-                process.Kill();
+                process.Kill(entireProcessTree: true);
+            }
+            catch
+            {
+                // best effort
+            }
+
+            // bounded wait so ExitCode is never read on a live process.
+            try
+            {
+                process.WaitForExit(2000);
             }
             catch { }
         }
 
-        var stdout = await stdoutTask;
-        var stderr = await stderrTask;
-        return (process.ExitCode, stdout, stderr);
+        var stdout = await stdoutTask.ConfigureAwait(false);
+        var stderr = await stderrTask.ConfigureAwait(false);
+
+        // -1 means timeout (same convention as ProcessRunner), never a real exit code.
+        var exitCode = timedOut || !HasExited(process) ? -1 : process.ExitCode;
+        return (exitCode, stdout, stderr);
+    }
+
+    private static bool HasExited(Process process)
+    {
+        try
+        {
+            return process.HasExited;
+        }
+        catch
+        {
+            return false;
+        }
     }
 }

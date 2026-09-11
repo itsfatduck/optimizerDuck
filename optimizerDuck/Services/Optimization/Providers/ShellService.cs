@@ -61,8 +61,7 @@ public sealed class ShellService(ProcessRunner _runner)
     {
         var (_, fullCommandForUser) = SanitizeCommandForUser(fileName, arguments, command);
 
-        // Best-effort UTF-8 codepage for cmd.exe (matches the pre-migration sync path);
-        // PowerShell already forces UTF-8 via its prefixed preamble.
+        // Best-effort UTF-8 codepage for cmd.exe; PowerShell already forces UTF-8 via its preamble.
         var processArgs = fileName.Equals("cmd.exe", StringComparison.OrdinalIgnoreCase)
             ? ShellMapping.BuildCmdArguments(arguments, command)
             : $"{arguments} {command}";

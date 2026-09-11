@@ -255,7 +255,11 @@ public class RegistryRevertStep : IRevertStep
             case RevertAction.RestorePrevious when Value != null:
             {
                 var item = new RegistryItem(Path, Name!);
-                var actual = RegistryService.Read<object>(item, call.Logger);
+                if (!RegistryService.TryReadValue(item, out var actual, call.Logger))
+                    throw new StepExecutionException(
+                        $"Registry verify failed at {Path}:{Name}: could not read the value.",
+                        null
+                    );
                 if (!ValuesEqual(actual, Value, Kind))
                     throw new StepExecutionException(
                         $"Registry verify failed at {Path}:{Name}: expected '{Value}', actual '{actual}'",
@@ -266,11 +270,18 @@ public class RegistryRevertStep : IRevertStep
             case RevertAction.NoPreviousValue:
             case RevertAction.RestorePrevious:
             {
-                // Value must be absent after delete.
-                var actual = RegistryService.Read<object>(
-                    new RegistryItem(Path, Name!),
-                    call.Logger
-                );
+                // a failed read is not "absent".
+                if (
+                    !RegistryService.TryReadValue(
+                        new RegistryItem(Path, Name!),
+                        out var actual,
+                        call.Logger
+                    )
+                )
+                    throw new StepExecutionException(
+                        $"Registry verify failed at {Path}:{Name}: could not read the value.",
+                        null
+                    );
                 if (actual != null)
                     throw new StepExecutionException(
                         $"Registry verify failed at {Path}:{Name}: expected '<absent>', actual '{actual}'",
@@ -279,14 +290,36 @@ public class RegistryRevertStep : IRevertStep
                 break;
             }
             case RevertAction.RestoreKey:
-                if (!RegistryService.KeyExists(new RegistryItem(Path), call.Logger))
+                if (
+                    !RegistryService.TryKeyExists(
+                        new RegistryItem(Path),
+                        out var restoreExists,
+                        call.Logger
+                    )
+                )
+                    throw new StepExecutionException(
+                        $"Registry verify failed at {Path}: could not query the key.",
+                        null
+                    );
+                if (!restoreExists)
                     throw new StepExecutionException(
                         $"Registry verify failed at {Path}: expected key to exist, but it was missing",
                         null
                     );
                 break;
             case RevertAction.DeleteKey:
-                if (RegistryService.KeyExists(new RegistryItem(Path), call.Logger))
+                if (
+                    !RegistryService.TryKeyExists(
+                        new RegistryItem(Path),
+                        out var deleteExists,
+                        call.Logger
+                    )
+                )
+                    throw new StepExecutionException(
+                        $"Registry verify failed at {Path}: could not query the key.",
+                        null
+                    );
+                if (deleteExists)
                     throw new StepExecutionException(
                         $"Registry verify failed at {Path}: expected key to be absent, but it still exists",
                         null

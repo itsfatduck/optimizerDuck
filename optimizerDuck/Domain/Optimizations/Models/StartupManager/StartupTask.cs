@@ -1,12 +1,15 @@
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
+using optimizerDuck.Common.Extensions;
+using optimizerDuck.Domain.Optimizations.Models.ScheduledTask;
+using optimizerDuck.Services.Configuration;
 
 namespace optimizerDuck.Domain.Optimizations.Models.StartupManager;
 
 /// <summary>
 ///     Represents a scheduled task that runs at startup.
 /// </summary>
-public partial class StartupTask : ObservableObject
+public partial class StartupTask : LocalizedObject
 {
     /// <summary>
     ///     Indicates whether the task is enabled.
@@ -36,14 +39,19 @@ public partial class StartupTask : ObservableObject
     public string? Description { get; init; }
 
     /// <summary>
-    ///     Summary of when the task triggers.
+    ///     Display data of the task's triggers (labels re-resolve on language change).
     /// </summary>
-    public string? TriggerSummary { get; init; }
+    public IReadOnlyList<ScheduledTaskTriggerInfo> TriggerInfos { get; init; } = [];
 
     /// <summary>
-    ///     The types of triggers (e.g., "At logon", "At startup").
+    ///     Localized trigger labels for badge display (e.g. "At log on", "At startup").
     /// </summary>
-    public List<string> TriggerTypes { get; init; } = [];
+    public IReadOnlyList<string> TriggerTypes => TriggerInfos.Select(t => t.Label).ToList();
+
+    /// <summary>
+    ///     Localized summary of when the task triggers.
+    /// </summary>
+    public string TriggerSummary => string.Join("; ", TriggerInfos.Select(t => t.Detail));
 
     /// <summary>
     ///     Summary of what the task does.

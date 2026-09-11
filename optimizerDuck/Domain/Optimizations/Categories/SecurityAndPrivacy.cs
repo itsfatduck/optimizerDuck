@@ -6,6 +6,7 @@ using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Conditions;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
+using optimizerDuck.Domain.Optimizations.Models.ScheduledTask;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Services.Configuration;
@@ -165,7 +166,9 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
 
             foreach (var task in tasksToDelete)
             {
-                if (!ScheduledTaskService.IsTaskEnabled(task, context.Logger))
+                var state = ScheduledTaskService.GetTaskEnabledState(task, context.Logger);
+                // skip when known-disabled or absent; on unknown state, attempt so the outcome is real.
+                if (state is TaskEnabledState.Disabled or TaskEnabledState.NotFound)
                     continue;
                 ScheduledTaskService.DisableTask(context, task);
             }
@@ -218,7 +221,8 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
 
             foreach (var task in tasksToDelete)
             {
-                if (!ScheduledTaskService.IsTaskEnabled(task, context.Logger))
+                var state = ScheduledTaskService.GetTaskEnabledState(task, context.Logger);
+                if (state is TaskEnabledState.Disabled or TaskEnabledState.NotFound)
                     continue;
                 ScheduledTaskService.DisableTask(context, task);
             }
@@ -476,16 +480,10 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
                 )
             );
 
-            if (
-                ScheduledTaskService.IsTaskEnabled(
-                    @"\Microsoft\Windows\Maps\MapsUpdateTask",
-                    context.Logger
-                )
-            )
-                ScheduledTaskService.DisableTask(
-                    context,
-                    @"\Microsoft\Windows\Maps\MapsUpdateTask"
-                );
+            const string mapsTask = @"\Microsoft\Windows\Maps\MapsUpdateTask";
+            var mapsState = ScheduledTaskService.GetTaskEnabledState(mapsTask, context.Logger);
+            if (mapsState is not (TaskEnabledState.Disabled or TaskEnabledState.NotFound))
+                ScheduledTaskService.DisableTask(context, mapsTask);
 
             context.Logger.LogInformation(
                 "Disabled location tracking, sensors and offline maps updates"

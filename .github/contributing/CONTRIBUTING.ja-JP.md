@@ -336,7 +336,7 @@ public class Performance : IOptimizationCategory
 |---|---|---|
 | **`RegistryService`**（static） | `Write()`、`Read<T>()`、`DeleteValue()`、`CreateSubKey()`、`DeleteSubKeyTree()`、`KeyExists()`、`CleanupEmptyKeys()` | レジストリキーの読み書き/削除。リバート用に元の値をバックアップ。params 配列でバッチ書き込み可能。単体は `Write(item, context)`、バッチは `Write(context, items)`。 |
 | **`context.Shell`**（`ShellService`） | `CMDAsync()`、`PowerShellAsync()`、`CMD()`（同期）、`PowerShell()`（同期）、`QueryCMDAsync()`／`QueryPowerShellAsync()`（記録なしの素の実行） | CMD / PowerShell コマンドの実行。非同期版を推奨。元に戻すコマンドを `revertCommand` で指定可能。非標準終了コードは `ShellPolicy` を参照。 |
-| **`ScheduledTaskService`**（static） | `DisableTask(path, context)`、`EnableTask(path, context)`、`IsTaskEnabled()`、`DeleteTask()`、`GetAllTasks()`、`RegisterTask()`、`RunTask()`、`StopTask()` | Windows スケジュールタスクの管理。 |
+| **`ScheduledTaskService`**（static） | `DisableTask(path, context)`、`EnableTask(path, context)`、`GetTaskEnabledState()`、`DeleteTask()`、`GetAllTasks()`、`RegisterTask()`、`RunTask()`、`StopTask()` | Windows スケジュールタスクの管理。 |
 | **`ServiceProcessService`**（static） | `ChangeServiceStartupTypeAsync(item, context)`（単体／配列）、`GetStartupTypeAsync()` | Windows サービスの管理。常に非同期版を使用。配列でバッチ変更可能。 |
 
 > **params 配列で複数アイテムを受け付けるメソッド**：ほとんどの書き込み/変更メソッドは params 配列を受け付けます（例：`RegistryService.Write(context, item1, item2, item3)`）。個別呼び出しより効率的です。

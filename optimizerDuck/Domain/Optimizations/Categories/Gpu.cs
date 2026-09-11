@@ -114,7 +114,7 @@ public class Gpu : LocalizedObject, IOptimizationCategory
     /// </code>
     /// </example>
     /// <exception cref="ArgumentNullException">
-    ///     Thrown if <paramref name="deviceId" /> is <c>null</c> — but this method uses <c>string.IsNullOrWhiteSpace</c>
+    ///     Thrown if <paramref name="deviceId" /> is <c>null</c>, but this method uses <c>string.IsNullOrWhiteSpace</c>
     ///     and returns <c>false</c> instead for consistency with TryParse pattern.
     /// </exception>
     /// <seealso cref="GpuInfo.DeviceId" />

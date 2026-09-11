@@ -81,12 +81,12 @@ public partial class OptimizationState : ObservableObject
 
         // Defer timer creation to avoid accessing dispatcher during static init.
         // NOTE: This type lives in Domain/UI but owns a DispatcherTimer (WPF). Ideally
-        // move to optimizerDuck.UI or Common — kept here to avoid churn. We route
+        // move to optimizerDuck.UI or Common. We route
         // through the dispatcher indirection rather than hard-referencing UI assemblies
         // from pure domain logic.
         var dispatcher = System.Windows.Application.Current?.Dispatcher;
         if (dispatcher is null)
-            return; // headless/tests — no timer needed
+            return; // headless/tests, no timer needed
         _ = dispatcher.InvokeAsync(() =>
         {
             lock (_lock)

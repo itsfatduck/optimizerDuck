@@ -16,9 +16,8 @@ public sealed class ShellPolicy
     /// <summary>Gets or sets a function that produces an error message from a failed shell result.</summary>
     public Func<ShellResult, string?> ErrorFactory { get; init; } =
         r =>
-            r.ExitCode == -1 // if timed out use Error.TimedOut
-                ? Loc.Instance["Service.Shell.Error.TimedOut"]
-            : string.IsNullOrWhiteSpace(r.Stderr) // else check stderr, if empty use exitcode, else use raw stderr
+            r.ExitCode == -1 ? Loc.Instance["Service.Shell.Error.TimedOut"]
+            : string.IsNullOrWhiteSpace(r.Stderr)
                 ? Loc.Instance["Service.Shell.Error.ExitCode", r.ExitCode]
             : r.Stderr;
 

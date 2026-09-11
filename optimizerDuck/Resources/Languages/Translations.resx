@@ -2006,4 +2006,115 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="ScheduledTasks.State.Queued" xml:space="preserve">
     <value>Queued</value>
   </data>
+  <data name="Common.SortBy.RiskAndStatus" xml:space="preserve">
+    <value>Risk &amp; Status</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Ram.Total" xml:space="preserve">
+    <value>{0} GB RAM</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Gpu.Memory" xml:space="preserve">
+    <value>{0} GB</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Event" xml:space="preserve">
+    <value>On event</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Time" xml:space="preserve">
+    <value>At a specific time</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Daily" xml:space="preserve">
+    <value>Daily</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Weekly" xml:space="preserve">
+    <value>Weekly</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Monthly" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.MonthlyDOW" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Idle" xml:space="preserve">
+    <value>When idle</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Registration" xml:space="preserve">
+    <value>At registration</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Boot" xml:space="preserve">
+    <value>At startup</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Logon" xml:space="preserve">
+    <value>At log on</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.SessionStateChange" xml:space="preserve">
+    <value>On session change</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Other" xml:space="preserve">
+    <value>Trigger</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.Lock" xml:space="preserve">
+    <value>Session lock</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.Unlock" xml:space="preserve">
+    <value>Session unlock</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.ConsoleConnect" xml:space="preserve">
+    <value>Console connect</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.ConsoleDisconnect" xml:space="preserve">
+    <value>Console disconnect</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.RemoteConnect" xml:space="preserve">
+    <value>Remote connect</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.RemoteDisconnect" xml:space="preserve">
+    <value>Remote disconnect</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.First" xml:space="preserve">
+    <value>first</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.Second" xml:space="preserve">
+    <value>second</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.Third" xml:space="preserve">
+    <value>third</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.Fourth" xml:space="preserve">
+    <value>fourth</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.Last" xml:space="preserve">
+    <value>last</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.Every" xml:space="preserve">
+    <value>every</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Time" xml:space="preserve">
+    <value>At {0}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Daily" xml:space="preserve">
+    <value>Every {0} day(s), at {1}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Weekly" xml:space="preserve">
+    <value>Every {0} week(s) on {1}, at {2}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Monthly" xml:space="preserve">
+    <value>On day(s) {0} of {1}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.MonthlyDOW" xml:space="preserve">
+    <value>{0} {1} of {2}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.User" xml:space="preserve">
+    <value>for user {0}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.UserDelay" xml:space="preserve">
+    <value>for user {0} after {1}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Delay" xml:space="preserve">
+    <value>after {0}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Repeat" xml:space="preserve">
+    <value> (repeat every {0})</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.RepeatFor" xml:space="preserve">
+    <value> (repeat every {0} for {1})</value>
+  </data>
 </root>

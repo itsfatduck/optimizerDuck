@@ -159,7 +159,7 @@
 ## Scheduled Task Service Details
 - Uses `Microsoft.Win32.TaskScheduler` library (TaskScheduler NuGet package).
 - `DisableTask(fullPath)` / `EnableTask(fullPath)` — toggle task state with revert step recording.
-- `IsTaskEnabled(fullPath)` — checks if a task exists and is enabled.
+- `GetTaskEnabledState(fullPath)` — reads whether a task exists and is enabled; returns `TaskEnabledState` (`Enabled`/`Disabled`/`NotFound`/`Unknown`) and never reports a failed query as "disabled".
 - `DeleteTask(fullPath)` — deletes a task.
 - `GetAllTasks()` — enumerates all tasks recursively with icon extraction via `StartupManagerService.ExtractIcon`.
 - `GetStartupTasks()` — filtered to tasks with LogonTrigger or BootTrigger.

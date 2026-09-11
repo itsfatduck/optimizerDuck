@@ -66,7 +66,7 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                 apps
             );
 
-            // 2. Registry (32-bit view, redirected to Wow6432Node) — where 32-bit installers register
+            // 2. Registry (32-bit view, redirected to Wow6432Node), where 32-bit installers register
             using var hklm32 = RegistryKey.OpenBaseKey(
                 RegistryHive.LocalMachine,
                 RegistryView.Registry32
@@ -148,7 +148,7 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
 
             // 32-bit Run entries keep their approved flags in the dedicated Run32/RunOnce32
             // subkeys (default view), and Windows 11 treats them as disabled until an explicit
-            // enable flag exists — unlike 64-bit entries, where a missing flag means enabled.
+            // enable flag exists, unlike 64-bit entries, where a missing flag means enabled.
             var is32Bit =
                 location
                 is StartupAppLocation.RegistryHKLMRun32
@@ -486,42 +486,57 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
     /// <summary>Enables or disables a startup application by writing the StartupApproved registry flag.</summary>
     /// <param name="app">The startup app to toggle.</param>
     /// <param name="enable"><see langword="true"/> to enable, <see langword="false"/> to disable.</param>
-    public async Task ToggleStartupApp(StartupApp app, bool enable)
+    /// <returns>The toggle outcome.</returns>
+    public Task<OpResult> ToggleStartupApp(StartupApp app, bool enable)
     {
-        await Task.Run(() =>
+        return Task.Run(() =>
         {
             try
             {
-                if (
+                var result =
                     app.Location
-                    is StartupAppLocation.RegistryHKCURun
-                        or StartupAppLocation.RegistryHKLMRun
-                        or StartupAppLocation.RegistryHKCURunOnce
-                        or StartupAppLocation.RegistryHKLMRunOnce
-                        or StartupAppLocation.RegistryHKLMRun32
-                        or StartupAppLocation.RegistryHKLMRunOnce32
-                )
-                    ToggleRegistryStartupApp(app, enable);
-                else if (app.Location == StartupAppLocation.UwpStartupTask)
-                    ToggleUwpStartupApp(app, enable);
-                else // Folders
-                    ToggleFolderStartupApp(app, enable);
+                        is StartupAppLocation.RegistryHKCURun
+                            or StartupAppLocation.RegistryHKLMRun
+                            or StartupAppLocation.RegistryHKCURunOnce
+                            or StartupAppLocation.RegistryHKLMRunOnce
+                            or StartupAppLocation.RegistryHKLMRun32
+                            or StartupAppLocation.RegistryHKLMRunOnce32
+                        ? ToggleRegistryStartupApp(app, enable)
+                    : app.Location == StartupAppLocation.UwpStartupTask
+                        ? ToggleUwpStartupApp(app, enable)
+                    : ToggleFolderStartupApp(app, enable);
 
-                logger.LogInformation("Toggled startup app {Name} to {Enable}", app.Name, enable);
+                if (result.Ok)
+                    logger.LogInformation(
+                        "Toggled startup app {Name} to {Enable}",
+                        app.Name,
+                        enable
+                    );
+                else
+                    logger.LogError(
+                        "Failed to toggle startup app {Name}: {Error}",
+                        app.Name,
+                        result.Error
+                    );
+
+                return result;
             }
             catch (Exception ex)
             {
                 logger.LogError(ex, "Failed to toggle startup app {Name}", app.Name);
+                return OpResult.Fail(ex.Message, ex.ToString());
             }
         });
     }
 
-    private static void ToggleRegistryStartupApp(StartupApp app, bool enable)
+    private static OpResult ToggleRegistryStartupApp(StartupApp app, bool enable)
     {
         // Parse RootKey and SubKey from app.PathOrKey
         var firstSlash = app.PathOrKey.IndexOf('\\');
         if (firstSlash < 0)
-            return;
+            return OpResult.Fail(
+                ServiceStrings.Format(ServiceStrings.StartupAppErrorUnsupportedLocation, app.Name)
+            );
 
         var rootKeyStr = app.PathOrKey[..firstSlash];
         var hive = rootKeyStr switch
@@ -531,7 +546,9 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
             _ => null,
         };
         if (hive == null)
-            return;
+            return OpResult.Fail(
+                ServiceStrings.Format(ServiceStrings.StartupAppErrorUnsupportedLocation, app.Name)
+            );
 
         // Write the flag; 32-bit entries use the dedicated Run32/RunOnce32 subkeys
         var approvedSubKeyPath = GetApprovedSubKeyPath(app.Location);
@@ -543,6 +560,7 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
             app.OriginalValueNameOrFileName,
             BuildApprovedData(enable)
         );
+        return OpResult.Success();
     }
 
     /// <summary>
@@ -570,22 +588,30 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         approvedKey.SetValue(valueName, data, RegistryValueKind.Binary);
     }
 
-    private static void ToggleUwpStartupApp(StartupApp app, bool enable)
+    private static OpResult ToggleUwpStartupApp(StartupApp app, bool enable)
     {
         // Packaged-app startup state: 2 = Enabled, 1 = DisabledByUser
         var firstSlash = app.PathOrKey.IndexOf('\\');
         if (firstSlash < 0)
-            return;
+            return OpResult.Fail(
+                ServiceStrings.Format(ServiceStrings.StartupAppErrorUnsupportedLocation, app.Name)
+            );
 
         var subKeyPath = app.PathOrKey[(firstSlash + 1)..];
         using var taskKey = Registry.CurrentUser.CreateSubKey(
             $@"{subKeyPath}\{app.OriginalValueNameOrFileName}",
             true
         );
+        if (taskKey == null)
+            return OpResult.Fail(
+                ServiceStrings.Format(ServiceStrings.StartupAppErrorUnsupportedLocation, app.Name)
+            );
+
         taskKey.SetValue("State", enable ? 2 : 1, RegistryValueKind.DWord);
+        return OpResult.Success();
     }
 
-    private static void ToggleFolderStartupApp(StartupApp app, bool enable)
+    private static OpResult ToggleFolderStartupApp(StartupApp app, bool enable)
     {
         var rootKey =
             app.Location == StartupAppLocation.CommonStartupFolder
@@ -597,12 +623,17 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         using var approvedKey =
             rootKey.OpenSubKey(approvedSubKeyPath, true)
             ?? rootKey.CreateSubKey(approvedSubKeyPath, true);
+        if (approvedKey == null)
+            return OpResult.Fail(
+                ServiceStrings.Format(ServiceStrings.StartupAppErrorUnsupportedLocation, app.Name)
+            );
 
         approvedKey.SetValue(
             app.OriginalValueNameOrFileName,
             BuildApprovedData(enable),
             RegistryValueKind.Binary
         );
+        return OpResult.Success();
     }
 
     /// <summary>Retrieves all startup scheduled tasks from the Windows Task Scheduler, including their enabled state and icons.</summary>
@@ -620,8 +651,7 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                         TaskName = m.Name,
                         TaskPath = m.Path,
                         Description = m.Description,
-                        TriggerSummary = m.TriggerSummary,
-                        TriggerTypes = [.. m.TriggerTypes],
+                        TriggerInfos = [.. m.TriggerInfos],
                         ActionSummary = m.ActionSummary,
                         IsEnabled = m.IsEnabled,
                     })
@@ -652,27 +682,38 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
     /// <summary>Enables or disables a startup scheduled task using the Task Scheduler API.</summary>
     /// <param name="task">The startup task to toggle.</param>
     /// <param name="enable"><see langword="true"/> to enable, <see langword="false"/> to disable.</param>
-    public Task ToggleStartupTask(StartupTask task, bool enable)
+    /// <returns>The toggle outcome.</returns>
+    public Task<OpResult> ToggleStartupTask(StartupTask task, bool enable)
     {
         return Task.Run(() =>
         {
             try
             {
                 var fullPath = task.TaskPath.TrimEnd('\\') + "\\" + task.TaskName;
-                if (enable)
-                {
-                    ScheduledTaskService.EnableTask(UiCall(), fullPath);
-                    logger.LogInformation("Enabled task {Name} ({Path})", task.TaskName, fullPath);
-                }
+                var result = enable
+                    ? ScheduledTaskService.EnableTask(UiCall(), fullPath)
+                    : ScheduledTaskService.DisableTask(UiCall(), fullPath);
+
+                if (result.Ok)
+                    logger.LogInformation(
+                        "{Action} task {Name} ({Path})",
+                        enable ? "Enabled" : "Disabled",
+                        task.TaskName,
+                        fullPath
+                    );
                 else
-                {
-                    ScheduledTaskService.DisableTask(UiCall(), fullPath);
-                    logger.LogInformation("Disabled task {Name} ({Path})", task.TaskName, fullPath);
-                }
+                    logger.LogError(
+                        "Failed to toggle task {Name}: {Error}",
+                        task.TaskName,
+                        result.Error
+                    );
+
+                return result;
             }
             catch (Exception ex)
             {
                 logger.LogError(ex, "Failed to toggle task {Name}", task.TaskName);
+                return OpResult.Fail(ex.Message, ex.ToString());
             }
         });
     }

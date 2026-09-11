@@ -853,12 +853,13 @@ public class BaseCustomizeSettingTests : IDisposable
     }
 
     [Fact]
-    public void Options_PartialMultiBindingMatch_DoesNotDuplicateDeclaredValue()
+    public void Options_PartialMultiBindingMatch_ShowsCustomFallback()
     {
         var setting = new TestMultiBindingDropdown { OwnerType = typeof(TestMultiBindingDropdown) };
 
-        // Key A = 1 (matches "On" primary) but Key B = 0 → no full match; the raw primary
-        // value (1) already equals the declared "On" value, so no "Custom" duplicate.
+        // Key A = 1 (matches "On" primary) but Key B = 0 → mixed state. It must not be
+        // reported as the declared "On" option; a "Custom" fallback with a distinct identity
+        // is selected instead (a duplicate value would make SelectedValuePath ambiguous).
         RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "Key1", 1));
         RegistryService.Write(
             NewCall(),
@@ -868,12 +869,13 @@ public class BaseCustomizeSettingTests : IDisposable
         var effective = setting.Options;
 
         Assert.NotNull(effective);
-        Assert.Equal(2, effective!.Count);
-        Assert.DoesNotContain(
-            effective,
-            o => o.DisplayName == Loc.Instance[BaseCustomizeSetting.CustomOptionTranslationKey]
+        Assert.Equal(3, effective!.Count);
+        Assert.Equal(
+            Loc.Instance[BaseCustomizeSetting.CustomOptionTranslationKey],
+            effective[2].DisplayName
         );
-        Assert.Equal(1, setting.CurrentValue);
+        Assert.Same(effective[2].Value, setting.CurrentValue);
+        Assert.NotEqual(1, effective[2].Value);
 
         CleanupTestKeys();
         try
@@ -1049,13 +1051,32 @@ public class BaseCustomizeSettingTests : IDisposable
         );
         Assert.Equal(1, setting.CurrentValue);
 
-        // Key A = 1, Key B = 0 → no match → returns primary binding raw value
+        // Key A = 1, Key B = 0 → mixed state: the "Custom" fallback is selected instead of
+        // the declared "On" option, and applying it must not write anything.
         RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "Key1", 1));
         RegistryService.Write(
             NewCall(),
             new RegistryItem(@"HKCU\Software\TestOptimizerDuckMultiKey", "Key2", 0)
         );
-        Assert.Equal(1, setting.CurrentValue);
+
+        var options = setting.Options;
+        Assert.NotNull(options);
+        var fallback = options![2];
+        Assert.Equal(
+            Loc.Instance[BaseCustomizeSetting.CustomOptionTranslationKey],
+            fallback.DisplayName
+        );
+        Assert.Same(fallback.Value, setting.CurrentValue);
+        Assert.NotEqual(1, fallback.Value);
+
+        Assert.True((await setting.ApplyAsync(fallback.Value, NewCall())).Ok);
+        Assert.Equal(1, RegistryService.Read<int>(new RegistryItem(TestKeyPath, "Key1")));
+        Assert.Equal(
+            0,
+            RegistryService.Read<int>(
+                new RegistryItem(@"HKCU\Software\TestOptimizerDuckMultiKey", "Key2")
+            )
+        );
 
         CleanupTestKeys();
         try

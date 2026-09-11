@@ -20,14 +20,26 @@ public class OptimizationRegistry(ILoggerFactory loggerFactory)
 
     /// <summary>
     ///     Ensures categories and applied-state are loaded before the optimize UI binds.
-    ///     If preloading has already completed, returns a completed task.
+    ///     Concurrent callers share a single discovery; a failed discovery is retried.
     /// </summary>
-    public Task EnsurePreloadedAsync()
+    public async Task EnsurePreloadedAsync()
     {
         if (IsPreloaded)
-            return Task.CompletedTask;
-        return PreloadOptimizationsAsync();
+            return;
+
+        _preloadTask ??= PreloadOptimizationsAsync();
+        try
+        {
+            await _preloadTask.ConfigureAwait(false);
+        }
+        finally
+        {
+            if (!IsPreloaded)
+                _preloadTask = null;
+        }
     }
+
+    private Task? _preloadTask;
 
     /// <summary>Discovers all optimization categories and their optimizations via reflection, then loads the applied state from revert data on disk.</summary>
     public async Task PreloadOptimizationsAsync()

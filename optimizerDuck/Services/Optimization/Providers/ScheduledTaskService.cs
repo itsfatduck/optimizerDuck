@@ -1,7 +1,9 @@
 using System.Collections.ObjectModel;
+using System.Globalization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32.TaskScheduler;
 using optimizerDuck.Domain.Execution;
+using optimizerDuck.Domain.Optimizations.Models.ScheduledTask;
 using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
@@ -13,23 +15,30 @@ namespace optimizerDuck.Services.Optimization.Providers;
 
 public static class ScheduledTaskService
 {
-    /// <summary>Checks whether a task at the given full path exists and is enabled.</summary>
-    public static bool IsTaskEnabled(string fullPath, ILogger? logger = null)
+    /// <summary>
+    ///     Reads whether a scheduled task exists and is enabled.
+    /// </summary>
+    /// <param name="fullPath">The full path of the task.</param>
+    /// <param name="logger">Optional logger for query diagnostics.</param>
+    /// <returns>
+    ///     The task state. A failed query reports <see cref="TaskEnabledState.Unknown"/>,
+    ///     never "disabled".
+    /// </returns>
+    public static TaskEnabledState GetTaskEnabledState(string fullPath, ILogger? logger = null)
     {
         try
         {
             using var ts = new TaskService();
             var task = ts.GetTask(fullPath);
-            return task is { Enabled: true };
+            if (task is null)
+                return TaskEnabledState.NotFound;
+
+            return task.Enabled ? TaskEnabledState.Enabled : TaskEnabledState.Disabled;
         }
         catch (Exception ex)
         {
-            logger?.LogDebug(
-                "Failed to check task enabled state {Path}: {Error}",
-                fullPath,
-                ex.Message
-            );
-            return false;
+            logger?.LogWarning("Failed to check task state {Path}: {Error}", fullPath, ex.Message);
+            return TaskEnabledState.Unknown;
         }
     }
 
@@ -503,19 +512,208 @@ public static class ScheduledTaskService
         }
     }
 
+    /// <summary>Maps a task trigger type to its localization key, never raw library text.</summary>
+    private static string TriggerTranslationKey(TaskTriggerType type) =>
+        type switch
+        {
+            TaskTriggerType.Event => "ScheduledTasks.Trigger.Event",
+            TaskTriggerType.Time => "ScheduledTasks.Trigger.Time",
+            TaskTriggerType.Daily => "ScheduledTasks.Trigger.Daily",
+            TaskTriggerType.Weekly => "ScheduledTasks.Trigger.Weekly",
+            TaskTriggerType.Monthly => "ScheduledTasks.Trigger.Monthly",
+            TaskTriggerType.MonthlyDOW => "ScheduledTasks.Trigger.MonthlyDOW",
+            TaskTriggerType.Idle => "ScheduledTasks.Trigger.Idle",
+            TaskTriggerType.Registration => "ScheduledTasks.Trigger.Registration",
+            TaskTriggerType.Boot => "ScheduledTasks.Trigger.Boot",
+            TaskTriggerType.Logon => "ScheduledTasks.Trigger.Logon",
+            TaskTriggerType.SessionStateChange => "ScheduledTasks.Trigger.SessionStateChange",
+            _ => "ScheduledTasks.Trigger.Other",
+        };
+
+    /// <summary>
+    ///     Builds localized display data for one trigger; unknown types fall back to raw text.
+    /// </summary>
+    private static ScheduledTaskTriggerInfo DescribeTrigger(Trigger trigger)
+    {
+        var info = DescribeCore(trigger);
+        var interval = trigger.Repetition?.Interval ?? TimeSpan.Zero;
+        if (interval <= TimeSpan.Zero)
+            return info;
+
+        var duration = trigger.Repetition!.Duration;
+        return duration > TimeSpan.Zero
+            ? info with
+            {
+                RepeatKey = "ScheduledTasks.TriggerDetail.RepeatFor",
+                RepeatArgs = [interval.ToString(), duration.ToString()],
+            }
+            : info with
+            {
+                RepeatKey = "ScheduledTasks.TriggerDetail.Repeat",
+                RepeatArgs = [interval.ToString()],
+            };
+    }
+
+    private static ScheduledTaskTriggerInfo DescribeCore(Trigger trigger)
+    {
+        return trigger switch
+        {
+            LogonTrigger logon => WithUser("Logon", logon.UserId, logon.Delay),
+            BootTrigger boot => WithDelay("Boot", boot.Delay),
+            RegistrationTrigger registration => WithDelay("Registration", registration.Delay),
+            IdleTrigger => new(TriggerTranslationKey(TaskTriggerType.Idle), null, [], null),
+            TimeTrigger time => new(
+                TriggerTranslationKey(TaskTriggerType.Time),
+                DetailKey("Time"),
+                [FormatTriggerTime(time.StartBoundary)],
+                null
+            ),
+            DailyTrigger daily => new(
+                TriggerTranslationKey(TaskTriggerType.Daily),
+                DetailKey("Daily"),
+                [
+                    daily.DaysInterval.ToString(CultureInfo.InvariantCulture),
+                    FormatTriggerTime(daily.StartBoundary),
+                ],
+                null
+            ),
+            WeeklyTrigger weekly => new(
+                TriggerTranslationKey(TaskTriggerType.Weekly),
+                DetailKey("Weekly"),
+                [
+                    weekly.WeeksInterval.ToString(CultureInfo.InvariantCulture),
+                    FormatDays(weekly.DaysOfWeek),
+                    FormatTriggerTime(weekly.StartBoundary),
+                ],
+                null
+            ),
+            MonthlyTrigger monthly => new(
+                TriggerTranslationKey(TaskTriggerType.Monthly),
+                DetailKey("Monthly"),
+                [string.Join(", ", monthly.DaysOfMonth), FormatMonths(monthly.MonthsOfYear)],
+                null
+            ),
+            MonthlyDOWTrigger monthlyDow => new(
+                TriggerTranslationKey(TaskTriggerType.MonthlyDOW),
+                DetailKey("MonthlyDOW"),
+                [
+                    ResolveWeekLabel(monthlyDow.WeeksOfMonth),
+                    FormatDays(monthlyDow.DaysOfWeek),
+                    FormatMonths(monthlyDow.MonthsOfYear),
+                ],
+                null
+            ),
+            SessionStateChangeTrigger session => DescribeSession(session),
+            _ => new(
+                TriggerTranslationKey(trigger.TriggerType),
+                null,
+                [],
+                trigger.ToString() ?? trigger.TriggerType.ToString()
+            ),
+        };
+    }
+
+    private static string Label(string name) => "ScheduledTasks.Trigger." + name;
+
+    private static string DetailKey(string name) => "ScheduledTasks.TriggerDetail." + name;
+
+    private static ScheduledTaskTriggerInfo WithUser(string label, string? userId, TimeSpan delay)
+    {
+        if (!string.IsNullOrWhiteSpace(userId) && delay > TimeSpan.Zero)
+            return new(Label(label), DetailKey("UserDelay"), [userId, delay.ToString()], null);
+        if (!string.IsNullOrWhiteSpace(userId))
+            return new(Label(label), DetailKey("User"), [userId], null);
+        return WithDelay(label, delay);
+    }
+
+    private static ScheduledTaskTriggerInfo WithDelay(string label, TimeSpan delay) =>
+        delay > TimeSpan.Zero
+            ? new(Label(label), DetailKey("Delay"), [delay.ToString()], null)
+            : new(Label(label), null, [], null);
+
+    /// <summary>
+    ///     Describes a session-state trigger. Known states are label-only; anything else
+    ///     falls back to the raw library text.
+    /// </summary>
+    private static ScheduledTaskTriggerInfo DescribeSession(SessionStateChangeTrigger session) =>
+        SessionLabelKey(session.StateChange) is { } label
+            ? new(label, null, [], null)
+            : new(
+                TriggerTranslationKey(TaskTriggerType.SessionStateChange),
+                null,
+                [],
+                session.ToString() ?? nameof(TaskSessionStateChangeType)
+            );
+
+    private static string? SessionLabelKey(TaskSessionStateChangeType state) =>
+        state switch
+        {
+            TaskSessionStateChangeType.SessionLock => "ScheduledTasks.Trigger.Session.Lock",
+            TaskSessionStateChangeType.SessionUnlock => "ScheduledTasks.Trigger.Session.Unlock",
+            TaskSessionStateChangeType.ConsoleConnect =>
+                "ScheduledTasks.Trigger.Session.ConsoleConnect",
+            TaskSessionStateChangeType.ConsoleDisconnect =>
+                "ScheduledTasks.Trigger.Session.ConsoleDisconnect",
+            TaskSessionStateChangeType.RemoteConnect =>
+                "ScheduledTasks.Trigger.Session.RemoteConnect",
+            TaskSessionStateChangeType.RemoteDisconnect =>
+                "ScheduledTasks.Trigger.Session.RemoteDisconnect",
+            _ => null,
+        };
+
+    private static string ResolveWeekLabel(WhichWeek weeks) =>
+        weeks switch
+        {
+            WhichWeek.FirstWeek => Loc.Instance["ScheduledTasks.Trigger.Week.First"],
+            WhichWeek.SecondWeek => Loc.Instance["ScheduledTasks.Trigger.Week.Second"],
+            WhichWeek.ThirdWeek => Loc.Instance["ScheduledTasks.Trigger.Week.Third"],
+            WhichWeek.FourthWeek => Loc.Instance["ScheduledTasks.Trigger.Week.Fourth"],
+            WhichWeek.LastWeek => Loc.Instance["ScheduledTasks.Trigger.Week.Last"],
+            _ => Loc.Instance["ScheduledTasks.Trigger.Week.Every"],
+        };
+
+    private static string FormatTriggerTime(DateTime boundary) =>
+        boundary.ToString("g", CultureInfo.CurrentCulture);
+
+    private static string FormatDays(DaysOfTheWeek days)
+    {
+        var culture = CultureInfo.CurrentCulture;
+        var names = new List<string>();
+        foreach (DayOfWeek day in Enum.GetValues<DayOfWeek>())
+            if (Enum.TryParse<DaysOfTheWeek>(day.ToString(), out var flag) && days.HasFlag(flag))
+                names.Add(culture.DateTimeFormat.GetDayName(day));
+        return string.Join(", ", names);
+    }
+
+    private static string FormatMonths(MonthsOfTheYear months)
+    {
+        var culture = CultureInfo.CurrentCulture;
+        var invariant = CultureInfo.InvariantCulture;
+        var names = new List<string>();
+        for (var month = 1; month <= 12; month++)
+            if (
+                Enum.TryParse<MonthsOfTheYear>(
+                    invariant.DateTimeFormat.GetMonthName(month),
+                    out var flag
+                ) && months.HasFlag(flag)
+            )
+                names.Add(culture.DateTimeFormat.GetMonthName(month));
+        return string.Join(", ", names);
+    }
+
     private static ScheduledTaskModel MapTaskToModel(Task task)
     {
         var def = task.Definition;
         var triggers = def.Triggers;
         var actions = def.Actions;
 
-        var triggerDescriptions = new List<string>();
+        var triggerInfos = new List<ScheduledTaskTriggerInfo>();
         var hasLogon = false;
         var hasBoot = false;
 
         foreach (var t in triggers)
         {
-            triggerDescriptions.Add(t.ToString() ?? t.TriggerType.ToString());
+            triggerInfos.Add(DescribeTrigger(t));
             if (t.TriggerType == TaskTriggerType.Logon)
                 hasLogon = true;
             if (t.TriggerType == TaskTriggerType.Boot)
@@ -537,8 +735,7 @@ public static class ScheduledTaskService
             Author = def.RegistrationInfo.Author,
             IsEnabled = task.Enabled,
             State = task.State.ToString(),
-            TriggerSummary = string.Join("; ", triggerDescriptions),
-            TriggerTypes = new ObservableCollection<string>(triggerDescriptions),
+            TriggerInfos = triggerInfos,
             ActionSummary = actionSummary,
             LastRunTime = task.LastRunTime == DateTime.MinValue ? null : task.LastRunTime,
             NextRunTime = task.NextRunTime == DateTime.MinValue ? null : task.NextRunTime,

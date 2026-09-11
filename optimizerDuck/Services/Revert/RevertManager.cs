@@ -29,8 +29,7 @@ public class RevertManager(ILogger<RevertManager> _logger, ShellService _shell, 
     private static readonly ConcurrentDictionary<Guid, SemaphoreSlim> _fileLocks = new();
 
     /// <summary>
-    ///     Persists revert steps from a <see cref="ChangeSet"/>. Appends every successful change as a new entry with a fresh index —
-    ///     no payload-based dedupe: two executions of the same command are two real executions; dropping either loses revert coverage.
+    ///     Persists revert steps from a <see cref="ChangeSet"/>. Appends every successful change as a new entry with a fresh index. No payload-based dedupe: two executions of the same command are two real executions; dropping either loses revert coverage.
     ///     Reverting extra entries is harmless (LIFO ends at the original backup).
     /// </summary>
     public async Task SaveRevertDataAsync(

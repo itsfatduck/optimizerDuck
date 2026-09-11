@@ -91,9 +91,7 @@
                                     HorizontalAlignment="Left"
                                     Symbol="ArrowSort24" />
                                 <TextBlock Grid.Column="1" HorizontalAlignment="Left">
-                                    <Run Text="{ext:Loc Common.SortBy.Risk}" />
-                                    <Run Text=" &amp; " />
-                                    <Run Text="{ext:Loc Common.SortBy.Status}" />
+                                    <Run Text="{ext:Loc Common.SortBy.RiskAndStatus}" />
                                 </TextBlock>
                             </Grid>
                         </ComboBoxItem>

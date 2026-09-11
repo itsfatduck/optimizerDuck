@@ -54,6 +54,7 @@ public partial class CustomizeItemViewModel(
     private bool _isEnabled;
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(ToggleCommand))]
     private bool _isLoading;
 
     public string Name => setting.Name;
@@ -127,9 +128,10 @@ public partial class CustomizeItemViewModel(
 
             SubscribeToRegistryChanges();
         }
-        catch
+        catch (Exception ex)
         {
-            IsEnabled = false;
+            // keep state unloaded on read failure instead of showing it as off.
+            _logger.LogWarning(ex, "Failed to load customize setting {Setting}", setting.LogName());
         }
     }
 
@@ -241,11 +243,16 @@ public partial class CustomizeItemViewModel(
         }
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(CanToggle))]
     private void Toggle()
     {
+        // the first call marks the executor busy synchronously, so a same-tick second click is ignored.
+        if (_executor.IsApplying)
+            return;
         _ = _executor.ApplyWithDebounceAsync(!IsEnabled, ApplyCoreAsync, debounceMs: 0);
     }
+
+    private bool CanToggle() => !IsLoading;
 
     partial void OnCurrentValueChanged(object? value)
     {
@@ -298,7 +305,8 @@ public partial class CustomizeItemViewModel(
                 CurrentValue = current;
             }
 
-            if (Application.Current is App app)
+            // only flag reboot when the value was actually written.
+            if (applyResult.Ok && Application.Current is App app)
                 app.HasPendingChanges = true;
         }
         catch (Exception ex)

@@ -327,34 +327,76 @@ public partial class StartupManagerViewModel : ViewModel
         OnPropertyChanged(nameof(ShowRefreshButton));
     }
 
+    private readonly HashSet<object> _suppressToggle = [];
+
     private async void App_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(StartupApp.IsEnabled) && sender is StartupApp app)
+        if (e.PropertyName != nameof(StartupApp.IsEnabled) || sender is not StartupApp app)
+            return;
+
+        // rollback re-assigns IsEnabled, so guard against re-entrancy.
+        if (!_suppressToggle.Add(app))
+            return;
+
+        try
         {
-            try
+            var result = await _startupManagerService.ToggleStartupApp(app, app.IsEnabled);
+            if (!result.Ok)
             {
-                await _startupManagerService.ToggleStartupApp(app, app.IsEnabled);
+                // The write failed, so the real Windows state is unchanged: restore the
+                // toggle to it instead of leaving the UI claiming a state that is not applied.
+                _logger.LogWarning(
+                    "Startup app toggle failed for {Name}: {Error}",
+                    app.Name,
+                    result.Error
+                );
+                app.IsEnabled = !app.IsEnabled;
             }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Failed to toggle startup app {Name}", app.Name);
-            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to toggle startup app {Name}", app.Name);
+            app.IsEnabled = !app.IsEnabled;
+        }
+        finally
+        {
+            _suppressToggle.Remove(app);
         }
     }
 
     private async void Task_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(StartupTask.IsEnabled) && sender is StartupTask task)
+        if (e.PropertyName != nameof(StartupTask.IsEnabled) || sender is not StartupTask task)
+            return;
+
+        if (!_suppressToggle.Add(task))
+            return;
+
+        try
         {
-            try
+            var result = await _startupManagerService.ToggleStartupTask(task, task.IsEnabled);
+            if (result.Ok)
             {
-                await _startupManagerService.ToggleStartupTask(task, task.IsEnabled);
                 CrossPageEventBus.NotifyDataChanged<StartupAppsChanged>();
             }
-            catch (Exception ex)
+            else
             {
-                _logger.LogError(ex, "Failed to toggle startup task {Name}", task.TaskName);
+                _logger.LogWarning(
+                    "Startup task toggle failed for {Name}: {Error}",
+                    task.TaskName,
+                    result.Error
+                );
+                task.IsEnabled = !task.IsEnabled;
             }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to toggle startup task {Name}", task.TaskName);
+            task.IsEnabled = !task.IsEnabled;
+        }
+        finally
+        {
+            _suppressToggle.Remove(task);
         }
     }
 

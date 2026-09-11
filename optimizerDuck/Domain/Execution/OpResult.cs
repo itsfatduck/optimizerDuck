@@ -25,7 +25,7 @@ public sealed record OpResult(
 
     /// <summary>
     ///     Aggregates a batch of results: the first failure wins, otherwise success.
-    ///     Callers must materialise <paramref name="results"/> first — a lazy sequence
+    ///     Callers must materialise <paramref name="results"/> first. A lazy sequence
     ///     would stop at the first failure and skip the remaining operations.
     /// </summary>
     public static OpResult FirstFailure(IEnumerable<OpResult> results)

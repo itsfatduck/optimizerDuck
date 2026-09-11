@@ -1,4 +1,3 @@
-using System.Collections.ObjectModel;
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using optimizerDuck.Common.Extensions;
@@ -70,19 +69,26 @@ public partial class ScheduledTaskModel : LocalizedObject
     public string? Author { get; init; }
 
     /// <summary>
-    ///     Summary of when the task triggers.
+    ///     Display data of the task's triggers. Badges show
+    ///     <see cref="ScheduledTaskTriggerInfo.Label"/>; the summary joins
+    ///     <see cref="ScheduledTaskTriggerInfo.Detail"/>.
     /// </summary>
-    public string TriggerSummary { get; init; } = string.Empty;
+    public IReadOnlyList<ScheduledTaskTriggerInfo> TriggerInfos { get; init; } = [];
+
+    /// <summary>
+    ///     Localized trigger labels for badge display (e.g. "At log on", "Daily").
+    /// </summary>
+    public IReadOnlyList<string> TriggerTypes => TriggerInfos.Select(t => t.Label).ToList();
+
+    /// <summary>
+    ///     Localized summary of when the task triggers, keeping each trigger's data.
+    /// </summary>
+    public string TriggerSummary => string.Join("; ", TriggerInfos.Select(t => t.Detail));
 
     /// <summary>
     ///     Summary of the task's action.
     /// </summary>
     public string ActionSummary { get; init; } = string.Empty;
-
-    /// <summary>
-    ///     Individual trigger type strings for badge display (e.g. "At log on", "At startup", "Daily at 09:00").
-    /// </summary>
-    public ObservableCollection<string> TriggerTypes { get; init; } = [];
 
     /// <summary>
     ///     The last time the task ran.

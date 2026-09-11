@@ -83,7 +83,9 @@ public abstract partial class BaseCustomizeSetting : LocalizedObject, ICustomize
                 return null;
 
             var resolution = ResolveDropdownValue(options);
-            return resolution.Matched ? resolution.Value : resolution.Value ?? MissingValueSentinel;
+            return resolution.Matched
+                ? resolution.Value
+                : FallbackValueFor(options, resolution.Value);
         }
     }
 
@@ -106,15 +108,38 @@ public abstract partial class BaseCustomizeSetting : LocalizedObject, ICustomize
             if (resolution.Matched)
                 return options;
 
-            // A partial multi-binding match can surface a raw value that already equals a
-            // declared option's Value. Appending "Custom" then would duplicate that Value,
-            // which makes SelectedValuePath="Value" selection ambiguous, so skip it.
-            var displayValue = resolution.Value ?? MissingValueSentinel;
-            if (options.Any(o => ValuesEqual(o.Value, displayValue)))
-                return options;
-
-            return [.. options, CreateCustomOption(displayValue)];
+            return [.. options, CreateCustomOption(FallbackValueFor(options, resolution.Value))];
         }
+    }
+
+    /// <summary>
+    ///     Fallback selection value: the raw registry value, wrapped in a distinct instance
+    ///     when it collides with a declared option so a mixed state still shows as "Custom".
+    /// </summary>
+    private object FallbackValueFor(IReadOnlyList<SettingOption> options, object? raw)
+    {
+        if (raw is null)
+            return MissingValueSentinel;
+
+        if (!options.Any(o => ValuesEqual(o.Value, raw)))
+            return raw;
+
+        if (_outOfScope is null || !ValuesEqual(_outOfScope.RawValue, raw))
+            _outOfScope = new OutOfScopeValue(raw);
+
+        return _outOfScope;
+    }
+
+    private OutOfScopeValue? _outOfScope;
+
+    /// <summary>
+    ///     Distinct fallback identity that never value-matches a declared option.
+    /// </summary>
+    private sealed class OutOfScopeValue(object rawValue)
+    {
+        public object RawValue { get; } = rawValue;
+
+        public override string ToString() => $"<custom:{RawValue}>";
     }
 
     /// <summary>
@@ -124,19 +149,13 @@ public abstract partial class BaseCustomizeSetting : LocalizedObject, ICustomize
     /// </summary>
     internal static readonly object MissingValueSentinel = new();
 
-    /// <summary>
-    ///     Creates the fallback option shown when the current registry value is outside
-    ///     the declared options. When the value is missing entirely
-    ///     (<paramref name="rawValue"/> is <see cref="MissingValueSentinel"/>), a distinct
-    ///     "Not set" label is used; otherwise the generic "Custom" label shows the actual
-    ///     out-of-scope value.
-    /// </summary>
-    private static SettingOption CreateCustomOption(object rawValue) =>
+    /// <summary>Creates the fallback option: "Not set" when the value is missing, else "Custom".</summary>
+    private static SettingOption CreateCustomOption(object value) =>
         new(
-            ReferenceEquals(rawValue, MissingValueSentinel)
+            ReferenceEquals(value, MissingValueSentinel)
                 ? Loc.Instance[CustomOptionNotSetTranslationKey]
                 : Loc.Instance[CustomOptionTranslationKey],
-            rawValue
+            value
         );
 
     /// <summary>The translation key used for the synthetic "Custom" option label.</summary>
@@ -232,10 +251,10 @@ public abstract partial class BaseCustomizeSetting : LocalizedObject, ICustomize
         }
         else if (ControlType == CustomizeControlType.Dropdown && GetOptions() is { } options)
         {
-            // Find the matching declared option and apply all its bindings. The
-            // "Custom"/"Not set" fallback is never a declared option, so applying it
-            // is a safe no-op.
-            var option = options.FirstOrDefault(o => ValuesEqual(o.Value, value));
+            // identity first, so a fallback selection never resolves to a declared option.
+            var option =
+                options.FirstOrDefault(o => ReferenceEquals(o.Value, value))
+                ?? options.FirstOrDefault(o => ValuesEqual(o.Value, value));
             if (option?.Bindings is { Count: > 0 })
             {
                 // Split by action, then batch: a binding with no value deletes the value.
@@ -259,7 +278,8 @@ public abstract partial class BaseCustomizeSetting : LocalizedObject, ICustomize
             }
         }
 
-        if (NeedsPostAction)
+        // a refresh after a failed write would mask the failure.
+        if (NeedsPostAction && firstFailure is null)
             await ExecutePostActionAsync();
 
         return firstFailure ?? OpResult.Success();

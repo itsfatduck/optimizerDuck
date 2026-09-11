@@ -27,14 +27,26 @@ public class CustomizeRegistry
 
     /// <summary>
     ///     Ensures categories have been discovered before the customize UI binds.
-    ///     If preloading has already completed, returns a completed task.
+    ///     Concurrent callers share a single discovery; a failed discovery is retried.
     /// </summary>
-    public Task EnsurePreloadedAsync()
+    public async Task EnsurePreloadedAsync()
     {
         if (IsPreloaded)
-            return Task.CompletedTask;
-        return PreloadCategoriesAsync();
+            return;
+
+        _preloadTask ??= PreloadCategoriesAsync();
+        try
+        {
+            await _preloadTask.ConfigureAwait(false);
+        }
+        finally
+        {
+            if (!IsPreloaded)
+                _preloadTask = null;
+        }
     }
+
+    private Task? _preloadTask;
 
     /// <summary>Discovers all customize setting categories and their child settings via reflection, then populates <see cref="Categories"/>.</summary>
     public async Task PreloadCategoriesAsync()

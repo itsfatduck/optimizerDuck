@@ -35,7 +35,7 @@ public class LocalizedObservableTests : IDisposable
 
         Loc.Instance.ChangeCulture(new CultureInfo("vi"));
 
-        // WPF convention: empty string means "all bindings" — the binding engine
+        // WPF convention: empty string means "all bindings", the binding engine
         // re-evaluates every getter that wraps the localization indexer.
         Assert.Contains(string.Empty, raised);
     }

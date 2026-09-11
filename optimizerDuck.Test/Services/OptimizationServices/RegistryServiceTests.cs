@@ -51,6 +51,63 @@ public class RegistryServiceTests : IDisposable
     }
 
     [Fact]
+    public void TryKeyExists_ExistingKey_ReturnsTrueWithExists()
+    {
+        var path = $@"{BaseTestKey}\TryExists";
+        Assert.True(RegistryService.Write(NewCall(), new RegistryItem(path, "V", 1)).Ok);
+
+        Assert.True(RegistryService.TryKeyExists(new RegistryItem(path), out var exists));
+        Assert.True(exists);
+    }
+
+    [Fact]
+    public void TryKeyExists_AbsentKey_ReturnsTrueWithNotExists()
+    {
+        var path = $@"{BaseTestKey}\TryExistsAbsent";
+
+        // A successfully-answered query for a missing key reports "does not exist", not failure.
+        Assert.True(RegistryService.TryKeyExists(new RegistryItem(path), out var exists));
+        Assert.False(exists);
+    }
+
+    [Fact]
+    public void TryKeyExists_UnknownRoot_ReturnsQueryFailure()
+    {
+        // An unparseable root is a failed query, not an absent key.
+        Assert.False(RegistryService.TryKeyExists(new RegistryItem("BADROOT\\X"), out _));
+    }
+
+    [Fact]
+    public void TryReadValue_PresentValue_ReturnsTrueWithValue()
+    {
+        var path = $@"{BaseTestKey}\TryRead";
+        Assert.True(RegistryService.Write(NewCall(), new RegistryItem(path, "V", 42)).Ok);
+
+        Assert.True(RegistryService.TryReadValue(new RegistryItem(path, "V"), out var value));
+        Assert.Equal(42, value);
+    }
+
+    [Fact]
+    public void TryReadValue_AbsentValue_ReturnsTrueWithNull()
+    {
+        var path = $@"{BaseTestKey}\TryReadAbsent";
+        Assert.True(RegistryService.Write(NewCall(), new RegistryItem(path, "Other", 1)).Ok);
+
+        // The key exists but the value is absent: a successful read reporting "no value".
+        Assert.True(RegistryService.TryReadValue(new RegistryItem(path, "V"), out var value));
+        Assert.Null(value);
+    }
+
+    [Fact]
+    public void TryReadValue_UnknownRoot_ReturnsQueryFailure()
+    {
+        Assert.False(
+            RegistryService.TryReadValue(new RegistryItem("BADROOT\\X", "V"), out var value)
+        );
+        Assert.Null(value);
+    }
+
+    [Fact]
     public void DeleteValue_WithInvalidRoot_ReturnsFalse()
     {
         var item = new RegistryItem("BADROOT\\SomePath", "ValueName");

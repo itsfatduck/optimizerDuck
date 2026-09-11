@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Exceptions;
 using optimizerDuck.Domain.Execution;
-using optimizerDuck.Resources.Languages;
+using optimizerDuck.Domain.Optimizations.Models.ScheduledTask;
 using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.Optimization.Providers;
 
@@ -44,11 +44,18 @@ public class ScheduledTaskRevertStep : IRevertStep
         if (!result.Ok)
             throw new StepExecutionException(result.Error ?? Description, result.ErrorDetail);
 
-        // Read-back verify: task must report the restored enabled state afterward.
-        var actualState = ScheduledTaskService.IsTaskEnabled(FullPath, opCall.Logger);
-        if (actualState != OriginalEnabled)
+        // a missing task has nothing to restore; anything else must verify positively.
+        var state = ScheduledTaskService.GetTaskEnabledState(FullPath, opCall.Logger);
+        if (state is TaskEnabledState.NotFound)
+            return Task.FromResult(true);
+        if (state is not (TaskEnabledState.Enabled or TaskEnabledState.Disabled))
             throw new StepExecutionException(
-                $"Scheduled task verify failed at {FullPath}: expected enabled={OriginalEnabled}, actual={actualState}",
+                $"Scheduled task verify failed at {FullPath}: could not query the task state.",
+                null
+            );
+        if ((state == TaskEnabledState.Enabled) != OriginalEnabled)
+            throw new StepExecutionException(
+                $"Scheduled task verify failed at {FullPath}: expected enabled={OriginalEnabled}, actual={state == TaskEnabledState.Enabled}",
                 null
             );
 

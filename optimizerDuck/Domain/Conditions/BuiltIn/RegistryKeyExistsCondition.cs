@@ -21,8 +21,11 @@ public abstract class RegistryKeyExistsCondition : ConditionBase
     /// <summary>Strongly-typed localized failure description.</summary>
     protected abstract Func<string> Description { get; }
 
-    public override ConditionResult Evaluate(SystemSnapshot snapshot) =>
-        RegistryService.KeyExists(RegistryItem)
-            ? ConditionResult.Available
-            : ConditionResult.Unsupported(Title, Description);
+    public override ConditionResult Evaluate(SystemSnapshot snapshot)
+    {
+        if (!RegistryService.TryKeyExists(RegistryItem, out var exists))
+            return ConditionResult.Error();
+
+        return exists ? ConditionResult.Available : ConditionResult.Unsupported(Title, Description);
+    }
 }

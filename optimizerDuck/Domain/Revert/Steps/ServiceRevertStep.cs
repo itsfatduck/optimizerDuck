@@ -56,13 +56,24 @@ public class ServiceRevertStep : IRevertStep
             throw new StepExecutionException(result.Error ?? Description, result.ErrorDetail);
         }
 
-        // Read-back verify: service must report the restored startup type afterward.
-        var (actual, _) = await ServiceProcessService
+        var (actual, notFound) = await ServiceProcessService
             .GetStartupTypeAsync(ServiceName, opCall.Logger)
             .ConfigureAwait(false);
-        if (actual != null && actual.Value != OriginalStartupType)
+
+        // a missing service has nothing to restore.
+        if (notFound)
+            return true;
+
+        // null without NotFound means the query failed; never report an unverified restore.
+        if (actual is null)
             throw new StepExecutionException(
-                $"Service verify failed for {ServiceName}: expected {OriginalStartupType}, actual={actual}",
+                $"Service verify failed for {ServiceName}: could not query the current startup type.",
+                null
+            );
+
+        if (actual.Value != OriginalStartupType)
+            throw new StepExecutionException(
+                $"Service verify failed for {ServiceName}: expected {OriginalStartupType}, actual={actual.Value}",
                 null
             );
         return true;

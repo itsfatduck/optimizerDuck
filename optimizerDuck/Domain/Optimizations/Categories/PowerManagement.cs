@@ -38,13 +38,23 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
             OptimizationContext context
         )
         {
-            var wasEnabled =
-                RegistryService.Read<int>(
-                    new RegistryItem(
-                        @"HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power",
-                        "HibernateEnabled"
-                    )
-                ) != 0;
+            var hibernateItem = new RegistryItem(
+                @"HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power",
+                "HibernateEnabled"
+            );
+
+            // default to restoring hibernation on when the previous state is unknown.
+            var wasEnabled = true;
+            if (RegistryService.TryReadValue(hibernateItem, out var hibernateValue, context.Logger))
+                wasEnabled = hibernateValue switch
+                {
+                    null => true,
+                    int value => value != 0,
+                    long value => value != 0,
+                    string value => value != "0",
+                    _ => true,
+                };
+
             string revertCommand = wasEnabled ? "powercfg /h on" : "powercfg /h off";
 
             await context.Shell.CMDAsync("powercfg /h off", context, revertCommand);

@@ -189,9 +189,100 @@ public static class RegistryService
     /// <param name="item">The registry path to check.</param>
     /// <param name="logger">Optional logger; <c>null</c> means silent.</param>
     /// <returns><see langword="true" /> if the key exists; otherwise, <see langword="false" />.</returns>
+    /// <remarks>A failed query (access denied, unknown root) is reported as "does not exist". Use <see cref="TryKeyExists" /> when that distinction matters.</remarks>
     public static bool KeyExists(RegistryItem item, ILogger? logger = null)
     {
         return WithKey<bool>(item, key => true, logger, out _, out _, out _);
+    }
+
+    /// <summary>
+    ///     Determines whether the specified registry key exists, distinguishing an absent key
+    ///     from a failed query.
+    /// </summary>
+    /// <param name="exists">Whether the key exists; only meaningful on <c>true</c> return.</param>
+    /// <returns><c>false</c> when the query itself failed; absence must not be assumed then.</returns>
+    public static bool TryKeyExists(RegistryItem item, out bool exists, ILogger? logger = null)
+    {
+        exists = false;
+        if (!TryParsePath(item.Path, logger, out var rootKey, out var subPath))
+            return false;
+
+        if (
+            !TryOpenSubKey(
+                rootKey,
+                subPath,
+                out var key,
+                out var shouldDispose,
+                false,
+                false,
+                null,
+                logger,
+                out var openError,
+                out _
+            )
+        )
+            return openError is null; // absent key, not a failed query
+
+        try
+        {
+            exists = true;
+            return true;
+        }
+        finally
+        {
+            if (shouldDispose)
+                key?.Dispose();
+        }
+    }
+
+    /// <summary>
+    ///     Reads a raw registry value, distinguishing an absent value from a failed read.
+    /// </summary>
+    /// <param name="value">The raw value, or <c>null</c> when absent or unreadable.</param>
+    /// <returns><c>false</c> when the read itself failed; a failed read is not "absent".</returns>
+    public static bool TryReadValue(RegistryItem item, out object? value, ILogger? logger = null)
+    {
+        value = null;
+        if (!TryParsePath(item.Path, logger, out var rootKey, out var subPath))
+            return false;
+
+        if (
+            !TryOpenSubKey(
+                rootKey,
+                subPath,
+                out var key,
+                out var shouldDispose,
+                false,
+                false,
+                null,
+                logger,
+                out var openError,
+                out _
+            )
+        )
+            // An absent key is a successful query with an absent value; an error is a failed query.
+            return openError is null;
+
+        try
+        {
+            value = key?.GetValue(
+                NormalizeValueName(item.Name),
+                null,
+                RegistryValueOptions.DoNotExpandEnvironmentNames
+            );
+            return true;
+        }
+        catch (Exception ex)
+        {
+            logger?.LogError(ex, "Failed to read registry {Path}:{Name}", item.Path, item.Name!);
+            value = null;
+            return false;
+        }
+        finally
+        {
+            if (shouldDispose)
+                key?.Dispose();
+        }
     }
 
     /// <summary>Reads a registry value and converts it to the specified type.</summary>

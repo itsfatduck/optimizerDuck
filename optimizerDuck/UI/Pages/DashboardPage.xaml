@@ -272,8 +272,7 @@
 
                                 <StackPanel Grid.Row="0">
                                     <ui:TextBlock FontTypography="BodyStrong">
-                                        <Run Text="{Binding ViewModel.RuntimeRam.TotalGB, StringFormat='{}{0:F1}'}" />
-                                        <Run Text="GB RAM" />
+                                        <Run Text="{ext:Loc Dashboard.SystemInfo.Ram.Total, {Binding ViewModel.RuntimeRam.TotalGB, StringFormat='{}{0:F1}'}}" />
                                     </ui:TextBlock>
                                     <ui:TextBlock FontTypography="Caption" Foreground="{DynamicResource TextFillColorSecondaryBrush}">
                                         <Run Text="{ext:Loc Dashboard.SystemInfo.Ram.Used, {Binding ViewModel.RuntimeRam.UsedGB, StringFormat='{}{0:F1}'}}" />
@@ -340,8 +339,7 @@
                                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
                                         CornerRadius="{StaticResource CornerRadiusSmall}">
                                         <ui:TextBlock FontTypography="Caption">
-                                            <Run Text="{Binding ViewModel.SystemInfo.PrimaryGpu.MemoryMB, Converter={StaticResource MBToGBConverter}}" />
-                                            <Run Text="GB" />
+                                            <Run Text="{ext:Loc Dashboard.SystemInfo.Gpu.Memory, {Binding ViewModel.SystemInfo.PrimaryGpu.MemoryMB, Converter={StaticResource MBToGBConverter}}}" />
                                         </ui:TextBlock>
                                     </Border>
                                     <Border

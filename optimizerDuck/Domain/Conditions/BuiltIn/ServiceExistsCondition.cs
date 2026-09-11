@@ -23,8 +23,9 @@ public abstract class ServiceExistsCondition : ConditionBase
     public override ConditionResult Evaluate(SystemSnapshot snapshot)
     {
         var serviceKey = new RegistryItem($@"HKLM\SYSTEM\CurrentControlSet\Services\{ServiceName}");
-        return RegistryService.KeyExists(serviceKey)
-            ? ConditionResult.Available
-            : ConditionResult.Unsupported(Title, Description);
+        if (!RegistryService.TryKeyExists(serviceKey, out var exists))
+            return ConditionResult.Error();
+
+        return exists ? ConditionResult.Available : ConditionResult.Unsupported(Title, Description);
     }
 }

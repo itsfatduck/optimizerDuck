@@ -62,6 +62,9 @@ public static class ServiceStrings
 
     public const string ShellName = "Shell";
 
+    public const string StartupAppErrorUnsupportedLocation =
+        "Cannot toggle startup app '{0}': its location is not supported";
+
     /// <summary>Formats a template with invariant culture (same as Loc.Invariant did).</summary>
     public static string Format(string template, params object?[] args) =>
         string.Format(CultureInfo.InvariantCulture, template, args);

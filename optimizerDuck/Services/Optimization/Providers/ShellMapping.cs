@@ -25,7 +25,7 @@ internal static class ShellMapping
     internal static string BuildCmdArguments(string arguments, string command)
     {
         return arguments.Contains("chcp 65001")
-            ? // try best effort to ensure UTF-8 codepage for cmd, but better use PowerShell if possible
+            ? // best effort: force UTF-8 codepage for cmd
             $"{arguments} {command}"
             : $"{arguments} chcp 65001 > nul & {command}";
     }
@@ -39,7 +39,6 @@ internal static class ShellMapping
             Command = commandForUser,
             Stdout = raw.Stdout,
             Stderr = raw.Stderr.ParseCliXml().Trim(),
-            // use -1 error code for timed out
             ExitCode = raw.TimedOut ? -1 : raw.ExitCode,
             Duration = raw.Duration,
         };
