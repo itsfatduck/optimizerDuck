@@ -71,6 +71,28 @@ public class LanguageManagerTests : IDisposable
     }
 
     [Fact]
+    public void ChangeCulture_RaisesAllPropertiesChanged()
+    {
+        var raisedProperties = new List<string?>();
+        PropertyChangedEventHandler handler = (_, e) => raisedProperties.Add(e.PropertyName);
+
+        Loc.Instance.PropertyChanged += handler;
+        try
+        {
+            Loc.Instance.ChangeCulture(new CultureInfo("vi"));
+        }
+        finally
+        {
+            Loc.Instance.PropertyChanged -= handler;
+        }
+
+        // Empty property name means "all properties changed". Pathless bindings to
+        // Loc.Instance (the multi-arg {ext:Loc Key, Binding} markup) re-evaluate only on
+        // this notification, so runtime language switching depends on it.
+        Assert.Contains(string.Empty, raisedProperties);
+    }
+
+    [Fact]
     public void ChangeCulture_RaisesIsRtlAndDirection()
     {
         var raisedProperties = new List<string?>();

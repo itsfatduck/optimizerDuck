@@ -9,6 +9,7 @@ using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
+using optimizerDuck.Services.Optimization.Providers;
 using Wpf.Ui.Controls;
 using OptimizationState = optimizerDuck.Domain.UI.OptimizationState;
 
@@ -38,12 +39,11 @@ public abstract partial class BaseOptimization : LocalizedObject, IOptimization
             );
 
     /// <summary>
-    ///     Gets or sets the type of the category class that owns this optimization.
+    ///     Gets the type of the category class that owns this optimization.
     ///     Assigned automatically during reflection-based discovery in <c>OptimizationRegistry</c>.
     /// </summary>
-    public Type? OwnerType { get; set; }
+    public Type? OwnerType { get; internal set; }
 
-    /// <summary>Gets the name of the owner category class.</summary>
     /// <exception cref="InvalidOperationException">Thrown when <see cref="OwnerType"/> has not been assigned.</exception>
     public string OwnerKey =>
         OwnerType?.Name
@@ -191,12 +191,9 @@ public abstract partial class BaseOptimization : LocalizedObject, IOptimization
         OptimizationContext context
     );
 
-    /// <summary>
-    ///     Returns an <see cref="ApplyResult" /> derived from steps recorded in the active <see cref="ExecutionScope" />.
-    /// </summary>
-    protected static ApplyResult CompleteFromScope()
+    /// <summary>Returns result from changes recorded into <paramref name="call"/>.</summary>
+    protected static ApplyResult CompleteFromScope(OpCall call)
     {
-        return ExecutionScope.Current?.ToApplyResult()
-            ?? ApplyResult.False(Loc.Instance["Revert.Error.NoSteps"]);
+        return call.Changes.ToApplyResult();
     }
 }

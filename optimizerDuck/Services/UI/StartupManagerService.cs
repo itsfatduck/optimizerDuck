@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.StartupManager;
 using optimizerDuck.Services.Optimization.Providers;
 using Windows.ApplicationModel;
@@ -20,6 +21,13 @@ namespace optimizerDuck.Services.UI;
 
 public class StartupManagerService(ILogger<StartupManagerService> logger)
 {
+    // UI toggles are user-driven one-shot actions outside any optimization
+    // apply: changes land in a throwaway set, revert is not persisted.
+    private OpCall UiCall()
+    {
+        return new OpCall { Changes = new ChangeSet(), Logger = logger };
+    }
+
     /// <summary>
     ///     Retrieves all startup applications from registry Run/RunOnce keys (including the 32-bit
     ///     Wow6432Node view), startup folders, and packaged (UWP / MSIX) apps with StartupTask
@@ -653,12 +661,12 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                 var fullPath = task.TaskPath.TrimEnd('\\') + "\\" + task.TaskName;
                 if (enable)
                 {
-                    ScheduledTaskService.EnableTask(fullPath);
+                    ScheduledTaskService.EnableTask(UiCall(), fullPath);
                     logger.LogInformation("Enabled task {Name} ({Path})", task.TaskName, fullPath);
                 }
                 else
                 {
-                    ScheduledTaskService.DisableTask(fullPath);
+                    ScheduledTaskService.DisableTask(UiCall(), fullPath);
                     logger.LogInformation("Disabled task {Name} ({Path})", task.TaskName, fullPath);
                 }
             }

@@ -1,189 +1,132 @@
-﻿using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Execution;
-using optimizerDuck.Domain.Optimizations.Models;
-using optimizerDuck.Domain.UI;
-using optimizerDuck.Test.TestDoubles;
-using OptimizationState = optimizerDuck.Domain.UI.OptimizationState;
+using optimizerDuck.Services.Optimization.Providers;
 
 namespace optimizerDuck.Test.Services;
 
-public class ExecutionScopeTests
+public class ChangeSetTests
 {
     [Fact]
-    public void RecordStep_WithSuccessfulStep_RecordsStep()
+    public void Add_WithSuccessfulChange_RecordsChange()
     {
-        var logger = NullLogger.Instance;
+        var changes = new ChangeSet();
 
-        using var scope = ExecutionScope.Begin(new MockOptimization(), logger);
+        changes.Add("TestStep", "Test description", true);
 
-        ExecutionScope.RecordStep("TestStep", "Test description", true);
-
-        Assert.Single(scope.ExecutedSteps);
-        Assert.True(scope.HasSuccessfulSteps);
-        Assert.Equal("TestStep", scope.ExecutedSteps[0].Name);
+        Assert.Single(changes.Changes);
+        Assert.True(changes.HasSuccessfulSteps);
+        Assert.Equal("TestStep", changes.Changes[0].Name);
+        Assert.Equal(1, changes.Changes[0].Index);
     }
 
     [Fact]
-    public void RecordStep_WithFailedStep_RecordsFailedStep()
+    public void Add_WithFailedChange_RecordsError()
     {
-        var logger = NullLogger.Instance;
+        var changes = new ChangeSet();
 
-        using var scope = ExecutionScope.Begin(new MockOptimization(), logger);
+        changes.Add("TestStep", "Test description", false, error: "Test error");
 
-        ExecutionScope.RecordStep("TestStep", "Test description", false, error: "Test error");
-
-        Assert.Single(scope.ExecutedSteps);
-        Assert.False(scope.ExecutedSteps[0].Success);
-        Assert.False(scope.HasSuccessfulSteps);
-        Assert.Equal("Test error", scope.ExecutedSteps[0].Error);
+        Assert.Single(changes.Changes);
+        Assert.False(changes.Changes[0].Ok);
+        Assert.False(changes.HasSuccessfulSteps);
+        Assert.Equal("Test error", changes.Changes[0].Error);
     }
 
     [Fact]
-    public void RecordStep_WithRevertStep_RecordsRevertData()
+    public void Add_WithRevertStep_StoresRevertData()
     {
-        var logger = NullLogger.Instance;
+        var changes = new ChangeSet();
         var revertStep = new MockRevertStep();
 
-        using var scope = ExecutionScope.Begin(new MockOptimization(), logger);
+        changes.Add("TestStep", "Test description", true, revertStep);
 
-        ExecutionScope.RecordStep("TestStep", "Test description", true, revertStep);
-
-        Assert.Single(scope.SuccessfulSteps);
-        Assert.NotNull(scope.SuccessfulSteps[0].RevertStep);
+        Assert.Single(changes.SuccessfulSteps);
+        Assert.NotNull(changes.SuccessfulSteps[0].Revert);
     }
 
     [Fact]
-    public void FailedSteps_ReturnsOnlyFailedSteps()
+    public void FailedSteps_ReturnsOnlyFailedChanges()
     {
-        var logger = NullLogger.Instance;
+        var changes = new ChangeSet();
 
-        using var scope = ExecutionScope.Begin(new MockOptimization(), logger);
+        changes.Add("SuccessStep1", "Description", true);
+        changes.Add("FailedStep", "Description", false, error: "Error");
+        changes.Add("SuccessStep2", "Description", true);
 
-        ExecutionScope.RecordStep("SuccessStep1", "Description", true);
-        ExecutionScope.RecordStep("FailedStep", "Description", false, error: "Error");
-        ExecutionScope.RecordStep("SuccessStep2", "Description", true);
-
-        var failedSteps = scope.FailedSteps;
+        var failedSteps = changes.FailedSteps;
 
         Assert.Single(failedSteps);
         Assert.Equal("FailedStep", failedSteps[0].Name);
     }
 
     [Fact]
-    public void StepIndex_IncrementsSequentially()
+    public void Add_IncrementsSequenceSequentially()
     {
-        var logger = NullLogger.Instance;
+        var changes = new ChangeSet();
 
-        using var scope = ExecutionScope.Begin(new MockOptimization(), logger);
+        changes.Add("Step1", "Description", true);
+        changes.Add("Step2", "Description", true);
+        changes.Add("Step3", "Description", true);
 
-        ExecutionScope.RecordStep("Step1", "Description", true);
-        ExecutionScope.RecordStep("Step2", "Description", true);
-        ExecutionScope.RecordStep("Step3", "Description", true);
-
-        Assert.Equal(1, scope.ExecutedSteps[0].Index);
-        Assert.Equal(2, scope.ExecutedSteps[1].Index);
-        Assert.Equal(3, scope.ExecutedSteps[2].Index);
+        Assert.Equal(1, changes.Changes[0].Index);
+        Assert.Equal(2, changes.Changes[1].Index);
+        Assert.Equal(3, changes.Changes[2].Index);
     }
 
     [Fact]
-    public void Dispose_ClearsCurrentScope()
+    public void ToApplyResult_Empty_ReturnsFailure()
     {
-        var logger = NullLogger.Instance;
+        var changes = new ChangeSet();
 
-        var scope = ExecutionScope.Begin(new MockOptimization(), logger);
+        var result = changes.ToApplyResult();
 
-        ExecutionScope.RecordStep("Success", "Description", true);
-        ExecutionScope.RecordStep("Fail", "Description", false);
-
-        Assert.NotNull(ExecutionScope.Current);
-
-        scope.Dispose();
-
-        Assert.Null(ExecutionScope.Current);
+        Assert.NotNull(result.ErrorMessage);
     }
 
     [Fact]
-    public void Begin_WithLogger_CreatesLightweightScope()
+    public void ToApplyResult_AllFailed_ReturnsFirstError()
     {
-        var logger = NullLogger.Instance;
+        var changes = new ChangeSet();
 
-        using var scope = ExecutionScope.BeginForLogging(logger);
+        changes.Add("Step1", "Desc1", false, error: "err");
+        changes.Add("Step2", "Desc2", false, error: "err2");
 
-        ExecutionScope.RecordStep("TestStep", "Description", true);
+        var result = changes.ToApplyResult();
 
-        Assert.NotNull(ExecutionScope.Current);
-        Assert.Empty(scope.ExecutedSteps);
-        Assert.Equal(Guid.Empty, scope.OptimizationId);
+        Assert.Equal("err", result.ErrorMessage);
     }
 
     [Fact]
-    public void Begin_ThrowsIfAlreadyActive()
+    public void ToApplyResult_PartialSuccess_ReturnsSuccess()
     {
-        var logger = NullLogger.Instance;
+        var changes = new ChangeSet();
 
-        using var scope = ExecutionScope.Begin(new MockOptimization(), logger);
+        changes.Add("Step1", "Desc1", true);
+        changes.Add("Step2", "Desc2", false, error: "err");
 
-        Assert.Throws<InvalidOperationException>(() =>
-            ExecutionScope.Begin(new MockOptimization(), logger)
-        );
+        var result = changes.ToApplyResult();
+
+        Assert.Null(result.ErrorMessage);
+
+        // Successes and failures stay separable.
+        Assert.Single(changes.SuccessfulSteps);
+        Assert.Single(changes.FailedSteps);
+        Assert.True(changes.SuccessfulSteps[0].Ok);
+        Assert.False(changes.FailedSteps[0].Ok);
+        Assert.Equal("err", changes.FailedSteps[0].Error);
     }
 
     [Fact]
-    public void RecordStep_WithoutActiveScope_ReturnsNull()
+    public void Add_Concurrent_IsThreadSafe()
     {
-        var result = ExecutionScope.RecordStep("TestStep", "Description", true);
+        var changes = new ChangeSet();
 
-        Assert.Null(result);
-    }
+        Parallel.For(0, 100, i => changes.Add($"Step{i}", "Description", true));
 
-    [Fact]
-    public void Track_UpdatesStats()
-    {
-        var logger = NullLogger.Instance;
-
-        using var scope = ExecutionScope.Begin(new MockOptimization(), logger);
-
-        ExecutionScope.Track("Registry", true);
-        ExecutionScope.Track("Registry", true);
-        ExecutionScope.Track("Registry", false);
-
-        var steps = scope.GetStepResults();
-        Assert.Empty(steps);
-    }
-
-    [Fact]
-    public void GetStepResults_ReturnsOperationStepResults()
-    {
-        var logger = NullLogger.Instance;
-
-        using var scope = ExecutionScope.Begin(new MockOptimization(), logger);
-
-        ExecutionScope.RecordStep("Step1", "Desc1", true);
-        ExecutionScope.RecordStep("Step2", "Desc2", false, error: "err");
-
-        var results = scope.GetStepResults();
-
-        Assert.Equal(2, results.Count);
-        Assert.True(results[0].Success);
-        Assert.False(results[1].Success);
-        Assert.Equal("err", results[1].Error);
-    }
-}
-
-public class MockOptimization : StubOptimization
-{
-    public override string OptimizationKey => "MockOptimization";
-    public override string Name => "Mock Optimization";
-    public override string ShortDescription => "Mock description";
-
-    public override Task<ApplyResult> ApplyAsync(
-        IProgress<ProcessingProgress> progress,
-        OptimizationContext context
-    )
-    {
-        return Task.FromResult(ApplyResult.True());
+        Assert.Equal(100, changes.Changes.Count);
+        Assert.Equal(100, changes.Changes.Select(c => c.Index).Distinct().Count());
     }
 }
 
@@ -192,7 +135,7 @@ public class MockRevertStep : IRevertStep
     public string Type => "Mock";
     public string Description => "Mock Description";
 
-    public Task<bool> ExecuteAsync()
+    public Task<bool> ExecuteAsync(ShellService _, ILogger logger)
     {
         return Task.FromResult(true);
     }

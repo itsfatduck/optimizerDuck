@@ -13,6 +13,7 @@ using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Services.Optimization;
+using optimizerDuck.Services.Optimization.Providers;
 using optimizerDuck.Services.Revert;
 using optimizerDuck.Services.System;
 using optimizerDuck.Test.TestDoubles;
@@ -41,29 +42,21 @@ public class OptimizationServiceIntegrationTests : IDisposable
             OptimizationContext context
         )
         {
-            var results = new List<OperationStepResult>();
-            _stepCount = 0;
-
             // Step 1: Always succeeds
-            ExecutionScope.RecordStep("Test", "Step 1", true, new TestRevertStep { StepId = 1 });
+            context.Changes.Add("Step 1", "Step 1", true, new TestRevertStep { StepId = 1 });
             _stepCount++;
 
             // Step 2: May fail
             if (_shouldFail)
             {
-                ExecutionScope.RecordStep("Test", "Step 2", false, null, "Simulated failure");
+                context.Changes.Add("Step 2", "Step 2", false, error: "Simulated failure");
                 _stepCount++;
             }
 
             // Step 3: Only executes if step 2 succeeded
             if (!_shouldFail)
             {
-                ExecutionScope.RecordStep(
-                    "Test",
-                    "Step 3",
-                    true,
-                    new TestRevertStep { StepId = 3 }
-                );
+                context.Changes.Add("Step 3", "Step 3", true, new TestRevertStep { StepId = 3 });
                 _stepCount++;
             }
 
@@ -80,7 +73,7 @@ public class OptimizationServiceIntegrationTests : IDisposable
         public string Type => "Test";
         public string Description => $"Revert step {StepId}";
 
-        public Task<bool> ExecuteAsync()
+        public Task<bool> ExecuteAsync(ShellService _, ILogger logger)
         {
             // Simulate revert operation
             return Task.FromResult(true);
@@ -118,7 +111,11 @@ public class OptimizationServiceIntegrationTests : IDisposable
     public async Task ApplyAsync_WithSuccess_SavesRevertDataCorrectly()
     {
         var loggerFactory = NullLoggerFactory.Instance;
-        var revertManager = new RevertManager(NullLogger<RevertManager>.Instance, loggerFactory);
+        var revertManager = new RevertManager(
+            NullLogger<RevertManager>.Instance,
+            TestShell.New(),
+            TimeProvider.System
+        );
         var systemInfoService = new SystemInfoService(NullLogger<SystemInfoService>.Instance);
         var streamService = new StreamService(NullLogger<StreamService>.Instance);
 
@@ -128,6 +125,7 @@ public class OptimizationServiceIntegrationTests : IDisposable
             systemInfoService,
             streamService,
             null!,
+            new ShellService(new ProcessRunner(120000)),
             NullLogger<OptimizationService>.Instance
         );
 
@@ -169,16 +167,16 @@ public class OptimizationServiceIntegrationTests : IDisposable
     [Fact]
     public async Task RetryFailedStepsAsync_WithRetryableSteps_Succeeds()
     {
-        var failedSteps = new List<OperationStepResult>
+        var failedSteps = new List<Change>
         {
             new()
             {
                 Index = 1,
                 Name = "Test",
                 Description = "Failed step",
-                Success = false,
+                Ok = false,
                 Error = "Temporary failure",
-                RetryAction = () => Task.FromResult(true),
+                Retry = _ => Task.FromResult(OpResult.Success()),
             },
         };
 
@@ -197,16 +195,16 @@ public class OptimizationServiceIntegrationTests : IDisposable
     [Fact]
     public async Task RetryFailedStepsAsync_WithNonRetryableSteps_RemainsFailed()
     {
-        var failedSteps = new List<OperationStepResult>
+        var failedSteps = new List<Change>
         {
             new()
             {
                 Index = 1,
                 Name = "Test",
                 Description = "Failed step",
-                Success = false,
+                Ok = false,
                 Error = "Permanent failure",
-                RetryAction = null, // No retry action
+                Retry = null, // No retry action
             },
         };
 

@@ -1,4 +1,5 @@
 using System.Text;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
@@ -42,7 +43,7 @@ public class UsbPowerRevertStep : IRevertStep
     public string Description => Loc.Instance["Revert.UsbPower.Description"];
 
     /// <inheritdoc />
-    public async Task<bool> ExecuteAsync()
+    public async Task<bool> ExecuteAsync(ShellService shell, ILogger logger)
     {
         if (States.Count == 0)
             return true;
@@ -63,7 +64,7 @@ public class UsbPowerRevertStep : IRevertStep
             + "Set-CimInstance -CimInstance $obj -Property @{ Enable = [bool]$s.Enable } | Out-Null "
             + "}}";
 
-        var result = await ShellService.PowerShellAsync(script);
+        var result = await shell.QueryPowerShellAsync(script, logger).ConfigureAwait(false);
 
         if (result.ExitCode != 0)
         {

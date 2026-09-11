@@ -4,6 +4,7 @@ using Microsoft.Win32;
 using optimizerDuck.Common.Extensions;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
@@ -33,6 +34,7 @@ public class Performance : LocalizedObject, IOptimizationCategory
         )
         {
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications",
                     "GlobalUserDisabled",
@@ -45,7 +47,7 @@ public class Performance : LocalizedObject, IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Disabled background apps");
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(CompleteFromScope(context));
         }
     }
 
@@ -75,6 +77,7 @@ public class Performance : LocalizedObject, IOptimizationCategory
             }
 
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKLM\SYSTEM\CurrentControlSet\Control",
                     "SvcHostSplitThresholdInKB",
@@ -86,7 +89,7 @@ public class Performance : LocalizedObject, IOptimizationCategory
                 "Consolidated service hosts with threshold: {ThresholdKB} KB",
                 context.Snapshot.Ram.TotalKB
             );
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(CompleteFromScope(context));
         }
     }
 
@@ -124,6 +127,7 @@ public class Performance : LocalizedObject, IOptimizationCategory
             const int win32Priority = 38; // Short, Variable, High foreground boost
 
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl",
                     "Win32PrioritySeparation",
@@ -134,7 +138,7 @@ public class Performance : LocalizedObject, IOptimizationCategory
                 "Enabled foreground boost with priority: {Priority}",
                 win32Priority
             );
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(CompleteFromScope(context));
         }
     }
 
@@ -159,6 +163,7 @@ public class Performance : LocalizedObject, IOptimizationCategory
 
             // Parent SystemProfile settings (NoLazyMode, AlwaysOn, NetworkThrottlingIndex, SystemResponsiveness)
             RegistryService.Write(
+                context,
                 new RegistryItem(systemProfileKey, "NoLazyMode", 1),
                 new RegistryItem(systemProfileKey, "AlwaysOn", 1),
                 new RegistryItem(
@@ -177,6 +182,7 @@ public class Performance : LocalizedObject, IOptimizationCategory
 
             // Games task scheduling (Priority, Scheduling Category, SFIO Priority, GPU Priority)
             RegistryService.Write(
+                context,
                 new RegistryItem($@"{systemProfileKey}\Tasks\Games", "Priority", 2),
                 new RegistryItem($@"{systemProfileKey}\Tasks\Games", "Scheduling Category", "High"),
                 new RegistryItem($@"{systemProfileKey}\Tasks\Games", "SFIO Priority", "High"),
@@ -186,7 +192,7 @@ public class Performance : LocalizedObject, IOptimizationCategory
             context.Logger.LogInformation(
                 "Optimized Multimedia Class Scheduler Service (MMCSS) for gaming and low latency"
             );
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(CompleteFromScope(context));
         }
     }
 
@@ -203,12 +209,13 @@ public class Performance : LocalizedObject, IOptimizationCategory
         )
         {
             RegistryService.Write(
+                context,
                 new RegistryItem(@"HKEY_CURRENT_USER\Control Panel\Keyboard", "KeyboardDelay", "0"),
                 new RegistryItem(@"HKEY_CURRENT_USER\Control Panel\Keyboard", "KeyboardSpeed", "31")
             );
 
             context.Logger.LogInformation("Optimized keyboard repeat settings");
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(CompleteFromScope(context));
         }
     }
 
@@ -225,6 +232,7 @@ public class Performance : LocalizedObject, IOptimizationCategory
         )
         {
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKEY_CURRENT_USER\Control Panel\Accessibility\StickyKeys",
                     "Flags",
@@ -243,7 +251,7 @@ public class Performance : LocalizedObject, IOptimizationCategory
             );
 
             context.Logger.LogInformation("Disabled accessibility keyboard hotkeys");
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(CompleteFromScope(context));
         }
     }
 
@@ -260,6 +268,7 @@ public class Performance : LocalizedObject, IOptimizationCategory
         )
         {
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKLM\SYSTEM\CurrentControlSet\Services\WebClient\Parameters",
                     "FileSizeLimitInBytes",
@@ -269,7 +278,7 @@ public class Performance : LocalizedObject, IOptimizationCategory
             );
 
             context.Logger.LogInformation("Lifted the WebDAV file size limit to 4 GB");
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(CompleteFromScope(context));
         }
     }
 }

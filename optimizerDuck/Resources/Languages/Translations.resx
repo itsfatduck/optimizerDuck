@@ -449,6 +449,12 @@
   <data name="Common.AppliedJustNow" xml:space="preserve">
     <value>Just applied</value>
   </data>
+  <data name="Common.OperationCancelled" xml:space="preserve">
+    <value>Operation canceled.</value>
+  </data>
+  <data name="Optimization.Apply.Error.AllStepsFailed" xml:space="preserve">
+    <value>All steps failed.</value>
+  </data>
   <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
       <value>Couldn't fully apply optimization</value>
     </data>

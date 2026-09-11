@@ -2,9 +2,11 @@ using System.Collections.ObjectModel;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Win32;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Customize.Models;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.Optimization.Providers;
@@ -15,6 +17,8 @@ namespace optimizerDuck.Test.Domain.Customize;
 public class BaseCustomizeSettingTests : IDisposable
 {
     private const string TestKeyPath = @"HKCU\Software\TestOptimizerDuckCustomize";
+
+    private static OpCall NewCall() => new() { Logger = NullLogger.Instance };
 
     private class TestCustomizeSetting : BaseCustomizeSetting
     {
@@ -108,7 +112,7 @@ public class BaseCustomizeSettingTests : IDisposable
     {
         var setting = new TestCustomizeSetting { OwnerType = typeof(TestCustomizeSetting) };
 
-        await setting.ApplyAsync(true);
+        Assert.True((await setting.ApplyAsync(true, NewCall())).Ok);
 
         var value = RegistryService.Read<int>(new RegistryItem(TestKeyPath, "TestValue"));
         Assert.Equal(1, value);
@@ -119,7 +123,7 @@ public class BaseCustomizeSettingTests : IDisposable
     {
         var setting = new TestCustomizeSetting { OwnerType = typeof(TestCustomizeSetting) };
 
-        await setting.ApplyAsync(false);
+        Assert.True((await setting.ApplyAsync(false, NewCall())).Ok);
 
         var value = RegistryService.Read<int>(new RegistryItem(TestKeyPath, "TestValue"));
         Assert.Equal(0, value);
@@ -135,12 +139,12 @@ public class BaseCustomizeSettingTests : IDisposable
         Assert.False(initialState);
 
         // Enable
-        await setting.ApplyAsync(true);
+        Assert.True((await setting.ApplyAsync(true, NewCall())).Ok);
         var enabledState = await setting.GetStateAsync();
         Assert.True(enabledState);
 
         // Disable
-        await setting.ApplyAsync(false);
+        Assert.True((await setting.ApplyAsync(false, NewCall())).Ok);
         var disabledState = await setting.GetStateAsync();
         Assert.False(disabledState);
     }
@@ -153,13 +157,13 @@ public class BaseCustomizeSettingTests : IDisposable
         // Perform multiple rapid toggles
         for (int i = 0; i < 10; i++)
         {
-            await setting.ApplyAsync(true);
+            Assert.True((await setting.ApplyAsync(true, NewCall())).Ok);
             var enabledValue = RegistryService.Read<int>(
                 new RegistryItem(TestKeyPath, "TestValue")
             );
             Assert.Equal(1, enabledValue);
 
-            await setting.ApplyAsync(false);
+            Assert.True((await setting.ApplyAsync(false, NewCall())).Ok);
             var disabledValue = RegistryService.Read<int>(
                 new RegistryItem(TestKeyPath, "TestValue")
             );
@@ -230,12 +234,12 @@ public class BaseCustomizeSettingTests : IDisposable
     {
         var setting = new TestCustomizeSetting { OwnerType = typeof(TestCustomizeSetting) };
 
-        await setting.ApplyAsync(true);
+        Assert.True((await setting.ApplyAsync(true, NewCall())).Ok);
         var result = await setting.GetStateWithRetryAsync(maxRetries: 3, delayMs: 10);
 
         Assert.True(result);
 
-        await setting.ApplyAsync(false);
+        Assert.True((await setting.ApplyAsync(false, NewCall())).Ok);
         result = await setting.GetStateWithRetryAsync(maxRetries: 3, delayMs: 10);
 
         Assert.False(result);
@@ -403,7 +407,7 @@ public class BaseCustomizeSettingTests : IDisposable
         // ExecutePostActionAsync entirely. We confirm the gate behaviour:
         // NeedsPostAction is false, so no refresh runs.
         Assert.False(GetNeedsPostAction(setting));
-        await setting.ApplyAsync(false); // must not throw
+        Assert.True((await setting.ApplyAsync(false, NewCall())).Ok); // must not throw
     }
 
     [Fact]
@@ -422,8 +426,8 @@ public class BaseCustomizeSettingTests : IDisposable
 
         foreach (var setting in settings)
         {
-            await setting.ApplyAsync(true);
-            await setting.ApplyAsync(false);
+            Assert.True((await setting.ApplyAsync(true, NewCall())).Ok);
+            Assert.True((await setting.ApplyAsync(false, NewCall())).Ok);
         }
     }
 
@@ -482,7 +486,7 @@ public class BaseCustomizeSettingTests : IDisposable
     [Fact]
     public void RegistryToggle_GetState_ReturnsTrueWhenValueMatchesOnValues()
     {
-        RegistryService.Write(new RegistryItem(TestKeyPath, "OnValTest", 1));
+        RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "OnValTest", 1));
 
         var toggle = new RegistryToggle
         {
@@ -500,7 +504,7 @@ public class BaseCustomizeSettingTests : IDisposable
     [Fact]
     public void RegistryToggle_GetState_ReturnsFalseWhenValueMatchesOffValues()
     {
-        RegistryService.Write(new RegistryItem(TestKeyPath, "OffValTest", 0));
+        RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "OffValTest", 0));
 
         var toggle = new RegistryToggle
         {
@@ -555,11 +559,11 @@ public class BaseCustomizeSettingTests : IDisposable
             OffValues = [0],
         };
 
-        toggle.SetState(true);
+        toggle.SetState(true, NewCall());
         var value = RegistryService.Read<int>(new RegistryItem(TestKeyPath, "SetStateTest"));
         Assert.Equal(1, value);
 
-        toggle.SetState(false);
+        toggle.SetState(false, NewCall());
         value = RegistryService.Read<int>(new RegistryItem(TestKeyPath, "SetStateTest"));
         Assert.Equal(0, value);
 
@@ -570,7 +574,7 @@ public class BaseCustomizeSettingTests : IDisposable
     public void RegistryToggle_SetState_DeletesKeyWhenFirstValueIsNull()
     {
         // First write a value
-        RegistryService.Write(new RegistryItem(TestKeyPath, "NullSetTest", 1));
+        RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "NullSetTest", 1));
 
         var toggle = new RegistryToggle
         {
@@ -580,7 +584,7 @@ public class BaseCustomizeSettingTests : IDisposable
             OffValues = [0],
         };
 
-        toggle.SetState(true); // Should delete the key
+        toggle.SetState(true, NewCall()); // Should delete the key
 
         var value = RegistryService.Read<object>(new RegistryItem(TestKeyPath, "NullSetTest"));
         Assert.Null(value);
@@ -592,7 +596,7 @@ public class BaseCustomizeSettingTests : IDisposable
     public void RegistryToggle_GetState_MatchesMultipleOnValues()
     {
         // Value 1 → ON
-        RegistryService.Write(new RegistryItem(TestKeyPath, "MultiOnTest", 1));
+        RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "MultiOnTest", 1));
         var toggle = new RegistryToggle
         {
             Path = TestKeyPath,
@@ -603,7 +607,7 @@ public class BaseCustomizeSettingTests : IDisposable
         Assert.True(toggle.GetState());
 
         // Value 2 → also ON
-        RegistryService.Write(new RegistryItem(TestKeyPath, "MultiOnTest", 2));
+        RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "MultiOnTest", 2));
         Assert.True(toggle.GetState());
 
         CleanupTestKeys();
@@ -662,10 +666,10 @@ public class BaseCustomizeSettingTests : IDisposable
     {
         var setting = new TestDropdownSetting { OwnerType = typeof(TestDropdownSetting) };
 
-        RegistryService.Write(new RegistryItem(TestKeyPath, "DropdownTest", 1));
+        RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "DropdownTest", 1));
         Assert.Equal(1, setting.CurrentValue);
 
-        RegistryService.Write(new RegistryItem(TestKeyPath, "DropdownTest", 2));
+        RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "DropdownTest", 2));
         Assert.Equal(2, setting.CurrentValue);
 
         CleanupTestKeys();
@@ -676,7 +680,7 @@ public class BaseCustomizeSettingTests : IDisposable
     {
         var setting = new TestDropdownSetting { OwnerType = typeof(TestDropdownSetting) };
 
-        RegistryService.Write(new RegistryItem(TestKeyPath, "DropdownTest", 99));
+        RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "DropdownTest", 99));
         Assert.Equal(99, setting.CurrentValue);
 
         CleanupTestKeys();
@@ -687,11 +691,11 @@ public class BaseCustomizeSettingTests : IDisposable
     {
         var setting = new TestDropdownSetting { OwnerType = typeof(TestDropdownSetting) };
 
-        await setting.ApplyAsync(1);
+        Assert.True((await setting.ApplyAsync(1, NewCall())).Ok);
         var value = RegistryService.Read<int>(new RegistryItem(TestKeyPath, "DropdownTest"));
         Assert.Equal(1, value);
 
-        await setting.ApplyAsync(2);
+        Assert.True((await setting.ApplyAsync(2, NewCall())).Ok);
         value = RegistryService.Read<int>(new RegistryItem(TestKeyPath, "DropdownTest"));
         Assert.Equal(2, value);
 
@@ -705,7 +709,7 @@ public class BaseCustomizeSettingTests : IDisposable
     {
         var setting = new TestDropdownSetting { OwnerType = typeof(TestDropdownSetting) };
 
-        RegistryService.Write(new RegistryItem(TestKeyPath, "DropdownTest", 1));
+        RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "DropdownTest", 1));
 
         var effective = setting.Options;
 
@@ -721,7 +725,7 @@ public class BaseCustomizeSettingTests : IDisposable
     {
         var setting = new TestDropdownSetting { OwnerType = typeof(TestDropdownSetting) };
 
-        RegistryService.Write(new RegistryItem(TestKeyPath, "DropdownTest", 99));
+        RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "DropdownTest", 99));
 
         var effective = setting.Options;
 
@@ -743,10 +747,10 @@ public class BaseCustomizeSettingTests : IDisposable
     {
         var setting = new TestDropdownSetting { OwnerType = typeof(TestDropdownSetting) };
 
-        RegistryService.Write(new RegistryItem(TestKeyPath, "DropdownTest", 99));
+        RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "DropdownTest", 99));
         Assert.Equal(3, setting.Options!.Count);
 
-        RegistryService.Write(new RegistryItem(TestKeyPath, "DropdownTest", 2));
+        RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "DropdownTest", 2));
 
         var effective = setting.Options;
 
@@ -763,10 +767,10 @@ public class BaseCustomizeSettingTests : IDisposable
     {
         var setting = new TestDropdownSetting { OwnerType = typeof(TestDropdownSetting) };
 
-        RegistryService.Write(new RegistryItem(TestKeyPath, "DropdownTest", 99));
+        RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "DropdownTest", 99));
         Assert.Equal(99, setting.Options![2].Value);
 
-        RegistryService.Write(new RegistryItem(TestKeyPath, "DropdownTest", 123));
+        RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "DropdownTest", 123));
 
         var effective = setting.Options;
 
@@ -786,7 +790,7 @@ public class BaseCustomizeSettingTests : IDisposable
         // WPF can select it) is appended, labeled distinctly from "Custom".
         var setting = new TestDropdownSetting { OwnerType = typeof(TestDropdownSetting) };
 
-        RegistryService.DeleteValue(new RegistryItem(TestKeyPath, "DropdownTest"));
+        RegistryService.DeleteValue(NewCall(), new RegistryItem(TestKeyPath, "DropdownTest"));
 
         var effective = setting.Options;
 
@@ -810,8 +814,10 @@ public class BaseCustomizeSettingTests : IDisposable
         // declared Options (where it never exists), so nothing is written and it throws.
         var setting = new TestDropdownSetting { OwnerType = typeof(TestDropdownSetting) };
 
-        RegistryService.Write(new RegistryItem(TestKeyPath, "DropdownTest", 1));
-        await setting.ApplyAsync(BaseCustomizeSetting.MissingValueSentinel);
+        RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "DropdownTest", 1));
+        Assert.True(
+            (await setting.ApplyAsync(BaseCustomizeSetting.MissingValueSentinel, NewCall())).Ok
+        );
 
         var value = RegistryService.Read<int>(new RegistryItem(TestKeyPath, "DropdownTest"));
         Assert.Equal(1, value);
@@ -824,10 +830,10 @@ public class BaseCustomizeSettingTests : IDisposable
     {
         var setting = new TestDropdownSetting { OwnerType = typeof(TestDropdownSetting) };
 
-        RegistryService.DeleteValue(new RegistryItem(TestKeyPath, "DropdownTest"));
+        RegistryService.DeleteValue(NewCall(), new RegistryItem(TestKeyPath, "DropdownTest"));
         Assert.Equal(3, setting.Options!.Count);
 
-        RegistryService.Write(new RegistryItem(TestKeyPath, "DropdownTest", 2));
+        RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "DropdownTest", 2));
 
         var effective = setting.Options;
 
@@ -853,8 +859,9 @@ public class BaseCustomizeSettingTests : IDisposable
 
         // Key A = 1 (matches "On" primary) but Key B = 0 → no full match; the raw primary
         // value (1) already equals the declared "On" value, so no "Custom" duplicate.
-        RegistryService.Write(new RegistryItem(TestKeyPath, "Key1", 1));
+        RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "Key1", 1));
         RegistryService.Write(
+            NewCall(),
             new RegistryItem(@"HKCU\Software\TestOptimizerDuckMultiKey", "Key2", 0)
         );
 
@@ -884,7 +891,7 @@ public class BaseCustomizeSettingTests : IDisposable
         // so re-reading it must always reflect the current registry value.
         var setting = new TestDropdownSetting { OwnerType = typeof(TestDropdownSetting) };
 
-        RegistryService.Write(new RegistryItem(TestKeyPath, "DropdownTest", 99));
+        RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "DropdownTest", 99));
         var first = setting.Options!;
         var second = setting.Options!;
 
@@ -921,7 +928,7 @@ public class BaseCustomizeSettingTests : IDisposable
     {
         var setting = new TestNotSetOptionDropdown { OwnerType = typeof(TestNotSetOptionDropdown) };
 
-        RegistryService.DeleteValue(new RegistryItem(TestKeyPath, "NotSetOptionTest"));
+        RegistryService.DeleteValue(NewCall(), new RegistryItem(TestKeyPath, "NotSetOptionTest"));
 
         // The declared null-binding option matches the missing state (null == null),
         // so no synthetic fallback is appended; CurrentValue is the declared value.
@@ -943,11 +950,11 @@ public class BaseCustomizeSettingTests : IDisposable
     {
         var setting = new TestNotSetOptionDropdown { OwnerType = typeof(TestNotSetOptionDropdown) };
 
-        RegistryService.Write(new RegistryItem(TestKeyPath, "NotSetOptionTest", 1));
+        RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "NotSetOptionTest", 1));
         Assert.Equal(1, setting.CurrentValue);
 
         // Selecting the declared "NotSet" option deletes the registry value (binding null).
-        await setting.ApplyAsync("notset");
+        Assert.True((await setting.ApplyAsync("notset", NewCall())).Ok);
 
         var value = RegistryService.Read<object>(new RegistryItem(TestKeyPath, "NotSetOptionTest"));
         Assert.Null(value);
@@ -962,13 +969,13 @@ public class BaseCustomizeSettingTests : IDisposable
         var setting = new TestNotSetOptionDropdown { OwnerType = typeof(TestNotSetOptionDropdown) };
 
         // Not set → apply declared "On" → value written → apply "NotSet" → deleted again.
-        RegistryService.DeleteValue(new RegistryItem(TestKeyPath, "NotSetOptionTest"));
+        RegistryService.DeleteValue(NewCall(), new RegistryItem(TestKeyPath, "NotSetOptionTest"));
         Assert.Equal("notset", setting.CurrentValue);
 
-        await setting.ApplyAsync(1);
+        Assert.True((await setting.ApplyAsync(1, NewCall())).Ok);
         Assert.Equal(1, setting.CurrentValue);
 
-        await setting.ApplyAsync("notset");
+        Assert.True((await setting.ApplyAsync("notset", NewCall())).Ok);
         var value = RegistryService.Read<object>(new RegistryItem(TestKeyPath, "NotSetOptionTest"));
         Assert.Null(value);
         Assert.Equal("notset", setting.CurrentValue);
@@ -1011,7 +1018,7 @@ public class BaseCustomizeSettingTests : IDisposable
     {
         var setting = new TestMultiBindingDropdown { OwnerType = typeof(TestMultiBindingDropdown) };
 
-        await setting.ApplyAsync(1);
+        Assert.True((await setting.ApplyAsync(1, NewCall())).Ok);
 
         var valA = RegistryService.Read<int>(new RegistryItem(TestKeyPath, "Key1"));
         var valB = RegistryService.Read<int>(
@@ -1035,15 +1042,17 @@ public class BaseCustomizeSettingTests : IDisposable
         var setting = new TestMultiBindingDropdown { OwnerType = typeof(TestMultiBindingDropdown) };
 
         // Both keys = 1 → option "On" matches
-        RegistryService.Write(new RegistryItem(TestKeyPath, "Key1", 1));
+        RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "Key1", 1));
         RegistryService.Write(
+            NewCall(),
             new RegistryItem(@"HKCU\Software\TestOptimizerDuckMultiKey", "Key2", 1)
         );
         Assert.Equal(1, setting.CurrentValue);
 
         // Key A = 1, Key B = 0 → no match → returns primary binding raw value
-        RegistryService.Write(new RegistryItem(TestKeyPath, "Key1", 1));
+        RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "Key1", 1));
         RegistryService.Write(
+            NewCall(),
             new RegistryItem(@"HKCU\Software\TestOptimizerDuckMultiKey", "Key2", 0)
         );
         Assert.Equal(1, setting.CurrentValue);
@@ -1073,7 +1082,8 @@ public class BaseCustomizeSettingTests : IDisposable
     {
         public override object? CurrentValue => "custom";
 
-        public override Task ApplyAsync(object? value) => Task.CompletedTask;
+        public override Task<OpResult> ApplyAsync(object? value, OpCall call) =>
+            Task.FromResult(OpResult.Success());
 
         public override Task<bool> GetStateAsync() => Task.FromResult(true);
     }
@@ -1102,7 +1112,7 @@ public class BaseCustomizeSettingTests : IDisposable
         var setting = new TestMatchMissingDropdown { OwnerType = typeof(TestMatchMissingDropdown) };
 
         // Ensure key is deleted (absent)
-        RegistryService.DeleteValue(new RegistryItem(TestKeyPath, "AlignTestKey"));
+        RegistryService.DeleteValue(NewCall(), new RegistryItem(TestKeyPath, "AlignTestKey"));
 
         // Must match "Center" (value 1) without creating synthetic "Not set" fallback
         Assert.Equal(1, setting.CurrentValue);
@@ -1140,15 +1150,16 @@ public class BaseCustomizeSettingTests : IDisposable
         };
 
         // Both absent -> matches Always (0)
-        RegistryService.DeleteValue(new RegistryItem(TestKeyPath, "Glom1"));
+        RegistryService.DeleteValue(NewCall(), new RegistryItem(TestKeyPath, "Glom1"));
         RegistryService.DeleteValue(
+            NewCall(),
             new RegistryItem(@"HKCU\Software\TestOptimizerDuckMultiKey", "Glom2")
         );
 
         Assert.Equal(0, setting.CurrentValue);
 
         // Apply Never (2) -> writes both keys
-        await setting.ApplyAsync(2);
+        Assert.True((await setting.ApplyAsync(2, NewCall())).Ok);
         Assert.Equal(2, setting.CurrentValue);
         Assert.Equal(2, RegistryService.Read<int>(new RegistryItem(TestKeyPath, "Glom1")));
         Assert.Equal(

@@ -23,10 +23,10 @@
     - `Attributes/` — `[Optimization]`, `[CustomizeSetting]`, `[OptimizationCategory]`, `[CustomizeCategory]`
     - `Conditions/` — compatibility condition system: `ICondition`, `ConditionBase`, `ConditionResult`, `ConditionState`, `ConditionValidation`, `WindowsBuilds`, and `BuiltIn/` (Windows version, CPU/GPU brand, min RAM, registry-key/service existence conditions)
     - `Exceptions/` — `StepExecutionException`
-    - `Execution/` — `ExecutionScope` (ambient `AsyncLocal`-based step tracking)
+    - `Execution/` — `OpCall` (explicit per-operation context: changes, logger, cancellation), `ChangeSet` (thread-safe change collector) + `Change` (one recorded step, also the step result shown to the user), `OpResult` (single-operation result)
     - `Customize/Categories/` — Desktop, Gaming, Preferences, SystemFeatures (nested setting classes)
     - `Optimizations/Categories/` — Performance, SecurityAndPrivacy, Gpu, PowerManagement, BloatwareAndServices, UserExperience, AI (nested optimization classes)
-    - `Optimizations/Models/` — `BaseOptimization`, `ApplyResult`, `OptimizationContext`, `OptimizationResult`, `OperationStepResult`
+    - `Optimizations/Models/` — `BaseOptimization`, `ApplyResult`, `OptimizationContext`, `OptimizationResult`
     - `Optimizations/Models/Services/` — `RegistryItem`, `ServiceItem` (+ `ServiceStartupType`), `ShellResult`
     - `Optimizations/Models/Bloatware/` — `AppXPackage`
     - `Optimizations/Models/Cleanup/` — `CleanupItem`
@@ -37,12 +37,15 @@
     - `Revert/Steps/` — `RegistryRevertStep`, `ServiceRevertStep`, `ScheduledTaskRevertStep`, `ShellRevertStep`, `UsbPowerRevertStep`
     - `Configuration/` — `AppSettings`
     - `UI/` — enums: `OptimizationRisk`, `OptimizationTags` (flags), `OptimizationCategoryOrder`, `CustomizeOrder`, `OptimizationSuccessResult`, `OptimizationState` (ObservableObject with relative-time display), `RiskVisual`, `ProcessingProgress`, `LanguageOption`
+    - `Optimizations/Models/Services/` — also `RegistryValues` (shared value equality), `ShellPolicy` (shell success/error policy), `ShellResult`
   - `Services/` — business logic:
     - `Conditions/` — `ConditionEvaluator` (static, fail-open evaluation)
     - `Configuration/` — `ConfigManager`, `LanguageManager`
-    - `Customize/` — `CustomizeRegistry` (reflection-based discovery)
-    - `Optimization/` — `OptimizationRegistry`, `OptimizationService`
-    - `Optimization/Providers/` — static: `RegistryService`, `ShellService` (+ `ShellPolicy`), `ScheduledTaskService`, `ServiceProcessService`
+    - `Customize/` — `CustomizeRegistry` (reflection-based discovery), `CustomizationExecutor` (debounce + sequential serialization for setting writes)
+    - `Optimization/` — `OptimizationRegistry`, `OptimizationService`, `OptimizationValidation` (fail-fast Id checks at startup)
+    - `Optimization/Providers/` — `RegistryService`, `ScheduledTaskService`, `ServiceProcessService` are **static** (stateless); `ShellService` + `ProcessRunner` are DI singletons (stateful; `ShellService` reads the timeout live from settings). All take an explicit `OpCall`, record into `call.Changes`, log via `call.Logger`, return `OpResult`. `ShellMapping` centralises cmd/PowerShell argument building and result mapping.
+  - `Windows/Services/ScStartupTypeParser.cs` — shared parser for `sc.exe qc` START_TYPE output, used by `ServiceProcessService`.
+  - `ApplicationServiceCollectionExtensions.cs` — `AddOptimizerApplication(IConfiguration)`: the whole application graph, separated from `App.xaml.cs` so a test can build it
     - `Revert/` — `RevertManager` (atomic file-based revert data persistence)
     - `System/` — `RegistryWatcher` (+ `IRegistryWatcher`), `SystemInfoService` (defines `SystemSnapshot` + models), `StreamService`, `UpdaterService`, `CrossPageEventBus`, `CrossPageEvents`
     - `UI/` — `BloatwareService`, `DiskCleanupService`, `StartupManagerService`
@@ -69,12 +72,16 @@
 > Package versions live in `optimizerDuck.csproj` / `optimizerDuck.Test.csproj` — verify there rather than trusting this snapshot.
 
 ## Optimization & Customize Discovery (Reflection, No Manual Registration)
-- **New optimizations**: Create a **nested class** inside the relevant category class (e.g., `Domain/Optimizations/Categories/Performance.cs`), extend `BaseOptimization`, decorate with `[Optimization(Id = "guid", Risk = ..., Tags = ..., Condition = typeof(...)?)]`.
+- **New optimizations**: Create a **nested class** inside the relevant category class (e.g., `Domain/Optimizations/Categories/Performance.cs`), extend `BaseOptimization`, decorate with `[Optimization(Id = "guid", Risk = ..., Tags = ..., Condition = typeof(...)?)]`. This is the only optimization path.
 - **New customize settings**: Same nesting pattern inside `Domain/Customize/Categories/`, extend `BaseCustomizeSetting`, decorate with `[CustomizeSetting(Section = ..., Icon = ..., Recommendation = ..., Condition = typeof(...)?)]`. `Icon` is required (`SymbolRegular` enum). `Section` can be a string or enum value. `Recommendation` can be `On`, `Off`, `Depends`, `Experimental`, or `None`.
 - **Category classes**: Decorate with `[OptimizationCategory(typeof(PageClass))]` or `[CustomizeCategory(PageType = typeof(PageClass))]`.
 - **Discovery**: `ReflectionHelper.FindImplementationsInLoadedAssemblies<T>()` scans assemblies whose name starts with `optimizerDuck` — no DI registration array to update. Results are cached in `_implementationCache`.
-- **Static provider services**: `RegistryService`, `ServiceProcessService`, `ScheduledTaskService`, `ShellService` are **static classes** (not DI-registered). They capture revert steps into the ambient `ExecutionScope`.
-- **`CompleteFromScope()`**: Optimizations call `BaseOptimization.CompleteFromScope()` to build the `ApplyResult` from steps recorded in the ambient `ExecutionScope`. Do not manually construct `ApplyResult`.
+- **Provider services**: stateless services are static (`RegistryService`, `ServiceProcessService`, `ScheduledTaskService`) — call directly. `ShellService` + `ProcessRunner` are DI singletons, reached from optimizations as `context.Shell`. All take an explicit `OpCall`, record into `call.Changes`, return `OpResult`.
+- **Results**: Optimizations end `ApplyAsync` with `return context.Changes.ToApplyResult();`. Do not manually construct `ApplyResult` except for early-out failures.
+- **Single execution path**: `BaseOptimization` + `OptimizationContext` (`OpCall`) + static providers + `ShellService`, orchestrated by `OptimizationService`. There is no second framework — do not add one, and do not write a second implementation of an existing Windows operation.
+- **One implementation per Windows operation**: `RegistryService`/`ServiceProcessService`/`ScheduledTaskService`/`ShellService` are the single source of truth (plus the shared `ScStartupTypeParser`, `RegistryValues`, `ShellMapping`). Fix behaviour there, not in a copy.
+- **DI**: register through `AddOptimizerApplication(configuration)` (the whole app graph); `App.xaml.cs` only builds the host. The host sets `ValidateOnBuild`/`ValidateScopes`, so a broken registration fails at startup instead of at Apply time — keep it that way.
+- **Per-step failure policy**: providers record a failed `Change` with an error and (where a retry can help) a retry action; they do not throw. Only truly unrecoverable state throws. `OptimizationService` persists partial work with `CancellationToken.None` and builds the `OptimizationResult`.
 - **Preloading**: `OptimizationRegistry.PreloadOptimizationsAsync()` / `EnsurePreloadedAsync()` (and `CustomizeRegistry.PreloadCategoriesAsync()` / `EnsurePreloadedAsync()`) run reflection discovery on a background thread. `App.xaml.cs` preloads at startup; the Optimize/Customize pages call `EnsurePreloadedAsync()` before binding.
 
 ## Condition System (Compatibility Gating)
@@ -86,17 +93,14 @@
 
 ## Revert System
 - **File-based**: Each applied optimization creates `%LocalAppData%\optimizerDuck\Revert\{optimizationId}.json`. Applied state is inferred from file presence on disk.
-- **Atomic writes**: `RevertManager` writes to `.tmp` then `File.Replace` for crash safety.
-- **Concurrent access**: Per-file `SemaphoreSlim` locks with 30-second timeout prevent race conditions.
-- **Step types**: `RegistryRevertStep`, `ServiceRevertStep`, `ScheduledTaskRevertStep`, `ShellRevertStep`, `UsbPowerRevertStep`.
-- **`ExecutionScope`**: Uses `AsyncLocal<ExecutionScope?>` for ambient step tracking — no need to pass context through parameters.
-- **Scope variants**: `ExecutionScope.Begin()` (creates persistable scope), `ExecutionScope.BeginForLogging()` (logging only, no persistence), `ExecutionScope.BeginForCapture()` (for retry, `OptimizationId = Guid.Empty`).
-- **`ExecutionScope.RecordStep()`**: Auto-incremented index. Records name, description, success/fail status, revert step, error, retry action, error detail.
-- **`ExecutionScope.RecordStepAtIndex()`**: For retry — preserves original index layout in revert files.
-- **`ExecutionScope.Track()`**: Tracks service-level success/fail counts for summary logging.
+- **Atomic writes**: `RevertManager` writes to `.tmp` via `FileStream(WriteThrough)` + `Flush(flushToDisk: true)`, then `File.Replace` for crash safety. Stale `.tmp` files are swept at startup (`RemoveOrphanedTempFiles`).
+- **Concurrent access**: Per-file `SemaphoreSlim` locks with 30-second timeout prevent race conditions. Lock entries are never disposed while in use.
+- **Compact layout**: only successful steps persist, each with a fresh index; no null gaps. Re-apply appends new entries; recovered retry steps append via `AppendRevertStepAsync` (never overwrite — LIFO revert still ends at the original backup).
+- **Step types**: `RegistryRevertStep`, `ServiceRevertStep`, `ScheduledTaskRevertStep`, `ShellRevertStep`, `UsbPowerRevertStep`. Each verifies its own effect inside `ExecuteAsync` (registry read-back, service re-query, task state re-check). Access-denied is failure, never success. Missing `OriginalEnabled` throws (fail-closed).
+- **Unknown types**: persisted data with an unregistered step type becomes a failing step with a clear message (never silently skipped); raw payload round-trips.
 - **Step registry**: Revert step deserialization uses reflection-based `_stepRegistry` (`ConcurrentDictionary`). New step types auto-register by implementing `IRevertStep` with a static `FromData(JObject)` method.
-- **Upsert**: `RevertManager.UpsertRevertStepAtIndexAsync()` can add/replace revert steps at specific indices (used during retry to persist recovered steps).
-- **Key methods**: `SaveRevertDataAsync()`, `RevertAsync()`, `IsAppliedAsync(id)`, `GetRevertDataAsync(id)`, `ClearAllRevertData()`.
+- **Retry**: `OptimizationService.RetryFailedStepsWithResultsAsync()` re-invokes `Retry` with a fresh `OpCall` and persists recovered steps via `AppendRevertStepAsync`.
+- **Key methods**: `SaveRevertDataAsync()`, `RevertAsync()`, `AppendRevertStepAsync()`, `RemoveRevertStepsAtIndexesAsync()`, `IsAppliedAsync(id)`, `GetRevertDataAsync(id)`, `ClearAllRevertData()`, `RemoveOrphanedTempFiles()`.
 
 ## Customize Setting API Notes
 - `RegistryToggle` uses `OnValues` / `OffValues` (lists; `null` = key absent) + `DefaultValue`, `IsOptional`, `ValueKind`. There is no `OnValue`/`OffValue`/`TreatMissingAsDefault`.
@@ -112,7 +116,8 @@
 - DI via `Microsoft.Extensions.Hosting` + `CommunityToolkit.Mvvm`. Pages + ViewModels registered as singletons in `App.xaml.cs`.
 - `optimizerDuck.csproj` has `<InternalsVisibleTo Include="optimizerDuck.Test" />` — test project can access internal members.
 - Category pages auto-register via `services.AddAllCustomizeCategoryPages()` and `services.AddAllOptimizationPages()`.
-- ShellService must be initialized at startup: `ShellService.Init(appOptionsMonitor)`.
+- `ProcessRunner` + `ShellService` come from DI; there is no init step. `OptimizationService` creates the per-apply `ChangeSet`. Revert steps that run commands receive the app shell service from `RevertManager` so the configured timeout applies to undo.
+- The full build/format/analysis gate is: `dotnet build ... Release` must be **0 warnings** (`.editorconfig` promotes CA2016/CA1068/CA2250/CA2213/CA2219/IDE0330 to warnings), then `dotnet test`, then `csharpier check .`.
 - `WmiHelper.Initialize()` registers WMI cleanup for abnormal termination.
 
 ## Testing (xUnit v3, Integration-Style)
@@ -127,9 +132,8 @@
 - **Test project packages**: `Microsoft.NET.Test.Sdk` 18.6.0, `xunit.v3` 3.2.2, `coverlet.collector` 10.0.1.
 
 ## Shell Service Details
-- `ShellService.CMD()` and `CMDAsync()` run commands in cmd.exe.
-- `ShellService.PowerShell()` and `PowerShellAsync()` run commands with `-EncodedCommand` for safe encoding.
-- Both sync and async variants accept an optional `ShellRevertStep` (from `revertCommand` string or `Func<string>`) that gets saved for undo.
+- `ShellService.CMDAsync()` and `PowerShellAsync()` run commands in cmd.exe / PowerShell (`-EncodedCommand`). `QueryCMDAsync()` / `QueryPowerShellAsync()` run without recording a change.
+- Async variants accept an optional revert step (from `revertCommand` string) that gets saved for undo.
 - `ShellPolicy` class provides customizable success criteria (default: exit code 0). Use `ShellPolicy.SuccessExitCodes()` or `ShellPolicy.SuccessExitCodeRange()` for non-standard exit codes.
 - Default timeout: 120 seconds (configurable via `AppSettings.Optimize.ShellTimeoutMs`).
 - UTF-8 encoding is forced for both stdout and stderr.

@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Logging.Abstractions;
 using optimizerDuck.Domain.Optimizations.Models.Cleanup;
+using optimizerDuck.Services.Optimization.Providers;
 using optimizerDuck.Services.UI;
 using Wpf.Ui.Controls;
 
@@ -7,6 +8,12 @@ namespace optimizerDuck.Test.Services.UI;
 
 public class DiskCleanupServiceTests
 {
+    private static DiskCleanupService NewService() =>
+        new(
+            NullLogger<DiskCleanupService>.Instance,
+            new ShellService(new ProcessRunner(120000, NullLogger<ProcessRunner>.Instance))
+        );
+
     [Fact]
     public async Task CleanAsync_DoesNotDeleteFilesInDotNetDirectory()
     {
@@ -26,7 +33,7 @@ public class DiskCleanupServiceTests
 
         try
         {
-            var service = new DiskCleanupService(NullLogger<DiskCleanupService>.Instance);
+            var service = NewService();
             var item = new CleanupItem
             {
                 Id = "TempFiles",
@@ -83,7 +90,7 @@ public class DiskCleanupServiceTests
 
         try
         {
-            var service = new DiskCleanupService(NullLogger<DiskCleanupService>.Instance);
+            var service = NewService();
             var item = new CleanupItem
             {
                 Id = "TempFiles",

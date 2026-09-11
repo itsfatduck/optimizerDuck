@@ -36,4 +36,34 @@ public class BloatwareServiceTests
 
         Assert.Equal(expected, result);
     }
+
+    [Fact]
+    public void ParsePackages_SingleObjectJson_ReturnsOnePackage()
+    {
+        // PowerShell's ConvertTo-Json emits a bare object for one package and an array
+        // for several; the single-object shape must not deserialize to an empty list.
+        const string json = """
+            {"Name":"A.B","PackageFullName":"A.B_1.0.0.0_x64__abc","Publisher":"CN=X","Version":"1.0.0.0","InstallLocation":"","Risk":"Safe"}
+            """;
+
+        var packages = BloatwareService.ParsePackages(json);
+
+        var package = Assert.Single(packages);
+        Assert.Equal("A.B", package.Name);
+        Assert.Equal(AppRisk.Safe, package.Risk);
+    }
+
+    [Fact]
+    public void ParsePackages_ArrayJson_ReturnsAllPackages()
+    {
+        const string json = """
+            [{"Name":"A.B","PackageFullName":"A.B_1.0.0.0_x64__abc","Publisher":"CN=X","Version":"1.0.0.0","InstallLocation":"","Risk":"Safe"},
+             {"Name":"C.D","PackageFullName":"C.D_1.0.0.0_x64__abc","Publisher":"CN=X","Version":"1.0.0.0","InstallLocation":"","Risk":"Caution"}]
+            """;
+
+        var packages = BloatwareService.ParsePackages(json);
+
+        Assert.Equal(2, packages.Count);
+        Assert.Equal(AppRisk.Caution, packages[1].Risk);
+    }
 }

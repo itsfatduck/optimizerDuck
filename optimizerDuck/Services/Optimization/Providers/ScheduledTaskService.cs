@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using Microsoft.Extensions.Logging;
 using Microsoft.Win32.TaskScheduler;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Revert.Steps;
@@ -12,14 +13,8 @@ namespace optimizerDuck.Services.Optimization.Providers;
 
 public static class ScheduledTaskService
 {
-    private static readonly AsyncLocal<string?> _lastError = new();
-    private static readonly AsyncLocal<string?> _lastErrorDetail = new();
-
-    internal static string? LastError => _lastError.Value;
-    internal static string? LastErrorDetail => _lastErrorDetail.Value;
-
     /// <summary>Checks whether a task at the given full path exists and is enabled.</summary>
-    public static bool IsTaskEnabled(string fullPath)
+    public static bool IsTaskEnabled(string fullPath, ILogger? logger = null)
     {
         try
         {
@@ -29,7 +24,7 @@ public static class ScheduledTaskService
         }
         catch (Exception ex)
         {
-            ExecutionScope.LogDebug(
+            logger?.LogDebug(
                 "Failed to check task enabled state {Path}: {Error}",
                 fullPath,
                 ex.Message
@@ -38,12 +33,13 @@ public static class ScheduledTaskService
         }
     }
 
-    /// <summary>Disables a scheduled task.</summary>
+    /// <summary>Disables a scheduled task, recording the change into <paramref name="call"/>.</summary>
+    /// <param name="call">The explicit call context: change collector, logger and cancellation token.</param>
     /// <param name="fullPath">The full path of the task to disable.</param>
-    /// <returns><see langword="true" /> if the task was disabled; otherwise, <see langword="false" />.</returns>
-    public static bool DisableTask(string fullPath)
+    /// <returns>The outcome of the disable request.</returns>
+    public static OpResult DisableTask(OpCall call, string fullPath)
     {
-        _lastError.Value = _lastErrorDetail.Value = null;
+        ArgumentNullException.ThrowIfNull(call);
 
         var description = ServiceStrings.Format(
             ServiceStrings.ScheduledTaskDescriptionDisable,
@@ -70,61 +66,56 @@ public static class ScheduledTaskService
                     OriginalEnabled = true,
                 };
 
-            ExecutionScope.LogInfo("Disabled task {Path}", fullPath);
-            ExecutionScope.Track(nameof(DisableTask), true);
-            ExecutionScope.RecordStep(
-                ServiceStrings.ScheduledTaskName,
-                description,
-                true,
-                revertStep
-            );
-            return true;
+            call.Logger.LogInformation("Disabled task {Path}", fullPath);
+            call.Changes.Add(ServiceStrings.ScheduledTaskName, description, true, revertStep);
+            return OpResult.Success(revertStep);
         }
-        catch (UnauthorizedAccessException)
+        catch (UnauthorizedAccessException ex)
         {
-            _lastError.Value = ServiceStrings.CommonErrorAccessDenied;
-            _lastErrorDetail.Value = ServiceStrings.Format(
+            var error = ServiceStrings.CommonErrorAccessDenied;
+            var errorDetail = ServiceStrings.Format(
                 ServiceStrings.ScheduledTaskErrorDetailAccessDeniedDisable,
                 fullPath
             );
-            ExecutionScope.LogError(null, "Access denied disabling task {Path}", fullPath);
-            ExecutionScope.Track(nameof(DisableTask), false);
-            ExecutionScope.RecordStep(
+            call.Logger.LogError(ex, "Access denied disabling task {Path}", fullPath);
+            call.Changes.Add(
                 ServiceStrings.ScheduledTaskName,
                 description,
                 false,
                 null,
-                _lastError.Value,
-                () => global::System.Threading.Tasks.Task.FromResult(DisableTask(fullPath)),
-                _lastErrorDetail.Value
+                error,
+                errorDetail,
+                retryCall =>
+                    global::System.Threading.Tasks.Task.FromResult(DisableTask(retryCall, fullPath))
             );
-            return false;
+            return OpResult.Fail(error, errorDetail);
         }
         catch (Exception ex)
         {
-            _lastError.Value = ex.Message;
-            _lastErrorDetail.Value = ex.ToString();
-            ExecutionScope.LogError(ex, "Failed to disable task {Path}", fullPath);
-            ExecutionScope.Track(nameof(DisableTask), false);
-            ExecutionScope.RecordStep(
+            var error = ex.Message;
+            var errorDetail = ex.ToString();
+            call.Logger.LogError(ex, "Failed to disable task {Path}", fullPath);
+            call.Changes.Add(
                 ServiceStrings.ScheduledTaskName,
                 description,
                 false,
                 null,
-                _lastError.Value,
-                () => global::System.Threading.Tasks.Task.FromResult(DisableTask(fullPath)),
-                _lastErrorDetail.Value
+                error,
+                errorDetail,
+                retryCall =>
+                    global::System.Threading.Tasks.Task.FromResult(DisableTask(retryCall, fullPath))
             );
-            return false;
+            return OpResult.Fail(error, errorDetail);
         }
     }
 
-    /// <summary>Enables a scheduled task.</summary>
+    /// <summary>Enables a scheduled task, recording the change into <paramref name="call"/>.</summary>
+    /// <param name="call">The explicit call context: change collector, logger and cancellation token.</param>
     /// <param name="fullPath">The full path of the task to enable.</param>
-    /// <returns><see langword="true" /> if the task was enabled; otherwise, <see langword="false" />.</returns>
-    public static bool EnableTask(string fullPath)
+    /// <returns>The outcome of the enable request.</returns>
+    public static OpResult EnableTask(OpCall call, string fullPath)
     {
-        _lastError.Value = _lastErrorDetail.Value = null;
+        ArgumentNullException.ThrowIfNull(call);
 
         var description = ServiceStrings.Format(
             ServiceStrings.ScheduledTaskDescriptionEnable,
@@ -151,64 +142,58 @@ public static class ScheduledTaskService
                     OriginalEnabled = false,
                 };
 
-            ExecutionScope.LogInfo("Enabled task {Path}", fullPath);
-            ExecutionScope.Track(nameof(EnableTask), true);
-            ExecutionScope.RecordStep(
-                ServiceStrings.ScheduledTaskName,
-                description,
-                true,
-                revertStep
-            );
-            return true;
+            call.Logger.LogInformation("Enabled task {Path}", fullPath);
+            call.Changes.Add(ServiceStrings.ScheduledTaskName, description, true, revertStep);
+            return OpResult.Success(revertStep);
         }
-        catch (UnauthorizedAccessException)
+        catch (UnauthorizedAccessException ex)
         {
-            _lastError.Value = ServiceStrings.CommonErrorAccessDenied;
-            _lastErrorDetail.Value = ServiceStrings.Format(
+            var error = ServiceStrings.CommonErrorAccessDenied;
+            var errorDetail = ServiceStrings.Format(
                 ServiceStrings.ScheduledTaskErrorDetailAccessDeniedEnable,
                 fullPath
             );
-            ExecutionScope.LogError(null, "Access denied enabling task {Path}", fullPath);
-            ExecutionScope.Track(nameof(EnableTask), false);
-            ExecutionScope.RecordStep(
+            call.Logger.LogError(ex, "Access denied enabling task {Path}", fullPath);
+            call.Changes.Add(
                 ServiceStrings.ScheduledTaskName,
                 description,
                 false,
                 null,
-                _lastError.Value,
-                () => global::System.Threading.Tasks.Task.FromResult(EnableTask(fullPath)),
-                _lastErrorDetail.Value
+                error,
+                errorDetail,
+                retryCall =>
+                    global::System.Threading.Tasks.Task.FromResult(EnableTask(retryCall, fullPath))
             );
-            return false;
+            return OpResult.Fail(error, errorDetail);
         }
         catch (Exception ex)
         {
-            _lastError.Value = ex.Message;
-            _lastErrorDetail.Value = ex.ToString();
-            ExecutionScope.LogError(ex, "Failed to enable task {Path}", fullPath);
-            ExecutionScope.Track(nameof(EnableTask), false);
-            ExecutionScope.RecordStep(
+            var error = ex.Message;
+            var errorDetail = ex.ToString();
+            call.Logger.LogError(ex, "Failed to enable task {Path}", fullPath);
+            call.Changes.Add(
                 ServiceStrings.ScheduledTaskName,
                 description,
                 false,
                 null,
-                _lastError.Value,
-                () => global::System.Threading.Tasks.Task.FromResult(EnableTask(fullPath)),
-                _lastErrorDetail.Value
+                error,
+                errorDetail,
+                retryCall =>
+                    global::System.Threading.Tasks.Task.FromResult(EnableTask(retryCall, fullPath))
             );
-            return false;
+            return OpResult.Fail(error, errorDetail);
         }
     }
 
     /// <summary>Retrieves all scheduled tasks from the system, including icon extraction.</summary>
     /// <returns>A list of all scheduled tasks.</returns>
-    public static List<ScheduledTaskModel> GetAllTasks()
+    public static List<ScheduledTaskModel> GetAllTasks(ILogger? logger = null)
     {
         var results = new List<ScheduledTaskModel>();
         try
         {
             using var ts = new TaskService();
-            CollectTasks(ts.RootFolder, results);
+            CollectTasks(ts.RootFolder, results, logger);
 
             // Extract icons from task commands
             Parallel.ForEach(
@@ -223,7 +208,7 @@ public static class ScheduledTaskService
         }
         catch (Exception ex)
         {
-            ExecutionScope.LogError(ex, "Failed to enumerate scheduled tasks");
+            logger?.LogError(ex, "Failed to enumerate scheduled tasks");
         }
 
         return results;
@@ -231,20 +216,21 @@ public static class ScheduledTaskService
 
     /// <summary>Returns startup-related tasks: those with a LogonTrigger or BootTrigger.</summary>
     /// <returns>A list of startup-related tasks ordered by name.</returns>
-    public static List<ScheduledTaskModel> GetStartupTasks()
+    public static List<ScheduledTaskModel> GetStartupTasks(ILogger? logger = null)
     {
-        return GetAllTasks()
+        return GetAllTasks(logger)
             .Where(t => t.HasLogonTrigger || t.HasBootTrigger)
             .OrderBy(t => t.Name)
             .ToList();
     }
 
     /// <summary>Runs a scheduled task immediately.</summary>
+    /// <param name="call">Optional call context used for change recording and logging.</param>
     /// <param name="fullPath">The full path of the task to run.</param>
-    /// <returns><see langword="true" /> if the task was started; otherwise, <see langword="false" />.</returns>
-    public static bool RunTask(string fullPath)
+    /// <returns>The outcome of the run request. No revert step: starting a task is not reversible.</returns>
+    public static OpResult RunTask(OpCall? call, string fullPath)
     {
-        _lastError.Value = _lastErrorDetail.Value = null;
+        var description = ServiceStrings.Format("Run scheduled task: {0}", fullPath);
 
         try
         {
@@ -255,24 +241,36 @@ public static class ScheduledTaskService
                     Loc.Instance["ScheduledTasks.Error.TaskNotFound", fullPath]
                 );
             task.Run();
-            ExecutionScope.LogInfo("Started task {Path}", fullPath);
-            return true;
+            call?.Logger.LogInformation("Started task {Path}", fullPath);
+            call?.Changes.Add(ServiceStrings.ScheduledTaskName, description, true);
+            return OpResult.Success();
         }
         catch (Exception ex)
         {
-            _lastError.Value = ex.Message;
-            _lastErrorDetail.Value = ex.ToString();
-            ExecutionScope.LogError(ex, "Failed to run task {Path}", fullPath);
-            return false;
+            var error = ex.Message;
+            var errorDetail = ex.ToString();
+            call?.Logger.LogError(ex, "Failed to run task {Path}", fullPath);
+            call?.Changes.Add(
+                ServiceStrings.ScheduledTaskName,
+                description,
+                false,
+                null,
+                error,
+                errorDetail,
+                retryCall =>
+                    global::System.Threading.Tasks.Task.FromResult(RunTask(retryCall, fullPath))
+            );
+            return OpResult.Fail(error, errorDetail);
         }
     }
 
     /// <summary>Stops a running scheduled task.</summary>
+    /// <param name="call">Optional call context used for change recording and logging.</param>
     /// <param name="fullPath">The full path of the task to stop.</param>
-    /// <returns><see langword="true" /> if the task was stopped; otherwise, <see langword="false" />.</returns>
-    public static bool StopTask(string fullPath)
+    /// <returns>The outcome of the stop request. No revert step: stopping a task is not reversible.</returns>
+    public static OpResult StopTask(OpCall? call, string fullPath)
     {
-        _lastError.Value = _lastErrorDetail.Value = null;
+        var description = ServiceStrings.Format("Stop scheduled task: {0}", fullPath);
 
         try
         {
@@ -283,22 +281,34 @@ public static class ScheduledTaskService
                     Loc.Instance["ScheduledTasks.Error.TaskNotFound", fullPath]
                 );
             task.Stop();
-            ExecutionScope.LogInfo("Stopped task {Path}", fullPath);
-            return true;
+            call?.Logger.LogInformation("Stopped task {Path}", fullPath);
+            call?.Changes.Add(ServiceStrings.ScheduledTaskName, description, true);
+            return OpResult.Success();
         }
         catch (Exception ex)
         {
-            _lastError.Value = ex.Message;
-            _lastErrorDetail.Value = ex.ToString();
-            ExecutionScope.LogError(ex, "Failed to stop task {Path}", fullPath);
-            return false;
+            var error = ex.Message;
+            var errorDetail = ex.ToString();
+            call?.Logger.LogError(ex, "Failed to stop task {Path}", fullPath);
+            call?.Changes.Add(
+                ServiceStrings.ScheduledTaskName,
+                description,
+                false,
+                null,
+                error,
+                errorDetail,
+                retryCall =>
+                    global::System.Threading.Tasks.Task.FromResult(StopTask(retryCall, fullPath))
+            );
+            return OpResult.Fail(error, errorDetail);
         }
     }
 
     /// <summary>Gets the current state string of a task.</summary>
     /// <param name="fullPath">The full path of the task.</param>
+    /// <param name="logger">Optional logger used only for logging.</param>
     /// <returns>The task state string, or <see langword="null" /> if the task is not found or an error occurs.</returns>
-    public static string? GetTaskState(string fullPath)
+    public static string? GetTaskState(string fullPath, ILogger? logger = null)
     {
         try
         {
@@ -308,21 +318,21 @@ public static class ScheduledTaskService
         }
         catch (Exception ex)
         {
-            ExecutionScope.LogDebug(
-                "Failed to get state for task {Path}: {Error}",
-                fullPath,
-                ex.Message
-            );
+            logger?.LogDebug("Failed to get state for task {Path}: {Error}", fullPath, ex.Message);
             return null;
         }
     }
 
-    /// <summary>Deletes a scheduled task.</summary>
+    /// <summary>Deletes a scheduled task. This is destructive and cannot be undone.</summary>
+    /// <param name="call">Optional call context used for change recording and logging.</param>
     /// <param name="fullPath">The full path of the task to delete.</param>
-    /// <returns><see langword="true" /> if the task was deleted; otherwise, <see langword="false" />.</returns>
-    public static bool DeleteTask(string fullPath)
+    /// <returns>The outcome of the delete request. No revert step.</returns>
+    public static OpResult DeleteTask(OpCall? call, string fullPath)
     {
-        _lastError.Value = _lastErrorDetail.Value = null;
+        var description = ServiceStrings.Format(
+            "Delete scheduled task: {0} (cannot be undone)",
+            fullPath
+        );
 
         try
         {
@@ -334,24 +344,45 @@ public static class ScheduledTaskService
                 );
             var folderPath = task.Folder.Path;
             ts.GetFolder(folderPath).DeleteTask(task.Name);
-            ExecutionScope.LogInfo("Deleted task {Path}", fullPath);
-            return true;
+            call?.Logger.LogInformation("Deleted task {Path}", fullPath);
+            call?.Changes.Add(ServiceStrings.ScheduledTaskName, description, true);
+            return OpResult.Success();
         }
         catch (Exception ex)
         {
-            _lastError.Value = ex.Message;
-            _lastErrorDetail.Value = ex.ToString();
-            ExecutionScope.LogError(ex, "Failed to delete task {Path}", fullPath);
-            return false;
+            var error = ex.Message;
+            var errorDetail = ex.ToString();
+            call?.Logger.LogError(ex, "Failed to delete task {Path}", fullPath);
+            call?.Changes.Add(
+                ServiceStrings.ScheduledTaskName,
+                description,
+                false,
+                null,
+                error,
+                errorDetail,
+                retryCall =>
+                    global::System.Threading.Tasks.Task.FromResult(DeleteTask(retryCall, fullPath))
+            );
+            return OpResult.Fail(error, errorDetail);
         }
     }
 
-    /// <summary>[WIP] Registers a new scheduled task from a model definition.</summary>
+    /// <summary>Registers a new scheduled task from a model definition. Overwrites any existing task with the same name.</summary>
+    /// <param name="call">Optional call context used for change recording and logging.</param>
     /// <param name="folderPath">The target folder path (e.g. <c>\MyApp</c>).</param>
     /// <param name="model">The task definition model.</param>
-    /// <exception cref="InvalidOperationException">Failed to create a registry subkey during registration.</exception>
-    public static void RegisterTask(string folderPath, ScheduledTaskModel model)
+    /// <returns>The outcome of the registration. No revert step.</returns>
+    public static OpResult RegisterTask(OpCall? call, string folderPath, ScheduledTaskModel model)
     {
+        var displayPath =
+            string.IsNullOrWhiteSpace(folderPath) || folderPath == "\\"
+                ? $"\\{model.Name}"
+                : $"{folderPath.TrimEnd('\\')}\\{model.Name}";
+        var description = ServiceStrings.Format(
+            "Register scheduled task: {0} (overwrites existing task, cannot be undone)",
+            displayPath
+        );
+
         try
         {
             using var ts = new TaskService();
@@ -409,27 +440,47 @@ public static class ScheduledTaskService
                 }
 
             folder.RegisterTaskDefinition(model.Name, td);
-            ExecutionScope.LogInfo(
+            call?.Logger.LogInformation(
                 "Registered task {Name} in folder {Folder}",
                 model.Name,
                 folderPath
             );
+            call?.Changes.Add(ServiceStrings.ScheduledTaskName, description, true);
+            return OpResult.Success();
         }
         catch (Exception ex)
         {
-            ExecutionScope.LogError(
+            var error = ex.Message;
+            var errorDetail = ex.ToString();
+            call?.Logger.LogError(
                 ex,
                 "Failed to register task {Name} in {Folder}",
                 model.Name,
                 folderPath
             );
-            throw;
+            call?.Changes.Add(
+                ServiceStrings.ScheduledTaskName,
+                description,
+                false,
+                null,
+                error,
+                errorDetail,
+                retryCall =>
+                    global::System.Threading.Tasks.Task.FromResult(
+                        RegisterTask(retryCall, folderPath, model)
+                    )
+            );
+            return OpResult.Fail(error, errorDetail);
         }
     }
 
     #region Helpers
 
-    private static void CollectTasks(TaskFolder folder, List<ScheduledTaskModel> results)
+    private static void CollectTasks(
+        TaskFolder folder,
+        List<ScheduledTaskModel> results,
+        ILogger? logger
+    )
     {
         try
         {
@@ -440,23 +491,15 @@ public static class ScheduledTaskService
                 }
                 catch (Exception ex)
                 {
-                    ExecutionScope.LogDebug(
-                        "Failed to map task {Name}: {Error}",
-                        task.Name,
-                        ex.Message
-                    );
+                    logger?.LogDebug("Failed to map task {Name}: {Error}", task.Name, ex.Message);
                 }
 
             foreach (var subFolder in folder.SubFolders)
-                CollectTasks(subFolder, results);
+                CollectTasks(subFolder, results, logger);
         }
         catch (Exception ex)
         {
-            ExecutionScope.LogDebug(
-                "Failed to enumerate folder {Path}: {Error}",
-                folder.Path,
-                ex.Message
-            );
+            logger?.LogDebug("Failed to enumerate folder {Path}: {Error}", folder.Path, ex.Message);
         }
     }
 

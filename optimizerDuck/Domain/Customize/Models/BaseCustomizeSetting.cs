@@ -4,6 +4,7 @@ using optimizerDuck.Common.Extensions;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.Optimization.Providers;
@@ -29,7 +30,7 @@ public abstract partial class BaseCustomizeSetting : LocalizedObject, ICustomize
                 $"{GetType().Name} is missing [CustomizeSetting] attribute"
             );
 
-    public Type? OwnerType { get; set; }
+    public Type? OwnerType { get; internal set; }
 
     public string OwnerKey =>
         OwnerType?.Name
@@ -198,40 +199,70 @@ public abstract partial class BaseCustomizeSetting : LocalizedObject, ICustomize
     /// <summary>
     ///     Applies the value to the registry: for toggles a <see cref="bool"/>, for
     ///     dropdowns the matching declared option's bindings. Then runs any post-apply
-    ///     Windows refresh declared by <see cref="RefreshScope"/>.
+    ///     Windows refresh declared by <see cref="RefreshScope"/>. Every write is
+    ///     recorded into <paramref name="call"/> (provider-stable keys). The first
+    ///     failure wins the return, but all writes are still attempted (partial
+    ///     application recorded).
     /// </summary>
     /// <param name="value">The value to apply. The synthetic "Custom"/"Not set" fallback
     ///     value is a safe no-op.</param>
-    public virtual async Task ApplyAsync(object? value)
+    /// <param name="call">The explicit per-operation call context (change collector, logger, cancellation).</param>
+    /// <returns>The first failure, or success when every write succeeded.</returns>
+    public virtual async Task<OpResult> ApplyAsync(object? value, OpCall call)
     {
+        OpResult? firstFailure = null;
+
         if (value is bool isOn)
         {
-            await Task.Run(() =>
+            // Attempt every toggle even after a failure; the first failure
+            // wins the return while partial application stays recorded.
+            foreach (var toggle in RegistryToggles)
             {
-                foreach (var toggle in RegistryToggles)
-                    toggle.SetState(isOn);
-            });
+                try
+                {
+                    var toggleResult = toggle.SetState(isOn, call);
+                    if (!toggleResult.Ok)
+                        firstFailure ??= toggleResult;
+                }
+                catch (Exception ex)
+                {
+                    firstFailure ??= OpResult.Fail($"Failed to apply {LogName}", ex.Message);
+                }
+            }
         }
         else if (ControlType == CustomizeControlType.Dropdown && GetOptions() is { } options)
         {
             // Find the matching declared option and apply all its bindings. The
             // "Custom"/"Not set" fallback is never a declared option, so applying it
             // is a safe no-op.
-            var option = options.FirstOrDefault(o => Equals(o.Value, value));
+            var option = options.FirstOrDefault(o => ValuesEqual(o.Value, value));
             if (option?.Bindings is { Count: > 0 })
             {
-                foreach (var binding in option.Bindings)
-                {
-                    if (binding.Value == null)
-                        RegistryService.DeleteValue(new RegistryItem(binding.Path, binding.Name));
-                    else
-                        RegistryService.Write(binding.ToRegistryItem());
-                }
+                // Split by action, then batch: a binding with no value deletes the value.
+                var toWrite = option
+                    .Bindings.Where(b => b.Value != null)
+                    .Select(b => b.ToRegistryItem())
+                    .ToArray();
+                var toDelete = option
+                    .Bindings.Where(b => b.Value == null)
+                    .Select(b => new RegistryItem(b.Path, b.Name))
+                    .ToArray();
+
+                // All bindings are attempted; the first failure wins the return.
+                var results = new List<OpResult>();
+                if (toDelete.Length > 0)
+                    results.Add(RegistryService.DeleteValue(call, toDelete));
+                if (toWrite.Length > 0)
+                    results.Add(RegistryService.Write(call, toWrite));
+
+                firstFailure = OpResult.FirstFailure(results);
             }
         }
 
         if (NeedsPostAction)
             await ExecutePostActionAsync();
+
+        return firstFailure ?? OpResult.Success();
     }
 
     protected virtual IEnumerable<RegistryToggle> RegistryToggles => [];

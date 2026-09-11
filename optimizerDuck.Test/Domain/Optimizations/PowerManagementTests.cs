@@ -10,17 +10,17 @@ public class PowerManagementTests
     [Fact]
     public void RegistryPath_WithHklmPrefix_IsReadable()
     {
-        using var scope = ExecutionScope.BeginForLogging(NullLogger.Instance);
+        var call = new OpCall { Logger = NullLogger.Instance };
         var key = $@"HKCU\SOFTWARE\OptimizerDuckTest\{Guid.NewGuid():N}";
 
         try
         {
-            Assert.True(RegistryService.Write(new RegistryItem(key, "Probe", 1)));
+            Assert.True(RegistryService.Write(call, new RegistryItem(key, "Probe", 1)).Ok);
             Assert.Equal(1, RegistryService.Read<int>(new RegistryItem(key, "Probe")));
         }
         finally
         {
-            RegistryService.DeleteSubKeyTree(new RegistryItem(key));
+            RegistryService.DeleteSubKeyTree(call, new RegistryItem(key));
         }
     }
 }

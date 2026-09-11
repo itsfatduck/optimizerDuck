@@ -1,6 +1,7 @@
 using System.Collections.Concurrent;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -13,10 +14,11 @@ using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
+using optimizerDuck.Services.Optimization.Providers;
 
 namespace optimizerDuck.Services.Revert;
 
-public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _loggerFactory)
+public class RevertManager(ILogger<RevertManager> _logger, ShellService _shell, TimeProvider _time)
 {
     private const int SchemaVersion = 1;
     private const int FileLockTimeoutSeconds = 30;
@@ -26,57 +28,92 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
 
     private static readonly ConcurrentDictionary<Guid, SemaphoreSlim> _fileLocks = new();
 
-    public async Task SaveRevertDataAsync(ExecutionScope scope)
-    {
-        var successfulSteps = scope
-            .ExecutedSteps.Where(s => s.Success && s.RevertStep != null)
-            .ToList();
-
-        if (successfulSteps.Count == 0)
-            return;
-
-        var maxIndex = successfulSteps.Max(s => s.Index);
-        var steps = new RevertStepData?[maxIndex];
-
-        foreach (var executedStep in successfulSteps)
-        {
-            var arrayIndex = executedStep.Index - 1;
-            steps[arrayIndex] = new RevertStepData
-            {
-                Index = executedStep.Index,
-                Type = executedStep.RevertStep!.Type,
-                Data = executedStep.RevertStep.ToData(),
-            };
-        }
-
-        var optimizationId = scope.OptimizationId!.Value;
-        await WriteJsonAsync(
-                optimizationId,
-                GetFilePath(optimizationId),
-                new RevertData
-                {
-                    SchemaVersion = SchemaVersion,
-                    OptimizationId = optimizationId,
-                    OptimizationName = scope.OptimizationName ?? scope.OptimizationKey!,
-                    AppliedAt = DateTime.Now,
-                    Steps = steps,
-                }
-            )
-            .ConfigureAwait(false);
-    }
-
-    public async Task<RevertResult> RevertAsync(
-        IOptimization optimization,
-        IProgress<ProcessingProgress>? progress = null
+    /// <summary>
+    ///     Persists revert steps from a <see cref="ChangeSet"/>. Appends every successful change as a new entry with a fresh index —
+    ///     no payload-based dedupe: two executions of the same command are two real executions; dropping either loses revert coverage.
+    ///     Reverting extra entries is harmless (LIFO ends at the original backup).
+    /// </summary>
+    public async Task SaveRevertDataAsync(
+        ChangeSet changes,
+        Guid id,
+        string name,
+        CancellationToken cancellationToken = default
     )
     {
-        var operationLogger = _loggerFactory.CreateLogger<RevertManager>();
-        using var scope = ExecutionScope.BeginForLogging(
-            optimization.Id,
-            optimization.OptimizationKey,
-            operationLogger
-        );
+        var incoming = changes
+            .Changes.Where(c => c.Ok && c.Revert != null)
+            .OrderBy(c => c.Index)
+            .ToList();
 
+        if (incoming.Count == 0)
+            return;
+
+        var filePath = GetFilePath(id);
+        var lockObj = await AcquireFileLockAsync(id).ConfigureAwait(false);
+        try
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            var data =
+                await LoadAsync(filePath, _logger).ConfigureAwait(false)
+                ?? new RevertData
+                {
+                    SchemaVersion = SchemaVersion,
+                    OptimizationId = id,
+                    OptimizationName = name,
+                    AppliedAt = _time.GetLocalNow().DateTime,
+                    Steps = Array.Empty<RevertStepData?>(),
+                };
+
+            data.OptimizationName = name;
+
+            // Every incoming change appends its own entry with a fresh index.
+            // No payload-based dedupe: two executions of the same command are
+            // two real executions, and dropping either loses revert coverage.
+            // Reverting extra entries is harmless (LIFO ends at the original
+            // backup); dropping one silently is not. Indexes are never reused
+            // so on-disk entries stay stable across saves.
+            var nextIndex =
+                data.Steps.Where(s => s != null).Select(s => s!.Index).DefaultIfEmpty(0).Max() + 1;
+            var merged = data.Steps.Where(s => s != null).Cast<RevertStepData>().ToList();
+
+            foreach (var change in incoming)
+            {
+                var step = new RevertStepData
+                {
+                    Index = nextIndex++,
+                    Type = change.Revert!.Type,
+                    Data = change.Revert.ToData(),
+                };
+                merged.Add(step);
+            }
+
+            var maxIndex = merged.Count > 0 ? merged.Max(s => s.Index) : 0;
+            var steps = new RevertStepData?[maxIndex];
+            foreach (var step in merged)
+                steps[step.Index - 1] = step;
+            data.Steps = steps;
+
+            data.SchemaVersion = SchemaVersion;
+            // CancellationToken.None: a cancelled write would leave a half-written file;
+            // cancellation is honoured by the guard above instead.
+            await WriteJsonAtomicAsync(filePath, data, CancellationToken.None)
+                .ConfigureAwait(false);
+
+            _logger.LogInformation("Saved {Total} revert steps to {Path}", merged.Count, filePath);
+        }
+        finally
+        {
+            lockObj.Release();
+        }
+    }
+
+    /// <summary>Reverts the optimization using its persisted revert steps.</summary>
+    public async Task<RevertResult> RevertAsync(
+        IOptimization optimization,
+        IProgress<ProcessingProgress>? progress = null,
+        CancellationToken cancellationToken = default
+    )
+    {
         var steps = await LoadStepsAsync(optimization.Id).ConfigureAwait(false);
         if (steps.Count == 0)
             return new RevertResult
@@ -85,13 +122,14 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
                 Message = Loc.Instance["Revert.Error.NoDataFound", optimization.Name],
             };
 
-        var failedSteps = new List<OperationStepResult>();
+        var failedSteps = new List<Change>();
         var sortedSteps = steps.OrderByDescending(s => s.Index).ToList();
         var total = sortedSteps.Count;
 
         for (var i = 0; i < total; i++)
         {
             var (idx, step) = sortedSteps[i];
+            cancellationToken.ThrowIfCancellationRequested();
             var remaining = total - i;
             progress?.Report(
                 new ProcessingProgress
@@ -109,12 +147,12 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
 
             try
             {
-                if (!await step.ExecuteAsync().ConfigureAwait(false))
+                if (!await step.ExecuteAsync(_shell, _logger).ConfigureAwait(false))
                     throw new Exception(Loc.Instance["Revert.Error.StepFailed"]);
             }
             catch (Exception ex)
             {
-                operationLogger.LogError(
+                _logger.LogError(
                     ex,
                     "Revert step {StepType} failed for {Optimization}",
                     step.Type,
@@ -123,15 +161,17 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
 
                 var stepEx = ex as StepExecutionException;
                 failedSteps.Add(
-                    new OperationStepResult
+                    new Change
                     {
                         Index = idx,
                         Name = step.Type,
                         Description = step.Description,
-                        Success = false,
+                        Ok = false,
                         Error = stepEx?.Message ?? ex.Message,
                         ErrorDetail = stepEx?.ErrorDetail,
-                        RetryAction = () => step.ExecuteAsync(),
+                        Retry = async _ => new OpResult(
+                            await step.ExecuteAsync(_shell, _logger).ConfigureAwait(false)
+                        ),
                     }
                 );
             }
@@ -143,19 +183,23 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
         }
         else if (failedSteps.Count < total)
         {
+            // Partial revert: prune every succeeded step with a single
+            // load-modify-write so concurrent readers never observe a
+            // half-pruned file.
             var failedIndexes = failedSteps.Select(s => s.Index).ToHashSet();
-            foreach (var (idx, _) in sortedSteps)
-            {
-                if (!failedIndexes.Contains(idx))
-                {
-                    await RemoveRevertStepAtIndexAsync(
-                            optimization.Id,
-                            optimization.OptimizationKey,
-                            idx
-                        )
-                        .ConfigureAwait(false);
-                }
-            }
+            var succeededIndexes = sortedSteps
+                .Select(s => s.Index)
+                .Where(idx => !failedIndexes.Contains(idx))
+                .ToList();
+            // CancellationToken.None: the prune must run to completion, otherwise the
+            // file would list steps that already reverted successfully.
+            await RemoveRevertStepsAtIndexesAsync(
+                    optimization.Id,
+                    optimization.OptimizationKey,
+                    succeededIndexes,
+                    CancellationToken.None
+                )
+                .ConfigureAwait(false);
         }
 
         return new RevertResult
@@ -176,20 +220,26 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
         };
     }
 
-    public async Task UpsertRevertStepAtIndexAsync(
+    /// <summary>
+    ///     Appends a recovered revert step (e.g. after a successful retry) as
+    ///     a new entry. Never overwrites: with compact indexes the original
+    ///     sequence number no longer addresses an empty slot, so writing into
+    ///     it would destroy an unrelated entry. Revert runs LIFO, so the
+    ///     newest backup is undone first and the original backup still
+    ///     restores the true original state.
+    /// </summary>
+    public async Task AppendRevertStepAsync(
         Guid id,
         string name,
-        int stepIndex,
-        IRevertStep step
+        IRevertStep step,
+        CancellationToken cancellationToken = default
     )
     {
-        if (stepIndex <= 0)
-            throw new ArgumentException("Step index must be greater than 0", nameof(stepIndex));
-
         var filePath = GetFilePath(id);
         var lockObj = await AcquireFileLockAsync(id).ConfigureAwait(false);
         try
         {
+            cancellationToken.ThrowIfCancellationRequested();
             var data =
                 await LoadAsync(filePath, _logger).ConfigureAwait(false)
                 ?? new RevertData
@@ -197,32 +247,37 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
                     SchemaVersion = SchemaVersion,
                     OptimizationId = id,
                     OptimizationName = name,
+                    AppliedAt = _time.GetLocalNow().DateTime,
                     Steps = Array.Empty<RevertStepData?>(),
                 };
 
-            if (data.Steps.Length < stepIndex)
-            {
-                var newSteps = new RevertStepData?[stepIndex];
-                Array.Copy(data.Steps, newSteps, data.Steps.Length);
-                data.Steps = newSteps;
-            }
+            data.OptimizationName = name;
+            var nextIndex =
+                data.Steps.Where(s => s != null).Select(s => s!.Index).DefaultIfEmpty(0).Max() + 1;
+            var merged = data.Steps.Where(s => s != null).Cast<RevertStepData>().ToList();
+            merged.Add(
+                new RevertStepData
+                {
+                    Index = nextIndex,
+                    Type = step.Type,
+                    Data = step.ToData(),
+                }
+            );
 
-            data.Steps[stepIndex - 1] = new RevertStepData
-            {
-                Index = stepIndex,
-                Type = step.Type,
-                Data = step.ToData(),
-            };
+            var maxIndex = merged.Max(s => s.Index);
+            var steps = new RevertStepData?[maxIndex];
+            foreach (var entry in merged)
+                steps[entry.Index - 1] = entry;
+            data.Steps = steps;
 
             data.SchemaVersion = SchemaVersion;
-            await WriteJsonAtomicAsync(filePath, data).ConfigureAwait(false);
+            await WriteJsonAtomicAsync(filePath, data, cancellationToken).ConfigureAwait(false);
 
-            var totalSteps = data.Steps.Count(s => s != null);
             _logger.LogInformation(
-                "Upserted revert step at index {Index} for {Id} (total: {Total} steps)",
-                stepIndex,
+                "Appended revert step at index {Index} for {Id} (total: {Total} steps)",
+                nextIndex,
                 id,
-                totalSteps
+                merged.Count
             );
         }
         finally
@@ -235,18 +290,37 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
     {
         if (stepIndex <= 0)
             return;
+        await RemoveRevertStepsAtIndexesAsync(id, name, [stepIndex]).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    ///     Prunes several steps with a single load-modify-write so a crash
+    ///     can never leave a half-pruned file behind.
+    /// </summary>
+    public async Task RemoveRevertStepsAtIndexesAsync(
+        Guid id,
+        string? name,
+        IReadOnlyCollection<int> stepIndexes,
+        CancellationToken cancellationToken = default
+    )
+    {
+        var targets = stepIndexes.Where(i => i > 0).ToHashSet();
+        if (targets.Count == 0)
+            return;
 
         var filePath = GetFilePath(id);
         var lockObj = await AcquireFileLockAsync(id).ConfigureAwait(false);
         try
         {
+            cancellationToken.ThrowIfCancellationRequested();
             var data = await LoadAsync(filePath, _logger).ConfigureAwait(false);
             if (data == null || data.Steps.Length == 0)
                 return;
 
-            if (stepIndex <= data.Steps.Length)
+            foreach (var index in targets)
             {
-                data.Steps[stepIndex - 1] = null;
+                if (index <= data.Steps.Length)
+                    data.Steps[index - 1] = null;
             }
 
             if (data.Steps.All(s => s == null))
@@ -256,12 +330,12 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             }
 
             data.SchemaVersion = SchemaVersion;
-            await WriteJsonAtomicAsync(filePath, data).ConfigureAwait(false);
+            await WriteJsonAtomicAsync(filePath, data, cancellationToken).ConfigureAwait(false);
 
             var remainingSteps = data.Steps.Count(s => s != null);
             _logger.LogInformation(
-                "Removed revert step at index {Index} for {Id} (remaining: {Remaining} steps)",
-                stepIndex,
+                "Removed {Count} revert steps for {Id} (remaining: {Remaining} steps)",
+                targets.Count,
                 id,
                 remainingSteps
             );
@@ -300,12 +374,9 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             }
         }
 
-        var semaphores = _fileLocks.Values.ToList();
-        _fileLocks.Clear();
-        foreach (var sem in semaphores)
-        {
-            sem.Dispose();
-        }
+        // NOTE: file locks are intentionally left alone. Disposing a
+        // SemaphoreSlim while another thread holds or waits on it throws
+        // ObjectDisposedException; the entries are cheap and safely reused.
     }
 
     private static string GetFilePath(Guid id)
@@ -430,38 +501,40 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
     public void RemoveRevertData(Guid id, string? name = null)
     {
         Remove(id, name);
-        if (_fileLocks.TryRemove(id, out var sem))
-        {
-            sem.Dispose();
-        }
+        // Lock entry intentionally kept: disposing a SemaphoreSlim that a
+        // concurrent operation holds or waits on throws. Entries are reused.
     }
 
-    private async Task WriteJsonAsync(Guid optimizationId, string path, RevertData data)
-    {
-        data.SchemaVersion = SchemaVersion;
-        var lockObj = await AcquireFileLockAsync(optimizationId).ConfigureAwait(false);
-        try
-        {
-            await WriteJsonAtomicAsync(path, data).ConfigureAwait(false);
-            var totalOperations = data.Steps.Count(s => s != null);
-            _logger.LogInformation("Saved {Total} operations to {Path}", totalOperations, path);
-        }
-        finally
-        {
-            lockObj.Release();
-        }
-    }
-
-    private static async Task WriteJsonAtomicAsync(string path, RevertData data)
+    private static async Task WriteJsonAtomicAsync(
+        string path,
+        RevertData data,
+        CancellationToken cancellationToken = default
+    )
     {
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);
 
         var json = JsonConvert.SerializeObject(data, Formatting.Indented);
         var tempPath = path + ".tmp";
-        await File.WriteAllTextAsync(tempPath, json).ConfigureAwait(false);
+        await using (
+            var stream = new FileStream(
+                tempPath,
+                FileMode.Create,
+                FileAccess.Write,
+                FileShare.None,
+                4096,
+                FileOptions.WriteThrough | FileOptions.Asynchronous
+            )
+        )
+        await using (var writer = new StreamWriter(stream, Encoding.UTF8))
+        {
+            await writer.WriteAsync(json).ConfigureAwait(false);
+            await writer.FlushAsync(cancellationToken).ConfigureAwait(false);
+            stream.Flush(flushToDisk: true);
+        }
 
         try
         {
+            cancellationToken.ThrowIfCancellationRequested();
             if (File.Exists(path))
                 File.Replace(tempPath, path, destinationBackupFileName: null);
             else
@@ -481,6 +554,28 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
                 }
             }
             throw;
+        }
+    }
+
+    /// <summary>
+    ///     Deletes stale <c>.tmp</c> files left by crashes between temp-write
+    ///     and replace. Called once at startup; never touches live <c>.json</c> files.
+    /// </summary>
+    public static void RemoveOrphanedTempFiles(ILogger? logger = null)
+    {
+        if (!Directory.Exists(Shared.RevertDirectory))
+            return;
+        foreach (var tmp in Directory.GetFiles(Shared.RevertDirectory, "*.tmp"))
+        {
+            try
+            {
+                File.Delete(tmp);
+                logger?.LogInformation("Removed orphaned revert temp file {Path}", tmp);
+            }
+            catch (Exception ex)
+            {
+                logger?.LogWarning(ex, "Failed to remove orphaned temp file {Path}", tmp);
+            }
         }
     }
 
@@ -537,11 +632,15 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
             }
             else
             {
+                // Never silently drop: an unknown type becomes a step that
+                // fails loudly at revert time, preserving the index layout
+                // and telling the user exactly which data is unloadable.
                 _logger.LogWarning(
-                    "Skipped unknown revert step type '{Type}' for optimization {Id}",
+                    "Unknown revert step type '{Type}' for optimization {Id}",
                     stepData.Type,
                     id
                 );
+                result.Add((stepData.Index, new CorruptedStep(stepData.Type, stepData.Data)));
             }
         }
 
@@ -578,12 +677,20 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
         var dict = new Dictionary<string, Func<JObject, IRevertStep>>();
         foreach (var type in ReflectionHelper.FindImplementationsInLoadedAssemblies<IRevertStep>())
         {
+            if (type.IsAbstract || type.IsInterface || type == typeof(CorruptedStep))
+                continue;
+
+            if (type.GetConstructor(Type.EmptyTypes) == null)
+                continue;
+
+            var method = type.GetMethod("FromData", BindingFlags.Static | BindingFlags.Public);
+            if (method == null)
+                continue;
+
             try
             {
                 var instance = (IRevertStep)Activator.CreateInstance(type)!;
-                var method = type.GetMethod("FromData", BindingFlags.Static | BindingFlags.Public);
-                if (method != null)
-                    dict[instance.Type] = data => (IRevertStep)method.Invoke(null, [data])!;
+                dict[instance.Type] = data => (IRevertStep)method.Invoke(null, [data])!;
             }
             catch (Exception ex)
             {
@@ -610,5 +717,38 @@ public class RevertManager(ILogger<RevertManager> _logger, ILoggerFactory _logge
 
         _logger.LogWarning("Unknown revert step type: {Type}", type);
         return null;
+    }
+
+    /// <summary>
+    ///     Placeholder for persisted data whose step type is not registered
+    ///     (downgrade, removed plugin). Fails loudly at revert time instead
+    ///     of vanishing silently, and round-trips the raw payload so a
+    ///     future version can still read it.
+    /// </summary>
+    private sealed class CorruptedStep(string rawType, JObject rawData) : IRevertStep
+    {
+        public string Type => rawType;
+
+        public string Description =>
+            Services.Optimization.Providers.ServiceStrings.Format(
+                Services.Optimization.Providers.ServiceStrings.RevertDataUnloadableDescription,
+                rawType
+            );
+
+        public Task<bool> ExecuteAsync(ShellService _, ILogger logger)
+        {
+            throw new StepExecutionException(
+                Services.Optimization.Providers.ServiceStrings.Format(
+                    Services.Optimization.Providers.ServiceStrings.RevertDataUnknownType,
+                    rawType
+                ),
+                null
+            );
+        }
+
+        public JObject ToData()
+        {
+            return rawData;
+        }
     }
 }

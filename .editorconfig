@@ -1,25 +1,72 @@
-﻿[*.cs]
+root = true
 
-
-# bro ts solve so many warnings!!
-# CA1416: Validate platform compatibility
-dotnet_diagnostic.CA1416.severity = silent
-
-
-# https://csharpier.com/docs/Configuration
+# ---------------------------------------------------------------------------
+# Compiler-level opt-ins. AnalysisLevel/AnalysisMode enable the platform and
+# CAxxxx analyzers that the build previously never ran; EnforceCodeStyleInBuild
+# makes IDExxxx style rules fail the build instead of only showing in the IDE.
+# ---------------------------------------------------------------------------
 [*.{cs,csx}]
-# Non-configurable behaviors
 charset = utf-8
 insert_final_newline = true
 trim_trailing_whitespace = true
-dotnet_sort_system_directives_first = true
-dotnet_separate_import_directive_groups = false
-
-# conifguiawudiable
 end_of_line = lf
 indent_style = space
 indent_size = 4
 max_line_length = 100
+
+dotnet_sort_system_directives_first = true
+dotnet_separate_import_directive_groups = false
+
+# --- Style rules worth enforcing repo-wide ---------------------------------
+# Prefer the modern lock object (C# 13) over a bare object monitor.
+dotnet_diagnostic.IDE0330.severity = warning
+# File-scoped namespaces and primary constructors keep new files consistent.
+dotnet_diagnostic.IDE0161.severity = suggestion
+dotnet_diagnostic.IDE0290.severity = suggestion
+# Readonly / static members that never touch instance state.
+dotnet_diagnostic.CA1822.severity = suggestion
+dotnet_diagnostic.IDE0062.severity = suggestion
+# Unused usings and unreachable/uncalled private members.
+dotnet_diagnostic.IDE0005.severity = suggestion
+dotnet_diagnostic.IDE0051.severity = suggestion
+# Simplify using statements / conditional expressions.
+dotnet_diagnostic.IDE0063.severity = suggestion
+
+# --- Correctness rules promoted to warnings ---------------------------------
+# Blanket catch: deliberately kept visible in the IDE but off the build report.
+# The codebase has ~30 intentional best-effort boundaries (cleanup, dispose,
+# error logging, STA marshalling) where a specific exception type would be wrong.
+dotnet_diagnostic.CA1031.severity = suggestion
+# Forward the CancellationToken to methods that accept one.
+dotnet_diagnostic.CA2016.severity = warning
+# CancellationToken parameters must come last.
+dotnet_diagnostic.CA1068.severity = warning
+# Use ThrowIfCancellationRequested rather than throwing manually.
+dotnet_diagnostic.CA2250.severity = warning
+# Do not raise exceptions in finally / filter clauses.
+dotnet_diagnostic.CA2219.severity = warning
+# Dispose IDisposable fields.
+dotnet_diagnostic.CA2213.severity = warning
+# Do not call overridable members (like Task.Run continuations) during construction.
+dotnet_diagnostic.CA2214.severity = suggestion
+# Avoid async void outside event handlers.
+dotnet_diagnostic.CA2012.severity = suggestion
+# Prefer the CancellationToken-accepting overloads of Task.Delay/WaitAsync.
+dotnet_diagnostic.CA2016.severity = warning
+# Do not expose mutable collections via properties promoted to warnings.
+dotnet_diagnostic.CA2227.severity = suggestion
+# Use ArgumentNullException.ThrowIfNull at trust boundaries.
+dotnet_diagnostic.CA1510.severity = suggestion
+# Log-message argument boxing/allocation for disabled log levels.
+dotnet_diagnostic.CA1873.severity = suggestion
+# Avoid the culture-sensitive overloads of string.Format / int.Parse.
+dotnet_diagnostic.CA1305.severity = suggestion
+# Prefer a TimeProvider over DateTime.Now / UtcNow.
+dotnet_diagnostic.CA1305.severity = suggestion
+
+# CA1416 (platform compatibility) is intentionally silent: the app targets a single
+# Windows TFM, so every P/Invoke and registry call is known-good.
+dotnet_diagnostic.CA1416.severity = silent
 
 [*.{config,csproj,props,slnx,targets,xml}]
 indent_style = space

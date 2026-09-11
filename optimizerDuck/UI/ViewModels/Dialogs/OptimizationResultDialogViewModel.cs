@@ -1,18 +1,18 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using optimizerDuck.Common.Extensions;
-using optimizerDuck.Domain.Optimizations.Models;
+using optimizerDuck.Domain.Execution;
 
 namespace optimizerDuck.UI.ViewModels.Dialogs;
 
 public class OptimizationResultDialogViewModel : LocalizedObject
 {
-    public OptimizationResultDialogViewModel(IEnumerable<OperationStepResult> failedSteps)
+    public OptimizationResultDialogViewModel(IEnumerable<Change> failedSteps)
     {
-        FailedSteps = new ObservableCollection<OperationStepResult>(failedSteps);
+        FailedSteps = new ObservableCollection<Change>(failedSteps);
     }
 
-    public ObservableCollection<OperationStepResult> FailedSteps { get; }
+    public ObservableCollection<Change> FailedSteps { get; }
 
     public int FailedCount => FailedSteps.Count;
 }

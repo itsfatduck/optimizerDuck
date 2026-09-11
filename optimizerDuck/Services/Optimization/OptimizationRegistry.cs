@@ -32,51 +32,29 @@ public class OptimizationRegistry(ILoggerFactory loggerFactory)
     /// <summary>Discovers all optimization categories and their optimizations via reflection, then loads the applied state from revert data on disk.</summary>
     public async Task PreloadOptimizationsAsync()
     {
+        var seenIds = new HashSet<Guid>();
         // Run reflection work on background thread to avoid blocking startup
         var optimizationCategories = await Task.Run(() =>
-                ReflectionHelper
-                    .FindImplementationsInLoadedAssemblies<IOptimizationCategory>()
-                    .Select(t =>
-                    {
-                        var optimizations = new ObservableCollection<IOptimization>(
-                            t.GetNestedTypes(BindingFlags.Public)
-                                .Where(nt => typeof(IOptimization).IsAssignableFrom(nt))
-                                .Select(nt =>
+                CategoryDiscovery.Discover<IOptimizationCategory, IOptimization>(
+                    nameof(IOptimizationCategory.Optimizations),
+                    t =>
+                        CategoryDiscovery.NestedItems<IOptimization>(
+                            t,
+                            (opt, owner) =>
+                            {
+                                if (opt is BaseOptimization bo)
                                 {
-                                    var opt = (IOptimization)Activator.CreateInstance(nt)!;
-
-                                    if (opt is BaseOptimization bo)
-                                    {
-                                        bo.OwnerType = t;
-                                        ConditionValidation.Validate(
-                                            bo.ConditionType,
-                                            bo.OptimizationKey
-                                        );
-                                    }
-
-                                    return opt;
-                                })
-                                .ToList()
-                        );
-
-                        if (optimizations.Count == 0)
-                            return null;
-
-                        var instance = (IOptimizationCategory)Activator.CreateInstance(t)!;
-
-                        var optProp = t.GetProperty(
-                            nameof(IOptimizationCategory.Optimizations),
-                            BindingFlags.Public | BindingFlags.Instance
-                        );
-                        if (optProp != null && optProp.CanWrite)
-                            optProp.SetValue(instance, optimizations);
-
-                        return instance;
-                    })
-                    .Where(c => c != null) // skip nulls
-                    .Cast<IOptimizationCategory>()
-                    .OrderBy(c => c.Order)
-                    .ToArray()
+                                    bo.OwnerType = owner;
+                                    OptimizationValidation.Validate(bo, seenIds);
+                                    ConditionValidation.Validate(
+                                        bo.ConditionType,
+                                        bo.OptimizationKey
+                                    );
+                                }
+                            }
+                        ),
+                    c => (int)c.Order
+                )
             )
             .ConfigureAwait(false);
 

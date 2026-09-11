@@ -26,10 +26,12 @@ public class OptimizationService(
     SystemInfoService systemInfoService,
     StreamService streamService,
     IContentDialogService contentDialogService,
+    ShellService shellService,
     ILogger<OptimizationService> logger
 )
 {
     private readonly ILogger _logger = logger;
+    private readonly ShellService _shellService = shellService;
 
     /// <summary>Gets or sets a value that indicates whether a system restore point was created before applying optimizations.</summary>
     public bool WasRequestedRestorePoint { get; set; } = false;
@@ -62,12 +64,10 @@ public class OptimizationService(
                     IsIndeterminate = true,
                 }
             );
-
-            using var scope = ExecutionScope.BeginForLogging(_logger);
-
-            var result = await ShellService
-                .PowerShellAsync(
-                    $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS"
+            var result = await _shellService
+                .QueryPowerShellAsync(
+                    $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS",
+                    _logger
                 )
                 .ConfigureAwait(false);
 
@@ -98,10 +98,9 @@ public class OptimizationService(
                 }
             );
 
-            var enableResult = await ShellService
-                .PowerShellAsync("Enable-ComputerRestore -Drive \"$env:SystemDrive\"")
+            var enableResult = await _shellService
+                .QueryPowerShellAsync("Enable-ComputerRestore -Drive \"$env:SystemDrive\"", _logger)
                 .ConfigureAwait(false);
-
             if (enableResult.ExitCode != 0)
             {
                 _logger.LogError(
@@ -119,9 +118,10 @@ public class OptimizationService(
                 }
             );
 
-            result = await ShellService
-                .PowerShellAsync(
-                    $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS"
+            result = await _shellService
+                .QueryPowerShellAsync(
+                    $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS",
+                    _logger
                 )
                 .ConfigureAwait(false);
 
@@ -156,7 +156,7 @@ public class OptimizationService(
     )
     {
         var optLogger = loggerFactory.CreateLogger(optimization.GetType());
-        using var scope = ExecutionScope.Begin(optimization, optLogger);
+        var changes = new ChangeSet();
 
         _logger.LogInformation(
             "Starting apply of {Name} ({Key}) with ID {Id}",
@@ -173,6 +173,8 @@ public class OptimizationService(
             }
         );
 
+        string? providerError = null;
+        Exception? exception = null;
         try
         {
             var applyResult = await optimization
@@ -180,28 +182,35 @@ public class OptimizationService(
                     progress,
                     new OptimizationContext
                     {
+                        Changes = changes,
                         Logger = optLogger,
+                        CancellationToken = cancellationToken,
                         Snapshot = systemInfoService.Snapshot,
                         StreamService = streamService,
+                        Shell = _shellService,
                     }
                 )
                 .ConfigureAwait(false);
 
-            if (!string.IsNullOrWhiteSpace(applyResult.ErrorMessage))
-            {
-                if (scope.HasSuccessfulSteps)
-                    await TrySaveRevertDataAsync(scope, optimization).ConfigureAwait(false);
+            providerError = string.IsNullOrWhiteSpace(applyResult.ErrorMessage)
+                ? null
+                : applyResult.ErrorMessage;
+        }
+        catch (Exception ex)
+        {
+            exception = ex;
+            changes.Add(
+                optimization.OptimizationKey,
+                optimization.Name,
+                false,
+                null,
+                ex.Message,
+                ex.ToString()
+            );
+        }
 
-                return new OptimizationResult
-                {
-                    Status = scope.HasSuccessfulSteps
-                        ? OptimizationSuccessResult.PartialSuccess
-                        : OptimizationSuccessResult.Failed,
-                    Message = applyResult.ErrorMessage,
-                    FailedSteps = [.. scope.GetStepResults().Where(step => !step.Success)],
-                };
-            }
-
+        if (exception == null && providerError == null)
+        {
             progress.Report(
                 new ProcessingProgress
                 {
@@ -211,31 +220,80 @@ public class OptimizationService(
                     Total = 1,
                 }
             );
-
-            var result = scope.ToResult();
-            await TrySaveRevertDataAsync(scope, optimization).ConfigureAwait(false);
-
-            return result;
         }
-        catch (Exception ex)
-        {
-            var failedSteps = scope.GetStepResults().Where(step => !step.Success).ToList();
 
-            var status = scope.HasSuccessfulSteps
-                ? OptimizationSuccessResult.PartialSuccess
-                : OptimizationSuccessResult.Failed;
-            var result = new OptimizationResult
+        // Persist BEFORE building the result so a persistence failure surfaces
+        // as a failed step instead of a silent success-without-revert.
+        await TrySaveRevertDataAsync(changes, optimization, cancellationToken)
+            .ConfigureAwait(false);
+
+        var failedSteps = changes.FailedSteps.OrderBy(s => s.Index).ToList();
+
+        if (exception != null)
+        {
+            return new OptimizationResult
             {
-                Status = status,
+                Status = changes.HasSuccessfulSteps
+                    ? OptimizationSuccessResult.PartialSuccess
+                    : OptimizationSuccessResult.Failed,
                 Message = Loc.Instance["Optimization.Apply.Error.Failed", optimization.Name],
-                Exception = ex,
+                Exception = exception,
                 FailedSteps = failedSteps,
             };
-
-            await TrySaveRevertDataAsync(scope, optimization).ConfigureAwait(false);
-
-            return result;
         }
+
+        if (providerError != null)
+        {
+            _logger.LogWarning(
+                "Provider error applying {OptimizationKey}: {ProviderError}",
+                optimization.OptimizationKey,
+                providerError
+            );
+
+            return new OptimizationResult
+            {
+                Status = changes.HasSuccessfulSteps
+                    ? OptimizationSuccessResult.PartialSuccess
+                    : OptimizationSuccessResult.Failed,
+                Message =
+                    failedSteps.Count > 0
+                        ? Loc.Instance[
+                            "Optimization.Apply.Error.FailedWithSteps",
+                            optimization.Name,
+                            failedSteps.Count
+                        ]
+                        : Loc.Instance["Optimization.Apply.Error.Failed", optimization.Name],
+                FailedSteps = failedSteps,
+            };
+        }
+
+        if (!changes.HasSuccessfulSteps)
+        {
+            return new OptimizationResult
+            {
+                Status = OptimizationSuccessResult.Failed,
+                Message = Loc.Instance["Optimization.Apply.Error.Failed", optimization.Name],
+                FailedSteps = failedSteps,
+            };
+        }
+
+        var failedCount = failedSteps.Count;
+        return new OptimizationResult
+        {
+            Status =
+                failedCount == 0
+                    ? OptimizationSuccessResult.Success
+                    : OptimizationSuccessResult.PartialSuccess,
+            Message =
+                failedCount == 0
+                    ? Loc.Instance["Optimization.Apply.Success", optimization.Name]
+                    : Loc.Instance[
+                        "Optimization.Apply.Error.FailedWithSteps",
+                        optimization.Name,
+                        failedCount
+                    ],
+            FailedSteps = failedSteps,
+        };
     }
 
     /// <summary>Reverts the specified optimization using stored revert data from a previous apply operation.</summary>
@@ -263,7 +321,9 @@ public class OptimizationService(
                 IsIndeterminate = true,
             }
         );
-        var result = await revertManager.RevertAsync(optimization, progress).ConfigureAwait(false);
+        var result = await revertManager
+            .RevertAsync(optimization, progress, cancellationToken)
+            .ConfigureAwait(false);
         progress?.Report(
             new ProcessingProgress
             {
@@ -331,8 +391,8 @@ public class OptimizationService(
     /// <param name="optimizationKey">The optimization key for revert step persistence.</param>
     /// <param name="progress">An optional progress reporter.</param>
     /// <returns>The list of steps that remain failed after retry.</returns>
-    public static async Task<List<OperationStepResult>> RetryFailedStepsAsync(
-        IReadOnlyList<OperationStepResult> failedSteps,
+    public static async Task<List<Change>> RetryFailedStepsAsync(
+        IReadOnlyList<Change> failedSteps,
         bool reverseOrder,
         ILogger logger,
         RevertManager? revertManager = null,
@@ -365,7 +425,7 @@ public class OptimizationService(
     /// <param name="progress">An optional progress reporter.</param>
     /// <returns>A <see cref="RetryFailedStepsResult"/> containing both recovered and remaining failed steps.</returns>
     public static async Task<RetryFailedStepsResult> RetryFailedStepsWithResultsAsync(
-        IReadOnlyList<OperationStepResult> failedSteps,
+        IReadOnlyList<Change> failedSteps,
         bool reverseOrder,
         ILogger logger,
         RevertManager? revertManager = null,
@@ -377,8 +437,8 @@ public class OptimizationService(
         if (failedSteps.Count == 0)
             return new RetryFailedStepsResult([], []);
 
-        var remainingFailedSteps = new List<OperationStepResult>();
-        var recoveredSteps = new List<OperationStepResult>();
+        var remainingFailedSteps = new List<Change>();
+        var recoveredSteps = new List<Change>();
         var orderedSteps = reverseOrder
             ? failedSteps.OrderByDescending(s => s.Index)
             : failedSteps.OrderBy(s => s.Index);
@@ -410,7 +470,7 @@ public class OptimizationService(
                 }
             );
 
-            if (step.RetryAction == null)
+            if (step.Retry == null)
             {
                 remainingFailedSteps.Add(step);
                 continue;
@@ -420,32 +480,29 @@ public class OptimizationService(
             Exception? error = null;
             try
             {
-                using var retryScope = ExecutionScope.BeginForCapture(logger);
-                success = await step.RetryAction().ConfigureAwait(false);
+                // Fresh call: retry is user-initiated, the original token may be dead.
+                // Captured changes merge back into the apply set (first backup wins).
+                var retryChanges = new ChangeSet();
+                var retryCall = new OpCall { Changes = retryChanges, Logger = logger };
+                var retryOutcome = await step.Retry(retryCall).ConfigureAwait(false);
+                success = retryOutcome.Ok;
 
                 if (success)
                 {
-                    var retriedStep = retryScope.SuccessfulSteps.LastOrDefault();
-                    var recoveredStep =
-                        retriedStep == null
-                            ? step with
-                            {
-                                Error = null,
-                            }
-                            : new OperationStepResult
-                            {
-                                Index = step.Index,
-                                Name = retriedStep.Name,
-                                Description = retriedStep.Description,
-                                Success = true,
-                                Error = null,
-                                RetryAction = null,
-                                RevertStep = retriedStep.RevertStep,
-                            };
+                    var capturedStep = retryChanges.SuccessfulSteps.LastOrDefault();
+                    var capturedRevert = capturedStep?.Revert ?? retryOutcome.Revert;
+                    var recoveredStep = new Change
+                    {
+                        Index = step.Index,
+                        Name = capturedStep?.Name ?? step.Name,
+                        Description = capturedStep?.Description ?? step.Description,
+                        Ok = true,
+                        Revert = capturedRevert,
+                    };
 
                     // Auto-persist recovered revert step if revertManager is available
                     if (
-                        recoveredStep.RevertStep != null
+                        recoveredStep.Revert != null
                         && revertManager != null
                         && optimizationId.HasValue
                     )
@@ -453,11 +510,10 @@ public class OptimizationService(
                         try
                         {
                             await revertManager
-                                .UpsertRevertStepAtIndexAsync(
+                                .AppendRevertStepAsync(
                                     optimizationId.Value,
                                     optimizationKey ?? string.Empty,
-                                    step.Index, // Use original failed step's index
-                                    recoveredStep.RevertStep
+                                    recoveredStep.Revert
                                 )
                                 .ConfigureAwait(false);
                         }
@@ -465,7 +521,7 @@ public class OptimizationService(
                         {
                             logger.LogError(
                                 ex,
-                                "Failed to auto-persist revert step at index {Index}",
+                                "Failed to auto-persist recovered revert step for {Index}",
                                 step.Index
                             );
                         }
@@ -489,21 +545,38 @@ public class OptimizationService(
         return new RetryFailedStepsResult(remainingFailedSteps, recoveredSteps);
     }
 
-    private async Task TrySaveRevertDataAsync(ExecutionScope scope, IOptimization optimization)
+    private async Task TrySaveRevertDataAsync(
+        ChangeSet changes,
+        IOptimization optimization,
+        CancellationToken cancellationToken = default
+    )
     {
-        if (!scope.HasSuccessfulSteps)
+        if (!changes.HasSuccessfulSteps)
             return;
 
         try
         {
-            await revertManager.SaveRevertDataAsync(scope).ConfigureAwait(false);
+            await revertManager
+                .SaveRevertDataAsync(
+                    changes,
+                    optimization.Id,
+                    optimization.OptimizationKey,
+                    // CancellationToken.None: persist partial work even when the operation was cancelled.
+                    CancellationToken.None
+                )
+                .ConfigureAwait(false);
         }
         catch (Exception ex)
         {
-            _logger.LogError(
-                ex,
-                "Failed to save revert data for {Name}",
-                optimization.OptimizationKey
+            _logger.LogError("Failed to save revert data for {Name}", optimization.OptimizationKey);
+            // Visible, not silent: the apply succeeded but undo is unavailable.
+            changes.Add(
+                optimization.OptimizationKey,
+                optimization.Name,
+                false,
+                null,
+                ex.Message,
+                ex.ToString()
             );
         }
     }
@@ -542,7 +615,4 @@ public enum RestorePointResult
 /// <summary>Represents the result of retrying failed operation steps, separating recovered steps from those that remain failed.</summary>
 /// <param name="FailedSteps">The steps that remain failed after retry.</param>
 /// <param name="RecoveredSteps">The steps that succeeded on retry.</param>
-public sealed record RetryFailedStepsResult(
-    List<OperationStepResult> FailedSteps,
-    List<OperationStepResult> RecoveredSteps
-);
+public sealed record RetryFailedStepsResult(List<Change> FailedSteps, List<Change> RecoveredSteps);

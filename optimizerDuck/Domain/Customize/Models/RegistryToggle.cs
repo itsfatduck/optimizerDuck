@@ -1,4 +1,5 @@
 using Microsoft.Win32;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Services.Optimization.Providers;
 
@@ -56,15 +57,21 @@ public class RegistryToggle
         return IsValueInList(value, OnValues);
     }
 
-    public void SetState(bool isOn)
+    /// <summary>
+    ///     Writes the on/off state to the registry, recording the change into
+    ///     <paramref name="call"/>. The first value in the target list is the
+    ///     primary value written; a leading <c>null</c> deletes the value.
+    /// </summary>
+    /// <returns>The provider result; a failed write is returned, not thrown.</returns>
+    public OpResult SetState(bool isOn, OpCall call)
     {
         var targetValues = isOn ? OnValues : OffValues;
 
         // First value in the list is the primary value to write
         if (targetValues is { Count: > 0 } && targetValues[0] is { } firstValue)
-            RegistryService.Write(new RegistryItem(Path, Name, firstValue, ValueKind));
-        else
-            RegistryService.DeleteValue(new RegistryItem(Path, Name));
+            return RegistryService.Write(call, new RegistryItem(Path, Name, firstValue, ValueKind));
+
+        return RegistryService.DeleteValue(call, new RegistryItem(Path, Name));
     }
 
     private object? GetRawValue()

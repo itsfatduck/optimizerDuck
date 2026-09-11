@@ -1,4 +1,4 @@
-﻿using optimizerDuck.Domain.Optimizations.Models;
+﻿using optimizerDuck.Domain.Execution;
 
 namespace optimizerDuck.Domain.Revert;
 
@@ -19,14 +19,9 @@ public class RevertResult
     public string Message { get; set; } = string.Empty;
 
     /// <summary>
-    ///     Gets or sets the exception that occurred, if any, during the revert.
-    /// </summary>
-    public Exception? Exception { get; set; }
-
-    /// <summary>
     ///     Gets or sets the list of steps that failed during the revert operation.
     /// </summary>
-    public List<OperationStepResult> FailedSteps { get; set; } = [];
+    public List<Change> FailedSteps { get; set; } = [];
 
     /// <summary>
     ///     Gets or sets a value that indicates whether the revert failed completely

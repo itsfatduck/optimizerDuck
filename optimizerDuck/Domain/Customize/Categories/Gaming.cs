@@ -4,6 +4,7 @@ using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Conditions;
 using optimizerDuck.Domain.Customize.Models;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Services.Configuration;
@@ -201,16 +202,22 @@ public class Gaming : LocalizedObject, ICustomizeCategory
             });
         }
 
-        public override async Task ApplyAsync(object? value)
+        public override async Task<OpResult> ApplyAsync(object? value, OpCall call)
         {
             var isOn = value is bool b && b;
 
-            RegistryService.Write(new RegistryItem(Path, "MouseSpeed", isOn ? "1" : "0"));
-            RegistryService.Write(new RegistryItem(Path, "MouseThreshold1", isOn ? "6" : "0"));
-            RegistryService.Write(new RegistryItem(Path, "MouseThreshold2", isOn ? "10" : "0"));
+            // Batch call: every value is attempted, the first failure is returned.
+            var result = RegistryService.Write(
+                call,
+                new RegistryItem(Path, "MouseSpeed", isOn ? "1" : "0"),
+                new RegistryItem(Path, "MouseThreshold1", isOn ? "6" : "0"),
+                new RegistryItem(Path, "MouseThreshold2", isOn ? "10" : "0")
+            );
 
             if (NeedsPostAction)
                 await ExecutePostActionAsync();
+
+            return result;
         }
     }
 

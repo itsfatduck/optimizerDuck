@@ -1,4 +1,5 @@
-﻿using optimizerDuck.Domain.UI;
+﻿using optimizerDuck.Domain.Execution;
+using optimizerDuck.Domain.UI;
 
 namespace optimizerDuck.Domain.Optimizations.Models;
 
@@ -27,5 +28,5 @@ public record OptimizationResult
     /// <summary>
     ///     Gets the list of steps that failed during the operation.
     /// </summary>
-    public List<OperationStepResult> FailedSteps { get; init; } = [];
+    public List<Change> FailedSteps { get; init; } = [];
 }

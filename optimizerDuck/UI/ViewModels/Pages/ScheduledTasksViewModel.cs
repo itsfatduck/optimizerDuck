@@ -4,6 +4,7 @@ using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.Optimization.Providers;
@@ -96,9 +97,12 @@ public partial class ScheduledTasksViewModel : ViewModel
         {
             await Task.Run(() =>
             {
+                var call = UiCall();
                 if (task.IsEnabled)
                 {
-                    ScheduledTaskService.EnableTask(task.FullPath);
+                    var result = ScheduledTaskService.EnableTask(call, task.FullPath);
+                    if (!result.Ok)
+                        throw new InvalidOperationException(result.Error ?? "Enable failed");
                     _logger.LogInformation(
                         "Enabled task {Name} ({Path})",
                         task.Name,
@@ -107,7 +111,9 @@ public partial class ScheduledTasksViewModel : ViewModel
                 }
                 else
                 {
-                    ScheduledTaskService.DisableTask(task.FullPath);
+                    var result = ScheduledTaskService.DisableTask(call, task.FullPath);
+                    if (!result.Ok)
+                        throw new InvalidOperationException(result.Error ?? "Disable failed");
                     _logger.LogInformation(
                         "Disabled task {Name} ({Path})",
                         task.Name,
@@ -154,9 +160,11 @@ public partial class ScheduledTasksViewModel : ViewModel
             return;
         try
         {
-            var success = await Task.Run(() => ScheduledTaskService.RunTask(task.FullPath));
+            var result = await Task.Run(() =>
+                ScheduledTaskService.RunTask(UiCall(), task.FullPath)
+            );
 
-            if (success)
+            if (result.Ok)
             {
                 _logger.LogInformation("Ran task {Name} ({Path})", task.Name, task.FullPath);
 
@@ -172,9 +180,7 @@ public partial class ScheduledTasksViewModel : ViewModel
             }
             else
             {
-                var error =
-                    ScheduledTaskService.LastError
-                    ?? Loc.Instance["ScheduledTasks.Error.TaskNotFound"];
+                var error = result.Error ?? Loc.Instance["ScheduledTasks.Error.TaskNotFound"];
                 _logger.LogError(
                     "Failed to run task {Name} ({Path}): {Error}",
                     task.Name,
@@ -217,9 +223,11 @@ public partial class ScheduledTasksViewModel : ViewModel
             return;
         try
         {
-            var success = await Task.Run(() => ScheduledTaskService.StopTask(task.FullPath));
+            var result = await Task.Run(() =>
+                ScheduledTaskService.StopTask(UiCall(), task.FullPath)
+            );
 
-            if (success)
+            if (result.Ok)
             {
                 _logger.LogInformation("Stopped task {Name} ({Path})", task.Name, task.FullPath);
 
@@ -235,9 +243,7 @@ public partial class ScheduledTasksViewModel : ViewModel
             }
             else
             {
-                var error =
-                    ScheduledTaskService.LastError
-                    ?? Loc.Instance["ScheduledTasks.Error.TaskNotFound"];
+                var error = result.Error ?? Loc.Instance["ScheduledTasks.Error.TaskNotFound"];
                 _logger.LogError(
                     "Failed to stop task {Name} ({Path}): {Error}",
                     task.Name,
@@ -293,9 +299,11 @@ public partial class ScheduledTasksViewModel : ViewModel
 
         try
         {
-            var success = await Task.Run(() => ScheduledTaskService.DeleteTask(task.FullPath));
+            var deleteOutcome = await Task.Run(() =>
+                ScheduledTaskService.DeleteTask(UiCall(), task.FullPath)
+            );
 
-            if (success)
+            if (deleteOutcome.Ok)
             {
                 _logger.LogInformation("Deleted task {Name} ({Path})", task.Name, task.FullPath);
                 _allTasks.RemoveAll(t => t.FullPath == task.FullPath);
@@ -312,8 +320,7 @@ public partial class ScheduledTasksViewModel : ViewModel
             else
             {
                 var error =
-                    ScheduledTaskService.LastError
-                    ?? Loc.Instance["ScheduledTasks.Error.TaskNotFound"];
+                    deleteOutcome.Error ?? Loc.Instance["ScheduledTasks.Error.TaskNotFound"];
                 _logger.LogError(
                     "Failed to delete task {Name} ({Path}): {Error}",
                     task.Name,
@@ -423,6 +430,12 @@ public partial class ScheduledTasksViewModel : ViewModel
         {
             IsLoading = false;
         }
+    }
+
+    // UI toggles are one-shot actions outside any apply: throwaway set, no revert.
+    private OpCall UiCall()
+    {
+        return new OpCall { Changes = new ChangeSet(), Logger = _logger };
     }
 
     private void ApplyFilter()

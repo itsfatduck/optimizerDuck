@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Security;
+using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
@@ -11,12 +12,6 @@ namespace optimizerDuck.Services.Optimization.Providers;
 
 public static class RegistryService
 {
-    private static readonly AsyncLocal<string?> _lastError = new();
-    private static readonly AsyncLocal<string?> _lastErrorDetail = new();
-
-    internal static string? LastError => _lastError.Value;
-    internal static string? LastErrorDetail => _lastErrorDetail.Value;
-
     private static readonly Dictionary<string, RegistryKey> RootKeysMap = new(
         StringComparer.OrdinalIgnoreCase
     )
@@ -40,6 +35,7 @@ public static class RegistryService
 
     private static bool TryParsePath(
         string fullPath,
+        ILogger? logger,
         [NotNullWhen(true)] out RegistryKey? rootKey,
         [NotNullWhen(true)] out string? subPath
     )
@@ -49,9 +45,7 @@ public static class RegistryService
 
         if (string.IsNullOrWhiteSpace(fullPath))
         {
-            _lastError.Value = _lastErrorDetail.Value = "Registry path is null or empty";
-            ExecutionScope.LogError(null, "Registry path is null or empty");
-            ExecutionScope.Track(nameof(RegistryService), false);
+            logger?.LogError("Registry path is null or empty");
             return false;
         }
 
@@ -61,9 +55,7 @@ public static class RegistryService
 
         if (!RootKeysMap.TryGetValue(rootToken, out rootKey))
         {
-            _lastError.Value = _lastErrorDetail.Value = $"Unknown root key: {rootToken}";
-            ExecutionScope.LogError(null, "Unknown root key: {RootToken}", rootToken);
-            ExecutionScope.Track(nameof(RegistryService), false);
+            logger?.LogError("Unknown root key: {RootToken}", rootToken);
             return false;
         }
 
@@ -78,11 +70,16 @@ public static class RegistryService
         out bool shouldDispose,
         bool writable,
         bool createIfMissing,
-        List<string>? createdSubKeys
+        List<string>? createdSubKeys,
+        ILogger? logger,
+        out string? error,
+        out string? errorDetail
     )
     {
         key = null;
         shouldDispose = false;
+        error = null;
+        errorDetail = null;
 
         if (string.IsNullOrEmpty(subPath))
         {
@@ -97,7 +94,7 @@ public static class RegistryService
             if (opened == null && writable && createIfMissing)
                 opened =
                     createdSubKeys != null
-                        ? CreateSubKeyTrack(rootKey, subPath, createdSubKeys)
+                        ? CreateSubKeyTrack(rootKey, subPath, createdSubKeys, logger)
                         : rootKey.CreateSubKey(subPath);
 
             if (opened != null)
@@ -111,35 +108,26 @@ public static class RegistryService
         }
         catch (SecurityException ex)
         {
-            TrackRegistryError(
-                ServiceStrings.RegistryErrorAccessDeniedProtectedHive,
-                "Access denied (protected hive)",
-                rootKey,
-                subPath,
-                ex
-            );
+            var path = $"{rootKey.Name}\\{subPath}";
+            error = ServiceStrings.RegistryErrorAccessDeniedProtectedHive;
+            errorDetail = ex.ToString();
+            logger?.LogError(ex, "Access denied (protected hive): {Path}", path);
             return false;
         }
         catch (UnauthorizedAccessException ex)
         {
-            TrackRegistryError(
-                ServiceStrings.RegistryErrorUnauthorizedAccess,
-                "Unauthorized access",
-                rootKey,
-                subPath,
-                ex
-            );
+            var path = $"{rootKey.Name}\\{subPath}";
+            error = ServiceStrings.RegistryErrorUnauthorizedAccess;
+            errorDetail = ex.ToString();
+            logger?.LogError(ex, "Unauthorized access: {Path}", path);
             return false;
         }
         catch (Exception ex)
         {
-            TrackRegistryError(
-                ServiceStrings.RegistryErrorCreateOrOpenSubkeyFailed,
-                "Failed to create/open subkey",
-                rootKey,
-                subPath,
-                ex
-            );
+            var path = $"{rootKey.Name}\\{subPath}";
+            error = ServiceStrings.RegistryErrorCreateOrOpenSubkeyFailed;
+            errorDetail = ex.ToString();
+            logger?.LogError(ex, "Failed to create/open subkey: {Path}", path);
             return false;
         }
     }
@@ -147,12 +135,20 @@ public static class RegistryService
     private static T? WithKey<T>(
         RegistryItem item,
         Func<RegistryKey, T?> action,
+        ILogger? logger,
+        out bool opened,
+        out string? openError,
+        out string? openErrorDetail,
         bool writable = false,
         bool createIfMissing = false,
         List<string>? createdSubKeys = null
     )
     {
-        if (!TryParsePath(item.Path, out var rootKey, out var subPath))
+        opened = false;
+        openError = null;
+        openErrorDetail = null;
+
+        if (!TryParsePath(item.Path, logger, out var rootKey, out var subPath))
             return default;
 
         if (
@@ -163,10 +159,15 @@ public static class RegistryService
                 out var shouldDispose,
                 writable,
                 createIfMissing,
-                createdSubKeys
+                createdSubKeys,
+                logger,
+                out openError,
+                out openErrorDetail
             )
         )
             return default;
+
+        opened = true;
 
         try
         {
@@ -186,17 +187,19 @@ public static class RegistryService
 
     /// <summary>Determines whether the specified registry key path exists.</summary>
     /// <param name="item">The registry path to check.</param>
+    /// <param name="logger">Optional logger; <c>null</c> means silent.</param>
     /// <returns><see langword="true" /> if the key exists; otherwise, <see langword="false" />.</returns>
-    public static bool KeyExists(RegistryItem item)
+    public static bool KeyExists(RegistryItem item, ILogger? logger = null)
     {
-        return WithKey(item, key => true, false);
+        return WithKey<bool>(item, key => true, logger, out _, out _, out _);
     }
 
     /// <summary>Reads a registry value and converts it to the specified type.</summary>
     /// <typeparam name="T">The target type to convert the value to.</typeparam>
     /// <param name="item">The registry path and value name to read.</param>
+    /// <param name="logger">Optional logger; <c>null</c> means silent.</param>
     /// <returns>The converted value, or the default of <typeparamref name="T" /> if the value is missing or conversion fails.</returns>
-    public static T? Read<T>(RegistryItem item)
+    public static T? Read<T>(RegistryItem item, ILogger? logger = null)
     {
         return WithKey(
             item,
@@ -214,7 +217,7 @@ public static class RegistryService
                         return default;
 
                     var result = ConvertRegistryValue<T>(value);
-                    ExecutionScope.LogInfo(
+                    logger?.LogInformation(
                         "Read registry {Path}:{Name} = {Value}",
                         item.Path,
                         item.Name!,
@@ -224,7 +227,7 @@ public static class RegistryService
                 }
                 catch (Exception ex)
                 {
-                    ExecutionScope.LogError(
+                    logger?.LogError(
                         ex,
                         "Failed to read registry {Path}:{Name}",
                         item.Path,
@@ -232,59 +235,79 @@ public static class RegistryService
                     );
                     return default;
                 }
-            }
+            },
+            logger,
+            out _,
+            out _,
+            out _
         );
     }
 
     /// <summary>Writes a value to the registry, backing up the previous value for revert.</summary>
+    /// <param name="call">The call context carrying the change collector and logger.</param>
     /// <param name="item">The registry path, value name, value, and kind to write.</param>
-    /// <returns><see langword="true" /> if the write succeeded; otherwise, <see langword="false" />.</returns>
-    public static bool Write(RegistryItem item)
+    /// <returns>The operation result, carrying the revert step on success.</returns>
+    public static OpResult Write(OpCall call, RegistryItem item)
     {
-        _lastError.Value = _lastErrorDetail.Value = null;
+        ArgumentNullException.ThrowIfNull(call);
+        var name = ServiceStrings.RegistryName;
+        var description = ServiceStrings.Format(
+            ServiceStrings.RegistryDescriptionWrite,
+            item.Path,
+            item.Name
+        );
+        var logger = call.Logger;
 
         if (item.Value == null)
         {
-            _lastError.Value = _lastErrorDetail.Value =
-                $"Value cannot be null when writing {item.Path}:{item.Name}";
-            ExecutionScope.LogError(
-                null,
+            var nullError = $"Value cannot be null when writing {item.Path}:{item.Name}";
+            logger.LogError(
                 "Value can't be null when writing {Path}:{Name}",
                 item.Path,
                 item.Name!
             );
-            ExecutionScope.Track(nameof(Write), false);
-            return false;
+            return OpResult.Fail(nullError, nullError);
         }
 
         var createdSubKeys = new List<string>();
 
-        return WithKey(
+        var result = WithKey<OpResult>(
             item,
-            key =>
+            regKey =>
             {
-                var description = ServiceStrings.Format(
-                    ServiceStrings.RegistryDescriptionWrite,
-                    item.Path,
-                    item.Name
-                );
                 try
                 {
                     var valueName = NormalizeValueName(item.Name);
-                    var backupValue = key.GetValue(
+                    var backupValue = regKey.GetValue(
                         valueName,
                         null,
                         RegistryValueOptions.DoNotExpandEnvironmentNames
                     );
                     var valueExists =
                         backupValue != null
-                        || key.GetValueNames()
+                        || regKey
+                            .GetValueNames()
                             .Contains(valueName, StringComparer.OrdinalIgnoreCase);
                     var backupKind = valueExists
-                        ? key.GetValueKind(valueName)
+                        ? regKey.GetValueKind(valueName)
                         : RegistryValueKind.Unknown;
 
-                    key.SetValue(valueName, item.Value, item.Kind);
+                    if (
+                        valueExists
+                        && backupKind == item.Kind
+                        && ValuesEqual(backupValue, item.Value, item.Kind)
+                    )
+                    {
+                        logger.LogInformation(
+                            "Skip write registry {Path}:{Name} (already set)",
+                            item.Path,
+                            item.Name!
+                        );
+                        call.Changes.Add(name, description, true);
+                        return OpResult.Success();
+                    }
+
+                    regKey.SetValue(valueName, item.Value, item.Kind);
 
                     var revertStep = new RegistryRevertStep
                     {
@@ -298,119 +321,131 @@ public static class RegistryService
                         CreatedSubKeys = createdSubKeys,
                     };
 
-                    ExecutionScope.LogInfo(
+                    logger.LogInformation(
                         "Wrote {Path}:{Name}[{Kind}] = {Value}",
                         item.Path,
                         item.Name!,
                         item.Kind,
                         item.Value
                     );
-                    ExecutionScope.Track(nameof(Write), true);
-                    ExecutionScope.RecordStep(
-                        ServiceStrings.RegistryName,
-                        description,
-                        true,
-                        revertStep
-                    );
-                    return true;
+                    call.Changes.Add(name, description, true, revertStep);
+                    return OpResult.Success(revertStep);
                 }
                 catch (UnauthorizedAccessException)
                 {
-                    _lastError.Value = ServiceStrings.CommonErrorAccessDenied;
-                    _lastErrorDetail.Value = ServiceStrings.Format(
+                    var error = ServiceStrings.CommonErrorAccessDenied;
+                    var errorDetail = ServiceStrings.Format(
                         ServiceStrings.RegistryErrorDetailAccessDeniedWrite,
                         item.Path,
                         item.Name
                     );
-                    ExecutionScope.LogError(
-                        null,
-                        "Access denied writing {Path}:{Name}",
-                        item.Path,
-                        item.Name!
-                    );
-                    ExecutionScope.Track(nameof(Write), false);
-                    ExecutionScope.RecordStep(
-                        ServiceStrings.RegistryName,
+                    logger.LogError("Access denied writing {Path}:{Name}", item.Path, item.Name!);
+                    call.Changes.Add(
+                        name,
                         description,
                         false,
                         null,
-                        _lastError.Value,
-                        () => Task.FromResult(Write(item)),
-                        _lastErrorDetail.Value
+                        error,
+                        errorDetail,
+                        (OpCall rc) => Task.FromResult(Write(rc, item))
                     );
-                    return false;
+                    return OpResult.Fail(error, errorDetail);
                 }
                 catch (Exception ex)
                 {
-                    _lastError.Value = ex.Message;
-                    _lastErrorDetail.Value = ex.ToString();
-                    ExecutionScope.LogError(
+                    var error = ex.Message;
+                    var errorDetail = ex.ToString();
+                    logger.LogError(
                         ex,
                         "Failed to write registry {Path}:{Name}",
                         item.Path,
                         item.Name!
                     );
-                    ExecutionScope.Track(nameof(Write), false);
-                    ExecutionScope.RecordStep(
-                        ServiceStrings.RegistryName,
+                    call.Changes.Add(
+                        name,
                         description,
                         false,
                         null,
-                        _lastError.Value,
-                        () => Task.FromResult(Write(item)),
-                        _lastErrorDetail.Value
+                        error,
+                        errorDetail,
+                        (OpCall rc) => Task.FromResult(Write(rc, item))
                     );
-                    return false;
+                    return OpResult.Fail(error, errorDetail);
                 }
             },
+            logger,
+            out _,
+            out var openError,
+            out var openErrorDetail,
             true,
             true,
             createdSubKeys
         );
+
+        if (result is null)
+        {
+            if (openError is null)
+                return OpResult.Fail($"Failed to access registry {item.Path}:{item.Name}.");
+            call.Changes.Add(
+                name,
+                description,
+                false,
+                null,
+                openError,
+                openErrorDetail,
+                (OpCall rc) => Task.FromResult(Write(rc, item))
+            );
+            return OpResult.Fail(openError, openErrorDetail);
+        }
+
+        return result;
     }
 
     /// <summary>Deletes a registry value, backing up the current value for revert.</summary>
+    /// <param name="call">The call context carrying the change collector and logger.</param>
     /// <param name="item">The registry path and value name to delete.</param>
-    /// <returns><see langword="true" /> if the value was deleted or did not exist; otherwise, <see langword="false" />.</returns>
-    public static bool DeleteValue(RegistryItem item)
+    /// <returns>The operation result, carrying the revert step on success.</returns>
+    public static OpResult DeleteValue(OpCall call, RegistryItem item)
     {
-        _lastError.Value = _lastErrorDetail.Value = null;
+        ArgumentNullException.ThrowIfNull(call);
+        var name = ServiceStrings.RegistryName;
+        var description = ServiceStrings.Format(
+            ServiceStrings.RegistryDescriptionDelete,
+            item.Path,
+            item.Name ?? "(Default)"
+        );
+        var logger = call.Logger;
 
-        return WithKey(
+        var result = WithKey<OpResult>(
             item,
-            key =>
+            regKey =>
             {
-                var description = ServiceStrings.Format(
-                    ServiceStrings.RegistryDescriptionDelete,
-                    item.Path,
-                    item.Name ?? "(Default)"
-                );
                 try
                 {
                     var valueName = NormalizeValueName(item.Name);
-                    var backupValue = key.GetValue(
+                    var backupValue = regKey.GetValue(
                         valueName,
                         null,
                         RegistryValueOptions.DoNotExpandEnvironmentNames
                     );
                     if (
                         backupValue == null
-                        && !key.GetValueNames()
+                        && !regKey
+                            .GetValueNames()
                             .Contains(valueName, StringComparer.OrdinalIgnoreCase)
                     )
                     {
-                        ExecutionScope.LogInfo(
+                        logger.LogInformation(
                             "Skip delete registry {Path}:{Name} (not found)",
                             item.Path,
                             item.Name!
                         );
-                        ExecutionScope.Track(nameof(DeleteValue), true);
-                        ExecutionScope.RecordStep(ServiceStrings.RegistryName, description, true);
-                        return true;
+                        call.Changes.Add(name, description, true);
+                        return OpResult.Success();
                     }
 
-                    var backupKind = key.GetValueKind(valueName);
-                    key.DeleteValue(valueName, false);
+                    var backupKind = regKey.GetValueKind(valueName);
+                    regKey.DeleteValue(valueName, false);
 
                     var revertStep = new RegistryRevertStep
                     {
@@ -421,97 +456,108 @@ public static class RegistryService
                         Kind = backupKind,
                     };
 
-                    ExecutionScope.LogInfo("Deleted registry {Path}:{Name}", item.Path, item.Name!);
-                    ExecutionScope.Track(nameof(DeleteValue), true);
-                    ExecutionScope.RecordStep(
-                        ServiceStrings.RegistryName,
-                        description,
-                        true,
-                        revertStep
-                    );
-                    return true;
+                    logger.LogInformation("Deleted registry {Path}:{Name}", item.Path, item.Name!);
+                    call.Changes.Add(name, description, true, revertStep);
+                    return OpResult.Success(revertStep);
                 }
                 catch (UnauthorizedAccessException)
                 {
-                    _lastError.Value = ServiceStrings.CommonErrorAccessDenied;
-                    _lastErrorDetail.Value = ServiceStrings.Format(
+                    var error = ServiceStrings.CommonErrorAccessDenied;
+                    var errorDetail = ServiceStrings.Format(
                         ServiceStrings.RegistryErrorDetailAccessDeniedDelete,
                         item.Path,
                         item.Name
                     );
-                    ExecutionScope.LogError(
-                        null,
-                        "Access denied deleting {Path}:{Name}",
-                        item.Path,
-                        item.Name!
-                    );
-                    ExecutionScope.Track(nameof(DeleteValue), false);
-                    ExecutionScope.RecordStep(
-                        ServiceStrings.RegistryName,
+                    logger.LogError("Access denied deleting {Path}:{Name}", item.Path, item.Name!);
+                    call.Changes.Add(
+                        name,
                         description,
                         false,
                         null,
-                        _lastError.Value,
-                        () => Task.FromResult(DeleteValue(item)),
-                        _lastErrorDetail.Value
+                        error,
+                        errorDetail,
+                        (OpCall rc) => Task.FromResult(DeleteValue(rc, item))
                     );
-                    return false;
+                    return OpResult.Fail(error, errorDetail);
                 }
                 catch (Exception ex)
                 {
-                    _lastError.Value = ex.Message;
-                    _lastErrorDetail.Value = ex.ToString();
-                    ExecutionScope.LogError(
+                    var error = ex.Message;
+                    var errorDetail = ex.ToString();
+                    logger.LogError(
                         ex,
                         "Failed to delete registry {Path}:{Name}",
                         item.Path,
                         item.Name!
                     );
-                    ExecutionScope.Track(nameof(DeleteValue), false);
-                    ExecutionScope.RecordStep(
-                        ServiceStrings.RegistryName,
+                    call.Changes.Add(
+                        name,
                         description,
                         false,
                         null,
-                        _lastError.Value,
-                        () => Task.FromResult(DeleteValue(item)),
-                        _lastErrorDetail.Value
+                        error,
+                        errorDetail,
+                        (OpCall rc) => Task.FromResult(DeleteValue(rc, item))
                     );
-                    return false;
+                    return OpResult.Fail(error, errorDetail);
                 }
             },
+            logger,
+            out _,
+            out var openError,
+            out var openErrorDetail,
             true
         );
+
+        if (result is null)
+        {
+            if (openError is null)
+                return OpResult.Fail($"Failed to access registry {item.Path}:{item.Name}.");
+            call.Changes.Add(
+                name,
+                description,
+                false,
+                null,
+                openError,
+                openErrorDetail,
+                (OpCall rc) => Task.FromResult(DeleteValue(rc, item))
+            );
+            return OpResult.Fail(openError, openErrorDetail);
+        }
+
+        return result;
     }
 
     /// <summary>Creates a registry subkey, tracking created intermediate keys for revert.</summary>
+    /// <param name="call">The call context carrying the change collector and logger.</param>
     /// <param name="item">The registry path of the key to create.</param>
-    /// <returns><see langword="true" /> if the key was created or already exists; otherwise, <see langword="false" />.</returns>
-    public static bool CreateSubKey(RegistryItem item)
+    /// <returns>The operation result, carrying the revert step on success.</returns>
+    public static OpResult CreateSubKey(OpCall call, RegistryItem item)
     {
-        _lastError.Value = _lastErrorDetail.Value = null;
-
-        if (!TryParsePath(item.Path, out var rootKey, out var subPath))
-            return false;
-
+        ArgumentNullException.ThrowIfNull(call);
+        var name = ServiceStrings.RegistryName;
         var description = ServiceStrings.Format(
             ServiceStrings.RegistryDescriptionCreateKey,
             item.Path
         );
+        var logger = call.Logger;
+
+        if (!TryParsePath(item.Path, logger, out var rootKey, out var subPath))
+            return OpResult.Fail($"Failed to parse registry path: {item.Path}.");
+
         var createdSubKeys = new List<string>();
 
         try
         {
-            using var key = rootKey.OpenSubKey(subPath, false);
-            if (key != null)
+            using var regKey = rootKey.OpenSubKey(subPath, false);
+            if (regKey != null)
             {
-                ExecutionScope.LogInfo("Skip create registry {Path} (already exists)", item.Path);
-                ExecutionScope.Track(nameof(CreateSubKey), true);
-                ExecutionScope.RecordStep(ServiceStrings.RegistryName, description, true);
-                return true;
+                logger.LogInformation("Skip create registry {Path} (already exists)", item.Path);
+                call.Changes.Add(name, description, true);
+                return OpResult.Success();
             }
 
-            using var newKey = CreateSubKeyTrack(rootKey, subPath, createdSubKeys);
+            using var newKey = CreateSubKeyTrack(rootKey, subPath, createdSubKeys, logger);
 
             var revertStep = new RegistryRevertStep
             {
@@ -521,99 +567,92 @@ public static class RegistryService
                 CreatedSubKeys = createdSubKeys,
             };
 
-            ExecutionScope.LogInfo("Created registry key {Path}", item.Path);
-            ExecutionScope.Track(nameof(CreateSubKey), true);
-            ExecutionScope.RecordStep(ServiceStrings.RegistryName, description, true, revertStep);
-            return true;
+            logger.LogInformation("Created registry key {Path}", item.Path);
+            call.Changes.Add(name, description, true, revertStep);
+            return OpResult.Success(revertStep);
         }
         catch (UnauthorizedAccessException)
         {
-            _lastError.Value = ServiceStrings.CommonErrorAccessDenied;
-            _lastErrorDetail.Value = ServiceStrings.Format(
+            var error = ServiceStrings.CommonErrorAccessDenied;
+            var errorDetail = ServiceStrings.Format(
                 ServiceStrings.RegistryErrorDetailAccessDeniedCreateKey,
                 item.Path
             );
-            ExecutionScope.LogError(null, "Access denied creating {Path}", item.Path);
-            ExecutionScope.Track(nameof(CreateSubKey), false);
-            ExecutionScope.RecordStep(
-                ServiceStrings.RegistryName,
+            logger.LogError("Access denied creating {Path}", item.Path);
+            call.Changes.Add(
+                name,
                 description,
                 false,
                 null,
-                _lastError.Value,
-                () => Task.FromResult(CreateSubKey(item)),
-                _lastErrorDetail.Value
+                error,
+                errorDetail,
+                (OpCall rc) => Task.FromResult(CreateSubKey(rc, item))
             );
-            return false;
+            return OpResult.Fail(error, errorDetail);
         }
         catch (Exception ex)
         {
-            _lastError.Value = ex.Message;
-            _lastErrorDetail.Value = ex.ToString();
-            ExecutionScope.LogError(ex, "Failed to create registry {Path}", item.Path);
-            ExecutionScope.Track(nameof(CreateSubKey), false);
-            ExecutionScope.RecordStep(
-                ServiceStrings.RegistryName,
+            var error = ex.Message;
+            var errorDetail = ex.ToString();
+            logger.LogError(ex, "Failed to create registry {Path}", item.Path);
+            call.Changes.Add(
+                name,
                 description,
                 false,
                 null,
-                _lastError.Value,
-                () => Task.FromResult(CreateSubKey(item)),
-                _lastErrorDetail.Value
+                error,
+                errorDetail,
+                (OpCall rc) => Task.FromResult(CreateSubKey(rc, item))
             );
-            return false;
+            return OpResult.Fail(error, errorDetail);
         }
     }
 
     /// <summary>Deletes an entire registry key tree, backing up all values and subkeys for revert.</summary>
+    /// <param name="call">The call context carrying the change collector and logger.</param>
     /// <param name="item">The registry path of the key tree to delete.</param>
-    /// <returns><see langword="true" /> if the tree was deleted or did not exist; otherwise, <see langword="false" />.</returns>
-    public static bool DeleteSubKeyTree(RegistryItem item)
+    /// <returns>The operation result, carrying the revert step on success.</returns>
+    public static OpResult DeleteSubKeyTree(OpCall call, RegistryItem item)
     {
-        _lastError.Value = _lastErrorDetail.Value = null;
-
-        if (!TryParsePath(item.Path, out var rootKey, out var subPath))
-            return false;
-
+        ArgumentNullException.ThrowIfNull(call);
+        var name = ServiceStrings.RegistryName;
         var description = ServiceStrings.Format(
             ServiceStrings.RegistryDescriptionDeleteKey,
             item.Path
         );
+        var logger = call.Logger;
+
+        if (!TryParsePath(item.Path, logger, out var rootKey, out var subPath))
+            return OpResult.Fail($"Failed to parse registry path: {item.Path}.");
 
         try
         {
-            using var key = rootKey.OpenSubKey(subPath, false);
-            if (key == null)
+            using var regKey = rootKey.OpenSubKey(subPath, false);
+            if (regKey == null)
             {
-                ExecutionScope.LogInfo("Skip delete registry key {Path} (not found)", item.Path);
-                ExecutionScope.Track(nameof(DeleteSubKeyTree), true);
-                ExecutionScope.RecordStep(ServiceStrings.RegistryName, description, true);
-                return true;
+                logger.LogInformation("Skip delete registry key {Path} (not found)", item.Path);
+                call.Changes.Add(name, description, true);
+                return OpResult.Success();
             }
 
-            var (subSteps, backupComplete) = BackupRegistryTree(key, item.Path);
+            var (subSteps, backupComplete) = BackupRegistryTree(regKey, item.Path, logger);
             if (!backupComplete)
             {
-                var msg = ServiceStrings.Format(
+                var error = ServiceStrings.Format(
                     ServiceStrings.RegistryErrorBackupTruncated,
                     item.Path
                 );
-                _lastError.Value = _lastErrorDetail.Value = msg;
-                ExecutionScope.LogError(
-                    null,
-                    "Registry subtree backup truncated for {Path}",
-                    item.Path
-                );
-                ExecutionScope.Track(nameof(DeleteSubKeyTree), false);
-                ExecutionScope.RecordStep(
-                    ServiceStrings.RegistryName,
+                logger.LogError("Registry subtree backup truncated for {Path}", item.Path);
+                call.Changes.Add(
+                    name,
                     description,
                     false,
                     null,
-                    _lastError.Value,
-                    () => Task.FromResult(DeleteSubKeyTree(item))
+                    error,
+                    error,
+                    (OpCall rc) => Task.FromResult(DeleteSubKeyTree(rc, item))
                 );
-                return false;
+                return OpResult.Fail(error, error);
             }
 
             rootKey.DeleteSubKeyTree(subPath, false);
@@ -625,58 +664,56 @@ public static class RegistryService
                 SubSteps = subSteps,
             };
 
-            ExecutionScope.LogInfo("Deleted registry key tree {Path}", item.Path);
-            ExecutionScope.Track(nameof(DeleteSubKeyTree), true);
-            ExecutionScope.RecordStep(ServiceStrings.RegistryName, description, true, revertStep);
-            return true;
+            logger.LogInformation("Deleted registry key tree {Path}", item.Path);
+            call.Changes.Add(name, description, true, revertStep);
+            return OpResult.Success(revertStep);
         }
         catch (UnauthorizedAccessException)
         {
-            _lastError.Value = ServiceStrings.RegistryErrorAccessDeniedProtectedHive;
-            _lastErrorDetail.Value = ServiceStrings.Format(
+            var error = ServiceStrings.RegistryErrorAccessDeniedProtectedHive;
+            var errorDetail = ServiceStrings.Format(
                 ServiceStrings.RegistryErrorDetailAccessDeniedDeleteKeyTree,
                 item.Path
             );
-            ExecutionScope.LogError(null, "Access denied deleting {Path}", item.Path);
-            ExecutionScope.Track(nameof(DeleteSubKeyTree), false);
-            ExecutionScope.RecordStep(
-                ServiceStrings.RegistryName,
+            logger.LogError("Access denied deleting {Path}", item.Path);
+            call.Changes.Add(
+                name,
                 description,
                 false,
                 null,
-                _lastError.Value,
-                () => Task.FromResult(DeleteSubKeyTree(item)),
-                _lastErrorDetail.Value
+                error,
+                errorDetail,
+                (OpCall rc) => Task.FromResult(DeleteSubKeyTree(rc, item))
             );
-            return false;
+            return OpResult.Fail(error, errorDetail);
         }
         catch (Exception ex)
         {
-            _lastError.Value = ex.Message;
-            _lastErrorDetail.Value = ex.ToString();
-            ExecutionScope.LogError(ex, "Failed to delete subkey tree {Path}", item.Path);
-            ExecutionScope.Track(nameof(DeleteSubKeyTree), false);
-            ExecutionScope.RecordStep(
-                ServiceStrings.RegistryName,
+            var error = ex.Message;
+            var errorDetail = ex.ToString();
+            logger.LogError(ex, "Failed to delete subkey tree {Path}", item.Path);
+            call.Changes.Add(
+                name,
                 description,
                 false,
                 null,
-                _lastError.Value,
-                () => Task.FromResult(DeleteSubKeyTree(item)),
-                _lastErrorDetail.Value
+                error,
+                errorDetail,
+                (OpCall rc) => Task.FromResult(DeleteSubKeyTree(rc, item))
             );
-            return false;
+            return OpResult.Fail(error, errorDetail);
         }
     }
 
     private static (List<RegistryRevertStep> Steps, bool IsComplete) BackupRegistryTree(
         RegistryKey key,
-        string keyPath
+        string keyPath,
+        ILogger? logger
     )
     {
         var steps = new List<RegistryRevertStep>();
         var truncated = false;
-        BackupRegistryTreeRecursive(key, keyPath, steps, 0, ref truncated);
+        BackupRegistryTreeRecursive(key, keyPath, steps, 0, ref truncated, logger);
         return (steps, !truncated);
     }
 
@@ -687,13 +724,14 @@ public static class RegistryService
         string keyPath,
         List<RegistryRevertStep> steps,
         int depth,
-        ref bool truncated
+        ref bool truncated,
+        ILogger? logger
     )
     {
         if (depth > 15 || steps.Count > 5000)
         {
             truncated = true;
-            ExecutionScope.LogWarning(
+            logger?.LogWarning(
                 "Registry subtree backup limit reached at {Path} (depth: {Depth}, items: {Count})",
                 keyPath,
                 depth,
@@ -743,25 +781,35 @@ public static class RegistryService
                     $@"{keyPath}\{subKeyName}",
                     steps,
                     depth + 1,
-                    ref truncated
+                    ref truncated,
+                    logger
                 );
         }
     }
 
-    /// <summary>Writes multiple distinct registry values.</summary>
-    /// <param name="items">The registry items to write.</param>
-    public static void Write(params RegistryItem[] items)
+    /// <summary>Writes multiple distinct registry values, recording one change per item.</summary>
+    /// <param name="call">The shared call context for all items.</param>
+    /// <param name="items">The registry items to write. All are attempted; the first failure is returned.</param>
+    public static OpResult Write(OpCall call, params RegistryItem[] items)
     {
-        foreach (var item in items.Distinct())
-            Write(item);
+        ArgumentNullException.ThrowIfNull(call);
+        ArgumentNullException.ThrowIfNull(items);
+
+        // Materialise before aggregating: a lazy sequence would stop at the first failure.
+        return OpResult.FirstFailure(items.Distinct().Select(item => Write(call, item)).ToList());
     }
 
-    /// <summary>Deletes multiple distinct registry values.</summary>
-    /// <param name="items">The registry items to delete.</param>
-    public static void DeleteValue(params RegistryItem[] items)
+    /// <summary>Deletes multiple distinct registry values, recording one change per item.</summary>
+    /// <param name="call">The shared call context for all items.</param>
+    /// <param name="items">The registry items to delete. All are attempted; the first failure is returned.</param>
+    public static OpResult DeleteValue(OpCall call, params RegistryItem[] items)
     {
-        foreach (var item in items.Distinct())
-            DeleteValue(item);
+        ArgumentNullException.ThrowIfNull(call);
+        ArgumentNullException.ThrowIfNull(items);
+
+        return OpResult.FirstFailure(
+            items.Distinct().Select(item => DeleteValue(call, item)).ToList()
+        );
     }
 
     #region Helpers
@@ -813,30 +861,13 @@ public static class RegistryService
         return (T)converted!;
     }
 
-    private static void TrackRegistryError(
-        string uiReason,
-        string logReason,
-        RegistryKey root,
-        string? subPath,
-        Exception ex
-    )
-    {
-        var path = string.IsNullOrEmpty(subPath) ? root.Name : $"{root.Name}\\{subPath}";
-        _lastError.Value = _lastErrorDetail.Value = uiReason;
-
-        ExecutionScope.LogError(ex, "{Reason}: {Path}", logReason, path);
-
-        ExecutionScope.Track(nameof(RegistryService), false);
-
-        ExecutionScope.RecordStep(ServiceStrings.RegistryName, path, false, null, uiReason);
-    }
-
     // walks each segment of the subkey path, creating missing segments one by one
     // only tracks the keys it actually creates so revert cleanup knows what to delete
     private static RegistryKey CreateSubKeyTrack(
         RegistryKey root,
         string subPath,
-        List<string> createdSubKeys
+        List<string> createdSubKeys,
+        ILogger? logger
     )
     {
         var parts = subPath.Split('\\', StringSplitOptions.RemoveEmptyEntries);
@@ -861,7 +892,7 @@ public static class RegistryService
                         );
 
                     createdSubKeys.Add($"{root.Name}\\{currentPath}");
-                    ExecutionScope.LogDebug(
+                    logger?.LogDebug(
                         "Created registry subkey: {Path}",
                         $"{root.Name}\\{currentPath}"
                     );
@@ -893,7 +924,8 @@ public static class RegistryService
     ///     subkeys). Sorts by path depth descending so child keys are deleted before parents.
     /// </remarks>
     /// <param name="createdSubKeys">The list of registry key paths that were created.</param>
-    public static void CleanupEmptyKeys(IEnumerable<string> createdSubKeys)
+    /// <param name="logger">Optional logger; <c>null</c> means silent.</param>
+    public static void CleanupEmptyKeys(IEnumerable<string> createdSubKeys, ILogger? logger = null)
     {
         // Sort by path length descending to delete deepest keys first
         var sortedKeys = createdSubKeys
@@ -905,7 +937,7 @@ public static class RegistryService
         foreach (var fullPath in sortedKeys)
             try
             {
-                if (!TryParsePath(fullPath, out var root, out var subPath))
+                if (!TryParsePath(fullPath, logger, out var root, out var subPath))
                     continue;
 
                 // Check if the key still exists and is empty
@@ -933,12 +965,12 @@ public static class RegistryService
                         parent?.DeleteSubKey(keyName, false);
                     }
 
-                    ExecutionScope.LogInfo("Cleaned up empty registry key {Path}", fullPath);
+                    logger?.LogInformation("Cleaned up empty registry key {Path}", fullPath);
                 }
                 else
                 {
                     // Key is not empty, don't delete it
-                    ExecutionScope.LogDebug(
+                    logger?.LogDebug(
                         "Skipped cleanup of registry key {Path} (has {SubKeyCount} subkeys and {ValueCount} values)",
                         fullPath,
                         key.SubKeyCount,
@@ -948,20 +980,20 @@ public static class RegistryService
             }
             catch (UnauthorizedAccessException)
             {
-                ExecutionScope.LogWarning(
-                    "Access denied cleaning up registry key: {Path}",
-                    fullPath
-                );
+                logger?.LogWarning("Access denied cleaning up registry key: {Path}", fullPath);
             }
             catch (IOException ex)
             {
-                ExecutionScope.LogError(ex, "I/O error cleaning up registry key: {Path}", fullPath);
+                logger?.LogError(ex, "I/O error cleaning up registry key: {Path}", fullPath);
             }
             catch (Exception ex)
             {
-                ExecutionScope.LogError(ex, "Failed to cleanup registry key: {Path}", fullPath);
+                logger?.LogError(ex, "Failed to cleanup registry key: {Path}", fullPath);
             }
     }
+
+    private static bool ValuesEqual(object? actual, object? expected, RegistryValueKind kind) =>
+        RegistryValues.Equal(actual, expected, kind);
 
     #endregion Helpers
 }

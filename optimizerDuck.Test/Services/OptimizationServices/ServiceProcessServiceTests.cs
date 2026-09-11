@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Logging.Abstractions;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Services.Optimization.Providers;
 
@@ -5,6 +7,9 @@ namespace optimizerDuck.Test.Services.OptimizationServices;
 
 public class ServiceProcessServiceTests
 {
+    private static OpCall NewCall() =>
+        new() { Changes = new ChangeSet(), Logger = NullLogger.Instance };
+
     // =============================================
     // Unit tests: ParseScStartType (hardcoded input)
     // =============================================
@@ -239,7 +244,7 @@ public class ServiceProcessServiceTests
         );
     }
 
-    private static async Task EnsureTestServiceAsync()
+    private async Task EnsureTestServiceAsync()
     {
         var (startType, notFound) = await ServiceProcessService.GetStartupTypeAsync(
             TestServiceName
@@ -345,10 +350,12 @@ public class ServiceProcessServiceTests
             Assert.NotNull(startType);
 
             var result = await ServiceProcessService.ChangeServiceStartupTypeAsync(
+                NewCall(),
                 new ServiceItem(TestServiceName, startType.Value)
             );
 
-            Assert.Equal(ServiceChangeResult.AlreadyConfigured, result);
+            // AlreadyConfigured maps to informational success (Ok).
+            Assert.True(result.Ok, result.Error);
         }
         finally
         {
@@ -365,10 +372,11 @@ public class ServiceProcessServiceTests
         try
         {
             var result = await ServiceProcessService.ChangeServiceStartupTypeAsync(
+                NewCall(),
                 new ServiceItem(TestServiceName, ServiceStartupType.Disabled)
             );
 
-            Assert.Equal(ServiceChangeResult.Success, result);
+            Assert.True(result.Ok, result.Error);
             var (startType, _) = await ServiceProcessService.GetStartupTypeAsync(TestServiceName);
             Assert.Equal(ServiceStartupType.Disabled, startType);
         }
@@ -382,13 +390,15 @@ public class ServiceProcessServiceTests
     public async Task ChangeServiceStartupTypeAsync_NonexistentService_ReturnsNotFound()
     {
         var result = await ServiceProcessService.ChangeServiceStartupTypeAsync(
+            NewCall(),
             new ServiceItem(
                 "OptimizerDuckTest_Nonexistent_Service_12345",
                 ServiceStartupType.Manual
             )
         );
 
-        Assert.Equal(ServiceChangeResult.NotFound, result);
+        // NotFound maps to informational success (Ok).
+        Assert.True(result.Ok, result.Error);
     }
 
     [Fact]
@@ -402,10 +412,12 @@ public class ServiceProcessServiceTests
             await StripChangeConfigFromAdminsAsync(TestServiceName);
 
             var result = await ServiceProcessService.ChangeServiceStartupTypeAsync(
+                NewCall(),
                 new ServiceItem(TestServiceName, ServiceStartupType.Disabled)
             );
 
-            Assert.Equal(ServiceChangeResult.AccessDenied, result);
+            Assert.False(result.Ok);
+            Assert.NotNull(result.Error);
         }
         finally
         {

@@ -4,6 +4,7 @@ using optimizerDuck.Common.Extensions;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Conditions;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
@@ -38,6 +39,7 @@ public class AI : LocalizedObject, IOptimizationCategory
             // policy for broad build coverage; AllowRecallEnablement is device-scope only
             // and removes the Recall bits on Windows 11 24H2+ (Build 26100.3915+).
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsAI",
                     "DisableAIDataAnalysis",
@@ -65,7 +67,7 @@ public class AI : LocalizedObject, IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Disabled Windows Recall AI snapshots");
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(CompleteFromScope(context));
         }
     }
 
@@ -83,6 +85,7 @@ public class AI : LocalizedObject, IOptimizationCategory
         )
         {
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsAI",
                     "DisableClickToDo",
@@ -95,7 +98,7 @@ public class AI : LocalizedObject, IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Disabled Click To Do AI overlay");
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(CompleteFromScope(context));
         }
     }
 }

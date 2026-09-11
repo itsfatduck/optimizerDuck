@@ -3,11 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Win32;
-using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Execution;
-using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
-using optimizerDuck.Domain.UI;
 using optimizerDuck.Services.Optimization.Providers;
 using optimizerDuck.Test.TestDoubles;
 using Xunit;
@@ -17,25 +14,12 @@ namespace optimizerDuck.Test.Services.OptimizationServices;
 public class RegistryServiceTests : IDisposable
 {
     private const string BaseTestKey = @"HKCU\Software\TestOptimizerDuck";
-    private readonly ExecutionScope _scope;
 
-    private class DummyOptimization : StubOptimization
-    {
-        public override string OptimizationKey => "TestOpt";
-        public override string Name => "Test";
-        public override string ShortDescription => "";
-
-        public override Task<ApplyResult> ApplyAsync(
-            IProgress<ProcessingProgress> progress,
-            OptimizationContext context
-        ) => Task.FromResult(ApplyResult.True());
-    }
+    private static OpCall NewCall() =>
+        new() { Changes = new ChangeSet(), Logger = NullLogger.Instance };
 
     public RegistryServiceTests()
     {
-        // Setup execution scope to capture revert steps and logs
-        _scope = ExecutionScope.Begin(new DummyOptimization(), NullLogger.Instance);
-
         // Ensure clean state
         CleanupTestKey();
     }
@@ -43,7 +27,6 @@ public class RegistryServiceTests : IDisposable
     public void Dispose()
     {
         CleanupTestKey();
-        _scope.Dispose();
     }
 
     private static void CleanupTestKey()
@@ -71,16 +54,16 @@ public class RegistryServiceTests : IDisposable
     public void DeleteValue_WithInvalidRoot_ReturnsFalse()
     {
         var item = new RegistryItem("BADROOT\\SomePath", "ValueName");
-        var result = RegistryService.DeleteValue(item);
-        Assert.False(result);
+        var result = RegistryService.DeleteValue(NewCall(), item);
+        Assert.False(result.Ok);
     }
 
     [Fact]
     public void Write_WithNullValue_ReturnsFalse()
     {
         var item = new RegistryItem(BaseTestKey, "TestValue");
-        var result = RegistryService.Write(item);
-        Assert.False(result);
+        var result = RegistryService.Write(NewCall(), item);
+        Assert.False(result.Ok);
     }
 
     [Fact]
@@ -88,12 +71,13 @@ public class RegistryServiceTests : IDisposable
     {
         var key = $@"{BaseTestKey}\DeleteValueTest";
 
-        RegistryService.Write(new RegistryItem(key, "A", "Hello"));
-        RegistryService.DeleteValue(new RegistryItem(key, "A"));
+        var write = RegistryService.Write(NewCall(), new RegistryItem(key, "A", "Hello"));
+        Assert.True(write.Ok, write.Error);
+        var delete = RegistryService.DeleteValue(NewCall(), new RegistryItem(key, "A"));
+        Assert.True(delete.Ok, delete.Error);
 
-        var step = _scope.ExecutedSteps.Last();
-
-        await step.RevertStep!.ExecuteAsync();
+        Assert.NotNull(delete.Revert);
+        Assert.True(await delete.Revert.ExecuteAsync(TestShell.New(), NullLogger.Instance));
 
         var val = RegistryService.Read<string>(new RegistryItem(key, "A"));
         Assert.Equal("Hello", val);
@@ -104,12 +88,13 @@ public class RegistryServiceTests : IDisposable
     {
         var key = $@"{BaseTestKey}\DeleteDefaultValueTest";
 
-        RegistryService.Write(new RegistryItem(key, null, "DefaultHello"));
-        RegistryService.DeleteValue(new RegistryItem(key, null));
+        var write = RegistryService.Write(NewCall(), new RegistryItem(key, null, "DefaultHello"));
+        Assert.True(write.Ok, write.Error);
+        var delete = RegistryService.DeleteValue(NewCall(), new RegistryItem(key, null));
+        Assert.True(delete.Ok, delete.Error);
 
-        var step = _scope.ExecutedSteps.Last();
-
-        await step.RevertStep!.ExecuteAsync();
+        Assert.NotNull(delete.Revert);
+        Assert.True(await delete.Revert.ExecuteAsync(TestShell.New(), NullLogger.Instance));
 
         var value = RegistryService.Read<string>(new RegistryItem(key, null));
         Assert.Equal("DefaultHello", value);
@@ -120,14 +105,22 @@ public class RegistryServiceTests : IDisposable
     {
         var key = $@"{BaseTestKey}\WriteDefaultValueTest";
 
-        Assert.True(RegistryService.Write(new RegistryItem(key, null, "OriginalDefault")));
-        Assert.True(RegistryService.Write(new RegistryItem(key, null, "UpdatedDefault")));
+        var first = RegistryService.Write(
+            NewCall(),
+            new RegistryItem(key, null, "OriginalDefault")
+        );
+        Assert.True(first.Ok, first.Error);
+        var second = RegistryService.Write(
+            NewCall(),
+            new RegistryItem(key, null, "UpdatedDefault")
+        );
+        Assert.True(second.Ok, second.Error);
 
         var value = RegistryService.Read<string>(new RegistryItem(key, null));
         Assert.Equal("UpdatedDefault", value);
 
-        var step = _scope.ExecutedSteps.Last();
-        Assert.True(await step.RevertStep!.ExecuteAsync());
+        Assert.NotNull(second.Revert);
+        Assert.True(await second.Revert.ExecuteAsync(TestShell.New(), NullLogger.Instance));
 
         var restoredValue = RegistryService.Read<string>(new RegistryItem(key, null));
         Assert.Equal("OriginalDefault", restoredValue);
@@ -147,31 +140,32 @@ public class RegistryServiceTests : IDisposable
         var keyPathB = $@"{keyPathA}\B";
         var keyPathC = $@"{keyPathB}\C";
 
-        Assert.True(RegistryService.Write(new RegistryItem(keyPathA, "Value1", "Data1")));
-        Assert.True(RegistryService.Write(new RegistryItem(keyPathA, null, "DefaultData")));
-        Assert.True(
-            RegistryService.Write(new RegistryItem(keyPathB, "Value3", 42, RegistryValueKind.DWord))
+        var w1 = RegistryService.Write(NewCall(), new RegistryItem(keyPathA, "Value1", "Data1"));
+        Assert.True(w1.Ok, w1.Error);
+        var w2 = RegistryService.Write(NewCall(), new RegistryItem(keyPathA, null, "DefaultData"));
+        Assert.True(w2.Ok, w2.Error);
+        var w3 = RegistryService.Write(
+            NewCall(),
+            new RegistryItem(keyPathB, "Value3", 42, RegistryValueKind.DWord)
         );
-        Assert.True(RegistryService.CreateSubKey(new RegistryItem(keyPathC)));
+        Assert.True(w3.Ok, w3.Error);
+        var ck = RegistryService.CreateSubKey(NewCall(), new RegistryItem(keyPathC));
+        Assert.True(ck.Ok, ck.Error);
 
         // 2. Perform the deletion of tree A
-        Assert.True(RegistryService.DeleteSubKeyTree(new RegistryItem(keyPathA)));
+        var delete = RegistryService.DeleteSubKeyTree(NewCall(), new RegistryItem(keyPathA));
+        Assert.True(delete.Ok, delete.Error);
 
         // Verify keys are gone
         Assert.False(RegistryService.KeyExists(new RegistryItem(keyPathA)));
 
         // 3. Obtain the revert step generated out of the deleted tree
-        var deleteStep = _scope.ExecutedSteps.LastOrDefault(s =>
-            s.Name == "Registry" && s.RevertStep != null
-        );
-        Assert.NotNull(deleteStep);
-
-        var revertStep = deleteStep.RevertStep;
+        var revertStep = delete.Revert;
         Assert.NotNull(revertStep);
         Assert.Equal("Registry", revertStep.Type);
 
         // 4. Act: Execute the Revert Step
-        Assert.True(await revertStep.ExecuteAsync());
+        Assert.True(await revertStep.ExecuteAsync(TestShell.New(), NullLogger.Instance));
 
         // 5. Assert: Verify the tree structure is perfectly restored
         Assert.True(RegistryService.KeyExists(new RegistryItem(keyPathC))); // C exists, implies A and B exist
@@ -194,17 +188,15 @@ public class RegistryServiceTests : IDisposable
         var keyPathB = $@"{keyPathA}\B";
 
         // Create the deep subkey
-        Assert.True(RegistryService.CreateSubKey(new RegistryItem(keyPathB)));
+        var create = RegistryService.CreateSubKey(NewCall(), new RegistryItem(keyPathB));
+        Assert.True(create.Ok, create.Error);
         Assert.True(RegistryService.KeyExists(new RegistryItem(keyPathB)));
 
         // Obtain revert step
-        var createStep = _scope.ExecutedSteps.LastOrDefault(s =>
-            s.Name == "Registry" && s.RevertStep != null
-        );
-        Assert.NotNull(createStep);
+        Assert.NotNull(create.Revert);
 
         // Execute revert
-        Assert.True(await createStep.RevertStep!.ExecuteAsync());
+        Assert.True(await create.Revert.ExecuteAsync(TestShell.New(), NullLogger.Instance));
 
         // Verify that B and A were cleaned up since they were empty
         Assert.False(RegistryService.KeyExists(new RegistryItem(keyPathB)));
@@ -220,31 +212,42 @@ public class RegistryServiceTests : IDisposable
         var key3 = $@"{BaseTestKey}\MultiStepTest3";
 
         // Write initial values
-        Assert.True(RegistryService.Write(new RegistryItem(key1, "Value", "Initial1")));
-        Assert.True(RegistryService.Write(new RegistryItem(key2, "Value", "Initial2")));
-        Assert.True(RegistryService.Write(new RegistryItem(key3, "Value", "Initial3")));
+        var i1 = RegistryService.Write(NewCall(), new RegistryItem(key1, "Value", "Initial1"));
+        Assert.True(i1.Ok, i1.Error);
+        var i2 = RegistryService.Write(NewCall(), new RegistryItem(key2, "Value", "Initial2"));
+        Assert.True(i2.Ok, i2.Error);
+        var i3 = RegistryService.Write(NewCall(), new RegistryItem(key3, "Value", "Initial3"));
+        Assert.True(i3.Ok, i3.Error);
 
-        // Dispose old scope and create new one to capture new operations
-        _scope.Dispose();
-        using var newScope = ExecutionScope.Begin(new DummyOptimization(), NullLogger.Instance);
+        // Fresh change set to capture new operations
+        var changes = new ChangeSet();
+        OpCall NewTrackedCall() => new() { Changes = changes, Logger = NullLogger.Instance };
 
         // Perform multi-step operation
-        Assert.True(RegistryService.Write(new RegistryItem(key1, "Value", "Updated1")));
-        Assert.True(RegistryService.Write(new RegistryItem(key2, "Value", "Updated2")));
+        var u1 = RegistryService.Write(
+            NewTrackedCall(),
+            new RegistryItem(key1, "Value", "Updated1")
+        );
+        Assert.True(u1.Ok, u1.Error);
+        var u2 = RegistryService.Write(
+            NewTrackedCall(),
+            new RegistryItem(key2, "Value", "Updated2")
+        );
+        Assert.True(u2.Ok, u2.Error);
 
         // Simulate a failure by not writing to key3
         // In real scenario, this would be caught by transaction logic
 
         // Get all revert steps
-        var revertSteps = newScope
-            .ExecutedSteps.Where(s => s.RevertStep != null)
-            .Select(s => s.RevertStep!)
+        var revertSteps = changes
+            .SuccessfulSteps.Where(c => c.Revert != null)
+            .Select(c => c.Revert!)
             .ToList();
 
         // Revert all steps in reverse order
         foreach (var step in revertSteps.AsEnumerable().Reverse())
         {
-            Assert.True(await step.ExecuteAsync());
+            Assert.True(await step.ExecuteAsync(TestShell.New(), NullLogger.Instance));
         }
 
         // Verify original state is restored
@@ -269,7 +272,11 @@ public class RegistryServiceTests : IDisposable
                 Task.Run(
                     () =>
                     {
-                        Assert.True(RegistryService.Write(new RegistryItem(key, "Value", value)));
+                        var write = RegistryService.Write(
+                            NewCall(),
+                            new RegistryItem(key, "Value", value)
+                        );
+                        Assert.True(write.Ok, write.Error);
                         var read = RegistryService.Read<string>(new RegistryItem(key, "Value"));
                         Assert.Equal(value, read);
                     },
@@ -296,39 +303,36 @@ public class RegistryServiceTests : IDisposable
         var key = $@"{BaseTestKey}\TypeConversionTest";
 
         // Test different value types
-        Assert.True(
-            RegistryService.Write(new RegistryItem(key, "DWordValue", 42, RegistryValueKind.DWord))
+        var dw = RegistryService.Write(
+            NewCall(),
+            new RegistryItem(key, "DWordValue", 42, RegistryValueKind.DWord)
         );
+        Assert.True(dw.Ok, dw.Error);
         Assert.Equal(42, RegistryService.Read<int>(new RegistryItem(key, "DWordValue")));
 
-        Assert.True(
-            RegistryService.Write(
-                new RegistryItem(key, "QWordValue", 9999999999L, RegistryValueKind.QWord)
-            )
+        var qw = RegistryService.Write(
+            NewCall(),
+            new RegistryItem(key, "QWordValue", 9999999999L, RegistryValueKind.QWord)
         );
+        Assert.True(qw.Ok, qw.Error);
         Assert.Equal(9999999999L, RegistryService.Read<long>(new RegistryItem(key, "QWordValue")));
 
-        Assert.True(
-            RegistryService.Write(
-                new RegistryItem(key, "StringValue", "TestString", RegistryValueKind.String)
-            )
+        var sw = RegistryService.Write(
+            NewCall(),
+            new RegistryItem(key, "StringValue", "TestString", RegistryValueKind.String)
         );
+        Assert.True(sw.Ok, sw.Error);
         Assert.Equal(
             "TestString",
             RegistryService.Read<string>(new RegistryItem(key, "StringValue"))
         );
 
         var multiString = new[] { "Line1", "Line2", "Line3" };
-        Assert.True(
-            RegistryService.Write(
-                new RegistryItem(
-                    key,
-                    "MultiStringValue",
-                    multiString,
-                    RegistryValueKind.MultiString
-                )
-            )
+        var mw = RegistryService.Write(
+            NewCall(),
+            new RegistryItem(key, "MultiStringValue", multiString, RegistryValueKind.MultiString)
         );
+        Assert.True(mw.Ok, mw.Error);
         var readMulti = RegistryService.Read<string[]>(new RegistryItem(key, "MultiStringValue"));
         Assert.Equal(multiString, readMulti);
     }
@@ -340,21 +344,31 @@ public class RegistryServiceTests : IDisposable
         var key1 = $@"{BaseTestKey}\SubStepTest\Key1";
         var key2 = $@"{BaseTestKey}\SubStepTest\Key2";
 
-        Assert.True(RegistryService.Write(new RegistryItem(key1, "Value", "Original1")));
-        Assert.True(RegistryService.Write(new RegistryItem(key2, "Value", "Original2")));
+        var o1 = RegistryService.Write(NewCall(), new RegistryItem(key1, "Value", "Original1"));
+        Assert.True(o1.Ok, o1.Error);
+        var o2 = RegistryService.Write(NewCall(), new RegistryItem(key2, "Value", "Original2"));
+        Assert.True(o2.Ok, o2.Error);
 
-        // Dispose old scope and create new one to capture new operations
-        _scope.Dispose();
-        using var newScope = ExecutionScope.Begin(new DummyOptimization(), NullLogger.Instance);
+        // Fresh change set to capture new operations
+        var changes = new ChangeSet();
+        OpCall NewTrackedCall() => new() { Changes = changes, Logger = NullLogger.Instance };
 
         // Perform operations
-        Assert.True(RegistryService.Write(new RegistryItem(key1, "Value", "Modified1")));
-        Assert.True(RegistryService.Write(new RegistryItem(key2, "Value", "Modified2")));
+        var m1 = RegistryService.Write(
+            NewTrackedCall(),
+            new RegistryItem(key1, "Value", "Modified1")
+        );
+        Assert.True(m1.Ok, m1.Error);
+        var m2 = RegistryService.Write(
+            NewTrackedCall(),
+            new RegistryItem(key2, "Value", "Modified2")
+        );
+        Assert.True(m2.Ok, m2.Error);
 
         // Revert in reverse order (LIFO)
-        var revertSteps = newScope
-            .ExecutedSteps.Where(s => s.RevertStep != null)
-            .Select(s => s.RevertStep!)
+        var revertSteps = changes
+            .SuccessfulSteps.Where(c => c.Revert != null)
+            .Select(c => c.Revert!)
             .ToList();
 
         var executionOrder = new List<string>();
@@ -362,7 +376,7 @@ public class RegistryServiceTests : IDisposable
         {
             var desc = step.Description;
             executionOrder.Add(desc);
-            Assert.True(await step.ExecuteAsync());
+            Assert.True(await step.ExecuteAsync(TestShell.New(), NullLogger.Instance));
         }
 
         // Verify state is restored
@@ -377,11 +391,17 @@ public class RegistryServiceTests : IDisposable
         var nonEmptyKeyPath = $@"{BaseTestKey}\CleanupTest\NonEmptyKey";
 
         // Create empty key
-        Assert.True(RegistryService.CreateSubKey(new RegistryItem(emptyKeyPath)));
+        var ce = RegistryService.CreateSubKey(NewCall(), new RegistryItem(emptyKeyPath));
+        Assert.True(ce.Ok, ce.Error);
 
         // Create non-empty key
-        Assert.True(RegistryService.CreateSubKey(new RegistryItem(nonEmptyKeyPath)));
-        Assert.True(RegistryService.Write(new RegistryItem(nonEmptyKeyPath, "Value", "SomeValue")));
+        var cn = RegistryService.CreateSubKey(NewCall(), new RegistryItem(nonEmptyKeyPath));
+        Assert.True(cn.Ok, cn.Error);
+        var wn = RegistryService.Write(
+            NewCall(),
+            new RegistryItem(nonEmptyKeyPath, "Value", "SomeValue")
+        );
+        Assert.True(wn.Ok, wn.Error);
 
         // Cleanup
         RegistryService.CleanupEmptyKeys(new[] { emptyKeyPath, nonEmptyKeyPath });

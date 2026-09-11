@@ -3,6 +3,7 @@ using Microsoft.Win32;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Customize.Models;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.Optimization.Providers;
@@ -54,10 +55,10 @@ public class CustomizeItemViewModelTests : IDisposable
                 Option("OptionB", TestKeyPath, RegName, 2),
             ];
 
-        public override async Task ApplyAsync(object? value)
+        public override async Task<OpResult> ApplyAsync(object? value, OpCall call)
         {
             ApplyCount++;
-            await base.ApplyAsync(value);
+            return await base.ApplyAsync(value, call);
         }
     }
 
@@ -89,11 +90,17 @@ public class CustomizeItemViewModelTests : IDisposable
         return (setting, watcher, vm);
     }
 
-    private static void WriteValue(int value) =>
-        RegistryService.Write(new RegistryItem(TestKeyPath, RegName, value));
+    private static void WriteValue(int value)
+    {
+        var call = new OpCall { Logger = NullLogger.Instance };
+        RegistryService.Write(call, new RegistryItem(TestKeyPath, RegName, value));
+    }
 
-    private static void DeleteValue() =>
-        RegistryService.DeleteValue(new RegistryItem(TestKeyPath, RegName));
+    private static void DeleteValue()
+    {
+        var call = new OpCall { Logger = NullLogger.Instance };
+        RegistryService.DeleteValue(call, new RegistryItem(TestKeyPath, RegName));
+    }
 
     private static object? ReadValue() =>
         RegistryService.Read<object>(new RegistryItem(TestKeyPath, RegName));

@@ -4,6 +4,7 @@ using optimizerDuck.Common.Extensions;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Conditions;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
@@ -44,6 +45,7 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
             );
             // @formatter:off
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection",
                     "AllowTelemetry",
@@ -111,9 +113,10 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
                     0
                 )
             );
-            RegistryService.DeleteValue([
-                new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Siuf\Rules", "PeriodInNanoSeconds"),
-            ]);
+            RegistryService.DeleteValue(
+                context,
+                [new RegistryItem(@"HKCU\SOFTWARE\Microsoft\Siuf\Rules", "PeriodInNanoSeconds")]
+            );
             context.Logger.LogInformation("Reduced core telemetry and feedback");
             progress?.Report(
                 new ProcessingProgress
@@ -125,13 +128,16 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
                 }
             );
             await ServiceProcessService.ChangeServiceStartupTypeAsync(
-                new ServiceItem("DiagTrack", ServiceStartupType.Disabled),
-                new ServiceItem("dmwappushservice", ServiceStartupType.Disabled),
-                new ServiceItem("DcpSvc", ServiceStartupType.Disabled),
-                new ServiceItem(
-                    "diagnosticshub.standardcollector.service",
-                    ServiceStartupType.Disabled
-                )
+                context,
+                [
+                    new ServiceItem("DiagTrack", ServiceStartupType.Disabled),
+                    new ServiceItem("dmwappushservice", ServiceStartupType.Disabled),
+                    new ServiceItem("DcpSvc", ServiceStartupType.Disabled),
+                    new ServiceItem(
+                        "diagnosticshub.standardcollector.service",
+                        ServiceStartupType.Disabled
+                    ),
+                ]
             );
 
             progress?.Report(
@@ -159,12 +165,12 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
 
             foreach (var task in tasksToDelete)
             {
-                if (!ScheduledTaskService.IsTaskEnabled(task))
+                if (!ScheduledTaskService.IsTaskEnabled(task, context.Logger))
                     continue;
-                ScheduledTaskService.DisableTask(task);
+                ScheduledTaskService.DisableTask(context, task);
             }
 
-            return CompleteFromScope();
+            return context.Changes.ToApplyResult();
         }
     }
 
@@ -181,6 +187,7 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
         )
         {
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKLM\SOFTWARE\Microsoft\Windows\Windows Error Reporting",
                     "Disabled",
@@ -194,8 +201,11 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
             );
 
             await ServiceProcessService.ChangeServiceStartupTypeAsync(
-                new ServiceItem("WerSvc", ServiceStartupType.Disabled),
-                new ServiceItem("PcaSvc", ServiceStartupType.Disabled)
+                context,
+                [
+                    new ServiceItem("WerSvc", ServiceStartupType.Disabled),
+                    new ServiceItem("PcaSvc", ServiceStartupType.Disabled),
+                ]
             );
 
             var tasksToDelete = new[]
@@ -208,15 +218,15 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
 
             foreach (var task in tasksToDelete)
             {
-                if (!ScheduledTaskService.IsTaskEnabled(task))
+                if (!ScheduledTaskService.IsTaskEnabled(task, context.Logger))
                     continue;
-                ScheduledTaskService.DisableTask(task);
+                ScheduledTaskService.DisableTask(context, task);
             }
 
             context.Logger.LogInformation(
                 "Disabled Windows Error Reporting and Compatibility Assistant"
             );
-            return CompleteFromScope();
+            return context.Changes.ToApplyResult();
         }
     }
 
@@ -234,6 +244,7 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
         {
             // @formatter:off
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo",
                     "Enabled",
@@ -300,7 +311,7 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
                 "Disabled advertising ID, consumer features and system suggestions"
             );
 
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 
@@ -317,6 +328,7 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
         )
         {
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKLM\SOFTWARE\Policies\Microsoft\Dsh",
                     "AllowNewsAndInterests",
@@ -330,7 +342,7 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
             );
 
             context.Logger.LogInformation("Disabled News and Interests feed");
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 
@@ -348,6 +360,7 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
         )
         {
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer",
                     "HideSCAMeetNow",
@@ -356,7 +369,7 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
             );
 
             context.Logger.LogInformation("Hidden Meet Now button from the taskbar");
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 
@@ -373,6 +386,7 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
         )
         {
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKLM\SOFTWARE\Policies\Microsoft\Windows\System",
                     "PublishUserActivities",
@@ -396,7 +410,7 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
             );
 
             context.Logger.LogInformation("Disabled activity history collection and syncing");
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 
@@ -413,6 +427,7 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
         )
         {
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKLM\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors",
                     "DisableLocation",
@@ -461,13 +476,21 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
                 )
             );
 
-            if (ScheduledTaskService.IsTaskEnabled(@"\Microsoft\Windows\Maps\MapsUpdateTask"))
-                ScheduledTaskService.DisableTask(@"\Microsoft\Windows\Maps\MapsUpdateTask");
+            if (
+                ScheduledTaskService.IsTaskEnabled(
+                    @"\Microsoft\Windows\Maps\MapsUpdateTask",
+                    context.Logger
+                )
+            )
+                ScheduledTaskService.DisableTask(
+                    context,
+                    @"\Microsoft\Windows\Maps\MapsUpdateTask"
+                );
 
             context.Logger.LogInformation(
                 "Disabled location tracking, sensors and offline maps updates"
             );
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 
@@ -484,6 +507,7 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
         )
         {
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AppModel",
                     "Start",
@@ -536,7 +560,7 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Disabled WMI AutoLogger sessions");
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 
@@ -554,6 +578,7 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
         )
         {
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search",
                     "AllowCortana",
@@ -591,7 +616,7 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Disabled Cortana and web search");
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 
@@ -612,6 +637,7 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
         )
         {
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot",
                     "TurnOffWindowsCopilot",
@@ -635,7 +661,7 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
             );
 
             context.Logger.LogInformation("Disabled Windows Copilot");
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 
@@ -652,6 +678,7 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
         )
         {
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager",
                     "ContentDeliveryAllowed",
@@ -684,7 +711,7 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Disabled content delivery manager");
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 
@@ -701,6 +728,7 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
         )
         {
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKLM\SOFTWARE\Policies\Microsoft\FindMyDevice",
                     "AllowFindMyDevice",
@@ -708,7 +736,7 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Disabled Find My Device location tracking");
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 
@@ -725,6 +753,7 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
         )
         {
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKLM\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization",
                     "DODownloadMode",
@@ -732,7 +761,7 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Disabled peer-to-peer Delivery Optimization sharing");
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 }

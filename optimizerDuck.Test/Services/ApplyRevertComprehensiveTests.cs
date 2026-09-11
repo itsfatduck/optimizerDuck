@@ -8,6 +8,7 @@ using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Services.Optimization;
+using optimizerDuck.Services.Optimization.Providers;
 using optimizerDuck.Services.Revert;
 using optimizerDuck.Services.System;
 using optimizerDuck.Test.TestDoubles;
@@ -30,10 +31,10 @@ public class ApplyRevertComprehensiveTests
         {
             var optimization = new TestOptimization
             {
-                ApplyImpl = _ =>
+                ApplyImpl = args =>
                 {
-                    ExecutionScope.RecordStep(
-                        "Shell",
+                    args.context.Changes.Add(
+                        "Step 1: Disable service",
                         "Step 1: Disable service",
                         true,
                         new ShellRevertStep
@@ -42,8 +43,8 @@ public class ApplyRevertComprehensiveTests
                             Command = "sc config TestService start= auto",
                         }
                     );
-                    ExecutionScope.RecordStep(
-                        "Shell",
+                    args.context.Changes.Add(
+                        "Step 2: Registry change",
                         "Step 2: Registry change",
                         true,
                         new ShellRevertStep
@@ -52,8 +53,8 @@ public class ApplyRevertComprehensiveTests
                             Command = "Set-ItemProperty -Path 'HKLM:\\Test' -Name 'Value' -Value 0",
                         }
                     );
-                    ExecutionScope.RecordStep(
-                        "Shell",
+                    args.context.Changes.Add(
+                        "Step 3: File operation",
                         "Step 3: File operation",
                         true,
                         new ShellRevertStep
@@ -62,7 +63,6 @@ public class ApplyRevertComprehensiveTests
                             Command = "del C:\\test.txt",
                         }
                     );
-                    return Task.FromResult(ApplyResult.True());
                 },
             };
 
@@ -128,28 +128,26 @@ public class ApplyRevertComprehensiveTests
         {
             var optimization = new TestOptimization
             {
-                ApplyImpl = _ =>
+                ApplyImpl = args =>
                 {
-                    ExecutionScope.RecordStep(
-                        "Shell",
+                    args.context.Changes.Add(
+                        "Step 1: Will fail",
                         "Step 1: Will fail",
                         false,
-                        null,
-                        "Step 1 failed"
+                        error: "Step 1 failed"
                     );
-                    ExecutionScope.RecordStep(
-                        "Shell",
+                    args.context.Changes.Add(
+                        "Step 2: Success",
                         "Step 2: Success",
                         true,
                         new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 0" }
                     );
-                    ExecutionScope.RecordStep(
-                        "Shell",
+                    args.context.Changes.Add(
+                        "Step 3: Success",
                         "Step 3: Success",
                         true,
                         new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 0" }
                     );
-                    return Task.FromResult(ApplyResult.True());
                 },
             };
 
@@ -171,12 +169,10 @@ public class ApplyRevertComprehensiveTests
 
                 var data = await RevertManager.GetRevertDataAsync(optimization.Id);
                 Assert.NotNull(data);
-                Assert.Equal(3, data!.Steps.Length);
-
-                // Step 1 should be null (failed), steps 2 and 3 should exist
-                Assert.Null(data.Steps[0]);
+                // Compact layout: only successful steps persist, in execution order.
+                Assert.Equal(2, data!.Steps.Length);
+                Assert.NotNull(data.Steps[0]);
                 Assert.NotNull(data.Steps[1]);
-                Assert.NotNull(data.Steps[2]);
             }
             finally
             {
@@ -193,29 +189,38 @@ public class ApplyRevertComprehensiveTests
         {
             var optimization = new TestOptimization
             {
-                ApplyImpl = _ =>
+                ApplyImpl = args =>
                 {
-                    ExecutionScope.RecordStep(
-                        "Shell",
+                    args.context.Changes.Add(
+                        "Step 1: Success",
                         "Step 1: Success",
                         true,
                         new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 11" }
                     );
-                    ExecutionScope.RecordStep("Shell", "Step 2: Fail", false, null, "fail 2");
-                    ExecutionScope.RecordStep(
-                        "Shell",
+                    args.context.Changes.Add(
+                        "Step 2: Fail",
+                        "Step 2: Fail",
+                        false,
+                        error: "fail 2"
+                    );
+                    args.context.Changes.Add(
+                        "Step 3: Success",
                         "Step 3: Success",
                         true,
                         new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 33" }
                     );
-                    ExecutionScope.RecordStep("Shell", "Step 4: Fail", false, null, "fail 4");
-                    ExecutionScope.RecordStep(
-                        "Shell",
+                    args.context.Changes.Add(
+                        "Step 4: Fail",
+                        "Step 4: Fail",
+                        false,
+                        error: "fail 4"
+                    );
+                    args.context.Changes.Add(
+                        "Step 5: Success",
                         "Step 5: Success",
                         true,
                         new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 55" }
                     );
-                    return Task.FromResult(ApplyResult.True());
                 },
             };
 
@@ -237,27 +242,21 @@ public class ApplyRevertComprehensiveTests
 
                 var data = await RevertManager.GetRevertDataAsync(optimization.Id);
                 Assert.NotNull(data);
-                Assert.Equal(5, data!.Steps.Length);
+                // Compact layout: only the 3 successful steps persist, in order.
+                Assert.Equal(3, data!.Steps.Length);
 
-                // Verify pattern: success, fail, success, fail, success
-                Assert.NotNull(data.Steps[0]);
-                Assert.Null(data.Steps[1]);
-                Assert.NotNull(data.Steps[2]);
-                Assert.Null(data.Steps[3]);
-                Assert.NotNull(data.Steps[4]);
-
-                // Verify commands are at correct indices
+                // Verify commands are in execution order
                 Assert.Equal(
                     "exit 11",
                     data.Steps[0]!.Data[nameof(ShellRevertStep.Command)]?.ToString()
                 );
                 Assert.Equal(
                     "exit 33",
-                    data.Steps[2]!.Data[nameof(ShellRevertStep.Command)]?.ToString()
+                    data.Steps[1]!.Data[nameof(ShellRevertStep.Command)]?.ToString()
                 );
                 Assert.Equal(
                     "exit 55",
-                    data.Steps[4]!.Data[nameof(ShellRevertStep.Command)]?.ToString()
+                    data.Steps[2]!.Data[nameof(ShellRevertStep.Command)]?.ToString()
                 );
             }
             finally
@@ -275,11 +274,20 @@ public class ApplyRevertComprehensiveTests
         {
             var optimization = new TestOptimization
             {
-                ApplyImpl = _ =>
+                ApplyImpl = args =>
                 {
-                    ExecutionScope.RecordStep("Shell", "Step 1: Fail", false, null, "fail 1");
-                    ExecutionScope.RecordStep("Shell", "Step 2: Fail", false, null, "fail 2");
-                    return Task.FromResult(ApplyResult.False("All steps failed"));
+                    args.context.Changes.Add(
+                        "Step 1: Fail",
+                        "Step 1: Fail",
+                        false,
+                        error: "fail 1"
+                    );
+                    args.context.Changes.Add(
+                        "Step 2: Fail",
+                        "Step 2: Fail",
+                        false,
+                        error: "fail 2"
+                    );
                 },
             };
 
@@ -443,7 +451,8 @@ public class ApplyRevertComprehensiveTests
 
                 var manager = new RevertManager(
                     NullLogger<RevertManager>.Instance,
-                    NullLoggerFactory.Instance
+                    TestShell.New(),
+                    TimeProvider.System
                 );
                 var result = await manager.RevertAsync(optimization);
 
@@ -599,7 +608,7 @@ public class ApplyRevertComprehensiveTests
                 Assert.NotNull(updatedData.Steps[1]); // Step 2 failed and is preserved
 
                 // Failed step should have retry action
-                Assert.NotNull(result.FailedSteps[0].RetryAction);
+                Assert.NotNull(result.FailedSteps[0].Retry);
             }
             finally
             {
@@ -719,7 +728,8 @@ public class ApplyRevertComprehensiveTests
 
                 var manager = new RevertManager(
                     NullLogger<RevertManager>.Instance,
-                    NullLoggerFactory.Instance
+                    TestShell.New(),
+                    TimeProvider.System
                 );
                 var result = await manager.RevertAsync(optimization);
 
@@ -729,14 +739,15 @@ public class ApplyRevertComprehensiveTests
                 // Retry the failed step - note: retry will also fail because it's still "exit 1"
                 var failedStep = result.FailedSteps.FirstOrDefault();
                 Assert.NotNull(failedStep);
-                Assert.NotNull(failedStep.RetryAction);
+                Assert.NotNull(failedStep.Retry);
 
                 // Retry will fail because the command is still "exit 1"
                 // This is expected behavior - retry just re-executes the same command
                 // ExecuteAsync throws exception on failure, so we need to catch it
                 var exception = await Record.ExceptionAsync(async () =>
-                    await failedStep.RetryAction!()
-                );
+                {
+                    await failedStep.Retry!(new OpCall { Logger = NullLogger.Instance });
+                });
                 Assert.NotNull(exception); // Expected to throw
                 Assert.True(File.Exists(revertPath)); // Still preserved
             }
@@ -759,21 +770,20 @@ public class ApplyRevertComprehensiveTests
         {
             var optimization = new TestOptimization
             {
-                ApplyImpl = _ =>
+                ApplyImpl = args =>
                 {
-                    ExecutionScope.RecordStep(
-                        "Shell",
+                    args.context.Changes.Add(
+                        "Step 1",
                         "Step 1",
                         true,
                         new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 0" }
                     );
-                    ExecutionScope.RecordStep(
-                        "Shell",
+                    args.context.Changes.Add(
+                        "Step 2",
                         "Step 2",
                         true,
                         new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 0" }
                     );
-                    return Task.FromResult(ApplyResult.True());
                 },
             };
 
@@ -813,22 +823,21 @@ public class ApplyRevertComprehensiveTests
         {
             var optimization = new TestOptimization
             {
-                ApplyImpl = _ =>
+                ApplyImpl = args =>
                 {
-                    ExecutionScope.RecordStep(
-                        "Shell",
+                    args.context.Changes.Add(
+                        "Step 1",
                         "Step 1",
                         true,
                         new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 0" }
                     );
-                    ExecutionScope.RecordStep("Shell", "Step 2", false, null, "Step 2 failed");
-                    ExecutionScope.RecordStep(
-                        "Shell",
+                    args.context.Changes.Add("Step 2", "Step 2", false, error: "Step 2 failed");
+                    args.context.Changes.Add(
+                        "Step 3",
                         "Step 3",
                         true,
                         new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 0" }
                     );
-                    return Task.FromResult(ApplyResult.True());
                 },
             };
 
@@ -847,10 +856,9 @@ public class ApplyRevertComprehensiveTests
 
                 var data = await RevertManager.GetRevertDataAsync(optimization.Id);
                 Assert.NotNull(data);
-                Assert.Equal(3, data!.Steps.Length);
+                Assert.Equal(2, data!.Steps.Length);
                 Assert.NotNull(data.Steps[0]);
-                Assert.Null(data.Steps[1]); // Gap from failed step
-                Assert.NotNull(data.Steps[2]);
+                Assert.NotNull(data.Steps[1]);
 
                 // Phase 2: Revert should only revert steps 1 and 3
                 var revertResult = await service.RevertAsync(optimization, progress);
@@ -872,24 +880,24 @@ public class ApplyRevertComprehensiveTests
         {
             var optimization = new TestOptimization
             {
-                ApplyImpl = _ =>
+                ApplyImpl = args =>
                 {
-                    ExecutionScope.RecordStep(
-                        "Shell",
+                    args.context.Changes.Add(
+                        "Step 1",
                         "Step 1",
                         true,
                         new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 0" }
                     );
-                    ExecutionScope.RecordStep(
-                        "Shell",
+                    args.context.Changes.Add(
+                        "Step 2",
                         "Step 2",
                         false,
                         null,
                         "fail 2",
-                        () =>
+                        retry: rc =>
                         {
-                            ExecutionScope.RecordStep(
-                                "Shell",
+                            rc.Changes.Add(
+                                "Step 2 retry",
                                 "Step 2 retry",
                                 true,
                                 new ShellRevertStep
@@ -898,16 +906,15 @@ public class ApplyRevertComprehensiveTests
                                     Command = "exit 0",
                                 }
                             );
-                            return Task.FromResult(true);
+                            return Task.FromResult(OpResult.Success());
                         }
                     );
-                    ExecutionScope.RecordStep(
-                        "Shell",
+                    args.context.Changes.Add(
+                        "Step 3",
                         "Step 3",
                         true,
                         new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 0" }
                     );
-                    return Task.FromResult(ApplyResult.True());
                 },
             };
 
@@ -933,16 +940,16 @@ public class ApplyRevertComprehensiveTests
                 Assert.Single(retryResult.RecoveredSteps);
                 Assert.Equal(2, retryResult.RecoveredSteps[0].Index);
 
-                // Phase 3: Upsert the recovered step
+                // Phase 3: Append the recovered step
                 var revertManager = new RevertManager(
                     NullLogger<RevertManager>.Instance,
-                    NullLoggerFactory.Instance
+                    TestShell.New(),
+                    TimeProvider.System
                 );
-                await revertManager.UpsertRevertStepAtIndexAsync(
+                await revertManager.AppendRevertStepAsync(
                     optimization.Id,
                     optimization.OptimizationKey,
-                    retryResult.RecoveredSteps[0].Index,
-                    retryResult.RecoveredSteps[0].RevertStep!
+                    retryResult.RecoveredSteps[0].Revert!
                 );
 
                 // Verify complete revert data
@@ -1068,12 +1075,14 @@ public class ApplyRevertComprehensiveTests
     {
         var revertManager = new RevertManager(
             NullLogger<RevertManager>.Instance,
-            NullLoggerFactory.Instance
+            TestShell.New(),
+            TimeProvider.System
         );
         var loggerFactory = NullLoggerFactory.Instance;
         var systemInfoService = new SystemInfoService(NullLogger<SystemInfoService>.Instance);
         var streamService = new StreamService(NullLogger<StreamService>.Instance);
         var contentDialogService = new ContentDialogService();
+        var shellService = new ShellService(new ProcessRunner(120000));
         var logger = NullLogger<OptimizationService>.Instance;
         return new OptimizationService(
             revertManager,
@@ -1081,6 +1090,7 @@ public class ApplyRevertComprehensiveTests
             systemInfoService,
             streamService,
             contentDialogService,
+            shellService,
             logger
         );
     }
@@ -1118,17 +1128,18 @@ public class ApplyRevertComprehensiveTests
         public override string Name => "Test Optimization";
         public override string ShortDescription => "Test optimization for comprehensive testing";
 
-        public Func<
-            (IProgress<ProcessingProgress> progress, OptimizationContext context),
-            Task<ApplyResult>
-        > ApplyImpl { get; init; } = _ => Task.FromResult(ApplyResult.True());
+        public Action<(
+            IProgress<ProcessingProgress> progress,
+            OptimizationContext context
+        )> ApplyImpl { get; init; } = _ => { };
 
         public override Task<ApplyResult> ApplyAsync(
             IProgress<ProcessingProgress> progress,
             OptimizationContext context
         )
         {
-            return ApplyImpl((progress, context));
+            ApplyImpl((progress, context));
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 

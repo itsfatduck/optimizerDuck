@@ -8,7 +8,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Configuration;
-using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Bloatware;
 using optimizerDuck.Services.Optimization.Providers;
 using AppXPackage = optimizerDuck.Domain.Optimizations.Models.Bloatware.AppXPackage;
@@ -18,7 +17,8 @@ namespace optimizerDuck.Services.UI;
 
 public class BloatwareService(
     ILogger<BloatwareService> logger,
-    IOptionsMonitor<AppSettings> appOptionsMonitor
+    IOptionsMonitor<AppSettings> appOptionsMonitor,
+    ShellService shellService
 )
 {
     private static readonly ConcurrentDictionary<string, string?> LogoCache = new(
@@ -45,8 +45,8 @@ public class BloatwareService(
             var safePattern = string.Join("|", Shared.SafeApps.Select(Regex.Escape));
             var cautionPattern = string.Join("|", Shared.CautionApps.Select(Regex.Escape));
 
-            var result = await ShellService
-                .PowerShellAsync(
+            var result = await shellService
+                .QueryPowerShellAsync(
                     $$"""
                     $safeRegex = '{{safePattern}}'
                     $cautionRegex = '{{cautionPattern}}'
@@ -83,15 +83,9 @@ public class BloatwareService(
                 return [];
             }
 
-            var options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true,
-                Converters = { new JsonStringEnumConverter() },
-            };
+            var apps = ParsePackages(result.Stdout);
 
-            var apps = JsonSerializer.Deserialize<List<AppXPackage>>(result.Stdout, options);
-
-            if (apps == null || apps.Count == 0)
+            if (apps.Count == 0)
             {
                 logger.LogInformation("No removable AppX packages found");
                 return [];
@@ -142,6 +136,28 @@ public class BloatwareService(
         }
     }
 
+    /// <summary>
+    ///     Parses the <c>ConvertTo-Json</c> output of the AppX query. PowerShell emits a
+    ///     bare object for a single package and an array for several, so both shapes are
+    ///     accepted; deserialising only as a list silently yielded an empty result for the
+    ///     single-package case.
+    /// </summary>
+    internal static List<AppXPackage> ParsePackages(string stdout)
+    {
+        var json = stdout.TrimStart();
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            Converters = { new JsonStringEnumConverter() },
+        };
+
+        if (json.StartsWith('['))
+            return JsonSerializer.Deserialize<List<AppXPackage>>(json, options) ?? [];
+
+        var single = JsonSerializer.Deserialize<AppXPackage>(json, options);
+        return single is null ? [] : [single];
+    }
+
     // Validates an AppX package name/identifier to prevent PowerShell injection.
     // AppX names follow: Publisher.PackageName (alphanumeric, dots, dashes)
     // PackageFullName follows: Name_Version_Architecture__ResourceId
@@ -181,10 +197,8 @@ public class BloatwareService(
     /// <summary>
     ///     Removes an AppX package from the system.
     /// </summary>
-    /// <param name="appXPackage">The package to remove.</param>
     public async Task RemoveAppXPackage(AppXPackage appXPackage)
     {
-        using var scope = ExecutionScope.BeginForLogging(logger);
         try
         {
             if (string.IsNullOrWhiteSpace(appXPackage.PackageFullName))
@@ -267,7 +281,9 @@ public class BloatwareService(
                     Write-Output "Skipping provisioned package removal (disabled by user)"
                     """;
 
-            var result = await ShellService.PowerShellAsync(script).ConfigureAwait(false);
+            var result = await shellService
+                .QueryPowerShellAsync(script, logger)
+                .ConfigureAwait(false);
 
             if (!string.IsNullOrWhiteSpace(result.Stderr))
                 logger.LogWarning("Remove AppX stderr: {Error}", result.Stderr);

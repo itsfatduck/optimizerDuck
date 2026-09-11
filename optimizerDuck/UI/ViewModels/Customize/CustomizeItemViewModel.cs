@@ -10,6 +10,7 @@ using optimizerDuck.Domain.Conditions;
 using optimizerDuck.Domain.Customize.Models;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Services.Configuration;
+using optimizerDuck.Services.Customize;
 using optimizerDuck.Services.System;
 using Wpf.Ui.Controls;
 
@@ -25,15 +26,12 @@ public partial class CustomizeItemViewModel(
         loggerFactory.CreateLogger<CustomizeItemViewModel>();
 
     private bool _hasLoaded;
-    private CancellationTokenSource? _debounceCts;
+    private readonly CustomizationExecutor _executor = new(
+        loggerFactory.CreateLogger<CustomizationExecutor>()
+    );
     private bool _disposed;
 
     private readonly HashSet<string> _watchedPaths = new(StringComparer.OrdinalIgnoreCase);
-
-    private readonly object _applyLock = new();
-    private bool _isApplying;
-    private object? _pendingValue;
-    private bool _hasPendingValue;
 
     public ICustomizeSetting Setting => setting;
     public CustomizeControlType ControlType => setting.ControlType;
@@ -222,11 +220,8 @@ public partial class CustomizeItemViewModel(
     {
         try
         {
-            lock (_applyLock)
-            {
-                if (_isApplying)
-                    return;
-            }
+            if (_executor.IsApplying)
+                return;
 
             // Only the refresh bookkeeping runs on the UI thread; the reads stay off it.
             IsEnabled = await Task.Run(() =>
@@ -249,21 +244,7 @@ public partial class CustomizeItemViewModel(
     [RelayCommand]
     private void Toggle()
     {
-        lock (_applyLock)
-        {
-            var currentTarget = _hasPendingValue ? (bool)_pendingValue! : IsEnabled;
-            var nextState = !currentTarget;
-
-            _pendingValue = nextState;
-            _hasPendingValue = true;
-
-            if (_isApplying)
-                return;
-
-            _isApplying = true;
-        }
-
-        _ = ProcessPendingValuesAsync();
+        _ = _executor.ApplyWithDebounceAsync(!IsEnabled, ApplyCoreAsync, debounceMs: 0);
     }
 
     partial void OnCurrentValueChanged(object? value)
@@ -274,98 +255,55 @@ public partial class CustomizeItemViewModel(
         if (Equals(value, setting.CurrentValue))
             return;
 
-        if (ControlType == CustomizeControlType.String)
-            _ = ApplyWithDebounceAsync(value);
-        else
-            QueueApplyValue(value);
+        var debounce = ControlType == CustomizeControlType.String ? 400 : 0;
+        _ = _executor.ApplyWithDebounceAsync(value, ApplyCoreAsync, debounce);
     }
 
-    private void QueueApplyValue(object? value)
+    private async Task ApplyCoreAsync(object? valueToApply)
     {
-        lock (_applyLock)
-        {
-            _pendingValue = value;
-            _hasPendingValue = true;
-
-            if (_isApplying)
-                return;
-
-            _isApplying = true;
-        }
-
-        _ = ProcessPendingValuesAsync();
-    }
-
-    private async Task ApplyWithDebounceAsync(object? value)
-    {
-        _debounceCts?.Cancel();
-        _debounceCts = new CancellationTokenSource();
-        var token = _debounceCts.Token;
-
+        IsLoading = true;
         try
         {
-            await Task.Delay(400, token);
-            if (token.IsCancellationRequested)
-                return;
+            _logger.LogInformation(
+                "Apply {Value} for {Setting} ({Key})",
+                valueToApply,
+                setting.LogName(),
+                setting.FeatureKey
+            );
 
-            QueueApplyValue(value);
-        }
-        catch (TaskCanceledException) { }
-    }
+            var applyResult = await setting.ApplyAsync(
+                valueToApply,
+                new OpCall { Logger = _logger }
+            );
 
-    private async Task ProcessPendingValuesAsync()
-    {
-        try
-        {
-            while (true)
+            if (!applyResult.Ok)
             {
-                object? valueToApply;
-                lock (_applyLock)
-                {
-                    if (!_hasPendingValue)
-                    {
-                        _isApplying = false;
-                        break;
-                    }
-
-                    valueToApply = _pendingValue;
-                    _hasPendingValue = false;
-                }
-
-                IsLoading = true;
-                try
-                {
-                    _logger.LogInformation(
-                        "Apply {Value} for {Setting} ({Key})",
-                        valueToApply,
-                        setting.LogName(),
-                        setting.FeatureKey
-                    );
-
-                    using (ExecutionScope.BeginForLogging(_logger))
-                    {
-                        await setting.ApplyAsync(valueToApply);
-                    }
-
-                    IsEnabled = await Task.Run(() => setting.GetStateWithRetryAsync());
-
-                    if (ControlType != CustomizeControlType.Toggle)
-                    {
-                        var (options, current) = await Task.Run(() =>
-                            (setting.Options, setting.CurrentValue)
-                        );
-                        UpdateOptions(options);
-                        CurrentValue = current;
-                    }
-
-                    if (Application.Current is App app)
-                        app.HasPendingChanges = true;
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Failed to apply {SettingName}", setting.LogName());
-                }
+                _logger.LogError(
+                    "Failed to apply {Setting} ({Key}): {Error} {Detail}",
+                    setting.LogName(),
+                    setting.FeatureKey,
+                    applyResult.Error,
+                    applyResult.ErrorDetail
+                );
             }
+
+            IsEnabled = await Task.Run(() => setting.GetStateWithRetryAsync());
+
+            if (ControlType != CustomizeControlType.Toggle)
+            {
+                var (options, current) = await Task.Run(() =>
+                    (setting.Options, setting.CurrentValue)
+                );
+                UpdateOptions(options);
+                CurrentValue = current;
+            }
+
+            if (Application.Current is App app)
+                app.HasPendingChanges = true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to apply {SettingName}", setting.LogName());
         }
         finally
         {
@@ -386,7 +324,6 @@ public partial class CustomizeItemViewModel(
             registryWatcher.Unwatch(path);
 
         _watchedPaths.Clear();
-        _debounceCts?.Cancel();
-        _debounceCts?.Dispose();
+        _executor.Dispose();
     }
 }

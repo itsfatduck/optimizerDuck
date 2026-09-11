@@ -5,6 +5,7 @@ using optimizerDuck.Common.Extensions;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Conditions;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
@@ -35,6 +36,7 @@ public class UserExperience : LocalizedObject, IOptimizationCategory
         )
         {
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Serialize",
                     "StartupDelayInMSec",
@@ -43,7 +45,7 @@ public class UserExperience : LocalizedObject, IOptimizationCategory
                 new RegistryItem(@"HKCU\Control Panel\Desktop", "MenuShowDelay", "0")
             );
             context.Logger.LogInformation("Speeded up Explorer and menus");
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(CompleteFromScope(context));
         }
     }
 
@@ -60,6 +62,7 @@ public class UserExperience : LocalizedObject, IOptimizationCategory
         )
         {
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
                     "TaskbarAnimations",
@@ -78,7 +81,7 @@ public class UserExperience : LocalizedObject, IOptimizationCategory
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\DWM", "EnableAeroPeek", 0)
             );
             context.Logger.LogInformation("Disabled visual effects for better performance");
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(CompleteFromScope(context));
         }
     }
 
@@ -95,6 +98,7 @@ public class UserExperience : LocalizedObject, IOptimizationCategory
         )
         {
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\Explorer",
                     "DisableSearchBoxSuggestions",
@@ -102,7 +106,7 @@ public class UserExperience : LocalizedObject, IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Disabled web search for Start Menu");
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(CompleteFromScope(context));
         }
     }
 
@@ -120,6 +124,7 @@ public class UserExperience : LocalizedObject, IOptimizationCategory
         )
         {
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Windows\Explorer",
                     "HideRecommendedSection",
@@ -127,7 +132,7 @@ public class UserExperience : LocalizedObject, IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Disabled Recommended section in Start Menu");
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(CompleteFromScope(context));
         }
     }
 
@@ -144,6 +149,7 @@ public class UserExperience : LocalizedObject, IOptimizationCategory
         )
         {
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent",
                     "DisableConsumerAccountStateContent",
@@ -151,7 +157,7 @@ public class UserExperience : LocalizedObject, IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Disabled Microsoft 365 ads in Settings");
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(CompleteFromScope(context));
         }
     }
 
@@ -169,6 +175,7 @@ public class UserExperience : LocalizedObject, IOptimizationCategory
         {
             // DWORD maximum; only honored by Windows versions that still support this setting
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings",
                     "FlightSettingsMaxPauseDays",
@@ -178,7 +185,7 @@ public class UserExperience : LocalizedObject, IOptimizationCategory
             );
 
             context.Logger.LogInformation("Maximized the Windows Update pause limit");
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(CompleteFromScope(context));
         }
     }
 }

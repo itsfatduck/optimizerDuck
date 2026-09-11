@@ -4,6 +4,7 @@ using optimizerDuck.Common.Extensions;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Conditions;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
@@ -44,7 +45,7 @@ public abstract class GpuRegistryOptimization : BaseOptimization
             var path =
                 $@"HKLM\SYSTEM\CurrentControlSet\Control\Class\{{4d36e968-e325-11ce-bfc1-08002be10318}}\{index:D4}";
 
-            RegistryService.Write(CreateItems(path).ToArray());
+            RegistryService.Write(context, CreateItems(path).ToArray());
             context.Logger.LogInformation(
                 "Applied {Optimization} for GPU {DeviceId}",
                 GetType().Name,
@@ -52,7 +53,7 @@ public abstract class GpuRegistryOptimization : BaseOptimization
             );
         }
 
-        return Task.FromResult(CompleteFromScope());
+        return Task.FromResult(context.Changes.ToApplyResult());
     }
 }
 

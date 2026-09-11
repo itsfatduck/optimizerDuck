@@ -132,7 +132,7 @@ optimizerDuck.slnx                          # Solution file (.slnx format)
 │   │   │   └── WindowsBuilds.cs            # OS build number constants
 │   │   ├── Configuration/                  # AppSettings model
 │   │   ├── Exceptions/                     # StepExecutionException
-│   │   ├── Execution/                      # ExecutionScope — ambient step tracking via AsyncLocal
+│   │   ├── Execution/                      # OpCall, OpResult, ChangeSet — explicit call context
 │   │   ├── Customize/                      # Customize settings
 │   │   │   ├── Categories/                 # Category classes with nested setting classes
 │   │   │   └── Models/                     # BaseCustomizeSetting, RegistryToggle, RegistryBinding,
@@ -167,8 +167,8 @@ optimizerDuck.slnx                          # Solution file (.slnx format)
 │   │   ├── Configuration/                  # ConfigManager, LanguageManager
 │   │   ├── Customize/                      # CustomizeRegistry (reflection-based discovery)
 │   │   ├── Optimization/                   # OptimizationRegistry, OptimizationService
-│   │   │   └── Providers/                  # Static: RegistryService, ShellService (+ ShellPolicy),
-│   │   │                                   #   ScheduledTaskService, ServiceProcessService
+│   │   │   └── Providers/                  # Instance: RegistryService, ShellService (+ ShellPolicy),
+│   │   │                                   #   ScheduledTaskService, ServiceProcessService, ProcessRunner
 │   │   ├── Revert/                         # RevertManager (atomic write/read of revert JSON files)
 │   │   ├── System/                         # RegistryWatcher (+ IRegistryWatcher), SystemInfoService,
 │   │   │                                   #   StreamService, UpdaterService, CrossPageEventBus
@@ -207,7 +207,7 @@ optimizerDuck.slnx                          # Solution file (.slnx format)
 | Decision | Rationale |
 |---|---|
 | **Reflection-based discovery** | No DI registration arrays to update. `ReflectionHelper.FindImplementationsInLoadedAssemblies<T>()` scans `optimizerDuck.*` assemblies. New optimizations/settings are auto-discovered. |
-| **Static provider services** | `RegistryService`, `ShellService`, `ScheduledTaskService`, `ServiceProcessService` are static classes. They record revert steps into the ambient `ExecutionScope` — no need to inject or pass context. |
+| **Provider services** | Stateless services (`RegistryService`, `ScheduledTaskService`, `ServiceProcessService`) are **static** — call them directly, passing the explicit `OpCall` (`context`). `ShellService` is a DI singleton (it holds the live shell timeout) and reaches optimizations as `context.Shell`. |
 | **File-based revert tracking** | Applied state = file exists on disk (`%localappdata%\optimizerDuck\Revert\{id}.json`). No database. Atomic writes via `File.Replace()`. |
 | **Condition system (fail-open)** | Optimizations and settings can declare compatibility conditions. Evaluation failures never hide an item — see [The Condition System](#the-condition-system). |
 | **Integration-style tests** | Real filesystem, real registry (under `HKCU\Software\TestOptimizerDuck*`), real process execution. No mocking libraries — hand-written test doubles only. |
@@ -250,7 +250,7 @@ At startup the app calls `OptimizationRegistry.PreloadOptimizationsAsync()`. Thi
 
 1. `ReflectionHelper.FindImplementationsInLoadedAssemblies<IOptimizationCategory>()` finds every category class.
 2. For each category it scans **nested public classes** implementing `IOptimization`.
-3. Each optimization is instantiated, `OwnerType` is assigned, and its `[Optimization]` metadata (including any `Condition`) is validated.
+3. Each optimization is instantiated, `OwnerType` is assigned, and its `[Optimization]` metadata (including any `Condition`) is validated — malformed or duplicated `Id` GUIDs fail fast here with the offending class named.
 4. `OptimizationService.UpdateOptimizationStateAsync` scans revert files on disk to mark each optimization as Applied or not.
 5. The Optimize page calls `EnsurePreloadedAsync()` before binding (a no-op if preloading already finished).
 
@@ -296,16 +296,17 @@ public class Performance : IOptimizationCategory
             IProgress<ProcessingProgress> progress,
             OptimizationContext context)
         {
-            // 1. Use static providers to make system changes
+            // 1. Static providers do the work; pass context as the OpCall
             RegistryService.Write(new RegistryItem(
-                @"HKLM\SOFTWARE\Something", "ValueName", 1));
+                @"HKLM\SOFTWARE\Something", "ValueName", 1), context);
 
-            // 2. Await async operations — this yields the UI thread
+            // 2. Await async providers — this keeps the UI responsive
             await ServiceProcessService.ChangeServiceStartupTypeAsync(
-                new ServiceItem("SomeService", ServiceStartupType.Disabled));
+                new ServiceItem("SomeService", ServiceStartupType.Disabled),
+                context);
 
-            // 3. Return result from the ambient ExecutionScope
-            return CompleteFromScope();
+            // 3. Map the recorded changes to the result
+            return context.Changes.ToApplyResult();
         }
     }
 }
@@ -315,58 +316,130 @@ public class Performance : IOptimizationCategory
 
 | Rule | Detail |
 |---|---|
-| **`Id` must be a new GUID** | Used for revert file naming and applied-state tracking. Generate with `[guid]::NewGuid()` in PowerShell. |
-| **Extend `BaseOptimization`** | Provides `Name`, `ShortDescription`, `RiskVisual`, `TagDisplays` from attribute + localization keys. |
+| **Extend `BaseOptimization`** | Provides the `Shell` provider plus `Name`, `ShortDescription`, `RiskVisual`, `TagDisplays` from attribute + localization keys. Stateless providers (`RegistryService`, `ServiceProcessService`, `ScheduledTaskService`) are static — call them directly. |
 | **`OwnerType` is assigned automatically** | Discovery sets it — don't set it yourself. |
-| **Use `async Task<ApplyResult>`** | Service providers are async — `await` them to keep the UI responsive. |
-| **Return `CompleteFromScope()`** | Derives `ApplyResult` from steps recorded in the ambient `ExecutionScope`. Don't construct `ApplyResult` manually. |
+| **Pass `context` as the `OpCall`** | `OptimizationContext` extends `OpCall` (`Changes`, `Logger`, `CancellationToken`). Single-item calls take it last (`RegistryService.Write(item, context)`); batch overloads take it first (`RegistryService.Write(context, item1, item2)`). |
+| **Return `context.Changes.ToApplyResult()`** | Maps recorded changes to `ApplyResult`: any success is success; total failure carries the first error. Don't construct `ApplyResult` manually. |
 | **Report progress** | Use `progress.Report(new ProcessingProgress { ... })` to update the UI dialog. |
-| **Don't catch all exceptions** | Let them bubble up. `ExecutionScope` tracks success/failure; `OptimizationService` handles exceptions. |
-| **Don't manually create revert steps** | Static provider services do this automatically via `ExecutionScope.RecordStep()`. |
+| **Don't catch all exceptions** | Let them bubble up. `ChangeSet` tracks per-step success/failure; `OptimizationService` handles exceptions. |
+| **Don't manually create revert steps** | Static providers record `Change` entries (with revert steps) into `context.Changes` automatically. |
 | **Use `context.Logger`** | The optimization context provides a logger for important diagnostic info. |
 | **Use `context.Snapshot`** | `OptimizationContext.Snapshot` (a `SystemSnapshot`) gives system info: RAM, GPU, CPU, OS. Use it for conditional logic. |
 | **Use `context.StreamService`** | For optimizations that need to download remote resources (e.g. power plans). |
 | **Declare a `Condition` if needed** | Gate the optimization on Windows version or hardware — see [The Condition System](#the-condition-system). |
-
 ### Available Service Providers
 
-These **static** classes handle logging, error handling, and automatic revert step recording.
+Stateless services are **static** — call them directly, no `new`, no allocation.
+`ShellService` is a DI singleton (it reads the shell timeout from settings on every call);
+it reaches optimizations through `OptimizationContext.Shell`.
+All of them handle logging, error handling, and revert recording through the explicit `OpCall`.
 
 | Service | Key Methods | Why It's Used |
 |---|---|---|
-| **`RegistryService`** | `Write()`, `Read<T>()`, `DeleteValue()`, `CreateSubKey()`, `DeleteSubKeyTree()`, `KeyExists()`, `CleanupEmptyKeys()` | Read/write/delete registry keys. Backs up original values for revert. Supports batch writes via params array. |
-| **`ShellService`** | `CMDAsync()`, `PowerShellAsync()`, `CMD()` (sync), `PowerShell()` (sync) | Run CMD or PowerShell commands. Prefer async variants. Optional `revertCommand` parameter for undo. See `ShellPolicy` for non-standard exit codes. |
-| **`ScheduledTaskService`** | `DisableTask()`, `EnableTask()`, `IsTaskEnabled()`, `DeleteTask()`, `GetAllTasks()`, `RegisterTask()`, `RunTask()`, `StopTask()` | Manage Windows Scheduled Tasks. |
-| **`ServiceProcessService`** | `ChangeServiceStartupTypeAsync()`, `GetStartupTypeAsync()` | Manage Windows Services. Always use async variants. Supports batch changes via params array. |
+| **`RegistryService`** (static) | `Write()`, `Read<T>()`, `DeleteValue()`, `CreateSubKey()`, `DeleteSubKeyTree()`, `KeyExists()`, `CleanupEmptyKeys()` | Read/write/delete registry keys. Backs up original values for revert. Supports batch writes via params array. |
+| **`context.Shell`** (`ShellService`) | `CMDAsync()`, `PowerShellAsync()` (record a change), `QueryCMDAsync()`, `QueryPowerShellAsync()` (read-only) | Run CMD or PowerShell commands. Prefer the async variants. Pass a `revertCommand` string, or an `IRevertStep`, for undo. See `ShellPolicy` for non-standard exit codes. |
+| **`ScheduledTaskService`** (static) | `DisableTask()`, `EnableTask()`, `IsTaskEnabled()`, `DeleteTask()`, `GetAllTasks()`, `RegisterTask()`, `RunTask()`, `StopTask()` | Manage Windows Scheduled Tasks. |
+| **`ServiceProcessService`** (static) | `ChangeServiceStartupTypeAsync()`, `GetStartupTypeAsync()` | Manage Windows Services. Always use async variants. Supports batch changes via array overload. |
 
-> **Methods accepting multiple items via params**: Most write/change methods accept a params array of items (e.g., `RegistryService.Write(item1, item2, item3)`). This is more efficient than multiple individual calls.
+> **Methods accepting multiple items via params**: Most write/change methods accept a params array of items (e.g., `RegistryService.Write(context, item1, item2, item3)`). This is more efficient than multiple individual calls.
 
-Example usage:
+Every mutating call takes the `OpCall` explicitly and returns an
+`OpResult`. Reads take an optional call for logging
+(`RegistryService.Read<T>(item, context)` or `RegistryService.Read<T>(item)` for silent reads).
 
 ```csharp
-// Sync registry writes — multiple items at once
-RegistryService.Write(
+// Sync registry writes — multiple items at once (batch: call first)
+RegistryService.Write(context,
     new RegistryItem(@"HKLM\...", "Value1", 1),
     new RegistryItem(@"HKLM\...", "Value2", 0)
 );
-RegistryService.DeleteValue(new RegistryItem(@"HKCU\...", "OldValue"));
+// Single item: item first, call last
+RegistryService.DeleteValue(new RegistryItem(@"HKCU\...", "OldValue"), context);
 
-// Async service changes — multiple services at once
+// Async service changes — batch via array overload (items, call)
 await ServiceProcessService.ChangeServiceStartupTypeAsync(
-    new ServiceItem("DiagTrack", ServiceStartupType.Disabled),
-    new ServiceItem("dmwappushservice", ServiceStartupType.Disabled)
-);
+    [new ServiceItem("DiagTrack", ServiceStartupType.Disabled),
+     new ServiceItem("dmwappushservice", ServiceStartupType.Disabled)],
+    context);
 
 // Async shell command with revert command
-var result = await ShellService.CMDAsync(
+var result = await context.Shell.CMDAsync(
     "powercfg /h off",
+    context,
     "powercfg /h on"     // revert command stored for undo
 );
+if (!result.Ok)
+{
+    context.Logger.LogError("Hibernation tweak failed: {Error}", result.Error);
+    return context.Changes.ToApplyResult();
+}
 
-// Async PowerShell
-var usbStates = await ShellService.PowerShellAsync(
-    "Get-CimInstance -Namespace root\\wmi -ClassName MSPower_DeviceEnable"
-);
+// Async PowerShell (read-only — nothing recorded, nothing to undo)
+var usbStates = await context.Shell.QueryPowerShellAsync(
+    "Get-CimInstance -Namespace root\\wmi -ClassName MSPower_DeviceEnable",
+    context.Logger);
+```
+
+### Before/After: a GPU-style Registry Optimization
+
+Before (stale — do not copy): static call, no explicit call context,
+result derived from hidden state.
+
+```csharp
+// BEFORE — stale execution model, do not use
+RegistryService.Write(new RegistryItem(@"HKLM\...", "Value", 1));
+return CompleteFromScope();
+```
+
+After: static provider, explicit `OpCall` (`context`),
+`return context.Changes.ToApplyResult();`. This is the GPU-tweak shape
+from `Domain/Optimizations/Categories/Gpu.cs` (`GpuRegistryOptimization`):
+
+```csharp
+public override Task<ApplyResult> ApplyAsync(
+    IProgress<ProcessingProgress> progress,
+    OptimizationContext context)
+{
+    foreach (var gpu in context.Snapshot.Gpus.Where(g =>
+        g.Vendor == Vendor && !string.IsNullOrEmpty(g.DeviceId)))
+    {
+        if (!Gpu.TryParseDeviceIdToIndex(gpu.DeviceId, out var index))
+        {
+            context.Logger.LogWarning(
+                "Invalid DeviceId for GPU {GpuName} ({DeviceId})",
+                gpu.Name,
+                gpu.DeviceId);
+            continue;
+        }
+
+        var path = $@"HKLM\SYSTEM\CurrentControlSet\Control\Class\"
+            + $@"{{4d36e968-e325-11ce-bfc1-08002be10318}}\{index:D4}";
+
+        RegistryService.Write(context, CreateItems(path).ToArray());
+        context.Logger.LogInformation(
+            "Applied {Optimization} for GPU {DeviceId}",
+            GetType().Name,
+            gpu.DeviceId);
+    }
+
+    return Task.FromResult(context.Changes.ToApplyResult());
+}
+```
+
+`OpResult` error flow: each provider call returns `OpResult`
+(`Ok`, optional `Revert`, `Error`/`ErrorDetail`). On failure the
+provider already recorded the `Change` (with `Error` plus a
+`Func<OpCall, Task<OpResult>>` retry closure) into
+`context.Changes`, so check `result.Ok` when you need to branch, and
+always finish with `context.Changes.ToApplyResult()`.
+
+Retry shape (what the failure dialog runs per failed step):
+
+```csharp
+var retryChanges = new ChangeSet();
+var retryCall = new OpCall { Changes = retryChanges, Logger = logger };
+OpResult retryOutcome = await step.Retry(retryCall).ConfigureAwait(false);
+bool success = retryOutcome.Ok;
 ```
 
 ### Handling Asynchronous Operations
@@ -378,9 +451,9 @@ public override Task<ApplyResult> ApplyAsync(
     IProgress<ProcessingProgress> progress,
     OptimizationContext context)
 {
-    RegistryService.Write(new RegistryItem(@"HKLM\...", "Value", 1));
+    RegistryService.Write(new RegistryItem(@"HKLM\...", "Value", 1), context);
     context.Logger.LogInformation("Applied tweak");
-    return Task.FromResult(CompleteFromScope());
+    return Task.FromResult(context.Changes.ToApplyResult());
 }
 ```
 
@@ -389,10 +462,33 @@ But if you use any async provider (service, shell, task), always `await` them:
 ```csharp
 public override async Task<ApplyResult> ApplyAsync(...)
 {
-    await ServiceProcessService.ChangeServiceStartupTypeAsync(...);
-    return CompleteFromScope();
+    await ServiceProcessService.ChangeServiceStartupTypeAsync(item, context);
+    await context.Shell.CMDAsync("powercfg /h off", context, "powercfg /h on");
+    return context.Changes.ToApplyResult();
 }
 ```
+
+### The Execution Model
+
+There is one execution path. An optimization extends `BaseOptimization`, is decorated with
+`[Optimization]`, and implements `ApplyAsync`. Providers record their effect into
+`context.Changes` (a `ChangeSet`) and return an `OpResult`; `OptimizationService` persists
+revert data and builds the UI result. Do not add a second framework, and do not write a
+second implementation of a Windows operation.
+
+Providers reached through `context`:
+
+| Provider | Records | Notes |
+|---|---|---|
+| `RegistryService` (static) | `RegistryRevertStep` | `Write` / `DeleteValue` / `CreateSubKey` / `DeleteSubKeyTree` |
+| `ServiceProcessService` (static) | `ServiceRevertStep` | sc.exe; access-denied is a reported failure, never a silent success |
+| `ScheduledTaskService` (static) | `ScheduledTaskRevertStep` | enable/disable, run/stop, register |
+| `context.Shell` (`ShellService`) | `ShellRevertStep` | pass a `revertCommand` with `CMDAsync`/`PowerShellAsync` |
+
+Rules:
+
+- **Never throw for a per-step failure.** Record it (`OpResult`) so sibling steps still run and the step stays retryable.
+- **`OptimizationService` owns persistence and retries.** Do not call `RevertManager` from an optimization.
 
 ### Create a New Category
 
@@ -413,15 +509,13 @@ public abstract class GpuRegistryOptimization : BaseOptimization
 {
     protected abstract GpuVendor Vendor { get; }
     protected abstract IReadOnlyList<RegistryItem> CreateItems(string registryPath);
-
     public override Task<ApplyResult> ApplyAsync(...)
     {
         foreach (var gpu in context.Snapshot.Gpus.Where(g => g.Vendor == Vendor))
         {
             var path = $@"HKLM\...\{index:D4}";
-            RegistryService.Write(CreateItems(path).ToArray());
+            RegistryService.Write(context, CreateItems(path).ToArray());
         }
-        return Task.FromResult(CompleteFromScope());
     }
 }
 ```
@@ -612,28 +706,24 @@ public class MouseAcceleration : BaseCustomizeSetting
     {
         return Task.Run(() =>
         {
-            var speed = RegistryService.Read<string>(new RegistryItem(Path, "MouseSpeed"));
-            var t1 = RegistryService.Read<string>(new RegistryItem(Path, "MouseThreshold1"));
-            var t2 = RegistryService.Read<string>(new RegistryItem(Path, "MouseThreshold2"));
+            var reg = new RegistryService();
+            var speed = reg.Read<string>(new RegistryItem(Path, "MouseSpeed"));
+            var t1 = reg.Read<string>(new RegistryItem(Path, "MouseThreshold1"));
+            var t2 = reg.Read<string>(new RegistryItem(Path, "MouseThreshold2"));
             return (int.TryParse(speed, out var s) && s != 0)
                 || (int.TryParse(t1, out var a) && a != 0)
                 || (int.TryParse(t2, out var b) && b != 0);
         });
     }
 
-    public override async Task ApplyAsync(object? value)
+    public override async Task ApplyAsync(object? value, OpCall call)
     {
         var isOn = value is bool b && b;
-        RegistryService.Write(new RegistryItem(Path, "MouseSpeed", isOn ? "1" : "0"));
-        RegistryService.Write(new RegistryItem(Path, "MouseThreshold1", isOn ? "6" : "0"));
-        RegistryService.Write(new RegistryItem(Path, "MouseThreshold2", isOn ? "10" : "0"));
+        RegistryService.Write(new RegistryItem(Path, "MouseSpeed", isOn ? "1" : "0"), call);
+        RegistryService.Write(new RegistryItem(Path, "MouseThreshold1", isOn ? "6" : "0"), call);
+        RegistryService.Write(new RegistryItem(Path, "MouseThreshold2", isOn ? "10" : "0"), call);
 
         if (NeedsPostAction)
-            await ExecutePostActionAsync();
-    }
-
-    protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.Default;
-}
 ```
 
 > When you override `ApplyAsync`, you **must** call `await ExecutePostActionAsync()` yourself (guarded by `NeedsPostAction`). The base class only does this automatically for the default `RegistryToggles`-based and dropdown-binding-based paths.
@@ -931,7 +1021,7 @@ services.AddSingleton<UpdaterService>();
 services.AddSingleton<IRegistryWatcher, RegistryWatcher>();
 ```
 
-> This is a snapshot for orientation — `App.xaml.cs` is the source of truth for the current registrations. Also note the startup calls: `ShellService.Init(appOptionsMonitor)` and `WmiHelper.Initialize()`, and the exposed `App.AppHost` property used to resolve transient dialogs.
+> This is a snapshot for orientation — `App.xaml.cs` is the source of truth for the current registrations. Also note the startup calls: `RevertManager.RemoveOrphanedTempFiles(_logger)` (stale `.tmp` sweep) and `WmiHelper.Initialize()`, and the exposed `App.AppHost` property used to resolve transient dialogs.
 
 ### System Services Reference
 
@@ -955,44 +1045,43 @@ Every applied optimization creates a JSON file at `%localappdata%\optimizerDuck\
 ### How It Works
 
 ```
-ApplyAsync()
+ApplyAsync(progress, context)   ← context IS the OpCall (Changes + Logger + CancellationToken)
   │
-  ├─ ExecutionScope.Begin(optimization, logger)    ← creates ambient AsyncLocal scope
+  ├─ RegistryService.Write(item, context)            ← records Change + RegistryRevertStep, returns OpResult
+  ├─ await ServiceProcessService.ChangeServiceStartupTypeAsync(item, context)  ← records Change + ServiceRevertStep
+  ├─ await context.Shell.CMDAsync(cmd, context, revertCmd)  ← records Change + ShellRevertStep
   │
-  ├─ RegistryService.Write(...)                     ← auto-records RegistryRevertStep
-  ├─ ServiceProcessService.ChangeServiceStartupTypeAsync(...)  ← auto-records ServiceRevertStep
-  ├─ ShellService.CMDAsync(...)                     ← auto-records ShellRevertStep
-  │
-  ├─ CompleteFromScope() → ApplyResult              ← derived from recorded steps
-  │
-  └─ ExecutionScope disposes → RevertManager.SaveRevertDataAsync()
+  └─ return context.Changes.ToApplyResult();         ← derived from recorded changes
+
+OptimizationService.ApplyAsync saves context.Changes via RevertManager.SaveRevertDataAsync().
 ```
 
-### Scope Variants
+### Change Recording
 
-| Method | Purpose |
+| Concept | Purpose |
 |---|---|
-| `ExecutionScope.Begin(optimization, logger)` | Creates a persistable scope for a real apply. |
-| `ExecutionScope.BeginForLogging(logger)` | Logging only — records steps but never persists revert data. |
-| `ExecutionScope.BeginForCapture(logger)` | For retry: captures steps with `OptimizationId = Guid.Empty`, later re-assigned to the real scope. |
+| `OpCall` | Explicit per-operation context: `Changes`, `Logger`, `CancellationToken`. The `OptimizationContext` passed to `ApplyAsync` is one — pass it straight through. |
+| `ChangeSet` | Thread-safe collector. Providers append via `call.Changes.Add(key, name, description, ok, revert, error)`. |
+| `OpResult` | Single-operation outcome (`Ok`, `Revert`, `Error`, `ErrorDetail`). Check `result.Ok`; log `result.Error`. |
+| `context.Changes.ToApplyResult()` | Maps recorded changes to `ApplyResult`. Any success (full or partial) is success; total failure carries the first error. |
 
 ### Step Types
 
 | Step Type | Records | Automatically Created By |
 |---|---|---|
-| **`RegistryRevertStep`** | Original registry value before change | `RegistryService.Write()`, `DeleteValue()`, `CreateSubKey()`, `DeleteSubKeyTree()` |
-| **`ServiceRevertStep`** | Original service startup type | `ServiceProcessService.ChangeServiceStartupTypeAsync()` |
-| **`ScheduledTaskRevertStep`** | Original task state (enabled/disabled) | `ScheduledTaskService.DisableTask()`, `EnableTask()` |
-| **`ShellRevertStep`** | Shell command to reverse the change | `ShellService.CMDAsync()`, `PowerShellAsync()` — pass a `revertCommand` parameter |
-| **`UsbPowerRevertStep`** | USB power settings (per-device) | USB-related optimizations (manual via `ExecutionScope.RecordStep()`) |
+| **`RegistryRevertStep`** | Original registry value before change | `RegistryService.Write()`, `DeleteValue()`, `CreateSubKey()`, `DeleteSubKeyTree()` (with explicit `OpCall`) |
+| **`ServiceRevertStep`** | Original service startup type | `ServiceProcessService.ChangeServiceStartupTypeAsync()` (with explicit `OpCall`) |
+| **`ScheduledTaskRevertStep`** | Original task state (enabled/disabled) | `ScheduledTaskService.DisableTask()`, `EnableTask()` (with explicit `OpCall`) |
+| **`ShellRevertStep`** | Shell command to reverse the change | `context.Shell.CMDAsync()`, `PowerShellAsync()` — pass a `revertCommand` parameter |
+| **`UsbPowerRevertStep`** | USB power settings (per-device) | USB-related optimizations (manual via `context.Changes.Add(...)`) |
 
 ### Adding a Revert Command to Shell Calls
 
-When calling `CMDAsync` or `PowerShellAsync`, you can optionally pass a `revertCommand` parameter that gets saved for undo:
+When calling `CMDAsync` or `PowerShellAsync`, you can optionally pass a `revertCommand` that gets saved for undo:
 
 ```csharp
 // The revert command "powercfg /h on" will be stored to reverse this change
-await ShellService.CMDAsync("powercfg /h off", "powercfg /h on");
+await context.Shell.CMDAsync("powercfg /h off", context, "powercfg /h on");
 ```
 
 ### Revert Data Format
@@ -1004,26 +1093,26 @@ await ShellService.CMDAsync("powercfg /h off", "powercfg /h on");
   "OptimizationName": "DisableTelemetry",
   "AppliedAt": "2026-06-02T12:00:00Z",
   "Steps": [
-    { "Index": 0, "Type": "Registry", "Data": { "..." } },
-    null,                    // null gap = failed step at this index
+    { "Index": 1, "Type": "Registry", "Data": { "..." } },
     { "Index": 2, "Type": "Service", "Data": { "..." } }
   ]
 }
 ```
 
+Compact layout: only successful steps persist, each with a fresh index — no null gaps. Re-apply appends; recovered retry steps append via `AppendRevertStepAsync` (never overwrite).
+
 ### Key Details
 
 - **Applied state** is inferred from file presence on disk (`RevertManager.IsAppliedAsync(id)`).
-- **Atomic writes**: writes to `.tmp` then `File.Replace()` — crash-safe.
-- **Concurrent access**: per-file `SemaphoreSlim` locks prevent race conditions; 30-second timeout.
-- **`ExecutionScope`** uses `AsyncLocal<ExecutionScope?>` for ambient step tracking. No need to pass context through parameters.
+- **Atomic writes**: `.tmp` via `FileStream(WriteThrough)` + fsync, then `File.Replace()` — crash-safe. Stale `.tmp` files are swept at startup.
+- **Concurrent access**: per-file `SemaphoreSlim` locks prevent race conditions; 30-second timeout. Lock entries are never disposed while in use.
 - **Revert executes steps in reverse order** (last applied = first reverted).
-- **Partial success**: revert continues even if some steps fail. Failed steps get retry actions recorded.
-- **Retry**: `OptimizationService.RetryFailedStepsAsync()` can retry individual failed steps; `RecordStepAtIndex()` preserves the original index layout.
-- **Upsert**: `RevertManager.UpsertRevertStepAtIndexAsync()` can add/replace revert steps at specific indices (used during retry).
+- **Partial success**: revert continues even if some steps fail. Failed steps carry retry actions.
+- **Retry**: `OptimizationService.RetryFailedStepsWithResultsAsync()` re-invokes `Retry` with a fresh `OpCall`; recovered steps append via `AppendRevertStepAsync`.
+- **Verification**: every revert step verifies its own effect inside `ExecuteAsync` (registry read-back, service re-query, task re-check). Access-denied is failure; unknown step types fail loudly instead of vanishing.
 - **Step registry**: Revert step deserialization uses reflection-based `_stepRegistry` — new step types auto-register by implementing `IRevertStep` with a static `FromData(JObject)` method.
 
-> **Important**: When you call provider services (`RegistryService.Write`, `ShellService.CMDAsync`, etc.), revert steps are recorded automatically. Do NOT manually create revert steps unless you're implementing a custom provider (like `UsbPowerRevertStep`).
+> **Important**: When you call provider services (`RegistryService.Write`, `context.Shell.CMDAsync`, etc. with the `OpCall`), revert steps are recorded automatically. Do NOT manually create revert steps unless you're implementing a custom provider (like `UsbPowerRevertStep`, recorded via `context.Changes.Add(...)`).
 
 ---
 
@@ -1095,10 +1184,9 @@ public class MyOptimizationTests
     {
         var optimization = new TestOptimization
         {
-            ApplyImpl = _ =>
+            ApplyImpl = args =>
             {
-                ExecutionScope.RecordStep("Test", "Step 1", true);
-                return Task.FromResult(ApplyResult.True());
+                args.context.Changes.Add("Test", "Step 1", true);
             },
         };
 
@@ -1111,11 +1199,16 @@ public class MyOptimizationTests
     private static OptimizationService CreateService()
     {
         return new OptimizationService(
-            new RevertManager(NullLogger<RevertManager>.Instance, NullLoggerFactory.Instance),
+            new RevertManager(
+                NullLogger<RevertManager>.Instance,
+                new ShellService(new ProcessRunner(120000)),
+                TimeProvider.System
+            ),
             NullLoggerFactory.Instance,
             new SystemInfoService(NullLogger<SystemInfoService>.Instance),
             new StreamService(NullLogger<StreamService>.Instance),
             null!,
+            new ShellService(new ProcessRunner(120000)),
             NullLogger<OptimizationService>.Instance
         );
     }
@@ -1172,14 +1265,14 @@ public class MyOptimizationTests
 
 - Services, ViewModels, and Pages are registered as singletons in `App.xaml.cs`.
 - Use constructor injection: `public class Foo(Bar bar, Baz baz)` or `public class Foo(ILogger<Foo> logger)`.
-- Static provider services (`RegistryService`, `ShellService`, `ScheduledTaskService`, `ServiceProcessService`) are NOT injected — access them directly.
+- `ShellService` + `ProcessRunner` are DI singletons. `RegistryService`, `ScheduledTaskService`, `ServiceProcessService` are **static** — call them directly. Revert steps that run commands receive the app shell service from `RevertManager` through `IRevertStep.ExecuteAsync(ShellService, ILogger)`, so the configured timeout applies to undo as well.
 - Test doubles are hand-written (no mocking libraries).
 
 ### Error Handling
 
 | Layer | Practice |
 |---|---|
-| **Optimizations** | Return `ApplyResult.False("reason")` instead of throwing. Let `ExecutionScope` handle step-level failure tracking. |
+| **Optimizations** | Return `ApplyResult.False("reason")` instead of throwing for whole-operation failures. Step-level failures flow through `OpResult` into `call.Changes` automatically. |
 | **Provider services** | Use try/catch around system calls, log errors. Record failed steps with retry actions. |
 | **ViewModels** | Catch exceptions in command handlers, show user-friendly snackbars. |
 | **Conditions** | Return `ConditionResult.Error()` or throw — `ConditionEvaluator` catches and maps to `Error` (which never blocks). |
@@ -1412,7 +1505,7 @@ Check that the optimization's `Id` GUID hasn't changed. Revert files are keyed b
 1. Create a new class in `Domain/Revert/Steps/` that implements `IRevertStep`.
 2. Add a static `FromData(JObject data)` method for deserialization.
 3. The `RevertManager`'s reflection-based `_stepRegistry` will auto-discover it.
-4. Record it via `ExecutionScope.RecordStep()` with your step as the `revertStep` parameter.
+4. Record it via `call.Changes.Add(key, name, description, ok, revertStep)` with your step as the `revertStep` parameter.
 
 ### How does the app handle crash safety?
 

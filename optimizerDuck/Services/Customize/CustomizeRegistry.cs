@@ -44,48 +44,22 @@ public class CustomizeRegistry
             {
                 _logger.LogInformation("Discovering customize setting categories...");
 
-                var result = ReflectionHelper
-                    .FindImplementationsInLoadedAssemblies<ICustomizeCategory>()
-                    .Select(t =>
-                    {
-                        var featureTypes = t.GetNestedTypes(BindingFlags.Public)
-                            .Where(nt =>
-                                typeof(ICustomizeSetting).IsAssignableFrom(nt) && !nt.IsAbstract
-                            )
-                            .Select(nt =>
+                var result = CategoryDiscovery.Discover<ICustomizeCategory, ICustomizeSetting>(
+                    nameof(ICustomizeCategory.Features),
+                    t =>
+                        CategoryDiscovery.NestedItems<ICustomizeSetting>(
+                            t,
+                            (opt, owner) =>
                             {
-                                var opt = (ICustomizeSetting)Activator.CreateInstance(nt)!;
-
                                 if (opt is BaseCustomizeSetting bo)
                                 {
-                                    bo.OwnerType = t;
+                                    bo.OwnerType = owner;
                                     ConditionValidation.Validate(bo.ConditionType, bo.FeatureKey);
                                 }
-
-                                return opt;
-                            })
-                            .ToList();
-
-                        if (featureTypes.Count == 0)
-                            return null;
-
-                        var features = new ObservableCollection<ICustomizeSetting>(featureTypes);
-
-                        var instance = (ICustomizeCategory)Activator.CreateInstance(t)!;
-
-                        var featuresProp = t.GetProperty(
-                            nameof(ICustomizeCategory.Features),
-                            BindingFlags.Public | BindingFlags.Instance
-                        );
-                        if (featuresProp != null && featuresProp.CanWrite)
-                            featuresProp.SetValue(instance, features);
-
-                        return instance;
-                    })
-                    .Where(c => c != null)
-                    .Cast<ICustomizeCategory>()
-                    .OrderBy(c => c.Order)
-                    .ToArray();
+                            }
+                        ),
+                    c => (int)c.Order
+                );
 
                 _logger.LogInformation(
                     "Registered {CategoryCount} customize categories with {SettingCount} total settings",

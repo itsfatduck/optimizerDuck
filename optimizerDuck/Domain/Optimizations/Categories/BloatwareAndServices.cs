@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using optimizerDuck.Common.Extensions;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
@@ -33,6 +34,7 @@ public class BloatwareAndServices : LocalizedObject, IOptimizationCategory
         )
         {
             RegistryService.Write(
+                context,
                 new RegistryItem(
                     @"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager",
                     "PreInstalledAppsEnabled",
@@ -55,7 +57,7 @@ public class BloatwareAndServices : LocalizedObject, IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Blocked preinstalled apps");
-            return Task.FromResult(CompleteFromScope());
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 
@@ -314,7 +316,6 @@ public class BloatwareAndServices : LocalizedObject, IOptimizationCategory
                 new("wuauserv", ServiceStartupType.Manual),
             };
 
-            var tally = new Dictionary<ServiceChangeResult, int>();
             for (var i = 0; i < servicesToChange.Count; i++)
             {
                 var service = servicesToChange[i];
@@ -330,20 +331,14 @@ public class BloatwareAndServices : LocalizedObject, IOptimizationCategory
                         Total = servicesToChange.Count,
                     }
                 );
-                var result = await ServiceProcessService.ChangeServiceStartupTypeAsync(service);
-                tally[result] = tally.GetValueOrDefault(result) + 1;
+                await ServiceProcessService.ChangeServiceStartupTypeAsync(context, service);
             }
 
             context.Logger.LogInformation(
-                "Service startup configuration: {Total} services, {Changed} changed, {AlreadyConfigured} already configured, {NotFound} not found, {AccessDenied} access denied, {Failed} failed",
-                servicesToChange.Count,
-                tally.GetValueOrDefault(ServiceChangeResult.Success),
-                tally.GetValueOrDefault(ServiceChangeResult.AlreadyConfigured),
-                tally.GetValueOrDefault(ServiceChangeResult.NotFound),
-                tally.GetValueOrDefault(ServiceChangeResult.AccessDenied),
-                tally.GetValueOrDefault(ServiceChangeResult.Failed)
+                "Service startup configuration: {Total} services applied",
+                servicesToChange.Count
             );
-            return CompleteFromScope();
+            return context.Changes.ToApplyResult();
         }
     }
 }

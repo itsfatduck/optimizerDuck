@@ -132,7 +132,7 @@ optimizerDuck.slnx                          # ソリューションファイル�
 │   │   │   └── WindowsBuilds.cs            # OS ビルド番号の定数
 │   │   ├── Configuration/                  # AppSettings モデル
 │   │   ├── Exceptions/                     # StepExecutionException
-│   │   ├── Execution/                      # ExecutionScope — AsyncLocal による環境的ステップ追跡
+│   │   ├── Execution/                      # OpCall（明示的な操作ごとのコンテキスト：変更記録・ロガー・キャンセル）、ChangeSet（スレッドセーフな変更コレクター）、OpResult（単一操作の結果）
 │   │   ├── Customize/                      # カスタマイズ設定
 │   │   │   ├── Categories/                 # ネストされた設定クラスを持つカテゴリクラス
 │   │   │   └── Models/                     # BaseCustomizeSetting, RegistryToggle, RegistryBinding,
@@ -167,8 +167,8 @@ optimizerDuck.slnx                          # ソリューションファイル�
 │   │   ├── Configuration/                  # ConfigManager, LanguageManager
 │   │   ├── Customize/                      # CustomizeRegistry（リフレクションベースの検出）
 │   │   ├── Optimization/                   # OptimizationRegistry, OptimizationService
-│   │   │   └── Providers/                  # 静的: RegistryService, ShellService (+ ShellPolicy),
-│   │   │                                   #   ScheduledTaskService, ServiceProcessService
+│   │   │   └── Providers/                  # インスタンス型: RegistryService, ShellService (+ ShellPolicy),
+│   │   │                                   #   ScheduledTaskService, ServiceProcessService, ProcessRunner（共有プロセス実行）。明示的な OpCall を受け取り、call.Changes に記録し、call.Logger でログし、OpResult を返す
 │   │   ├── Revert/                         # RevertManager（リバート JSON のアトミック読み書き）
 │   │   ├── System/                         # RegistryWatcher (+ IRegistryWatcher), SystemInfoService,
 │   │   │                                   #   StreamService, UpdaterService, CrossPageEventBus
@@ -207,7 +207,7 @@ optimizerDuck.slnx                          # ソリューションファイル�
 | 判断 | 理由 |
 |---|---|
 | **リフレクションによる自動検出** | DI 登録配列を更新する必要がありません。`ReflectionHelper.FindImplementationsInLoadedAssemblies<T>()` が `optimizerDuck.*` アセンブリをスキャンします。新しい最適化や設定は自動的に検出されます。 |
-| **静的プロバイダーサービス** | `RegistryService`、`ShellService`、`ScheduledTaskService`、`ServiceProcessService` は静的クラスです。環境的な `ExecutionScope` にリバートステップを記録するため、コンテキストの注入や受け渡しは不要です。 |
+| **プロバイダーサービス** | ステートレスなサービス（`RegistryService`、`ScheduledTaskService`、`ServiceProcessService`）は **static** です — 明示的な `OpCall`（`context`）で直接呼びます。`ShellService`（+ `ProcessRunner`）は DI シングルトンです（ライブ設定状態を持つ）。ドメインコードは `context.Shell`（`ShellService`）を使います。 |
 | **ファイルベースのリバート追跡** | 適用状態 = ディスク上にファイルが存在する（`%localappdata%\optimizerDuck\Revert\{id}.json`）。データベースは使用しません。`File.Replace()` によるアトミック書き込み。 |
 | **条件システム（フェイルオープン）** | 最適化や設定は互換性条件を宣言できます。評価の失敗がアイテムを隠すことはありません — [条件システム](#the-condition-system) を参照。 |
 | **統合スタイルのテスト** | 実際のファイルシステム、実際のレジストリ（`HKCU\Software\TestOptimizerDuck*` 配下）、実際のプロセス実行。モックライブラリは使用せず、手書きのテストダブルのみ。 |
@@ -296,16 +296,17 @@ public class Performance : IOptimizationCategory
             IProgress<ProcessingProgress> progress,
             OptimizationContext context)
         {
-            // 1. 静的プロバイダーでシステムを変更
+            // 1. インスタンス型プロバイダーでシステムを変更 — 明示的な OpCall（ここでは context）を渡す
             RegistryService.Write(new RegistryItem(
-                @"HKLM\SOFTWARE\Something", "ValueName", 1));
+                @"HKLM\SOFTWARE\Something", "ValueName", 1), context);
 
             // 2. 非同期操作を await — UI スレッドを解放
             await ServiceProcessService.ChangeServiceStartupTypeAsync(
-                new ServiceItem("SomeService", ServiceStartupType.Disabled));
+                new ServiceItem("SomeService", ServiceStartupType.Disabled),
+                context);
 
-            // 3. 環境的な ExecutionScope から結果を返す
-            return CompleteFromScope();
+            // 3. 集められた変更から結果を返す
+            return context.Changes.ToApplyResult();
         }
     }
 }
@@ -318,11 +319,10 @@ public class Performance : IOptimizationCategory
 | **`Id` は新しい GUID であること** | リバートファイルの命名と適用状態の追跡に使用。PowerShell で `[guid]::NewGuid()` で生成。 |
 | **`BaseOptimization` を継承する** | 属性とローカライズキーから `Name`、`ShortDescription`、`RiskVisual`、`TagDisplays` を提供。 |
 | **`OwnerType` は自動で割り当てられる** | 検出処理が設定します — 自分で設定しないこと。 |
-| **`async Task<ApplyResult>` を使用する** | サービスプロバイダーは非同期 — `await` して UI の応答性を保つ。 |
-| **`CompleteFromScope()` を返す** | 環境的な `ExecutionScope` に記録されたステップから `ApplyResult` を導出。手動で `ApplyResult` を構築しないこと。 |
+| **`context.Changes.ToApplyResult()` を返す** | `call.Changes`（`ChangeSet`）に集められた変更から `ApplyResult` を導出。早期終了の失敗時を除き、手動で `ApplyResult` を構築しないこと。 |
 | **進捗を報告する** | `progress.Report(new ProcessingProgress { ... })` で UI ダイアログを更新。 |
-| **すべての例外をキャッチしない** | 例外は上位に伝播。`ExecutionScope` が成功/失敗を追跡し、`OptimizationService` が処理。 |
-| **リバートステップを手動で作成しない** | 静的プロバイダーサービスが `ExecutionScope.RecordStep()` 経由で自動的に行う。 |
+| **すべての例外をキャッチしない** | 例外は上位に伝播。プロバイダーが `OpResult` に成功/失敗を記録し、`OptimizationService` が `ChangeSet` から処理。 |
+| **リバートステップを手動で作成しない** | インスタンス型プロバイダーが `call.Changes` への記録経由で自動的に行う。 |
 | **`context.Logger` を使用する** | 重要な診断情報の記録に使用。 |
 | **`context.Snapshot` を使用する** | `OptimizationContext.Snapshot`（`SystemSnapshot`）が RAM、GPU、CPU、OS 情報を提供。条件分岐に使用。 |
 | **`context.StreamService` を使用する** | リモートリソース（電源プランなど）をダウンロードする最適化向け。 |
@@ -330,43 +330,42 @@ public class Performance : IOptimizationCategory
 
 <h3 id="available-service-providers">利用可能なサービスプロバイダー</h3>
 
-これらの**静的**クラスは、ログ記録、エラー処理、リバートステップの自動記録を担当します。
+ステートレスなサービスは **static** で直接呼びます（`new` 不要・割り当てなし）。`Shell` は `BaseOptimization`／`BaseCustomizeSetting` のプロパティを使います。これらのクラスはログ記録、エラー処理、`call.Changes` への変更記録を担当し、各操作は `OpResult` を返します。`ShellService` と `ProcessRunner` は DI シングルトンです（タイムアウトは設定からライブ読み取り）。
 
 | サービス | 主要メソッド | 使用理由 |
 |---|---|---|
-| **`RegistryService`** | `Write()`、`Read<T>()`、`DeleteValue()`、`CreateSubKey()`、`DeleteSubKeyTree()`、`KeyExists()`、`CleanupEmptyKeys()` | レジストリキーの読み書き/削除。リバート用に元の値をバックアップ。params 配列でバッチ書き込み可能。 |
-| **`ShellService`** | `CMDAsync()`、`PowerShellAsync()`、`CMD()`（同期）、`PowerShell()`（同期） | CMD / PowerShell コマンドの実行。非同期版を推奨。元に戻すコマンドを `revertCommand` で指定可能。非標準終了コードは `ShellPolicy` を参照。 |
-| **`ScheduledTaskService`** | `DisableTask()`、`EnableTask()`、`IsTaskEnabled()`、`DeleteTask()`、`GetAllTasks()`、`RegisterTask()`、`RunTask()`、`StopTask()` | Windows スケジュールタスクの管理。 |
-| **`ServiceProcessService`** | `ChangeServiceStartupTypeAsync()`、`GetStartupTypeAsync()` | Windows サービスの管理。常に非同期版を使用。params 配列でバッチ変更可能。 |
+| **`RegistryService`**（static） | `Write()`、`Read<T>()`、`DeleteValue()`、`CreateSubKey()`、`DeleteSubKeyTree()`、`KeyExists()`、`CleanupEmptyKeys()` | レジストリキーの読み書き/削除。リバート用に元の値をバックアップ。params 配列でバッチ書き込み可能。単体は `Write(item, context)`、バッチは `Write(context, items)`。 |
+| **`context.Shell`**（`ShellService`） | `CMDAsync()`、`PowerShellAsync()`、`CMD()`（同期）、`PowerShell()`（同期）、`QueryCMDAsync()`／`QueryPowerShellAsync()`（記録なしの素の実行） | CMD / PowerShell コマンドの実行。非同期版を推奨。元に戻すコマンドを `revertCommand` で指定可能。非標準終了コードは `ShellPolicy` を参照。 |
+| **`ScheduledTaskService`**（static） | `DisableTask(path, context)`、`EnableTask(path, context)`、`IsTaskEnabled()`、`DeleteTask()`、`GetAllTasks()`、`RegisterTask()`、`RunTask()`、`StopTask()` | Windows スケジュールタスクの管理。 |
+| **`ServiceProcessService`**（static） | `ChangeServiceStartupTypeAsync(item, context)`（単体／配列）、`GetStartupTypeAsync()` | Windows サービスの管理。常に非同期版を使用。配列でバッチ変更可能。 |
 
-> **params 配列で複数アイテムを受け付けるメソッド**：ほとんどの書き込み/変更メソッドは params 配列を受け付けます（例：`RegistryService.Write(item1, item2, item3)`）。個別呼び出しより効率的です。
+> **params 配列で複数アイテムを受け付けるメソッド**：ほとんどの書き込み/変更メソッドは params 配列を受け付けます（例：`RegistryService.Write(context, item1, item2, item3)`）。個別呼び出しより効率的です。
 
 使用例：
 
 ```csharp
 // 同期レジストリ書き込み — 複数アイテムを一度に
-RegistryService.Write(
+RegistryService.Write(context,
     new RegistryItem(@"HKLM\...", "Value1", 1),
     new RegistryItem(@"HKLM\...", "Value2", 0)
 );
-RegistryService.DeleteValue(new RegistryItem(@"HKCU\...", "OldValue"));
+RegistryService.DeleteValue(new RegistryItem(@"HKCU\...", "OldValue"), context);
 
 // 非同期サービス変更 — 複数サービスを一度に
 await ServiceProcessService.ChangeServiceStartupTypeAsync(
-    new ServiceItem("DiagTrack", ServiceStartupType.Disabled),
-    new ServiceItem("dmwappushservice", ServiceStartupType.Disabled)
-);
+    [
+        new ServiceItem("DiagTrack", ServiceStartupType.Disabled),
+        new ServiceItem("dmwappushservice", ServiceStartupType.Disabled),
+    ],
+    context);
 
 // リバートコマンド付きの非同期シェルコマンド
-var result = await ShellService.CMDAsync(
+var result = await context.Shell.CMDAsync(
     "powercfg /h off",
+    context,
     "powercfg /h on"     // 元に戻すコマンドを保存
 );
 
-// 非同期 PowerShell
-var usbStates = await ShellService.PowerShellAsync(
-    "Get-CimInstance -Namespace root\\wmi -ClassName MSPower_DeviceEnable"
-);
 ```
 
 <h3 id="handling-async">非同期操作の扱い</h3>
@@ -378,9 +377,9 @@ public override Task<ApplyResult> ApplyAsync(
     IProgress<ProcessingProgress> progress,
     OptimizationContext context)
 {
-    RegistryService.Write(new RegistryItem(@"HKLM\...", "Value", 1));
+    RegistryService.Write(new RegistryItem(@"HKLM\...", "Value", 1), context);
     context.Logger.LogInformation("Applied tweak");
-    return Task.FromResult(CompleteFromScope());
+    return Task.FromResult(context.Changes.ToApplyResult());
 }
 ```
 
@@ -389,10 +388,11 @@ public override Task<ApplyResult> ApplyAsync(
 ```csharp
 public override async Task<ApplyResult> ApplyAsync(...)
 {
-    await ServiceProcessService.ChangeServiceStartupTypeAsync(...);
-    return CompleteFromScope();
+    await ServiceProcessService.ChangeServiceStartupTypeAsync(new ServiceItem("SomeService", ServiceStartupType.Disabled), context);
+    return context.Changes.ToApplyResult();
 }
 ```
+
 
 <h3 id="new-category">新しいカテゴリの作成</h3>
 
@@ -419,9 +419,9 @@ public abstract class GpuRegistryOptimization : BaseOptimization
         foreach (var gpu in context.Snapshot.Gpus.Where(g => g.Vendor == Vendor))
         {
             var path = $@"HKLM\...\{index:D4}";
-            RegistryService.Write(CreateItems(path).ToArray());
+            RegistryService.Write(context, CreateItems(path).ToArray());
         }
-        return Task.FromResult(CompleteFromScope());
+        return Task.FromResult(context.Changes.ToApplyResult());
     }
 }
 ```
@@ -621,12 +621,12 @@ public class MouseAcceleration : BaseCustomizeSetting
         });
     }
 
-    public override async Task ApplyAsync(object? value)
+    public override async Task ApplyAsync(object? value, OpCall call)
     {
         var isOn = value is bool b && b;
-        RegistryService.Write(new RegistryItem(Path, "MouseSpeed", isOn ? "1" : "0"));
-        RegistryService.Write(new RegistryItem(Path, "MouseThreshold1", isOn ? "6" : "0"));
-        RegistryService.Write(new RegistryItem(Path, "MouseThreshold2", isOn ? "10" : "0"));
+        RegistryService.Write(new RegistryItem(Path, "MouseSpeed", isOn ? "1" : "0"), call);
+        RegistryService.Write(new RegistryItem(Path, "MouseThreshold1", isOn ? "6" : "0"), call);
+        RegistryService.Write(new RegistryItem(Path, "MouseThreshold2", isOn ? "10" : "0"), call);
 
         if (NeedsPostAction)
             await ExecutePostActionAsync();
@@ -653,18 +653,18 @@ public class MouseAcceleration : BaseCustomizeSetting
 埋め込みリソースの抽出を伴う設定（ショートカット矢印を空白アイコンに置き換えるなど）の場合：
 
 ```csharp
-public override async Task ApplyAsync(object? value)
+public override async Task ApplyAsync(object? value, OpCall call)
 {
     var isOn = value is bool b && b;
     if (isOn)
     {
-        RegistryService.DeleteValue(new RegistryItem(Path, "29"));
+        RegistryService.DeleteValue(new RegistryItem(Path, "29"), call);
     }
     else
     {
         var outputPath = Path.Combine(Shared.AssetsDirectory, nameof(Desktop), "blank.ico");
         EmbeddedResourceHelper.TryExtract("Icons.blank.ico", outputPath);
-        RegistryService.Write(new RegistryItem(Path, "29", outputPath));
+        RegistryService.Write(new RegistryItem(Path, "29", outputPath), call);
     }
     await ExecutePostActionAsync();
 }
@@ -932,7 +932,7 @@ services.AddSingleton<UpdaterService>();
 services.AddSingleton<IRegistryWatcher, RegistryWatcher>();
 ```
 
-> これは把握のためのスナップショットです — 現在の登録は `App.xaml.cs` が正です。また、起動時の呼び出し `ShellService.Init(appOptionsMonitor)` と `WmiHelper.Initialize()`、およびトランジェントなダイアログの解決に使われる公開プロパティ `App.AppHost` にも注意してください。
+> これは把握のためのスナップショットです — 現在の登録は `App.xaml.cs` が正です。また、起動時の呼び出し `RevertManager.RemoveOrphanedTempFiles(_logger)`（stale `.tmp` の掃除）と `WmiHelper.Initialize()`、およびトランジェントなダイアログの解決に使われる公開プロパティ `App.AppHost` にも注意してください。
 
 <h3 id="system-services">システムサービスリファレンス</h3>
 
@@ -951,31 +951,29 @@ services.AddSingleton<IRegistryWatcher, RegistryWatcher>();
 
 <h1 id="revert-system">リバートシステム</h1>
 
-適用された各最適化は `%localappdata%\optimizerDuck\Revert\{optimizationId}.json` に JSON ファイルを作成します。
-
-<h3 id="how-it-works-jp">仕組み</h3>
-
 ```
 ApplyAsync()
   │
-  ├─ ExecutionScope.Begin(optimization, logger)    ← 環境的な AsyncLocal スコープを作成
+  ├─ OptimizationService が ChangeSet を用意し、OptimizationContext（OpCall の一種）で渡す
   │
-  ├─ RegistryService.Write(...)                     ← RegistryRevertStep を自動記録
-  ├─ ServiceProcessService.ChangeServiceStartupTypeAsync(...)  ← ServiceRevertStep を自動記録
-  ├─ ShellService.CMDAsync(...)                     ← ShellRevertStep を自動記録
+  ├─ RegistryService.Write(context, ...)               ← RegistryRevertStep を call.Changes に記録
+  ├─ await ServiceProcessService.ChangeServiceStartupTypeAsync(item, context)  ← ServiceRevertStep を記録
+  ├─ await context.Shell.CMDAsync(cmd, context, revertCommand)       ← ShellRevertStep を記録
   │
-  ├─ CompleteFromScope() → ApplyResult              ← 記録されたステップから導出
+  ├─ context.Changes.ToApplyResult() → ApplyResult  ← 集められた変更から導出
   │
-  └─ ExecutionScope 破棄 → RevertManager.SaveRevertDataAsync()
+  └─ OptimizationService が RevertManager.SaveRevertDataAsync() で永続化
 ```
 
-<h3 id="scope-variants-jp">スコープのバリエーション</h3>
+<h3 id="explicit-context-jp">明示的コンテキスト（OpCall / ChangeSet / OpResult）</h3>
 
-| メソッド | 目的 |
+| 要素 | 役割 |
 |---|---|
-| `ExecutionScope.Begin(optimization, logger)` | 実際の適用のための永続化可能なスコープを作成。 |
-| `ExecutionScope.BeginForLogging(logger)` | ログのみ — ステップは記録するがリバートデータは永続化しない。 |
-| `ExecutionScope.BeginForCapture(logger)` | リトライ用: `OptimizationId = Guid.Empty` でステップを捕捉し、後で実スコープに再割り当て。 |
+| `OpCall` | 操作ごとの明示的コンテキスト：`Changes`（変更コレクター）、`Logger`、キャンセル。すべてのプロバイダーメソッドがパラメーターで受け取る。`OptimizationContext` は `OpCall` を継承し、`Snapshot` と `StreamService` を追加したもの。 |
+| `ChangeSet` | スレッドセーフな変更コレクター。`Add()` で自動連番（`Seq`）を付与。`SuccessfulSteps`／`FailedSteps`／`HasSuccessfulSteps` を提供。 |
+| `Change` | 1 件の記録：安定キー（`Key`）、実行順（`Seq`、1 始まり、リバートファイルのインデックスとして保持）、成否（`Ok`）、リバート手順、エラー、リトライ（`Func<OpCall, Task<OpResult>>`）。 |
+| `OpResult` | 単一プロバイダー操作の結果：成功時は任意でリバート手順、失敗時はエラーと詳細。環境的なエラー状態の代わりにここに流す。 |
+| `context.Changes.ToApplyResult()` | 記録から適用結果を導出。成功が 1 件でもあれば成功、すべて失敗なら先頭エラーを運ぶ。何も記録がなければ失敗。 |
 
 <h3 id="step-types-jp">ステップタイプ</h3>
 
@@ -984,8 +982,8 @@ ApplyAsync()
 | **`RegistryRevertStep`** | 変更前の元のレジストリ値 | `RegistryService.Write()`、`DeleteValue()`、`CreateSubKey()`、`DeleteSubKeyTree()` |
 | **`ServiceRevertStep`** | 元のサービス起動タイプ | `ServiceProcessService.ChangeServiceStartupTypeAsync()` |
 | **`ScheduledTaskRevertStep`** | 元のタスク状態（有効/無効） | `ScheduledTaskService.DisableTask()`、`EnableTask()` |
-| **`ShellRevertStep`** | 元に戻すシェルコマンド | `ShellService.CMDAsync()`、`PowerShellAsync()` — `revertCommand` パラメータを渡す |
-| **`UsbPowerRevertStep`** | USB 電源設定（デバイス別） | USB 関連の最適化（手動で `ExecutionScope.RecordStep()`） |
+| **`ShellRevertStep`** | 元に戻すシェルコマンド | `context.Shell.CMDAsync()`、`context.Shell.PowerShellAsync()` — `revertCommand` パラメータを渡す |
+| **`UsbPowerRevertStep`** | USB 電源設定（デバイス別） | USB 関連の最適化（`call.Changes.Add(...)` で手動記録） |
 
 <h3 id="revert-command">シェル呼び出しへのリバートコマンド追加</h3>
 
@@ -993,7 +991,7 @@ ApplyAsync()
 
 ```csharp
 // "powercfg /h on" がこの変更を元に戻すために保存される
-await ShellService.CMDAsync("powercfg /h off", "powercfg /h on");
+await context.Shell.CMDAsync("powercfg /h off", context, "powercfg /h on");
 ```
 
 <h3 id="revert-data-format-jp">リバートデータ形式</h3>
@@ -1005,26 +1003,25 @@ await ShellService.CMDAsync("powercfg /h off", "powercfg /h on");
   "OptimizationName": "DisableTelemetry",
   "AppliedAt": "2026-06-02T12:00:00Z",
   "Steps": [
-    { "Index": 0, "Type": "Registry", "Data": { "..." } },
-    null,                    // null ギャップ = このインデックスの失敗ステップ
+    { "Index": 1, "Type": "Registry", "Data": { "..." } },
     { "Index": 2, "Type": "Service", "Data": { "..." } }
   ]
 }
 ```
 
+成功したステップのみ永続化され、各エントリに新しい連番が振られます。失敗ステップ用の null ギャップはありません。再適用は新しいエントリを追記します。
+
 <h3 id="key-details-jp">重要な詳細</h3>
 
 - **適用状態**はディスク上のファイルの存在から推論されます（`RevertManager.IsAppliedAsync(id)`）。
-- **アトミック書き込み**：`.tmp` に書き込んでから `File.Replace()` — クラッシュ安全。
-- **同時アクセス**：ファイルごとの `SemaphoreSlim` ロックで競合を防止、30 秒タイムアウト。
-- **`ExecutionScope`** は `AsyncLocal<ExecutionScope?>` で環境的ステップ追跡。パラメータでコンテキストを渡す必要なし。
-- **リバートは逆順で実行**（最後に適用 = 最初にリバート）。
-- **部分成功**：一部のステップが失敗しても続行。失敗ステップにはリトライアクションが記録。
-- **リトライ**：`OptimizationService.RetryFailedStepsAsync()` が個別の失敗ステップをリトライ。`RecordStepAtIndex()` が元のインデックス配置を保持。
-- **Upsert**：`RevertManager.UpsertRevertStepAtIndexAsync()` が特定インデックスのリバートステップを追加/置換（リトライ時に使用）。
-- **ステップレジストリ**：リバートステップのデシリアライズはリフレクションベースの `_stepRegistry` — 新しいステップ型は `IRevertStep` を実装し静的な `FromData(JObject)` メソッドを持つだけで自動登録。
-
-> **重要**: プロバイダーサービス（`RegistryService.Write`、`ShellService.CMDAsync` など）を呼ぶと、リバートステップは自動記録されます。カスタムプロバイダー（`UsbPowerRevertStep` など）を実装する場合を除き、手動でリバートステップを作成**しないでください**。
+- **アトミック書き込み**：`FileStream(WriteThrough)`＋`Flush(flushToDisk: true)` で `.tmp` に書き込んでから `File.Replace()` — クラッシュ安全。起動時に孤立した `.tmp` を掃除（`RemoveOrphanedTempFiles`）。
+- **同時アクセス**：ファイルごとの `SemaphoreSlim` ロックで競合を防止、30 秒タイムアウト。使用中のロックエントリは破棄しません。
+- **明示的コンテキスト**：プロバイダーは `OpCall` をパラメーターで受け取り、`call.Changes` に記録、`call.Logger` でログします。環境的な共有状態はありません。
+- **リバートは逆順で実行**（最後に適用 = 最初にリバート、LIFO）。
+- **部分成功**：一部のステップが失敗しても続行。失敗ステップには `Func<OpCall, Task<OpResult>>` 型のリトライアクションが記録されます。
+- **リトライ**：`OptimizationService.RetryFailedStepsWithResultsAsync()` が新しい `OpCall` で個別の失敗ステップを再実行し、回復したステップは `AppendRevertStepAsync()` で追記します（上書きしません — LIFO リバートが最新のバックアップを先に戻し、元のバックアップが真の初期状態を復元します）。
+- **ステップレジストリ**：リバートステップのデシリアライズはリフレクションベースの `_stepRegistry` — 新しいステップ型は `IRevertStep` を実装し静的な `FromData(JObject)` メソッドを持つだけで自動登録。未知の型は明確なメッセージの失敗ステップになり、黙ってスキップされません（生ペイロードは保持）。
+- **主要メソッド**：`SaveRevertDataAsync()`、`RevertAsync()`、`AppendRevertStepAsync()`、`RemoveRevertStepsAtIndexesAsync()`、`IsAppliedAsync(id)`、`GetRevertDataAsync(id)`、`ClearAllRevertData()`、`RemoveOrphanedTempFiles()`。
 
 ---
 
@@ -1096,10 +1093,10 @@ public class MyOptimizationTests
     {
         var optimization = new TestOptimization
         {
-            ApplyImpl = _ =>
+            ApplyImpl = args =>
             {
-                ExecutionScope.RecordStep("Test", "Step 1", true);
-                return Task.FromResult(ApplyResult.True());
+                args.context.Changes.Add("Test", "Step 1", true);
+                return Task.FromResult(args.context.Changes.ToApplyResult());
             },
         };
 
@@ -1112,7 +1109,11 @@ public class MyOptimizationTests
     private static OptimizationService CreateService()
     {
         return new OptimizationService(
-            new RevertManager(NullLogger<RevertManager>.Instance, NullLoggerFactory.Instance),
+            new RevertManager(
+                NullLogger<RevertManager>.Instance,
+                new ShellService(new ProcessRunner(120000)),
+                TimeProvider.System
+            ),
             NullLoggerFactory.Instance,
             new SystemInfoService(NullLogger<SystemInfoService>.Instance),
             new StreamService(NullLogger<StreamService>.Instance),
@@ -1173,15 +1174,15 @@ public class MyOptimizationTests
 
 - サービス、ViewModel、ページは `App.xaml.cs` にシングルトンとして登録します。
 - コンストラクタ注入を使用：`public class Foo(Bar bar, Baz baz)` または `public class Foo(ILogger<Foo> logger)`。
-- 静的プロバイダーサービス（`RegistryService`、`ShellService`、`ScheduledTaskService`、`ServiceProcessService`）は注入**されません** — 直接アクセスします。
+- プロバイダーサービスはインスタンス型です：`BaseOptimization`／`BaseCustomizeSetting` のプロパティ（`Reg`／`Svc`／`Tasks`／`Shell`）かローカルな `new` で使います。`ShellService` と `ProcessRunner` のみ DI シングルトンとして登録されます（タイムアウトは設定からライブ読み取り）。
 - テストダブルは手書き（モックライブラリなし）。
 
 <h3 id="error-handling-jp">エラー処理</h3>
 
 | レイヤー | プラクティス |
 |---|---|
-| **最適化** | スローせず `ApplyResult.False("reason")` を返す。ステップ単位の失敗追跡は `ExecutionScope` に任せる。 |
-| **プロバイダーサービス** | システム呼び出しを try/catch で囲みエラーをログ。失敗ステップにリトライアクションを記録。 |
+| **最適化** | スローせず `ApplyResult.False("reason")` を返す（早期終了の失敗時のみ）。ステップ単位の失敗追跡は `call.Changes` への記録に任せる。 |
+| **プロバイダーサービス** | システム呼び出しを try/catch で囲みエラーをログ。失敗時は `OpResult.Fail(...)` を返し、`call.Changes` に `Func<OpCall, Task<OpResult>>` 型のリトライアクションを記録。 |
 | **ViewModel** | コマンドハンドラーで例外をキャッチし、ユーザーフレンドリーなスナックバーを表示。 |
 | **条件** | `ConditionResult.Error()` を返すか throw — `ConditionEvaluator` がキャッチして `Error`（ブロックしない）に変換。 |
 | **してはいけない** | 処理できない例外のキャッチ。すべての例外を黙って握りつぶさない。 |
@@ -1413,7 +1414,7 @@ uuidgen
 1. `Domain/Revert/Steps/` に `IRevertStep` を実装する新しいクラスを作成します。
 2. デシリアライズ用に静的な `FromData(JObject data)` メソッドを追加します。
 3. `RevertManager` のリフレクションベースの `_stepRegistry` が自動検出します。
-4. `ExecutionScope.RecordStep()` で `revertStep` パラメータとして記録します。
+4. `call.Changes.Add(key, name, description, ok, revertStep)` で `revertStep` パラメータとして記録します（プロバイダーは自動的に行います）。
 
 <h3>クラッシュセーフティの仕組み</h3>
 

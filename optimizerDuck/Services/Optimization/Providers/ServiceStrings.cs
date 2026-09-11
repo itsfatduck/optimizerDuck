@@ -32,6 +32,10 @@ public static class ServiceStrings
     public const string ScheduledTaskName = "Scheduled Task";
     public const string ScheduledTaskDescriptionEnable = "Enable scheduled task: {0}";
     public const string ScheduledTaskDescriptionDisable = "Disable scheduled task: {0}";
+    public const string ScheduledTaskInfoSkippedNotFound =
+        "Scheduled task '{0}' not found (skipped)";
+    public const string ScheduledTaskInfoAlreadyConfigured =
+        "Scheduled task '{0}' is already {1} (skipped)";
     public const string ScheduledTaskErrorDetailAccessDeniedEnable =
         "Access denied enabling task {0}";
     public const string ScheduledTaskErrorDetailAccessDeniedDisable =
@@ -41,6 +45,14 @@ public static class ServiceStrings
     public const string ServiceDescriptionChange = "Change service '{0}' to {1} startup";
     public const string ServiceErrorChangeStartupTypeFailed =
         "Failed to change startup type for service";
+    public const string ServiceErrorChangeStartupTypeFailedTemplate =
+        "Failed to change service '{0}' to {1} startup. sc.exe exited with {2}: {3}";
+    public const string ServiceErrorQueryFailed = "Failed to query service '{0}'";
+
+    public const string RevertDataUnloadableDescription =
+        "Unloadable revert data (unknown type '{0}')";
+    public const string RevertDataUnknownType =
+        "Cannot revert step of unknown type '{0}'. The revert data was written by a different app version.";
     public const string ServiceErrorExceptionOccurred = "Failed to change service '{0}': {1}";
     public const string ServiceInfoSkippedNotFound = "Service '{0}' not found (skipped)";
     public const string ServiceInfoAlreadyConfigured =

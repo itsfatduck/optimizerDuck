@@ -1,81 +1,24 @@
-using System.Diagnostics;
-using System.Text;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging;
 using optimizerDuck.Common.Extensions;
-using optimizerDuck.Domain.Configuration;
+using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.Revert.Steps;
-using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
 
 namespace optimizerDuck.Services.Optimization.Providers;
 
-/// <summary>Defines success criteria and error reporting for shell command execution.</summary>
-public sealed class ShellPolicy
+/// <summary>
+///     Thin instance facade over <see cref="ProcessRunner"/>: builds the
+///     cmd.exe / powershell.exe command lines, maps the raw
+///     <see cref="ProcessResult"/> to a <see cref="ShellResult"/> for policy
+///     evaluation, records a <see cref="Change"/> into the passed
+///     <see cref="OpCall"/>, and returns an <see cref="OpResult"/>.
+///     Holds no static state; the timeout lives in <see cref="ProcessRunner"/>
+///     and is read live from settings on every call.
+/// </summary>
+public sealed class ShellService(ProcessRunner _runner)
 {
-    /// <summary>Default policy: exit code 0 means success; error text is taken from stderr or the exit code.</summary>
-    public static readonly ShellPolicy Default = new();
-
-    /// <summary>Gets or sets a function that determines whether a shell result indicates success.</summary>
-    public Func<ShellResult, bool> IsSuccess { get; init; } = r => r.ExitCode == 0;
-
-    /// <summary>Gets or sets a function that produces an error message from a failed shell result.</summary>
-    public Func<ShellResult, string?> ErrorFactory { get; init; } =
-        r =>
-            r.ExitCode == -1 // if timed out use Error.TimedOut
-                ? Loc.Instance["Service.Shell.Error.TimedOut"]
-            : string.IsNullOrWhiteSpace(r.Stderr) // else check stderr, if empty use exitcode, else use raw stderr
-                ? Loc.Instance["Service.Shell.Error.ExitCode", r.ExitCode]
-            : r.Stderr;
-
-    /// <summary>Creates a policy with a custom success function and optional error factory.</summary>
-    /// <param name="isSuccess">A function that determines whether a result is successful.</param>
-    /// <param name="errorFactory">An optional function that produces an error message from a failed result. Defaults to the default error factory.</param>
-    /// <returns>A new <see cref="ShellPolicy"/> instance.</returns>
-    public static ShellPolicy From(
-        Func<ShellResult, bool> isSuccess,
-        Func<ShellResult, string?>? errorFactory = null
-    )
-    {
-        return new ShellPolicy
-        {
-            IsSuccess = isSuccess,
-            ErrorFactory = errorFactory ?? Default.ErrorFactory,
-        };
-    }
-
-    /// <summary>Creates a policy that treats specific exit codes as success.</summary>
-    /// <param name="okExitCodes">The exit codes considered successful.</param>
-    /// <returns>A new <see cref="ShellPolicy"/> instance.</returns>
-    public static ShellPolicy SuccessExitCodes(params int[] okExitCodes)
-    {
-        return From(r => okExitCodes.Contains(r.ExitCode));
-    }
-
-    /// <summary>Creates a policy that treats exit codes from 0 to <paramref name="maxOk"/> as success.</summary>
-    /// <param name="maxOk">The maximum exit code considered successful (inclusive).</param>
-    /// <returns>A new <see cref="ShellPolicy"/> instance.</returns>
-    public static ShellPolicy SuccessExitCodeRange(int maxOk)
-    {
-        return From(r => r.ExitCode >= 0 && r.ExitCode <= maxOk);
-    }
-}
-
-public static class ShellService
-{
-    private const int DefaultShellTimeoutMs = 120000;
-    private const int ProcessGraceDrainMs = 2000;
-
-    private static IOptionsMonitor<AppSettings>? _options;
-
-    /// <summary>Initializes the shell service with application settings.</summary>
-    /// <param name="options">The application settings monitor.</param>
-    public static void Init(IOptionsMonitor<AppSettings> options)
-    {
-        _options = options;
-    }
-
     private static (string commandForUser, string fullCommandForUser) SanitizeCommandForUser(
         string fileName,
         string arguments,
@@ -101,601 +44,242 @@ public static class ShellService
         return (commandForUser, fullCommandForUser);
     }
 
-    private static ShellResult Run(
+    /// <summary>
+    ///     Executes the process and maps the raw result to a <see cref="ShellResult"/>
+    ///     without recording a <see cref="Change"/>. Shared by the optimization
+    ///     path (<see cref="RunCoreAsync"/>) and the raw-run methods below.
+    /// </summary>
+    private async Task<(ShellResult Result, bool Cancelled)> BuildShellResultAsync(
         string fileName,
         string arguments,
         string command,
         string serviceName,
-        ShellRevertStep? revertStep,
-        ShellPolicy? policy = null
+        ShellPolicy policy,
+        ILogger? logger,
+        CancellationToken ct
+    )
+    {
+        var (_, fullCommandForUser) = SanitizeCommandForUser(fileName, arguments, command);
+
+        // Best-effort UTF-8 codepage for cmd.exe (matches the pre-migration sync path);
+        // PowerShell already forces UTF-8 via its prefixed preamble.
+        var processArgs = fileName.Equals("cmd.exe", StringComparison.OrdinalIgnoreCase)
+            ? ShellMapping.BuildCmdArguments(arguments, command)
+            : $"{arguments} {command}";
+
+        var raw = await _runner.RunAsync(fileName, processArgs, ct).ConfigureAwait(false);
+
+        var result = ShellMapping.Map(raw, fullCommandForUser);
+
+        var success = !raw.Cancelled && policy.IsSuccess(result);
+        var status =
+            raw.Cancelled ? "CANCELLED"
+            : raw.TimedOut ? "TIMEOUT"
+            : success ? "OK"
+            : "FAIL";
+
+        logger?.LogInformation(
+            "[{Service}][{Status}][EC={ExitCode}][D={Duration}] {Command}",
+            serviceName,
+            status,
+            result.ExitCode,
+            result.Duration.FormatTime(),
+            fullCommandForUser
+        );
+
+        logger?.LogTrace(
+            "[{Service}][STDOUT] {Stdout}",
+            serviceName,
+            string.IsNullOrWhiteSpace(result.Stdout) ? "N/A" : result.Stdout
+        );
+        logger?.LogTrace(
+            "[{Service}][STDERR] {Stderr}",
+            serviceName,
+            string.IsNullOrWhiteSpace(result.Stderr) ? "N/A" : result.Stderr
+        );
+
+        return (result, raw.Cancelled);
+    }
+
+    private async Task<OpResult> RunCoreAsync(
+        string fileName,
+        string arguments,
+        string command,
+        string serviceName,
+        ShellType shellType,
+        IRevertStep? revertStep,
+        ShellPolicy? policy,
+        OpCall call,
+        CancellationToken ct
     )
     {
         policy ??= ShellPolicy.Default;
 
-        var (_, fullCommandForUser) = SanitizeCommandForUser(fileName, arguments, command);
+        using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(
+            call.CancellationToken,
+            ct
+        );
 
-        var processArgs =
-            fileName.Equals("cmd.exe", StringComparison.OrdinalIgnoreCase)
-            && !arguments.Contains("chcp 65001") // try best effort to ensure UTF-8 codepage for cmd, but better use PowerShell if possible
-                ? $"{arguments} chcp 65001 > nul & {command}"
-                : $"{arguments} {command}";
-
-        var psi = new ProcessStartInfo
-        {
-            FileName = fileName,
-            Arguments = processArgs,
-            RedirectStandardOutput = true,
-            RedirectStandardError = true,
-            StandardOutputEncoding = Encoding.UTF8,
-            StandardErrorEncoding = Encoding.UTF8,
-            UseShellExecute = false,
-            CreateNoWindow = true,
-        };
-
-        try
-        {
-            using var process = new Process();
-            process.StartInfo = psi;
-
-            var stdoutBuilder = new StringBuilder();
-            var stderrBuilder = new StringBuilder();
-
-            process.OutputDataReceived += (_, e) =>
-            {
-                if (e.Data == null)
-                    return;
-                stdoutBuilder.AppendLine(e.Data);
-            };
-
-            process.ErrorDataReceived += (_, e) =>
-            {
-                if (e.Data == null)
-                    return;
-                stderrBuilder.AppendLine(e.Data);
-            };
-            var sw = Stopwatch.StartNew();
-
-            process.Start();
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
-
-            var exited = process.WaitForExit(
-                _options?.CurrentValue.Optimize.ShellTimeoutMs ?? DefaultShellTimeoutMs
-            );
-            var timedOut = !exited;
-
-            if (timedOut)
-            {
-                ExecutionScope.LogWarning(
-                    "Process timed out, attempting to kill: PID {ProcessId}",
-                    process.Id
-                );
-
-                try
-                {
-                    process.Kill(entireProcessTree: true);
-                    ExecutionScope.LogInfo("Killed process: PID {ProcessId}", process.Id);
-                }
-                catch (Exception ex)
-                {
-                    ExecutionScope.LogError(
-                        ex,
-                        "Failed to kill process for timeout (sync), PID: {ProcessId}",
-                        process.Id
-                    );
-                }
-
-                try
-                {
-                    process.WaitForExit(ProcessGraceDrainMs);
-                }
-                catch (Exception ex)
-                {
-                    ExecutionScope.LogError(
-                        ex,
-                        "Failed to wait for process exit after kill (sync), PID: {ProcessId}",
-                        process.Id
-                    );
-                }
-
-                // Force kill if still running after grace period
-                if (!process.HasExited)
-                {
-                    try
-                    {
-                        ExecutionScope.LogWarning(
-                            "Process still running after grace period, force killing: PID {ProcessId}",
-                            process.Id
-                        );
-                        process.Kill(entireProcessTree: true);
-                        if (!process.HasExited)
-                        {
-                            process.WaitForExit(5000); // Wait up to 5 seconds for force kill
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        ExecutionScope.LogError(
-                            ex,
-                            "Failed to force kill process after timeout (sync), PID: {ProcessId}",
-                            process.Id
-                        );
-                    }
-                }
-            }
-
-            sw.Stop();
-            var duration = sw.Elapsed;
-            var stdout = stdoutBuilder.ToString().Trim();
-            var stderr = stderrBuilder.ToString().ParseCliXml().Trim();
-
-            var result = new ShellResult
-            {
-                Command = fullCommandForUser,
-                Stdout = stdout,
-                Stderr = stderr,
-                ExitCode = timedOut ? -1 : process.ExitCode, // use -1 error code for timed out
-                Duration = duration,
-            };
-
-            var success = policy.IsSuccess(result);
-
-            ExecutionScope.Track(serviceName, success);
-
-            ExecutionScope.LogInfo(
-                "[{Service}][{Status}][EC={ExitCode}][D={Duration}] {Command}",
+        var (result, cancelled) = await BuildShellResultAsync(
+                fileName,
+                arguments,
+                command,
                 serviceName,
-                timedOut ? "TIMEOUT"
-                    : success ? "OK"
-                    : "FAIL",
-                result.ExitCode,
-                duration.FormatTime(),
-                fullCommandForUser
-            );
+                policy,
+                call.Logger,
+                linkedCts.Token
+            )
+            .ConfigureAwait(false);
 
-            ExecutionScope.LogTrace(
-                "[{Service}][STDOUT] {Stdout}",
-                serviceName,
-                string.IsNullOrWhiteSpace(stdout) ? "N/A" : stdout
-            );
-            ExecutionScope.LogTrace(
-                "[{Service}][STDERR] {Stderr}",
-                serviceName,
-                string.IsNullOrWhiteSpace(stderr) ? "N/A" : stderr
-            );
+        var success = !cancelled && policy.IsSuccess(result);
 
-            var error = success ? null : policy.ErrorFactory(result);
+        var error =
+            success ? null
+            : cancelled ? Loc.Instance["Common.OperationCancelled"]
+            : policy.ErrorFactory(result);
+        var errorDetail = success ? null : GetShellErrorDetail(result);
 
-            ExecutionScope.RecordStep(
-                ServiceStrings.ShellName,
-                fullCommandForUser,
-                success,
-                revertStep,
-                error,
-                success
-                    ? null
-                    : () =>
-                        // wrapping sync Run in Task.Run because retry expects a Task<bool>
-                        Task.Run(() =>
-                            policy.IsSuccess(
-                                Run(fileName, arguments, command, serviceName, revertStep, policy)
-                            )
-                        ),
-                success ? null : GetShellErrorDetail(result)
-            );
+        call.Changes.Add(
+            ServiceStrings.ShellName,
+            result.Command,
+            success,
+            revertStep,
+            error,
+            errorDetail,
+            success
+                ? null
+                : retryCall =>
+                    RunCoreAsync(
+                        fileName,
+                        arguments,
+                        command,
+                        serviceName,
+                        shellType,
+                        revertStep,
+                        policy,
+                        retryCall,
+                        CancellationToken.None
+                    )
+        );
 
-            return result;
-        }
-        catch (Exception ex)
-        {
-            ExecutionScope.LogError(
-                ex,
-                "[{Service}][FAIL][EXCEPTION] {Command}",
-                serviceName,
-                fullCommandForUser
-            );
-            ExecutionScope.Track(serviceName, false);
-
-            var result = new ShellResult
-            {
-                Command = fullCommandForUser,
-                Stdout = string.Empty,
-                Stderr = ex.Message,
-                ExitCode = -2,
-                Duration = TimeSpan.Zero,
-            };
-
-            ExecutionScope.RecordStep(
-                ServiceStrings.ShellName,
-                fullCommandForUser,
-                false,
-                revertStep,
-                ex.Message,
-                () =>
-                    // wrapping sync Run in Task.Run because retry expects a Task<bool>
-                    Task.Run(() =>
-                        policy.IsSuccess(
-                            Run(fileName, arguments, command, serviceName, revertStep, policy)
-                        )
-                    ),
-                ex.ToString()
-            );
-
-            return result;
-        }
+        return success ? OpResult.Success(revertStep) : OpResult.Fail(error!, errorDetail);
     }
 
-    private static async Task<ShellResult> RunAsync(
-        string fileName,
-        string arguments,
+    #region Raw runs (no Change recording)
+
+    /// <summary>
+    ///     Runs a cmd.exe command without recording a <see cref="Change"/>.
+    ///     For non-optimization callers (UI services, revert steps, shutdown paths)
+    ///     that need the raw <see cref="ShellResult"/> (stdout/stderr/exit code).
+    /// </summary>
+    public async Task<ShellResult> QueryCMDAsync(
         string command,
-        string serviceName,
-        ShellRevertStep? revertStep,
+        ILogger? logger = null,
         ShellPolicy? policy = null,
         CancellationToken ct = default
     )
     {
-        policy ??= ShellPolicy.Default;
-
-        var (_, fullCommandForUser) = SanitizeCommandForUser(fileName, arguments, command);
-
-        var psi = new ProcessStartInfo
-        {
-            FileName = fileName,
-            Arguments = $"{arguments} {command}",
-            RedirectStandardOutput = true,
-            RedirectStandardError = true,
-            StandardOutputEncoding = Encoding.UTF8,
-            StandardErrorEncoding = Encoding.UTF8,
-            UseShellExecute = false,
-            CreateNoWindow = true,
-        };
-
-        try
-        {
-            using var process = new Process();
-            process.StartInfo = psi;
-
-            var stdoutBuilder = new StringBuilder();
-            var stderrBuilder = new StringBuilder();
-
-            process.OutputDataReceived += (_, e) =>
-            {
-                if (e.Data != null)
-                    stdoutBuilder.AppendLine(e.Data);
-            };
-
-            process.ErrorDataReceived += (_, e) =>
-            {
-                if (e.Data != null)
-                    stderrBuilder.AppendLine(e.Data);
-            };
-
-            var sw = Stopwatch.StartNew();
-
-            process.Start();
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
-
-            var timeout = _options?.CurrentValue.Optimize.ShellTimeoutMs ?? DefaultShellTimeoutMs;
-
-            using var timeoutCts = new CancellationTokenSource(timeout);
-            using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(
-                timeoutCts.Token,
+        var (result, _) = await BuildShellResultAsync(
+                "cmd.exe",
+                "/c",
+                command,
+                nameof(QueryCMDAsync),
+                policy ?? ShellPolicy.Default,
+                logger,
                 ct
-            );
-
-            try
-            {
-                await process.WaitForExitAsync(linkedCts.Token);
-            }
-            catch (OperationCanceledException)
-            {
-                // Process timed out, attempt cleanup
-                ExecutionScope.LogWarning(
-                    "Process timed out, attempting to kill: PID {ProcessId}",
-                    process.Id
-                );
-
-                try
-                {
-                    if (!process.HasExited)
-                    {
-                        process.Kill(entireProcessTree: true);
-                        ExecutionScope.LogInfo("Killed process: PID {ProcessId}", process.Id);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ExecutionScope.LogError(
-                        ex,
-                        "Failed to kill process for timeout (async), PID: {ProcessId}",
-                        process.Id
-                    );
-                }
-            }
-
-            sw.Stop();
-
-            var timedOut = !process.HasExited;
-            if (!process.HasExited)
-            {
-                // Process still running after kill attempt, wait for grace period
-                try
-                {
-                    ExecutionScope.LogWarning(
-                        "Process still running after kill, waiting for grace period: PID {ProcessId}",
-                        process.Id
-                    );
-                    process.WaitForExit(ProcessGraceDrainMs);
-                }
-                catch (Exception ex)
-                {
-                    ExecutionScope.LogError(
-                        ex,
-                        "Failed to wait for process exit after kill (async), PID: {ProcessId}",
-                        process.Id
-                    );
-                }
-
-                // Force kill if still running after grace period
-                if (!process.HasExited)
-                {
-                    try
-                    {
-                        ExecutionScope.LogWarning(
-                            "Process still running after grace period, force killing: PID {ProcessId}",
-                            process.Id
-                        );
-                        process.Kill(entireProcessTree: true);
-
-                        // Wait up to 5 seconds for force kill
-                        if (!process.WaitForExit(5000))
-                        {
-                            ExecutionScope.LogWarning(
-                                "Process did not exit after force kill: PID {ProcessId}. User may need manual cleanup.",
-                                process.Id
-                            );
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        ExecutionScope.LogError(
-                            ex,
-                            "Failed to force kill process after timeout (async), PID: {ProcessId}. User may need manual cleanup.",
-                            process.Id
-                        );
-                    }
-                }
-            }
-
-            var stdout = stdoutBuilder.ToString().Trim();
-            var stderr = stderrBuilder.ToString().ParseCliXml().Trim();
-
-            var result = new ShellResult
-            {
-                Command = fullCommandForUser,
-                Stdout = stdout,
-                Stderr = stderr,
-                ExitCode = timedOut ? -1 : process.ExitCode,
-                Duration = sw.Elapsed,
-            };
-
-            var success = policy.IsSuccess(result);
-
-            ExecutionScope.Track(serviceName, success);
-
-            ExecutionScope.LogInfo(
-                "[{Service}][{Status}][EC={ExitCode}][D={Duration}] {Command}",
-                serviceName,
-                timedOut ? "TIMEOUT"
-                    : success ? "OK"
-                    : "FAIL",
-                result.ExitCode,
-                sw.Elapsed.FormatTime(),
-                fullCommandForUser
-            );
-
-            ExecutionScope.LogTrace(
-                "[{Service}][STDOUT] {Stdout}",
-                serviceName,
-                string.IsNullOrWhiteSpace(stdout) ? "N/A" : stdout
-            );
-
-            ExecutionScope.LogTrace(
-                "[{Service}][STDERR] {Stderr}",
-                serviceName,
-                string.IsNullOrWhiteSpace(stderr) ? "N/A" : stderr
-            );
-
-            var error = success ? null : policy.ErrorFactory(result);
-
-            ExecutionScope.RecordStep(
-                ServiceStrings.ShellName,
-                fullCommandForUser,
-                success,
-                revertStep,
-                error,
-                success
-                    ? null
-                    : async () =>
-                        policy.IsSuccess(
-                            await RunAsync(
-                                fileName,
-                                arguments,
-                                command,
-                                serviceName,
-                                revertStep,
-                                policy,
-                                ct
-                            )
-                        ),
-                success ? null : GetShellErrorDetail(result)
-            );
-
-            return result;
-        }
-        catch (Exception ex)
-        {
-            ExecutionScope.LogError(
-                ex,
-                "[{Service}][FAIL][EXCEPTION] {Command}",
-                serviceName,
-                fullCommandForUser
-            );
-            ExecutionScope.Track(serviceName, false);
-
-            var result = new ShellResult
-            {
-                Command = fullCommandForUser,
-                Stdout = string.Empty,
-                Stderr = ex.Message,
-                ExitCode = -2,
-                Duration = TimeSpan.Zero,
-            };
-
-            ExecutionScope.RecordStep(
-                ServiceStrings.ShellName,
-                fullCommandForUser,
-                false,
-                revertStep,
-                ex.Message,
-                async () =>
-                    policy.IsSuccess(
-                        await RunAsync(
-                            fileName,
-                            arguments,
-                            command,
-                            serviceName,
-                            revertStep,
-                            policy,
-                            ct
-                        )
-                    ),
-                ex.ToString()
-            );
-
-            return result;
-        }
+            )
+            .ConfigureAwait(false);
+        return result;
     }
+
+    /// <summary>
+    ///     Runs a PowerShell command without recording a <see cref="Change"/>.
+    ///     For non-optimization callers (UI services, revert steps, queries)
+    ///     that need the raw <see cref="ShellResult"/> (stdout/stderr/exit code).
+    /// </summary>
+    public async Task<ShellResult> QueryPowerShellAsync(
+        string command,
+        ILogger? logger = null,
+        ShellPolicy? policy = null,
+        CancellationToken ct = default
+    )
+    {
+        // -EncodedCommand avoids quoting/escaping issues
+        var (result, _) = await BuildShellResultAsync(
+                "powershell.exe",
+                ShellMapping.PowerShellArguments,
+                ShellMapping.EncodePowerShellCommand(command),
+                nameof(QueryPowerShellAsync),
+                policy ?? ShellPolicy.Default,
+                logger,
+                ct
+            )
+            .ConfigureAwait(false);
+        return result;
+    }
+
+    #endregion Raw runs (no Change recording)
 
     #region Command Prompt methods
 
-    /// <summary>
-    ///     Runs a command in the Command Prompt (cmd.exe).
-    /// </summary>
-    /// <param name="command">The command to execute.</param>
-    /// <param name="revertStep">The revert step to record.</param>
-    /// <param name="policy">The policy to use for determining success.</param>
-    /// <returns>The result of the command execution.</returns>
-    public static ShellResult CMD(
-        string command,
-        ShellRevertStep? revertStep = null,
-        ShellPolicy? policy = null
-    )
-    {
-        return Run("cmd.exe", "/c", command, nameof(CMD), revertStep, policy);
-    }
 
     /// <summary>
     ///     Runs a command in the Command Prompt (cmd.exe) asynchronously.
     /// </summary>
     /// <param name="command">The command to execute.</param>
+    /// <param name="call">The explicit per-operation call context (change collector, logger, cancellation).</param>
     /// <param name="revertStep">The revert step to record.</param>
     /// <param name="policy">The policy to use for determining success.</param>
-    /// <param name="ct">The cancellation token.</param>
+    /// <param name="ct">An additional cancellation token, linked with <see cref="OpCall.CancellationToken"/>.</param>
     /// <returns>The result of the command execution.</returns>
-    public static Task<ShellResult> CMDAsync(
+    public Task<OpResult> CMDAsync(
         string command,
+        OpCall call,
+        IRevertStep? revertStep = null,
+        ShellPolicy? policy = null,
+        CancellationToken ct = default
+    )
+    {
+        return RunCoreAsync(
+            "cmd.exe",
+            "/c",
+            command,
+            "CMD",
+            ShellType.CMD,
+            revertStep,
+            policy,
+            call,
+            ct
+        );
+    }
+
+    /// <summary>
+    ///     Runs a command in the Command Prompt (cmd.exe) asynchronously with a specific revert command.
+    /// </summary>
+    /// <param name="command">The command to execute.</param>
+    /// <param name="call">The explicit per-operation call context (change collector, logger, cancellation).</param>
+    /// <param name="revertCommand">The command to execute for reverting.</param>
+    /// <param name="policy">The policy to use for determining success.</param>
+    /// <param name="ct">An additional cancellation token, linked with <see cref="OpCall.CancellationToken"/>.</param>
+    /// <returns>The result of the command execution.</returns>
+    public Task<OpResult> CMDAsync(
+        string command,
+        OpCall call,
         string revertCommand,
         ShellPolicy? policy = null,
         CancellationToken ct = default
     )
     {
-        return RunAsync(
+        return RunCoreAsync(
             "cmd.exe",
             "/c",
             command,
-            nameof(CMD),
+            "CMD",
+            ShellType.CMD,
             new ShellRevertStep { ShellType = ShellType.CMD, Command = revertCommand },
             policy,
+            call,
             ct
-        );
-    }
-
-    /// <summary>Runs a command in cmd.exe asynchronously with an optional revert step.</summary>
-    /// <param name="command">The command to execute.</param>
-    /// <param name="revertStep">The revert step to record.</param>
-    /// <param name="policy">The policy for determining success.</param>
-    /// <param name="ct">The cancellation token.</param>
-    /// <returns>The result of the command execution.</returns>
-    public static Task<ShellResult> CMDAsync(
-        string command,
-        ShellRevertStep? revertStep = null,
-        ShellPolicy? policy = null,
-        CancellationToken ct = default
-    )
-    {
-        return RunAsync("cmd.exe", "/c", command, nameof(CMD), revertStep, policy, ct);
-    }
-
-    /// <summary>Runs a command in cmd.exe asynchronously with a lazy revert command.</summary>
-    /// <param name="command">The command to execute.</param>
-    /// <param name="revertCommand">A factory function that provides the revert command.</param>
-    /// <param name="policy">The policy for determining success.</param>
-    /// <param name="ct">The cancellation token.</param>
-    /// <returns>The result of the command execution.</returns>
-    public static Task<ShellResult> CMDAsync(
-        string command,
-        Func<string> revertCommand,
-        ShellPolicy? policy = null,
-        CancellationToken ct = default
-    )
-    {
-        return RunAsync(
-            "cmd.exe",
-            "/c",
-            command,
-            nameof(CMD),
-            new ShellRevertStep { ShellType = ShellType.CMD, Command = revertCommand() },
-            policy,
-            ct
-        );
-    }
-
-    /// <summary>
-    ///     Runs a command in the Command Prompt (cmd.exe) with a specific revert command.
-    /// </summary>
-    /// <param name="command">The command to execute.</param>
-    /// <param name="revertCommand">The command to execute for reverting.</param>
-    /// <param name="policy">The policy to use for determining success.</param>
-    /// <returns>The result of the command execution.</returns>
-    public static ShellResult CMD(string command, string revertCommand, ShellPolicy? policy = null)
-    {
-        return CMD(
-            command,
-            new ShellRevertStep { ShellType = ShellType.CMD, Command = revertCommand },
-            policy
-        );
-    }
-
-    /// <summary>
-    ///     Runs a command in the Command Prompt (cmd.exe) with a specific revert command.
-    /// </summary>
-    /// <param name="command">The command to execute.</param>
-    /// <param name="revertCommand">The command to execute for reverting.</param>
-    /// <param name="policy">The policy to use for determining success.</param>
-    /// <returns>The result of the command execution.</returns>
-    public static ShellResult CMD(
-        string command,
-        Func<string> revertCommand,
-        ShellPolicy? policy = null
-    )
-    {
-        return CMD(
-            command,
-            new ShellRevertStep { ShellType = ShellType.CMD, Command = revertCommand() },
-            policy
         );
     }
 
@@ -703,162 +287,62 @@ public static class ShellService
 
     #region PowerShell methods
 
-    /// <summary>
-    ///     Runs a command in PowerShell.
-    /// </summary>
-    /// <param name="command">The command to execute.</param>
-    /// <param name="revertStep">The revert step to record.</param>
-    /// <param name="policy">The policy to use for determining success.</param>
-    /// <returns>The result of the command execution.</returns>
-    public static ShellResult PowerShell(
-        string command,
-        ShellRevertStep? revertStep = null,
-        ShellPolicy? policy = null
-    )
-    {
-        // -EncodedCommand avoids quoting/escaping issues
-        // prefix forces UTF-8 output and silences progress stream clutter in stderr
-        command =
-            "$ProgressPreference='SilentlyContinue'; "
-            + "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; "
-            + "$OutputEncoding = [System.Console]::OutputEncoding = [System.Console]::InputEncoding = [System.Text.Encoding]::UTF8; "
-            + command;
-        return Run(
-            "powershell.exe",
-            "-NonInteractive -NoLogo -NoProfile -ExecutionPolicy Bypass -EncodedCommand",
-            command.EncodeBase64(),
-            nameof(PowerShell),
-            revertStep,
-            policy
-        );
-    }
 
     /// <summary>
     ///     Runs a command in PowerShell asynchronously.
     /// </summary>
     /// <param name="command">The command to execute.</param>
+    /// <param name="call">The explicit per-operation call context (change collector, logger, cancellation).</param>
     /// <param name="revertStep">The revert step to record.</param>
     /// <param name="policy">The policy to use for determining success.</param>
-    /// <param name="ct">The cancellation token.</param>
+    /// <param name="ct">An additional cancellation token, linked with <see cref="OpCall.CancellationToken"/>.</param>
     /// <returns>The result of the command execution.</returns>
-    public static Task<ShellResult> PowerShellAsync(
+    public Task<OpResult> PowerShellAsync(
         string command,
-        ShellRevertStep? revertStep = null,
+        OpCall call,
+        IRevertStep? revertStep = null,
         ShellPolicy? policy = null,
         CancellationToken ct = default
     )
     {
-        command =
-            "$ProgressPreference='SilentlyContinue'; "
-            + "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; "
-            + "$OutputEncoding = [System.Console]::OutputEncoding = [System.Console]::InputEncoding = [System.Text.Encoding]::UTF8; "
-            + command;
-        return RunAsync(
+        return RunCoreAsync(
             "powershell.exe",
-            "-NonInteractive -NoLogo -NoProfile -ExecutionPolicy Bypass -EncodedCommand",
-            command.EncodeBase64(),
-            nameof(PowerShell),
+            ShellMapping.PowerShellArguments,
+            ShellMapping.EncodePowerShellCommand(command),
+            "PowerShell",
+            ShellType.PowerShell,
             revertStep,
             policy,
+            call,
             ct
         );
     }
 
     /// <summary>Runs a command in PowerShell asynchronously with a specific revert command.</summary>
     /// <param name="command">The command to execute.</param>
+    /// <param name="call">The explicit per-operation call context (change collector, logger, cancellation).</param>
     /// <param name="revertCommand">The command to execute for reverting.</param>
     /// <param name="policy">The policy for determining success.</param>
-    /// <param name="ct">The cancellation token.</param>
+    /// <param name="ct">An additional cancellation token, linked with <see cref="OpCall.CancellationToken"/>.</param>
     /// <returns>The result of the command execution.</returns>
-    public static Task<ShellResult> PowerShellAsync(
+    public Task<OpResult> PowerShellAsync(
         string command,
+        OpCall call,
         string revertCommand,
         ShellPolicy? policy = null,
         CancellationToken ct = default
     )
     {
-        command =
-            "$ProgressPreference='SilentlyContinue'; "
-            + "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; "
-            + "$OutputEncoding = [System.Console]::OutputEncoding = [System.Console]::InputEncoding = [System.Text.Encoding]::UTF8; "
-            + command;
-        return RunAsync(
+        return RunCoreAsync(
             "powershell.exe",
-            "-NonInteractive -NoLogo -NoProfile -ExecutionPolicy Bypass -EncodedCommand",
-            command.EncodeBase64(),
-            nameof(PowerShell),
+            ShellMapping.PowerShellArguments,
+            ShellMapping.EncodePowerShellCommand(command),
+            "PowerShell",
+            ShellType.PowerShell,
             new ShellRevertStep { ShellType = ShellType.PowerShell, Command = revertCommand },
             policy,
+            call,
             ct
-        );
-    }
-
-    /// <summary>Runs a command in PowerShell asynchronously with a lazy revert command.</summary>
-    /// <param name="command">The command to execute.</param>
-    /// <param name="revertFunction">A factory function that provides the revert command.</param>
-    /// <param name="policy">The policy for determining success.</param>
-    /// <param name="ct">The cancellation token.</param>
-    /// <returns>The result of the command execution.</returns>
-    public static Task<ShellResult> PowerShellAsync(
-        string command,
-        Func<string> revertFunction,
-        ShellPolicy? policy = null,
-        CancellationToken ct = default
-    )
-    {
-        command =
-            "$ProgressPreference='SilentlyContinue'; "
-            + "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; "
-            + "$OutputEncoding = [System.Console]::OutputEncoding = [System.Console]::InputEncoding = [System.Text.Encoding]::UTF8; "
-            + command;
-        return RunAsync(
-            "powershell.exe",
-            "-NonInteractive -NoLogo -NoProfile -ExecutionPolicy Bypass -EncodedCommand",
-            command.EncodeBase64(),
-            nameof(PowerShell),
-            new ShellRevertStep { ShellType = ShellType.PowerShell, Command = revertFunction() },
-            policy,
-            ct
-        );
-    }
-
-    /// <summary>
-    ///     Runs a command in PowerShell with a specific revert command.
-    /// </summary>
-    /// <param name="command">The command to execute.</param>
-    /// <param name="revertCommand">The command to execute for reverting.</param>
-    /// <param name="policy">The policy to use for determining success.</param>
-    /// <returns>The result of the command execution.</returns>
-    public static ShellResult PowerShell(
-        string command,
-        string revertCommand,
-        ShellPolicy? policy = null
-    )
-    {
-        return PowerShell(
-            command,
-            new ShellRevertStep { ShellType = ShellType.PowerShell, Command = revertCommand },
-            policy
-        );
-    }
-
-    /// <summary>
-    ///     Runs a command in PowerShell with a specific revert command.
-    /// </summary>
-    /// <param name="command">The command to execute.</param>
-    /// <param name="revertCommand">The command to execute for reverting.</param>
-    /// <param name="policy">The policy to use for determining success.</param>
-    /// <returns>The result of the command execution.</returns>
-    public static ShellResult PowerShell(
-        string command,
-        Func<string> revertCommand,
-        ShellPolicy? policy = null
-    )
-    {
-        return PowerShell(
-            command,
-            new ShellRevertStep { ShellType = ShellType.PowerShell, Command = revertCommand() },
-            policy
         );
     }
 

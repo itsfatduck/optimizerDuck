@@ -1,6 +1,8 @@
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Exceptions;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
@@ -31,23 +33,39 @@ public class ServiceRevertStep : IRevertStep
         Loc.Instance["Revert.Service.Description.Restore", ServiceName, OriginalStartupType];
 
     /// <inheritdoc />
-    public async Task<bool> ExecuteAsync()
+    public async Task<bool> ExecuteAsync(ShellService _, ILogger logger)
     {
-        var result = await ServiceProcessService.ChangeServiceStartupTypeAsync(
-            new ServiceItem { Name = ServiceName, StartupType = OriginalStartupType }
-        );
+        var opCall = new OpCall { Logger = logger };
+        var result = await ServiceProcessService
+            .ChangeServiceStartupTypeAsync(
+                opCall,
+                new ServiceItem { Name = ServiceName, StartupType = OriginalStartupType }
+            )
+            .ConfigureAwait(false);
 
-        if (
-            result
-            is ServiceChangeResult.Success
-                or ServiceChangeResult.NotFound
-                or ServiceChangeResult.AlreadyConfigured
-                or ServiceChangeResult.AccessDenied
-        )
-            return true;
+        if (!result.Ok)
+        {
+            // Fail closed: access-denied returns false so RevertManager records a failed
+            // step; every other failure throws with provider error detail.
+            var accessDenied = ServiceStrings.Format(
+                ServiceStrings.ServiceInfoSkippedAccessDenied,
+                ServiceName
+            );
+            if (string.Equals(result.Error, accessDenied, StringComparison.Ordinal))
+                return false;
+            throw new StepExecutionException(result.Error ?? Description, result.ErrorDetail);
+        }
 
-        var error = ServiceProcessService.LastError ?? Description;
-        throw new StepExecutionException(error, ServiceProcessService.LastErrorDetail);
+        // Read-back verify: service must report the restored startup type afterward.
+        var (actual, _) = await ServiceProcessService
+            .GetStartupTypeAsync(ServiceName, opCall.Logger)
+            .ConfigureAwait(false);
+        if (actual != null && actual.Value != OriginalStartupType)
+            throw new StepExecutionException(
+                $"Service verify failed for {ServiceName}: expected {OriginalStartupType}, actual={actual}",
+                null
+            );
+        return true;
     }
 
     /// <inheritdoc />

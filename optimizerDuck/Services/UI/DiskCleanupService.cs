@@ -8,7 +8,7 @@ using CleanupItem = optimizerDuck.Domain.Optimizations.Models.Cleanup.CleanupIte
 
 namespace optimizerDuck.Services.UI;
 
-public class DiskCleanupService(ILogger<DiskCleanupService> logger)
+public class DiskCleanupService(ILogger<DiskCleanupService> logger, ShellService shellService)
 {
     private static readonly string DotNetTempPath =
         Path.GetFullPath(Path.Combine(Path.GetTempPath(), ".net"))
@@ -119,7 +119,7 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                         + "  Write-Output \"$sum|$count\" "
                         + "} else { Write-Output '0|0' }";
 
-                    var result = await ShellService.PowerShellAsync(script);
+                    var result = await shellService.QueryPowerShellAsync(script, logger);
                     var parts = result.Stdout.Trim().Split('|');
                     if (
                         parts.Length == 2
@@ -183,13 +183,27 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
             if (item.IsCommand)
             {
                 var sizeBefore = item.SizeBytes;
-                await ShellService.PowerShellAsync(item.Path);
-                freedBytes = sizeBefore;
-                logger.LogInformation(
-                    "Cleaned {ItemId} via command, freed ~{Size}",
-                    item.Id,
-                    CleanupItem.FormatBytes(freedBytes)
-                );
+                var result = await shellService.QueryPowerShellAsync(item.Path, logger);
+                if (result.ExitCode == 0)
+                {
+                    freedBytes = sizeBefore;
+                    logger.LogInformation(
+                        "Cleaned {ItemId} via command, freed ~{Size}",
+                        item.Id,
+                        CleanupItem.FormatBytes(freedBytes)
+                    );
+                }
+                else
+                {
+                    // Never report freed space for a command that failed; only the exit
+                    // code distinguishes "cleaned" from "ran but did nothing".
+                    logger.LogError(
+                        "Clean command for {ItemId} failed with exit code {ExitCode}: {Error}",
+                        item.Id,
+                        result.ExitCode,
+                        result.Stderr
+                    );
+                }
             }
             else
             {

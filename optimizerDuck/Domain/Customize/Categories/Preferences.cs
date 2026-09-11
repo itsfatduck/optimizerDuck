@@ -5,6 +5,7 @@ using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Conditions;
 using optimizerDuck.Domain.Customize.Models;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Services.Configuration;
@@ -513,17 +514,20 @@ public class Preferences : LocalizedObject, ICustomizeCategory
             return Task.FromResult(exists);
         }
 
-        public override async Task ApplyAsync(object? value)
+        public override async Task<OpResult> ApplyAsync(object? value, OpCall call)
         {
             var isOn = value is bool b && b;
 
+            OpResult result;
             if (isOn)
-                RegistryService.Write(new RegistryItem(InprocPath, null, ""));
+                result = RegistryService.Write(call, new RegistryItem(InprocPath, null, ""));
             else
-                RegistryService.DeleteSubKeyTree(new RegistryItem(BasePath));
+                result = RegistryService.DeleteSubKeyTree(call, new RegistryItem(BasePath));
 
             if (NeedsPostAction)
                 await ExecutePostActionAsync();
+
+            return result;
         }
     }
 

@@ -25,13 +25,8 @@
                     <DataTrigger Binding="{Binding IsEnabledState, ElementName=TaskStateRoot}" Value="False">
                         <Setter Property="Background" Value="{DynamicResource SystemFillColorCriticalBrush}" />
                     </DataTrigger>
-                    <DataTrigger Binding="{Binding State, ElementName=TaskStateRoot}" Value="Ready">
-                        <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding State, ElementName=TaskStateRoot}" Value="Running">
-                        <Setter Property="Background" Value="{DynamicResource AccentButtonBackground}" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding State, ElementName=TaskStateRoot}" Value="Disabled">
+                    <!--  Disabled scheduled task: language-independent (State is localized text).  -->
+                    <DataTrigger Binding="{Binding IsDisabledState, ElementName=TaskStateRoot}" Value="True">
                         <Setter Property="Background" Value="{DynamicResource SystemFillColorCriticalBrush}" />
                     </DataTrigger>
                 </Style.Triggers>
@@ -63,15 +58,7 @@
                                 <Setter Property="Symbol" Value="Dismiss24" />
                                 <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding State, ElementName=TaskStateRoot}" Value="Ready">
-                                <Setter Property="Symbol" Value="CheckmarkCircle24" />
-                                <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding State, ElementName=TaskStateRoot}" Value="Running">
-                                <Setter Property="Symbol" Value="Play24" />
-                                <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding State, ElementName=TaskStateRoot}" Value="Disabled">
+                            <DataTrigger Binding="{Binding IsDisabledState, ElementName=TaskStateRoot}" Value="True">
                                 <Setter Property="Symbol" Value="Dismiss24" />
                                 <Setter Property="Foreground" Value="{DynamicResource TextFillColorInverseBrush}" />
                             </DataTrigger>

@@ -4,6 +4,7 @@ using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Customize.Models;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Services.Configuration;
@@ -194,14 +195,15 @@ public class Desktop : LocalizedObject, ICustomizeCategory
             return Task.FromResult(!isHidden);
         }
 
-        public override async Task ApplyAsync(object? value)
+        public override async Task<OpResult> ApplyAsync(object? value, OpCall call)
         {
             var isOn = value is bool b && b;
 
+            OpResult result;
             if (isOn)
             {
                 // restore default Windows behavior by deleting the value
-                RegistryService.DeleteValue(new RegistryItem(Path, "29"));
+                result = RegistryService.DeleteValue(call, new RegistryItem(Path, "29"));
             }
             else
             {
@@ -214,10 +216,11 @@ public class Desktop : LocalizedObject, ICustomizeCategory
                 EmbeddedResourceHelper.TryExtract("Icons.blank.ico", outputPath);
 
                 // set the registry value to point to the blank icon, which effectively hides the shortcut arrow overlay
-                RegistryService.Write(new RegistryItem(Path, "29", outputPath));
+                result = RegistryService.Write(call, new RegistryItem(Path, "29", outputPath));
             }
 
             await ExecutePostActionAsync();
+            return result;
         }
     }
 }

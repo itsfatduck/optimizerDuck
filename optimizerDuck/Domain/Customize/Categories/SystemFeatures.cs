@@ -6,6 +6,7 @@ using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Conditions;
 using optimizerDuck.Domain.Customize.Models;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Services.Configuration;
@@ -72,7 +73,7 @@ public class SystemFeatures : LocalizedObject, ICustomizeCategory
             });
         }
 
-        public override async Task ApplyAsync(object? value)
+        public override async Task<OpResult> ApplyAsync(object? value, OpCall call)
         {
             var isOn = value is bool b && b;
 
@@ -83,15 +84,14 @@ public class SystemFeatures : LocalizedObject, ICustomizeCategory
                 new RegistryItem(PathDefault, ValueName)
             );
 
-            RegistryService.Write(
+            var result = RegistryService.Write(
+                call,
                 new RegistryItem(
                     PathCurrent,
                     ValueName,
                     SetNumLockBit(currentRaw, isOn),
                     RegistryValueKind.String
-                )
-            );
-            RegistryService.Write(
+                ),
                 new RegistryItem(
                     PathDefault,
                     ValueName,
@@ -102,6 +102,8 @@ public class SystemFeatures : LocalizedObject, ICustomizeCategory
 
             if (NeedsPostAction)
                 await ExecutePostActionAsync();
+
+            return result;
         }
 
         private static string SetNumLockBit(object? raw, bool enabled)

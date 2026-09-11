@@ -22,7 +22,7 @@ public static class ReflectionHelper
     }
 
     private static readonly Dictionary<Type, List<Type>> _implementationCache = new();
-    private static readonly object _cacheLock = new();
+    private static readonly Lock _cacheLock = new();
 
     public static IEnumerable<Type> FindImplementationsInLoadedAssemblies(Type interfaceType)
     {

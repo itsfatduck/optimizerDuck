@@ -68,6 +68,11 @@ public class Loc : INotifyPropertyChanged
         OnPropertyChanged(nameof(IsRtl));
         OnPropertyChanged(nameof(Direction));
         OnPropertyChanged("Item[]");
+        // WPF convention: an empty property name means "all properties changed". Pathless
+        // bindings to Loc.Instance (used by the multi-arg {ext:Loc Key, Binding} markup)
+        // only re-evaluate on this notification, so without it those texts stay in the old
+        // language until restart.
+        OnPropertyChanged(string.Empty);
         LanguageChanged?.Invoke(this, new LanguageChangedEventArgs(culture));
     }
 

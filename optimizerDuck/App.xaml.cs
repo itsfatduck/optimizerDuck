@@ -365,72 +365,16 @@ public partial class App : Application
                 ConfigManager.ValidateConfig(loggerFactory.CreateLogger(typeof(ConfigManager)));
                 c.AddJsonFile(Path.Combine(Shared.RootDirectory, "appsettings.json"), false, true);
             })
+            // Fail fast instead of discovering a broken graph later: ValidateOnBuild catches
+            // an unbuildable registration, ValidateScopes catches a scoped service leaking
+            // into a singleton (the ChangeSet must never be resolved from the root provider).
+            .UseDefaultServiceProvider(options =>
+            {
+                options.ValidateOnBuild = true;
+                options.ValidateScopes = true;
+            })
             .ConfigureServices(
-                (context, services) =>
-                {
-                    services.Configure<AppSettings>(context.Configuration);
-
-                    // WPF UI shi
-                    services.AddNavigationViewPageProvider();
-                    services.AddSingleton<INavigationService, NavigationService>();
-                    services.AddSingleton<IContentDialogService, ContentDialogService>();
-                    services.AddSingleton<ISnackbarService, SnackbarService>();
-
-                    // Windows
-                    services.AddSingleton<MainWindow>();
-                    services.AddSingleton<MainWindowViewModel>();
-
-                    // Pages
-                    services.AddSingleton<DashboardViewModel>();
-                    services.AddSingleton<DashboardPage>();
-
-                    services.AddSingleton<OptimizeViewModel>();
-                    services.AddSingleton<OptimizePage>();
-
-                    services.AddSingleton<SettingsViewModel>();
-                    services.AddSingleton<SettingsPage>();
-
-                    services.AddSingleton<BloatwareViewModel>();
-                    services.AddSingleton<BloatwarePage>();
-
-                    services.AddSingleton<DiskCleanupViewModel>();
-                    services.AddSingleton<DiskCleanupPage>();
-
-                    services.AddSingleton<StartupManagerViewModel>();
-                    services.AddSingleton<StartupManagerPage>();
-
-                    services.AddSingleton<ScheduledTasksViewModel>();
-                    services.AddSingleton<ScheduledTasksPage>();
-
-                    // Dialogs
-                    services.AddTransient<optimizerDuck.UI.ViewModels.Dialogs.LegalDialogViewModel>();
-                    services.AddTransient<optimizerDuck.UI.Dialogs.LegalDialog>();
-
-                    // Customize
-                    services.AddSingleton<CustomizeViewModel>();
-                    services.AddSingleton<CustomizePage>();
-
-                    services.AddAllCustomizeCategoryPages();
-
-                    // Optimizations
-                    services.AddAllOptimizationPages();
-
-                    // Managers
-                    services.AddSingleton<ConfigManager>();
-                    services.AddSingleton<RevertManager>();
-
-                    // Services
-                    services.AddSingleton<OptimizationRegistry>();
-                    services.AddSingleton<CustomizeRegistry>();
-                    services.AddSingleton<OptimizationService>();
-                    services.AddSingleton<BloatwareService>();
-                    services.AddSingleton<DiskCleanupService>();
-                    services.AddSingleton<StartupManagerService>();
-                    services.AddSingleton<SystemInfoService>();
-                    services.AddSingleton<StreamService>();
-                    services.AddSingleton<UpdaterService>();
-                    services.AddSingleton<IRegistryWatcher, RegistryWatcher>();
-                }
+                (context, services) => services.AddOptimizerApplication(context.Configuration)
             )
             .Build();
 
@@ -441,9 +385,6 @@ public partial class App : Application
         await config.EnsureDefaultsAsync();
 
         var appOptionsMonitor = _host.Services.GetRequiredService<IOptionsMonitor<AppSettings>>();
-
-        // init shell service with config
-        ShellService.Init(appOptionsMonitor);
 
         // init WMI helper for cleanup on abnormal termination
         WmiHelper.Initialize();
@@ -493,6 +434,8 @@ public partial class App : Application
         _logger.LogInformation("Preloading customize settings...");
         var customizeRegistry = _host.Services.GetRequiredService<CustomizeRegistry>();
         await customizeRegistry.PreloadCategoriesAsync().ConfigureAwait(false);
+
+        RevertManager.RemoveOrphanedTempFiles(_logger);
     }
 
     protected override async void OnExit(ExitEventArgs e)
@@ -550,14 +493,17 @@ public partial class App : Application
                 case ContentDialogResult.Primary:
                     _logger.LogInformation("User chose to restart PC.");
 
-                    ShellService.CMD("shutdown /r /t 0");
+                    await _host!
+                        .Services.GetRequiredService<ShellService>()
+                        .QueryCMDAsync("shutdown /r /t 0");
                     break;
 
                 case ContentDialogResult.Secondary:
                     _logger.LogInformation("User chose to restart Explorer.");
 
-                    ShellService.CMD("taskkill /f /im explorer.exe && start explorer.exe");
-
+                    await _host!
+                        .Services.GetRequiredService<ShellService>()
+                        .QueryCMDAsync("taskkill /f /im explorer.exe && start explorer.exe");
                     _allowClose = true;
                     Current.Shutdown();
                     break;

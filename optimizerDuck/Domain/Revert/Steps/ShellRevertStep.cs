@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Exceptions;
@@ -30,12 +31,14 @@ public class ShellRevertStep : IRevertStep
     public string Description => Loc.Instance["Revert.Shell.Description.Run", ShellType, Command];
 
     /// <inheritdoc />
-    public async Task<bool> ExecuteAsync()
+    public async Task<bool> ExecuteAsync(ShellService shell, ILogger logger)
     {
         var result = ShellType switch
         {
-            ShellType.PowerShell => await ShellService.PowerShellAsync(Command),
-            ShellType.CMD => await ShellService.CMDAsync(Command),
+            ShellType.PowerShell => await shell
+                .QueryPowerShellAsync(Command, logger)
+                .ConfigureAwait(false),
+            ShellType.CMD => await shell.QueryCMDAsync(Command, logger).ConfigureAwait(false),
             _ => new ShellResult
             {
                 Command = Command,

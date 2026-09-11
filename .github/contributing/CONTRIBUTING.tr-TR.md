@@ -132,7 +132,7 @@ optimizerDuck.slnx                          # Solution file (.slnx format)
 │   │   │   └── WindowsBuilds.cs            # OS build number constants
 │   │   ├── Configuration/                  # AppSettings model
 │   │   ├── Exceptions/                     # StepExecutionException
-│   │   ├── Execution/                      # ExecutionScope — ambient step tracking via AsyncLocal
+│   │   ├── Execution/                      # OpCall, OpResult, ChangeSet — açık çağrı bağlamı
 │   │   ├── Customize/                      # Customize settings
 │   │   │   ├── Categories/                 # Category classes with nested setting classes
 │   │   │   └── Models/                     # BaseCustomizeSetting, RegistryToggle, RegistryBinding,
@@ -167,8 +167,8 @@ optimizerDuck.slnx                          # Solution file (.slnx format)
 │   │   ├── Configuration/                  # ConfigManager, LanguageManager
 │   │   ├── Customize/                      # CustomizeRegistry (reflection-based discovery)
 │   │   ├── Optimization/                   # OptimizationRegistry, OptimizationService
-│   │   │   └── Providers/                  # Static: RegistryService, ShellService (+ ShellPolicy),
-│   │   │                                   #   ScheduledTaskService, ServiceProcessService
+│   │   │   └── Providers/                  # Örnek (instance): RegistryService, ShellService (+ ShellPolicy),
+│   │   │                                   #   ScheduledTaskService, ServiceProcessService, ProcessRunner
 │   │   ├── Revert/                         # RevertManager (atomic write/read of revert JSON files)
 │   │   ├── System/                         # RegistryWatcher (+ IRegistryWatcher), SystemInfoService,
 │   │   │                                   #   StreamService, UpdaterService, CrossPageEventBus
@@ -207,7 +207,7 @@ optimizerDuck.slnx                          # Solution file (.slnx format)
 | Karar | Gerekçe |
 |---|---|
 | **Yansıma tabanlı keşif** | Güncellenecek DI kayıt dizisi yok. `ReflectionHelper.FindImplementationsInLoadedAssemblies<T>()` `optimizerDuck.*` derlemelerini tarar. Yeni optimizasyonlar/ayarlar otomatik keşfedilir. |
-| **Statik sağlayıcı hizmetler** | `RegistryService`, `ShellService`, `ScheduledTaskService`, `ServiceProcessService` statik sınıflardır. Geri alma adımlarını çevresel `ExecutionScope`'a kaydeder — bağlam enjekte etmek veya geçirmek gerekmez. |
+| **Sağlayıcı hizmetler** | Durumsuz hizmetler (`RegistryService`, `ScheduledTaskService`, `ServiceProcessService`) **statik**tir — açık `OpCall` (`context`) ile doğrudan çağırın. `ShellService` (+ `ProcessRunner`) DI singleton'dır (canlı ayar durumuna sahiptir); domain kodu `Shell` özelliğini kullanır. |
 | **Dosya tabanlı geri alma takibi** | Uygulanma durumu = diskte dosya var (`%localappdata%\optimizerDuck\Revert\{id}.json`). Veritabanı yok. `File.Replace()` ile atomik yazma. |
 | **Koşul sistemi (açık kalma)** | Optimizasyonlar ve ayarlar uyumluluk koşulları bildirebilir. Değerlendirme hataları asla bir öğeyi gizlemez — [Koşul Sistemi](#the-condition-system) bölümüne bakın. |
 | **Entegrasyon tarzı testler** | Gerçek dosya sistemi, gerçek kayıt defteri (`HKCU\Software\TestOptimizerDuck*` altında), gerçek süreç yürütme. Mock kütüphanesi yok — yalnızca elle yazılmış test ikizleri. |
@@ -296,16 +296,17 @@ public class Performance : IOptimizationCategory
             IProgress<ProcessingProgress> progress,
             OptimizationContext context)
         {
-            // 1. Sistem değişiklikleri için statik sağlayıcıları kullanın
-            RegistryService.Write(new RegistryItem(
-                @"HKLM\SOFTWARE\Something", "ValueName", 1));
+            // 1. Örnek sağlayıcıları (`Reg`/`Svc`/`Tasks`/`Shell`) açık bağlamla kullanın
+            RegistryService.Write(
+                new RegistryItem(@"HKLM\SOFTWARE\Something", "ValueName", 1), context);
 
             // 2. Asenkron işlemleri await edin — bu UI iş parçacığını serbest bırakır
             await ServiceProcessService.ChangeServiceStartupTypeAsync(
-                new ServiceItem("SomeService", ServiceStartupType.Disabled));
+                [new ServiceItem("SomeService", ServiceStartupType.Disabled)],
+                context);
 
-            // 3. Çevresel ExecutionScope'tan sonucu döndürün
-            return CompleteFromScope();
+            // 3. Toplanan değişikliklerden sonucu döndürün
+            return context.Changes.ToApplyResult();
         }
     }
 }
@@ -319,10 +320,10 @@ public class Performance : IOptimizationCategory
 | **`BaseOptimization`'dan türetin** | Öznitelik + yerelleştirme anahtarlarından `Name`, `ShortDescription`, `RiskVisual`, `TagDisplays` sağlar. |
 | **`OwnerType` otomatik atanır** | Keşif bunu ayarlar — kendiniz ayarlamayın. |
 | **`async Task<ApplyResult>` kullanın** | Hizmet sağlayıcıları asenkrondur — UI'nın duyarlı kalması için `await` edin. |
-| **`CompleteFromScope()` döndürün** | Çevresel `ExecutionScope`'a kaydedilen adımlardan `ApplyResult` türetir. `ApplyResult`'ı elle oluşturmayın. |
+| **`context.Changes.ToApplyResult()` döndürün** | `call.Changes` içinde toplanan değişikliklerden `ApplyResult` türetir. Erken çıkıştaki başarısızlıklar dışında `ApplyResult`'ı elle oluşturmayın. |
 | **İlerlemeyi bildirin** | UI diyaloğunu güncellemek için `progress.Report(new ProcessingProgress { ... })` kullanın. |
-| **Tüm istisnaları yakalamayın** | Yukarı yayılsın. `ExecutionScope` başarı/başarısızlığı izler; `OptimizationService` istisnaları işler. |
-| **Geri alma adımlarını elle oluşturmayın** | Statik sağlayıcı hizmetler bunu `ExecutionScope.RecordStep()` ile otomatik yapar. |
+| **Tüm istisnaları yakalamayın** | Yukarı yayılsın. Başarı/başarısızlık `ChangeSet` içinde izlenir; `OptimizationService` istisnaları işler. |
+| **Geri alma adımlarını elle oluşturmayın** | Örnek sağlayıcılar bunu otomatik yapar (`call.Changes` içine kaydeder). `ChangeSet.Add()` ile elle kayıt yapmayın (USB durumları gibi özel sağlayıcı dışı durumlar dışında). |
 | **`context.Logger` kullanın** | Önemli tanılama bilgileri için günlük kaydı sağlar. |
 | **`context.Snapshot` kullanın** | `OptimizationContext.Snapshot` (`SystemSnapshot`) RAM, GPU, CPU, OS bilgisi verir. Koşullu mantık için kullanın. |
 | **`context.StreamService` kullanın** | Uzak kaynakları (örn. güç planları) indiren optimizasyonlar için. |
@@ -330,43 +331,47 @@ public class Performance : IOptimizationCategory
 
 <h3 id="available-service-providers">Mevcut Hizmet Sağlayıcılar</h3>
 
-Bu **statik** sınıflar günlük kaydı, hata işleme ve otomatik geri alma adımı kaydını yönetir.
+Bu sınıflar günlük kaydı, hata işleme ve otomatik geri alma adımı kaydını yönetir. Her yazma/değiştirme çağrısı açık bir `OpCall` alır (`OptimizationContext` bir `OpCall`'dır), değişikliği `call.Changes` içine kaydeder ve `OpResult` döndürür. Durumsuz hizmetler statiktir (doğrudan çağırın); `Shell` için hazır özelliği kullanın.
 
 | Hizmet | Temel Metotlar | Neden Kullanılır |
 |---|---|---|
-| **`RegistryService`** | `Write()`, `Read<T>()`, `DeleteValue()`, `CreateSubKey()`, `DeleteSubKeyTree()`, `KeyExists()`, `CleanupEmptyKeys()` | Kayıt defteri anahtarlarını oku/yaz/sil. Geri alma için orijinal değerleri yedekler. params dizisiyle toplu yazmayı destekler. |
-| **`ShellService`** | `CMDAsync()`, `PowerShellAsync()`, `CMD()` (senkron), `PowerShell()` (senkron) | CMD veya PowerShell komutları çalıştırır. Asenkron sürümleri tercih edin. Geri alma için isteğe bağlı `revertCommand` parametresi. Standart dışı çıkış kodları için `ShellPolicy`'ye bakın. |
-| **`ScheduledTaskService`** | `DisableTask()`, `EnableTask()`, `IsTaskEnabled()`, `DeleteTask()`, `GetAllTasks()`, `RegisterTask()`, `RunTask()`, `StopTask()` | Windows Zamanlanmış Görevlerini yönetir. |
-| **`ServiceProcessService`** | `ChangeServiceStartupTypeAsync()`, `GetStartupTypeAsync()` | Windows Hizmetlerini yönetir. Her zaman asenkron sürümleri kullanın. params dizisiyle toplu değişikliği destekler. |
+| **`RegistryService`** | `Write(item, call)`, `Write(call, params items)`, `Read<T>(item, call?)`, `DeleteValue(item, call)`, `CreateSubKey(item, call)`, `DeleteSubKeyTree(item, call)`, `KeyExists(item, call?)`, `CleanupEmptyKeys(keys, call?)` | Kayıt defteri anahtarlarını oku/yaz/sil. Geri alma için orijinal değerleri yedekler. Toplu yazma için ikinci `Write` aşırı yüklemesini kullanın. |
+| **`context.Shell`**（`ShellService`） | `CMDAsync(command, call, revertCommand?)`, `PowerShellAsync(command, call, revertCommand?)`, ham çalıştırma için `QueryCMDAsync` / `QueryPowerShellAsync` | CMD veya PowerShell komutları çalıştırır. Asenkron sürümleri tercih edin. Geri alma için isteğe bağlı `revertCommand` parametresi. Standart dışı çıkış kodları için `ShellPolicy`'ye bakın. Ham `Run*` metotları değişiklik **kaydetmez**. |
+| **`ScheduledTaskService`** | `DisableTask(path, call)`, `EnableTask(path, call)`, `IsTaskEnabled(path, call?)`, `DeleteTask(...)`, `GetAllTasks(call?)`, `RegisterTask(...)`, `RunTask(...)`, `StopTask(...)` | Windows Zamanlanmış Görevlerini yönetir. |
+| **`ServiceProcessService`** | `ChangeServiceStartupTypeAsync(item, call)`, `ChangeServiceStartupTypeAsync(items, call)`, `GetStartupTypeAsync(name, call?)` | Windows Hizmetlerini yönetir. Her zaman asenkron sürümleri kullanın. Toplu değişikliği dizi aşırı yüklemesiyle yapın. |
 
-> **params ile birden çok öğe kabul eden metotlar**: Çoğu yazma/değiştirme metodu bir params dizisi kabul eder (örn. `RegistryService.Write(item1, item2, item3)`). Bu, birden çok ayrı çağrıdan daha verimlidir.
+> **Toplu çağrılar**: Tekil params yerine `RegistryService.Write(context, item1, item2)` ve `ServiceProcessService.ChangeServiceStartupTypeAsync([item1, item2], context)` kullanın. Bu, tek tek çağrılardan daha verimlidir.
 
 Örnek kullanım:
 
 ```csharp
 // Senkron kayıt defteri yazma — birden çok öğeyi tek seferde
 RegistryService.Write(
+    context,
     new RegistryItem(@"HKLM\...", "Value1", 1),
     new RegistryItem(@"HKLM\...", "Value2", 0)
 );
-RegistryService.DeleteValue(new RegistryItem(@"HKCU\...", "OldValue"));
+RegistryService.DeleteValue(new RegistryItem(@"HKCU\...", "OldValue"), context);
 
 // Asenkron hizmet değişiklikleri — birden çok hizmeti tek seferde
 await ServiceProcessService.ChangeServiceStartupTypeAsync(
-    new ServiceItem("DiagTrack", ServiceStartupType.Disabled),
-    new ServiceItem("dmwappushservice", ServiceStartupType.Disabled)
-);
+    [
+        new ServiceItem("DiagTrack", ServiceStartupType.Disabled),
+        new ServiceItem("dmwappushservice", ServiceStartupType.Disabled),
+    ],
+    context);
 
 // Geri alma komutuyla asenkron kabuk komutu
-var result = await ShellService.CMDAsync(
+var result = await context.Shell.CMDAsync(
     "powercfg /h off",
+    context,
     "powercfg /h on"     // geri alma komutu saklanır
 );
 
-// Asenkron PowerShell
-var usbStates = await ShellService.PowerShellAsync(
-    "Get-CimInstance -Namespace root\\wmi -ClassName MSPower_DeviceEnable"
-);
+// Ham PowerShell sorgusu (değişiklik kaydetmez — salt okuma içindir)
+var usbStates = await context.Shell.QueryPowerShellAsync(
+    "Get-CimInstance -Namespace root\\wmi -ClassName MSPower_DeviceEnable",
+    context.Logger);
 ```
 
 <h3 id="handling-async">Asenkron İşlemleri Yönetme</h3>
@@ -378,9 +383,9 @@ public override Task<ApplyResult> ApplyAsync(
     IProgress<ProcessingProgress> progress,
     OptimizationContext context)
 {
-    RegistryService.Write(new RegistryItem(@"HKLM\...", "Value", 1));
+    RegistryService.Write(new RegistryItem(@"HKLM\...", "Value", 1), context);
     context.Logger.LogInformation("Applied tweak");
-    return Task.FromResult(CompleteFromScope());
+    return Task.FromResult(context.Changes.ToApplyResult());
 }
 ```
 
@@ -389,9 +394,8 @@ Ancak herhangi bir asenkron sağlayıcı (hizmet, kabuk, görev) kullanıyorsan�
 ```csharp
 public override async Task<ApplyResult> ApplyAsync(...)
 {
-    await ServiceProcessService.ChangeServiceStartupTypeAsync(...);
-    return CompleteFromScope();
-}
+    await ServiceProcessService.ChangeServiceStartupTypeAsync(new ServiceItem("SomeService", ServiceStartupType.Disabled), context);
+    return context.Changes.ToApplyResult();
 ```
 
 <h3 id="new-category">Yeni Kategori Oluşturma</h3>
@@ -419,9 +423,9 @@ public abstract class GpuRegistryOptimization : BaseOptimization
         foreach (var gpu in context.Snapshot.Gpus.Where(g => g.Vendor == Vendor))
         {
             var path = $@"HKLM\...\{index:D4}";
-            RegistryService.Write(CreateItems(path).ToArray());
+            RegistryService.Write(context, CreateItems(path).ToArray());
         }
-        return Task.FromResult(CompleteFromScope());
+        return Task.FromResult(context.Changes.ToApplyResult());
     }
 }
 ```
@@ -621,12 +625,12 @@ public class MouseAcceleration : BaseCustomizeSetting
         });
     }
 
-    public override async Task ApplyAsync(object? value)
+    public override async Task ApplyAsync(object? value, OpCall call)
     {
         var isOn = value is bool b && b;
-        RegistryService.Write(new RegistryItem(Path, "MouseSpeed", isOn ? "1" : "0"));
-        RegistryService.Write(new RegistryItem(Path, "MouseThreshold1", isOn ? "6" : "0"));
-        RegistryService.Write(new RegistryItem(Path, "MouseThreshold2", isOn ? "10" : "0"));
+        RegistryService.Write(new RegistryItem(Path, "MouseSpeed", isOn ? "1" : "0"), call);
+        RegistryService.Write(new RegistryItem(Path, "MouseThreshold1", isOn ? "6" : "0"), call);
+        RegistryService.Write(new RegistryItem(Path, "MouseThreshold2", isOn ? "10" : "0"), call);
 
         if (NeedsPostAction)
             await ExecutePostActionAsync();
@@ -653,18 +657,18 @@ Bu, yazma sonrası kayıt defteri otururken UI'nın bayat değerler göstermesin
 Gömülü kaynak çıkarmayı içeren ayarlar için (kısayol oklarını boş bir simgeyle değiştirmek gibi):
 
 ```csharp
-public override async Task ApplyAsync(object? value)
+public override async Task ApplyAsync(object? value, OpCall call)
 {
     var isOn = value is bool b && b;
     if (isOn)
     {
-        RegistryService.DeleteValue(new RegistryItem(Path, "29"));
+        RegistryService.DeleteValue(new RegistryItem(Path, "29"), call);
     }
     else
     {
         var outputPath = Path.Combine(Shared.AssetsDirectory, nameof(Desktop), "blank.ico");
         EmbeddedResourceHelper.TryExtract("Icons.blank.ico", outputPath);
-        RegistryService.Write(new RegistryItem(Path, "29", outputPath));
+        RegistryService.Write(new RegistryItem(Path, "29", outputPath), call);
     }
     await ExecutePostActionAsync();
 }
@@ -933,7 +937,7 @@ services.AddSingleton<UpdaterService>();
 services.AddSingleton<IRegistryWatcher, RegistryWatcher>();
 ```
 
-> Bu, oryantasyon için bir anlık görüntüdür — güncel kayıtlar için `App.xaml.cs` kaynaktır. Ayrıca başlangıç çağrılarına dikkat edin: `ShellService.Init(appOptionsMonitor)` ve `WmiHelper.Initialize()`, ve transient diyalogları çözmek için kullanılan `App.AppHost` özelliği.
+> Bu, oryantasyon için bir anlık görüntüdür — güncel kayıtlar için `App.xaml.cs` kaynaktır. Ayrıca başlangıç çağrılarına dikkat edin: DI içine kayıtlı `ProcessRunner`/`ShellService` tekilleri ve `WmiHelper.Initialize()`, ve transient diyalogları çözmek için kullanılan `App.AppHost` özelliği.
 
 <h3 id="system-services">Sistem Hizmetleri Referansı</h3>
 
@@ -957,36 +961,45 @@ Uygulanan her optimizasyon `%localappdata%\optimizerDuck\Revert\{optimizationId}
 <h3 id="how-it-works-tr">Nasıl Çalışır</h3>
 
 ```
-ApplyAsync()
+ApplyAsync(progress, context)   ← context: OptimizationContext (bir OpCall)
   │
-  ├─ ExecutionScope.Begin(optimization, logger)    ← çevresel AsyncLocal kapsamı oluşturur
+  ├─ RegistryService.Write(item, context)                     ← RegistryRevertStep'i context.Changes'e kaydeder
+  ├─ await ServiceProcessService.ChangeServiceStartupTypeAsync(item, context)  ← ServiceRevertStep'i context.Changes'e kaydeder
+  ├─ await context.Shell.CMDAsync(cmd, context, revert)   ← ShellRevertStep'i context.Changes'e kaydeder
   │
-  ├─ RegistryService.Write(...)                     ← RegistryRevertStep'i otomatik kaydeder
-  ├─ ServiceProcessService.ChangeServiceStartupTypeAsync(...)  ← ServiceRevertStep'i otomatik kaydeder
-  ├─ ShellService.CMDAsync(...)                     ← ShellRevertStep'i otomatik kaydeder
+  ├─ context.Changes.ToApplyResult() → ApplyResult  ← toplanan değişikliklerden türetilir
   │
-  ├─ CompleteFromScope() → ApplyResult              ← kaydedilen adımlardan türetilir
-  │
-  └─ ExecutionScope dispose → RevertManager.SaveRevertDataAsync()
+  └─ OptimizationService → RevertManager.SaveRevertDataAsync(changes, id, key)
+       └─ yalnızca başarılı adımlar, sıkı (compact) eklemeli günlük olarak kalıcılaşır
 ```
 
-<h3 id="scope-variants-tr">Kapsam Varyantları</h3>
+<h3 id="call-context-tr">Çağrı Bağlamı (`OpCall` / `ChangeSet` / `OpResult`)</h3>
 
-| Metot | Amaç |
+| Parça | Amaç |
 |---|---|
-| `ExecutionScope.Begin(optimization, logger)` | Gerçek bir uygulama için kalıcı kapsam oluşturur. |
-| `ExecutionScope.BeginForLogging(logger)` | Yalnızca günlük — adımları kaydeder ama geri alma verisini asla kalıcılaştırmaz. |
-| `ExecutionScope.BeginForCapture(logger)` | Yeniden deneme için: `OptimizationId = Guid.Empty` ile adımları yakalar, daha sonra gerçek kapsama yeniden atanır. |
+| `OpCall` | Açık işlem bağlamı: `Changes` (toplayıcı), `Logger`, `CancellationToken`. Parametre olarak geçirin — ortamda taşınan duruma güvenmeyin. `OptimizationContext`, `Snapshot` ve `StreamService` ekleyen bir `OpCall`'dır. |
+| `ChangeSet` | İş parçacığı güvenli değişiklik toplayıcı. Sağlayıcılar her işlemi `Add()` ile buraya ekler; motor sonuç ve geri alma verisini buradan türetir (`ToApplyResult()`). |
+| `OpResult` | Tek sağlayıcı işleminin sonucu (`Ok`, `Revert`, `Error`, `ErrorDetail`). Hatalar burada taşınır. |
+| `Change` | Tek kayıt: kararlı `Key`, 1 tabanlı sıra `Seq` (geri alma dosyası dizini olur), `Retry` (`Func<OpCall, Task<OpResult>>`). |
+
+<h3 id="provider-instances-tr">Sağlayıcı Örnekleri</h3>
+
+| Kullanım | Detay |
+|---|---|
+| Optimizasyonlar | `BaseOptimization` üzerindeki `Reg`/`Svc`/`Tasks`/`Shell` özelliklerini kullanın. |
+| Özelleştirme ayarları | `BaseCustomizeSetting` üzerindeki aynı `Reg`/`Svc`/`Tasks`/`Shell` özelliklerini kullanın (`ApplyAsync(value, call)` içinden). |
+| DI tekilleri | `ShellService` + `ProcessRunner` DI tekilidir (zaman aşımı ayarlardan canlı okunur). Geri kalanı gerektiği yerde `new` ile kurulur. |
+| Ham sorgular | `context.Shell.QueryCMDAsync(cmd, logger)` / `context.Shell.QueryPowerShellAsync(cmd, logger)` değişiklik **kaydetmez** — salt okuma sorguları içindir. USB tespiti gibi ham sonuç + elle kayıt gereken durumlarda `context.Changes.Add(...)` kullanın. |
 
 <h3 id="step-types-tr">Adım Türleri</h3>
 
 | Adım Türü | Kaydettiği | Otomatik Oluşturan |
 |---|---|---|
-| **`RegistryRevertStep`** | Değişiklikten önceki orijinal kayıt defteri değeri | `RegistryService.Write()`, `DeleteValue()`, `CreateSubKey()`, `DeleteSubKeyTree()` |
-| **`ServiceRevertStep`** | Orijinal hizmet başlangıç türü | `ServiceProcessService.ChangeServiceStartupTypeAsync()` |
-| **`ScheduledTaskRevertStep`** | Orijinal görev durumu (etkin/devre dışı) | `ScheduledTaskService.DisableTask()`, `EnableTask()` |
-| **`ShellRevertStep`** | Değişikliği tersine çeviren kabuk komutu | `ShellService.CMDAsync()`, `PowerShellAsync()` — bir `revertCommand` parametresi geçirin |
-| **`UsbPowerRevertStep`** | USB güç ayarları (cihaz başına) | USB ile ilgili optimizasyonlar (elle `ExecutionScope.RecordStep()` ile) |
+| **`RegistryRevertStep`** | Değişiklikten önceki orijinal kayıt defteri değeri | `RegistryService.Write()`, `DeleteValue()`, `CreateSubKey()`, `DeleteSubKeyTree()` (açık `OpCall` ile) |
+| **`ServiceRevertStep`** | Orijinal hizmet başlangıç türü | `ServiceProcessService.ChangeServiceStartupTypeAsync()` (açık `OpCall` ile) |
+| **`ScheduledTaskRevertStep`** | Orijinal görev durumu (etkin/devre dışı) | `ScheduledTaskService.DisableTask()`, `ScheduledTaskService.EnableTask()` (açık `OpCall` ile) |
+| **`ShellRevertStep`** | Değişikliği tersine çeviren kabuk komutu | `context.Shell.CMDAsync()`, `context.Shell.PowerShellAsync()` — bir `revertCommand` parametresi geçirin |
+| **`UsbPowerRevertStep`** | USB güç ayarları (cihaz başına) | USB ile ilgili optimizasyonlar (`context.Changes.Add(...)` ile elle) |
 
 <h3 id="revert-command">Kabuk Çağrılarına Geri Alma Komutu Ekleme</h3>
 
@@ -994,7 +1007,7 @@ ApplyAsync()
 
 ```csharp
 // "powercfg /h on" bu değişikliği tersine çevirmek için saklanır
-await ShellService.CMDAsync("powercfg /h off", "powercfg /h on");
+await context.Shell.CMDAsync("powercfg /h off", context, "powercfg /h on");
 ```
 
 <h3 id="revert-data-format-tr">Geri Alma Veri Formatı</h3>
@@ -1005,27 +1018,26 @@ await ShellService.CMDAsync("powercfg /h off", "powercfg /h on");
   "OptimizationId": "guid",
   "OptimizationName": "DisableTelemetry",
   "AppliedAt": "2026-06-02T12:00:00Z",
-  "Steps": [
-    { "Index": 0, "Type": "Registry", "Data": { "..." } },
-    null,                    // null boşluğu = bu dizindeki başarısız adım
+    { "Index": 1, "Type": "Registry", "Data": { "..." } },
     { "Index": 2, "Type": "Service", "Data": { "..." } }
   ]
 }
 ```
 
+Sıkı ve yalnızca eklemeli günlük: yalnızca **başarılı** adımlar kalıcılaşır, her biri taze bir dizinle. Başarısız adımlar için boş yuva ayrılmaz. Yeniden uygulama yeni girdiler ekler; dizinler asla yeniden kullanılmaz, böylece diskteki girdiler kayıtlar arasında kararlı kalır.
+
 <h3 id="key-details-tr">Temel Detaylar</h3>
 
 - **Uygulanma durumu**, diskte dosya varlığından çıkarılır (`RevertManager.IsAppliedAsync(id)`).
-- **Atomik yazma**: `.tmp` dosyasına yazar, sonra `File.Replace()` — çökme güvenli.
+- **Atomik yazma**: `WriteThrough` bayraklı `FileStream` + `Flush(flushToDisk: true)` ile `.tmp` dosyasına yazar, sonra `File.Replace()` — çökme güvenli. Kalan `.tmp` dosyaları başlangıçta temizlenir (`RemoveOrphanedTempFiles`).
 - **Eşzamanlı erişim**: dosya başına `SemaphoreSlim` kilitleri yarış koşullarını önler; 30 saniye zaman aşımı.
-- **`ExecutionScope`** çevresel adım takibi için `AsyncLocal<ExecutionScope?>` kullanır. Parametrelerle bağlam geçirmeye gerek yok.
+- **Açık bağlam**: Her sağlayıcı çağrısı `OpCall` alır (`Changes`, `Logger`, `CancellationToken`). Ortamda taşınan duruma güvenmeyin — bağlamı parametreyle geçirin.
 - **Geri alma adımları ters sırada çalışır** (en son uygulanan = ilk geri alınan).
 - **Kısmi başarı**: bazı adımlar başarısız olsa bile geri alma devam eder. Başarısız adımlara yeniden deneme eylemleri kaydedilir.
-- **Yeniden deneme**: `OptimizationService.RetryFailedStepsAsync()` tek tek başarısız adımları yeniden deneyebilir; `RecordStepAtIndex()` orijinal dizin düzenini korur.
-- **Upsert**: `RevertManager.UpsertRevertStepAtIndexAsync()` belirli dizinlerdeki geri alma adımlarını ekleyebilir/değiştirebilir (yeniden deneme sırasında kullanılır).
+- **Yeniden deneme**: `OptimizationService.RetryFailedStepsWithResultsAsync()` başarısız adımları taze bir `OpCall` ile `Func<OpCall, Task<OpResult>>` üzerinden yeniden dener; kurtarılan adımlar `AppendRevertStepAsync()` ile sona eklenir (üzerine yazma yok — LIFO geri alma yine özgün yedekte biter).
 - **Adım kaydı**: Geri alma adımı serisizleştirme yansıma tabanlı `_stepRegistry` kullanır — yeni adım türleri, `IRevertStep` uygulayıp statik bir `FromData(JObject)` metoduyla otomatik kaydolur.
 
-> **Önemli**: Sağlayıcı hizmetleri (`RegistryService.Write`, `ShellService.CMDAsync` vb.) çağırdığınızda geri alma adımları otomatik kaydedilir. Özel bir sağlayıcı uygulamadığınız sürece (`UsbPowerRevertStep` gibi) geri alma adımlarını elle oluşturMAYIN.
+> **Önemli**: Sağlayıcı hizmetleri (`RegistryService.Write`, `context.Shell.CMDAsync` vb.) çağırdığınızda geri alma adımları otomatik kaydedilir. Özel bir sağlayıcı uygulamadığınız sürece (`UsbPowerRevertStep` gibi) geri alma adımlarını elle oluşturMAYIN.
 
 ---
 
@@ -1097,9 +1109,9 @@ public class MyOptimizationTests
     {
         var optimization = new TestOptimization
         {
-            ApplyImpl = _ =>
+            ApplyImpl = args =>
             {
-                ExecutionScope.RecordStep("Test", "Step 1", true);
+                args.context.Changes.Add("Test", "Step 1", true);
                 return Task.FromResult(ApplyResult.True());
             },
         };
@@ -1113,11 +1125,16 @@ public class MyOptimizationTests
     private static OptimizationService CreateService()
     {
         return new OptimizationService(
-            new RevertManager(NullLogger<RevertManager>.Instance, NullLoggerFactory.Instance),
+            new RevertManager(
+                NullLogger<RevertManager>.Instance,
+                new ShellService(new ProcessRunner(120000)),
+                TimeProvider.System
+            ),
             NullLoggerFactory.Instance,
             new SystemInfoService(NullLogger<SystemInfoService>.Instance),
             new StreamService(NullLogger<StreamService>.Instance),
-            null!,
+            new ContentDialogService(),
+            new ShellService(new ProcessRunner(120000)),
             NullLogger<OptimizationService>.Instance
         );
     }
@@ -1174,15 +1191,15 @@ public class MyOptimizationTests
 
 - Hizmetler, ViewModel'ler ve Sayfalar `App.xaml.cs` içinde singleton olarak kaydedilir.
 - Yapıcı enjeksiyonu kullanın: `public class Foo(Bar bar, Baz baz)` veya `public class Foo(ILogger<Foo> logger)`.
-- Statik sağlayıcı hizmetler (`RegistryService`, `ShellService`, `ScheduledTaskService`, `ServiceProcessService`) enjekte EDİLMEZ — doğrudan erişin.
+- Örnek sağlayıcılar (`RegistryService`, `ScheduledTaskService`, `ServiceProcessService`) enjekte EDİLMEZ — `BaseOptimization`/`BaseCustomizeSetting` üzerindeki `Reg`/`Svc`/`Tasks`/`Shell` özellikleriyle ya da gerektiğinde `new` ile kullanın. `ShellService` + `ProcessRunner` DI tekilidir.
 - Test ikizleri elle yazılır (mock kütüphanesi yok).
 
 <h3 id="error-handling-tr">Hata İşleme</h3>
 
 | Katman | Uygulama |
 |---|---|
-| **Optimizasyonlar** | Fırlatmak yerine `ApplyResult.False("reason")` döndürün. Adım düzeyi başarısızlık takibini `ExecutionScope`'a bırakın. |
-| **Sağlayıcı hizmetler** | Sistem çağrılarını try/catch ile sarın, hataları günlükleyin. Başarısız adımları yeniden deneme eylemleriyle kaydedin. |
+| **Optimizasyonlar** | Fırlatmak yerine `ApplyResult.False("reason")` döndürün. Adım düzeyi başarısızlık takibini `ChangeSet`'e bırakın. |
+| **Sağlayıcı hizmetler** | Sistem çağrılarını try/catch ile sarın, hataları `call.Logger` ile günlükleyin. Başarısız adımları `Func<OpCall, Task<OpResult>>` yeniden deneme eylemleriyle kaydedin. |
 | **ViewModel'ler** | Komut işleyicilerinde istisnaları yakalayın, kullanıcı dostu snackbar'lar gösterin. |
 | **Koşullar** | `ConditionResult.Error()` döndürün veya fırlatın — `ConditionEvaluator` yakalar ve `Error`'a (asla engellemez) eşler. |
 | **Yapmayın** | İşleyemeyeceğiniz istisnaları yakalamayın. Tüm istisnaları sessizce yutmayın. |
@@ -1409,12 +1426,10 @@ uuidgen
 
 Optimizasyonun `Id` GUID'inin değişmediğini kontrol edin. Geri alma dosyaları `Id` ile anahtarlanır. GUID'i yeniden üretirseniz, daha önce uygulanan optimizasyonların eşleşen geri alma dosyaları kalmaz.
 
-<h3>Yeni bir geri alma adımı türü nasıl eklerim?</h3>
-
 1. `Domain/Revert/Steps/` içinde `IRevertStep` uygulayan yeni bir sınıf oluşturun.
 2. Serisizleştirme için statik bir `FromData(JObject data)` metodu ekleyin.
 3. `RevertManager`'ın yansıma tabanlı `_stepRegistry`'si onu otomatik keşfeder.
-4. `ExecutionScope.RecordStep()` ile `revertStep` parametresi olarak kaydedin.
+4. `call.Changes.Add(key, name, description, ok, revertStep)` ile `revertStep` parametresi olarak kaydedin (sağlayıcılar bunu otomatik yapar).
 
 <h3>Uygulama çökme güvenliğini nasıl ele alır?</h3>
 

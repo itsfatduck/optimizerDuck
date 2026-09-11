@@ -1,7 +1,9 @@
+using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Exceptions;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
@@ -77,38 +79,46 @@ public class RegistryRevertStep : IRevertStep
         };
 
     /// <inheritdoc />
-    public async Task<bool> ExecuteAsync()
+    public async Task<bool> ExecuteAsync(ShellService shell, ILogger logger)
     {
-        var result = Action switch
+        var opCall = new OpCall { Logger = logger };
+        OpResult result = Action switch
         {
             RevertAction.NoPreviousValue => RegistryService.DeleteValue(
+                opCall,
                 new RegistryItem(Path, Name!)
             ),
 
             RevertAction.RestorePrevious => Value == null
-                ? RegistryService.DeleteValue(new RegistryItem(Path, Name!))
-                : RegistryService.Write(new RegistryItem(Path, Name!, Value, Kind)),
+                ? RegistryService.DeleteValue(opCall, new RegistryItem(Path, Name!))
+                : RegistryService.Write(opCall, new RegistryItem(Path, Name!, Value, Kind)),
 
-            RevertAction.RestoreKey => RegistryService.CreateSubKey(new RegistryItem(Path)),
+            RevertAction.RestoreKey => RegistryService.CreateSubKey(opCall, new RegistryItem(Path)),
 
-            RevertAction.DeleteKey => RegistryService.DeleteSubKeyTree(new RegistryItem(Path)),
+            RevertAction.DeleteKey => RegistryService.DeleteSubKeyTree(
+                opCall,
+                new RegistryItem(Path)
+            ),
 
-            RevertAction.RestoreKeyTree => await ExecuteSubStepsAsync(),
+            RevertAction.RestoreKeyTree => await ExecuteSubStepsAsync(shell, logger)
+                .ConfigureAwait(false)
+                ? OpResult.Success()
+                : OpResult.Fail(Description),
 
-            _ => false,
+            _ => OpResult.Fail(Description),
         };
 
-        if (!result)
-        {
-            var error = RegistryService.LastError ?? Description;
-            throw new StepExecutionException(error, RegistryService.LastErrorDetail);
-        }
+        if (!result.Ok)
+            throw new StepExecutionException(result.Error ?? Description, result.ErrorDetail);
+
+        // Read-back verify for the local value actions.
+        VerifyRestore(opCall);
 
         // Cleanup empty subkeys if they were created during apply
-        if (result && CreatedSubKeys?.Count > 0)
-            RegistryService.CleanupEmptyKeys(CreatedSubKeys);
+        if (CreatedSubKeys?.Count > 0)
+            RegistryService.CleanupEmptyKeys(CreatedSubKeys, opCall.Logger);
 
-        return result;
+        return true;
     }
 
     /// <inheritdoc />
@@ -238,13 +248,65 @@ public class RegistryRevertStep : IRevertStep
         };
     }
 
-    private async Task<bool> ExecuteSubStepsAsync()
+    private void VerifyRestore(OpCall call)
+    {
+        switch (Action)
+        {
+            case RevertAction.RestorePrevious when Value != null:
+            {
+                var item = new RegistryItem(Path, Name!);
+                var actual = RegistryService.Read<object>(item, call.Logger);
+                if (!ValuesEqual(actual, Value, Kind))
+                    throw new StepExecutionException(
+                        $"Registry verify failed at {Path}:{Name}: expected '{Value}', actual '{actual}'",
+                        null
+                    );
+                break;
+            }
+            case RevertAction.NoPreviousValue:
+            case RevertAction.RestorePrevious:
+            {
+                // Value must be absent after delete.
+                var actual = RegistryService.Read<object>(
+                    new RegistryItem(Path, Name!),
+                    call.Logger
+                );
+                if (actual != null)
+                    throw new StepExecutionException(
+                        $"Registry verify failed at {Path}:{Name}: expected '<absent>', actual '{actual}'",
+                        null
+                    );
+                break;
+            }
+            case RevertAction.RestoreKey:
+                if (!RegistryService.KeyExists(new RegistryItem(Path), call.Logger))
+                    throw new StepExecutionException(
+                        $"Registry verify failed at {Path}: expected key to exist, but it was missing",
+                        null
+                    );
+                break;
+            case RevertAction.DeleteKey:
+                if (RegistryService.KeyExists(new RegistryItem(Path), call.Logger))
+                    throw new StepExecutionException(
+                        $"Registry verify failed at {Path}: expected key to be absent, but it still exists",
+                        null
+                    );
+                break;
+            default:
+                break;
+        }
+    }
+
+    private static bool ValuesEqual(object? actual, object? expected, RegistryValueKind kind) =>
+        RegistryValues.Equal(actual, expected, kind);
+
+    private async Task<bool> ExecuteSubStepsAsync(ShellService shell, ILogger logger)
     {
         if (SubSteps == null)
             return true;
         foreach (var step in SubSteps)
         {
-            if (!await step.ExecuteAsync())
+            if (!await step.ExecuteAsync(shell, logger))
                 return false;
         }
         return true;

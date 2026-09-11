@@ -52,8 +52,12 @@ public interface ICustomizeSetting
     /// </summary>
     Task<bool> GetStateWithRetryAsync(int maxRetries = 3, int delayMs = 80);
 
-    /// <summary>Applies a bool (toggles) or a declared dropdown option value.</summary>
-    Task ApplyAsync(object? value);
+    /// <summary>
+    ///     Applies the value, recording every write into <paramref name="call"/>
+    ///     for change tracking and revert. The first failure wins the return,
+    ///     but all writes are still attempted.
+    /// </summary>
+    Task<Execution.OpResult> ApplyAsync(object? value, Execution.OpCall call);
 
     /// <summary>
     ///     Registry key paths that should be watched for external changes,

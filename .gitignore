@@ -697,3 +697,8 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/csharp,windows,rider,visualstudio,visualstudiocode
 
 
+
+# Local agent/session artifacts
+omp-session-*.html
+crash_*.log
+TestResults/
