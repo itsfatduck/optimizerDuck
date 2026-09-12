@@ -309,32 +309,6 @@ public partial class App : Application
         }
     }
 
-    private async Task HandleStartupErrorAsync(Exception ex)
-    {
-        LogExceptionToFile("App.Startup", ex);
-
-        try
-        {
-            Log.Logger?.Fatal(ex, "Fatal error during startup");
-            await Log.CloseAndFlushAsync();
-        }
-        catch
-        {
-            // ignore logging failures during fatal startup handling
-        }
-
-        Dispatcher.Invoke(() =>
-        {
-            System.Windows.MessageBox.Show(
-                $"Failed to start optimizerDuck.{Environment.NewLine}{Environment.NewLine}{ex.Message}",
-                "optimizerDuck",
-                System.Windows.MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
-            Shutdown(-1);
-        });
-    }
-
     private async Task OnStartupAsync(StartupEventArgs e)
     {
         // Create the required directories if they don't exist
