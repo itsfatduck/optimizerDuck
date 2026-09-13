@@ -372,6 +372,9 @@
   <data name="Optimization.Apply.Snackbar.Success.Title" xml:space="preserve">
     <value>最佳化已成功套用</value>
   </data>
+  <data name="Optimization.Apply.Error.AllStepsFailed" xml:space="preserve">
+    <value>所有步驟均失敗。</value>
+  </data>
   <data name="Optimization.Revert.Snackbar.Success.Title" xml:space="preserve">
     <value>最佳化已成功還原</value>
   </data>
@@ -829,6 +832,42 @@
   </data>
   <data name="Dashboard.SystemInfo.Os.Build" xml:space="preserve">
     <value>組建 {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Platform.Header" xml:space="preserve">
+    <value>平台與安全性</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Firmware" xml:space="preserve">
+    <value>韌體: {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.SecureBoot" xml:space="preserve">
+    <value>安全開機: {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Vbs" xml:space="preserve">
+    <value>VBS: {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.MemoryIntegrity" xml:space="preserve">
+    <value>記憶體完整性: {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.PowerPlan" xml:space="preserve">
+    <value>電源計劃: {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Uptime.Label" xml:space="preserve">
+    <value>運作時間</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Memory.Speed" xml:space="preserve">
+    <value>{0} MT/s</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Cpu.Frequency" xml:space="preserve">
+    <value>{0} MHz</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Gpu.Driver" xml:space="preserve">
+    <value>驅動程式 {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Ram.Total" xml:space="preserve">
+    <value>{0} GB 記憶體</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Gpu.Memory" xml:space="preserve">
+    <value>{0} GB</value>
   </data>
   <data name="Bloatware.Header.Description" xml:space="preserve">
     <value>管理和刪除您不需要的預先安裝應用程式</value>
@@ -1931,5 +1970,233 @@
   </data>
   <data name="Startup.Location.UwpStartupTask" xml:space="preserve">
     <value>Microsoft Store 應用程式</value>
+  </data>
+  <data name="Revert.PowerPlan.Description" xml:space="preserve">
+    <value>還原先前使用中的電源計劃 {0}</value>
+  </data>
+  <data name="Revert.PowerPlan.Description.Set" xml:space="preserve">
+    <value>已安裝的電源計劃 {0}</value>
+  </data>
+  <data name="Revert.PowerPlan.Error.RestoreFailed" xml:space="preserve">
+    <value>還原先前的電源計劃失敗: {0}。</value>
+  </data>
+  <data name="Revert.PowerPlan.Error.DeleteFailed" xml:space="preserve">
+    <value>刪除 optimizerDuck 電源計劃失敗: {0}</value>
+  </data>
+  <data name="Revert.PowerPlan.Error.NothingToDo" xml:space="preserve">
+    <value>沒有可還原的內容: 未記錄先前或已安裝的電源計劃。</value>
+  </data>
+  <data name="Revert.PowerPlan.Error.VerifyFailed" xml:space="preserve">
+    <value>已還原電源計劃 {0}, 但無法驗證使用中的計劃。</value>
+  </data>
+  <data name="Revert.PowerPlan.Error.VerifyMismatch" xml:space="preserve">
+    <value>電源計劃驗證失敗: 應為 {0}, 實際使用中的計劃為 {1}。</value>
+  </data>
+  <data name="Revert.PowerSetting.Description" xml:space="preserve">
+    <value>還原電源設定 {0}/{1}/{2}</value>
+  </data>
+  <data name="Common.OperationCancelled" xml:space="preserve">
+    <value>作業已取消。</value>
+  </data>
+  <data name="Enum.CpuVendor.Intel" xml:space="preserve">
+    <value>Intel</value>
+  </data>
+  <data name="Enum.CpuVendor.Amd" xml:space="preserve">
+    <value>AMD</value>
+  </data>
+  <data name="Enum.GpuVendor.Nvidia" xml:space="preserve">
+    <value>NVIDIA</value>
+  </data>
+  <data name="Enum.GpuVendor.Amd" xml:space="preserve">
+    <value>AMD</value>
+  </data>
+  <data name="Enum.GpuVendor.Intel" xml:space="preserve">
+    <value>Intel</value>
+  </data>
+  <data name="Enum.Architecture.X64" xml:space="preserve">
+    <value>64 位元</value>
+  </data>
+  <data name="Enum.Architecture.X86" xml:space="preserve">
+    <value>32 位元</value>
+  </data>
+  <data name="Enum.Architecture.Arm64" xml:space="preserve">
+    <value>ARM64</value>
+  </data>
+  <data name="Enum.FirmwareMode.Uefi" xml:space="preserve">
+    <value>UEFI</value>
+  </data>
+  <data name="Enum.FirmwareMode.Legacy" xml:space="preserve">
+    <value>傳統 BIOS</value>
+  </data>
+  <data name="Enum.SecureBootState.Enabled" xml:space="preserve">
+    <value>已啟用</value>
+  </data>
+  <data name="Enum.SecureBootState.Disabled" xml:space="preserve">
+    <value>已停用</value>
+  </data>
+  <data name="Enum.SecureBootState.Unavailable" xml:space="preserve">
+    <value>無法使用</value>
+  </data>
+  <data name="Enum.VbsState.Enabled" xml:space="preserve">
+    <value>已啟用</value>
+  </data>
+  <data name="Enum.VbsState.Disabled" xml:space="preserve">
+    <value>已停用</value>
+  </data>
+  <data name="Enum.VbsState.Unavailable" xml:space="preserve">
+    <value>無法使用</value>
+  </data>
+  <data name="Enum.MemoryType.Ddr" xml:space="preserve">
+    <value>DDR</value>
+  </data>
+  <data name="Enum.MemoryType.Ddr2" xml:space="preserve">
+    <value>DDR2</value>
+  </data>
+  <data name="Enum.MemoryType.Ddr3" xml:space="preserve">
+    <value>DDR3</value>
+  </data>
+  <data name="Enum.MemoryType.Ddr4" xml:space="preserve">
+    <value>DDR4</value>
+  </data>
+  <data name="Enum.MemoryType.Ddr5" xml:space="preserve">
+    <value>DDR5</value>
+  </data>
+  <data name="Enum.MemoryType.Sdram" xml:space="preserve">
+    <value>SDRAM</value>
+  </data>
+  <data name="Enum.MemoryType.Other" xml:space="preserve">
+    <value>其他</value>
+  </data>
+  <data name="Enum.MemoryType.Lpddr" xml:space="preserve">
+    <value>LPDDR</value>
+  </data>
+  <data name="Enum.MemoryType.Hbm" xml:space="preserve">
+    <value>HBM</value>
+  </data>
+  <data name="Enum.StorageMediaType.Hdd" xml:space="preserve">
+    <value>HDD</value>
+  </data>
+  <data name="Enum.StorageMediaType.Ssd" xml:space="preserve">
+    <value>SSD</value>
+  </data>
+  <data name="Enum.StorageMediaType.Nvme" xml:space="preserve">
+    <value>NVMe</value>
+  </data>
+  <data name="Enum.WindowsEdition.Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Enum.WindowsEdition.Pro" xml:space="preserve">
+    <value>Pro</value>
+  </data>
+  <data name="Enum.WindowsEdition.Education" xml:space="preserve">
+    <value>Education</value>
+  </data>
+  <data name="Enum.WindowsEdition.Enterprise" xml:space="preserve">
+    <value>Enterprise</value>
+  </data>
+  <data name="Enum.WindowsEdition.Server" xml:space="preserve">
+    <value>Server</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Event" xml:space="preserve">
+    <value>事件發生時</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Time" xml:space="preserve">
+    <value>在指定時間</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Daily" xml:space="preserve">
+    <value>每天</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Weekly" xml:space="preserve">
+    <value>每週</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Monthly" xml:space="preserve">
+    <value>每月</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.MonthlyDOW" xml:space="preserve">
+    <value>每月</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Idle" xml:space="preserve">
+    <value>閒置時</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Registration" xml:space="preserve">
+    <value>註冊時</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Boot" xml:space="preserve">
+    <value>啟動時</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Logon" xml:space="preserve">
+    <value>登入時</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.SessionStateChange" xml:space="preserve">
+    <value>工作階段狀態變更時</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Other" xml:space="preserve">
+    <value>觸發程序</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.Lock" xml:space="preserve">
+    <value>工作階段鎖定</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.Unlock" xml:space="preserve">
+    <value>工作階段解除鎖定</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.ConsoleConnect" xml:space="preserve">
+    <value>主控台連線</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.ConsoleDisconnect" xml:space="preserve">
+    <value>主控台中斷連線</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.RemoteConnect" xml:space="preserve">
+    <value>遠端連線</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.RemoteDisconnect" xml:space="preserve">
+    <value>遠端中斷連線</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.First" xml:space="preserve">
+    <value>第一</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.Second" xml:space="preserve">
+    <value>第二</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.Third" xml:space="preserve">
+    <value>第三</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.Fourth" xml:space="preserve">
+    <value>第四</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.Last" xml:space="preserve">
+    <value>上</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.Every" xml:space="preserve">
+    <value>每</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Time" xml:space="preserve">
+    <value>在 {0}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Daily" xml:space="preserve">
+    <value>每 {0} 天, {1}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Weekly" xml:space="preserve">
+    <value>每 {0} 週的 {1}, {2}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Monthly" xml:space="preserve">
+    <value>在 {1} 的第 {0} 天</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.MonthlyDOW" xml:space="preserve">
+    <value>{2} 的 {0} {1}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.User" xml:space="preserve">
+    <value>針對使用者 {0}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.UserDelay" xml:space="preserve">
+    <value>針對使用者 {0}, {1} 之後</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Delay" xml:space="preserve">
+    <value>{0} 之後</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Repeat" xml:space="preserve">
+    <value> (每 {0} 重複)</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.RepeatFor" xml:space="preserve">
+    <value> (每 {0} 重複, 持續 {1})</value>
   </data>
 </root>

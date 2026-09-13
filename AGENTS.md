@@ -121,6 +121,16 @@
 - The full build/format/analysis gate is: `dotnet build ... Release` must be **0 warnings** (`.editorconfig` promotes CA2016/CA1068/CA2250/CA2213/CA2219/IDE0330 to warnings), then `dotnet test`, then `csharpier check .`.
 - `WmiHelper.Initialize()` registers WMI cleanup for abnormal termination.
 
+## Localization (All Locales)
+Applies to every supported and future locale. Goal is natural localization, not word-for-word translation: each locale should read as if written by a native speaker who understands Windows, PC hardware, system optimization, and modern desktop UI.
+- Technical terms: keep English where that locale's Windows/PC users expect it (e.g. in Vietnamese: SSD, HDD, RAM, CPU, GPU, Driver, Registry, BIOS, UEFI, PowerShell — never literal "Trình điều khiển" for Driver); translate concepts with natural localized equivalents where they exist (e.g. vi "Memory Integrity" → "Tính toàn vẹn bộ nhớ"). Apply the same reasoning independently per locale: conventions differ per language, never force one locale's choice onto another.
+- No awkward literal translations: rewrite unnatural phrasing, never copy English sentence structure that sounds wrong in the target language. Meaning and intent outrank word order.
+- Technical terms stay, surrounding language translates: keep established terms (hardware, Windows, APIs, protocols, formats, gaming/performance terms) while the rest of the sentence is fluent target language.
+- Context-dependent: same source term may need different translations per context (e.g. "Startup" as manager vs. at-startup behavior). Consistency order: correct meaning, then natural language, then established terminology, then cross-app consistency.
+- UI style: modern, clean, concise, scannable, professional without corporate stiffness. Prefer shorter wording when meaning is preserved; never pad to match source length.
+- No em dashes in any locale: restructure with commas, periods, colons, or parentheses natural to the target language.
+- Format integrity: preserve `{0}` placeholders verbatim and in order, escape XML specials, keep `xml:space="preserve"`. Neutral `Translations.resx` is the key source; every key must exist in all locale files (guarded by `EveryNeutralKey_ResolvesInEverySupportedLanguage`).
+
 ## Testing (xUnit v3, Integration-Style)
 - **No mocking libraries** — all test doubles are hand-written (`FakeOptimization`, `TestOptimization`, etc.) implementing interfaces directly.
 - **Real I/O**: Tests use real filesystem (revert JSON files), real registry (`HKCU\Software\TestOptimizerDuck*`), real process execution (CMD/PowerShell).

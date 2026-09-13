@@ -1,5 +1,8 @@
+using System.Collections;
 using System.ComponentModel;
 using System.Globalization;
+using optimizerDuck.Domain.UI;
+using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.System.Primitives;
 
@@ -179,5 +182,34 @@ public class LanguageManagerTests : IDisposable
     {
         const string nonexistentKey = "NonExistent.Invariant.Key";
         Assert.Equal(nonexistentKey, Loc.Invariant[nonexistentKey]);
+    }
+
+    [Fact]
+    public void EveryNeutralKey_ResolvesInEverySupportedLanguage()
+    {
+        var neutralKeys = Translations
+            .ResourceManager.GetResourceSet(CultureInfo.InvariantCulture, true, false)!
+            .Cast<DictionaryEntry>()
+            .Select(e => (string)e.Key)
+            .ToList();
+
+        // tryParents:false reads each satellite alone: ResourceManager fallback
+        // would otherwise mask missing keys by returning the English value.
+        var missing = new List<string>();
+        foreach (var lang in SupportedLanguages.All)
+        {
+            var satelliteKeys =
+                Translations
+                    .ResourceManager.GetResourceSet(lang.Culture, true, false)
+                    ?.Cast<DictionaryEntry>()
+                    .Select(e => (string)e.Key)
+                    .ToHashSet()
+                ?? [];
+            foreach (var key in neutralKeys)
+                if (!satelliteKeys.Contains(key))
+                    missing.Add($"{lang.Culture.Name}:{key}");
+        }
+
+        Assert.True(missing.Count == 0, "Missing translations:\n" + string.Join("\n", missing));
     }
 }
