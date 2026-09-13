@@ -31,14 +31,16 @@ public class ShellRevertStep : IRevertStep
     public string Description => Loc.Instance["Revert.Shell.Description.Run", ShellType, Command];
 
     /// <inheritdoc />
-    public async Task<bool> ExecuteAsync(ShellService shell, ILogger logger)
+    public async Task<bool> ExecuteAsync(RevertContext context, ILogger logger)
     {
         var result = ShellType switch
         {
-            ShellType.PowerShell => await shell
-                .QueryPowerShellAsync(Command, logger)
+            ShellType.PowerShell => await context
+                .Shell.QueryPowerShellAsync(Command, logger)
                 .ConfigureAwait(false),
-            ShellType.CMD => await shell.QueryCMDAsync(Command, logger).ConfigureAwait(false),
+            ShellType.CMD => await context
+                .Shell.QueryCMDAsync(Command, logger)
+                .ConfigureAwait(false),
             _ => new ShellResult
             {
                 Command = Command,

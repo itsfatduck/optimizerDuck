@@ -10,5 +10,5 @@ namespace optimizerDuck.Domain.Conditions;
 public interface ICondition
 {
     /// <summary>Evaluates the condition against the system snapshot.</summary>
-    ConditionResult Evaluate(SystemSnapshot snapshot);
+    ConditionResult Evaluate(SystemInfo snapshot);
 }

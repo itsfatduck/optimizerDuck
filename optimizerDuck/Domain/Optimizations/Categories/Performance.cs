@@ -63,15 +63,15 @@ public class Performance : LocalizedObject, IOptimizationCategory
             OptimizationContext context
         )
         {
-            if (context.Snapshot.Ram.TotalKB <= 0)
+            if (context.Snapshot.Memory.TotalKB <= 0)
             {
                 context.Logger.LogInformation(
                     "Invalid RAM value: {RamTotalKB}. Skipping...",
-                    context.Snapshot.Ram.TotalKB
+                    context.Snapshot.Memory.TotalKB
                 );
                 return Task.FromResult(
                     ApplyResult.False(
-                        Loc.Instance[$"{ErrorPrefix}.InvalidRAM", context.Snapshot.Ram.TotalKB]
+                        Loc.Instance[$"{ErrorPrefix}.InvalidRAM", context.Snapshot.Memory.TotalKB]
                     )
                 );
             }
@@ -81,13 +81,13 @@ public class Performance : LocalizedObject, IOptimizationCategory
                 new RegistryItem(
                     @"HKLM\SYSTEM\CurrentControlSet\Control",
                     "SvcHostSplitThresholdInKB",
-                    context.Snapshot.Ram.TotalKB,
+                    context.Snapshot.Memory.TotalKB,
                     RegistryValueKind.DWord
                 )
             );
             context.Logger.LogInformation(
                 "Consolidated service hosts with threshold: {ThresholdKB} KB",
-                context.Snapshot.Ram.TotalKB
+                context.Snapshot.Memory.TotalKB
             );
             return Task.FromResult(CompleteFromScope(context));
         }

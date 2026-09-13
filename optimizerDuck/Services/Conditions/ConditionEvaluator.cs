@@ -27,11 +27,7 @@ public static class ConditionEvaluator
     /// <param name="conditionType">The condition type declared in an attribute, or <c>null</c>.</param>
     /// <param name="snapshot">The current system snapshot to evaluate against.</param>
     /// <param name="logger">Logger for evaluation diagnostics.</param>
-    public static ConditionResult Evaluate(
-        Type? conditionType,
-        SystemSnapshot snapshot,
-        ILogger logger
-    )
+    public static ConditionResult Evaluate(Type? conditionType, SystemInfo snapshot, ILogger logger)
     {
         if (conditionType is null)
             return ConditionResult.Available;
@@ -39,7 +35,7 @@ public static class ConditionEvaluator
         // Fail open: an unpopulated snapshot means hardware detection has not finished (or
         // failed), so never hide an item based on incomplete data. Callers re-evaluate once
         // a real snapshot is available.
-        if (ReferenceEquals(snapshot, SystemSnapshot.Unknown))
+        if (snapshot.IsUnknown)
             return ConditionResult.Available;
 
         try
@@ -66,7 +62,7 @@ public static class ConditionEvaluator
         IEnumerable<T> items,
         Func<T, Type?> conditionTypeOf,
         Action<T, ConditionResult> apply,
-        SystemSnapshot snapshot,
+        SystemInfo snapshot,
         ILogger logger
     )
     {

@@ -20,7 +20,7 @@ public abstract class ServiceExistsCondition : ConditionBase
     /// <summary>Strongly-typed localized failure description.</summary>
     protected abstract Func<string> Description { get; }
 
-    public override ConditionResult Evaluate(SystemSnapshot snapshot)
+    public override ConditionResult Evaluate(SystemInfo snapshot)
     {
         var serviceKey = new RegistryItem($@"HKLM\SYSTEM\CurrentControlSet\Services\{ServiceName}");
         if (!RegistryService.TryKeyExists(serviceKey, out var exists))

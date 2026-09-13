@@ -15,10 +15,16 @@ using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.Optimization.Providers;
+using optimizerDuck.Services.System;
 
 namespace optimizerDuck.Services.Revert;
 
-public class RevertManager(ILogger<RevertManager> _logger, ShellService _shell, TimeProvider _time)
+public class RevertManager(
+    ILogger<RevertManager> _logger,
+    ShellService _shell,
+    PowerPlanService _powerPlans,
+    TimeProvider _time
+)
 {
     private const int SchemaVersion = 1;
     private const int FileLockTimeoutSeconds = 30;
@@ -146,7 +152,13 @@ public class RevertManager(ILogger<RevertManager> _logger, ShellService _shell, 
 
             try
             {
-                if (!await step.ExecuteAsync(_shell, _logger).ConfigureAwait(false))
+                var context = new RevertContext
+                {
+                    Shell = _shell,
+                    PowerPlans = _powerPlans,
+                    Logger = _logger,
+                };
+                if (!await step.ExecuteAsync(context, _logger).ConfigureAwait(false))
                     throw new Exception(Loc.Instance["Revert.Error.StepFailed"]);
             }
             catch (Exception ex)
@@ -169,7 +181,16 @@ public class RevertManager(ILogger<RevertManager> _logger, ShellService _shell, 
                         Error = stepEx?.Message ?? ex.Message,
                         ErrorDetail = stepEx?.ErrorDetail,
                         Retry = async _ => new OpResult(
-                            await step.ExecuteAsync(_shell, _logger).ConfigureAwait(false)
+                            await step.ExecuteAsync(
+                                    new RevertContext
+                                    {
+                                        Shell = _shell,
+                                        PowerPlans = _powerPlans,
+                                        Logger = _logger,
+                                    },
+                                    _logger
+                                )
+                                .ConfigureAwait(false)
                         ),
                     }
                 );
@@ -734,7 +755,7 @@ public class RevertManager(ILogger<RevertManager> _logger, ShellService _shell, 
                 rawType
             );
 
-        public Task<bool> ExecuteAsync(ShellService _, ILogger logger)
+        public Task<bool> ExecuteAsync(RevertContext _, ILogger logger)
         {
             throw new StepExecutionException(
                 Services.Optimization.Providers.ServiceStrings.Format(

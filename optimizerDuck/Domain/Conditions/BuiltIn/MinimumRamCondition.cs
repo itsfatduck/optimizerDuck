@@ -16,8 +16,8 @@ public abstract class MinimumRamCondition : ConditionBase
     /// <summary>Strongly-typed localized failure description.</summary>
     protected abstract Func<string> Description { get; }
 
-    public override ConditionResult Evaluate(SystemSnapshot snapshot) =>
-        snapshot.Ram.TotalGB >= MinimumGb
+    public override ConditionResult Evaluate(SystemInfo snapshot) =>
+        snapshot.Memory.TotalGB >= MinimumGb
             ? ConditionResult.Available
             : ConditionResult.Unsupported(Title, Description);
 }

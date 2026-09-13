@@ -87,7 +87,7 @@ public class Gpu : LocalizedObject, IOptimizationCategory
     ///         </list>
     ///     </para>
     ///     <para>
-    ///         This mapping is <strong>required</strong> because the order of GPUs in <see cref="SystemSnapshot.Gpus" />
+    ///         This mapping is <strong>required</strong> because the order of GPUs in <see cref="SystemInfo.Gpus" />
     ///         does <strong>not</strong> guarantee alignment with registry index order. Using array index (0, 1, 2...)
     ///         leads to applying tweaks to the wrong GPU (e.g., iGPU instead of dGPU).
     ///     </para>
@@ -146,7 +146,7 @@ public class Gpu : LocalizedObject, IOptimizationCategory
     )]
     public class AmdDisableUlps : GpuRegistryOptimization
     {
-        protected override GpuVendor Vendor => GpuVendor.AMD;
+        protected override GpuVendor Vendor => GpuVendor.Amd;
 
         protected override IReadOnlyList<RegistryItem> CreateItems(string path)
         {
@@ -162,7 +162,7 @@ public class Gpu : LocalizedObject, IOptimizationCategory
     )]
     public class AmdDisablePowerGating : GpuRegistryOptimization
     {
-        protected override GpuVendor Vendor => GpuVendor.AMD;
+        protected override GpuVendor Vendor => GpuVendor.Amd;
 
         protected override IReadOnlyList<RegistryItem> CreateItems(string path)
         {
@@ -183,7 +183,7 @@ public class Gpu : LocalizedObject, IOptimizationCategory
     )]
     public class AmdDisableVideoClockGating : GpuRegistryOptimization
     {
-        protected override GpuVendor Vendor => GpuVendor.AMD;
+        protected override GpuVendor Vendor => GpuVendor.Amd;
 
         protected override IReadOnlyList<RegistryItem> CreateItems(string path)
         {
@@ -205,7 +205,7 @@ public class Gpu : LocalizedObject, IOptimizationCategory
     )]
     public class AmdDisableAspm : GpuRegistryOptimization
     {
-        protected override GpuVendor Vendor => GpuVendor.AMD;
+        protected override GpuVendor Vendor => GpuVendor.Amd;
 
         protected override IReadOnlyList<RegistryItem> CreateItems(string path)
         {
@@ -225,7 +225,7 @@ public class Gpu : LocalizedObject, IOptimizationCategory
     )]
     public class NvidiaDisableDynamicPstate : GpuRegistryOptimization
     {
-        protected override GpuVendor Vendor => GpuVendor.NVIDIA;
+        protected override GpuVendor Vendor => GpuVendor.Nvidia;
 
         protected override IReadOnlyList<RegistryItem> CreateItems(string path)
         {
@@ -241,7 +241,7 @@ public class Gpu : LocalizedObject, IOptimizationCategory
     )]
     public class NvidiaDisableAsyncPstates : GpuRegistryOptimization
     {
-        protected override GpuVendor Vendor => GpuVendor.NVIDIA;
+        protected override GpuVendor Vendor => GpuVendor.Nvidia;
 
         protected override IReadOnlyList<RegistryItem> CreateItems(string path)
         {

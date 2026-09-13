@@ -325,7 +325,7 @@ public class Performance : IOptimizationCategory
 | **Tüm istisnaları yakalamayın** | Yukarı yayılsın. Başarı/başarısızlık `ChangeSet` içinde izlenir; `OptimizationService` istisnaları işler. |
 | **Geri alma adımlarını elle oluşturmayın** | Örnek sağlayıcılar bunu otomatik yapar (`call.Changes` içine kaydeder). `ChangeSet.Add()` ile elle kayıt yapmayın (USB durumları gibi özel sağlayıcı dışı durumlar dışında). |
 | **`context.Logger` kullanın** | Önemli tanılama bilgileri için günlük kaydı sağlar. |
-| **`context.Snapshot` kullanın** | `OptimizationContext.Snapshot` (`SystemSnapshot`) RAM, GPU, CPU, OS bilgisi verir. Koşullu mantık için kullanın. |
+| **`context.Snapshot` kullanın** | `OptimizationContext.Snapshot` (`SystemInfo`) RAM, GPU, CPU, OS bilgisi verir. Koşullu mantık için kullanın. |
 | **`context.StreamService` kullanın** | Uzak kaynakları (örn. güç planları) indiren optimizasyonlar için. |
 | **Gerekirse `Condition` bildirin** | Windows sürümü veya donanımla kapılayın — [Koşul Sistemi](#the-condition-system) bölümüne bakın. |
 
@@ -738,7 +738,7 @@ Koşullar `Domain/Conditions/` içinde bulunur ve `Services/Conditions/` içinde
 
 | Parça | Amaç |
 |---|---|
-| `ICondition` | Sözleşme: `ConditionResult Evaluate(SystemSnapshot snapshot)`. Uygulamaların public parametresiz yapıcıya ihtiyacı vardır (yansıma ile örneklenirler). |
+| `ICondition` | Sözleşme: `ConditionResult Evaluate(SystemInfo snapshot)`. Uygulamaların public parametresiz yapıcıya ihtiyacı vardır (yansıma ile örneklenirler). |
 | `ConditionBase` | Paylaşılan yardımcılara sahip isteğe bağlı taban sınıf (örn. OS derleme numarası ayrıştırmak için `TryGetOsBuild`). |
 | `ConditionResult` | Sonuç: `Available`, `Unsupported(title, description)` veya `Error()`. Yerelleştirilmiş metin sağlayıcılar üzerinden tembel çözülür. |
 | `ConditionState` | `Available`, `Unsupported`, `Error`. |
@@ -783,7 +783,7 @@ Hazır koşullar `Domain/Conditions/BuiltIn/` içinde bulunur — tam ve güncel
 ```csharp
 public sealed class MyCondition : ConditionBase
 {
-    public override ConditionResult Evaluate(SystemSnapshot snapshot)
+    public override ConditionResult Evaluate(SystemInfo snapshot)
     {
         // ConditionBase.TryGetOsBuild "22631.xxxx" -> 22631 olarak ayrıştırır
         if (TryGetOsBuild(snapshot, out var build) && build >= 22000)
@@ -943,7 +943,7 @@ services.AddSingleton<IRegistryWatcher, RegistryWatcher>();
 
 | Hizmet | Amaç |
 |---|---|
-| `SystemInfoService` | `OptimizationContext` ve koşul sisteminin kullandığı `SystemSnapshot`'ı (CPU, RAM, GPU, OS, disk) sağlar. |
+| `SystemInfoService` | `OptimizationContext` ve koşul sisteminin kullandığı `SystemInfo`'ı (CPU, RAM, GPU, OS, disk) sağlar. |
 | `StreamService` | Uzak kaynakları (örn. güncellenmiş güç planı dosyaları) indirir. `OptimizationContext.StreamService` ile kullanılır. |
 | `UpdaterService` | Güncellemeler için GitHub sürümlerini kontrol eder. Dashboard'da güncelleme istemi gösterir. |
 | `RegistryWatcher` | Kayıt defteri anahtarlarını dış değişiklikler için izler ve UI'ya yenileme bildirir. `IRegistryWatcher` uygular. |

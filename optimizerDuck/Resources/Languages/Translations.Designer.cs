@@ -412,6 +412,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Operation canceled..
+        /// </summary>
+        internal static string Common_OperationCancelled {
+            get {
+                return ResourceManager.GetString("Common.OperationCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Other.
         /// </summary>
         internal static string Common_Other {
@@ -507,6 +516,15 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Common_SortBy_Risk {
             get {
                 return ResourceManager.GetString("Common.SortBy.Risk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Risk &amp; Status.
+        /// </summary>
+        internal static string Common_SortBy_RiskAndStatus {
+            get {
+                return ResourceManager.GetString("Common.SortBy.RiskAndStatus", resourceCulture);
             }
         }
         
@@ -2212,11 +2230,47 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} MHz.
+        /// </summary>
+        internal static string Dashboard_SystemInfo_Cpu_Frequency {
+            get {
+                return ResourceManager.GetString("Dashboard.SystemInfo.Cpu.Frequency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Threads.
         /// </summary>
         internal static string Dashboard_SystemInfo_Cpu_Threads {
             get {
                 return ResourceManager.GetString("Dashboard.SystemInfo.Cpu.Threads", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Firmware: {0}.
+        /// </summary>
+        internal static string Dashboard_SystemInfo_Firmware {
+            get {
+                return ResourceManager.GetString("Dashboard.SystemInfo.Firmware", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Driver {0}.
+        /// </summary>
+        internal static string Dashboard_SystemInfo_Gpu_Driver {
+            get {
+                return ResourceManager.GetString("Dashboard.SystemInfo.Gpu.Driver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} GB.
+        /// </summary>
+        internal static string Dashboard_SystemInfo_Gpu_Memory {
+            get {
+                return ResourceManager.GetString("Dashboard.SystemInfo.Gpu.Memory", resourceCulture);
             }
         }
         
@@ -2235,6 +2289,24 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Dashboard_SystemInfo_Loading {
             get {
                 return ResourceManager.GetString("Dashboard.SystemInfo.Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} MT/s.
+        /// </summary>
+        internal static string Dashboard_SystemInfo_Memory_Speed {
+            get {
+                return ResourceManager.GetString("Dashboard.SystemInfo.Memory.Speed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Memory integrity: {0}.
+        /// </summary>
+        internal static string Dashboard_SystemInfo_MemoryIntegrity {
+            get {
+                return ResourceManager.GetString("Dashboard.SystemInfo.MemoryIntegrity", resourceCulture);
             }
         }
         
@@ -2266,6 +2338,24 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Platform &amp; security.
+        /// </summary>
+        internal static string Dashboard_SystemInfo_Platform_Header {
+            get {
+                return ResourceManager.GetString("Dashboard.SystemInfo.Platform.Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Power: {0}.
+        /// </summary>
+        internal static string Dashboard_SystemInfo_PowerPlan {
+            get {
+                return ResourceManager.GetString("Dashboard.SystemInfo.PowerPlan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} GB Available.
         /// </summary>
         internal static string Dashboard_SystemInfo_Ram_Available {
@@ -2284,11 +2374,29 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} GB RAM.
+        /// </summary>
+        internal static string Dashboard_SystemInfo_Ram_Total {
+            get {
+                return ResourceManager.GetString("Dashboard.SystemInfo.Ram.Total", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} GB Used.
         /// </summary>
         internal static string Dashboard_SystemInfo_Ram_Used {
             get {
                 return ResourceManager.GetString("Dashboard.SystemInfo.Ram.Used", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secure Boot: {0}.
+        /// </summary>
+        internal static string Dashboard_SystemInfo_SecureBoot {
+            get {
+                return ResourceManager.GetString("Dashboard.SystemInfo.SecureBoot", resourceCulture);
             }
         }
         
@@ -2316,6 +2424,24 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Dashboard_SystemInfo_Storage_System {
             get {
                 return ResourceManager.GetString("Dashboard.SystemInfo.Storage.System", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uptime.
+        /// </summary>
+        internal static string Dashboard_SystemInfo_Uptime_Label {
+            get {
+                return ResourceManager.GetString("Dashboard.SystemInfo.Uptime.Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VBS: {0}.
+        /// </summary>
+        internal static string Dashboard_SystemInfo_Vbs {
+            get {
+                return ResourceManager.GetString("Dashboard.SystemInfo.Vbs", resourceCulture);
             }
         }
         
@@ -2699,6 +2825,276 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ARM64.
+        /// </summary>
+        internal static string Enum_Architecture_Arm64 {
+            get {
+                return ResourceManager.GetString("Enum.Architecture.Arm64", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 64-bit.
+        /// </summary>
+        internal static string Enum_Architecture_X64 {
+            get {
+                return ResourceManager.GetString("Enum.Architecture.X64", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 32-bit.
+        /// </summary>
+        internal static string Enum_Architecture_X86 {
+            get {
+                return ResourceManager.GetString("Enum.Architecture.X86", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AMD.
+        /// </summary>
+        internal static string Enum_CpuVendor_Amd {
+            get {
+                return ResourceManager.GetString("Enum.CpuVendor.Amd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Intel.
+        /// </summary>
+        internal static string Enum_CpuVendor_Intel {
+            get {
+                return ResourceManager.GetString("Enum.CpuVendor.Intel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Legacy BIOS.
+        /// </summary>
+        internal static string Enum_FirmwareMode_Legacy {
+            get {
+                return ResourceManager.GetString("Enum.FirmwareMode.Legacy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UEFI.
+        /// </summary>
+        internal static string Enum_FirmwareMode_Uefi {
+            get {
+                return ResourceManager.GetString("Enum.FirmwareMode.Uefi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AMD.
+        /// </summary>
+        internal static string Enum_GpuVendor_Amd {
+            get {
+                return ResourceManager.GetString("Enum.GpuVendor.Amd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Intel.
+        /// </summary>
+        internal static string Enum_GpuVendor_Intel {
+            get {
+                return ResourceManager.GetString("Enum.GpuVendor.Intel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NVIDIA.
+        /// </summary>
+        internal static string Enum_GpuVendor_Nvidia {
+            get {
+                return ResourceManager.GetString("Enum.GpuVendor.Nvidia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DDR2.
+        /// </summary>
+        internal static string Enum_MemoryType_Ddr2 {
+            get {
+                return ResourceManager.GetString("Enum.MemoryType.Ddr2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DDR3.
+        /// </summary>
+        internal static string Enum_MemoryType_Ddr3 {
+            get {
+                return ResourceManager.GetString("Enum.MemoryType.Ddr3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DDR4.
+        /// </summary>
+        internal static string Enum_MemoryType_Ddr4 {
+            get {
+                return ResourceManager.GetString("Enum.MemoryType.Ddr4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DDR5.
+        /// </summary>
+        internal static string Enum_MemoryType_Ddr5 {
+            get {
+                return ResourceManager.GetString("Enum.MemoryType.Ddr5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other.
+        /// </summary>
+        internal static string Enum_MemoryType_Other {
+            get {
+                return ResourceManager.GetString("Enum.MemoryType.Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SDRAM.
+        /// </summary>
+        internal static string Enum_MemoryType_Sdram {
+            get {
+                return ResourceManager.GetString("Enum.MemoryType.Sdram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disabled.
+        /// </summary>
+        internal static string Enum_SecureBootState_Disabled {
+            get {
+                return ResourceManager.GetString("Enum.SecureBootState.Disabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enabled.
+        /// </summary>
+        internal static string Enum_SecureBootState_Enabled {
+            get {
+                return ResourceManager.GetString("Enum.SecureBootState.Enabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unavailable.
+        /// </summary>
+        internal static string Enum_SecureBootState_Unavailable {
+            get {
+                return ResourceManager.GetString("Enum.SecureBootState.Unavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HDD.
+        /// </summary>
+        internal static string Enum_StorageMediaType_Hdd {
+            get {
+                return ResourceManager.GetString("Enum.StorageMediaType.Hdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NVMe.
+        /// </summary>
+        internal static string Enum_StorageMediaType_Nvme {
+            get {
+                return ResourceManager.GetString("Enum.StorageMediaType.Nvme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SSD.
+        /// </summary>
+        internal static string Enum_StorageMediaType_Ssd {
+            get {
+                return ResourceManager.GetString("Enum.StorageMediaType.Ssd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disabled.
+        /// </summary>
+        internal static string Enum_VbsState_Disabled {
+            get {
+                return ResourceManager.GetString("Enum.VbsState.Disabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enabled.
+        /// </summary>
+        internal static string Enum_VbsState_Enabled {
+            get {
+                return ResourceManager.GetString("Enum.VbsState.Enabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unavailable.
+        /// </summary>
+        internal static string Enum_VbsState_Unavailable {
+            get {
+                return ResourceManager.GetString("Enum.VbsState.Unavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Education.
+        /// </summary>
+        internal static string Enum_WindowsEdition_Education {
+            get {
+                return ResourceManager.GetString("Enum.WindowsEdition.Education", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enterprise.
+        /// </summary>
+        internal static string Enum_WindowsEdition_Enterprise {
+            get {
+                return ResourceManager.GetString("Enum.WindowsEdition.Enterprise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        internal static string Enum_WindowsEdition_Home {
+            get {
+                return ResourceManager.GetString("Enum.WindowsEdition.Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pro.
+        /// </summary>
+        internal static string Enum_WindowsEdition_Pro {
+            get {
+                return ResourceManager.GetString("Enum.WindowsEdition.Pro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server.
+        /// </summary>
+        internal static string Enum_WindowsEdition_Server {
+            get {
+                return ResourceManager.GetString("Enum.WindowsEdition.Server", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Third-party notices.
         /// </summary>
         internal static string LegalDialog_Extras_Acknowledgements_Description {
@@ -2902,6 +3298,15 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Optimization_Apply_Completed {
             get {
                 return ResourceManager.GetString("Optimization.Apply.Completed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All steps failed..
+        /// </summary>
+        internal static string Optimization_Apply_Error_AllStepsFailed {
+            get {
+                return ResourceManager.GetString("Optimization.Apply.Error.AllStepsFailed", resourceCulture);
             }
         }
         
@@ -4494,6 +4899,78 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Restore previous active power plan {0}.
+        /// </summary>
+        internal static string Revert_PowerPlan_Description {
+            get {
+                return ResourceManager.GetString("Revert.PowerPlan.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Installed power plan {0}.
+        /// </summary>
+        internal static string Revert_PowerPlan_Description_Set {
+            get {
+                return ResourceManager.GetString("Revert.PowerPlan.Description.Set", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to delete optimizerDuck power plan: {0}.
+        /// </summary>
+        internal static string Revert_PowerPlan_Error_DeleteFailed {
+            get {
+                return ResourceManager.GetString("Revert.PowerPlan.Error.DeleteFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nothing to revert: no previous or installed power plan recorded..
+        /// </summary>
+        internal static string Revert_PowerPlan_Error_NothingToDo {
+            get {
+                return ResourceManager.GetString("Revert.PowerPlan.Error.NothingToDo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to restore previous power plan: {0}..
+        /// </summary>
+        internal static string Revert_PowerPlan_Error_RestoreFailed {
+            get {
+                return ResourceManager.GetString("Revert.PowerPlan.Error.RestoreFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restored power plan {0} but could not verify the active plan..
+        /// </summary>
+        internal static string Revert_PowerPlan_Error_VerifyFailed {
+            get {
+                return ResourceManager.GetString("Revert.PowerPlan.Error.VerifyFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Power plan verify failed: expected {0}, active is {1}..
+        /// </summary>
+        internal static string Revert_PowerPlan_Error_VerifyMismatch {
+            get {
+                return ResourceManager.GetString("Revert.PowerPlan.Error.VerifyMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore power setting {0}/{1}/{2}.
+        /// </summary>
+        internal static string Revert_PowerSetting_Description {
+            get {
+                return ResourceManager.GetString("Revert.PowerSetting.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete registry value: {0}\{1}.
         /// </summary>
         internal static string Revert_Registry_Description_Delete {
@@ -4940,6 +5417,312 @@ namespace optimizerDuck.Resources.Languages {
         internal static string ScheduledTasks_State_Running {
             get {
                 return ResourceManager.GetString("ScheduledTasks.State.Running", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to At startup.
+        /// </summary>
+        internal static string ScheduledTasks_Trigger_Boot {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Trigger.Boot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Daily.
+        /// </summary>
+        internal static string ScheduledTasks_Trigger_Daily {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Trigger.Daily", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On event.
+        /// </summary>
+        internal static string ScheduledTasks_Trigger_Event {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Trigger.Event", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When idle.
+        /// </summary>
+        internal static string ScheduledTasks_Trigger_Idle {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Trigger.Idle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to At log on.
+        /// </summary>
+        internal static string ScheduledTasks_Trigger_Logon {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Trigger.Logon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monthly.
+        /// </summary>
+        internal static string ScheduledTasks_Trigger_Monthly {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Trigger.Monthly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monthly.
+        /// </summary>
+        internal static string ScheduledTasks_Trigger_MonthlyDOW {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Trigger.MonthlyDOW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trigger.
+        /// </summary>
+        internal static string ScheduledTasks_Trigger_Other {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Trigger.Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to At registration.
+        /// </summary>
+        internal static string ScheduledTasks_Trigger_Registration {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Trigger.Registration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Console connect.
+        /// </summary>
+        internal static string ScheduledTasks_Trigger_Session_ConsoleConnect {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Trigger.Session.ConsoleConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Console disconnect.
+        /// </summary>
+        internal static string ScheduledTasks_Trigger_Session_ConsoleDisconnect {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Trigger.Session.ConsoleDisconnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Session lock.
+        /// </summary>
+        internal static string ScheduledTasks_Trigger_Session_Lock {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Trigger.Session.Lock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remote connect.
+        /// </summary>
+        internal static string ScheduledTasks_Trigger_Session_RemoteConnect {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Trigger.Session.RemoteConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remote disconnect.
+        /// </summary>
+        internal static string ScheduledTasks_Trigger_Session_RemoteDisconnect {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Trigger.Session.RemoteDisconnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Session unlock.
+        /// </summary>
+        internal static string ScheduledTasks_Trigger_Session_Unlock {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Trigger.Session.Unlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On session change.
+        /// </summary>
+        internal static string ScheduledTasks_Trigger_SessionStateChange {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Trigger.SessionStateChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to At a specific time.
+        /// </summary>
+        internal static string ScheduledTasks_Trigger_Time {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Trigger.Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to every.
+        /// </summary>
+        internal static string ScheduledTasks_Trigger_Week_Every {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Trigger.Week.Every", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to first.
+        /// </summary>
+        internal static string ScheduledTasks_Trigger_Week_First {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Trigger.Week.First", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to fourth.
+        /// </summary>
+        internal static string ScheduledTasks_Trigger_Week_Fourth {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Trigger.Week.Fourth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to last.
+        /// </summary>
+        internal static string ScheduledTasks_Trigger_Week_Last {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Trigger.Week.Last", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to second.
+        /// </summary>
+        internal static string ScheduledTasks_Trigger_Week_Second {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Trigger.Week.Second", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to third.
+        /// </summary>
+        internal static string ScheduledTasks_Trigger_Week_Third {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Trigger.Week.Third", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weekly.
+        /// </summary>
+        internal static string ScheduledTasks_Trigger_Weekly {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.Trigger.Weekly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Every {0} day(s), at {1}.
+        /// </summary>
+        internal static string ScheduledTasks_TriggerDetail_Daily {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.TriggerDetail.Daily", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to after {0}.
+        /// </summary>
+        internal static string ScheduledTasks_TriggerDetail_Delay {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.TriggerDetail.Delay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On day(s) {0} of {1}.
+        /// </summary>
+        internal static string ScheduledTasks_TriggerDetail_Monthly {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.TriggerDetail.Monthly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} {1} of {2}.
+        /// </summary>
+        internal static string ScheduledTasks_TriggerDetail_MonthlyDOW {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.TriggerDetail.MonthlyDOW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  (repeat every {0}).
+        /// </summary>
+        internal static string ScheduledTasks_TriggerDetail_Repeat {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.TriggerDetail.Repeat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  (repeat every {0} for {1}).
+        /// </summary>
+        internal static string ScheduledTasks_TriggerDetail_RepeatFor {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.TriggerDetail.RepeatFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to At {0}.
+        /// </summary>
+        internal static string ScheduledTasks_TriggerDetail_Time {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.TriggerDetail.Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to for user {0}.
+        /// </summary>
+        internal static string ScheduledTasks_TriggerDetail_User {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.TriggerDetail.User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to for user {0} after {1}.
+        /// </summary>
+        internal static string ScheduledTasks_TriggerDetail_UserDelay {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.TriggerDetail.UserDelay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Every {0} week(s) on {1}, at {2}.
+        /// </summary>
+        internal static string ScheduledTasks_TriggerDetail_Weekly {
+            get {
+                return ResourceManager.GetString("ScheduledTasks.TriggerDetail.Weekly", resourceCulture);
             }
         }
         

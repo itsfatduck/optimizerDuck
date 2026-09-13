@@ -134,7 +134,7 @@ public class RegistryServiceTests : IDisposable
         Assert.True(delete.Ok, delete.Error);
 
         Assert.NotNull(delete.Revert);
-        Assert.True(await delete.Revert.ExecuteAsync(TestShell.New(), NullLogger.Instance));
+        Assert.True(await delete.Revert.ExecuteAsync(TestShell.Context(), NullLogger.Instance));
 
         var val = RegistryService.Read<string>(new RegistryItem(key, "A"));
         Assert.Equal("Hello", val);
@@ -151,7 +151,7 @@ public class RegistryServiceTests : IDisposable
         Assert.True(delete.Ok, delete.Error);
 
         Assert.NotNull(delete.Revert);
-        Assert.True(await delete.Revert.ExecuteAsync(TestShell.New(), NullLogger.Instance));
+        Assert.True(await delete.Revert.ExecuteAsync(TestShell.Context(), NullLogger.Instance));
 
         var value = RegistryService.Read<string>(new RegistryItem(key, null));
         Assert.Equal("DefaultHello", value);
@@ -177,7 +177,7 @@ public class RegistryServiceTests : IDisposable
         Assert.Equal("UpdatedDefault", value);
 
         Assert.NotNull(second.Revert);
-        Assert.True(await second.Revert.ExecuteAsync(TestShell.New(), NullLogger.Instance));
+        Assert.True(await second.Revert.ExecuteAsync(TestShell.Context(), NullLogger.Instance));
 
         var restoredValue = RegistryService.Read<string>(new RegistryItem(key, null));
         Assert.Equal("OriginalDefault", restoredValue);
@@ -222,7 +222,7 @@ public class RegistryServiceTests : IDisposable
         Assert.Equal("Registry", revertStep.Type);
 
         // 4. Act: Execute the Revert Step
-        Assert.True(await revertStep.ExecuteAsync(TestShell.New(), NullLogger.Instance));
+        Assert.True(await revertStep.ExecuteAsync(TestShell.Context(), NullLogger.Instance));
 
         // 5. Assert: Verify the tree structure is perfectly restored
         Assert.True(RegistryService.KeyExists(new RegistryItem(keyPathC))); // C exists, implies A and B exist
@@ -253,7 +253,7 @@ public class RegistryServiceTests : IDisposable
         Assert.NotNull(create.Revert);
 
         // Execute revert
-        Assert.True(await create.Revert.ExecuteAsync(TestShell.New(), NullLogger.Instance));
+        Assert.True(await create.Revert.ExecuteAsync(TestShell.Context(), NullLogger.Instance));
 
         // Verify that B and A were cleaned up since they were empty
         Assert.False(RegistryService.KeyExists(new RegistryItem(keyPathB)));
@@ -304,7 +304,7 @@ public class RegistryServiceTests : IDisposable
         // Revert all steps in reverse order
         foreach (var step in revertSteps.AsEnumerable().Reverse())
         {
-            Assert.True(await step.ExecuteAsync(TestShell.New(), NullLogger.Instance));
+            Assert.True(await step.ExecuteAsync(TestShell.Context(), NullLogger.Instance));
         }
 
         // Verify original state is restored
@@ -433,7 +433,7 @@ public class RegistryServiceTests : IDisposable
         {
             var desc = step.Description;
             executionOrder.Add(desc);
-            Assert.True(await step.ExecuteAsync(TestShell.New(), NullLogger.Instance));
+            Assert.True(await step.ExecuteAsync(TestShell.Context(), NullLogger.Instance));
         }
 
         // Verify state is restored

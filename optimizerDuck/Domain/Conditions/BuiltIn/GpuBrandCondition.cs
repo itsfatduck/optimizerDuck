@@ -16,7 +16,7 @@ public abstract class GpuBrandCondition : ConditionBase
     /// <summary>Strongly-typed localized failure description.</summary>
     protected abstract Func<string> Description { get; }
 
-    public override ConditionResult Evaluate(SystemSnapshot snapshot)
+    public override ConditionResult Evaluate(SystemInfo snapshot)
     {
         // An empty or all-unknown GPU list means hardware detection produced no usable
         // answer (e.g. DXGI/WMI failed), fail open so a detection failure never hides
@@ -37,7 +37,7 @@ public abstract class GpuBrandCondition : ConditionBase
 /// <summary>Requires an NVIDIA GPU.</summary>
 public sealed class NvidiaGpuCondition : GpuBrandCondition
 {
-    protected override GpuVendor RequiredVendor => GpuVendor.NVIDIA;
+    protected override GpuVendor RequiredVendor => GpuVendor.Nvidia;
     protected override Func<string> Title => () => Loc.Instance["Condition.Gpu.Nvidia.Title"];
     protected override Func<string> Description =>
         () => Loc.Instance["Condition.Gpu.Nvidia.Description"];
@@ -46,7 +46,7 @@ public sealed class NvidiaGpuCondition : GpuBrandCondition
 /// <summary>Requires an AMD GPU.</summary>
 public sealed class AmdGpuCondition : GpuBrandCondition
 {
-    protected override GpuVendor RequiredVendor => GpuVendor.AMD;
+    protected override GpuVendor RequiredVendor => GpuVendor.Amd;
     protected override Func<string> Title => () => Loc.Instance["Condition.Gpu.Amd.Title"];
     protected override Func<string> Description =>
         () => Loc.Instance["Condition.Gpu.Amd.Description"];

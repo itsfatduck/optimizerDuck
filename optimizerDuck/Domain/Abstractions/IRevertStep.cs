@@ -21,12 +21,12 @@ public interface IRevertStep
     public string Description { get; }
 
     /// <summary>
-    ///     Executes this revert step asynchronously.
+    ///     Executes this revert step with its full execution context.
     /// </summary>
-    /// <param name="shell">The application shell service, so command-executing steps use the configured timeout.</param>
+    /// <param name="context">Shell, power service, and logger for this revert.</param>
     /// <param name="logger">The logger to record provider and shell operations.</param>
     /// <returns><c>true</c> if the revert succeeded; otherwise, <c>false</c>.</returns>
-    Task<bool> ExecuteAsync(ShellService shell, ILogger logger);
+    Task<bool> ExecuteAsync(RevertContext context, ILogger logger);
 
     /// <summary>
     ///     Serializes this revert step to a JSON object for persistence.

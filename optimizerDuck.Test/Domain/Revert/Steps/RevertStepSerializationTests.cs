@@ -1,5 +1,6 @@
 using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
+using optimizerDuck.Domain.Exceptions;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.Revert.Steps;
 
@@ -484,5 +485,34 @@ public class RevertStepSerializationTests
         Assert.Equal(RevertAction.RestoreKey, restored.SubSteps[0].Action);
         Assert.Equal(RevertAction.RestorePrevious, restored.SubSteps[1].Action);
         Assert.Equal("Value1", restored.SubSteps[1].Name);
+    }
+
+    [Fact]
+    public void PowerSettingRevertStep_RoundTrip_PreservesAllProperties()
+    {
+        var original = new PowerSettingRevertStep
+        {
+            SchemeId = Guid.Parse("381b4222-f694-41f0-9685-ff5bb260df2e"),
+            SubgroupId = Guid.Parse("54533251-82be-4824-96c1-47b60b740d00"),
+            SettingId = Guid.Parse("893dee8e-2bef-41e0-89c6-b55d0929964c"),
+            PreviousAcValue = 100u,
+            PreviousDcValue = 50u,
+        };
+
+        var json = original.ToData();
+        var restored = PowerSettingRevertStep.FromData(json);
+
+        Assert.Equal(original.SchemeId, restored.SchemeId);
+        Assert.Equal(original.SubgroupId, restored.SubgroupId);
+        Assert.Equal(original.SettingId, restored.SettingId);
+        Assert.Equal(100u, restored.PreviousAcValue);
+        Assert.Equal(50u, restored.PreviousDcValue);
+        Assert.Equal("PowerSetting", restored.Type);
+    }
+
+    [Fact]
+    public void PowerSettingRevertStep_MissingValues_ThrowsFailClosed()
+    {
+        Assert.Throws<StepExecutionException>(() => PowerSettingRevertStep.FromData(new JObject()));
     }
 }

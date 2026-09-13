@@ -422,7 +422,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
             }
 
             var snapshot = await _systemInfoService.EnsureSnapshotAsync();
-            if (ReferenceEquals(snapshot, SystemSnapshot.Unknown))
+            if (snapshot.IsUnknown)
                 _logger.LogWarning(
                     "System snapshot is unavailable; conditions fail open for this session"
                 );
@@ -444,13 +444,13 @@ public partial class OptimizationCategoryViewModel : ViewModel
     ///     system snapshot is refreshed (e.g. hardware changed) or the UI language changes.
     ///     Marshalled to the UI thread by <see cref="UiThread"/>.
     /// </summary>
-    private void OnSnapshotRefreshed(object? sender, SystemSnapshot snapshot) =>
+    private void OnSnapshotRefreshed(object? sender, SystemInfo snapshot) =>
         ReEvaluateConditions(snapshot);
 
     private void OnCultureChanged(object? sender, PropertyChangedEventArgs e) =>
         ReEvaluateConditions(_systemInfoService.Snapshot);
 
-    private void ReEvaluateConditions(SystemSnapshot snapshot)
+    private void ReEvaluateConditions(SystemInfo snapshot)
     {
         _ = UiThread.InvokeAsync(() =>
         {
@@ -486,7 +486,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
     /// <summary>
     ///     Re-evaluates every optimization's condition against the system snapshot.
     /// </summary>
-    private void EvaluateConditions(SystemSnapshot snapshot)
+    private void EvaluateConditions(SystemInfo snapshot)
     {
         ConditionEvaluator.EvaluateAll(
             _allOptimizations,

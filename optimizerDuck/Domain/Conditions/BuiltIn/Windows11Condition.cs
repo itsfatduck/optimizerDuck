@@ -7,7 +7,7 @@ namespace optimizerDuck.Domain.Conditions;
 /// <summary>Requires Windows 11 (build 22000 or later).</summary>
 public sealed class Windows11Condition : ConditionBase
 {
-    public override ConditionResult Evaluate(SystemSnapshot snapshot) =>
+    public override ConditionResult Evaluate(SystemInfo snapshot) =>
         TryGetOsBuild(snapshot, out var build) && build >= WindowsBuilds.Windows11
             ? ConditionResult.Available
             : ConditionResult.Unsupported(

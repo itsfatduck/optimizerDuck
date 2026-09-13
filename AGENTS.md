@@ -47,7 +47,7 @@
   - `Windows/Services/ScStartupTypeParser.cs` — shared parser for `sc.exe qc` START_TYPE output, used by `ServiceProcessService`.
   - `ApplicationServiceCollectionExtensions.cs` — `AddOptimizerApplication(IConfiguration)`: the whole application graph, separated from `App.xaml.cs` so a test can build it
     - `Revert/` — `RevertManager` (atomic file-based revert data persistence)
-    - `System/` — `RegistryWatcher` (+ `IRegistryWatcher`), `SystemInfoService` (defines `SystemSnapshot` + models), `StreamService`, `UpdaterService`, `CrossPageEventBus`, `CrossPageEvents`
+    - `System/` — `RegistryWatcher` (+ `IRegistryWatcher`), `SystemInfoService` (defines `SystemInfo` + models), `StreamService`, `UpdaterService`, `CrossPageEventBus`, `CrossPageEvents`
     - `UI/` — `BloatwareService`, `DiskCleanupService`, `StartupManagerService`
   - `UI/` — XAML pages, ViewModels, windows, controls, dialogs, styles
   - `Common/` — extensions, helpers, converters:
@@ -87,7 +87,7 @@
 ## Condition System (Compatibility Gating)
 - Conditions live in `Domain/Conditions/` (`ICondition`, `ConditionBase`, `ConditionResult`, `ConditionState`, `ConditionValidation`, `WindowsBuilds`, `BuiltIn/`). They're evaluated by the static `Services/Conditions/ConditionEvaluator.cs`.
 - `[Optimization]` and `[CustomizeSetting]` both accept an optional `Condition = typeof(SomeCondition)` where the type implements `ICondition` with a public parameterless constructor.
-- `ConditionState` = `Available` | `Unsupported` | `Error`. Only `Unsupported` blocks an item, and only when the item isn't already applied (or hidden by the user). `Error` and an unpopulated `SystemSnapshot` **fail open** (never hide).
+- `ConditionState` = `Available` | `Unsupported` | `Error`. Only `Unsupported` blocks an item, and only when the item isn't already applied (or hidden by the user). `Error` and an unpopulated `SystemInfo` (`IsUnknown`) **fail open** (never hide).
 - `ConditionValidation.Validate(...)` runs at discovery time to fail fast on misconfigured condition metadata.
 - Custom conditions return `ConditionResult.Available` / `ConditionResult.Unsupported(titleProvider, descriptionProvider)` / `ConditionResult.Error()`. User-facing text must go behind localization providers (`() => Loc.Instance[...]`).
 

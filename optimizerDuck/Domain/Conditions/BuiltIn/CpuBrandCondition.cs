@@ -16,7 +16,7 @@ public abstract class CpuBrandCondition : ConditionBase
     /// <summary>Strongly-typed localized failure description.</summary>
     protected abstract Func<string> Description { get; }
 
-    public override ConditionResult Evaluate(SystemSnapshot snapshot)
+    public override ConditionResult Evaluate(SystemInfo snapshot)
     {
         // An unknown CPU vendor means hardware detection produced no usable answer
         // (e.g. WMI/registry failed), fail open so a detection failure never hides
@@ -42,7 +42,7 @@ public sealed class IntelCpuCondition : CpuBrandCondition
 /// <summary>Requires an AMD CPU.</summary>
 public sealed class AmdCpuCondition : CpuBrandCondition
 {
-    protected override CpuVendor RequiredVendor => CpuVendor.AMD;
+    protected override CpuVendor RequiredVendor => CpuVendor.Amd;
     protected override Func<string> Title => () => Loc.Instance["Condition.Cpu.Amd.Title"];
     protected override Func<string> Description =>
         () => Loc.Instance["Condition.Cpu.Amd.Description"];

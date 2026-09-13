@@ -62,6 +62,8 @@ public static class ServiceStrings
 
     public const string ShellName = "Shell";
 
+    public const string PowerPlanName = "PowerPlan";
+
     public const string StartupAppErrorUnsupportedLocation =
         "Cannot toggle startup app '{0}': its location is not supported";
 

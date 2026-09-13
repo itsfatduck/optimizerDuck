@@ -1,6 +1,5 @@
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -15,6 +14,7 @@ using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.Optimization.Providers;
+using optimizerDuck.Services.System;
 using optimizerDuck.UI.Pages.Optimize.Categories;
 
 namespace optimizerDuck.Domain.Optimizations.Categories;
@@ -144,11 +144,6 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
         }
     }
 
-    private static readonly Regex _activePlanGuidRegex = new(
-        @".*:\s*([a-fA-F0-9\-]{36})",
-        RegexOptions.IgnoreCase | RegexOptions.Compiled
-    );
-
     [Optimization(
         Id = "EE71E993-EE41-4449-8856-84B09B2B0C46",
         Risk = OptimizationRisk.Safe,
@@ -156,25 +151,27 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
     )]
     public class InstallOptimizerDuckPowerPlan : BaseOptimization
     {
+        private static readonly Guid OptimizerDuckPlanId = Guid.Parse(Shared.PowerPlanGUID);
+
         public override async Task<ApplyResult> ApplyAsync(
             IProgress<ProcessingProgress> progress,
             OptimizationContext context
         )
         {
-            var activeQuery = await context.Shell.QueryCMDAsync(
-                "powercfg /getactivescheme",
-                context.Logger
-            );
-            var match = _activePlanGuidRegex.Match(activeQuery.Stdout);
-
-            if (!match.Success)
+            var previousPlanId = context.PowerPlans.GetActiveSchemeId();
+            if (previousPlanId is null)
             {
                 context.Logger.LogError("Failed to detect current active power plan");
                 return ApplyResult.False(Loc.Instance[$"{ErrorPrefix}.DetectActivePlanFailed"]);
             }
 
-            var previousPlanGuid = match.Groups[1].Value;
-            context.Logger.LogInformation("Current active power plan: {Guid}", previousPlanGuid);
+            var previousName =
+                context.PowerPlans.GetSchemeName(previousPlanId.Value) ?? previousPlanId.ToString();
+            context.Logger.LogInformation(
+                "Current active power plan: {Name} ({Guid})",
+                previousName,
+                previousPlanId
+            );
 
             var powerPlanPath = Path.Combine(
                 Shared.AssetsDirectory,
@@ -205,33 +202,52 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
                 }
             );
 
-            var importOp = await context.Shell.CMDAsync(
-                $"powercfg /import \"{powerPlanPath}\" {Shared.PowerPlanGUID}",
-                context,
-                $"powercfg /delete {Shared.PowerPlanGUID}"
+            var (importResult, installedId) = await context.PowerPlans.ImportSchemeAsync(
+                powerPlanPath,
+                OptimizerDuckPlanId,
+                context.CancellationToken
             );
-            if (!importOp.Ok)
+            if (!importResult.Ok || installedId is null)
             {
                 context.Logger.LogError(
                     "Failed to import optimizerDuck power plan: {Error}",
-                    importOp.Error
+                    importResult.Error ?? "unknown"
                 );
                 return ApplyResult.False(Loc.Instance[$"{ErrorPrefix}.ImportFailed"]);
             }
 
-            var setActiveOp = await context.Shell.CMDAsync(
-                $"powercfg /setactive {Shared.PowerPlanGUID}",
-                context,
-                $"powercfg /setactive {previousPlanGuid}"
-            );
-            if (!setActiveOp.Ok)
+            var setActive = context.PowerPlans.SetActiveScheme(context, installedId.Value);
+            if (!setActive.Ok)
             {
                 context.Logger.LogError(
                     "Failed to activate optimizerDuck power plan: {Error}",
-                    setActiveOp.Error
+                    setActive.Error ?? "unknown"
                 );
                 return ApplyResult.False(Loc.Instance[$"{ErrorPrefix}.ActivateFailed"]);
             }
+
+            // SetActiveScheme records its own revert step with PreviousSchemeId;
+            // point it at the installed scheme so revert restores then deletes.
+            var activation = context.Changes.Changes.LastOrDefault(c =>
+                c.Ok && c.Revert is PowerPlanRevertStep
+            );
+            if (activation?.Revert is PowerPlanRevertStep activationStep)
+                activationStep.InstalledSchemeId = installedId.Value;
+            else
+                context.Changes.Add(
+                    ServiceStrings.PowerPlanName,
+                    Loc.Instance[
+                        "Revert.PowerPlan.Description.Set",
+                        context.PowerPlans.GetSchemeName(installedId.Value)
+                            ?? installedId.ToString()
+                    ],
+                    true,
+                    new PowerPlanRevertStep
+                    {
+                        PreviousSchemeId = previousPlanId.Value,
+                        InstalledSchemeId = installedId.Value,
+                    }
+                );
 
             context.Logger.LogInformation("Installed optimizerDuck power plan successfully!");
             return context.Changes.ToApplyResult();

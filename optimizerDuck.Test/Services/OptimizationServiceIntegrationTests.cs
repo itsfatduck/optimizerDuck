@@ -73,7 +73,7 @@ public class OptimizationServiceIntegrationTests : IDisposable
         public string Type => "Test";
         public string Description => $"Revert step {StepId}";
 
-        public Task<bool> ExecuteAsync(ShellService _, ILogger logger)
+        public Task<bool> ExecuteAsync(RevertContext _, ILogger logger)
         {
             // Simulate revert operation
             return Task.FromResult(true);
@@ -114,6 +114,7 @@ public class OptimizationServiceIntegrationTests : IDisposable
         var revertManager = new RevertManager(
             NullLogger<RevertManager>.Instance,
             TestShell.New(),
+            new PowerPlanService(NullLogger<PowerPlanService>.Instance),
             TimeProvider.System
         );
         var systemInfoService = new SystemInfoService(NullLogger<SystemInfoService>.Instance);
@@ -126,6 +127,7 @@ public class OptimizationServiceIntegrationTests : IDisposable
             streamService,
             null!,
             new ShellService(new ProcessRunner(120000)),
+            new PowerPlanService(NullLogger<PowerPlanService>.Instance),
             NullLogger<OptimizationService>.Instance
         );
 

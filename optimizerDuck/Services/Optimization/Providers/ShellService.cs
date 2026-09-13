@@ -17,8 +17,15 @@ namespace optimizerDuck.Services.Optimization.Providers;
 ///     Holds no static state; the timeout lives in <see cref="ProcessRunner"/>
 ///     and is read live from settings on every call.
 /// </summary>
-public sealed class ShellService(ProcessRunner _runner)
+public sealed class ShellService
 {
+    private readonly ProcessRunner _runner;
+
+    public ShellService(ProcessRunner runner)
+    {
+        _runner = runner;
+    }
+
     private static (string commandForUser, string fullCommandForUser) SanitizeCommandForUser(
         string fileName,
         string arguments,

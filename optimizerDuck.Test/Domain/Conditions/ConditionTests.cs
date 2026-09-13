@@ -14,8 +14,8 @@ public class ConditionTests
 {
     #region Snapshot builder
 
-    private static SystemSnapshot Snapshot(
-        string build = "22631",
+    private static SystemInfo Snapshot(
+        int? build = 22631,
         GpuVendor gpuVendor = GpuVendor.Unknown,
         CpuVendor cpuVendor = CpuVendor.Unknown,
         double ramGb = 0
@@ -25,38 +25,31 @@ public class ConditionTests
             Cpu = new CpuInfo
             {
                 Name = "Test CPU",
-                Manufacturer = "TestManufacturer",
                 Vendor = cpuVendor,
-                Architecture = "64-bit",
-                Cores = 8,
-                Threads = 16,
-                MaxClockMHz = 4000,
-                CurrentClockMHz = 4000,
-                L2CacheKB = 0,
-                L3CacheKB = 0,
+                Architecture = Architecture.X64,
+                CoreCount = 8,
+                ThreadCount = 16,
+                MaxFrequencyMhz = 4000,
+                CurrentFrequencyMhz = 4000,
             },
-            Ram = new RamInfo
+            Memory = new MemoryInfo
             {
-                TotalGB = ramGb,
-                TotalMB = (long)(ramGb * 1024),
-                TotalKB = (long)(ramGb * 1024 * 1024),
-                AvailableGB = ramGb,
-                UsedPercent = 0,
-                UsedGB = 0,
+                TotalBytes = (long)(ramGb * 1024 * 1024 * 1024),
+                AvailableBytes = (long)(ramGb * 1024 * 1024 * 1024),
                 Modules = [],
             },
-            Os = new OsInfo
+            Windows = new WindowsInfo
             {
-                Name = "Microsoft Windows 11 Pro",
-                Version = "11",
                 BuildNumber = build,
-                Edition = "Pro",
-                Architecture = "64-bit",
-                DeviceType = DeviceKind.Desktop,
-                InstallDate = "2024-01-01",
-                LastBootUpTime = "2024-01-01 00:00",
+                Edition = WindowsEdition.Pro,
+                Architecture = Architecture.X64,
+                DeviceKind = DeviceKind.Desktop,
+                InstallDate = new DateTime(2024, 1, 1),
+                LastBootTime = new DateTime(2024, 1, 1),
             },
-            Bios = BiosInfo.Unknown,
+            Firmware = FirmwareInfo.Unknown,
+            Security = SecurityInfo.Unknown,
+            Power = PowerInfo.Unknown,
             Gpus =
                 gpuVendor == GpuVendor.Unknown
                     ? []
@@ -67,11 +60,11 @@ public class ConditionTests
                             Name = "Test GPU",
                             DriverVersion = "1.0",
                             Vendor = gpuVendor,
-                            MemoryMB = 8192,
+                            VramMB = 8192,
                         },
                     ],
-            PrimaryGpu = null,
-            Disk = DiskInfo.Unknown,
+            Storage = StorageInfo.Unknown,
+            Runtime = RuntimeInfo.Unknown,
         };
 
     #endregion
@@ -117,65 +110,69 @@ public class ConditionTests
     #region OS conditions
 
     [Theory]
-    [InlineData("22000")]
-    [InlineData("22631")]
-    [InlineData("26100")]
-    public void Windows11Condition_Win11Builds_Available(string build)
+    [InlineData(22000)]
+    [InlineData(22631)]
+    [InlineData(26100)]
+    public void Windows11Condition_Win11Builds_Available(int build)
     {
         var result = new Windows11Condition().Evaluate(Snapshot(build: build));
         Assert.Equal(ConditionState.Available, result.State);
     }
 
     [Fact]
-    public void Windows11Condition_DottedBuild_ParsesMajorVersionOnly()
+    public void Windows11Condition_UnknownBuild_Unsupported()
     {
-        // Real UBR-suffixed builds (e.g. 24H2 with KB5055627 reports 26100.3915)
-        // must be compared by major build number only.
-        var result = new Windows11Condition().Evaluate(Snapshot(build: "26100.3915"));
-        Assert.Equal(ConditionState.Available, result.State);
+        // An unreadable build number never passes a version gate (fail closed),
+        // while an entirely unknown snapshot still fails open (see evaluator test).
+        var snapshot = Snapshot() with
+        {
+            Windows = new WindowsInfo(),
+        };
+        var result = new Windows11Condition().Evaluate(snapshot);
+        Assert.Equal(ConditionState.Unsupported, result.State);
     }
 
     [Theory]
-    [InlineData("10240")]
-    [InlineData("19045")]
-    public void Windows11Condition_Win10Builds_Unsupported(string build)
+    [InlineData(10240)]
+    [InlineData(19045)]
+    public void Windows11Condition_Win10Builds_Unsupported(int build)
     {
         var result = new Windows11Condition().Evaluate(Snapshot(build: build));
         Assert.Equal(ConditionState.Unsupported, result.State);
     }
 
     [Theory]
-    [InlineData("10240")]
-    [InlineData("19045")]
-    public void Windows10Condition_Win10Builds_Available(string build)
+    [InlineData(10240)]
+    [InlineData(19045)]
+    public void Windows10Condition_Win10Builds_Available(int build)
     {
         var result = new Windows10Condition().Evaluate(Snapshot(build: build));
         Assert.Equal(ConditionState.Available, result.State);
     }
 
     [Theory]
-    [InlineData("22000")]
-    [InlineData("22631")]
-    public void Windows10Condition_Win11Builds_Unsupported(string build)
+    [InlineData(22000)]
+    [InlineData(22631)]
+    public void Windows10Condition_Win11Builds_Unsupported(int build)
     {
         var result = new Windows10Condition().Evaluate(Snapshot(build: build));
         Assert.Equal(ConditionState.Unsupported, result.State);
     }
 
     [Theory]
-    [InlineData("26100")]
-    [InlineData("26120")]
-    public void Windows11_24H2OrGreaterCondition_24H2Builds_Available(string build)
+    [InlineData(26100)]
+    [InlineData(26120)]
+    public void Windows11_24H2OrGreaterCondition_24H2Builds_Available(int build)
     {
         var result = new Windows11_24H2OrGreaterCondition().Evaluate(Snapshot(build: build));
         Assert.Equal(ConditionState.Available, result.State);
     }
 
     [Theory]
-    [InlineData("22631")]
-    [InlineData("22000")]
-    [InlineData("19045")]
-    public void Windows11_24H2OrGreaterCondition_OlderBuilds_Unsupported(string build)
+    [InlineData(22631)]
+    [InlineData(22000)]
+    [InlineData(19045)]
+    public void Windows11_24H2OrGreaterCondition_OlderBuilds_Unsupported(int build)
     {
         var result = new Windows11_24H2OrGreaterCondition().Evaluate(Snapshot(build: build));
         Assert.Equal(ConditionState.Unsupported, result.State);
@@ -188,28 +185,28 @@ public class ConditionTests
     [Fact]
     public void AmdGpuCondition_AmdGpu_Available()
     {
-        var result = new AmdGpuCondition().Evaluate(Snapshot(gpuVendor: GpuVendor.AMD));
+        var result = new AmdGpuCondition().Evaluate(Snapshot(gpuVendor: GpuVendor.Amd));
         Assert.Equal(ConditionState.Available, result.State);
     }
 
     [Fact]
     public void AmdGpuCondition_NvidiaGpu_Unsupported()
     {
-        var result = new AmdGpuCondition().Evaluate(Snapshot(gpuVendor: GpuVendor.NVIDIA));
+        var result = new AmdGpuCondition().Evaluate(Snapshot(gpuVendor: GpuVendor.Nvidia));
         Assert.Equal(ConditionState.Unsupported, result.State);
     }
 
     [Fact]
     public void NvidiaGpuCondition_NvidiaGpu_Available()
     {
-        var result = new NvidiaGpuCondition().Evaluate(Snapshot(gpuVendor: GpuVendor.NVIDIA));
+        var result = new NvidiaGpuCondition().Evaluate(Snapshot(gpuVendor: GpuVendor.Nvidia));
         Assert.Equal(ConditionState.Available, result.State);
     }
 
     [Fact]
     public void NvidiaGpuCondition_AmdGpu_Unsupported()
     {
-        var result = new NvidiaGpuCondition().Evaluate(Snapshot(gpuVendor: GpuVendor.AMD));
+        var result = new NvidiaGpuCondition().Evaluate(Snapshot(gpuVendor: GpuVendor.Amd));
         Assert.Equal(ConditionState.Unsupported, result.State);
     }
 
@@ -230,14 +227,14 @@ public class ConditionTests
     [Fact]
     public void IntelCpuCondition_AmdCpu_Unsupported()
     {
-        var result = new IntelCpuCondition().Evaluate(Snapshot(cpuVendor: CpuVendor.AMD));
+        var result = new IntelCpuCondition().Evaluate(Snapshot(cpuVendor: CpuVendor.Amd));
         Assert.Equal(ConditionState.Unsupported, result.State);
     }
 
     [Fact]
     public void AmdCpuCondition_AmdCpu_Available()
     {
-        var result = new AmdCpuCondition().Evaluate(Snapshot(cpuVendor: CpuVendor.AMD));
+        var result = new AmdCpuCondition().Evaluate(Snapshot(cpuVendor: CpuVendor.Amd));
         Assert.Equal(ConditionState.Available, result.State);
     }
 
@@ -346,7 +343,7 @@ public class ConditionTests
 
     #region ConditionEvaluator
 
-    private static ConditionResult Evaluate(Type? type, SystemSnapshot snapshot) =>
+    private static ConditionResult Evaluate(Type? type, SystemInfo snapshot) =>
         ConditionEvaluator.Evaluate(type, snapshot, NullLogger.Instance);
 
     [Fact]
@@ -358,7 +355,7 @@ public class ConditionTests
     [Fact]
     public void ConditionEvaluator_ValidType_ReturnsEvaluatedResult()
     {
-        var result = Evaluate(typeof(Windows11Condition), Snapshot(build: "19045"));
+        var result = Evaluate(typeof(Windows11Condition), Snapshot(build: 19045));
         Assert.Equal(ConditionState.Unsupported, result.State);
     }
 
@@ -368,23 +365,23 @@ public class ConditionTests
         // An unpopulated snapshot (detection not finished/failed) never hides an item.
         Assert.Equal(
             ConditionState.Available,
-            Evaluate(typeof(Windows11Condition), SystemSnapshot.Unknown).State
+            Evaluate(typeof(Windows11Condition), SystemInfo.Unknown).State
         );
         Assert.Equal(
             ConditionState.Available,
-            Evaluate(typeof(Windows11_24H2OrGreaterCondition), SystemSnapshot.Unknown).State
+            Evaluate(typeof(Windows11_24H2OrGreaterCondition), SystemInfo.Unknown).State
         );
         Assert.Equal(
             ConditionState.Available,
-            Evaluate(typeof(NvidiaGpuCondition), SystemSnapshot.Unknown).State
+            Evaluate(typeof(NvidiaGpuCondition), SystemInfo.Unknown).State
         );
         Assert.Equal(
             ConditionState.Available,
-            Evaluate(typeof(SixteenGbRamCondition), SystemSnapshot.Unknown).State
+            Evaluate(typeof(SixteenGbRamCondition), SystemInfo.Unknown).State
         );
         Assert.Equal(
             ConditionState.Available,
-            Evaluate(typeof(IntelCpuCondition), SystemSnapshot.Unknown).State
+            Evaluate(typeof(IntelCpuCondition), SystemInfo.Unknown).State
         );
     }
 
@@ -412,7 +409,7 @@ public class ConditionTests
             items,
             t => t,
             (t, r) => applied.Add(r),
-            Snapshot(build: "19045"),
+            Snapshot(build: 19045),
             NullLogger.Instance
         );
 
@@ -423,7 +420,7 @@ public class ConditionTests
 
     private sealed class ThrowingCondition : ConditionBase
     {
-        public override ConditionResult Evaluate(SystemSnapshot snapshot)
+        public override ConditionResult Evaluate(SystemInfo snapshot)
         {
             throw new InvalidOperationException("boom");
         }

@@ -324,7 +324,7 @@ public class Performance : IOptimizationCategory
 | **Don't catch all exceptions** | Let them bubble up. `ChangeSet` tracks per-step success/failure; `OptimizationService` handles exceptions. |
 | **Don't manually create revert steps** | Static providers record `Change` entries (with revert steps) into `context.Changes` automatically. |
 | **Use `context.Logger`** | The optimization context provides a logger for important diagnostic info. |
-| **Use `context.Snapshot`** | `OptimizationContext.Snapshot` (a `SystemSnapshot`) gives system info: RAM, GPU, CPU, OS. Use it for conditional logic. |
+| **Use `context.Snapshot`** | `OptimizationContext.Snapshot` (a `SystemInfo`) gives system info: memory, GPU, CPU, Windows, firmware, security, power, storage. Use it for conditional logic. |
 | **Use `context.StreamService`** | For optimizations that need to download remote resources (e.g. power plans). |
 | **Declare a `Condition` if needed** | Gate the optimization on Windows version or hardware — see [The Condition System](#the-condition-system). |
 ### Available Service Providers
@@ -824,8 +824,8 @@ Conditions live in `Domain/Conditions/` and are evaluated by the static `Conditi
 
 | Piece | Purpose |
 |---|---|
-| `ICondition` | The contract: `ConditionResult Evaluate(SystemSnapshot snapshot)`. Implementations need a public parameterless constructor (they're instantiated via reflection). |
-| `ConditionBase` | Optional base class with shared helpers (e.g., `TryGetOsBuild` for parsing the OS build number). |
+| `ICondition` | The contract: `ConditionResult Evaluate(SystemInfo snapshot)`. Implementations need a public parameterless constructor (they're instantiated via reflection). |
+| `ConditionBase` | Optional base class with shared helpers (e.g., `TryGetOsBuild` for reading the typed OS build number). |
 | `ConditionResult` | Outcome: `Available`, `Unsupported(title, description)`, or `Error()`. Localized text is resolved lazily via providers. |
 | `ConditionState` | `Available`, `Unsupported`, `Error`. |
 | `ConditionValidation` | Validates `Condition = typeof(...)` metadata at discovery time so misconfigurations fail fast at startup. |
@@ -869,9 +869,9 @@ Ready-made conditions live in `Domain/Conditions/BuiltIn/` — check that folder
 ```csharp
 public sealed class MyCondition : ConditionBase
 {
-    public override ConditionResult Evaluate(SystemSnapshot snapshot)
+    public override ConditionResult Evaluate(SystemInfo snapshot)
     {
-        // ConditionBase.TryGetOsBuild parses "22631.xxxx" -> 22631
+        // ConditionBase.TryGetOsBuild reads the typed build number
         if (TryGetOsBuild(snapshot, out var build) && build >= 22000)
             return ConditionResult.Available;
 
@@ -1027,7 +1027,7 @@ services.AddSingleton<IRegistryWatcher, RegistryWatcher>();
 
 | Service | Purpose |
 |---|---|
-| `SystemInfoService` | Provides the `SystemSnapshot` (CPU, RAM, GPU, OS, disk) used by `OptimizationContext` and the condition system. |
+| `SystemInfoService` | Provides the `SystemInfo` (Windows, CPU, memory, GPUs, firmware, security, power, storage) used by `OptimizationContext` and the condition system. |
 | `StreamService` | Downloads remote resources (e.g., updated power plan files). Used via `OptimizationContext.StreamService`. |
 | `UpdaterService` | Checks GitHub releases for updates. Shows update prompt on Dashboard. |
 | `RegistryWatcher` | Monitors registry keys for external changes and notifies the UI to refresh. Implements `IRegistryWatcher`. |

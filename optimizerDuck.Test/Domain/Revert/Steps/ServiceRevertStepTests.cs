@@ -18,7 +18,7 @@ public class ServiceRevertStepTests
             OriginalStartupType = ServiceStartupType.Manual,
         };
 
-        var result = await step.ExecuteAsync(TestShell.New(), NullLogger.Instance);
+        var result = await step.ExecuteAsync(TestShell.Context(), NullLogger.Instance);
 
         Assert.True(result);
     }

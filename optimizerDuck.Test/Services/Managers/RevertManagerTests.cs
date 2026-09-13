@@ -11,6 +11,7 @@ using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Services.Optimization.Providers;
 using optimizerDuck.Services.Revert;
+using optimizerDuck.Services.System;
 using optimizerDuck.Test.TestDoubles;
 
 namespace optimizerDuck.Test.Services.Managers;
@@ -100,6 +101,7 @@ public class RevertManagerTests
             var manager = new RevertManager(
                 NullLogger<RevertManager>.Instance,
                 TestShell.New(),
+                new PowerPlanService(NullLogger<PowerPlanService>.Instance),
                 TimeProvider.System
             );
             var op = new MockOptimization(id);
@@ -163,6 +165,7 @@ public class RevertManagerTests
             var manager = new RevertManager(
                 NullLogger<RevertManager>.Instance,
                 TestShell.New(),
+                new PowerPlanService(NullLogger<PowerPlanService>.Instance),
                 TimeProvider.System
             );
             var result = await manager.RevertAsync(
@@ -224,6 +227,7 @@ public class RevertManagerTests
             var manager = new RevertManager(
                 NullLogger<RevertManager>.Instance,
                 TestShell.New(),
+                new PowerPlanService(NullLogger<PowerPlanService>.Instance),
                 TimeProvider.System
             );
             var result = await manager.RevertAsync(
@@ -290,6 +294,7 @@ public class RevertManagerTests
             var manager = new RevertManager(
                 NullLogger<RevertManager>.Instance,
                 TestShell.New(),
+                new PowerPlanService(NullLogger<PowerPlanService>.Instance),
                 TimeProvider.System
             );
             var result = await manager.RevertAsync(
@@ -322,6 +327,7 @@ public class RevertManagerTests
         var manager = new RevertManager(
             NullLogger<RevertManager>.Instance,
             TestShell.New(),
+            new PowerPlanService(NullLogger<PowerPlanService>.Instance),
             TimeProvider.System
         );
 
@@ -372,6 +378,7 @@ public class RevertManagerTests
         var manager = new RevertManager(
             NullLogger<RevertManager>.Instance,
             TestShell.New(),
+            new PowerPlanService(NullLogger<PowerPlanService>.Instance),
             TimeProvider.System
         );
 
@@ -434,6 +441,7 @@ public class RevertManagerTests
             var manager = new RevertManager(
                 NullLogger<RevertManager>.Instance,
                 TestShell.New(),
+                new PowerPlanService(NullLogger<PowerPlanService>.Instance),
                 TimeProvider.System
             );
             var result = await manager.RevertAsync(
@@ -570,7 +578,7 @@ public class RetryableTestRevertStep : IRevertStep
 
     public string Description => $"Retryable test step {StepId}";
 
-    public Task<bool> ExecuteAsync(ShellService _, ILogger logger)
+    public Task<bool> ExecuteAsync(RevertContext _, ILogger logger)
     {
         if (RemainingFailures > 0)
         {

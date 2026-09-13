@@ -17,7 +17,7 @@ public sealed class RecallInstalledCondition : ConditionBase
     // feature is installed; the directory is absent on systems without it.
     private const string AiShellDirectory = @"C:\Windows\System32\CoreAISpeech";
 
-    public override ConditionResult Evaluate(SystemSnapshot snapshot)
+    public override ConditionResult Evaluate(SystemInfo snapshot)
     {
         var isSupported =
             TryGetOsBuild(snapshot, out var build)

@@ -43,7 +43,7 @@ public class UsbPowerRevertStep : IRevertStep
     public string Description => Loc.Instance["Revert.UsbPower.Description"];
 
     /// <inheritdoc />
-    public async Task<bool> ExecuteAsync(ShellService shell, ILogger logger)
+    public async Task<bool> ExecuteAsync(RevertContext context, ILogger logger)
     {
         if (States.Count == 0)
             return true;
@@ -64,7 +64,7 @@ public class UsbPowerRevertStep : IRevertStep
             + "Set-CimInstance -CimInstance $obj -Property @{ Enable = [bool]$s.Enable } | Out-Null "
             + "}}";
 
-        var result = await shell.QueryPowerShellAsync(script, logger).ConfigureAwait(false);
+        var result = await context.Shell.QueryPowerShellAsync(script, logger).ConfigureAwait(false);
 
         if (result.ExitCode != 0)
         {

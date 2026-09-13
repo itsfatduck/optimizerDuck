@@ -16,7 +16,7 @@ public class OptimizationContext : OpCall
     /// <summary>
     ///     Gets a snapshot of the current system hardware and software information.
     /// </summary>
-    public required SystemSnapshot Snapshot { get; init; }
+    public required SystemInfo Snapshot { get; init; }
 
     /// <summary>
     ///     Gets the service used to download remote resources required by optimizations.
@@ -27,4 +27,9 @@ public class OptimizationContext : OpCall
     ///     Gets the shell service used to execute CMD/PowerShell commands.
     /// </summary>
     public required ShellService Shell { get; init; }
+
+    /// <summary>
+    ///     Gets the native power-scheme service (get/set/import/delete, live names).
+    /// </summary>
+    public required PowerPlanService PowerPlans { get; init; }
 }

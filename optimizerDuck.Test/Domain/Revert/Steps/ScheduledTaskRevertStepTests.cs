@@ -18,7 +18,7 @@ public class ScheduledTaskRevertStepTests
         };
 
         var ex = await Assert.ThrowsAsync<StepExecutionException>(() =>
-            step.ExecuteAsync(TestShell.New(), NullLogger.Instance)
+            step.ExecuteAsync(TestShell.Context(), NullLogger.Instance)
         );
 
         Assert.Contains("NonExistent", ex.Message);

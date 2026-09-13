@@ -702,3 +702,4 @@ $RECYCLE.BIN/
 omp-session-*.html
 crash_*.log
 TestResults/
+openspec/

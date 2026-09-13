@@ -39,6 +39,9 @@
     <converters:ObjectToNullableDoubleConverter x:Key="ObjectToNullableDoubleConverter" />
     <converters:WidthToColumnConverter x:Key="WidthToColumnConverter" />
     <converters:MBToGBConverter x:Key="MBToGBConverter" />
+    <converters:BytesToGBConverter x:Key="BytesToGBConverter" />
+    <converters:EnumDisplayConverter x:Key="EnumDisplayConverter" />
+    <converters:NullToUnknownTextConverter x:Key="NullToUnknownTextConverter" />
     <converters:MinusNumberConverter x:Key="MinusNumberConverter" />
     <converters:MinusNumberConverter x:Key="MinusOneConverter" NumberToMinus="1" />
     <converters:DeviceKindConverter x:Key="DeviceKindConverter" />

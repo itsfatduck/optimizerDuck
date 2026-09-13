@@ -135,7 +135,7 @@ public class MockRevertStep : IRevertStep
     public string Type => "Mock";
     public string Description => "Mock Description";
 
-    public Task<bool> ExecuteAsync(ShellService _, ILogger logger)
+    public Task<bool> ExecuteAsync(RevertContext _, ILogger logger)
     {
         return Task.FromResult(true);
     }

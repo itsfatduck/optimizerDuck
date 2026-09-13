@@ -10,7 +10,7 @@ namespace optimizerDuck.Domain.Conditions;
 /// </summary>
 public sealed class Windows11_24H2OrGreaterCondition : ConditionBase
 {
-    public override ConditionResult Evaluate(SystemSnapshot snapshot) =>
+    public override ConditionResult Evaluate(SystemInfo snapshot) =>
         TryGetOsBuild(snapshot, out var build) && build >= WindowsBuilds.Windows11_24H2
             ? ConditionResult.Available
             : ConditionResult.Unsupported(

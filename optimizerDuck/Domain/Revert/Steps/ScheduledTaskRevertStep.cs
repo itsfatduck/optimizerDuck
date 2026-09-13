@@ -34,7 +34,7 @@ public class ScheduledTaskRevertStep : IRevertStep
             : Loc.Instance["Revert.ScheduledTask.Description.Disable", FullPath];
 
     /// <inheritdoc />
-    public Task<bool> ExecuteAsync(ShellService _, ILogger logger)
+    public Task<bool> ExecuteAsync(RevertContext _, ILogger logger)
     {
         var opCall = new OpCall { Logger = logger };
         var result = OriginalEnabled

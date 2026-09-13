@@ -90,7 +90,7 @@ public partial class CustomizeCategoryViewModel : ViewModel
     protected override async Task InitializeOnceAsync()
     {
         var snapshot = await _systemInfoService.EnsureSnapshotAsync();
-        if (ReferenceEquals(snapshot, SystemSnapshot.Unknown))
+        if (snapshot.IsUnknown)
             _logger.LogWarning(
                 "System snapshot is unavailable; conditions fail open for this session"
             );
@@ -112,7 +112,7 @@ public partial class CustomizeCategoryViewModel : ViewModel
     /// <summary>
     ///     Evaluates the compatibility condition of every setting against the system snapshot.
     /// </summary>
-    private void EvaluateConditions(SystemSnapshot snapshot)
+    private void EvaluateConditions(SystemInfo snapshot)
     {
         ConditionEvaluator.EvaluateAll(
             _allSettings,
@@ -199,7 +199,7 @@ public partial class CustomizeCategoryViewModel : ViewModel
     ///     when the system snapshot is refreshed (e.g. hardware changed) or the UI
     ///     language changes. Marshalled to the UI thread by <see cref="UiThread"/>.
     /// </summary>
-    private void OnSnapshotRefreshed(object? sender, SystemSnapshot snapshot) =>
+    private void OnSnapshotRefreshed(object? sender, SystemInfo snapshot) =>
         ReEvaluateConditions(snapshot);
 
     /// <summary>
@@ -209,7 +209,7 @@ public partial class CustomizeCategoryViewModel : ViewModel
     protected override void OnLanguageChanged(CultureInfo newCulture) =>
         ReEvaluateConditions(_systemInfoService.Snapshot);
 
-    private void ReEvaluateConditions(SystemSnapshot snapshot)
+    private void ReEvaluateConditions(SystemInfo snapshot)
     {
         _ = UiThread.InvokeAsync(() =>
         {

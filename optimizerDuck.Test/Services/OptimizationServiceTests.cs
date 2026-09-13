@@ -352,6 +352,7 @@ public class OptimizationServiceTests
                 var revertManager = new RevertManager(
                     NullLogger<RevertManager>.Instance,
                     TestShell.New(),
+                    new PowerPlanService(NullLogger<PowerPlanService>.Instance),
                     TimeProvider.System
                 );
                 await revertManager.AppendRevertStepAsync(
@@ -482,6 +483,7 @@ public class OptimizationServiceTests
                 var revertManager = new RevertManager(
                     NullLogger<RevertManager>.Instance,
                     TestShell.New(),
+                    new PowerPlanService(NullLogger<PowerPlanService>.Instance),
                     TimeProvider.System
                 );
                 foreach (var recoveredStep in retryResult.RecoveredSteps)
@@ -543,6 +545,7 @@ public class OptimizationServiceTests
         var revertManager = new RevertManager(
             NullLogger<RevertManager>.Instance,
             TestShell.New(),
+            new PowerPlanService(NullLogger<PowerPlanService>.Instance),
             TimeProvider.System
         );
         var loggerFactory = NullLoggerFactory.Instance;
@@ -558,6 +561,7 @@ public class OptimizationServiceTests
             streamService,
             contentDialogService,
             shellService,
+            new PowerPlanService(NullLogger<PowerPlanService>.Instance),
             logger
         );
     }

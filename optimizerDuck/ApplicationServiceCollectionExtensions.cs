@@ -88,12 +88,13 @@ public static class ApplicationServiceCollectionExtensions
 
         // Managers
         services.AddSingleton<ConfigManager>();
-        services.AddSingleton<RevertManager>();
         services.AddSingleton(TimeProvider.System);
 
         // Services
         services.AddSingleton<ProcessRunner>();
+        services.AddSingleton<PowerPlanService>();
         services.AddSingleton<ShellService>();
+        services.AddSingleton<RevertManager>();
         services.AddSingleton<OptimizationRegistry>();
         services.AddSingleton<CustomizeRegistry>();
         services.AddSingleton<OptimizationService>();

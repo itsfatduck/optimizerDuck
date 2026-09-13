@@ -79,7 +79,7 @@ public class RegistryRevertStep : IRevertStep
         };
 
     /// <inheritdoc />
-    public async Task<bool> ExecuteAsync(ShellService shell, ILogger logger)
+    public async Task<bool> ExecuteAsync(RevertContext context, ILogger logger)
     {
         var opCall = new OpCall { Logger = logger };
         OpResult result = Action switch
@@ -100,7 +100,7 @@ public class RegistryRevertStep : IRevertStep
                 new RegistryItem(Path)
             ),
 
-            RevertAction.RestoreKeyTree => await ExecuteSubStepsAsync(shell, logger)
+            RevertAction.RestoreKeyTree => await ExecuteSubStepsAsync(context, logger)
                 .ConfigureAwait(false)
                 ? OpResult.Success()
                 : OpResult.Fail(Description),
@@ -333,13 +333,13 @@ public class RegistryRevertStep : IRevertStep
     private static bool ValuesEqual(object? actual, object? expected, RegistryValueKind kind) =>
         RegistryValues.Equal(actual, expected, kind);
 
-    private async Task<bool> ExecuteSubStepsAsync(ShellService shell, ILogger logger)
+    private async Task<bool> ExecuteSubStepsAsync(RevertContext context, ILogger logger)
     {
         if (SubSteps == null)
             return true;
         foreach (var step in SubSteps)
         {
-            if (!await step.ExecuteAsync(shell, logger))
+            if (!await step.ExecuteAsync(context, logger))
                 return false;
         }
         return true;

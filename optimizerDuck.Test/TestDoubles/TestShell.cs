@@ -1,5 +1,8 @@
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Services.Optimization.Providers;
+using optimizerDuck.Services.System;
 
 namespace optimizerDuck.Test.TestDoubles;
 
@@ -10,4 +13,12 @@ internal static class TestShell
 
     public static ShellService New() =>
         new(new ProcessRunner(TimeoutMs, NullLogger<ProcessRunner>.Instance));
+
+    public static RevertContext Context(ILogger? logger = null) =>
+        new()
+        {
+            Shell = New(),
+            PowerPlans = new PowerPlanService(NullLogger<PowerPlanService>.Instance),
+            Logger = logger ?? NullLogger.Instance,
+        };
 }

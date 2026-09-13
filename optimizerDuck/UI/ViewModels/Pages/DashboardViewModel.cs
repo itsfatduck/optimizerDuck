@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Globalization;
 using System.Windows.Media;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -23,6 +24,7 @@ public partial class DashboardViewModel : ViewModel
     private readonly UpdaterService _updaterService;
 
     private readonly DispatcherTimer _updateTimer;
+    private bool _ticking;
 
     [ObservableProperty]
     private ApplicationTheme _currentApplicationTheme = ApplicationTheme.Unknown;
@@ -38,13 +40,28 @@ public partial class DashboardViewModel : ViewModel
     private string? _latestVersion;
 
     [ObservableProperty]
-    private DiskInfo _runtimeDisk = DiskInfo.Unknown;
+    private StorageInfo _runtimeStorage = StorageInfo.Unknown;
 
     [ObservableProperty]
-    private RamInfo _runtimeRam = RamInfo.Unknown;
+    private MemoryInfo _runtimeMemory = MemoryInfo.Unknown;
 
     [ObservableProperty]
-    private SystemSnapshot _systemInfo = SystemSnapshot.Unknown;
+    private SystemInfo _systemInfo = SystemInfo.Unknown;
+
+    [ObservableProperty]
+    private string _windowsTitle = Loc.Instance["Common.Unknown"];
+
+    [ObservableProperty]
+    private string _installDateText = Loc.Instance["Common.Unknown"];
+
+    [ObservableProperty]
+    private string _lastBootText = Loc.Instance["Common.Unknown"];
+
+    [ObservableProperty]
+    private string _uptimeText = Loc.Instance["Common.Unknown"];
+
+    [ObservableProperty]
+    private string _powerPlanText = Loc.Instance["Common.Unknown"];
     private bool _updateNotified;
 
     public DashboardViewModel(
@@ -62,7 +79,7 @@ public partial class DashboardViewModel : ViewModel
         _contentDialogService = contentDialogService;
 
         _updateTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(2) };
-        _updateTimer.Tick += async (s, e) => await UpdateRuntimeInfoAsync();
+        _updateTimer.Tick += OnUpdateTick;
 
         CurrentApplicationTheme = ApplicationThemeManager.GetAppTheme();
     }
@@ -114,6 +131,11 @@ public partial class DashboardViewModel : ViewModel
         return base.OnNavigatedFromAsync();
     }
 
+    protected override void OnLanguageChanged(CultureInfo newCulture)
+    {
+        ApplyDisplayTexts(SystemInfo);
+    }
+
     #region Property Changed
 
     private void OnThemeChanged(ApplicationTheme currentApplicationTheme, Color systemAccent)
@@ -133,7 +155,7 @@ public partial class DashboardViewModel : ViewModel
     }
 
     [RelayCommand]
-    private void SelectDisk(DiskVolume diskVolume)
+    private void SelectDisk(StorageVolume diskVolume)
     {
         if (diskVolume is null || string.IsNullOrWhiteSpace(diskVolume.DriveLetter))
             return;
@@ -265,8 +287,9 @@ public partial class DashboardViewModel : ViewModel
         {
             var snapshot = await _systemInfoService.RefreshAsync();
             SystemInfo = snapshot;
-            RuntimeRam = snapshot.Ram;
-            RuntimeDisk = snapshot.Disk;
+            RuntimeMemory = snapshot.Memory;
+            RuntimeStorage = snapshot.Storage;
+            ApplyDisplayTexts(snapshot);
         }
         catch (Exception ex)
         {
@@ -286,19 +309,69 @@ public partial class DashboardViewModel : ViewModel
         }
     }
 
-    private async Task UpdateRuntimeInfoAsync()
+    /// <summary>
+    /// 2s live tick. Runs on the UI thread and calls only the cheap cached
+    /// service paths (no WMI, no Task.Run): a slow scan can never overlap ticks.
+    /// </summary>
+    private void OnUpdateTick(object? sender, EventArgs e)
     {
+        if (_ticking)
+            return;
+        _ticking = true;
         try
         {
-            var ramInfo = await Task.Run(RamProvider.Get);
-            var diskInfo = await Task.Run(DiskProvider.Get);
-            RuntimeRam = ramInfo;
-            RuntimeDisk = diskInfo;
+            RuntimeMemory = _systemInfoService.GetLiveMemory();
+            RuntimeStorage = _systemInfoService.GetLiveStorage();
+            UptimeText =
+                Loc.Instance["Dashboard.SystemInfo.Uptime.Label"]
+                + ": "
+                + FormatUptime(TimeSpan.FromMilliseconds((double)Environment.TickCount64));
         }
         catch (Exception ex)
         {
             _logger.LogWarning(ex, "Failed to update runtime info");
         }
+        finally
+        {
+            _ticking = false;
+        }
+    }
+
+    private void ApplyDisplayTexts(SystemInfo snapshot)
+    {
+        var unknown = Loc.Instance["Common.Unknown"];
+        WindowsTitle = snapshot.Windows switch
+        {
+            { IsWindows11: true } => "Windows 11",
+            { IsWindows10: true } => "Windows 10",
+            { BuildNumber: { } build } => $"Windows (build {build})",
+            _ => unknown,
+        };
+        InstallDateText = snapshot.Windows.InstallDate?.ToString("yyyy-MM-dd") ?? unknown;
+        LastBootText = snapshot.Windows.LastBootTime?.ToString("yyyy-MM-dd HH:mm") ?? unknown;
+        PowerPlanText = FormatPowerPlan(snapshot.Power);
+        UptimeText =
+            Loc.Instance["Dashboard.SystemInfo.Uptime.Label"]
+            + ": "
+            + FormatUptime(TimeSpan.FromMilliseconds((double)Environment.TickCount64));
+    }
+
+    private static string FormatPowerPlan(PowerInfo power)
+    {
+        // Live name from Windows; GUID fallback when the name is unreadable.
+        var label = power.SchemeName ?? power.SchemeId?.ToString();
+        if (string.IsNullOrWhiteSpace(label))
+            return Loc.Instance["Common.Unknown"];
+        return Loc.Instance["Dashboard.SystemInfo.PowerPlan", label];
+    }
+
+    private static string FormatUptime(TimeSpan uptime)
+    {
+        if (uptime < TimeSpan.Zero)
+            return Loc.Instance["Common.Unknown"];
+        return uptime.TotalDays >= 1 ? $"{(int)uptime.TotalDays}d {uptime.Hours}h {uptime.Minutes}m"
+            : uptime.TotalHours >= 1 ? $"{(int)uptime.TotalHours}h {uptime.Minutes}m"
+            : $"{uptime.Minutes}m {uptime.Seconds}s";
     }
 
     private void OpenLatestRelease()

@@ -452,6 +452,7 @@ public class ApplyRevertComprehensiveTests
                 var manager = new RevertManager(
                     NullLogger<RevertManager>.Instance,
                     TestShell.New(),
+                    new PowerPlanService(NullLogger<PowerPlanService>.Instance),
                     TimeProvider.System
                 );
                 var result = await manager.RevertAsync(optimization);
@@ -729,6 +730,7 @@ public class ApplyRevertComprehensiveTests
                 var manager = new RevertManager(
                     NullLogger<RevertManager>.Instance,
                     TestShell.New(),
+                    new PowerPlanService(NullLogger<PowerPlanService>.Instance),
                     TimeProvider.System
                 );
                 var result = await manager.RevertAsync(optimization);
@@ -944,6 +946,7 @@ public class ApplyRevertComprehensiveTests
                 var revertManager = new RevertManager(
                     NullLogger<RevertManager>.Instance,
                     TestShell.New(),
+                    new PowerPlanService(NullLogger<PowerPlanService>.Instance),
                     TimeProvider.System
                 );
                 await revertManager.AppendRevertStepAsync(
@@ -1076,6 +1079,7 @@ public class ApplyRevertComprehensiveTests
         var revertManager = new RevertManager(
             NullLogger<RevertManager>.Instance,
             TestShell.New(),
+            new PowerPlanService(NullLogger<PowerPlanService>.Instance),
             TimeProvider.System
         );
         var loggerFactory = NullLoggerFactory.Instance;
@@ -1091,6 +1095,7 @@ public class ApplyRevertComprehensiveTests
             streamService,
             contentDialogService,
             shellService,
+            new PowerPlanService(NullLogger<PowerPlanService>.Instance),
             logger
         );
     }

@@ -33,7 +33,7 @@ public class ServiceRevertStep : IRevertStep
         Loc.Instance["Revert.Service.Description.Restore", ServiceName, OriginalStartupType];
 
     /// <inheritdoc />
-    public async Task<bool> ExecuteAsync(ShellService _, ILogger logger)
+    public async Task<bool> ExecuteAsync(RevertContext _, ILogger logger)
     {
         var opCall = new OpCall { Logger = logger };
         var result = await ServiceProcessService

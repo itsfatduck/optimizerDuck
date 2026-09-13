@@ -324,7 +324,7 @@ public class Performance : IOptimizationCategory
 | **すべての例外をキャッチしない** | 例外は上位に伝播。プロバイダーが `OpResult` に成功/失敗を記録し、`OptimizationService` が `ChangeSet` から処理。 |
 | **リバートステップを手動で作成しない** | インスタンス型プロバイダーが `call.Changes` への記録経由で自動的に行う。 |
 | **`context.Logger` を使用する** | 重要な診断情報の記録に使用。 |
-| **`context.Snapshot` を使用する** | `OptimizationContext.Snapshot`（`SystemSnapshot`）が RAM、GPU、CPU、OS 情報を提供。条件分岐に使用。 |
+| **`context.Snapshot` を使用する** | `OptimizationContext.Snapshot`（`SystemInfo`）が RAM、GPU、CPU、OS 情報を提供。条件分岐に使用。 |
 | **`context.StreamService` を使用する** | リモートリソース（電源プランなど）をダウンロードする最適化向け。 |
 | **必要なら `Condition` を宣言する** | Windows バージョンやハードウェアでゲート — [条件システム](#the-condition-system) を参照。 |
 
@@ -734,7 +734,7 @@ Customize.{CategoryName}.Section.{SectionName}                (セクション�
 
 | 要素 | 目的 |
 |---|---|
-| `ICondition` | コントラクト: `ConditionResult Evaluate(SystemSnapshot snapshot)`。実装には public のパラメータなしコンストラクタが必要（リフレクションでインスタンス化されるため）。 |
+| `ICondition` | コントラクト: `ConditionResult Evaluate(SystemInfo snapshot)`。実装には public のパラメータなしコンストラクタが必要（リフレクションでインスタンス化されるため）。 |
 | `ConditionBase` | 共通ヘルパーを持つ任意の基底クラス（例：OS ビルド番号解析の `TryGetOsBuild`）。 |
 | `ConditionResult` | 結果: `Available`、`Unsupported(title, description)`、または `Error()`。ローカライズテキストはプロバイダー経由で遅延解決。 |
 | `ConditionState` | `Available`、`Unsupported`、`Error`。 |
@@ -779,7 +779,7 @@ public class TaskbarWidgets : BaseCustomizeSetting { ... }
 ```csharp
 public sealed class MyCondition : ConditionBase
 {
-    public override ConditionResult Evaluate(SystemSnapshot snapshot)
+    public override ConditionResult Evaluate(SystemInfo snapshot)
     {
         // ConditionBase.TryGetOsBuild は "22631.xxxx" を 22631 に解析
         if (TryGetOsBuild(snapshot, out var build) && build >= 22000)
@@ -938,7 +938,7 @@ services.AddSingleton<IRegistryWatcher, RegistryWatcher>();
 
 | サービス | 目的 |
 |---|---|
-| `SystemInfoService` | `OptimizationContext` と条件システムが使う `SystemSnapshot`（CPU、RAM、GPU、OS、ディスク）を提供。 |
+| `SystemInfoService` | `OptimizationContext` と条件システムが使う `SystemInfo`（CPU、RAM、GPU、OS、ディスク）を提供。 |
 | `StreamService` | リモートリソース（更新された電源プランなど）をダウンロード。`OptimizationContext.StreamService` 経由。 |
 | `UpdaterService` | GitHub リリースの更新確認。Dashboard に更新プロンプトを表示。 |
 | `RegistryWatcher` | 外部変更を監視して UI にリフレッシュ通知。`IRegistryWatcher` を実装。 |

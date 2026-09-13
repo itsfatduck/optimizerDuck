@@ -27,11 +27,31 @@ public class OptimizationService(
     StreamService streamService,
     IContentDialogService contentDialogService,
     ShellService shellService,
+    PowerPlanService powerPlanService,
     ILogger<OptimizationService> logger
 )
 {
     private readonly ILogger _logger = logger;
     private readonly ShellService _shellService = shellService;
+    private readonly PowerPlanService _powerPlanService = powerPlanService;
+
+    private OptimizationContext NewContext(
+        ChangeSet changes,
+        ILogger optLogger,
+        CancellationToken cancellationToken
+    )
+    {
+        return new OptimizationContext
+        {
+            Changes = changes,
+            Logger = optLogger,
+            CancellationToken = cancellationToken,
+            Snapshot = systemInfoService.Snapshot,
+            StreamService = streamService,
+            Shell = _shellService,
+            PowerPlans = _powerPlanService,
+        };
+    }
 
     /// <summary>Gets or sets a value that indicates whether a system restore point was created before applying optimizations.</summary>
     public bool WasRequestedRestorePoint { get; set; } = false;
@@ -178,18 +198,7 @@ public class OptimizationService(
         try
         {
             var applyResult = await optimization
-                .ApplyAsync(
-                    progress,
-                    new OptimizationContext
-                    {
-                        Changes = changes,
-                        Logger = optLogger,
-                        CancellationToken = cancellationToken,
-                        Snapshot = systemInfoService.Snapshot,
-                        StreamService = streamService,
-                        Shell = _shellService,
-                    }
-                )
+                .ApplyAsync(progress, NewContext(changes, optLogger, cancellationToken))
                 .ConfigureAwait(false);
 
             providerError = string.IsNullOrWhiteSpace(applyResult.ErrorMessage)
