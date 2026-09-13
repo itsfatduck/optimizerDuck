@@ -212,4 +212,44 @@ public class LanguageManagerTests : IDisposable
 
         Assert.True(missing.Count == 0, "Missing translations:\n" + string.Join("\n", missing));
     }
+
+    [Fact]
+    public void EveryLocale_PreservesNeutralPlaceholderSets()
+    {
+        var neutral = Translations
+            .ResourceManager.GetResourceSet(CultureInfo.InvariantCulture, true, false)!
+            .Cast<DictionaryEntry>()
+            .ToDictionary(e => (string)e.Key, e => (string?)e.Value);
+        var indexPattern = new System.Text.RegularExpressions.Regex(@"\{(\d+)\}");
+        var bad = new List<string>();
+        foreach (var lang in SupportedLanguages.All)
+        {
+            var satellite =
+                Translations
+                    .ResourceManager.GetResourceSet(lang.Culture, true, false)
+                    ?.Cast<DictionaryEntry>()
+                    .ToDictionary(e => (string)e.Key, e => (string?)e.Value)
+                ?? new Dictionary<string, string?>();
+            foreach (var (key, neutralValue) in neutral)
+            {
+                var expected = indexPattern
+                    .Matches(neutralValue ?? string.Empty)
+                    .Select(m => m.Groups[1].Value)
+                    .OrderBy(i => i)
+                    .ToList();
+                if (expected.Count == 0)
+                    continue;
+                if (!satellite.TryGetValue(key, out var localizedValue))
+                    continue;
+                var actual = indexPattern
+                    .Matches(localizedValue ?? string.Empty)
+                    .Select(m => m.Groups[1].Value)
+                    .OrderBy(i => i)
+                    .ToList();
+                if (!expected.SequenceEqual(actual))
+                    bad.Add($"{lang.Culture.Name}:{key}");
+            }
+        }
+        Assert.True(bad.Count == 0, "Placeholder mismatches:\n" + string.Join("\n", bad));
+    }
 }

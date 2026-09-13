@@ -645,7 +645,7 @@
     <value>Desativar Controle de Clock de Vídeo AMD</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-    <value>Define DisableVCEPowerGating=1, DisableVceClockGating=1, EnableUvdClockGating=0 para a AMD</value>
+    <value>Define DisableVCEPowerGating=1, DisableVceClockGating=1, EnableUvdClockGating=0 para os mecanismos de vídeo AMD (VCE/UVD) para melhorar a estabilidade de codificação/decodificação. Aumenta o consumo de energia na reprodução de vídeo.</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
     <value>Desativar AMD ASPM</value>
@@ -694,7 +694,7 @@
     <value>Mostra ou oculta o botão Widgets na barra de tarefas. Os Widgets dão acesso rápido a notícias, clima e atualizações.</value>
   </data>
   <data name="Customize.Preferences.TaskbarWidgets.Recommendation.Reason" xml:space="preserve">
-    <value>Turning off widgets removes the background web service that fetches news and weather, reducing idle network and memory usage.</value>
+    <value>Desativar os widgets remove o serviço Web em segundo plano que busca notícias e previsão do tempo, reduzindo o uso de rede e memória em inatividade.</value>
   </data>
   <data name="Customize.Preferences.TaskbarAlignment.Name" xml:space="preserve">
     <value>Alinhamento da Barra de Tarefas</value>

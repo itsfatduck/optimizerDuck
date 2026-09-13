@@ -1390,7 +1390,7 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
     <value>Hành vi lối tắt</value>
   </data>
   <data name="Customize.Desktop.ShowThisPc.Name" xml:space="preserve">
-    <value>"This PC"</value>
+    <value>This PC</value>
   </data>
   <data name="Customize.Desktop.ShowThisPc.Description" xml:space="preserve">
     <value>Hiển thị hoặc ẩn biểu tượng This PC trên màn hình nền.</value>
