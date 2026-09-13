@@ -207,7 +207,7 @@ optimizerDuck.slnx                          # Solution file (.slnx format)
 | Karar | Gerekçe |
 |---|---|
 | **Yansıma tabanlı keşif** | Güncellenecek DI kayıt dizisi yok. `ReflectionHelper.FindImplementationsInLoadedAssemblies<T>()` `optimizerDuck.*` derlemelerini tarar. Yeni optimizasyonlar/ayarlar otomatik keşfedilir. |
-| **Sağlayıcı hizmetler** | Durumsuz hizmetler (`RegistryService`, `ScheduledTaskService`, `ServiceProcessService`) **statik**tir — açık `OpCall` (`context`) ile doğrudan çağırın. `ShellService` (+ `ProcessRunner`) DI singleton'dır (canlı ayar durumuna sahiptir); domain kodu `Shell` özelliğini kullanır. |
+| **Sağlayıcı hizmetler** | Durumsuz hizmetler (`RegistryService`, `ScheduledTaskService`, `ServiceProcessService`) **statik**tir — açık `OpCall` (`context`) ile doğrudan çağırın. `ShellService` (+ `ProcessRunner`) DI singleton'dır (canlı ayar durumuna sahiptir); domain kodu `Shell` özelliğini kullanır. İstisna: `PowerPlanService` yalın bir DI singleton'dır. Okumalar id alır, yazmalar yalnızca `ILogger?` alır ve hiçbir şey kaydetmez (adlandırılmış record sonuçları). Kaydı kenarda `PowerPlanChanges` yapar. |
 | **Dosya tabanlı geri alma takibi** | Uygulanma durumu = diskte dosya var (`%localappdata%\optimizerDuck\Revert\{id}.json`). Veritabanı yok. `File.Replace()` ile atomik yazma. |
 | **Koşul sistemi (açık kalma)** | Optimizasyonlar ve ayarlar uyumluluk koşulları bildirebilir. Değerlendirme hataları asla bir öğeyi gizlemez — [Koşul Sistemi](#the-condition-system) bölümüne bakın. |
 | **Entegrasyon tarzı testler** | Gerçek dosya sistemi, gerçek kayıt defteri (`HKCU\Software\TestOptimizerDuck*` altında), gerçek süreç yürütme. Mock kütüphanesi yok — yalnızca elle yazılmış test ikizleri. |
@@ -323,7 +323,7 @@ public class Performance : IOptimizationCategory
 | **`context.Changes.ToApplyResult()` döndürün** | `call.Changes` içinde toplanan değişikliklerden `ApplyResult` türetir. Erken çıkıştaki başarısızlıklar dışında `ApplyResult`'ı elle oluşturmayın. |
 | **İlerlemeyi bildirin** | UI diyaloğunu güncellemek için `progress.Report(new ProcessingProgress { ... })` kullanın. |
 | **Tüm istisnaları yakalamayın** | Yukarı yayılsın. Başarı/başarısızlık `ChangeSet` içinde izlenir; `OptimizationService` istisnaları işler. |
-| **Geri alma adımlarını elle oluşturmayın** | Örnek sağlayıcılar bunu otomatik yapar (`call.Changes` içine kaydeder). `ChangeSet.Add()` ile elle kayıt yapmayın (USB durumları gibi özel sağlayıcı dışı durumlar dışında). |
+| **Geri alma adımlarını elle oluşturmayın** | Örnek sağlayıcılar bunu otomatik yapar (`call.Changes` içine kaydeder). `ChangeSet.Add()` ile elle kayıt yapmayın (USB durumları gibi özel sağlayıcı dışı durumlar dışında). Güç çağrılarını `PowerPlanChanges` ile kaydedin, elle yapmayın. |
 | **`context.Logger` kullanın** | Önemli tanılama bilgileri için günlük kaydı sağlar. |
 | **`context.Snapshot` kullanın** | `OptimizationContext.Snapshot` (`SystemInfo`) RAM, GPU, CPU, OS bilgisi verir. Koşullu mantık için kullanın. |
 | **`context.StreamService` kullanın** | Uzak kaynakları (örn. güç planları) indiren optimizasyonlar için. |
@@ -331,7 +331,7 @@ public class Performance : IOptimizationCategory
 
 <h3 id="available-service-providers">Mevcut Hizmet Sağlayıcılar</h3>
 
-Bu sınıflar günlük kaydı, hata işleme ve otomatik geri alma adımı kaydını yönetir. Her yazma/değiştirme çağrısı açık bir `OpCall` alır (`OptimizationContext` bir `OpCall`'dır), değişikliği `call.Changes` içine kaydeder ve `OpResult` döndürür. Durumsuz hizmetler statiktir (doğrudan çağırın); `Shell` için hazır özelliği kullanın.
+Bu sınıflar günlük kaydı, hata işleme ve otomatik geri alma adımı kaydını yönetir. Her yazma/değiştirme çağrısı açık bir `OpCall` alır (`OptimizationContext` bir `OpCall`'dır), değişikliği `call.Changes` içine kaydeder ve `OpResult` döndürür. İstisna yalın güç çekirdeğidir: `ILogger?` alır ve hiçbir şey kaydetmez. Durumsuz hizmetler statiktir (doğrudan çağırın); `Shell` için hazır özelliği kullanın.
 
 | Hizmet | Temel Metotlar | Neden Kullanılır |
 |---|---|---|
@@ -339,6 +339,7 @@ Bu sınıflar günlük kaydı, hata işleme ve otomatik geri alma adımı kaydı
 | **`context.Shell`**（`ShellService`） | `CMDAsync(command, call, revertCommand?)`, `PowerShellAsync(command, call, revertCommand?)`, ham çalıştırma için `QueryCMDAsync` / `QueryPowerShellAsync` | CMD veya PowerShell komutları çalıştırır. Asenkron sürümleri tercih edin. Geri alma için isteğe bağlı `revertCommand` parametresi. Standart dışı çıkış kodları için `ShellPolicy`'ye bakın. Ham `Run*` metotları değişiklik **kaydetmez**. |
 | **`ScheduledTaskService`** | `DisableTask(path, call)`, `EnableTask(path, call)`, `GetTaskEnabledState(path, call?)`, `DeleteTask(...)`, `GetAllTasks(call?)`, `RegisterTask(...)`, `RunTask(...)`, `StopTask(...)` | Windows Zamanlanmış Görevlerini yönetir. |
 | **`ServiceProcessService`** | `ChangeServiceStartupTypeAsync(item, call)`, `ChangeServiceStartupTypeAsync(items, call)`, `GetStartupTypeAsync(name, call?)` | Windows Hizmetlerini yönetir. Her zaman asenkron sürümleri kullanın. Toplu değişikliği dizi aşırı yüklemesiyle yapın. |
+| **`PowerPlanService`** (DI singleton, yalın) + **`PowerPlanChanges`** (statik kenar kaydedici) | `GetActiveSchemeId()`, `ListSchemes()`, `SetActiveScheme()`, `SetSetting()`, `ImportSchemeAsync()`, `InstallSchemeAsync()` | id'leri doğrudan okuyun, yazmalarda yalnızca logger kullanın. Çok değerli dönüşler adlandırılmış record'tur (`ActivationResult`, `SettingWriteResult`, `SchemeRefResult`, `InstallResult`). Üyelere erişin, konumsal parçalama yapmayın. Tek `InstallAsync` çağrısı tek geri alma adımını kaydeder. |
 
 > **Toplu çağrılar**: Tekil params yerine `RegistryService.Write(context, item1, item2)` ve `ServiceProcessService.ChangeServiceStartupTypeAsync([item1, item2], context)` kullanın. Bu, tek tek çağrılardan daha verimlidir.
 

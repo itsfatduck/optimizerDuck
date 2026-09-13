@@ -28,13 +28,14 @@
     - `Optimizations/Categories/` — Performance, SecurityAndPrivacy, Gpu, PowerManagement, BloatwareAndServices, UserExperience, AI (nested optimization classes)
     - `Optimizations/Models/` — `BaseOptimization`, `ApplyResult`, `OptimizationContext`, `OptimizationResult`
     - `Optimizations/Models/Services/` — `RegistryItem`, `ServiceItem` (+ `ServiceStartupType`), `ShellResult`
+    - `Optimizations/Models/Power/` — `PowerScheme`, `PowerSettingGroup`, `PowerSetting`, `PowerSource`, `PowerValueKind`, `PowerPossibleValue`, `PowerPlanError` (raw-vs-semantic-vs-display: numeric AC/DC stay numeric)
     - `Optimizations/Models/Bloatware/` — `AppXPackage`
     - `Optimizations/Models/Cleanup/` — `CleanupItem`
     - `Optimizations/Models/ScheduledTask/` — `ScheduledTaskModel`
     - `Optimizations/Models/StartupManager/` — `StartupApp`, `StartupTask`
     - `Customize/Models/` — `BaseCustomizeSetting`, `RegistryToggle`, `RegistryBinding`, `CustomizeRefreshScope`, `SettingOption`, `CustomizeControlType`, `RecommendationState`, `CustomizeRecommendationResult`
     - `Revert/` — `RevertData`, `RevertResult`
-    - `Revert/Steps/` — `RegistryRevertStep`, `ServiceRevertStep`, `ScheduledTaskRevertStep`, `ShellRevertStep`, `UsbPowerRevertStep`
+    - `Revert/Steps/` — `RegistryRevertStep`, `ServiceRevertStep`, `ScheduledTaskRevertStep`, `ShellRevertStep`, `UsbPowerRevertStep`, `PowerPlanRevertStep`, `PowerSettingRevertStep`
     - `Configuration/` — `AppSettings`
     - `UI/` — enums: `OptimizationRisk`, `OptimizationTags` (flags), `OptimizationCategoryOrder`, `CustomizeOrder`, `OptimizationSuccessResult`, `OptimizationState` (ObservableObject with relative-time display), `RiskVisual`, `ProcessingProgress`, `LanguageOption`
     - `Optimizations/Models/Services/` — also `RegistryValues` (shared value equality), `ShellPolicy` (shell success/error policy), `ShellResult`
@@ -43,11 +44,11 @@
     - `Configuration/` — `ConfigManager`, `LanguageManager`
     - `Customize/` — `CustomizeRegistry` (reflection-based discovery), `CustomizationExecutor` (debounce + sequential serialization for setting writes)
     - `Optimization/` — `OptimizationRegistry`, `OptimizationService`, `OptimizationValidation` (fail-fast Id checks at startup)
-    - `Optimization/Providers/` — `RegistryService`, `ScheduledTaskService`, `ServiceProcessService` are **static** (stateless); `ShellService` + `ProcessRunner` are DI singletons (stateful; `ShellService` reads the timeout live from settings). All take an explicit `OpCall`, record into `call.Changes`, log via `call.Logger`, return `OpResult`. `ShellMapping` centralises cmd/PowerShell argument building and result mapping.
+    - `System/Primitives/` — `RegistryService`, `ScheduledTaskService`, `ServiceProcessService` are **static** (stateless); `ShellService` + `ProcessRunner` are DI singletons (stateful; `ShellService` reads the timeout live from settings). Those four take an explicit `OpCall`, record into `call.Changes`, log via `call.Logger`, return `OpResult`. `ShellMapping` centralises cmd/PowerShell argument building and result mapping. `PowerPlanChanges` is the single edge recorder turning lean `PowerPlanService` results into `Change` + revert step + retry (categories never hand-roll power steps).
   - `Windows/Services/ScStartupTypeParser.cs` — shared parser for `sc.exe qc` START_TYPE output, used by `ServiceProcessService`.
   - `ApplicationServiceCollectionExtensions.cs` — `AddOptimizerApplication(IConfiguration)`: the whole application graph, separated from `App.xaml.cs` so a test can build it
     - `Revert/` — `RevertManager` (atomic file-based revert data persistence)
-    - `System/` — `RegistryWatcher` (+ `IRegistryWatcher`), `SystemInfoService` (defines `SystemInfo` + models), `StreamService`, `UpdaterService`, `CrossPageEventBus`, `CrossPageEvents`
+    - `System/` — `RegistryWatcher` (+ `IRegistryWatcher`), `SystemInfoService` (defines `SystemInfo` + models), `StreamService`, `UpdaterService`, `CrossPageEventBus`, `CrossPageEvents`, `PowerPlanService` (lean native core: reads take ids, writes take `ILogger? = null` and record nothing; single owner of all `powrprof.dll` interop)
     - `UI/` — `BloatwareService`, `DiskCleanupService`, `StartupManagerService`
   - `UI/` — XAML pages, ViewModels, windows, controls, dialogs, styles
   - `Common/` — extensions, helpers, converters:
@@ -76,12 +77,12 @@
 - **New customize settings**: Same nesting pattern inside `Domain/Customize/Categories/`, extend `BaseCustomizeSetting`, decorate with `[CustomizeSetting(Section = ..., Icon = ..., Recommendation = ..., Condition = typeof(...)?)]`. `Icon` is required (`SymbolRegular` enum). `Section` can be a string or enum value. `Recommendation` can be `On`, `Off`, `Depends`, `Experimental`, or `None`.
 - **Category classes**: Decorate with `[OptimizationCategory(typeof(PageClass))]` or `[CustomizeCategory(PageType = typeof(PageClass))]`.
 - **Discovery**: `ReflectionHelper.FindImplementationsInLoadedAssemblies<T>()` scans assemblies whose name starts with `optimizerDuck` — no DI registration array to update. Results are cached in `_implementationCache`.
-- **Provider services**: stateless services are static (`RegistryService`, `ServiceProcessService`, `ScheduledTaskService`) — call directly. `ShellService` + `ProcessRunner` are DI singletons, reached from optimizations as `context.Shell`. All take an explicit `OpCall`, record into `call.Changes`, return `OpResult`.
+- **Provider services**: stateless services are static (`RegistryService`, `ServiceProcessService`, `ScheduledTaskService`) — call directly. `ShellService` + `ProcessRunner` are DI singletons, reached from optimizations as `context.Shell`. All take an explicit `OpCall`, record into `call.Changes`, return `OpResult`. Exception: `PowerPlanService` is a lean DI singleton — reads take ids, writes take `ILogger? = null` and record nothing (named record results); `PowerPlanChanges` records at the edge instead.
 - **Results**: Optimizations end `ApplyAsync` with `return context.Changes.ToApplyResult();`. Do not manually construct `ApplyResult` except for early-out failures.
 - **Single execution path**: `BaseOptimization` + `OptimizationContext` (`OpCall`) + static providers + `ShellService`, orchestrated by `OptimizationService`. There is no second framework — do not add one, and do not write a second implementation of an existing Windows operation.
-- **One implementation per Windows operation**: `RegistryService`/`ServiceProcessService`/`ScheduledTaskService`/`ShellService` are the single source of truth (plus the shared `ScStartupTypeParser`, `RegistryValues`, `ShellMapping`). Fix behaviour there, not in a copy.
+- **One implementation per Windows operation**: `RegistryService`/`ServiceProcessService`/`ScheduledTaskService`/`ShellService` are the single source of truth (plus the shared `ScStartupTypeParser`, `RegistryValues`, `ShellMapping`). `PowerPlanService` is the single owner of all `powrprof.dll` interop. Fix behaviour there, not in a copy.
 - **DI**: register through `AddOptimizerApplication(configuration)` (the whole app graph); `App.xaml.cs` only builds the host. The host sets `ValidateOnBuild`/`ValidateScopes`, so a broken registration fails at startup instead of at Apply time — keep it that way.
-- **Per-step failure policy**: providers record a failed `Change` with an error and (where a retry can help) a retry action; they do not throw. Only truly unrecoverable state throws. `OptimizationService` persists partial work with `CancellationToken.None` and builds the `OptimizationResult`.
+- **Per-step failure policy**: providers record a failed `Change` with an error and (where a retry can help) a retry action; they do not throw. Power failures record the same way via `PowerPlanChanges` (the service itself only returns diagnostics). Only truly unrecoverable state throws. `OptimizationService` persists partial work with `CancellationToken.None` and builds the `OptimizationResult`.
 - **Preloading**: `OptimizationRegistry.PreloadOptimizationsAsync()` / `EnsurePreloadedAsync()` (and `CustomizeRegistry.PreloadCategoriesAsync()` / `EnsurePreloadedAsync()`) run reflection discovery on a background thread. `App.xaml.cs` preloads at startup; the Optimize/Customize pages call `EnsurePreloadedAsync()` before binding.
 
 ## Condition System (Compatibility Gating)
@@ -96,7 +97,7 @@
 - **Atomic writes**: `RevertManager` writes to `.tmp` via `FileStream(WriteThrough)` + `Flush(flushToDisk: true)`, then `File.Replace` for crash safety. Stale `.tmp` files are swept at startup (`RemoveOrphanedTempFiles`).
 - **Concurrent access**: Per-file `SemaphoreSlim` locks with 30-second timeout prevent race conditions. Lock entries are never disposed while in use.
 - **Compact layout**: only successful steps persist, each with a fresh index; no null gaps. Re-apply appends new entries; recovered retry steps append via `AppendRevertStepAsync` (never overwrite — LIFO revert still ends at the original backup).
-- **Step types**: `RegistryRevertStep`, `ServiceRevertStep`, `ScheduledTaskRevertStep`, `ShellRevertStep`, `UsbPowerRevertStep`. Each verifies its own effect inside `ExecuteAsync` (registry read-back, service re-query, task state re-check). Access-denied is failure, never success. Missing `OriginalEnabled` throws (fail-closed).
+- **Step types**: `RegistryRevertStep`, `ServiceRevertStep`, `ScheduledTaskRevertStep`, `ShellRevertStep`, `UsbPowerRevertStep`, `PowerPlanRevertStep`, `PowerSettingRevertStep`. Each verifies its own effect inside `ExecuteAsync` (registry read-back, service re-query, task state re-check, power re-read). Access-denied is failure, never success. Missing `OriginalEnabled` throws (fail-closed).
 - **Unknown types**: persisted data with an unregistered step type becomes a failing step with a clear message (never silently skipped); raw payload round-trips.
 - **Step registry**: Revert step deserialization uses reflection-based `_stepRegistry` (`ConcurrentDictionary`). New step types auto-register by implementing `IRevertStep` with a static `FromData(JObject)` method.
 - **Retry**: `OptimizationService.RetryFailedStepsWithResultsAsync()` re-invokes `Retry` with a fresh `OpCall` and persists recovered steps via `AppendRevertStepAsync`.

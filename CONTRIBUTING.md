@@ -207,7 +207,7 @@ optimizerDuck.slnx                          # Solution file (.slnx format)
 | Decision | Rationale |
 |---|---|
 | **Reflection-based discovery** | No DI registration arrays to update. `ReflectionHelper.FindImplementationsInLoadedAssemblies<T>()` scans `optimizerDuck.*` assemblies. New optimizations/settings are auto-discovered. |
-| **Provider services** | Stateless services (`RegistryService`, `ScheduledTaskService`, `ServiceProcessService`) are **static** — call them directly, passing the explicit `OpCall` (`context`). `ShellService` is a DI singleton (it holds the live shell timeout) and reaches optimizations as `context.Shell`. |
+| **Provider services** | Stateless services (`RegistryService`, `ScheduledTaskService`, `ServiceProcessService`) are **static** — call them directly, passing the explicit `OpCall` (`context`). `ShellService` is a DI singleton (it holds the live shell timeout) and reaches optimizations as `context.Shell`. Exception: `PowerPlanService` is a lean DI singleton — reads take ids, writes take `ILogger?` and record nothing (named record results); `PowerPlanChanges` records at the edge instead. |
 | **File-based revert tracking** | Applied state = file exists on disk (`%localappdata%\optimizerDuck\Revert\{id}.json`). No database. Atomic writes via `File.Replace()`. |
 | **Condition system (fail-open)** | Optimizations and settings can declare compatibility conditions. Evaluation failures never hide an item — see [The Condition System](#the-condition-system). |
 | **Integration-style tests** | Real filesystem, real registry (under `HKCU\Software\TestOptimizerDuck*`), real process execution. No mocking libraries — hand-written test doubles only. |
@@ -322,7 +322,7 @@ public class Performance : IOptimizationCategory
 | **Return `context.Changes.ToApplyResult()`** | Maps recorded changes to `ApplyResult`: any success is success; total failure carries the first error. Don't construct `ApplyResult` manually. |
 | **Report progress** | Use `progress.Report(new ProcessingProgress { ... })` to update the UI dialog. |
 | **Don't catch all exceptions** | Let them bubble up. `ChangeSet` tracks per-step success/failure; `OptimizationService` handles exceptions. |
-| **Don't manually create revert steps** | Static providers record `Change` entries (with revert steps) into `context.Changes` automatically. |
+| **Don't manually create revert steps** | Static providers record `Change` entries (with revert steps) into `context.Changes` automatically. Power callers record via `PowerPlanChanges`, never by hand. |
 | **Use `context.Logger`** | The optimization context provides a logger for important diagnostic info. |
 | **Use `context.Snapshot`** | `OptimizationContext.Snapshot` (a `SystemInfo`) gives system info: memory, GPU, CPU, Windows, firmware, security, power, storage. Use it for conditional logic. |
 | **Use `context.StreamService`** | For optimizations that need to download remote resources (e.g. power plans). |
@@ -339,12 +339,13 @@ All of them handle logging, error handling, and revert recording through the exp
 | **`RegistryService`** (static) | `Write()`, `Read<T>()`, `DeleteValue()`, `CreateSubKey()`, `DeleteSubKeyTree()`, `KeyExists()`, `CleanupEmptyKeys()` | Read/write/delete registry keys. Backs up original values for revert. Supports batch writes via params array. |
 | **`context.Shell`** (`ShellService`) | `CMDAsync()`, `PowerShellAsync()` (record a change), `QueryCMDAsync()`, `QueryPowerShellAsync()` (read-only) | Run CMD or PowerShell commands. Prefer the async variants. Pass a `revertCommand` string, or an `IRevertStep`, for undo. See `ShellPolicy` for non-standard exit codes. |
 | **`ScheduledTaskService`** (static) | `DisableTask()`, `EnableTask()`, `GetTaskEnabledState()`, `DeleteTask()`, `GetAllTasks()`, `RegisterTask()`, `RunTask()`, `StopTask()` | Manage Windows Scheduled Tasks. |
-| **`ServiceProcessService`** (static) | `ChangeServiceStartupTypeAsync()`, `GetStartupTypeAsync()` | Manage Windows Services. Always use async variants. Supports batch changes via array overload. |
+| **`PowerPlanService`** (DI singleton, lean) + **`PowerPlanChanges`** (static edge recorder) | `GetActiveSchemeId()`, `ListSchemes()`, `SetActiveScheme()`, `SetSetting()`, `ImportSchemeAsync()`, `InstallSchemeAsync()` | Read ids directly; write with a logger only. Multi-value returns are named records (`ActivationResult`, `SettingWriteResult`, `SchemeRefResult`, `InstallResult`) — read members, never deconstruct positionally. One `InstallAsync` call records the single revert step. |
 
 > **Methods accepting multiple items via params**: Most write/change methods accept a params array of items (e.g., `RegistryService.Write(context, item1, item2, item3)`). This is more efficient than multiple individual calls.
 
 Every mutating call takes the `OpCall` explicitly and returns an
-`OpResult`. Reads take an optional call for logging
+`OpResult`. The exception is the lean power core: it takes `ILogger?` and records nothing.
+Reads take an optional call for logging
 (`RegistryService.Read<T>(item, context)` or `RegistryService.Read<T>(item)` for silent reads).
 
 ```csharp

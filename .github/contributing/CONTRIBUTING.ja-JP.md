@@ -207,7 +207,7 @@ optimizerDuck.slnx                          # ソリューションファイル�
 | 判断 | 理由 |
 |---|---|
 | **リフレクションによる自動検出** | DI 登録配列を更新する必要がありません。`ReflectionHelper.FindImplementationsInLoadedAssemblies<T>()` が `optimizerDuck.*` アセンブリをスキャンします。新しい最適化や設定は自動的に検出されます。 |
-| **プロバイダーサービス** | ステートレスなサービス（`RegistryService`、`ScheduledTaskService`、`ServiceProcessService`）は **static** です — 明示的な `OpCall`（`context`）で直接呼びます。`ShellService`（+ `ProcessRunner`）は DI シングルトンです（ライブ設定状態を持つ）。ドメインコードは `context.Shell`（`ShellService`）を使います。 |
+| **プロバイダーサービス** | ステートレスなサービス（`RegistryService`、`ScheduledTaskService`、`ServiceProcessService`）は **static** です — 明示的な `OpCall`（`context`）で直接呼びます。`ShellService`（+ `ProcessRunner`）は DI シングルトンです（ライブ設定状態を持つ）。ドメインコードは `context.Shell`（`ShellService`）を使います。例外：`PowerPlanService` は lean な DI シングルトンです（読み取りは id のみ、書き込みは `ILogger?` のみで何も記録しません。名前付き record 結果）。記録は `PowerPlanChanges` がエッジで行います。 |
 | **ファイルベースのリバート追跡** | 適用状態 = ディスク上にファイルが存在する（`%localappdata%\optimizerDuck\Revert\{id}.json`）。データベースは使用しません。`File.Replace()` によるアトミック書き込み。 |
 | **条件システム（フェイルオープン）** | 最適化や設定は互換性条件を宣言できます。評価の失敗がアイテムを隠すことはありません — [条件システム](#the-condition-system) を参照。 |
 | **統合スタイルのテスト** | 実際のファイルシステム、実際のレジストリ（`HKCU\Software\TestOptimizerDuck*` 配下）、実際のプロセス実行。モックライブラリは使用せず、手書きのテストダブルのみ。 |
@@ -322,7 +322,7 @@ public class Performance : IOptimizationCategory
 | **`context.Changes.ToApplyResult()` を返す** | `call.Changes`（`ChangeSet`）に集められた変更から `ApplyResult` を導出。早期終了の失敗時を除き、手動で `ApplyResult` を構築しないこと。 |
 | **進捗を報告する** | `progress.Report(new ProcessingProgress { ... })` で UI ダイアログを更新。 |
 | **すべての例外をキャッチしない** | 例外は上位に伝播。プロバイダーが `OpResult` に成功/失敗を記録し、`OptimizationService` が `ChangeSet` から処理。 |
-| **リバートステップを手動で作成しない** | インスタンス型プロバイダーが `call.Changes` への記録経由で自動的に行う。 |
+| **リバートステップを手動で作成しない** | インスタンス型プロバイダーが `call.Changes` への記録経由で自動的に行う。電源呼び出しは `PowerPlanChanges` 経由で記録し、手動で行わない。 |
 | **`context.Logger` を使用する** | 重要な診断情報の記録に使用。 |
 | **`context.Snapshot` を使用する** | `OptimizationContext.Snapshot`（`SystemInfo`）が RAM、GPU、CPU、OS 情報を提供。条件分岐に使用。 |
 | **`context.StreamService` を使用する** | リモートリソース（電源プランなど）をダウンロードする最適化向け。 |
@@ -330,7 +330,7 @@ public class Performance : IOptimizationCategory
 
 <h3 id="available-service-providers">利用可能なサービスプロバイダー</h3>
 
-ステートレスなサービスは **static** で直接呼びます（`new` 不要・割り当てなし）。`Shell` は `BaseOptimization`／`BaseCustomizeSetting` のプロパティを使います。これらのクラスはログ記録、エラー処理、`call.Changes` への変更記録を担当し、各操作は `OpResult` を返します。`ShellService` と `ProcessRunner` は DI シングルトンです（タイムアウトは設定からライブ読み取り）。
+ステートレスなサービスは **static** で直接呼びます（`new` 不要・割り当てなし）。`Shell` は `BaseOptimization`／`BaseCustomizeSetting` のプロパティを使います。これらのクラスはログ記録、エラー処理、`call.Changes` への変更記録を担当し、各操作は `OpResult` を返します。例外は lean な電源コアです：`ILogger?` を取り、何も記録しません。`ShellService` と `ProcessRunner` は DI シングルトンです（タイムアウトは設定からライブ読み取り）。
 
 | サービス | 主要メソッド | 使用理由 |
 |---|---|---|
@@ -338,6 +338,7 @@ public class Performance : IOptimizationCategory
 | **`context.Shell`**（`ShellService`） | `CMDAsync()`、`PowerShellAsync()`、`CMD()`（同期）、`PowerShell()`（同期）、`QueryCMDAsync()`／`QueryPowerShellAsync()`（記録なしの素の実行） | CMD / PowerShell コマンドの実行。非同期版を推奨。元に戻すコマンドを `revertCommand` で指定可能。非標準終了コードは `ShellPolicy` を参照。 |
 | **`ScheduledTaskService`**（static） | `DisableTask(path, context)`、`EnableTask(path, context)`、`GetTaskEnabledState()`、`DeleteTask()`、`GetAllTasks()`、`RegisterTask()`、`RunTask()`、`StopTask()` | Windows スケジュールタスクの管理。 |
 | **`ServiceProcessService`**（static） | `ChangeServiceStartupTypeAsync(item, context)`（単体／配列）、`GetStartupTypeAsync()` | Windows サービスの管理。常に非同期版を使用。配列でバッチ変更可能。 |
+| **`PowerPlanService`**（DI シングルトン、lean）+ **`PowerPlanChanges`**（static エッジ記録） | `GetActiveSchemeId()`、`ListSchemes()`、`SetActiveScheme()`、`SetSetting()`、`ImportSchemeAsync()`、`InstallSchemeAsync()` | id を直接読み、書き込みはロガーのみ。複数値の戻り値は名前付き record（`ActivationResult`、`SettingWriteResult`、`SchemeRefResult`、`InstallResult`）。メンバーで読み、位置分解しない。`InstallAsync` 1 回で単一のリバートステップを記録。 |
 
 > **params 配列で複数アイテムを受け付けるメソッド**：ほとんどの書き込み/変更メソッドは params 配列を受け付けます（例：`RegistryService.Write(context, item1, item2, item3)`）。個別呼び出しより効率的です。
 
