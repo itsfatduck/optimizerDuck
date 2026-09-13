@@ -1367,6 +1367,9 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="Enum.VbsState.Unavailable" xml:space="preserve">
     <value>Unavailable</value>
   </data>
+  <data name="Enum.MemoryType.Ddr" xml:space="preserve">
+    <value>DDR</value>
+  </data>
   <data name="Enum.MemoryType.Ddr2" xml:space="preserve">
     <value>DDR2</value>
   </data>
@@ -1384,6 +1387,12 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   </data>
   <data name="Enum.MemoryType.Other" xml:space="preserve">
     <value>Other</value>
+  </data>
+  <data name="Enum.MemoryType.Lpddr" xml:space="preserve">
+    <value>LPDDR</value>
+  </data>
+  <data name="Enum.MemoryType.Hbm" xml:space="preserve">
+    <value>HBM</value>
   </data>
   <data name="Enum.StorageMediaType.Hdd" xml:space="preserve">
     <value>HDD</value>

@@ -2915,6 +2915,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DDR.
+        /// </summary>
+        internal static string Enum_MemoryType_Ddr {
+            get {
+                return ResourceManager.GetString("Enum.MemoryType.Ddr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DDR2.
         /// </summary>
         internal static string Enum_MemoryType_Ddr2 {
@@ -2947,6 +2956,24 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Enum_MemoryType_Ddr5 {
             get {
                 return ResourceManager.GetString("Enum.MemoryType.Ddr5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HBM.
+        /// </summary>
+        internal static string Enum_MemoryType_Hbm {
+            get {
+                return ResourceManager.GetString("Enum.MemoryType.Hbm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LPDDR.
+        /// </summary>
+        internal static string Enum_MemoryType_Lpddr {
+            get {
+                return ResourceManager.GetString("Enum.MemoryType.Lpddr", resourceCulture);
             }
         }
         

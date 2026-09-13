@@ -64,10 +64,13 @@ public enum VbsState
 public enum MemoryType
 {
     Unknown,
+    Ddr,
     Ddr2,
     Ddr3,
     Ddr4,
     Ddr5,
+    Lpddr,
+    Hbm,
     Sdram,
     Other,
 }
@@ -169,6 +172,7 @@ public sealed record GpuInfo
 public sealed record MemoryModuleInfo
 {
     public double CapacityGB { get; init; }
+    public long CapacityBytes { get; init; }
     public int? SpeedMTps { get; init; }
     public MemoryType Type { get; init; } = MemoryType.Unknown;
     public string? Manufacturer { get; init; }

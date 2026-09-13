@@ -1,4 +1,7 @@
+using System.Globalization;
 using Microsoft.Extensions.Logging.Abstractions;
+using optimizerDuck.Common.Converters;
+using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.System;
 
 namespace optimizerDuck.Test.Services;
@@ -67,17 +70,68 @@ public class SystemInfoTests
     }
 
     [Theory]
+    [InlineData(0x12, MemoryType.Ddr)]
     [InlineData(0x13, MemoryType.Ddr2)]
+    [InlineData(0x14, MemoryType.Ddr2)]
     [InlineData(0x18, MemoryType.Ddr3)]
     [InlineData(0x1A, MemoryType.Ddr4)]
     [InlineData(0x22, MemoryType.Ddr5)]
+    [InlineData(0x1B, MemoryType.Lpddr)]
+    [InlineData(0x1C, MemoryType.Lpddr)]
+    [InlineData(0x1D, MemoryType.Lpddr)]
+    [InlineData(0x1E, MemoryType.Lpddr)]
+    [InlineData(0x23, MemoryType.Lpddr)]
+    [InlineData(0x20, MemoryType.Hbm)]
+    [InlineData(0x21, MemoryType.Hbm)]
     [InlineData(0x0F, MemoryType.Sdram)]
+    [InlineData(0x10, MemoryType.Sdram)]
+    [InlineData(0x11, MemoryType.Sdram)]
     [InlineData(0, MemoryType.Unknown)]
+    [InlineData(0x02, MemoryType.Unknown)]
     [InlineData(null, MemoryType.Unknown)]
+    [InlineData(0x1F, MemoryType.Other)]
     [InlineData(0x99, MemoryType.Other)]
     public void MapMemoryType_MapsSmbiosCodes(int? code, MemoryType expected)
     {
         Assert.Equal(expected, MemoryProvider.MapMemoryType(code));
+    }
+
+    [Theory]
+    [InlineData(0L, "0.0")]
+    [InlineData(1073741824L, "1.0")]
+    [InlineData(17179869184L, "16.0")]
+    public void BytesToGB_FormatsGigabytes(long bytes, string expected)
+    {
+        var converter = new BytesToGBConverter();
+        Assert.Equal(
+            expected,
+            converter.Convert(bytes, typeof(string), null, CultureInfo.InvariantCulture)
+        );
+    }
+
+    [Fact]
+    public void BytesToGB_Null_MapsUnknown()
+    {
+        var converter = new BytesToGBConverter();
+        Assert.Equal(
+            Loc.Instance["Common.Unknown"],
+            converter.Convert(null, typeof(string), null, CultureInfo.InvariantCulture)
+        );
+    }
+
+    [Fact]
+    public void LiveMemory_TotalsPositive()
+    {
+        var mem = MemoryProvider.Get();
+        Assert.True(mem.TotalBytes > 0);
+    }
+
+    [Fact]
+    public void LiveStorage_VolumesHaveSizes()
+    {
+        var storage = DiskProvider.GetFull();
+        Assert.NotEmpty(storage.Volumes);
+        Assert.All(storage.Volumes, v => Assert.True(v.TotalBytes > 0));
     }
 
     [Theory]
@@ -148,10 +202,26 @@ public class SystemInfoTests
     [Theory]
     [InlineData("Samsung SSD 980 PRO NVMe", StorageMediaType.Nvme)]
     [InlineData("WD Blue 3D NAND SSD", StorageMediaType.Ssd)]
+    [InlineData("Crucial MX500 solid state disk", StorageMediaType.Ssd)]
+    [InlineData("WD Red Plus HDD", StorageMediaType.Hdd)]
     [InlineData("Seagate BarraCuda", StorageMediaType.Unknown)]
+    [InlineData("SATA SSD", StorageMediaType.Ssd)]
     public void InferFromModel_DoesNotGuess(string model, StorageMediaType expected)
     {
         Assert.Equal(expected, DiskProvider.InferFromModel(model));
+    }
+
+    [Theory]
+    [InlineData("Fixed hard disk media", "NVMe", StorageMediaType.Nvme)]
+    [InlineData("Fixed hard disk media", "IDE", StorageMediaType.Unknown)]
+    [InlineData(null, null, StorageMediaType.Unknown)]
+    public void MapDriveMedia_TrustsNvmeSsdKeywordsOnly(
+        string? mediaType,
+        string? interfaceType,
+        StorageMediaType expected
+    )
+    {
+        Assert.Equal(expected, DiskProvider.MapDriveMedia(mediaType, interfaceType));
     }
 
     [Fact]

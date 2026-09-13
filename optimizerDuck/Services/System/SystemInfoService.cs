@@ -63,6 +63,27 @@ internal static class WmiHelper
         ScopeCache.Clear();
     }
 
+    // ponytail: static log hook (same pattern as PowerReader.Configure); per-instance wiring if a second writer appears.
+    private static Action<string, Exception>? _onQueryFailed;
+
+    /// <summary>Wires a debug sink for failed WMI queries. Null detaches.</summary>
+    internal static void ConfigureFailureLogger(Action<string, Exception>? handler)
+    {
+        _onQueryFailed = handler;
+    }
+
+    private static void ReportFailure(string query, string namespacePath, Exception ex)
+    {
+        try
+        {
+            _onQueryFailed?.Invoke($"{query} [{namespacePath}]: {ex.Message}", ex);
+        }
+        catch
+        {
+            // Logging must never break detection.
+        }
+    }
+
     /// <summary>
     /// Executes a WMI query and maps the live objects to <typeparamref name="T"/>.
     /// Every <see cref="ManagementObject"/> is disposed before return.
@@ -87,8 +108,9 @@ internal static class WmiHelper
             items = results.Cast<ManagementObject>().ToArray();
             return selector(items);
         }
-        catch
+        catch (Exception ex)
         {
+            ReportFailure(query, namespacePath, ex);
             return default;
         }
         finally
@@ -123,8 +145,9 @@ internal static class WmiHelper
                 return default!;
             return selector(items[0]);
         }
-        catch
+        catch (Exception ex)
         {
+            ReportFailure(query, namespacePath, ex);
             return default!;
         }
         finally
@@ -351,13 +374,13 @@ internal static class CpuProvider
                         Virt: WmiHelper.GetBool(mo, "VirtualizationFirmwareEnabled")
                     )
             );
-            if (row is { } r)
+            if (row != default)
             {
-                cores = r.Cores;
-                maxMHz = r.MaxMHz;
-                l2kb = r.L2;
-                l3kb = r.L3;
-                virtualization = r.Virt;
+                cores = row.Cores;
+                maxMHz = row.MaxMHz;
+                l2kb = row.L2;
+                l3kb = row.L3;
+                virtualization = row.Virt;
             }
 
             return new CpuInfo
@@ -416,8 +439,9 @@ internal static class MemoryProvider
     {
         try
         {
-            var modules = _cachedModules.Value;
+            // Totals first: empty/failed module enumeration never zeroes live totals.
             var status = NativeMemory.GetMemoryStatus();
+            var modules = _cachedModules.Value;
             if (status is not { } s || s.ullTotalPhys == 0)
                 return FallbackFromModules(modules);
 
@@ -442,7 +466,8 @@ internal static class MemoryProvider
         // GlobalMemoryStatusEx failed: report installed capacity, zero live data.
         long total = 0;
         foreach (var m in modules)
-            total += (long)(m.CapacityGB * 1024 * 1024 * 1024);
+            total +=
+                m.CapacityBytes > 0 ? m.CapacityBytes : (long)(m.CapacityGB * 1024 * 1024 * 1024);
         return new MemoryInfo
         {
             TotalBytes = total,
@@ -486,61 +511,58 @@ internal static class MemoryProvider
 
     private static IReadOnlyList<MemoryModuleInfo> LoadPhysicalModules()
     {
-        try
-        {
-            var modules =
-                WmiHelper.Query(
-                    "SELECT Capacity, Speed, ConfiguredClockSpeed, SMBIOSMemoryType, Manufacturer, PartNumber, DeviceLocator FROM Win32_PhysicalMemory",
-                    static items =>
+        // Null = WMI failed: throw so the Lazy retries on next access.
+        // Empty = soldered-in RAM with no rows: valid, cached as-is.
+        return WmiHelper.Query(
+                "SELECT Capacity, Speed, ConfiguredClockSpeed, SMBIOSMemoryType, Manufacturer, PartNumber, DeviceLocator FROM Win32_PhysicalMemory",
+                static items =>
+                {
+                    var list = new List<MemoryModuleInfo>(items.Count);
+                    foreach (var mem in items)
                     {
-                        var list = new List<MemoryModuleInfo>(items.Count);
-                        foreach (var mem in items)
-                        {
-                            var capacityBytes = WmiHelper.GetLong(mem, "Capacity") ?? 0;
-                            if (capacityBytes <= 0)
-                                continue;
-                            var configured = WmiHelper.GetInt(mem, "ConfiguredClockSpeed");
-                            var memType = MapMemoryType(WmiHelper.GetInt(mem, "SMBIOSMemoryType"));
-                            var speed = WmiHelper.GetInt(mem, "Speed");
-                            list.Add(
-                                new MemoryModuleInfo
-                                {
-                                    CapacityGB = Math.Round(
-                                        capacityBytes / (1024.0 * 1024.0 * 1024.0),
-                                        2
-                                    ),
-                                    SpeedMTps =
-                                        configured is > 0 ? configured
-                                        : speed is > 0 ? speed
-                                        : null,
-                                    Type = memType,
-                                    Manufacturer = WmiHelper.GetString(mem, "Manufacturer"),
-                                    PartNumber = WmiHelper.GetString(mem, "PartNumber"),
-                                    Slot = WmiHelper.GetString(mem, "DeviceLocator"),
-                                }
-                            );
-                        }
-                        return list;
+                        var capacityBytes = WmiHelper.GetLong(mem, "Capacity") ?? 0;
+                        if (capacityBytes <= 0)
+                            continue;
+                        var configured = WmiHelper.GetInt(mem, "ConfiguredClockSpeed");
+                        var memType = MapMemoryType(WmiHelper.GetInt(mem, "SMBIOSMemoryType"));
+                        var speed = WmiHelper.GetInt(mem, "Speed");
+                        list.Add(
+                            new MemoryModuleInfo
+                            {
+                                CapacityGB = Math.Round(
+                                    capacityBytes / (1024.0 * 1024.0 * 1024.0),
+                                    2
+                                ),
+                                CapacityBytes = capacityBytes,
+                                SpeedMTps =
+                                    configured is > 0 ? configured
+                                    : speed is > 0 ? speed
+                                    : null,
+                                Type = memType,
+                                Manufacturer = WmiHelper.GetString(mem, "Manufacturer"),
+                                PartNumber = WmiHelper.GetString(mem, "PartNumber"),
+                                Slot = WmiHelper.GetString(mem, "DeviceLocator"),
+                            }
+                        );
                     }
-                ) ?? new List<MemoryModuleInfo>();
-            return modules;
-        }
-        catch
-        {
-            return [];
-        }
+                    return list;
+                }
+            ) ?? throw new InvalidOperationException("Win32_PhysicalMemory query failed.");
     }
 
-    /// <summary>SMBIOS memory-type codes (DMTF). Unlisted/zero = Unknown, never guessed.</summary>
+    /// <summary>SMBIOS memory-type codes (DMTF DSP0134). Unspecified = Unknown, unlisted = Other, never guessed.</summary>
     internal static MemoryType MapMemoryType(int? code)
     {
         return code switch
         {
-            0x13 => MemoryType.Ddr2,
+            0x12 => MemoryType.Ddr,
+            0x13 or 0x14 or 0x19 => MemoryType.Ddr2,
             0x18 => MemoryType.Ddr3,
             0x1A => MemoryType.Ddr4,
             0x22 => MemoryType.Ddr5,
-            0x0F or 0x10 or 0x11 or 0x12 => MemoryType.Sdram,
+            0x1B or 0x1C or 0x1D or 0x1E or 0x23 => MemoryType.Lpddr,
+            0x20 or 0x21 or 0x24 => MemoryType.Hbm,
+            0x0F or 0x10 or 0x11 => MemoryType.Sdram,
             null or 0x00 or 0x02 => MemoryType.Unknown,
             _ => MemoryType.Other,
         };
@@ -706,13 +728,15 @@ internal static class DiskProvider
         StorageMediaType MediaType
     );
 
-    // Physical topology changes ~never at runtime: resolve once, reuse everywhere.
-    private static readonly Lazy<IReadOnlyList<PhysicalDiskInfo>> _cachedDisks = new(
-        LoadPhysicalDisks,
-        LazyThreadSafetyMode.PublicationOnly
-    );
-    private static readonly Lazy<IReadOnlyDictionary<string, PhysicalDiskInfo>> _cachedDriveMap =
-        new(BuildDriveToDiskMap, LazyThreadSafetyMode.PublicationOnly);
+    // Physical topology changes ~never at runtime: cache successes, retry failures.
+    // The fast (2s-tick) path only reads these fields and never triggers a load.
+    private static readonly object _cacheLock = new();
+    private static IReadOnlyList<PhysicalDiskInfo>? _cachedDisks;
+    private static IReadOnlyDictionary<string, PhysicalDiskInfo>? _cachedDriveMap;
+    private static readonly IReadOnlyDictionary<string, PhysicalDiskInfo> EmptyMap = new Dictionary<
+        string,
+        PhysicalDiskInfo
+    >(StringComparer.OrdinalIgnoreCase);
 
     /// <summary>Full scan (first load / manual refresh): WMI topology + live sizes.</summary>
     public static StorageInfo GetFull()
@@ -729,11 +753,46 @@ internal static class DiskProvider
         return BuildVolumes(resolveUnmapped: false);
     }
 
+    private static IReadOnlyList<PhysicalDiskInfo> GetOrLoadDisks()
+    {
+        if (_cachedDisks is { Count: > 0 } cached)
+            return cached;
+        lock (_cacheLock)
+        {
+            if (_cachedDisks is { Count: > 0 } fresh)
+                return fresh;
+            // Empty/failed loads are served once but never pinned: next full scan retries.
+            var loaded = LoadPhysicalDisks();
+            if (loaded.Count > 0)
+                _cachedDisks = loaded;
+            return loaded;
+        }
+    }
+
+    private static IReadOnlyDictionary<string, PhysicalDiskInfo> GetOrLoadDriveMap(
+        IReadOnlyList<PhysicalDiskInfo> disks
+    )
+    {
+        if (_cachedDriveMap is { Count: > 0 } cached)
+            return cached;
+        lock (_cacheLock)
+        {
+            if (_cachedDriveMap is { Count: > 0 } fresh)
+                return fresh;
+            var built = BuildDriveToDiskMap(disks);
+            if (built.Count > 0)
+                _cachedDriveMap = built;
+            return built;
+        }
+    }
+
     private static StorageInfo BuildVolumes(bool resolveUnmapped)
     {
         try
         {
-            var driveMap = _cachedDriveMap.Value;
+            // Fast path: cached topology only, zero new WMI queries.
+            var disks = resolveUnmapped ? GetOrLoadDisks() : _cachedDisks ?? [];
+            var driveMap = resolveUnmapped ? GetOrLoadDriveMap(disks) : _cachedDriveMap ?? EmptyMap;
             var volumes = new List<StorageVolume>();
             foreach (var drive in DriveInfo.GetDrives())
             {
@@ -742,7 +801,7 @@ internal static class DiskProvider
                 {
                     if (!drive.IsReady)
                         continue;
-                    volume = BuildVolume(drive, driveMap, resolveUnmapped);
+                    volume = BuildVolume(drive, disks, driveMap, resolveUnmapped);
                 }
                 catch
                 {
@@ -762,6 +821,7 @@ internal static class DiskProvider
 
     private static StorageVolume BuildVolume(
         DriveInfo drive,
+        IReadOnlyList<PhysicalDiskInfo> disks,
         IReadOnlyDictionary<string, PhysicalDiskInfo> driveMap,
         bool resolveUnmapped
     )
@@ -771,22 +831,18 @@ internal static class DiskProvider
         driveMap.TryGetValue(key, out var disk);
 
         if (disk is null && resolveUnmapped)
-            disk = ResolveViaAssociators(letter);
+            disk = ResolveViaAssociators(disks, letter);
 
         var media = disk?.MediaType ?? StorageMediaType.Unknown;
         if (media == StorageMediaType.Unknown && disk?.Model is { } model)
             media = InferFromModel(model);
-        if (media is StorageMediaType.Unknown or StorageMediaType.Ssd)
+        if (media == StorageMediaType.Unknown)
         {
-            // Seek-penalty ioctl is cheap and distinguishes SSD/HDD reliably;
-            // NVMe comes from the topology/model path above, never from here.
+            // Seek-penalty ioctl splits SSD/HDD reliably; NVMe comes only
+            // from the topology/model path above, never from here.
             var probed = DiskMediaDetector.Detect(drive.Name);
             if (probed != StorageMediaType.Unknown)
-                media =
-                    probed == StorageMediaType.Ssd && media == StorageMediaType.Unknown
-                        ? StorageMediaType.Ssd
-                    : media == StorageMediaType.Unknown ? probed
-                    : media;
+                media = probed;
         }
 
         return new StorageVolume
@@ -808,10 +864,24 @@ internal static class DiskProvider
         var lower = model.ToLowerInvariant();
         if (lower.Contains("nvme"))
             return StorageMediaType.Nvme;
-        if (lower.Contains("ssd"))
+        if (lower.Contains("ssd") || lower.Contains("solid state"))
             return StorageMediaType.Ssd;
         if (lower.Contains("hdd") || lower.Contains("hard disk"))
             return StorageMediaType.Hdd;
+        return StorageMediaType.Unknown;
+    }
+
+    /// <summary>
+    /// Win32_DiskDrive string fields: trusted for NVMe/SSD keywords only, never HDD.
+    /// A wrong vendor value can only upgrade Unknown, never override topology.
+    /// </summary>
+    internal static StorageMediaType MapDriveMedia(string? mediaType, string? interfaceType)
+    {
+        var combined = $"{mediaType} {interfaceType}".ToLowerInvariant();
+        if (combined.Contains("nvme"))
+            return StorageMediaType.Nvme;
+        if (combined.Contains("ssd") || combined.Contains("solid state"))
+            return StorageMediaType.Ssd;
         return StorageMediaType.Unknown;
     }
 
@@ -841,10 +911,11 @@ internal static class DiskProvider
                                 4 => busValue == 17 ? StorageMediaType.Nvme : StorageMediaType.Ssd,
                                 _ => StorageMediaType.Unknown,
                             };
+                            var deviceId = NullIfEmpty(WmiHelper.GetString(disk, "DeviceId")) ?? "";
                             list.Add(
                                 new PhysicalDiskInfo(
-                                    "",
-                                    TryParseDiskNumber(WmiHelper.GetString(disk, "DeviceId")),
+                                    deviceId,
+                                    TryParseDiskNumber(deviceId),
                                     NullIfEmpty(WmiHelper.GetString(disk, "FriendlyName")),
                                     NullIfEmpty(WmiHelper.GetString(disk, "SerialNumber"))?.Trim(),
                                     media
@@ -867,21 +938,25 @@ internal static class DiskProvider
         try
         {
             return WmiHelper.Query(
-                    "SELECT DeviceID, Model, Index FROM Win32_DiskDrive",
+                    "SELECT DeviceID, Model, Index, MediaType, InterfaceType FROM Win32_DiskDrive",
                     static items =>
                     {
                         var list = new List<PhysicalDiskInfo>(items.Count);
                         foreach (var disk in items)
                         {
                             var model = NullIfEmpty(WmiHelper.GetString(disk, "Model"));
+                            var media = MapDriveMedia(
+                                WmiHelper.GetString(disk, "MediaType"),
+                                WmiHelper.GetString(disk, "InterfaceType")
+                            );
                             list.Add(
                                 new PhysicalDiskInfo(
                                     WmiHelper.GetString(disk, "DeviceID") ?? "",
                                     WmiHelper.GetInt(disk, "Index") ?? -1,
                                     model,
                                     null,
-                                    model is not null
-                                        ? InferFromModel(model)
+                                    media != StorageMediaType.Unknown ? media
+                                        : model is not null ? InferFromModel(model)
                                         : StorageMediaType.Unknown
                                 )
                             );
@@ -896,13 +971,15 @@ internal static class DiskProvider
         }
     }
 
-    private static IReadOnlyDictionary<string, PhysicalDiskInfo> BuildDriveToDiskMap()
+    private static IReadOnlyDictionary<string, PhysicalDiskInfo> BuildDriveToDiskMap(
+        IReadOnlyList<PhysicalDiskInfo> disks
+    )
     {
         var map = new Dictionary<string, PhysicalDiskInfo>(StringComparer.OrdinalIgnoreCase);
         try
         {
-            var byNumber = _cachedDisks
-                .Value.Where(static d => d.DiskNumber >= 0)
+            var byNumber = disks
+                .Where(static d => d.DiskNumber >= 0)
                 .ToDictionary(static d => d.DiskNumber);
             if (byNumber.Count == 0)
                 return map;
@@ -937,12 +1014,15 @@ internal static class DiskProvider
     }
 
     /// <summary>Slow per-drive ASSOCIATORS fallback, used only by full scans.</summary>
-    private static PhysicalDiskInfo? ResolveViaAssociators(string letter)
+    private static PhysicalDiskInfo? ResolveViaAssociators(
+        IReadOnlyList<PhysicalDiskInfo> disks,
+        string letter
+    )
     {
         try
         {
-            var byNumber = _cachedDisks
-                .Value.Where(static d => d.DiskNumber >= 0)
+            var byNumber = disks
+                .Where(static d => d.DiskNumber >= 0)
                 .ToDictionary(static d => d.DiskNumber);
             var partitions = WmiHelper.Query(
                 $"ASSOCIATORS OF {{Win32_LogicalDisk.DeviceID='{WmiHelper.EscapeWql(letter)}'}} WHERE AssocClass=Win32_LogicalDiskToPartition",
@@ -976,8 +1056,15 @@ internal static class DiskProvider
                 {
                     if (index >= 0 && byNumber.TryGetValue(index, out var info))
                         return info;
-                    foreach (var entry in _cachedDisks.Value)
-                        if (entry.DeviceID == device)
+                    foreach (var entry in disks)
+                        if (
+                            !string.IsNullOrEmpty(entry.DeviceID)
+                            && string.Equals(
+                                entry.DeviceID,
+                                device,
+                                StringComparison.OrdinalIgnoreCase
+                            )
+                        )
                             return entry;
                 }
             }
@@ -987,8 +1074,8 @@ internal static class DiskProvider
             // Ignore: media falls back to probe/Unknown.
         }
 
-        if (_cachedDisks.Value.Count == 1)
-            return _cachedDisks.Value[0];
+        if (disks.Count == 1)
+            return disks[0];
         return null;
     }
 
@@ -1837,6 +1924,9 @@ public sealed class SystemInfoService : IDisposable
     public SystemInfoService(ILogger<SystemInfoService> logger, PowerPlanService? powerPlans = null)
     {
         _logger = logger;
+        WmiHelper.ConfigureFailureLogger(
+            (message, ex) => _logger.LogDebug(ex, "WMI: {Message}", message)
+        );
         if (powerPlans is not null)
             PowerReader.Configure(powerPlans);
     }

@@ -17,7 +17,8 @@ public class BytesToGBConverter : IValueConverter
             double d => d,
             _ => double.NaN,
         };
-        return Loc.Instance["Common.Unknown"];
+        if (double.IsNaN(bytes))
+            return Loc.Instance["Common.Unknown"];
         return (bytes / (1024.0 * 1024.0 * 1024.0)).ToString("F1", culture);
     }
 
