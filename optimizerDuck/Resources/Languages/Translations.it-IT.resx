@@ -1230,6 +1230,9 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   <data name="Common.SortBy.Status" xml:space="preserve">
     <value>Stato</value>
   </data>
+  <data name="Common.SortBy.RiskAndStatus" xml:space="preserve">
+    <value>Rischio &amp; Stato</value>
+  </data>
   <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
     <value>Apri Impostazioni</value>
   </data>

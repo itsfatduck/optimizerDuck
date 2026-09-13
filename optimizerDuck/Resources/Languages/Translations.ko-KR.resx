@@ -1214,6 +1214,9 @@
   <data name="Common.SortBy.Status" xml:space="preserve">
     <value>상태</value>
   </data>
+  <data name="Common.SortBy.RiskAndStatus" xml:space="preserve">
+    <value>위험 &amp; 상태</value>
+  </data>
   <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
     <value>설정 열기</value>
   </data>

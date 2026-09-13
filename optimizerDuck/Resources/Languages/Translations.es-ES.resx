@@ -2468,6 +2468,9 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
     <value>Estado</value>
 
   </data>
+  <data name="Common.SortBy.RiskAndStatus" xml:space="preserve">
+    <value>Riesgo &amp; Estado</value>
+  </data>
 
 
   <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">

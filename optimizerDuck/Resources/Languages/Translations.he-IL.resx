@@ -1285,6 +1285,9 @@
   <data name="Common.SortBy.Status" xml:space="preserve">
     <value>סטטוס</value>
   </data>
+  <data name="Common.SortBy.RiskAndStatus" xml:space="preserve">
+    <value>סיכון &amp; סטטוס</value>
+  </data>
   <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
     <value>פתח הגדרות</value>
   </data>

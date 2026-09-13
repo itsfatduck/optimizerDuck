@@ -1137,6 +1137,9 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Common.SortBy.Status" xml:space="preserve">
     <value>Trạng thái</value>
   </data>
+  <data name="Common.SortBy.RiskAndStatus" xml:space="preserve">
+    <value>Rủi ro &amp; Trạng thái</value>
+  </data>
   <data name="Common.SortBy.State" xml:space="preserve">
     <value>Trạng thái</value>
   </data>

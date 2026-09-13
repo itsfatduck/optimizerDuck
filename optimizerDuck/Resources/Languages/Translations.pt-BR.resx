@@ -1215,6 +1215,9 @@ Atualize agora para desfrutar das últimas funcionalidades, melhorias e correç�
   <data name="Common.SortBy.Status" xml:space="preserve">
     <value>Status</value>
   </data>
+  <data name="Common.SortBy.RiskAndStatus" xml:space="preserve">
+    <value>Risco &amp; Status</value>
+  </data>
   <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
     <value>Abrir Configurações</value>
   </data>

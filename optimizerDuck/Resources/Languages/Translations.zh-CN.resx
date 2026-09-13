@@ -1266,6 +1266,9 @@
   <data name="Common.SortBy.Status" xml:space="preserve">
     <value>状态</value>
   </data>
+  <data name="Common.SortBy.RiskAndStatus" xml:space="preserve">
+    <value>风险 &amp; 状态</value>
+  </data>
   <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
     <value>打开设置</value>
   </data>
