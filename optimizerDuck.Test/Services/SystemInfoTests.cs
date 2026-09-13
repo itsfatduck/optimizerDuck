@@ -61,9 +61,8 @@ public class SystemInfoTests
     public void PowerPlanService_BadDelete_FailsClosed()
     {
         var service = new PowerPlanService(NullLogger<PowerPlanService>.Instance);
-        var call = new optimizerDuck.Domain.Execution.OpCall { Logger = NullLogger.Instance };
         // Deleting a nonexistent scheme must report failure, never throw.
-        var result = service.DeleteScheme(call, Guid.NewGuid());
+        var result = service.DeleteScheme(Guid.NewGuid(), NullLogger.Instance);
         Assert.False(result.Ok);
     }
 

@@ -8,9 +8,9 @@ using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Services.Optimization;
-using optimizerDuck.Services.Optimization.Providers;
 using optimizerDuck.Services.Revert;
 using optimizerDuck.Services.System;
+using optimizerDuck.Services.System.Primitives;
 using optimizerDuck.Test.TestDoubles;
 using Wpf.Ui;
 

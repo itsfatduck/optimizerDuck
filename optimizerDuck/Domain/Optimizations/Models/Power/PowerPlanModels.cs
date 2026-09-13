@@ -1,4 +1,4 @@
-namespace optimizerDuck.Services.System;
+namespace optimizerDuck.Domain.Optimizations.Models.Power;
 
 /// <summary>
 /// A Windows power scheme (power plan): GUID identity plus the live metadata

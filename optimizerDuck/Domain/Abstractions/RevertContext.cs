@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Logging;
-using optimizerDuck.Services.Optimization.Providers;
 using optimizerDuck.Services.System;
+using optimizerDuck.Services.System.Primitives;
 
 namespace optimizerDuck.Domain.Abstractions;
 

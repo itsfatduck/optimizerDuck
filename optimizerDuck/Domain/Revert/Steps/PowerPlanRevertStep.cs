@@ -2,7 +2,6 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Exceptions;
-using optimizerDuck.Domain.Execution;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
 
@@ -31,12 +30,12 @@ public class PowerPlanRevertStep : IRevertStep
     {
         ArgumentNullException.ThrowIfNull(context);
         var powerPlans = context.PowerPlans;
-        var call = new OpCall { Logger = logger };
 
         var restored = false;
         if (PreviousSchemeId != Guid.Empty)
         {
-            var setActive = powerPlans.SetActiveScheme(call, PreviousSchemeId);
+            var activation = powerPlans.SetActiveScheme(PreviousSchemeId, logger);
+            var setActive = activation.Result;
             if (!setActive.Ok)
                 throw new StepExecutionException(
                     Loc.Instance["Revert.PowerPlan.Error.RestoreFailed", setActive.Error ?? ""],
@@ -68,7 +67,7 @@ public class PowerPlanRevertStep : IRevertStep
             {
                 if (powerPlans.SchemeExists(InstalledSchemeId))
                 {
-                    var deleted = powerPlans.DeleteScheme(call, InstalledSchemeId);
+                    var deleted = powerPlans.DeleteScheme(InstalledSchemeId, logger);
                     if (!deleted.Ok)
                         throw new StepExecutionException(
                             Loc.Instance[

@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Logging.Abstractions;
-using optimizerDuck.Domain.Execution;
+using optimizerDuck.Domain.Optimizations.Models.Power;
 using optimizerDuck.Services.System;
 
 namespace optimizerDuck.Test.Services;
@@ -106,38 +106,31 @@ public class PowerPlanModelsTests
     public void SetSetting_BothNull_FailsWithoutNativeCall()
     {
         var service = new PowerPlanService(NullLogger<PowerPlanService>.Instance);
-        var call = new OpCall { Logger = NullLogger.Instance };
 
-        var result = service.SetSetting(
-            call,
-            Guid.NewGuid(),
-            Guid.NewGuid(),
-            Guid.NewGuid(),
-            null,
-            null
-        );
+        var write = service.SetSetting(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), null, null);
+        var result = write.Result;
+        var prevAc = write.PreviousAcValue;
+        var prevDc = write.PreviousDcValue;
 
         Assert.False(result.Ok);
         Assert.NotNull(result.Error);
-        Assert.Single(call.Changes.FailedSteps);
+        Assert.Null(prevAc);
+        Assert.Null(prevDc);
     }
 
     [Fact]
-    public void SetActiveScheme_UnknownActive_FailsClosed()
+    public void SetActiveScheme_UnknownScheme_FailsClosed()
     {
-        // Random GUIDs force the unreadable path only when Windows cannot
-        // resolve them; the assertion is fail-closed shape, not live state.
+        // A bogus GUID must never report success; the failure carries the
+        // native operation truth instead of a fabricated code.
         var service = new PowerPlanService(NullLogger<PowerPlanService>.Instance);
-        var call = new OpCall { Logger = NullLogger.Instance };
 
-        var result = service.SetActiveScheme(call, Guid.NewGuid());
+        var activation = service.SetActiveScheme(Guid.NewGuid());
+        var result = activation.Result;
+        var previousId = activation.PreviousSchemeId;
 
-        // Either refused (no active readable / unknown scheme) or, on a
-        // machine where GetActiveSchemeId works, a recorded native failure.
-        // What must never happen: success with a revert for a bogus GUID.
-        if (result.Ok)
-            Assert.NotNull(call.Changes.SuccessfulSteps);
-        else
-            Assert.NotNull(result.Error);
+        Assert.False(result.Ok);
+        Assert.NotNull(result.Error);
+        Assert.Null(previousId);
     }
 }

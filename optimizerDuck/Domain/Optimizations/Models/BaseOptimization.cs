@@ -9,7 +9,7 @@ using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
-using optimizerDuck.Services.Optimization.Providers;
+using optimizerDuck.Services.System.Primitives;
 using Wpf.Ui.Controls;
 using OptimizationState = optimizerDuck.Domain.UI.OptimizationState;
 

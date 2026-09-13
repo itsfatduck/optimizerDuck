@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.StartupManager;
-using optimizerDuck.Services.Optimization.Providers;
+using optimizerDuck.Services.System.Primitives;
 using Windows.ApplicationModel;
 using Windows.Management.Deployment;
 using StartupApp = optimizerDuck.Domain.Optimizations.Models.StartupManager.StartupApp;

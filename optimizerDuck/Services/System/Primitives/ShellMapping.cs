@@ -1,7 +1,7 @@
 using optimizerDuck.Common.Extensions;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 
-namespace optimizerDuck.Services.Optimization.Providers;
+namespace optimizerDuck.Services.System.Primitives;
 
 /// <summary>
 ///     Shared mapping between <see cref="ProcessResult"/> and <see cref="ShellResult"/>

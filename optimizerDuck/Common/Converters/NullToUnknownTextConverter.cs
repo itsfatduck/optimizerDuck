@@ -4,12 +4,12 @@ using optimizerDuck.Services.Configuration;
 
 namespace optimizerDuck.Common.Converters;
 
-/// <summary>Passes strings through; null or empty becomes localized Unknown.</summary>
+/// <summary>Passes non-empty strings through; anything else becomes localized Unknown.</summary>
 public class NullToUnknownTextConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        return string.IsNullOrEmpty(value as string) ? Loc.Instance["Common.Unknown"] : value!;
+        return value is string s && s.Length > 0 ? s : Loc.Instance["Common.Unknown"];
     }
 
     public object ConvertBack(

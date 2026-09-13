@@ -14,8 +14,8 @@ using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
-using optimizerDuck.Services.Optimization.Providers;
 using optimizerDuck.Services.System;
+using optimizerDuck.Services.System.Primitives;
 
 namespace optimizerDuck.Services.Revert;
 
@@ -750,18 +750,12 @@ public class RevertManager(
         public string Type => rawType;
 
         public string Description =>
-            Services.Optimization.Providers.ServiceStrings.Format(
-                Services.Optimization.Providers.ServiceStrings.RevertDataUnloadableDescription,
-                rawType
-            );
+            ServiceStrings.Format(ServiceStrings.RevertDataUnloadableDescription, rawType);
 
         public Task<bool> ExecuteAsync(RevertContext _, ILogger logger)
         {
             throw new StepExecutionException(
-                Services.Optimization.Providers.ServiceStrings.Format(
-                    Services.Optimization.Providers.ServiceStrings.RevertDataUnknownType,
-                    rawType
-                ),
+                ServiceStrings.Format(ServiceStrings.RevertDataUnknownType, rawType),
                 null
             );
         }

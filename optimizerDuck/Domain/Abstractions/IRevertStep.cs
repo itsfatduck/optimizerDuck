@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Optimizations.Models.Services;
-using optimizerDuck.Services.Optimization.Providers;
+using optimizerDuck.Services.System.Primitives;
 
 namespace optimizerDuck.Domain.Abstractions;
 

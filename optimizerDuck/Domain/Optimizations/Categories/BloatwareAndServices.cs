@@ -8,7 +8,7 @@ using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Services.Configuration;
-using optimizerDuck.Services.Optimization.Providers;
+using optimizerDuck.Services.System.Primitives;
 using optimizerDuck.UI.Pages.Optimize.Categories;
 
 namespace optimizerDuck.Domain.Optimizations.Categories;

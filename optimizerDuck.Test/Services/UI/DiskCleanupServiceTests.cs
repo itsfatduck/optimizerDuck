@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Logging.Abstractions;
 using optimizerDuck.Domain.Optimizations.Models.Cleanup;
-using optimizerDuck.Services.Optimization.Providers;
+using optimizerDuck.Services.System.Primitives;
 using optimizerDuck.Services.UI;
 using Wpf.Ui.Controls;
 

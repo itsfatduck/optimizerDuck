@@ -2,10 +2,9 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Exceptions;
-using optimizerDuck.Domain.Execution;
+using optimizerDuck.Domain.Optimizations.Models.Power;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
-using optimizerDuck.Services.System;
 
 namespace optimizerDuck.Domain.Revert.Steps;
 
@@ -37,15 +36,15 @@ public class PowerSettingRevertStep : IRevertStep
     public Task<bool> ExecuteAsync(RevertContext context, ILogger logger)
     {
         ArgumentNullException.ThrowIfNull(context);
-        var call = new OpCall { Logger = logger };
-        var result = context.PowerPlans.SetSetting(
-            call,
+        var write = context.PowerPlans.SetSetting(
             SchemeId,
             SubgroupId,
             SettingId,
             PreviousAcValue,
-            PreviousDcValue
+            PreviousDcValue,
+            logger
         );
+        var result = write.Result;
         if (!result.Ok)
             throw new StepExecutionException(result.Error ?? Description, result.ErrorDetail);
 

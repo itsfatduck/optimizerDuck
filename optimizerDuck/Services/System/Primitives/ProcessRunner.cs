@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using optimizerDuck.Domain.Configuration;
 
-namespace optimizerDuck.Services.Optimization.Providers;
+namespace optimizerDuck.Services.System.Primitives;
 
 /// <summary>
 ///     The captured output of a single child-process execution.

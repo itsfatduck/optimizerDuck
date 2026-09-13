@@ -1,8 +1,8 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using optimizerDuck.Domain.Abstractions;
-using optimizerDuck.Services.Optimization.Providers;
 using optimizerDuck.Services.System;
+using optimizerDuck.Services.System.Primitives;
 
 namespace optimizerDuck.Test.TestDoubles;
 

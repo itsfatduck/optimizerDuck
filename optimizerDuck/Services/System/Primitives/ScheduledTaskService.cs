@@ -11,7 +11,7 @@ using optimizerDuck.Services.UI;
 using ScheduledTaskModel = optimizerDuck.Domain.Optimizations.Models.ScheduledTask.ScheduledTaskModel;
 using Task = Microsoft.Win32.TaskScheduler.Task;
 
-namespace optimizerDuck.Services.Optimization.Providers;
+namespace optimizerDuck.Services.System.Primitives;
 
 public static class ScheduledTaskService
 {

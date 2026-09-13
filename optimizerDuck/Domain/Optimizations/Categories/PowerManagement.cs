@@ -13,8 +13,8 @@ using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
-using optimizerDuck.Services.Optimization.Providers;
 using optimizerDuck.Services.System;
+using optimizerDuck.Services.System.Primitives;
 using optimizerDuck.UI.Pages.Optimize.Categories;
 
 namespace optimizerDuck.Domain.Optimizations.Categories;
@@ -158,21 +158,6 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
             OptimizationContext context
         )
         {
-            var previousPlanId = context.PowerPlans.GetActiveSchemeId();
-            if (previousPlanId is null)
-            {
-                context.Logger.LogError("Failed to detect current active power plan");
-                return ApplyResult.False(Loc.Instance[$"{ErrorPrefix}.DetectActivePlanFailed"]);
-            }
-
-            var previousName =
-                context.PowerPlans.GetSchemeName(previousPlanId.Value) ?? previousPlanId.ToString();
-            context.Logger.LogInformation(
-                "Current active power plan: {Name} ({Guid})",
-                previousName,
-                previousPlanId
-            );
-
             var powerPlanPath = Path.Combine(
                 Shared.AssetsDirectory,
                 "PowerPlans",
@@ -202,52 +187,32 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
                 }
             );
 
-            var (importResult, installedId) = await context.PowerPlans.ImportSchemeAsync(
+            var install = await PowerPlanChanges.InstallAsync(
+                context,
+                context.PowerPlans,
                 powerPlanPath,
                 OptimizerDuckPlanId,
                 context.CancellationToken
             );
-            if (!importResult.Ok || installedId is null)
+            var installResult = install.Result;
+            var installedId = install.InstalledId;
+            var previousId = install.PreviousId;
+            if (!installResult.Ok)
             {
                 context.Logger.LogError(
-                    "Failed to import optimizerDuck power plan: {Error}",
-                    importResult.Error ?? "unknown"
+                    "Failed to install optimizerDuck power plan: {Error}",
+                    installResult.Error ?? "unknown"
                 );
-                return ApplyResult.False(Loc.Instance[$"{ErrorPrefix}.ImportFailed"]);
-            }
-
-            var setActive = context.PowerPlans.SetActiveScheme(context, installedId.Value);
-            if (!setActive.Ok)
-            {
-                context.Logger.LogError(
-                    "Failed to activate optimizerDuck power plan: {Error}",
-                    setActive.Error ?? "unknown"
-                );
-                return ApplyResult.False(Loc.Instance[$"{ErrorPrefix}.ActivateFailed"]);
-            }
-
-            // SetActiveScheme records its own revert step with PreviousSchemeId;
-            // point it at the installed scheme so revert restores then deletes.
-            var activation = context.Changes.Changes.LastOrDefault(c =>
-                c.Ok && c.Revert is PowerPlanRevertStep
-            );
-            if (activation?.Revert is PowerPlanRevertStep activationStep)
-                activationStep.InstalledSchemeId = installedId.Value;
-            else
-                context.Changes.Add(
-                    ServiceStrings.PowerPlanName,
+                if (previousId is null)
+                    return ApplyResult.False(Loc.Instance[$"{ErrorPrefix}.DetectActivePlanFailed"]);
+                return ApplyResult.False(
                     Loc.Instance[
-                        "Revert.PowerPlan.Description.Set",
-                        context.PowerPlans.GetSchemeName(installedId.Value)
-                            ?? installedId.ToString()
-                    ],
-                    true,
-                    new PowerPlanRevertStep
-                    {
-                        PreviousSchemeId = previousPlanId.Value,
-                        InstalledSchemeId = installedId.Value,
-                    }
+                        installedId is null
+                            ? $"{ErrorPrefix}.ImportFailed"
+                            : $"{ErrorPrefix}.ActivateFailed"
+                    ]
                 );
+            }
 
             context.Logger.LogInformation("Installed optimizerDuck power plan successfully!");
             return context.Changes.ToApplyResult();

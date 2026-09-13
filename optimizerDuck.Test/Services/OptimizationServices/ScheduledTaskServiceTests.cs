@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Logging.Abstractions;
 using optimizerDuck.Domain.Optimizations.Models.ScheduledTask;
-using optimizerDuck.Services.Optimization.Providers;
+using optimizerDuck.Services.System.Primitives;
 
 namespace optimizerDuck.Test.Services.OptimizationServices;
 

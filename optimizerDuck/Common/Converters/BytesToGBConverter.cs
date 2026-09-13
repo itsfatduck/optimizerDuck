@@ -13,11 +13,11 @@ public class BytesToGBConverter : IValueConverter
         {
             long l => l,
             int i => i,
+            ulong ul => ul,
             double d => d,
             _ => double.NaN,
         };
-        if (double.IsNaN(bytes) || bytes < 0)
-            return Loc.Instance["Common.Unknown"];
+        return Loc.Instance["Common.Unknown"];
         return (bytes / (1024.0 * 1024.0 * 1024.0)).ToString("F1", culture);
     }
 

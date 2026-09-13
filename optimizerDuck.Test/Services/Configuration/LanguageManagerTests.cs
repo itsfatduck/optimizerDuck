@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Globalization;
 using optimizerDuck.Services.Configuration;
-using optimizerDuck.Services.Optimization.Providers;
+using optimizerDuck.Services.System.Primitives;
 
 namespace optimizerDuck.Test.Services.Configuration;
 

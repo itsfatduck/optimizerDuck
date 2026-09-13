@@ -9,9 +9,9 @@ using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Domain.UI;
-using optimizerDuck.Services.Optimization.Providers;
 using optimizerDuck.Services.Revert;
 using optimizerDuck.Services.System;
+using optimizerDuck.Services.System.Primitives;
 using optimizerDuck.Test.TestDoubles;
 
 namespace optimizerDuck.Test.Services.Managers;

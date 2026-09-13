@@ -8,7 +8,7 @@ using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.Revert.Steps;
 
-namespace optimizerDuck.Services.Optimization.Providers;
+namespace optimizerDuck.Services.System.Primitives;
 
 public static class RegistryService
 {

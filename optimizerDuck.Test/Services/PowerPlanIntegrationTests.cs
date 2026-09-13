@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging.Abstractions;
+using optimizerDuck.Domain.Optimizations.Models.Power;
 using optimizerDuck.Services.System;
 
 namespace optimizerDuck.Test.Services;
@@ -100,17 +101,18 @@ public class PowerPlanIntegrationTests
 
         try
         {
-            var call = new optimizerDuck.Domain.Execution.OpCall { Logger = NullLogger.Instance };
             // Write back the same values: exercises the write path with no semantic change.
             var write = service.SetSetting(
-                call,
                 activeId.Value,
                 target.GroupId,
                 target.Id,
                 origAc.Value,
-                origDc.Value
+                origDc.Value,
+                NullLogger.Instance
             );
-            Assert.True(write.Ok);
+            Assert.True(write.Result.Ok);
+            Assert.Equal(origAc, write.PreviousAcValue);
+            Assert.Equal(origDc, write.PreviousDcValue);
 
             var rereadAc = service.GetSettingValue(
                 activeId.Value,
@@ -129,14 +131,13 @@ public class PowerPlanIntegrationTests
         }
         finally
         {
-            var call = new optimizerDuck.Domain.Execution.OpCall { Logger = NullLogger.Instance };
             service.SetSetting(
-                call,
                 activeId.Value,
                 target.GroupId,
                 target.Id,
                 origAc.Value,
-                origDc.Value
+                origDc.Value,
+                NullLogger.Instance
             );
         }
     }
@@ -147,9 +148,7 @@ public class PowerPlanIntegrationTests
         var service = new PowerPlanService(NullLogger<PowerPlanService>.Instance);
         var activeId = service.GetActiveSchemeId();
         Assert.NotNull(activeId);
-        var call = new optimizerDuck.Domain.Execution.OpCall { Logger = NullLogger.Instance };
-
-        var result = service.DeleteScheme(call, activeId.Value);
+        var result = service.DeleteScheme(activeId.Value, NullLogger.Instance);
 
         Assert.False(result.Ok);
     }
@@ -160,26 +159,26 @@ public class PowerPlanIntegrationTests
         var service = new PowerPlanService(NullLogger<PowerPlanService>.Instance);
         var activeId = service.GetActiveSchemeId();
         Assert.NotNull(activeId);
-        var call = new optimizerDuck.Domain.Execution.OpCall { Logger = NullLogger.Instance };
-
-        var (dupResult, dupId) = service.DuplicateScheme(call, activeId.Value);
+        var dup = service.DuplicateScheme(activeId.Value, NullLogger.Instance);
+        var dupResult = dup.Result;
+        var dupId = dup.SchemeId;
         Assert.True(dupResult.Ok);
         Assert.NotNull(dupId);
         Assert.True(service.SchemeExists(dupId.Value));
 
         try
         {
-            var rename = service.SetSchemeName(call, dupId.Value, "optimizerDuck test plan");
+            var rename = service.SetSchemeName(dupId.Value, "optimizerDuck test plan");
             Assert.True(rename.Ok);
             var renamed = service.GetScheme(dupId.Value);
             Assert.Equal("optimizerDuck test plan", renamed?.Name);
 
-            var describe = service.SetSchemeDescription(call, dupId.Value, "test description");
+            var describe = service.SetSchemeDescription(dupId.Value, "test description");
             Assert.True(describe.Ok);
         }
         finally
         {
-            var del = service.DeleteScheme(call, dupId.Value);
+            var del = service.DeleteScheme(dupId.Value, NullLogger.Instance);
             Assert.True(del.Ok);
             Assert.False(service.SchemeExists(dupId.Value));
         }

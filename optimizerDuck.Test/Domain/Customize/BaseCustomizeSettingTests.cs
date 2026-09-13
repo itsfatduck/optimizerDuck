@@ -9,7 +9,7 @@ using optimizerDuck.Domain.Customize.Models;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Services.Configuration;
-using optimizerDuck.Services.Optimization.Providers;
+using optimizerDuck.Services.System.Primitives;
 using Xunit;
 
 namespace optimizerDuck.Test.Domain.Customize;

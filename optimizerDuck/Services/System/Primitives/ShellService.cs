@@ -6,7 +6,7 @@ using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Services.Configuration;
 
-namespace optimizerDuck.Services.Optimization.Providers;
+namespace optimizerDuck.Services.System.Primitives;
 
 /// <summary>
 ///     Thin instance facade over <see cref="ProcessRunner"/>: builds the

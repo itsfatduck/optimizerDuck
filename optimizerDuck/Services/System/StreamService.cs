@@ -12,16 +12,14 @@ public class StreamService(ILogger<StreamService> logger) : IDisposable
     /// <summary>Downloads a file from the specified URL and saves it to the local downloads directory.</summary>
     /// <param name="url">The URL to download from.</param>
     /// <param name="fileName">The target file name (not path) to save as.</param>
-    /// <returns>A tuple where <c>Success</c> indicates whether the download completed, and <c>FilePath</c> is the full local path on success.</returns>
+    /// <returns>A <see cref="DownloadResult"/> where <c>Ok</c> indicates whether the download completed, and <c>FilePath</c> is the full local path on success.</returns>
     /// <example>
     /// <code language="csharp">
-    /// var (success, path) = await streamService.TryDownloadAsync("https://example.com/file.zip", "file.zip");
+    /// var download = await streamService.TryDownloadAsync("https://example.com/file.zip", "file.zip");
+    /// if (download.Ok) Console.WriteLine(download.FilePath);
     /// </code>
     /// </example>
-    public async Task<(bool Success, string? FilePath)> TryDownloadAsync(
-        string url,
-        string fileName
-    )
+    public async Task<DownloadResult> TryDownloadAsync(string url, string fileName)
     {
         var filePath = Path.Combine(Shared.DownloadsDirectory, fileName);
 
@@ -53,27 +51,27 @@ public class StreamService(ILogger<StreamService> logger) : IDisposable
                 filePath
             );
 
-            return (true, filePath);
+            return new DownloadResult(true, filePath);
         }
         catch (HttpRequestException ex)
         {
             logger.LogError(ex, "Network error while downloading {Url}", url);
-            return (false, null);
+            return new DownloadResult(false, null);
         }
         catch (IOException ex)
         {
             logger.LogError(ex, "File I/O error while saving {FilePath}", filePath);
-            return (false, null);
+            return new DownloadResult(false, null);
         }
         catch (UnauthorizedAccessException ex)
         {
             logger.LogError(ex, "Access denied when writing to {FilePath}", filePath);
-            return (false, null);
+            return new DownloadResult(false, null);
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error downloading {Url} to {FilePath}", url, filePath);
-            return (false, null);
+            return new DownloadResult(false, null);
         }
     }
 

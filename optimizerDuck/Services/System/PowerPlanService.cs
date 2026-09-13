@@ -4,18 +4,18 @@ using System.Runtime.Versioning;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Domain.Execution;
-using optimizerDuck.Domain.Revert.Steps;
-using optimizerDuck.Services.Optimization.Providers;
+using optimizerDuck.Domain.Optimizations.Models.Power;
+using optimizerDuck.Services.System.Primitives;
 
 namespace optimizerDuck.Services.System;
 
-/// <summary>
 /// Power scheme operations over powrprof (no child processes).
 /// Single owner of every power P/Invoke in the app.
 /// Fast Win32 calls run synchronously on the caller thread; only the
-/// file-I/O-bound import is async. Mutating paths take an
-/// <see cref="OpCall"/>, record a <see cref="Change"/>, and return
-/// <see cref="OpResult"/> like <see cref="RegistryService"/> does.
+/// file-I/O-bound import is async. Reads take ids only; mutating paths take
+/// an optional <see cref="ILogger"/> (default null), return <see cref="OpResult"/>
+/// with native diagnostics, and record nothing: revert recording lives at the
+/// optimization edge (see PowerPlanChanges), so tools reuse the same core.
 /// Import semantics: a non-empty <c>destinationId</c> pre-seeds the GUID**
 /// slot so Windows imports under it (replacing any scheme with the same
 /// GUID, same as <c>powercfg /import file guid</c>); an empty GUID passes
@@ -26,7 +26,8 @@ namespace optimizerDuck.Services.System;
 /// <c>DisableHibernateAndFastStartup</c>.
 /// </summary>
 [SupportedOSPlatform("windows")]
-public sealed class PowerPlanService
+// Virtual members are a hand-double seam for tests (no mocking libraries).
+public class PowerPlanService
 {
     private const uint ERROR_SUCCESS = 0;
     private const uint ERROR_MORE_DATA = 234;
@@ -41,7 +42,7 @@ public sealed class PowerPlanService
         _logger = logger;
     }
 
-    public Guid? GetActiveSchemeId()
+    public virtual Guid? GetActiveSchemeId()
     {
         IntPtr ptr = IntPtr.Zero;
         try
@@ -223,39 +224,19 @@ public sealed class PowerPlanService
         }
     }
 
-    public OpResult SetSetting(
-        OpCall call,
+    public virtual SettingWriteResult SetSetting(
         Guid schemeId,
         Guid subgroupId,
         Guid settingId,
         uint? acValue,
-        uint? dcValue
+        uint? dcValue,
+        ILogger? logger = null
     )
     {
-        ArgumentNullException.ThrowIfNull(call);
-        var description = ServiceStrings.Format(
-            "Write power setting {0}/{1}/{2}",
-            schemeId,
-            subgroupId,
-            settingId
-        );
-
         if (acValue is null && dcValue is null)
         {
             const string error = "No value to write: both AC and DC are null.";
-            call.Changes.Add(
-                ServiceStrings.PowerPlanName,
-                description,
-                false,
-                null,
-                error,
-                error,
-                retryCall =>
-                    Task.FromResult(
-                        SetSetting(retryCall, schemeId, subgroupId, settingId, acValue, dcValue)
-                    )
-            );
-            return OpResult.Fail(error, error);
+            return new SettingWriteResult(OpResult.Fail(error, error), null, null);
         }
 
         var prevAc = TryReadRaw(schemeId, subgroupId, settingId, PowerSource.Ac);
@@ -271,56 +252,25 @@ public sealed class PowerPlanService
                 subgroupId,
                 settingId
             );
-            call.Logger.LogError(
+            logger?.LogError(
                 "Refusing power-setting write: previous {Source} value unreadable for {SchemeId}/{SubgroupId}/{SettingId}",
                 missing,
                 schemeId,
                 subgroupId,
                 settingId
             );
-            call.Changes.Add(
-                ServiceStrings.PowerPlanName,
-                description,
-                false,
-                null,
-                error,
-                error,
-                retryCall =>
-                    Task.FromResult(
-                        SetSetting(retryCall, schemeId, subgroupId, settingId, acValue, dcValue)
-                    )
-            );
-            return OpResult.Fail(error, error);
+            return new SettingWriteResult(OpResult.Fail(error, error), null, null);
         }
 
         var failure = WriteValues(schemeId, subgroupId, settingId, acValue, dcValue);
         if (failure is not null)
-        {
-            call.Changes.Add(
-                ServiceStrings.PowerPlanName,
-                description,
-                false,
+            return new SettingWriteResult(
+                OpResult.Fail(failure.Describe(), failure.Describe()),
                 null,
-                failure.Describe(),
-                failure.Describe(),
-                retryCall =>
-                    Task.FromResult(
-                        SetSetting(retryCall, schemeId, subgroupId, settingId, acValue, dcValue)
-                    )
+                null
             );
-            return OpResult.Fail(failure.Describe(), failure.Describe());
-        }
 
-        var revertStep = new PowerSettingRevertStep
-        {
-            SchemeId = schemeId,
-            SubgroupId = subgroupId,
-            SettingId = settingId,
-            PreviousAcValue = prevAc.Value,
-            PreviousDcValue = prevDc.Value,
-        };
-        call.Changes.Add(ServiceStrings.PowerPlanName, description, true, revertStep);
-        call.Logger.LogInformation(
+        logger?.LogInformation(
             "Wrote power setting {SchemeId}/{SubgroupId}/{SettingId} AC={Ac} DC={Dc}",
             schemeId,
             subgroupId,
@@ -328,41 +278,24 @@ public sealed class PowerPlanService
             acValue?.ToString() ?? "(unchanged)",
             dcValue?.ToString() ?? "(unchanged)"
         );
-        return OpResult.Success(revertStep);
+        return new SettingWriteResult(OpResult.Success(), prevAc, prevDc);
     }
 
-    public OpResult SetActiveScheme(OpCall call, Guid schemeId)
+    public virtual ActivationResult SetActiveScheme(Guid schemeId, ILogger? logger = null)
     {
-        ArgumentNullException.ThrowIfNull(call);
-        var name = GetSchemeName(schemeId) ?? schemeId.ToString();
-        var description = ServiceStrings.Format("Activate power plan {0}", name);
-
         var previous = GetActiveSchemeId();
         if (previous is null)
         {
             const string error = "Could not read the active power plan; refusing to switch.";
-            call.Logger.LogError("Refusing power-plan switch: active scheme unreadable");
-            call.Changes.Add(
-                ServiceStrings.PowerPlanName,
-                description,
-                false,
-                null,
-                error,
-                error,
-                retryCall => Task.FromResult(SetActiveScheme(retryCall, schemeId))
-            );
-            return OpResult.Fail(error, error);
+            logger?.LogError("Refusing power-plan switch: active scheme unreadable");
+            return new ActivationResult(OpResult.Fail(error, error), null);
         }
 
         if (previous.Value == schemeId)
         {
-            call.Logger.LogInformation("Power plan {Name} already active, skipping", name);
-            call.Changes.Add(
-                ServiceStrings.PowerPlanName,
-                ServiceStrings.Format("Power plan {0} already active (skipped)", name),
-                true
-            );
-            return OpResult.Success();
+            var skippedName = GetSchemeName(schemeId) ?? schemeId.ToString();
+            logger?.LogInformation("Power plan {Name} already active, skipping", skippedName);
+            return new ActivationResult(OpResult.Success(), previous);
         }
 
         uint code;
@@ -379,17 +312,8 @@ public sealed class PowerPlanService
                 SchemeId = schemeId,
                 ExceptionText = ex.Message,
             };
-            call.Logger.LogWarning(ex, "PowerSetActiveScheme threw for {SchemeId}", schemeId);
-            call.Changes.Add(
-                ServiceStrings.PowerPlanName,
-                description,
-                false,
-                null,
-                err.Describe(),
-                ex.ToString(),
-                retryCall => Task.FromResult(SetActiveScheme(retryCall, schemeId))
-            );
-            return OpResult.Fail(err.Describe(), ex.ToString());
+            logger?.LogWarning(ex, "PowerSetActiveScheme threw for {SchemeId}", schemeId);
+            return new ActivationResult(OpResult.Fail(err.Describe(), ex.ToString()), null);
         }
 
         if (code != ERROR_SUCCESS)
@@ -400,37 +324,20 @@ public sealed class PowerPlanService
                 SchemeId = schemeId,
                 ErrorCode = code,
             };
-            _logger.LogWarning(
+            logger?.LogWarning(
                 "PowerSetActiveScheme failed for {SchemeId}: Win32 {ErrorCode}",
                 schemeId,
                 code
             );
-            call.Changes.Add(
-                ServiceStrings.PowerPlanName,
-                description,
-                false,
-                null,
-                err.Describe(),
-                err.Describe(),
-                retryCall => Task.FromResult(SetActiveScheme(retryCall, schemeId))
-            );
-            return OpResult.Fail(err.Describe(), err.Describe());
+            return new ActivationResult(OpResult.Fail(err.Describe(), err.Describe()), null);
         }
 
-        var revertStep = new PowerPlanRevertStep
-        {
-            PreviousSchemeId = previous.Value,
-            InstalledSchemeId = Guid.Empty,
-        };
-        call.Changes.Add(ServiceStrings.PowerPlanName, description, true, revertStep);
-        return OpResult.Success(revertStep);
+        return new ActivationResult(OpResult.Success(), previous);
     }
 
-    public OpResult DeleteScheme(OpCall call, Guid schemeId)
+    public virtual OpResult DeleteScheme(Guid schemeId, ILogger? logger = null)
     {
-        ArgumentNullException.ThrowIfNull(call);
         var name = GetSchemeName(schemeId) ?? schemeId.ToString();
-        var description = ServiceStrings.Format("Delete power plan {0}", name);
 
         if (GetActiveSchemeId() == schemeId)
         {
@@ -438,8 +345,7 @@ public sealed class PowerPlanService
                 "Refusing to delete the active power plan {0}; activate another plan first.",
                 name
             );
-            call.Logger.LogError("Refusing to delete active power plan {SchemeId}", schemeId);
-            call.Changes.Add(ServiceStrings.PowerPlanName, description, false, null, error, error);
+            logger?.LogError("Refusing to delete active power plan {SchemeId}", schemeId);
             return OpResult.Fail(error, error);
         }
 
@@ -457,16 +363,7 @@ public sealed class PowerPlanService
                 SchemeId = schemeId,
                 ExceptionText = ex.Message,
             };
-            call.Logger.LogWarning(ex, "PowerDeleteScheme threw for {SchemeId}", schemeId);
-            call.Changes.Add(
-                ServiceStrings.PowerPlanName,
-                description,
-                false,
-                null,
-                err.Describe(),
-                ex.ToString(),
-                retryCall => Task.FromResult(DeleteScheme(retryCall, schemeId))
-            );
+            logger?.LogWarning(ex, "PowerDeleteScheme threw for {SchemeId}", schemeId);
             return OpResult.Fail(err.Describe(), ex.ToString());
         }
 
@@ -478,31 +375,22 @@ public sealed class PowerPlanService
                 SchemeId = schemeId,
                 ErrorCode = code,
             };
-            _logger.LogWarning(
+            logger?.LogWarning(
                 "PowerDeleteScheme failed for {SchemeId}: Win32 {ErrorCode}",
                 schemeId,
                 code
-            );
-            call.Changes.Add(
-                ServiceStrings.PowerPlanName,
-                description,
-                false,
-                null,
-                err.Describe(),
-                err.Describe(),
-                retryCall => Task.FromResult(DeleteScheme(retryCall, schemeId))
             );
             return OpResult.Fail(err.Describe(), err.Describe());
         }
 
         // Deleted schemes are gone: no revert step can restore them.
-        call.Changes.Add(ServiceStrings.PowerPlanName, description, true);
         return OpResult.Success();
     }
 
-    public async Task<(OpResult Result, Guid? SchemeId)> ImportSchemeAsync(
+    public virtual async Task<SchemeRefResult> ImportSchemeAsync(
         string filePath,
         Guid destinationId,
+        ILogger? logger = null,
         CancellationToken ct = default
     )
     {
@@ -515,7 +403,7 @@ public sealed class PowerPlanService
                 Path = filePath,
                 ExceptionText = "File not found.",
             };
-            return (OpResult.Fail(missing.Describe(), missing.Describe()), null);
+            return new SchemeRefResult(OpResult.Fail(missing.Describe(), missing.Describe()), null);
         }
 
         // Genuine async boundary: file I/O, not a faked-async native call.
@@ -552,14 +440,14 @@ public sealed class PowerPlanService
                     Path = filePath,
                     ErrorCode = code,
                 };
-                _logger.LogWarning(
+                logger?.LogWarning(
                     "PowerImportPowerScheme failed for {Path}: Win32 {ErrorCode}",
                     filePath,
                     code
                 );
-                return (OpResult.Fail(err.Describe(), err.Describe()), null);
+                return new SchemeRefResult(OpResult.Fail(err.Describe(), err.Describe()), null);
             }
-            return (OpResult.Success(), imported);
+            return new SchemeRefResult(OpResult.Success(), imported);
         }
         catch (Exception ex)
         {
@@ -569,8 +457,8 @@ public sealed class PowerPlanService
                 Path = filePath,
                 ExceptionText = ex.Message,
             };
-            _logger.LogWarning(ex, "PowerImportPowerScheme threw for {Path}", filePath);
-            return (OpResult.Fail(err.Describe(), ex.ToString()), null);
+            logger?.LogWarning(ex, "PowerImportPowerScheme threw for {Path}", filePath);
+            return new SchemeRefResult(OpResult.Fail(err.Describe(), ex.ToString()), null);
         }
         finally
         {
@@ -581,11 +469,47 @@ public sealed class PowerPlanService
         }
     }
 
-    public (OpResult Result, Guid? SchemeId) DuplicateScheme(OpCall call, Guid sourceId)
+    /// <summary>
+    /// Atomic install: capture previous, import file, activate. Returns the
+    /// installed and previous ids together so the caller records revert once.
+    /// Import and activation failures stay distinguishable by operation name.
+    /// </summary>
+    public virtual async Task<InstallResult> InstallSchemeAsync(
+        string filePath,
+        Guid destinationId,
+        ILogger? logger = null,
+        CancellationToken ct = default
+    )
     {
-        ArgumentNullException.ThrowIfNull(call);
-        var description = ServiceStrings.Format("Duplicate power plan {0}", sourceId);
+        ct.ThrowIfCancellationRequested();
 
+        var previous = GetActiveSchemeId();
+        if (previous is null)
+        {
+            const string error = "Could not read the active power plan; refusing to install.";
+            logger?.LogError("Refusing power-plan install: active scheme unreadable");
+            return new InstallResult(OpResult.Fail(error, error), null, null);
+        }
+
+        var import = await ImportSchemeAsync(filePath, destinationId, logger, ct)
+            .ConfigureAwait(false);
+        if (!import.Result.Ok || import.SchemeId is null)
+            return new InstallResult(import.Result, null, previous);
+
+        var activation = SetActiveScheme(import.SchemeId.Value, logger);
+        if (!activation.Result.Ok)
+            return new InstallResult(activation.Result, import.SchemeId, previous);
+
+        logger?.LogInformation(
+            "Installed power plan {InstalledId} (previous {PreviousId})",
+            import.SchemeId,
+            previous
+        );
+        return new InstallResult(OpResult.Success(), import.SchemeId, previous);
+    }
+
+    public virtual SchemeRefResult DuplicateScheme(Guid sourceId, ILogger? logger = null)
+    {
         IntPtr ppGuid = IntPtr.Zero;
         try
         {
@@ -609,25 +533,15 @@ public sealed class PowerPlanService
                     SchemeId = sourceId,
                     ErrorCode = code,
                 };
-                _logger.LogWarning(
+                logger?.LogWarning(
                     "PowerDuplicateScheme failed for {SchemeId}: Win32 {ErrorCode}",
                     sourceId,
                     code
                 );
-                call.Changes.Add(
-                    ServiceStrings.PowerPlanName,
-                    description,
-                    false,
-                    null,
-                    err.Describe(),
-                    err.Describe(),
-                    retryCall => Task.FromResult(DuplicateScheme(retryCall, sourceId).Result)
-                );
-                return (OpResult.Fail(err.Describe(), err.Describe()), null);
+                return new SchemeRefResult(OpResult.Fail(err.Describe(), err.Describe()), null);
             }
 
-            call.Changes.Add(ServiceStrings.PowerPlanName, description, true);
-            return (OpResult.Success(), duplicated);
+            return new SchemeRefResult(OpResult.Success(), duplicated);
         }
         catch (Exception ex)
         {
@@ -637,17 +551,8 @@ public sealed class PowerPlanService
                 SchemeId = sourceId,
                 ExceptionText = ex.Message,
             };
-            call.Logger.LogWarning(ex, "PowerDuplicateScheme threw for {SchemeId}", sourceId);
-            call.Changes.Add(
-                ServiceStrings.PowerPlanName,
-                description,
-                false,
-                null,
-                err.Describe(),
-                ex.ToString(),
-                retryCall => Task.FromResult(DuplicateScheme(retryCall, sourceId).Result)
-            );
-            return (OpResult.Fail(err.Describe(), ex.ToString()), null);
+            logger?.LogWarning(ex, "PowerDuplicateScheme threw for {SchemeId}", sourceId);
+            return new SchemeRefResult(OpResult.Fail(err.Describe(), ex.ToString()), null);
         }
         finally
         {
@@ -656,11 +561,8 @@ public sealed class PowerPlanService
         }
     }
 
-    public OpResult SetSchemeName(OpCall call, Guid schemeId, string name)
+    public OpResult SetSchemeName(Guid schemeId, string name, ILogger? logger = null)
     {
-        ArgumentNullException.ThrowIfNull(call);
-        var description = ServiceStrings.Format("Rename power plan {0}", schemeId);
-
         var bytes = Encoding.Unicode.GetBytes(name + '\0');
         IntPtr buffer = IntPtr.Zero;
         try
@@ -677,26 +579,12 @@ public sealed class PowerPlanService
                 (uint)bytes.Length
             );
             if (code != ERROR_SUCCESS)
-                return FailTextWrite(
-                    call,
-                    description,
-                    nameof(PowerWriteFriendlyName),
-                    schemeId,
-                    code
-                );
-            call.Changes.Add(ServiceStrings.PowerPlanName, description, true);
+                return FailTextWrite(nameof(PowerWriteFriendlyName), schemeId, code, null, logger);
             return OpResult.Success();
         }
         catch (Exception ex)
         {
-            return FailTextWrite(
-                call,
-                description,
-                nameof(PowerWriteFriendlyName),
-                schemeId,
-                null,
-                ex
-            );
+            return FailTextWrite(nameof(PowerWriteFriendlyName), schemeId, null, ex, logger);
         }
         finally
         {
@@ -705,11 +593,12 @@ public sealed class PowerPlanService
         }
     }
 
-    public OpResult SetSchemeDescription(OpCall call, Guid schemeId, string descriptionText)
+    public OpResult SetSchemeDescription(
+        Guid schemeId,
+        string descriptionText,
+        ILogger? logger = null
+    )
     {
-        ArgumentNullException.ThrowIfNull(call);
-        var description = ServiceStrings.Format("Re-describe power plan {0}", schemeId);
-
         var bytes = Encoding.Unicode.GetBytes(descriptionText + '\0');
         IntPtr buffer = IntPtr.Zero;
         try
@@ -726,26 +615,12 @@ public sealed class PowerPlanService
                 (uint)bytes.Length
             );
             if (code != ERROR_SUCCESS)
-                return FailTextWrite(
-                    call,
-                    description,
-                    nameof(PowerWriteDescription),
-                    schemeId,
-                    code
-                );
-            call.Changes.Add(ServiceStrings.PowerPlanName, description, true);
+                return FailTextWrite(nameof(PowerWriteDescription), schemeId, code, null, logger);
             return OpResult.Success();
         }
         catch (Exception ex)
         {
-            return FailTextWrite(
-                call,
-                description,
-                nameof(PowerWriteDescription),
-                schemeId,
-                null,
-                ex
-            );
+            return FailTextWrite(nameof(PowerWriteDescription), schemeId, null, ex, logger);
         }
         finally
         {
@@ -755,12 +630,11 @@ public sealed class PowerPlanService
     }
 
     private static OpResult FailTextWrite(
-        OpCall call,
-        string description,
         string operation,
         Guid schemeId,
         uint? code,
-        Exception? ex = null
+        Exception? ex,
+        ILogger? logger
     )
     {
         var err = new PowerPlanError
@@ -771,13 +645,12 @@ public sealed class PowerPlanService
             ExceptionText = ex?.Message,
         };
         var detail = ex?.ToString() ?? err.Describe();
-        call.Changes.Add(
-            ServiceStrings.PowerPlanName,
-            description,
-            false,
-            null,
-            err.Describe(),
-            detail
+        logger?.LogWarning(
+            ex,
+            "{Operation} failed for {SchemeId}: {Detail}",
+            operation,
+            schemeId,
+            err.Describe()
         );
         return OpResult.Fail(err.Describe(), detail);
     }

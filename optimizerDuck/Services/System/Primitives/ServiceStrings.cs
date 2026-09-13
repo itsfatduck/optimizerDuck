@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace optimizerDuck.Services.Optimization.Providers;
+namespace optimizerDuck.Services.System.Primitives;
 
 /// <summary>
 /// English-only provider strings: step names, step descriptions and log/error text.
