@@ -2225,4 +2225,7 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
   <data name="Revert.Error.UnreadableData" xml:space="preserve">
     <value>Les données de restauration de {0} n'ont pas pu être lues, rien n'a donc été restauré. Le fichier a été conservé dans {1}.</value>
   </data>
+  <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
+    <value>L'état de veille prolongée était inconnu lors de l'application, rien n'est donc restauré</value>
+  </data>
 </root>

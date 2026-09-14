@@ -4030,4 +4030,7 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
   <data name="Revert.Error.UnreadableData" xml:space="preserve">
     <value>No se pudieron leer los datos de reversión de {0}, así que no se revirtió nada. El archivo se conservó en {1}.</value>
   </data>
+  <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
+    <value>El estado de hibernación era desconocido al aplicar esto, así que no se restaura nada</value>
+  </data>
 </root>

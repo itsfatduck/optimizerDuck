@@ -28,8 +28,11 @@ public static class UsbPowerService
     /// <param name="Enable">Whether Windows may power the device down to save energy.</param>
     public sealed record UsbPowerState(string InstanceName, bool Enable);
 
-    /// <summary>How many devices a write pass actually changed (already-correct devices are left alone).</summary>
-    public sealed record UsbPowerWriteResult(int ChangedCount);
+    /// <summary>
+    ///     How many devices a write pass actually changed, and which devices refused the write.
+    ///     The devices that were changed are still restorable, so a refusal never hides them.
+    /// </summary>
+    public sealed record UsbPowerWriteResult(int ChangedCount, IReadOnlyList<string> FailedDevices);
 
     /// <summary>
     ///     Captures the current state of every USB root-hub device, which is what a revert restores.
@@ -80,29 +83,71 @@ public static class UsbPowerService
     ///     Applies <paramref name="target" /> to every matching device; a null target means "leave
     ///     this device alone". Devices already in the requested state are not written.
     /// </summary>
+    /// <summary>
+    ///     The devices a write pass has to touch, given the states Windows reports and the
+    ///     requested target. A null target leaves a device alone, and a device already in the
+    ///     requested state is not written again. Pure, so the choice is testable without WMI.
+    /// </summary>
+    internal static IReadOnlyList<UsbPowerState> SelectChanges(
+        IReadOnlyList<UsbPowerState> current,
+        Func<UsbPowerState, bool?> target
+    )
+    {
+        var selected = new List<UsbPowerState>();
+        foreach (var state in current)
+        {
+            var want = target(state);
+            if (want is null || want == state.Enable)
+                continue;
+
+            selected.Add(state with { Enable = want.Value });
+        }
+
+        return selected;
+    }
+
     private static UsbPowerWriteResult? Write(Func<UsbPowerState, bool?> target)
     {
         return WmiHelper.Query(
             DeviceQuery,
             devices =>
             {
-                var changed = 0;
+                var byName = new Dictionary<string, ManagementObject>(
+                    StringComparer.OrdinalIgnoreCase
+                );
+                var current = new List<UsbPowerState>(devices.Count);
                 foreach (var device in devices)
                 {
                     var state = ToState(device);
                     if (state is null)
                         continue;
 
-                    var want = target(state);
-                    if (want is null || want == state.Enable)
-                        continue;
-
-                    device["Enable"] = want.Value;
-                    device.Put();
-                    changed++;
+                    current.Add(state);
+                    byName[state.InstanceName] = device;
                 }
 
-                return new UsbPowerWriteResult(changed);
+                var changed = 0;
+                var failed = new List<string>();
+                foreach (var planned in SelectChanges(current, target))
+                {
+                    if (!byName.TryGetValue(planned.InstanceName, out var device))
+                        continue;
+
+                    try
+                    {
+                        device["Enable"] = planned.Enable;
+                        device.Put();
+                        changed++;
+                    }
+                    catch
+                    {
+                        // One device refusing must not throw away the devices that were already
+                        // changed: the caller still has to record their previous state.
+                        failed.Add(planned.InstanceName);
+                    }
+                }
+
+                return new UsbPowerWriteResult(changed, failed);
             },
             NamespacePath
         );

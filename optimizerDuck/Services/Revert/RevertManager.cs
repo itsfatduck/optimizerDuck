@@ -32,7 +32,23 @@ public class RevertManager(
     private static readonly Lazy<Dictionary<string, Func<JObject, IRevertStep>>> _stepRegistry =
         new(BuildStepRegistry);
 
-    private static readonly ConcurrentDictionary<Guid, SemaphoreSlim> _fileLocks = new();
+    /// <summary>Per item file locks. Visible to the test assembly so a stuck lock can be simulated.</summary>
+    internal static readonly ConcurrentDictionary<Guid, SemaphoreSlim> FileLocks = new();
+
+    private readonly TimeSpan _fileLockTimeout = TimeSpan.FromSeconds(FileLockTimeoutSeconds);
+
+    /// <summary>Test seam: the same manager with a shorter file lock timeout.</summary>
+    internal RevertManager(
+        ILogger<RevertManager> logger,
+        ShellService shell,
+        PowerPlanService powerPlans,
+        TimeProvider time,
+        TimeSpan fileLockTimeout
+    )
+        : this(logger, shell, powerPlans, time)
+    {
+        _fileLockTimeout = fileLockTimeout;
+    }
 
     /// <summary>
     ///     Persists revert steps from a <see cref="ChangeSet"/>. Appends every successful change as a new entry with a fresh index. No payload-based dedupe: two executions of the same command are two real executions; dropping either loses revert coverage.
@@ -45,8 +61,11 @@ public class RevertManager(
         CancellationToken cancellationToken = default
     )
     {
+        // Compensation is persisted whenever it exists, whether the step reported success or a
+        // partial failure: a step that was refused after it had already changed something still
+        // needs its previous state recorded.
         var incoming = changes
-            .Changes.Where(c => c.Ok && c.Revert != null)
+            .Changes.Where(c => c.Revert != null)
             .OrderBy(c => c.Index)
             .ToList();
 
@@ -157,6 +176,7 @@ public class RevertManager(
         }
 
         var failedSteps = new List<Change>();
+        var cleanupFailed = false;
         var sortedSteps = steps.OrderByDescending(s => s.Index).ToList();
         var total = sortedSteps.Count;
 
@@ -242,13 +262,27 @@ public class RevertManager(
                 .ToList();
             // CancellationToken.None: the prune must run to completion, otherwise the
             // file would list steps that already reverted successfully.
-            await RemoveRevertStepsAtIndexesAsync(
-                    optimization.Id,
-                    optimization.OptimizationKey,
-                    succeededIndexes,
-                    CancellationToken.None
-                )
-                .ConfigureAwait(false);
+            try
+            {
+                await RemoveRevertStepsAtIndexesAsync(
+                        optimization.Id,
+                        optimization.OptimizationKey,
+                        succeededIndexes,
+                        CancellationToken.None
+                    )
+                    .ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                // The steps themselves reverted, so the caller still gets a result. Only the
+                // cleanup of the data they came from failed, and a leftover file is retried.
+                _logger.LogError(
+                    ex,
+                    "Revert data for {Name} could not be cleaned up",
+                    optimization.OptimizationKey
+                );
+                cleanupFailed = true;
+            }
         }
 
         return new RevertResult
@@ -266,6 +300,7 @@ public class RevertManager(
                     ]
                 : Loc.Instance["Optimization.Revert.Success", optimization.Name],
             FailedSteps = failedSteps,
+            CleanupFailed = cleanupFailed,
         };
     }
 
@@ -681,14 +716,10 @@ public class RevertManager(
         }
     }
 
-    private static async Task<SemaphoreSlim> AcquireFileLockAsync(Guid id)
+    private async Task<SemaphoreSlim> AcquireFileLockAsync(Guid id)
     {
-        var lockObj = _fileLocks.GetOrAdd(id, _ => new SemaphoreSlim(1, 1));
-        if (
-            !await lockObj
-                .WaitAsync(TimeSpan.FromSeconds(FileLockTimeoutSeconds))
-                .ConfigureAwait(false)
-        )
+        var lockObj = FileLocks.GetOrAdd(id, _ => new SemaphoreSlim(1, 1));
+        if (!await lockObj.WaitAsync(_fileLockTimeout).ConfigureAwait(false))
             throw new TimeoutException(
                 string.Format("Timed out waiting for revert file lock ({0}).", id)
             );

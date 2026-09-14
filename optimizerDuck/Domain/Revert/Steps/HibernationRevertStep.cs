@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Exceptions;
@@ -15,21 +15,36 @@ namespace optimizerDuck.Domain.Revert.Steps;
 public class HibernationRevertStep : IRevertStep
 {
     /// <summary>
-    ///     Gets or sets a value that indicates whether the hibernation file existed before the
-    ///     change, so reverting commits it back.
+    ///     Gets or sets whether the hibernation file existed before the change. Null means the
+    ///     state could not be read, so there is nothing to restore and a revert leaves the
+    ///     system alone instead of guessing and creating a multi gigabyte file.
     /// </summary>
-    public bool WasPresent { get; set; }
+    public bool? WasPresent { get; set; }
+
+    /// <summary>Whether the state could not be read when the change was applied.</summary>
+    public bool StateUnknown => WasPresent is null;
 
     /// <inheritdoc />
     public string Type => "Hibernation";
 
     /// <inheritdoc />
-    public string Description => Loc.Instance["Revert.Hibernation.Description"];
+    public string Description =>
+        StateUnknown
+            ? Loc.Instance["Revert.Hibernation.Description.Unknown"]
+            : Loc.Instance["Revert.Hibernation.Description"];
 
     /// <inheritdoc />
     public Task<bool> ExecuteAsync(RevertContext context, ILogger logger)
     {
-        var result = HibernationService.SetHibernationFile(WasPresent);
+        if (WasPresent is not { } present)
+        {
+            logger.LogWarning(
+                "[HIBERNATION][REVERT][SKIP] the previous state was unknown, nothing restored"
+            );
+            return Task.FromResult(true);
+        }
+
+        var result = HibernationService.SetHibernationFile(present);
 
         if (!result.Succeeded)
         {
@@ -52,18 +67,24 @@ public class HibernationRevertStep : IRevertStep
     /// <inheritdoc />
     public JObject ToData()
     {
-        return new JObject { [nameof(WasPresent)] = WasPresent };
+        return new JObject
+        {
+            [nameof(WasPresent)] = WasPresent is { } present ? new JValue(present) : JValue.CreateNull(),
+        };
     }
 
     /// <summary>
-    ///     Deserializes a <see cref="HibernationRevertStep" /> from JSON data. Defaults to
-    ///     "was present" when the flag is missing, matching the optimization's fail-safe default.
+    ///     Deserializes a <see cref="HibernationRevertStep" /> from JSON data. Files written
+    ///     before this change always carry a boolean; a missing or null value means the state was
+    ///     not known, which restores nothing.
     /// </summary>
     public static HibernationRevertStep FromData(JObject data)
     {
+        var token = data[nameof(WasPresent)];
         return new HibernationRevertStep
         {
-            WasPresent = data[nameof(WasPresent)]?.Value<bool>() ?? true,
+            WasPresent =
+                token is null || token.Type == JTokenType.Null ? null : token.Value<bool>(),
         };
     }
 }

@@ -28,4 +28,11 @@ public class RevertResult
     ///     (that is, all individual steps failed).
     /// </summary>
     public bool AllStepsFailed { get; set; }
+
+    /// <summary>
+    ///     Gets or sets a value that indicates whether the steps ran but the revert data could
+    ///     not be cleaned up, for example because the file lock timed out. The leftover file is
+    ///     retried on the next revert.
+    /// </summary>
+    public bool CleanupFailed { get; set; }
 }

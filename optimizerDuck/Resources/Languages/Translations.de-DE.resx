@@ -2277,4 +2277,7 @@ Aktualisiere jetzt, um die neuesten Funktionen, Verbesserungen und Fehlerbehebun
   <data name="Revert.Error.UnreadableData" xml:space="preserve">
     <value>Die Wiederherstellungsdaten für {0} konnten nicht gelesen werden, es wurde also nichts zurückgesetzt. Die Datei bleibt unter {1} erhalten.</value>
   </data>
+  <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
+    <value>Der Ruhezustand war beim Anwenden unbekannt, es wird also nichts wiederhergestellt</value>
+  </data>
 </root>

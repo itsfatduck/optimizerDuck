@@ -115,14 +115,15 @@ public static class ServiceProcessService
                 return MapToOpResult(ServiceChangeResult.AlreadyConfigured, null, null, null);
             }
 
-            var nativeError = SetStartupType(item.Name, item.StartupType);
+            var write = SetStartupType(item.Name, item.StartupType);
+            var nativeError = write.Error;
 
             var success = nativeError == 0;
             sw.Stop();
 
             string? errorDetail = null;
             if (!success)
-                errorDetail = $"ChangeServiceConfig failed with Win32 error {nativeError}";
+                errorDetail = BuildWriteErrorDetail(write.StartTypeWritten, nativeError);
 
             if (success)
             {
@@ -165,6 +166,17 @@ public static class ServiceProcessService
                 );
             }
 
+            // A delayed auto start flag that Windows refuses still leaves the start type
+            // written, so the recorded step carries the previous one and a revert can put it
+            // back even though the outcome is a failure.
+            ServiceRevertStep? partialRevert = null;
+            if (write.StartTypeWritten)
+                partialRevert = new ServiceRevertStep
+                {
+                    ServiceName = item.Name,
+                    OriginalStartupType = originalStartupType.Value,
+                };
+
             var error = $"{ServiceStrings.ServiceErrorChangeStartupTypeFailed} '{item.Name}'";
             call.Logger.LogInformation(
                 "[SERVICE][{Name}][FAIL][D={Duration}] startup -> {StartupType}",
@@ -176,12 +188,12 @@ public static class ServiceProcessService
                 ServiceStrings.ServiceName,
                 description,
                 false,
-                null,
+                partialRevert,
                 error,
                 errorDetail,
                 retryCall => ChangeServiceStartupTypeAsync(retryCall, item)
             );
-            return MapToOpResult(ServiceChangeResult.Failed, null, error, errorDetail);
+            return MapToOpResult(ServiceChangeResult.Failed, partialRevert, error, errorDetail);
         }
         catch (Exception ex)
         {
@@ -354,10 +366,24 @@ public static class ServiceProcessService
     }
 
     /// <summary>
-    ///     Writes the start type, then the delayed flag for auto-start targets. Returns a Win32
-    ///     error code (0 on success).
+    ///     Outcome of a start type write: the Win32 error, and whether the start type itself was
+    ///     written before a later call was refused.
     /// </summary>
-    private static int SetStartupType(string serviceName, ServiceStartupType startupType)
+    private readonly record struct StartTypeWrite(int Error, bool StartTypeWritten);
+
+    /// <summary>
+    ///     Describes which call failed, so a partial write is never mistaken for "nothing ran".
+    /// </summary>
+    internal static string BuildWriteErrorDetail(bool startTypeWritten, int nativeError) =>
+        startTypeWritten
+            ? $"ChangeServiceConfig2 (delayed auto start) failed with Win32 error {nativeError}, after the start type was written"
+            : $"ChangeServiceConfig failed with Win32 error {nativeError}";
+
+    /// <summary>
+    ///     Writes the start type, then the delayed flag for auto-start targets. Returns the Win32
+    ///     error and whether the start type was written before the refusal.
+    /// </summary>
+    private static StartTypeWrite SetStartupType(string serviceName, ServiceStartupType startupType)
     {
         var desiredStart = startupType switch
         {
@@ -370,7 +396,7 @@ public static class ServiceProcessService
 
         var manager = OpenSCManager(null, null, ScManagerConnect);
         if (manager == IntPtr.Zero)
-            return Marshal.GetLastWin32Error();
+            return new StartTypeWrite(Marshal.GetLastWin32Error(), false);
 
         try
         {
@@ -380,7 +406,7 @@ public static class ServiceProcessService
                 ServiceQueryConfig | ServiceChangeConfig
             );
             if (service == IntPtr.Zero)
-                return Marshal.GetLastWin32Error();
+                return new StartTypeWrite(Marshal.GetLastWin32Error(), false);
 
             try
             {
@@ -399,7 +425,7 @@ public static class ServiceProcessService
                         null
                     )
                 )
-                    return Marshal.GetLastWin32Error();
+                    return new StartTypeWrite(Marshal.GetLastWin32Error(), false);
 
                 // The flag is ignored for non-auto-start services, and leaving a previous "delayed"
                 // flag behind would keep reporting the old state, so it is always written for
@@ -412,10 +438,11 @@ public static class ServiceProcessService
                     };
 
                     if (!ChangeServiceConfig2(service, ServiceConfigDelayedAutoStartInfo, ref info))
-                        return Marshal.GetLastWin32Error();
+                        // The start type is already written at this point.
+                        return new StartTypeWrite(Marshal.GetLastWin32Error(), true);
                 }
 
-                return 0;
+                return new StartTypeWrite(0, true);
             }
             finally
             {

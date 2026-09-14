@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Logging.Abstractions;
+﻿using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Win32;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
@@ -11,6 +11,22 @@ public class ServiceProcessServiceTests
 {
     private static OpCall NewCall() =>
         new() { Changes = new ChangeSet(), Logger = NullLogger.Instance };
+
+    [Theory]
+    [InlineData(true, 5, "ChangeServiceConfig2")]
+    [InlineData(false, 5, "ChangeServiceConfig")]
+    public void BuildWriteErrorDetail_NamesTheCallThatFailed(
+        bool startTypeWritten,
+        int nativeError,
+        string expectedCall
+    )
+    {
+        // A refusal after the start type was written must not read like "nothing ran".
+        var detail = ServiceProcessService.BuildWriteErrorDetail(startTypeWritten, nativeError);
+
+        Assert.Contains(expectedCall, detail);
+        Assert.Contains(nativeError.ToString(), detail);
+    }
 
     // =============================================
     // Integration tests: GetStartupTypeAsync (real sc.exe)

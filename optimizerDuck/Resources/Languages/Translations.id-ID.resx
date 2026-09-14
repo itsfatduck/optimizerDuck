@@ -2282,4 +2282,7 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   <data name="Revert.Error.UnreadableData" xml:space="preserve">
     <value>Data pemulihan untuk {0} tidak dapat dibaca, jadi tidak ada yang dipulihkan. File tetap disimpan di {1}.</value>
   </data>
+  <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
+    <value>Status hibernasi tidak diketahui saat ini diterapkan, jadi tidak ada yang dipulihkan</value>
+  </data>
 </root>

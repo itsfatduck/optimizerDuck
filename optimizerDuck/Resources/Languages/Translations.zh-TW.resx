@@ -2220,4 +2220,7 @@
   <data name="Revert.Error.UnreadableData" xml:space="preserve">
     <value>無法讀取 {0} 的還原資料，因此未還原任何內容。檔案保留在 {1}。</value>
   </data>
+  <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
+    <value>套用時 hibernation 狀態未知，因此不會還原任何內容</value>
+  </data>
 </root>

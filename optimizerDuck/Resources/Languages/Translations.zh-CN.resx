@@ -2233,4 +2233,7 @@
   <data name="Revert.Error.UnreadableData" xml:space="preserve">
     <value>无法读取 {0} 的还原数据，因此未还原任何内容。文件保留在 {1}。</value>
   </data>
+  <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
+    <value>应用时 hibernation 状态未知，因此不会还原任何内容</value>
+  </data>
 </root>

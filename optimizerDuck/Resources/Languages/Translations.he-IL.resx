@@ -2282,4 +2282,7 @@
   <data name="Revert.Error.UnreadableData" xml:space="preserve">
     <value>לא ניתן היה לקרוא את נתוני השחזור של {0}, ולכן דבר לא שוחזר. הקובץ נשמר במיקום {1}.</value>
   </data>
+  <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
+    <value>מצב השינה היה לא ידוע בעת ההחלה, ולכן דבר לא משוחזר</value>
+  </data>
 </root>

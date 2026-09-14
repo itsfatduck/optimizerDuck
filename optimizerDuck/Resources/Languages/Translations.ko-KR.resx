@@ -2216,4 +2216,7 @@
   <data name="Revert.Error.UnreadableData" xml:space="preserve">
     <value>{0}의 복원 데이터를 읽을 수 없어 아무것도 복원하지 않았습니다. 파일은 {1}에 그대로 보관했습니다.</value>
   </data>
+  <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
+    <value>적용할 때 최대 절전 상태를 알 수 없었으므로 복원할 내용이 없습니다</value>
+  </data>
 </root>

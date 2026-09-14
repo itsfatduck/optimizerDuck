@@ -2233,4 +2233,7 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   <data name="Revert.Error.UnreadableData" xml:space="preserve">
     <value>Non è stato possibile leggere i dati di ripristino di {0}, quindi non è stato ripristinato nulla. Il file è stato conservato in {1}.</value>
   </data>
+  <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
+    <value>Lo stato di ibernazione era sconosciuto al momento dell'applicazione, quindi non viene ripristinato nulla</value>
+  </data>
 </root>

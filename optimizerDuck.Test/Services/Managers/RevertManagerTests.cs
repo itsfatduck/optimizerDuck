@@ -9,6 +9,7 @@ using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Domain.UI;
+using optimizerDuck.Services.Optimization;
 using optimizerDuck.Services.Revert;
 using optimizerDuck.Services.System;
 using optimizerDuck.Services.System.Primitives;
@@ -771,6 +772,156 @@ public class RevertIntegrityTests
         }
         finally
         {
+            Cleanup(id);
+        }
+    }
+
+    [Fact]
+    public async Task SaveRevertDataAsync_FailedChangeWithCompensation_IsStillPersisted()
+    {
+        // A step that was refused after it had already changed something still needs its
+        // previous state recorded, so the writer no longer requires a success flag.
+        var id = Guid.NewGuid();
+        var changes = new ChangeSet();
+        changes.Add(
+            "Registry",
+            "wrote a value, then the flag write was refused",
+            false,
+            new MockRevertStep(),
+            "refused"
+        );
+
+        try
+        {
+            await NewManager()
+                .SaveRevertDataAsync(
+                    changes,
+                    id,
+                    "FailedStepTest",
+                    TestContext.Current.CancellationToken
+                );
+
+            var data = await RevertManager.GetRevertDataAsync(id);
+            Assert.NotNull(data);
+            Assert.Single(data!.Steps, s => s != null);
+        }
+        finally
+        {
+            Cleanup(id);
+        }
+    }
+
+    [Fact]
+    public async Task RetryFailedSteps_PersistsEveryRecoveredCompensation()
+    {
+        var id = Guid.NewGuid();
+        var failed = new Change
+        {
+            Index = 1,
+            Name = "Step",
+            Description = "Step",
+            Ok = false,
+            Retry = call =>
+            {
+                call.Changes.Add("Registry", "first", true, new MockRevertStep());
+                call.Changes.Add("Registry", "second", true, new MockRevertStep());
+                return Task.FromResult(OpResult.Success());
+            },
+        };
+
+        try
+        {
+            var result = await OptimizationService.RetryFailedStepsWithResultsAsync(
+                [failed],
+                false,
+                NullLogger.Instance,
+                NewManager(),
+                id,
+                "RetryTest"
+            );
+
+            Assert.Empty(result.FailedSteps);
+            var data = await RevertManager.GetRevertDataAsync(id);
+            Assert.NotNull(data);
+            Assert.Equal(2, data!.Steps.Count(s => s != null));
+        }
+        finally
+        {
+            Cleanup(id);
+        }
+    }
+
+    [Fact]
+    public async Task RevertAsync_CleanupCannotTakeTheLock_ReturnsAResultWithAWarning()
+    {
+        var id = Guid.NewGuid();
+        var path = Path.Combine(Shared.RevertDirectory, id + ".json");
+        var cancellationToken = TestContext.Current.CancellationToken;
+        Directory.CreateDirectory(Shared.RevertDirectory);
+
+        // Hold the file lock so the prune after the revert cannot take it. One step succeeds and
+        // one fails, which is the case that reaches the prune instead of deleting the file.
+        var gate = RevertManager.FileLocks.GetOrAdd(id, _ => new SemaphoreSlim(1, 1));
+        await gate.WaitAsync(cancellationToken);
+        try
+        {
+            await File.WriteAllTextAsync(
+                path,
+                JsonConvert.SerializeObject(
+                    new RevertData
+                    {
+                        SchemaVersion = 1,
+                        OptimizationId = id,
+                        OptimizationName = "LockTest",
+                        AppliedAt = DateTime.UtcNow,
+                        Steps = new RevertStepData?[]
+                        {
+                            new()
+                            {
+                                Index = 1,
+                                Type = "Shell",
+                                Data = new JObject
+                                {
+                                    ["ShellType"] = "CMD",
+                                    ["Command"] = "exit 0",
+                                },
+                            },
+                            new()
+                            {
+                                Index = 2,
+                                Type = "Shell",
+                                Data = new JObject
+                                {
+                                    ["ShellType"] = "CMD",
+                                    ["Command"] = "exit 1",
+                                },
+                            },
+                        },
+                    }
+                ),
+                cancellationToken
+            );
+
+            var manager = new RevertManager(
+                NullLogger<RevertManager>.Instance,
+                TestShell.New(),
+                new PowerPlanService(NullLogger<PowerPlanService>.Instance),
+                TimeProvider.System,
+                TimeSpan.FromMilliseconds(150)
+            );
+
+            var result = await manager.RevertAsync(
+                new MockOptimization(id),
+                cancellationToken: cancellationToken
+            );
+
+            Assert.True(result.CleanupFailed);
+            Assert.False(result.Success);
+            Assert.True(File.Exists(path));
+        }
+        finally
+        {
+            gate.Release();
             Cleanup(id);
         }
     }

@@ -2217,4 +2217,7 @@
   <data name="Revert.Error.UnreadableData" xml:space="preserve">
     <value>{0} の復元データを読み取れなかったため、何も復元していません。ファイルは {1} にそのまま残しています。</value>
   </data>
+  <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
+    <value>適用時の休止状態が不明だったため、復元する内容はありません</value>
+  </data>
 </root>

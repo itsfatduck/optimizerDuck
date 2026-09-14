@@ -1,3 +1,7 @@
+﻿using Microsoft.Extensions.Logging.Abstractions;
+using optimizerDuck.Domain.Execution;
+using optimizerDuck.Domain.Optimizations.Categories;
+using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Services.System;
 using optimizerDuck.Services.System.Primitives;
 
@@ -83,5 +87,84 @@ public class UsbPowerServiceTests
             hasPath =>
                 Assert.True(hasPath, "the USB write query returned an instance without __PATH")
         );
+    }
+
+    [Fact]
+    public void SelectChanges_DisableTargetsOnlyDevicesThatAreEnabled()
+    {
+        var current = new List<UsbPowerService.UsbPowerState>
+        {
+            new(@"USB\ROOT_HUB30\1", true),
+            new(@"USB\ROOT_HUB30\2", false),
+        };
+
+        var planned = UsbPowerService.SelectChanges(current, _ => false);
+
+        var only = Assert.Single(planned);
+        Assert.Equal(@"USB\ROOT_HUB30\1", only.InstanceName);
+        Assert.False(only.Enable);
+    }
+
+    [Fact]
+    public void SelectChanges_RestoreTargetsOnlyDevicesThatDiffer()
+    {
+        var current = new List<UsbPowerService.UsbPowerState>
+        {
+            new(@"USB\ROOT_HUB30\1", false),
+            new(@"USB\ROOT_HUB30\2", true),
+        };
+        var captured = new List<UsbPowerService.UsbPowerState>
+        {
+            new(@"USB\ROOT_HUB30\1", true),
+            new(@"USB\ROOT_HUB30\2", true),
+            new(@"USB\ROOT_HUB30\3", false),
+        };
+
+        var planned = UsbPowerService.SelectChanges(
+            current,
+            state => captured.FirstOrDefault(c => c.InstanceName == state.InstanceName)?.Enable
+        );
+
+        var only = Assert.Single(planned);
+        Assert.Equal(@"USB\ROOT_HUB30\1", only.InstanceName);
+        Assert.True(only.Enable);
+    }
+
+    [Fact]
+    public void SelectChanges_DeviceAlreadyInTheRequestedState_IsLeftAlone()
+    {
+        var current = new List<UsbPowerService.UsbPowerState>
+        {
+            new(@"USB\ROOT_HUB30\1", true),
+        };
+
+        Assert.Empty(UsbPowerService.SelectChanges(current, _ => true));
+    }
+
+    [Fact]
+    public void CategoryPartialWrite_RecordsTheRevertStepAndReportsTheFailure()
+    {
+        // The devices that were changed keep their recorded state, even though the outcome for
+        // the write is a failure because another device refused.
+        var call = new OpCall { Changes = new ChangeSet(), Logger = NullLogger.Instance };
+        var revertStep = new UsbPowerRevertStep
+        {
+            States =
+            [
+                new UsbPowerRevertStep.DeviceState
+                {
+                    InstanceName = @"USB\ROOT_HUB30\1",
+                    Enable = true,
+                },
+            ],
+        };
+        var write = new UsbPowerService.UsbPowerWriteResult(1, [@"USB\ROOT_HUB30\2"]);
+
+        var result = PowerManagement.DisableUSBPowerSaving.Apply(call, revertStep, write);
+
+        Assert.False(result.Ok);
+        var change = Assert.Single(call.Changes.Changes);
+        Assert.False(change.Ok);
+        Assert.Same(revertStep, change.Revert);
     }
 }

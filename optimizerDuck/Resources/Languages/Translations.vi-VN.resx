@@ -2217,4 +2217,7 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Revert.Error.UnreadableData" xml:space="preserve">
     <value>Không đọc được dữ liệu hoàn tác của {0}, nên chưa hoàn tác gì. Tệp vẫn được giữ tại {1}.</value>
   </data>
+  <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
+    <value>Không xác định được trạng thái hibernation khi áp dụng, nên không có gì để khôi phục</value>
+  </data>
 </root>

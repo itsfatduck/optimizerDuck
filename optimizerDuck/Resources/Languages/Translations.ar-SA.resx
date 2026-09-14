@@ -2267,5 +2267,8 @@
   <data name="Revert.Error.UnreadableData" xml:space="preserve">
     <value>تعذّرت قراءة بيانات التراجع الخاصة بـ {0}، لذلك لم يتم التراجع عن أي شيء. تم الاحتفاظ بالملف في {1}.</value>
   </data>
+  <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
+    <value>كانت حالة الإسبات غير معروفة عند تطبيق هذا، لذلك لا شيء يُستعاد</value>
+  </data>
 </root>
 

@@ -507,8 +507,8 @@ public class OptimizationService(
             Exception? error = null;
             try
             {
-                // Fresh call: retry is user-initiated, the original token may be dead.
-                // Captured changes merge back into the apply set (first backup wins).
+                // Fresh call: retry is user-initiated, the original token may be dead. Whatever
+                // the retry records is appended to the revert data below, in the order it ran.
                 var retryChanges = new ChangeSet();
                 var retryCall = new OpCall { Changes = retryChanges, Logger = logger };
                 var retryOutcome = await step.Retry(retryCall).ConfigureAwait(false);
@@ -516,7 +516,8 @@ public class OptimizationService(
 
                 if (success)
                 {
-                    var capturedStep = retryChanges.SuccessfulSteps.LastOrDefault();
+                    var capturedSteps = retryChanges.SuccessfulSteps;
+                    var capturedStep = capturedSteps.LastOrDefault();
                     var capturedRevert = capturedStep?.Revert ?? retryOutcome.Revert;
                     var recoveredStep = new Change
                     {
@@ -527,30 +528,38 @@ public class OptimizationService(
                         Revert = capturedRevert,
                     };
 
-                    // Auto-persist recovered revert step if revertManager is available
-                    if (
-                        recoveredStep.Revert != null
-                        && revertManager != null
-                        && optimizationId.HasValue
-                    )
+                    // A retry can recover more than one step, and each one carries the backup
+                    // that makes it undoable, so all of them are persisted in the order they ran.
+                    // Appending keeps the last in first out revert correct.
+                    if (revertManager != null && optimizationId.HasValue)
                     {
-                        try
+                        var compensations = capturedSteps
+                            .Where(c => c.Revert != null)
+                            .Select(c => c.Revert!)
+                            .ToList();
+                        if (compensations.Count == 0 && recoveredStep.Revert != null)
+                            compensations.Add(recoveredStep.Revert);
+
+                        foreach (var compensation in compensations)
                         {
-                            await revertManager
-                                .AppendRevertStepAsync(
-                                    optimizationId.Value,
-                                    optimizationKey ?? string.Empty,
-                                    recoveredStep.Revert
-                                )
-                                .ConfigureAwait(false);
-                        }
-                        catch (Exception ex)
-                        {
-                            logger.LogError(
-                                ex,
-                                "Failed to auto-persist recovered revert step for {Index}",
-                                step.Index
-                            );
+                            try
+                            {
+                                await revertManager
+                                    .AppendRevertStepAsync(
+                                        optimizationId.Value,
+                                        optimizationKey ?? string.Empty,
+                                        compensation
+                                    )
+                                    .ConfigureAwait(false);
+                            }
+                            catch (Exception ex)
+                            {
+                                logger.LogError(
+                                    ex,
+                                    "Failed to auto-persist recovered revert step for {Index}",
+                                    step.Index
+                                );
+                            }
                         }
                     }
 

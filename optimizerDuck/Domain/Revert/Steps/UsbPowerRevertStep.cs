@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Exceptions;
@@ -54,12 +54,16 @@ public class UsbPowerRevertStep : IRevertStep
 
         var result = UsbPowerService.Restore(captured);
 
-        if (result is null)
+        if (result is null || result.FailedDevices.Count > 0)
         {
-            logger.LogWarning("[USB][REVERT][FAIL] WMI restore refused or unavailable");
+            var detail = result is null ? string.Empty : string.Join(", ", result.FailedDevices);
+            logger.LogWarning(
+                "[USB][REVERT][FAIL] WMI restore refused or unavailable for {Detail}",
+                detail
+            );
             throw new StepExecutionException(
                 Loc.Instance["Revert.UsbPower.Error.RestoreFailed"],
-                string.Empty
+                detail
             );
         }
 

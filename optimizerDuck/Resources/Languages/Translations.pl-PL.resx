@@ -2225,4 +2225,7 @@ Zaktualizuj teraz, aby korzystać z najnowszych funkcji, ulepszeń i poprawek b�
   <data name="Revert.Error.UnreadableData" xml:space="preserve">
     <value>Nie można odczytać danych przywracania dla {0}, więc nic nie przywrócono. Plik zachowano w {1}.</value>
   </data>
+  <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
+    <value>Stan hibernacji był nieznany w momencie zastosowania, więc nic nie zostanie przywrócone</value>
+  </data>
 </root>

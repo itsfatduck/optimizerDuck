@@ -1,4 +1,4 @@
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Exceptions;
 using optimizerDuck.Domain.Optimizations.Models.Services;
@@ -39,12 +39,15 @@ public class RevertStepSerializationTests
     }
 
     [Fact]
-    public void HibernationRevertStep_MissingFlag_DefaultsToPresent()
+    public void HibernationRevertStep_MissingFlag_MeansUnknown()
     {
-        // Fail-safe default shared with the optimization: restore hibernation when unknown.
+        // Deliberate reversal: the old fail-safe assumed hibernation was present, so a revert
+        // committed a hibernation file that may never have existed. Unknown now restores nothing
+        // and says so. HibernationRevertStepTests covers the three states in full.
         var restored = HibernationRevertStep.FromData(new JObject());
 
-        Assert.True(restored.WasPresent);
+        Assert.Null(restored.WasPresent);
+        Assert.True(restored.StateUnknown);
     }
 
     [Fact]

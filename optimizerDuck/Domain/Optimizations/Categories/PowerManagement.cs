@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.IO;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -39,15 +39,20 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
             OptimizationContext context
         )
         {
-            // Fail-safe: when the previous state cannot be read, revert restores hibernation.
-            var wasPresent = HibernationService.IsHibernationFilePresent() ?? true;
+            // An unreadable previous state is recorded as unknown, so a revert leaves the system
+            // alone instead of guessing and committing a hibernation file that never existed.
+            var wasPresent = HibernationService.IsHibernationFilePresent();
+            if (wasPresent is null)
+                context.Logger.LogWarning(
+                    "Hibernation state could not be read, the recorded step will mark it unknown"
+                );
 
             Apply(context, wasPresent);
 
             return Task.FromResult(context.Changes.ToApplyResult());
         }
 
-        private static OpResult Apply(OpCall call, bool wasPresent)
+        internal static OpResult Apply(OpCall call, bool? wasPresent)
         {
             var result = HibernationService.SetHibernationFile(present: false);
             var revert = new HibernationRevertStep { WasPresent = wasPresent };
@@ -62,7 +67,7 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
                 );
                 call.Logger.LogInformation(
                     "Disabled hibernation and Fast Startup. Previous state: {State}",
-                    wasPresent ? "Enabled" : "Disabled"
+                    wasPresent is { } present ? present ? "Enabled" : "Disabled" : "Unknown"
                 );
                 return OpResult.Success(revert);
             }
@@ -127,7 +132,7 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
             return Task.FromResult(context.Changes.ToApplyResult());
         }
 
-        private static OpResult Apply(
+        internal static OpResult Apply(
             OpCall call,
             UsbPowerRevertStep revertStep,
             UsbPowerService.UsbPowerWriteResult? result
@@ -137,6 +142,30 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
                 ServiceStrings.UsbPowerDescriptionDisable,
                 revertStep.States.Count
             );
+
+            // Some devices refusing still leaves the others changed, so the recorded step keeps
+            // their previous state and the failure names the devices that refused.
+            if (result is { FailedDevices.Count: > 0 })
+            {
+                var detail = string.Join(", ", result.FailedDevices);
+                call.Logger.LogWarning(
+                    "[USB][PARTIAL] {Count} device(s) changed, {Failed} refused: {Detail}",
+                    result.ChangedCount,
+                    result.FailedDevices.Count,
+                    detail
+                );
+                call.Changes.Add(
+                    ServiceStrings.UsbPowerName,
+                    description,
+                    false,
+                    revertStep,
+                    ServiceStrings.UsbPowerErrorChangeFailed,
+                    detail,
+                    retryCall =>
+                        Task.FromResult(Apply(retryCall, revertStep, UsbPowerService.Disable()))
+                );
+                return OpResult.Fail(ServiceStrings.UsbPowerErrorChangeFailed, detail);
+            }
 
             if (result is not null)
             {

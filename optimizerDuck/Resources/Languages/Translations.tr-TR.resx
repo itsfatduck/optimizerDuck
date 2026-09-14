@@ -2216,4 +2216,7 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   <data name="Revert.Error.UnreadableData" xml:space="preserve">
     <value>{0} için geri alma verileri okunamadı, bu nedenle hiçbir şey geri alınmadı. Dosya {1} konumunda saklandı.</value>
   </data>
+  <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
+    <value>Bu uygulandığında hazırda bekletme durumu bilinmiyordu, bu nedenle hiçbir şey geri yüklenmez</value>
+  </data>
 </root>
