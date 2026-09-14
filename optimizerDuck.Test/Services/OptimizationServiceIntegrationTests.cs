@@ -128,6 +128,7 @@ public class OptimizationServiceIntegrationTests : IDisposable
             null!,
             new ShellService(new ProcessRunner(120000)),
             new PowerPlanService(NullLogger<PowerPlanService>.Instance),
+            new SystemRestoreService(NullLogger<SystemRestoreService>.Instance),
             NullLogger<OptimizationService>.Instance
         );
 

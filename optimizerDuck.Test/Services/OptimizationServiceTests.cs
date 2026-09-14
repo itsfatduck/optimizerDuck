@@ -562,6 +562,7 @@ public class OptimizationServiceTests
             contentDialogService,
             shellService,
             new PowerPlanService(NullLogger<PowerPlanService>.Instance),
+            new SystemRestoreService(NullLogger<SystemRestoreService>.Instance),
             logger
         );
     }

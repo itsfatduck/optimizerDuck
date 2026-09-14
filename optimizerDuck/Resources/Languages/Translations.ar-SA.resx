@@ -1442,8 +1442,14 @@
   <data name="Revert.UsbPower.Description" xml:space="preserve">
     <value>استعادة حالات طاقة التعليق الانتقائي لمنافذ ‎USB‎</value>
   </data>
-  <data name="Revert.UsbPower.Error.CommandFailed" xml:space="preserve">
-    <value>فشل التراجع عن طاقة ‎USB‎ برمز خروج {0}</value>
+  <data name="Revert.Hibernation.Description" xml:space="preserve">
+    <value>استعادة حالة السكون</value>
+  </data>
+  <data name="Revert.Hibernation.Error.RestoreFailed" xml:space="preserve">
+    <value>تعذّر استعادة السكون: {0}</value>
+  </data>
+  <data name="Revert.UsbPower.Error.RestoreFailed" xml:space="preserve">
+    <value>تعذّر استعادة حالات طاقة USB</value>
   </data>
   <data name="ScheduledTasks.Action.Delete" xml:space="preserve">
     <value>حذف</value>

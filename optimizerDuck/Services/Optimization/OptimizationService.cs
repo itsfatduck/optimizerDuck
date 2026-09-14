@@ -1,4 +1,5 @@
-using System.IO;
+﻿using System.IO;
+using System.Management;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Common.Extensions;
@@ -6,6 +7,7 @@ using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
+using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
@@ -28,12 +30,14 @@ public class OptimizationService(
     IContentDialogService contentDialogService,
     ShellService shellService,
     PowerPlanService powerPlanService,
+    SystemRestoreService systemRestoreService,
     ILogger<OptimizationService> logger
 )
 {
     private readonly ILogger _logger = logger;
     private readonly ShellService _shellService = shellService;
     private readonly PowerPlanService _powerPlanService = powerPlanService;
+    private readonly SystemRestoreService _systemRestoreService = systemRestoreService;
 
     private OptimizationContext NewContext(
         ChangeSet changes,
@@ -56,12 +60,17 @@ public class OptimizationService(
     /// <summary>Gets or sets a value that indicates whether a system restore point was created before applying optimizations.</summary>
     public bool WasRequestedRestorePoint { get; set; } = false;
 
-    private static readonly Regex _restorePointDisabledRegex = new(
-        @"\b(is\s+disabled|system\s+restore\s+is\s+disabled|disabled\s+by\s+group\s+policy|disableconfig|disablesr|protection\s+is\s+off)\b",
-        RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled
-    );
-
-    /// <summary>Creates a system restore point via PowerShell, showing a processing dialog. Enables System Protection if it is disabled.</summary>
+    /// <summary>
+    ///     Creates a restore point through the System Restore subsystem, showing a processing
+    ///     dialog. Enables System Protection for the system drive and retries once when Windows
+    ///     reports protection as disabled.
+    ///     <para>
+    ///     This is a UI orchestration method: it must be awaited from the UI thread and it keeps
+    ///     that thread for itself, because it shows, updates and hides a <see cref="ContentDialog"/>.
+    ///     Only the native calls are pushed onto the thread pool, so a slow service call never
+    ///     blocks the interface.
+    ///     </para>
+    /// </summary>
     /// <returns>A <see cref="RestorePointResult"/> indicating success, failure, or frequency-limit reached.</returns>
     public async Task<RestorePointResult> CreateRestorePointAsync()
     {
@@ -77,6 +86,15 @@ public class OptimizationService(
 
         try
         {
+            // Throttle is the documented frequency setting plus the newest existing point; the
+            // service fails open when that state cannot be read, exactly like the create below.
+            var nowUtc = DateTime.UtcNow;
+            if (await Task.Run(() => _systemRestoreService.IsWithinCreationThrottle(nowUtc)))
+            {
+                _logger.LogWarning("Restore point creation skipped: frequency limit reached.");
+                return RestorePointResult.FrequencyLimitReached;
+            }
+
             dialogViewModel.ProgressReporter.Report(
                 new ProcessingProgress
                 {
@@ -84,28 +102,26 @@ public class OptimizationService(
                     IsIndeterminate = true,
                 }
             );
-            var result = await _shellService
-                .QueryPowerShellAsync(
-                    $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS",
-                    _logger
-                )
-                .ConfigureAwait(false);
 
-            if (IsFrequencyLimited(result.Stderr))
-            {
-                _logger.LogWarning("Restore point creation skipped: frequency limit reached.");
-                return RestorePointResult.FrequencyLimitReached;
-            }
+            var first = await Task.Run(() =>
+                _systemRestoreService.CreateRestorePoint(Shared.RestorePointName)
+            );
 
-            if (result.ExitCode == 0)
+            if (first.ExceptionText is not null)
+                _logger.LogError("Restore point creation failed: {Message}", first.ExceptionText);
+
+            if (first.Succeeded)
             {
                 _logger.LogInformation("Restore point created successfully.");
                 return RestorePointResult.Success;
             }
 
-            if (!_restorePointDisabledRegex.IsMatch(result.Stderr))
+            if (!SystemRestoreService.IsProtectionDisabledStatus(first.NativeStatus))
             {
-                _logger.LogError("Failed to create restore point: {Message}", result.Stderr);
+                _logger.LogError(
+                    "Failed to create restore point: native status 0x{Status:X8}",
+                    first.NativeStatus
+                );
                 return RestorePointResult.Failed;
             }
 
@@ -118,14 +134,14 @@ public class OptimizationService(
                 }
             );
 
-            var enableResult = await _shellService
-                .QueryPowerShellAsync("Enable-ComputerRestore -Drive \"$env:SystemDrive\"", _logger)
-                .ConfigureAwait(false);
-            if (enableResult.ExitCode != 0)
+            var systemDrive = Environment.GetEnvironmentVariable("SystemDrive") ?? "C:";
+            var enable = await Task.Run(() => _systemRestoreService.EnableProtection(systemDrive));
+            if (!enable.Succeeded)
             {
                 _logger.LogError(
-                    "Failed to enable System Protection: {Message}",
-                    enableResult.Stderr
+                    "Failed to enable System Protection: native status 0x{Status:X8} {Message}",
+                    enable.NativeStatus,
+                    enable.ExceptionText
                 );
                 return RestorePointResult.Failed;
             }
@@ -138,30 +154,32 @@ public class OptimizationService(
                 }
             );
 
-            result = await _shellService
-                .QueryPowerShellAsync(
-                    $"Checkpoint-Computer -Description \"{Shared.RestorePointName}\" -RestorePointType MODIFY_SETTINGS",
-                    _logger
-                )
-                .ConfigureAwait(false);
+            var retry = await Task.Run(() =>
+                _systemRestoreService.CreateRestorePoint(Shared.RestorePointName)
+            );
 
-            if (IsFrequencyLimited(result.Stderr))
-                return RestorePointResult.FrequencyLimitReached;
+            if (retry.ExceptionText is not null)
+                _logger.LogError("Restore point creation failed: {Message}", retry.ExceptionText);
 
-            return result.ExitCode == 0 ? RestorePointResult.Success : RestorePointResult.Failed;
+            if (retry.Succeeded)
+            {
+                _logger.LogInformation("Restore point created successfully.");
+                return RestorePointResult.Success;
+            }
+
+            _logger.LogError(
+                "Failed to create restore point after enabling System Protection: native status 0x{Status:X8}",
+                retry.NativeStatus
+            );
+            return RestorePointResult.Failed;
         }
         finally
         {
+            // Hide() raises a routed event, so it throws when called from another thread. This
+            // method deliberately does not drop the synchronization context, which keeps the
+            // continuation here on the UI thread.
             dialog?.Hide();
         }
-    }
-
-    private static bool IsFrequencyLimited(string? stderr)
-    {
-        return stderr?.Contains(
-                "already been created within the past",
-                StringComparison.OrdinalIgnoreCase
-            ) == true;
     }
 
     /// <summary>Applies the specified optimization, captures revert steps into an execution scope, and persists revert data on any successful steps.</summary>

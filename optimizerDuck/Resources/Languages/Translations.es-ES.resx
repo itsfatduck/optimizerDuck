@@ -582,6 +582,12 @@
     <value>Restaurar estados de energia de suspención selectiva de USB</value>
 
   </data>
+  <data name="Revert.Hibernation.Description" xml:space="preserve">
+    <value>Restaurar el estado de hibernación</value>
+  </data>
+  <data name="Revert.Hibernation.Error.RestoreFailed" xml:space="preserve">
+    <value>No se pudo restaurar la hibernación: {0}</value>
+  </data>
 
 
 
@@ -2820,9 +2826,9 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
 
   </data>
 
-  <data name="Revert.UsbPower.Error.CommandFailed" xml:space="preserve">
+  <data name="Revert.UsbPower.Error.RestoreFailed" xml:space="preserve">
 
-    <value>La reversión de energía USB falló con código de salida {0}</value>
+    <value>No se pudieron restaurar los estados de energía USB</value>
 
   </data>
 

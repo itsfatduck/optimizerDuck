@@ -8,8 +8,10 @@ using CleanupItem = optimizerDuck.Domain.Optimizations.Models.Cleanup.CleanupIte
 
 namespace optimizerDuck.Services.UI;
 
-public class DiskCleanupService(ILogger<DiskCleanupService> logger, ShellService shellService)
+public class DiskCleanupService(ILogger<DiskCleanupService> logger)
 {
+    private const string RecycleBinItemId = "RecycleBin";
+
     private static readonly string DotNetTempPath =
         Path.GetFullPath(Path.Combine(Path.GetTempPath(), ".net"))
             .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
@@ -70,10 +72,11 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger, ShellService
             },
             new CleanupItem
             {
-                Id = "RecycleBin",
+                Id = RecycleBinItemId,
                 NameKey = "DiskCleanup.Item.RecycleBin",
                 DescriptionKey = "DiskCleanup.Item.RecycleBin.Description",
-                Path = "Clear-RecycleBin -Force -ErrorAction SilentlyContinue",
+                // Not a directory: size and emptying come from the shell Recycle Bin APIs.
+                Path = string.Empty,
                 Icon = SymbolRegular.Delete24,
                 IsCommand = true,
             },
@@ -105,40 +108,15 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger, ShellService
         item.IsScanning = true;
         try
         {
-            if (item.IsCommand)
+            if (item.Id == RecycleBinItemId)
             {
-                // For RecycleBin, estimate size via PowerShell
-                if (item.Id == "RecycleBin")
-                {
-                    var script =
-                        "$items = (New-Object -ComObject Shell.Application).NameSpace(0xA).Items(); "
-                        + "if ($null -ne $items) { "
-                        + "  $measure = $items | Measure-Object -Property Size -Sum; "
-                        + "  $sum = if ($null -ne $measure.Sum) { $measure.Sum } else { 0 }; "
-                        + "  $count = if ($null -ne $items.Count) { $items.Count } else { 0 }; "
-                        + "  Write-Output \"$sum|$count\" "
-                        + "} else { Write-Output '0|0' }";
-
-                    var result = await shellService.QueryPowerShellAsync(script, logger);
-                    var parts = result.Stdout.Trim().Split('|');
-                    if (
-                        parts.Length == 2
-                        && long.TryParse(parts[0], out var size)
-                        && long.TryParse(parts[1], out var count)
-                    )
-                    {
-                        item.SizeBytes = size;
-                        item.FileCount = count;
-                    }
-                    else
-                    {
-                        item.SizeBytes = 0;
-                        item.FileCount = 0;
-                    }
-                }
+                var totals = RecycleBinService.Query();
+                item.SizeBytes = totals.SizeBytes;
+                item.FileCount = totals.ItemCount;
             }
-            else
+            else if (!item.IsCommand)
             {
+                // Command items have no path to walk; their size stays unknown until they run.
                 var metrics = await Task.Run(() => CalculateDirectoryMetrics(item.Path, item.Id));
                 item.SizeBytes = metrics.Size;
                 item.FileCount = metrics.Count;
@@ -180,28 +158,27 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger, ShellService
 
         try
         {
-            if (item.IsCommand)
+            if (item.Id == RecycleBinItemId)
             {
                 var sizeBefore = item.SizeBytes;
-                var result = await shellService.QueryPowerShellAsync(item.Path, logger);
-                if (result.ExitCode == 0)
+                var (succeeded, errorCode) = RecycleBinService.Empty();
+                if (succeeded)
                 {
                     freedBytes = sizeBefore;
                     logger.LogInformation(
-                        "Cleaned {ItemId} via command, freed ~{Size}",
+                        "Emptied {ItemId} via shell, freed ~{Size}",
                         item.Id,
                         CleanupItem.FormatBytes(freedBytes)
                     );
                 }
                 else
                 {
-                    // Never report freed space for a command that failed; only the exit
-                    // code distinguishes "cleaned" from "ran but did nothing".
+                    // Never report freed space for an empty that failed; the HRESULT is the only
+                    // thing that distinguishes "emptied" from "did nothing".
                     logger.LogError(
-                        "Clean command for {ItemId} failed with exit code {ExitCode}: {Error}",
+                        "Emptying {ItemId} failed with HRESULT 0x{Code:X8}",
                         item.Id,
-                        result.ExitCode,
-                        result.Stderr
+                        errorCode
                     );
                 }
             }

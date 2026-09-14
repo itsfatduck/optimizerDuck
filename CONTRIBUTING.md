@@ -482,7 +482,7 @@ Providers reached through `context`:
 | Provider | Records | Notes |
 |---|---|---|
 | `RegistryService` (static) | `RegistryRevertStep` | `Write` / `DeleteValue` / `CreateSubKey` / `DeleteSubKeyTree` |
-| `ServiceProcessService` (static) | `ServiceRevertStep` | sc.exe; access-denied is a reported failure, never a silent success |
+| `ServiceProcessService` (static) | `ServiceRevertStep` | SCM (`ChangeServiceConfig` + `ChangeServiceConfig2`); access-denied is a reported failure, never a silent success |
 | `ScheduledTaskService` (static) | `ScheduledTaskRevertStep` | enable/disable, run/stop, register |
 | `context.Shell` (`ShellService`) | `ShellRevertStep` | pass a `revertCommand` with `CMDAsync`/`PowerShellAsync` |
 

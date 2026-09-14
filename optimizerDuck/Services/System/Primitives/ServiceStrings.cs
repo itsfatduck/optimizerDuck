@@ -46,7 +46,7 @@ public static class ServiceStrings
     public const string ServiceErrorChangeStartupTypeFailed =
         "Failed to change startup type for service";
     public const string ServiceErrorChangeStartupTypeFailedTemplate =
-        "Failed to change service '{0}' to {1} startup. sc.exe exited with {2}: {3}";
+        "Failed to change service '{0}' to {1} startup. Windows error {2}: {3}";
     public const string ServiceErrorQueryFailed = "Failed to query service '{0}'";
 
     public const string RevertDataUnloadableDescription =
@@ -66,6 +66,15 @@ public static class ServiceStrings
 
     public const string StartupAppErrorUnsupportedLocation =
         "Cannot toggle startup app '{0}': its location is not supported";
+
+    public const string HibernationName = "Hibernation";
+    public const string HibernationDescriptionDisable = "Disable hibernation and Fast Startup";
+    public const string HibernationErrorChangeFailed =
+        "Failed to change the hibernation file state: {0}";
+
+    public const string UsbPowerName = "USB power";
+    public const string UsbPowerDescriptionDisable = "Disable USB power saving for {0} device(s)";
+    public const string UsbPowerErrorChangeFailed = "Failed to change USB power saving";
 
     /// <summary>Formats a template with invariant culture (same as Loc.Invariant did).</summary>
     public static string Format(string template, params object?[] args) =>

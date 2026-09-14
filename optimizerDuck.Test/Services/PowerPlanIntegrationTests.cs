@@ -63,6 +63,54 @@ public class PowerPlanIntegrationTests
         Assert.NotNull(settings);
     }
 
+    /// <summary>
+    ///     Pins the range-vs-indexed decision against real powrprof metadata. Maximum processor
+    ///     state is a range (0-100); System cooling policy is an indexed list. Both live in
+    ///     SUB_PROCESSOR, which every Windows 10/11 installation exposes.
+    /// </summary>
+    [Theory]
+    [InlineData(
+        "54533251-82be-4824-96c1-47b60b740d00",
+        "bc5038f7-23e0-4960-96da-33abaf5935ec",
+        PowerValueKind.Range
+    )]
+    [InlineData(
+        "54533251-82be-4824-96c1-47b60b740d00",
+        "94d3a615-a899-4ac5-ae2b-e4d8f634367f",
+        PowerValueKind.Indexed
+    )]
+    public void GetSetting_KnownRangeAndIndexedSettings_ReportDocumentedKind(
+        string subgroupId,
+        string settingId,
+        PowerValueKind expectedKind
+    )
+    {
+        var service = new PowerPlanService(NullLogger<PowerPlanService>.Instance);
+        var activeId = service.GetActiveSchemeId();
+        Assert.NotNull(activeId);
+
+        var setting = service.GetSetting(
+            activeId.Value,
+            Guid.Parse(subgroupId),
+            Guid.Parse(settingId)
+        );
+
+        Assert.NotNull(setting);
+        Assert.Equal(expectedKind, setting.Kind);
+
+        if (expectedKind == PowerValueKind.Range)
+        {
+            Assert.NotNull(setting.MinValue);
+            Assert.NotNull(setting.MaxValue);
+            Assert.NotNull(setting.Increment);
+        }
+        else
+        {
+            Assert.NotNull(setting.PossibleValues);
+            Assert.NotEmpty(setting.PossibleValues!);
+        }
+    }
+
     [Fact]
     public void SettingValue_RoundTrip_RestoresExactValues()
     {

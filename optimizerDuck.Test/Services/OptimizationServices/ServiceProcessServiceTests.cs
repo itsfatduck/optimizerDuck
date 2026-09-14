@@ -1,6 +1,8 @@
 using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Win32;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
+using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Services.System.Primitives;
 
 namespace optimizerDuck.Test.Services.OptimizationServices;
@@ -9,192 +11,6 @@ public class ServiceProcessServiceTests
 {
     private static OpCall NewCall() =>
         new() { Changes = new ChangeSet(), Logger = NullLogger.Instance };
-
-    // =============================================
-    // Unit tests: ParseScStartType (hardcoded input)
-    // =============================================
-
-    [Fact]
-    public void ParseScStartType_AutoStart_ReturnsAutomatic()
-    {
-        var stdout = """
-            SERVICE_NAME: Audiosrv
-                    TYPE               : 20  WIN32_SHARE_PROCESS
-                    START_TYPE         : 2   AUTO_START
-                    ERROR_CONTROL      : 1   NORMAL
-            """;
-
-        var (result, parseFailed) = ServiceProcessService.ParseScStartType(stdout);
-
-        Assert.False(parseFailed);
-        Assert.Equal(ServiceStartupType.Automatic, result);
-    }
-
-    [Fact]
-    public void ParseScStartType_AutoStartDelayed_ReturnsAutomaticDelayedStart()
-    {
-        var stdout = """
-            SERVICE_NAME: CDPSvc
-                    TYPE               : 20  WIN32_SHARE_PROCESS
-                    START_TYPE         : 2   AUTO_START  (DELAYED)
-                    ERROR_CONTROL      : 1   NORMAL
-            """;
-
-        var (result, parseFailed) = ServiceProcessService.ParseScStartType(stdout);
-
-        Assert.False(parseFailed);
-        Assert.Equal(ServiceStartupType.AutomaticDelayedStart, result);
-    }
-
-    [Fact]
-    public void ParseScStartType_DemandStart_ReturnsManual()
-    {
-        var stdout = """
-            SERVICE_NAME: BITS
-                    TYPE               : 20  WIN32_SHARE_PROCESS
-                    START_TYPE         : 3   DEMAND_START
-                    ERROR_CONTROL      : 1   NORMAL
-            """;
-
-        var (result, parseFailed) = ServiceProcessService.ParseScStartType(stdout);
-
-        Assert.False(parseFailed);
-        Assert.Equal(ServiceStartupType.Manual, result);
-    }
-
-    [Fact]
-    public void ParseScStartType_Disabled_ReturnsDisabled()
-    {
-        var stdout = """
-            SERVICE_NAME: AppVClient
-                    TYPE               : 10  WIN32_OWN_PROCESS
-                    START_TYPE         : 4   DISABLED
-                    ERROR_CONTROL      : 1   NORMAL
-            """;
-
-        var (result, parseFailed) = ServiceProcessService.ParseScStartType(stdout);
-
-        Assert.False(parseFailed);
-        Assert.Equal(ServiceStartupType.Disabled, result);
-    }
-
-    [Fact]
-    public void ParseScStartType_BootStart_ReturnsNullNotFailed()
-    {
-        var stdout = """
-            SERVICE_NAME: ACPI
-                    TYPE               : 1  KERNEL_DRIVER
-                    START_TYPE         : 0   BOOT_START
-                    ERROR_CONTROL      : 1   NORMAL
-            """;
-
-        var (result, parseFailed) = ServiceProcessService.ParseScStartType(stdout);
-
-        Assert.False(parseFailed);
-        Assert.Null(result);
-    }
-
-    [Fact]
-    public void ParseScStartType_SystemStart_ReturnsNullNotFailed()
-    {
-        var stdout = """
-            SERVICE_NAME: AFD
-                    TYPE               : 1  KERNEL_DRIVER
-                    START_TYPE         : 1   SYSTEM_START
-                    ERROR_CONTROL      : 1   NORMAL
-            """;
-
-        var (result, parseFailed) = ServiceProcessService.ParseScStartType(stdout);
-
-        Assert.False(parseFailed);
-        Assert.Null(result);
-    }
-
-    [Fact]
-    public void ParseScStartType_NoStartTypeLine_ReturnsParseFailed()
-    {
-        var stdout = """
-            SERVICE_NAME: TestSvc
-                    BINARY_PATH_NAME   : C:\test.exe
-            """;
-
-        var (result, parseFailed) = ServiceProcessService.ParseScStartType(stdout);
-
-        Assert.True(parseFailed);
-        Assert.Null(result);
-    }
-
-    [Fact]
-    public void ParseScStartType_IgnoresErrorControlLine_ReturnsCorrectType()
-    {
-        var stdout = """
-            SERVICE_NAME: Test
-                    TYPE               : 20  WIN32_SHARE_PROCESS
-                    START_TYPE         : 3   DEMAND_START
-                    ERROR_CONTROL      : 1   NORMAL
-            """;
-
-        var (result, parseFailed) = ServiceProcessService.ParseScStartType(stdout);
-
-        Assert.False(parseFailed);
-        Assert.Equal(ServiceStartupType.Manual, result);
-    }
-
-    [Fact]
-    public void ParseScStartType_IgnoresTagZero_ReturnsCorrectType()
-    {
-        var stdout = """
-            SERVICE_NAME: Test
-                    TYPE               : 20  WIN32_SHARE_PROCESS
-                    START_TYPE         : 3   DEMAND_START
-                    ERROR_CONTROL      : 1   NORMAL
-                    TAG                : 0
-            """;
-
-        var (result, parseFailed) = ServiceProcessService.ParseScStartType(stdout);
-
-        Assert.False(parseFailed);
-        Assert.Equal(ServiceStartupType.Manual, result);
-    }
-
-    [Fact]
-    public void ParseScStartType_LocaleIndependentFieldName_ReturnsCorrectType()
-    {
-        var stdout = """
-            SERVICE_NAME: Test
-                    FOO_TYPE           : 20  WIN32_SHARE_PROCESS
-                    STARTTYP           : 2   AUTOMATISCHER_START
-                    FEHLERKONTROLLE    : 1   NORMAL
-            """;
-
-        var (result, parseFailed) = ServiceProcessService.ParseScStartType(stdout);
-
-        Assert.False(parseFailed);
-        Assert.Equal(ServiceStartupType.Automatic, result);
-    }
-
-    [Fact]
-    public void ParseScStartType_LocaleIndependentDelayed_ReturnsAutomaticDelayedStart()
-    {
-        var stdout = """
-            SERVICE_NAME: Test
-                    STARTTYP           : 2   AUTOMATISCHER_START (VERZÖGERT)
-            """;
-
-        var (result, parseFailed) = ServiceProcessService.ParseScStartType(stdout);
-
-        Assert.False(parseFailed);
-        Assert.Equal(ServiceStartupType.AutomaticDelayedStart, result);
-    }
-
-    [Fact]
-    public void ParseScStartType_EmptyOutput_ReturnsParseFailed()
-    {
-        var (result, parseFailed) = ServiceProcessService.ParseScStartType("");
-
-        Assert.True(parseFailed);
-        Assert.Null(result);
-    }
 
     // =============================================
     // Integration tests: GetStartupTypeAsync (real sc.exe)
@@ -231,7 +47,102 @@ public class ServiceProcessServiceTests
     }
 
     // =============================================
-    // Integration tests: ChangeServiceStartupTypeAsync (real sc.exe)
+    // Contract fixture: read mapping against registry ground truth.
+    // Independent of the mechanism: the expected value comes from
+    // HKLM\SYSTEM\CurrentControlSet\Services, where Windows stores Start (2 auto / 3 manual /
+    // 4 disabled) and the DelayedAutoStart flag. Driver entries are included on purpose - the
+    // Service Control Manager reports their start type without the TYPE/START_TYPE ambiguity that
+    // sc.exe output had. Boot (0) and system (1) starts are excluded: they are outside the app's
+    // ServiceStartupType domain, and the registry is not authoritative for them (55 uninstalled
+    // driver entries on this machine report DEMAND_START through the SCM, and sc.exe - which also
+    // reads the SCM - reported exactly the same before this conversion).
+    // =============================================
+
+    private const int PerTypeSampleLimit = 8;
+
+    /// <summary>
+    ///     Registry truth for one services entry: the startup type implied by Start plus the
+    ///     DelayedAutoStart flag, and whether this is a Win32 service (Type 0x10 | 0x20 | 0x30)
+    ///     rather than a driver (Type 1 kernel, 2 file system, 4 recognizer, 8 adapter).
+    /// </summary>
+    private static (
+        bool Found,
+        ServiceStartupType? Expected,
+        bool IsWin32Service
+    ) ReadRegistryTruth(RegistryKey services, string name)
+    {
+        using var key = services.OpenSubKey(name);
+        if (
+            key?.GetValue("ImagePath") is null
+            || key.GetValue("Start") is not int start
+            || key.GetValue("Type") is not int type
+        )
+            return (false, null, false);
+
+        var delayed = key.GetValue("DelayedAutoStart") is int flag && flag == 1;
+        ServiceStartupType? expected = start switch
+        {
+            2 => delayed ? ServiceStartupType.AutomaticDelayedStart : ServiceStartupType.Automatic,
+            3 => ServiceStartupType.Manual,
+            4 => ServiceStartupType.Disabled,
+            _ => null,
+        };
+
+        return (true, expected, (type & 0x10) != 0);
+    }
+
+    [Fact]
+    public async Task GetStartupTypeAsync_MatchesRegistryGroundTruth_SampledAcrossTypes()
+    {
+        using var services = Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Services");
+        Assert.NotNull(services);
+
+        // Nullable value types cannot be Dictionary keys, so buckets are a list of pairs.
+        var buckets = new List<(ServiceStartupType? Expected, List<string> Names)>
+        {
+            (ServiceStartupType.Automatic, []),
+            (ServiceStartupType.AutomaticDelayedStart, []),
+            (ServiceStartupType.Manual, []),
+            (ServiceStartupType.Disabled, []),
+        };
+
+        foreach (var name in services!.GetSubKeyNames())
+        {
+            var (found, expected, _) = ReadRegistryTruth(services, name);
+            if (!found || expected is null)
+                continue;
+
+            var bucket = buckets.First(b => b.Expected == expected).Names;
+            if (bucket.Count < PerTypeSampleLimit)
+                bucket.Add(name);
+        }
+
+        var checkedNames = 0;
+        foreach (var (expected, names) in buckets)
+        {
+            foreach (var name in names)
+            {
+                var (actual, notFound) = await ServiceProcessService.GetStartupTypeAsync(name);
+
+                Assert.False(
+                    notFound,
+                    $"'{name}' has an ImagePath in the registry but was reported as not found"
+                );
+                Assert.Equal(expected, actual);
+                checkedNames++;
+            }
+        }
+
+        Assert.True(checkedNames > 0, "no service could be sampled from the registry");
+        Assert.True(
+            buckets.Count(b => b.Expected is not null && b.Names.Count > 0) >= 2,
+            $"expected at least two startup types on this machine, sampled {checkedNames} services"
+        );
+    }
+
+    // =============================================
+    // Integration tests: ChangeServiceStartupTypeAsync (real service, SCM writes).
+    // sc.exe stays in this file only to create/inspect the scratch test service.
     // =============================================
 
     private const string TestServiceName = "odTestSvc";
@@ -389,16 +300,70 @@ public class ServiceProcessServiceTests
     [Fact]
     public async Task ChangeServiceStartupTypeAsync_NonexistentService_ReturnsNotFound()
     {
+        var call = NewCall();
         var result = await ServiceProcessService.ChangeServiceStartupTypeAsync(
-            NewCall(),
+            call,
             new ServiceItem(
                 "OptimizerDuckTest_Nonexistent_Service_12345",
                 ServiceStartupType.Manual
             )
         );
 
-        // NotFound maps to informational success (Ok).
+        // NotFound maps to informational success (Ok), and there is nothing to revert.
         Assert.True(result.Ok, result.Error);
+        Assert.Null(Assert.Single(call.Changes.Changes).Revert);
+    }
+
+    [Fact]
+    public async Task ChangeServiceStartupTypeAsync_AllFourTypes_RoundTripThroughRead()
+    {
+        if (!IsElevated())
+            Assert.Skip("Service creation requires an elevated test host.");
+        await EnsureTestServiceAsync();
+        try
+        {
+            // Automatic runs first because the scratch service is created without a delayed
+            // flag; whether sc.exe (or a later SCM write) clears that flag when moving back to
+            // plain automatic is a real behaviour worth pinning separately, and this order
+            // does not depend on the answer.
+            var previousType = ServiceStartupType.Manual;
+
+            foreach (
+                var target in new[]
+                {
+                    ServiceStartupType.Automatic,
+                    ServiceStartupType.Manual,
+                    ServiceStartupType.Disabled,
+                    ServiceStartupType.AutomaticDelayedStart,
+                }
+            )
+            {
+                var call = NewCall();
+                var result = await ServiceProcessService.ChangeServiceStartupTypeAsync(
+                    call,
+                    new ServiceItem(TestServiceName, target)
+                );
+                Assert.True(result.Ok, $"{target}: {result.Error}");
+
+                // The recorded step must carry the type Windows reported before the write, or a
+                // revert cannot restore it. The scratch service starts as demand (Manual).
+                var revert = Assert.IsType<ServiceRevertStep>(
+                    Assert.Single(call.Changes.Changes).Revert
+                );
+                Assert.Equal(previousType, revert.OriginalStartupType);
+                previousType = target;
+
+                var (readBack, notFound) = await ServiceProcessService.GetStartupTypeAsync(
+                    TestServiceName
+                );
+                Assert.False(notFound, $"{target}: service reported as not found after the write");
+                Assert.Equal(target, readBack);
+            }
+        }
+        finally
+        {
+            await DeleteTestServiceBestEffortAsync();
+        }
     }
 
     [Fact]

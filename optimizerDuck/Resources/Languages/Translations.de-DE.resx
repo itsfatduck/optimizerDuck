@@ -335,6 +335,12 @@
   <data name="Revert.UsbPower.Description" xml:space="preserve">
     <value>Energiezustände für selektives USB-Energiesparen wiederherstellen</value>
   </data>
+  <data name="Revert.Hibernation.Description" xml:space="preserve">
+    <value>Ruhezustand wiederherstellen</value>
+  </data>
+  <data name="Revert.Hibernation.Error.RestoreFailed" xml:space="preserve">
+    <value>Ruhezustand konnte nicht wiederhergestellt werden: {0}</value>
+  </data>
   <data name="Optimization.Apply.Processing" xml:space="preserve">
     <value>Änderungen werden angewendet...</value>
   </data>
@@ -1464,8 +1470,8 @@ Aktualisiere jetzt, um die neuesten Funktionen, Verbesserungen und Fehlerbehebun
   <data name="Revert.Shell.Error.CommandFailed" xml:space="preserve">
     <value>Wiederherstellungsbefehl mit Exitcode {0} fehlgeschlagen</value>
   </data>
-  <data name="Revert.UsbPower.Error.CommandFailed" xml:space="preserve">
-    <value>USB-Energiewiederherstellung mit Exitcode {0} fehlgeschlagen</value>
+  <data name="Revert.UsbPower.Error.RestoreFailed" xml:space="preserve">
+    <value>USB-Energiestatus konnte nicht wiederhergestellt werden</value>
   </data>
   <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
     <value>Abschlussbenachrichtigung anzeigen</value>

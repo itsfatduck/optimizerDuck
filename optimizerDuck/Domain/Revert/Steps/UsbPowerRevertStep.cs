@@ -1,10 +1,7 @@
-using System.Text;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Exceptions;
-using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.System.Primitives;
 
@@ -43,38 +40,30 @@ public class UsbPowerRevertStep : IRevertStep
     public string Description => Loc.Instance["Revert.UsbPower.Description"];
 
     /// <inheritdoc />
-    public async Task<bool> ExecuteAsync(RevertContext context, ILogger logger)
+    public Task<bool> ExecuteAsync(RevertContext context, ILogger logger)
     {
         if (States.Count == 0)
-            return true;
+            return Task.FromResult(true);
 
-        var payload = Convert.ToBase64String(
-            Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(States))
-        );
+        var captured = States
+            .Select(static state => new UsbPowerService.UsbPowerState(
+                state.InstanceName,
+                state.Enable
+            ))
+            .ToList();
 
-        var script =
-            "$json = [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('"
-            + payload
-            + "')); "
-            + "$states = $json | ConvertFrom-Json; "
-            + "foreach ($s in $states) { "
-            + "$obj = Get-CimInstance -Namespace root\\wmi -ClassName MSPower_DeviceEnable -ErrorAction SilentlyContinue | "
-            + "Where-Object { $_.InstanceName -eq $s.InstanceName }; "
-            + "if ($obj -and $obj.Enable -ne [bool]$s.Enable) { "
-            + "Set-CimInstance -CimInstance $obj -Property @{ Enable = [bool]$s.Enable } | Out-Null "
-            + "}}";
+        var result = UsbPowerService.Restore(captured);
 
-        var result = await context.Shell.QueryPowerShellAsync(script, logger).ConfigureAwait(false);
-
-        if (result.ExitCode != 0)
+        if (result is null)
         {
-            var error = !string.IsNullOrWhiteSpace(result.Stderr)
-                ? result.Stderr
-                : Loc.Instance["Revert.UsbPower.Error.CommandFailed", result.ExitCode];
-            throw new StepExecutionException(error, result.Stderr);
+            logger.LogWarning("[USB][REVERT][FAIL] WMI restore refused or unavailable");
+            throw new StepExecutionException(
+                Loc.Instance["Revert.UsbPower.Error.RestoreFailed"],
+                string.Empty
+            );
         }
 
-        return true;
+        return Task.FromResult(true);
     }
 
     /// <inheritdoc />

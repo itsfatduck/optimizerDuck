@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Common.Extensions;
 using optimizerDuck.Domain.Abstractions;
@@ -14,75 +15,38 @@ public static class ServiceProcessService
 
     private const int ErrorAccessDenied = 5;
 
-    private const int DefaultScTimeoutMs = 30000;
-    private const int DefaultScQueryTimeoutMs = 15000;
-
     /// <summary>
-    ///     Parses the START_TYPE from raw <c>sc qc</c> stdout.
-    ///     Exposed as internal for unit testing.
+    ///     Retrieves the current startup type of a Windows service from the Service Control Manager.
     /// </summary>
-    internal static (ServiceStartupType? StartupType, bool ParseFailed) ParseScStartType(
-        string stdout
-    )
-    {
-        var (type, matched) = Windows.Services.ScStartupTypeParser.ParseWithMatch(stdout);
-        return (type, !matched);
-    }
-
-    /// <summary>Retrieves the current startup type of a Windows service by running <c>sc.exe qc</c>.</summary>
     /// <param name="serviceName">The internal service name.</param>
     /// <param name="logger">Optional logger used only for logging.</param>
     /// <returns>
-    /// A tuple. <c>StartupType</c> is the type if parsed successfully.
-    /// <c>NotFound</c> is <see langword="true"/> when the service does not exist (exit code 1060),
-    /// <see langword="false"/> for other errors.
+    /// A tuple. <c>StartupType</c> is the type Windows reports (null for boot and system starts,
+    /// which have no <see cref="ServiceStartupType"/> value). <c>NotFound</c> is
+    /// <see langword="true"/> when the service does not exist
+    /// (<c>ERROR_SERVICE_DOES_NOT_EXIST</c>, 1060), <see langword="false"/> for other errors.
     /// </returns>
-    public static async Task<(ServiceStartupType? StartupType, bool NotFound)> GetStartupTypeAsync(
+    public static Task<(ServiceStartupType? StartupType, bool NotFound)> GetStartupTypeAsync(
         string serviceName,
         ILogger? logger = null
     )
     {
-        try
-        {
-            var (exitCode, stdout, stderr) = await RunScExeAsync(
-                $"qc \"{serviceName}\"",
-                DefaultScQueryTimeoutMs
+        var (startupType, error) = QueryStartupType(serviceName);
+
+        if (error != 0 && error != ErrorServiceDoesNotExist)
+            logger?.LogWarning(
+                "[SERVICE][{Name}] opening the service failed with Win32 error {Error}",
+                serviceName,
+                error
             );
 
-            if (exitCode != 0)
-            {
-                var notFound = exitCode == ErrorServiceDoesNotExist;
-                logger?.LogWarning(
-                    "[SERVICE][{Name}] sc.exe qc failed with exit code {ExitCode}: {Stderr}",
-                    serviceName,
-                    exitCode,
-                    stderr
-                );
-                return (null, notFound);
-            }
-
-            var (result, parseError) = ParseScStartType(stdout);
-
-            if (parseError)
-            {
-                logger?.LogWarning(
-                    "[SERVICE][{Name}] Could not parse START_TYPE from sc.exe qc output:\n{Output}",
-                    serviceName,
-                    stdout
-                );
-                return (null, false);
-            }
-
-            return (result, false);
-        }
-        catch (Exception ex)
-        {
-            logger?.LogError(ex, "Failed to get startup type for {ServiceName}", serviceName);
-            return (null, false);
-        }
+        return Task.FromResult((startupType, error == ErrorServiceDoesNotExist));
     }
 
-    /// <summary>Changes the startup type of a single Windows service via <c>sc.exe config</c>. Records the change into <paramref name="call"/>.</summary>
+    /// <summary>
+    ///     Changes the startup type of a single Windows service through the Service Control Manager.
+    ///     Records the change into <paramref name="call"/>.
+    /// </summary>
     /// <param name="call">The explicit call context: change collector, logger and cancellation token.</param>
     /// <param name="item">The service item with the target startup type.</param>
     /// <returns>The outcome of the change request.</returns>
@@ -151,26 +115,14 @@ public static class ServiceProcessService
                 return MapToOpResult(ServiceChangeResult.AlreadyConfigured, null, null, null);
             }
 
-            var scType = item.StartupType switch
-            {
-                ServiceStartupType.Automatic => "auto",
-                ServiceStartupType.AutomaticDelayedStart => "delayed-auto",
-                ServiceStartupType.Manual => "demand",
-                ServiceStartupType.Disabled => "disabled",
-                _ => "demand",
-            };
+            var nativeError = SetStartupType(item.Name, item.StartupType);
 
-            var (exitCode, stdout, stderr) = await RunScExeAsync(
-                $"config \"{item.Name}\" start= {scType}",
-                DefaultScTimeoutMs
-            );
-
-            var success = exitCode == 0;
+            var success = nativeError == 0;
             sw.Stop();
 
             string? errorDetail = null;
             if (!success)
-                errorDetail = $"sc.exe exit code: {exitCode}\nstdout: {stdout}\nstderr: {stderr}";
+                errorDetail = $"ChangeServiceConfig failed with Win32 error {nativeError}";
 
             if (success)
             {
@@ -193,7 +145,7 @@ public static class ServiceProcessService
                 return MapToOpResult(ServiceChangeResult.Success, revertStep, null, null);
             }
 
-            if (exitCode == ErrorAccessDenied)
+            if (nativeError == ErrorAccessDenied)
             {
                 var accessDeniedError = ServiceStrings.Format(
                     ServiceStrings.ServiceInfoSkippedAccessDenied,
@@ -304,72 +256,266 @@ public static class ServiceProcessService
         };
     }
 
-    private static async Task<(int ExitCode, string Stdout, string Stderr)> RunScExeAsync(
-        string arguments,
-        int timeoutMs
-    )
+    // =============================================
+    // Service Control Manager interop
+    // =============================================
+
+    private const int ScManagerConnect = 0x0001;
+    private const int ServiceQueryConfig = 0x0001;
+    private const int ServiceChangeConfig = 0x0002;
+
+    private const uint ScServiceNoChange = 0xFFFFFFFF;
+    private const uint ScServiceAutoStart = 0x00000002;
+    private const uint ScServiceDemandStart = 0x00000003;
+    private const uint ScServiceDisabled = 0x00000004;
+
+    private const uint ServiceConfigDelayedAutoStartInfo = 3;
+
+    /// <summary>Offset of <c>dwStartType</c> in the native <c>QUERY_SERVICE_CONFIG</c> structure.</summary>
+    private const int QueryServiceConfigStartTypeOffset = 4;
+
+    /// <summary>
+    ///     Comfortably larger than <c>QUERY_SERVICE_CONFIG</c> plus the variable-length strings
+    ///     Windows appends to the same buffer; only the fixed prefix is read.
+    /// </summary>
+    private const int QueryServiceConfigBufferSize = 8 * 1024;
+
+    /// <summary>
+    ///     Reads the configured start type, and whether the delayed flag is set, through the SCM.
+    ///     The returned error is a Win32 code (0 on success).
+    /// </summary>
+    private static (ServiceStartupType? StartupType, int Error) QueryStartupType(string serviceName)
     {
-        using var process = new Process
+        var manager = OpenSCManager(null, null, ScManagerConnect);
+        if (manager == IntPtr.Zero)
+            return (null, Marshal.GetLastWin32Error());
+
+        try
         {
-            StartInfo = new ProcessStartInfo
+            var service = OpenService(manager, serviceName, ServiceQueryConfig);
+            if (service == IntPtr.Zero)
+                return (null, Marshal.GetLastWin32Error());
+
+            try
             {
-                FileName = "sc.exe",
-                Arguments = arguments,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                UseShellExecute = false,
-                CreateNoWindow = true,
-            },
+                var buffer = Marshal.AllocHGlobal(QueryServiceConfigBufferSize);
+                try
+                {
+                    if (!QueryServiceConfig(service, buffer, QueryServiceConfigBufferSize, out _))
+                        return (null, Marshal.GetLastWin32Error());
+
+                    var startType = (uint)
+                        Marshal.ReadInt32(buffer, QueryServiceConfigStartTypeOffset);
+
+                    return (
+                        startType switch
+                        {
+                            ScServiceAutoStart => IsDelayedAutoStart(service)
+                                ? ServiceStartupType.AutomaticDelayedStart
+                                : ServiceStartupType.Automatic,
+                            ScServiceDemandStart => ServiceStartupType.Manual,
+                            ScServiceDisabled => ServiceStartupType.Disabled,
+                            // Boot (0) and system (1) starts have no ServiceStartupType value.
+                            _ => null,
+                        },
+                        0
+                    );
+                }
+                finally
+                {
+                    Marshal.FreeHGlobal(buffer);
+                }
+            }
+            finally
+            {
+                CloseServiceHandle(service);
+            }
+        }
+        finally
+        {
+            CloseServiceHandle(manager);
+        }
+    }
+
+    private static bool IsDelayedAutoStart(IntPtr service)
+    {
+        var buffer = Marshal.AllocHGlobal(sizeof(int));
+        try
+        {
+            // A missing record means the flag is not set, not a failure.
+            return QueryServiceConfig2(
+                    service,
+                    ServiceConfigDelayedAutoStartInfo,
+                    buffer,
+                    sizeof(int),
+                    out _
+                )
+                && Marshal.ReadInt32(buffer) != 0;
+        }
+        finally
+        {
+            Marshal.FreeHGlobal(buffer);
+        }
+    }
+
+    /// <summary>
+    ///     Writes the start type, then the delayed flag for auto-start targets. Returns a Win32
+    ///     error code (0 on success).
+    /// </summary>
+    private static int SetStartupType(string serviceName, ServiceStartupType startupType)
+    {
+        var desiredStart = startupType switch
+        {
+            ServiceStartupType.Automatic or ServiceStartupType.AutomaticDelayedStart =>
+                ScServiceAutoStart,
+            ServiceStartupType.Manual => ScServiceDemandStart,
+            ServiceStartupType.Disabled => ScServiceDisabled,
+            _ => ScServiceDemandStart,
         };
 
-        process.Start();
-        // drain both pipes concurrently so a chatty child can never block on a full pipe.
-        var stdoutTask = process.StandardOutput.ReadToEndAsync();
-        var stderrTask = process.StandardError.ReadToEndAsync();
+        var manager = OpenSCManager(null, null, ScManagerConnect);
+        if (manager == IntPtr.Zero)
+            return Marshal.GetLastWin32Error();
 
-        using var cts = new CancellationTokenSource(timeoutMs);
-        var timedOut = false;
         try
         {
-            await process.WaitForExitAsync(cts.Token).ConfigureAwait(false);
+            var service = OpenService(
+                manager,
+                serviceName,
+                ServiceQueryConfig | ServiceChangeConfig
+            );
+            if (service == IntPtr.Zero)
+                return Marshal.GetLastWin32Error();
+
+            try
+            {
+                if (
+                    !ChangeServiceConfig(
+                        service,
+                        ScServiceNoChange,
+                        desiredStart,
+                        ScServiceNoChange,
+                        null,
+                        null,
+                        IntPtr.Zero,
+                        null,
+                        null,
+                        null,
+                        null
+                    )
+                )
+                    return Marshal.GetLastWin32Error();
+
+                // The flag is ignored for non-auto-start services, and leaving a previous "delayed"
+                // flag behind would keep reporting the old state, so it is always written for
+                // auto-start targets.
+                if (desiredStart == ScServiceAutoStart)
+                {
+                    var info = new SERVICE_DELAYED_AUTO_START_INFO
+                    {
+                        fDelayedAutostart = startupType == ServiceStartupType.AutomaticDelayedStart,
+                    };
+
+                    if (!ChangeServiceConfig2(service, ServiceConfigDelayedAutoStartInfo, ref info))
+                        return Marshal.GetLastWin32Error();
+                }
+
+                return 0;
+            }
+            finally
+            {
+                CloseServiceHandle(service);
+            }
         }
-        catch (OperationCanceledException)
+        finally
         {
-            timedOut = true;
-            try
-            {
-                process.Kill(entireProcessTree: true);
-            }
-            catch
-            {
-                // best effort
-            }
-
-            // bounded wait so ExitCode is never read on a live process.
-            try
-            {
-                process.WaitForExit(2000);
-            }
-            catch { }
+            CloseServiceHandle(manager);
         }
-
-        var stdout = await stdoutTask.ConfigureAwait(false);
-        var stderr = await stderrTask.ConfigureAwait(false);
-
-        // -1 means timeout (same convention as ProcessRunner), never a real exit code.
-        var exitCode = timedOut || !HasExited(process) ? -1 : process.ExitCode;
-        return (exitCode, stdout, stderr);
     }
 
-    private static bool HasExited(Process process)
+    [StructLayout(LayoutKind.Sequential)]
+    private struct SERVICE_DELAYED_AUTO_START_INFO
     {
-        try
-        {
-            return process.HasExited;
-        }
-        catch
-        {
-            return false;
-        }
+        [MarshalAs(UnmanagedType.Bool)]
+        public bool fDelayedAutostart;
     }
+
+    [DllImport(
+        "advapi32.dll",
+        EntryPoint = "OpenSCManagerW",
+        ExactSpelling = true,
+        CharSet = CharSet.Unicode,
+        SetLastError = true
+    )]
+    private static extern IntPtr OpenSCManager(
+        string? machineName,
+        string? databaseName,
+        int desiredAccess
+    );
+
+    [DllImport(
+        "advapi32.dll",
+        EntryPoint = "OpenServiceW",
+        ExactSpelling = true,
+        CharSet = CharSet.Unicode,
+        SetLastError = true
+    )]
+    private static extern IntPtr OpenService(
+        IntPtr scManager,
+        string serviceName,
+        int desiredAccess
+    );
+
+    [DllImport("advapi32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool QueryServiceConfig(
+        IntPtr service,
+        IntPtr queryServiceConfig,
+        int bufferSize,
+        out int bytesNeeded
+    );
+
+    [DllImport("advapi32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool QueryServiceConfig2(
+        IntPtr service,
+        uint infoLevel,
+        IntPtr buffer,
+        int bufferSize,
+        out int bytesNeeded
+    );
+
+    [DllImport(
+        "advapi32.dll",
+        EntryPoint = "ChangeServiceConfigW",
+        ExactSpelling = true,
+        CharSet = CharSet.Unicode,
+        SetLastError = true
+    )]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool ChangeServiceConfig(
+        IntPtr service,
+        uint serviceType,
+        uint startType,
+        uint errorControl,
+        string? binaryPathName,
+        string? loadOrderGroup,
+        IntPtr tagId,
+        string? dependencies,
+        string? serviceStartName,
+        string? password,
+        string? displayName
+    );
+
+    [DllImport("advapi32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool ChangeServiceConfig2(
+        IntPtr service,
+        uint infoLevel,
+        ref SERVICE_DELAYED_AUTO_START_INFO info
+    );
+
+    [DllImport("advapi32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool CloseServiceHandle(IntPtr serviceHandle);
 }

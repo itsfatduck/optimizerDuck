@@ -7,6 +7,7 @@ using optimizerDuck.Common.Extensions;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.Revert.Steps;
@@ -33,37 +34,59 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
     )]
     public class DisableHibernateAndFastStartup : BaseOptimization
     {
-        public override async Task<ApplyResult> ApplyAsync(
+        public override Task<ApplyResult> ApplyAsync(
             IProgress<ProcessingProgress> progress,
             OptimizationContext context
         )
         {
-            var hibernateItem = new RegistryItem(
-                @"HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power",
-                "HibernateEnabled"
+            // Fail-safe: when the previous state cannot be read, revert restores hibernation.
+            var wasPresent = HibernationService.IsHibernationFilePresent() ?? true;
+
+            Apply(context, wasPresent);
+
+            return Task.FromResult(context.Changes.ToApplyResult());
+        }
+
+        private static OpResult Apply(OpCall call, bool wasPresent)
+        {
+            var result = HibernationService.SetHibernationFile(present: false);
+            var revert = new HibernationRevertStep { WasPresent = wasPresent };
+
+            if (result.Succeeded)
+            {
+                call.Changes.Add(
+                    ServiceStrings.HibernationName,
+                    ServiceStrings.HibernationDescriptionDisable,
+                    true,
+                    revert
+                );
+                call.Logger.LogInformation(
+                    "Disabled hibernation and Fast Startup. Previous state: {State}",
+                    wasPresent ? "Enabled" : "Disabled"
+                );
+                return OpResult.Success(revert);
+            }
+
+            // A refused transition fails the same way on a retry (it needs privileges), but the
+            // retry keeps the recorded step consistent with the other providers.
+            var error = ServiceStrings.Format(
+                ServiceStrings.HibernationErrorChangeFailed,
+                $"0x{result.NativeStatus:X8}"
             );
-
-            // default to restoring hibernation on when the previous state is unknown.
-            var wasEnabled = true;
-            if (RegistryService.TryReadValue(hibernateItem, out var hibernateValue, context.Logger))
-                wasEnabled = hibernateValue switch
-                {
-                    null => true,
-                    int value => value != 0,
-                    long value => value != 0,
-                    string value => value != "0",
-                    _ => true,
-                };
-
-            string revertCommand = wasEnabled ? "powercfg /h on" : "powercfg /h off";
-
-            await context.Shell.CMDAsync("powercfg /h off", context, revertCommand);
-
-            context.Logger.LogInformation(
-                "Disabled hibernation and Fast Startup. Previous state: {State}",
-                wasEnabled ? "Enabled" : "Disabled"
+            call.Logger.LogWarning(
+                "[HIBERNATION][FAIL] NTSTATUS 0x{Status:X8}",
+                result.NativeStatus
             );
-            return context.Changes.ToApplyResult();
+            call.Changes.Add(
+                ServiceStrings.HibernationName,
+                ServiceStrings.HibernationDescriptionDisable,
+                false,
+                null,
+                error,
+                result.ExceptionText,
+                retryCall => Task.FromResult(Apply(retryCall, wasPresent))
+            );
+            return OpResult.Fail(error, result.ExceptionText);
         }
     }
 
@@ -74,73 +97,72 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
     )]
     public class DisableUSBPowerSaving : BaseOptimization
     {
-        public override async Task<ApplyResult> ApplyAsync(
+        public override Task<ApplyResult> ApplyAsync(
             IProgress<ProcessingProgress> progress,
             OptimizationContext context
         )
         {
             context.Logger.LogInformation("Saving current USB power state");
-            var usbStates = await context.Shell.QueryPowerShellAsync(
-                """
-                $states = Get-CimInstance -Namespace root\wmi -ClassName MSPower_DeviceEnable -ErrorAction SilentlyContinue |
-                Where-Object { $_.InstanceName -match 'USB\\ROOT' } |
-                Select-Object InstanceName, Enable
-
-                $states | ConvertTo-Json -Compress
-                """,
-                context.Logger
-            );
-
-            if (string.IsNullOrWhiteSpace(usbStates.Stdout))
+            var captured = UsbPowerService.Capture();
+            if (captured.Count == 0)
             {
                 context.Logger.LogInformation("No USB devices found, skipping");
-                return ApplyResult.True();
-            }
-
-            var capturedStates = ParseUsbPowerStates(usbStates.Stdout);
-            if (capturedStates.Count == 0)
-            {
-                context.Logger.LogInformation("No USB device states parsed, skipping");
-                return ApplyResult.True();
+                return Task.FromResult(ApplyResult.True());
             }
 
             context.Logger.LogInformation("Disabling USB power saving");
-            var revertStep = new UsbPowerRevertStep { States = capturedStates };
-            var disableOp = await context.Shell.PowerShellAsync(
-                """
-                $devices = Get-CimInstance -Namespace root\wmi -ClassName MSPower_DeviceEnable -ErrorAction SilentlyContinue |
-                Where-Object { $_.InstanceName -match 'USB\\ROOT' }
+            var revertStep = new UsbPowerRevertStep
+            {
+                States = captured
+                    .Select(static state => new UsbPowerRevertStep.DeviceState
+                    {
+                        InstanceName = state.InstanceName,
+                        Enable = state.Enable,
+                    })
+                    .ToList(),
+            };
 
-                foreach ($d in $devices) {
-                    if ($d.Enable -ne $false) {
-                        Set-CimInstance -CimInstance $d -Property @{ Enable = $false } | Out-Null
-                    }
-                }
-                """,
-                context,
-                revertStep
-            );
-            var ok = disableOp.Ok;
+            Apply(context, revertStep, UsbPowerService.Disable());
 
-            return context.Changes.ToApplyResult();
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
 
-        private static List<UsbPowerRevertStep.DeviceState> ParseUsbPowerStates(string stdout)
+        private static OpResult Apply(
+            OpCall call,
+            UsbPowerRevertStep revertStep,
+            UsbPowerService.UsbPowerWriteResult? result
+        )
         {
-            try
+            var description = ServiceStrings.Format(
+                ServiceStrings.UsbPowerDescriptionDisable,
+                revertStep.States.Count
+            );
+
+            if (result is not null)
             {
-                var token = JToken.Parse(stdout.Trim());
-                return token switch
-                {
-                    JArray array => array.ToObject<List<UsbPowerRevertStep.DeviceState>>() ?? [],
-                    JObject obj => [obj.ToObject<UsbPowerRevertStep.DeviceState>()!],
-                    _ => [],
-                };
+                call.Changes.Add(ServiceStrings.UsbPowerName, description, true, revertStep);
+                call.Logger.LogInformation(
+                    "[USB][OK] power saving disabled, {Count} device(s) changed",
+                    result.ChangedCount
+                );
+                return OpResult.Success(revertStep);
             }
-            catch (JsonException)
-            {
-                return [];
-            }
+
+            // Null means the WMI query itself failed (class unavailable or the write was refused),
+            // which is the one case the old exit-code check also treated as a failure.
+            var error = ServiceStrings.UsbPowerErrorChangeFailed;
+            call.Logger.LogWarning("[USB][FAIL] WMI write refused or unavailable");
+            call.Changes.Add(
+                ServiceStrings.UsbPowerName,
+                description,
+                false,
+                null,
+                error,
+                null,
+                retryCall =>
+                    Task.FromResult(Apply(retryCall, revertStep, UsbPowerService.Disable()))
+            );
+            return OpResult.Fail(error, null);
         }
     }
 

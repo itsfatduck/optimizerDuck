@@ -285,6 +285,12 @@
   <data name="Revert.UsbPower.Description" xml:space="preserve">
   <value>USB 선택적 절전 전원 상태 복원</value>
 </data>
+  <data name="Revert.Hibernation.Description" xml:space="preserve">
+    <value>최대 절전 모드 상태 복원</value>
+  </data>
+  <data name="Revert.Hibernation.Error.RestoreFailed" xml:space="preserve">
+    <value>최대 절전 모드를 복원하지 못했습니다: {0}</value>
+  </data>
   <data name="Optimization.Apply.Processing" xml:space="preserve">
   <value>변경 사항 적용 중...</value>
 </data>
@@ -1394,8 +1400,8 @@
   <data name="Revert.Shell.Error.CommandFailed" xml:space="preserve">
     <value>종료 코드 {0}으로 인해 되돌리기 명령이 실패했습니다</value>
   </data>
-  <data name="Revert.UsbPower.Error.CommandFailed" xml:space="preserve">
-    <value>종료 코드 {0}으로 인해 USB 전원 복구에 실패했습니다</value>
+  <data name="Revert.UsbPower.Error.RestoreFailed" xml:space="preserve">
+    <value>USB 전원 상태를 복원하지 못했습니다</value>
   </data>
   <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
     <value>완료 알림 표시</value>

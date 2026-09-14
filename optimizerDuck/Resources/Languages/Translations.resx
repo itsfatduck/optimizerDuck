@@ -335,6 +335,12 @@
   <data name="Revert.UsbPower.Description" xml:space="preserve">
     <value>Restore USB selective suspend power states</value>
   </data>
+  <data name="Revert.Hibernation.Description" xml:space="preserve">
+    <value>Restore hibernation state</value>
+  </data>
+  <data name="Revert.Hibernation.Error.RestoreFailed" xml:space="preserve">
+    <value>Failed to restore hibernation: {0}</value>
+  </data>
   <data name="Revert.PowerPlan.Description" xml:space="preserve">
     <value>Restore previous active power plan {0}</value>
   </data>
@@ -1663,8 +1669,8 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="Revert.Shell.Error.CommandFailed" xml:space="preserve">
     <value>Revert command failed with exit code {0}</value>
   </data>
-  <data name="Revert.UsbPower.Error.CommandFailed" xml:space="preserve">
-    <value>USB power revert failed with exit code {0}</value>
+  <data name="Revert.UsbPower.Error.RestoreFailed" xml:space="preserve">
+    <value>Failed to restore USB power states</value>
   </data>
   <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
     <value>Show completion notification</value>

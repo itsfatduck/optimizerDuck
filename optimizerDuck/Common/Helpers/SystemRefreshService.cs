@@ -17,9 +17,6 @@ internal static class SystemRefreshService
         out IntPtr lpdwResult
     );
 
-    [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-    private static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
-
     [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
     private static extern IntPtr FindWindow(string? lpClassName, string? lpWindowName);
 
@@ -72,6 +69,7 @@ internal static class SystemRefreshService
     private const uint WM_THEMECHANGED = 0x031A;
     private const uint WM_COMMAND = 0x0111;
     private const uint SMTO_ABORTIFHUNG = 0x0002;
+    private const uint NotifyTimeoutMs = 100;
 
     private const uint SHCNE_ASSOCCHANGED = 0x08000000;
     private const uint SHCNF_IDLIST = 0x0000;
@@ -130,12 +128,24 @@ internal static class SystemRefreshService
 
         foreach (var listView in EnumerateDesktopListViews())
         {
-            SendMessage(listView, LVM_REFRESH, IntPtr.Zero, IntPtr.Zero);
-            SendMessage(listView, LVM_UPDATE, IntPtr.Zero, IntPtr.Zero);
+            Notify(listView, LVM_REFRESH, IntPtr.Zero);
+            Notify(listView, LVM_UPDATE, IntPtr.Zero);
 
             InvalidateRect(listView, IntPtr.Zero, true);
             UpdateWindow(listView);
         }
+    }
+
+    /// <summary>
+    ///     Fire-and-forget message to a window that may belong to another process. Plain
+    ///     <c>SendMessage</c> blocks until the receiver processes the message, which Microsoft
+    ///     documents as a deadlock risk when that receiver is hung or exiting (Explorer here), so
+    ///     this uses the timeout-bounded variant and treats a timeout or missing window as a
+    ///     no-op. <paramref name="lParam" /> is always null: these messages carry no string.
+    /// </summary>
+    internal static void Notify(IntPtr hWnd, uint message, IntPtr wParam)
+    {
+        SendMessageTimeout(hWnd, message, wParam, null, SMTO_ABORTIFHUNG, NotifyTimeoutMs, out _);
     }
 
     public static void SetDesktopIconsVisible(bool showIcons)
@@ -148,7 +158,7 @@ internal static class SystemRefreshService
         var currentlyVisible = listView != IntPtr.Zero && IsWindowVisible(listView);
 
         if (currentlyVisible != showIcons)
-            SendMessage(defView, WM_COMMAND, TOGGLE_DESKTOP_ICONS, IntPtr.Zero);
+            Notify(defView, WM_COMMAND, TOGGLE_DESKTOP_ICONS);
 
         SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, IntPtr.Zero, IntPtr.Zero);
     }

@@ -286,6 +286,12 @@
   <data name="Revert.UsbPower.Description" xml:space="preserve">
     <value>Восстановить параметры выборочной приостановки USB</value>
   </data>
+  <data name="Revert.Hibernation.Description" xml:space="preserve">
+    <value>Восстановить состояние гибернации</value>
+  </data>
+  <data name="Revert.Hibernation.Error.RestoreFailed" xml:space="preserve">
+    <value>Не удалось восстановить гибернацию: {0}</value>
+  </data>
   <data name="Optimization.Apply.Processing" xml:space="preserve">
     <value>Применение изменений...</value>
   </data>
@@ -1397,8 +1403,8 @@
   <data name="Revert.Shell.Error.CommandFailed" xml:space="preserve">
     <value>Команда отката завершилась с кодом {0}</value>
   </data>
-  <data name="Revert.UsbPower.Error.CommandFailed" xml:space="preserve">
-    <value>Откат питания USB завершился с кодом {0}</value>
+  <data name="Revert.UsbPower.Error.RestoreFailed" xml:space="preserve">
+    <value>Не удалось восстановить состояния питания USB</value>
   </data>
   <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
     <value>Показывать уведомление о завершении</value>

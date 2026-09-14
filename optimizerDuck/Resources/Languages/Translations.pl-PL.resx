@@ -286,6 +286,12 @@
   <data name="Revert.UsbPower.Description" xml:space="preserve">
     <value>Przywróć stany zasilania selektywnego wstrzymywania USB</value>
   </data>
+  <data name="Revert.Hibernation.Description" xml:space="preserve">
+    <value>Przywróć stan hibernacji</value>
+  </data>
+  <data name="Revert.Hibernation.Error.RestoreFailed" xml:space="preserve">
+    <value>Nie udało się przywrócić hibernacji: {0}</value>
+  </data>
   <data name="Optimization.Apply.Processing" xml:space="preserve">
     <value>Stosowanie zmian...</value>
   </data>
@@ -1403,8 +1409,8 @@ Zaktualizuj teraz, aby korzystać z najnowszych funkcji, ulepszeń i poprawek b�
   <data name="Revert.Shell.Error.CommandFailed" xml:space="preserve">
     <value>Polecenie cofania nie powiodło się z kodem wyjścia {0}</value>
   </data>
-  <data name="Revert.UsbPower.Error.CommandFailed" xml:space="preserve">
-    <value>Cofnięcie zasilania USB nie powiodło się z kodem wyjścia {0}</value>
+  <data name="Revert.UsbPower.Error.RestoreFailed" xml:space="preserve">
+    <value>Nie udało się przywrócić stanów zasilania USB</value>
   </data>
   <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
     <value>Pokaż powiadomienie o ukończeniu</value>

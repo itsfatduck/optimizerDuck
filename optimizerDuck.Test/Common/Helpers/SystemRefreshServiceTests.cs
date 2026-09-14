@@ -53,6 +53,18 @@ public class SystemRefreshServiceTests
     }
 
     [Fact]
+    public void Notify_InvalidWindowHandle_ReturnsWithoutThrowing()
+    {
+        // 0x1033 is LVM_REFRESH. A bogus handle must make the send fail fast instead of
+        // blocking, and the refresh path must swallow that as a no-op.
+        var exception = Record.Exception(() =>
+            SystemRefreshService.Notify(new IntPtr(0x12345678), 0x1033, IntPtr.Zero)
+        );
+
+        Assert.Null(exception);
+    }
+
+    [Fact]
     public void UpdatePerUserSystemParameters_DoesNotThrow()
     {
         var exception = Record.Exception(() =>

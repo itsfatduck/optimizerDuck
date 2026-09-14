@@ -26,6 +26,28 @@ public class RevertStepSerializationTests
     }
 
     [Fact]
+    public void HibernationRevertStep_RoundTrip_PreservesAllProperties()
+    {
+        var original = new HibernationRevertStep { WasPresent = true };
+
+        var json = original.ToData();
+        var restored = HibernationRevertStep.FromData(json);
+
+        Assert.True(restored.WasPresent);
+        Assert.Equal("Hibernation", restored.Type);
+        Assert.Equal(original.Type, restored.Type);
+    }
+
+    [Fact]
+    public void HibernationRevertStep_MissingFlag_DefaultsToPresent()
+    {
+        // Fail-safe default shared with the optimization: restore hibernation when unknown.
+        var restored = HibernationRevertStep.FromData(new JObject());
+
+        Assert.True(restored.WasPresent);
+    }
+
+    [Fact]
     public void ShellRevertStep_PowerShell_RoundTrip()
     {
         var original = new ShellRevertStep
@@ -219,6 +241,24 @@ public class RevertStepSerializationTests
         var restored = UsbPowerRevertStep.FromData(json);
 
         Assert.Empty(restored.States);
+    }
+
+    [Fact]
+    public void UsbPowerRevertStep_DeserializesPayloadWrittenBeforeTheConversion()
+    {
+        // Literal on-disk shape produced by the PowerShell-era implementation; the step must keep
+        // reading it now that restoring goes through the in-process WMI client.
+        var json = JObject.Parse(
+            """{"States":[{"InstanceName":"USB\\ROOT_HUB30\\5&1&0_0","Enable":true},{"InstanceName":"USB\\ROOT_HUB30\\5&2&0_0","Enable":false}]}"""
+        );
+
+        var restored = UsbPowerRevertStep.FromData(json);
+
+        Assert.Equal("UsbPower", restored.Type);
+        Assert.Equal(2, restored.States.Count);
+        Assert.Equal(@"USB\ROOT_HUB30\5&1&0_0", restored.States[0].InstanceName);
+        Assert.True(restored.States[0].Enable);
+        Assert.False(restored.States[1].Enable);
     }
 
     [Fact]

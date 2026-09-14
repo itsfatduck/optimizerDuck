@@ -285,6 +285,12 @@
   <data name="Revert.UsbPower.Description" xml:space="preserve">
     <value>USB seçici askıya alma güç durumlarını geri yükle</value>
   </data>
+  <data name="Revert.Hibernation.Description" xml:space="preserve">
+    <value>Hazırda bekletme durumunu geri yükle</value>
+  </data>
+  <data name="Revert.Hibernation.Error.RestoreFailed" xml:space="preserve">
+    <value>Hazırda bekletme geri yüklenemedi: {0}</value>
+  </data>
   <data name="Optimization.Apply.Processing" xml:space="preserve">
     <value>Değişiklikler uygulanıyor...</value>
   </data>
@@ -1394,8 +1400,8 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   <data name="Revert.Shell.Error.CommandFailed" xml:space="preserve">
     <value>Geri alma komutu {0} çıkış koduyla başarısız oldu</value>
   </data>
-  <data name="Revert.UsbPower.Error.CommandFailed" xml:space="preserve">
-    <value>USB güç geri alması {0} çıkış koduyla başarısız oldu</value>
+  <data name="Revert.UsbPower.Error.RestoreFailed" xml:space="preserve">
+    <value>USB güç durumları geri yüklenemedi</value>
   </data>
   <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
     <value>Tamamlanma bildirimi göster</value>

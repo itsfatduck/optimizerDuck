@@ -287,6 +287,12 @@
   <data name="Revert.UsbPower.Description" xml:space="preserve">
     <value>Restaurer les états d'alimentation de la suspension sélective USB</value>
   </data>
+  <data name="Revert.Hibernation.Description" xml:space="preserve">
+    <value>Restaurer l'état de veille prolongée</value>
+  </data>
+  <data name="Revert.Hibernation.Error.RestoreFailed" xml:space="preserve">
+    <value>Échec de la restauration de la veille prolongée : {0}</value>
+  </data>
   <data name="Optimization.Apply.Processing" xml:space="preserve">
     <value>Application des modifications...</value>
   </data>
@@ -1397,8 +1403,8 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
   <data name="Revert.Shell.Error.CommandFailed" xml:space="preserve">
     <value>La commande de restauration a échoué avec le code de sortie {0}</value>
   </data>
-  <data name="Revert.UsbPower.Error.CommandFailed" xml:space="preserve">
-    <value>La restauration de l'alimentation USB a échoué avec le code de sortie {0}</value>
+  <data name="Revert.UsbPower.Error.RestoreFailed" xml:space="preserve">
+    <value>Échec de la restauration des états d'alimentation USB</value>
   </data>
   <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
     <value>Afficher la notification de fin</value>

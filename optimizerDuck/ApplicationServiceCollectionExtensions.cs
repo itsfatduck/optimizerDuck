@@ -93,6 +93,7 @@ public static class ApplicationServiceCollectionExtensions
         // Services
         services.AddSingleton<ProcessRunner>();
         services.AddSingleton<PowerPlanService>();
+        services.AddSingleton<SystemRestoreService>();
         services.AddSingleton<ShellService>();
         services.AddSingleton<RevertManager>();
         services.AddSingleton<OptimizationRegistry>();

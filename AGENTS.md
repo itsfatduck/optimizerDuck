@@ -44,11 +44,10 @@
     - `Configuration/` — `ConfigManager`, `LanguageManager`
     - `Customize/` — `CustomizeRegistry` (reflection-based discovery), `CustomizationExecutor` (debounce + sequential serialization for setting writes)
     - `Optimization/` — `OptimizationRegistry`, `OptimizationService`, `OptimizationValidation` (fail-fast Id checks at startup)
-    - `System/Primitives/` — `RegistryService`, `ScheduledTaskService`, `ServiceProcessService` are **static** (stateless); `ShellService` + `ProcessRunner` are DI singletons (stateful; `ShellService` reads the timeout live from settings). Those four take an explicit `OpCall`, record into `call.Changes`, log via `call.Logger`, return `OpResult`. `ShellMapping` centralises cmd/PowerShell argument building and result mapping. `PowerPlanChanges` is the single edge recorder turning lean `PowerPlanService` results into `Change` + revert step + retry (categories never hand-roll power steps).
-  - `Windows/Services/ScStartupTypeParser.cs` — shared parser for `sc.exe qc` START_TYPE output, used by `ServiceProcessService`.
+    - `System/Primitives/` — `RegistryService`, `ScheduledTaskService`, `ServiceProcessService` are **static** (stateless); `ShellService` + `ProcessRunner` are DI singletons (stateful; `ShellService` reads the timeout live from settings). Those four take an explicit `OpCall`, record into `call.Changes`, log via `call.Logger`, return `OpResult`. `ShellMapping` centralises cmd/PowerShell argument building and result mapping. `PowerPlanChanges` is the single edge recorder turning lean `PowerPlanService` results into `Change` + revert step + retry (categories never hand-roll power steps). Service startup types are read and written through the Service Control Manager inside `ServiceProcessService` (no `sc.exe`, no START_TYPE parsing). `RecycleBinService`, `HibernationService` and `UsbPowerService` are **static** primitives owning one Windows operation each (shell Recycle Bin APIs, the documented power information callback, `root\wmi` device power) and fail open instead of throwing.
   - `ApplicationServiceCollectionExtensions.cs` — `AddOptimizerApplication(IConfiguration)`: the whole application graph, separated from `App.xaml.cs` so a test can build it
     - `Revert/` — `RevertManager` (atomic file-based revert data persistence)
-    - `System/` — `RegistryWatcher` (+ `IRegistryWatcher`), `SystemInfoService` (defines `SystemInfo` + models), `StreamService`, `UpdaterService`, `CrossPageEventBus`, `CrossPageEvents`, `PowerPlanService` (lean native core: reads take ids, writes take `ILogger? = null` and record nothing; single owner of all `powrprof.dll` interop)
+    - `System/` — `RegistryWatcher` (+ `IRegistryWatcher`), `SystemInfoService` (defines `SystemInfo` + models), `StreamService`, `UpdaterService`, `CrossPageEventBus`, `CrossPageEvents`, `PowerPlanService` (lean native core: reads take ids, writes take `ILogger? = null` and record nothing; single owner of power **scheme** interop), `SystemRestoreService` (same lean shape; single owner of every System Restore WMI call, reusable by a future restore-point tool)
     - `UI/` — `BloatwareService`, `DiskCleanupService`, `StartupManagerService`
   - `UI/` — XAML pages, ViewModels, windows, controls, dialogs, styles
   - `Common/` — extensions, helpers, converters:
@@ -80,7 +79,7 @@
 - **Provider services**: stateless services are static (`RegistryService`, `ServiceProcessService`, `ScheduledTaskService`) — call directly. `ShellService` + `ProcessRunner` are DI singletons, reached from optimizations as `context.Shell`. All take an explicit `OpCall`, record into `call.Changes`, return `OpResult`. Exception: `PowerPlanService` is a lean DI singleton — reads take ids, writes take `ILogger? = null` and record nothing (named record results); `PowerPlanChanges` records at the edge instead.
 - **Results**: Optimizations end `ApplyAsync` with `return context.Changes.ToApplyResult();`. Do not manually construct `ApplyResult` except for early-out failures.
 - **Single execution path**: `BaseOptimization` + `OptimizationContext` (`OpCall`) + static providers + `ShellService`, orchestrated by `OptimizationService`. There is no second framework — do not add one, and do not write a second implementation of an existing Windows operation.
-- **One implementation per Windows operation**: `RegistryService`/`ServiceProcessService`/`ScheduledTaskService`/`ShellService` are the single source of truth (plus the shared `ScStartupTypeParser`, `RegistryValues`, `ShellMapping`). `PowerPlanService` is the single owner of all `powrprof.dll` interop. Fix behaviour there, not in a copy.
+- **One implementation per Windows operation**: `RegistryService`/`ServiceProcessService`/`ScheduledTaskService`/`ShellService` are the single source of truth (plus the shared `RegistryValues`, `ShellMapping`), `PowerPlanService` owns power-scheme interop, `SystemRestoreService` owns System Restore, and the static primitives (`RecycleBinService`, `HibernationService`, `UsbPowerService`) own one Windows operation each. Fix behaviour there, not in a copy.
 - **DI**: register through `AddOptimizerApplication(configuration)` (the whole app graph); `App.xaml.cs` only builds the host. The host sets `ValidateOnBuild`/`ValidateScopes`, so a broken registration fails at startup instead of at Apply time — keep it that way.
 - **Per-step failure policy**: providers record a failed `Change` with an error and (where a retry can help) a retry action; they do not throw. Power failures record the same way via `PowerPlanChanges` (the service itself only returns diagnostics). Only truly unrecoverable state throws. `OptimizationService` persists partial work with `CancellationToken.None` and builds the `OptimizationResult`.
 - **Preloading**: `OptimizationRegistry.PreloadOptimizationsAsync()` / `EnsurePreloadedAsync()` (and `CustomizeRegistry.PreloadCategoriesAsync()` / `EnsurePreloadedAsync()`) run reflection discovery on a background thread. `App.xaml.cs` preloads at startup; the Optimize/Customize pages call `EnsurePreloadedAsync()` before binding.
@@ -161,11 +160,11 @@ Applies to every supported and future locale. Goal is natural localization, not 
 - `Write(params RegistryItem[] items)` and `DeleteValue(params RegistryItem[] items)` — batch variants that deduplicate.
 
 ## Service Process Service Details
-- `GetStartupTypeAsync(serviceName)` — queries current startup type via `sc.exe qc`. Returns `(ServiceStartupType?, bool NotFound)`. Uses locale-independent regex parsing of `sc qc` output.
-- `ChangeServiceStartupTypeAsync(ServiceItem)` — changes via `sc.exe config`. Records `ServiceRevertStep` only if the startup type actually changed.
+- `GetStartupTypeAsync(serviceName)` — reads the configured startup type from the Service Control Manager (`QueryServiceConfig`, plus `QueryServiceConfig2` for the delayed-auto flag). Returns `(ServiceStartupType?, bool NotFound)`; a missing service comes back as `ERROR_SERVICE_DOES_NOT_EXIST` (1060), boot/system starts as `null`.
+- `ChangeServiceStartupTypeAsync(ServiceItem)` — writes through `ChangeServiceConfig`, then `ChangeServiceConfig2` for auto-start targets so a stale delayed-auto flag cannot survive a change back to plain Automatic. Records `ServiceRevertStep` only if the startup type actually changed.
 - `ChangeServiceStartupTypeAsync(params ServiceItem[])` — batch variant for multiple services.
 - `ServiceStartupType` enum: `Automatic`, `AutomaticDelayedStart`, `Manual`, `Disabled`. Note: Boot (0) and System (1) startup types are not used in this app.
-- Uses `sc.exe` with timeouts: 15s for queries, 30s for config changes.
+- No child process and no `sc.exe`: handles are opened and closed per operation and Win32 codes are mapped (1060 not found, 5 access denied, anything else reported as a failure).
 
 ## Scheduled Task Service Details
 - Uses `Microsoft.Win32.TaskScheduler` library (TaskScheduler NuGet package).
@@ -183,7 +182,8 @@ Applies to every supported and future locale. Goal is natural localization, not 
 - `ServiceRevertStep` — stores `ServiceName` and `OriginalStartupType`.
 - `ScheduledTaskRevertStep` — stores `FullPath` and `OriginalEnabled` state.
 - `ShellRevertStep` — stores `ShellType` (CMD/PowerShell) and `Command`.
-- `UsbPowerRevertStep` — stores list of `DeviceState` (InstanceName + Enable) for USB power settings.
+- `UsbPowerRevertStep` — stores list of `DeviceState` (InstanceName + Enable) for USB power settings; restoring goes through the in-process `root\wmi` client.
+- `HibernationRevertStep` — stores `WasPresent` (whether the hibernation file existed) and restores it through the power information callback.
 
 ## Commit & PR
 - Conventional Commits: `feat:`, `fix:`, `refactor:`, `docs:`, `test:`, `i18n:`, `chore:`.

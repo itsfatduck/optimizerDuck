@@ -335,6 +335,12 @@
   <data name="Revert.UsbPower.Description" xml:space="preserve">
     <value>שחזור מצבי צריכת החשמל של USB selective suspend</value>
   </data>
+  <data name="Revert.Hibernation.Description" xml:space="preserve">
+    <value>שחזור מצב השינה</value>
+  </data>
+  <data name="Revert.Hibernation.Error.RestoreFailed" xml:space="preserve">
+    <value>שחזור השינה נכשל: {0}</value>
+  </data>
   <data name="Optimization.Apply.Processing" xml:space="preserve">
     <value>מחיל שינויים...</value>
   </data>
@@ -1464,8 +1470,8 @@
   <data name="Revert.Shell.Error.CommandFailed" xml:space="preserve">
     <value>פקודת הביטול נכשלה עם קוד יציאה {0}</value>
   </data>
-  <data name="Revert.UsbPower.Error.CommandFailed" xml:space="preserve">
-    <value>ביטול צריכת החשמל של USB נכשל עם קוד יציאה {0}</value>
+  <data name="Revert.UsbPower.Error.RestoreFailed" xml:space="preserve">
+    <value>שחזור מצבי צריכת החשמל של USB נכשל</value>
   </data>
   <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
     <value>הצג התראת השלמה</value>

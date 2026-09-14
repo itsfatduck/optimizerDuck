@@ -280,6 +280,12 @@
   <data name="Revert.UsbPower.Description" xml:space="preserve">
     <value>Ripristina stati di alimentazione sospensione selettiva USB</value>
   </data>
+  <data name="Revert.Hibernation.Description" xml:space="preserve">
+    <value>Ripristina lo stato di ibernazione</value>
+  </data>
+  <data name="Revert.Hibernation.Error.RestoreFailed" xml:space="preserve">
+    <value>Ripristino dell'ibernazione non riuscito: {0}</value>
+  </data>
   <data name="Optimization.Apply.Processing" xml:space="preserve">
     <value>Applicazione modifiche in corso...</value>
   </data>
@@ -1439,8 +1445,8 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   <data name="Revert.Shell.Error.CommandFailed" xml:space="preserve">
     <value>Comando di ripristino fallito con codice uscita {0}</value>
   </data>
-  <data name="Revert.UsbPower.Error.CommandFailed" xml:space="preserve">
-    <value>Ripristino alimentazione USB fallito con codice uscita {0}</value>
+  <data name="Revert.UsbPower.Error.RestoreFailed" xml:space="preserve">
+    <value>Ripristino degli stati di alimentazione USB non riuscito</value>
   </data>
   <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
     <value>Mostra notifica completamento</value>

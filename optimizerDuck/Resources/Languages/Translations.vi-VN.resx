@@ -289,6 +289,12 @@
   <data name="Revert.UsbPower.Description" xml:space="preserve">
     <value>Khôi phục trạng thái nguồn tạm ngưng chọn lọc USB</value>
   </data>
+  <data name="Revert.Hibernation.Description" xml:space="preserve">
+    <value>Khôi phục trạng thái ngủ đông</value>
+  </data>
+  <data name="Revert.Hibernation.Error.RestoreFailed" xml:space="preserve">
+    <value>Không khôi phục được trạng thái ngủ đông: {0}</value>
+  </data>
   <data name="Optimization.Apply.Processing" xml:space="preserve">
     <value>Đang áp dụng...</value>
   </data>
@@ -1305,8 +1311,8 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Revert.Shell.Error.CommandFailed" xml:space="preserve">
     <value>Lệnh hoàn tác thất bại với mã thoát {0}</value>
   </data>
-  <data name="Revert.UsbPower.Error.CommandFailed" xml:space="preserve">
-    <value>Hoàn tác nguồn USB thất bại với mã thoát {0}</value>
+  <data name="Revert.UsbPower.Error.RestoreFailed" xml:space="preserve">
+    <value>Không khôi phục được trạng thái nguồn USB</value>
   </data>
   <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
     <value>Hiển thị thông báo hoàn tất</value>

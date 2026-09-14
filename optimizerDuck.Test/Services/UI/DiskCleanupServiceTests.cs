@@ -8,11 +8,7 @@ namespace optimizerDuck.Test.Services.UI;
 
 public class DiskCleanupServiceTests
 {
-    private static DiskCleanupService NewService() =>
-        new(
-            NullLogger<DiskCleanupService>.Instance,
-            new ShellService(new ProcessRunner(120000, NullLogger<ProcessRunner>.Instance))
-        );
+    private static DiskCleanupService NewService() => new(NullLogger<DiskCleanupService>.Instance);
 
     [Fact]
     public async Task CleanAsync_DoesNotDeleteFilesInDotNetDirectory()
@@ -123,19 +119,37 @@ public class DiskCleanupServiceTests
     }
 
     [Fact]
-    public async Task CleanAsync_FailingCommand_ReportsNoFreedBytes()
+    public void GetCleanupItems_RecycleBinItem_HasNoCommandPath()
     {
-        var service = NewService();
-        var item = new CleanupItem
+        var item = DiskCleanupService.GetCleanupItems().Single(i => i.Id == "RecycleBin");
+
+        // Still flagged as "not a directory", but the PowerShell command is gone: size and
+        // emptying now come from the shell Recycle Bin APIs.
+        Assert.True(item.IsCommand);
+        Assert.Empty(item.Path);
+        Assert.False(item.CanOpenFolder);
+    }
+
+    [Fact]
+    public async Task CleanAsync_RecycleBinItem_ReportsNoFreedBytesForAnEmptyBin()
+    {
+        // The failing-empty half of the contract lives in RecycleBinServiceTests
+        // (Empty_InvalidRoot_FailsWithError): DiskCleanupService always empties every drive, so a
+        // failure cannot be forced here without either destroying real data or adding a
+        // test-only seam to the service.
+        var totals = RecycleBinService.Query();
+        if (totals.ItemCount != 0)
         {
-            Id = "Command",
-            NameKey = "Temp Files",
-            DescriptionKey = "Temp Description",
-            Path = "exit 1",
-            Icon = SymbolRegular.Document24,
-            IsCommand = true,
-            SizeBytes = 4096,
-        };
+            Assert.Skip(
+                $"Recycle Bin holds {totals.ItemCount} item(s); emptying it here would destroy real user data, so this test only runs on an empty bin."
+            );
+        }
+
+        var service = NewService();
+        var item = DiskCleanupService.GetCleanupItems().Single(i => i.Id == "RecycleBin");
+
+        await service.ScanAsync(item);
+        Assert.Equal(0, item.SizeBytes);
 
         var freed = await service.CleanAsync(item);
 

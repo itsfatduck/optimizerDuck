@@ -2118,8 +2118,10 @@ public sealed class SystemInfoService : IDisposable
                     v.DriveLetter,
                     v.IsSystemDrive ? " [System]" : "",
                     v.MediaType,
-                    v.TotalBytes / (1024.0 * 1024.0 * 1024.0),
-                    v.FreeBytes / (1024.0 * 1024.0 * 1024.0),
+                    // Integer division on purpose: a whole-gigabyte figure reads like Explorer's,
+                    // while the double it came from would log 109.17089462280273.
+                    v.TotalBytes / (1024L * 1024 * 1024),
+                    v.FreeBytes / (1024L * 1024 * 1024),
                     v.Model is not null ? $" - {v.Model}" : ""
                 );
         }

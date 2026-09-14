@@ -286,6 +286,12 @@
   <data name="Revert.UsbPower.Description" xml:space="preserve">
     <value>还原 USB 选择性挂起电源状态</value>
   </data>
+  <data name="Revert.Hibernation.Description" xml:space="preserve">
+    <value>恢复休眠状态</value>
+  </data>
+  <data name="Revert.Hibernation.Error.RestoreFailed" xml:space="preserve">
+    <value>无法恢复休眠状态：{0}</value>
+  </data>
   <data name="Optimization.Apply.Processing" xml:space="preserve">
     <value>正在应用更改...</value>
   </data>
@@ -1475,8 +1481,8 @@
   <data name="Revert.Shell.Error.CommandFailed" xml:space="preserve">
     <value>还原命令执行失败，返回代码为 {0}</value>
   </data>
-  <data name="Revert.UsbPower.Error.CommandFailed" xml:space="preserve">
-    <value>USB 电源恢复操作失败，返回代码为 {0}</value>
+  <data name="Revert.UsbPower.Error.RestoreFailed" xml:space="preserve">
+    <value>无法恢复 USB 电源状态</value>
   </data>
   <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
     <value>显示完成通知</value>

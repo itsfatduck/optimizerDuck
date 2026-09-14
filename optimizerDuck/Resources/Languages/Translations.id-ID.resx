@@ -329,6 +329,12 @@
   <data name="Revert.UsbPower.Description" xml:space="preserve">
     <value>Memulihkan status daya suspend selektif USB</value>
   </data>
+  <data name="Revert.Hibernation.Description" xml:space="preserve">
+    <value>Pulihkan status hibernasi</value>
+  </data>
+  <data name="Revert.Hibernation.Error.RestoreFailed" xml:space="preserve">
+    <value>Gagal memulihkan hibernasi: {0}</value>
+  </data>
   <data name="Optimization.Apply.Processing" xml:space="preserve">
     <value>Menerapkan perubahan...</value>
   </data>
@@ -1488,8 +1494,8 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   <data name="Revert.Shell.Error.CommandFailed" xml:space="preserve">
     <value>Perintah revert gagal dengan kode keluar {0}</value>
   </data>
-  <data name="Revert.UsbPower.Error.CommandFailed" xml:space="preserve">
-    <value>Revert daya USB gagal dengan kode keluar {0}</value>
+  <data name="Revert.UsbPower.Error.RestoreFailed" xml:space="preserve">
+    <value>Gagal memulihkan status daya USB</value>
   </data>
   <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
     <value>Tampilkan notifikasi penyelesaian</value>

@@ -285,6 +285,12 @@
   <data name="Revert.UsbPower.Description" xml:space="preserve">
     <value>USB 選択的サスペンドの電源状態を復元</value>
   </data>
+  <data name="Revert.Hibernation.Description" xml:space="preserve">
+    <value>休止状態を復元</value>
+  </data>
+  <data name="Revert.Hibernation.Error.RestoreFailed" xml:space="preserve">
+    <value>休止状態を復元できませんでした：{0}</value>
+  </data>
   <data name="Optimization.Apply.Processing" xml:space="preserve">
     <value>変更を適用しています…</value>
   </data>
@@ -1395,8 +1401,8 @@
   <data name="Revert.Shell.Error.CommandFailed" xml:space="preserve">
     <value>終了コード {0} で元に戻すコマンドが失敗しました</value>
   </data>
-  <data name="Revert.UsbPower.Error.CommandFailed" xml:space="preserve">
-    <value>終了コード {0} で USB 電源の復元に失敗しました</value>
+  <data name="Revert.UsbPower.Error.RestoreFailed" xml:space="preserve">
+    <value>USB の電力状態を復元できませんでした</value>
   </data>
   <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
     <value>完了通知を表示</value>

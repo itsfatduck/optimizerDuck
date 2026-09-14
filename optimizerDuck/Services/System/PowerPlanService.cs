@@ -1413,8 +1413,10 @@ public class PowerPlanService
         uint DcValueIndex
     );
 
+    // Native return is BOOLEAN (one byte): UnmanagedType.Bool would read four, and the x64 ABI
+    // leaves the unused return bits undefined.
     [DllImport("powrprof.dll")]
-    [return: MarshalAs(UnmanagedType.Bool)]
+    [return: MarshalAs(UnmanagedType.U1)]
     private static extern bool PowerIsSettingRangeDefined(
         ref Guid SubKeyGuid,
         ref Guid SettingGuid
