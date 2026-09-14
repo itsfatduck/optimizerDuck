@@ -317,6 +317,7 @@ public partial class App : Application
         Directory.CreateDirectory(Shared.DownloadsDirectory);
         Directory.CreateDirectory(Shared.AssetsDirectory);
         Directory.CreateDirectory(Shared.RevertDirectory);
+        Directory.CreateDirectory(Shared.HistoryDirectory);
 
         var logPath = Path.Combine(Shared.RootDirectory, "optimizerDuck.log");
         Log.Logger = new LoggerConfiguration()

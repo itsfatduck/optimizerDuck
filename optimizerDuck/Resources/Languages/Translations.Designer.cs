@@ -151,6 +151,24 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Windows did not remove these packages: {0}.
+        /// </summary>
+        internal static string Bloatware_Remove_Failed_Message {
+            get {
+                return ResourceManager.GetString("Bloatware.Remove.Failed.Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Some packages were not removed.
+        /// </summary>
+        internal static string Bloatware_Remove_Failed_Title {
+            get {
+                return ResourceManager.GetString("Bloatware.Remove.Failed.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No results found. Try a different search term or filter..
         /// </summary>
         internal static string Bloatware_Search_NoResults {
@@ -3365,6 +3383,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nothing to change: {0} already matches this machine..
+        /// </summary>
+        internal static string Optimization_Apply_NothingToDo {
+            get {
+                return ResourceManager.GetString("Optimization.Apply.NothingToDo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Applying changes....
         /// </summary>
         internal static string Optimization_Apply_Processing {
@@ -3379,6 +3406,15 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Optimization_Apply_Snackbar_Error_Title {
             get {
                 return ResourceManager.GetString("Optimization.Apply.Snackbar.Error.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nothing to change.
+        /// </summary>
+        internal static string Optimization_Apply_Snackbar_NothingToDo_Title {
+            get {
+                return ResourceManager.GetString("Optimization.Apply.Snackbar.NothingToDo.Title", resourceCulture);
             }
         }
         
@@ -3532,6 +3568,24 @@ namespace optimizerDuck.Resources.Languages {
         internal static string OptimizationDetailsDialog_Other {
             get {
                 return ResourceManager.GetString("OptimizationDetailsDialog.Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reveals the file where optimizerDuck wrote what this optimization did. It stays after a revert, so the history is still there..
+        /// </summary>
+        internal static string OptimizationDetailsDialog_Other_OpenRecordFile_Description {
+            get {
+                return ResourceManager.GetString("OptimizationDetailsDialog.Other.OpenRecordFile.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show the record file.
+        /// </summary>
+        internal static string OptimizationDetailsDialog_Other_OpenRecordFile_Title {
+            get {
+                return ResourceManager.GetString("OptimizationDetailsDialog.Other.OpenRecordFile.Title", resourceCulture);
             }
         }
         
@@ -3780,6 +3834,609 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Devices.
+        /// </summary>
+        internal static string Optimizer_Details_Field_Devices {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Field.Devices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hibernation state.
+        /// </summary>
+        internal static string Optimizer_Details_Field_HibernationState {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Field.HibernationState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New value.
+        /// </summary>
+        internal static string Optimizer_Details_Field_New {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Field.New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removed.
+        /// </summary>
+        internal static string Optimizer_Details_Field_New_None {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Field.New.None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Path.
+        /// </summary>
+        internal static string Optimizer_Details_Field_Path {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Field.Path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Power plan.
+        /// </summary>
+        internal static string Optimizer_Details_Field_PowerPlan {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Field.PowerPlan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous value.
+        /// </summary>
+        internal static string Optimizer_Details_Field_Previous {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Field.Previous", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not present.
+        /// </summary>
+        internal static string Optimizer_Details_Field_Previous_None {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Field.Previous.None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reason.
+        /// </summary>
+        internal static string Optimizer_Details_Field_Reason {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Field.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Service.
+        /// </summary>
+        internal static string Optimizer_Details_Field_Service {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Field.Service", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting.
+        /// </summary>
+        internal static string Optimizer_Details_Field_Setting {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Field.Setting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Startup type.
+        /// </summary>
+        internal static string Optimizer_Details_Field_StartupState {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Field.StartupState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Task.
+        /// </summary>
+        internal static string Optimizer_Details_Field_Task {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Field.Task", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Task state.
+        /// </summary>
+        internal static string Optimizer_Details_Field_TaskState {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Field.TaskState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        internal static string Optimizer_Details_Field_Type {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Field.Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value.
+        /// </summary>
+        internal static string Optimizer_Details_Field_Value {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Field.Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value name.
+        /// </summary>
+        internal static string Optimizer_Details_Field_ValueName {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Field.ValueName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turn off hibernation and Fast Startup.
+        /// </summary>
+        internal static string Optimizer_Details_Op_Hibernation {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Op.Hibernation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turn hibernation and Fast Startup back on.
+        /// </summary>
+        internal static string Optimizer_Details_Op_HibernationEnable {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Op.HibernationEnable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore hibernation and Fast Startup.
+        /// </summary>
+        internal static string Optimizer_Details_Op_HibernationRestore {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Op.HibernationRestore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set power plan {0}.
+        /// </summary>
+        internal static string Optimizer_Details_Op_PowerPlanActivate {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Op.PowerPlanActivate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Install power plan {0}.
+        /// </summary>
+        internal static string Optimizer_Details_Op_PowerPlanInstall {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Op.PowerPlanInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore power plan {0}.
+        /// </summary>
+        internal static string Optimizer_Details_Op_PowerPlanRestore {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Op.PowerPlanRestore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove power plan {0}.
+        /// </summary>
+        internal static string Optimizer_Details_Op_PowerPlanUninstall {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Op.PowerPlanUninstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change power setting {0}.
+        /// </summary>
+        internal static string Optimizer_Details_Op_PowerSetting {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Op.PowerSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore power setting {0}.
+        /// </summary>
+        internal static string Optimizer_Details_Op_PowerSettingRestore {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Op.PowerSettingRestore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create registry key.
+        /// </summary>
+        internal static string Optimizer_Details_Op_RegistryCreateKey {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Op.RegistryCreateKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete value {0}.
+        /// </summary>
+        internal static string Optimizer_Details_Op_RegistryDelete {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Op.RegistryDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete registry key.
+        /// </summary>
+        internal static string Optimizer_Details_Op_RegistryDeleteKey {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Op.RegistryDeleteKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore value {0}.
+        /// </summary>
+        internal static string Optimizer_Details_Op_RegistryRestore {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Op.RegistryRestore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore registry key.
+        /// </summary>
+        internal static string Optimizer_Details_Op_RegistryRestoreKey {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Op.RegistryRestoreKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write value {0}.
+        /// </summary>
+        internal static string Optimizer_Details_Op_RegistrySet {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Op.RegistrySet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore service {0}.
+        /// </summary>
+        internal static string Optimizer_Details_Op_ServiceRestore {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Op.ServiceRestore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change service {0}.
+        /// </summary>
+        internal static string Optimizer_Details_Op_ServiceStartup {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Op.ServiceStartup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable task {0}.
+        /// </summary>
+        internal static string Optimizer_Details_Op_TaskDisable {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Op.TaskDisable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable task {0}.
+        /// </summary>
+        internal static string Optimizer_Details_Op_TaskEnable {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Op.TaskEnable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turn off USB power saving.
+        /// </summary>
+        internal static string Optimizer_Details_Op_UsbPower {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Op.UsbPower", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turn USB power saving back on.
+        /// </summary>
+        internal static string Optimizer_Details_Op_UsbPowerRestore {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Op.UsbPowerRestore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hibernation.
+        /// </summary>
+        internal static string Optimizer_Details_Provider_Hibernation {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Provider.Hibernation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Power plan.
+        /// </summary>
+        internal static string Optimizer_Details_Provider_PowerPlan {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Provider.PowerPlan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registry.
+        /// </summary>
+        internal static string Optimizer_Details_Provider_Registry {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Provider.Registry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scheduled task.
+        /// </summary>
+        internal static string Optimizer_Details_Provider_ScheduledTask {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Provider.ScheduledTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Service.
+        /// </summary>
+        internal static string Optimizer_Details_Provider_Service {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Provider.Service", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shell.
+        /// </summary>
+        internal static string Optimizer_Details_Provider_Shell {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Provider.Shell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to USB power saving.
+        /// </summary>
+        internal static string Optimizer_Details_Provider_UsbPower {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Provider.UsbPower", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The key was not there to begin with.
+        /// </summary>
+        internal static string Optimizer_Details_Reason_RegistryKeyAbsent {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Reason.RegistryKeyAbsent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The key was already there.
+        /// </summary>
+        internal static string Optimizer_Details_Reason_RegistryKeyExists {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Reason.RegistryKeyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value was not there to begin with.
+        /// </summary>
+        internal static string Optimizer_Details_Reason_RegistryValueAbsent {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Reason.RegistryValueAbsent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This service is not on this machine.
+        /// </summary>
+        internal static string Optimizer_Details_Reason_ServiceNotFound {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Reason.ServiceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This task is not on this machine.
+        /// </summary>
+        internal static string Optimizer_Details_Reason_TaskNotFound {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Reason.TaskNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This machine has no USB root hubs.
+        /// </summary>
+        internal static string Optimizer_Details_Reason_UsbNoDevices {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Reason.UsbNoDevices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applied run at {0}.
+        /// </summary>
+        internal static string Optimizer_Details_Record_Apply {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Record.Apply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No record yet for this item..
+        /// </summary>
+        internal static string Optimizer_Details_Record_Empty {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Record.Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reverted at {0}.
+        /// </summary>
+        internal static string Optimizer_Details_Record_Revert {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Record.Revert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What this optimization did.
+        /// </summary>
+        internal static string Optimizer_Details_Record_Title {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Record.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Already correct.
+        /// </summary>
+        internal static string Optimizer_Details_Step_AlreadyCorrect {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Step.AlreadyCorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changed.
+        /// </summary>
+        internal static string Optimizer_Details_Step_Changed {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Step.Changed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed.
+        /// </summary>
+        internal static string Optimizer_Details_Step_Failed {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Step.Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No way back.
+        /// </summary>
+        internal static string Optimizer_Details_Step_Irreversible {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Step.Irreversible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not applicable.
+        /// </summary>
+        internal static string Optimizer_Details_Step_NotApplicable {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Step.NotApplicable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refused by Windows.
+        /// </summary>
+        internal static string Optimizer_Details_Step_Refused {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Step.Refused", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On.
+        /// </summary>
+        internal static string Optimizer_Details_Value_Enabled {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Value.Enabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatic.
+        /// </summary>
+        internal static string Optimizer_Details_Value_Startup_Automatic {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Value.Startup.Automatic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatic (delayed start).
+        /// </summary>
+        internal static string Optimizer_Details_Value_Startup_AutomaticDelayed {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Value.Startup.AutomaticDelayed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Off.
+        /// </summary>
+        internal static string Optimizer_Details_Value_Startup_Disabled {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Value.Startup.Disabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manual.
+        /// </summary>
+        internal static string Optimizer_Details_Value_Startup_Manual {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Value.Startup.Manual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown.
+        /// </summary>
+        internal static string Optimizer_Details_Value_Unknown {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Value.Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GPU.
         /// </summary>
         internal static string Optimizer_Gpu {
@@ -3933,7 +4590,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hide Applied.
+        ///   Looks up a localized string similar to Hide finished items.
         /// </summary>
         internal static string Optimizer_Menu_HideApplied {
             get {
@@ -4510,11 +5167,65 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Already optimal.
+        /// </summary>
+        internal static string Optimizer_UI_State_AlreadyOptimal {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.State.AlreadyOptimal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This machine already matches this optimization, so there is nothing to change..
+        /// </summary>
+        internal static string Optimizer_UI_State_AlreadyOptimal_Tooltip {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.State.AlreadyOptimal.Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} steps changed, {1} were already correct, {2} did not apply, {3} were refused by Windows.
+        /// </summary>
+        internal static string Optimizer_UI_State_Applied_Summary {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.State.Applied.Summary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click to see each step of the last apply. {0}.
+        /// </summary>
+        internal static string Optimizer_UI_State_Applied_Tooltip {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.State.Applied.Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click to see each step of the last apply..
+        /// </summary>
+        internal static string Optimizer_UI_State_Applied_Tooltip_NoSummary {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.State.Applied.Tooltip.NoSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AMD.
         /// </summary>
         internal static string Optimizer_UI_Tags_Amd {
             get {
                 return ResourceManager.GetString("Optimizer.UI.Tags.Amd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This optimization is about a PC with an AMD graphics card, and does nothing on other machines..
+        /// </summary>
+        internal static string Optimizer_UI_Tags_Amd_Tooltip {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Tags.Amd.Tooltip", resourceCulture);
             }
         }
         
@@ -4528,11 +5239,29 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This optimization is about how sound is played and processed..
+        /// </summary>
+        internal static string Optimizer_UI_Tags_Audio_Tooltip {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Tags.Audio.Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disk.
         /// </summary>
         internal static string Optimizer_UI_Tags_Disk {
             get {
                 return ResourceManager.GetString("Optimizer.UI.Tags.Disk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This optimization is about how Windows uses your disks..
+        /// </summary>
+        internal static string Optimizer_UI_Tags_Disk_Tooltip {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Tags.Disk.Tooltip", resourceCulture);
             }
         }
         
@@ -4546,11 +5275,29 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This optimization is about what your screen or graphics card outputs..
+        /// </summary>
+        internal static string Optimizer_UI_Tags_Display_Tooltip {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Tags.Display.Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Intel.
         /// </summary>
         internal static string Optimizer_UI_Tags_Intel {
             get {
                 return ResourceManager.GetString("Optimizer.UI.Tags.Intel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This optimization is about a PC with an Intel graphics card, and does nothing on other machines..
+        /// </summary>
+        internal static string Optimizer_UI_Tags_Intel_Tooltip {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Tags.Intel.Tooltip", resourceCulture);
             }
         }
         
@@ -4564,11 +5311,29 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This optimization is about delay in input, games or sound..
+        /// </summary>
+        internal static string Optimizer_UI_Tags_Latency_Tooltip {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Tags.Latency.Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Network.
         /// </summary>
         internal static string Optimizer_UI_Tags_Network {
             get {
                 return ResourceManager.GetString("Optimizer.UI.Tags.Network", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This optimization is about networking, the connection and the traffic on it..
+        /// </summary>
+        internal static string Optimizer_UI_Tags_Network_Tooltip {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Tags.Network.Tooltip", resourceCulture);
             }
         }
         
@@ -4582,11 +5347,29 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This optimization needs an internet connection, because it downloads something..
+        /// </summary>
+        internal static string Optimizer_UI_Tags_NetworkRequired_Tooltip {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Tags.NetworkRequired.Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to NVIDIA.
         /// </summary>
         internal static string Optimizer_UI_Tags_Nvidia {
             get {
                 return ResourceManager.GetString("Optimizer.UI.Tags.Nvidia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This optimization is about a PC with an NVIDIA graphics card, and does nothing on other machines..
+        /// </summary>
+        internal static string Optimizer_UI_Tags_Nvidia_Tooltip {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Tags.Nvidia.Tooltip", resourceCulture);
             }
         }
         
@@ -4600,11 +5383,29 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This optimization is about performance and background work..
+        /// </summary>
+        internal static string Optimizer_UI_Tags_Performance_Tooltip {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Tags.Performance.Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Power.
         /// </summary>
         internal static string Optimizer_UI_Tags_Power {
             get {
                 return ResourceManager.GetString("Optimizer.UI.Tags.Power", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This optimization is about power, so battery life, heat or fan noise..
+        /// </summary>
+        internal static string Optimizer_UI_Tags_Power_Tooltip {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Tags.Power.Tooltip", resourceCulture);
             }
         }
         
@@ -4618,11 +5419,29 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This optimization is about the data Windows collects and sends..
+        /// </summary>
+        internal static string Optimizer_UI_Tags_Privacy_Tooltip {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Tags.Privacy.Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ram.
         /// </summary>
         internal static string Optimizer_UI_Tags_Ram {
             get {
                 return ResourceManager.GetString("Optimizer.UI.Tags.Ram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This optimization is about how Windows uses memory..
+        /// </summary>
+        internal static string Optimizer_UI_Tags_Ram_Tooltip {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Tags.Ram.Tooltip", resourceCulture);
             }
         }
         
@@ -4636,11 +5455,29 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This optimization is about security settings in Windows..
+        /// </summary>
+        internal static string Optimizer_UI_Tags_Security_Tooltip {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Tags.Security.Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to System.
         /// </summary>
         internal static string Optimizer_UI_Tags_System {
             get {
                 return ResourceManager.GetString("Optimizer.UI.Tags.System", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This optimization is about a core part of Windows, a component or a policy, so it is worth reading what it does first..
+        /// </summary>
+        internal static string Optimizer_UI_Tags_System_Tooltip {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Tags.System.Tooltip", resourceCulture);
             }
         }
         
@@ -4654,6 +5491,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This optimization is about how Windows looks, its effects and its animations..
+        /// </summary>
+        internal static string Optimizer_UI_Tags_Visual_Tooltip {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Tags.Visual.Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Windows 10 only.
         /// </summary>
         internal static string Optimizer_UI_Tags_Windows10Only {
@@ -4663,11 +5509,29 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This optimization is only for Windows 10 and does nothing on Windows 11..
+        /// </summary>
+        internal static string Optimizer_UI_Tags_Windows10Only_Tooltip {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Tags.Windows10Only.Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Windows 11 only.
         /// </summary>
         internal static string Optimizer_UI_Tags_Windows11Only {
             get {
                 return ResourceManager.GetString("Optimizer.UI.Tags.Windows11Only", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This optimization is only for Windows 11 and is blocked on Windows 10..
+        /// </summary>
+        internal static string Optimizer_UI_Tags_Windows11Only_Tooltip {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Tags.Windows11Only.Tooltip", resourceCulture);
             }
         }
         
@@ -4926,6 +5790,42 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Revert data for {0} could not be read, so nothing was reverted. The file was kept at {1}..
+        /// </summary>
+        internal static string Revert_Error_UnreadableData {
+            get {
+                return ResourceManager.GetString("Revert.Error.UnreadableData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore hibernation state.
+        /// </summary>
+        internal static string Revert_Hibernation_Description {
+            get {
+                return ResourceManager.GetString("Revert.Hibernation.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hibernation state was unknown when this was applied, so nothing is restored.
+        /// </summary>
+        internal static string Revert_Hibernation_Description_Unknown {
+            get {
+                return ResourceManager.GetString("Revert.Hibernation.Description.Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to restore hibernation: {0}.
+        /// </summary>
+        internal static string Revert_Hibernation_Error_RestoreFailed {
+            get {
+                return ResourceManager.GetString("Revert.Hibernation.Error.RestoreFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Restore previous active power plan {0}.
         /// </summary>
         internal static string Revert_PowerPlan_Description {
@@ -5106,11 +6006,11 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to USB power revert failed with exit code {0}.
+        ///   Looks up a localized string similar to Failed to restore USB power states.
         /// </summary>
-        internal static string Revert_UsbPower_Error_CommandFailed {
+        internal static string Revert_UsbPower_Error_RestoreFailed {
             get {
-                return ResourceManager.GetString("Revert.UsbPower.Error.CommandFailed", resourceCulture);
+                return ResourceManager.GetString("Revert.UsbPower.Error.RestoreFailed", resourceCulture);
             }
         }
         

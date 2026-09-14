@@ -2226,4 +2226,274 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Bloatware.Remove.Failed.Message" xml:space="preserve">
     <value>Windows chưa gỡ các gói sau: {0}</value>
   </data>
+  <data name="Optimizer.UI.State.Applied.Tooltip" xml:space="preserve">
+    <value>Bấm để xem từng bước của lần áp dụng gần nhất. {0}</value>
+  </data>
+  <data name="Optimizer.UI.State.Applied.Tooltip.NoSummary" xml:space="preserve">
+    <value>Bấm để xem từng bước của lần áp dụng gần nhất.</value>
+  </data>
+  <data name="Optimizer.UI.State.Applied.Summary" xml:space="preserve">
+    <value>{0} bước đã thay đổi, {1} bước đã đúng sẵn, {2} bước không áp dụng, {3} bước bị Windows từ chối</value>
+  </data>
+  <data name="Optimizer.Details.Record.Title" xml:space="preserve">
+    <value>Tối ưu này đã làm gì</value>
+  </data>
+  <data name="Optimizer.Details.Record.Empty" xml:space="preserve">
+    <value>Chưa có bản ghi nào cho mục này.</value>
+  </data>
+  <data name="Optimizer.Details.Step.Changed" xml:space="preserve">
+    <value>Đã thay đổi</value>
+  </data>
+  <data name="Optimizer.Details.Step.AlreadyCorrect" xml:space="preserve">
+    <value>Đã đúng sẵn</value>
+  </data>
+  <data name="Optimizer.Details.Step.NotApplicable" xml:space="preserve">
+    <value>Không áp dụng</value>
+  </data>
+  <data name="Optimizer.Details.Step.Refused" xml:space="preserve">
+    <value>Bị Windows từ chối</value>
+  </data>
+  <data name="Optimizer.Details.Step.Irreversible" xml:space="preserve">
+    <value>Không hoàn tác được</value>
+  </data>
+  <data name="Optimizer.Details.Step.Failed" xml:space="preserve">
+    <value>Lỗi</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Security.Tooltip" xml:space="preserve">
+    <value>Tối ưu này liên quan đến việc chỉnh sửa các thiết lập bảo mật trong Windows.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Privacy.Tooltip" xml:space="preserve">
+    <value>Tối ưu này liên quan đến dữ liệu mà Windows thu thập và gửi đi.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.System.Tooltip" xml:space="preserve">
+    <value>Tối ưu này liên quan đến một thành phần hoặc chính sách cốt lõi của Windows, nên bạn nên đọc kỹ nó làm gì trước.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Performance.Tooltip" xml:space="preserve">
+    <value>Tối ưu này liên quan đến hiệu năng và các việc chạy nền.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Latency.Tooltip" xml:space="preserve">
+    <value>Tối ưu này liên quan đến độ trễ khi nhập liệu, chơi game hoặc nghe nhạc.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Disk.Tooltip" xml:space="preserve">
+    <value>Tối ưu này liên quan đến cách Windows dùng ổ đĩa.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Ram.Tooltip" xml:space="preserve">
+    <value>Tối ưu này liên quan đến cách Windows dùng bộ nhớ trong.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Display.Tooltip" xml:space="preserve">
+    <value>Tối ưu này liên quan đến thứ mà màn hình hoặc card đồ hoạ xuất ra.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Nvidia.Tooltip" xml:space="preserve">
+    <value>Tối ưu này chỉ liên quan đến máy dùng card đồ hoạ NVIDIA, máy khác không bị ảnh hưởng.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Amd.Tooltip" xml:space="preserve">
+    <value>Tối ưu này chỉ liên quan đến máy dùng card đồ hoạ AMD, máy khác không bị ảnh hưởng.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Intel.Tooltip" xml:space="preserve">
+    <value>Tối ưu này chỉ liên quan đến máy dùng card đồ hoạ Intel, máy khác không bị ảnh hưởng.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Power.Tooltip" xml:space="preserve">
+    <value>Tối ưu này liên quan đến điện năng, tức thời lượng pin, nhiệt độ hoặc tiếng quạt.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Network.Tooltip" xml:space="preserve">
+    <value>Tối ưu này liên quan đến mạng, kết nối và lưu lượng truyền đi.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.NetworkRequired.Tooltip" xml:space="preserve">
+    <value>Tối ưu này cần kết nối mạng, vì nó phải tải dữ liệu về.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Audio.Tooltip" xml:space="preserve">
+    <value>Tối ưu này liên quan đến cách âm thanh được phát và xử lý.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Visual.Tooltip" xml:space="preserve">
+    <value>Tối ưu này liên quan đến giao diện, hiệu ứng và hoạt ảnh của Windows.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows10Only.Tooltip" xml:space="preserve">
+    <value>Tối ưu này chỉ dành cho Windows 10 và không làm gì trên Windows 11.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows11Only.Tooltip" xml:space="preserve">
+    <value>Tối ưu này chỉ dành cho Windows 11 và bị chặn trên Windows 10.</value>
+  </data>
+  <data name="Optimizer.Details.Record.Apply" xml:space="preserve">
+    <value>Lượt áp dụng lúc {0}</value>
+  </data>
+  <data name="Optimizer.Details.Record.Revert" xml:space="preserve">
+    <value>Lượt hoàn tác lúc {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistrySet" xml:space="preserve">
+    <value>Ghi giá trị {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryDelete" xml:space="preserve">
+    <value>Xoá giá trị {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryCreateKey" xml:space="preserve">
+    <value>Tạo khoá registry</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryDeleteKey" xml:space="preserve">
+    <value>Xoá khoá registry</value>
+  </data>
+  <data name="Optimizer.Details.Field.Path" xml:space="preserve">
+    <value>Đường dẫn</value>
+  </data>
+  <data name="Optimizer.Details.Field.Type" xml:space="preserve">
+    <value>Kiểu dữ liệu</value>
+  </data>
+  <data name="Optimizer.Details.Field.Previous" xml:space="preserve">
+    <value>Giá trị trước</value>
+  </data>
+  <data name="Optimizer.Details.Field.Previous.None" xml:space="preserve">
+    <value>Chưa có</value>
+  </data>
+  <data name="Optimizer.Details.Field.New" xml:space="preserve">
+    <value>Giá trị mới</value>
+  </data>
+  <data name="Optimizer.Details.Field.New.None" xml:space="preserve">
+    <value>Đã xoá</value>
+  </data>
+  <data name="Optimizer.Details.Op.ServiceStartup" xml:space="preserve">
+    <value>Đổi dịch vụ {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.TaskEnable" xml:space="preserve">
+    <value>Bật tác vụ {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.TaskDisable" xml:space="preserve">
+    <value>Tắt tác vụ {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerPlanActivate" xml:space="preserve">
+    <value>Đặt power plan {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerPlanInstall" xml:space="preserve">
+    <value>Cài power plan {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerSetting" xml:space="preserve">
+    <value>Đổi cài đặt nguồn {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.Hibernation" xml:space="preserve">
+    <value>Tắt hibernation và Fast Startup</value>
+  </data>
+  <data name="Optimizer.Details.Op.UsbPower" xml:space="preserve">
+    <value>Tắt tiết kiệm điện cho thiết bị USB</value>
+  </data>
+  <data name="Optimizer.Details.Field.Service" xml:space="preserve">
+    <value>Dịch vụ</value>
+  </data>
+  <data name="Optimizer.Details.Field.Task" xml:space="preserve">
+    <value>Tác vụ</value>
+  </data>
+  <data name="Optimizer.Details.Field.PowerPlan" xml:space="preserve">
+    <value>Power plan</value>
+  </data>
+  <data name="Optimizer.Details.Field.Setting" xml:space="preserve">
+    <value>Cài đặt</value>
+  </data>
+  <data name="Optimizer.Details.Field.Devices" xml:space="preserve">
+    <value>Số thiết bị</value>
+  </data>
+  <data name="Optimizer.Details.Value.Startup.Automatic" xml:space="preserve">
+    <value>Tự động</value>
+  </data>
+  <data name="Optimizer.Details.Value.Startup.AutomaticDelayed" xml:space="preserve">
+    <value>Tự động (khởi động chậm)</value>
+  </data>
+  <data name="Optimizer.Details.Value.Startup.Manual" xml:space="preserve">
+    <value>Thủ công</value>
+  </data>
+  <data name="Optimizer.Details.Value.Startup.Disabled" xml:space="preserve">
+    <value>Đã tắt</value>
+  </data>
+  <data name="Optimizer.Details.Value.Enabled" xml:space="preserve">
+    <value>Đang bật</value>
+  </data>
+  <data name="Optimizer.Details.Value.Unknown" xml:space="preserve">
+    <value>Không rõ</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryRestore" xml:space="preserve">
+    <value>Khôi phục giá trị {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryRestoreKey" xml:space="preserve">
+    <value>Khôi phục khoá registry</value>
+  </data>
+  <data name="Optimizer.Details.Op.ServiceRestore" xml:space="preserve">
+    <value>Khôi phục dịch vụ {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerPlanRestore" xml:space="preserve">
+    <value>Khôi phục power plan {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerPlanUninstall" xml:space="preserve">
+    <value>Gỡ power plan {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerSettingRestore" xml:space="preserve">
+    <value>Khôi phục cài đặt nguồn {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.HibernationRestore" xml:space="preserve">
+    <value>Khôi phục hibernation và Fast Startup</value>
+  </data>
+  <data name="Optimizer.Details.Op.HibernationEnable" xml:space="preserve">
+    <value>Bật lại hibernation và Fast Startup</value>
+  </data>
+  <data name="Optimizer.Details.Op.UsbPowerRestore" xml:space="preserve">
+    <value>Bật lại tiết kiệm điện cho thiết bị USB</value>
+  </data>
+  <data name="Optimizer.Details.Field.StartupState" xml:space="preserve">
+    <value>Loại khởi động</value>
+  </data>
+  <data name="Optimizer.Details.Field.TaskState" xml:space="preserve">
+    <value>Trạng thái tác vụ</value>
+  </data>
+  <data name="Optimizer.Details.Field.HibernationState" xml:space="preserve">
+    <value>Trạng thái hibernation</value>
+  </data>
+  <data name="Optimizer.Details.Field.Value" xml:space="preserve">
+    <value>Giá trị</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Title" xml:space="preserve">
+    <value>Mở tệp bản ghi</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Description" xml:space="preserve">
+    <value>Mở thư mục và chọn tệp nơi optimizerDuck ghi lại tối ưu này đã làm gì. Tệp vẫn còn sau khi hoàn tác, nên bạn xem lại được.</value>
+  </data>
+  <data name="Optimizer.Details.Provider.Registry" xml:space="preserve">
+    <value>Registry</value>
+  </data>
+  <data name="Optimizer.Details.Provider.Service" xml:space="preserve">
+    <value>Dịch vụ</value>
+  </data>
+  <data name="Optimizer.Details.Provider.ScheduledTask" xml:space="preserve">
+    <value>Tác vụ theo lịch</value>
+  </data>
+  <data name="Optimizer.Details.Provider.PowerPlan" xml:space="preserve">
+    <value>Power plan</value>
+  </data>
+  <data name="Optimizer.Details.Provider.Hibernation" xml:space="preserve">
+    <value>Hibernation</value>
+  </data>
+  <data name="Optimizer.Details.Provider.UsbPower" xml:space="preserve">
+    <value>Tiết kiệm điện USB</value>
+  </data>
+  <data name="Optimizer.Details.Provider.Shell" xml:space="preserve">
+    <value>Shell</value>
+  </data>
+  <data name="Optimizer.Details.Field.ValueName" xml:space="preserve">
+    <value>Tên giá trị</value>
+  </data>
+  <data name="Optimizer.Details.Field.Reason" xml:space="preserve">
+    <value>Lý do</value>
+  </data>
+  <data name="Optimizer.Details.Reason.ServiceNotFound" xml:space="preserve">
+    <value>Máy này không có dịch vụ đó</value>
+  </data>
+  <data name="Optimizer.Details.Reason.TaskNotFound" xml:space="preserve">
+    <value>Máy này không có tác vụ đó</value>
+  </data>
+  <data name="Optimizer.Details.Reason.RegistryValueAbsent" xml:space="preserve">
+    <value>Giá trị này vốn không có</value>
+  </data>
+  <data name="Optimizer.Details.Reason.RegistryKeyExists" xml:space="preserve">
+    <value>Khoá này đã có sẵn</value>
+  </data>
+  <data name="Optimizer.Details.Reason.RegistryKeyAbsent" xml:space="preserve">
+    <value>Khoá này vốn không có</value>
+  </data>
+  <data name="Optimizer.Details.Reason.UsbNoDevices" xml:space="preserve">
+    <value>Máy không có thiết bị USB gốc nào</value>
+  </data>
 </root>

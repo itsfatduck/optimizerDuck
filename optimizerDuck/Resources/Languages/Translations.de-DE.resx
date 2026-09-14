@@ -2286,4 +2286,274 @@ Aktualisiere jetzt, um die neuesten Funktionen, Verbesserungen und Fehlerbehebun
   <data name="Bloatware.Remove.Failed.Message" xml:space="preserve">
     <value>Windows hat diese Pakete nicht entfernt: {0}</value>
   </data>
+  <data name="Optimizer.UI.State.Applied.Tooltip" xml:space="preserve">
+    <value>Klicken, um jeden Schritt der letzten Anwendung zu sehen. {0}</value>
+  </data>
+  <data name="Optimizer.UI.State.Applied.Tooltip.NoSummary" xml:space="preserve">
+    <value>Klicken, um jeden Schritt der letzten Anwendung zu sehen.</value>
+  </data>
+  <data name="Optimizer.UI.State.Applied.Summary" xml:space="preserve">
+    <value>{0} Schritte geändert, {1} waren bereits korrekt, {2} waren nicht anwendbar, {3} wurden von Windows abgelehnt</value>
+  </data>
+  <data name="Optimizer.Details.Record.Title" xml:space="preserve">
+    <value>Was diese Optimierung getan hat</value>
+  </data>
+  <data name="Optimizer.Details.Record.Empty" xml:space="preserve">
+    <value>Für dieses Element gibt es noch keinen Bericht.</value>
+  </data>
+  <data name="Optimizer.Details.Step.Changed" xml:space="preserve">
+    <value>Geändert</value>
+  </data>
+  <data name="Optimizer.Details.Step.AlreadyCorrect" xml:space="preserve">
+    <value>Bereits korrekt</value>
+  </data>
+  <data name="Optimizer.Details.Step.NotApplicable" xml:space="preserve">
+    <value>Nicht anwendbar</value>
+  </data>
+  <data name="Optimizer.Details.Step.Refused" xml:space="preserve">
+    <value>Von Windows abgelehnt</value>
+  </data>
+  <data name="Optimizer.Details.Step.Irreversible" xml:space="preserve">
+    <value>Kein Weg zurück</value>
+  </data>
+  <data name="Optimizer.Details.Step.Failed" xml:space="preserve">
+    <value>Fehlgeschlagen</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Security.Tooltip" xml:space="preserve">
+    <value>Diese Optimierung betrifft die Sicherheitseinstellungen in Windows.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Privacy.Tooltip" xml:space="preserve">
+    <value>Diese Optimierung betrifft die Daten, die Windows sammelt und sendet.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.System.Tooltip" xml:space="preserve">
+    <value>Diese Optimierung betrifft einen Kern von Windows, also eine Komponente oder Richtlinie, lies deshalb am besten zuerst nach, was sie tut.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Performance.Tooltip" xml:space="preserve">
+    <value>Diese Optimierung betrifft die Leistung und die Arbeit im Hintergrund.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Latency.Tooltip" xml:space="preserve">
+    <value>Diese Optimierung betrifft Verzögerungen bei Eingabe, Spielen oder Ton.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Disk.Tooltip" xml:space="preserve">
+    <value>Diese Optimierung betrifft, wie Windows deine Datenträger nutzt.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Ram.Tooltip" xml:space="preserve">
+    <value>Diese Optimierung betrifft, wie Windows den Arbeitsspeicher nutzt.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Display.Tooltip" xml:space="preserve">
+    <value>Diese Optimierung betrifft, was Bildschirm oder Grafikkarte ausgeben.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Nvidia.Tooltip" xml:space="preserve">
+    <value>Diese Optimierung betrifft nur PCs mit NVIDIA-Grafikkarte und hat auf anderen Geräten keine Wirkung.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Amd.Tooltip" xml:space="preserve">
+    <value>Diese Optimierung betrifft nur PCs mit AMD-Grafikkarte und hat auf anderen Geräten keine Wirkung.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Intel.Tooltip" xml:space="preserve">
+    <value>Diese Optimierung betrifft nur PCs mit Intel-Grafikkarte und hat auf anderen Geräten keine Wirkung.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Power.Tooltip" xml:space="preserve">
+    <value>Diese Optimierung betrifft die Energie, also Akkulaufzeit, Wärme oder Lüftergeräusch.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Network.Tooltip" xml:space="preserve">
+    <value>Diese Optimierung betrifft das Netzwerk, die Verbindung und den Datenverkehr darauf.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.NetworkRequired.Tooltip" xml:space="preserve">
+    <value>Diese Optimierung braucht eine Internetverbindung, weil sie etwas herunterlädt.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Audio.Tooltip" xml:space="preserve">
+    <value>Diese Optimierung betrifft, wie Ton wiedergegeben und verarbeitet wird.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Visual.Tooltip" xml:space="preserve">
+    <value>Diese Optimierung betrifft das Aussehen von Windows, seine Effekte und Animationen.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows10Only.Tooltip" xml:space="preserve">
+    <value>Diese Optimierung ist nur für Windows 10 und tut auf Windows 11 nichts.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows11Only.Tooltip" xml:space="preserve">
+    <value>Diese Optimierung ist nur für Windows 11 und wird auf Windows 10 blockiert.</value>
+  </data>
+  <data name="Optimizer.Details.Record.Apply" xml:space="preserve">
+    <value>Angewendet um {0}</value>
+  </data>
+  <data name="Optimizer.Details.Record.Revert" xml:space="preserve">
+    <value>Rückgängig gemacht um {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistrySet" xml:space="preserve">
+    <value>Wert {0} schreiben</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryDelete" xml:space="preserve">
+    <value>Wert {0} löschen</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryCreateKey" xml:space="preserve">
+    <value>Registrierungsschlüssel anlegen</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryDeleteKey" xml:space="preserve">
+    <value>Registrierungsschlüssel löschen</value>
+  </data>
+  <data name="Optimizer.Details.Field.Path" xml:space="preserve">
+    <value>Pfad</value>
+  </data>
+  <data name="Optimizer.Details.Field.Type" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="Optimizer.Details.Field.Previous" xml:space="preserve">
+    <value>Vorheriger Wert</value>
+  </data>
+  <data name="Optimizer.Details.Field.Previous.None" xml:space="preserve">
+    <value>Nicht vorhanden</value>
+  </data>
+  <data name="Optimizer.Details.Field.New" xml:space="preserve">
+    <value>Neuer Wert</value>
+  </data>
+  <data name="Optimizer.Details.Field.New.None" xml:space="preserve">
+    <value>Entfernt</value>
+  </data>
+  <data name="Optimizer.Details.Op.ServiceStartup" xml:space="preserve">
+    <value>Dienst {0} ändern</value>
+  </data>
+  <data name="Optimizer.Details.Op.TaskEnable" xml:space="preserve">
+    <value>Aufgabe {0} aktivieren</value>
+  </data>
+  <data name="Optimizer.Details.Op.TaskDisable" xml:space="preserve">
+    <value>Aufgabe {0} deaktivieren</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerPlanActivate" xml:space="preserve">
+    <value>Energiesparplan {0} setzen</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerPlanInstall" xml:space="preserve">
+    <value>Energiesparplan {0} installieren</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerSetting" xml:space="preserve">
+    <value>Energieeinstellung {0} ändern</value>
+  </data>
+  <data name="Optimizer.Details.Op.Hibernation" xml:space="preserve">
+    <value>Ruhezustand und Schnellstart abschalten</value>
+  </data>
+  <data name="Optimizer.Details.Op.UsbPower" xml:space="preserve">
+    <value>USB-Energiesparen abschalten</value>
+  </data>
+  <data name="Optimizer.Details.Field.Service" xml:space="preserve">
+    <value>Dienst</value>
+  </data>
+  <data name="Optimizer.Details.Field.Task" xml:space="preserve">
+    <value>Aufgabe</value>
+  </data>
+  <data name="Optimizer.Details.Field.PowerPlan" xml:space="preserve">
+    <value>Energiesparplan</value>
+  </data>
+  <data name="Optimizer.Details.Field.Setting" xml:space="preserve">
+    <value>Einstellung</value>
+  </data>
+  <data name="Optimizer.Details.Field.Devices" xml:space="preserve">
+    <value>Geräte</value>
+  </data>
+  <data name="Optimizer.Details.Value.Startup.Automatic" xml:space="preserve">
+    <value>Automatisch</value>
+  </data>
+  <data name="Optimizer.Details.Value.Startup.AutomaticDelayed" xml:space="preserve">
+    <value>Automatisch (verzögert)</value>
+  </data>
+  <data name="Optimizer.Details.Value.Startup.Manual" xml:space="preserve">
+    <value>Manuell</value>
+  </data>
+  <data name="Optimizer.Details.Value.Startup.Disabled" xml:space="preserve">
+    <value>Aus</value>
+  </data>
+  <data name="Optimizer.Details.Value.Enabled" xml:space="preserve">
+    <value>An</value>
+  </data>
+  <data name="Optimizer.Details.Value.Unknown" xml:space="preserve">
+    <value>Unbekannt</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryRestore" xml:space="preserve">
+    <value>Wert {0} wiederherstellen</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryRestoreKey" xml:space="preserve">
+    <value>Registrierungsschlüssel wiederherstellen</value>
+  </data>
+  <data name="Optimizer.Details.Op.ServiceRestore" xml:space="preserve">
+    <value>Dienst {0} wiederherstellen</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerPlanRestore" xml:space="preserve">
+    <value>Energiesparplan {0} wiederherstellen</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerPlanUninstall" xml:space="preserve">
+    <value>Energiesparplan {0} entfernen</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerSettingRestore" xml:space="preserve">
+    <value>Energieeinstellung {0} wiederherstellen</value>
+  </data>
+  <data name="Optimizer.Details.Op.HibernationRestore" xml:space="preserve">
+    <value>Ruhezustand und Schnellstart wiederherstellen</value>
+  </data>
+  <data name="Optimizer.Details.Op.HibernationEnable" xml:space="preserve">
+    <value>Ruhezustand und Schnellstart wieder einschalten</value>
+  </data>
+  <data name="Optimizer.Details.Op.UsbPowerRestore" xml:space="preserve">
+    <value>USB-Energiesparen wieder einschalten</value>
+  </data>
+  <data name="Optimizer.Details.Field.StartupState" xml:space="preserve">
+    <value>Starttyp</value>
+  </data>
+  <data name="Optimizer.Details.Field.TaskState" xml:space="preserve">
+    <value>Zustand der Aufgabe</value>
+  </data>
+  <data name="Optimizer.Details.Field.HibernationState" xml:space="preserve">
+    <value>Zustand des Ruhezustands</value>
+  </data>
+  <data name="Optimizer.Details.Field.Value" xml:space="preserve">
+    <value>Wert</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Title" xml:space="preserve">
+    <value>Berichtsdatei anzeigen</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Description" xml:space="preserve">
+    <value>Öffnet die Datei, in der optimizerDuck festhält, was diese Optimierung getan hat. Sie bleibt nach einem Rückgängigmachen erhalten.</value>
+  </data>
+  <data name="Optimizer.Details.Provider.Registry" xml:space="preserve">
+    <value>Registrierung</value>
+  </data>
+  <data name="Optimizer.Details.Provider.Service" xml:space="preserve">
+    <value>Dienst</value>
+  </data>
+  <data name="Optimizer.Details.Provider.ScheduledTask" xml:space="preserve">
+    <value>Geplante Aufgabe</value>
+  </data>
+  <data name="Optimizer.Details.Provider.PowerPlan" xml:space="preserve">
+    <value>Energiesparplan</value>
+  </data>
+  <data name="Optimizer.Details.Provider.Hibernation" xml:space="preserve">
+    <value>Ruhezustand</value>
+  </data>
+  <data name="Optimizer.Details.Provider.UsbPower" xml:space="preserve">
+    <value>USB-Energiesparen</value>
+  </data>
+  <data name="Optimizer.Details.Provider.Shell" xml:space="preserve">
+    <value>Shell</value>
+  </data>
+  <data name="Optimizer.Details.Field.ValueName" xml:space="preserve">
+    <value>Wertname</value>
+  </data>
+  <data name="Optimizer.Details.Field.Reason" xml:space="preserve">
+    <value>Grund</value>
+  </data>
+  <data name="Optimizer.Details.Reason.ServiceNotFound" xml:space="preserve">
+    <value>Diesen Dienst gibt es auf diesem PC nicht</value>
+  </data>
+  <data name="Optimizer.Details.Reason.TaskNotFound" xml:space="preserve">
+    <value>Diese Aufgabe gibt es auf diesem PC nicht</value>
+  </data>
+  <data name="Optimizer.Details.Reason.RegistryValueAbsent" xml:space="preserve">
+    <value>Diesen Wert gab es von Anfang an nicht</value>
+  </data>
+  <data name="Optimizer.Details.Reason.RegistryKeyExists" xml:space="preserve">
+    <value>Diesen Schlüssel gab es bereits</value>
+  </data>
+  <data name="Optimizer.Details.Reason.RegistryKeyAbsent" xml:space="preserve">
+    <value>Diesen Schlüssel gab es von Anfang an nicht</value>
+  </data>
+  <data name="Optimizer.Details.Reason.UsbNoDevices" xml:space="preserve">
+    <value>Dieser PC hat keine USB-Root-Hubs</value>
+  </data>
 </root>

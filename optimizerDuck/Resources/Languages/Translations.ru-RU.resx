@@ -2234,4 +2234,274 @@
   <data name="Bloatware.Remove.Failed.Message" xml:space="preserve">
     <value>Windows не удалил эти пакеты: {0}</value>
   </data>
+  <data name="Optimizer.UI.State.Applied.Tooltip" xml:space="preserve">
+    <value>Нажмите, чтобы увидеть каждый шаг последнего применения. {0}</value>
+  </data>
+  <data name="Optimizer.UI.State.Applied.Tooltip.NoSummary" xml:space="preserve">
+    <value>Нажмите, чтобы увидеть каждый шаг последнего применения.</value>
+  </data>
+  <data name="Optimizer.UI.State.Applied.Summary" xml:space="preserve">
+    <value>{0} шагов изменено, {1} уже совпадали, {2} не применимы, {3} отклонены Windows</value>
+  </data>
+  <data name="Optimizer.Details.Record.Title" xml:space="preserve">
+    <value>Что сделала эта оптимизация</value>
+  </data>
+  <data name="Optimizer.Details.Record.Empty" xml:space="preserve">
+    <value>Записи для этого элемента пока нет.</value>
+  </data>
+  <data name="Optimizer.Details.Step.Changed" xml:space="preserve">
+    <value>Изменено</value>
+  </data>
+  <data name="Optimizer.Details.Step.AlreadyCorrect" xml:space="preserve">
+    <value>Уже совпадало</value>
+  </data>
+  <data name="Optimizer.Details.Step.NotApplicable" xml:space="preserve">
+    <value>Не применимо</value>
+  </data>
+  <data name="Optimizer.Details.Step.Refused" xml:space="preserve">
+    <value>Отклонено Windows</value>
+  </data>
+  <data name="Optimizer.Details.Step.Irreversible" xml:space="preserve">
+    <value>Без пути назад</value>
+  </data>
+  <data name="Optimizer.Details.Step.Failed" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Security.Tooltip" xml:space="preserve">
+    <value>Эта оптимизация касается настроек безопасности Windows.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Privacy.Tooltip" xml:space="preserve">
+    <value>Эта оптимизация касается данных, которые Windows собирает и отправляет.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.System.Tooltip" xml:space="preserve">
+    <value>Эта оптимизация затрагивает ключевую часть Windows, компонент или политику, поэтому сначала прочитайте, что она делает.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Performance.Tooltip" xml:space="preserve">
+    <value>Эта оптимизация касается производительности и фоновой работы.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Latency.Tooltip" xml:space="preserve">
+    <value>Эта оптимизация касается задержек при вводе, в играх или в звуке.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Disk.Tooltip" xml:space="preserve">
+    <value>Эта оптимизация касается того, как Windows использует диски.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Ram.Tooltip" xml:space="preserve">
+    <value>Эта оптимизация касается того, как Windows использует память.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Display.Tooltip" xml:space="preserve">
+    <value>Эта оптимизация касается того, что выводят экран или видеокарта.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Nvidia.Tooltip" xml:space="preserve">
+    <value>Эта оптимизация касается только компьютеров с видеокартой NVIDIA, на остальных она ничего не делает.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Amd.Tooltip" xml:space="preserve">
+    <value>Эта оптимизация касается только компьютеров с видеокартой AMD, на остальных она ничего не делает.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Intel.Tooltip" xml:space="preserve">
+    <value>Эта оптимизация касается только компьютеров с видеокартой Intel, на остальных она ничего не делает.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Power.Tooltip" xml:space="preserve">
+    <value>Эта оптимизация касается питания: времени работы, нагрева или шума вентилятора.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Network.Tooltip" xml:space="preserve">
+    <value>Эта оптимизация касается сети, соединения и трафика в нём.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.NetworkRequired.Tooltip" xml:space="preserve">
+    <value>Эта оптимизация требует интернета, потому что что-то скачивает.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Audio.Tooltip" xml:space="preserve">
+    <value>Эта оптимизация касается того, как воспроизводится и обрабатывается звук.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Visual.Tooltip" xml:space="preserve">
+    <value>Эта оптимизация касается внешнего вида Windows, его эффектов и анимаций.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows10Only.Tooltip" xml:space="preserve">
+    <value>Эта оптимизация только для Windows 10 и ничего не делает в Windows 11.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows11Only.Tooltip" xml:space="preserve">
+    <value>Эта оптимизация только для Windows 11 и блокируется в Windows 10.</value>
+  </data>
+  <data name="Optimizer.Details.Record.Apply" xml:space="preserve">
+    <value>Применено {0}</value>
+  </data>
+  <data name="Optimizer.Details.Record.Revert" xml:space="preserve">
+    <value>Отменено {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistrySet" xml:space="preserve">
+    <value>Записать значение {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryDelete" xml:space="preserve">
+    <value>Удалить значение {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryCreateKey" xml:space="preserve">
+    <value>Создать раздел реестра</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryDeleteKey" xml:space="preserve">
+    <value>Удалить раздел реестра</value>
+  </data>
+  <data name="Optimizer.Details.Field.Path" xml:space="preserve">
+    <value>Путь</value>
+  </data>
+  <data name="Optimizer.Details.Field.Type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="Optimizer.Details.Field.Previous" xml:space="preserve">
+    <value>Прежнее значение</value>
+  </data>
+  <data name="Optimizer.Details.Field.Previous.None" xml:space="preserve">
+    <value>Отсутствовало</value>
+  </data>
+  <data name="Optimizer.Details.Field.New" xml:space="preserve">
+    <value>Новое значение</value>
+  </data>
+  <data name="Optimizer.Details.Field.New.None" xml:space="preserve">
+    <value>Удалено</value>
+  </data>
+  <data name="Optimizer.Details.Op.ServiceStartup" xml:space="preserve">
+    <value>Изменить службу {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.TaskEnable" xml:space="preserve">
+    <value>Включить задачу {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.TaskDisable" xml:space="preserve">
+    <value>Отключить задачу {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerPlanActivate" xml:space="preserve">
+    <value>Задать схему питания {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerPlanInstall" xml:space="preserve">
+    <value>Установить схему питания {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerSetting" xml:space="preserve">
+    <value>Изменить настройку питания {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.Hibernation" xml:space="preserve">
+    <value>Отключить гибернацию и быстрый запуск</value>
+  </data>
+  <data name="Optimizer.Details.Op.UsbPower" xml:space="preserve">
+    <value>Отключить энергосбережение USB</value>
+  </data>
+  <data name="Optimizer.Details.Field.Service" xml:space="preserve">
+    <value>Служба</value>
+  </data>
+  <data name="Optimizer.Details.Field.Task" xml:space="preserve">
+    <value>Задача</value>
+  </data>
+  <data name="Optimizer.Details.Field.PowerPlan" xml:space="preserve">
+    <value>Схема питания</value>
+  </data>
+  <data name="Optimizer.Details.Field.Setting" xml:space="preserve">
+    <value>Настройка</value>
+  </data>
+  <data name="Optimizer.Details.Field.Devices" xml:space="preserve">
+    <value>Устройства</value>
+  </data>
+  <data name="Optimizer.Details.Value.Startup.Automatic" xml:space="preserve">
+    <value>Автоматически</value>
+  </data>
+  <data name="Optimizer.Details.Value.Startup.AutomaticDelayed" xml:space="preserve">
+    <value>Автоматически (отложенный запуск)</value>
+  </data>
+  <data name="Optimizer.Details.Value.Startup.Manual" xml:space="preserve">
+    <value>Вручную</value>
+  </data>
+  <data name="Optimizer.Details.Value.Startup.Disabled" xml:space="preserve">
+    <value>Отключено</value>
+  </data>
+  <data name="Optimizer.Details.Value.Enabled" xml:space="preserve">
+    <value>Включено</value>
+  </data>
+  <data name="Optimizer.Details.Value.Unknown" xml:space="preserve">
+    <value>Неизвестно</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryRestore" xml:space="preserve">
+    <value>Восстановить значение {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryRestoreKey" xml:space="preserve">
+    <value>Восстановить раздел реестра</value>
+  </data>
+  <data name="Optimizer.Details.Op.ServiceRestore" xml:space="preserve">
+    <value>Восстановить службу {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerPlanRestore" xml:space="preserve">
+    <value>Восстановить схему питания {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerPlanUninstall" xml:space="preserve">
+    <value>Удалить схему питания {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerSettingRestore" xml:space="preserve">
+    <value>Восстановить настройку питания {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.HibernationRestore" xml:space="preserve">
+    <value>Восстановить гибернацию и быстрый запуск</value>
+  </data>
+  <data name="Optimizer.Details.Op.HibernationEnable" xml:space="preserve">
+    <value>Снова включить гибернацию и быстрый запуск</value>
+  </data>
+  <data name="Optimizer.Details.Op.UsbPowerRestore" xml:space="preserve">
+    <value>Снова включить энергосбережение USB</value>
+  </data>
+  <data name="Optimizer.Details.Field.StartupState" xml:space="preserve">
+    <value>Тип запуска</value>
+  </data>
+  <data name="Optimizer.Details.Field.TaskState" xml:space="preserve">
+    <value>Состояние задачи</value>
+  </data>
+  <data name="Optimizer.Details.Field.HibernationState" xml:space="preserve">
+    <value>Состояние гибернации</value>
+  </data>
+  <data name="Optimizer.Details.Field.Value" xml:space="preserve">
+    <value>Значение</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Title" xml:space="preserve">
+    <value>Показать файл записи</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Description" xml:space="preserve">
+    <value>Открывает файл, в котором optimizerDuck отмечает, что сделала эта оптимизация. Он сохраняется после отката, чтобы можно было посмотреть позже.</value>
+  </data>
+  <data name="Optimizer.Details.Provider.Registry" xml:space="preserve">
+    <value>Реестр</value>
+  </data>
+  <data name="Optimizer.Details.Provider.Service" xml:space="preserve">
+    <value>Служба</value>
+  </data>
+  <data name="Optimizer.Details.Provider.ScheduledTask" xml:space="preserve">
+    <value>Планируемая задача</value>
+  </data>
+  <data name="Optimizer.Details.Provider.PowerPlan" xml:space="preserve">
+    <value>Схема питания</value>
+  </data>
+  <data name="Optimizer.Details.Provider.Hibernation" xml:space="preserve">
+    <value>Гибернация</value>
+  </data>
+  <data name="Optimizer.Details.Provider.UsbPower" xml:space="preserve">
+    <value>Энергосбережение USB</value>
+  </data>
+  <data name="Optimizer.Details.Provider.Shell" xml:space="preserve">
+    <value>Оболочка</value>
+  </data>
+  <data name="Optimizer.Details.Field.ValueName" xml:space="preserve">
+    <value>Имя значения</value>
+  </data>
+  <data name="Optimizer.Details.Field.Reason" xml:space="preserve">
+    <value>Причина</value>
+  </data>
+  <data name="Optimizer.Details.Reason.ServiceNotFound" xml:space="preserve">
+    <value>Этой службы нет на этом компьютере</value>
+  </data>
+  <data name="Optimizer.Details.Reason.TaskNotFound" xml:space="preserve">
+    <value>Этой задачи нет на этом компьютере</value>
+  </data>
+  <data name="Optimizer.Details.Reason.RegistryValueAbsent" xml:space="preserve">
+    <value>Этого значения изначально не было</value>
+  </data>
+  <data name="Optimizer.Details.Reason.RegistryKeyExists" xml:space="preserve">
+    <value>Этот раздел уже был</value>
+  </data>
+  <data name="Optimizer.Details.Reason.RegistryKeyAbsent" xml:space="preserve">
+    <value>Этого раздела изначально не было</value>
+  </data>
+  <data name="Optimizer.Details.Reason.UsbNoDevices" xml:space="preserve">
+    <value>На этом компьютере нет корневых USB-концентраторов</value>
+  </data>
 </root>

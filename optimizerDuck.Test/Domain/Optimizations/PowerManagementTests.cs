@@ -70,4 +70,23 @@ public class PowerManagementTests
         Assert.Null(step.Revert);
         Assert.Null(result.Revert);
     }
+    [Fact]
+    public void Apply_HibernationAlreadyDisabled_RecordsSkipAndLeavesTheMachineAlone()
+    {
+        if (HibernationService.IsHibernationFilePresent() is not false)
+            Assert.Skip(
+                "This machine has a hibernation file; the guard is only observable where it is absent."
+            );
+
+        var call = new OpCall { Logger = NullLogger.Instance };
+
+        var result = PowerManagement.DisableHibernateAndFastStartup.Apply(call, false);
+
+        // No privileged call is made for a file that is already gone, and nothing is left to undo.
+        Assert.True(result.Ok);
+        var step = Assert.Single(call.Changes.Changes);
+        Assert.Equal(ChangeKind.Skip, step.Kind);
+        Assert.Null(step.Revert);
+        Assert.False(HibernationService.IsHibernationFilePresent());
+    }
 }

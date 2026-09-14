@@ -1,4 +1,5 @@
 using optimizerDuck.Domain.Execution;
+using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.UI;
 
 namespace optimizerDuck.Test.Domain.UI;
@@ -31,5 +32,23 @@ public class ChangeKindPresentationTests
         var display = ((ChangeKind)999).ToDisplay();
 
         Assert.Equal("Optimizer.Details.Step.Changed", display.LabelKey);
+    }
+    [Fact]
+    public void ForStep_FailedStep_ShowsAsAFailureWhateverItsKind()
+    {
+        var failed = new ChangeRecordStep
+        {
+            Name = "Scheduled Task",
+            Description = "Failed to disable task",
+            Kind = ChangeKind.Change,
+            Ok = false,
+            Error = "access denied",
+        };
+
+        Assert.Equal("Optimizer.Details.Step.Failed", ChangeKindPresentation.ForStep(failed).LabelKey);
+        Assert.Equal(
+            "Optimizer.Details.Step.Changed",
+            ChangeKindPresentation.ForStep(failed with { Ok = true }).LabelKey
+        );
     }
 }

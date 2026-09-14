@@ -532,4 +532,28 @@ public class RegistryServiceTests : IDisposable
         Assert.Equal(ChangeKind.NotApplicable, step.Kind);
         Assert.Null(step.Revert);
     }
+    [Fact]
+    public void Write_RecordsTheFactsOfTheStep()
+    {
+        var path = $@"{BaseTestKey}\Facts";
+        var call = NewCall();
+
+        Assert.True(RegistryService.Write(call, new RegistryItem(path, "V", 1)).Ok);
+        var written = Assert.Single(call.Changes.Changes).Detail;
+        Assert.NotNull(written);
+        Assert.Equal("registry.write", written.Operation);
+        Assert.Equal(path, written.Target);
+        Assert.Equal("V", written.ValueName);
+        Assert.Equal("DWord", written.ValueType);
+        Assert.Null(written.PreviousValue);
+        Assert.Equal("1", written.NewValue);
+
+        // Writing the same value again is a skip, and it still says what it found.
+        var again = NewCall();
+        Assert.True(RegistryService.Write(again, new RegistryItem(path, "V", 1)).Ok);
+        var skipped = Assert.Single(again.Changes.Changes);
+        Assert.Equal(ChangeKind.Skip, skipped.Kind);
+        Assert.Equal("1", skipped.Detail?.PreviousValue);
+        Assert.Equal("1", skipped.Detail?.NewValue);
+    }
 }

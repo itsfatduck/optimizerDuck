@@ -73,7 +73,11 @@ public static class ServiceProcessService
                     item.Name
                 );
                 call.Logger.LogInformation("[SERVICE][{Name}] not found, skipping", item.Name);
-                call.Changes.AddNotApplicable(ServiceStrings.ServiceName, skipDescription);
+                call.Changes.AddNotApplicable(
+                    ServiceStrings.ServiceName,
+                    skipDescription,
+                    ServiceStep(item, null, null, ServiceReasonNotFound)
+                );
                 return MapToOpResult(ServiceChangeResult.NotFound, null, null, null);
             }
 
@@ -111,7 +115,11 @@ public static class ServiceProcessService
                     item.Name,
                     item.StartupType
                 );
-                call.Changes.AddSkip(ServiceStrings.ServiceName, alreadyDescription);
+                call.Changes.AddSkip(
+                    ServiceStrings.ServiceName,
+                    alreadyDescription,
+                    ServiceStep(item, originalStartupType, null)
+                );
                 return MapToOpResult(ServiceChangeResult.AlreadyConfigured, null, null, null);
             }
 
@@ -142,7 +150,13 @@ public static class ServiceProcessService
                     item.StartupType
                 );
 
-                call.Changes.Add(ServiceStrings.ServiceName, description, true, revertStep);
+                call.Changes.Add(
+                    ServiceStrings.ServiceName,
+                    description,
+                    true,
+                    revertStep,
+                    detail: ServiceStep(item, originalStartupType, item.StartupType)
+                );
                 return MapToOpResult(ServiceChangeResult.Success, revertStep, null, null);
             }
 
@@ -157,7 +171,11 @@ public static class ServiceProcessService
                     item.Name,
                     sw.Elapsed.FormatTime()
                 );
-                call.Changes.AddRefused(ServiceStrings.ServiceName, accessDeniedError);
+                call.Changes.AddRefused(
+                    ServiceStrings.ServiceName,
+                    accessDeniedError,
+                    ServiceStep(item, originalStartupType, null)
+                );
                 return MapToOpResult(
                     ServiceChangeResult.AccessDenied,
                     null,
@@ -191,7 +209,12 @@ public static class ServiceProcessService
                 partialRevert,
                 error,
                 errorDetail,
-                retryCall => ChangeServiceStartupTypeAsync(retryCall, item)
+                retryCall => ChangeServiceStartupTypeAsync(retryCall, item),
+                detail: ServiceStep(
+                    item,
+                    originalStartupType,
+                    write.StartTypeWritten ? item.StartupType : null
+                )
             );
             return MapToOpResult(ServiceChangeResult.Failed, partialRevert, error, errorDetail);
         }
@@ -540,4 +563,29 @@ public static class ServiceProcessService
     [DllImport("advapi32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool CloseServiceHandle(IntPtr serviceHandle);
+    internal const string ServiceOperationStartup = "service.startup";
+
+    /// <summary>
+    ///     The facts of one service step, for a UI that localizes them. The startup types travel as
+    ///     their names so the UI can translate them; the description on the step stays English.
+    /// </summary>
+    internal const string ServiceReasonNotFound = "service.notFound";
+
+    private static ChangeDetail ServiceStep(
+        ServiceItem item,
+        ServiceStartupType? current,
+        ServiceStartupType? target,
+        string? reason = null
+    )
+    {
+        return new ChangeDetail
+        {
+            Operation = ServiceOperationStartup,
+            Target = item.Name,
+            PreviousValue = current?.ToString(),
+            NewValue = target?.ToString(),
+            HasValuePair = true,
+            Reason = reason,
+        };
+    }
 }

@@ -38,109 +38,181 @@
                 Text="{ext:Loc OptimizationResultDialog.Description}"
                 TextWrapping="Wrap" />
 
-            <ScrollViewer MaxHeight="350" VerticalScrollBarVisibility="Auto">
-                <ItemsControl ItemsSource="{Binding FailedSteps}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border Style="{StaticResource ListRowStyle}">
-                                <StackPanel>
-                                    <!--  Top row: badges  -->
-                                    <StackPanel Margin="0,0,0,6" Orientation="Horizontal">
-                                        <!--  Step index badge  -->
-                                        <Border Margin="0,0,8,0" Style="{StaticResource SubtlePillStyle}">
-                                            <ui:TextBlock
-                                                VerticalAlignment="Center"
-                                                Appearance="Disabled"
-                                                FontTypography="Caption"
-                                                Text="{Binding Index, StringFormat=# {0}}" />
-                                        </Border>
+            <Border
+                Margin="0,0,0,4"
+                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="{StaticResource CornerRadiusMedium}">
+                <ScrollViewer MaxHeight="350" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding FailedSteps}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border
+                                    Padding="16,12"
+                                    BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                                    BorderThickness="0,0,0,1">
+                                    <Grid ColumnDefinitions="Auto,*">
+                                        <ui:SymbolIcon
+                                            Margin="0,0,10,0"
+                                            VerticalAlignment="Top"
+                                            Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                                            Symbol="{Binding Icon}" />
 
-                                        <!--  Service type badge  -->
-                                        <Border
-                                            Padding="6,2"
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Center"
-                                            Background="{DynamicResource SystemFillColorAttentionBackgroundBrush}"
-                                            CornerRadius="{StaticResource CornerRadiusSmall}">
-                                            <ui:TextBlock
-                                                VerticalAlignment="Center"
-                                                FontTypography="Caption"
-                                                Foreground="{DynamicResource SystemFillColorAttentionBrush}"
-                                                Text="{Binding Name}" />
-                                        </Border>
-                                    </StackPanel>
-
-                                    <!--  Step description  -->
-                                    <ui:TextBlock
-                                        Margin="0,0,0,4"
-                                        FontTypography="BodyStrong"
-                                        Text="{Binding Description}"
-                                        TextWrapping="Wrap" />
-
-                                    <!--  Error message  -->
-                                    <Border
-                                        Margin="0,4,0,0"
-                                        Padding="8,6"
-                                        HorizontalAlignment="Left"
-                                        Background="{DynamicResource SystemFillColorCriticalBackgroundBrush}"
-                                        BorderBrush="{DynamicResource SystemFillColorCriticalBrush}"
-                                        BorderThickness="1"
-                                        Style="{StaticResource SubtlePillStyle}"
-                                        Visibility="{Binding Error, Converter={StaticResource NullToVisibilityConverter}}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <ui:SymbolIcon
-                                                Margin="0,0,6,0"
-                                                VerticalAlignment="Center"
-                                                Filled="True"
-                                                Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                                                Symbol="Warning24" />
-                                            <ui:TextBlock
-                                                HorizontalAlignment="Stretch"
-                                                FontTypography="Caption"
-                                                Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                                                Text="{Binding Error}"
-                                                TextWrapping="Wrap" />
-                                        </StackPanel>
-                                    </Border>
-
-                                    <!--  Error detail (expandable)  -->
-                                    <Expander
-                                        Margin="0,4,0,0"
-                                        BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
-                                        BorderThickness="1"
-                                        Visibility="{Binding ErrorDetail, Converter={StaticResource NullToVisibilityConverter}}">
-                                        <Expander.Header>
-                                            <StackPanel Orientation="Horizontal">
-                                                <ui:SymbolIcon
-                                                    Margin="0,0,6,0"
-                                                    VerticalAlignment="Center"
-                                                    Filled="True"
-                                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                    Symbol="Code24" />
+                                        <StackPanel Grid.Column="1">
+                                            <!--  Which step it was, and what kind of step  -->
+                                            <StackPanel Margin="0,0,0,6" Orientation="Horizontal">
+                                                <Border Margin="0,0,8,0" Style="{StaticResource SubtlePillStyle}">
+                                                    <ui:TextBlock
+                                                        VerticalAlignment="Center"
+                                                        Appearance="Disabled"
+                                                        FontTypography="Caption"
+                                                        Text="{Binding Index, StringFormat=# {0}}" />
+                                                </Border>
+                                                <Border
+                                                    Padding="6,2"
+                                                    Background="{DynamicResource SystemFillColorCriticalBackgroundBrush}"
+                                                    CornerRadius="{StaticResource CornerRadiusSmall}">
+                                                    <ui:TextBlock
+                                                        VerticalAlignment="Center"
+                                                        FontTypography="Caption"
+                                                        FontWeight="SemiBold"
+                                                        Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                                                        Text="{Binding KindLabel}" />
+                                                </Border>
                                                 <ui:TextBlock
-                                                    FontTypography="Caption"
+                                                    Margin="8,0,0,0"
+                                                    VerticalAlignment="Center"
                                                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                    Text="{ext:Loc OptimizationResultDialog.Details}" />
+                                                    FontTypography="Caption"
+                                                    Text="{Binding Name}"
+                                                    TextWrapping="Wrap" />
                                             </StackPanel>
-                                        </Expander.Header>
-                                        <Border
-                                            Padding="4,0,0,0"
-                                            Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                            CornerRadius="{StaticResource CornerRadiusSmall}">
+
+                                            <!--  What the step tried to do, in the UI language  -->
                                             <ui:TextBlock
-                                                Padding="6,4"
-                                                FontTypography="Caption"
-                                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                Text="{Binding ErrorDetail}"
-                                                TextWrapping="Wrap" />
-                                        </Border>
-                                    </Expander>
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
+                                                Margin="0,0,0,4"
+                                                FontTypography="BodyStrong"
+                                                Text="{Binding OperationLabel}"
+                                                TextWrapping="Wrap"
+                                                Visibility="{Binding HasOperation, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                                            <!--  The log text, only when the step carries nothing else  -->
+                                            <ui:TextBlock
+                                                Margin="0,0,0,4"
+                                                FontTypography="BodyStrong"
+                                                Text="{Binding Description}"
+                                                TextWrapping="Wrap"
+                                                Visibility="{Binding ShowDescription, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                                            <!--  The facts of the step  -->
+                                            <ItemsControl
+                                                Margin="0,0,0,4"
+                                                ItemsSource="{Binding Fields}"
+                                                Visibility="{Binding HasFields, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel HorizontalAlignment="Left" />
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Border
+                                                            Margin="0,0,6,6"
+                                                            Padding="6,2"
+                                                            Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                                            CornerRadius="{StaticResource CornerRadiusSmall}">
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <ui:SymbolIcon
+                                                                    Margin="0,0,6,0"
+                                                                    FontSize="14"
+                                                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                                    Symbol="{Binding Icon}" />
+                                                                <ui:TextBlock
+                                                                    VerticalAlignment="Center"
+                                                                    FontTypography="Caption"
+                                                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                                    Text="{Binding Label}" />
+                                                                <ui:TextBlock
+                                                                    Margin="6,0,0,0"
+                                                                    VerticalAlignment="Center"
+                                                                    FontFamily="Consolas"
+                                                                    FontTypography="Caption"
+                                                                    Text="{Binding Value}"
+                                                                    TextWrapping="Wrap" />
+                                                            </StackPanel>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+
+                                            <!--  Why it failed  -->
+                                            <Border
+                                                Margin="0,4,0,0"
+                                                Padding="8,6"
+                                                HorizontalAlignment="Stretch"
+                                                Background="{DynamicResource SystemFillColorCriticalBackgroundBrush}"
+                                                BorderBrush="{DynamicResource SystemFillColorCriticalBrush}"
+                                                BorderThickness="1"
+                                                CornerRadius="{StaticResource CornerRadiusSmall}"
+                                                Visibility="{Binding HasDetail, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <ui:SymbolIcon
+                                                        Margin="0,0,6,0"
+                                                        VerticalAlignment="Center"
+                                                        Filled="True"
+                                                        Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                                                        Symbol="Warning24" />
+                                                    <ui:TextBlock
+                                                        HorizontalAlignment="Stretch"
+                                                        FontTypography="Caption"
+                                                        Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                                                        Text="{Binding Detail}"
+                                                        TextWrapping="Wrap" />
+                                                </StackPanel>
+                                            </Border>
+
+                                            <!--  The raw failure text, for a support report  -->
+                                            <Expander
+                                                Margin="0,4,0,0"
+                                                BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                                                BorderThickness="1"
+                                                Visibility="{Binding HasErrorDetail, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                <Expander.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ui:SymbolIcon
+                                                            Margin="0,0,6,0"
+                                                            VerticalAlignment="Center"
+                                                            Filled="True"
+                                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                            Symbol="Code24" />
+                                                        <ui:TextBlock
+                                                            FontTypography="Caption"
+                                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                            Text="{ext:Loc OptimizationResultDialog.Details}" />
+                                                    </StackPanel>
+                                                </Expander.Header>
+                                                <Border
+                                                    Padding="4,0,0,0"
+                                                    Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                                    CornerRadius="{StaticResource CornerRadiusSmall}">
+                                                    <ui:TextBlock
+                                                        Padding="6,4"
+                                                        FontFamily="Consolas"
+                                                        FontTypography="Caption"
+                                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                        Text="{Binding ErrorDetail}"
+                                                        TextWrapping="Wrap" />
+                                                </Border>
+                                            </Expander>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
         </StackPanel>
     </Grid>
 </UserControl>

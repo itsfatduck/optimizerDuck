@@ -239,6 +239,12 @@ public static class Shared
     public static string AssetsDirectory => Path.Combine(ResourcesDirectory, "Assets");
     public static string RevertDirectory => Path.Combine(RootDirectory, "Revert");
 
+    /// <summary>
+    ///     Where what an apply did is recorded, one file per item. Separate from the revert data
+    ///     so that a report outlives the revert file it describes.
+    /// </summary>
+    public static string HistoryDirectory => Path.Combine(RootDirectory, "History");
+
     public static bool IsWindows11OrGreater =>
         OperatingSystem.IsWindowsVersionAtLeast(10, 0, 22000);
 }

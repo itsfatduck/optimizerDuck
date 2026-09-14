@@ -394,7 +394,17 @@ public static class RegistryService
                             item.Path,
                             item.Name!
                         );
-                        call.Changes.AddSkip(name, description);
+                        call.Changes.AddSkip(
+                            name,
+                            description,
+                            RegistryDetail(
+                                RegistryOperationWrite,
+                                item,
+                                previous: backupValue,
+                                newValue: item.Value,
+                                valueType: item.Kind.ToString()
+                            )
+                        );
                         return OpResult.Success();
                     }
 
@@ -419,7 +429,19 @@ public static class RegistryService
                         item.Kind,
                         item.Value
                     );
-                    call.Changes.Add(name, description, true, revertStep);
+                    call.Changes.Add(
+                        name,
+                        description,
+                        true,
+                        revertStep,
+                        detail: RegistryDetail(
+                            RegistryOperationWrite,
+                            item,
+                            previous: backupValue,
+                            newValue: item.Value,
+                            valueType: item.Kind.ToString()
+                        )
+                    );
                     return OpResult.Success(revertStep);
                 }
                 catch (UnauthorizedAccessException)
@@ -531,7 +553,15 @@ public static class RegistryService
                             item.Path,
                             item.Name!
                         );
-                        call.Changes.AddNotApplicable(name, description);
+                        call.Changes.AddNotApplicable(
+                            name,
+                            description,
+                            RegistryDetail(
+                                RegistryOperationDelete,
+                                item,
+                                reason: RegistryReasonValueAbsent
+                            )
+                        );
                         return OpResult.Success();
                     }
 
@@ -548,7 +578,18 @@ public static class RegistryService
                     };
 
                     logger.LogInformation("Deleted registry {Path}:{Name}", item.Path, item.Name!);
-                    call.Changes.Add(name, description, true, revertStep);
+                    call.Changes.Add(
+                        name,
+                        description,
+                        true,
+                        revertStep,
+                        detail: RegistryDetail(
+                            RegistryOperationDelete,
+                            item,
+                            previous: backupValue,
+                            valueType: backupKind.ToString()
+                        )
+                    );
                     return OpResult.Success(revertStep);
                 }
                 catch (UnauthorizedAccessException)
@@ -644,7 +685,15 @@ public static class RegistryService
             if (regKey != null)
             {
                 logger.LogInformation("Skip create registry {Path} (already exists)", item.Path);
-                call.Changes.AddNotApplicable(name, description);
+                call.Changes.AddNotApplicable(
+                    name,
+                    description,
+                    RegistryDetail(
+                        RegistryOperationCreateKey,
+                        item,
+                        reason: RegistryReasonKeyExists
+                    )
+                );
                 return OpResult.Success();
             }
 
@@ -659,7 +708,13 @@ public static class RegistryService
             };
 
             logger.LogInformation("Created registry key {Path}", item.Path);
-            call.Changes.Add(name, description, true, revertStep);
+            call.Changes.Add(
+                name,
+                description,
+                true,
+                revertStep,
+                detail: RegistryDetail(RegistryOperationCreateKey, item)
+            );
             return OpResult.Success(revertStep);
         }
         catch (UnauthorizedAccessException)
@@ -722,7 +777,15 @@ public static class RegistryService
             if (regKey == null)
             {
                 logger.LogInformation("Skip delete registry key {Path} (not found)", item.Path);
-                call.Changes.AddNotApplicable(name, description);
+                call.Changes.AddNotApplicable(
+                    name,
+                    description,
+                    RegistryDetail(
+                        RegistryOperationDeleteKey,
+                        item,
+                        reason: RegistryReasonKeyAbsent
+                    )
+                );
                 return OpResult.Success();
             }
 
@@ -756,7 +819,13 @@ public static class RegistryService
             };
 
             logger.LogInformation("Deleted registry key tree {Path}", item.Path);
-            call.Changes.Add(name, description, true, revertStep);
+            call.Changes.Add(
+                name,
+                description,
+                true,
+                revertStep,
+                detail: RegistryDetail(RegistryOperationDeleteKey, item)
+            );
             return OpResult.Success(revertStep);
         }
         catch (UnauthorizedAccessException)
@@ -1082,6 +1151,53 @@ public static class RegistryService
                 logger?.LogError(ex, "Failed to cleanup registry key: {Path}", fullPath);
             }
     }
+
+    internal const string RegistryOperationWrite = "registry.write";
+    internal const string RegistryOperationDelete = "registry.delete";
+    internal const string RegistryOperationCreateKey = "registry.createKey";
+    internal const string RegistryOperationDeleteKey = "registry.deleteKey";
+    internal const string RegistryReasonValueAbsent = "registry.valueAbsent";
+    internal const string RegistryReasonKeyExists = "registry.keyExists";
+    internal const string RegistryReasonKeyAbsent = "registry.keyAbsent";
+
+    /// <summary>
+    ///     The facts of one registry step, for a UI that localizes them. The description on the
+    ///     step stays English for the log.
+    /// </summary>
+    private static ChangeDetail RegistryDetail(
+        string operation,
+        RegistryItem item,
+        object? previous = null,
+        object? newValue = null,
+        string? valueType = null,
+        string? reason = null
+    )
+    {
+        // Moving or removing a value is a before and an after; creating or deleting a key is not.
+        var hasValuePair = operation
+            is RegistryOperationWrite
+                or RegistryOperationDelete;
+
+        return new ChangeDetail
+        {
+            Operation = operation,
+            Target = item.Path,
+            ValueName = item.Name,
+            ValueType = valueType,
+            PreviousValue = previous is null ? null : DescribeValue(previous),
+            NewValue = newValue is null ? null : DescribeValue(newValue),
+            HasValuePair = hasValuePair,
+            Reason = reason,
+        };
+    }
+
+    /// <summary>A value as it is shown to the user, never localized.</summary>
+    private static string DescribeValue(object value) =>
+        value switch
+        {
+            Array array => string.Join(", ", array.Cast<object?>()),
+            _ => Convert.ToString(value, CultureInfo.InvariantCulture) ?? string.Empty,
+        };
 
     private static bool ValuesEqual(object? actual, object? expected, RegistryValueKind kind) =>
         RegistryValues.Equal(actual, expected, kind);

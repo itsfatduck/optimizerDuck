@@ -65,7 +65,8 @@ public static class ScheduledTaskService
                 call.Logger.LogInformation("Task {Path} not found, nothing to change", fullPath);
                 call.Changes.AddNotApplicable(
                     ServiceStrings.ScheduledTaskName,
-                    ServiceStrings.Format(ServiceStrings.ScheduledTaskInfoSkippedNotFound, fullPath)
+                    ServiceStrings.Format(ServiceStrings.ScheduledTaskInfoSkippedNotFound, fullPath),
+                    TaskStep(DisableAction, fullPath, null, null, TaskReasonNotFound)
                 );
                 return OpResult.Success();
             }
@@ -80,7 +81,8 @@ public static class ScheduledTaskService
                         ServiceStrings.ScheduledTaskInfoAlreadyConfigured,
                         fullPath,
                         "disabled"
-                    )
+                    ),
+                    TaskStep(DisableAction, fullPath, TaskStateDisabled, null)
                 );
                 return OpResult.Success();
             }
@@ -93,7 +95,13 @@ public static class ScheduledTaskService
             };
 
             call.Logger.LogInformation("Disabled task {Path}", fullPath);
-            call.Changes.Add(ServiceStrings.ScheduledTaskName, description, true, revertStep);
+            call.Changes.Add(
+                ServiceStrings.ScheduledTaskName,
+                description,
+                true,
+                revertStep,
+                detail: TaskStep(DisableAction, fullPath, TaskStateEnabled, TaskStateDisabled)
+            );
             return OpResult.Success(revertStep);
         }
         catch (UnauthorizedAccessException ex)
@@ -158,7 +166,8 @@ public static class ScheduledTaskService
                 call.Logger.LogInformation("Task {Path} not found, nothing to change", fullPath);
                 call.Changes.AddNotApplicable(
                     ServiceStrings.ScheduledTaskName,
-                    ServiceStrings.Format(ServiceStrings.ScheduledTaskInfoSkippedNotFound, fullPath)
+                    ServiceStrings.Format(ServiceStrings.ScheduledTaskInfoSkippedNotFound, fullPath),
+                    TaskStep(EnableAction, fullPath, null, null, TaskReasonNotFound)
                 );
                 return OpResult.Success();
             }
@@ -173,7 +182,8 @@ public static class ScheduledTaskService
                         ServiceStrings.ScheduledTaskInfoAlreadyConfigured,
                         fullPath,
                         "enabled"
-                    )
+                    ),
+                    TaskStep(EnableAction, fullPath, TaskStateEnabled, null)
                 );
                 return OpResult.Success();
             }
@@ -186,7 +196,13 @@ public static class ScheduledTaskService
             };
 
             call.Logger.LogInformation("Enabled task {Path}", fullPath);
-            call.Changes.Add(ServiceStrings.ScheduledTaskName, description, true, revertStep);
+            call.Changes.Add(
+                ServiceStrings.ScheduledTaskName,
+                description,
+                true,
+                revertStep,
+                detail: TaskStep(EnableAction, fullPath, TaskStateDisabled, TaskStateEnabled)
+            );
             return OpResult.Success(revertStep);
         }
         catch (UnauthorizedAccessException ex)
@@ -780,4 +796,33 @@ public static class ScheduledTaskService
     }
 
     #endregion Helpers
+    internal const string DisableAction = "task.disable";
+    internal const string EnableAction = "task.enable";
+    internal const string TaskStateEnabled = "Enabled";
+    internal const string TaskStateDisabled = "Disabled";
+
+    /// <summary>
+    ///     The facts of one task step, for a UI that localizes them. The states travel as words so
+    ///     the UI can translate them; the description on the step stays English.
+    /// </summary>
+    internal const string TaskReasonNotFound = "task.notFound";
+
+    private static ChangeDetail TaskStep(
+        string operation,
+        string fullPath,
+        string? current,
+        string? target,
+        string? reason = null
+    )
+    {
+        return new ChangeDetail
+        {
+            Operation = operation,
+            Target = fullPath,
+            PreviousValue = current,
+            NewValue = target,
+            HasValuePair = true,
+            Reason = reason,
+        };
+    }
 }

@@ -67,6 +67,21 @@ public partial class OptimizationState : ObservableObject
     private string? relativeTime = string.Empty;
 
     /// <summary>
+    ///     One line describing what the last recorded apply did, read from the record when there
+    ///     is one. Empty when nothing is known, so the badge keeps its plain form.
+    /// </summary>
+    [ObservableProperty]
+    private string appliedSummary = string.Empty;
+
+    /// <summary>The tooltip of the applied badge: what the run did, and what a click does.</summary>
+    public string AppliedTooltip =>
+        string.IsNullOrEmpty(AppliedSummary)
+            ? Loc.Instance["Optimizer.UI.State.Applied.Tooltip.NoSummary"]
+            : Loc.Instance["Optimizer.UI.State.Applied.Tooltip", AppliedSummary];
+
+    partial void OnAppliedSummaryChanged(string value) => OnPropertyChanged(nameof(AppliedTooltip));
+
+    /// <summary>
     ///     The risk level of the optimization.
     /// </summary>
     [ObservableProperty]

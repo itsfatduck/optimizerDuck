@@ -23,7 +23,13 @@ public sealed class CustomizeCategoryViewModelTests
 
     private sealed class FakeRegistryWatcher : IRegistryWatcher
     {
-        public event EventHandler<string>? RegistryKeyChanged;
+        // The view model only subscribes to this; the fake never raises it, so it needs no
+        // backing field and no warning about one.
+        public event EventHandler<string>? RegistryKeyChanged
+        {
+            add { }
+            remove { }
+        }
 
         public void Watch(string registryPath) { }
 

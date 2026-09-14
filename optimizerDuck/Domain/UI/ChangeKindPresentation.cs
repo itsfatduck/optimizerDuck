@@ -21,6 +21,20 @@ public sealed record ChangeKindDisplay
 /// </summary>
 public static class ChangeKindPresentation
 {
+    /// <summary>
+    ///     The appearance of one recorded step. A step that failed shows as a failure whatever
+    ///     its kind says, because the record has to make a failed write impossible to mistake for
+    ///     a change that happened.
+    /// </summary>
+    public static ChangeKindDisplay ForStep(ChangeRecordStep step) =>
+        step.Ok
+            ? step.Kind.ToDisplay()
+            : new ChangeKindDisplay
+            {
+                Icon = SymbolRegular.ErrorCircle24,
+                LabelKey = "Optimizer.Details.Step.Failed",
+            };
+
     extension(ChangeKind kind)
     {
         /// <summary>Gets the icon and label key this kind of step is shown with.</summary>

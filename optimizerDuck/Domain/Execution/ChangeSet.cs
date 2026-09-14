@@ -79,22 +79,22 @@ public sealed class ChangeSet
     }
 
     /// <summary>Records a step that found nothing to do, so it needs no compensation.</summary>
-    public Change AddSkip(string name, string description) =>
-        Add(name, description, true, kind: ChangeKind.Skip);
+    public Change AddSkip(string name, string description, ChangeDetail? detail = null) =>
+        Add(name, description, true, detail: detail, kind: ChangeKind.Skip);
 
     /// <summary>
     ///     Records a step whose target does not exist on this machine, so nothing was written
     ///     and no compensation is expected.
     /// </summary>
-    public Change AddNotApplicable(string name, string description) =>
-        Add(name, description, true, kind: ChangeKind.NotApplicable);
+    public Change AddNotApplicable(string name, string description, ChangeDetail? detail = null) =>
+        Add(name, description, true, detail: detail, kind: ChangeKind.NotApplicable);
 
     /// <summary>
     ///     Records a step Windows refused, so nothing was written and no compensation is
     ///     expected for it.
     /// </summary>
-    public Change AddRefused(string name, string description) =>
-        Add(name, description, true, kind: ChangeKind.Refused);
+    public Change AddRefused(string name, string description, ChangeDetail? detail = null) =>
+        Add(name, description, true, detail: detail, kind: ChangeKind.Refused);
 
     /// <summary>
     ///     Records a step that modified the system on purpose with no way back, so no
@@ -112,7 +112,8 @@ public sealed class ChangeSet
         string? error = null,
         string? errorDetail = null,
         Func<OpCall, Task<OpResult>>? retry = null,
-        ChangeKind kind = ChangeKind.Change
+        ChangeKind kind = ChangeKind.Change,
+        ChangeDetail? detail = null
     )
     {
         var change = new Change
@@ -125,6 +126,7 @@ public sealed class ChangeSet
             Error = error,
             ErrorDetail = errorDetail,
             Retry = retry,
+            Detail = detail,
         };
         lock (_gate)
         {
@@ -181,6 +183,12 @@ public sealed record Change
     public ChangeKind Kind { get; init; } = ChangeKind.Change;
 
     public IRevertStep? Revert { get; init; }
+
+    /// <summary>
+    ///     The structured facts of this step, for a UI that speaks the user's language. The log
+    ///     keeps using <see cref="Description" />, which is always English.
+    /// </summary>
+    public ChangeDetail? Detail { get; init; }
 
     public string? Error { get; init; }
 

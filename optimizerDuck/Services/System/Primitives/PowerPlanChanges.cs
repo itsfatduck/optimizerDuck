@@ -45,7 +45,8 @@ public static class PowerPlanChanges
         {
             call.Changes.AddSkip(
                 ServiceStrings.PowerPlanName,
-                ServiceStrings.Format("Power plan {0} already active (skipped)", name)
+                ServiceStrings.Format("Power plan {0} already active (skipped)", name),
+                PlanStep(ActivateAction, name, name, null)
             );
             return OpResult.Success();
         }
@@ -59,7 +60,13 @@ public static class PowerPlanChanges
             ServiceStrings.PowerPlanName,
             ServiceStrings.Format("Activate power plan {0}", name),
             true,
-            step
+            step,
+            detail: PlanStep(
+                ActivateAction,
+                name,
+                plans.GetSchemeName(previousId.Value) ?? previousId.Value.ToString(),
+                name
+            )
         );
         return OpResult.Success(step);
     }
@@ -106,7 +113,8 @@ public static class PowerPlanChanges
             ServiceStrings.PowerPlanName,
             ServiceStrings.Format("Install power plan {0}", name),
             true,
-            step
+            step,
+            detail: PlanStep(InstallAction, name, null, null)
         );
         return new InstallResult(OpResult.Success(step), install.InstalledId, install.PreviousId);
     }
@@ -174,7 +182,41 @@ public static class PowerPlanChanges
             PreviousAcValue = prevAc.Value,
             PreviousDcValue = prevDc.Value,
         };
-        call.Changes.Add(ServiceStrings.PowerPlanName, description, true, step);
+        call.Changes.Add(
+            ServiceStrings.PowerPlanName,
+            description,
+            true,
+            step,
+            detail: new ChangeDetail
+            {
+                Operation = SettingAction,
+                Target = settingId.ToString(),
+                PreviousValue = $"AC {prevAc.Value} / DC {prevDc.Value}",
+                NewValue = $"AC {acValue} / DC {dcValue}",
+                HasValuePair = true,
+            }
+        );
         return OpResult.Success(step);
+    }
+    internal const string ActivateAction = "power.plan";
+    internal const string InstallAction = "power.planInstall";
+    internal const string SettingAction = "power.setting";
+
+    /// <summary>The facts of one power plan step, for a UI that localizes them.</summary>
+    private static ChangeDetail PlanStep(
+        string operation,
+        string? name,
+        string? previous,
+        string? current
+    )
+    {
+        return new ChangeDetail
+        {
+            Operation = operation,
+            Target = name,
+            PreviousValue = previous,
+            NewValue = current,
+            HasValuePair = operation is ActivateAction,
+        };
     }
 }

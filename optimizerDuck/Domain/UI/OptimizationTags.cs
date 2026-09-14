@@ -1,4 +1,4 @@
-﻿using optimizerDuck.Resources.Languages;
+using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
 using Wpf.Ui.Controls;
 
@@ -55,6 +55,11 @@ public static class OptimizationTagsToDisplay
     extension(OptimizationTags tags)
     {
         /// <summary>
+        ///     Explains what a tag means, so a chip on a card never has to be guessed at. One
+        ///     key per tag value, named after the flag.
+        /// </summary>
+        public string ToExplanation() => Loc.Instance[$"Optimizer.UI.Tags.{tags}.Tooltip"];
+        /// <summary>
         ///     Converts the tag flags into a sequence of display-friendly representations.
         /// </summary>
         /// <returns>An enumerable of <see cref="OptimizationTagDisplay" /> for each set flag.</returns>
@@ -66,7 +71,7 @@ public static class OptimizationTagsToDisplay
                     continue;
 
                 if (tags.HasFlag(flag))
-                    yield return flag.ToDisplay();
+                    yield return flag.ToDisplay() with { Description = flag.ToExplanation() };
             }
         }
 
@@ -81,6 +86,7 @@ public static class OptimizationTagsToDisplay
                 {
                     Icon = SymbolRegular.LockClosed24,
                     Display = Loc.Instance["Optimizer.UI.Tags.Security"],
+                    Description = Loc.Instance["Optimizer.UI.Tags.Security.Tooltip"],
                 },
 
                 OptimizationTags.Privacy => new OptimizationTagDisplay
@@ -196,6 +202,9 @@ public static class OptimizationTagsToDisplay
 /// </summary>
 public readonly record struct OptimizationTagDisplay
 {
+    /// <summary>What this tag means, shown as the tooltip of the chip.</summary>
+    public string Description { get; init; }
+
     /// <summary>
     ///     The icon symbol to display.
     /// </summary>

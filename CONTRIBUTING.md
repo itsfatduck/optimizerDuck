@@ -523,6 +523,25 @@ public abstract class GpuRegistryOptimization : BaseOptimization
 
 See `Domain/Optimizations/Categories/Gpu.cs` for a real example with AMD, NVIDIA, and Intel subclasses.
 
+### Skip Semantics and the Record of an Apply
+
+A provider reads the current state before a repeated mutation, and records the step with the
+right kind. An item must not decide that a step is unnecessary, because a step skipped at the
+item level never appears in the record of the run:
+
+| Situation | Kind | Revert entry |
+|---|---|---|
+| The provider modified something | `Change` | yes, with the previous state |
+| The machine already matched | `Skip` | none |
+| Nothing on this machine to act on | `NotApplicable` | none |
+| Windows refused the change | `Refused` | none |
+| Modified with no way back | `Irreversible` | none |
+
+End `ApplyAsync` with `return context.Changes.ToApplyResult();`. A run that recorded no change is
+reported as nothing to do rather than as a failure, and `OptimizationService` writes what the run
+did to `%LocalAppData%\optimizerDuck\History\{id}.json`, so the details view can show it after
+a restart.
+
 ### Localization Keys
 
 Every optimization needs entries in `Translations.resx`. The keys follow a strict convention:

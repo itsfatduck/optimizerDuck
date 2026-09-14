@@ -79,7 +79,12 @@ public partial class OptimizationCategoryViewModel
             // non-retryable failure (e.g. access denied on a Windows-protected service)
             // must not loop the dialog with a button that cannot change anything.
             var canRetry = remainingFailedSteps.Any(s => s.Retry != null);
-            var dialogViewModel = new OptimizationResultDialogViewModel(remainingFailedSteps);
+            var dialogViewModel = new OptimizationResultDialogViewModel(
+                remainingFailedSteps,
+                operation == OptimizationOperation.Revert
+                    ? ChangeRecordOperation.Revert
+                    : ChangeRecordOperation.Apply
+            );
             var dialogContent = new OptimizationResultDialog { DataContext = dialogViewModel };
 
             var dialog = new ContentDialog

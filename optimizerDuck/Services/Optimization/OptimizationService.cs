@@ -12,6 +12,7 @@ using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
+using optimizerDuck.Services.History;
 using optimizerDuck.Services.Revert;
 using optimizerDuck.Services.System;
 using optimizerDuck.Services.System.Primitives;
@@ -196,6 +197,34 @@ public class OptimizationService(
         var optLogger = loggerFactory.CreateLogger(optimization.GetType());
         var changes = new ChangeSet();
 
+        var result = await ApplyCoreAsync(
+                optimization,
+                changes,
+                optLogger,
+                progress,
+                cancellationToken
+            )
+            .ConfigureAwait(false);
+
+        // Best effort and deliberately after the result is decided: what a run did is worth
+        // keeping, but it is never a reason for an apply to report anything other than the truth
+        // about the machine, and it is not revert data.
+        ChangeRecordStore.TryWrite(
+            ChangeRecord.From(changes, optimization, result.Status.ToString()),
+            _logger
+        );
+
+        return result;
+    }
+
+    private async Task<OptimizationResult> ApplyCoreAsync(
+        IOptimization optimization,
+        ChangeSet changes,
+        ILogger optLogger,
+        IProgress<ProcessingProgress> progress,
+        CancellationToken cancellationToken
+    )
+    {
         _logger.LogInformation(
             "Starting apply of {Name} ({Key}) with ID {Id}",
             optimization.LogName(),
@@ -385,7 +414,26 @@ public class OptimizationService(
                 Total = 1,
             }
         );
+
+        if (result.Success)
+            MarkRecordReverted(optimization, _logger);
+
         return result;
+    }
+
+    /// <summary>
+    ///     Marks the item's record as reverted, keeping the steps that were undone with their before
+    ///     and after swapped. The revert file that described them is gone once the revert worked,
+    ///     so the record is the only place left to see what changed back. The steps that wrote
+    ///     nothing are dropped: nothing was recorded for them, so nothing was undone on their
+    ///     behalf.
+    /// </summary>
+    private static void MarkRecordReverted(IOptimization optimization, ILogger logger)
+    {
+        var record = ChangeRecordStore.TryRead(optimization.Id, logger);
+        record ??= ChangeRecord.From(new ChangeSet(), optimization, nameof(ChangeRecordOperation.Revert));
+
+        ChangeRecordStore.TryWrite(record.Reverted(DateTime.Now), logger);
     }
 
     /// <summary>Updates the applied state of the specified optimizations by scanning revert data files on disk. An optimization is considered applied when its revert JSON file exists.</summary>
@@ -405,6 +453,20 @@ public class OptimizationService(
             opt.State.AppliedAt = applied
                 ? (await RevertManager.GetRevertDataAsync(opt.Id).ConfigureAwait(false))?.AppliedAt
                 : null;
+
+            // The record outlives the revert file, so it is read separately and never gates the
+            // applied mark.
+            var record = ChangeRecordStore.TryRead(opt.Id);
+            opt.State.AppliedSummary =
+                record is null
+                    ? string.Empty
+                    : Loc.Instance[
+                        "Optimizer.UI.State.Applied.Summary",
+                        record.ChangedCount,
+                        record.CountOf(ChangeKind.Skip),
+                        record.CountOf(ChangeKind.NotApplicable),
+                        record.CountOf(ChangeKind.Refused)
+                    ];
         }
     }
 

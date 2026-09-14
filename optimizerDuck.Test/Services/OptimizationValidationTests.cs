@@ -1,10 +1,11 @@
-using System.Globalization;
+﻿using System.Globalization;
 using System.Reflection;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
+using optimizerDuck.Domain.Execution;
+using optimizerDuck.Domain.UI;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Optimizations.Models;
-using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Optimization;
 
@@ -160,6 +161,37 @@ public class OptimizationValidationTests
                 )
                     missing.Add(key);
             }
+        }
+
+        Assert.True(missing.Count == 0, "Missing resx keys: " + string.Join(", ", missing));
+    }
+
+    [Fact]
+    public void Discovery_EveryTagAndEveryStepKind_ExplainsItself()
+    {
+        var missing = new List<string>();
+
+        // A tag chip looks its explanation up by name, and the record looks up a label per kind of
+        // step, so a value added without a key fails here instead of showing a bare key on screen.
+        foreach (var tag in Enum.GetValues<OptimizationTags>())
+        {
+            if (tag == OptimizationTags.None)
+                continue;
+
+            var key = $"Optimizer.UI.Tags.{tag}.Tooltip";
+            if (Translations.ResourceManager.GetString(key, CultureInfo.InvariantCulture) is null)
+                missing.Add(key);
+        }
+
+        var labelKeys = Enum
+            .GetValues<ChangeKind>()
+            .Select(kind => kind.ToDisplay().LabelKey)
+            .Append(ChangeKindPresentation.ForStep(new ChangeRecordStep { Ok = false }).LabelKey);
+
+        foreach (var key in labelKeys)
+        {
+            if (Translations.ResourceManager.GetString(key, CultureInfo.InvariantCulture) is null)
+                missing.Add(key);
         }
 
         Assert.True(missing.Count == 0, "Missing resx keys: " + string.Join(", ", missing));

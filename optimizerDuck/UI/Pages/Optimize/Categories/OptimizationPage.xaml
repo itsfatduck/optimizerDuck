@@ -312,7 +312,10 @@
                                                     Padding="6,2"
                                                     HorizontalAlignment="Left"
                                                     Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                                    CornerRadius="{StaticResource CornerRadiusSmall}">
+                                                    CornerRadius="{StaticResource CornerRadiusSmall}"
+                                                    ToolTip="{Binding Description}"
+                                                    ToolTipService.InitialShowDelay="150"
+                                                    ToolTipService.Placement="Top">
                                                     <StackPanel Orientation="Horizontal">
                                                         <ui:SymbolIcon
                                                             Margin="0,0,6,0"
@@ -348,50 +351,28 @@
                                         <Grid RowDefinitions="Auto,Auto">
                                             <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
                                                 <controls:RiskBadge Risk="{Binding Risk}" RiskVisual="{Binding RiskVisual}" />
-                                                <Border
+                                                <controls:StateBadge
                                                     Margin="6,0,0,0"
-                                                    Padding="6,2"
                                                     Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                                                    CornerRadius="{StaticResource CornerRadiusSmall}"
+                                                    Command="{Binding DataContext.ViewModel.ShowDetailsCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                    CommandParameter="{Binding}"
+                                                    Icon="CheckmarkCircle24"
+                                                    IconBrush="{DynamicResource SystemFillColorSuccessBrush}"
+                                                    Text="{ext:Loc Optimizer.UI.State.AlreadyOptimal}"
                                                     ToolTip="{ext:Loc Optimizer.UI.State.AlreadyOptimal.Tooltip}"
-                                                    ToolTipService.InitialShowDelay="150"
-                                                    ToolTipService.Placement="Top"
-                                                    Visibility="{Binding State.IsAlreadyOptimal, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <ui:SymbolIcon
-                                                            Margin="0,0,6,0"
-                                                            FontSize="14"
-                                                            Foreground="{DynamicResource SystemFillColorSuccessBrush}"
-                                                            Symbol="CheckmarkCircle24" />
-                                                        <ui:TextBlock
-                                                            VerticalAlignment="Center"
-                                                            FontTypography="Caption"
-                                                            Text="{ext:Loc Optimizer.UI.State.AlreadyOptimal}" />
-                                                    </StackPanel>
-                                                </Border>
+                                                    Visibility="{Binding State.IsAlreadyOptimal, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                             </StackPanel>
 
-                                            <Border
+                                            <controls:StateBadge
                                                 Grid.Row="1"
                                                 Margin="0,8,0,0"
-                                                Padding="6,2"
-                                                HorizontalAlignment="Left"
                                                 Background="{DynamicResource CardBackgroundDisabled}"
-                                                CornerRadius="{StaticResource CornerRadiusSmall}"
-                                                ToolTip="{Binding State.AppliedAt}"
-                                                ToolTipService.InitialShowDelay="150"
-                                                ToolTipService.Placement="Top"
-                                                Visibility="{Binding State.AppliedAt, Converter={StaticResource NullToVisibilityConverter}}">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <ui:SymbolIcon Margin="0,0,6,0" Symbol="CheckmarkCircle24" />
-                                                    <ui:TextBlock
-                                                        HorizontalAlignment="Center"
-                                                        VerticalAlignment="Center"
-                                                        FontTypography="Caption"
-                                                        Text="{Binding State.RelativeTime}"
-                                                        TextWrapping="Wrap" />
-                                                </StackPanel>
-                                            </Border>
+                                                Command="{Binding DataContext.ViewModel.ShowDetailsCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                CommandParameter="{Binding}"
+                                                Icon="CheckmarkCircle24"
+                                                Text="{Binding State.RelativeTime}"
+                                                ToolTip="{Binding State.AppliedTooltip}"
+                                                Visibility="{Binding State.AppliedAt, Converter={StaticResource NullToVisibilityConverter}}" />
                                         </Grid>
 
                                         <StackPanel
