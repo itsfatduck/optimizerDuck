@@ -2285,4 +2285,10 @@
   <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
     <value>מצב השינה היה לא ידוע בעת ההחלה, ולכן דבר לא משוחזר</value>
   </data>
+  <data name="Bloatware.Remove.Failed.Title" xml:space="preserve">
+    <value>חלק מהחבילות לא הוסרו</value>
+  </data>
+  <data name="Bloatware.Remove.Failed.Message" xml:space="preserve">
+    <value>Windows לא הסיר את החבילות האלה: {0}</value>
+  </data>
 </root>

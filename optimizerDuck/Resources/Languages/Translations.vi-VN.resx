@@ -2220,4 +2220,10 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
     <value>Không xác định được trạng thái hibernation khi áp dụng, nên không có gì để khôi phục</value>
   </data>
+  <data name="Bloatware.Remove.Failed.Title" xml:space="preserve">
+    <value>Một số gói chưa được gỡ</value>
+  </data>
+  <data name="Bloatware.Remove.Failed.Message" xml:space="preserve">
+    <value>Windows chưa gỡ các gói sau: {0}</value>
+  </data>
 </root>

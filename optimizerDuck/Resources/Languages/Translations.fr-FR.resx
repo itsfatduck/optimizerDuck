@@ -2228,4 +2228,10 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
   <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
     <value>L'état de veille prolongée était inconnu lors de l'application, rien n'est donc restauré</value>
   </data>
+  <data name="Bloatware.Remove.Failed.Title" xml:space="preserve">
+    <value>Certains paquets n'ont pas été supprimés</value>
+  </data>
+  <data name="Bloatware.Remove.Failed.Message" xml:space="preserve">
+    <value>Windows n'a pas supprimé ces paquets : {0}</value>
+  </data>
 </root>

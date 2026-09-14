@@ -2236,4 +2236,10 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
     <value>Lo stato di ibernazione era sconosciuto al momento dell'applicazione, quindi non viene ripristinato nulla</value>
   </data>
+  <data name="Bloatware.Remove.Failed.Title" xml:space="preserve">
+    <value>Alcuni pacchetti non sono stati rimossi</value>
+  </data>
+  <data name="Bloatware.Remove.Failed.Message" xml:space="preserve">
+    <value>Windows non ha rimosso questi pacchetti: {0}</value>
+  </data>
 </root>

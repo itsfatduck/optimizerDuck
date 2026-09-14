@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -12,6 +12,7 @@ using optimizerDuck.Services.UI;
 using optimizerDuck.UI.Dialogs;
 using optimizerDuck.UI.ViewModels.Dialogs;
 using Wpf.Ui;
+using Wpf.Ui.Extensions;
 using Wpf.Ui.Controls;
 using AppXPackage = optimizerDuck.Domain.Optimizations.Models.Bloatware.AppXPackage;
 
@@ -242,6 +243,8 @@ public partial class BloatwareViewModel : ViewModel
             IsFooterVisible = false,
         };
 
+        var failed = new List<string>();
+
         try
         {
             _logger.LogInformation(
@@ -267,8 +270,9 @@ public partial class BloatwareViewModel : ViewModel
                         Value = i,
                     }
                 );
-                await _bloatwareService.RemoveAppXPackage(item);
-                //await Task.Delay(500); // Simulate work
+                var removal = await _bloatwareService.RemoveAppXPackage(item);
+                if (!removal.Succeeded)
+                    failed.Add(item.Name ?? item.PackageFullName ?? string.Empty);
             }
         }
         finally
@@ -281,6 +285,22 @@ public partial class BloatwareViewModel : ViewModel
             await Refresh();
             CrossPageEventBus.NotifyDataChanged<BloatwareChanged>();
         }
+
+        // The refreshed list is what shows a package is still installed; this names it, because a
+        // package that came back looks like a quirk of Windows otherwise.
+        if (failed.Count > 0)
+            await _contentDialogService.ShowSimpleDialogAsync(
+                new SimpleContentDialogCreateOptions
+                {
+                    Title = Loc.Instance["Bloatware.Remove.Failed.Title"],
+                    Content = Loc.Instance[
+                        "Bloatware.Remove.Failed.Message",
+                        string.Join(", ", failed)
+                    ],
+                    CloseButtonText = Loc.Instance["Button.Ok"],
+                },
+                CancellationToken.None
+            );
     }
 
     private bool CanRemoveSelected()

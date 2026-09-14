@@ -2228,4 +2228,10 @@ Atualize agora para desfrutar das últimas funcionalidades, melhorias e correç�
   <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
     <value>O estado de hibernação era desconhecido quando isto foi aplicado, então nada é restaurado</value>
   </data>
+  <data name="Bloatware.Remove.Failed.Title" xml:space="preserve">
+    <value>Alguns pacotes não foram removidos</value>
+  </data>
+  <data name="Bloatware.Remove.Failed.Message" xml:space="preserve">
+    <value>O Windows não removeu estes pacotes: {0}</value>
+  </data>
 </root>

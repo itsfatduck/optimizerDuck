@@ -2270,5 +2270,11 @@
   <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
     <value>كانت حالة الإسبات غير معروفة عند تطبيق هذا، لذلك لا شيء يُستعاد</value>
   </data>
+  <data name="Bloatware.Remove.Failed.Title" xml:space="preserve">
+    <value>لم تتم إزالة بعض الحزم</value>
+  </data>
+  <data name="Bloatware.Remove.Failed.Message" xml:space="preserve">
+    <value>لم يقم Windows بإزالة هذه الحزم: {0}</value>
+  </data>
 </root>
 

@@ -2228,4 +2228,10 @@
   <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
     <value>Состояние спящего режима было неизвестно при применении, поэтому ничего не восстанавливается</value>
   </data>
+  <data name="Bloatware.Remove.Failed.Title" xml:space="preserve">
+    <value>Некоторые пакеты не были удалены</value>
+  </data>
+  <data name="Bloatware.Remove.Failed.Message" xml:space="preserve">
+    <value>Windows не удалил эти пакеты: {0}</value>
+  </data>
 </root>

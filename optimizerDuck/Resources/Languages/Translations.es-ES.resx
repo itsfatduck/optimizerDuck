@@ -4033,4 +4033,10 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
   <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
     <value>El estado de hibernación era desconocido al aplicar esto, así que no se restaura nada</value>
   </data>
+  <data name="Bloatware.Remove.Failed.Title" xml:space="preserve">
+    <value>Algunos paquetes no se eliminaron</value>
+  </data>
+  <data name="Bloatware.Remove.Failed.Message" xml:space="preserve">
+    <value>Windows no eliminó estos paquetes: {0}</value>
+  </data>
 </root>

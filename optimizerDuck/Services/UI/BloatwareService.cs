@@ -1,4 +1,4 @@
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -142,6 +142,42 @@ public class BloatwareService(
     ///     accepted; deserialising only as a list silently yielded an empty result for the
     ///     single-package case.
     /// </summary>
+    /// <summary>Outcome of one package removal, derived from what the removal script reported.</summary>
+    /// <param name="Failures">
+    ///     One entry per refusal, empty when Windows removed the package or reported that nothing
+    ///     was installed.
+    /// </param>
+    public sealed record AppXRemovalResult(IReadOnlyList<string> Failures)
+    {
+        /// <summary>Whether Windows reported nothing as refused.</summary>
+        public bool Succeeded => Failures.Count == 0;
+    }
+
+    /// <summary>
+    ///     Reads the per package lines the removal script prints. Pure, so the mapping from the
+    ///     script's output to a result is testable without running PowerShell. The markers are
+    ///     printed by the script itself rather than by Windows, so a localized PowerShell cannot
+    ///     change them; a script edit has to move with this parser.
+    /// </summary>
+    internal static AppXRemovalResult ParseRemovalOutput(string stdout)
+    {
+        var failures = new List<string>();
+        foreach (var line in stdout.Split('\n'))
+        {
+            var trimmed = line.Trim();
+            if (
+                trimmed.StartsWith("Failed:", StringComparison.Ordinal)
+                || trimmed.StartsWith(
+                    "Failed removing provisioned package:",
+                    StringComparison.Ordinal
+                )
+            )
+                failures.Add(trimmed);
+        }
+
+        return new AppXRemovalResult(failures);
+    }
+
     internal static List<AppXPackage> ParsePackages(string stdout)
     {
         var json = stdout.TrimStart();
@@ -197,7 +233,7 @@ public class BloatwareService(
     /// <summary>
     ///     Removes an AppX package from the system.
     /// </summary>
-    public async Task RemoveAppXPackage(AppXPackage appXPackage)
+    public async Task<AppXRemovalResult> RemoveAppXPackage(AppXPackage appXPackage)
     {
         try
         {
@@ -207,7 +243,7 @@ public class BloatwareService(
                     "Skip removing app because PackageFullName is empty: {Name}",
                     appXPackage.Name
                 );
-                return;
+                return new AppXRemovalResult([]);
             }
 
             // Safe string literal escaping for PowerShell
@@ -288,11 +324,33 @@ public class BloatwareService(
             if (!string.IsNullOrWhiteSpace(result.Stderr))
                 logger.LogWarning("Remove AppX stderr: {Error}", result.Stderr);
 
-            logger.LogInformation("Remove AppX finished for {Name}", appXPackage.Name);
+            var outcome = ParseRemovalOutput(result.Stdout);
+
+            // A shell that exited non zero without printing a per package line never reported a
+            // removal, so the captured error text stands in for it.
+            if (outcome.Succeeded && result.ExitCode != 0)
+                outcome = new AppXRemovalResult([result.Stderr]);
+
+            if (outcome.Succeeded)
+            {
+                logger.LogInformation("Remove AppX finished for {Name}", appXPackage.Name);
+            }
+            else
+            {
+                foreach (var failure in outcome.Failures)
+                    logger.LogError(
+                        "[APPX][FAIL] {Name}: {Failure}",
+                        appXPackage.Name,
+                        failure
+                    );
+            }
+
+            return outcome;
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "Failed removing AppX package {Name}", appXPackage.Name);
+            return new AppXRemovalResult([ex.Message]);
         }
     }
 

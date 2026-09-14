@@ -2220,4 +2220,10 @@
   <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
     <value>適用時の休止状態が不明だったため、復元する内容はありません</value>
   </data>
+  <data name="Bloatware.Remove.Failed.Title" xml:space="preserve">
+    <value>一部のパッケージを削除できませんでした</value>
+  </data>
+  <data name="Bloatware.Remove.Failed.Message" xml:space="preserve">
+    <value>Windows は次のパッケージを削除しませんでした: {0}</value>
+  </data>
 </root>

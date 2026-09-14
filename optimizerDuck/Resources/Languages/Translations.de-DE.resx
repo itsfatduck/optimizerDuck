@@ -2280,4 +2280,10 @@ Aktualisiere jetzt, um die neuesten Funktionen, Verbesserungen und Fehlerbehebun
   <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
     <value>Der Ruhezustand war beim Anwenden unbekannt, es wird also nichts wiederhergestellt</value>
   </data>
+  <data name="Bloatware.Remove.Failed.Title" xml:space="preserve">
+    <value>Einige Pakete wurden nicht entfernt</value>
+  </data>
+  <data name="Bloatware.Remove.Failed.Message" xml:space="preserve">
+    <value>Windows hat diese Pakete nicht entfernt: {0}</value>
+  </data>
 </root>

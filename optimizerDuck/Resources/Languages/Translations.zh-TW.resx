@@ -2223,4 +2223,10 @@
   <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
     <value>套用時 hibernation 狀態未知，因此不會還原任何內容</value>
   </data>
+  <data name="Bloatware.Remove.Failed.Title" xml:space="preserve">
+    <value>部分套件未能移除</value>
+  </data>
+  <data name="Bloatware.Remove.Failed.Message" xml:space="preserve">
+    <value>Windows 未能移除這些套件：{0}</value>
+  </data>
 </root>
