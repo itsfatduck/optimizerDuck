@@ -457,7 +457,17 @@ public static class RegistryService
                         name,
                         description,
                         false,
-                        null,
+                        // Subkeys created before the value write are this run's doing, so a
+                        // failure still records how to remove exactly those keys.
+                        createdSubKeys.Count > 0
+                            ? new RegistryRevertStep
+                            {
+                                Action = RevertAction.NoPreviousValue,
+                                Path = item.Path,
+                                Name = null,
+                                CreatedSubKeys = createdSubKeys,
+                            }
+                            : null,
                         error,
                         errorDetail,
                         (OpCall rc) => Task.FromResult(Write(rc, item))
@@ -478,7 +488,17 @@ public static class RegistryService
                         name,
                         description,
                         false,
-                        null,
+                        // Subkeys created before the value write are this run's doing, so a
+                        // failure still records how to remove exactly those keys.
+                        createdSubKeys.Count > 0
+                            ? new RegistryRevertStep
+                            {
+                                Action = RevertAction.NoPreviousValue,
+                                Path = item.Path,
+                                Name = null,
+                                CreatedSubKeys = createdSubKeys,
+                            }
+                            : null,
                         error,
                         errorDetail,
                         (OpCall rc) => Task.FromResult(Write(rc, item))

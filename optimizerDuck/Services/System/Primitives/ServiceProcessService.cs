@@ -131,7 +131,11 @@ public static class ServiceProcessService
 
             string? errorDetail = null;
             if (!success)
-                errorDetail = BuildWriteErrorDetail(write.StartTypeWritten, nativeError);
+                errorDetail = BuildWriteErrorDetail(
+                    write.StartTypeWritten,
+                    nativeError,
+                    write.ExceptionText
+                );
 
             if (success)
             {
@@ -392,13 +396,23 @@ public static class ServiceProcessService
     ///     Outcome of a start type write: the Win32 error, and whether the start type itself was
     ///     written before a later call was refused.
     /// </summary>
-    private readonly record struct StartTypeWrite(int Error, bool StartTypeWritten);
+    private readonly record struct StartTypeWrite(
+        int Error,
+        bool StartTypeWritten,
+        string? ExceptionText = null
+    );
 
     /// <summary>
     ///     Describes which call failed, so a partial write is never mistaken for "nothing ran".
     /// </summary>
-    internal static string BuildWriteErrorDetail(bool startTypeWritten, int nativeError) =>
-        startTypeWritten
+    internal static string BuildWriteErrorDetail(
+        bool startTypeWritten,
+        int nativeError,
+        string? exceptionText = null
+    ) =>
+        exceptionText is not null
+            ? $"ChangeServiceConfig2 (delayed auto start) threw after the start type was written: {exceptionText}"
+        : startTypeWritten
             ? $"ChangeServiceConfig2 (delayed auto start) failed with Win32 error {nativeError}, after the start type was written"
             : $"ChangeServiceConfig failed with Win32 error {nativeError}";
 
@@ -460,9 +474,25 @@ public static class ServiceProcessService
                         fDelayedAutostart = startupType == ServiceStartupType.AutomaticDelayedStart,
                     };
 
-                    if (!ChangeServiceConfig2(service, ServiceConfigDelayedAutoStartInfo, ref info))
-                        // The start type is already written at this point.
-                        return new StartTypeWrite(Marshal.GetLastWin32Error(), true);
+                    try
+                    {
+                        if (
+                            !ChangeServiceConfig2(
+                                service,
+                                ServiceConfigDelayedAutoStartInfo,
+                                ref info
+                            )
+                        )
+                            // The start type is already written at this point.
+                            return new StartTypeWrite(Marshal.GetLastWin32Error(), true);
+                    }
+                    catch (Exception ex)
+                    {
+                        // The interop itself threw after the start type was written, which is the
+                        // same partial write a refused flag is. The throw text is the only honest
+                        // reason, so the caller reports it instead of the error code.
+                        return new StartTypeWrite(Marshal.GetLastWin32Error(), true, ex.Message);
+                    }
                 }
 
                 return new StartTypeWrite(0, true);

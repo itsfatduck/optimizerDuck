@@ -47,6 +47,34 @@ public class ChangeSetTests
     }
 
     [Fact]
+    public void DidApplyAnything_CountsAFailedStepThatCarriesCompensation()
+    {
+        var changes = new ChangeSet();
+
+        changes.Add(
+            "USB power",
+            "Two devices changed, a third refused",
+            false,
+            new MockRevertStep(),
+            "a device refused the write"
+        );
+
+        // The step changed the machine, so what it recorded is what a revert runs on.
+        Assert.True(changes.DidApplyAnything);
+        Assert.False(changes.HasSuccessfulSteps);
+    }
+
+    [Fact]
+    public void DidApplyAnything_IgnoresAFailedStepWithoutCompensation()
+    {
+        var changes = new ChangeSet();
+
+        changes.Add("Service", "Change startup type", false, error: "access denied");
+
+        Assert.False(changes.DidApplyAnything);
+    }
+
+    [Fact]
     public void FailedSteps_ReturnsOnlyFailedChanges()
     {
         var changes = new ChangeSet();

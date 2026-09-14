@@ -67,14 +67,16 @@ public sealed class ChangeSet
 
     /// <summary>
     ///     Whether any step actually modified the system. Skips and irreversible actions
-    ///     did not leave something to undo, so they do not count as applied changes.
+    ///     did not leave something to undo, so they do not count as applied changes. A step that
+    ///     modified the system and then failed still counts, because it carries the compensation
+    ///     for what it changed, and dropping it here would leave that work unrevertible.
     /// </summary>
     public bool DidApplyAnything
     {
         get
         {
             lock (_gate)
-                return _changes.Any(c => c.Ok && c.Kind == ChangeKind.Change);
+                return _changes.Any(c => c.Kind == ChangeKind.Change && (c.Ok || c.Revert != null));
         }
     }
 

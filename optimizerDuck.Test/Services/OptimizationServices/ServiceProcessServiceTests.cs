@@ -28,6 +28,21 @@ public class ServiceProcessServiceTests
         Assert.Contains(nativeError.ToString(), detail);
     }
 
+    [Fact]
+    public void BuildWriteErrorDetail_WithAThrowAfterTheWrite_NamesTheThrow()
+    {
+        // The interop itself threw after the start type was written: the throw text is the only
+        // honest reason, so it is reported instead of the error code.
+        var detail = ServiceProcessService.BuildWriteErrorDetail(
+            true,
+            5,
+            "LoadLibrary failed"
+        );
+
+        Assert.Contains("LoadLibrary failed", detail);
+        Assert.Contains("after the start type was written", detail);
+    }
+
     // =============================================
     // Integration tests: GetStartupTypeAsync (real sc.exe)
     // =============================================

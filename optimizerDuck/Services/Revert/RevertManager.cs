@@ -845,11 +845,28 @@ public class RevertManager(
     {
         if (data is not JObject obj)
             return null;
-        if (_stepRegistry.Value.TryGetValue(type, out var factory))
-            return factory(obj);
+        if (!_stepRegistry.Value.TryGetValue(type, out var factory))
+        {
+            _logger.LogWarning("Unknown revert step type: {Type}", type);
+            return null;
+        }
 
-        _logger.LogWarning("Unknown revert step type: {Type}", type);
-        return null;
+        try
+        {
+            return factory(obj);
+        }
+        catch (Exception ex)
+        {
+            // A registered type whose payload cannot be read is as unloadable as an unknown one:
+            // the caller substitutes a placeholder, so the rest of the file still reverts.
+            var inner = (ex as TargetInvocationException)?.InnerException ?? ex;
+            _logger.LogWarning(
+                inner,
+                "Revert step of type {Type} could not be read from its stored payload",
+                type
+            );
+            return null;
+        }
     }
 
     /// <summary>

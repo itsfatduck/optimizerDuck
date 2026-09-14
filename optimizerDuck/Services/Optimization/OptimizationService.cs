@@ -285,11 +285,16 @@ public class OptimizationService(
 
         var failedSteps = changes.FailedSteps.OrderBy(s => s.Index).ToList();
 
+        // A step that changed the system and then failed carries the compensation for what it
+        // changed, so the machine did change: such a run is a partial success, never a failure
+        // that reads as if nothing had been touched.
+        var changedSomething = changes.HasSuccessfulSteps || changes.DidApplyAnything;
+
         if (exception != null)
         {
             return new OptimizationResult
             {
-                Status = changes.HasSuccessfulSteps
+                Status = changedSomething
                     ? OptimizationSuccessResult.PartialSuccess
                     : OptimizationSuccessResult.Failed,
                 Message = Loc.Instance["Optimization.Apply.Error.Failed", optimization.Name],
@@ -308,7 +313,7 @@ public class OptimizationService(
 
             return new OptimizationResult
             {
-                Status = changes.HasSuccessfulSteps
+                Status = changedSomething
                     ? OptimizationSuccessResult.PartialSuccess
                     : OptimizationSuccessResult.Failed,
                 Message =
@@ -323,9 +328,11 @@ public class OptimizationService(
             };
         }
 
-        // Every recorded step failed: nothing changed and nothing succeeded, so it stays a
-        // failure with the failure dialog as before.
-        if (changes.Changes.Count > 0 && !changes.HasSuccessfulSteps)
+        // Every recorded step failed and none of them carries compensation: nothing changed and
+        // nothing succeeded, so it stays a failure with the failure dialog as before. A failed step
+        // that recorded what it changed falls through to the partial success path below, because
+        // the machine did change and the revert file covers it.
+        if (changes.Changes.Count > 0 && !changedSomething)
         {
             return new OptimizationResult
             {
@@ -599,6 +606,7 @@ public class OptimizationService(
                     // A retry can recover more than one step, and each one carries the backup
                     // that makes it undoable, so all of them are persisted in the order they ran.
                     // Appending keeps the last in first out revert correct.
+                    Exception? persistError = null;
                     if (revertManager != null && optimizationId.HasValue)
                     {
                         var compensations = capturedSteps
@@ -622,6 +630,7 @@ public class OptimizationService(
                             }
                             catch (Exception ex)
                             {
+                                persistError = ex;
                                 logger.LogError(
                                     ex,
                                     "Failed to auto-persist recovered revert step for {Index}",
@@ -631,7 +640,20 @@ public class OptimizationService(
                         }
                     }
 
-                    recoveredSteps.Add(recoveredStep);
+                    // The step ran, but the machine cannot be undone for it: reporting it as
+                    // recovered would claim coverage that is not on disk, so it comes back as a
+                    // failed step naming why its compensation could not be written.
+                    if (persistError is null)
+                        recoveredSteps.Add(recoveredStep);
+                    else
+                        remainingFailedSteps.Add(
+                            recoveredStep with
+                            {
+                                Ok = false,
+                                Error = persistError.Message,
+                                ErrorDetail = persistError.ToString(),
+                            }
+                        );
                 }
             }
             catch (Exception ex)

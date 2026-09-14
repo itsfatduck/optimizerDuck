@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Win32;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
+using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Services.System.Primitives;
 using optimizerDuck.Test.TestDoubles;
 using Xunit;
@@ -40,6 +41,32 @@ public class RegistryServiceTests : IDisposable
         {
             // Ignore if it doesn't exist
         }
+    }
+
+    [Fact]
+    public void Write_WhenTheValueWriteFailsAfterCreatingKeys_RecordsThoseKeysForCleanup()
+    {
+        var call = NewCall();
+        // A DWord given a string is refused by the write itself, after the key chain was created.
+        var item = new RegistryItem(
+            BaseTestKey + @"\CreatedByTest\Deeper",
+            "Value",
+            "not a number",
+            RegistryValueKind.DWord
+        );
+
+        var result = RegistryService.Write(call, item);
+
+        Assert.False(result.Ok);
+        var change = Assert.Single(call.Changes.Changes);
+        Assert.False(change.Ok);
+        var step = Assert.IsType<RegistryRevertStep>(change.Revert);
+        Assert.Equal(RevertAction.NoPreviousValue, step.Action);
+        Assert.NotNull(step.CreatedSubKeys);
+        Assert.Contains(
+            step.CreatedSubKeys,
+            path => path.EndsWith(@"TestOptimizerDuck\CreatedByTest\Deeper", StringComparison.Ordinal)
+        );
     }
 
     [Fact]

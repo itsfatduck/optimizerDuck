@@ -264,10 +264,13 @@ public class PowerPlanService
 
         var failure = WriteValues(schemeId, subgroupId, settingId, acValue, dcValue);
         if (failure is not null)
+            // Both values were read before the write and the first of the two native writes may
+            // have landed, so they are handed back for the caller to record compensation from.
+            // The service itself still records nothing.
             return new SettingWriteResult(
                 OpResult.Fail(failure.Describe(), failure.Describe()),
-                null,
-                null
+                prevAc,
+                prevDc
             );
 
         logger?.LogInformation(

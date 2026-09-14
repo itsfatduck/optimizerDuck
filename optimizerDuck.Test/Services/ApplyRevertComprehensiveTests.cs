@@ -393,6 +393,58 @@ public class ApplyRevertComprehensiveTests
     }
 
     [Fact]
+    public async Task ApplyAsync_OnlyStepFailedAfterChangingTheSystem_PersistsItsCompensation()
+    {
+        await RunInStaThreadAsync(async () =>
+        {
+            var optimization = new TestOptimization
+            {
+                ApplyImpl = args =>
+                    args.context.Changes.Add(
+                        "USB power",
+                        "Disable USB power saving: two devices changed, one refused",
+                        false,
+                        new ShellRevertStep { ShellType = ShellType.CMD, Command = "exit 0" },
+                        "a device refused the write"
+                    ),
+            };
+
+            var revertPath = GetRevertFilePath(optimization.Id);
+
+            try
+            {
+                if (File.Exists(revertPath))
+                    File.Delete(revertPath);
+
+                var service = CreateService();
+                var progress = new Progress<ProcessingProgress>(_ => { });
+
+                var result = await service.ApplyAsync(optimization, progress);
+
+                // The machine changed, so this is a partial success, not "nothing changed", and
+                // the compensation the failed step recorded is what a revert runs on.
+                Assert.Equal(OptimizationSuccessResult.PartialSuccess, result.Status);
+                Assert.Single(result.FailedSteps);
+                Assert.True(File.Exists(revertPath));
+
+                var data = await RevertManager.GetRevertDataAsync(optimization.Id);
+                Assert.NotNull(data);
+                Assert.Single(data!.Steps, s => s != null);
+
+                var reverted = await service.RevertAsync(optimization, progress);
+
+                Assert.True(reverted.Success);
+                Assert.False(File.Exists(revertPath));
+            }
+            finally
+            {
+                if (File.Exists(revertPath))
+                    File.Delete(revertPath);
+            }
+        });
+    }
+
+    [Fact]
     public async Task RevertAsync_StepsExecutedInReverseOrder_LastStepFirst()
     {
         await RunInStaThreadAsync(async () =>

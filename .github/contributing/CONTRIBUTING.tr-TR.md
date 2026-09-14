@@ -1025,7 +1025,7 @@ await context.Shell.CMDAsync("powercfg /h off", context, "powercfg /h on");
 }
 ```
 
-Sıkı ve yalnızca eklemeli günlük: yalnızca **başarılı** adımlar kalıcılaşır, her biri taze bir dizinle. Başarısız adımlar için boş yuva ayrılmaz. Yeniden uygulama yeni girdiler ekler; dizinler asla yeniden kullanılmaz, böylece diskteki girdiler kayıtlar arasında kararlı kalır.
+Sıkı ve yalnızca eklemeli günlük: telafi verisi taşıyan her adım kalıcılaşır, her biri taze bir dizinle. Başarısız adımlar için boş yuva ayrılmaz. Sistemi değiştirdikten sonra başarısız olan bir adım da kalıcılaşır, böylece kısmi uygulama da geri alınabilir. Yeniden uygulama yeni girdiler ekler; dizinler asla yeniden kullanılmaz, böylece diskteki girdiler kayıtlar arasında kararlı kalır.
 
 <h3 id="key-details-tr">Temel Detaylar</h3>
 
@@ -1035,6 +1035,8 @@ Sıkı ve yalnızca eklemeli günlük: yalnızca **başarılı** adımlar kalıc
 - **Açık bağlam**: Her sağlayıcı çağrısı `OpCall` alır (`Changes`, `Logger`, `CancellationToken`). Ortamda taşınan duruma güvenmeyin — bağlamı parametreyle geçirin.
 - **Geri alma adımları ters sırada çalışır** (en son uygulanan = ilk geri alınan).
 - **Kısmi başarı**: bazı adımlar başarısız olsa bile geri alma devam eder. Başarısız adımlara yeniden deneme eylemleri kaydedilir.
+- **Sistemi değiştiren adım telafisini korur**: bir adım birden fazla hedefe yazıyorsa ve önceki yazım gerçekleştiyse, adım başarısız bitse bile telafi eklenmelidir. `ServiceProcessService` (başlangıç türü yazıldıktan sonra gecikmeli otomatik başlatma bayrağı reddedildiğinde) ve `DisableUSBPowerSaving` (bazı aygıtlar değişti, biri reddetti) bu biçimin iki örneğidir. Motor telafi taşıyan her adımı kaydeder, bu yüzden başarısız bir adım da geri alınabilir ve çalışma "değişiklik yok" yerine kısmi başarı olarak bildirilir.
+- **Hiçbir şey yazmadığınız adımı Change olarak kaydetmeyin**: makine zaten istenen durumdaysa, hedef yoksa veya Windows reddettiyse atlama, uygulanamaz veya ret olarak kaydedin. Hiçbir şey yazmayan bir adımı Change olarak kaydetmek bir kusurdur.
 - **Yeniden deneme**: `OptimizationService.RetryFailedStepsWithResultsAsync()` başarısız adımları taze bir `OpCall` ile `Func<OpCall, Task<OpResult>>` üzerinden yeniden dener; kurtarılan adımlar `AppendRevertStepAsync()` ile sona eklenir (üzerine yazma yok — LIFO geri alma yine özgün yedekte biter).
 - **Adım kaydı**: Geri alma adımı serisizleştirme yansıma tabanlı `_stepRegistry` kullanır — yeni adım türleri, `IRevertStep` uygulayıp statik bir `FromData(JObject)` metoduyla otomatik kaydolur.
 

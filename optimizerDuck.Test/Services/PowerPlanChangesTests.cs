@@ -75,6 +75,97 @@ public class PowerPlanChangesTests
     private static OpCall NewCall() => new() { Logger = NullLogger.Instance };
 
     [Fact]
+    public void WriteSetting_FailedWriteAfterReadingValues_RecordsThemForCompensation()
+    {
+        var setting = Guid.NewGuid();
+        var plans = new StubPowerPlanService
+        {
+            WriteFunc = (_, _, _, _, _) =>
+                new SettingWriteResult(OpResult.Fail("PowerWriteDCValueIndex failed", null), 5u, 10u),
+        };
+        var call = NewCall();
+
+        var result = PowerPlanChanges.WriteSetting(
+            call,
+            plans,
+            Guid.NewGuid(),
+            Guid.NewGuid(),
+            setting,
+            7u,
+            20u
+        );
+
+        Assert.False(result.Ok);
+        var change = Assert.Single(call.Changes.Changes);
+        Assert.False(change.Ok);
+        var step = Assert.IsType<PowerSettingRevertStep>(change.Revert);
+        Assert.Equal(5u, step.PreviousAcValue);
+        Assert.Equal(10u, step.PreviousDcValue);
+        Assert.Equal("AC 5 / DC 10", change.Detail!.PreviousValue);
+        Assert.False(change.Detail.HasValuePair);
+    }
+
+    [Fact]
+    public void WriteSetting_FailedWriteWithoutReadValues_RecordsNoCompensation()
+    {
+        var plans = new StubPowerPlanService
+        {
+            WriteFunc = (_, _, _, _, _) =>
+                new SettingWriteResult(OpResult.Fail("no previous value", null), null, null),
+        };
+        var call = NewCall();
+
+        var result = PowerPlanChanges.WriteSetting(
+            call,
+            plans,
+            Guid.NewGuid(),
+            Guid.NewGuid(),
+            Guid.NewGuid(),
+            7u,
+            20u
+        );
+
+        Assert.False(result.Ok);
+        var change = Assert.Single(call.Changes.Changes);
+        Assert.False(change.Ok);
+        Assert.Null(change.Revert);
+    }
+
+    [Fact]
+    public async Task Install_ActivationFailedAfterImport_RecordsTheImportedScheme()
+    {
+        var installed = Guid.NewGuid();
+        var previous = Guid.NewGuid();
+        var plans = new StubPowerPlanService
+        {
+            InstallFunc = (_, _) =>
+                Task.FromResult(
+                    new InstallResult(
+                        OpResult.Fail("PowerSetActiveScheme failed", null),
+                        installed,
+                        previous
+                    )
+                ),
+        };
+        var call = NewCall();
+
+        var install = await PowerPlanChanges.InstallAsync(
+            call,
+            plans,
+            "x.pow",
+            installed,
+            TestContext.Current.CancellationToken
+        );
+
+        Assert.False(install.Result.Ok);
+        var change = Assert.Single(call.Changes.Changes);
+        Assert.False(change.Ok);
+        var step = Assert.IsType<PowerPlanRevertStep>(change.Revert);
+        Assert.Equal(installed, step.InstalledSchemeId);
+        Assert.Equal(previous, step.PreviousSchemeId);
+    }
+
+    [Fact]
     public void Activate_Success_RecordsStepWithPreviousAndInstalled()
     {
         var previous = Guid.NewGuid();

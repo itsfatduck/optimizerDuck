@@ -812,6 +812,119 @@ public class RevertIntegrityTests
     }
 
     [Fact]
+    public async Task RetryFailedSteps_WhenTheCompensationCannotBePersisted_ReportsTheStepAsStillFailed()
+    {
+        var id = Guid.NewGuid();
+        var failed = new Change
+        {
+            Index = 1,
+            Name = "Step",
+            Description = "Step",
+            Ok = false,
+            Retry = call =>
+            {
+                call.Changes.Add("Registry", "wrote a value", true, new MockRevertStep());
+                return Task.FromResult(OpResult.Success());
+            },
+        };
+
+        // Hold the file lock so the append cannot take it: the retry ran, but its compensation
+        // never reached the file, which must not be reported as a clean recovery.
+        var gate = RevertManager.FileLocks.GetOrAdd(id, _ => new SemaphoreSlim(1, 1));
+        await gate.WaitAsync(TestContext.Current.CancellationToken);
+        try
+        {
+            var manager = new RevertManager(
+                NullLogger<RevertManager>.Instance,
+                TestShell.New(),
+                new PowerPlanService(NullLogger<PowerPlanService>.Instance),
+                TimeProvider.System,
+                TimeSpan.FromMilliseconds(1)
+            );
+
+            var result = await OptimizationService.RetryFailedStepsWithResultsAsync(
+                [failed],
+                false,
+                NullLogger.Instance,
+                manager,
+                id,
+                "RetryTest"
+            );
+
+            Assert.Empty(result.RecoveredSteps);
+            var stillFailed = Assert.Single(result.FailedSteps);
+            Assert.False(stillFailed.Ok);
+            Assert.Contains("lock", stillFailed.Error ?? string.Empty);
+            Assert.False(File.Exists(Path.Combine(Shared.RevertDirectory, id + ".json")));
+        }
+        finally
+        {
+            gate.Release();
+            Cleanup(id);
+        }
+    }
+
+    [Fact]
+    public async Task RevertAsync_KnownStepTypeWithUnreadablePayload_FailsLoudlyAndKeepsTheFile()
+    {
+        var id = Guid.NewGuid();
+        var path = Path.Combine(Shared.RevertDirectory, id + ".json");
+        var cancellationToken = TestContext.Current.CancellationToken;
+        Directory.CreateDirectory(Shared.RevertDirectory);
+
+        try
+        {
+            // A registered type whose payload is missing its required fields: that entry must stay
+            // loadable, so the rest of the file still reverts and the failure names the type.
+            await File.WriteAllTextAsync(
+                path,
+                JsonConvert.SerializeObject(
+                    new RevertData
+                    {
+                        SchemaVersion = 1,
+                        OptimizationId = id,
+                        OptimizationName = "UnreadablePayloadTest",
+                        AppliedAt = DateTime.UtcNow,
+                        Steps = new RevertStepData?[]
+                        {
+                            new()
+                            {
+                                Index = 1,
+                                Type = "Registry",
+                                Data = new JObject(),
+                            },
+                            new()
+                            {
+                                Index = 2,
+                                Type = "Shell",
+                                Data = new JObject
+                                {
+                                    ["ShellType"] = "CMD",
+                                    ["Command"] = "exit 0",
+                                },
+                            },
+                        },
+                    }
+                ),
+                cancellationToken
+            );
+
+            var result = await NewManager()
+                .RevertAsync(new MockOptimization(id), cancellationToken: cancellationToken);
+
+            Assert.False(result.Success);
+            var failed = Assert.Single(result.FailedSteps);
+            Assert.Equal("Registry", failed.Name);
+            Assert.Contains("Registry", failed.Error ?? string.Empty);
+            Assert.True(File.Exists(path));
+        }
+        finally
+        {
+            Cleanup(id);
+        }
+    }
+
+    [Fact]
     public async Task RetryFailedSteps_PersistsEveryRecoveredCompensation()
     {
         var id = Guid.NewGuid();

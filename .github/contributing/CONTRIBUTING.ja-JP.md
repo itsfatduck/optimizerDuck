@@ -1010,7 +1010,7 @@ await context.Shell.CMDAsync("powercfg /h off", context, "powercfg /h on");
 }
 ```
 
-成功したステップのみ永続化され、各エントリに新しい連番が振られます。失敗ステップ用の null ギャップはありません。再適用は新しいエントリを追記します。
+補償データを持つステップはすべて永続化され、各エントリに新しい連番が振られます。失敗ステップ用の null ギャップはありません。システムを変更した後に失敗したステップも永続化されるため、部分適用でも元に戻せます。再適用は新しいエントリを追記します。
 
 <h3 id="key-details-jp">重要な詳細</h3>
 
@@ -1020,6 +1020,8 @@ await context.Shell.CMDAsync("powercfg /h off", context, "powercfg /h on");
 - **明示的コンテキスト**：プロバイダーは `OpCall` をパラメーターで受け取り、`call.Changes` に記録、`call.Logger` でログします。環境的な共有状態はありません。
 - **リバートは逆順で実行**（最後に適用 = 最初にリバート、LIFO）。
 - **部分成功**：一部のステップが失敗しても続行。失敗ステップには `Func<OpCall, Task<OpResult>>` 型のリトライアクションが記録されます。
+- **システムを変更したステップは補償を保持する**：1 つのステップが複数の対象を書き込む場合、先の書き込みが成立していれば、ステップが失敗しても補償を必ず添付します。`ServiceProcessService`（開始種類を書き込んだ後に遅延自動開始フラグが拒否された場合）と `DisableUSBPowerSaving`（一部のデバイスを変更し、1 台が拒否した場合）がこの形の例です。エンジンは補償を保持するステップをそのまま保存するため、失敗したステップも元に戻せ、実行は「変更なし」ではなく部分成功として報告されます。
+- **書き込んでいないものを Change として記録しない**：既に目的の状態だった、対象が存在しない、Windows が拒否した、のいずれかならば、スキップ／該当なし／拒否として記録します。何も書いていないステップを Change として記録するのは欠陥です。
 - **リトライ**：`OptimizationService.RetryFailedStepsWithResultsAsync()` が新しい `OpCall` で個別の失敗ステップを再実行し、回復したステップは `AppendRevertStepAsync()` で追記します（上書きしません — LIFO リバートが最新のバックアップを先に戻し、元のバックアップが真の初期状態を復元します）。
 - **ステップレジストリ**：リバートステップのデシリアライズはリフレクションベースの `_stepRegistry` — 新しいステップ型は `IRevertStep` を実装し静的な `FromData(JObject)` メソッドを持つだけで自動登録。未知の型は明確なメッセージの失敗ステップになり、黙ってスキップされません（生ペイロードは保持）。
 - **主要メソッド**：`SaveRevertDataAsync()`、`RevertAsync()`、`AppendRevertStepAsync()`、`RemoveRevertStepsAtIndexesAsync()`、`IsAppliedAsync(id)`、`GetRevertDataAsync(id)`、`ClearAllRevertData()`、`RemoveOrphanedTempFiles()`。

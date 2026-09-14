@@ -87,11 +87,26 @@ public static class PowerPlanChanges
             .ConfigureAwait(false);
         if (!install.Result.Ok || install.InstalledId is null || install.PreviousId is null)
         {
+            // The import can have landed even when the activation failed, so the scheme Windows
+            // reports is recorded whenever it is known: a revert then removes the plan this run
+            // added instead of leaving it behind. Without an id there is nothing to point at.
+            PowerPlanRevertStep? orphan = null;
+            string? orphanName = null;
+            if (install.InstalledId is not null)
+            {
+                orphan = new PowerPlanRevertStep
+                {
+                    PreviousSchemeId = install.PreviousId ?? Guid.Empty,
+                    InstalledSchemeId = install.InstalledId.Value,
+                };
+                orphanName = plans.GetSchemeName(install.InstalledId.Value);
+            }
+
             call.Changes.Add(
                 ServiceStrings.PowerPlanName,
                 ServiceStrings.Format("Install power plan {0}", destinationId),
                 false,
-                null,
+                orphan,
                 install.Result.Error,
                 install.Result.ErrorDetail,
                 async retryCall =>
@@ -149,13 +164,33 @@ public static class PowerPlanChanges
         var result = write.Result;
         var prevAc = write.PreviousAcValue;
         var prevDc = write.PreviousDcValue;
-        if (!result.Ok || prevAc is null || prevDc is null)
+
+        // Both values were read before any write, and the mains value may already have been
+        // written when the battery write failed, so the compensation is recorded whenever the
+        // values are known, whether the step succeeded or not. Restoring a value that was never
+        // written is a no-op, and keeping the entry is what lets a retry end at the true original.
+        PowerSettingRevertStep? step = null;
+        string? previousPair = null;
+        if (prevAc is not null && prevDc is not null)
+        {
+            previousPair = $"AC {prevAc.Value} / DC {prevDc.Value}";
+            step = new PowerSettingRevertStep
+            {
+                SchemeId = schemeId,
+                SubgroupId = subgroupId,
+                SettingId = settingId,
+                PreviousAcValue = prevAc.Value,
+                PreviousDcValue = prevDc.Value,
+            };
+        }
+
+        if (!result.Ok || step is null)
         {
             call.Changes.Add(
                 ServiceStrings.PowerPlanName,
                 description,
                 false,
-                null,
+                step,
                 result.Error,
                 result.ErrorDetail,
                 retryCall =>
@@ -169,19 +204,20 @@ public static class PowerPlanChanges
                             acValue,
                             dcValue
                         )
-                    )
+                    ),
+                detail:
+                    previousPair is null
+                        ? null
+                        : new ChangeDetail
+                        {
+                            Operation = SettingAction,
+                            Target = settingId.ToString(),
+                            PreviousValue = previousPair,
+                        }
             );
             return result;
         }
 
-        var step = new PowerSettingRevertStep
-        {
-            SchemeId = schemeId,
-            SubgroupId = subgroupId,
-            SettingId = settingId,
-            PreviousAcValue = prevAc.Value,
-            PreviousDcValue = prevDc.Value,
-        };
         call.Changes.Add(
             ServiceStrings.PowerPlanName,
             description,
@@ -191,7 +227,7 @@ public static class PowerPlanChanges
             {
                 Operation = SettingAction,
                 Target = settingId.ToString(),
-                PreviousValue = $"AC {prevAc.Value} / DC {prevDc.Value}",
+                PreviousValue = previousPair,
                 NewValue = $"AC {acValue} / DC {dcValue}",
                 HasValuePair = true,
             }

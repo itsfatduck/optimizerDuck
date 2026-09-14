@@ -1119,7 +1119,7 @@ await context.Shell.CMDAsync("powercfg /h off", context, "powercfg /h on");
 }
 ```
 
-Compact layout: only successful steps persist, each with a fresh index — no null gaps. Re-apply appends; recovered retry steps append via `AppendRevertStepAsync` (never overwrite).
+Compact layout: every step that carries compensation persists, each with a fresh index — no null gaps. A step that changed the system and then failed persists too, so a partial apply stays undoable. Re-apply appends; recovered retry steps append via `AppendRevertStepAsync` (never overwrite).
 
 ### Key Details
 
@@ -1128,6 +1128,8 @@ Compact layout: only successful steps persist, each with a fresh index — no nu
 - **Concurrent access**: per-file `SemaphoreSlim` locks prevent race conditions; 30-second timeout. Lock entries are never disposed while in use.
 - **Revert executes steps in reverse order** (last applied = first reverted).
 - **Partial success**: revert continues even if some steps fail. Failed steps carry retry actions.
+- **A step that changed the system keeps its compensation**: a step that writes more than one target must attach the compensation whenever an earlier write landed, including when the step ends as a failure. `ServiceProcessService` (a refused delayed auto-start flag after the start type was written) and `DisableUSBPowerSaving` (some devices changed, one refused) are the two providers that already do this. The engine persists every step that carries compensation, so a failed step stays undoable and the run is reported as a partial success instead of "nothing changed".
+- **Record a change only when you wrote something**: a provider that found the machine already correct, a target that does not exist, or a Windows refusal records a skip, a not-applicable outcome or a refusal, never a change. Recording a change for a step that wrote nothing is a defect.
 - **Retry**: `OptimizationService.RetryFailedStepsWithResultsAsync()` re-invokes `Retry` with a fresh `OpCall`; recovered steps append via `AppendRevertStepAsync`.
 - **Verification**: every revert step verifies its own effect inside `ExecuteAsync` (registry read-back, service re-query, task re-check). Access-denied is failure; unknown step types fail loudly instead of vanishing.
 - **Step registry**: Revert step deserialization uses reflection-based `_stepRegistry` — new step types auto-register by implementing `IRevertStep` with a static `FromData(JObject)` method.
