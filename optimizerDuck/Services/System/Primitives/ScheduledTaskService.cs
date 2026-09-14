@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Globalization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32.TaskScheduler;
@@ -63,17 +63,27 @@ public static class ScheduledTaskService
                     Loc.Instance["ScheduledTasks.Error.TaskNotFound", fullPath]
                 );
 
-            var wasEnabled = task.Enabled;
-            task.Enabled = false;
+            if (!task.Enabled)
+            {
+                // Already disabled: nothing to write, so there is nothing to undo either.
+                call.Logger.LogInformation("Task {Path} is already disabled, skipping", fullPath);
+                call.Changes.AddSkip(
+                    ServiceStrings.ScheduledTaskName,
+                    ServiceStrings.Format(
+                        ServiceStrings.ScheduledTaskInfoAlreadyConfigured,
+                        fullPath,
+                        "disabled"
+                    )
+                );
+                return OpResult.Success();
+            }
 
-            // Record revert step: restore to previous enabled state
-            ScheduledTaskRevertStep? revertStep = null;
-            if (wasEnabled)
-                revertStep = new ScheduledTaskRevertStep
-                {
-                    FullPath = fullPath,
-                    OriginalEnabled = true,
-                };
+            task.Enabled = false;
+            var revertStep = new ScheduledTaskRevertStep
+            {
+                FullPath = fullPath,
+                OriginalEnabled = true,
+            };
 
             call.Logger.LogInformation("Disabled task {Path}", fullPath);
             call.Changes.Add(ServiceStrings.ScheduledTaskName, description, true, revertStep);
@@ -139,17 +149,27 @@ public static class ScheduledTaskService
                     Loc.Instance["ScheduledTasks.Error.TaskNotFound", fullPath]
                 );
 
-            var wasEnabled = task.Enabled;
-            task.Enabled = true;
+            if (task.Enabled)
+            {
+                // Already enabled: nothing to write, so there is nothing to undo either.
+                call.Logger.LogInformation("Task {Path} is already enabled, skipping", fullPath);
+                call.Changes.AddSkip(
+                    ServiceStrings.ScheduledTaskName,
+                    ServiceStrings.Format(
+                        ServiceStrings.ScheduledTaskInfoAlreadyConfigured,
+                        fullPath,
+                        "enabled"
+                    )
+                );
+                return OpResult.Success();
+            }
 
-            // Record revert step: restore to previous enabled state
-            ScheduledTaskRevertStep? revertStep = null;
-            if (!wasEnabled)
-                revertStep = new ScheduledTaskRevertStep
-                {
-                    FullPath = fullPath,
-                    OriginalEnabled = false,
-                };
+            task.Enabled = true;
+            var revertStep = new ScheduledTaskRevertStep
+            {
+                FullPath = fullPath,
+                OriginalEnabled = false,
+            };
 
             call.Logger.LogInformation("Enabled task {Path}", fullPath);
             call.Changes.Add(ServiceStrings.ScheduledTaskName, description, true, revertStep);
@@ -251,7 +271,7 @@ public static class ScheduledTaskService
                 );
             task.Run();
             call?.Logger.LogInformation("Started task {Path}", fullPath);
-            call?.Changes.Add(ServiceStrings.ScheduledTaskName, description, true);
+            call?.Changes.AddIrreversible(ServiceStrings.ScheduledTaskName, description);
             return OpResult.Success();
         }
         catch (Exception ex)
@@ -291,7 +311,7 @@ public static class ScheduledTaskService
                 );
             task.Stop();
             call?.Logger.LogInformation("Stopped task {Path}", fullPath);
-            call?.Changes.Add(ServiceStrings.ScheduledTaskName, description, true);
+            call?.Changes.AddIrreversible(ServiceStrings.ScheduledTaskName, description);
             return OpResult.Success();
         }
         catch (Exception ex)
@@ -354,7 +374,7 @@ public static class ScheduledTaskService
             var folderPath = task.Folder.Path;
             ts.GetFolder(folderPath).DeleteTask(task.Name);
             call?.Logger.LogInformation("Deleted task {Path}", fullPath);
-            call?.Changes.Add(ServiceStrings.ScheduledTaskName, description, true);
+            call?.Changes.AddIrreversible(ServiceStrings.ScheduledTaskName, description);
             return OpResult.Success();
         }
         catch (Exception ex)
@@ -454,7 +474,7 @@ public static class ScheduledTaskService
                 model.Name,
                 folderPath
             );
-            call?.Changes.Add(ServiceStrings.ScheduledTaskName, description, true);
+            call?.Changes.AddIrreversible(ServiceStrings.ScheduledTaskName, description);
             return OpResult.Success();
         }
         catch (Exception ex)

@@ -54,6 +54,13 @@ public partial class OptimizationState : ObservableObject
     private bool isApplied;
 
     /// <summary>
+    ///     Indicates that the last apply reported nothing to do because the machine already
+    ///     matched the optimization.
+    /// </summary>
+    [ObservableProperty]
+    private bool isAlreadyOptimal;
+
+    /// <summary>
     ///     A human-readable relative time string (e.g., "5 minutes ago").
     /// </summary>
     [ObservableProperty]

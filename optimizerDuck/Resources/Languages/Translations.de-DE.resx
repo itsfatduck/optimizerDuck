@@ -1088,7 +1088,7 @@ Aktualisiere jetzt, um die neuesten Funktionen, Verbesserungen und Fehlerbehebun
     <value>Alle sicheren abwählen</value>
   </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
-    <value>Angewendete ausblenden</value>
+    <value>Erledigte Einträge ausblenden</value>
   </data>
   <data name="Bloatware.Search.NoResults" xml:space="preserve">
     <value>Keine Ergebnisse gefunden. Versuche einen anderen Suchbegriff oder Filter.</value>
@@ -2261,5 +2261,17 @@ Aktualisiere jetzt, um die neuesten Funktionen, Verbesserungen und Fehlerbehebun
   </data>
   <data name="ScheduledTasks.TriggerDetail.RepeatFor" xml:space="preserve">
     <value> (Wiederholung alle {0} für {1})</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal" xml:space="preserve">
+    <value>Bereits optimal</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
+    <value>Dieser PC entspricht dieser Optimierung bereits, es gibt also nichts zu ändern.</value>
+  </data>
+  <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
+    <value>Nichts zu ändern: {0} entspricht diesem PC bereits.</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
+    <value>Nichts zu ändern</value>
   </data>
 </root>

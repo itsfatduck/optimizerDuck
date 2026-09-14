@@ -2078,7 +2078,7 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
 
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
 
-    <value>Ocultar Aplicados</value>
+    <value>Ocultar elementos finalizados</value>
 
   </data>
 
@@ -4014,5 +4014,17 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
   </data>
   <data name="ScheduledTasks.TriggerDetail.RepeatFor" xml:space="preserve">
     <value> (repetir cada {0} durante {1})</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal" xml:space="preserve">
+    <value>Ya está optimizado</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
+    <value>Este equipo ya cumple con esta optimización, así que no hay nada que cambiar.</value>
+  </data>
+  <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
+    <value>Nada que cambiar: {0} ya cumple con este equipo.</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
+    <value>Nada que cambiar</value>
   </data>
 </root>

@@ -1021,7 +1021,7 @@
     <value>Снять все безопасные</value>
   </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
-    <value>Скрыть примененные</value>
+    <value>Скрыть завершённые элементы</value>
   </data>
   <data name="Bloatware.Search.NoResults" xml:space="preserve">
     <value>Ничего не найдено. Попробуйте другой запрос или фильтр.</value>
@@ -2209,5 +2209,17 @@
   </data>
   <data name="ScheduledTasks.TriggerDetail.RepeatFor" xml:space="preserve">
     <value> (повторять каждые {0} в течение {1})</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal" xml:space="preserve">
+    <value>Уже оптимально</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
+    <value>Этот компьютер уже соответствует данной оптимизации, поэтому менять нечего.</value>
+  </data>
+  <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
+    <value>Нечего менять: {0} уже соответствует этому компьютеру.</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
+    <value>Нечего менять</value>
   </data>
 </root>

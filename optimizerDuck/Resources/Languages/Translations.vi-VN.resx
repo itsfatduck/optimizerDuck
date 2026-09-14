@@ -937,7 +937,7 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
     <value>Bỏ chọn tất cả an toàn</value>
   </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
-    <value>Ẩn đã áp dụng</value>
+    <value>Ẩn mục đã xong</value>
   </data>
   <data name="Bloatware.Search.NoResults" xml:space="preserve">
     <value>Không tìm thấy kết quả. Hãy thử từ khóa hoặc bộ lọc khác.</value>
@@ -2201,5 +2201,17 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="ScheduledTasks.TriggerDetail.RepeatFor" xml:space="preserve">
     <value> (lặp lại mỗi {0} trong {1})</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal" xml:space="preserve">
+    <value>Đã đúng sẵn</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
+    <value>Máy bạn đã ở đúng cấu hình này, nên không có gì cần thay đổi.</value>
+  </data>
+  <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
+    <value>Không cần thay đổi: {0} đã đúng với máy này.</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
+    <value>Không cần thay đổi</value>
   </data>
 </root>

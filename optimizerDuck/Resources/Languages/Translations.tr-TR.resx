@@ -1026,7 +1026,7 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
     <value>Tüm Güvenli Olanların Seçimini Kaldır</value>
   </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
-    <value>Uygulanmışları Gizle</value>
+    <value>Tamamlanan öğeleri gizle</value>
   </data>
   <data name="Bloatware.Search.NoResults" xml:space="preserve">
     <value>Sonuç bulunamadı. Farklı bir arama terimi veya filtre deneyin.</value>
@@ -2200,5 +2200,17 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   </data>
   <data name="ScheduledTasks.TriggerDetail.RepeatFor" xml:space="preserve">
     <value> (her {0}, {1} boyunca tekrarla)</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal" xml:space="preserve">
+    <value>Zaten en iyi durumda</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
+    <value>Bu bilgisayar bu iyileştirmeyle zaten uyumlu, değiştirilecek bir şey yok.</value>
+  </data>
+  <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
+    <value>Değiştirilecek bir şey yok: {0} bu bilgisayarla zaten uyumlu.</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
+    <value>Değiştirilecek bir şey yok</value>
   </data>
 </root>

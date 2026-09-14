@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
         Microsoft ResX Schema 
@@ -1182,7 +1182,7 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
     <value>Deselect all Safe</value>
   </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
-    <value>Hide Applied</value>
+    <value>Hide finished items</value>
   </data>
   <data name="Bloatware.Search.NoResults" xml:space="preserve">
     <value>No results found. Try a different search term or filter.</value>
@@ -2267,5 +2267,17 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   </data>
   <data name="ScheduledTasks.TriggerDetail.RepeatFor" xml:space="preserve">
     <value> (repeat every {0} for {1})</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal" xml:space="preserve">
+    <value>Already optimal</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
+    <value>This machine already matches this optimization, so there is nothing to change.</value>
+  </data>
+  <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
+    <value>Nothing to change: {0} already matches this machine.</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
+    <value>Nothing to change</value>
   </data>
 </root>

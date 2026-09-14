@@ -1026,7 +1026,7 @@
     <value>安全な項目の選択をすべて解除</value>
   </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
-    <value>適用済みを非表示</value>
+    <value>完了した項目を非表示</value>
   </data>
   <data name="Bloatware.Search.NoResults" xml:space="preserve">
     <value>結果が見つかりません。別の検索語またはフィルターをお試しください</value>
@@ -2201,5 +2201,17 @@
   </data>
   <data name="ScheduledTasks.TriggerDetail.RepeatFor" xml:space="preserve">
     <value> ({0} ごとに {1} まで繰り返し)</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal" xml:space="preserve">
+    <value>既に最適化済み</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
+    <value>この PC は既にこの最適化に一致しているため、変更する必要はありません。</value>
+  </data>
+  <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
+    <value>変更はありません。{0} は既にこの PC に一致しています。</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
+    <value>変更はありません</value>
   </data>
 </root>

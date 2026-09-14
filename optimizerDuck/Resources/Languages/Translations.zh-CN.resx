@@ -1069,7 +1069,7 @@
     <value>取消全选安全项</value>
   </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
-    <value>隐藏已应用项</value>
+    <value>隐藏已完成的项目</value>
   </data>
   <data name="Bloatware.Search.NoResults" xml:space="preserve">
     <value>未找到结果，请更换搜索词或筛选条件。</value>
@@ -2217,5 +2217,17 @@
   </data>
   <data name="ScheduledTasks.TriggerDetail.RepeatFor" xml:space="preserve">
     <value> (每 {0} 重复, 持续 {1})</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal" xml:space="preserve">
+    <value>已是最佳状态</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
+    <value>此电脑已符合此项优化，无需更改。</value>
+  </data>
+  <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
+    <value>无需更改：{0} 已与此电脑匹配。</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
+    <value>无需更改</value>
   </data>
 </root>

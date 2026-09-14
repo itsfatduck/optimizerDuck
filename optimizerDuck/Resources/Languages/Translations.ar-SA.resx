@@ -1117,7 +1117,7 @@
   </data>
 
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
-    <value>إخفاء المُطبَّق</value>
+    <value>إخفاء العناصر المنتهية</value>
   </data>
   <data name="Optimizer.Menu.ViewSource" xml:space="preserve">
     <value>عرض الكود المصدري</value>
@@ -2251,6 +2251,18 @@
   </data>
   <data name="ScheduledTasks.TriggerDetail.RepeatFor" xml:space="preserve">
     <value> (التكرار كل {0} لمدة {1})</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal" xml:space="preserve">
+    <value>مُحسَّن مسبقاً</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
+    <value>هذا الجهاز مطابق لهذا التحسين بالفعل، لذا لا يوجد ما يجب تغييره.</value>
+  </data>
+  <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
+    <value>لا شيء لتغييره: {0} مطابق لهذا الجهاز بالفعل.</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
+    <value>لا شيء لتغييره</value>
   </data>
 </root>
 

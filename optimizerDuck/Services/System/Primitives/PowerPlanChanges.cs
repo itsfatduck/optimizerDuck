@@ -43,10 +43,9 @@ public static class PowerPlanChanges
 
         if (previousId is null || previousId.Value == schemeId)
         {
-            call.Changes.Add(
+            call.Changes.AddSkip(
                 ServiceStrings.PowerPlanName,
-                ServiceStrings.Format("Power plan {0} already active (skipped)", name),
-                true
+                ServiceStrings.Format("Power plan {0} already active (skipped)", name)
             );
             return OpResult.Success();
         }

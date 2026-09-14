@@ -376,13 +376,18 @@ public class ServiceProcessServiceTests
         {
             await StripChangeConfigFromAdminsAsync(TestServiceName);
 
+            var call = NewCall();
             var result = await ServiceProcessService.ChangeServiceStartupTypeAsync(
-                NewCall(),
+                call,
                 new ServiceItem(TestServiceName, ServiceStartupType.Disabled)
             );
 
-            Assert.False(result.Ok);
-            Assert.NotNull(result.Error);
+            // Windows protects this service. That is a skip, not a failure: the call reports
+            // success for the batch and records no revert step for the protected item.
+            Assert.True(result.Ok, result.Error);
+            var change = Assert.Single(call.Changes.Changes);
+            Assert.Equal(ChangeKind.Skip, change.Kind);
+            Assert.Null(change.Revert);
         }
         finally
         {

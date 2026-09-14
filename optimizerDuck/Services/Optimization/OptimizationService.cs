@@ -294,12 +294,31 @@ public class OptimizationService(
             };
         }
 
-        if (!changes.HasSuccessfulSteps)
+        // Every recorded step failed: nothing changed and nothing succeeded, so it stays a
+        // failure with the failure dialog as before.
+        if (changes.Changes.Count > 0 && !changes.HasSuccessfulSteps)
         {
             return new OptimizationResult
             {
                 Status = OptimizationSuccessResult.Failed,
                 Message = Loc.Instance["Optimization.Apply.Error.Failed", optimization.Name],
+                FailedSteps = failedSteps,
+            };
+        }
+
+        // Nothing to do: the provider reported success but no step changed the system, either
+        // because there was nothing to change or because every recorded step was a skip. No
+        // revert data exists for it, and the card is marked for this session only.
+        if (!changes.DidApplyAnything)
+        {
+            _logger.LogInformation(
+                "Apply of {OptimizationKey} changed nothing, reporting nothing to do",
+                optimization.OptimizationKey
+            );
+            return new OptimizationResult
+            {
+                Status = OptimizationSuccessResult.NothingToDo,
+                Message = Loc.Instance["Optimization.Apply.NothingToDo", optimization.Name],
                 FailedSteps = failedSteps,
             };
         }
@@ -578,7 +597,7 @@ public class OptimizationService(
         CancellationToken cancellationToken = default
     )
     {
-        if (!changes.HasSuccessfulSteps)
+        if (!changes.DidApplyAnything)
             return;
 
         try

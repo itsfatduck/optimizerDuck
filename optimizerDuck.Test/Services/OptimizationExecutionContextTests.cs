@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Execution;
@@ -127,6 +127,55 @@ public class ChangeSetTests
 
         Assert.Equal(100, changes.Changes.Count);
         Assert.Equal(100, changes.Changes.Select(c => c.Index).Distinct().Count());
+    }
+    [Fact]
+    public void AddSkip_RecordsSuccessfulSkipWithoutCompensation()
+    {
+        var changes = new ChangeSet();
+
+        changes.AddSkip("Service", "Service 'x' is already set to Manual (skipped)");
+
+        var change = Assert.Single(changes.Changes);
+        Assert.True(change.Ok);
+        Assert.Equal(ChangeKind.Skip, change.Kind);
+        Assert.Null(change.Revert);
+    }
+
+    [Fact]
+    public void AddIrreversible_RecordsOneWayStep()
+    {
+        var changes = new ChangeSet();
+
+        changes.AddIrreversible("Scheduled Task", "Deleted task '\\x'");
+
+        var change = Assert.Single(changes.Changes);
+        Assert.True(change.Ok);
+        Assert.Equal(ChangeKind.Irreversible, change.Kind);
+        Assert.Null(change.Revert);
+    }
+
+    [Fact]
+    public void DidApplyAnything_IgnoresSkipsAndIrreversibleSteps()
+    {
+        var changes = new ChangeSet();
+        changes.AddSkip("Service", "skipped");
+        changes.AddIrreversible("Scheduled Task", "deleted");
+
+        Assert.False(changes.DidApplyAnything);
+
+        changes.Add("Registry", "wrote a value", true, new MockRevertStep());
+
+        Assert.True(changes.DidApplyAnything);
+    }
+
+    [Fact]
+    public void DidApplyAnything_FailedChangeDoesNotCount()
+    {
+        var changes = new ChangeSet();
+
+        changes.Add("Registry", "write failed", false, null, "denied");
+
+        Assert.False(changes.DidApplyAnything);
     }
 }
 

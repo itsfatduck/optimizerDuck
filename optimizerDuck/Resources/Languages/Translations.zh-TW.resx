@@ -741,7 +741,7 @@
     <value>取消選取所有安全項目</value>
   </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
-    <value>隱藏已套用</value>
+    <value>隱藏已完成的項目</value>
   </data>
   <data name="Bloatware.Search.NoResults" xml:space="preserve">
     <value>找不到結果。請嘗試其他搜尋詞或過濾器。</value>
@@ -2204,5 +2204,17 @@
   </data>
   <data name="ScheduledTasks.TriggerDetail.RepeatFor" xml:space="preserve">
     <value> (每 {0} 重複, 持續 {1})</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal" xml:space="preserve">
+    <value>已是最佳狀態</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
+    <value>此電腦已符合此項最佳化，無需變更。</value>
+  </data>
+  <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
+    <value>無需變更：{0} 已與此電腦相符。</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
+    <value>無需變更</value>
   </data>
 </root>

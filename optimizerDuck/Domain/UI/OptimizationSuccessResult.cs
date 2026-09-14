@@ -13,4 +13,10 @@ public enum OptimizationSuccessResult
 
     /// <summary>The operation failed entirely.</summary>
     Failed,
+
+    /// <summary>
+    ///     Nothing needed to change because the machine already matched the optimization.
+    ///     No revert data exists for it.
+    /// </summary>
+    NothingToDo,
 }

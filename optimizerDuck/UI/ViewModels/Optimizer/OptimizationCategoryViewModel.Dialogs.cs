@@ -1,4 +1,4 @@
-namespace optimizerDuck.UI.ViewModels.Optimizer;
+﻿namespace optimizerDuck.UI.ViewModels.Optimizer;
 
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -172,6 +172,9 @@ public partial class OptimizationCategoryViewModel
         )
             return OperationNotificationState.Success;
 
+        if (applyResult.Status == OptimizationSuccessResult.NothingToDo)
+            return OperationNotificationState.NothingToDo;
+
         return retryOutcome == FailureResolutionOutcome.Deferred
             ? OperationNotificationState.Partial
             : OperationNotificationState.Failed;
@@ -208,7 +211,20 @@ public partial class OptimizationCategoryViewModel
                 "\n"
                 + Loc.Instance["RestorePoint.Snackbar.Success.Message", Shared.RestorePointName];
 
-        if (notificationState == OperationNotificationState.Success)
+        if (notificationState == OperationNotificationState.NothingToDo)
+        {
+            // Respects the completion notification setting like the success path, because the
+            // card already carries the mark when the toast is turned off.
+            if (showSuccess)
+                _snackbarService.Show(
+                    Loc.Instance["Optimization.Apply.Snackbar.NothingToDo.Title"],
+                    finalMessage,
+                    ControlAppearance.Info,
+                    new SymbolIcon { Symbol = SymbolRegular.Info24, Filled = true },
+                    TimeSpan.FromSeconds(5)
+                );
+        }
+        else if (notificationState == OperationNotificationState.Success)
         {
             if (showSuccess)
                 _snackbarService.Show(
@@ -406,6 +422,7 @@ public partial class OptimizationCategoryViewModel
         Success,
         Partial,
         Failed,
+        NothingToDo,
     }
 
     private enum OptimizationOperation

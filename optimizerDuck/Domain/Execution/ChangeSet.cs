@@ -1,4 +1,4 @@
-using optimizerDuck.Domain.Abstractions;
+﻿using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Services.Configuration;
 
@@ -65,6 +65,30 @@ public sealed class ChangeSet
         }
     }
 
+    /// <summary>
+    ///     Whether any step actually modified the system. Skips and irreversible actions
+    ///     did not leave something to undo, so they do not count as applied changes.
+    /// </summary>
+    public bool DidApplyAnything
+    {
+        get
+        {
+            lock (_gate)
+                return _changes.Any(c => c.Ok && c.Kind == ChangeKind.Change);
+        }
+    }
+
+    /// <summary>Records a step that found nothing to do, so it needs no compensation.</summary>
+    public Change AddSkip(string name, string description) =>
+        Add(name, description, true, kind: ChangeKind.Skip);
+
+    /// <summary>
+    ///     Records a step that modified the system on purpose with no way back, so no
+    ///     compensation is expected for it.
+    /// </summary>
+    public Change AddIrreversible(string name, string description) =>
+        Add(name, description, true, kind: ChangeKind.Irreversible);
+
     /// <summary>Adds a change with an auto-incremented execution index.</summary>
     public Change Add(
         string name,
@@ -73,7 +97,8 @@ public sealed class ChangeSet
         IRevertStep? revert = null,
         string? error = null,
         string? errorDetail = null,
-        Func<OpCall, Task<OpResult>>? retry = null
+        Func<OpCall, Task<OpResult>>? retry = null,
+        ChangeKind kind = ChangeKind.Change
     )
     {
         var change = new Change
@@ -81,6 +106,7 @@ public sealed class ChangeSet
             Name = name,
             Description = description,
             Ok = ok,
+            Kind = kind,
             Revert = revert,
             Error = error,
             ErrorDetail = errorDetail,
@@ -133,6 +159,9 @@ public sealed record Change
 
     public bool Ok { get; init; }
 
+    /// <summary>What the step did, which decides whether compensation data is expected.</summary>
+    public ChangeKind Kind { get; init; } = ChangeKind.Change;
+
     public IRevertStep? Revert { get; init; }
 
     public string? Error { get; init; }
@@ -140,4 +169,20 @@ public sealed record Change
     public string? ErrorDetail { get; init; }
 
     public Func<OpCall, Task<OpResult>>? Retry { get; init; }
+}
+
+/// <summary>
+///     What a recorded step did to the system, which decides whether the step is expected
+///     to carry the data needed to undo it. Only <see cref="Change" /> modified something.
+/// </summary>
+public enum ChangeKind
+{
+    /// <summary>The step modified the system and carries the data needed to undo it.</summary>
+    Change,
+
+    /// <summary>The step found nothing to do, so there is nothing to undo.</summary>
+    Skip,
+
+    /// <summary>The step modified the system on purpose with no way back.</summary>
+    Irreversible,
 }

@@ -1,4 +1,4 @@
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -49,6 +49,20 @@ public class RevertManager(
             .Changes.Where(c => c.Ok && c.Revert != null)
             .OrderBy(c => c.Index)
             .ToList();
+
+        // A step that modified the system must carry the data needed to undo it. The filter
+        // above drops entries without compensation, so a Change arriving here without one is a
+        // provider defect rather than a legitimate skip.
+        foreach (
+            var defect in changes.Changes.Where(c =>
+                c.Ok && c.Kind == ChangeKind.Change && c.Revert == null
+            )
+        )
+            _logger.LogWarning(
+                "Recorded change {Step} for {Name} carries no revert data, so undo does not cover it",
+                defect.Name,
+                name
+            );
 
         if (incoming.Count == 0)
             return;

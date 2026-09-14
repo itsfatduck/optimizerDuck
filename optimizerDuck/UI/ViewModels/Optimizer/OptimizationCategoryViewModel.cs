@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -101,7 +101,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
     #region Filter & Search
 
-    public bool HasAppliedOptimizations => _allOptimizations.Any(o => o.State.IsApplied);
+    public bool HasAppliedOptimizations =>
+        _allOptimizations.Any(o => o.State.IsApplied || o.State.IsAlreadyOptimal);
 
     partial void OnSearchTextChanged(string value) => ScheduleApplyFilter();
 
@@ -253,6 +254,30 @@ public partial class OptimizationCategoryViewModel : ViewModel
             return;
         }
 
+        // Nothing to do changed nothing, so the card is marked for this session and the
+        // pending changes prompt stays untouched.
+        optimization.State.IsAlreadyOptimal =
+            applyResult.Status == OptimizationSuccessResult.NothingToDo;
+
+        if (applyResult.Status == OptimizationSuccessResult.NothingToDo)
+        {
+            await FinalizeOperationAsync(optimization);
+            OnPropertyChanged(nameof(HasAppliedOptimizations));
+            ShowOperationOutcomeSnackbar(
+                OperationNotificationState.NothingToDo,
+                OptimizationOperation.Apply,
+                applyResult.Message,
+                restorePointCreated
+            );
+            LogOperationOutcome(OperationNotificationState.NothingToDo, "apply", optimization);
+            _logger.LogInformation(
+                "===== END applying {Name} ({Id}) =====",
+                optimization.OptimizationKey,
+                optimization.Id
+            );
+            return;
+        }
+
         if (Application.Current is App app)
             app.HasPendingChanges = true;
 
@@ -297,6 +322,9 @@ public partial class OptimizationCategoryViewModel : ViewModel
             p => _optimizationService.RevertAsync(optimization, p)
         );
 
+        // Reverting means the machine no longer matches, whatever an earlier apply reported.
+        optimization.State.IsAlreadyOptimal = false;
+
         if (Application.Current is App app)
             app.HasPendingChanges = true;
 
@@ -339,6 +367,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
     {
         var level =
             notificationState == OperationNotificationState.Success ? LogLevel.Information
+            : notificationState == OperationNotificationState.NothingToDo ? LogLevel.Information
             : notificationState == OperationNotificationState.Partial ? LogLevel.Warning
             : LogLevel.Warning;
 
@@ -351,6 +380,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
         var message =
             notificationState == OperationNotificationState.Success ? $"Successfully {pastTense}"
+            : notificationState == OperationNotificationState.NothingToDo
+                ? $"Nothing to {operationName} for"
             : notificationState == OperationNotificationState.Partial ? $"Partially {pastTense}"
             : $"Failed to {operationName}";
 
@@ -523,9 +554,9 @@ public partial class OptimizationCategoryViewModel : ViewModel
             _ => query,
         };
 
-        // Hide applied
+        // Hide applied and already optimal items
         if (HideApplied)
-            query = query.Where(o => !o.State.IsApplied);
+            query = query.Where(o => !o.State.IsApplied && !o.State.IsAlreadyOptimal);
 
         // Sort
         query = SelectedSortByIndex switch

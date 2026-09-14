@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -563,6 +563,70 @@ public class MockOptimization(Guid id) : StubOptimization
     )
     {
         return Task.FromResult(ApplyResult.True());
+    }
+}
+
+/// <summary>
+///     Pins the guard that a step recorded as a change carries the data needed to undo it.
+///     The writer filters entries without compensation, so the warning is the only signal
+///     that a provider forgot one.
+/// </summary>
+public class RevertManagerChangeGuardTests
+{
+    private sealed class CapturingLogger : ILogger<RevertManager>
+    {
+        public List<string> Warnings { get; } = [];
+
+        public IDisposable? BeginScope<TState>(TState state)
+            where TState : notnull => null;
+
+        public bool IsEnabled(LogLevel logLevel) => true;
+
+        public void Log<TState>(
+            LogLevel logLevel,
+            EventId eventId,
+            TState state,
+            Exception? exception,
+            Func<TState, Exception?, string> formatter
+        )
+        {
+            if (logLevel == LogLevel.Warning)
+                Warnings.Add(formatter(state, exception));
+        }
+    }
+
+    [Fact]
+    public async Task SaveRevertDataAsync_ChangeWithoutCompensation_WarnsAndWritesNoFile()
+    {
+        var logger = new CapturingLogger();
+        var manager = new RevertManager(
+            logger,
+            TestShell.New(),
+            new PowerPlanService(NullLogger<PowerPlanService>.Instance),
+            TimeProvider.System
+        );
+        var id = Guid.NewGuid();
+        var path = Path.Combine(Shared.RevertDirectory, id + ".json");
+        var changes = new ChangeSet();
+        changes.Add("Registry", "wrote a value", true, null);
+
+        try
+        {
+            await manager.SaveRevertDataAsync(
+                changes,
+                id,
+                "GuardTestOptimization",
+                TestContext.Current.CancellationToken
+            );
+
+            Assert.Contains(logger.Warnings, w => w.Contains("carries no revert data"));
+            Assert.False(File.Exists(path));
+        }
+        finally
+        {
+            if (File.Exists(path))
+                File.Delete(path);
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Logging.Abstractions;
+﻿using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
@@ -1129,6 +1129,75 @@ public class ApplyRevertComprehensiveTests
         return tcs.Task;
     }
 
+    [Fact]
+    public async Task ApplyAsync_OnlySkipsRecorded_ReportsNothingToDoWithoutRevertData()
+    {
+        await RunInStaThreadAsync(async () =>
+        {
+            var optimization = new TestOptimization
+            {
+                Id = Guid.NewGuid(),
+                ApplyImpl = args =>
+                    args.context.Changes.AddSkip(
+                        "Service",
+                        "Service 'x' is already set to Manual (skipped)"
+                    ),
+            };
+            var revertPath = GetRevertFilePath(optimization.Id);
+            var service = CreateService();
+            var progress = new Progress<ProcessingProgress>(_ => { });
+
+            var result = await service.ApplyAsync(optimization, progress);
+
+            Assert.Equal(OptimizationSuccessResult.NothingToDo, result.Status);
+            Assert.Empty(result.FailedSteps);
+            Assert.False(File.Exists(revertPath));
+        });
+    }
+
+    [Fact]
+    public async Task ApplyAsync_NoStepsRecordedButProviderReportsSuccess_ReportsNothingToDo()
+    {
+        await RunInStaThreadAsync(async () =>
+        {
+            var optimization = new TestOptimization
+            {
+                Id = Guid.NewGuid(),
+                ApplyImpl = _ => { },
+                ResultOverride = ApplyResult.True(),
+            };
+            var revertPath = GetRevertFilePath(optimization.Id);
+            var service = CreateService();
+            var progress = new Progress<ProcessingProgress>(_ => { });
+
+            var result = await service.ApplyAsync(optimization, progress);
+
+            Assert.Equal(OptimizationSuccessResult.NothingToDo, result.Status);
+            Assert.False(File.Exists(revertPath));
+        });
+    }
+
+    [Fact]
+    public async Task ApplyAsync_OnlySkipsFromToApplyResult_IsNotAFailure()
+    {
+        await RunInStaThreadAsync(async () =>
+        {
+            // A provider that records only skips and returns ToApplyResult() must not be
+            // reported as a failure, which was the case before the classification changed.
+            var optimization = new TestOptimization
+            {
+                Id = Guid.NewGuid(),
+                ApplyImpl = args => args.context.Changes.AddSkip("Service", "nothing to do"),
+            };
+            var service = CreateService();
+            var progress = new Progress<ProcessingProgress>(_ => { });
+
+            var result = await service.ApplyAsync(optimization, progress);
+
+            Assert.NotEqual(OptimizationSuccessResult.Failed, result.Status);
+        });
+    }
+
     private sealed class TestOptimization : StubOptimization
     {
         public override string Name => "Test Optimization";
@@ -1139,13 +1208,15 @@ public class ApplyRevertComprehensiveTests
             OptimizationContext context
         )> ApplyImpl { get; init; } = _ => { };
 
+        public ApplyResult? ResultOverride { get; init; }
+
         public override Task<ApplyResult> ApplyAsync(
             IProgress<ProcessingProgress> progress,
             OptimizationContext context
         )
         {
             ApplyImpl((progress, context));
-            return Task.FromResult(context.Changes.ToApplyResult());
+            return Task.FromResult(ResultOverride ?? context.Changes.ToApplyResult());
         }
     }
 

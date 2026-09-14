@@ -1,4 +1,4 @@
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Security;
@@ -394,7 +394,7 @@ public static class RegistryService
                             item.Path,
                             item.Name!
                         );
-                        call.Changes.Add(name, description, true);
+                        call.Changes.AddSkip(name, description);
                         return OpResult.Success();
                     }
 
@@ -531,7 +531,7 @@ public static class RegistryService
                             item.Path,
                             item.Name!
                         );
-                        call.Changes.Add(name, description, true);
+                        call.Changes.AddSkip(name, description);
                         return OpResult.Success();
                     }
 
@@ -644,7 +644,7 @@ public static class RegistryService
             if (regKey != null)
             {
                 logger.LogInformation("Skip create registry {Path} (already exists)", item.Path);
-                call.Changes.Add(name, description, true);
+                call.Changes.AddSkip(name, description);
                 return OpResult.Success();
             }
 
@@ -722,7 +722,7 @@ public static class RegistryService
             if (regKey == null)
             {
                 logger.LogInformation("Skip delete registry key {Path} (not found)", item.Path);
-                call.Changes.Add(name, description, true);
+                call.Changes.AddSkip(name, description);
                 return OpResult.Success();
             }
 

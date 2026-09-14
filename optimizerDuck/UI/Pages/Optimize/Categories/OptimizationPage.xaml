@@ -346,7 +346,30 @@
                                         VerticalAlignment="Bottom"
                                         ColumnDefinitions="*,Auto">
                                         <Grid RowDefinitions="Auto,Auto">
-                                            <controls:RiskBadge HorizontalAlignment="Left" Risk="{Binding Risk}" RiskVisual="{Binding RiskVisual}" />
+                                            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                                <controls:RiskBadge Risk="{Binding Risk}" RiskVisual="{Binding RiskVisual}" />
+                                                <Border
+                                                    Margin="6,0,0,0"
+                                                    Padding="6,2"
+                                                    Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                                    CornerRadius="{StaticResource CornerRadiusSmall}"
+                                                    ToolTip="{ext:Loc Optimizer.UI.State.AlreadyOptimal.Tooltip}"
+                                                    ToolTipService.InitialShowDelay="150"
+                                                    ToolTipService.Placement="Top"
+                                                    Visibility="{Binding State.IsAlreadyOptimal, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ui:SymbolIcon
+                                                            Margin="0,0,6,0"
+                                                            FontSize="14"
+                                                            Foreground="{DynamicResource SystemFillColorSuccessBrush}"
+                                                            Symbol="CheckmarkCircle24" />
+                                                        <ui:TextBlock
+                                                            VerticalAlignment="Center"
+                                                            FontTypography="Caption"
+                                                            Text="{ext:Loc Optimizer.UI.State.AlreadyOptimal}" />
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
 
                                             <Border
                                                 Grid.Row="1"

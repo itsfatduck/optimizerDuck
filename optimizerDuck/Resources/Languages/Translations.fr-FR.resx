@@ -1022,7 +1022,7 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
     <value>Désélectionner tout ce qui est sûr</value>
   </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
-    <value>Masquer les appliquées</value>
+    <value>Masquer les éléments terminés</value>
   </data>
   <data name="Bloatware.Search.NoResults" xml:space="preserve">
     <value>Aucun résultat trouvé. Essayez un autre terme de recherche ou filtre.</value>
@@ -2209,5 +2209,17 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
   </data>
   <data name="ScheduledTasks.TriggerDetail.RepeatFor" xml:space="preserve">
     <value> (répétition toutes les {0} pendant {1})</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal" xml:space="preserve">
+    <value>Déjà optimal</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
+    <value>Ce PC correspond déjà à cette optimisation, il n'y a donc rien à modifier.</value>
+  </data>
+  <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
+    <value>Rien à modifier : {0} correspond déjà à ce PC.</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
+    <value>Rien à modifier</value>
   </data>
 </root>

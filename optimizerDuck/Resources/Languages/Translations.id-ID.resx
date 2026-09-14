@@ -1082,7 +1082,7 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
     <value>Batal Pilih Semua (Aman)</value>
   </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
-    <value>Sembunyikan yang Diterapkan</value>
+    <value>Sembunyikan item yang selesai</value>
   </data>
   <data name="Bloatware.Search.NoResults" xml:space="preserve">
     <value>Tidak ada hasil yang ditemukan. Coba kata kunci pencarian atau filter yang berbeda.</value>
@@ -2266,5 +2266,17 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   </data>
   <data name="ScheduledTasks.TriggerDetail.RepeatFor" xml:space="preserve">
     <value> (ulangi setiap {0} selama {1})</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal" xml:space="preserve">
+    <value>Sudah optimal</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
+    <value>PC ini sudah sesuai dengan optimasi ini, jadi tidak ada yang perlu diubah.</value>
+  </data>
+  <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
+    <value>Tidak ada yang perlu diubah: {0} sudah sesuai dengan PC ini.</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
+    <value>Tidak ada yang perlu diubah</value>
   </data>
 </root>

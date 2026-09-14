@@ -1088,7 +1088,7 @@
     <value>בטל בחירת כל הבטוחים</value>
   </data>
   <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
-    <value>הסתר שהוחלו</value>
+    <value>הסתר פריטים שהסתיימו</value>
   </data>
   <data name="Bloatware.Search.NoResults" xml:space="preserve">
     <value>לא נמצאו תוצאות. יש לנסות מונח חיפוש או מסנן אחר.</value>
@@ -2266,5 +2266,17 @@
   </data>
   <data name="ScheduledTasks.TriggerDetail.RepeatFor" xml:space="preserve">
     <value> (חזרה כל {0} במשך {1})</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal" xml:space="preserve">
+    <value>כבר מיטבי</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
+    <value>המחשב הזה כבר תואם את האופטימיזציה הזו, ולכן אין מה לשנות.</value>
+  </data>
+  <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
+    <value>אין מה לשנות: {0} כבר תואם למחשב הזה.</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
+    <value>אין מה לשנות</value>
   </data>
 </root>

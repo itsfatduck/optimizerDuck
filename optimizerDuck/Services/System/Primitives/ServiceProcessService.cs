@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Common.Extensions;
@@ -73,7 +73,7 @@ public static class ServiceProcessService
                     item.Name
                 );
                 call.Logger.LogInformation("[SERVICE][{Name}] not found, skipping", item.Name);
-                call.Changes.Add(ServiceStrings.ServiceName, skipDescription, true);
+                call.Changes.AddSkip(ServiceStrings.ServiceName, skipDescription);
                 return MapToOpResult(ServiceChangeResult.NotFound, null, null, null);
             }
 
@@ -111,7 +111,7 @@ public static class ServiceProcessService
                     item.Name,
                     item.StartupType
                 );
-                call.Changes.Add(ServiceStrings.ServiceName, alreadyDescription, true);
+                call.Changes.AddSkip(ServiceStrings.ServiceName, alreadyDescription);
                 return MapToOpResult(ServiceChangeResult.AlreadyConfigured, null, null, null);
             }
 
@@ -156,14 +156,7 @@ public static class ServiceProcessService
                     item.Name,
                     sw.Elapsed.FormatTime()
                 );
-                call.Changes.Add(
-                    ServiceStrings.ServiceName,
-                    description,
-                    false,
-                    null,
-                    accessDeniedError,
-                    errorDetail
-                );
+                call.Changes.AddSkip(ServiceStrings.ServiceName, accessDeniedError);
                 return MapToOpResult(
                     ServiceChangeResult.AccessDenied,
                     null,
@@ -234,8 +227,9 @@ public static class ServiceProcessService
 
     /// <summary>
     ///     Maps the compat <see cref="ServiceChangeResult"/> outcome to an <see cref="OpResult"/>.
-    ///     NotFound and AlreadyConfigured are informational successes; AccessDenied and
-    ///     Failed carry an error naming the service.
+    ///     Success, NotFound, AlreadyConfigured and AccessDenied are informational outcomes,
+    ///     because a refusal by Windows is a skip rather than a failure; only Failed carries an
+    ///     error naming the service.
     /// </summary>
     private static OpResult MapToOpResult(
         ServiceChangeResult outcome,
@@ -248,7 +242,8 @@ public static class ServiceProcessService
         {
             ServiceChangeResult.Success
             or ServiceChangeResult.NotFound
-            or ServiceChangeResult.AlreadyConfigured => OpResult.Success(revert),
+            or ServiceChangeResult.AlreadyConfigured
+            or ServiceChangeResult.AccessDenied => OpResult.Success(revert),
             _ => OpResult.Fail(
                 error ?? ServiceStrings.ServiceErrorChangeStartupTypeFailed,
                 errorDetail
