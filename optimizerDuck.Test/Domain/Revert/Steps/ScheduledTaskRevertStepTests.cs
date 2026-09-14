@@ -9,19 +9,18 @@ namespace optimizerDuck.Test.Domain.Revert.Steps;
 public class ScheduledTaskRevertStepTests
 {
     [Fact]
-    public async Task ExecuteAsync_WithMissingTask_ThrowsStepExecutionException()
+    public async Task ExecuteAsync_WithMissingTask_SucceedsBecauseThereIsNothingToRestore()
     {
+        // Deliberate reversal: a missing task used to fail inside the provider before the step's
+        // own check ran. The provider now reports it as nothing to change, so the step reaches the
+        // branch it was written for: a task that no longer exists has nothing to restore.
         var step = new ScheduledTaskRevertStep
         {
             FullPath = @"\NonExistent\OptimizerDuckTestTask",
             OriginalEnabled = true,
         };
 
-        var ex = await Assert.ThrowsAsync<StepExecutionException>(() =>
-            step.ExecuteAsync(TestShell.Context(), NullLogger.Instance)
-        );
-
-        Assert.Contains("NonExistent", ex.Message);
+        Assert.True(await step.ExecuteAsync(TestShell.Context(), NullLogger.Instance));
     }
 
     [Fact]

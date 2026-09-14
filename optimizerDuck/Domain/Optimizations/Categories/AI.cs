@@ -67,7 +67,7 @@ public class AI : LocalizedObject, IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Disabled Windows Recall AI snapshots");
-            return Task.FromResult(CompleteFromScope(context));
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 
@@ -98,7 +98,7 @@ public class AI : LocalizedObject, IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Disabled Click To Do AI overlay");
-            return Task.FromResult(CompleteFromScope(context));
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 }

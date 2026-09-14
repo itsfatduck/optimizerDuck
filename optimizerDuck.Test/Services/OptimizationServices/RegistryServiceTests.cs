@@ -473,4 +473,63 @@ public class RegistryServiceTests : IDisposable
             RegistryService.Read<string>(new RegistryItem(nonEmptyKeyPath, "Value"))
         );
     }
+    [Fact]
+    public void Write_ValueAlreadySet_RecordsSkip()
+    {
+        var path = $@"{BaseTestKey}\AlreadySet";
+        Assert.True(RegistryService.Write(NewCall(), new RegistryItem(path, "V", 1)).Ok);
+
+        var call = NewCall();
+        Assert.True(RegistryService.Write(call, new RegistryItem(path, "V", 1)).Ok);
+
+        var step = Assert.Single(call.Changes.Changes);
+        Assert.Equal(ChangeKind.Skip, step.Kind);
+        Assert.Null(step.Revert);
+    }
+
+    [Fact]
+    public void DeleteValue_AbsentValue_RecordsNotApplicable()
+    {
+        var path = $@"{BaseTestKey}\AbsentValue";
+
+        // The key has to exist, otherwise the delete fails before it can look at the value.
+        Assert.True(RegistryService.Write(NewCall(), new RegistryItem(path, "Keep", 1)).Ok);
+
+        var call = NewCall();
+        Assert.True(RegistryService.DeleteValue(call, new RegistryItem(path, "Missing")).Ok);
+
+        var step = Assert.Single(call.Changes.Changes);
+        Assert.Equal(ChangeKind.NotApplicable, step.Kind);
+        Assert.Null(step.Revert);
+    }
+
+    [Fact]
+    public void CreateSubKey_ExistingKey_RecordsNotApplicable()
+    {
+        var path = $@"{BaseTestKey}\ExistingKey";
+        Assert.True(RegistryService.Write(NewCall(), new RegistryItem(path, "V", 1)).Ok);
+
+        var call = NewCall();
+        Assert.True(RegistryService.CreateSubKey(call, new RegistryItem(path)).Ok);
+
+        var step = Assert.Single(call.Changes.Changes);
+        Assert.Equal(ChangeKind.NotApplicable, step.Kind);
+        Assert.Null(step.Revert);
+    }
+
+    [Fact]
+    public void DeleteSubKeyTree_AbsentTree_RecordsNotApplicable()
+    {
+        var call = NewCall();
+
+        Assert.True(
+            RegistryService
+                .DeleteSubKeyTree(call, new RegistryItem($@"{BaseTestKey}\AbsentTree"))
+                .Ok
+        );
+
+        var step = Assert.Single(call.Changes.Changes);
+        Assert.Equal(ChangeKind.NotApplicable, step.Kind);
+        Assert.Null(step.Revert);
+    }
 }

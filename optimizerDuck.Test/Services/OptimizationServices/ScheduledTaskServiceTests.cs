@@ -71,6 +71,14 @@ public class ScheduledTaskServiceTests
             // Disable again first, so enabling really changes the state.
             Assert.True(ScheduledTaskService.DisableTask(NewCall(), fullPath).Ok);
 
+            // Already disabled: the provider records the step and writes nothing, so a caller
+            // that delegates here never has to decide on its own.
+            var alreadyDisabledCall = NewCall();
+            Assert.True(ScheduledTaskService.DisableTask(alreadyDisabledCall, fullPath).Ok);
+            var alreadyDisabledStep = Assert.Single(alreadyDisabledCall.Changes.Changes);
+            Assert.Equal(ChangeKind.Skip, alreadyDisabledStep.Kind);
+            Assert.Null(alreadyDisabledStep.Revert);
+
             // Enable: the recorded step must carry "was disabled" and restore that.
             var enableCall = NewCall();
             var enabled = ScheduledTaskService.EnableTask(enableCall, fullPath);
@@ -99,4 +107,22 @@ public class ScheduledTaskServiceTests
 
     private static OpCall NewCall() =>
         new() { Changes = new ChangeSet(), Logger = NullLogger.Instance };
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void TaskMissing_RecordsNotApplicableRatherThanFailure(bool disable)
+    {
+        var fullPath = $@"\{Guid.NewGuid():N}OptimizerDuckMissingTask";
+        var call = NewCall();
+
+        var result = disable
+            ? ScheduledTaskService.DisableTask(call, fullPath)
+            : ScheduledTaskService.EnableTask(call, fullPath);
+
+        // Nothing on this machine to configure, and nothing to undo either.
+        Assert.True(result.Ok, result.Error);
+        var step = Assert.Single(call.Changes.Changes);
+        Assert.Equal(ChangeKind.NotApplicable, step.Kind);
+        Assert.Null(step.Revert);
+    }
 }

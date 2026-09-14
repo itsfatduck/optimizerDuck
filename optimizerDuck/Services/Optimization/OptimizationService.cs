@@ -311,6 +311,12 @@ public class OptimizationService(
         // revert data exists for it, and the card is marked for this session only.
         if (!changes.DidApplyAnything)
         {
+            if (changes.Changes.Count == 0)
+                _logger.LogWarning(
+                    "Apply of {OptimizationKey} recorded no step at all; the provider may have returned without recording",
+                    optimization.OptimizationKey
+                );
+
             _logger.LogInformation(
                 "Apply of {OptimizationKey} changed nothing, reporting nothing to do",
                 optimization.OptimizationKey

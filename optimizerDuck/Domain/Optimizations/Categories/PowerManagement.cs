@@ -52,8 +52,26 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
             return Task.FromResult(context.Changes.ToApplyResult());
         }
 
+        /// <summary>
+        ///     Whether the native call is needed. An unknown state is attempted, because a failed
+        ///     read is not the same as "already disabled".
+        /// </summary>
+        internal static bool NeedsHibernationChange(bool? wasPresent) => wasPresent is not false;
+
         internal static OpResult Apply(OpCall call, bool? wasPresent)
         {
+            if (!NeedsHibernationChange(wasPresent))
+            {
+                // Disabling a file that is already gone would call a privileged API for nothing
+                // and could fail, turning a correct machine into a failed apply.
+                call.Changes.AddSkip(
+                    ServiceStrings.HibernationName,
+                    ServiceStrings.HibernationDescriptionDisable
+                );
+                call.Logger.LogInformation("Hibernation already disabled, skipping");
+                return OpResult.Success();
+            }
+
             var result = HibernationService.SetHibernationFile(present: false);
             var revert = new HibernationRevertStep { WasPresent = wasPresent };
 
@@ -111,8 +129,12 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
             var captured = UsbPowerService.Capture();
             if (captured.Count == 0)
             {
-                context.Logger.LogInformation("No USB devices found, skipping");
-                return Task.FromResult(ApplyResult.True());
+                context.Logger.LogInformation("No USB devices found, nothing to change");
+                context.Changes.AddNotApplicable(
+                    ServiceStrings.UsbPowerName,
+                    ServiceStrings.UsbPowerInfoNoDevices
+                );
+                return Task.FromResult(context.Changes.ToApplyResult());
             }
 
             context.Logger.LogInformation("Disabling USB power saving");
@@ -165,6 +187,18 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
                         Task.FromResult(Apply(retryCall, revertStep, UsbPowerService.Disable()))
                 );
                 return OpResult.Fail(ServiceStrings.UsbPowerErrorChangeFailed, detail);
+            }
+
+            if (result is { ChangedCount: 0 })
+            {
+                // Every device already matched the target, so nothing was written and there is
+                // nothing to restore.
+                call.Logger.LogInformation("[USB][SKIP] every device already at the target");
+                call.Changes.AddSkip(
+                    ServiceStrings.UsbPowerName,
+                    ServiceStrings.UsbPowerInfoAlreadyConfigured
+                );
+                return OpResult.Success();
             }
 
             if (result is not null)

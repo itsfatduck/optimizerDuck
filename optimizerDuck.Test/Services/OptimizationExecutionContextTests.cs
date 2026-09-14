@@ -76,13 +76,16 @@ public class ChangeSetTests
     }
 
     [Fact]
-    public void ToApplyResult_Empty_ReturnsFailure()
+    public void ToApplyResult_Empty_ReturnsSuccess()
     {
+        // Deliberate reversal: an item can legitimately match nothing on this machine, so a run
+        // that recorded no step at all is nothing to do rather than a failure. A provider that
+        // changed something without recording it is caught by the compensation guard instead.
         var changes = new ChangeSet();
 
         var result = changes.ToApplyResult();
 
-        Assert.NotNull(result.ErrorMessage);
+        Assert.Null(result.ErrorMessage);
     }
 
     [Fact]
@@ -197,5 +200,40 @@ public class MockRevertStep : IRevertStep
     public static MockRevertStep FromData(JObject data)
     {
         return new MockRevertStep();
+    }
+    [Fact]
+    public void AddNotApplicable_RecordsStepWithoutCompensation()
+    {
+        var changes = new ChangeSet();
+
+        changes.AddNotApplicable("Service", "Service 'x' not found (not present)");
+
+        var change = Assert.Single(changes.Changes);
+        Assert.True(change.Ok);
+        Assert.Equal(ChangeKind.NotApplicable, change.Kind);
+        Assert.Null(change.Revert);
+    }
+
+    [Fact]
+    public void AddRefused_RecordsStepWithoutCompensation()
+    {
+        var changes = new ChangeSet();
+
+        changes.AddRefused("Service", "Access to service 'x' is denied by Windows");
+
+        var change = Assert.Single(changes.Changes);
+        Assert.True(change.Ok);
+        Assert.Equal(ChangeKind.Refused, change.Kind);
+        Assert.Null(change.Revert);
+    }
+
+    [Fact]
+    public void DidApplyAnything_IgnoresNotApplicableAndRefusedSteps()
+    {
+        var changes = new ChangeSet();
+        changes.AddNotApplicable("Service", "not present");
+        changes.AddRefused("Service", "protected");
+
+        Assert.False(changes.DidApplyAnything);
     }
 }

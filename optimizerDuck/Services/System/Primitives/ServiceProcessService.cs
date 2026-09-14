@@ -69,11 +69,11 @@ public static class ServiceProcessService
             {
                 sw.Stop();
                 var skipDescription = ServiceStrings.Format(
-                    ServiceStrings.ServiceInfoSkippedNotFound,
+                    ServiceStrings.ServiceInfoNotFound,
                     item.Name
                 );
                 call.Logger.LogInformation("[SERVICE][{Name}] not found, skipping", item.Name);
-                call.Changes.AddSkip(ServiceStrings.ServiceName, skipDescription);
+                call.Changes.AddNotApplicable(ServiceStrings.ServiceName, skipDescription);
                 return MapToOpResult(ServiceChangeResult.NotFound, null, null, null);
             }
 
@@ -149,7 +149,7 @@ public static class ServiceProcessService
             if (nativeError == ErrorAccessDenied)
             {
                 var accessDeniedError = ServiceStrings.Format(
-                    ServiceStrings.ServiceInfoSkippedAccessDenied,
+                    ServiceStrings.ServiceInfoAccessDenied,
                     item.Name
                 );
                 call.Logger.LogInformation(
@@ -157,7 +157,7 @@ public static class ServiceProcessService
                     item.Name,
                     sw.Elapsed.FormatTime()
                 );
-                call.Changes.AddSkip(ServiceStrings.ServiceName, accessDeniedError);
+                call.Changes.AddRefused(ServiceStrings.ServiceName, accessDeniedError);
                 return MapToOpResult(
                     ServiceChangeResult.AccessDenied,
                     null,
@@ -240,8 +240,8 @@ public static class ServiceProcessService
     /// <summary>
     ///     Maps the compat <see cref="ServiceChangeResult"/> outcome to an <see cref="OpResult"/>.
     ///     Success, NotFound, AlreadyConfigured and AccessDenied are informational outcomes,
-    ///     because a refusal by Windows is a skip rather than a failure; only Failed carries an
-    ///     error naming the service.
+    ///     because a refusal by Windows is not a failure; only Failed carries an error naming
+    ///     the service.
     /// </summary>
     private static OpResult MapToOpResult(
         ServiceChangeResult outcome,

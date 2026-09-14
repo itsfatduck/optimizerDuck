@@ -166,10 +166,8 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
 
             foreach (var task in tasksToDelete)
             {
-                var state = ScheduledTaskService.GetTaskEnabledState(task, context.Logger);
-                // skip when known-disabled or absent; on unknown state, attempt so the outcome is real.
-                if (state is TaskEnabledState.Disabled or TaskEnabledState.NotFound)
-                    continue;
+                // The provider records what it found, so a task that is already disabled or
+                // absent still leaves a step: deciding here would drop it from the record.
                 ScheduledTaskService.DisableTask(context, task);
             }
 
@@ -221,9 +219,8 @@ public class SecurityAndPrivacy : LocalizedObject, IOptimizationCategory
 
             foreach (var task in tasksToDelete)
             {
-                var state = ScheduledTaskService.GetTaskEnabledState(task, context.Logger);
-                if (state is TaskEnabledState.Disabled or TaskEnabledState.NotFound)
-                    continue;
+                // The provider records what it found, so a task that is already disabled or
+                // absent still leaves a step: deciding here would drop it from the record.
                 ScheduledTaskService.DisableTask(context, task);
             }
 

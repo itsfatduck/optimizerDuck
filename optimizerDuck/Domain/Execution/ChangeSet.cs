@@ -83,6 +83,20 @@ public sealed class ChangeSet
         Add(name, description, true, kind: ChangeKind.Skip);
 
     /// <summary>
+    ///     Records a step whose target does not exist on this machine, so nothing was written
+    ///     and no compensation is expected.
+    /// </summary>
+    public Change AddNotApplicable(string name, string description) =>
+        Add(name, description, true, kind: ChangeKind.NotApplicable);
+
+    /// <summary>
+    ///     Records a step Windows refused, so nothing was written and no compensation is
+    ///     expected for it.
+    /// </summary>
+    public Change AddRefused(string name, string description) =>
+        Add(name, description, true, kind: ChangeKind.Refused);
+
+    /// <summary>
     ///     Records a step that modified the system on purpose with no way back, so no
     ///     compensation is expected for it.
     /// </summary>
@@ -130,8 +144,12 @@ public sealed class ChangeSet
     {
         lock (_gate)
         {
+            // Recording no step at all is a legitimate outcome: an item can match nothing on
+            // this machine, and a run whose steps were all skipped still recorded them. A
+            // provider that changes something without recording it is caught by the
+            // compensation guard in RevertManager, not by failing the user's apply here.
             if (_changes.Count == 0)
-                return ApplyResult.False(fallbackError ?? Loc.Instance["Revert.Error.NoSteps"]);
+                return ApplyResult.True();
             if (_changes.Any(c => c.Ok))
                 return ApplyResult.True();
             return ApplyResult.False(
@@ -180,8 +198,14 @@ public enum ChangeKind
     /// <summary>The step modified the system and carries the data needed to undo it.</summary>
     Change,
 
-    /// <summary>The step found nothing to do, so there is nothing to undo.</summary>
+    /// <summary>The system already had the desired state, so nothing was written.</summary>
     Skip,
+
+    /// <summary>There was nothing on this machine to act on, so nothing was written.</summary>
+    NotApplicable,
+
+    /// <summary>Windows refused the change, so nothing was written.</summary>
+    Refused,
 
     /// <summary>The step modified the system on purpose with no way back.</summary>
     Irreversible,

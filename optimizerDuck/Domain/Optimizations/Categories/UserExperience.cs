@@ -45,7 +45,7 @@ public class UserExperience : LocalizedObject, IOptimizationCategory
                 new RegistryItem(@"HKCU\Control Panel\Desktop", "MenuShowDelay", "0")
             );
             context.Logger.LogInformation("Speeded up Explorer and menus");
-            return Task.FromResult(CompleteFromScope(context));
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 
@@ -81,7 +81,7 @@ public class UserExperience : LocalizedObject, IOptimizationCategory
                 new RegistryItem(@"HKCU\Software\Microsoft\Windows\DWM", "EnableAeroPeek", 0)
             );
             context.Logger.LogInformation("Disabled visual effects for better performance");
-            return Task.FromResult(CompleteFromScope(context));
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 
@@ -106,7 +106,7 @@ public class UserExperience : LocalizedObject, IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Disabled web search for Start Menu");
-            return Task.FromResult(CompleteFromScope(context));
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 
@@ -132,7 +132,7 @@ public class UserExperience : LocalizedObject, IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Disabled Recommended section in Start Menu");
-            return Task.FromResult(CompleteFromScope(context));
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 
@@ -157,7 +157,7 @@ public class UserExperience : LocalizedObject, IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Disabled Microsoft 365 ads in Settings");
-            return Task.FromResult(CompleteFromScope(context));
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 
@@ -185,7 +185,7 @@ public class UserExperience : LocalizedObject, IOptimizationCategory
             );
 
             context.Logger.LogInformation("Maximized the Windows Update pause limit");
-            return Task.FromResult(CompleteFromScope(context));
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 }

@@ -190,10 +190,4 @@ public abstract partial class BaseOptimization : LocalizedObject, IOptimization
         IProgress<ProcessingProgress> progress,
         OptimizationContext context
     );
-
-    /// <summary>Returns result from changes recorded into <paramref name="call"/>.</summary>
-    protected static ApplyResult CompleteFromScope(OpCall call)
-    {
-        return call.Changes.ToApplyResult();
-    }
 }

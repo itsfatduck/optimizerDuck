@@ -57,11 +57,18 @@ public static class ScheduledTaskService
         try
         {
             using var ts = new TaskService();
-            var task =
-                ts.GetTask(fullPath)
-                ?? throw new InvalidOperationException(
-                    Loc.Instance["ScheduledTasks.Error.TaskNotFound", fullPath]
+            var task = ts.GetTask(fullPath);
+            if (task is null)
+            {
+                // Nothing on this machine to configure, and nothing to undo either, so the step
+                // is recorded as not applicable rather than as a failure of the run.
+                call.Logger.LogInformation("Task {Path} not found, nothing to change", fullPath);
+                call.Changes.AddNotApplicable(
+                    ServiceStrings.ScheduledTaskName,
+                    ServiceStrings.Format(ServiceStrings.ScheduledTaskInfoSkippedNotFound, fullPath)
                 );
+                return OpResult.Success();
+            }
 
             if (!task.Enabled)
             {
@@ -143,11 +150,18 @@ public static class ScheduledTaskService
         try
         {
             using var ts = new TaskService();
-            var task =
-                ts.GetTask(fullPath)
-                ?? throw new InvalidOperationException(
-                    Loc.Instance["ScheduledTasks.Error.TaskNotFound", fullPath]
+            var task = ts.GetTask(fullPath);
+            if (task is null)
+            {
+                // Nothing on this machine to configure, and nothing to undo either, so the step
+                // is recorded as not applicable rather than as a failure of the run.
+                call.Logger.LogInformation("Task {Path} not found, nothing to change", fullPath);
+                call.Changes.AddNotApplicable(
+                    ServiceStrings.ScheduledTaskName,
+                    ServiceStrings.Format(ServiceStrings.ScheduledTaskInfoSkippedNotFound, fullPath)
                 );
+                return OpResult.Success();
+            }
 
             if (task.Enabled)
             {

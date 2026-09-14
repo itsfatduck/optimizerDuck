@@ -531,7 +531,7 @@ public static class RegistryService
                             item.Path,
                             item.Name!
                         );
-                        call.Changes.AddSkip(name, description);
+                        call.Changes.AddNotApplicable(name, description);
                         return OpResult.Success();
                     }
 
@@ -644,7 +644,7 @@ public static class RegistryService
             if (regKey != null)
             {
                 logger.LogInformation("Skip create registry {Path} (already exists)", item.Path);
-                call.Changes.AddSkip(name, description);
+                call.Changes.AddNotApplicable(name, description);
                 return OpResult.Success();
             }
 
@@ -722,7 +722,7 @@ public static class RegistryService
             if (regKey == null)
             {
                 logger.LogInformation("Skip delete registry key {Path} (not found)", item.Path);
-                call.Changes.AddSkip(name, description);
+                call.Changes.AddNotApplicable(name, description);
                 return OpResult.Success();
             }
 

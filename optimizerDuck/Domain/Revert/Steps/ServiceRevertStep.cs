@@ -48,7 +48,7 @@ public class ServiceRevertStep : IRevertStep
             // Fail closed: access-denied returns false so RevertManager records a failed
             // step; every other failure throws with provider error detail.
             var accessDenied = ServiceStrings.Format(
-                ServiceStrings.ServiceInfoSkippedAccessDenied,
+                ServiceStrings.ServiceInfoAccessDenied,
                 ServiceName
             );
             if (string.Equals(result.Error, accessDenied, StringComparison.Ordinal))

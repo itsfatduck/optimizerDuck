@@ -398,11 +398,12 @@ public class ServiceProcessServiceTests
                 new ServiceItem(TestServiceName, ServiceStartupType.Disabled)
             );
 
-            // Windows protects this service. That is a skip, not a failure: the call reports
-            // success for the batch and records no revert step for the protected item.
+            // Windows protects this service. That is a refusal, not a failure: the call reports
+            // success for the batch, records no revert step, and the step says Windows refused
+            // rather than that the machine already matched.
             Assert.True(result.Ok, result.Error);
             var change = Assert.Single(call.Changes.Changes);
-            Assert.Equal(ChangeKind.Skip, change.Kind);
+            Assert.Equal(ChangeKind.Refused, change.Kind);
             Assert.Null(change.Revert);
         }
         finally

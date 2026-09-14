@@ -47,7 +47,7 @@ public class Performance : LocalizedObject, IOptimizationCategory
                 )
             );
             context.Logger.LogInformation("Disabled background apps");
-            return Task.FromResult(CompleteFromScope(context));
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 
@@ -89,7 +89,7 @@ public class Performance : LocalizedObject, IOptimizationCategory
                 "Consolidated service hosts with threshold: {ThresholdKB} KB",
                 context.Snapshot.Memory.TotalKB
             );
-            return Task.FromResult(CompleteFromScope(context));
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 
@@ -138,7 +138,7 @@ public class Performance : LocalizedObject, IOptimizationCategory
                 "Enabled foreground boost with priority: {Priority}",
                 win32Priority
             );
-            return Task.FromResult(CompleteFromScope(context));
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 
@@ -192,7 +192,7 @@ public class Performance : LocalizedObject, IOptimizationCategory
             context.Logger.LogInformation(
                 "Optimized Multimedia Class Scheduler Service (MMCSS) for gaming and low latency"
             );
-            return Task.FromResult(CompleteFromScope(context));
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 
@@ -215,7 +215,7 @@ public class Performance : LocalizedObject, IOptimizationCategory
             );
 
             context.Logger.LogInformation("Optimized keyboard repeat settings");
-            return Task.FromResult(CompleteFromScope(context));
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 
@@ -251,7 +251,7 @@ public class Performance : LocalizedObject, IOptimizationCategory
             );
 
             context.Logger.LogInformation("Disabled accessibility keyboard hotkeys");
-            return Task.FromResult(CompleteFromScope(context));
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 
@@ -278,7 +278,7 @@ public class Performance : LocalizedObject, IOptimizationCategory
             );
 
             context.Logger.LogInformation("Lifted the WebDAV file size limit to 4 GB");
-            return Task.FromResult(CompleteFromScope(context));
+            return Task.FromResult(context.Changes.ToApplyResult());
         }
     }
 }

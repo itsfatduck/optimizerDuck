@@ -690,9 +690,24 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
             try
             {
                 var fullPath = task.TaskPath.TrimEnd('\\') + "\\" + task.TaskName;
+                var call = UiCall();
                 var result = enable
-                    ? ScheduledTaskService.EnableTask(UiCall(), fullPath)
-                    : ScheduledTaskService.DisableTask(UiCall(), fullPath);
+                    ? ScheduledTaskService.EnableTask(call, fullPath)
+                    : ScheduledTaskService.DisableTask(call, fullPath);
+
+                // The provider reports a missing task as nothing to change, which is right for an
+                // optimization. From this list it is a stale entry the user cannot toggle, so the
+                // page says so instead of reporting a success that is not there.
+                if (
+                    result.Ok
+                    && call.Changes.Changes.Any(step => step.Kind == ChangeKind.NotApplicable)
+                )
+                    return OpResult.Fail(
+                        ServiceStrings.Format(
+                            ServiceStrings.ScheduledTaskInfoSkippedNotFound,
+                            fullPath
+                        )
+                    );
 
                 if (result.Ok)
                     logger.LogInformation(

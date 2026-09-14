@@ -54,11 +54,11 @@ public static class ServiceStrings
     public const string RevertDataUnknownType =
         "Cannot revert step of unknown type '{0}'. The revert data was written by a different app version.";
     public const string ServiceErrorExceptionOccurred = "Failed to change service '{0}': {1}";
-    public const string ServiceInfoSkippedNotFound = "Service '{0}' not found (skipped)";
+    public const string ServiceInfoNotFound = "Service '{0}' not found (not present)";
     public const string ServiceInfoAlreadyConfigured =
         "Service '{0}' is already set to {1} (skipped)";
-    public const string ServiceInfoSkippedAccessDenied =
-        "Access to service '{0}' is denied by Windows (skipped)";
+    public const string ServiceInfoAccessDenied =
+        "Access to service '{0}' is denied by Windows (left unchanged)";
 
     public const string ShellName = "Shell";
 
@@ -75,6 +75,10 @@ public static class ServiceStrings
     public const string UsbPowerName = "USB power";
     public const string UsbPowerDescriptionDisable = "Disable USB power saving for {0} device(s)";
     public const string UsbPowerErrorChangeFailed = "Failed to change USB power saving";
+    public const string UsbPowerInfoAlreadyConfigured =
+        "USB power saving already disabled for every device (skipped)";
+    public const string UsbPowerInfoNoDevices =
+        "No USB root hub devices on this machine (nothing to change)";
 
     /// <summary>Formats a template with invariant culture (same as Loc.Invariant did).</summary>
     public static string Format(string template, params object?[] args) =>
