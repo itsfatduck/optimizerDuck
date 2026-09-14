@@ -1,4 +1,4 @@
-using System.Management;
+﻿using System.Management;
 using System.Runtime.Versioning;
 
 namespace optimizerDuck.Services.System.Primitives;
@@ -16,7 +16,12 @@ public static class UsbPowerService
 {
     private const string NamespacePath = @"root\wmi";
     private const string RootHubMarker = @"USB\ROOT";
-    private const string DeviceQuery = "SELECT InstanceName, Enable FROM MSPower_DeviceEnable";
+
+    // SELECT * on purpose: with a partial property select, System.Management returns objects
+    // whose __PATH is empty (EnumerationOptions.EnsureLocatable defaults to false), and
+    // ManagementObject.Put() then fails with "Invalid object". Verified against live root\wmi on
+    // 2026-09-14: the partial select failed the write, the full select succeeded.
+    internal const string DeviceQuery = "SELECT * FROM MSPower_DeviceEnable";
 
     /// <summary>One device and the USB power-management state Windows reports for it.</summary>
     /// <param name="InstanceName">The WMI device instance name (used to match on revert).</param>

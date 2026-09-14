@@ -1,3 +1,4 @@
+using optimizerDuck.Services.System;
 using optimizerDuck.Services.System.Primitives;
 
 namespace optimizerDuck.Test.Services.OptimizationServices;
@@ -53,5 +54,34 @@ public class UsbPowerServiceTests
 
         Assert.NotNull(result);
         Assert.Equal(0, result.ChangedCount);
+    }
+
+    [Fact]
+    public void WriteQuery_ReturnsLocatableInstances()
+    {
+        // ManagementObject.Put() needs a complete object path. A partial property select leaves
+        // __PATH empty, which the provider refuses as "Invalid object" (verified on 2026-09-14),
+        // so the write query has to request whole instances. Read only: no device state changes.
+        var locatable = new List<bool>();
+
+        var rows = WmiHelper.Query(
+            UsbPowerService.DeviceQuery,
+            items =>
+            {
+                foreach (var device in items)
+                    locatable.Add(!string.IsNullOrEmpty(device["__PATH"] as string));
+                return items.Count;
+            },
+            @"root\wmi"
+        );
+
+        if (rows is not > 0)
+            Assert.Skip("This host exposes no root\\wmi power rows, so there is nothing to pin.");
+
+        Assert.All(
+            locatable,
+            hasPath =>
+                Assert.True(hasPath, "the USB write query returned an instance without __PATH")
+        );
     }
 }
