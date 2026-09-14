@@ -2279,4 +2279,7 @@
   <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
     <value>אין מה לשנות</value>
   </data>
+  <data name="Revert.Error.UnreadableData" xml:space="preserve">
+    <value>לא ניתן היה לקרוא את נתוני השחזור של {0}, ולכן דבר לא שוחזר. הקובץ נשמר במיקום {1}.</value>
+  </data>
 </root>

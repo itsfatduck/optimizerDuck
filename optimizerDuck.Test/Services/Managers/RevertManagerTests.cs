@@ -64,8 +64,12 @@ public class RevertManagerTests
     }
 
     [Fact]
-    public async Task IsAppliedAsync_WithInvalidJson_ReturnsFalse()
+    public async Task IsAppliedAsync_WithInvalidJson_CountsAsApplied()
     {
+        // Deliberate reversal: a file that exists but cannot be parsed still means the item was
+        // applied once. Reporting it as untouched invited a fresh apply, which then wrote over
+        // the only copy of the backup. The payload is parked by the next save instead, which
+        // RevertIntegrityTests covers.
         var id = Guid.NewGuid();
         var path = Path.Combine(Shared.RevertDirectory, id + ".json");
         var cancellationToken = TestContext.Current.CancellationToken;
@@ -77,12 +81,12 @@ public class RevertManagerTests
 
             var isApplied = await RevertManager.IsAppliedAsync(id);
 
-            Assert.False(isApplied);
+            Assert.True(isApplied);
         }
         finally
         {
-            if (File.Exists(path))
-                File.Delete(path);
+            foreach (var file in Directory.GetFiles(Shared.RevertDirectory, id + ".json*"))
+                File.Delete(file);
         }
     }
 
@@ -626,6 +630,148 @@ public class RevertManagerChangeGuardTests
         {
             if (File.Exists(path))
                 File.Delete(path);
+        }
+    }
+}
+
+/// <summary>
+///     Pins how revert data survives being unreadable: the bytes are kept, the item still counts
+///     as applied, and a revert says which file it could not read instead of claiming none.
+/// </summary>
+public class RevertIntegrityTests
+{
+    private static RevertManager NewManager() =>
+        new(
+            NullLogger<RevertManager>.Instance,
+            TestShell.New(),
+            new PowerPlanService(NullLogger<PowerPlanService>.Instance),
+            TimeProvider.System
+        );
+
+    private static void Cleanup(Guid id)
+    {
+        foreach (var file in Directory.GetFiles(Shared.RevertDirectory, id + ".json*"))
+            File.Delete(file);
+    }
+
+    [Fact]
+    public async Task SaveRevertDataAsync_UnreadableFile_IsParkedAndKeptByteForByte()
+    {
+        var id = Guid.NewGuid();
+        var path = Path.Combine(Shared.RevertDirectory, id + ".json");
+        var cancellationToken = TestContext.Current.CancellationToken;
+        Directory.CreateDirectory(Shared.RevertDirectory);
+        const string damaged = "{ this is not valid json }";
+
+        try
+        {
+            await File.WriteAllTextAsync(path, damaged, cancellationToken);
+
+            var changes = new ChangeSet();
+            changes.Add("Registry", "wrote a value", true, new MockRevertStep());
+
+            await NewManager().SaveRevertDataAsync(changes, id, "IntegrityTest", cancellationToken);
+
+            var parked = Directory.GetFiles(Shared.RevertDirectory, id + ".json.unreadable-*");
+            Assert.Single(parked);
+            Assert.Equal(damaged, await File.ReadAllTextAsync(parked[0], cancellationToken));
+            Assert.True(File.Exists(path));
+            Assert.NotEqual(damaged, await File.ReadAllTextAsync(path, cancellationToken));
+        }
+        finally
+        {
+            Cleanup(id);
+        }
+    }
+
+    [Fact]
+    public async Task SaveRevertDataAsync_SchemaFromAFutureBuild_IsParked()
+    {
+        var id = Guid.NewGuid();
+        var path = Path.Combine(Shared.RevertDirectory, id + ".json");
+        var cancellationToken = TestContext.Current.CancellationToken;
+        Directory.CreateDirectory(Shared.RevertDirectory);
+
+        try
+        {
+            var future = JsonConvert.SerializeObject(
+                new RevertData
+                {
+                    SchemaVersion = 99,
+                    OptimizationId = id,
+                    OptimizationName = "Future",
+                    AppliedAt = DateTime.UtcNow,
+                    Steps = Array.Empty<RevertStepData?>(),
+                }
+            );
+            await File.WriteAllTextAsync(path, future, cancellationToken);
+
+            var changes = new ChangeSet();
+            changes.Add("Registry", "wrote a value", true, new MockRevertStep());
+
+            await NewManager().SaveRevertDataAsync(changes, id, "IntegrityTest", cancellationToken);
+
+            var parked = Directory.GetFiles(Shared.RevertDirectory, id + ".json.unreadable-*");
+            Assert.Single(parked);
+            Assert.Contains("SchemaVersion", await File.ReadAllTextAsync(parked[0], cancellationToken));
+        }
+        finally
+        {
+            Cleanup(id);
+        }
+    }
+
+    [Fact]
+    public async Task IsAppliedAsync_CountsUnreadableAndParkedData()
+    {
+        var id = Guid.NewGuid();
+        var path = Path.Combine(Shared.RevertDirectory, id + ".json");
+        var cancellationToken = TestContext.Current.CancellationToken;
+        Directory.CreateDirectory(Shared.RevertDirectory);
+
+        try
+        {
+            Assert.False(await RevertManager.IsAppliedAsync(id));
+
+            await File.WriteAllTextAsync(path, "{ broken }", cancellationToken);
+            Assert.True(await RevertManager.IsAppliedAsync(id));
+
+            var parked = path + ".unreadable-20260101000000";
+            File.Move(path, parked);
+            Assert.True(await RevertManager.IsAppliedAsync(id));
+
+            File.Delete(parked);
+            Assert.False(await RevertManager.IsAppliedAsync(id));
+        }
+        finally
+        {
+            Cleanup(id);
+        }
+    }
+
+    [Fact]
+    public async Task RevertAsync_UnreadableData_NamesTheFileAndKeepsIt()
+    {
+        var id = Guid.NewGuid();
+        var path = Path.Combine(Shared.RevertDirectory, id + ".json");
+        var cancellationToken = TestContext.Current.CancellationToken;
+        Directory.CreateDirectory(Shared.RevertDirectory);
+
+        try
+        {
+            await File.WriteAllTextAsync(path, "{ broken }", cancellationToken);
+
+            var result = await NewManager()
+                .RevertAsync(new MockOptimization(id), cancellationToken: cancellationToken);
+
+            Assert.False(result.Success);
+            // The path is substituted into the message, so this holds in every language.
+            Assert.Contains(path, result.Message);
+            Assert.True(File.Exists(path));
+        }
+        finally
+        {
+            Cleanup(id);
         }
     }
 }

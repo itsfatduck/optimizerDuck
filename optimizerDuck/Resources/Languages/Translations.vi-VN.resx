@@ -2214,4 +2214,7 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
     <value>Không cần thay đổi</value>
   </data>
+  <data name="Revert.Error.UnreadableData" xml:space="preserve">
+    <value>Không đọc được dữ liệu hoàn tác của {0}, nên chưa hoàn tác gì. Tệp vẫn được giữ tại {1}.</value>
+  </data>
 </root>

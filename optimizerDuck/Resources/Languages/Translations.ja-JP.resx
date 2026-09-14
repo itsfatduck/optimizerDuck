@@ -2214,4 +2214,7 @@
   <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
     <value>変更はありません</value>
   </data>
+  <data name="Revert.Error.UnreadableData" xml:space="preserve">
+    <value>{0} の復元データを読み取れなかったため、何も復元していません。ファイルは {1} にそのまま残しています。</value>
+  </data>
 </root>

@@ -2217,4 +2217,7 @@
   <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
     <value>無需變更</value>
   </data>
+  <data name="Revert.Error.UnreadableData" xml:space="preserve">
+    <value>無法讀取 {0} 的還原資料，因此未還原任何內容。檔案保留在 {1}。</value>
+  </data>
 </root>

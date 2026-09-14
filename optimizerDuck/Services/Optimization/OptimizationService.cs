@@ -389,35 +389,16 @@ public class OptimizationService(
         if (optimizations.Length == 0)
             return;
 
-        // scan revert directory for which optimizations are currently applied
-        // we infer applied state from file presence, not a database
-        var revertFiles = await Task.Run(() =>
-            {
-                if (!Directory.Exists(Shared.RevertDirectory))
-                    return new HashSet<string>();
-
-                return Directory
-                    .GetFiles(Shared.RevertDirectory, "*.json")
-                    .Select(Path.GetFileNameWithoutExtension)
-                    .Where(f => f != null)
-                    .ToHashSet(StringComparer.OrdinalIgnoreCase)!;
-            })
-            .ConfigureAwait(false);
-
+        // Applied state comes from the presence of revert data, not from a database, and a
+        // file that cannot be read still counts as data, so an item is never offered for a
+        // fresh apply while an old payload is still sitting next to it.
         foreach (var opt in optimizations)
         {
-            var idStr = opt.Id.ToString();
-            if (revertFiles.Contains(idStr))
-            {
-                var data = await RevertManager.GetRevertDataAsync(opt.Id).ConfigureAwait(false);
-                opt.State.IsApplied = data != null;
-                opt.State.AppliedAt = data?.AppliedAt;
-            }
-            else
-            {
-                opt.State.IsApplied = false;
-                opt.State.AppliedAt = null;
-            }
+            var applied = await RevertManager.IsAppliedAsync(opt.Id).ConfigureAwait(false);
+            opt.State.IsApplied = applied;
+            opt.State.AppliedAt = applied
+                ? (await RevertManager.GetRevertDataAsync(opt.Id).ConfigureAwait(false))?.AppliedAt
+                : null;
         }
     }
 

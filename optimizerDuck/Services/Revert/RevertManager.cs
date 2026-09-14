@@ -73,7 +73,7 @@ public class RevertManager(
         {
             cancellationToken.ThrowIfCancellationRequested();
             var data =
-                await LoadAsync(filePath, _logger).ConfigureAwait(false)
+                await LoadForWriteAsync(filePath).ConfigureAwait(false)
                 ?? new RevertData
                 {
                     SchemaVersion = SchemaVersion,
@@ -135,11 +135,26 @@ public class RevertManager(
     {
         var steps = await LoadStepsAsync(optimization.Id).ConfigureAwait(false);
         if (steps.Count == 0)
+        {
+            var path = GetFilePath(optimization.Id);
+            var unreadable = File.Exists(path) ? path : FindParkedFile(path);
+            if (unreadable is not null)
+                return new RevertResult
+                {
+                    Success = false,
+                    Message = Loc.Instance[
+                        "Revert.Error.UnreadableData",
+                        optimization.Name,
+                        unreadable
+                    ],
+                };
+
             return new RevertResult
             {
                 Success = false,
                 Message = Loc.Instance["Revert.Error.NoDataFound", optimization.Name],
             };
+        }
 
         var failedSteps = new List<Change>();
         var sortedSteps = steps.OrderByDescending(s => s.Index).ToList();
@@ -275,7 +290,7 @@ public class RevertManager(
         {
             cancellationToken.ThrowIfCancellationRequested();
             var data =
-                await LoadAsync(filePath, _logger).ConfigureAwait(false)
+                await LoadForWriteAsync(filePath).ConfigureAwait(false)
                 ?? new RevertData
                 {
                     SchemaVersion = SchemaVersion,
@@ -380,10 +395,15 @@ public class RevertManager(
         }
     }
 
-    public static async Task<bool> IsAppliedAsync(Guid id)
+    /// <summary>
+    ///     Whether the item has revert data at all, readable or not. A file that exists but
+    ///     cannot be parsed still means the item was applied once, so it is never presented as
+    ///     untouched, and neither is a file that was parked after a failed read.
+    /// </summary>
+    public static Task<bool> IsAppliedAsync(Guid id)
     {
-        var data = await LoadAsync(GetFilePath(id)).ConfigureAwait(false);
-        return data is { Steps.Length: > 0 };
+        var path = GetFilePath(id);
+        return Task.FromResult(File.Exists(path) || FindParkedFile(path) is not null);
     }
 
     public static async Task<RevertData?> GetRevertDataAsync(Guid id)
@@ -411,6 +431,54 @@ public class RevertManager(
         // NOTE: file locks are intentionally left alone. Disposing a
         // SemaphoreSlim while another thread holds or waits on it throws
         // ObjectDisposedException; the entries are cheap and safely reused.
+    }
+
+    /// <summary>
+    ///     Loads revert data for a write. The loader returns null both for "no file" and for
+    ///     "cannot be read"; only the second case has something to preserve, and the write that
+    ///     follows would replace the last copy of a backup, so it is parked first.
+    /// </summary>
+    private async Task<RevertData?> LoadForWriteAsync(string filePath)
+    {
+        var loaded = await LoadAsync(filePath, _logger).ConfigureAwait(false);
+        if (loaded is not null || !File.Exists(filePath))
+            return loaded;
+
+        var parkedPath = ParkUnreadable(filePath);
+        _logger.LogWarning(
+            "Revert data at {Path} could not be read; kept as {Parked}",
+            filePath,
+            parkedPath
+        );
+        return null;
+    }
+
+    /// <summary>The newest parked copy of an unreadable revert file, or null when there is none.</summary>
+    private static string? FindParkedFile(string path)
+    {
+        var directory = Path.GetDirectoryName(path);
+        if (string.IsNullOrEmpty(directory) || !Directory.Exists(directory))
+            return null;
+
+        var matches = Directory.GetFiles(directory, Path.GetFileName(path) + ".unreadable-*");
+        if (matches.Length == 0)
+            return null;
+
+        return matches.OrderBy(static m => m, StringComparer.Ordinal).Last();
+    }
+
+    /// <summary>Moves an unreadable revert file aside, keeping its bytes, and returns the new path.</summary>
+    private string ParkUnreadable(string path)
+    {
+        var stamp = _time.GetUtcNow().ToString("yyyyMMddHHmmss");
+        var parked = $"{path}.unreadable-{stamp}";
+
+        var attempt = 1;
+        while (File.Exists(parked))
+            parked = $"{path}.unreadable-{stamp}-{attempt++}";
+
+        File.Move(path, parked);
+        return parked;
     }
 
     private static string GetFilePath(Guid id)

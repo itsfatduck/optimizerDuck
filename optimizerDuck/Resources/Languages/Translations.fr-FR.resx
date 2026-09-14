@@ -2222,4 +2222,7 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
   <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
     <value>Rien à modifier</value>
   </data>
+  <data name="Revert.Error.UnreadableData" xml:space="preserve">
+    <value>Les données de restauration de {0} n'ont pas pu être lues, rien n'a donc été restauré. Le fichier a été conservé dans {1}.</value>
+  </data>
 </root>

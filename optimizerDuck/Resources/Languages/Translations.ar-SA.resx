@@ -2264,5 +2264,8 @@
   <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
     <value>لا شيء لتغييره</value>
   </data>
+  <data name="Revert.Error.UnreadableData" xml:space="preserve">
+    <value>تعذّرت قراءة بيانات التراجع الخاصة بـ {0}، لذلك لم يتم التراجع عن أي شيء. تم الاحتفاظ بالملف في {1}.</value>
+  </data>
 </root>
 

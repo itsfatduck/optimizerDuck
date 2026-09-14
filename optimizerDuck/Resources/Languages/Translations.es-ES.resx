@@ -4027,4 +4027,7 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
   <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
     <value>Nada que cambiar</value>
   </data>
+  <data name="Revert.Error.UnreadableData" xml:space="preserve">
+    <value>No se pudieron leer los datos de reversión de {0}, así que no se revirtió nada. El archivo se conservó en {1}.</value>
+  </data>
 </root>

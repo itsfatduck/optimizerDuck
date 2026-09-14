@@ -2222,4 +2222,7 @@ Zaktualizuj teraz, aby korzystać z najnowszych funkcji, ulepszeń i poprawek b�
   <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
     <value>Nie ma nic do zmiany</value>
   </data>
+  <data name="Revert.Error.UnreadableData" xml:space="preserve">
+    <value>Nie można odczytać danych przywracania dla {0}, więc nic nie przywrócono. Plik zachowano w {1}.</value>
+  </data>
 </root>

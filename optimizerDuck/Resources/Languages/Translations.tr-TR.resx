@@ -2213,4 +2213,7 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
     <value>Değiştirilecek bir şey yok</value>
   </data>
+  <data name="Revert.Error.UnreadableData" xml:space="preserve">
+    <value>{0} için geri alma verileri okunamadı, bu nedenle hiçbir şey geri alınmadı. Dosya {1} konumunda saklandı.</value>
+  </data>
 </root>

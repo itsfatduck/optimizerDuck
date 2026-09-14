@@ -2222,4 +2222,7 @@ Atualize agora para desfrutar das últimas funcionalidades, melhorias e correç�
   <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
     <value>Nada para alterar</value>
   </data>
+  <data name="Revert.Error.UnreadableData" xml:space="preserve">
+    <value>Não foi possível ler os dados de reversão de {0}, então nada foi revertido. O arquivo foi mantido em {1}.</value>
+  </data>
 </root>

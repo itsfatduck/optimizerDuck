@@ -2230,4 +2230,7 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
     <value>Nulla da modificare</value>
   </data>
+  <data name="Revert.Error.UnreadableData" xml:space="preserve">
+    <value>Non è stato possibile leggere i dati di ripristino di {0}, quindi non è stato ripristinato nulla. Il file è stato conservato in {1}.</value>
+  </data>
 </root>

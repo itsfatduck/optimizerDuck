@@ -2222,4 +2222,7 @@
   <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
     <value>Нечего менять</value>
   </data>
+  <data name="Revert.Error.UnreadableData" xml:space="preserve">
+    <value>Не удалось прочитать данные восстановления для {0}, поэтому ничего не восстановлено. Файл сохранён в {1}.</value>
+  </data>
 </root>

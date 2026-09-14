@@ -2213,4 +2213,7 @@
   <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
     <value>변경할 내용 없음</value>
   </data>
+  <data name="Revert.Error.UnreadableData" xml:space="preserve">
+    <value>{0}의 복원 데이터를 읽을 수 없어 아무것도 복원하지 않았습니다. 파일은 {1}에 그대로 보관했습니다.</value>
+  </data>
 </root>
