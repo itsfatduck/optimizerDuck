@@ -2,8 +2,10 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Media3D;
 
 namespace optimizerDuck.UI.Behaviors;
 
@@ -391,7 +393,7 @@ public static class SmoothScrollBehavior
                     && (sv.ScrollableHeight > 0 || sv.ScrollableWidth > 0)
                 )
                     return true;
-                element = VisualTreeHelper.GetParent(element);
+                element = GetParent(element);
             }
         }
         catch (Exception ex)
@@ -400,6 +402,16 @@ public static class SmoothScrollBehavior
         }
         return false;
     }
+
+    // e.OriginalSource may be a ContentElement (Run, Span, ...); VisualTreeHelper rejects those.
+    private static DependencyObject? GetParent(DependencyObject element) =>
+        element switch
+        {
+            Visual or Visual3D => VisualTreeHelper.GetParent(element),
+            ContentElement ce => ContentOperations.GetParent(ce)
+                ?? (ce as FrameworkContentElement)?.Parent,
+            _ => null,
+        };
 
     private static ScrollViewer? FindScrollViewer(DependencyObject element)
     {
