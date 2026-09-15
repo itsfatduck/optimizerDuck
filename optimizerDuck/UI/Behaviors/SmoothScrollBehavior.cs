@@ -10,9 +10,9 @@ namespace optimizerDuck.UI.Behaviors;
 public static class SmoothScrollBehavior
 {
     /// <summary>
-    ///     Global toggle for smooth scrolling. When disabled, all smooth scroll
-    ///     processing is skipped regardless of per-element IsEnabled, and all
-    ///     attached ScrollViewers have their CanContentScroll restored.
+    ///     Gets or sets a value that indicates whether smooth scrolling is enabled globally. When
+    ///     disabled, no element scrolls smoothly and every attached ScrollViewer has its
+    ///     CanContentScroll restored.
     /// </summary>
     private static bool _globalEnabled = true;
     public static bool GlobalEnabled

@@ -13,9 +13,6 @@ public sealed class OptimizationAttribute : Attribute
     /// </summary>
     public required string Id { get; init; }
 
-    /// <summary>
-    ///     The risk level associated with applying this optimization.
-    /// </summary>
     public required OptimizationRisk Risk { get; init; }
 
     /// <summary>
@@ -24,9 +21,8 @@ public sealed class OptimizationAttribute : Attribute
     public required OptimizationTags Tags { get; init; }
 
     /// <summary>
-    ///     The compatibility condition type (implementing <see cref="ICondition"/>)
-    ///     that determines whether this optimization is supported on the current system.
-    ///     When <c>null</c>, the optimization is always available.
+    ///     The <see cref="ICondition" /> implementation that must hold on the current system.
+    ///     When <see langword="null" />, the optimization is always available.
     /// </summary>
     public Type? Condition { get; init; }
 }

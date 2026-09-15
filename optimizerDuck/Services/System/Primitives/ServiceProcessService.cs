@@ -9,6 +9,11 @@ using optimizerDuck.Domain.Revert.Steps;
 
 namespace optimizerDuck.Services.System.Primitives;
 
+/// <summary>
+///     Windows service startup types read and written through the Service Control Manager, with no
+///     child process. Stateless and static: callers pass an <see cref="OpCall" /> that receives the
+///     recorded changes.
+/// </summary>
 public static class ServiceProcessService
 {
     private const int ErrorServiceDoesNotExist = 1060;
@@ -16,10 +21,10 @@ public static class ServiceProcessService
     private const int ErrorAccessDenied = 5;
 
     /// <summary>
-    ///     Retrieves the current startup type of a Windows service from the Service Control Manager.
+    ///     Retrieves the startup type of a Windows service from the Service Control Manager.
     /// </summary>
     /// <param name="serviceName">The internal service name.</param>
-    /// <param name="logger">Optional logger used only for logging.</param>
+    /// <param name="logger">An optional logger for query warnings.</param>
     /// <returns>
     /// A tuple. <c>StartupType</c> is the type Windows reports (null for boot and system starts,
     /// which have no <see cref="ServiceStartupType"/> value). <c>NotFound</c> is
@@ -44,10 +49,12 @@ public static class ServiceProcessService
     }
 
     /// <summary>
-    ///     Changes the startup type of a single Windows service through the Service Control Manager.
+    ///     Changes the startup type of one Windows service through the Service Control Manager.
     ///     Records the change into <paramref name="call"/>.
     /// </summary>
-    /// <param name="call">The explicit call context: change collector, logger and cancellation token.</param>
+    /// <param name="call">
+    ///     The explicit call context: change collector, logger and cancellation token.
+    /// </param>
     /// <param name="item">The service item with the target startup type.</param>
     /// <returns>The outcome of the change request.</returns>
     public static async Task<OpResult> ChangeServiceStartupTypeAsync(OpCall call, ServiceItem item)
@@ -206,9 +213,8 @@ public static class ServiceProcessService
                 );
             }
 
-            // A delayed auto start flag that Windows refuses still leaves the start type
-            // written, so the recorded step carries the previous one and a revert can put it
-            // back even though the outcome is a failure.
+            // Windows can refuse the delayed auto start flag after the start type is written, so
+            // the recorded step carries the previous type and a revert can put it back.
             ServiceRevertStep? partialRevert = null;
             if (write.StartTypeWritten)
                 partialRevert = new ServiceRevertStep
@@ -285,7 +291,7 @@ public static class ServiceProcessService
     }
 
     /// <summary>
-    ///     Maps the compat <see cref="ServiceChangeResult"/> outcome to an <see cref="OpResult"/>.
+    ///     Maps a <see cref="ServiceChangeResult"/> outcome to an <see cref="OpResult"/>.
     ///     Success, NotFound, AlreadyConfigured and AccessDenied are informational outcomes,
     ///     because a refusal by Windows is not a failure; only Failed carries an error naming
     ///     the service.
@@ -325,7 +331,9 @@ public static class ServiceProcessService
 
     private const uint ServiceConfigDelayedAutoStartInfo = 3;
 
-    /// <summary>Offset of <c>dwStartType</c> in the native <c>QUERY_SERVICE_CONFIG</c> structure.</summary>
+    /// <summary>
+    ///     Offset of <c>dwStartType</c> in the native <c>QUERY_SERVICE_CONFIG</c> structure.
+    /// </summary>
     private const int QueryServiceConfigStartTypeOffset = 4;
 
     /// <summary>

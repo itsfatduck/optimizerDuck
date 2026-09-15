@@ -35,7 +35,6 @@ public partial class DiskCleanupViewModel(
 
     private List<CleanupItem> _originalOrder = [];
 
-    // Sort
     [ObservableProperty]
     private int _selectedSortByIndex; // 0=Size, 1=Name, 2=Path
 
@@ -93,6 +92,7 @@ public partial class DiskCleanupViewModel(
         }
     }
 
+    /// <inheritdoc />
     public override async Task OnNavigatedToAsync()
     {
         await base.OnNavigatedToAsync();
@@ -228,7 +228,6 @@ public partial class DiskCleanupViewModel(
             var freedBytes = await diskCleanupService.CleanSelectedAsync(CleanupItems);
             sw.Stop();
 
-            // Deselect all items after successful clean
             foreach (var item in CleanupItems)
                 item.IsSelected = false;
 

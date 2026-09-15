@@ -24,7 +24,9 @@ public static class ConditionEvaluator
     ///     Evaluates the condition declared by <paramref name="conditionType"/>, or returns
     ///     <see cref="ConditionResult.Available"/> when there is no condition. Never throws.
     /// </summary>
-    /// <param name="conditionType">The condition type declared in an attribute, or <c>null</c>.</param>
+    /// <param name="conditionType">
+    ///     The condition type declared in an attribute, or <see langword="null" />.
+    /// </param>
     /// <param name="snapshot">The current system snapshot to evaluate against.</param>
     /// <param name="logger">Logger for evaluation diagnostics.</param>
     public static ConditionResult Evaluate(Type? conditionType, SystemInfo snapshot, ILogger logger)
@@ -32,9 +34,7 @@ public static class ConditionEvaluator
         if (conditionType is null)
             return ConditionResult.Available;
 
-        // Fail open: an unpopulated snapshot means hardware detection has not finished (or
-        // failed), so never hide an item based on incomplete data. Callers re-evaluate once
-        // a real snapshot is available.
+        // Fail open: an unpopulated snapshot means hardware detection has not finished or failed.
         if (snapshot.IsUnknown)
             return ConditionResult.Available;
 

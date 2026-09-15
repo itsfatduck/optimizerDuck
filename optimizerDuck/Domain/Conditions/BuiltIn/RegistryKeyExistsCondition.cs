@@ -12,13 +12,12 @@ namespace optimizerDuck.Domain.Conditions;
 /// </summary>
 public abstract class RegistryKeyExistsCondition : ConditionBase
 {
-    /// <summary>The registry key that must exist.</summary>
     protected abstract RegistryItem RegistryItem { get; }
 
-    /// <summary>Strongly-typed localized failure title.</summary>
+    /// <summary>Supplies the localized failure title.</summary>
     protected abstract Func<string> Title { get; }
 
-    /// <summary>Strongly-typed localized failure description.</summary>
+    /// <summary>Supplies the localized failure description.</summary>
     protected abstract Func<string> Description { get; }
 
     public override ConditionResult Evaluate(SystemInfo snapshot)

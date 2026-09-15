@@ -88,7 +88,6 @@ public partial class OptimizationCategoryViewModel : ViewModel
     [ObservableProperty]
     private ObservableCollection<IOptimization> _optimizations = [];
 
-    // Search, Filter, Sort
     [ObservableProperty]
     private string _searchText = string.Empty;
 
@@ -130,7 +129,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 }
                 catch (OperationCanceledException)
                 {
-                    // debounced
+                    // A newer keystroke cancelled the debounce delay.
                 }
             },
             token
@@ -151,9 +150,9 @@ public partial class OptimizationCategoryViewModel : ViewModel
     #region Commands
 
     /// <summary>
-    ///     Toggles the optimization (apply if not applied, revert if applied).
+    ///     Applies the optimization when it is not applied and reverts it when it is.
     /// </summary>
-    /// <param name="optimization">The optimization to toggle.</param>
+    /// <param name="optimization">The optimization to apply or revert.</param>
     [RelayCommand(CanExecute = nameof(CanToggleOptimization))]
     private async Task ToggleOptimizationAsync(IOptimization optimization)
     {
@@ -202,7 +201,6 @@ public partial class OptimizationCategoryViewModel : ViewModel
     /// <summary>
     ///     Ensures a restore point is created before modifying system settings.
     /// </summary>
-    /// <returns>(canProceed, restorePointCreated).</returns>
     private async Task<(bool Proceed, bool RestorePointCreated)> EnsureRestorePointAsync(
         IOptimization optimization,
         bool wasApplied
@@ -226,7 +224,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
     ///     Applies an optimization with progress reporting and retry handling.
     /// </summary>
     /// <param name="optimization">The optimization to apply.</param>
-    /// <param name="restorePointCreated">Whether a system restore point was created beforehand.</param>
+    /// <param name="restorePointCreated">Whether a restore point was created beforehand.</param>
     private async Task ApplyOptimizationAsync(IOptimization optimization, bool restorePointCreated)
     {
         _logger.LogInformation(
@@ -240,7 +238,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
             p => _optimizationService.ApplyAsync(optimization, p)
         );
 
-        // Complete failure: can't retry
+        // A complete failure leaves nothing to retry.
         if (applyResult.Status == OptimizationSuccessResult.Failed)
         {
             ShowOperationOutcomeSnackbar(
@@ -254,8 +252,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
             return;
         }
 
-        // Nothing to do changed nothing, so the card is marked for this session and the
-        // pending changes prompt stays untouched.
+        // Nothing to do changes nothing: the card is marked for this session and the pending
+        // changes prompt stays untouched.
         optimization.State.IsAlreadyOptimal =
             applyResult.Status == OptimizationSuccessResult.NothingToDo;
 
@@ -308,7 +306,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
     ///     Reverts an optimization with progress reporting and retry handling.
     /// </summary>
     /// <param name="optimization">The optimization to revert.</param>
-    /// <param name="restorePointCreated">Whether a system restore point was created beforehand.</param>
+    /// <param name="restorePointCreated">Whether a restore point was created beforehand.</param>
     private async Task RevertOptimizationAsync(IOptimization optimization, bool restorePointCreated)
     {
         _logger.LogInformation(
@@ -322,7 +320,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
             p => _optimizationService.RevertAsync(optimization, p)
         );
 
-        // Reverting means the machine no longer matches, whatever an earlier apply reported.
+        // The revert invalidates the applied mark, whatever the last apply reported.
         optimization.State.IsAlreadyOptimal = false;
 
         if (Application.Current is App app)
@@ -351,9 +349,6 @@ public partial class OptimizationCategoryViewModel : ViewModel
         );
     }
 
-    /// <summary>
-    ///     Updates optimization state and notifies the UI.
-    /// </summary>
     private static async Task FinalizeOperationAsync(IOptimization optimization)
     {
         await OptimizationService.UpdateOptimizationStateAsync(optimization);
@@ -389,9 +384,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
     }
 
     /// <summary>
-    ///     Hides the unsupported condition state for this session, returning the
-    ///     optimization to its normal card so the user can apply it anyway.
-    ///     The hide choice is not persisted.
+    ///     Hides the unsupported condition state for this session, so the optimization shows its
+    ///     normal card and can be applied anyway. The hide choice is not persisted.
     /// </summary>
     [RelayCommand]
     private void HideCondition(IOptimization optimization)
@@ -444,9 +438,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
         {
             foreach (var optimization in _category.Optimizations)
             {
-                // Listen to the optimization's own PropertyChanged instead of the nested
-                // State instance so a replaced State (BaseOptimization re-raises the
-                // change) can never orphan this subscription.
+                // Subscribing to the optimization rather than to its nested State keeps this
+                // subscription alive when BaseOptimization replaces the State instance.
                 if (optimization is INotifyPropertyChanged notify)
                     notify.PropertyChanged += OnOptimizationStateChanged;
                 _allOptimizations.Add(optimization);
@@ -471,9 +464,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
     }
 
     /// <summary>
-    ///     Re-evaluates every optimization's condition and re-applies the filter when the
-    ///     system snapshot is refreshed (e.g. hardware changed) or the UI language changes.
-    ///     Marshalled to the UI thread by <see cref="UiThread"/>.
+    ///     Re-evaluates every condition and re-applies the filter when the system snapshot is
+    ///     refreshed.
     /// </summary>
     private void OnSnapshotRefreshed(object? sender, SystemInfo snapshot) =>
         ReEvaluateConditions(snapshot);
@@ -500,6 +492,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
             OnPropertyChanged(nameof(HasAppliedOptimizations));
     }
 
+    /// <inheritdoc />
     public override Task OnNavigatedToAsync()
     {
         _systemInfoService.SnapshotRefreshed += OnSnapshotRefreshed;
@@ -507,6 +500,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
         return base.OnNavigatedToAsync();
     }
 
+    /// <inheritdoc />
     public override Task OnNavigatedFromAsync()
     {
         _systemInfoService.SnapshotRefreshed -= OnSnapshotRefreshed;
@@ -529,13 +523,12 @@ public partial class OptimizationCategoryViewModel : ViewModel
     }
 
     /// <summary>
-    ///     Apply current filters to the optimizations.
+    ///     Applies the current search, risk filter and sort to the optimizations.
     /// </summary>
     private void ApplyFilter()
     {
         var query = _allOptimizations.AsEnumerable();
 
-        // Search
         if (!string.IsNullOrWhiteSpace(SearchText))
         {
             var search = SearchText.Trim();
@@ -545,7 +538,6 @@ public partial class OptimizationCategoryViewModel : ViewModel
             );
         }
 
-        // Filter by risk
         query = SelectedRiskFilterIndex switch
         {
             1 => query.Where(o => o.Risk == OptimizationRisk.Safe),
@@ -554,17 +546,15 @@ public partial class OptimizationCategoryViewModel : ViewModel
             _ => query,
         };
 
-        // Hide applied and already optimal items
         if (HideApplied)
             query = query.Where(o => !o.State.IsApplied && !o.State.IsAlreadyOptimal);
 
-        // Sort
         query = SelectedSortByIndex switch
         {
             1 => query.OrderBy(o => o.Name),
             2 => query.OrderBy(o => o.Risk),
-            3 => query.OrderByDescending(o => o.State.IsApplied ? 1 : 0), // Status
-            _ => query.OrderBy(o => o.Risk).ThenByDescending(o => o.State.IsApplied ? 1 : 0), // Risk & Status (default)
+            3 => query.OrderByDescending(o => o.State.IsApplied ? 1 : 0),
+            _ => query.OrderBy(o => o.Risk).ThenByDescending(o => o.State.IsApplied ? 1 : 0),
         };
 
         var filtered = query.ToList();

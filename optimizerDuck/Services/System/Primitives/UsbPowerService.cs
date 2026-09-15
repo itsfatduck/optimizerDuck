@@ -4,12 +4,11 @@ using System.Runtime.Versioning;
 namespace optimizerDuck.Services.System.Primitives;
 
 /// <summary>
-///     Per-device USB power management over <c>root\wmi</c>'s <c>MSPower_DeviceEnable</c>, using the
-///     in-process WMI client (via <c>WmiHelper</c>) instead of a PowerShell script.
-///     Microsoft does not document this WMI class and documents no API for the per-device "allow the
-///     computer to turn off this device" setting, so the surface underneath is unchanged - only the
-///     client is. Every operation fails open: no devices, a failed query, or a refused write never
-///     throws out of this service.
+///     Per-device USB power management over <c>root\wmi</c>'s <c>MSPower_DeviceEnable</c>, read
+///     and written through the in-process WMI client.
+///     Microsoft does not document this WMI class and documents no API for the per-device "allow
+///     the computer to turn off this device" setting. Every operation fails open: no devices, a
+///     failed query, or a refused write never throws out of this service.
 /// </summary>
 [SupportedOSPlatform("windows")]
 public static class UsbPowerService
@@ -35,8 +34,8 @@ public static class UsbPowerService
     public sealed record UsbPowerWriteResult(int ChangedCount, IReadOnlyList<string> FailedDevices);
 
     /// <summary>
-    ///     Captures the current state of every USB root-hub device, which is what a revert restores.
-    ///     Empty when the class is unavailable, so callers treat it as "nothing to do".
+    ///     Captures the current state of every USB root-hub device, which is what a revert
+    ///     restores. Empty when the class is unavailable, so callers treat it as "nothing to do".
     /// </summary>
     public static IReadOnlyList<UsbPowerState> Capture()
     {
@@ -79,10 +78,6 @@ public static class UsbPowerService
         );
     }
 
-    /// <summary>
-    ///     Applies <paramref name="target" /> to every matching device; a null target means "leave
-    ///     this device alone". Devices already in the requested state are not written.
-    /// </summary>
     /// <summary>
     ///     The devices a write pass has to touch, given the states Windows reports and the
     ///     requested target. A null target leaves a device alone, and a device already in the

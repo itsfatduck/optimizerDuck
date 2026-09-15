@@ -7,13 +7,12 @@ namespace optimizerDuck.Domain.Conditions;
 /// <summary>Base condition that requires the CPU to belong to a specific brand.</summary>
 public abstract class CpuBrandCondition : ConditionBase
 {
-    /// <summary>The required CPU vendor.</summary>
     protected abstract CpuVendor RequiredVendor { get; }
 
-    /// <summary>Strongly-typed localized failure title.</summary>
+    /// <summary>Supplies the localized failure title.</summary>
     protected abstract Func<string> Title { get; }
 
-    /// <summary>Strongly-typed localized failure description.</summary>
+    /// <summary>Supplies the localized failure description.</summary>
     protected abstract Func<string> Description { get; }
 
     public override ConditionResult Evaluate(SystemInfo snapshot)

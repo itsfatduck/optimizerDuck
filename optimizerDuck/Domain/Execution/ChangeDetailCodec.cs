@@ -21,8 +21,8 @@ public static class ChangeDetailCodec
 
     /// <summary>
     ///     The step as the record file stores the facts of a detail, or the step with no facts when
-    ///     the provider recorded none. The detail fields are written from the kind the step is, so a
-    ///     field that operation has no meaning for stays empty.
+    ///     the provider recorded none. The detail fields are written from the kind the step is,
+    ///     so a field that operation has no meaning for stays empty.
     /// </summary>
     public static ChangeRecordStep WithDetail(this ChangeRecordStep step, ChangeDetail? detail)
     {
@@ -30,7 +30,7 @@ public static class ChangeDetailCodec
             return step;
 
         // What every kind of step stores the same way: what it did, why it wrote nothing, and
-        // whether it moved between two values. Each kind below adds the facts only it has.
+        // whether it moved between two values.
         var stored = step with
         {
             Operation = detail.Operation,
@@ -106,13 +106,12 @@ public static class ChangeDetailCodec
 
     /// <summary>
     ///     The facts of a stored step, as the kind of operation it is, or <see langword="null" />
-    ///     for an operation this build does not know: that row falls back to the English description
-    ///     the log uses, and nothing else in the record changes. A stored value the operation has no
-    ///     meaning for is ignored rather than shown.
+    ///     for an operation this build does not know: that row falls back to the English
+    ///     description the log uses, and nothing else in the record changes. A stored value the
+    ///     operation has no meaning for is ignored rather than shown.
     /// </summary>
     public static ChangeDetail? Decode(ChangeRecordStep step)
     {
-        // Every kind carries the reason, so the switch below only has to say what the operation is.
         return step.Operation switch
         {
             "registry.write" => new RegistryValueWriteDetail
@@ -205,7 +204,9 @@ public static class ChangeDetailCodec
         };
     }
 
-    /// <summary>The word the record file uses for a state, or null when the state is unknown.</summary>
+    /// <summary>
+    ///     The word the record file uses for a state, or null when the state is unknown.
+    /// </summary>
     private static string? StateWord(bool? state) =>
         state switch
         {

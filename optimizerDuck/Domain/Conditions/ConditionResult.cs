@@ -18,8 +18,12 @@ public sealed class ConditionResult
     ///     title/description providers.
     /// </summary>
     /// <param name="state">The outcome state of the check.</param>
-    /// <param name="titleProvider">Provider for the condition title, or <c>null</c>.</param>
-    /// <param name="descriptionProvider">Provider for the condition explanation, or <c>null</c>.</param>
+    /// <param name="titleProvider">
+    ///     Provider for the condition title, or <see langword="null" />.
+    /// </param>
+    /// <param name="descriptionProvider">
+    ///     Provider for the condition explanation, or <see langword="null" />.
+    /// </param>
     public ConditionResult(
         ConditionState state,
         Func<string>? titleProvider = null,
@@ -34,7 +38,7 @@ public sealed class ConditionResult
     /// <summary>A convenience result representing a fully supported item.</summary>
     public static readonly ConditionResult Available = new(ConditionState.Available);
 
-    /// <summary>Creates an "unsupported" result with the given localized title/description.</summary>
+    /// <summary>Creates an unsupported result with the given localized text.</summary>
     public static ConditionResult Unsupported(Func<string> title, Func<string> description) =>
         new(ConditionState.Unsupported, title, description);
 
@@ -52,21 +56,21 @@ public sealed class ConditionResult
     /// <summary>Gets the outcome state of the check.</summary>
     public ConditionState State { get; }
 
-    /// <summary>Gets the provider for the condition title, or <c>null</c>.</summary>
+    /// <summary>Gets the provider for the condition title, or <see langword="null" />.</summary>
     public Func<string>? TitleProvider { get; }
 
-    /// <summary>Gets the provider for the condition explanation, or <c>null</c>.</summary>
+    /// <summary>Gets the condition explanation provider, or <see langword="null" />.</summary>
     public Func<string>? DescriptionProvider { get; }
 
     /// <summary>
     ///     Gets whether this result should block the item by default. Only
-    ///     <see cref="ConditionState.Unsupported"/> blocks.
+    ///     <see cref="ConditionState.Unsupported" /> blocks.
     /// </summary>
     public bool IsBlocking => State is ConditionState.Unsupported;
 
-    /// <summary>Gets the localized title for this result, or <c>null</c>.</summary>
+    /// <summary>Gets the localized title for this result, or <see langword="null" />.</summary>
     public string? Title => TitleProvider?.Invoke();
 
-    /// <summary>Gets the localized description for this result, or <c>null</c>.</summary>
+    /// <summary>Gets the localized description, or <see langword="null" />.</summary>
     public string? Description => DescriptionProvider?.Invoke();
 }

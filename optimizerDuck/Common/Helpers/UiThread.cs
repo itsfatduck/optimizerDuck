@@ -4,16 +4,15 @@ using System.Windows.Threading;
 namespace optimizerDuck.Common.Helpers;
 
 /// <summary>
-///     Marshals work to the WPF UI thread, degrading gracefully to inline execution when
-///     no <see cref="Application"/> exists (e.g. unit tests or headless hosts). Use this
-///     instead of touching <c>Application.Current.Dispatcher</c> directly so background
-///     threads never need to null-check the application instance.
+///     Marshals work to the WPF UI thread, degrading to inline execution when no
+///     <see cref="Application" /> exists, as in unit tests or headless hosts. Callers reach the
+///     dispatcher through this type, so a background thread never null-checks the application.
 /// </summary>
 public static class UiThread
 {
     /// <summary>
-    ///     Runs <paramref name="action"/> on the UI thread. When already on the UI thread,
-    ///     or when no <see cref="Application"/> exists, the action runs inline.
+    ///     Runs <paramref name="action" /> on the UI thread. When already on the UI thread,
+    ///     or when no <see cref="Application" /> exists, the action runs inline.
     /// </summary>
     public static Task InvokeAsync(
         Action action,
@@ -30,8 +29,8 @@ public static class UiThread
     }
 
     /// <summary>
-    ///     Runs <paramref name="action"/> on the UI thread and awaits its completion. When
-    ///     already on the UI thread, or when no <see cref="Application"/> exists, the
+    ///     Runs <paramref name="action" /> on the UI thread and awaits its completion. When
+    ///     already on the UI thread, or when no <see cref="Application" /> exists, the
     ///     action runs inline.
     /// </summary>
     public static Task InvokeAsync(

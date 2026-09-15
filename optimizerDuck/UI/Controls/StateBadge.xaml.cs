@@ -7,9 +7,8 @@ using Wpf.Ui.Controls;
 namespace optimizerDuck.UI.Controls;
 
 /// <summary>
-///     The chip that reports what an item's state is, kept to the look the cards already use,
-///     but wrapped in a control that answers the mouse so it can be clicked to open the record
-///     of what the last apply did.
+///     Represents the chip that reports an item's state, as a control that answers the mouse so
+///     it can be clicked to open the record of the last apply.
 /// </summary>
 public partial class StateBadge : UserControl
 {
@@ -78,7 +77,10 @@ public partial class StateBadge : UserControl
         set => SetValue(TextProperty, value);
     }
 
-    /// <summary>Whether the chip is being pressed, which only changes how it looks.</summary>
+    /// <summary>
+    ///     Gets or sets a value that indicates whether the chip is pressed, which only changes
+    ///     how it looks.
+    /// </summary>
     public bool IsPressed
     {
         get => (bool)GetValue(IsPressedProperty);

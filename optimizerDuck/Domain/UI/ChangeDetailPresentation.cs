@@ -11,9 +11,12 @@ namespace optimizerDuck.Domain.UI;
 ///     resource key of its own, so a word such as a startup type follows the UI language.
 /// </summary>
 /// <param name="LabelKey">The resource key of the chip's label.</param>
-/// <param name="Icon">The chip's icon.</param>
-/// <param name="Value">The chip's value, or the key of its text when <paramref name="ValueIsKey" />.</param>
-/// <param name="ValueIsKey">Whether the value names a resource key rather than being shown as it is.</param>
+/// <param name="Value">
+///     The chip's value, or the key of its text when <paramref name="ValueIsKey" />.
+/// </param>
+/// <param name="ValueIsKey">
+///     Whether the value is a resource key to resolve, not the text itself.
+/// </param>
 public sealed record DetailChip(
     string LabelKey,
     SymbolRegular Icon,
@@ -51,7 +54,7 @@ public static class ChangeDetailPresentation
     ///     build does not know produces an empty row, which leaves the row on the log description.
     /// </summary>
     /// <param name="detail">The facts of the step, or null when it recorded none.</param>
-    /// <param name="kind">What the step did, which decides whether it is phrased as an action.</param>
+    /// <param name="kind">What the step did, which decides its phrasing.</param>
     /// <param name="operation">Which run the row belongs to, an apply or a revert.</param>
     public static ChangeDetailRow For(
         ChangeDetail? detail,
@@ -396,8 +399,8 @@ public static class ChangeDetailPresentation
         };
 
     /// <summary>
-    ///     The sentence for a reason a provider recorded. A reason the UI does not know yet is left
-    ///     out rather than shown as a code.
+    ///     The sentence for a reason a provider recorded. A reason the UI does not know yet is
+    ///     left out, not shown as a code.
     /// </summary>
     private static string? ReasonKey(string? reason) =>
         reason switch
@@ -411,7 +414,9 @@ public static class ChangeDetailPresentation
             _ => null,
         };
 
-    /// <summary>The two values a step moved between, which a revert reads the other way round.</summary>
+    /// <summary>
+    ///     The two values a step moved between, which a revert reads the other way round.
+    /// </summary>
     private sealed record DetailPair(
         string? Previous,
         bool PreviousIsKey,

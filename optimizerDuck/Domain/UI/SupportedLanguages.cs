@@ -2,7 +2,7 @@ using System.Globalization;
 
 namespace optimizerDuck.Domain.UI;
 
-/// <summary>Single source of truth for supported UI languages. Easy to extend.</summary>
+/// <summary>Single source of truth for supported UI languages.</summary>
 public static class SupportedLanguages
 {
     public static IReadOnlyList<LanguageOption> All { get; } =

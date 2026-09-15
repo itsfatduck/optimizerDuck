@@ -4,7 +4,7 @@ using optimizerDuck.Services.Configuration;
 
 namespace optimizerDuck.Common.Converters;
 
-/// <summary>Converts a megabyte value to a formatted gigabyte string, else localized Unknown.</summary>
+/// <summary>Formats a positive megabyte count as a GB string; anything else is Unknown.</summary>
 public class MBToGBConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)

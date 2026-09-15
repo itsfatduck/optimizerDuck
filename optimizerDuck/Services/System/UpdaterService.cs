@@ -29,7 +29,10 @@ public class UpdaterService : IDisposable
     }
 
     /// <summary>Checks the GitHub API for a newer version of the application.</summary>
-    /// <returns>A tuple where <c>Result</c> is <see langword="true"/> if a newer version exists, and <c>Version</c> is the latest version string.</returns>
+    /// <returns>
+    ///     A tuple where <c>Result</c> is <see langword="true" /> if a newer version exists, and
+    ///     <c>Version</c> is the latest version string.
+    /// </returns>
     public async Task<(bool Result, string? Version)> CheckForUpdatesAsync()
     {
         _logger.LogInformation(
@@ -50,10 +53,10 @@ public class UpdaterService : IDisposable
                 return (false, null);
             }
 
-            // "v1.1.0" -> "1.1.0"
+            // "v1.1.0" becomes "1.1.0"
             var latestVersionStr = latestRelease.TagName.TrimStart('v');
 
-            // "1.1.0-fix" -> "1.1.0"
+            // "1.1.0-fix" becomes "1.1.0"
             var preReleaseSeparatorIndex = latestVersionStr.IndexOf('-');
             if (preReleaseSeparatorIndex != -1)
                 latestVersionStr = latestVersionStr[..preReleaseSeparatorIndex];
@@ -114,7 +117,9 @@ public class UpdaterService : IDisposable
 }
 
 // Helper classes for deserializing GitHub API response
-/// <summary>Represents a GitHub release fetched from the API. Used internally for deserialization.</summary>
+/// <summary>
+///     Represents a GitHub release fetched from the API. Used internally for deserialization.
+/// </summary>
 public class GitHubRelease
 {
     /// <summary>Gets or sets the release tag name (e.g., "v1.2.0").</summary>

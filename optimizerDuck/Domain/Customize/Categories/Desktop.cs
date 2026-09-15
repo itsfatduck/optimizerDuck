@@ -207,7 +207,8 @@ public class Desktop : LocalizedObject, ICustomizeCategory
             }
             else
             {
-                // extract the blank icon to the app resources folder, then set the registry value to point to it
+                // extract the blank icon to the app resources folder, then point the
+                // registry value at it
                 var outputPath = System.IO.Path.Combine(
                     Shared.AssetsDirectory,
                     nameof(Desktop),
@@ -215,7 +216,8 @@ public class Desktop : LocalizedObject, ICustomizeCategory
                 );
                 EmbeddedResourceHelper.TryExtract("Icons.blank.ico", outputPath);
 
-                // set the registry value to point to the blank icon, which effectively hides the shortcut arrow overlay
+                // point the registry value at the blank icon, which hides the
+                // shortcut arrow overlay
                 result = RegistryService.Write(call, new RegistryItem(Path, "29", outputPath));
             }
 

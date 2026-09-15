@@ -9,83 +9,48 @@ namespace optimizerDuck.Domain.Optimizations.Models.Cleanup;
 ///     Represents a disk cleanup item (e.g., temp files, Windows Update cache).
 public partial class CleanupItem : LocalizedObject
 {
-    /// <summary>
-    ///     The number of files in this cleanup item.
-    /// </summary>
     [ObservableProperty]
     private long _fileCount;
 
-    /// <summary>
-    ///     Indicates whether cleanup is in progress.
-    /// </summary>
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ShowActions))]
     private bool _isCleaning;
 
-    /// <summary>
-    ///     Indicates whether this item has been scanned.
-    /// </summary>
     [ObservableProperty]
     private bool _isScanned;
 
-    /// <summary>
-    ///     Indicates whether scanning is in progress.
-    /// </summary>
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ShowActions))]
     private bool _isScanning;
 
-    /// <summary>
-    ///     Indicates whether this item is selected for cleanup.
-    /// </summary>
     [ObservableProperty]
     private bool _isSelected = true;
 
-    /// <summary>
-    ///     The size of files in bytes.
-    /// </summary>
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ShowActions))]
     private long _sizeBytes;
 
-    /// <summary>
-    ///     Unique identifier for this cleanup item.
-    /// </summary>
     public required string Id { get; init; }
 
     /// <summary>
-    ///     Display name of the cleanup item. Returns the localized string for the
-    ///     current culture by looking up the resource key set at construction time.
+    ///     Gets the display name resolved from <see cref="NameKey" /> for the current culture.
     /// </summary>
     public string Name => Loc.Instance[NameKey];
 
     /// <summary>
-    ///     Description of what this cleanup item contains. Returns the localized string
-    ///     for the current culture by looking up the resource key set at construction time.
+    ///     Gets the description resolved from <see cref="DescriptionKey" /> for the
+    ///     current culture.
     /// </summary>
     public string Description => Loc.Instance[DescriptionKey];
 
-    /// <summary>
-    ///     Resource key used to localize <see cref="Name" />. Set at construction time so
-    ///     that the localized value can be re-resolved whenever the UI language changes.
-    /// </summary>
+    /// <summary>Resource key that localizes <see cref="Name" />.</summary>
     public string NameKey { get; init; } = string.Empty;
 
-    /// <summary>
-    ///     Resource key used to localize <see cref="Description" />. Set at construction
-    ///     time so that the localized value can be re-resolved whenever the UI language
-    ///     changes.
-    /// </summary>
+    /// <summary>Resource key that localizes <see cref="Description" />.</summary>
     public string DescriptionKey { get; init; } = string.Empty;
 
-    /// <summary>
-    ///     The file path or folder to clean.
-    /// </summary>
     public required string Path { get; init; }
 
-    /// <summary>
-    ///     The icon to display in the UI.
-    /// </summary>
     public required SymbolRegular Icon { get; init; }
 
     /// <summary>
@@ -93,19 +58,10 @@ public partial class CleanupItem : LocalizedObject
     /// </summary>
     public bool IsCommand { get; init; }
 
-    /// <summary>
-    ///     Whether the folder exists and can be opened.
-    /// </summary>
     public bool CanOpenFolder => !IsCommand && System.IO.Directory.Exists(Path);
 
-    /// <summary>
-    ///     Whether to show the action controls (SplitButton) instead of progress rings.
-    /// </summary>
     public bool ShowActions => SizeBytes > 0 && !IsScanning && !IsCleaning;
 
-    /// <summary>
-    ///     Gets the human-readable size string (e.g., "1.5 GB").
-    /// </summary>
     public string FormattedSize => FormatBytes(SizeBytes);
 
     partial void OnSizeBytesChanged(long value)
@@ -113,9 +69,6 @@ public partial class CleanupItem : LocalizedObject
         OnPropertyChanged(nameof(FormattedSize));
     }
 
-    /// <summary>
-    ///     Formats bytes into a human-readable string.
-    /// </summary>
     public static string FormatBytes(long bytes)
     {
         return bytes switch

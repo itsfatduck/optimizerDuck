@@ -40,7 +40,6 @@ public class ScopeBlockTextFormatter : ITextFormatter
 {
     public void Format(LogEvent logEvent, TextWriter output)
     {
-        // build prefix
         var timestamp = $"{logEvent.Timestamp:yyyy-MM-dd HH:mm:ss}";
         var ctx = logEvent.Properties.TryGetValue("SourceContext", out var sourceContext)
             ? sourceContext is ScalarValue { Value: string s }
@@ -61,10 +60,8 @@ public class ScopeBlockTextFormatter : ITextFormatter
         //var prefix = $"{timestamp} | {ctx,-67} | {levelText,-7} | "; // byebye 67 char SourceContext truncation, we have a new design now...
         var prefix = $"{timestamp} | {ctx, -35} | {levelText, -7} | ";
 
-        // print message
         output.WriteLine(prefix + RenderWithoutQuotes(logEvent));
 
-        // print property
         foreach (var kvp in logEvent.Properties)
         {
             if (kvp.Key == "SourceContext")
@@ -100,10 +97,8 @@ public class ScopeBlockTextFormatter : ITextFormatter
             )
             {
                 if (value is ScalarValue { Value: string s })
-                    // write string without quotes
                     output.Write(s);
                 else
-                    // use default rendering for other types
                     pt.Render(logEvent.Properties, output);
             }
             else
@@ -221,7 +216,6 @@ public partial class App : Application
             }
             catch
             {
-                // what you expect
             }
         }
     }
@@ -311,7 +305,6 @@ public partial class App : Application
 
     private async Task OnStartupAsync(StartupEventArgs e)
     {
-        // Create the required directories if they don't exist
         Directory.CreateDirectory(Shared.RootDirectory);
         Directory.CreateDirectory(Shared.ResourcesDirectory);
         Directory.CreateDirectory(Shared.DownloadsDirectory);

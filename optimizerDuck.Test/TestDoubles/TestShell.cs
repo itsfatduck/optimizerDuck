@@ -6,7 +6,9 @@ using optimizerDuck.Services.System.Primitives;
 
 namespace optimizerDuck.Test.TestDoubles;
 
-/// <summary>Builds a <see cref="ShellService"/> with a fixed timeout for tests that need one.</summary>
+/// <summary>
+///     Builds a <see cref="ShellService"/> with a fixed timeout for tests that need one.
+/// </summary>
 internal static class TestShell
 {
     public const int TimeoutMs = 120_000;

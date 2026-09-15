@@ -3,11 +3,10 @@ using System.Globalization;
 namespace optimizerDuck.Services.System.Primitives;
 
 /// <summary>
-/// English-only provider strings: step names, step descriptions and log/error text.
-/// These are intentionally NOT in Translations.resx. Revert data, logs and recorded
-/// step names must stay in stable English regardless of UI language, so there is
-/// nothing for translators to do here. Add new entries to this class, never to
-/// the resx. Templates use {0}-style placeholders via <see cref="Format"/>.
+/// Holds the English-only provider strings: step names, step descriptions and log/error text.
+/// They are deliberately absent from Translations.resx, because revert data, logs and recorded
+/// step names must stay in stable English regardless of UI language.
+/// Templates use {0}-style placeholders via <see cref="Format"/>.
 /// </summary>
 public static class ServiceStrings
 {
@@ -80,7 +79,7 @@ public static class ServiceStrings
     public const string UsbPowerInfoNoDevices =
         "No USB root hub devices on this machine (nothing to change)";
 
-    /// <summary>Formats a template with invariant culture (same as Loc.Invariant did).</summary>
+    /// <summary>Formats a template with the invariant culture.</summary>
     public static string Format(string template, params object?[] args) =>
         string.Format(CultureInfo.InvariantCulture, template, args);
 }

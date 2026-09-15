@@ -19,10 +19,13 @@ public class CustomizeRegistry
         _logger = logger;
     }
 
-    /// <summary>Gets the registered customize categories. Each category contains its child customize settings. Populated after calling <see cref="RegisterCategories"/> or via preloading.</summary>
+    /// <summary>Gets the customize categories discovered by preloading.</summary>
     public ICustomizeCategory[] Categories { get; private set; } = [];
 
-    /// <summary>Gets a value that indicates whether the customize categories have been fully discovered.</summary>
+    /// <summary>
+    ///     Gets a value that indicates whether the customize categories have been fully
+    ///     discovered.
+    /// </summary>
     public bool IsPreloaded { get; private set; }
 
     /// <summary>
@@ -48,7 +51,7 @@ public class CustomizeRegistry
 
     private Task? _preloadTask;
 
-    /// <summary>Discovers all customize setting categories and their child settings via reflection, then populates <see cref="Categories"/>.</summary>
+    /// <summary>Discovers the customize categories and their settings by reflection.</summary>
     public async Task PreloadCategoriesAsync()
     {
         // Run reflection work on background thread to avoid blocking startup
@@ -87,8 +90,8 @@ public class CustomizeRegistry
         IsPreloaded = true;
     }
 
-    /// <summary>Builds the navigation items for the UI from the registered categories.</summary>
-    /// <returns>A sequence of <see cref="NavigationViewItem"/> instances mapped to customize pages.</returns>
+    /// <summary>Builds a navigation item for each registered category.</summary>
+    /// <returns>The items, each mapped to its customize page.</returns>
     public IEnumerable<NavigationViewItem> GetNavigationItems()
     {
         if (Categories.Length == 0 && !IsPreloaded)

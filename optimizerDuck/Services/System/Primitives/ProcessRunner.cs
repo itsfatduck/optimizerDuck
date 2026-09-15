@@ -9,7 +9,9 @@ namespace optimizerDuck.Services.System.Primitives;
 /// <summary>
 ///     The captured output of a single child-process execution.
 /// </summary>
-/// <param name="ExitCode">The process exit code; <c>-1</c> on timeout, <c>-2</c> on exception.</param>
+/// <param name="ExitCode">
+///     The process exit code; <c>-1</c> on timeout, <c>-2</c> on exception.
+/// </param>
 /// <param name="Stdout">Raw captured standard output (not CLIXML-parsed).</param>
 /// <param name="Stderr">Raw captured standard error (not CLIXML-parsed).</param>
 /// <param name="TimedOut">Whether the process was killed because the shell timeout elapsed.</param>
@@ -58,7 +60,9 @@ public sealed class ProcessRunner
         _logger = logger;
     }
 
-    /// <summary>Starts a process, captures stdout/stderr, and enforces the live shell timeout.</summary>
+    /// <summary>
+    ///     Starts a process, captures stdout/stderr, and enforces the live shell timeout.
+    /// </summary>
     public async Task<ProcessResult> RunAsync(
         string fileName,
         string arguments,

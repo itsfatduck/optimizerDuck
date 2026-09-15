@@ -106,9 +106,9 @@ public class ChangeSetTests
     [Fact]
     public void ToApplyResult_Empty_ReturnsSuccess()
     {
-        // Deliberate reversal: an item can legitimately match nothing on this machine, so a run
-        // that recorded no step at all is nothing to do rather than a failure. A provider that
-        // changed something without recording it is caught by the compensation guard instead.
+        // An item can legitimately match nothing on this machine, so a run that recorded
+        // no step at all is nothing to do, not a failure. A provider that changed
+        // something without recording it is caught by the compensation guard instead.
         var changes = new ChangeSet();
 
         var result = changes.ToApplyResult();
@@ -159,6 +159,7 @@ public class ChangeSetTests
         Assert.Equal(100, changes.Changes.Count);
         Assert.Equal(100, changes.Changes.Select(c => c.Index).Distinct().Count());
     }
+
     [Fact]
     public void AddSkip_RecordsSuccessfulSkipWithoutCompensation()
     {
@@ -229,6 +230,7 @@ public class MockRevertStep : IRevertStep
     {
         return new MockRevertStep();
     }
+
     [Fact]
     public void AddNotApplicable_RecordsStepWithoutCompensation()
     {

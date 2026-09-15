@@ -8,8 +8,5 @@
 [AttributeUsage(AttributeTargets.Class, Inherited = false)]
 public class OptimizationCategoryAttribute(Type pageType) : Attribute
 {
-    /// <summary>
-    ///     The type of the UI page associated with this optimization category.
-    /// </summary>
     public Type PageType { get; init; } = pageType;
 }

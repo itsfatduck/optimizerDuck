@@ -5,8 +5,7 @@ namespace optimizerDuck.Domain.UI;
 
 /// <summary>
 ///     How the record presents one kind of recorded step: an icon and the resource key of its
-///     label. The key is carried rather than the resolved text so the mapping stays testable
-///     and the label follows the UI language.
+///     label. The key travels rather than the resolved text, so the label follows the UI language.
 /// </summary>
 public sealed record ChangeKindDisplay
 {

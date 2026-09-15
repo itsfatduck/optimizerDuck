@@ -17,17 +17,19 @@ namespace optimizerDuck.Domain.Revert.Steps;
 public class RegistryRevertStep : IRevertStep
 {
     /// <summary>
-    ///     Gets the action to perform (e.g., restore previous value, delete value, restore key tree).
+    ///     Gets the action to perform (e.g., restore previous value, delete value,
+    ///     restore key tree).
     /// </summary>
     public RevertAction Action { get; init; }
 
     /// <summary>
-    ///     Gets the registry key path (e.g., <c>HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer</c>).
+    ///     Gets the registry key path, for example
+    ///     <c>HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer</c>.
     /// </summary>
     public string Path { get; init; } = string.Empty;
 
     /// <summary>
-    ///     Gets the registry value name, or <see langword="null"/> for the default value.
+    ///     Gets the registry value name, or <see langword="null" /> for the default value.
     /// </summary>
     public string? Name { get; init; }
 
@@ -43,7 +45,8 @@ public class RegistryRevertStep : IRevertStep
     public IReadOnlyList<RegistryRevertStep>? SubSteps { get; init; }
 
     /// <summary>
-    ///     Gets the original registry value to restore, or <see langword="null"/> if the value did not exist.
+    ///     Gets the original registry value to restore, or <see langword="null" /> if
+    ///     the value did not exist.
     /// </summary>
     public object? Value { get; init; }
 
@@ -114,7 +117,6 @@ public class RegistryRevertStep : IRevertStep
         // Read-back verify for the local value actions.
         VerifyRestore(opCall);
 
-        // Cleanup empty subkeys if they were created during apply
         if (CreatedSubKeys?.Count > 0)
             RegistryService.CleanupEmptyKeys(CreatedSubKeys, opCall.Logger);
 
@@ -132,7 +134,6 @@ public class RegistryRevertStep : IRevertStep
             [nameof(Kind)] = Kind.ToString(),
         };
 
-        // Save created subkeys list
         if (CreatedSubKeys?.Count > 0)
             obj[nameof(CreatedSubKeys)] = new JArray(CreatedSubKeys);
 
@@ -144,7 +145,8 @@ public class RegistryRevertStep : IRevertStep
             obj[nameof(SubSteps)] = subArray;
         }
 
-        // Serialize Value based on Kind to ensure deterministic JSON and avoid JValue rendering issues
+        // Serialize Value based on Kind to ensure deterministic JSON and avoid
+        // JValue rendering issues
         if (Value == null)
         {
             obj[nameof(Value)] = null;
@@ -222,7 +224,6 @@ public class RegistryRevertStep : IRevertStep
                     break;
             }
 
-        // Load created subkeys list
         List<string>? createdSubKeys = null;
         if (data[nameof(CreatedSubKeys)] is JArray subKeysArray)
             createdSubKeys = subKeysArray.ToObject<List<string>>();
@@ -363,6 +364,9 @@ public enum RevertAction
     /// <summary>The key existed before; recreate it during revert (limited to root).</summary>
     RestoreKey,
 
-    /// <summary>The key tree existed before; recreate the entire tree including values sequentially.</summary>
+    /// <summary>
+    ///     The key tree existed before; recreate the entire tree including values
+    ///     sequentially.
+    /// </summary>
     RestoreKeyTree,
 }

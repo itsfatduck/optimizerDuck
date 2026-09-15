@@ -5,7 +5,8 @@ namespace optimizerDuck.Domain.Customize.Models;
 
 /// <summary>
 ///     Binds a <see cref="SettingOption" /> to one or more registry values.
-///     Used by <see cref="BaseCustomizeSetting" /> to auto-read/write registry for Dropdown settings.
+///     Used by <see cref="BaseCustomizeSetting" /> to auto-read/write registry
+///     for Dropdown settings.
 ///     Supports matching multiple accepted values (e.g. 1 or null for default values).
 /// </summary>
 public record RegistryBinding(

@@ -7,13 +7,15 @@ namespace optimizerDuck.Domain.Conditions;
 public static class ConditionValidation
 {
     /// <summary>
-    ///     Ensures <paramref name="conditionType"/> either is <c>null</c> or is a concrete
-    ///     <see cref="ICondition"/> with a public parameterless constructor.
+    ///     Ensures <paramref name="conditionType" /> either is <see langword="null" /> or is a
+    ///     concrete <see cref="ICondition" /> with a public parameterless constructor.
     /// </summary>
-    /// <param name="conditionType">The condition type declared in an attribute, or <c>null</c>.</param>
+    /// <param name="conditionType">
+    ///     The condition type declared in an attribute, or <see langword="null" />.
+    /// </param>
     /// <param name="ownerName">The owning item's display name, used in the error message.</param>
     /// <exception cref="InvalidOperationException">
-    ///     Thrown when the type does not implement <see cref="ICondition"/> or has no
+    ///     Thrown when the type does not implement <see cref="ICondition" /> or has no
     ///     parameterless constructor.
     /// </exception>
     public static void Validate(Type? conditionType, string ownerName)

@@ -33,7 +33,7 @@ using TextBlock = Wpf.Ui.Controls.TextBlock;
 public partial class OptimizationCategoryViewModel
 {
     /// <summary>
-    ///     Run a long-running action with a processing dialog.
+    ///     Runs a long-running action with a processing dialog.
     /// </summary>
     private async Task<T> RunWithProcessingDialogAsync<T>(
         IOptimization optimization,
@@ -61,7 +61,8 @@ public partial class OptimizationCategoryViewModel
     }
 
     /// <summary>
-    ///     Handle failed steps for an optimization.
+    ///     Handles the failed steps of one apply or revert, offering a retry while a failed step
+    ///     can still be re-run.
     /// </summary>
     private async Task<FailureResolutionOutcome> HandleRetryableFailuresAsync(
         IOptimization optimization,
@@ -75,9 +76,9 @@ public partial class OptimizationCategoryViewModel
         var remainingFailedSteps = failedSteps.OrderBy(s => s.Index).ToList();
         while (remainingFailedSteps.Count > 0)
         {
-            // Only offer Retry when at least one failed step can actually be re-run. A
-            // non-retryable failure (e.g. access denied on a Windows-protected service)
-            // must not loop the dialog with a button that cannot change anything.
+            // Only offer Retry when a failed step can be re-run. A non-retryable failure
+            // (e.g. access denied on a Windows-protected service) must not loop the dialog
+            // with a button that cannot change anything.
             var canRetry = remainingFailedSteps.Any(s => s.Retry != null);
             var dialogViewModel = new OptimizationResultDialogViewModel(
                 remainingFailedSteps,
@@ -268,9 +269,6 @@ public partial class OptimizationCategoryViewModel
         }
     }
 
-    /// <summary>
-    ///     Handles the restore point dialog.
-    /// </summary>
     private async Task<(bool Proceed, bool RestorePointCreated)> HandleRestorePointAsync()
     {
         var dialogContent = new RestorePointDialog();
@@ -382,7 +380,9 @@ public partial class OptimizationCategoryViewModel
         return (true, false);
     }
 
-    /// <summary>Binds a dialog property to a localization key so it follows runtime language changes.</summary>
+    /// <summary>
+    ///     Binds a dialog property to a localization key so it follows runtime language changes.
+    /// </summary>
     private static void BindLocalized(ContentDialog dialog, DependencyProperty property, string key)
     {
         dialog.SetBinding(

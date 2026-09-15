@@ -161,7 +161,7 @@ public class Performance : LocalizedObject, IOptimizationCategory
             const string systemProfileKey =
                 @"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile";
 
-            // Parent SystemProfile settings (NoLazyMode, AlwaysOn, NetworkThrottlingIndex, SystemResponsiveness)
+            // Parent SystemProfile settings
             RegistryService.Write(
                 context,
                 new RegistryItem(systemProfileKey, "NoLazyMode", 1),
@@ -180,7 +180,7 @@ public class Performance : LocalizedObject, IOptimizationCategory
                 ) // minimum possible value (Values below 10 and above 100 are clamped to 20.)
             );
 
-            // Games task scheduling (Priority, Scheduling Category, SFIO Priority, GPU Priority)
+            // Games task scheduling
             RegistryService.Write(
                 context,
                 new RegistryItem($@"{systemProfileKey}\Tasks\Games", "Priority", 2),

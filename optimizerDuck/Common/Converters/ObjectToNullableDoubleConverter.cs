@@ -4,6 +4,10 @@ using System.Windows.Data;
 
 namespace optimizerDuck.Common.Converters;
 
+/// <summary>
+///     Converts numeric input to a nullable double; the "Int" ConvertBack parameter is matched
+///     ordinally, ignoring case, and unparsable values yield UnsetValue.
+/// </summary>
 public sealed class ObjectToNullableDoubleConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)

@@ -3,8 +3,8 @@ using Wpf.Ui.Controls;
 namespace optimizerDuck.UI.Controls;
 
 /// <summary>
-///     A custom NavigationViewItem that automatically fills its SymbolIcon when active,
-///     regardless of the NavigationViewPaneDisplayMode.
+///     Represents a NavigationViewItem that fills its SymbolIcon while active, regardless of the
+///     NavigationViewPaneDisplayMode.
 /// </summary>
 public class FilledNavigationViewItem : NavigationViewItem
 {

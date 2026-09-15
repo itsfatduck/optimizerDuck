@@ -6,10 +6,9 @@ using optimizerDuck.Services.System;
 namespace optimizerDuck.Domain.Conditions;
 
 /// <summary>
-///     Requires Windows Recall (AI Explorer) to actually be present on the machine.
-///     Recall ships with the Windows AI shell components, which are only installed on
-///     Windows 11 24H2+ systems that have the feature: a build check alone would mark
-///     a plain 24H2 machine as supported even though Recall does not exist there.
+///     Requires Windows Recall (AI Explorer) to be present on the machine. Recall ships with the
+///     Windows AI shell components, installed only on Windows 11 24H2+ systems that have the
+///     feature, so a build check alone would mark a plain 24H2 machine as supported.
 /// </summary>
 public sealed class RecallInstalledCondition : ConditionBase
 {

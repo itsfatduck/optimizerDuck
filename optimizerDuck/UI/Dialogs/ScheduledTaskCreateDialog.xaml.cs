@@ -26,7 +26,6 @@ public partial class ScheduledTaskCreateDialog : UserControl
 
             var fullPath = folderPath == "\\" ? $"\\{name}" : $"{folderPath}\\{name}";
 
-            // Parse daily time
             var time = TimeSpan.Zero;
             if (
                 DailyTriggerCheck.IsChecked == true

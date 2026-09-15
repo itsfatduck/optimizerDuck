@@ -24,7 +24,7 @@ public interface ICustomizeSetting
     string FeatureKey { get; }
 
     /// <summary>
-    ///     Gets the compatibility condition type (implementing <see cref="ICondition"/>)
+    ///     Gets the compatibility condition type (implementing <see cref="ICondition" />)
     ///     that determines whether this setting is supported on the current system.
     /// </summary>
     Type? ConditionType { get; }
@@ -48,12 +48,12 @@ public interface ICustomizeSetting
 
     /// <summary>
     ///     Reads state until two consecutive reads agree or retries run out. Use after
-    ///     <see cref="ApplyAsync"/> to let the registry settle.
+    ///     <see cref="ApplyAsync" /> to let the registry settle.
     /// </summary>
     Task<bool> GetStateWithRetryAsync(int maxRetries = 3, int delayMs = 80);
 
     /// <summary>
-    ///     Applies the value, recording every write into <paramref name="call"/>
+    ///     Applies the value, recording every write into <paramref name="call" />
     ///     for change tracking and revert. The first failure wins the return,
     ///     but all writes are still attempted.
     /// </summary>
@@ -65,6 +65,8 @@ public interface ICustomizeSetting
     /// </summary>
     IReadOnlyList<string> WatchedRegistryPaths { get; }
 
-    /// <summary>Returns the setting's recommendation, or <c>null</c> when none exists.</summary>
+    /// <summary>
+    ///     Returns the setting's recommendation, or <see langword="null" /> when none exists.
+    /// </summary>
     CustomizeRecommendationResult? GetRecommendation();
 }

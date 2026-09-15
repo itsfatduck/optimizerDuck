@@ -11,31 +11,16 @@ namespace optimizerDuck.Domain.Optimizations.Models.StartupManager;
 /// </summary>
 public partial class StartupTask : LocalizedObject
 {
-    /// <summary>
-    ///     Indicates whether the task is enabled.
-    /// </summary>
     [ObservableProperty]
     private bool _isEnabled;
 
-    /// <summary>
-    ///     The logo image of the task's executable.
-    /// </summary>
     [ObservableProperty]
     private ImageSource? _logoImage;
 
-    /// <summary>
-    ///     The name of the scheduled task.
-    /// </summary>
     public required string TaskName { get; init; }
 
-    /// <summary>
-    ///     The path to the task in Task Scheduler.
-    /// </summary>
     public required string TaskPath { get; init; }
 
-    /// <summary>
-    ///     Description of the task.
-    /// </summary>
     public string? Description { get; init; }
 
     /// <summary>
@@ -48,19 +33,10 @@ public partial class StartupTask : LocalizedObject
     /// </summary>
     public IReadOnlyList<string> TriggerTypes => TriggerInfos.Select(t => t.Label).ToList();
 
-    /// <summary>
-    ///     Localized summary of when the task triggers.
-    /// </summary>
     public string TriggerSummary => string.Join("; ", TriggerInfos.Select(t => t.Detail));
 
-    /// <summary>
-    ///     Summary of what the task does.
-    /// </summary>
     public string? ActionSummary { get; init; }
 
-    /// <summary>
-    ///     Indicates whether this is a Microsoft system task.
-    /// </summary>
     public bool IsMicrosoftTask =>
         TaskPath.StartsWith(@"\Microsoft\", StringComparison.OrdinalIgnoreCase);
 

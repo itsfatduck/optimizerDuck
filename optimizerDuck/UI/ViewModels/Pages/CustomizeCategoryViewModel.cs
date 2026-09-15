@@ -95,8 +95,7 @@ public partial class CustomizeCategoryViewModel : ViewModel
                 "System snapshot is unavailable; conditions fail open for this session"
             );
 
-        // Keep all collection/UI mutation on the UI thread, consistent with the
-        // optimization category view model.
+        // All collection and UI mutation stays on the UI thread.
         await UiThread.InvokeAsync(async () =>
         {
             EvaluateConditions(snapshot);
@@ -124,9 +123,8 @@ public partial class CustomizeCategoryViewModel : ViewModel
     }
 
     /// <summary>
-    ///     Recomputes the unsupported partition from the master settings list so settings that
-    ///     fail their condition are shown under the expander instead of the main category
-    ///     content. Idempotent: safe to call repeatedly as conditions are re-evaluated.
+    ///     Recomputes the unsupported partition from the master list so settings that fail their
+    ///     condition show under the expander. Idempotent: safe to call as conditions change.
     /// </summary>
     private void PartitionUnsupportedSettings()
     {
@@ -135,8 +133,7 @@ public partial class CustomizeCategoryViewModel : ViewModel
     }
 
     /// <summary>
-    ///     Groups the unsupported settings into the same section structure used by the main
-    ///     category content, so the expander can reuse the existing card templates.
+    ///     Builds the unsupported sections so the expander reuses the main card templates.
     /// </summary>
     private void BuildUnsupportedSections()
     {
@@ -146,8 +143,8 @@ public partial class CustomizeCategoryViewModel : ViewModel
     }
 
     /// <summary>
-    ///     Groups settings into ordered sections, placing settings without a section under
-    ///     the "Other" header. Shared by the main list and the unsupported expander.
+    ///     Groups settings into sections, placing settings without a section under the "Other"
+    ///     header last.
     /// </summary>
     private static ObservableCollection<CustomizeSection> GroupIntoSections(
         IEnumerable<CustomizeItemViewModel> settings
@@ -177,6 +174,7 @@ public partial class CustomizeCategoryViewModel : ViewModel
         });
     }
 
+    /// <inheritdoc />
     public override Task OnNavigatedToAsync()
     {
         ApplicationThemeManager.Changed -= OnThemeChanged;
@@ -187,6 +185,7 @@ public partial class CustomizeCategoryViewModel : ViewModel
         return base.OnNavigatedToAsync();
     }
 
+    /// <inheritdoc />
     public override Task OnNavigatedFromAsync()
     {
         _systemInfoService.SnapshotRefreshed -= OnSnapshotRefreshed;
@@ -195,16 +194,14 @@ public partial class CustomizeCategoryViewModel : ViewModel
     }
 
     /// <summary>
-    ///     Re-evaluates every condition and rebuilds the filtered/unsupported partitions
-    ///     when the system snapshot is refreshed (e.g. hardware changed) or the UI
-    ///     language changes. Marshalled to the UI thread by <see cref="UiThread"/>.
+    ///     Re-evaluates every condition and rebuilds the partitions when the system snapshot is
+    ///     refreshed.
     /// </summary>
     private void OnSnapshotRefreshed(object? sender, SystemInfo snapshot) =>
         ReEvaluateConditions(snapshot);
 
     /// <summary>
-    ///     Re-evaluates every condition and rebuilds the filtered/unsupported partitions
-    ///     when the UI language changes. Marshalled to the UI thread by <see cref="UiThread"/>.
+    ///     Re-evaluates every condition and rebuilds the partitions on a language change.
     /// </summary>
     protected override void OnLanguageChanged(CultureInfo newCulture) =>
         ReEvaluateConditions(_systemInfoService.Snapshot);

@@ -4,7 +4,7 @@ using Wpf.Ui.Appearance;
 
 namespace optimizerDuck.Common.Converters;
 
-/// <summary>Maps an <see cref="ApplicationTheme"/> to a 0-2 index (for tab selection) and back.</summary>
+/// <summary>Maps a theme to a 0-2 index and back; unknown values fall back to Light.</summary>
 public sealed class ThemeToIndexConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)

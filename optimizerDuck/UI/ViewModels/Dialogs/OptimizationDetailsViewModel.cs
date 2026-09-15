@@ -26,17 +26,15 @@ public partial class OptimizationDetailsViewModel(
     public IOptimization Optimization { get; } = optimization;
 
     /// <summary>
-    ///     What the item's last apply did, straight from the record on disk. Read once: a dialog
-    ///     does not need to watch the file, and an item applied while it is open is reloaded by
-    ///     opening it again.
+    ///     Holds the item's last recorded run, read once when the dialog is constructed.
     /// </summary>
     private readonly ChangeRecord? _record = ChangeRecordStore.TryRead(optimization.Id);
     private IReadOnlyList<ChangeRecordStepViewModel>? _steps;
     private IReadOnlyList<RecordFieldViewModel>? _recordFacts;
 
     /// <summary>
-    ///     The steps of the recorded run, worded for the run they belong to, so a revert reads as
-    ///     what it put back.
+    ///     Gets the steps of the recorded run, worded for the run they belong to so a revert
+    ///     reads as what it put back.
     /// </summary>
     public IReadOnlyList<ChangeRecordStepViewModel> Steps =>
         _steps ??= [
@@ -46,12 +44,12 @@ public partial class OptimizationDetailsViewModel(
             )),
         ];
 
-    /// <summary>Whether there is a record to show at all.</summary>
+    /// <summary>Gets a value that indicates whether a record is available to show.</summary>
     public bool HasRecord => Steps.Count > 0;
 
     /// <summary>
-    ///     Which run this record describes and when it ran, so the dialog says up front whether the
-    ///     last thing that happened to this item was an apply or a revert.
+    ///     Gets a line naming the run the record describes and when it ran, so the dialog says up
+    ///     front whether the item was last applied or reverted.
     /// </summary>
     public string RecordHeadline =>
         _record switch
@@ -64,18 +62,20 @@ public partial class OptimizationDetailsViewModel(
             _ => string.Empty,
         };
 
-    /// <summary>Whether the record describes a revert, which the header marks.</summary>
+    /// <summary>Gets a value that indicates whether the record describes a revert.</summary>
     public bool RecordIsRevert => _record?.Operation == ChangeRecordOperation.Revert;
 
     /// <summary>
-    ///     What the run itself was: the build that wrote the record and the Windows version it ran
-    ///     on, so a record read out of the app states its own context, and how long the run took. A
-    ///     record written by an earlier build carries none of these and shows no chip for them.
+    ///     Gets the facts of the run itself: the build that wrote the record, the Windows version
+    ///     it ran on and how long it took. A record written by an earlier build carries none of
+    ///     these and shows no chip for them.
     /// </summary>
     public IReadOnlyList<RecordFieldViewModel> RecordFacts =>
         _recordFacts ??= BuildRecordFacts(_record);
 
-    /// <summary>Whether the record carries any fact about the run itself.</summary>
+    /// <summary>
+    ///     Gets a value that indicates whether the record carries any fact about the run itself.
+    /// </summary>
     public bool HasRecordFacts => RecordFacts.Count > 0;
 
     private static IReadOnlyList<RecordFieldViewModel> BuildRecordFacts(ChangeRecord? record)

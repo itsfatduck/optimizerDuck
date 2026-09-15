@@ -15,7 +15,8 @@ namespace optimizerDuck.Domain.Revert.Steps;
 public class ShellRevertStep : IRevertStep
 {
     /// <summary>
-    ///     Gets or sets the type of shell to use for execution (<see cref="ShellType.CMD"/> or <see cref="ShellType.PowerShell"/>).
+    ///     Gets or sets the type of shell to use for execution
+    ///     (<see cref="ShellType.CMD" /> or <see cref="ShellType.PowerShell" />).
     /// </summary>
     public ShellType ShellType { get; set; }
 

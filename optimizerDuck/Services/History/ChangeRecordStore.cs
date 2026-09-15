@@ -8,19 +8,18 @@ using optimizerDuck.Domain.Execution;
 namespace optimizerDuck.Services.History;
 
 /// <summary>
-///     Stores what one apply did, one file per item, so the details view can show it again after
-///     the app restarts. It writes outside the revert data on purpose: a revert deletes its own
-///     file, and what a run did should stay readable afterwards.
+///     Stores what one apply did, one file per item, so the record survives a restart. It is
+///     kept outside the revert data: a revert deletes its own file, while what a run did stays
+///     readable afterwards.
 /// </summary>
 public static class ChangeRecordStore
 {
-    /// <summary>The file this item's most recent apply is recorded in.</summary>
+    /// <summary>Returns the file this item's most recent apply is recorded in.</summary>
     public static string PathFor(Guid id) => Path.Combine(Shared.HistoryDirectory, $"{id}.json");
 
     /// <summary>
     ///     Writes a record, replacing the item's previous one. Best effort: a record that cannot
-    ///     be written is logged and never changes the outcome of the apply, so callers do not
-    ///     have to guard the call.
+    ///     be written is logged and never changes the outcome of the apply.
     /// </summary>
     public static void TryWrite(ChangeRecord record, ILogger? logger = null)
     {
@@ -29,9 +28,8 @@ public static class ChangeRecordStore
             var path = PathFor(record.Id);
             Directory.CreateDirectory(Shared.HistoryDirectory);
 
-            // Atomic like the revert files: a torn report would be worse than no report. No file
-            // lock is needed because an item is applied through one command at a time, and the
-            // replace makes a partial write impossible.
+            // Atomic like the revert files: a torn report is worse than no report. No lock is
+            // needed because an item is applied through one command at a time.
             var tempPath = path + ".tmp";
             File.WriteAllText(
                 tempPath,

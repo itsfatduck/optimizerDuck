@@ -15,8 +15,10 @@ public interface ICrossPageEvent;
 ///     Signals that scheduled tasks were added, removed, or toggled.
 /// </summary>
 /// <remarks>
-///     Fired by <see cref="optimizerDuck.UI.ViewModels.Pages.ScheduledTasksViewModel"/> after toggling a task.
-///     Consumed by <see cref="optimizerDuck.UI.ViewModels.Pages.StartupManagerViewModel"/> to reload its Tasks section.
+///     Fired by <see cref="optimizerDuck.UI.ViewModels.Pages.ScheduledTasksViewModel"/>
+///     after toggling a task.
+///     Consumed by <see cref="optimizerDuck.UI.ViewModels.Pages.StartupManagerViewModel"/>
+///     to reload its Tasks section.
 /// </remarks>
 public readonly record struct ScheduledTasksChanged : ICrossPageEvent;
 
@@ -24,8 +26,10 @@ public readonly record struct ScheduledTasksChanged : ICrossPageEvent;
 ///     Signals that startup apps or tasks were added, removed, or toggled.
 /// </summary>
 /// <remarks>
-///     Fired by <see cref="optimizerDuck.UI.ViewModels.Pages.StartupManagerViewModel"/> after toggling a startup task.
-///     Consumed by <see cref="optimizerDuck.UI.ViewModels.Pages.ScheduledTasksViewModel"/> to reload all tasks.
+///     Fired by <see cref="optimizerDuck.UI.ViewModels.Pages.StartupManagerViewModel"/>
+///     after toggling a startup task.
+///     Consumed by <see cref="optimizerDuck.UI.ViewModels.Pages.ScheduledTasksViewModel"/>
+///     to reload all tasks.
 /// </remarks>
 public readonly record struct StartupAppsChanged : ICrossPageEvent;
 
@@ -33,8 +37,11 @@ public readonly record struct StartupAppsChanged : ICrossPageEvent;
 ///     Signals that bloatware packages were removed or may have changed externally.
 /// </summary>
 /// <remarks>
-///     Fired by <see cref="optimizerDuck.UI.ViewModels.Pages.BloatwareViewModel"/> after removing packages.
-///     Consumed by <see cref="optimizerDuck.UI.ViewModels.Pages.StartupManagerViewModel"/> (reloads tasks)
-///     and <see cref="optimizerDuck.UI.ViewModels.Pages.BloatwareViewModel"/> (full refresh on re-navigation).
+///     Fired by <see cref="optimizerDuck.UI.ViewModels.Pages.BloatwareViewModel"/>
+///     after removing packages.
+///     Consumed by <see cref="optimizerDuck.UI.ViewModels.Pages.StartupManagerViewModel"/>
+///     (reloads tasks) and
+///     <see cref="optimizerDuck.UI.ViewModels.Pages.BloatwareViewModel"/> (full refresh on
+///     re-navigation).
 /// </remarks>
 public readonly record struct BloatwareChanged : ICrossPageEvent;

@@ -19,6 +19,10 @@ using optimizerDuck.Services.System.Primitives;
 
 namespace optimizerDuck.Services.Revert;
 
+/// <summary>
+///     Atomic, file-based persistence of revert data: one JSON file per applied item, written
+///     through a temporary file and a replace so a crash cannot leave a half-written file.
+/// </summary>
 public class RevertManager(
     ILogger<RevertManager> _logger,
     ShellService _shell,
@@ -32,7 +36,9 @@ public class RevertManager(
     private static readonly Lazy<Dictionary<string, Func<JObject, IRevertStep>>> _stepRegistry =
         new(BuildStepRegistry);
 
-    /// <summary>Per item file locks. Visible to the test assembly so a stuck lock can be simulated.</summary>
+    /// <summary>
+    ///     Per item file locks. Visible to the test assembly so a stuck lock can be simulated.
+    /// </summary>
     internal static readonly ConcurrentDictionary<Guid, SemaphoreSlim> FileLocks = new();
 
     private readonly TimeSpan _fileLockTimeout = TimeSpan.FromSeconds(FileLockTimeoutSeconds);
@@ -51,8 +57,10 @@ public class RevertManager(
     }
 
     /// <summary>
-    ///     Persists revert steps from a <see cref="ChangeSet"/>. Appends every successful change as a new entry with a fresh index. No payload-based dedupe: two executions of the same command are two real executions; dropping either loses revert coverage.
-    ///     Reverting extra entries is harmless (LIFO ends at the original backup).
+    ///     Persists revert steps from a <see cref="ChangeSet"/>. Appends every successful change
+    ///     as a new entry with a fresh index. No payload-based dedupe: two executions of the same
+    ///     command are two real executions, so dropping either loses revert coverage. Indexes are
+    ///     never reused, and reverting an extra entry is harmless because revert runs LIFO.
     /// </summary>
     public async Task SaveRevertDataAsync(
         ChangeSet changes,
@@ -64,10 +72,7 @@ public class RevertManager(
         // Compensation is persisted whenever it exists, whether the step reported success or a
         // partial failure: a step that was refused after it had already changed something still
         // needs its previous state recorded.
-        var incoming = changes
-            .Changes.Where(c => c.Revert != null)
-            .OrderBy(c => c.Index)
-            .ToList();
+        var incoming = changes.Changes.Where(c => c.Revert != null).OrderBy(c => c.Index).ToList();
 
         // A step that modified the system must carry the data needed to undo it. The filter
         // above drops entries without compensation, so a Change arriving here without one is a
@@ -104,12 +109,6 @@ public class RevertManager(
 
             data.OptimizationName = name;
 
-            // Every incoming change appends its own entry with a fresh index.
-            // No payload-based dedupe: two executions of the same command are
-            // two real executions, and dropping either loses revert coverage.
-            // Reverting extra entries is harmless (LIFO ends at the original
-            // backup); dropping one silently is not. Indexes are never reused
-            // so on-disk entries stay stable across saves.
             var nextIndex =
                 data.Steps.Where(s => s != null).Select(s => s!.Index).DefaultIfEmpty(0).Max() + 1;
             var merged = data.Steps.Where(s => s != null).Cast<RevertStepData>().ToList();
@@ -488,7 +487,9 @@ public class RevertManager(
         return null;
     }
 
-    /// <summary>The newest parked copy of an unreadable revert file, or null when there is none.</summary>
+    /// <summary>
+    ///     The newest parked copy of an unreadable revert file, or null when there is none.
+    /// </summary>
     private static string? FindParkedFile(string path)
     {
         var directory = Path.GetDirectoryName(path);
@@ -502,7 +503,9 @@ public class RevertManager(
         return matches.OrderBy(static m => m, StringComparer.Ordinal).Last();
     }
 
-    /// <summary>Moves an unreadable revert file aside, keeping its bytes, and returns the new path.</summary>
+    /// <summary>
+    ///     Moves an unreadable revert file aside, keeping its bytes, and returns the new path.
+    /// </summary>
     private string ParkUnreadable(string path)
     {
         var stamp = _time.GetUtcNow().ToString("yyyyMMddHHmmss");
@@ -540,7 +543,8 @@ public class RevertManager(
                     if (data == null)
                         return null;
 
-                    // Validate the file is within the expected revert directory (path traversal guard)
+                    // Validate the file is within the expected revert directory
+                    // (path traversal guard)
                     var resolvedPath = Path.GetFullPath(path);
                     var revertDir = Path.GetFullPath(Shared.RevertDirectory);
                     if (!revertDir.EndsWith(Path.DirectorySeparatorChar))
@@ -582,7 +586,6 @@ public class RevertManager(
                         );
                         return null;
                     }
-                    // Validate schema version
                     if (data.SchemaVersion != SchemaVersion)
                     {
                         LogCorruptRevertFile(

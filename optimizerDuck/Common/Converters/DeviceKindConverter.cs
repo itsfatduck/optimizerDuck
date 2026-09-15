@@ -5,7 +5,7 @@ using optimizerDuck.Services.System;
 
 namespace optimizerDuck.Common.Converters;
 
-/// <summary>Converts a <see cref="DeviceKind"/> to its localized display text.</summary>
+/// <summary>Localizes a DeviceKind; unrecognized kinds fall back to Common.Unknown.</summary>
 public class DeviceKindConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)

@@ -37,7 +37,8 @@ public class ChangeRecordRowShapeTests
             }
         );
 
-        // "Not applicable" on its own says nothing, so the row carries the reason in the UI language.
+        // "Not applicable" alone says nothing, so the row carries the reason in the UI
+        // language.
         Assert.Contains(
             step.Fields,
             field => field.Value == Loc.Instance["Optimizer.Details.Reason.ServiceNotFound"]
@@ -58,7 +59,7 @@ public class ChangeRecordRowShapeTests
             }
         );
 
-        // A code the UI cannot word is left out rather than shown raw.
+        // A code the UI cannot word is left out of the row.
         Assert.DoesNotContain(step.Fields, field => field.Value == "something.new");
     }
 

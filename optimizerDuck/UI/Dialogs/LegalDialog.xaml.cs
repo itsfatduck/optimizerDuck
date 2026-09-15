@@ -29,8 +29,7 @@ namespace optimizerDuck.UI.Dialogs
                 return;
             }
 
-            // Fallback for design-time or direct new LegalDialog() from MainWindow
-            // Try to resolve from App.Host
+            // Fall back to the container when the dialog is opened without a view model.
             try
             {
                 if (Application.Current is App app && app.AppHost != null)
@@ -42,7 +41,7 @@ namespace optimizerDuck.UI.Dialogs
             }
             catch
             {
-                // ignore for designer
+                // The designer has no application host.
             }
         }
     }

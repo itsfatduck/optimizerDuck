@@ -114,6 +114,7 @@ public partial class DashboardViewModel : ViewModel
         ApplicationThemeManager.Changed += OnThemeChanged;
     }
 
+    /// <inheritdoc />
     public override async Task OnNavigatedToAsync()
     {
         await base.OnNavigatedToAsync();
@@ -125,6 +126,7 @@ public partial class DashboardViewModel : ViewModel
         _updateTimer.Start();
     }
 
+    /// <inheritdoc />
     public override Task OnNavigatedFromAsync()
     {
         _updateTimer.Stop();
@@ -310,8 +312,8 @@ public partial class DashboardViewModel : ViewModel
     }
 
     /// <summary>
-    /// 2s live tick. Runs on the UI thread and calls only the cheap cached
-    /// service paths (no WMI, no Task.Run): a slow scan can never overlap ticks.
+    ///     Runs on the two second tick, on the UI thread and through the cheap cached service
+    ///     paths, so a slow scan can never overlap ticks.
     /// </summary>
     private void OnUpdateTick(object? sender, EventArgs e)
     {

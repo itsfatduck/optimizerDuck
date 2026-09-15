@@ -3,8 +3,12 @@ using System.IO;
 
 namespace optimizerDuck.Common.Helpers;
 
+/// <summary>
+///     Constants, links, install paths and the AppX package sets used by the bloatware scan.
+/// </summary>
 public static class Shared
 {
+    /// <summary>The ASCII-art logo shown in the startup log banner.</summary>
     public const string RawLogo = """
                       _   _           _              _____             _
                      | | (_)         (_)            |  __ \           | |
@@ -16,36 +20,57 @@ public static class Shared
                |_|
         """;
 
+    /// <summary>The invite link to the project's Discord server.</summary>
     public const string DiscordInviteURL = "https://discord.gg/tDUBDCYw9Q";
+
+    /// <summary>The project documentation site.</summary>
     public const string WebsiteURL = "https://optimizerduck.vercel.app/";
+
+    /// <summary>The project's GitHub repository.</summary>
     public const string GitHubRepoURL = "https://github.com/itsfatduck/optimizerDuck";
+
+    /// <summary>The community page on the documentation site.</summary>
     public const string CommunityURL = "https://optimizerduck.vercel.app/docs/community";
+
+    /// <summary>The contribution guide on the documentation site.</summary>
     public const string ContributeURL = "https://optimizerduck.vercel.app/docs/contribute/overview";
 
+    /// <summary>The third-party notices file on GitHub.</summary>
     public const string AcknowledgementsURL =
         "https://github.com/itsfatduck/optimizerDuck/blob/master/THIRD-PARTY-NOTICES.md";
 
+    /// <summary>The name given to the restore point created before an apply.</summary>
     public const string RestorePointName = "optimizerDuck Restore Point";
 
+    /// <summary>The download URL of the bundled optimizerDuck power plan.</summary>
     public const string PowerPlanUrl =
         "https://github.com/itsfatduck/optimizerDuck/raw/refs/heads/master/optimizerDuck.Resources/optimizerDuck.pow";
 
+    /// <summary>The GUID the bundled power plan is installed under.</summary>
     public const string PowerPlanGUID = "8ae61178-2c55-43f2-afb2-f83725823657";
 
+    /// <summary>The full path of the running executable.</summary>
     public static readonly string ExePath = Environment.ProcessPath!;
+
+    /// <summary>The directory that contains the running executable.</summary>
     public static readonly string ExeDir = Path.GetDirectoryName(ExePath)!;
+
+    /// <summary>The file name of the running executable.</summary>
     public static readonly string ExeName = Path.GetFileName(ExePath);
+
+    /// <summary>The file version of the running executable.</summary>
     public static readonly string FileVersion = FileVersionInfo
         .GetVersionInfo(ExePath)
         .FileVersion!;
 
+    /// <summary>AppX package names the bloatware scan marks as safe to remove.</summary>
     public static readonly HashSet<string> SafeApps = new()
     {
         // Bing / MSN / News
         "Microsoft.BingWeather",
         "Microsoft.BingNews",
-        "Microsoft.News", // Microsoft News
-        "MicrosoftStart", // Microsoft Start (Win11 22H2+)
+        "Microsoft.News",
+        "MicrosoftStart",
         "Microsoft.BingFinance",
         "Microsoft.BingSports",
         "Microsoft.BingFoodAndDrink",
@@ -70,7 +95,7 @@ public static class Shared
         "Microsoft.Office.OneNote",
         "Microsoft.Office.Sway",
         "Microsoft.MicrosoftJournal",
-        "Microsoft.MicrosoftPowerBIForWindows", // Power BI
+        "Microsoft.MicrosoftPowerBIForWindows",
         // Social & Wallet (Legacy)
         "Microsoft.Wallet",
         "Microsoft.MSWallet",
@@ -79,7 +104,7 @@ public static class Shared
         "Microsoft.MixedReality.Portal",
         "Microsoft.Print3D",
         "Microsoft.3DBuilder",
-        "Microsoft.Paint3D", // Paint 3D (Win10 only)
+        "Microsoft.Paint3D",
         // Multimedia & Entertainment
         "Microsoft.ZuneVideo",
         "Microsoft.WindowsSoundRecorder",
@@ -137,12 +162,13 @@ public static class Shared
         "DolbyLaboratories.DolbyAccess", // OEM audio app
     };
 
+    /// <summary>AppX package names the bloatware scan marks as risky to remove.</summary>
     public static readonly HashSet<string> CautionApps = new()
     {
         // Core Utilities (default handlers for common file types)
         "Microsoft.WindowsCalculator",
         "Microsoft.WindowsPhotos",
-        "Microsoft.MSPaint", // Classic Paint (Win10)
+        "Microsoft.MSPaint",
         "Microsoft.Paint",
         "Microsoft.WindowsNotepad",
         "Microsoft.WindowsCamera",
@@ -228,23 +254,32 @@ public static class Shared
         "CyberLinkMediaSuiteEssentials", // OEM media suite
     };
 
+    /// <summary>The per-user data directory under LocalApplicationData.</summary>
     public static string RootDirectory =>
         Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
             "optimizerDuck"
         );
 
+    /// <summary>The directory that holds downloaded and bundled resources.</summary>
     public static string ResourcesDirectory => Path.Combine(RootDirectory, "Resources");
+
+    /// <summary>The directory that holds downloaded resources.</summary>
     public static string DownloadsDirectory => Path.Combine(ResourcesDirectory, "Downloads");
+
+    /// <summary>The directory that holds bundled assets.</summary>
     public static string AssetsDirectory => Path.Combine(ResourcesDirectory, "Assets");
+
+    /// <summary>The directory that holds one revert file per applied item.</summary>
     public static string RevertDirectory => Path.Combine(RootDirectory, "Revert");
 
     /// <summary>
-    ///     Where what an apply did is recorded, one file per item. Separate from the revert data
-    ///     so that a report outlives the revert file it describes.
+    ///     Where what an apply did is recorded, one file per item. Separate from the revert data,
+    ///     so a report outlives the revert file it describes.
     /// </summary>
     public static string HistoryDirectory => Path.Combine(RootDirectory, "History");
 
+    /// <summary>Gets a value that indicates whether the OS is Windows 11 or later.</summary>
     public static bool IsWindows11OrGreater =>
         OperatingSystem.IsWindowsVersionAtLeast(10, 0, 22000);
 }

@@ -13,7 +13,8 @@ namespace optimizerDuck.Domain.Revert.Steps;
 public class UsbPowerRevertStep : IRevertStep
 {
     /// <summary>
-    ///     Represents a single USB device instance and its original <c>MSPower_DeviceEnable</c> state.
+    ///     Represents a single USB device instance and its original
+    ///     <c>MSPower_DeviceEnable</c> state.
     /// </summary>
     public sealed class DeviceState
     {

@@ -6,7 +6,7 @@ namespace optimizerDuck.Domain.Optimizations.Models;
 public readonly record struct ApplyResult
 {
     /// <summary>
-    ///     The error message if the step failed; <c>null</c> if successful.
+    ///     The error message if the step failed; <see langword="null" /> if successful.
     /// </summary>
     public string? ErrorMessage { get; init; }
 

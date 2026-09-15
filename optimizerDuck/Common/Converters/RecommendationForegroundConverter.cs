@@ -8,7 +8,6 @@ using Wpf.Ui.Appearance;
 
 namespace optimizerDuck.Common.Converters;
 
-/// <summary>Provides theme-aware text brushes for converter use.</summary>
 public static class ThemeBrushes
 {
     public static Brush Primary =>
@@ -21,7 +20,10 @@ public static class ThemeBrushes
         ThemeResource.Get<Brush>("TextFillColorSecondaryBrush") ?? Brushes.Gray;
 }
 
-/// <summary>Picks a foreground brush for a recommendation state based on the current app theme.</summary>
+/// <summary>
+///     Maps a recommendation state to a foreground brush; Depends follows the current theme,
+///     and any missing or unrecognized input falls back to Primary.
+/// </summary>
 public class RecommendationForegroundConverter : IMultiValueConverter
 {
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)

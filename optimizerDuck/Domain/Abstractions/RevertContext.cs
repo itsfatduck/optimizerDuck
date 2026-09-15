@@ -5,8 +5,7 @@ using optimizerDuck.Services.System.Primitives;
 namespace optimizerDuck.Domain.Abstractions;
 
 /// <summary>
-/// Explicit per-revert execution context: every capability a revert step
-/// needs travels as a parameter instead of hiding behind service locators.
+/// Per-revert execution context carrying every capability a revert step needs.
 /// </summary>
 public sealed class RevertContext
 {

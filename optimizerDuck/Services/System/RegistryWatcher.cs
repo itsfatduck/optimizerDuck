@@ -7,11 +7,20 @@ namespace optimizerDuck.Services.System;
 /// <summary>Monitors Windows registry keys for changes using RegNotifyChangeKeyValue.</summary>
 public interface IRegistryWatcher : IDisposable
 {
-    /// <summary>Raised when a watched registry key or its values change. The event argument is the registry path that changed.</summary>
+    /// <summary>
+    ///     Raised when a watched registry key or its values change.
+    ///     The event argument is the registry path that changed.
+    /// </summary>
     event EventHandler<string>? RegistryKeyChanged;
 
-    /// <summary>Starts watching the specified registry path for changes. Multiple paths can be watched simultaneously.</summary>
-    /// <param name="registryPath">The full registry path (e.g., "HKCU\Software\Microsoft\Windows\CurrentVersion\Run").</param>
+    /// <summary>
+    ///     Starts watching the specified registry path for changes.
+    ///     Multiple paths can be watched simultaneously.
+    /// </summary>
+    /// <param name="registryPath">
+    ///     The full registry path, for example
+    ///     "HKCU\Software\Microsoft\Windows\CurrentVersion\Run".
+    /// </param>
     void Watch(string registryPath);
 
     /// <summary>Stops watching the specified registry path.</summary>
@@ -284,7 +293,8 @@ internal sealed class RegistryWatcher(ILogger<RegistryWatcher> logger) : IRegist
                     ? path[..firstBackslash].ToUpperInvariant()
                     : path.ToUpperInvariant();
 
-            // Strip trailing colon for compatibility with RegistryService format (e.g. "HKLM:", "HKCU:")
+            // Strip trailing colon for compatibility with the RegistryService format, for
+            // example "HKLM:", "HKCU:".
             if (root.EndsWith(":"))
                 root = root[..^1];
 

@@ -6,7 +6,8 @@ using optimizerDuck.Services.Configuration;
 namespace optimizerDuck.Common.Extensions;
 
 /// <summary>
-///     maybe i will add change language runtime support later
+///     Supplies a localized string to a XAML binding from <see cref="Loc" />, resolving the key
+///     at bind time and appending any binding arguments into its format placeholders.
 /// </summary>
 public class LocExtension : MarkupExtension
 {
@@ -104,6 +105,10 @@ public class LocExtension : MarkupExtension
     }
 }
 
+/// <summary>
+///     Resolves a localized format string from <see cref="Loc" /> and formats it with the binding
+///     arguments: the first value is <see cref="Loc" />, the converter parameter is the key.
+/// </summary>
 public class LocDynamicConverter : IMultiValueConverter
 {
     public object Convert(object[] values, Type targetType, object? parameter, CultureInfo culture)

@@ -74,7 +74,7 @@ public partial class SettingsViewModel(
 
     private void OnThemeChanged(ApplicationTheme currentApplicationTheme, Color systemAccent)
     {
-        // Update the theme if it has been changed elsewhere than in the settings.
+        // The theme may have been changed outside the settings page.
         if (CurrentApplicationTheme != currentApplicationTheme)
             CurrentApplicationTheme = currentApplicationTheme;
     }
@@ -167,7 +167,6 @@ public partial class SettingsViewModel(
         if (result == ContentDialogResult.Primary)
         {
             RevertManager.ClearAllRevertData(logger);
-            // Refresh optimizations
             await OptimizationService.UpdateOptimizationStateAsync(
                 optimizationRegistry.OptimizationCategories.SelectMany(c => c.Optimizations)
             );
@@ -418,7 +417,7 @@ public partial class SettingsViewModel(
     #endregion Property Changed
 
     /// <summary>
-    ///     Fires an async task without awaiting it, but catches all exceptions
+    ///     Fires an async task without awaiting it, catching every exception it throws.
     /// </summary>
     private async Task SafeFireAndForgetAsync(
         Func<Task> taskFactory,

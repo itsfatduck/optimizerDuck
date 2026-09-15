@@ -12,8 +12,5 @@ public interface IWindow
     /// </summary>
     event RoutedEventHandler Loaded;
 
-    /// <summary>
-    ///     Shows the window.
-    /// </summary>
     void Show();
 }

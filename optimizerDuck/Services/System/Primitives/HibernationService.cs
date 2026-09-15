@@ -31,7 +31,9 @@ public static class HibernationService
 
     private const uint StatusSuccess = 0;
 
-    /// <summary>Result of a hibernation file commit/removal request, with the raw NTSTATUS.</summary>
+    /// <summary>
+    ///     Result of a hibernation file commit/removal request, with the raw NTSTATUS.
+    /// </summary>
     /// <param name="Succeeded">Whether the callback reported STATUS_SUCCESS.</param>
     /// <param name="NativeStatus">The NTSTATUS value, so callers can log the real code.</param>
     /// <param name="ExceptionText">Throw text when the interop itself failed, else null.</param>

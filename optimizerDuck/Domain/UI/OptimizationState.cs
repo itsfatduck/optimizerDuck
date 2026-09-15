@@ -7,7 +7,6 @@ namespace optimizerDuck.Domain.UI;
 
 /// <summary>
 ///     Tracks the applied state and timing of an optimization.
-///     Provides relative time display (e.g., "Applied 5 minutes ago").
 /// </summary>
 public partial class OptimizationState : ObservableObject
 {
@@ -41,15 +40,9 @@ public partial class OptimizationState : ObservableObject
         }
     }
 
-    /// <summary>
-    ///     The date and time when the optimization was applied.
-    /// </summary>
     [ObservableProperty]
     private DateTime? appliedAt;
 
-    /// <summary>
-    ///     Indicates whether the optimization is currently applied.
-    /// </summary>
     [ObservableProperty]
     private bool isApplied;
 
@@ -60,20 +53,18 @@ public partial class OptimizationState : ObservableObject
     [ObservableProperty]
     private bool isAlreadyOptimal;
 
-    /// <summary>
-    ///     A human-readable relative time string (e.g., "5 minutes ago").
-    /// </summary>
+    /// <summary>The relative time text, for example "5 minutes ago".</summary>
     [ObservableProperty]
     private string? relativeTime = string.Empty;
 
     /// <summary>
     ///     One line describing what the last recorded apply did, read from the record when there
-    ///     is one. Empty when nothing is known, so the badge keeps its plain form.
+    ///     is one. Empty when nothing is known.
     /// </summary>
     [ObservableProperty]
     private string appliedSummary = string.Empty;
 
-    /// <summary>The tooltip of the applied badge: what the run did, and what a click does.</summary>
+    /// <summary>The applied badge tooltip: what the run did, and what a click does.</summary>
     public string AppliedTooltip =>
         string.IsNullOrEmpty(AppliedSummary)
             ? Loc.Instance["Optimizer.UI.State.Applied.Tooltip.NoSummary"]
@@ -81,9 +72,6 @@ public partial class OptimizationState : ObservableObject
 
     partial void OnAppliedSummaryChanged(string value) => OnPropertyChanged(nameof(AppliedTooltip));
 
-    /// <summary>
-    ///     The risk level of the optimization.
-    /// </summary>
     [ObservableProperty]
     private OptimizationRisk risk;
 
@@ -101,11 +89,9 @@ public partial class OptimizationState : ObservableObject
         if (_globalTimer != null)
             return;
 
-        // Defer timer creation to avoid accessing dispatcher during static init.
-        // NOTE: This type lives in Domain/UI but owns a DispatcherTimer (WPF). Ideally
-        // move to optimizerDuck.UI or Common. We route
-        // through the dispatcher indirection rather than hard-referencing UI assemblies
-        // from pure domain logic.
+        // Defer timer creation to avoid accessing the dispatcher during static init. The
+        // dispatcher is reached through Application.Current so Domain keeps no hard reference
+        // to the UI.
         var dispatcher = System.Windows.Application.Current?.Dispatcher;
         if (dispatcher is null)
             return; // headless/tests, no timer needed
@@ -136,7 +122,6 @@ public partial class OptimizationState : ObservableObject
                 else
                     _instances.RemoveAt(i);
 
-            // Stop the timer when no live instances remain
             if (_instances.Count == 0 && _globalTimer != null)
             {
                 _globalTimer.Stop();

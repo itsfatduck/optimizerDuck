@@ -7,13 +7,12 @@ namespace optimizerDuck.Domain.Conditions;
 /// <summary>Base condition that requires at least one GPU from a specific vendor.</summary>
 public abstract class GpuBrandCondition : ConditionBase
 {
-    /// <summary>The required GPU vendor.</summary>
     protected abstract GpuVendor RequiredVendor { get; }
 
-    /// <summary>Strongly-typed localized failure title.</summary>
+    /// <summary>Supplies the localized failure title.</summary>
     protected abstract Func<string> Title { get; }
 
-    /// <summary>Strongly-typed localized failure description.</summary>
+    /// <summary>Supplies the localized failure description.</summary>
     protected abstract Func<string> Description { get; }
 
     public override ConditionResult Evaluate(SystemInfo snapshot)

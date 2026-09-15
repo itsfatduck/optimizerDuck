@@ -34,21 +34,32 @@ public static class GitHubSourceHelper
 
     private static readonly HttpClient HttpClient = CreateClient();
 
-    /// <summary>Raw file contents keyed by ref/path; tag refs are immutable, so entries never expire.</summary>
+    /// <summary>
+    ///     Raw file contents keyed by ref and path. Tag refs are immutable, so entries never
+    ///     expire.
+    /// </summary>
     private static readonly ConcurrentDictionary<string, Lazy<Task<string>>> SourceCache = new();
 
-    /// <summary>Tags known missing upstream; skips one wasted probe per view until the app restarts.</summary>
+    /// <summary>
+    ///     Tags known missing upstream; skips one wasted probe per view until the app restarts.
+    /// </summary>
     private static readonly ConcurrentDictionary<string, byte> MissingTagCache = new();
 
     /// <summary>
     ///     Opens the GitHub source file for the given type at the class definition line,
     ///     viewed at the release tag matching the running application version.
     /// </summary>
-    /// <param name="ownerType">The type that owns the source file (e.g., the category class).</param>
+    /// <param name="ownerType">
+    ///     The type that owns the source file, for example the category class.
+    /// </param>
     /// <param name="className">The class name to find within the source file.</param>
-    /// <param name="baseClassPattern">Optional base class pattern to search for (e.g., "BaseCustomizeSetting").</param>
+    /// <param name="baseClassPattern">
+    ///     Optional base class pattern to search for, for example "BaseCustomizeSetting".
+    /// </param>
     /// <param name="logger">Optional logger for diagnostic output.</param>
-    /// <param name="snackbarService">Optional snackbar service for user-facing error notifications.</param>
+    /// <param name="snackbarService">
+    ///     Optional snackbar service for user-facing error notifications.
+    /// </param>
     public static async Task OpenSourceOnGitHubAsync(
         Type ownerType,
         string className,
@@ -88,7 +99,9 @@ public static class GitHubSourceHelper
         }
     }
 
-    /// <summary>Maps the running file version to its release tag (e.g., "2.26.2" -> "v2.26.2").</summary>
+    /// <summary>
+    ///     Maps the running file version to its release tag, for example "2.26.2" to "v2.26.2".
+    /// </summary>
     internal static string? GetTagForVersion(string? FileVersion)
     {
         if (!Version.TryParse(FileVersion, out var version))

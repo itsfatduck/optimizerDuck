@@ -56,6 +56,7 @@ public partial class ScheduledTasksViewModel : ViewModel
     public bool HasResults => Tasks.Count > 0;
     public bool ShowRefreshButton => IsNotLoading && HasResults;
 
+    /// <inheritdoc />
     public override async Task OnNavigatedToAsync()
     {
         await base.OnNavigatedToAsync();
@@ -373,7 +374,6 @@ public partial class ScheduledTasksViewModel : ViewModel
         await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
     }
 
-    // Filter triggers
     partial void OnSearchTextChanged(string value)
     {
         ApplyFilter();
@@ -440,7 +440,6 @@ public partial class ScheduledTasksViewModel : ViewModel
 
     private void ApplyFilter()
     {
-        // Unsubscribe
         foreach (var task in Tasks)
             task.PropertyChanged -= Task_PropertyChanged;
         Tasks.Clear();

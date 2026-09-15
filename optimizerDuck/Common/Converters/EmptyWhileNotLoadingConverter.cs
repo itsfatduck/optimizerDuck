@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace optimizerDuck.Common.Converters;
 
-/// <summary>Shows an empty-state message when the item count is zero and nothing is loading.</summary>
+/// <summary>Visible for a zero item count while not loading; otherwise Collapsed.</summary>
 public class EmptyWhileNotLoadingConverter : IMultiValueConverter
 {
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)

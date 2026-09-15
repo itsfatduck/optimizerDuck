@@ -31,13 +31,9 @@ public class ServiceProcessServiceTests
     [Fact]
     public void BuildWriteErrorDetail_WithAThrowAfterTheWrite_NamesTheThrow()
     {
-        // The interop itself threw after the start type was written: the throw text is the only
-        // honest reason, so it is reported instead of the error code.
-        var detail = ServiceProcessService.BuildWriteErrorDetail(
-            true,
-            5,
-            "LoadLibrary failed"
-        );
+        // The interop threw after the start type was written, so the throw text is the
+        // only honest reason to report.
+        var detail = ServiceProcessService.BuildWriteErrorDetail(true, 5, "LoadLibrary failed");
 
         Assert.Contains("LoadLibrary failed", detail);
         Assert.Contains("after the start type was written", detail);
@@ -78,15 +74,12 @@ public class ServiceProcessServiceTests
     }
 
     // =============================================
-    // Contract fixture: read mapping against registry ground truth.
-    // Independent of the mechanism: the expected value comes from
-    // HKLM\SYSTEM\CurrentControlSet\Services, where Windows stores Start (2 auto / 3 manual /
-    // 4 disabled) and the DelayedAutoStart flag. Driver entries are included on purpose - the
-    // Service Control Manager reports their start type without the TYPE/START_TYPE ambiguity that
-    // sc.exe output had. Boot (0) and system (1) starts are excluded: they are outside the app's
-    // ServiceStartupType domain, and the registry is not authoritative for them (55 uninstalled
-    // driver entries on this machine report DEMAND_START through the SCM, and sc.exe - which also
-    // reads the SCM - reported exactly the same before this conversion).
+    // Contract fixture: the expected value comes from
+    // HKLM\SYSTEM\CurrentControlSet\Services, where Windows stores Start (2 auto, 3 manual,
+    // 4 disabled) and the DelayedAutoStart flag. Driver entries are included: the Service
+    // Control Manager reports their start type without the TYPE/START_TYPE ambiguity of
+    // sc.exe output. Boot (0) and system (1) starts fall outside the app's
+    // ServiceStartupType domain, and the registry is not authoritative for them.
     // =============================================
 
     private const int PerTypeSampleLimit = 8;
@@ -353,10 +346,8 @@ public class ServiceProcessServiceTests
         await EnsureTestServiceAsync();
         try
         {
-            // Automatic runs first because the scratch service is created without a delayed
-            // flag; whether sc.exe (or a later SCM write) clears that flag when moving back to
-            // plain automatic is a real behaviour worth pinning separately, and this order
-            // does not depend on the answer.
+            // Automatic runs first because the scratch service is created without the
+            // delayed flag, so the order does not depend on how a later write treats it.
             var previousType = ServiceStartupType.Manual;
 
             foreach (
@@ -413,9 +404,8 @@ public class ServiceProcessServiceTests
                 new ServiceItem(TestServiceName, ServiceStartupType.Disabled)
             );
 
-            // Windows protects this service. That is a refusal, not a failure: the call reports
-            // success for the batch, records no revert step, and the step says Windows refused
-            // rather than that the machine already matched.
+            // Windows protects this service, so the call is refused, not failed: it reports
+            // success for the batch and records no revert step.
             Assert.True(result.Ok, result.Error);
             var change = Assert.Single(call.Changes.Changes);
             Assert.Equal(ChangeKind.Refused, change.Kind);

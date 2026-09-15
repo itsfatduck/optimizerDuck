@@ -9,22 +9,20 @@ using optimizerDuck.Services.System.Primitives;
 
 namespace optimizerDuck.Services.System;
 
-/// Power scheme operations over powrprof (no child processes).
-/// Single owner of every power P/Invoke in the app.
-/// Fast Win32 calls run synchronously on the caller thread; only the
-/// file-I/O-bound import is async. Reads take ids only; mutating paths take
-/// an optional <see cref="ILogger"/> (default null), return <see cref="OpResult"/>
-/// with native diagnostics, and record nothing: revert recording lives at the
-/// optimization edge (see PowerPlanChanges), so tools reuse the same core.
-/// Import semantics: a non-empty <c>destinationId</c> pre-seeds the GUID**
-/// slot so Windows imports under it (replacing any scheme with the same
-/// GUID, same as <c>powercfg /import file guid</c>); an empty GUID passes
-/// NULL and Windows allocates one, returned to the caller.
-/// Hibernate (<c>powercfg /h</c>) is intentionally NOT here: it disables the
-/// hibernation feature and deletes hiberfil.sys, and no supported native
-/// power-scheme API covers that. It stays a documented shell exception in
-/// <c>DisableHibernateAndFastStartup</c>.
+/// <summary>
+///     Power scheme operations over powrprof, with no child processes. Single owner of every
+///     power P/Invoke in the app. Fast Win32 calls run synchronously on the caller thread; only
+///     the file-I/O-bound import is async. Reads take ids only; mutating paths take an optional
+///     <see cref="ILogger"/> (default null), return <see cref="OpResult"/> with native
+///     diagnostics, and record nothing: revert recording lives at the optimization edge (see
+///     PowerPlanChanges), so tools reuse the same core.
 /// </summary>
+/// <remarks>
+///     Import semantics: a non-empty <c>destinationId</c> pre-seeds the GUID slot so Windows
+///     imports under it (replacing any scheme with the same GUID, same as
+///     <c>powercfg /import file guid</c>); an empty GUID passes NULL and Windows allocates one,
+///     returned to the caller.
+/// </remarks>
 [SupportedOSPlatform("windows")]
 // Virtual members are a hand-double seam for tests (no mocking libraries).
 public class PowerPlanService
@@ -37,11 +35,15 @@ public class PowerPlanService
 
     private readonly ILogger<PowerPlanService> _logger;
 
+    /// <summary>Initializes a new instance of the <see cref="PowerPlanService" /> class.</summary>
+    /// <param name="logger">The logger used for interop diagnostics.</param>
     public PowerPlanService(ILogger<PowerPlanService> logger)
     {
         _logger = logger;
     }
 
+    /// <summary>Reads the GUID of the currently active power scheme.</summary>
+    /// <returns>The active scheme id, or <see langword="null" /> when the call fails.</returns>
     public virtual Guid? GetActiveSchemeId()
     {
         IntPtr ptr = IntPtr.Zero;
@@ -63,6 +65,10 @@ public class PowerPlanService
         }
     }
 
+    /// <summary>
+    ///     Lists every power scheme on the machine, each marked whether it is active.
+    /// </summary>
+    /// <returns>The power schemes, empty when enumeration fails.</returns>
     public IReadOnlyList<PowerScheme> ListSchemes()
     {
         var schemes = new List<PowerScheme>();
@@ -79,6 +85,9 @@ public class PowerPlanService
         return schemes;
     }
 
+    /// <summary>Reads one power scheme by id, including its name and description.</summary>
+    /// <param name="schemeId">The id of the scheme to read.</param>
+    /// <returns>The scheme, or <see langword="null" /> when no scheme has that id.</returns>
     public PowerScheme? GetScheme(Guid schemeId)
     {
         var id = schemeId;
@@ -95,6 +104,12 @@ public class PowerPlanService
         };
     }
 
+    /// <summary>Checks whether a power scheme with the given id exists on this machine.</summary>
+    /// <param name="schemeId">The id of the scheme to test.</param>
+    /// <returns>
+    ///     <see langword="true" /> when a scheme with that id exists; otherwise,
+    ///     <see langword="false" />.
+    /// </returns>
     public bool SchemeExists(Guid schemeId)
     {
         // No direct 'exists' API: a friendly-name read succeeds only for
@@ -109,6 +124,9 @@ public class PowerPlanService
         }
     }
 
+    /// <summary>Reads the friendly name of a power scheme.</summary>
+    /// <param name="schemeId">The id of the scheme to read.</param>
+    /// <returns>The name, or <see langword="null" /> when the read fails.</returns>
     public string? GetSchemeName(Guid schemeId)
     {
         try
@@ -122,6 +140,11 @@ public class PowerPlanService
         }
     }
 
+    /// <summary>Reads the description of a power scheme.</summary>
+    /// <param name="schemeId">The id of the scheme to read.</param>
+    /// <returns>
+    ///     The description, or <see langword="null" /> when the read fails or none is set.
+    /// </returns>
     public string? GetSchemeDescription(Guid schemeId)
     {
         try
@@ -135,6 +158,9 @@ public class PowerPlanService
         }
     }
 
+    /// <summary>Lists the setting subgroups inside a power scheme.</summary>
+    /// <param name="schemeId">The id of the scheme to read.</param>
+    /// <returns>The subgroups, empty when enumeration fails.</returns>
     public IReadOnlyList<PowerSettingGroup> ListGroups(Guid schemeId)
     {
         var groups = new List<PowerSettingGroup>();
@@ -161,6 +187,10 @@ public class PowerPlanService
         return groups;
     }
 
+    /// <summary>Lists the settings inside a subgroup of a power scheme.</summary>
+    /// <param name="schemeId">The id of the scheme to read.</param>
+    /// <param name="subgroupId">The id of the subgroup to read.</param>
+    /// <returns>The settings, empty when enumeration fails.</returns>
     public IReadOnlyList<PowerSetting> ListSettings(Guid schemeId, Guid subgroupId)
     {
         var settings = new List<PowerSetting>();
@@ -185,6 +215,11 @@ public class PowerPlanService
         return settings;
     }
 
+    /// <summary>Reads one power setting inside a scheme.</summary>
+    /// <param name="schemeId">The id of the scheme to read.</param>
+    /// <param name="subgroupId">The id of the subgroup to read.</param>
+    /// <param name="settingId">The id of the setting to read.</param>
+    /// <returns>The setting, or <see langword="null" /> when the read fails.</returns>
     public PowerSetting? GetSetting(Guid schemeId, Guid subgroupId, Guid settingId)
     {
         try
@@ -204,6 +239,14 @@ public class PowerPlanService
         }
     }
 
+    /// <summary>
+    ///     Reads the AC or DC value of one power setting as the raw number Windows stores.
+    /// </summary>
+    /// <param name="schemeId">The id of the scheme to read.</param>
+    /// <param name="subgroupId">The id of the subgroup to read.</param>
+    /// <param name="settingId">The id of the setting to read.</param>
+    /// <param name="source">One of the enumeration values that selects the AC or DC value.</param>
+    /// <returns>The raw value, or <see langword="null" /> when the read fails.</returns>
     public uint? GetSettingValue(Guid schemeId, Guid subgroupId, Guid settingId, PowerSource source)
     {
         try
@@ -224,6 +267,24 @@ public class PowerPlanService
         }
     }
 
+    /// <summary>
+    ///     Writes the AC and DC values of a power setting. Reads both previous values first and
+    ///     refuses to write when either is unreadable, then returns them for the caller to record.
+    /// </summary>
+    /// <param name="schemeId">The id of the scheme to write.</param>
+    /// <param name="subgroupId">The id of the subgroup to write.</param>
+    /// <param name="settingId">The id of the setting to write.</param>
+    /// <param name="acValue">
+    ///     The AC value to write, or <see langword="null" /> to leave it unchanged.
+    /// </param>
+    /// <param name="dcValue">
+    ///     The DC value to write, or <see langword="null" /> to leave it unchanged.
+    /// </param>
+    /// <param name="logger">An optional logger for write diagnostics.</param>
+    /// <returns>
+    ///     The outcome and the previous AC/DC values read before the write, both null when none
+    ///     could be read.
+    /// </returns>
     public virtual SettingWriteResult SetSetting(
         Guid schemeId,
         Guid subgroupId,
@@ -284,6 +345,16 @@ public class PowerPlanService
         return new SettingWriteResult(OpResult.Success(), prevAc, prevDc);
     }
 
+    /// <summary>
+    ///     Activates a power scheme, remembering the previously active id for the caller to record.
+    /// </summary>
+    /// <param name="schemeId">The id of the scheme to activate.</param>
+    /// <param name="logger">An optional logger for activation diagnostics.</param>
+    /// <returns>
+    ///     The outcome and the previously active scheme id, or <see langword="null" /> when it
+    ///     could
+    ///     not be read.
+    /// </returns>
     public virtual ActivationResult SetActiveScheme(Guid schemeId, ILogger? logger = null)
     {
         var previous = GetActiveSchemeId();
@@ -338,6 +409,10 @@ public class PowerPlanService
         return new ActivationResult(OpResult.Success(), previous);
     }
 
+    /// <summary>Deletes a power scheme. Refuses to delete the active scheme.</summary>
+    /// <param name="schemeId">The id of the scheme to delete.</param>
+    /// <param name="logger">An optional logger for deletion diagnostics.</param>
+    /// <returns>The outcome. A deleted scheme carries no revert step.</returns>
     public virtual OpResult DeleteScheme(Guid schemeId, ILogger? logger = null)
     {
         var name = GetSchemeName(schemeId) ?? schemeId.ToString();
@@ -390,6 +465,16 @@ public class PowerPlanService
         return OpResult.Success();
     }
 
+    /// <summary>Imports a power scheme from a file, optionally under a given GUID.</summary>
+    /// <param name="filePath">The path of the file to import.</param>
+    /// <param name="destinationId">
+    ///     The GUID to import under, or <see cref="Guid.Empty" /> to let Windows allocate one.
+    /// </param>
+    /// <param name="logger">An optional logger for import diagnostics.</param>
+    /// <param name="ct">The token that cancels the import.</param>
+    /// <returns>
+    ///     The outcome and the imported scheme id, which is <see langword="null" /> on failure.
+    /// </returns>
     public virtual async Task<SchemeRefResult> ImportSchemeAsync(
         string filePath,
         Guid destinationId,
@@ -511,6 +596,12 @@ public class PowerPlanService
         return new InstallResult(OpResult.Success(), import.SchemeId, previous);
     }
 
+    /// <summary>Copies an existing power scheme under a new GUID allocated by Windows.</summary>
+    /// <param name="sourceId">The id of the scheme to copy.</param>
+    /// <param name="logger">An optional logger for duplication diagnostics.</param>
+    /// <returns>
+    ///     The outcome and the new scheme id, which is <see langword="null" /> on failure.
+    /// </returns>
     public virtual SchemeRefResult DuplicateScheme(Guid sourceId, ILogger? logger = null)
     {
         IntPtr ppGuid = IntPtr.Zero;
@@ -564,6 +655,11 @@ public class PowerPlanService
         }
     }
 
+    /// <summary>Sets the friendly name of a power scheme.</summary>
+    /// <param name="schemeId">The id of the scheme to rename.</param>
+    /// <param name="name">The new name.</param>
+    /// <param name="logger">An optional logger for write diagnostics.</param>
+    /// <returns>A result that reports success or the native failure.</returns>
     public OpResult SetSchemeName(Guid schemeId, string name, ILogger? logger = null)
     {
         var bytes = Encoding.Unicode.GetBytes(name + '\0');
@@ -596,6 +692,11 @@ public class PowerPlanService
         }
     }
 
+    /// <summary>Sets the description of a power scheme.</summary>
+    /// <param name="schemeId">The id of the scheme to update.</param>
+    /// <param name="descriptionText">The new description.</param>
+    /// <param name="logger">An optional logger for write diagnostics.</param>
+    /// <returns>A result that reports success or the native failure.</returns>
     public OpResult SetSchemeDescription(
         Guid schemeId,
         string descriptionText,

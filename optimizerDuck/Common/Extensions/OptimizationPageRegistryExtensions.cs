@@ -58,7 +58,9 @@ internal static class CategoryPageFactory
     }
 }
 
-/// <summary>Registers the optimize-category pages discovered on <see cref="IOptimizationCategory"/>.</summary>
+/// <summary>
+///     Registers the optimize-category pages discovered on <see cref="IOptimizationCategory"/>.
+/// </summary>
 public static class OptimizationPageRegistryExtensions
 {
     public static void AddAllOptimizationPages(this IServiceCollection services)
@@ -86,7 +88,9 @@ public static class OptimizationPageRegistryExtensions
     }
 }
 
-/// <summary>Registers the customize-category pages discovered on <see cref="ICustomizeCategory"/>.</summary>
+/// <summary>
+///     Registers the customize-category pages discovered on <see cref="ICustomizeCategory"/>.
+/// </summary>
 public static class CustomizePageRegistryExtensions
 {
     public static void AddAllCustomizeCategoryPages(this IServiceCollection services)

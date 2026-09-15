@@ -65,31 +65,31 @@ public class Gpu : LocalizedObject, IOptimizationCategory
     public ObservableCollection<IOptimization> Optimizations { get; init; } = [];
 
     /// <summary>
-    ///     Attempts to parse a WMI <c>DeviceID</c> (e.g., "VideoController1") into a zero-based registry index
-    ///     used in the Display Class registry path (e.g., "0000", "0001").
+    ///     Parses a WMI <c>DeviceID</c> such as "VideoController1" into the zero-based registry
+    ///     index used in the Display Class registry path (for example "0000", "0001").
     /// </summary>
     /// <remarks>
     ///     <para>
-    ///         Windows stores display adapter settings under:
-    ///         <c>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\XXXX</c>
-    ///         where <c>XXXX</c> is a 4-digit zero-padded index (e.g., <c>0000</c>).
+    ///         Windows stores display adapter settings under the Display Class key
+    ///         <c>{4d36e968-e325-11ce-bfc1-08002be10318}\XXXX</c>, where <c>XXXX</c> is a
+    ///         4-digit zero-padded index, for example <c>0000</c>.
     ///     </para>
     ///     <para>
-    ///         The <see cref="Win32_VideoController" /> WMI class provides a <c>DeviceID</c> property in the format:
-    ///         <c>"VideoController1"</c>, <c>"VideoController2"</c>, etc. This method converts:
+    ///         The <see cref="Win32_VideoController" /> WMI class provides a <c>DeviceID</c>
+    ///         property, for example <c>"VideoController1"</c>:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <description><c>"VideoController1"</c> → index <c>0</c> → registry subkey <c>"0000"</c></description>
+    ///                 <description><c>"VideoController1"</c> is index <c>0</c>.</description>
     ///             </item>
     ///             <item>
-    ///                 <description><c>"VideoController2"</c> → index <c>1</c> → registry subkey <c>"0001"</c></description>
+    ///                 <description><c>"VideoController2"</c> is index <c>1</c>.</description>
     ///             </item>
     ///         </list>
     ///     </para>
     ///     <para>
-    ///         This mapping is <strong>required</strong> because the order of GPUs in <see cref="SystemInfo.Gpus" />
-    ///         does <strong>not</strong> guarantee alignment with registry index order. Using array index (0, 1, 2...)
-    ///         leads to applying tweaks to the wrong GPU (e.g., iGPU instead of dGPU).
+    ///         The mapping is required: the order of GPUs in <see cref="SystemInfo.Gpus" />
+    ///         need not match the registry index order, and using the array index would apply
+    ///         tweaks to the wrong GPU, for example the integrated one instead of the discrete.
     ///     </para>
     /// </remarks>
     /// <param name="deviceId">
@@ -97,29 +97,24 @@ public class Gpu : LocalizedObject, IOptimizationCategory
     ///     <c>"VideoControllerN"</c> where <c>N</c> is a positive integer starting from 1.
     /// </param>
     /// <param name="index">
-    ///     When the method returns <c>true</c>, contains the zero-based index suitable for formatting with
-    ///     <c>:D4</c> (e.g., <c>0</c> → <c>"0000"</c>). When <c>false</c>, the value is <c>-1</c>.
+    ///     On <see langword="true" />, the zero-based index to format with <c>:D4</c>, for example
+    ///     <c>0</c> as <c>"0000"</c>. On <see langword="false" />, <c>-1</c>.
     /// </param>
     /// <returns>
-    ///     <c>true</c> if <paramref name="deviceId" /> is valid and successfully parsed; otherwise, <c>false</c>.
+    ///     <see langword="true" /> if <paramref name="deviceId" /> is valid and parsed;
+    ///     otherwise <see langword="false" />.
     /// </returns>
     /// <example>
     ///     <code>
     /// string deviceId = "VideoController1";
     /// if (TryParseDeviceIdToIndex(deviceId, out int index))
     /// {
-    ///     string regPath = $@"HKLM\...\{{4d36e968-...\}}\{index:D4}"; // → "0000"
+    ///     string regPath = $@"HKLM\...\{{4d36e968-...\}}\{index:D4}"; // gives "0000"
     ///     Console.WriteLine($"Apply tweak to GPU at registry index: {index:D4}");
     /// }
     /// </code>
     /// </example>
-    /// <exception cref="ArgumentNullException">
-    ///     Returns false instead of throwing when <paramref name="deviceId" /> is null or whitespace.
-    /// </exception>
     /// <seealso cref="GpuInfo.DeviceId" />
-    /// <seealso href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-videocontroller">
-    ///     Win32_VideoController WMI class
-    /// </seealso>
     public static bool TryParseDeviceIdToIndex(string? deviceId, out int index)
     {
         index = -1;
@@ -134,7 +129,7 @@ public class Gpu : LocalizedObject, IOptimizationCategory
         if (!int.TryParse(numberPart, out var deviceNumber) || deviceNumber <= 0)
             return false;
 
-        index = deviceNumber - 1; // convert to zero-based index
+        index = deviceNumber - 1;
         return true;
     }
 

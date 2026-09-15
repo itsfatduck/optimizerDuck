@@ -8,11 +8,12 @@ namespace optimizerDuck.Services.System;
 
 /// <summary>
 ///     System Restore over the documented <c>SystemRestore</c> class in <c>root\default</c> - the
-///     same subsystem that backs <c>Checkpoint-Computer</c> and <c>Enable-ComputerRestore</c>, without
-///     a child process. Single owner of every System Restore WMI call in the app.
+///     same subsystem that backs <c>Checkpoint-Computer</c> and
+///     <c>Enable-ComputerRestore</c>, without a child process. Single owner of every System
+///     Restore WMI call in the app.
 ///     Reads take ids only; mutating calls take an optional <see cref="ILogger" /> (default null),
-///     return typed results carrying the real native status, and record nothing - so a restore-point
-///     manager tool can reuse this service exactly like a tool reuses
+///     return typed results carrying the real native status, and record nothing - so a
+///     restore-point manager tool can reuse this service exactly like a tool reuses
 ///     <see cref="PowerPlanService" />. Virtual members are the hand-double seam for tests, because
 ///     System Restore needs elevation and test hosts do not have it.
 /// </summary>
@@ -36,7 +37,9 @@ public class SystemRestoreService
     /// <summary>ERROR_SERVICE_DISABLED: System Restore is not enabled for the drive.</summary>
     public const uint ErrorServiceDisabled = 1058;
 
-    /// <summary>HRESULT_FROM_WIN32(ERROR_SERVICE_DISABLED), the other shape that refusal takes.</summary>
+    /// <summary>
+    ///     HRESULT_FROM_WIN32(ERROR_SERVICE_DISABLED), the other shape that refusal takes.
+    /// </summary>
     public const uint HrServiceDisabled = 0x80070422;
 
     /// <summary>
@@ -51,7 +54,9 @@ public class SystemRestoreService
 
     /// <summary>One restore point as Windows reports it.</summary>
     /// <param name="SequenceNumber">The restore point's sequence number.</param>
-    /// <param name="RestorePointType">The documented restore point type (12 = MODIFY_SETTINGS).</param>
+    /// <param name="RestorePointType">
+    ///     The documented restore point type (12 = MODIFY_SETTINGS).
+    /// </param>
     /// <param name="Description">The description the creating application supplied.</param>
     /// <param name="CreationTimeUtc">When the point was created, in UTC.</param>
     public sealed record RestorePointInfo(
@@ -114,7 +119,10 @@ public class SystemRestoreService
             ) ?? [];
     }
 
-    /// <summary>Newest restore point, or null when there is none or the list cannot be read.</summary>
+    /// <summary>
+    ///     Newest restore point, or <see langword="null" /> when there is none or the list cannot
+    ///     be read.
+    /// </summary>
     public virtual DateTime? GetNewestRestorePointUtc()
     {
         DateTime? newest = null;
@@ -177,7 +185,9 @@ public class SystemRestoreService
         );
     }
 
-    /// <summary>Enables System Protection for one drive, for example <c>C:</c>. Needs elevation.</summary>
+    /// <summary>
+    ///     Enables System Protection for one drive, for example <c>C:</c>. Needs elevation.
+    /// </summary>
     public virtual SystemRestoreResult EnableProtection(string drive)
     {
         return Invoke("Enable", parameters => parameters["Drive"] = drive);

@@ -25,7 +25,8 @@ namespace optimizerDuck.Common.Extensions;
 ///     Conventions:
 ///     <list type="bullet">
 ///         <item>
-///             Localized expression-bodied properties: <c>public string Name =&gt; Loc.Instance["X.Y.Name"];</c>.
+///             Localized expression-bodied properties, for example
+///             <c>public string Name =&gt; Loc.Instance["X.Y.Name"];</c>.
 ///             The binding re-evaluates the getter on culture change automatically.
 ///         </item>
 ///         <item>

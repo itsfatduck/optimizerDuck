@@ -41,9 +41,8 @@ public class RevertStepSerializationTests
     [Fact]
     public void HibernationRevertStep_MissingFlag_MeansUnknown()
     {
-        // Deliberate reversal: the old fail-safe assumed hibernation was present, so a revert
-        // committed a hibernation file that may never have existed. Unknown now restores nothing
-        // and says so. HibernationRevertStepTests covers the three states in full.
+        // An unknown state restores nothing, so a revert cannot create a hibernation file
+        // that never existed.
         var restored = HibernationRevertStep.FromData(new JObject());
 
         Assert.Null(restored.WasPresent);

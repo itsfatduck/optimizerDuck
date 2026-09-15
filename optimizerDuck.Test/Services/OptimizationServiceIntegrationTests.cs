@@ -77,7 +77,6 @@ public class OptimizationServiceIntegrationTests : IDisposable
 
         public Task<bool> ExecuteAsync(RevertContext _, ILogger logger)
         {
-            // Simulate revert operation
             return Task.FromResult(true);
         }
 
@@ -131,12 +130,14 @@ public class OptimizationServiceIntegrationTests : IDisposable
         // Clean up only test files created by this class
         foreach (var id in _testOptimizationIds)
         {
-            foreach (var path in new[]
-            {
-                Path.Combine(Shared.RevertDirectory, id + ".json"),
-                ChangeRecordStore.PathFor(id),
-                ChangeRecordStore.PathFor(id) + ".tmp",
-            })
+            foreach (
+                var path in new[]
+                {
+                    Path.Combine(Shared.RevertDirectory, id + ".json"),
+                    ChangeRecordStore.PathFor(id),
+                    ChangeRecordStore.PathFor(id) + ".tmp",
+                }
+            )
             {
                 try
                 {
@@ -188,7 +189,6 @@ public class OptimizationServiceIntegrationTests : IDisposable
 
         Assert.Equal(OptimizationSuccessResult.Success, result.Status);
 
-        // Verify revert data was saved
         var revertData = await RevertManager.GetRevertDataAsync(optimization.Id);
         Assert.NotNull(revertData);
         Assert.Equal(2, revertData.Steps.Count(s => s != null)); // 2 successful steps
@@ -206,7 +206,6 @@ public class OptimizationServiceIntegrationTests : IDisposable
         // These optimizations have never been applied, so no revert data exists
         await OptimizationService.UpdateOptimizationStateAsync(optimizations);
 
-        // All should be marked as not applied
         Assert.False(optimizations[0].State.IsApplied);
         Assert.False(optimizations[1].State.IsApplied);
     }
@@ -235,7 +234,6 @@ public class OptimizationServiceIntegrationTests : IDisposable
             null
         );
 
-        // Should succeed on retry
         Assert.Empty(recoveredSteps);
     }
 
@@ -263,9 +261,9 @@ public class OptimizationServiceIntegrationTests : IDisposable
             null
         );
 
-        // Should remain failed
         Assert.Single(remainingFailed);
     }
+
     [Fact]
     public async Task ApplyAsync_WritesAReportOfWhatItDid()
     {
@@ -341,6 +339,7 @@ public class OptimizationServiceIntegrationTests : IDisposable
         Assert.Single(record.Steps);
         Assert.Equal(ChangeKind.Skip, record.Steps[0].Kind);
     }
+
     [Fact]
     public async Task RevertAsync_MarksTheRecordAsARevert()
     {

@@ -46,7 +46,7 @@ public class BaseCustomizeSettingTests : IDisposable
 
     private sealed class EmptyTogglesSetting : BaseCustomizeSetting
     {
-        // No overrides: base GetStateAsync reads empty toggles → returns false
+        // No overrides, so the base GetStateAsync reads empty toggles and returns false.
     }
 
     private sealed class OscillatingStateSetting : BaseCustomizeSetting
@@ -134,16 +134,13 @@ public class BaseCustomizeSettingTests : IDisposable
     {
         var setting = new TestCustomizeSetting { OwnerType = typeof(TestCustomizeSetting) };
 
-        // Initially should be false (value doesn't exist)
         var initialState = await setting.GetStateAsync();
         Assert.False(initialState);
 
-        // Enable
         Assert.True((await setting.ApplyAsync(true, NewCall())).Ok);
         var enabledState = await setting.GetStateAsync();
         Assert.True(enabledState);
 
-        // Disable
         Assert.True((await setting.ApplyAsync(false, NewCall())).Ok);
         var disabledState = await setting.GetStateAsync();
         Assert.False(disabledState);
@@ -154,7 +151,6 @@ public class BaseCustomizeSettingTests : IDisposable
     {
         var setting = new TestCustomizeSetting { OwnerType = typeof(TestCustomizeSetting) };
 
-        // Perform multiple rapid toggles
         for (int i = 0; i < 10; i++)
         {
             Assert.True((await setting.ApplyAsync(true, NewCall())).Ok);
@@ -170,7 +166,6 @@ public class BaseCustomizeSettingTests : IDisposable
             Assert.Equal(0, disabledValue);
         }
 
-        // Final state should be disabled
         var finalState = await setting.GetStateAsync();
         Assert.False(finalState);
     }
@@ -204,14 +199,14 @@ public class BaseCustomizeSettingTests : IDisposable
 
         var result = await setting.GetStateWithRetryAsync(maxRetries: 5, delayMs: 10);
 
-        // 5 reads with alternating values: T, F, T, F, T → never converges → returns last (true)
+        // Five alternating reads never converge, so the last one (true) is returned.
         Assert.True(result);
     }
 
     [Fact]
     public async Task GetStateWithRetryAsync_WithNoToggles_ReturnsFalse()
     {
-        // Empty toggles → base GetStateAsync returns false
+        // Empty toggles, so the base GetStateAsync returns false.
         var setting = new EmptyTogglesSetting();
 
         var result = await setting.GetStateWithRetryAsync(maxRetries: 2, delayMs: 10);
@@ -276,7 +271,7 @@ public class BaseCustomizeSettingTests : IDisposable
     [Fact]
     public void WatchedRegistryPaths_WhenNoToggles_ReturnsEmpty()
     {
-        // StableStateSetting has no toggles overrides → empty
+        // StableStateSetting declares no toggles, so the path list is empty.
         ICustomizeSetting setting = new StableStateSetting();
 
         var paths = setting.WatchedRegistryPaths;
@@ -403,8 +398,7 @@ public class BaseCustomizeSettingTests : IDisposable
     {
         var setting = new DefaultScopeSetting { OwnerType = typeof(DefaultScopeSetting) };
 
-        // With RefreshScope = None, the base ApplyAsync must skip
-        // ExecutePostActionAsync entirely. We confirm the gate behaviour:
+        // With RefreshScope = None the base ApplyAsync skips ExecutePostActionAsync;
         // NeedsPostAction is false, so no refresh runs.
         Assert.False(GetNeedsPostAction(setting));
         Assert.True((await setting.ApplyAsync(false, NewCall())).Ok); // must not throw
@@ -413,9 +407,8 @@ public class BaseCustomizeSettingTests : IDisposable
     [Fact]
     public async Task ApplyAsync_WhenRefreshScopeIsSet_RunsWithoutThrowing()
     {
-        // Smoke test: every declared scope variant must produce a working
-        // ApplyAsync that touches the registry and runs the refresh pipeline
-        // without exceptions on a real Windows host.
+        // Every declared scope variant must produce a working ApplyAsync that touches
+        // the registry and runs the refresh pipeline on a real Windows host.
         var settings = new BaseCustomizeSetting[]
         {
             new DefaultExplorerScopeSetting { OwnerType = typeof(DefaultExplorerScopeSetting) },
@@ -522,7 +515,7 @@ public class BaseCustomizeSettingTests : IDisposable
     [Fact]
     public void RegistryToggle_GetState_ReturnsTrueWhenKeyAbsentAndNullInOnValues()
     {
-        // Key doesn't exist → value is null
+        // The key is absent, so the value is null, which is one of the OnValues.
         var toggle = new RegistryToggle
         {
             Path = TestKeyPath,
@@ -573,7 +566,6 @@ public class BaseCustomizeSettingTests : IDisposable
     [Fact]
     public void RegistryToggle_SetState_DeletesKeyWhenFirstValueIsNull()
     {
-        // First write a value
         RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "NullSetTest", 1));
 
         var toggle = new RegistryToggle
@@ -595,7 +587,6 @@ public class BaseCustomizeSettingTests : IDisposable
     [Fact]
     public void RegistryToggle_GetState_MatchesMultipleOnValues()
     {
-        // Value 1 → ON
         RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "MultiOnTest", 1));
         var toggle = new RegistryToggle
         {
@@ -606,7 +597,6 @@ public class BaseCustomizeSettingTests : IDisposable
         };
         Assert.True(toggle.GetState());
 
-        // Value 2 → also ON
         RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "MultiOnTest", 2));
         Assert.True(toggle.GetState());
 
@@ -785,9 +775,8 @@ public class BaseCustomizeSettingTests : IDisposable
     [Fact]
     public void Options_MissingValue_AddsCustomFallbackWithSentinel()
     {
-        // Even when the registry value is missing entirely, the ComboBox must never
-        // render empty: a synthetic fallback (with a stable non-null sentinel value so
-        // WPF can select it) is appended, labeled distinctly from "Custom".
+        // A missing registry value must not leave the ComboBox empty: a synthetic
+        // fallback with a stable non-null sentinel (so WPF can select it) is appended.
         var setting = new TestDropdownSetting { OwnerType = typeof(TestDropdownSetting) };
 
         RegistryService.DeleteValue(NewCall(), new RegistryItem(TestKeyPath, "DropdownTest"));
@@ -810,8 +799,8 @@ public class BaseCustomizeSettingTests : IDisposable
     [Fact]
     public async Task ApplyAsync_MissingValueSentinel_IsSafeNoOp()
     {
-        // The sentinel must never leak into the registry: applying it resolves against
-        // declared Options (where it never exists), so nothing is written and it throws.
+        // The sentinel must never reach the registry: it matches no declared option, so
+        // the apply writes nothing.
         var setting = new TestDropdownSetting { OwnerType = typeof(TestDropdownSetting) };
 
         RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "DropdownTest", 1));
@@ -857,9 +846,9 @@ public class BaseCustomizeSettingTests : IDisposable
     {
         var setting = new TestMultiBindingDropdown { OwnerType = typeof(TestMultiBindingDropdown) };
 
-        // Key A = 1 (matches "On" primary) but Key B = 0 → mixed state. It must not be
-        // reported as the declared "On" option; a "Custom" fallback with a distinct identity
-        // is selected instead (a duplicate value would make SelectedValuePath ambiguous).
+        // Key A matches "On" but Key B does not, so the state is mixed. A "Custom" fallback
+        // with a distinct identity is selected, because a duplicate value would make
+        // SelectedValuePath ambiguous.
         RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "Key1", 1));
         RegistryService.Write(
             NewCall(),
@@ -970,7 +959,7 @@ public class BaseCustomizeSettingTests : IDisposable
     {
         var setting = new TestNotSetOptionDropdown { OwnerType = typeof(TestNotSetOptionDropdown) };
 
-        // Not set → apply declared "On" → value written → apply "NotSet" → deleted again.
+        // Absent, then written by "On", then deleted again by "NotSet".
         RegistryService.DeleteValue(NewCall(), new RegistryItem(TestKeyPath, "NotSetOptionTest"));
         Assert.Equal("notset", setting.CurrentValue);
 
@@ -1043,7 +1032,7 @@ public class BaseCustomizeSettingTests : IDisposable
     {
         var setting = new TestMultiBindingDropdown { OwnerType = typeof(TestMultiBindingDropdown) };
 
-        // Both keys = 1 → option "On" matches
+        // Both keys hold 1, so the option "On" matches.
         RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "Key1", 1));
         RegistryService.Write(
             NewCall(),
@@ -1051,8 +1040,8 @@ public class BaseCustomizeSettingTests : IDisposable
         );
         Assert.Equal(1, setting.CurrentValue);
 
-        // Key A = 1, Key B = 0 → mixed state: the "Custom" fallback is selected instead of
-        // the declared "On" option, and applying it must not write anything.
+        // Key A is 1 and Key B is 0, so the state is mixed: the "Custom" fallback is
+        // selected and applying it must not write anything.
         RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "Key1", 1));
         RegistryService.Write(
             NewCall(),
@@ -1132,7 +1121,6 @@ public class BaseCustomizeSettingTests : IDisposable
     {
         var setting = new TestMatchMissingDropdown { OwnerType = typeof(TestMatchMissingDropdown) };
 
-        // Ensure key is deleted (absent)
         RegistryService.DeleteValue(NewCall(), new RegistryItem(TestKeyPath, "AlignTestKey"));
 
         // Must match "Center" (value 1) without creating synthetic "Not set" fallback
@@ -1170,7 +1158,7 @@ public class BaseCustomizeSettingTests : IDisposable
             OwnerType = typeof(TestMultiBindingWithDefaultDropdown),
         };
 
-        // Both absent -> matches Always (0)
+        // Both keys absent, so the option "Always" matches.
         RegistryService.DeleteValue(NewCall(), new RegistryItem(TestKeyPath, "Glom1"));
         RegistryService.DeleteValue(
             NewCall(),
@@ -1179,7 +1167,7 @@ public class BaseCustomizeSettingTests : IDisposable
 
         Assert.Equal(0, setting.CurrentValue);
 
-        // Apply Never (2) -> writes both keys
+        // Applying "Never" writes both keys.
         Assert.True((await setting.ApplyAsync(2, NewCall())).Ok);
         Assert.Equal(2, setting.CurrentValue);
         Assert.Equal(2, RegistryService.Read<int>(new RegistryItem(TestKeyPath, "Glom1")));

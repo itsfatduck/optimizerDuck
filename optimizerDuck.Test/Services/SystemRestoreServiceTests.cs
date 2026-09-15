@@ -4,11 +4,10 @@ using optimizerDuck.Services.System;
 namespace optimizerDuck.Test.Services;
 
 /// <summary>
-///     System Restore decisions with hand-doubled results. Classification takes status codes only
-///     (never message text, which is localizable) and the throttle takes the documented setting plus
-///     the newest existing point. The live create/enable round trip needs elevation, so the virtual
-///     members are driven through a hand-written double - the same seam a restore-point manager tool
-///     would use.
+///     System Restore decisions with hand-doubled results. Classification takes status codes
+///     only (never message text, which is localizable) and the throttle takes the documented
+///     setting plus the newest existing point. The live create/enable round trip needs
+///     elevation, so the virtual members are driven through a hand-written double.
 /// </summary>
 public class SystemRestoreServiceTests
 {
@@ -126,7 +125,10 @@ public class SystemRestoreServiceTests
         var service = new FakeSystemRestoreService
         {
             FrequencyMinutes = 0,
-            Points = [new SystemRestoreService.RestorePointInfo(7, 12, "just now", Now.AddSeconds(-30))],
+            Points =
+            [
+                new SystemRestoreService.RestorePointInfo(7, 12, "just now", Now.AddSeconds(-30)),
+            ],
         };
 
         Assert.False(service.IsWithinCreationThrottle(Now));

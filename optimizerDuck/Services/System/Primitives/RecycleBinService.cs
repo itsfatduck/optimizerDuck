@@ -20,7 +20,9 @@ public static class RecycleBinService
     internal const uint ShrbNoSound = 0x00000004;
     internal const uint SuppressionFlags = ShrbNoConfirmation | ShrbNoProgressUi | ShrbNoSound;
 
-    /// <summary>Totals for one Recycle Bin scope: bytes and item count as the shell reports them.</summary>
+    /// <summary>
+    ///     Totals for one Recycle Bin scope: bytes and item count as the shell reports them.
+    /// </summary>
     public sealed record RecycleBinTotals(long SizeBytes, long ItemCount);
 
     /// <summary>

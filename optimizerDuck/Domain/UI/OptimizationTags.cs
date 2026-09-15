@@ -48,21 +48,20 @@ public enum OptimizationTags
 }
 
 /// <summary>
-///     Provides extension methods to convert <see cref="OptimizationTags" /> to display-friendly representations.
+///     Converts <see cref="OptimizationTags" /> to display-friendly representations.
 /// </summary>
 public static class OptimizationTagsToDisplay
 {
     extension(OptimizationTags tags)
     {
         /// <summary>
-        ///     Explains what a tag means, so a chip on a card never has to be guessed at. One
-        ///     key per tag value, named after the flag.
+        ///     Explains what a tag means. One key per tag value, named after the flag.
         /// </summary>
         public string ToExplanation() => Loc.Instance[$"Optimizer.UI.Tags.{tags}.Tooltip"];
         /// <summary>
-        ///     Converts the tag flags into a sequence of display-friendly representations.
+        ///     Converts the tag flags into their display representations.
         /// </summary>
-        /// <returns>An enumerable of <see cref="OptimizationTagDisplay" /> for each set flag.</returns>
+        /// <returns>One <see cref="OptimizationTagDisplay" /> for each set flag.</returns>
         public IEnumerable<OptimizationTagDisplay> ToDisplays()
         {
             foreach (var flag in Enum.GetValues<OptimizationTags>())
@@ -75,9 +74,6 @@ public static class OptimizationTagsToDisplay
             }
         }
 
-        /// <summary>
-        ///     Converts a single tag flag to its display representation.
-        /// </summary>
         private OptimizationTagDisplay ToDisplay()
         {
             return tags switch
@@ -198,20 +194,14 @@ public static class OptimizationTagsToDisplay
 }
 
 /// <summary>
-///     Represents the UI display data for an optimization tag.
+///     UI display data for an optimization tag.
 /// </summary>
 public readonly record struct OptimizationTagDisplay
 {
     /// <summary>What this tag means, shown as the tooltip of the chip.</summary>
     public string Description { get; init; }
 
-    /// <summary>
-    ///     The icon symbol to display.
-    /// </summary>
     public required SymbolRegular Icon { get; init; }
 
-    /// <summary>
-    ///     The localized display text for the tag.
-    /// </summary>
     public required string Display { get; init; }
 }

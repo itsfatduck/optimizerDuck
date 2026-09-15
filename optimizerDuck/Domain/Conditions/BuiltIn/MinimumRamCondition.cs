@@ -7,13 +7,12 @@ namespace optimizerDuck.Domain.Conditions;
 /// <summary>Base condition that requires a minimum amount of installed RAM.</summary>
 public abstract class MinimumRamCondition : ConditionBase
 {
-    /// <summary>The minimum required RAM in gigabytes.</summary>
     protected abstract double MinimumGb { get; }
 
-    /// <summary>Strongly-typed localized failure title.</summary>
+    /// <summary>Supplies the localized failure title.</summary>
     protected abstract Func<string> Title { get; }
 
-    /// <summary>Strongly-typed localized failure description.</summary>
+    /// <summary>Supplies the localized failure description.</summary>
     protected abstract Func<string> Description { get; }
 
     public override ConditionResult Evaluate(SystemInfo snapshot) =>

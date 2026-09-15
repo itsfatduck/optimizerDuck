@@ -4,7 +4,6 @@ using System.Windows.Data;
 
 namespace optimizerDuck.Common.Converters;
 
-/// <summary>Value checks supported by <see cref="ValueConditionToVisibilityConverter"/>.</summary>
 public enum ValueConditionType
 {
     IsNull,

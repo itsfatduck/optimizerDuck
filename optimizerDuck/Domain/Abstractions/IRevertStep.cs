@@ -25,7 +25,9 @@ public interface IRevertStep
     /// </summary>
     /// <param name="context">Shell, power service, and logger for this revert.</param>
     /// <param name="logger">The logger to record provider and shell operations.</param>
-    /// <returns><c>true</c> if the revert succeeded; otherwise, <c>false</c>.</returns>
+    /// <returns>
+    ///     <see langword="true" /> if the revert succeeded; otherwise <see langword="false" />.
+    /// </returns>
     Task<bool> ExecuteAsync(RevertContext context, ILogger logger);
 
     /// <summary>

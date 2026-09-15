@@ -33,7 +33,6 @@ public abstract class ViewModel : LocalizedObject, INavigationAware
     /// <summary>
     ///     Runs one-time initialization logic the first time the page is navigated to.
     /// </summary>
-    /// <returns>A task that represents the asynchronous operation.</returns>
     /// <remarks>
     ///     Override this method to load data or subscribe to events. It runs only once
     ///     per view model lifetime, even if the user navigates away and back.
@@ -43,7 +42,6 @@ public abstract class ViewModel : LocalizedObject, INavigationAware
     /// <summary>
     ///     Called when the page becomes the active view.
     /// </summary>
-    /// <returns>A task that represents the asynchronous operation.</returns>
     /// <remarks>
     ///     Ensures <see cref="InitializeOnceAsync"/> runs exactly once, then calls
     ///     <see cref="OnNavigatedTo()"/>. If initialization fails, the flag resets
@@ -72,7 +70,6 @@ public abstract class ViewModel : LocalizedObject, INavigationAware
     /// <summary>
     ///     Called when the page is no longer the active view.
     /// </summary>
-    /// <returns>A task that represents the asynchronous operation.</returns>
     /// <remarks>
     ///     Override this method to clean up resources or stop timers when leaving the page.
     /// </remarks>

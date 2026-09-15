@@ -67,10 +67,8 @@ public class RevertManagerTests
     [Fact]
     public async Task IsAppliedAsync_WithInvalidJson_CountsAsApplied()
     {
-        // Deliberate reversal: a file that exists but cannot be parsed still means the item was
-        // applied once. Reporting it as untouched invited a fresh apply, which then wrote over
-        // the only copy of the backup. The payload is parked by the next save instead, which
-        // RevertIntegrityTests covers.
+        // A file that exists but cannot be parsed still counts as applied: treating it as
+        // untouched would invite a fresh apply over the only copy of the backup.
         var id = Guid.NewGuid();
         var path = Path.Combine(Shared.RevertDirectory, id + ".json");
         var cancellationToken = TestContext.Current.CancellationToken;
@@ -376,8 +374,7 @@ public class RevertManagerTests
     [Fact]
     public async Task SaveRevertDataAsync_DuplicatePayload_BothEntriesPersist()
     {
-        // Regression: payload-based dedupe once dropped the second of two
-        // identical executions, losing revert coverage.
+        // Two identical executions both persist: dropping one would lose revert coverage.
         var id = Guid.NewGuid();
         var path = Path.Combine(Shared.RevertDirectory, id + ".json");
         var manager = new RevertManager(
@@ -779,8 +776,8 @@ public class RevertIntegrityTests
     [Fact]
     public async Task SaveRevertDataAsync_FailedChangeWithCompensation_IsStillPersisted()
     {
-        // A step that was refused after it had already changed something still needs its
-        // previous state recorded, so the writer no longer requires a success flag.
+        // A step refused after it had already changed something still needs its previous
+        // state recorded, so the writer cannot require a success flag.
         var id = Guid.NewGuid();
         var changes = new ChangeSet();
         changes.Add(

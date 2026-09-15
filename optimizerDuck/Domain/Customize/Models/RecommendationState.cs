@@ -17,6 +17,6 @@ public enum RecommendationState
     /// <summary>The setting is experimental and may cause unexpected behavior.</summary>
     Experimental,
 
-    /// <summary>The recommendation depends on other factors (e.g., hardware or user preference).</summary>
+    /// <summary>Depends on other factors (e.g. hardware or user preference).</summary>
     Depends,
 }

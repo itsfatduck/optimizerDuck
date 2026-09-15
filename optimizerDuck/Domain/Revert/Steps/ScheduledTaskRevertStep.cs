@@ -10,7 +10,8 @@ using optimizerDuck.Services.System.Primitives;
 namespace optimizerDuck.Domain.Revert.Steps;
 
 /// <summary>
-///     Represents a revert step that restores a scheduled task to its original enabled/disabled state.
+///     Represents a revert step that restores a scheduled task to its original
+///     enabled/disabled state.
 /// </summary>
 public class ScheduledTaskRevertStep : IRevertStep
 {
@@ -20,7 +21,8 @@ public class ScheduledTaskRevertStep : IRevertStep
     public string FullPath { get; set; } = string.Empty;
 
     /// <summary>
-    ///     Gets or sets a value that indicates whether the task was originally enabled before the optimization.
+    ///     Gets or sets a value that indicates whether the task was originally enabled
+    ///     before the optimization.
     /// </summary>
     public bool OriginalEnabled { get; set; }
 

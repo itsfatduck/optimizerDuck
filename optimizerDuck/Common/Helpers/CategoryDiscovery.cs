@@ -11,10 +11,12 @@ public static class CategoryDiscovery
 {
     /// <summary>
     ///     Builds one instance per discovered category type, populating the collection
-    ///     property named <paramref name="itemsPropertyName"/> with its nested items.
+    ///     property named <paramref name="itemsPropertyName" /> with its nested items.
     ///     Categories that contain no items are skipped.
     /// </summary>
-    /// <param name="itemsPropertyName">The public collection property to fill (e.g. <c>Optimizations</c>).</param>
+    /// <param name="itemsPropertyName">
+    ///     The public collection property to fill, for example <c>Optimizations</c>.
+    /// </param>
     /// <param name="buildItems">Builds the nested items for a category type.</param>
     /// <param name="orderBy">Sort key applied to the resulting categories.</param>
     public static TCategory[] Discover<TCategory, TItem>(
@@ -47,7 +49,7 @@ public static class CategoryDiscovery
     }
 
     /// <summary>
-    ///     Instantiates every public nested class assignable to <typeparamref name="TItem"/>.
+    ///     Instantiates every public nested class assignable to <typeparamref name="TItem" />.
     /// </summary>
     /// <param name="category">The category type whose nested types are scanned.</param>
     /// <param name="init">Optional callback invoked with each item and its owning category.</param>
@@ -73,7 +75,7 @@ public static class CategoryDiscovery
 
     /// <summary>
     ///     Assigns the built items to the category's collection property, adapting a
-    ///     <see cref="List{T}"/> to whatever collection type the property declares.
+    ///     <see cref="List{T}" /> to whatever collection type the property declares.
     /// </summary>
     private static void PopulateItems<TCategory, TItem>(
         TCategory instance,

@@ -5,10 +5,9 @@ using optimizerDuck.Services.Configuration;
 namespace optimizerDuck.Common.Converters;
 
 /// <summary>
-/// Displays any system-info enum via resource key <c>Enum.{Type}.{Value}</c>.
-/// <see cref="Enum.Unknown"/>-style values and null map to <c>Common.Unknown</c>;
-/// a missing resource falls back to the raw value name (never a raw key).
-/// Re-evaluates on language change through the normal binding refresh.
+///     Displays a system-info enum through the resource key <c>Enum.{Type}.{Value}</c>. An
+///     <c>Unknown</c> value and a null map to <c>Common.Unknown</c>, and a missing resource falls
+///     back to the raw value name, not the key. Re-evaluates on language change.
 /// </summary>
 public class EnumDisplayConverter : IValueConverter
 {

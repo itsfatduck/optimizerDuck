@@ -3,15 +3,14 @@ using optimizerDuck.Domain.Optimizations.Models.Services;
 namespace optimizerDuck.Domain.Execution;
 
 /// <summary>
-///     The structured facts of one recorded step, as the kind of operation it actually is: one
-///     record per operation, each carrying only the fields that operation has. A provider cannot
-///     record a value name on a service step, and the view words a row from the kind it holds
-///     instead of looking the operation up by name. Providers fill the record for their operation;
-///     a step without a detail keeps its log description on screen.
+///     The structured facts of one recorded step, as the kind of operation it is. Each record
+///     carries only the fields that operation has, and the UI words a row from the kind it holds.
 /// </summary>
 public abstract record ChangeDetail
 {
-    /// <summary>Stable operation name, for example <c>registry.write</c>. The UI localizes it.</summary>
+    /// <summary>
+    ///     Stable operation name, for example <c>registry.write</c>. The UI localizes it.
+    /// </summary>
     public abstract string Operation { get; }
 
     /// <summary>
@@ -66,7 +65,7 @@ public sealed record RegistryValueRemoveDetail : ChangeDetail
     /// <summary>The kind of data removed, for example a registry value kind.</summary>
     public string? ValueType { get; init; }
 
-    /// <summary>What the value held before it was removed. Null if it held nothing readable.</summary>
+    /// <summary>What the value held before removal. Null if it held nothing readable.</summary>
     public string? PreviousValue { get; init; }
 
     public override bool HasValuePair => true;
@@ -115,10 +114,10 @@ public sealed record ScheduledTaskEnableDetail : ChangeDetail
     /// <summary>The full path of the task.</summary>
     public required string TaskPath { get; init; }
 
-    /// <summary>Whether the task was enabled before the step. Null when that was not read.</summary>
+    /// <summary>Whether the task was enabled before the step. Null when unread.</summary>
     public bool? PreviousEnabled { get; init; }
 
-    /// <summary>Whether the task is enabled after the step. Null when the step wrote nothing.</summary>
+    /// <summary>Whether the task is enabled after the step. Null when it wrote nothing.</summary>
     public bool? NewEnabled { get; init; }
 
     public override bool HasValuePair => true;
@@ -132,10 +131,10 @@ public sealed record ScheduledTaskDisableDetail : ChangeDetail
     /// <summary>The full path of the task.</summary>
     public required string TaskPath { get; init; }
 
-    /// <summary>Whether the task was enabled before the step. Null when that was not read.</summary>
+    /// <summary>Whether the task was enabled before the step. Null when unread.</summary>
     public bool? PreviousEnabled { get; init; }
 
-    /// <summary>Whether the task is enabled after the step. Null when the step wrote nothing.</summary>
+    /// <summary>Whether the task is enabled after the step. Null when it wrote nothing.</summary>
     public bool? NewEnabled { get; init; }
 
     public override bool HasValuePair => true;

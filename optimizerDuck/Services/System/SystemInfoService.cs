@@ -12,10 +12,6 @@ using WmiEnumerationOptions = System.Management.EnumerationOptions;
 
 namespace optimizerDuck.Services.System;
 
-// ============================================================================
-// WMI HELPER (connection caching, always-disposing queries)
-// ============================================================================
-
 internal static class WmiHelper
 {
     private static readonly ConcurrentDictionary<string, ManagementScope> ScopeCache = new(
@@ -63,7 +59,8 @@ internal static class WmiHelper
         ScopeCache.Clear();
     }
 
-    // static log hook (same pattern as PowerReader.Configure); per-instance wiring if a second writer appears.
+    // static log hook (same pattern as PowerReader.Configure); per-instance wiring if a
+    // second writer appears.
     private static Action<string, Exception>? _onQueryFailed;
 
     /// <summary>Wires a debug sink for failed WMI queries. Null detaches.</summary>
@@ -234,10 +231,6 @@ internal static class WmiHelper
         }
     }
 }
-
-// ============================================================================
-// NATIVE APIS (no process spawning)
-// ============================================================================
 
 internal static class NativeMemory
 {
@@ -550,7 +543,10 @@ internal static class MemoryProvider
             ) ?? throw new InvalidOperationException("Win32_PhysicalMemory query failed.");
     }
 
-    /// <summary>SMBIOS memory-type codes (DMTF DSP0134). Unspecified = Unknown, unlisted = Other, never guessed.</summary>
+    /// <summary>
+    ///     SMBIOS memory-type codes (DMTF DSP0134). Unspecified = Unknown, unlisted = Other,
+    ///     never guessed.
+    /// </summary>
     internal static MemoryType MapMemoryType(int? code)
     {
         return code switch
@@ -1090,10 +1086,6 @@ internal static class DiskProvider
     }
 }
 
-// ============================================================================
-// DXGI INTEROP (COM P/Invoke, unchanged behavior)
-// ============================================================================
-
 internal static class DxgiHelper
 {
     public const uint DXGI_ADAPTER_FLAG_SOFTWARE = 2;
@@ -1201,10 +1193,6 @@ internal static class DxgiHelper
         public uint Flags;
     }
 }
-
-// ============================================================================
-// GPU PROVIDER (DXGI + one WMI pass for driver details)
-// ============================================================================
 
 internal static class GpuProvider
 {
@@ -1489,10 +1477,6 @@ internal static class GpuProvider
         uint HardwareDeviceId
     );
 }
-
-// ============================================================================
-// WINDOWS / FIRMWARE / SECURITY / POWER / RUNTIME PROVIDERS
-// ============================================================================
 
 internal static class WindowsProvider
 {
@@ -1903,10 +1887,6 @@ internal static class RuntimeProvider
         }
     }
 }
-
-// ============================================================================
-// MAIN SERVICE (public API)
-// ============================================================================
 
 public sealed class SystemInfoService : IDisposable
 {

@@ -5,7 +5,7 @@ using optimizerDuck.Common.Helpers;
 
 namespace optimizerDuck.Common.Converters;
 
-/// <summary>Maps a progress percentage to a theme brush: green under 50%, yellow under 80%, red above.</summary>
+/// <summary>Maps a progress percentage to green below 50%, yellow below 80%, red above.</summary>
 public class ProgressBarValueToBrushConverter : IValueConverter
 {
     private static readonly SolidColorBrush DefaultBrush = new(Color.FromArgb(0x0, 0x0, 0x0, 0x0));

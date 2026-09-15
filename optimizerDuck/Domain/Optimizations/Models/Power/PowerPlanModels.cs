@@ -28,7 +28,7 @@ public sealed record PowerSettingGroup
     public string? Description { get; init; }
 }
 
-/// <summary>Which mains/battery value a call targets. No magic 0/1 at call sites.</summary>
+/// <summary>Which mains/battery value a call targets.</summary>
 public enum PowerSource
 {
     Ac,
@@ -36,10 +36,9 @@ public enum PowerSource
 }
 
 /// <summary>
-/// How much Windows tells us about a setting's shape. <c>Unknown</c> means
-/// Windows exposed no usable metadata: values stay raw numbers, nothing is
-/// invented. There is deliberately no per-setting enum type: most settings
-/// are plain DWORD indexes whose friendly names live elsewhere or nowhere.
+/// How much Windows tells us about a setting's shape. <see cref="Unknown" /> means
+/// Windows exposed no usable metadata, so values stay raw numbers and nothing is
+/// invented.
 /// </summary>
 public enum PowerValueKind
 {

@@ -3,9 +3,7 @@ using Microsoft.Win32;
 namespace optimizerDuck.Domain.Optimizations.Models.Services;
 
 /// <summary>
-///     Shared registry value equality. Single source of truth replacing the
-///     three private <c>ValuesEqual</c> copies (legacy provider, revert step,
-///     Windows capability).
+///     Compares registry values using the semantics of their <see cref="RegistryValueKind" />.
 /// </summary>
 public static class RegistryValues
 {

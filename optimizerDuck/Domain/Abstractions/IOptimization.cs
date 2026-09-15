@@ -10,14 +10,8 @@ namespace optimizerDuck.Domain.Abstractions;
 /// </summary>
 public interface IOptimization
 {
-    /// <summary>
-    ///     The unique identifier for this optimization.
-    /// </summary>
     Guid Id { get; }
 
-    /// <summary>
-    ///     The risk level associated with this optimization.
-    /// </summary>
     OptimizationRisk Risk { get; }
 
     /// <summary>
@@ -35,27 +29,19 @@ public interface IOptimization
     /// </summary>
     string ShortDescription { get; }
 
-    /// <summary>
-    ///     The current applied state and timing information.
-    /// </summary>
     OptimizationState State { get; set; }
 
     /// <summary>
-    ///     The compatibility condition type (implementing <see cref="ICondition"/>)
-    ///     that determines whether this optimization is supported on the current system,
-    ///     or <c>null</c> when it is always available.
+    ///     The <see cref="ICondition" /> implementation that must hold on the current system,
+    ///     or <see langword="null" /> when the optimization is always available.
     /// </summary>
     Type? ConditionType { get; }
 
-    /// <summary>Gets or sets the evaluated compatibility result.</summary>
     ConditionResult ConditionResult { get; set; }
 
-    /// <summary>
-    ///     Applies this optimization to the system.
-    /// </summary>
     /// <param name="progress">A progress reporter for UI updates.</param>
     /// <param name="context">The context providing logger, system snapshot, and services.</param>
-    /// <returns>A task that completes with the result of the apply operation.</returns>
+    /// <returns>The result of the apply operation.</returns>
     Task<ApplyResult> ApplyAsync(
         IProgress<ProcessingProgress> progress,
         OptimizationContext context

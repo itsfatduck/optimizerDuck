@@ -51,7 +51,7 @@ public abstract partial class BaseCustomizeSetting : LocalizedObject, ICustomize
     /// <summary>
     ///     Gets the compatibility condition type declared in the
     ///     <see cref="CustomizeSettingAttribute"/> (implementing <see cref="ICondition"/>),
-    ///     or <c>null</c> when the setting is always available.
+    ///     or <see langword="null" /> when the setting is always available.
     /// </summary>
     public Type? ConditionType => Meta.Condition;
 
@@ -71,7 +71,7 @@ public abstract partial class BaseCustomizeSetting : LocalizedObject, ICustomize
     /// <summary>
     ///     For Dropdown settings: the matched option's value, the raw registry value when
     ///     out of scope, or <see cref="MissingValueSentinel"/> when the value is missing.
-    ///     Never interpret <c>null</c> as "unset" for Dropdown settings; use
+    ///     Never interpret <see langword="null" /> as "unset" for Dropdown settings; use
     ///     <see cref="MissingValueSentinel"/> instead.
     /// </summary>
     public virtual object? CurrentValue
@@ -149,7 +149,7 @@ public abstract partial class BaseCustomizeSetting : LocalizedObject, ICustomize
     /// </summary>
     internal static readonly object MissingValueSentinel = new();
 
-    /// <summary>Creates the fallback option: "Not set" when the value is missing, else "Custom".</summary>
+    /// <summary>Fallback option label: "Not set" when missing, else "Custom".</summary>
     private static SettingOption CreateCustomOption(object value) =>
         new(
             ReferenceEquals(value, MissingValueSentinel)
@@ -170,8 +170,8 @@ public abstract partial class BaseCustomizeSetting : LocalizedObject, ICustomize
     protected virtual IReadOnlyList<SettingOption>? GetOptions() => null;
 
     /// <summary>
-    ///     Reads the current registry state. For toggles: <c>true</c> when all required
-    ///     toggles are on, <c>false</c> otherwise.
+    ///     Reads the current registry state. For toggles: <see langword="true" /> when all required
+    ///     toggles are on, <see langword="false" /> otherwise.
     /// </summary>
     public virtual Task<bool> GetStateAsync()
     {
@@ -225,7 +225,7 @@ public abstract partial class BaseCustomizeSetting : LocalizedObject, ICustomize
     /// </summary>
     /// <param name="value">The value to apply. The synthetic "Custom"/"Not set" fallback
     ///     value is a safe no-op.</param>
-    /// <param name="call">The explicit per-operation call context (change collector, logger, cancellation).</param>
+    /// <param name="call">Per-operation call context (collector, logger, cancellation).</param>
     /// <returns>The first failure, or success when every write succeeded.</returns>
     public virtual async Task<OpResult> ApplyAsync(object? value, OpCall call)
     {
@@ -233,8 +233,6 @@ public abstract partial class BaseCustomizeSetting : LocalizedObject, ICustomize
 
         if (value is bool isOn)
         {
-            // Attempt every toggle even after a failure; the first failure
-            // wins the return while partial application stays recorded.
             foreach (var toggle in RegistryToggles)
             {
                 try
@@ -267,7 +265,6 @@ public abstract partial class BaseCustomizeSetting : LocalizedObject, ICustomize
                     .Select(b => new RegistryItem(b.Path, b.Name))
                     .ToArray();
 
-                // All bindings are attempted; the first failure wins the return.
                 var results = new List<OpResult>();
                 if (toDelete.Length > 0)
                     results.Add(RegistryService.DeleteValue(call, toDelete));
@@ -291,7 +288,6 @@ public abstract partial class BaseCustomizeSetting : LocalizedObject, ICustomize
 
     protected virtual IReadOnlyList<string> GetWatchedRegistryPaths()
     {
-        // From RegistryToggles
         var fromToggles = RegistryToggles.Select(t => t.Path);
 
         // From ALL Dropdown option bindings (not just primary)
@@ -308,7 +304,7 @@ public abstract partial class BaseCustomizeSetting : LocalizedObject, ICustomize
 
     /// <summary>
     /// Whether the setting requires a Windows refresh after <see cref="ApplyAsync"/>.
-    /// Defaults to <c>false</c>; auto-derived from <see cref="RefreshScope"/> but
+    /// Defaults to <see langword="false" />; auto-derived from <see cref="RefreshScope"/> but
     /// can be overridden for custom behaviour.
     /// </summary>
     protected virtual bool NeedsPostAction => RefreshScope != CustomizeRefreshScope.None;
@@ -432,7 +428,7 @@ public abstract partial class BaseCustomizeSetting : LocalizedObject, ICustomize
 
     /// <summary>
     ///     Returns the recommendation declared in the <see cref="CustomizeSettingAttribute"/>,
-    ///     or <c>null</c> when the setting has none.
+    ///     or <see langword="null" /> when the setting has none.
     /// </summary>
     public virtual CustomizeRecommendationResult? GetRecommendation()
     {
@@ -535,7 +531,6 @@ public abstract partial class BaseCustomizeSetting : LocalizedObject, ICustomize
 
     private static object? ReadPrimaryRawValue(IReadOnlyList<SettingOption> options)
     {
-        // Read from the primary binding of the first option that has bindings
         foreach (var option in options)
         {
             if (option.PrimaryBinding is not { } binding)

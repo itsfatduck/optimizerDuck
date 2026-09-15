@@ -34,23 +34,14 @@ public enum StartupAppLocation
 /// </summary>
 public partial class StartupApp : LocalizedObject
 {
-    /// <summary>
-    ///     The command that runs the application.
-    /// </summary>
     [ObservableProperty]
     private string _command = string.Empty;
 
     private string? _filePath;
 
-    /// <summary>
-    ///     Indicates whether this startup entry is enabled.
-    /// </summary>
     [ObservableProperty]
     private bool _isEnabled;
 
-    /// <summary>
-    ///     The logo image of the application.
-    /// </summary>
     [ObservableProperty]
     private ImageSource? _logoImage;
 
@@ -60,30 +51,15 @@ public partial class StartupApp : LocalizedObject
     [ObservableProperty]
     private string _originalValueNameOrFileName = string.Empty;
 
-    /// <summary>
-    ///     The publisher or company name.
-    /// </summary>
     [ObservableProperty]
     private string _publisher = string.Empty;
 
-    /// <summary>
-    ///     The display name of the startup application.
-    /// </summary>
     public required string Name { get; init; }
 
-    /// <summary>
-    ///     Where this startup entry is located.
-    /// </summary>
     public required StartupAppLocation Location { get; init; }
 
-    /// <summary>
-    ///     The registry key path or folder path.
-    /// </summary>
     public required string PathOrKey { get; init; }
 
-    /// <summary>
-    ///     The actual file path of the executable.
-    /// </summary>
     public string? FilePath
     {
         get => _filePath;
@@ -94,14 +70,8 @@ public partial class StartupApp : LocalizedObject
         }
     }
 
-    /// <summary>
-    ///     Indicates whether the file location can be opened.
-    /// </summary>
     public bool CanOpenLocation => !string.IsNullOrEmpty(FilePath) && File.Exists(FilePath);
 
-    /// <summary>
-    ///     Gets a human-readable string for the location.
-    /// </summary>
     public string LocationDisplay =>
         LocationDisplayKeys.TryGetValue(Location, out var key) ? Loc.Instance[key] : PathOrKey;
 

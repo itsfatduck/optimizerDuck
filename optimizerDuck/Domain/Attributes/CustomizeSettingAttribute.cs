@@ -11,9 +11,8 @@ public sealed class CustomizeSettingAttribute : Attribute
     public RecommendationState Recommendation { get; init; } = RecommendationState.None;
 
     /// <summary>
-    ///     The compatibility condition type (implementing <see cref="ICondition"/>)
-    ///     that determines whether this setting is supported on the current system.
-    ///     When <c>null</c>, the setting is always available.
+    ///     The <see cref="ICondition" /> implementation that must hold on the current system.
+    ///     When <see langword="null" />, the setting is always available.
     /// </summary>
     public Type? Condition { get; init; }
 

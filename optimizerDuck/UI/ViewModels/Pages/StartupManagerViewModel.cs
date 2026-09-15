@@ -70,6 +70,7 @@ public partial class StartupManagerViewModel : ViewModel
     public bool HasResults => Apps.Count > 0 || Tasks.Count > 0;
     public bool ShowRefreshButton => IsNotLoading && HasResults;
 
+    /// <inheritdoc />
     public override async Task OnNavigatedToAsync()
     {
         await base.OnNavigatedToAsync();
@@ -182,7 +183,6 @@ public partial class StartupManagerViewModel : ViewModel
         await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
     }
 
-    // Apps filter triggers
     partial void OnAppSearchTextChanged(string value)
     {
         ApplyAppFilter();
@@ -193,7 +193,6 @@ public partial class StartupManagerViewModel : ViewModel
         ApplyAppFilter();
     }
 
-    // Tasks filter triggers
     partial void OnTaskSearchTextChanged(string value)
     {
         ApplyTaskFilter();
@@ -334,7 +333,7 @@ public partial class StartupManagerViewModel : ViewModel
         if (e.PropertyName != nameof(StartupApp.IsEnabled) || sender is not StartupApp app)
             return;
 
-        // rollback re-assigns IsEnabled, so guard against re-entrancy.
+        // The rollback re-assigns IsEnabled, so guard against re-entrancy.
         if (!_suppressToggle.Add(app))
             return;
 

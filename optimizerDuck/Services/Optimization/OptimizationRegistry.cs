@@ -12,10 +12,13 @@ public class OptimizationRegistry(ILoggerFactory loggerFactory)
 {
     private readonly ILogger _logger = loggerFactory.CreateLogger<OptimizationRegistry>();
 
-    /// <summary>Gets or sets the discovered optimization categories after preloading. Each category contains its child optimizations.</summary>
+    /// <summary>Gets or sets the optimization categories discovered by preloading.</summary>
     public IOptimizationCategory[] OptimizationCategories { get; set; } = [];
 
-    /// <summary>Gets a value that indicates whether the optimizations have been fully discovered and their applied states loaded.</summary>
+    /// <summary>
+    ///     Gets a value that indicates whether the optimizations have been fully discovered and
+    ///     their applied states loaded.
+    /// </summary>
     public bool IsPreloaded { get; private set; }
 
     /// <summary>
@@ -41,7 +44,10 @@ public class OptimizationRegistry(ILoggerFactory loggerFactory)
 
     private Task? _preloadTask;
 
-    /// <summary>Discovers all optimization categories and their optimizations via reflection, then loads the applied state from revert data on disk.</summary>
+    /// <summary>
+    ///     Discovers the optimization categories by reflection and loads the applied state of
+    ///     their optimizations from revert data on disk.
+    /// </summary>
     public async Task PreloadOptimizationsAsync()
     {
         var seenIds = new HashSet<Guid>();
@@ -84,7 +90,9 @@ public class OptimizationRegistry(ILoggerFactory loggerFactory)
         IsPreloaded = true;
     }
 
-    /// <summary>Gets a category by its runtime type. Categories must have been preloaded first.</summary>
+    /// <summary>
+    ///     Gets the category with the given runtime type, which must have been preloaded.
+    /// </summary>
     /// <param name="type">The runtime type of the category to retrieve.</param>
     /// <returns>The matching <see cref="IOptimizationCategory"/> instance.</returns>
     public IOptimizationCategory GetCategory(Type type)

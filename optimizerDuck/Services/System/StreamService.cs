@@ -9,13 +9,19 @@ public class StreamService(ILogger<StreamService> logger) : IDisposable
 {
     private HttpClient? _client;
 
-    /// <summary>Downloads a file from the specified URL and saves it to the local downloads directory.</summary>
+    /// <summary>
+    ///     Downloads a file from the specified URL and saves it to the local downloads directory.
+    /// </summary>
     /// <param name="url">The URL to download from.</param>
     /// <param name="fileName">The target file name (not path) to save as.</param>
-    /// <returns>A <see cref="DownloadResult"/> where <c>Ok</c> indicates whether the download completed, and <c>FilePath</c> is the full local path on success.</returns>
+    /// <returns>
+    ///     A <see cref="DownloadResult"/> where <c>Ok</c> indicates whether the download completed,
+    ///     and <c>FilePath</c> is the full local path on success.
+    /// </returns>
     /// <example>
     /// <code language="csharp">
-    /// var download = await streamService.TryDownloadAsync("https://example.com/file.zip", "file.zip");
+    /// var download = await streamService.TryDownloadAsync("https://example.com/file.zip",
+    ///     "file.zip");
     /// if (download.Ok) Console.WriteLine(download.FilePath);
     /// </code>
     /// </example>

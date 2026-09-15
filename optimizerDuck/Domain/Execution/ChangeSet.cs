@@ -34,7 +34,7 @@ public sealed class ChangeSet
         }
     }
 
-    /// <summary>Only the successful changes.</summary>
+    /// <summary>Gets the steps that succeeded, in execution order.</summary>
     public IReadOnlyList<Change> SuccessfulSteps
     {
         get
@@ -44,7 +44,7 @@ public sealed class ChangeSet
         }
     }
 
-    /// <summary>Only the failed changes.</summary>
+    /// <summary>Gets the steps that failed, in execution order.</summary>
     public IReadOnlyList<Change> FailedSteps
     {
         get
@@ -54,7 +54,7 @@ public sealed class ChangeSet
         }
     }
 
-    /// <summary>Whether at least one change succeeded.</summary>
+    /// <summary>Gets a value that indicates whether any step succeeded.</summary>
     public bool HasSuccessfulSteps
     {
         get
@@ -64,7 +64,7 @@ public sealed class ChangeSet
         }
     }
 
-    /// <summary>Whether at least one change failed.</summary>
+    /// <summary>Gets a value that indicates whether any step failed.</summary>
     public bool HasFailedSteps
     {
         get
@@ -75,7 +75,7 @@ public sealed class ChangeSet
     }
 
     /// <summary>
-    ///     Whether any step actually modified the system. Skips and irreversible actions
+    ///     Whether any step modified the system. Skips and irreversible actions
     ///     did not leave something to undo, so they do not count as applied changes. A step that
     ///     modified the system and then failed still counts, because it carries the compensation
     ///     for what it changed, and dropping it here would leave that work unrevertible.
@@ -209,27 +209,36 @@ public sealed class ChangeSet
 /// </summary>
 public sealed record Change
 {
+    /// <summary>Gets the name of the operation that recorded the step.</summary>
     public string Name { get; init; } = string.Empty;
 
+    /// <summary>Gets the one-line description of what the step did, always in English.</summary>
     public string Description { get; init; } = string.Empty;
 
+    /// <summary>Gets the 1-based execution order, reused as the step's revert-file index.</summary>
     public int Index { get; init; }
 
+    /// <summary>Gets a value that indicates whether the step succeeded.</summary>
     public bool Ok { get; init; }
 
     /// <summary>What the step did, which decides whether compensation data is expected.</summary>
     public ChangeKind Kind { get; init; } = ChangeKind.Change;
 
+    /// <summary>
+    ///     Gets the compensation step that undoes this step, when it changed something.
+    /// </summary>
     public IRevertStep? Revert { get; init; }
 
     /// <summary>
-    ///     The structured facts of this step, for a UI that speaks the user's language. The log
-    ///     keeps using <see cref="Description" />, which is always English.
+    ///     The structured facts of this step. The log keeps using <see cref="Description" />,
+    ///     which is always English.
     /// </summary>
     public ChangeDetail? Detail { get; init; }
 
+    /// <summary>Gets the message that explains the failure, when the step failed.</summary>
     public string? Error { get; init; }
 
+    /// <summary>Gets the diagnostic detail of the failure, when one was captured.</summary>
     public string? ErrorDetail { get; init; }
 
     /// <summary>
@@ -255,6 +264,7 @@ public sealed record Change
     /// </summary>
     public int Attempt { get; init; } = 1;
 
+    /// <summary>Gets the action that retries the step, when a retry can help.</summary>
     public Func<OpCall, Task<OpResult>>? Retry { get; init; }
 }
 

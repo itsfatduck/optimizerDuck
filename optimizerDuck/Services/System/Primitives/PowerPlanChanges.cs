@@ -5,10 +5,8 @@ using optimizerDuck.Domain.Revert.Steps;
 namespace optimizerDuck.Services.System.Primitives;
 
 /// <summary>
-/// Optimization-edge recorder for lean <see cref="PowerPlanService"/> results:
-/// the single place turning a finished native call into a <see cref="Change"/>
-/// with revert step and retry. Categories call here, never hand-roll steps.
-/// Tools call the service directly and skip this entirely.
+/// Records the optimization edge for lean <see cref="PowerPlanService"/> results: turns a
+/// finished native call into a <see cref="Change"/> with revert step and retry.
 /// </summary>
 public static class PowerPlanChanges
 {
@@ -88,9 +86,8 @@ public static class PowerPlanChanges
             .ConfigureAwait(false);
         if (!install.Result.Ok || install.InstalledId is null || install.PreviousId is null)
         {
-            // The import can have landed even when the activation failed, so the scheme Windows
-            // reports is recorded whenever it is known: a revert then removes the plan this run
-            // added instead of leaving it behind. Without an id there is nothing to point at.
+            // The import can land even when activation fails, so the installed scheme is recorded
+            // whenever Windows reports it; a revert then removes the plan this run added.
             PowerPlanRevertStep? orphan = null;
             string? orphanName = null;
             if (install.InstalledId is not null)
@@ -167,10 +164,9 @@ public static class PowerPlanChanges
         var prevAc = write.PreviousAcValue;
         var prevDc = write.PreviousDcValue;
 
-        // Both values were read before any write, and the mains value may already have been
-        // written when the battery write failed, so the compensation is recorded whenever the
-        // values are known, whether the step succeeded or not. Restoring a value that was never
-        // written is a no-op, and keeping the entry is what lets a retry end at the true original.
+        // Both values are read before any write; the mains value may already be written when the
+        // battery write fails, so the compensation is recorded even on failure. Restoring a value
+        // that was never written is a no-op, and the entry lets a retry end at the original.
         PowerSettingRevertStep? step = null;
         string? previousPair = null;
         if (prevAc is not null && prevDc is not null)

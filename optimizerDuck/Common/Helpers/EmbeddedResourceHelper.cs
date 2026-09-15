@@ -4,7 +4,7 @@ using System.Reflection;
 namespace optimizerDuck.Common.Helpers;
 
 /// <summary>
-/// Helper class for extracting embedded resources from the optimizerDuck.Resources.Embedded namespace.
+/// Extracts embedded resources from the optimizerDuck.Resources.Embedded namespace.
 /// </summary>
 public static class EmbeddedResourceHelper
 {
@@ -13,10 +13,14 @@ public static class EmbeddedResourceHelper
     /// <summary>
     /// Extracts an embedded resource to the specified output path.
     /// </summary>
-    /// <param name="relativePath">Relative path within the Embedded namespace (e.g., "Icons/blank.ico").</param>
+    /// <param name="relativePath">
+    ///     Relative path inside the Embedded namespace, for example "Icons/blank.ico".
+    /// </param>
     /// <param name="outputPath">Full path where the resource will be extracted.</param>
     /// <param name="overwrite">Whether to overwrite the file if it already exists.</param>
-    /// <returns>True if extraction succeeded, false otherwise.</returns>
+    /// <returns>
+    ///     <see langword="true" /> if extraction succeeded; otherwise <see langword="false" />.
+    /// </returns>
     public static bool TryExtract(string relativePath, string outputPath, bool overwrite = false)
     {
         if (string.IsNullOrWhiteSpace(relativePath) || string.IsNullOrWhiteSpace(outputPath))
@@ -32,26 +36,22 @@ public static class EmbeddedResourceHelper
 
             var assembly = Assembly.GetExecutingAssembly();
 
-            // Check if the resource exists
             if (!ResourceExists(assembly, fullResourceName))
             {
                 return false;
             }
 
-            // Create output directory if it doesn't exist
             var outputDirectory = Path.GetDirectoryName(outputPath);
             if (!string.IsNullOrEmpty(outputDirectory) && !Directory.Exists(outputDirectory))
             {
                 Directory.CreateDirectory(outputDirectory);
             }
 
-            // Skip extraction if file exists and overwrite is disabled
             if (File.Exists(outputPath) && !overwrite)
             {
                 return true;
             }
 
-            // Extract the resource
             using var stream = assembly.GetManifestResourceStream(fullResourceName);
             if (stream == null)
             {
@@ -80,7 +80,9 @@ public static class EmbeddedResourceHelper
     /// Checks if an embedded resource exists.
     /// </summary>
     /// <param name="relativePath">Relative path within the Embedded namespace.</param>
-    /// <returns>True if the resource exists, false otherwise.</returns>
+    /// <returns>
+    ///     <see langword="true" /> if the resource exists; otherwise <see langword="false" />.
+    /// </returns>
     public static bool Exists(string relativePath)
     {
         if (string.IsNullOrWhiteSpace(relativePath))

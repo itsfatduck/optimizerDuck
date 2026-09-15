@@ -137,12 +137,8 @@ public class BloatwareService(
     }
 
     /// <summary>
-    ///     Parses the <c>ConvertTo-Json</c> output of the AppX query. PowerShell emits a
-    ///     bare object for a single package and an array for several, so both shapes are
-    ///     accepted; deserialising only as a list silently yielded an empty result for the
-    ///     single-package case.
+    ///     Outcome of one package removal, derived from what the removal script reported.
     /// </summary>
-    /// <summary>Outcome of one package removal, derived from what the removal script reported.</summary>
     /// <param name="Failures">
     ///     One entry per refusal, empty when Windows removed the package or reported that nothing
     ///     was installed.
@@ -178,6 +174,10 @@ public class BloatwareService(
         return new AppXRemovalResult(failures);
     }
 
+    /// <summary>
+    ///     Parses the <c>ConvertTo-Json</c> output of the AppX query. PowerShell emits a bare
+    ///     object for a single package and an array for several, so both shapes are accepted.
+    /// </summary>
     internal static List<AppXPackage> ParsePackages(string stdout)
     {
         var json = stdout.TrimStart();
@@ -246,7 +246,6 @@ public class BloatwareService(
                 return new AppXRemovalResult([]);
             }
 
-            // Safe string literal escaping for PowerShell
             var safeName = EscapeForPowerShellLiteral(appXPackage.Name ?? string.Empty);
             var safePackageFullName = EscapeForPowerShellLiteral(appXPackage.PackageFullName);
             if (!AppXNameValidationRegex.IsMatch(appXPackage.Name ?? string.Empty))
@@ -386,7 +385,8 @@ public class BloatwareService(
             var assetsDir = Path.Combine(installLocation, "Assets");
             if (Directory.Exists(assetsDir))
             {
-                // Per Microsoft guidance, AppList/Square44x44 assets are a better primary app icon source than StoreLogo.
+                // Per Microsoft guidance, AppList/Square44x44 assets are a better primary app
+                // icon source than StoreLogo.
                 var fallbackCandidates = new[]
                 {
                     @"Assets\AppList.png",

@@ -56,7 +56,8 @@ public class ChangeDetailPresentationTests
     [MemberData(nameof(EveryOperationDetail.All), MemberType = typeof(EveryOperationDetail))]
     public void EveryKeyARowCanShowResolvesToText(ChangeDetail detail)
     {
-        // The module names its resource keys as literals, so a typo would reach the UI as a raw key.
+        // The module names its resource keys as literals, so a typo would reach the UI
+        // as a raw key.
         foreach (
             var operation in new[] { ChangeRecordOperation.Apply, ChangeRecordOperation.Revert }
         )

@@ -87,7 +87,9 @@ public enum MemoryProfileState
     Disabled,
 }
 
-/// <summary>Physical storage kind. Nvme is split out because it matters for perf expectations.</summary>
+/// <summary>
+///     Physical storage kind. Nvme is split out because it matters for performance expectations.
+/// </summary>
 public enum StorageMediaType
 {
     Unknown,
@@ -143,7 +145,10 @@ public sealed record CpuInfo
     public int? L2CacheKB { get; init; }
     public int? L3CacheKB { get; init; }
 
-    /// <summary>Null when firmware flag unreadable (Win32_Processor.VirtualizationFirmwareEnabled).</summary>
+    /// <summary>
+    ///     Null when the firmware flag is unreadable
+    ///     (Win32_Processor.VirtualizationFirmwareEnabled).
+    /// </summary>
     public bool? VirtualizationFirmwareEnabled { get; init; }
 
     public bool IsIntel => Vendor == CpuVendor.Intel;

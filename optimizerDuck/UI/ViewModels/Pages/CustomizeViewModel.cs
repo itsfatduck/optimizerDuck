@@ -74,9 +74,8 @@ public partial class CustomizeCategoryItemViewModel : LocalizedObject
     private Type? _categoryType;
 
     /// <summary>
-    ///     The category whose display strings this card forwards. Set at construction
-    ///     time; <see cref="Name" /> and <see cref="Description" /> re-resolve on every
-    ///     culture change.
+    ///     Gets or sets the category whose name and description this card forwards. The forwarded
+    ///     strings re-resolve on every culture change.
     /// </summary>
     public ICustomizeCategory? Source { get; set; }
 

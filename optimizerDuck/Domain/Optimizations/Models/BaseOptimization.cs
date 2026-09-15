@@ -16,9 +16,9 @@ using OptimizationState = optimizerDuck.Domain.UI.OptimizationState;
 namespace optimizerDuck.Domain.Optimizations.Models;
 
 /// <summary>
-///     Base class for all optimizations. Subclasses implement <see cref="ApplyAsync"/> and are
-///     decorated with <see cref="OptimizationAttribute"/> to provide metadata. The category
-///     (<see cref="OwnerType"/>) is assigned automatically during reflection-based discovery.
+///     Base class for all optimizations. Subclasses implement <see cref="ApplyAsync" /> and are
+///     decorated with <see cref="OptimizationAttribute" /> to provide metadata. The category
+///     (<see cref="OwnerType" />) is assigned automatically during reflection-based discovery.
 /// </summary>
 public abstract partial class BaseOptimization : LocalizedObject, IOptimization
 {
@@ -44,7 +44,9 @@ public abstract partial class BaseOptimization : LocalizedObject, IOptimization
     /// </summary>
     public Type? OwnerType { get; internal set; }
 
-    /// <exception cref="InvalidOperationException">Thrown when <see cref="OwnerType"/> has not been assigned.</exception>
+    /// <exception cref="InvalidOperationException">
+    ///     Thrown when <see cref="OwnerType" /> has not been assigned.
+    /// </exception>
     public string OwnerKey =>
         OwnerType?.Name
         ?? throw new InvalidOperationException($"{GetType().Name} has no owner assigned");
@@ -53,10 +55,11 @@ public abstract partial class BaseOptimization : LocalizedObject, IOptimization
 
     #region Identification
 
-    /// <summary>Gets the unique identifier for this optimization, parsed from the <see cref="OptimizationAttribute.Id"/>.</summary>
+    /// <summary>
+    ///     Gets the unique identifier declared in <see cref="OptimizationAttribute.Id" />.
+    /// </summary>
     public Guid Id => Guid.Parse(Meta.Id);
 
-    /// <summary>Gets the risk level associated with this optimization.</summary>
     public OptimizationRisk Risk => Meta.Risk;
 
     /// <summary>Gets the unique key used for localization and identification.</summary>
@@ -66,7 +69,9 @@ public abstract partial class BaseOptimization : LocalizedObject, IOptimization
 
     #region Presentation
 
-    /// <summary>Gets the visual representation (icon and localized text) of the risk level.</summary>
+    /// <summary>
+    ///     Gets the visual representation (icon and localized text) of the risk level.
+    /// </summary>
     public RiskVisual RiskVisual =>
         Risk switch
         {
@@ -92,12 +97,12 @@ public abstract partial class BaseOptimization : LocalizedObject, IOptimization
             },
         };
 
-    /// <summary>Gets the collection of tag displays for the UI, derived from <see cref="OptimizationTags"/>.</summary>
+    /// <summary>Gets the tag displays derived from <see cref="OptimizationTags" />.</summary>
     public IEnumerable<OptimizationTagDisplay> TagDisplays => Meta.Tags.ToDisplays();
 
     private OptimizationState _state = new();
 
-    /// <summary>Gets or sets the current applied state and timing information for this optimization.</summary>
+    /// <summary>Gets or sets the applied state and timing for this optimization.</summary>
     public OptimizationState State
     {
         get => _state;
@@ -145,10 +150,10 @@ public abstract partial class BaseOptimization : LocalizedObject, IOptimization
     /// <summary>Gets the localized short description of what this optimization does.</summary>
     public string ShortDescription => Loc.Instance[$"{Prefix}.ShortDescription"];
 
-    /// <summary>English name for log (always English).</summary>
+    /// <summary>Gets the English name written to the log.</summary>
     public string LogName => Loc.Invariant[$"Optimizer.{OwnerKey}.{OptimizationKey}.Name"];
 
-    /// <summary>English short description for log (always English).</summary>
+    /// <summary>Gets the English short description written to the log.</summary>
     public string LogShortDescription =>
         Loc.Invariant[$"Optimizer.{OwnerKey}.{OptimizationKey}.ShortDescription"];
 
@@ -157,8 +162,9 @@ public abstract partial class BaseOptimization : LocalizedObject, IOptimization
     #region Condition
 
     /// <summary>
-    ///     Gets the compatibility condition type declared in the <see cref="OptimizationAttribute"/>
-    ///     (implementing <see cref="ICondition"/>), or <c>null</c> when always available.
+    ///     Gets the compatibility condition type declared in the
+    ///     <see cref="OptimizationAttribute" /> (implementing <see cref="ICondition" />), or
+    ///     <see langword="null" /> when always available.
     /// </summary>
     public Type? ConditionType => Meta.Condition;
 

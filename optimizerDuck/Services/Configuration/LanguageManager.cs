@@ -51,7 +51,9 @@ public class Loc : INotifyPropertyChanged
     /// <summary>Occurs when language changes. ViewModels refresh cached text here.</summary>
     public event EventHandler<LanguageChangedEventArgs>? LanguageChanged;
 
-    /// <summary>Subscribe without keeping object alive. Use for ViewModels that can be closed.</summary>
+    /// <summary>
+    ///     Subscribe without keeping object alive. Use for ViewModels that can be closed.
+    /// </summary>
     public static void AddWeakLanguageChangedHandler(
         EventHandler<LanguageChangedEventArgs> handler
     ) =>

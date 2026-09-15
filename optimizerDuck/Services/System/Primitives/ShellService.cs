@@ -9,7 +9,7 @@ using optimizerDuck.Services.Configuration;
 namespace optimizerDuck.Services.System.Primitives;
 
 /// <summary>
-///     Thin instance facade over <see cref="ProcessRunner"/>: builds the
+///     Provides a thin instance facade over <see cref="ProcessRunner"/>: builds the
 ///     cmd.exe / powershell.exe command lines, maps the raw
 ///     <see cref="ProcessResult"/> to a <see cref="ShellResult"/> for policy
 ///     evaluation, records a <see cref="Change"/> into the passed
@@ -172,12 +172,9 @@ public sealed class ShellService
         return success ? OpResult.Success(revertStep) : OpResult.Fail(error!, errorDetail);
     }
 
-    #region Raw runs (no Change recording)
-
     /// <summary>
-    ///     Runs a cmd.exe command without recording a <see cref="Change"/>.
-    ///     For non-optimization callers (UI services, revert steps, shutdown paths)
-    ///     that need the raw <see cref="ShellResult"/> (stdout/stderr/exit code).
+    ///     Runs a cmd.exe command without recording a <see cref="Change"/> and returns
+    ///     the raw <see cref="ShellResult"/> (stdout, stderr, exit code).
     /// </summary>
     public async Task<ShellResult> QueryCMDAsync(
         string command,
@@ -200,9 +197,8 @@ public sealed class ShellService
     }
 
     /// <summary>
-    ///     Runs a PowerShell command without recording a <see cref="Change"/>.
-    ///     For non-optimization callers (UI services, revert steps, queries)
-    ///     that need the raw <see cref="ShellResult"/> (stdout/stderr/exit code).
+    ///     Runs a PowerShell command without recording a <see cref="Change"/> and returns
+    ///     the raw <see cref="ShellResult"/> (stdout, stderr, exit code).
     /// </summary>
     public async Task<ShellResult> QueryPowerShellAsync(
         string command,
@@ -225,19 +221,18 @@ public sealed class ShellService
         return result;
     }
 
-    #endregion Raw runs (no Change recording)
-
-    #region Command Prompt methods
-
-
     /// <summary>
     ///     Runs a command in the Command Prompt (cmd.exe) asynchronously.
     /// </summary>
     /// <param name="command">The command to execute.</param>
-    /// <param name="call">The explicit per-operation call context (change collector, logger, cancellation).</param>
+    /// <param name="call">
+    ///     The explicit per-operation call context (change collector, logger, cancellation).
+    /// </param>
     /// <param name="revertStep">The revert step to record.</param>
     /// <param name="policy">The policy to use for determining success.</param>
-    /// <param name="ct">An additional cancellation token, linked with <see cref="OpCall.CancellationToken"/>.</param>
+    /// <param name="ct">
+    ///     An additional cancellation token, linked with <see cref="OpCall.CancellationToken"/>.
+    /// </param>
     /// <returns>The result of the command execution.</returns>
     public Task<OpResult> CMDAsync(
         string command,
@@ -261,13 +256,18 @@ public sealed class ShellService
     }
 
     /// <summary>
-    ///     Runs a command in the Command Prompt (cmd.exe) asynchronously with a specific revert command.
+    ///     Runs a command in the Command Prompt (cmd.exe) asynchronously with a specific
+    ///     revert command.
     /// </summary>
     /// <param name="command">The command to execute.</param>
-    /// <param name="call">The explicit per-operation call context (change collector, logger, cancellation).</param>
+    /// <param name="call">
+    ///     The explicit per-operation call context (change collector, logger, cancellation).
+    /// </param>
     /// <param name="revertCommand">The command to execute for reverting.</param>
     /// <param name="policy">The policy to use for determining success.</param>
-    /// <param name="ct">An additional cancellation token, linked with <see cref="OpCall.CancellationToken"/>.</param>
+    /// <param name="ct">
+    ///     An additional cancellation token, linked with <see cref="OpCall.CancellationToken"/>.
+    /// </param>
     /// <returns>The result of the command execution.</returns>
     public Task<OpResult> CMDAsync(
         string command,
@@ -290,19 +290,18 @@ public sealed class ShellService
         );
     }
 
-    #endregion Command Prompt methods
-
-    #region PowerShell methods
-
-
     /// <summary>
     ///     Runs a command in PowerShell asynchronously.
     /// </summary>
     /// <param name="command">The command to execute.</param>
-    /// <param name="call">The explicit per-operation call context (change collector, logger, cancellation).</param>
+    /// <param name="call">
+    ///     The explicit per-operation call context (change collector, logger, cancellation).
+    /// </param>
     /// <param name="revertStep">The revert step to record.</param>
     /// <param name="policy">The policy to use for determining success.</param>
-    /// <param name="ct">An additional cancellation token, linked with <see cref="OpCall.CancellationToken"/>.</param>
+    /// <param name="ct">
+    ///     An additional cancellation token, linked with <see cref="OpCall.CancellationToken"/>.
+    /// </param>
     /// <returns>The result of the command execution.</returns>
     public Task<OpResult> PowerShellAsync(
         string command,
@@ -325,12 +324,18 @@ public sealed class ShellService
         );
     }
 
-    /// <summary>Runs a command in PowerShell asynchronously with a specific revert command.</summary>
+    /// <summary>
+    ///     Runs a command in PowerShell asynchronously with a specific revert command.
+    /// </summary>
     /// <param name="command">The command to execute.</param>
-    /// <param name="call">The explicit per-operation call context (change collector, logger, cancellation).</param>
+    /// <param name="call">
+    ///     The explicit per-operation call context (change collector, logger, cancellation).
+    /// </param>
     /// <param name="revertCommand">The command to execute for reverting.</param>
     /// <param name="policy">The policy for determining success.</param>
-    /// <param name="ct">An additional cancellation token, linked with <see cref="OpCall.CancellationToken"/>.</param>
+    /// <param name="ct">
+    ///     An additional cancellation token, linked with <see cref="OpCall.CancellationToken"/>.
+    /// </param>
     /// <returns>The result of the command execution.</returns>
     public Task<OpResult> PowerShellAsync(
         string command,
@@ -382,6 +387,4 @@ public sealed class ShellService
 
         return string.Join("\n", sections);
     }
-
-    #endregion PowerShell methods
 }

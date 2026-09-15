@@ -14,19 +14,10 @@ namespace optimizerDuck.Services.Configuration;
 /// </summary>
 public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> logger)
 {
-    /// <summary>
-    ///     The path to the configuration file.
-    /// </summary>
     private readonly string _configPath = Path.Combine(Shared.RootDirectory, "appsettings.json");
 
-    /// <summary>
-    ///     Semaphore for thread-safe access to configuration data.
-    /// </summary>
     private readonly SemaphoreSlim _lock = new(1, 1);
 
-    /// <summary>
-    ///     Cached configuration data.
-    /// </summary>
     private JObject _cache = new();
 
     /// <summary>
@@ -38,7 +29,8 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
     }
 
     /// <summary>
-    ///     Ensures all default configuration keys exist. Adds missing keys with default values and logs them.
+    ///     Ensures all default configuration keys exist. Adds missing keys with default values and
+    ///     logs them.
     /// </summary>
     public async Task EnsureDefaultsAsync()
     {
@@ -68,7 +60,6 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
                             if (value == null)
                                 continue;
 
-                            // Check both flat key and nested object format
                             var existsFlat = GetTokenIgnoreCase(_cache, key) != null;
                             var existsNested = CheckNestedExists(
                                 _cache,
@@ -78,7 +69,6 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
 
                             if (!existsFlat && !existsNested)
                             {
-                                // Add as nested object format (proper structure)
                                 EnsureNestedValue(
                                     _cache,
                                     prop.Name,
@@ -94,7 +84,6 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
 
             if (addedKeys.Count > 0)
             {
-                // Clean up any duplicate flat keys that may have been added previously
                 CleanupDuplicateKeys(_cache);
                 await SaveConfigAsync().ConfigureAwait(false);
                 logger.LogInformation(
@@ -110,9 +99,6 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
         }
     }
 
-    /// <summary>
-    ///     Checks if a nested key exists in the config.
-    /// </summary>
     private static bool CheckNestedExists(JObject root, string section, string key)
     {
         var sectionToken = GetTokenIgnoreCase(root, section);
@@ -121,9 +107,6 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
         return GetTokenIgnoreCase(sectionObj, key) != null;
     }
 
-    /// <summary>
-    ///     Ensures a nested value exists in the config.
-    /// </summary>
     private static void EnsureNestedValue(JObject root, string section, string key, string value)
     {
         var sectionObj = GetOrCreateObjectIgnoreCase(root, section);
@@ -153,7 +136,6 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
                     var sectionToken = GetTokenIgnoreCase(root, prop.Name);
                     if (sectionToken is JObject)
                     {
-                        // If nested format exists, mark flat key for removal
                         if (GetTokenIgnoreCase(root, flatKey) != null)
                             flatKeysToRemove.Add(flatKey);
                     }
@@ -170,7 +152,8 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
     /// </summary>
     /// <typeparam name="T">The type of the property being updated.</typeparam>
     /// <param name="property">
-    ///     An expression that identifies the configuration property to update, such as <c>x => x.App.Language</c>.
+    ///     An expression that identifies the configuration property to update, such as
+    ///     <c>x => x.App.Language</c>.
     /// </param>
     /// <param name="value">The value to assign to the specified configuration property.</param>
     /// <example>
@@ -377,7 +360,6 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
     /// <param name="value">The value to set.</param>
     private static void SetValueIgnoreCase(JObject current, string key, string value)
     {
-        // Remove all case-insensitive matches
         var toRemove = current
             .Properties()
             .Where(p => string.Equals(p.Name, key, StringComparison.OrdinalIgnoreCase))
@@ -387,7 +369,6 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
         foreach (var name in toRemove)
             current.Remove(name);
 
-        // Add with correct casing
         current[key] = value;
     }
 

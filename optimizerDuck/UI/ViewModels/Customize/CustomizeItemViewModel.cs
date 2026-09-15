@@ -44,9 +44,7 @@ public partial class CustomizeItemViewModel(
     public SymbolRegular Icon => setting.Icon;
 
     /// <summary>
-    ///     Computed so grouped section headers, filters and bindings always re-resolve
-    ///     against the current culture, even when a parent handler rebuilds sections
-    ///     before this item is notified.
+    ///     Gets the setting description, resolved against the current culture on every read.
     /// </summary>
     public string Description => setting.Description;
 
@@ -74,13 +72,19 @@ public partial class CustomizeItemViewModel(
     public CustomizeRecommendationResult? Recommendation => setting.GetRecommendation();
     public bool HasRecommendation => Recommendation != null;
 
-    /// <summary>Gets whether this setting is unsupported on the current system.</summary>
+    /// <summary>
+    ///     Gets a value that indicates whether the setting is unsupported on the current system.
+    /// </summary>
     public bool IsUnsupported => ConditionResult.IsBlocking;
 
-    /// <summary>Gets the localized condition failure title, or <c>null</c>.</summary>
+    /// <summary>
+    ///     Gets the localized condition failure title, or <see langword="null" />.
+    /// </summary>
     public string? ConditionTitle => ConditionResult.Title;
 
-    /// <summary>Gets the localized condition failure description, or <c>null</c>.</summary>
+    /// <summary>
+    ///     Gets the localized condition failure description, or <see langword="null" />.
+    /// </summary>
     public string? ConditionDescription => ConditionResult.Description;
 
     public string? RecommendationStateDisplay =>
@@ -107,8 +111,8 @@ public partial class CustomizeItemViewModel(
         Recommendation != null ? Loc.Instance[Recommendation.ReasonTranslationKey] : null;
 
     /// <summary>
-    ///     Loads the setting's current state, effective options and value, then subscribes
-    ///     to registry changes. Registry I/O runs on the thread pool.
+    ///     Loads the setting state, options and value, then subscribes to registry changes. The
+    ///     registry reads run on the thread pool.
     /// </summary>
     public async Task LoadStateAsync()
     {
@@ -130,15 +134,12 @@ public partial class CustomizeItemViewModel(
         }
         catch (Exception ex)
         {
-            // keep state unloaded on read failure instead of showing it as off.
+            // Leave the state unloaded on a failed read, so the toggle does not read as off.
             _logger.LogWarning(ex, "Failed to load customize setting {Setting}", setting.LogName());
         }
     }
 
-    /// <summary>
-    ///     Publishes the given options only when the list actually changed, so the ComboBox
-    ///     isn't needlessly rebuilt.
-    /// </summary>
+    /// <summary>Publishes the options only when the list of values changed.</summary>
     private void UpdateOptions(IReadOnlyList<SettingOption>? options)
     {
         if (HasSameOptionValues(Options, options))
@@ -148,8 +149,7 @@ public partial class CustomizeItemViewModel(
     }
 
     /// <summary>
-    ///     Re-publishes dropdown options so their display text re-resolves in the
-    ///     new language. Option values are unchanged; only <c>Display</c> refreshes.
+    ///     Re-publishes the options so their display text re-resolves in the new language.
     /// </summary>
     protected override void OnLanguageChanged(CultureInfo newCulture)
     {
@@ -206,17 +206,15 @@ public partial class CustomizeItemViewModel(
         if (!_watchedPaths.Contains(path))
             return;
 
-        // The watcher raises on a background thread, so run the refresh on the UI thread.
-        // UiThread.InvokeAsync resolves to the Func<Task> overload (the method returns
-        // Task), so the refresh task is observed rather than fire-and-forgotten. When no
-        // WPF Application exists (unit tests), it runs inline instead.
+        // The watcher raises on a background thread, so the refresh is marshalled to the UI
+        // thread. UiThread.InvokeAsync resolves to the Func<Task> overload, so the refresh task
+        // is observed. Without a WPF Application (unit tests) it runs inline.
         _ = UiThread.InvokeAsync(RefreshFromRegistryAsync);
     }
 
     /// <summary>
-    ///     Re-reads the live registry state and republishes the effective options and the
-    ///     selection value. Marshalled to the UI thread by <see cref="OnRegistryKeyChanged"/>
-    ///     when a watched key changes; also called directly from tests.
+    ///     Re-reads the live registry state and republishes the options and the selection value.
+    ///     Runs on the UI thread when called from <see cref="OnRegistryKeyChanged"/>.
     /// </summary>
     internal async Task RefreshFromRegistryAsync()
     {
@@ -225,7 +223,7 @@ public partial class CustomizeItemViewModel(
             if (_executor.IsApplying)
                 return;
 
-            // Only the refresh bookkeeping runs on the UI thread; the reads stay off it.
+            // The property assignments run on the UI thread; the registry reads stay off it.
             IsEnabled = await Task.Run(() =>
                 setting.GetStateWithRetryAsync(maxRetries: 4, delayMs: 80)
             );
@@ -246,7 +244,8 @@ public partial class CustomizeItemViewModel(
     [RelayCommand(CanExecute = nameof(CanToggle))]
     private void Toggle()
     {
-        // the first call marks the executor busy synchronously, so a same-tick second click is ignored.
+        // The first call marks the executor busy synchronously, so a same-tick second click
+        // is ignored.
         if (_executor.IsApplying)
             return;
         _ = _executor.ApplyWithDebounceAsync(!IsEnabled, ApplyCoreAsync, debounceMs: 0);
@@ -305,7 +304,7 @@ public partial class CustomizeItemViewModel(
                 CurrentValue = current;
             }
 
-            // only flag reboot when the value was actually written.
+            // Flag the reboot prompt only when the value was written.
             if (applyResult.Ok && Application.Current is App app)
                 app.HasPendingChanges = true;
         }

@@ -4,9 +4,8 @@ using optimizerDuck.Domain.Optimizations.Models.Services;
 namespace optimizerDuck.Services.System.Primitives;
 
 /// <summary>
-///     Shared mapping between <see cref="ProcessResult"/> and <see cref="ShellResult"/>
-///     plus command-building helpers. Single source of truth for both legacy
-///     <c>ShellService</c> and the new <c>ShellRunner</c> capability.
+///     Shared mapping between <see cref="ProcessResult"/> and <see cref="ShellResult"/>, plus the
+///     command-building helpers used by <c>ShellService</c>.
 /// </summary>
 internal static class ShellMapping
 {

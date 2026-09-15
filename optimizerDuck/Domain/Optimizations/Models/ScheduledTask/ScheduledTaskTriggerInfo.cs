@@ -4,9 +4,9 @@ using optimizerDuck.Services.Configuration;
 namespace optimizerDuck.Domain.Optimizations.Models.ScheduledTask;
 
 /// <summary>
-///     Display data for one scheduled-task trigger: a localized label plus a narrated
-///     detail with the trigger's own data. Falls back to raw library text only when no
-///     localization fits; appends the repetition schedule when present.
+///     Display data for one scheduled-task trigger: a localized label plus a detail
+///     built from the trigger's own data. Falls back to raw library text only when no
+///     localization fits, and appends the repetition schedule when present.
 /// </summary>
 public sealed record ScheduledTaskTriggerInfo(
     string LabelKey,

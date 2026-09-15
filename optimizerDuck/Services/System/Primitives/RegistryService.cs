@@ -10,6 +10,11 @@ using optimizerDuck.Domain.Revert.Steps;
 
 namespace optimizerDuck.Services.System.Primitives;
 
+/// <summary>
+///     Registry reads and writes built on Microsoft.Win32, where every write records the previous
+///     value for revert. Stateless and static: callers pass an <see cref="OpCall" /> that receives
+///     the recorded changes.
+/// </summary>
 public static class RegistryService
 {
     private static readonly Dictionary<string, RegistryKey> RootKeysMap = new(
@@ -187,9 +192,14 @@ public static class RegistryService
 
     /// <summary>Determines whether the specified registry key path exists.</summary>
     /// <param name="item">The registry path to check.</param>
-    /// <param name="logger">Optional logger; <c>null</c> means silent.</param>
-    /// <returns><see langword="true" /> if the key exists; otherwise, <see langword="false" />.</returns>
-    /// <remarks>A failed query (access denied, unknown root) is reported as "does not exist". Use <see cref="TryKeyExists" /> when that distinction matters.</remarks>
+    /// <param name="logger">Optional logger; <see langword="null" /> means silent.</param>
+    /// <returns>
+    ///     <see langword="true" /> if the key exists; otherwise, <see langword="false" />.
+    /// </returns>
+    /// <remarks>
+    ///     A failed query (access denied, unknown root) is reported as "does not exist". Use
+    ///     <see cref="TryKeyExists" /> when that distinction matters.
+    /// </remarks>
     public static bool KeyExists(RegistryItem item, ILogger? logger = null)
     {
         return WithKey<bool>(item, key => true, logger, out _, out _, out _);
@@ -199,8 +209,12 @@ public static class RegistryService
     ///     Determines whether the specified registry key exists, distinguishing an absent key
     ///     from a failed query.
     /// </summary>
-    /// <param name="exists">Whether the key exists; only meaningful on <c>true</c> return.</param>
-    /// <returns><c>false</c> when the query itself failed; absence must not be assumed then.</returns>
+    /// <param name="exists">
+    ///     Whether the key exists; only meaningful on <see langword="true" /> return.
+    /// </param>
+    /// <returns>
+    ///     <see langword="false" /> when the query itself failed; absence must not be assumed then.
+    /// </returns>
     public static bool TryKeyExists(RegistryItem item, out bool exists, ILogger? logger = null)
     {
         exists = false;
@@ -238,8 +252,12 @@ public static class RegistryService
     /// <summary>
     ///     Reads a raw registry value, distinguishing an absent value from a failed read.
     /// </summary>
-    /// <param name="value">The raw value, or <c>null</c> when absent or unreadable.</param>
-    /// <returns><c>false</c> when the read itself failed; a failed read is not "absent".</returns>
+    /// <param name="value">
+    ///     The raw value, or <see langword="null" /> when absent or unreadable.
+    /// </param>
+    /// <returns>
+    ///     <see langword="false" /> when the read itself failed; a failed read is not "absent".
+    /// </returns>
     public static bool TryReadValue(RegistryItem item, out object? value, ILogger? logger = null)
     {
         value = null;
@@ -288,8 +306,11 @@ public static class RegistryService
     /// <summary>Reads a registry value and converts it to the specified type.</summary>
     /// <typeparam name="T">The target type to convert the value to.</typeparam>
     /// <param name="item">The registry path and value name to read.</param>
-    /// <param name="logger">Optional logger; <c>null</c> means silent.</param>
-    /// <returns>The converted value, or the default of <typeparamref name="T" /> if the value is missing or conversion fails.</returns>
+    /// <param name="logger">Optional logger; <see langword="null" /> means silent.</param>
+    /// <returns>
+    ///     The converted value, or the default of <typeparamref name="T" /> if the value is missing
+    ///     or conversion fails.
+    /// </returns>
     public static T? Read<T>(RegistryItem item, ILogger? logger = null)
     {
         return WithKey(
@@ -762,7 +783,9 @@ public static class RegistryService
         }
     }
 
-    /// <summary>Deletes an entire registry key tree, backing up all values and subkeys for revert.</summary>
+    /// <summary>
+    ///     Deletes an entire registry key tree, backing up all values and subkeys for revert.
+    /// </summary>
     /// <param name="call">The call context carrying the change collector and logger.</param>
     /// <param name="item">The registry path of the key tree to delete.</param>
     /// <returns>The operation result, carrying the revert step on success.</returns>
@@ -957,7 +980,9 @@ public static class RegistryService
 
     /// <summary>Writes multiple distinct registry values, recording one change per item.</summary>
     /// <param name="call">The shared call context for all items.</param>
-    /// <param name="items">The registry items to write. All are attempted; the first failure is returned.</param>
+    /// <param name="items">
+    ///     The registry items to write. All are attempted; the first failure is returned.
+    /// </param>
     public static OpResult Write(OpCall call, params RegistryItem[] items)
     {
         ArgumentNullException.ThrowIfNull(call);
@@ -969,7 +994,9 @@ public static class RegistryService
 
     /// <summary>Deletes multiple distinct registry values, recording one change per item.</summary>
     /// <param name="call">The shared call context for all items.</param>
-    /// <param name="items">The registry items to delete. All are attempted; the first failure is returned.</param>
+    /// <param name="items">
+    ///     The registry items to delete. All are attempted; the first failure is returned.
+    /// </param>
     public static OpResult DeleteValue(OpCall call, params RegistryItem[] items)
     {
         ArgumentNullException.ThrowIfNull(call);
@@ -980,11 +1007,8 @@ public static class RegistryService
         );
     }
 
-    #region Helpers
-
     private static T? ConvertRegistryValue<T>(object value)
     {
-        // Fast path
         if (value is T t)
             return t;
 
@@ -1024,7 +1048,6 @@ public static class RegistryService
             return (T)Enum.ToObject(targetType, num!);
         }
 
-        // Numeric/string common conversions
         var converted = Convert.ChangeType(value, targetType, CultureInfo.InvariantCulture);
         return (T)converted!;
     }
@@ -1066,7 +1089,6 @@ public static class RegistryService
                     );
                 }
 
-                // dispose old key if we opened it
                 if (ownsCurrent)
                     current.Dispose();
 
@@ -1092,10 +1114,9 @@ public static class RegistryService
     ///     subkeys). Sorts by path depth descending so child keys are deleted before parents.
     /// </remarks>
     /// <param name="createdSubKeys">The list of registry key paths that were created.</param>
-    /// <param name="logger">Optional logger; <c>null</c> means silent.</param>
+    /// <param name="logger">Optional logger; <see langword="null" /> means silent.</param>
     public static void CleanupEmptyKeys(IEnumerable<string> createdSubKeys, ILogger? logger = null)
     {
-        // Sort by path length descending to delete deepest keys first
         var sortedKeys = createdSubKeys
             .Where(k => !string.IsNullOrWhiteSpace(k))
             .Distinct(StringComparer.OrdinalIgnoreCase)
@@ -1108,17 +1129,13 @@ public static class RegistryService
                 if (!TryParsePath(fullPath, logger, out var root, out var subPath))
                     continue;
 
-                // Check if the key still exists and is empty
                 using var key = root.OpenSubKey(subPath, false);
 
                 if (key == null)
-                    // Key already deleted, skip
                     continue;
 
-                // Only delete if the key is completely empty (no values, no subkeys)
                 if (key is { SubKeyCount: 0, ValueCount: 0 })
                 {
-                    // Get parent path and key name
                     var idx = subPath.LastIndexOf('\\');
                     var parentPath = idx > 0 ? subPath[..idx] : string.Empty;
                     var keyName = idx > 0 ? subPath[(idx + 1)..] : subPath;
@@ -1137,7 +1154,6 @@ public static class RegistryService
                 }
                 else
                 {
-                    // Key is not empty, don't delete it
                     logger?.LogDebug(
                         "Skipped cleanup of registry key {Path} (has {SubKeyCount} subkeys and {ValueCount} values)",
                         fullPath,
@@ -1160,11 +1176,15 @@ public static class RegistryService
             }
     }
 
+    #region Helpers
+
     internal const string RegistryReasonValueAbsent = "registry.valueAbsent";
     internal const string RegistryReasonKeyExists = "registry.keyExists";
     internal const string RegistryReasonKeyAbsent = "registry.keyAbsent";
 
-    /// <summary>A value as it is shown to the user, never localized. Nothing to show stays null.</summary>
+    /// <summary>
+    ///     A value as it is shown to the user, never localized. Nothing to show stays null.
+    /// </summary>
     private static string? DescribeValue(object? value) =>
         value switch
         {

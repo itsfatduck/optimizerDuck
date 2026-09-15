@@ -10,8 +10,9 @@ using optimizerDuck.Test.TestDoubles;
 namespace optimizerDuck.Test.Domain.Execution;
 
 /// <summary>
-///     The typed facts of a step: how long they live, what the kinds that move between two values
-///     say they do, and how they survive the record file, including one written by an earlier build.
+///     The typed facts of a step: how long they live, what the kinds that move between
+///     two values say they do, and how they survive the record file, including one
+///     written by an earlier build.
 /// </summary>
 public class ChangeDetailTests
 {
@@ -42,7 +43,8 @@ public class ChangeDetailTests
     [Fact]
     public void EveryKindDeclaresAnOperationCodeAndTheFileKeepsTheOnesItAlreadyHad()
     {
-        // The codes are the wire format, so decoding has to keep matching the names old records carry.
+        // The codes are the wire format, so decoding has to keep matching the names
+        // old records carry.
         var codes = EveryOperationDetail.Items.Select(detail => detail.Operation).Order().ToList();
 
         Assert.Equal(
@@ -147,7 +149,7 @@ public class ChangeDetailTests
         Assert.Null(hibernation.PreviousPresent);
         Assert.False(hibernation.NewPresent);
 
-        // A field the operation has no meaning for is dropped rather than shown.
+        // A field the operation has no meaning for is dropped from the row.
         var service = Assert.IsType<ServiceStartupDetail>(
             ChangeDetailCodec.Decode(record.Steps[2])
         );

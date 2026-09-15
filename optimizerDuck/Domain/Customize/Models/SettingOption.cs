@@ -7,7 +7,7 @@ public sealed record SettingOption(
 )
 {
     /// <summary>
-    ///     The first binding in the list, or <c>null</c>. Used by the base class for
+    ///     The first binding in the list, or <see langword="null" />. Used by the base class for
     ///     single-key auto-read/write.
     /// </summary>
     public RegistryBinding? PrimaryBinding => Bindings is { Count: > 0 } ? Bindings[0] : null;

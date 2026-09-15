@@ -192,7 +192,6 @@ public class Gaming : LocalizedObject, ICustomizeCategory
                     new RegistryItem(Path, "MouseThreshold2")
                 );
 
-                // Check if any value is non-zero (acceleration enabled)
                 var isNonZero =
                     (int.TryParse(mouseSpeed, out var speed) && speed != 0)
                     || (int.TryParse(threshold1, out var t1) && t1 != 0)

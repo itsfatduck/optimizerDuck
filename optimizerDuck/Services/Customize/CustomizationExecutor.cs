@@ -3,8 +3,8 @@ using Microsoft.Extensions.Logging;
 namespace optimizerDuck.Services.Customize;
 
 /// <summary>
-///     Lightweight executor for customization actions.
-///     Provides debouncing and sequential serialization without leaking threading locks into ViewModels.
+///     Serializes customization writes behind a debounce, so a burst of setting changes
+///     applies only the last value.
 /// </summary>
 public sealed class CustomizationExecutor(ILogger<CustomizationExecutor>? logger = null)
     : IDisposable
@@ -15,9 +15,7 @@ public sealed class CustomizationExecutor(ILogger<CustomizationExecutor>? logger
     private bool _isApplying;
     private CancellationTokenSource? _debounceCts;
 
-    /// <summary>
-    ///     Gets whether a customization action is currently being applied.
-    /// </summary>
+    /// <summary>Gets a value that indicates whether a queued value is being applied.</summary>
     public bool IsApplying
     {
         get
@@ -28,7 +26,7 @@ public sealed class CustomizationExecutor(ILogger<CustomizationExecutor>? logger
     }
 
     /// <summary>
-    ///     Applies the value after a debounce period, serializing calls sequentially.
+    ///     Applies a value once the debounce elapses, one queued apply at a time.
     /// </summary>
     public async Task ApplyWithDebounceAsync(
         object? value,
@@ -95,7 +93,7 @@ public sealed class CustomizationExecutor(ILogger<CustomizationExecutor>? logger
             }
             catch (Exception ex)
             {
-                // Fire-and-forget, so log here instead of throwing.
+                // Fire-and-forget: a throw would go unobserved, so failures are logged.
                 logger?.LogError(ex, "Customization apply failed.");
             }
         }

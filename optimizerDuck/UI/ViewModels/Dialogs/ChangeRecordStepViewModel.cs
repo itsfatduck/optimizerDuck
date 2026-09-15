@@ -6,13 +6,12 @@ using Wpf.Ui.Controls;
 
 namespace optimizerDuck.UI.ViewModels.Dialogs;
 
-/// <summary>One fact about a step, shown as a chip with its own icon and label.</summary>
+/// <summary>Represents one fact about a step, shown as a chip.</summary>
 public sealed record RecordFieldViewModel(SymbolRegular Icon, string Label, string Value);
 
 /// <summary>
-///     One recorded step, as the record shows it. The step keeps its English description and its
-///     values for the log; here the row is rebuilt from the structured facts so it says what the
-///     run actually did, in the UI language, and never claims more than that.
+///     Represents one recorded step, rebuilt from its structured facts so the row reads in the
+///     UI language. The step keeps the English description and values the log uses.
 /// </summary>
 public sealed class ChangeRecordStepViewModel
 {
@@ -36,8 +35,8 @@ public sealed class ChangeRecordStepViewModel
         Description = step.Description;
         Detail = step.Error;
 
-        // Only a step that changed something is phrased as an action. A step that wrote nothing
-        // states what it found instead, so the row can never read as if it had written.
+        // A step that changed nothing is never phrased as an action, so the row cannot read as
+        // if it had written.
         var row = ChangeDetailPresentation.For(
             ChangeDetailCodec.Decode(step),
             step.Kind,
@@ -49,8 +48,9 @@ public sealed class ChangeRecordStepViewModel
         Fields = BuildFields(row, step);
     }
 
-    /// <summary>Builds a row straight from a step that is still in memory, for the failure list.</summary>
-    /// <param name="change">The recorded step.</param>
+    /// <summary>Builds a row from a change that is still in memory.</summary>
+    /// <param name="change">The change to build a row for.</param>
+    /// <param name="operation">The run the row belongs to.</param>
     public ChangeRecordStepViewModel(
         Change change,
         ChangeRecordOperation operation = ChangeRecordOperation.Apply
@@ -60,22 +60,25 @@ public sealed class ChangeRecordStepViewModel
         ErrorDetail = change.ErrorDetail;
     }
 
-    /// <summary>The step's position in the run, for the failure list.</summary>
+    /// <summary>Gets the step's position in the run.</summary>
     public int Index { get; }
 
-    /// <summary>The raw failure text, kept for a support report.</summary>
+    /// <summary>Gets the raw failure text.</summary>
     public string? ErrorDetail { get; }
 
-    /// <summary>Whether the raw failure text is worth showing.</summary>
+    /// <summary>Gets a value that indicates whether there is raw failure text to show.</summary>
     public bool HasErrorDetail => !string.IsNullOrWhiteSpace(ErrorDetail);
 
-    /// <summary>Which run this row belongs to, which decides the wording of the step.</summary>
+    /// <summary>Gets the run this row belongs to, which decides the wording of the step.</summary>
     public ChangeRecordOperation Operation { get; }
 
-    /// <summary>The kind of step, which decides the accent colour of the row.</summary>
+    /// <summary>Gets the kind of step, which decides the accent colour of the row.</summary>
     public ChangeKind Kind { get; }
 
-    /// <summary>Whether the step succeeded, which decides whether it is shown as a failure.</summary>
+    /// <summary>
+    ///     Gets a value that indicates whether the step succeeded, which decides whether it is
+    ///     shown as a failure.
+    /// </summary>
     public bool Ok { get; }
 
     public SymbolRegular Icon { get; }
@@ -84,35 +87,36 @@ public sealed class ChangeRecordStepViewModel
 
     public string Name { get; }
 
-    /// <summary>The English description written for the log, kept as the last resort.</summary>
+    /// <summary>Gets the English description written for the log.</summary>
     public string Description { get; }
 
     /// <summary>
-    ///     Whether the row has nothing but the log text to show. A row that states an action or
-    ///     carries facts says everything it can, and the English line the log uses would only
-    ///     repeat it, or worse, describe work the step never did.
+    ///     Gets a value that indicates whether the row has nothing but the log text to show. A
+    ///     row that states an action or carries facts would only repeat the English log line.
     /// </summary>
     public bool ShowDescription => !HasOperation && !HasFields;
 
-    /// <summary>What the step did, in the UI language, when the step changed something.</summary>
+    /// <summary>Gets what the step did in the UI language when it changed something.</summary>
     public string? OperationLabel { get; }
 
     public bool HasOperation => !string.IsNullOrEmpty(OperationLabel);
 
-    /// <summary>The facts of the step: what it touched, the values around it, and how it went.</summary>
+    /// <summary>
+    ///     Gets the facts of the step: what it touched, the values around it, and how it went.
+    /// </summary>
     public IReadOnlyList<RecordFieldViewModel> Fields { get; }
 
     public bool HasFields => Fields.Count > 0;
 
-    /// <summary>The failure message, when the step failed.</summary>
+    /// <summary>Gets the failure message when the step failed.</summary>
     public string? Detail { get; }
 
     public bool HasDetail => !string.IsNullOrWhiteSpace(Detail);
 
     /// <summary>
-    ///     The facts of the operation, worded for the user, followed by how the step went: when it
-    ///     ran, how long it took, which attempt it is and the code behind a failure. A fact the
-    ///     record does not carry leaves its chip out rather than showing an empty one.
+    ///     Builds the facts of the operation, worded for the user, followed by how the step went:
+    ///     when it ran, how long it took, which attempt it is and the code behind a failure. A
+    ///     fact the record does not carry leaves no chip behind.
     /// </summary>
     private static List<RecordFieldViewModel> BuildFields(
         ChangeDetailRow row,
@@ -167,8 +171,8 @@ public sealed class ChangeRecordStepViewModel
     }
 
     /// <summary>
-    ///     A duration as it is read at a glance: milliseconds while the step was quick, and seconds
-    ///     once it was not. Shared with the record's own facts, so a run and its steps read alike.
+    ///     Formats a duration as it is read at a glance: milliseconds while the step was quick,
+    ///     and seconds once it was not.
     /// </summary>
     internal static string DescribeDuration(long elapsedMs)
     {
@@ -178,9 +182,8 @@ public sealed class ChangeRecordStepViewModel
     }
 
     /// <summary>
-    ///     The name a provider records is the English one the log uses. The row says the same thing
-    ///     in the UI language, and keeps a name it does not know yet as it is, so a new provider
-    ///     shows up instead of showing nothing.
+    ///     Translates the English provider name a step records into the UI language, and keeps a
+    ///     name it does not know yet, so a new provider still shows up.
     /// </summary>
     private static string ProviderName(string name)
     {

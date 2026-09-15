@@ -12,8 +12,8 @@ using optimizerDuck.Services.UI;
 using optimizerDuck.UI.Dialogs;
 using optimizerDuck.UI.ViewModels.Dialogs;
 using Wpf.Ui;
-using Wpf.Ui.Extensions;
 using Wpf.Ui.Controls;
+using Wpf.Ui.Extensions;
 using AppXPackage = optimizerDuck.Domain.Optimizations.Models.Bloatware.AppXPackage;
 
 namespace optimizerDuck.UI.ViewModels.Pages;
@@ -26,7 +26,6 @@ public partial class BloatwareViewModel : ViewModel
     private readonly IContentDialogService _contentDialogService;
     private readonly ILogger<BloatwareViewModel> _logger;
 
-    // Search, Filter, Sort
     [ObservableProperty]
     private string _searchText = string.Empty;
 
@@ -91,6 +90,7 @@ public partial class BloatwareViewModel : ViewModel
         ApplyFilter();
     }
 
+    /// <inheritdoc />
     public override async Task OnNavigatedToAsync()
     {
         await base.OnNavigatedToAsync();
@@ -118,7 +118,6 @@ public partial class BloatwareViewModel : ViewModel
     {
         var query = _allPackages.AsEnumerable();
 
-        // Search
         if (!string.IsNullOrWhiteSpace(SearchText))
         {
             var search = SearchText.Trim();
@@ -129,7 +128,6 @@ public partial class BloatwareViewModel : ViewModel
             );
         }
 
-        // Filter by risk
         query = SelectedRiskFilterIndex switch
         {
             1 => query.Where(p => p.Risk == AppRisk.Safe),
@@ -137,7 +135,6 @@ public partial class BloatwareViewModel : ViewModel
             _ => query,
         };
 
-        // Sort
         query = SelectedSortByIndex switch
         {
             0 => query.OrderBy(p => p.Name),

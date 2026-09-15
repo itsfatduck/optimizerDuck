@@ -13,6 +13,10 @@ using Task = Microsoft.Win32.TaskScheduler.Task;
 
 namespace optimizerDuck.Services.System.Primitives;
 
+/// <summary>
+///     Scheduled task state read and changed through the Task Scheduler library. Stateless and
+///     static: callers pass an <see cref="OpCall" /> that receives the recorded changes.
+/// </summary>
 public static class ScheduledTaskService
 {
     /// <summary>
@@ -42,8 +46,12 @@ public static class ScheduledTaskService
         }
     }
 
-    /// <summary>Disables a scheduled task, recording the change into <paramref name="call"/>.</summary>
-    /// <param name="call">The explicit call context: change collector, logger and cancellation token.</param>
+    /// <summary>
+    ///     Disables a scheduled task, recording the change into <paramref name="call"/>.
+    /// </summary>
+    /// <param name="call">
+    ///     The explicit call context: change collector, logger and cancellation token.
+    /// </param>
     /// <param name="fullPath">The full path of the task to disable.</param>
     /// <returns>The outcome of the disable request.</returns>
     public static OpResult DisableTask(OpCall call, string fullPath)
@@ -89,11 +97,7 @@ public static class ScheduledTaskService
                         fullPath,
                         "disabled"
                     ),
-                    new ScheduledTaskDisableDetail
-                    {
-                        TaskPath = fullPath,
-                        PreviousEnabled = false,
-                    }
+                    new ScheduledTaskDisableDetail { TaskPath = fullPath, PreviousEnabled = false }
                 );
                 return OpResult.Success();
             }
@@ -159,8 +163,12 @@ public static class ScheduledTaskService
         }
     }
 
-    /// <summary>Enables a scheduled task, recording the change into <paramref name="call"/>.</summary>
-    /// <param name="call">The explicit call context: change collector, logger and cancellation token.</param>
+    /// <summary>
+    ///     Enables a scheduled task, recording the change into <paramref name="call"/>.
+    /// </summary>
+    /// <param name="call">
+    ///     The explicit call context: change collector, logger and cancellation token.
+    /// </param>
     /// <param name="fullPath">The full path of the task to enable.</param>
     /// <returns>The outcome of the enable request.</returns>
     public static OpResult EnableTask(OpCall call, string fullPath)
@@ -206,11 +214,7 @@ public static class ScheduledTaskService
                         fullPath,
                         "enabled"
                     ),
-                    new ScheduledTaskEnableDetail
-                    {
-                        TaskPath = fullPath,
-                        PreviousEnabled = true,
-                    }
+                    new ScheduledTaskEnableDetail { TaskPath = fullPath, PreviousEnabled = true }
                 );
                 return OpResult.Success();
             }
@@ -277,7 +281,6 @@ public static class ScheduledTaskService
     }
 
     /// <summary>Retrieves all scheduled tasks from the system, including icon extraction.</summary>
-    /// <returns>A list of all scheduled tasks.</returns>
     public static List<ScheduledTaskModel> GetAllTasks(ILogger? logger = null)
     {
         var results = new List<ScheduledTaskModel>();
@@ -286,7 +289,6 @@ public static class ScheduledTaskService
             using var ts = new TaskService();
             CollectTasks(ts.RootFolder, results, logger);
 
-            // Extract icons from task commands
             Parallel.ForEach(
                 results,
                 new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
@@ -318,7 +320,9 @@ public static class ScheduledTaskService
     /// <summary>Runs a scheduled task immediately.</summary>
     /// <param name="call">Optional call context used for change recording and logging.</param>
     /// <param name="fullPath">The full path of the task to run.</param>
-    /// <returns>The outcome of the run request. No revert step: starting a task is not reversible.</returns>
+    /// <returns>
+    ///     The outcome of the run request. No revert step: starting a task is not reversible.
+    /// </returns>
     public static OpResult RunTask(OpCall? call, string fullPath)
     {
         var description = ServiceStrings.Format("Run scheduled task: {0}", fullPath);
@@ -358,7 +362,9 @@ public static class ScheduledTaskService
     /// <summary>Stops a running scheduled task.</summary>
     /// <param name="call">Optional call context used for change recording and logging.</param>
     /// <param name="fullPath">The full path of the task to stop.</param>
-    /// <returns>The outcome of the stop request. No revert step: stopping a task is not reversible.</returns>
+    /// <returns>
+    ///     The outcome of the stop request. No revert step: stopping a task is not reversible.
+    /// </returns>
     public static OpResult StopTask(OpCall? call, string fullPath)
     {
         var description = ServiceStrings.Format("Stop scheduled task: {0}", fullPath);
@@ -398,7 +404,10 @@ public static class ScheduledTaskService
     /// <summary>Gets the current state string of a task.</summary>
     /// <param name="fullPath">The full path of the task.</param>
     /// <param name="logger">Optional logger used only for logging.</param>
-    /// <returns>The task state string, or <see langword="null" /> if the task is not found or an error occurs.</returns>
+    /// <returns>
+    ///     The task state string, or <see langword="null" /> if the task is not found or an error
+    ///     occurs.
+    /// </returns>
     public static string? GetTaskState(string fullPath, ILogger? logger = null)
     {
         try
@@ -458,7 +467,10 @@ public static class ScheduledTaskService
         }
     }
 
-    /// <summary>Registers a new scheduled task from a model definition. Overwrites any existing task with the same name.</summary>
+    /// <summary>
+    ///     Registers a new scheduled task from a model definition. Overwrites any existing task
+    ///     with the same name.
+    /// </summary>
     /// <param name="call">Optional call context used for change recording and logging.</param>
     /// <param name="folderPath">The target folder path (e.g. <c>\MyApp</c>).</param>
     /// <param name="model">The task definition model.</param>
@@ -486,7 +498,6 @@ public static class ScheduledTaskService
             if (model.RunWithHighestPrivileges)
                 td.Principal.RunLevel = TaskRunLevel.Highest;
 
-            // Handle Action Execution accurately
             if (!string.IsNullOrWhiteSpace(model.ExecutablePath))
             {
                 var action = new ExecAction(model.ExecutablePath);
@@ -494,7 +505,7 @@ public static class ScheduledTaskService
                     action.Arguments = model.Arguments;
                 td.Actions.Add(action);
             }
-            else if (!string.IsNullOrWhiteSpace(model.ActionSummary)) // Fallback if still populated via old approach
+            else if (!string.IsNullOrWhiteSpace(model.ActionSummary))
             {
                 var parts = model.ActionSummary.Trim();
                 var spaceIdx = parts.IndexOf(' ');
@@ -504,7 +515,6 @@ public static class ScheduledTaskService
                     td.Actions.Add(new ExecAction(parts));
             }
 
-            // Add triggers based on model flags
             if (model.HasLogonTrigger)
                 td.Triggers.Add(new LogonTrigger());
             if (model.HasBootTrigger)
@@ -518,7 +528,6 @@ public static class ScheduledTaskService
                     new DailyTrigger { StartBoundary = DateTime.Today + model.DailyTriggerTime }
                 );
 
-            // Ensure folder exists
             var folder = ts.RootFolder;
             if (!string.IsNullOrWhiteSpace(folderPath) && folderPath != "\\")
                 try
@@ -564,8 +573,6 @@ public static class ScheduledTaskService
             return OpResult.Fail(error, errorDetail);
         }
     }
-
-    #region Helpers
 
     private static void CollectTasks(
         TaskFolder folder,
@@ -827,6 +834,5 @@ public static class ScheduledTaskService
         };
     }
 
-    #endregion Helpers
     internal const string TaskReasonNotFound = "task.notFound";
 }

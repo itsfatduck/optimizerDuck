@@ -3,10 +3,9 @@ using System.Runtime.CompilerServices;
 using optimizerDuck.Resources.Languages;
 using Xunit;
 
-// The suite exercises the real registry, the real filesystem, real child processes, and
-// process-wide statics (notably Loc.Instance's culture and ReflectionHelper's cache).
-// Running test classes in parallel makes those shared statics race: a culture change in
-// one class flips the localized text another class is asserting on. Serialize instead.
+// The suite touches the real registry, filesystem and child processes, and shares
+// process-wide statics (Loc.Instance's culture, ReflectionHelper's cache). Parallel
+// test classes race on those, so the assembly runs serialized.
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
 
 namespace optimizerDuck.Test;

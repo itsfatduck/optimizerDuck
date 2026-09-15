@@ -232,8 +232,7 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
                 return OpResult.Success(revertStep);
             }
 
-            // Null means the WMI query itself failed (class unavailable or the write was refused),
-            // which is the one case the old exit-code check also treated as a failure.
+            // Null means the WMI query itself failed (class unavailable or the write was refused).
             var error = ServiceStrings.UsbPowerErrorChangeFailed;
             call.Logger.LogWarning("[USB][FAIL] WMI write refused or unavailable");
             call.Changes.Add(

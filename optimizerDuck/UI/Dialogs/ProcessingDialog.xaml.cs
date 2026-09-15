@@ -7,9 +7,6 @@ using Wpf.Ui.TaskBar;
 
 namespace optimizerDuck.UI.Dialogs;
 
-/// <summary>
-///     Interaction logic for ProcessingOptimizationDialog.xaml
-/// </summary>
 public partial class ProcessingDialog : UserControl
 {
     private Window? _trackedWindow;

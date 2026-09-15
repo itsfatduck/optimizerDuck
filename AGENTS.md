@@ -15,6 +15,10 @@
 - `dotnet run --project optimizerDuck/optimizerDuck.csproj` — run locally (needs admin).
 - `publish.bat portable` or `publish.bat single --skip-tests` — create release artifacts.
 - `csharpier format .` — format all code with CSharpier (`csharpier check .` to verify without writing).
+  - Invoke it as `csharpier`, never `dotnet csharpier`: it is a global tool, and `dotnet csharpier` fails with
+    "command not found", which reads like the tool is missing when it is not.
+  - The editor runs CSharpier on file change here, so a file you touch can come back with unrelated code lines
+    reflowed into the house style. That is the formatter, not your edit.
 
 ## Project Structure
 - `optimizerDuck/` — WPF app (single project, no sub-projects):

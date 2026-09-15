@@ -40,6 +40,7 @@ public enum CustomizeRefreshScope
     /// <summary>
     /// Toggles desktop icon visibility by reading the current <c>HideIcons</c>
     /// registry value and sending <c>WM_COMMAND 0x7402</c> to the desktop's
+    /// <c>SysListView32</c>.
     /// </summary>
     DesktopIconCache = 1 << 6,
 

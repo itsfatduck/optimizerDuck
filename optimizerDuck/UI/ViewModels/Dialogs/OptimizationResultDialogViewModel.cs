@@ -12,10 +12,9 @@ public class OptimizationResultDialogViewModel : LocalizedObject
         ChangeRecordOperation operation = ChangeRecordOperation.Apply
     )
     {
-        // The rows are built here, not in the provider: a failure list reads in the UI language,
-        // and only falls back to the English text written for the log when a step carries nothing
-        // else to show. The run the steps belong to decides whether they read as what was applied
-        // or as what was put back.
+        // The rows are built here so a failure list reads in the UI language, falling back to the
+        // English log text only when a step carries nothing else to show. The run the steps
+        // belong to decides whether they read as applied or as put back.
         FailedSteps = new ObservableCollection<ChangeRecordStepViewModel>(
             failedSteps.Select(step => new ChangeRecordStepViewModel(step, operation))
         );

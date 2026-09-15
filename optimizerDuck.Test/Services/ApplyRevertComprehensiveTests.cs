@@ -16,10 +16,6 @@ using Wpf.Ui;
 
 namespace optimizerDuck.Test.Services;
 
-/// <summary>
-/// Comprehensive tests for apply and revert operations covering all scenarios.
-/// These tests ensure safe operation without affecting the actual machine.
-/// </summary>
 public class ApplyRevertComprehensiveTests
 {
     #region Apply Success Scenarios
@@ -87,7 +83,6 @@ public class ApplyRevertComprehensiveTests
                 Assert.Equal(optimization.Id, data!.OptimizationId);
                 Assert.Equal(3, data.Steps.Length);
 
-                // Verify all steps are present and in correct order
                 Assert.NotNull(data.Steps[0]);
                 Assert.NotNull(data.Steps[1]);
                 Assert.NotNull(data.Steps[2]);
@@ -95,7 +90,6 @@ public class ApplyRevertComprehensiveTests
                 Assert.Equal("Shell", data.Steps[1]!.Type);
                 Assert.Equal("Shell", data.Steps[2]!.Type);
 
-                // Verify revert commands are correct
                 Assert.Equal(
                     "sc config TestService start= auto",
                     data.Steps[0]!.Data[nameof(ShellRevertStep.Command)]?.ToString()
@@ -245,7 +239,6 @@ public class ApplyRevertComprehensiveTests
                 // Compact layout: only the 3 successful steps persist, in order.
                 Assert.Equal(3, data!.Steps.Length);
 
-                // Verify commands are in execution order
                 Assert.Equal(
                     "exit 11",
                     data.Steps[0]!.Data[nameof(ShellRevertStep.Command)]?.ToString()
@@ -331,7 +324,6 @@ public class ApplyRevertComprehensiveTests
             {
                 Directory.CreateDirectory(Shared.RevertDirectory);
 
-                // Create revert data with 3 successful steps
                 var payload = new RevertData
                 {
                     OptimizationId = optimization.Id,
@@ -457,7 +449,6 @@ public class ApplyRevertComprehensiveTests
             {
                 Directory.CreateDirectory(Shared.RevertDirectory);
 
-                // Create revert data with ordered steps
                 var payload = new RevertData
                 {
                     OptimizationId = optimization.Id,
@@ -510,8 +501,6 @@ public class ApplyRevertComprehensiveTests
                 var result = await manager.RevertAsync(optimization);
 
                 Assert.True(result.Success);
-                // Steps should execute in reverse order: 3, 2, 1
-                // This is verified by the revert manager implementation
             }
             finally
             {
@@ -533,7 +522,6 @@ public class ApplyRevertComprehensiveTests
             {
                 Directory.CreateDirectory(Shared.RevertDirectory);
 
-                // Create revert data with gaps (null steps from failed apply steps)
                 var payload = new RevertData
                 {
                     OptimizationId = optimization.Id,
@@ -660,7 +648,6 @@ public class ApplyRevertComprehensiveTests
                 Assert.Null(updatedData!.Steps[0]); // Step 1 succeeded and was removed
                 Assert.NotNull(updatedData.Steps[1]); // Step 2 failed and is preserved
 
-                // Failed step should have retry action
                 Assert.NotNull(result.FailedSteps[0].Retry);
             }
             finally
@@ -790,14 +777,11 @@ public class ApplyRevertComprehensiveTests
                 Assert.False(result.Success);
                 Assert.True(File.Exists(revertPath)); // Preserved because step 2 failed
 
-                // Retry the failed step - note: retry will also fail because it's still "exit 1"
                 var failedStep = result.FailedSteps.FirstOrDefault();
                 Assert.NotNull(failedStep);
                 Assert.NotNull(failedStep.Retry);
 
-                // Retry will fail because the command is still "exit 1"
-                // This is expected behavior - retry just re-executes the same command
-                // ExecuteAsync throws exception on failure, so we need to catch it
+                // Retry re-executes the same command, so it fails again and reports as a throw.
                 var exception = await Record.ExceptionAsync(async () =>
                 {
                     await failedStep.Retry!(new OpCall { Logger = NullLogger.Instance });
@@ -845,7 +829,6 @@ public class ApplyRevertComprehensiveTests
 
             try
             {
-                // Phase 1: Apply
                 var service = CreateService();
                 var progress = new Progress<ProcessingProgress>(_ => { });
 
@@ -857,7 +840,6 @@ public class ApplyRevertComprehensiveTests
                 Assert.NotNull(data);
                 Assert.Equal(2, data!.Steps.Length);
 
-                // Phase 2: Revert
                 var revertResult = await service.RevertAsync(optimization, progress);
                 Assert.True(revertResult.Success);
                 Assert.False(File.Exists(revertPath));
@@ -899,7 +881,6 @@ public class ApplyRevertComprehensiveTests
 
             try
             {
-                // Phase 1: Apply with partial success
                 var service = CreateService();
                 var progress = new Progress<ProcessingProgress>(_ => { });
 
@@ -914,7 +895,6 @@ public class ApplyRevertComprehensiveTests
                 Assert.NotNull(data.Steps[0]);
                 Assert.NotNull(data.Steps[1]);
 
-                // Phase 2: Revert should only revert steps 1 and 3
                 var revertResult = await service.RevertAsync(optimization, progress);
                 Assert.True(revertResult.Success);
                 Assert.False(File.Exists(revertPath));
@@ -979,11 +959,9 @@ public class ApplyRevertComprehensiveTests
                 var service = CreateService();
                 var progress = new Progress<ProcessingProgress>(_ => { });
 
-                // Phase 1: Apply with failure
                 var applyResult = await service.ApplyAsync(optimization, progress);
                 Assert.Equal(OptimizationSuccessResult.PartialSuccess, applyResult.Status);
 
-                // Phase 2: Retry failed steps
                 var retryResult = await OptimizationService.RetryFailedStepsWithResultsAsync(
                     applyResult.FailedSteps,
                     false,
@@ -994,7 +972,6 @@ public class ApplyRevertComprehensiveTests
                 Assert.Single(retryResult.RecoveredSteps);
                 Assert.Equal(2, retryResult.RecoveredSteps[0].Index);
 
-                // Phase 3: Append the recovered step
                 var revertManager = new RevertManager(
                     NullLogger<RevertManager>.Instance,
                     TestShell.New(),
@@ -1007,12 +984,10 @@ public class ApplyRevertComprehensiveTests
                     retryResult.RecoveredSteps[0].Revert!
                 );
 
-                // Verify complete revert data
                 var data = await RevertManager.GetRevertDataAsync(optimization.Id);
                 Assert.NotNull(data);
                 Assert.Equal(3, data!.Steps.Length);
 
-                // All steps should now have "exit 0" commands
                 Assert.Equal(
                     "exit 0",
                     data.Steps[0]!.Data[nameof(ShellRevertStep.Command)]?.ToString()
@@ -1026,7 +1001,6 @@ public class ApplyRevertComprehensiveTests
                     data.Steps[2]!.Data[nameof(ShellRevertStep.Command)]?.ToString()
                 );
 
-                // Phase 4: Revert all steps successfully
                 var revertResult = await service.RevertAsync(optimization, progress);
                 Assert.True(revertResult.Success);
                 Assert.False(File.Exists(revertPath));
@@ -1234,8 +1208,8 @@ public class ApplyRevertComprehensiveTests
     {
         await RunInStaThreadAsync(async () =>
         {
-            // A provider that records only skips and returns ToApplyResult() must not be
-            // reported as a failure, which was the case before the classification changed.
+            // A provider that records only skips and returns ToApplyResult() is nothing
+            // to do, not a failure.
             var optimization = new TestOptimization
             {
                 Id = Guid.NewGuid(),

@@ -27,7 +27,7 @@ public partial class MainWindowViewModel : LocalizedObject
         }
         catch
         {
-            // Silently fail - link opening is a non-critical action
+            // Silently fail: opening a link is non-critical.
         }
     }
 
@@ -45,7 +45,7 @@ public partial class MainWindowViewModel : LocalizedObject
         }
         catch
         {
-            // Silently fail - link opening is a non-critical action
+            // Silently fail: opening a link is non-critical.
         }
     }
 }

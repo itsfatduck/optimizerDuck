@@ -48,8 +48,8 @@ public class HibernationRevertStepTests
     [Fact]
     public async Task ExecuteAsync_UnknownState_ChangesNothingAndSucceeds()
     {
-        // The optimisation's own default is no longer "assume it was present": an unknown state
-        // restores nothing, so a revert cannot create a hibernation file that never existed.
+        // An unknown state restores nothing, so a revert cannot create a hibernation file
+        // that never existed.
         var before = HibernationService.IsHibernationFilePresent();
         var step = new HibernationRevertStep { WasPresent = null };
 

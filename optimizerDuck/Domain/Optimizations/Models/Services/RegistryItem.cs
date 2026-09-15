@@ -13,7 +13,7 @@ public record struct RegistryItem
     public readonly RegistryValueKind Kind;
 
     /// <summary>
-    ///     The registry value name, or <c>null</c> to target the key itself.
+    ///     The registry value name, or <see langword="null" /> to target the key itself.
     /// </summary>
     public readonly string? Name;
 
@@ -23,7 +23,7 @@ public record struct RegistryItem
     public readonly string Path;
 
     /// <summary>
-    ///     The registry value data, or <c>null</c> if not applicable.
+    ///     The registry value data, or <see langword="null" /> if not applicable.
     /// </summary>
     public readonly object? Value;
 
@@ -57,7 +57,7 @@ public record struct RegistryItem
     }
 
     /// <summary>
-    ///     Initializes a new <see cref="RegistryItem" /> for a named value without data (used for deletion or reading).
+    ///     Initializes a new <see cref="RegistryItem" /> for a named value with no data.
     /// </summary>
     /// <param name="path">The registry key path.</param>
     /// <param name="name">The value name to target.</param>
@@ -70,8 +70,7 @@ public record struct RegistryItem
     }
 
     /// <summary>
-    ///     Initializes a new <see cref="RegistryItem" /> for a key path without a specific value (used for key-level
-    ///     operations).
+    ///     Initializes a new <see cref="RegistryItem" /> for a key path with no value.
     /// </summary>
     /// <param name="path">The registry key path.</param>
     public RegistryItem(string path)

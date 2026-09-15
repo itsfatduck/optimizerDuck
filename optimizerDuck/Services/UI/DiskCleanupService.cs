@@ -239,7 +239,8 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
 
             var dirInfo = new DirectoryInfo(path);
 
-            // Pre-check: only filter .net path if the .net temp directory is a descendant of the scan root
+            // Pre-check: only filter .net path if the .net temp directory is a descendant of the
+            // scan root
             var needsDotNetFilter =
                 isRecursive
                 && DotNetTempPath.StartsWith(
@@ -250,7 +251,6 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
             foreach (var fileInfo in dirInfo.EnumerateFiles(searchPattern, options))
                 try
                 {
-                    // Skip .net temp files (only when necessary)
                     if (needsDotNetFilter)
                     {
                         var fullDirPath = fileInfo.DirectoryName ?? string.Empty;
@@ -267,7 +267,8 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                             continue;
                     }
 
-                    // .Length is already cached from EnumerateFiles under the hood (WIN32_FIND_DATA)
+                    // .Length is already cached from EnumerateFiles under the hood
+                    // (WIN32_FIND_DATA)
                     size += fileInfo.Length;
                     count++;
                 }
@@ -301,7 +302,8 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
 
         var dirInfo = new DirectoryInfo(path);
 
-        // Pre-check: only filter .net path if the .net temp directory is a descendant of the scan root
+        // Pre-check: only filter .net path if the .net temp directory is a descendant of the
+        // scan root
         var needsDotNetFilter =
             isRecursive
             && DotNetTempPath.StartsWith(
@@ -309,7 +311,6 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 StringComparison.OrdinalIgnoreCase
             );
 
-        // Delete files
         foreach (var fileInfo in dirInfo.EnumerateFiles(searchPattern, options))
             try
             {
@@ -333,7 +334,6 @@ public class DiskCleanupService(ILogger<DiskCleanupService> logger)
                 // skip locked/inaccessible files
             }
 
-        // Clean up empty directories if recursive
         if (options.RecurseSubdirectories)
         {
             var dirOptions = new EnumerationOptions

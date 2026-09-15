@@ -3,7 +3,7 @@ using optimizerDuck.Services.System;
 namespace optimizerDuck.Domain.Conditions;
 
 /// <summary>
-///     Base class for conditions. Provides helpers shared by condition implementations.
+///     Provides helpers shared by condition implementations.
 /// </summary>
 public abstract class ConditionBase : ICondition
 {

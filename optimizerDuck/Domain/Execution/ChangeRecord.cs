@@ -16,20 +16,20 @@ public sealed record ChangeRecord
 
     public string OptimizationKey { get; init; } = string.Empty;
 
-    /// <summary>The item's stable English name, so an old record does not carry an old language.</summary>
+    /// <summary>The item's stable English name, so a record carries no stale language.</summary>
     public string LogName { get; init; } = string.Empty;
 
     public DateTime AppliedAt { get; init; }
 
-    /// <summary>When the run started, and how long it took, so the record says what it cost.</summary>
+    /// <summary>When the run started, and how long it took, so the record shows its cost.</summary>
     public DateTime? StartedAt { get; init; }
 
     public long? ElapsedMs { get; init; }
 
-    /// <summary>The build that wrote this record, so a report states which one produced it.</summary>
+    /// <summary>The build that wrote this record, so a report names what produced it.</summary>
     public string? AppVersion { get; init; }
 
-    /// <summary>The Windows version the run happened on, for the same reason.</summary>
+    /// <summary>The Windows version the run happened on.</summary>
     public string? WindowsVersion { get; init; }
 
     /// <summary>Which run this record describes: the last apply, or the revert of it.</summary>
@@ -82,7 +82,9 @@ public sealed record ChangeRecord
         };
     }
 
-    /// <summary>Captures one finished apply. The record is a copy: nothing here is live state.</summary>
+    /// <summary>
+    ///     Captures one finished apply. The record is a copy: nothing here is live state.
+    /// </summary>
     public static ChangeRecord From(ChangeSet changes, IOptimization item, string outcome)
     {
         ArgumentNullException.ThrowIfNull(changes);
@@ -103,10 +105,10 @@ public sealed record ChangeRecord
     }
 
     /// <summary>
-    ///     The same record as a retry leaves it: a step the retry took further takes the outcome the
-    ///     retry reached and counts one more attempt, and a step the retry did not touch keeps what
-    ///     it had. What the retry wrote is what the record then says, so the history shows a step
-    ///     that needed a second attempt instead of only that it once failed.
+    ///     The same record as a retry leaves it: a step the retry took further takes the
+    ///     outcome the retry reached and counts one more attempt, and a step the retry did
+    ///     not touch keeps what it had. What the retry wrote is what the record then says,
+    ///     so the history shows a step that needed a second attempt, not one that once failed.
     /// </summary>
     /// <param name="recovered">The steps the retry recovered.</param>
     /// <param name="stillFailed">The steps that failed again.</param>
@@ -137,8 +139,8 @@ public sealed record ChangeRecord
     }
 
     /// <summary>
-    ///     One recorded step as the file stores it. The facts of the operation go through the codec,
-    ///     which is the only thing that knows how a detail is laid out.
+    ///     One recorded step as the file stores it. The facts of the operation go through the
+    ///     codec, which is the only thing that knows how a detail is laid out.
     /// </summary>
     internal static ChangeRecordStep StepOf(Change change) =>
         new ChangeRecordStep
@@ -156,7 +158,7 @@ public sealed record ChangeRecord
         }.WithDetail(change.Detail);
 }
 
-/// <summary>One step of a recorded apply, with the reason it wrote nothing when it did not.</summary>
+/// <summary>One step of a recorded apply, carrying the reason it wrote nothing.</summary>
 public sealed record ChangeRecordStep
 {
     /// <summary>

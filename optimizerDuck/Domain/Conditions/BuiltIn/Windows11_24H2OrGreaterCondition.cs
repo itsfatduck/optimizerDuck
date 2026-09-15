@@ -5,8 +5,7 @@ using optimizerDuck.Services.System;
 namespace optimizerDuck.Domain.Conditions;
 
 /// <summary>
-///     Requires Windows 11 24H2 (build 26100) or later. Used to gate AI features
-///     that only exist on 24H2 and newer builds.
+///     Requires Windows 11 24H2 (build 26100) or later.
 /// </summary>
 public sealed class Windows11_24H2OrGreaterCondition : ConditionBase
 {

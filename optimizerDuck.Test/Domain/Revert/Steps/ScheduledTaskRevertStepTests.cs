@@ -11,8 +11,7 @@ public class ScheduledTaskRevertStepTests
     [Fact]
     public async Task ExecuteAsync_WithMissingTask_SucceedsBecauseThereIsNothingToRestore()
     {
-        // Deliberate reversal: a missing task used to fail inside the provider before the step's
-        // own check ran. The provider now reports it as nothing to change, so the step reaches the
+        // The provider reports a missing task as nothing to change, so the step reaches the
         // branch it was written for: a task that no longer exists has nothing to restore.
         var step = new ScheduledTaskRevertStep
         {

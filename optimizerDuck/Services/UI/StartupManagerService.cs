@@ -66,7 +66,8 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                 apps
             );
 
-            // 2. Registry (32-bit view, redirected to Wow6432Node), where 32-bit installers register
+            // 2. Registry (32-bit view, redirected to Wow6432Node), where 32-bit installers
+            // register
             using var hklm32 = RegistryKey.OpenBaseKey(
                 RegistryHive.LocalMachine,
                 RegistryView.Registry32
@@ -120,7 +121,8 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                 }
             );
 
-            // Fill remaining packaged-app icons from the package logo PNG (apps without a win32 exe)
+            // Fill remaining packaged-app icons from the package logo PNG (apps without a
+            // win32 exe)
             Parallel.ForEach(
                 uwpEntries.Where(e => e.App.LogoImage == null && e.LogoPath != null),
                 new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
@@ -231,7 +233,6 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
 
         try
         {
-            // Determine registry root key based on folder location
             var rootKey =
                 location == StartupAppLocation.CommonStartupFolder
                     ? Registry.LocalMachine
@@ -278,7 +279,8 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
 
     /// <summary>
     ///     Enumerates packaged (UWP / MSIX) apps that declare a StartupTask in their manifest.
-    ///     The enable state comes from <c>HKCU\...\AppModel\SystemAppData\{FamilyName}\{TaskId}\State</c>
+    ///     The enable state comes from
+    ///     <c>HKCU\...\AppModel\SystemAppData\{FamilyName}\{TaskId}\State</c>
     ///     (0=Disabled, 1=DisabledByUser, 2=Enabled, 4=EnabledByPolicy); when no state exists yet,
     ///     the manifest's Enabled attribute decides.
     /// </summary>
@@ -483,9 +485,13 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         return null;
     }
 
-    /// <summary>Enables or disables a startup application by writing the StartupApproved registry flag.</summary>
+    /// <summary>
+    ///     Enables or disables a startup application by writing the StartupApproved registry flag.
+    /// </summary>
     /// <param name="app">The startup app to toggle.</param>
-    /// <param name="enable"><see langword="true"/> to enable, <see langword="false"/> to disable.</param>
+    /// <param name="enable">
+    ///     <see langword="true"/> to enable, <see langword="false"/> to disable.
+    /// </param>
     /// <returns>The toggle outcome.</returns>
     public Task<OpResult> ToggleStartupApp(StartupApp app, bool enable)
     {
@@ -531,7 +537,6 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
 
     private static OpResult ToggleRegistryStartupApp(StartupApp app, bool enable)
     {
-        // Parse RootKey and SubKey from app.PathOrKey
         var firstSlash = app.PathOrKey.IndexOf('\\');
         if (firstSlash < 0)
             return OpResult.Fail(
@@ -550,7 +555,7 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                 ServiceStrings.Format(ServiceStrings.StartupAppErrorUnsupportedLocation, app.Name)
             );
 
-        // Write the flag; 32-bit entries use the dedicated Run32/RunOnce32 subkeys
+        // 32-bit entries use the dedicated Run32/RunOnce32 subkeys
         var approvedSubKeyPath = GetApprovedSubKeyPath(app.Location);
 
         using var rootKey = RegistryKey.OpenBaseKey(hive.Value, RegistryView.Default);
@@ -564,9 +569,9 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
     }
 
     /// <summary>
-    ///     Builds the 12-byte StartupApproved value Task Manager writes: first 4 bytes = status flag
-    ///     (02 enabled / 03 disabled), trailing 8 bytes = FILETIME of the change (shown as the
-    ///     disable date in Task Manager).
+    ///     Builds the 12-byte StartupApproved value Task Manager writes: first 4 bytes = status
+    ///     flag (02 enabled / 03 disabled), trailing 8 bytes = FILETIME of the change (shown as
+    ///     the disable date in Task Manager).
     /// </summary>
     private static byte[] BuildApprovedData(bool enable)
     {
@@ -636,7 +641,10 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         return OpResult.Success();
     }
 
-    /// <summary>Retrieves all startup scheduled tasks from the Windows Task Scheduler, including their enabled state and icons.</summary>
+    /// <summary>
+    ///     Retrieves all startup scheduled tasks from the Windows Task Scheduler, including their
+    ///     enabled state and icons.
+    /// </summary>
     /// <returns>A list of <see cref="StartupTask"/> instances sorted by name.</returns>
     public Task<List<StartupTask>> GetStartupTasksAsync()
     {
@@ -658,7 +666,6 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                     .OrderBy(t => t.TaskName)
                     .ToList();
 
-                // Extract icons from task commands
                 Parallel.ForEach(
                     tasks,
                     new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
@@ -679,9 +686,13 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         });
     }
 
-    /// <summary>Enables or disables a startup scheduled task using the Task Scheduler API.</summary>
+    /// <summary>
+    ///     Enables or disables a startup scheduled task using the Task Scheduler API.
+    /// </summary>
     /// <param name="task">The startup task to toggle.</param>
-    /// <param name="enable"><see langword="true"/> to enable, <see langword="false"/> to disable.</param>
+    /// <param name="enable">
+    ///     <see langword="true"/> to enable, <see langword="false"/> to disable.
+    /// </param>
     /// <returns>The toggle outcome.</returns>
     public Task<OpResult> ToggleStartupTask(StartupTask task, bool enable)
     {
@@ -733,9 +744,15 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         });
     }
 
-    /// <summary>Extracts the associated icon from an executable path or command string. Expands environment variables and searches PATH if needed.</summary>
+    /// <summary>
+    ///     Extracts the associated icon from an executable path or command string. Expands
+    ///     environment variables and searches PATH if needed.
+    /// </summary>
     /// <param name="command">The command or file path to extract the icon from.</param>
-    /// <returns>A frozen <see cref="BitmapSource"/> suitable for cross-thread UI binding, or <see langword="null"/> if the icon cannot be extracted.</returns>
+    /// <returns>
+    ///     A frozen <see cref="BitmapSource"/> suitable for cross-thread UI binding, or
+    ///     <see langword="null"/> if the icon cannot be extracted.
+    /// </returns>
     /// <remarks>
     ///     Uses <c>SHGetFileInfo</c> with <c>SHGFI_LARGEICON</c> (48x48) for higher quality icons
     ///     where possible, falling back to <see cref="Icon.ExtractAssociatedIcon"/> (32x32) if the
@@ -778,7 +795,6 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
     {
         var path = command.Trim('\"');
 
-        // expand environment variables (e.g., %USERPROFILE%, %ProgramFiles%)
         path = Environment.ExpandEnvironmentVariables(path);
         var exeIdx = path.IndexOf(".exe", StringComparison.OrdinalIgnoreCase);
         if (exeIdx > 0)
@@ -786,7 +802,6 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
 
         if (!File.Exists(path))
         {
-            // try to see if it is in PATH
             if (!path.Contains('\\') && !path.Contains('/'))
             {
                 path = GetFullPathFromEnvironment(path);
@@ -866,7 +881,10 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         internal static extern bool DestroyIcon(IntPtr hIcon);
     }
 
-    /// <summary>Resolves a file name to its full path by searching the directories listed in the PATH environment variable.</summary>
+    /// <summary>
+    ///     Resolves a file name to its full path by searching the directories listed in the PATH
+    ///     environment variable.
+    /// </summary>
     /// <param name="fileName">The file name (e.g., "notepad.exe") to resolve.</param>
     /// <returns>The full path if found, otherwise <see langword="null"/>.</returns>
     public static string? GetFullPathFromEnvironment(string fileName)

@@ -8,7 +8,7 @@ namespace optimizerDuck.Domain.Customize.Models;
 /// <summary>
 ///     Represents a single registry key-value pair that can be toggled on or off.
 ///     <see cref="OnValues" /> and <see cref="OffValues" /> support multiple values
-///     (e.g. <c>null</c> means "key absent").
+///     (e.g. <see langword="null" /> means "key absent").
 /// </summary>
 public class RegistryToggle
 {
@@ -20,14 +20,14 @@ public class RegistryToggle
 
     /// <summary>
     ///     Gets the list of values that represent the "on" state.
-    ///     <c>null</c> in the list means "key absent = on".
+    ///     <see langword="null" /> in the list means "key absent = on".
     ///     Default is <c>[1]</c>.
     /// </summary>
     public IReadOnlyList<object?> OnValues { get; init; } = [1];
 
     /// <summary>
     ///     Gets the list of values that represent the "off" state.
-    ///     <c>null</c> in the list means "key absent = off".
+    ///     <see langword="null" /> in the list means "key absent = off".
     ///     Default is <c>[0]</c>.
     /// </summary>
     public IReadOnlyList<object?> OffValues { get; init; } = [0];
@@ -39,17 +39,17 @@ public class RegistryToggle
     public object? DefaultValue { get; init; } = 0;
 
     /// <summary>
-    ///     Gets a value that indicates whether this toggle is optional (non-required for state detection).
-    ///     Default is <see langword="false"/>.
+    ///     Gets whether this toggle is optional (not required for state detection).
+    ///     Default is <see langword="false" />.
     /// </summary>
     public bool IsOptional { get; init; } = false;
 
-    /// <summary>Gets the registry value type. Default is <see cref="RegistryValueKind.DWord"/>.</summary>
+    /// <summary>Gets the value kind. Default is <see cref="RegistryValueKind.DWord" />.</summary>
     public RegistryValueKind ValueKind { get; init; } = RegistryValueKind.DWord;
 
     /// <summary>
-    ///     Reads the registry and returns whether the toggle is currently on.
-    ///     Returns <see langword="true" /> if the registry value matches any value in <see cref="OnValues" />.
+    ///     Reads the registry and returns whether the toggle is currently on. The result is
+    ///     <see langword="true" /> when the value matches any entry in <see cref="OnValues" />.
     /// </summary>
     public bool GetState()
     {
@@ -59,8 +59,8 @@ public class RegistryToggle
 
     /// <summary>
     ///     Writes the on/off state to the registry, recording the change into
-    ///     <paramref name="call"/>. The first value in the target list is the
-    ///     primary value written; a leading <c>null</c> deletes the value.
+    ///     <paramref name="call" />. The first value in the target list is the
+    ///     primary value written; a leading <see langword="null" /> deletes the value.
     /// </summary>
     /// <returns>The provider result; a failed write is returned, not thrown.</returns>
     public OpResult SetState(bool isOn, OpCall call)
@@ -103,7 +103,6 @@ public class RegistryToggle
         {
             try
             {
-                // Try direct type comparison first
                 if (a.GetType() == b.GetType())
                 {
                     return a.Equals(b);
@@ -132,7 +131,6 @@ public class RegistryToggle
                     return Convert.ToInt64(a) == Convert.ToInt64(b);
                 }
 
-                // For floating point, compare as double
                 if (
                     (typeA == typeof(float) || typeA == typeof(double) || typeA == typeof(decimal))
                     && (
@@ -145,7 +143,6 @@ public class RegistryToggle
                     return Convert.ToDouble(a) == Convert.ToDouble(b);
                 }
 
-                // Fallback to decimal comparison for other convertible types
                 var da = Convert.ToDecimal(a);
                 var db = Convert.ToDecimal(b);
                 return da == db;
@@ -156,7 +153,6 @@ public class RegistryToggle
             }
         }
 
-        // String comparison - use ordinal for case-sensitive, ordinal ignore case for case-insensitive
         var strA = a.ToString();
         var strB = b.ToString();
         return strA != null && strB != null && strA.Equals(strB, StringComparison.Ordinal);
