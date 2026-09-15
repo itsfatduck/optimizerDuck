@@ -438,7 +438,11 @@ public class OptimizationService(
     private static void MarkRecordReverted(IOptimization optimization, ILogger logger)
     {
         var record = ChangeRecordStore.TryRead(optimization.Id, logger);
-        record ??= ChangeRecord.From(new ChangeSet(), optimization, nameof(ChangeRecordOperation.Revert));
+        record ??= ChangeRecord.From(
+            new ChangeSet(),
+            optimization,
+            nameof(ChangeRecordOperation.Revert)
+        );
 
         ChangeRecordStore.TryWrite(record.Reverted(DateTime.Now), logger);
     }
@@ -464,16 +468,15 @@ public class OptimizationService(
             // The record outlives the revert file, so it is read separately and never gates the
             // applied mark.
             var record = ChangeRecordStore.TryRead(opt.Id);
-            opt.State.AppliedSummary =
-                record is null
-                    ? string.Empty
-                    : Loc.Instance[
-                        "Optimizer.UI.State.Applied.Summary",
-                        record.ChangedCount,
-                        record.CountOf(ChangeKind.Skip),
-                        record.CountOf(ChangeKind.NotApplicable),
-                        record.CountOf(ChangeKind.Refused)
-                    ];
+            opt.State.AppliedSummary = record is null
+                ? string.Empty
+                : Loc.Instance[
+                    "Optimizer.UI.State.Applied.Summary",
+                    record.ChangedCount,
+                    record.CountOf(ChangeKind.Skip),
+                    record.CountOf(ChangeKind.NotApplicable),
+                    record.CountOf(ChangeKind.Refused)
+                ];
         }
     }
 
@@ -599,8 +602,15 @@ public class OptimizationService(
                         Index = step.Index,
                         Name = capturedStep?.Name ?? step.Name,
                         Description = capturedStep?.Description ?? step.Description,
+                        Kind = capturedStep?.Kind ?? step.Kind,
                         Ok = true,
                         Revert = capturedRevert,
+                        Detail = capturedStep?.Detail,
+                        NativeErrorCode = capturedStep?.NativeErrorCode,
+                        RecordedAt = capturedStep?.RecordedAt ?? step.RecordedAt,
+                        ElapsedMs = capturedStep?.ElapsedMs ?? step.ElapsedMs,
+                        // The step has now run twice, and the record says so.
+                        Attempt = step.Attempt + 1,
                     };
 
                     // A retry can recover more than one step, and each one carries the backup
@@ -664,11 +674,50 @@ public class OptimizationService(
 
             if (!success)
                 remainingFailedSteps.Add(
-                    error != null ? step with { Error = error.Message } : step
+                    error != null
+                        ? step with
+                        {
+                            Error = error.Message,
+                            Attempt = step.Attempt + 1,
+                        }
+                        : step with
+                        {
+                            Attempt = step.Attempt + 1,
+                        }
                 );
         }
 
+        // Best effort, like the record itself: what the retry reached is written back, and a record
+        // that cannot be written changes neither the retry result nor the outcome already reported.
+        if (optimizationId.HasValue)
+            TryRecordRetry(optimizationId.Value, recoveredSteps, remainingFailedSteps, logger);
+
         return new RetryFailedStepsResult(remainingFailedSteps, recoveredSteps);
+    }
+
+    /// <summary>
+    ///     Writes what a retry changed into the record of the run, never throwing: the record is a
+    ///     report, and a report that cannot be written is not a reason to fail the retry.
+    /// </summary>
+    private static void TryRecordRetry(
+        Guid optimizationId,
+        IReadOnlyList<Change> recovered,
+        IReadOnlyList<Change> stillFailed,
+        ILogger logger
+    )
+    {
+        try
+        {
+            var record = ChangeRecordStore.TryRead(optimizationId, logger);
+            if (record is null)
+                return;
+
+            ChangeRecordStore.TryWrite(record.Retried(recovered, stillFailed), logger);
+        }
+        catch (Exception ex)
+        {
+            logger.LogWarning(ex, "Failed to record the retry for {Id}", optimizationId);
+        }
     }
 
     private async Task TrySaveRevertDataAsync(

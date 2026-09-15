@@ -48,4 +48,37 @@ public class ShellServiceTests
 
         Assert.Equal(0, result.ExitCode);
     }
+
+    [Fact]
+    public async Task AFailedCommandRecordsTheExitCodeItFailedWith()
+    {
+        var shell = NewShell();
+        var call = new OpCall { Logger = NullLogger.Instance };
+
+        var result = await shell.CMDAsync(
+            "exit 3",
+            call,
+            ct: TestContext.Current.CancellationToken
+        );
+
+        Assert.False(result.Ok);
+        var step = Assert.Single(call.Changes.Changes);
+        Assert.Equal(3, step.NativeErrorCode);
+    }
+
+    [Fact]
+    public async Task ACommandThatSucceedsRecordsNoCode()
+    {
+        var shell = NewShell();
+        var call = new OpCall { Logger = NullLogger.Instance };
+
+        var result = await shell.CMDAsync(
+            "exit 0",
+            call,
+            ct: TestContext.Current.CancellationToken
+        );
+
+        Assert.True(result.Ok);
+        Assert.Null(Assert.Single(call.Changes.Changes).NativeErrorCode);
+    }
 }

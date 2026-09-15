@@ -65,7 +65,8 @@ public class RegistryServiceTests : IDisposable
         Assert.NotNull(step.CreatedSubKeys);
         Assert.Contains(
             step.CreatedSubKeys,
-            path => path.EndsWith(@"TestOptimizerDuck\CreatedByTest\Deeper", StringComparison.Ordinal)
+            path =>
+                path.EndsWith(@"TestOptimizerDuck\CreatedByTest\Deeper", StringComparison.Ordinal)
         );
     }
 
@@ -500,6 +501,7 @@ public class RegistryServiceTests : IDisposable
             RegistryService.Read<string>(new RegistryItem(nonEmptyKeyPath, "Value"))
         );
     }
+
     [Fact]
     public void Write_ValueAlreadySet_RecordsSkip()
     {
@@ -559,6 +561,7 @@ public class RegistryServiceTests : IDisposable
         Assert.Equal(ChangeKind.NotApplicable, step.Kind);
         Assert.Null(step.Revert);
     }
+
     [Fact]
     public void Write_RecordsTheFactsOfTheStep()
     {
@@ -566,8 +569,9 @@ public class RegistryServiceTests : IDisposable
         var call = NewCall();
 
         Assert.True(RegistryService.Write(call, new RegistryItem(path, "V", 1)).Ok);
-        var written = Assert.Single(call.Changes.Changes).Detail;
-        Assert.NotNull(written);
+        var written = Assert.IsType<RegistryValueWriteDetail>(
+            Assert.Single(call.Changes.Changes).Detail
+        );
         Assert.Equal("registry.write", written.Operation);
         Assert.Equal(path, written.Target);
         Assert.Equal("V", written.ValueName);
@@ -580,7 +584,8 @@ public class RegistryServiceTests : IDisposable
         Assert.True(RegistryService.Write(again, new RegistryItem(path, "V", 1)).Ok);
         var skipped = Assert.Single(again.Changes.Changes);
         Assert.Equal(ChangeKind.Skip, skipped.Kind);
-        Assert.Equal("1", skipped.Detail?.PreviousValue);
-        Assert.Equal("1", skipped.Detail?.NewValue);
+        var skippedDetail = Assert.IsType<RegistryValueWriteDetail>(skipped.Detail);
+        Assert.Equal("1", skippedDetail.PreviousValue);
+        Assert.Equal("1", skippedDetail.NewValue);
     }
 }

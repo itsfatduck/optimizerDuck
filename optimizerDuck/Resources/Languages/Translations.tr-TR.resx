@@ -2495,4 +2495,25 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   <data name="Optimizer.Details.Reason.UsbNoDevices" xml:space="preserve">
     <value>Bu bilgisayarda USB kök hub yok</value>
   </data>
+  <data name="Optimizer.Details.Field.Took" xml:space="preserve">
+    <value>Süre</value>
+  </data>
+  <data name="Optimizer.Details.Field.At" xml:space="preserve">
+    <value>Zaman</value>
+  </data>
+  <data name="Optimizer.Details.Field.ErrorCode" xml:space="preserve">
+    <value>Hata kodu</value>
+  </data>
+  <data name="Optimizer.Details.Field.Attempt" xml:space="preserve">
+    <value>Deneme</value>
+  </data>
+  <data name="Optimizer.Details.Record.Version" xml:space="preserve">
+    <value>Uygulama sürümü</value>
+  </data>
+  <data name="Optimizer.Details.Record.Windows" xml:space="preserve">
+    <value>Windows sürümü</value>
+  </data>
+  <data name="Optimizer.Details.Record.Took" xml:space="preserve">
+    <value>Süre</value>
+  </data>
 </root>

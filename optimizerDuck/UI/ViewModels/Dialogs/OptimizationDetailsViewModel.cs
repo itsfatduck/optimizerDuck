@@ -32,14 +32,14 @@ public partial class OptimizationDetailsViewModel(
     /// </summary>
     private readonly ChangeRecord? _record = ChangeRecordStore.TryRead(optimization.Id);
     private IReadOnlyList<ChangeRecordStepViewModel>? _steps;
+    private IReadOnlyList<RecordFieldViewModel>? _recordFacts;
 
     /// <summary>
     ///     The steps of the recorded run, worded for the run they belong to, so a revert reads as
     ///     what it put back.
     /// </summary>
     public IReadOnlyList<ChangeRecordStepViewModel> Steps =>
-        _steps ??=
-        [
+        _steps ??= [
             .. (_record?.Steps ?? []).Select(step => new ChangeRecordStepViewModel(
                 step,
                 _record?.Operation ?? ChangeRecordOperation.Apply
@@ -66,6 +66,54 @@ public partial class OptimizationDetailsViewModel(
 
     /// <summary>Whether the record describes a revert, which the header marks.</summary>
     public bool RecordIsRevert => _record?.Operation == ChangeRecordOperation.Revert;
+
+    /// <summary>
+    ///     What the run itself was: the build that wrote the record and the Windows version it ran
+    ///     on, so a record read out of the app states its own context, and how long the run took. A
+    ///     record written by an earlier build carries none of these and shows no chip for them.
+    /// </summary>
+    public IReadOnlyList<RecordFieldViewModel> RecordFacts =>
+        _recordFacts ??= BuildRecordFacts(_record);
+
+    /// <summary>Whether the record carries any fact about the run itself.</summary>
+    public bool HasRecordFacts => RecordFacts.Count > 0;
+
+    private static IReadOnlyList<RecordFieldViewModel> BuildRecordFacts(ChangeRecord? record)
+    {
+        if (record is null)
+            return [];
+
+        var facts = new List<RecordFieldViewModel>();
+
+        if (!string.IsNullOrEmpty(record.AppVersion))
+            facts.Add(
+                new RecordFieldViewModel(
+                    SymbolRegular.Info24,
+                    Loc.Instance["Optimizer.Details.Record.Version"],
+                    record.AppVersion
+                )
+            );
+
+        if (!string.IsNullOrEmpty(record.WindowsVersion))
+            facts.Add(
+                new RecordFieldViewModel(
+                    SymbolRegular.Desktop24,
+                    Loc.Instance["Optimizer.Details.Record.Windows"],
+                    record.WindowsVersion
+                )
+            );
+
+        if (record.ElapsedMs is { } elapsedMs)
+            facts.Add(
+                new RecordFieldViewModel(
+                    SymbolRegular.Timer24,
+                    Loc.Instance["Optimizer.Details.Record.Took"],
+                    ChangeRecordStepViewModel.DescribeDuration(elapsedMs)
+                )
+            );
+
+        return facts;
+    }
 
     [RelayCommand]
     private async Task OpenRevertFileAsync()

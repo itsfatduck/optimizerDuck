@@ -1,5 +1,6 @@
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
+using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
@@ -119,13 +120,11 @@ public class ChangeRecordStepViewModelTests
                 Ok = false,
                 Error = "Access denied",
                 ErrorDetail = "System.UnauthorizedAccessException",
-                Detail = new ChangeDetail
+                Detail = new ServiceStartupDetail
                 {
-                    Operation = "service.startup",
-                    Target = "DiagTrack",
-                    PreviousValue = "Automatic",
-                    NewValue = "Disabled",
-                    HasValuePair = true,
+                    ServiceName = "DiagTrack",
+                    PreviousStartupType = ServiceStartupType.Automatic,
+                    NewStartupType = ServiceStartupType.Disabled,
                 },
             }
         );
@@ -137,6 +136,72 @@ public class ChangeRecordStepViewModelTests
         Assert.Equal("Access denied", row.Detail);
         Assert.True(row.HasErrorDetail);
         Assert.Contains(row.Fields, field => field.Value == "DiagTrack");
+    }
+
+    [Fact]
+    public void HowAStepWentIsShownOnlyWhenTheRecordCarriesIt()
+    {
+        var plain = new ChangeRecordStepViewModel(
+            new ChangeRecordStep
+            {
+                Name = "Registry",
+                Kind = ChangeKind.Change,
+                RecordedAt = new DateTime(2026, 1, 2, 3, 4, 5, DateTimeKind.Local),
+                ElapsedMs = 12,
+            }
+        );
+
+        Assert.Contains(
+            plain.Fields,
+            field => field.Label == Loc.Instance["Optimizer.Details.Field.At"]
+        );
+        Assert.Contains(
+            plain.Fields,
+            field =>
+                field.Label == Loc.Instance["Optimizer.Details.Field.Took"]
+                && field.Value == "12 ms"
+        );
+
+        // A step that succeeded has no code and no second attempt to report.
+        Assert.DoesNotContain(
+            plain.Fields,
+            field => field.Label == Loc.Instance["Optimizer.Details.Field.ErrorCode"]
+        );
+        Assert.DoesNotContain(
+            plain.Fields,
+            field => field.Label == Loc.Instance["Optimizer.Details.Field.Attempt"]
+        );
+
+        var retried = new ChangeRecordStepViewModel(
+            new ChangeRecordStep
+            {
+                Name = "Service",
+                Kind = ChangeKind.Change,
+                Ok = false,
+                Error = "Access denied",
+                NativeErrorCode = 5,
+                Attempt = 2,
+                ElapsedMs = 1500,
+            }
+        );
+
+        Assert.Contains(
+            retried.Fields,
+            field =>
+                field.Label == Loc.Instance["Optimizer.Details.Field.ErrorCode"]
+                && field.Value == "5"
+        );
+        Assert.Contains(
+            retried.Fields,
+            field =>
+                field.Label == Loc.Instance["Optimizer.Details.Field.Attempt"] && field.Value == "2"
+        );
+        Assert.Contains(
+            retried.Fields,
+            field =>
+                field.Label == Loc.Instance["Optimizer.Details.Field.Took"]
+                && field.Value == "1.5 s"
+        );
     }
 
     [Fact]
@@ -240,10 +305,9 @@ public class ChangeRecordRevertTests
                 Name = "Service",
                 Description = "Service 'Gone' not found (not present)",
                 Kind = ChangeKind.NotApplicable,
-                Detail = new ChangeDetail
+                Detail = new ServiceStartupDetail
                 {
-                    Operation = "service.startup",
-                    Target = "Gone",
+                    ServiceName = "Gone",
                     Reason = "service.notFound",
                 },
             }
@@ -266,13 +330,11 @@ public class ChangeRecordRevertTests
             Kind = ChangeKind.Change,
             Ok = false,
             Error = "Access denied",
-            Detail = new ChangeDetail
+            Detail = new ServiceStartupDetail
             {
-                Operation = "service.startup",
-                Target = "X",
-                PreviousValue = "Automatic",
-                NewValue = "Disabled",
-                HasValuePair = true,
+                ServiceName = "X",
+                PreviousStartupType = ServiceStartupType.Automatic,
+                NewStartupType = ServiceStartupType.Disabled,
             },
         };
 

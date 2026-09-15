@@ -63,7 +63,7 @@ internal static class WmiHelper
         ScopeCache.Clear();
     }
 
-    // ponytail: static log hook (same pattern as PowerReader.Configure); per-instance wiring if a second writer appears.
+    // static log hook (same pattern as PowerReader.Configure); per-instance wiring if a second writer appears.
     private static Action<string, Exception>? _onQueryFailed;
 
     /// <summary>Wires a debug sink for failed WMI queries. Null detaches.</summary>

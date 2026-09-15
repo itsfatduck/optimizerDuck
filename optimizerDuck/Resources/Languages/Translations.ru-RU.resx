@@ -2504,4 +2504,25 @@
   <data name="Optimizer.Details.Reason.UsbNoDevices" xml:space="preserve">
     <value>На этом компьютере нет корневых USB-концентраторов</value>
   </data>
+  <data name="Optimizer.Details.Field.Took" xml:space="preserve">
+    <value>Затрачено</value>
+  </data>
+  <data name="Optimizer.Details.Field.At" xml:space="preserve">
+    <value>Время</value>
+  </data>
+  <data name="Optimizer.Details.Field.ErrorCode" xml:space="preserve">
+    <value>Код ошибки</value>
+  </data>
+  <data name="Optimizer.Details.Field.Attempt" xml:space="preserve">
+    <value>Попытка</value>
+  </data>
+  <data name="Optimizer.Details.Record.Version" xml:space="preserve">
+    <value>Версия приложения</value>
+  </data>
+  <data name="Optimizer.Details.Record.Windows" xml:space="preserve">
+    <value>Версия Windows</value>
+  </data>
+  <data name="Optimizer.Details.Record.Took" xml:space="preserve">
+    <value>Затрачено</value>
+  </data>
 </root>

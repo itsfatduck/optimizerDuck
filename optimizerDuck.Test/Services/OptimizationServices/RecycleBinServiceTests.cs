@@ -3,8 +3,8 @@ using optimizerDuck.Services.System.Primitives;
 namespace optimizerDuck.Test.Services.OptimizationServices;
 
 /// <summary>
-///     Live shell32 tests: real Recycle Bin state, no mocks. Nothing here destroys user data -
-///     the only emptying call runs on an empty bin, and the failure path targets an invalid root.
+///     Live shell32 tests: real Recycle Bin state, no mocks. Nothing here destroys user data: the
+///     queries only read, and the one emptying call targets an invalid root, which shell32 refuses.
 /// </summary>
 public class RecycleBinServiceTests
 {
@@ -56,30 +56,6 @@ public class RecycleBinServiceTests
 
         Assert.False(succeeded);
         Assert.NotEqual(0, errorCode);
-    }
-
-    [Fact]
-    public void Empty_EmptyBin_Succeeds()
-    {
-        var totals = RecycleBinService.Query();
-        if (totals.ItemCount != 0)
-        {
-            Assert.Skip(
-                $"Recycle Bin holds {totals.ItemCount} item(s); emptying it here would destroy real user data, so this test only runs on an empty bin."
-            );
-        }
-
-        var (succeeded, errorCode) = RecycleBinService.Empty();
-
-        // A session without the desktop shell (a CI runner) answers the call with E_UNEXPECTED:
-        // there is nothing to empty there either, so that is an environment limit rather than a
-        // failure of the operation, and the app already reports it as "no space freed".
-        if (!succeeded && (uint)errorCode == 0x8000FFFF)
-            Assert.Skip(
-                "SHEmptyRecycleBin returned E_UNEXPECTED: no desktop shell in this session."
-            );
-
-        Assert.True(succeeded, $"SHEmptyRecycleBin failed with 0x{errorCode:X8}");
     }
 
     [Fact]

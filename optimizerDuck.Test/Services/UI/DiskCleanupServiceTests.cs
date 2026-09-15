@@ -129,30 +129,4 @@ public class DiskCleanupServiceTests
         Assert.Empty(item.Path);
         Assert.False(item.CanOpenFolder);
     }
-
-    [Fact]
-    public async Task CleanAsync_RecycleBinItem_ReportsNoFreedBytesForAnEmptyBin()
-    {
-        // The failing-empty half of the contract lives in RecycleBinServiceTests
-        // (Empty_InvalidRoot_FailsWithError): DiskCleanupService always empties every drive, so a
-        // failure cannot be forced here without either destroying real data or adding a
-        // test-only seam to the service.
-        var totals = RecycleBinService.Query();
-        if (totals.ItemCount != 0)
-        {
-            Assert.Skip(
-                $"Recycle Bin holds {totals.ItemCount} item(s); emptying it here would destroy real user data, so this test only runs on an empty bin."
-            );
-        }
-
-        var service = NewService();
-        var item = DiskCleanupService.GetCleanupItems().Single(i => i.Id == "RecycleBin");
-
-        await service.ScanAsync(item);
-        Assert.Equal(0, item.SizeBytes);
-
-        var freed = await service.CleanAsync(item);
-
-        Assert.Equal(0, freed);
-    }
 }

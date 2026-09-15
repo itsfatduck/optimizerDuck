@@ -2495,4 +2495,25 @@
   <data name="Optimizer.Details.Reason.UsbNoDevices" xml:space="preserve">
     <value>이 PC에는 USB 루트 허브가 없습니다</value>
   </data>
+  <data name="Optimizer.Details.Field.Took" xml:space="preserve">
+    <value>소요 시간</value>
+  </data>
+  <data name="Optimizer.Details.Field.At" xml:space="preserve">
+    <value>시각</value>
+  </data>
+  <data name="Optimizer.Details.Field.ErrorCode" xml:space="preserve">
+    <value>오류 코드</value>
+  </data>
+  <data name="Optimizer.Details.Field.Attempt" xml:space="preserve">
+    <value>시도</value>
+  </data>
+  <data name="Optimizer.Details.Record.Version" xml:space="preserve">
+    <value>앱 버전</value>
+  </data>
+  <data name="Optimizer.Details.Record.Windows" xml:space="preserve">
+    <value>Windows 버전</value>
+  </data>
+  <data name="Optimizer.Details.Record.Took" xml:space="preserve">
+    <value>소요 시간</value>
+  </data>
 </root>

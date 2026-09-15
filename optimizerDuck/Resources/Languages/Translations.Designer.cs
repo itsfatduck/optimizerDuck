@@ -3834,11 +3834,38 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to At.
+        /// </summary>
+        internal static string Optimizer_Details_Field_At {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Field.At", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attempt.
+        /// </summary>
+        internal static string Optimizer_Details_Field_Attempt {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Field.Attempt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Devices.
         /// </summary>
         internal static string Optimizer_Details_Field_Devices {
             get {
                 return ResourceManager.GetString("Optimizer.Details.Field.Devices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error code.
+        /// </summary>
+        internal static string Optimizer_Details_Field_ErrorCode {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Field.ErrorCode", resourceCulture);
             }
         }
         
@@ -3956,6 +3983,15 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Optimizer_Details_Field_TaskState {
             get {
                 return ResourceManager.GetString("Optimizer.Details.Field.TaskState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Took.
+        /// </summary>
+        internal static string Optimizer_Details_Field_Took {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Field.Took", resourceCulture);
             }
         }
         
@@ -4325,6 +4361,33 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Optimizer_Details_Record_Title {
             get {
                 return ResourceManager.GetString("Optimizer.Details.Record.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Took.
+        /// </summary>
+        internal static string Optimizer_Details_Record_Took {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Record.Took", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to App version.
+        /// </summary>
+        internal static string Optimizer_Details_Record_Version {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Record.Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows.
+        /// </summary>
+        internal static string Optimizer_Details_Record_Windows {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Record.Windows", resourceCulture);
             }
         }
         

@@ -382,6 +382,14 @@ public static class RegistryService
                     var backupKind = valueExists
                         ? regKey.GetValueKind(valueName)
                         : RegistryValueKind.Unknown;
+                    var facts = new RegistryValueWriteDetail
+                    {
+                        Target = item.Path,
+                        ValueName = item.Name,
+                        ValueType = item.Kind.ToString(),
+                        PreviousValue = DescribeValue(backupValue),
+                        NewValue = DescribeValue(item.Value),
+                    };
 
                     if (
                         valueExists
@@ -394,17 +402,7 @@ public static class RegistryService
                             item.Path,
                             item.Name!
                         );
-                        call.Changes.AddSkip(
-                            name,
-                            description,
-                            RegistryDetail(
-                                RegistryOperationWrite,
-                                item,
-                                previous: backupValue,
-                                newValue: item.Value,
-                                valueType: item.Kind.ToString()
-                            )
-                        );
+                        call.Changes.AddSkip(name, description, facts);
                         return OpResult.Success();
                     }
 
@@ -429,19 +427,7 @@ public static class RegistryService
                         item.Kind,
                         item.Value
                     );
-                    call.Changes.Add(
-                        name,
-                        description,
-                        true,
-                        revertStep,
-                        detail: RegistryDetail(
-                            RegistryOperationWrite,
-                            item,
-                            previous: backupValue,
-                            newValue: item.Value,
-                            valueType: item.Kind.ToString()
-                        )
-                    );
+                    call.Changes.Add(name, description, true, revertStep, detail: facts);
                     return OpResult.Success(revertStep);
                 }
                 catch (UnauthorizedAccessException)
@@ -576,11 +562,12 @@ public static class RegistryService
                         call.Changes.AddNotApplicable(
                             name,
                             description,
-                            RegistryDetail(
-                                RegistryOperationDelete,
-                                item,
-                                reason: RegistryReasonValueAbsent
-                            )
+                            new RegistryValueRemoveDetail
+                            {
+                                Target = item.Path,
+                                ValueName = item.Name,
+                                Reason = RegistryReasonValueAbsent,
+                            }
                         );
                         return OpResult.Success();
                     }
@@ -603,12 +590,13 @@ public static class RegistryService
                         description,
                         true,
                         revertStep,
-                        detail: RegistryDetail(
-                            RegistryOperationDelete,
-                            item,
-                            previous: backupValue,
-                            valueType: backupKind.ToString()
-                        )
+                        detail: new RegistryValueRemoveDetail
+                        {
+                            Target = item.Path,
+                            ValueName = item.Name,
+                            ValueType = backupKind.ToString(),
+                            PreviousValue = DescribeValue(backupValue),
+                        }
                     );
                     return OpResult.Success(revertStep);
                 }
@@ -708,11 +696,11 @@ public static class RegistryService
                 call.Changes.AddNotApplicable(
                     name,
                     description,
-                    RegistryDetail(
-                        RegistryOperationCreateKey,
-                        item,
-                        reason: RegistryReasonKeyExists
-                    )
+                    new RegistryKeyCreateDetail
+                    {
+                        Target = item.Path,
+                        Reason = RegistryReasonKeyExists,
+                    }
                 );
                 return OpResult.Success();
             }
@@ -733,7 +721,7 @@ public static class RegistryService
                 description,
                 true,
                 revertStep,
-                detail: RegistryDetail(RegistryOperationCreateKey, item)
+                detail: new RegistryKeyCreateDetail { Target = item.Path }
             );
             return OpResult.Success(revertStep);
         }
@@ -800,11 +788,11 @@ public static class RegistryService
                 call.Changes.AddNotApplicable(
                     name,
                     description,
-                    RegistryDetail(
-                        RegistryOperationDeleteKey,
-                        item,
-                        reason: RegistryReasonKeyAbsent
-                    )
+                    new RegistryKeyRemoveDetail
+                    {
+                        Target = item.Path,
+                        Reason = RegistryReasonKeyAbsent,
+                    }
                 );
                 return OpResult.Success();
             }
@@ -844,7 +832,7 @@ public static class RegistryService
                 description,
                 true,
                 revertStep,
-                detail: RegistryDetail(RegistryOperationDeleteKey, item)
+                detail: new RegistryKeyRemoveDetail { Target = item.Path }
             );
             return OpResult.Success(revertStep);
         }
@@ -1172,49 +1160,15 @@ public static class RegistryService
             }
     }
 
-    internal const string RegistryOperationWrite = "registry.write";
-    internal const string RegistryOperationDelete = "registry.delete";
-    internal const string RegistryOperationCreateKey = "registry.createKey";
-    internal const string RegistryOperationDeleteKey = "registry.deleteKey";
     internal const string RegistryReasonValueAbsent = "registry.valueAbsent";
     internal const string RegistryReasonKeyExists = "registry.keyExists";
     internal const string RegistryReasonKeyAbsent = "registry.keyAbsent";
 
-    /// <summary>
-    ///     The facts of one registry step, for a UI that localizes them. The description on the
-    ///     step stays English for the log.
-    /// </summary>
-    private static ChangeDetail RegistryDetail(
-        string operation,
-        RegistryItem item,
-        object? previous = null,
-        object? newValue = null,
-        string? valueType = null,
-        string? reason = null
-    )
-    {
-        // Moving or removing a value is a before and an after; creating or deleting a key is not.
-        var hasValuePair = operation
-            is RegistryOperationWrite
-                or RegistryOperationDelete;
-
-        return new ChangeDetail
-        {
-            Operation = operation,
-            Target = item.Path,
-            ValueName = item.Name,
-            ValueType = valueType,
-            PreviousValue = previous is null ? null : DescribeValue(previous),
-            NewValue = newValue is null ? null : DescribeValue(newValue),
-            HasValuePair = hasValuePair,
-            Reason = reason,
-        };
-    }
-
-    /// <summary>A value as it is shown to the user, never localized.</summary>
-    private static string DescribeValue(object value) =>
+    /// <summary>A value as it is shown to the user, never localized. Nothing to show stays null.</summary>
+    private static string? DescribeValue(object? value) =>
         value switch
         {
+            null => null,
             Array array => string.Join(", ", array.Cast<object?>()),
             _ => Convert.ToString(value, CultureInfo.InvariantCulture) ?? string.Empty,
         };

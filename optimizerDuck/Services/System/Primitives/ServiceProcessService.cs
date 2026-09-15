@@ -76,7 +76,11 @@ public static class ServiceProcessService
                 call.Changes.AddNotApplicable(
                     ServiceStrings.ServiceName,
                     skipDescription,
-                    ServiceStep(item, null, null, ServiceReasonNotFound)
+                    new ServiceStartupDetail
+                    {
+                        ServiceName = item.Name,
+                        Reason = ServiceReasonNotFound,
+                    }
                 );
                 return MapToOpResult(ServiceChangeResult.NotFound, null, null, null);
             }
@@ -118,7 +122,11 @@ public static class ServiceProcessService
                 call.Changes.AddSkip(
                     ServiceStrings.ServiceName,
                     alreadyDescription,
-                    ServiceStep(item, originalStartupType, null)
+                    new ServiceStartupDetail
+                    {
+                        ServiceName = item.Name,
+                        PreviousStartupType = originalStartupType,
+                    }
                 );
                 return MapToOpResult(ServiceChangeResult.AlreadyConfigured, null, null, null);
             }
@@ -159,7 +167,12 @@ public static class ServiceProcessService
                     description,
                     true,
                     revertStep,
-                    detail: ServiceStep(item, originalStartupType, item.StartupType)
+                    detail: new ServiceStartupDetail
+                    {
+                        ServiceName = item.Name,
+                        PreviousStartupType = originalStartupType,
+                        NewStartupType = item.StartupType,
+                    }
                 );
                 return MapToOpResult(ServiceChangeResult.Success, revertStep, null, null);
             }
@@ -178,7 +191,12 @@ public static class ServiceProcessService
                 call.Changes.AddRefused(
                     ServiceStrings.ServiceName,
                     accessDeniedError,
-                    ServiceStep(item, originalStartupType, null)
+                    new ServiceStartupDetail
+                    {
+                        ServiceName = item.Name,
+                        PreviousStartupType = originalStartupType,
+                    },
+                    nativeError
                 );
                 return MapToOpResult(
                     ServiceChangeResult.AccessDenied,
@@ -214,11 +232,13 @@ public static class ServiceProcessService
                 error,
                 errorDetail,
                 retryCall => ChangeServiceStartupTypeAsync(retryCall, item),
-                detail: ServiceStep(
-                    item,
-                    originalStartupType,
-                    write.StartTypeWritten ? item.StartupType : null
-                )
+                detail: new ServiceStartupDetail
+                {
+                    ServiceName = item.Name,
+                    PreviousStartupType = originalStartupType,
+                    NewStartupType = write.StartTypeWritten ? item.StartupType : null,
+                },
+                nativeErrorCode: nativeError
             );
             return MapToOpResult(ServiceChangeResult.Failed, partialRevert, error, errorDetail);
         }
@@ -414,7 +434,7 @@ public static class ServiceProcessService
             ? $"ChangeServiceConfig2 (delayed auto start) threw after the start type was written: {exceptionText}"
         : startTypeWritten
             ? $"ChangeServiceConfig2 (delayed auto start) failed with Win32 error {nativeError}, after the start type was written"
-            : $"ChangeServiceConfig failed with Win32 error {nativeError}";
+        : $"ChangeServiceConfig failed with Win32 error {nativeError}";
 
     /// <summary>
     ///     Writes the start type, then the delayed flag for auto-start targets. Returns the Win32
@@ -593,29 +613,6 @@ public static class ServiceProcessService
     [DllImport("advapi32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool CloseServiceHandle(IntPtr serviceHandle);
-    internal const string ServiceOperationStartup = "service.startup";
 
-    /// <summary>
-    ///     The facts of one service step, for a UI that localizes them. The startup types travel as
-    ///     their names so the UI can translate them; the description on the step stays English.
-    /// </summary>
     internal const string ServiceReasonNotFound = "service.notFound";
-
-    private static ChangeDetail ServiceStep(
-        ServiceItem item,
-        ServiceStartupType? current,
-        ServiceStartupType? target,
-        string? reason = null
-    )
-    {
-        return new ChangeDetail
-        {
-            Operation = ServiceOperationStartup,
-            Target = item.Name,
-            PreviousValue = current?.ToString(),
-            NewValue = target?.ToString(),
-            HasValuePair = true,
-            Reason = reason,
-        };
-    }
 }

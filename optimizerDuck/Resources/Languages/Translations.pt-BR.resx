@@ -2504,4 +2504,25 @@ Atualize agora para desfrutar das últimas funcionalidades, melhorias e correç�
   <data name="Optimizer.Details.Reason.UsbNoDevices" xml:space="preserve">
     <value>Este PC não tem hubs USB raiz</value>
   </data>
+  <data name="Optimizer.Details.Field.Took" xml:space="preserve">
+    <value>Duração</value>
+  </data>
+  <data name="Optimizer.Details.Field.At" xml:space="preserve">
+    <value>Momento</value>
+  </data>
+  <data name="Optimizer.Details.Field.ErrorCode" xml:space="preserve">
+    <value>Código de erro</value>
+  </data>
+  <data name="Optimizer.Details.Field.Attempt" xml:space="preserve">
+    <value>Tentativa</value>
+  </data>
+  <data name="Optimizer.Details.Record.Version" xml:space="preserve">
+    <value>Versão do aplicativo</value>
+  </data>
+  <data name="Optimizer.Details.Record.Windows" xml:space="preserve">
+    <value>Versão do Windows</value>
+  </data>
+  <data name="Optimizer.Details.Record.Took" xml:space="preserve">
+    <value>Duração</value>
+  </data>
 </root>

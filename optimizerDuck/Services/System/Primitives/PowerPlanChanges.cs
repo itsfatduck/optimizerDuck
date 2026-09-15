@@ -46,7 +46,7 @@ public static class PowerPlanChanges
             call.Changes.AddSkip(
                 ServiceStrings.PowerPlanName,
                 ServiceStrings.Format("Power plan {0} already active (skipped)", name),
-                PlanStep(ActivateAction, name, name, null)
+                new PowerPlanActivateDetail { PlanName = name, PreviousPlanName = name }
             );
             return OpResult.Success();
         }
@@ -61,12 +61,13 @@ public static class PowerPlanChanges
             ServiceStrings.Format("Activate power plan {0}", name),
             true,
             step,
-            detail: PlanStep(
-                ActivateAction,
-                name,
-                plans.GetSchemeName(previousId.Value) ?? previousId.Value.ToString(),
-                name
-            )
+            detail: new PowerPlanActivateDetail
+            {
+                PlanName = name,
+                PreviousPlanName =
+                    plans.GetSchemeName(previousId.Value) ?? previousId.Value.ToString(),
+                NewPlanName = name,
+            }
         );
         return OpResult.Success(step);
     }
@@ -118,7 +119,8 @@ public static class PowerPlanChanges
             return install;
         }
 
-        var name = plans.GetSchemeName(install.InstalledId.Value) ?? install.InstalledId.ToString();
+        var name =
+            plans.GetSchemeName(install.InstalledId.Value) ?? install.InstalledId.Value.ToString();
         var step = new PowerPlanRevertStep
         {
             PreviousSchemeId = install.PreviousId.Value,
@@ -129,7 +131,7 @@ public static class PowerPlanChanges
             ServiceStrings.Format("Install power plan {0}", name),
             true,
             step,
-            detail: PlanStep(InstallAction, name, null, null)
+            detail: new PowerPlanInstallDetail { PlanName = name }
         );
         return new InstallResult(OpResult.Success(step), install.InstalledId, install.PreviousId);
     }
@@ -184,6 +186,13 @@ public static class PowerPlanChanges
             };
         }
 
+        var facts = new PowerSettingDetail
+        {
+            SettingId = settingId.ToString(),
+            SettingName = plans.GetSetting(schemeId, subgroupId, settingId)?.Name,
+            PreviousValue = previousPair,
+        };
+
         if (!result.Ok || step is null)
         {
             call.Changes.Add(
@@ -205,15 +214,7 @@ public static class PowerPlanChanges
                             dcValue
                         )
                     ),
-                detail:
-                    previousPair is null
-                        ? null
-                        : new ChangeDetail
-                        {
-                            Operation = SettingAction,
-                            Target = settingId.ToString(),
-                            PreviousValue = previousPair,
-                        }
+                detail: previousPair is null ? null : facts
             );
             return result;
         }
@@ -223,36 +224,11 @@ public static class PowerPlanChanges
             description,
             true,
             step,
-            detail: new ChangeDetail
+            detail: facts with
             {
-                Operation = SettingAction,
-                Target = settingId.ToString(),
-                PreviousValue = previousPair,
                 NewValue = $"AC {acValue} / DC {dcValue}",
-                HasValuePair = true,
             }
         );
         return OpResult.Success(step);
-    }
-    internal const string ActivateAction = "power.plan";
-    internal const string InstallAction = "power.planInstall";
-    internal const string SettingAction = "power.setting";
-
-    /// <summary>The facts of one power plan step, for a UI that localizes them.</summary>
-    private static ChangeDetail PlanStep(
-        string operation,
-        string? name,
-        string? previous,
-        string? current
-    )
-    {
-        return new ChangeDetail
-        {
-            Operation = operation,
-            Target = name,
-            PreviousValue = previous,
-            NewValue = current,
-            HasValuePair = operation is ActivateAction,
-        };
     }
 }

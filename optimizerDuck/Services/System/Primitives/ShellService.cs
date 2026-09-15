@@ -165,7 +165,8 @@ public sealed class ShellService
                         policy,
                         retryCall,
                         CancellationToken.None
-                    )
+                    ),
+            nativeErrorCode: success ? null : result.ExitCode
         );
 
         return success ? OpResult.Success(revertStep) : OpResult.Fail(error!, errorDetail);

@@ -81,7 +81,11 @@ public class PowerPlanChangesTests
         var plans = new StubPowerPlanService
         {
             WriteFunc = (_, _, _, _, _) =>
-                new SettingWriteResult(OpResult.Fail("PowerWriteDCValueIndex failed", null), 5u, 10u),
+                new SettingWriteResult(
+                    OpResult.Fail("PowerWriteDCValueIndex failed", null),
+                    5u,
+                    10u
+                ),
         };
         var call = NewCall();
 
@@ -101,8 +105,11 @@ public class PowerPlanChangesTests
         var step = Assert.IsType<PowerSettingRevertStep>(change.Revert);
         Assert.Equal(5u, step.PreviousAcValue);
         Assert.Equal(10u, step.PreviousDcValue);
-        Assert.Equal("AC 5 / DC 10", change.Detail!.PreviousValue);
-        Assert.False(change.Detail.HasValuePair);
+        var detail = Assert.IsType<PowerSettingDetail>(change.Detail);
+        Assert.Equal("AC 5 / DC 10", detail.PreviousValue);
+
+        // The write was refused, so the step has what it found and no after: it wrote nothing.
+        Assert.Null(detail.NewValue);
     }
 
     [Fact]

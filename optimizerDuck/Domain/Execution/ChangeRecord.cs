@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using optimizerDuck.Common.Extensions;
+using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 
 namespace optimizerDuck.Domain.Execution;
@@ -20,6 +21,17 @@ public sealed record ChangeRecord
 
     public DateTime AppliedAt { get; init; }
 
+    /// <summary>When the run started, and how long it took, so the record says what it cost.</summary>
+    public DateTime? StartedAt { get; init; }
+
+    public long? ElapsedMs { get; init; }
+
+    /// <summary>The build that wrote this record, so a report states which one produced it.</summary>
+    public string? AppVersion { get; init; }
+
+    /// <summary>The Windows version the run happened on, for the same reason.</summary>
+    public string? WindowsVersion { get; init; }
+
     /// <summary>Which run this record describes: the last apply, or the revert of it.</summary>
     [JsonConverter(typeof(StringEnumConverter))]
     public ChangeRecordOperation Operation { get; init; } = ChangeRecordOperation.Apply;
@@ -33,8 +45,7 @@ public sealed record ChangeRecord
     public IReadOnlyList<ChangeRecordStep> Steps { get; init; } = [];
 
     /// <summary>Counts the steps that ended with one kind and did not fail.</summary>
-    public int CountOf(ChangeKind kind) =>
-        Steps.Count(step => step.Ok && step.Kind == kind);
+    public int CountOf(ChangeKind kind) => Steps.Count(step => step.Ok && step.Kind == kind);
 
     public int ChangedCount => CountOf(ChangeKind.Change);
 
@@ -56,7 +67,8 @@ public sealed record ChangeRecord
             RevertedAt = at,
             Steps =
             [
-                .. Steps.Where(step => step.Kind == ChangeKind.Change)
+                .. Steps
+                    .Where(step => step.Kind == ChangeKind.Change)
                     .Select(step =>
                         step.HasValuePair
                             ? step with
@@ -73,41 +85,86 @@ public sealed record ChangeRecord
     /// <summary>Captures one finished apply. The record is a copy: nothing here is live state.</summary>
     public static ChangeRecord From(ChangeSet changes, IOptimization item, string outcome)
     {
+        ArgumentNullException.ThrowIfNull(changes);
+
         return new ChangeRecord
         {
             Id = item.Id,
             OptimizationKey = item.OptimizationKey,
             LogName = item.LogName(),
             AppliedAt = DateTime.Now,
+            StartedAt = changes.StartedAt,
+            ElapsedMs = changes.ElapsedMs,
+            AppVersion = Shared.FileVersion,
+            WindowsVersion = Environment.OSVersion.Version.ToString(),
             Outcome = outcome,
+            Steps = [.. changes.Changes.OrderBy(change => change.Index).Select(StepOf)],
+        };
+    }
+
+    /// <summary>
+    ///     The same record as a retry leaves it: a step the retry took further takes the outcome the
+    ///     retry reached and counts one more attempt, and a step the retry did not touch keeps what
+    ///     it had. What the retry wrote is what the record then says, so the history shows a step
+    ///     that needed a second attempt instead of only that it once failed.
+    /// </summary>
+    /// <param name="recovered">The steps the retry recovered.</param>
+    /// <param name="stillFailed">The steps that failed again.</param>
+    /// <returns>The record as the retry leaves it.</returns>
+    public ChangeRecord Retried(IReadOnlyList<Change> recovered, IReadOnlyList<Change> stillFailed)
+    {
+        ArgumentNullException.ThrowIfNull(recovered);
+        ArgumentNullException.ThrowIfNull(stillFailed);
+
+        var retried = new Dictionary<int, Change>();
+        foreach (var change in recovered)
+            retried[change.Index] = change;
+        foreach (var change in stillFailed)
+            retried[change.Index] = change;
+
+        if (retried.Count == 0)
+            return this;
+
+        return this with
+        {
             Steps =
             [
-                .. changes
-                    .Changes.OrderBy(change => change.Index)
-                    .Select(change => new ChangeRecordStep
-                    {
-                        Name = change.Name,
-                        Description = change.Description,
-                        Kind = change.Kind,
-                        Ok = change.Ok,
-                        Error = change.Error,
-                        Operation = change.Detail?.Operation,
-                        Target = change.Detail?.Target,
-                        ValueName = change.Detail?.ValueName,
-                        ValueType = change.Detail?.ValueType,
-                        PreviousValue = change.Detail?.PreviousValue,
-                        NewValue = change.Detail?.NewValue,
-                        HasValuePair = change.Detail?.HasValuePair ?? false,
-                        Reason = change.Detail?.Reason,
-                    }),
+                .. Steps.Select(step =>
+                    retried.TryGetValue(step.Index, out var change) ? StepOf(change) : step
+                ),
             ],
         };
     }
+
+    /// <summary>
+    ///     One recorded step as the file stores it. The facts of the operation go through the codec,
+    ///     which is the only thing that knows how a detail is laid out.
+    /// </summary>
+    internal static ChangeRecordStep StepOf(Change change) =>
+        new ChangeRecordStep
+        {
+            Index = change.Index,
+            Name = change.Name,
+            Description = change.Description,
+            Kind = change.Kind,
+            Ok = change.Ok,
+            Error = change.Error,
+            NativeErrorCode = change.NativeErrorCode,
+            RecordedAt = change.RecordedAt,
+            ElapsedMs = change.ElapsedMs,
+            Attempt = change.Attempt,
+        }.WithDetail(change.Detail);
 }
 
 /// <summary>One step of a recorded apply, with the reason it wrote nothing when it did not.</summary>
 public sealed record ChangeRecordStep
 {
+    /// <summary>
+    ///     The step's position in the run, kept as the revert file keeps it, so a record that was
+    ///     rewritten after a retry can still match a step to the attempt that changed it.
+    /// </summary>
+    public int Index { get; init; }
+
     public string Name { get; init; } = string.Empty;
 
     public string Description { get; init; } = string.Empty;
@@ -119,10 +176,30 @@ public sealed record ChangeRecordStep
 
     public string? Error { get; init; }
 
+    /// <summary>
+    ///     The code the failure came from, as the system reported it. Null when there was no code,
+    ///     which is not the same as zero.
+    /// </summary>
+    public int? NativeErrorCode { get; init; }
+
+    /// <summary>When the step finished, and how long its own work took.</summary>
+    public DateTime? RecordedAt { get; init; }
+
+    public long? ElapsedMs { get; init; }
+
+    /// <summary>Which attempt this step is: 1, or one more for each retry.</summary>
+    public int Attempt { get; init; } = 1;
+
     /// <summary>The structured facts of the step, when the provider recorded them.</summary>
     public string? Operation { get; init; }
 
     public string? Target { get; init; }
+
+    /// <summary>
+    ///     How the target is named to the user when Windows can name it, for example a power
+    ///     setting's name. Null when the target's identifier is all there is to show.
+    /// </summary>
+    public string? DisplayName { get; init; }
 
     public string? ValueName { get; init; }
 

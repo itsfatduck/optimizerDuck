@@ -2504,4 +2504,25 @@ Mettez à jour maintenant pour profiter des dernières fonctionnalités, amélio
   <data name="Optimizer.Details.Reason.UsbNoDevices" xml:space="preserve">
     <value>Ce PC n'a pas de concentrateur USB racine</value>
   </data>
+  <data name="Optimizer.Details.Field.Took" xml:space="preserve">
+    <value>Durée</value>
+  </data>
+  <data name="Optimizer.Details.Field.At" xml:space="preserve">
+    <value>Moment</value>
+  </data>
+  <data name="Optimizer.Details.Field.ErrorCode" xml:space="preserve">
+    <value>Code d'erreur</value>
+  </data>
+  <data name="Optimizer.Details.Field.Attempt" xml:space="preserve">
+    <value>Tentative</value>
+  </data>
+  <data name="Optimizer.Details.Record.Version" xml:space="preserve">
+    <value>Version de l'application</value>
+  </data>
+  <data name="Optimizer.Details.Record.Windows" xml:space="preserve">
+    <value>Version de Windows</value>
+  </data>
+  <data name="Optimizer.Details.Record.Took" xml:space="preserve">
+    <value>Durée</value>
+  </data>
 </root>

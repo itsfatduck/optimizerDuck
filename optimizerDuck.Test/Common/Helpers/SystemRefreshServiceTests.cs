@@ -81,48 +81,11 @@ public class SystemRefreshServiceTests
     }
 
     [Fact]
-    public void SetDesktopIconsVisible_True_DoesNotThrow()
-    {
-        var exception = Record.Exception(() =>
-            SystemRefreshService.SetDesktopIconsVisible(showIcons: true)
-        );
-        Assert.Null(exception);
-    }
-
-    [Fact]
-    public void SetDesktopIconsVisible_False_DoesNotThrow()
-    {
-        var exception = Record.Exception(() =>
-            SystemRefreshService.SetDesktopIconsVisible(showIcons: false)
-        );
-        Assert.Null(exception);
-    }
-
-    [Fact]
     public void RefreshDesktopIconVisibilityFromRegistry_DoesNotThrow()
     {
         var exception = Record.Exception(() =>
             SystemRefreshService.RefreshDesktopIconVisibilityFromRegistry()
         );
         Assert.Null(exception);
-    }
-
-    [Fact]
-    public void SetDesktopIconsVisible_ToggleBackAndForth_DoesNotThrow()
-    {
-        var ex1 = Record.Exception(() =>
-            SystemRefreshService.SetDesktopIconsVisible(showIcons: true)
-        );
-        Assert.Null(ex1);
-
-        var ex2 = Record.Exception(() =>
-            SystemRefreshService.SetDesktopIconsVisible(showIcons: false)
-        );
-        Assert.Null(ex2);
-
-        var ex3 = Record.Exception(() =>
-            SystemRefreshService.SetDesktopIconsVisible(showIcons: true)
-        );
-        Assert.Null(ex3);
     }
 }

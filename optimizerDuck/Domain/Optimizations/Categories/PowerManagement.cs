@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
-using System.IO;
 using System.Globalization;
+using System.IO;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -68,12 +68,7 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
                 call.Changes.AddSkip(
                     ServiceStrings.HibernationName,
                     ServiceStrings.HibernationDescriptionDisable,
-                    new ChangeDetail
-                    {
-                        Operation = HibernationAction,
-                        PreviousValue = HibernationStateDisabled,
-                        HasValuePair = true,
-                    }
+                    new HibernationDetail { PreviousPresent = false, NewPresent = null }
                 );
                 call.Logger.LogInformation("Hibernation already disabled, skipping");
                 return OpResult.Success();
@@ -89,22 +84,19 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
                     ServiceStrings.HibernationDescriptionDisable,
                     true,
                     revert,
-                    detail: new ChangeDetail
+                    detail: new HibernationDetail
                     {
-                        Operation = HibernationAction,
-                        HasValuePair = true,
-                        PreviousValue = wasPresent switch
-                        {
-                            true => HibernationStateEnabled,
-                            false => HibernationStateDisabled,
-                            _ => null,
-                        },
-                        NewValue = HibernationStateDisabled,
+                        PreviousPresent = wasPresent,
+                        NewPresent = false,
                     }
                 );
                 call.Logger.LogInformation(
                     "Disabled hibernation and Fast Startup. Previous state: {State}",
-                    wasPresent is { } present ? present ? "Enabled" : "Disabled" : "Unknown"
+                    wasPresent is { } present
+                        ? present
+                            ? "Enabled"
+                            : "Disabled"
+                        : "Unknown"
                 );
                 return OpResult.Success(revert);
             }
@@ -132,10 +124,6 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
         }
     }
 
-    internal const string HibernationAction = "hibernation";
-    internal const string HibernationStateEnabled = "Enabled";
-    internal const string HibernationStateDisabled = "Disabled";
-    internal const string UsbAction = "usb.power";
     internal const string UsbReasonNoDevices = "usb.noDevices";
 
     [Optimization(
@@ -158,12 +146,7 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
                 context.Changes.AddNotApplicable(
                     ServiceStrings.UsbPowerName,
                     ServiceStrings.UsbPowerInfoNoDevices,
-                    new ChangeDetail
-                    {
-                        Operation = UsbAction,
-                        NewValue = "0",
-                        Reason = UsbReasonNoDevices,
-                    }
+                    new UsbPowerDetail { DeviceCount = 0, Reason = UsbReasonNoDevices }
                 );
                 return Task.FromResult(context.Changes.ToApplyResult());
             }
@@ -228,7 +211,7 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
                 call.Changes.AddSkip(
                     ServiceStrings.UsbPowerName,
                     ServiceStrings.UsbPowerInfoAlreadyConfigured,
-                    new ChangeDetail { Operation = UsbAction, NewValue = "0" }
+                    new UsbPowerDetail { DeviceCount = 0 }
                 );
                 return OpResult.Success();
             }
@@ -240,11 +223,7 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
                     description,
                     true,
                     revertStep,
-                    detail: new ChangeDetail
-                    {
-                        Operation = UsbAction,
-                        NewValue = result.ChangedCount.ToString(CultureInfo.InvariantCulture),
-                    }
+                    detail: new UsbPowerDetail { DeviceCount = result.ChangedCount }
                 );
                 call.Logger.LogInformation(
                     "[USB][OK] power saving disabled, {Count} device(s) changed",

@@ -65,8 +65,15 @@ public static class ScheduledTaskService
                 call.Logger.LogInformation("Task {Path} not found, nothing to change", fullPath);
                 call.Changes.AddNotApplicable(
                     ServiceStrings.ScheduledTaskName,
-                    ServiceStrings.Format(ServiceStrings.ScheduledTaskInfoSkippedNotFound, fullPath),
-                    TaskStep(DisableAction, fullPath, null, null, TaskReasonNotFound)
+                    ServiceStrings.Format(
+                        ServiceStrings.ScheduledTaskInfoSkippedNotFound,
+                        fullPath
+                    ),
+                    new ScheduledTaskDisableDetail
+                    {
+                        TaskPath = fullPath,
+                        Reason = TaskReasonNotFound,
+                    }
                 );
                 return OpResult.Success();
             }
@@ -82,7 +89,11 @@ public static class ScheduledTaskService
                         fullPath,
                         "disabled"
                     ),
-                    TaskStep(DisableAction, fullPath, TaskStateDisabled, null)
+                    new ScheduledTaskDisableDetail
+                    {
+                        TaskPath = fullPath,
+                        PreviousEnabled = false,
+                    }
                 );
                 return OpResult.Success();
             }
@@ -100,7 +111,12 @@ public static class ScheduledTaskService
                 description,
                 true,
                 revertStep,
-                detail: TaskStep(DisableAction, fullPath, TaskStateEnabled, TaskStateDisabled)
+                detail: new ScheduledTaskDisableDetail
+                {
+                    TaskPath = fullPath,
+                    PreviousEnabled = true,
+                    NewEnabled = false,
+                }
             );
             return OpResult.Success(revertStep);
         }
@@ -166,8 +182,15 @@ public static class ScheduledTaskService
                 call.Logger.LogInformation("Task {Path} not found, nothing to change", fullPath);
                 call.Changes.AddNotApplicable(
                     ServiceStrings.ScheduledTaskName,
-                    ServiceStrings.Format(ServiceStrings.ScheduledTaskInfoSkippedNotFound, fullPath),
-                    TaskStep(EnableAction, fullPath, null, null, TaskReasonNotFound)
+                    ServiceStrings.Format(
+                        ServiceStrings.ScheduledTaskInfoSkippedNotFound,
+                        fullPath
+                    ),
+                    new ScheduledTaskEnableDetail
+                    {
+                        TaskPath = fullPath,
+                        Reason = TaskReasonNotFound,
+                    }
                 );
                 return OpResult.Success();
             }
@@ -183,7 +206,11 @@ public static class ScheduledTaskService
                         fullPath,
                         "enabled"
                     ),
-                    TaskStep(EnableAction, fullPath, TaskStateEnabled, null)
+                    new ScheduledTaskEnableDetail
+                    {
+                        TaskPath = fullPath,
+                        PreviousEnabled = true,
+                    }
                 );
                 return OpResult.Success();
             }
@@ -201,7 +228,12 @@ public static class ScheduledTaskService
                 description,
                 true,
                 revertStep,
-                detail: TaskStep(EnableAction, fullPath, TaskStateDisabled, TaskStateEnabled)
+                detail: new ScheduledTaskEnableDetail
+                {
+                    TaskPath = fullPath,
+                    PreviousEnabled = false,
+                    NewEnabled = true,
+                }
             );
             return OpResult.Success(revertStep);
         }
@@ -796,33 +828,5 @@ public static class ScheduledTaskService
     }
 
     #endregion Helpers
-    internal const string DisableAction = "task.disable";
-    internal const string EnableAction = "task.enable";
-    internal const string TaskStateEnabled = "Enabled";
-    internal const string TaskStateDisabled = "Disabled";
-
-    /// <summary>
-    ///     The facts of one task step, for a UI that localizes them. The states travel as words so
-    ///     the UI can translate them; the description on the step stays English.
-    /// </summary>
     internal const string TaskReasonNotFound = "task.notFound";
-
-    private static ChangeDetail TaskStep(
-        string operation,
-        string fullPath,
-        string? current,
-        string? target,
-        string? reason = null
-    )
-    {
-        return new ChangeDetail
-        {
-            Operation = operation,
-            Target = fullPath,
-            PreviousValue = current,
-            NewValue = target,
-            HasValuePair = true,
-            Reason = reason,
-        };
-    }
 }

@@ -1,4 +1,5 @@
-﻿using optimizerDuck.Domain.Abstractions;
+using System.Diagnostics;
+using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Services.Configuration;
 
@@ -13,7 +14,15 @@ public sealed class ChangeSet
 {
     private readonly List<Change> _changes = [];
     private readonly Lock _gate = new();
+    private readonly Stopwatch _clock = Stopwatch.StartNew();
     private int _sequence;
+    private long _lastRecordedMs;
+
+    /// <summary>When the run that collects these changes started.</summary>
+    public DateTime StartedAt { get; } = DateTime.Now;
+
+    /// <summary>How long the run has been going, for the record of what it did.</summary>
+    public long ElapsedMs => _clock.ElapsedMilliseconds;
 
     /// <summary>All recorded changes in execution order.</summary>
     public IReadOnlyList<Change> Changes
@@ -95,8 +104,20 @@ public sealed class ChangeSet
     ///     Records a step Windows refused, so nothing was written and no compensation is
     ///     expected for it.
     /// </summary>
-    public Change AddRefused(string name, string description, ChangeDetail? detail = null) =>
-        Add(name, description, true, detail: detail, kind: ChangeKind.Refused);
+    public Change AddRefused(
+        string name,
+        string description,
+        ChangeDetail? detail = null,
+        int? nativeErrorCode = null
+    ) =>
+        Add(
+            name,
+            description,
+            true,
+            detail: detail,
+            kind: ChangeKind.Refused,
+            nativeErrorCode: nativeErrorCode
+        );
 
     /// <summary>
     ///     Records a step that modified the system on purpose with no way back, so no
@@ -115,7 +136,8 @@ public sealed class ChangeSet
         string? errorDetail = null,
         Func<OpCall, Task<OpResult>>? retry = null,
         ChangeKind kind = ChangeKind.Change,
-        ChangeDetail? detail = null
+        ChangeDetail? detail = null,
+        int? nativeErrorCode = null
     )
     {
         var change = new Change
@@ -129,10 +151,24 @@ public sealed class ChangeSet
             ErrorDetail = errorDetail,
             Retry = retry,
             Detail = detail,
+            NativeErrorCode = nativeErrorCode,
         };
         lock (_gate)
         {
-            _changes.Add(change with { Index = ++_sequence });
+            // The span since the previous step was recorded, which is the work this step did:
+            // a provider records a step as soon as it finishes.
+            var elapsedMs = _clock.ElapsedMilliseconds;
+            var stepMs = elapsedMs - _lastRecordedMs;
+            _lastRecordedMs = elapsedMs;
+
+            _changes.Add(
+                change with
+                {
+                    Index = ++_sequence,
+                    ElapsedMs = stepMs,
+                    RecordedAt = DateTime.Now,
+                }
+            );
             return _changes[^1];
         }
     }
@@ -195,6 +231,29 @@ public sealed record Change
     public string? Error { get; init; }
 
     public string? ErrorDetail { get; init; }
+
+    /// <summary>
+    ///     The code the failure came from, as the system reported it: a Windows error code for a
+    ///     native call, or a process exit code for a program. Null when there was no code, which is
+    ///     not the same as zero.
+    /// </summary>
+    public int? NativeErrorCode { get; init; }
+
+    /// <summary>When the step finished, so a record says when each of its steps ran.</summary>
+    public DateTime? RecordedAt { get; init; }
+
+    /// <summary>
+    ///     How long the step's own work took, in milliseconds. It is measured as the time since the
+    ///     previous step was recorded, so a provider that records its step long after finishing is
+    ///     counted into its own duration.
+    /// </summary>
+    public long? ElapsedMs { get; init; }
+
+    /// <summary>
+    ///     Which attempt this step is: 1 for the run that recorded it, one more for each retry that
+    ///     took it further.
+    /// </summary>
+    public int Attempt { get; init; } = 1;
 
     public Func<OpCall, Task<OpResult>>? Retry { get; init; }
 }
