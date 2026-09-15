@@ -163,10 +163,22 @@ public sealed record GpuInfo
     public string? Name { get; init; }
     public GpuVendor Vendor { get; init; } = GpuVendor.Unknown;
     public int? VramMB { get; init; }
+
+    /// <summary>Windows driver version as the OS reports it, e.g. NVIDIA <c>32.0.15.8195</c>.</summary>
     public string? DriverVersion { get; init; }
+
+    /// <summary>
+    ///     Vendor-facing version when it differs from <see cref="DriverVersion" />: NVIDIA's public
+    ///     number (<c>581.95</c>) or AMD's own packaging version. Null when not derivable/absent.
+    /// </summary>
+    public string? DriverDisplayVersion { get; init; }
+
     public DateTime? DriverDate { get; init; }
     public string? DeviceId { get; init; }
     public string? PnpDeviceId { get; init; }
+
+    /// <summary>What the UI shows: vendor-facing version, else the raw Windows one.</summary>
+    public string? DriverDisplay => DriverDisplayVersion ?? DriverVersion;
 
     public bool IsNvidia => Vendor == GpuVendor.Nvidia;
     public bool IsAmd => Vendor == GpuVendor.Amd;

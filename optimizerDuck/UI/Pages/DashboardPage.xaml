@@ -365,10 +365,10 @@
                                         Padding="6,2"
                                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
                                         CornerRadius="{StaticResource CornerRadiusSmall}"
-                                        Visibility="{Binding ViewModel.SystemInfo.PrimaryGpu.DriverVersion, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}">
+                                        Visibility="{Binding ViewModel.SystemInfo.PrimaryGpu.DriverDisplay, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}">
                                         <ui:TextBlock
                                             FontTypography="Caption"
-                                            Text="{ext:Loc Dashboard.SystemInfo.Gpu.Driver, {Binding ViewModel.SystemInfo.PrimaryGpu.DriverVersion, Mode=OneWay}}"
+                                            Text="{ext:Loc Dashboard.SystemInfo.Gpu.Driver, {Binding ViewModel.SystemInfo.PrimaryGpu.DriverDisplay, Mode=OneWay}}"
                                             TextTrimming="CharacterEllipsis" />
                                     </Border>
                                     <Border

@@ -1196,6 +1196,9 @@ internal static class DxgiHelper
 
 internal static class GpuProvider
 {
+    /// <summary>Win32_VideoController.AdapterRAM is a 32-bit byte count: at/above this it is clamped garbage.</summary>
+    private const long TruncatedAdapterRamBytes = 4_294_901_760; // 0xFFFF0000
+
     /// <summary>Physical GPUs ordered by DXGI index; empty when nothing usable found.</summary>
     public static IReadOnlyList<GpuInfo> GetAll()
     {
@@ -1273,15 +1276,21 @@ internal static class GpuProvider
                     var name = desc.Description?.Trim();
                     if (string.IsNullOrWhiteSpace(name) || IsVirtualAdapter(name))
                         continue;
-                    var memoryMB = (int)((long)desc.DedicatedVideoMemory / (1024 * 1024));
+                    var dedicatedMB = (int)((long)desc.DedicatedVideoMemory / (1024 * 1024));
+                    var sharedMB = (int)((long)desc.SharedSystemMemory / (1024 * 1024));
+                    // iGPUs without a carve-out report 0 dedicated; the shared pool is then the
+                    // only honest number left (same split Task Manager shows).
+                    var memoryMB = dedicatedMB > 0 ? dedicatedMB : sharedMB;
+                    var vendor = DetectVendorById(desc.VendorId);
                     var match = FindWmiMatch(name, desc.VendorId, desc.DeviceId, wmiLookup);
                     gpus.Add(
                         new GpuInfo
                         {
                             Name = name,
-                            Vendor = DetectVendorById(desc.VendorId),
+                            Vendor = vendor,
                             VramMB = memoryMB > 0 ? memoryMB : null,
                             DriverVersion = match?.DriverVersion,
+                            DriverDisplayVersion = BrandDriverVersion(vendor, match?.DriverVersion),
                             DriverDate = match?.DriverDate,
                             DeviceId = match?.DeviceId,
                             PnpDeviceId = match?.PnpDeviceId,
@@ -1316,17 +1325,25 @@ internal static class GpuProvider
                             var name = WmiHelper.GetString(c, "Name");
                             if (string.IsNullOrWhiteSpace(name) || IsVirtualAdapter(name!))
                                 continue;
-                            var adapterRam = WmiHelper.GetLong(c, "AdapterRAM");
+                            var adapterRam = WmiHelper.GetLong(c, "AdapterRAM") ?? 0;
+                            // AdapterRAM is 32-bit, so anything at/above 4 GB is truncated garbage.
+                            var vramMB = adapterRam is > 0 and < TruncatedAdapterRamBytes
+                                ? (int)(adapterRam / (1024 * 1024))
+                                : (int?)null;
                             var pnpId = WmiHelper.GetString(c, "PNPDeviceID");
+                            var vendor = DetectVendor(name!, pnpId);
+                            var driverVersion = WmiHelper.GetString(c, "DriverVersion");
                             list.Add(
                                 new GpuInfo
                                 {
                                     Name = name,
-                                    Vendor = DetectVendor(name!, pnpId),
-                                    VramMB = adapterRam is > 0
-                                        ? (int)(adapterRam.Value / (1024 * 1024))
-                                        : null,
-                                    DriverVersion = WmiHelper.GetString(c, "DriverVersion"),
+                                    Vendor = vendor,
+                                    VramMB = vramMB,
+                                    DriverVersion = driverVersion,
+                                    DriverDisplayVersion = BrandDriverVersion(
+                                        vendor,
+                                        driverVersion
+                                    ),
                                     DriverDate = WmiHelper.GetWmiDate(c, "DriverDate"),
                                     DeviceId = WmiHelper.GetString(c, "DeviceID"),
                                     PnpDeviceId = pnpId,
@@ -1348,7 +1365,7 @@ internal static class GpuProvider
         try
         {
             return WmiHelper.Query(
-                    "SELECT Name, DriverVersion, DriverDate, DeviceID, PNPDeviceID FROM Win32_VideoController",
+                    "SELECT Name, DriverVersion, DriverDate, DeviceID, PNPDeviceID, ConfigManagerErrorCode FROM Win32_VideoController",
                     static items =>
                     {
                         var list = new List<WmiGpuEntry>(items.Count);
@@ -1364,11 +1381,15 @@ internal static class GpuProvider
                                     WmiHelper.GetString(c, "DeviceID"),
                                     pnpId,
                                     vendorId,
-                                    deviceId
+                                    deviceId,
+                                    WmiHelper.GetInt(c, "ConfigManagerErrorCode")
                                 )
                             );
                         }
-                        return list;
+                        // Stale/phantom rows (driver leftovers, disabled devices) keep a nonzero
+                        // ConfigManagerErrorCode: match those only after every working row.
+                        return list.OrderByDescending(static e => e.ConfigErrorCode is null or 0)
+                            .ToList();
                     }
                 ) ?? new List<WmiGpuEntry>();
         }
@@ -1413,11 +1434,81 @@ internal static class GpuProvider
         foreach (var e in entries)
             if (e.VendorId == dxgiVendorId && e.HardwareDeviceId == dxgiDeviceId)
                 return e;
-        var lower = dxgiName.ToLowerInvariant();
         foreach (var e in entries)
-            if (!string.IsNullOrEmpty(e.Name) && lower.Contains(e.Name.ToLowerInvariant()))
+            if (NamesMatch(dxgiName, e.Name))
                 return e;
         return null;
+    }
+
+    /// <summary>
+    ///     Name fallback, either direction: WMI appends suffixes DXGI omits
+    ///     ("NVIDIA GeForce GTX 1650 with Max-Q Design") and DXGI caps its description at 128 chars.
+    /// </summary>
+    internal static bool NamesMatch(string dxgiName, string? wmiName)
+    {
+        if (string.IsNullOrWhiteSpace(wmiName))
+            return false;
+        var dxgi = dxgiName.ToLowerInvariant();
+        var wmi = wmiName.ToLowerInvariant();
+        return dxgi.Contains(wmi) || wmi.Contains(dxgi);
+    }
+
+    /// <summary>
+    ///     Vendor-facing driver version. The raw Windows string only matches the vendor's own
+    ///     public name for Intel; NVIDIA derives it and AMD publishes a separate one.
+    ///     Null = show <see cref="GpuInfo.DriverVersion" /> as-is.
+    /// </summary>
+    internal static string? BrandDriverVersion(GpuVendor vendor, string? windowsVersion)
+    {
+        if (string.IsNullOrWhiteSpace(windowsVersion))
+            return null;
+        return vendor switch
+        {
+            GpuVendor.Nvidia => MapNvidiaDriverVersion(windowsVersion),
+            GpuVendor.Amd => AmdDriverVersion(),
+            _ => null,
+        };
+    }
+
+    /// <summary>
+    ///     NVIDIA's public version is the last five digits of the Windows version:
+    ///     <c>32.0.15.8195 → 581.95</c>, <c>27.21.14.5671 → 456.71</c>. Null when the string
+    ///     is not a 4-part numeric driver version.
+    /// </summary>
+    internal static string? MapNvidiaDriverVersion(string windowsVersion)
+    {
+        var parts = windowsVersion.Split('.');
+        if (parts.Length != 4)
+            return null;
+        foreach (var part in parts)
+            if (part.Length == 0 || !part.All(char.IsAsciiDigit))
+                return null;
+        var digits = string.Concat(parts);
+        if (digits.Length < 8)
+            return null;
+        var publicDigits = digits[^5..];
+        return $"{publicDigits[..3]}.{publicDigits[3..]}";
+    }
+
+    /// <summary>
+    ///     AMD keeps its own version (Software → Driver Version, e.g. <c>23.19.25.01</c>) beside the
+    ///     OS driver string. Null when Radeon Software is absent, so the raw version shows instead.
+    /// </summary>
+    internal static string? AmdDriverVersion()
+    {
+        try
+        {
+            using var key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\AMD\CN");
+            return
+                key?.GetValue("CNVersion") as string is { } version
+                && !string.IsNullOrWhiteSpace(version)
+                ? version.Trim()
+                : null;
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     private static bool IsVirtualAdapter(string name)
@@ -1474,7 +1565,8 @@ internal static class GpuProvider
         string? DeviceId,
         string? PnpDeviceId,
         uint VendorId,
-        uint HardwareDeviceId
+        uint HardwareDeviceId,
+        int? ConfigErrorCode
     );
 }
 

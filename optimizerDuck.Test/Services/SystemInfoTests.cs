@@ -165,6 +165,62 @@ public class SystemInfoTests
         Assert.Equal(expected, GpuProvider.DetectVendor(name, null));
     }
 
+    [Theory]
+    [InlineData("32.0.15.8195", "581.95")]
+    [InlineData("32.0.15.7270", "572.70")]
+    [InlineData("27.21.14.5671", "456.71")]
+    [InlineData("23.21.13.8813", "388.13")]
+    [InlineData("9.18.13.5362", "353.62")]
+    [InlineData("32.0.15", null)]
+    [InlineData("1.2.3.4", null)]
+    [InlineData("32.0.15.819x", null)]
+    [InlineData("not a version", null)]
+    public void MapNvidiaDriverVersion_UsesLastFiveDigits(string raw, string? expected)
+    {
+        Assert.Equal(expected, GpuProvider.MapNvidiaDriverVersion(raw));
+    }
+
+    [Theory]
+    [InlineData(GpuVendor.Nvidia, "32.0.15.8195", "581.95")]
+    // Intel's Windows version already is its public driver name.
+    [InlineData(GpuVendor.Intel, "31.0.101.5333", null)]
+    [InlineData(GpuVendor.Unknown, "1.0", null)]
+    [InlineData(GpuVendor.Nvidia, null, null)]
+    public void BrandDriverVersion_OnlyRewritesKnownBrands(
+        GpuVendor vendor,
+        string? raw,
+        string? expected
+    )
+    {
+        Assert.Equal(expected, GpuProvider.BrandDriverVersion(vendor, raw));
+    }
+
+    [Theory]
+    [InlineData("NVIDIA GeForce GTX 1650", "NVIDIA GeForce GTX 1650 with Max-Q Design", true)]
+    [InlineData("NVIDIA GeForce GTX 1650 with Max-Q Design", "NVIDIA GeForce GTX 1650", true)]
+    [InlineData("Intel(R) UHD Graphics", "Intel(R) UHD Graphics 620", true)]
+    [InlineData("AMD Radeon RX 6600M", "Intel(R) UHD Graphics", false)]
+    [InlineData("AMD Radeon RX 6600M", null, false)]
+    [InlineData("AMD Radeon RX 6600M", "", false)]
+    public void NamesMatch_HandlesVendorSuffixes(string dxgiName, string? wmiName, bool expected)
+    {
+        Assert.Equal(expected, GpuProvider.NamesMatch(dxgiName, wmiName));
+    }
+
+    [Fact]
+    public void DriverDisplay_FallsBackToWindowsVersion()
+    {
+        Assert.Equal("32.0.15.8195", new GpuInfo { DriverVersion = "32.0.15.8195" }.DriverDisplay);
+        Assert.Equal(
+            "581.95",
+            new GpuInfo
+            {
+                DriverVersion = "32.0.15.8195",
+                DriverDisplayVersion = "581.95",
+            }.DriverDisplay
+        );
+    }
+
     [Fact]
     public void GetPrimary_Empty_ReturnsNull()
     {
