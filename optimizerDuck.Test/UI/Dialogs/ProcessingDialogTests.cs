@@ -41,14 +41,19 @@ public class ProcessingDialogTests
         Assert.Equal(10, result.Total);
     }
 
-    [Fact]
-    public void MapProgress_ValueExceedsTotal_ClampsToTotal()
+    [Theory]
+    [InlineData(1, 1)]
+    [InlineData(10, 10)]
+    [InlineData(15, 10)]
+    public void MapProgress_ValueReachingTotal_ClearsTheBar(int value, int total)
     {
-        var result = ProcessingDialog.MapProgress(false, 15, 10);
+        // A run that reached its total is over: painting the bar full there left it on the
+        // taskbar after the dialog closed, with nothing left to clear it.
+        var result = ProcessingDialog.MapProgress(false, value, total);
 
-        Assert.Equal(TaskBarProgressState.Normal, result.State);
-        Assert.Equal(10, result.Current);
-        Assert.Equal(10, result.Total);
+        Assert.Equal(TaskBarProgressState.None, result.State);
+        Assert.Equal(0, result.Current);
+        Assert.Equal(0, result.Total);
     }
 
     [Fact]
