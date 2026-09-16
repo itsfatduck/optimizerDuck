@@ -182,7 +182,7 @@ public class SystemInfoTests
 
     [Theory]
     [InlineData(GpuVendor.Nvidia, "32.0.15.8195", "581.95")]
-    // Intel's Windows version already is its public driver name.
+    // Intel's Windows version is already its public driver name.
     [InlineData(GpuVendor.Intel, "31.0.101.5333", null)]
     [InlineData(GpuVendor.Unknown, "1.0", null)]
     [InlineData(GpuVendor.Nvidia, null, null)]

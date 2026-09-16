@@ -47,8 +47,7 @@ public class ProcessingDialogTests
     [InlineData(15, 10)]
     public void MapProgress_ValueReachingTotal_ClearsTheBar(int value, int total)
     {
-        // A run that reached its total is over: painting the bar full there left it on the
-        // taskbar after the dialog closed, with nothing left to clear it.
+        // A run that reached its total is over, so the bar clears instead of staying full.
         var result = ProcessingDialog.MapProgress(false, value, total);
 
         Assert.Equal(TaskBarProgressState.None, result.State);

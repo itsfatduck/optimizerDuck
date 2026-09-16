@@ -1196,7 +1196,7 @@ internal static class DxgiHelper
 
 internal static class GpuProvider
 {
-    /// <summary>Win32_VideoController.AdapterRAM is a 32-bit byte count: at/above this it is clamped garbage.</summary>
+    /// <summary>Win32_VideoController.AdapterRAM is 32-bit, so a value from here up is truncated.</summary>
     private const long TruncatedAdapterRamBytes = 4_294_901_760; // 0xFFFF0000
 
     /// <summary>Physical GPUs ordered by DXGI index; empty when nothing usable found.</summary>
@@ -1278,8 +1278,8 @@ internal static class GpuProvider
                         continue;
                     var dedicatedMB = (int)((long)desc.DedicatedVideoMemory / (1024 * 1024));
                     var sharedMB = (int)((long)desc.SharedSystemMemory / (1024 * 1024));
-                    // iGPUs without a carve-out report 0 dedicated; the shared pool is then the
-                    // only honest number left (same split Task Manager shows).
+                    // iGPUs without a carve-out report 0 dedicated, so report the shared pool
+                    // that Task Manager labels shared GPU memory.
                     var memoryMB = dedicatedMB > 0 ? dedicatedMB : sharedMB;
                     var vendor = DetectVendorById(desc.VendorId);
                     var match = FindWmiMatch(name, desc.VendorId, desc.DeviceId, wmiLookup);
@@ -1326,7 +1326,6 @@ internal static class GpuProvider
                             if (string.IsNullOrWhiteSpace(name) || IsVirtualAdapter(name!))
                                 continue;
                             var adapterRam = WmiHelper.GetLong(c, "AdapterRAM") ?? 0;
-                            // AdapterRAM is 32-bit, so anything at/above 4 GB is truncated garbage.
                             var vramMB = adapterRam is > 0 and < TruncatedAdapterRamBytes
                                 ? (int)(adapterRam / (1024 * 1024))
                                 : (int?)null;
@@ -1386,8 +1385,8 @@ internal static class GpuProvider
                                 )
                             );
                         }
-                        // Stale/phantom rows (driver leftovers, disabled devices) keep a nonzero
-                        // ConfigManagerErrorCode: match those only after every working row.
+                        // Rows with a nonzero ConfigManagerErrorCode are stale or disabled, so they
+                        // sort last and only match when no working row does.
                         return list.OrderByDescending(static e => e.ConfigErrorCode is null or 0)
                             .ToList();
                     }
@@ -1441,8 +1440,8 @@ internal static class GpuProvider
     }
 
     /// <summary>
-    ///     Name fallback, either direction: WMI appends suffixes DXGI omits
-    ///     ("NVIDIA GeForce GTX 1650 with Max-Q Design") and DXGI caps its description at 128 chars.
+    ///     Name fallback, both directions, because WMI appends suffixes DXGI drops
+    ///     ("NVIDIA GeForce GTX 1650 with Max-Q Design") and DXGI truncates at 128 chars.
     /// </summary>
     internal static bool NamesMatch(string dxgiName, string? wmiName)
     {
@@ -1454,9 +1453,9 @@ internal static class GpuProvider
     }
 
     /// <summary>
-    ///     Vendor-facing driver version. The raw Windows string only matches the vendor's own
-    ///     public name for Intel; NVIDIA derives it and AMD publishes a separate one.
-    ///     Null = show <see cref="GpuInfo.DriverVersion" /> as-is.
+    ///     Vendor-facing driver version. NVIDIA's is derived from the Windows string, AMD's comes from
+    ///     its own registry key, and Intel's Windows string already is the public name. Null when the
+    ///     vendor version is unavailable.
     /// </summary>
     internal static string? BrandDriverVersion(GpuVendor vendor, string? windowsVersion)
     {
@@ -1471,9 +1470,9 @@ internal static class GpuProvider
     }
 
     /// <summary>
-    ///     NVIDIA's public version is the last five digits of the Windows version:
-    ///     <c>32.0.15.8195 → 581.95</c>, <c>27.21.14.5671 → 456.71</c>. Null when the string
-    ///     is not a 4-part numeric driver version.
+    ///     NVIDIA's public version is the last five digits of the Windows one, so <c>32.0.15.8195</c>
+    ///     is <c>581.95</c> and <c>27.21.14.5671</c> is <c>456.71</c>. Null unless the input is a
+    ///     4-part numeric version.
     /// </summary>
     internal static string? MapNvidiaDriverVersion(string windowsVersion)
     {
@@ -1491,8 +1490,8 @@ internal static class GpuProvider
     }
 
     /// <summary>
-    ///     AMD keeps its own version (Software → Driver Version, e.g. <c>23.19.25.01</c>) beside the
-    ///     OS driver string. Null when Radeon Software is absent, so the raw version shows instead.
+    ///     The version Radeon Software labels "Driver Version" (<c>23.19.25.01</c> on the test box),
+    ///     which AMD keeps beside the OS driver string. Null when Radeon Software is not installed.
     /// </summary>
     internal static string? AmdDriverVersion()
     {

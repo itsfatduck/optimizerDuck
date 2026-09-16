@@ -14,7 +14,7 @@ public partial class ProcessingDialog : UserControl
     private Window? _trackedWindow;
     private ContentDialog? _hostDialog;
 
-    /// <summary>Set once the run is over, so a late report cannot put the bar back.</summary>
+    /// <summary>True once the run is over, so a late report cannot put the bar back.</summary>
     private bool _detached;
 
     public ProcessingDialog()
@@ -27,8 +27,8 @@ public partial class ProcessingDialog : UserControl
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        // Hiding a ContentDialog does not reliably unload its content, so the dialog's own
-        // Closed event (the run is over) is the dependable place to drop the taskbar bar.
+        // Hiding a ContentDialog does not reliably unload its content, so drop the bar when the
+        // host dialog closes rather than waiting for Unloaded.
         _detached = false;
         _hostDialog = FindHostDialog(this);
         if (_hostDialog is not null)
@@ -47,7 +47,7 @@ public partial class ProcessingDialog : UserControl
         Detach();
     }
 
-    /// <summary>Ends the run: clears the bar and ignores every later progress report.</summary>
+    /// <summary>Clears the bar and stops listening for progress reports.</summary>
     private void Detach()
     {
         _detached = true;
@@ -73,9 +73,8 @@ public partial class ProcessingDialog : UserControl
     }
 
     /// <summary>
-    ///     Maps dialog progress to a taskbar indicator state. A finished run (value reaching the
-    ///     total) maps to <see cref="TaskBarProgressState.None" />, so the bar cannot outlive the
-    ///     operation even when the dialog's own close never reaches this control.
+    ///     Maps dialog progress to a taskbar indicator state. A run that reached its total maps to
+    ///     <see cref="TaskBarProgressState.None" />, so a finished bar cannot stay behind.
     /// </summary>
     internal static (TaskBarProgressState State, int Current, int Total) MapProgress(
         bool isIndeterminate,
@@ -118,8 +117,8 @@ public partial class ProcessingDialog : UserControl
 
     private void ApplyToTaskbar()
     {
-        // The window handle stays cached after the dialog is gone: without this, a report that
-        // lands after the run finished turns the bar back on with nothing left to clear it.
+        // The window handle stays cached after the dialog is gone, so a report landing once the
+        // run finished would turn the bar back on with nothing left to clear it.
         if (_detached || !IsLoaded)
             return;
 
@@ -147,8 +146,6 @@ public partial class ProcessingDialog : UserControl
             viewModel.Total
         );
 
-        // A finished operation reports value == total and maps to None here, so the bar cannot
-        // outlive the run even if the dialog's own close never reaches us.
         if (state == TaskBarProgressState.Normal)
             _ = TaskBarProgress.SetValue(handle, state, current, total);
         else

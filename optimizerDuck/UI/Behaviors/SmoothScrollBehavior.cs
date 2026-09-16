@@ -403,7 +403,7 @@ public static class SmoothScrollBehavior
         return false;
     }
 
-    // e.OriginalSource may be a ContentElement (Run, Span, ...); VisualTreeHelper rejects those.
+    // e.OriginalSource can be a ContentElement (Run, Span), which VisualTreeHelper.GetParent rejects.
     private static DependencyObject? GetParent(DependencyObject element) =>
         element switch
         {
