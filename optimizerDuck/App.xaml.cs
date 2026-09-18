@@ -214,9 +214,7 @@ public partial class App : Application
             {
                 await HandleStartupErrorStaticAsync(ex);
             }
-            catch
-            {
-            }
+            catch { }
         }
     }
 
@@ -271,6 +269,17 @@ public partial class App : Application
     {
         LogExceptionToFile("DispatcherUnhandledException", e.Exception);
         Log.Logger?.Error(e.Exception, "Unhandled UI dispatcher exception");
+
+        // The exception is swallowed below, so the user is told about it here.
+        try
+        {
+            _host?.Services.GetService<UserErrorSurface>()?.TryReport(e.Exception);
+        }
+        catch (Exception ex)
+        {
+            Log.Logger?.Warning(ex, "Could not report the unhandled exception to the user");
+        }
+
         e.Handled = true;
     }
 

@@ -2520,4 +2520,13 @@
   <data name="Optimizer.Details.Record.Took" xml:space="preserve">
     <value>耗時</value>
   </data>
+  <data name="Error.Unhandled.Title" xml:space="preserve">
+    <value>發生問題</value>
+  </data>
+  <data name="Error.Unhandled.Message" xml:space="preserve">
+    <value>無法完成上一個操作：{0}</value>
+  </data>
+  <data name="Error.Unhandled.LogHint" xml:space="preserve">
+    <value>詳細資料已寫入記錄檔。</value>
+  </data>
 </root>

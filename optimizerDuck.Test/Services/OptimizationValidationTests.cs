@@ -1,11 +1,11 @@
-﻿using System.Globalization;
+using System.Globalization;
 using System.Reflection;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
-using optimizerDuck.Domain.Execution;
-using optimizerDuck.Domain.UI;
 using optimizerDuck.Domain.Attributes;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
+using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Optimization;
 
@@ -146,6 +146,11 @@ public class OptimizationValidationTests
             var category in ReflectionHelper.FindImplementationsInLoadedAssemblies<IOptimizationCategory>()
         )
         {
+#if DEBUG
+            // The Debug category carries hard-coded English, so it has no resource keys to find.
+            if (category.Name == "Debug")
+                continue;
+#endif
             foreach (
                 var nested in category
                     .GetNestedTypes(BindingFlags.Public)
@@ -183,8 +188,7 @@ public class OptimizationValidationTests
                 missing.Add(key);
         }
 
-        var labelKeys = Enum
-            .GetValues<ChangeKind>()
+        var labelKeys = Enum.GetValues<ChangeKind>()
             .Select(kind => kind.ToDisplay().LabelKey)
             .Append(ChangeKindPresentation.ForStep(new ChangeRecordStep { Ok = false }).LabelKey);
 

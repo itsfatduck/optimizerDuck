@@ -2516,4 +2516,13 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   <data name="Optimizer.Details.Record.Took" xml:space="preserve">
     <value>Süre</value>
   </data>
+  <data name="Error.Unhandled.Title" xml:space="preserve">
+    <value>Bir sorun oluştu</value>
+  </data>
+  <data name="Error.Unhandled.Message" xml:space="preserve">
+    <value>Son işlem tamamlanamadı: {0}</value>
+  </data>
+  <data name="Error.Unhandled.LogHint" xml:space="preserve">
+    <value>Ayrıntılar günlük dosyasında.</value>
+  </data>
 </root>

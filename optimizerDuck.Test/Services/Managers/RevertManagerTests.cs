@@ -569,40 +569,16 @@ public class MockOptimization(Guid id) : StubOptimization
 }
 
 /// <summary>
-///     Pins the guard that a step recorded as a change carries the data needed to undo it.
-///     The writer filters entries without compensation, so the warning is the only signal
-///     that a provider forgot one.
+///     Pins that the writer keeps only steps carrying compensation: a change recorded without one
+///     produces no file, and the run that recorded it is the place the defect is reported.
 /// </summary>
 public class RevertManagerChangeGuardTests
 {
-    private sealed class CapturingLogger : ILogger<RevertManager>
-    {
-        public List<string> Warnings { get; } = [];
-
-        public IDisposable? BeginScope<TState>(TState state)
-            where TState : notnull => null;
-
-        public bool IsEnabled(LogLevel logLevel) => true;
-
-        public void Log<TState>(
-            LogLevel logLevel,
-            EventId eventId,
-            TState state,
-            Exception? exception,
-            Func<TState, Exception?, string> formatter
-        )
-        {
-            if (logLevel == LogLevel.Warning)
-                Warnings.Add(formatter(state, exception));
-        }
-    }
-
     [Fact]
-    public async Task SaveRevertDataAsync_ChangeWithoutCompensation_WarnsAndWritesNoFile()
+    public async Task SaveRevertDataAsync_ChangeWithoutCompensation_WritesNoFile()
     {
-        var logger = new CapturingLogger();
         var manager = new RevertManager(
-            logger,
+            NullLogger<RevertManager>.Instance,
             TestShell.New(),
             new PowerPlanService(NullLogger<PowerPlanService>.Instance),
             TimeProvider.System
@@ -621,7 +597,6 @@ public class RevertManagerChangeGuardTests
                 TestContext.Current.CancellationToken
             );
 
-            Assert.Contains(logger.Warnings, w => w.Contains("carries no revert data"));
             Assert.False(File.Exists(path));
         }
         finally
@@ -629,6 +604,111 @@ public class RevertManagerChangeGuardTests
             if (File.Exists(path))
                 File.Delete(path);
         }
+    }
+}
+
+/// <summary>
+///     Pins what a cancelled revert leaves behind and that two writes for one item keep every step
+///     they were given.
+/// </summary>
+public class RevertCancellationAndConcurrencyTests
+{
+    private static RevertManager NewManager() =>
+        new(
+            NullLogger<RevertManager>.Instance,
+            TestShell.New(),
+            new PowerPlanService(NullLogger<PowerPlanService>.Instance),
+            TimeProvider.System
+        );
+
+    private static void Cleanup(Guid id)
+    {
+        foreach (var file in Directory.GetFiles(Shared.RevertDirectory, id + ".json*"))
+            File.Delete(file);
+    }
+
+    [Fact]
+    public async Task RevertAsync_CancelledAfterTheFirstStep_KeepsEveryEntry()
+    {
+        var id = Guid.NewGuid();
+        var path = Path.Combine(Shared.RevertDirectory, id + ".json");
+        var cancellationToken = TestContext.Current.CancellationToken;
+        Directory.CreateDirectory(Shared.RevertDirectory);
+
+        try
+        {
+            var changes = new ChangeSet();
+            changes.Add("Registry", "wrote the first value", true, new MockRevertStep());
+            changes.Add("Registry", "wrote the second value", true, new MockRevertStep());
+            await NewManager()
+                .SaveRevertDataAsync(changes, id, "CancellationTest", cancellationToken);
+
+            using var cancellation = CancellationTokenSource.CreateLinkedTokenSource(
+                cancellationToken
+            );
+            // The revert reports before each step, so the first report is the moment the user's
+            // cancellation would land: the first step has run, the second has not.
+            var progress = new CancellingProgress(cancellation);
+
+            await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
+                NewManager().RevertAsync(new MockOptimization(id), progress, cancellation.Token)
+            );
+
+            var kept = await RevertManager.GetRevertDataAsync(id);
+            Assert.NotNull(kept);
+            Assert.Equal(2, kept!.Steps.Count(s => s != null));
+
+            // Running it again from a live token finishes the job and removes the file.
+            var result = await NewManager()
+                .RevertAsync(new MockOptimization(id), null, cancellationToken);
+
+            Assert.True(result.Success);
+            Assert.False(File.Exists(path));
+        }
+        finally
+        {
+            Cleanup(id);
+        }
+    }
+
+    [Fact]
+    public async Task SaveRevertDataAsync_TwoRunsAtOnce_KeepEveryStepWithItsOwnIndex()
+    {
+        var id = Guid.NewGuid();
+        var cancellationToken = TestContext.Current.CancellationToken;
+        Directory.CreateDirectory(Shared.RevertDirectory);
+
+        try
+        {
+            var first = new ChangeSet();
+            first.Add("Registry", "wrote the first value", true, new MockRevertStep());
+            var second = new ChangeSet();
+            second.Add("Registry", "wrote the second value", true, new MockRevertStep());
+
+            var manager = NewManager();
+            await Task.WhenAll(
+                manager.SaveRevertDataAsync(first, id, "ConcurrencyTest", cancellationToken),
+                manager.SaveRevertDataAsync(second, id, "ConcurrencyTest", cancellationToken)
+            );
+
+            var data = await RevertManager.GetRevertDataAsync(id);
+
+            Assert.NotNull(data);
+            var steps = data!.Steps.Where(s => s != null).Select(s => s!).ToList();
+            Assert.Equal(2, steps.Count);
+            Assert.Equal(2, steps.Select(s => s.Index).Distinct().Count());
+            Assert.Equal([1, 2], steps.Select(s => s.Index).Order());
+        }
+        finally
+        {
+            Cleanup(id);
+        }
+    }
+
+    private sealed class CancellingProgress(CancellationTokenSource cancellation)
+        : IProgress<ProcessingProgress>
+    {
+        public void Report(ProcessingProgress value) => cancellation.Cancel();
     }
 }
 
@@ -711,7 +791,54 @@ public class RevertIntegrityTests
 
             var parked = Directory.GetFiles(Shared.RevertDirectory, id + ".json.unreadable-*");
             Assert.Single(parked);
-            Assert.Contains("SchemaVersion", await File.ReadAllTextAsync(parked[0], cancellationToken));
+            Assert.Contains(
+                "SchemaVersion",
+                await File.ReadAllTextAsync(parked[0], cancellationToken)
+            );
+        }
+        finally
+        {
+            Cleanup(id);
+        }
+    }
+
+    [Fact]
+    public async Task Load_WhenTheStepArrayIsNull_IsTreatedAsUnreadable()
+    {
+        var id = Guid.NewGuid();
+        var path = Path.Combine(Shared.RevertDirectory, id + ".json");
+        var cancellationToken = TestContext.Current.CancellationToken;
+        Directory.CreateDirectory(Shared.RevertDirectory);
+
+        try
+        {
+            await File.WriteAllTextAsync(
+                path,
+                $"{{\"SchemaVersion\":1,\"OptimizationId\":\"{id}\","
+                    + "\"OptimizationName\":\"IntegrityTest\",\"Steps\":null}",
+                cancellationToken
+            );
+
+            // The item was applied once, and this file is the only copy of what it held.
+            Assert.True(await RevertManager.IsAppliedAsync(id));
+            Assert.Null(await RevertManager.GetRevertDataAsync(id));
+
+            var result = await NewManager()
+                .RevertAsync(new MockOptimization(id), null, cancellationToken);
+
+            Assert.False(result.Success);
+            Assert.Contains(path, result.Message);
+
+            var changes = new ChangeSet();
+            changes.Add("Registry", "wrote a value", true, new MockRevertStep());
+            await NewManager().SaveRevertDataAsync(changes, id, "IntegrityTest", cancellationToken);
+
+            var parked = Directory.GetFiles(Shared.RevertDirectory, id + ".json.unreadable-*");
+            Assert.Single(parked);
+            Assert.Contains(
+                "\"Steps\":null",
+                await File.ReadAllTextAsync(parked[0], cancellationToken)
+            );
         }
         finally
         {

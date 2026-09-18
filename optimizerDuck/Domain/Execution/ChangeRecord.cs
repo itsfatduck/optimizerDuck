@@ -82,18 +82,21 @@ public sealed record ChangeRecord
         };
     }
 
-    /// <summary>
-    ///     Captures one finished apply. The record is a copy: nothing here is live state.
-    /// </summary>
-    public static ChangeRecord From(ChangeSet changes, IOptimization item, string outcome)
+    /// <summary>Captures one finished run.</summary>
+    /// <param name="changes">The steps the run recorded.</param>
+    /// <param name="subject">The owner the record belongs to.</param>
+    /// <param name="outcome">The name of the status the run ended with.</param>
+    /// <returns>The record as the file stores it.</returns>
+    public static ChangeRecord From(ChangeSet changes, OperationSubject subject, string outcome)
     {
         ArgumentNullException.ThrowIfNull(changes);
+        ArgumentNullException.ThrowIfNull(subject);
 
         return new ChangeRecord
         {
-            Id = item.Id,
-            OptimizationKey = item.OptimizationKey,
-            LogName = item.LogName(),
+            Id = subject.Id,
+            OptimizationKey = subject.Key,
+            LogName = subject.LogName,
             AppliedAt = DateTime.Now,
             StartedAt = changes.StartedAt,
             ElapsedMs = changes.ElapsedMs,
@@ -102,6 +105,22 @@ public sealed record ChangeRecord
             Outcome = outcome,
             Steps = [.. changes.Changes.OrderBy(change => change.Index).Select(StepOf)],
         };
+    }
+
+    /// <summary>Captures one finished apply for an optimization.</summary>
+    /// <param name="changes">The steps the run recorded.</param>
+    /// <param name="item">The optimization the record belongs to.</param>
+    /// <param name="outcome">The name of the status the run ended with.</param>
+    /// <returns>The record as the file stores it.</returns>
+    public static ChangeRecord From(ChangeSet changes, IOptimization item, string outcome)
+    {
+        ArgumentNullException.ThrowIfNull(item);
+
+        return From(
+            changes,
+            new OperationSubject(item.Id, item.OptimizationKey, item.LogName()),
+            outcome
+        );
     }
 
     /// <summary>

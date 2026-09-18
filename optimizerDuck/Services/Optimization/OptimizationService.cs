@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Management;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
@@ -24,43 +24,19 @@ using Wpf.Ui.Controls;
 namespace optimizerDuck.Services.Optimization;
 
 /// <summary>
-///     Runs the apply and revert paths of an optimization: it builds each item's execution
-///     context, drives the provider, persists revert data and writes the record of the run.
+///     Applies and reverts optimizations, and owns the revert, retry and applied-state paths.
 /// </summary>
 public class OptimizationService(
+    OperationRunner runner,
     RevertManager revertManager,
     ILoggerFactory loggerFactory,
-    SystemInfoService systemInfoService,
-    StreamService streamService,
     IContentDialogService contentDialogService,
-    ShellService shellService,
-    PowerPlanService powerPlanService,
     SystemRestoreService systemRestoreService,
     ILogger<OptimizationService> logger
 )
 {
     private readonly ILogger _logger = logger;
-    private readonly ShellService _shellService = shellService;
-    private readonly PowerPlanService _powerPlanService = powerPlanService;
     private readonly SystemRestoreService _systemRestoreService = systemRestoreService;
-
-    private OptimizationContext NewContext(
-        ChangeSet changes,
-        ILogger optLogger,
-        CancellationToken cancellationToken
-    )
-    {
-        return new OptimizationContext
-        {
-            Changes = changes,
-            Logger = optLogger,
-            CancellationToken = cancellationToken,
-            Snapshot = systemInfoService.Snapshot,
-            StreamService = streamService,
-            Shell = _shellService,
-            PowerPlans = _powerPlanService,
-        };
-    }
 
     /// <summary>
     ///     Gets or sets a value that indicates whether a system restore point was created before
@@ -205,200 +181,29 @@ public class OptimizationService(
     ///     An <see cref="OptimizationResult"/> describing the outcome, including partial-success or
     ///     failure details.
     /// </returns>
-    public async Task<OptimizationResult> ApplyAsync(
+    public Task<OptimizationResult> ApplyAsync(
         IOptimization optimization,
         IProgress<ProcessingProgress> progress,
         CancellationToken cancellationToken = default
     )
     {
-        var optLogger = loggerFactory.CreateLogger(optimization.GetType());
-        var changes = new ChangeSet();
+        ArgumentNullException.ThrowIfNull(optimization);
 
-        var result = await ApplyCoreAsync(
-                optimization,
-                changes,
-                optLogger,
-                progress,
-                cancellationToken
-            )
-            .ConfigureAwait(false);
-
-        // Best effort and deliberately after the result is decided: what a run did is worth
-        // keeping, but it is never a reason for an apply to report anything other than the truth
-        // about the machine, and it is not revert data.
-        ChangeRecordStore.TryWrite(
-            ChangeRecord.From(changes, optimization, result.Status.ToString()),
-            _logger
-        );
-
-        return result;
-    }
-
-    private async Task<OptimizationResult> ApplyCoreAsync(
-        IOptimization optimization,
-        ChangeSet changes,
-        ILogger optLogger,
-        IProgress<ProcessingProgress> progress,
-        CancellationToken cancellationToken
-    )
-    {
-        _logger.LogInformation(
-            "Starting apply of {Name} ({Key}) with ID {Id}",
-            optimization.LogName(),
-            optimization.OptimizationKey,
-            optimization.Id
-        );
-
-        progress.Report(
-            new ProcessingProgress
-            {
-                Message = Loc.Instance["Optimization.Apply.Processing"],
-                IsIndeterminate = true,
-            }
-        );
-
-        string? providerError = null;
-        Exception? exception = null;
-        try
-        {
-            var applyResult = await optimization
-                .ApplyAsync(progress, NewContext(changes, optLogger, cancellationToken))
-                .ConfigureAwait(false);
-
-            providerError = string.IsNullOrWhiteSpace(applyResult.ErrorMessage)
-                ? null
-                : applyResult.ErrorMessage;
-        }
-        catch (Exception ex)
-        {
-            exception = ex;
-            changes.Add(
-                optimization.OptimizationKey,
+        return runner.RunAsync(
+            new OperationRequest(
+                new OperationSubject(
+                    optimization.Id,
+                    optimization.OptimizationKey,
+                    optimization.LogName()
+                ),
                 optimization.Name,
-                false,
-                null,
-                ex.Message,
-                ex.ToString()
-            );
-        }
-
-        if (exception == null && providerError == null)
-        {
-            progress.Report(
-                new ProcessingProgress
-                {
-                    Message = Loc.Instance["Optimization.Apply.Completed"],
-                    IsIndeterminate = false,
-                    Value = 1,
-                    Total = 1,
-                }
-            );
-        }
-
-        // Persist BEFORE building the result so a persistence failure surfaces
-        // as a failed step instead of a silent success-without-revert.
-        await TrySaveRevertDataAsync(changes, optimization, cancellationToken)
-            .ConfigureAwait(false);
-
-        var failedSteps = changes.FailedSteps.OrderBy(s => s.Index).ToList();
-
-        // A step that changed the system and then failed carries the compensation for what it
-        // changed, so the machine did change: such a run is a partial success, never a failure
-        // that reads as if nothing had been touched.
-        var changedSomething = changes.HasSuccessfulSteps || changes.DidApplyAnything;
-
-        if (exception != null)
-        {
-            return new OptimizationResult
-            {
-                Status = changedSomething
-                    ? OptimizationSuccessResult.PartialSuccess
-                    : OptimizationSuccessResult.Failed,
-                Message = Loc.Instance["Optimization.Apply.Error.Failed", optimization.Name],
-                Exception = exception,
-                FailedSteps = failedSteps,
-            };
-        }
-
-        if (providerError != null)
-        {
-            _logger.LogWarning(
-                "Provider error applying {OptimizationKey}: {ProviderError}",
-                optimization.OptimizationKey,
-                providerError
-            );
-
-            return new OptimizationResult
-            {
-                Status = changedSomething
-                    ? OptimizationSuccessResult.PartialSuccess
-                    : OptimizationSuccessResult.Failed,
-                Message =
-                    failedSteps.Count > 0
-                        ? Loc.Instance[
-                            "Optimization.Apply.Error.FailedWithSteps",
-                            optimization.Name,
-                            failedSteps.Count
-                        ]
-                        : Loc.Instance["Optimization.Apply.Error.Failed", optimization.Name],
-                FailedSteps = failedSteps,
-            };
-        }
-
-        // Every recorded step failed and none of them carries compensation: nothing changed and
-        // nothing succeeded, so it stays a failure with the failure dialog as before. A failed step
-        // that recorded what it changed falls through to the partial success path below, because
-        // the machine did change and the revert file covers it.
-        if (changes.Changes.Count > 0 && !changedSomething)
-        {
-            return new OptimizationResult
-            {
-                Status = OptimizationSuccessResult.Failed,
-                Message = Loc.Instance["Optimization.Apply.Error.Failed", optimization.Name],
-                FailedSteps = failedSteps,
-            };
-        }
-
-        // Nothing to do: the provider reported success but no step changed the system, either
-        // because there was nothing to change or because every recorded step was a skip. No
-        // revert data exists for it, and the card is marked for this session only.
-        if (!changes.DidApplyAnything)
-        {
-            if (changes.Changes.Count == 0)
-                _logger.LogWarning(
-                    "Apply of {OptimizationKey} recorded no step at all; the provider may have returned without recording",
-                    optimization.OptimizationKey
-                );
-
-            _logger.LogInformation(
-                "Apply of {OptimizationKey} changed nothing, reporting nothing to do",
-                optimization.OptimizationKey
-            );
-            return new OptimizationResult
-            {
-                Status = OptimizationSuccessResult.NothingToDo,
-                Message = Loc.Instance["Optimization.Apply.NothingToDo", optimization.Name],
-                FailedSteps = failedSteps,
-            };
-        }
-
-        var failedCount = failedSteps.Count;
-        return new OptimizationResult
-        {
-            Status =
-                failedCount == 0
-                    ? OptimizationSuccessResult.Success
-                    : OptimizationSuccessResult.PartialSuccess,
-            Message =
-                failedCount == 0
-                    ? Loc.Instance["Optimization.Apply.Success", optimization.Name]
-                    : Loc.Instance[
-                        "Optimization.Apply.Error.FailedWithSteps",
-                        optimization.Name,
-                        failedCount
-                    ],
-            FailedSteps = failedSteps,
-        };
+                loggerFactory.CreateLogger(optimization.GetType()),
+                RevertPersistence.Enabled,
+                optimization.ApplyAsync
+            ),
+            progress,
+            cancellationToken
+        );
     }
 
     /// <summary>
@@ -765,43 +570,6 @@ public class OptimizationService(
         catch (Exception ex)
         {
             logger.LogWarning(ex, "Failed to record the retry for {Id}", optimizationId);
-        }
-    }
-
-    private async Task TrySaveRevertDataAsync(
-        ChangeSet changes,
-        IOptimization optimization,
-        CancellationToken cancellationToken = default
-    )
-    {
-        if (!changes.DidApplyAnything)
-            return;
-
-        try
-        {
-            await revertManager
-                .SaveRevertDataAsync(
-                    changes,
-                    optimization.Id,
-                    optimization.OptimizationKey,
-                    // CancellationToken.None: persist partial work even when the operation was
-                    // cancelled.
-                    CancellationToken.None
-                )
-                .ConfigureAwait(false);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError("Failed to save revert data for {Name}", optimization.OptimizationKey);
-            // Visible, not silent: the apply succeeded but undo is unavailable.
-            changes.Add(
-                optimization.OptimizationKey,
-                optimization.Name,
-                false,
-                null,
-                ex.Message,
-                ex.ToString()
-            );
         }
     }
 

@@ -2533,4 +2533,13 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
   <data name="Optimizer.Details.Record.Took" xml:space="preserve">
     <value>Durata</value>
   </data>
+  <data name="Error.Unhandled.Title" xml:space="preserve">
+    <value>Si è verificato un errore</value>
+  </data>
+  <data name="Error.Unhandled.Message" xml:space="preserve">
+    <value>Impossibile completare l'ultima azione: {0}</value>
+  </data>
+  <data name="Error.Unhandled.LogHint" xml:space="preserve">
+    <value>I dettagli sono nel file di log.</value>
+  </data>
 </root>

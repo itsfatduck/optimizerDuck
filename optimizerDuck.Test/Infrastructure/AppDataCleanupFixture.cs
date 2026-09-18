@@ -42,8 +42,15 @@ public sealed class AppDataCleanupFixture : IDisposable
             {
                 try
                 {
-                    var name = JObject.Parse(File.ReadAllText(file, Encoding.UTF8))[nameField]?.ToString();
-                    if (name is null || !TestNameMarkers.Any(marker => name.Contains(marker, StringComparison.OrdinalIgnoreCase)))
+                    var name = JObject
+                        .Parse(File.ReadAllText(file, Encoding.UTF8))[nameField]
+                        ?.ToString();
+                    if (
+                        name is null
+                        || !TestNameMarkers.Any(marker =>
+                            name.Contains(marker, StringComparison.OrdinalIgnoreCase)
+                        )
+                    )
                         continue;
 
                     File.Delete(file);

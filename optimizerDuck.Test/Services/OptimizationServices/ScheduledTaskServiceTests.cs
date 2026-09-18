@@ -40,11 +40,7 @@ public class ScheduledTaskServiceTests
 
         try
         {
-            var registered = ScheduledTaskService.RegisterTask(
-                NewCall(),
-                "\\",
-                model
-            );
+            var registered = ScheduledTaskService.RegisterTask(NewCall(), "\\", model);
             Assert.True(registered.Ok, registered.Error);
 
             // Disable: the recorded step must carry "was enabled" and restore it.
@@ -60,9 +56,7 @@ public class ScheduledTaskServiceTests
                 ScheduledTaskService.GetTaskEnabledState(fullPath, NullLogger.Instance)
             );
 
-            Assert.True(
-                await disableStep.ExecuteAsync(TestShell.Context(), NullLogger.Instance)
-            );
+            Assert.True(await disableStep.ExecuteAsync(TestShell.Context(), NullLogger.Instance));
             Assert.Equal(
                 TaskEnabledState.Enabled,
                 ScheduledTaskService.GetTaskEnabledState(fullPath, NullLogger.Instance)
@@ -107,6 +101,7 @@ public class ScheduledTaskServiceTests
 
     private static OpCall NewCall() =>
         new() { Changes = new ChangeSet(), Logger = NullLogger.Instance };
+
     [Theory]
     [InlineData(true)]
     [InlineData(false)]

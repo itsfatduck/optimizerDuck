@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -162,17 +162,11 @@ public class OptimizationServiceIntegrationTests : IDisposable
             new PowerPlanService(NullLogger<PowerPlanService>.Instance),
             TimeProvider.System
         );
-        var systemInfoService = new SystemInfoService(NullLogger<SystemInfoService>.Instance);
-        var streamService = new StreamService(NullLogger<StreamService>.Instance);
-
         var optimizationService = new OptimizationService(
+            TestRunner.New(revertManager),
             revertManager,
             loggerFactory,
-            systemInfoService,
-            streamService,
             null!,
-            new ShellService(new ProcessRunner(120000)),
-            new PowerPlanService(NullLogger<PowerPlanService>.Instance),
             new SystemRestoreService(NullLogger<SystemRestoreService>.Instance),
             NullLogger<OptimizationService>.Instance
         );
@@ -275,13 +269,10 @@ public class OptimizationServiceIntegrationTests : IDisposable
             TimeProvider.System
         );
         var optimizationService = new OptimizationService(
+            TestRunner.New(revertManager),
             revertManager,
             loggerFactory,
-            new SystemInfoService(NullLogger<SystemInfoService>.Instance),
-            new StreamService(NullLogger<StreamService>.Instance),
             null!,
-            new ShellService(new ProcessRunner(120000)),
-            new PowerPlanService(NullLogger<PowerPlanService>.Instance),
             new SystemRestoreService(NullLogger<SystemRestoreService>.Instance),
             NullLogger<OptimizationService>.Instance
         );
@@ -312,13 +303,10 @@ public class OptimizationServiceIntegrationTests : IDisposable
             TimeProvider.System
         );
         var optimizationService = new OptimizationService(
+            TestRunner.New(revertManager),
             revertManager,
             loggerFactory,
-            new SystemInfoService(NullLogger<SystemInfoService>.Instance),
-            new StreamService(NullLogger<StreamService>.Instance),
             null!,
-            new ShellService(new ProcessRunner(120000)),
-            new PowerPlanService(NullLogger<PowerPlanService>.Instance),
             new SystemRestoreService(NullLogger<SystemRestoreService>.Instance),
             NullLogger<OptimizationService>.Instance
         );
@@ -351,13 +339,10 @@ public class OptimizationServiceIntegrationTests : IDisposable
             TimeProvider.System
         );
         var optimizationService = new OptimizationService(
+            TestRunner.New(revertManager),
             revertManager,
             loggerFactory,
-            new SystemInfoService(NullLogger<SystemInfoService>.Instance),
-            new StreamService(NullLogger<StreamService>.Instance),
             null!,
-            new ShellService(new ProcessRunner(120000)),
-            new PowerPlanService(NullLogger<PowerPlanService>.Instance),
             new SystemRestoreService(NullLogger<SystemRestoreService>.Instance),
             NullLogger<OptimizationService>.Instance
         );

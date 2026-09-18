@@ -4330,4 +4330,13 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
   <data name="Optimizer.Details.Record.Took" xml:space="preserve">
     <value>Duración</value>
   </data>
+  <data name="Error.Unhandled.Title" xml:space="preserve">
+    <value>Se ha producido un error</value>
+  </data>
+  <data name="Error.Unhandled.Message" xml:space="preserve">
+    <value>No se pudo completar la última acción: {0}</value>
+  </data>
+  <data name="Error.Unhandled.LogHint" xml:space="preserve">
+    <value>Los detalles están en el archivo de registro.</value>
+  </data>
 </root>

@@ -75,10 +75,10 @@ public sealed class ChangeSet
     }
 
     /// <summary>
-    ///     Whether any step modified the system. Skips and irreversible actions
-    ///     did not leave something to undo, so they do not count as applied changes. A step that
-    ///     modified the system and then failed still counts, because it carries the compensation
-    ///     for what it changed, and dropping it here would leave that work unrevertible.
+    ///     Gets a value that indicates whether any step left work that undo covers, which is what
+    ///     revert persistence is gated on. Only a <see cref="ChangeKind.Change" /> counts: a failed
+    ///     one still does when it carries compensation, while a skip or an irreversible step leaves
+    ///     nothing to undo.
     /// </summary>
     public bool DidApplyAnything
     {
@@ -86,6 +86,38 @@ public sealed class ChangeSet
         {
             lock (_gate)
                 return _changes.Any(c => c.Kind == ChangeKind.Change && (c.Ok || c.Revert != null));
+        }
+    }
+
+    /// <summary>
+    ///     Gets a value that indicates whether any step modified the system, which is what tells a
+    ///     change from nothing to do. Wider than <see cref="DidApplyAnything" />: an irreversible
+    ///     step counts, even though it leaves nothing to undo.
+    /// </summary>
+    public bool ModifiedSystem
+    {
+        get
+        {
+            lock (_gate)
+                return _changes.Any(c =>
+                    (c.Kind is ChangeKind.Change or ChangeKind.Irreversible)
+                    && (c.Ok || c.Revert != null)
+                );
+        }
+    }
+
+    /// <summary>
+    ///     Gets the successful changes that carry no compensation. Only a provider can supply that
+    ///     data, so one of these is a provider defect and undo does not cover what it wrote.
+    /// </summary>
+    public IReadOnlyList<Change> UncompensatedChanges
+    {
+        get
+        {
+            lock (_gate)
+                return _changes
+                    .Where(c => c.Ok && c.Kind == ChangeKind.Change && c.Revert == null)
+                    .ToList();
         }
     }
 
@@ -174,20 +206,17 @@ public sealed class ChangeSet
     }
 
     /// <summary>
-    ///     Maps recorded changes to an apply result. Any success (full or
-    ///     partial) is success; total failure carries the first error message.
-    ///     Empty is failure (fail-closed): a genuine skip must return
-    ///     <see cref="ApplyResult.True"/> directly with a logged reason,
-    ///     never an empty set.
+    ///     Maps the recorded changes to an apply result. Any success is a success, and a total
+    ///     failure carries the first error message. A run that recorded nothing reports success,
+    ///     because the caller classifies that as nothing to do.
     /// </summary>
     public ApplyResult ToApplyResult(string? fallbackError = null)
     {
         lock (_gate)
         {
-            // Recording no step at all is a legitimate outcome: an item can match nothing on
-            // this machine, and a run whose steps were all skipped still recorded them. A
-            // provider that changes something without recording it is caught by the
-            // compensation guard in RevertManager, not by failing the user's apply here.
+            // Recording nothing is legitimate: an item can match nothing on this machine. A
+            // provider that changes something without recording it is a defect the compensation
+            // guard reports, not a failure to report here.
             if (_changes.Count == 0)
                 return ApplyResult.True();
             if (_changes.Any(c => c.Ok))

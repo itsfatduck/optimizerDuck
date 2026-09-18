@@ -2577,4 +2577,13 @@ Aktualisiere jetzt, um die neuesten Funktionen, Verbesserungen und Fehlerbehebun
   <data name="Optimizer.Details.Record.Took" xml:space="preserve">
     <value>Dauer</value>
   </data>
+  <data name="Error.Unhandled.Title" xml:space="preserve">
+    <value>Etwas ist schiefgelaufen</value>
+  </data>
+  <data name="Error.Unhandled.Message" xml:space="preserve">
+    <value>Die letzte Aktion konnte nicht abgeschlossen werden: {0}</value>
+  </data>
+  <data name="Error.Unhandled.LogHint" xml:space="preserve">
+    <value>Details stehen in der Protokolldatei.</value>
+  </data>
 </root>

@@ -145,16 +145,16 @@ public abstract partial class BaseOptimization : LocalizedObject, IOptimization
     public string ErrorPrefix => Loc.Instance[$"{Prefix}.Error"];
 
     /// <summary>Gets the localized display name of the optimization.</summary>
-    public string Name => Loc.Instance[$"{Prefix}.Name"];
+    public virtual string Name => Loc.Instance[$"{Prefix}.Name"];
 
     /// <summary>Gets the localized short description of what this optimization does.</summary>
-    public string ShortDescription => Loc.Instance[$"{Prefix}.ShortDescription"];
+    public virtual string ShortDescription => Loc.Instance[$"{Prefix}.ShortDescription"];
 
     /// <summary>Gets the English name written to the log.</summary>
-    public string LogName => Loc.Invariant[$"Optimizer.{OwnerKey}.{OptimizationKey}.Name"];
+    public virtual string LogName => Loc.Invariant[$"Optimizer.{OwnerKey}.{OptimizationKey}.Name"];
 
     /// <summary>Gets the English short description written to the log.</summary>
-    public string LogShortDescription =>
+    public virtual string LogShortDescription =>
         Loc.Invariant[$"Optimizer.{OwnerKey}.{OptimizationKey}.ShortDescription"];
 
     #endregion

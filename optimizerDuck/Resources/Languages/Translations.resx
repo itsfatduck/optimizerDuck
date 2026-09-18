@@ -2583,4 +2583,13 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
   <data name="Optimizer.Details.Record.Took" xml:space="preserve">
     <value>Took</value>
   </data>
+  <data name="Error.Unhandled.Title" xml:space="preserve">
+    <value>Something went wrong</value>
+  </data>
+  <data name="Error.Unhandled.Message" xml:space="preserve">
+    <value>The last action could not be completed: {0}</value>
+  </data>
+  <data name="Error.Unhandled.LogHint" xml:space="preserve">
+    <value>Details are in the log file.</value>
+  </data>
 </root>

@@ -2517,4 +2517,13 @@
   <data name="Optimizer.Details.Record.Took" xml:space="preserve">
     <value>所要時間</value>
   </data>
+  <data name="Error.Unhandled.Title" xml:space="preserve">
+    <value>問題が発生しました</value>
+  </data>
+  <data name="Error.Unhandled.Message" xml:space="preserve">
+    <value>最後の操作を完了できませんでした: {0}</value>
+  </data>
+  <data name="Error.Unhandled.LogHint" xml:space="preserve">
+    <value>詳細はログ ファイルに記録されています。</value>
+  </data>
 </root>

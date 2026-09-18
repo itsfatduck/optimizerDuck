@@ -2517,4 +2517,13 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Optimizer.Details.Record.Took" xml:space="preserve">
     <value>Thời gian</value>
   </data>
+  <data name="Error.Unhandled.Title" xml:space="preserve">
+    <value>Đã xảy ra sự cố</value>
+  </data>
+  <data name="Error.Unhandled.Message" xml:space="preserve">
+    <value>Không thể hoàn tất thao tác vừa rồi: {0}</value>
+  </data>
+  <data name="Error.Unhandled.LogHint" xml:space="preserve">
+    <value>Chi tiết có trong tệp log.</value>
+  </data>
 </root>

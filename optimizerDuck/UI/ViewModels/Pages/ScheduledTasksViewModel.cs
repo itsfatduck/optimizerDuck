@@ -5,6 +5,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Domain.Execution;
+using optimizerDuck.Domain.Optimizations.Models;
+using optimizerDuck.Domain.Optimizations.Models.ScheduledTask;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.System;
@@ -21,7 +23,9 @@ public partial class ScheduledTasksViewModel : ViewModel
     private readonly List<ScheduledTaskModel> _allTasks = [];
     private readonly IContentDialogService _contentDialogService;
     private readonly ILogger<ScheduledTasksViewModel> _logger;
+    private readonly ToolRunPresenter _presenter;
     private readonly ISnackbarService _snackbarService;
+    private readonly HashSet<object> _suppressToggle = [];
 
     [ObservableProperty]
     private bool _hideMicrosoftTasks = true;
@@ -38,11 +42,13 @@ public partial class ScheduledTasksViewModel : ViewModel
     private int _sortByIndex;
 
     public ScheduledTasksViewModel(
+        ToolRunPresenter presenter,
         IContentDialogService contentDialogService,
         ISnackbarService snackbarService,
         ILogger<ScheduledTasksViewModel> logger
     )
     {
+        _presenter = presenter;
         _contentDialogService = contentDialogService;
         _snackbarService = snackbarService;
         _logger = logger;
@@ -94,64 +100,32 @@ public partial class ScheduledTasksViewModel : ViewModel
     {
         if (task == null)
             return;
-        try
+
+        var enable = task.IsEnabled;
+        var request = NewToolRequest(context =>
+            enable
+                ? ScheduledTaskService.EnableTask(context, task.FullPath)
+                : ScheduledTaskService.DisableTask(context, task.FullPath)
+        );
+        var result = await _presenter.RunAsync(request);
+
+        if (!await _presenter.ReportAsync(request, result, FailureTitle))
         {
-            await Task.Run(() =>
-            {
-                var call = UiCall();
-                if (task.IsEnabled)
-                {
-                    var result = ScheduledTaskService.EnableTask(call, task.FullPath);
-                    if (!result.Ok)
-                        throw new InvalidOperationException(result.Error ?? "Enable failed");
-                    _logger.LogInformation(
-                        "Enabled task {Name} ({Path})",
-                        task.Name,
-                        task.FullPath
-                    );
-                }
-                else
-                {
-                    var result = ScheduledTaskService.DisableTask(call, task.FullPath);
-                    if (!result.Ok)
-                        throw new InvalidOperationException(result.Error ?? "Disable failed");
-                    _logger.LogInformation(
-                        "Disabled task {Name} ({Path})",
-                        task.Name,
-                        task.FullPath
-                    );
-                }
-            });
-
-            _snackbarService.Show(
-                task.IsEnabled
-                    ? Loc.Instance["ScheduledTasks.Snackbar.Enabled.Title"]
-                    : Loc.Instance["ScheduledTasks.Snackbar.Disabled.Title"],
-                Loc.Instance["ScheduledTasks.Snackbar.Toggle.Message", task.Name],
-                ControlAppearance.Success,
-                new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
-                TimeSpan.FromSeconds(3)
-            );
-
             await RefreshTaskState(task);
+            return;
         }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Failed to toggle task {Name} ({Path})", task.Name, task.FullPath);
 
-            // Revert UI without triggering PropertyChanged to avoid infinite loop
-            task.PropertyChanged -= Task_PropertyChanged;
-            task.IsEnabled = !task.IsEnabled;
-            task.PropertyChanged += Task_PropertyChanged;
+        _snackbarService.Show(
+            enable
+                ? Loc.Instance["ScheduledTasks.Snackbar.Enabled.Title"]
+                : Loc.Instance["ScheduledTasks.Snackbar.Disabled.Title"],
+            Loc.Instance["ScheduledTasks.Snackbar.Toggle.Message", task.Name],
+            ControlAppearance.Success,
+            new SymbolIcon { Symbol = SymbolRegular.CheckmarkCircle24, Filled = true },
+            TimeSpan.FromSeconds(3)
+        );
 
-            _snackbarService.Show(
-                Loc.Instance["ScheduledTasks.Snackbar.Error.Title"],
-                ex.Message,
-                ControlAppearance.Danger,
-                new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                TimeSpan.FromSeconds(5)
-            );
-        }
+        await RefreshTaskState(task);
     }
 
     [RelayCommand]
@@ -159,62 +133,24 @@ public partial class ScheduledTasksViewModel : ViewModel
     {
         if (task == null)
             return;
-        try
-        {
-            var result = await Task.Run(() =>
-                ScheduledTaskService.RunTask(UiCall(), task.FullPath)
-            );
 
-            if (result.Ok)
-            {
-                _logger.LogInformation("Ran task {Name} ({Path})", task.Name, task.FullPath);
+        var request = NewToolRequest(context =>
+            ScheduledTaskService.RunTask(context, task.FullPath)
+        );
+        var result = await _presenter.RunAsync(request);
 
-                _snackbarService.Show(
-                    Loc.Instance["ScheduledTasks.Snackbar.Run.Title"],
-                    Loc.Instance["ScheduledTasks.Snackbar.Run.Message", task.Name],
-                    ControlAppearance.Success,
-                    new SymbolIcon { Symbol = SymbolRegular.Play24, Filled = true },
-                    TimeSpan.FromSeconds(3)
-                );
+        if (!await _presenter.ReportAsync(request, result, FailureTitle))
+            return;
 
-                await RefreshTaskState(task);
-            }
-            else
-            {
-                var error = result.Error ?? Loc.Instance["ScheduledTasks.Error.TaskNotFound"];
-                _logger.LogError(
-                    "Failed to run task {Name} ({Path}): {Error}",
-                    task.Name,
-                    task.FullPath,
-                    error
-                );
+        _snackbarService.Show(
+            Loc.Instance["ScheduledTasks.Snackbar.Run.Title"],
+            Loc.Instance["ScheduledTasks.Snackbar.Run.Message", task.Name],
+            ControlAppearance.Success,
+            new SymbolIcon { Symbol = SymbolRegular.Play24, Filled = true },
+            TimeSpan.FromSeconds(3)
+        );
 
-                _snackbarService.Show(
-                    Loc.Instance["ScheduledTasks.Snackbar.Error.Title"],
-                    error,
-                    ControlAppearance.Danger,
-                    new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                    TimeSpan.FromSeconds(5)
-                );
-            }
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(
-                ex,
-                "Unexpected error running task {Name} ({Path})",
-                task.Name,
-                task.FullPath
-            );
-
-            _snackbarService.Show(
-                Loc.Instance["ScheduledTasks.Snackbar.Error.Title"],
-                ex.Message,
-                ControlAppearance.Danger,
-                new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                TimeSpan.FromSeconds(5)
-            );
-        }
+        await RefreshTaskState(task);
     }
 
     [RelayCommand]
@@ -222,62 +158,24 @@ public partial class ScheduledTasksViewModel : ViewModel
     {
         if (task == null)
             return;
-        try
-        {
-            var result = await Task.Run(() =>
-                ScheduledTaskService.StopTask(UiCall(), task.FullPath)
-            );
 
-            if (result.Ok)
-            {
-                _logger.LogInformation("Stopped task {Name} ({Path})", task.Name, task.FullPath);
+        var request = NewToolRequest(context =>
+            ScheduledTaskService.StopTask(context, task.FullPath)
+        );
+        var result = await _presenter.RunAsync(request);
 
-                _snackbarService.Show(
-                    Loc.Instance["ScheduledTasks.Snackbar.Stop.Title"],
-                    Loc.Instance["ScheduledTasks.Snackbar.Stop.Message", task.Name],
-                    ControlAppearance.Success,
-                    new SymbolIcon { Symbol = SymbolRegular.Stop24, Filled = true },
-                    TimeSpan.FromSeconds(3)
-                );
+        if (!await _presenter.ReportAsync(request, result, FailureTitle))
+            return;
 
-                await RefreshTaskState(task);
-            }
-            else
-            {
-                var error = result.Error ?? Loc.Instance["ScheduledTasks.Error.TaskNotFound"];
-                _logger.LogError(
-                    "Failed to stop task {Name} ({Path}): {Error}",
-                    task.Name,
-                    task.FullPath,
-                    error
-                );
+        _snackbarService.Show(
+            Loc.Instance["ScheduledTasks.Snackbar.Stop.Title"],
+            Loc.Instance["ScheduledTasks.Snackbar.Stop.Message", task.Name],
+            ControlAppearance.Success,
+            new SymbolIcon { Symbol = SymbolRegular.Stop24, Filled = true },
+            TimeSpan.FromSeconds(3)
+        );
 
-                _snackbarService.Show(
-                    Loc.Instance["ScheduledTasks.Snackbar.Error.Title"],
-                    error,
-                    ControlAppearance.Danger,
-                    new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                    TimeSpan.FromSeconds(5)
-                );
-            }
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(
-                ex,
-                "Unexpected error stopping task {Name} ({Path})",
-                task.Name,
-                task.FullPath
-            );
-
-            _snackbarService.Show(
-                Loc.Instance["ScheduledTasks.Snackbar.Error.Title"],
-                ex.Message,
-                ControlAppearance.Danger,
-                new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                TimeSpan.FromSeconds(5)
-            );
-        }
+        await RefreshTaskState(task);
     }
 
     [RelayCommand]
@@ -298,63 +196,24 @@ public partial class ScheduledTasksViewModel : ViewModel
         if (result != ContentDialogResult.Primary)
             return;
 
-        try
-        {
-            var deleteOutcome = await Task.Run(() =>
-                ScheduledTaskService.DeleteTask(UiCall(), task.FullPath)
-            );
+        var request = NewToolRequest(context =>
+            ScheduledTaskService.DeleteTask(context, task.FullPath)
+        );
+        var run = await _presenter.RunAsync(request);
 
-            if (deleteOutcome.Ok)
-            {
-                _logger.LogInformation("Deleted task {Name} ({Path})", task.Name, task.FullPath);
-                _allTasks.RemoveAll(t => t.FullPath == task.FullPath);
-                ApplyFilter();
+        if (!await _presenter.ReportAsync(request, run, FailureTitle))
+            return;
 
-                _snackbarService.Show(
-                    Loc.Instance["ScheduledTasks.Snackbar.Delete.Title"],
-                    Loc.Instance["ScheduledTasks.Snackbar.Delete.Message", task.Name],
-                    ControlAppearance.Success,
-                    new SymbolIcon { Symbol = SymbolRegular.Delete24, Filled = true },
-                    TimeSpan.FromSeconds(3)
-                );
-            }
-            else
-            {
-                var error =
-                    deleteOutcome.Error ?? Loc.Instance["ScheduledTasks.Error.TaskNotFound"];
-                _logger.LogError(
-                    "Failed to delete task {Name} ({Path}): {Error}",
-                    task.Name,
-                    task.FullPath,
-                    error
-                );
+        _allTasks.RemoveAll(t => t.FullPath == task.FullPath);
+        ApplyFilter();
 
-                _snackbarService.Show(
-                    Loc.Instance["ScheduledTasks.Snackbar.Error.Title"],
-                    error,
-                    ControlAppearance.Danger,
-                    new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                    TimeSpan.FromSeconds(5)
-                );
-            }
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(
-                ex,
-                "Unexpected error deleting task {Name} ({Path})",
-                task.Name,
-                task.FullPath
-            );
-
-            _snackbarService.Show(
-                Loc.Instance["ScheduledTasks.Snackbar.Error.Title"],
-                ex.Message,
-                ControlAppearance.Danger,
-                new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
-                TimeSpan.FromSeconds(5)
-            );
-        }
+        _snackbarService.Show(
+            Loc.Instance["ScheduledTasks.Snackbar.Delete.Title"],
+            Loc.Instance["ScheduledTasks.Snackbar.Delete.Message", task.Name],
+            ControlAppearance.Success,
+            new SymbolIcon { Symbol = SymbolRegular.Delete24, Filled = true },
+            TimeSpan.FromSeconds(3)
+        );
     }
 
     [RelayCommand]
@@ -390,7 +249,7 @@ public partial class ScheduledTasksViewModel : ViewModel
     }
 
     /// <summary>
-    ///     Refreshes the state of a single task in-place by re-querying the task scheduler.
+    ///     Re-reads the state and the enabled flag Windows reports for a task, without running it.
     /// </summary>
     private async Task RefreshTaskState(ScheduledTaskModel task)
     {
@@ -401,6 +260,16 @@ public partial class ScheduledTasksViewModel : ViewModel
             {
                 task.State = newState;
                 task.NotifyStateChanged();
+            }
+
+            var enabled = await Task.Run(() =>
+                ScheduledTaskService.GetTaskEnabledState(task.FullPath)
+            );
+            if (enabled is TaskEnabledState.Enabled or TaskEnabledState.Disabled)
+            {
+                task.PropertyChanged -= Task_PropertyChanged;
+                task.IsEnabled = enabled == TaskEnabledState.Enabled;
+                task.PropertyChanged += Task_PropertyChanged;
             }
         }
         catch (Exception ex)
@@ -432,11 +301,24 @@ public partial class ScheduledTasksViewModel : ViewModel
         }
     }
 
-    // UI toggles are one-shot actions outside any apply: throwaway set, no revert.
-    private OpCall UiCall()
-    {
-        return new OpCall { Changes = new ChangeSet(), Logger = _logger };
-    }
+    /// <summary>Builds the run for one tool action.</summary>
+    /// <param name="work">The provider call that records the run's steps.</param>
+    private OperationRequest NewToolRequest(Func<OptimizationContext, OpResult> work) =>
+        new(
+            ToolSubjects.ScheduledTasks,
+            Loc.Instance["ScheduledTasks.Header.Title"],
+            _logger,
+            RevertPersistence.Disabled,
+            (_, context) =>
+                Task.Run(() =>
+                {
+                    work(context);
+                    return context.Changes.ToApplyResult();
+                })
+        );
+
+    /// <summary>Gets the heading a failed action is reported under.</summary>
+    private static string FailureTitle => Loc.Instance["ScheduledTasks.Snackbar.Error.Title"];
 
     private void ApplyFilter()
     {
@@ -485,19 +367,27 @@ public partial class ScheduledTasksViewModel : ViewModel
     private async void Task_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (
-            e.PropertyName == nameof(ScheduledTaskModel.IsEnabled)
-            && sender is ScheduledTaskModel task
+            e.PropertyName != nameof(ScheduledTaskModel.IsEnabled)
+            || sender is not ScheduledTaskModel task
         )
+            return;
+
+        // Ignore a toggle that races the run already under way for this task.
+        if (!_suppressToggle.Add(task))
+            return;
+
+        try
         {
-            try
-            {
-                await ToggleTask(task);
-                CrossPageEventBus.NotifyDataChanged<ScheduledTasksChanged>();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Failed to toggle scheduled task {Name}", task.Name);
-            }
+            await ToggleTask(task);
+            CrossPageEventBus.NotifyDataChanged<ScheduledTasksChanged>();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to toggle scheduled task {Name}", task.Name);
+        }
+        finally
+        {
+            _suppressToggle.Remove(task);
         }
     }
 }

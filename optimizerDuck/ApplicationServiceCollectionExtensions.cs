@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using optimizerDuck.Common.Extensions;
+using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Configuration;
 using optimizerDuck.Services.Configuration;
@@ -11,6 +12,7 @@ using optimizerDuck.Services.System;
 using optimizerDuck.Services.System.Primitives;
 using optimizerDuck.Services.UI;
 using optimizerDuck.UI.Pages;
+using optimizerDuck.UI.ViewModels;
 using optimizerDuck.UI.ViewModels.Dialogs;
 using optimizerDuck.UI.ViewModels.Pages;
 using optimizerDuck.UI.ViewModels.Windows;
@@ -98,6 +100,8 @@ public static class ApplicationServiceCollectionExtensions
         services.AddSingleton<RevertManager>();
         services.AddSingleton<OptimizationRegistry>();
         services.AddSingleton<CustomizeRegistry>();
+        services.AddSingleton<OperationRunner>();
+        services.AddSingleton<ToolRunPresenter>();
         services.AddSingleton<OptimizationService>();
         services.AddSingleton<BloatwareService>();
         services.AddSingleton<DiskCleanupService>();
@@ -106,6 +110,7 @@ public static class ApplicationServiceCollectionExtensions
         services.AddSingleton<StreamService>();
         services.AddSingleton<UpdaterService>();
         services.AddSingleton<IRegistryWatcher, RegistryWatcher>();
+        services.AddSingleton<UserErrorSurface>();
 
         return services;
     }

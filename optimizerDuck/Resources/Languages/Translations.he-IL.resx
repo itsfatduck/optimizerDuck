@@ -2582,4 +2582,13 @@
   <data name="Optimizer.Details.Record.Took" xml:space="preserve">
     <value>משך</value>
   </data>
+  <data name="Error.Unhandled.Title" xml:space="preserve">
+    <value>משהו השתבש</value>
+  </data>
+  <data name="Error.Unhandled.Message" xml:space="preserve">
+    <value>לא ניתן היה להשלים את הפעולה האחרונה: {0}</value>
+  </data>
+  <data name="Error.Unhandled.LogHint" xml:space="preserve">
+    <value>הפרטים נמצאים בקובץ היומן.</value>
+  </data>
 </root>

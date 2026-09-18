@@ -36,10 +36,7 @@ public class HibernationRevertStepTests
         Assert.Null(
             HibernationRevertStep
                 .FromData(
-                    new JObject
-                    {
-                        [nameof(HibernationRevertStep.WasPresent)] = JValue.CreateNull(),
-                    }
+                    new JObject { [nameof(HibernationRevertStep.WasPresent)] = JValue.CreateNull() }
                 )
                 .WasPresent
         );

@@ -1,5 +1,5 @@
-using optimizerDuck.Domain.Execution;
 using Newtonsoft.Json.Linq;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.UI;
 
 namespace optimizerDuck.Test.Domain.UI;
@@ -33,6 +33,7 @@ public class ChangeKindPresentationTests
 
         Assert.Equal("Optimizer.Details.Step.Changed", display.LabelKey);
     }
+
     [Fact]
     public void ForStep_FailedStep_ShowsAsAFailureWhateverItsKind()
     {
@@ -45,7 +46,10 @@ public class ChangeKindPresentationTests
             Error = "access denied",
         };
 
-        Assert.Equal("Optimizer.Details.Step.Failed", ChangeKindPresentation.ForStep(failed).LabelKey);
+        Assert.Equal(
+            "Optimizer.Details.Step.Failed",
+            ChangeKindPresentation.ForStep(failed).LabelKey
+        );
         Assert.Equal(
             "Optimizer.Details.Step.Changed",
             ChangeKindPresentation.ForStep(failed with { Ok = true }).LabelKey

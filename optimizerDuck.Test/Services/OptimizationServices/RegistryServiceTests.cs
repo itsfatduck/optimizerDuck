@@ -16,6 +16,39 @@ public class RegistryServiceTests : IDisposable
 {
     private const string BaseTestKey = @"HKCU\Software\TestOptimizerDuck";
 
+    [Fact]
+    public void Write_WhenHklmDeniesTheWrite_RecordsAccessDeniedWithoutCompensation()
+    {
+        if (!IsElevated())
+            Assert.Skip("The write to a protected hive is refused before its ACL is reached.");
+
+        var call = NewCall();
+        var item = new RegistryItem(@"HKLM\SECURITY", "TestOptimizerDuckValue", 1);
+
+        var result = RegistryService.Write(call, item);
+
+        if (result.Ok)
+        {
+            // A host running as SYSTEM can write this hive, so no refusal can be observed here.
+            RegistryService.DeleteValue(NewCall(), item);
+            Assert.Skip("This host can write HKLM\\SECURITY.");
+        }
+
+        Assert.False(result.Ok);
+        var change = Assert.Single(call.Changes.Changes);
+        Assert.False(change.Ok);
+        Assert.Equal(ServiceStrings.CommonErrorAccessDenied, change.Error);
+        Assert.Null(change.Revert);
+    }
+
+    private static bool IsElevated()
+    {
+        using var identity = System.Security.Principal.WindowsIdentity.GetCurrent();
+        return new System.Security.Principal.WindowsPrincipal(identity).IsInRole(
+            System.Security.Principal.WindowsBuiltInRole.Administrator
+        );
+    }
+
     private static OpCall NewCall() =>
         new() { Changes = new ChangeSet(), Logger = NullLogger.Instance };
 

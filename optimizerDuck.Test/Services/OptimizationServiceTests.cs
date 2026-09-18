@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Logging.Abstractions;
+﻿using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
@@ -549,19 +549,13 @@ public class OptimizationServiceTests
             TimeProvider.System
         );
         var loggerFactory = NullLoggerFactory.Instance;
-        var systemInfoService = new SystemInfoService(NullLogger<SystemInfoService>.Instance);
-        var streamService = new StreamService(NullLogger<StreamService>.Instance);
         var contentDialogService = new ContentDialogService();
-        var shellService = new ShellService(new ProcessRunner(120000));
         var logger = NullLogger<OptimizationService>.Instance;
         return new OptimizationService(
+            TestRunner.New(revertManager),
             revertManager,
             loggerFactory,
-            systemInfoService,
-            streamService,
             contentDialogService,
-            shellService,
-            new PowerPlanService(NullLogger<PowerPlanService>.Instance),
             new SystemRestoreService(NullLogger<SystemRestoreService>.Instance),
             logger
         );

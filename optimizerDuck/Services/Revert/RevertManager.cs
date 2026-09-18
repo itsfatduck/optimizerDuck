@@ -1,4 +1,4 @@
-﻿using System.Collections.Concurrent;
+using System.Collections.Concurrent;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -57,10 +57,9 @@ public class RevertManager(
     }
 
     /// <summary>
-    ///     Persists revert steps from a <see cref="ChangeSet"/>. Appends every successful change
-    ///     as a new entry with a fresh index. No payload-based dedupe: two executions of the same
-    ///     command are two real executions, so dropping either loses revert coverage. Indexes are
-    ///     never reused, and reverting an extra entry is harmless because revert runs LIFO.
+    ///     Persists the revert steps of a <see cref="ChangeSet"/>. Every change that carries
+    ///     compensation is appended as a new entry with a fresh index; entries are never deduped or
+    ///     reused, and reverting an extra entry is harmless because revert runs last in, first out.
     /// </summary>
     public async Task SaveRevertDataAsync(
         ChangeSet changes,
@@ -73,20 +72,6 @@ public class RevertManager(
         // partial failure: a step that was refused after it had already changed something still
         // needs its previous state recorded.
         var incoming = changes.Changes.Where(c => c.Revert != null).OrderBy(c => c.Index).ToList();
-
-        // A step that modified the system must carry the data needed to undo it. The filter
-        // above drops entries without compensation, so a Change arriving here without one is a
-        // provider defect rather than a legitimate skip.
-        foreach (
-            var defect in changes.Changes.Where(c =>
-                c.Ok && c.Kind == ChangeKind.Change && c.Revert == null
-            )
-        )
-            _logger.LogWarning(
-                "Recorded change {Step} for {Name} carries no revert data, so undo does not cover it",
-                defect.Name,
-                name
-            );
 
         if (incoming.Count == 0)
             return;
@@ -594,6 +579,18 @@ public class RevertManager(
                             new InvalidOperationException(
                                 $"Unsupported schema version {data.SchemaVersion} (expected {SchemaVersion})"
                             )
+                        );
+                        return null;
+                    }
+
+                    // A payload with no step array is unreadable rather than empty, so it is
+                    // reported as corrupt and parked before any new write.
+                    if (data.Steps is null)
+                    {
+                        LogCorruptRevertFile(
+                            logger,
+                            path,
+                            new InvalidOperationException("Revert data carries no step array")
                         );
                         return null;
                     }

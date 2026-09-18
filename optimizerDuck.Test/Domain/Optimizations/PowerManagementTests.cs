@@ -1,9 +1,9 @@
 using Microsoft.Extensions.Logging.Abstractions;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Categories;
+using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Domain.UI;
-using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Services.System.Primitives;
 
 namespace optimizerDuck.Test.Domain.Optimizations;
@@ -26,6 +26,7 @@ public class PowerManagementTests
             RegistryService.DeleteSubKeyTree(call, new RegistryItem(key));
         }
     }
+
     [Theory]
     [InlineData(false, false)]
     [InlineData(true, true)]
@@ -70,6 +71,7 @@ public class PowerManagementTests
         Assert.Null(step.Revert);
         Assert.Null(result.Revert);
     }
+
     [Fact]
     public void Apply_HibernationAlreadyDisabled_RecordsSkipAndLeavesTheMachineAlone()
     {

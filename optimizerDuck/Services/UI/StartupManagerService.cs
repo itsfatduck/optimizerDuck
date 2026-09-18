@@ -21,13 +21,6 @@ namespace optimizerDuck.Services.UI;
 
 public class StartupManagerService(ILogger<StartupManagerService> logger)
 {
-    // UI toggles are user-driven one-shot actions outside any optimization
-    // apply: changes land in a throwaway set, revert is not persisted.
-    private OpCall UiCall()
-    {
-        return new OpCall { Changes = new ChangeSet(), Logger = logger };
-    }
-
     /// <summary>
     ///     Retrieves all startup applications from registry Run/RunOnce keys (including the 32-bit
     ///     Wow6432Node view), startup folders, and packaged (UWP / MSIX) apps with StartupTask
@@ -689,19 +682,21 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
     /// <summary>
     ///     Enables or disables a startup scheduled task using the Task Scheduler API.
     /// </summary>
+    /// <param name="call">The run the toggle records its steps into.</param>
     /// <param name="task">The startup task to toggle.</param>
     /// <param name="enable">
     ///     <see langword="true"/> to enable, <see langword="false"/> to disable.
     /// </param>
     /// <returns>The toggle outcome.</returns>
-    public Task<OpResult> ToggleStartupTask(StartupTask task, bool enable)
+    public Task<OpResult> ToggleStartupTask(OpCall call, StartupTask task, bool enable)
     {
+        ArgumentNullException.ThrowIfNull(call);
+
         return Task.Run(() =>
         {
             try
             {
                 var fullPath = task.TaskPath.TrimEnd('\\') + "\\" + task.TaskName;
-                var call = UiCall();
                 var result = enable
                     ? ScheduledTaskService.EnableTask(call, fullPath)
                     : ScheduledTaskService.DisableTask(call, fullPath);
@@ -720,14 +715,7 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                         )
                     );
 
-                if (result.Ok)
-                    logger.LogInformation(
-                        "{Action} task {Name} ({Path})",
-                        enable ? "Enabled" : "Disabled",
-                        task.TaskName,
-                        fullPath
-                    );
-                else
+                if (!result.Ok)
                     logger.LogError(
                         "Failed to toggle task {Name}: {Error}",
                         task.TaskName,

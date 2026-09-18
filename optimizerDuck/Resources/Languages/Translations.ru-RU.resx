@@ -2525,4 +2525,13 @@
   <data name="Optimizer.Details.Record.Took" xml:space="preserve">
     <value>Затрачено</value>
   </data>
+  <data name="Error.Unhandled.Title" xml:space="preserve">
+    <value>Что-то пошло не так</value>
+  </data>
+  <data name="Error.Unhandled.Message" xml:space="preserve">
+    <value>Не удалось завершить последнее действие: {0}</value>
+  </data>
+  <data name="Error.Unhandled.LogHint" xml:space="preserve">
+    <value>Подробности в файле журнала.</value>
+  </data>
 </root>

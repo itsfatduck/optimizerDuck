@@ -5,11 +5,14 @@ using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
+using optimizerDuck.Domain.Execution;
+using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.System;
 using optimizerDuck.Services.UI;
 using optimizerDuck.UI.Dialogs;
+using optimizerDuck.UI.ViewModels;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 using StartupApp = optimizerDuck.Domain.Optimizations.Models.StartupManager.StartupApp;
@@ -23,6 +26,7 @@ public partial class StartupManagerViewModel : ViewModel
     private readonly List<StartupTask> _allTasks = [];
     private readonly IContentDialogService _contentDialogService;
     private readonly ILogger<StartupManagerViewModel> _logger;
+    private readonly ToolRunPresenter _presenter;
     private readonly StartupManagerService _startupManagerService;
 
     // Per-section: Apps
@@ -49,11 +53,13 @@ public partial class StartupManagerViewModel : ViewModel
 
     public StartupManagerViewModel(
         StartupManagerService startupManagerService,
+        ToolRunPresenter presenter,
         IContentDialogService contentDialogService,
         ILogger<StartupManagerViewModel> logger
     )
     {
         _startupManagerService = startupManagerService;
+        _presenter = presenter;
         _contentDialogService = contentDialogService;
         _logger = logger;
     }
@@ -373,20 +379,22 @@ public partial class StartupManagerViewModel : ViewModel
 
         try
         {
-            var result = await _startupManagerService.ToggleStartupTask(task, task.IsEnabled);
-            if (result.Ok)
-            {
-                CrossPageEventBus.NotifyDataChanged<StartupAppsChanged>();
-            }
-            else
+            var enable = task.IsEnabled;
+            var request = NewTaskRequest(task, enable);
+            var result = await _presenter.RunAsync(request);
+
+            if (!await _presenter.ReportAsync(request, result, FailureTitle))
             {
                 _logger.LogWarning(
-                    "Startup task toggle failed for {Name}: {Error}",
+                    "Startup task toggle did not end as asked for {Name}: {Message}",
                     task.TaskName,
-                    result.Error
+                    result.Message
                 );
                 task.IsEnabled = !task.IsEnabled;
+                return;
             }
+
+            CrossPageEventBus.NotifyDataChanged<StartupAppsChanged>();
         }
         catch (Exception ex)
         {
@@ -398,6 +406,32 @@ public partial class StartupManagerViewModel : ViewModel
             _suppressToggle.Remove(task);
         }
     }
+
+    /// <summary>Builds the run for one startup task toggle.</summary>
+    /// <param name="task">The startup task the user flipped.</param>
+    /// <param name="enable">
+    ///     <see langword="true" /> to enable the task; otherwise, <see langword="false" />.
+    /// </param>
+    private OperationRequest NewTaskRequest(StartupTask task, bool enable) =>
+        new(
+            ToolSubjects.StartupManagerTasks,
+            Loc.Instance["StartupManager.Header.Title"],
+            _logger,
+            RevertPersistence.Disabled,
+            async (_, context) =>
+            {
+                var result = await _startupManagerService.ToggleStartupTask(context, task, enable);
+
+                return result.Ok
+                    ? context.Changes.ToApplyResult()
+                    : ApplyResult.False(
+                        result.Error ?? Loc.Instance["Optimization.Apply.Error.AllStepsFailed"]
+                    );
+            }
+        );
+
+    /// <summary>Gets the heading a failed action is reported under.</summary>
+    private static string FailureTitle => Loc.Instance["StartupManager.Header.Title"];
 
     private async Task ReloadTasksAsync()
     {

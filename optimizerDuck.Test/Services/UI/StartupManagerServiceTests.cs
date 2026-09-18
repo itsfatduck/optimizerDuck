@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging.Abstractions;
+using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.StartupManager;
 using optimizerDuck.Services.UI;
 
@@ -28,15 +29,19 @@ public class StartupManagerServiceTests
     {
         // A toggle for a task that does not exist must report failure, never log success.
         var service = new StartupManagerService(NullLogger<StartupManagerService>.Instance);
+        var call = new OpCall { Changes = new ChangeSet(), Logger = NullLogger.Instance };
         var task = new StartupTask
         {
             TaskName = $"optimizerDuck_Test_Missing_{Guid.NewGuid():N}",
             TaskPath = "\\",
         };
 
-        var result = await service.ToggleStartupTask(task, true);
+        var result = await service.ToggleStartupTask(call, task, true);
 
         Assert.False(result.Ok);
         Assert.NotNull(result.Error);
+
+        // The provider recorded what it found, and the service decided this list cannot act on it.
+        Assert.Equal(ChangeKind.NotApplicable, Assert.Single(call.Changes.Changes).Kind);
     }
 }

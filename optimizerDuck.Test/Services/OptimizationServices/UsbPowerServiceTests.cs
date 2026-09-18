@@ -133,10 +133,7 @@ public class UsbPowerServiceTests
     [Fact]
     public void SelectChanges_DeviceAlreadyInTheRequestedState_IsLeftAlone()
     {
-        var current = new List<UsbPowerService.UsbPowerState>
-        {
-            new(@"USB\ROOT_HUB30\1", true),
-        };
+        var current = new List<UsbPowerService.UsbPowerState> { new(@"USB\ROOT_HUB30\1", true) };
 
         Assert.Empty(UsbPowerService.SelectChanges(current, _ => true));
     }

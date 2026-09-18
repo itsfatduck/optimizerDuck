@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Execution;
@@ -72,6 +72,66 @@ public class ChangeSetTests
         changes.Add("Service", "Change startup type", false, error: "access denied");
 
         Assert.False(changes.DidApplyAnything);
+    }
+
+    [Fact]
+    public void ModifiedSystem_IgnoresStepsThatWroteNothing()
+    {
+        var changes = new ChangeSet();
+
+        changes.AddSkip("Service", "already set");
+        changes.AddNotApplicable("Service", "not present");
+        changes.AddRefused("Service", "protected");
+
+        // Nothing was written, so the run reports nothing to do rather than a change.
+        Assert.False(changes.ModifiedSystem);
+    }
+
+    [Fact]
+    public void ModifiedSystem_CountsAChange()
+    {
+        var changes = new ChangeSet();
+
+        changes.Add("Registry", "wrote a value", true, new MockRevertStep());
+
+        Assert.True(changes.ModifiedSystem);
+
+        // A write whose compensation the provider forgot still modified the machine: the
+        // compensation guard reports that defect, it does not reclassify the run.
+        var uncompensated = new ChangeSet();
+        uncompensated.Add("Registry", "wrote a value", true);
+
+        Assert.True(uncompensated.ModifiedSystem);
+    }
+
+    [Fact]
+    public void ModifiedSystem_CountsAnIrreversibleAction()
+    {
+        var changes = new ChangeSet();
+
+        changes.AddSkip("Service", "already set");
+        changes.AddIrreversible("Scheduled Task", "deleted a task");
+
+        // Deleting modified the machine, so the run is a success rather than a run that found
+        // nothing to change. It left nothing to undo, which is the one thing the two queries
+        // disagree about.
+        Assert.True(changes.ModifiedSystem);
+        Assert.False(changes.DidApplyAnything);
+    }
+
+    [Fact]
+    public void ModifiedSystem_FollowsCompensationForAFailedChange()
+    {
+        var changes = new ChangeSet();
+
+        changes.Add("Service", "Change startup type", false, error: "access denied");
+
+        Assert.False(changes.ModifiedSystem);
+
+        changes.Add("USB power", "a device changed then refused", false, new MockRevertStep());
+
+        // A step that carries compensation counts as having modified the machine.
+        Assert.True(changes.ModifiedSystem);
     }
 
     [Fact]
