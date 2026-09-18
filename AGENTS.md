@@ -1,7 +1,7 @@
 # Repository Guidelines
 
 ## Windows-Only WPF App
-- **Windows-only**: Build/run/test only on Windows. Target framework: `net10.0-windows10.0.17763.0` with `UseWPF=true`. `CA1416` (platform compatibility) is silenced — all code is Windows-only.
+- **Windows-only**: Build/run/test only on Windows. Target framework: `net10.0-windows` with `UseWPF=true`, deliberately without a Windows SDK version: a versioned one makes the SDK reference the CsWinRT projection, which puts a 50 MB `Microsoft.Windows.SDK.NET.dll` into every publish for WinRT APIs this app does not call. `CA1416` (platform compatibility) is silenced — all code is Windows-only.
 - **Runs as admin**: `app.manifest` sets `requireAdministrator` UAC level. Tests that modify system settings or registry need admin too.
 - **Solution format**: `.slnx` (not `.sln`).
 - **Data directory**: `%LocalAppData%\optimizerDuck\` — holds revert files (`Revert/`), resources (`Resources/`), downloads (`Resources/Downloads/`), assets (`Resources/Assets/`), crash logs (`Crashes/`).
@@ -52,7 +52,7 @@
   - `ApplicationServiceCollectionExtensions.cs` — `AddOptimizerApplication(IConfiguration)`: the whole application graph, separated from `App.xaml.cs` so a test can build it
     - `Revert/` — `RevertManager` (atomic file-based revert data persistence)
     - `System/` — `RegistryWatcher` (+ `IRegistryWatcher`), `SystemInfoService` (defines `SystemInfo` + models), `StreamService`, `UpdaterService`, `CrossPageEventBus`, `CrossPageEvents`, `PowerPlanService` (lean native core: reads take ids, writes take `ILogger? = null` and record nothing; single owner of power **scheme** interop), `SystemRestoreService` (same lean shape; single owner of every System Restore WMI call, reusable by a future restore-point tool)
-    - `UI/` — `BloatwareService`, `DiskCleanupService`, `StartupManagerService`
+    - `UI/` — `BloatwareService`, `DiskCleanupService`, `StartupManagerService` (reads the packaged apps that declare a startup task from the per-user AppModel repository and their state from `AppModel\SystemAppData`, so no WinRT projection is needed)
   - `UI/` — XAML pages, ViewModels, windows, controls, dialogs, styles. `ToolRunPresenter` runs one tool action and reports its outcome (progress dialog, retry dialog, snackbar), so every tool page runs and reports an action the same way.
   - `Common/` — extensions, helpers, converters:
     - `Helpers/` — `Shared.cs` (constants, paths, SafeApps/CautionApps sets), `ReflectionHelper.cs`, `SystemRefreshService.cs` (P/Invoke for Windows refresh), `EmbeddedResourceHelper.cs`, `WmiHelper.cs`, `GitHubSourceHelper.cs`, `ThemeResource.cs`, `HttpClientFactory.cs`, `UiThread.cs`, `UserErrorSurface.cs` (reports one unhandled failure to the user, once per exception, and never throws)

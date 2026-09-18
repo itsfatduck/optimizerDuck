@@ -2,7 +2,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Security.Principal;
+using System.Text;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
@@ -12,8 +12,6 @@ using Microsoft.Win32;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.StartupManager;
 using optimizerDuck.Services.System.Primitives;
-using Windows.ApplicationModel;
-using Windows.Management.Deployment;
 using StartupApp = optimizerDuck.Domain.Optimizations.Models.StartupManager.StartupApp;
 using StartupTask = optimizerDuck.Domain.Optimizations.Models.StartupManager.StartupTask;
 
@@ -271,8 +269,17 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         @"Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\SystemAppData";
 
     /// <summary>
-    ///     Enumerates packaged (UWP / MSIX) apps that declare a StartupTask in their manifest.
-    ///     The enable state comes from
+    ///     The per-user repository of installed packages. Its subkey names are package full names and
+    ///     <c>PackageRootFolder</c> is the install location, which is what the manifest scan needs.
+    ///     Reading it here keeps the publish free of the Windows SDK projection that
+    ///     <c>PackageManager</c> drags in.
+    /// </summary>
+    private const string PackageRepositoryRoot =
+        @"Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\Repository\Packages";
+
+    /// <summary>
+    ///     Enumerates packaged (UWP / MSIX) apps that declare a StartupTask in their manifest. The
+    ///     enable state comes from
     ///     <c>HKCU\...\AppModel\SystemAppData\{FamilyName}\{TaskId}\State</c>
     ///     (0=Disabled, 1=DisabledByUser, 2=Enabled, 4=EnabledByPolicy); when no state exists yet,
     ///     the manifest's Enabled attribute decides.
@@ -283,24 +290,29 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
 
         try
         {
-            var sid = WindowsIdentity.GetCurrent().User?.Value;
-            if (sid == null)
+            using var repository = Registry.CurrentUser.OpenSubKey(PackageRepositoryRoot);
+            if (repository == null)
                 return entries;
 
-            var packages = new PackageManager().FindPackagesForUser(sid);
-
-            foreach (var package in packages)
+            foreach (var packageKeyName in repository.GetSubKeyNames())
             {
+                using var packageKey = repository.OpenSubKey(packageKeyName);
+                if (packageKey?.GetValue("PackageRootFolder") is not string installPath)
+                    continue;
+
+                var manifestPath = Path.Combine(installPath, "AppxManifest.xml");
+                if (!File.Exists(manifestPath))
+                    continue;
+
                 try
                 {
-                    var manifestPath = Path.Combine(
-                        package.InstalledLocation.Path,
-                        "AppxManifest.xml"
-                    );
-                    if (!File.Exists(manifestPath))
+                    // Read the manifest as text first: the packages that declare no startup task are
+                    // the vast majority, and a substring check beats an XML document for each.
+                    var manifestText = File.ReadAllText(manifestPath);
+                    if (!manifestText.Contains("StartupTask", StringComparison.Ordinal))
                         continue;
 
-                    var manifest = XDocument.Load(manifestPath);
+                    var manifest = XDocument.Parse(manifestText);
                     var startupTasks = manifest
                         .Descendants()
                         .Where(e => e.Name.LocalName == "StartupTask")
@@ -308,21 +320,36 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                     if (startupTasks.Count == 0)
                         continue;
 
-                    var displayName = ResolvePackageName(package);
-                    var publisher = package.Id.Publisher;
-                    if (publisher.StartsWith("CN=", StringComparison.OrdinalIgnoreCase))
-                        publisher = publisher[3..];
-                    var exePath = ResolvePackageExecutable(
-                        manifest,
-                        package.InstalledLocation.Path
+                    var familyName = PackageFamilyName(
+                        packageKey.GetValue("PackageID") as string ?? packageKeyName
                     );
-                    var logoPath = ResolvePackageLogoPath(package);
+                    if (familyName == null)
+                        continue;
+
+                    var identity = manifest
+                        .Descendants()
+                        .FirstOrDefault(e => e.Name.LocalName == "Identity");
+                    var displayName = ResolvePackageName(
+                        manifest,
+                        identity,
+                        packageKey.GetValue("DisplayName") as string
+                    );
+                    var publisher = ResolvePublisher(identity);
+                    var logoPath = ResolvePackageLogoPath(manifest, installPath);
 
                     foreach (var task in startupTasks)
                     {
                         var taskId = (string?)task.Attribute("TaskId");
                         if (string.IsNullOrWhiteSpace(taskId))
                             continue;
+
+                        // The application that declares the task is the one the shell names, and its
+                        // executable is the one this entry opens.
+                        var application = task.Ancestors()
+                            .FirstOrDefault(e => e.Name.LocalName == "Application");
+                        var name =
+                            ResolveAppName(familyName, (string?)application?.Attribute("Id"))
+                            ?? displayName;
 
                         var manifestEnabled = string.Equals(
                             (string?)task.Attribute("Enabled"),
@@ -331,23 +358,22 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                         );
 
                         using var stateKey = Registry.CurrentUser.OpenSubKey(
-                            $"{SystemAppDataRoot}\\{package.Id.FamilyName}\\{taskId}"
+                            $"{SystemAppDataRoot}\\{familyName}\\{taskId}"
                         );
                         var state = stateKey?.GetValue("State") as int?;
                         var isEnabled = state.HasValue ? state is 2 or 4 : manifestEnabled;
+
+                        var exePath = ResolvePackageExecutable(manifest, application, installPath);
 
                         entries.Add(
                             new UwpStartupEntry(
                                 new StartupApp
                                 {
-                                    Name =
-                                        startupTasks.Count > 1
-                                            ? $"{displayName} ({taskId})"
-                                            : displayName,
-                                    Command = exePath ?? package.Id.FamilyName,
+                                    Name = startupTasks.Count > 1 ? $"{name} ({taskId})" : name,
+                                    Command = exePath ?? familyName,
                                     Location = StartupAppLocation.UwpStartupTask,
                                     PathOrKey =
-                                        $@"{Registry.CurrentUser.Name}\{SystemAppDataRoot}\{package.Id.FamilyName}",
+                                        $@"{Registry.CurrentUser.Name}\{SystemAppDataRoot}\{familyName}",
                                     OriginalValueNameOrFileName = taskId,
                                     IsEnabled = isEnabled,
                                     Publisher = publisher,
@@ -364,7 +390,7 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                     logger.LogWarning(
                         ex,
                         "Failed to scan startup task of package {Package}",
-                        package.Id.FullName
+                        packageKeyName
                     );
                 }
             }
@@ -377,52 +403,154 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         return entries;
     }
 
-    private static string ResolvePackageName(Package package)
+    /// <summary>
+    ///     Reads the package family name out of a package full name
+    ///     (<c>Name_Version_Architecture_ResourceId_PublisherId</c>). A package name cannot carry an
+    ///     underscore, so the first and last segment are the ones a family name is made of.
+    /// </summary>
+    /// <param name="packageFullName">The package full name.</param>
+    /// <returns>The family name, or <see langword="null" /> when the name is not parseable.</returns>
+    internal static string? PackageFamilyName(string packageFullName)
     {
-        var name = package.DisplayName?.Trim();
-        if (
-            !string.IsNullOrWhiteSpace(name)
-            && !name.StartsWith("ms-resource:", StringComparison.OrdinalIgnoreCase)
-        )
-            return name;
+        var segments = packageFullName.Split('_');
+        if (segments.Length < 2)
+            return null;
 
-        return package.Id.Name;
+        var name = segments[0];
+        var publisherId = segments[^1];
+        if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(publisherId))
+            return null;
+
+        return $"{name}_{publisherId}";
     }
 
-    private static string? ResolvePackageExecutable(XDocument manifest, string installPath)
+    /// <summary>Resolves the name a package declares, falling back to its identity name.</summary>
+    private static string ResolvePackageName(
+        XDocument manifest,
+        XElement? identity,
+        string? repositoryDisplayName
+    )
     {
-        var exe = manifest
+        var properties = manifest
             .Descendants()
-            .Where(e => e.Name.LocalName == "Application")
-            .Select(e => (string?)e.Attribute("Executable"))
-            .FirstOrDefault(e => !string.IsNullOrWhiteSpace(e));
-        if (exe == null)
+            .FirstOrDefault(e => e.Name.LocalName == "Properties");
+        var declaredName = (string?)
+            properties?.Elements().FirstOrDefault(e => e.Name.LocalName == "DisplayName");
+
+        var name = ReadDisplayName(declaredName) ?? ReadDisplayName(repositoryDisplayName);
+        if (name != null)
+            return name;
+
+        return (string?)identity?.Attribute("Name") ?? string.Empty;
+    }
+
+    /// <summary>
+    ///     Turns a manifest or repository display name into text, or <see langword="null" /> when it
+    ///     names a resource this process cannot resolve.
+    /// </summary>
+    internal static string? ReadDisplayName(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return null;
+
+        var resolved = value.StartsWith('@') ? IndirectString.Resolve(value) : value;
+        resolved = resolved?.Trim();
+
+        return
+            string.IsNullOrWhiteSpace(resolved)
+            || resolved.StartsWith("ms-resource:", StringComparison.OrdinalIgnoreCase)
+            ? null
+            : resolved;
+    }
+
+    /// <summary>
+    ///     Reads the name the shell shows for a packaged app, which is the localized one: the shell
+    ///     resolves the resource names a manifest leaves as <c>ms-resource:</c>.
+    /// </summary>
+    private static string? ResolveAppName(string familyName, string? applicationId)
+    {
+        if (string.IsNullOrWhiteSpace(applicationId))
+            return null;
+
+        try
+        {
+            var name = ShellDisplayName
+                .Read($@"shell:AppsFolder\{familyName}!{applicationId}")
+                ?.Trim();
+            return string.IsNullOrWhiteSpace(name) ? null : name;
+        }
+        catch
+        {
+            // The shell does not know this app, so the package name is the best name there is.
+            return null;
+        }
+    }
+
+    private static string ResolvePublisher(XElement? identity)
+    {
+        var publisher = (string?)identity?.Attribute("Publisher") ?? string.Empty;
+        return publisher.StartsWith("CN=", StringComparison.OrdinalIgnoreCase)
+            ? publisher[3..]
+            : publisher;
+    }
+
+    private static string? ResolvePackageExecutable(
+        XDocument manifest,
+        XElement? application,
+        string installPath
+    )
+    {
+        var exe =
+            (string?)application?.Attribute("Executable")
+            ?? manifest
+                .Descendants()
+                .Where(e => e.Name.LocalName == "Application")
+                .Select(e => (string?)e.Attribute("Executable"))
+                .FirstOrDefault(e => !string.IsNullOrWhiteSpace(e));
+        if (string.IsNullOrWhiteSpace(exe))
             return null;
 
         return Path.IsPathRooted(exe) ? exe : Path.Combine(installPath, exe);
     }
 
-    private static string? ResolvePackageLogoPath(Package package)
+    /// <summary>Resolves the logo a manifest declares against the package's install location.</summary>
+    private static string? ResolvePackageLogoPath(XDocument manifest, string installPath)
     {
+        var properties = manifest
+            .Descendants()
+            .FirstOrDefault(e => e.Name.LocalName == "Properties");
+        var declared =
+            (string?)properties?.Elements().FirstOrDefault(e => e.Name.LocalName == "Logo")
+            ?? manifest
+                .Descendants()
+                .Where(e => e.Name.LocalName is "VisualElements" or "DefaultTile")
+                .Select(e =>
+                    (string?)e.Attribute("Square44x44Logo") ?? (string?)e.Attribute("Logo")
+                )
+                .FirstOrDefault(e => !string.IsNullOrWhiteSpace(e));
+
+        return ResolveManifestPath(declared, installPath);
+    }
+
+    private static string? ResolveManifestPath(string? declared, string installPath)
+    {
+        if (string.IsNullOrWhiteSpace(declared))
+            return null;
+
         try
         {
-            var logo = package.Logo;
-            if (logo == null)
-                return null;
-
-            string path;
-            if (logo.IsAbsoluteUri && logo.IsFile)
-                path = logo.LocalPath;
-            else if (
-                logo.IsAbsoluteUri
-                && logo.Scheme.Equals("ms-appx", StringComparison.OrdinalIgnoreCase)
+            var path = declared;
+            if (
+                Uri.TryCreate(declared, UriKind.Absolute, out var uri)
+                && uri.Scheme.Equals("ms-appx", StringComparison.OrdinalIgnoreCase)
             )
-                path = Path.Combine(
-                    package.InstalledLocation.Path,
-                    logo.AbsolutePath.TrimStart('/')
-                );
-            else
-                return null;
+                path = uri.AbsolutePath.TrimStart('/');
+            else if (Uri.TryCreate(declared, UriKind.Absolute, out uri) && uri.IsFile)
+                path = uri.LocalPath;
+
+            path = Path.IsPathRooted(path)
+                ? path
+                : Path.Combine(installPath, path.Replace('/', '\\'));
 
             if (File.Exists(path))
                 return path;
@@ -456,6 +584,86 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         }
 
         return null;
+    }
+
+    /// <summary>Resolves an indirect string (<c>@...</c>) through the shell's own resolver.</summary>
+    private static class IndirectString
+    {
+        [DllImport("shlwapi.dll", CharSet = CharSet.Unicode, ExactSpelling = true)]
+        private static extern int SHLoadIndirectString(
+            string source,
+            StringBuilder buffer,
+            int bufferLength,
+            IntPtr reserved
+        );
+
+        internal static string? Resolve(string source)
+        {
+            var buffer = new StringBuilder(1024);
+            return SHLoadIndirectString(source, buffer, buffer.Capacity, IntPtr.Zero) == 0
+                ? buffer.ToString()
+                : null;
+        }
+    }
+
+    /// <summary>Reads the display name the shell gives a shell namespace item.</summary>
+    private static class ShellDisplayName
+    {
+        private const uint NormalDisplay = 0;
+
+        private static readonly Guid ShellItemId = new("43826D1E-E718-42EE-BC55-A1E261C37BFE");
+
+        internal static string? Read(string parsingName)
+        {
+            IShellItem? item = null;
+            try
+            {
+                SHCreateItemFromParsingName(parsingName, IntPtr.Zero, in ShellItemId, out item);
+                item.GetDisplayName(NormalDisplay, out var name);
+                try
+                {
+                    return Marshal.PtrToStringUni(name);
+                }
+                finally
+                {
+                    Marshal.FreeCoTaskMem(name);
+                }
+            }
+            finally
+            {
+                if (item != null)
+                    Marshal.ReleaseComObject(item);
+            }
+        }
+
+        [DllImport("shell32.dll", CharSet = CharSet.Unicode, PreserveSig = false)]
+        private static extern void SHCreateItemFromParsingName(
+            string path,
+            IntPtr bindContext,
+            in Guid iid,
+            [MarshalAs(UnmanagedType.Interface)] out IShellItem item
+        );
+
+        [ComImport]
+        [Guid("43826D1E-E718-42EE-BC55-A1E261C37BFE")]
+        [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+        private interface IShellItem
+        {
+            void BindToHandler(
+                IntPtr bindContext,
+                ref Guid handler,
+                ref Guid iid,
+                out IntPtr result
+            );
+
+            void GetParent(out IShellItem parent);
+
+            void GetDisplayName(uint format, out IntPtr name);
+
+            void GetAttributes(uint mask, out uint attributes);
+
+            void Compare(IShellItem other, uint hint, out int order);
+        }
     }
 
     private static BitmapImage? LoadFrozenBitmapImage(string path)
