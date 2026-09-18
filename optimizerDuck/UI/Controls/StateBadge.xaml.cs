@@ -47,12 +47,13 @@ public partial class StateBadge : UserControl
         new PropertyMetadata(null)
     );
 
-    public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register(
-        nameof(CommandParameter),
-        typeof(object),
-        typeof(StateBadge),
-        new PropertyMetadata(null)
-    );
+    public static readonly DependencyProperty CommandParameterProperty =
+        DependencyProperty.Register(
+            nameof(CommandParameter),
+            typeof(object),
+            typeof(StateBadge),
+            new PropertyMetadata(null)
+        );
 
     public StateBadge()
     {

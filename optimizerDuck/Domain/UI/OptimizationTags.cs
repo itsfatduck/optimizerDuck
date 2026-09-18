@@ -58,6 +58,7 @@ public static class OptimizationTagsToDisplay
         ///     Explains what a tag means. One key per tag value, named after the flag.
         /// </summary>
         public string ToExplanation() => Loc.Instance[$"Optimizer.UI.Tags.{tags}.Tooltip"];
+
         /// <summary>
         ///     Converts the tag flags into their display representations.
         /// </summary>
@@ -70,7 +71,10 @@ public static class OptimizationTagsToDisplay
                     continue;
 
                 if (tags.HasFlag(flag))
-                    yield return flag.ToDisplay() with { Description = flag.ToExplanation() };
+                    yield return flag.ToDisplay() with
+                    {
+                        Description = flag.ToExplanation(),
+                    };
             }
         }
 

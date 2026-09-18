@@ -337,11 +337,7 @@ public class BloatwareService(
             else
             {
                 foreach (var failure in outcome.Failures)
-                    logger.LogError(
-                        "[APPX][FAIL] {Name}: {Failure}",
-                        appXPackage.Name,
-                        failure
-                    );
+                    logger.LogError("[APPX][FAIL] {Name}: {Failure}", appXPackage.Name, failure);
             }
 
             return outcome;

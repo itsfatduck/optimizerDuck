@@ -69,7 +69,9 @@ public class HibernationRevertStep : IRevertStep
     {
         return new JObject
         {
-            [nameof(WasPresent)] = WasPresent is { } present ? new JValue(present) : JValue.CreateNull(),
+            [nameof(WasPresent)] = WasPresent is { } present
+                ? new JValue(present)
+                : JValue.CreateNull(),
         };
     }
 
