@@ -1,4 +1,4 @@
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Runtime.InteropServices;
 using Microsoft.Extensions.Logging;
 
@@ -93,7 +93,7 @@ internal sealed class RegistryWatcher(ILogger<RegistryWatcher> logger) : IRegist
         private readonly string _path;
         private readonly Action<string> _onChanged;
         private readonly ILogger _logger;
-        private readonly object _lock = new();
+        private readonly Lock _lock = new();
 
         private IntPtr _hKey;
         private AutoResetEvent? _event;

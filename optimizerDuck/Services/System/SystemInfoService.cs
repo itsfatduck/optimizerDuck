@@ -1,4 +1,4 @@
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Globalization;
 using System.IO;
 using System.Management;
@@ -726,7 +726,7 @@ internal static class DiskProvider
 
     // Physical topology changes ~never at runtime: cache successes, retry failures.
     // The fast (2s-tick) path only reads these fields and never triggers a load.
-    private static readonly object _cacheLock = new();
+    private static readonly Lock _cacheLock = new();
     private static IReadOnlyList<PhysicalDiskInfo>? _cachedDisks;
     private static IReadOnlyDictionary<string, PhysicalDiskInfo>? _cachedDriveMap;
     private static readonly IReadOnlyDictionary<string, PhysicalDiskInfo> EmptyMap = new Dictionary<

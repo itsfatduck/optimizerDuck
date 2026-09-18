@@ -1,4 +1,4 @@
-using System.Windows.Threading;
+﻿using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
@@ -12,7 +12,7 @@ public partial class OptimizationState : ObservableObject
 {
     private static DispatcherTimer? _globalTimer;
     private static readonly List<WeakReference<OptimizationState>> _instances = [];
-    private static readonly object _lock = new();
+    private static readonly Lock _lock = new();
 
     private int _lastDisplayedSeconds = -1;
 
