@@ -104,8 +104,8 @@ public partial class DashboardViewModel : ViewModel
     {
         await LoadSystemInfoAsync();
         _systemInfoService.LogSummary();
-        var (result, version) = await _updaterService.CheckForUpdatesAsync();
-        if (result)
+        var version = await _updaterService.CheckForUpdatesAsync();
+        if (version is not null)
         {
             _updateNotified = true;
             IsUpdateInfoOpen = true;

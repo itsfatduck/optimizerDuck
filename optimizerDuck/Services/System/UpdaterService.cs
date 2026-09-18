@@ -22,18 +22,55 @@ public class UpdaterService : IDisposable
     public UpdaterService(ILogger<UpdaterService> logger)
     {
         _httpClient = HttpClientFactory.CreateClient(logger: logger);
-        _httpClient.DefaultRequestHeaders.UserAgent.Add(
-            new ProductInfoHeaderValue("optimizerDuck", "1.0")
-        );
+        _httpClient.DefaultRequestHeaders.UserAgent.Add(BuildUserAgentHeader());
         _logger = logger;
+    }
+
+    /// <summary>
+    ///     Builds the user agent header that identifies this build to the release host.
+    /// </summary>
+    /// <returns>The user agent header.</returns>
+    internal static ProductInfoHeaderValue BuildUserAgentHeader()
+    {
+        return new ProductInfoHeaderValue("optimizerDuck", Shared.FileVersion);
+    }
+
+    /// <summary>Parses the version a release tag names.</summary>
+    /// <param name="tagName">The release tag, for example "v1.2.3".</param>
+    /// <returns>The version the tag names, or <see langword="null" /> when it names none.</returns>
+    internal static Version? ParseReleaseTag(string? tagName)
+    {
+        if (string.IsNullOrWhiteSpace(tagName))
+            return null;
+
+        // "v1.1.0" becomes "1.1.0", then "1.1.0-fix" becomes "1.1.0".
+        var text = tagName.TrimStart('v');
+        var preReleaseSeparatorIndex = text.IndexOf('-');
+        if (preReleaseSeparatorIndex != -1)
+            text = text[..preReleaseSeparatorIndex];
+
+        return Version.TryParse(text, out var version) ? version : null;
+    }
+
+    /// <summary>Finds the installable executable in a release.</summary>
+    /// <param name="release">The release as the host reported it.</param>
+    /// <returns>
+    ///     The executable asset, or <see langword="null" /> when the release carries none.
+    /// </returns>
+    internal static GitHubAsset? FindExecutableAsset(GitHubRelease? release)
+    {
+        return release?.Assets.FirstOrDefault(asset =>
+            asset.Name.StartsWith("optimizerDuck", StringComparison.OrdinalIgnoreCase)
+            && asset.Name.EndsWith(".exe", StringComparison.OrdinalIgnoreCase)
+        );
     }
 
     /// <summary>Checks the GitHub API for a newer version of the application.</summary>
     /// <returns>
-    ///     A tuple where <c>Result</c> is <see langword="true" /> if a newer version exists, and
-    ///     <c>Version</c> is the latest version string.
+    ///     The newer version string, or <see langword="null" /> when the running version is current or
+    ///     the check could not determine a newer one.
     /// </returns>
-    public async Task<(bool Result, string? Version)> CheckForUpdatesAsync()
+    public async Task<string?> CheckForUpdatesAsync()
     {
         _logger.LogInformation(
             "Checking for updates (Current version: {CurrentVersion})",
@@ -50,62 +87,50 @@ public class UpdaterService : IDisposable
             if (latestRelease == null || string.IsNullOrEmpty(latestRelease.TagName))
             {
                 _logger.LogWarning("Could not retrieve latest release information");
-                return (false, null);
+                return null;
             }
-
-            // "v1.1.0" becomes "1.1.0"
-            var latestVersionStr = latestRelease.TagName.TrimStart('v');
-
-            // "1.1.0-fix" becomes "1.1.0"
-            var preReleaseSeparatorIndex = latestVersionStr.IndexOf('-');
-            if (preReleaseSeparatorIndex != -1)
-                latestVersionStr = latestVersionStr[..preReleaseSeparatorIndex];
 
             _logger.LogDebug(
                 "Latest release version: {LatestReleaseTagName}",
                 latestRelease.TagName
             );
 
-            // Parse version
-            if (!Version.TryParse(latestVersionStr, out var latestVersion))
+            var latestVersion = ParseReleaseTag(latestRelease.TagName);
+            if (latestVersion is null)
             {
                 _logger.LogWarning(
                     "Could not parse latest release version: {LatestReleaseTagName}",
                     latestRelease.TagName
                 );
-                return (false, null);
+                return null;
             }
 
             var currentVersion = Version.Parse(Shared.FileVersion);
 
             if (latestVersion > currentVersion)
             {
-                var updateExecutableAsset = latestRelease.Assets.FirstOrDefault(a =>
-                    a.Name.StartsWith("optimizerDuck", StringComparison.OrdinalIgnoreCase)
-                    && a.Name.EndsWith(".exe", StringComparison.OrdinalIgnoreCase)
-                );
-
-                if (updateExecutableAsset == null)
+                if (FindExecutableAsset(latestRelease) == null)
                 {
                     _logger.LogWarning("No update executable (.exe) found in the latest release");
-                    return (false, null);
+                    return null;
                 }
 
+                var latestVersionStr = latestVersion.ToString();
                 _logger.LogInformation(
                     "A new version ({LatestVersion}) is available!",
                     latestVersionStr
                 );
 
-                return (true, latestVersionStr);
+                return latestVersionStr;
             }
 
             _logger.LogInformation("You are running the latest version");
-            return (false, null);
+            return null;
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error checking for updates");
-            return (false, null);
+            return null;
         }
     }
 
