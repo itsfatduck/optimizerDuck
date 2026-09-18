@@ -37,7 +37,18 @@ public class RegistryServiceTests : IDisposable
         Assert.False(result.Ok);
         var change = Assert.Single(call.Changes.Changes);
         Assert.False(change.Ok);
-        Assert.Equal(ServiceStrings.CommonErrorAccessDenied, change.Error);
+        // A protected hive is refused while its key is opened, which the service reports as its own
+        // wording; an ordinary ACL denial on the value write reports the shared access-denied text.
+        // Both are the same refusal to the caller, so the wording is not pinned to one of them.
+        Assert.NotNull(change.Error);
+        Assert.Contains(
+            change.Error,
+            new[]
+            {
+                ServiceStrings.CommonErrorAccessDenied,
+                ServiceStrings.RegistryErrorAccessDeniedProtectedHive,
+            }
+        );
         Assert.Null(change.Revert);
     }
 
