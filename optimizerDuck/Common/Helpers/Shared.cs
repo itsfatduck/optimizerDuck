@@ -42,10 +42,6 @@ public static class Shared
     /// <summary>The name given to the restore point created before an apply.</summary>
     public const string RestorePointName = "optimizerDuck Restore Point";
 
-    /// <summary>The download URL of the bundled optimizerDuck power plan.</summary>
-    public const string PowerPlanUrl =
-        "https://github.com/itsfatduck/optimizerDuck/raw/refs/heads/master/optimizerDuck.Resources/optimizerDuck.pow";
-
     /// <summary>The GUID the bundled power plan is installed under.</summary>
     public const string PowerPlanGUID = "8ae61178-2c55-43f2-afb2-f83725823657";
 
