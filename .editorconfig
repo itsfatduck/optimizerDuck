@@ -1,9 +1,14 @@
 root = true
 
 # ---------------------------------------------------------------------------
-# Compiler-level opt-ins. AnalysisLevel/AnalysisMode enable the platform and
-# CAxxxx analyzers that the build previously never ran; EnforceCodeStyleInBuild
-# makes IDExxxx style rules fail the build instead of only showing in the IDE.
+# Compiler-level opt-ins. EnforceCodeStyleInBuild runs the IDExxxx style rules
+# inside the build, and TreatWarningsAsErrors (set in both project files) turns
+# every warning into a failure, so the severities below decide what fails.
+#
+# AnalysisMode=All is deliberately not set: on this tree it reported about 7,000
+# warnings, led by CA1515 (1,670, make types internal), CA1848 (1,464, use
+# LoggerMessage source generation) and CA1707 (1,022, no underscores in test
+# names). Each of those contradicts a choice this codebase makes on purpose.
 # ---------------------------------------------------------------------------
 [*.{cs,csx}]
 charset = utf-8
@@ -60,8 +65,6 @@ dotnet_diagnostic.CA1510.severity = suggestion
 # Log-message argument boxing/allocation for disabled log levels.
 dotnet_diagnostic.CA1873.severity = suggestion
 # Avoid the culture-sensitive overloads of string.Format / int.Parse.
-dotnet_diagnostic.CA1305.severity = suggestion
-# Prefer a TimeProvider over DateTime.Now / UtcNow.
 dotnet_diagnostic.CA1305.severity = suggestion
 
 # CA1416 (platform compatibility) is intentionally silent: the app targets a single

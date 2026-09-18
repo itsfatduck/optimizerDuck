@@ -33,3 +33,8 @@ jobs:
 
       - name: Test
         run: dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release --no-build --logger "console;verbosity=detailed" --blame-hang --blame-hang-timeout 30s
+
+      - name: Format check
+        run: |
+          dotnet tool install --global csharpier --version 1.3.0
+          csharpier check .
