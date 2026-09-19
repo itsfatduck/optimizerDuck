@@ -2,11 +2,13 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using optimizerDuck.Resources.Languages;
 using Xunit;
+using Xunit.Sdk;
+using Xunit.v3;
 
 // The suite touches the real registry, filesystem and child processes, and shares
 // process-wide statics (Loc.Instance's culture, ReflectionHelper's cache). Parallel
 // test classes race on those, so the assembly runs serialized.
-[assembly: CollectionBehavior(DisableTestParallelization = true)]
+[assembly: Parallelization(Mode = ParallelMode.None)]
 
 namespace optimizerDuck.Test;
 

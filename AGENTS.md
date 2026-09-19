@@ -14,11 +14,11 @@ Windows-only WPF desktop app that optimizes Windows. Read this before changing c
 ## Commands
 - `dotnet restore optimizerDuck.slnx`
 - `dotnet build optimizerDuck.slnx --configuration Release --no-restore` — the CI-aligned gate.
-- `dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release --no-build` — all tests. Add `--filter "FullyQualifiedName~TestName"` for one.
+- `dotnet run --project optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release -- -longRunning 30` — all tests through the xUnit console runner (non-zero exit on failure). Add `-class <Name>` or `-method <Name>` for one. The project is a Microsoft.Testing.Platform app, so `dotnet test --project optimizerDuck.Test/optimizerDuck.Test.csproj` also works where the runner's pipe transport is available (`global.json` selects it); it is not used in CI.
 - `dotnet run --project optimizerDuck/optimizerDuck.csproj` — run locally (needs admin).
 - `publish.bat portable|single [--skip-tests] [--no-pause]` — release artifacts; runs the tests first unless skipped.
 - `csharpier format .` / `csharpier check .` — global tool, CI pins 1.3.0. Run it as `csharpier`, never `dotnet csharpier` (that fails as "command not found", which reads like a missing tool). The editor reformats on save, so a touched file may come back with unrelated lines reflowed; that is the formatter, not your edit.
-- Full gate before push: build, test, `csharpier check .`. CI (`.github/workflows/ci.yml`) = restore, Release build, test with `--blame-hang --blame-hang-timeout 30s`, format check.
+- Full gate before push: build, test, `csharpier check .`. CI (`.github/workflows/ci.yml`) = restore, Release build, tests with `-longRunning 30`, format check.
 
 ## Layout
 - `optimizerDuck/` — the WPF app.
@@ -111,7 +111,7 @@ Reflection discovery, no registration array to update.
 - **Naming**: `{Method}_{Scenario}_{ExpectedResult}`, e.g. `ApplyAsync_Success_PersistsRevertDataFile`.
 - **Cleanup**: `try/finally` or `IDisposable` (`AppDataCleanupFixture`); a test that writes revert data removes both `{id}.json` and `{id}.json.tmp`.
 - No coverage gate — cover the changed logic meaningfully, and add or update tests for what you change even when nobody asked.
-- CI runs with `--blame-hang --blame-hang-timeout 30s`: no test may hang longer than 30 s.
+- CI runs the console runner with `-longRunning 30`: no test may hang longer than 30 s.
 
 ## Style
 - Nullable enabled, file-scoped namespaces, implicit usings. 4-space indent, max line length 100.
@@ -119,7 +119,7 @@ Reflection discovery, no registration array to update.
 - Comments are sparse in this codebase; do not add unnecessary ones.
 - DI and MVVM via `Microsoft.Extensions.Hosting` + `CommunityToolkit.Mvvm`; pages and ViewModels are singletons.
 - `WmiHelper.Initialize()` registers WMI cleanup for abnormal termination; keep the call on the startup path.
-- Environment: `net10.0-windows`, WPF, `WPF-UI` + `WPF-UI.DependencyInjection` 4.3.0, `CommunityToolkit.Mvvm` 8.4.2, `Microsoft.Extensions.*` 10.0.10, `Newtonsoft.Json` 13.0.4, `Serilog` 4.4.0 (+ `Serilog.Extensions.Hosting` 10.0.0, `Serilog.Sinks.File` 7.0.0), `System.Management.Automation` 7.6.4, `TaskScheduler` 2.12.2. Tests: `xunit.v3` 3.2.2, `xunit.runner.visualstudio` 3.1.5, `Microsoft.NET.Test.Sdk` 18.8.1, `coverlet.collector` 10.0.1. Versions live in the two csproj files — check there rather than trusting this list.
+- Environment: `net10.0-windows`, WPF, `WPF-UI` + `WPF-UI.DependencyInjection` 4.3.0, `CommunityToolkit.Mvvm` 8.4.2, `Microsoft.Extensions.*` 10.0.12, `Newtonsoft.Json` 13.0.4, `Serilog` 4.4.0 (+ `Serilog.Extensions.Hosting` 10.0.0, `Serilog.Sinks.File` 7.0.0), `System.Management.Automation` 7.6.6, `TaskScheduler` 2.12.2. Tests: `xunit.v3` 4.0.1 (Microsoft.Testing.Platform based; `Microsoft.NET.Test.Sdk`, `xunit.runner.visualstudio` and `coverlet.collector` are VSTest-only and deliberately absent). Versions live in the two csproj files — check there rather than trusting this list.
 
 ## Commits and PRs
 - Conventional Commits: `feat:`, `fix:`, `refactor:`, `docs:`, `test:`, `i18n:`, `chore:`.

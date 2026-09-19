@@ -42,7 +42,7 @@ if "%RUN_TESTS%"=="1" (
 if "%RUN_TESTS%"=="1" (
     echo.
     echo [1/2] Running tests...
-    dotnet test "%TEST_PROJECT%" -c %CONFIGURATION% --nologo
+    dotnet run --project "%TEST_PROJECT%" -c %CONFIGURATION% -- -longRunning 30
     if errorlevel 1 (
         echo.
         echo Tests failed. Publish stopped.
