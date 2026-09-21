@@ -8,13 +8,14 @@ public enum ValueConditionType
 {
     IsNull,
     IsNotNull,
+    IsNotNullOrEmpty,
     IsZero,
     IsNotZero,
     IsGreaterThanZero,
     IsLessThanZero,
 }
 
-/// <summary>Shows or hides a control based on a value condition (null, zero, or sign).</summary>
+/// <summary>Shows or hides a control based on a value condition (null, empty text, zero, or sign).</summary>
 public class ValueConditionToVisibilityConverter : IValueConverter
 {
     public ValueConditionType ConditionType { get; set; } = ValueConditionType.IsNull;
@@ -29,6 +30,8 @@ public class ValueConditionToVisibilityConverter : IValueConverter
         {
             ValueConditionType.IsNull => value is null,
             ValueConditionType.IsNotNull => value is not null,
+            ValueConditionType.IsNotNullOrEmpty => value is string text
+                && !string.IsNullOrWhiteSpace(text),
             ValueConditionType.IsZero => value is 0,
             ValueConditionType.IsNotZero => value is not 0,
             ValueConditionType.IsGreaterThanZero => value is > 0,

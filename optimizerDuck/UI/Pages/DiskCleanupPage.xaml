@@ -268,7 +268,8 @@
                                         Foreground="{DynamicResource TextFillColorDisabledBrush}"
                                         Text="{Binding Path}"
                                         TextTrimming="CharacterEllipsis"
-                                        ToolTip="{Binding Path}" />
+                                        ToolTip="{Binding Path}"
+                                        Visibility="{Binding Path, Converter={StaticResource NotEmptyToVisibilityConverter}}" />
 
                                     <!--  Size Badge  -->
                                     <Border

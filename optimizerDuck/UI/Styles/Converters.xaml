@@ -26,6 +26,7 @@
         ComparisonType="Equal"
         Threshold="0" />
     <converters:ValueConditionToVisibilityConverter x:Key="NotNullToVisibilityConverter" ConditionType="IsNotNull" />
+    <converters:ValueConditionToVisibilityConverter x:Key="NotEmptyToVisibilityConverter" ConditionType="IsNotNullOrEmpty" />
     <!--  Legacy key: existing consumers (AppliedAt, Error, Model) expect visible-when-non-null  -->
     <converters:ValueConditionToVisibilityConverter x:Key="NullToVisibilityConverter" ConditionType="IsNotNull" />
     <converters:EmptyWhileNotLoadingConverter x:Key="EmptyWhileNotLoadingConverter" />
