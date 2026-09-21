@@ -21,13 +21,13 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ToolTip">
-                    <Grid Margin="15">
+                    <Grid Margin="7">
                         <Border
                             Name="Border"
                             Width="{TemplateBinding Width}"
                             Height="{TemplateBinding Height}"
                             MaxWidth="{TemplateBinding MaxWidth}"
-                            Padding="8,6"
+                            Padding="8,4"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="1"
@@ -37,14 +37,13 @@
                             RenderOptions.BitmapScalingMode="HighQuality">
                             <Border.Effect>
                                 <DropShadowEffect
-                                    BlurRadius="12"
+                                    BlurRadius="6"
                                     Direction="270"
-                                    Opacity="0.30"
-                                    ShadowDepth="8"
+                                    Opacity="0.25"
+                                    ShadowDepth="3"
                                     Color="#202020" />
                             </Border.Effect>
                             <ContentPresenter
-                                Margin="4,2"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top">
                                 <ContentPresenter.Resources>
