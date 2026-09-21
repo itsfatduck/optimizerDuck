@@ -215,17 +215,22 @@
                                         FontTypography="Caption"
                                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                         Text="{Binding Description}"
-                                        TextWrapping="Wrap" />
+                                        TextWrapping="Wrap"
+                                        Visibility="{Binding Description, Converter={StaticResource NotEmptyToVisibilityConverter}}" />
 
                                     <!--  Row 3: Path  -->
                                     <ui:TextBlock
                                         Margin="0,2,0,0"
                                         FontTypography="Caption"
                                         Foreground="{DynamicResource TextFillColorDisabledBrush}"
-                                        Text="{Binding FullPath}" />
+                                        Text="{Binding FullPath}"
+                                        Visibility="{Binding FullPath, Converter={StaticResource NotEmptyToVisibilityConverter}}" />
 
                                     <!--  Row 4: Trigger badges  -->
-                                    <controls:TriggerBadgeList Margin="0,4,0,0" ItemsSource="{Binding TriggerTypes}" />
+                                    <controls:TriggerBadgeList
+                                        Margin="0,4,0,0"
+                                        ItemsSource="{Binding TriggerTypes}"
+                                        Visibility="{Binding TriggerTypes.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}" />
 
                                     <!--  Row 5: Action summary  -->
                                     <ui:TextBlock
@@ -233,7 +238,8 @@
                                         FontTypography="Caption"
                                         Foreground="{DynamicResource TextFillColorDisabledBrush}"
                                         Text="{Binding ActionSummary}"
-                                        TextTrimming="CharacterEllipsis" />
+                                        TextTrimming="CharacterEllipsis"
+                                        Visibility="{Binding ActionSummary, Converter={StaticResource NotEmptyToVisibilityConverter}}" />
                                 </StackPanel>
 
                                 <!--  Actions  -->

@@ -236,13 +236,15 @@
                                                             Margin="0,2,0,0"
                                                             FontTypography="Caption"
                                                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                            Text="{Binding Publisher}" />
+                                                            Text="{Binding Publisher}"
+                                                            Visibility="{Binding Publisher, Converter={StaticResource NotEmptyToVisibilityConverter}}" />
                                                         <ui:TextBlock
                                                             Margin="0,2,0,0"
                                                             FontTypography="Caption"
                                                             Foreground="{DynamicResource TextFillColorDisabledBrush}"
                                                             Text="{Binding Command}"
-                                                            TextTrimming="CharacterEllipsis" />
+                                                            TextTrimming="CharacterEllipsis"
+                                                            Visibility="{Binding Command, Converter={StaticResource NotEmptyToVisibilityConverter}}" />
                                                     </StackPanel>
                                                     <StackPanel Grid.Column="2" Orientation="Horizontal">
                                                         <ui:ToggleSwitch
@@ -404,19 +406,25 @@
                                                         FontTypography="Caption"
                                                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                         Text="{Binding Description}"
-                                                        TextWrapping="Wrap" />
+                                                        TextWrapping="Wrap"
+                                                        Visibility="{Binding Description, Converter={StaticResource NotEmptyToVisibilityConverter}}" />
                                                     <ui:TextBlock
                                                         Margin="0,2,0,0"
                                                         FontTypography="Caption"
                                                         Foreground="{DynamicResource TextFillColorDisabledBrush}"
-                                                        Text="{Binding TaskPath}" />
-                                                    <controls:TriggerBadgeList Margin="0,4,0,0" ItemsSource="{Binding TriggerTypes}" />
+                                                        Text="{Binding TaskPath}"
+                                                        Visibility="{Binding TaskPath, Converter={StaticResource NotEmptyToVisibilityConverter}}" />
+                                                    <controls:TriggerBadgeList
+                                                        Margin="0,4,0,0"
+                                                        ItemsSource="{Binding TriggerTypes}"
+                                                        Visibility="{Binding TriggerTypes.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}" />
                                                     <ui:TextBlock
                                                         Margin="0,2,0,0"
                                                         FontTypography="Caption"
                                                         Foreground="{DynamicResource TextFillColorDisabledBrush}"
                                                         Text="{Binding ActionSummary}"
-                                                        TextTrimming="CharacterEllipsis" />
+                                                        TextTrimming="CharacterEllipsis"
+                                                        Visibility="{Binding ActionSummary, Converter={StaticResource NotEmptyToVisibilityConverter}}" />
                                                 </StackPanel>
 
                                                 <StackPanel
