@@ -106,7 +106,7 @@ jobs:
 
               if ($asset) {
                 Write-Host "::notice::Asset '$targetAsset' found and ready!"
-                Write-Host "verified=true" >> $env:GITHUB_OUTPUT
+                echo "verified=true" >> $env:GITHUB_OUTPUT
                 exit 0
               }
             } catch {
