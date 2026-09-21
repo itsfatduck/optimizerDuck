@@ -703,3 +703,4 @@ omp-session-*.html
 crash_*.log
 TestResults/
 openspec/
+.mnemon/
