@@ -3,6 +3,12 @@ name: Release
 on:
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to attach the asset to. Empty = latest release.
+        required: false
+        type: string
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -29,20 +35,32 @@ jobs:
         run: dotnet build optimizerDuck.slnx --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release --logger "console;verbosity=detailed" --blame-hang --blame-hang-timeout 30s
+        run: dotnet run --project optimizerDuck.Test/optimizerDuck.Test.csproj --configuration Release --no-build -- -longRunning 30
 
       - name: Publish Single
         run: |
           dotnet publish optimizerDuck/optimizerDuck.csproj --nologo /p:PublishProfile=Single
         shell: pwsh
 
-      - name: Get version from tag
+      - name: Resolve release tag
         id: get_version
-        run: |
-          $tag = "${{ github.event.release.tag_name }}"
-          $version = $tag -replace '^v', ''
-          echo "version=$version" >> $env:GITHUB_OUTPUT
         shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $tag = "${{ inputs.tag }}"
+          if (-not $tag) { $tag = "${{ github.event.release.tag_name }}" }
+          if (-not $tag) {
+            $tag = gh release view --repo $env:GITHUB_REPOSITORY --json tagName --jq .tagName
+          }
+          if (-not $tag) {
+            Write-Host "::error::No release tag resolved"
+            exit 1
+          }
+          $version = $tag -replace '^v', ''
+          echo "tag=$tag" >> $env:GITHUB_OUTPUT
+          echo "version=$version" >> $env:GITHUB_OUTPUT
+          Write-Host "Attaching assets to release $tag (version $version)"
 
       - name: Rename output file
         run: |
@@ -55,6 +73,7 @@ jobs:
       - name: Upload Release Asset
         uses: softprops/action-gh-release@v3
         with:
+          tag_name: ${{ steps.get_version.outputs.tag }}
           files: ./optimizerDuck-Windows-x64-${{ steps.get_version.outputs.version }}.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -65,7 +84,7 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: pwsh
         run: |
-          $releaseId = "${{ github.event.release.id }}"
+          $tag = "${{ steps.get_version.outputs.tag }}"
           $owner = "${{ github.repository_owner }}"
           $repo = "optimizerDuck"
           $targetAsset = "optimizerDuck-Windows-x64-${{ steps.get_version.outputs.version }}.exe"
@@ -75,7 +94,7 @@ jobs:
 
           for ($i = 0; $i -lt $maxRetries; $i++) {
             try {
-              $response = Invoke-RestMethod -Uri "https://api.github.com/repos/$owner/$repo/releases/$releaseId" `
+              $response = Invoke-RestMethod -Uri "https://api.github.com/repos/$owner/$repo/releases/tags/$tag" `
                 -Headers @{
                   "Authorization" = "Bearer $env:GITHUB_TOKEN"
                   "Accept"        = "application/vnd.github+json"
@@ -108,7 +127,7 @@ jobs:
           $webhookUrl = "https://api.botghost.com/webhook/1124234779194298438/${{ secrets.BOTGHOST_WEBHOOK_RELEASE_EVENT_ID }}"
           $body = @{
             variables = @(
-              @{ name = "Release Tag";    variable = "{release_tag}";   value = "${{ github.event.release.tag_name }}" }
+              @{ name = "Release Tag";    variable = "{release_tag}";   value = "${{ steps.get_version.outputs.tag }}" }
               @{ name = "Release Owner";  variable = "{release_owner}"; value = "${{ github.repository_owner }}" }
               @{ name = "Release Repo";   variable = "{release_repo}";  value = "optimizerDuck" }
             )
