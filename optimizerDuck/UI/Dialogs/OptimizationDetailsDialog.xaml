@@ -376,6 +376,7 @@
         <ui:CardAction
             Margin="0,0,0,4"
             Command="{Binding OpenRecordFileCommand}"
+            Cursor="Hand"
             Icon="{ui:SymbolIcon History24}"
             Visibility="{Binding HasRecord, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel>
@@ -393,6 +394,7 @@
 
         <ui:CardAction
             Margin="0,0,0,4"
+            Cursor="Hand"
             Command="{Binding OpenRevertFileCommand}"
             Icon="{ui:SymbolIcon FolderOpen24}"
             Visibility="{Binding Optimization.State.AppliedAt, Converter={StaticResource NullToVisibilityConverter}}">
