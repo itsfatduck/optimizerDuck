@@ -2244,7 +2244,7 @@ Atualize agora para desfrutar das últimas funcionalidades, melhorias e correç�
     <value>{0} passos alterados, {1} já estavam corretos, {2} não se aplicavam, {3} foram recusados pelo Windows</value>
   </data>
   <data name="Optimizer.Details.Record.Title" xml:space="preserve">
-    <value>O que esta otimização fez</value>
+    <value>Última execução registrada</value>
   </data>
   <data name="Optimizer.Details.Record.Empty" xml:space="preserve">
     <value>Ainda não há registro deste item.</value>

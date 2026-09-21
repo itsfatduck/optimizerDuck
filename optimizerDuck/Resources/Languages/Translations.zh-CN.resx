@@ -2252,7 +2252,7 @@
     <value>{0} 个步骤已更改，{1} 个步骤已符合，{2} 个步骤不适用，{3} 个步骤被 Windows 拒绝</value>
   </data>
   <data name="Optimizer.Details.Record.Title" xml:space="preserve">
-    <value>此优化做了什么</value>
+    <value>最近一次运行记录</value>
   </data>
   <data name="Optimizer.Details.Record.Empty" xml:space="preserve">
     <value>此项还没有记录。</value>

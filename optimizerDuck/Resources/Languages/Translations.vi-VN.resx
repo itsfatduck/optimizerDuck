@@ -2236,7 +2236,7 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
     <value>{0} bước đã thay đổi, {1} bước đã đúng sẵn, {2} bước không áp dụng, {3} bước bị Windows từ chối</value>
   </data>
   <data name="Optimizer.Details.Record.Title" xml:space="preserve">
-    <value>Tối ưu này đã làm gì</value>
+    <value>Lượt chạy gần nhất</value>
   </data>
   <data name="Optimizer.Details.Record.Empty" xml:space="preserve">
     <value>Chưa có bản ghi nào cho mục này.</value>

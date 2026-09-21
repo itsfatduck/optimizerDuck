@@ -2302,7 +2302,7 @@ Update now to enjoy the latest features, improvements, and bug fixes.</value>
     <value>{0} steps changed, {1} were already correct, {2} did not apply, {3} were refused by Windows</value>
   </data>
   <data name="Optimizer.Details.Record.Title" xml:space="preserve">
-    <value>What this optimization did</value>
+    <value>Last recorded run</value>
   </data>
   <data name="Optimizer.Details.Record.Empty" xml:space="preserve">
     <value>No record yet for this item.</value>

@@ -2244,7 +2244,7 @@
     <value>{0} шагов изменено, {1} уже совпадали, {2} не применимы, {3} отклонены Windows</value>
   </data>
   <data name="Optimizer.Details.Record.Title" xml:space="preserve">
-    <value>Что сделала эта оптимизация</value>
+    <value>Последний записанный запуск</value>
   </data>
   <data name="Optimizer.Details.Record.Empty" xml:space="preserve">
     <value>Записи для этого элемента пока нет.</value>

@@ -4049,7 +4049,7 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
     <value>{0} pasos cambiados, {1} ya eran correctos, {2} no se aplicaban, {3} fueron rechazados por Windows</value>
   </data>
   <data name="Optimizer.Details.Record.Title" xml:space="preserve">
-    <value>Qué hizo esta optimización</value>
+    <value>Última ejecución registrada</value>
   </data>
   <data name="Optimizer.Details.Record.Empty" xml:space="preserve">
     <value>Todavía no hay registro de este elemento.</value>

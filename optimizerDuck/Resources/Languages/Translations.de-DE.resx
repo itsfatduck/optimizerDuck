@@ -2296,7 +2296,7 @@ Aktualisiere jetzt, um die neuesten Funktionen, Verbesserungen und Fehlerbehebun
     <value>{0} Schritte geändert, {1} waren bereits korrekt, {2} waren nicht anwendbar, {3} wurden von Windows abgelehnt</value>
   </data>
   <data name="Optimizer.Details.Record.Title" xml:space="preserve">
-    <value>Was diese Optimierung getan hat</value>
+    <value>Letzter aufgezeichneter Lauf</value>
   </data>
   <data name="Optimizer.Details.Record.Empty" xml:space="preserve">
     <value>Für dieses Element gibt es noch keinen Bericht.</value>

@@ -2252,7 +2252,7 @@ Aggiorna ora per godere delle ultime funzionalità, miglioramenti e correzioni.<
     <value>{0} passaggi modificati, {1} già corretti, {2} non applicabili, {3} rifiutati da Windows</value>
   </data>
   <data name="Optimizer.Details.Record.Title" xml:space="preserve">
-    <value>Che cosa ha fatto questa ottimizzazione</value>
+    <value>Ultima esecuzione registrata</value>
   </data>
   <data name="Optimizer.Details.Record.Empty" xml:space="preserve">
     <value>Non c'è ancora un rapporto per questo elemento.</value>

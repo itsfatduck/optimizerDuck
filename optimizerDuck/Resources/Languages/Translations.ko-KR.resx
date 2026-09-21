@@ -2235,7 +2235,7 @@
     <value>단계 {0}개 변경, {1}개는 이미 일치, {2}개는 해당 없음, {3}개는 Windows가 거부</value>
   </data>
   <data name="Optimizer.Details.Record.Title" xml:space="preserve">
-    <value>이 최적화가 한 일</value>
+    <value>마지막으로 기록된 실행</value>
   </data>
   <data name="Optimizer.Details.Record.Empty" xml:space="preserve">
     <value>이 항목의 기록이 아직 없습니다.</value>

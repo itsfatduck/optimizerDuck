@@ -2236,7 +2236,7 @@
     <value>{0} 件の手順を変更、{1} 件は既に一致、{2} 件は対象外、{3} 件は Windows に拒否されました</value>
   </data>
   <data name="Optimizer.Details.Record.Title" xml:space="preserve">
-    <value>この最適化が行ったこと</value>
+    <value>最後に記録された実行</value>
   </data>
   <data name="Optimizer.Details.Record.Empty" xml:space="preserve">
     <value>この項目の記録はまだありません。</value>

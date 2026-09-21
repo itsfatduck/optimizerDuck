@@ -2235,7 +2235,7 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
     <value>{0} adım değişti, {1} adım zaten uygundu, {2} adım uygulanamadı, {3} adım Windows tarafından reddedildi</value>
   </data>
   <data name="Optimizer.Details.Record.Title" xml:space="preserve">
-    <value>Bu iyileştirme ne yaptı</value>
+    <value>Son kaydedilen çalıştırma</value>
   </data>
   <data name="Optimizer.Details.Record.Empty" xml:space="preserve">
     <value>Bu öğe için henüz kayıt yok.</value>
