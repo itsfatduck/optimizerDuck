@@ -75,7 +75,7 @@
                         Text="{Binding FullPath}"
                         TextTrimming="CharacterEllipsis" />
 
-                    <controls:TriggerBadgeList Margin="0,6,0,0" ItemsSource="{Binding TriggerTypes}" />
+                    <controls:TriggerBadgeList Margin="0,6,0,0" ItemsSource="{Binding TriggerBadges}" />
                 </StackPanel>
             </Grid>
         </Border>

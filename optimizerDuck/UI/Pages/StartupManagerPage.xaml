@@ -416,8 +416,8 @@
                                                         Visibility="{Binding TaskPath, Converter={StaticResource NotEmptyToVisibilityConverter}}" />
                                                     <controls:TriggerBadgeList
                                                         Margin="0,4,0,0"
-                                                        ItemsSource="{Binding TriggerTypes}"
-                                                        Visibility="{Binding TriggerTypes.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}" />
+                                                        ItemsSource="{Binding TriggerBadges}"
+                                                        Visibility="{Binding TriggerBadges.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}" />
                                                     <ui:TextBlock
                                                         Margin="0,2,0,0"
                                                         FontTypography="Caption"

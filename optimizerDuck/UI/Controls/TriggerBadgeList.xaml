@@ -16,7 +16,10 @@
                     Margin="0,0,4,2"
                     Padding="6,2"
                     Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
-                    CornerRadius="{StaticResource CornerRadiusSmall}">
+                    CornerRadius="{StaticResource CornerRadiusSmall}"
+                    ToolTip="{Binding Detail}"
+                    ToolTipService.InitialShowDelay="150"
+                    ToolTipService.Placement="Top">
                     <StackPanel Orientation="Horizontal">
                         <ui:SymbolIcon
                             Margin="0,0,4,0"
@@ -27,7 +30,7 @@
                             VerticalAlignment="Center"
                             FontTypography="Caption"
                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Text="{Binding}" />
+                            Text="{Binding Label}" />
                     </StackPanel>
                 </Border>
             </DataTemplate>

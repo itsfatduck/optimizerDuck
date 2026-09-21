@@ -54,9 +54,11 @@ public partial class ScheduledTaskModel : LocalizedObject
     public IReadOnlyList<ScheduledTaskTriggerInfo> TriggerInfos { get; init; } = [];
 
     /// <summary>
-    ///     Localized trigger labels for badge display (e.g. "At log on", "Daily").
+    ///     Badges for the task's triggers (e.g. "At log on", "Daily"), each carrying the
+    ///     localized detail the chip tooltip shows.
     /// </summary>
-    public IReadOnlyList<string> TriggerTypes => TriggerInfos.Select(t => t.Label).ToList();
+    public IReadOnlyList<ScheduledTaskTriggerBadge> TriggerBadges =>
+        TriggerInfos.Select(t => new ScheduledTaskTriggerBadge(t.Label, t.Detail)).ToList();
 
     /// <summary>
     ///     Localized summary of when the task triggers, keeping each trigger's data.

@@ -7,7 +7,7 @@ namespace optimizerDuck.Test.Domain.Optimizations.Models.ScheduledTask;
 public class ScheduledTaskTriggerTests
 {
     [Fact]
-    public void TriggerTypes_ResolveLocalizedLabelsFromInfos()
+    public void TriggerBadges_ResolveLocalizedLabelsFromInfos()
     {
         var model = new ScheduledTaskModel
         {
@@ -30,7 +30,7 @@ public class ScheduledTaskTriggerTests
                 Loc.Instance["ScheduledTasks.Trigger.Logon"],
                 Loc.Instance["ScheduledTasks.Trigger.Daily"],
             ],
-            model.TriggerTypes
+            model.TriggerBadges.Select(b => b.Label)
         );
         Assert.Equal(
             string.Format(
@@ -49,7 +49,39 @@ public class ScheduledTaskTriggerTests
     }
 
     [Fact]
-    public void TriggerTypes_AfterCultureChange_ResolveInNewLanguage()
+    public void TriggerBadges_CarryTheDetailEachChipTooltips()
+    {
+        var model = new ScheduledTaskModel
+        {
+            Name = "T",
+            Path = "\\",
+            FullPath = "\\T",
+            TriggerInfos =
+            [
+                new("ScheduledTasks.Trigger.Logon", null, [], null),
+                new(
+                    "ScheduledTasks.Trigger.Daily",
+                    "ScheduledTasks.TriggerDetail.Daily",
+                    ["1", "9:00 AM"],
+                    null
+                ),
+            ],
+        };
+
+        var detail = string.Format(
+            CultureInfo.CurrentCulture,
+            Loc.Instance["ScheduledTasks.TriggerDetail.Daily"],
+            "1",
+            "9:00 AM"
+        );
+
+        // A trigger without its own detail falls back to the label, so the tooltip still reads.
+        Assert.Equal(Loc.Instance["ScheduledTasks.Trigger.Logon"], model.TriggerBadges[0].Detail);
+        Assert.Equal(detail, model.TriggerBadges[1].Detail);
+    }
+
+    [Fact]
+    public void TriggerBadges_AfterCultureChange_ResolveInNewLanguage()
     {
         var original = Loc.CurrentCulture;
         try
@@ -63,10 +95,10 @@ public class ScheduledTaskTriggerTests
             };
 
             Loc.Instance.ChangeCulture(new CultureInfo("vi"));
-            var vi = model.TriggerTypes[0];
+            var vi = model.TriggerBadges[0].Label;
 
             Loc.Instance.ChangeCulture(new CultureInfo("en-US"));
-            var en = model.TriggerTypes[0];
+            var en = model.TriggerBadges[0].Label;
 
             // Keys exist in resx; the resolved text must not be the raw key or a raw ToString.
             Assert.DoesNotContain("ScheduledTasks.Trigger.Boot", vi);
@@ -133,7 +165,7 @@ public class ScheduledTaskTriggerTests
             "x"
         );
         Assert.Equal($"On workstation unlock; {expectedTime}", model.TriggerSummary);
-        Assert.Equal(Loc.Instance["ScheduledTasks.Trigger.Event"], model.TriggerTypes[0]);
+        Assert.Equal(Loc.Instance["ScheduledTasks.Trigger.Event"], model.TriggerBadges[0].Label);
     }
 
     [Fact]
@@ -171,6 +203,9 @@ public class ScheduledTaskTriggerTests
             );
         Assert.Equal(expected, model.TriggerSummary);
         // Badges stay short labels; the repetition lives in the summary only.
-        Assert.Equal([Loc.Instance["ScheduledTasks.Trigger.Daily"]], model.TriggerTypes);
+        Assert.Equal(
+            [Loc.Instance["ScheduledTasks.Trigger.Daily"]],
+            model.TriggerBadges.Select(b => b.Label)
+        );
     }
 }

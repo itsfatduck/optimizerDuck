@@ -37,3 +37,9 @@ public sealed record ScheduledTaskTriggerInfo(
         }
     }
 }
+
+/// <summary>
+///     One trigger badge: the localized label on the chip plus the detail the tooltip shows.
+///     The list is rebuilt on a language change, so both strings follow the culture.
+/// </summary>
+public sealed record ScheduledTaskTriggerBadge(string Label, string Detail);

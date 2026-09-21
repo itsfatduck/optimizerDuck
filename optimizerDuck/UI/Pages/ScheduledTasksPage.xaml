@@ -229,8 +229,8 @@
                                     <!--  Row 4: Trigger badges  -->
                                     <controls:TriggerBadgeList
                                         Margin="0,4,0,0"
-                                        ItemsSource="{Binding TriggerTypes}"
-                                        Visibility="{Binding TriggerTypes.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}" />
+                                        ItemsSource="{Binding TriggerBadges}"
+                                        Visibility="{Binding TriggerBadges.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}" />
 
                                     <!--  Row 5: Action summary  -->
                                     <ui:TextBlock
