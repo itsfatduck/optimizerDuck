@@ -542,6 +542,54 @@ public class BaseCustomizeSettingTests : IDisposable
     }
 
     [Fact]
+    public void RegistryToggle_GetState_ReturnsTrueWhenValueAbsentAndDefaultValueIsOn()
+    {
+        // Windows states only what differs from its own default, so an absent value is the
+        // declared default, not "off".
+        var toggle = new RegistryToggle
+        {
+            Path = TestKeyPath,
+            Name = "MissingDefaultOnTest",
+            OnValues = [0],
+            OffValues = [1],
+            DefaultValue = 0,
+        };
+
+        Assert.True(toggle.GetState());
+    }
+
+    [Fact]
+    public void RegistryToggle_GetState_ReturnsFalseWhenValueAbsentAndDefaultValueIsOff()
+    {
+        var toggle = new RegistryToggle
+        {
+            Path = TestKeyPath,
+            Name = "MissingDefaultOffTest",
+            OnValues = [0],
+            OffValues = [1],
+            DefaultValue = 1,
+        };
+
+        Assert.False(toggle.GetState());
+    }
+
+    [Fact]
+    public void RegistryToggle_GetState_KeyAbsentPrefersNullEntryOverDefaultValue()
+    {
+        // An explicit null entry already states the absent case, so it wins over the default.
+        var toggle = new RegistryToggle
+        {
+            Path = TestKeyPath,
+            Name = "MissingNullWinsTest",
+            OnValues = [1],
+            OffValues = [0, null],
+            DefaultValue = 1,
+        };
+
+        Assert.False(toggle.GetState());
+    }
+
+    [Fact]
     public void RegistryToggle_SetState_WritesFirstValueFromList()
     {
         var toggle = new RegistryToggle

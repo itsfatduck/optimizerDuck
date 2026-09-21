@@ -43,7 +43,9 @@ public class Desktop : LocalizedObject, ICustomizeCategory
                     Name = "{20D04FE0-3AEA-1069-A2D8-08002B30309D}",
                     OnValues = [0],
                     OffValues = [1],
-                    DefaultValue = 0,
+                    // Windows states only the icons it hides, and it never placed This PC on
+                    // the desktop by default, so an absent value means hidden.
+                    DefaultValue = 1,
                 },
             ];
     }

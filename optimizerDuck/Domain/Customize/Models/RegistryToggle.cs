@@ -33,8 +33,9 @@ public class RegistryToggle
     public IReadOnlyList<object?> OffValues { get; init; } = [0];
 
     /// <summary>
-    ///     Gets the default state value when the key is missing. Used for Reset to Default.
-    ///     Default is <c>0</c>.
+    ///     Gets the value that decides the state when the value is absent from the registry.
+    ///     Windows stores only what differs from its own default, so an absent value is the
+    ///     default, not "off". Default is <c>0</c>.
     /// </summary>
     public object? DefaultValue { get; init; } = 0;
 
@@ -50,10 +51,25 @@ public class RegistryToggle
     /// <summary>
     ///     Reads the registry and returns whether the toggle is currently on. The result is
     ///     <see langword="true" /> when the value matches any entry in <see cref="OnValues" />.
+    ///     An absent value is classified through <see cref="DefaultValue" />; a
+    ///     <see langword="null" /> entry in either list states the absent case itself and wins
+    ///     over that default.
     /// </summary>
     public bool GetState()
     {
         var value = GetRawValue();
+
+        if (value is null)
+        {
+            if (IsValueInList(null, OnValues))
+                return true;
+
+            if (IsValueInList(null, OffValues))
+                return false;
+
+            value = DefaultValue;
+        }
+
         return IsValueInList(value, OnValues);
     }
 
