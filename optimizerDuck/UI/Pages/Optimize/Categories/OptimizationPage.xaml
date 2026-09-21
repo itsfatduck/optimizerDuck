@@ -366,7 +366,7 @@
                                             <controls:StateBadge
                                                 Grid.Row="1"
                                                 Margin="0,8,0,0"
-                                                Background="{DynamicResource CardBackgroundDisabled}"
+                                                Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
                                                 Command="{Binding DataContext.ViewModel.ShowDetailsCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                                 CommandParameter="{Binding}"
                                                 Icon="CheckmarkCircle24"

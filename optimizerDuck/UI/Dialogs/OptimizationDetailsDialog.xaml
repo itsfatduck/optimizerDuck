@@ -110,7 +110,7 @@
                         Margin="8,0,0,0"
                         Padding="6,4"
                         HorizontalAlignment="Left"
-                        Background="{DynamicResource CardBackgroundDisabled}"
+                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
                         CornerRadius="{StaticResource CornerRadiusSmall}"
                         ToolTip="{Binding Optimization.State.AppliedAt}"
                         ToolTipService.InitialShowDelay="150"
@@ -130,7 +130,7 @@
                         Margin="8,0,0,0"
                         Padding="6,4"
                         HorizontalAlignment="Left"
-                        Background="{DynamicResource CardBackgroundDisabled}"
+                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
                         CornerRadius="{StaticResource CornerRadiusSmall}"
                         Visibility="{Binding RecordIsRevert, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <StackPanel Orientation="Horizontal">
