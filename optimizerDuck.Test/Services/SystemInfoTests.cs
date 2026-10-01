@@ -1,5 +1,6 @@
 using System.Globalization;
 using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Win32;
 using optimizerDuck.Common.Converters;
 using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.System;
@@ -35,19 +36,17 @@ public class SystemInfoTests
         Assert.False(info.IsWindows10);
     }
 
-    [Theory]
-    [InlineData("Professional", WindowsEdition.Pro)]
-    [InlineData("Core", WindowsEdition.Home)]
-    [InlineData("CoreSingleLanguage", WindowsEdition.Home)]
-    [InlineData("Education", WindowsEdition.Education)]
-    [InlineData("Enterprise", WindowsEdition.Enterprise)]
-    [InlineData("ServerDatacenter", WindowsEdition.Server)]
-    [InlineData(null, WindowsEdition.Unknown)]
-    [InlineData("", WindowsEdition.Unknown)]
-    [InlineData("Quantum", WindowsEdition.Unknown)]
-    public void MapEdition_MapsKnownIds(string? editionId, WindowsEdition expected)
+    [Fact]
+    public void LiveEditionId_MatchesRegistryUnchanged()
     {
-        Assert.Equal(expected, WindowsProvider.MapEdition(editionId));
+        using var key = Registry.LocalMachine.OpenSubKey(
+            @"SOFTWARE\Microsoft\Windows NT\CurrentVersion"
+        );
+        var raw = key?.GetValue("EditionID")?.ToString();
+        var expected = string.IsNullOrWhiteSpace(raw) ? null : raw.Trim();
+
+        // The SKU must survive to the UI verbatim: no family mapping, no guessing.
+        Assert.Equal(expected, WindowsProvider.Get().EditionId);
     }
 
     [Fact]

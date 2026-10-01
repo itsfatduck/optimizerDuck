@@ -1587,7 +1587,7 @@ internal static class WindowsProvider
         {
             int? build = null;
             string? displayVersion = null;
-            var edition = WindowsEdition.Unknown;
+            string? editionId = null;
             DateTime? installDate = null;
 
             using (
@@ -1604,7 +1604,7 @@ internal static class WindowsProvider
                     if (int.TryParse(buildText?.Split('.')[0], out var parsed))
                         build = parsed;
                     displayVersion = NullIfEmpty(ntKey.GetValue("DisplayVersion")?.ToString());
-                    edition = MapEdition(ntKey.GetValue("EditionID")?.ToString());
+                    editionId = NullIfEmpty(ntKey.GetValue("EditionID")?.ToString());
                     installDate = ParseInstallDate(ntKey.GetValue("InstallDate"));
                 }
             }
@@ -1618,7 +1618,7 @@ internal static class WindowsProvider
             {
                 BuildNumber = build,
                 DisplayVersion = displayVersion,
-                Edition = edition,
+                EditionId = editionId,
                 Architecture = CpuProvider.MapArchitecture(),
                 DeviceKind = DetectDeviceKind(),
                 InstallDate = installDate,
@@ -1629,31 +1629,6 @@ internal static class WindowsProvider
         {
             return WindowsInfo.Unknown;
         }
-    }
-
-    internal static WindowsEdition MapEdition(string? editionId)
-    {
-        if (string.IsNullOrWhiteSpace(editionId))
-            return WindowsEdition.Unknown;
-        var id = editionId.Trim();
-        if (id.StartsWith("Server", StringComparison.OrdinalIgnoreCase))
-            return WindowsEdition.Server;
-        if (id.StartsWith("Core", StringComparison.OrdinalIgnoreCase))
-            return WindowsEdition.Home;
-        return id switch
-        {
-            "Home" => WindowsEdition.Home,
-            "Professional" => WindowsEdition.Pro,
-            "ProfessionalEducation" => WindowsEdition.Education,
-            "Education" => WindowsEdition.Education,
-            "Enterprise" => WindowsEdition.Enterprise,
-            _ when id.Contains("Education", StringComparison.OrdinalIgnoreCase) =>
-                WindowsEdition.Education,
-            _ when id.Contains("Enterprise", StringComparison.OrdinalIgnoreCase) =>
-                WindowsEdition.Enterprise,
-            _ when id.Contains("Pro", StringComparison.OrdinalIgnoreCase) => WindowsEdition.Pro,
-            _ => WindowsEdition.Unknown,
-        };
     }
 
     private static DateTime? ParseInstallDate(object? value)
@@ -2151,7 +2126,7 @@ public sealed class SystemInfoService : IDisposable
             _logger.LogInformation(
                 "OS: Windows {Build} {Edition} [{Arch}] ({Device})",
                 s.Windows.BuildNumber?.ToString() ?? "?",
-                s.Windows.Edition,
+                s.Windows.EditionId,
                 s.Windows.Architecture,
                 s.Windows.DeviceKind
             );

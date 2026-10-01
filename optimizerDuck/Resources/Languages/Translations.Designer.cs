@@ -3095,51 +3095,6 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Education.
-        /// </summary>
-        internal static string Enum_WindowsEdition_Education {
-            get {
-                return ResourceManager.GetString("Enum.WindowsEdition.Education", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enterprise.
-        /// </summary>
-        internal static string Enum_WindowsEdition_Enterprise {
-            get {
-                return ResourceManager.GetString("Enum.WindowsEdition.Enterprise", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Home.
-        /// </summary>
-        internal static string Enum_WindowsEdition_Home {
-            get {
-                return ResourceManager.GetString("Enum.WindowsEdition.Home", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Pro.
-        /// </summary>
-        internal static string Enum_WindowsEdition_Pro {
-            get {
-                return ResourceManager.GetString("Enum.WindowsEdition.Pro", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Server.
-        /// </summary>
-        internal static string Enum_WindowsEdition_Server {
-            get {
-                return ResourceManager.GetString("Enum.WindowsEdition.Server", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Third-party notices.
         /// </summary>
         internal static string LegalDialog_Extras_Acknowledgements_Description {
