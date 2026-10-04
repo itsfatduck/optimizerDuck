@@ -41,7 +41,6 @@ public class ConditionTests
             Windows = new WindowsInfo
             {
                 BuildNumber = build,
-                Edition = WindowsEdition.Pro,
                 Architecture = Architecture.X64,
                 DeviceKind = DeviceKind.Desktop,
                 InstallDate = new DateTime(2024, 1, 1),

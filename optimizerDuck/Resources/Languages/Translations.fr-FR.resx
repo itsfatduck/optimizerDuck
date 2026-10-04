@@ -2093,21 +2093,6 @@ Mettez à jour pour profiter des dernières fonctionnalités, améliorations et 
   <data name="Enum.StorageMediaType.Nvme" xml:space="preserve">
     <value>NVMe</value>
   </data>
-  <data name="Enum.WindowsEdition.Home" xml:space="preserve">
-    <value>Famille</value>
-  </data>
-  <data name="Enum.WindowsEdition.Pro" xml:space="preserve">
-    <value>Pro</value>
-  </data>
-  <data name="Enum.WindowsEdition.Education" xml:space="preserve">
-    <value>Éducation</value>
-  </data>
-  <data name="Enum.WindowsEdition.Enterprise" xml:space="preserve">
-    <value>Entreprise</value>
-  </data>
-  <data name="Enum.WindowsEdition.Server" xml:space="preserve">
-    <value>Server</value>
-  </data>
   <data name="ScheduledTasks.Trigger.Event" xml:space="preserve">
     <value>Lors d'un événement</value>
   </data>

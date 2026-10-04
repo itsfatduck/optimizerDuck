@@ -92,7 +92,7 @@ def list_directory(base: Path, *, lang_filter: str | None = None,
         for e in entries:
             print(format_entry_compact(e, show_value=False))
     else:
-        print(format_entries_table(entries, show_values=show_values))
+        print(format_entries_table(entries, default.filename, show_values=show_values))
 
     # Locale files
     for lf in locales:
@@ -104,7 +104,7 @@ def list_directory(base: Path, *, lang_filter: str | None = None,
             for e in entries:
                 print(format_entry_compact(e, show_value=False))
         else:
-            print(format_entries_table(entries, show_values=show_values))
+            print(format_entries_table(entries, lf.filename, show_values=show_values))
 
 
 def main() -> None:
