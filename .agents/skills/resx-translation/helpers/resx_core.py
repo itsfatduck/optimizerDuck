@@ -417,7 +417,8 @@ def format_entry_compact(entry: ResxEntry, show_value: bool = True, max_val: int
     return " ".join(parts)
 
 
-def format_entries_table(entries: list[ResxEntry], show_values: bool = True) -> str:
+def format_entries_table(entries: list[ResxEntry], filename: str = "?",
+                        show_values: bool = True) -> str:
     """Format entries as a compact aligned table."""
     if not entries:
         return "  (no entries)"
@@ -432,9 +433,9 @@ def format_entries_table(entries: list[ResxEntry], show_values: bool = True) -> 
             val = e.value
             if len(val) > 50:
                 val = val[:47] + "..."
-            lines.append(f"  [{idx}] {key} = '{val}'  ({e.filename}:{line_info})")
+            lines.append(f"  [{idx}] {key} = '{val}'  ({filename}:{line_info})")
         else:
-            lines.append(f"  [{idx}] {key}  ({e.filename}:{line_info})")
+            lines.append(f"  [{idx}] {key}  ({filename}:{line_info})")
     return "\n".join(lines)
 
 
