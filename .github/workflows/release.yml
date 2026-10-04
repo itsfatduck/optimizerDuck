@@ -9,6 +9,11 @@ on:
         description: Release tag to attach the asset to. Empty = latest release.
         required: false
         type: string
+      skip_notify:
+        description: Skip the Discord webhook notification (use for rebuilds).
+        required: false
+        default: false
+        type: boolean
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -121,7 +126,7 @@ jobs:
           exit 1
 
       - name: Send webhook notify
-        if: steps.verify_asset.outputs.verified == 'true'
+        if: steps.verify_asset.outputs.verified == 'true' && inputs.skip_notify != true
         shell: pwsh
         run: |
           $webhookUrl = "https://api.botghost.com/webhook/1124234779194298438/${{ secrets.BOTGHOST_WEBHOOK_RELEASE_EVENT_ID }}"
