@@ -2,6 +2,13 @@
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
         <TargetFramework>net10.0-windows</TargetFramework>
+        <!-- CET shadow stacks are enabled by default for .NET 9+ apphosts/singlefilehosts,
+             but the CoreCLR requires QueueUserAPC2 (Windows 11 build 22000+ / Server 2022
+             only - it does not exist on Windows 10) whenever shadow stacks are active, so
+             every published build fails to start on Windows 10 with 0x80131506 ("Your
+             Windows doesn't fully support CET"). Disable CETCompat to keep the Windows 10
+             support the README promises. See #50. -->
+        <CETCompat>false</CETCompat>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
