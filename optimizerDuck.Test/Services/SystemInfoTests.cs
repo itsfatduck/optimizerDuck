@@ -4,6 +4,7 @@ using Microsoft.Win32;
 using optimizerDuck.Common.Converters;
 using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.System;
+using optimizerDuck.UI.ViewModels.Pages;
 
 namespace optimizerDuck.Test.Services;
 
@@ -47,6 +48,46 @@ public class SystemInfoTests
 
         // The SKU must survive to the UI verbatim: no family mapping, no guessing.
         Assert.Equal(expected, WindowsProvider.Get().EditionId);
+    }
+
+    [Theory]
+    [InlineData("Professional", WindowsEdition.Pro)]
+    [InlineData("Core", WindowsEdition.Home)]
+    [InlineData("CoreSingleLanguage", WindowsEdition.Home)]
+    [InlineData("Education", WindowsEdition.Education)]
+    [InlineData("Enterprise", WindowsEdition.Enterprise)]
+    [InlineData("ServerDatacenter", WindowsEdition.Server)]
+    [InlineData(null, WindowsEdition.Unknown)]
+    [InlineData("", WindowsEdition.Unknown)]
+    [InlineData("Quantum", WindowsEdition.Unknown)]
+    public void MapEdition_MapsRegistryId_ToFriendlyEdition(
+        string? editionId,
+        WindowsEdition expected
+    )
+    {
+        Assert.Equal(expected, WindowsProvider.MapEdition(editionId));
+    }
+
+    [Theory]
+    [InlineData("CoreCountrySpecific", WindowsEdition.Home, "CoreCountrySpecific (Home)")]
+    [InlineData("Quantum", WindowsEdition.Unknown, "Quantum")]
+    [InlineData("Education", WindowsEdition.Education, "Education")]
+    public void FormatEditionDisplay_FormatsRawAndFriendly(
+        string? raw,
+        WindowsEdition edition,
+        string expected
+    )
+    {
+        Assert.Equal(expected, DashboardViewModel.FormatEditionDisplay(raw, edition));
+    }
+
+    [Fact]
+    public void FormatEditionDisplay_MissingRawAndEdition_FallsBackToLocUnknown()
+    {
+        Assert.Equal(
+            Loc.Instance["Common.Unknown"],
+            DashboardViewModel.FormatEditionDisplay(null, WindowsEdition.Unknown)
+        );
     }
 
     [Fact]

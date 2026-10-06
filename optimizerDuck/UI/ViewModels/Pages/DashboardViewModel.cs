@@ -52,6 +52,9 @@ public partial class DashboardViewModel : ViewModel
     private string _windowsTitle = Loc.Instance["Common.Unknown"];
 
     [ObservableProperty]
+    private string _windowsEditionDisplay = Loc.Instance["Common.Unknown"];
+
+    [ObservableProperty]
     private string _installDateText = Loc.Instance["Common.Unknown"];
 
     [ObservableProperty]
@@ -351,11 +354,37 @@ public partial class DashboardViewModel : ViewModel
         };
         InstallDateText = snapshot.Windows.InstallDate?.ToString("yyyy-MM-dd") ?? unknown;
         LastBootText = snapshot.Windows.LastBootTime?.ToString("yyyy-MM-dd HH:mm") ?? unknown;
+        WindowsEditionDisplay = FormatEditionDisplay(
+            snapshot.Windows.EditionId,
+            snapshot.Windows.Edition
+        );
         PowerPlanText = FormatPowerPlan(snapshot.Power);
         UptimeText =
             Loc.Instance["Dashboard.SystemInfo.Uptime.Label"]
             + ": "
             + FormatUptime(TimeSpan.FromMilliseconds((double)Environment.TickCount64));
+    }
+
+    internal static string FormatEditionDisplay(string? rawEditionId, WindowsEdition edition)
+    {
+        var raw = string.IsNullOrWhiteSpace(rawEditionId) ? null : rawEditionId.Trim();
+        if (raw is null)
+            return edition == WindowsEdition.Unknown
+                ? Loc.Instance["Common.Unknown"]
+                : ResolveEditionFriendly(edition);
+        if (edition == WindowsEdition.Unknown)
+            return raw;
+        var friendly = ResolveEditionFriendly(edition);
+        return raw.Equals(friendly, StringComparison.OrdinalIgnoreCase)
+            ? raw
+            : $"{raw} ({friendly})";
+    }
+
+    private static string ResolveEditionFriendly(WindowsEdition edition)
+    {
+        var key = $"Enum.WindowsEdition.{edition}";
+        var text = Loc.Instance[key];
+        return text == key ? edition.ToString() : text;
     }
 
     private static string FormatPowerPlan(PowerInfo power)

@@ -98,6 +98,17 @@ public enum StorageMediaType
     Nvme,
 }
 
+/// <summary>Windows edition from EditionID. Server SKUs collapse to Server.</summary>
+public enum WindowsEdition
+{
+    Unknown,
+    Home,
+    Pro,
+    Education,
+    Enterprise,
+    Server,
+}
+
 /// <summary>Operating system facts. All display text is resolved in UI layer.</summary>
 public sealed record WindowsInfo
 {
@@ -111,6 +122,7 @@ public sealed record WindowsInfo
 
     /// <summary>Edition SKU straight from the registry (e.g. "CoreCountrySpecific"). Never normalized.</summary>
     public string? EditionId { get; init; }
+    public WindowsEdition Edition { get; init; } = WindowsEdition.Unknown;
     public Architecture Architecture { get; init; } = Architecture.Unknown;
     public DeviceKind DeviceKind { get; init; } = DeviceKind.Unknown;
     public DateTime? InstallDate { get; init; }

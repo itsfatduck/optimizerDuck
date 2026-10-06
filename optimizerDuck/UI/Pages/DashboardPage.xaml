@@ -154,7 +154,7 @@
                                 <StackPanel Grid.Row="0">
                                     <ui:TextBlock FontTypography="BodyStrong" Text="{Binding ViewModel.WindowsTitle}" />
                                     <ui:TextBlock FontTypography="Caption" Foreground="{DynamicResource TextFillColorSecondaryBrush}">
-                                        <Run Text="{Binding ViewModel.SystemInfo.Windows.EditionId, TargetNullValue=—, Mode=OneWay}" />
+                                        <Run Text="{Binding ViewModel.WindowsEditionDisplay, Mode=OneWay}" />
                                         <Run Text="·" />
                                         <Run Text="{Binding ViewModel.SystemInfo.Windows.Architecture, Converter={StaticResource EnumDisplayConverter}, Mode=OneWay}" />
                                         <Run Text="·" />
