@@ -16,7 +16,7 @@
 <br>
 [![CI](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml/badge.svg)](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml)
 [![.NET Latest](https://img.shields.io/badge/.NET_Runtime-M%C3%A9todo-ef99dd?style=flat-square)](https://dotnet.microsoft.com/en-us/download)
-[![Supported OS](https://img.shields.io/badge/Suportado-Windows_10%2B_x64-0078d4?style=flat-square)](https://www.microsoft.com/en-us/software-download/)
+[![Supported OS](https://img.shields.io/badge/Suportado-Windows_10%2B_x64_%7C_ARM64-0078d4?style=flat-square)](https://www.microsoft.com/en-us/software-download/)
 <br>
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/itsfatduck)
 
@@ -235,7 +235,7 @@ Sim. Cada otimização cria um arquivo de reversão antes de ser aplicada. Você
 
 ### Isso funciona no Windows 10 e Windows 11?
 
-Sim. O optimizerDuck suporta **Windows 10 (x64)** e **Windows 11 (x64)**.
+Sim. O optimizerDuck suporta **Windows 10/11 (x64 e ARM64)**.
 
 ### Preciso de privilégios de administrador?
 

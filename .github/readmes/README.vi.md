@@ -16,7 +16,7 @@
 <br>
 [![CI](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml/badge.svg)](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml)
 [![.NET Latest](https://img.shields.io/badge/.NET_Runtime-M%E1%BB%9Bi%20nh%E1%BA%A5t-ef99dd?style=flat-square)](https://dotnet.microsoft.com/en-us/download)
-[![Supported OS](https://img.shields.io/badge/H%E1%BB%87%20%C4%91i%E1%BB%81u%20h%C3%A0nh-Windows_10%2B_x64-0078d4?style=flat-square)](https://www.microsoft.com/en-us/software-download/)
+[![Supported OS](https://img.shields.io/badge/H%E1%BB%87%20%C4%91i%E1%BB%81u%20h%C3%A0nh-Windows_10%2B_x64_%7C_ARM64-0078d4?style=flat-square)](https://www.microsoft.com/en-us/software-download/)
 <br>
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/itsfatduck)
 
@@ -235,7 +235,7 @@ Tại optimizerDuck không có ký số (code-sign), vì cái chứng chỉ ký 
 
 ### Xài được trên Windows 10 và Windows 11 không?
 
-Được. optimizerDuck hỗ trợ cả **Windows 10 (x64)** và **Windows 11 (x64)**.
+Được. optimizerDuck hỗ trợ **Windows 10/11 (x64 và ARM64)**.
 
 ### Cần quyền admin không?
 

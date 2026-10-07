@@ -16,7 +16,7 @@
 <br>
 [![CI](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml/badge.svg)](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml)
 [![.NET Latest](https://img.shields.io/badge/.NET_Runtime-Derni%C3%A8re_version-ef99dd?style=flat-square)](https://dotnet.microsoft.com/en-us/download)
-[![Supported OS](https://img.shields.io/badge/Support%C3%A9-Windows_10%2B_x64-0078d4?style=flat-square)](https://www.microsoft.com/en-us/software-download/)
+[![Supported OS](https://img.shields.io/badge/Support%C3%A9-Windows_10%2B_x64_%7C_ARM64-0078d4?style=flat-square)](https://www.microsoft.com/en-us/software-download/)
 <br>
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/itsfatduck)
 
@@ -235,7 +235,7 @@ Oui. Chaque optimisation crée un fichier d'annulation avant de s'appliquer. Tu 
 
 ### Ça marche sur Windows 10 et Windows 11 ?
 
-Oui. optimizerDuck supporte **Windows 10 (x64)** et **Windows 11 (x64)**.
+Oui. optimizerDuck supporte **Windows 10/11 (x64 et ARM64)**.
 
 ### Il faut les droits administrateur ?
 

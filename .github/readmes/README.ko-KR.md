@@ -16,7 +16,7 @@
 <br>
 [![CI](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml/badge.svg)](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml)
 [![.NET Latest](https://img.shields.io/badge/.NET_Runtime-Latest-ef99dd?style=flat-square)](https://dotnet.microsoft.com/en-us/download)
-[![Supported OS](https://img.shields.io/badge/Supported-Windows_10%2B_x64-0078d4?style=flat-square)](https://www.microsoft.com/en-us/software-download/)
+[![Supported OS](https://img.shields.io/badge/Supported-Windows_10%2B_x64_%7C_ARM64-0078d4?style=flat-square)](https://www.microsoft.com/en-us/software-download/)
 <br>
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/itsfatduck)
 
@@ -235,7 +235,7 @@ optimizerDuck은 코드 서명이 안 돼 있어요: 코드 서명 인증서는 
 
 ### Windows 10이랑 Windows 11에서 되나요?
 
-네. optimizerDuck은 **Windows 10 (x64)** 와 **Windows 11 (x64)** 를 지원합니다.
+네. optimizerDuck은 **Windows 10/11 (x64 및 ARM64)** 를 지원합니다.
 
 ### 관리자 권한이 필요한가요?
 

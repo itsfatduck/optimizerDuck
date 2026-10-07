@@ -16,7 +16,7 @@
 <br>
 [![CI](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml/badge.svg)](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml)
 [![.NET Latest](https://img.shields.io/badge/.NET_Runtime-%E6%9C%80%E6%96%B0-ef99dd?style=flat-square)](https://dotnet.microsoft.com/en-us/download)
-[![Supported OS](https://img.shields.io/badge/%E6%94%AF%E6%8C%81%E7%B3%BB%E7%BB%9F-Windows_10%2B_x64-0078d4?style=flat-square)](https://www.microsoft.com/en-us/software-download/)
+[![Supported OS](https://img.shields.io/badge/%E6%94%AF%E6%8C%81%E7%B3%BB%E7%BB%9F-Windows_10%2B_x64_%7C_ARM64-0078d4?style=flat-square)](https://www.microsoft.com/en-us/software-download/)
 <br>
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/itsfatduck)
 
@@ -237,7 +237,7 @@ Windows 是为数亿台配置不同、任务不同、用户不同的 PC 设计�
 
 ### 支持 Windows 10 和 Windows 11 吗？
 
-支持。optimizerDuck 兼容 **Windows 10 (x64)** 和 **Windows 11 (x64)**。
+支持。optimizerDuck 兼容 **Windows 10/11 (x64 和 ARM64)**。
 
 ### 需要管理员权限吗？
 
