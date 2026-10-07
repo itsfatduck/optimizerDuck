@@ -2464,8 +2464,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to optimizerDuck (v{0}) is available!
-        ///Update now to enjoy the latest features, improvements, and bug fixes..
+        ///   Looks up a localized string similar to optimizerDuck (v{0}) is available! Update now to enjoy the latest features, improvements, and bug fixes..
         /// </summary>
         internal static string Dashboard_UpdateInfoBar_Message {
             get {
@@ -3095,6 +3094,33 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Details are in the log file..
+        /// </summary>
+        internal static string Error_Unhandled_LogHint {
+            get {
+                return ResourceManager.GetString("Error.Unhandled.LogHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The last action could not be completed: {0}.
+        /// </summary>
+        internal static string Error_Unhandled_Message {
+            get {
+                return ResourceManager.GetString("Error.Unhandled.Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something went wrong.
+        /// </summary>
+        internal static string Error_Unhandled_Title {
+            get {
+                return ResourceManager.GetString("Error.Unhandled.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Third-party notices.
         /// </summary>
         internal static string LegalDialog_Extras_Acknowledgements_Description {
@@ -3702,8 +3728,7 @@ namespace optimizerDuck.Resources.Languages {
         /// </summary>
         internal static string Optimizer_BloatwareAndServices_ConfigureServices_Progress_ChangeServiceStartupType {
             get {
-                return ResourceManager.GetString("Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupTyp" +
-                        "e", resourceCulture);
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType", resourceCulture);
             }
         }
         
@@ -4311,7 +4336,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to What this optimization did.
+        ///   Looks up a localized string similar to Last recorded run.
         /// </summary>
         internal static string Optimizer_Details_Record_Title {
             get {
@@ -4846,8 +4871,7 @@ namespace optimizerDuck.Resources.Languages {
         /// </summary>
         internal static string Optimizer_PowerManagement_InstallOptimizerDuckPowerPlan_Error_DetectActivePlanFailed {
             get {
-                return ResourceManager.GetString("Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFai" +
-                        "led", resourceCulture);
+                return ResourceManager.GetString("Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed", resourceCulture);
             }
         }
         
@@ -5761,8 +5785,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Restore Point allows you to revert your system to a previous state.
-        ///It&apos;s a safety measure to protect your Windows before applying changes..
+        ///   Looks up a localized string similar to Restore Point allows you to revert your system to a previous state. It&apos;s a safety measure to protect your Windows before applying changes..
         /// </summary>
         internal static string RestorePointDialog_Description {
             get {
@@ -5771,8 +5794,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The application will automatically enable System Restore and create a checkpoint named &quot;optimizerDuck...&quot;.
-        ///This ensures you can always go back if anything goes wrong..
+        ///   Looks up a localized string similar to The application will automatically enable System Restore and create a checkpoint named &quot;optimizerDuck...&quot;. This ensures you can always go back if anything goes wrong..
         /// </summary>
         internal static string RestorePointDialog_Help {
             get {
