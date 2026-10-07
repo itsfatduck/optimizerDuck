@@ -1,0 +1,2579 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+        Microsoft ResX Schema 
+        
+        Version 2.0
+        
+        The primary goals of this format is to allow a simple XML format 
+        that is mostly human readable. The generation and parsing of the 
+        various data types are done through the TypeConverter classes 
+        associated with the data types.
+        
+        Example:
+        
+        ... ado.net/XML headers & schema ...
+        <resheader name="resmimetype">text/microsoft-resx</resheader>
+        <resheader name="version">2.0</resheader>
+        <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+        <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+                    
+        There are any number of "resheader" rows that contain simple 
+        name/value pairs.
+        
+        Each data row contains a name, and value. The row also contains a 
+        type or mimetype. Type corresponds to a .NET class that support 
+        text/value conversion through the TypeConverter architecture. 
+        Classes that don't support this are serialized and stored with the 
+        mimetype set.
+        
+        The mimetype is used for serialized objects, and tells the 
+        ResXResourceReader how to depersist the object. This is currently not 
+        extensible. For a given mimetype the value must be set accordingly:
+        
+        Note - application/x-microsoft.net.object.binary.base64 is the format 
+        that the ResXResourceWriter will generate, however the reader can 
+        read any of the formats listed below.
+        
+        mimetype: application/x-microsoft.net.object.binary.base64
+        value   : The object must be serialized with 
+                : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+                : and then encoded with base64 encoding.
+        
+        mimetype: application/x-microsoft.net.object.soap.base64
+        value   : The object must be serialized with 
+                : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+                : and then encoded with base64 encoding.
+    
+        mimetype: application/x-microsoft.net.object.bytearray.base64
+        value   : The object must be serialized into a byte array 
+                : using a System.ComponentModel.TypeConverter
+                : and then encoded with base64 encoding.
+        -->
+  <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root" xmlns="">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+  </resheader>
+  <data name="Dashboard.Header.Title" xml:space="preserve">
+    <value>داشبورد</value>
+  </data>
+  <data name="Sidebar.Dashboard" xml:space="preserve">
+    <value>داشبورد</value>
+  </data>
+  <data name="Sidebar.Settings" xml:space="preserve">
+    <value>تنظیمات</value>
+  </data>
+  <data name="Button.Close" xml:space="preserve">
+    <value>بستن</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Cpu.Cores" xml:space="preserve">
+    <value>{0} هسته</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Storage.DiskInfo" xml:space="preserve">
+    <value>{0} گیگابایت استفاده‌شده از {1} گیگابایت ({2} گیگابایت آزاد)</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Ram.Modules" xml:space="preserve">
+    <value>{0} ماژول</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Cpu.Threads" xml:space="preserve">
+    <value>{0} رشته</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Storage.System" xml:space="preserve">
+    <value>سیستم</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Storage.Header" xml:space="preserve">
+    <value>فضای ذخیره‌سازی</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Ram.Used" xml:space="preserve">
+    <value>{0} گیگابایت مصرف‌شده</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Ram.Available" xml:space="preserve">
+    <value>{0} گیگابایت در دسترس</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Loading" xml:space="preserve">
+    <value>در حال دریافت اطلاعات سیستم...</value>
+  </data>
+  <data name="Sidebar.Optimize" xml:space="preserve">
+    <value>بهینه‌سازی</value>
+  </data>
+  <data name="Customize.Description" xml:space="preserve">
+    <value>تنظیمات و رفتارهای روزمره ویندوز را شخصی‌سازی کنید.</value>
+  </data>
+  <data name="Customize.CustomOption" xml:space="preserve">
+    <value>سفارشی</value>
+  </data>
+  <data name="Customize.CustomOption.NotSet" xml:space="preserve">
+    <value>تنظیم‌نشده</value>
+  </data>
+  <data name="Customize.Preferences.Name" xml:space="preserve">
+    <value>ترجیحات</value>
+  </data>
+  <data name="Customize.Preferences.Description" xml:space="preserve">
+    <value>ظاهر و حس‌وحال ویندوز را دقیقاً مطابق میل خود تنظیم کنید.</value>
+  </data>
+  <data name="Customize.Gaming.Name" xml:space="preserve">
+    <value>بازی‌ها</value>
+  </data>
+  <data name="Customize.Gaming.Description" xml:space="preserve">
+    <value>تنظیمات مربوط به گرافیک، ورودی و ضبط بازی‌ها.</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Gpu.More" xml:space="preserve">
+    <value>+ {0} کارت گرافیک دیگر</value>
+  </data>
+  <data name="Dashboard.Actions.Discord.Title" xml:space="preserve">
+    <value>انجمن دیسکورد</value>
+  </data>
+  <data name="Dashboard.Actions.Discord.Description" xml:space="preserve">
+    <value>به انجمن دیسکورد من بپیوندید تا پشتیبانی بگیرید یا با هم بازی کنیم</value>
+  </data>
+  <data name="Dashboard.Actions.GitHub.Title" xml:space="preserve">
+    <value>مخزن گیت‌هاب</value>
+  </data>
+  <data name="Dashboard.Actions.GitHub.Description" xml:space="preserve">
+    <value>پروژه را در گیت‌هاب بررسی کرده و در توسعه آن مشارکت کنید</value>
+  </data>
+  <data name="Dashboard.Actions.SupportMe.Title" xml:space="preserve">
+    <value>مشارکت و حمایت</value>
+  </data>
+  <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
+    <value>با ستاره دادن به مخزن گیت‌هاب، به اشتراک‌گذاری با دوستان یا حمایت مالی، به رشد این پروژه کمک کنید!</value>
+  </data>
+  <data name="Button.Ok" xml:space="preserve">
+    <value>تأیید</value>
+  </data>
+  <data name="Settings.Header.Title" xml:space="preserve">
+    <value>تنظیمات</value>
+  </data>
+  <data name="Settings.Appearance.Header" xml:space="preserve">
+    <value>ظاهر و پوسته</value>
+  </data>
+  <data name="Settings.Appearance.LanguageSelector.Title" xml:space="preserve">
+    <value>زبان</value>
+  </data>
+  <data name="Settings.Appearance.LanguageSelector.Description" xml:space="preserve">
+    <value>زبان مورد نظر خود را انتخاب کنید.</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.Title" xml:space="preserve">
+    <value>تم (تم ظاهری)</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.Description" xml:space="preserve">
+    <value>تم ظاهری مورد علاقه خود را برای برنامه انتخاب کنید.</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.Light" xml:space="preserve">
+    <value>روشن</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.Dark" xml:space="preserve">
+    <value>تاریک</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.HighContrast" xml:space="preserve">
+    <value>کنتراست بالا</value>
+  </data>
+  <data name="Common.AppliedSecondsAgo" xml:space="preserve">
+    <value>{0} ثانیه پیش اعمال شد</value>
+  </data>
+  <data name="Common.AppliedMinutesAgo" xml:space="preserve">
+    <value>{0} دقیقه پیش اعمال شد</value>
+  </data>
+  <data name="Common.AppliedHoursAgo" xml:space="preserve">
+    <value>{0} ساعت پیش اعمال شد</value>
+  </data>
+  <data name="Common.AppliedDaysAgo" xml:space="preserve">
+    <value>{0} روز پیش اعمال شد</value>
+  </data>
+  <data name="Common.AppliedMonthsAgo" xml:space="preserve">
+    <value>{0} ماه پیش اعمال شد</value>
+  </data>
+  <data name="Common.AppliedYearsAgo" xml:space="preserve">
+    <value>{0} سال پیش اعمال شد</value>
+  </data>
+  <data name="Optimizer.UI.Risk.Safe" xml:space="preserve">
+    <value>ایمن</value>
+  </data>
+  <data name="Optimizer.UI.Risk.Moderate" xml:space="preserve">
+    <value>نیازمند احتیاط</value>
+  </data>
+  <data name="Optimizer.UI.Risk.Risky" xml:space="preserve">
+    <value>تخصصی / پرریسک</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
+    <value>توضیحات کامل</value>
+  </data>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
+    <value>حد آستانه تفکیک Service Host را برابر با کل حافظه رم قرار می‌دهد تا سرویس‌ها در تعداد پروسه‌های کمتری ادغام شوند و میزان مصرف حافظه کاهش یابد.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
+    <value>شناسایی طرح انرژی فعال سیستم ناموفق بود.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ImportFailed" xml:space="preserve">
+    <value>وارد کردن طرح انرژی اختصاصی optimizerDuck با خطا مواجه شد.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ActivateFailed" xml:space="preserve">
+    <value>فعال‌سازی طرح انرژی optimizerDuck انجام نشد.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.System" xml:space="preserve">
+    <value>سیستم</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Ram" xml:space="preserve">
+    <value>رم (RAM)</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Disk" xml:space="preserve">
+    <value>دیسک</value>
+  </data>
+  <data name="Optimizer.UI.Tags.NetworkRequired" xml:space="preserve">
+    <value>نیازمند اتصال شبکه</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Network" xml:space="preserve">
+    <value>شبکه</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Privacy" xml:space="preserve">
+    <value>حریم خصوصی</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Audio" xml:space="preserve">
+    <value>صدا</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
+    <value>انویدیا (NVIDIA)</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
+    <value>ای‌ام‌دی (AMD)</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
+    <value>اینتل (Intel)</value>
+  </data>
+
+  <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
+    <value>مدیریت انرژی</value>
+  </data>
+  <data name="Revert.Error.NoDataFound" xml:space="preserve">
+    <value>اطلاعات بازگردانی برای {0} یافت نشد.</value>
+  </data>
+  <data name="Optimization.Revert.Reverting" xml:space="preserve">
+    <value>در حال بازگردانی...</value>
+  </data>
+  <data name="Optimization.Revert.Success" xml:space="preserve">
+    <value>تغییرات {0} با موفقیت بازگردانی شد!</value>
+  </data>
+  <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
+    <value>بازگردانی {0} با {1} خطا در مراحل همراه بود.</value>
+  </data>
+  <data name="Optimization.Revert.ExecutingStep" xml:space="preserve">
+    <value>در حال اجرای مرحله بازگردانی: {0}/{1} ({2})</value>
+  </data>
+  <data name="Revert.Registry.Description.RestoreKey" xml:space="preserve">
+    <value>بازگردانی کلید رجیستری: {0}</value>
+  </data>
+  <data name="Revert.Registry.Description.DeleteKey" xml:space="preserve">
+    <value>حذف کلید رجیستری: {0}</value>
+  </data>
+  <data name="Revert.Registry.Description.RevertUnknown" xml:space="preserve">
+    <value>بازگردانی رجیستری: {0}</value>
+  </data>
+  <data name="Revert.Error.NoSteps" xml:space="preserve">
+    <value>هیچ مرحله‌ای برای بازگردانی یافت نشد.</value>
+  </data>
+  <data name="Revert.Error.StepFailed" xml:space="preserve">
+    <value>مرحله بازگردانی با خطا مواجه شد</value>
+  </data>
+  <data name="Revert.UsbPower.Description" xml:space="preserve">
+    <value>بازگردانی حالت تعلیق انتخابی برق USB</value>
+  </data>
+  <data name="Revert.Hibernation.Description" xml:space="preserve">
+    <value>بازگردانی وضعیت Hibernation</value>
+  </data>
+  <data name="Revert.Hibernation.Error.RestoreFailed" xml:space="preserve">
+    <value>بازگردانی وضعیت Hibernation ناموفق بود: {0}</value>
+  </data>
+  <data name="Revert.PowerPlan.Description" xml:space="preserve">
+    <value>بازگردانی طرح انرژی فعال قبلی: {0}</value>
+  </data>
+  <data name="Revert.PowerPlan.Description.Set" xml:space="preserve">
+    <value>طرح انرژی {0} نصب شد</value>
+  </data>
+
+  <data name="Revert.PowerPlan.Error.RestoreFailed" xml:space="preserve">
+    <value>بازگردانی طرح انرژی قبلی ناموفق بود: {0}.</value>
+  </data>
+  <data name="Revert.PowerPlan.Error.DeleteFailed" xml:space="preserve">
+    <value>حذف طرح انرژی optimizerDuck ناموفق بود: {0}</value>
+  </data>
+  <data name="Revert.PowerPlan.Error.NothingToDo" xml:space="preserve">
+    <value>موردی برای بازگردانی وجود ندارد: هیچ طرح انرژی قبلی ثبت نشده است.</value>
+  </data>
+  <data name="Revert.PowerPlan.Error.VerifyFailed" xml:space="preserve">
+    <value>طرح انرژی {0} بازگردانی شد اما بررسی طرح فعال فعلی ناموفق بود.</value>
+  </data>
+  <data name="Revert.PowerPlan.Error.VerifyMismatch" xml:space="preserve">
+    <value>عدم مطابقت در بررسی طرح انرژی: طرح مورد انتظار {0}، طرح فعال {1}.</value>
+  </data>
+  <data name="Revert.PowerSetting.Description" xml:space="preserve">
+    <value>بازگردانی تنظیمات انرژی {0}/{1}/{2}</value>
+  </data>
+  <data name="Optimization.Apply.Processing" xml:space="preserve">
+    <value>در حال اعمال تغییرات...</value>
+  </data>
+  <data name="Optimization.Apply.Completed" xml:space="preserve">
+    <value>انجام شد</value>
+  </data>
+  <data name="Optimization.Apply.Success" xml:space="preserve">
+    <value>بهینه‌سازی {0} با موفقیت اعمال شد.</value>
+  </data>
+  <data name="Optimization.Apply.Error.FailedWithSteps" xml:space="preserve">
+    <value>بهینه‌سازی {0} با {1} خطا در مراحل اعمال شد.</value>
+  </data>
+  <data name="Optimization.Apply.Error.Failed" xml:space="preserve">
+    <value>اعمال بهینه‌سازی {0} با خطا مواجه شد.</value>
+  </data>
+  <data name="Optimization.Apply.Error.Unknown" xml:space="preserve">
+    <value>نتیجه اعمال {0} نامشخص است.</value>
+  </data>
+  <data name="Service.Shell.Error.ExitCode" xml:space="preserve">
+    <value>کد خروج {0}</value>
+  </data>
+  <data name="Service.Shell.Error.TimedOut" xml:space="preserve">
+    <value>اتمام مهلت زمانی (Timeout)</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
+    <value>فایل بازگردانی</value>
+  </data>
+  <data name="OptimizationResultDialog.Header" xml:space="preserve">
+    <value>{0} مرحله ناموفق</value>
+  </data>
+  <data name="OptimizationResultDialog.Description" xml:space="preserve">
+    <value>برخی مراحل با موفقیت انجام نشدند. می‌توانید فقط مراحل ناموفق را دوباره اجرا کنید.</value>
+  </data>
+  <data name="OptimizationResultDialog.Details" xml:space="preserve">
+    <value>جزئیات</value>
+  </data>
+  <data name="Button.Retry" xml:space="preserve">
+    <value>تلاش مجدد</value>
+  </data>
+  <data name="Settings.About.Duck.Description" xml:space="preserve">
+    <value>نسخه فعلی: {0}</value>
+  </data>
+  <data name="Settings.Advanced.Header" xml:space="preserve">
+    <value>پیشرفته</value>
+  </data>
+  <data name="Settings.Optimize.Header" xml:space="preserve">
+    <value>بهینه‌سازی</value>
+  </data>
+  <data name="Settings.Optimize.ShellTimeout.Title" xml:space="preserve">
+    <value>مهلت زمانی دستورات شل (Shell Timeout)</value>
+  </data>
+  <data name="Settings.Optimize.ShellTimeout.Description" xml:space="preserve">
+    <value>حداکثر زمان انتظار برای اجرای هر دستور شل (بر حسب میلی‌ثانیه).</value>
+  </data>
+  <data name="Settings.Advanced.ClearDownloads.Title" xml:space="preserve">
+    <value>پاک‌سازی دانلودها</value>
+  </data>
+  <data name="Settings.Advanced.ClearDownloads.Description" xml:space="preserve">
+    <value>تمامی فایل‌های دانلودشده در طول روند بهینه‌سازی را حذف می‌کند.</value>
+  </data>
+  <data name="Settings.Advanced.ClearRevertDatas.Title" xml:space="preserve">
+    <value>پاک‌سازی فایل‌های بازگردانی</value>
+  </data>
+  <data name="Settings.Advanced.ClearRevertDatas.Description" xml:space="preserve">
+    <value>تمامی داده‌های مربوط به بازگردانی بهینه‌سازی‌ها را پاک می‌کند.</value>
+  </data>
+  <data name="Button.Clear" xml:space="preserve">
+    <value>پاک‌سازی</value>
+  </data>
+  <data name="Settings.Advanced.OpenRootDir.Title" xml:space="preserve">
+    <value>باز کردن پوشه اصلی برنامه</value>
+  </data>
+  <data name="Settings.Advanced.OpenRootDir.Description" xml:space="preserve">
+    <value>پوشه اصلی نصب برنامه را که تمامی فایل‌های ضروری در آن قرار دارند باز می‌کند.</value>
+  </data>
+  <data name="Settings.Appearance.SmoothScrolling.Title" xml:space="preserve">
+    <value>پیمایش نرم (Smooth Scrolling)</value>
+  </data>
+  <data name="Settings.Appearance.SmoothScrolling.Description" xml:space="preserve">
+    <value>پویانمایی پیمایش نرم را فعال می‌کند. در صورت مشاهده کندی یا افت فریم آن را غیرفعال کنید.</value>
+  </data>
+  <data name="Settings.About.Header" xml:space="preserve">
+    <value>درباره برنامه</value>
+  </data>
+  <data name="Dialog.AreYouSure.Title" xml:space="preserve">
+    <value>آیا از انجام این کار اطمینان دارید؟</value>
+  </data>
+  <data name="Settings.ClearDownloads.Description" xml:space="preserve">
+    <value>شما در حال حذف تمامی فایل‌های دانلودشده در طول فرایند بهینه‌سازی هستید. این اقدام غیرقابل‌بازگشت است؛ لطفا قبل از ادامه اطمینان حاصل کنید.</value>
+  </data>
+  <data name="Button.Cancel" xml:space="preserve">
+    <value>انصراف</value>
+  </data>
+  <data name="Button.Skip" xml:space="preserve">
+    <value>رد شدن</value>
+  </data>
+  <data name="Settings.ClearRevertData.Description" xml:space="preserve">
+    <value>شما در حال حذف داده‌های بازگردانی بهینه‌سازی‌ها هستید. پس از این کار، دیگر قادر به بازگرداندن تغییرات به حالت قبل نخواهید بود.</value>
+  </data>
+  <data name="ProcessingOptimizationDialog.Warning.DontCloseAppOrRestart" xml:space="preserve">
+    <value>لطفاً تا پایان فرایند اعمال یا بازگردانی تغییرات، برنامه را نبندید و سیستم را راه‌اندازی مجدد نکنید.</value>
+  </data>
+  <data name="Common.AppliedJustNow" xml:space="preserve">
+    <value>هم‌اکنون اعمال شد</value>
+  </data>
+  <data name="Common.OperationCancelled" xml:space="preserve">
+    <value>عملیات لغو شد.</value>
+  </data>
+  <data name="Optimization.Apply.Error.AllStepsFailed" xml:space="preserve">
+    <value>تمامی مراحل با خطا مواجه شدند.</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
+      <value>بهینه‌سازی به طور کامل اعمال نشد</value>
+    </data>
+  <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
+    <value>بازگردانی بهینه‌سازی انجام نشد</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.Success.Title" xml:space="preserve">
+    <value>بهینه‌سازی با موفقیت اعمال شد</value>
+  </data>
+  <data name="Optimization.Revert.Snackbar.Success.Title" xml:space="preserve">
+    <value>بهینه‌سازی با موفقیت بازگردانده شد</value>
+  </data>
+  <data name="Optimization.Toggle.Snackbar.Error.Title" xml:space="preserve">
+    <value>تغییر وضعیت بهینه‌سازی با خطا مواجه شد</value>
+  </data>
+  <data name="Optimization.Toggle.Snackbar.Error.Message" xml:space="preserve">
+    <value>خطایی رخ داد: {0}</value>
+  </data>
+  <data name="Optimization.Retry.Processing" xml:space="preserve">
+    <value>در حال تلاش مجدد برای مراحل ناموفق...</value>
+  </data>
+  <data name="Optimization.RetryStep.Processing" xml:space="preserve">
+    <value>تلاش مجدد برای گام {0} (مرحله {1} از {2})</value>
+  </data>
+  <data name="Optimization.Revert.Error.Failed" xml:space="preserve">
+    <value>بازگردانی {0} ناموفق بود.</value>
+  </data>
+  <data name="Dashboard.Header.Menu.Refresh" xml:space="preserve">
+    <value>به‌روزرسانی</value>
+  </data>
+  <data name="Dashboard.Header.Menu.RunTaskManager" xml:space="preserve">
+    <value>مدیریت وظایف (Task Manager)</value>
+  </data>
+  <data name="Common.Unknown" xml:space="preserve">
+    <value>نامشخص</value>
+  </data>
+  <data name="Common.Recommendation.On" xml:space="preserve">
+    <value>توصیه‌شده</value>
+  </data>
+  <data name="Common.Recommendation.Off" xml:space="preserve">
+    <value>توصیه نمی‌شود</value>
+  </data>
+  <data name="Common.Recommendation.Experimental" xml:space="preserve">
+    <value>آزمایشی</value>
+  </data>
+  <data name="Common.Recommendation.Depends" xml:space="preserve">
+    <value>متغیر / بستگی دارد</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Security" xml:space="preserve">
+    <value>امنیت</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Performance" xml:space="preserve">
+    <value>عملکرد و کارایی</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Latency" xml:space="preserve">
+    <value>تأخیر (Latency)</value>
+  </data>
+  <data name="Optimizer.Performance" xml:space="preserve">
+    <value>عملکرد</value>
+  </data>
+  <data name="Optimizer.PowerManagement" xml:space="preserve">
+    <value>مدیریت انرژی</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy" xml:space="preserve">
+    <value>امنیت و حریم خصوصی</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices" xml:space="preserve">
+    <value>برنامه‌های زائد و سرویس‌ها</value>
+  </data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی اجرای برنامه‌ها در پس‌زمینه</value>
+  </data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
+    <value>از اجرای برنامه‌های غیرفعال در پس‌زمینه جلوگیری می‌کند تا رم آزادسازی شده و بار پردازنده کاهش یابد.</value>
+  </data>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.Name" xml:space="preserve">
+    <value>ادغام پردازش‌های Service Host</value>
+  </data>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.Error.InvalidRAM" xml:space="preserve">
+    <value>میزان رم نامعتبر است: {0}</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
+    <value>اولویت‌دهی به برنامه‌های فعال</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
+    <value>منابع پردازنده بیشتری را به برنامه‌ای که در حال استفاده از آن هستید اختصاص می‌دهد تا سرعت پاسخ‌گویی افزایش یابد.</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
+    <value>بهینه‌سازی زمان‌بندی برنامه‌های چندرسانه‌ای</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
+    <value>سرویس MMCSS را برای بازی و کاهش تأخیر تنظیم می‌کند؛ پردازش‌های چندرسانه‌ای را در اولویت قرار داده و محدودیت سرعت شبکه را برمی‌دارد.</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
+    <value>حذف محدودیت 50 مگابایتی WebDAV</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
+    <value>سقف حجم فایل‌های سرویس WebDAV را از 50 مگابایت به 4 گیگابایت افزایش می‌دهد تا انتقال فایل‌های بزرگ در شبکه دچار خطا نشود.</value>
+  </data>
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
+    <value>بهینه‌سازی نرخ تکرار کلیدهای کیبورد</value>
+  </data>
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
+    <value>تاخیر ورودی کیبورد را به حداقل رسانده و سرعت تکرار کلیدها را برای تایپ و فشردن سریع کلیدها افزایش می‌دهد.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی کلیدهای میان‌بر Accessibility</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription" xml:space="preserve">
+    <value>کلیدهای میان‌بر Sticky Keys، Filter Keys و Toggle Keys را غیرفعال می‌کند تا از باز شدن ناگهانی پنجره‌ها هنگام بازی جلوگیری شود.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی Hibernation و Fast Startup</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.ShortDescription" xml:space="preserve">
+    <value>قابلیت Hibernation و راه‌اندازی سریع را خاموش می‌کند تا حافظه دیسک آزاد شده و سیستم به طور کامل خاموش و راه‌اندازی شود.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی حالت صرفه‌جویی برق در پورت‌های USB</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
+    <value>از قطع برق پورت‌های USB توسط ویندوز جلوگیری می‌کند تا تاخیر در پاسخ‌گویی ماوس، کیبورد و قطعات جانبی از بین برود.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
+    <value>اعمال طرح انرژی بهینه‌شده</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
+    <value>یک طرح مصرف انرژی اختصاصی با تمرکز بر حداکثر کارایی نصب می‌کند. هشدار: ممکن است در برخی سیستم‌ها درصد مصرف پردازنده در Task Manager به نادرستی 100٪ نشان داده شود، اما بار واقعی پردازنده تغییری نمی‌کند.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
+    <value>در حال نصب و فعال‌سازی طرح انرژی...</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی محدودکننده توان سیستم (Power Throttling)</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
+    <value>از محدود شدن کارایی پردازنده توسط ویندوز برای صرفه‌جویی در انرژی جلوگیری می‌کند تا حداکثر توان پردازشی برای کارهای فعال حفظ شود.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی جمع‌آوری اطلاعات و تلمتری</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
+    <value>سرویس‌های جمع‌آوری داده و تلمتری ویندوز را غیرفعال می‌کند تا حریم خصوصی شما حفظ شده و پردازش‌های پس‌زمینه کاهش یابد.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
+    <value>در حال اعمال تغییرات در رجیستری و پالیسی‌ها...</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableServices" xml:space="preserve">
+    <value>در حال غیرفعال‌سازی سرویس‌های تلمتری...</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableTasks" xml:space="preserve">
+    <value>در حال غیرفعال‌سازی وظایف زمان‌بندی‌شده تلمتری...</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی ارسال گزارش خطا</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.ShortDescription" xml:space="preserve">
+    <value>سرویس‌های ارسال گزارش خطای ویندوز (Windows Error Reporting) و دستیار سازگاری برنامه‌ها را غیرفعال می‌کند.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی تبلیغات و پیشنهادها</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.ShortDescription" xml:space="preserve">
+    <value>نمایش تبلیغات شخصی‌سازی‌شده، پیشنهادات سیستمی و برنامه‌های تبلیغاتی ویندوز را غیرفعال می‌کند.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی بخش اخبار و علاقه‌مندی‌ها</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
+    <value>خوراک خبری News and Interests را در ویندوز 10 خاموش کرده و پنل ویجت‌ها را در ویندوز 11 غیرفعال می‌کند.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.Name" xml:space="preserve">
+    <value>پنهان کردن دکمه Meet Now</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
+    <value>دکمه Meet Now (مربوط به اسکایپ) را از نوار وظیفه پنهان می‌کند. (مخصوص ویندوز 10)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی تاریخچه فعالیت‌ها</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.ShortDescription" xml:space="preserve">
+    <value>از ذخیره‌سازی و همگام‌سازی تاریخچه فعالیت‌های شما توسط ویندوز جلوگیری می‌کند.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی موقعیت‌مکانی و سنسورها</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.ShortDescription" xml:space="preserve">
+    <value>سرویس‌های ردگیری موقعیت مکانی، سنسورهای سیستم و آپدیت خودکار نقشه‌های آفلاین را غیرفعال می‌کند.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی ثبت رویدادها در پس‌زمینه (AutoLogger)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
+    <value>نشست‌های غیرضروری ثبت لوگ مانند Diagtrack-Listener را هنگام بوت متوقف می‌کند تا بار دیسک و پردازنده کاهش یابد. توجه: آنتی‌ویروس‌ها ممکن است این تغییر را گزارش کنند.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی کورتانا و جست‌وجوی وب</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
+    <value>دستیار صوتی کورتانا را خاموش کرده و نمایش نتایج وب را در منوی جست‌وجوی ویندوز 10 غیرفعال می‌سازد.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی ویندوز کوپایلوت (Copilot)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
+    <value>دستیار هوش مصنوعی Copilot را از نوار وظیفه و پوسته سیستم حذف می‌کند تا حافظه و رم آزاد شود.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی دریافت خودکار محتوای ابری</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
+    <value>دریافت خودکار محتوا از سرورهای مایکروسافت، از جمله پیشنهادهای Spotlight، نکات سیستم و برنامه‌های پیشنهادی را متوقف می‌کند.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
+    <value>مسدودسازی نصب خودکار برنامه‌های پیش‌فرض</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
+    <value>از نصب خودکار مجدد برنامه‌های تبلیغاتی و جانبی ناخواسته توسط ویندوز جلوگیری می‌کند.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
+    <value>بهینه‌سازی سرویس‌های سیستم</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
+    <value>تنظیمات سرویس‌های غیرضروری در پس‌زمینه را بهینه‌سازی می‌کند تا بدون مختل شدن وظایف اصلی ویندوز، منابع سیستم آزاد شوند.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType" xml:space="preserve">
+    <value>در حال تغییر حالت راه‌اندازی سرویس {0} به {1}...</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Display" xml:space="preserve">
+    <value>تصویر و نمایشگر</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Visual" xml:space="preserve">
+    <value>جلوه‌های بصری</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows10Only" xml:space="preserve">
+    <value>فقط ویندوز 10</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows11Only" xml:space="preserve">
+    <value>فقط ویندوز 11</value>
+  </data>
+  <data name="Optimizer.Gpu" xml:space="preserve">
+    <value>کارت گرافیک (GPU)</value>
+  </data>
+
+  <data name="Optimizer.UserExperience" xml:space="preserve">
+    <value>تجربه کاربری</value>
+  </data>
+  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
+    <value>افزایش سرعت اکسپلورر و منوها</value>
+  </data>
+  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
+    <value>تاخیرهای سیستمی هنگام باز شدن منوها و فایل اکسپلورر را صفر می‌کند تا منوها بلافاصله باز شوند.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>افزایش حداکثر زمان توقف آپدیت‌ها</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>امکان توقف موقت آپدیت‌های ویندوز را به حداکثر زمان ممکن افزایش می‌دهد.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی جست‌وجوی وب در منوی استارت</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>جست‌وجوی اینترنتی در منوی استارت را غیرفعال می‌کند تا نتایج جست‌وجوی فایل‌های داخلی سریع‌تر نمایش داده شوند.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی جلوه‌های بصری و انیمیشن‌ها</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
+    <value>انیمیشن‌های نوار وظیفه، سایه‌ها، شفافیت پنجره‌ها و Aero Peek را غیرفعال می‌سازد تا بار پردازشی گرافیک و پردازنده کاهش یابد.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی AMD ULPS</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
+    <value>حالت کم‌مصرف شدید (Ultra Low Power State) را در کارت‌های گرافیک AMD غیرفعال می‌کند تا تاخیر خروج از خواب و مشکلات چند مانیتوره رفع شود.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی AMD Power Gating</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
+    <value>از تغییر فرکانس و افت ولتاژ ناگهانی کارت‌های AMD جلوگیری می‌کند؛ فرکانس‌ها را ثابت نگه می‌دارد اما مصرف برق در حالت بیکاری افزایش می‌یابد.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی AMD Video Clock Gating</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>بهینه‌سازی و پایداری بخش انکود/دکود ویدئویی کارت‌های AMD (موتورهای VCE/UVD) برای جلوگیری از افت فریم در پخش و ضبط ویدئو.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی AMD ASPM</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
+    <value>مدیریت مصرف انرژی گذرگاه PCIe را در کارت‌های AMD غیرفعال کرده و تاخیر ارتباطی گذرگاه PCIe را کاهش می‌دهد.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی NVIDIA Dynamic P-State</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
+    <value>کارت گرافیک انویدیا را در حالت عملکرد فرکانسی بالا قفل می‌کند تا از نوسان فرکانس هنگام بازی جلوگیری شود. مصرف انرژی در حالت بیکاری افزایش می‌یابد.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی NVIDIA Async P-States</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
+    <value>تغییر حالات ناهمگام انرژی را در گرافیک انویدیا غیرفعال می‌کند تا عملکردی پایدارتر برای برنامه‌های واقعیت مجازی (VR) و پردازش‌های پردازشی آنی فراهم شود.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی Intel Async Flips</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>جابه‌جایی بافر تصویر را در گرافیک‌های مجتمع اینتل همگام می‌سازد تا تاخیر ورودی و بریدگی تصویر (Screen Tearing) کاهش یابد.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی Intel Adaptive V-Sync</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
+    <value>قابلیت V-Sync انطباقی را در پردازنده‌های گرافیکی اینتل غیرفعال کرده و آن را با V-Sync ثابت برای زمان‌بندی پایدارتر فریم‌ها جایگزین می‌کند.</value>
+  </data>
+
+  <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
+    <value>نوار وظیفه (Taskbar)</value>
+  </data>
+  <data name="Customize.Preferences.Section.Appearance" xml:space="preserve">
+    <value>ظاهر</value>
+  </data>
+  <data name="Customize.Preferences.Section.Explorer" xml:space="preserve">
+    <value>فایل اکسپلورر</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarWidgets.Name" xml:space="preserve">
+    <value>ویجت‌های نوار وظیفه</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarWidgets.Description" xml:space="preserve">
+    <value>دکمه ویجت‌ها را در نوار وظیفه نشان می‌دهد یا پنهان می‌کند. ویجت‌ها دسترسی سریع به اخبار، آب‌وهوا و اطلاعات دیگر را فراهم می‌کنند.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarWidgets.Recommendation.Reason" xml:space="preserve">
+    <value>ویجت‌ها اخبار و آب‌وهوا را در پس‌زمینه دریافت می‌کنند که می‌تواند مصرف شبکه و حافظه را در حالت بیکاری افزایش دهد.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Name" xml:space="preserve">
+    <value>تراز نوار وظیفه</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Description" xml:space="preserve">
+    <value>انتخاب کنید آیکون‌های نوار وظیفه در وسط قرار گیرند یا سمت چپ.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Options.Center" xml:space="preserve">
+    <value>وسط</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Options.Left" xml:space="preserve">
+    <value>چپ</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Name" xml:space="preserve">
+    <value>ادغام دکمه‌های نوار وظیفه</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Description" xml:space="preserve">
+    <value>تعیین کنید دکمه‌های نوار وظیفه در تمامی نمایشگرها چه زمانی ادغام شده و عنوان آن‌ها پنهان شود.</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.Always" xml:space="preserve">
+    <value>همیشه</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.WhenFull" xml:space="preserve">
+    <value>هنگام پر شدن نوار وظیفه</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.Never" xml:space="preserve">
+    <value>هرگز</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerCompactMode.Name" xml:space="preserve">
+    <value>حالت فشرده اکسپلورر</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerCompactMode.Description" xml:space="preserve">
+    <value>فاصله میان آیتم‌ها را در فایل اکسپلورر کاهش می‌دهد تا نمای فشرده‌تری داشته باشید.</value>
+  </data>
+  <data name="Customize.Preferences.SnapAssistFlyout.Name" xml:space="preserve">
+    <value>منوی چیدمان پنجره‌ها (Snap Layouts)</value>
+  </data>
+  <data name="Customize.Preferences.SnapAssistFlyout.Description" xml:space="preserve">
+    <value>هنگام نگه‌داشتن نشانگر ماوس روی دکمه بزرگ‌نمایی پنجره، منوی Snap Layouts را نشان داده یا پنهان می‌کند.</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerItemCheckboxes.Name" xml:space="preserve">
+    <value>چک‌باکس انتخاب آیتم‌ها در اکسپلورر</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerItemCheckboxes.Description" xml:space="preserve">
+    <value>چک‌باکس کنار آیتم‌ها در فایل اکسپلورر را فعال می‌کند تا انتخاب چند فایل به‌طور هم‌زمان آسان‌تر شود.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarTaskViewButton.Name" xml:space="preserve">
+    <value>دکمه Task View در نوار وظیفه</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
+    <value>دکمه Task View را در نوار وظیفه نشان می‌دهد یا پنهان می‌کند.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarEndTask.Name" xml:space="preserve">
+    <value>بستن برنامه از نوار وظیفه (End Task)</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarEndTask.Description" xml:space="preserve">
+    <value>گزینه End task را به منوی راست‌کلیک نوار وظیفه اضافه می‌کند تا بتوانید برنامه‌های هنگ‌کرده را بدون باز کردن Task Manager ببندید.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarEndTask.Recommendation.Reason" xml:space="preserve">
+    <value>افزودن End Task به نوار وظیفه اجازه می‌دهد برنامه‌های قفل‌شده را بدون نیاز به Task Manager فوراً ببندید.</value>
+  </data>
+  <data name="Customize.Preferences.DarkMode.Name" xml:space="preserve">
+    <value>حالت تاریک</value>
+  </data>
+  <data name="Customize.Preferences.DarkMode.Description" xml:space="preserve">
+    <value>حالت تاریک را روی برنامه‌های ویندوز، تنظیمات و سایر بخش‌های پوسته سیستم اعمال می‌کند.</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerSyncNotifications.Name" xml:space="preserve">
+    <value>اعلان‌های همگام‌سازی اکسپلورر</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerSyncNotifications.Description" xml:space="preserve">
+    <value>اعلان‌های مربوط به OneDrive و سایر سرویس‌های ابری را در فایل اکسپلورر نشان می‌دهد یا پنهان می‌کند.</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerSyncNotifications.Recommendation.Reason" xml:space="preserve">
+    <value>این قابلیت، پیام‌های اعلان OneDrive و سرویس‌های ابری را هنگام مرور فایل‌ها کنترل می‌کند.</value>
+  </data>
+  <data name="Customize.Preferences.SystemSuggestions.Name" xml:space="preserve">
+    <value>پیشنهادهای سیستم</value>
+  </data>
+  <data name="Customize.Preferences.SystemSuggestions.Description" xml:space="preserve">
+    <value>نکات راهنما و پیشنهاد برنامه‌های ویندوز را در بخش تنظیمات نشان می‌دهد یا پنهان می‌کند.</value>
+  </data>
+  <data name="Customize.Preferences.SystemSuggestions.Recommendation.Reason" xml:space="preserve">
+    <value>این قابلیت، توصیه‌ها و پیشنهادهای ویندوز درباره برنامه‌ها و تنظیمات را کنترل می‌کند.</value>
+  </data>
+  <data name="Customize.Preferences.ToastNotifications.Name" xml:space="preserve">
+    <value>اعلان‌های سیستمی (Toast)</value>
+  </data>
+  <data name="Customize.Preferences.ToastNotifications.Description" xml:space="preserve">
+    <value>اعلان‌های سیستمی، از جمله هشدارهای روی دسکتاپ یا صفحه قفل را کنترل می‌کند.</value>
+  </data>
+  <data name="Customize.Preferences.ShowFileExtensions.Name" xml:space="preserve">
+    <value>پسوند فایل‌ها</value>
+  </data>
+  <data name="Customize.Preferences.ShowFileExtensions.Description" xml:space="preserve">
+    <value>پسوند فایل‌هایی مانند .txt و .exe را در فایل اکسپلورر نشان می‌دهد یا پنهان می‌کند.</value>
+  </data>
+  <data name="Customize.Preferences.ShowFileExtensions.Recommendation.Reason" xml:space="preserve">
+    <value>نمایش پسوندها شناسایی فایل‌های مشکوک را آسان‌تر کرده و از پنهان شدن بدافزارها پشت آیکون‌های گمراه‌کننده جلوگیری می‌کند.</value>
+  </data>
+  <data name="Customize.Preferences.ShowHiddenFiles.Name" xml:space="preserve">
+    <value>فایل‌های پنهان</value>
+  </data>
+  <data name="Customize.Preferences.ShowHiddenFiles.Description" xml:space="preserve">
+    <value>فایل‌ها و پوشه‌های پنهان را در فایل اکسپلورر نشان می‌دهد یا پنهان می‌کند.</value>
+  </data>
+  <data name="Customize.Preferences.ShowHiddenFiles.Recommendation.Reason" xml:space="preserve">
+    <value>فایل‌های پنهان شامل داده‌های سیستمی و پیکربندی هستند که برای مدیریت و عیب‌یابی سیستم لازم می‌شوند.</value>
+  </data>
+  <data name="Customize.Preferences.ClipboardHistory.Name" xml:space="preserve">
+    <value>تاریخچه کلیپ‌بورد</value>
+  </data>
+  <data name="Customize.Preferences.ClipboardHistory.Description" xml:space="preserve">
+    <value>تاریخچه‌ای از موارد کپی‌شده نگهداری می‌کند که با کلیدهای Win+V قابل دسترسی است.</value>
+  </data>
+  <data name="Customize.Preferences.ClipboardHistory.Recommendation.Reason" xml:space="preserve">
+    <value>تاریخچه کلیپ‌بورد دسترسی به چند مورد کپی‌شده قبلی را با کلیدهای Win+V ممکن ساخته و سرعت فرایندهای تکراری کپی و پیست را افزایش می‌دهد.</value>
+  </data>
+  <data name="Customize.Preferences.WindowShake.Name" xml:space="preserve">
+    <value>تکان دادن پنجره (Aero Shake)</value>
+  </data>
+  <data name="Customize.Preferences.WindowShake.Description" xml:space="preserve">
+    <value>با تکان دادن پنجره فعال، سایر پنجره‌ها کمینه (Minimize) می‌شوند. می‌توان این قابلیت را غیرفعال کرد.</value>
+  </data>
+  <data name="Customize.Preferences.ClassicContextMenu.Name" xml:space="preserve">
+    <value>منوی راست‌کلیک کلاسیک</value>
+  </data>
+  <data name="Customize.Preferences.ClassicContextMenu.Description" xml:space="preserve">
+    <value>به جای منوی راست‌کلیک فشرده ویندوز 11، از منوی راست‌کلیک کلاسیک ویندوز 10 استفاده می‌کند.</value>
+  </data>
+  <data name="Customize.Preferences.ClassicContextMenu.Recommendation.Reason" xml:space="preserve">
+    <value>منوی کلاسیک تمامی گزینه‌ها را یک‌جا نشان داده و نیاز به کلیک اضافی برای باز کردن منوی فشرده ویندوز 11 را از بین می‌برد.</value>
+  </data>
+  <data name="Customize.Preferences.ShowSecondsInSystemClock.Name" xml:space="preserve">
+    <value>نمایش ثانیه در ساعت سیستم</value>
+  </data>
+  <data name="Customize.Preferences.ShowSecondsInSystemClock.Description" xml:space="preserve">
+    <value>ثانیه را در ساعت نوار وظیفه نمایش می‌دهد.</value>
+  </data>
+  <data name="Customize.Gaming.Section.GameSettings" xml:space="preserve">
+    <value>تنظیمات بازی</value>
+  </data>
+  <data name="Customize.Gaming.Section.Input" xml:space="preserve">
+    <value>ورودی‌ها</value>
+  </data>
+  <data name="Customize.Gaming.Section.Display" xml:space="preserve">
+    <value>نمایشگر</value>
+  </data>
+  <data name="Customize.Gaming.GameMode.Name" xml:space="preserve">
+    <value>حالت بازی (Game Mode)</value>
+  </data>
+  <data name="Customize.Gaming.GameMode.Description" xml:space="preserve">
+    <value>منابع سیستم را برای اجرای بهتر بازی‌ها اولویت‌بندی کرده و رفتار ویندوز آپدیت را هنگام بازی تغییر می‌دهد.</value>
+  </data>
+  <data name="Customize.Gaming.GameMode.Recommendation.Reason" xml:space="preserve">
+    <value>حالت بازی برای عملکرد روان‌تر، پردازش‌های بازی را در اولویت قرار داده و اعلان‌های ویندوز آپدیت را هنگام بازی متوقف می‌کند.</value>
+  </data>
+  <data name="Customize.Gaming.GameBar.Name" xml:space="preserve">
+    <value>نوار بازی ایکس‌باکس (Xbox Game Bar)</value>
+  </data>
+  <data name="Customize.Gaming.GameBar.Description" xml:space="preserve">
+    <value>نوار Xbox Game Bar و ابزارهای میان‌بر پس‌زمینه مرتبط با آن را فعال یا غیرفعال می‌کند.</value>
+  </data>
+  <data name="Customize.Gaming.GameBar.Recommendation.Reason" xml:space="preserve">
+    <value>قابلیت Xbox Game Bar ابزارهای پس‌زمینه بازی را ارائه می‌دهد که ممکن است بخشی از منابع سیستم را مصرف کنند.</value>
+  </data>
+  <data name="Customize.Gaming.BackgroundRecording.Name" xml:space="preserve">
+    <value>ضبط در پس‌زمینه (Game DVR)</value>
+  </data>
+  <data name="Customize.Gaming.BackgroundRecording.Description" xml:space="preserve">
+    <value>صحنه‌های بازی را به‌طور مداوم در پس‌زمینه از طریق Game DVR ضبط می‌کند.</value>
+  </data>
+  <data name="Customize.Gaming.BackgroundRecording.Recommendation.Reason" xml:space="preserve">
+    <value>قابلیت ضبط در پس‌زمینه، بازی را دائماً ذخیره می‌کند که می‌تواند باعث مصرف پردازنده و ایجاد عملیات نوشتن روی دیسک شود.</value>
+  </data>
+  <data name="Customize.Gaming.MouseAcceleration.Name" xml:space="preserve">
+    <value>شتاب ماوس (Mouse Acceleration)</value>
+  </data>
+  <data name="Customize.Gaming.MouseAcceleration.Description" xml:space="preserve">
+    <value>نحوه واکنش حرکت نشانگر را نسبت به سرعت جابه‌جایی ماوس تنظیم می‌کند.</value>
+  </data>
+  <data name="Customize.Gaming.MouseAcceleration.Recommendation.Reason" xml:space="preserve">
+    <value>قابلیت شتاب ماوس جابه‌جایی نشانگر را بر اساس سرعت تغییر می‌دهد؛ غیرفعال کردن آن و استفاده از ورودی خطی، دقت نشانه‌گیری در بازی‌ها را یکنواخت‌تر می‌کند.</value>
+  </data>
+  <data name="Customize.Gaming.FullscreenOptimizations.Name" xml:space="preserve">
+    <value>بهینه‌سازی‌های حالت تمام‌صفحه</value>
+  </data>
+  <data name="Customize.Gaming.FullscreenOptimizations.Description" xml:space="preserve">
+    <value>بهینه‌سازی‌های تمام‌صفحه ویندوز را اعمال می‌کند که می‌تواند سازگاری برخی بازی‌ها را بهبود ببخشد.</value>
+  </data>
+  <data name="Customize.Gaming.FullscreenOptimizations.Recommendation.Reason" xml:space="preserve">
+    <value>اگر در بازی‌ها دچار افت فریم، تأخیر ورودی یا صفحه سیاه می‌شوید (به‌ویژه در بازی‌های شوتر رقابتی)، آن را غیرفعال کنید.</value>
+  </data>
+  <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Name" xml:space="preserve">
+    <value>زمان‌بندی GPU با شتاب سخت‌افزاری (HAGS)</value>
+  </data>
+  <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Description" xml:space="preserve">
+    <value>مدیریت زمان‌بندی حافظه ویدئویی را به خود کارت گرافیک واگذار می‌کند. نیاز به درایور گرافیک سازگار دارد.</value>
+  </data>
+  <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Recommendation.Reason" xml:space="preserve">
+    <value>این قابلیت، بار مدیریت فریم‌ها را از روی پردازنده برداشته و به کارت گرافیک منتقل می‌کند تا تأخیر تصویر کاهش یافته و فریم‌ریت یکنواخت‌تر شود.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Name" xml:space="preserve">
+    <value>نشانگر تصویری DLSS</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Description" xml:space="preserve">
+    <value>نشانگر تصویری DLSS را روی صفحه کنترل می‌کند که برای بررسی نسخه فعال DLSS در بازی استفاده می‌شود.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Recommendation.Reason" xml:space="preserve">
+    <value>این یک ابزار تشخیصی است؛ مگر در زمانی که قصد بررسی عملکرد DLSS را دارید، بهتر است خاموش باشد.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.Off" xml:space="preserve">
+    <value>خاموش</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.DebugOnly" xml:space="preserve">
+    <value>فقط فایل‌های دیباگ (Debug DLLs)</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.AllVersions" xml:space="preserve">
+    <value>تمامی نسخه‌های DLSS</value>
+  </data>
+  <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
+    <value>تنها در صورتی تغییر دهید که از عملکرد آن کاملاً آگاه هستید</value>
+  </data>
+  <data name="Settings.About.Acknowledgements.Title" xml:space="preserve">
+    <value>قدردانی و سپاس‌گزاری</value>
+  </data>
+  <data name="Settings.About.Acknowledgements.Description" xml:space="preserve">
+    <value>برنامه optimizerDuck با استفاده از نرم‌افزارها و منابع متن‌باز زیر توسعه یافته است.</value>
+  </data>
+  <data name="RestorePoint.Title" xml:space="preserve">
+    <value>بازیابی سیستم (System Restore)</value>
+  </data>
+  <data name="RestorePointDialog.Description" xml:space="preserve">
+    <value>نقطه بازیابی امکان بازگرداندن سیستم به وضعیت قبلی را فراهم می‌سازد.
+این یک اقدام ایمنی برای محافظت از ویندوز قبل از اعمال تغییرات است.</value>
+  </data>
+  <data name="RestorePointDialog.Help" xml:space="preserve">
+    <value>برنامه به‌طور خودکار قابلیت System Restore را فعال کرده و یک نقطه بازیابی با نام "optimizerDuck..." می‌سازد تا در صورت بروز هرگونه مشکل بتوانید سیستم را به حالت قبل بازگردانید.</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Error.Title" xml:space="preserve">
+    <value>فعال‌سازی یا ایجاد نقطه بازیابی سیستم ناموفق بود.</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Error.Message" xml:space="preserve">
+    <value>هنگام فعال‌سازی یا ایجاد نقطه بازیابی خطایی رخ داد. لطفاً آن را به‌طور دستی ایجاد کنید.</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Warning.LimitReached" xml:space="preserve">
+    <value>یک نقطه بازیابی در 24 ساعت گذشته قبلاً ایجاد شده است.</value>
+  </data>
+  <data name="RestorePoint.Progress.Creating" xml:space="preserve">
+    <value>در حال ایجاد نقطه بازیابی سیستم...</value>
+  </data>
+  <data name="RestorePoint.Progress.Enabling" xml:space="preserve">
+    <value>در حال فعال‌سازی قابلیت System Restore...</value>
+  </data>
+  <data name="RestorePoint.Progress.Retrying" xml:space="preserve">
+    <value>تلاش مجدد برای ایجاد نقطه بازیابی...</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Success.Title" xml:space="preserve">
+    <value>نقطه بازیابی سیستم با موفقیت ایجاد شد</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Success.Message" xml:space="preserve">
+    <value>نقطه بازیابی با نام {0} ایجاد گردید.</value>
+  </data>
+  <data name="Snackbar.OpenLinkFailed.Title" xml:space="preserve">
+    <value>باز کردن مسیر با خطا مواجه شد</value>
+  </data>
+  <data name="Snackbar.OpenLinkFailed.Message" xml:space="preserve">
+    <value>هنگام باز کردن مسیر خطایی رخ داد. لطفاً فایل گزارش (Log) را بررسی کنید.</value>
+  </data>
+  <data name="Snackbar.OpenFailed.Message" xml:space="preserve">
+    <value>هنگام باز کردن فایل یا پوشه خطایی رخ داد. لطفاً فایل گزارش (Log) را بررسی کنید.</value>
+  </data>
+  <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
+    <value>باز کردن پوشه یا فایل انجام نشد</value>
+  </data>
+  <data name="BloatwareDialog.Title" xml:space="preserve">
+    <value>در حال حذف {0} بسته AppX</value>
+  </data>
+  <data name="BloatwareDialog.Removing" xml:space="preserve">
+    <value>در حال حذف {0} ({1} از {2})</value>
+  </data>
+  <data name="Bloatware.Header.Title" xml:space="preserve">
+    <value>برنامه‌های زائد (Bloatware)</value>
+  </data>
+  <data name="Bloatware.Menu.Remove" xml:space="preserve">
+    <value>حذف ({0})</value>
+  </data>
+  <data name="Bloatware.Menu.Refresh" xml:space="preserve">
+    <value>به‌روزرسانی</value>
+  </data>
+  <data name="Bloatware.Empty.Title" xml:space="preserve">
+    <value>هیچ برنامه زائدی یافت نشد ¯\_(ツ)_/¯</value>
+  </data>
+  <data name="Bloatware.Empty.Description" xml:space="preserve">
+    <value>برنامه optimizerDuck هیچ بسته AppX قابل حذفی پیدا نکرد.</value>
+  </data>
+  <data name="Bloatware.Loading" xml:space="preserve">
+    <value>در حال جست‌وجوی برنامه‌های قابل حذف...</value>
+  </data>
+  <data name="Bloatware.Loading.Hint" xml:space="preserve">
+    <value>اسکن بسته‌های نصب‌شده ممکن است کمی زمان ببرد.</value>
+  </data>
+  <data name="Sidebar.Bloatware" xml:space="preserve">
+    <value>برنامه‌های زائد</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.Title" xml:space="preserve">
+    <value>آیا {0} برنامه انتخاب‌شده حذف شوند؟</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.Description" xml:space="preserve">
+    <value>پیش از حذف، برنامه‌های انتخاب‌شده را مرور کنید. تنها در صورت اطمینان ادامه دهید.</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.SelectedList" xml:space="preserve">
+    <value>برنامه‌های انتخاب‌شده</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.Title" xml:space="preserve">
+    <value>هشدار: نام بسته غیرمعمول</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.Description" xml:space="preserve">
+    <value>بسته‌های زیر دارای شناسه یا فرمت نام تایید‌نشده هستند. حذف این بسته‌ها ممکن است باعث بروز خطا یا حذف فایل‌های ناخواسته شود. لطفا با دقت بررسی کنید.</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.SelectedList" xml:space="preserve">
+    <value>بسته‌های غیرمعمول شناسایی‌شده</value>
+  </data>
+  <data name="Settings.Bloatware.Header" xml:space="preserve">
+    <value>برنامه‌های زائد</value>
+  </data>
+  <data name="Settings.Bloatware.RemoveProvisioned.Title" xml:space="preserve">
+    <value>حذف بسته‌های پیش‌فرض سیستم (Provisioned)</value>
+  </data>
+  <data name="Settings.Bloatware.RemoveProvisioned.Description" xml:space="preserve">
+    <value>هنگام حذف بسته‌های AppX، بسته‌های پیش‌فرض (Provisioned) آن‌ها نیز حذف می‌شوند تا از نصب مجدد و خودکار برای کاربران جدید جلوگیری شود.</value>
+  </data>
+  <data name="Dashboard.UpdateInfoBar.Message" xml:space="preserve">
+    <value>نسخه جدید optimizerDuck (v{0}) منتشر شد!
+همین حالا به‌روزرسانی کنید تا از آخرین قابلیت‌ها، بهبودها و رفع اشکالات بهره‌مند شوید.</value>
+  </data>
+  <data name="Common.Search.Placeholder" xml:space="preserve">
+    <value>جست‌وجو...</value>
+  </data>
+  <data name="Common.Filter.All" xml:space="preserve">
+    <value>همه</value>
+  </data>
+  <data name="Common.SortBy.Name" xml:space="preserve">
+    <value>نام</value>
+  </data>
+  <data name="Common.SortBy.Risk" xml:space="preserve">
+    <value>سطح ریسک</value>
+  </data>
+  <data name="Common.SortBy.Publisher" xml:space="preserve">
+    <value>ناشر</value>
+  </data>
+  <data name="Common.SortBy.Size" xml:space="preserve">
+    <value>حجم</value>
+  </data>
+  <data name="Common.SortBy.Path" xml:space="preserve">
+    <value>مسیر</value>
+  </data>
+  <data name="Optimizer.Menu.ViewSource" xml:space="preserve">
+    <value>مشاهده سورس‌کد</value>
+  </data>
+  <data name="Bloatware.Menu.SelectAllSafe" xml:space="preserve">
+    <value>انتخاب تمامی موارد ایمن</value>
+  </data>
+  <data name="Bloatware.Menu.DeselectAllSafe" xml:space="preserve">
+    <value>لغو انتخاب تمامی موارد ایمن</value>
+  </data>
+  <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
+    <value>پنهان کردن موارد انجام‌شده</value>
+  </data>
+  <data name="Bloatware.Search.NoResults" xml:space="preserve">
+    <value>هیچ نتیجه‌ای یافت نشد. عبارت دیگری را جست‌وجو کرده یا فیلتر را تغییر دهید.</value>
+  </data>
+  <data name="Common.Filter" xml:space="preserve">
+    <value>فیلتر</value>
+  </data>
+  <data name="Common.SortBy" xml:space="preserve">
+    <value>مرتب‌سازی بر اساس</value>
+  </data>
+  <data name="Sidebar.DiskCleanup" xml:space="preserve">
+    <value>پاکسازی دیسک</value>
+  </data>
+  <data name="DiskCleanup.Header.Title" xml:space="preserve">
+    <value>پاکسازی دیسک</value>
+  </data>
+  <data name="DiskCleanup.Header.Description" xml:space="preserve">
+    <value>آزاد کردن فضای دیسک با حذف فایل‌های موقت و کش</value>
+  </data>
+  <data name="DiskCleanup.TotalSpace" xml:space="preserve">
+    <value>کل فضای قابل بازیابی</value>
+  </data>
+  <data name="DiskCleanup.Button.Scan" xml:space="preserve">
+    <value>اسکن</value>
+  </data>
+  <data name="DiskCleanup.Button.SelectAll" xml:space="preserve">
+    <value>انتخاب همه</value>
+  </data>
+  <data name="DiskCleanup.Button.DeselectAll" xml:space="preserve">
+    <value>لغو انتخاب همه</value>
+  </data>
+  <data name="DiskCleanup.Loading" xml:space="preserve">
+    <value>در حال بارگذاری موارد پاکسازی...</value>
+  </data>
+  <data name="DiskCleanup.Complete.Title" xml:space="preserve">
+    <value>پاکسازی تکمیل شد</value>
+  </data>
+  <data name="DiskCleanup.Complete.Message" xml:space="preserve">
+    <value>میزان {0} از فضای دیسک با موفقیت در {1} آزاد شد</value>
+  </data>
+  <data name="DiskCleanup.Error.Title" xml:space="preserve">
+    <value>خطای پاکسازی</value>
+  </data>
+  <data name="DiskCleanup.Error.Message" xml:space="preserve">
+    <value>برخی فایل‌ها حذف نشدند. ممکن است توسط فرآیند دیگری در حال استفاده باشند.</value>
+  </data>
+  <data name="DiskCleanup.Item.TempFiles" xml:space="preserve">
+    <value>فایل‌های موقت</value>
+  </data>
+  <data name="DiskCleanup.Item.TempFiles.Description" xml:space="preserve">
+    <value>فایل‌های موقت کاربر ایجادشده توسط برنامه‌ها (به‌جز پوشه موقت .NET)</value>
+  </data>
+  <data name="DiskCleanup.Item.SystemTemp" xml:space="preserve">
+    <value>فایل‌های موقت سیستم</value>
+  </data>
+  <data name="DiskCleanup.Item.SystemTemp.Description" xml:space="preserve">
+    <value>فایل‌های موقت سیستمی ویندوز</value>
+  </data>
+  <data name="DiskCleanup.Item.WindowsUpdate" xml:space="preserve">
+    <value>کش آپدیت ویندوز</value>
+  </data>
+  <data name="DiskCleanup.Item.WindowsUpdate.Description" xml:space="preserve">
+    <value>فایل‌های دانلودشده آپدیت ویندوز که دیگر مورد نیاز نیستند</value>
+  </data>
+  <data name="DiskCleanup.Item.Prefetch" xml:space="preserve">
+    <value>فایل‌های Prefetch</value>
+  </data>
+  <data name="DiskCleanup.Item.Prefetch.Description" xml:space="preserve">
+    <value>داده‌های Prefetch برنامه‌ها جهت افزایش سرعت بارگذاری</value>
+  </data>
+  <data name="DiskCleanup.Item.Thumbnails" xml:space="preserve">
+    <value>کش تصاویر بندانگشتی (Thumbnail)</value>
+  </data>
+  <data name="DiskCleanup.Item.Thumbnails.Description" xml:space="preserve">
+    <value>تصاویر بندانگشتی کش‌شده برای پیش‌نمایش فایل‌ها در File Explorer</value>
+  </data>
+  <data name="DiskCleanup.Item.RecycleBin" xml:space="preserve">
+    <value>سطل بازیافت</value>
+  </data>
+  <data name="DiskCleanup.Item.RecycleBin.Description" xml:space="preserve">
+    <value>فایل‌های حذف‌شده که هنوز در سطل بازیافت نگهداری می‌شوند</value>
+  </data>
+  <data name="DiskCleanup.Item.ErrorReports" xml:space="preserve">
+    <value>گزارش‌های خطا</value>
+  </data>
+  <data name="DiskCleanup.Item.ErrorReports.Description" xml:space="preserve">
+    <value>گزارش‌های خطای ویندوز و فایل‌های Crash Dump</value>
+  </data>
+  <data name="DiskCleanup.Item.OldWindowsInstallation" xml:space="preserve">
+    <value>فایل‌های نصب قبلی ویندوز (Windows.old)</value>
+  </data>
+  <data name="DiskCleanup.Item.OldWindowsInstallation.Description" xml:space="preserve">
+    <value>فایل‌های نصب قبلی ویندوز که پس از به‌روزرسانی یا ارتقای کلی باقی مانده‌اند</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.DeviceType.Laptop" xml:space="preserve">
+    <value>لپ‌تاپ</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.DeviceType.Desktop" xml:space="preserve">
+    <value>رایانه رومیزی</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.Build" xml:space="preserve">
+    <value>ساخت {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Platform.Header" xml:space="preserve">
+    <value>پلتفرم و امنیت</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Firmware" xml:space="preserve">
+    <value>فریم‌ور: {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.SecureBoot" xml:space="preserve">
+    <value>بوت امن: {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Vbs" xml:space="preserve">
+    <value>VBS: {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.MemoryIntegrity" xml:space="preserve">
+    <value>یکپارچگی حافظه: {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.PowerPlan" xml:space="preserve">
+    <value>طرح مصرف انرژی: {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Uptime.Label" xml:space="preserve">
+    <value>مدت‌زمان روشن بودن</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Memory.Speed" xml:space="preserve">
+    <value>{0} MT/s</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Cpu.Frequency" xml:space="preserve">
+    <value>{0} مگاهرتز</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Gpu.Driver" xml:space="preserve">
+    <value>درایور {0}</value>
+  </data>
+  <data name="Enum.CpuVendor.Intel" xml:space="preserve">
+    <value>اینتل</value>
+  </data>
+  <data name="Enum.CpuVendor.Amd" xml:space="preserve">
+    <value>ای‌ام‌دی</value>
+  </data>
+  <data name="Enum.GpuVendor.Nvidia" xml:space="preserve">
+    <value>انویدیا</value>
+  </data>
+  <data name="Enum.GpuVendor.Amd" xml:space="preserve">
+    <value>ای‌ام‌دی</value>
+  </data>
+  <data name="Enum.GpuVendor.Intel" xml:space="preserve">
+    <value>اینتل</value>
+  </data>
+  <data name="Enum.Architecture.X64" xml:space="preserve">
+    <value>64 بیتی</value>
+  </data>
+  <data name="Enum.Architecture.X86" xml:space="preserve">
+    <value>32 بیتی</value>
+  </data>
+  <data name="Enum.Architecture.Arm64" xml:space="preserve">
+    <value>ARM64</value>
+  </data>
+  <data name="Enum.FirmwareMode.Uefi" xml:space="preserve">
+    <value>UEFI</value>
+  </data>
+  <data name="Enum.FirmwareMode.Legacy" xml:space="preserve">
+    <value>BIOS قدیمی (Legacy)</value>
+  </data>
+  <data name="Enum.SecureBootState.Enabled" xml:space="preserve">
+    <value>فعال</value>
+  </data>
+  <data name="Enum.SecureBootState.Disabled" xml:space="preserve">
+    <value>غیرفعال</value>
+  </data>
+  <data name="Enum.SecureBootState.Unavailable" xml:space="preserve">
+    <value>ناموجود</value>
+  </data>
+  <data name="Enum.VbsState.Enabled" xml:space="preserve">
+    <value>فعال</value>
+  </data>
+  <data name="Enum.VbsState.Disabled" xml:space="preserve">
+    <value>غیرفعال</value>
+  </data>
+  <data name="Enum.VbsState.Unavailable" xml:space="preserve">
+    <value>ناموجود</value>
+  </data>
+  <data name="Enum.MemoryType.Ddr" xml:space="preserve">
+    <value>DDR</value>
+  </data>
+  <data name="Enum.MemoryType.Ddr2" xml:space="preserve">
+    <value>DDR2</value>
+  </data>
+  <data name="Enum.MemoryType.Ddr3" xml:space="preserve">
+    <value>DDR3</value>
+  </data>
+  <data name="Enum.MemoryType.Ddr4" xml:space="preserve">
+    <value>DDR4</value>
+  </data>
+  <data name="Enum.MemoryType.Ddr5" xml:space="preserve">
+    <value>DDR5</value>
+  </data>
+  <data name="Enum.MemoryType.Sdram" xml:space="preserve">
+    <value>SDRAM</value>
+  </data>
+  <data name="Enum.MemoryType.Other" xml:space="preserve">
+    <value>سایر</value>
+  </data>
+  <data name="Enum.MemoryType.Lpddr" xml:space="preserve">
+    <value>LPDDR</value>
+  </data>
+  <data name="Enum.MemoryType.Hbm" xml:space="preserve">
+    <value>HBM</value>
+  </data>
+  <data name="Enum.StorageMediaType.Hdd" xml:space="preserve">
+    <value>HDD</value>
+  </data>
+  <data name="Enum.StorageMediaType.Ssd" xml:space="preserve">
+    <value>SSD</value>
+  </data>
+  <data name="Enum.StorageMediaType.Nvme" xml:space="preserve">
+    <value>NVMe</value>
+  </data>
+  <data name="Bloatware.Header.Description" xml:space="preserve">
+    <value>مدیریت و حذف برنامه‌های پیش‌فرضی که به آن‌ها نیاز ندارید</value>
+  </data>
+  <data name="DiskCleanup.Button.Clean" xml:space="preserve">
+    <value>پاکسازی</value>
+  </data>
+  <data name="DiskCleanup.Button.CleanSelected" xml:space="preserve">
+    <value>پاکسازی موارد انتخاب‌شده ({0})</value>
+  </data>
+  <data name="DiskCleanup.EmptySize" xml:space="preserve">
+    <value>حجم قابل آزاد شدن</value>
+  </data>
+  <data name="DiskCleanup.FilesCount" xml:space="preserve">
+    <value>{0} فایل</value>
+  </data>
+  <data name="DiskCleanup.ItemsAndFilesSelected" xml:space="preserve">
+    <value>{0} انتخاب‌شده • {1} مورد • {2} فایل</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Warning" xml:space="preserve">
+    <value>فایل‌ها به‌صورت دائمی حذف خواهند شد. این عملیات قابل بازگشت نیست.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Title" xml:space="preserve">
+    <value>پاکسازی {0} مورد انتخاب‌شده</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Summary" xml:space="preserve">
+    <value>شما در آستانه حذف {0} از {1} مورد ({2} فایل) هستید. لطفاً موارد زیر را بررسی کنید.</value>
+  </data>
+  <data name="Settings.About.NeedHelp.Title" xml:space="preserve">
+      <value>نیاز به کمک دارید؟</value>
+    </data>
+  <data name="Sidebar.StartupManager" xml:space="preserve">
+    <value>مدیریت برنامه‌های استارت‌آپ</value>
+  </data>
+  <data name="StartupManager.Header.Title" xml:space="preserve">
+    <value>مدیریت استارت‌آپ</value>
+  </data>
+  <data name="StartupManager.Header.Description" xml:space="preserve">
+    <value>مدیریت برنامه‌ها و وظایفی که هنگام بالا آمدن ویندوز به‌طور خودکار اجرا می‌شوند.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other" xml:space="preserve">
+    <value>سایر موارد</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
+    <value>فایل JSON حاوی داده‌های خام بازگردانی این بهینه‌سازی را باز می‌کند.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
+    <value>سورس‌کد مربوط به این بهینه‌سازی را در مرورگر شما باز می‌کند.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
+    <value>مشاهده سورس‌کد در گیت‌هاب</value>
+  </data>
+  <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
+    <value>جزئیات فنی</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Id" xml:space="preserve">
+    <value>شناسه بهینه‌سازی</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Class" xml:space="preserve">
+    <value>نام کلاس</value>
+  </data>
+  <data name="StartupManager.Apps.Title" xml:space="preserve">
+    <value>برنامه‌های استارت‌آپ</value>
+  </data>
+  <data name="StartupManager.Apps.Description" xml:space="preserve">
+    <value>برنامه‌هایی که هنگام بالا آمدن ویندوز به‌طور خودکار اجرا می‌شوند.</value>
+  </data>
+  <data name="StartupManager.Apps.CountSuffix" xml:space="preserve">
+    <value>{0} مورد</value>
+  </data>
+  <data name="StartupManager.Tasks.Title" xml:space="preserve">
+    <value>وظایف زمان‌بندی‌شده (هنگام ورود به سیستم)</value>
+  </data>
+  <data name="StartupManager.Tasks.Description" xml:space="preserve">
+    <value>وظایف ویندوز که برای اجرا هنگام ورود به حساب یا بر اساس زمان‌بندی پیکربندی شده‌اند.</value>
+  </data>
+  <data name="StartupManager.Tasks.CountSuffix" xml:space="preserve">
+    <value>{0} وظیفه</value>
+  </data>
+  <data name="StartupManager.Loading" xml:space="preserve">
+    <value>در حال اسکن موارد استارت‌آپ...</value>
+  </data>
+  <data name="StartupManager.Loading.Hint" xml:space="preserve">
+    <value>این فرایند ممکن است کمی طول بکشد، زیرا برنامه در حال اسکن رجیستری و پوشه‌های استارت‌آپ است.</value>
+  </data>
+  <data name="StartupManager.Empty.Title" xml:space="preserve">
+    <value>هیچ مورد استارت‌آپی یافت نشد</value>
+  </data>
+  <data name="StartupManager.Empty.Description" xml:space="preserve">
+    <value>هیچ برنامه استارت‌آپ یا وظیفه زمان‌بندی‌شده‌ای روی این سیستم پیدا نشد.</value>
+  </data>
+  <data name="StartupManager.Menu.Refresh" xml:space="preserve">
+    <value>به‌روزرسانی</value>
+  </data>
+  <data name="Common.Toggle.On" xml:space="preserve">
+    <value>روشن</value>
+  </data>
+  <data name="Common.Toggle.Off" xml:space="preserve">
+    <value>خاموش</value>
+  </data>
+  <data name="Common.SortBy.Status" xml:space="preserve">
+    <value>وضعیت</value>
+  </data>
+  <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
+    <value>باز کردن تنظیمات</value>
+  </data>
+  <!-- Scheduled Tasks (Startup Manager) -->
+  <data name="StartupManager.Tasks.HideMicrosoft" xml:space="preserve">
+    <value>پنهان کردن وظایف مایکروسافت</value>
+  </data>
+  <!-- Sidebar -->
+  <data name="Sidebar.ScheduledTasks" xml:space="preserve">
+    <value>وظایف زمان‌بندی‌شده</value>
+  </data>
+  <!-- Scheduled Tasks Page -->
+  <data name="ScheduledTasks.Header.Title" xml:space="preserve">
+    <value>وظایف زمان‌بندی‌شده</value>
+  </data>
+  <data name="ScheduledTasks.Header.Description" xml:space="preserve">
+    <value>مشاهده و مدیریت وظایف زمان‌بندی‌شده ویندوز.</value>
+  </data>
+  <data name="ScheduledTasks.Loading" xml:space="preserve">
+    <value>در حال بارگذاری وظایف زمان‌بندی‌شده...</value>
+  </data>
+  <data name="ScheduledTasks.Loading.Hint" xml:space="preserve">
+    <value>اسکن تمامی وظایف زمان‌بندی‌شده سیستم ممکن است کمی طول بکشد...</value>
+  </data>
+  <data name="ScheduledTasks.HideMicrosoft" xml:space="preserve">
+    <value>پنهان کردن وظایف مایکروسافت</value>
+  </data>
+  <!-- Scheduled Tasks Actions -->
+  <data name="ScheduledTasks.Action.Details" xml:space="preserve">
+    <value>مشاهده جزئیات</value>
+  </data>
+  <data name="ScheduledTasks.Action.Run" xml:space="preserve">
+    <value>اجرا</value>
+  </data>
+  <data name="ScheduledTasks.Action.Stop" xml:space="preserve">
+    <value>توقف</value>
+  </data>
+  <data name="ScheduledTasks.Action.Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <!-- Scheduled Tasks Dialogs -->
+  <data name="ScheduledTasks.Dialog.DeleteTitle" xml:space="preserve">
+    <value>حذف وظیفه زمان‌بندی‌شده</value>
+  </data>
+  <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
+    <value>حذف وظیفه زمان‌بندی‌شده دائمی است. این وظیفه دیگر به‌طور خودکار اجرا نخواهد شد.</value>
+  </data>
+  <!-- Scheduled Tasks Details -->
+  <data name="ScheduledTasks.Details.Path" xml:space="preserve">
+    <value>مسیر</value>
+  </data>
+  <data name="ScheduledTasks.Details.Description" xml:space="preserve">
+    <value>توضیحات</value>
+  </data>
+  <data name="ScheduledTasks.Details.Author" xml:space="preserve">
+    <value>سازنده</value>
+  </data>
+  <data name="ScheduledTasks.Details.Triggers" xml:space="preserve">
+    <value>محرک‌ها (Triggers)</value>
+  </data>
+  <data name="ScheduledTasks.Details.Action" xml:space="preserve">
+    <value>عملیات</value>
+  </data>
+  <data name="ScheduledTasks.Details.LastRun" xml:space="preserve">
+    <value>آخرین اجرای انجام‌شده</value>
+  </data>
+  <data name="ScheduledTasks.Details.NextRun" xml:space="preserve">
+    <value>اجرای بعدی</value>
+  </data>
+  <data name="ScheduledTasks.Details.LastResult" xml:space="preserve">
+    <value>آخرین نتیجه</value>
+  </data>
+  <!-- Common -->
+  <data name="Common.Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>انصراف</value>
+  </data>
+  <data name="Common.Empty" xml:space="preserve">
+    <value>خالی</value>
+  </data>
+  <data name="Common.SortBy.State" xml:space="preserve">
+    <value>حالت</value>
+  </data>
+  <data name="ScheduledTasks.Menu.OpenSettings" xml:space="preserve">
+    <value>باز کردن Task Scheduler</value>
+  </data>
+  <data name="ScheduledTasks.Details.Name" xml:space="preserve">
+    <value>نام</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Enabled.Title" xml:space="preserve">
+    <value>وظیفه فعال شد</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Disabled.Title" xml:space="preserve">
+    <value>وظیفه غیرفعال شد</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Toggle.Message" xml:space="preserve">
+    <value>{0} با موفقیت به‌روزرسانی شد.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Run.Title" xml:space="preserve">
+    <value>وظیفه شروع شد</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Run.Message" xml:space="preserve">
+    <value>{0} اکنون در حال اجرا است.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Stop.Title" xml:space="preserve">
+    <value>وظیفه متوقف شد</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Stop.Message" xml:space="preserve">
+    <value>{0} متوقف شد.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Delete.Title" xml:space="preserve">
+    <value>وظیفه حذف شد</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Delete.Message" xml:space="preserve">
+    <value>{0} حذف شد.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Error.Title" xml:space="preserve">
+
+    <value>خطا</value>
+  </data>
+  <data name="Settings.About.NeedHelp.Description" xml:space="preserve">
+      <value>اگر برای بهینه‌سازی نیازمند راهنمایی هستید یا سوالی دارید، برای دریافت پشتیبانی به انجمن ما بپیوندید.</value>
+    </data>
+  <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
+      <value>وظیفه یافت نشد: {0}</value>
+    </data>
+  <data name="Revert.Registry.Description.Restore" xml:space="preserve">
+    <value>بازگردانی مقدار رجیستری: {0}\{1}</value>
+  </data>
+  <data name="Revert.Registry.Description.Delete" xml:space="preserve">
+    <value>حذف مقدار رجیستری: {0}\{1}</value>
+  </data>
+  <data name="Revert.Service.Description.Restore" xml:space="preserve">
+    <value>بازگردانی سرویس '{0}' به حالت راه‌اندازی {1}</value>
+  </data>
+  <data name="Revert.ScheduledTask.Description.Enable" xml:space="preserve">
+    <value>فعال‌سازی وظیفه زمان‌بندی‌شده: {0}</value>
+  </data>
+  <data name="Revert.ScheduledTask.Description.Disable" xml:space="preserve">
+    <value>غیرفعال‌سازی وظیفه زمان‌بندی‌شده: {0}</value>
+  </data>
+  <data name="Revert.Shell.Description.Run" xml:space="preserve">
+    <value>اجرای دستور {0}: {1}</value>
+  </data>
+  <data name="Revert.Shell.Error.UnknownShellType" xml:space="preserve">
+    <value>نوع شل (Shell) نامشخص است</value>
+  </data>
+  <data name="Revert.Shell.Error.CommandFailed" xml:space="preserve">
+    <value>دستور بازگردانی با کد خطای {0} شکست خورد</value>
+  </data>
+  <data name="Revert.UsbPower.Error.RestoreFailed" xml:space="preserve">
+    <value>بازگردانی حالت انرژی USB ناموفق بود</value>
+  </data>
+  <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
+    <value>نمایش اعلان پایان عملیات</value>
+  </data>
+  <data name="Settings.Optimize.ShowCompletionNotification.Description" xml:space="preserve">
+    <value>هنگام اعمال یا بازگردانی موفقیت‌آمیز بهینه‌سازی‌ها، اعلانی نمایش داده می‌شود.</value>
+  </data>
+  <data name="Optimizations.Loading" xml:space="preserve">
+    <value>در حال بارگذاری بهینه‌سازی‌ها...</value>
+  </data>
+  <data name="Optimizations.Loading.Hint" xml:space="preserve">
+    <value>لطفاً منتظر بمانید...</value>
+  </data>
+  <data name="Common.OpenFolder" xml:space="preserve">
+    <value>باز کردن پوشه</value>
+  </data>
+  <data name="Common.Other" xml:space="preserve">
+    <value>سایر</value>
+  </data>
+  <data name="Sidebar.Customize" xml:space="preserve">
+    <value>شخصی‌سازی</value>
+  </data>
+  <data name="Customize.Title" xml:space="preserve">
+    <value>شخصی‌سازی</value>
+  </data>
+  <data name="Customize.SystemFeatures.Name" xml:space="preserve">
+    <value>سیستم</value>
+  </data>
+  <data name="Customize.SystemFeatures.Description" xml:space="preserve">
+    <value>قابلیت‌های کاربردی و رفتارهای سیستم در ویندوز.</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Input" xml:space="preserve">
+    <value>تنظیمات ورودی</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
+    <value>تنظیمات بوت</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Network" xml:space="preserve">
+    <value>تنظیمات شبکه</value>
+  </data>
+  <data name="Customize.SystemFeatures.NumLockOnBoot.Name" xml:space="preserve">
+    <value>فعال بودن NumLock هنگام بوت</value>
+  </data>
+  <data name="Customize.SystemFeatures.NumLockOnBoot.Description" xml:space="preserve">
+    <value>مشخص می‌کند هنگام بالا آمدن ویندوز در صفحه ورود، کلید Num Lock روشن باشد یا خیر.</value>
+  </data>
+  <data name="Customize.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
+    <value>فعال بودن NumLock هنگام بوت تضمین می‌کند که بخش عددی کیبورد بلافاصله پس از ورود آماده استفاده باشد.</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Name" xml:space="preserve">
+    <value>پیام‌های وضعیت پرجزئیات</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Description" xml:space="preserve">
+    <value>به جای نمایش نماد بارگذاری ساده، نام دقیق سرویس، درایور یا مرحله در حال اجرا را هنگام راه‌اندازی، خاموش شدن و آپدیت نشان می‌دهد.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Name" xml:space="preserve">
+    <value>تنظیم ساعت سخت‌افزاری بر مبنای UTC</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Description" xml:space="preserve">
+    <value>ساعت سخت‌افزاری مادربرد را مبنای UTC در نظر می‌گیرد. برای سیستم‌های دوپشته (ویندوز/لینوکس) ضروری است تا هر دو سیستم زمان یکسانی نشان دهند؛ در سیستم‌های تک‌بوت، تا زمانی که این گزینه را دوباره خاموش نکنید، زمان به اندازه اختلاف منطقه زمانی جابه‌جا می‌شود.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Recommendation.Reason" xml:space="preserve">
+    <value>تنها زمانی فعال کنید که سیستم‌عامل دیگری (مانند لینوکس) روی این رایانه نصب بوده و از ساعت UTC استفاده می‌کند.</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Name" xml:space="preserve">
+    <value>جلوگیری از نشت DNS</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Description" xml:space="preserve">
+    <value>قابلیت Smart Multi-Homed Name Resolution را غیرفعال می‌کند تا درخواست‌های DNS به طور هم‌زمان از تمامی کارت‌های شبکه ارسال نشوند و هنگام استفاده از VPN، نشت DNS رخ ندهد.</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Power" xml:space="preserve">
+    <value>تنظیمات انرژی و توان</value>
+  </data>
+  <data name="Customize.Desktop.Name" xml:space="preserve">
+    <value>دسکتاپ</value>
+  </data>
+  <data name="Customize.Desktop.Description" xml:space="preserve">
+    <value>آیکون‌های دسکتاپ و ظاهر میان‌برها.</value>
+  </data>
+  <data name="Customize.Desktop.Section.Icons" xml:space="preserve">
+    <value>آیکون‌های دسکتاپ</value>
+  </data>
+  <data name="Customize.Desktop.Section.Behaviors" xml:space="preserve">
+    <value>رفتار میان‌برها</value>
+  </data>
+  <data name="Customize.Desktop.ShowThisPc.Name" xml:space="preserve">
+    <value>این رایانه (This PC)</value>
+  </data>
+  <data name="Customize.Desktop.ShowThisPc.Description" xml:space="preserve">
+    <value>آیکون This PC را روی دسکتاپ نشان می‌دهد یا پنهان می‌کند.</value>
+  </data>
+  <data name="Customize.Desktop.ShowRecycleBin.Name" xml:space="preserve">
+    <value>سطل بازیافت (Recycle Bin)</value>
+  </data>
+  <data name="Customize.Desktop.ShowRecycleBin.Description" xml:space="preserve">
+    <value>آیکون سطل بازیافت را روی دسکتاپ نشان می‌دهد یا پنهان می‌کند.</value>
+  </data>
+  <data name="Customize.Desktop.ShowUserFiles.Name" xml:space="preserve">
+    <value>پوشه کاربر</value>
+  </data>
+  <data name="Customize.Desktop.ShowUserFiles.Description" xml:space="preserve">
+    <value>پوشه شخص‌سازی‌شده کاربر را روی دسکتاپ نشان می‌دهد یا پنهان می‌کند.</value>
+  </data>
+  <data name="Customize.Desktop.ShowNetwork.Name" xml:space="preserve">
+    <value>شبکه (Network)</value>
+  </data>
+  <data name="Customize.Desktop.ShowNetwork.Description" xml:space="preserve">
+    <value>آیکون شبکه را روی دسکتاپ نشان می‌دهد یا پنهان می‌کند.</value>
+  </data>
+  <data name="Customize.Desktop.ShowControlPanel.Name" xml:space="preserve">
+    <value>کنترل پنل (Control Panel)</value>
+  </data>
+  <data name="Customize.Desktop.ShowControlPanel.Description" xml:space="preserve">
+    <value>آیکون کنترل پنل را روی دسکتاپ نشان می‌دهد یا پنهان می‌کند.</value>
+  </data>
+  <data name="Customize.Desktop.ShowDesktopIcons.Name" xml:space="preserve">
+    <value>نمایش آیکون‌های دسکتاپ</value>
+  </data>
+  <data name="Customize.Desktop.ShowDesktopIcons.Description" xml:space="preserve">
+    <value>تمام آیکون‌های دسکتاپ را به یک‌باره نشان می‌دهد یا پنهان می‌کند.</value>
+  </data>
+  <data name="Customize.Desktop.ShortcutArrow.Name" xml:space="preserve">
+    <value>علامت فلش میان‌برها</value>
+  </data>
+  <data name="Customize.Desktop.ShortcutArrow.Description" xml:space="preserve">
+    <value>علامت فلش روی آیکون‌های میان‌بر در دسکتاپ را نشان می‌دهد یا پنهان می‌کند.</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Name" xml:space="preserve">
+    <value>مسیر پیش‌فرض باز شدن فایل اکسپلورر</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Description" xml:space="preserve">
+    <value>تعیین کنید فایل اکسپلورر در ابتدا روی This PC باز شود یا Quick access.</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Options.QuickAccess" xml:space="preserve">
+    <value>دسترسی سریع (Quick Access)</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Options.ThisPc" xml:space="preserve">
+    <value>این رایانه (This PC)</value>
+  </data>
+  <data name="Customize.Preferences.BingSearch.Name" xml:space="preserve">
+    <value>جست‌وجوی بینگ (Bing)</value>
+  </data>
+  <data name="Customize.Preferences.BingSearch.Description" xml:space="preserve">
+    <value>نتایج وب مایکروسافت بینگ را در کنار نتایج محلی در منوی استارت و بخش جست‌وجوی ویندوز نمایش می‌دهد.</value>
+  </data>
+  <data name="Customize.Preferences.BingSearch.Recommendation.Reason" xml:space="preserve">
+    <value>غیرفعال کردن جست‌وجوی بینگ مانع از شلوغ شدن نتایج محلی با جست‌وجوهای وب شده و سرعت جست‌وجو را افزایش می‌دهد.</value>
+  </data>
+  <data name="Button.Accept" xml:space="preserve">
+    <value>پذیرش</value>
+  </data>
+  <data name="LegalDialog.Title" xml:space="preserve">
+    <value>توافق‌نامه حقوقی</value>
+  </data>
+  <data name="LegalDialog.Intro.Title" xml:space="preserve">
+    <value>به optimizerDuck خوش آمدید!</value>
+  </data>
+  <data name="LegalDialog.Intro.Description" xml:space="preserve">
+    <value>زبان و تم دلخواه خود را انتخاب کنید، چند لحظه وقت بگذارید تا شرایط استفاده، سیاست حفظ حریم خصوصی و سلب مسئولیت را مرور کنید؛ سپس همه‌چیز آماده است.</value>
+  </data>
+  <data name="LegalDialog.Link.TermsOfService" xml:space="preserve">
+    <value>شرایط استفاده</value>
+  </data>
+  <data name="LegalDialog.Link.PrivacyPolicy" xml:space="preserve">
+    <value>سیاست حفظ حریم خصوصی</value>
+  </data>
+  <data name="LegalDialog.Link.Disclaimer" xml:space="preserve">
+    <value>سلب مسئولیت</value>
+  </data>
+  <data name="LegalDialog.Language.Title" xml:space="preserve">
+    <value>زبان</value>
+  </data>
+  <data name="LegalDialog.Language.Description" xml:space="preserve">
+    <value>زبان مورد نظر خود را انتخاب کنید</value>
+  </data>
+  <data name="LegalDialog.Theme.Title" xml:space="preserve">
+    <value>تم</value>
+  </data>
+  <data name="LegalDialog.Theme.Description" xml:space="preserve">
+    <value>تم مورد نظر خود را انتخاب کنید</value>
+  </data>
+  <data name="LegalDialog.Preferences.Header" xml:space="preserve">
+    <value>ترجیحات</value>
+  </data>
+  <data name="LegalDialog.Extras.Header" xml:space="preserve">
+    <value>گشت‌وانگذار</value>
+  </data>
+  <data name="LegalDialog.Extras.GitHub.Title" xml:space="preserve">
+    <value>گیت‌هاب</value>
+  </data>
+  <data name="LegalDialog.Extras.GitHub.Description" xml:space="preserve">
+    <value>سورس‌کد و گزارش مشکلات</value>
+  </data>
+  <data name="LegalDialog.Extras.Docs.Title" xml:space="preserve">
+    <value>مستندات</value>
+  </data>
+  <data name="LegalDialog.Extras.Docs.Description" xml:space="preserve">
+    <value>راهنماها و شروع کار</value>
+  </data>
+  <data name="LegalDialog.Extras.Discord.Title" xml:space="preserve">
+    <value>دیسکورد</value>
+  </data>
+  <data name="LegalDialog.Extras.Discord.Description" xml:space="preserve">
+    <value>جامعه کاربری و پشتیبانی</value>
+  </data>
+  <data name="LegalDialog.Extras.Acknowledgements.Title" xml:space="preserve">
+    <value>قدردانی‌ها</value>
+  </data>
+  <data name="LegalDialog.Extras.Acknowledgements.Description" xml:space="preserve">
+    <value>اطلاعیه‌های کتابخانه‌های جانبی</value>
+  </data>
+  <data name="LegalDialog.Warning.Title" xml:space="preserve">
+    <value>استفاده با مسئولیت شخصی</value>
+  </data>
+  <data name="LegalDialog.Warning.Message" xml:space="preserve">
+    <value>توصیه می‌کنیم پیش از اعمال هرگونه تغییر، یک نسخه پشتیبان (Backup) تهیه کنید.</value>
+  </data>
+  <data name="Dialog.PendingChanges.Title" xml:space="preserve">
+    <value>اعمال تغییرات</value>
+  </data>
+  <data name="Dialog.PendingChanges.Content" xml:space="preserve">
+    <value>اعمال برخی تغییرات نیازمند راه‌اندازی مجدد (Restart) است. پیش از خروج چه عملی انجام شود؟</value>
+  </data>
+  <data name="Dialog.PendingChanges.CloseButton" xml:space="preserve">
+    <value>خروج بدون راه‌اندازی مجدد</value>
+  </data>
+  <data name="Dialog.PendingChanges.PrimaryButton" xml:space="preserve">
+    <value>راه‌اندازی مجدد سیستم (Restart)</value>
+  </data>
+  <data name="Dialog.PendingChanges.SecondaryButton" xml:space="preserve">
+    <value>راه‌اندازی مجدد فایل اکسپلورر</value>
+  </data>
+  <data name="Settings.About.Documentation.Title" xml:space="preserve">
+    <value>راهنما و مستندات</value>
+  </data>
+  <data name="Settings.About.Documentation.Description" xml:space="preserve">
+    <value>مشاهده مستندات، راهنمای استفاده و سوالات متداول.</value>
+  </data>
+  <data name="TitleBar.Support" xml:space="preserve">
+    <value>حمایت از پروژه</value>
+  </data>
+  <data name="TitleBar.Discord" xml:space="preserve">
+    <value>پیوستن به سرور دیسکورد</value>
+  </data>
+
+  <data name="Customize.SystemFeatures.Section.Developer" xml:space="preserve">
+    <value>توسعه‌دهندگان</value>
+  </data>
+
+
+  <!-- Developer Mode -->
+  <data name="Customize.SystemFeatures.DeveloperMode.Name" xml:space="preserve">
+    <value>حالت توسعه‌دهنده (Developer Mode)</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Description" xml:space="preserve">
+    <value>امکاناتی نظیر نصب مستقیم برنامه‌ها (Sideloading)، سرویس Device Portal، SSH و سایر ابزارهای توسعه را فعال می‌کند.</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Recommendation.Reason" xml:space="preserve">
+    <value>حالت توسعه‌دهنده قابلیت‌های نصب دستی برنامه‌ها و عیب‌یابی را که برای برنامه‌نویسی ضروری هستند فعال می‌سازد.</value>
+  </data>
+
+  <!-- Allow All Trusted Apps -->
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Name" xml:space="preserve">
+    <value>برنامه‌های مورد اعتماد</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Description" xml:space="preserve">
+    <value>اجازه می‌دهد برنامه‌های معتبر ویندوز بدون نیاز به فعال‌سازی حالت توسعه‌دهنده نصب شوند.</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Recommendation.Reason" xml:space="preserve">
+    <value>فعال کردن این گزینه امکان نصب برنامه‌ها از منابع معتبر را بدون Developer Mode فراهم می‌کند؛ غیرفعال بودن آن نصب برنامه‌ها را به مایکروسافت استور محدود می‌سازد.</value>
+  </data>
+
+  <!-- Long Paths -->
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Name" xml:space="preserve">
+    <value>پشتیبانی از مسیرهای طولانی (بیش از 260 کاراکتر)</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Description" xml:space="preserve">
+    <value>به برنامه‌های سازگار اجازه می‌دهد با مسیرهای فایلی که طولانی‌تر از حد مجاز 260 کاراکتر هستند کار کنند.</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Recommendation.Reason" xml:space="preserve">
+    <value>پشتیبانی از مسیرهای طولانی از بروز خطای دسترسی به فایل‌ها در پوشه‌های تودرتو یا پروژه‌هایی با نام‌های بلند جلوگیری می‌کند.</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Name" xml:space="preserve">
+    <value>نحوه نمایش کادر جست‌وجو</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Description" xml:space="preserve">
+    <value>تعیین کنید نوار وظیفه شامل کادر کامل جست‌وجو، فقط آیکون، یا فاقد بخش جست‌وجو باشد.</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Hidden" xml:space="preserve">
+    <value>پنهان</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Icon" xml:space="preserve">
+    <value>فقط آیکون</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.IconAndLabel" xml:space="preserve">
+    <value>آیکون و برچسب</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.SearchBox" xml:space="preserve">
+    <value>کادر جست‌وجو</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarLastActiveClick.Name" xml:space="preserve">
+    <value>باز کردن آخرین پنجره فعال</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarLastActiveClick.Description" xml:space="preserve">
+    <value>با کلیک روی آیکون برنامه در نوار وظیفه، آخرین پنجره فعال آن برنامه مستقیماً باز می‌شود.</value>
+  </data>
+	<data name="Customize.SystemFeatures.ShowBatteryPercentage.Name" xml:space="preserve">
+    <value>درصد باتری</value>
+  </data>
+  <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
+    <value>میزان درصد شارژ باقی‌مانده را در کنار آیکون باتری در سینی سیستم (System Tray) نشان می‌دهد.</value>
+  </data>
+  <data name="Optimizer.AI" xml:space="preserve">
+    <value>هوش مصنوعی (AI)</value>
+  </data>
+  <data name="Optimizer.AI.DisableClickToDo.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی Click To Do</value>
+  </data>
+  <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
+    <value>قابلیت هوش مصنوعی Click To Do را که متن‌ها و تصاویر روی صفحه نمایش را تحلیل می‌کند خاموش می‌کند.</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی Windows Recall</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.ShortDescription" xml:space="preserve">
+    <value>قابلیت هوش مصنوعی Windows Recall را که از صفحه اسکرین‌شات می‌گیرد غیرفعال کرده و اسکرین‌شات‌های قبلی را در ویندوز 11 پاک می‌کند. (نیازمند ری‌استارت)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی Delivery Optimization (P2P)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
+    <value>اشتراک‌گذاری یا دریافت همتا به همتای (P2P) فایل‌های آپدیت با دیگر رایانه‌ها را متوقف کرده تا دانلودها مستقیماً از سرورهای مایکروسافت انجام شوند.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی Find My Device</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
+    <value>قابلیت پیدا کردن دستگاه (Find My Device) را که موقعیت مکانی رایانه شما را به مایکروسافت ارسال می‌کند غیرفعال می‌سازد.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی تبلیغات Microsoft 365 در تنظیمات</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
+    <value>بنرها و تبلیغات مربوط به Microsoft 365 و Copilot را از صفحه اصلی تنظیمات ویندوز حذف می‌کند.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartRecommended.Name" xml:space="preserve">
+    <value>پنهان کردن بخش پیشنهادی (Recommended) در استارت</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
+    <value>بخش Recommended را از منوی استارت پنهان می‌کند تا فایل‌ها و برنامه‌های اخیراً بازشده نشان داده نشوند.</value>
+  </data>
+  <data name="Condition.Error.Title" xml:space="preserve">
+    <value>بررسی سازگاری با شکست مواجه شد</value>
+  </data>
+  <data name="Condition.Error.Description" xml:space="preserve">
+    <value>برنامه optimizerDuck نتوانست پشتیبانی یا عدم پشتیبانی این مورد در سیستم شما را تشخیص دهد.</value>
+  </data>
+  <data name="Condition.Windows11.Title" xml:space="preserve">
+    <value>نیازمند ویندوز 11</value>
+  </data>
+  <data name="Condition.Windows11.Description" xml:space="preserve">
+    <value>این مورد نیاز به ویندوز 11 دارد.</value>
+  </data>
+  <data name="Condition.Windows10.Title" xml:space="preserve">
+    <value>نیازمند ویندوز 10</value>
+  </data>
+  <data name="Condition.Windows10.Description" xml:space="preserve">
+    <value>این مورد نیاز به ویندوز 10 دارد.</value>
+  </data>
+  <data name="Condition.Windows11_24H2.Title" xml:space="preserve">
+    <value>نیازمند ویندوز 11 نسخه 24H2 یا جدیدتر</value>
+  </data>
+  <data name="Condition.Windows11_24H2.Description" xml:space="preserve">
+    <value>این مورد نیاز به ویندوز 11 نسخه 24H2 (بیلد 26100) یا جدیدتر دارد.</value>
+  </data>
+  <data name="Condition.Cpu.Intel.Title" xml:space="preserve">
+    <value>نیازمند پردازنده اینتل</value>
+  </data>
+  <data name="Condition.Cpu.Intel.Description" xml:space="preserve">
+    <value>این مورد فقط روی سیستم‌های مجهز به پردازنده اینتل کار می‌کند.</value>
+  </data>
+  <data name="Condition.Cpu.Amd.Title" xml:space="preserve">
+    <value>نیازمند پردازنده ای‌ام‌دی</value>
+  </data>
+  <data name="Condition.Cpu.Amd.Description" xml:space="preserve">
+    <value>این مورد فقط روی سیستم‌های مجهز به پردازنده ای‌ام‌دی کار می‌کند.</value>
+  </data>
+  <data name="Condition.Gpu.Nvidia.Title" xml:space="preserve">
+    <value>نیازمند کارت گرافیک انویدیا</value>
+  </data>
+  <data name="Condition.Gpu.Nvidia.Description" xml:space="preserve">
+    <value>این مورد فقط روی سیستم‌های مجهز به کارت گرافیک انویدیا کار می‌کند.</value>
+  </data>
+  <data name="Condition.Gpu.Amd.Title" xml:space="preserve">
+    <value>نیازمند کارت گرافیک ای‌ام‌دی</value>
+  </data>
+  <data name="Condition.Gpu.Amd.Description" xml:space="preserve">
+    <value>این مورد فقط روی سیستم‌های مجهز به کارت گرافیک ای‌ام‌دی کار می‌کند.</value>
+  </data>
+  <data name="Condition.Gpu.Intel.Title" xml:space="preserve">
+    <value>نیازمند کارت گرافیک اینتل</value>
+  </data>
+  <data name="Condition.Gpu.Intel.Description" xml:space="preserve">
+    <value>این مورد فقط روی سیستم‌های مجهز به کارت گرافیک اینتل کار می‌کند.</value>
+  </data>
+  <data name="Condition.Ram.16.Title" xml:space="preserve">
+    <value>نیازمند 16 گیگابایت رم</value>
+  </data>
+  <data name="Condition.Ram.16.Description" xml:space="preserve">
+    <value>این مورد نیازمند حداقل 16 گیگابایت حافظه رم نصب‌شده است.</value>
+  </data>
+  <data name="Condition.Recall.Title" xml:space="preserve">
+    <value>قابلیت Windows Recall در دسترس نیست</value>
+  </data>
+  <data name="Condition.Recall.Description" xml:space="preserve">
+    <value>قابلیت Windows Recall نیازمند ویندوز 11 نسخه 24H2 یا جدیدتر همراه با مؤلفه‌های نصب‌شده Windows AI است.</value>
+  </data>
+  <data name="Optimizer.Condition.BlockedTitle" xml:space="preserve">
+    <value>در این سیستم پشتیبانی نمی‌شود</value>
+  </data>
+  <data name="Optimizer.Condition.FailedTitle" xml:space="preserve">
+    <value>عدم احراز شرایط سازگاری</value>
+  </data>
+  <data name="Optimizer.Condition.Hide" xml:space="preserve">
+    <value>پنهان کردن</value>
+  </data>
+  <data name="Optimizer.Condition.Hide.Tooltip" xml:space="preserve">
+    <value>این بهینه‌سازی را دوباره نشان بده و اجازه بده در هر صورت اعمال شود.</value>
+  </data>
+  <data name="Optimizer.Condition.WhatIsThis" xml:space="preserve">
+    <value>این چیست؟</value>
+  </data>
+  <data name="Optimizer.Condition.WhatIsThis.Tooltip" xml:space="preserve">
+    <value>بررسی شرایط سازگاری مشخص می‌کند که آیا این بهینه‌سازی با نسخه ویندوز یا سخت‌افزار شما سازگار است یا خیر. در صورت برقرار نبودن شرط، آیتم به‌طور پیش‌فرض پنهان می‌شود، چون ممکن است کار نکند. اگر مطمئن هستید، می‌توانید هشدار را پنهان کرده و آن را در هر حال اعمال کنید.</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Header" xml:space="preserve">
+    <value>تنظیمات پشتیبانی‌نشده ({0})</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
+    <value>برخی تنظیمات در سیستم فعلی شما پشتیبانی نمی‌شوند.</value>
+  </data>
+  <data name="Customize.Loading" xml:space="preserve">
+    <value>در حال بارگذاری تنظیمات...</value>
+  </data>
+  <data name="Startup.Location.RegistryHKCURun" xml:space="preserve">
+    <value>رجیستری (کاربر فعلی)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRun" xml:space="preserve">
+    <value>رجیستری (سیستم محلی)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKCURunOnce" xml:space="preserve">
+    <value>رجیستری RunOnce (کاربر فعلی)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRunOnce" xml:space="preserve">
+    <value>رجیستری RunOnce (سیستم محلی)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRun32" xml:space="preserve">
+    <value>رجیستری (سیستم محلی، 32 بیتی)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRunOnce32" xml:space="preserve">
+    <value>رجیستری RunOnce (سیستم محلی، 32 بیتی)</value>
+  </data>
+  <data name="Startup.Location.UserStartupFolder" xml:space="preserve">
+    <value>پوشه استارت‌آپ (کاربر فعلی)</value>
+  </data>
+  <data name="Startup.Location.CommonStartupFolder" xml:space="preserve">
+    <value>پوشه استارت‌آپ (همه کاربران)</value>
+  </data>
+  <data name="Startup.Location.UwpStartupTask" xml:space="preserve">
+    <value>برنامه استور مایکروسافت</value>
+  </data>
+  <data name="ScheduledTasks.Dialog.Settings" xml:space="preserve">
+    <value>تنظیمات</value>
+  </data>
+  <data name="ScheduledTasks.State.Running" xml:space="preserve">
+    <value>در حال اجرا</value>
+  </data>
+  <data name="ScheduledTasks.State.Ready" xml:space="preserve">
+    <value>آماده</value>
+  </data>
+  <data name="ScheduledTasks.State.Disabled" xml:space="preserve">
+    <value>غیرفعال</value>
+  </data>
+  <data name="ScheduledTasks.State.Queued" xml:space="preserve">
+    <value>در صف</value>
+  </data>
+  <data name="Common.SortBy.RiskAndStatus" xml:space="preserve">
+    <value>ریسک و وضعیت</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Ram.Total" xml:space="preserve">
+    <value>{0} گیگابایت رم</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Gpu.Memory" xml:space="preserve">
+    <value>{0} گیگابایت</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Event" xml:space="preserve">
+    <value>هنگام وقوع رویداد</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Time" xml:space="preserve">
+    <value>در زمان مشخص</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Daily" xml:space="preserve">
+    <value>روزانه</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Weekly" xml:space="preserve">
+    <value>هفتگی</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Monthly" xml:space="preserve">
+    <value>ماهانه</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.MonthlyDOW" xml:space="preserve">
+    <value>ماهانه</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Idle" xml:space="preserve">
+    <value>هنگام بیکاری سیستم</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Registration" xml:space="preserve">
+    <value>هنگام ثبت وظیفه</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Boot" xml:space="preserve">
+    <value>هنگام بالا آمدن سیستم (Boot)</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Logon" xml:space="preserve">
+    <value>هنگام ورود به حساب کاربر</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.SessionStateChange" xml:space="preserve">
+    <value>هنگام تغییر وضعیت نشست (Session)</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Other" xml:space="preserve">
+    <value>محرک (Trigger)</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.Lock" xml:space="preserve">
+    <value>قفل شدن نشست</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.Unlock" xml:space="preserve">
+    <value>باز شدن قفل نشست</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.ConsoleConnect" xml:space="preserve">
+    <value>اتصال کنسول</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.ConsoleDisconnect" xml:space="preserve">
+    <value>قطع اتصال کنسول</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.RemoteConnect" xml:space="preserve">
+    <value>اتصال از راه دور (Remote)</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.RemoteDisconnect" xml:space="preserve">
+    <value>قطع اتصال از راه دور (Remote)</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.First" xml:space="preserve">
+    <value>اول</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.Second" xml:space="preserve">
+    <value>دوم</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.Third" xml:space="preserve">
+    <value>سوم</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.Fourth" xml:space="preserve">
+    <value>چهارم</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.Last" xml:space="preserve">
+    <value>آخر</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.Every" xml:space="preserve">
+    <value>هر</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Time" xml:space="preserve">
+    <value>در ساعت {0}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Daily" xml:space="preserve">
+    <value>هر {0} روز یک‌بار، در ساعت {1}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Weekly" xml:space="preserve">
+    <value>هر {0} هفته در روزهای {1}، ساعت {2}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Monthly" xml:space="preserve">
+    <value>در روز(های) {0} از {1}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.MonthlyDOW" xml:space="preserve">
+    <value>{0} {1} از {2}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.User" xml:space="preserve">
+    <value>برای کاربر {0}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.UserDelay" xml:space="preserve">
+    <value>برای کاربر {0} با {1} تأخیر</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Delay" xml:space="preserve">
+    <value>با {0} تأخیر</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Repeat" xml:space="preserve">
+    <value>(تکرار هر {0})</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.RepeatFor" xml:space="preserve">
+    <value>(تکرار هر {0} به مدت {1})</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal" xml:space="preserve">
+    <value>قبلاً بهینه‌سازی شده است</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
+    <value>تنظیمات این بهینه‌سازی هم‌اکنون روی سیستم شما اعمال شده و نیازی به تغییر ندارد.</value>
+  </data>
+  <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
+    <value>نیازی به تغییر نیست: تنظیمات {0} از قبل روی سیستم شما اعمال شده است.</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
+    <value>نیازی به تغییر نیست</value>
+  </data>
+  <data name="Revert.Error.UnreadableData" xml:space="preserve">
+    <value>فایل بازگردانی {0} قابل خواندن نبود، هیچ تغییری بازگردانده نشد. فایل در مسیر {1} باقی ماند.</value>
+  </data>
+  <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
+    <value>به دلیل مشخص نبودن وضعیت Hibernation در زمان اجرای بهینه‌سازی، تغییری بازگردانده نشد</value>
+  </data>
+  <data name="Bloatware.Remove.Failed.Title" xml:space="preserve">
+    <value>برخی بسته‌ها حذف نشدند</value>
+  </data>
+  <data name="Bloatware.Remove.Failed.Message" xml:space="preserve">
+    <value>ویندوز موفق به حذف این بسته‌ها نشد: {0}</value>
+  </data>
+  <data name="Optimizer.UI.State.Applied.Tooltip" xml:space="preserve">
+    <value>برای مشاهده جزئیات مراحل آخرین اجرا کلیک کنید. {0}</value>
+  </data>
+  <data name="Optimizer.UI.State.Applied.Tooltip.NoSummary" xml:space="preserve">
+    <value>برای مشاهده جزئیات مراحل آخرین اجرا کلیک کنید.</value>
+  </data>
+  <data name="Optimizer.UI.State.Applied.Summary" xml:space="preserve">
+    <value>{0} گام تغییر یافت، {1} گام از قبل درست بود، {2} گام اعمال نشد، {3} گام توسط ویندوز رد شد.</value>
+  </data>
+  <data name="Optimizer.Details.Record.Title" xml:space="preserve">
+    <value>آخرین اجرای ثبت‌شده</value>
+  </data>
+  <data name="Optimizer.Details.Record.Empty" xml:space="preserve">
+    <value>هنوز هیچ سابقه‌ای برای این مورد ثبت نشده است.</value>
+  </data>
+  <data name="Optimizer.Details.Step.Changed" xml:space="preserve">
+    <value>تغییر یافت</value>
+  </data>
+  <data name="Optimizer.Details.Step.AlreadyCorrect" xml:space="preserve">
+    <value>از قبل بهینه بود</value>
+  </data>
+  <data name="Optimizer.Details.Step.NotApplicable" xml:space="preserve">
+    <value>غیرقابل‌اعمال روی این سیستم</value>
+  </data>
+  <data name="Optimizer.Details.Step.Refused" xml:space="preserve">
+    <value>توسط ویندوز رد شد</value>
+  </data>
+  <data name="Optimizer.Details.Step.Irreversible" xml:space="preserve">
+    <value>غیرقابل بازگردانی</value>
+  </data>
+  <data name="Optimizer.Details.Step.Failed" xml:space="preserve">
+    <value>با خطا مواجه شد</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Security.Tooltip" xml:space="preserve">
+    <value>این بهینه‌سازی مربوط به تنظیمات امنیتی ویندوز است.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Privacy.Tooltip" xml:space="preserve">
+    <value>این بهینه‌سازی مربوط به داده‌های جمع‌آوری‌شده و ارسالی توسط ویندوز است.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.System.Tooltip" xml:space="preserve">
+    <value>این بهینه‌سازی بخش اصلی، کامپوننت یا پالیسی ویندوز را تغییر می‌دهد؛ لطفاً توضیحات آن را قبل از اعمال مطالعه کنید.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Performance.Tooltip" xml:space="preserve">
+    <value>این بهینه‌سازی مربوط به عملکرد، سرعت و پردازش‌های پس‌زمینه است.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Latency.Tooltip" xml:space="preserve">
+    <value>این بهینه‌سازی مربوط به کاهش تاخیر ورودی‌ها، بازی‌ها یا صدا است.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Disk.Tooltip" xml:space="preserve">
+    <value>این بهینه‌سازی نحوه استفاده ویندوز از درایوهای دیسک شما را تغییر می‌دهد.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Ram.Tooltip" xml:space="preserve">
+    <value>این بهینه‌سازی مربوط به نحوه مدیریت حافظه رم توسط ویندوز است.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Display.Tooltip" xml:space="preserve">
+    <value>این بهینه‌سازی مربوط به خروجی تصویر، مانیتور یا کارت گرافیک است.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Nvidia.Tooltip" xml:space="preserve">
+    <value>این بهینه‌سازی مخصوص سیستم‌های دارای کارت گرافیک انویدیا (NVIDIA) بوده و روی بقیه سیستم‌ها بی‌اثر است.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Amd.Tooltip" xml:space="preserve">
+    <value>این بهینه‌سازی مخصوص سیستم‌های دارای کارت گرافیک ای‌ام‌دی (AMD) بوده و روی بقیه سیستم‌ها بی‌اثر است.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Intel.Tooltip" xml:space="preserve">
+    <value>این بهینه‌سازی مخصوص سیستم‌های دارای کارت گرافیک اینتل (Intel) بوده و روی بقیه سیستم‌ها بی‌اثر است.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Power.Tooltip" xml:space="preserve">
+    <value>این بهینه‌سازی مربوط به مدیریت مصرف انرژی، شارژدهی باتری، حرارت و صدای فن است.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Network.Tooltip" xml:space="preserve">
+    <value>این بهینه‌سازی مربوط به تنظیمات شبکه، اتصالات و ترافیک دیتای آن است.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.NetworkRequired.Tooltip" xml:space="preserve">
+    <value>این بهینه‌سازی به دلیل نیاز به دانلود فایل‌ها، نیازمند اتصال فعال اینترنت است.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Audio.Tooltip" xml:space="preserve">
+    <value>این بهینه‌سازی مربوط به نحوه پخش و پردازش کارت صدا است.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Visual.Tooltip" xml:space="preserve">
+    <value>این بهینه‌سازی مربوط به افکت‌ها، ظاهر و انیمیشن‌های محیط ویندوز است.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows10Only.Tooltip" xml:space="preserve">
+    <value>این بهینه‌سازی فقط مخصوص ویندوز 10 بوده و روی ویندوز 11 اثری ندارد.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows11Only.Tooltip" xml:space="preserve">
+    <value>این بهینه‌سازی فقط مخصوص ویندوز 11 است و روی ویندوز 10 مسدود می‌شود.</value>
+  </data>
+  <data name="Optimizer.Details.Record.Apply" xml:space="preserve">
+    <value>زمان اعمال بهینه‌سازی: {0}</value>
+  </data>
+  <data name="Optimizer.Details.Record.Revert" xml:space="preserve">
+    <value>زمان بازگردانی تغییرات: {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistrySet" xml:space="preserve">
+    <value>ثبت مقدار {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryDelete" xml:space="preserve">
+    <value>حذف مقدار {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryCreateKey" xml:space="preserve">
+    <value>ایجاد کلید رجیستری</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryDeleteKey" xml:space="preserve">
+    <value>حذف کلید رجیستری</value>
+  </data>
+  <data name="Optimizer.Details.Field.Path" xml:space="preserve">
+    <value>مسیر</value>
+  </data>
+  <data name="Optimizer.Details.Field.Type" xml:space="preserve">
+    <value>نوع</value>
+  </data>
+  <data name="Optimizer.Details.Field.Previous" xml:space="preserve">
+    <value>مقدار قبلی</value>
+  </data>
+  <data name="Optimizer.Details.Field.Previous.None" xml:space="preserve">
+    <value>وجود نداشت</value>
+  </data>
+  <data name="Optimizer.Details.Field.New" xml:space="preserve">
+    <value>مقدار جدید</value>
+  </data>
+  <data name="Optimizer.Details.Field.New.None" xml:space="preserve">
+    <value>حذف‌شد</value>
+  </data>
+  <data name="Optimizer.Details.Op.ServiceStartup" xml:space="preserve">
+    <value>تغییر سرویس {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.TaskEnable" xml:space="preserve">
+    <value>فعال‌سازی وظیفه {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.TaskDisable" xml:space="preserve">
+    <value>غیرفعال‌سازی وظیفه {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerPlanActivate" xml:space="preserve">
+    <value>انتخاب طرح انرژی {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerPlanInstall" xml:space="preserve">
+    <value>نصب طرح انرژی {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerSetting" xml:space="preserve">
+    <value>تغییر تنظیمات انرژی {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.Hibernation" xml:space="preserve">
+    <value>غیرفعال‌سازی Hibernation و Fast Startup</value>
+  </data>
+  <data name="Optimizer.Details.Op.UsbPower" xml:space="preserve">
+    <value>غیرفعال‌سازی صرفه‌جویی انرژی USB</value>
+  </data>
+  <data name="Optimizer.Details.Field.Service" xml:space="preserve">
+    <value>سرویس</value>
+  </data>
+  <data name="Optimizer.Details.Field.Task" xml:space="preserve">
+    <value>وظیفه (Task)</value>
+  </data>
+  <data name="Optimizer.Details.Field.PowerPlan" xml:space="preserve">
+    <value>طرح انرژی</value>
+  </data>
+  <data name="Optimizer.Details.Field.Setting" xml:space="preserve">
+    <value>تنظیمات</value>
+  </data>
+  <data name="Optimizer.Details.Field.Devices" xml:space="preserve">
+    <value>دستگاه‌ها</value>
+  </data>
+  <data name="Optimizer.Details.Value.Startup.Automatic" xml:space="preserve">
+    <value>خودکار (خودکار)</value>
+  </data>
+  <data name="Optimizer.Details.Value.Startup.AutomaticDelayed" xml:space="preserve">
+    <value>خودکار با تأخیر (با تأخیر)</value>
+  </data>
+  <data name="Optimizer.Details.Value.Startup.Manual" xml:space="preserve">
+    <value>دستی (دستی)</value>
+  </data>
+  <data name="Optimizer.Details.Value.Startup.Disabled" xml:space="preserve">
+    <value>غیرفعال (غیرفعال)</value>
+  </data>
+  <data name="Optimizer.Details.Value.Enabled" xml:space="preserve">
+    <value>روشن</value>
+  </data>
+  <data name="Optimizer.Details.Value.Unknown" xml:space="preserve">
+    <value>نامشخص</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryRestore" xml:space="preserve">
+    <value>بازگردانی مقدار {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryRestoreKey" xml:space="preserve">
+    <value>بازگردانی کلید رجیستری</value>
+  </data>
+  <data name="Optimizer.Details.Op.ServiceRestore" xml:space="preserve">
+    <value>بازگردانی سرویس {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerPlanRestore" xml:space="preserve">
+    <value>بازگردانی طرح انرژی {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerPlanUninstall" xml:space="preserve">
+    <value>حذف طرح انرژی {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerSettingRestore" xml:space="preserve">
+    <value>بازگردانی تنظیمات انرژی {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.HibernationRestore" xml:space="preserve">
+    <value>بازگردانی Hibernation و Fast Startup</value>
+  </data>
+  <data name="Optimizer.Details.Op.HibernationEnable" xml:space="preserve">
+    <value>فعال‌سازی مجدد Hibernation و Fast Startup</value>
+  </data>
+  <data name="Optimizer.Details.Op.UsbPowerRestore" xml:space="preserve">
+    <value>فعال‌سازی مجدد صرفه‌جویی انرژی USB</value>
+  </data>
+  <data name="Optimizer.Details.Field.StartupState" xml:space="preserve">
+    <value>نوع راه‌اندازی</value>
+  </data>
+  <data name="Optimizer.Details.Field.TaskState" xml:space="preserve">
+    <value>وضعیت وظیفه</value>
+  </data>
+  <data name="Optimizer.Details.Field.HibernationState" xml:space="preserve">
+    <value>وضعیت Hibernation</value>
+  </data>
+  <data name="Optimizer.Details.Field.Value" xml:space="preserve">
+    <value>مقدار</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Title" xml:space="preserve">
+    <value>نمایش فایل تاریخچه تغییرات</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Description" xml:space="preserve">
+    <value>فایلی را که مراحل انجام‌شده توسط optimizerDuck در آن ثبت شده باز می‌کند. این گزارش حتی پس از بازگردانی تغییرات حفظ می‌شود.</value>
+  </data>
+  <data name="Optimizer.Details.Provider.Registry" xml:space="preserve">
+    <value>رجیستری (Registry)</value>
+  </data>
+  <data name="Optimizer.Details.Provider.Service" xml:space="preserve">
+    <value>سرویس (Service)</value>
+  </data>
+  <data name="Optimizer.Details.Provider.ScheduledTask" xml:space="preserve">
+    <value>وظیفه زمان‌بندی‌شده</value>
+  </data>
+  <data name="Optimizer.Details.Provider.PowerPlan" xml:space="preserve">
+    <value>طرح انرژی</value>
+  </data>
+  <data name="Optimizer.Details.Provider.Hibernation" xml:space="preserve">
+    <value>حالت Hibernation</value>
+  </data>
+  <data name="Optimizer.Details.Provider.UsbPower" xml:space="preserve">
+    <value>صرفه‌جویی انرژی USB</value>
+  </data>
+  <data name="Optimizer.Details.Provider.Shell" xml:space="preserve">
+    <value>دستور شل (Shell)</value>
+  </data>
+  <data name="Optimizer.Details.Field.ValueName" xml:space="preserve">
+    <value>نام مقدار</value>
+  </data>
+  <data name="Optimizer.Details.Field.Reason" xml:space="preserve">
+    <value>علت</value>
+  </data>
+  <data name="Optimizer.Details.Reason.ServiceNotFound" xml:space="preserve">
+    <value>این سرویس روی این سیستم یافت نشد</value>
+  </data>
+  <data name="Optimizer.Details.Reason.TaskNotFound" xml:space="preserve">
+    <value>این وظیفه روی این سیستم یافت نشد</value>
+  </data>
+  <data name="Optimizer.Details.Reason.RegistryValueAbsent" xml:space="preserve">
+    <value>این مقدار از ابتدا وجود نداشته است</value>
+  </data>
+  <data name="Optimizer.Details.Reason.RegistryKeyExists" xml:space="preserve">
+    <value>این کلید از قبل وجود داشته است</value>
+  </data>
+  <data name="Optimizer.Details.Reason.RegistryKeyAbsent" xml:space="preserve">
+    <value>این کلید از ابتدا وجود نداشته است</value>
+  </data>
+  <data name="Optimizer.Details.Reason.UsbNoDevices" xml:space="preserve">
+    <value>هیچ هاب اصلی USB در این سیستم یافت نشد</value>
+  </data>
+  <data name="Optimizer.Details.Field.Took" xml:space="preserve">
+    <value>زمان صرف‌شده</value>
+  </data>
+  <data name="Optimizer.Details.Field.At" xml:space="preserve">
+    <value>در تاریخ / زمان</value>
+  </data>
+  <data name="Optimizer.Details.Field.ErrorCode" xml:space="preserve">
+    <value>کد خطا</value>
+  </data>
+  <data name="Optimizer.Details.Field.Attempt" xml:space="preserve">
+    <value>شماره تلاش</value>
+  </data>
+  <data name="Optimizer.Details.Record.Version" xml:space="preserve">
+    <value>نسخه برنامه</value>
+  </data>
+  <data name="Optimizer.Details.Record.Windows" xml:space="preserve">
+    <value>ویندوز</value>
+  </data>
+  <data name="Optimizer.Details.Record.Took" xml:space="preserve">
+    <value>زمان صرف‌شده</value>
+  </data>
+  <data name="Error.Unhandled.Title" xml:space="preserve">
+    <value>مشکلی پیش آمد</value>
+  </data>
+  <data name="Error.Unhandled.Message" xml:space="preserve">
+    <value>آخرین عملیات تکمیل نشد: {0}</value>
+  </data>
+  <data name="Error.Unhandled.LogHint" xml:space="preserve">
+    <value>جزئیات در فایل لاگ ثبت شده است.</value>
+  </data>
+</root>
