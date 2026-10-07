@@ -44,7 +44,8 @@ jobs:
 
       - name: Publish Single
         run: |
-          dotnet publish optimizerDuck/optimizerDuck.csproj --nologo /p:PublishProfile=Single
+          dotnet publish optimizerDuck/optimizerDuck.csproj -c Release -r win-x64 --nologo /p:PublishProfile=Single
+          dotnet publish optimizerDuck/optimizerDuck.csproj -c Release -r win-arm64 --nologo /p:PublishProfile=Single
         shell: pwsh
 
       - name: Resolve release tag
@@ -67,19 +68,20 @@ jobs:
           echo "version=$version" >> $env:GITHUB_OUTPUT
           Write-Host "Attaching assets to release $tag (version $version)"
 
-      - name: Rename output file
+      - name: Rename output files
         run: |
           $version = "${{ steps.get_version.outputs.version }}"
-          $source = "optimizerDuck/bin/Release/Single/net10.0/publish/win-x64/optimizerDuck.exe"
-          $dest = "optimizerDuck-Windows-x64-$version.exe"
-          Move-Item -Path $source -Destination $dest
+          Move-Item -Path "optimizerDuck/bin/Release/Single/net10.0/publish/win-x64/optimizerDuck.exe" -Destination "optimizerDuck-Windows-x64-$version.exe"
+          Move-Item -Path "optimizerDuck/bin/Release/Single/net10.0/publish/win-arm64/optimizerDuck.exe" -Destination "optimizerDuck-Windows-arm64-$version.exe"
         shell: pwsh
 
       - name: Upload Release Asset
         uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ steps.get_version.outputs.tag }}
-          files: ./optimizerDuck-Windows-x64-${{ steps.get_version.outputs.version }}.exe
+          files: |
+            ./optimizerDuck-Windows-x64-${{ steps.get_version.outputs.version }}.exe
+            ./optimizerDuck-Windows-arm64-${{ steps.get_version.outputs.version }}.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -92,7 +94,10 @@ jobs:
           $tag = "${{ steps.get_version.outputs.tag }}"
           $owner = "${{ github.repository_owner }}"
           $repo = "optimizerDuck"
-          $targetAsset = "optimizerDuck-Windows-x64-${{ steps.get_version.outputs.version }}.exe"
+          $targetAssets = @(
+            "optimizerDuck-Windows-x64-${{ steps.get_version.outputs.version }}.exe",
+            "optimizerDuck-Windows-arm64-${{ steps.get_version.outputs.version }}.exe"
+          )
 
           $maxRetries = 60
           $retryDelay = 2
@@ -105,12 +110,13 @@ jobs:
                   "Accept"        = "application/vnd.github+json"
                 }
 
-              $asset = $response.assets | Where-Object {
-                $_.name -eq $targetAsset -and $_.name -like "*.exe"
-              }
+              $missing = @($targetAssets | Where-Object {
+                $name = $_
+                -not ($response.assets | Where-Object { $_.name -eq $name })
+              })
 
-              if ($asset) {
-                Write-Host "::notice::Asset '$targetAsset' found and ready!"
+              if ($missing.Count -eq 0) {
+                Write-Host "::notice::Assets '$($targetAssets -join ', ')' found and ready!"
                 echo "verified=true" >> $env:GITHUB_OUTPUT
                 exit 0
               }

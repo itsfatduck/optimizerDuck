@@ -6,6 +6,7 @@ set "PROJECT_PATH=%SCRIPT_DIR%optimizerDuck\optimizerDuck.csproj"
 set "TEST_PROJECT=%SCRIPT_DIR%optimizerDuck.Test\optimizerDuck.Test.csproj"
 set "CONFIGURATION=Release"
 set "PROFILE="
+set "ARCH=x64"
 set "RUN_TESTS=1"
 set "PAUSE_ON_EXIT=1"
 
@@ -32,6 +33,7 @@ echo ========================================
 echo optimizerDuck publish
 echo ========================================
 echo Profile:       %PROFILE%
+echo Arch:          %ARCH%
 echo Configuration: %CONFIGURATION%
 if "%RUN_TESTS%"=="1" (
     echo Run tests:     Yes
@@ -55,7 +57,7 @@ if "%RUN_TESTS%"=="1" (
 
 echo.
 echo [2/2] Publishing %PROFILE% profile...
-dotnet publish "%PROJECT_PATH%" -c %CONFIGURATION% --nologo /p:PublishProfile=%PROFILE%
+dotnet publish "%PROJECT_PATH%" -c %CONFIGURATION% -r win-%ARCH% --nologo /p:PublishProfile=%PROFILE%
 if errorlevel 1 (
     echo.
     echo Publish failed.
@@ -89,6 +91,24 @@ if /I "%~1"=="--portable" (
 
 if /I "%~1"=="--single" (
     set "PROFILE=Single"
+    shift
+    goto :parse_args
+)
+
+if /I "%~1"=="x64" (
+    set "ARCH=x64"
+    shift
+    goto :parse_args
+)
+
+if /I "%~1"=="arm64" (
+    set "ARCH=arm64"
+    shift
+    goto :parse_args
+)
+
+if /I "%~1"=="x86" (
+    set "ARCH=x86"
     shift
     goto :parse_args
 )
@@ -143,11 +163,11 @@ exit /b 0
 :help
 echo.
 echo Usage:
-echo   publish.bat [portable^|single] [--skip-tests] [--no-pause]
+echo   publish.bat [portable^|single] [x64^|arm64^|x86] [--skip-tests] [--no-pause]
 echo.
 echo Examples:
 echo   publish.bat portable
-echo   publish.bat single --skip-tests
+echo   publish.bat single arm64 --skip-tests
 echo.
 exit /b 1
 
