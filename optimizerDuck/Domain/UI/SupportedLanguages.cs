@@ -24,6 +24,7 @@ public static class SupportedLanguages
         new() { DisplayName = "العربية", Culture = new CultureInfo("ar-SA") },
         new() { DisplayName = "Italiano", Culture = new CultureInfo("it-IT") },
         new() { DisplayName = "Bahasa Indonesia", Culture = new CultureInfo("id-ID") },
+        new() { DisplayName = "فارسی", Culture = new CultureInfo("fa-IR") },
     ];
 
     public static LanguageOption Default => All[0];
