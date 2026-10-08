@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -649,6 +650,74 @@ public class BaseCustomizeSettingTests : IDisposable
         Assert.True(toggle.GetState());
 
         CleanupTestKeys();
+    }
+
+    [Fact]
+    public void RegistryToggle_GetState_HwSchModeStyle_OnValue2_ReturnsTrue()
+    {
+        RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "HwSchModeOnTest", 2));
+
+        var toggle = new RegistryToggle
+        {
+            Path = TestKeyPath,
+            Name = "HwSchModeOnTest",
+            OnValues = [2],
+            OffValues = [1],
+            DefaultValue = 1,
+        };
+
+        Assert.True(toggle.GetState());
+
+        CleanupTestKeys();
+    }
+
+    [Fact]
+    public void RegistryToggle_GetState_HwSchModeStyle_OffValue1_ReturnsFalse()
+    {
+        RegistryService.Write(NewCall(), new RegistryItem(TestKeyPath, "HwSchModeOffTest", 1));
+
+        var toggle = new RegistryToggle
+        {
+            Path = TestKeyPath,
+            Name = "HwSchModeOffTest",
+            OnValues = [2],
+            OffValues = [1],
+            DefaultValue = 1,
+        };
+
+        Assert.False(toggle.GetState());
+
+        CleanupTestKeys();
+    }
+
+    [Fact]
+    public void RegistryToggle_GetState_HwSchModeStyle_AbsentValue_ReturnsFalse()
+    {
+        var toggle = new RegistryToggle
+        {
+            Path = TestKeyPath,
+            Name = "HwSchModeAbsentTest",
+            OnValues = [2],
+            OffValues = [1],
+            DefaultValue = 1,
+        };
+
+        Assert.False(toggle.GetState());
+    }
+
+    [Fact]
+    public void RegistryToggle_GetState_FailedRead_ThrowsInsteadOfReadingAsOff()
+    {
+        var toggle = new RegistryToggle
+        {
+            Path = @"HKZZ\Software\TestOptimizerDuckCustomize",
+            Name = "HwSchModeFailTest",
+            OnValues = [2],
+            OffValues = [1],
+            DefaultValue = 1,
+        };
+
+        Assert.Throws<IOException>(() => toggle.GetState());
     }
 
     #endregion
