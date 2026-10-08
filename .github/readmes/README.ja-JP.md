@@ -93,6 +93,7 @@ optimizerDuck が PC の改善に役立ったなら、リポジトリに ⭐ を
 > | 🇸🇦 | アラビア語 | العربية | [s5xx5s](https://github.com/s5xx5s) |
 > | 🇮🇩 | インドネシア語 | Bahasa Indonesia | [nekowawolf](https://github.com/nekowawolf) |
 > | 🇮🇹 | イタリア語 | Italiano | [bandrea83](https://github.com/bandrea83) |
+> | 🇮🇷 | ペルシア語 | فارسی | [NimaHp](https://github.com/NimaHp) |
 > 
 > 言語を追加したいですか？ [CONTRIBUTING.md](../../CONTRIBUTING.md)（[日本語版](../contributing/CONTRIBUTING.ja-JP.md)、[トルコ語版](../contributing/CONTRIBUTING.tr-TR.md)）をご覧ください。
 

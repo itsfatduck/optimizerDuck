@@ -93,6 +93,7 @@
 > | 🇸🇦 | Арабский | العربية | [s5xx5s](https://github.com/s5xx5s) |
 > | 🇮🇩 | Индонезийский | Bahasa Indonesia | [nekowawolf](https://github.com/nekowawolf) |
 > | 🇮🇹 | Итальянский | Italiano | [bandrea83](https://github.com/bandrea83) |
+> | 🇮🇷 | Персидский | فارسی | [NimaHp](https://github.com/NimaHp) |
 > 
 > Хотите добавить свой язык? См. [CONTRIBUTING.md](../../CONTRIBUTING.md) ([японская версия](../contributing/CONTRIBUTING.ja-JP.md), [турецкая версия](../contributing/CONTRIBUTING.tr-TR.md)).
 

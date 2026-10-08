@@ -95,6 +95,7 @@
 > | 🇸🇦 | العربية | العربية | [s5xx5s](https://github.com/s5xx5s) |
 > | 🇮🇩 | الإندونيسية | Bahasa Indonesia | [nekowawolf](https://github.com/nekowawolf) |
 > | 🇮🇹 | الإيطالية | Italiano | [bandrea83](https://github.com/bandrea83) |
+> | 🇮🇷 | الفارسية | فارسی | [NimaHp](https://github.com/NimaHp) |
 >
 > تريد إضافة لغتك؟ راجع [CONTRIBUTING.md](../../CONTRIBUTING.md) ([اليابانية](../contributing/CONTRIBUTING.ja-JP.md)، [التركية](../contributing/CONTRIBUTING.tr-TR.md)).
 

@@ -93,6 +93,7 @@ Chaque étoile aide à motiver les améliorations futures.
 > | 🇸🇦 | Arabe | العربية | [s5xx5s](https://github.com/s5xx5s) |
 > | 🇮🇩 | Indonésien | Bahasa Indonesia | [nekowawolf](https://github.com/nekowawolf) |
 > | 🇮🇹 | Italien | Italiano | [bandrea83](https://github.com/bandrea83) |
+> | 🇮🇷 | Persan | فارسی | [NimaHp](https://github.com/NimaHp) |
 > 
 > Vous souhaitez ajouter votre langue ? Consultez [CONTRIBUTING.md](../../CONTRIBUTING.md) ([version japonaise](../contributing/CONTRIBUTING.ja-JP.md), [version turque](../contributing/CONTRIBUTING.tr-TR.md)).
 

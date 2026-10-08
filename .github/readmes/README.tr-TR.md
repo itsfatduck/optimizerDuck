@@ -93,6 +93,7 @@ Her yıldız gelecekteki geliştirmelere motivasyon katıyor.
 > | 🇸🇦 | Arapça | العربية | [s5xx5s](https://github.com/s5xx5s) |
 > | 🇮🇩 | Endonezce | Bahasa Indonesia | [nekowawolf](https://github.com/nekowawolf) |
 > | 🇮🇹 | İtalyanca | Italiano | [bandrea83](https://github.com/bandrea83) |
+> | 🇮🇷 | Farsça | فارسی | [NimaHp](https://github.com/NimaHp) |
 > 
 > Dilinizi eklemek ister misiniz? Bkz. [CONTRIBUTING.md](../../CONTRIBUTING.md) ([Japonca](../contributing/CONTRIBUTING.ja-JP.md), [Türkçe](../contributing/CONTRIBUTING.tr-TR.md)).
 

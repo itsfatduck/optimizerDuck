@@ -93,6 +93,7 @@ Setiap bintang membantu memotivasi peningkatan di masa mendatang.
 > | 🇸🇦 | Arab | العربية | [s5xx5s](https://github.com/s5xx5s) |
 > | 🇮🇩 | Indonesia | Bahasa Indonesia | [nekowawolf](https://github.com/nekowawolf) |
 > | 🇮🇹 | Italia | Italiano | [bandrea83](https://github.com/bandrea83) |
+> | 🇮🇷 | Persia | فارسی | [NimaHp](https://github.com/NimaHp) |
 > 
 > Ingin menambahkan bahasa Anda? Lihat [CONTRIBUTING.md](../../CONTRIBUTING.md) ([Japanese](../contributing/CONTRIBUTING.ja-JP.md), [Turkish](../contributing/CONTRIBUTING.tr-TR.md)).
 

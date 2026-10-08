@@ -93,6 +93,7 @@ Càng nhiều sao càng có động lực cải thiện công cụ.
 > | 🇸🇦 | Tiếng Ả Rập | العربية | [s5xx5s](https://github.com/s5xx5s) |
 > | 🇮🇩 | Tiếng Indonesia | Bahasa Indonesia | [nekowawolf](https://github.com/nekowawolf) |
 > | 🇮🇹 | Tiếng Ý | Italiano | [bandrea83](https://github.com/bandrea83) |
+> | 🇮🇷 | Tiếng Ba Tư | فارسی | [NimaHp](https://github.com/NimaHp) |
 > 
 > Muốn thêm ngôn ngữ của bạn? Xem [CONTRIBUTING.md](../../CONTRIBUTING.md) ([bản tiếng Nhật](../contributing/CONTRIBUTING.ja-JP.md), [bản tiếng Thổ Nhĩ Kỳ](../contributing/CONTRIBUTING.tr-TR.md)).
 

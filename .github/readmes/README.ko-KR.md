@@ -93,6 +93,7 @@ optimizerDuck이 PC 성능을 개선하는 데 도움이 되었다면, 이 저�
 > | 🇸🇦 | 아랍어 | العربية | [s5xx5s](https://github.com/s5xx5s) |
 > | 🇮🇩 | 인도네시아어 | Bahasa Indonesia | [nekowawolf](https://github.com/nekowawolf) |
 > | 🇮🇹 | 이탈리아어 | Italiano | [bandrea83](https://github.com/bandrea83) |
+> | 🇮🇷 | 페르시아어 | فارسی | [NimaHp](https://github.com/NimaHp) |
 > 
 > 새로운 언어 번역에 기여하고 싶으신가요? [CONTRIBUTING.md](../../CONTRIBUTING.md)([日本語版](../contributing/CONTRIBUTING.ja-JP.md), [터키어판](../contributing/CONTRIBUTING.tr-TR.md))를 참고해 주세요
 

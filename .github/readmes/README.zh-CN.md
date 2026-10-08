@@ -93,6 +93,7 @@
 > | 🇸🇦 | 阿拉伯语 | العربية | [s5xx5s](https://github.com/s5xx5s) |
 > | 🇮🇩 | 印尼语 | Bahasa Indonesia | [nekowawolf](https://github.com/nekowawolf) |
 > | 🇮🇹 | 意大利语 | Italiano | [bandrea83](https://github.com/bandrea83) |
+> | 🇮🇷 | 波斯语 | فارسی | [NimaHp](https://github.com/NimaHp) |
 > 
 > 想要添加其他语言？请查看[贡献指南](../../CONTRIBUTING.md)（[日文版](../contributing/CONTRIBUTING.ja-JP.md)、[土耳其语版](../contributing/CONTRIBUTING.tr-TR.md)）。
 >
