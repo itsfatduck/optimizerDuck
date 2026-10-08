@@ -1,3 +1,4 @@
+using System.IO;
 using Microsoft.Win32;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
@@ -92,7 +93,10 @@ public class RegistryToggle
 
     private object? GetRawValue()
     {
-        return RegistryService.Read<object?>(new RegistryItem(Path, Name));
+        if (!RegistryService.TryReadValue(new RegistryItem(Path, Name), out var value))
+            throw new IOException($"Failed to read registry value {Path}\\{Name}.");
+
+        return value;
     }
 
     private static bool IsValueInList(object? value, IReadOnlyList<object?> values)

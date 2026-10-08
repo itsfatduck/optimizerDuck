@@ -120,7 +120,9 @@ public partial class CustomizeItemViewModel(
         {
             // Registry I/O (state query, options, current value) runs on the thread pool
             // so page load never blocks the UI thread.
-            IsEnabled = await Task.Run(() => setting.GetStateAsync());
+            IsEnabled = await Task.Run(() =>
+                setting.GetStateWithRetryAsync(maxRetries: 4, delayMs: 80)
+            );
 
             // Publish the effective options before the selection value so the ComboBox
             // item list already contains the value when the SelectedValue binding resolves.

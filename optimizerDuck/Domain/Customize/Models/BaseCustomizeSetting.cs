@@ -198,13 +198,23 @@ public abstract partial class BaseCustomizeSetting : LocalizedObject, ICustomize
     public async Task<bool> GetStateWithRetryAsync(int maxRetries = 3, int delayMs = 80)
     {
         bool? previous = null;
+        Exception? lastError = null;
 
         for (var i = 0; i < maxRetries; i++)
         {
             if (i > 0)
                 await Task.Delay(delayMs);
 
-            var state = await GetStateAsync();
+            bool state;
+            try
+            {
+                state = await GetStateAsync();
+            }
+            catch (Exception ex)
+            {
+                lastError = ex;
+                continue;
+            }
 
             if (previous.HasValue && previous.Value == state)
                 return state;
@@ -212,7 +222,10 @@ public abstract partial class BaseCustomizeSetting : LocalizedObject, ICustomize
             previous = state;
         }
 
-        return previous ?? await GetStateAsync();
+        if (previous.HasValue)
+            return previous.Value;
+
+        throw lastError ?? new InvalidOperationException("Failed to read setting state.");
     }
 
     /// <summary>
