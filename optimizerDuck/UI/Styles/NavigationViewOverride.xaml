@@ -872,7 +872,14 @@
                         TransitionDuration="{TemplateBinding TransitionDuration}">
                         <ui:NavigationViewContentPresenter.Template>
                             <ControlTemplate TargetType="{x:Type ui:NavigationViewContentPresenter}">
-                                <ContentPresenter x:Name="PART_FrameCP" Margin="{TemplateBinding Padding}" />
+                                <!--  TemplateBinding, not inheritance: PART_FrameCP is the host of every page,
+                                      and it does not pick the inherited FlowDirection up when the template is
+                                      applied. It only lands on the next change of the property, which left a
+                                      right to left language LTR until the user switched languages once.  -->
+                                <ContentPresenter
+                                    x:Name="PART_FrameCP"
+                                    Margin="{TemplateBinding Padding}"
+                                    FlowDirection="{TemplateBinding FlowDirection}" />
                             </ControlTemplate>
                         </ui:NavigationViewContentPresenter.Template>
                     </ui:NavigationViewContentPresenter>
@@ -1064,11 +1071,16 @@
                     Padding="{TemplateBinding Padding}"
                     Transition="{TemplateBinding Transition}"
                     TransitionDuration="{TemplateBinding TransitionDuration}">
-                    <ui:NavigationViewContentPresenter.Template>
-                        <ControlTemplate TargetType="{x:Type ui:NavigationViewContentPresenter}">
-                            <ContentPresenter x:Name="PART_FrameCP" Margin="{TemplateBinding Padding}" />
-                        </ControlTemplate>
-                    </ui:NavigationViewContentPresenter.Template>
+<ui:NavigationViewContentPresenter.Template>
+                            <ControlTemplate TargetType="{x:Type ui:NavigationViewContentPresenter}">
+                                <!--  Same as PART_FrameCP in the pane templates: the page host does not
+                                      inherit FlowDirection when the template is applied.  -->
+                                <ContentPresenter
+                                    x:Name="PART_FrameCP"
+                                    Margin="{TemplateBinding Padding}"
+                                    FlowDirection="{TemplateBinding FlowDirection}" />
+                            </ControlTemplate>
+                        </ui:NavigationViewContentPresenter.Template>
                 </ui:NavigationViewContentPresenter>
 
                 <ContentPresenter
