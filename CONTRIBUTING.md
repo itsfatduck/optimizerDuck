@@ -151,7 +151,7 @@ optimizerDuck.slnx                          # Solution file (.slnx format)
 │   │   │                                   #   ScheduledTaskRevertStep, ShellRevertStep, UsbPowerRevertStep
 │   │   └── UI/                             # Enums & helpers: OptimizationRisk, OptimizationTags,
 │   │                                       #   OptimizationCategoryOrder, CustomizeOrder,
-│   │                                       #   LanguageOption, SupportedLanguages (single source of truth, 17 locales),
+│   │                                       #   LanguageOption, SupportedLanguages (single source of truth, 18 locales),
 │   │                                       #   OptimizationState, RiskVisual, ProcessingProgress, ...
 │   │
 │   ├── Common/                             # Shared helpers, extensions, converters
@@ -1325,7 +1325,7 @@ All user-facing strings live in `Resources/Languages/Translations.resx` (the Eng
 
 ### Available Locales
 
-The app ships with **17 languages** and the list keeps growing. Instead of listing them here (which would go stale), check:
+The app ships with **18 languages** and the list keeps growing. Instead of listing them here (which would go stale), check:
 
 - **The locale files themselves**: `optimizerDuck/Resources/Languages/` — one `Translations.{locale}.resx` per language, plus `Translations.resx` as the English default.
 - **The single source of truth**: `Domain/UI/SupportedLanguages.cs` — `SupportedLanguages.All` is the authoritative list shown in the UI (used by `SettingsViewModel` and `LegalDialogViewModel`). Do not duplicate the list.
@@ -1340,6 +1340,36 @@ new() { DisplayName = "Deutsch", Culture = new CultureInfo("de-DE") },
 ```
 
 Settings and dialogs automatically pick it up via `SupportedLanguages.All` — no other file needs updating.
+
+### Right-to-Left Languages
+
+`ar-SA`, `he-IL` and `fa-IR` read right to left. `Loc.Direction` flips `FlowDirection` on the root grid of `MainWindow.xaml`, and every page inherits it from there.
+
+What that mirrors automatically, and what does not:
+
+| Mirrored by WPF | Not mirrored by WPF |
+|-----------------|---------------------|
+| Text direction, so Persian/Arabic/Hebrew read correctly | `HorizontalAlignment="Left"` / `"Right"` |
+| `TextAlignment` | `Grid` column order |
+| | `StackPanel`, `WrapPanel`, `DockPanel` child order |
+| | `DockPanel.Dock` |
+
+So a row that must hug the reading start edge, or two children that must swap sides, has to be told which way is which. Bind the converters in `Common/Converters/` to `Loc.Instance.Direction`:
+
+```xml
+<!-- hug the reading start edge -->
+<WrapPanel HorizontalAlignment="{Binding Direction, Source={x:Static config:Loc.Instance}, Converter={StaticResource ReadingStartAlignmentConverter}}" />
+
+<!-- swap two children: badges keep the reading start edge, actions move to the far one -->
+<StackPanel Grid.Column="{Binding Direction, Source={x:Static config:Loc.Instance}, Converter={StaticResource ReadingStartColumnConverter}}" />
+<StackPanel
+    Grid.Column="{Binding Direction, Source={x:Static config:Loc.Instance}, Converter={StaticResource ReadingEndColumnConverter}}"
+    HorizontalAlignment="{Binding Direction, Source={x:Static config:Loc.Instance}, Converter={StaticResource ReadingEndAlignmentConverter}}" />
+```
+
+Never hardcode `HorizontalAlignment="Left"` on a row that has to mirror: it is absolute in WPF, so it stays on the left in every language. `Grid.ColumnSpacing` does not exist in WPF, so use a symmetric `Margin` on the leading child when the two sides need a gap.
+
+`OptimizationPage.xaml` is the worked example: the tag row, the tag chip and the card footer all use these converters.
 
 ### Runtime Language Switching
 

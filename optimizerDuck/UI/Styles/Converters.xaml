@@ -47,6 +47,12 @@
     <converters:MinusNumberConverter x:Key="MinusOneConverter" NumberToMinus="1" />
     <converters:DeviceKindConverter x:Key="DeviceKindConverter" />
 
+    <!--  Flow Direction (RTL) Converters  -->
+    <converters:FlowDirectionToHorizontalAlignmentConverter x:Key="ReadingStartAlignmentConverter" />
+    <converters:FlowDirectionToHorizontalAlignmentConverter x:Key="ReadingEndAlignmentConverter" ToEndEdge="True" />
+    <converters:FlowDirectionToColumnConverter x:Key="ReadingStartColumnConverter" />
+    <converters:FlowDirectionToColumnConverter x:Key="ReadingEndColumnConverter" Invert="True" />
+
     <!--  Theme & Recommendation Converters  -->
     <converters:ThemeToGitHubIconConverter x:Key="ThemeToGitHubIconConverter" />
     <converters:ThemeToIndexConverter x:Key="ThemeToIndexConverter" />

@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:optimizerDuck.UI.Controls"
+    xmlns:config="clr-namespace:optimizerDuck.Services.Configuration"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -297,39 +298,44 @@
                                         ItemsSource="{Binding TagDisplays}">
                                         <ui:VirtualizingItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
-                                                <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                                <WrapPanel
+                                                    HorizontalAlignment="{Binding Direction, Source={x:Static config:Loc.Instance}, Converter={StaticResource ReadingStartAlignmentConverter}}"
+                                                    VerticalAlignment="Top" />
                                             </ItemsPanelTemplate>
                                         </ui:VirtualizingItemsControl.ItemsPanel>
                                         <ui:VirtualizingItemsControl.ItemContainerStyle>
                                             <Style TargetType="ContentPresenter">
                                                 <Setter Property="Margin" Value="0,0,2,2" />
-                                                <Setter Property="HorizontalAlignment" Value="Left" />
+                                                <Setter
+                                                    Property="HorizontalAlignment"
+                                                    Value="{Binding Direction, Source={x:Static config:Loc.Instance}, Converter={StaticResource ReadingStartAlignmentConverter}}" />
                                             </Style>
                                         </ui:VirtualizingItemsControl.ItemContainerStyle>
                                         <ui:VirtualizingItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <Border
                                                     Padding="6,2"
-                                                    HorizontalAlignment="Left"
+                                                    HorizontalAlignment="{Binding Direction, Source={x:Static config:Loc.Instance}, Converter={StaticResource ReadingStartAlignmentConverter}}"
                                                     Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
                                                     CornerRadius="{StaticResource CornerRadiusSmall}"
                                                     ToolTip="{Binding Description}"
                                                     ToolTipService.InitialShowDelay="150"
                                                     ToolTipService.Placement="Top">
-                                                    <StackPanel Orientation="Horizontal">
+                                                    <Grid ColumnDefinitions="Auto,Auto">
                                                         <ui:SymbolIcon
-                                                            Margin="0,0,6,0"
+                                                            Grid.Column="{Binding Direction, Source={x:Static config:Loc.Instance}, Converter={StaticResource ReadingStartColumnConverter}}"
+                                                            Margin="6,0"
                                                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                             Symbol="{Binding Icon}" />
 
                                                         <ui:TextBlock
-                                                            HorizontalAlignment="Center"
+                                                            Grid.Column="{Binding Direction, Source={x:Static config:Loc.Instance}, Converter={StaticResource ReadingEndColumnConverter}}"
                                                             VerticalAlignment="Center"
                                                             FontTypography="Caption"
                                                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                             Text="{Binding Display}"
                                                             TextWrapping="Wrap" />
-                                                    </StackPanel>
+                                                    </Grid>
                                                 </Border>
                                             </DataTemplate>
                                         </ui:VirtualizingItemsControl.ItemTemplate>
@@ -348,8 +354,12 @@
                                         Margin="0,10,0,0"
                                         VerticalAlignment="Bottom"
                                         ColumnDefinitions="*,Auto">
-                                        <Grid RowDefinitions="Auto,Auto">
-                                            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                        <Grid
+                                            Grid.Column="{Binding Direction, Source={x:Static config:Loc.Instance}, Converter={StaticResource ReadingStartColumnConverter}}"
+                                            RowDefinitions="Auto,Auto">
+                                            <StackPanel
+                                                Margin="0,0,10,0"
+                                                Orientation="Horizontal">
                                                 <controls:RiskBadge Risk="{Binding Risk}" RiskVisual="{Binding RiskVisual}" />
                                                 <controls:StateBadge
                                                     Margin="6,0,0,0"
@@ -375,11 +385,11 @@
                                                 Visibility="{Binding State.AppliedAt, Converter={StaticResource NullToVisibilityConverter}}" />
                                         </Grid>
 
-                                        <StackPanel
-                                            Grid.Column="1"
-                                            Margin="10,0,0,0"
-                                            VerticalAlignment="Bottom"
-                                            Orientation="Horizontal">
+<StackPanel
+                                                Grid.Column="{Binding Direction, Source={x:Static config:Loc.Instance}, Converter={StaticResource ReadingEndColumnConverter}}"
+                                                HorizontalAlignment="{Binding Direction, Source={x:Static config:Loc.Instance}, Converter={StaticResource ReadingEndAlignmentConverter}}"
+                                                VerticalAlignment="Bottom"
+                                                Orientation="Horizontal">
                                             <ui:ToggleSwitch
                                                 HorizontalAlignment="Right"
                                                 Command="{Binding DataContext.ViewModel.ToggleOptimizationCommand, RelativeSource={RelativeSource AncestorType=Page}}"
