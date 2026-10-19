@@ -54,10 +54,12 @@ public static class Shared
     /// <summary>The file name of the running executable.</summary>
     public static readonly string ExeName = Path.GetFileName(ExePath);
 
-    /// <summary>The file version of the running executable.</summary>
-    public static readonly string FileVersion = FileVersionInfo
-        .GetVersionInfo(ExePath)
-        .FileVersion!;
+    /// <summary>The file version of the running application.</summary>
+    public static readonly string FileVersion = typeof(Shared).Assembly.GetName().Version is { } ver
+        ? ver.Build >= 0
+            ? $"{ver.Major}.{ver.Minor}.{ver.Build}"
+            : $"{ver.Major}.{ver.Minor}"
+        : (FileVersionInfo.GetVersionInfo(ExePath).FileVersion ?? "1.0.0");
 
     /// <summary>AppX package names the bloatware scan marks as safe to remove.</summary>
     public static readonly HashSet<string> SafeApps = new()
