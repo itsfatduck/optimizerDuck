@@ -90,7 +90,6 @@ public class LocExtension : MarkupExtension
             ConverterParameter = Key,
         };
 
-        // [0] Loc.Instance (required OneWay)
         mb.Bindings.Add(new Binding { Source = Loc.Instance, Mode = BindingMode.OneWay });
 
         foreach (var arg in Args)
@@ -123,7 +122,6 @@ public class LocDynamicConverter : IMultiValueConverter
         if (values.Length == 1)
             return format;
 
-        // skip Loc.Instance, get args
         var args = values.Skip(1).ToArray();
         return string.Format(culture, format, args);
     }

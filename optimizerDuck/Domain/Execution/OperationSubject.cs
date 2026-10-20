@@ -6,7 +6,7 @@ namespace optimizerDuck.Domain.Execution;
 /// <param name="LogName">The English name written to the log.</param>
 public sealed record OperationSubject(Guid Id, string Key, string LogName);
 
-/// <summary>Whether a run persists the compensation of the steps it records.</summary>
+/// <summary>Specifies whether a run persists the compensation of the steps it records.</summary>
 public enum RevertPersistence
 {
     /// <summary>The compensation of every step carrying one is written as revert data.</summary>

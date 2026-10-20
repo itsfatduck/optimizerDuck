@@ -8,12 +8,12 @@ namespace optimizerDuck.Domain.Abstractions;
 /// </summary>
 public interface IOptimizationCategory
 {
-    /// <summary>
-    ///     The localized display name of the category.
-    /// </summary>
+    /// <summary>Gets the localized display name of the category.</summary>
     public string Name { get; }
 
+    /// <summary>Gets the display order index used to sort categories.</summary>
     public OptimizationCategoryOrder Order { get; init; }
 
+    /// <summary>Gets the collection of optimizations contained in this category.</summary>
     public ObservableCollection<IOptimization> Optimizations { get; init; }
 }

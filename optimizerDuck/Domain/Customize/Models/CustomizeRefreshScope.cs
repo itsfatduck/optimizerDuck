@@ -1,5 +1,6 @@
 namespace optimizerDuck.Domain.Customize.Models;
 
+/// <summary>Specifies the shell notification and refresh mechanisms invoked after applying a customization setting.</summary>
 [Flags]
 public enum CustomizeRefreshScope
 {

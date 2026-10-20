@@ -7,10 +7,7 @@ namespace optimizerDuck.Services.System;
 /// <summary>Monitors Windows registry keys for changes using RegNotifyChangeKeyValue.</summary>
 public interface IRegistryWatcher : IDisposable
 {
-    /// <summary>
-    ///     Raised when a watched registry key or its values change.
-    ///     The event argument is the registry path that changed.
-    /// </summary>
+    /// <summary>Occurs when a watched registry key or its values change.</summary>
     event EventHandler<string>? RegistryKeyChanged;
 
     /// <summary>

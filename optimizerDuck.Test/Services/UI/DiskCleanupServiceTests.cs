@@ -61,10 +61,7 @@ public class DiskCleanupServiceTests
                 {
                     Directory.Delete(tempRoot, true);
                 }
-                catch
-                {
-                    // Ignore cleanup error
-                }
+                catch { }
             }
         }
     }
@@ -110,10 +107,7 @@ public class DiskCleanupServiceTests
                 {
                     Directory.Delete(tempRoot, true);
                 }
-                catch
-                {
-                    // Ignore cleanup error
-                }
+                catch { }
             }
         }
     }

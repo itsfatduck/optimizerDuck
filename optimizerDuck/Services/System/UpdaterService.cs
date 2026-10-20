@@ -141,7 +141,6 @@ public class UpdaterService : IDisposable
     }
 }
 
-// Helper classes for deserializing GitHub API response
 /// <summary>
 ///     Represents a GitHub release fetched from the API. Used internally for deserialization.
 /// </summary>

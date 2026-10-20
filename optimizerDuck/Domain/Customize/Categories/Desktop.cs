@@ -187,8 +187,6 @@ public class Desktop : LocalizedObject, ICustomizeCategory
         {
             var value = RegistryService.Read<string>(new RegistryItem(Path, "29"));
 
-            // value doesn't exist = default Windows behavior
-            // shortcut arrow is visible
             if (string.IsNullOrWhiteSpace(value))
                 return Task.FromResult(true);
 
@@ -204,13 +202,10 @@ public class Desktop : LocalizedObject, ICustomizeCategory
             OpResult result;
             if (isOn)
             {
-                // restore default Windows behavior by deleting the value
                 result = RegistryService.DeleteValue(call, new RegistryItem(Path, "29"));
             }
             else
             {
-                // extract the blank icon to the app resources folder, then point the
-                // registry value at it
                 var outputPath = System.IO.Path.Combine(
                     Shared.AssetsDirectory,
                     nameof(Desktop),
@@ -218,8 +213,6 @@ public class Desktop : LocalizedObject, ICustomizeCategory
                 );
                 EmbeddedResourceHelper.TryExtract("Icons.blank.ico", outputPath);
 
-                // point the registry value at the blank icon, which hides the
-                // shortcut arrow overlay
                 result = RegistryService.Write(call, new RegistryItem(Path, "29", outputPath));
             }
 

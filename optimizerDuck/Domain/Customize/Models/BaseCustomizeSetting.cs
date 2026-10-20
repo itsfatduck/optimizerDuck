@@ -30,16 +30,25 @@ public abstract partial class BaseCustomizeSetting : LocalizedObject, ICustomize
                 $"{GetType().Name} is missing [CustomizeSetting] attribute"
             );
 
+    /// <summary>Gets the type of the category class that owns this setting.</summary>
     public Type? OwnerType { get; internal set; }
 
+    /// <summary>Gets the owner category key.</summary>
+    /// <exception cref="InvalidOperationException"><see cref="OwnerType" /> has not been assigned.</exception>
     public string OwnerKey =>
         OwnerType?.Name
         ?? throw new InvalidOperationException($"{GetType().Name} has no owner assigned");
 
+    /// <inheritdoc />
     public string FeatureKey => GetType().Name;
+
+    /// <inheritdoc />
     public SymbolRegular Icon => Meta.Icon;
 
+    /// <inheritdoc />
     public string Name => Loc.Instance[$"Customize.{OwnerKey}.{FeatureKey}.Name"];
+
+    /// <inheritdoc />
     public string Description => Loc.Instance[$"Customize.{OwnerKey}.{FeatureKey}.Description"];
 
     /// <summary>English name for log (always English, not translated).</summary>
@@ -55,6 +64,7 @@ public abstract partial class BaseCustomizeSetting : LocalizedObject, ICustomize
     /// </summary>
     public Type? ConditionType => Meta.Condition;
 
+    /// <inheritdoc />
     public string Section
     {
         get
@@ -66,6 +76,7 @@ public abstract partial class BaseCustomizeSetting : LocalizedObject, ICustomize
         }
     }
 
+    /// <inheritdoc />
     public virtual CustomizeControlType ControlType => CustomizeControlType.Toggle;
 
     /// <summary>
@@ -504,10 +515,7 @@ public abstract partial class BaseCustomizeSetting : LocalizedObject, ICustomize
                 var db = Convert.ToDecimal(b);
                 return da == db;
             }
-            catch
-            {
-                // fall through to string comparison
-            }
+            catch { }
         }
 
         var strA = a.ToString();

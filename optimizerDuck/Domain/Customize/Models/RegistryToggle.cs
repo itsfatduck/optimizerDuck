@@ -84,7 +84,6 @@ public class RegistryToggle
     {
         var targetValues = isOn ? OnValues : OffValues;
 
-        // First value in the list is the primary value to write
         if (targetValues is { Count: > 0 } && targetValues[0] is { } firstValue)
             return RegistryService.Write(call, new RegistryItem(Path, Name, firstValue, ValueKind));
 
@@ -132,7 +131,6 @@ public class RegistryToggle
                 var typeA = a.GetType();
                 var typeB = b.GetType();
 
-                // If both are integers, compare as long
                 if (
                     (
                         typeA == typeof(int)
@@ -167,10 +165,7 @@ public class RegistryToggle
                 var db = Convert.ToDecimal(b);
                 return da == db;
             }
-            catch
-            {
-                // If conversion fails, fall back to string comparison
-            }
+            catch { }
         }
 
         var strA = a.ToString();

@@ -18,7 +18,7 @@ public interface ICustomizeSetting
     string Section { get; }
 
     /// <summary>Gets the icon symbol displayed next to the setting in the UI.</summary>
-    public SymbolRegular Icon { get; }
+    SymbolRegular Icon { get; }
 
     /// <summary>Gets the unique key used for localization lookup.</summary>
     string FeatureKey { get; }
@@ -43,30 +43,37 @@ public interface ICustomizeSetting
     /// </summary>
     IReadOnlyList<SettingOption>? Options { get; }
 
-    /// <summary>Read the current system state. For toggles: true = on, false = off.</summary>
+    /// <summary>Reads the current system state.</summary>
+    /// <returns><see langword="true" /> if the setting is active; otherwise, <see langword="false" />.</returns>
     Task<bool> GetStateAsync();
 
     /// <summary>
-    ///     Reads state until two consecutive reads agree or retries run out. Use after
-    ///     <see cref="ApplyAsync" /> to let the registry settle.
+    ///     Reads state until two consecutive reads agree or retries run out.
     /// </summary>
+    /// <remarks>
+    ///     Used after <see cref="ApplyAsync" /> to let the registry settle.
+    /// </remarks>
+    /// <param name="maxRetries">The maximum number of read attempts.</param>
+    /// <param name="delayMs">The delay in milliseconds between read attempts.</param>
+    /// <returns><see langword="true" /> if the setting is active; otherwise, <see langword="false" />.</returns>
     Task<bool> GetStateWithRetryAsync(int maxRetries = 3, int delayMs = 80);
 
     /// <summary>
-    ///     Applies the value, recording every write into <paramref name="call" />
-    ///     for change tracking and revert. The first failure wins the return,
-    ///     but all writes are still attempted.
+    ///     Applies the setting value, recording writes for change tracking and revert.
     /// </summary>
+    /// <param name="value">The setting value to apply.</param>
+    /// <param name="call">The per-operation context used to record changes.</param>
+    /// <returns>The result of the apply operation.</returns>
     Task<Execution.OpResult> ApplyAsync(object? value, Execution.OpCall call);
 
     /// <summary>
-    ///     Registry key paths that should be watched for external changes,
-    ///     so the UI can auto-refresh when someone else modifies a setting.
+    ///     Gets the registry key paths to monitor for external changes.
     /// </summary>
     IReadOnlyList<string> WatchedRegistryPaths { get; }
 
     /// <summary>
-    ///     Returns the setting's recommendation, or <see langword="null" /> when none exists.
+    ///     Gets the recommendation for this setting, or <see langword="null" /> if none exists.
     /// </summary>
+    /// <returns>A <see cref="CustomizeRecommendationResult" />, or <see langword="null" />.</returns>
     CustomizeRecommendationResult? GetRecommendation();
 }

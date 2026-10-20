@@ -10,20 +10,16 @@ namespace optimizerDuck.Domain.Abstractions;
 /// </summary>
 public interface IRevertStep
 {
-    /// <summary>
-    ///     The type identifier for this revert step (e.g., "Registry", "Service", "Shell").
-    /// </summary>
-    public string Type { get; }
+    /// <summary>Gets the type identifier for this revert step.</summary>
+    string Type { get; }
 
-    /// <summary>
-    ///     A localized description of what this revert step does.
-    /// </summary>
-    public string Description { get; }
+    /// <summary>Gets the localized description of what this revert step does.</summary>
+    string Description { get; }
 
     /// <summary>
     ///     Executes this revert step with its full execution context.
     /// </summary>
-    /// <param name="context">Shell, power service, and logger for this revert.</param>
+    /// <param name="context">The execution context carrying shell, power plan, and logging services.</param>
     /// <param name="logger">The logger to record provider and shell operations.</param>
     /// <returns>
     ///     <see langword="true" /> if the revert succeeded; otherwise <see langword="false" />.

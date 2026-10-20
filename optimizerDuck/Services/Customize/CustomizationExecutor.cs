@@ -28,6 +28,10 @@ public sealed class CustomizationExecutor(ILogger<CustomizationExecutor>? logger
     /// <summary>
     ///     Applies a value once the debounce elapses, one queued apply at a time.
     /// </summary>
+    /// <param name="value">The setting value to apply.</param>
+    /// <param name="applyAction">The asynchronous action that executes the apply.</param>
+    /// <param name="debounceMs">The debounce duration in milliseconds. The default is 400.</param>
+    /// <returns>A <see cref="Task" /> representing the asynchronous operation.</returns>
     public async Task ApplyWithDebounceAsync(
         object? value,
         Func<object?, Task> applyAction,

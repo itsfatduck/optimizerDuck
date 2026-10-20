@@ -13,6 +13,7 @@ namespace optimizerDuck.Domain.Optimizations.Models;
 /// </summary>
 public class OptimizationContext : OpCall
 {
+    /// <summary>Gets the system snapshot containing hardware, OS, and driver details.</summary>
     public required SystemInfo Snapshot { get; init; }
 
     /// <summary>

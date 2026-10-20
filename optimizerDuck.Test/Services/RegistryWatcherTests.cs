@@ -87,12 +87,10 @@ public class RegistryWatcherTests : IDisposable
         // Give the watcher thread time to start and block on RegNotifyChangeKeyValue
         await Task.Delay(500, TestContext.Current.CancellationToken);
 
-        // Write a value to trigger the notification
         using var key = Registry.CurrentUser.OpenSubKey(TestRootNative, writable: true);
         Assert.NotNull(key);
         key.SetValue("TestValue", 42);
 
-        // Wait for the event with a timeout
         var completed = await Task.WhenAny(
             tcs.Task,
             Task.Delay(5000, TestContext.Current.CancellationToken)
@@ -120,7 +118,6 @@ public class RegistryWatcherTests : IDisposable
         // Give cancellation time to interrupt any in-flight delay/operation
         await Task.Delay(500, TestContext.Current.CancellationToken);
 
-        // Create the key and write; the watcher should be stopped by now
         using var key = Registry.CurrentUser.CreateSubKey(TestRootNative);
         Assert.NotNull(key);
         key.SetValue("TestValue", 99);
@@ -165,14 +162,12 @@ public class RegistryWatcherTests : IDisposable
         // Give watcher threads time to block on RegNotifyChangeKeyValue, CI can be slower
         await Task.Delay(1000, TestContext.Current.CancellationToken);
 
-        // Write to path A
         using (var keyA = Registry.CurrentUser.OpenSubKey(pathANative, writable: true))
         {
             Assert.NotNull(keyA);
             keyA.SetValue("Val", 1);
         }
 
-        // Write to path B
         using (var keyB = Registry.CurrentUser.OpenSubKey(pathBNative, writable: true))
         {
             Assert.NotNull(keyB);
@@ -200,7 +195,6 @@ public class RegistryWatcherTests : IDisposable
         watcher.Watch(TestRoot);
         watcher.Watch(TestRoot + @"\SubKey");
 
-        // Should not throw
         var exception = Record.Exception(() => watcher.Dispose());
         Assert.Null(exception);
     }

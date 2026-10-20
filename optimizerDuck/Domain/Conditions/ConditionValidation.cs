@@ -15,8 +15,7 @@ public static class ConditionValidation
     /// </param>
     /// <param name="ownerName">The owning item's display name, used in the error message.</param>
     /// <exception cref="InvalidOperationException">
-    ///     Thrown when the type does not implement <see cref="ICondition" /> or has no
-    ///     parameterless constructor.
+    ///     The type does not implement <see cref="ICondition" />, is abstract, or has no public parameterless constructor.
     /// </exception>
     public static void Validate(Type? conditionType, string ownerName)
     {

@@ -13,10 +13,7 @@ namespace optimizerDuck.Domain.Conditions;
 /// </remarks>
 public sealed class ConditionResult
 {
-    /// <summary>
-    ///     Creates a condition result with the given state and optional localized
-    ///     title/description providers.
-    /// </summary>
+    /// <summary>Initializes a new instance of the <see cref="ConditionResult" /> class.</summary>
     /// <param name="state">The outcome state of the check.</param>
     /// <param name="titleProvider">
     ///     Provider for the condition title, or <see langword="null" />.
@@ -62,10 +59,7 @@ public sealed class ConditionResult
     /// <summary>Gets the condition explanation provider, or <see langword="null" />.</summary>
     public Func<string>? DescriptionProvider { get; }
 
-    /// <summary>
-    ///     Gets whether this result should block the item by default. Only
-    ///     <see cref="ConditionState.Unsupported" /> blocks.
-    /// </summary>
+    /// <summary>Gets a value that indicates whether this result blocks the item by default. Only <see cref="ConditionState.Unsupported" /> blocks.</summary>
     public bool IsBlocking => State is ConditionState.Unsupported;
 
     /// <summary>Gets the localized title for this result, or <see langword="null" />.</summary>

@@ -17,7 +17,7 @@ public static class EmbeddedResourceHelper
     ///     Relative path inside the Embedded namespace, for example "Icons/blank.ico".
     /// </param>
     /// <param name="outputPath">Full path where the resource will be extracted.</param>
-    /// <param name="overwrite">Whether to overwrite the file if it already exists.</param>
+    /// <param name="overwrite"><see langword="true" /> to overwrite the file if it already exists; otherwise, <see langword="false" />.</param>
     /// <returns>
     ///     <see langword="true" /> if extraction succeeded; otherwise <see langword="false" />.
     /// </returns>
@@ -30,7 +30,6 @@ public static class EmbeddedResourceHelper
 
         try
         {
-            // Normalize the relative path to use dots as separators for resource names
             var normalizedPath = relativePath.Replace('/', '.').Replace('\\', '.');
             var fullResourceName = $"{ResourceNamespace}.{normalizedPath}";
 

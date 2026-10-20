@@ -44,9 +44,8 @@ public abstract partial class BaseOptimization : LocalizedObject, IOptimization
     /// </summary>
     public Type? OwnerType { get; internal set; }
 
-    /// <exception cref="InvalidOperationException">
-    ///     Thrown when <see cref="OwnerType" /> has not been assigned.
-    /// </exception>
+    /// <summary>Gets the owner category key.</summary>
+    /// <exception cref="InvalidOperationException"><see cref="OwnerType" /> has not been assigned.</exception>
     public string OwnerKey =>
         OwnerType?.Name
         ?? throw new InvalidOperationException($"{GetType().Name} has no owner assigned");
@@ -60,6 +59,7 @@ public abstract partial class BaseOptimization : LocalizedObject, IOptimization
     /// </summary>
     public Guid Id => Guid.Parse(Meta.Id);
 
+    /// <summary>Gets the risk level associated with this optimization.</summary>
     public OptimizationRisk Risk => Meta.Risk;
 
     /// <summary>Gets the unique key used for localization and identification.</summary>
@@ -182,9 +182,7 @@ public abstract partial class BaseOptimization : LocalizedObject, IOptimization
     private bool _isConditionHidden;
 
     /// <summary>
-    ///     Gets whether this optimization should be presented in the unsupported state.
-    ///     The block only applies on first open when the item is <em>not</em> applied;
-    ///     once applied (or hidden by the user) the normal card is shown.
+    ///     Gets a value that indicates whether this optimization should be presented in the unsupported state.
     /// </summary>
     public bool IsConditionBlocked =>
         ConditionResult.IsBlocking && !State.IsApplied && !IsConditionHidden;

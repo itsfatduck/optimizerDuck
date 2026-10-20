@@ -12,5 +12,6 @@ public interface IWindow
     /// </summary>
     event RoutedEventHandler Loaded;
 
+    /// <summary>Opens the window and returns without waiting for the window to close.</summary>
     void Show();
 }

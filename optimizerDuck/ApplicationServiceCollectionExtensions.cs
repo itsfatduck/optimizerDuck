@@ -50,17 +50,14 @@ public static class ApplicationServiceCollectionExtensions
         // otherwise supplies IConfiguration implicitly.
         services.AddSingleton<IConfiguration>(configuration);
 
-        // WPF UI shell
         services.AddNavigationViewPageProvider();
         services.AddSingleton<INavigationService, NavigationService>();
         services.AddSingleton<IContentDialogService, ContentDialogService>();
         services.AddSingleton<ISnackbarService, SnackbarService>();
 
-        // Windows
         services.AddSingleton<MainWindow>();
         services.AddSingleton<MainWindowViewModel>();
 
-        // Pages
         services.AddSingleton<DashboardViewModel>();
         services.AddSingleton<DashboardPage>();
         services.AddSingleton<OptimizeViewModel>();
@@ -76,23 +73,18 @@ public static class ApplicationServiceCollectionExtensions
         services.AddSingleton<ScheduledTasksViewModel>();
         services.AddSingleton<ScheduledTasksPage>();
 
-        // Dialogs
         services.AddTransient<LegalDialogViewModel>();
         services.AddTransient<optimizerDuck.UI.Dialogs.LegalDialog>();
 
-        // Customize
         services.AddSingleton<CustomizeViewModel>();
         services.AddSingleton<CustomizePage>();
         services.AddAllCustomizeCategoryPages();
 
-        // Optimizations
         services.AddAllOptimizationPages();
 
-        // Managers
         services.AddSingleton<ConfigManager>();
         services.AddSingleton(TimeProvider.System);
 
-        // Services
         services.AddSingleton<ProcessRunner>();
         services.AddSingleton<PowerPlanService>();
         services.AddSingleton<SystemRestoreService>();

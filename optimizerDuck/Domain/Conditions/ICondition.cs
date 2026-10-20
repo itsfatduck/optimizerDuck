@@ -9,5 +9,10 @@ namespace optimizerDuck.Domain.Conditions;
 /// </summary>
 public interface ICondition
 {
+    /// <summary>
+    ///     Evaluates whether the condition is met on the current system.
+    /// </summary>
+    /// <param name="snapshot">The system hardware and OS snapshot to evaluate against.</param>
+    /// <returns>A <see cref="ConditionResult" /> representing the outcome of the evaluation.</returns>
     ConditionResult Evaluate(SystemInfo snapshot);
 }

@@ -39,10 +39,6 @@ public class ServiceProcessServiceTests
         Assert.Contains("after the start type was written", detail);
     }
 
-    // =============================================
-    // Integration tests: GetStartupTypeAsync (real sc.exe)
-    // =============================================
-
     [Fact]
     public async Task GetStartupTypeAsync_ExistingAutoService_ReturnsAutomatic()
     {
@@ -73,14 +69,12 @@ public class ServiceProcessServiceTests
         Assert.True(notFound);
     }
 
-    // =============================================
     // Contract fixture: the expected value comes from
     // HKLM\SYSTEM\CurrentControlSet\Services, where Windows stores Start (2 auto, 3 manual,
     // 4 disabled) and the DelayedAutoStart flag. Driver entries are included: the Service
     // Control Manager reports their start type without the TYPE/START_TYPE ambiguity of
     // sc.exe output. Boot (0) and system (1) starts fall outside the app's
     // ServiceStartupType domain, and the registry is not authoritative for them.
-    // =============================================
 
     private const int PerTypeSampleLimit = 8;
 
@@ -164,10 +158,7 @@ public class ServiceProcessServiceTests
         );
     }
 
-    // =============================================
-    // Integration tests: ChangeServiceStartupTypeAsync (real service, SCM writes).
     // sc.exe stays in this file only to create/inspect the scratch test service.
-    // =============================================
 
     private const string TestServiceName = "odTestSvc";
 

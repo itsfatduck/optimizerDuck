@@ -44,18 +44,15 @@ public class OptimizationServiceIntegrationTests : IDisposable
             OptimizationContext context
         )
         {
-            // Step 1: Always succeeds
             context.Changes.Add("Step 1", "Step 1", true, new TestRevertStep { StepId = 1 });
             _stepCount++;
 
-            // Step 2: May fail
             if (_shouldFail)
             {
                 context.Changes.Add("Step 2", "Step 2", false, error: "Simulated failure");
                 _stepCount++;
             }
 
-            // Step 3: Only executes if step 2 succeeded
             if (!_shouldFail)
             {
                 context.Changes.Add("Step 3", "Step 3", true, new TestRevertStep { StepId = 3 });
@@ -144,10 +141,7 @@ public class OptimizationServiceIntegrationTests : IDisposable
                     if (File.Exists(path))
                         File.Delete(path);
                 }
-                catch
-                {
-                    // Ignore
-                }
+                catch { }
             }
         }
     }
