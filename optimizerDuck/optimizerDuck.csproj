@@ -48,14 +48,14 @@
 
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.12" />
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.12" />
-        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.12" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.13" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.13" />
+        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.13" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-        <PackageReference Include="Serilog" Version="4.4.0" />
+        <PackageReference Include="Serilog" Version="4.4.1-dependabot-02442" />
         <PackageReference Include="Serilog.Extensions.Hosting" Version="10.0.0" />
-        <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
-        <PackageReference Include="System.Management.Automation" Version="7.6.6" />
+        <PackageReference Include="Serilog.Sinks.File" Version="8.0.0-nblumhardt-02322" />
+        <PackageReference Include="System.Management.Automation" Version="7.6.99-rebuild.99" />
         <PackageReference Include="TaskScheduler" Version="2.12.2" />
         <PackageReference Include="WPF-UI" Version="4.3.0" />
         <PackageReference Include="WPF-UI.DependencyInjection" Version="4.3.0" />
