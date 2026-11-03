@@ -70,7 +70,7 @@ public class UpdaterService : IDisposable
     ///     The newer version string, or <see langword="null" /> when the running version is current or
     ///     the check could not determine a newer one.
     /// </returns>
-    public async Task<string?> CheckForUpdatesAsync()
+    public async Task<string?> CheckForUpdatesAsync(CancellationToken ct = default)
     {
         _logger.LogInformation(
             "Checking for updates (Current version: {CurrentVersion})",
@@ -79,9 +79,12 @@ public class UpdaterService : IDisposable
 
         try
         {
-            var response = await _httpClient.GetStringAsync(
-                $"https://api.github.com/repos/{Owner}/{Repo}/releases/latest"
+            using var responseMessage = await _httpClient.GetAsync(
+                $"https://api.github.com/repos/{Owner}/{Repo}/releases/latest",
+                ct
             );
+            responseMessage.EnsureSuccessStatusCode();
+            var response = await responseMessage.Content.ReadAsStringAsync(ct);
             var latestRelease = JsonConvert.DeserializeObject<GitHubRelease>(response);
 
             if (latestRelease == null || string.IsNullOrEmpty(latestRelease.TagName))

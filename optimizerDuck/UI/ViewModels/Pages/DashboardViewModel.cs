@@ -107,14 +107,30 @@ public partial class DashboardViewModel : ViewModel
     {
         await LoadSystemInfoAsync();
         _systemInfoService.LogSummary();
-        var version = await _updaterService.CheckForUpdatesAsync();
-        if (version is not null)
-        {
-            _updateNotified = true;
-            IsUpdateInfoOpen = true;
-            LatestVersion = version;
-        }
         ApplicationThemeManager.Changed += OnThemeChanged;
+        _ = CheckForUpdatesInBackgroundAsync();
+    }
+
+    private async Task CheckForUpdatesInBackgroundAsync()
+    {
+        try
+        {
+            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+            var version = await _updaterService.CheckForUpdatesAsync(cts.Token);
+            if (version is not null)
+            {
+                await UiThread.InvokeAsync(() =>
+                {
+                    _updateNotified = true;
+                    IsUpdateInfoOpen = true;
+                    LatestVersion = version;
+                });
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogDebug(ex, "Background update check failed");
+        }
     }
 
     /// <inheritdoc />

@@ -1,4 +1,4 @@
-﻿using System.Windows.Threading;
+using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
@@ -14,7 +14,7 @@ public partial class OptimizationState : ObservableObject
     private static readonly List<WeakReference<OptimizationState>> _instances = [];
     private static readonly Lock _lock = new();
 
-    private int _lastDisplayedSeconds = -1;
+    private int _lastBucket = -1;
 
     static OptimizationState()
     {
@@ -103,7 +103,7 @@ public partial class OptimizationState : ObservableObject
                     return;
                 _globalTimer = new DispatcherTimer(
                     TimeSpan.FromSeconds(1),
-                    DispatcherPriority.Render,
+                    DispatcherPriority.Background,
                     (s, e) => UpdateAllRelativeTimes(),
                     dispatcher
                 );
@@ -118,7 +118,17 @@ public partial class OptimizationState : ObservableObject
         {
             for (var i = _instances.Count - 1; i >= 0; i--)
                 if (_instances[i].TryGetTarget(out var instance))
-                    instance.UpdateRelativeTime();
+                {
+                    if (instance.AppliedAt == null)
+                    {
+                        if (!string.IsNullOrEmpty(instance.RelativeTime))
+                            instance.UpdateRelativeTime();
+                    }
+                    else
+                    {
+                        instance.UpdateRelativeTime();
+                    }
+                }
                 else
                     _instances.RemoveAt(i);
 
@@ -132,12 +142,14 @@ public partial class OptimizationState : ObservableObject
 
     private void UpdateRelativeTime()
     {
-        RelativeTime = ComputeRelativeTime();
+        var newTime = ComputeRelativeTime();
+        if (RelativeTime != newTime)
+            RelativeTime = newTime;
     }
 
     private void ForceUpdateRelativeTime()
     {
-        _lastDisplayedSeconds = -1;
+        _lastBucket = -1;
         UpdateRelativeTime();
     }
 
@@ -148,10 +160,29 @@ public partial class OptimizationState : ObservableObject
 
         var ts = DateTime.UtcNow - AppliedAt.Value.ToUniversalTime();
         var totalSeconds = (int)Math.Floor(ts.TotalSeconds);
-        if (totalSeconds == _lastDisplayedSeconds)
+        if (totalSeconds < 0)
+            totalSeconds = 0;
+
+        int bucket;
+        if (totalSeconds < 15)
+            bucket = 0;
+        else if (totalSeconds < 60)
+            bucket = totalSeconds;
+        else if (ts.TotalMinutes < 60)
+            bucket = 1000 + (int)Math.Floor(ts.TotalMinutes);
+        else if (ts.TotalHours < 24)
+            bucket = 10000 + (int)Math.Floor(ts.TotalHours);
+        else if (ts.TotalDays < 30)
+            bucket = 100000 + (int)Math.Floor(ts.TotalDays);
+        else if (ts.TotalDays < 365)
+            bucket = 1000000 + (int)(ts.TotalDays / 30);
+        else
+            bucket = 10000000 + (int)(ts.TotalDays / 365);
+
+        if (bucket == _lastBucket)
             return RelativeTime ?? string.Empty;
 
-        _lastDisplayedSeconds = totalSeconds;
+        _lastBucket = bucket;
 
         return ts switch
         {
@@ -179,7 +210,7 @@ public partial class OptimizationState : ObservableObject
 
     partial void OnAppliedAtChanged(DateTime? value)
     {
-        _lastDisplayedSeconds = -1;
+        _lastBucket = -1;
         UpdateRelativeTime();
     }
 }

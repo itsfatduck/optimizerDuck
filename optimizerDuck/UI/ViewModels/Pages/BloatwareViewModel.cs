@@ -1,8 +1,10 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
+using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Optimizations.Models.Bloatware;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
@@ -75,9 +77,30 @@ public partial class BloatwareViewModel : ViewModel
     public bool IsAllSafeSelected =>
         HasSafePackages && AppxPackages.Where(x => x.Risk == AppRisk.Safe).All(x => x.IsSelected);
 
-    partial void OnSearchTextChanged(string value)
+    private CancellationTokenSource? _searchCts;
+
+    partial void OnSearchTextChanged(string value) => ScheduleApplyFilter();
+
+    private void ScheduleApplyFilter()
     {
-        ApplyFilter();
+        _searchCts?.Cancel();
+        _searchCts?.Dispose();
+        _searchCts = new CancellationTokenSource();
+        var token = _searchCts.Token;
+
+        _ = Task.Run(
+            async () =>
+            {
+                try
+                {
+                    await Task.Delay(250, token).ConfigureAwait(false);
+                    if (!token.IsCancellationRequested)
+                        await UiThread.InvokeAsync(ApplyFilter, DispatcherPriority.Background);
+                }
+                catch (OperationCanceledException) { }
+            },
+            token
+        );
     }
 
     partial void OnSelectedRiskFilterIndexChanged(int value)

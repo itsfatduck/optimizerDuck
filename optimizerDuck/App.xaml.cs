@@ -416,13 +416,20 @@ public partial class App : Application
         RevertManager.RemoveOrphanedTempFiles(_logger);
     }
 
-    protected override async void OnExit(ExitEventArgs e)
+    protected override void OnExit(ExitEventArgs e)
     {
         try
         {
             if (_host != null)
             {
-                await _host.StopAsync();
+                try
+                {
+                    _host.StopAsync().Wait(TimeSpan.FromSeconds(2));
+                }
+                catch (Exception ex)
+                {
+                    LogExceptionToFile("App.OnExit.StopAsync", ex);
+                }
                 _host.Dispose();
             }
 
@@ -474,6 +481,8 @@ public partial class App : Application
                     await _host!
                         .Services.GetRequiredService<ShellService>()
                         .QueryCMDAsync("shutdown /r /t 0");
+                    _allowClose = true;
+                    Current.Shutdown();
                     break;
 
                 case ContentDialogResult.Secondary:

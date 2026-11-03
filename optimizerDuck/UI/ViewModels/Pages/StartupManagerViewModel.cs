@@ -2,9 +2,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
+using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Resources.Languages;
@@ -189,9 +191,31 @@ public partial class StartupManagerViewModel : ViewModel
         await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
     }
 
-    partial void OnAppSearchTextChanged(string value)
+    private CancellationTokenSource? _appSearchCts;
+    private CancellationTokenSource? _taskSearchCts;
+
+    partial void OnAppSearchTextChanged(string value) => ScheduleApplyAppFilter();
+
+    private void ScheduleApplyAppFilter()
     {
-        ApplyAppFilter();
+        _appSearchCts?.Cancel();
+        _appSearchCts?.Dispose();
+        _appSearchCts = new CancellationTokenSource();
+        var token = _appSearchCts.Token;
+
+        _ = Task.Run(
+            async () =>
+            {
+                try
+                {
+                    await Task.Delay(250, token).ConfigureAwait(false);
+                    if (!token.IsCancellationRequested)
+                        await UiThread.InvokeAsync(ApplyAppFilter, DispatcherPriority.Background);
+                }
+                catch (OperationCanceledException) { }
+            },
+            token
+        );
     }
 
     partial void OnAppSortByIndexChanged(int value)
@@ -199,9 +223,28 @@ public partial class StartupManagerViewModel : ViewModel
         ApplyAppFilter();
     }
 
-    partial void OnTaskSearchTextChanged(string value)
+    partial void OnTaskSearchTextChanged(string value) => ScheduleApplyTaskFilter();
+
+    private void ScheduleApplyTaskFilter()
     {
-        ApplyTaskFilter();
+        _taskSearchCts?.Cancel();
+        _taskSearchCts?.Dispose();
+        _taskSearchCts = new CancellationTokenSource();
+        var token = _taskSearchCts.Token;
+
+        _ = Task.Run(
+            async () =>
+            {
+                try
+                {
+                    await Task.Delay(250, token).ConfigureAwait(false);
+                    if (!token.IsCancellationRequested)
+                        await UiThread.InvokeAsync(ApplyTaskFilter, DispatcherPriority.Background);
+                }
+                catch (OperationCanceledException) { }
+            },
+            token
+        );
     }
 
     partial void OnTaskSortByIndexChanged(int value)

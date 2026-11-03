@@ -19,7 +19,7 @@ public partial class LegalDialogViewModel(
     ConfigManager configManager,
     IOptionsMonitor<AppSettings> appOptionsMonitor,
     ILogger<LegalDialogViewModel> logger
-) : ViewModel
+) : ViewModel, IDisposable
 {
     [ObservableProperty]
     private ApplicationTheme _currentApplicationTheme = ApplicationTheme.Unknown;
@@ -44,6 +44,11 @@ public partial class LegalDialogViewModel(
     {
         if (CurrentApplicationTheme != currentApplicationTheme)
             CurrentApplicationTheme = currentApplicationTheme;
+    }
+
+    public void Dispose()
+    {
+        ApplicationThemeManager.Changed -= OnThemeChanged;
     }
 
     partial void OnSelectedCultureNameChanged(string value)

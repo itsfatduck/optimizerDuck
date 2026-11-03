@@ -99,7 +99,7 @@ public partial class DiskCleanupViewModel(
 
         if (!IsAllScanned && !IsScanning)
         {
-            await ScanAsync();
+            _ = ScanAsync();
         }
 
         ApplySort();

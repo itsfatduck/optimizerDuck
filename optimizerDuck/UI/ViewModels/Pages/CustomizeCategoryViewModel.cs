@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Media;
+using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
@@ -221,9 +222,30 @@ public partial class CustomizeCategoryViewModel : ViewModel
 
     #region Filtering & Sorting
 
-    partial void OnSearchTextChanged(string value)
+    private CancellationTokenSource? _searchCts;
+
+    partial void OnSearchTextChanged(string value) => ScheduleApplyFilter();
+
+    private void ScheduleApplyFilter()
     {
-        ApplyFilters();
+        _searchCts?.Cancel();
+        _searchCts?.Dispose();
+        _searchCts = new CancellationTokenSource();
+        var token = _searchCts.Token;
+
+        _ = Task.Run(
+            async () =>
+            {
+                try
+                {
+                    await Task.Delay(250, token).ConfigureAwait(false);
+                    if (!token.IsCancellationRequested)
+                        await UiThread.InvokeAsync(ApplyFilters, DispatcherPriority.Background);
+                }
+                catch (OperationCanceledException) { }
+            },
+            token
+        );
     }
 
     partial void OnSelectedSortByIndexChanged(int value)

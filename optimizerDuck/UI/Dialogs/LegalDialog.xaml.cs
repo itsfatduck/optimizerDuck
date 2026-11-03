@@ -11,12 +11,22 @@ namespace optimizerDuck.UI.Dialogs
         {
             InitializeComponent();
             Loaded += OnLoaded;
+            Unloaded += OnUnloaded;
         }
 
         public LegalDialog(LegalDialogViewModel viewModel)
             : this()
         {
             DataContext = viewModel;
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            Unloaded -= OnUnloaded;
+            if (DataContext is IDisposable disposable)
+            {
+                disposable.Dispose();
+            }
         }
 
         private async void OnLoaded(object sender, RoutedEventArgs e)

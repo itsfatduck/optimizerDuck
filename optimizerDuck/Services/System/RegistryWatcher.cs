@@ -1,4 +1,4 @@
-﻿using System.Collections.Concurrent;
+using System.Collections.Concurrent;
 using System.Runtime.InteropServices;
 using Microsoft.Extensions.Logging;
 
@@ -122,6 +122,7 @@ internal sealed class RegistryWatcher(ILogger<RegistryWatcher> logger) : IRegist
 
         private async Task ArmWatcherAsync(CancellationToken token)
         {
+            var attempt = 0;
             while (!token.IsCancellationRequested)
             {
                 IntPtr hKey = IntPtr.Zero;
@@ -141,7 +142,8 @@ internal sealed class RegistryWatcher(ILogger<RegistryWatcher> logger) : IRegist
 
                     if (error != 0 || hKey == IntPtr.Zero)
                     {
-                        await Task.Delay(1000, token);
+                        var delay = Math.Min(30000, 1000 * (1 << Math.Min(attempt++, 5)));
+                        await Task.Delay(delay, token);
                         continue;
                     }
 
@@ -162,7 +164,8 @@ internal sealed class RegistryWatcher(ILogger<RegistryWatcher> logger) : IRegist
                         hKey = IntPtr.Zero;
                         evt.Dispose();
                         evt = null;
-                        await Task.Delay(1000, token);
+                        var delay = Math.Min(30000, 1000 * (1 << Math.Min(attempt++, 5)));
+                        await Task.Delay(delay, token);
                         continue;
                     }
 
@@ -209,7 +212,8 @@ internal sealed class RegistryWatcher(ILogger<RegistryWatcher> logger) : IRegist
 
                     try
                     {
-                        await Task.Delay(1000, token);
+                        var delay = Math.Min(30000, 1000 * (1 << Math.Min(attempt++, 5)));
+                        await Task.Delay(delay, token);
                     }
                     catch
                     {

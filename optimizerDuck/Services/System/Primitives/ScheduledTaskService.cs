@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32.TaskScheduler;
@@ -281,7 +281,10 @@ public static class ScheduledTaskService
     }
 
     /// <summary>Retrieves all scheduled tasks from the system, including icon extraction.</summary>
-    public static List<ScheduledTaskModel> GetAllTasks(ILogger? logger = null)
+    public static List<ScheduledTaskModel> GetAllTasks(
+        ILogger? logger = null,
+        bool extractIcons = true
+    )
     {
         var results = new List<ScheduledTaskModel>();
         try
@@ -289,15 +292,18 @@ public static class ScheduledTaskService
             using var ts = new TaskService();
             CollectTasks(ts.RootFolder, results, logger);
 
-            Parallel.ForEach(
-                results,
-                new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
-                task =>
-                {
-                    if (!string.IsNullOrWhiteSpace(task.ActionSummary))
-                        task.LogoImage = StartupManagerService.ExtractIcon(task.ActionSummary);
-                }
-            );
+            if (extractIcons)
+            {
+                Parallel.ForEach(
+                    results,
+                    new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
+                    task =>
+                    {
+                        if (!string.IsNullOrWhiteSpace(task.ActionSummary))
+                            task.LogoImage = StartupManagerService.ExtractIcon(task.ActionSummary);
+                    }
+                );
+            }
         }
         catch (Exception ex)
         {
@@ -311,10 +317,22 @@ public static class ScheduledTaskService
     /// <returns>A list of startup-related tasks ordered by name.</returns>
     public static List<ScheduledTaskModel> GetStartupTasks(ILogger? logger = null)
     {
-        return GetAllTasks(logger)
+        var startupTasks = GetAllTasks(logger, extractIcons: false)
             .Where(t => t.HasLogonTrigger || t.HasBootTrigger)
             .OrderBy(t => t.Name)
             .ToList();
+
+        Parallel.ForEach(
+            startupTasks,
+            new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
+            task =>
+            {
+                if (!string.IsNullOrWhiteSpace(task.ActionSummary))
+                    task.LogoImage = StartupManagerService.ExtractIcon(task.ActionSummary);
+            }
+        );
+
+        return startupTasks;
     }
 
     /// <summary>Runs a scheduled task immediately.</summary>

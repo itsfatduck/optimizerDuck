@@ -863,19 +863,10 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
                         TriggerInfos = [.. m.TriggerInfos],
                         ActionSummary = m.ActionSummary,
                         IsEnabled = m.IsEnabled,
+                        LogoImage = m.LogoImage,
                     })
                     .OrderBy(t => t.TaskName)
                     .ToList();
-
-                Parallel.ForEach(
-                    tasks,
-                    new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
-                    task =>
-                    {
-                        if (!string.IsNullOrWhiteSpace(task.ActionSummary))
-                            task.LogoImage = ExtractIcon(task.ActionSummary);
-                    }
-                );
 
                 return tasks;
             }
