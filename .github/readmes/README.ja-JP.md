@@ -8,15 +8,15 @@
 
 <a href="https://trendshift.io/repositories/36187" target="_blank"><img src="https://trendshift.io/api/badge/repositories/36187" alt="itsfatduck%2FoptimizerDuck | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 <br>
-[![Release](https://img.shields.io/github/release/itsfatduck/optimizerDuck?color=fed114&label=リリース&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/itsfatduck/optimizerDuck/total?label=ダウンロード&style=flat-square&color=lightgreen)](https://github.com/itsfatduck/optimizerDuck/releases)
-[![Stars](https://img.shields.io/endpoint?url=https://api.pinstudios.net/api/badges/stars/itsfatduck/optimizerDuck&style=flat-square)](https://github.com/itsfatduck/optimizerDuck/stargazers)
-[![License](https://img.shields.io/badge/ライセンス-GPL_v3-red?style=flat-square)](../../LICENSE)
-[![Discord](https://img.shields.io/discord/1091675679994675240?color=5865f2&label=Discord&style=flat-square)](https://discord.gg/tDUBDCYw9Q)
+[![Release](https://shieldcn.dev/github/release/itsfatduck/optimizerDuck.svg?variant=secondary&logo=ri:FaTag&logoColor=ebc15e&size=xs&theme=stone)](https://github.com/itsfatduck/optimizerDuck/releases/latest)
+[![Downloads](https://shieldcn.dev/github/dt/itsfatduck/optimizerDuck.svg?variant=secondary&logo=ri:FaDownload&logoColor=ebc15e&size=xs&theme=stone)](https://github.com/itsfatduck/optimizerDuck/releases)
+[![Stars](https://shieldcn.dev/github/stars/itsfatduck/optimizerDuck.svg?variant=secondary&logo=ri:FaStar&logoColor=ebc15e&size=xs&theme=stone)](https://github.com/itsfatduck/optimizerDuck/stargazers)
+[![License](https://shieldcn.dev/badge/License-GPL_v3.svg?variant=secondary&logo=ri:FaBalanceScale&logoColor=ebc15e&size=xs&theme=stone)](../../LICENSE)
+[![Discord](https://shieldcn.dev/discord/1091675679994675240.svg?variant=secondary&logo=discord&logoColor=5865f2&size=xs&theme=stone)](https://discord.gg/tDUBDCYw9Q)
 <br>
-[![CI](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml/badge.svg)](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml)
-[![.NET Latest](https://img.shields.io/badge/.NET_Runtime-最新-ef99dd?style=flat-square)](https://dotnet.microsoft.com/en-us/download)
-[![Supported OS](https://img.shields.io/badge/対応_OS-Windows_10%2B_x64_%7C_ARM64-0078d4?style=flat-square)](https://www.microsoft.com/en-us/software-download/)
+[![CI](https://shieldcn.dev/github/ci/itsfatduck/optimizerDuck.svg?workflow=ci.yml&variant=secondary&size=xs&theme=stone)](https://github.com/itsfatduck/optimizerDuck/actions/workflows/ci.yml)
+[![.NET 10.0](https://shieldcn.dev/badge/.NET-10.0.svg?variant=secondary&size=xs&theme=stone)](https://dotnet.microsoft.com/en-us/download)
+[![Supported OS](https://shieldcn.dev/badge/Windows-10%2B_%7C_x64_%7C_ARM64.svg?variant=secondary&logo=ri:FaWindows&logoColor=0078d4&size=xs&theme=stone)](https://www.microsoft.com/en-us/software-download/)
 <br>
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/itsfatduck)
 
@@ -359,7 +359,7 @@ optimizerDuck は**「現状のまま」**提供され、いかなる種類の�
 
 ## すべてのコントリビューターに感謝
 
-[![Contributors](https://contrib.rocks/image?repo=itsfatduck/optimizerDuck)](https://github.com/itsfatduck/optimizerDuck/graphs/contributors)
+[![Contributors](https://shieldcn.dev/contributors/itsfatduck/optimizerDuck.svg?title=false&preset=transparent&names=true&border=false)](https://github.com/itsfatduck/optimizerDuck/graphs/contributors)
 <br>
 [トップに戻る](#optimizerduck)
 
