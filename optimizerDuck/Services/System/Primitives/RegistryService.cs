@@ -678,7 +678,10 @@ public static class RegistryService
             out _,
             out var openError,
             out var openErrorDetail,
-            true
+            true,
+            false,
+            null,
+            RegistryRights.ReadKey | RegistryRights.SetValue
         );
 
         if (result is null)

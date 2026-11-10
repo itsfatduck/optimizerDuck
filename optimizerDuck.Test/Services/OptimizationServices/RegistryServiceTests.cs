@@ -110,6 +110,53 @@ public class RegistryServiceTests : IDisposable
         }
     }
 
+    [Fact]
+    public void DeleteValue_KeyAllowsSetValueButNotCreateSubKey_DeletesValue()
+    {
+        const string nativePath = @"Software\TestOptimizerDuck\DeleteValueOnly";
+        var path = $@"HKCU\{nativePath}";
+        var identity = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+        var denyCreateSubKey = new RegistryAccessRule(
+            identity,
+            RegistryRights.CreateSubKey,
+            InheritanceFlags.None,
+            PropagationFlags.None,
+            AccessControlType.Deny
+        );
+
+        using (var key = Registry.CurrentUser.CreateSubKey(nativePath))
+        {
+            key.SetValue("ToDelete", 42);
+            var acl = key.GetAccessControl();
+            acl.AddAccessRule(denyCreateSubKey);
+            key.SetAccessControl(acl);
+        }
+
+        try
+        {
+            var result = RegistryService.DeleteValue(NewCall(), new RegistryItem(path, "ToDelete"));
+
+            Assert.True(result.Ok, result.Error);
+            Assert.Null(RegistryService.Read<int?>(new RegistryItem(path, "ToDelete")));
+        }
+        finally
+        {
+            const RegistryRights repairRights =
+                RegistryRights.ReadKey | RegistryRights.ChangePermissions;
+            using var key = Registry.CurrentUser.OpenSubKey(
+                nativePath,
+                RegistryKeyPermissionCheck.ReadWriteSubTree,
+                repairRights
+            );
+            if (key != null)
+            {
+                var acl = key.GetAccessControl();
+                acl.RemoveAccessRuleSpecific(denyCreateSubKey);
+                key.SetAccessControl(acl);
+            }
+        }
+    }
+
     public RegistryServiceTests()
     {
         CleanupTestKey();
