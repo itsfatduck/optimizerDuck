@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Win32;
@@ -62,6 +63,52 @@ public class RegistryServiceTests : IDisposable
 
     private static OpCall NewCall() =>
         new() { Changes = new ChangeSet(), Logger = NullLogger.Instance };
+
+    [Fact]
+    public void Write_KeyAllowsSetValueButNotCreateSubKey_WritesValue()
+    {
+        const string nativePath = @"Software\TestOptimizerDuck\SetValueOnly";
+        var path = $@"HKCU\{nativePath}";
+        var identity = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+        var denyCreateSubKey = new RegistryAccessRule(
+            identity,
+            RegistryRights.CreateSubKey,
+            InheritanceFlags.None,
+            PropagationFlags.None,
+            AccessControlType.Deny
+        );
+
+        using (var key = Registry.CurrentUser.CreateSubKey(nativePath))
+        {
+            var acl = key.GetAccessControl();
+            acl.AddAccessRule(denyCreateSubKey);
+            key.SetAccessControl(acl);
+        }
+
+        try
+        {
+            var result = RegistryService.Write(NewCall(), new RegistryItem(path, "Value", 1));
+
+            Assert.True(result.Ok, result.Error);
+            Assert.Equal(1, RegistryService.Read<int>(new RegistryItem(path, "Value")));
+        }
+        finally
+        {
+            const RegistryRights repairRights =
+                RegistryRights.ReadKey | RegistryRights.ChangePermissions;
+            using var key = Registry.CurrentUser.OpenSubKey(
+                nativePath,
+                RegistryKeyPermissionCheck.ReadWriteSubTree,
+                repairRights
+            );
+            if (key != null)
+            {
+                var acl = key.GetAccessControl();
+                acl.RemoveAccessRuleSpecific(denyCreateSubKey);
+                key.SetAccessControl(acl);
+            }
+        }
+    }
 
     public RegistryServiceTests()
     {
