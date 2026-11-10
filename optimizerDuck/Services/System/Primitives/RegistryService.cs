@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.IO;
 using System.Security;
+using System.Security.AccessControl;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using optimizerDuck.Domain.Execution;
@@ -78,7 +79,8 @@ public static class RegistryService
         List<string>? createdSubKeys,
         ILogger? logger,
         out string? error,
-        out string? errorDetail
+        out string? errorDetail,
+        RegistryRights? writableRights = null
     )
     {
         key = null;
@@ -94,7 +96,13 @@ public static class RegistryService
 
         try
         {
-            var opened = rootKey.OpenSubKey(subPath, writable);
+            var opened = writableRights.HasValue
+                ? rootKey.OpenSubKey(
+                    subPath,
+                    RegistryKeyPermissionCheck.ReadWriteSubTree,
+                    writableRights.Value
+                )
+                : rootKey.OpenSubKey(subPath, writable);
 
             if (opened == null && writable && createIfMissing)
                 opened =
@@ -146,7 +154,8 @@ public static class RegistryService
         out string? openErrorDetail,
         bool writable = false,
         bool createIfMissing = false,
-        List<string>? createdSubKeys = null
+        List<string>? createdSubKeys = null,
+        RegistryRights? writableRights = null
     )
     {
         opened = false;
@@ -167,7 +176,8 @@ public static class RegistryService
                 createdSubKeys,
                 logger,
                 out openError,
-                out openErrorDetail
+                out openErrorDetail,
+                writableRights
             )
         )
             return default;
@@ -519,7 +529,8 @@ public static class RegistryService
             out var openErrorDetail,
             true,
             true,
-            createdSubKeys
+            createdSubKeys,
+            RegistryRights.ReadKey | RegistryRights.SetValue
         );
 
         if (result is null)
