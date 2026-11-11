@@ -1,0 +1,2579 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+        Microsoft ResX Schema 
+        
+        Version 2.0
+        
+        The primary goals of this format is to allow a simple XML format 
+        that is mostly human readable. The generation and parsing of the 
+        various data types are done through the TypeConverter classes 
+        associated with the data types.
+        
+        Example:
+        
+        ... ado.net/XML headers & schema ...
+        <resheader name="resmimetype">text/microsoft-resx</resheader>
+        <resheader name="version">2.0</resheader>
+        <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+        <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+                    
+        There are any number of "resheader" rows that contain simple 
+        name/value pairs.
+        
+        Each data row contains a name, and value. The row also contains a 
+        type or mimetype. Type corresponds to a .NET class that support 
+        text/value conversion through the TypeConverter architecture. 
+        Classes that don't support this are serialized and stored with the 
+        mimetype set.
+        
+        The mimetype is used for serialized objects, and tells the 
+        ResXResourceReader how to depersist the object. This is currently not 
+        extensible. For a given mimetype the value must be set accordingly:
+        
+        Note - application/x-microsoft.net.object.binary.base64 is the format 
+        that the ResXResourceWriter will generate, however the reader can 
+        read any of the formats listed below.
+        
+        mimetype: application/x-microsoft.net.object.binary.base64
+        value   : The object must be serialized with 
+                : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+                : and then encoded with base64 encoding.
+        
+        mimetype: application/x-microsoft.net.object.soap.base64
+        value   : The object must be serialized with 
+                : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+                : and then encoded with base64 encoding.
+    
+        mimetype: application/x-microsoft.net.object.bytearray.base64
+        value   : The object must be serialized into a byte array 
+                : using a System.ComponentModel.TypeConverter
+                : and then encoded with base64 encoding.
+        -->
+  <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root" xmlns="">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+  </resheader>
+  <data name="Dashboard.Header.Title" xml:space="preserve">
+    <value>Irányítópult</value>
+  </data>
+  <data name="Sidebar.Dashboard" xml:space="preserve">
+    <value>Irányítópult</value>
+  </data>
+  <data name="Sidebar.Settings" xml:space="preserve">
+    <value>Beállítások</value>
+  </data>
+  <data name="Button.Close" xml:space="preserve">
+    <value>Bezárás</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Cpu.Cores" xml:space="preserve">
+    <value>{0} mag</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Storage.DiskInfo" xml:space="preserve">
+    <value>{0} GB használt a {1} GB-ból ({2} GB szabad)</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Ram.Modules" xml:space="preserve">
+    <value>{0} modul</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Cpu.Threads" xml:space="preserve">
+    <value>{0} szál</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Storage.System" xml:space="preserve">
+    <value>RENDSZER</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Storage.Header" xml:space="preserve">
+    <value>Tároló</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Ram.Used" xml:space="preserve">
+    <value>{0} GB használt</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Ram.Available" xml:space="preserve">
+    <value>{0} GB elérhető</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Loading" xml:space="preserve">
+    <value>Rendszerinformációk betöltése...</value>
+  </data>
+  <data name="Sidebar.Optimize" xml:space="preserve">
+    <value>Optimalizálás</value>
+  </data>
+  <data name="Customize.Description" xml:space="preserve">
+    <value>A Windows beállításainak és a mindennapi viselkedésnek a személyre szabása.</value>
+  </data>
+  <data name="Customize.CustomOption" xml:space="preserve">
+    <value>Egyéni</value>
+  </data>
+  <data name="Customize.CustomOption.NotSet" xml:space="preserve">
+    <value>Nincs beállítva</value>
+  </data>
+  <data name="Customize.Preferences.Name" xml:space="preserve">
+    <value>Preferenciák</value>
+  </data>
+  <data name="Customize.Preferences.Description" xml:space="preserve">
+    <value>Finomhangolja a Windows megjelenését és használatát.</value>
+  </data>
+  <data name="Customize.Gaming.Name" xml:space="preserve">
+    <value>Játék</value>
+  </data>
+  <data name="Customize.Gaming.Description" xml:space="preserve">
+    <value>Játékbeállítások grafikához, bevitelhez és felvételhez.</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Gpu.More" xml:space="preserve">
+    <value>+ {0} további GPU</value>
+  </data>
+  <data name="Dashboard.Actions.Discord.Title" xml:space="preserve">
+    <value>Discord közösség</value>
+  </data>
+  <data name="Dashboard.Actions.Discord.Description" xml:space="preserve">
+    <value>Csatlakozz a Discord közösségemhez... támogatásért vagy hogy együtt játsszunk</value>
+  </data>
+  <data name="Dashboard.Actions.GitHub.Title" xml:space="preserve">
+    <value>GitHub-tároló</value>
+  </data>
+  <data name="Dashboard.Actions.GitHub.Description" xml:space="preserve">
+    <value>Fedezd fel, nézd át és támogasd a projektemet a GitHubon</value>
+  </data>
+  <data name="Dashboard.Actions.SupportMe.Title" xml:space="preserve">
+    <value>Támogatás</value>
+  </data>
+  <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
+    <value>Csillagozd meg a tárolót a GitHubon, oszd meg barátaiddal, vagy adományozz — minden segít a projekt növekedésében!</value>
+  </data>
+  <data name="Button.Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Settings.Header.Title" xml:space="preserve">
+    <value>Beállítások</value>
+  </data>
+  <data name="Settings.Appearance.Header" xml:space="preserve">
+    <value>Megjelenés</value>
+  </data>
+  <data name="Settings.Appearance.LanguageSelector.Title" xml:space="preserve">
+    <value>Nyelv</value>
+  </data>
+  <data name="Settings.Appearance.LanguageSelector.Description" xml:space="preserve">
+    <value>Válaszd ki a kívánt nyelvet.</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.Title" xml:space="preserve">
+    <value>Téma</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.Description" xml:space="preserve">
+    <value>Válaszd ki az alkalmazás kívánt témáját.</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.Light" xml:space="preserve">
+    <value>Világos</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.Dark" xml:space="preserve">
+    <value>Sötét</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.HighContrast" xml:space="preserve">
+    <value>Nagy kontraszt</value>
+  </data>
+  <data name="Common.AppliedSecondsAgo" xml:space="preserve">
+    <value>{0} másodperccel ezelőtt alkalmazva</value>
+  </data>
+  <data name="Common.AppliedMinutesAgo" xml:space="preserve">
+    <value>{0} perccel ezelőtt alkalmazva</value>
+  </data>
+  <data name="Common.AppliedHoursAgo" xml:space="preserve">
+    <value>{0} órával ezelőtt alkalmazva</value>
+  </data>
+  <data name="Common.AppliedDaysAgo" xml:space="preserve">
+    <value>{0} nappal ezelőtt alkalmazva</value>
+  </data>
+  <data name="Common.AppliedMonthsAgo" xml:space="preserve">
+    <value>{0} hónappal ezelőtt alkalmazva</value>
+  </data>
+  <data name="Common.AppliedYearsAgo" xml:space="preserve">
+    <value>{0} évvel ezelőtt alkalmazva</value>
+  </data>
+  <data name="Optimizer.UI.Risk.Safe" xml:space="preserve">
+    <value>Biztonságos</value>
+  </data>
+  <data name="Optimizer.UI.Risk.Moderate" xml:space="preserve">
+    <value>Óvatosan</value>
+  </data>
+  <data name="Optimizer.UI.Risk.Risky" xml:space="preserve">
+    <value>Szakértői</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
+    <value>Részletes leírás</value>
+  </data>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
+    <value>A Service Host felosztási küszöbértékét a rendszer teljes memóriájára emeli, így a szolgáltatások kevesebb folyamatban összevontan maradnak, csökkentve a memóriahasználatot és a folyamatszámot.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
+    <value>Nem sikerült felismerni az aktuális aktív energiatervet.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ImportFailed" xml:space="preserve">
+    <value>Nem sikerült importálni az optimizerDuck energiatervét.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ActivateFailed" xml:space="preserve">
+    <value>Nem sikerült aktiválni az optimizerDuck energiatervét.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.System" xml:space="preserve">
+    <value>Rendszer</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Ram" xml:space="preserve">
+    <value>RAM</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Disk" xml:space="preserve">
+    <value>Lemez</value>
+  </data>
+  <data name="Optimizer.UI.Tags.NetworkRequired" xml:space="preserve">
+    <value>Hálózati kapcsolat szükséges</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Network" xml:space="preserve">
+    <value>Hálózat</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Privacy" xml:space="preserve">
+    <value>Adatvédelem</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Audio" xml:space="preserve">
+    <value>Hang</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
+    <value>NVIDIA</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
+    <value>AMD</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
+    <value>Intel</value>
+  </data>
+
+  <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
+    <value>Energia</value>
+  </data>
+  <data name="Revert.Error.NoDataFound" xml:space="preserve">
+    <value>Nem található visszaállítási adat ehhez: {0}.</value>
+  </data>
+  <data name="Optimization.Revert.Reverting" xml:space="preserve">
+    <value>Visszaállítás...</value>
+  </data>
+  <data name="Optimization.Revert.Success" xml:space="preserve">
+    <value>{0} sikeresen visszaállítva!</value>
+  </data>
+  <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
+    <value>{0} visszaállítva, {1} lépés sikertelen.</value>
+  </data>
+  <data name="Optimization.Revert.ExecutingStep" xml:space="preserve">
+    <value>Visszaállítási lépés végrehajtása: {0}/{1} ({2})</value>
+  </data>
+  <data name="Revert.Registry.Description.RestoreKey" xml:space="preserve">
+    <value>Registrykulcs visszaállítása: {0}</value>
+  </data>
+  <data name="Revert.Registry.Description.DeleteKey" xml:space="preserve">
+    <value>Registrykulcs törlése: {0}</value>
+  </data>
+  <data name="Revert.Registry.Description.RevertUnknown" xml:space="preserve">
+    <value>Registry visszaállítása: {0}</value>
+  </data>
+  <data name="Revert.Error.NoSteps" xml:space="preserve">
+    <value>Nem találhatók visszaállítási lépések.</value>
+  </data>
+  <data name="Revert.Error.StepFailed" xml:space="preserve">
+    <value>A visszaállítási lépés sikertelen</value>
+  </data>
+  <data name="Revert.UsbPower.Description" xml:space="preserve">
+    <value>Az USB szelektív felfüggesztés energiaállapotainak visszaállítása</value>
+  </data>
+  <data name="Revert.Hibernation.Description" xml:space="preserve">
+    <value>A hibernált állapot visszaállítása</value>
+  </data>
+  <data name="Revert.Hibernation.Error.RestoreFailed" xml:space="preserve">
+    <value>Nem sikerült visszaállítani a hibernálást: {0}</value>
+  </data>
+  <data name="Revert.PowerPlan.Description" xml:space="preserve">
+    <value>Az előző aktív energiaterv visszaállítása: {0}</value>
+  </data>
+  <data name="Revert.PowerPlan.Description.Set" xml:space="preserve">
+    <value>Telepített energiaterv: {0}</value>
+  </data>
+
+  <data name="Revert.PowerPlan.Error.RestoreFailed" xml:space="preserve">
+    <value>Nem sikerült visszaállítani az előző energiatervet: {0}.</value>
+  </data>
+  <data name="Revert.PowerPlan.Error.DeleteFailed" xml:space="preserve">
+    <value>Nem sikerült törölni az optimizerDuck energiatervét: {0}</value>
+  </data>
+  <data name="Revert.PowerPlan.Error.NothingToDo" xml:space="preserve">
+    <value>Semmi visszaállítanivaló: nincs rögzített előző vagy telepített energiaterv.</value>
+  </data>
+  <data name="Revert.PowerPlan.Error.VerifyFailed" xml:space="preserve">
+    <value>A(z) {0} energiaterv visszaállítva, de az aktív tervet nem sikerült ellenőrizni.</value>
+  </data>
+  <data name="Revert.PowerPlan.Error.VerifyMismatch" xml:space="preserve">
+    <value>Az energiaterv ellenőrzése sikertelen: várt: {0}, aktív: {1}.</value>
+  </data>
+  <data name="Revert.PowerSetting.Description" xml:space="preserve">
+    <value>Energiabeállítás visszaállítása: {0}/{1}/{2}</value>
+  </data>
+  <data name="Optimization.Apply.Processing" xml:space="preserve">
+    <value>Módosítások alkalmazása...</value>
+  </data>
+  <data name="Optimization.Apply.Completed" xml:space="preserve">
+    <value>Befejezve</value>
+  </data>
+  <data name="Optimization.Apply.Success" xml:space="preserve">
+    <value>{0} sikeresen alkalmazva.</value>
+  </data>
+  <data name="Optimization.Apply.Error.FailedWithSteps" xml:space="preserve">
+    <value>{0} alkalmazva, {1} lépés sikertelen.</value>
+  </data>
+  <data name="Optimization.Apply.Error.Failed" xml:space="preserve">
+    <value>Nem sikerült alkalmazni: {0}.</value>
+  </data>
+  <data name="Optimization.Apply.Error.Unknown" xml:space="preserve">
+    <value>Ismeretlen eredmény ehhez: {0}.</value>
+  </data>
+  <data name="Service.Shell.Error.ExitCode" xml:space="preserve">
+    <value>Kilépési kód: {0}</value>
+  </data>
+  <data name="Service.Shell.Error.TimedOut" xml:space="preserve">
+    <value>Időtúllépés</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
+    <value>Visszaállítási fájl</value>
+  </data>
+  <data name="OptimizationResultDialog.Header" xml:space="preserve">
+    <value>{0} sikertelen lépés</value>
+  </data>
+  <data name="OptimizationResultDialog.Description" xml:space="preserve">
+    <value> Néhány lépés nem fejeződött be sikeresen. Csak a sikertelen lépéseket próbálhatod újra.</value>
+  </data>
+  <data name="OptimizationResultDialog.Details" xml:space="preserve">
+    <value>Részletek</value>
+  </data>
+  <data name="Button.Retry" xml:space="preserve">
+    <value>Újrapróbálás</value>
+  </data>
+  <data name="Settings.About.Duck.Description" xml:space="preserve">
+    <value>Jelenlegi verzió: {0}</value>
+  </data>
+  <data name="Settings.Advanced.Header" xml:space="preserve">
+    <value>Speciális</value>
+  </data>
+  <data name="Settings.Optimize.Header" xml:space="preserve">
+    <value>Optimalizálás</value>
+  </data>
+  <data name="Settings.Optimize.ShellTimeout.Title" xml:space="preserve">
+    <value>Parancsértelmező szolgáltatás időtúllépése</value>
+  </data>
+  <data name="Settings.Optimize.ShellTimeout.Description" xml:space="preserve">
+    <value>Az egyes parancsértelmező-parancsok végrehajtásának időtúllépése (ezredmásodperc).</value>
+  </data>
+  <data name="Settings.Advanced.ClearDownloads.Title" xml:space="preserve">
+    <value>Letöltések törlése</value>
+  </data>
+  <data name="Settings.Advanced.ClearDownloads.Description" xml:space="preserve">
+    <value>Az optimalizálás során letöltött összes fájl törlése.</value>
+  </data>
+  <data name="Settings.Advanced.ClearRevertDatas.Title" xml:space="preserve">
+    <value>Összes visszaállítási adat törlése</value>
+  </data>
+  <data name="Settings.Advanced.ClearRevertDatas.Description" xml:space="preserve">
+    <value>Az optimalizálások összes visszaállítási adatának törlése.</value>
+  </data>
+  <data name="Button.Clear" xml:space="preserve">
+    <value>Törlés</value>
+  </data>
+  <data name="Settings.Advanced.OpenRootDir.Title" xml:space="preserve">
+    <value>Gyökérmappa megnyitása</value>
+  </data>
+  <data name="Settings.Advanced.OpenRootDir.Description" xml:space="preserve">
+    <value>Az alkalmazás gyökérmappájának megnyitása, ahol az összes szükséges fájl található.</value>
+  </data>
+  <data name="Settings.Appearance.SmoothScrolling.Title" xml:space="preserve">
+    <value>Sima görgetés</value>
+  </data>
+  <data name="Settings.Appearance.SmoothScrolling.Description" xml:space="preserve">
+    <value>Sima görgetési animáció bekapcsolása a folyékonyabb görgetésért. Kapcsold ki, ha akadozást tapasztalsz.</value>
+  </data>
+  <data name="Settings.About.Header" xml:space="preserve">
+    <value>Névjegy</value>
+  </data>
+  <data name="Dialog.AreYouSure.Title" xml:space="preserve">
+    <value>Biztosan folytatod?</value>
+  </data>
+  <data name="Settings.ClearDownloads.Description" xml:space="preserve">
+    <value>Az optimalizálás során letöltött összes fájl törlésére készülsz. Ez a művelet végleges és nem vonható vissza, ezért csak akkor folytasd, ha biztos vagy benne.</value>
+  </data>
+  <data name="Button.Cancel" xml:space="preserve">
+    <value>Mégse</value>
+  </data>
+  <data name="Button.Skip" xml:space="preserve">
+    <value>Kihagyás</value>
+  </data>
+  <data name="Settings.ClearRevertData.Description" xml:space="preserve">
+    <value>Az optimalizálás után keletkezett összes visszaállítási adat törlésére készülsz. Ez azt jelenti, hogy többé nem tudod visszaállítani az optimalizálás előtti állapotot, ezért gondold át alaposan a megerősítés előtt.</value>
+  </data>
+  <data name="ProcessingOptimizationDialog.Warning.DontCloseAppOrRestart" xml:space="preserve">
+    <value>Kérlek, ne zárd be az alkalmazást és ne indítsd újra a gépet, amíg a módosítások alkalmazása vagy visszaállítása folyamatban van.</value>
+  </data>
+  <data name="Common.AppliedJustNow" xml:space="preserve">
+    <value>Épp most alkalmazva</value>
+  </data>
+  <data name="Common.OperationCancelled" xml:space="preserve">
+    <value>A művelet megszakítva.</value>
+  </data>
+  <data name="Optimization.Apply.Error.AllStepsFailed" xml:space="preserve">
+    <value>Minden lépés sikertelen.</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
+    <value>Az optimalizálást nem sikerült teljesen alkalmazni</value>
+    </data>
+  <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
+    <value>Az optimalizálást nem sikerült visszaállítani</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.Success.Title" xml:space="preserve">
+    <value>Az optimalizálás sikeresen alkalmazva</value>
+  </data>
+  <data name="Optimization.Revert.Snackbar.Success.Title" xml:space="preserve">
+    <value>Az optimalizálás sikeresen visszaállítva</value>
+  </data>
+  <data name="Optimization.Toggle.Snackbar.Error.Title" xml:space="preserve">
+    <value>Az optimalizálást nem sikerült átkapcsolni</value>
+  </data>
+  <data name="Optimization.Toggle.Snackbar.Error.Message" xml:space="preserve">
+    <value>Hiba történt: {0}</value>
+  </data>
+  <data name="Optimization.Retry.Processing" xml:space="preserve">
+    <value>Sikertelen lépések újrapróbálása...</value>
+  </data>
+  <data name="Optimization.RetryStep.Processing" xml:space="preserve">
+    <value>{0} lépés újrapróbálása ({1}/{2} lépés)</value>
+  </data>
+  <data name="Optimization.Revert.Error.Failed" xml:space="preserve">
+    <value>Nem sikerült visszaállítani: {0}.</value>
+  </data>
+  <data name="Dashboard.Header.Menu.Refresh" xml:space="preserve">
+    <value>Frissítés</value>
+  </data>
+  <data name="Dashboard.Header.Menu.RunTaskManager" xml:space="preserve">
+    <value>Feladatkezelő</value>
+  </data>
+  <data name="Common.Unknown" xml:space="preserve">
+    <value>Ismeretlen</value>
+  </data>
+  <data name="Common.Recommendation.On" xml:space="preserve">
+    <value>Ajánlott</value>
+  </data>
+  <data name="Common.Recommendation.Off" xml:space="preserve">
+    <value>Nem ajánlott</value>
+  </data>
+  <data name="Common.Recommendation.Experimental" xml:space="preserve">
+    <value>Kísérleti</value>
+  </data>
+  <data name="Common.Recommendation.Depends" xml:space="preserve">
+    <value>Feltételes</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Security" xml:space="preserve">
+    <value>Biztonság</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Performance" xml:space="preserve">
+    <value>Teljesítmény</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Latency" xml:space="preserve">
+    <value>Késleltetés</value>
+  </data>
+  <data name="Optimizer.Performance" xml:space="preserve">
+    <value>Teljesítmény</value>
+  </data>
+  <data name="Optimizer.PowerManagement" xml:space="preserve">
+    <value>Energiagazdálkodás</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy" xml:space="preserve">
+    <value>Biztonság és adatvédelem</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices" xml:space="preserve">
+    <value>Felesleges programok és szolgáltatások</value>
+  </data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.Name" xml:space="preserve">
+    <value>Háttéralkalmazások kikapcsolása</value>
+  </data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
+    <value>Megakadályozza, hogy az inaktív alkalmazások a háttérben fussanak, így memóriát szabadít fel és csökkenti a CPU-terhelést.</value>
+  </data>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.Name" xml:space="preserve">
+    <value>Service Host-folyamatok összevonása</value>
+  </data>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.Error.InvalidRAM" xml:space="preserve">
+    <value>Érvénytelen RAM: {0}</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
+    <value>Aktív alkalmazások előnyben részesítése</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
+    <value>Több CPU-erőforrást ad az éppen használt alkalmazásnak a gyorsabb, gördülékenyebb működésért.</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
+    <value>Multimédia-ütemező optimalizálása</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
+    <value>A Multimedia Class Scheduler Service (MMCSS) beállítása játékhoz és alacsony késleltetéshez: a multimédiás feladatok előnyben részesítése és a hálózati szabályozás kikapcsolása.</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
+    <value>WebDAV 50 MB-os korlát feloldása</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
+    <value>A WebClient fájlméret-korlátját 50 MB-ról 4 GB-ra emeli a WebDAV-csatolásoknál, hogy a nagy fájlok ne hiúsuljanak meg a hálózati helyeken.</value>
+  </data>
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
+    <value>Billentyűismétlés optimalizálása</value>
+  </data>
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
+    <value>A legrövidebb billentyűismétlési késleltetést és a leggyorsabb ismétlési sebességet állítja be a gyorsabb gépelésért és ismételt lenyomásokért.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.Name" xml:space="preserve">
+    <value>Kisegítő billentyűparancsok kikapcsolása</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription" xml:space="preserve">
+    <value>Kikapcsolja a Ragadós billentyűk, a Szűrőbillentyűk és a Váltóbillentyűk gyorsparancsait, hogy játék és gépelés közben ne ugorjon fel véletlenül.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Name" xml:space="preserve">
+    <value>Hibernálás és gyorsindítás kikapcsolása</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.ShortDescription" xml:space="preserve">
+    <value>Kikapcsolja a hibernálást és a gyorsindítást, hogy helyet szabadítson fel a lemezen, és a teljes leállítás tisztább hardverinicializálást biztosítson indításkor.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
+    <value>USB energiatakarékosság kikapcsolása</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
+    <value>Megakadályozza, hogy a Windows lekapcsolja az USB-portokat, így megszűnik az egér, a billentyűzet és más perifériák felébredési késleltetése.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
+    <value>Optimalizált energiaterv alkalmazása</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
+    <value>Egy egyéni, teljesítményre optimalizált energiatervet telepít, hogy a rendszer mindig maximális sebességen működjön. Figyelem: egyes rendszereken a Feladatkezelő tévesen 100%-os CPU-használatot mutathat, a tényleges terhelés nem változik.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
+    <value>Energiaterv importálása és aktiválása...</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
+    <value>Rendszer energia-visszafogásának kikapcsolása</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
+    <value>Megakadályozza, hogy a Windows korlátozza a CPU teljesítményét (energia-visszafogás), így az aktív feladatok csúcsteljesítményen futnak.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
+    <value>Adatgyűjtés (telemetria) kikapcsolása</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
+    <value>Kikapcsolja a Windows telemetriai és használatkövető szolgáltatásait, hogy javítsa a személyes adatvédelmet és csökkentse a háttértevékenységet.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
+    <value>Házirend- és registry-módosítások alkalmazása...</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableServices" xml:space="preserve">
+    <value>Telemetriai szolgáltatások kikapcsolása...</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableTasks" xml:space="preserve">
+    <value>Ütemezett telemetriai feladatok kikapcsolása...</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.Name" xml:space="preserve">
+    <value>Hibajelentés kikapcsolása</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.ShortDescription" xml:space="preserve">
+    <value>Kikapcsolja a Windows hibajelentő és a programkompatibilitási segéd szolgáltatásait.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.Name" xml:space="preserve">
+    <value>Hirdetések és javaslatok kikapcsolása</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.ShortDescription" xml:space="preserve">
+    <value>Kikapcsolja a személyre szabott hirdetéseket, a Windows fogyasztói funkcióit és a rendszerjavaslatokat.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
+    <value>Hírek és érdeklődési körök kikapcsolása</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
+    <value>Kikapcsolja a Hírek és érdeklődési körök hírfolyamot és elrejti a tálcagombját (Windows 10), valamint kikapcsolja a Widgetek panelt (Windows 11).</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.Name" xml:space="preserve">
+    <value>Meet Now gomb elrejtése</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
+    <value>Elrejti a Meet Now (Skype) gombot a tálca értesítési területéről. Csak Windows 10.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.Name" xml:space="preserve">
+    <value>Tevékenységelőzmények kikapcsolása</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.ShortDescription" xml:space="preserve">
+    <value>Megakadályozza, hogy a Windows gyűjtse és szinkronizálja a tevékenységelőzményeidet.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.Name" xml:space="preserve">
+    <value>Helymeghatározás és érzékelők kikapcsolása</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.ShortDescription" xml:space="preserve">
+    <value>Kikapcsolja a helykövetést, a rendszerérzékelőket és az offline térképfrissítéseket.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.Name" xml:space="preserve">
+    <value>Háttérnaplózás kikapcsolása</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
+    <value>Leállítja a nem létfontosságú WMI/ETW AutoLogger-munkamenetek (Diagtrack-Listener, SQMLogger stb.) indítását a rendszerindításkor, csökkentve a háttérbeli lemez- és CPU-tevékenységet. Megjegyzés: a biztonsági szoftverek jelezhetik az AutoLogger módosításait, mert azok a diagnosztikai nyomkövetést érintik.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
+    <value>Cortana és webes keresés kikapcsolása</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
+    <value>Kikapcsolja a Cortana hangasszisztenst, valamint letiltja a felhőkeresést és a webes találatokat a Windows keresésben (csak Windows 10).</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
+    <value>Windows Copilot kikapcsolása</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
+    <value>Eltávolítja az AI Copilot asszisztenst a tálcáról és a rendszerhéjból, memóriát és képernyőhelyet szabadítva fel.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
+    <value>Felhőalapú tartalomszolgáltatás kikapcsolása</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
+    <value>Kikapcsolja a Windows felhőből érkező tartalmait, beleértve a rendszertippeket, a kiemelt javaslatokat és a fogyasztói funkciók automatikus kézbesítését.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
+    <value>Előre telepített felesleges programok blokkolása</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
+    <value>Megakadályozza, hogy a Windows automatikusan újratelepítse a nem kívánt harmadik féltől származó alkalmazásokat és reklámozott szoftvereket.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
+    <value>Rendszerszolgáltatások optimalizálása</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
+    <value>A nem létfontosságú háttérszolgáltatásokat állítja be úgy, hogy erőforrásokat szabadítson fel, miközben minden szükséges Windows-funkció megmarad.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType" xml:space="preserve">
+    <value>A(z) {0} indítási típusának beállítása erre: {1}...</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Display" xml:space="preserve">
+    <value>Megjelenítés</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Visual" xml:space="preserve">
+    <value>Vizuális</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows10Only" xml:space="preserve">
+    <value>Csak Windows 10</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows11Only" xml:space="preserve">
+    <value>Csak Windows 11</value>
+  </data>
+  <data name="Optimizer.Gpu" xml:space="preserve">
+    <value>GPU</value>
+  </data>
+
+  <data name="Optimizer.UserExperience" xml:space="preserve">
+    <value>Felhasználói élmény</value>
+  </data>
+  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
+    <value>Intéző és menük gyorsítása</value>
+  </data>
+  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
+    <value>A StartupDelayInMSec=0 és a MenuShowDelay=0 beállításával megszünteti az Intéző indítási késleltetését, és minimálisra csökkenti a menük fölé mozgatásának késleltetését.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>Frissítésszüneteltetési korlát maximalizálása</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>A Windows Update szüneteltetésének felső határát a legnagyobb támogatott értékre állítja. Csak azok a Windows-verziók veszik figyelembe, amelyek még támogatják ezt a beállítást; amíg aktív, a biztonsági frissítések szünetelnek.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>Start menü webes keresésének kikapcsolása</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>Kikapcsolja a webes keresést a Windows Start menüben, hogy a helyi találatok gyorsabban betöltődjenek.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
+    <value>Vizuális effektek kikapcsolása</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
+    <value>Kikapcsolja a tálcaanimációkat, a lista nézet árnyékait, az ablakok átlátszóságát és az Aero Peeket, hogy GPU/CPU-erőforrásokat szabadítson fel a jobb teljesítményért.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
+    <value>AMD ULPS kikapcsolása</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
+    <value>EnableULPS=0 beállítása az AMD GPU registryben, hogy elkerülje az Ultra Low Power State felébredési késleltetéseit és a többmonitoros problémákat. Csökkenti az energiatakarékosságot tétlen állapotban.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
+    <value>AMD Power Gating kikapcsolása</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
+    <value>DisablePowerGating=1, PP_GPUPowerDownEnabled=0, DisableDynamicPstate=1 beállítása, hogy megakadályozza az AMD GPU energiaállapot-váltásait. Állandó órajelet tart fenn, nagyobb tétlen fogyasztás árán.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>AMD videó-órajel-kapuzás kikapcsolása</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>DisableVCEPowerGating=1, DisableVceClockGating=1, EnableUvdClockGating=0 beállítása az AMD videomotorokhoz (VCE/UVD) a kódolási/dekódolási stabilitás javításáért. Növeli a videolejátszás fogyasztását.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
+    <value>AMD ASPM kikapcsolása</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
+    <value>EnableAspmL0s=0, EnableAspmL1=0 beállítása, hogy kikapcsolja az Active State Power Managementet az AMD GPU-kon, csökkentve a PCIe-busz késleltetését. Növeli a foglalat fogyasztását.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
+    <value>NVIDIA dinamikus P-state kikapcsolása</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
+    <value>DisableDynamicPstate=1 beállítása, hogy az NVIDIA GPU fix teljesítményállapotban maradjon, megakadályozva az órajel-ingadozást. Növeli a tétlen fogyasztást.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
+    <value>NVIDIA aszinkron P-state-ek kikapcsolása</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
+    <value>DisableASyncPstates=1 beállítása, hogy megakadályozza az NVIDIA aszinkron energiaállapot-váltásait, kiszámítható teljesítményt adva VR- és valós idejű alkalmazásokhoz.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>Intel aszinkron flipek kikapcsolása</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>Display1_DisableAsyncFlips=1 beállítása, hogy szinkron puffercserét kényszerítsen az Intel iGPU-n, csökkentve a bemenet-kijelző késleltetést és a képernyőszakadást.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
+    <value>Intel adaptív V-Sync kikapcsolása</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
+    <value>AdaptiveVsyncEnable=0 beállítása, hogy kikapcsolja az Intel adaptív V-Syncjét, amely dinamikusan igazodik a képsebességhez; helyette fix V-Sync biztosít stabil időzítést.</value>
+  </data>
+
+  <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
+    <value>Tálca</value>
+  </data>
+  <data name="Customize.Preferences.Section.Appearance" xml:space="preserve">
+    <value>Megjelenés</value>
+  </data>
+  <data name="Customize.Preferences.Section.Explorer" xml:space="preserve">
+    <value>Intéző</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarWidgets.Name" xml:space="preserve">
+    <value>Tálca widgetjei</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarWidgets.Description" xml:space="preserve">
+    <value>Megjeleníti vagy elrejti a Widgetek gombot a tálcán. A widgetek gyors hozzáférést adnak hírekhez, időjáráshoz és egyéb frissítésekhez.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarWidgets.Recommendation.Reason" xml:space="preserve">
+    <value>A Widgetek funkció a háttérben híreket és időjárást tölthet le, ami növelheti a tétlen hálózat- és memóriahasználatot.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Name" xml:space="preserve">
+    <value>Tálca igazítása</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Description" xml:space="preserve">
+    <value>Kiválaszthatod, hogy a tálca ikonjai középen legyenek vagy balra igazítva.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Options.Center" xml:space="preserve">
+    <value>Közép</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Options.Left" xml:space="preserve">
+    <value>Bal</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Name" xml:space="preserve">
+    <value>Tálcagombok összevonása</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Description" xml:space="preserve">
+    <value>Kiválaszthatod, mikor vonja össze a tálcagombokat és rejtse el a feliratokat az összes kijelzőn.</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.Always" xml:space="preserve">
+    <value>Mindig</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.WhenFull" xml:space="preserve">
+    <value>Ha a tálca megtelt</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.Never" xml:space="preserve">
+    <value>Soha</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerCompactMode.Name" xml:space="preserve">
+    <value>Intéző kompakt mód</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerCompactMode.Description" xml:space="preserve">
+    <value>Csökkenti az elemek közötti térközt a Fájlkezelőben a kompaktabb nézetért.</value>
+  </data>
+  <data name="Customize.Preferences.SnapAssistFlyout.Name" xml:space="preserve">
+    <value>Snap-elrendezések menü</value>
+  </data>
+  <data name="Customize.Preferences.SnapAssistFlyout.Description" xml:space="preserve">
+    <value>Megjeleníti vagy elrejti a Snap-elrendezések menüt, amikor az egérrel egy ablak maximalizálás gombja fölé viszed.</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerItemCheckboxes.Name" xml:space="preserve">
+    <value>Elemjelölő négyzetek az Intézőben</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerItemCheckboxes.Description" xml:space="preserve">
+    <value>Jelölőnégyzeteket jelenít meg a Fájlkezelő elemei mellett, megkönnyítve több fájl egyszerre történő kijelölését.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarTaskViewButton.Name" xml:space="preserve">
+    <value>Tálca Feladatnézet gombja</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
+    <value>Megjeleníti vagy elrejti a Feladatnézet gombot a tálcán.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarEndTask.Name" xml:space="preserve">
+    <value>Feladat leállítása a tálcán</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarEndTask.Description" xml:space="preserve">
+    <value>Feladat leállítása parancsot ad a tálca helyi menüjéhez, így a Feladatkezelő megnyitása nélkül is bezárhatsz egy nem válaszoló alkalmazást.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarEndTask.Recommendation.Reason" xml:space="preserve">
+    <value>A tálcán elérhető Feladat leállítása azonnal leállítja a lefagyott alkalmazásokat a Feladatkezelő megnyitása nélkül.</value>
+  </data>
+  <data name="Customize.Preferences.DarkMode.Name" xml:space="preserve">
+    <value>Sötét mód</value>
+  </data>
+  <data name="Customize.Preferences.DarkMode.Description" xml:space="preserve">
+    <value>Sötét színeket alkalmaz a Windows alkalmazásaira, a Beállításokra és más rendszerhéj-elemekre.</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerSyncNotifications.Name" xml:space="preserve">
+    <value>Intéző szinkronizálási értesítései</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerSyncNotifications.Description" xml:space="preserve">
+    <value>Megjeleníti vagy elrejti a OneDrive és más felhőszinkronizáló szolgáltatók értesítéseit a Fájlkezelőben.</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerSyncNotifications.Recommendation.Reason" xml:space="preserve">
+    <value>Az Intéző szinkronizálási értesítései funkció a OneDrive és a felhőszinkronizálási felugró ablakokat szabályozza fájlböngészés közben.</value>
+  </data>
+  <data name="Customize.Preferences.SystemSuggestions.Name" xml:space="preserve">
+    <value>Rendszerjavaslatok</value>
+  </data>
+  <data name="Customize.Preferences.SystemSuggestions.Description" xml:space="preserve">
+    <value>Megjeleníti vagy elrejti a Windows tippjeit és alkalmazásjavaslatait a Beállításokban.</value>
+  </data>
+  <data name="Customize.Preferences.SystemSuggestions.Recommendation.Reason" xml:space="preserve">
+    <value>A Rendszerjavaslatok funkció a Windows alkalmazás- és beállításajánlásait szabályozza.</value>
+  </data>
+  <data name="Customize.Preferences.ToastNotifications.Name" xml:space="preserve">
+    <value>Bejelentési értesítések</value>
+  </data>
+  <data name="Customize.Preferences.ToastNotifications.Description" xml:space="preserve">
+    <value>A bejelentési értesítéseket szabályozza, beleértve az asztalon vagy a zárolási képernyőn megjelenő figyelmeztetéseket.</value>
+  </data>
+  <data name="Customize.Preferences.ShowFileExtensions.Name" xml:space="preserve">
+    <value>Fájlkiterjesztések</value>
+  </data>
+  <data name="Customize.Preferences.ShowFileExtensions.Description" xml:space="preserve">
+    <value>Megjeleníti vagy elrejti a fájlkiterjesztéseket (pl. .txt, .exe) a Fájlkezelőben.</value>
+  </data>
+  <data name="Customize.Preferences.ShowFileExtensions.Recommendation.Reason" xml:space="preserve">
+    <value>A fájlkiterjesztések segítenek felismerni a gyanús fájltípusokat, és megakadályozzák, hogy a rosszindulatú szoftverek félrevezető ikonok mögé rejtőzzenek.</value>
+  </data>
+  <data name="Customize.Preferences.ShowHiddenFiles.Name" xml:space="preserve">
+    <value>Rejtett fájlok</value>
+  </data>
+  <data name="Customize.Preferences.ShowHiddenFiles.Description" xml:space="preserve">
+    <value>Megjeleníti vagy elrejti a rejtett fájlokat és mappákat a Fájlkezelőben.</value>
+  </data>
+  <data name="Customize.Preferences.ShowHiddenFiles.Recommendation.Reason" xml:space="preserve">
+    <value>A rejtett fájlok rendszer- és konfigurációs adatokat tartalmaznak, amelyekre az adminisztrációhoz és a hibaelhárításhoz szükség lehet.</value>
+  </data>
+  <data name="Customize.Preferences.ClipboardHistory.Name" xml:space="preserve">
+    <value>Vágólap-előzmények</value>
+  </data>
+  <data name="Customize.Preferences.ClipboardHistory.Description" xml:space="preserve">
+    <value>Megőrzi a másolt elemek előzményeit, amelyeket a Win+V billentyűkombinációval böngészhetsz.</value>
+  </data>
+  <data name="Customize.Preferences.ClipboardHistory.Recommendation.Reason" xml:space="preserve">
+    <value>A vágólap-előzményekkel a Win+V segítségével előhívhatod a korábbi másolatokat, felgyorsítva az ismétlődő másolás-beillesztés munkafolyamatokat.</value>
+  </data>
+  <data name="Customize.Preferences.WindowShake.Name" xml:space="preserve">
+    <value>Ablakrázás</value>
+  </data>
+  <data name="Customize.Preferences.WindowShake.Description" xml:space="preserve">
+    <value>Az aktív ablak rázásával minimalizálhatod a többi ablakot, vagy kikapcsolhatod ezt a viselkedést.</value>
+  </data>
+  <data name="Customize.Preferences.ClassicContextMenu.Name" xml:space="preserve">
+    <value>Klasszikus helyi menü</value>
+  </data>
+  <data name="Customize.Preferences.ClassicContextMenu.Description" xml:space="preserve">
+    <value>A klasszikus Windows 10-es helyi menüt használja a tömör Windows 11-es menü helyett.</value>
+  </data>
+  <data name="Customize.Preferences.ClassicContextMenu.Recommendation.Reason" xml:space="preserve">
+    <value>A klasszikus menü egyszerre mutatja az összes lehetőséget, így nincs szükség a Windows 11 tömör menüjének külön kinyitására.</value>
+  </data>
+  <data name="Customize.Preferences.ShowSecondsInSystemClock.Name" xml:space="preserve">
+    <value>Másodpercek a rendszerórán</value>
+  </data>
+  <data name="Customize.Preferences.ShowSecondsInSystemClock.Description" xml:space="preserve">
+    <value>Másodperceket jelenít meg a tálca órájában.</value>
+  </data>
+  <data name="Customize.Gaming.Section.GameSettings" xml:space="preserve">
+    <value>Játékbeállítások</value>
+  </data>
+  <data name="Customize.Gaming.Section.Input" xml:space="preserve">
+    <value>Bevitel</value>
+  </data>
+  <data name="Customize.Gaming.Section.Display" xml:space="preserve">
+    <value>Megjelenítés</value>
+  </data>
+  <data name="Customize.Gaming.GameMode.Name" xml:space="preserve">
+    <value>Játék mód</value>
+  </data>
+  <data name="Customize.Gaming.GameMode.Description" xml:space="preserve">
+    <value>A játékoknak ad elsőbbséget a rendszererőforrásokból, és megváltoztatja a Windows Update viselkedését játék közben.</value>
+  </data>
+  <data name="Customize.Gaming.GameMode.Recommendation.Reason" xml:space="preserve">
+    <value>A Játék mód automatikusan előnyben részesíti a játékfolyamatokat, és játék közben felfüggeszti a Windows Update értesítéseit a zökkenőmentesebb teljesítményért.</value>
+  </data>
+  <data name="Customize.Gaming.GameBar.Name" xml:space="preserve">
+    <value>Xbox Game Bar</value>
+  </data>
+  <data name="Customize.Gaming.GameBar.Description" xml:space="preserve">
+    <value>Megjeleníti az Xbox Game Bart és a hozzá kapcsolódó átfedéseket, háttérfunkciókat.</value>
+  </data>
+  <data name="Customize.Gaming.GameBar.Recommendation.Reason" xml:space="preserve">
+    <value>Az Xbox Game Bar funkció átfedéseket és háttérbeli játék-eszközöket biztosít, amelyek rendszererőforrásokat használhatnak.</value>
+  </data>
+  <data name="Customize.Gaming.BackgroundRecording.Name" xml:space="preserve">
+    <value>Háttérfelvétel (DVR)</value>
+  </data>
+  <data name="Customize.Gaming.BackgroundRecording.Description" xml:space="preserve">
+    <value>A Game DVR segítségével a háttérben rögzíti a játékmenetet és az alkalmazástevékenységet.</value>
+  </data>
+  <data name="Customize.Gaming.BackgroundRecording.Recommendation.Reason" xml:space="preserve">
+    <value>A Háttérfelvétel funkció a háttérben rögzíti a játékmenetet, ami CPU-erőforrásokat használhat és lemezírást okozhat.</value>
+  </data>
+  <data name="Customize.Gaming.MouseAcceleration.Name" xml:space="preserve">
+    <value>Egérgyorsítás</value>
+  </data>
+  <data name="Customize.Gaming.MouseAcceleration.Description" xml:space="preserve">
+    <value>Beállítja, hogyan reagáljon a kurzor mozgása az egér sebességére.</value>
+  </data>
+  <data name="Customize.Gaming.MouseAcceleration.Recommendation.Reason" xml:space="preserve">
+    <value>Az Egérgyorsítás funkció a sebesség alapján változtatja a kurzor mozgását; a nyers lineáris bevitel javíthatja a célzás egyenletességét.</value>
+  </data>
+  <data name="Customize.Gaming.FullscreenOptimizations.Name" xml:space="preserve">
+    <value>Teljes képernyős optimalizációk</value>
+  </data>
+  <data name="Customize.Gaming.FullscreenOptimizations.Description" xml:space="preserve">
+    <value>A Windows teljes képernyős optimalizációit alkalmazza, amelyek javíthatják egyes játékok kompatibilitását.</value>
+  </data>
+  <data name="Customize.Gaming.FullscreenOptimizations.Recommendation.Reason" xml:space="preserve">
+    <value>Kapcsold ki, ha játék közben akadozást, bemeneti késleltetést vagy fekete képernyőt tapasztalsz (különösen versenyképes lövöldözős játékokban).</value>
+  </data>
+  <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Name" xml:space="preserve">
+    <value>Hardveresen gyorsított GPU-ütemezés</value>
+  </data>
+  <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Description" xml:space="preserve">
+    <value>Engedélyezi, hogy a GPU több videomemória-ütemezési feladatot végezzen. Kompatibilis grafikus illesztőprogram szükséges.</value>
+  </data>
+  <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Recommendation.Reason" xml:space="preserve">
+    <value>A GPU-ütemezés a képkockakezelést a CPU-ról a GPU-ra terheli, csökkentve a megjelenítési késleltetést és javítva a képkocka-időzítést.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Name" xml:space="preserve">
+    <value>DLSS átfedésjelző</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Description" xml:space="preserve">
+    <value>A képernyőn megjelenő DLSS-átfedésjelzőt szabályozza, amellyel ellenőrizhető, hogy a játék melyik DLSS-verzióval renderel.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Recommendation.Reason" xml:space="preserve">
+    <value>Diagnosztikai átfedés; hagyd kikapcsolva, hacsak nem a DLSS viselkedését vizsgálod.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.Off" xml:space="preserve">
+    <value>Ki</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.DebugOnly" xml:space="preserve">
+    <value>Csak hibakeresési DLL-ek</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.AllVersions" xml:space="preserve">
+    <value>Az összes DLSS-verzió</value>
+  </data>
+  <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
+    <value>NE módosítsd, hacsak nem tudod pontosan, mit csinálsz</value>
+  </data>
+  <data name="Settings.About.Acknowledgements.Title" xml:space="preserve">
+    <value>Köszönetnyilvánítás</value>
+  </data>
+  <data name="Settings.About.Acknowledgements.Description" xml:space="preserve">
+    <value>Az optimizerDuck az alábbi nyílt forráskódú szoftverek és erőforrások nélkül nem jöhetett volna létre.</value>
+  </data>
+  <data name="RestorePoint.Title" xml:space="preserve">
+    <value>Rendszer-visszaállítás</value>
+  </data>
+  <data name="RestorePointDialog.Description" xml:space="preserve">
+    <value>A visszaállítási pont lehetővé teszi, hogy a rendszert egy korábbi állapotra állítsd vissza.
+Ez egy biztonsági intézkedés, amely a módosítások alkalmazása előtt védi a Windows-t.</value>
+  </data>
+  <data name="RestorePointDialog.Help" xml:space="preserve">
+    <value>Az alkalmazás automatikusan engedélyezi a Rendszer-visszaállítást, és létrehoz egy "optimizerDuck..." nevű ellenőrzőpontot.
+Így bármi hiba esetén mindig visszatérhetsz.</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Error.Title" xml:space="preserve">
+    <value>Nem sikerült létrehozni vagy engedélyezni a Rendszer-visszaállítást.</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Error.Message" xml:space="preserve">
+    <value>Hiba történt a Rendszer-visszaállítás létrehozása vagy engedélyezése közben. Próbáld meg manuálisan létrehozni.</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Warning.LimitReached" xml:space="preserve">
+    <value>Az elmúlt 24 órában már készült visszaállítási pont.</value>
+  </data>
+  <data name="RestorePoint.Progress.Creating" xml:space="preserve">
+    <value>Visszaállítási pont létrehozása...</value>
+  </data>
+  <data name="RestorePoint.Progress.Enabling" xml:space="preserve">
+    <value>Rendszer-visszaállítás engedélyezése...</value>
+  </data>
+  <data name="RestorePoint.Progress.Retrying" xml:space="preserve">
+    <value>Visszaállítási pont létrehozásának újrapróbálása...</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Success.Title" xml:space="preserve">
+    <value>A visszaállítási pont sikeresen létrejött</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Success.Message" xml:space="preserve">
+    <value>Visszaállítási pont létrehozva ezzel a névvel: {0}.</value>
+  </data>
+  <data name="Snackbar.OpenLinkFailed.Title" xml:space="preserve">
+    <value>Nem sikerült megnyitni az útvonalat</value>
+  </data>
+  <data name="Snackbar.OpenLinkFailed.Message" xml:space="preserve">
+    <value>Hiba történt az útvonal megnyitása közben. Ellenőrizd a naplót.</value>
+  </data>
+  <data name="Snackbar.OpenFailed.Message" xml:space="preserve">
+    <value>Hiba történt a mappa vagy fájl megnyitása közben. Ellenőrizd a naplót.</value>
+  </data>
+  <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
+    <value>Nem sikerült megnyitni a mappát vagy a fájlt</value>
+  </data>
+  <data name="BloatwareDialog.Title" xml:space="preserve">
+    <value>{0} AppX-csomag eltávolítása</value>
+  </data>
+  <data name="BloatwareDialog.Removing" xml:space="preserve">
+    <value>{0} eltávolítása ({1}/{2})</value>
+  </data>
+  <data name="Bloatware.Header.Title" xml:space="preserve">
+    <value>Felesleges programok</value>
+  </data>
+  <data name="Bloatware.Menu.Remove" xml:space="preserve">
+    <value>Eltávolítás ({0})</value>
+  </data>
+  <data name="Bloatware.Menu.Refresh" xml:space="preserve">
+    <value>Frissítés</value>
+  </data>
+  <data name="Bloatware.Empty.Title" xml:space="preserve">
+    <value>Nem találhatók felesleges alkalmazások ¯\_(ツ)_/¯</value>
+  </data>
+  <data name="Bloatware.Empty.Description" xml:space="preserve">
+    <value>Az optimizerDuck nem talált eltávolítható AppX-csomagot. Olyan üres, mint a semmi...</value>
+  </data>
+  <data name="Bloatware.Loading" xml:space="preserve">
+    <value>Eltávolítható alkalmazások keresése...</value>
+  </data>
+  <data name="Bloatware.Loading.Hint" xml:space="preserve">
+    <value>Ez eltarthat egy ideig, amíg az alkalmazás átvizsgálja a telepített csomagokat.</value>
+  </data>
+  <data name="Sidebar.Bloatware" xml:space="preserve">
+    <value>Felesleges programok</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.Title" xml:space="preserve">
+    <value>Eltávolítod {0} alkalmazást?</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.Description" xml:space="preserve">
+    <value>Az eltávolítás előtt nézd át a kijelölt alkalmazásokat. Csak akkor folytasd, ha biztos vagy benne.</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.SelectedList" xml:space="preserve">
+    <value>Kijelölt alkalmazások</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.Title" xml:space="preserve">
+    <value>Figyelem: szokatlan csomagnév</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.Description" xml:space="preserve">
+    <value>A következő csomagok szokatlan azonosítóval vagy nem ellenőrzött névformátummal rendelkeznek. A szokatlan nevű csomagok eltávolítása hibákat okozhat, vagy nem kívánt fájlokat törölhet. Kérlek, gondosan nézd át, mielőtt folytatod.</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.SelectedList" xml:space="preserve">
+    <value>Szokatlan csomag(ok) észlelve</value>
+  </data>
+  <data name="Settings.Bloatware.Header" xml:space="preserve">
+    <value>Felesleges programok</value>
+  </data>
+  <data name="Settings.Bloatware.RemoveProvisioned.Title" xml:space="preserve">
+    <value>Előre telepített (provisioned) csomagok eltávolítása</value>
+  </data>
+  <data name="Settings.Bloatware.RemoveProvisioned.Description" xml:space="preserve">
+    <value>A telepített AppX-csomagok eltávolításakor a megfelelő provisioned csomagokat is eltávolítja, hogy az új felhasználóknál ne települjenek újra automatikusan.</value>
+  </data>
+  <data name="Dashboard.UpdateInfoBar.Message" xml:space="preserve">
+    <value>Elérhető az optimizerDuck (v{0})!
+Frissíts most, hogy élvezhesd a legújabb funkciókat, javításokat és hibajavításokat.</value>
+  </data>
+  <data name="Common.Search.Placeholder" xml:space="preserve">
+    <value>Keresés...</value>
+  </data>
+  <data name="Common.Filter.All" xml:space="preserve">
+    <value>Összes</value>
+  </data>
+  <data name="Common.SortBy.Name" xml:space="preserve">
+    <value>Név</value>
+  </data>
+  <data name="Common.SortBy.Risk" xml:space="preserve">
+    <value>Kockázat</value>
+  </data>
+  <data name="Common.SortBy.Publisher" xml:space="preserve">
+    <value>Kiadó</value>
+  </data>
+  <data name="Common.SortBy.Size" xml:space="preserve">
+    <value>Méret</value>
+  </data>
+  <data name="Common.SortBy.Path" xml:space="preserve">
+    <value>Útvonal</value>
+  </data>
+  <data name="Optimizer.Menu.ViewSource" xml:space="preserve">
+    <value>Forrás megtekintése</value>
+  </data>
+  <data name="Bloatware.Menu.SelectAllSafe" xml:space="preserve">
+    <value>Összes biztonságos kijelölése</value>
+  </data>
+  <data name="Bloatware.Menu.DeselectAllSafe" xml:space="preserve">
+    <value>Összes biztonságos kijelölésének megszüntetése</value>
+  </data>
+  <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
+    <value>Befejezett elemek elrejtése</value>
+  </data>
+  <data name="Bloatware.Search.NoResults" xml:space="preserve">
+    <value>Nincs találat. Próbálj más keresőkifejezést vagy szűrőt.</value>
+  </data>
+  <data name="Common.Filter" xml:space="preserve">
+    <value>Szűrő</value>
+  </data>
+  <data name="Common.SortBy" xml:space="preserve">
+    <value>Rendezés</value>
+  </data>
+  <data name="Sidebar.DiskCleanup" xml:space="preserve">
+    <value>Lemezkarbantartás</value>
+  </data>
+  <data name="DiskCleanup.Header.Title" xml:space="preserve">
+    <value>Lemezkarbantartás</value>
+  </data>
+  <data name="DiskCleanup.Header.Description" xml:space="preserve">
+    <value>Helyet szabadít fel a lemezen ideiglenes fájlok és gyorsítótár törlésével</value>
+  </data>
+  <data name="DiskCleanup.TotalSpace" xml:space="preserve">
+    <value>Összes felszabadítható hely</value>
+  </data>
+  <data name="DiskCleanup.Button.Scan" xml:space="preserve">
+    <value>Vizsgálat</value>
+  </data>
+  <data name="DiskCleanup.Button.SelectAll" xml:space="preserve">
+    <value>Összes kijelölése</value>
+  </data>
+  <data name="DiskCleanup.Button.DeselectAll" xml:space="preserve">
+    <value>Kijelölés megszüntetése</value>
+  </data>
+  <data name="DiskCleanup.Loading" xml:space="preserve">
+    <value>Karbantartási elemek betöltése...</value>
+  </data>
+  <data name="DiskCleanup.Complete.Title" xml:space="preserve">
+    <value>A karbantartás befejeződött</value>
+  </data>
+  <data name="DiskCleanup.Complete.Message" xml:space="preserve">
+    <value>{0} lemezterület felszabadítva itt: {1}</value>
+  </data>
+  <data name="DiskCleanup.Error.Title" xml:space="preserve">
+    <value>Karbantartási hiba</value>
+  </data>
+  <data name="DiskCleanup.Error.Message" xml:space="preserve">
+    <value>Néhány fájlt nem sikerült törölni. Lehet, hogy egy másik folyamat használja őket.</value>
+  </data>
+  <data name="DiskCleanup.Item.TempFiles" xml:space="preserve">
+    <value>Ideiglenes fájlok</value>
+  </data>
+  <data name="DiskCleanup.Item.TempFiles.Description" xml:space="preserve">
+    <value>Az alkalmazások által létrehozott felhasználói ideiglenes fájlok (a .net ideiglenes mappa kivételével)</value>
+  </data>
+  <data name="DiskCleanup.Item.SystemTemp" xml:space="preserve">
+    <value>Rendszer ideiglenes fájljai</value>
+  </data>
+  <data name="DiskCleanup.Item.SystemTemp.Description" xml:space="preserve">
+    <value>Windows rendszer ideiglenes fájljai</value>
+  </data>
+  <data name="DiskCleanup.Item.WindowsUpdate" xml:space="preserve">
+    <value>Windows Update gyorsítótár</value>
+  </data>
+  <data name="DiskCleanup.Item.WindowsUpdate.Description" xml:space="preserve">
+    <value>Már nem szükséges letöltött Windows Update-fájlok</value>
+  </data>
+  <data name="DiskCleanup.Item.Prefetch" xml:space="preserve">
+    <value>Prefetch-fájlok</value>
+  </data>
+  <data name="DiskCleanup.Item.Prefetch.Description" xml:space="preserve">
+    <value>Az alkalmazások gyorsabb betöltését segítő prefetch-adatok</value>
+  </data>
+  <data name="DiskCleanup.Item.Thumbnails" xml:space="preserve">
+    <value>Bélyegkép-gyorsítótár</value>
+  </data>
+  <data name="DiskCleanup.Item.Thumbnails.Description" xml:space="preserve">
+    <value>Az Intéző fájlelőnézeteihez gyorsítótárazott bélyegképek</value>
+  </data>
+  <data name="DiskCleanup.Item.RecycleBin" xml:space="preserve">
+    <value>Lomtár</value>
+  </data>
+  <data name="DiskCleanup.Item.RecycleBin.Description" xml:space="preserve">
+    <value>A lomtárban még tárolt törölt fájlok</value>
+  </data>
+  <data name="DiskCleanup.Item.ErrorReports" xml:space="preserve">
+    <value>Hibajelentések</value>
+  </data>
+  <data name="DiskCleanup.Item.ErrorReports.Description" xml:space="preserve">
+    <value>Windows hibajelentések és összeomlási dumpfájlok</value>
+  </data>
+  <data name="DiskCleanup.Item.OldWindowsInstallation" xml:space="preserve">
+    <value>Régi Windows-telepítés (Windows.old)</value>
+  </data>
+  <data name="DiskCleanup.Item.OldWindowsInstallation.Description" xml:space="preserve">
+    <value>Egy nagyobb frissítés vagy verziófrissítés után megtartott korábbi Windows-telepítési fájlok</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.DeviceType.Laptop" xml:space="preserve">
+    <value>Laptop</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.DeviceType.Desktop" xml:space="preserve">
+    <value>Asztali számítógép</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.Build" xml:space="preserve">
+    <value>Build {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Platform.Header" xml:space="preserve">
+    <value>Platform és biztonság</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Firmware" xml:space="preserve">
+    <value>Firmware: {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.SecureBoot" xml:space="preserve">
+    <value>Biztonságos indítás: {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Vbs" xml:space="preserve">
+    <value>VBS: {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.MemoryIntegrity" xml:space="preserve">
+    <value>Memóriaintegritás: {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.PowerPlan" xml:space="preserve">
+    <value>Energia: {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Uptime.Label" xml:space="preserve">
+    <value>Üzemidő</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Memory.Speed" xml:space="preserve">
+    <value>{0} MT/s</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Cpu.Frequency" xml:space="preserve">
+    <value>{0} MHz</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Gpu.Driver" xml:space="preserve">
+    <value>Illesztőprogram {0}</value>
+  </data>
+  <data name="Enum.CpuVendor.Intel" xml:space="preserve">
+    <value>Intel</value>
+  </data>
+  <data name="Enum.CpuVendor.Amd" xml:space="preserve">
+    <value>AMD</value>
+  </data>
+  <data name="Enum.GpuVendor.Nvidia" xml:space="preserve">
+    <value>NVIDIA</value>
+  </data>
+  <data name="Enum.GpuVendor.Amd" xml:space="preserve">
+    <value>AMD</value>
+  </data>
+  <data name="Enum.GpuVendor.Intel" xml:space="preserve">
+    <value>Intel</value>
+  </data>
+  <data name="Enum.Architecture.X64" xml:space="preserve">
+    <value>64 bites</value>
+  </data>
+  <data name="Enum.Architecture.X86" xml:space="preserve">
+    <value>32 bites</value>
+  </data>
+  <data name="Enum.Architecture.Arm64" xml:space="preserve">
+    <value>ARM64</value>
+  </data>
+  <data name="Enum.FirmwareMode.Uefi" xml:space="preserve">
+    <value>UEFI</value>
+  </data>
+  <data name="Enum.FirmwareMode.Legacy" xml:space="preserve">
+    <value>Régi BIOS</value>
+  </data>
+  <data name="Enum.SecureBootState.Enabled" xml:space="preserve">
+    <value>Engedélyezve</value>
+  </data>
+  <data name="Enum.SecureBootState.Disabled" xml:space="preserve">
+    <value>Letiltva</value>
+  </data>
+  <data name="Enum.SecureBootState.Unavailable" xml:space="preserve">
+    <value>Nem elérhető</value>
+  </data>
+  <data name="Enum.VbsState.Enabled" xml:space="preserve">
+    <value>Engedélyezve</value>
+  </data>
+  <data name="Enum.VbsState.Disabled" xml:space="preserve">
+    <value>Letiltva</value>
+  </data>
+  <data name="Enum.VbsState.Unavailable" xml:space="preserve">
+    <value>Nem elérhető</value>
+  </data>
+  <data name="Enum.MemoryType.Ddr" xml:space="preserve">
+    <value>DDR</value>
+  </data>
+  <data name="Enum.MemoryType.Ddr2" xml:space="preserve">
+    <value>DDR2</value>
+  </data>
+  <data name="Enum.MemoryType.Ddr3" xml:space="preserve">
+    <value>DDR3</value>
+  </data>
+  <data name="Enum.MemoryType.Ddr4" xml:space="preserve">
+    <value>DDR4</value>
+  </data>
+  <data name="Enum.MemoryType.Ddr5" xml:space="preserve">
+    <value>DDR5</value>
+  </data>
+  <data name="Enum.MemoryType.Sdram" xml:space="preserve">
+    <value>SDRAM</value>
+  </data>
+  <data name="Enum.MemoryType.Other" xml:space="preserve">
+    <value>Egyéb</value>
+  </data>
+  <data name="Enum.MemoryType.Lpddr" xml:space="preserve">
+    <value>LPDDR</value>
+  </data>
+  <data name="Enum.MemoryType.Hbm" xml:space="preserve">
+    <value>HBM</value>
+  </data>
+  <data name="Enum.StorageMediaType.Hdd" xml:space="preserve">
+    <value>HDD</value>
+  </data>
+  <data name="Enum.StorageMediaType.Ssd" xml:space="preserve">
+    <value>SSD</value>
+  </data>
+  <data name="Enum.StorageMediaType.Nvme" xml:space="preserve">
+    <value>NVMe</value>
+  </data>
+  <data name="Bloatware.Header.Description" xml:space="preserve">
+    <value>Az előre telepített, szükségtelen alkalmazások kezelése és eltávolítása</value>
+  </data>
+  <data name="DiskCleanup.Button.Clean" xml:space="preserve">
+    <value>Tisztítás</value>
+  </data>
+  <data name="DiskCleanup.Button.CleanSelected" xml:space="preserve">
+    <value>Kijelöltek tisztítása ({0})</value>
+  </data>
+  <data name="DiskCleanup.EmptySize" xml:space="preserve">
+    <value>Üres méret</value>
+  </data>
+  <data name="DiskCleanup.FilesCount" xml:space="preserve">
+    <value>{0} fájl</value>
+  </data>
+  <data name="DiskCleanup.ItemsAndFilesSelected" xml:space="preserve">
+    <value>{0} kijelölve • {1} elem • {2} fájl</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Warning" xml:space="preserve">
+    <value>A fájlok véglegesen törlődnek. Ez a művelet nem vonható vissza.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Title" xml:space="preserve">
+    <value>{0} kijelölt elem tisztítása</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Summary" xml:space="preserve">
+    <value>{0} törlésére készülsz {1} elemből ({2} fájl). Kérlek, nézd át az alábbi elemeket.</value>
+  </data>
+  <data name="Settings.About.NeedHelp.Title" xml:space="preserve">
+    <value>Segítségre van szükséged?</value>
+    </data>
+  <data name="Sidebar.StartupManager" xml:space="preserve">
+    <value>Indítópult-kezelő</value>
+  </data>
+  <data name="StartupManager.Header.Title" xml:space="preserve">
+    <value>Indítópult-kezelő</value>
+  </data>
+  <data name="StartupManager.Header.Description" xml:space="preserve">
+    <value>A Windows indításakor automatikusan futó alkalmazások és feladatok kezelése.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other" xml:space="preserve">
+    <value>Egyéb</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
+    <value>A visszaállítási adatokat tartalmazó nyers JSON-fájl megnyitása ehhez az optimalizáláshoz.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
+    <value>Az optimalizálás forráskódjának megnyitása a böngészőben.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
+    <value>Forrás megtekintése a GitHubon</value>
+  </data>
+  <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
+    <value>Technikai részletek</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Id" xml:space="preserve">
+    <value>Optimalizálás azonosítója</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Class" xml:space="preserve">
+    <value>Osztálynév</value>
+  </data>
+  <data name="StartupManager.Apps.Title" xml:space="preserve">
+    <value>Indítási alkalmazások</value>
+  </data>
+  <data name="StartupManager.Apps.Description" xml:space="preserve">
+    <value>A Windows indításakor automatikusan futó alkalmazások.</value>
+  </data>
+  <data name="StartupManager.Apps.CountSuffix" xml:space="preserve">
+    <value>{0} elem</value>
+  </data>
+  <data name="StartupManager.Tasks.Title" xml:space="preserve">
+    <value>Ütemezett feladatok (bejelentkezéskor)</value>
+  </data>
+  <data name="StartupManager.Tasks.Description" xml:space="preserve">
+    <value>Bejelentkezéskor vagy ütemezés szerint futó Windows-feladatok.</value>
+  </data>
+  <data name="StartupManager.Tasks.CountSuffix" xml:space="preserve">
+    <value>{0} feladat</value>
+  </data>
+  <data name="StartupManager.Loading" xml:space="preserve">
+    <value>Indítási elemek vizsgálata...</value>
+  </data>
+  <data name="StartupManager.Loading.Hint" xml:space="preserve">
+    <value>Ez eltarthat egy ideig, amíg az alkalmazás átvizsgálja a registryt és az indítási mappákat.</value>
+  </data>
+  <data name="StartupManager.Empty.Title" xml:space="preserve">
+    <value>Nincsenek indítási elemek</value>
+  </data>
+  <data name="StartupManager.Empty.Description" xml:space="preserve">
+    <value>Ezen a rendszeren nem találhatók indítási alkalmazások vagy ütemezett feladatok.</value>
+  </data>
+  <data name="StartupManager.Menu.Refresh" xml:space="preserve">
+    <value>Frissítés</value>
+  </data>
+  <data name="Common.Toggle.On" xml:space="preserve">
+    <value>Be</value>
+  </data>
+  <data name="Common.Toggle.Off" xml:space="preserve">
+    <value>Ki</value>
+  </data>
+  <data name="Common.SortBy.Status" xml:space="preserve">
+    <value>Állapot</value>
+  </data>
+  <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
+    <value>Beállítások megnyitása</value>
+  </data>
+  <!-- Scheduled Tasks (Startup Manager) -->
+  <data name="StartupManager.Tasks.HideMicrosoft" xml:space="preserve">
+    <value>Microsoft-feladatok elrejtése</value>
+  </data>
+  <!-- Sidebar -->
+  <data name="Sidebar.ScheduledTasks" xml:space="preserve">
+    <value>Ütemezett feladatok</value>
+  </data>
+  <!-- Scheduled Tasks Page -->
+  <data name="ScheduledTasks.Header.Title" xml:space="preserve">
+    <value>Ütemezett feladatok</value>
+  </data>
+  <data name="ScheduledTasks.Header.Description" xml:space="preserve">
+    <value>Windows ütemezett feladatok megtekintése és kezelése.</value>
+  </data>
+  <data name="ScheduledTasks.Loading" xml:space="preserve">
+    <value>Ütemezett feladatok betöltése...</value>
+  </data>
+  <data name="ScheduledTasks.Loading.Hint" xml:space="preserve">
+    <value>Ez eltarthat egy ideig, amíg a rendszer átvizsgálja az összes ütemezett feladatot...</value>
+  </data>
+  <data name="ScheduledTasks.HideMicrosoft" xml:space="preserve">
+    <value>Microsoft-feladatok elrejtése</value>
+  </data>
+  <!-- Scheduled Tasks Actions -->
+  <data name="ScheduledTasks.Action.Details" xml:space="preserve">
+    <value>Részletek megtekintése</value>
+  </data>
+  <data name="ScheduledTasks.Action.Run" xml:space="preserve">
+    <value>Futtatás</value>
+  </data>
+  <data name="ScheduledTasks.Action.Stop" xml:space="preserve">
+    <value>Leállítás</value>
+  </data>
+  <data name="ScheduledTasks.Action.Delete" xml:space="preserve">
+    <value>Törlés</value>
+  </data>
+  <!-- Scheduled Tasks Dialogs -->
+  <data name="ScheduledTasks.Dialog.DeleteTitle" xml:space="preserve">
+    <value>Ütemezett feladat törlése</value>
+  </data>
+  <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
+    <value>Az ütemezett feladat törlése végleges. A feladat többé nem fut automatikusan.</value>
+  </data>
+  <!-- Scheduled Tasks Details -->
+  <data name="ScheduledTasks.Details.Path" xml:space="preserve">
+    <value>Útvonal</value>
+  </data>
+  <data name="ScheduledTasks.Details.Description" xml:space="preserve">
+    <value>Leírás</value>
+  </data>
+  <data name="ScheduledTasks.Details.Author" xml:space="preserve">
+    <value>Szerző</value>
+  </data>
+  <data name="ScheduledTasks.Details.Triggers" xml:space="preserve">
+    <value>Eseményindítók</value>
+  </data>
+  <data name="ScheduledTasks.Details.Action" xml:space="preserve">
+    <value>Művelet</value>
+  </data>
+  <data name="ScheduledTasks.Details.LastRun" xml:space="preserve">
+    <value>Utolsó futás</value>
+  </data>
+  <data name="ScheduledTasks.Details.NextRun" xml:space="preserve">
+    <value>Következő futás</value>
+  </data>
+  <data name="ScheduledTasks.Details.LastResult" xml:space="preserve">
+    <value>Utolsó eredmény</value>
+  </data>
+  <!-- Common -->
+  <data name="Common.Delete" xml:space="preserve">
+    <value>Törlés</value>
+  </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Mégse</value>
+  </data>
+  <data name="Common.Empty" xml:space="preserve">
+    <value>Üres</value>
+  </data>
+  <data name="Common.SortBy.State" xml:space="preserve">
+    <value>Állapot</value>
+  </data>
+  <data name="ScheduledTasks.Menu.OpenSettings" xml:space="preserve">
+    <value>Feladatütemező megnyitása</value>
+  </data>
+  <data name="ScheduledTasks.Details.Name" xml:space="preserve">
+    <value>Név</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Enabled.Title" xml:space="preserve">
+    <value>Feladat engedélyezve</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Disabled.Title" xml:space="preserve">
+    <value>Feladat letiltva</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Toggle.Message" xml:space="preserve">
+    <value>{0} sikeresen frissítve.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Run.Title" xml:space="preserve">
+    <value>Feladat elindult</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Run.Message" xml:space="preserve">
+    <value>{0} most fut.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Stop.Title" xml:space="preserve">
+    <value>Feladat leállt</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Stop.Message" xml:space="preserve">
+    <value>{0} leállítva.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Delete.Title" xml:space="preserve">
+    <value>Feladat törölve</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Delete.Message" xml:space="preserve">
+    <value>{0} törölve.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Error.Title" xml:space="preserve">
+    <value>Hiba</value>
+  </data>
+  <data name="Settings.About.NeedHelp.Description" xml:space="preserve">
+    <value>Ha segítségre van szükséged az optimalizáláshoz, vagy kérdésed van, csatlakozz a közösségünkhöz a gyors támogatásért.</value>
+    </data>
+  <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
+    <value>A feladat nem található: {0}</value>
+    </data>
+  <data name="Revert.Registry.Description.Restore" xml:space="preserve">
+    <value>Registryérték visszaállítása: {0}\{1}</value>
+  </data>
+  <data name="Revert.Registry.Description.Delete" xml:space="preserve">
+    <value>Registryérték törlése: {0}\{1}</value>
+  </data>
+  <data name="Revert.Service.Description.Restore" xml:space="preserve">
+    <value>A(z) '{0}' szolgáltatás visszaállítása erre az indítási típusra: {1}</value>
+  </data>
+  <data name="Revert.ScheduledTask.Description.Enable" xml:space="preserve">
+    <value>Ütemezett feladat engedélyezése: {0}</value>
+  </data>
+  <data name="Revert.ScheduledTask.Description.Disable" xml:space="preserve">
+    <value>Ütemezett feladat letiltása: {0}</value>
+  </data>
+  <data name="Revert.Shell.Description.Run" xml:space="preserve">
+    <value>{0} parancs futtatása: {1}</value>
+  </data>
+  <data name="Revert.Shell.Error.UnknownShellType" xml:space="preserve">
+    <value>Ismeretlen parancsértelmező-típus</value>
+  </data>
+  <data name="Revert.Shell.Error.CommandFailed" xml:space="preserve">
+    <value>A visszaállítási parancs sikertelen, kilépési kód: {0}</value>
+  </data>
+  <data name="Revert.UsbPower.Error.RestoreFailed" xml:space="preserve">
+    <value>Nem sikerült visszaállítani az USB energiaállapotait</value>
+  </data>
+  <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
+    <value>Befejezési értesítés megjelenítése</value>
+  </data>
+  <data name="Settings.Optimize.ShowCompletionNotification.Description" xml:space="preserve">
+    <value>Értesítést jelenít meg, amikor az optimalizálások sikeresen alkalmazásra vagy visszaállításra kerültek.</value>
+  </data>
+  <data name="Optimizations.Loading" xml:space="preserve">
+    <value>Optimalizálások betöltése...</value>
+  </data>
+  <data name="Optimizations.Loading.Hint" xml:space="preserve">
+    <value>Kérlek, várj...</value>
+  </data>
+  <data name="Common.OpenFolder" xml:space="preserve">
+    <value>Mappa megnyitása</value>
+  </data>
+  <data name="Common.Other" xml:space="preserve">
+    <value>Egyéb</value>
+  </data>
+  <data name="Sidebar.Customize" xml:space="preserve">
+    <value>Testreszabás</value>
+  </data>
+  <data name="Customize.Title" xml:space="preserve">
+    <value>Testreszabás</value>
+  </data>
+  <data name="Customize.SystemFeatures.Name" xml:space="preserve">
+    <value>Rendszer</value>
+  </data>
+  <data name="Customize.SystemFeatures.Description" xml:space="preserve">
+    <value>Hasznos Windows-funkciók és rendszerviselkedés.</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Input" xml:space="preserve">
+    <value>Beviteli beállítások</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
+    <value>Indítási beállítások</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Network" xml:space="preserve">
+    <value>Hálózati beállítások</value>
+  </data>
+  <data name="Customize.SystemFeatures.NumLockOnBoot.Name" xml:space="preserve">
+    <value>NumLock indításkor</value>
+  </data>
+  <data name="Customize.SystemFeatures.NumLockOnBoot.Description" xml:space="preserve">
+    <value>Beállítja, hogy a Num Lock bekapcsolva legyen-e, amikor a Windows eléri a bejelentkezési képernyőt.</value>
+  </data>
+  <data name="Customize.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
+    <value>A NumLock bekapcsolása indításkor biztosítja, hogy a numerikus billentyűzet azonnal használható legyen bejelentkezés után, így nem kell minden alkalommal kézzel átváltani.</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Name" xml:space="preserve">
+    <value>Részletes állapotüzenetek</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Description" xml:space="preserve">
+    <value>A tényleges szolgáltatás, illesztőprogram vagy lépés megjelenítése indítás, leállítás és frissítés közben az általános töltőikon helyett.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Name" xml:space="preserve">
+    <value>A hardveróra UTC-t használ</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Description" xml:space="preserve">
+    <value>A hardveróra UTC-ként értelmezése. Windows/Linux dual-boot esetén szükséges, hogy a két rendszer egyezzen az időben; egyrendszeres gépeken az idő az időzóna-eltolással ugrik, amíg ezt vissza nem kapcsolod.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Recommendation.Reason" xml:space="preserve">
+    <value>Csak akkor kapcsold be, ha ezen a gépen egy másik operációs rendszer is UTC-ként kezeli a hardverórát.</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Name" xml:space="preserve">
+    <value>DNS-szivárgás elleni védelem</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Description" xml:space="preserve">
+    <value>Kikapcsolja a Smart Multi-Homed Name Resolutiont, hogy a DNS-kérések ne versenyezzenek egyszerre minden hálózati adapteren. Megakadályozza, hogy VPN használatakor a kérések megkerüljék az alagutat.</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Power" xml:space="preserve">
+    <value>Energiabeállítások</value>
+  </data>
+  <data name="Customize.Desktop.Name" xml:space="preserve">
+    <value>Asztal</value>
+  </data>
+  <data name="Customize.Desktop.Description" xml:space="preserve">
+    <value>Asztali ikonok és parancsikonok megjelenése.</value>
+  </data>
+  <data name="Customize.Desktop.Section.Icons" xml:space="preserve">
+    <value>Asztali ikonok</value>
+  </data>
+  <data name="Customize.Desktop.Section.Behaviors" xml:space="preserve">
+    <value>Parancsikon-viselkedés</value>
+  </data>
+  <data name="Customize.Desktop.ShowThisPc.Name" xml:space="preserve">
+    <value>Ez a gép</value>
+  </data>
+  <data name="Customize.Desktop.ShowThisPc.Description" xml:space="preserve">
+    <value>Megjeleníti vagy elrejti az Ez a gép ikont az asztalon.</value>
+  </data>
+  <data name="Customize.Desktop.ShowRecycleBin.Name" xml:space="preserve">
+    <value>Lomtár</value>
+  </data>
+  <data name="Customize.Desktop.ShowRecycleBin.Description" xml:space="preserve">
+    <value>Megjeleníti vagy elrejti a Lomtár ikont az asztalon.</value>
+  </data>
+  <data name="Customize.Desktop.ShowUserFiles.Name" xml:space="preserve">
+    <value>Felhasználói fájlok</value>
+  </data>
+  <data name="Customize.Desktop.ShowUserFiles.Description" xml:space="preserve">
+    <value>Megjeleníti vagy elrejti a felhasználói mappádat az asztalon.</value>
+  </data>
+  <data name="Customize.Desktop.ShowNetwork.Name" xml:space="preserve">
+    <value>Hálózat</value>
+  </data>
+  <data name="Customize.Desktop.ShowNetwork.Description" xml:space="preserve">
+    <value>Megjeleníti vagy elrejti a Hálózat ikont az asztalon.</value>
+  </data>
+  <data name="Customize.Desktop.ShowControlPanel.Name" xml:space="preserve">
+    <value>Vezérlőpult</value>
+  </data>
+  <data name="Customize.Desktop.ShowControlPanel.Description" xml:space="preserve">
+    <value>Megjeleníti vagy elrejti a Vezérlőpult ikont az asztalon.</value>
+  </data>
+  <data name="Customize.Desktop.ShowDesktopIcons.Name" xml:space="preserve">
+    <value>Asztali ikonok</value>
+  </data>
+  <data name="Customize.Desktop.ShowDesktopIcons.Description" xml:space="preserve">
+    <value>Egyszerre megjeleníti vagy elrejti az összes asztali ikont.</value>
+  </data>
+  <data name="Customize.Desktop.ShortcutArrow.Name" xml:space="preserve">
+    <value>Parancsikon-nyíl</value>
+  </data>
+  <data name="Customize.Desktop.ShortcutArrow.Description" xml:space="preserve">
+    <value>Megjeleníti vagy elrejti a nyíl átfedést az asztali parancsikonokon.</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Name" xml:space="preserve">
+    <value>A Fájlkezelő indítási helye</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Description" xml:space="preserve">
+    <value>Kiválaszthatod, hogy a Fájlkezelő az Ez a gép vagy a Gyorselérés nézettel nyíljon-e meg.</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Options.QuickAccess" xml:space="preserve">
+    <value>Gyorselérés</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Options.ThisPc" xml:space="preserve">
+    <value>Ez a gép</value>
+  </data>
+  <data name="Customize.Preferences.BingSearch.Name" xml:space="preserve">
+    <value>Bing keresés</value>
+  </data>
+  <data name="Customize.Preferences.BingSearch.Description" xml:space="preserve">
+    <value>Bing webes találatokat is megjelenít a helyi találatok mellett a Windows keresésben és a Start menüben.</value>
+  </data>
+  <data name="Customize.Preferences.BingSearch.Recommendation.Reason" xml:space="preserve">
+    <value>A Bing keresés kikapcsolása megakadályozza, hogy a webes találatok elárasztsák a helyi találatokat, és gyorsabbá teszi a keresést.</value>
+  </data>
+  <data name="Button.Accept" xml:space="preserve">
+    <value>Elfogadás</value>
+  </data>
+  <data name="LegalDialog.Title" xml:space="preserve">
+    <value>Jogi feltételek</value>
+  </data>
+  <data name="LegalDialog.Intro.Title" xml:space="preserve">
+    <value>Üdv az optimizerDuckban!</value>
+  </data>
+  <data name="LegalDialog.Intro.Description" xml:space="preserve">
+    <value>Válaszd ki a nyelvet és a témát, szánj egy percet a Feltételek, az Adatvédelmi irányelvek és a Jogi nyilatkozat átnézésére, és máris kezdheted.</value>
+  </data>
+  <data name="LegalDialog.Link.TermsOfService" xml:space="preserve">
+    <value>Szolgáltatási feltételek</value>
+  </data>
+  <data name="LegalDialog.Link.PrivacyPolicy" xml:space="preserve">
+    <value>Adatvédelmi irányelvek</value>
+  </data>
+  <data name="LegalDialog.Link.Disclaimer" xml:space="preserve">
+    <value>Jogi nyilatkozat</value>
+  </data>
+  <data name="LegalDialog.Language.Title" xml:space="preserve">
+    <value>Nyelv</value>
+  </data>
+  <data name="LegalDialog.Language.Description" xml:space="preserve">
+    <value>Válaszd ki a kívánt nyelvet</value>
+  </data>
+  <data name="LegalDialog.Theme.Title" xml:space="preserve">
+    <value>Téma</value>
+  </data>
+  <data name="LegalDialog.Theme.Description" xml:space="preserve">
+    <value>Válaszd ki a kívánt témát</value>
+  </data>
+  <data name="LegalDialog.Preferences.Header" xml:space="preserve">
+    <value>Preferenciák</value>
+  </data>
+  <data name="LegalDialog.Extras.Header" xml:space="preserve">
+    <value>Fedezd fel</value>
+  </data>
+  <data name="LegalDialog.Extras.GitHub.Title" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="LegalDialog.Extras.GitHub.Description" xml:space="preserve">
+    <value>Forráskód és hibajegyek</value>
+  </data>
+  <data name="LegalDialog.Extras.Docs.Title" xml:space="preserve">
+    <value>Dokumentáció</value>
+  </data>
+  <data name="LegalDialog.Extras.Docs.Description" xml:space="preserve">
+    <value>Útmutatók és kezdő lépések</value>
+  </data>
+  <data name="LegalDialog.Extras.Discord.Title" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="LegalDialog.Extras.Discord.Description" xml:space="preserve">
+    <value>Közösség és támogatás</value>
+  </data>
+  <data name="LegalDialog.Extras.Acknowledgements.Title" xml:space="preserve">
+    <value>Köszönetnyilvánítás</value>
+  </data>
+  <data name="LegalDialog.Extras.Acknowledgements.Description" xml:space="preserve">
+    <value>Harmadik féltől származó értesítések</value>
+  </data>
+  <data name="LegalDialog.Warning.Title" xml:space="preserve">
+    <value>Használat saját felelősségre</value>
+  </data>
+  <data name="LegalDialog.Warning.Message" xml:space="preserve">
+    <value>Javasoljuk, hogy a módosítások alkalmazása előtt készíts biztonsági mentést.</value>
+  </data>
+  <data name="Dialog.PendingChanges.Title" xml:space="preserve">
+    <value>Módosítások alkalmazása</value>
+  </data>
+  <data name="Dialog.PendingChanges.Content" xml:space="preserve">
+    <value>Egyes módosítások csak újraindítás után lépnek életbe. Mit szeretnél tenni a kilépés előtt?</value>
+  </data>
+  <data name="Dialog.PendingChanges.CloseButton" xml:space="preserve">
+    <value>Kilépés mindenképp</value>
+  </data>
+  <data name="Dialog.PendingChanges.PrimaryButton" xml:space="preserve">
+    <value>Számítógép újraindítása</value>
+  </data>
+  <data name="Dialog.PendingChanges.SecondaryButton" xml:space="preserve">
+    <value>Intéző újraindítása</value>
+  </data>
+  <data name="Settings.About.Documentation.Title" xml:space="preserve">
+    <value>Dokumentáció</value>
+  </data>
+  <data name="Settings.About.Documentation.Description" xml:space="preserve">
+    <value>Dokumentáció, használati útmutatók és GYIK megtekintése.</value>
+  </data>
+  <data name="TitleBar.Support" xml:space="preserve">
+    <value>Támogasd a projektet</value>
+  </data>
+  <data name="TitleBar.Discord" xml:space="preserve">
+    <value>Csatlakozz a Discord közösséghez</value>
+  </data>
+
+  <data name="Customize.SystemFeatures.Section.Developer" xml:space="preserve">
+    <value>Fejlesztő</value>
+  </data>
+
+
+  <!-- Developer Mode -->
+  <data name="Customize.SystemFeatures.DeveloperMode.Name" xml:space="preserve">
+    <value>Fejlesztői mód</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Description" xml:space="preserve">
+    <value>Eszközöket biztosít az alkalmazások oldalbetöltéséhez, az Eszközportálhoz, az SSH-hoz és más fejlesztési feladatokhoz.</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Recommendation.Reason" xml:space="preserve">
+    <value>A Fejlesztői mód engedélyezi az oldalbetöltést és a diagnosztikai funkciókat, amelyek elengedhetetlenek az alkalmazásfejlesztéshez és -hibakereséshez.</value>
+  </data>
+
+  <!-- Allow All Trusted Apps -->
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Name" xml:space="preserve">
+    <value>Megbízható alkalmazások</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Description" xml:space="preserve">
+    <value>Engedélyezi, hogy a megbízható Windows-alkalmazások Fejlesztői mód nélkül is települhessenek.</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Recommendation.Reason" xml:space="preserve">
+    <value>Az összes megbízható alkalmazás engedélyezése oldalbetöltést tesz lehetővé Fejlesztői mód nélkül; letiltása a Microsoft Store-ra korlátozza a telepítést.</value>
+  </data>
+
+  <!-- Long Paths -->
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Name" xml:space="preserve">
+    <value>Hosszú útvonalak támogatása (&gt;260 karakter)</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Description" xml:space="preserve">
+    <value>Lehetővé teszi kompatibilis alkalmazások számára a hagyományos 260 karakteres korlátnál hosszabb fájlútvonalak használatát.</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Recommendation.Reason" xml:space="preserve">
+    <value>A hosszú útvonalak támogatása megakadályozza a fájlhozzáférési hibákat mélyen egymásba ágyazott mappákkal vagy hosszú nevű projektekkel végzett munka során.</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Name" xml:space="preserve">
+    <value>Keresőmező megjelenítése</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Description" xml:space="preserve">
+    <value>Kiválaszthatod, hogy a tálcán keresőmező, keresőikon vagy semmilyen keresőelem jelenjen-e meg.</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Hidden" xml:space="preserve">
+    <value>Rejtett</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Icon" xml:space="preserve">
+    <value>Csak ikon</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.IconAndLabel" xml:space="preserve">
+    <value>Ikon + felirat</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.SearchBox" xml:space="preserve">
+    <value>Keresőmező</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarLastActiveClick.Name" xml:space="preserve">
+    <value>Utoljára aktív kattintás</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarLastActiveClick.Description" xml:space="preserve">
+    <value>A tálcára kattintva az adott alkalmazás legutóbb használt ablaka nyílik meg.</value>
+  </data>
+	<data name="Customize.SystemFeatures.ShowBatteryPercentage.Name" xml:space="preserve">
+    <value>Akkumulátor töltöttsége</value>
+  </data>
+  <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
+    <value>Az aktuális akkumulátor-töltöttséget százalékban jeleníti meg az akkumulátor ikon mellett a rendszertálcán.</value>
+  </data>
+  <data name="Optimizer.AI" xml:space="preserve">
+    <value>AI</value>
+  </data>
+  <data name="Optimizer.AI.DisableClickToDo.Name" xml:space="preserve">
+    <value>Click To Do kikapcsolása</value>
+  </data>
+  <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
+    <value>Kikapcsolja az AI-alapú Click To Do átfedést, amely a képernyőn lévő szöveget és képeket elemzi.</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
+    <value>Windows Recall kikapcsolása</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.ShortDescription" xml:space="preserve">
+    <value>Kikapcsolja a Windows Recall AI-funkciót, amely pillanatképeket rögzít és indexel a képernyődről. A Recall összetevőt is eltávolítja, és törli a korábban mentett pillanatképeket Windows 11 24H2+ rendszeren (Build 26100.3915+); a módosítás érvénybe lépéséhez újraindítás szükséges.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.Name" xml:space="preserve">
+    <value>Delivery Optimization (P2P) kikapcsolása</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
+    <value>Megakadályozza, hogy a Windows peer-to-peer kapcsolaton keresztül osszon meg vagy töltsön frissítési fájlokat más számítógépekről; a frissítések csak a Microsoft szervereiről érkeznek.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
+    <value>Eszközkeresés kikapcsolása</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
+    <value>Kikapcsolja az Eszközkeresés funkciót, amely rendszeresen jelenti az eszköz helyét a Microsoftnak.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
+    <value>Microsoft 365 hirdetések kikapcsolása a Beállításokban</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
+    <value>Eltávolítja a Microsoft 365 és Copilot promóciós tartalmat a Beállítások kezdőlapjáról.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartRecommended.Name" xml:space="preserve">
+    <value>Ajánlott szakasz elrejtése a Startban</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
+    <value>Elrejti az Ajánlott szakaszt a Start menüből, hogy csökkentse a zsúfoltságot, és ne jelenjenek meg a legutóbbi fájlok és alkalmazások.</value>
+  </data>
+  <data name="Condition.Error.Title" xml:space="preserve">
+    <value>A kompatibilitás ellenőrzése sikertelen</value>
+  </data>
+  <data name="Condition.Error.Description" xml:space="preserve">
+    <value>Az optimizerDuck nem tudta megállapítani, hogy ez az elem támogatott-e a rendszereden.</value>
+  </data>
+  <data name="Condition.Windows11.Title" xml:space="preserve">
+    <value>Windows 11 szükséges</value>
+  </data>
+  <data name="Condition.Windows11.Description" xml:space="preserve">
+    <value>Ez az elem Windows 11-et igényel.</value>
+  </data>
+  <data name="Condition.Windows10.Title" xml:space="preserve">
+    <value>Windows 10 szükséges</value>
+  </data>
+  <data name="Condition.Windows10.Description" xml:space="preserve">
+    <value>Ez az elem Windows 10-et igényel.</value>
+  </data>
+  <data name="Condition.Windows11_24H2.Title" xml:space="preserve">
+    <value>Windows 11 24H2 vagy újabb szükséges</value>
+  </data>
+  <data name="Condition.Windows11_24H2.Description" xml:space="preserve">
+    <value>Ez az elem Windows 11 24H2-t (26100-es build) vagy újabbat igényel.</value>
+  </data>
+  <data name="Condition.Cpu.Intel.Title" xml:space="preserve">
+    <value>Intel CPU szükséges</value>
+  </data>
+  <data name="Condition.Cpu.Intel.Description" xml:space="preserve">
+    <value>Ez az elem csak Intel processzorral rendelkező rendszereken működik.</value>
+  </data>
+  <data name="Condition.Cpu.Amd.Title" xml:space="preserve">
+    <value>AMD CPU szükséges</value>
+  </data>
+  <data name="Condition.Cpu.Amd.Description" xml:space="preserve">
+    <value>Ez az elem csak AMD processzorral rendelkező rendszereken működik.</value>
+  </data>
+  <data name="Condition.Gpu.Nvidia.Title" xml:space="preserve">
+    <value>NVIDIA GPU szükséges</value>
+  </data>
+  <data name="Condition.Gpu.Nvidia.Description" xml:space="preserve">
+    <value>Ez az elem csak NVIDIA grafikus kártyával rendelkező rendszereken működik.</value>
+  </data>
+  <data name="Condition.Gpu.Amd.Title" xml:space="preserve">
+    <value>AMD GPU szükséges</value>
+  </data>
+  <data name="Condition.Gpu.Amd.Description" xml:space="preserve">
+    <value>Ez az elem csak AMD grafikus kártyával rendelkező rendszereken működik.</value>
+  </data>
+  <data name="Condition.Gpu.Intel.Title" xml:space="preserve">
+    <value>Intel GPU szükséges</value>
+  </data>
+  <data name="Condition.Gpu.Intel.Description" xml:space="preserve">
+    <value>Ez az elem csak Intel grafikus kártyával rendelkező rendszereken működik.</value>
+  </data>
+  <data name="Condition.Ram.16.Title" xml:space="preserve">
+    <value>16 GB RAM szükséges</value>
+  </data>
+  <data name="Condition.Ram.16.Description" xml:space="preserve">
+    <value>Ez az elem legalább 16 GB telepített RAM-ot igényel.</value>
+  </data>
+  <data name="Condition.Recall.Title" xml:space="preserve">
+    <value>A Windows Recall nem elérhető</value>
+  </data>
+  <data name="Condition.Recall.Description" xml:space="preserve">
+    <value>A Windows Recall Windows 11 24H2 vagy újabb verziót igényel, telepített Windows AI-összetevőkkel.</value>
+  </data>
+  <data name="Optimizer.Condition.BlockedTitle" xml:space="preserve">
+    <value>Ezen a rendszeren nem támogatott</value>
+  </data>
+  <data name="Optimizer.Condition.FailedTitle" xml:space="preserve">
+    <value>A feltétel nem teljesült</value>
+  </data>
+  <data name="Optimizer.Condition.Hide" xml:space="preserve">
+    <value>Elrejtés</value>
+  </data>
+  <data name="Optimizer.Condition.Hide.Tooltip" xml:space="preserve">
+    <value>Az optimalizálás újramegjelenítése és alkalmazásának engedélyezése mindenképp.</value>
+  </data>
+  <data name="Optimizer.Condition.WhatIsThis" xml:space="preserve">
+    <value>Mi ez?</value>
+  </data>
+  <data name="Optimizer.Condition.WhatIsThis.Tooltip" xml:space="preserve">
+    <value>A kompatibilitási feltételek ellenőrzik, hogy egy elem támogatott-e a rendszereden, például melyik Windows-verzió vagy GPU van telepítve. Ha egy feltétel nem teljesül, az elem alapértelmezés szerint rejtve marad, mert nem feltétlenül működik. Ha tudod, mit csinálsz, elrejtheted ezt a figyelmeztetést, és az elemet mégis alkalmazhatod.</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Header" xml:space="preserve">
+    <value>Nem támogatott beállítások ({0})</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
+    <value>Néhány beállítás nem elérhető a jelenlegi rendszeren.</value>
+  </data>
+  <data name="Customize.Loading" xml:space="preserve">
+    <value>Beállítások betöltése...</value>
+  </data>
+  <data name="Startup.Location.RegistryHKCURun" xml:space="preserve">
+    <value>Registry (aktuális felhasználó)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRun" xml:space="preserve">
+    <value>Registry (helyi gép)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKCURunOnce" xml:space="preserve">
+    <value>Registry RunOnce (aktuális felhasználó)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRunOnce" xml:space="preserve">
+    <value>Registry RunOnce (helyi gép)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRun32" xml:space="preserve">
+    <value>Registry (helyi gép, 32 bites)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRunOnce32" xml:space="preserve">
+    <value>Registry RunOnce (helyi gép, 32 bites)</value>
+  </data>
+  <data name="Startup.Location.UserStartupFolder" xml:space="preserve">
+    <value>Indítási mappa (aktuális felhasználó)</value>
+  </data>
+  <data name="Startup.Location.CommonStartupFolder" xml:space="preserve">
+    <value>Indítási mappa (minden felhasználó)</value>
+  </data>
+  <data name="Startup.Location.UwpStartupTask" xml:space="preserve">
+    <value>Microsoft Store-alkalmazás</value>
+  </data>
+  <data name="ScheduledTasks.Dialog.Settings" xml:space="preserve">
+    <value>Beállítások</value>
+  </data>
+  <data name="ScheduledTasks.State.Running" xml:space="preserve">
+    <value>Fut</value>
+  </data>
+  <data name="ScheduledTasks.State.Ready" xml:space="preserve">
+    <value>Kész</value>
+  </data>
+  <data name="ScheduledTasks.State.Disabled" xml:space="preserve">
+    <value>Letiltva</value>
+  </data>
+  <data name="ScheduledTasks.State.Queued" xml:space="preserve">
+    <value>Várakozik</value>
+  </data>
+  <data name="Common.SortBy.RiskAndStatus" xml:space="preserve">
+    <value>Kockázat és állapot</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Ram.Total" xml:space="preserve">
+    <value>{0} GB RAM</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Gpu.Memory" xml:space="preserve">
+    <value>{0} GB</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Event" xml:space="preserve">
+    <value>Esemény esetén</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Time" xml:space="preserve">
+    <value>Adott időpontban</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Daily" xml:space="preserve">
+    <value>Naponta</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Weekly" xml:space="preserve">
+    <value>Hetente</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Monthly" xml:space="preserve">
+    <value>Havonta</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.MonthlyDOW" xml:space="preserve">
+    <value>Havonta</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Idle" xml:space="preserve">
+    <value>Tétlen állapotban</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Registration" xml:space="preserve">
+    <value>Regisztráláskor</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Boot" xml:space="preserve">
+    <value>Indításkor</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Logon" xml:space="preserve">
+    <value>Bejelentkezéskor</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.SessionStateChange" xml:space="preserve">
+    <value>Munkamenet-változáskor</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Other" xml:space="preserve">
+    <value>Eseményindító</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.Lock" xml:space="preserve">
+    <value>Munkamenet zárolása</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.Unlock" xml:space="preserve">
+    <value>Munkamenet feloldása</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.ConsoleConnect" xml:space="preserve">
+    <value>Konzol csatlakoztatása</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.ConsoleDisconnect" xml:space="preserve">
+    <value>Konzol leválasztása</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.RemoteConnect" xml:space="preserve">
+    <value>Távoli csatlakozás</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.RemoteDisconnect" xml:space="preserve">
+    <value>Távoli leválasztás</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.First" xml:space="preserve">
+    <value>első</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.Second" xml:space="preserve">
+    <value>második</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.Third" xml:space="preserve">
+    <value>harmadik</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.Fourth" xml:space="preserve">
+    <value>negyedik</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.Last" xml:space="preserve">
+    <value>utolsó</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.Every" xml:space="preserve">
+    <value>minden</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Time" xml:space="preserve">
+    <value>{0} időpontban</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Daily" xml:space="preserve">
+    <value>Minden {0}. napon, {1} időpontban</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Weekly" xml:space="preserve">
+    <value>Minden {0}. héten, {1} napon, {2} időpontban</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Monthly" xml:space="preserve">
+    <value>{1} {0}. napján</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.MonthlyDOW" xml:space="preserve">
+    <value>{2} {1} {0}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.User" xml:space="preserve">
+    <value>a(z) {0} felhasználó számára</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.UserDelay" xml:space="preserve">
+    <value>a(z) {0} felhasználó számára {1} után</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Delay" xml:space="preserve">
+    <value>{0} után</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Repeat" xml:space="preserve">
+    <value> (ismétlés {0} után)</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.RepeatFor" xml:space="preserve">
+    <value> (ismétlés {0} után, {1} időtartamig)</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal" xml:space="preserve">
+    <value>Már optimális</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
+    <value>Ez a gép már megfelel ennek az optimalizálásnak, így nincs mit módosítani.</value>
+  </data>
+  <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
+    <value>Nincs mit módosítani: {0} már megfelel ennek a gépnek.</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
+    <value>Nincs mit módosítani</value>
+  </data>
+  <data name="Revert.Error.UnreadableData" xml:space="preserve">
+    <value>A(z) {0} visszaállítási adatai nem olvashatók, ezért semmi sem állt vissza. A fájl megmaradt itt: {1}.</value>
+  </data>
+  <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
+    <value>Az alkalmazáskor a hibernálás állapota ismeretlen volt, ezért semmi sem áll vissza</value>
+  </data>
+  <data name="Bloatware.Remove.Failed.Title" xml:space="preserve">
+    <value>Néhány csomagot nem sikerült eltávolítani</value>
+  </data>
+  <data name="Bloatware.Remove.Failed.Message" xml:space="preserve">
+    <value>A Windows nem távolította el ezeket a csomagokat: {0}</value>
+  </data>
+  <data name="Optimizer.UI.State.Applied.Tooltip" xml:space="preserve">
+    <value>Kattints az utolsó alkalmazás lépéseinek megtekintéséhez. {0}</value>
+  </data>
+  <data name="Optimizer.UI.State.Applied.Tooltip.NoSummary" xml:space="preserve">
+    <value>Kattints az utolsó alkalmazás lépéseinek megtekintéséhez.</value>
+  </data>
+  <data name="Optimizer.UI.State.Applied.Summary" xml:space="preserve">
+    <value>{0} lépés módosult, {1} már helyes volt, {2} nem érvényesült, {3}-at a Windows elutasított</value>
+  </data>
+  <data name="Optimizer.Details.Record.Title" xml:space="preserve">
+    <value>Utolsó rögzített futás</value>
+  </data>
+  <data name="Optimizer.Details.Record.Empty" xml:space="preserve">
+    <value>Ehhez az elemhez még nincs rekord.</value>
+  </data>
+  <data name="Optimizer.Details.Step.Changed" xml:space="preserve">
+    <value>Módosítva</value>
+  </data>
+  <data name="Optimizer.Details.Step.AlreadyCorrect" xml:space="preserve">
+    <value>Már helyes</value>
+  </data>
+  <data name="Optimizer.Details.Step.NotApplicable" xml:space="preserve">
+    <value>Nem alkalmazható</value>
+  </data>
+  <data name="Optimizer.Details.Step.Refused" xml:space="preserve">
+    <value>A Windows elutasította</value>
+  </data>
+  <data name="Optimizer.Details.Step.Irreversible" xml:space="preserve">
+    <value>Nincs visszaút</value>
+  </data>
+  <data name="Optimizer.Details.Step.Failed" xml:space="preserve">
+    <value>Sikertelen</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Security.Tooltip" xml:space="preserve">
+    <value>Ez az optimalizálás a Windows biztonsági beállításait érinti.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Privacy.Tooltip" xml:space="preserve">
+    <value>Ez az optimalizálás azokat az adatokat érinti, amelyeket a Windows gyűjt és továbbít.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.System.Tooltip" xml:space="preserve">
+    <value>Ez az optimalizálás a Windows egy alapelemét, összetevőjét vagy házirendjét érinti, ezért érdemes előbb elolvasni, hogy mit tesz.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Performance.Tooltip" xml:space="preserve">
+    <value>Ez az optimalizálás a teljesítményt és a háttértevékenységeket érinti.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Latency.Tooltip" xml:space="preserve">
+    <value>Ez az optimalizálás a bevitel, a játékok vagy a hang késleltetését érinti.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Disk.Tooltip" xml:space="preserve">
+    <value>Ez az optimalizálás azt érinti, hogyan használja a Windows a lemezeket.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Ram.Tooltip" xml:space="preserve">
+    <value>Ez az optimalizálás azt érinti, hogyan használja a Windows a memóriát.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Display.Tooltip" xml:space="preserve">
+    <value>Ez az optimalizálás azt érinti, hogy mit jelenít meg a képernyőd vagy a grafikus kártyád.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Nvidia.Tooltip" xml:space="preserve">
+    <value>Ez az optimalizálás az NVIDIA grafikus kártyával rendelkező PC-kre vonatkozik, más gépeken nem tesz semmit.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Amd.Tooltip" xml:space="preserve">
+    <value>Ez az optimalizálás az AMD grafikus kártyával rendelkező PC-kre vonatkozik, más gépeken nem tesz semmit.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Intel.Tooltip" xml:space="preserve">
+    <value>Ez az optimalizálás az Intel grafikus kártyával rendelkező PC-kre vonatkozik, más gépeken nem tesz semmit.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Power.Tooltip" xml:space="preserve">
+    <value>Ez az optimalizálás az energiát érinti: az akkumulátor üzemidejét, a melegedést vagy a ventilátor zaját.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Network.Tooltip" xml:space="preserve">
+    <value>Ez az optimalizálás a hálózatot, a kapcsolatot és a rajta futó forgalmat érinti.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.NetworkRequired.Tooltip" xml:space="preserve">
+    <value>Ez az optimalizálás internetkapcsolatot igényel, mert letölt valamit.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Audio.Tooltip" xml:space="preserve">
+    <value>Ez az optimalizálás a hang lejátszását és feldolgozását érinti.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Visual.Tooltip" xml:space="preserve">
+    <value>Ez az optimalizálás a Windows megjelenését, effektjeit és animációit érinti.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows10Only.Tooltip" xml:space="preserve">
+    <value>Ez az optimalizálás csak Windows 10-hez készült, Windows 11-en nem tesz semmit.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows11Only.Tooltip" xml:space="preserve">
+    <value>Ez az optimalizálás csak Windows 11-hez készült, Windows 10-en le van tiltva.</value>
+  </data>
+  <data name="Optimizer.Details.Record.Apply" xml:space="preserve">
+    <value>Alkalmazva: {0}</value>
+  </data>
+  <data name="Optimizer.Details.Record.Revert" xml:space="preserve">
+    <value>Visszaállítva: {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistrySet" xml:space="preserve">
+    <value>Érték írása: {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryDelete" xml:space="preserve">
+    <value>Érték törlése: {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryCreateKey" xml:space="preserve">
+    <value>Registrykulcs létrehozása</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryDeleteKey" xml:space="preserve">
+    <value>Registrykulcs törlése</value>
+  </data>
+  <data name="Optimizer.Details.Field.Path" xml:space="preserve">
+    <value>Útvonal</value>
+  </data>
+  <data name="Optimizer.Details.Field.Type" xml:space="preserve">
+    <value>Típus</value>
+  </data>
+  <data name="Optimizer.Details.Field.Previous" xml:space="preserve">
+    <value>Előző érték</value>
+  </data>
+  <data name="Optimizer.Details.Field.Previous.None" xml:space="preserve">
+    <value>Nincs meg</value>
+  </data>
+  <data name="Optimizer.Details.Field.New" xml:space="preserve">
+    <value>Új érték</value>
+  </data>
+  <data name="Optimizer.Details.Field.New.None" xml:space="preserve">
+    <value>Eltávolítva</value>
+  </data>
+  <data name="Optimizer.Details.Op.ServiceStartup" xml:space="preserve">
+    <value>Szolgáltatás módosítása: {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.TaskEnable" xml:space="preserve">
+    <value>Feladat engedélyezése: {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.TaskDisable" xml:space="preserve">
+    <value>Feladat letiltása: {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerPlanActivate" xml:space="preserve">
+    <value>Energiaterv beállítása: {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerPlanInstall" xml:space="preserve">
+    <value>Energiaterv telepítése: {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerSetting" xml:space="preserve">
+    <value>Energiabeállítás módosítása: {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.Hibernation" xml:space="preserve">
+    <value>Hibernálás és gyorsindítás kikapcsolása</value>
+  </data>
+  <data name="Optimizer.Details.Op.UsbPower" xml:space="preserve">
+    <value>USB energiatakarékosság kikapcsolása</value>
+  </data>
+  <data name="Optimizer.Details.Field.Service" xml:space="preserve">
+    <value>Szolgáltatás</value>
+  </data>
+  <data name="Optimizer.Details.Field.Task" xml:space="preserve">
+    <value>Feladat</value>
+  </data>
+  <data name="Optimizer.Details.Field.PowerPlan" xml:space="preserve">
+    <value>Energiaterv</value>
+  </data>
+  <data name="Optimizer.Details.Field.Setting" xml:space="preserve">
+    <value>Beállítás</value>
+  </data>
+  <data name="Optimizer.Details.Field.Devices" xml:space="preserve">
+    <value>Eszközök</value>
+  </data>
+  <data name="Optimizer.Details.Value.Startup.Automatic" xml:space="preserve">
+    <value>Automatikus</value>
+  </data>
+  <data name="Optimizer.Details.Value.Startup.AutomaticDelayed" xml:space="preserve">
+    <value>Automatikus (késleltetett indítás)</value>
+  </data>
+  <data name="Optimizer.Details.Value.Startup.Manual" xml:space="preserve">
+    <value>Kézi</value>
+  </data>
+  <data name="Optimizer.Details.Value.Startup.Disabled" xml:space="preserve">
+    <value>Ki</value>
+  </data>
+  <data name="Optimizer.Details.Value.Enabled" xml:space="preserve">
+    <value>Be</value>
+  </data>
+  <data name="Optimizer.Details.Value.Unknown" xml:space="preserve">
+    <value>Ismeretlen</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryRestore" xml:space="preserve">
+    <value>Érték visszaállítása: {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryRestoreKey" xml:space="preserve">
+    <value>Registrykulcs visszaállítása</value>
+  </data>
+  <data name="Optimizer.Details.Op.ServiceRestore" xml:space="preserve">
+    <value>Szolgáltatás visszaállítása: {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerPlanRestore" xml:space="preserve">
+    <value>Energiaterv visszaállítása: {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerPlanUninstall" xml:space="preserve">
+    <value>Energiaterv eltávolítása: {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerSettingRestore" xml:space="preserve">
+    <value>Energiabeállítás visszaállítása: {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.HibernationRestore" xml:space="preserve">
+    <value>Hibernálás és gyorsindítás visszaállítása</value>
+  </data>
+  <data name="Optimizer.Details.Op.HibernationEnable" xml:space="preserve">
+    <value>Hibernálás és gyorsindítás visszakapcsolása</value>
+  </data>
+  <data name="Optimizer.Details.Op.UsbPowerRestore" xml:space="preserve">
+    <value>USB energiatakarékosság visszakapcsolása</value>
+  </data>
+  <data name="Optimizer.Details.Field.StartupState" xml:space="preserve">
+    <value>Indítási típus</value>
+  </data>
+  <data name="Optimizer.Details.Field.TaskState" xml:space="preserve">
+    <value>Feladat állapota</value>
+  </data>
+  <data name="Optimizer.Details.Field.HibernationState" xml:space="preserve">
+    <value>Hibernálás állapota</value>
+  </data>
+  <data name="Optimizer.Details.Field.Value" xml:space="preserve">
+    <value>Érték</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Title" xml:space="preserve">
+    <value>A rekordfájl megjelenítése</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Description" xml:space="preserve">
+    <value>Megmutatja azt a fájlt, amelybe az optimizerDuck feljegyezte, hogy mit tett ez az optimalizálás. Visszaállítás után is megmarad, így az előzmények továbbra is megtekinthetők.</value>
+  </data>
+  <data name="Optimizer.Details.Provider.Registry" xml:space="preserve">
+    <value>Registry</value>
+  </data>
+  <data name="Optimizer.Details.Provider.Service" xml:space="preserve">
+    <value>Szolgáltatás</value>
+  </data>
+  <data name="Optimizer.Details.Provider.ScheduledTask" xml:space="preserve">
+    <value>Ütemezett feladat</value>
+  </data>
+  <data name="Optimizer.Details.Provider.PowerPlan" xml:space="preserve">
+    <value>Energiaterv</value>
+  </data>
+  <data name="Optimizer.Details.Provider.Hibernation" xml:space="preserve">
+    <value>Hibernálás</value>
+  </data>
+  <data name="Optimizer.Details.Provider.UsbPower" xml:space="preserve">
+    <value>USB energiatakarékosság</value>
+  </data>
+  <data name="Optimizer.Details.Provider.Shell" xml:space="preserve">
+    <value>Parancsértelmező</value>
+  </data>
+  <data name="Optimizer.Details.Field.ValueName" xml:space="preserve">
+    <value>Érték neve</value>
+  </data>
+  <data name="Optimizer.Details.Field.Reason" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Optimizer.Details.Reason.ServiceNotFound" xml:space="preserve">
+    <value>Ez a szolgáltatás nincs ezen a gépen</value>
+  </data>
+  <data name="Optimizer.Details.Reason.TaskNotFound" xml:space="preserve">
+    <value>Ez a feladat nincs ezen a gépen</value>
+  </data>
+  <data name="Optimizer.Details.Reason.RegistryValueAbsent" xml:space="preserve">
+    <value>Az érték eleve nem létezett</value>
+  </data>
+  <data name="Optimizer.Details.Reason.RegistryKeyExists" xml:space="preserve">
+    <value>A kulcs már létezett</value>
+  </data>
+  <data name="Optimizer.Details.Reason.RegistryKeyAbsent" xml:space="preserve">
+    <value>A kulcs eleve nem létezett</value>
+  </data>
+  <data name="Optimizer.Details.Reason.UsbNoDevices" xml:space="preserve">
+    <value>Ezen a gépen nincs USB root hub</value>
+  </data>
+  <data name="Optimizer.Details.Field.Took" xml:space="preserve">
+    <value>Időtartam</value>
+  </data>
+  <data name="Optimizer.Details.Field.At" xml:space="preserve">
+    <value>Időpont</value>
+  </data>
+  <data name="Optimizer.Details.Field.ErrorCode" xml:space="preserve">
+    <value>Hibakód</value>
+  </data>
+  <data name="Optimizer.Details.Field.Attempt" xml:space="preserve">
+    <value>Kísérlet</value>
+  </data>
+  <data name="Optimizer.Details.Record.Version" xml:space="preserve">
+    <value>Alkalmazás verziója</value>
+  </data>
+  <data name="Optimizer.Details.Record.Windows" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="Optimizer.Details.Record.Took" xml:space="preserve">
+    <value>Időtartam</value>
+  </data>
+  <data name="Error.Unhandled.Title" xml:space="preserve">
+    <value>Valami hiba történt</value>
+  </data>
+  <data name="Error.Unhandled.Message" xml:space="preserve">
+    <value>Az utolsó műveletet nem sikerült befejezni: {0}</value>
+  </data>
+  <data name="Error.Unhandled.LogHint" xml:space="preserve">
+    <value>A részletek a naplófájlban találhatók.</value>
+  </data>
+</root>
