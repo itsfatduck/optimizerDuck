@@ -1,0 +1,2580 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+        Microsoft ResX Schema 
+        
+        Version 2.0
+        
+        The primary goals of this format is to allow a simple XML format 
+        that is mostly human readable. The generation and parsing of the 
+        various data types are done through the TypeConverter classes 
+        associated with the data types.
+        
+        Example:
+        
+        ... ado.net/XML headers & schema ...
+        <resheader name="resmimetype">text/microsoft-resx</resheader>
+        <resheader name="version">2.0</resheader>
+        <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+        <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+                    
+        There are any number of "resheader" rows that contain simple 
+        name/value pairs.
+        
+        Each data row contains a name, and value. The row also contains a 
+        type or mimetype. Type corresponds to a .NET class that support 
+        text/value conversion through the TypeConverter architecture. 
+        Classes that don't support this are serialized and stored with the 
+        mimetype set.
+        
+        The mimetype is used for serialized objects, and tells the 
+        ResXResourceReader how to depersist the object. This is currently not 
+        extensible. For a given mimetype the value must be set accordingly:
+        
+        Note - application/x-microsoft.net.object.binary.base64 is the format 
+        that the ResXResourceWriter will generate, however the reader can 
+        read any of the formats listed below.
+        
+        mimetype: application/x-microsoft.net.object.binary.base64
+        value   : The object must be serialized with 
+                : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+                : and then encoded with base64 encoding.
+        
+        mimetype: application/x-microsoft.net.object.soap.base64
+        value   : The object must be serialized with 
+                : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+                : and then encoded with base64 encoding.
+    
+        mimetype: application/x-microsoft.net.object.bytearray.base64
+        value   : The object must be serialized into a byte array 
+                : using a System.ComponentModel.TypeConverter
+                : and then encoded with base64 encoding.
+        -->
+  <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root" xmlns="">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+  </resheader>
+  <data name="Dashboard.Header.Title" xml:space="preserve">
+    <value>Головна</value>
+  </data>
+  <data name="Sidebar.Dashboard" xml:space="preserve">
+    <value>Головна</value>
+  </data>
+  <data name="Sidebar.Settings" xml:space="preserve">
+    <value>Налаштування</value>
+  </data>
+  <data name="Button.Close" xml:space="preserve">
+    <value>Закрити</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Cpu.Cores" xml:space="preserve">
+    <value>{0} ядер</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Storage.DiskInfo" xml:space="preserve">
+    <value>Використано {0} ГБ з {1} ГБ ({2} ГБ вільно)</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Ram.Modules" xml:space="preserve">
+    <value>Модулів: {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Cpu.Threads" xml:space="preserve">
+    <value>{0} потоків</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Storage.System" xml:space="preserve">
+    <value>СИСТЕМА</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Storage.Header" xml:space="preserve">
+    <value>Накопичувачі</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Ram.Used" xml:space="preserve">
+    <value>Використано: {0} ГБ</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Ram.Available" xml:space="preserve">
+    <value>Доступно: {0} ГБ</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Loading" xml:space="preserve">
+    <value>Отримання системної інформації...</value>
+  </data>
+  <data name="Sidebar.Optimize" xml:space="preserve">
+    <value>Оптимізація</value>
+  </data>
+  <data name="Customize.Description" xml:space="preserve">
+    <value>Персоналізуйте налаштування Windows та повсякденну поведінку системи.</value>
+  </data>
+  <data name="Customize.CustomOption" xml:space="preserve">
+    <value>Власне значення</value>
+  </data>
+  <data name="Customize.CustomOption.NotSet" xml:space="preserve">
+    <value>Не задано</value>
+  </data>
+  <data name="Customize.Preferences.Name" xml:space="preserve">
+    <value>Інтерфейс та поведінка</value>
+  </data>
+  <data name="Customize.Preferences.Description" xml:space="preserve">
+    <value>Тонке налаштування зовнішнього вигляду та зручності Windows.</value>
+  </data>
+  <data name="Customize.Gaming.Name" xml:space="preserve">
+    <value>Ігри</value>
+  </data>
+  <data name="Customize.Gaming.Description" xml:space="preserve">
+    <value>Параметри графіки, введення та запису для ігор.</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Gpu.More" xml:space="preserve">
+    <value>+ ще {0} відеокарт(и)</value>
+  </data>
+  <data name="Dashboard.Actions.Discord.Title" xml:space="preserve">
+    <value>Спільнота Discord</value>
+  </data>
+  <data name="Dashboard.Actions.Discord.Description" xml:space="preserve">
+    <value>Приєднуйтесь до Discord-сервера, щоб отримати допомогу або поспілкуватися</value>
+  </data>
+  <data name="Dashboard.Actions.GitHub.Title" xml:space="preserve">
+    <value>Репозиторій GitHub</value>
+  </data>
+  <data name="Dashboard.Actions.GitHub.Description" xml:space="preserve">
+    <value>Переглядайте код, залишайте відгуки та беріть участь у розробці проекту</value>
+  </data>
+  <data name="Dashboard.Actions.SupportMe.Title" xml:space="preserve">
+    <value>Підтримати проект</value>
+  </data>
+  <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
+    <value>Поставте зірочку на GitHub, розкажіть друзям або зробіть донат - це допомагає проекту розвиватися!</value>
+  </data>
+  <data name="Button.Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Settings.Header.Title" xml:space="preserve">
+    <value>Налаштування</value>
+  </data>
+  <data name="Settings.Appearance.Header" xml:space="preserve">
+    <value>Зовнішній вигляд</value>
+  </data>
+  <data name="Settings.Appearance.LanguageSelector.Title" xml:space="preserve">
+    <value>Мова</value>
+  </data>
+  <data name="Settings.Appearance.LanguageSelector.Description" xml:space="preserve">
+    <value>Оберіть бажану мову інтерфейсу.</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.Title" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.Description" xml:space="preserve">
+    <value>Оберіть тему оформлення програми.</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.Light" xml:space="preserve">
+    <value>Світла</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.Dark" xml:space="preserve">
+    <value>Темна</value>
+  </data>
+  <data name="Settings.Appearance.ThemeSelector.HighContrast" xml:space="preserve">
+    <value>Висококонтрастна</value>
+  </data>
+  <data name="Common.AppliedSecondsAgo" xml:space="preserve">
+    <value>Застосовано {0} сек. тому</value>
+  </data>
+  <data name="Common.AppliedMinutesAgo" xml:space="preserve">
+    <value>Застосовано {0} хв. тому</value>
+  </data>
+  <data name="Common.AppliedHoursAgo" xml:space="preserve">
+    <value>Застосовано {0} год. тому</value>
+  </data>
+  <data name="Common.AppliedDaysAgo" xml:space="preserve">
+    <value>Застосовано {0} дн. тому</value>
+  </data>
+  <data name="Common.AppliedMonthsAgo" xml:space="preserve">
+    <value>Застосовано {0} міс. тому</value>
+  </data>
+  <data name="Common.AppliedYearsAgo" xml:space="preserve">
+    <value>Застосовано {0} р. тому</value>
+  </data>
+  <data name="Optimizer.UI.Risk.Safe" xml:space="preserve">
+    <value>Безпечно</value>
+  </data>
+  <data name="Optimizer.UI.Risk.Moderate" xml:space="preserve">
+    <value>Помірно</value>
+  </data>
+  <data name="Optimizer.UI.Risk.Risky" xml:space="preserve">
+    <value>Для експертів</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DetailedDescription" xml:space="preserve">
+    <value>Детальний опис</value>
+  </data>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
+    <value>Підвищує поріг розділення хостів служб відповідно до обсягу RAM, зменшуючи кількість процесів svchost.exe та заощаджуючи пам'ять.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
+    <value>Не вдалося визначити поточну схему живлення.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ImportFailed" xml:space="preserve">
+    <value>Не вдалося імпортувати схему живлення optimizerDuck.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.ActivateFailed" xml:space="preserve">
+    <value>Не вдалося активувати схему живлення optimizerDuck.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.System" xml:space="preserve">
+    <value>Система</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Ram" xml:space="preserve">
+    <value>Оперативна пам'ять</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Disk" xml:space="preserve">
+    <value>Диск</value>
+  </data>
+  <data name="Optimizer.UI.Tags.NetworkRequired" xml:space="preserve">
+    <value>Потрібна мережа</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Network" xml:space="preserve">
+    <value>Мережа</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Privacy" xml:space="preserve">
+    <value>Конфіденційність</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Audio" xml:space="preserve">
+    <value>Звук</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Nvidia" xml:space="preserve">
+    <value>NVIDIA</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Amd" xml:space="preserve">
+    <value>AMD</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Intel" xml:space="preserve">
+    <value>Intel</value>
+  </data>
+
+  <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
+    <value>Живлення</value>
+  </data>
+  <data name="Revert.Error.NoDataFound" xml:space="preserve">
+    <value>Не знайдено даних для відкату {0}.</value>
+  </data>
+  <data name="Optimization.Revert.Reverting" xml:space="preserve">
+    <value>Відкат змін...</value>
+  </data>
+  <data name="Optimization.Revert.Success" xml:space="preserve">
+    <value>Успішно відкочено: {0}!</value>
+  </data>
+  <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
+    <value>Відкочено {0} із помилками на {1} крок(ах).</value>
+  </data>
+  <data name="Optimization.Revert.ExecutingStep" xml:space="preserve">
+    <value>Виконання кроку відкату: {0}/{1} ({2})</value>
+  </data>
+  <data name="Revert.Registry.Description.RestoreKey" xml:space="preserve">
+    <value>Відновлення розділу реєстру: {0}</value>
+  </data>
+  <data name="Revert.Registry.Description.DeleteKey" xml:space="preserve">
+    <value>Видалення розділу реєстру: {0}</value>
+  </data>
+  <data name="Revert.Registry.Description.RevertUnknown" xml:space="preserve">
+    <value>Відкат реєстру: {0}</value>
+  </data>
+  <data name="Revert.Error.NoSteps" xml:space="preserve">
+    <value>Кроків для відкату не знайдено.</value>
+  </data>
+  <data name="Revert.Error.StepFailed" xml:space="preserve">
+    <value>Помилка кроку відкату</value>
+  </data>
+  <data name="Revert.UsbPower.Description" xml:space="preserve">
+    <value>Відновлення параметрів вибіркового вимкнення USB</value>
+  </data>
+  <data name="Revert.Hibernation.Description" xml:space="preserve">
+    <value>Відновлення стану глибокого сну (гібернації)</value>
+  </data>
+  <data name="Revert.Hibernation.Error.RestoreFailed" xml:space="preserve">
+    <value>Не вдалося відновити стан гібернації: {0}</value>
+  </data>
+  <data name="Revert.PowerPlan.Description" xml:space="preserve">
+    <value>Відновлення попередньої схеми живлення {0}</value>
+  </data>
+  <data name="Revert.PowerPlan.Description.Set" xml:space="preserve">
+    <value>Встановлено схему живлення {0}</value>
+  </data>
+
+  <data name="Revert.PowerPlan.Error.RestoreFailed" xml:space="preserve">
+    <value>Не вдалося відновити попередню схему живлення: {0}.</value>
+  </data>
+  <data name="Revert.PowerPlan.Error.DeleteFailed" xml:space="preserve">
+    <value>Не вдалося видалити схему живлення optimizerDuck: {0}</value>
+  </data>
+  <data name="Revert.PowerPlan.Error.NothingToDo" xml:space="preserve">
+    <value>Немає дій для відкату: попередня або встановлена схема живлення не зафіксована.</value>
+  </data>
+  <data name="Revert.PowerPlan.Error.VerifyFailed" xml:space="preserve">
+    <value>Схему живлення {0} відновлено, але не вдалося підтвердити її активацію.</value>
+  </data>
+  <data name="Revert.PowerPlan.Error.VerifyMismatch" xml:space="preserve">
+    <value>Помилка перевірки схеми живлення: очікувалося {0}, активна {1}.</value>
+  </data>
+  <data name="Revert.PowerSetting.Description" xml:space="preserve">
+    <value>Відновлення параметра живлення {0}/{1}/{2}</value>
+  </data>
+  <data name="Optimization.Apply.Processing" xml:space="preserve">
+    <value>Застосування змін...</value>
+  </data>
+  <data name="Optimization.Apply.Completed" xml:space="preserve">
+    <value>Завершено</value>
+  </data>
+  <data name="Optimization.Apply.Success" xml:space="preserve">
+    <value>Успішно застосовано: {0}.</value>
+  </data>
+  <data name="Optimization.Apply.Error.FailedWithSteps" xml:space="preserve">
+    <value>Застосовано {0} із помилками на {1} крок(ах).</value>
+  </data>
+  <data name="Optimization.Apply.Error.Failed" xml:space="preserve">
+    <value>Не вдалося застосувати {0}.</value>
+  </data>
+  <data name="Optimization.Apply.Error.Unknown" xml:space="preserve">
+    <value>Невідомий результат для {0}.</value>
+  </data>
+  <data name="Service.Shell.Error.ExitCode" xml:space="preserve">
+    <value>Код завершення {0}</value>
+  </data>
+  <data name="Service.Shell.Error.TimedOut" xml:space="preserve">
+    <value>Час очікування минув</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
+    <value>Файл відкату</value>
+  </data>
+  <data name="OptimizationResultDialog.Header" xml:space="preserve">
+    <value>Кроків із помилками: {0}</value>
+  </data>
+  <data name="OptimizationResultDialog.Description" xml:space="preserve">
+    <value>Деякі кроки не вдалося виконати успішно. Ви можете повторити лише невдалі кроки.</value>
+  </data>
+  <data name="OptimizationResultDialog.Details" xml:space="preserve">
+    <value>Подробиці</value>
+  </data>
+  <data name="Button.Retry" xml:space="preserve">
+    <value>Повторити</value>
+  </data>
+  <data name="Settings.About.Duck.Description" xml:space="preserve">
+    <value>Поточна версія: {0}</value>
+  </data>
+  <data name="Settings.Advanced.Header" xml:space="preserve">
+    <value>Додатково</value>
+  </data>
+  <data name="Settings.Optimize.Header" xml:space="preserve">
+    <value>Оптимізація</value>
+  </data>
+  <data name="Settings.Optimize.ShellTimeout.Title" xml:space="preserve">
+    <value>Таймаут командного рядка</value>
+  </data>
+  <data name="Settings.Optimize.ShellTimeout.Description" xml:space="preserve">
+    <value>Максимальний час виконання кожної команди оболонки (в мілісекундах).</value>
+  </data>
+  <data name="Settings.Advanced.ClearDownloads.Title" xml:space="preserve">
+    <value>Очистити завантаження</value>
+  </data>
+  <data name="Settings.Advanced.ClearDownloads.Description" xml:space="preserve">
+    <value>Видалити всі файли, завантажені під час процесу оптимізації.</value>
+  </data>
+  <data name="Settings.Advanced.ClearRevertDatas.Title" xml:space="preserve">
+    <value>Очистити всі дані відкату</value>
+  </data>
+  <data name="Settings.Advanced.ClearRevertDatas.Description" xml:space="preserve">
+    <value>Видалити всі точки повернення та резервні копії оптимізацій.</value>
+  </data>
+  <data name="Button.Clear" xml:space="preserve">
+    <value>Очистити</value>
+  </data>
+  <data name="Settings.Advanced.OpenRootDir.Title" xml:space="preserve">
+    <value>Відкрити кореневу папку</value>
+  </data>
+  <data name="Settings.Advanced.OpenRootDir.Description" xml:space="preserve">
+    <value>Відкрити робочу директорію програми, де зберігаються всі налаштування та журнали.</value>
+  </data>
+  <data name="Settings.Appearance.SmoothScrolling.Title" xml:space="preserve">
+    <value>Плавне прокручування</value>
+  </data>
+  <data name="Settings.Appearance.SmoothScrolling.Description" xml:space="preserve">
+    <value>Увімкнути плавну анімацію прокручування. Вимкніть, якщо виникають затримки.</value>
+  </data>
+  <data name="Settings.About.Header" xml:space="preserve">
+    <value>Про програму</value>
+  </data>
+  <data name="Dialog.AreYouSure.Title" xml:space="preserve">
+    <value>Ви дійсно бажаєте продовжити?</value>
+  </data>
+  <data name="Settings.ClearDownloads.Description" xml:space="preserve">
+    <value>Ви збираєтеся видалити всі завантажені допоміжні файли. Цю дію неможливо скасувати. Ви впевнені?</value>
+  </data>
+  <data name="Button.Cancel" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="Button.Skip" xml:space="preserve">
+    <value>Пропустити</value>
+  </data>
+  <data name="Settings.ClearRevertData.Description" xml:space="preserve">
+    <value>Ви збираєтеся видалити всі дані для відкату оптимізацій. Після цього ви не зможете автоматично повернути попередній стан системи. Продовжити?</value>
+  </data>
+  <data name="ProcessingOptimizationDialog.Warning.DontCloseAppOrRestart" xml:space="preserve">
+    <value>Будь ласка, не закривайте програму і не перезавантажуйте ПК під час застосування чи відкату змін.</value>
+  </data>
+  <data name="Common.AppliedJustNow" xml:space="preserve">
+    <value>Щойно застосовано</value>
+  </data>
+  <data name="Common.OperationCancelled" xml:space="preserve">
+    <value>Операцію скасовано.</value>
+  </data>
+  <data name="Optimization.Apply.Error.AllStepsFailed" xml:space="preserve">
+    <value>Усі кроки завершилися помилкою.</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
+      <value>Не вдалося повністю застосувати оптимізацію</value>
+    </data>
+  <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
+    <value>Не вдалося відкотити оптимізацію</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.Success.Title" xml:space="preserve">
+    <value>Оптимізацію успішно застосовано</value>
+  </data>
+  <data name="Optimization.Revert.Snackbar.Success.Title" xml:space="preserve">
+    <value>Оптимізацію успішно відкочено</value>
+  </data>
+  <data name="Optimization.Toggle.Snackbar.Error.Title" xml:space="preserve">
+    <value>Не вдалося перемкнути оптимізацію</value>
+  </data>
+  <data name="Optimization.Toggle.Snackbar.Error.Message" xml:space="preserve">
+    <value>Виникла помилка: {0}</value>
+  </data>
+  <data name="Optimization.Retry.Processing" xml:space="preserve">
+    <value>Повторна спроба виконання невдалих кроків...</value>
+  </data>
+  <data name="Optimization.RetryStep.Processing" xml:space="preserve">
+    <value>Повторна спроба для кроку {0} ({1}/{2})</value>
+  </data>
+  <data name="Optimization.Revert.Error.Failed" xml:space="preserve">
+    <value>Не вдалося відкотити {0}.</value>
+  </data>
+  <data name="Dashboard.Header.Menu.Refresh" xml:space="preserve">
+    <value>Оновити</value>
+  </data>
+  <data name="Dashboard.Header.Menu.RunTaskManager" xml:space="preserve">
+    <value>Диспетчер завдань</value>
+  </data>
+  <data name="Common.Unknown" xml:space="preserve">
+    <value>Невідомо</value>
+  </data>
+  <data name="Common.Recommendation.On" xml:space="preserve">
+    <value>Рекомендовано</value>
+  </data>
+  <data name="Common.Recommendation.Off" xml:space="preserve">
+    <value>Не рекомендовано</value>
+  </data>
+  <data name="Common.Recommendation.Experimental" xml:space="preserve">
+    <value>Експериментально</value>
+  </data>
+  <data name="Common.Recommendation.Depends" xml:space="preserve">
+    <value>Залежить від потреб</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Security" xml:space="preserve">
+    <value>Безпека</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Performance" xml:space="preserve">
+    <value>Продуктивність</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Latency" xml:space="preserve">
+    <value>Затримка (Input Lag)</value>
+  </data>
+  <data name="Optimizer.Performance" xml:space="preserve">
+    <value>Продуктивність</value>
+  </data>
+  <data name="Optimizer.PowerManagement" xml:space="preserve">
+    <value>Електроживлення</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy" xml:space="preserve">
+    <value>Безпека та конфіденційність</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices" xml:space="preserve">
+    <value>Служби та додатки</value>
+  </data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.Name" xml:space="preserve">
+    <value>Вимкнути фонові додатки</value>
+  </data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
+    <value>Забороняє неактивним UWP-додаткам працювати у фоні для звільнення оперативної пам'яті та розвантаження процесора.</value>
+  </data>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.Name" xml:space="preserve">
+    <value>Об'єднання вузлів служб (Service Host)</value>
+  </data>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.Error.InvalidRAM" xml:space="preserve">
+    <value>Некоректний обсяг RAM: {0}</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
+    <value>Пріоритет активних програм</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
+    <value>Виділяє більше квантів часу процесора активному вікну для швидшого відгуку та плавної роботи додатків.</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
+    <value>Оптимізація планувальника мультимедіа (MMCSS)</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
+    <value>Налаштовує планувальник MMCSS для ігор: вимикає мережеве дроселювання та надає пріоритет обробці звуку й графіки.</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
+    <value>Зняти ліміт 50 МБ для WebDAV</value>
+  </data>
+  <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
+    <value>Збільшує ліміт розміру файлу WebClient для підключень WebDAV із 50 МБ до 4 ГБ, усуваючи помилки копіювання великих файлів.</value>
+  </data>
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
+    <value>Оптимізація повтору клавіатури</value>
+  </data>
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
+    <value>Встановлює мінімальну затримку повтору та максимальну швидкість повтору клавіш для швидшого відгуку при наборі тексту та в іграх.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.Name" xml:space="preserve">
+    <value>Вимкнути залипання клавіш</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription" xml:space="preserve">
+    <value>Вимикає гарячі клавіші залипання, фільтрації та озвучення клавіш (5-кратний Shift тощо), щоб запобігти випадковим спливаючим вікнам під час гри.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Name" xml:space="preserve">
+    <value>Вимкнути гібернацію та швидкий запуск</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.ShortDescription" xml:space="preserve">
+    <value>Вимикає файл hiberfil.sys і швидкий запуск для звільнення гігабайтів на диску та забезпечення чистого перезавантаження обладнання.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
+    <value>Вимкнути енергозбереження USB</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
+    <value>Забороняє Windows знеструмлювати порти USB, усуваючи мікрозатримки при пробудженні миші, клавіатури та звукових карт.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
+    <value>Встановити оптимізовану схему живлення</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
+    <value>Встановлює фірмову схему живлення максимальної продуктивності. Примітка: на деяких системах Диспетчер завдань може хибно показувати 100% завантаження ЦП; реальне навантаження не змінюється.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
+    <value>Імпорт та активація схеми живлення...</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
+    <value>Вимкнути тротлінг живлення (Power Throttling)</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
+    <value>Забороняє Windows штучно обмежувати частоту процесора для фонових задач, підтримуючи максимальну продуктивність.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
+    <value>Вимкнути збір даних (телеметрію)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
+    <value>Вимикає служби збору діагностичних даних Windows для підвищення конфіденційності та зменшення фонового навантаження.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
+    <value>Застосування змін до реєстру та групових політик...</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableServices" xml:space="preserve">
+    <value>Вимкнення служб телеметрії...</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableTasks" xml:space="preserve">
+    <value>Вимкнення запланованих завдань телеметрії...</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.Name" xml:space="preserve">
+    <value>Вимкнути звіти про помилки (WER)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.ShortDescription" xml:space="preserve">
+    <value>Вимикає службу реєстрації помилок Windows та помічника з сумісності програм.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.Name" xml:space="preserve">
+    <value>Вимкнути рекламу та системні пропозиції</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.ShortDescription" xml:space="preserve">
+    <value>Вимикає персоналізований рекламний ідентифікатор (Advertising ID), промо-вміст Windows та підказки в меню "Пуск".</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
+    <value>Вимкнути "Новини та інтереси" (Віджети)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
+    <value>Вимикає стрічку новин та віджет погоди на панелі завдань Windows 10 та Windows 11.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.Name" xml:space="preserve">
+    <value>Приховати кнопку "Створити збори зараз"</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
+    <value>Приховує значок зустрічей Skype/Teams в області сповіщень на панелі завдань.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.Name" xml:space="preserve">
+    <value>Вимкнути журнал дій</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.ShortDescription" xml:space="preserve">
+    <value>Забороняє Windows збирати та синхронізувати історію відкритих програм, документів та переглянутих веб-сторінок.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.Name" xml:space="preserve">
+    <value>Вимкнути службу визначення місцезнаходження</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.ShortDescription" xml:space="preserve">
+    <value>Вимикає системні служби геолокації та датчиків, забороняючи відстеження позиції пристрою.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.Name" xml:space="preserve">
+    <value>Вимкнути журнал автозавантаження (AutoLogger)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
+    <value>Вимикає діагностичні сеанси трасування подій під час завантаження системи, прискорюючи завантаження ПК.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
+    <value>Вимкнути голосовий помічник Cortana</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
+    <value>Вимикає фонові процеси голосового асистента Cortana та видаляє його інтеграцію з системою.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
+    <value>Вимкнути Windows Copilot</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
+    <value>Вимикає вбудований штучний інтелект Copilot у Windows 11 та приховує його кнопку на панелі завдань.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
+    <value>Вимкнути автоматичне завантаження додатків</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
+    <value>Блокує службу Content Delivery Manager, яка самостійно завантажує спонсорські ігри та програми в меню "Пуск".</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
+    <value>Заблокувати встановлення спонсорських додатків</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
+    <value>Забороняє Windows автоматично встановлювати партнерські програми та рекламовані додатки після оновлень.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
+    <value>Оптимізація системних служб</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
+    <value>Налаштовує понад 200 служб Windows: переводить рідко використовувані та застарілі служби в ручний режим або вимикає їх.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType" xml:space="preserve">
+    <value>Встановлення типу запуску для {0} на {1}...</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Display" xml:space="preserve">
+    <value>Дисплей</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Visual" xml:space="preserve">
+    <value>Візуальні ефекти</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows10Only" xml:space="preserve">
+    <value>Лише Windows 10</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows11Only" xml:space="preserve">
+    <value>Лише Windows 11</value>
+  </data>
+  <data name="Optimizer.Gpu" xml:space="preserve">
+    <value>Відеокарта (GPU)</value>
+  </data>
+
+  <data name="Optimizer.UserExperience" xml:space="preserve">
+    <value>Зручність використання</value>
+  </data>
+  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
+    <value>Прискорити меню та Провідник</value>
+  </data>
+  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
+    <value>Встановлює StartupDelayInMSec=0 та MenuShowDelay=0 для миттєвого відкриття контекстних меню без затримок анімації.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>Максимальний термін призупинення оновлень</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>Збільшує максимальний ліміт призупинення оновлень Windows Update до гранично підтримуваного значення.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>Вимкнути інтернет-пошук у "Пуск"</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>Вимикає онлайн-пошук у меню "Пуск", завдяки чому локальні файли та програми знаходяться миттєво.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
+    <value>Вимкнути зайві візуальні ефекти</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
+    <value>Вимикає анімацію вікон, прозорість, тіні списків та Aero Peek для розвантаження відеокарти й процесора.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
+    <value>Вимкнути AMD ULPS</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
+    <value>Вимикає стан ультранизького енергоспоживання (ULPS) для відеокарт AMD, усуваючи збої пробудження та проблеми другого монітора.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
+    <value>Вимкнути стробування живлення AMD</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
+    <value>Забороняє переходи станів живлення чіпа AMD, стабілізуючи тактові частоти GPU ціною трохи вищого енергоспоживання у простої.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>Вимкнути стробування тактової частоти відео AMD</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>Вимикає стробування блоків декодування VCE/UVD на відеокартах AMD для підвищення стабільності відтворення та кодування відео.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
+    <value>Вимкнути AMD ASPM</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
+    <value>Вимикає Active State Power Management для відеокарт AMD, зменшуючи затримку шини PCI Express.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
+    <value>Вимкнути динамічний P-State NVIDIA</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
+    <value>Фіксує робочий стан продуктивності відеокарти NVIDIA, запобігаючи стрибкам тактової частоти ядра.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
+    <value>Вимкнути асинхронні P-States NVIDIA</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
+    <value>Запобігає асинхронному перемиканню рівнів продуктивності NVIDIA, покращуючи стабільність рендерингу для VR та змагальних ігор.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>Вимкнути асинхронний фліп Intel</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>Примусово вмикає синхронне оновлення буфера дисплея на вбудованій графіці Intel для зниження затримки виводу та усунення розривів кадрів.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
+    <value>Вимкнути адаптивний V-Sync Intel</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
+    <value>Вимикає нестабільну адаптивну вертикальну синхронізацію драйвера Intel на користь фіксованої синхронізації кадрів.</value>
+  </data>
+
+  <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
+    <value>Панель завдань</value>
+  </data>
+  <data name="Customize.Preferences.Section.Appearance" xml:space="preserve">
+    <value>Зовнішній вигляд</value>
+  </data>
+  <data name="Customize.Preferences.Section.Explorer" xml:space="preserve">
+    <value>Провідник</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarWidgets.Name" xml:space="preserve">
+    <value>Віджети панелі завдань</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarWidgets.Description" xml:space="preserve">
+    <value>Показує або приховує кнопку віджетів на панелі завдань. Віджети надають швидкий доступ до новин, погоди та оновлень.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarWidgets.Recommendation.Reason" xml:space="preserve">
+    <value>Віджети можуть завантажувати новини та погоду у фоновому режимі, що збільшує споживання оперативної пам'яті та мережевого трафіку під час простою.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Name" xml:space="preserve">
+    <value>Розташування панелі завдань</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Description" xml:space="preserve">
+    <value>Вибір положення значків на панелі завдань: по центру чи з лівого краю.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Options.Center" xml:space="preserve">
+    <value>По центру</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAlignment.Options.Left" xml:space="preserve">
+    <value>Зліва</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Name" xml:space="preserve">
+    <value>Групування кнопок панелі завдань</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Description" xml:space="preserve">
+    <value>Вибір режиму об'єднання кнопок на панелі завдань та приховування підписів на всіх моніторах.</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.Always" xml:space="preserve">
+    <value>Завжди</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.WhenFull" xml:space="preserve">
+    <value>Коли панель заповнена</value>
+  </data>
+  <data name="Customize.Preferences.CombineTaskbarButtons.Options.Never" xml:space="preserve">
+    <value>Ніколи</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerCompactMode.Name" xml:space="preserve">
+    <value>Компактний режим Провідника</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerCompactMode.Description" xml:space="preserve">
+    <value>Зменшує відстань між елементами у Провіднику для більш компактного відображення.</value>
+  </data>
+  <data name="Customize.Preferences.SnapAssistFlyout.Name" xml:space="preserve">
+    <value>Спливаюче меню макетів закріплення (Snap)</value>
+  </data>
+  <data name="Customize.Preferences.SnapAssistFlyout.Description" xml:space="preserve">
+    <value>Показує або приховує меню вибору макета при наведенні курсора на кнопку розгортання вікна.</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerItemCheckboxes.Name" xml:space="preserve">
+    <value>Прапорці вибору елементів у Провіднику</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerItemCheckboxes.Description" xml:space="preserve">
+    <value>Показує прапорці біля файлів і папок у Провіднику, полегшуючи вибір кількох елементів.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarTaskViewButton.Name" xml:space="preserve">
+    <value>Кнопка подання завдань (Task View)</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarTaskViewButton.Description" xml:space="preserve">
+    <value>Показує або приховує кнопку перегляду завдань на панелі завдань.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarEndTask.Name" xml:space="preserve">
+    <value>Пункт "Завершити завдання" на панелі</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarEndTask.Description" xml:space="preserve">
+    <value>Додає команду "Завершити завдання" в контекстне меню іконки на панелі завдань для швидкого закриття завислих додатків без відкриття Диспетчера завдань.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarEndTask.Recommendation.Reason" xml:space="preserve">
+    <value>Дозволяє миттєво примусово закривати завислі програми безпосередньо з панелі завдань.</value>
+  </data>
+  <data name="Customize.Preferences.DarkMode.Name" xml:space="preserve">
+    <value>Темна тема оформлення</value>
+  </data>
+  <data name="Customize.Preferences.DarkMode.Description" xml:space="preserve">
+    <value>Застосовує темні кольори для додатків Windows, Параметрів та елементів інтерфейсу.</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerSyncNotifications.Name" xml:space="preserve">
+    <value>Сповіщення синхронізації у Провіднику</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerSyncNotifications.Description" xml:space="preserve">
+    <value>Показує або приховує сповіщення від OneDrive та інших хмарних сховищ у Провіднику.</value>
+  </data>
+  <data name="Customize.Preferences.ExplorerSyncNotifications.Recommendation.Reason" xml:space="preserve">
+    <value>Вимикає нав'язливі спливаючі повідомлення OneDrive та хмарних сервісів під час перегляду файлів.</value>
+  </data>
+  <data name="Customize.Preferences.SystemSuggestions.Name" xml:space="preserve">
+    <value>Системні пропозиції та поради</value>
+  </data>
+  <data name="Customize.Preferences.SystemSuggestions.Description" xml:space="preserve">
+    <value>Показує або приховує поради Windows та рекомендації додатків у додатку "Параметри".</value>
+  </data>
+  <data name="Customize.Preferences.SystemSuggestions.Recommendation.Reason" xml:space="preserve">
+    <value>Вимикає рекламні пропозиції щодо додатків і сервісів у вікні параметрів Windows.</value>
+  </data>
+  <data name="Customize.Preferences.ToastNotifications.Name" xml:space="preserve">
+    <value>Спливаючі сповіщення (Toast)</value>
+  </data>
+  <data name="Customize.Preferences.ToastNotifications.Description" xml:space="preserve">
+    <value>Керує показом спливаючих сповіщень на робочому столі та екрані блокування.</value>
+  </data>
+  <data name="Customize.Preferences.ShowFileExtensions.Name" xml:space="preserve">
+    <value>Розширення імен файлів</value>
+  </data>
+  <data name="Customize.Preferences.ShowFileExtensions.Description" xml:space="preserve">
+    <value>Відображає або приховує розширення файлів (.txt, .exe тощо) у Провіднику.</value>
+  </data>
+  <data name="Customize.Preferences.ShowFileExtensions.Recommendation.Reason" xml:space="preserve">
+    <value>Відображення розширень полегшує розпізнавання підозрілих файлів і запобігає маскуванню вірусів під звичайні документи.</value>
+  </data>
+  <data name="Customize.Preferences.ShowHiddenFiles.Name" xml:space="preserve">
+    <value>Приховані файли та папки</value>
+  </data>
+  <data name="Customize.Preferences.ShowHiddenFiles.Description" xml:space="preserve">
+    <value>Показує або приховує приховані системні файли та папки у Провіднику.</value>
+  </data>
+  <data name="Customize.Preferences.ShowHiddenFiles.Recommendation.Reason" xml:space="preserve">
+    <value>Приховані папки містять важливі конфігураційні дані, які часто потрібні для налаштування та усунення несправностей.</value>
+  </data>
+  <data name="Customize.Preferences.ClipboardHistory.Name" xml:space="preserve">
+    <value>Журнал буфера обміну</value>
+  </data>
+  <data name="Customize.Preferences.ClipboardHistory.Description" xml:space="preserve">
+    <value>Зберігає історію скопійованих фрагментів, доступну за комбінацією Win+V.</value>
+  </data>
+  <data name="Customize.Preferences.ClipboardHistory.Recommendation.Reason" xml:space="preserve">
+    <value>Дозволяє переглядати та вставляти раніше скопійовані тексти та зображення через комбінацію Win+V.</value>
+  </data>
+  <data name="Customize.Preferences.WindowShake.Name" xml:space="preserve">
+    <value>Згортання струшуванням вікна (Aero Shake)</value>
+  </data>
+  <data name="Customize.Preferences.WindowShake.Description" xml:space="preserve">
+    <value>Струшування активного вікна згортає всі інші відкриті вікна.</value>
+  </data>
+  <data name="Customize.Preferences.ClassicContextMenu.Name" xml:space="preserve">
+    <value>Класичне контекстне меню</value>
+  </data>
+  <data name="Customize.Preferences.ClassicContextMenu.Description" xml:space="preserve">
+    <value>Вмикає повне класичне контекстне меню у стилі Windows 10 замість скороченого меню Windows 11.</value>
+  </data>
+  <data name="Customize.Preferences.ClassicContextMenu.Recommendation.Reason" xml:space="preserve">
+    <value>Класичне меню відразу показує всі доступні пункти без необхідності натискати додаткову кнопку "Показати додаткові параметри".</value>
+  </data>
+  <data name="Customize.Preferences.ShowSecondsInSystemClock.Name" xml:space="preserve">
+    <value>Секунди в системному годиннику</value>
+  </data>
+  <data name="Customize.Preferences.ShowSecondsInSystemClock.Description" xml:space="preserve">
+    <value>Відображає секунди в годиннику на панелі завдань.</value>
+  </data>
+  <data name="Customize.Gaming.Section.GameSettings" xml:space="preserve">
+    <value>Параметри гри</value>
+  </data>
+  <data name="Customize.Gaming.Section.Input" xml:space="preserve">
+    <value>Введення</value>
+  </data>
+  <data name="Customize.Gaming.Section.Display" xml:space="preserve">
+    <value>Дисплей</value>
+  </data>
+  <data name="Customize.Gaming.GameMode.Name" xml:space="preserve">
+    <value>Ігровий режим (Game Mode)</value>
+  </data>
+  <data name="Customize.Gaming.GameMode.Description" xml:space="preserve">
+    <value>Надає іграм максимальний пріоритет у доступі до системних ресурсів та призупиняє оновлення Windows під час гри.</value>
+  </data>
+  <data name="Customize.Gaming.GameMode.Recommendation.Reason" xml:space="preserve">
+    <value>Ігровий режим автоматично виділяє ресурси процесора і відеокарти для поточної гри, забезпечуючи більш плавний фреймрейт.</value>
+  </data>
+  <data name="Customize.Gaming.GameBar.Name" xml:space="preserve">
+    <value>Xbox Game Bar</value>
+  </data>
+  <data name="Customize.Gaming.GameBar.Description" xml:space="preserve">
+    <value>Показує Xbox Game Bar, його оверлеї та пов'язані фонові ігрові служби.</value>
+  </data>
+  <data name="Customize.Gaming.GameBar.Recommendation.Reason" xml:space="preserve">
+    <value>Панель Xbox Game Bar містить оверлеї та служби запису, які можуть споживати ресурси системи.</value>
+  </data>
+  <data name="Customize.Gaming.BackgroundRecording.Name" xml:space="preserve">
+    <value>Фоновий запис (Game DVR)</value>
+  </data>
+  <data name="Customize.Gaming.BackgroundRecording.Description" xml:space="preserve">
+    <value>Записує ігровий процес та екранну активність у фоновому режимі за допомогою Game DVR.</value>
+  </data>
+  <data name="Customize.Gaming.BackgroundRecording.Recommendation.Reason" xml:space="preserve">
+    <value>Фоновий запис гри безперервно навантажує процесор, відеокарту та створює зайве навантаження на диск.</value>
+  </data>
+  <data name="Customize.Gaming.MouseAcceleration.Name" xml:space="preserve">
+    <value>Прискорення миші</value>
+  </data>
+  <data name="Customize.Gaming.MouseAcceleration.Description" xml:space="preserve">
+    <value>Налаштовує залежність переміщення курсора від швидкості руху миші (підвищена точність встановлення вказівника).</value>
+  </data>
+  <data name="Customize.Gaming.MouseAcceleration.Recommendation.Reason" xml:space="preserve">
+    <value>Прискорення миші змінює швидкість курсора залежно від швидкості руху руки; пряме лінійне введення (без акселерації) покращує точність прицілювання в шутерах.</value>
+  </data>
+  <data name="Customize.Gaming.FullscreenOptimizations.Name" xml:space="preserve">
+    <value>Оптимізація для повноекранного режиму</value>
+  </data>
+  <data name="Customize.Gaming.FullscreenOptimizations.Description" xml:space="preserve">
+    <value>Застосовує оптимізації Windows для повноекранного режиму, покращуючи сумісність деяких ігор.</value>
+  </data>
+  <data name="Customize.Gaming.FullscreenOptimizations.Recommendation.Reason" xml:space="preserve">
+    <value>Вимкніть, якщо ви відчуваєте мікрофризи, затримку введення або бачите чорний екран (особливо в кіберспортивних іграх).</value>
+  </data>
+  <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Name" xml:space="preserve">
+    <value>Апаратне планування відеокарти (HAGS)</value>
+  </data>
+  <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Description" xml:space="preserve">
+    <value>Дозволяє відеокарті самостійно керувати виділенням своєї відеопам'яті (потрібен сумісний драйвер відеокарти).</value>
+  </data>
+  <data name="Customize.Gaming.HardwareAcceleratedGpuScheduling.Recommendation.Reason" xml:space="preserve">
+    <value>HAGS перекладає керування кадрами з центрального процесора безпосередньо на відеокарту, зменшуючи затримку виводу зображення.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Name" xml:space="preserve">
+    <value>Індикатор оверлею DLSS</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Description" xml:space="preserve">
+    <value>Керує показом екранного індикатора версії DLSS для перевірки того, яка саме версія бібліотеки використовується в грі.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Recommendation.Reason" xml:space="preserve">
+    <value>Діагностичний оверлей; тримайте вимкненим, якщо ви не тестуєте роботу DLSS.</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.Off" xml:space="preserve">
+    <value>Вимкнено</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.DebugOnly" xml:space="preserve">
+    <value>Лише налагоджувальні DLL</value>
+  </data>
+  <data name="Customize.Gaming.DlssIndicator.Options.AllVersions" xml:space="preserve">
+    <value>Усі версії DLSS</value>
+  </data>
+  <data name="Settings.Optimize.ShellTimeout.Warning" xml:space="preserve">
+    <value>НЕ змінюйте цей параметр, якщо не впевнені у своїх діях!</value>
+  </data>
+  <data name="Settings.About.Acknowledgements.Title" xml:space="preserve">
+    <value>Подяки</value>
+  </data>
+  <data name="Settings.About.Acknowledgements.Description" xml:space="preserve">
+    <value>optimizerDuck створено завдяки таким відкритим бібліотекам та ресурсам.</value>
+  </data>
+  <data name="RestorePoint.Title" xml:space="preserve">
+    <value>Відновлення системи</value>
+  </data>
+  <data name="RestorePointDialog.Description" xml:space="preserve">
+    <value>Точка відновлення дозволяє повернути систему до попереднього стану.
+Це захід безпеки перед застосуванням оптимізацій Windows.</value>
+  </data>
+  <data name="RestorePointDialog.Help" xml:space="preserve">
+    <value>Програма автоматично увімкне захист системи та створить контрольну точку з назвою "optimizerDuck...".
+Це гарантує можливість повернення у разі виникнення проблем.</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Error.Title" xml:space="preserve">
+    <value>Не вдалося створити точку відновлення</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Error.Message" xml:space="preserve">
+    <value>Виникла помилка під час створення точки відновлення. Спробуйте створити її вручну через панель керування.</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Warning.LimitReached" xml:space="preserve">
+    <value>Точку відновлення вже було створено протягом останніх 24 годин.</value>
+  </data>
+  <data name="RestorePoint.Progress.Creating" xml:space="preserve">
+    <value>Створення точки відновлення...</value>
+  </data>
+  <data name="RestorePoint.Progress.Enabling" xml:space="preserve">
+    <value>Увімкнення захисту системи...</value>
+  </data>
+  <data name="RestorePoint.Progress.Retrying" xml:space="preserve">
+    <value>Повторна спроба створення точки відновлення...</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Success.Title" xml:space="preserve">
+    <value>Точку відновлення успішно створено</value>
+  </data>
+  <data name="RestorePoint.Snackbar.Success.Message" xml:space="preserve">
+    <value>Створено точку відновлення з назвою: {0}.</value>
+  </data>
+  <data name="Snackbar.OpenLinkFailed.Title" xml:space="preserve">
+    <value>Не вдалося відкрити шлях</value>
+  </data>
+  <data name="Snackbar.OpenLinkFailed.Message" xml:space="preserve">
+    <value>Виникла помилка під час відкриття шляху. Будь ласка, перевірте журнал подій.</value>
+  </data>
+  <data name="Snackbar.OpenFailed.Message" xml:space="preserve">
+    <value>Виникла помилка під час відкриття папки або файлу. Будь ласка, перевірте журнал подій.</value>
+  </data>
+  <data name="Snackbar.OpenFailed.Title" xml:space="preserve">
+    <value>Не вдалося відкрити папку чи файл</value>
+  </data>
+  <data name="BloatwareDialog.Title" xml:space="preserve">
+    <value>Видалення {0} пакетів AppX</value>
+  </data>
+  <data name="BloatwareDialog.Removing" xml:space="preserve">
+    <value>Видалення {0} ({1}/{2})</value>
+  </data>
+  <data name="Bloatware.Header.Title" xml:space="preserve">
+    <value>Видалення додатків</value>
+  </data>
+  <data name="Bloatware.Menu.Remove" xml:space="preserve">
+    <value>Видалити ({0})</value>
+  </data>
+  <data name="Bloatware.Menu.Refresh" xml:space="preserve">
+    <value>Оновити</value>
+  </data>
+  <data name="Bloatware.Empty.Title" xml:space="preserve">
+    <value>Непотрібних додатків не знайдено ¯\_(ツ)_/¯</value>
+  </data>
+  <data name="Bloatware.Empty.Description" xml:space="preserve">
+    <value>optimizerDuck не знайшов додатків AppX, доступних для видалення. Тут порожньо...</value>
+  </data>
+  <data name="Bloatware.Loading" xml:space="preserve">
+    <value>Пошук встановлених додатків...</value>
+  </data>
+  <data name="Bloatware.Loading.Hint" xml:space="preserve">
+    <value>Зачекайте, поки програма сканує встановлені пакети.</value>
+  </data>
+  <data name="Sidebar.Bloatware" xml:space="preserve">
+    <value>Видалення додатків</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.Title" xml:space="preserve">
+    <value>Видалити {0} додатків?</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.Description" xml:space="preserve">
+    <value>Перевірте вибрані програми перед видаленням. Продовжуйте лише у разі повної впевненості.</value>
+  </data>
+  <data name="BloatwareDialog.Confirmation.SelectedList" xml:space="preserve">
+    <value>Вибрані програми</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.Title" xml:space="preserve">
+    <value>Попередження: Незвична назва пакета</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.Description" xml:space="preserve">
+    <value>Виявлено пакети з нестандартними ідентифікаторами або неперевіреним форматом назв. Їх видалення може призвести до помилок. Будь ласка, уважно перевірте список перед продовженням.</value>
+  </data>
+  <data name="BloatwareDialog.UnusualWarning.SelectedList" xml:space="preserve">
+    <value>Виявлені нестандартні пакети</value>
+  </data>
+  <data name="Settings.Bloatware.Header" xml:space="preserve">
+    <value>Видалення додатків</value>
+  </data>
+  <data name="Settings.Bloatware.RemoveProvisioned.Title" xml:space="preserve">
+    <value>Видаляти підготовлені пакети (Provisioned)</value>
+  </data>
+  <data name="Settings.Bloatware.RemoveProvisioned.Description" xml:space="preserve">
+    <value>Під час видалення AppX-пакетів також видаляти відповідні образи, щоб уникнути їх повторного встановлення для нових користувачів.</value>
+  </data>
+  <data name="Dashboard.UpdateInfoBar.Message" xml:space="preserve">
+    <value>Доступна нова версія optimizerDuck (v{0})!
+Оновіться, щоб отримати найновіші функції, покращення та виправлення помилок.</value>
+  </data>
+  <data name="Common.Search.Placeholder" xml:space="preserve">
+    <value>Пошук...</value>
+  </data>
+  <data name="Common.Filter.All" xml:space="preserve">
+    <value>Усі</value>
+  </data>
+  <data name="Common.SortBy.Name" xml:space="preserve">
+    <value>Назва</value>
+  </data>
+  <data name="Common.SortBy.Risk" xml:space="preserve">
+    <value>Рівень ризику</value>
+  </data>
+  <data name="Common.SortBy.Publisher" xml:space="preserve">
+    <value>Видавець</value>
+  </data>
+  <data name="Common.SortBy.Size" xml:space="preserve">
+    <value>Розмір</value>
+  </data>
+  <data name="Common.SortBy.Path" xml:space="preserve">
+    <value>Шлях</value>
+  </data>
+  <data name="Optimizer.Menu.ViewSource" xml:space="preserve">
+    <value>Переглянути вихідний код</value>
+  </data>
+  <data name="Bloatware.Menu.SelectAllSafe" xml:space="preserve">
+    <value>Вибрати всі безпечні</value>
+  </data>
+  <data name="Bloatware.Menu.DeselectAllSafe" xml:space="preserve">
+    <value>Зняти вибір з безпечних</value>
+  </data>
+  <data name="Optimizer.Menu.HideApplied" xml:space="preserve">
+    <value>Приховати застосовані елементи</value>
+  </data>
+  <data name="Bloatware.Search.NoResults" xml:space="preserve">
+    <value>Нічого не знайдено. Спробуйте змінити пошуковий запит або фільтр.</value>
+  </data>
+  <data name="Common.Filter" xml:space="preserve">
+    <value>Фільтр</value>
+  </data>
+  <data name="Common.SortBy" xml:space="preserve">
+    <value>Сортувати за</value>
+  </data>
+  <data name="Sidebar.DiskCleanup" xml:space="preserve">
+    <value>Очищення диска</value>
+  </data>
+  <data name="DiskCleanup.Header.Title" xml:space="preserve">
+    <value>Очищення диска</value>
+  </data>
+  <data name="DiskCleanup.Header.Description" xml:space="preserve">
+    <value>Звільніть місце на диску шляхом видалення тимчасових файлів і кешу</value>
+  </data>
+  <data name="DiskCleanup.TotalSpace" xml:space="preserve">
+    <value>Загальний обсяг для звільнення</value>
+  </data>
+  <data name="DiskCleanup.Button.Scan" xml:space="preserve">
+    <value>Сканувати</value>
+  </data>
+  <data name="DiskCleanup.Button.SelectAll" xml:space="preserve">
+    <value>Вибрати все</value>
+  </data>
+  <data name="DiskCleanup.Button.DeselectAll" xml:space="preserve">
+    <value>Зняти вибір</value>
+  </data>
+  <data name="DiskCleanup.Loading" xml:space="preserve">
+    <value>Завантаження елементів очищення...</value>
+  </data>
+  <data name="DiskCleanup.Complete.Title" xml:space="preserve">
+    <value>Очищення завершено</value>
+  </data>
+  <data name="DiskCleanup.Complete.Message" xml:space="preserve">
+    <value>Успішно звільнено {0} дискового простору за {1}</value>
+  </data>
+  <data name="DiskCleanup.Error.Title" xml:space="preserve">
+    <value>Помилка очищення</value>
+  </data>
+  <data name="DiskCleanup.Error.Message" xml:space="preserve">
+    <value>Деякі файли не вдалося видалити. Можливо, вони використовуються іншим процесом.</value>
+  </data>
+  <data name="DiskCleanup.Item.TempFiles" xml:space="preserve">
+    <value>Тимчасові файли</value>
+  </data>
+  <data name="DiskCleanup.Item.TempFiles.Description" xml:space="preserve">
+    <value>Тимчасові файли користувача, створені додатками (окрім каталогу .net)</value>
+  </data>
+  <data name="DiskCleanup.Item.SystemTemp" xml:space="preserve">
+    <value>Системні тимчасові файли</value>
+  </data>
+  <data name="DiskCleanup.Item.SystemTemp.Description" xml:space="preserve">
+    <value>Тимчасові системні файли Windows</value>
+  </data>
+  <data name="DiskCleanup.Item.WindowsUpdate" xml:space="preserve">
+    <value>Кеш Windows Update</value>
+  </data>
+  <data name="DiskCleanup.Item.WindowsUpdate.Description" xml:space="preserve">
+    <value>Завантажені файли оновлень Windows, які більше не потрібні</value>
+  </data>
+  <data name="DiskCleanup.Item.Prefetch" xml:space="preserve">
+    <value>Файли Prefetch</value>
+  </data>
+  <data name="DiskCleanup.Item.Prefetch.Description" xml:space="preserve">
+    <value>Дані попереднього завантаження програм для прискорення запуску</value>
+  </data>
+  <data name="DiskCleanup.Item.Thumbnails" xml:space="preserve">
+    <value>Кеш мініатюр</value>
+  </data>
+  <data name="DiskCleanup.Item.Thumbnails.Description" xml:space="preserve">
+    <value>Кешовані ескізи зображень для швидкого перегляду у Провіднику</value>
+  </data>
+  <data name="DiskCleanup.Item.RecycleBin" xml:space="preserve">
+    <value>Кошик</value>
+  </data>
+  <data name="DiskCleanup.Item.RecycleBin.Description" xml:space="preserve">
+    <value>Видалені файли, які зберігаються у кошику</value>
+  </data>
+  <data name="DiskCleanup.Item.ErrorReports" xml:space="preserve">
+    <value>Звіти про помилки</value>
+  </data>
+  <data name="DiskCleanup.Item.ErrorReports.Description" xml:space="preserve">
+    <value>Звіти про збої системи та дампи пам'яті Windows</value>
+  </data>
+  <data name="DiskCleanup.Item.OldWindowsInstallation" xml:space="preserve">
+    <value>Попередня інсталяція Windows (Windows.old)</value>
+  </data>
+  <data name="DiskCleanup.Item.OldWindowsInstallation.Description" xml:space="preserve">
+    <value>Файли попередньої версії Windows, збережені після великого оновлення</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.DeviceType.Laptop" xml:space="preserve">
+    <value>Ноутбук</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.DeviceType.Desktop" xml:space="preserve">
+    <value>Настільний ПК</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Os.Build" xml:space="preserve">
+    <value>Збірка {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Platform.Header" xml:space="preserve">
+    <value>Платформа та безпека</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Firmware" xml:space="preserve">
+    <value>Прошивка: {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.SecureBoot" xml:space="preserve">
+    <value>Безпечне завантаження (Secure Boot): {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Vbs" xml:space="preserve">
+    <value>VBS: {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.MemoryIntegrity" xml:space="preserve">
+    <value>Цілісність пам'яті: {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.PowerPlan" xml:space="preserve">
+    <value>Схема живлення: {0}</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Uptime.Label" xml:space="preserve">
+    <value>Час роботи</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Memory.Speed" xml:space="preserve">
+    <value>{0} МТ/с</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Cpu.Frequency" xml:space="preserve">
+    <value>{0} МГц</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Gpu.Driver" xml:space="preserve">
+    <value>Драйвер {0}</value>
+  </data>
+  <data name="Enum.CpuVendor.Intel" xml:space="preserve">
+    <value>Intel</value>
+  </data>
+  <data name="Enum.CpuVendor.Amd" xml:space="preserve">
+    <value>AMD</value>
+  </data>
+  <data name="Enum.GpuVendor.Nvidia" xml:space="preserve">
+    <value>NVIDIA</value>
+  </data>
+  <data name="Enum.GpuVendor.Amd" xml:space="preserve">
+    <value>AMD</value>
+  </data>
+  <data name="Enum.GpuVendor.Intel" xml:space="preserve">
+    <value>Intel</value>
+  </data>
+  <data name="Enum.Architecture.X64" xml:space="preserve">
+    <value>64-біт</value>
+  </data>
+  <data name="Enum.Architecture.X86" xml:space="preserve">
+    <value>32-біт</value>
+  </data>
+  <data name="Enum.Architecture.Arm64" xml:space="preserve">
+    <value>ARM64</value>
+  </data>
+  <data name="Enum.FirmwareMode.Uefi" xml:space="preserve">
+    <value>UEFI</value>
+  </data>
+  <data name="Enum.FirmwareMode.Legacy" xml:space="preserve">
+    <value>Legacy BIOS</value>
+  </data>
+  <data name="Enum.SecureBootState.Enabled" xml:space="preserve">
+    <value>Увімкнено</value>
+  </data>
+  <data name="Enum.SecureBootState.Disabled" xml:space="preserve">
+    <value>Вимкнено</value>
+  </data>
+  <data name="Enum.SecureBootState.Unavailable" xml:space="preserve">
+    <value>Недоступно</value>
+  </data>
+  <data name="Enum.VbsState.Enabled" xml:space="preserve">
+    <value>Увімкнено</value>
+  </data>
+  <data name="Enum.VbsState.Disabled" xml:space="preserve">
+    <value>Вимкнено</value>
+  </data>
+  <data name="Enum.VbsState.Unavailable" xml:space="preserve">
+    <value>Недоступно</value>
+  </data>
+  <data name="Enum.MemoryType.Ddr" xml:space="preserve">
+    <value>DDR</value>
+  </data>
+  <data name="Enum.MemoryType.Ddr2" xml:space="preserve">
+    <value>DDR2</value>
+  </data>
+  <data name="Enum.MemoryType.Ddr3" xml:space="preserve">
+    <value>DDR3</value>
+  </data>
+  <data name="Enum.MemoryType.Ddr4" xml:space="preserve">
+    <value>DDR4</value>
+  </data>
+  <data name="Enum.MemoryType.Ddr5" xml:space="preserve">
+    <value>DDR5</value>
+  </data>
+  <data name="Enum.MemoryType.Sdram" xml:space="preserve">
+    <value>SDRAM</value>
+  </data>
+  <data name="Enum.MemoryType.Other" xml:space="preserve">
+    <value>Інше</value>
+  </data>
+  <data name="Enum.MemoryType.Lpddr" xml:space="preserve">
+    <value>LPDDR</value>
+  </data>
+  <data name="Enum.MemoryType.Hbm" xml:space="preserve">
+    <value>HBM</value>
+  </data>
+  <data name="Enum.StorageMediaType.Hdd" xml:space="preserve">
+    <value>HDD</value>
+  </data>
+  <data name="Enum.StorageMediaType.Ssd" xml:space="preserve">
+    <value>SSD</value>
+  </data>
+  <data name="Enum.StorageMediaType.Nvme" xml:space="preserve">
+    <value>NVMe</value>
+  </data>
+  <data name="Bloatware.Header.Description" xml:space="preserve">
+    <value>Керуйте та видаляйте попередньо встановлені програми, які вам не потрібні</value>
+  </data>
+  <data name="DiskCleanup.Button.Clean" xml:space="preserve">
+    <value>Очистити</value>
+  </data>
+  <data name="DiskCleanup.Button.CleanSelected" xml:space="preserve">
+    <value>Очистити вибране ({0})</value>
+  </data>
+  <data name="DiskCleanup.EmptySize" xml:space="preserve">
+    <value>0 байт</value>
+  </data>
+  <data name="DiskCleanup.FilesCount" xml:space="preserve">
+    <value>{0} файлів</value>
+  </data>
+  <data name="DiskCleanup.ItemsAndFilesSelected" xml:space="preserve">
+    <value>Вибрано: {0} • {1} категорій • {2} файлів</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Warning" xml:space="preserve">
+    <value>Файли буде видалено назавжди. Цю дію неможливо скасувати.</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Title" xml:space="preserve">
+    <value>Очистити {0} вибраних елементів</value>
+  </data>
+  <data name="DiskCleanup.Dialog.Confirmation.Summary" xml:space="preserve">
+    <value>Ви збираєтеся видалити {0} з {1} категорій ({2} файлів). Будь ласка, перегляньте список нижче.</value>
+  </data>
+  <data name="Settings.About.NeedHelp.Title" xml:space="preserve">
+      <value>Потрібна допомога?</value>
+    </data>
+  <data name="Sidebar.StartupManager" xml:space="preserve">
+    <value>Автозавантаження</value>
+  </data>
+  <data name="StartupManager.Header.Title" xml:space="preserve">
+    <value>Автозавантаження</value>
+  </data>
+  <data name="StartupManager.Header.Description" xml:space="preserve">
+    <value>Керуйте додатками та завданнями, що автоматично запускаються разом із Windows.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other" xml:space="preserve">
+    <value>Інше</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
+    <value>Відкрити вихідний JSON-файл, що містить дані для відкату цієї оптимізації.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
+    <value>Відкрити вихідний код цієї оптимізації у браузері на GitHub.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
+    <value>Переглянути код на GitHub</value>
+  </data>
+  <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
+    <value>Технічні подробиці</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Id" xml:space="preserve">
+    <value>ID оптимізації</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Class" xml:space="preserve">
+    <value>Назва класу</value>
+  </data>
+  <data name="StartupManager.Apps.Title" xml:space="preserve">
+    <value>Програми в автозавантаженні</value>
+  </data>
+  <data name="StartupManager.Apps.Description" xml:space="preserve">
+    <value>Програми, що стартують під час входу в систему.</value>
+  </data>
+  <data name="StartupManager.Apps.CountSuffix" xml:space="preserve">
+    <value>елементів: {0}</value>
+  </data>
+  <data name="StartupManager.Tasks.Title" xml:space="preserve">
+    <value>Завдання планувальника (при вході)</value>
+  </data>
+  <data name="StartupManager.Tasks.Description" xml:space="preserve">
+    <value>Завдання Windows, налаштовані на запуск під час входу в систему.</value>
+  </data>
+  <data name="StartupManager.Tasks.CountSuffix" xml:space="preserve">
+    <value>завдань: {0}</value>
+  </data>
+  <data name="StartupManager.Loading" xml:space="preserve">
+    <value>Сканування елементів автозапуску...</value>
+  </data>
+  <data name="StartupManager.Loading.Hint" xml:space="preserve">
+    <value>Зачекайте, триває перевірка реєстру та папок автозавантаження.</value>
+  </data>
+  <data name="StartupManager.Empty.Title" xml:space="preserve">
+    <value>Немає елементів автозапуску</value>
+  </data>
+  <data name="StartupManager.Empty.Description" xml:space="preserve">
+    <value>У системі не знайдено активних програм чи завдань автозавантаження.</value>
+  </data>
+  <data name="StartupManager.Menu.Refresh" xml:space="preserve">
+    <value>Оновити</value>
+  </data>
+  <data name="Common.Toggle.On" xml:space="preserve">
+    <value>Увімк.</value>
+  </data>
+  <data name="Common.Toggle.Off" xml:space="preserve">
+    <value>Вимк.</value>
+  </data>
+  <data name="Common.SortBy.Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="StartupManager.Menu.OpenSettings" xml:space="preserve">
+    <value>Відкрити налаштування</value>
+  </data>
+  <!-- Scheduled Tasks (Startup Manager) -->
+  <data name="StartupManager.Tasks.HideMicrosoft" xml:space="preserve">
+    <value>Приховати завдання Microsoft</value>
+  </data>
+  <!-- Sidebar -->
+  <data name="Sidebar.ScheduledTasks" xml:space="preserve">
+    <value>Планувальник завдань</value>
+  </data>
+  <!-- Scheduled Tasks Page -->
+  <data name="ScheduledTasks.Header.Title" xml:space="preserve">
+    <value>Планувальник завдань</value>
+  </data>
+  <data name="ScheduledTasks.Header.Description" xml:space="preserve">
+    <value>Перегляд та керування запланованими завданнями Windows.</value>
+  </data>
+  <data name="ScheduledTasks.Loading" xml:space="preserve">
+    <value>Завантаження запланованих завдань...</value>
+  </data>
+  <data name="ScheduledTasks.Loading.Hint" xml:space="preserve">
+    <value>Зачекайте, триває сканування всіх запланованих завдань у системі...</value>
+  </data>
+  <data name="ScheduledTasks.HideMicrosoft" xml:space="preserve">
+    <value>Приховати завдання Microsoft</value>
+  </data>
+  <!-- Scheduled Tasks Actions -->
+  <data name="ScheduledTasks.Action.Details" xml:space="preserve">
+    <value>Подробиці</value>
+  </data>
+  <data name="ScheduledTasks.Action.Run" xml:space="preserve">
+    <value>Запустити</value>
+  </data>
+  <data name="ScheduledTasks.Action.Stop" xml:space="preserve">
+    <value>Зупинити</value>
+  </data>
+  <data name="ScheduledTasks.Action.Delete" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <!-- Scheduled Tasks Dialogs -->
+  <data name="ScheduledTasks.Dialog.DeleteTitle" xml:space="preserve">
+    <value>Видалити заплановане завдання</value>
+  </data>
+  <data name="ScheduledTasks.Dialog.DeleteWarning" xml:space="preserve">
+    <value>Видалення завдання є остаточним. Воно більше не запускатиметься автоматично.</value>
+  </data>
+  <!-- Scheduled Tasks Details -->
+  <data name="ScheduledTasks.Details.Path" xml:space="preserve">
+    <value>Шлях</value>
+  </data>
+  <data name="ScheduledTasks.Details.Description" xml:space="preserve">
+    <value>Опис</value>
+  </data>
+  <data name="ScheduledTasks.Details.Author" xml:space="preserve">
+    <value>Автор</value>
+  </data>
+  <data name="ScheduledTasks.Details.Triggers" xml:space="preserve">
+    <value>Тригери</value>
+  </data>
+  <data name="ScheduledTasks.Details.Action" xml:space="preserve">
+    <value>Дія</value>
+  </data>
+  <data name="ScheduledTasks.Details.LastRun" xml:space="preserve">
+    <value>Останній запуск</value>
+  </data>
+  <data name="ScheduledTasks.Details.NextRun" xml:space="preserve">
+    <value>Наступний запуск</value>
+  </data>
+  <data name="ScheduledTasks.Details.LastResult" xml:space="preserve">
+    <value>Результат</value>
+  </data>
+  <!-- Common -->
+  <data name="Common.Delete" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="Common.Empty" xml:space="preserve">
+    <value>Очистити</value>
+  </data>
+  <data name="Common.SortBy.State" xml:space="preserve">
+    <value>Стан</value>
+  </data>
+  <data name="ScheduledTasks.Menu.OpenSettings" xml:space="preserve">
+    <value>Відкрити планувальник завдань</value>
+  </data>
+  <data name="ScheduledTasks.Details.Name" xml:space="preserve">
+    <value>Назва</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Enabled.Title" xml:space="preserve">
+    <value>Завдання увімкнено</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Disabled.Title" xml:space="preserve">
+    <value>Завдання вимкнено</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Toggle.Message" xml:space="preserve">
+    <value>{0} успішно оновлено.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Run.Title" xml:space="preserve">
+    <value>Завдання запущено</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Run.Message" xml:space="preserve">
+    <value>{0} зараз виконується.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Stop.Title" xml:space="preserve">
+    <value>Завдання зупинено</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Stop.Message" xml:space="preserve">
+    <value>{0} зупинено.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Delete.Title" xml:space="preserve">
+    <value>Завдання видалено</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Delete.Message" xml:space="preserve">
+    <value>{0} видалено.</value>
+  </data>
+  <data name="ScheduledTasks.Snackbar.Error.Title" xml:space="preserve">
+
+    <value>Помилка</value>
+  </data>
+  <data name="Settings.About.NeedHelp.Description" xml:space="preserve">
+      <value>Якщо у вас виникли питання щодо оптимізації, приєднуйтесь до нашої спільноти для швидкої підтримки.</value>
+    </data>
+  <data name="ScheduledTasks.Error.TaskNotFound" xml:space="preserve">
+      <value>Завдання не знайдено: {0}</value>
+    </data>
+  <data name="Revert.Registry.Description.Restore" xml:space="preserve">
+    <value>Відновлення параметра реєстру: {0}\{1}</value>
+  </data>
+  <data name="Revert.Registry.Description.Delete" xml:space="preserve">
+    <value>Видалення параметра реєстру: {0}\{1}</value>
+  </data>
+  <data name="Revert.Service.Description.Restore" xml:space="preserve">
+    <value>Відновлення типу запуску служби '{0}' на {1}</value>
+  </data>
+  <data name="Revert.ScheduledTask.Description.Enable" xml:space="preserve">
+    <value>Увімкнення запланованого завдання: {0}</value>
+  </data>
+  <data name="Revert.ScheduledTask.Description.Disable" xml:space="preserve">
+    <value>Вимкнення запланованого завдання: {0}</value>
+  </data>
+  <data name="Revert.Shell.Description.Run" xml:space="preserve">
+    <value>Виконання команди {0}: {1}</value>
+  </data>
+  <data name="Revert.Shell.Error.UnknownShellType" xml:space="preserve">
+    <value>Невідомий тип командної оболонки</value>
+  </data>
+  <data name="Revert.Shell.Error.CommandFailed" xml:space="preserve">
+    <value>Команда відкату завершилася з кодом помилки {0}</value>
+  </data>
+  <data name="Revert.UsbPower.Error.RestoreFailed" xml:space="preserve">
+    <value>Не вдалося відновити параметри енергозбереження USB</value>
+  </data>
+  <data name="Settings.Optimize.ShowCompletionNotification.Title" xml:space="preserve">
+    <value>Показувати сповіщення про завершення</value>
+  </data>
+  <data name="Settings.Optimize.ShowCompletionNotification.Description" xml:space="preserve">
+    <value>Відображати системне сповіщення, коли оптимізації успішно застосовано або відкочено.</value>
+  </data>
+  <data name="Optimizations.Loading" xml:space="preserve">
+    <value>Завантаження оптимізацій...</value>
+  </data>
+  <data name="Optimizations.Loading.Hint" xml:space="preserve">
+    <value>Будь ласка, зачекайте...</value>
+  </data>
+  <data name="Common.OpenFolder" xml:space="preserve">
+    <value>Відкрити папку</value>
+  </data>
+  <data name="Common.Other" xml:space="preserve">
+    <value>Інше</value>
+  </data>
+  <data name="Sidebar.Customize" xml:space="preserve">
+    <value>Персоналізація</value>
+  </data>
+  <data name="Customize.Title" xml:space="preserve">
+    <value>Персоналізація</value>
+  </data>
+  <data name="Customize.SystemFeatures.Name" xml:space="preserve">
+    <value>Система</value>
+  </data>
+  <data name="Customize.SystemFeatures.Description" xml:space="preserve">
+    <value>Корисні можливості та системна поведінка Windows.</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Input" xml:space="preserve">
+    <value>Параметри введення</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Boot" xml:space="preserve">
+    <value>Параметри завантаження</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Network" xml:space="preserve">
+    <value>Параметри мережі</value>
+  </data>
+  <data name="Customize.SystemFeatures.NumLockOnBoot.Name" xml:space="preserve">
+    <value>NumLock під час завантаження</value>
+  </data>
+  <data name="Customize.SystemFeatures.NumLockOnBoot.Description" xml:space="preserve">
+    <value>Вмикає режим Num Lock на цифровій клавіатурі під час завантаження екрана входу в систему.</value>
+  </data>
+  <data name="Customize.SystemFeatures.NumLockOnBoot.Recommendation.Reason" xml:space="preserve">
+    <value>Увімкнення NumLock гарантує готовність цифрового блоку клавіатури відразу після завантаження системи.</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Name" xml:space="preserve">
+    <value>Детальні повідомлення про стан</value>
+  </data>
+  <data name="Customize.SystemFeatures.VerboseStatus.Description" xml:space="preserve">
+    <value>Відображає точні назви служб, драйверів та етапів під час завантаження, вимкнення та оновлення замість стандартного анімованого кружечка.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Name" xml:space="preserve">
+    <value>Апаратний годинник в UTC</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Description" xml:space="preserve">
+    <value>Переводить системний апаратний годинник (BIOS/UEFI) у формат UTC. Необхідно під час спільного використання Windows та Linux (Dual-boot), щоб час не збивався.</value>
+  </data>
+  <data name="Customize.SystemFeatures.UtcHardwareClock.Recommendation.Reason" xml:space="preserve">
+    <value>Вмикайте лише у випадку, якщо на цьому комп'ютері паралельно встановлена інша ОС (наприклад, Linux), яка використовує UTC.</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Name" xml:space="preserve">
+    <value>Захист від витоку DNS</value>
+  </data>
+  <data name="Customize.SystemFeatures.DisableSmartNameResolution.Description" xml:space="preserve">
+    <value>Вимикає службу Smart Multi-Homed Name Resolution, щоб DNS-запити не відправлялися одночасно через усі адаптери. Запобігає витоку DNS-запитів в обхід VPN-тунелю.</value>
+  </data>
+  <data name="Customize.SystemFeatures.Section.Power" xml:space="preserve">
+    <value>Параметри живлення</value>
+  </data>
+  <data name="Customize.Desktop.Name" xml:space="preserve">
+    <value>Робочий стіл</value>
+  </data>
+  <data name="Customize.Desktop.Description" xml:space="preserve">
+    <value>Значки робочого столу та зовнішній вигляд ярликів.</value>
+  </data>
+  <data name="Customize.Desktop.Section.Icons" xml:space="preserve">
+    <value>Значки робочого столу</value>
+  </data>
+  <data name="Customize.Desktop.Section.Behaviors" xml:space="preserve">
+    <value>Поведінка ярликів</value>
+  </data>
+  <data name="Customize.Desktop.ShowThisPc.Name" xml:space="preserve">
+    <value>Цей ПК</value>
+  </data>
+  <data name="Customize.Desktop.ShowThisPc.Description" xml:space="preserve">
+    <value>Показує або приховує значок "Цей ПК" на робочому столі.</value>
+  </data>
+  <data name="Customize.Desktop.ShowRecycleBin.Name" xml:space="preserve">
+    <value>Кошик</value>
+  </data>
+  <data name="Customize.Desktop.ShowRecycleBin.Description" xml:space="preserve">
+    <value>Показує або приховує значок "Кошик" на робочому столі.</value>
+  </data>
+  <data name="Customize.Desktop.ShowUserFiles.Name" xml:space="preserve">
+    <value>Папка користувача</value>
+  </data>
+  <data name="Customize.Desktop.ShowUserFiles.Description" xml:space="preserve">
+    <value>Показує або приховує особисту папку користувача на робочому столі.</value>
+  </data>
+  <data name="Customize.Desktop.ShowNetwork.Name" xml:space="preserve">
+    <value>Мережа</value>
+  </data>
+  <data name="Customize.Desktop.ShowNetwork.Description" xml:space="preserve">
+    <value>Показує або приховує значок "Мережа" на робочому столі.</value>
+  </data>
+  <data name="Customize.Desktop.ShowControlPanel.Name" xml:space="preserve">
+    <value>Панель керування</value>
+  </data>
+  <data name="Customize.Desktop.ShowControlPanel.Description" xml:space="preserve">
+    <value>Показує або приховує значок "Панель керування" на робочому столі.</value>
+  </data>
+  <data name="Customize.Desktop.ShowDesktopIcons.Name" xml:space="preserve">
+    <value>Значки робочого столу</value>
+  </data>
+  <data name="Customize.Desktop.ShowDesktopIcons.Description" xml:space="preserve">
+    <value>Показує або приховує всі значки на робочому столі одночасно.</value>
+  </data>
+  <data name="Customize.Desktop.ShortcutArrow.Name" xml:space="preserve">
+    <value>Стрілки на ярликах</value>
+  </data>
+  <data name="Customize.Desktop.ShortcutArrow.Description" xml:space="preserve">
+    <value>Показує або приховує піктограму стрілки на ярликах робочого столу.</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Name" xml:space="preserve">
+    <value>Початкова папка Провідника</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Description" xml:space="preserve">
+    <value>Вибір розташування, що відкривається під час запуску Провідника: "Цей ПК" або "Швидкий доступ".</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Options.QuickAccess" xml:space="preserve">
+    <value>Швидкий доступ</value>
+  </data>
+  <data name="Customize.Preferences.LaunchToThisPc.Options.ThisPc" xml:space="preserve">
+    <value>Цей ПК</value>
+  </data>
+  <data name="Customize.Preferences.BingSearch.Name" xml:space="preserve">
+    <value>Пошук Bing у меню "Пуск"</value>
+  </data>
+  <data name="Customize.Preferences.BingSearch.Description" xml:space="preserve">
+    <value>Включає веб-результати Bing разом із локальними файлами в пошуку Windows та меню "Пуск".</value>
+  </data>
+  <data name="Customize.Preferences.BingSearch.Recommendation.Reason" xml:space="preserve">
+    <value>Вимкнення пошуку Bing запобігає засміченню локального пошуку веб-посиланнями та прискорює пошук файлів на ПК.</value>
+  </data>
+  <data name="Button.Accept" xml:space="preserve">
+    <value>Прийняти</value>
+  </data>
+  <data name="LegalDialog.Title" xml:space="preserve">
+    <value>Угода користувача</value>
+  </data>
+  <data name="LegalDialog.Intro.Title" xml:space="preserve">
+    <value>Ласкаво просимо до optimizerDuck!</value>
+  </data>
+  <data name="LegalDialog.Intro.Description" xml:space="preserve">
+    <value>Оберіть мову та тему, ознайомтеся з Умовами використання, Політикою конфіденційності та Відмовою від відповідальності, після чого ви зможете почати роботу.</value>
+  </data>
+  <data name="LegalDialog.Link.TermsOfService" xml:space="preserve">
+    <value>Умови використання</value>
+  </data>
+  <data name="LegalDialog.Link.PrivacyPolicy" xml:space="preserve">
+    <value>Політика конфіденційності</value>
+  </data>
+  <data name="LegalDialog.Link.Disclaimer" xml:space="preserve">
+    <value>Відмова від відповідальності</value>
+  </data>
+  <data name="LegalDialog.Language.Title" xml:space="preserve">
+    <value>Мова</value>
+  </data>
+  <data name="LegalDialog.Language.Description" xml:space="preserve">
+    <value>Оберіть мову інтерфейсу</value>
+  </data>
+  <data name="LegalDialog.Theme.Title" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="LegalDialog.Theme.Description" xml:space="preserve">
+    <value>Оберіть тему оформлення</value>
+  </data>
+  <data name="LegalDialog.Preferences.Header" xml:space="preserve">
+    <value>Уподобання</value>
+  </data>
+  <data name="LegalDialog.Extras.Header" xml:space="preserve">
+    <value>Додатково</value>
+  </data>
+  <data name="LegalDialog.Extras.GitHub.Title" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="LegalDialog.Extras.GitHub.Description" xml:space="preserve">
+    <value>Вихідний код і повідомлення про помилки</value>
+  </data>
+  <data name="LegalDialog.Extras.Docs.Title" xml:space="preserve">
+    <value>Документація</value>
+  </data>
+  <data name="LegalDialog.Extras.Docs.Description" xml:space="preserve">
+    <value>Посібники та початок роботи</value>
+  </data>
+  <data name="LegalDialog.Extras.Discord.Title" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="LegalDialog.Extras.Discord.Description" xml:space="preserve">
+    <value>Спільнота та підтримка</value>
+  </data>
+  <data name="LegalDialog.Extras.Acknowledgements.Title" xml:space="preserve">
+    <value>Подяки</value>
+  </data>
+  <data name="LegalDialog.Extras.Acknowledgements.Description" xml:space="preserve">
+    <value>Сторонні компоненти та ліцензії</value>
+  </data>
+  <data name="LegalDialog.Warning.Title" xml:space="preserve">
+    <value>Використовуйте на власний ризик</value>
+  </data>
+  <data name="LegalDialog.Warning.Message" xml:space="preserve">
+    <value>Ми наполегливо рекомендуємо створити точку відновлення системи перед внесенням будь-яких змін.</value>
+  </data>
+  <data name="Dialog.PendingChanges.Title" xml:space="preserve">
+    <value>Застосувати зміни</value>
+  </data>
+  <data name="Dialog.PendingChanges.Content" xml:space="preserve">
+    <value>Деякі зміни набудуть чинності лише після перезавантаження. Що ви бажаєте зробити перед виходом?</value>
+  </data>
+  <data name="Dialog.PendingChanges.CloseButton" xml:space="preserve">
+    <value>Усе одно вийти</value>
+  </data>
+  <data name="Dialog.PendingChanges.PrimaryButton" xml:space="preserve">
+    <value>Перезавантажити ПК</value>
+  </data>
+  <data name="Dialog.PendingChanges.SecondaryButton" xml:space="preserve">
+    <value>Перезапустити Провідник</value>
+  </data>
+  <data name="Settings.About.Documentation.Title" xml:space="preserve">
+    <value>Документація</value>
+  </data>
+  <data name="Settings.About.Documentation.Description" xml:space="preserve">
+    <value>Переглянути документацію, інструкції користувача та часті запитання (FAQ).</value>
+  </data>
+  <data name="TitleBar.Support" xml:space="preserve">
+    <value>Підтримати проект</value>
+  </data>
+  <data name="TitleBar.Discord" xml:space="preserve">
+    <value>Приєднатися до спільноти Discord</value>
+  </data>
+
+  <data name="Customize.SystemFeatures.Section.Developer" xml:space="preserve">
+    <value>Розробка</value>
+  </data>
+
+
+  <!-- Developer Mode -->
+  <data name="Customize.SystemFeatures.DeveloperMode.Name" xml:space="preserve">
+    <value>Режим розробника</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Description" xml:space="preserve">
+    <value>Надає доступ до інструментів встановлення сторонніх додатків (sideloading), Device Portal, SSH та налагодження.</value>
+  </data>
+  <data name="Customize.SystemFeatures.DeveloperMode.Recommendation.Reason" xml:space="preserve">
+    <value>Режим розробника дозволяє тестувати власні програми та використовувати розширені засоби діагностики.</value>
+  </data>
+
+  <!-- Allow All Trusted Apps -->
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Name" xml:space="preserve">
+    <value>Встановлення довірених додатків</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Description" xml:space="preserve">
+    <value>Дозволяє встановлювати підписані довірені додатки без обов'язкового увімкнення повного режиму розробника.</value>
+  </data>
+  <data name="Customize.SystemFeatures.AllowAllTrustedApps.Recommendation.Reason" xml:space="preserve">
+    <value>Дозволяє встановлювати програми з перевірених джерел без обмеження лише магазином Microsoft Store.</value>
+  </data>
+
+  <!-- Long Paths -->
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Name" xml:space="preserve">
+    <value>Підтримка довгих шляхів файлів (&gt;260 символів)</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Description" xml:space="preserve">
+    <value>Дозволяє програмам працювати зі шляхами до файлів, довжина яких перевищує стандартне обмеження у 260 символів.</value>
+  </data>
+  <data name="Customize.SystemFeatures.LongPathsEnabled.Recommendation.Reason" xml:space="preserve">
+    <value>Запобігає помилкам доступу до файлів у глибоко вкладених каталогах або в проектах розробки з довгими іменами.</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Name" xml:space="preserve">
+    <value>Відображення пошуку на панелі</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Description" xml:space="preserve">
+    <value>Вибір вигляду пошуку на панелі завдань: поле пошуку, значок або повне приховування.</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Hidden" xml:space="preserve">
+    <value>Приховано</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.Icon" xml:space="preserve">
+    <value>Лише значок</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.IconAndLabel" xml:space="preserve">
+    <value>Значок і підпис</value>
+  </data>
+  <data name="Customize.Preferences.SearchBoxTaskbarMode.Options.SearchBox" xml:space="preserve">
+    <value>Поле пошуку</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarLastActiveClick.Name" xml:space="preserve">
+    <value>Активація останнього вікна на панелі</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarLastActiveClick.Description" xml:space="preserve">
+    <value>Клік по значку програми на панелі завдань відразу відкриває останнє активне вікно цієї програми.</value>
+  </data>
+	<data name="Customize.SystemFeatures.ShowBatteryPercentage.Name" xml:space="preserve">
+    <value>Відсоток заряду акумулятора</value>
+  </data>
+  <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
+    <value>Відображає поточний відсоток заряду акумулятора поруч із піктограмою батареї в області сповіщень.</value>
+  </data>
+  <data name="Optimizer.AI" xml:space="preserve">
+    <value>Штучний інтелект (AI)</value>
+  </data>
+  <data name="Optimizer.AI.DisableClickToDo.Name" xml:space="preserve">
+    <value>Вимкнути функцію "Click To Do"</value>
+  </data>
+  <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
+    <value>Вимикає функцію штучного інтелекту Click To Do, яка безперервно аналізує текст та зображення на вашому екрані.</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
+    <value>Вимкнути Windows Recall</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.ShortDescription" xml:space="preserve">
+    <value>Вимикає ШІ-функцію Windows Recall, яка робить знімки екрана. Також видаляє компонент Recall та накопичені знімки у Windows 11 24H2+ (потрібне перезавантаження).</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.Name" xml:space="preserve">
+    <value>Вимкнути оптимізацію доставки (P2P оновлення)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
+    <value>Забороняє комп'ютеру роздавати або завантажувати файли оновлень через мережу P2P між іншими користувачами в інтернеті.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
+    <value>Вимкнути функцію "Пошук мого пристрою"</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
+    <value>Вимикає функцію періодичної відправки координат вашого комп'ютера на сервери Microsoft.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
+    <value>Приховати рекламу Microsoft 365 у Параметрах</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
+    <value>Видаляє рекламні банери підписки Microsoft 365 та Copilot із головної сторінки програми "Параметри".</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartRecommended.Name" xml:space="preserve">
+    <value>Приховати розділ "Рекомендоване" у "Пуск"</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
+    <value>Приховує блок нещодавніх файлів та рекомендацій із меню "Пуск" Windows 11.</value>
+  </data>
+  <data name="Condition.Error.Title" xml:space="preserve">
+    <value>Перевірка сумісності не вдалася</value>
+  </data>
+  <data name="Condition.Error.Description" xml:space="preserve">
+    <value>optimizerDuck не зміг визначити, чи підтримується цей елемент у вашій системі.</value>
+  </data>
+  <data name="Condition.Windows11.Title" xml:space="preserve">
+    <value>Потрібна Windows 11</value>
+  </data>
+  <data name="Condition.Windows11.Description" xml:space="preserve">
+    <value>Цей елемент підтримується лише у Windows 11.</value>
+  </data>
+  <data name="Condition.Windows10.Title" xml:space="preserve">
+    <value>Потрібна Windows 10</value>
+  </data>
+  <data name="Condition.Windows10.Description" xml:space="preserve">
+    <value>Цей елемент підтримується лише у Windows 10.</value>
+  </data>
+  <data name="Condition.Windows11_24H2.Title" xml:space="preserve">
+    <value>Потрібна Windows 11 24H2 або новіша</value>
+  </data>
+  <data name="Condition.Windows11_24H2.Description" xml:space="preserve">
+    <value>Цей елемент вимагає Windows 11 24H2 (збірка 26100) або новішу.</value>
+  </data>
+  <data name="Condition.Cpu.Intel.Title" xml:space="preserve">
+    <value>Потрібен процесор Intel</value>
+  </data>
+  <data name="Condition.Cpu.Intel.Description" xml:space="preserve">
+    <value>Цей елемент працює лише на системах із процесором Intel.</value>
+  </data>
+  <data name="Condition.Cpu.Amd.Title" xml:space="preserve">
+    <value>Потрібен процесор AMD</value>
+  </data>
+  <data name="Condition.Cpu.Amd.Description" xml:space="preserve">
+    <value>Цей елемент працює лише на системах із процесором AMD.</value>
+  </data>
+  <data name="Condition.Gpu.Nvidia.Title" xml:space="preserve">
+    <value>Потрібна відеокарта NVIDIA</value>
+  </data>
+  <data name="Condition.Gpu.Nvidia.Description" xml:space="preserve">
+    <value>Цей елемент працює лише на системах із відеокартою NVIDIA.</value>
+  </data>
+  <data name="Condition.Gpu.Amd.Title" xml:space="preserve">
+    <value>Потрібна відеокарта AMD</value>
+  </data>
+  <data name="Condition.Gpu.Amd.Description" xml:space="preserve">
+    <value>Цей елемент працює лише на системах із відеокартою AMD.</value>
+  </data>
+  <data name="Condition.Gpu.Intel.Title" xml:space="preserve">
+    <value>Потрібна відеокарта Intel</value>
+  </data>
+  <data name="Condition.Gpu.Intel.Description" xml:space="preserve">
+    <value>Цей елемент працює лише на системах із графікою Intel.</value>
+  </data>
+  <data name="Condition.Ram.16.Title" xml:space="preserve">
+    <value>Потрібно щонайменше 16 ГБ RAM</value>
+  </data>
+  <data name="Condition.Ram.16.Description" xml:space="preserve">
+    <value>Для цього елемента необхідно щонайменше 16 ГБ встановленої оперативної пам'яті.</value>
+  </data>
+  <data name="Condition.Recall.Title" xml:space="preserve">
+    <value>Windows Recall недоступний</value>
+  </data>
+  <data name="Condition.Recall.Description" xml:space="preserve">
+    <value>Windows Recall вимагає Windows 11 24H2 або новішої версії зі встановленими компонентами Windows AI.</value>
+  </data>
+  <data name="Optimizer.Condition.BlockedTitle" xml:space="preserve">
+    <value>Не підтримується в цій системі</value>
+  </data>
+  <data name="Optimizer.Condition.FailedTitle" xml:space="preserve">
+    <value>Умова не виконана</value>
+  </data>
+  <data name="Optimizer.Condition.Hide" xml:space="preserve">
+    <value>Приховати</value>
+  </data>
+  <data name="Optimizer.Condition.Hide.Tooltip" xml:space="preserve">
+    <value>Знову показати цю оптимізацію та дозволити її примусове застосування.</value>
+  </data>
+  <data name="Optimizer.Condition.WhatIsThis" xml:space="preserve">
+    <value>Що це означає?</value>
+  </data>
+  <data name="Optimizer.Condition.WhatIsThis.Tooltip" xml:space="preserve">
+    <value>Умови перевіряють, чи сумісний елемент із вашою системою (наприклад, версія Windows або модель відеокарти). Якщо умова не виконана, оптимізація приховується для захисту від збоїв.</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Header" xml:space="preserve">
+    <value>Непідтримувані налаштування ({0})</value>
+  </data>
+  <data name="Customize.UI.UnsupportedSettings.Description" xml:space="preserve">
+    <value>Деякі налаштування недоступні у вашій поточній системі.</value>
+  </data>
+  <data name="Customize.Loading" xml:space="preserve">
+    <value>Завантаження налаштувань...</value>
+  </data>
+  <data name="Startup.Location.RegistryHKCURun" xml:space="preserve">
+    <value>Реєстр (Поточний користувач)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRun" xml:space="preserve">
+    <value>Реєстр (Уся система)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKCURunOnce" xml:space="preserve">
+    <value>Реєстр RunOnce (Поточний користувач)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRunOnce" xml:space="preserve">
+    <value>Реєстр RunOnce (Уся система)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRun32" xml:space="preserve">
+    <value>Реєстр (Уся система, 32-біт)</value>
+  </data>
+  <data name="Startup.Location.RegistryHKLMRunOnce32" xml:space="preserve">
+    <value>Реєстр RunOnce (Уся система, 32-біт)</value>
+  </data>
+  <data name="Startup.Location.UserStartupFolder" xml:space="preserve">
+    <value>Папка автозавантаження (Користувач)</value>
+  </data>
+  <data name="Startup.Location.CommonStartupFolder" xml:space="preserve">
+    <value>Папка автозавантаження (Спільна)</value>
+  </data>
+  <data name="Startup.Location.UwpStartupTask" xml:space="preserve">
+    <value>Додаток Microsoft Store</value>
+  </data>
+  <data name="ScheduledTasks.Dialog.Settings" xml:space="preserve">
+    <value>Параметри</value>
+  </data>
+  <data name="ScheduledTasks.State.Running" xml:space="preserve">
+    <value>Виконується</value>
+  </data>
+  <data name="ScheduledTasks.State.Ready" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="ScheduledTasks.State.Disabled" xml:space="preserve">
+    <value>Вимкнено</value>
+  </data>
+  <data name="ScheduledTasks.State.Queued" xml:space="preserve">
+    <value>У черзі</value>
+  </data>
+  <data name="Common.SortBy.RiskAndStatus" xml:space="preserve">
+    <value>Ризик і статус</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Ram.Total" xml:space="preserve">
+    <value>{0} ГБ оперативної пам'яті</value>
+  </data>
+  <data name="Dashboard.SystemInfo.Gpu.Memory" xml:space="preserve">
+    <value>{0} ГБ</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Event" xml:space="preserve">
+    <value>За подією</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Time" xml:space="preserve">
+    <value>В обумовлений час</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Daily" xml:space="preserve">
+    <value>Щодня</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Weekly" xml:space="preserve">
+    <value>Щотижня</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Monthly" xml:space="preserve">
+    <value>Щомісяця</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.MonthlyDOW" xml:space="preserve">
+    <value>Щомісяця (день тижня)</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Idle" xml:space="preserve">
+    <value>У разі простою</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Registration" xml:space="preserve">
+    <value>Під час реєстрації</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Boot" xml:space="preserve">
+    <value>Під час запуску системи</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Logon" xml:space="preserve">
+    <value>Під час входу в систему</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.SessionStateChange" xml:space="preserve">
+    <value>При зміні сеансу</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Other" xml:space="preserve">
+    <value>Тригер</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.Lock" xml:space="preserve">
+    <value>Блокування сеансу</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.Unlock" xml:space="preserve">
+    <value>Розблокування сеансу</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.ConsoleConnect" xml:space="preserve">
+    <value>Підключення до консолі</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.ConsoleDisconnect" xml:space="preserve">
+    <value>Відключення від консолі</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.RemoteConnect" xml:space="preserve">
+    <value>Віддалене підключення</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Session.RemoteDisconnect" xml:space="preserve">
+    <value>Віддалене відключення</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.First" xml:space="preserve">
+    <value>перший</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.Second" xml:space="preserve">
+    <value>другий</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.Third" xml:space="preserve">
+    <value>третій</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.Fourth" xml:space="preserve">
+    <value>четвертий</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.Last" xml:space="preserve">
+    <value>останній</value>
+  </data>
+  <data name="ScheduledTasks.Trigger.Week.Every" xml:space="preserve">
+    <value>кожен</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Time" xml:space="preserve">
+    <value>О {0}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Daily" xml:space="preserve">
+    <value>Кожні {0} дн., о {1}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Weekly" xml:space="preserve">
+    <value>Кожні {0} тижн. у {1}, о {2}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Monthly" xml:space="preserve">
+    <value>У {0} день кожного {1} місяця</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.MonthlyDOW" xml:space="preserve">
+    <value>{0} {1} місяця {2}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.User" xml:space="preserve">
+    <value>для користувача {0}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.UserDelay" xml:space="preserve">
+    <value>для користувача {0} із затримкою {1}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Delay" xml:space="preserve">
+    <value>із затримкою {0}</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.Repeat" xml:space="preserve">
+    <value> (повторювати кожні {0})</value>
+  </data>
+  <data name="ScheduledTasks.TriggerDetail.RepeatFor" xml:space="preserve">
+    <value> (повторювати кожні {0} протягом {1})</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal" xml:space="preserve">
+    <value>Вже оптимізовано</value>
+  </data>
+  <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
+    <value>Параметри системи вже відповідають цій оптимізації, зміни не потрібні.</value>
+  </data>
+  <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
+    <value>Немає потреби змінювати: налаштування {0} вже відповідають цій системі.</value>
+  </data>
+  <data name="Optimization.Apply.Snackbar.NothingToDo.Title" xml:space="preserve">
+    <value>Зміни не потрібні</value>
+  </data>
+  <data name="Revert.Error.UnreadableData" xml:space="preserve">
+    <value>Дані відкату для {0} пошкоджено або не вдалося прочитати, відкат скасовано. Файл збережено: {1}.</value>
+  </data>
+  <data name="Revert.Hibernation.Description.Unknown" xml:space="preserve">
+    <value>Стан гібернації був невідомий під час застосування, відновлення пропущено</value>
+  </data>
+  <data name="Bloatware.Remove.Failed.Title" xml:space="preserve">
+    <value>Деякі пакети не вдалося видалити</value>
+  </data>
+  <data name="Bloatware.Remove.Failed.Message" xml:space="preserve">
+    <value>Windows не змогла видалити такі пакети: {0}</value>
+  </data>
+  <data name="Optimizer.UI.State.Applied.Tooltip" xml:space="preserve">
+    <value>Натисніть для перегляду деталей останнього застосування. {0}</value>
+  </data>
+  <data name="Optimizer.UI.State.Applied.Tooltip.NoSummary" xml:space="preserve">
+    <value>Натисніть для перегляду деталей останнього застосування.</value>
+  </data>
+  <data name="Optimizer.UI.State.Applied.Summary" xml:space="preserve">
+    <value>{0} змінено, {1} вже було налаштовано, {2} не застосовано, {3} відхилено Windows</value>
+  </data>
+  <data name="Optimizer.Details.Record.Title" xml:space="preserve">
+    <value>Останній зафіксований запуск</value>
+  </data>
+  <data name="Optimizer.Details.Record.Empty" xml:space="preserve">
+    <value>Для цього елемента ще немає записів.</value>
+  </data>
+  <data name="Optimizer.Details.Step.Changed" xml:space="preserve">
+    <value>Змінено</value>
+  </data>
+  <data name="Optimizer.Details.Step.AlreadyCorrect" xml:space="preserve">
+    <value>Вже налаштовано</value>
+  </data>
+  <data name="Optimizer.Details.Step.NotApplicable" xml:space="preserve">
+    <value>Не застосовується</value>
+  </data>
+  <data name="Optimizer.Details.Step.Refused" xml:space="preserve">
+    <value>Відхилено системою Windows</value>
+  </data>
+  <data name="Optimizer.Details.Step.Irreversible" xml:space="preserve">
+    <value>Незворотна дія</value>
+  </data>
+  <data name="Optimizer.Details.Step.Failed" xml:space="preserve">
+    <value>Помилка</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Security.Tooltip" xml:space="preserve">
+    <value>Ця оптимізація стосується параметрів захисту Windows.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Privacy.Tooltip" xml:space="preserve">
+    <value>Ця оптимізація обмежує збір та відправку телеметрії у Windows.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.System.Tooltip" xml:space="preserve">
+    <value>Ця оптимізація стосується системних компонентів або групових політик Windows.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Performance.Tooltip" xml:space="preserve">
+    <value>Ця оптимізація спрямована на підвищення швидкодії та зменшення фонового навантаження.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Latency.Tooltip" xml:space="preserve">
+    <value>Ця оптимізація знижує затримки введення, звуку та відображення в іграх.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Disk.Tooltip" xml:space="preserve">
+    <value>Ця оптимізація оптимізує операції читання/запису на накопичувачі.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Ram.Tooltip" xml:space="preserve">
+    <value>Ця оптимізація впливає на використання оперативної пам'яті (RAM).</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Display.Tooltip" xml:space="preserve">
+    <value>Ця оптимізація налаштовує вивід зображення на екран.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Nvidia.Tooltip" xml:space="preserve">
+    <value>Оптимізація призначена виключно для систем із відеокартами NVIDIA.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Amd.Tooltip" xml:space="preserve">
+    <value>Оптимізація призначена виключно для систем із відеокартами або процесорами AMD.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Intel.Tooltip" xml:space="preserve">
+    <value>Оптимізація призначена виключно для систем із відеокартами або процесорами Intel.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Power.Tooltip" xml:space="preserve">
+    <value>Ця оптимізація стосується енергоспоживання, часу роботи від батареї та нагріву.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Network.Tooltip" xml:space="preserve">
+    <value>Ця оптимізація впливає на мережеві підключення та мережевий трафік.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.NetworkRequired.Tooltip" xml:space="preserve">
+    <value>Для виконання цієї оптимізації потрібне підключення до інтернету.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Audio.Tooltip" xml:space="preserve">
+    <value>Ця оптимізація стосується обробки та відтворення звуку.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Visual.Tooltip" xml:space="preserve">
+    <value>Ця оптимізація налаштовує анімації та зовнішній вигляд інтерфейсу Windows.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows10Only.Tooltip" xml:space="preserve">
+    <value>Ця оптимізація діє лише у Windows 10 та не застосовується у Windows 11.</value>
+  </data>
+  <data name="Optimizer.UI.Tags.Windows11Only.Tooltip" xml:space="preserve">
+    <value>Ця оптимізація діє лише у Windows 11 та недоступна у Windows 10.</value>
+  </data>
+  <data name="Optimizer.Details.Record.Apply" xml:space="preserve">
+    <value>Застосовано: {0}</value>
+  </data>
+  <data name="Optimizer.Details.Record.Revert" xml:space="preserve">
+    <value>Відкочено: {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistrySet" xml:space="preserve">
+    <value>Запис значення {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryDelete" xml:space="preserve">
+    <value>Видалення значення {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryCreateKey" xml:space="preserve">
+    <value>Створення розділу реєстру</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryDeleteKey" xml:space="preserve">
+    <value>Видалення розділу реєстру</value>
+  </data>
+  <data name="Optimizer.Details.Field.Path" xml:space="preserve">
+    <value>Шлях</value>
+  </data>
+  <data name="Optimizer.Details.Field.Type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="Optimizer.Details.Field.Previous" xml:space="preserve">
+    <value>Попереднє значення</value>
+  </data>
+  <data name="Optimizer.Details.Field.Previous.None" xml:space="preserve">
+    <value>Було відсутнє</value>
+  </data>
+  <data name="Optimizer.Details.Field.New" xml:space="preserve">
+    <value>Нове значення</value>
+  </data>
+  <data name="Optimizer.Details.Field.New.None" xml:space="preserve">
+    <value>Видалено</value>
+  </data>
+  <data name="Optimizer.Details.Op.ServiceStartup" xml:space="preserve">
+    <value>Зміна служби {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.TaskEnable" xml:space="preserve">
+    <value>Увімкнення завдання {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.TaskDisable" xml:space="preserve">
+    <value>Вимкнення завдання {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerPlanActivate" xml:space="preserve">
+    <value>Активація схеми живлення {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerPlanInstall" xml:space="preserve">
+    <value>Встановлення схеми живлення {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerSetting" xml:space="preserve">
+    <value>Зміна параметра живлення {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.Hibernation" xml:space="preserve">
+    <value>Вимкнення гібернації та швидкого запуску</value>
+  </data>
+  <data name="Optimizer.Details.Op.UsbPower" xml:space="preserve">
+    <value>Вимкнення енергозбереження USB</value>
+  </data>
+  <data name="Optimizer.Details.Field.Service" xml:space="preserve">
+    <value>Служба</value>
+  </data>
+  <data name="Optimizer.Details.Field.Task" xml:space="preserve">
+    <value>Завдання</value>
+  </data>
+  <data name="Optimizer.Details.Field.PowerPlan" xml:space="preserve">
+    <value>Схема живлення</value>
+  </data>
+  <data name="Optimizer.Details.Field.Setting" xml:space="preserve">
+    <value>Параметр</value>
+  </data>
+  <data name="Optimizer.Details.Field.Devices" xml:space="preserve">
+    <value>Пристрої</value>
+  </data>
+  <data name="Optimizer.Details.Value.Startup.Automatic" xml:space="preserve">
+    <value>Автоматично</value>
+  </data>
+  <data name="Optimizer.Details.Value.Startup.AutomaticDelayed" xml:space="preserve">
+    <value>Автоматично (відкладений запуск)</value>
+  </data>
+  <data name="Optimizer.Details.Value.Startup.Manual" xml:space="preserve">
+    <value>Вручну</value>
+  </data>
+  <data name="Optimizer.Details.Value.Startup.Disabled" xml:space="preserve">
+    <value>Вимкнено</value>
+  </data>
+  <data name="Optimizer.Details.Value.Enabled" xml:space="preserve">
+    <value>Увімкнено</value>
+  </data>
+  <data name="Optimizer.Details.Value.Unknown" xml:space="preserve">
+    <value>Невідомо</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryRestore" xml:space="preserve">
+    <value>Відновлення значення {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.RegistryRestoreKey" xml:space="preserve">
+    <value>Відновлення розділу реєстру</value>
+  </data>
+  <data name="Optimizer.Details.Op.ServiceRestore" xml:space="preserve">
+    <value>Відновлення служби {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerPlanRestore" xml:space="preserve">
+    <value>Відновлення схеми живлення {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerPlanUninstall" xml:space="preserve">
+    <value>Видалення схеми живлення {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.PowerSettingRestore" xml:space="preserve">
+    <value>Відновлення параметра живлення {0}</value>
+  </data>
+  <data name="Optimizer.Details.Op.HibernationRestore" xml:space="preserve">
+    <value>Відновлення гібернації та швидкого запуску</value>
+  </data>
+  <data name="Optimizer.Details.Op.HibernationEnable" xml:space="preserve">
+    <value>Повторне увімкнення гібернації та швидкого запуску</value>
+  </data>
+  <data name="Optimizer.Details.Op.UsbPowerRestore" xml:space="preserve">
+    <value>Повторне увімкнення енергозбереження USB</value>
+  </data>
+  <data name="Optimizer.Details.Field.StartupState" xml:space="preserve">
+    <value>Тип запуску</value>
+  </data>
+  <data name="Optimizer.Details.Field.TaskState" xml:space="preserve">
+    <value>Стан завдання</value>
+  </data>
+  <data name="Optimizer.Details.Field.HibernationState" xml:space="preserve">
+    <value>Стан гібернації</value>
+  </data>
+  <data name="Optimizer.Details.Field.Value" xml:space="preserve">
+    <value>Значення</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Title" xml:space="preserve">
+    <value>Показати файл звіту</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Description" xml:space="preserve">
+    <value>Відкрити файл, у якому зафіксовано всі виконані оптимізацією дії. Він зберігається навіть після відкату.</value>
+  </data>
+  <data name="Optimizer.Details.Provider.Registry" xml:space="preserve">
+    <value>Реєстр</value>
+  </data>
+  <data name="Optimizer.Details.Provider.Service" xml:space="preserve">
+    <value>Служба</value>
+  </data>
+  <data name="Optimizer.Details.Provider.ScheduledTask" xml:space="preserve">
+    <value>Заплановане завдання</value>
+  </data>
+  <data name="Optimizer.Details.Provider.PowerPlan" xml:space="preserve">
+    <value>Схема живлення</value>
+  </data>
+  <data name="Optimizer.Details.Provider.Hibernation" xml:space="preserve">
+    <value>Гібернація</value>
+  </data>
+  <data name="Optimizer.Details.Provider.UsbPower" xml:space="preserve">
+    <value>Енергозбереження USB</value>
+  </data>
+  <data name="Optimizer.Details.Provider.Shell" xml:space="preserve">
+    <value>Оболонка (Shell)</value>
+  </data>
+  <data name="Optimizer.Details.Field.ValueName" xml:space="preserve">
+    <value>Назва параметра</value>
+  </data>
+  <data name="Optimizer.Details.Field.Reason" xml:space="preserve">
+    <value>Причина</value>
+  </data>
+  <data name="Optimizer.Details.Reason.ServiceNotFound" xml:space="preserve">
+    <value>Ця служба відсутня на комп'ютері</value>
+  </data>
+  <data name="Optimizer.Details.Reason.TaskNotFound" xml:space="preserve">
+    <value>Це завдання відсутнє на комп'ютері</value>
+  </data>
+  <data name="Optimizer.Details.Reason.RegistryValueAbsent" xml:space="preserve">
+    <value>Параметр реєстру був відсутній спочатку</value>
+  </data>
+  <data name="Optimizer.Details.Reason.RegistryKeyExists" xml:space="preserve">
+    <value>Розділ реєстру вже існував</value>
+  </data>
+  <data name="Optimizer.Details.Reason.RegistryKeyAbsent" xml:space="preserve">
+    <value>Розділ реєстру був відсутній спочатку</value>
+  </data>
+  <data name="Optimizer.Details.Reason.UsbNoDevices" xml:space="preserve">
+    <value>У системі не знайдено кореневих USB-концентраторів</value>
+  </data>
+  <data name="Optimizer.Details.Field.Took" xml:space="preserve">
+    <value>Витрачено часу</value>
+  </data>
+  <data name="Optimizer.Details.Field.At" xml:space="preserve">
+    <value>Час</value>
+  </data>
+  <data name="Optimizer.Details.Field.ErrorCode" xml:space="preserve">
+    <value>Код помилки</value>
+  </data>
+  <data name="Optimizer.Details.Field.Attempt" xml:space="preserve">
+    <value>Спроба</value>
+  </data>
+  <data name="Optimizer.Details.Record.Version" xml:space="preserve">
+    <value>Версія програми</value>
+  </data>
+  <data name="Optimizer.Details.Record.Windows" xml:space="preserve">
+    <value>Версія Windows</value>
+  </data>
+  <data name="Optimizer.Details.Record.Took" xml:space="preserve">
+    <value>Витрачено часу</value>
+  </data>
+  <data name="Error.Unhandled.Title" xml:space="preserve">
+    <value>Щось пішло не так</value>
+  </data>
+  <data name="Error.Unhandled.Message" xml:space="preserve">
+    <value>Не вдалося завершити останню дію: {0}</value>
+  </data>
+  <data name="Error.Unhandled.LogHint" xml:space="preserve">
+    <value>Подробиці дивіться у файлі журналу.</value>
+  </data>
+</root>
