@@ -94,6 +94,7 @@ Every star helps motivate future improvements.
 > | 🇮🇩 | Indonesian | Bahasa Indonesia | [nekowawolf](https://github.com/nekowawolf) |
 > | 🇮🇹 | Italian | Italiano | [bandrea83](https://github.com/bandrea83) |
 > | 🇮🇷 | Persian | فارسی | [NimaHp](https://github.com/NimaHp) |
+> | 🇺🇦 | Ukrainian | Українська | [mxsn997](https://github.com/mxsn997) |
 > 
 > Want to add your language? See [CONTRIBUTING.md](./CONTRIBUTING.md) ([Japanese](.github/contributing/CONTRIBUTING.ja-JP.md), [Turkish](.github/contributing/CONTRIBUTING.tr-TR.md)).
 
