@@ -26,30 +26,31 @@ public abstract class GpuRegistryOptimization : BaseOptimization
         OptimizationContext context
     )
     {
-        foreach (
-            var gpu in context.Snapshot.Gpus.Where(g =>
-                g.Vendor == Vendor && !string.IsNullOrEmpty(g.DeviceId)
-            )
-        )
+        foreach (var gpu in context.Snapshot.Gpus.Where(g => g.Vendor == Vendor))
         {
-            if (!Gpu.TryParseDeviceIdToIndex(gpu.DeviceId, out var index))
+            if (
+                !Gpu.TryResolveClassKeyPath(
+                    gpu.PnpDeviceId,
+                    pnpDeviceId => Gpu.ReadDriverValue(pnpDeviceId, context.Logger),
+                    out var path
+                )
+            )
             {
+                // Never guess: a wrong guess writes vendor tweaks onto another adapter.
                 context.Logger.LogWarning(
-                    "Invalid DeviceId for GPU {GpuName} ({DeviceId})",
+                    "Could not resolve the display class key for GPU {GpuName} ({PnpDeviceId}), skipping",
                     gpu.Name,
-                    gpu.DeviceId
+                    gpu.PnpDeviceId
                 );
                 continue;
             }
 
-            var path =
-                $@"HKLM\SYSTEM\CurrentControlSet\Control\Class\{{4d36e968-e325-11ce-bfc1-08002be10318}}\{index:D4}";
-
             RegistryService.Write(context, CreateItems(path).ToArray());
             context.Logger.LogInformation(
-                "Applied {Optimization} for GPU {DeviceId}",
+                "Applied {Optimization} for GPU {GpuName} at {Path}",
                 GetType().Name,
-                gpu.DeviceId
+                gpu.Name,
+                path
             );
         }
 
@@ -64,74 +65,77 @@ public class Gpu : LocalizedObject, IOptimizationCategory
     public OptimizationCategoryOrder Order { get; init; } = OptimizationCategoryOrder.Gpu;
     public ObservableCollection<IOptimization> Optimizations { get; init; } = [];
 
+    /// <summary>The Display adapter device setup class GUID.</summary>
+    internal const string DisplayClassGuid = "{4d36e968-e325-11ce-bfc1-08002be10318}";
+
     /// <summary>
-    ///     Parses a WMI <c>DeviceID</c> such as "VideoController1" into the zero-based registry
-    ///     index used in the Display Class registry path (for example "0000", "0001").
+    ///     Resolves the Display Class registry key that belongs to one adapter, for example
+    ///     <c>HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-...}\0001</c>.
     /// </summary>
     /// <remarks>
     ///     <para>
-    ///         Windows stores display adapter settings under the Display Class key
-    ///         <c>{4d36e968-e325-11ce-bfc1-08002be10318}\XXXX</c>, where <c>XXXX</c> is a
-    ///         4-digit zero-padded index, for example <c>0000</c>.
+    ///         The key comes from the <c>Driver</c> value under
+    ///         <c>HKLM\SYSTEM\CurrentControlSet\Enum\&lt;PnpDeviceId&gt;</c>, which is the link
+    ///         Windows itself keeps between a device instance and its class key.
     ///     </para>
     ///     <para>
-    ///         The <see cref="Win32_VideoController" /> WMI class provides a <c>DeviceID</c>
-    ///         property, for example <c>"VideoController1"</c>:
-    ///         <list type="bullet">
-    ///             <item>
-    ///                 <description><c>"VideoController1"</c> is index <c>0</c>.</description>
-    ///             </item>
-    ///             <item>
-    ///                 <description><c>"VideoController2"</c> is index <c>1</c>.</description>
-    ///             </item>
-    ///         </list>
-    ///     </para>
-    ///     <para>
-    ///         The mapping is required: the order of GPUs in <see cref="SystemInfo.Gpus" />
-    ///         need not match the registry index order, and using the array index would apply
-    ///         tweaks to the wrong GPU, for example the integrated one instead of the discrete.
+    ///         The WMI <c>DeviceID</c> (<c>VideoControllerN</c>) must not be used for this: its
+    ///         numbering follows WMI enumeration order, which need not match the order of the
+    ///         class subkeys. On hybrid-GPU laptops, or with a virtual display adapter installed,
+    ///         it points at another adapter's key.
     ///     </para>
     /// </remarks>
-    /// <param name="deviceId">
-    ///     The <c>DeviceID</c> string from <c>Win32_VideoController</c>, typically in the form
-    ///     <c>"VideoControllerN"</c> where <c>N</c> is a positive integer starting from 1.
+    /// <param name="pnpDeviceId">The adapter's PnP device instance ID.</param>
+    /// <param name="readDriverValue">
+    ///     Reads the <c>Driver</c> value for a PnP device instance ID; returns
+    ///     <see langword="null" /> when absent or unreadable.
     /// </param>
-    /// <param name="index">
-    ///     On <see langword="true" />, the zero-based index to format with <c>:D4</c>, for example
-    ///     <c>0</c> as <c>"0000"</c>. On <see langword="false" />, <c>-1</c>.
-    /// </param>
+    /// <param name="path">On success, the full class key path; otherwise empty.</param>
     /// <returns>
-    ///     <see langword="true" /> if <paramref name="deviceId" /> is valid and parsed;
-    ///     otherwise <see langword="false" />.
+    ///     <see langword="true" /> only when the <c>Driver</c> value names a Display Class
+    ///     subkey; anything else is rejected rather than guessed.
     /// </returns>
-    /// <example>
-    ///     <code>
-    /// string deviceId = "VideoController1";
-    /// if (TryParseDeviceIdToIndex(deviceId, out int index))
-    /// {
-    ///     string regPath = $@"HKLM\...\{{4d36e968-...\}}\{index:D4}"; // gives "0000"
-    ///     Console.WriteLine($"Apply tweak to GPU at registry index: {index:D4}");
-    /// }
-    /// </code>
-    /// </example>
-    /// <seealso cref="GpuInfo.DeviceId" />
-    public static bool TryParseDeviceIdToIndex(string? deviceId, out int index)
+    public static bool TryResolveClassKeyPath(
+        string? pnpDeviceId,
+        Func<string, string?> readDriverValue,
+        out string path
+    )
     {
-        index = -1;
-        if (string.IsNullOrWhiteSpace(deviceId))
+        path = string.Empty;
+        if (string.IsNullOrWhiteSpace(pnpDeviceId))
             return false;
 
-        const string prefix = "VideoController";
-        if (!deviceId.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+        var driver = readDriverValue(pnpDeviceId)?.Trim();
+        if (string.IsNullOrEmpty(driver))
             return false;
 
-        var numberPart = deviceId[prefix.Length..];
-        if (!int.TryParse(numberPart, out var deviceNumber) || deviceNumber <= 0)
+        // Expected form: "{4d36e968-e325-11ce-bfc1-08002be10318}\0001".
+        var separator = driver.IndexOf('\\');
+        if (separator < 0)
             return false;
 
-        index = deviceNumber - 1;
+        var classGuid = driver[..separator];
+        var instance = driver[(separator + 1)..];
+        if (
+            !string.Equals(classGuid, DisplayClassGuid, StringComparison.OrdinalIgnoreCase)
+            || instance.Length != 4
+            || !instance.All(char.IsAsciiDigit)
+        )
+            return false;
+
+        path = $@"HKLM\SYSTEM\CurrentControlSet\Control\Class\{DisplayClassGuid}\{instance}";
         return true;
     }
+
+    /// <summary>Reads the <c>Driver</c> value of a PnP device instance from the registry.</summary>
+    internal static string? ReadDriverValue(string pnpDeviceId, ILogger? logger) =>
+        RegistryService.TryReadValue(
+            new RegistryItem($@"HKLM\SYSTEM\CurrentControlSet\Enum\{pnpDeviceId}", "Driver"),
+            out var value,
+            logger
+        )
+            ? value as string
+            : null;
 
     [Optimization(
         Id = "4433CE93-B632-4D67-AE71-0241C31099C0",
