@@ -64,6 +64,9 @@ Cada estrela ajuda a motivar melhorias futuras.
 
 ---
 
+> [!IMPORTANT]
+> O site e a documentação em [optimizerduck.vercel.app](https://optimizerduck.vercel.app/) atingiram o limite do plano gratuito da Vercel e estão pausados no momento. Eu desenvolvo e mantenho o optimizerDuck sozinho. Se ele ajudou o seu PC, considere me apoiar no [Ko-fi](https://ko-fi.com/itsfatduck) para ajudar a pagar a hospedagem. Para patrocinar o projeto, fale comigo no [Discord](https://discord.gg/tDUBDCYw9Q) ou por e-mail em [itsfatduck@gmail.com](mailto:itsfatduck@gmail.com).
+
 ## Início Rápido
 
 1. Baixe em **[GitHub Releases](https://github.com/itsfatduck/optimizerDuck/releases/latest)**

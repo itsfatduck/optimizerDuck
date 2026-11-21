@@ -64,6 +64,9 @@ Setiap bintang membantu memotivasi peningkatan di masa mendatang.
 
 ---
 
+> [!IMPORTANT]
+> Situs web dan dokumentasi di [optimizerduck.vercel.app](https://optimizerduck.vercel.app/) sudah mencapai batas paket gratis Vercel dan dijeda untuk sementara. Saya membangun dan merawat optimizerDuck sendiri. Jika aplikasi ini membantu PC Anda, pertimbangkan untuk mendukung saya di [Ko-fi](https://ko-fi.com/itsfatduck) untuk membantu biaya hosting. Jika ingin menjadi sponsor proyek ini, hubungi saya di [Discord](https://discord.gg/tDUBDCYw9Q) atau melalui email [itsfatduck@gmail.com](mailto:itsfatduck@gmail.com).
+
 ## Mulai Cepat
 
 1. Unduh dari **[GitHub Releases](https://github.com/itsfatduck/optimizerDuck/releases/latest)**

@@ -64,6 +64,9 @@ Her yıldız gelecekteki geliştirmelere motivasyon katıyor.
 
 ---
 
+> [!IMPORTANT]
+> [optimizerduck.vercel.app](https://optimizerduck.vercel.app/) adresindeki web sitesi ve belgeler, Vercel'in ücretsiz plan sınırına ulaştığı için şimdilik duraklatıldı. optimizerDuck'ı tek başıma geliştiriyor ve sürdürüyorum. Bilgisayarınıza yardımcı olduysa hosting masraflarına katkıda bulunmak için beni [Ko-fi](https://ko-fi.com/itsfatduck) üzerinden destekleyebilirsiniz. Projeye sponsor olmak için [Discord](https://discord.gg/tDUBDCYw9Q) üzerinden veya [itsfatduck@gmail.com](mailto:itsfatduck@gmail.com) adresine e-posta göndererek ulaşabilirsiniz.
+
 ## Hızlı Başlangıç
 
 1. **[GitHub Releases](https://github.com/itsfatduck/optimizerDuck/releases/latest)** sayfasından indirin

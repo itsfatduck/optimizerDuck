@@ -64,6 +64,9 @@ optimizerDuck が PC の改善に役立ったなら、リポジトリに ⭐ を
 
 ---
 
+> [!IMPORTANT]
+> [optimizerduck.vercel.app](https://optimizerduck.vercel.app/) のウェブサイトとドキュメントは、Vercel の無料プランの上限に達したため一時停止しています。optimizerDuck は個人で開発・保守しています。PC の改善に役立ったなら、ホスティング費用のために [Ko-fi](https://ko-fi.com/itsfatduck) でご支援いただけると助かります。プロジェクトのスポンサーにご興味があれば、[Discord](https://discord.gg/tDUBDCYw9Q) またはメール [itsfatduck@gmail.com](mailto:itsfatduck@gmail.com) からご連絡ください。
+
 ## クイックスタート
 
 1. **[GitHub Releases](https://github.com/itsfatduck/optimizerDuck/releases/latest)** からダウンロード

@@ -64,6 +64,9 @@
 
 ---
 
+> [!IMPORTANT]
+> وب‌سایت و مستندات در [optimizerduck.vercel.app](https://optimizerduck.vercel.app/) به سقف پلن رایگان Vercel رسیده‌اند و فعلاً متوقف شده‌اند. من optimizerDuck را به‌تنهایی می‌سازم و نگهداری می‌کنم. اگر این ابزار به رایانه شما کمک کرده است، برای کمک به هزینه هاستینگ می‌توانید از من در [Ko-fi](https://ko-fi.com/itsfatduck) حمایت کنید. برای حمایت مالی از پروژه نیز می‌توانید در [Discord](https://discord.gg/tDUBDCYw9Q) یا از طریق ایمیل [itsfatduck@gmail.com](mailto:itsfatduck@gmail.com) پیام بدهید.
+
 ## شروع سریع
 
 1. دانلود از **[انتشارهای گیت‌هاب (GitHub Releases)](https://github.com/itsfatduck/optimizerDuck/releases/latest)**

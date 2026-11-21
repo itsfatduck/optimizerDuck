@@ -64,6 +64,9 @@
 
 ---
 
+> [!IMPORTANT]
+> [optimizerduck.vercel.app](https://optimizerduck.vercel.app/) 的官网和文档已达到 Vercel 免费套餐限额，目前暂时停用。optimizerDuck 由我一个人开发和维护。如果它对你的电脑有帮助，欢迎在 [Ko-fi](https://ko-fi.com/itsfatduck) 上支持我分担托管费用。如果想成为项目赞助商，可以通过 [Discord](https://discord.gg/tDUBDCYw9Q) 或发邮件至 [itsfatduck@gmail.com](mailto:itsfatduck@gmail.com) 联系我。
+
 ## 快速开始
 
 1. 前往 **[GitHub Releases](https://github.com/itsfatduck/optimizerDuck/releases/latest)** 下载

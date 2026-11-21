@@ -64,6 +64,9 @@ optimizerDuck이 PC 성능을 개선하는 데 도움이 되었다면, 이 저�
 
 ---
 
+> [!IMPORTANT]
+> [optimizerduck.vercel.app](https://optimizerduck.vercel.app/) 웹사이트와 문서는 Vercel 무료 플랜 한도에 도달해 현재 일시 중지된 상태입니다. optimizerDuck은 혼자서 개발하고 유지 관리하고 있습니다. PC에 도움이 되었다면 호스팅 비용을 보태기 위해 [Ko-fi](https://ko-fi.com/itsfatduck)로 후원해 주세요. 프로젝트 스폰서에 관심이 있다면 [Discord](https://discord.gg/tDUBDCYw9Q)나 이메일 [itsfatduck@gmail.com](mailto:itsfatduck@gmail.com)로 연락해 주세요.
+
 ## 빠른 시작
 
 1. **[GitHub Releases](https://github.com/itsfatduck/optimizerDuck/releases/latest)**에서 다운로드

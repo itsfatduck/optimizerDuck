@@ -66,6 +66,9 @@
 
 <div dir="rtl">
 
+> [!IMPORTANT]
+> وصل الموقع والتوثيق على [optimizerduck.vercel.app](https://optimizerduck.vercel.app/) إلى حد الخطة المجانية في Vercel، لذا هما متوقفان مؤقتًا. أطور optimizerDuck وأصونه بنفسي. إذا ساعدت الأداة جهازك، فكّر في دعمي عبر [Ko-fi](https://ko-fi.com/itsfatduck) للمساعدة في تغطية تكاليف الاستضافة. ولرعاية المشروع، تواصل معي على [Discord](https://discord.gg/tDUBDCYw9Q) أو عبر البريد الإلكتروني [itsfatduck@gmail.com](mailto:itsfatduck@gmail.com).
+
 ## البداية السريعة
 
 1. حمّل الأداة من **[صفحة الإصدارات على GitHub](https://github.com/itsfatduck/optimizerDuck/releases/latest)**
