@@ -82,7 +82,7 @@
     <value>Fechar</value>
   </data>
   <data name="Dashboard.SystemInfo.Cpu.Cores" xml:space="preserve">
-    <value>{0} Cores</value>
+    <value>{0} núcleos</value>
   </data>
   <data name="Dashboard.SystemInfo.Storage.DiskInfo" xml:space="preserve">
     <value>{0} GB usados de {1} GB ({2} GB livres)</value>
@@ -100,10 +100,10 @@
     <value>Armazenamento</value>
   </data>
   <data name="Dashboard.SystemInfo.Ram.Used" xml:space="preserve">
-    <value>{0} GB Usado</value>
+    <value>{0} GB usados</value>
   </data>
   <data name="Dashboard.SystemInfo.Ram.Available" xml:space="preserve">
-    <value>{0} GB Disponível</value>
+    <value>{0} GB disponíveis</value>
   </data>
   <data name="Dashboard.SystemInfo.Loading" xml:space="preserve">
     <value>Buscando informações do sistema...</value>
@@ -178,28 +178,28 @@
     <value>Alto Contraste</value>
   </data>
   <data name="Common.AppliedSecondsAgo" xml:space="preserve">
-    <value>Aplicado a {0} segundos atrás</value>
+    <value>Aplicado há {0} segundos</value>
   </data>
   <data name="Common.AppliedMinutesAgo" xml:space="preserve">
-    <value>Aplicado a {0} minutos atrás</value>
+    <value>Aplicado há {0} minutos</value>
   </data>
   <data name="Common.AppliedHoursAgo" xml:space="preserve">
-    <value>Aplicado a {0} horas atrás</value>
+    <value>Aplicado há {0} horas</value>
   </data>
   <data name="Common.AppliedDaysAgo" xml:space="preserve">
-    <value>Aplicado a {0} dias atrás</value>
+    <value>Aplicado há {0} dias</value>
   </data>
   <data name="Common.AppliedMonthsAgo" xml:space="preserve">
-    <value>Aplicado a {0} meses atrás</value>
+    <value>Aplicado há {0} meses</value>
   </data>
   <data name="Common.AppliedYearsAgo" xml:space="preserve">
-    <value>Aplicado a {0} anos atrás</value>
+    <value>Aplicado há {0} anos</value>
   </data>
   <data name="Optimizer.UI.Risk.Safe" xml:space="preserve">
     <value>Seguro</value>
   </data>
   <data name="Optimizer.UI.Risk.Moderate" xml:space="preserve">
-    <value>Moderação</value>
+    <value>Cautela</value>
   </data>
   <data name="Optimizer.UI.Risk.Risky" xml:space="preserve">
     <value>Expert</value>
@@ -593,7 +593,7 @@
     <value>Desativar Entrega de Conteúdo de Nuvem</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
-    <value>Desativa o conteúdo entregado pela nuvem do Windows, incluindo dicas do sistema, sugestões de spotlight e entrega automática de recursos de consumidor.</value>
+    <value>Desativa o conteúdo entregue pela nuvem do Windows, incluindo dicas do sistema, sugestões de spotlight e entrega automática de recursos de consumidor.</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
     <value>Bloquear Software Pré-instalado Indesejável</value>
@@ -657,7 +657,7 @@
     <value>Desativar AMD ASPM</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
-    <value>Define EnableAspmL0s=0, EnableAspmL1=0 para desativar o Gerenciamento de Estado Ativo na GPU AMD, reduzindo a latência da barramento PCIe. Aumenta o consumo de energia da slot.</value>
+    <value>Define EnableAspmL0s=0, EnableAspmL1=0 para desativar o Gerenciamento de Estado Ativo na GPU AMD, reduzindo a latência do barramento PCIe. Aumenta o consumo de energia do slot.</value>
   </data>
 <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
     <value>Desativar P-State Dinâmico NVIDIA</value>
@@ -675,7 +675,7 @@
     <value>Desativar Intel Async Flips</value>
   </data>
 <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
-    <value>Define Display1_DisableAsyncFlips=1 para forçar reversões de buffer sincronizadas na iGPU Intel, reduzindo a latência de entrada-exibição e rachaduras de tela.</value>
+    <value>Define Display1_DisableAsyncFlips=1 para forçar reversões de buffer sincronizadas na iGPU Intel, reduzindo a latência de entrada-exibição e o tearing de tela.</value>
   </data>
 <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
     <value>Desativar Intel Adaptive V-Sync</value>
@@ -915,7 +915,7 @@ Isso garante que você possa sempre voltar se algo der errado.</value>
     <value>Ocorreu um erro ao criar ou habilitar a Restauração do Sistema. Por favor, tente criá-lo manualmente.</value>
   </data>
   <data name="RestorePoint.Snackbar.Warning.LimitReached" xml:space="preserve">
-    <value>Um ponto de restauração já foi criado nos últimos 24 horas.</value>
+    <value>Um ponto de restauração já foi criado nas últimas 24 horas.</value>
   </data>
   <data name="RestorePoint.Progress.Creating" xml:space="preserve">
     <value>Criando um ponto de restauração...</value>
@@ -1947,7 +1947,7 @@ Atualize agora para desfrutar das últimas funcionalidades, melhorias e correç�
     <value>Carregando configurações...</value>
   </data>
   <data name="BloatwareDialog.UnusualWarning.Title" xml:space="preserve">
-    <value>Aviso:Nome de pacote incomum</value>
+    <value>Aviso: Nome de pacote incomum</value>
   </data>
   <data name="BloatwareDialog.UnusualWarning.Description" xml:space="preserve">
     <value>O(s) pacote(s) a seguir possui(em) identificadores incomuns ou formatos de nome não verificados. Remover pacotes com nomes incomuns pode causar erros ou remover arquivos não intencionais. Revise cuidadosamente antes de continuar.</value>
