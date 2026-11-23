@@ -306,7 +306,7 @@ public class SecurityAndPrivacy()
             new(
                 @"HKCU\Software\Microsoft\Windows\CurrentVersion\Feeds",
                 "ShellFeedsTaskbarViewMode",
-                0
+                2
             ),
         ];
 
