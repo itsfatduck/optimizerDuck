@@ -331,6 +331,32 @@ public class BloatwareAndServices : LocalizedObject, IOptimizationCategory
                         Total = servicesToChange.Count,
                     }
                 );
+
+                // Never re-enable a service the user or another optimization already disabled.
+                if (service.StartupType != ServiceStartupType.Disabled)
+                {
+                    var (current, _) = await ServiceProcessService.GetStartupTypeAsync(
+                        service.Name,
+                        context.Logger
+                    );
+                    if (current == ServiceStartupType.Disabled)
+                    {
+                        context.Changes.AddSkip(
+                            ServiceStrings.ServiceName,
+                            ServiceStrings.Format(
+                                ServiceStrings.ServiceInfoKeptDisabled,
+                                service.Name
+                            ),
+                            new ServiceStartupDetail
+                            {
+                                ServiceName = service.Name,
+                                PreviousStartupType = current,
+                            }
+                        );
+                        continue;
+                    }
+                }
+
                 await ServiceProcessService.ChangeServiceStartupTypeAsync(context, service);
             }
 
